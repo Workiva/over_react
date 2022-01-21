@@ -73,20 +73,19 @@ class WeakMap<K, V> {
     _keys.remove(key);
     _valueFor[key] = null;
   }
+
+  V putIfAbsent(K key, V Function() ifAbsent) {
+    if (has(key)) return get(key);
+    final value = ifAbsent();
+    set(key, value);
+    return value;
+  }
 }
 
-
-V Function(K) memoizeWithWeakMap<K, V>(V Function(K) fn, WeakMap<K, V> map) {
-  return (arg) {
-    if (map.has(arg)) {
-      // to verify cache hits:
-      // console.log(arg.name)
-      return map.get(arg);
-    }
-    final result = fn(arg);
-    map.set(arg, result);
-    return result;
-  };
+extension<K, V> on V Function(K) {
+  V Function(K) memoizeWithWeakMap(WeakMap<K, V> map) {
+    return (key) => map.putIfAbsent(key, () => this(key));
+  }
 }
 
 class _Dependency {
@@ -164,7 +163,7 @@ create(context, {RegExp additionalHooks}) {
   /// A mapping from setState references to setState declarations
   final setStateCallSites = WeakMap<Identifier, Identifier>();
   final stateVariables = WeakSet();
-  final stableKnownValueCache = WeakMap<Expression, bool>();
+  final stableKnownValueCache = WeakMap<Identifier, bool>();
   final functionWithoutCapturedValueCache = WeakMap<Element, bool>();
   // Visitor for both function expressions and arrow function expressions.
   void visitFunctionWithDependencies({
@@ -241,16 +240,21 @@ create(context, {RegExp additionalHooks}) {
     // const ref = useRef()
     //       ^^^ true for this reference
     // False for everything else.
-    bool isStableKnownHookValue(Identifier resolved) {
+    bool isStableKnownHookValue(Identifier reference) {
       // FIXME what about function declarations? are those handled elsewhere
-      final declaration = lookUpDeclaration(resolved.staticElement, resolved.root)?.tryCast<VariableDeclaration>();
+      final declaration = lookUpDeclaration(reference.staticElement, reference.root)?.tryCast<VariableDeclaration>();
       var init = declaration?.initializer;
       if (init == null) {
         return false;
       }
-      while (init is AsExpression) {
-        init = (init as AsExpression).expression;
+
+      Expression unwrap(Expression expr) {
+        if (expr is AsExpression) return expr.expression;
+        if (expr is ParenthesizedExpression) return expr.expression;
+        return expr;
       }
+      init = unwrap(init);
+
       // Detect primitive constants
       // const foo = 42
 
@@ -262,16 +266,15 @@ create(context, {RegExp additionalHooks}) {
         // Definitely stable
         return true;
       }
+
       // Detect known Hook calls
       // const [_, setState] = useState()
-      if (init is! InvocationExpression) {
-        return false;
-      }
 
+      // todo support useTransition
       const stableStateHookMethods = {'set', 'setWithUpdater'};
       const stableReducerHookMethods = {'dispatch'};
 
-      // Handle tearoffs
+      // Handle hook tearoffs
       // final setCount = useCount(1).set;
       if (init is PropertyAccess) {
         final property = init.propertyName.name;
@@ -283,6 +286,32 @@ create(context, {RegExp additionalHooks}) {
         }
       }
 
+      SimpleIdentifier propertyBeingAccessed() =>
+          propertyNameFromNonCascadedAccess(reference.parent.tryCast<Expression>());
+
+      if (reference.staticType?.element?.isStateHook ?? false) {
+        // Check whether this reference is only used to access the stable hook property.
+        final property = propertyBeingAccessed();
+        if (property != null && stableStateHookMethods.contains(property.name)) {
+          return true;
+        }
+        return false;
+      }
+      if (reference.staticType?.element?.isReducerHook ?? false) {
+        // Check whether this reference is only used to access the stable hook property.
+        final property = propertyBeingAccessed();
+        if (property != null && stableReducerHookMethods.contains(property.name)) {
+          return true;
+        }
+        return false;
+      }
+
+      if (init is! InvocationExpression) {
+        return false;
+      }
+
+      // TODO do we need to check for direct invocations for other cases if typing is available?
+
       var callee = (init as InvocationExpression).function;
       // fixme handle namespaced imports
       if (callee is! Identifier) {
@@ -292,58 +321,13 @@ create(context, {RegExp additionalHooks}) {
       if (name == 'useRef') {
         // useRef() return value is stable.
         return true;
-      } else if (name == 'useState' || name == 'useReducer') {
-        // FIXME special case, probably at call-site when they pass in the whole hook object
-        // Only consider second value in initializing tuple stable.
-        if (
-          id.type == 'ArrayPattern' &&
-          id.elements.length == 2 &&
-          Array.isArray(resolved.identifiers)
-        ) {
-          // Is second tuple value the same reference we're checking?
-          if (id.elements[1] == resolved.identifiers[0]) {
-            if (name == 'useState') {
-              final references = resolved.references;
-              for (var i = 0; i < references.length; i++) {
-                setStateCallSites.set(
-                  references[i].identifier,
-                  id.elements[0],
-                );
-              }
-            }
-            // Setter is stable.
-            return true;
-          } else if (id.elements[0] == resolved.identifiers[0]) {
-            if (name == 'useState') {
-              final references = resolved.references;
-              for (var i = 0; i < references.length; i++) {
-                stateVariables.add(references[i].identifier);
-              }
-            }
-            // State variable itself is dynamic.
-            return false;
-          }
-        }
-      } else if (name == 'useTransition') {
-        if (
-          id.type == 'ArrayPattern' &&
-          Array.isArray(resolved.identifiers)
-        ) {
-          // Is first tuple value the same reference we're checking?
-          if (id.elements[0] == resolved.identifiers[0]) {
-            // Setter is stable.
-            return true;
-          }
-        }
       }
+
       // By default assume it's dynamic.
       return false;
     }
     // Remember such values. Avoid re-running extra checks on them.
-    final memoizedIsStableKnownHookValue = memoizeWithWeakMap(
-      isStableKnownHookValue,
-      stableKnownValueCache,
-    );
+    final memoizedIsStableKnownHookValue = isStableKnownHookValue.memoizeWithWeakMap(stableKnownValueCache);
 
     // Some are just functions that don't reference anything dynamic.
     bool isFunctionWithoutCapturedValues(Element resolved) {
@@ -355,10 +339,10 @@ create(context, {RegExp additionalHooks}) {
       }
       // Does this function capture any values
       // that are in pure scopes (aka render)?
-      final referencedElements = resolvedReferencesWithin(fnNode.body).map((e) => e.staticElement);
+      final referencedElements = resolvedReferencesWithin(fnNode.body);
       for (final ref in referencedElements) {
         if (
-          isDeclaredInPureScope(ref) &&
+          isDeclaredInPureScope(ref.staticElement) &&
           // Stable values are fine though,
           // although we won't check functions deeper.
           !memoizedIsStableKnownHookValue(ref)
@@ -370,10 +354,8 @@ create(context, {RegExp additionalHooks}) {
       // from render--or everything it captures is known stable.
       return true;
     }
-    final memoizedIsFunctionWithoutCapturedValues = memoizeWithWeakMap(
-      isFunctionWithoutCapturedValues,
-      functionWithoutCapturedValueCache,
-    );
+    final memoizedIsFunctionWithoutCapturedValues =
+        isFunctionWithoutCapturedValues.memoizeWithWeakMap(functionWithoutCapturedValueCache);
 
     // These are usually mistaken. Collect them.
     final currentRefsInEffectCleanup = <String, _RefInEffectCleanup>{};
@@ -1780,4 +1762,15 @@ extension<E extends Comparable> on Iterable<E> {
     }
     return true;
   }
+}
+
+SimpleIdentifier propertyNameFromNonCascadedAccess(Expression node) {
+  if (node is PrefixedIdentifier) {
+    return node.identifier;
+  }
+  if (node is PropertyAccess && !node.isCascaded) {
+    return node.propertyName;
+  }
+
+  return null;
 }
