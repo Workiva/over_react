@@ -161,7 +161,7 @@ create(context, {RegExp additionalHooks}) {
 
   // Should be shared between visitors.
   /// A mapping from setState references to setState declarations
-  final setStateCallSites = WeakMap<Identifier, Identifier>();
+  final setStateCallSites = WeakMap<Identifier, VariableDeclaration>();
   final stateVariables = WeakSet();
   final stableKnownValueCache = WeakMap<Identifier, bool>();
   final functionWithoutCapturedValueCache = WeakMap<Element, bool>();
@@ -279,6 +279,7 @@ create(context, {RegExp additionalHooks}) {
       if (init is PropertyAccess) {
         final property = init.propertyName.name;
         if (stableStateHookMethods.contains(property) && (init.staticType?.element?.isStateHook ?? false)) {
+          setStateCallSites.set(reference, declaration);
           return true;
         }
         if (stableReducerHookMethods.contains(property) && (init.staticType?.element?.isReducerHook ?? false)) {
@@ -293,6 +294,9 @@ create(context, {RegExp additionalHooks}) {
         // Check whether this reference is only used to access the stable hook property.
         final property = propertyBeingAccessed();
         if (property != null && stableStateHookMethods.contains(property.name)) {
+          // fixme reference or property.name??
+          setStateCallSites.set(reference, declaration);
+          setStateCallSites.set(property, declaration);
           return true;
         }
         return false;
@@ -998,7 +1002,7 @@ create(context, {RegExp additionalHooks}) {
                 maybeCallFunction.tryCast(),
               );
               if (correspondingStateVariable != null) {
-                if (correspondingStateVariable.name == missingDep) {
+                if (correspondingStateVariable.name.name == missingDep) {
                   // setCount(count + 1)
                   setStateRecommendation = _SetStateRecommendation(
                     missingDep: missingDep,
