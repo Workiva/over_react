@@ -1098,8 +1098,8 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
             'a',
             'duplicate',
             'omit',
-          )) +
-        extraWarning,
+          ) ?? '<unexpected case when building warning message>') +
+        (extraWarning ?? ''),
       // suggest: [
       //   {
       //     desc: "Update the dependencies array to be: [${suggestedDeps
@@ -1650,8 +1650,8 @@ class ReferenceVisitor extends RecursiveAstVisitor<void> {
 /// It just means there is an optional member somewhere inside.
 /// This particular node might still represent a required member, so check .optional field.
 void markNode(AstNode node, Map<String, bool> optionalChains, String result, {@required bool isOptional}) {
-  if ((optionalChains == null) != (isOptional == null)) {
-    throw ArgumentError('isOptional and optionalChains must be specified together');
+  if (optionalChains != null && isOptional == null) {
+    throw ArgumentError('isOptional must be specified when optionalChains is');
   }
 
   if (optionalChains != null) {
