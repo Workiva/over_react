@@ -128,8 +128,6 @@ VariableDeclaration lookUpVariable(Element element, AstNode root) {
 }
 
 FunctionExpression lookUpFunction(Element element, AstNode root) {
-  if (element is ExecutableElement) return null;
-
   final node = NodeLocator2(element.nameOffset).searchWithin(root);
   if (node is Identifier && node.staticElement == element) {
     final parent = node.parent;
@@ -353,9 +351,11 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
     bool isFunctionWithoutCapturedValues(Element resolved) {
       final fnNode = lookUpFunction(resolved, rootNode);
 
-      // It's couldn't be looked up, it's either a function expression or not in the same file, and can't capture any values.
-      // FIXME lint for function expressions in dependencies list
-      if (fnNode == null) return true;
+      // It's couldn't be looked up, it's either:
+      // - not a function, and we need to return false
+      // - a function expression // todo return true for this case?
+      // - not in the same file // todo return true for this case?
+      if (fnNode == null) return false;
 
       // If it's outside the component, it also can't capture values.
       if (!componentFunction.containsRangeOf(fnNode)) return true;
