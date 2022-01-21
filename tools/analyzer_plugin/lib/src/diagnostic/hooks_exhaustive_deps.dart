@@ -1126,10 +1126,10 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
       // Not a React Hook call that needs deps.
       return;
     }
-    final callback = node.argumentList.arguments[callbackIndex];
+    final callback = node.argumentList.arguments.elementAtOrNull(callbackIndex);
     final reactiveHook = node.function;
     final reactiveHookName = getNodeWithoutReactNamespace(reactiveHook).toSource();
-    final declaredDependenciesNode = node.argumentList.arguments[callbackIndex + 1];
+    final declaredDependenciesNode = node.argumentList.arguments.elementAtOrNull(callbackIndex + 1);
     final isEffect = RegExp(r'Effect($|[^a-z])').hasMatch(reactiveHookName);
 
     // Check the declared dependencies for this reactive hook. If there is no
@@ -1803,4 +1803,9 @@ extension on AstNode {
       yield* parent.ancestors;
     }
   }
+}
+
+extension<E> on List<E> {
+  /// Returns the element at [index], or `null` if the index is greater than the length of the list.
+  E elementAtOrNull(int index) => index < length ? this[index] : null;
 }
