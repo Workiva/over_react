@@ -17,6 +17,7 @@ import 'package:over_react_analyzer_plugin/src/diagnostic/analyzer_debug_helper.
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/react_types.dart';
+
 //
 // final _hookNamePattern = RegExp(r'^use[A-Z0-9].*$');
 //
@@ -44,7 +45,8 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
         collector.addError(code, result.locationFor(node), errorMessageArgs: [
           message ?? '',
         ]);
-      }, debug: (string, offset) {
+      },
+      debug: (string, offset) {
         helper.logWithLocation(string, result.location(offset: offset));
       },
     ));
@@ -53,16 +55,16 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
 
 class WeakSet<E> {
   final _isEntry = Expando<Object>();
-  
+
   void add(E key) {
     _isEntry[key] = const Object();
   }
-  
+
   bool has(E key) {
     if (key == null) return false;
     return _isEntry[key] != null;
   }
-  
+
   void remove(E key) {
     _isEntry[key] = null;
   }
@@ -71,16 +73,16 @@ class WeakSet<E> {
 class WeakMap<K, V> {
   final _keys = WeakSet<K>();
   final _valueFor = Expando<V>();
-  
+
   V get(K key) => has(key) ? _valueFor[key] : null;
-  
+
   void set(K key, V value) {
     _keys.add(key);
     _valueFor[key] = value;
   }
-  
+
   bool has(K key) => _keys.has(key);
-  
+
   void remove(K key) {
     _keys.remove(key);
     _valueFor[key] = null;
@@ -108,9 +110,9 @@ class _Dependency {
 
   @override
   String toString() => '${{
-    'isStable': isStable,
-    'references': references,
-  }}';
+        'isStable': isStable,
+        'references': references,
+      }}';
 }
 
 class _RefInEffectCleanup {
@@ -121,12 +123,10 @@ class _RefInEffectCleanup {
 
   @override
   String toString() => '${{
-    'reference': reference,
-    'dependencyNode': dependencyNode,
-  }}';
+        'reference': reference,
+        'dependencyNode': dependencyNode,
+      }}';
 }
-
-
 
 VariableDeclaration lookUpVariable(Element element, AstNode root) {
   // if (element is ExecutableElement) return null;
@@ -143,8 +143,8 @@ FunctionExpression lookUpFunction(Element element, AstNode root) {
   final node = NodeLocator2(element.nameOffset).searchWithin(root);
   if (node is Identifier && node.staticElement == element) {
     final parent = node.parent;
-    return parent.tryCast<FunctionDeclaration>()?.functionExpression
-        ?? parent.tryCast<VariableDeclaration>()?.initializer?.tryCast<FunctionExpression>();
+    return parent.tryCast<FunctionDeclaration>()?.functionExpression ??
+        parent.tryCast<VariableDeclaration>()?.initializer?.tryCast<FunctionExpression>();
   }
 
   return null;
@@ -152,22 +152,20 @@ FunctionExpression lookUpFunction(Element element, AstNode root) {
 
 Declaration lookUpDeclaration(Element element, AstNode root) {
   // if (element is ExecutableElement) return null;
-   final node = NodeLocator2(element.nameOffset).searchWithin(root);
-   final declaration = node?.thisOrAncestorOfType<Declaration>();
-   if (declaration.declaredElement == element) {
-     return declaration;
-   }
+  final node = NodeLocator2(element.nameOffset).searchWithin(root);
+  final declaration = node?.thisOrAncestorOfType<Declaration>();
+  if (declaration.declaredElement == element) {
+    return declaration;
+  }
 
-   return null;
+  return null;
 }
 
 bool isConstExpression(Expression expression) =>
     expression.accept(ConstantEvaluator()) != ConstantEvaluator.NOT_A_CONSTANT;
 
-
 Iterable<Identifier> resolvedReferencesWithin(AstNode node) =>
-    allDescendantsOfType<Identifier>(node)
-    .where((e) => e.staticElement != null);
+    allDescendantsOfType<Identifier>(node).where((e) => e.staticElement != null);
 
 class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
   // Should be shared between visitors.
@@ -178,6 +176,7 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
   final functionWithoutCapturedValueCache = WeakMap<Element, bool>();
 
   final Function({@required AstNode node, String message}) reportProblem;
+
   final Function(SyntacticEntity entity) getSource;
   final RegExp additionalHooks;
   void Function(String string, int offset) debug;
@@ -189,7 +188,7 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
     this.additionalHooks,
   });
 
-  // Visitor for both function expressions and arrow function expressions.
+// Visitor for both function expressions and arrow function expressions.
   void visitFunctionWithDependencies({
     @required FunctionBody node,
     @required AstNode declaredDependenciesNode,
@@ -202,18 +201,17 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
     if (isEffect && node.isAsynchronous) {
       reportProblem(
         node: node,
-        message:
-          "Effect callbacks are synchronous to prevent race conditions. "
-          "Put the async inside:\n\n"
-          'useEffect(() => {\n'
-          '  async function fetchData() {\n'
-          '    // You can await here\n'
-          '    const response = await MyAPI.getData(someId);\n'
-          '    // ...\n'
-          '  }\n'
-          '  fetchData();\n'
-          "}, [someId]); // Or [] if effect doesn't need props or state\n\n"
-          'Learn more about data fetching with Hooks: https://reactjs.org/link/hooks-data-fetching',
+        message: "Effect callbacks are synchronous to prevent race conditions. "
+            "Put the async inside:\n\n"
+            'useEffect(() => {\n'
+            '  async function fetchData() {\n'
+            '    // You can await here\n'
+            '    const response = await MyAPI.getData(someId);\n'
+            '    // ...\n'
+            '  }\n'
+            '  fetchData();\n'
+            "}, [someId]); // Or [] if effect doesn't need props or state\n\n"
+            'Learn more about data fetching with Hooks: https://reactjs.org/link/hooks-data-fetching',
       );
     }
 
@@ -237,7 +235,6 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
 
     final componentFunctionElement = componentFunction.declaredElement;
 
-
     bool isDeclaredInPureScope(Element element) =>
         element.thisOrAncestorOfType<ExecutableElement>() == componentFunctionElement;
 
@@ -253,7 +250,6 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
     //     });
     //   }
     // }, ...)
-
 
     // Next we'll define a few helpers that helps us
     // tell if some values don't have to be declared as deps.
@@ -279,6 +275,7 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
         if (expr is ParenthesizedExpression) return expr.expression;
         return expr;
       }
+
       init = unwrap(init);
 
       // Detect primitive constants
@@ -356,6 +353,7 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
       // By default assume it's dynamic.
       return false;
     }
+
     // Remember such values. Avoid re-running extra checks on them.
     final memoizedIsStableKnownHookValue = isStableKnownHookValue.memoizeWithWeakMap(stableKnownValueCache);
 
@@ -376,12 +374,10 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
       // that are in pure scopes (aka render)?
       final referencedElements = resolvedReferencesWithin(fnNode.body);
       for (final ref in referencedElements) {
-        if (
-          isDeclaredInPureScope(ref.staticElement) &&
-          // Stable values are fine though,
-          // although we won't check functions deeper.
-          !memoizedIsStableKnownHookValue(ref)
-        ) {
+        if (isDeclaredInPureScope(ref.staticElement) &&
+            // Stable values are fine though,
+            // although we won't check functions deeper.
+            !memoizedIsStableKnownHookValue(ref)) {
           return false;
         }
       }
@@ -389,6 +385,7 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
       // from render--or everything it captures is known stable.
       return true;
     }
+
     final memoizedIsFunctionWithoutCapturedValues =
         isFunctionWithoutCapturedValues.memoizeWithWeakMap(functionWithoutCapturedValueCache);
 
@@ -402,9 +399,7 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
       var isInReturnedFunction = false;
       reference.ancestors.whereType<FunctionBody>().takeWhile((ancestor) => ancestor != node).forEach((current) {
         // TODO why doesn't the original source just check the last one?
-        isInReturnedFunction = current
-            ?.parentOfType<FunctionExpression>()
-            ?.parentOfType<ReturnStatement>() != null;
+        isInReturnedFunction = current?.parentOfType<FunctionExpression>()?.parentOfType<ReturnStatement>() != null;
       });
       return isInReturnedFunction;
     }
@@ -430,17 +425,15 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
         optionalChains,
       );
 
-
       // Accessing ref.current inside effect cleanup is bad.
       if (
-        // We're in an effect...
-        isEffect &&
-        // ... and this look like accessing .current...
-        dependencyNode is Identifier &&
-        dependencyNode.parent.tryCast<PropertyAccess>()?.propertyName?.name == 'current' &&
-        // ...in a cleanup function or below...
-        isInsideEffectCleanup(reference)
-      ) {
+          // We're in an effect...
+          isEffect &&
+              // ... and this look like accessing .current...
+              dependencyNode is Identifier &&
+              dependencyNode.parent.tryCast<PropertyAccess>()?.propertyName?.name == 'current' &&
+              // ...in a cleanup function or below...
+              isInsideEffectCleanup(reference)) {
         currentRefsInEffectCleanup[dependency] = _RefInEffectCleanup(
           reference: reference,
           dependencyNode: dependencyNode,
@@ -462,10 +455,9 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
       // Add the dependency to a map so we can make sure it is referenced
       // again in our dependencies array. Remember whether it's stable.
       if (!dependencies.containsKey(dependency)) {
-        final isStable =
-          memoizedIsStableKnownHookValue(reference) ||
-          // FIXME handle .call tearoffs
-          memoizedIsFunctionWithoutCapturedValues(reference.staticElement);
+        final isStable = memoizedIsStableKnownHookValue(reference) ||
+            // FIXME handle .call tearoffs
+            memoizedIsFunctionWithoutCapturedValues(reference.staticElement);
         dependencies[dependency] = _Dependency(
           isStable: isStable,
           references: [reference],
@@ -488,11 +480,10 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
         for (final reference in findReferences(reference.staticElement, reference.root)) {
           final parent = reference.parent;
           if (
-            // ref.current
-            parent?.tryCast<PropertyAccess>()?.propertyName?.name == 'current' &&
-            // ref.current = <something>
-            parent.parent?.tryCast<AssignmentExpression>()?.leftHandSide == parent
-          ) {
+              // ref.current
+              parent?.tryCast<PropertyAccess>()?.propertyName?.name == 'current' &&
+                  // ref.current = <something>
+                  parent.parent?.tryCast<AssignmentExpression>()?.leftHandSide == parent) {
             foundCurrentAssignment = true;
             break;
           }
@@ -503,12 +494,11 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
         }
         reportProblem(
           node: dependencyNode.parent,
-          message:
-            "The ref value '$dependency.current' will likely have "
-            "changed by the time this effect cleanup runs. If "
-            "this ref points to a node rendered by React, copy "
-            "'$dependency.current' to a variable inside the effect, and "
-            "use that variable in the cleanup function.",
+          message: "The ref value '$dependency.current' will likely have "
+              "changed by the time this effect cleanup runs. If "
+              "this ref points to a node rendered by React, copy "
+              "'$dependency.current' to a variable inside the effect, and "
+              "use that variable in the cleanup function.",
         );
       },
     );
@@ -523,13 +513,12 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
       staleAssignments.add(key);
       reportProblem(
         node: writeExpr,
-        message:
-          "Assignments to the '$key' variable from inside React Hook "
-          "${getSource(reactiveHook)} will be lost after each "
-          "render. To preserve the value over time, store it in a useRef "
-          "Hook and keep the mutable value in the '.current' property. "
-          "Otherwise, you can move this variable directly inside "
-          "${getSource(reactiveHook)}.",
+        message: "Assignments to the '$key' variable from inside React Hook "
+            "${getSource(reactiveHook)} will be lost after each "
+            "render. To preserve the value over time, store it in a useRef "
+            "Hook and keep the mutable value in the '.current' property. "
+            "Otherwise, you can move this variable directly inside "
+            "${getSource(reactiveHook)}.",
       );
     }
 
@@ -590,12 +579,11 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
         ).suggestedDependencies;
         reportProblem(
           node: reactiveHook,
-          message:
-            "React Hook $reactiveHookName contains a call to '$setStateInsideEffectWithoutDeps'. "
-            "Without a list of dependencies, this can lead to an infinite chain of updates. "
-            "To fix this, pass ["
-            "${suggestedDependencies.join(', ')}"
-            "] as a second argument to the $reactiveHookName Hook.",
+          message: "React Hook $reactiveHookName contains a call to '$setStateInsideEffectWithoutDeps'. "
+              "Without a list of dependencies, this can lead to an infinite chain of updates. "
+              "To fix this, pass ["
+              "${suggestedDependencies.join(', ')}"
+              "] as a second argument to the $reactiveHookName Hook.",
           // suggest: [
           //   {
           //     desc: "Add dependencies array: [${suggestedDependencies.join(
@@ -622,11 +610,10 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
       // the user this in an error.
       reportProblem(
         node: declaredDependenciesNode,
-        message:
-          "React Hook ${getSource(reactiveHook)} was passed a "
-          'dependency list that is not a list literal. This means we '
-          "can't statically verify whether you've passed the correct "
-          'dependencies.',
+        message: "React Hook ${getSource(reactiveHook)} was passed a "
+            'dependency list that is not a list literal. This means we '
+            "can't statically verify whether you've passed the correct "
+            'dependencies.',
       );
     } else {
       for (final _declaredDependencyNode in (declaredDependenciesNode as ListLiteral).elements) {
@@ -650,11 +637,10 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
         if (invalidType != null) {
           reportProblem(
             node: _declaredDependencyNode,
-            message:
-              "React Hook ${getSource(reactiveHook)} has $invalidType"
-              "in its dependency list. This means we can't "
-              "statically verify whether you've passed the "
-              'correct dependencies.',
+            message: "React Hook ${getSource(reactiveHook)} has $invalidType"
+                "in its dependency list. This means we can't "
+                "statically verify whether you've passed the "
+                'correct dependencies.',
           );
           continue;
         }
@@ -668,9 +654,8 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
         if (isAConstantValue(declaredDependencyNode)) {
           reportProblem(
             node: declaredDependencyNode,
-            message:
-              "The '${declaredDependencyNode.toSource()}' constant expression is not a valid dependency "
-              "because it never changes. ",
+            message: "The '${declaredDependencyNode.toSource()}' constant expression is not a valid dependency "
+                "because it never changes. ",
           );
           continue;
         }
@@ -704,13 +689,12 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
             //     );
             //   }
             // } else {
-              reportProblem(
-                node: declaredDependencyNode,
-                message:
-                  "React Hook ${getSource(reactiveHook)} has a "
+            reportProblem(
+              node: declaredDependencyNode,
+              message: "React Hook ${getSource(reactiveHook)} has a "
                   "complex expression in the dependency array. "
                   'Extract it to a separate variable so it can be statically checked.',
-              );
+            );
             // }
 
             continue;
@@ -725,8 +709,7 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
           maybeID = (maybeID as PropertyAccess).target;
         }
         final isDeclaredInComponent =
-            maybeID.tryCast<Identifier>()?.staticElement?.enclosingElement ==
-                componentFunctionElement;
+            maybeID.tryCast<Identifier>()?.staticElement?.enclosingElement == componentFunctionElement;
 
         // Add the dependency to our declared dependency map.
         declaredDependencies.add(_DeclaredDependency(
@@ -740,13 +723,15 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
       }
     }
 
-    debug({
-      'dependencies': dependencies,
-      'declaredDependencies': declaredDependencies,
-      'stableDependencies': stableDependencies,
-      'externalDependencies': externalDependencies,
-      'isEffect': isEffect,
-    }.toString(), node.offset);
+    debug(
+        {
+          'dependencies': dependencies,
+          'declaredDependencies': declaredDependencies,
+          'stableDependencies': stableDependencies,
+          'externalDependencies': externalDependencies,
+          'isEffect': isEffect,
+        }.toString(),
+        node.offset);
 
     final recommendations = collectRecommendations(
       dependencies: dependencies,
@@ -761,10 +746,7 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
 
     var suggestedDeps = recommendations.suggestedDependencies;
 
-    final problemCount =
-      duplicateDependencies.length +
-      missingDependencies.length +
-      unnecessaryDependencies.length;
+    final problemCount = duplicateDependencies.length + missingDependencies.length + unnecessaryDependencies.length;
 
     if (problemCount == 0) {
       // If nothing else to report, check if some dependencies would
@@ -780,42 +762,34 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
 
           final isUsedOutsideOfHook = _construction.isUsedOutsideOfHook;
           final depType = _construction.depType;
-          final wrapperHook =
-            depType == 'function' ? 'useCallback' : 'useMemo';
+          final wrapperHook = depType == 'function' ? 'useCallback' : 'useMemo';
 
-          final constructionType =
-            depType == 'function' ? 'definition' : 'initialization';
+          final constructionType = depType == 'function' ? 'definition' : 'initialization';
 
           final defaultAdvice = "wrap the $constructionType of '$constructionName' in its own $wrapperHook() Hook.";
 
           final advice = isUsedOutsideOfHook
-            ? "To fix this, $defaultAdvice"
-            : "Move it inside the $reactiveHookName callback. Alternatively, $defaultAdvice";
+              ? "To fix this, $defaultAdvice"
+              : "Move it inside the $reactiveHookName callback. Alternatively, $defaultAdvice";
 
-          final causation =
-            depType == 'conditional' || depType == 'logical expression'
-              ? 'could make'
-              : 'makes';
+          final causation = depType == 'conditional' || depType == 'logical expression' ? 'could make' : 'makes';
 
           // TODO implement
           LineInfo lineInfo;
 
-          final message =
-            "The '$constructionName' $depType $causation the dependencies of "
-            "$reactiveHookName Hook (at line ${lineInfo?.getLocation(declaredDependenciesNode.offset)?.lineNumber}) "
-            "change on every render. $advice";
+          final message = "The '$constructionName' $depType $causation the dependencies of "
+              "$reactiveHookName Hook (at line ${lineInfo?.getLocation(declaredDependenciesNode.offset)?.lineNumber}) "
+              "change on every render. $advice";
 
           var suggest;
           // Only handle the simple case of variable assignments.
           // Wrapping function declarations can mess up hoisting.
-          if (
-            isUsedOutsideOfHook &&
-            construction is VariableDeclaration &&
-            // Objects may be mutated ater construction, which would make this
-            // fix unsafe. Functions _probably_ won't be mutated, so we'll
-            // allow this fix for them.
-            depType == 'function'
-          ) {
+          if (isUsedOutsideOfHook &&
+              construction is VariableDeclaration &&
+              // Objects may be mutated ater construction, which would make this
+              // fix unsafe. Functions _probably_ won't be mutated, so we'll
+              // allow this fix for them.
+              depType == 'function') {
             // suggest = [
             //   {
             //     desc: "Wrap the $constructionType of '$constructionName' in its own $wrapperHook() Hook.",
@@ -861,7 +835,8 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
     if (!isEffect && missingDependencies.isNotEmpty) {
       suggestedDeps = collectRecommendations(
         dependencies: dependencies,
-        declaredDependencies: [], // Pretend we don't know
+        declaredDependencies: [],
+        // Pretend we don't know
         stableDependencies: stableDependencies,
         externalDependencies: externalDependencies,
         isEffect: isEffect,
@@ -895,28 +870,21 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
       if (deps.isEmpty) {
         return null;
       }
-      return
-        (deps.length > 1 ? '' : singlePrefix + ' ') +
-        label +
-        ' ' +
-        (deps.length > 1 ? 'dependencies' : 'dependency') +
-        ': ' +
-        joinEnglish(
-          (deps.toList()..sort())
-            .map((name) => "'" + formatDependency(name) + "'").toList()) +
-        ". Either $fixVerb ${
-          deps.length > 1 ? 'them' : 'it'
-        } or remove the dependency array."
-      ;
+      return (deps.length > 1 ? '' : singlePrefix + ' ') +
+          label +
+          ' ' +
+          (deps.length > 1 ? 'dependencies' : 'dependency') +
+          ': ' +
+          joinEnglish((deps.toList()..sort()).map((name) => "'" + formatDependency(name) + "'").toList()) +
+          ". Either $fixVerb ${deps.length > 1 ? 'them' : 'it'} or remove the dependency array.";
     }
 
     String extraWarning;
     if (unnecessaryDependencies.isNotEmpty) {
       final badRef = unnecessaryDependencies.firstWhere((key) => key.endsWith('.current'), orElse: () => null);
       if (badRef != null) {
-        extraWarning =
-          " Mutable values like '$badRef' aren't valid dependencies "
-          "because mutating them doesn't re-render the component.";
+        extraWarning = " Mutable values like '$badRef' aren't valid dependencies "
+            "because mutating them doesn't re-render the component.";
       } else if (externalDependencies.isNotEmpty) {
         // FIXME store actual reference to dep instead of just string representation
         // final dep = externalDependencies.first;
@@ -953,20 +921,17 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
           isPropsOnlyUsedInMembers = false;
           break;
         }
-        if (
-          !(parent is PropertyAccess && parent.target == ref) &&
-          !(parent is MethodInvocation && parent.target == ref)
-        ) {
+        if (!(parent is PropertyAccess && parent.target == ref) &&
+            !(parent is MethodInvocation && parent.target == ref)) {
           isPropsOnlyUsedInMembers = false;
           break;
         }
       }
       if (isPropsOnlyUsedInMembers) {
-        extraWarning =
-          " However, 'props' will change when *any* prop changes, so the "
-          "preferred fix is to destructure the 'props' object outside of "
-          "the $reactiveHookName call and refer to those specific props "
-          "inside ${getSource(reactiveHook)}.";
+        extraWarning = " However, 'props' will change when *any* prop changes, so the "
+            "preferred fix is to destructure the 'props' object outside of "
+            "the $reactiveHookName call and refer to those specific props "
+            "inside ${getSource(reactiveHook)}.";
       }
     }
 
@@ -1008,10 +973,9 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
       //   missingCallbackDep = missingDep;
       // });
       if (missingCallbackDep != null) {
-        extraWarning =
-          " If '$missingCallbackDep' changes too often, "
-          "find the parent component that defines it "
-          "and wrap that definition in useCallback.";
+        extraWarning = " If '$missingCallbackDep' changes too often, "
+            "find the parent component that defines it "
+            "and wrap that definition in useCallback.";
       }
     }
 
@@ -1032,10 +996,7 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
           while (maybeCall != null && maybeCall != componentFunction.body) {
             if (maybeCall is InvocationExpression) {
               final maybeCallFunction = maybeCall.function;
-              final maybeCallFunctionName = maybeCallFunction
-                      .tryCast<MethodInvocation>()
-                      ?.methodName
-                      ?.name ??
+              final maybeCallFunctionName = maybeCallFunction.tryCast<MethodInvocation>()?.methodName?.name ??
                   maybeCallFunction.tryCast<Identifier>()?.name;
               final correspondingStateVariable = setStateCallSites.get(
                 maybeCallFunction.tryCast(),
@@ -1081,28 +1042,23 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
       if (setStateRecommendation != null) {
         switch (setStateRecommendation.form) {
           case _SetStateRecommendationForm.reducer:
-            extraWarning =
-              " You can also replace multiple useState variables with useReducer "
-              "if '${setStateRecommendation.setter}' needs the "
-              "current value of '${setStateRecommendation.missingDep}'.";
+            extraWarning = " You can also replace multiple useState variables with useReducer "
+                "if '${setStateRecommendation.setter}' needs the "
+                "current value of '${setStateRecommendation.missingDep}'.";
             break;
           case _SetStateRecommendationForm.inlineReducer:
-            extraWarning =
-              " If '${setStateRecommendation.setter}' needs the "
-              "current value of '${setStateRecommendation.missingDep}', "
-              "you can also switch to useReducer instead of useState and "
-              "read '${setStateRecommendation.missingDep}' in the reducer.";
+            extraWarning = " If '${setStateRecommendation.setter}' needs the "
+                "current value of '${setStateRecommendation.missingDep}', "
+                "you can also switch to useReducer instead of useState and "
+                "read '${setStateRecommendation.missingDep}' in the reducer.";
             break;
           case _SetStateRecommendationForm.updater:
             extraWarning =
-              " You can also do a functional update '${
-                setStateRecommendation.setter
-              }(${setStateRecommendation.missingDep.substring(
-                0,
-                1,
-              )} => ...)' if you only need '${
-                setStateRecommendation.missingDep
-              }'" " in the '${setStateRecommendation.setter}' call.";
+                " You can also do a functional update '${setStateRecommendation.setter}(${setStateRecommendation.missingDep.substring(
+              0,
+              1,
+            )} => ...)' if you only need '${setStateRecommendation.missingDep}'"
+                " in the '${setStateRecommendation.setter}' call.";
             break;
         }
       }
@@ -1110,23 +1066,23 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
 
     reportProblem(
       node: declaredDependenciesNode,
-      message:
-        "React Hook ${getSource(reactiveHook)} has " +
-        // To avoid a long message, show the next actionable item.
-        (getWarningMessage(missingDependencies, 'a', 'missing', 'include') ??
-          getWarningMessage(
-            unnecessaryDependencies,
-            'an',
-            'unnecessary',
-            'exclude',
-          ) ??
-          getWarningMessage(
-            duplicateDependencies,
-            'a',
-            'duplicate',
-            'omit',
-          ) ?? '<unexpected case when building warning message>') +
-        (extraWarning ?? ''),
+      message: "React Hook ${getSource(reactiveHook)} has " +
+          // To avoid a long message, show the next actionable item.
+          (getWarningMessage(missingDependencies, 'a', 'missing', 'include') ??
+              getWarningMessage(
+                unnecessaryDependencies,
+                'an',
+                'unnecessary',
+                'exclude',
+              ) ??
+              getWarningMessage(
+                duplicateDependencies,
+                'a',
+                'duplicate',
+                'omit',
+              ) ??
+              '<unexpected case when building warning message>') +
+          (extraWarning ?? ''),
       // suggest: [
       //   {
       //     desc: "Update the dependencies array to be: [${suggestedDeps
@@ -1164,83 +1120,76 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
     // So no need to check for dependency inclusion.
     if (declaredDependenciesNode == null && !isEffect) {
       // These are only used for optimization.
-      if (
-        reactiveHookName == 'useMemo' ||
-        reactiveHookName == 'useCallback'
-      ) {
+      if (reactiveHookName == 'useMemo' || reactiveHookName == 'useCallback') {
         // TODO: Can this have a suggestion?
         reportProblem(
           node: reactiveHook,
-          message:
-            "React Hook $reactiveHookName does nothing when called with "
-            "only one argument. Did you forget to pass an array of "
-            "dependencies?",
+          message: "React Hook $reactiveHookName does nothing when called with "
+              "only one argument. Did you forget to pass an array of "
+              "dependencies?",
         );
       }
       return;
     }
 
     if (callback is FunctionExpression) {
-        visitFunctionWithDependencies(
-          node: callback.body,
-          declaredDependenciesNode: declaredDependenciesNode,
-          reactiveHook: reactiveHook,
-          reactiveHookName: reactiveHookName,
-          isEffect: isEffect,
-        );
-        return; // Handled
+      visitFunctionWithDependencies(
+        node: callback.body,
+        declaredDependenciesNode: declaredDependenciesNode,
+        reactiveHook: reactiveHook,
+        reactiveHookName: reactiveHookName,
+        isEffect: isEffect,
+      );
+      return; // Handled
     } else if (callback is Identifier) {
       switch (null) {
         case null:
-        if (declaredDependenciesNode == null) {
-          // No deps, no problems.
-          return; // Handled
-        }
-        // The function passed as a callback is not written inline.
-        // But perhaps it's in the dependencies array?
-        if (
-          declaredDependenciesNode is ListLiteral &&
-          declaredDependenciesNode.elements.whereType<Identifier>().any(
-            (el) => el.name == callback.name,
-          )
-        ) {
-          // If it's already in the list of deps, we don't care because
-          // this is valid regardless.
-          return; // Handled
-        }
-        // We'll do our best effort to find it, complain otherwise.
-        final declaration = callback.staticElement?.declaration;
-        if (declaration == null) {
-          // If it's not in scope, we don't care.
-          return; // Handled
-        }
-        // The function passed as a callback is not written inline.
-        // But it's defined somewhere in the render scope.
-        // We'll do our best effort to find and check it, complain otherwise.
-        final function = lookUpFunction(declaration, callback.root);
-        if (function != null) {
-          // effectBody() {...};
-          // // or
-          // final effectBody = () {...};
-          // useEffect(() => { ... }, []);
-          visitFunctionWithDependencies(
-            node: function.body,
-            declaredDependenciesNode: declaredDependenciesNode,
-            reactiveHook: reactiveHook,
-            reactiveHookName: reactiveHookName,
-            isEffect: isEffect,
-          );
-          return; // Handled
-        }
-        break; // Unhandled
+          if (declaredDependenciesNode == null) {
+            // No deps, no problems.
+            return; // Handled
+          }
+          // The function passed as a callback is not written inline.
+          // But perhaps it's in the dependencies array?
+          if (declaredDependenciesNode is ListLiteral &&
+              declaredDependenciesNode.elements.whereType<Identifier>().any(
+                    (el) => el.name == callback.name,
+                  )) {
+            // If it's already in the list of deps, we don't care because
+            // this is valid regardless.
+            return; // Handled
+          }
+          // We'll do our best effort to find it, complain otherwise.
+          final declaration = callback.staticElement?.declaration;
+          if (declaration == null) {
+            // If it's not in scope, we don't care.
+            return; // Handled
+          }
+          // The function passed as a callback is not written inline.
+          // But it's defined somewhere in the render scope.
+          // We'll do our best effort to find and check it, complain otherwise.
+          final function = lookUpFunction(declaration, callback.root);
+          if (function != null) {
+            // effectBody() {...};
+            // // or
+            // final effectBody = () {...};
+            // useEffect(() => { ... }, []);
+            visitFunctionWithDependencies(
+              node: function.body,
+              declaredDependenciesNode: declaredDependenciesNode,
+              reactiveHook: reactiveHook,
+              reactiveHookName: reactiveHookName,
+              isEffect: isEffect,
+            );
+            return; // Handled
+          }
+          break; // Unhandled
       }
     } else {
       // useEffect(generateEffectBody(), []);
       reportProblem(
         node: reactiveHook,
-        message:
-          "React Hook $reactiveHookName received a whose dependencies "
-          "are unknown. Pass an inline instead.",
+        message: "React Hook $reactiveHookName received a whose dependencies "
+            "are unknown. Pass an inline instead.",
       );
       return; // Handled
     }
@@ -1250,9 +1199,8 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
     final callbackName = callback.tryCast<Identifier>()?.name;
     reportProblem(
       node: reactiveHook,
-      message:
-        "React Hook $reactiveHookName has a missing dependency: '$callbackName'. "
-        "Either include it or remove the dependency array.",
+      message: "React Hook $reactiveHookName has a missing dependency: '$callbackName'. "
+          "Either include it or remove the dependency array.",
       // suggest: [
       //   {
       //     desc: "Update the dependencies array to be: [$callbackName]",
@@ -1271,7 +1219,7 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
 enum _SetStateRecommendationForm {
   reducer,
   inlineReducer,
-  updater ,
+  updater,
 }
 
 class _SetStateRecommendation {
@@ -1281,7 +1229,6 @@ class _SetStateRecommendation {
 
   _SetStateRecommendation({this.missingDep, this.setter, this.form});
 }
-
 
 extension on AstNode {
   T parentOfType<T extends AstNode>() {
@@ -1296,8 +1243,12 @@ class _Recommendations {
   final Set<String> missingDependencies;
   final Set<String> duplicateDependencies;
 
-  _Recommendations(
-      {this.suggestedDependencies, this.unnecessaryDependencies, this.missingDependencies, this.duplicateDependencies,});
+  _Recommendations({
+    this.suggestedDependencies,
+    this.unnecessaryDependencies,
+    this.missingDependencies,
+    this.duplicateDependencies,
+  });
 }
 
 class _DepTree {
@@ -1324,9 +1275,9 @@ class _DeclaredDependency {
 
   @override
   String toString() => {
-    'key': key,
-    'node': node,
-  }.toString();
+        'key': key,
+        'node': node,
+      }.toString();
 }
 
 // The meat of the logic.
@@ -1354,6 +1305,7 @@ _Recommendations collectRecommendations({
       children: {}, // Nodes for properties
     );
   }
+
   final depTree = createDepTree();
 
   // Tree manipulation helpers.
@@ -1370,6 +1322,7 @@ _Recommendations collectRecommendations({
     }
     return node;
   }
+
   void markAllParentsByPath(_DepTree rootNode, String path, void Function(_DepTree) fn) {
     final keys = path.split('.');
     var node = rootNode;
@@ -1385,7 +1338,7 @@ _Recommendations collectRecommendations({
 
   // Mark all required nodes first.
   // Imagine exclamation marks next to each used deep property.
-  dependencies.forEach((key, _)  {
+  dependencies.forEach((key, _) {
     final node = getOrCreateNodeByPath(depTree, key);
     node.isUsed = true;
     markAllParentsByPath(depTree, key, (parent) {
@@ -1408,7 +1361,8 @@ _Recommendations collectRecommendations({
   // Now we can learn which dependencies are missing or necessary.
   final missingDependencies = <String>{};
   final satisfyingDependencies = <String>{};
-  void scanTreeRecursively(_DepTree node, Set<String> missingPaths, Set<String> satisfyingPaths, String Function(String) keyToPath) {
+  void scanTreeRecursively(
+      _DepTree node, Set<String> missingPaths, Set<String> satisfyingPaths, String Function(String) keyToPath) {
     node.children.forEach((key, child) {
       final path = keyToPath(key);
       if (child.isSatisfiedRecursively) {
@@ -1436,6 +1390,7 @@ _Recommendations collectRecommendations({
       );
     });
   }
+
   scanTreeRecursively(
     depTree,
     missingDependencies,
@@ -1459,11 +1414,7 @@ _Recommendations collectRecommendations({
         duplicateDependencies.add(key);
       }
     } else {
-      if (
-        isEffect &&
-        !key.endsWith('.current') &&
-        !externalDependencies.contains(key)
-      ) {
+      if (isEffect && !key.endsWith('.current') && !externalDependencies.contains(key)) {
         // Effects are allowed extra "unnecessary" deps.
         // Such as resetting scroll when ID changes.
         // Consider them legit.
@@ -1534,45 +1485,41 @@ List<_Construction> scanForConstructions({
   @required Iterable<_DeclaredDependency> declaredDependencies,
   @required AstNode declaredDependenciesNode,
 }) {
-  final constructions = declaredDependencies
-    .map<Tuple2<Declaration, String>>((dep) {
-      // FIXME this should be equivalent, but need to figure out how chained properties work... I'm not sure how that would work with analyzePropertyChain being used with the existing code to look up identifiers
-      // final ref = componentScope.variables.firstWhere((v) => v.name == key, orElse: () => null);
-      final refElement = dep.node?.tryCast<Identifier>()?.staticElement;
-      if (refElement == null) return null;
+  final constructions = declaredDependencies.map<Tuple2<Declaration, String>>((dep) {
+    // FIXME this should be equivalent, but need to figure out how chained properties work... I'm not sure how that would work with analyzePropertyChain being used with the existing code to look up identifiers
+    // final ref = componentScope.variables.firstWhere((v) => v.name == key, orElse: () => null);
+    final refElement = dep.node?.tryCast<Identifier>()?.staticElement;
+    if (refElement == null) return null;
 
-      final declaration = lookUpDeclaration(refElement, dep.node.root);
-      if (declaration == null) {
-        return null;
-      }
-      // final handleChange = () {};
-      // final foo = {};
-      // final foo = [];
-      // etc.
-      if (declaration is VariableDeclaration) {
-        // Const variables never change
-        if (declaration.isConst) return null;
-        if (declaration.initializer != null) {
-          // todo should this be stricter in Dart?
-          final constantExpressionType = getConstructionExpressionType(
-            declaration.initializer,
-          );
-          if (constantExpressionType != null) {
-            return Tuple2(declaration, constantExpressionType);
-          }
-        }
-        return null;
-      }
-      // handleChange() {}
-      if (
-        declaration is FunctionDeclaration
-      ) {
-        return Tuple2(declaration, _DepType.function);
-      }
-
+    final declaration = lookUpDeclaration(refElement, dep.node.root);
+    if (declaration == null) {
       return null;
-    })
-    .whereNotNull();
+    }
+    // final handleChange = () {};
+    // final foo = {};
+    // final foo = [];
+    // etc.
+    if (declaration is VariableDeclaration) {
+      // Const variables never change
+      if (declaration.isConst) return null;
+      if (declaration.initializer != null) {
+        // todo should this be stricter in Dart?
+        final constantExpressionType = getConstructionExpressionType(
+          declaration.initializer,
+        );
+        if (constantExpressionType != null) {
+          return Tuple2(declaration, constantExpressionType);
+        }
+      }
+      return null;
+    }
+    // handleChange() {}
+    if (declaration is FunctionDeclaration) {
+      return Tuple2(declaration, _DepType.function);
+    }
+
+    return null;
+  }).whereNotNull();
 
   bool isUsedOutsideOfHook(Declaration declaration) {
     for (final reference in findReferences(declaration.declaredElement, declaration.root)) {
@@ -1610,6 +1557,7 @@ List<_Construction> scanForConstructions({
 class Tuple2<T1, T2> {
   final T1 first;
   final T2 second;
+
   const Tuple2(this.first, this.second);
 }
 
@@ -1620,6 +1568,7 @@ class _Construction {
 
   _Construction({this.declaration, this.depType, this.isUsedOutsideOfHook});
 }
+
 abstract class _DepType {
   static const classDep = 'class';
   static const function = 'function';
@@ -1633,22 +1582,12 @@ abstract class _DepType {
 Expression getDependency(Expression node) {
   final parent = node.parent;
   final grandparent = parent?.parent;
-  if (
-    (parent is PropertyAccess && parent.propertyName == node) ||
-    // todo replace 'current' ccheck with static check for ref objects?
-    (parent is MethodInvocation && parent.methodName == node && parent.methodName.name != 'current') &&
-    !(
-      grandparent != null &&
-      grandparent is MethodInvocation &&
-      grandparent.function == parent
-    )
-  ) {
+  if ((parent is PropertyAccess && parent.propertyName == node) ||
+      // todo replace 'current' ccheck with static check for ref objects?
+      (parent is MethodInvocation && parent.methodName == node && parent.methodName.name != 'current') &&
+          !(grandparent != null && grandparent is MethodInvocation && grandparent.function == parent)) {
     return getDependency(parent as Expression);
-  } else if (
-    node is PropertyAccess &&
-    parent is AssignmentExpression &&
-    parent.leftHandSide == node
-  ) {
+  } else if (node is PropertyAccess && parent is AssignmentExpression && parent.leftHandSide == node) {
     return node.realTarget;
   } else {
     return node;
@@ -1736,8 +1675,7 @@ AstNode getNodeWithoutReactNamespace(Expression node) {
   if (node is PrefixedIdentifier) {
     if (node.prefix.staticElement is LibraryElement) {}
   } else if (node is PropertyAccess) {
-    if (node.realTarget?.tryCast<Identifier>()?.staticElement
-        is LibraryElement) {
+    if (node.realTarget?.tryCast<Identifier>()?.staticElement is LibraryElement) {
       return node.propertyName;
     }
   }
