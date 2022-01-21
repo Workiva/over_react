@@ -212,8 +212,8 @@ create(context, {RegExp additionalHooks}) {
     final componentFunctionElement = componentFunction.declaredElement;
 
 
-    // FIXME this is a crude implementation of isWithinPureScope
-    bool isDeclaredInPureScope(Element element) => element.enclosingElement == componentFunctionElement;
+    bool isDeclaredInPureScope(Element element) =>
+        element.thisOrAncestorOfType<ExecutableElement>() == componentFunctionElement;
 
     // uiFunction((props), {
     //   // Pure scope 2
