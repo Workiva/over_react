@@ -333,10 +333,13 @@ create(context, {RegExp additionalHooks}) {
     bool isFunctionWithoutCapturedValues(Element resolved) {
       final fnNode = lookUpFunction(resolved, rootNode);
 
-      if (!componentFunction.containsRangeOf(fnNode)) {
-        // TODO it seems like we should return true here for functions that are outside of the component scope...
-        return false;
-      }
+      // It's couldn't be looked up, it's either a function expression or not in the same file, and can't capture any values.
+      // FIXME lint for function expressions in dependencies list
+      if (fnNode == null) return true;
+
+      // If it's outside the component, it also can't capture values.
+      if (!componentFunction.containsRangeOf(fnNode)) return true;
+
       // Does this function capture any values
       // that are in pure scopes (aka render)?
       final referencedElements = resolvedReferencesWithin(fnNode.body);
@@ -430,7 +433,8 @@ create(context, {RegExp additionalHooks}) {
       if (!dependencies.containsKey(dependency)) {
         final isStable =
           memoizedIsStableKnownHookValue(reference) ||
-          memoizedIsFunctionWithoutCapturedValues(reference);
+          // FIXME handle .call tearoffs
+          memoizedIsFunctionWithoutCapturedValues(reference.staticElement);
         dependencies[dependency] = _Dependency(
           isStable: isStable,
           references: [reference],
