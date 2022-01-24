@@ -226,11 +226,13 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
     // since hooks can only be called from the top level).
 
     // todo improve this
-    final componentFunction = node.parent?.thisOrAncestorOfType<FunctionExpression>();
+    final componentFunction = node.ancestors.whereType<FunctionExpression>().last;
     assert(componentFunction != null);
     assert(componentFunction != node.thisOrAncestorOfType<FunctionExpression>());
 
     final componentFunctionElement = componentFunction.declaredElement;
+
+    debug('componentFunctionElement: ' + elementDebugString(componentFunctionElement), componentFunction.offset);
 
     bool isDeclaredInPureScope(Element element) =>
         element.thisOrAncestorOfType<ExecutableElement>() == componentFunctionElement;
@@ -407,6 +409,12 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
     final optionalChains = <String, bool>{};
 
     for (final reference in resolvedReferencesWithin(node)) {
+      if (reference.name == 'id') {
+        debug(
+            'reference.staticElement.ancestors: ${reference.staticElement.ancestors.map(elementDebugString).toList()}',
+            reference.offset);
+      }
+
       // If this reference is not not declared in a pure
       // scope then we don't care about this reference.
       // FIXME this check isn't working the way it's supposed to.
@@ -705,6 +713,9 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
         while (maybeID is PropertyAccess) {
           maybeID = (maybeID as PropertyAccess).target;
         }
+        while (maybeID is PrefixedIdentifier) {
+          maybeID = (maybeID as PrefixedIdentifier).prefix;
+        }
         final isDeclaredInComponent =
             maybeID.tryCast<Identifier>()?.staticElement?.enclosingElement == componentFunctionElement;
 
@@ -712,6 +723,7 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
         declaredDependencies.add(_DeclaredDependency(
           declaredDependency,
           declaredDependencyNode,
+          debugEnclosingElement: maybeID.tryCast<Identifier>()?.staticElement?.enclosingElement,
         ));
 
         if (!isDeclaredInComponent) {
@@ -1268,14 +1280,19 @@ class _DeclaredDependency {
   final String key;
   final Expression node;
 
-  _DeclaredDependency(this.key, this.node);
+  final Element debugEnclosingElement;
+
+  _DeclaredDependency(this.key, this.node, {this.debugEnclosingElement});
 
   @override
   String toString() => {
         'key': key,
         'node': node,
+        'debugEnclosingElement': elementDebugString(debugEnclosingElement),
       }.toString();
 }
+
+String elementDebugString(Element e) => '${e.runtimeType}<${e.id}, ${e.getDisplayString(withNullability: false)}>';
 
 // The meat of the logic.
 _Recommendations collectRecommendations({
@@ -1775,6 +1792,16 @@ extension on AstNode {
     if (parent != null) {
       yield parent;
       yield* parent.ancestors;
+    }
+  }
+}
+
+extension on Element {
+  Iterable<Element> get ancestors sync* {
+    final enclosingElement = this.enclosingElement;
+    if (enclosingElement != null) {
+      yield enclosingElement;
+      yield* enclosingElement.ancestors;
     }
   }
 }
