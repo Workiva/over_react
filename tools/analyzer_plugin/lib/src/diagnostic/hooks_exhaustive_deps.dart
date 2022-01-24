@@ -282,7 +282,7 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
       // > This might happen if variable is declared after the callback.
       // but that isn't possible in Dart, so we can omit that logic.
 
-      if (declaration.isConst || (declaration.isFinal && !declaration.isLate && isConstExpression(init))) {
+      if (declaration.isConst || (declaration.isFinal && !declaration.isLate && isAConstantValue(init))) {
         // Definitely stable
         return true;
       }
