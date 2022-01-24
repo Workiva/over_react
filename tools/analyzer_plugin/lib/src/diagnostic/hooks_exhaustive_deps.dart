@@ -161,9 +161,6 @@ Declaration lookUpDeclaration(Element element, AstNode root) {
   return null;
 }
 
-bool isConstExpression(Expression expression) =>
-    expression.accept(ConstantEvaluator()) != ConstantEvaluator.NOT_A_CONSTANT;
-
 Iterable<Identifier> resolvedReferencesWithin(AstNode node) =>
     allDescendantsOfType<Identifier>(node).where((e) => e.staticElement != null);
 

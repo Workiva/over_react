@@ -69,7 +69,13 @@ int nextLine(int offset, LineInfo lineInfo) {
   return lineInfo.getOffsetOfLineAfter(offset);
 }
 
-bool isAConstantValue(Expression expr) => expr.accept(ConstantEvaluator()) != ConstantEvaluator.NOT_A_CONSTANT;
+bool isAConstantValue(Expression expr) {
+  if (expr is SetOrMapLiteral) return expr.isConst;
+  if (expr is ListLiteral) return expr.isConst;
+  if (expr is InstanceCreationExpression) return expr.isConst;
+
+  return expr.accept(ConstantEvaluator()) != ConstantEvaluator.NOT_A_CONSTANT;
+}
 
 extension FunctionBodyUtils on FunctionBody {
   /// An of expressions representing:
