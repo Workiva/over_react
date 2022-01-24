@@ -1576,16 +1576,22 @@ abstract class _DepType {
 /// props.(foo) => (props.foo)
 /// props.foo.(bar) => (props).foo.bar
 /// props.foo.bar.(baz) => (props).foo.bar.baz
-Expression getDependency(Expression node) {
+AstNode getDependency(AstNode node) {
   final parent = node.parent;
-  final grandparent = parent?.parent;
-  if ((parent is PropertyAccess && parent.propertyName == node) ||
-      // todo replace 'current' ccheck with static check for ref objects?
-      (parent is MethodInvocation && parent.methodName == node && parent.methodName.name != 'current') &&
-          !(grandparent != null && grandparent is MethodInvocation && grandparent.function == parent)) {
-    return getDependency(parent as Expression);
+  final grandparent = parent.parent;
+
+  // fixme also handle prefixed identifier cases
+
+  if (parent is PropertyAccess &&
+      parent.target == node &&
+      parent.propertyName.name != 'current' &&
+      !(grandparent != null &&
+          grandparent is InvocationExpression &&
+          // fixme is this right?
+          grandparent.function == parent)) {
+    return getDependency(parent);
   } else if (node is PropertyAccess && parent is AssignmentExpression && parent.leftHandSide == node) {
-    return node.realTarget;
+    return node.target;
   } else {
     return node;
   }
