@@ -154,7 +154,7 @@ Declaration lookUpDeclaration(Element element, AstNode root) {
   // if (element is ExecutableElement) return null;
   final node = NodeLocator2(element.nameOffset).searchWithin(root);
   final declaration = node?.thisOrAncestorOfType<Declaration>();
-  if (declaration.declaredElement == element) {
+  if (declaration?.declaredElement == element) {
     return declaration;
   }
 
