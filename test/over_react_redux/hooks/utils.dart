@@ -22,6 +22,15 @@ void expectCountValue(TestJacket jacket, int expectedValue, {String reason}) {
   expect(queryByTestId(jacket.mountNode, 'count').text, 'Count: $expectedValue', reason: reason);
 }
 
+void expectModelCountValue(TestJacket jacket, int expectedValue, {String reason}) {
+  expect(queryByTestId(jacket.mountNode, 'count-from-model').text, 'Model Count: $expectedValue',
+      reason: reason);
+}
+
+void expectRenderCount(TestJacket jacket, int expectedValue, {String reason}) {
+  expect(queryByTestId(jacket.mountNode, 'render-count').text, '$expectedValue', reason: reason);
+}
+
 Future<Null> clickSiblingConnectedIncrementButton(TestJacket jacket) async {
   // Use a sibling connected component's increment button for tests
   // that shouldn't rely on `useDispatch` to ensure the subscription to context is wired up correctly

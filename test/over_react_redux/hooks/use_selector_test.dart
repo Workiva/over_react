@@ -41,9 +41,44 @@ main() {
       ConnectedBigCounter = connect<BigCounterState, CounterProps>(context: bigCounterContext)(Counter);
     });
 
-    group('subscribes to the store and redraws when', () {
-      group('a selector with a primitive value is updated', () {
-        test('', () async {
+    group('when selecting', () {
+      group('a primitive value', () {
+        group('redraws when the values updates in the store', () {
+          test('', () async {
+            jacket = mount(
+              (ReduxProvider()..store = counterStore)(
+                CounterFn()(),
+                // Use a sibling connected component for dispatching actions in these tests
+                // that shouldn't rely on `useDispatch` to ensure the subscription to context is wired up correctly
+                (ConnectedCounter()..addTestId('sibling-counter'))(),
+              ), attachedToDocument: true);
+
+            expectCountValue(jacket, 0);
+            await clickSiblingConnectedIncrementButton(jacket);
+            expectCountValue(jacket, 1);
+          });
+
+          test('unless a custom equalityFn returns true', () async {
+            jacket = mount(
+              (ReduxProvider()..store = counterStore)(
+                (CounterFn()..countEqualityFn = (nextCount, prevCount) {
+                  // Use 2 so that the equalityFn returns false once, and then returns true.
+                  return nextCount == 2;
+                })(),
+                // Use a sibling connected component for dispatching actions in these tests
+                // that shouldn't rely on `useDispatch` to ensure the subscription to context is wired up correctly
+                (ConnectedCounter()..addTestId('sibling-counter'))(),
+              ), attachedToDocument: true);
+
+            expectCountValue(jacket, 0);
+            await clickSiblingConnectedIncrementButton(jacket);
+            expectCountValue(jacket, 1, reason: 'Component should update when equalityFn returns false');
+            await clickSiblingConnectedIncrementButton(jacket);
+            expectCountValue(jacket, 1, reason: 'Component should not update when equalityFn returns true');
+          });
+        });
+
+        test('does not redraw when the store triggers and the selected value is the same', () async {
           jacket = mount(
             (ReduxProvider()..store = counterStore)(
               CounterFn()(),
@@ -52,39 +87,53 @@ main() {
               (ConnectedCounter()..addTestId('sibling-counter'))(),
             ), attachedToDocument: true);
 
+          expectRenderCount(jacket, 2, reason: 'test setup check; should have rendered once');
           expectCountValue(jacket, 0);
-          await clickSiblingConnectedIncrementButton(jacket);
-          expectCountValue(jacket, 1);
-        });
-
-        test('unless a custom equalityFn returns true', () async {
-          jacket = mount(
-            (ReduxProvider()..store = counterStore)(
-              (CounterFn()..countEqualityFn = (nextCount, prevCount) {
-                // Use 2 so that the equalityFn returns false once, and then returns true.
-                return nextCount == 2;
-              })(),
-              // Use a sibling connected component for dispatching actions in these tests
-              // that shouldn't rely on `useDispatch` to ensure the subscription to context is wired up correctly
-              (ConnectedCounter()..addTestId('sibling-counter'))(),
-            ), attachedToDocument: true);
-
+          await clickSiblingConnectedModelCountIncrementButton(jacket);
+          expectRenderCount(jacket, 2, reason: 'should not have redrawn');
           expectCountValue(jacket, 0);
-          await clickSiblingConnectedIncrementButton(jacket);
-          expectCountValue(jacket, 1, reason: 'Component should update when equalityFn returns false');
-          await clickSiblingConnectedIncrementButton(jacket);
-          expectCountValue(jacket, 1, reason: 'Component should not update when equalityFn returns true');
         });
       });
 
+      // FIXME add tests here and in connect for functions; the case below is the same as for primitive values. Potentially reuse react-dart type tests.
       // Exercise js interop wrapping / unwrapping of dart types
-      group('a selector with a Dart value is updated', () {
-        void expectModelCountValue(TestJacket jacket, int expectedValue, {String reason}) {
-          expect(queryByTestId(jacket.mountNode, 'count-from-model').text, 'Model Count: $expectedValue',
-              reason: reason);
-        }
+      group('a Dart value', () {
+        group('redraws when the values updates in the store', () {
+          test('', () async {
+            jacket = mount(
+              (ReduxProvider()..store = counterStore)(
+                ModelCounterFn()(),
+                // Use a sibling connected component for dispatching actions in these tests
+                // that shouldn't rely on `useDispatch` to ensure the subscription to context is wired up correctly
+                (ConnectedCounter()..addTestId('sibling-counter'))(),
+              ), attachedToDocument: true);
 
-        test('', () async {
+            expectModelCountValue(jacket, 0);
+            await clickSiblingConnectedModelCountIncrementButton(jacket);
+            expectModelCountValue(jacket, 1);
+          });
+
+          test('unless a custom equalityFn returns true', () async {
+            jacket = mount(
+              (ReduxProvider()..store = counterStore)(
+                (ModelCounterFn()..modelCountEqualityFn = (nextModel, prevModel) {
+                  // Use 2 so that the equalityFn returns false once, and then returns true.
+                  return nextModel.count == 2;
+                })(),
+                // Use a sibling connected component for dispatching actions in these tests
+                // that shouldn't rely on `useDispatch` to ensure the subscription to context is wired up correctly
+                (ConnectedCounter()..addTestId('sibling-counter'))(),
+              ), attachedToDocument: true);
+
+            expectModelCountValue(jacket, 0);
+            await clickSiblingConnectedModelCountIncrementButton(jacket);
+            expectModelCountValue(jacket, 1, reason: 'Component should update when equalityFn returns false');
+            await clickSiblingConnectedModelCountIncrementButton(jacket);
+            expectModelCountValue(jacket, 1, reason: 'Component should not update when equalityFn returns true');
+          });
+        });
+
+        test('does not redraw when the store triggers and the selected value is the same', () async {
           jacket = mount(
             (ReduxProvider()..store = counterStore)(
               ModelCounterFn()(),
@@ -93,28 +142,11 @@ main() {
               (ConnectedCounter()..addTestId('sibling-counter'))(),
             ), attachedToDocument: true);
 
+          expectRenderCount(jacket, 2, reason: 'test setup check; should have rendered once');
           expectModelCountValue(jacket, 0);
-          await clickSiblingConnectedModelCountIncrementButton(jacket);
-          expectModelCountValue(jacket, 1);
-        });
-
-        test('unless a custom equalityFn returns true', () async {
-          jacket = mount(
-            (ReduxProvider()..store = counterStore)(
-              (ModelCounterFn()..modelCountEqualityFn = (nextModel, prevModel) {
-                // Use 2 so that the equalityFn returns false once, and then returns true.
-                return nextModel.count == 2;
-              })(),
-              // Use a sibling connected component for dispatching actions in these tests
-              // that shouldn't rely on `useDispatch` to ensure the subscription to context is wired up correctly
-              (ConnectedCounter()..addTestId('sibling-counter'))(),
-            ), attachedToDocument: true);
-
+          await clickSiblingConnectedIncrementButton(jacket);
+          expectRenderCount(jacket, 2);
           expectModelCountValue(jacket, 0);
-          await clickSiblingConnectedModelCountIncrementButton(jacket);
-          expectModelCountValue(jacket, 1, reason: 'Component should update when equalityFn returns false');
-          await clickSiblingConnectedModelCountIncrementButton(jacket);
-          expectModelCountValue(jacket, 1, reason: 'Component should not update when equalityFn returns true');
         });
       });
     });
