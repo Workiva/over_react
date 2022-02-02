@@ -131,7 +131,11 @@ TValue useSelector<TReduxState, TValue>(TValue Function(TReduxState state) selec
       : allowInterop((nextJsValue, prevJsValue) =>
           equalityFn(DartValueWrapper.unwrapIfNeeded(nextJsValue), DartValueWrapper.unwrapIfNeeded(prevJsValue)));
 
-  return DartValueWrapper.unwrapIfNeeded<TValue>(_jsUseSelector(allowInterop(jsSelector), jsEqualityFn));
+  if (jsEqualityFn == null) {
+    return DartValueWrapper.unwrapIfNeeded<TValue>(_jsUseSelector(allowInterop(jsSelector)));
+  } else {
+    return DartValueWrapper.unwrapIfNeeded<TValue>(_jsUseSelector(allowInterop(jsSelector), jsEqualityFn));
+  }
 }
 
 @JS('ReactRedux.useSelector')
