@@ -127,7 +127,7 @@ void sharedTests<T>(
     setUpAll(() {
       final allValues = [initialValue, updatedValue1, updatedValue2];
       if (allValues.toSet().length != allValues.length) {
-        throw ArgumentError('initialValue abd updatedValues must all be unique.');
+        throw ArgumentError('initialValue and updatedValues must all be unique.');
       }
       if (allValues.map(renderValue).toSet().length != allValues.length) {
         throw ArgumentError('Rendered initialValue and updatedValues values must all be unique.');
