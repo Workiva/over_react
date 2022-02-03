@@ -1,5 +1,9 @@
 # OverReact Changelog
 
+## [4.2.7](https://github.com/Workiva/over_react/compare/4.2.7...4.2.6)
+
+- [#730] Fix bug where components using the React Redux `useSelector` and `createSelectorHook` hook APIs would rerender on every store update, even when there were no changes to selected values
+
 ## [4.2.6](https://github.com/Workiva/over_react/compare/4.2.5...4.2.6)
 
 - [#722] Dependency upgrades
