@@ -9,6 +9,8 @@ import 'package:test/test.dart';
 Future<void> dispatchAndWait(Store store, dynamic action) async {
   final storeChangeFuture = store.onChange.first;
   store.dispatch(action);
+  // Set an arbitrary timeout here so that tests don't hang for the default timeout (30s)
+  // if this fails to dispatch.
   await storeChangeFuture.timeout(Duration(milliseconds: 100));
   await pumpEventQueue();
 }
