@@ -77,9 +77,6 @@ void main() {
 Matcher hasAttrs(Map<String, dynamic> attrs) =>
     allOf(attrs.entries.map((e) => hasAttr(e.key, e.value)).toList());
 
-// fixme
-// - verify selected value identity?
-
 @isTestGroup
 void sharedSelectorHookTests<T>(
   String name, {
@@ -122,6 +119,17 @@ void sharedSelectorHookTests<T>(
     });
 
     void sharedTests(UiFactory<TestSelectorProps> factory, {Context context}) {
+      test('properly selects the value without converting it whatsoever', () {
+        final selectedValuesFromRender = [];
+        mount((ReduxProvider()
+          ..store = store
+          ..context = context
+        )(
+          (factory()..onRender = selectedValuesFromRender.add)(),
+        ));
+        expect(selectedValuesFromRender, [same(initialValue)]);
+      });
+
       group('redraws a single time when the values updates in the store', () {
         test('', () async {
           final jacket = mount((ReduxProvider()
@@ -252,6 +260,7 @@ void sharedSelectorHookTests<T>(
         final renderCount = useRenderCount();
         final interestingValue =
             useSelector<TestState<T>, T>((state) => state.interestingValue, props.equality);
+        props.onRender?.call(interestingValue);
         return (Dom.div()
           ..addProp('data-render-count', renderCount)
           ..addProp('data-interesting-value', renderValue(interestingValue))
@@ -268,6 +277,7 @@ void sharedSelectorHookTests<T>(
           final renderCount = useRenderCount();
           final interestingValue =
               _useCustomSelector((state) => state.interestingValue, props.equality);
+          props.onRender?.call(interestingValue);
           return (Dom.div()
             ..addProp('data-render-count', renderCount)
             ..addProp('data-interesting-value', renderValue(interestingValue))
@@ -284,6 +294,7 @@ void sharedSelectorHookTests<T>(
           final renderCount = useRenderCount();
           final interestingValue =
               _useCustomSelector((state) => state.interestingValue, props.equality);
+          props.onRender?.call(interestingValue);
           return (Dom.div()
             ..addProp('data-render-count', renderCount)
             ..addProp('data-interesting-value', renderValue(interestingValue))
@@ -337,7 +348,8 @@ UiFactory<TestSelectorProps> TestSelector = uiFunction(
 );
 
 mixin TestSelectorProps on UiProps {
-  bool Function(dynamic, dynamic) equality;
+  void Function(Object selectedValue) onRender;
+  bool Function(dynamic next, dynamic prev) equality;
 }
 
 /// A hook that returns a count of calls to a function component's render, specific to that instance.
