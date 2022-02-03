@@ -22,6 +22,8 @@ import 'package:test/test.dart';
 import '../../test_util/test_util.dart';
 import '../fixtures/counter_fn.dart';
 
+part 'use_selector_test.over_react.g.dart';
+
 class TestState<T> {
   final T interestingValue;
   final int otherValue;
@@ -152,7 +154,7 @@ void sharedTests<T>(
       }, initialState: TestState(interestingValue: initialValue, otherValue: 0));
     });
 
-    void sharedTests(UiFactory factory, {Context context}) {
+    void sharedTests(UiFactory<TestSelectorProps> factory, {Context context}) {
       group('redraws a single time when the values updates in the store', () {
         test('', () async {
           final jacket = mount((ReduxProvider()
@@ -186,13 +188,13 @@ void sharedTests<T>(
             ..context = context
           )(
             (factory()
-              ..addProp('equality', (T next, T prev) {
+              ..equality = (next, prev) {
                 // Return true for the final state change to prevent updates.
                 if (next == updatedValue2) return true;
 
                 // Otherwise behave normally
                 return next == prev;
-              })
+              }
             )(),
           ));
           final node = jacket.mountNode.children.single;
@@ -253,14 +255,15 @@ void sharedTests<T>(
     }
 
     group('useSelector', () {
-      final TestUseSelector = uiFunction((props) {
+      final TestUseSelector = uiFunction<TestSelectorProps>((props) {
         final renderCount = useRenderCount();
-        final interestingValue = useSelector<TestState<T>, T>(
-            (state) => state.interestingValue, props['equality'] as bool Function(T, T));
+        final interestingValue =
+            useSelector<TestState<T>, T>((state) => state.interestingValue, props.equality);
         return (Dom.div()
           ..addProp('data-render-count', renderCount)
-          ..addProp('data-interesting-value', renderValue(interestingValue)))();
-      }, UiFactoryConfig());
+          ..addProp('data-interesting-value', renderValue(interestingValue))
+        )();
+      }, _$TestSelectorConfig); // ignore: undefined_identifier
 
       sharedTests(TestUseSelector);
     });
@@ -268,14 +271,15 @@ void sharedTests<T>(
     group('createSelector', () {
       group('(default context)', () {
         final _useCustomSelector = createSelectorHook<TestState<T>>();
-        final TestCreateSelector = uiFunction((props) {
+        final TestCreateSelector = uiFunction<TestSelectorProps>((props) {
           final renderCount = useRenderCount();
-          final interestingValue = _useCustomSelector(
-              (state) => state.interestingValue, props['equality'] as bool Function(T, T));
+          final interestingValue =
+              _useCustomSelector((state) => state.interestingValue, props.equality);
           return (Dom.div()
             ..addProp('data-render-count', renderCount)
-            ..addProp('data-interesting-value', renderValue(interestingValue)))();
-        }, UiFactoryConfig());
+            ..addProp('data-interesting-value', renderValue(interestingValue))
+          )();
+        }, _$TestSelectorConfig); // ignore: undefined_identifier
 
         sharedTests(TestCreateSelector);
       });
@@ -283,17 +287,28 @@ void sharedTests<T>(
       group('(custom context)', () {
         final context = createContext();
         final _useCustomSelector = createSelectorHook<TestState<T>>(context);
-        final TestCreateSelector = uiFunction((props) {
+        final TestCreateSelector = uiFunction<TestSelectorProps>((props) {
           final renderCount = useRenderCount();
-          final interestingValue = _useCustomSelector(
-              (state) => state.interestingValue, props['equality'] as bool Function(T, T));
+          final interestingValue =
+              _useCustomSelector((state) => state.interestingValue, props.equality);
           return (Dom.div()
             ..addProp('data-render-count', renderCount)
-            ..addProp('data-interesting-value', renderValue(interestingValue)))();
-        }, UiFactoryConfig());
+            ..addProp('data-interesting-value', renderValue(interestingValue))
+          )();
+        }, _$TestSelectorConfig); // ignore: undefined_identifier
 
         sharedTests(TestCreateSelector, context: context);
       });
     });
   });
+}
+
+// We need this to generate _$TestSelectorConfig for use in non-top-level components.
+UiFactory<TestSelectorProps> TestSelector = uiFunction(
+  (_) {},
+  _$TestSelectorConfig, // ignore: undefined_identifier
+);
+
+mixin TestSelectorProps on UiProps {
+  bool Function(dynamic, dynamic) equality;
 }
