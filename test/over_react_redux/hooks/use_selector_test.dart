@@ -20,73 +20,42 @@ import 'package:redux/redux.dart';
 import 'package:test/test.dart';
 
 import '../../test_util/test_util.dart';
+import '../utils.dart';
 
 part 'use_selector_test.over_react.g.dart';
 
-class TestState<T> {
-  final T interestingValue;
-  final int otherValue;
-
-  TestState({
-    @required this.interestingValue,
-    @required this.otherValue,
-  });
-
-  TestState<T> update({
-    T interestingValue,
-    int otherValue,
-  }) =>
-      TestState(
-        interestingValue: interestingValue ?? this.interestingValue,
-        otherValue: otherValue ?? this.otherValue,
-      );
-}
-
-class UpdateInterestingAction {}
-
-class UpdateOtherAction {}
-
-class MyDartObject {
-  final String name;
-
-  MyDartObject(this.name);
-
-  @override
-  String toString() => 'MyDartObject($name)';
-}
-
-main() {
+void main() {
   group('selector hooks', () {
     group('when selecting', () {
-      sharedTests<String>(
+      sharedSelectorHookTests<String>(
         'a primitive value',
         initialValue: 'initial',
         updatedValue1: 'updated 1',
         updatedValue2: 'updated 2',
       );
 
-      sharedTests<dynamic>(
+      sharedSelectorHookTests<dynamic>(
         'a primitive value including null',
         initialValue: null,
         updatedValue1: 'updated 1',
         updatedValue2: 'updated 2',
       );
 
-      sharedTests<MyDartObject>(
+      sharedSelectorHookTests<MyDartObject>(
         'a Dart object',
         initialValue: MyDartObject('initial'),
         updatedValue1: MyDartObject('updated 1'),
         updatedValue2: MyDartObject('updated 2'),
       );
 
-      sharedTests<Map>(
+      sharedSelectorHookTests<Map>(
         'a Dart Map (which shouldn\'t get converted to a JS Map)',
         initialValue: {'initial': 'value'},
         updatedValue1: {'updated 1': 'value'},
         updatedValue2: {'updated 2': 'value'},
       );
 
-      sharedTests<String Function()>(
+      sharedSelectorHookTests<String Function()>(
         'a Dart function (which requires special interop wrapping)',
         initialValue: () => 'initial',
         updatedValue1: () => 'updated 1',
@@ -94,7 +63,7 @@ main() {
         renderValue: (function) => function(),
       );
 
-      sharedTests<String Function()>(
+      sharedSelectorHookTests<String Function()>(
         'an allowInteropped Dart function (which should bypass special interop wrapping)',
         initialValue: allowInterop(() => 'initial'),
         updatedValue1: allowInterop(() => 'updated 1'),
@@ -108,18 +77,11 @@ main() {
 Matcher hasAttrs(Map<String, dynamic> attrs) =>
     allOf(attrs.entries.map((e) => hasAttr(e.key, e.value)).toList());
 
-Future<void> dispatchAndWait(Store store, dynamic action) async {
-  final storeChangeFuture = store.onChange.first;
-  store.dispatch(action);
-  await storeChangeFuture.timeout(Duration(milliseconds: 100));
-  await pumpEventQueue();
-}
-
 // fixme
 // - verify selected value identity?
 
 @isTestGroup
-void sharedTests<T>(
+void sharedSelectorHookTests<T>(
   String name, {
   @required T initialValue,
   @required T updatedValue1,
@@ -334,6 +296,40 @@ void sharedTests<T>(
   });
 }
 
+class TestState<T> {
+  final T interestingValue;
+  final int otherValue;
+
+  TestState({
+    @required this.interestingValue,
+    @required this.otherValue,
+  });
+
+  TestState<T> update({
+    T interestingValue,
+    int otherValue,
+  }) =>
+      TestState(
+        interestingValue: interestingValue ?? this.interestingValue,
+        otherValue: otherValue ?? this.otherValue,
+      );
+}
+
+/// Updates [TestState.interestingValue].
+class UpdateInterestingAction {}
+
+/// Updates [TestState.otherValue].
+class UpdateOtherAction {}
+
+class MyDartObject {
+  final String name;
+
+  MyDartObject(this.name);
+
+  @override
+  String toString() => 'MyDartObject($name)';
+}
+
 // We need this to generate _$TestSelectorConfig for use in non-top-level components.
 UiFactory<TestSelectorProps> TestSelector = uiFunction(
   (_) {},
@@ -344,6 +340,9 @@ mixin TestSelectorProps on UiProps {
   bool Function(dynamic, dynamic) equality;
 }
 
+/// A hook that returns a count of calls to a function component's render, specific to that instance.
+///
+/// The result of the first call is `1`.
 int useRenderCount() {
   final count = useRef(0);
   count.current++;
