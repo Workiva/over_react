@@ -312,3 +312,9 @@ UiFactory<TestSelectorProps> TestSelector = uiFunction(
 mixin TestSelectorProps on UiProps {
   bool Function(dynamic, dynamic) equality;
 }
+
+int useRenderCount() {
+  final count = useRef(0);
+  count.current++;
+  return count.current;
+}

@@ -28,8 +28,6 @@ mixin CounterFnProps on UiProps {
 
 UiFactory<CounterFnProps> CounterFn = uiFunction(
   (props) {
-    final renderCount = useRenderCount();
-
     final currentCount =
         useSelector<CounterState, int>((state) => state.count, props.countEqualityFn);
 
@@ -37,10 +35,6 @@ UiFactory<CounterFnProps> CounterFn = uiFunction(
       ..addUnconsumedDomProps(props, const [])
       ..addTestId('counter-component')
     )(
-      Dom.div()(
-        'Render count:',
-        (Dom.span()..addTestId('render-count'))(renderCount),
-      ),
       (Dom.div()..addTestId('count'))('Count: $currentCount'),
       props.children,
     );
@@ -56,8 +50,6 @@ class ModelCounterFnProps = UiProps with CounterFnProps, ModelCounterFnPropsMixi
 
 UiFactory<ModelCounterFnProps> ModelCounterFn = uiFunction(
   (props) {
-    final renderCount = useRenderCount();
-
     final currentModelCount =
         useSelector<CounterState, DartModelCounter>((state) => state.modelCount, props.modelCountEqualityFn);
 
@@ -69,10 +61,6 @@ UiFactory<ModelCounterFnProps> ModelCounterFn = uiFunction(
       ..addUnconsumedDomProps(props, consumedProps)
       ..addTestId('model-counter-component')
     )(
-      Dom.div()(
-        'Render count:',
-        (Dom.span()..addTestId('render-count'))(renderCount),
-      ),
       (Dom.div()..addTestId('count-from-model'))('Model Count: ${currentModelCount.count}'),
       Dom.div()(
         'Mutate Model Count:',
@@ -118,9 +106,3 @@ UiFactory<CustomContextCounterFnProps> CustomContextCounterFn = uiFunction(
   },
   _$CustomContextCounterFnConfig, // ignore: undefined_identifier
 );
-
-int useRenderCount() {
-  final count = useRef(0);
-  count.current++;
-  return count.current;
-}
