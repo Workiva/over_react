@@ -20,7 +20,6 @@ import 'package:redux/redux.dart';
 import 'package:test/test.dart';
 
 import '../../test_util/test_util.dart';
-import '../fixtures/counter_fn.dart';
 
 part 'use_selector_test.over_react.g.dart';
 
@@ -80,6 +79,13 @@ main() {
         updatedValue2: MyDartObject('updated 2'),
       );
 
+      sharedTests<Map>(
+        'a Dart Map (which shouldn\'t get converted to a JS Map)',
+        initialValue: {'initial': 'value'},
+        updatedValue1: {'updated 1': 'value'},
+        updatedValue2: {'updated 2': 'value'},
+      );
+
       sharedTests<String Function()>(
         'a Dart function (which requires special interop wrapping)',
         initialValue: () => 'initial',
@@ -110,7 +116,6 @@ Future<void> dispatchAndWait(Store store, dynamic action) async {
 }
 
 // fixme
-// - verify equality function identity?
 // - verify selected value identity?
 
 @isTestGroup
@@ -182,6 +187,33 @@ void sharedTests<T>(
               }));
         });
 
+        test('and calls a custom equalityFn with the correct arguments', () async {
+          final calls = [];
+          mount((ReduxProvider()
+            ..store = store
+            ..context = context
+          )(
+            (factory()
+              ..equality = (next, prev) {
+                calls.add({'next': next, 'prev': prev});
+                // Mimic default behavior
+                return identical(next, prev);
+              }
+            )(),
+          ));
+          await dispatchAndWait(store, UpdateInterestingAction());
+          // Use contains instead of expecting the exact number of calls,
+          // since React Redux isn't guaranteed to call the equality function exactly once,
+          // and that behavior may change slightly from version to version.
+          expect(
+              calls,
+              contains(equals({
+                'next': same(updatedValue1),
+                'prev': same(initialValue),
+              })),
+              reason: 'should have been called with the next and previous values, properly unwrapped');
+        });
+
         test('unless a custom equalityFn returns true', () async {
           final jacket = mount((ReduxProvider()
             ..store = store
@@ -191,9 +223,8 @@ void sharedTests<T>(
               ..equality = (next, prev) {
                 // Return true for the final state change to prevent updates.
                 if (next == updatedValue2) return true;
-
-                // Otherwise behave normally
-                return next == prev;
+                // Otherwise, mimic default behavior.
+                return identical(next, prev);
               }
             )(),
           ));
