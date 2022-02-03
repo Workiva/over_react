@@ -19,43 +19,47 @@ import 'package:over_react/over_react_redux.dart';
 import 'package:redux/redux.dart';
 import 'package:test/test.dart';
 
-import '../../test_util/test_util.dart';
-import '../utils.dart';
+import '../test_util/test_util.dart';
+import 'utils.dart';
 
-part 'use_selector_test.over_react.g.dart';
+part 'store_bindings_tests.over_react.g.dart';
 
+/// Tests around selector hooks and connect that verify that
+/// - state values of different types are passed to components properly
+/// - components rerender when selected values change
+/// - components don't rerender when selected values don't change
 void main() {
-  group('selector hooks', () {
+  group('React Redux store bindings -', () {
     group('when selecting', () {
-      sharedSelectorHookTests<String>(
+      sharedSelectorHookAndConnectTests<String>(
         'a primitive value',
         initialValue: 'initial',
         updatedValue1: 'updated 1',
         updatedValue2: 'updated 2',
       );
 
-      sharedSelectorHookTests<dynamic>(
+      sharedSelectorHookAndConnectTests<dynamic>(
         'a primitive value including null',
         initialValue: null,
         updatedValue1: 'updated 1',
         updatedValue2: 'updated 2',
       );
 
-      sharedSelectorHookTests<MyDartObject>(
+      sharedSelectorHookAndConnectTests<MyDartObject>(
         'a Dart object',
         initialValue: MyDartObject('initial'),
         updatedValue1: MyDartObject('updated 1'),
         updatedValue2: MyDartObject('updated 2'),
       );
 
-      sharedSelectorHookTests<Map>(
+      sharedSelectorHookAndConnectTests<Map>(
         'a Dart Map (which shouldn\'t get converted to a JS Map)',
         initialValue: {'initial': 'value'},
         updatedValue1: {'updated 1': 'value'},
         updatedValue2: {'updated 2': 'value'},
       );
 
-      sharedSelectorHookTests<String Function()>(
+      sharedSelectorHookAndConnectTests<String Function()>(
         'a Dart function (which requires special interop wrapping)',
         initialValue: () => 'initial',
         updatedValue1: () => 'updated 1',
@@ -63,7 +67,7 @@ void main() {
         renderValue: (function) => function(),
       );
 
-      sharedSelectorHookTests<String Function()>(
+      sharedSelectorHookAndConnectTests<String Function()>(
         'an allowInteropped Dart function (which should bypass special interop wrapping)',
         initialValue: allowInterop(() => 'initial'),
         updatedValue1: allowInterop(() => 'updated 1'),
@@ -78,7 +82,7 @@ Matcher hasAttrs(Map<String, dynamic> attrs) =>
     allOf(attrs.entries.map((e) => hasAttr(e.key, e.value)).toList());
 
 @isTestGroup
-void sharedSelectorHookTests<T>(
+void sharedSelectorHookAndConnectTests<T>(
   String name, {
   @required T initialValue,
   @required T updatedValue1,
@@ -118,7 +122,11 @@ void sharedSelectorHookTests<T>(
       }, initialState: TestState(interestingValue: initialValue, otherValue: 0));
     });
 
-    void sharedTests(UiFactory<TestSelectorProps> factory, {Context context}) {
+    void sharedTests(
+      UiFactory<TestSelectorProps> factory, {
+      Context context,
+      bool supportsEqualityFunction = true,
+    }) {
       test('properly selects the value without converting it whatsoever', () {
         final selectedValuesFromRender = [];
         mount((ReduxProvider()
@@ -157,76 +165,78 @@ void sharedSelectorHookTests<T>(
               }));
         });
 
-        test('and calls a custom equalityFn with the correct arguments', () async {
-          final calls = [];
-          mount((ReduxProvider()
-            ..store = store
-            ..context = context
-          )(
-            (factory()
-              ..equality = (next, prev) {
-                calls.add({'next': next, 'prev': prev});
-                // Mimic default behavior
-                return identical(next, prev);
-              }
-            )(),
-          ));
-          await dispatchAndWait(store, UpdateInterestingAction());
-          // Use contains instead of expecting the exact number of calls,
-          // since React Redux isn't guaranteed to call the equality function exactly once,
-          // and that behavior may change slightly from version to version.
-          expect(
-              calls,
-              contains(equals({
-                'next': same(updatedValue1),
-                'prev': same(initialValue),
-              })),
-              reason: 'should have been called with the next and previous values, properly unwrapped');
-        });
+        if (supportsEqualityFunction) {
+          test('and calls a custom equalityFn with the correct arguments', () async {
+            final calls = [];
+            mount((ReduxProvider()
+              ..store = store
+              ..context = context
+            )(
+              (factory()
+                ..equality = (next, prev) {
+                  calls.add({'next': next, 'prev': prev});
+                  // Mimic default behavior
+                  return identical(next, prev);
+                }
+              )(),
+            ));
+            await dispatchAndWait(store, UpdateInterestingAction());
+            // Use contains instead of expecting the exact number of calls,
+            // since React Redux isn't guaranteed to call the equality function exactly once,
+            // and that behavior may change slightly from version to version.
+            expect(
+                calls,
+                contains(equals({
+                  'next': same(updatedValue1),
+                  'prev': same(initialValue),
+                })),
+                reason: 'should have been called with the next and previous values, properly unwrapped');
+          });
 
-        test('unless a custom equalityFn returns true', () async {
-          final jacket = mount((ReduxProvider()
-            ..store = store
-            ..context = context
-          )(
-            (factory()
-              ..equality = (next, prev) {
-                // Return true for the final state change to prevent updates.
-                if (next == updatedValue2) return true;
-                // Otherwise, mimic default behavior.
-                return identical(next, prev);
-              }
-            )(),
-          ));
-          final node = jacket.mountNode.children.single;
+          test('unless a custom equalityFn returns true', () async {
+            final jacket = mount((ReduxProvider()
+              ..store = store
+              ..context = context
+            )(
+              (factory()
+                ..equality = (next, prev) {
+                  // Return true for the final state change to prevent updates.
+                  if (next == updatedValue2) return true;
+                  // Otherwise, mimic default behavior.
+                  return identical(next, prev);
+                }
+              )(),
+            ));
+            final node = jacket.mountNode.children.single;
 
-          expect(
-              node,
-              hasAttrs({
-                'data-interesting-value': renderValue(initialValue),
-                'data-render-count': '1',
-              }));
+            expect(
+                node,
+                hasAttrs({
+                  'data-interesting-value': renderValue(initialValue),
+                  'data-render-count': '1',
+                }));
 
-          await dispatchAndWait(store, UpdateInterestingAction());
-          expect(
-              node,
-              hasAttrs({
-                'data-interesting-value': renderValue(updatedValue1),
-                'data-render-count': '2',
-              }),
-              reason: 'should update when equalityFn returns false');
+            await dispatchAndWait(store, UpdateInterestingAction());
+            expect(
+                node,
+                hasAttrs({
+                  'data-interesting-value': renderValue(updatedValue1),
+                  'data-render-count': '2',
+                }),
+                reason: 'should update when equalityFn returns false');
 
-          await dispatchAndWait(store, UpdateInterestingAction());
-          // Use equals here otherwise function values are treated as matcher functions by `expect`.
-          expect(store.state.interestingValue, equals(updatedValue2), reason: 'test setup check');
-          expect(
-              node,
-              hasAttrs({
-                'data-interesting-value': renderValue(updatedValue1),
-                'data-render-count': '2',
-              }),
-              reason: 'should not update when equalityFn returns true');
-        });
+            await dispatchAndWait(store, UpdateInterestingAction());
+            // Use equals here otherwise function values are treated as matcher functions by `expect`.
+            expect(store.state.interestingValue, equals(updatedValue2), reason: 'test setup check');
+            expect(
+                node,
+                hasAttrs({
+                  'data-interesting-value': renderValue(updatedValue1),
+                  'data-render-count': '2',
+                }),
+                reason: 'should not update when equalityFn returns true');
+          });
+        }
       });
 
       test('does not redraw when the store triggers and the selected value is the same', () async {
@@ -304,6 +314,47 @@ void sharedSelectorHookTests<T>(
         sharedTests(TestCreateSelector, context: context);
       });
     });
+
+    // This is in place mainly to test rerender behavior; additional test coverage exists in connect_test.dart.
+    group('connect', () {
+      group('(default context)', () {
+        final TestConnect = connect<TestState<T>, TestConnectProps>(
+          mapStateToProps: ((state) => TestConnectMapView()
+            ..interestingValue = state.interestingValue
+          ),
+        )(uiFunction((props) {
+          final renderCount = useRenderCount();
+          final interestingValue = props.interestingValue as T;
+          props.onRender?.call(interestingValue);
+          return (Dom.div()
+            ..addProp('data-render-count', renderCount)
+            ..addProp('data-interesting-value', renderValue(interestingValue))
+          )();
+        }, _$TestConnectMapViewConfig)); // ignore: undefined_identifier
+
+        sharedTests(TestConnect, supportsEqualityFunction: false);
+      });
+
+      group('(custom context)', () {
+        final context = createContext();
+        final TestConnect = connect<TestState<T>, TestConnectProps>(
+          context: context,
+          mapStateToProps: ((state) => TestConnectMapView()
+            ..interestingValue = state.interestingValue
+          ),
+        )(uiFunction((props) {
+          final renderCount = useRenderCount();
+          final interestingValue = props.interestingValue as T;
+          props.onRender?.call(interestingValue);
+          return (Dom.div()
+            ..addProp('data-render-count', renderCount)
+            ..addProp('data-interesting-value', renderValue(interestingValue))
+          )();
+        }, _$TestConnectMapViewConfig)); // ignore: undefined_identifier
+
+        sharedTests(TestConnect, context: context, supportsEqualityFunction: false);
+      });
+    });
   });
 }
 
@@ -342,14 +393,21 @@ class MyDartObject {
 }
 
 // We need this to generate _$TestSelectorConfig for use in non-top-level components.
-UiFactory<TestSelectorProps> TestSelector = uiFunction(
-  (_) {},
-  _$TestSelectorConfig, // ignore: undefined_identifier
-);
+UiFactory<TestSelectorProps> TestSelector = uiFunction((_) {}, _$TestSelectorConfig); // ignore: undefined_identifier
 
 mixin TestSelectorProps on UiProps {
   void Function(Object selectedValue) onRender;
   bool Function(dynamic next, dynamic prev) equality;
+}
+
+// We also need this to generate _$TestConnectConfig for use in non-top-level components.
+UiFactory<TestConnectProps> TestConnectMapView =
+    uiFunction((_) {}, _$TestConnectMapViewConfig); // ignore: undefined_identifier
+
+class TestConnectProps = UiProps with TestSelectorProps, TestConnectPropsMixin;
+
+mixin TestConnectPropsMixin on UiProps {
+  Object interestingValue;
 }
 
 /// A hook that returns a count of calls to a function component's render, specific to that instance.
