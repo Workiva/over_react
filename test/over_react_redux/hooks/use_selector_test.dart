@@ -55,11 +55,18 @@ class MyDartObject {
 }
 
 main() {
-  group('useSelector hook', () {
+  group('selector hooks', () {
     group('when selecting', () {
       sharedTests<String>(
         'a primitive value',
         initialValue: 'initial',
+        updatedValue1: 'updated 1',
+        updatedValue2: 'updated 2',
+      );
+
+      sharedTests<dynamic>(
+        'a primitive value including null',
+        initialValue: null,
         updatedValue1: 'updated 1',
         updatedValue2: 'updated 2',
       );
@@ -87,67 +94,6 @@ main() {
         renderValue: (function) => function(),
       );
     });
-
-    // group('subscribes to custom context when createSelectorHook is used and redraws when', () {
-    //   group('the selector value is updated', () {
-    //     test('', () async {
-    //       jacket = mount(
-    //           (ReduxProvider()..store = counterStore)(
-    //             (ReduxProvider()
-    //               ..store = bigCounterStore
-    //               ..context = bigCounterContext
-    //             )(
-    //               CustomContextCounterFn()(),
-    //               // Use a sibling connected component for dispatching actions in these tests
-    //               // that shouldn't rely on `useDispatch` to ensure the subscription to context is wired up correctly
-    //               (ConnectedBigCounter()..addTestId('big-sibling-counter'))(),
-    //             ),
-    //             // Use a sibling connected component for dispatching actions in these tests
-    //             // that shouldn't rely on `useDispatch` to ensure the subscription to context is wired up correctly
-    //             (ConnectedCounter()..addTestId('sibling-counter'))(),
-    //           ), attachedToDocument: true);
-    //
-    //       expectBigCountValue(jacket, 9);
-    //       await clickSiblingConnectedBigCountIncrementButton(jacket);
-    //       expectBigCountValue(jacket, 109);
-    //
-    //       expectCountValue(jacket, 0);
-    //       await clickSiblingConnectedIncrementButton(jacket);
-    //       expectCountValue(jacket, 1);
-    //     });
-    //
-    //     test('unless a custom equalityFn returns true', () async {
-    //       jacket = mount(
-    //           (ReduxProvider()..store = counterStore)(
-    //             (ReduxProvider()
-    //               ..store = bigCounterStore
-    //               ..context = bigCounterContext
-    //             )(
-    //               (CustomContextCounterFn()..bigCountEqualityFn = (nextBigCount, prevBigCount) {
-    //                 // Use 209 so that the equalityFn returns false once, and then returns true.
-    //                 return nextBigCount == 209;
-    //               })(),
-    //               // Use a sibling connected component for dispatching actions in these tests
-    //               // that shouldn't rely on `useDispatch` to ensure the subscription to context is wired up correctly
-    //               (ConnectedBigCounter()..addTestId('big-sibling-counter'))(),
-    //             ),
-    //             // Use a sibling connected component for dispatching actions in these tests
-    //             // that shouldn't rely on `useDispatch` to ensure the subscription to context is wired up correctly
-    //             (ConnectedCounter()..addTestId('sibling-counter'))(),
-    //           ), attachedToDocument: true);
-    //
-    //       expectBigCountValue(jacket, 9);
-    //       await clickSiblingConnectedBigCountIncrementButton(jacket);
-    //       expectBigCountValue(jacket, 109, reason: 'Component should update when equalityFn returns false');
-    //       await clickSiblingConnectedBigCountIncrementButton(jacket);
-    //       expectBigCountValue(jacket, 109, reason: 'Component should not update when equalityFn returns true');
-    //
-    //       expectCountValue(jacket, 0);
-    //       await clickSiblingConnectedIncrementButton(jacket);
-    //       expectCountValue(jacket, 1);
-    //     });
-    //   });
-    // });
   });
 }
 
@@ -161,34 +107,36 @@ Future<void> dispatchAndWait(Store store, dynamic action) async {
   await pumpEventQueue();
 }
 
+// fixme
+// - verify equality function identity?
+// - verify selected value identity?
+
 @isTestGroup
 void sharedTests<T>(
   String name, {
-  T initialValue,
-  T updatedValue1,
-  T updatedValue2,
+  @required T initialValue,
+  @required T updatedValue1,
+  @required T updatedValue2,
   String Function(T) renderValue,
 }) {
   renderValue ??= (value) => value.toString();
 
   group(name, () {
     setUpAll(() {
-      if ([initialValue, updatedValue1, updatedValue2].map(renderValue).toSet().length != 3) {
-        throw ArgumentError('Rendered initialValue/updatedValue values must be different.');
+      final allValues = [initialValue, updatedValue1, updatedValue2];
+      if (allValues.toSet().length != allValues.length) {
+        throw ArgumentError('initialValue abd updatedValues must all be unique.');
+      }
+      if (allValues.map(renderValue).toSet().length != allValues.length) {
+        throw ArgumentError('Rendered initialValue and updatedValues values must all be unique.');
       }
     });
 
-    TestJacket jacket;
     Store<TestState<T>> store;
-
-    UiFactory TestUseSelector;
 
     setUp(() {
       store = Store((state, action) {
         if (action is UpdateInterestingAction) {
-          switch (state.interestingValue) {
-          }
-
           if (state.interestingValue == initialValue) {
             return state.update(interestingValue: updatedValue1);
           } else if (state.interestingValue == updatedValue1) {
@@ -201,116 +149,151 @@ void sharedTests<T>(
         } else {
           throw ArgumentError('Unexpected action');
         }
-      },
-          initialState: TestState(
-            interestingValue: initialValue,
-            otherValue: 0,
-          ));
+      }, initialState: TestState(interestingValue: initialValue, otherValue: 0));
+    });
 
-      TestUseSelector = uiFunction((props) {
+    void sharedTests(UiFactory factory, {Context context}) {
+      group('redraws a single time when the values updates in the store', () {
+        test('', () async {
+          final jacket = mount((ReduxProvider()
+            ..store = store
+            ..context = context
+          )(
+            factory()(),
+          ));
+          final node = jacket.mountNode.children.single;
+
+          expect(
+              node,
+              hasAttrs({
+                'data-interesting-value': renderValue(initialValue),
+                'data-render-count': '1',
+              }));
+          final storeCallsFinished = store.onChange.take(1).toList().then((value) => null);
+          await dispatchAndWait(store, UpdateInterestingAction());
+          await storeCallsFinished;
+          expect(
+              node,
+              hasAttrs({
+                'data-interesting-value': renderValue(updatedValue1),
+                'data-render-count': '2',
+              }));
+        });
+
+        test('unless a custom equalityFn returns true', () async {
+          final jacket = mount((ReduxProvider()
+            ..store = store
+            ..context = context
+          )(
+            (factory()
+              ..addProp('equality', (T next, T prev) {
+                // Return true for the final state change to prevent updates.
+                if (next == updatedValue2) return true;
+
+                // Otherwise behave normally
+                return next == prev;
+              })
+            )(),
+          ));
+          final node = jacket.mountNode.children.single;
+
+          expect(
+              node,
+              hasAttrs({
+                'data-interesting-value': renderValue(initialValue),
+                'data-render-count': '1',
+              }));
+
+          await dispatchAndWait(store, UpdateInterestingAction());
+          expect(
+              node,
+              hasAttrs({
+                'data-interesting-value': renderValue(updatedValue1),
+                'data-render-count': '2',
+              }),
+              reason: 'should update when equalityFn returns false');
+
+          await dispatchAndWait(store, UpdateInterestingAction());
+          // Use equals here otherwise function values are treated as matcher functions by `expect`.
+          expect(store.state.interestingValue, equals(updatedValue2), reason: 'test setup check');
+          expect(
+              node,
+              hasAttrs({
+                'data-interesting-value': renderValue(updatedValue1),
+                'data-render-count': '2',
+              }),
+              reason: 'should not update when equalityFn returns true');
+        });
+      });
+
+      test('does not redraw when the store triggers and the selected value is the same', () async {
+        final jacket = mount((ReduxProvider()
+          ..store = store
+          ..context = context
+        )(
+          factory()(),
+        ));
+        final node = jacket.mountNode.children.single;
+
+        expect(
+            node,
+            hasAttrs({
+              'data-interesting-value': renderValue(initialValue),
+              'data-render-count': '1',
+            }));
+
+        await dispatchAndWait(store, UpdateOtherAction());
+        expect(
+            node,
+            hasAttrs({
+              'data-interesting-value': renderValue(initialValue),
+              'data-render-count': '1',
+            }));
+      });
+    }
+
+    group('useSelector', () {
+      final TestUseSelector = uiFunction((props) {
         final renderCount = useRenderCount();
         final interestingValue = useSelector<TestState<T>, T>(
             (state) => state.interestingValue, props['equality'] as bool Function(T, T));
         return (Dom.div()
           ..addProp('data-render-count', renderCount)
-          ..addProp('data-interesting-value', renderValue(interestingValue))
-        )();
+          ..addProp('data-interesting-value', renderValue(interestingValue)))();
       }, UiFactoryConfig());
+
+      sharedTests(TestUseSelector);
     });
 
-    group('redraws a single time when the values updates in the store', () {
-      test('', () async {
-        jacket = mount(
-            (ReduxProvider()..store = store)(
-              TestUseSelector()(),
-            ),
-            attachedToDocument: true);
-        final node = jacket.mountNode.children.single;
+    group('createSelector', () {
+      group('(default context)', () {
+        final _useCustomSelector = createSelectorHook<TestState<T>>();
+        final TestCreateSelector = uiFunction((props) {
+          final renderCount = useRenderCount();
+          final interestingValue = _useCustomSelector(
+              (state) => state.interestingValue, props['equality'] as bool Function(T, T));
+          return (Dom.div()
+            ..addProp('data-render-count', renderCount)
+            ..addProp('data-interesting-value', renderValue(interestingValue)))();
+        }, UiFactoryConfig());
 
-        expect(
-            node,
-            hasAttrs({
-              'data-interesting-value': renderValue(initialValue),
-              'data-render-count': '1',
-            }));
-        final storeCallsFinished = store.onChange.take(1).toList().then((value) => null);
-        await dispatchAndWait(store, UpdateInterestingAction());
-        await storeCallsFinished;
-        expect(
-            node,
-            hasAttrs({
-              'data-interesting-value': renderValue(updatedValue1),
-              'data-render-count': '2',
-            }));
+        sharedTests(TestCreateSelector);
       });
 
-      test('unless a custom equalityFn returns true', () async {
-        jacket = mount(
-            (ReduxProvider()..store = store)(
-              (TestUseSelector()
-                ..addProp('equality', (T next, T prev) {
-                  // Return true for the final state change to prevent updates.
-                  if (next == updatedValue2) return true;
+      group('(custom context)', () {
+        final context = createContext();
+        final _useCustomSelector = createSelectorHook<TestState<T>>(context);
+        final TestCreateSelector = uiFunction((props) {
+          final renderCount = useRenderCount();
+          final interestingValue = _useCustomSelector(
+              (state) => state.interestingValue, props['equality'] as bool Function(T, T));
+          return (Dom.div()
+            ..addProp('data-render-count', renderCount)
+            ..addProp('data-interesting-value', renderValue(interestingValue)))();
+        }, UiFactoryConfig());
 
-                  // Otherwise behave normally
-                  return next == prev;
-                })
-              )(),
-            ),
-            attachedToDocument: true);
-        final node = jacket.mountNode.children.single;
-
-        expect(
-            node,
-            hasAttrs({
-              'data-interesting-value': renderValue(initialValue),
-              'data-render-count': '1',
-            }));
-
-        await dispatchAndWait(store, UpdateInterestingAction());
-        expect(
-            node,
-            hasAttrs({
-              'data-interesting-value': renderValue(updatedValue1),
-              'data-render-count': '2',
-            }),
-            reason: 'should update when equalityFn returns false');
-
-        await dispatchAndWait(store, UpdateInterestingAction());
-        // Use equals here otherwise function values are treated as matcher functions by `expect`.
-        expect(store.state.interestingValue, equals(updatedValue2), reason: 'test setup check');
-        expect(
-            node,
-            hasAttrs({
-              'data-interesting-value': renderValue(updatedValue1),
-              'data-render-count': '2',
-            }),
-            reason: 'should not update when equalityFn returns true');
+        sharedTests(TestCreateSelector, context: context);
       });
-    });
-
-    test('does not redraw when the store triggers and the selected value is the same', () async {
-      jacket = mount(
-          (ReduxProvider()..store = store)(
-            TestUseSelector()(),
-          ),
-          attachedToDocument: true);
-      final node = jacket.mountNode.children.single;
-
-      expect(
-          node,
-          hasAttrs({
-            'data-interesting-value': renderValue(initialValue),
-            'data-render-count': '1',
-          }));
-
-      await dispatchAndWait(store, UpdateOtherAction());
-      expect(
-          node,
-          hasAttrs({
-            'data-interesting-value': renderValue(initialValue),
-            'data-render-count': '1',
-          }));
     });
   });
 }
