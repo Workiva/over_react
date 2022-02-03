@@ -26,6 +26,7 @@ import 'package:over_react/src/component_declaration/annotations.dart';
 import 'package:over_react/src/component_declaration/builder_helpers.dart' as builder_helpers;
 import 'package:over_react/src/component_declaration/component_type_checking.dart';
 import 'package:over_react/src/util/context.dart';
+import 'package:over_react/src/util/dart_value_wrapper.dart';
 import 'package:over_react/src/util/equality.dart';
 import 'package:react/react_client.dart';
 import 'package:react/react_client/js_backed_map.dart';
@@ -33,6 +34,10 @@ import 'package:react/react_client/react_interop.dart';
 import 'package:redux/redux.dart';
 
 part 'over_react_redux.over_react.g.dart';
+
+// Notes:
+//
+// [1] This value could be either a raw value or a value wrapped in DartValueWrapper.
 
 /// This class is present:
 ///
@@ -199,7 +204,7 @@ UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extend
       return interopFunction;
     }
 
-    JsMap handleMapStateToProps(dynamic /*DartValueWrapper|dynamic*/ jsState) {
+    JsMap handleMapStateToProps(Object /*[1]*/ jsState) {
       return jsMapFromProps(
         mapStateToProps(
           DartValueWrapper.unwrapIfNeeded(jsState),
@@ -207,7 +212,7 @@ UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extend
       );
     }
 
-    JsMap handleMapStateToPropsWithOwnProps(dynamic /*DartValueWrapper|dynamic*/ jsState, JsMap jsOwnProps) {
+    JsMap handleMapStateToPropsWithOwnProps(Object /*[1]*/ jsState, JsMap jsOwnProps) {
       return jsMapFromProps(
         mapStateToPropsWithOwnProps(
           DartValueWrapper.unwrapIfNeeded(jsState),
@@ -216,12 +221,12 @@ UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extend
       );
     }
 
-    JsMap Function(dynamic /*DartValueWrapper|dynamic*/ jsState) handleMakeMapStateToProps(dynamic /*DartValueWrapper|dynamic*/ initialJsState, JsMap initialJsOwnProps) {
+    JsMap Function(Object /*[1]*/ jsState) handleMakeMapStateToProps(Object /*[1]*/ initialJsState, JsMap initialJsOwnProps) {
       var mapToFactory = makeMapStateToProps(
         DartValueWrapper.unwrapIfNeeded(initialJsState),
         jsPropsToTProps(initialJsOwnProps)
       );
-      JsMap handleMakeMapStateToPropsFactory(dynamic /*DartValueWrapper|dynamic*/ jsState) {
+      JsMap handleMakeMapStateToPropsFactory(Object /*[1]*/ jsState) {
         return jsMapFromProps(
           mapToFactory(
             DartValueWrapper.unwrapIfNeeded(jsState),
@@ -231,12 +236,12 @@ UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extend
       return allowInteropWithArgCount(handleMakeMapStateToPropsFactory, 1);
     }
 
-    JsMap Function(dynamic /*DartValueWrapper|dynamic*/ jsState, JsMap jsOwnProps) handleMakeMapStateToPropsWithOwnProps(dynamic /*DartValueWrapper|dynamic*/ initialJsState, JsMap initialJsOwnProps) {
+    JsMap Function(Object /*[1]*/ jsState, JsMap jsOwnProps) handleMakeMapStateToPropsWithOwnProps(Object /*[1]*/ initialJsState, JsMap initialJsOwnProps) {
       var mapToFactory = makeMapStateToPropsWithOwnProps(
         DartValueWrapper.unwrapIfNeeded(initialJsState),
         jsPropsToTProps(initialJsOwnProps)
       );
-      JsMap handleMakeMapStateToPropsWithOwnPropsFactory(dynamic /*DartValueWrapper|dynamic*/ jsState, JsMap jsOwnProps) {
+      JsMap handleMakeMapStateToPropsWithOwnPropsFactory(Object /*[1]*/ jsState, JsMap jsOwnProps) {
         return jsMapFromProps(
           mapToFactory(
             DartValueWrapper.unwrapIfNeeded(jsState),
@@ -303,7 +308,7 @@ UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extend
       );
     }
 
-    bool handleAreStatesEqual(dynamic /*DartValueWrapper|dynamic*/ jsNext, dynamic /*DartValueWrapper|dynamic*/ jsPrev) =>
+    bool handleAreStatesEqual(Object /*[1]*/ jsNext, Object /*[1]*/ jsPrev) =>
         areStatesEqual(DartValueWrapper.unwrapIfNeeded(jsNext), DartValueWrapper.unwrapIfNeeded(jsPrev));
 
     bool handleAreOwnPropsEqual(JsMap jsNext, JsMap jsPrev) =>
@@ -521,7 +526,7 @@ class JsReactReduxStore {
   external Store get dartStore;
 
   external factory JsReactReduxStore({
-    dynamic /*DartValueWrapper|dynamic*/ Function() getState,
+    Object /*[1]*/ Function() getState,
     Dispatcher dispatch,
     Function Function(Function) subscribe,
     Store dartStore,
@@ -532,14 +537,14 @@ class JsReactReduxStore {
 @JS()
 @anonymous
 class JsConnectOptions {
-    external set areStatesEqual(bool Function(dynamic /*DartValueWrapper|dynamic*/, dynamic /*DartValueWrapper|dynamic*/) value);
+    external set areStatesEqual(bool Function(Object /*[1]*/, Object /*[1]*/) value);
     external set areOwnPropsEqual(bool Function(JsMap, JsMap) value);
     external set areStatePropsEqual(bool Function(JsMap, JsMap) value);
     external set areMergedPropsEqual(bool Function(JsMap, JsMap) value);
     external set forwardRef(bool value);
     external set pure(bool value);
     external set context(ReactContext value);
-    external bool Function(dynamic /*DartValueWrapper|dynamic*/, dynamic /*DartValueWrapper|dynamic*/) get areStatesEqual;
+    external bool Function(Object /*[1]*/, Object /*[1]*/) get areStatesEqual;
     external bool Function(JsMap, JsMap) get areOwnPropsEqual;
     external bool Function(JsMap, JsMap) get areStatePropsEqual;
     external bool Function(JsMap, JsMap) get areMergedPropsEqual;
@@ -547,7 +552,7 @@ class JsConnectOptions {
     external bool get pure;
     external ReactContext get context;
   external factory JsConnectOptions({
-    bool Function(dynamic /*DartValueWrapper|dynamic*/, dynamic /*DartValueWrapper|dynamic*/) areStatesEqual,
+    bool Function(Object /*[1]*/, Object /*[1]*/) areStatesEqual,
     bool Function(JsMap, JsMap) areOwnPropsEqual,
     bool Function(JsMap, JsMap) areStatePropsEqual,
     bool Function(JsMap, JsMap) areMergedPropsEqual,
@@ -557,31 +562,3 @@ class JsConnectOptions {
   });
 }
 
-
-// Taken from react-dart
-/// A wrapper around a value that can't be stored in its raw form
-/// within a JS object (e.g., a Dart function).
-class DartValueWrapper {
-  final dynamic value;
-
-  const DartValueWrapper(this.value);
-
-  static final _functionWrapperCache = Expando<DartValueWrapper>('_functionWrapperCache');
-
-  static dynamic wrapIfNeeded(dynamic value) {
-    // This case should be fairly uncommon, since functions usually aren't used as
-    // a Redux store's state or the result of a connect or selector hook selector.
-    if (value is Function && !identical(allowInterop(value), value)) {
-      // Reuse wrappers for the same function so that they're identical to the JS.
-      return _functionWrapperCache[value] ??= DartValueWrapper(value);
-    }
-    return value;
-  }
-
-  static T unwrapIfNeeded<T>(dynamic value) {
-    if (value is DartValueWrapper) {
-      return value.value as T;
-    }
-    return value as T;
-  }
-}
