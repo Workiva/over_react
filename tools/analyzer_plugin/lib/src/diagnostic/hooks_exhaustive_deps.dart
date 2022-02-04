@@ -1023,11 +1023,8 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
         }
         final usedDep = dependencies[missingDep];
         final references = usedDep.references;
-        Identifier id;
-        AstNode maybeCall;
-        for (var i = 0; i < references.length; i++) {
-          id = references[i];
-          maybeCall = id.parent;
+        for (final id in references) {
+          var maybeCall = id.parent;
           // Try to see if we have setState(someExpr(missingDep)).
           while (maybeCall != null && maybeCall != componentFunction.body) {
             if (maybeCall is InvocationExpression) {
@@ -1056,7 +1053,7 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
                   // If it's a parameter *and* a missing dep,
                   // it must be a prop or something inside a prop.
                   // Therefore, recommend an inline reducer.
-                  final def = references[i].staticElement;
+                  final def = id.staticElement;
                   if (def != null && def is ParameterElement) {
                     setStateRecommendation = _SetStateRecommendation(
                       missingDep: missingDep,
