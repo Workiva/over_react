@@ -440,6 +440,9 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
         dependencyNode,
         optionalChains,
       );
+      debug(
+          'dependency: $dependency, dependencyNode: ${dependencyNode.runtimeType} $dependencyNode, reference ${reference.runtimeType} $reference',
+          dependencyNode);
 
       // Accessing ref.current inside effect cleanup is bad.
       if (
