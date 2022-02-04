@@ -10,6 +10,7 @@ import 'package:analyzer/analyzer.dart' show NodeLocator2, ConstantEvaluator;
 import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/syntactic_entity.dart';
+import 'package:analyzer/dart/ast/token.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/source/line_info.dart';
@@ -811,7 +812,6 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
               "$reactiveHookName Hook (at line ${result.lineInfo?.getLocation(declaredDependenciesNode.offset)?.lineNumber}) "
               "change on every render. $advice";
 
-          var suggest;
           // Only handle the simple case of variable assignments.
           // Wrapping function declarations can mess up hoisting.
           if (isUsedOutsideOfHook &&
@@ -820,37 +820,45 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
               // fix unsafe. Functions _probably_ won't be mutated, so we'll
               // allow this fix for them.
               depType == 'function') {
-            // suggest = [
-            //   {
-            //     desc: "Wrap the $constructionType of '$constructionName' in its own $wrapperHook() Hook.",
-            //     fix(fixer) {
-            //       final parts =
-            //         wrapperHook == 'useMemo'
-            //           ? ["useMemo(() => { return ", '; })']
-            //           : ['useCallback(', ')'];
-            //       final before = parts[0];
-            //       final after = parts[1];
-            //       return [
-            //         // TODO: also add an import?
-            //         fixer.insertTextBefore(construction.node.init, before),
-            //         // TODO: ideally we'd gather deps here but it would require
-            //         // restructuring the rule code. This will cause a new lint
-            //         // error to appear immediately for useCallback. Note we're
-            //         // not adding [] because would that changes semantics.
-            //         fixer.insertTextAfter(construction.node.init, after),
-            //       ];
-            //     },
-            //   },
-            // ];
+            // FIXME(greg) is it safe to assume this here?
+            assert(construction.initializer != null);
+
+            // FIXME(greg) this is async :/
+            diagnosticCollector.addErrorWithFix(
+              HooksExhaustiveDeps.code,
+              result.locationFor(construction),
+              errorMessageArgs: [message],
+              fixKind: HooksExhaustiveDeps.fixKind,
+              fixMessageArgs: ["Wrap the $constructionType of '$constructionName' in its own $wrapperHook() Hook."],
+              computeFix: () => buildSimpleFileEdit(
+                result,
+                (builder) {
+                  final parts = wrapperHook == 'useMemo' ? ['useMemo(() => ', ')'] : ['useCallback(', ')'];
+                  // TODO: ideally we'd gather deps here but it would require
+                  // restructuring the rule code. Note we're
+                  // not adding [] because would that changes semantics.
+
+                  if (wrapperHook == 'useMemo') {
+                    builder.addSimpleInsertion(construction.initializer.offset, '$wrapperHook(() => ');
+                    builder.addSimpleInsertion(construction.initializer.end, ')');
+                  } else {
+                    builder.addSimpleInsertion(construction.initializer.offset, '$wrapperHook(');
+                    // Add a placeholder here so there isn't a static error about using useCallback with the wrong number of arguments.
+                    // FIXME(greg) figure out if this is the right way to handle this.
+                    builder.addSimpleInsertion(construction.initializer.end, ', [/* FIXME add dependencies */])');
+                  }
+                },
+              ),
+            );
+          } else {
+            // TODO: What if the function needs to change on every render anyway?
+            // Should we suggest removing effect deps as an appropriate fix too?
+            diagnosticCollector.addError(
+              HooksExhaustiveDeps.code,
+              result.locationFor(construction),
+              errorMessageArgs: [message],
+            );
           }
-          // TODO: What if the function needs to change on every render anyway?
-          // Should we suggest removing effect deps as an appropriate fix too?
-          reportProblem(
-            // TODO: Why not report this at the dependency site?
-            node: construction,
-            message: message,
-            // suggest: suggest,
-          );
         },
       );
       return;
