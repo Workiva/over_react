@@ -789,78 +789,76 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
         declaredDependencies: declaredDependencies,
         declaredDependenciesNode: declaredDependenciesNode,
       );
-      constructions.forEach(
-        (_construction) {
-          final construction = _construction.declaration;
-          final constructionName = construction.declaredElement.name;
+      constructions.forEach((_construction) {
+        final construction = _construction.declaration;
+        final constructionName = construction.declaredElement.name;
 
-          final isUsedOutsideOfHook = _construction.isUsedOutsideOfHook;
-          final depType = _construction.depType;
-          final wrapperHook = depType == 'function' ? 'useCallback' : 'useMemo';
+        final isUsedOutsideOfHook = _construction.isUsedOutsideOfHook;
+        final depType = _construction.depType;
+        final wrapperHook = depType == 'function' ? 'useCallback' : 'useMemo';
 
-          final constructionType = depType == 'function' ? 'definition' : 'initialization';
+        final constructionType = depType == 'function' ? 'definition' : 'initialization';
 
-          final defaultAdvice = "wrap the $constructionType of '$constructionName' in its own $wrapperHook() Hook.";
+        final defaultAdvice = "wrap the $constructionType of '$constructionName' in its own $wrapperHook() Hook.";
 
-          final advice = isUsedOutsideOfHook
-              ? "To fix this, $defaultAdvice"
-              : "Move it inside the $reactiveHookName callback. Alternatively, $defaultAdvice";
+        final advice = isUsedOutsideOfHook
+            ? "To fix this, $defaultAdvice"
+            : "Move it inside the $reactiveHookName callback. Alternatively, $defaultAdvice";
 
-          final causation = depType == 'conditional' || depType == 'logical expression' ? 'could make' : 'makes';
+        final causation = depType == 'conditional' || depType == 'logical expression' ? 'could make' : 'makes';
 
-          final message = "The '$constructionName' $depType $causation the dependencies of "
-              "$reactiveHookName Hook (at line ${result.lineInfo?.getLocation(declaredDependenciesNode.offset)?.lineNumber}) "
-              "change on every render. $advice";
+        final message = "The '$constructionName' $depType $causation the dependencies of "
+            "$reactiveHookName Hook (at line ${result.lineInfo?.getLocation(declaredDependenciesNode.offset)?.lineNumber}) "
+            "change on every render. $advice";
 
-          // Only handle the simple case of variable assignments.
-          // Wrapping function declarations can mess up hoisting.
-          if (isUsedOutsideOfHook &&
-              construction is VariableDeclaration &&
-              // Objects may be mutated ater construction, which would make this
-              // fix unsafe. Functions _probably_ won't be mutated, so we'll
-              // allow this fix for them.
-              depType == 'function') {
-            // FIXME(greg) is it safe to assume this here?
-            assert(construction.initializer != null);
+        // Only handle the simple case of variable assignments.
+        // Wrapping function declarations can mess up hoisting.
+        if (isUsedOutsideOfHook &&
+            construction is VariableDeclaration &&
+            // Objects may be mutated ater construction, which would make this
+            // fix unsafe. Functions _probably_ won't be mutated, so we'll
+            // allow this fix for them.
+            depType == 'function') {
+          // FIXME(greg) is it safe to assume this here?
+          assert(construction.initializer != null);
 
-            // FIXME(greg) this is async :/
-            diagnosticCollector.addErrorWithFix(
-              HooksExhaustiveDeps.code,
-              result.locationFor(construction),
-              errorMessageArgs: [message],
-              fixKind: HooksExhaustiveDeps.fixKind,
-              fixMessageArgs: ["Wrap the $constructionType of '$constructionName' in its own $wrapperHook() Hook."],
-              computeFix: () => buildSimpleFileEdit(
-                result,
-                (builder) {
-                  final parts = wrapperHook == 'useMemo' ? ['useMemo(() => ', ')'] : ['useCallback(', ')'];
-                  // TODO: ideally we'd gather deps here but it would require
-                  // restructuring the rule code. Note we're
-                  // not adding [] because would that changes semantics.
+          // FIXME(greg) this is async :/
+          diagnosticCollector.addErrorWithFix(
+            HooksExhaustiveDeps.code,
+            result.locationFor(construction),
+            errorMessageArgs: [message],
+            fixKind: HooksExhaustiveDeps.fixKind,
+            fixMessageArgs: ["Wrap the $constructionType of '$constructionName' in its own $wrapperHook() Hook."],
+            computeFix: () => buildSimpleFileEdit(
+              result,
+              (builder) {
+                final parts = wrapperHook == 'useMemo' ? ['useMemo(() => ', ')'] : ['useCallback(', ')'];
+                // TODO: ideally we'd gather deps here but it would require
+                // restructuring the rule code. Note we're
+                // not adding [] because would that changes semantics.
 
-                  if (wrapperHook == 'useMemo') {
-                    builder.addSimpleInsertion(construction.initializer.offset, '$wrapperHook(() => ');
-                    builder.addSimpleInsertion(construction.initializer.end, ')');
-                  } else {
-                    builder.addSimpleInsertion(construction.initializer.offset, '$wrapperHook(');
-                    // Add a placeholder here so there isn't a static error about using useCallback with the wrong number of arguments.
-                    // FIXME(greg) figure out if this is the right way to handle this.
-                    builder.addSimpleInsertion(construction.initializer.end, ', [/* FIXME add dependencies */])');
-                  }
-                },
-              ),
-            );
-          } else {
-            // TODO: What if the function needs to change on every render anyway?
-            // Should we suggest removing effect deps as an appropriate fix too?
-            diagnosticCollector.addError(
-              HooksExhaustiveDeps.code,
-              result.locationFor(construction),
-              errorMessageArgs: [message],
-            );
-          }
-        },
-      );
+                if (wrapperHook == 'useMemo') {
+                  builder.addSimpleInsertion(construction.initializer.offset, '$wrapperHook(() => ');
+                  builder.addSimpleInsertion(construction.initializer.end, ')');
+                } else {
+                  builder.addSimpleInsertion(construction.initializer.offset, '$wrapperHook(');
+                  // Add a placeholder here so there isn't a static error about using useCallback with the wrong number of arguments.
+                  // FIXME(greg) figure out if this is the right way to handle this.
+                  builder.addSimpleInsertion(construction.initializer.end, ', [/* FIXME add dependencies */])');
+                }
+              },
+            ),
+          );
+        } else {
+          // TODO: What if the function needs to change on every render anyway?
+          // Should we suggest removing effect deps as an appropriate fix too?
+          diagnosticCollector.addError(
+            HooksExhaustiveDeps.code,
+            result.locationFor(construction),
+            errorMessageArgs: [message],
+          );
+        }
+      });
       return;
     }
 
