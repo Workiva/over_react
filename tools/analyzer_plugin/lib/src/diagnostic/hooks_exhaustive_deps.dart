@@ -225,10 +225,10 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
         node: node,
         message: "Effect callbacks are synchronous to prevent race conditions. "
             "Put the async inside:\n\n"
-            'useEffect(() => {\n'
-            '  async function fetchData() {\n'
+            'useEffect(() {\n'
+            '  fetchData() async {\n'
             '    // You can await here\n'
-            '    const response = await MyAPI.getData(someId);\n'
+            '    final response = await myAPI.getData(someId);\n'
             '    // ...\n'
             '  }\n'
             '  fetchData();\n'
