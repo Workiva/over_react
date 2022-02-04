@@ -452,8 +452,8 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
 
       // FIXME add tests to ensure references to type parameters don't make it this far.
 
-      final def = lookUpDeclaration(reference.staticElement, rootNode);
-      if (def == null) {
+      // TODO follow up on this and see how dynamic calls are treated
+      if (reference.staticElement == null) {
         continue;
       }
 
