@@ -28,6 +28,8 @@ import 'package:over_react_analyzer_plugin/src/util/react_types.dart';
 //
 
 class HooksExhaustiveDeps extends DiagnosticContributor {
+  static const debugEnabled = false;
+
   @DocsMeta('Verifies the list of dependencies for React Hooks like useEffect and similar', details: '')
   static const code = DiagnosticCode(
     'over_react_hooks_exhaustive_deps',
@@ -48,6 +50,7 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
         ]);
       },
       debug: (string, location) {
+        if (!debugEnabled) return;
         Location _location;
         if (location is Location) {
           _location = location;
