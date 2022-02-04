@@ -43,6 +43,7 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
   Future<void> computeErrors(result, collector) async {
     final helper = AnalyzerDebugHelper(result, collector);
     result.unit.accept(_ExhaustiveDepsVisitor(
+      lineInfo: result.lineInfo,
       getSource: (node) => result.content.substring(node.offset, node.end),
       reportProblem: ({message, @required node}) {
         collector.addError(code, result.locationFor(node), errorMessageArgs: [
@@ -188,11 +189,13 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
 
   final Function({@required AstNode node, String message}) reportProblem;
 
-  final Function(SyntacticEntity entity) getSource;
+  final LineInfo lineInfo;
+  final String Function(SyntacticEntity entity) getSource;
   final RegExp additionalHooks;
-  void Function(String string, dynamic location) debug;
+  final void Function(String string, dynamic location) debug;
 
   _ExhaustiveDepsVisitor({
+    @required this.lineInfo,
     @required this.reportProblem,
     @required this.getSource,
     @required this.debug,
@@ -795,9 +798,6 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
               : "Move it inside the $reactiveHookName callback. Alternatively, $defaultAdvice";
 
           final causation = depType == 'conditional' || depType == 'logical expression' ? 'could make' : 'makes';
-
-          // TODO implement
-          LineInfo lineInfo;
 
           final message = "The '$constructionName' $depType $causation the dependencies of "
               "$reactiveHookName Hook (at line ${lineInfo?.getLocation(declaredDependenciesNode.offset)?.lineNumber}) "
