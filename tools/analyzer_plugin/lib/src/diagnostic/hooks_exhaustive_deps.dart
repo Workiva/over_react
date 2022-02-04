@@ -1588,6 +1588,7 @@ abstract class _DepType {
   static const function = 'function';
 }
 
+// fixme Greg this doc comment has to be incorrect for some cases, right?
 /// Assuming () means the passed/returned node:
 /// (props) => (props)
 /// props.(foo) => (props.foo)
@@ -1597,21 +1598,31 @@ AstNode getDependency(AstNode node) {
   final parent = node.parent;
   final grandparent = parent.parent;
 
-  // fixme also handle prefixed identifier cases
-
   if (parent is PropertyAccess &&
       parent.target == node &&
       parent.propertyName.name != 'current' &&
-      !(grandparent != null &&
-          grandparent is InvocationExpression &&
+      !(grandparent is InvocationExpression &&
           // fixme is this right?
           grandparent.function == parent)) {
     return getDependency(parent);
-  } else if (node is PropertyAccess && parent is AssignmentExpression && parent.leftHandSide == node) {
-    return node.target;
-  } else {
-    return node;
   }
+  if (parent is PrefixedIdentifier &&
+      parent.prefix == node &&
+      parent.identifier.name != 'current' &&
+      !(grandparent is InvocationExpression &&
+          // fixme is this right?
+          grandparent.function == parent)) {
+    return getDependency(parent);
+  }
+
+  if (node is PropertyAccess && parent is AssignmentExpression && parent.leftHandSide == node) {
+    return node.target;
+  }
+  if (node is PrefixedIdentifier && parent is AssignmentExpression && parent.leftHandSide == node) {
+    return node.prefix;
+  }
+
+  return node;
 }
 
 List<Identifier> findReferences(Element element, AstNode root) {
