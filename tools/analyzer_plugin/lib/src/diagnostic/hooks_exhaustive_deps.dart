@@ -243,7 +243,7 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
 
     final componentFunctionElement = componentFunction.declaredElement;
 
-    debug('componentFunctionElement: ' + elementDebugString(componentFunctionElement), componentFunction.offset);
+    debug('componentFunctionElement: ' + componentFunctionElement.debugString, componentFunction.offset);
 
     bool isDeclaredInPureScope(Element element) =>
         element.thisOrAncestorOfType<ExecutableElement>() == componentFunctionElement;
@@ -1302,11 +1302,13 @@ class _DeclaredDependency {
   String toString() => prettyString({
         'key': key,
         'node': node,
-        'debugEnclosingElement': elementDebugString(debugEnclosingElement),
+        'debugEnclosingElement': debugEnclosingElement?.debugString,
       });
 }
 
-String elementDebugString(Element e) => '${e.runtimeType}<${e.id}, ${e.getDisplayString(withNullability: false)}>';
+extension on Element {
+  String get debugString => '$runtimeType<$id, ${getDisplayString(withNullability: false)}>';
+}
 
 // The meat of the logic.
 _Recommendations collectRecommendations({
