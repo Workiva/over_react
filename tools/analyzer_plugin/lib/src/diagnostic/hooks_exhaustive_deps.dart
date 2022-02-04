@@ -1842,9 +1842,9 @@ extension<E> on List<E> {
 const String nonBreakingSpace = '\u00a0';
 // Use non-breaking spaces so leading spaces show up in IDE tooltips.
 const String _indent = '$nonBreakingSpace$nonBreakingSpace';
-const int _maxKeyValuePairsPerLine = 1;
-// const int _maxListItemsPerLine = 4;
-const int _maxListItemsPerLine = 1;
+const int _maxKeyValuePairsPerLine = 2;
+const int _maxListItemsPerLine = 4;
+const int _maxSingleLineListOrMapLength = 50;
 
 const namespaceThreshold = 2;
 const namespaceSeparator = '.';
@@ -1858,12 +1858,12 @@ String prettyString(Object obj) {
   if (obj is List) {
     var items = obj.map(prettyString).toList();
 
-    if (items.length > _maxListItemsPerLine || items.any((items) => items.contains('\n'))) {
+    final singleLineInner = items.join(', ');
+    if (items.length > _maxListItemsPerLine || items.any((items) => items.contains('\n')) || singleLineInner.length > _maxSingleLineListOrMapLength) {
       var inner = _indentString(items.join(',\n'));
       return '[\n$inner\n]';
     } else {
-      var inner = items.join(', ');
-      return '[$inner]';
+      return '[$singleLineInner]';
     }
   } else if (obj is Map) {
     final namespacedKeys = <String, List<String>>{};
@@ -1907,12 +1907,13 @@ String prettyString(Object obj) {
 
     final trailingComma = RegExp(r'\s*,\s*$');
 
-    if (pairs.length > _maxKeyValuePairsPerLine || pairs.any((pair) => pair.contains('\n'))) {
+    final singleLineInner = pairs.join(' ').replaceFirst(trailingComma, '');
+
+    if (pairs.length > _maxKeyValuePairsPerLine || pairs.any((pair) => pair.contains('\n')) || singleLineInner.length > _maxSingleLineListOrMapLength) {
       var inner = _indentString(pairs.join('\n')).replaceFirst(trailingComma, '');
       return '{\n$inner\n}';
     } else {
-      var inner = pairs.join(' ').replaceFirst(trailingComma, '');
-      return '{$inner}';
+      return '{$singleLineInner}';
     }
   } else {
     return obj.toString();
