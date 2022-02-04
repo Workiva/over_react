@@ -7,6 +7,7 @@
 //
 
 import 'package:analyzer/analyzer.dart' show NodeLocator2, ConstantEvaluator;
+import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/syntactic_entity.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
@@ -42,17 +43,15 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
     url: 'https://reactjs.org/docs/hooks-rules.html',
   );
 
+  static final fixKind = FixKind(code.name, 200, "{0}");
+
   @override
   Future<void> computeErrors(result, collector) async {
     final helper = AnalyzerDebugHelper(result, collector);
     result.unit.accept(_ExhaustiveDepsVisitor(
-      lineInfo: result.lineInfo,
+      result: result,
+      diagnosticCollector: collector,
       getSource: (node) => result.content.substring(node.offset, node.end),
-      reportProblem: ({message, @required node}) {
-        collector.addError(code, result.locationFor(node), errorMessageArgs: [
-          message ?? '',
-        ]);
-      },
       debug: (string, location) {
         if (!debugEnabled) return;
         Location _location;
@@ -190,17 +189,23 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
   final stableKnownValueCache = WeakMap<Identifier, bool>();
   final functionWithoutCapturedValueCache = WeakMap<Element, bool>();
 
-  final Function({@required AstNode node, String message}) reportProblem;
+  DiagnosticCollector diagnosticCollector;
 
-  final LineInfo lineInfo;
+  void reportProblem({@required AstNode node, String message}) {
+    diagnosticCollector.addError(HooksExhaustiveDeps.code, result.locationFor(node), errorMessageArgs: [
+      message ?? '',
+    ]);
+  }
+
+  final ResolvedUnitResult result;
   final String Function(SyntacticEntity entity) getSource;
   final RegExp additionalHooks;
   final void Function(String string, dynamic location) debug;
 
   _ExhaustiveDepsVisitor({
-    @required this.lineInfo,
-    @required this.reportProblem,
+    @required this.diagnosticCollector,
     @required this.getSource,
+    @required this.result,
     @required this.debug,
     this.additionalHooks,
   });
@@ -803,7 +808,7 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
           final causation = depType == 'conditional' || depType == 'logical expression' ? 'could make' : 'makes';
 
           final message = "The '$constructionName' $depType $causation the dependencies of "
-              "$reactiveHookName Hook (at line ${lineInfo?.getLocation(declaredDependenciesNode.offset)?.lineNumber}) "
+              "$reactiveHookName Hook (at line ${result.lineInfo?.getLocation(declaredDependenciesNode.offset)?.lineNumber}) "
               "change on every render. $advice";
 
           var suggest;
@@ -1089,39 +1094,25 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
       }
     }
 
-    reportProblem(
-      node: declaredDependenciesNode,
-      message: "React Hook ${getSource(reactiveHook)} has " +
-          // To avoid a long message, show the next actionable item.
-          (getWarningMessage(missingDependencies, 'a', 'missing', 'include') ??
-              getWarningMessage(
-                unnecessaryDependencies,
-                'an',
-                'unnecessary',
-                'exclude',
-              ) ??
-              getWarningMessage(
-                duplicateDependencies,
-                'a',
-                'duplicate',
-                'omit',
-              ) ??
-              '<unexpected case when building warning message>') +
-          (extraWarning ?? ''),
-      // suggest: [
-      //   {
-      //     desc: "Update the dependencies array to be: [${suggestedDeps
-      //       .map(formatDependency)
-      //       .join(', ')}]",
-      //     fix(fixer) {
-      //       // TODO: consider preserving the comments or formatting?
-      //       return fixer.replaceText(
-      //         declaredDependenciesNode,
-      //         "[${suggestedDeps.map(formatDependency).join(', ')}]",
-      //       );
-      //     },
-      //   },
-      // ],
+    // FIXME this is async :/
+    diagnosticCollector.addErrorWithFix(
+      HooksExhaustiveDeps.code,
+      result.locationFor(declaredDependenciesNode),
+      errorMessageArgs: [
+        "React Hook ${getSource(reactiveHook)} has " +
+            // To avoid a long message, show the next actionable item.
+            (getWarningMessage(missingDependencies, 'a', 'missing', 'include') ??
+                getWarningMessage(unnecessaryDependencies, 'an', 'unnecessary', 'exclude') ??
+                getWarningMessage(duplicateDependencies, 'a', 'duplicate', 'omit') ??
+                '<unexpected case when building warning message>') +
+            (extraWarning ?? ''),
+      ],
+      fixKind: HooksExhaustiveDeps.fixKind,
+      fixMessageArgs: ["Update the dependencies array to be: [${suggestedDeps.map(formatDependency).join(', ')}]"],
+      computeFix: () => buildSimpleFileEdit(result, (e) {
+        e.addSimpleReplacement(
+            range.node(declaredDependenciesNode), "[${suggestedDeps.map(formatDependency).join(', ')}]");
+      }),
     );
   }
 
