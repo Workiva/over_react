@@ -426,9 +426,9 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
     final optionalChains = <String, bool>{};
 
     for (final reference in resolvedReferencesWithin(node)) {
-        // debug(
-        //     'reference.staticElement.ancestors: \n${prettyString(reference.staticElement.ancestors.map(elementDebugString).toList())}',
-        //     reference);
+      // debug(
+      //     'reference.staticElement.ancestors: \n${prettyString(reference.staticElement.ancestors.map(elementDebugString).toList())}',
+      //     reference);
 
       // If this reference is not resolved or it is not declared in a pure
       // scope then we don't care about this reference.
@@ -1837,7 +1837,6 @@ extension<E> on List<E> {
   E elementAtOrNull(int index) => index < length ? this[index] : null;
 }
 
-
 // Adapted from over_react's prettyPrintMap
 
 const String nonBreakingSpace = '\u00a0';
@@ -1860,7 +1859,9 @@ String prettyString(Object obj) {
     var items = obj.map(prettyString).toList();
 
     final singleLineInner = items.join(', ');
-    if (items.length > _maxListItemsPerLine || items.any((items) => items.contains('\n')) || singleLineInner.length > _maxSingleLineListOrMapLength) {
+    if (items.length > _maxListItemsPerLine ||
+        items.any((items) => items.contains('\n')) ||
+        singleLineInner.length > _maxSingleLineListOrMapLength) {
       var inner = _indentString(items.join(',\n'));
       return '[\n$inner\n]';
     } else {
@@ -1910,7 +1911,9 @@ String prettyString(Object obj) {
 
     final singleLineInner = pairs.join(' ').replaceFirst(trailingComma, '');
 
-    if (pairs.length > _maxKeyValuePairsPerLine || pairs.any((pair) => pair.contains('\n')) || singleLineInner.length > _maxSingleLineListOrMapLength) {
+    if (pairs.length > _maxKeyValuePairsPerLine ||
+        pairs.any((pair) => pair.contains('\n')) ||
+        singleLineInner.length > _maxSingleLineListOrMapLength) {
       var inner = _indentString(pairs.join('\n')).replaceFirst(trailingComma, '');
       return '{\n$inner\n}';
     } else {
