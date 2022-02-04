@@ -1211,23 +1211,20 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
     }
 
     // Something unusual. Fall back to suggesting to add the body itself as a dep.
-    // todo fix this name logic
-    final callbackName = callback.tryCast<Identifier>()?.name;
-    reportProblem(
-      node: reactiveHook,
-      message: "React Hook $reactiveHookName has a missing dependency: '$callbackName'. "
-          "Either include it or remove the dependency array.",
-      // suggest: [
-      //   {
-      //     desc: "Update the dependencies array to be: [$callbackName]",
-      //     fix(fixer) {
-      //       return fixer.replaceText(
-      //         declaredDependenciesNode,
-      //         "[$callbackName]",
-      //       );
-      //     },
-      //   },
-      // ],
+    final callbackName = (callback as Identifier).name;
+    // FIXME this is async :/
+    diagnosticCollector.addErrorWithFix(
+      HooksExhaustiveDeps.code,
+      result.locationFor(reactiveHook),
+      errorMessageArgs: [
+        "React Hook $reactiveHookName has a missing dependency: '$callbackName'. " +
+            "Either include it or remove the dependency array."
+      ],
+      fixKind: HooksExhaustiveDeps.fixKind,
+      fixMessageArgs: ["Update the dependencies array to be: [$callbackName]"],
+      computeFix: () => buildSimpleFileEdit(result, (e) {
+        e.addSimpleReplacement(range.node(declaredDependenciesNode), "[$callbackName]");
+      }),
     );
   }
 }
