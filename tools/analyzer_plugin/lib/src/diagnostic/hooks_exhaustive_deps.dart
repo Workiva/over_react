@@ -19,6 +19,9 @@ import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/react_types.dart';
 
+// API reference for JS reference/scope APIs:
+// https://eslint.org/docs/developer-guide/scope-manager-interface
+
 //
 // final _hookNamePattern = RegExp(r'^use[A-Z0-9].*$');
 //
