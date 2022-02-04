@@ -120,10 +120,10 @@ class _Dependency {
   _Dependency({@required this.isStable, @required this.references});
 
   @override
-  String toString() => '${{
+  String toString() => prettyString({
         'isStable': isStable,
         'references': references,
-      }}';
+      });
 }
 
 class _RefInEffectCleanup {
@@ -133,10 +133,10 @@ class _RefInEffectCleanup {
   _RefInEffectCleanup({this.reference, this.dependencyNode});
 
   @override
-  String toString() => '${{
+  String toString() => prettyString({
         'reference': reference,
         'dependencyNode': dependencyNode,
-      }}';
+      });
 }
 
 VariableDeclaration lookUpVariable(Element element, AstNode root) {
@@ -422,7 +422,7 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
     for (final reference in resolvedReferencesWithin(node)) {
       if (reference.name == 'id') {
         debug(
-            'reference.staticElement.ancestors: ${reference.staticElement.ancestors.map(elementDebugString).toList()}',
+            'reference.staticElement.ancestors: \n${prettyString(reference.staticElement.ancestors.map(elementDebugString).toList())}',
             reference.offset);
       }
 
@@ -747,13 +747,13 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
     }
 
     debug(
-        {
+        prettyString({
           'dependencies': dependencies,
           'declaredDependencies': declaredDependencies,
           'stableDependencies': stableDependencies,
           'externalDependencies': externalDependencies,
           'isEffect': isEffect,
-        }.toString(),
+        }),
         node.offset);
 
     final recommendations = collectRecommendations(
@@ -1299,11 +1299,11 @@ class _DeclaredDependency {
   _DeclaredDependency(this.key, this.node, {this.debugEnclosingElement});
 
   @override
-  String toString() => {
+  String toString() => prettyString({
         'key': key,
         'node': node,
         'debugEnclosingElement': elementDebugString(debugEnclosingElement),
-      }.toString();
+      });
 }
 
 String elementDebugString(Element e) => '${e.runtimeType}<${e.id}, ${e.getDisplayString(withNullability: false)}>';
@@ -1834,4 +1834,91 @@ extension on Element {
 extension<E> on List<E> {
   /// Returns the element at [index], or `null` if the index is greater than the length of the list.
   E elementAtOrNull(int index) => index < length ? this[index] : null;
+}
+
+
+// Adapted from over_react's prettyPrintMap
+
+const String nonBreakingSpace = '\u00a0';
+// Use non-breaking spaces so leading spaces show up in IDE tooltips.
+const String _indent = '$nonBreakingSpace$nonBreakingSpace';
+const int _maxKeyValuePairsPerLine = 1;
+// const int _maxListItemsPerLine = 4;
+const int _maxListItemsPerLine = 1;
+
+const namespaceThreshold = 2;
+const namespaceSeparator = '.';
+
+/// Indents [str] by [_indent], trimming any trailing whitespace.
+String _indentString(String str) {
+  return str.split('\n').map((line) => (_indent + line).trimRight()).join('\n');
+}
+
+String prettyString(Object obj) {
+  if (obj is List) {
+    var items = obj.map(prettyString).toList();
+
+    if (items.length > _maxListItemsPerLine || items.any((items) => items.contains('\n'))) {
+      var inner = _indentString(items.join(',\n'));
+      return '[\n$inner\n]';
+    } else {
+      var inner = items.join(', ');
+      return '[$inner]';
+    }
+  } else if (obj is Map) {
+    final namespacedKeys = <String, List<String>>{};
+    final otherKeys = [];
+
+    final shouldNamespace = obj.keys
+        .where((key) => key is String && key.contains(namespaceSeparator))
+        .hasLengthOfAtLeast(namespaceThreshold);
+
+    obj.keys.forEach((dynamic key) {
+      if (shouldNamespace && key is String && key.contains(namespaceSeparator)) {
+        var index = key.indexOf(namespaceSeparator);
+        var namespace = key.substring(0, index);
+        var subkey = key.substring(index);
+
+        namespacedKeys[namespace] ??= <String>[];
+        namespacedKeys[namespace].add(subkey);
+      } else {
+        otherKeys.add(key);
+      }
+    });
+
+    final pairs = <String>[];
+
+    pairs.addAll(namespacedKeys.keys.map((namespace) {
+      String renderSubKey(String subkey) {
+        var key = '$namespace$subkey';
+        var value = obj[key];
+
+        return '$subkey: ' + prettyString(value);
+      }
+
+      Iterable<String> subkeys = namespacedKeys[namespace];
+
+      return '$namespace…\n' + _indentString(subkeys.map(renderSubKey).map((pair) => pair + ',\n').join());
+    }));
+
+    pairs.addAll(otherKeys.map((dynamic key) {
+      return '$key: ' + prettyString(obj[key]) + ',';
+    }));
+
+    final trailingComma = RegExp(r'\s*,\s*$');
+
+    if (pairs.length > _maxKeyValuePairsPerLine || pairs.any((pair) => pair.contains('\n'))) {
+      var inner = _indentString(pairs.join('\n')).replaceFirst(trailingComma, '');
+      return '{\n$inner\n}';
+    } else {
+      var inner = pairs.join(' ').replaceFirst(trailingComma, '');
+      return '{$inner}';
+    }
+  } else {
+    return obj.toString();
+  }
+}
+
+extension on Iterable {
+  bool hasLengthOfAtLeast(int length) => take(length).length == length;
 }
