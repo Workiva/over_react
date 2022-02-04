@@ -420,18 +420,19 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
     final optionalChains = <String, bool>{};
 
     for (final reference in resolvedReferencesWithin(node)) {
-      if (reference.name == 'id') {
-        debug(
-            'reference.staticElement.ancestors: \n${prettyString(reference.staticElement.ancestors.map(elementDebugString).toList())}',
-            reference.offset);
-      }
+        // debug(
+        //     'reference.staticElement.ancestors: \n${prettyString(reference.staticElement.ancestors.map(elementDebugString).toList())}',
+        //     reference);
 
-      // If this reference is not not declared in a pure
+      // If this reference is not resolved or it is not declared in a pure
       // scope then we don't care about this reference.
-      // FIXME this check isn't working the way it's supposed to.
-      // if (!isDeclaredInPureScope(reference.staticElement)) {
-      //   continue;
-      // }
+
+      // TODO follow up on this and see how dynamic calls are treated
+      if (reference.staticElement == null) continue;
+
+      if (!isDeclaredInPureScope(reference.staticElement)) {
+        continue;
+      }
 
       // Narrow the scope of a dependency if it is, say, a member expression.
       // Then normalize the narrowed dependency.
@@ -465,11 +466,6 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
       }
 
       // FIXME add tests to ensure references to type parameters don't make it this far.
-
-      // TODO follow up on this and see how dynamic calls are treated
-      if (reference.staticElement == null) {
-        continue;
-      }
 
       // Add the dependency to a map so we can make sure it is referenced
       // again in our dependencies array. Remember whether it's stable.
