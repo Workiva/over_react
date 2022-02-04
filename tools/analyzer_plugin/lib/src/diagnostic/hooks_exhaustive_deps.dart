@@ -1164,48 +1164,45 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
       );
       return; // Handled
     } else if (callback is Identifier) {
-      switch (null) {
-        case null:
-          if (declaredDependenciesNode == null) {
-            // No deps, no problems.
-            return; // Handled
-          }
-          // The function passed as a callback is not written inline.
-          // But perhaps it's in the dependencies array?
-          if (declaredDependenciesNode is ListLiteral &&
-              declaredDependenciesNode.elements.whereType<Identifier>().any(
-                    (el) => el.name == callback.name,
-                  )) {
-            // If it's already in the list of deps, we don't care because
-            // this is valid regardless.
-            return; // Handled
-          }
-          // We'll do our best effort to find it, complain otherwise.
-          final declaration = callback.staticElement?.declaration;
-          if (declaration == null) {
-            // If it's not in scope, we don't care.
-            return; // Handled
-          }
-          // The function passed as a callback is not written inline.
-          // But it's defined somewhere in the render scope.
-          // We'll do our best effort to find and check it, complain otherwise.
-          final function = lookUpFunction(declaration, callback.root);
-          if (function != null) {
-            // effectBody() {...};
-            // // or
-            // final effectBody = () {...};
-            // useEffect(() => { ... }, []);
-            visitFunctionWithDependencies(
-              node: function.body,
-              declaredDependenciesNode: declaredDependenciesNode,
-              reactiveHook: reactiveHook,
-              reactiveHookName: reactiveHookName,
-              isEffect: isEffect,
-            );
-            return; // Handled
-          }
-          break; // Unhandled
+      if (declaredDependenciesNode == null) {
+        // No deps, no problems.
+        return; // Handled
       }
+      // The function passed as a callback is not written inline.
+      // But perhaps it's in the dependencies array?
+      if (declaredDependenciesNode is ListLiteral &&
+          declaredDependenciesNode.elements.whereType<Identifier>().any(
+                (el) => el.name == callback.name,
+              )) {
+        // If it's already in the list of deps, we don't care because
+        // this is valid regardless.
+        return; // Handled
+      }
+      // We'll do our best effort to find it, complain otherwise.
+      final declaration = callback.staticElement?.declaration;
+      if (declaration == null) {
+        // If it's not in scope, we don't care.
+        return; // Handled
+      }
+      // The function passed as a callback is not written inline.
+      // But it's defined somewhere in the render scope.
+      // We'll do our best effort to find and check it, complain otherwise.
+      final function = lookUpFunction(declaration, callback.root);
+      if (function != null) {
+        // effectBody() {...};
+        // // or
+        // final effectBody = () {...};
+        // useEffect(() => { ... }, []);
+        visitFunctionWithDependencies(
+          node: function.body,
+          declaredDependenciesNode: declaredDependenciesNode,
+          reactiveHook: reactiveHook,
+          reactiveHookName: reactiveHookName,
+          isEffect: isEffect,
+        );
+        return; // Handled
+      }
+      // Unhandled
     } else {
       // useEffect(generateEffectBody(), []);
       reportProblem(
