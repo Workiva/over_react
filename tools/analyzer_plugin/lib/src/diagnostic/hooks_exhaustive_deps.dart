@@ -12,6 +12,7 @@ import 'package:analyzer/dart/ast/syntactic_entity.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/source/line_info.dart';
+import 'package:analyzer_plugin/protocol/protocol_common.dart' show Location;
 import 'package:meta/meta.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/analyzer_debug_helper.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
@@ -46,8 +47,18 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
           message ?? '',
         ]);
       },
-      debug: (string, offset) {
-        helper.logWithLocation(string, result.location(offset: offset));
+      debug: (string, location) {
+        Location _location;
+        if (location is Location) {
+          _location = location;
+        } else if (location is AstNode) {
+          _location = result.locationFor(location);
+        } else if (location is int) {
+          _location = result.location(offset: location);
+        } else {
+          throw ArgumentError.value(location, 'location');
+        }
+        helper.logWithLocation(string, _location);
       },
     ));
   }
@@ -176,7 +187,7 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
 
   final Function(SyntacticEntity entity) getSource;
   final RegExp additionalHooks;
-  void Function(String string, int offset) debug;
+  void Function(String string, dynamic location) debug;
 
   _ExhaustiveDepsVisitor({
     @required this.reportProblem,
