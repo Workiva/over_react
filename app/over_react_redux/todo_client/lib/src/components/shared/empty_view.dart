@@ -1,6 +1,5 @@
 import 'package:over_react/over_react.dart';
-
-import 'package:todo_client/src/components/shared/material_ui.dart';
+import 'package:react_material_ui/react_material_ui.dart' as mui;
 
 part 'empty_view.over_react.g.dart';
 
@@ -8,7 +7,7 @@ part 'empty_view.over_react.g.dart';
 /// or an empty view such as a 404 error page.
 
 UiFactory<EmptyViewProps> EmptyView =
-        castUiFactory(_$EmptyView); // ignore: undefined_identifier
+    castUiFactory(_$EmptyView); // ignore: undefined_identifier
 
 mixin EmptyViewProps on UiProps {
   /// The layout of the [EmptyView].
@@ -40,15 +39,17 @@ class EmptyViewComponent extends UiComponent2<EmptyViewProps> {
 
   @override
   get propTypes => {
-    keyForProp((p) => p.glyph): (props, info) {
-      if (props.glyph != null && props.content != null) {
-        return PropError.combination(info.propName, 'EmptyViewProps.content',
-          'EmptyView does not support `props.glyph` and `props.content` being set simultaneously.');
-      }
+        keyForProp((p) => p.glyph): (props, info) {
+          if (props.glyph != null && props.content != null) {
+            return PropError.combination(
+                info.propName,
+                'EmptyViewProps.content',
+                'EmptyView does not support `props.glyph` and `props.content` being set simultaneously.');
+          }
 
-      return null;
-    },
-  };
+          return null;
+        },
+      };
 
   @override
   render() {
@@ -60,12 +61,11 @@ class EmptyViewComponent extends UiComponent2<EmptyViewProps> {
       ..modifyProps(addUnconsumedDomProps)
       ..role = Role.status
       ..className = (forwardingClassNameBuilder() //
-        ..add('empty-view'))
-        .toClassName()
-    )(
+            ..add('empty-view'))
+          .toClassName())(
       _renderAboveHeaderContent(),
       _renderHeader(),
-      Typography({'variant': 'body1'}, props.children),
+      (mui.Typography()..variant = mui.TypographyVariant.body1)(props.children),
     );
   }
 
@@ -76,12 +76,11 @@ class EmptyViewComponent extends UiComponent2<EmptyViewProps> {
   }
 
   ReactElement _renderHeader() {
-    return Typography({
-      'component': props.type.headerFactory,
-      'variant': props.type.headerFactory,
-      'gutterBottom': true,
-      'className': 'empty-view__message-heading',
-    }, props.header);
+    return (mui.Typography()
+      ..component = props.type.headerFactory
+      ..variant = props.type.headerFactory
+      ..gutterBottom = true
+      ..className = 'empty-view__message-heading')(props.header);
   }
 
   ReactElement _renderAboveHeaderContent() {
@@ -107,20 +106,23 @@ class EmptyViewType extends ClassNameConstant {
   final String headerFactory;
 
   /// Private constructor, for use by generated code only.
-  const EmptyViewType._(String name, String className, this.headerFactory) : super(name, className);
+  const EmptyViewType._(String name, String className, this.headerFactory)
+      : super(name, className);
 
   /// Used as the root node of the within `<body>`.
   ///
   /// * [className] value: 'empty-view-page-frame'
   /// * [headerFactory] value: ['h1']
-  static const EmptyViewType PAGE_FRAME = EmptyViewType._('PAGE_FRAME', 'empty-view-page-frame', 'h1');
+  static const EmptyViewType PAGE_FRAME =
+      EmptyViewType._('PAGE_FRAME', 'empty-view-page-frame', 'h1');
 
   /// An element nested within an element that has relative positioning, and a defined height either via an existing
   /// flexbox axis surrounding it, or a fixed CSS height value.
   ///
   /// * [className] value: 'empty-view-vblock'
   /// * [headerFactory] value: ['h4']
-  static const EmptyViewType VBLOCK = EmptyViewType._('VBLOCK', 'empty-view-vblock', 'h4');
+  static const EmptyViewType VBLOCK =
+      EmptyViewType._('VBLOCK', 'empty-view-vblock', 'h4');
 
   /// By default, the `EmptyView` element has some top margin applied to vertically space it within its container.
   ///

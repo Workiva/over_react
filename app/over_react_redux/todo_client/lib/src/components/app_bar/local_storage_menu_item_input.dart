@@ -1,9 +1,9 @@
 import 'dart:html';
 
 import 'package:over_react/over_react.dart';
+import 'package:react_material_ui/src/unstable_components.dart' as mui;
 
 import 'package:todo_client/src/local_storage.dart';
-import 'package:todo_client/src/components/shared/material_ui.dart';
 
 part 'local_storage_menu_item_input.over_react.g.dart';
 
@@ -24,8 +24,8 @@ mixin LocalStorageMenuItemInputState on UiState {
   String currentValue;
 }
 
-class LocalStorageMenuItemInputComponent
-    extends UiStatefulComponent2<LocalStorageMenuItemInputProps, LocalStorageMenuItemInputState> {
+class LocalStorageMenuItemInputComponent extends UiStatefulComponent2<
+    LocalStorageMenuItemInputProps, LocalStorageMenuItemInputState> {
   @override
   get defaultProps => (newProps()..error = false);
 
@@ -39,38 +39,37 @@ class LocalStorageMenuItemInputComponent
       ..remove('onSave')
       ..remove('onCancel');
 
-    return TextField({
-      'autoFocus': true,
-      'variant': 'outlined',
-      'size': 'small',
-      'fullWidth': true,
-      'inputProps': {
-        'size': props.initialValue.length,
-      },
-      ...propsToForward,
-      'value': state.currentValue,
-      'error': props.error || !_isValidValue,
-      'helperText': _inputHelperText,
-      'onKeyDown': _handleInputKeyDown,
-      'onClick': (SyntheticMouseEvent event) {
+    return (mui.TextField()
+      ..autoFocus = true
+      ..variant = mui.TextFieldVariant.outlined
+      ..size = mui.TextFieldSize.small
+      ..fullWidth = true
+      ..inputProps = (Dom.input()..size = props.initialValue.length)
+      ..addProps(propsToForward)
+      ..value = state.currentValue
+      ..error = props.error || !_isValidValue
+      ..helperText = _inputHelperText
+      ..onKeyDown = _handleInputKeyDown
+      ..onClick = (SyntheticMouseEvent event) {
         // Prevent the menu from closing when clicking inside the input
         event.stopPropagation();
-      },
-      'onChange': (SyntheticFormEvent event) {
-        setState(newState()..currentValue = event.target.value);
       }
-    });
+      ..onChange = (SyntheticFormEvent event) {
+        setState(newState()..currentValue = event.target.value);
+      })();
   }
 
   String get _trimmedValue => state.currentValue.trim();
 
   bool get _isValidValue {
-    return _trimmedValue.isNotEmpty && !TodoAppLocalStorage.reservedStateKeys.contains(_trimmedValue);
+    return _trimmedValue.isNotEmpty &&
+        !TodoAppLocalStorage.reservedStateKeys.contains(_trimmedValue);
   }
 
   dynamic get _inputHelperText {
     if (props.helperText != null) return props.helperText;
-    if (_isValidValue || _trimmedValue.isEmpty) return 'Press ENTER to save or ESC to cancel';
+    if (_isValidValue || _trimmedValue.isEmpty)
+      return 'Press ENTER to save or ESC to cancel';
 
     return '$_trimmedValue is a reserved value';
   }

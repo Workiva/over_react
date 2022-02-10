@@ -1,8 +1,7 @@
 import 'dart:html';
 
 import 'package:over_react/over_react.dart';
-
-import 'package:todo_client/src/components/shared/material_ui.dart';
+import 'package:react_material_ui/src/unstable_components.dart' as mui;
 
 part 'todo_item_text_field.over_react.g.dart';
 
@@ -12,7 +11,9 @@ part 'todo_item_text_field.over_react.g.dart';
 UiFactory<TodoItemTextFieldProps> TodoItemTextField =
     castUiFactory(_$TodoItemTextField); // ignore: undefined_identifier
 
-@Props(keyNamespace: '') // No namespace so prop forwarding works when passing to the JS TextField / InputBase components.
+@Props(
+    keyNamespace:
+        '') // No namespace so prop forwarding works when passing to the JS TextField / InputBase components.
 mixin TodoItemTextFieldProps on UiProps {
   bool readOnly;
   bool fullWidth;
@@ -28,7 +29,8 @@ mixin TodoItemTextFieldProps on UiProps {
 
 mixin TodoItemTextFieldState on UiState {}
 
-class TodoItemTextFieldComponent extends UiStatefulComponent2<TodoItemTextFieldProps, TodoItemTextFieldState> {
+class TodoItemTextFieldComponent extends UiStatefulComponent2<
+    TodoItemTextFieldProps, TodoItemTextFieldState> {
   final textFieldRef = createRef<Element>();
 
   @override
@@ -36,8 +38,7 @@ class TodoItemTextFieldComponent extends UiStatefulComponent2<TodoItemTextFieldP
     ..fullWidth = true
     ..readOnly = true
     ..multiline = false
-    ..variant = 'outlined'
-  );
+    ..variant = 'outlined');
 
   @override
   render() {
@@ -53,25 +54,22 @@ class TodoItemTextFieldComponent extends UiStatefulComponent2<TodoItemTextFieldP
       ..remove('autoFocus')
       ..remove('onClickWhenEditable');
 
-    return InputBase({
-      ...propsToForward,
-      'inputRef': textFieldRef.jsRef,
-      'inputProps': {
-        'style': {
+    return (mui.InputBase()
+      ..addProps(propsToForward)
+      ..inputRef = textFieldRef.jsRef
+      ..inputProps = (Dom.input()
+        ..style = {
           'whiteSpace': 'nowrap',
           'textOverflow': 'ellipsis',
-        },
-      },
-    });
+        }))();
   }
 
   ReactElement _renderEditableInput() {
     final propsToForward = Map.of(props)..remove('onClickWhenEditable');
 
-    return TextField({
-      ...propsToForward,
-      'inputRef': textFieldRef.jsRef,
-      'onClick': props.onClickWhenEditable,
-    });
+    return (mui.TextField()
+      ..addProps(propsToForward)
+      ..inputRef = textFieldRef.jsRef
+      ..onClick = props.onClickWhenEditable)();
   }
 }

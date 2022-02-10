@@ -2,6 +2,15 @@
 # This includes a global ignore of `uri_has_not_been_generated`. See: https://github.com/Workiva/over_react/blob/new_boilerplate_wip/doc/new_boilerplate_migration.md#ignore-ungenerated-warnings-project-wide>
 include: package:workiva_analysis_options/v1.yaml
 
+analyzer:
+  errors:
+    # Ignore RMUI src/unstable_components imports in the esg_mui branches so that
+    # 1. We don't have to ignore each import during development
+    # 2. When we're getting ready to merge this branch, we can uncomment this change
+    #    and easily find all of the src imports that need to be updated.
+    # FIXME remove this before merging to master
+    implementation_imports: ignore
+
 linter:
   rules:
     annotate_overrides: true

@@ -1,6 +1,8 @@
 import 'dart:html';
 
 import 'package:over_react/over_react.dart';
+import 'package:react_material_ui/react_material_ui.dart' as mui;
+import 'package:react_material_ui/src/unstable_components.dart' as mui;
 
 import 'package:todo_client/src/components/shared/hoverable_item_mixin.dart';
 import 'package:todo_client/src/components/shared/material_ui.dart';
@@ -23,34 +25,33 @@ mixin ListItemAccordionSummaryProps on UiProps {
 
 class ListItemAccordionSummaryState = UiState with HoverableItemStateMixin;
 
-class ListItemAccordionSummaryComponent
-    extends UiStatefulComponent2<ListItemAccordionSummaryProps, ListItemAccordionSummaryState>
-    with HoverableItemMixin<ListItemAccordionSummaryProps, ListItemAccordionSummaryState> {
+class ListItemAccordionSummaryComponent extends UiStatefulComponent2<
+        ListItemAccordionSummaryProps, ListItemAccordionSummaryState>
+    with
+        HoverableItemMixin<ListItemAccordionSummaryProps,
+            ListItemAccordionSummaryState> {
   @override
   get itemNodeRef => createRef<Element>();
 
   @override
   render() {
-    return AccordionSummary({
-      'ref': itemNodeRef,
-      'aria-controls': 'details_${props.modelId}',
-      'id': 'summary_${props.modelId}',
-      'expandIcon': ExpandMoreIcon(),
-      'IconButtonProps': {
-        'disabled': !props.allowExpansion,
-        'style': props.allowExpansion ? null : {'color': 'transparent'},
-      },
-      'style': props.allowExpansion ? null : {'cursor': 'default'},
-      'onMouseEnter': handleItemMouseEnter,
-      'onMouseLeave': handleItemMouseLeave,
-      'onMouseOver': handleItemMouseOver,
-      'onFocus': handleChildFocus,
-      'onBlur': handleChildBlur,
-    },
-      Grid({
-        'container': true,
-        'direction': 'row',
-      },
+    return (mui.AccordionSummary()
+      ..ref = itemNodeRef
+      ..aria.controls = 'details_${props.modelId}'
+      ..id = 'summary_${props.modelId}'
+      ..expandIcon = ExpandMoreIcon()
+      // ..IconButtonProps = (mui.IconButton()
+      //   ..disabled = !props.allowExpansion
+      //   ..sx = props.allowExpansion ? null : {'color': 'transparent'})
+      ..style = props.allowExpansion ? null : {'cursor': 'default'}
+      ..onMouseEnter = handleItemMouseEnter
+      ..onMouseLeave = handleItemMouseLeave
+      ..onMouseOver = handleItemMouseOver
+      ..onFocus = handleChildFocus
+      ..onBlur = handleChildBlur)(
+      (mui.Grid()
+        ..container = true
+        ..direction = mui.GridDirection.row)(
         props.children,
         _renderEditButton(),
       ),
@@ -58,30 +59,28 @@ class ListItemAccordionSummaryComponent
   }
 
   ReactElement _renderEditButton() {
-    return Box({
-      ...shrinkToFitProps,
-      'mr': -1,
-      'alignSelf': 'center',
-      'aria-hidden': !isHovered,
-      'className': 'hide-using-aria',
-    },
-      Tooltip({
-        'enterDelay': 500,
-        'title': props.isEditable ? 'Save Changes' : 'Make Changes',
-      },
-        IconButton({
-          'aria-label': props.isEditable ? 'Save Changes' : 'Make Changes',
-          'className': 'todo-list__item__edit-btn',
-          'onClick': (SyntheticMouseEvent event) {
+    return (mui.Box()
+      ..addProps(shrinkToFitProps)
+      ..mr = -1
+      ..alignSelf = 'center'
+      ..aria.hidden = !isHovered
+      ..className = 'hide-using-aria')(
+      Tooltip(
+        {
+          'enterDelay': 500,
+          'title': props.isEditable ? 'Save Changes' : 'Make Changes',
+        },
+        (mui.IconButton()
+          ..aria.label = props.isEditable ? 'Save Changes' : 'Make Changes'
+          ..className = 'todo-list__item__edit-btn'
+          ..onClick = (SyntheticMouseEvent event) {
             event.stopPropagation();
             props.onToggleEditable();
-          },
-          'color': props.isEditable ? 'primary' : 'default',
-        },
+          }
+          ..color = props.isEditable ? 'primary' : 'default')(
           EditPencilIcon(),
         ),
       ),
     );
   }
 }
-

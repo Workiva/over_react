@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:over_react/over_react.dart';
 import 'package:over_react/over_react_redux.dart';
+import 'package:react_material_ui/react_material_ui.dart' as mui;
+import 'package:react_material_ui/src/unstable_components.dart' as mui;
 
 import 'package:todo_client/src/actions.dart';
 import 'package:todo_client/src/local_storage.dart';
@@ -13,13 +15,15 @@ import 'package:todo_client/src/components/shared/menu_overlay.dart';
 
 part 'app_bar_local_storage_menu.over_react.g.dart';
 
-UiFactory<AppBarLocalStorageMenuProps> AppBarLocalStorageMenu = connect<AppState, AppBarLocalStorageMenuProps>(
-    mapStateToProps: (state) {
-      return (AppBarLocalStorageMenu()
-        ..currentDataSetName = state.name
-        ..currentDataHasBeenModified = json.encode(localTodoAppStorage[state.name]) != json.encode(state.toJson())
-      );
-    },
+UiFactory<AppBarLocalStorageMenuProps> AppBarLocalStorageMenu =
+    connect<AppState, AppBarLocalStorageMenuProps>(
+  mapStateToProps: (state) {
+    return (AppBarLocalStorageMenu()
+      ..currentDataSetName = state.name
+      ..currentDataHasBeenModified =
+          json.encode(localTodoAppStorage[state.name]) !=
+              json.encode(state.toJson()));
+  },
 )(castUiFactory(_$AppBarLocalStorageMenu)); // ignore: undefined_identifier
 
 mixin AppBarLocalStorageMenuPropsMixin on UiProps {
@@ -28,11 +32,14 @@ mixin AppBarLocalStorageMenuPropsMixin on UiProps {
   bool currentDataHasBeenModified;
 }
 
-class AppBarLocalStorageMenuProps = UiProps with MenuOverlayProps, AppBarLocalStorageMenuPropsMixin, ConnectPropsMixin;
+class AppBarLocalStorageMenuProps = UiProps
+    with MenuOverlayProps, AppBarLocalStorageMenuPropsMixin, ConnectPropsMixin;
 
-class AppBarLocalStorageMenuComponent extends UiComponent2<AppBarLocalStorageMenuProps> {
+class AppBarLocalStorageMenuComponent
+    extends UiComponent2<AppBarLocalStorageMenuProps> {
   final _overlayRef = createRef<MenuOverlayComponent>();
-  bool get _currentStateKeyIsReadOnly => TodoAppLocalStorage.reservedStateKeys.contains(props.currentDataSetName);
+  bool get _currentStateKeyIsReadOnly =>
+      TodoAppLocalStorage.reservedStateKeys.contains(props.currentDataSetName);
 
   @override
   get consumedProps => propsMeta.allExceptForMixins({MenuOverlayProps});
@@ -41,46 +48,46 @@ class AppBarLocalStorageMenuComponent extends UiComponent2<AppBarLocalStorageMen
   render() {
     return (MenuOverlay()
       ..modifyProps(addUnconsumedProps)
-      ..trigger = Button({'color': 'inherit'}, 'Data: ${props.currentDataSetName}')
+      ..trigger = (mui.Button()
+        ..color = mui.ButtonColor.inherit)('Data: ${props.currentDataSetName}')
       ..useDerivedMaxWidth = true
-      ..ref = _overlayRef
-    )(
+      ..ref = _overlayRef)(
       _renderSaveMenuItem(),
       _renderSaveAsMenuItem(),
-      MenuItem({
-        'onClick': (_) {
-          _loadFromLocalStorage(TodoAppLocalStorage.defaultStateKey);
-        },
-      }, 'Load Default Data'),
-      MenuItem({
-        'onClick': (_) {
-          _loadFromLocalStorage(TodoAppLocalStorage.emptyStateKey);
-        },
-      }, 'Load Empty Data'),
+      (mui.MenuItem()
+            ..onClick = (_) =>
+                _loadFromLocalStorage(TodoAppLocalStorage.defaultStateKey))(
+          'Load Default Data'),
+      (mui.MenuItem()
+            ..onClick = (_) =>
+                _loadFromLocalStorage(TodoAppLocalStorage.emptyStateKey))(
+          'Load Empty Data'),
       _renderSavedStateMenuItems(),
     );
   }
 
   ReactElement _renderSaveMenuItem() {
-    if (!props.currentDataHasBeenModified || _currentStateKeyIsReadOnly) return null;
+    if (!props.currentDataHasBeenModified || _currentStateKeyIsReadOnly)
+      return null;
 
-    return MenuItem({
-      'onClick': (SyntheticMouseEvent event) {
+    return (mui.MenuItem()
+      ..onClick = (SyntheticMouseEvent event) {
         event.stopPropagation(); // Don't close the menu
-        _handleCurrentLocalStorageStateSaveAs(newStateName: props.currentDataSetName);
-      }
-    },
+        _handleCurrentLocalStorageStateSaveAs(
+            newStateName: props.currentDataSetName);
+      })(
       'Save ${props.currentDataSetName}',
     );
   }
 
   ReactElement _renderSaveAsMenuItem() {
     return (SaveAsMenuItem()
-      ..initialValue = _currentStateKeyIsReadOnly ? 'Copy of ${props.currentDataSetName}' : props.currentDataSetName
+      ..initialValue = _currentStateKeyIsReadOnly
+          ? 'Copy of ${props.currentDataSetName}'
+          : props.currentDataSetName
       ..onSave = (newStateName) {
         _handleCurrentLocalStorageStateSaveAs(newStateName: newStateName);
-      }
-    )();
+      })();
   }
 
   ReactElement _renderSavedStateMenuItem(String stateKey) {
@@ -96,31 +103,24 @@ class AppBarLocalStorageMenuComponent extends UiComponent2<AppBarLocalStorageMen
       ..onDelete = (stateName) {
         localTodoAppStorage.remove(stateName);
         forceUpdate();
-      }
-    )();
+      })();
   }
 
   List<ReactElement> _renderSavedStateMenuItems() {
     if (localTodoAppStorage.mapOfCustomStatesJson.isEmpty) return null;
 
     return [
-      Divider({'key': 'divider'}),
-      (Dom.li()..key = 'dividerLabel')(
-        Typography({
-          'color': 'textSecondary',
-          'display': 'block',
-          'variant': 'caption',
-          'style': {'margin': '5px 0 0 16px'},
-        },
-          'Custom Data Sets',
-        ),
-      ),
-      ...localTodoAppStorage.mapOfCustomStatesJson.keys.map(_renderSavedStateMenuItem),
+      (mui.Divider()..key = 'divider')(),
+      ListSubheader({}, 'Custom Data Sets'),
+      ...localTodoAppStorage.mapOfCustomStatesJson.keys
+          .map(_renderSavedStateMenuItem),
     ];
   }
 
-  void _handleLocalStorageStateRename(String newStateName, {String renamedFrom}) {
-    props.dispatch(SaveLocalStorageStateAsAction(newStateName, previousName: renamedFrom));
+  void _handleLocalStorageStateRename(String newStateName,
+      {String renamedFrom}) {
+    props.dispatch(
+        SaveLocalStorageStateAsAction(newStateName, previousName: renamedFrom));
   }
 
   void _handleCurrentLocalStorageStateSaveAs({String newStateName}) {

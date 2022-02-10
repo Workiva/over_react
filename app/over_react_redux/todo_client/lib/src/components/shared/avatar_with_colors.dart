@@ -3,13 +3,14 @@ import 'dart:math';
 import 'package:color/color.dart';
 import 'package:memoize/memoize.dart';
 import 'package:over_react/over_react.dart';
+import 'package:react_material_ui/src/unstable_components.dart' as mui;
 
 import 'package:todo_client/src/components/shared/material_ui.dart';
 
 part 'avatar_with_colors.over_react.g.dart';
 
 UiFactory<AvatarWithColorsProps> AvatarWithColors =
-        castUiFactory(_$AvatarWithColors); // ignore: undefined_identifier
+    castUiFactory(_$AvatarWithColors); // ignore: undefined_identifier
 
 mixin AvatarWithColorsProps on UiProps {
   String fullName;
@@ -18,12 +19,11 @@ mixin AvatarWithColorsProps on UiProps {
 class AvatarWithColorsComponent extends UiComponent2<AvatarWithColorsProps> {
   @override
   render() {
-    return Avatar({
-      'style': {
+    return (mui.Avatar()
+      ..sx = {
         'backgroundColor': _backgroundColorMemo(props.fullName),
         'color': _textColorMemo(_backgroundColorMemo(props.fullName)),
-      },
-    },
+      })(
       _renderAvatarContent(),
     );
   }
@@ -64,10 +64,14 @@ class AvatarWithColorsComponent extends UiComponent2<AvatarWithColorsProps> {
   static String _getRandomColorBasedOnUserName(String fullName) {
     if (fullName == null) return 'transparent';
 
-    final randomColorPaletteKeyIndex = Random(fullName?.hashCode).nextInt(muiColors.keys.length - 1);
-    final JsBackedMap colorMap = muiColors[muiColors.keys.elementAt(randomColorPaletteKeyIndex)];
-    final randomColorHueKeyIndex = Random(fullName?.hashCode).nextInt(colorMap.keys.length - 1);
-    final String color = colorMap[colorMap.keys.elementAt(randomColorHueKeyIndex)];
+    final randomColorPaletteKeyIndex =
+        Random(fullName?.hashCode).nextInt(muiColors.keys.length - 1);
+    final JsBackedMap colorMap =
+        muiColors[muiColors.keys.elementAt(randomColorPaletteKeyIndex)];
+    final randomColorHueKeyIndex =
+        Random(fullName?.hashCode).nextInt(colorMap.keys.length - 1);
+    final String color =
+        colorMap[colorMap.keys.elementAt(randomColorHueKeyIndex)];
 
     if (color.length == 4) {
       final v = color.split('');

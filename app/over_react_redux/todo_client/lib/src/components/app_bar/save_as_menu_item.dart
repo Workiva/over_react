@@ -1,7 +1,7 @@
 import 'package:over_react/over_react.dart';
+import 'package:react_material_ui/src/unstable_components.dart' as mui;
 
 import 'package:todo_client/src/components/app_bar/local_storage_menu_item_input.dart';
-import 'package:todo_client/src/components/shared/material_ui.dart';
 
 part 'save_as_menu_item.over_react.g.dart';
 
@@ -18,7 +18,8 @@ mixin SaveAsMenuItemState on UiState {
   bool isEditable;
 }
 
-class SaveAsMenuItemComponent extends UiStatefulComponent2<SaveAsMenuItemProps, SaveAsMenuItemState> {
+class SaveAsMenuItemComponent
+    extends UiStatefulComponent2<SaveAsMenuItemProps, SaveAsMenuItemState> {
   @override
   get defaultProps => (newProps()..initialValue = '');
 
@@ -27,12 +28,8 @@ class SaveAsMenuItemComponent extends UiStatefulComponent2<SaveAsMenuItemProps, 
 
   @override
   render() {
-    return MenuItem({
-      'onClick': _handleMenuItemClick,
-      'style': {'minWidth': '300px'}
-    },
-      state.isEditable ? _renderSaveAsTextInput() : 'Save As...'
-    );
+    return (mui.MenuItem()..onClick = _handleMenuItemClick)(
+        state.isEditable ? _renderSaveAsTextInput() : 'Save As...');
   }
 
   ReactElement _renderSaveAsTextInput() {
@@ -41,8 +38,7 @@ class SaveAsMenuItemComponent extends UiStatefulComponent2<SaveAsMenuItemProps, 
       ..onSave = (newValue) {
         props.onSave(newValue);
         setState(newState()..isEditable = false);
-      }
-    )();
+      })();
   }
 
   void _handleMenuItemClick(_) {

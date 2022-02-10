@@ -9,11 +9,13 @@ mixin UserSelectorTriggerProps on UiProps {
   bool disabled;
 }
 
-class UserSelectorTriggerComponent extends UiComponent2<UserSelectorTriggerProps> {
+class UserSelectorTriggerComponent
+    extends UiComponent2<UserSelectorTriggerProps> {
   @override
   bool shouldComponentUpdate(Map nextProps, Map nextState) {
     final tNextProps = typedPropsFactory(nextProps);
-    return tNextProps.selectedUserName != props.selectedUserName || tNextProps.disabled != props.disabled;
+    return tNextProps.selectedUserName != props.selectedUserName ||
+        tNextProps.disabled != props.disabled;
   }
 
   @override
@@ -22,13 +24,12 @@ class UserSelectorTriggerComponent extends UiComponent2<UserSelectorTriggerProps
   @override
   render() {
     final propsToForward = Map.of(props)..remove('selectedUserName');
-    return IconButton({
-      ...propsToForward,
+    return (mui.IconButton()
+      ..addProps(propsToForward)
       // Avatar height is 40px, so 4px on top and bottom will make it match the default height of adjacent IconButtons (48px)
-      'style': {
+      ..sx = const {
         'padding': '4px',
-      },
-    },
+      })(
       (AvatarWithColors()..fullName = props.selectedUserName)(),
     );
   }

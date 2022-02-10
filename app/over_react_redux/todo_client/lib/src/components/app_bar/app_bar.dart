@@ -1,4 +1,5 @@
 import 'package:over_react/over_react.dart';
+import 'package:react_material_ui/react_material_ui.dart' as mui;
 
 import 'package:todo_client/src/components/app_bar/app_bar_local_storage_menu.dart';
 import 'package:todo_client/src/components/shared/material_ui.dart';
@@ -16,10 +17,8 @@ class TodoAppBarComponent extends UiComponent2<TodoAppBarProps> {
     return Fragment()(
       AppBar(props,
         Toolbar({},
-          Box({'flexGrow': 1},
-            Typography({
-              'variant': 'h6',
-            }, 'OverReact Redux Todo Demo App'),
+          (mui.Box()..flexGrow = 1)(
+            (mui.Typography()..variant = mui.TypographyVariant.h6)('OverReact Redux Todo Demo App'),
           ),
           AppBarLocalStorageMenu()(),
         ),

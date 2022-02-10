@@ -1,42 +1,39 @@
 import 'package:meta/meta.dart';
 import 'package:over_react/over_react.dart';
+import 'package:react_material_ui/src/unstable_components.dart' as mui;
 
 import 'package:todo_client/src/models/base_model.dart';
 import 'package:todo_client/src/components/shared/list_item_mixin.dart';
 import 'package:todo_client/src/components/shared/material_ui.dart';
 
-mixin ListItemMixin<M extends BaseModel, T extends ListItemPropsMixin, S extends ListItemStateMixin>
-    on UiStatefulComponent2<T, S> {
+mixin ListItemMixin<M extends BaseModel, T extends ListItemPropsMixin,
+    S extends ListItemStateMixin> on UiStatefulComponent2<T, S> {
   @override
   @mustCallSuper
   get defaultProps => (newProps()
     ..isEditable = false
-    ..isSelected = false
-  );
+    ..isSelected = false);
 
   @override
   @mustCallSuper
-  get initialState => (newState()
-    ..localModel = props.model
-  );
+  get initialState => (newState()..localModel = props.model);
 
-  Map<String, dynamic> get sharedAccordionProps => {
-    'onChange': handleAccordionExpandedStateChange,
-    'expanded': props.isSelected,
-    'style': highlightedItemStyle,
-  };
+  dynamic get sharedAccordionProps => (mui.Accordion()
+    ..onChange_Accordion = handleAccordionExpandedStateChange
+    ..expanded = props.isSelected
+    ..style = highlightedItemStyle);
 
   @protected
   Map<String, dynamic> get highlightedItemStyle => {
-    if (props.isHighlighted) 'backgroundColor': muiColors['yellow']['50'],
-  };
+        if (props.isHighlighted) 'backgroundColor': muiColors['yellow']['50'],
+      };
 
   bool get hasDetails;
 
   bool get allowExpansion => hasDetails || props.isEditable;
 
   @protected
-  void handleAccordionExpandedStateChange([SyntheticEvent event]) {
+  void handleAccordionExpandedStateChange(SyntheticEvent event, _) {
     if (!allowExpansion) return;
     event?.stopPropagation();
     toggleSelect();

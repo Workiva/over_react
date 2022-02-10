@@ -1,6 +1,8 @@
 import 'dart:html';
 
 import 'package:over_react/over_react.dart';
+import 'package:react_material_ui/react_material_ui.dart' as mui;
+import 'package:react_material_ui/src/unstable_components.dart' as mui;
 
 import 'package:todo_client/src/local_storage.dart';
 import 'package:todo_client/src/components/app_bar/local_storage_menu_item_input.dart';
@@ -29,9 +31,11 @@ mixin SavedDataMenuItemStateMixin on UiState {
   bool isEditable;
 }
 
-class SavedDataMenuItemState = UiState with MenuOverlayState, SavedDataMenuItemStateMixin, HoverableItemStateMixin;
+class SavedDataMenuItemState = UiState
+    with MenuOverlayState, SavedDataMenuItemStateMixin, HoverableItemStateMixin;
 
-class SavedDataMenuItemComponent extends UiStatefulComponent2<SavedDataMenuItemProps, SavedDataMenuItemState>
+class SavedDataMenuItemComponent
+    extends UiStatefulComponent2<SavedDataMenuItemProps, SavedDataMenuItemState>
     with HoverableItemMixin<SavedDataMenuItemProps, SavedDataMenuItemState> {
   @override
   get itemNodeRef => createRef<Element>();
@@ -39,8 +43,7 @@ class SavedDataMenuItemComponent extends UiStatefulComponent2<SavedDataMenuItemP
   @override
   get initialState => (newState()
     ..addAll(super.initialState)
-    ..isEditable = false
-  );
+    ..isEditable = false);
 
   @override
   render() {
@@ -50,61 +53,56 @@ class SavedDataMenuItemComponent extends UiStatefulComponent2<SavedDataMenuItemP
       ..remove('onDelete')
       ..remove('onRename');
 
-    return MenuItem({
-      ...propsToForward,
-      'ref': itemNodeRef,
-      'onClick': _handleMenuItemClick,
-      'onMouseEnter': handleItemMouseEnter,
-      'onMouseLeave': handleItemMouseLeave,
-      'onFocus': handleChildFocus,
-      'onBlur': handleChildBlur,
-    },
+    return (mui.MenuItem()
+      ..addProps(propsToForward)
+      ..ref = itemNodeRef
+      ..onClick = _handleMenuItemClick
+      ..onMouseEnter = handleItemMouseEnter
+      ..onMouseLeave = handleItemMouseLeave
+      ..onFocus = handleChildFocus
+      ..onBlur = handleChildBlur)(
       state.isEditable ? _renderRenameTextInput() : _renderNameWithOptions(),
     );
   }
 
   ReactElement _renderNameWithOptions() {
-    return Grid({
-      'container': true,
-      'direction': 'row',
-      'style': {'flexWrap': false},
-    },
-      Box({
-        ...growProps,
-        'pr': 1,
-        'justifyContent': 'center',
-        'display': 'flex',
-      },
-        Box({
-          'pr': 1,
-          'display': 'flex',
-          'justifyContent': 'center',
-        },
+    return (mui.Grid()
+      ..container = true
+      ..direction = mui.GridDirection.row
+      ..sx = const {'flexWrap': false})(
+      (mui.Box()
+        ..addProps(growProps)
+        ..pr = 1
+        ..justifyContent = 'center'
+        ..display = 'flex')(
+        (mui.Box()
+          ..pr = 1
+          ..display = 'flex'
+          ..justifyContent = 'center')(
           StorageIcon({
             'style': {'alignSelf': 'center'},
           }),
         ),
-        Typography({
-          'noWrap': true,
-          'style': {
+        (mui.Typography()
+          ..noWrap = true
+          ..sx = const {
             'alignSelf': 'center',
             'flexGrow': 1,
-          },
-        },
+          })(
           props.localStorageKey,
         ),
       ),
-      IconButton({
-        'size': 'small',
-        'color': 'inherit',
-        'aria-label': 'Rename',
-        'aria-hidden': !isHovered,
-        'className': 'hide-using-aria',
-        'onClick': (SyntheticMouseEvent event) {
-          event.stopPropagation(); // Do not trigger the onClick handler of the parent MenuItem
+      (mui.IconButton()
+        ..size = 'small'
+        ..color = 'inherit'
+        ..aria.label = 'Rename'
+        ..aria.hidden = !isHovered
+        ..className = 'hide-using-aria'
+        ..onClick = (SyntheticMouseEvent event) {
+          event
+              .stopPropagation(); // Do not trigger the onClick handler of the parent MenuItem
           setState(newState()..isEditable = true);
-        },
-      },
+        })(
         EditPencilIcon(),
       ),
       _renderDeleteButton(),
@@ -112,30 +110,31 @@ class SavedDataMenuItemComponent extends UiStatefulComponent2<SavedDataMenuItemP
   }
 
   ReactElement _renderDeleteButton() {
-    final isDisabled = localTodoAppStorage.currentStateJson['name'] == props.localStorageKey;
+    final isDisabled =
+        localTodoAppStorage.currentStateJson['name'] == props.localStorageKey;
 
-    return Tooltip({
-      'title': isDisabled
-          ? 'Cannot delete the currently loaded data set.'
-          : 'Delete the ${props.localStorageKey} data set.',
-      'enterDelay': 500,
-    },
-      Box({
-        ...shrinkToFitProps,
-        'color': 'error.main',
-        'aria-hidden': !isHovered,
-        'className': 'hide-using-aria',
+    return Tooltip(
+      {
+        'title': isDisabled
+            ? 'Cannot delete the currently loaded data set.'
+            : 'Delete the ${props.localStorageKey} data set.',
+        'enterDelay': 500,
       },
-        IconButton({
-          'size': 'small',
-          'color': 'inherit',
-          'aria-label': 'Delete',
-          'disabled': isDisabled,
-          'onClick': (SyntheticMouseEvent event) {
-            event.stopPropagation(); // Do not trigger the onClick handler of the parent MenuItem
+      (mui.Box()
+        ..addProps(shrinkToFitProps)
+        ..color = 'error.main'
+        ..aria.hidden = !isHovered
+        ..className = 'hide-using-aria')(
+        (mui.IconButton()
+          ..size = 'small'
+          ..color = 'inherit'
+          ..aria.label = 'Delete'
+          ..disabled = isDisabled
+          ..onClick = (SyntheticMouseEvent event) {
+            event
+                .stopPropagation(); // Do not trigger the onClick handler of the parent MenuItem
             props.onDelete(props.localStorageKey);
-          },
-        },
+          })(
           TrashIcon(),
         ),
       ),
@@ -156,8 +155,7 @@ class SavedDataMenuItemComponent extends UiStatefulComponent2<SavedDataMenuItemP
         // Prevent the entire menu from closing when the ESC key is pressed
         event.stopPropagation();
         setState(newState()..isEditable = false);
-      }
-    )();
+      })();
   }
 
   void _handleMenuItemClick(_) {
