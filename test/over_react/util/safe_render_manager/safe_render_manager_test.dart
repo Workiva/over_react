@@ -100,7 +100,7 @@ main() {
           test('by chaining any existing callback ref', () {
             ParagraphElement existingWrapperRef;
 
-            renderManager.render((Wrapper()..ref = ((ref) => existingWrapperRef = ref as ParagraphElement))());
+            renderManager.render((Dom.p()..ref = ((ref) => existingWrapperRef = ref as ParagraphElement))());
 
             expect(renderManager.contentRef, isNotNull);
             expect(existingWrapperRef, same(renderManager.contentRef));
@@ -109,7 +109,7 @@ main() {
           test('by chaining any existing callback ref', () {
             final existingWrapperRef = createRef<ParagraphElement>();
 
-            renderManager.render((Wrapper()..ref = existingWrapperRef)());
+            renderManager.render((Dom.p()..ref = existingWrapperRef)());
 
             expect(renderManager.contentRef, isNotNull);
             expect(existingWrapperRef.current, same(renderManager.contentRef));
