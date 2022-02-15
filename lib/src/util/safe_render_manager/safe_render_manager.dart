@@ -52,11 +52,13 @@ class SafeRenderManager extends Disposable {
   /// If not specified, a new div will be used.
   final Element mountNode;
 
+  final _contentRefObject = createRef<dynamic>();
+
   /// The ref to the component rendered by [render].
   ///
   /// Due to react_dom.render calls not being guaranteed to be synchronous.
   /// this may not be populated until later than expected.
-  dynamic contentRef;
+  dynamic get contentRef => _contentRefObject.current;
 
   _RenderState _state = _RenderState.unmounted;
 
@@ -105,7 +107,7 @@ class SafeRenderManager extends Disposable {
           content = null;
           return value;
         }
-        ..contentRef = _contentCallbackRef
+        ..contentRef = _contentRefObject
       )(), mountNode);
     } catch (_) {
       _state = _RenderState.unmounted;
@@ -201,10 +203,6 @@ class SafeRenderManager extends Disposable {
       _renderQueue.forEach(_helper.renderContent);
       _renderQueue = [];
     }
-  }
-
-  void _contentCallbackRef(ref) {
-    contentRef = ref;
   }
 
   @override
