@@ -60,6 +60,10 @@ class SafeRenderManager extends Disposable {
   /// this may not be populated until later than expected.
   dynamic get contentRef => _contentRefObject.current;
 
+  // This setter only exists for backwards compatibility purposes.
+  @Deprecated('This ref should only be read, since it gets set by the rendered content')
+  set contentRef(dynamic value) => _contentRefObject.current = value;
+
   _RenderState _state = _RenderState.unmounted;
 
   /// A list of [render] calls queued up while the component is in the process
