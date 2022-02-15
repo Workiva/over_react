@@ -10,6 +10,8 @@ part of 'safe_render_manager_helper.dart';
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 final $SafeRenderManagerHelperComponentFactory = registerComponent2(
   () => _$SafeRenderManagerHelperComponent(),
   builderFactory: _$SafeRenderManagerHelper,
@@ -17,62 +19,6 @@ final $SafeRenderManagerHelperComponentFactory = registerComponent2(
   isWrapper: false,
   parentType: null,
   displayName: 'SafeRenderManagerHelper',
-);
-
-abstract class _$SafeRenderManagerHelperPropsAccessorsMixin
-    implements _$SafeRenderManagerHelperProps {
-  @override
-  Map get props;
-
-  /// <!-- Generated from [_$SafeRenderManagerHelperProps.getInitialContent] -->
-  @override
-  @requiredProp
-  ReactElement Function() get getInitialContent =>
-      (props[_$key__getInitialContent___$SafeRenderManagerHelperProps] ?? null)
-          as ReactElement Function();
-
-  /// <!-- Generated from [_$SafeRenderManagerHelperProps.getInitialContent] -->
-  @override
-  @requiredProp
-  set getInitialContent(ReactElement Function() value) =>
-      props[_$key__getInitialContent___$SafeRenderManagerHelperProps] = value;
-
-  /// <!-- Generated from [_$SafeRenderManagerHelperProps.contentRef] -->
-  @override
-  CallbackRef get contentRef =>
-      (props[_$key__contentRef___$SafeRenderManagerHelperProps] ?? null)
-          as CallbackRef;
-
-  /// <!-- Generated from [_$SafeRenderManagerHelperProps.contentRef] -->
-  @override
-  set contentRef(CallbackRef value) =>
-      props[_$key__contentRef___$SafeRenderManagerHelperProps] = value;
-  /* GENERATED CONSTANTS */
-  static const PropDescriptor
-      _$prop__getInitialContent___$SafeRenderManagerHelperProps =
-      PropDescriptor(_$key__getInitialContent___$SafeRenderManagerHelperProps,
-          isRequired: true);
-  static const PropDescriptor
-      _$prop__contentRef___$SafeRenderManagerHelperProps =
-      PropDescriptor(_$key__contentRef___$SafeRenderManagerHelperProps);
-  static const String _$key__getInitialContent___$SafeRenderManagerHelperProps =
-      'SafeRenderManagerHelperProps.getInitialContent';
-  static const String _$key__contentRef___$SafeRenderManagerHelperProps =
-      'SafeRenderManagerHelperProps.contentRef';
-
-  static const List<PropDescriptor> $props = [
-    _$prop__getInitialContent___$SafeRenderManagerHelperProps,
-    _$prop__contentRef___$SafeRenderManagerHelperProps
-  ];
-  static const List<String> $propKeys = [
-    _$key__getInitialContent___$SafeRenderManagerHelperProps,
-    _$key__contentRef___$SafeRenderManagerHelperProps
-  ];
-}
-
-const PropsMeta _$metaForSafeRenderManagerHelperProps = PropsMeta(
-  fields: _$SafeRenderManagerHelperPropsAccessorsMixin.$props,
-  keys: _$SafeRenderManagerHelperPropsAccessorsMixin.$propKeys,
 );
 
 _$$SafeRenderManagerHelperProps _$SafeRenderManagerHelper([Map backingProps]) =>
@@ -83,10 +29,13 @@ _$$SafeRenderManagerHelperProps _$SafeRenderManagerHelper([Map backingProps]) =>
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-abstract class _$$SafeRenderManagerHelperProps
-    extends _$SafeRenderManagerHelperProps
-    with _$SafeRenderManagerHelperPropsAccessorsMixin
-    implements SafeRenderManagerHelperProps {
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+abstract class _$$SafeRenderManagerHelperProps extends UiProps
+    with
+        SafeRenderManagerHelperProps,
+        $SafeRenderManagerHelperProps // If this generated mixin is undefined, it's likely because SafeRenderManagerHelperProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of SafeRenderManagerHelperProps, and check that $SafeRenderManagerHelperProps is exported/imported properly.
+{
   _$$SafeRenderManagerHelperProps._();
 
   factory _$$SafeRenderManagerHelperProps(Map backingMap) {
@@ -108,10 +57,18 @@ abstract class _$$SafeRenderManagerHelperProps
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
-  String get propKeyNamespace => 'SafeRenderManagerHelperProps.';
+  String get propKeyNamespace => '';
+
+  @override
+  PropsMetaCollection get staticMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because SafeRenderManagerHelperProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of SafeRenderManagerHelperProps, and check that $SafeRenderManagerHelperProps is exported/imported properly.
+        SafeRenderManagerHelperProps: $SafeRenderManagerHelperProps.meta,
+      });
 }
 
 // Concrete props implementation that can be backed by any [Map].
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$SafeRenderManagerHelperProps$PlainMap
     extends _$$SafeRenderManagerHelperProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
@@ -130,6 +87,8 @@ class _$$SafeRenderManagerHelperProps$PlainMap
 
 // Concrete props implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$SafeRenderManagerHelperProps$JsMap
     extends _$$SafeRenderManagerHelperProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
@@ -146,47 +105,16 @@ class _$$SafeRenderManagerHelperProps$JsMap
   JsBackedMap _props;
 }
 
-abstract class _$SafeRenderManagerHelperStateAccessorsMixin
-    implements _$SafeRenderManagerHelperState {
-  @override
-  Map get state;
-
-  /// <!-- Generated from [_$SafeRenderManagerHelperState.content] -->
-  @override
-  ReactElement get content =>
-      (state[_$key__content___$SafeRenderManagerHelperState] ?? null)
-          as ReactElement;
-
-  /// <!-- Generated from [_$SafeRenderManagerHelperState.content] -->
-  @override
-  set content(ReactElement value) =>
-      state[_$key__content___$SafeRenderManagerHelperState] = value;
-  /* GENERATED CONSTANTS */
-  static const StateDescriptor _$prop__content___$SafeRenderManagerHelperState =
-      StateDescriptor(_$key__content___$SafeRenderManagerHelperState);
-  static const String _$key__content___$SafeRenderManagerHelperState =
-      'SafeRenderManagerHelperState.content';
-
-  static const List<StateDescriptor> $state = [
-    _$prop__content___$SafeRenderManagerHelperState
-  ];
-  static const List<String> $stateKeys = [
-    _$key__content___$SafeRenderManagerHelperState
-  ];
-}
-
-const StateMeta _$metaForSafeRenderManagerHelperState = StateMeta(
-  fields: _$SafeRenderManagerHelperStateAccessorsMixin.$state,
-  keys: _$SafeRenderManagerHelperStateAccessorsMixin.$stateKeys,
-);
-
 // Concrete state implementation.
 //
 // Implements constructor and backing map.
-abstract class _$$SafeRenderManagerHelperState
-    extends _$SafeRenderManagerHelperState
-    with _$SafeRenderManagerHelperStateAccessorsMixin
-    implements SafeRenderManagerHelperState {
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+abstract class _$$SafeRenderManagerHelperState extends UiState
+    with
+        SafeRenderManagerHelperState,
+        $SafeRenderManagerHelperState // If this generated mixin is undefined, it's likely because SafeRenderManagerHelperState is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not imported. Check the declaration of SafeRenderManagerHelperState, and check that $SafeRenderManagerHelperState is exported/imported properly.
+{
   _$$SafeRenderManagerHelperState._();
 
   factory _$$SafeRenderManagerHelperState(Map backingMap) {
@@ -203,6 +131,8 @@ abstract class _$$SafeRenderManagerHelperState
 }
 
 // Concrete state implementation that can be backed by any [Map].
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$SafeRenderManagerHelperState$PlainMap
     extends _$$SafeRenderManagerHelperState {
   // This initializer of `_state` to an empty map, as well as the reassignment
@@ -221,6 +151,8 @@ class _$$SafeRenderManagerHelperState$PlainMap
 
 // Concrete state implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$SafeRenderManagerHelperState$JsMap
     extends _$$SafeRenderManagerHelperState {
   // This initializer of `_state` to an empty map, as well as the reassignment
@@ -241,6 +173,8 @@ class _$$SafeRenderManagerHelperState$JsMap
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$SafeRenderManagerHelperComponent
     extends SafeRenderManagerHelperComponent {
   _$$SafeRenderManagerHelperProps$JsMap _cachedTypedProps;
@@ -298,10 +232,99 @@ class _$SafeRenderManagerHelperComponent
   @override
   bool get $isClassGenerated => true;
 
-  /// The default consumed props, taken from _$SafeRenderManagerHelperProps.
+  /// The default consumed props, comprising all props mixins used by SafeRenderManagerHelperProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForSafeRenderManagerHelperProps
+  get $defaultConsumedProps => propsMeta.all;
+
+  @override
+  PropsMetaCollection get propsMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because SafeRenderManagerHelperProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of SafeRenderManagerHelperProps, and check that $SafeRenderManagerHelperProps is exported/imported properly.
+        SafeRenderManagerHelperProps: $SafeRenderManagerHelperProps.meta,
+      });
+}
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
+mixin $SafeRenderManagerHelperProps on SafeRenderManagerHelperProps {
+  static const PropsMeta meta = _$metaForSafeRenderManagerHelperProps;
+  @override
+  @requiredProp
+  ReactElement Function() get getInitialContent =>
+      (props[_$key__getInitialContent__SafeRenderManagerHelperProps] ?? null)
+          as ReactElement Function();
+  @override
+  @requiredProp
+  set getInitialContent(ReactElement Function() value) =>
+      props[_$key__getInitialContent__SafeRenderManagerHelperProps] = value;
+  @override
+  dynamic get contentRef =>
+      (props[_$key__contentRef__SafeRenderManagerHelperProps] ?? null)
+          as dynamic;
+  @override
+  set contentRef(dynamic value) =>
+      props[_$key__contentRef__SafeRenderManagerHelperProps] = value;
+  /* GENERATED CONSTANTS */
+  static const PropDescriptor
+      _$prop__getInitialContent__SafeRenderManagerHelperProps = PropDescriptor(
+          _$key__getInitialContent__SafeRenderManagerHelperProps,
+          isRequired: true);
+  static const PropDescriptor _$prop__contentRef__SafeRenderManagerHelperProps =
+      PropDescriptor(_$key__contentRef__SafeRenderManagerHelperProps);
+  static const String _$key__getInitialContent__SafeRenderManagerHelperProps =
+      'SafeRenderManagerHelperProps.getInitialContent';
+  static const String _$key__contentRef__SafeRenderManagerHelperProps =
+      'SafeRenderManagerHelperProps.contentRef';
+
+  static const List<PropDescriptor> $props = [
+    _$prop__getInitialContent__SafeRenderManagerHelperProps,
+    _$prop__contentRef__SafeRenderManagerHelperProps
+  ];
+  static const List<String> $propKeys = [
+    _$key__getInitialContent__SafeRenderManagerHelperProps,
+    _$key__contentRef__SafeRenderManagerHelperProps
   ];
 }
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+const PropsMeta _$metaForSafeRenderManagerHelperProps = PropsMeta(
+  fields: $SafeRenderManagerHelperProps.$props,
+  keys: $SafeRenderManagerHelperProps.$propKeys,
+);
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
+mixin $SafeRenderManagerHelperState on SafeRenderManagerHelperState {
+  static const StateMeta meta = _$metaForSafeRenderManagerHelperState;
+  @override
+  ReactElement get content =>
+      (state[_$key__content__SafeRenderManagerHelperState] ?? null)
+          as ReactElement;
+  @override
+  set content(ReactElement value) =>
+      state[_$key__content__SafeRenderManagerHelperState] = value;
+  /* GENERATED CONSTANTS */
+  static const StateDescriptor _$prop__content__SafeRenderManagerHelperState =
+      StateDescriptor(_$key__content__SafeRenderManagerHelperState);
+  static const String _$key__content__SafeRenderManagerHelperState =
+      'SafeRenderManagerHelperState.content';
+
+  static const List<StateDescriptor> $state = [
+    _$prop__content__SafeRenderManagerHelperState
+  ];
+  static const List<String> $stateKeys = [
+    _$key__content__SafeRenderManagerHelperState
+  ];
+}
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+const StateMeta _$metaForSafeRenderManagerHelperState = StateMeta(
+  fields: $SafeRenderManagerHelperState.$state,
+  keys: $SafeRenderManagerHelperState.$stateKeys,
+);
