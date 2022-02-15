@@ -1,5 +1,9 @@
 # OverReact Changelog
 
+## [4.2.9](https://github.com/Workiva/over_react/compare/4.2.8...4.2.9)
+
+- [#733] Update SafeRenderManager to not be retained by the React tree it renders, to aid in memory leak testing. Outside of that context, this change has negligible effects.
+
 ## [4.2.8](https://github.com/Workiva/over_react/compare/4.2.7...4.2.8)
 
 - [#729] Raise built_value lower bound to `^8.0.0`
