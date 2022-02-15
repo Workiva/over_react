@@ -66,8 +66,21 @@ class SafeRenderManager extends Disposable {
   /// of rendering.
   List<ReactElement> _renderQueue = [];
 
-  SafeRenderManager({Element mountNode, this.autoAttachMountNode = false})
-      : mountNode = mountNode ?? DivElement();
+  /// A ref to `this`, allowing us to create closures with references to this object that can be "revoked",
+  /// so that any trees retained before React clears out old children https://github.com/facebook/react/issues/16087
+  /// don't retain a reference to this object.
+  ///
+  /// In those cases, usually it's only SafeRenderManagerHelper/SafeRenderManager that get retained,
+  /// potentially since SafeRenderManagerHelper's tryUnmountContent plus the actual unmount are enough for React to
+  /// clear out old children.
+  ///
+  /// This is mostly in place to ease automated memory testing by preventing SafeRenderManager and its LeakFlags from
+  /// being retained; any content retained by React will still be able to flag leaks.
+  final _selfRef = createRef<SafeRenderManager>();
+
+  SafeRenderManager({Element mountNode, this.autoAttachMountNode = false}) : mountNode = mountNode ?? DivElement() {
+    _selfRef.current = this;
+  }
 
   /// Renders [content] into [mountNode], chaining existing callback refs to
   /// provide access to the rendered component via [contentRef].
@@ -99,8 +112,12 @@ class SafeRenderManager extends Disposable {
       if (autoAttachMountNode && !document.contains(mountNode)) {
         document.body.append(mountNode);
       }
+      // Create a closure variable so we're not retaining a reference to `this` inside `ref`.
+      final _selfRef = this._selfRef;
       react_dom.render((SafeRenderManagerHelper()
-        ..ref = _helperRef
+        ..ref = (ref) {
+          _selfRef.current?._helperRef(ref);
+        }
         ..getInitialContent = () {
           final value = content;
           // Clear this closure variable out so it isn't retained.
@@ -229,6 +246,9 @@ class SafeRenderManager extends Disposable {
     });
 
     await completerFuture;
+
+    // Prevent any closures retaining `_selfRef` from retaining `this`.
+    _selfRef.current = null;
 
     await super.onDispose();
   }
