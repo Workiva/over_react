@@ -35,7 +35,7 @@ part 'flux_component.over_react.g.dart';
 /// __Example:__
 ///
 /// ```dart
-/// class YourComponentProps = UiProps 
+/// class YourComponentProps = UiProps
 ///     with FluxUiPropsMixin<YourFluxActionsClass, YourFluxStoreClass>;
 /// ```
 ///
@@ -234,39 +234,6 @@ mixin _FluxComponentMixin<TProps extends FluxUiProps> on component_base.UiCompon
   /// These subscriptions are canceled when the component is unmounted.
   List<StreamSubscription> _subscriptions = [];
 
-  void _validateStoreDisposalState(Store store) {
-    // We need a null-aware here since there are many mocked store classes
-    // in the wild that return null for isOrWillBeDisposed.
-    if (store.isOrWillBeDisposed ?? false) {
-      final componentName = getDebugNameForDartComponent(this);
-
-      // Include the component name in the logger name so that:
-      // 1. it's included in the log somewhere
-      // 2. logs from the same component can be easily grouped together
-      final logger = Logger('over_react._FluxComponentMixin.$componentName');
-
-      var storeNameOrType = store.disposableTypeName;
-      // Detect if they don't override disposableTypeName by checking for the default name.
-      if (storeNameOrType == 'Store') {
-        storeNameOrType = store.runtimeType.toString();
-      }
-
-      final message = 'Cannot listen to a disposed/disposing Store.'
-          ' (storeNameOrType: $storeNameOrType, shouldBatchRedraw: $shouldBatchRedraw)';
-
-      // Throw in dev mode, warn in prod.
-      assert(
-          false,
-          '$message This can be caused by BatchedRedraws '
-          'mounting the component asynchronously after the store has been disposed. If you are '
-          'in a test environment, try adding an `await window.animationFrame;` before disposing your '
-          'store.');
-
-      // Include a stack trace explicitly since it's not added by default.
-      logger.warning(message, null, StackTrace.current);
-    }
-  }
-
   void _setUpStoreListeners() {
     // Subscribe to all applicable stores.
     //
@@ -279,7 +246,7 @@ mixin _FluxComponentMixin<TProps extends FluxUiProps> on component_base.UiCompon
     final storesWithoutCustomHandlers = redrawOn().where((store) => !customStoreHandlers.containsKey(store));
 
     customStoreHandlers.forEach((store, handler) {
-      _validateStoreDisposalState(store);
+      validateStoreDisposalState(store, this);
       StreamSubscription subscription = store.listen(handler);
       _subscriptions.add(subscription);
     });
@@ -294,7 +261,7 @@ mixin _FluxComponentMixin<TProps extends FluxUiProps> on component_base.UiCompon
   /// Override to set up custom listener behavior.
   @protected
   void listenToStoreForRedraw(Store store) {
-    _validateStoreDisposalState(store);
+    validateStoreDisposalState(store, this);
     _subscriptions.add(store.listen(handleRedrawOn));
   }
 
@@ -366,5 +333,40 @@ mixin _FluxComponentMixin<TProps extends FluxUiProps> on component_base.UiCompon
   /// Cancellation will be handled automatically by `componentWillUnmount`.
   void addSubscription(StreamSubscription subscription) {
     _subscriptions.add(subscription);
+  }
+}
+
+void validateStoreDisposalState(Store store, BatchedRedraws batchedRedrawer, {String loggerIdPrefix = 'over_react._FluxComponentMixin.'}) {
+  final shouldBatchRedraw = batchedRedrawer.shouldBatchRedraw;
+  // We need a null-aware here since there are many mocked store classes
+  // in the wild that return null for isOrWillBeDisposed.
+  if (store.isOrWillBeDisposed ?? false) {
+    // TODO (adl): Can we get the name of a function component?
+    final componentName = batchedRedrawer is UiComponent ? getDebugNameForDartComponent(batchedRedrawer as UiComponent) : 'FnComponent';
+
+    // Include the component name in the logger name so that:
+    // 1. it's included in the log somewhere
+    // 2. logs from the same component can be easily grouped together
+    final logger = Logger('$loggerIdPrefix$componentName');
+
+    var storeNameOrType = store.disposableTypeName;
+    // Detect if they don't override disposableTypeName by checking for the default name.
+    if (storeNameOrType == 'Store') {
+      storeNameOrType = store.runtimeType.toString();
+    }
+
+    final message = 'Cannot listen to a disposed/disposing Store.'
+        ' (storeNameOrType: $storeNameOrType, shouldBatchRedraw: $shouldBatchRedraw)';
+
+    // Throw in dev mode, warn in prod.
+    assert(
+        false,
+        '$message This can be caused by BatchedRedraws '
+        'mounting the component asynchronously after the store has been disposed. If you are '
+        'in a test environment, try adding an `await window.animationFrame;` before disposing your '
+        'store.');
+
+    // Include a stack trace explicitly since it's not added by default.
+    logger.warning(message, null, StackTrace.current);
   }
 }

@@ -16,7 +16,7 @@ library element_type_test;
 
 import 'package:test/test.dart';
 import 'package:over_react/over_react.dart';
-import 'package:over_react/src/component/dom_components.dart';
+// import 'package:over_react/src/component/dom_components.dart';
 
 part 'element_type_test.over_react.g.dart'; // ignore: uri_has_not_been_generated
 
