@@ -56,6 +56,13 @@ dependency_validator:
 
 dependency_overrides:
   platform_detect:
-    path: ../platform_detect
+    git:
+      url: https://github.com/Workiva/platform_detect.git
+      ref: 1.4x
+    #path: ../platform_detect
+  
   built_redux:
-    path: ../built_redux
+    git:
+      url: https://github.com/robbecker-wf/built_redux.git
+      ref: 7.5.13
+    #path: ../built_redux

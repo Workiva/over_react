@@ -140,7 +140,7 @@ class OverReactBuilder extends Builder {
     // Generate over_react code for each part file of the input library.
     for (final part in parts) {
       final partId = AssetId.resolve(
-        part.uri.stringValue,
+        Uri.parse(part.uri.stringValue),
         from: buildStep.inputId);
       if (!await buildStep.canRead(partId)) {
         continue;
