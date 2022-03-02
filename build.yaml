@@ -17,6 +17,11 @@ builders:
 targets:
   $default:
     builders:
+      # mockito's builder is expensive and is not needed until this package is
+      # migrated to null-safety. At that point, it should be scoped only to
+      # relevant files.
+      mockito:mockBuilder:
+        enabled: false
       over_react|_over_react_local_builder:
         enabled: true
         generate_for:
