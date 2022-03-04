@@ -934,6 +934,7 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
       }
     }
 
+    // FIXME(greg) change this behavior since tearoffs bind `this` in Dart, and also worrying about props being called with `this` isn't worth the confusion this messaging brings
     // "props.foo()" marks "props" as a dependency because it has
     // a "this" value. This warning can be confusing.
     // So if we're going to show it, append a clarification.
