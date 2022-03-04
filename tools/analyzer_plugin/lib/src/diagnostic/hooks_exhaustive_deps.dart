@@ -342,9 +342,7 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
         // Check whether this reference is only used to access the stable hook property.
         final property = propertyBeingAccessed();
         if (property != null && stableStateHookMethods.contains(property.name)) {
-          // fixme(greg) reference or property.name??
           setStateCallSites.set(reference, declaration);
-          setStateCallSites.set(property, declaration);
           return true;
         }
         return false;
