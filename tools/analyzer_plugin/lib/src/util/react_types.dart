@@ -11,7 +11,7 @@ extension ReactTypes$Element on Element /*?*/ {
   bool get isComponentClass => isOrIsSubtypeOfTypeFromPackage('Component', 'react');
   bool get isReactElement => isOrIsSubtypeOfTypeFromPackage('ReactElement', 'react');
   bool get isPropsClass => isOrIsSubtypeOfTypeFromPackage('UiProps', 'over_react');
-  bool get isStateHook => isOrIsSubtypeOfTypeFromPackage('StakeHook', 'react');
+  bool get isStateHook => isOrIsSubtypeOfTypeFromPackage('StateHook', 'react');
   bool get isReducerHook => isOrIsSubtypeOfTypeFromPackage('ReducerHook', 'react');
 }
 

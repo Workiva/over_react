@@ -336,13 +336,13 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
       }
 
       SimpleIdentifier propertyBeingAccessed() =>
-          propertyNameFromNonCascadedAccess(reference.parent.tryCast<Expression>());
+          propertyNameFromNonCascadedAccessOrInvocation(reference.parent.tryCast<Expression>());
 
       if (reference.staticType?.element?.isStateHook ?? false) {
         // Check whether this reference is only used to access the stable hook property.
         final property = propertyBeingAccessed();
         if (property != null && stableStateHookMethods.contains(property.name)) {
-          // fixme reference or property.name??
+          // fixme(greg) reference or property.name??
           setStateCallSites.set(reference, declaration);
           setStateCallSites.set(property, declaration);
           return true;
@@ -1793,12 +1793,15 @@ extension<E extends Comparable> on Iterable<E> {
   }
 }
 
-SimpleIdentifier propertyNameFromNonCascadedAccess(Expression node) {
+SimpleIdentifier propertyNameFromNonCascadedAccessOrInvocation(Expression node) {
   if (node is PrefixedIdentifier) {
     return node.identifier;
   }
   if (node is PropertyAccess && !node.isCascaded) {
     return node.propertyName;
+  }
+  if (node is MethodInvocation && !node.isCascaded) {
+    return node.methodName;
   }
 
   return null;
