@@ -688,6 +688,28 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
           continue;
         }
 
+        // Special case for Dart: whole state hook passed in as dependency.
+        if (declaredDependencyNode?.staticType?.element?.isStateHook ?? false) {
+          final dependencySource = getSource(declaredDependencyNode);
+          final dependencySourceValue = '$dependencySource.value';
+          // fixme(greg) conditionally suggest value or removing the dep based on whether count.value is used in hook? Also figure out why `useEffect(() => print(count.value), [count]);` triggers missing dependency case
+
+          // FIXME(greg) this is async :/
+          diagnosticCollector.addErrorWithFix(
+            HooksExhaustiveDeps.code,
+            result.locationFor(declaredDependencyNode),
+          // todo(greg) better error and fix message
+            errorMessageArgs: ["React Hook ${getSource(reactiveHook)} has a StateHook object '$dependencySource' in its dependency list, which will change every render and cause the effect to always run."],
+            fixKind: HooksExhaustiveDeps.fixKind,
+            fixMessageArgs: ["Depend on '$dependencySourceValue' instead."],
+            computeFix: () => buildSimpleFileEdit(result, (builder) {
+              builder.addSimpleReplacement(range.node(declaredDependencyNode), dependencySourceValue);
+            }),
+          );
+          continue;
+        }
+
+
         // Try to normalize the declared dependency. If we can't then an error
         // will be thrown. We will catch that error and report an error.
         String declaredDependency;
@@ -731,7 +753,7 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
           }
         }
 
-        // todo handle / warn about cascades?
+        // todo(greg) handle / warn about cascades?
         var maybeID = declaredDependencyNode;
         while (maybeID is PropertyAccess) {
           maybeID = (maybeID as PropertyAccess).target;
