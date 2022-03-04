@@ -56,7 +56,7 @@ abstract class _$$ContextProviderWrapperProps
 
   factory _$$ContextProviderWrapperProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$ContextProviderWrapperProps$JsMap(backingMap);
+      return _$$ContextProviderWrapperProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$ContextProviderWrapperProps$PlainMap(backingMap);
     }
@@ -119,8 +119,8 @@ abstract class _$ContextProviderWrapperStateAccessorsMixin
   /// <!-- Generated from [_$ContextProviderWrapperState.latestValue] -->
   @override
   int get latestValue =>
-      state[_$key__latestValue___$ContextProviderWrapperState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (state[_$key__latestValue___$ContextProviderWrapperState] ?? null) as int;
+
   /// <!-- Generated from [_$ContextProviderWrapperState.latestValue] -->
   @override
   set latestValue(int value) =>
@@ -161,7 +161,7 @@ abstract class _$$ContextProviderWrapperState
 
   factory _$$ContextProviderWrapperState(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$ContextProviderWrapperState$JsMap(backingMap);
+      return _$$ContextProviderWrapperState$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$ContextProviderWrapperState$PlainMap(backingMap);
     }
@@ -228,7 +228,8 @@ class _$ContextProviderWrapperComponent
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -251,7 +252,7 @@ class _$ContextProviderWrapperComponent
         'Component2.state should only be set via '
         'initialState or setState.');
     super.state = value;
-    _cachedTypedState = typedStateFactoryJs(value);
+    _cachedTypedState = typedStateFactoryJs(value as JsBackedMap);
   }
 
   @override

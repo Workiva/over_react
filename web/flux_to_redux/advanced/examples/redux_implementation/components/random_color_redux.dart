@@ -39,7 +39,7 @@ UiFactory<RandomColorReduxProps> RandomColorRedux = connect<ReduxState, RandomCo
     ..changeBlockThreeBackgroundColor = () {
       dispatch(UpdateBlockThreeBackgroundColorAction());
     }),
-)(_$RandomColorRedux); // ignore: undefined_identifier
+)(castUiFactory(_$RandomColorRedux)); // ignore: undefined_identifier
 
 mixin RandomColorReduxPropsMixin on UiProps {
   String backgroundColor;

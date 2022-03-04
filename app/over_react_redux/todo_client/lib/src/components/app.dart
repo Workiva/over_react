@@ -1,5 +1,6 @@
 import 'package:over_react/over_react.dart';
 import 'package:over_react/over_react_redux.dart';
+// ignore: implementation_imports
 import 'package:over_react/src/component/test_fixtures/redraw_counter_component_mixin.dart';
 
 import 'package:todo_client/src/actions.dart';
@@ -26,7 +27,7 @@ UiFactory<TodoAppProps> TodoApp = connect<AppState, TodoAppProps>(
       );
     },
     forwardRef: true,
-)(_$TodoApp); // ignore: undefined_identifier
+)(castUiFactory(_$TodoApp)); // ignore: undefined_identifier
 
 mixin TodoAppPropsMixin on UiProps {
   Function(String description) createTodo;

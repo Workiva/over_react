@@ -33,7 +33,7 @@ abstract class $TransitionPropsMixin {
 
 /// Props that mirror the implementation of [AbstractTransitionProps], made available as a mixin for components
 /// that cannot extend directly from [AbstractTransitionComponent].
-@Deprecated('Use the `AbstractTransitionProps` mixin exported from `package:over_react/components.dart` instead. Will be removed in the 4.0.0 release.')
+@Deprecated('Use the `TransitionPropsMixin` mixin exported from `package:over_react/components.dart` instead. Will be removed in the 4.0.0 release.')
 @PropsMixin()
 abstract class _$TransitionPropsMixin {
   static final TransitionPropsMapView defaultProps = TransitionPropsMapView({})

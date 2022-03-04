@@ -25,21 +25,22 @@ import 'fixtures/dummy_component.dart';
 void main() {
   group('Fragment', () {
     test('renders only its children', () {
-      DivElement wrappingDivRef;
+      final wrappingDivRef = createRef<Element>();
 
       renderAttachedToDocument(
         (Dom.div()
-          ..ref = (ref) {
-            wrappingDivRef = ref;
-          })(Fragment()(
-          Dom.div()(),
-          Dom.div()(),
-          Dom.div()(),
-          Dom.div()(),
-        )),
+          ..ref = wrappingDivRef
+        )(
+          Fragment()(
+            Dom.div()(),
+            Dom.div()(),
+            Dom.div()(),
+            Dom.div()(),
+          ),
+        ),
       );
 
-      expect(wrappingDivRef.children, hasLength(4));
+      expect(wrappingDivRef.current.children, hasLength(4));
     });
 
     test('passes the key properly onto the fragment', () {

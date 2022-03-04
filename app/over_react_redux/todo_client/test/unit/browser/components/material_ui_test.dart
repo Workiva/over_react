@@ -7,7 +7,6 @@ import 'package:todo_client/src/components/shared/material_ui.dart';
 import 'fixtures/utils.dart';
 
 main() {
-  setClientConfiguration();
   if (!muiJsIsAvailable()) return;
 
   group('MaterialUI', () {
@@ -74,31 +73,31 @@ main() {
       });
     });
 
-    group('ExpansionPanel', () {
-      test('is a ReactJsComponentFactoryProxy of the JS MaterialUI.ExpansionPanel component', () {
-        expect(ExpansionPanel.type.displayName, MaterialUI.ExpansionPanel.displayName);
-        expect(ExpansionPanel({}), isA<ReactElement>());
+    group('Accordion', () {
+      test('is a ReactJsComponentFactoryProxy of the JS MaterialUI.Accordion component', () {
+        expect(Accordion.type.displayName, MaterialUI.Accordion.displayName);
+        expect(Accordion({}), isA<ReactElement>());
       });
     });
 
-    group('ExpansionPanelActions', () {
-      test('is a ReactJsComponentFactoryProxy of the JS MaterialUI.ExpansionPanelActions component', () {
-        expect(ExpansionPanelActions.type.displayName, MaterialUI.ExpansionPanelActions.displayName);
-        expect(ExpansionPanelActions({}), isA<ReactElement>());
+    group('AccordionActions', () {
+      test('is a ReactJsComponentFactoryProxy of the JS MaterialUI.AccordionActions component', () {
+        expect(AccordionActions.type.displayName, MaterialUI.AccordionActions.displayName);
+        expect(AccordionActions({}), isA<ReactElement>());
       });
     });
 
-    group('ExpansionPanelDetails', () {
-      test('is a ReactJsComponentFactoryProxy of the JS MaterialUI.ExpansionPanelDetails component', () {
-        expect(ExpansionPanelDetails.type.displayName, MaterialUI.ExpansionPanelDetails.displayName);
-        expect(ExpansionPanelDetails({}), isA<ReactElement>());
+    group('AccordionDetails', () {
+      test('is a ReactJsComponentFactoryProxy of the JS MaterialUI.AccordionDetails component', () {
+        expect(AccordionDetails.type.displayName, MaterialUI.AccordionDetails.displayName);
+        expect(AccordionDetails({}), isA<ReactElement>());
       });
     });
 
-    group('ExpansionPanelSummary', () {
-      test('is a ReactJsComponentFactoryProxy of the JS MaterialUI.ExpansionPanelSummary component', () {
-        expect(ExpansionPanelSummary.type.displayName, MaterialUI.ExpansionPanelSummary.displayName);
-        expect(ExpansionPanelSummary({}), isA<ReactElement>());
+    group('AccordionSummary', () {
+      test('is a ReactJsComponentFactoryProxy of the JS MaterialUI.AccordionSummary component', () {
+        expect(AccordionSummary.type.displayName, MaterialUI.AccordionSummary.displayName);
+        expect(AccordionSummary({}), isA<ReactElement>());
       });
     });
 

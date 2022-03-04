@@ -15,6 +15,7 @@
 library over_react.memo;
 
 import 'package:over_react/src/component_declaration/component_type_checking.dart';
+import 'package:over_react/src/util/equality.dart';
 import 'package:react/react_client/react_interop.dart' as react_interop;
 import 'package:react/react_client.dart';
 import 'package:over_react/component_base.dart';
@@ -32,29 +33,29 @@ import 'package:over_react/component_base.dart';
 /// ```dart
 /// import 'package:over_react/over_react.dart';
 ///
-/// UiFactory<UiProps> MemoExample = memo<UiProps>(uiFunction(
+/// UiFactory<UiProps> MemoExample = memo(uiFunction(
 ///   (props) {
 ///     // render using props
 ///   },
-///   UiFactoryConfig(),
+///   _$MemoExampleConfig, // ignore: undefined_identifier
 /// ));
 /// ```
 ///
 /// `memo` only affects props changes. If your function component wrapped in `memo` has a
 /// `useState` or `useContext` Hook in its implementation, it will still rerender when `state` or `context` change.
 ///
-/// By default it will only shallowly compare complex objects in the props map.
+/// By default it will only shallowly compare complex objects in the props map using [propsOrStateMapsEqual].
 /// If you want control over the comparison, you can also provide a custom comparison
 /// function to the [areEqual] argument as shown in the example below.
 ///
 /// ```dart
 /// import 'package:over_react/over_react.dart';
 ///
-/// UiFactory<MemoWithComparisonProps> MemoWithComparison = memo<MemoWithComparisonProps>(uiFunction(
+/// UiFactory<MemoWithComparisonProps> MemoWithComparison = memo(uiFunction(
 ///   (props) {
 ///     // render using props
 ///   },
-///   $MemoWithComparisonConfig, // ignore: undefined_identifier
+///   _$MemoWithComparisonConfig, // ignore: undefined_identifier
 /// ), areEqual: (prevProps, nextProps) {
 ///   // Do some custom comparison logic to return a bool based on prevProps / nextProps
 /// });
@@ -78,13 +79,13 @@ UiFactory<TProps> memo<TProps extends UiProps>(UiFactory<TProps> factory,
       return areEqual(tPrevProps, tNextProps);
     }
 
-    hoc = react_interop.memo(factory().componentFactory, areEqual: wrapProps);
+    hoc = react_interop.memo2(factory().componentFactory, areEqual: wrapProps);
   } else {
-    hoc = react_interop.memo(factory().componentFactory);
+    hoc = react_interop.memo2(factory().componentFactory, areEqual: propsOrStateMapsEqual);
   }
 
-  setComponentTypeMeta(hoc,
-      isHoc: true, parentType: factory().componentFactory);
+  setComponentTypeMeta(hoc.type,
+      isHoc: true, parentType: factory().componentFactory.type);
 
   TProps forwardedFactory([Map props]) {
     return factory(props)..componentFactory = hoc;

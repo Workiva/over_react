@@ -1,3 +1,4 @@
+// ignore_for_file: deprecated_member_use_from_same_package
 import 'dart:html';
 
 import 'package:over_react/over_react.dart';
@@ -5,120 +6,143 @@ import 'package:over_react/over_react.dart';
 // ignore: uri_has_not_been_generated
 part 'ref.over_react.g.dart';
 
-// ------------ `uiForwardRef` with a function component (simple) ------------
-mixin UiForwardRefLogsFunctionComponentProps on UiProps {
-  BuilderOnlyUiFactory<DomProps> builder;
-  Ref<Element> lastClickedButton;
-}
+//----------------------------------------------------------------------------//
+//----------------------------------------------------------------------------//
+//                          UiForwardRef Examples
+//----------------------------------------------------------------------------//
+//----------------------------------------------------------------------------//
 
-final UiForwardRefLogsFunctionComponent = uiForwardRef<UiForwardRefLogsFunctionComponentProps>(
+//----------------------------------------------------------------------------//
+// ### Example 1: Updating a function component to forward a ref:
+//----------------------------------------------------------------------------//
+mixin FancyButtonProps on UiProps {}
+
+UiFactory<FancyButtonProps> FancyButton = uiForwardRef(
   (props, ref) {
-    final prevPropsRef = useRef<UiForwardRefLogsFunctionComponentProps>(null);
-
-    useEffect(() {
-      if (prevPropsRef.current != null) {
-        print('old props: ${prevPropsRef.current}');
-        print('new props: $props');
-      }
-
-      prevPropsRef.current = props;
-    });
-
-    return ((props.builder()
+    final classes = ClassNameBuilder.fromProps(props)..add('FancyButton');
+    return (Dom.button()
+      ..ref = ref
       ..addProps(getPropsToForward(props, onlyCopyDomProps: true))
-      ..ref = ref)(props.children));
+      ..className = classes.toClassName()
+    )('Click me!');
   },
-  $UiForwardRefLogsFunctionComponentConfig, // ignore: undefined_identifier
+  _$FancyButtonConfig, // ignore: undefined_identifier
 );
 
-// ------------ `uiForwardRef` with a function component (complex) ------------
-mixin UiForwardRefLogsPropsComplexFunctionComponentPropsMixin on UiProps {
-  String buttonDescription;
+//----------------------------------------------------------------------------//
+// ### Example 2: Creating a higher-order component (https://reactjs.org/docs/higher-order-components.html)
+// that forwards its ref to the wrapped component.
+//----------------------------------------------------------------------------//
+
+/// Wraps a component ([factoryToWrap]) in a new component that logs when rendered.
+UiFactory<TProps> withLogging<TProps extends UiProps>(UiFactory<TProps> factoryToWrap) {
+  return uiForwardRef(
+    (props, ref) {
+      useEffect(() => 'withLogging rendered!');
+
+      // Needs to be split up due to https://github.com/dart-lang/sdk/issues/42975
+      final builder = factoryToWrap()
+        ..addAll(props)
+        ..ref = ref;
+       return builder(props.children);
+    },
+    factoryToWrap.asForwardRefConfig(
+      displayName: 'WithLogging',
+    ),
+  );
 }
 
-class UiForwardRefLogsPropsComplexFunctionComponentProps = UiProps
-    with
-        UiForwardRefLogsPropsComplexFunctionComponentPropsMixin,
-        UiForwardRefLogsFunctionComponentProps;
+/// This can be used just like FancyButton, and setting a ref on it will work the same!
+UiFactory<FancyButtonProps> FancyButtonWithLogging = withLogging(FancyButton);
 
-final UiForwardRefLogsPropsComplexFunctionComponent =
-    uiForwardRef<UiForwardRefLogsPropsComplexFunctionComponentProps>(
-  (props, ref) {
-    final prevPropsRef = useRef<UiForwardRefLogsPropsComplexFunctionComponentProps>(null);
+//----------------------------------------------------------------------------//
+// ### Example 3: Exposing inner refs in class components
+//----------------------------------------------------------------------------//
+UiFactory<FooProps> _Foo = castUiFactory(_$_Foo); // ignore: undefined_identifier
 
-    useEffect(() {
-      if (prevPropsRef.current != null) {
-        print('old props: ${prevPropsRef.current}');
-        print('new props: $props');
-      }
-
-      prevPropsRef.current = props;
-    });
-
-    return (Fragment()(
-      Dom.div()(props.buttonDescription),
-      (props.builder()
-        ..addProps(getPropsToForward(props, onlyCopyDomProps: true))
-        ..ref = ref)(props.children),
-    ));
-  },
-  $UiForwardRefLogsPropsComplexFunctionComponentConfig, // ignore: undefined_identifier
-);
-
-// ------------ `uiForwardRef` with a class component (simple) ------------
-final UiForwardRefLogsPropsComponent = uiForwardRef<LogPropsProps>(
-  (props, ref) {
-    return (_LogProps()
-      ..addProps(props)
-      .._forwardedRef = ref)();
-  },
-  _LogProps.asForwardRefConfig<LogPropsProps>(displayName: 'UiForwardRefLogsProps'),
-);
-
-// ------------ `uiForwardRef` with a class component (complex) ------------
-mixin UiForwardRefLogsPropsComplexComponentPropsMixin on UiProps {
-  String buttonDescription;
+mixin FooProps on UiProps {
+  // Private since we only use this to pass along the ref provided in
+  // uiForwardRef.
+  //
+  // Consumers will effectively be setting this when they set `ref` on the public factory.
+  dynamic _inputRef;
 }
 
-class UiForwardRefLogsPropsComplexComponentProps = UiProps
-    with UiForwardRefLogsPropsComplexComponentPropsMixin, LogPropsProps;
-
-final UiForwardRefLogsPropsComplexComponent =
-    uiForwardRef<UiForwardRefLogsPropsComplexComponentProps>(
-  (props, ref) {
-    return Fragment()(
-      Dom.div()(props.buttonDescription),
-      (_LogProps()
-        ..addProps(props)
-        .._forwardedRef = ref)(),
+class FooComponent extends UiComponent2<FooProps> {
+  @override
+  render() {
+    return Dom.div()(
+      (Dom.input()
+        ..modifyProps(addUnconsumedDomProps)
+        ..type = 'text'
+        ..ref = props._inputRef
+      )(),
     );
+  }
+}
+
+// Option 1: Use the class component's factory as the UiFactoryConfig arg.
+UiFactory<FooProps> Foo = uiForwardRef(
+  (props, ref) {
+    return (_Foo()
+      ..addProps(props)
+      .._inputRef = ref
+    )();
   },
-  $UiForwardRefLogsPropsComplexComponentConfig, // ignore: undefined_identifier
+  // Note that `displayName` is not passed in here.
+  // In the React devtools, the name of `Foo` will be
+  // 'Anonymous'.
+  _Foo.asForwardRefConfig(),
 );
 
-// ------------ `forwardRef` (deprecated) with class component ------------
-final LogProps = forwardRef<LogPropsProps>((props, ref) {
-  return (_LogProps()
+// Option 2: Create a new props class.
+mixin AnotherPropsMixin on UiProps {
+  String anExampleAdditionalProp;
+}
+
+class Foo2Props = UiProps with AnotherPropsMixin, FooProps;
+
+final Foo2 = uiForwardRef<Foo2Props>(
+  (props, ref) {
+    print(props.anExampleAdditionalProp);
+    return (_Foo()
+      ..addProps(props)
+      .._inputRef = ref
+    )();
+  },
+  _$Foo2Config, // ignore: undefined_identifier
+);
+
+//----------------------------------------------------------------------------//
+//----------------------------------------------------------------------------//
+//                      forwardRef Examples (deprecated)
+//----------------------------------------------------------------------------//
+//----------------------------------------------------------------------------//
+
+//----------------------------------------------------------------------------//
+// ### Example 1: Exposing inner refs in class components:
+//----------------------------------------------------------------------------//
+UiFactory<LogProps> LogPropsHoc = forwardRef<LogProps>((props, ref) {
+  return (_Log()
     ..addProps(props)
-    .._forwardedRef = ref)();
-}, displayName: 'LogProps')(_LogProps);
+    .._forwardedRef = ref
+  )();
+}, displayName: 'LogProps')(_Log);
 
-UiFactory<LogPropsProps> _LogProps = _$_LogProps;
+UiFactory<LogProps> _Log = castUiFactory(_$_Log); // ignore: undefined_identifier
 
-mixin LogPropsProps on UiProps {
-  BuilderOnlyUiFactory<DomProps> builder;
-
-  // A simple prop to change in order to trigger the print.
-  Ref lastClickedButton;
+mixin LogProps on UiProps {
+  BuilderOnlyUiFactory<UiProps> builder;
 
   // Private since we only use this to pass along the value of `ref` to
   // the return value of forwardRef.
   //
   // Consumers can set this private field value using the public `ref` setter.
-  Ref _forwardedRef;
+  dynamic _forwardedRef;
 }
 
-class LogPropsComponent extends UiComponent2<LogPropsProps> {
+// ignore: unused_element
+class _LogComponent extends UiComponent2<LogProps> {
   @override
   void componentDidUpdate(Map prevProps, _, [__]) {
     print('old props: $prevProps');
@@ -127,152 +151,117 @@ class LogPropsComponent extends UiComponent2<LogPropsProps> {
 
   @override
   render() {
-    return Dom.div()((props.builder()
-      ..modifyProps(addUnconsumedDomProps)
-      ..ref = props._forwardedRef)(props.children));
+    return Dom.div()(
+      (props.builder()
+        ..modifyProps(addUnconsumedDomProps)
+        ..ref = props._forwardedRef
+      )(props.children),
+    );
   }
 }
 
-// ------------ `forwardRef` (deprecated) with Function component ------------
-final LogsPropsFunctionComponent = forwardRef<_LogsPropsFunctionComponentProps>((props, ref) {
-  return (_LogsPropsFunctionComponent()
+//----------------------------------------------------------------------------//
+// ### Example 2: Exposing inner refs in functional components:
+//----------------------------------------------------------------------------//
+UiFactory<BazProps> LoggingFunctionWrapper = forwardRef<BazProps>((props, ref) {
+  print('LoggingFunctionWrapper rendered!');
+
+  return (Baz()
     ..addProps(props)
-    .._forwardedRef = ref)();
-}, displayName: 'LogsPropsFunctionComponent')(_LogsPropsFunctionComponent);
+    ..builder = props.builder
+    .._forwardedRef = ref
+  )();
+}, displayName: 'LoggingFunctionWrapper')(Baz);
 
-class _LogsPropsFunctionComponentProps = UiProps with LogPropsProps;
+mixin BazProps on UiProps {
+  BuilderOnlyUiFactory<UiProps> builder;
 
-final _LogsPropsFunctionComponent = uiFunction<_LogsPropsFunctionComponentProps>(
+  // Private since we only use this to pass along the value of `ref` to
+  // the return value of forwardRef.
+  //
+  // Consumers can set this private field value using the public `ref` setter.
+  dynamic _forwardedRef;
+}
+
+final Baz = uiFunction<BazProps>(
   (props) {
-    final prevPropsRef = useRef<_LogsPropsFunctionComponentProps>(null);
-
-    useEffect(() {
-      if (prevPropsRef.current != null) {
-        print('old props: ${prevPropsRef.current}');
-        print('new props: $props');
-      }
-
-      prevPropsRef.current = props;
-    });
-
     return ((props.builder()
       ..addProps(getPropsToForward(props, onlyCopyDomProps: true))
-      ..ref = props._forwardedRef)(props.children));
+      ..ref = props._forwardedRef
+    )(props.children));
   },
-  $_LogsPropsFunctionComponentConfig, // ignore: undefined_identifier
+  _$BazConfig, // ignore: undefined_identifier
 );
 
 // -------------------------------- Demo Display Logic --------------------------------
-final FancyButton = uiForwardRef<DomProps>(
-  (props, ref) {
-    final classes = ClassNameBuilder.fromProps(props)..add('FancyButton');
-
-    return (Dom.button()
-      ..addProps(getPropsToForward(props, onlyCopyDomProps: true))
-      ..className = classes.toClassName()
-      ..ref = ref)('Click me!');
-  },
-  Dom.button.asForwardRefConfig<DomProps>(displayName: 'FancyButton'),
-);
 
 mixin RefDemoProps on UiProps {}
 
-final RefDemoContainer = uiFunction<RefDemoProps>(
+UiFactory<RefDemoProps> RefDemoContainer = uiFunction(
   (props) {
-    // `uiForwardRef` Refs 
-    final buttonNodeRefForSimpleFunctionComponent = createRef<Element>();
-    final buttonNodeRefForComplexFunctionComponent = createRef<Element>();
-    final buttonNodeRefForSimpleComponent = createRef<Element>();
-    final buttonNodeRefForComplexComponent = createRef<Element>();
+    // `uiForwardRef` Refs
+    final fancyButtonUiForwardRef = createRef<Element>();
+    final fancyButtonWithLoggingReg = createRef<Element>();
+    final fooInputRef = createRef<Element>();
+    final foo2InputRef = createRef<Element>();
 
     // `forwardRef` Refs
     final fancyButtonNodeRef = createRef<Element>();
     final fancyFunctionalButtonNodeRef = createRef<Element>();
 
-    final lastClickedRef = useState<Ref<Element>>(buttonNodeRefForComplexComponent);
-
     return ((Dom.div()..style = {'padding': 10})(
       (RefDemoSection()..sectionTitle = 'uiForwardRef Demos')(
-        (RefDemoHoc()..demoTitle = '`uiForwardRef` with a function component (simple)')(
-          (UiForwardRefLogsFunctionComponent()
-            ..builder = FancyButton
-            ..lastClickedButton = lastClickedRef.value
-            ..id = 'uiForwardRef-function-component'
+        (RefDemoHoc()..demoTitle = 'Basic `uiForwardRef`')(
+          (FancyButton()
             ..className = 'btn btn-primary'
-            ..ref = buttonNodeRefForSimpleFunctionComponent
-            ..onClick = (_) {
-              printButtonOuterHtml(buttonNodeRefForSimpleFunctionComponent);
-              lastClickedRef.set(buttonNodeRefForSimpleFunctionComponent);
-            })(),
+            ..ref = fancyButtonUiForwardRef
+            ..onClick = (_) => printButtonOuterHtml(fancyButtonUiForwardRef)
+          )(),
         ),
-        (RefDemoHoc()..demoTitle = '`uiForwardRef` with a function component (complex)')(
-          (UiForwardRefLogsPropsComplexFunctionComponent()
-            ..buttonDescription = 'A button that logs the innerHtml'
-            ..builder = FancyButton
-            ..lastClickedButton = lastClickedRef.value
-            ..id = 'uiForwardRef-function-complex-component'
+        (RefDemoHoc()..demoTitle = '`uiForwardRef` wrapped in HOC')(
+          (FancyButtonWithLogging()
             ..className = 'btn btn-success'
-            ..ref = buttonNodeRefForComplexFunctionComponent
-            ..onClick = (_) {
-              printButtonOuterHtml(buttonNodeRefForComplexFunctionComponent);
-              lastClickedRef.set(buttonNodeRefForComplexFunctionComponent);
-            })(),
+            ..ref = fancyButtonWithLoggingReg
+            ..onClick = (_) => printButtonOuterHtml(fancyButtonUiForwardRef)
+          )(),
         ),
-        (RefDemoHoc()..demoTitle = '`uiForwardRef` with a class component (simple)')(
-          (UiForwardRefLogsPropsComponent()
-            ..builder = FancyButton
-            ..lastClickedButton = lastClickedRef.value
-            ..id = 'uiForwardRef-component'
-            ..className = 'btn btn-warning'
-            ..ref = buttonNodeRefForSimpleComponent
-            ..onClick = (_) {
-              printButtonOuterHtml(buttonNodeRefForSimpleComponent);
-              lastClickedRef.set(buttonNodeRefForSimpleComponent);
-            })(),
+        (RefDemoHoc()..demoTitle = '`uiForwardRef` wrapping a class (option 1)')(
+          (Foo()
+            ..ref = fooInputRef
+            ..onChange = (e) => print('Foo Input Ref: ${e.target.value}')
+          )(),
         ),
-        (RefDemoHoc()..demoTitle = '`uiForwardRef` with a class component (complex)')(
-          (UiForwardRefLogsPropsComplexComponent()
-            ..buttonDescription = 'A button that logs the innerHtml'
-            ..builder = FancyButton
-            ..lastClickedButton = lastClickedRef.value
-            ..id = 'uiForwardRef-complex-component'
-            ..className = 'btn btn-danger'
-            ..ref = buttonNodeRefForComplexComponent
-            ..onClick = (_) {
-              printButtonOuterHtml(buttonNodeRefForComplexComponent);
-              lastClickedRef.set(buttonNodeRefForComplexComponent);
-            })(),
+        (RefDemoHoc()..demoTitle = '`uiForwardRef` wrapping a class (option 2)')(
+          (Foo2()
+            ..anExampleAdditionalProp = 'This additional prop logs on renders!'
+            ..ref = foo2InputRef
+            ..onChange = (e) => print('Foo2 Input Ref: ${e.target.value}')
+          )(),
         ),
       ),
       (RefDemoSection()..sectionTitle = 'forwardRef (deprecated) Demos')(
         (RefDemoHoc()..demoTitle = '`forwardRef` with class component')(
-          (LogProps()
+          (LogPropsHoc()
             ..builder = FancyButton
-            ..lastClickedButton = lastClickedRef.value
-            ..id = 'forwardRef-component'
-            ..className = 'btn btn-primary'
             ..ref = fancyButtonNodeRef
-            ..onClick = (_) {
-              printButtonOuterHtml(fancyButtonNodeRef);
-              lastClickedRef.set(fancyButtonNodeRef);
-            })(),
+            ..className = 'btn btn-primary'
+            ..onClick = (_) => printButtonOuterHtml(fancyButtonNodeRef)
+          )(),
         ),
-        (RefDemoHoc()..demoTitle = '`uiForwardRef` with function component')(
-          (LogsPropsFunctionComponent()
+        (RefDemoHoc()..demoTitle = '`forwardRef` with function component')(
+          (LoggingFunctionWrapper()
             ..builder = FancyButton
-            ..lastClickedButton = lastClickedRef.value
-            ..id = 'forwardRef-function-component'
             ..className = 'btn btn-success'
             ..ref = fancyFunctionalButtonNodeRef
             ..onClick = (_) {
               printButtonOuterHtml(fancyFunctionalButtonNodeRef);
-              lastClickedRef.set(fancyFunctionalButtonNodeRef);
-            })(),
+            }
+          )(),
         ),
       ),
     ));
   },
-  $RefDemoContainerConfig, // ignore: undefined_identifier
+  _$RefDemoContainerConfig, // ignore: undefined_identifier
 );
 
 void printButtonOuterHtml(Ref buttonRef) {
@@ -283,33 +272,35 @@ mixin RefDemoSectionProps on UiProps {
   String sectionTitle;
 }
 
-final RefDemoSection = uiFunction<RefDemoSectionProps>(
+UiFactory<RefDemoSectionProps> RefDemoSection = uiFunction(
   (props) {
     return (Fragment()(
-        (Dom.h3()..style = {'color': 'gray', 'borderBottom': '1px solid gray', 'marginTop': 10})(
-          props.sectionTitle,
-        ),
-        (Dom.div()
-          ..style = {
-            'display': 'flex',
-            'flexWrap': 'wrap',
-          })(
-          props.children,
-        )));
+      (Dom.h3()..style = {'color': 'gray', 'borderBottom': '1px solid gray', 'marginTop': 10})(
+        props.sectionTitle,
+      ),
+      (Dom.div()
+        ..style = {
+          'display': 'flex',
+          'flexWrap': 'wrap',
+        }
+      )(
+        props.children,
+      ),
+    ));
   },
-  $RefDemoSectionConfig, // ignore: undefined_identifier
+  _$RefDemoSectionConfig, // ignore: undefined_identifier
 );
 
 mixin RefDemoHocProps on UiProps {
   String demoTitle;
 }
 
-final RefDemoHoc = uiFunction<RefDemoHocProps>(
+UiFactory<RefDemoHocProps> RefDemoHoc = uiFunction(
   (props) {
     return ((Dom.div()..style = {'flex': '0 50%', 'width': '100%', 'marginTop': 10})(
       Dom.h4()(props.demoTitle),
       props.children,
     ));
   },
-  $RefDemoHocConfig, // ignore: undefined_identifier
+  _$RefDemoHocConfig, // ignore: undefined_identifier
 );

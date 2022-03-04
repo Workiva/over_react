@@ -167,7 +167,7 @@ main() {
 }
 
 @Factory()
-UiFactory<ComponentTestProps> ComponentTest = _$ComponentTest;
+UiFactory<ComponentTestProps> ComponentTest = _$ComponentTest; // ignore: undefined_identifier, invalid_assignment
 
 @Props()
 class _$ComponentTestProps extends UiProps {

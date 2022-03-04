@@ -34,7 +34,7 @@ import 'package:react/hooks.dart' as react_hooks;
 ///       )('+'),
 ///     );
 ///   },
-///   $UseStateExampleConfig, // ignore: undefined_identifier
+///   _$UseStateExampleConfig, // ignore: undefined_identifier
 /// );
 /// ```
 ///
@@ -62,7 +62,7 @@ StateHook<T> useState<T>(T initialValue) => react_hooks.useState<T>(initialValue
 ///       )('+'),
 ///     );
 ///   },
-///   $UseStateExampleConfig, // ignore: undefined_identifier
+///   _$UseStateExampleConfig, // ignore: undefined_identifier
 /// );
 /// ```
 ///
@@ -107,7 +107,7 @@ StateHook<T> useStateLazy<T>(T Function() init) => react_hooks.useStateLazy<T>(i
 ///       )('+'),
 ///     );
 ///   },
-///   $UseEffectExampleConfig, // ignore: undefined_identifier
+///   _$UseEffectExampleConfig, // ignore: undefined_identifier
 /// );
 /// ```
 ///
@@ -144,7 +144,7 @@ void useEffect(dynamic Function() sideEffect, [List<Object> dependencies]) => re
 ///       )('-'),
 ///     );
 ///   },
-///   $UseReducerExampleConfig, // ignore: undefined_identifier
+///   _$UseReducerExampleConfig, // ignore: undefined_identifier
 /// );
 /// ```
 ///
@@ -200,7 +200,7 @@ ReducerHook<TState, TAction, TInit> useReducer<TState, TAction, TInit>(
 ///       )('reset'),
 ///     );
 ///   },
-///   $UseReducerExampleConfig, // ignore: undefined_identifier
+///   _$UseReducerExampleConfig, // ignore: undefined_identifier
 /// );
 /// ```
 ///
@@ -239,7 +239,7 @@ ReducerHook<TState, TAction, TInit> useReducerLazy<TState, TAction, TInit>(
 ///       (Dom.button()..onClick = incrementDelta)('Increment delta'),
 ///     );
 ///   },
-///   $UseCallbackExampleConfig, // ignore: undefined_identifier
+///   _$UseCallbackExampleConfig, // ignore: undefined_identifier
 /// );
 /// ```
 ///
@@ -262,7 +262,7 @@ T useCallback<T extends Function>(T callback, List dependencies) => react_hooks.
 /// ```dart
 /// Context countContext = createContext(0);
 ///
-/// final UseContextExample = uiFunction<UseContextExampleProps>(
+/// UiFactory<UseContextExampleProps> UseContextExample = uiFunction(
 ///   (props) {
 ///     final count = useContext(countContext);
 ///
@@ -272,7 +272,7 @@ T useCallback<T extends Function>(T callback, List dependencies) => react_hooks.
 ///       ), // initially renders: 'The count from context is 0'
 ///     );
 ///   },
-///   $UseContextExampleConfig, // ignore: undefined_identifier
+///   _$UseContextExampleConfig, // ignore: undefined_identifier
 /// );
 /// ```
 ///
@@ -316,7 +316,7 @@ T useContext<T>(Context<T> context) => react_hooks.useContext(context.reactDartC
 ///       )('Update'),
 ///     );
 ///   },
-///   $UseRefExampleConfig, // ignore: undefined_identifier
+///   _$UseRefExampleConfig, // ignore: undefined_identifier
 /// );
 /// ```
 ///
@@ -325,7 +325,7 @@ Ref<T> useRef<T>([T initialValue]) => react_hooks.useRef(initialValue);
 
 /// Returns a memoized version of the return value of [createFunction].
 ///
-/// If one of the [dependencies] has changed, [createFunction] is run during rendering of the [DartFunctionComponent].
+/// If one of the [dependencies] has changed, [createFunction] is run during rendering of the dart function component.
 /// This optimization helps to avoid expensive calculations on every render.
 ///
 /// > __Note:__ there are two [rules for using Hooks](https://reactjs.org/docs/hooks-rules.html):
@@ -354,7 +354,7 @@ Ref<T> useRef<T>([T initialValue]) => react_hooks.useRef(initialValue);
 ///       )('+'),
 ///     );
 ///   },
-///   $UseMemoExampleConfig, // ignore: undefined_identifier
+///   _$UseMemoExampleConfig, // ignore: undefined_identifier
 /// );
 /// ```
 ///
@@ -362,7 +362,7 @@ Ref<T> useRef<T>([T initialValue]) => react_hooks.useRef(initialValue);
 T useMemo<T>(T Function() createFunction, [List<dynamic> dependencies]) =>
     react_hooks.useMemo(createFunction, dependencies);
 
-/// Runs [sideEffect] synchronously after a [DartFunctionComponent] renders, but before the screen is updated.
+/// Runs [sideEffect] synchronously after a dart function component renders, but before the screen is updated.
 ///
 /// Compare to [useEffect] which runs [sideEffect] after the screen updates.
 /// Prefer the standard [useEffect] when possible to avoid blocking visual updates.
@@ -396,14 +396,14 @@ T useMemo<T>(T Function() createFunction, [List<dynamic> dependencies]) =>
 ///       )(),
 ///     );
 ///   },
-///   $UseLayoutEffectExampleConfig, // ignore: undefined_identifier
+///   _$UseLayoutEffectExampleConfig, // ignore: undefined_identifier
 /// );
 /// ```
 ///
 /// Learn more: <https://reactjs.org/docs/hooks-reference.html#uselayouteffect>.
 void useLayoutEffect(dynamic Function() sideEffect, [List<Object> dependencies]) => react_hooks.useLayoutEffect(sideEffect, dependencies);
 
-/// Customizes the [ref] value that is exposed to parent components when using [forwardRef] by setting [ref.current]
+/// Customizes the [ref] value that is exposed to parent components when using [uiForwardRef] by setting [Ref.current]
 /// to the return value of [createHandle].
 ///
 /// In most cases, imperative code using refs should be avoided.
@@ -428,21 +428,12 @@ void useLayoutEffect(dynamic Function() sideEffect, [List<Object> dependencies])
 ///   FancyInputApi(this.focus);
 /// }
 ///
-/// UiFactory<FancyInputProps> FancyInput =
-///     forwardRef<FancyInputProps>((props, ref) {
-///   return (_FancyInput()
-///     ..forwardedRef = ref
-///     ..addProps(props)
-///   )();
-/// })(_FancyInput);
-///
-/// UiFactory<FancyInputProps> _FancyInput = uiFunction(
-///   (props) {
+/// UiFactory<FancyInputProps> FancyInput = uiForwardRef(
+///   (props, ref) {
 ///     final inputRef = useRef<InputElement>();
 ///
-///     useImperativeHandle(
-///       props.forwardedRef,
-///           () => FancyInputApi(() => inputRef.current.focus()),
+///     useImperativeHandle(ref,
+///       () => FancyInputApi(() => inputRef.current.focus()),
 ///
 ///       /// Because the return value of [createHandle] never changes, it is not necessary for [ref.current]
 ///       /// to be re-set on each render so this dependency list is empty.
@@ -455,7 +446,7 @@ void useLayoutEffect(dynamic Function() sideEffect, [List<Object> dependencies])
 ///       ..onChange = (e) => props.updater(e.target.value)
 ///     )();
 ///   },
-///   $_FancyInputConfig, // ignore: undefined_identifier
+///   _$FancyInputConfig, // ignore: undefined_identifier
 /// );
 ///
 /// UiFactory<UseImperativeHandleExampleProps> UseImperativeHandleExample = uiFunction(
@@ -474,12 +465,12 @@ void useLayoutEffect(dynamic Function() sideEffect, [List<Object> dependencies])
 ///       )('Focus Input'),
 ///     );
 ///   },
-///   $UseImperativeHandleExampleConfig, // ignore: undefined_identifier
+///   _$UseImperativeHandleExampleConfig, // ignore: undefined_identifier
 /// );
 /// ```
 ///
 /// Learn more: <https://reactjs.org/docs/hooks-reference.html#useimperativehandle>.
-void useImperativeHandle(Ref ref, dynamic Function() createHandle, [List<dynamic> dependencies]) =>
+void useImperativeHandle(dynamic ref, dynamic Function() createHandle, [List<dynamic> dependencies]) =>
     react_hooks.useImperativeHandle(ref, createHandle, dependencies);
 
 /// Displays [value] as a label for a custom hook in React DevTools.
@@ -530,7 +521,7 @@ void useImperativeHandle(Ref ref, dynamic Function() createHandle, [List<dynamic
 ///   Map<String, dynamic> friend;
 /// }
 ///
-/// final FriendListItem = uiFunction<FriendListItemProps>(
+/// UiFactory<FriendListItemProps> FriendListItem = uiFunction(
 ///   (props) {
 ///     final isOnline = useFriendStatus(props.friend['id']);
 ///
@@ -538,17 +529,17 @@ void useImperativeHandle(Ref ref, dynamic Function() createHandle, [List<dynamic
 ///       props.friend['name'],
 ///     );
 ///   },
-///   $FriendListItemConfig, // ignore: undefined_identifier
+///   _$FriendListItemConfig, // ignore: undefined_identifier
 /// );
 ///
-/// final UseDebugValueExample = uiFunction<UseDebugValueExampleProps>(
+/// UiFactory<UseDebugValueExampleProps> UseDebugValueExample = uiFunction(
 ///   (props) => Fragment()(
 ///     (FriendListItem()..friend = {'id': 1, 'name': 'user 1'})(),
 ///     (FriendListItem()..friend = {'id': 2, 'name': 'user 2'})(),
 ///     (FriendListItem()..friend = {'id': 3, 'name': 'user 3'})(),
 ///     (FriendListItem()..friend = {'id': 4, 'name': 'user 4'})(),
 ///   ),
-///   $UseDebugValueExampleConfig, // ignore: undefined_identifier
+///   _$UseDebugValueExampleConfig, // ignore: undefined_identifier
 /// );
 /// ```
 ///

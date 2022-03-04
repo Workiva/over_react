@@ -31,7 +31,7 @@ StateHook<bool> useFriendStatus(int friendID) {
   final isOnline = useState(false);
 
   void handleStatusChange(Map status) {
-    isOnline.set(status['isOnline']);
+    isOnline.set(status['isOnline'] as bool);
   }
 
   useEffect(() {
@@ -52,25 +52,25 @@ mixin FriendListItemProps on UiProps {
   Map<String, dynamic> friend;
 }
 
-final FriendListItem = uiFunction<FriendListItemProps>(
+UiFactory<FriendListItemProps> FriendListItem = uiFunction(
   (props) {
-    final isOnline = useFriendStatus(props.friend['id']);
+    final isOnline = useFriendStatus(props.friend['id'] as int);
 
     return (Dom.li()..style = {'color': isOnline.value ? 'green' : 'black'})(
       props.friend['name'],
     );
   },
-  $FriendListItemConfig, // ignore: undefined_identifier
+  _$FriendListItemConfig, // ignore: undefined_identifier
 );
 
 mixin UseDebugValueExampleProps on UiProps {}
 
-final UseDebugValueExample = uiFunction<UseDebugValueExampleProps>(
+UiFactory<UseDebugValueExampleProps> UseDebugValueExample = uiFunction(
   (props) => Fragment()(
     (FriendListItem()..friend = {'id': 1, 'name': 'user 1'})(),
     (FriendListItem()..friend = {'id': 2, 'name': 'user 2'})(),
     (FriendListItem()..friend = {'id': 3, 'name': 'user 3'})(),
     (FriendListItem()..friend = {'id': 4, 'name': 'user 4'})(),
   ),
-  $UseDebugValueExampleConfig, // ignore: undefined_identifier
+  _$UseDebugValueExampleConfig, // ignore: undefined_identifier
 );

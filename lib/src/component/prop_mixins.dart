@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// ignore_for_file: deprecated_member_use_from_same_package
+
 /// Various prop related mixins to be used with `UiComponent` descendants.
 library over_react.prop_mixins;
 
@@ -21,6 +23,7 @@ import 'package:over_react/over_react.dart' show AriaPropsMapView, AriaPropsMixi
 import 'package:over_react/over_react.dart' show PropDescriptor, ConsumedProps, PropsMeta;
 import 'package:over_react/src/component/callback_typedefs.dart';
 import 'package:over_react/src/component_declaration/annotations.dart';
+import 'package:react/react_client/js_backed_map.dart';
 
 part 'prop_mixins.over_react.g.dart';
 
@@ -41,8 +44,31 @@ abstract class $ReactPropsMixin {
 abstract class _$ReactPropsMixin {
   Map get props;
 
+  // This private field is namespaced to avoid colliding with other classes.
+  @Accessor(key: 'children')
+  dynamic _raw$ReactProps$children;
+
   /// The children that were passed in to this component when it was built.
-  List children;
+  List<dynamic> get children {
+    final value = _raw$ReactProps$children;
+
+    // Most common case; Dart components should all have List children
+    // when rendered by Dart code.
+    if (value is List) return value;
+
+    if (value == null) {
+      // Normalize explicit null values to an empty list, but still return null
+      // when children aren't specified so that we don't break existing usages
+      // where checking for null is equivalent to checking to see if the value was specified.
+      // E.g., `builder..children ??= ['foo']`.
+      return props.containsKey('children') ? const [] : null;
+    }
+
+    // Wrap single children in a list.
+    return [value];
+  }
+
+  set children(List<dynamic> value) => _raw$ReactProps$children = value;
 
   /// A String that differentiates a component from its siblings.
   ///
@@ -55,7 +81,7 @@ abstract class _$ReactPropsMixin {
   ///
   /// * <https://facebook.github.io/react/docs/multiple-components.html#children>
   /// * <https://facebook.github.io/react/docs/reconciliation.html>
-  String get key        => props['key'];
+  String get key        => props['key'] as String;
   /// ignore: prefer_null_aware_operators
   set key(Object value) => props['key'] = value == null ? null : value.toString();
 
@@ -77,6 +103,35 @@ abstract class $DomPropsMixin {
   static const PropsMeta meta = _$metaForDomPropsMixin;
 }
 
+Map<String, dynamic> _conditionallyUnconvertStyle(dynamic style) {
+  if (style == null) return null;
+
+  // Check for Map and not Map<String, dynamic> so that the consumer gets the
+  // type error they should as opposed to us `cast()`ing it below.
+  if (style is Map) return style as Map<String, dynamic>;
+
+  return (_deepUnjsifyStyleObject(style) as Map).cast();
+}
+
+/// DO NOT use this implementation outside of [_conditionallyUnconvertStyle]
+/// unmodified.
+///
+/// This implementation converts any non-List JS object into a Map, which isn't
+/// desirable behavior for all cases (e.g., JS objects with prototypes,
+/// JS objects that have corresponding anonymous JS interop classes, etc.).
+dynamic _deepUnjsifyStyleObject(dynamic object) {
+  if (object is List) {
+    return object.map(_deepUnjsifyStyleObject).toList();
+  }
+  if (object is JsMap) {
+    final map = JsBackedMap.backedBy(object);
+    return {
+      for (final key in map.keys) key: _deepUnjsifyStyleObject(map[key]),
+    };
+  }
+  return object;
+}
+
 /// Typed getters/setters for reserved DOM-related props.
 /// To be used as a mixin for React components and builders.
 @PropsMixin(keyNamespace: '')
@@ -96,7 +151,12 @@ abstract class _$DomPropsMixin {
   bool allowFullScreen, async, autoPlay, checked, controls, defer, disabled, formNoValidate, hidden, loop, multiple,
       muted, noValidate, open, readOnly, required, reversed, scoped, seamless, selected;
 
-  Map<String, dynamic> style;
+  // Namespaced to avoid colliding with UbiquitousDomPropsMixin
+  @Accessor(key: 'style')
+  dynamic _raw$DomProps$style;
+
+  Map<String, dynamic> get style => _conditionallyUnconvertStyle(_raw$DomProps$style);
+  set style(Map<String, dynamic> value) => _raw$DomProps$style = value;
 
   String challenge, cite, className, controlsList, formAction, formEncType, formMethod, formTarget, headers, id,
       inputMode, integrity, keyParams, keyType, kind, nonce, srcLang, summary, title, wrap;
@@ -256,7 +316,12 @@ abstract class _$UbiquitousDomPropsMixin {
   ///     }
   ///
   /// See: <https://facebook.github.io/react/tips/inline-styles.html>
-  Map<String, dynamic> style;
+  Map<String, dynamic> get style => _conditionallyUnconvertStyle(_raw$UbiquitousDomProps$style);
+  set style(Map<String, dynamic> value) => _raw$UbiquitousDomProps$style = value;
+
+  // Namespaced to avoid colliding with DomPropsMixin / other mixins
+  @Accessor(key: 'style')
+  dynamic _raw$UbiquitousDomProps$style;
 
   /// Callback for when a CSS Animation has completed.
   ///

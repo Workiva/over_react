@@ -11,7 +11,7 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-
+// ignore_for_file: deprecated_member_use_from_same_package
 library forward_ref_test;
 
 import 'dart:html';
@@ -60,7 +60,7 @@ main() {
           final Ref refObject = createRef();
           final vDomElement = (BasicForwarded()..ref = refObject)();
 
-          expect(getProperty(getProperty(vDomElement.type, 'render'), 'displayName'), 'Anonymous');
+          expect(getProperty(getProperty(vDomElement.type, 'render'), 'name'), '');
         });
 
         test('when displayName argument is passed to the config constructor', () {
@@ -71,7 +71,7 @@ main() {
           final Ref refObject = createRef();
           final vDomElement = (BasicForwarded()..ref = refObject)();
 
-          expect(getProperty(getProperty(vDomElement.type, 'render'), 'displayName'), displayName);
+          expect(getProperty(getProperty(vDomElement.type, 'render'), 'name'), displayName);
         });
 
         group('returns normally when passed children', () {
@@ -99,7 +99,7 @@ main() {
         final Ref refObject = createRef();
         final vDomElement = (TopLevelForwardUiRefFunction()..ref = refObject)();
 
-        expect(getProperty(getProperty(vDomElement.type, 'render'), 'displayName'),
+        expect(getProperty(getProperty(vDomElement.type, 'render'), 'name'),
             'TopLevelForwardUiRefFunction');
       });
 
@@ -153,7 +153,7 @@ void commonRefForwardingTests({bool useUiForwardRef = false}) {
   UiFactory<DomProps> getFactoryForDiv({
     String displayName,
   }) {
-    ReactElement div(Ref ref, dynamic children) => (Dom.div()..ref = ref)(children);
+    ReactElement div(dynamic ref, dynamic children) => (Dom.div()..ref = ref)(children);
 
     if (useUiForwardRef) {
       if (displayName == null) {
@@ -184,7 +184,7 @@ void commonRefForwardingTests({bool useUiForwardRef = false}) {
         expect(ref, TypeMatcher<SpanElement>());
       }, useUiForwardRef: useUiForwardRef);
 
-      test('- using DomProps', () {
+      test('- while consuming the `DomProps` props class', () {
         UiFactory<DomProps> DivForwarded = getFactoryForDiv();
 
         final Ref<DivElement> refObject = createRef();
@@ -201,8 +201,11 @@ void commonRefForwardingTests({bool useUiForwardRef = false}) {
           final refObject = createRef<DivElement>();
           final vDomElement = (DivForwarded()..ref = refObject)();
 
-          expect(getProperty(getProperty(vDomElement.type, 'render'), 'displayName'),
-              useUiForwardRef ? 'Anonymous' : 'div');
+          if (useUiForwardRef) {
+            expect(getProperty(getProperty(vDomElement.type, 'render'), 'name'), '');
+          } else {
+            expect(getProperty(getProperty(vDomElement.type, 'render'), 'displayName'), 'div');
+          }
         });
 
         test('when displayName argument is passed to the config constructor', () {
@@ -211,7 +214,12 @@ void commonRefForwardingTests({bool useUiForwardRef = false}) {
           final refObject = createRef<DivElement>();
           final vDomElement = (DivForwarded()..ref = refObject)();
 
-          expect(getProperty(getProperty(vDomElement.type, 'render'), 'displayName'), displayName);
+
+          if (useUiForwardRef) {
+            expect(getProperty(getProperty(vDomElement.type, 'render'), 'name'), displayName);
+          } else {
+            expect(getProperty(getProperty(vDomElement.type, 'render'), 'displayName'), displayName);
+          }
         });
       });
 
@@ -238,8 +246,11 @@ void commonRefForwardingTests({bool useUiForwardRef = false}) {
           final Ref refObject = createRef();
           final vDomElement = (BasicForwarded()..ref = refObject)();
 
-          expect(getProperty(getProperty(vDomElement.type, 'render'), 'displayName'),
-              useUiForwardRef ? 'Anonymous' : 'Basic');
+          if (useUiForwardRef) {
+            expect(getProperty(getProperty(vDomElement.type, 'render'), 'name'), '');
+          } else {
+            expect(getProperty(getProperty(vDomElement.type, 'render'), 'displayName'), 'Basic');
+          }
         });
 
         test('when displayName argument is passed to the config constructor', () {
@@ -248,7 +259,11 @@ void commonRefForwardingTests({bool useUiForwardRef = false}) {
           final Ref refObject = createRef();
           final vDomElement = (BasicForwarded()..ref = refObject)();
 
-          expect(getProperty(getProperty(vDomElement.type, 'render'), 'displayName'), displayName);
+          if (useUiForwardRef) {
+            expect(getProperty(getProperty(vDomElement.type, 'render'), 'name'), displayName);
+          } else {
+            expect(getProperty(getProperty(vDomElement.type, 'render'), 'displayName'), displayName);
+          }
         });
       });
 
@@ -268,7 +283,7 @@ void commonRefForwardingTests({bool useUiForwardRef = false}) {
 const displayName = 'AVerySpecificDisplayName';
 
 void testForwardRefWith(dynamic factory,
-    {void Function(dynamic refValue) verifyRefValue, useUiForwardRef = false}) {
+    {void Function(dynamic refValue) verifyRefValue, bool useUiForwardRef = false}) {
   test('- passes a ref through the parent to its child', () {
     UiFactory<BasicProps> BasicForwarded = useUiForwardRef
         ? uiForwardRef<BasicProps>((props, ref) {
@@ -291,18 +306,19 @@ void testForwardRefWith(dynamic factory,
     // component props are accessed differently depending on if it is a dom component
     // or a dart component
     String idValue;
-    if (refObject.current is Element) {
-      idValue = refObject.current.id;
+    final current = refObject.current;
+    if (current is Element) {
+      idValue = current.id;
     } else {
-      idValue = refObject.current.props['id'];
+      idValue = current.props['id'] as String;
     }
 
-    expect(idValue, equals('test'), reason: 'child component should have access to parent props');
-    verifyRefValue(refObject.current);
+    expect(idValue, equals('test'), reason: 'child component receives props passed to it');
+    verifyRefValue(current);
   });
 }
 
-UiFactory<BasicProps> Basic = _$Basic; // ignore: undefined_identifier
+UiFactory<BasicProps> Basic = _$Basic; // ignore: undefined_identifier, invalid_assignment
 
 mixin BasicProps on UiProps {
   String childId;
@@ -321,12 +337,12 @@ final BasicUiFunction = uiFunction<BasicUiFunctionProps>(
   (props) {
     return props.children.isEmpty ? 'basic component' : props.children;
   },
-  $BasicUiFunctionConfig, // ignore: undefined_identifier
+  _$BasicUiFunctionConfig, // ignore: undefined_identifier
 );
 
 final TopLevelForwardUiRefFunction = uiForwardRef<SecondaryBasicUiFunctionProps>(
   (props, ref) {
     return (BasicUiFunction()..ref = ref)(props.children);
   },
-  $TopLevelForwardUiRefFunctionConfig, // ignore: undefined_identifier
+  _$TopLevelForwardUiRefFunctionConfig, // ignore: undefined_identifier
 );

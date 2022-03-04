@@ -68,6 +68,24 @@ main() {
       expect(() => connect<CounterState, NonComponentTwoCounterProps>()(NonComponentTwoCounter), throwsArgumentError);
     });
 
+    test('throws when multiple `mapStateToProps` type args are provided', () {
+      expect(() => connect<CounterState, CounterProps>(
+          mapStateToProps: (state) => {},
+          makeMapStateToProps: (state, ownProps) => (_) => {}
+        )(Counter),
+        throwsArgumentError
+      );
+    });
+
+    test('throws when multiple `mapDispatchToProps` type args are provided', () {
+      expect(() => connect<CounterState, CounterProps>(
+          mapDispatchToProps: (state) => {},
+          makeMapDispatchToProps: (state, ownProps) => (_) => {}
+        )(Counter),
+        throwsArgumentError
+      );
+    });
+
     group('Provider Usage', () {
       test('throws without a provider', () {
         ConnectedCounter = connect<CounterState, CounterProps>()(Counter);
@@ -105,7 +123,7 @@ main() {
 
     group('mapStateToProps properly maps the state to the components props',
         () {
-      test('on inital load', () {
+      test('on initial load', () {
         ConnectedCounter = connect<CounterState, CounterProps>(
             mapStateToProps: (state) {
               return Counter()..currentCount = state.count;
@@ -151,7 +169,7 @@ main() {
 
       test('without converting the props whatsoever', () {
         // Test functions/Maps to ensure they're not allowInterop'd,
-        // test event handlers to ensure they're not oterwise converted
+        // test event handlers to ensure they're not otherwise converted
         testFunction() => 'foo';
         const testMap = {'foo': 'bar'};
         testEventHandler(SyntheticMouseEvent e) {}
@@ -200,7 +218,7 @@ main() {
     group(
         'mapStateToPropsWithOwnProps properly maps the state to the components props',
         () {
-      test('on inital load', () {
+      test('on initial load', () {
         ConnectedCounter = connect<CounterState, CounterProps>(
             mapStateToPropsWithOwnProps: (state, ownProps) {
               return Counter()..currentCount = state.count;
@@ -242,6 +260,116 @@ main() {
 
         expect(counterRef.current.props.currentCount, 1);
         expect(jacket.mountNode.innerHtml, contains('Count: 1'));
+      });
+    });
+
+    group('makeMapStateToProps', () {
+      test('only calls factory on component mount', () async {
+        ConnectedCounter = connect<CounterState, CounterProps>(
+            makeMapStateToProps: expectAsync2((initialState, initialOwnProps) {
+              return expectAsync1((state) {
+                return Counter()..currentCount = state.count;
+              }, count: 2);
+            }, count: 1),
+          forwardRef: true)(Counter);
+
+        jacket = mount((ReduxProvider()..store = store1)(
+            (ConnectedCounter()..ref = counterRef)('test'),
+          ));
+
+        expect(counterRef.current.props.currentCount, 0);
+
+        var dispatchButton = queryByTestId(jacket.mountNode, 'button-increment');
+        // causes a state change that calls the makeMapStateToProps returned "real" mapStateToProps function.
+        click(dispatchButton);
+
+        // wait for the next tick for the async dispatch to propagate
+        await Future(() {});
+
+        expect(counterRef.current.props.currentCount, 1);
+      });
+    });
+
+    group('makeMapStateToPropsWithOwnProps', () {
+      test('only calls factory on component mount', () async {
+        ConnectedCounter = connect<CounterState, CounterProps>(
+            makeMapStateToPropsWithOwnProps: expectAsync2((initialState, initialOwnProps) {
+              return expectAsync2((state, ownProps) {
+                return Counter()..currentCount = state.count;
+              }, count: 2);
+            }, count: 1),
+          forwardRef:true)(Counter);
+
+        jacket = mount((ReduxProvider()..store = store1)(
+            (ConnectedCounter()..ref = counterRef)('test'),
+          ));
+
+        expect(counterRef.current.props.currentCount, 0);
+
+        var dispatchButton = queryByTestId(jacket.mountNode, 'button-increment');
+        // causes a state change that calls the makeMapStateToPropsWithOwnProps returned "real" mapStateToProps function.
+        click(dispatchButton);
+
+        // wait for the next tick for the async dispatch to propagate
+        await Future(() {});
+
+        expect(counterRef.current.props.currentCount, 1);
+      });
+    });
+
+    group('makeMapDispatchToProps', () {
+      test('only calls factory on initial load', () async {
+        ConnectedCounter = connect<CounterState, CounterProps>(
+            mapStateToProps: (state) => (Counter()..currentCount = state.count),
+            makeMapDispatchToProps: expectAsync2((dispatch, initialOwnProps) {
+              return expectAsync1((dispatch) {
+                return Counter()..decrement = () => dispatch(DecrementAction());
+              }, count: 1);
+            }, count: 1),
+            forwardRef: true)(Counter);
+
+        jacket = mount((ReduxProvider()..store = store1)(
+            (ConnectedCounter()..ref = counterRef)('test'),
+          ));
+
+        expect(counterRef.current.props.currentCount, 0);
+
+        var dispatchButton = queryByTestId(jacket.mountNode, 'button-decrement');
+        // causes a state change that calls the makeMapDispatchToProps returned "real" mapDispatchToProps function.
+        click(dispatchButton);
+
+        // wait for the next tick for the async dispatch to propagate
+        await Future(() {});
+
+        expect(counterRef.current.props.currentCount, -1);
+      });
+    });
+
+    group('makeMapDispatchToPropsWithOwnProps', () {
+      test('only calls factory on initial load', () async {
+        ConnectedCounter = connect<CounterState, CounterProps>(
+            mapStateToProps: (state) => (Counter()..currentCount = state.count),
+            makeMapDispatchToPropsWithOwnProps: expectAsync2((dispatch, initialOwnProps) {
+              return expectAsync2((dispatch, ownProps) {
+                return Counter()..decrement = () => dispatch(DecrementAction());
+              }, count: 1);
+            }, count: 1),
+          forwardRef:true)(Counter);
+
+        jacket = mount((ReduxProvider()..store = store1)(
+            (ConnectedCounter()..ref = counterRef)('test'),
+          ));
+
+        expect(counterRef.current.props.currentCount, 0);
+
+        var dispatchButton = queryByTestId(jacket.mountNode, 'button-decrement');
+        // causes a state change that calls the makeMapDispatchToPropsWithOwnProps returned "real" mapDispatchToProps function.
+        click(dispatchButton);
+
+        // wait for the next tick for the async dispatch to propagate
+        await Future(() {});
+
+        expect(counterRef.current.props.currentCount, -1);
       });
     });
 
@@ -397,7 +525,7 @@ main() {
             },
             areStatePropsEqual: (next, prev) {
               calls.add({'name': 'areStatePropsEqual', 'next': next, 'prev': prev});
-              // Force it to always be true, meaing it shouldnt re-render if they change.
+              // Force it to always be true, meaning it shouldn't re-render if they change.
               return true;
             },
             forwardRef: true,
@@ -586,7 +714,7 @@ main() {
         expect(bigCounter.innerHtml, contains('Count: 100'));
       });
 
-      test('correctly renderes when contexts are nested', () async {
+      test('correctly renders when contexts are nested', () async {
         var bigCounterContext = createContext();
         ConnectedCounter = connect<CounterState, CounterProps>(
           mapStateToProps: (state) {

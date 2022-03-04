@@ -19,7 +19,6 @@ import 'package:test/test.dart';
 import '../test_util/test_util.dart';
 import 'fixtures/connect_flux_counter.dart';
 import 'fixtures/connect_flux_store.dart';
-import 'fixtures/redux_actions.dart';
 
 main() {
   Context context1;
@@ -145,12 +144,3 @@ main() {
     });
   });
 }
-
-class ReduxState {
-  final String field;
-
-  ReduxState(this.field);
-}
-
-ReduxState reducer(ReduxState oldState, dynamic action) =>
-    ReduxState(action.field ?? oldState.field);

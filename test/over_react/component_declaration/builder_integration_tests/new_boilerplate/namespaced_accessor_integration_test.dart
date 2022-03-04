@@ -102,8 +102,7 @@ main() {
 }
 
 
-
-UiFactory<NamespacedAccessorTestProps> NamespacedAccessorTest = _$NamespacedAccessorTest;
+UiFactory<NamespacedAccessorTestProps> NamespacedAccessorTest = _$NamespacedAccessorTest; // ignore: undefined_identifier, invalid_assignment
 
 @Props(keyNamespace: 'custom props class namespace**')
 mixin NamespacedAccessorTestProps on UiProps {

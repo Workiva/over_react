@@ -17,26 +17,30 @@
 // It can be changed back when that issue is taken care of.
 // https://github.com/Workiva/dart_dev/issues/74
 @TestOn('browser')
-library over_react_component_test;
+library over_react_redux_test;
 
 import 'package:over_react/over_react.dart';
-import 'package:react/react_client.dart';
 import 'package:test/test.dart';
 
-import './over_react_redux/connect_test.dart' as connect_test;
-import './over_react_redux/connect_flux_test.dart' as connect_flux_test;
-import './over_react_redux/connect_flux_integration_test.dart' as connect_flux_integration_test;
-import './over_react_redux/redux_multi_provider_test.dart' as multi_provider_test;
-import './over_react_redux/value_mutation_checker_test.dart' as value_mutation_checker_test;
-
+import 'over_react_redux/hooks/use_dispatch_test.dart' as use_dispatch_hook_test;
+import 'over_react_redux/hooks/use_store_test.dart' as use_store_hook_test;
+import 'over_react_redux/connect_test.dart' as connect_test;
+import 'over_react_redux/connect_flux_test.dart' as connect_flux_test;
+import 'over_react_redux/connect_flux_adapter_store_test.dart' as connect_flux_adapter_store_test;
+import 'over_react_redux/connect_flux_integration_test.dart' as connect_flux_integration_test;
+import 'over_react_redux/redux_multi_provider_test.dart' as multi_provider_test;
+import 'over_react_redux/store_bindings_tests.dart' as store_bindings_tests;
+import 'over_react_redux/value_mutation_checker_test.dart' as value_mutation_checker_test;
 
 void main() {
-  setClientConfiguration();
-
   enableTestMode();
+  use_dispatch_hook_test.main();
+  use_store_hook_test.main();
   connect_test.main();
   connect_flux_test.main();
+  connect_flux_adapter_store_test.main();
   connect_flux_integration_test.main();
   multi_provider_test.main();
+  store_bindings_tests.main();
   value_mutation_checker_test.main();
 }

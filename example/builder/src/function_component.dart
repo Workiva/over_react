@@ -26,27 +26,20 @@ mixin BasicProps on UiProps {
   String basic4;
 }
 
-// The usage of forwardRef with uiFunction components will change in: CPLAT-11722
-UiFactory<BasicProps> Basic = forwardRef<BasicProps>((props, ref) {
-  return (_Basic()
-    ..forwardedRef = ref
-    ..addProps(props))();
-})(_Basic);
-
-UiFactory<BasicProps> _Basic = uiFunction(
-  (props) {
+UiFactory<BasicProps> Basic = uiForwardRef(
+  (props, ref) {
     return Fragment()(
       Dom.div()('prop id: ${props.id}'),
       Dom.div()('default prop testing: ${props.basicProp}'),
       Dom.div()('default prop testing: ${props.basic1}'),
-      (Dom.div()..ref = props.forwardedRef)(
+      (Dom.div()..ref = ref)(
           props.basic3, 'children: ${props.children}'),
     );
   },
-  $_BasicConfig, // ignore: undefined_identifier
+  _$BasicConfig, // ignore: undefined_identifier
 );
 
-final Simple = uiFunction<BasicProps>(
+UiFactory<BasicProps> Simple = uiFunction(
   (props) {
     final basicProp = props.basicProp ?? 'basicProp';
     final basic1 = props.basic1 ?? 'basic1';
@@ -59,16 +52,16 @@ final Simple = uiFunction<BasicProps>(
       (Foo()..content = props.basic2)(),
     );
   },
-  $SimpleConfig, // ignore: undefined_identifier
+  _$SimpleConfig, // ignore: undefined_identifier
 );
 
 mixin FooProps on UiProps {
   String content;
 }
 
-final Foo = uiFunction<FooProps>(
+UiFactory<FooProps> Foo = uiFunction(
   (props) => Dom.div()('forwarded prop: ${props.content}'),
-  $FooConfig, // ignore: undefined_identifier
+  _$FooConfig, // ignore: undefined_identifier
 );
 
 ReactElement functionComponentContent() {
@@ -76,12 +69,12 @@ ReactElement functionComponentContent() {
     return Dom.div()('prop id: ${props.id}');
   }
 
-  final genericFactory = uiFunction<UiProps>(
+  UiFactory<UiProps> genericFactory = uiFunction(
     GenericFactory,
     UiFactoryConfig(),
   );
 
-  final basicFactory = uiFunction<BasicProps>(
+  UiFactory<BasicProps> basicFactory = uiFunction(
     (props) {
       return Fragment()(
         Dom.div()('prop id: ${props.id}'),

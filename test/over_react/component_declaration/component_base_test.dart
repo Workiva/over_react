@@ -19,7 +19,8 @@ import 'dart:async';
 import 'dart:collection';
 import 'dart:html';
 
-import 'package:over_react/over_react.dart' show Dom, DummyComponent, DummyComponent2, JsBackedMap, UiComponent2, UiStatefulComponent2, ValidationUtil, registerComponent2;
+import 'package:js/js_util.dart';
+import 'package:over_react/over_react.dart' show Dom, DummyComponent, DummyComponent2, JsBackedMap, UiComponent2, UiStatefulComponent2, ValidationUtil, domProps, registerComponent2;
 import 'package:over_react/over_react.dart' as over_react;
 import 'package:over_react_test/over_react_test.dart';
 import 'package:over_react/src/component_declaration/component_base.dart';
@@ -135,6 +136,9 @@ main() {
         expect(getJsChildren(instance), equals(expectedChildren));
       });
     });
+
+    // Equivalent tests from the react-dart version of this shared test function (sharedChildrenTests)
+    // are located below instead of in this function.
   }
 
   group('component base:', () {
@@ -231,11 +235,11 @@ main() {
 
       group('renders a composite Dart component with the correct children when', () {
         test('no children are passed in', () {
-
           var renderedInstance = render(TestComponent()());
 
-          expect(getDartChildren(renderedInstance), isA<List>(), reason: 'Should be a list because lists will be JSified');
-          expect(getDartChildren(renderedInstance), isEmpty);
+          expect(getRawDartChildren(renderedInstance), isA<List>(), reason: 'Should be a list because lists will be JSified');
+          expect(getRawDartChildren(renderedInstance), isEmpty);
+          expect(getTypedDartChildren(renderedInstance), same(getTypedDartChildren(renderedInstance)));
 
           expect(getJsChildren(renderedInstance), isNull);
         });
@@ -243,8 +247,9 @@ main() {
         test('children is null', () {
           var renderedInstance = render(TestComponent()(null));
 
-          expect(getDartChildren(renderedInstance), isA<List>(), reason: 'Should be a list because lists will be JSified');
-          expect(getDartChildren(renderedInstance), isEmpty);
+          expect(getRawDartChildren(renderedInstance), isA<List>(), reason: 'Should be a list because lists will be JSified');
+          expect(getRawDartChildren(renderedInstance), isEmpty);
+          expect(getTypedDartChildren(renderedInstance), same(getTypedDartChildren(renderedInstance)));
 
           expect(getJsChildren(renderedInstance), isNull);
         });
@@ -253,8 +258,9 @@ main() {
           var child = 'Only child';
           var renderedInstance = render(TestComponent()(child));
 
-          expect(getDartChildren(renderedInstance), isA<List>(), reason: 'Should be a list because lists will be JSified');
-          expect(getDartChildren(renderedInstance), equals([child]));
+          expect(getRawDartChildren(renderedInstance), isA<List>(), reason: 'Should be a list because lists will be JSified');
+          expect(getRawDartChildren(renderedInstance), equals([child]));
+          expect(getTypedDartChildren(renderedInstance), same(getTypedDartChildren(renderedInstance)));
 
           expect(getJsChildren(renderedInstance), equals(child));
         });
@@ -263,8 +269,8 @@ main() {
           var children = ['First Child', 'Second Child'];
           var renderedInstance = render(TestComponent()(children));
 
-          expect(getDartChildren(renderedInstance), isA<List>(), reason: 'Should be a list because lists will be JSified');
-          expect(getDartChildren(renderedInstance), equals(children));
+          expect(getRawDartChildren(renderedInstance), isA<List>(), reason: 'Should be a list because lists will be JSified');
+          expect(getRawDartChildren(renderedInstance), equals(children));
 
           expect(getJsChildren(renderedInstance), isA<List>(), reason: 'Should be a list because lists will be JSified');
           expect(getJsChildren(renderedInstance), equals(children));
@@ -277,8 +283,9 @@ main() {
           })();
           var renderedInstance = render(TestComponent()(children));
 
-          expect(getDartChildren(renderedInstance), isA<List>(), reason: 'Should be a list because lists will be JSified');
-          expect(getDartChildren(renderedInstance), orderedEquals(children));
+          expect(getRawDartChildren(renderedInstance), isA<List>(), reason: 'Should be a list because lists will be JSified');
+          expect(getRawDartChildren(renderedInstance), orderedEquals(children));
+          expect(getTypedDartChildren(renderedInstance), same(getTypedDartChildren(renderedInstance)));
 
           expect(getJsChildren(renderedInstance), isA<List>(), reason: 'Should be a list because lists will be JSified');
           expect(getJsChildren(renderedInstance), orderedEquals(children));
@@ -289,8 +296,9 @@ main() {
           var secondChild = 'Second Child';
           var renderedInstance = render(TestComponent()(firstChild, secondChild));
 
-          expect(getDartChildren(renderedInstance), isA<List>(), reason: 'Should be a list because lists will be JSified');
-          expect(getDartChildren(renderedInstance), equals([firstChild, secondChild]));
+          expect(getRawDartChildren(renderedInstance), isA<List>(), reason: 'Should be a list because lists will be JSified');
+          expect(getRawDartChildren(renderedInstance), equals([firstChild, secondChild]));
+          expect(getTypedDartChildren(renderedInstance), same(getTypedDartChildren(renderedInstance)));
 
           expect(getJsChildren(renderedInstance), isA<List>(), reason: 'Should be a list because lists will be JSified');
           expect(getJsChildren(renderedInstance), equals([firstChild, secondChild]));
@@ -458,6 +466,120 @@ main() {
           props.addTestId(null);
 
           expect(props, equals({}));
+        });
+      });
+
+      group('custom prop getters/setters', () {
+        void sharedNormalizationTests(UiProps Function(Map props) getTypedView) {
+          group('children', () {
+            const childrenKey = 'children';
+
+            test('setter works normally, passing through the value', () {
+              final children = ['foo', 'bar'];
+              expect(getTypedView({})..children = children, {childrenKey: same(children)});
+              expect(getTypedView({})..children = null, {childrenKey: isNull});
+            });
+
+            group('getter normalizes the children prop to a List'
+                ' (to accommodate children passed in from JS components,'
+                ' since only components rendered from Dart are guaranteed to have List children)'
+                ' when the children are', () {
+
+              test('a List: returns the same list', () {
+                final list = ['foo', 'bar'];
+                expect(getTypedView({childrenKey: list}).children, same(list));
+              });
+
+              test('null: returns an empty list', () {
+                expect(getTypedView({childrenKey: null}).children, same(const []));
+              });
+
+              test('a single child: wraps in a list', () {
+                expect(getTypedView({childrenKey: 'foo'}).children, ['foo']);
+              });
+
+              // See source for explanation on why we return null here.
+              test('not present in the map: returns null', () {
+                expect(getTypedView({}).children, isNull);
+              });
+            });
+          });
+
+          group('style', () {
+            const styleKey = 'style';
+
+            test('setter works normally, passing through the value', () {
+              final style = <String, dynamic>{};
+              expect(getTypedView({})..style = style, {styleKey: same(style)});
+              expect(getTypedView({})..style = null, {styleKey: isNull});
+            });
+
+            group('getter normalizes the style prop to a Map'
+                ' (to accommodate styles passed in from JS components)'
+                ' when the style is', () {
+
+              test('a Map: returns the same map', () {
+                final style = <String, dynamic>{'color': 'blue'};
+                expect(getTypedView({styleKey: style}).style, same(style));
+              });
+
+              // This test verifies we're not .cast()-ing maps of the wrong type when we shouldn't
+              test('a Map of the wrong type throws a type error', () {
+                final style = <dynamic, dynamic>{'color': 'blue'};
+                expect(() => getTypedView({styleKey: style}).style,
+                    // ignore: deprecated_member_use
+                    throwsA(anyOf(isA<TypeError>(), isA<CastError>())));
+              });
+
+              test('null: returns null', () {
+                expect(getTypedView({styleKey: null}).style, isNull);
+              });
+
+              test('a JS object: unconverts into a Dart object', () {
+                final jsStyle = jsify({
+                  'color': 'blue',
+                  'someNestedMapThatWillProbablyNeverHappen': {
+                    'color': 'red'
+                  },
+                  'someNestedListThatWillProbablyNeverHappen': [
+                    {
+                      'color': 'green'
+                    },
+                  ]
+                });
+
+                final style = getTypedView({styleKey: jsStyle}).style;
+                expect(
+                    style,
+                    allOf(
+                      isA<Map<String, dynamic>>(),
+                      equals({
+                        'color': 'blue',
+                        'someNestedMapThatWillProbablyNeverHappen': {
+                          'color': 'red'
+                        },
+                        'someNestedListThatWillProbablyNeverHappen': [
+                          {'color': 'green'},
+                        ]
+                      }),
+                    ));
+              });
+
+              test('not present in the map: returns null', () {
+                expect(getTypedView({}).style, isNull);
+              });
+            });
+          });
+        }
+
+        // Test both of these since the `style` implementation is
+        // duplicated across both mixins.
+        group('(UbiquitousDomPropsMixin)', () {
+          sharedNormalizationTests(TestComponent);
+        });
+
+        group('(DomProps)', () {
+          sharedNormalizationTests(domProps);
         });
       });
     });
@@ -650,7 +772,8 @@ main() {
           var calls = [];
           Map appliedProps;
           var initialProps = {
-            'onValidateProps': (propsMap) {
+            // ignore: avoid_types_on_closure_parameters
+            'onValidateProps': (Map propsMap) {
               appliedProps = propsMap;
               calls.add('onValidateProps');
             },
@@ -668,7 +791,8 @@ main() {
           Map appliedProps;
           var newProps = {'key': 'value'};
           component.props = {
-            'onValidateProps': (propsMap) {
+            // ignore: avoid_types_on_closure_parameters
+            'onValidateProps': (Map propsMap) {
               appliedProps = propsMap;
               calls.add('onValidateProps');
             },
@@ -683,7 +807,7 @@ main() {
 
       group('on unmount', () {
         TestComponentComponent component;
-        ReactElement instance;
+        dynamic instance;
         Duration longDuration = const Duration(milliseconds: 200);
         Duration shortDuration = const Duration(milliseconds: 100);
 
@@ -1024,7 +1148,7 @@ main() {
 
       group('on unmount', () {
         TestComponent2Component component2;
-        ReactElement instance;
+        dynamic instance;
         Duration longDuration = const Duration(milliseconds: 200);
         Duration shortDuration = const Duration(milliseconds: 100);
 
@@ -1291,7 +1415,7 @@ main() {
       });
 
       test('newState() returns a new UiState instance backed by a new Map', () {
-        statefulComponent = renderAndGetComponent(TestStatefulComponent2()());
+        statefulComponent = renderAndGetComponent(TestStatefulComponent2()()) as TestStatefulComponent2Component;
         var newState1 = statefulComponent.newState();
         var newState2 = statefulComponent.newState();
         expect(newState1, isA<TestStatefulComponent2State>());
@@ -1303,7 +1427,7 @@ main() {
         setUp(() {
           statefulComponent = renderAndGetComponent((TestStatefulComponent2()
             ..id = 'test prop value'
-          )());
+          )()) as TestStatefulComponent2Component;
           statefulComponent.setState({'test state key': 'test state value'});
         });
 
@@ -1377,7 +1501,7 @@ main() {
             var meta = getComponentTypeMeta(reactComponentFactory.type);
 
             expect(meta, isNot(same(const ComponentTypeMeta.none())), reason: 'should have stored a new meta instance');
-            expect(meta.parentType, equals(parentFactory));
+            expect(meta.parentType, equals(parentFactory.type));
           });
         });
 
@@ -1418,7 +1542,7 @@ main() {
       var meta = getComponentTypeMeta(reactComponentFactory.type);
 
       expect(meta, isNot(same(const ComponentTypeMeta.none())), reason: 'should have stored a new meta instance');
-      expect(meta.parentType, equals(parentFactory));
+      expect(meta.parentType, equals(parentFactory.type));
       expect(getComponentTypeFromAlias(TestRegisterComponentClassAlias), equals(reactComponentFactory.type));
     });
 
@@ -1436,7 +1560,7 @@ main() {
       var meta = getComponentTypeMeta(reactComponentFactory.type);
 
       expect(meta, isNot(same(const ComponentTypeMeta.none())), reason: 'should have stored a new meta instance');
-      expect(meta.parentType, equals(parentFactory));
+      expect(meta.parentType, equals(parentFactory.type));
       expect(getComponentTypeFromAlias(TestRegisterComponentClassAlias), equals(reactComponentFactory.type));
     });
   });
@@ -1472,7 +1596,7 @@ class TestComponentComponent extends UiComponent<TestComponentProps> {
   }
 }
 
-UiFactory<TestComponent2Props> TestComponent2 = ([props]) => TestComponent2Props(props);
+UiFactory<TestComponent2Props> TestComponent2 = ([props]) => TestComponent2Props(props as JsBackedMap);
 
 class TestComponent2Props extends over_react.UiProps {
   @override final ReactComponentFactoryProxy componentFactory = _TestComponent2ComponentFactory;
@@ -1512,13 +1636,13 @@ class TestComponent2Component extends UiComponent2<TestComponent2Props> {
   render() => (Dom.div()..ref = 'foo')();
 
   @override
-  TestComponent2Props typedPropsFactory(Map propsMap) => TestComponent2Props(propsMap);
+  TestComponent2Props typedPropsFactory(Map propsMap) => TestComponent2Props(propsMap as JsBackedMap);
 
   @override
-  TestComponent2Props typedPropsFactoryJs(Map propsMap) => TestComponent2Props(propsMap);
+  TestComponent2Props typedPropsFactoryJs(Map propsMap) => TestComponent2Props(propsMap as JsBackedMap);
 }
 
-UiFactory<TestStatefulComponent2Props> TestStatefulComponent2 = ([props]) => TestStatefulComponent2Props(props);
+UiFactory<TestStatefulComponent2Props> TestStatefulComponent2 = ([props]) => TestStatefulComponent2Props(props as JsBackedMap);
 
 class TestStatefulComponent2Props extends over_react.UiProps {
   @override final ReactComponentFactoryProxy componentFactory = _TestStatefulComponent2ComponentFactory;
@@ -1597,16 +1721,16 @@ class TestStatefulComponent2Component extends UiStatefulComponent2<TestStatefulC
         consumedProps = testConsumedProps;
 
   @override
-  TestStatefulComponent2Props typedPropsFactory(Map propsMap) => TestStatefulComponent2Props(propsMap);
+  TestStatefulComponent2Props typedPropsFactory(Map propsMap) => TestStatefulComponent2Props(propsMap as JsBackedMap);
 
   @override
-  TestStatefulComponent2Props typedPropsFactoryJs(Map propsMap) => TestStatefulComponent2Props(propsMap);
+  TestStatefulComponent2Props typedPropsFactoryJs(Map propsMap) => TestStatefulComponent2Props(propsMap as JsBackedMap);
 
   @override
-  TestStatefulComponent2State typedStateFactory(Map state) => TestStatefulComponent2State(state);
+  TestStatefulComponent2State typedStateFactory(Map state) => TestStatefulComponent2State(state as JsBackedMap);
 
   @override
-  TestStatefulComponent2State typedStateFactoryJs(Map propsMap) => TestStatefulComponent2State(propsMap);
+  TestStatefulComponent2State typedStateFactoryJs(Map propsMap) => TestStatefulComponent2State(propsMap as JsBackedMap);
 }
 
 Map getBackingMap(Map map) {

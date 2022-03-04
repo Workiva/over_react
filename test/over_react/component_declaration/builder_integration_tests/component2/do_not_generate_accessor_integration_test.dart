@@ -58,7 +58,7 @@ main() {
       DoNotGenerateAccessorTestComponent component;
 
       setUp(() {
-        component = renderAndGetComponent(DoNotGenerateAccessorTest()());
+        component = renderAndGetComponent(DoNotGenerateAccessorTest()()) as DoNotGenerateAccessorTestComponent;
       });
 
       test('for state fields listed before the field annotated with doNotGenerate', () {
@@ -84,6 +84,7 @@ main() {
 
 
 @Factory()
+// ignore: undefined_identifier, invalid_assignment
 UiFactory<DoNotGenerateAccessorTestProps> DoNotGenerateAccessorTest = _$DoNotGenerateAccessorTest;
 
 @Props()

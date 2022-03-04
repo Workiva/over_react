@@ -11,6 +11,7 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+// ignore_for_file: deprecated_member_use_from_same_package
 import 'package:over_react/over_react.dart';
 import 'package:test/test.dart';
 
@@ -153,7 +154,7 @@ class TestUiStateBaseClass extends UiState {
   bool get $isClassGenerated => true;
 }
 
-UiFactory<TestPropsMixin> Test = _$Test; // ignore: undefined_identifier
+UiFactory<TestPropsMixin> Test = _$Test; // ignore: undefined_identifier, invalid_assignment
 
 mixin TestPropsMixin on UiProps {
   String stringProp;
@@ -173,7 +174,7 @@ mixin TestPropsMixin on UiProps {
 // ---
 
 UiFactory<TestCustomNamespaceProps> TestCustomNamespace =
-    _$TestCustomNamespace;  // ignore: undefined_identifier
+    _$TestCustomNamespace; // ignore: undefined_identifier, invalid_assignment
 
 @PropsMixin(keyNamespace: 'custom mixin namespace**')
 mixin TestCustomNamespacePropsMixin on UiProps {
@@ -216,7 +217,7 @@ mixin TestStateMixin on UiState {
   dynamic customKeyAndNamespaceState;
 }
 
-// ignore: deprecated_member_use_from_same_package
+// ignore: deprecated_member_use_from_same_package, mixin_of_non_class, undefined_class
 class TestState = TestUiStateBaseClass with TestStateMixin, $TestStateMixin;
 
 // ---
@@ -245,8 +246,8 @@ mixin TestCustomNamespaceWithStateAnnotationStateMixin on UiState {
 class TestCustomNamespaceState = TestUiStateBaseClass
     with
         TestCustomNamespaceStateMixin,
-        // ignore: deprecated_member_use_from_same_package
+        // ignore: deprecated_member_use_from_same_package, mixin_of_non_class, undefined_class
         $TestCustomNamespaceStateMixin,
         TestCustomNamespaceWithStateAnnotationStateMixin,
-        // ignore: deprecated_member_use_from_same_package
+        // ignore: deprecated_member_use_from_same_package, mixin_of_non_class, undefined_class
         $TestCustomNamespaceWithStateAnnotationStateMixin;

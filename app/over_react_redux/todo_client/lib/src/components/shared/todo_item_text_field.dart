@@ -10,7 +10,7 @@ part 'todo_item_text_field.over_react.g.dart';
 /// or an empty view such as a 404 error page.
 
 UiFactory<TodoItemTextFieldProps> TodoItemTextField =
-    _$TodoItemTextField; // ignore: undefined_identifier
+    castUiFactory(_$TodoItemTextField); // ignore: undefined_identifier
 
 @Props(keyNamespace: '') // No namespace so prop forwarding works when passing to the JS TextField / InputBase components.
 mixin TodoItemTextFieldProps on UiProps {

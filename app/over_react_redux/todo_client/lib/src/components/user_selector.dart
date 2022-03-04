@@ -2,6 +2,7 @@ library todo_client.src.components.user_selector;
 
 import 'package:over_react/over_react.dart';
 import 'package:over_react/over_react_redux.dart';
+// ignore: implementation_imports
 import 'package:over_react/src/component/test_fixtures/redraw_counter_component_mixin.dart';
 
 import 'package:todo_client/src/store.dart';
@@ -23,7 +24,7 @@ UiFactory<UserSelectorProps> UserSelector = connect<AppState, UserSelectorProps>
       );
     },
     forwardRef: true
-)(_$UserSelector); // ignore: undefined_identifier
+)(castUiFactory(_$UserSelector)); // ignore: undefined_identifier
 
 mixin UserSelectorProps on UiProps {
   String selectedUserId;

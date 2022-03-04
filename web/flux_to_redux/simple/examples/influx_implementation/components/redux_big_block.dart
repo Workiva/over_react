@@ -35,7 +35,7 @@ UiFactory<ReduxBigBlockProps> ReduxBigBlock = connect<FluxStore, ReduxBigBlockPr
       (ReduxBigBlock()..changeBackgroundColor = () => dispatch(UpdateBackgroundColorAction())),
   // [6]
   pure: false,
-)(_$ReduxBigBlock); // ignore: undefined_identifier
+)(castUiFactory(_$ReduxBigBlock)); // ignore: undefined_identifier
 
 mixin ReduxBigBlockPropsMixin on UiProps {
   String backgroundColor; // [1]

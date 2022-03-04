@@ -1,8 +1,8 @@
-import 'package:analyzer/analyzer.dart'; // ignore: deprecated_member_use
 import 'package:analyzer/dart/analysis/session.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer_plugin/utilities/assist/assist.dart';
 import 'package:meta/meta.dart';
+import 'package:over_react_analyzer_plugin/src/util/analyzer_util.dart';
 import 'package:over_react_analyzer_plugin/src/async_plugin_apis/assist.dart';
 export 'package:over_react_analyzer_plugin/src/doc_utils/docs_meta_annotation.dart';
 

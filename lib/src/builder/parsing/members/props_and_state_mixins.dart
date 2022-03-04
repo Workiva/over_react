@@ -64,14 +64,14 @@ abstract class BoilerplatePropsOrStateMixin extends BoilerplateTypedMapMember
         errorCollector.addError(
             'Legacy boilerplate ${propsOrStateMixinString}s must be annotated with '
             '`@$propsOrStateMixinAnnotationName()`',
-            errorCollector.spanFor(node));
+            errorCollector.spanFor(node.name));
       }
 
       if (!node.hasAbstractGetter('Map', propsOrStateString)) {
         errorCollector.addError(
             '$propsOrStateMixinString classes must declare an abstract $propsOrStateString getter `Map get $propsOrStateString;` '
             'so that they can be statically analyzed properly.',
-            errorCollector.spanFor(node));
+            errorCollector.spanFor(node.name));
       }
     }
 

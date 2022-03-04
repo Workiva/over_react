@@ -15,6 +15,7 @@
 part of '../annotation_error_integration_test.dart';
 
 @Factory()
+// ignore: undefined_identifier, invalid_assignment
 UiFactory<AnnotationErrorProps> AnnotationError = _$AnnotationError;
 
 @Props()

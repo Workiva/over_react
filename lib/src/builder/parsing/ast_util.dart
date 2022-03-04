@@ -16,6 +16,7 @@ import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/syntactic_entity.dart';
 import 'package:analyzer/dart/ast/token.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
+import 'package:over_react/src/builder/codegen/names.dart';
 import 'package:source_span/source_span.dart';
 import 'package:transformer_utils/transformer_utils.dart';
 
@@ -42,31 +43,15 @@ extension InitializerHelperTopLevel on TopLevelVariableDeclaration {
   /// The first variable in this list.
   VariableDeclaration get firstVariable => variables.firstVariable;
 
-  /// Returns whether or not the config argument of a Function type is generated.
-  bool get hasGeneratedConfigArg {
+  /// Returns whether or not there is a generated config being used.
+  bool get usesAGeneratedConfig {
+    final generatedPrivateConfigName = FactoryNames(firstVariable.name.name).privateConfigName;
+    // ignore: deprecated_member_use_from_same_package
+    final generatedPublicConfigName = FactoryNames(firstVariable.name.name).publicConfigName;
     return firstInitializer != null &&
         anyDescendantIdentifiers(firstInitializer, (identifier) {
-          final uiFactoryDeclaration = identifier.thisOrAncestorOfType<VariableDeclaration>();
-          final methodInvocation = identifier.thisOrAncestorOfType<MethodInvocation>();
-          if (methodInvocation != null && uiFactoryDeclaration != null) {
-            final args = methodInvocation.argumentList?.arguments;
-            if (args == null || args.length < 2) return false;
-
-            if (args[1] is SimpleIdentifier) {
-              return args[1].toString() == '\$${uiFactoryDeclaration.name.name}Config';
-            } else if (args[1] is PrefixedIdentifier) {
-              return args[1]
-                  .childEntities
-                  .where((child) {
-                    return child is SimpleIdentifier &&
-                        child.name == '\$${uiFactoryDeclaration.name.name}Config';
-                  })
-                  .toList()
-                  .isNotEmpty;
-            }
-          }
-
-          return false;
+          return identifier.nameWithoutPrefix == generatedPrivateConfigName ||
+              identifier.nameWithoutPrefix == generatedPublicConfigName;
         });
   }
 }
@@ -95,11 +80,6 @@ extension NameHelper on Identifier {
   }
 
   bool get isFunctionType => ['uiFunction', 'uiForwardRef', 'uiJsComponent'].contains(this.name);
-
-  bool get isAttachedToAGeneratedUiFactory {
-    final uiFactoryDeclaration = this.thisOrAncestorOfType<TopLevelVariableDeclaration>();
-    return uiFactoryDeclaration?.hasGeneratedConfigArg;
-  }
 }
 
 /// Utilities related to detecting a super class on a [MixinDeclaration]
@@ -180,8 +160,9 @@ extension SourceFileSpanHelper on SourceFile {
   /// Returns a span for the given [AstNode] or [Token].
   ///
   /// If it's an [AstNode], the span starts after the doc comment and metadata (see [getSpanForNode]).
-  FileSpan spanFor(SyntacticEntity nodeOrToken) =>
-      nodeOrToken is AstNode ? getSpanForNode(this, nodeOrToken) : _getSpanForEntity(nodeOrToken);
+  FileSpan spanFor(SyntacticEntity nodeOrToken) => nodeOrToken is AstNode
+      ? getSpanForNode(this, nodeOrToken) as FileSpan
+      : _getSpanForEntity(nodeOrToken);
 
   FileSpan _getSpanForEntity(SyntacticEntity node) => span(node.offset, node.end);
 }

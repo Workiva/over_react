@@ -1,7 +1,6 @@
 // ignore: deprecated_member_use
-import 'package:analyzer/analyzer.dart'
-    show CompileTimeErrorCode, NodeLocator;
 import 'package:analyzer/dart/ast/ast.dart';
+import 'package:over_react_analyzer_plugin/src/util/analyzer_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/react_types.dart';
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/analyzer_debug_helper.dart';
@@ -63,17 +62,17 @@ class MissingCascadeParensDiagnostic extends DiagnosticContributor {
   computeErrors(result, collector) async {
     for (final error in result.errors) {
       final isBadFunction = const {
-        CompileTimeErrorCode.INVOCATION_OF_NON_FUNCTION,
-        CompileTimeErrorCode.INVOCATION_OF_NON_FUNCTION_EXPRESSION,
-      }.contains(error.errorCode);
+        'INVOCATION_OF_NON_FUNCTION',
+        'INVOCATION_OF_NON_FUNCTION_EXPRESSION',
+      }.contains(error.errorCode.name);
       final isBadArity = const {
-        CompileTimeErrorCode.NOT_ENOUGH_POSITIONAL_ARGUMENTS,
-        CompileTimeErrorCode.EXTRA_POSITIONAL_ARGUMENTS_COULD_BE_NAMED,
-        CompileTimeErrorCode.EXTRA_POSITIONAL_ARGUMENTS,
-      }.contains(error.errorCode);
+        'NOT_ENOUGH_POSITIONAL_ARGUMENTS',
+        'EXTRA_POSITIONAL_ARGUMENTS_COULD_BE_NAMED',
+        'EXTRA_POSITIONAL_ARGUMENTS',
+      }.contains(error.errorCode.name);
       final isVoidUsage = const {
-        CompileTimeErrorCode.USE_OF_VOID_RESULT,
-      }.contains(error.errorCode);
+        'USE_OF_VOID_RESULT',
+      }.contains(error.errorCode.name);
 
       if (isBadFunction || isBadArity || isVoidUsage) {
         final node = NodeLocator(error.offset, error.offset + error.length).searchWithin(result.unit);
@@ -111,7 +110,7 @@ class MissingCascadeParensDiagnostic extends DiagnosticContributor {
           continue;
         }
 
-        debug.log('${invocation.function.staticType?.getDisplayString()}');
+        debug.log('${invocation.function.staticType?.getDisplayString(withNullability: false)}');
 
         if (isBadFunction && (invocation.function.staticType?.isReactElement ?? false)) {
           final expr = invocation.function?.tryCast<InvocationExpression>() ??

@@ -34,14 +34,14 @@ _$$PureTestWrapperProps _$PureTestWrapper([Map backingProps]) =>
 abstract class _$$PureTestWrapperProps extends UiProps
     with
         SharedPureTestPropsMixin,
-        $SharedPureTestPropsMixin // If this generated mixin is undefined, it's likely because SharedPureTestPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of SharedPureTestPropsMixin.
+        $SharedPureTestPropsMixin // If this generated mixin is undefined, it's likely because SharedPureTestPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of SharedPureTestPropsMixin, and check that $SharedPureTestPropsMixin is exported/imported properly.
     implements
         PureTestWrapperProps {
   _$$PureTestWrapperProps._();
 
   factory _$$PureTestWrapperProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$PureTestWrapperProps$JsMap(backingMap);
+      return _$$PureTestWrapperProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$PureTestWrapperProps$PlainMap(backingMap);
     }
@@ -59,6 +59,12 @@ abstract class _$$PureTestWrapperProps extends UiProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => '';
+
+  @override
+  PropsMetaCollection get staticMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because SharedPureTestPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of SharedPureTestPropsMixin, and check that $SharedPureTestPropsMixin is exported/imported properly.
+        SharedPureTestPropsMixin: $SharedPureTestPropsMixin.meta,
+      });
 }
 
 // Concrete props implementation that can be backed by any [Map].
@@ -120,7 +126,8 @@ class _$PureTestWrapperComponent extends PureTestWrapperComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -142,7 +149,7 @@ class _$PureTestWrapperComponent extends PureTestWrapperComponent {
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because SharedPureTestPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of SharedPureTestPropsMixin.
+        // If this generated mixin is undefined, it's likely because SharedPureTestPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of SharedPureTestPropsMixin, and check that $SharedPureTestPropsMixin is exported/imported properly.
         SharedPureTestPropsMixin: $SharedPureTestPropsMixin.meta,
       });
 }
@@ -173,16 +180,16 @@ _$$PureTestProps _$PureTest([Map backingProps]) => backingProps == null
 abstract class _$$PureTestProps extends UiProps
     with
         SharedPureTestPropsMixin,
-        $SharedPureTestPropsMixin, // If this generated mixin is undefined, it's likely because SharedPureTestPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of SharedPureTestPropsMixin.
+        $SharedPureTestPropsMixin, // If this generated mixin is undefined, it's likely because SharedPureTestPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of SharedPureTestPropsMixin, and check that $SharedPureTestPropsMixin is exported/imported properly.
         PureTestPropsMixin,
-        $PureTestPropsMixin // If this generated mixin is undefined, it's likely because PureTestPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of PureTestPropsMixin.
+        $PureTestPropsMixin // If this generated mixin is undefined, it's likely because PureTestPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of PureTestPropsMixin, and check that $PureTestPropsMixin is exported/imported properly.
     implements
         PureTestProps {
   _$$PureTestProps._();
 
   factory _$$PureTestProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$PureTestProps$JsMap(backingMap);
+      return _$$PureTestProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$PureTestProps$PlainMap(backingMap);
     }
@@ -200,6 +207,14 @@ abstract class _$$PureTestProps extends UiProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => '';
+
+  @override
+  PropsMetaCollection get staticMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because SharedPureTestPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of SharedPureTestPropsMixin, and check that $SharedPureTestPropsMixin is exported/imported properly.
+        SharedPureTestPropsMixin: $SharedPureTestPropsMixin.meta,
+        // If this generated mixin is undefined, it's likely because PureTestPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of PureTestPropsMixin, and check that $PureTestPropsMixin is exported/imported properly.
+        PureTestPropsMixin: $PureTestPropsMixin.meta,
+      });
 }
 
 // Concrete props implementation that can be backed by any [Map].
@@ -247,13 +262,13 @@ class _$$PureTestProps$JsMap extends _$$PureTestProps {
 abstract class _$$PureTestState extends UiState
     with
         PureTestState,
-        $PureTestState // If this generated mixin is undefined, it's likely because PureTestState is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not exported. Check the declaration of PureTestState.
+        $PureTestState // If this generated mixin is undefined, it's likely because PureTestState is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not imported. Check the declaration of PureTestState, and check that $PureTestState is exported/imported properly.
 {
   _$$PureTestState._();
 
   factory _$$PureTestState(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$PureTestState$JsMap(backingMap);
+      return _$$PureTestState$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$PureTestState$PlainMap(backingMap);
     }
@@ -323,7 +338,8 @@ class _$PureTestComponent extends PureTestComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -345,7 +361,7 @@ class _$PureTestComponent extends PureTestComponent {
         'Component2.state should only be set via '
         'initialState or setState.');
     super.state = value;
-    _cachedTypedState = typedStateFactoryJs(value);
+    _cachedTypedState = typedStateFactoryJs(value as JsBackedMap);
   }
 
   @override
@@ -367,9 +383,9 @@ class _$PureTestComponent extends PureTestComponent {
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because SharedPureTestPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of SharedPureTestPropsMixin.
+        // If this generated mixin is undefined, it's likely because SharedPureTestPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of SharedPureTestPropsMixin, and check that $SharedPureTestPropsMixin is exported/imported properly.
         SharedPureTestPropsMixin: $SharedPureTestPropsMixin.meta,
-        // If this generated mixin is undefined, it's likely because PureTestPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of PureTestPropsMixin.
+        // If this generated mixin is undefined, it's likely because PureTestPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of PureTestPropsMixin, and check that $PureTestPropsMixin is exported/imported properly.
         PureTestPropsMixin: $PureTestPropsMixin.meta,
       });
 }
@@ -382,15 +398,14 @@ mixin $PureTestPropsMixin on PureTestPropsMixin {
   static const PropsMeta meta = _$metaForPureTestPropsMixin;
   @override
   bool get childBoolProp =>
-      props[_$key__childBoolProp__PureTestPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__childBoolProp__PureTestPropsMixin] ?? null) as bool;
   @override
   set childBoolProp(bool value) =>
       props[_$key__childBoolProp__PureTestPropsMixin] = value;
   @override
   void Function() get childFuncProp =>
-      props[_$key__childFuncProp__PureTestPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__childFuncProp__PureTestPropsMixin] ?? null) as void
+          Function();
   @override
   set childFuncProp(void Function() value) =>
       props[_$key__childFuncProp__PureTestPropsMixin] = value;
@@ -429,15 +444,14 @@ mixin $SharedPureTestPropsMixin on SharedPureTestPropsMixin {
   static const PropsMeta meta = _$metaForSharedPureTestPropsMixin;
   @override
   bool get sharedBoolProp =>
-      props[_$key__sharedBoolProp__SharedPureTestPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__sharedBoolProp__SharedPureTestPropsMixin] ?? null) as bool;
   @override
   set sharedBoolProp(bool value) =>
       props[_$key__sharedBoolProp__SharedPureTestPropsMixin] = value;
   @override
   ReactElement get someVDomEl =>
-      props[_$key__someVDomEl__SharedPureTestPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__someVDomEl__SharedPureTestPropsMixin] ?? null)
+          as ReactElement;
   @override
   set someVDomEl(ReactElement value) =>
       props[_$key__someVDomEl__SharedPureTestPropsMixin] = value;
@@ -476,8 +490,7 @@ mixin $PureTestState on PureTestState {
   static const StateMeta meta = _$metaForPureTestState;
   @override
   bool get childBoolState =>
-      state[_$key__childBoolState__PureTestState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (state[_$key__childBoolState__PureTestState] ?? null) as bool;
   @override
   set childBoolState(bool value) =>
       state[_$key__childBoolState__PureTestState] = value;

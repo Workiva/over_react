@@ -2,6 +2,7 @@ import 'dart:html';
 
 import 'package:over_react/over_react.dart';
 import 'package:over_react/over_react_redux.dart';
+// ignore: implementation_imports
 import 'package:over_react/src/component/test_fixtures/redraw_counter_component_mixin.dart';
 
 import 'package:todo_client/src/actions.dart';
@@ -38,7 +39,7 @@ UiFactory<UserListItemProps> UserListItem = connect<AppState, UserListItemProps>
       ..isHighlighted = isHighlighted
     );
   },
-)(_$UserListItem); // ignore: undefined_identifier
+)(castUiFactory(_$UserListItem)); // ignore: undefined_identifier
 
 mixin UserListItemPropsMixin on UiProps, ListItemPropsMixin {
   @requiredProp
@@ -62,8 +63,8 @@ class UserListItemComponent extends UiStatefulComponent2<UserListItemProps, User
 
   @override
   render() {
-    return ExpansionPanel(sharedExpansionPanelProps,
-      (ListItemExpansionPanelSummary()
+    return Accordion(sharedAccordionProps,
+      (ListItemAccordionSummary()
         ..modelId = model.id
         ..allowExpansion = allowExpansion
         ..isEditable = props.isEditable
@@ -72,7 +73,7 @@ class UserListItemComponent extends UiStatefulComponent2<UserListItemProps, User
         _renderUserAvatar(),
         _renderUserNameHeader(),
       ),
-      ExpansionPanelDetails({},
+      AccordionDetails({},
         _renderUserBio(),
       ),
       _renderEditableUserActions(),
@@ -145,7 +146,7 @@ class UserListItemComponent extends UiStatefulComponent2<UserListItemProps, User
 
     return Fragment()(
       Divider({}),
-      ExpansionPanelActions({},
+      AccordionActions({},
         Grid({
           'container': true,
           'direction': 'row',

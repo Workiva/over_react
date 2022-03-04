@@ -24,6 +24,7 @@ import 'package:over_react/over_react.dart';
 import 'package:over_react/src/component_declaration/component_type_checking.dart';
 import 'package:react/react.dart' as react;
 import 'package:react/react_client.dart';
+import 'package:react/react_client/js_backed_map.dart';
 import 'package:react/react_client/js_interop_helpers.dart' show jsifyAndAllowInterop;
 import 'package:react/react_client/react_interop.dart' hide createRef, forwardRef;
 import 'package:react/react_dom.dart' as react_dom;
@@ -132,7 +133,7 @@ Map getProps(/* ReactElement|ReactComponent */ instance, {bool traverseWrappers 
       ComponentTypeMeta instanceTypeMeta;
 
       if (isCompositeComponent && isDartComponent(instance)) {
-        ReactClass type = getProperty(getDartComponent(instance).jsThis, 'constructor');
+        final type = getProperty(getDartComponent(instance).jsThis, 'constructor') as ReactClass;
         instanceTypeMeta = getComponentTypeMeta(type);
       } else if (isValidElement(instance)) {
         instanceTypeMeta = getComponentTypeMeta(instance.type);
@@ -144,7 +145,7 @@ Map getProps(/* ReactElement|ReactComponent */ instance, {bool traverseWrappers 
       if (instanceTypeMeta.isWrapper) {
         assert(isDartComponent(instance) && 'Non-dart components should not be wrappers' is String);
 
-        List children = getProps(instance)['children'];
+        final children = getProps(instance)['children'] as List;
 
         if (children != null && children.isNotEmpty && isValidElement(children.first)) {
           return getProps(children.first, traverseWrappers: true);
@@ -164,7 +165,7 @@ Map getProps(/* ReactElement|ReactComponent */ instance, {bool traverseWrappers 
       rawPropsOrCopy = _getExtendedProps(instance);
     } else if (dartComponentVersion == ReactDartComponentVersion.component2) { // ignore: invalid_use_of_protected_member
       // TODO Since JS props are frozen don't wrap in UnmodifiableMapView once https://github.com/dart-lang/sdk/issues/15432 is fixed
-      rawPropsOrCopy = JsBackedMap.backedBy(instance.props);
+      rawPropsOrCopy = JsBackedMap.backedBy(instance.props as JsMap);
     } else {
       rawPropsOrCopy = unconvertJsProps(instance);
     }
@@ -185,7 +186,7 @@ Map getProps(/* ReactElement|ReactComponent */ instance, {bool traverseWrappers 
 ///
 /// This method simply wraps react.findDOMNode with strong typing for the return value
 /// (and for the function itself, which is declared using `var` in react-dart).
-Element findDomNode(dynamic instance) => react_dom.findDOMNode(instance);
+Element findDomNode(dynamic instance) => react_dom.findDOMNode(instance) as Element;
 
 /// Returns a portal that renders [children] into a [container].
 ///
@@ -341,8 +342,7 @@ T getDartComponent<T extends react.Component>(/* ReactElement|ReactComponent|Ele
 
   assert(instanceIsMounted());
 
-  // ignore: avoid_as
-  return (instance as ReactComponent).dartComponent;
+  return (instance as ReactComponent).dartComponent as T;
 }
 
 /// A function that, when supplied as [ReactPropsMixin.ref], is called with the component instance

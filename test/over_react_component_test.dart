@@ -26,6 +26,8 @@ import 'over_react/component/_deprecated/abstract_transition_test.dart'
     as deprecated_abstract_transition_test;
 import 'over_react/component/abstract_transition_test.dart'
     as abstract_transition_test;
+import 'over_react/component/with_transition_test.dart'
+    as with_transition_test;
 import 'over_react/component/dom_components_test.dart' as dom_components_test;
 import 'over_react/component/error_boundary_test.dart' as error_boundary_test;
 import 'over_react/component/_deprecated/error_boundary_mixin_test.dart'
@@ -33,6 +35,7 @@ import 'over_react/component/_deprecated/error_boundary_mixin_test.dart'
 import 'over_react/component/_deprecated/error_boundary_test.dart'
     as deprecated_error_boundary_test;
 import 'over_react/component/ref_util_test.dart' as ref_test;
+import 'over_react/component/element_type_test.dart' as element_type_test;
 import 'over_react/component/memo_test.dart' as memo_test;
 import 'over_react/component/prop_mixins_test.dart' as prop_mixins_test;
 import 'over_react/component/prop_typedefs_test.dart' as prop_typedefs_test;
@@ -54,10 +57,12 @@ void main() {
   pure_component_mixin_test.main();
   deprecated_abstract_transition_test.main();
   abstract_transition_test.main();
+  with_transition_test.main();
   error_boundary_test.main();
   deprecated_error_boundary_mixin_test.main();
   deprecated_error_boundary_test.main();
   ref_test.main();
+  element_type_test.main();
   memo_test.main();
   dom_components_test.main();
   prop_mixins_test.main();

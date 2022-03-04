@@ -1,5 +1,6 @@
 import 'package:over_react/over_react.dart';
 import 'package:over_react/over_react_redux.dart';
+// ignore: implementation_imports
 import 'package:over_react/src/component/test_fixtures/redraw_counter_component_mixin.dart';
 
 import 'package:todo_client/src/store.dart';
@@ -16,7 +17,7 @@ UiFactory<TodoListProps> TodoList = connect<AppState, TodoListProps>(
       );
     },
     forwardRef: true,
-)(_$TodoList); // ignore: undefined_identifier
+)(castUiFactory(_$TodoList)); // ignore: undefined_identifier
 
 mixin TodoListPropsMixin on UiProps {
   @requiredProp

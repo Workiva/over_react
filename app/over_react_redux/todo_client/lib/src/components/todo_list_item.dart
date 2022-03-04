@@ -2,6 +2,7 @@ import 'dart:html';
 
 import 'package:over_react/over_react.dart';
 import 'package:over_react/over_react_redux.dart';
+// ignore: implementation_imports
 import 'package:over_react/src/component/test_fixtures/redraw_counter_component_mixin.dart';
 
 import 'package:todo_client/src/actions.dart';
@@ -37,7 +38,7 @@ UiFactory<TodoListItemProps> TodoListItem = connect<AppState, TodoListItemProps>
       ..isHighlighted = isHighlighted
     );
   },
-)(_$TodoListItem); // ignore: undefined_identifier
+)(castUiFactory(_$TodoListItem)); // ignore: undefined_identifier
 
 mixin TodoListItemPropsMixin on UiProps, ListItemPropsMixin {
   @requiredProp
@@ -62,11 +63,11 @@ class TodoListItemComponent extends UiStatefulComponent2<TodoListItemProps, Todo
 
   @override
   render() {
-    return ExpansionPanel({
-      ...sharedExpansionPanelProps,
+    return Accordion({
+      ...sharedAccordionProps,
       'className': model.isCompleted ? 'Mui-disabled' : null,
     },
-      (ListItemExpansionPanelSummary()
+      (ListItemAccordionSummary()
         ..modelId = model.id
         ..allowExpansion = allowExpansion
         ..isEditable = props.isEditable
@@ -76,7 +77,7 @@ class TodoListItemComponent extends UiStatefulComponent2<TodoListItemProps, Todo
         _renderTaskHeader(),
         _renderUserSelector(),
       ),
-      ExpansionPanelDetails({},
+      AccordionDetails({},
         _renderTaskNotes(),
       ),
       _renderEditableTaskActions(),
@@ -174,7 +175,7 @@ class TodoListItemComponent extends UiStatefulComponent2<TodoListItemProps, Todo
 
     return Fragment()(
       Divider({}),
-      ExpansionPanelActions({},
+      AccordionActions({},
         Grid({
           'container': true,
           'direction': 'row'

@@ -131,14 +131,14 @@ class RenderReturnValueDiagnostic extends DiagnosticContributor {
           await collector.addErrorWithFix(
             code,
             location,
-            errorMessageArgs: [returnType.getDisplayString(), missingBuilderMessageSuffix],
+            errorMessageArgs: [returnType.getDisplayString(withNullability: false), missingBuilderMessageSuffix],
             fixKind: addBuilderInvocationFix,
             computeFix: () => buildFileEdit(result, (builder) {
               buildMissingInvocationEdits(returnExpression, builder);
             }),
           );
         } else {
-          collector.addError(code, location, errorMessageArgs: [returnType.getDisplayString()]);
+          collector.addError(code, location, errorMessageArgs: [returnType.getDisplayString(withNullability: false)]);
         }
       });
 

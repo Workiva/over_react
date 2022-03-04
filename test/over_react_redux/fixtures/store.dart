@@ -27,10 +27,13 @@ int _resetCounterReducer(int currentCount, ResetAction action){
 class CounterState {
   final int count;
   final String name;
+  final DartModelCounter modelCount;
+
   CounterState({
     this.count = 0,
     this.name = 'Counter',
-  });
+    DartModelCounter modelCount,
+  }) : this.modelCount = modelCount ?? DartModelCounter(count: count);
 
   @override
   toString() => 'CounterState:${{
@@ -39,12 +42,28 @@ class CounterState {
       }}';
 }
 
+class DartModelCounter {
+  final int count;
+  final String name;
+
+  DartModelCounter({
+    this.count = 0,
+    this.name = 'Dart Model Counter',
+  });
+
+  @override
+  toString() => 'DartModelCounter:${{
+        'count': count,
+        'name': name,
+      }}';
+}
+
 int _counterDecrementReducer(int currentCount, DecrementAction action) {
-  return currentCount - (action?.value != null ? action.value : 1);
+  return currentCount - (action.value ?? 1);
 }
 
 int _counterIncrementReducer(int currentCount, IncrementAction action) {
-  return currentCount + (action?.value != null ? action.value : 1);
+  return currentCount + (action.value ?? 1);
 }
 
 Reducer<int> counterActionsReducer = combineReducers<int>([
@@ -53,8 +72,18 @@ Reducer<int> counterActionsReducer = combineReducers<int>([
   TypedReducer<int, ResetAction>(_resetCounterReducer),
 ]);
 
+Reducer<DartModelCounter> modelCounterActionsReducer = combineReducers<DartModelCounter>([
+  TypedReducer<DartModelCounter, IncrementModelCountAction>((currentModel, action) {
+    return DartModelCounter(count: currentModel.count + (action.value as int ?? 1));
+  }),
+  TypedReducer<DartModelCounter, DecrementModelCountAction>((currentModel, action) {
+    return DartModelCounter(count: currentModel.count - (action.value as int ?? 1));
+  }),
+]);
+
 CounterState counterStateReducer(CounterState state, action) => CounterState(
   count: counterActionsReducer(state.count, action),
+  modelCount: modelCounterActionsReducer(state.modelCount, action),
 );
 
 /////////////////////////////// STORE 2 "BigCounter" ///////////////////////////////

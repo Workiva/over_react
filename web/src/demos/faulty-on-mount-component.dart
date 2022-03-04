@@ -17,7 +17,7 @@ import 'package:over_react/over_react.dart';
 part 'faulty-on-mount-component.over_react.g.dart';
 
 // ignore: undefined_identifier
-UiFactory<FaultyOnMountProps> FaultyOnMount = _$FaultyOnMount;
+UiFactory<FaultyOnMountProps> FaultyOnMount = castUiFactory(_$FaultyOnMount);
 
 mixin FaultyOnMountProps on UiProps {}
 

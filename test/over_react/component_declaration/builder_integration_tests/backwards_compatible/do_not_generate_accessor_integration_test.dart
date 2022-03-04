@@ -60,7 +60,7 @@ main() {
       DoNotGenerateAccessorTestComponent component;
 
       setUp(() {
-        component = renderAndGetComponent(DoNotGenerateAccessorTest()());
+        component = renderAndGetComponent(DoNotGenerateAccessorTest()()) as DoNotGenerateAccessorTestComponent;
       });
 
       test('for state fields listed before the field annotated with doNotGenerate', () {
@@ -86,7 +86,7 @@ main() {
 
 
 @Factory()
-// ignore: undefined_identifier
+// ignore: undefined_identifier, invalid_assignment
 UiFactory<DoNotGenerateAccessorTestProps> DoNotGenerateAccessorTest = _$DoNotGenerateAccessorTest;
 
 @Props()
@@ -126,13 +126,13 @@ class DoNotGenerateAccessorTestComponent extends UiStatefulComponent<DoNotGenera
 // AF-3369 This will be removed once the transition to Dart 2 is complete.
 // ignore: mixin_of_non_class, undefined_class
 class DoNotGenerateAccessorTestProps extends _$DoNotGenerateAccessorTestProps with _$DoNotGenerateAccessorTestPropsAccessorsMixin {
-  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
+  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value, invalid_assignment
   static const PropsMeta meta = _$metaForDoNotGenerateAccessorTestProps;
 }
 
 // AF-3369 This will be removed once the transition to Dart 2 is complete.
 // ignore: mixin_of_non_class, undefined_class
 class DoNotGenerateAccessorTestState extends _$DoNotGenerateAccessorTestState with _$DoNotGenerateAccessorTestStateAccessorsMixin {
-  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
+  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value, invalid_assignment
   static const StateMeta meta = _$metaForDoNotGenerateAccessorTestState;
 }

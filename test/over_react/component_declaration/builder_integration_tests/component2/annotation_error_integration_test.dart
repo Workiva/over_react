@@ -50,7 +50,7 @@ main() {
 
 @Factory()
 UiFactory<AnnotationErrorDefaultPropsProps>
-    AnnotationErrorDefaultProps = _$AnnotationErrorDefaultProps;
+    AnnotationErrorDefaultProps = _$AnnotationErrorDefaultProps; // ignore: undefined_identifier, invalid_assignment
 
 @Props()
 class _$AnnotationErrorDefaultPropsProps extends UiProps {}

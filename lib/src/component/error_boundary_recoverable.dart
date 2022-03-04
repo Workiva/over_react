@@ -28,7 +28,7 @@ part 'error_boundary_recoverable.over_react.g.dart';
 /// __NOTE:__
 ///   1. This component is not / should never be publicly exported.
 ///   2. This component should never be used, except as a child of the outer (public) `ErrorBoundary` component.
-UiFactory<RecoverableErrorBoundaryProps> RecoverableErrorBoundary = _$RecoverableErrorBoundary;
+UiFactory<RecoverableErrorBoundaryProps> RecoverableErrorBoundary = castUiFactory(_$RecoverableErrorBoundary);
 
 class RecoverableErrorBoundaryProps = UiProps with v2.ErrorBoundaryProps;
 
@@ -200,8 +200,8 @@ class RecoverableErrorBoundaryComponent<T extends RecoverableErrorBoundaryProps,
     )();
   }
 
-  /// Called via [componentDidCatch] to start a `Timer` that will nullify the [_lastError] and [_lastErrorInfo]
-  /// internal fields that keep track of the last error thrown.
+  /// Called via [componentDidCatch] to start a `Timer` that will nullify the [_domAtTimeOfError]
+  /// internal field that keeps track of the last error thrown.
   ///
   /// If an identical error is thrown by an identical child component twice in a row:
   ///
@@ -210,7 +210,7 @@ class RecoverableErrorBoundaryComponent<T extends RecoverableErrorBoundaryProps,
   /// * __After the timer's callback fires__ - internal component logic will NOT treat the second error
   ///   as an unrecoverable one.
   ///
-  /// > Not used when [ErrorBoundaryPropsMixin.fallbackUIRenderer] is set.
+  /// > Not used when `ErrorBoundaryProps.fallbackUIRenderer` is set.
   void _startIdenticalErrorTimer() {
     if (_identicalErrorTimer != null) return;
 

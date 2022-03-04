@@ -161,7 +161,7 @@ main() {
               var functions = List<S>.generate(5, (index) {
                 return createTestChainFunction(onCall: (args) {
                   calls.add(['function_$index', args]);
-                });
+                }) as S;
               });
 
               var chained = callbackUtil.chainFromList(functions);
@@ -180,8 +180,8 @@ main() {
             });
 
             test('returns false when any function returns false', () {
-              var functions = List<S>.generate(5, (_) => createTestChainFunction());
-              functions.insert(2, createTestChainFunction(returnValue: false));
+              var functions = List<S>.generate(5, (_) => createTestChainFunction() as S);
+              functions.insert(2, createTestChainFunction(returnValue: false) as S);
 
               var chained = callbackUtil.chainFromList(functions);
 
@@ -189,7 +189,7 @@ main() {
             });
 
             test('returns null when no function returns false', () {
-              var functions = List<S>.generate(5, (_) => createTestChainFunction());
+              var functions = List<S>.generate(5, (_) => createTestChainFunction() as S);
 
               var chained = callbackUtil.chainFromList(functions);
 
@@ -204,7 +204,7 @@ main() {
               var functions = List<S>.generate(5, (index) {
                 return createTestChainFunction(onCall: (args) {
                   calls.add(['function_$index', args]);
-                });
+                }) as S;
               });
 
               functions.insert(5, null);
@@ -236,7 +236,7 @@ main() {
 
           if (arity != 0) {
             test('has arguments typed to the specified generic parameters', () {
-              var functions = List<S>.generate(5, (_) => createTestChainFunction());
+              var functions = List<S>.generate(5, (_) => createTestChainFunction() as S);
 
               functions.forEach((function) {
                 expect(() => Function.apply(function, generateArgs()), returnsNormally,

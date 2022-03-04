@@ -37,6 +37,7 @@ abstract class $ConnectFluxPropsMixin {
   static const PropsMeta meta = _$metaForConnectFluxPropsMixin;
 }
 
+// ignore: deprecated_member_use_from_same_package
 @PropsMixin(keyNamespace: '')
 abstract class _$ConnectFluxPropsMixin<TActions> implements UiProps {
   @override
@@ -130,13 +131,35 @@ class ConnectFluxAdapterStore<S extends flux.Store> extends redux.Store<S> {
     });
 
     actionsForStore[store] = actions;
+
+    // This store is useless once the flux store is disposed, so for convenience,
+    // we'll tear it down for consumers.
+    //
+    // In most cases, though, from a memory management standpoint, tearing this
+    // store down shouldn't be necessary, since any components subscribed to it
+    // should have also been unmounted, leaving nothing to retain it.
+    //
+    // Use a null-aware to accommodate mock stores in unit tests that return null for `didDispose`.
+    store.didDispose?.whenComplete(teardown);
   }
+
+  bool _teardownCalled = false;
 
   @override
   Future teardown() async {
+    _teardownCalled = true;
+
     await _storeListener.cancel();
     await super.teardown();
   }
+}
+
+/// Not to be exported; only used to expose private fields for testing.
+@internal
+@visibleForTesting
+extension ConnectFluxAdapterStoreTestingHelper on ConnectFluxAdapterStore {
+  @visibleForTesting
+  bool get teardownCalled => _teardownCalled;
 }
 
 /// Adapts a Flux store to the interface of a Redux store.
@@ -633,7 +656,7 @@ extension FluxStoreExtension<S extends flux.Store> on S {
   /// Returns a [ConnectFluxAdapterStore] instance from the Flux store instance.
   ///
   /// This is meant to be a more succinct way to instantiate the adapter store.
-  ConnectFluxAdapterStore asConnectFluxStore(dynamic actions,
+  ConnectFluxAdapterStore<S> asConnectFluxStore(dynamic actions,
       {List<redux.Middleware<S>> middleware}) {
     if (this is InfluxStoreMixin) {
       throw ArgumentError.value(
@@ -642,7 +665,19 @@ extension FluxStoreExtension<S extends flux.Store> on S {
           '`asConnectFluxStore` should not be used when the store is implementing InfluxStoreMixin. Use `asReduxStore` instead');
     }
 
-    return _connectFluxAdapterFor[this] ??=
-        ConnectFluxAdapterStore(this, actions, middleware: middleware);
+    return _connectFluxAdapterFor.putIfAbsentCasted(this, () => ConnectFluxAdapterStore(this, actions, middleware: middleware));
+  }
+}
+
+extension<T> on Expando<T> {
+  S putIfAbsentCasted<S extends T>(Object object, S Function() ifAbsent) {
+    final existingValue = this[object];
+    if (existingValue != null) {
+      return existingValue as S;
+    }
+
+    final newValue = ifAbsent();
+    this[object] = newValue;
+    return newValue;
   }
 }

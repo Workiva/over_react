@@ -17,39 +17,28 @@ import 'package:over_react/over_react.dart';
 // ignore_for_file: uri_has_not_been_generated
 part 'use_context_example.over_react.g.dart';
 
+final TestNewContext = createContext<Map>({'renderCount': 0});
+
 mixin UseContextExampleProps on UiProps {}
 
-final UseContextExample = uiFunction<UseContextExampleProps>(
+UiFactory<UseContextExampleProps> UseContextExample = uiFunction(
   (props) {
     final context = useContext(TestNewContext);
     return Dom.div()(
       Dom.div()('useContext counter value is ${context['renderCount']}'),
     );
   },
-  $UseContextExampleConfig, // ignore: undefined_identifier
+  _$UseContextExampleConfig, // ignore: undefined_identifier
 );
-
-int calculateChangedBits(currentValue, nextValue) {
-  int result = 1 << 1;
-  if (nextValue['renderCount'] % 2 == 0) {
-    result |= 1 << 2;
-  }
-  return result;
-}
-
-var TestNewContext =
-    createContext<Map>({'renderCount': 0}, calculateChangedBits);
 
 mixin NewContextProviderProps on UiProps {}
 
-final NewContextProvider = uiFunction<NewContextProviderProps>(
+UiFactory<NewContextProviderProps> NewContextProvider = uiFunction(
   (props) {
     final renderCount = useState(0);
-    final complexMap = useState(false);
 
     _onButtonClick(event) {
       renderCount.setWithUpdater((oldValue) => oldValue + 1);
-      complexMap.set(false);
     }
 
     final provideMap = {'renderCount': renderCount.value};
@@ -66,5 +55,5 @@ final NewContextProvider = uiFunction<NewContextProviderProps>(
       (TestNewContext.Provider()..value = provideMap)(props.children),
     );
   },
-  $NewContextProviderConfig, // ignore: undefined_identifier
+  _$NewContextProviderConfig, // ignore: undefined_identifier
 );

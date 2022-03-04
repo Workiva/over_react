@@ -55,9 +55,11 @@ annotations.TypedMap getPropsOrStateAnnotation(bool isProps, AnnotatedNode node)
   final meta = isProps
       ? (InstantiatedMeta<annotations.Props>(node) ??
           InstantiatedMeta<annotations.AbstractProps>(node) ??
+          // ignore: deprecated_member_use_from_same_package
           InstantiatedMeta<annotations.PropsMixin>(node))
       : (InstantiatedMeta<annotations.State>(node) ??
           InstantiatedMeta<annotations.AbstractState>(node) ??
+          // ignore: deprecated_member_use_from_same_package
           InstantiatedMeta<annotations.StateMixin>(node));
 
   return meta?.value ?? (isProps ? annotations.Props() : annotations.State());

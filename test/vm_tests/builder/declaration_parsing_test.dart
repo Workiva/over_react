@@ -61,7 +61,7 @@ main() {
 
         for (var type in types) {
           test(type, () => expect(mightContainDeclarations(type), isTrue));
-        };
+        }
       });
 
       test('returns true when there is an over_react part file', () {
@@ -478,7 +478,7 @@ main() {
           });
 
           group('abstract props class with builder-compatible dual-class setup', () {
-            void testAbstractPropsDualClassSetup({backwardsCompatible = true, isPrivate = false}) {
+            void testAbstractPropsDualClassSetup({bool backwardsCompatible = true, bool isPrivate = false}) {
               final ors = OverReactSrc.abstractProps(backwardsCompatible: backwardsCompatible, isPrivate: isPrivate);
               setUpAndParse(ors.source);
 
@@ -508,7 +508,7 @@ main() {
           });
 
           group('abstract state class with builder-compatible dual-class setup', () {
-            void testAbstractStateDualClassSetup({backwardsCompatible = true, isPrivate = false}) {
+            void testAbstractStateDualClassSetup({bool backwardsCompatible = true, bool isPrivate = false}) {
               final ors = OverReactSrc.abstractState(backwardsCompatible: true, isPrivate: isPrivate);
               setUpAndParse(ors.source);
 
@@ -1572,14 +1572,14 @@ main() {
                   (props) {
                     return Dom.div()();
                   },
-                  \$FooConfig, // ignore: undefined_identifier
+                  _\$FooConfig, // ignore: undefined_identifier
                 );
                 
                 final Bar = uiFunction<FooPropsMixin>(
                   (props) {
                     return Dom.div()();
                   },
-                  \$BarConfig, // ignore: undefined_identifier
+                  _\$BarConfig, // ignore: undefined_identifier
                 );
                 
                 UiFactory<FooPropsMixin> Baz = uiFunction<FooPropsMixin>(
@@ -1621,7 +1621,7 @@ main() {
                   (props) {
                     return Dom.div()();
                   },  
-                  \$FooConfig, // ignore: undefined_identifier
+                  _\$FooConfig, // ignore: undefined_identifier
                 );
                 mixin FooPropsMixin on UiProps {}
                 class FooProps = UiProps with FooPropsMixin;
@@ -1652,20 +1652,44 @@ main() {
               expect(declarations, isEmpty);
             });
 
+            test('with public generated config', () {
+              setUpAndParse('''
+                UiFactory<FooPropsMixin> Foo = uiFunction(
+                  (props) {
+                    return Dom.div()();
+                  },
+                  \$FooConfig, // ignore: undefined_identifier
+                );
+                
+                mixin FooPropsMixin on UiProps {}
+              ''');
+
+              expect(declarations, unorderedEquals([
+                isA<PropsMixinDeclaration>(),
+                isA<PropsMapViewOrFunctionComponentDeclaration>(),
+              ]));
+              final decl = declarations.firstWhereType<PropsMapViewOrFunctionComponentDeclaration>();
+
+              expect(decl.factories, hasLength(1));
+              expect(decl.factories.first.name.name, equals('Foo'));
+              expect(decl.props.b?.name?.name, 'FooPropsMixin');
+              expect(decl.version, Version.v4_mixinBased);
+            });
+
             test('wrapped in an hoc', () {
               setUpAndParse('''
                 UiFactory<FooPropsMixin> Foo = someHOC(uiFunction(
                   (props) {
                     return Dom.div()();
                   },
-                  \$FooConfig, // ignore: undefined_identifier
+                  _\$FooConfig, // ignore: undefined_identifier
                 ));
                 
                 final Bar = someHOC(uiFunction<FooPropsMixin>(
                   (props) {
                     return Dom.div()();
                   },
-                  \$BarConfig, // ignore: undefined_identifier
+                  _\$BarConfig, // ignore: undefined_identifier
                 ));
                 
                 final Foo2 = someHOC(uiFunction<FooPropsMixin>(
@@ -1708,21 +1732,21 @@ main() {
                   (props) {
                     return Dom.div()();
                   },
-                  \$FooConfig, // ignore: undefined_identifier
+                  _\$FooConfig, // ignore: undefined_identifier
                 );
                 
                 final Bar = uiFunction<FooPropsMixin>(
                   (props) {
                     return Dom.div()();
                   },
-                  \$BarConfig, // ignore: undefined_identifier
+                  _\$BarConfig, // ignore: undefined_identifier
                 );
                 
                 UiFactory<BarPropsMixin> Baz = uiFunction(
                   (props) {
                     return Dom.div()();
                   },
-                  \$BazConfig, // ignore: undefined_identifier
+                  _\$BazConfig, // ignore: undefined_identifier
                 );
                 
                 mixin FooPropsMixin on UiProps {}
@@ -1751,6 +1775,41 @@ main() {
               expect(decl[1].props.b?.name?.name, 'BarPropsMixin');
               expect(decl[1].version, Version.v4_mixinBased);
             });
+          });
+        });
+
+        group('(Dart >=2.9.0 syntax)', () {
+          test('a component', () {
+            setUpAndParse(r'''
+                UiFactory<FooProps> Foo = castUiFactory(_$Foo);
+                
+                mixin FooProps on UiProps {
+                  String foo;
+                }
+                
+                class FooComponent extends UiComponent2<FooProps> {
+                  render() {}
+                }
+            ''');
+
+            expect(declarations, unorderedEquals([
+              isA<PropsMixinDeclaration>(),
+              isA<ClassComponentDeclaration>(),
+            ]));
+
+            final propsMixinDecl = declarations.firstWhereType<PropsMixinDeclaration>();
+            expect(propsMixinDecl.mixin?.name?.name, 'FooProps');
+
+            final decl = declarations.firstWhereType<ClassComponentDeclaration>();
+
+            expect(decl.factory?.name?.name, 'Foo');
+            expect(decl.props?.b?.name?.name, 'FooProps');
+            expect(decl.component?.name?.name, 'FooComponent');
+            expect(decl.state?.either, isNull);
+
+            expect(decl.factory.meta, isA<annotations.Factory>());
+            expect(decl.props.b.meta, isA<annotations.Props>());
+            expect(decl.component.meta, isA<annotations.Component>());
           });
         });
       });
@@ -1911,7 +1970,7 @@ main() {
                 (props) {
                   return Dom.div()();
                 },
-                $FooConfig, // ignore: undefined_identifier
+                _$FooConfig, // ignore: undefined_identifier
               );
             ''');
             verify(logger.severe(contains(errorFactoryOnly)));
@@ -1924,7 +1983,7 @@ main() {
                 (props) {
                   return Dom.div()();
                 },
-                $FooConfig, // ignore: undefined_identifier
+                _$FooConfig, // ignore: undefined_identifier
               );
             ''');
             verify(logger.severe(contains(errorFactoryOnly)));
@@ -1937,7 +1996,7 @@ main() {
                 (props) {
                   return Dom.div()();
                 }, 
-                $FooConfig, // ignore: undefined_identifier
+                _$FooConfig, // ignore: undefined_identifier
               );
             ''');
             verify(logger.severe(contains(errorFactoryOnly)));
@@ -1953,7 +2012,7 @@ main() {
                 (props) {
                   return Dom.div()();
                 },
-                $FooConfig, // ignore: undefined_identifier
+                _$FooConfig, // ignore: undefined_identifier
               );
             ''');
             verify(logger.severe(contains(errorFactoryOnly)));
@@ -1996,11 +2055,12 @@ main() {
               $restOfComponent
             ''');
 
-            verify(logger.severe(contains(
-                'Factory variables are stubs for the generated factories, and must '
-                  'be initialized with or otherwise reference the generated factory. '
-                  'Should be: `Foo = _\$Foo`')));
+            verify(logger.severe(contains('Factory variables are stubs for generated code, and must'
+                ' be initialized with an expression containing either'
+                ' the generated factory (_\$Foo) or'
+                ' the generated factory config (_\$FooConfig).')));
           });
+
           test('declared using multiple variables', () {
             setUpAndParse('''
               @Factory()
@@ -2020,11 +2080,10 @@ main() {
               $restOfComponent
             ''');
 
-            verify(logger.severe(contains(
-                'Factory variables are stubs for the generated factories, and must '
-                  'be initialized with or otherwise reference the generated factory. '
-                  'Should be: `Foo = _\$Foo`')));
-
+            verify(logger.severe(contains('Factory variables are stubs for generated code, and must'
+                ' be initialized with an expression containing either'
+                ' the generated factory (_\$Foo) or'
+                ' the generated factory config (_\$FooConfig).')));
           });
 
           test('private and declared with an invalid initializer', () {
@@ -2035,10 +2094,10 @@ main() {
               $restOfComponent
             ''');
 
-            verify(logger.severe(contains(
-                'Factory variables are stubs for the generated factories, and must '
-                  'be initialized with or otherwise reference the generated factory. '
-                  'Should be: `_Foo = _\$_Foo`')));
+            verify(logger.severe(contains('Factory variables are stubs for generated code, and must'
+                ' be initialized with an expression containing either'
+                ' the generated factory (_\$_Foo) or'
+                ' the generated factory config (_\$_FooConfig).')));
           });
         });
 

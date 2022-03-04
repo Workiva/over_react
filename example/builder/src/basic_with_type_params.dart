@@ -16,7 +16,7 @@ import 'package:over_react/over_react.dart';
 
 part 'basic_with_type_params.over_react.g.dart';
 
-UiFactory<BasicPropsMixin> Basic = _$Basic; // ignore: undefined_identifier
+UiFactory<BasicPropsMixin> Basic = castUiFactory(_$Basic); // ignore: undefined_identifier
 
 mixin BasicPropsMixin<T, U extends UiProps> on UiProps {
   List<T> someGenericListProp;

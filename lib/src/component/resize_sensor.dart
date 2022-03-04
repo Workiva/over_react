@@ -25,7 +25,7 @@ import 'package:over_react/src/component/resize_sensor_constants.dart';
 part 'resize_sensor.over_react.g.dart';
 
 /// A wrapper component that detects when its parent is resized, providing a [ResizeSensorEvent]
-/// as a callback argument to [ResizeSensorPropsMixin.onResize].
+/// as a callback argument to [ResizeSensorProps.onResize].
 ///
 /// Intended for use as a [https://wicg.github.io/ResizeObserver/](`ResizeObserver`) polyfill.
 ///
@@ -41,7 +41,7 @@ part 'resize_sensor.over_react.g.dart';
 ///     )
 ///
 /// If your implementation needs to know what the dimensions of the node were when it first mounted,
-/// [ResizeSensorPropsMixin.onInitialize] can be set, _as long as [ResizeSensorPropsMixin.quickMount] is `false`_.
+/// [ResizeSensorProps.onInitialize] can be set, _as long as [ResizeSensorProps.quickMount] is `false`_.
 ///
 ///     (ResizeSensor()
 ///       ..onInitialize = (ResizeSensorEvent event) {
@@ -61,7 +61,7 @@ part 'resize_sensor.over_react.g.dart';
 ///     )
 ///
 /// > The component _must_ be put in a relative or absolutely positioned container.
-UiFactory<ResizeSensorProps> ResizeSensor = _$ResizeSensor;
+UiFactory<ResizeSensorProps> ResizeSensor = castUiFactory(_$ResizeSensor);
 
 mixin ResizeSensorProps on UiProps {
   /// A function invoked with a `ResizeSensorEvent` argument when the resize sensor is initialized.
@@ -209,7 +209,7 @@ class ResizeSensorComponent extends UiComponent2<ResizeSensorProps> with SafeAni
       ..className = 'resize-sensor-expand'
       ..onScroll = _handleSensorScroll
       ..style = props.shrink ? shrinkBaseStyle : baseStyle
-      ..ref = (ref) { _expandSensorRef = ref; }
+      ..ref = (ref) { _expandSensorRef = ref as Element; }
     )(
       (Dom.div()..style = expandSensorChildStyle)()
     );
@@ -218,7 +218,7 @@ class ResizeSensorComponent extends UiComponent2<ResizeSensorProps> with SafeAni
       ..className = 'resize-sensor-collapse'
       ..onScroll = _handleSensorScroll
       ..style = props.shrink ? shrinkBaseStyle : baseStyle
-      ..ref = (ref) { _collapseSensorRef = ref; }
+      ..ref = (ref) { _collapseSensorRef = ref as Element; }
     )(
       (Dom.div()..style = collapseSensorChildStyle)()
     );
@@ -307,21 +307,21 @@ class ResizeSensorComponent extends UiComponent2<ResizeSensorProps> with SafeAni
   ///
   /// ### How do I know if I need to call this? ###
   ///
-  /// If you have a [ResizeSensor] that is not emitting its [ResizeSensorPropsMixin.onResize] events,
+  /// If you have a [ResizeSensor] that is not emitting its [ResizeSensorProps.onResize] events,
   /// then the sensor was most likely mounted detached from the DOM.
-  /// In that situation, set the [ResizeSensorPropsMixin.onDetachedMountCheck] callback and use a `true`
+  /// In that situation, set the [ResizeSensorProps.onDetachedMountCheck] callback and use a `true`
   /// return value to give your application knowledge that a call to this method _(at a time when you are
-  /// sure that the sensor has become attached to the DOM)_ to repair the [ResizeSensorPropsMixin.onResize] behavior.
+  /// sure that the sensor has become attached to the DOM)_ to repair the [ResizeSensorProps.onResize] behavior.
   ///
-  /// > __See: [ResizeSensorPropsMixin.onDetachedMountCheck] for more information.__
+  /// > __See: [ResizeSensorProps.onDetachedMountCheck] for more information.__
   void forceResetDetachedSensor() => _reset();
 
   /// Returns whether the node rendered by this component was attached to the DOM when it was mounted.
   ///
   /// A `false` return value indicates that a call to [forceResetDetachedSensor]
-  /// is necessary to ensure the [ResizeSensorPropsMixin.onResize] callback is emitted as expected.
+  /// is necessary to ensure the [ResizeSensorProps.onResize] callback is emitted as expected.
   ///
-  /// > __See: [ResizeSensorPropsMixin.onDetachedMountCheck] for more information.__
+  /// > __See: [ResizeSensorProps.onDetachedMountCheck] for more information.__
   bool _isAttachedToDocument() {
     Node current = findDomNode(this);
     while (current != null) {
@@ -331,7 +331,7 @@ class ResizeSensorComponent extends UiComponent2<ResizeSensorProps> with SafeAni
     return false;
   }
 
-  /// See: [ResizeSensorPropsMixin.onDetachedMountCheck]
+  /// See: [ResizeSensorProps.onDetachedMountCheck]
   void _checkForDetachedMount() {
     // Only perform this check if the consumer sets the callback.
     if (props.onDetachedMountCheck == null) return;
@@ -370,7 +370,7 @@ class ResizeSensorComponent extends UiComponent2<ResizeSensorProps> with SafeAni
 
 /// Used with [ResizeSensorHandler] to provide information about a resize.
 ///
-/// > Emitted via [ResizeSensorPropsMixin.onResize] and [ResizeSensorPropsMixin.onInitialize].
+/// > Emitted via [ResizeSensorProps.onResize] and [ResizeSensorProps.onInitialize].
 class ResizeSensorEvent {
   /// The new width, in pixels.
   final int newWidth;

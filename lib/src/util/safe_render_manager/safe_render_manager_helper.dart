@@ -18,21 +18,18 @@ part 'safe_render_manager_helper.over_react.g.dart';
 
 /// A component that allows for safe unmounting of its single child by waiting for state changes
 /// sometimes queued by ReactJS to be applied.
-@Factory()
 UiFactory<SafeRenderManagerHelperProps> SafeRenderManagerHelper =
     // ignore: undefined_identifier
-    _$SafeRenderManagerHelper;
+    castUiFactory(_$SafeRenderManagerHelper);
 
-@Props()
-class _$SafeRenderManagerHelperProps extends UiProps {
+mixin SafeRenderManagerHelperProps on UiProps {
   @requiredProp
   ReactElement Function() getInitialContent;
 
-  CallbackRef contentRef;
+  dynamic contentRef;
 }
 
-@State()
-class _$SafeRenderManagerHelperState extends UiState {
+mixin SafeRenderManagerHelperState on UiState {
   ReactElement content;
 }
 
@@ -57,24 +54,6 @@ class SafeRenderManagerHelperComponent extends UiStatefulComponent2<SafeRenderMa
   render() {
     if (state.content == null) return null;
 
-    return cloneElement(state.content, domProps()..ref = chainRef(state.content, _contentRef));
+    return cloneElement(state.content, domProps()..ref = chainRefs(state.content.ref, props.contentRef));
   }
-
-  void _contentRef(ref) {
-    props.contentRef?.call(ref);
-  }
-}
-
-// AF-3369 This will be removed once the transition to Dart 2 is complete.
-// ignore: mixin_of_non_class, undefined_class
-class SafeRenderManagerHelperProps extends _$SafeRenderManagerHelperProps with _$SafeRenderManagerHelperPropsAccessorsMixin {
-  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const PropsMeta meta = _$metaForSafeRenderManagerHelperProps;
-}
-
-// AF-3369 This will be removed once the transition to Dart 2 is complete.
-// ignore: mixin_of_non_class, undefined_class
-class SafeRenderManagerHelperState extends _$SafeRenderManagerHelperState with _$SafeRenderManagerHelperStateAccessorsMixin {
-  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const StateMeta meta = _$metaForSafeRenderManagerHelperState;
 }

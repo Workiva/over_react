@@ -1,0 +1,121 @@
+name: Dart CI
+
+on:
+  push:
+    branches:
+      - 'master'
+      - 'test_consume_*'
+  pull_request:
+    branches:
+      - '**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # Don't run on newer SDKs until we're able to get on analyzer 1.x,
+        # since our current analyzer version range results in build failures
+        # when analysis hits the `<<<` operator.
+        # sdk: [ 2.13.4, stable, dev ]
+        sdk: [ 2.13.4 ]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: dart-lang/setup-dart@v0.2
+        with:
+          sdk: ${{ matrix.sdk }}
+
+      - name: Print Dart SDK version
+        run: dart --version
+
+      - id: install
+        name: Install dependencies
+        run: pub get
+
+      - name: Validate dependencies
+        run: dart run dependency_validator
+        if: always() && steps.install.outcome == 'success'
+
+      - name: Verify formatting
+        run: pub run dart_dev format --check
+        if: always() && matrix.sdk == '2.7.2' && steps.install.outcome == 'success'
+
+      # Analyze before generated files are created to verify that component boilerplate analysis is "clean" without the need for building
+      - name: Analyze example source (pre-build)
+        run: |
+          # Analyze lib to ensure public APIs don't depend on build-to-cache files,
+          # which could cause analysis issues for consumers who haven't run a build yet.
+          dartanalyzer lib
+          cd example/boilerplate_versions
+          if [ ${{ matrix.sdk }} = '2.7.2' ]; then pub global activate tuneup && tuneup check; else dart analyze; fi
+        if: always() && steps.install.outcome == 'success'
+
+      - id: build
+        timeout-minutes: 6
+        name: Build generated files / precompile DDC assets
+        run: |
+          pub run build_runner build --delete-conflicting-outputs -o ddc_precompiled
+          if [ ${{ matrix.sdk }} = '2.7.2' ]; then
+            git diff --exit-code
+          else
+            # Exclude built_redux generated files since they get generated differently in Dart 2.7 vs other versions
+            git diff --exit-code -- ":(exclude)test/over_react/component_declaration/redux_component_test/test_reducer.g.dart"
+          fi
+        if: always() && steps.install.outcome == 'success'
+
+      # Analyze again after generated files are created to verify that those generated classes don't cause analysis errors
+      - name: Analyze project source (post-build)
+        run: if [ ${{ matrix.sdk }} = '2.7.2' ]; then pub global activate tuneup && tuneup check; else dart analyze; fi
+        if: always() && steps.install.outcome == 'success' && steps.build.outcome == 'success'
+
+      - name: Run tests (VM)
+        run: pub run dart_dev test -P vm
+        if: always() && steps.install.outcome == 'success' && steps.build.outcome == 'success'
+
+      - name: Run tests (DDC)
+        run: pub run test --precompiled ddc_precompiled -P dartdevc
+        if: always() && steps.install.outcome == 'success' && steps.build.outcome == 'success'
+
+      - name: Run tests (dart2js)
+        run: pub run dart_dev test --build-args="-r" -P dart2js
+        if: always() && steps.install.outcome == 'success' && steps.build.outcome == 'success'
+
+  analyzer_plugin:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./tools/analyzer_plugin
+    strategy:
+      fail-fast: false
+      matrix:
+        sdk: [ 2.13.4, stable, dev ]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: dart-lang/setup-dart@v0.2
+        with:
+          sdk: ${{ matrix.sdk }}
+
+      - name: Print Dart SDK version
+        run: dart --version
+
+      - id: link
+        name: Override over_react dependency with local path
+        run: cd ../.. && pub get && dart tool/travis_link_plugin_deps.dart
+
+      - id: install
+        name: Install dependencies
+        run: pub get
+        if: always() && steps.link.outcome == 'success'
+
+      - name: Validate dependencies
+        run: dart run dependency_validator
+        if: always() && steps.install.outcome == 'success'
+
+      - name: Verify formatting
+        run: pub run dart_dev format --check
+        if: always() && matrix.sdk == '2.7.2' && steps.install.outcome == 'success'
+
+      - name: Run tests
+        run: pub run dart_dev test
+        if: always() && steps.install.outcome == 'success'
