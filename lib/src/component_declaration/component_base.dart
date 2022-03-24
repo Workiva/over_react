@@ -992,6 +992,25 @@ class UnstableUiPropsCallable extends UiProps {
   UnstableUiProps unstableProps;
   UnstableUiPropsCallable(this.unstableProps);
 
+  @override
+  ReactComponentFactoryProxy get componentFactory => unstableProps.componentFactory;
+
+  @override
+  noSuchMethod(Invocation i) {
+    String memberNameString =
+        i.memberName
+            .toString()
+            .replaceAll('Symbol("', '')
+            .replaceAll('")', '')
+            .replaceAll('=', '')
+            .replaceAll('_', '-');
+    if (i.isGetter) {
+      return props[memberNameString];
+    } else if (i.isSetter) {
+      var value = i.positionalArguments.single;
+      props[memberNameString] = value;
+    }
+  }
 
   /// Creates a new component with this builder's props and the specified [children].
   ///
