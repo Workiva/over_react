@@ -23,7 +23,7 @@ mixin $UnstableTestProps on UnstableTestProps {
   static const PropDescriptor _$prop__legitProp__UnstableTestProps =
       PropDescriptor(_$key__legitProp__UnstableTestProps);
   static const String _$key__legitProp__UnstableTestProps =
-      'UnstableTestProps.legitProp';
+      'legitProp';
 
   static const List<PropDescriptor> $props = [
     _$prop__legitProp__UnstableTestProps

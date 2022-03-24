@@ -17,8 +17,6 @@
 library over_react.component_declaration.component_base;
 
 import 'dart:collection';
-import 'dart:js';
-import 'dart:js_util';
 
 import 'package:meta/meta.dart';
 import 'package:over_react/over_react.dart';
@@ -993,10 +991,14 @@ class UnstableUiPropsCallable extends UiProps {
   UnstableUiPropsCallable(this.unstableProps);
 
   @override
+  Map get props => unstableProps;
+
+  @override
   ReactComponentFactoryProxy get componentFactory => unstableProps.componentFactory;
 
   @override
   noSuchMethod(Invocation i) {
+    // FIXME: Figure out some way to get the propKeyNamespace as a prefix here...
     String memberNameString =
         i.memberName
             .toString()
@@ -1005,10 +1007,10 @@ class UnstableUiPropsCallable extends UiProps {
             .replaceAll('=', '')
             .replaceAll('_', '-');
     if (i.isGetter) {
-      return props[memberNameString];
+      return this[memberNameString];
     } else if (i.isSetter) {
       var value = i.positionalArguments.single;
-      props[memberNameString] = value;
+      this.addProp(memberNameString, value);
     }
   }
 
@@ -1057,9 +1059,6 @@ class UnstableUiPropsCallable extends UiProps {
     _assertComponentFactoryIsNotNull();
     return componentFactory.build(props, childArguments) as ReactElement;
   }
-
-  @override
-  Map get props => unstableProps.props;
 }
 
 abstract class UnstableUiProps extends UiProps {

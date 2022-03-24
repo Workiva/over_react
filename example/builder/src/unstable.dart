@@ -24,7 +24,8 @@ UnstableUiFactory<UnstableTestProps> UnstableTest = uiFunction(
   (props) {
     return Dom.div()(
         Dom.div()('legit prop: ${props.legitProp}'),
-        Dom.div()('fake prop: ${props["fakeProp"]}'), // ignore: deprecated_member_use_from_same_package
+        Dom.div()('fake prop: ${props["fakeProp"]}'),
+        Dom.div()(props.children),
     );
   },
   UiFactoryConfig(
