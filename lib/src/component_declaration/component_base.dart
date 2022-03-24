@@ -1,3 +1,4 @@
+// ignore_for_file: invalid_override_different_default_values_positional
 // Copyright 2016 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,8 +17,11 @@
 library over_react.component_declaration.component_base;
 
 import 'dart:collection';
+import 'dart:js';
+import 'dart:js_util';
 
 import 'package:meta/meta.dart';
+import 'package:over_react/over_react.dart';
 import 'package:over_react/src/component/dummy_component.dart';
 import 'package:over_react/src/component/prop_mixins.dart';
 import 'package:over_react/src/component_declaration/builder_helpers.dart' as bh;
@@ -92,6 +96,8 @@ ReactDartComponentFactoryProxy registerAbstractComponent(Type abstractComponentC
 /// For use in wrapping existing Maps in typed getters and setters, and for creating React components
 /// via a fluent-style builder interface.
 typedef TProps UiFactory<TProps extends UiProps>([Map backingProps]);
+
+typedef TProps UnstableUiFactory<TProps extends UnstableUiProps>([Map backingProps]);
 
 extension UiFactoryHelpers<TProps extends bh.UiProps> on UiFactory<TProps> {
   /// Generates the configuration necessary to construct a UiFactory while invoking
@@ -980,4 +986,84 @@ class PropsMetaCollection extends _AccessorMetaCollection<PropDescriptor, PropsM
 
   @override
   List<PropDescriptor> get props => fields;
+}
+
+class UnstableUiPropsCallable extends UiProps {
+  UnstableUiProps unstableProps;
+  UnstableUiPropsCallable(this.unstableProps);
+
+
+  /// Creates a new component with this builder's props and the specified [children].
+  ///
+  /// _(alias for [build] with support for variadic children)_
+  ///
+  /// This method actually takes any number of children as arguments ([c2], [c3], ...) via [noSuchMethod].
+  ///
+  /// Restricted statically to 40 arguments until the dart2js fix in
+  /// <https://github.com/dart-lang/sdk/pull/26032> is released.
+  ///
+  @override
+  ReactElement call([c1 = notSpecified, c2 = notSpecified, c3 = notSpecified, c4 = notSpecified, c5 = notSpecified, c6 = notSpecified, c7 = notSpecified, c8 = notSpecified, c9 = notSpecified, c10 = notSpecified, c11 = notSpecified, c12 = notSpecified, c13 = notSpecified, c14 = notSpecified, c15 = notSpecified, c16 = notSpecified, c17 = notSpecified, c18 = notSpecified, c19 = notSpecified, c20 = notSpecified, c21 = notSpecified, c22 = notSpecified, c23 = notSpecified, c24 = notSpecified, c25 = notSpecified, c26 = notSpecified, c27 = notSpecified, c28 = notSpecified, c29 = notSpecified, c30 = notSpecified, c31 = notSpecified, c32 = notSpecified, c33 = notSpecified, c34 = notSpecified, c35 = notSpecified, c36 = notSpecified, c37 = notSpecified, c38 = notSpecified, c39 = notSpecified, c40 = notSpecified]) {
+    List childArguments;
+    // Use `identical` since it compiles down to `===` in dart2js instead of calling equality helper functions,
+    // and we don't want to allow any object overriding `operator==` to claim it's equal to `_notSpecified`.
+    if (identical(c1, notSpecified)) {
+      // Use a const list so that empty children prop values are always identical
+      // in the JS props, resulting in JS libraries (e.g., react-redux) and Dart code alike
+      // not marking props as having changed as a result of rerendering the ReactElement with a new list.
+      childArguments = const [];
+    } else if (identical(c2, notSpecified)) {
+      childArguments = [c1];
+    } else if (identical(c3, notSpecified)) {
+      childArguments = [c1, c2];
+    } else if (identical(c4, notSpecified)) {
+      childArguments = [c1, c2, c3];
+    } else if (identical(c5, notSpecified)) {
+      childArguments = [c1, c2, c3, c4];
+    } else if (identical(c6, notSpecified)) {
+      childArguments = [c1, c2, c3, c4, c5];
+    } else if (identical(c7, notSpecified)) {
+      childArguments = [c1, c2, c3, c4, c5, c6];
+    } else {
+      childArguments = [c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15, c16, c17, c18, c19, c20, c21, c22, c23, c24, c25, c26, c27, c28, c29, c30, c31, c32, c33, c34, c35, c36, c37, c38, c39, c40]
+        .takeWhile((child) => !identical(child, notSpecified))
+        .toList();
+    }
+
+    assert(_validateChildren(childArguments.length == 1 ? childArguments.single : childArguments));
+
+    // Use `build` instead of using emulated function behavior to work around DDC issue
+    // https://github.com/dart-lang/sdk/issues/29904
+    // Should have the benefit of better performance;
+    _assertComponentFactoryIsNotNull();
+    return componentFactory.build(props, childArguments) as ReactElement;
+  }
+
+  @override
+  Map get props => unstableProps.props;
+}
+
+abstract class UnstableUiProps extends UiProps {
+  /// Remove the `.unstable` in order to get static analysis for props
+  dynamic get unstable {
+    return UnstableUiPropsCallable(this);
+  }
+
+  /// This component is current "UNSTABLE", meaning the props API may change.
+  /// In order to use this component you must use the `.unstable` property:
+  /// ```dart
+  ///   (ExampleComponent().unstable
+  ///     ..someProp = 'whatever'
+  ///   )();
+  /// ```
+  @override
+  ReactElement call([covariant _CANNOT_BE_USED_WITHOUT_UNSTABLE_PROPERTY c1 = _nope, covariant _CANNOT_BE_USED_WITHOUT_UNSTABLE_PROPERTY c2 = _nope, covariant _CANNOT_BE_USED_WITHOUT_UNSTABLE_PROPERTY c3 = _nope, covariant _CANNOT_BE_USED_WITHOUT_UNSTABLE_PROPERTY c4 = _nope, covariant _CANNOT_BE_USED_WITHOUT_UNSTABLE_PROPERTY c5 = _nope, covariant _CANNOT_BE_USED_WITHOUT_UNSTABLE_PROPERTY c6 = _nope, covariant _CANNOT_BE_USED_WITHOUT_UNSTABLE_PROPERTY c7 = _nope, covariant _CANNOT_BE_USED_WITHOUT_UNSTABLE_PROPERTY c8 = _nope, covariant _CANNOT_BE_USED_WITHOUT_UNSTABLE_PROPERTY c9 = _nope, covariant _CANNOT_BE_USED_WITHOUT_UNSTABLE_PROPERTY c10 = _nope, covariant _CANNOT_BE_USED_WITHOUT_UNSTABLE_PROPERTY c11 = _nope, covariant _CANNOT_BE_USED_WITHOUT_UNSTABLE_PROPERTY c12 = _nope, covariant _CANNOT_BE_USED_WITHOUT_UNSTABLE_PROPERTY c13 = _nope, covariant _CANNOT_BE_USED_WITHOUT_UNSTABLE_PROPERTY c14 = _nope, covariant _CANNOT_BE_USED_WITHOUT_UNSTABLE_PROPERTY c15 = _nope, covariant _CANNOT_BE_USED_WITHOUT_UNSTABLE_PROPERTY c16 = _nope, covariant _CANNOT_BE_USED_WITHOUT_UNSTABLE_PROPERTY c17 = _nope, covariant _CANNOT_BE_USED_WITHOUT_UNSTABLE_PROPERTY c18 = _nope, covariant _CANNOT_BE_USED_WITHOUT_UNSTABLE_PROPERTY c19 = _nope, covariant _CANNOT_BE_USED_WITHOUT_UNSTABLE_PROPERTY c20 = _nope, covariant _CANNOT_BE_USED_WITHOUT_UNSTABLE_PROPERTY c21 = _nope, covariant _CANNOT_BE_USED_WITHOUT_UNSTABLE_PROPERTY c22 = _nope, covariant _CANNOT_BE_USED_WITHOUT_UNSTABLE_PROPERTY c23 = _nope, covariant _CANNOT_BE_USED_WITHOUT_UNSTABLE_PROPERTY c24 = _nope, covariant _CANNOT_BE_USED_WITHOUT_UNSTABLE_PROPERTY c25 = _nope, covariant _CANNOT_BE_USED_WITHOUT_UNSTABLE_PROPERTY c26 = _nope, covariant _CANNOT_BE_USED_WITHOUT_UNSTABLE_PROPERTY c27 = _nope, covariant _CANNOT_BE_USED_WITHOUT_UNSTABLE_PROPERTY c28 = _nope, covariant _CANNOT_BE_USED_WITHOUT_UNSTABLE_PROPERTY c29 = _nope, covariant _CANNOT_BE_USED_WITHOUT_UNSTABLE_PROPERTY c30 = _nope, covariant _CANNOT_BE_USED_WITHOUT_UNSTABLE_PROPERTY c31 = _nope, covariant _CANNOT_BE_USED_WITHOUT_UNSTABLE_PROPERTY c32 = _nope, covariant _CANNOT_BE_USED_WITHOUT_UNSTABLE_PROPERTY c33 = _nope, covariant _CANNOT_BE_USED_WITHOUT_UNSTABLE_PROPERTY c34 = _nope, covariant _CANNOT_BE_USED_WITHOUT_UNSTABLE_PROPERTY c35 = _nope, covariant _CANNOT_BE_USED_WITHOUT_UNSTABLE_PROPERTY c36 = _nope, covariant _CANNOT_BE_USED_WITHOUT_UNSTABLE_PROPERTY c37 = _nope, covariant _CANNOT_BE_USED_WITHOUT_UNSTABLE_PROPERTY c38 = _nope, covariant _CANNOT_BE_USED_WITHOUT_UNSTABLE_PROPERTY c39 = _nope, covariant _CANNOT_BE_USED_WITHOUT_UNSTABLE_PROPERTY c40 = _nope]) {
+    return null;
+  }
+}
+const _nope = _CANNOT_BE_USED_WITHOUT_UNSTABLE_PROPERTY();
+
+// ignore: camel_case_types
+class _CANNOT_BE_USED_WITHOUT_UNSTABLE_PROPERTY {
+  const _CANNOT_BE_USED_WITHOUT_UNSTABLE_PROPERTY();
 }

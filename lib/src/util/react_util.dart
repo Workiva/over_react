@@ -36,6 +36,8 @@ class UiPropsMapView extends MapView
   /// Create a new instance backed by the specified map.
   UiPropsMapView(Map map) : super(map);
 
+  @override
+  dynamic get use => this;
   /// The props to be manipulated via the getters/setters.
   /// In this case, it's the current MapView object.
   @override

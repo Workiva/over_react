@@ -423,6 +423,8 @@ mixin ErrorBoundaryMixin<T extends ErrorBoundaryPropsMixin, S extends ErrorBound
 /// A MapView with the typed getters/setters for [ErrorBoundaryPropsMixin].
 class ErrorBoundaryPropsMapView extends UiPropsMapView
     with ErrorBoundaryPropsMixin {
+  @override
+  dynamic get use => this;
   /// Create a new instance backed by the specified map.
   ErrorBoundaryPropsMapView(Map map) : super(map);
 }
