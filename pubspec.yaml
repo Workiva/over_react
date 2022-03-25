@@ -19,7 +19,7 @@ dependencies:
   logging: '>=0.11.3+2 <2.0.0'
   meta: ">=1.1.6 <1.7.0" # Workaround to avoid https://github.com/dart-lang/sdk/issues/46142
   path: ^1.5.1
-  react: ^6.1.4
+  react: ^6.1.5
   redux: ">=3.0.0 <5.0.0"
   source_span: ^1.4.1
   transformer_utils: ^0.2.6
