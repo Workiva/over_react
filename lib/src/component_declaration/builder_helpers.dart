@@ -134,13 +134,6 @@ abstract class UiProps extends component_base.UiProps with GeneratedClass {
   @toBeGenerated PropsMetaCollection get staticMeta => throw UngeneratedError(member: #meta);
 }
 
-abstract class UnstableUiProps extends component_base.UnstableUiProps with GeneratedClass implements UiProps {
-  /// This class should not be instantiated directly, and throws an error to indicate this.
-  UnstableUiProps() {
-    _throwIfNotGenerated();
-  }
-}
-
 /// A [dart.collection.MapView]-like class with strongly-typed getters/setters for React state.
 ///
 /// To be used with the over_react builder to generate concrete state implementations

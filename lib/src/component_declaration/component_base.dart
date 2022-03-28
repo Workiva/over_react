@@ -1,4 +1,4 @@
-// ignore_for_file: invalid_override_different_default_values_positional
+// ignore_for_file: invalid_override_different_default_values_named, invalid_override_different_default_values_positional, invalid_override
 // Copyright 2016 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,7 +19,6 @@ library over_react.component_declaration.component_base;
 import 'dart:collection';
 
 import 'package:meta/meta.dart';
-import 'package:over_react/over_react.dart';
 import 'package:over_react/src/component/dummy_component.dart';
 import 'package:over_react/src/component/prop_mixins.dart';
 import 'package:over_react/src/component_declaration/builder_helpers.dart' as bh;
@@ -94,8 +93,6 @@ ReactDartComponentFactoryProxy registerAbstractComponent(Type abstractComponentC
 /// For use in wrapping existing Maps in typed getters and setters, and for creating React components
 /// via a fluent-style builder interface.
 typedef TProps UiFactory<TProps extends UiProps>([Map backingProps]);
-
-typedef TProps UnstableUiFactory<TProps extends UnstableUiProps>([Map backingProps]);
 
 extension UiFactoryHelpers<TProps extends bh.UiProps> on UiFactory<TProps> {
   /// Generates the configuration necessary to construct a UiFactory while invoking
@@ -986,12 +983,15 @@ class PropsMetaCollection extends _AccessorMetaCollection<PropDescriptor, PropsM
   List<PropDescriptor> get props => fields;
 }
 
+// Converts a [Symbol] to a meaningful [String].
+String _symbolToString(Symbol symbol) => RegExp("[\"'](.*?)[='\"]").allMatches(symbol.toString()).first.group(1);
+
 class UnstableUiPropsCallable extends UiProps {
-  UnstableUiProps unstableProps;
+  UiProps unstableProps;
   UnstableUiPropsCallable(this.unstableProps);
 
   @override
-  Map get props => unstableProps;
+  Map get props => unstableProps.props;
 
   @override
   ReactComponentFactoryProxy get componentFactory => unstableProps.componentFactory;
@@ -999,18 +999,12 @@ class UnstableUiPropsCallable extends UiProps {
   @override
   noSuchMethod(Invocation i) {
     // FIXME: Figure out some way to get the propKeyNamespace as a prefix here...
-    String memberNameString =
-        i.memberName
-            .toString()
-            .replaceAll('Symbol("', '')
-            .replaceAll('")', '')
-            .replaceAll('=', '')
-            .replaceAll('_', '-');
+    String memberNameString = _symbolToString(i.memberName);
     if (i.isGetter) {
-      return this[memberNameString];
+      return unstableProps[memberNameString];
     } else if (i.isSetter) {
       var value = i.positionalArguments.single;
-      this.addProp(memberNameString, value);
+      unstableProps.addProp(memberNameString, value);
     }
   }
 
@@ -1059,29 +1053,4 @@ class UnstableUiPropsCallable extends UiProps {
     _assertComponentFactoryIsNotNull();
     return componentFactory.build(props, childArguments) as ReactElement;
   }
-}
-
-abstract class UnstableUiProps extends UiProps {
-  /// Remove the `.unstable` in order to get static analysis for props
-  dynamic get unstable {
-    return UnstableUiPropsCallable(this);
-  }
-
-  /// This component is current "UNSTABLE", meaning the props API may change.
-  /// In order to use this component you must use the `.unstable` property:
-  /// ```dart
-  ///   (ExampleComponent().unstable
-  ///     ..someProp = 'whatever'
-  ///   )();
-  /// ```
-  @override
-  ReactElement call([covariant _CANNOT_BE_USED_WITHOUT_UNSTABLE_PROPERTY c1 = _nope, covariant _CANNOT_BE_USED_WITHOUT_UNSTABLE_PROPERTY c2 = _nope, covariant _CANNOT_BE_USED_WITHOUT_UNSTABLE_PROPERTY c3 = _nope, covariant _CANNOT_BE_USED_WITHOUT_UNSTABLE_PROPERTY c4 = _nope, covariant _CANNOT_BE_USED_WITHOUT_UNSTABLE_PROPERTY c5 = _nope, covariant _CANNOT_BE_USED_WITHOUT_UNSTABLE_PROPERTY c6 = _nope, covariant _CANNOT_BE_USED_WITHOUT_UNSTABLE_PROPERTY c7 = _nope, covariant _CANNOT_BE_USED_WITHOUT_UNSTABLE_PROPERTY c8 = _nope, covariant _CANNOT_BE_USED_WITHOUT_UNSTABLE_PROPERTY c9 = _nope, covariant _CANNOT_BE_USED_WITHOUT_UNSTABLE_PROPERTY c10 = _nope, covariant _CANNOT_BE_USED_WITHOUT_UNSTABLE_PROPERTY c11 = _nope, covariant _CANNOT_BE_USED_WITHOUT_UNSTABLE_PROPERTY c12 = _nope, covariant _CANNOT_BE_USED_WITHOUT_UNSTABLE_PROPERTY c13 = _nope, covariant _CANNOT_BE_USED_WITHOUT_UNSTABLE_PROPERTY c14 = _nope, covariant _CANNOT_BE_USED_WITHOUT_UNSTABLE_PROPERTY c15 = _nope, covariant _CANNOT_BE_USED_WITHOUT_UNSTABLE_PROPERTY c16 = _nope, covariant _CANNOT_BE_USED_WITHOUT_UNSTABLE_PROPERTY c17 = _nope, covariant _CANNOT_BE_USED_WITHOUT_UNSTABLE_PROPERTY c18 = _nope, covariant _CANNOT_BE_USED_WITHOUT_UNSTABLE_PROPERTY c19 = _nope, covariant _CANNOT_BE_USED_WITHOUT_UNSTABLE_PROPERTY c20 = _nope, covariant _CANNOT_BE_USED_WITHOUT_UNSTABLE_PROPERTY c21 = _nope, covariant _CANNOT_BE_USED_WITHOUT_UNSTABLE_PROPERTY c22 = _nope, covariant _CANNOT_BE_USED_WITHOUT_UNSTABLE_PROPERTY c23 = _nope, covariant _CANNOT_BE_USED_WITHOUT_UNSTABLE_PROPERTY c24 = _nope, covariant _CANNOT_BE_USED_WITHOUT_UNSTABLE_PROPERTY c25 = _nope, covariant _CANNOT_BE_USED_WITHOUT_UNSTABLE_PROPERTY c26 = _nope, covariant _CANNOT_BE_USED_WITHOUT_UNSTABLE_PROPERTY c27 = _nope, covariant _CANNOT_BE_USED_WITHOUT_UNSTABLE_PROPERTY c28 = _nope, covariant _CANNOT_BE_USED_WITHOUT_UNSTABLE_PROPERTY c29 = _nope, covariant _CANNOT_BE_USED_WITHOUT_UNSTABLE_PROPERTY c30 = _nope, covariant _CANNOT_BE_USED_WITHOUT_UNSTABLE_PROPERTY c31 = _nope, covariant _CANNOT_BE_USED_WITHOUT_UNSTABLE_PROPERTY c32 = _nope, covariant _CANNOT_BE_USED_WITHOUT_UNSTABLE_PROPERTY c33 = _nope, covariant _CANNOT_BE_USED_WITHOUT_UNSTABLE_PROPERTY c34 = _nope, covariant _CANNOT_BE_USED_WITHOUT_UNSTABLE_PROPERTY c35 = _nope, covariant _CANNOT_BE_USED_WITHOUT_UNSTABLE_PROPERTY c36 = _nope, covariant _CANNOT_BE_USED_WITHOUT_UNSTABLE_PROPERTY c37 = _nope, covariant _CANNOT_BE_USED_WITHOUT_UNSTABLE_PROPERTY c38 = _nope, covariant _CANNOT_BE_USED_WITHOUT_UNSTABLE_PROPERTY c39 = _nope, covariant _CANNOT_BE_USED_WITHOUT_UNSTABLE_PROPERTY c40 = _nope]) {
-    return null;
-  }
-}
-const _nope = _CANNOT_BE_USED_WITHOUT_UNSTABLE_PROPERTY();
-
-// ignore: camel_case_types
-class _CANNOT_BE_USED_WITHOUT_UNSTABLE_PROPERTY {
-  const _CANNOT_BE_USED_WITHOUT_UNSTABLE_PROPERTY();
 }

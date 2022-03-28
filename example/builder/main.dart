@@ -27,7 +27,6 @@ import './src/generic_inheritance_super.dart';
 import './src/function_component.dart' as function;
 import 'src/functional_consumed_props.dart';
 import 'src/new_class_consumed_props.dart';
-import 'src/unstable.dart';
 
 class ExampleState {
   final String testValue;
@@ -42,10 +41,6 @@ main() {
       (ReduxProvider()..store = store)(
       Dom.div()(
         Dom.h3()('Components'),
-        (UnstableTest().unstable
-          ..legitProp = true
-          ..fakeProp = 'the id of this component'
-        )('this is a child of UnstableTest'),
         (Sub()
           ..superProp = '<superProp value>'
           ..subProp = '<subProp value>'
