@@ -31,14 +31,14 @@ jobs:
 
       - id: install
         name: Install dependencies
-        run: pub get
+        run: dart pub get
 
       - name: Validate dependencies
         run: dart run dependency_validator
         if: always() && steps.install.outcome == 'success'
 
       - name: Verify formatting
-        run: pub run dart_dev format --check
+        run: dart run dart_dev format --check
         if: always() && matrix.sdk == '2.7.2' && steps.install.outcome == 'success'
 
       # Analyze before generated files are created to verify that component boilerplate analysis is "clean" without the need for building
@@ -48,14 +48,14 @@ jobs:
           # which could cause analysis issues for consumers who haven't run a build yet.
           dartanalyzer lib
           cd example/boilerplate_versions
-          if [ ${{ matrix.sdk }} = '2.7.2' ]; then pub global activate tuneup && tuneup check; else dart analyze; fi
+          dart analyze
         if: always() && steps.install.outcome == 'success'
 
       - id: build
         timeout-minutes: 6
         name: Build generated files / precompile DDC assets
         run: |
-          pub run build_runner build --delete-conflicting-outputs -o ddc_precompiled
+          dart pub run build_runner build --delete-conflicting-outputs -o ddc_precompiled
           if [ ${{ matrix.sdk }} = '2.7.2' ]; then
             git diff --exit-code
           else
@@ -66,19 +66,19 @@ jobs:
 
       # Analyze again after generated files are created to verify that those generated classes don't cause analysis errors
       - name: Analyze project source (post-build)
-        run: if [ ${{ matrix.sdk }} = '2.7.2' ]; then pub global activate tuneup && tuneup check; else dart analyze; fi
+        run: dart analyze
         if: always() && steps.install.outcome == 'success' && steps.build.outcome == 'success'
 
       - name: Run tests (VM)
-        run: pub run dart_dev test -P vm
+        run: dart pub run dart_dev test -P vm
         if: always() && steps.install.outcome == 'success' && steps.build.outcome == 'success'
 
       - name: Run tests (DDC)
-        run: pub run test --precompiled ddc_precompiled -P dartdevc
+        run: dart test --precompiled ddc_precompiled -P dartdevc
         if: always() && steps.install.outcome == 'success' && steps.build.outcome == 'success'
 
       - name: Run tests (dart2js)
-        run: pub run dart_dev test --build-args="-r" -P dart2js
+        run: dart pub run dart_dev test --build-args="-r" -P dart2js
         if: always() && steps.install.outcome == 'success' && steps.build.outcome == 'success'
 
   analyzer_plugin:
@@ -101,11 +101,11 @@ jobs:
 
       - id: link
         name: Override over_react dependency with local path
-        run: cd ../.. && pub get && dart tool/travis_link_plugin_deps.dart
+        run: cd ../.. && dart pub get && dart tool/travis_link_plugin_deps.dart
 
       - id: install
         name: Install dependencies
-        run: pub get
+        run: dart pub get
         if: always() && steps.link.outcome == 'success'
 
       - name: Validate dependencies
@@ -113,9 +113,9 @@ jobs:
         if: always() && steps.install.outcome == 'success'
 
       - name: Verify formatting
-        run: pub run dart_dev format --check
+        run: dart pub run dart_dev format --check
         if: always() && matrix.sdk == '2.7.2' && steps.install.outcome == 'success'
 
       - name: Run tests
-        run: pub run dart_dev test
+        run: dart pub run dart_dev test
         if: always() && steps.install.outcome == 'success'
