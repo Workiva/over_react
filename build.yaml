@@ -57,11 +57,13 @@ targets:
             - "example/boilerplate_versions/dart2_only/**"
 
       built_value_generator|built_value:
+        enabled: false
         generate_for:
           include:
             - test/over_react/component_declaration/redux_component_test/test_reducer.dart
 
       built_redux|built_redux:
+        enabled: false
         generate_for:
           include:
             - test/over_react/component_declaration/redux_component_test/test_reducer.dart
