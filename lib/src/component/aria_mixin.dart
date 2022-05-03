@@ -18,7 +18,8 @@ import 'dart:collection';
 
 // Must import these consts because they are used in the transformed code.
 // ignore: unused_shown_name
-import 'package:over_react/over_react.dart' show PropDescriptor, PropsMeta, ConsumedProps;
+import 'package:over_react/over_react.dart'
+    show PropDescriptor, PropsMeta, ConsumedProps;
 import 'package:over_react/src/component_declaration/annotations.dart';
 
 part 'aria_mixin.over_react.g.dart';
@@ -125,15 +126,15 @@ abstract class _$AriaPropsMixin {
   @Accessor(key: 'aria-checked')
   dynamic checked;
 
-
-   @Accessor(key: 'aria-colcount')
+  @Accessor(key: 'aria-colcount')
   int colcount;
 
-   @Accessor(key: 'aria-colindex')
-  dynamic colindex ; 
+  @Accessor(key: 'aria-colindex')
+  int colindex;
 
-   @Accessor(key: 'aria-colspan')
-  dynamic colspan ;
+  @Accessor(key: 'aria-colspan')
+  int colspan;
+
   /// Identifies the element (or elements) whose contents or presence are controlled by the current
   /// element. See related aria-owns.
   ///
@@ -147,8 +148,8 @@ abstract class _$AriaPropsMixin {
   @Accessor(key: 'aria-controls')
   dynamic controls;
 
-   @Accessor(key: 'aria-current')
-  dynamic current ;
+  @Accessor(key: 'aria-current')
+  dynamic current;
 
   /// Identifies the element (or elements) that describes the object. See related aria-labelledby.
   ///
@@ -167,9 +168,8 @@ abstract class _$AriaPropsMixin {
   @Accessor(key: 'aria-description')
   dynamic description;
 
-   @Accessor(key: 'aria-details') 
+  @Accessor(key: 'aria-details')
   dynamic details;
-
 
   /// Indicates that the element is perceivable but disabled, so it is not editable or otherwise
   /// operable. See related aria-hidden and aria-readonly.
@@ -202,9 +202,8 @@ abstract class _$AriaPropsMixin {
   @Accessor(key: 'aria-dropeffect')
   dynamic dropeffect;
 
-
- @Accessor(key: 'aria-errormessage')
-dynamic error;
+  @Accessor(key: 'aria-errormessage')
+  dynamic error;
 
   /// Indicates whether the element, or another grouping element it controls, is currently expanded
   /// or collapsed.
@@ -335,7 +334,7 @@ dynamic error;
   @Accessor(key: 'aria-invalid')
   dynamic invalid;
 
-   @Accessor(key: 'aria-keyshortcuts') 
+  @Accessor(key: 'aria-keyshortcuts')
   dynamic keyshortcuts;
 
   /// Defines a string value that labels the current element. See related aria-labelledby.
@@ -485,7 +484,7 @@ dynamic error;
   @Accessor(key: 'aria-orientation')
   dynamic orientation;
 
-   @Accessor(key: 'aria-placeholder') 
+  @Accessor(key: 'aria-placeholder')
   dynamic placeholder;
 
   /// Identifies an element (or elements) in order to define a visual, functional, or contextual
@@ -623,20 +622,17 @@ dynamic error;
   /// See: <http://www.w3.org/TR/wai-aria/usage#usage_intro>
   String role;
 
-@Accessor(key: 'aria-roledescription')
-dynamic roledescription;
+  @Accessor(key: 'aria-roledescription')
+  dynamic roledescription;
 
-@Accessor(key: 'aria-rowcount') 
-dynamic rowcount;
+  @Accessor(key: 'aria-rowcount')
+  dynamic rowcount;
 
-@Accessor(key: 'aria-rowindex') 
-dynamic rowindex;
+  @Accessor(key: 'aria-rowindex')
+  dynamic rowindex;
 
-@Accessor(key: 'aria-rowspan') 
-dynamic rowspan;
-
-
-
+  @Accessor(key: 'aria-rowspan')
+  dynamic rowspan;
 
   /// Indicates the current 'selected' state of various widgets. See related aria-checked and aria-pressed.
   ///
@@ -920,7 +916,7 @@ class Role {
   /// See: <http://www.w3.org/TR/wai-aria/roles#button>
   static const String button = 'button';
 
-	static const String cell = 'cell';
+  static const String cell = 'cell';
 
   /// A checkable input that has three possible values: true, false, or mixed.
   ///
@@ -981,9 +977,10 @@ class Role {
   /// See: <http://www.w3.org/TR/wai-aria/roles#combobox>
   static const String combobox = 'combobox';
 
-static const String command = 'command';		
- 
-static const String comment = 'comment';		
+  static const String command = 'command';
+
+  static const String comment = 'comment';
+
   /// A supporting section of the document, designed to be complementary to the main content at a
   /// similar level in the DOM hierarchy, but remains meaningful when separated from the main content.
   ///
@@ -998,9 +995,8 @@ static const String comment = 'comment';
   ///
   /// See: <http://www.w3.org/TR/wai-aria/roles#complementary>
   static const String complementary = 'complementary';
-	
-   static const String composite = 'composite';
 
+  static const String composite = 'composite';
 
   /// A large perceivable region that contains information about the parent document.
   ///
@@ -1086,9 +1082,10 @@ static const String comment = 'comment';
   /// See: <http://www.w3.org/TR/wai-aria/roles#document>
   static const String document = 'document';
 
-static const String feed = 'feed';	
+  static const String feed = 'feed';
 
-static const String figure = 'figure';	
+  static const String figure = 'figure';
+
   /// A landmark region that contains a collection of items and objects that, as a whole, combine
   /// to create a form. See related search.
   ///
@@ -1106,7 +1103,8 @@ static const String figure = 'figure';
   /// See: <http://www.w3.org/TR/wai-aria/roles#form>
   static const String form = 'form';
 
-static const String generic = 'generic';
+  static const String generic = 'generic';
+
   /// A grid is an interactive control which contains cells of tabular data arranged in rows and
   /// columns, like a table.
   ///
@@ -1216,7 +1214,8 @@ static const String generic = 'generic';
   /// See: <http://www.w3.org/TR/wai-aria/roles#input>
   static const String input = 'input';
 
-static const String landmark = 'landmark';
+  static const String landmark = 'landmark';
+
   /// An interactive reference to an internal or external resource that, when activated, causes the
   /// user agent to navigate to that resource. See related button.
   ///
@@ -1291,7 +1290,8 @@ static const String landmark = 'landmark';
   /// See: <http://www.w3.org/TR/wai-aria/roles#main>
   static const String main = 'main';
 
-	static const String mark = 'mark';
+  static const String mark = 'mark';
+
   /// A type of live region where non-essential information changes frequently. See related log.
   ///
   /// Common usages of marquee include stock tickers and ad banners. The primary difference between
@@ -1393,8 +1393,8 @@ static const String landmark = 'landmark';
   ///
   /// See: <http://www.w3.org/TR/wai-aria/roles#menuitemradio>
   static const String menuitemradio = 'menuitemradio';
-	
-  static const String meter = 'meter'; 
+
+  static const String meter = 'meter';
 
   /// A collection of navigational elements (usually links) for navigating the document or related
   /// documents.
@@ -1528,7 +1528,8 @@ static const String landmark = 'landmark';
   /// See: <http://www.w3.org/TR/wai-aria/roles#radiogroup>
   static const String radiogroup = 'radiogroup';
 
-static const String range = 'range';
+  static const String range = 'range';
+
   /// A large perceivable section of a web page or document, that is important enough to be included
   /// in a page summary or table of contents, for example, an area of the page containing live sporting
   /// event statistics.
@@ -1548,7 +1549,8 @@ static const String range = 'range';
   /// See: <http://www.w3.org/TR/wai-aria/roles#region>
   static const String region = 'region';
 
- static const String roletype = 'roletype';
+  static const String roletype = 'roletype';
+
   /// A row of cells in a grid.
   ///
   /// Rows contain gridcell elements, and thus serve to organize the grid.
@@ -1603,13 +1605,13 @@ static const String range = 'range';
   /// See: <http://www.w3.org/TR/wai-aria/roles#search>
   static const String search = 'search';
 
- static const String searchbox = 'searchbox';
+  static const String searchbox = 'searchbox';
 
-static const String section = 'section';
+  static const String section = 'section';
 
-static const String sectionhead = 'sectionhead';
+  static const String sectionhead = 'sectionhead';
 
-static const String select = 'select';
+  static const String select = 'select';
 
   /// A divider that separates and distinguishes sections of content or groups of menuitems.
   ///
@@ -1684,16 +1686,12 @@ static const String select = 'select';
   static const String status = 'status';
 
   static const String documentstructural = 'documentstructural';
-  
+
   static const String structure = 'structure';
-  
+
   static const String suggestion = 'suggestion';
-  
+
   // static const String switch = 'switch';
-
-
-
-
 
   /// A grouping label providing a mechanism for selecting the tab content that is to be rendered
   /// to the user.
@@ -1755,7 +1753,7 @@ static const String select = 'select';
   /// See: <http://www.w3.org/TR/wai-aria/roles#tabpanel>
   static const String tabpanel = 'tabpanel';
 
-   static const String term = 'term';
+  static const String term = 'term';
 
   /// Input that allows free-form text as its value.
   ///
@@ -1848,13 +1846,12 @@ static const String select = 'select';
   /// See: <http://www.w3.org/TR/wai-aria/roles#treeitem>
   static const String treeitem = 'treeitem';
 
-    static const String widget = 'widget';
-      static const String window = 'window';
+  static const String widget = 'widget';
+  static const String window = 'window';
 }
 
 /// A MapView with the typed getters/setters for all aria props.
-class AriaPropsMapView extends MapView with
-    AriaPropsMixin {
+class AriaPropsMapView extends MapView with AriaPropsMixin {
   /// Create a new instance backed by the specified map.
   AriaPropsMapView(Map map) : super(map);
 
@@ -1875,4 +1872,5 @@ class AriaPropsMapView extends MapView with
 /// <!>  )
 /// </pre>
 /// <!-- use pre tags and HTML markup until WebStorm fully supports Dart doc comment markdown -->
-AriaPropsMapView ariaProps([Map backingMap]) =>  AriaPropsMapView(backingMap ?? {});
+AriaPropsMapView ariaProps([Map backingMap]) =>
+    AriaPropsMapView(backingMap ?? {});
