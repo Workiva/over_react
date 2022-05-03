@@ -77,25 +77,21 @@ class ReduxMultiProviderProps extends _$ReduxMultiProviderProps
 }
 
 _$$ReduxMultiProviderProps _$ReduxMultiProvider([Map backingProps]) =>
-    backingProps == null
-        ? _$$ReduxMultiProviderProps$JsMap(JsBackedMap())
-        : _$$ReduxMultiProviderProps(backingProps);
+    _$$ReduxMultiProviderProps(backingProps);
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-abstract class _$$ReduxMultiProviderProps extends _$ReduxMultiProviderProps
+class _$$ReduxMultiProviderProps extends _$ReduxMultiProviderProps
     with _$ReduxMultiProviderPropsAccessorsMixin
     implements ReduxMultiProviderProps {
-  _$$ReduxMultiProviderProps._();
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$ReduxMultiProviderProps(Map backingMap) : this.props = backingMap ?? ({});
 
-  factory _$$ReduxMultiProviderProps(Map backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$ReduxMultiProviderProps$JsMap(backingMap as JsBackedMap);
-    } else {
-      return _$$ReduxMultiProviderProps$PlainMap(backingMap);
-    }
-  }
+  /// The backing props map proxied by this class.
+  @override
+  final Map props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -111,48 +107,15 @@ abstract class _$$ReduxMultiProviderProps extends _$ReduxMultiProviderProps
   String get propKeyNamespace => 'ReduxMultiProviderProps.';
 }
 
-// Concrete props implementation that can be backed by any [Map].
-class _$$ReduxMultiProviderProps$PlainMap extends _$$ReduxMultiProviderProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ReduxMultiProviderProps$PlainMap(Map backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
-}
-
-// Concrete props implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-class _$$ReduxMultiProviderProps$JsMap extends _$$ReduxMultiProviderProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ReduxMultiProviderProps$JsMap(JsBackedMap backingMap)
-      : this._props = JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
-}
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$ReduxMultiProviderComponent extends ReduxMultiProviderComponent {
-  _$$ReduxMultiProviderProps$JsMap _cachedTypedProps;
+  _$$ReduxMultiProviderProps _cachedTypedProps;
 
   @override
-  _$$ReduxMultiProviderProps$JsMap get props => _cachedTypedProps;
+  _$$ReduxMultiProviderProps get props => _cachedTypedProps;
 
   @override
   set props(Map value) {
@@ -169,9 +132,8 @@ class _$ReduxMultiProviderComponent extends ReduxMultiProviderComponent {
   }
 
   @override
-  _$$ReduxMultiProviderProps$JsMap typedPropsFactoryJs(
-          JsBackedMap backingMap) =>
-      _$$ReduxMultiProviderProps$JsMap(backingMap);
+  _$$ReduxMultiProviderProps typedPropsFactoryJs(JsBackedMap backingMap) =>
+      _$$ReduxMultiProviderProps(backingMap);
 
   @override
   _$$ReduxMultiProviderProps typedPropsFactory(Map backingMap) =>

@@ -50,7 +50,7 @@ final UiFactoryConfig<_$$UseDispatchCounterFnProps>
     _$UseDispatchCounterFnConfig = UiFactoryConfig(
         propsFactory: PropsFactory(
           map: (map) => _$$UseDispatchCounterFnProps(map),
-          jsMap: (map) => _$$UseDispatchCounterFnProps$JsMap(map),
+          jsMap: (map) => _$$UseDispatchCounterFnProps(map),
         ),
         displayName: 'UseDispatchCounterFn');
 
@@ -65,20 +65,16 @@ final UiFactoryConfig<_$$UseDispatchCounterFnProps>
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$UseDispatchCounterFnProps extends UiProps
-    with
-        UseDispatchCounterFnProps,
-        $UseDispatchCounterFnProps // If this generated mixin is undefined, it's likely because UseDispatchCounterFnProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of UseDispatchCounterFnProps, and check that $UseDispatchCounterFnProps is exported/imported properly.
-{
-  _$$UseDispatchCounterFnProps._();
+class _$$UseDispatchCounterFnProps extends UiProps
+    with UseDispatchCounterFnProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$UseDispatchCounterFnProps(Map backingMap)
+      : this.props = backingMap ?? ({});
 
-  factory _$$UseDispatchCounterFnProps(Map backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$UseDispatchCounterFnProps$JsMap(backingMap as JsBackedMap);
-    } else {
-      return _$$UseDispatchCounterFnProps$PlainMap(backingMap);
-    }
-  }
+  /// The backing props map proxied by this class.
+  @override
+  final Map props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -95,49 +91,11 @@ abstract class _$$UseDispatchCounterFnProps extends UiProps
       });
 }
 
-// Concrete props implementation that can be backed by any [Map].
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$UseDispatchCounterFnProps$PlainMap
-    extends _$$UseDispatchCounterFnProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$UseDispatchCounterFnProps$PlainMap(Map backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
-}
-
-// Concrete props implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$UseDispatchCounterFnProps$JsMap extends _$$UseDispatchCounterFnProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$UseDispatchCounterFnProps$JsMap(JsBackedMap backingMap)
-      : this._props = JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
-}
-
 final UiFactoryConfig<_$$CustomContextUseDispatchCounterFnProps>
     _$CustomContextUseDispatchCounterFnConfig = UiFactoryConfig(
         propsFactory: PropsFactory(
           map: (map) => _$$CustomContextUseDispatchCounterFnProps(map),
-          jsMap: (map) => _$$CustomContextUseDispatchCounterFnProps$JsMap(map),
+          jsMap: (map) => _$$CustomContextUseDispatchCounterFnProps(map),
         ),
         displayName: 'CustomContextUseDispatchCounterFn');
 
@@ -154,21 +112,16 @@ final UiFactoryConfig<_$$CustomContextUseDispatchCounterFnProps>
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$CustomContextUseDispatchCounterFnProps extends UiProps
-    with
-        CustomContextUseDispatchCounterFnProps,
-        $CustomContextUseDispatchCounterFnProps // If this generated mixin is undefined, it's likely because CustomContextUseDispatchCounterFnProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of CustomContextUseDispatchCounterFnProps, and check that $CustomContextUseDispatchCounterFnProps is exported/imported properly.
-{
-  _$$CustomContextUseDispatchCounterFnProps._();
+class _$$CustomContextUseDispatchCounterFnProps extends UiProps
+    with CustomContextUseDispatchCounterFnProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$CustomContextUseDispatchCounterFnProps(Map backingMap)
+      : this.props = backingMap ?? ({});
 
-  factory _$$CustomContextUseDispatchCounterFnProps(Map backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$CustomContextUseDispatchCounterFnProps$JsMap(
-          backingMap as JsBackedMap);
-    } else {
-      return _$$CustomContextUseDispatchCounterFnProps$PlainMap(backingMap);
-    }
-  }
+  /// The backing props map proxied by this class.
+  @override
+  final Map props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -184,43 +137,4 @@ abstract class _$$CustomContextUseDispatchCounterFnProps extends UiProps
         CustomContextUseDispatchCounterFnProps:
             $CustomContextUseDispatchCounterFnProps.meta,
       });
-}
-
-// Concrete props implementation that can be backed by any [Map].
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$CustomContextUseDispatchCounterFnProps$PlainMap
-    extends _$$CustomContextUseDispatchCounterFnProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$CustomContextUseDispatchCounterFnProps$PlainMap(Map backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
-}
-
-// Concrete props implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$CustomContextUseDispatchCounterFnProps$JsMap
-    extends _$$CustomContextUseDispatchCounterFnProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$CustomContextUseDispatchCounterFnProps$JsMap(JsBackedMap backingMap)
-      : this._props = JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
 }

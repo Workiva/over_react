@@ -91,7 +91,7 @@ final UiFactoryConfig<_$$TestSelectorProps> _$TestSelectorConfig =
     UiFactoryConfig(
         propsFactory: PropsFactory(
           map: (map) => _$$TestSelectorProps(map),
-          jsMap: (map) => _$$TestSelectorProps$JsMap(map),
+          jsMap: (map) => _$$TestSelectorProps(map),
         ),
         displayName: 'TestSelector');
 
@@ -106,20 +106,14 @@ final UiFactoryConfig<_$$TestSelectorProps> $TestSelectorConfig =
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$TestSelectorProps extends UiProps
-    with
-        TestSelectorProps,
-        $TestSelectorProps // If this generated mixin is undefined, it's likely because TestSelectorProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestSelectorProps, and check that $TestSelectorProps is exported/imported properly.
-{
-  _$$TestSelectorProps._();
+class _$$TestSelectorProps extends UiProps with TestSelectorProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$TestSelectorProps(Map backingMap) : this.props = backingMap ?? ({});
 
-  factory _$$TestSelectorProps(Map backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestSelectorProps$JsMap(backingMap as JsBackedMap);
-    } else {
-      return _$$TestSelectorProps$PlainMap(backingMap);
-    }
-  }
+  /// The backing props map proxied by this class.
+  @override
+  final Map props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -136,48 +130,11 @@ abstract class _$$TestSelectorProps extends UiProps
       });
 }
 
-// Concrete props implementation that can be backed by any [Map].
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$TestSelectorProps$PlainMap extends _$$TestSelectorProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestSelectorProps$PlainMap(Map backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
-}
-
-// Concrete props implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$TestSelectorProps$JsMap extends _$$TestSelectorProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestSelectorProps$JsMap(JsBackedMap backingMap)
-      : this._props = JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
-}
-
 final UiFactoryConfig<_$$TestConnectProps> _$TestConnectMapViewConfig =
     UiFactoryConfig(
         propsFactory: PropsFactory(
           map: (map) => _$$TestConnectProps(map),
-          jsMap: (map) => _$$TestConnectProps$JsMap(map),
+          jsMap: (map) => _$$TestConnectProps(map),
         ),
         displayName: 'TestConnectMapView');
 
@@ -192,23 +149,14 @@ final UiFactoryConfig<_$$TestConnectProps> $TestConnectMapViewConfig =
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$TestConnectProps extends UiProps
-    with
-        TestSelectorProps,
-        $TestSelectorProps, // If this generated mixin is undefined, it's likely because TestSelectorProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestSelectorProps, and check that $TestSelectorProps is exported/imported properly.
-        TestConnectPropsMixin,
-        $TestConnectPropsMixin // If this generated mixin is undefined, it's likely because TestConnectPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestConnectPropsMixin, and check that $TestConnectPropsMixin is exported/imported properly.
-    implements
-        TestConnectProps {
-  _$$TestConnectProps._();
+class _$$TestConnectProps extends TestConnectProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$TestConnectProps(Map backingMap) : this.props = backingMap ?? ({});
 
-  factory _$$TestConnectProps(Map backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestConnectProps$JsMap(backingMap as JsBackedMap);
-    } else {
-      return _$$TestConnectProps$PlainMap(backingMap);
-    }
-  }
+  /// The backing props map proxied by this class.
+  @override
+  final Map props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -225,41 +173,4 @@ abstract class _$$TestConnectProps extends UiProps
         // If this generated mixin is undefined, it's likely because TestConnectPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestConnectPropsMixin, and check that $TestConnectPropsMixin is exported/imported properly.
         TestConnectPropsMixin: $TestConnectPropsMixin.meta,
       });
-}
-
-// Concrete props implementation that can be backed by any [Map].
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$TestConnectProps$PlainMap extends _$$TestConnectProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestConnectProps$PlainMap(Map backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
-}
-
-// Concrete props implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$TestConnectProps$JsMap extends _$$TestConnectProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestConnectProps$JsMap(JsBackedMap backingMap)
-      : this._props = JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
 }

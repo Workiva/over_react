@@ -54,14 +54,12 @@ class _$$AnnotationErrorDefaultPropsProps
     implements AnnotationErrorDefaultPropsProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$AnnotationErrorDefaultPropsProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
-  }
+  _$$AnnotationErrorDefaultPropsProps(Map backingMap)
+      : this.props = backingMap ?? ({});
 
   /// The backing props map proxied by this class.
   @override
-  Map get props => _props;
-  Map _props;
+  final Map props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -143,14 +141,11 @@ class _$$AnnotationErrorProps extends _$AnnotationErrorProps
     implements AnnotationErrorProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$AnnotationErrorProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
-  }
+  _$$AnnotationErrorProps(Map backingMap) : this.props = backingMap ?? ({});
 
   /// The backing props map proxied by this class.
   @override
-  Map get props => _props;
-  Map _props;
+  final Map props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -231,14 +226,12 @@ class _$$AnnotationErrorStatefulProps extends _$AnnotationErrorStatefulProps
     implements AnnotationErrorStatefulProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$AnnotationErrorStatefulProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
-  }
+  _$$AnnotationErrorStatefulProps(Map backingMap)
+      : this.props = backingMap ?? ({});
 
   /// The backing props map proxied by this class.
   @override
-  Map get props => _props;
-  Map _props;
+  final Map props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -283,14 +276,12 @@ class _$$AnnotationErrorStatefulState extends _$AnnotationErrorStatefulState
     implements AnnotationErrorStatefulState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$AnnotationErrorStatefulState(Map backingMap) : this._state = {} {
-    this._state = backingMap ?? {};
-  }
+  _$$AnnotationErrorStatefulState(Map backingMap)
+      : this.state = backingMap ?? ({});
 
   /// The backing state map proxied by this class.
   @override
-  Map get state => _state;
-  Map _state;
+  final Map state;
 
   /// Let `UiState` internals know that this class has been generated.
   @override
@@ -372,14 +363,11 @@ class _$$AnnotationErrorStatefulDefaultPropsProps
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$AnnotationErrorStatefulDefaultPropsProps(Map backingMap)
-      : this._props = {} {
-    this._props = backingMap ?? {};
-  }
+      : this.props = backingMap ?? ({});
 
   /// The backing props map proxied by this class.
   @override
-  Map get props => _props;
-  Map _props;
+  final Map props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -429,14 +417,11 @@ class _$$AnnotationErrorStatefulDefaultPropsState
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$AnnotationErrorStatefulDefaultPropsState(Map backingMap)
-      : this._state = {} {
-    this._state = backingMap ?? {};
-  }
+      : this.state = backingMap ?? ({});
 
   /// The backing state map proxied by this class.
   @override
-  Map get state => _state;
-  Map _state;
+  final Map state;
 
   /// Let `UiState` internals know that this class has been generated.
   @override

@@ -21,29 +21,22 @@ final $CustomTestComponentFactory = registerComponent2(
   displayName: 'CustomTest',
 );
 
-_$$CustomTestProps _$CustomTest([Map backingProps]) => backingProps == null
-    ? _$$CustomTestProps$JsMap(JsBackedMap())
-    : _$$CustomTestProps(backingProps);
+_$$CustomTestProps _$CustomTest([Map backingProps]) =>
+    _$$CustomTestProps(backingProps);
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$CustomTestProps extends UiProps
-    with
-        CustomTestProps,
-        $CustomTestProps // If this generated mixin is undefined, it's likely because CustomTestProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of CustomTestProps, and check that $CustomTestProps is exported/imported properly.
-{
-  _$$CustomTestProps._();
+class _$$CustomTestProps extends UiProps with CustomTestProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$CustomTestProps(Map backingMap) : this.props = backingMap ?? ({});
 
-  factory _$$CustomTestProps(Map backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$CustomTestProps$JsMap(backingMap as JsBackedMap);
-    } else {
-      return _$$CustomTestProps$PlainMap(backingMap);
-    }
-  }
+  /// The backing props map proxied by this class.
+  @override
+  final Map props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -65,43 +58,6 @@ abstract class _$$CustomTestProps extends UiProps
       });
 }
 
-// Concrete props implementation that can be backed by any [Map].
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$CustomTestProps$PlainMap extends _$$CustomTestProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$CustomTestProps$PlainMap(Map backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
-}
-
-// Concrete props implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$CustomTestProps$JsMap extends _$$CustomTestProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$CustomTestProps$JsMap(JsBackedMap backingMap)
-      : this._props = JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
-}
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
@@ -109,10 +65,10 @@ class _$$CustomTestProps$JsMap extends _$$CustomTestProps {
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
 class _$CustomTestComponent extends CustomTestComponent {
-  _$$CustomTestProps$JsMap _cachedTypedProps;
+  _$$CustomTestProps _cachedTypedProps;
 
   @override
-  _$$CustomTestProps$JsMap get props => _cachedTypedProps;
+  _$$CustomTestProps get props => _cachedTypedProps;
 
   @override
   set props(Map value) {
@@ -129,8 +85,8 @@ class _$CustomTestComponent extends CustomTestComponent {
   }
 
   @override
-  _$$CustomTestProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      _$$CustomTestProps$JsMap(backingMap);
+  _$$CustomTestProps typedPropsFactoryJs(JsBackedMap backingMap) =>
+      _$$CustomTestProps(backingMap);
 
   @override
   _$$CustomTestProps typedPropsFactory(Map backingMap) =>
@@ -194,7 +150,7 @@ final UiFactoryConfig<_$$CustomFnTestProps> _$CustomFnTestConfig =
     UiFactoryConfig(
         propsFactory: PropsFactory(
           map: (map) => _$$CustomFnTestProps(map),
-          jsMap: (map) => _$$CustomFnTestProps$JsMap(map),
+          jsMap: (map) => _$$CustomFnTestProps(map),
         ),
         displayName: 'CustomFnTest');
 
@@ -209,20 +165,14 @@ final UiFactoryConfig<_$$CustomFnTestProps> $CustomFnTestConfig =
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$CustomFnTestProps extends UiProps
-    with
-        CustomFnTestProps,
-        $CustomFnTestProps // If this generated mixin is undefined, it's likely because CustomFnTestProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of CustomFnTestProps, and check that $CustomFnTestProps is exported/imported properly.
-{
-  _$$CustomFnTestProps._();
+class _$$CustomFnTestProps extends UiProps with CustomFnTestProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$CustomFnTestProps(Map backingMap) : this.props = backingMap ?? ({});
 
-  factory _$$CustomFnTestProps(Map backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$CustomFnTestProps$JsMap(backingMap as JsBackedMap);
-    } else {
-      return _$$CustomFnTestProps$PlainMap(backingMap);
-    }
-  }
+  /// The backing props map proxied by this class.
+  @override
+  final Map props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -237,41 +187,4 @@ abstract class _$$CustomFnTestProps extends UiProps
         // If this generated mixin is undefined, it's likely because CustomFnTestProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of CustomFnTestProps, and check that $CustomFnTestProps is exported/imported properly.
         CustomFnTestProps: $CustomFnTestProps.meta,
       });
-}
-
-// Concrete props implementation that can be backed by any [Map].
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$CustomFnTestProps$PlainMap extends _$$CustomFnTestProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$CustomFnTestProps$PlainMap(Map backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
-}
-
-// Concrete props implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$CustomFnTestProps$JsMap extends _$$CustomFnTestProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$CustomFnTestProps$JsMap(JsBackedMap backingMap)
-      : this._props = JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
 }

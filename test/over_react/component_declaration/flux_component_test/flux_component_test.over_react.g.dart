@@ -50,14 +50,11 @@ class _$$TestBasicProps extends _$TestBasicProps
     implements TestBasicProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestBasicProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
-  }
+  _$$TestBasicProps(Map backingMap) : this.props = backingMap ?? ({});
 
   /// The backing props map proxied by this class.
   @override
-  Map get props => _props;
-  Map _props;
+  final Map props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -138,14 +135,12 @@ class _$$TestHandlerLifecycleProps extends _$TestHandlerLifecycleProps
     implements TestHandlerLifecycleProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestHandlerLifecycleProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
-  }
+  _$$TestHandlerLifecycleProps(Map backingMap)
+      : this.props = backingMap ?? ({});
 
   /// The backing props map proxied by this class.
   @override
-  Map get props => _props;
-  Map _props;
+  final Map props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -226,14 +221,12 @@ class _$$TestHandlerPrecedenceProps extends _$TestHandlerPrecedenceProps
     implements TestHandlerPrecedenceProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestHandlerPrecedenceProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
-  }
+  _$$TestHandlerPrecedenceProps(Map backingMap)
+      : this.props = backingMap ?? ({});
 
   /// The backing props map proxied by this class.
   @override
-  Map get props => _props;
-  Map _props;
+  final Map props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -334,14 +327,11 @@ class _$$TestPropValidationProps extends _$TestPropValidationProps
     implements TestPropValidationProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestPropValidationProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
-  }
+  _$$TestPropValidationProps(Map backingMap) : this.props = backingMap ?? ({});
 
   /// The backing props map proxied by this class.
   @override
-  Map get props => _props;
-  Map _props;
+  final Map props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -422,14 +412,11 @@ class _$$TestRedrawOnProps extends _$TestRedrawOnProps
     implements TestRedrawOnProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestRedrawOnProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
-  }
+  _$$TestRedrawOnProps(Map backingMap) : this.props = backingMap ?? ({});
 
   /// The backing props map proxied by this class.
   @override
-  Map get props => _props;
-  Map _props;
+  final Map props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -510,14 +497,11 @@ class _$$TestStoreHandlersProps extends _$TestStoreHandlersProps
     implements TestStoreHandlersProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestStoreHandlersProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
-  }
+  _$$TestStoreHandlersProps(Map backingMap) : this.props = backingMap ?? ({});
 
   /// The backing props map proxied by this class.
   @override
-  Map get props => _props;
-  Map _props;
+  final Map props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -598,14 +582,11 @@ class _$$TestStatefulBasicProps extends _$TestStatefulBasicProps
     implements TestStatefulBasicProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestStatefulBasicProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
-  }
+  _$$TestStatefulBasicProps(Map backingMap) : this.props = backingMap ?? ({});
 
   /// The backing props map proxied by this class.
   @override
-  Map get props => _props;
-  Map _props;
+  final Map props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -650,14 +631,11 @@ class _$$TestStatefulBasicState extends _$TestStatefulBasicState
     implements TestStatefulBasicState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestStatefulBasicState(Map backingMap) : this._state = {} {
-    this._state = backingMap ?? {};
-  }
+  _$$TestStatefulBasicState(Map backingMap) : this.state = backingMap ?? ({});
 
   /// The backing state map proxied by this class.
   @override
-  Map get state => _state;
-  Map _state;
+  final Map state;
 
   /// Let `UiState` internals know that this class has been generated.
   @override
@@ -736,14 +714,12 @@ class _$$TestStatefulHandlerLifecycleProps
     implements TestStatefulHandlerLifecycleProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestStatefulHandlerLifecycleProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
-  }
+  _$$TestStatefulHandlerLifecycleProps(Map backingMap)
+      : this.props = backingMap ?? ({});
 
   /// The backing props map proxied by this class.
   @override
-  Map get props => _props;
-  Map _props;
+  final Map props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -790,14 +766,12 @@ class _$$TestStatefulHandlerLifecycleState
     implements TestStatefulHandlerLifecycleState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestStatefulHandlerLifecycleState(Map backingMap) : this._state = {} {
-    this._state = backingMap ?? {};
-  }
+  _$$TestStatefulHandlerLifecycleState(Map backingMap)
+      : this.state = backingMap ?? ({});
 
   /// The backing state map proxied by this class.
   @override
-  Map get state => _state;
-  Map _state;
+  final Map state;
 
   /// Let `UiState` internals know that this class has been generated.
   @override
@@ -877,14 +851,12 @@ class _$$TestStatefulHandlerPrecedenceProps
     implements TestStatefulHandlerPrecedenceProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestStatefulHandlerPrecedenceProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
-  }
+  _$$TestStatefulHandlerPrecedenceProps(Map backingMap)
+      : this.props = backingMap ?? ({});
 
   /// The backing props map proxied by this class.
   @override
-  Map get props => _props;
-  Map _props;
+  final Map props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -931,14 +903,12 @@ class _$$TestStatefulHandlerPrecedenceState
     implements TestStatefulHandlerPrecedenceState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestStatefulHandlerPrecedenceState(Map backingMap) : this._state = {} {
-    this._state = backingMap ?? {};
-  }
+  _$$TestStatefulHandlerPrecedenceState(Map backingMap)
+      : this.state = backingMap ?? ({});
 
   /// The backing state map proxied by this class.
   @override
-  Map get state => _state;
-  Map _state;
+  final Map state;
 
   /// Let `UiState` internals know that this class has been generated.
   @override
@@ -1041,14 +1011,12 @@ class _$$TestStatefulPropValidationProps
     implements TestStatefulPropValidationProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestStatefulPropValidationProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
-  }
+  _$$TestStatefulPropValidationProps(Map backingMap)
+      : this.props = backingMap ?? ({});
 
   /// The backing props map proxied by this class.
   @override
-  Map get props => _props;
-  Map _props;
+  final Map props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -1094,14 +1062,12 @@ class _$$TestStatefulPropValidationState
     implements TestStatefulPropValidationState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestStatefulPropValidationState(Map backingMap) : this._state = {} {
-    this._state = backingMap ?? {};
-  }
+  _$$TestStatefulPropValidationState(Map backingMap)
+      : this.state = backingMap ?? ({});
 
   /// The backing state map proxied by this class.
   @override
-  Map get state => _state;
-  Map _state;
+  final Map state;
 
   /// Let `UiState` internals know that this class has been generated.
   @override
@@ -1178,14 +1144,12 @@ class _$$TestStatefulRedrawOnProps extends _$TestStatefulRedrawOnProps
     implements TestStatefulRedrawOnProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestStatefulRedrawOnProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
-  }
+  _$$TestStatefulRedrawOnProps(Map backingMap)
+      : this.props = backingMap ?? ({});
 
   /// The backing props map proxied by this class.
   @override
-  Map get props => _props;
-  Map _props;
+  final Map props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -1230,14 +1194,12 @@ class _$$TestStatefulRedrawOnState extends _$TestStatefulRedrawOnState
     implements TestStatefulRedrawOnState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestStatefulRedrawOnState(Map backingMap) : this._state = {} {
-    this._state = backingMap ?? {};
-  }
+  _$$TestStatefulRedrawOnState(Map backingMap)
+      : this.state = backingMap ?? ({});
 
   /// The backing state map proxied by this class.
   @override
-  Map get state => _state;
-  Map _state;
+  final Map state;
 
   /// Let `UiState` internals know that this class has been generated.
   @override
@@ -1314,14 +1276,12 @@ class _$$TestStatefulStoreHandlersProps extends _$TestStatefulStoreHandlersProps
     implements TestStatefulStoreHandlersProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestStatefulStoreHandlersProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
-  }
+  _$$TestStatefulStoreHandlersProps(Map backingMap)
+      : this.props = backingMap ?? ({});
 
   /// The backing props map proxied by this class.
   @override
-  Map get props => _props;
-  Map _props;
+  final Map props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -1366,14 +1326,12 @@ class _$$TestStatefulStoreHandlersState extends _$TestStatefulStoreHandlersState
     implements TestStatefulStoreHandlersState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestStatefulStoreHandlersState(Map backingMap) : this._state = {} {
-    this._state = backingMap ?? {};
-  }
+  _$$TestStatefulStoreHandlersState(Map backingMap)
+      : this.state = backingMap ?? ({});
 
   /// The backing state map proxied by this class.
   @override
-  Map get state => _state;
-  Map _state;
+  final Map state;
 
   /// Let `UiState` internals know that this class has been generated.
   @override

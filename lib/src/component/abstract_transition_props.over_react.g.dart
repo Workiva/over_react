@@ -113,29 +113,21 @@ const PropsMeta _$metaForTransitionPropsMixin = PropsMeta(
 );
 
 _$$TransitionPropsMixin _$TransitionPropsMapView([Map backingProps]) =>
-    backingProps == null
-        ? _$$TransitionPropsMixin$JsMap(JsBackedMap())
-        : _$$TransitionPropsMixin(backingProps);
+    _$$TransitionPropsMixin(backingProps);
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$TransitionPropsMixin extends UiProps
-    with
-        TransitionPropsMixin,
-        $TransitionPropsMixin // If this generated mixin is undefined, it's likely because TransitionPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TransitionPropsMixin, and check that $TransitionPropsMixin is exported/imported properly.
-{
-  _$$TransitionPropsMixin._();
+class _$$TransitionPropsMixin extends UiProps with TransitionPropsMixin {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$TransitionPropsMixin(Map backingMap) : this.props = backingMap ?? ({});
 
-  factory _$$TransitionPropsMixin(Map backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TransitionPropsMixin$JsMap(backingMap as JsBackedMap);
-    } else {
-      return _$$TransitionPropsMixin$PlainMap(backingMap);
-    }
-  }
+  /// The backing props map proxied by this class.
+  @override
+  final Map props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -150,41 +142,4 @@ abstract class _$$TransitionPropsMixin extends UiProps
         // If this generated mixin is undefined, it's likely because TransitionPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TransitionPropsMixin, and check that $TransitionPropsMixin is exported/imported properly.
         TransitionPropsMixin: $TransitionPropsMixin.meta,
       });
-}
-
-// Concrete props implementation that can be backed by any [Map].
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$TransitionPropsMixin$PlainMap extends _$$TransitionPropsMixin {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TransitionPropsMixin$PlainMap(Map backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
-}
-
-// Concrete props implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$TransitionPropsMixin$JsMap extends _$$TransitionPropsMixin {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TransitionPropsMixin$JsMap(JsBackedMap backingMap)
-      : this._props = JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
 }

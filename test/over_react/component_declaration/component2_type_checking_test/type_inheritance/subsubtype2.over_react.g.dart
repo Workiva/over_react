@@ -42,25 +42,21 @@ class TestSubsubtype2Props extends _$TestSubsubtype2Props
 }
 
 _$$TestSubsubtype2Props _$TestSubsubtype2([Map backingProps]) =>
-    backingProps == null
-        ? _$$TestSubsubtype2Props$JsMap(JsBackedMap())
-        : _$$TestSubsubtype2Props(backingProps);
+    _$$TestSubsubtype2Props(backingProps);
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-abstract class _$$TestSubsubtype2Props extends _$TestSubsubtype2Props
+class _$$TestSubsubtype2Props extends _$TestSubsubtype2Props
     with _$TestSubsubtype2PropsAccessorsMixin
     implements TestSubsubtype2Props {
-  _$$TestSubsubtype2Props._();
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$TestSubsubtype2Props(Map backingMap) : this.props = backingMap ?? ({});
 
-  factory _$$TestSubsubtype2Props(Map backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestSubsubtype2Props$JsMap(backingMap as JsBackedMap);
-    } else {
-      return _$$TestSubsubtype2Props$PlainMap(backingMap);
-    }
-  }
+  /// The backing props map proxied by this class.
+  @override
+  final Map props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -76,48 +72,15 @@ abstract class _$$TestSubsubtype2Props extends _$TestSubsubtype2Props
   String get propKeyNamespace => 'TestSubsubtype2Props.';
 }
 
-// Concrete props implementation that can be backed by any [Map].
-class _$$TestSubsubtype2Props$PlainMap extends _$$TestSubsubtype2Props {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestSubsubtype2Props$PlainMap(Map backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
-}
-
-// Concrete props implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-class _$$TestSubsubtype2Props$JsMap extends _$$TestSubsubtype2Props {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestSubsubtype2Props$JsMap(JsBackedMap backingMap)
-      : this._props = JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
-}
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$TestSubsubtype2Component extends TestSubsubtype2Component {
-  _$$TestSubsubtype2Props$JsMap _cachedTypedProps;
+  _$$TestSubsubtype2Props _cachedTypedProps;
 
   @override
-  _$$TestSubsubtype2Props$JsMap get props => _cachedTypedProps;
+  _$$TestSubsubtype2Props get props => _cachedTypedProps;
 
   @override
   set props(Map value) {
@@ -134,8 +97,8 @@ class _$TestSubsubtype2Component extends TestSubsubtype2Component {
   }
 
   @override
-  _$$TestSubsubtype2Props$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      _$$TestSubsubtype2Props$JsMap(backingMap);
+  _$$TestSubsubtype2Props typedPropsFactoryJs(JsBackedMap backingMap) =>
+      _$$TestSubsubtype2Props(backingMap);
 
   @override
   _$$TestSubsubtype2Props typedPropsFactory(Map backingMap) =>
