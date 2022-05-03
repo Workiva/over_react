@@ -412,7 +412,7 @@ class _WarnOnModify<K, V> extends MapView<K, V> {
 ///
 /// > Note: Implements [MapViewMixin] instead of extending it so that the abstract state declarations
 /// don't need a constructor. The generated implementations can mix that functionality in.
-abstract class UiState extends Object with MapViewMixin, StateMapViewMixin {}
+abstract class UiState extends _OverReactMapViewBase with MapViewMixin, StateMapViewMixin {}
 
 /// The string used by default for the key of the attribute added by [UiProps.addTestId].
 const defaultTestIdKey = 'data-test-id';
@@ -430,14 +430,12 @@ typedef PropsModifier(Map props);
 ///
 /// > Note: Implements [MapViewMixin] instead of extending it so that the abstract `Props` declarations
 /// don't need a constructor. The generated implementations can mix that functionality in.
-abstract class UiProps extends MapBase
-    with
+abstract class UiProps extends _OverReactMapViewBase with
         MapViewMixin,
         PropsMapViewMixin,
         ReactPropsMixin,
         UbiquitousDomPropsMixin,
-        CssClassPropsMixin
-    implements Map {
+        CssClassPropsMixin {
   /// Adds an arbitrary [propKey]/[value] pair if [shouldAdd] is `true`.
   ///
   /// Is a noop if [shouldAdd] is `false`.
@@ -686,7 +684,7 @@ abstract class _OverReactMapViewBase<K, V> {
 /// functionality to [UiProps] subclasses.
 ///
 /// > Related: [StateMapViewMixin]
-abstract class PropsMapViewMixin implements _OverReactMapViewBase {
+mixin PropsMapViewMixin on _OverReactMapViewBase {
   /// The props maintained by this builder and used passed into the component when built.
   /// In this case, it's the current MapView object.
   Map get props;
@@ -702,7 +700,7 @@ abstract class PropsMapViewMixin implements _OverReactMapViewBase {
 /// functionality to [UiState] subclasses.
 ///
 /// > Related: [PropsMapViewMixin]
-abstract class StateMapViewMixin implements _OverReactMapViewBase {
+mixin StateMapViewMixin on _OverReactMapViewBase {
   Map get state;
 
   @override
@@ -719,7 +717,7 @@ abstract class StateMapViewMixin implements _OverReactMapViewBase {
 ///
 /// For use by concrete [UiProps] and [UiState] implementations (either generated or manual),
 /// and thus must remain public.
-abstract class MapViewMixin<K, V> implements _OverReactMapViewBase<K, V>, Map<K, V> {
+mixin MapViewMixin<K, V> on _OverReactMapViewBase<K, V> implements Map<K, V> {
   @override Map<K2, V2> map<K2, V2>(MapEntry<K2, V2> Function(K key, V value) f) => _map.map<K2, V2>(f);
   @override Iterable<MapEntry<K, V>> get entries => _map.entries;
   @override void addEntries(Iterable<MapEntry<K, V>> newEntries) => _map.addEntries(newEntries);
