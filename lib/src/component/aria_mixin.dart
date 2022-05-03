@@ -15,6 +15,7 @@
 library over_react.aria_mixin;
 
 import 'dart:collection';
+import 'dart:html';
 
 // Must import these consts because they are used in the transformed code.
 // ignore: unused_shown_name
@@ -166,7 +167,7 @@ abstract class _$AriaPropsMixin {
   dynamic describedby;
 
   @Accessor(key: 'aria-description')
-  dynamic description;
+  String description;
 
   @Accessor(key: 'aria-details')
   dynamic details;
@@ -1691,7 +1692,7 @@ class Role {
 
   static const String suggestion = 'suggestion';
 
-  // static const String switch = 'switch';
+  static const String switch_aria = 'switch';
 
   /// A grouping label providing a mechanism for selecting the tab content that is to be rendered
   /// to the user.
