@@ -229,25 +229,22 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.colindex] -->
   @override
   @Accessor(key: 'aria-colindex')
-  dynamic get colindex =>
-      (props[_$key__colindex___$AriaPropsMixin] ?? null) as dynamic;
+  int get colindex => (props[_$key__colindex___$AriaPropsMixin] ?? null) as int;
 
   /// <!-- Generated from [_$AriaPropsMixin.colindex] -->
   @override
   @Accessor(key: 'aria-colindex')
-  set colindex(dynamic value) =>
-      props[_$key__colindex___$AriaPropsMixin] = value;
+  set colindex(int value) => props[_$key__colindex___$AriaPropsMixin] = value;
 
   /// <!-- Generated from [_$AriaPropsMixin.colspan] -->
   @override
   @Accessor(key: 'aria-colspan')
-  dynamic get colspan =>
-      (props[_$key__colspan___$AriaPropsMixin] ?? null) as dynamic;
+  int get colspan => (props[_$key__colspan___$AriaPropsMixin] ?? null) as int;
 
   /// <!-- Generated from [_$AriaPropsMixin.colspan] -->
   @override
   @Accessor(key: 'aria-colspan')
-  set colspan(dynamic value) => props[_$key__colspan___$AriaPropsMixin] = value;
+  set colspan(int value) => props[_$key__colspan___$AriaPropsMixin] = value;
 
   /// Identifies the element (or elements) whose contents or presence are controlled by the current
   /// element. See related aria-owns.
