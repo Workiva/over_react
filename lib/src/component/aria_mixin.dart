@@ -204,7 +204,7 @@ abstract class _$AriaPropsMixin {
   dynamic dropeffect;
 
   @Accessor(key: 'aria-errormessage')
-  dynamic error;
+  String error;
 
   /// Indicates whether the element, or another grouping element it controls, is currently expanded
   /// or collapsed.
@@ -486,7 +486,7 @@ abstract class _$AriaPropsMixin {
   dynamic orientation;
 
   @Accessor(key: 'aria-placeholder')
-  dynamic placeholder;
+  String placeholder;
 
   /// Identifies an element (or elements) in order to define a visual, functional, or contextual
   /// parent/child relationship between DOM elements where the DOM hierarchy cannot be used to represent
@@ -624,16 +624,16 @@ abstract class _$AriaPropsMixin {
   String role;
 
   @Accessor(key: 'aria-roledescription')
-  dynamic roledescription;
+  String roledescription;
 
   @Accessor(key: 'aria-rowcount')
-  dynamic rowcount;
+  int rowcount;
 
   @Accessor(key: 'aria-rowindex')
-  dynamic rowindex;
+  int rowindex;
 
   @Accessor(key: 'aria-rowspan')
-  dynamic rowspan;
+  int rowspan;
 
   /// Indicates the current 'selected' state of various widgets. See related aria-checked and aria-pressed.
   ///
