@@ -164,7 +164,7 @@ abstract class _$AriaPropsMixin {
   @Accessor(key: 'aria-describedby')
   dynamic describedby;
 
-   Accessor(key: 'aria-description')
+  @Accessor(key: 'aria-description')
   dynamic description;
 
    @Accessor(key: 'aria-details') 
@@ -335,7 +335,7 @@ dynamic error;
   @Accessor(key: 'aria-invalid')
   dynamic invalid;
 
-   @Accessor(key'aria-keyshortcuts') 
+   @Accessor(key: 'aria-keyshortcuts') 
   dynamic keyshortcuts;
 
   /// Defines a string value that labels the current element. See related aria-labelledby.
