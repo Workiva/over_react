@@ -216,6 +216,39 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   @Accessor(key: 'aria-checked')
   set checked(dynamic value) => props[_$key__checked___$AriaPropsMixin] = value;
 
+  /// <!-- Generated from [_$AriaPropsMixin.colcount] -->
+  @override
+  @Accessor(key: 'aria-colcount')
+  int get colcount => (props[_$key__colcount___$AriaPropsMixin] ?? null) as int;
+
+  /// <!-- Generated from [_$AriaPropsMixin.colcount] -->
+  @override
+  @Accessor(key: 'aria-colcount')
+  set colcount(int value) => props[_$key__colcount___$AriaPropsMixin] = value;
+
+  /// <!-- Generated from [_$AriaPropsMixin.colindex] -->
+  @override
+  @Accessor(key: 'aria-colindex')
+  dynamic get colindex =>
+      (props[_$key__colindex___$AriaPropsMixin] ?? null) as dynamic;
+
+  /// <!-- Generated from [_$AriaPropsMixin.colindex] -->
+  @override
+  @Accessor(key: 'aria-colindex')
+  set colindex(dynamic value) =>
+      props[_$key__colindex___$AriaPropsMixin] = value;
+
+  /// <!-- Generated from [_$AriaPropsMixin.colspan] -->
+  @override
+  @Accessor(key: 'aria-colspan')
+  dynamic get colspan =>
+      (props[_$key__colspan___$AriaPropsMixin] ?? null) as dynamic;
+
+  /// <!-- Generated from [_$AriaPropsMixin.colspan] -->
+  @override
+  @Accessor(key: 'aria-colspan')
+  set colspan(dynamic value) => props[_$key__colspan___$AriaPropsMixin] = value;
+
   /// Identifies the element (or elements) whose contents or presence are controlled by the current
   /// element. See related aria-owns.
   ///
@@ -249,6 +282,17 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   @Accessor(key: 'aria-controls')
   set controls(dynamic value) =>
       props[_$key__controls___$AriaPropsMixin] = value;
+
+  /// <!-- Generated from [_$AriaPropsMixin.current] -->
+  @override
+  @Accessor(key: 'aria-current')
+  dynamic get current =>
+      (props[_$key__current___$AriaPropsMixin] ?? null) as dynamic;
+
+  /// <!-- Generated from [_$AriaPropsMixin.current] -->
+  @override
+  @Accessor(key: 'aria-current')
+  set current(dynamic value) => props[_$key__current___$AriaPropsMixin] = value;
 
   /// Identifies the element (or elements) that describes the object. See related aria-labelledby.
   ///
@@ -285,6 +329,29 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   @Accessor(key: 'aria-describedby')
   set describedby(dynamic value) =>
       props[_$key__describedby___$AriaPropsMixin] = value;
+
+  /// <!-- Generated from [_$AriaPropsMixin.description] -->
+  @override
+  @Accessor(key: 'aria-description')
+  dynamic get description =>
+      (props[_$key__description___$AriaPropsMixin] ?? null) as dynamic;
+
+  /// <!-- Generated from [_$AriaPropsMixin.description] -->
+  @override
+  @Accessor(key: 'aria-description')
+  set description(dynamic value) =>
+      props[_$key__description___$AriaPropsMixin] = value;
+
+  /// <!-- Generated from [_$AriaPropsMixin.details] -->
+  @override
+  @Accessor(key: 'aria-details')
+  dynamic get details =>
+      (props[_$key__details___$AriaPropsMixin] ?? null) as dynamic;
+
+  /// <!-- Generated from [_$AriaPropsMixin.details] -->
+  @override
+  @Accessor(key: 'aria-details')
+  set details(dynamic value) => props[_$key__details___$AriaPropsMixin] = value;
 
   /// Indicates that the element is perceivable but disabled, so it is not editable or otherwise
   /// operable. See related aria-hidden and aria-readonly.
@@ -362,6 +429,17 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   @Accessor(key: 'aria-dropeffect')
   set dropeffect(dynamic value) =>
       props[_$key__dropeffect___$AriaPropsMixin] = value;
+
+  /// <!-- Generated from [_$AriaPropsMixin.error] -->
+  @override
+  @Accessor(key: 'aria-errormessage')
+  dynamic get error =>
+      (props[_$key__error___$AriaPropsMixin] ?? null) as dynamic;
+
+  /// <!-- Generated from [_$AriaPropsMixin.error] -->
+  @override
+  @Accessor(key: 'aria-errormessage')
+  set error(dynamic value) => props[_$key__error___$AriaPropsMixin] = value;
 
   /// Indicates whether the element, or another grouping element it controls, is currently expanded
   /// or collapsed.
@@ -662,6 +740,18 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   @override
   @Accessor(key: 'aria-invalid')
   set invalid(dynamic value) => props[_$key__invalid___$AriaPropsMixin] = value;
+
+  /// <!-- Generated from [_$AriaPropsMixin.keyshortcuts] -->
+  @override
+  @Accessor(key: 'aria-keyshortcuts')
+  dynamic get keyshortcuts =>
+      (props[_$key__keyshortcuts___$AriaPropsMixin] ?? null) as dynamic;
+
+  /// <!-- Generated from [_$AriaPropsMixin.keyshortcuts] -->
+  @override
+  @Accessor(key: 'aria-keyshortcuts')
+  set keyshortcuts(dynamic value) =>
+      props[_$key__keyshortcuts___$AriaPropsMixin] = value;
 
   /// Defines a string value that labels the current element. See related aria-labelledby.
   ///
@@ -1007,6 +1097,18 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   set orientation(dynamic value) =>
       props[_$key__orientation___$AriaPropsMixin] = value;
 
+  /// <!-- Generated from [_$AriaPropsMixin.placeholder] -->
+  @override
+  @Accessor(key: 'aria-placeholder')
+  dynamic get placeholder =>
+      (props[_$key__placeholder___$AriaPropsMixin] ?? null) as dynamic;
+
+  /// <!-- Generated from [_$AriaPropsMixin.placeholder] -->
+  @override
+  @Accessor(key: 'aria-placeholder')
+  set placeholder(dynamic value) =>
+      props[_$key__placeholder___$AriaPropsMixin] = value;
+
   /// Identifies an element (or elements) in order to define a visual, functional, or contextual
   /// parent/child relationship between DOM elements where the DOM hierarchy cannot be used to represent
   /// the relationship. See related aria-controls.
@@ -1323,6 +1425,53 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.role] -->
   @override
   set role(String value) => props[_$key__role___$AriaPropsMixin] = value;
+
+  /// <!-- Generated from [_$AriaPropsMixin.roledescription] -->
+  @override
+  @Accessor(key: 'aria-roledescription')
+  dynamic get roledescription =>
+      (props[_$key__roledescription___$AriaPropsMixin] ?? null) as dynamic;
+
+  /// <!-- Generated from [_$AriaPropsMixin.roledescription] -->
+  @override
+  @Accessor(key: 'aria-roledescription')
+  set roledescription(dynamic value) =>
+      props[_$key__roledescription___$AriaPropsMixin] = value;
+
+  /// <!-- Generated from [_$AriaPropsMixin.rowcount] -->
+  @override
+  @Accessor(key: 'aria-rowcount')
+  dynamic get rowcount =>
+      (props[_$key__rowcount___$AriaPropsMixin] ?? null) as dynamic;
+
+  /// <!-- Generated from [_$AriaPropsMixin.rowcount] -->
+  @override
+  @Accessor(key: 'aria-rowcount')
+  set rowcount(dynamic value) =>
+      props[_$key__rowcount___$AriaPropsMixin] = value;
+
+  /// <!-- Generated from [_$AriaPropsMixin.rowindex] -->
+  @override
+  @Accessor(key: 'aria-rowindex')
+  dynamic get rowindex =>
+      (props[_$key__rowindex___$AriaPropsMixin] ?? null) as dynamic;
+
+  /// <!-- Generated from [_$AriaPropsMixin.rowindex] -->
+  @override
+  @Accessor(key: 'aria-rowindex')
+  set rowindex(dynamic value) =>
+      props[_$key__rowindex___$AriaPropsMixin] = value;
+
+  /// <!-- Generated from [_$AriaPropsMixin.rowspan] -->
+  @override
+  @Accessor(key: 'aria-rowspan')
+  dynamic get rowspan =>
+      (props[_$key__rowspan___$AriaPropsMixin] ?? null) as dynamic;
+
+  /// <!-- Generated from [_$AriaPropsMixin.rowspan] -->
+  @override
+  @Accessor(key: 'aria-rowspan')
+  set rowspan(dynamic value) => props[_$key__rowspan___$AriaPropsMixin] = value;
 
   /// Indicates the current 'selected' state of various widgets. See related aria-checked and aria-pressed.
   ///
@@ -1648,14 +1797,28 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
       PropDescriptor(_$key__busy___$AriaPropsMixin);
   static const PropDescriptor _$prop__checked___$AriaPropsMixin =
       PropDescriptor(_$key__checked___$AriaPropsMixin);
+  static const PropDescriptor _$prop__colcount___$AriaPropsMixin =
+      PropDescriptor(_$key__colcount___$AriaPropsMixin);
+  static const PropDescriptor _$prop__colindex___$AriaPropsMixin =
+      PropDescriptor(_$key__colindex___$AriaPropsMixin);
+  static const PropDescriptor _$prop__colspan___$AriaPropsMixin =
+      PropDescriptor(_$key__colspan___$AriaPropsMixin);
   static const PropDescriptor _$prop__controls___$AriaPropsMixin =
       PropDescriptor(_$key__controls___$AriaPropsMixin);
+  static const PropDescriptor _$prop__current___$AriaPropsMixin =
+      PropDescriptor(_$key__current___$AriaPropsMixin);
   static const PropDescriptor _$prop__describedby___$AriaPropsMixin =
       PropDescriptor(_$key__describedby___$AriaPropsMixin);
+  static const PropDescriptor _$prop__description___$AriaPropsMixin =
+      PropDescriptor(_$key__description___$AriaPropsMixin);
+  static const PropDescriptor _$prop__details___$AriaPropsMixin =
+      PropDescriptor(_$key__details___$AriaPropsMixin);
   static const PropDescriptor _$prop__disabled___$AriaPropsMixin =
       PropDescriptor(_$key__disabled___$AriaPropsMixin);
   static const PropDescriptor _$prop__dropeffect___$AriaPropsMixin =
       PropDescriptor(_$key__dropeffect___$AriaPropsMixin);
+  static const PropDescriptor _$prop__error___$AriaPropsMixin =
+      PropDescriptor(_$key__error___$AriaPropsMixin);
   static const PropDescriptor _$prop__expanded___$AriaPropsMixin =
       PropDescriptor(_$key__expanded___$AriaPropsMixin);
   static const PropDescriptor _$prop__flowto___$AriaPropsMixin =
@@ -1668,6 +1831,8 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
       PropDescriptor(_$key__hidden___$AriaPropsMixin);
   static const PropDescriptor _$prop__invalid___$AriaPropsMixin =
       PropDescriptor(_$key__invalid___$AriaPropsMixin);
+  static const PropDescriptor _$prop__keyshortcuts___$AriaPropsMixin =
+      PropDescriptor(_$key__keyshortcuts___$AriaPropsMixin);
   static const PropDescriptor _$prop__label___$AriaPropsMixin =
       PropDescriptor(_$key__label___$AriaPropsMixin);
   static const PropDescriptor _$prop__labelledby___$AriaPropsMixin =
@@ -1682,6 +1847,8 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
       PropDescriptor(_$key__multiselectable___$AriaPropsMixin);
   static const PropDescriptor _$prop__orientation___$AriaPropsMixin =
       PropDescriptor(_$key__orientation___$AriaPropsMixin);
+  static const PropDescriptor _$prop__placeholder___$AriaPropsMixin =
+      PropDescriptor(_$key__placeholder___$AriaPropsMixin);
   static const PropDescriptor _$prop__owns___$AriaPropsMixin =
       PropDescriptor(_$key__owns___$AriaPropsMixin);
   static const PropDescriptor _$prop__posinset___$AriaPropsMixin =
@@ -1696,6 +1863,14 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
       PropDescriptor(_$key__required___$AriaPropsMixin);
   static const PropDescriptor _$prop__role___$AriaPropsMixin =
       PropDescriptor(_$key__role___$AriaPropsMixin);
+  static const PropDescriptor _$prop__roledescription___$AriaPropsMixin =
+      PropDescriptor(_$key__roledescription___$AriaPropsMixin);
+  static const PropDescriptor _$prop__rowcount___$AriaPropsMixin =
+      PropDescriptor(_$key__rowcount___$AriaPropsMixin);
+  static const PropDescriptor _$prop__rowindex___$AriaPropsMixin =
+      PropDescriptor(_$key__rowindex___$AriaPropsMixin);
+  static const PropDescriptor _$prop__rowspan___$AriaPropsMixin =
+      PropDescriptor(_$key__rowspan___$AriaPropsMixin);
   static const PropDescriptor _$prop__selected___$AriaPropsMixin =
       PropDescriptor(_$key__selected___$AriaPropsMixin);
   static const PropDescriptor _$prop__setsize___$AriaPropsMixin =
@@ -1717,16 +1892,25 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
       'aria-autocomplete';
   static const String _$key__busy___$AriaPropsMixin = 'aria-busy';
   static const String _$key__checked___$AriaPropsMixin = 'aria-checked';
+  static const String _$key__colcount___$AriaPropsMixin = 'aria-colcount';
+  static const String _$key__colindex___$AriaPropsMixin = 'aria-colindex';
+  static const String _$key__colspan___$AriaPropsMixin = 'aria-colspan';
   static const String _$key__controls___$AriaPropsMixin = 'aria-controls';
+  static const String _$key__current___$AriaPropsMixin = 'aria-current';
   static const String _$key__describedby___$AriaPropsMixin = 'aria-describedby';
+  static const String _$key__description___$AriaPropsMixin = 'aria-description';
+  static const String _$key__details___$AriaPropsMixin = 'aria-details';
   static const String _$key__disabled___$AriaPropsMixin = 'aria-disabled';
   static const String _$key__dropeffect___$AriaPropsMixin = 'aria-dropeffect';
+  static const String _$key__error___$AriaPropsMixin = 'aria-errormessage';
   static const String _$key__expanded___$AriaPropsMixin = 'aria-expanded';
   static const String _$key__flowto___$AriaPropsMixin = 'aria-flowto';
   static const String _$key__grabbed___$AriaPropsMixin = 'aria-grabbed';
   static const String _$key__haspopup___$AriaPropsMixin = 'aria-haspopup';
   static const String _$key__hidden___$AriaPropsMixin = 'aria-hidden';
   static const String _$key__invalid___$AriaPropsMixin = 'aria-invalid';
+  static const String _$key__keyshortcuts___$AriaPropsMixin =
+      'aria-keyshortcuts';
   static const String _$key__label___$AriaPropsMixin = 'aria-label';
   static const String _$key__labelledby___$AriaPropsMixin = 'aria-labelledby';
   static const String _$key__level___$AriaPropsMixin = 'aria-level';
@@ -1735,6 +1919,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   static const String _$key__multiselectable___$AriaPropsMixin =
       'aria-multiselectable';
   static const String _$key__orientation___$AriaPropsMixin = 'aria-orientation';
+  static const String _$key__placeholder___$AriaPropsMixin = 'aria-placeholder';
   static const String _$key__owns___$AriaPropsMixin = 'aria-owns';
   static const String _$key__posinset___$AriaPropsMixin = 'aria-posinset';
   static const String _$key__pressed___$AriaPropsMixin = 'aria-pressed';
@@ -1742,6 +1927,11 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   static const String _$key__relevant___$AriaPropsMixin = 'aria-relevant';
   static const String _$key__required___$AriaPropsMixin = 'aria-required';
   static const String _$key__role___$AriaPropsMixin = 'role';
+  static const String _$key__roledescription___$AriaPropsMixin =
+      'aria-roledescription';
+  static const String _$key__rowcount___$AriaPropsMixin = 'aria-rowcount';
+  static const String _$key__rowindex___$AriaPropsMixin = 'aria-rowindex';
+  static const String _$key__rowspan___$AriaPropsMixin = 'aria-rowspan';
   static const String _$key__selected___$AriaPropsMixin = 'aria-selected';
   static const String _$key__setsize___$AriaPropsMixin = 'aria-setsize';
   static const String _$key__sort___$AriaPropsMixin = 'aria-sort';
@@ -1756,16 +1946,24 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
     _$prop__autocomplete___$AriaPropsMixin,
     _$prop__busy___$AriaPropsMixin,
     _$prop__checked___$AriaPropsMixin,
+    _$prop__colcount___$AriaPropsMixin,
+    _$prop__colindex___$AriaPropsMixin,
+    _$prop__colspan___$AriaPropsMixin,
     _$prop__controls___$AriaPropsMixin,
+    _$prop__current___$AriaPropsMixin,
     _$prop__describedby___$AriaPropsMixin,
+    _$prop__description___$AriaPropsMixin,
+    _$prop__details___$AriaPropsMixin,
     _$prop__disabled___$AriaPropsMixin,
     _$prop__dropeffect___$AriaPropsMixin,
+    _$prop__error___$AriaPropsMixin,
     _$prop__expanded___$AriaPropsMixin,
     _$prop__flowto___$AriaPropsMixin,
     _$prop__grabbed___$AriaPropsMixin,
     _$prop__haspopup___$AriaPropsMixin,
     _$prop__hidden___$AriaPropsMixin,
     _$prop__invalid___$AriaPropsMixin,
+    _$prop__keyshortcuts___$AriaPropsMixin,
     _$prop__label___$AriaPropsMixin,
     _$prop__labelledby___$AriaPropsMixin,
     _$prop__level___$AriaPropsMixin,
@@ -1773,6 +1971,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
     _$prop__multiline___$AriaPropsMixin,
     _$prop__multiselectable___$AriaPropsMixin,
     _$prop__orientation___$AriaPropsMixin,
+    _$prop__placeholder___$AriaPropsMixin,
     _$prop__owns___$AriaPropsMixin,
     _$prop__posinset___$AriaPropsMixin,
     _$prop__pressed___$AriaPropsMixin,
@@ -1780,6 +1979,10 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
     _$prop__relevant___$AriaPropsMixin,
     _$prop__required___$AriaPropsMixin,
     _$prop__role___$AriaPropsMixin,
+    _$prop__roledescription___$AriaPropsMixin,
+    _$prop__rowcount___$AriaPropsMixin,
+    _$prop__rowindex___$AriaPropsMixin,
+    _$prop__rowspan___$AriaPropsMixin,
     _$prop__selected___$AriaPropsMixin,
     _$prop__setsize___$AriaPropsMixin,
     _$prop__sort___$AriaPropsMixin,
@@ -1794,16 +1997,24 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
     _$key__autocomplete___$AriaPropsMixin,
     _$key__busy___$AriaPropsMixin,
     _$key__checked___$AriaPropsMixin,
+    _$key__colcount___$AriaPropsMixin,
+    _$key__colindex___$AriaPropsMixin,
+    _$key__colspan___$AriaPropsMixin,
     _$key__controls___$AriaPropsMixin,
+    _$key__current___$AriaPropsMixin,
     _$key__describedby___$AriaPropsMixin,
+    _$key__description___$AriaPropsMixin,
+    _$key__details___$AriaPropsMixin,
     _$key__disabled___$AriaPropsMixin,
     _$key__dropeffect___$AriaPropsMixin,
+    _$key__error___$AriaPropsMixin,
     _$key__expanded___$AriaPropsMixin,
     _$key__flowto___$AriaPropsMixin,
     _$key__grabbed___$AriaPropsMixin,
     _$key__haspopup___$AriaPropsMixin,
     _$key__hidden___$AriaPropsMixin,
     _$key__invalid___$AriaPropsMixin,
+    _$key__keyshortcuts___$AriaPropsMixin,
     _$key__label___$AriaPropsMixin,
     _$key__labelledby___$AriaPropsMixin,
     _$key__level___$AriaPropsMixin,
@@ -1811,6 +2022,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
     _$key__multiline___$AriaPropsMixin,
     _$key__multiselectable___$AriaPropsMixin,
     _$key__orientation___$AriaPropsMixin,
+    _$key__placeholder___$AriaPropsMixin,
     _$key__owns___$AriaPropsMixin,
     _$key__posinset___$AriaPropsMixin,
     _$key__pressed___$AriaPropsMixin,
@@ -1818,6 +2030,10 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
     _$key__relevant___$AriaPropsMixin,
     _$key__required___$AriaPropsMixin,
     _$key__role___$AriaPropsMixin,
+    _$key__roledescription___$AriaPropsMixin,
+    _$key__rowcount___$AriaPropsMixin,
+    _$key__rowindex___$AriaPropsMixin,
+    _$key__rowspan___$AriaPropsMixin,
     _$key__selected___$AriaPropsMixin,
     _$key__setsize___$AriaPropsMixin,
     _$key__sort___$AriaPropsMixin,
