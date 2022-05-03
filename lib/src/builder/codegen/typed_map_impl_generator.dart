@@ -141,12 +141,6 @@ abstract class TypedMapImplGenerator extends BoilerplateDeclarationGenerator {
     }
 
     final classDeclaration = StringBuffer();
-    if (isComponent2) {
-      // This class will only have a factory constructor that instantiates one
-      // of two subclasses.
-      classDeclaration.write('abstract ');
-    }
-
     classDeclaration..write(_generateImplClassHeader())..write(' {');
 
     final propsOrState = isProps ? 'props' : 'state';
@@ -167,7 +161,7 @@ abstract class TypedMapImplGenerator extends BoilerplateDeclarationGenerator {
           '  // This initializer of `_$propsOrState` to an empty map, as well as the reassignment')
       ..writeln(
           '  // of `_$propsOrState` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217')
-      ..writeln('  ${names.implName}(Map backingMap) : this._$propsOrState = backingMap ?? ({});');
+      ..writeln('  ${names.implName}(Map backingMap) : this.$propsOrState = backingMap ?? ({});');
 
     buffer
       ..writeln()
@@ -384,7 +378,7 @@ class _TypedMapImplGenerator extends TypedMapImplGenerator {
     } else if (member is BoilerplatePropsOrState) {
       final header = StringBuffer()
         ..write('class ${names.implName}$typeParamsOnClass'
-            ' extends ${names.consumerName}${names.consumerName}');
+            ' extends ${names.consumerName}$typeParamsOnSuper');
       return header.toString();
     } else {
       throw StateError('`member` is an unexpected type: $member');
