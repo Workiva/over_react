@@ -57,10 +57,10 @@ abstract class ComponentGenerator extends BoilerplateDeclarationGenerator {
       // implemented for Component2.
       // This implementation here is necessary so that mixin accesses aren't compiled as index$ax
       outputContentsBuffer
-        ..writeln('  ${propsNames.jsMapImplName} _cachedTypedProps;')
+        ..writeln('  ${propsNames.implName} _cachedTypedProps;')
         ..writeln()
         ..writeln('  @override')
-        ..writeln('  ${propsNames.jsMapImplName} get props => _cachedTypedProps;')
+        ..writeln('  ${propsNames.implName} get props => _cachedTypedProps;')
         ..writeln()
         ..writeln('  @override')
         ..writeln('  set props(Map value) {')
@@ -77,8 +77,8 @@ abstract class ComponentGenerator extends BoilerplateDeclarationGenerator {
         ..writeln('  }')
         ..writeln()
         ..writeln('  @override ')
-        ..writeln('  ${propsNames.jsMapImplName} typedPropsFactoryJs(JsBackedMap backingMap)'
-            ' => ${propsNames.jsMapImplName}(backingMap);')
+        ..writeln('  ${propsNames.implName} typedPropsFactoryJs(JsBackedMap backingMap)'
+            ' => ${propsNames.implName}(backingMap);')
         ..writeln();
     }
 
@@ -90,9 +90,9 @@ abstract class ComponentGenerator extends BoilerplateDeclarationGenerator {
 
     if (isComponent2 && hasState) {
       outputContentsBuffer
-        ..writeln('  ${stateNames.jsMapImplName} _cachedTypedState;')
+        ..writeln('  ${stateNames.implName} _cachedTypedState;')
         ..writeln('  @override')
-        ..writeln('  ${stateNames.jsMapImplName} get state => _cachedTypedState;')
+        ..writeln('  ${stateNames.implName} get state => _cachedTypedState;')
         ..writeln()
         ..writeln('  @override')
         ..writeln('  set state(Map value) {')
@@ -104,8 +104,8 @@ abstract class ComponentGenerator extends BoilerplateDeclarationGenerator {
         ..writeln('  }')
         ..writeln()
         ..writeln('  @override ')
-        ..writeln('  ${stateNames.jsMapImplName} typedStateFactoryJs(JsBackedMap backingMap)'
-            ' => ${stateNames.jsMapImplName}(backingMap);')
+        ..writeln('  ${stateNames.implName} typedStateFactoryJs(JsBackedMap backingMap)'
+            ' => ${stateNames.implName}(backingMap);')
         ..writeln();
     }
 

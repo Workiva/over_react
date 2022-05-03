@@ -76,15 +76,8 @@ abstract class TypedMapImplGenerator extends BoilerplateDeclarationGenerator {
     outputContentsBuffer
         .write('${names.implName} ${factoryNames.first.implName}([Map backingProps]) => ');
 
-    if (!isComponent2) {
-      /// _$$FooProps _$Foo([Map backingProps]) => _$$FooProps(backingProps);
-      outputContentsBuffer.writeln('${names.implName}(backingProps);');
-    } else {
-      /// _$$FooProps _$Foo([Map backingProps]) => backingProps == null ? $jsMapImplName(JsBackedMap()) : _$$FooProps(backingProps);
-      // Optimize this case for when backingProps is null to promote inlining of `jsMapImplName` typing
-      outputContentsBuffer.writeln(
-          'backingProps == null ? ${names.jsMapImplName}(JsBackedMap()) : ${names.implName}(backingProps);');
-    }
+    /// _$$FooProps _$Foo([Map backingProps]) => _$$FooProps(backingProps);
+    outputContentsBuffer.writeln('${names.implName}(backingProps);');
   }
 
   String _generateImplClassHeader();
@@ -168,38 +161,20 @@ abstract class TypedMapImplGenerator extends BoilerplateDeclarationGenerator {
       ..writeln(classDeclaration);
 
     // Constructors
-    if (isComponent2) {
-      buffer
-        ..writeln('  ${names.implName}._();')
-        ..writeln()
-        ..writeln('  factory ${names.implName}(Map backingMap) {')
-        ..writeln('    if (backingMap == null || backingMap is JsBackedMap) {')
-        ..writeln('      return ${names.jsMapImplName}(backingMap as JsBackedMap);')
-        ..writeln('    } else {')
-        ..writeln('      return ${names.plainMapImplName}(backingMap);')
-        ..writeln('    }')
-        ..writeln('  }');
-    } else {
-      buffer
-        ..writeln(
-            '  // This initializer of `_$propsOrState` to an empty map, as well as the reassignment')
-        ..writeln(
-            '  // of `_$propsOrState` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217')
-        // TODO need to remove this workaround once https://github.com/dart-lang/sdk/issues/36217 is fixed get nice dart2js output
-        ..writeln('  ${names.implName}(Map backingMap) : this._$propsOrState = {} {')
-        ..writeln('     this._$propsOrState = backingMap ?? {};')
-        ..writeln('  }');
-    }
 
-    // Members
-    if (!isComponent2) {
-      buffer
-        ..writeln()
-        ..writeln('  /// The backing $propsOrState map proxied by this class.')
-        ..writeln('  @override')
-        ..writeln('  Map get $propsOrState => _$propsOrState;')
-        ..writeln('  Map _$propsOrState;');
-    }
+    buffer
+      ..writeln(
+          '  // This initializer of `_$propsOrState` to an empty map, as well as the reassignment')
+      ..writeln(
+          '  // of `_$propsOrState` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217')
+      ..writeln('  ${names.implName}(Map backingMap) : this._$propsOrState = backingMap ?? ({});');
+
+    buffer
+      ..writeln()
+      ..writeln('  /// The backing $propsOrState map proxied by this class.')
+      ..writeln('  @override')
+      ..writeln('  final Map $propsOrState;');
+
     buffer
       ..writeln()
       ..writeln(
@@ -233,36 +208,6 @@ abstract class TypedMapImplGenerator extends BoilerplateDeclarationGenerator {
     // End of class body
     buffer.writeln('}');
 
-    // Component2-specific classes
-    if (isComponent2) {
-      // TODO need to remove this workaround once https://github.com/dart-lang/sdk/issues/36217 is fixed get nice dart2js output
-      buffer..writeln()..writeln('''
-// Concrete $propsOrState implementation that can be backed by any [Map].
-${internalGeneratedMemberDeprecationLine()}class ${names.plainMapImplName}$typeParamsOnClass extends ${names.implName}$typeParamsOnSuper {
-  // This initializer of `_$propsOrState` to an empty map, as well as the reassignment
-  // of `_$propsOrState` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  ${names.plainMapImplName}(Map backingMap) : this._$propsOrState = {}, super._() {
-     this._$propsOrState = backingMap ?? {};
-  }
-  /// The backing $propsOrState map proxied by this class.
-  @override
-  Map get $propsOrState => _$propsOrState;
-  Map _$propsOrState;
-}
-// Concrete $propsOrState implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-${internalGeneratedMemberDeprecationLine()}class ${names.jsMapImplName}$typeParamsOnClass extends ${names.implName}$typeParamsOnSuper {
-  // This initializer of `_$propsOrState` to an empty map, as well as the reassignment
-  // of `_$propsOrState` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  ${names.jsMapImplName}(JsBackedMap backingMap) : this._$propsOrState = JsBackedMap(), super._() {
-     this._$propsOrState = backingMap ?? JsBackedMap();
-  }
-  /// The backing $propsOrState map proxied by this class.
-  @override
-  JsBackedMap get $propsOrState => _$propsOrState;
-  JsBackedMap _$propsOrState;
-}''');
-    }
     return buffer.toString();
   }
 }
@@ -393,7 +338,7 @@ class _TypedMapImplGenerator extends TypedMapImplGenerator {
         '${factoryName.privateConfigName} = UiFactoryConfig(\n'
         'propsFactory: PropsFactory(\n'
         'map: (map) => ${names.implName}(map),\n'
-        'jsMap: (map) => ${names.jsMapImplName}(map),),\n'
+        'jsMap: (map) => ${names.implName}(map),),\n'
         'displayName: \'${factoryName.consumerName}\');\n\n'
         '@Deprecated(r\'Use the private variable, ${factoryName.privateConfigName}, instead \'\n'
         '\'and update the `over_react` lower bound to version 4.1.0. \'\n'
@@ -435,47 +380,11 @@ class _TypedMapImplGenerator extends TypedMapImplGenerator {
       return 'class ${names.implName}$typeParamsOnClass'
           ' extends ${isProps ? 'UiProps' : 'UiState'}'
           ' with\n'
-          ' ${names.consumerName}$typeParamsOnSuper\n,'
-          ' ${names.generatedMixinName}$typeParamsOnSuper${generatedMixinWarningCommentLine(names, isProps: isProps)}';
+          ' ${names.consumerName}$typeParamsOnSuper';
     } else if (member is BoilerplatePropsOrState) {
       final header = StringBuffer()
         ..write('class ${names.implName}$typeParamsOnClass'
-            ' extends ${isProps ? 'UiProps' : 'UiState'}');
-      final mixins = member.nodeHelper.mixins;
-
-      // Group the mixins with their generated mixins to avoid issues with covariant overrides.
-      // For this reason, we can't subclass the user-authored class, and have to instead implement
-      // it in order to get the correct mixin order
-      //
-      // For example:
-      //     class FooProps = UiProps with AProps, BProps;
-      // ...becomes:
-      //     class _$FooProps = UiProps with AProps, $AProps, BProps, $BProps implements FooProps;
-      // ...and not:
-      //     class _$FooProps = FooProps with $AProps, $BProps;
-      // ...or its equivalent
-      //     class _$FooProps = UiProps with AProps, BProps, $AProps, $BProps implements FooProps;
-      if (mixins.isNotEmpty) {
-        header.write(' with ');
-        for (var i = 0; i < mixins.length; i++) {
-          final mixin = mixins[i];
-          final typeArguments = mixin.typeArguments?.toSource() ?? '';
-          final names = TypedMapNames(mixin.name.name);
-          header.write('${names.consumerName}$typeArguments');
-          header.write(',');
-          header.write('${names.generatedMixinName}$typeArguments');
-          // Don't write the comma if we're at the end of the list.
-          // Do this manually instead of using `.join` so that we can always have
-          // the warning comment be at the end of the line, regardless of whether the comma is there.
-          if (i != mixins.length - 1) {
-            header.write(',');
-          }
-          header.write(generatedMixinWarningCommentLine(names, isProps: isProps));
-        }
-      }
-
-      header.write(' implements ${names.consumerName}$typeParamsOnSuper');
-
+            ' extends ${names.consumerName}${names.consumerName}');
       return header.toString();
     } else {
       throw StateError('`member` is an unexpected type: $member');
