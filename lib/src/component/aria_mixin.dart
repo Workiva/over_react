@@ -127,7 +127,7 @@ abstract class _$AriaPropsMixin {
 
 
    @Accessor(key: 'aria-colcount')
-  dynamic  colcount;
+  int colcount;
 
    @Accessor(key: 'aria-colindex')
   dynamic colindex ; 
