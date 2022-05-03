@@ -430,13 +430,12 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.error] -->
   @override
   @Accessor(key: 'aria-errormessage')
-  dynamic get error =>
-      (props[_$key__error___$AriaPropsMixin] ?? null) as dynamic;
+  String get error => (props[_$key__error___$AriaPropsMixin] ?? null) as String;
 
   /// <!-- Generated from [_$AriaPropsMixin.error] -->
   @override
   @Accessor(key: 'aria-errormessage')
-  set error(dynamic value) => props[_$key__error___$AriaPropsMixin] = value;
+  set error(String value) => props[_$key__error___$AriaPropsMixin] = value;
 
   /// Indicates whether the element, or another grouping element it controls, is currently expanded
   /// or collapsed.
@@ -1097,13 +1096,13 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.placeholder] -->
   @override
   @Accessor(key: 'aria-placeholder')
-  dynamic get placeholder =>
-      (props[_$key__placeholder___$AriaPropsMixin] ?? null) as dynamic;
+  String get placeholder =>
+      (props[_$key__placeholder___$AriaPropsMixin] ?? null) as String;
 
   /// <!-- Generated from [_$AriaPropsMixin.placeholder] -->
   @override
   @Accessor(key: 'aria-placeholder')
-  set placeholder(dynamic value) =>
+  set placeholder(String value) =>
       props[_$key__placeholder___$AriaPropsMixin] = value;
 
   /// Identifies an element (or elements) in order to define a visual, functional, or contextual
@@ -1426,49 +1425,44 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.roledescription] -->
   @override
   @Accessor(key: 'aria-roledescription')
-  dynamic get roledescription =>
-      (props[_$key__roledescription___$AriaPropsMixin] ?? null) as dynamic;
+  String get roledescription =>
+      (props[_$key__roledescription___$AriaPropsMixin] ?? null) as String;
 
   /// <!-- Generated from [_$AriaPropsMixin.roledescription] -->
   @override
   @Accessor(key: 'aria-roledescription')
-  set roledescription(dynamic value) =>
+  set roledescription(String value) =>
       props[_$key__roledescription___$AriaPropsMixin] = value;
 
   /// <!-- Generated from [_$AriaPropsMixin.rowcount] -->
   @override
   @Accessor(key: 'aria-rowcount')
-  dynamic get rowcount =>
-      (props[_$key__rowcount___$AriaPropsMixin] ?? null) as dynamic;
+  int get rowcount => (props[_$key__rowcount___$AriaPropsMixin] ?? null) as int;
 
   /// <!-- Generated from [_$AriaPropsMixin.rowcount] -->
   @override
   @Accessor(key: 'aria-rowcount')
-  set rowcount(dynamic value) =>
-      props[_$key__rowcount___$AriaPropsMixin] = value;
+  set rowcount(int value) => props[_$key__rowcount___$AriaPropsMixin] = value;
 
   /// <!-- Generated from [_$AriaPropsMixin.rowindex] -->
   @override
   @Accessor(key: 'aria-rowindex')
-  dynamic get rowindex =>
-      (props[_$key__rowindex___$AriaPropsMixin] ?? null) as dynamic;
+  int get rowindex => (props[_$key__rowindex___$AriaPropsMixin] ?? null) as int;
 
   /// <!-- Generated from [_$AriaPropsMixin.rowindex] -->
   @override
   @Accessor(key: 'aria-rowindex')
-  set rowindex(dynamic value) =>
-      props[_$key__rowindex___$AriaPropsMixin] = value;
+  set rowindex(int value) => props[_$key__rowindex___$AriaPropsMixin] = value;
 
   /// <!-- Generated from [_$AriaPropsMixin.rowspan] -->
   @override
   @Accessor(key: 'aria-rowspan')
-  dynamic get rowspan =>
-      (props[_$key__rowspan___$AriaPropsMixin] ?? null) as dynamic;
+  int get rowspan => (props[_$key__rowspan___$AriaPropsMixin] ?? null) as int;
 
   /// <!-- Generated from [_$AriaPropsMixin.rowspan] -->
   @override
   @Accessor(key: 'aria-rowspan')
-  set rowspan(dynamic value) => props[_$key__rowspan___$AriaPropsMixin] = value;
+  set rowspan(int value) => props[_$key__rowspan___$AriaPropsMixin] = value;
 
   /// Indicates the current 'selected' state of various widgets. See related aria-checked and aria-pressed.
   ///
