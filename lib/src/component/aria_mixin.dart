@@ -21,8 +21,6 @@ import 'dart:collection';
 import 'package:over_react/over_react.dart' show PropDescriptor, PropsMeta, ConsumedProps;
 import 'package:over_react/src/component_declaration/annotations.dart';
 
-import '../../over_react.dart';
-
 part 'aria_mixin.over_react.g.dart';
 
 /// This class is present:
@@ -1695,7 +1693,7 @@ static const String select = 'select';
 
 
 
-  
+
 
   /// A grouping label providing a mechanism for selecting the tab content that is to be rendered
   /// to the user.
