@@ -330,13 +330,13 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.description] -->
   @override
   @Accessor(key: 'aria-description')
-  dynamic get description =>
-      (props[_$key__description___$AriaPropsMixin] ?? null) as dynamic;
+  String get description =>
+      (props[_$key__description___$AriaPropsMixin] ?? null) as String;
 
   /// <!-- Generated from [_$AriaPropsMixin.description] -->
   @override
   @Accessor(key: 'aria-description')
-  set description(dynamic value) =>
+  set description(String value) =>
       props[_$key__description___$AriaPropsMixin] = value;
 
   /// <!-- Generated from [_$AriaPropsMixin.details] -->
