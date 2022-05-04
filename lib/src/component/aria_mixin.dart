@@ -147,7 +147,7 @@ abstract class _$AriaPropsMixin {
   @Accessor(key: 'aria-colindextext')
   String colindextext;
 
-  /// See: <>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-colspan>
   @Accessor(key: 'aria-colspan')
   int colspan;
 
@@ -160,10 +160,11 @@ abstract class _$AriaPropsMixin {
   /// of checkboxes may control what commodity prices are tracked live in a table or graph.A tab
   /// controls the display of its associated tab panel.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-controls>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-controls>
   @Accessor(key: 'aria-controls')
   dynamic controls;
 
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current>
   @Accessor(key: 'aria-current')
   dynamic current;
 
@@ -177,13 +178,15 @@ abstract class _$AriaPropsMixin {
   /// Include ID references to multiple elements if necessary, or enclose a set of elements (e.g.,
   /// paragraphs) with the element referenced by the ID.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-describedby>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-describedby>
   @Accessor(key: 'aria-describedby')
   dynamic describedby;
 
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-description>
   @Accessor(key: 'aria-description')
   String description;
 
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-details>
   @Accessor(key: 'aria-details')
   dynamic details;
 
