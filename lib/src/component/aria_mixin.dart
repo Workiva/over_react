@@ -399,6 +399,13 @@ abstract class _$AriaPropsMixin {
   @Accessor(key: 'aria-invalid')
   dynamic invalid;
 
+  /// Indicates keyboard shortcuts that an author has implemented to activate or give focus to an element
+  ///
+  /// A series of one or several keys that tells software to perform a pre-programmed action. Keyboard shortcuts 
+  /// enable keyboard users to invoke commands using the keyboard that would otherwise require accessing a menu 
+  /// or using touch or a mouse.The aria-keyshortcuts property defines the keyboard keys that have been implemented 
+  /// to activate or give focus to the element on which the attribute is set
+  ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-keyshortcuts>
   @Accessor(key: 'aria-keyshortcuts')
   dynamic keyshortcuts;
@@ -568,7 +575,10 @@ abstract class _$AriaPropsMixin {
   @Accessor(key: 'aria-owns')
   dynamic owns;
 
-   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-placeholder>
+  /// Defines a short hint (a word or short phrase) intended to help the user with data entry when a form 
+  /// control has no value. The hint can be a sample value or a brief description of the expected format
+  ///
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-placeholder>
   @Accessor(key: 'aria-placeholder')
   String placeholder;
 
@@ -689,15 +699,20 @@ abstract class _$AriaPropsMixin {
   /// See: <http://www.w3.org/TR/wai-aria/usage#usage_intro>
   String role;
 
-   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-roledescription>
+  /// Defines an author-localized description for the role of an element
+  /// 
+  /// Only use aria-roledescription to clarify the purpose of non-interactive container roles like group or 
+  /// region and to provide a more specific description to a widget
+  ///
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-roledescription>
   @Accessor(key: 'aria-roledescription')
   String roledescription;
 
-   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-rowcount>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-rowcount>
   @Accessor(key: 'aria-rowcount')
   int rowcount;
 
-   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-rowindex>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-rowindex>
   @Accessor(key: 'aria-rowindex')
   int rowindex;
 
@@ -705,7 +720,7 @@ abstract class _$AriaPropsMixin {
   @Accessor(key: 'aria-rowindextext')
   String aria-rowindextext
 
-   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-rowspan>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-rowspan>
   @Accessor(key: 'aria-rowspan')
   int rowspan;
 
