@@ -93,7 +93,7 @@ abstract class _$AriaPropsMixin {
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-autocomplete>
   @Accessor(key: 'aria-autocomplete')
   dynamic autocomplete;
-  
+
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-braillelabel>
   @Accessor(key: 'aria-braillelabel')
   String braillelabel;
@@ -135,15 +135,19 @@ abstract class _$AriaPropsMixin {
   @Accessor(key: 'aria-checked')
   dynamic checked;
 
-  /// See:
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-colcount>
   @Accessor(key: 'aria-colcount')
   int colcount;
 
-   /// See:
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-colindex>
   @Accessor(key: 'aria-colindex')
   int colindex;
 
-   /// See:
+  // See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-colindextext>
+  @Accessor(key: 'aria-colindextext')
+  String colindextext;
+
+  /// See: <>
   @Accessor(key: 'aria-colspan')
   int colspan;
 
