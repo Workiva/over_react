@@ -96,10 +96,21 @@ abstract class _$AriaPropsMixin {
   @Accessor(key: 'aria-autocomplete')
   dynamic autocomplete;
 
+  /// Defines a string value that labels the current element, which is intended to be converted into Braille.
+  ///
+  /// The purpose of the aria-braillelabel property is to override how assistive technologies localize and 
+  /// express the accessible name of an element in Braille and should only be used when accessible name, 
+  /// without this attribute, when converted to Braille, would not be the desired user experience.
+  ///
+  /// The aria-braillelabel values are localized to align with the document language
+  ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-braillelabel>
   @Accessor(key: 'aria-braillelabel')
   String braillelabel;
 
+  /// Defines a human-readable, author-localized abbreviated description for the role of an element intended to
+  /// be converted into Braille
+  ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-brailleroledescription>
   @Accessor(key: 'aria-brailleroledescription')
   String brailleroledescription;
@@ -137,6 +148,9 @@ abstract class _$AriaPropsMixin {
   @Accessor(key: 'aria-checked')
   dynamic checked;
 
+  /// Defines the total number of columns in a table, grid, or treegrid when not all columns are present
+  /// in the DOM.
+  ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-colcount>
   @Accessor(key: 'aria-colcount')
   int colcount;
