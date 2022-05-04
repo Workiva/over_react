@@ -155,14 +155,21 @@ abstract class _$AriaPropsMixin {
   @Accessor(key: 'aria-colcount')
   int colcount;
 
+  /// Defines an element's column index or position with respect to the total number of columns within a 
+  /// table, grid, or treegrid
+  ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-colindex>
   @Accessor(key: 'aria-colindex')
   int colindex;
 
-  // See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-colindextext>
+  /// Defines a text alternative of the numeric aria-colindex
+  ///
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-colindextext>
   @Accessor(key: 'aria-colindextext')
   String colindextext;
 
+  ///  Defines the number of columns spanned by a cell or gridcell within a table, grid, or treegrid
+  ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-colspan>
   @Accessor(key: 'aria-colspan')
   int colspan;
@@ -180,6 +187,11 @@ abstract class _$AriaPropsMixin {
   @Accessor(key: 'aria-controls')
   dynamic controls;
 
+  /// Indicates that the element represents the current item within a container or set of related elements
+  ///
+  /// Indicates the element on which it is set, to a value other than false, represents the current item within 
+  /// a container or set of related elements. Only mark one element in a set of elements as current with aria-current
+  ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current>
   @Accessor(key: 'aria-current')
   dynamic current;
@@ -198,10 +210,18 @@ abstract class _$AriaPropsMixin {
   @Accessor(key: 'aria-describedby')
   dynamic describedby;
 
+  /// Defines a string value that describes or annotates the current element
+  /// 
+  /// Provides a mechanism for the developer to describe or annotate the current element providing 
+  /// greater context for assistive technology users.
+  ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-description>
   @Accessor(key: 'aria-description')
   String description;
 
+  /// Identifies the element (or elements) that provide additional information related to the object
+  /// or complex descriptions to an object
+  ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-details>
   @Accessor(key: 'aria-details')
   dynamic details;
@@ -238,6 +258,13 @@ abstract class _$AriaPropsMixin {
   @Accessor(key: 'aria-dropeffect')
   dynamic dropeffect;
 
+  /// Identifies the element that provides an error message for that object
+  ///
+  /// When there is a user-created error, you want to let them know it exists and tell them how to fix it. 
+  /// There are two attributes you need to use: set aria-invalid="true" to define the object as being in 
+  /// an error state, then add the aria-errormessage attribute with the value being the id of the element 
+  /// containing the error message text for that object
+  ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-errormessage>
   @Accessor(key: 'aria-errormessage')
   String error;
