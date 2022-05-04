@@ -1118,11 +1118,13 @@ class Role {
   /// labeling the entire document.Otherwise, provide a visible label referenced by the document
   /// using aria-labelledby.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/roles#document>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/document_role>
   static const String document = 'document';
 
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/feed_role>
   static const String feed = 'feed';
 
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/figure_role>
   static const String figure = 'figure';
 
   /// A landmark region that contains a collection of items and objects that, as a whole, combine
@@ -1139,9 +1141,10 @@ class Role {
   ///
   /// User agents SHOULD treat elements with the role of form as navigational landmarks.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/roles#form>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/form_role>
   static const String form = 'form';
 
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/generic_role>
   static const String generic = 'generic';
 
   /// A grid is an interactive control which contains cells of tabular data arranged in rows and
@@ -1186,7 +1189,7 @@ class Role {
   /// To be keyboard accessible, authors SHOULD manage focus of descendants for all instances of
   /// this role, as described in Managing Focus.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/roles#grid>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/grid_role>
   static const String grid = 'grid';
 
   /// A cell in a grid or treegrid.
@@ -1206,7 +1209,7 @@ class Role {
   /// Authors MUST ensure elements with role gridcell are contained in, or owned by, an element with
   /// the role row.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/roles#gridcell>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/gridcell_role>
   static const String gridcell = 'gridcell';
 
   /// A set of user interface objects which are not intended to be included in a page summary or
@@ -1225,7 +1228,7 @@ class Role {
   /// the web page's table of contents, the author SHOULD assign the section a role of region or
   /// a standard landmark role.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/roles#group>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/group_role>
   static const String group = 'group';
 
   /// A heading for a section of the page.
@@ -1234,7 +1237,7 @@ class Role {
   /// for which they serve as a heading. If headings are organized into a logical outline, the aria-level
   /// attribute can be used to indicate the nesting level.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/roles#heading>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/heading_role>
   static const String heading = 'heading';
 
   /// A container for a collection of elements that form an image.
@@ -1245,14 +1248,15 @@ class Role {
   /// with a role of img be perceivable, authors MUST provide alternative text or a label determined
   /// by the accessible name calculation.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/roles#img>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/img_role>
   static const String img = 'img';
 
   /// A generic type of widget that allows user input.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/roles#input>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/input_role>
   static const String input = 'input';
 
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/landmark_role>
   static const String landmark = 'landmark';
 
   /// An interactive reference to an internal or external resource that, when activated, causes the
@@ -1265,7 +1269,7 @@ class Role {
   /// Note: If pressing the link triggers an action but does not change browser focus or page location,
   /// authors are advised to consider using the button role instead of the link role.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/roles#link>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/link_role>
   static const String link = 'link';
 
   /// A group of non-interactive list items. See related listbox.
@@ -1273,7 +1277,7 @@ class Role {
   /// Lists contain children whose role is listitem, or elements whose role is group which in turn
   /// contains children whose role is listitem.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/roles#list>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/list_role>
   static const String list = 'list';
 
   /// A widget that allows the user to select one or more items from a list of choices. See related
@@ -1285,7 +1289,7 @@ class Role {
   /// To be keyboard accessible, authors SHOULD manage focus of descendants for all instances of
   /// this role, as described in Managing Focus.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/roles#listbox>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/listbox_role>
   static const String listbox = 'listbox';
 
   /// A single item in a list or directory.
@@ -1293,7 +1297,7 @@ class Role {
   /// Authors MUST ensure elements with role listitem are contained in, or owned by, an element with
   /// the role list or group.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/roles#listitem>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/listitem_role>
   static const String listitem = 'listitem';
 
   /// A type of live region where new information is added in meaningful order and old information
@@ -1306,7 +1310,7 @@ class Role {
   ///
   /// Note: Elements with the role log have an implicit aria-live value of polite.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/roles#log>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/log_role>
   static const String log = 'log';
 
   /// The main content of a document.
@@ -1326,9 +1330,10 @@ class Role {
   /// nodes, either by a DOM nesting (e.g., document within document) or by use of the aria-owns
   /// attribute.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/roles#main>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/main_role>
   static const String main = 'main';
 
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/mark_role>
   static const String mark = 'mark';
 
   /// A type of live region where non-essential information changes frequently. See related log.
@@ -1339,7 +1344,7 @@ class Role {
   ///
   /// Note: Elements with the role marquee maintain the default aria-live value of off.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/roles#marquee>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/marquee_role>
   static const String marquee = 'marquee';
 
   /// Content that represents a mathematical expression.
@@ -1358,7 +1363,7 @@ class Role {
   /// images SHOULD also be labeled by text that describes the mathematical expression as it might
   /// be spoken, using the  aria-describedby attribute.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/roles#math>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/math_role>
   static const String math = 'math';
 
   /// A type of widget that offers a list of choices to the user.
@@ -1370,7 +1375,7 @@ class Role {
   /// To be keyboard accessible, authors SHOULD manage focus of descendants for all instances of
   /// this role, as described in Managing Focus.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/roles#menu>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/menu_role>
   static const String menu = 'menu';
 
   /// A presentation of menu that usually remains visible and is usually presented horizontally.
@@ -1383,7 +1388,7 @@ class Role {
   /// To be keyboard accessible, authors SHOULD manage focus of descendants for all instances of
   /// this role, as described in Managing Focus.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/roles#menubar>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/menubar_role>
   static const String menubar = 'menubar';
 
   /// An option in a set of choices contained by a menu or menubar.
@@ -1396,7 +1401,7 @@ class Role {
   /// to identify that they are related widgets. Authors MAY separate menu items into sets by use
   /// of a separator or an element with an equivalent role from the native markup language.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/roles#menuitem>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/menuitem_role>
   static const String menuitem = 'menuitem';
 
   /// A menuitem with a checkable state whose possible values are true, false, or mixed.
@@ -1410,7 +1415,7 @@ class Role {
   /// by use of a separator or an element with an equivalent role from the native markup language.
   ///
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/roles#menuitemcheckbox>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/menuitemcheckbox_role>
   static const String menuitemcheckbox = 'menuitemcheckbox';
 
   /// A checkable menuitem in a set of elements with role menuitemradio, only one of which can be
@@ -1430,9 +1435,10 @@ class Role {
   /// menuitemradio elements in an element using the group role, and authors SHOULD delimit the group
   /// from other menu items with an element using the separator role.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/roles#menuitemradio>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/menuitemradio_role>
   static const String menuitemradio = 'menuitemradio';
 
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/meter_role>
   static const String meter = 'meter';
 
   /// A collection of navigational elements (usually links) for navigating the document or related
@@ -1440,12 +1446,15 @@ class Role {
   ///
   /// User agents SHOULD treat elements with the role of navigation as navigational landmarks.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/roles#navigation>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/navigation_role>
   static const String navigation = 'navigation';
+
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/none_role>
+  static const String none = 'none';
 
   /// A section whose content is parenthetic or ancillary to the main content of the resource.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/roles#note>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/note_role>
   static const String note = 'note';
 
   /// A selectable item in a select list.
@@ -1454,7 +1463,7 @@ class Role {
   /// the role listbox. Options not associated with a listbox might not be correctly mapped to an
   /// accessibility API.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/roles#option>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/option_role>
   static const String option = 'option';
 
   /// An element whose implicit native role semantics will not be mapped to the accessibility API.
@@ -1522,7 +1531,7 @@ class Role {
   /// always expose global WAI-ARIA states and properties to accessibility APIs, even if an element
   /// has an explicit or inherited role of presentation.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/roles#presentation>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/presentation_role>
   static const String presentation = 'presentation';
 
   /// An element that displays the progress status for tasks that take a long time.
