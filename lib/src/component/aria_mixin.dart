@@ -58,7 +58,7 @@ abstract class _$AriaPropsMixin {
   /// is a descendant of the container. Authors SHOULD ensure that the currently active descendant
   /// is visible and in view (or scrolls into view) when focused.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-activedescendant>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-activedescendant>
   @Accessor(key: 'aria-activedescendant')
   String activedescendant;
 
@@ -81,7 +81,7 @@ abstract class _$AriaPropsMixin {
   /// When aria-atomic is true, assistive technologies MAY choose to combine several changes and
   /// present the entire changed region at once.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-atomic>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-atomic>
   @Accessor(key: 'aria-atomic')
   bool atomic;
 
@@ -90,9 +90,17 @@ abstract class _$AriaPropsMixin {
   /// For a textbox with the aria-autocomplete attribute set to either inline or both, authors SHOULD
   /// ensure that any auto-completed text is selected, so the user can type over it.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-autocomplete>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-autocomplete>
   @Accessor(key: 'aria-autocomplete')
   dynamic autocomplete;
+  
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-braillelabel>
+  @Accessor(key: 'aria-braillelabel')
+  String braillelabel;
+
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-brailleroledescription>
+  @Accessor(key: 'aria-brailleroledescription')
+  String brailleroledescription;
 
   /// Indicates whether an element, and its subtree, are currently being updated.
   ///
@@ -104,7 +112,7 @@ abstract class _$AriaPropsMixin {
   /// an author could mark the document element as busy. If there is an error updating the element,
   /// author MAY set the aria-invalid attribute to true.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-busy>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-busy>
   @Accessor(key: 'aria-busy')
   bool busy;
 
@@ -123,16 +131,19 @@ abstract class _$AriaPropsMixin {
   /// Examples using the mixed value of tri-state inputs are covered in WAI-ARIA Authoring Practices
   /// [ARIA-PRACTICES]
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-checked>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-checked>
   @Accessor(key: 'aria-checked')
   dynamic checked;
 
+  /// See:
   @Accessor(key: 'aria-colcount')
   int colcount;
 
+   /// See:
   @Accessor(key: 'aria-colindex')
   int colindex;
 
+   /// See:
   @Accessor(key: 'aria-colspan')
   int colspan;
 
