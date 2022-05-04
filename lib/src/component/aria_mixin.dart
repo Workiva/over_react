@@ -646,15 +646,23 @@ abstract class _$AriaPropsMixin {
   /// See: <http://www.w3.org/TR/wai-aria/usage#usage_intro>
   String role;
 
+   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-roledescription>
   @Accessor(key: 'aria-roledescription')
   String roledescription;
 
+   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-rowcount>
   @Accessor(key: 'aria-rowcount')
   int rowcount;
 
+   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-rowindex>
   @Accessor(key: 'aria-rowindex')
   int rowindex;
 
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-rowindextext>
+  @Accessor(key: 'aria-rowindextext')
+  String aria-rowindextext
+
+   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-rowspan>
   @Accessor(key: 'aria-rowspan')
   int rowspan;
 
@@ -673,7 +681,7 @@ abstract class _$AriaPropsMixin {
   /// If any DOM element in the widget is explicitly marked as selected, the user agent MUST NOT
   /// convey implicit selection for the widget.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-selected>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-selected>
   @Accessor(key: 'aria-selected')
   dynamic selected;
 
@@ -693,7 +701,7 @@ abstract class _$AriaPropsMixin {
   ///
   /// Authors SHOULD use aria-setsize in conjunction with aria-posinset.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-setsize>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-setsize>
   @Accessor(key: 'aria-setsize')
   int setsize;
 
@@ -703,7 +711,7 @@ abstract class _$AriaPropsMixin {
   /// is not provided, there is no defined sort order. For each table or grid, authors SHOULD apply
   /// aria-sort to only one header at a time.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-sort>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-sort>
   @Accessor(key: 'aria-sort')
   dynamic sort;
 
@@ -718,7 +726,7 @@ abstract class _$AriaPropsMixin {
   /// aria-valuemin. Authors MUST ensure the value of aria-valuemax is greater than or equal to
   /// the value of aria-valuemin.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-valuemax>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-valuemax>
   @Accessor(key: 'aria-valuemax')
   num valuemax;
 
@@ -734,7 +742,7 @@ abstract class _$AriaPropsMixin {
   ///
   /// Authors MUST ensure the value of aria-valuemin is less than or equal to the value of aria-valuemax.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-valuemin>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-valuemin>
   @Accessor(key: 'aria-valuemin')
   num valuemin;
 
@@ -767,7 +775,7 @@ abstract class _$AriaPropsMixin {
   /// Note: If aria-valuetext is specified, assistive technologies render that instead of the value
   /// of aria-valuenow.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-valuenow>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-valuenow>
   @Accessor(key: 'aria-valuenow')
   num valuenow;
 
@@ -788,7 +796,7 @@ abstract class _$AriaPropsMixin {
   /// If aria-valuetext is specified, assistive technologies SHOULD render that value instead of
   /// the value of aria-valuenow.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-valuetext>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-valuetext>
   @Accessor(key: 'aria-valuetext')
   String valuetext;
 }
