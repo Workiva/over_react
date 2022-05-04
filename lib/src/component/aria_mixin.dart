@@ -1739,12 +1739,16 @@ class Role {
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/status_role>
   static const String status = 'status';
 
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/structural_roles>
   static const String documentstructural = 'documentstructural';
 
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/structure_role>
   static const String structure = 'structure';
 
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/suggestion_role>
   static const String suggestion = 'suggestion';
 
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/switch_role>
   static const String switch_aria = 'switch';
 
   /// A grouping label providing a mechanism for selecting the tab content that is to be rendered
@@ -1774,8 +1778,11 @@ class Role {
   /// technologies through the platform accessibility API that the currently focused tab is selected.
   ///
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/roles#tab>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/tab_role>
   static const String tab = 'tab';
+
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/table_role>
+  static const String table = 'table'
 
   /// A list of tab elements, which are references to tabpanel elements.
   ///
@@ -1791,7 +1798,7 @@ class Role {
   /// See the WAI-ARIA Authoring Practices Guide [ARIA-PRACTICES] for details on implementing a tab
   /// set design pattern.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/roles#tablist>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/tablist_role>
   static const String tablist = 'tablist';
 
   /// A container for the resources associated with a tab, where each tab is contained in a tablist.
@@ -1804,9 +1811,10 @@ class Role {
   /// See the WAI-ARIA Authoring Practices Guide [ARIA-PRACTICES] for details on implementing a tab
   /// set design pattern.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/roles#tabpanel>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/tabpanel_role>
   static const String tabpanel = 'tabpanel';
 
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/term_role>
   static const String term = 'term';
 
   /// Input that allows free-form text as its value.
@@ -1823,7 +1831,7 @@ class Role {
   /// The WAI-ARIA textbox role differentiates these types of boxes with the aria-multiline attribute,
   /// so authors are advised to be aware of this distinction when designing the field.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/roles#textbox>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/textbox_role>
   static const String textbox = 'textbox';
 
   /// A type of live region containing a numerical counter which indicates an amount of elapsed time
@@ -1836,7 +1844,7 @@ class Role {
   ///
   /// Note: Elements with the role timer maintain the default aria-live value of off.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/roles#timer>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/timer_role>
   static const String timer = 'timer';
 
   /// A collection of commonly used function buttons or controls represented in compact visual form.
@@ -1848,7 +1856,7 @@ class Role {
   /// Authors MAY manage focus of descendants for all instances of this role, as described in Managing
   /// Focus.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/roles#toolbar>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/toolbar_role>
   static const String toolbar = 'toolbar';
 
   /// A contextual popup that displays a description for an element.
@@ -1863,7 +1871,7 @@ class Role {
   /// Authors SHOULD ensure that elements with the role tooltip are referenced through the use of
   /// aria-describedby by the time the tooltip is displayed.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/roles#tooltip>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/tooltip_role>
   static const String tooltip = 'tooltip';
 
   /// A type of list that may contain sub-level nested groups that can be collapsed and expanded.
@@ -1871,7 +1879,7 @@ class Role {
   /// To be keyboard accessible, authors SHOULD manage focus of descendants for all instances of
   /// this role, as described in Managing Focus.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/roles#tree>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/tree_role>
   static const String tree = 'tree';
 
   /// A grid whose rows can be expanded and collapsed in the same manner as for a tree.
@@ -1885,7 +1893,7 @@ class Role {
   /// To be keyboard accessible, authors SHOULD manage focus of descendants for all instances of
   /// this role, as described in Managing Focus.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/roles#treegrid>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/treegrid_role>
   static const String treegrid = 'treegrid';
 
   /// An option item of a tree. This is an element within a tree that may be expanded or collapsed
@@ -1897,10 +1905,13 @@ class Role {
   /// Authors MUST ensure elements with role treeitem are contained in, or owned by, an element with
   /// the role group or tree.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/roles#treeitem>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/treeitem_role>
   static const String treeitem = 'treeitem';
 
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/widget_role>
   static const String widget = 'widget';
+  
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/window_role>
   static const String window = 'window';
 }
 
