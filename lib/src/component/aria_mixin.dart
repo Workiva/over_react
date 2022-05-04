@@ -1552,7 +1552,7 @@ class Role {
   ///
   /// Note: Elements with the role progressbar have an implicit aria-readonly value of true.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/roles#progressbar>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/progressbar_role>
   static const String progressbar = 'progressbar';
 
   /// A checkable input in a group of radio roles, only one of which can be checked at a time.
@@ -1563,7 +1563,7 @@ class Role {
   /// authors SHOULD use the aria-owns attribute on the radiogroup element to indicate the relationship
   /// to its children.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/roles#radio>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/radio_role>
   static const String radio = 'radio';
 
   /// A group of radio buttons.
@@ -1573,9 +1573,10 @@ class Role {
   /// time. When one item in the group is checked, the previously checked item becomes unchecked
   /// (its aria-checked attribute becomes false).
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/roles#radiogroup>
+  /// See: <https://developer.mozilla.org/en-US/docs/web/accessibility/aria/roles/radiogroup_role>
   static const String radiogroup = 'radiogroup';
 
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/range_role>
   static const String range = 'range';
 
   /// A large perceivable section of a web page or document, that is important enough to be included
@@ -1594,9 +1595,10 @@ class Role {
   /// landmark roles. If the definitions of these regions are inadequate, authors can use the region
   /// role and provide the appropriate accessible name.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/roles#region>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/region_role>
   static const String region = 'region';
 
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/roletype_role>
   static const String roletype = 'roletype';
 
   /// A row of cells in a grid.
@@ -1610,7 +1612,7 @@ class Role {
   /// Authors MUST ensure elements with role row are contained in, or owned by, an element with the
   /// role grid, rowgroup, treegrid.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/roles#row>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/row_role>
   static const String row = 'row';
 
   /// A group containing one or more row elements in a grid.
@@ -1628,7 +1630,7 @@ class Role {
   /// Note: This role does not differentiate between types of row groups (e.g., thead vs. tbody),
   /// but an issue has been raised for WAI-ARIA 2.0.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/roles#rowgroup>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/rowgroup_role>
   static const String rowgroup = 'rowgroup';
 
   /// A cell containing header information for a row in a grid.
@@ -1640,35 +1642,8 @@ class Role {
   /// Authors MUST ensure elements with role rowheader are contained in, or owned by, an element
   /// with the role row.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/roles#rowheader>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/rowheader_role>
   static const String rowheader = 'rowheader';
-
-  /// A landmark region that contains a collection of items and objects that, as a whole, combine
-  /// to create a search facility. See related form.
-  ///
-  /// A search region may be a mix of host language form controls, scripted controls, and hyperlinks.
-  ///
-  /// User agents SHOULD treat elements with the role of search as navigational landmarks.
-  ///
-  /// See: <http://www.w3.org/TR/wai-aria/roles#search>
-  static const String search = 'search';
-
-  static const String searchbox = 'searchbox';
-
-  static const String section = 'section';
-
-  static const String sectionhead = 'sectionhead';
-
-  static const String select = 'select';
-
-  /// A divider that separates and distinguishes sections of content or groups of menuitems.
-  ///
-  /// This is a visual separator between sections of content. For example, separators are found between
-  /// groups of menu items in a menu or as the moveable separator between two regions in a split
-  /// pane.
-  ///
-  /// See: <http://www.w3.org/TR/wai-aria/roles#separator>
-  static const String separator = 'separator';
 
   /// A graphical object that controls the scrolling of content within a viewing area, regardless
   /// of whether the content is fully displayed within the viewing area.
@@ -1689,8 +1664,39 @@ class Role {
   /// specified. It is best to set the values for aria-valuemin, aria-valuemax, and aria-valuenow
   /// in a manner that is appropriate for this calculation.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/roles#scrollbar>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/scrollbar_role>
   static const String scrollbar = 'scrollbar';
+
+  /// A landmark region that contains a collection of items and objects that, as a whole, combine
+  /// to create a search facility. See related form.
+  ///
+  /// A search region may be a mix of host language form controls, scripted controls, and hyperlinks.
+  ///
+  /// User agents SHOULD treat elements with the role of search as navigational landmarks.
+  ///
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/search_role>
+  static const String search = 'search';
+
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/searchbox_role>
+  static const String searchbox = 'searchbox';
+
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/section_role>
+  static const String section = 'section';
+
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/sectionhead_role>
+  static const String sectionhead = 'sectionhead';
+
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/select_role>
+  static const String select = 'select';
+
+  /// A divider that separates and distinguishes sections of content or groups of menuitems.
+  ///
+  /// This is a visual separator between sections of content. For example, separators are found between
+  /// groups of menu items in a menu or as the moveable separator between two regions in a split
+  /// pane.
+  ///
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/separator_role>
+  static const String separator = 'separator';
 
   /// A user input where the user selects a value from within a given range.
   ///
@@ -1698,7 +1704,7 @@ class Role {
   /// and position of the thumb. It is typically possible to add or subtract to the value by using
   /// directional keys such as arrow keys.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/roles#slider>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/slider_role>
   static const String slider = 'slider';
 
   /// A form of range that expects the user to select from among discrete choices.
@@ -1713,7 +1719,7 @@ class Role {
   /// opposed to distinct options. For example, a spinbutton representing a range from 1 to 1,000,000
   /// would provide much better performance than a select widget representing the same values.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/roles#spinbutton>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/spinbutton_role>
   static const String spinbutton = 'spinbutton';
 
   /// A container whose content is advisory information for the user but is not important enough
@@ -1730,7 +1736,7 @@ class Role {
   /// Note: Elements with the role status have an implicit aria-live value of polite, and an implicit
   /// aria-atomic value of true.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/roles#status>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/status_role>
   static const String status = 'status';
 
   static const String documentstructural = 'documentstructural';
