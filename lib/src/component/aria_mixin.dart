@@ -284,7 +284,7 @@ abstract class _$AriaPropsMixin {
   /// A popup is generally presented visually as a group of items that appears to be on top of the
   /// main page content.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-haspopup>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-haspopup>
   @Accessor(key: 'aria-haspopup')
   bool haspopup;
 
@@ -331,7 +331,7 @@ abstract class _$AriaPropsMixin {
   /// have the blind screen reader user click the "Go to checkout" link, which they may be unable
   /// to find using a type-ahead item search ("Go to…").
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-hidden>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-hidden>
   @Accessor(key: 'aria-hidden')
   bool hidden;
 
@@ -352,10 +352,11 @@ abstract class _$AriaPropsMixin {
   /// provided. If the attribute is not present, or its value is false, or its value is an empty
   /// string, the default value of false applies.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-invalid>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-invalid>
   @Accessor(key: 'aria-invalid')
   dynamic invalid;
 
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-keyshortcuts>
   @Accessor(key: 'aria-keyshortcuts')
   dynamic keyshortcuts;
 
@@ -375,7 +376,7 @@ abstract class _$AriaPropsMixin {
   /// computation, user agents give precedence to aria-labelledby over aria-label when computing
   /// the accessible name property.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-label>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-label>
   @Accessor(key: 'aria-label')
   String label;
 
@@ -400,7 +401,7 @@ abstract class _$AriaPropsMixin {
   /// spelling. This property is spelled that way to match the convention and minimize the difficulty
   /// for developers.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-labelledby>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-labelledby>
   @Accessor(key: 'aria-labelledby')
   dynamic labelledby;
 
@@ -435,7 +436,7 @@ abstract class _$AriaPropsMixin {
   /// the horizontal orientation of each row. Level is not supported on sets of cells within rows,
   /// so the aria-level attribute is applied to the element with the role row.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-level>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-level>
   @Accessor(key: 'aria-level')
   int level;
 
@@ -470,7 +471,7 @@ abstract class _$AriaPropsMixin {
   /// User agents or assistive technologies MAY choose to clear queued changes when an assertive
   /// change occurs. (e.g., changes in an assertive region may remove all currently queued changes)
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-live>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-live>
   @Accessor(key: 'aria-live')
   dynamic live;
 
@@ -483,7 +484,7 @@ abstract class _$AriaPropsMixin {
   /// break. The WAI-ARIA textbox role differentiates these types of boxes with the aria-multiline
   /// attribute, so authors are advised to be aware of this distinction when designing the field.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-multiline>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-multiline>
   @Accessor(key: 'aria-multiline')
   bool multiline;
 
@@ -496,18 +497,15 @@ abstract class _$AriaPropsMixin {
   /// Note: Lists and trees are examples of roles that might allow users to select more than one
   /// item at a time.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-multiselectable>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-multiselectable>
   @Accessor(key: 'aria-multiselectable')
   bool multiselectable;
 
   /// Indicates whether the element and orientation is horizontal or vertical.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-orientation>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-orientation>
   @Accessor(key: 'aria-orientation')
   dynamic orientation;
-
-  @Accessor(key: 'aria-placeholder')
-  String placeholder;
 
   /// Identifies an element (or elements) in order to define a visual, functional, or contextual
   /// parent/child relationship between DOM elements where the DOM hierarchy cannot be used to represent
@@ -523,9 +521,13 @@ abstract class _$AriaPropsMixin {
   /// is not specified in more than one other element's aria-owns attribute at any time. In other
   /// words, an element can have only one explicit owner.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-owns>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-owns>
   @Accessor(key: 'aria-owns')
   dynamic owns;
+
+   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-placeholder>
+  @Accessor(key: 'aria-placeholder')
+  String placeholder;
 
   /// Defines an element's number or position in the current set of listitems or treeitems. Not
   /// required if all elements in the set are present in the DOM. See related aria-setsize.
@@ -539,7 +541,7 @@ abstract class _$AriaPropsMixin {
   /// less than or equal to the size of the set. Authors SHOULD use aria-posinset in conjunction
   /// with aria-setsize.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-posinset>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-posinset>
   @Accessor(key: 'aria-posinset')
   int posinset;
 
@@ -554,7 +556,7 @@ abstract class _$AriaPropsMixin {
   /// The aria-pressed attribute is similar but not identical to the aria-checked attribute. Operating
   /// systems support pressed on buttons and checked on checkboxes.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-pressed>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-pressed>
   @Accessor(key: 'aria-pressed')
   dynamic pressed;
 
@@ -571,7 +573,7 @@ abstract class _$AriaPropsMixin {
   /// A form element which represents a constant.Row or column headers in a spreadsheet grid.The
   /// result of a calculation such as a shopping cart total.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-readonly>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-readonly>
   @Accessor(key: 'aria-readonly')
   bool readonly;
 
@@ -617,7 +619,7 @@ abstract class _$AriaPropsMixin {
   /// if there was a text change to a node outside the live region, even if that node was referenced
   /// (via aria-labelledby) by an element contained in the live region.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-relevant>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-relevant>
   @Accessor(key: 'aria-relevant')
   dynamic relevant;
 
@@ -634,7 +636,7 @@ abstract class _$AriaPropsMixin {
   /// to use the aria-required attribute on host language form elements that require input or selection
   /// by the user.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-required>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-required>
   @Accessor(key: 'aria-required')
   bool required;
 
