@@ -202,7 +202,7 @@ abstract class _$AriaPropsMixin {
   /// The state of being disabled applies to the current element and all focusable descendant elements
   /// of the element on which the aria-disabled attribute is applied.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-disabled>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-disabled>
   @Accessor(key: 'aria-disabled')
   bool disabled;
 
@@ -217,10 +217,12 @@ abstract class _$AriaPropsMixin {
   /// is no supported operation. In addition to setting the aria-dropeffect attribute, authors SHOULD
   /// show a visual indication of potential drop targets.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-dropeffect>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-dropeffect>
+  /// TODO: deprecate
   @Accessor(key: 'aria-dropeffect')
   dynamic dropeffect;
 
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-errormessage>
   @Accessor(key: 'aria-errormessage')
   String error;
 
@@ -236,7 +238,7 @@ abstract class _$AriaPropsMixin {
   /// container that is not 'owned by' the element, the author SHOULD reference the container by
   /// using the aria-controls attribute.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-expanded>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-expanded>
   @Accessor(key: 'aria-expanded')
   dynamic expanded;
 
@@ -254,7 +256,7 @@ abstract class _$AriaPropsMixin {
   /// by the name of the target element of the aria-flowto attribute. Accessibility APIs can provide
   /// named path relationships.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-flowto>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-flowto>
   @Accessor(key: 'aria-flowto')
   dynamic flowto;
 
@@ -269,7 +271,8 @@ abstract class _$AriaPropsMixin {
   /// or the attribute is removed), authors SHOULD revert the aria-dropeffect attributes of the
   /// associated drop targets to none.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-grabbed>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-grabbed>
+  /// TODO: deprecate
   @Accessor(key: 'aria-grabbed')
   dynamic grabbed;
 
