@@ -708,18 +708,27 @@ abstract class _$AriaPropsMixin {
   @Accessor(key: 'aria-roledescription')
   String roledescription;
 
+  /// Defines the total number of rows in a table, grid, or treegrid
+  ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-rowcount>
   @Accessor(key: 'aria-rowcount')
   int rowcount;
 
+  /// Defines an element's position with respect to the total number of rows within a table, grid, or treegrid
+  ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-rowindex>
   @Accessor(key: 'aria-rowindex')
   int rowindex;
 
+  /// Defines a text alternative of aria-rowindex
+  ///
+  /// The aria-rowindextext should only be included in addition to, not as a replacement of, the aria-rowindex
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-rowindextext>
   @Accessor(key: 'aria-rowindextext')
   String aria-rowindextext
 
+  /// Defines the number of rows spanned by a cell or gridcell within a table, grid, or treegrid
+  ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-rowspan>
   @Accessor(key: 'aria-rowspan')
   int rowspan;
@@ -1006,6 +1015,9 @@ class Role {
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/button_role>
   static const String button = 'button';
 
+  /// Identifies an element as being a cell in a tabular container that does not contain column or row 
+  /// header information. To be supported, the cell must be nested in an element with the role of row
+  ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/cell_role>
   static const String cell = 'cell';
 
@@ -1068,6 +1080,8 @@ class Role {
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/combobox_role>
   static const String combobox = 'combobox';
 
+  /// Defines a widget that performs an action but does not receive input data
+  ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/command_role>
   static const String command = 'command';
 
