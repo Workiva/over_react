@@ -725,7 +725,7 @@ abstract class _$AriaPropsMixin {
   /// The aria-rowindextext should only be included in addition to, not as a replacement of, the aria-rowindex
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-rowindextext>
   @Accessor(key: 'aria-rowindextext')
-  String aria-rowindextext
+  String rowindextext;
 
   /// Defines the number of rows spanned by a cell or gridcell within a table, grid, or treegrid
   ///
