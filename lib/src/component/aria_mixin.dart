@@ -1852,7 +1852,7 @@ class Role {
   static const String tab = 'tab';
 
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/table_role>
-  static const String table = 'table'
+  static const String table = 'table';
 
   /// A list of tab elements, which are references to tabpanel elements.
   ///
