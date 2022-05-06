@@ -1085,6 +1085,12 @@ class Role {
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/command_role>
   static const String command = 'command';
 
+  /// Indicates a comment/reaction to some content on the page, or to a previous comment.
+  ///
+  /// To associate the comment with the text being commented, we need to wrap the commented text 
+  /// with an element containing the aria-details attribute, the value of which should be the ID of 
+  /// the comment.
+  ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/comment_role>
   static const String comment = 'comment';
 
@@ -1103,6 +1109,8 @@ class Role {
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/complementary_role>
   static const String complementary = 'complementary';
 
+  /// An abstract role that indicates a widget that may contain navigable descendants or owned children.
+  ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/composite_role>
   static const String composite = 'composite';
 
@@ -1191,9 +1199,18 @@ class Role {
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/document_role>
   static const String document = 'document';
 
+  /// A feed is a dynamic scrollable list of articles in which articles are added to or removed from either 
+  /// end of the list as the user scrolls. A feed enables screen readers to use the browse mode reading cursor 
+  /// to both read and scroll through a stream of rich content that may continue scrolling infinitely by loading 
+  /// more content as the user reads
+  ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/feed_role>
   static const String feed = 'feed';
 
+  /// Identifies a figure inside page content where appropriate semantics do not already exist. A figure is generally 
+  /// considered to be one or more images, code snippets, or other content that puts across information in a different 
+  /// way to a regular flow of text
+  ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/figure_role>
   static const String figure = 'figure';
 
@@ -1214,6 +1231,14 @@ class Role {
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/form_role>
   static const String form = 'form';
 
+  /// Creates a nameless container element which has no semantic meaning on its own
+  ///
+  /// The generic role is intended for use as the implicit role of generic elements in host 
+  /// languages for use by user agents only; not for use by developers. Instead, to remove implicit 
+  /// accessibility semantics, use presentation or none, the <div> and <span> elements that have no 
+  /// semantic meaning, or semantic container roles such as group to semantically group descendants in a 
+  /// named container.
+  ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/generic_role>
   static const String generic = 'generic';
 
@@ -1326,6 +1351,9 @@ class Role {
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/input_role>
   static const String input = 'input';
 
+  /// An abstract superclass for the aria role values for sections of content that are important enough 
+  /// that users will likely want to be able to navigate directly to them
+  ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/landmark_role>
   static const String landmark = 'landmark';
 
