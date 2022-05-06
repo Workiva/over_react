@@ -725,7 +725,7 @@ abstract class _$AriaPropsMixin {
   /// The aria-rowindextext should only be included in addition to, not as a replacement of, the aria-rowindex
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-rowindextext>
   @Accessor(key: 'aria-rowindextext')
-  String aria-rowindextext
+  String rowindextext;
 
   /// Defines the number of rows spanned by a cell or gridcell within a table, grid, or treegrid
   ///
@@ -1880,7 +1880,7 @@ class Role {
   static const String tab = 'tab';
 
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/table_role>
-  static const String table = 'table'
+  static const String table = 'table';
 
   /// A list of tab elements, which are references to tabpanel elements.
   ///
