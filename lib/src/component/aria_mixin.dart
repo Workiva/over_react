@@ -266,7 +266,7 @@ abstract class _$AriaPropsMixin {
   ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-errormessage>
   @Accessor(key: 'aria-errormessage')
-  String error;
+  String errormessage;
 
   /// Indicates whether the element, or another grouping element it controls, is currently expanded
   /// or collapsed.
