@@ -35,6 +35,8 @@ abstract class $AriaPropsMixin {
   static const PropsMeta meta = _$metaForAriaPropsMixin;
 }
 
+///See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes>
+
 /// Typed getters/setters for accessibility props.
 /// To be used as a mixin for React components and builders.
 // ignore: deprecated_member_use_from_same_package
@@ -42,8 +44,7 @@ abstract class $AriaPropsMixin {
 abstract class _$AriaPropsMixin {
   Map get props;
 
-  ///See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes>
-
+  
   /// Identifies the currently active descendant of a compositewidget.
   ///
   /// This is used when a composite widget is responsible for managing its current active child
