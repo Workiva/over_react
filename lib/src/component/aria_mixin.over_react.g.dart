@@ -13,8 +13,6 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
 
   static const PropsMeta meta = _$metaForAriaPropsMixin;
 
-  ///See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes>
-
   /// Identifies the currently active descendant of a compositewidget.
   ///
   /// This is used when a composite widget is responsible for managing its current active child
@@ -37,8 +35,6 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   @Accessor(key: 'aria-activedescendant')
   String get activedescendant =>
       (props[_$key__activedescendant___$AriaPropsMixin] ?? null) as String;
-
-  ///See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes>
 
   /// Identifies the currently active descendant of a compositewidget.
   ///
@@ -583,10 +579,11 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-errormessage>
   ///
-  /// <!-- Generated from [_$AriaPropsMixin.error] -->
+  /// <!-- Generated from [_$AriaPropsMixin.errormessage] -->
   @override
   @Accessor(key: 'aria-errormessage')
-  String get error => (props[_$key__error___$AriaPropsMixin] ?? null) as String;
+  String get errormessage =>
+      (props[_$key__errormessage___$AriaPropsMixin] ?? null) as String;
 
   /// Identifies the element that provides an error message for that object
   ///
@@ -597,10 +594,11 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-errormessage>
   ///
-  /// <!-- Generated from [_$AriaPropsMixin.error] -->
+  /// <!-- Generated from [_$AriaPropsMixin.errormessage] -->
   @override
   @Accessor(key: 'aria-errormessage')
-  set error(String value) => props[_$key__error___$AriaPropsMixin] = value;
+  set errormessage(String value) =>
+      props[_$key__errormessage___$AriaPropsMixin] = value;
 
   /// Indicates whether the element, or another grouping element it controls, is currently expanded
   /// or collapsed.
@@ -2069,8 +2067,8 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
       PropDescriptor(_$key__disabled___$AriaPropsMixin);
   static const PropDescriptor _$prop__dropeffect___$AriaPropsMixin =
       PropDescriptor(_$key__dropeffect___$AriaPropsMixin);
-  static const PropDescriptor _$prop__error___$AriaPropsMixin =
-      PropDescriptor(_$key__error___$AriaPropsMixin);
+  static const PropDescriptor _$prop__errormessage___$AriaPropsMixin =
+      PropDescriptor(_$key__errormessage___$AriaPropsMixin);
   static const PropDescriptor _$prop__expanded___$AriaPropsMixin =
       PropDescriptor(_$key__expanded___$AriaPropsMixin);
   static const PropDescriptor _$prop__flowto___$AriaPropsMixin =
@@ -2162,7 +2160,8 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   static const String _$key__details___$AriaPropsMixin = 'aria-details';
   static const String _$key__disabled___$AriaPropsMixin = 'aria-disabled';
   static const String _$key__dropeffect___$AriaPropsMixin = 'aria-dropeffect';
-  static const String _$key__error___$AriaPropsMixin = 'aria-errormessage';
+  static const String _$key__errormessage___$AriaPropsMixin =
+      'aria-errormessage';
   static const String _$key__expanded___$AriaPropsMixin = 'aria-expanded';
   static const String _$key__flowto___$AriaPropsMixin = 'aria-flowto';
   static const String _$key__grabbed___$AriaPropsMixin = 'aria-grabbed';
@@ -2221,7 +2220,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
     _$prop__details___$AriaPropsMixin,
     _$prop__disabled___$AriaPropsMixin,
     _$prop__dropeffect___$AriaPropsMixin,
-    _$prop__error___$AriaPropsMixin,
+    _$prop__errormessage___$AriaPropsMixin,
     _$prop__expanded___$AriaPropsMixin,
     _$prop__flowto___$AriaPropsMixin,
     _$prop__grabbed___$AriaPropsMixin,
@@ -2276,7 +2275,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
     _$key__details___$AriaPropsMixin,
     _$key__disabled___$AriaPropsMixin,
     _$key__dropeffect___$AriaPropsMixin,
-    _$key__error___$AriaPropsMixin,
+    _$key__errormessage___$AriaPropsMixin,
     _$key__expanded___$AriaPropsMixin,
     _$key__flowto___$AriaPropsMixin,
     _$key__grabbed___$AriaPropsMixin,
