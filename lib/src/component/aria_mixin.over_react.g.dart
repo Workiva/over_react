@@ -13,28 +13,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
 
   static const PropsMeta meta = _$metaForAriaPropsMixin;
 
-  /// Identifies the currently active descendant of a compositewidget.
-  ///
-  /// This is used when a composite widget is responsible for managing its current active child
-  /// to reduce the overhead of having all children be focusable. Examples include: multi-level
-  /// lists, trees, and grids. In some implementations the user agent may use aria-activedescendant
-  /// to tell assistive technologies that the active descendant has focus. Authors MAY use the aria-activedescendant
-  /// attribute on the focused descendant of a composite widget; for example, on a textbox descendant
-  /// of a combo box.
-  ///
-  /// Authors SHOULD ensure that the element targeted by the aria-activedescendant attribute is
-  /// either a descendant of the container in the DOM, or is a logical descendant as indicated by
-  /// the aria-owns attribute. The user agent is not expected to validate that the active descendant
-  /// is a descendant of the container. Authors SHOULD ensure that the currently active descendant
-  /// is visible and in view (or scrolls into view) when focused.
-  ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-activedescendant>
-  ///
-  /// <!-- Generated from [_$AriaPropsMixin.activedescendant] -->
-  @override
-  @Accessor(key: 'aria-activedescendant')
-  String get activedescendant =>
-      (props[_$key__activedescendant___$AriaPropsMixin] ?? null) as String;
+  ///See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes>
 
   /// Identifies the currently active descendant of a compositewidget.
   ///
@@ -51,7 +30,32 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// is a descendant of the container. Authors SHOULD ensure that the currently active descendant
   /// is visible and in view (or scrolls into view) when focused.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-activedescendant>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-activedescendant>
+  ///
+  /// <!-- Generated from [_$AriaPropsMixin.activedescendant] -->
+  @override
+  @Accessor(key: 'aria-activedescendant')
+  String get activedescendant =>
+      (props[_$key__activedescendant___$AriaPropsMixin] ?? null) as String;
+
+  ///See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes>
+
+  /// Identifies the currently active descendant of a compositewidget.
+  ///
+  /// This is used when a composite widget is responsible for managing its current active child
+  /// to reduce the overhead of having all children be focusable. Examples include: multi-level
+  /// lists, trees, and grids. In some implementations the user agent may use aria-activedescendant
+  /// to tell assistive technologies that the active descendant has focus. Authors MAY use the aria-activedescendant
+  /// attribute on the focused descendant of a composite widget; for example, on a textbox descendant
+  /// of a combo box.
+  ///
+  /// Authors SHOULD ensure that the element targeted by the aria-activedescendant attribute is
+  /// either a descendant of the container in the DOM, or is a logical descendant as indicated by
+  /// the aria-owns attribute. The user agent is not expected to validate that the active descendant
+  /// is a descendant of the container. Authors SHOULD ensure that the currently active descendant
+  /// is visible and in view (or scrolls into view) when focused.
+  ///
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-activedescendant>
   ///
   /// <!-- Generated from [_$AriaPropsMixin.activedescendant] -->
   @override
@@ -78,7 +82,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// When aria-atomic is true, assistive technologies MAY choose to combine several changes and
   /// present the entire changed region at once.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-atomic>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-atomic>
   ///
   /// <!-- Generated from [_$AriaPropsMixin.atomic] -->
   @override
@@ -104,7 +108,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// When aria-atomic is true, assistive technologies MAY choose to combine several changes and
   /// present the entire changed region at once.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-atomic>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-atomic>
   ///
   /// <!-- Generated from [_$AriaPropsMixin.atomic] -->
   @override
@@ -116,7 +120,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// For a textbox with the aria-autocomplete attribute set to either inline or both, authors SHOULD
   /// ensure that any auto-completed text is selected, so the user can type over it.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-autocomplete>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-autocomplete>
   ///
   /// <!-- Generated from [_$AriaPropsMixin.autocomplete] -->
   @override
@@ -129,13 +133,68 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// For a textbox with the aria-autocomplete attribute set to either inline or both, authors SHOULD
   /// ensure that any auto-completed text is selected, so the user can type over it.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-autocomplete>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-autocomplete>
   ///
   /// <!-- Generated from [_$AriaPropsMixin.autocomplete] -->
   @override
   @Accessor(key: 'aria-autocomplete')
   set autocomplete(dynamic value) =>
       props[_$key__autocomplete___$AriaPropsMixin] = value;
+
+  /// Defines a string value that labels the current element, which is intended to be converted into Braille.
+  ///
+  /// The purpose of the aria-braillelabel property is to override how assistive technologies localize and
+  /// express the accessible name of an element in Braille and should only be used when accessible name,
+  /// without this attribute, when converted to Braille, would not be the desired user experience.
+  ///
+  /// The aria-braillelabel values are localized to align with the document language
+  ///
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-braillelabel>
+  ///
+  /// <!-- Generated from [_$AriaPropsMixin.braillelabel] -->
+  @override
+  @Accessor(key: 'aria-braillelabel')
+  String get braillelabel =>
+      (props[_$key__braillelabel___$AriaPropsMixin] ?? null) as String;
+
+  /// Defines a string value that labels the current element, which is intended to be converted into Braille.
+  ///
+  /// The purpose of the aria-braillelabel property is to override how assistive technologies localize and
+  /// express the accessible name of an element in Braille and should only be used when accessible name,
+  /// without this attribute, when converted to Braille, would not be the desired user experience.
+  ///
+  /// The aria-braillelabel values are localized to align with the document language
+  ///
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-braillelabel>
+  ///
+  /// <!-- Generated from [_$AriaPropsMixin.braillelabel] -->
+  @override
+  @Accessor(key: 'aria-braillelabel')
+  set braillelabel(String value) =>
+      props[_$key__braillelabel___$AriaPropsMixin] = value;
+
+  /// Defines a human-readable, author-localized abbreviated description for the role of an element intended to
+  /// be converted into Braille
+  ///
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-brailleroledescription>
+  ///
+  /// <!-- Generated from [_$AriaPropsMixin.brailleroledescription] -->
+  @override
+  @Accessor(key: 'aria-brailleroledescription')
+  String get brailleroledescription =>
+      (props[_$key__brailleroledescription___$AriaPropsMixin] ?? null)
+          as String;
+
+  /// Defines a human-readable, author-localized abbreviated description for the role of an element intended to
+  /// be converted into Braille
+  ///
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-brailleroledescription>
+  ///
+  /// <!-- Generated from [_$AriaPropsMixin.brailleroledescription] -->
+  @override
+  @Accessor(key: 'aria-brailleroledescription')
+  set brailleroledescription(String value) =>
+      props[_$key__brailleroledescription___$AriaPropsMixin] = value;
 
   /// Indicates whether an element, and its subtree, are currently being updated.
   ///
@@ -147,7 +206,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// an author could mark the document element as busy. If there is an error updating the element,
   /// author MAY set the aria-invalid attribute to true.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-busy>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-busy>
   ///
   /// <!-- Generated from [_$AriaPropsMixin.busy] -->
   @override
@@ -164,7 +223,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// an author could mark the document element as busy. If there is an error updating the element,
   /// author MAY set the aria-invalid attribute to true.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-busy>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-busy>
   ///
   /// <!-- Generated from [_$AriaPropsMixin.busy] -->
   @override
@@ -186,7 +245,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// Examples using the mixed value of tri-state inputs are covered in WAI-ARIA Authoring Practices
   /// [ARIA-PRACTICES]
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-checked>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-checked>
   ///
   /// <!-- Generated from [_$AriaPropsMixin.checked] -->
   @override
@@ -209,38 +268,86 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// Examples using the mixed value of tri-state inputs are covered in WAI-ARIA Authoring Practices
   /// [ARIA-PRACTICES]
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-checked>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-checked>
   ///
   /// <!-- Generated from [_$AriaPropsMixin.checked] -->
   @override
   @Accessor(key: 'aria-checked')
   set checked(dynamic value) => props[_$key__checked___$AriaPropsMixin] = value;
 
+  /// Defines the total number of columns in a table, grid, or treegrid when not all columns are present
+  /// in the DOM.
+  ///
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-colcount>
+  ///
   /// <!-- Generated from [_$AriaPropsMixin.colcount] -->
   @override
   @Accessor(key: 'aria-colcount')
   int get colcount => (props[_$key__colcount___$AriaPropsMixin] ?? null) as int;
 
+  /// Defines the total number of columns in a table, grid, or treegrid when not all columns are present
+  /// in the DOM.
+  ///
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-colcount>
+  ///
   /// <!-- Generated from [_$AriaPropsMixin.colcount] -->
   @override
   @Accessor(key: 'aria-colcount')
   set colcount(int value) => props[_$key__colcount___$AriaPropsMixin] = value;
 
+  /// Defines an element's column index or position with respect to the total number of columns within a
+  /// table, grid, or treegrid
+  ///
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-colindex>
+  ///
   /// <!-- Generated from [_$AriaPropsMixin.colindex] -->
   @override
   @Accessor(key: 'aria-colindex')
   int get colindex => (props[_$key__colindex___$AriaPropsMixin] ?? null) as int;
 
+  /// Defines an element's column index or position with respect to the total number of columns within a
+  /// table, grid, or treegrid
+  ///
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-colindex>
+  ///
   /// <!-- Generated from [_$AriaPropsMixin.colindex] -->
   @override
   @Accessor(key: 'aria-colindex')
   set colindex(int value) => props[_$key__colindex___$AriaPropsMixin] = value;
 
+  /// Defines a text alternative of the numeric aria-colindex
+  ///
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-colindextext>
+  ///
+  /// <!-- Generated from [_$AriaPropsMixin.colindextext] -->
+  @override
+  @Accessor(key: 'aria-colindextext')
+  String get colindextext =>
+      (props[_$key__colindextext___$AriaPropsMixin] ?? null) as String;
+
+  /// Defines a text alternative of the numeric aria-colindex
+  ///
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-colindextext>
+  ///
+  /// <!-- Generated from [_$AriaPropsMixin.colindextext] -->
+  @override
+  @Accessor(key: 'aria-colindextext')
+  set colindextext(String value) =>
+      props[_$key__colindextext___$AriaPropsMixin] = value;
+
+  ///  Defines the number of columns spanned by a cell or gridcell within a table, grid, or treegrid
+  ///
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-colspan>
+  ///
   /// <!-- Generated from [_$AriaPropsMixin.colspan] -->
   @override
   @Accessor(key: 'aria-colspan')
   int get colspan => (props[_$key__colspan___$AriaPropsMixin] ?? null) as int;
 
+  ///  Defines the number of columns spanned by a cell or gridcell within a table, grid, or treegrid
+  ///
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-colspan>
+  ///
   /// <!-- Generated from [_$AriaPropsMixin.colspan] -->
   @override
   @Accessor(key: 'aria-colspan')
@@ -255,7 +362,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// of checkboxes may control what commodity prices are tracked live in a table or graph.A tab
   /// controls the display of its associated tab panel.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-controls>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-controls>
   ///
   /// <!-- Generated from [_$AriaPropsMixin.controls] -->
   @override
@@ -272,7 +379,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// of checkboxes may control what commodity prices are tracked live in a table or graph.A tab
   /// controls the display of its associated tab panel.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-controls>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-controls>
   ///
   /// <!-- Generated from [_$AriaPropsMixin.controls] -->
   @override
@@ -280,12 +387,26 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   set controls(dynamic value) =>
       props[_$key__controls___$AriaPropsMixin] = value;
 
+  /// Indicates that the element represents the current item within a container or set of related elements
+  ///
+  /// Indicates the element on which it is set, to a value other than false, represents the current item within
+  /// a container or set of related elements. Only mark one element in a set of elements as current with aria-current
+  ///
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current>
+  ///
   /// <!-- Generated from [_$AriaPropsMixin.current] -->
   @override
   @Accessor(key: 'aria-current')
   dynamic get current =>
       (props[_$key__current___$AriaPropsMixin] ?? null) as dynamic;
 
+  /// Indicates that the element represents the current item within a container or set of related elements
+  ///
+  /// Indicates the element on which it is set, to a value other than false, represents the current item within
+  /// a container or set of related elements. Only mark one element in a set of elements as current with aria-current
+  ///
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current>
+  ///
   /// <!-- Generated from [_$AriaPropsMixin.current] -->
   @override
   @Accessor(key: 'aria-current')
@@ -301,7 +422,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// Include ID references to multiple elements if necessary, or enclose a set of elements (e.g.,
   /// paragraphs) with the element referenced by the ID.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-describedby>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-describedby>
   ///
   /// <!-- Generated from [_$AriaPropsMixin.describedby] -->
   @override
@@ -319,7 +440,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// Include ID references to multiple elements if necessary, or enclose a set of elements (e.g.,
   /// paragraphs) with the element referenced by the ID.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-describedby>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-describedby>
   ///
   /// <!-- Generated from [_$AriaPropsMixin.describedby] -->
   @override
@@ -327,24 +448,48 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   set describedby(dynamic value) =>
       props[_$key__describedby___$AriaPropsMixin] = value;
 
+  /// Defines a string value that describes or annotates the current element
+  ///
+  /// Provides a mechanism for the developer to describe or annotate the current element providing
+  /// greater context for assistive technology users.
+  ///
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-description>
+  ///
   /// <!-- Generated from [_$AriaPropsMixin.description] -->
   @override
   @Accessor(key: 'aria-description')
   String get description =>
       (props[_$key__description___$AriaPropsMixin] ?? null) as String;
 
+  /// Defines a string value that describes or annotates the current element
+  ///
+  /// Provides a mechanism for the developer to describe or annotate the current element providing
+  /// greater context for assistive technology users.
+  ///
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-description>
+  ///
   /// <!-- Generated from [_$AriaPropsMixin.description] -->
   @override
   @Accessor(key: 'aria-description')
   set description(String value) =>
       props[_$key__description___$AriaPropsMixin] = value;
 
+  /// Identifies the element (or elements) that provide additional information related to the object
+  /// or complex descriptions to an object
+  ///
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-details>
+  ///
   /// <!-- Generated from [_$AriaPropsMixin.details] -->
   @override
   @Accessor(key: 'aria-details')
   dynamic get details =>
       (props[_$key__details___$AriaPropsMixin] ?? null) as dynamic;
 
+  /// Identifies the element (or elements) that provide additional information related to the object
+  /// or complex descriptions to an object
+  ///
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-details>
+  ///
   /// <!-- Generated from [_$AriaPropsMixin.details] -->
   @override
   @Accessor(key: 'aria-details')
@@ -362,7 +507,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// The state of being disabled applies to the current element and all focusable descendant elements
   /// of the element on which the aria-disabled attribute is applied.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-disabled>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-disabled>
   ///
   /// <!-- Generated from [_$AriaPropsMixin.disabled] -->
   @override
@@ -382,7 +527,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// The state of being disabled applies to the current element and all focusable descendant elements
   /// of the element on which the aria-disabled attribute is applied.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-disabled>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-disabled>
   ///
   /// <!-- Generated from [_$AriaPropsMixin.disabled] -->
   @override
@@ -400,7 +545,8 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// is no supported operation. In addition to setting the aria-dropeffect attribute, authors SHOULD
   /// show a visual indication of potential drop targets.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-dropeffect>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-dropeffect>
+  /// TODO: deprecate
   ///
   /// <!-- Generated from [_$AriaPropsMixin.dropeffect] -->
   @override
@@ -419,7 +565,8 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// is no supported operation. In addition to setting the aria-dropeffect attribute, authors SHOULD
   /// show a visual indication of potential drop targets.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-dropeffect>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-dropeffect>
+  /// TODO: deprecate
   ///
   /// <!-- Generated from [_$AriaPropsMixin.dropeffect] -->
   @override
@@ -427,11 +574,29 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   set dropeffect(dynamic value) =>
       props[_$key__dropeffect___$AriaPropsMixin] = value;
 
+  /// Identifies the element that provides an error message for that object
+  ///
+  /// When there is a user-created error, you want to let them know it exists and tell them how to fix it.
+  /// There are two attributes you need to use: set aria-invalid="true" to define the object as being in
+  /// an error state, then add the aria-errormessage attribute with the value being the id of the element
+  /// containing the error message text for that object
+  ///
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-errormessage>
+  ///
   /// <!-- Generated from [_$AriaPropsMixin.error] -->
   @override
   @Accessor(key: 'aria-errormessage')
   String get error => (props[_$key__error___$AriaPropsMixin] ?? null) as String;
 
+  /// Identifies the element that provides an error message for that object
+  ///
+  /// When there is a user-created error, you want to let them know it exists and tell them how to fix it.
+  /// There are two attributes you need to use: set aria-invalid="true" to define the object as being in
+  /// an error state, then add the aria-errormessage attribute with the value being the id of the element
+  /// containing the error message text for that object
+  ///
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-errormessage>
+  ///
   /// <!-- Generated from [_$AriaPropsMixin.error] -->
   @override
   @Accessor(key: 'aria-errormessage')
@@ -449,7 +614,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// container that is not 'owned by' the element, the author SHOULD reference the container by
   /// using the aria-controls attribute.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-expanded>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-expanded>
   ///
   /// <!-- Generated from [_$AriaPropsMixin.expanded] -->
   @override
@@ -469,7 +634,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// container that is not 'owned by' the element, the author SHOULD reference the container by
   /// using the aria-controls attribute.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-expanded>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-expanded>
   ///
   /// <!-- Generated from [_$AriaPropsMixin.expanded] -->
   @override
@@ -491,7 +656,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// by the name of the target element of the aria-flowto attribute. Accessibility APIs can provide
   /// named path relationships.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-flowto>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-flowto>
   ///
   /// <!-- Generated from [_$AriaPropsMixin.flowto] -->
   @override
@@ -513,7 +678,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// by the name of the target element of the aria-flowto attribute. Accessibility APIs can provide
   /// named path relationships.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-flowto>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-flowto>
   ///
   /// <!-- Generated from [_$AriaPropsMixin.flowto] -->
   @override
@@ -531,7 +696,8 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// or the attribute is removed), authors SHOULD revert the aria-dropeffect attributes of the
   /// associated drop targets to none.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-grabbed>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-grabbed>
+  /// TODO: deprecate
   ///
   /// <!-- Generated from [_$AriaPropsMixin.grabbed] -->
   @override
@@ -550,7 +716,8 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// or the attribute is removed), authors SHOULD revert the aria-dropeffect attributes of the
   /// associated drop targets to none.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-grabbed>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-grabbed>
+  /// TODO: deprecate
   ///
   /// <!-- Generated from [_$AriaPropsMixin.grabbed] -->
   @override
@@ -565,7 +732,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// A popup is generally presented visually as a group of items that appears to be on top of the
   /// main page content.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-haspopup>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-haspopup>
   ///
   /// <!-- Generated from [_$AriaPropsMixin.haspopup] -->
   @override
@@ -581,7 +748,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// A popup is generally presented visually as a group of items that appears to be on top of the
   /// main page content.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-haspopup>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-haspopup>
   ///
   /// <!-- Generated from [_$AriaPropsMixin.haspopup] -->
   @override
@@ -631,7 +798,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// have the blind screen reader user click the "Go to checkout" link, which they may be unable
   /// to find using a type-ahead item search ("Go to…").
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-hidden>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-hidden>
   ///
   /// <!-- Generated from [_$AriaPropsMixin.hidden] -->
   @override
@@ -681,7 +848,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// have the blind screen reader user click the "Go to checkout" link, which they may be unable
   /// to find using a type-ahead item search ("Go to…").
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-hidden>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-hidden>
   ///
   /// <!-- Generated from [_$AriaPropsMixin.hidden] -->
   @override
@@ -705,7 +872,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// provided. If the attribute is not present, or its value is false, or its value is an empty
   /// string, the default value of false applies.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-invalid>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-invalid>
   ///
   /// <!-- Generated from [_$AriaPropsMixin.invalid] -->
   @override
@@ -730,19 +897,37 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// provided. If the attribute is not present, or its value is false, or its value is an empty
   /// string, the default value of false applies.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-invalid>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-invalid>
   ///
   /// <!-- Generated from [_$AriaPropsMixin.invalid] -->
   @override
   @Accessor(key: 'aria-invalid')
   set invalid(dynamic value) => props[_$key__invalid___$AriaPropsMixin] = value;
 
+  /// Indicates keyboard shortcuts that an author has implemented to activate or give focus to an element
+  ///
+  /// A series of one or several keys that tells software to perform a pre-programmed action. Keyboard shortcuts
+  /// enable keyboard users to invoke commands using the keyboard that would otherwise require accessing a menu
+  /// or using touch or a mouse.The aria-keyshortcuts property defines the keyboard keys that have been implemented
+  /// to activate or give focus to the element on which the attribute is set
+  ///
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-keyshortcuts>
+  ///
   /// <!-- Generated from [_$AriaPropsMixin.keyshortcuts] -->
   @override
   @Accessor(key: 'aria-keyshortcuts')
   dynamic get keyshortcuts =>
       (props[_$key__keyshortcuts___$AriaPropsMixin] ?? null) as dynamic;
 
+  /// Indicates keyboard shortcuts that an author has implemented to activate or give focus to an element
+  ///
+  /// A series of one or several keys that tells software to perform a pre-programmed action. Keyboard shortcuts
+  /// enable keyboard users to invoke commands using the keyboard that would otherwise require accessing a menu
+  /// or using touch or a mouse.The aria-keyshortcuts property defines the keyboard keys that have been implemented
+  /// to activate or give focus to the element on which the attribute is set
+  ///
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-keyshortcuts>
+  ///
   /// <!-- Generated from [_$AriaPropsMixin.keyshortcuts] -->
   @override
   @Accessor(key: 'aria-keyshortcuts')
@@ -765,7 +950,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// computation, user agents give precedence to aria-labelledby over aria-label when computing
   /// the accessible name property.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-label>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-label>
   ///
   /// <!-- Generated from [_$AriaPropsMixin.label] -->
   @override
@@ -788,7 +973,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// computation, user agents give precedence to aria-labelledby over aria-label when computing
   /// the accessible name property.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-label>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-label>
   ///
   /// <!-- Generated from [_$AriaPropsMixin.label] -->
   @override
@@ -816,7 +1001,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// spelling. This property is spelled that way to match the convention and minimize the difficulty
   /// for developers.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-labelledby>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-labelledby>
   ///
   /// <!-- Generated from [_$AriaPropsMixin.labelledby] -->
   @override
@@ -845,7 +1030,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// spelling. This property is spelled that way to match the convention and minimize the difficulty
   /// for developers.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-labelledby>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-labelledby>
   ///
   /// <!-- Generated from [_$AriaPropsMixin.labelledby] -->
   @override
@@ -884,7 +1069,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// the horizontal orientation of each row. Level is not supported on sets of cells within rows,
   /// so the aria-level attribute is applied to the element with the role row.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-level>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-level>
   ///
   /// <!-- Generated from [_$AriaPropsMixin.level] -->
   @override
@@ -922,7 +1107,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// the horizontal orientation of each row. Level is not supported on sets of cells within rows,
   /// so the aria-level attribute is applied to the element with the role row.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-level>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-level>
   ///
   /// <!-- Generated from [_$AriaPropsMixin.level] -->
   @override
@@ -960,7 +1145,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// User agents or assistive technologies MAY choose to clear queued changes when an assertive
   /// change occurs. (e.g., changes in an assertive region may remove all currently queued changes)
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-live>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-live>
   ///
   /// <!-- Generated from [_$AriaPropsMixin.live] -->
   @override
@@ -998,7 +1183,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// User agents or assistive technologies MAY choose to clear queued changes when an assertive
   /// change occurs. (e.g., changes in an assertive region may remove all currently queued changes)
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-live>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-live>
   ///
   /// <!-- Generated from [_$AriaPropsMixin.live] -->
   @override
@@ -1014,7 +1199,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// break. The WAI-ARIA textbox role differentiates these types of boxes with the aria-multiline
   /// attribute, so authors are advised to be aware of this distinction when designing the field.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-multiline>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-multiline>
   ///
   /// <!-- Generated from [_$AriaPropsMixin.multiline] -->
   @override
@@ -1031,7 +1216,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// break. The WAI-ARIA textbox role differentiates these types of boxes with the aria-multiline
   /// attribute, so authors are advised to be aware of this distinction when designing the field.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-multiline>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-multiline>
   ///
   /// <!-- Generated from [_$AriaPropsMixin.multiline] -->
   @override
@@ -1048,7 +1233,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// Note: Lists and trees are examples of roles that might allow users to select more than one
   /// item at a time.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-multiselectable>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-multiselectable>
   ///
   /// <!-- Generated from [_$AriaPropsMixin.multiselectable] -->
   @override
@@ -1065,7 +1250,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// Note: Lists and trees are examples of roles that might allow users to select more than one
   /// item at a time.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-multiselectable>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-multiselectable>
   ///
   /// <!-- Generated from [_$AriaPropsMixin.multiselectable] -->
   @override
@@ -1075,7 +1260,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
 
   /// Indicates whether the element and orientation is horizontal or vertical.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-orientation>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-orientation>
   ///
   /// <!-- Generated from [_$AriaPropsMixin.orientation] -->
   @override
@@ -1085,25 +1270,13 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
 
   /// Indicates whether the element and orientation is horizontal or vertical.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-orientation>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-orientation>
   ///
   /// <!-- Generated from [_$AriaPropsMixin.orientation] -->
   @override
   @Accessor(key: 'aria-orientation')
   set orientation(dynamic value) =>
       props[_$key__orientation___$AriaPropsMixin] = value;
-
-  /// <!-- Generated from [_$AriaPropsMixin.placeholder] -->
-  @override
-  @Accessor(key: 'aria-placeholder')
-  String get placeholder =>
-      (props[_$key__placeholder___$AriaPropsMixin] ?? null) as String;
-
-  /// <!-- Generated from [_$AriaPropsMixin.placeholder] -->
-  @override
-  @Accessor(key: 'aria-placeholder')
-  set placeholder(String value) =>
-      props[_$key__placeholder___$AriaPropsMixin] = value;
 
   /// Identifies an element (or elements) in order to define a visual, functional, or contextual
   /// parent/child relationship between DOM elements where the DOM hierarchy cannot be used to represent
@@ -1119,7 +1292,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// is not specified in more than one other element's aria-owns attribute at any time. In other
   /// words, an element can have only one explicit owner.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-owns>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-owns>
   ///
   /// <!-- Generated from [_$AriaPropsMixin.owns] -->
   @override
@@ -1140,12 +1313,34 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// is not specified in more than one other element's aria-owns attribute at any time. In other
   /// words, an element can have only one explicit owner.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-owns>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-owns>
   ///
   /// <!-- Generated from [_$AriaPropsMixin.owns] -->
   @override
   @Accessor(key: 'aria-owns')
   set owns(dynamic value) => props[_$key__owns___$AriaPropsMixin] = value;
+
+  /// Defines a short hint (a word or short phrase) intended to help the user with data entry when a form
+  /// control has no value. The hint can be a sample value or a brief description of the expected format
+  ///
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-placeholder>
+  ///
+  /// <!-- Generated from [_$AriaPropsMixin.placeholder] -->
+  @override
+  @Accessor(key: 'aria-placeholder')
+  String get placeholder =>
+      (props[_$key__placeholder___$AriaPropsMixin] ?? null) as String;
+
+  /// Defines a short hint (a word or short phrase) intended to help the user with data entry when a form
+  /// control has no value. The hint can be a sample value or a brief description of the expected format
+  ///
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-placeholder>
+  ///
+  /// <!-- Generated from [_$AriaPropsMixin.placeholder] -->
+  @override
+  @Accessor(key: 'aria-placeholder')
+  set placeholder(String value) =>
+      props[_$key__placeholder___$AriaPropsMixin] = value;
 
   /// Defines an element's number or position in the current set of listitems or treeitems. Not
   /// required if all elements in the set are present in the DOM. See related aria-setsize.
@@ -1159,7 +1354,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// less than or equal to the size of the set. Authors SHOULD use aria-posinset in conjunction
   /// with aria-setsize.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-posinset>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-posinset>
   ///
   /// <!-- Generated from [_$AriaPropsMixin.posinset] -->
   @override
@@ -1178,7 +1373,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// less than or equal to the size of the set. Authors SHOULD use aria-posinset in conjunction
   /// with aria-setsize.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-posinset>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-posinset>
   ///
   /// <!-- Generated from [_$AriaPropsMixin.posinset] -->
   @override
@@ -1196,7 +1391,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// The aria-pressed attribute is similar but not identical to the aria-checked attribute. Operating
   /// systems support pressed on buttons and checked on checkboxes.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-pressed>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-pressed>
   ///
   /// <!-- Generated from [_$AriaPropsMixin.pressed] -->
   @override
@@ -1215,7 +1410,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// The aria-pressed attribute is similar but not identical to the aria-checked attribute. Operating
   /// systems support pressed on buttons and checked on checkboxes.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-pressed>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-pressed>
   ///
   /// <!-- Generated from [_$AriaPropsMixin.pressed] -->
   @override
@@ -1235,7 +1430,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// A form element which represents a constant.Row or column headers in a spreadsheet grid.The
   /// result of a calculation such as a shopping cart total.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-readonly>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-readonly>
   ///
   /// <!-- Generated from [_$AriaPropsMixin.readonly] -->
   @override
@@ -1256,7 +1451,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// A form element which represents a constant.Row or column headers in a spreadsheet grid.The
   /// result of a calculation such as a shopping cart total.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-readonly>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-readonly>
   ///
   /// <!-- Generated from [_$AriaPropsMixin.readonly] -->
   @override
@@ -1305,7 +1500,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// if there was a text change to a node outside the live region, even if that node was referenced
   /// (via aria-labelledby) by an element contained in the live region.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-relevant>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-relevant>
   ///
   /// <!-- Generated from [_$AriaPropsMixin.relevant] -->
   @override
@@ -1355,7 +1550,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// if there was a text change to a node outside the live region, even if that node was referenced
   /// (via aria-labelledby) by an element contained in the live region.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-relevant>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-relevant>
   ///
   /// <!-- Generated from [_$AriaPropsMixin.relevant] -->
   @override
@@ -1376,7 +1571,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// to use the aria-required attribute on host language form elements that require input or selection
   /// by the user.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-required>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-required>
   ///
   /// <!-- Generated from [_$AriaPropsMixin.required] -->
   @override
@@ -1397,7 +1592,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// to use the aria-required attribute on host language form elements that require input or selection
   /// by the user.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-required>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-required>
   ///
   /// <!-- Generated from [_$AriaPropsMixin.required] -->
   @override
@@ -1422,43 +1617,103 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   @override
   set role(String value) => props[_$key__role___$AriaPropsMixin] = value;
 
+  /// Defines an author-localized description for the role of an element
+  ///
+  /// Only use aria-roledescription to clarify the purpose of non-interactive container roles like group or
+  /// region and to provide a more specific description to a widget
+  ///
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-roledescription>
+  ///
   /// <!-- Generated from [_$AriaPropsMixin.roledescription] -->
   @override
   @Accessor(key: 'aria-roledescription')
   String get roledescription =>
       (props[_$key__roledescription___$AriaPropsMixin] ?? null) as String;
 
+  /// Defines an author-localized description for the role of an element
+  ///
+  /// Only use aria-roledescription to clarify the purpose of non-interactive container roles like group or
+  /// region and to provide a more specific description to a widget
+  ///
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-roledescription>
+  ///
   /// <!-- Generated from [_$AriaPropsMixin.roledescription] -->
   @override
   @Accessor(key: 'aria-roledescription')
   set roledescription(String value) =>
       props[_$key__roledescription___$AriaPropsMixin] = value;
 
+  /// Defines the total number of rows in a table, grid, or treegrid
+  ///
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-rowcount>
+  ///
   /// <!-- Generated from [_$AriaPropsMixin.rowcount] -->
   @override
   @Accessor(key: 'aria-rowcount')
   int get rowcount => (props[_$key__rowcount___$AriaPropsMixin] ?? null) as int;
 
+  /// Defines the total number of rows in a table, grid, or treegrid
+  ///
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-rowcount>
+  ///
   /// <!-- Generated from [_$AriaPropsMixin.rowcount] -->
   @override
   @Accessor(key: 'aria-rowcount')
   set rowcount(int value) => props[_$key__rowcount___$AriaPropsMixin] = value;
 
+  /// Defines an element's position with respect to the total number of rows within a table, grid, or treegrid
+  ///
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-rowindex>
+  ///
   /// <!-- Generated from [_$AriaPropsMixin.rowindex] -->
   @override
   @Accessor(key: 'aria-rowindex')
   int get rowindex => (props[_$key__rowindex___$AriaPropsMixin] ?? null) as int;
 
+  /// Defines an element's position with respect to the total number of rows within a table, grid, or treegrid
+  ///
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-rowindex>
+  ///
   /// <!-- Generated from [_$AriaPropsMixin.rowindex] -->
   @override
   @Accessor(key: 'aria-rowindex')
   set rowindex(int value) => props[_$key__rowindex___$AriaPropsMixin] = value;
 
+  /// Defines a text alternative of aria-rowindex
+  ///
+  /// The aria-rowindextext should only be included in addition to, not as a replacement of, the aria-rowindex
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-rowindextext>
+  ///
+  /// <!-- Generated from [_$AriaPropsMixin.rowindextext] -->
+  @override
+  @Accessor(key: 'aria-rowindextext')
+  String get rowindextext =>
+      (props[_$key__rowindextext___$AriaPropsMixin] ?? null) as String;
+
+  /// Defines a text alternative of aria-rowindex
+  ///
+  /// The aria-rowindextext should only be included in addition to, not as a replacement of, the aria-rowindex
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-rowindextext>
+  ///
+  /// <!-- Generated from [_$AriaPropsMixin.rowindextext] -->
+  @override
+  @Accessor(key: 'aria-rowindextext')
+  set rowindextext(String value) =>
+      props[_$key__rowindextext___$AriaPropsMixin] = value;
+
+  /// Defines the number of rows spanned by a cell or gridcell within a table, grid, or treegrid
+  ///
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-rowspan>
+  ///
   /// <!-- Generated from [_$AriaPropsMixin.rowspan] -->
   @override
   @Accessor(key: 'aria-rowspan')
   int get rowspan => (props[_$key__rowspan___$AriaPropsMixin] ?? null) as int;
 
+  /// Defines the number of rows spanned by a cell or gridcell within a table, grid, or treegrid
+  ///
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-rowspan>
+  ///
   /// <!-- Generated from [_$AriaPropsMixin.rowspan] -->
   @override
   @Accessor(key: 'aria-rowspan')
@@ -1479,7 +1734,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// If any DOM element in the widget is explicitly marked as selected, the user agent MUST NOT
   /// convey implicit selection for the widget.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-selected>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-selected>
   ///
   /// <!-- Generated from [_$AriaPropsMixin.selected] -->
   @override
@@ -1502,7 +1757,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// If any DOM element in the widget is explicitly marked as selected, the user agent MUST NOT
   /// convey implicit selection for the widget.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-selected>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-selected>
   ///
   /// <!-- Generated from [_$AriaPropsMixin.selected] -->
   @override
@@ -1526,7 +1781,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   ///
   /// Authors SHOULD use aria-setsize in conjunction with aria-posinset.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-setsize>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-setsize>
   ///
   /// <!-- Generated from [_$AriaPropsMixin.setsize] -->
   @override
@@ -1549,7 +1804,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   ///
   /// Authors SHOULD use aria-setsize in conjunction with aria-posinset.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-setsize>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-setsize>
   ///
   /// <!-- Generated from [_$AriaPropsMixin.setsize] -->
   @override
@@ -1562,7 +1817,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// is not provided, there is no defined sort order. For each table or grid, authors SHOULD apply
   /// aria-sort to only one header at a time.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-sort>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-sort>
   ///
   /// <!-- Generated from [_$AriaPropsMixin.sort] -->
   @override
@@ -1575,7 +1830,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// is not provided, there is no defined sort order. For each table or grid, authors SHOULD apply
   /// aria-sort to only one header at a time.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-sort>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-sort>
   ///
   /// <!-- Generated from [_$AriaPropsMixin.sort] -->
   @override
@@ -1593,7 +1848,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// aria-valuemin. Authors MUST ensure the value of aria-valuemax is greater than or equal to
   /// the value of aria-valuemin.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-valuemax>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-valuemax>
   ///
   /// <!-- Generated from [_$AriaPropsMixin.valuemax] -->
   @override
@@ -1611,7 +1866,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// aria-valuemin. Authors MUST ensure the value of aria-valuemax is greater than or equal to
   /// the value of aria-valuemin.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-valuemax>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-valuemax>
   ///
   /// <!-- Generated from [_$AriaPropsMixin.valuemax] -->
   @override
@@ -1630,7 +1885,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   ///
   /// Authors MUST ensure the value of aria-valuemin is less than or equal to the value of aria-valuemax.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-valuemin>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-valuemin>
   ///
   /// <!-- Generated from [_$AriaPropsMixin.valuemin] -->
   @override
@@ -1649,7 +1904,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   ///
   /// Authors MUST ensure the value of aria-valuemin is less than or equal to the value of aria-valuemax.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-valuemin>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-valuemin>
   ///
   /// <!-- Generated from [_$AriaPropsMixin.valuemin] -->
   @override
@@ -1685,7 +1940,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// Note: If aria-valuetext is specified, assistive technologies render that instead of the value
   /// of aria-valuenow.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-valuenow>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-valuenow>
   ///
   /// <!-- Generated from [_$AriaPropsMixin.valuenow] -->
   @override
@@ -1721,7 +1976,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// Note: If aria-valuetext is specified, assistive technologies render that instead of the value
   /// of aria-valuenow.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-valuenow>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-valuenow>
   ///
   /// <!-- Generated from [_$AriaPropsMixin.valuenow] -->
   @override
@@ -1745,7 +2000,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// If aria-valuetext is specified, assistive technologies SHOULD render that value instead of
   /// the value of aria-valuenow.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-valuetext>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-valuetext>
   ///
   /// <!-- Generated from [_$AriaPropsMixin.valuetext] -->
   @override
@@ -1770,7 +2025,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// If aria-valuetext is specified, assistive technologies SHOULD render that value instead of
   /// the value of aria-valuenow.
   ///
-  /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-valuetext>
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-valuetext>
   ///
   /// <!-- Generated from [_$AriaPropsMixin.valuetext] -->
   @override
@@ -1784,6 +2039,10 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
       PropDescriptor(_$key__atomic___$AriaPropsMixin);
   static const PropDescriptor _$prop__autocomplete___$AriaPropsMixin =
       PropDescriptor(_$key__autocomplete___$AriaPropsMixin);
+  static const PropDescriptor _$prop__braillelabel___$AriaPropsMixin =
+      PropDescriptor(_$key__braillelabel___$AriaPropsMixin);
+  static const PropDescriptor _$prop__brailleroledescription___$AriaPropsMixin =
+      PropDescriptor(_$key__brailleroledescription___$AriaPropsMixin);
   static const PropDescriptor _$prop__busy___$AriaPropsMixin =
       PropDescriptor(_$key__busy___$AriaPropsMixin);
   static const PropDescriptor _$prop__checked___$AriaPropsMixin =
@@ -1792,6 +2051,8 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
       PropDescriptor(_$key__colcount___$AriaPropsMixin);
   static const PropDescriptor _$prop__colindex___$AriaPropsMixin =
       PropDescriptor(_$key__colindex___$AriaPropsMixin);
+  static const PropDescriptor _$prop__colindextext___$AriaPropsMixin =
+      PropDescriptor(_$key__colindextext___$AriaPropsMixin);
   static const PropDescriptor _$prop__colspan___$AriaPropsMixin =
       PropDescriptor(_$key__colspan___$AriaPropsMixin);
   static const PropDescriptor _$prop__controls___$AriaPropsMixin =
@@ -1838,10 +2099,10 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
       PropDescriptor(_$key__multiselectable___$AriaPropsMixin);
   static const PropDescriptor _$prop__orientation___$AriaPropsMixin =
       PropDescriptor(_$key__orientation___$AriaPropsMixin);
-  static const PropDescriptor _$prop__placeholder___$AriaPropsMixin =
-      PropDescriptor(_$key__placeholder___$AriaPropsMixin);
   static const PropDescriptor _$prop__owns___$AriaPropsMixin =
       PropDescriptor(_$key__owns___$AriaPropsMixin);
+  static const PropDescriptor _$prop__placeholder___$AriaPropsMixin =
+      PropDescriptor(_$key__placeholder___$AriaPropsMixin);
   static const PropDescriptor _$prop__posinset___$AriaPropsMixin =
       PropDescriptor(_$key__posinset___$AriaPropsMixin);
   static const PropDescriptor _$prop__pressed___$AriaPropsMixin =
@@ -1860,6 +2121,8 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
       PropDescriptor(_$key__rowcount___$AriaPropsMixin);
   static const PropDescriptor _$prop__rowindex___$AriaPropsMixin =
       PropDescriptor(_$key__rowindex___$AriaPropsMixin);
+  static const PropDescriptor _$prop__rowindextext___$AriaPropsMixin =
+      PropDescriptor(_$key__rowindextext___$AriaPropsMixin);
   static const PropDescriptor _$prop__rowspan___$AriaPropsMixin =
       PropDescriptor(_$key__rowspan___$AriaPropsMixin);
   static const PropDescriptor _$prop__selected___$AriaPropsMixin =
@@ -1881,10 +2144,16 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   static const String _$key__atomic___$AriaPropsMixin = 'aria-atomic';
   static const String _$key__autocomplete___$AriaPropsMixin =
       'aria-autocomplete';
+  static const String _$key__braillelabel___$AriaPropsMixin =
+      'aria-braillelabel';
+  static const String _$key__brailleroledescription___$AriaPropsMixin =
+      'aria-brailleroledescription';
   static const String _$key__busy___$AriaPropsMixin = 'aria-busy';
   static const String _$key__checked___$AriaPropsMixin = 'aria-checked';
   static const String _$key__colcount___$AriaPropsMixin = 'aria-colcount';
   static const String _$key__colindex___$AriaPropsMixin = 'aria-colindex';
+  static const String _$key__colindextext___$AriaPropsMixin =
+      'aria-colindextext';
   static const String _$key__colspan___$AriaPropsMixin = 'aria-colspan';
   static const String _$key__controls___$AriaPropsMixin = 'aria-controls';
   static const String _$key__current___$AriaPropsMixin = 'aria-current';
@@ -1910,8 +2179,8 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   static const String _$key__multiselectable___$AriaPropsMixin =
       'aria-multiselectable';
   static const String _$key__orientation___$AriaPropsMixin = 'aria-orientation';
-  static const String _$key__placeholder___$AriaPropsMixin = 'aria-placeholder';
   static const String _$key__owns___$AriaPropsMixin = 'aria-owns';
+  static const String _$key__placeholder___$AriaPropsMixin = 'aria-placeholder';
   static const String _$key__posinset___$AriaPropsMixin = 'aria-posinset';
   static const String _$key__pressed___$AriaPropsMixin = 'aria-pressed';
   static const String _$key__readonly___$AriaPropsMixin = 'aria-readonly';
@@ -1922,6 +2191,8 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
       'aria-roledescription';
   static const String _$key__rowcount___$AriaPropsMixin = 'aria-rowcount';
   static const String _$key__rowindex___$AriaPropsMixin = 'aria-rowindex';
+  static const String _$key__rowindextext___$AriaPropsMixin =
+      'aria-rowindextext';
   static const String _$key__rowspan___$AriaPropsMixin = 'aria-rowspan';
   static const String _$key__selected___$AriaPropsMixin = 'aria-selected';
   static const String _$key__setsize___$AriaPropsMixin = 'aria-setsize';
@@ -1935,10 +2206,13 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
     _$prop__activedescendant___$AriaPropsMixin,
     _$prop__atomic___$AriaPropsMixin,
     _$prop__autocomplete___$AriaPropsMixin,
+    _$prop__braillelabel___$AriaPropsMixin,
+    _$prop__brailleroledescription___$AriaPropsMixin,
     _$prop__busy___$AriaPropsMixin,
     _$prop__checked___$AriaPropsMixin,
     _$prop__colcount___$AriaPropsMixin,
     _$prop__colindex___$AriaPropsMixin,
+    _$prop__colindextext___$AriaPropsMixin,
     _$prop__colspan___$AriaPropsMixin,
     _$prop__controls___$AriaPropsMixin,
     _$prop__current___$AriaPropsMixin,
@@ -1962,8 +2236,8 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
     _$prop__multiline___$AriaPropsMixin,
     _$prop__multiselectable___$AriaPropsMixin,
     _$prop__orientation___$AriaPropsMixin,
-    _$prop__placeholder___$AriaPropsMixin,
     _$prop__owns___$AriaPropsMixin,
+    _$prop__placeholder___$AriaPropsMixin,
     _$prop__posinset___$AriaPropsMixin,
     _$prop__pressed___$AriaPropsMixin,
     _$prop__readonly___$AriaPropsMixin,
@@ -1973,6 +2247,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
     _$prop__roledescription___$AriaPropsMixin,
     _$prop__rowcount___$AriaPropsMixin,
     _$prop__rowindex___$AriaPropsMixin,
+    _$prop__rowindextext___$AriaPropsMixin,
     _$prop__rowspan___$AriaPropsMixin,
     _$prop__selected___$AriaPropsMixin,
     _$prop__setsize___$AriaPropsMixin,
@@ -1986,10 +2261,13 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
     _$key__activedescendant___$AriaPropsMixin,
     _$key__atomic___$AriaPropsMixin,
     _$key__autocomplete___$AriaPropsMixin,
+    _$key__braillelabel___$AriaPropsMixin,
+    _$key__brailleroledescription___$AriaPropsMixin,
     _$key__busy___$AriaPropsMixin,
     _$key__checked___$AriaPropsMixin,
     _$key__colcount___$AriaPropsMixin,
     _$key__colindex___$AriaPropsMixin,
+    _$key__colindextext___$AriaPropsMixin,
     _$key__colspan___$AriaPropsMixin,
     _$key__controls___$AriaPropsMixin,
     _$key__current___$AriaPropsMixin,
@@ -2013,8 +2291,8 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
     _$key__multiline___$AriaPropsMixin,
     _$key__multiselectable___$AriaPropsMixin,
     _$key__orientation___$AriaPropsMixin,
-    _$key__placeholder___$AriaPropsMixin,
     _$key__owns___$AriaPropsMixin,
+    _$key__placeholder___$AriaPropsMixin,
     _$key__posinset___$AriaPropsMixin,
     _$key__pressed___$AriaPropsMixin,
     _$key__readonly___$AriaPropsMixin,
@@ -2024,6 +2302,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
     _$key__roledescription___$AriaPropsMixin,
     _$key__rowcount___$AriaPropsMixin,
     _$key__rowindex___$AriaPropsMixin,
+    _$key__rowindextext___$AriaPropsMixin,
     _$key__rowspan___$AriaPropsMixin,
     _$key__selected___$AriaPropsMixin,
     _$key__setsize___$AriaPropsMixin,
