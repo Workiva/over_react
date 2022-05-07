@@ -1431,6 +1431,14 @@ class Role {
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/main_role>
   static const String main = 'main';
 
+  /// Denotes content which is marked or highlighted for reference or notation purposes, due to the content's
+  /// relevance in the enclosing context
+  ///
+  /// Example uses for mark are the exact same as the <mark> element. They include highlighting text in a 
+  /// quotation which is of special interest but is not marked in the original source material, comparable to 
+  /// using a highlighter pen to mark passages of a print article and indicating portions of the content that 
+  /// are relevant to the user's current activity, such as highlighting text matches found by a search feature
+  ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/mark_role>
   static const String mark = 'mark';
 
@@ -1536,6 +1544,11 @@ class Role {
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/menuitemradio_role>
   static const String menuitemradio = 'menuitemradio';
 
+  /// A meter is a graphical display of a numeric value within a defined range. For example, showing 
+  /// battery percentage. A meter is not appropriate for values that do not have a meaningful maximum 
+  /// limit. Meters should not be used to indicate progress (for example loading), this should be 
+  /// communicated with the <progress> element.
+  ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/meter_role>
   static const String meter = 'meter';
 
@@ -1547,6 +1560,9 @@ class Role {
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/navigation_role>
   static const String navigation = 'navigation';
 
+  /// The none role is a synonym for the presentation role; they both remove an element's implicit ARIA 
+  /// semantics from being exposed to the accessibility tree.
+  ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/none_role>
   static const String none = 'none';
 
@@ -1674,6 +1690,11 @@ class Role {
   /// See: <https://developer.mozilla.org/en-US/docs/web/accessibility/aria/roles/radiogroup_role>
   static const String radiogroup = 'radiogroup';
 
+  /// The range role is an abstract role. It must not be used by web authors. It is the superclass 
+  /// for structural roles for elements that accept a value within a range of values, including the 
+  /// meter role, progressbar and slider. For these three, consider using the <meter> element, the 
+  /// <progress> element, and the <input/range>, respectively
+  ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/range_role>
   static const String range = 'range';
 
@@ -1696,6 +1717,10 @@ class Role {
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/region_role>
   static const String region = 'region';
 
+  /// The roletype role's properties describe the structural and functional purpose of objects that 
+  /// are assigned this role, or "instances". A role is a concept that can be used to understand and 
+  /// operate instances. Note
+  ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/roletype_role>
   static const String roletype = 'roletype';
 
@@ -1775,15 +1800,42 @@ class Role {
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/search_role>
   static const String search = 'search';
 
+  /// The searchbox can be used instead of textbox when the text box is within an element with role 
+  /// search. A searchbox is the semantic equivalent is HTML's <input> of type search, <input type="search">, 
+  /// which should be used instead if possible.
+  ///
+  /// The searchbox must have an accessible name. If the searchbox role is applied to an HTML <input> element, 
+  /// an associated <label> should be used. Otherwise, use aria-labelledby if a visible label is present, or 
+  /// aria-label if a visible label is not present.
+  ///
+  /// The screen reader will announce "search box", "search edit", or "search field" plus the accessible name. 
+  /// This can be redundant if "search" is included in the label.
+  ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/searchbox_role>
   static const String searchbox = 'searchbox';
 
+  /// The structural section role is an abstract role for categorizing all the section subclass roles. The role 
+  /// must not be used. Some subclasses, like alert, note, and tooltip, are useful, and can be used to add 
+  /// semantics when no semantic HTML elements quite fits the purpose of a component. Others, like code, figure, 
+  /// and subscript, aren't necessary, as there are HTML element equivalents. In this case, <code> <figure> and 
+  /// <subscript>, respectively.
+  ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/section_role>
   static const String section = 'section';
 
+  /// The structural sectionhead role is an abstract role for the subclass roles that identify the labels or 
+  /// summaries of the sections they label. The role must not be used. The four subclasses -- columnheader, heading, 
+  /// rowheader, and tab. There are HTML element equivalents, like, <th scope="col"> for columnheader, <th scope="row"> 
+  /// for rowheader, and any of the HTML headings, <h1> thru <h6> for heading. The tab role does not currently have an 
+  /// HTML equivalent.
+  ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/sectionhead_role>
   static const String sectionhead = 'sectionhead';
 
+
+  /// The structural select role, an abstract role, is superclass role for four form widgets, listbox, menu, radiogroup, 
+  /// and tree, which allow users to make selections from a set of choices.
+  ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/select_role>
   static const String select = 'select';
 
@@ -1837,15 +1889,45 @@ class Role {
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/status_role>
   static const String status = 'status';
 
+  /// ARIA document-structure roles are used to provide a structural description for a section of content.
+  ///
+  /// Structural ARIA roles were originally created as a bridge to inform assistive technologies of HTML5 
+  /// elements that were not yet fully supported in browsers. Some roles, like presentation, toolbar and 
+  /// tooltip, provide information on the document structure to assistive technologies in cases where 
+  /// equivalent native HTML elements don't exist. Other roles, including those listed in the table below, 
+  /// are not needed, as there are semantic HTML elements with the same meanings. In many cases, these 
+  /// equivalent HTML elements have always been supported.
+  ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/structural_roles>
   static const String documentstructural = 'documentstructural';
 
+  /// Structure is a superclass abstract role for document structures, like as document, rowgroup, and 
+  /// sectionhead, that support the accessibility of dynamic web content by helping assistive technologies 
+  /// determine active content versus static document content. Some subclass roles, like section role, are 
+  /// in turn superclasses of other roles.
+  ///
+  /// The structure role is the superclass for all document structure roles, which are used to provide a 
+  /// structural description for a section of content. Most structure roles should no longer be used as 
+  /// browsers now support semantic HTML element with the same meaning. The structure roles without HTML 
+  /// equivalents, such as the presentation role which means content is presentational only, provide 
+  /// information on the document structure to assistive technologies such as screen readers as equivalent 
+  /// native HTML tags are not available.
+  ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/structure_role>
   static const String structure = 'structure';
 
+  /// The suggestion landmark role semantically denotes a single proposed change to an editable document. 
+  /// This should be used on an element that wraps an element with an insertion role, and one with a deletion role.
+  ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/suggestion_role>
   static const String suggestion = 'suggestion';
 
+  /// The ARIA switch role is identical to the checkbox role, except instead of being "checked" or "unchecked", it is 
+  /// either "on" or "off". Like the checkbox role, the aria-checked attribute is required. The two possible values are 
+  /// true and false. Unlike a <checkbox> or role="checkbox", there is no indeterminate or mixed state. The switch role 
+  /// does not support the value mixed for the aria-checked attribute; assigning a value of mixed to a switch instead 
+  /// sets the value to false
+  ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/switch_role>
   static const String switch_aria = 'switch';
 
@@ -1879,6 +1961,9 @@ class Role {
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/tab_role>
   static const String tab = 'tab';
 
+  /// Identifies the element containing the role as having a non-interactive table structure containing 
+  /// data arranged in rows and columns, similar to the native <table> HTML element.
+  ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/table_role>
   static const String table = 'table';
 
@@ -1912,6 +1997,16 @@ class Role {
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/tabpanel_role>
   static const String tabpanel = 'tabpanel';
 
+  /// The term role can be used for a word or phrase with an optional corresponding definition. It 
+  /// is equivalent in semantics to the HTML <dfn> element and the definition term (<dt>) element 
+  /// within a definition list (<dl> ).
+  ///
+  /// The term role is used to explicitly identify a word or phrase for which a definition has been 
+  /// provided by the author or is expected to be provided by the user. If there is an existing 
+  /// definition, or a form or form control to enter a definition, authors SHOULD set aria-details 
+  /// to point to the related element.
+  ///
+  ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/term_role>
   static const String term = 'term';
 
@@ -2006,9 +2101,24 @@ class Role {
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/treeitem_role>
   static const String treeitem = 'treeitem';
 
+  /// The abstract widget role is a superclass role for some interactive GUI elements and grouping roles. 
+  /// role="widget" should not be confused with widgets roles, such as option, menuitem, and searchbox.
+  ///
+  /// The widget role is a superclass role several abstract interactive GUI roles, including command, 
+  /// composite, input, range, and separator (if focusable), which should not be used by web authors.
+  ///
+  /// The abstract widget role is also a superclass role for some grouping roles which can be used by 
+  /// web authors, including gridcell, row, separator (when not focusable), and tab, which can and should 
+  /// be used when appropriate. When the user navigates to one of these non-abstract roles of widget, 
+  /// keyboard events can switch to an application browsing mode, and pass keyboard events through to the browser.
+  ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/widget_role>
   static const String widget = 'widget';
   
+  /// The window role, an abstract role, is a superclass for roles defining a browser or app window. The 
+  /// sub-class roles, currently only the dialog role, have a window-like GUI, whether it's a full native 
+  /// window or just a section of a document styled to look like a window, where role="dialog" would be appropriate.
+  ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/window_role>
   static const String window = 'window';
 }
