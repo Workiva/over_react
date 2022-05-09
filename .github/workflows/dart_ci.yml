@@ -81,6 +81,21 @@ jobs:
         run: dart pub run dart_dev test --build-args="-r" -P dart2js
         if: always() && steps.install.outcome == 'success' && steps.build.outcome == 'success'
 
+  validate_analyzer:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        sdk: [ 2.13.4, stable ]
+        analyzer: [^0.40.0, ^0.41.0, ^0.42.0, ^1.0.0]
+        # For stable, only validate analyzer ^1.0.0. Otherwise, validate all analyzer versions.
+        exclude:
+          - sdk: stable
+        include:
+          - sdk: stable
+            analyzer: ^1.0.0
+      - name: Validate dependency resolution, static analysis, and builder when using analyzer ${{ matrix.analyzer }}
+        run: ./tool/validate_analyzer_version.sh "${{ matrix.analyzer }}"
+
   analyzer_plugin:
     runs-on: ubuntu-latest
     defaults:
