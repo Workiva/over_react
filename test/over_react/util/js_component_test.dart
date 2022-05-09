@@ -6,14 +6,13 @@ import 'dart:html';
 
 import 'package:js/js.dart';
 import 'package:over_react/over_react.dart';
-import 'package:react_material_ui/components/button.dart';
-import 'package:react_material_ui/test_utils.dart';
+import 'package:over_react/src/util/js_component.dart';
 import 'package:react_testing_library/matchers.dart';
 import 'package:react_testing_library/react_testing_library.dart' as rtl;
 import 'package:react/react_client.dart';
 import 'package:react/react_client/react_interop.dart';
-import 'package:react_material_ui/src/util/js_component.dart';
 import 'package:test/test.dart';
+
 
 part 'js_component_test.over_react.g.dart';
 
