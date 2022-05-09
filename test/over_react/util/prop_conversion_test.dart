@@ -18,9 +18,11 @@ import 'package:react_testing_library/react_testing_library.dart';
 import 'package:react_testing_library/user_event.dart';
 import 'package:test/test.dart';
 
-import '../../../web/component2/src/demo_components.dart';
+//need to update button import -- don't want to reference inside web folder
+// import '../../../web/component2/src/demo_components.dart';
+import '../../../web/component2/src/demo_components/button.dart';
 
-
+import 'ref_test_cases.dart';
 part 'prop_conversion_test.over_react.g.dart';
 
 main() {
