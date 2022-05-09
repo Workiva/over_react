@@ -7,6 +7,7 @@ import 'dart:html';
 import 'package:js/js.dart';
 import 'package:over_react/over_react.dart';
 import 'package:over_react/src/util/js_component.dart';
+import 'package:react/react.dart';
 import 'package:react_testing_library/matchers.dart';
 import 'package:react_testing_library/react_testing_library.dart' as rtl;
 import 'package:react/react_client.dart';
