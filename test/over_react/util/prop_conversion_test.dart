@@ -12,7 +12,8 @@ import 'package:over_react/components.dart' as components;
 import 'package:over_react/src/util/js_component.dart';
 import 'package:over_react/src/util/prop_conversion.dart';
 import 'package:react/react_client/component_factory.dart';
-import 'package:react/react_client/react_interop.dart' show React, ReactClass, ReactComponent;
+import 'package:react/react_client/react_interop.dart'
+    show React, ReactClass, ReactComponent;
 import 'package:react_testing_library/matchers.dart';
 import 'package:react_testing_library/react_testing_library.dart';
 import 'package:react_testing_library/user_event.dart';
@@ -20,8 +21,8 @@ import 'package:test/test.dart';
 
 //need to update button import -- don't want to reference inside web folder
 // import '../../../web/component2/src/demo_components.dart';
-import '../../../web/component2/src/demo_components/button.dart';
-
+// import '../../../web/component2/src/demo_components/button.dart';
+import 'button.dart';
 import 'ref_test_cases.dart';
 part 'prop_conversion_test.over_react.g.dart';
 
@@ -35,14 +36,18 @@ main() {
           expect(jsifyMapProp(null), null);
         });
 
-        Matcher hasJsBackedMapValue(dynamic matcher) => isA<JsMap>()
-            .having((jsMap) => JsBackedMap.backedBy(jsMap), 'JsBackedMap.backedBy', matcher);
+        Matcher hasJsBackedMapValue(dynamic matcher) => isA<JsMap>().having(
+            (jsMap) => JsBackedMap.backedBy(jsMap),
+            'JsBackedMap.backedBy',
+            matcher);
 
         test('converts maps to JS objects', () {
-          expect(jsifyMapProp({'foo': 'bar'}), hasJsBackedMapValue({'foo': 'bar'}));
+          expect(jsifyMapProp({'foo': 'bar'}),
+              hasJsBackedMapValue({'foo': 'bar'}));
         });
 
-        test('converts nested maps deep conversion of JS objects and functions', () {
+        test('converts nested maps deep conversion of JS objects and functions',
+            () {
           dartFunction() {}
 
           expect(
@@ -68,14 +73,16 @@ main() {
 
         group('converts JS objects to maps', () {
           test('with the correct contents', () {
-            expect(unjsifyMapProp(jsify({'foo': 'bar'}) as JsMap), equals({'foo': 'bar'}));
+            expect(unjsifyMapProp(jsify({'foo': 'bar'}) as JsMap),
+                equals({'foo': 'bar'}));
           });
 
           test('casting the returned map to the correct type', () {
-            expect(unjsifyMapProp<String, String>(jsify({'foo': 'bar'}) as JsMap),
-                isA<Map<String, String>>());
             expect(
-                unjsifyMapProp<String, int>(jsify({'foo': 1}) as JsMap), isA<Map<String, int>>());
+                unjsifyMapProp<String, String>(jsify({'foo': 'bar'}) as JsMap),
+                isA<Map<String, String>>());
+            expect(unjsifyMapProp<String, int>(jsify({'foo': 1}) as JsMap),
+                isA<Map<String, int>>());
           });
         });
         // This function is tested more thoroughly and functionally in the "Map props using (un)jsifyMapProp" group below.
@@ -88,7 +95,8 @@ main() {
 
         test('passes through Dart callback refs', () {
           void dartCallbackRef(dynamic ref) {}
-          expect(jsifyRefProp(dartCallbackRef), sameOrSameAllowInterop(dartCallbackRef));
+          expect(jsifyRefProp(dartCallbackRef),
+              sameOrSameAllowInterop(dartCallbackRef));
         });
 
         test('converts Dart ref objects', () {
@@ -147,16 +155,20 @@ main() {
         test('passes through arbitrary Dart objects', () {
           final object = Object();
           expect(unjsifyRefProp(object), same(object));
-          expect(() => unjsifyRefProp(object, throwOnUnhandled: true), throwsArgumentError,
-              reason: 'this object type should be considered an "unhandled" case'
+          expect(() => unjsifyRefProp(object, throwOnUnhandled: true),
+              throwsArgumentError,
+              reason:
+                  'this object type should be considered an "unhandled" case'
                   ' and not get treated like another ref type');
         });
 
         test('passes through arbitrary JS objects', () {
           final object = newObject();
           expect(unjsifyRefProp(object), same(object));
-          expect(() => unjsifyRefProp(object, throwOnUnhandled: true), throwsArgumentError,
-              reason: 'this object type should be considered an "unhandled" case'
+          expect(() => unjsifyRefProp(object, throwOnUnhandled: true),
+              throwsArgumentError,
+              reason:
+                  'this object type should be considered an "unhandled" case'
                   ' and not get treated like another ref type');
         });
       });
@@ -164,7 +176,8 @@ main() {
       group(
           'unjsifyRefProp(jsifyRefProp(object)) returns a value equivalent to `object` when passed',
           () {
-        dynamic jsifyAndUnjsify(dynamic value) => unjsifyRefProp(jsifyRefProp(value));
+        dynamic jsifyAndUnjsify(dynamic value) =>
+            unjsifyRefProp(jsifyRefProp(value));
 
         test('null', () {
           expect(jsifyAndUnjsify(null), null);
@@ -174,7 +187,8 @@ main() {
           void dartCallbackRef(dynamic ref) {}
           // Unwrapping from allowInterop isn't trivial to do, and in this case that's unnecessary,
           // since the allowInterop'd function can be called the same as the original.
-          expect(jsifyAndUnjsify(dartCallbackRef), same(allowInterop(dartCallbackRef)));
+          expect(jsifyAndUnjsify(dartCallbackRef),
+              same(allowInterop(dartCallbackRef)));
         });
 
         // E.g., this unsound but seemingly safe case
@@ -189,7 +203,8 @@ main() {
 
           // These expectations are redundant due to the `same` expectation above,
           // but this is really the behavior we want to test.
-          expect(jsifyAndUnjsify(dartRef), isA<Ref>().havingJsRef(same(dartRef.jsRef)),
+          expect(jsifyAndUnjsify(dartRef),
+              isA<Ref>().havingJsRef(same(dartRef.jsRef)),
               reason: 'should be backed by the same JS object');
           expect(jsifyAndUnjsify(dartRef), isA<Ref<Element>>(),
               reason: 'should have the same reified type');
@@ -217,7 +232,9 @@ main() {
       });
     });
 
-    group('works as expected when using converting prop getters/setters with JS components:', () {
+    group(
+        'works as expected when using converting prop getters/setters with JS components:',
+        () {
       group('Map props using (un)jsifyMapProp', () {
         group('get converted to JS objects', () {
           group('in the setter, and gets unconverted in getter', () {
@@ -231,7 +248,8 @@ main() {
                       'test setup: should have converted to a JS object for storage in props map'
                       ' (we want to ensure this happens before it gets to the ReactComponentFactoryProxy)');
               expect(builder.buttonProps, isA<Map>(),
-                  reason: 'should have unconverted JsMap to a Map in the typed getter');
+                  reason:
+                      'should have unconverted JsMap to a Map in the typed getter');
             });
 
             // This case is a little redundant with the (un)jsifyMapProp tests above, but include it for completeness.
@@ -265,7 +283,8 @@ main() {
                 expect(builder.buttonProps, {'data-foo': 'bar'});
               });
 
-              group('and then reading a nested value that gets unconverted:', () {
+              group('and then reading a nested value that gets unconverted:',
+                  () {
                 group('A nested map prop', () {
                   test('using the typed props map', () {
                     final builder = TestJs()
@@ -278,7 +297,8 @@ main() {
                     final builder = TestJs()
                       ..buttonProps = (Button()..style = {'display': 'block'});
                     final propKey = Button.getPropKey((p) => p.style);
-                    expect(builder.buttonProps, containsPair(propKey, isA<JsMap>()),
+                    expect(builder.buttonProps,
+                        containsPair(propKey, isA<JsMap>()),
                         reason: 'not a Dart map due to tradeoffs');
                   }, tags: 'js-interop-tradeoff');
                 });
@@ -302,7 +322,8 @@ main() {
                           'color': 'blue',
                         },
                       };
-                    expect(builder.buttonProps, containsPair('style', isA<JsMap>()),
+                    expect(builder.buttonProps,
+                        containsPair('style', isA<JsMap>()),
                         reason: 'not a Dart map due to tradeoffs');
                   }, tags: 'js-interop-tradeoff');
                 });
@@ -332,7 +353,8 @@ main() {
           });
 
           test('and can be read properly by the JS component', () {
-            final view = render((TestJs()..buttonProps = {'data-foo': 'bar'})());
+            final view =
+                render((TestJs()..buttonProps = {'data-foo': 'bar'})());
             final button = view.getByRole('button');
             expect(button, hasAttribute('data-foo', 'bar'),
                 reason: 'buttonProps should have been readable by JS component'
@@ -343,7 +365,8 @@ main() {
         // We're testing this since ReactJsComponentFactoryProxy doesn't convert values nested within JS objects;
         // it only converts values nested within Dart Maps/Lists.
 
-        group('work with props that would normally get converted in ReactJsComponentFactoryProxy:',
+        group(
+            'work with props that would normally get converted in ReactJsComponentFactoryProxy:',
             () {
           test('Dart Maps and Functions', () {
             final onClickCalls = [];
@@ -352,8 +375,7 @@ main() {
                 ..style = {'color': 'blue'}
                 ..onClick = (event) {
                   onClickCalls.add(event);
-                })
-            )());
+                }))());
 
             final button = view.getByRole('button');
             expect(button, hasStyles({'color': 'blue'}));
@@ -371,8 +393,7 @@ main() {
                 ..buttonProps = (domProps()
                   ..ref = allowInterop((ref) {
                     buttonRef = ref;
-                  }))
-              )());
+                  })))());
               expect(buttonRef, view.getByRole('button'));
             });
 
@@ -383,8 +404,7 @@ main() {
                   ..buttonProps = (domProps()
                     ..ref = (ref) {
                       buttonRef = ref;
-                    })
-                )());
+                    }))());
                 expect(buttonRef, view.getByRole('button'));
               });
 
@@ -394,8 +414,7 @@ main() {
                   ..buttonProps = (domProps()
                     ..ref = (ButtonElement ref) {
                       buttonRef = ref;
-                    })
-                )());
+                    }))());
                 expect(buttonRef, view.getByRole('button'));
               });
             });
@@ -404,13 +423,15 @@ main() {
             // Dart `Ref` class to has a `current` getter/setter that are compatible with the JS API, and happens to work.
             test('Dart ref object', () {
               final buttonRef = createRef();
-              final view = render((TestJs()..buttonProps = (domProps()..ref = buttonRef))());
+              final view = render(
+                  (TestJs()..buttonProps = (domProps()..ref = buttonRef))());
               expect(buttonRef.current, view.getByRole('button'));
             }, tags: 'ddc-false-positive');
 
             test('JS ref object', () {
               final buttonRef = createRef().jsRef;
-              final view = render((TestJs()..buttonProps = (domProps()..ref = buttonRef))());
+              final view = render(
+                  (TestJs()..buttonProps = (domProps()..ref = buttonRef))());
               expect(buttonRef.current, view.getByRole('button'));
             });
           });
@@ -418,14 +439,15 @@ main() {
       });
 
       group('custom ref props using (un)jsifyRefProp', () {
-        group('convert the ref properly for consumption by the JS component when the ref is a', () {
+        group(
+            'convert the ref properly for consumption by the JS component when the ref is a',
+            () {
           test('JS callback ref', () {
             dynamic inputRef;
             final view = render((TestJs()
               ..inputRef = allowInterop((ref) {
                 inputRef = ref;
-              })
-            )());
+              }))());
             expect(inputRef, view.getByRole('textbox'));
           });
 
@@ -435,8 +457,7 @@ main() {
               final view = render((TestJs()
                 ..inputRef = (ref) {
                   inputRef = ref;
-                }
-              )());
+                })());
               expect(inputRef, view.getByRole('textbox'));
             });
 
@@ -445,8 +466,7 @@ main() {
               final view = render((TestJs()
                 ..inputRef = (InputElement ref) {
                   inputRef = ref;
-                }
-              )());
+                })());
               expect(inputRef, view.getByRole('textbox'));
             });
           });
@@ -473,10 +493,12 @@ main() {
 
               final propKey = TestJs.getPropKey((p) => p.inputRef);
               expect(builder, {propKey: same(dartRef.jsRef)},
-                  reason: 'test setup: should have converted to a JS ref for storage in props map'
+                  reason:
+                      'test setup: should have converted to a JS ref for storage in props map'
                       ' (we want to ensure this happens before it gets to the ReactComponentFactoryProxy)');
               expect(builder.inputRef, isA<Ref>(),
-                  reason: 'should have unconverted JsRef to a Ref in the typed getter');
+                  reason:
+                      'should have unconverted JsRef to a Ref in the typed getter');
             });
 
             // This case is a little redundant with the (un)jsifyRefProp tests above, but include it for completeness.
@@ -502,7 +524,8 @@ main() {
         // ticket (CPLAT-11941), and it works as expected due to unconverting props in the getter.
         test(
             'when a JS component clones the element with JS props that normally get converted before passing them in,'
-            ' and the Dart component receives those JS props and attempts to read them', () {
+            ' and the Dart component receives those JS props and attempts to read them',
+            () {
           final propKey = TestJs.getPropKey((p) => p.buttonProps);
 
           DartTestJsWrapperProps capturedProps;
@@ -510,8 +533,7 @@ main() {
             (DartTestJsWrapper()
               ..onRender = expectAsync1((props) {
                 capturedProps = props;
-              })
-            )(),
+              }))(),
             jsify({
               propKey: {
                 'style': {'color': 'blue'}
@@ -531,8 +553,7 @@ main() {
             final view = render((DartTestJsWrapper()
               ..component = ExpectsDartStyleProp.elementType
               ..style = {'color': 'blue'}
-              ..addTestId('componentRoot')
-            )());
+              ..addTestId('componentRoot'))());
             final node = view.getByTestId('componentRoot');
             expect(node, hasStyles({'color': 'blue'}));
           });
@@ -541,8 +562,7 @@ main() {
             final view = render(React.cloneElement(
               (DartTestJsWrapper()
                 ..component = ExpectsDartStyleProp.elementType
-                ..addTestId('componentRoot')
-              )(),
+                ..addTestId('componentRoot'))(),
               jsify({
                 'style': {'color': 'blue'}
               }) as JsMap,
@@ -558,8 +578,7 @@ main() {
           final view = render((TestJs()
             ..component = ExpectsDartStyleProp.elementType
             ..style = {'color': 'blue'}
-            ..addTestId('componentRoot')
-          )());
+            ..addTestId('componentRoot'))());
           final node = view.getByTestId('componentRoot');
           expect(node, hasStyles({'color': 'blue'}));
         });
@@ -572,13 +591,12 @@ main() {
           render((components.ErrorBoundary()
             ..onComponentDidCatch = ((error, _) => renderErrors.add(error))
             ..shouldLogErrors = false
-            ..fallbackUIRenderer = ((_, __) => Dom.span()('An error occurred during render'))
-          )(
+            ..fallbackUIRenderer =
+                ((_, __) => Dom.span()('An error occurred during render')))(
             (TestJs()
               ..component = ExpectsDartMapProp.elementType
               ..addProps(ExpectsDartMapProp()..dartMapProp = {'foo': 'bar'})
-              ..addTestId('componentRoot')
-            )(),
+              ..addTestId('componentRoot'))(),
           ));
 
           expect(renderErrors, [
@@ -587,8 +605,8 @@ main() {
               matches(RegExp(
                   r"Expected a value of type 'Map[^']*', but got one of type 'NativeJavaScriptObject'")),
               // dart2js error message
-              matches(
-                  RegExp(r"type 'UnknownJavaScriptObject' is not a subtype of type 'Map[^']*'")),
+              matches(RegExp(
+                  r"type 'UnknownJavaScriptObject' is not a subtype of type 'Map[^']*'")),
             )),
           ]);
 
@@ -600,8 +618,10 @@ main() {
         // This case can't use MUI button because it always passes children as lists instead of passing them through.
         group('expecting a custom Dart children prop', () {
           ReactElement expectNonListChildren(ReactElement el) {
-            expect(JsBackedMap.backedBy(el.props)['children'], isNot(isA<List>()),
-                reason: 'test setup check; children should not be a List in order to test how'
+            expect(
+                JsBackedMap.backedBy(el.props)['children'], isNot(isA<List>()),
+                reason:
+                    'test setup check; children should not be a List in order to test how'
                     ' the Dart `component` behaves when the `children` prop is not a List');
             return el;
           }
@@ -615,15 +635,13 @@ main() {
           test('(no children)', () {
             render(expectNonListChildren((TestJs()
               ..component = ExpectsListChildrenProp.elementType
-              ..addTestId('componentRoot')
-            )()));
+              ..addTestId('componentRoot'))()));
           });
 
           test('(one child)', () {
             final view = render(expectNonListChildren((TestJs()
               ..component = ExpectsListChildrenProp.elementType
-              ..addTestId('componentRoot')
-            )('single-child')));
+              ..addTestId('componentRoot'))('single-child')));
             final node = view.getByTestId('componentRoot');
             expect(node, hasTextContent('single-child'));
           });
@@ -631,8 +649,7 @@ main() {
           test('(multiple children)', () {
             final view = render((TestJs()
               ..component = ExpectsListChildrenProp.elementType
-              ..addTestId('componentRoot')
-            )('child-1', 'child-2'));
+              ..addTestId('componentRoot'))('child-1', 'child-2'));
             final node = view.getByTestId('componentRoot');
             expect(node, hasTextContent('child-1' 'child-2'));
           });
@@ -645,52 +662,58 @@ main() {
             group('and is passed in via a forwarded "ref" prop as a', () {
               for (final testCaseName in testCaseCollection.allTestCaseNames) {
                 test(testCaseName, () {
-                  final testCase = testCaseCollection.createCaseByName(testCaseName);
+                  final testCase =
+                      testCaseCollection.createCaseByName(testCaseName);
 
                   render((TestJs()
                     ..component = BasicForwardRef.elementType
-                    ..ref = testCase.ref
-                  )());
+                    ..ref = testCase.ref)());
 
                   expect(testCase.getCurrent(), isA<Element>());
-                  expect(testCase.getCurrent(), hasAttribute(basicForwardRefAttribute),
+                  expect(testCase.getCurrent(),
+                      hasAttribute(basicForwardRefAttribute),
                       reason:
                           'test setup: ref should have been forwarded to the element we expect');
                 });
               }
             });
 
-            group('and is passed in via a custom "ref" prop (with conversion) as a', () {
-              for (final testCaseName in testCaseCollection.allTestCaseNames) {
-                test(testCaseName, () {
-                  final testCase = testCaseCollection.createCaseByName(testCaseName);
-
-                  render((TestJs()
-                    ..inputComponent = BasicForwardRef.elementType
-                    ..inputRef = testCase.ref
-                  )());
-
-                  expect(testCase.getCurrent(), isA<Element>());
-                  expect(testCase.getCurrent(), hasAttribute(basicForwardRefAttribute),
-                      reason:
-                          'test setup: ref should have been forwarded to the element we expect');
-                });
-              }
-            });
-
-            group('and is passed in via a "ref" prop in a nested props Map (with conversion) as a',
+            group(
+                'and is passed in via a custom "ref" prop (with conversion) as a',
                 () {
               for (final testCaseName in testCaseCollection.allTestCaseNames) {
                 test(testCaseName, () {
-                  final testCase = testCaseCollection.createCaseByName(testCaseName);
+                  final testCase =
+                      testCaseCollection.createCaseByName(testCaseName);
+
+                  render((TestJs()
+                    ..inputComponent = BasicForwardRef.elementType
+                    ..inputRef = testCase.ref)());
+
+                  expect(testCase.getCurrent(), isA<Element>());
+                  expect(testCase.getCurrent(),
+                      hasAttribute(basicForwardRefAttribute),
+                      reason:
+                          'test setup: ref should have been forwarded to the element we expect');
+                });
+              }
+            });
+
+            group(
+                'and is passed in via a "ref" prop in a nested props Map (with conversion) as a',
+                () {
+              for (final testCaseName in testCaseCollection.allTestCaseNames) {
+                test(testCaseName, () {
+                  final testCase =
+                      testCaseCollection.createCaseByName(testCaseName);
 
                   render((TestJs()
                     ..buttonComponent = BasicForwardRef.elementType
-                    ..buttonProps = (domProps()..ref = testCase.ref)
-                  )());
+                    ..buttonProps = (domProps()..ref = testCase.ref))());
 
                   expect(testCase.getCurrent(), isA<Element>());
-                  expect(testCase.getCurrent(), hasAttribute(basicForwardRefAttribute),
+                  expect(testCase.getCurrent(),
+                      hasAttribute(basicForwardRefAttribute),
                       reason:
                           'test setup: ref should have been forwarded to the element we expect');
                 });
@@ -699,35 +722,44 @@ main() {
           });
 
           group('which eventually ends up on a Dart class component', () {
-            final testCaseCollection = RefTestCaseCollection<ClassComponentComponent>();
+            final testCaseCollection =
+                RefTestCaseCollection<ClassComponentComponent>();
 
             setUpAll(() {
               // Make sure the special cases we're concerned about are included in this set of test cases:
               void assertSingleMetaWhere(bool Function(RefTestCaseMeta) test) {
-                expect(testCaseCollection.allTestCaseMetas.where(test).toList(), hasLength(1));
+                expect(testCaseCollection.allTestCaseMetas.where(test).toList(),
+                    hasLength(1));
               }
 
-              assertSingleMetaWhere((m) => !m.isJs && m.kind.isCallback && m.isStronglyTyped);
-              assertSingleMetaWhere((m) => !m.isJs && m.kind.isCallback && !m.isStronglyTyped);
-              assertSingleMetaWhere((m) => !m.isJs && m.kind.isObject && m.isStronglyTyped);
-              assertSingleMetaWhere((m) => !m.isJs && m.kind.isObject && !m.isStronglyTyped);
+              assertSingleMetaWhere(
+                  (m) => !m.isJs && m.kind.isCallback && m.isStronglyTyped);
+              assertSingleMetaWhere(
+                  (m) => !m.isJs && m.kind.isCallback && !m.isStronglyTyped);
+              assertSingleMetaWhere(
+                  (m) => !m.isJs && m.kind.isObject && m.isStronglyTyped);
+              assertSingleMetaWhere(
+                  (m) => !m.isJs && m.kind.isObject && !m.isStronglyTyped);
             });
 
             void forEachTestCase(
                 void callback(String testCaseName, bool isDartCallbackCase,
                     bool isDartRefObjectCase, bool isTyped)) {
               for (final testCaseName in testCaseCollection.allTestCaseNames) {
-                final meta = testCaseCollection.testCaseMetaByName(testCaseName);
+                final meta =
+                    testCaseCollection.testCaseMetaByName(testCaseName);
                 final isDartCallbackCase = !meta.isJs && meta.kind.isCallback;
                 final isDartRefObjectCase = !meta.isJs && meta.kind.isObject;
                 final isTyped = meta.isStronglyTyped;
 
-                callback(testCaseName, isDartCallbackCase, isDartRefObjectCase, isTyped);
+                callback(testCaseName, isDartCallbackCase, isDartRefObjectCase,
+                    isTyped);
               }
             }
 
             group('and is passed in via a forwarded "ref" prop as a', () {
-              forEachTestCase((testCaseName, isDartCallbackCase, isDartRefObjectCase, isTyped) {
+              forEachTestCase((testCaseName, isDartCallbackCase,
+                  isDartRefObjectCase, isTyped) {
                 if (isDartCallbackCase && isTyped) {
                   // Bail since we know typed Dart callback refs will fail with a runtime type error since the JS  ReactComponent
                   // will be passed in instead of the Dart instance; this behavior will be tested in the untyped Dart callback ref test case.
@@ -735,18 +767,21 @@ main() {
                 }
 
                 test(testCaseName, () {
-                  final testCase = testCaseCollection.createCaseByName(testCaseName);
+                  final testCase =
+                      testCaseCollection.createCaseByName(testCaseName);
 
                   render((TestJs()
                     ..component = ClassComponent.elementType
-                    ..ref = testCase.ref
-                  )());
+                    ..ref = testCase.ref)());
 
                   if (isDartRefObjectCase) {
-                    expect(testCase.getCurrent(), isA<ClassComponentComponent>());
+                    expect(
+                        testCase.getCurrent(), isA<ClassComponentComponent>());
                   } else {
-                    expect(testCase.getCurrent(),
-                        isA<ReactComponent>().havingDartComponent(isA<ClassComponentComponent>()));
+                    expect(
+                        testCase.getCurrent(),
+                        isA<ReactComponent>().havingDartComponent(
+                            isA<ClassComponentComponent>()));
                   }
                 }, tags: [
                   if (isDartCallbackCase) 'js-interop-tradeoff',
@@ -754,8 +789,11 @@ main() {
               });
             });
 
-            group('and is passed in via a custom "ref" prop (with conversion) as a', () {
-              forEachTestCase((testCaseName, isDartCallbackCase, isDartRefObjectCase, isTyped) {
+            group(
+                'and is passed in via a custom "ref" prop (with conversion) as a',
+                () {
+              forEachTestCase((testCaseName, isDartCallbackCase,
+                  isDartRefObjectCase, isTyped) {
                 if (isDartCallbackCase && isTyped) {
                   // Bail since we know typed Dart callback refs will fail with a runtime type error since the JS  ReactComponent
                   // will be passed in instead of the Dart instance; this behavior will be tested in the untyped Dart callback ref test case.
@@ -763,18 +801,21 @@ main() {
                 }
 
                 test(testCaseName, () {
-                  final testCase = testCaseCollection.createCaseByName(testCaseName);
+                  final testCase =
+                      testCaseCollection.createCaseByName(testCaseName);
 
                   render((TestJs()
                     ..inputComponent = ClassComponent.elementType
-                    ..inputRef = testCase.ref
-                  )());
+                    ..inputRef = testCase.ref)());
 
                   if (isDartRefObjectCase) {
-                    expect(testCase.getCurrent(), isA<ClassComponentComponent>());
+                    expect(
+                        testCase.getCurrent(), isA<ClassComponentComponent>());
                   } else {
-                    expect(testCase.getCurrent(),
-                        isA<ReactComponent>().havingDartComponent(isA<ClassComponentComponent>()));
+                    expect(
+                        testCase.getCurrent(),
+                        isA<ReactComponent>().havingDartComponent(
+                            isA<ClassComponentComponent>()));
                   }
                 }, tags: [
                   if (isDartCallbackCase) 'js-interop-tradeoff',
@@ -783,27 +824,34 @@ main() {
             });
 
             // This is the one case where Dart (and unfortunately, JS) callback refs actually get the class component
-            group('and is passed in via a "ref" prop in a nested props Map (with conversion) as a',
+            group(
+                'and is passed in via a "ref" prop in a nested props Map (with conversion) as a',
                 () {
-              forEachTestCase((testCaseName, isDartCallbackCase, isDartRefObjectCase, isTyped) {
+              forEachTestCase((testCaseName, isDartCallbackCase,
+                  isDartRefObjectCase, isTyped) {
                 final isJsCallbackCase =
                     testCaseName == RefTestCaseCollection.jsCallbackRefCaseName;
 
                 test(testCaseName, () {
-                  final testCase = testCaseCollection.createCaseByName(testCaseName);
+                  final testCase =
+                      testCaseCollection.createCaseByName(testCaseName);
 
                   render((TestJs()
                     ..buttonComponent = ClassComponent.elementType
-                    ..buttonProps = (domProps()..ref = testCase.ref)
-                  )());
+                    ..buttonProps = (domProps()..ref = testCase.ref))());
 
                   // JS callbacks look the same to generateJsProps as Dart callback refs do,
                   // so they get the Dart component as well. // TODO investigate, decide how concerned we should be about this
-                  if (isDartRefObjectCase || isDartCallbackCase || isJsCallbackCase) {
-                    expect(testCase.getCurrent(), isA<ClassComponentComponent>());
+                  if (isDartRefObjectCase ||
+                      isDartCallbackCase ||
+                      isJsCallbackCase) {
+                    expect(
+                        testCase.getCurrent(), isA<ClassComponentComponent>());
                   } else {
-                    expect(testCase.getCurrent(),
-                        isA<ReactComponent>().havingDartComponent(isA<ClassComponentComponent>()));
+                    expect(
+                        testCase.getCurrent(),
+                        isA<ReactComponent>().havingDartComponent(
+                            isA<ClassComponentComponent>()));
                   }
                 }, tags: [
                   if (isJsCallbackCase) 'js-interop-tradeoff',
@@ -833,10 +881,12 @@ extension<T extends UiProps> on UiFactory<T> {
 // Matcher convenience functions
 //
 
-Matcher sameOrSameAllowInterop(Function f) => anyOf(same(allowInterop(f)), same(f));
+Matcher sameOrSameAllowInterop(Function f) =>
+    anyOf(same(allowInterop(f)), same(f));
 
 extension on TypeMatcher<Ref> {
-  Matcher havingJsRef(dynamic matcher) => having((ref) => ref.jsRef, 'jsRef', matcher);
+  Matcher havingJsRef(dynamic matcher) =>
+      having((ref) => ref.jsRef, 'jsRef', matcher);
 }
 
 extension on TypeMatcher<Object> {
@@ -902,8 +952,7 @@ UiFactory<ExpectsDartMapPropProps> ExpectsDartMapProp = uiForwardRef(
       ..addProps(props)
       // Use the prop in a way that would fail if it wasn't the correct type
       ..['data-dart-map-prop'] = jsonEncode(props.dartMapProp)
-      ..ref = ref
-    )(props.children);
+      ..ref = ref)(props.children);
   },
   _$ExpectsDartMapPropConfig, // ignore: undefined_identifier
 );
@@ -919,8 +968,7 @@ UiFactory<ExpectsDartStylePropProps> ExpectsDartStyleProp = uiForwardRef(
       ..style = {
         // Use the prop in a way that would fail if it wasn't the correct type
         ...props.style,
-      }
-    )(props.children);
+      })(props.children);
   },
   _$ExpectsDartStylePropConfig, // ignore: undefined_identifier
 );
@@ -963,8 +1011,7 @@ UiFactory<BasicForwardRefProps> BasicForwardRef = uiForwardRef(
     return (Dom.span()
       ..addProps(props)
       ..[basicForwardRefAttribute] = ''
-      ..ref = ref
-    )(props.children);
+      ..ref = ref)(props.children);
   },
   _$BasicForwardRefConfig, // ignore: undefined_identifier
 );
@@ -973,17 +1020,18 @@ mixin DartTestJsWrapperPropsMixin on UiProps {
   void Function(DartTestJsWrapperProps props) onRender;
 }
 
-class DartTestJsWrapperProps = UiProps with TestJsProps, DartTestJsWrapperPropsMixin;
+class DartTestJsWrapperProps = UiProps
+    with TestJsProps, DartTestJsWrapperPropsMixin;
 
 UiFactory<DartTestJsWrapperProps> DartTestJsWrapper = uiForwardRef(
   (props, ref) {
     props.onRender?.call(props);
 
-    final consumedProps = props.staticMeta.forMixins({DartTestJsWrapperPropsMixin});
+    final consumedProps =
+        props.staticMeta.forMixins({DartTestJsWrapperPropsMixin});
     return (TestJs()
       ..addUnconsumedProps(props, consumedProps)
-      ..ref = ref
-    )(props.children);
+      ..ref = ref)(props.children);
   },
   _$DartTestJsWrapperConfig, // ignore: undefined_identifier
 );
