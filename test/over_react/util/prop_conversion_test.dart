@@ -9,17 +9,17 @@ import 'dart:js_util';
 import 'package:js/js.dart';
 import 'package:over_react/over_react.dart';
 import 'package:over_react/components.dart' as components;
-import 'package:react/react_client/react_interop.dart' show React, ReactComponent;
-import 'package:react_material_ui/components/button.dart';
-import 'package:react_material_ui/src/js_component_util.dart';
-import 'package:react_material_ui/src/util/js_component.dart';
-import 'package:react_material_ui/src/util/prop_conversion.dart';
+import 'package:over_react/src/util/js_component.dart';
+import 'package:over_react/src/util/prop_conversion.dart';
+import 'package:react/react_client/component_factory.dart';
+import 'package:react/react_client/react_interop.dart' show React, ReactClass, ReactComponent;
 import 'package:react_testing_library/matchers.dart';
 import 'package:react_testing_library/react_testing_library.dart';
 import 'package:react_testing_library/user_event.dart';
 import 'package:test/test.dart';
 
-import '../util/ref_test_cases.dart';
+import '../../../web/component2/src/demo_components.dart';
+
 
 part 'prop_conversion_test.over_react.g.dart';
 
@@ -267,15 +267,15 @@ main() {
                 group('A nested map prop', () {
                   test('using the typed props map', () {
                     final builder = TestJs()
-                      ..buttonProps = (Button()..TouchRippleProps = {'foo': 'bar'});
-                    expect(Button(builder.buttonProps).TouchRippleProps,
-                        allOf(isA<Map>(), {'foo': 'bar'}));
+                      ..buttonProps = (Button()..style = {'display': 'block'});
+                    expect(Button(builder.buttonProps).style,
+                        allOf(isA<Map>(), {'display': 'block'}));
                   });
 
                   test('not using the typed props map', () {
                     final builder = TestJs()
-                      ..buttonProps = (Button()..TouchRippleProps = {'foo': 'bar'});
-                    final propKey = Button.getPropKey((p) => p.TouchRippleProps);
+                      ..buttonProps = (Button()..style = {'display': 'block'});
+                    final propKey = Button.getPropKey((p) => p.style);
                     expect(builder.buttonProps, containsPair(propKey, isA<JsMap>()),
                         reason: 'not a Dart map due to tradeoffs');
                   }, tags: 'js-interop-tradeoff');
