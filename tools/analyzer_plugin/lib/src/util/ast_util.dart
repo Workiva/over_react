@@ -10,8 +10,6 @@ import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/source/line_info.dart';
 import 'package:over_react_analyzer_plugin/src/util/analyzer_util.dart';
 
-export 'package:over_react/src/builder/parsing/ast_util.dart';
-
 /// Returns a String value when a literal or constant var/identifier is found within [expr].
 String getConstOrLiteralStringValueFrom(Expression expr) {
   if (!expr.staticType.isDartCoreString) return null;
