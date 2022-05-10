@@ -12,7 +12,7 @@ echo "Validating analyzer version constraint: $analyzer_constraint"
 # sed -i is not portable, so we write to a separate file: https://unix.stackexchange.com/a/92907
 dart tool/set_analyzer_constraint.dart "$analyzer_constraint"
 
-pub get
+dart pub get
 
 dart analyze .
 
