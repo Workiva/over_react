@@ -9,7 +9,7 @@ Future<SourceChange> buildFileEdit(
   ResolvedUnitResult result,
   FutureOr<void> Function(DartFileEditBuilder builder) buildFileEdit,
 ) async {
-  final builder = ChangeBuilder();
+  final builder = ChangeBuilder(session: result.session);
   await builder.addDartFileEdit(result.path!, buildFileEdit);
   return builder.sourceChange;
 }

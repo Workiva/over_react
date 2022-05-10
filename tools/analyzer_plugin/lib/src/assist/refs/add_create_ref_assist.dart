@@ -42,7 +42,7 @@ class AddCreateRefAssistContributor extends AssistContributorBase {
     // replace existing refs with createRef.
     if (usage.cascadedProps.any((prop) => prop.name.name == 'ref')) return;
 
-    final changeBuilder = ChangeBuilder();
+    final changeBuilder = ChangeBuilder(session: request.result.session);
     await changeBuilder.addDartFileEdit(request.result.path!, (builder) {
       return create_ref_util.addCreateRef(builder, usage, request.result);
     });
