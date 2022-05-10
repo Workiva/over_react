@@ -27,8 +27,6 @@
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-import 'package:meta/meta.dart';
-
 class Maturity implements Comparable<Maturity> {
   static const Maturity stable = Maturity._('stable', ordinal: 0);
   static const Maturity experimental = Maturity._('experimental', ordinal: 1);

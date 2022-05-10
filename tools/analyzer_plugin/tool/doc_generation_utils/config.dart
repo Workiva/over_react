@@ -1,5 +1,4 @@
 import 'package:analyzer/dart/element/element.dart';
-import 'package:meta/meta.dart';
 import 'package:over_react_analyzer_plugin/src/doc_utils/contributor_meta_registry.dart';
 import 'package:over_react_analyzer_plugin/src/doc_utils/documented_contributor_meta.dart';
 
