@@ -12,7 +12,7 @@ dependencies:
   # Upon release, this should be pinned to the over_react version from ../../pubspec.yaml
   # so that it always resolves to the same version of over_react that the user has pulled in,
   # and thus has the same boilerplate parsing code that's running in the builder.
-  over_react: 4.2.9
+  over_react: 4.3.0
   meta: ">=1.2.2 <1.7.0" # Workaround to avoid https://github.com/dart-lang/sdk/issues/46142
   path: ^1.5.1
   source_span: ^1.7.0
