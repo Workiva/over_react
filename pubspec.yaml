@@ -9,7 +9,7 @@ dependencies:
   collection: ^1.14.11
   analyzer: '>=0.40.0 <2.0.0'
   build: '>=1.0.0 <3.0.0'
-  built_redux: ^7.4.2
+  built_redux: ">=7.4.2 <9.0.0"
   built_value: ^8.0.0
   dart_style: '>=1.2.5 <3.0.0'
   js: ^0.6.1+1
