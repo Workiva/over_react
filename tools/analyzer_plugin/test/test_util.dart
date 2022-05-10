@@ -166,7 +166,7 @@ Future<InvocationExpression?> parseExpression(
   String imports = '',
   bool isResolved = false,
 }) async {
-  CompilationUnit? unit;
+  late CompilationUnit unit;
   final source = '''
     $imports
     void wrapperFunction() {
@@ -175,11 +175,11 @@ Future<InvocationExpression?> parseExpression(
   ''';
   if (isResolved) {
     final result = await parseAndGetResolvedUnit(source);
-    unit = result.unit;
+    unit = result.unit!;
   } else {
     unit = parseString(content: source).unit;
   }
-  final parsedFunction = unit!.childEntities.whereType<FunctionDeclaration>().last;
+  final parsedFunction = unit.childEntities.whereType<FunctionDeclaration>().last;
   final body = parsedFunction.functionExpression.body as BlockFunctionBody;
   final statement = body.block.statements.single as ExpressionStatement;
   final invocationExpression = statement.expression;

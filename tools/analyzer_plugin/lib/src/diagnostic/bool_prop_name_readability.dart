@@ -53,7 +53,6 @@ class BoolPropNameReadabilityDiagnostic extends DiagnosticContributor {
       for (final field in mixinFields) {
         final propName = field.name;
         if (field.type != typeProvider.boolType) continue;
-        if (propName == null) continue; // just in case
 
         final fieldDecl = propsClass.getField(propName);
         if (fieldDecl == null) continue;

@@ -98,11 +98,11 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
     final errorCollector = orbp.ErrorCollector.callback(
       sourceFile,
       onError: (message, [span]) {
-        final location = result.location(range: span!.asRangeOrEmpty());
+        final location = result.location(range: span?.asRange() ?? SourceRange.EMPTY);
         collector.addError(errorCode, location, errorMessageArgs: [message]);
       },
       onWarning: (message, [span]) {
-        final location = result.location(range: span!.asRangeOrEmpty());
+        final location = result.location(range: span?.asRange() ?? SourceRange.EMPTY);
         collector.addError(warningCode, location, errorMessageArgs: [message]);
       },
     );
@@ -249,7 +249,6 @@ enum PartDirectiveErrorType { missing, invalid }
 
 extension on SourceSpan {
   SourceRange asRange() => SourceRange(start.offset, length);
-  SourceRange asRangeOrEmpty() => this == null ? SourceRange.EMPTY : asRange();
 }
 
 // TODO use the version from over_react instead after initial release
@@ -257,5 +256,8 @@ Iterable<PartDirective> getNonGeneratedParts(CompilationUnit libraryUnit) {
   return libraryUnit.directives
       .whereType<PartDirective>()
       // Ignore all generated `.g.dart` parts.
-      .where((part) => !part.uri.stringValue!.endsWith('.g.dart'));
+      .where((part) {
+        final stringValue = part.uri.stringValue;
+        return stringValue == null || !stringValue.endsWith('.g.dart');
+      });
 }

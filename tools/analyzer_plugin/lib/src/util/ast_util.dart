@@ -12,7 +12,8 @@ import 'package:over_react_analyzer_plugin/src/util/analyzer_util.dart';
 
 /// Returns a String value when a literal or constant var/identifier is found within [expr].
 String? getConstOrLiteralStringValueFrom(Expression expr) {
-  if (!expr.staticType!.isDartCoreString) return null;
+  final staticType = expr.staticType;
+  if (staticType == null || !staticType.isDartCoreString) return null;
 
   if (expr is StringInterpolation) {
     final constantValue = expr.accept(ConstantEvaluator());
@@ -81,9 +82,8 @@ extension FunctionBodyUtils on FunctionBody {
     } else if (self is BlockFunctionBody) {
       for (final statement in self.returnStatements) {
         // Expression is null for returns statements without values (`return;`). Skip those.
-        if (statement.expression != null) {
-          yield statement.expression!;
-        }
+        final expression = statement.expression;
+        if (expression != null) yield expression;
       }
     }
   }

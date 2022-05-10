@@ -5,11 +5,10 @@ import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 /// Usage:
 ///     AnalyzerDebugHelper debug = new AnalyzerDebugHelper(result, collector);
 class AnalyzerDebugHelper {
-  AnalyzerDebugHelper([this.result, this.collector]);
+  AnalyzerDebugHelper(this.result, this.collector);
 
-  // FIXME(nullsafety) clean up nullability
-  ResolvedUnitResult? result;
-  DiagnosticCollector? collector;
+  final ResolvedUnitResult result;
+  final DiagnosticCollector collector;
   static const code = DiagnosticCode(
     'over_react_debug_analyzer_plugin_helper',
     "{0}",
@@ -20,9 +19,7 @@ class AnalyzerDebugHelper {
   /// Usage:
   ///     AnalyzerDebugHelper debug = new AnalyzerDebugHelper(result, collector);
   ///     debug.log('message');
-  void log(String message, [ResolvedUnitResult? new_result, DiagnosticCollector? new_collector]) {
-    result = new_result ?? result;
-    collector = new_collector ?? collector;
-    collector!.addError(code, Location(result!.path!, 0, 0, 1, 1, 1, 1), errorMessageArgs: [message]);
+  void log(String message) {
+    collector.addError(code, Location(result.path!, 0, 0, 1, 1, 1, 1), errorMessageArgs: [message]);
   }
 }

@@ -103,7 +103,7 @@ void main() {
       test('does nothing if there is already a valid part directive', () async {
         final sourceFileEdits = await getSourceFileEdits(
           sourceWithOverReactPart,
-          (builder, result) => addOverReactGeneratedPartDirective(builder, result.unit!, result.uri),
+          (builder, result) => addOverReactGeneratedPartDirective(builder, result.unit!, result.lineInfo, result.uri),
           path: 'foo.dart',
         );
         expect(sourceFileEdits, isEmpty);
@@ -113,7 +113,7 @@ void main() {
         test('when there are no part directives in the file', () async {
           final result = await parseAndGetResolvedUnit(sourceWithNoPart, path: 'foo.dart');
           final sourceChange = await buildFileEdit(result, (builder) {
-            addOverReactGeneratedPartDirective(builder, result.unit!, result.uri);
+            addOverReactGeneratedPartDirective(builder, result.unit!, result.lineInfo, result.uri);
           });
           final editList = sourceChange.edits.firstOrNull?.edits;
 
@@ -130,7 +130,7 @@ void main() {
         test('when there is an existing part directive in the file', () async {
           final result = await parseAndGetResolvedUnit(sourceWithNonOverReactPart, path: 'foo.dart');
           final sourceChange = await buildFileEdit(result, (builder) {
-            addOverReactGeneratedPartDirective(builder, result.unit!, result.uri);
+            addOverReactGeneratedPartDirective(builder, result.unit!, result.lineInfo, result.uri);
           });
           final editList = sourceChange.edits.firstOrNull?.edits;
 
@@ -147,7 +147,7 @@ void main() {
       test('replaces existing over_react part directive if it doesn\'t match file uri', () async {
         final result = await parseAndGetResolvedUnit(sourceWithOverReactPart, path: 'different_file_name.dart');
         final sourceChange = await buildFileEdit(result, (builder) {
-          addOverReactGeneratedPartDirective(builder, result.unit!, result.uri);
+          addOverReactGeneratedPartDirective(builder, result.unit!, result.lineInfo, result.uri);
         });
         final editList = sourceChange.edits.firstOrNull?.edits;
 

@@ -90,20 +90,24 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
           if (annotation.isOverride) return false;
 
           final value = annotation.computeConstantValue();
-          final type = value?.type;
-          final typeLibrary = type?.element?.library;
-          if (typeLibrary?.name != 'over_react.component_declaration.annotations') {
+          if (value == null) return false;
+
+          final type = value.type;
+          if (type == null) return false;
+
+          final typeLibrary = type.element?.library;
+          if (typeLibrary == null || typeLibrary.name != 'over_react.component_declaration.annotations') {
             return false;
           }
 
-          _cachedAccessorClass ??= typeLibrary!.getType('Accessor');
-          if (!result.typeSystem.isAssignableTo(type!, _cachedAccessorClass!.thisType)) {
+          _cachedAccessorClass ??= typeLibrary.getType('Accessor');
+          if (!result.typeSystem.isAssignableTo(type, _cachedAccessorClass!.thisType)) {
             return false;
           }
 
           // This is null when isRequired does not have a valid value
           // (e.g., as the user is typing it in)
-          return value!.getField('isRequired')!.toBoolValue() ?? false;
+          return value.getField('isRequired')!.toBoolValue() ?? false;
         })) {
           requiredFields.add(field);
         }

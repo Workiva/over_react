@@ -79,7 +79,7 @@ class MissingCascadeParensDiagnostic extends DiagnosticContributor {
         final debug = AnalyzerDebugHelper(result, collector);
         debug.log('node.type: ${node.runtimeType}');
 
-        InvocationExpression? invocation;
+        InvocationExpression invocation;
         final parent = node.parent;
         if (isBadArity && node is ArgumentList && parent is InvocationExpression) {
           invocation = parent;
@@ -88,10 +88,10 @@ class MissingCascadeParensDiagnostic extends DiagnosticContributor {
           invocation = parent;
         } else if (isVoidUsage && parent is InvocationExpression) {
           invocation = parent;
+        } else {
+          return;
         }
-        debug.log('invocation : ${invocation?.toSource()}');
-
-        if (invocation == null) return;
+        debug.log('invocation : ${invocation.toSource()}');
 
         final cascade = invocation.parent?.tryCast<AssignmentExpression>()?.parent?.tryCast<CascadeExpression>();
         if (cascade != null) {
@@ -102,7 +102,7 @@ class MissingCascadeParensDiagnostic extends DiagnosticContributor {
               fixKind: fixKind,
               computeFix: () => buildFileEdit(result, (builder) {
                 builder.addSimpleInsertion(cascade.offset, '(');
-                builder.addSimpleInsertion(invocation!.argumentList.offset, ')');
+                builder.addSimpleInsertion(invocation.argumentList.offset, ')');
               }),
             );
           }

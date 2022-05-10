@@ -66,16 +66,18 @@ class CallbackRefDiagnostic extends ComponentUsageDiagnosticContributor {
   @override
   computeErrorsForUsage(result, collector, usage) async {
     for (final prop in usage.cascadedProps) {
-      if (prop.name.name == 'ref' &&
-          result.typeSystem.isSubtypeOf(prop.rightHandSide.staticType!, result.typeProvider.functionType)) {
-        await collector.addErrorWithFix(
-          code,
-          result.locationFor(prop.rightHandSide),
-          fixKind: fixKind,
-          computeFix: () => buildFileEdit(result, (builder) {
-            addCreateRef(builder, usage, result);
-          }),
-        );
+      if (prop.name.name == 'ref') {
+        final rhsStaticType = prop.rightHandSide.staticType;
+        if (rhsStaticType != null && result.typeSystem.isSubtypeOf(rhsStaticType, result.typeProvider.functionType)) {
+          await collector.addErrorWithFix(
+            code,
+            result.locationFor(prop.rightHandSide),
+            fixKind: fixKind,
+            computeFix: () => buildFileEdit(result, (builder) {
+              addCreateRef(builder, usage, result);
+            }),
+          );
+        }
       }
     }
   }

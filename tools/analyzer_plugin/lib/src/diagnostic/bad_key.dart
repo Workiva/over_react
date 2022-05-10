@@ -119,7 +119,7 @@ class BadKeyDiagnostic extends ComponentUsageDiagnosticContributor {
       final visitor = ToStringedVisitor();
       prop.rightHandSide.accept(visitor);
       for (final expression in visitor.toStringedExpressions) {
-        processToStringedExpressionInKey(result, collector, expression!);
+        processToStringedExpressionInKey(result, collector, expression);
       }
     }
   }
@@ -165,7 +165,7 @@ class BadKeyDiagnostic extends ComponentUsageDiagnosticContributor {
           result.locationFor(expression),
           errorMessageArgs: [type.getDisplayString(withNullability: false), getTypeContextString()],
         );
-      } else if (inheritsToStringImplFromObject(type?.element)) {
+      } else if (type.element != null && inheritsToStringImplFromObject(type.element!)) {
         collector.addError(
           toStringCode,
           result.locationFor(expression),
@@ -175,9 +175,9 @@ class BadKeyDiagnostic extends ComponentUsageDiagnosticContributor {
     }
   }
 
-  static bool inheritsToStringImplFromObject(Element? element) =>
+  static bool inheritsToStringImplFromObject(Element element) =>
       element
-          ?.tryCast<ClassElement>()
+          .tryCast<ClassElement>()
           ?.lookUpConcreteMethod('toString', element.library!)
           ?.thisOrAncestorOfType<ClassElement>()
           ?.thisType
@@ -190,14 +190,18 @@ class BadKeyDiagnostic extends ComponentUsageDiagnosticContributor {
 /// - toString calls
 /// - string interpolation
 class ToStringedVisitor extends RecursiveAstVisitor<void> {
-  final List<Expression?> toStringedExpressions = <Expression>[];
+  final toStringedExpressions = <Expression>[];
 
   @override
   void visitMethodInvocation(MethodInvocation node) {
     super.visitMethodInvocation(node);
 
     if (node.methodName.name == 'toString') {
-      toStringedExpressions.add(node.realTarget);
+      final target = node.realTarget;
+      // This can be null if implicitly using `this`. Ignore this case.
+      if (target != null) {
+        toStringedExpressions.add(target);
+      }
     }
   }
 

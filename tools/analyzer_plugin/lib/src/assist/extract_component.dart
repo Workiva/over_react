@@ -11,8 +11,8 @@ import 'package:over_react_analyzer_plugin/src/util/node.dart';
 
 typedef BoilerplateLinkedEditFn = void Function(
   DartEditBuilder builder, {
-  String? groupName,
-  String? componentFactoryName,
+  String groupName,
+  String componentFactoryName,
   String Function({int? indent})? getComponentRenderReturnValueSrc,
 });
 

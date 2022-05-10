@@ -1,4 +1,5 @@
 import 'package:analyzer/dart/ast/ast.dart';
+import 'package:analyzer/source/line_info.dart';
 import 'package:analyzer/source/source_range.dart';
 import 'package:analyzer_plugin/utilities/change_builder/change_builder_dart.dart';
 import 'package:collection/collection.dart' show IterableExtension;
@@ -13,7 +14,7 @@ const overReactGeneratedPartPathSuffix = '.over_react.g.dart';
 /// > Related: [overReactGeneratedPartDirectiveIsValid]
 PartDirective? getOverReactGeneratedPartDirective(CompilationUnit unit) {
   return unit.directives.whereType<PartDirective>().firstWhereOrNull((d) {
-    return d.uri.stringValue!.endsWith(overReactGeneratedPartPathSuffix);
+    return d.uri.stringValue?.endsWith(overReactGeneratedPartPathSuffix) ?? false;
   });
 }
 
@@ -28,9 +29,10 @@ PartDirective? getOverReactGeneratedPartDirective(CompilationUnit unit) {
 ///
 /// > Related: [getOverReactGeneratedPartDirective], [fixOverReactGeneratedPartDirective]
 bool overReactGeneratedPartDirectiveIsValid(PartDirective directive, Uri fileUri) {
-  if (!directive.uri.stringValue!.endsWith(overReactGeneratedPartPathSuffix)) return false;
+  final stringValue = directive.uri.stringValue;
+  if (stringValue == null || !stringValue.endsWith(overReactGeneratedPartPathSuffix)) return false;
 
-  return p.setExtension(p.basename(fileUri.path), overReactGeneratedPartPathSuffix) == directive.uri.stringValue;
+  return p.setExtension(p.basename(fileUri.path), overReactGeneratedPartPathSuffix) == stringValue;
 }
 
 String _generateValidOverReactGeneratedPartDirective(CompilationUnit unit, Uri fileUri) {
@@ -41,10 +43,9 @@ String _generateValidOverReactGeneratedPartDirective(CompilationUnit unit, Uri f
 /// Adds a `.over_react.g.dart` [PartDirective] to the file being edited by the [builder].
 ///
 /// Corrects existing over_react part directives and is a no-op if a valid one already exists.
-void addOverReactGeneratedPartDirective(DartFileEditBuilder builder, CompilationUnit unit, Uri fileUri) {
-  final directives = unit.directives;
+void addOverReactGeneratedPartDirective(DartFileEditBuilder builder, CompilationUnit unit, LineInfo lineInfo, Uri fileUri) {
   Directive? lastDirective;
-  if (directives?.isNotEmpty == true) {
+  if (unit.directives.isNotEmpty) {
     lastDirective = unit.directives.last;
   }
 
@@ -59,8 +60,8 @@ void addOverReactGeneratedPartDirective(DartFileEditBuilder builder, Compilation
   final insertionOffset = lastDirective == null
       ? 0
       : lastDirective is! PartDirective
-          ? unit.lineInfo!.getOffsetOfLineAfter(nextLine(lastDirective.end, unit.lineInfo!))
-          : unit.lineInfo!.getOffsetOfLineAfter(lastDirective.end);
+          ? lineInfo.getOffsetOfLineAfter(nextLine(lastDirective.end, lineInfo))
+          : lineInfo.getOffsetOfLineAfter(lastDirective.end);
   builder.addSimpleInsertion(insertionOffset, '${_generateValidOverReactGeneratedPartDirective(unit, fileUri)}\n\n');
 }
 
