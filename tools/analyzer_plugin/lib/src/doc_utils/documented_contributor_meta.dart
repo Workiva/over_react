@@ -79,8 +79,7 @@ abstract class DocumentedContributorMetaBase implements IContributorMetaBase {
     final annotationObj = annotation.computeConstantValue()!;
     final description = annotationObj.getField('description')!.toStringValue()!;
     final details = annotationObj.getField('details')!.toStringValue();
-    final maturity =
-        getMatchingConst(annotationObj.getField('maturity')!, Maturity.VALUES) ?? IContributorMetaBase.defaultMaturity;
+    final maturity = getMatchingConst(annotationObj.getField('maturity')!, Maturity.VALUES);
     final since = annotationObj.getField('since')!.toStringValue() ?? IContributorMetaBase.defaultSince;
 
     return DocsMeta(description, details: details, since: since, maturity: maturity);

@@ -151,7 +151,7 @@ void addCreateRef(
 }
 
 PropertyInducingElement? _getRefCallbackAssignedField(Expression refPropRhs) {
-  final function = refPropRhs?.unParenthesized?.tryCast<FunctionExpression>();
+  final function = refPropRhs.unParenthesized.tryCast<FunctionExpression>();
   if (function == null) return null;
 
   final refCallbackArg = function.parameters!.parameters.firstOrNull;

@@ -110,7 +110,7 @@ Future<void> validateReactChildType(DartType? type, TypeSystem typeSystem, TypeP
     // e.g., leastUpperBound(`List<String>`, `Iterable<bottom>`) should yield `Iterable<String>`
     final lub = typeSystem.leastUpperBound(type, typeProvider.iterableType2(typeProvider.bottomType));
     final iterableTypeArg =
-        lub.isDartCoreIterable ? lub.tryCast<ParameterizedType>()?.typeArguments?.firstOrNull : null;
+        lub.isDartCoreIterable ? lub.tryCast<ParameterizedType>()?.typeArguments.firstOrNull : null;
     if (iterableTypeArg != null) {
       await validateReactChildType(iterableTypeArg, typeSystem, typeProvider, onInvalidType: onInvalidType);
     }

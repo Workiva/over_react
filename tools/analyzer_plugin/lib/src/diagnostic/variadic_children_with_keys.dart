@@ -70,17 +70,17 @@ class VariadicChildrenWithKeys extends ComponentUsageDiagnosticContributor {
   @override
   computeErrorsForUsage(result, collector, usage) async {
     String? reasonWhyUnnecessary;
-    final parentMethodName = usage.node.thisOrAncestorOfType<MethodDeclaration>()?.name?.name;
+    final parentMethodName = usage.node.thisOrAncestorOfType<MethodDeclaration>()?.name.name;
 
     final parent = usage.node.parent;
 
     if (parent is ArgumentList) {
-      final enclosingUsage = identifyUsage(parent?.parent);
+      final enclosingUsage = identifyUsage(parent.parent);
 
-      if (enclosingUsage?.node?.argumentList == parent ?? false) {
+      if (enclosingUsage?.node.argumentList == parent) {
         reasonWhyUnnecessary = "it's passed as an argument as opposed to inside an Iterable";
       }
-    } else if (parent is ReturnStatement && (parentMethodName == 'render' ?? false)) {
+    } else if (parent is ReturnStatement && parentMethodName == 'render') {
       reasonWhyUnnecessary = "it's returned directly from 'render'";
     }
 

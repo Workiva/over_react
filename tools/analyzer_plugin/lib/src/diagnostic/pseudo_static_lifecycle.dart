@@ -124,7 +124,7 @@ class LifecycleMethodVisitor extends GeneralizingAstVisitor<void> {
     for (final member in node.members) {
       if (member is MethodDeclaration && staticMethodNames.contains(member.name.name)) {
         final visitor = ReferenceVisitor();
-        member.body?.accept(visitor);
+        member.body.accept(visitor);
         nonStaticReferences.addAll(visitor.nonStaticReferences);
       }
     }

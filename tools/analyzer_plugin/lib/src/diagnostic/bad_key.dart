@@ -181,7 +181,7 @@ class BadKeyDiagnostic extends ComponentUsageDiagnosticContributor {
           ?.lookUpConcreteMethod('toString', element.library!)
           ?.thisOrAncestorOfType<ClassElement>()
           ?.thisType
-          ?.isDartCoreObject ??
+          .isDartCoreObject ??
       false;
 }
 

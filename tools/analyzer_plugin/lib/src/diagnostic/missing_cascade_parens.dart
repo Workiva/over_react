@@ -95,7 +95,7 @@ class MissingCascadeParensDiagnostic extends DiagnosticContributor {
 
         final cascade = invocation.parent?.tryCast<AssignmentExpression>()?.parent?.tryCast<CascadeExpression>();
         if (cascade != null) {
-          if (cascade?.target?.staticType?.isPropsClass ?? false) {
+          if (cascade.target.staticType?.isPropsClass ?? false) {
             await collector.addErrorWithFix(
               code,
               result.locationFor(cascade),
@@ -112,13 +112,13 @@ class MissingCascadeParensDiagnostic extends DiagnosticContributor {
         debug.log('${invocation.function.staticType?.getDisplayString(withNullability: false)}');
 
         if (isBadFunction && (invocation.function.staticType?.isReactElement ?? false)) {
-          final expr = (invocation.function?.tryCast<InvocationExpression>() ??
-              invocation.function?.tryCast<ParenthesizedExpression>()?.unParenthesized?.tryCast() as InvocationExpression)!;
+          final expr = invocation.function.tryCast<InvocationExpression>() ??
+              invocation.function.tryCast<ParenthesizedExpression>()?.unParenthesized.tryCast<InvocationExpression>();
 
           debug.log('expr: ${expr?.runtimeType} ${expr?.toSource()}');
           debug.log('expr.parent: ${expr?.parent?.runtimeType} ${expr?.parent?.toSource()}');
 
-          if (expr.argumentList.arguments.firstOrNull?.staticType?.isPropsClass ?? false) {
+          if (expr != null && (expr.argumentList.arguments.firstOrNull?.staticType?.isPropsClass ?? false)) {
             await collector.addErrorWithFix(
               code,
               result.locationFor(node),

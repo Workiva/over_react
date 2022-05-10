@@ -84,7 +84,7 @@ class LinkTargetUsageWithoutRelDiagnostic extends ComponentUsageDiagnosticContri
     if (relPropSection != null && (relPropSection.last.staticType?.isDartCoreString ?? false)) {
       offerQuickFix = relPropSection.last is StringLiteral;
 
-      final declaredValues = getConstOrLiteralStringValueFrom(relPropSection.last)?.split(' ')?.toSet();
+      final declaredValues = getConstOrLiteralStringValueFrom(relPropSection.last)?.split(' ').toSet();
       if (declaredValues != null) {
         actualRelValues = declaredValues;
       }

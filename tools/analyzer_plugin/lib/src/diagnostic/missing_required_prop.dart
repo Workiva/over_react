@@ -74,7 +74,7 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
     }
 
     // todo check if factory invocation
-    if (builderType is InterfaceType && builderType.element?.name != 'UiProps') {
+    if (builderType is InterfaceType && builderType.element.name != 'UiProps') {
       final classAndSuperclasses = [builderType.element, ...builderType.element.allSupertypes.map((t) => t.element)];
       final allFields = classAndSuperclasses.expand((c) => c.fields);
       for (final field in allFields) {
