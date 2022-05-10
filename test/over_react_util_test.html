@@ -22,6 +22,25 @@ limitations under the License.
     <script src="packages/react/react_with_addons.js"></script>
     <script src="packages/react/react_dom.js"></script>
 
+    <script>
+      window.TestJsComponent = React.forwardRef(function(props, ref) {
+        const {
+          buttonProps = {},
+          inputRef,
+          buttonComponent = 'button',
+          inputComponent = 'input',
+          component = 'span',
+          children,
+          ...rest
+        } = props;
+        return React.createElement('div', {},
+          React.createElement(buttonComponent, buttonProps),
+          React.createElement(inputComponent, {type: 'text', ref: inputRef}),
+          React.createElement(component, { ...rest, ref }, children),
+        );
+    });
+    </script>
+
     <link rel="x-dart-test"  href="over_react_util_test.dart">
     <script src="packages/test/dart.js"></script>
 </head>
