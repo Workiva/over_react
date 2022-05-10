@@ -1,6 +1,6 @@
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:over_react_analyzer_plugin/src/assist/contributor_base.dart';
-import 'package:over_react_analyzer_plugin/src/over_react_builder_parsing.dart';
+import 'package:over_react_analyzer_plugin/src/over_react_builder_parsing.dart' as orbp;
 import 'package:source_span/source_span.dart';
 
 /// A mixin that allows easy access to common APIs needed when writing assists
@@ -35,9 +35,9 @@ mixin ComponentDeclarationAssistApi on AssistContributorBase {
   /// After triggering the assist off of the component class name, the mixin initialization
   /// will detect the related boilerplate and set this as the entrypoint. This process
   /// will occur for the relevant component every time the assist is triggered.
-  ClassComponentDeclaration componentDeclaration;
+  orbp.ClassComponentDeclaration componentDeclaration;
 
-  ErrorCollector errorCollector;
+  orbp.ErrorCollector errorCollector;
 
   bool _isAValidComponentDeclaration;
 
@@ -51,28 +51,28 @@ mixin ComponentDeclarationAssistApi on AssistContributorBase {
     return _isAValidComponentDeclaration;
   }
 
-  String get normalizedComponentName => normalizeNameAndRemoveSuffix(componentDeclaration.component);
+  String get normalizedComponentName => orbp.normalizeNameAndRemoveSuffix(componentDeclaration.component);
 
   // FIXME(nullsafety) update _validateAndDetectBoilerplate to check that this is non-null
   NamedType/*!*/ get componentSupertypeNode => componentDeclaration.component.nodeHelper.superclass;
 
-  Union<BoilerplateProps, BoilerplatePropsMixin> get props => componentDeclaration.props;
+  orbp.Union<orbp.BoilerplateProps, orbp.BoilerplatePropsMixin> get props => componentDeclaration.props;
 
-  Union<BoilerplateState, BoilerplateStateMixin> get state => componentDeclaration.state;
+  orbp.Union<orbp.BoilerplateState, orbp.BoilerplateStateMixin> get state => componentDeclaration.state;
 
   bool/*!*/ _validateAndDetectBoilerplate() {
     if (node is! SimpleIdentifier || node.parent is! ClassDeclaration) return false;
     final parent = node.parent as ClassDeclaration;
 
-    final members = detectBoilerplateMembers(node.thisOrAncestorOfType<CompilationUnit>());
-    final declarations = getBoilerplateDeclarations(members, errorCollector).toList();
+    final members = orbp.detectBoilerplateMembers(node.thisOrAncestorOfType<CompilationUnit>());
+    final declarations = orbp.getBoilerplateDeclarations(members, errorCollector).toList();
 
-    componentDeclaration = declarations.whereType<ClassComponentDeclaration>().firstWhere((c) {
+    componentDeclaration = declarations.whereType<orbp.ClassComponentDeclaration>().firstWhere((c) {
       return c.component.node == parent;
     }, orElse: () => null);
 
     _isAValidComponentDeclaration =
-        componentDeclaration != null && componentDeclaration.version == Version.v4_mixinBased;
+        componentDeclaration != null && componentDeclaration.version == orbp.Version.v4_mixinBased;
     return isAValidComponentDeclaration;
   }
 
@@ -110,7 +110,7 @@ mixin ComponentDeclarationAssistApi on AssistContributorBase {
   ///     ```
   bool/*!*/ initializeAssistApi(String sourceFileContent) {
     componentSourceFile = SourceFile.fromString(sourceFileContent);
-    errorCollector = ErrorCollector.print(componentSourceFile);
+    errorCollector = orbp.ErrorCollector.print(componentSourceFile);
     return _validateAndDetectBoilerplate();
   }
 }

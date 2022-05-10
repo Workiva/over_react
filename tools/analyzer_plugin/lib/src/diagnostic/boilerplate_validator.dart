@@ -7,7 +7,7 @@ import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:meta/meta.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/doc_utils/maturity.dart';
-import 'package:over_react_analyzer_plugin/src/over_react_builder_parsing.dart';
+import 'package:over_react_analyzer_plugin/src/over_react_builder_parsing.dart' as orbp;
 import 'package:over_react_analyzer_plugin/src/util/boilerplate_utils.dart';
 import 'package:source_span/source_span.dart';
 
@@ -66,9 +66,9 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
   ///
   /// Does not report any errors for the part file, as those are handled when the part file is analyzed
   bool _partHasDeclarations(CompilationUnit unit, ResolvedUnitResult parentResult) {
-    return getBoilerplateDeclarations(
-        detectBoilerplateMembers(unit),
-        ErrorCollector.callback(
+    return orbp.getBoilerplateDeclarations(
+        orbp.detectBoilerplateMembers(unit),
+        orbp.ErrorCollector.callback(
           SourceFile.fromString(parentResult.content, url: parentResult.path),
           onError: (message, [span]) {
             // no-op. It is assumed this method will run for parent files, and the part file will get analyzed in it's own
@@ -95,7 +95,7 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
 
     final sourceFile = SourceFile.fromString(result.content, url: result.path);
 
-    final errorCollector = ErrorCollector.callback(
+    final errorCollector = orbp.ErrorCollector.callback(
       sourceFile,
       onError: (message, [span]) {
         final location = result.location(range: span.asRangeOrEmpty());
@@ -107,14 +107,14 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
       },
     );
 
-    final members = detectBoilerplateMembers(result.unit);
+    final members = orbp.detectBoilerplateMembers(result.unit);
     for (final member in members.allMembers) {
       if (debug) {
         collector.addError(debugCode, result.locationFor(member.name), errorMessageArgs: [member.debugString]);
       }
 
       // Do not lint anything that is not a likely boilerplate member that will actually get generated.
-      if (member.versionConfidences.toList().every((vcp) => vcp.confidence <= Confidence.neutral)) continue;
+      if (member.versionConfidences.toList().every((vcp) => vcp.confidence <= orbp.Confidence.neutral)) continue;
 
       if (result.isPart) continue;
 
@@ -135,7 +135,7 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
       }
     }
 
-    final declarations = getBoilerplateDeclarations(members, errorCollector).toList();
+    final declarations = orbp.getBoilerplateDeclarations(members, errorCollector).toList();
     for (var j = 0; j < declarations.length; j++) {
       final declaration = declarations[j];
       declaration.validate(errorCollector);
@@ -220,7 +220,7 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
   Future<void> _addPartDirectiveErrorForMember({
     @required ResolvedUnitResult result,
     @required DiagnosticCollector collector,
-    @required BoilerplateMember member,
+    @required orbp.BoilerplateMember member,
     @required PartDirectiveErrorType errorType,
   }) {
     const memberMissingPartErrorMsg = 'A `.over_react.g.dart` part directive is required';
