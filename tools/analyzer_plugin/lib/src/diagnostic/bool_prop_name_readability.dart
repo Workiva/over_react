@@ -114,14 +114,14 @@ class PropsVisitor extends SimpleAstVisitor<void> {
 
   @override
   void visitClassDeclaration(ClassDeclaration node) {
-    if (node.declaredElement.isPropsClass) {
+    if (node.declaredElement?.isPropsClass ?? false) {
       returnMixins.add(node);
     }
   }
 
   @override
   void visitMixinDeclaration(MixinDeclaration node) {
-    if (node.declaredElement.isPropsClass) {
+    if (node.declaredElement?.isPropsClass ?? false) {
       returnMixins.add(node);
     }
   }

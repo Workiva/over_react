@@ -61,7 +61,7 @@ void main() {
         final unit = parseAndGetUnit(sourceWithOverReactPart);
         final result = getOverReactGeneratedPartDirective(unit)!;
         expect(result, isA<PartDirective>());
-        expect(result.uri?.stringValue, 'foo.over_react.g.dart');
+        expect(result.uri.stringValue, 'foo.over_react.g.dart');
       });
 
       group('returns null when', () {
@@ -115,10 +115,10 @@ void main() {
           final sourceChange = await buildFileEdit(result, (builder) {
             addOverReactGeneratedPartDirective(builder, result.unit!, result.uri);
           });
-          final List<SourceEdit> editList = sourceChange.edits?.firstOrNull?.edits;
+          final editList = sourceChange.edits.firstOrNull?.edits;
 
           expect(editList, isNotNull);
-          expect(editList.length, 1, reason: 'there should be one edit in the file');
+          expect(editList!.length, 1, reason: 'there should be one edit in the file');
 
           final offset = result.lineInfo
               .getOffsetOfLineAfter(nextLine(result.unit!.directives.last.end, result.lineInfo));
@@ -132,10 +132,10 @@ void main() {
           final sourceChange = await buildFileEdit(result, (builder) {
             addOverReactGeneratedPartDirective(builder, result.unit!, result.uri);
           });
-          final List<SourceEdit> editList = sourceChange.edits?.firstOrNull?.edits;
+          final editList = sourceChange.edits.firstOrNull?.edits;
 
           expect(editList, isNotNull);
-          expect(editList.length, 1, reason: 'there should be one edit in the file');
+          expect(editList!.length, 1, reason: 'there should be one edit in the file');
 
           final offset = result.lineInfo.getOffsetOfLineAfter(result.unit!.directives.last.end);
           expect(editList.first.offset, offset, reason: 'new part should be on the line after existing part');
@@ -149,10 +149,10 @@ void main() {
         final sourceChange = await buildFileEdit(result, (builder) {
           addOverReactGeneratedPartDirective(builder, result.unit!, result.uri);
         });
-        final List<SourceEdit> editList = sourceChange.edits?.firstOrNull?.edits;
+        final editList = sourceChange.edits.firstOrNull?.edits;
 
         expect(editList, isNotNull);
-        expect(editList.length, 1, reason: 'there should be one edit in the file');
+        expect(editList!.length, 1, reason: 'there should be one edit in the file');
 
         final part = getOverReactGeneratedPartDirective(result.unit!)!;
         expect(editList.first.offset, part.offset, reason: 'new part should be on the line after existing part');
@@ -188,10 +188,10 @@ void main() {
           final sourceChange = await buildFileEdit(result, (builder) {
             removeOverReactGeneratedPartDirective(builder, result.unit!);
           });
-          final List<SourceEdit> editList = sourceChange.edits?.firstOrNull?.edits;
+          final editList = sourceChange.edits.firstOrNull?.edits;
 
           expect(editList, isNotNull);
-          expect(editList.length, 1, reason: 'there should be one edit in the file');
+          expect(editList!.length, 1, reason: 'there should be one edit in the file');
 
           final part = getOverReactGeneratedPartDirective(result.unit!)!;
           expect(editList.first.offset, part.offset);
@@ -222,10 +222,10 @@ void main() {
           final sourceChange = await buildFileEdit(result, (builder) {
             removeOverReactGeneratedPartDirective(builder, result.unit!);
           });
-          final List<SourceEdit> editList = sourceChange.edits?.firstOrNull?.edits;
+          final editList = sourceChange.edits.firstOrNull?.edits;
 
           expect(editList, isNotNull);
-          expect(editList.length, 1, reason: 'there should be one edit in the file');
+          expect(editList!.length, 1, reason: 'there should be one edit in the file');
 
           final part = getOverReactGeneratedPartDirective(result.unit!)!;
           expect(editList.first.offset, part.offset);
@@ -270,10 +270,10 @@ void main() {
         final sourceChange = await buildFileEdit(result, (builder) {
           fixOverReactGeneratedPartDirective(builder, result.unit!, result.uri);
         });
-        final List<SourceEdit> editList = sourceChange.edits?.firstOrNull?.edits;
+        final editList = sourceChange.edits.firstOrNull?.edits;
 
         expect(editList, isNotNull);
-        expect(editList.length, 1, reason: 'there should be one edit in the file');
+        expect(editList!.length, 1, reason: 'there should be one edit in the file');
 
         final part = getOverReactGeneratedPartDirective(result.unit!)!;
         expect(editList.first.offset, part.offset);

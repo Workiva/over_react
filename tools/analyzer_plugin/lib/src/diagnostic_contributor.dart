@@ -122,7 +122,7 @@ abstract class ComponentUsageDiagnosticContributor extends DiagnosticContributor
 abstract class DiagnosticCollector {
   void addRawError(AnalysisError error, {PrioritizedSourceChange? fix});
 
-  void addError(DiagnosticCode code, Location location, {bool? hasFix, List<Object?>? errorMessageArgs});
+  void addError(DiagnosticCode code, Location location, {bool hasFix, List<Object?>? errorMessageArgs});
 
   ///
   /// use of `buildFileEdit`]` is recommended:
@@ -254,15 +254,15 @@ class DiagnosticCollectorImpl implements DiagnosticCollector {
 ///     format('{0} are you {1}ing?', ['How', 'do']) = 'How are you doing?'
 ///     format('{0} are you {1}ing?', ['What', 'read']) = 'What are you reading?'
 String _formatList(String pattern, List<Object?> arguments) {
-  if (arguments == null || arguments.isEmpty) {
+  if (arguments.isEmpty) {
     assert(!pattern.contains(RegExp(r'\{(\d+)\}')), 'Message requires arguments, but none were provided.');
     return pattern;
   }
   return pattern.replaceAllMapped(RegExp(r'\{(\d+)\}'), (match) {
     final indexStr = match.group(1)!;
     final index = int.parse(indexStr);
-    final arg = arguments[index]!;
+    final arg = arguments[index];
     assert(arg != null);
-    return arg?.toString();
+    return arg.toString();
   });
 }

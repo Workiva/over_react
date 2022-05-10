@@ -166,7 +166,7 @@ class RenderVisitor extends SimpleAstVisitor<void> {
 
   @override
   void visitClassDeclaration(ClassDeclaration node) {
-    if (node.declaredElement.isComponentClass) {
+    if (node.declaredElement?.isComponentClass ?? false) {
       node.visitChildren(this);
     }
   }

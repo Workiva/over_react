@@ -119,7 +119,7 @@ class IteratorKey extends ComponentUsageDiagnosticContributor {
         if (mapStatement == null) continue;
 
         // Get the top level element that's being returned from the map
-        final FunctionExpression mapStatementFuncArg = mapStatement.argumentList.arguments.firstOrNull?.tryCast<FunctionExpression>()!;
+        final mapStatementFuncArg = mapStatement.argumentList.arguments.firstOrNull?.tryCast<FunctionExpression>()!;
         if (mapStatementFuncArg == null) continue;
 
         final returnedComponentUsages = mapStatementFuncArg.body.returnExpressions

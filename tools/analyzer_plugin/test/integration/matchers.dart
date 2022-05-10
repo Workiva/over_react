@@ -106,8 +106,8 @@ class _LocationMatcher extends Matcher {
 
   @override
   bool matches(dynamic item, Map matchState) {
-    int offset;
-    int length;
+    int? offset;
+    int? length;
     if (item is SourceSelection) {
       offset = item.offset;
       length = item.length;

@@ -112,14 +112,14 @@ class ConsumedPropsVisitor extends SimpleAstVisitor<void> {
 
   @override
   void visitClassDeclaration(ClassDeclaration node) {
-    if (node.declaredElement.isComponentClass) {
+    if (node.declaredElement?.isComponentClass ?? false) {
       node.visitChildren(this);
     }
   }
 
   @override
   void visitMixinDeclaration(MixinDeclaration node) {
-    if (node.declaredElement.isComponentClass) {
+    if (node.declaredElement?.isComponentClass ?? false) {
       node.visitChildren(this);
     }
   }

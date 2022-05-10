@@ -14,7 +14,7 @@ void main() {
       globalAttributes.add(attr);
     } else {
       supportedElements[attr] =
-          RegExp(r'<(\w+)>').allMatches(elementsColumn).map((match) => match.group(1)).map(_elToReactEl as _ Function(String?)).toList() as List<String>;
+          RegExp(r'<(\w+)>').allMatches(elementsColumn).map((match) => match.group(1)!).map(_elToReactEl).toList();
     }
   }
 

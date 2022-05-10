@@ -40,8 +40,8 @@ class ContributorVisitor extends RecursiveElementVisitor<void> {
               'The DocsMeta() annotation should only be used to annotate constant values:\n    ${field.toString()}');
         }
 
-        if (field.type.element.isOrIsSubtypeOfTypeFromPackage(
-            config.typeNameOfAnnotatedField, config.packageNameContainingAnnotatedFieldType)) {
+        if (field.type.element?.isOrIsSubtypeOfTypeFromPackage(
+            config.typeNameOfAnnotatedField, config.packageNameContainingAnnotatedFieldType) ?? false) {
           config.registry.register(config.getMeta(field));
         } else {
           throw UnsupportedError(

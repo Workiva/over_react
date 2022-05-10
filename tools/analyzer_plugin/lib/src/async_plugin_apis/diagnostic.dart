@@ -100,7 +100,7 @@ mixin DiagnosticMixin on ServerPlugin {
     final path = parameters.file;
     final offset = parameters.offset;
     final result = await getResolvedUnitResult(path);
-    return DartFixesRequestImpl(resourceProvider, offset, null, result);
+    return DartFixesRequestImpl(resourceProvider, offset, [], result);
   }
 
   // from DartFixesMixin

@@ -2,12 +2,12 @@ import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/type.dart';
 
 extension ReactTypes$DartType on DartType {
-  bool get isComponentClass => element.isComponentClass;
-  bool get isReactElement => element.isReactElement;
-  bool get isPropsClass => element.isPropsClass;
+  bool get isComponentClass => element?.isComponentClass ?? false;
+  bool get isReactElement => element?.isReactElement ?? false;
+  bool get isPropsClass => element?.isPropsClass ?? false;
 }
 
-extension ReactTypes$Element on Element? {
+extension ReactTypes$Element on Element {
   bool get isComponentClass => isOrIsSubtypeOfTypeFromPackage('Component', 'react');
   bool get isReactElement => isOrIsSubtypeOfTypeFromPackage('ReactElement', 'react');
   bool get isPropsClass => isOrIsSubtypeOfTypeFromPackage('UiProps', 'over_react');
@@ -41,7 +41,7 @@ extension ReactTypes$Element on Element? {
 // THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-extension ElementSubtypeUtils on Element? {
+extension ElementSubtypeUtils on Element {
   bool isOrIsSubtypeOfTypeFromPackage(String typeName, String packageName) {
     final that = this;
     return that is ClassElement &&
@@ -50,7 +50,7 @@ extension ElementSubtypeUtils on Element? {
   }
 
   bool isTypeFromPackage(String typeName, String packageName) =>
-      this != null && name == typeName && isDeclaredInPackage(packageName);
+      name == typeName && isDeclaredInPackage(packageName);
 }
 
 extension on Element {

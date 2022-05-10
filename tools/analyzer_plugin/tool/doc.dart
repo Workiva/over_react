@@ -77,7 +77,7 @@ final configs = [
 /// When it is run within the `gh-pages` branch, the output should be sent to the `docs/` directory along
 /// with the other jekyll resources so that the documentation is included in what gets deployed by Github.
 /// This can be done using the `--gh-pages` flag.
-Future<void> main([List<String> args]) async {
+Future<void> main(List<String> args) async {
   var parser = ArgParser()
     ..addOption('out', abbr: 'o', help: 'Specifies output directory.', defaultsTo: 'doc/analyzer_plugin')
     ..addFlag('gh-pages',
