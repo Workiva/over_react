@@ -14,9 +14,9 @@ abstract class AssistContributorBase extends Object implements AsyncAssistContri
   DartAssistRequest get request => _throwIfNull(_request, 'request');
   AssistCollector get collector => _throwIfNull(_collector, 'collector');
   AstNode get node => _throwIfNull(_node, 'node', "To use 'node', you must call 'setupCompute' and only access 'node' if its return value is 'true'.");
-  set request(DartAssistRequest? value) => _request = null;
-  set collector(AssistCollector? value) => _collector = null;
-  set node(AstNode? value) => _node = null;
+  set request(DartAssistRequest? value) => _request = value;
+  set collector(AssistCollector? value) => _collector = value;
+  set node(AstNode? value) => _node = value;
 
   static T _throwIfNull<T>(T? value, String name, [String message = '']) {
     if (value != null) return value;
