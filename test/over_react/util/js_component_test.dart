@@ -7,13 +7,12 @@ import 'dart:html';
 import 'package:js/js.dart';
 import 'package:over_react/over_react.dart';
 import 'package:over_react/src/util/js_component.dart';
-// import 'package:react/react.dart';
 import 'package:react_testing_library/matchers.dart';
 import 'package:react_testing_library/react_testing_library.dart' as rtl;
 import 'package:react/react_client.dart';
 import 'package:react/react_client/react_interop.dart';
 import 'package:test/test.dart';
-import 'button.dart';
+
 
 part 'js_component_test.over_react.g.dart';
 
@@ -41,7 +40,7 @@ main() {
       test('config is null', () {
         expect(
             () => uiJsComponent<TestProps>(
-                  ReactJsComponentFactoryProxy(_jsButton),
+                  ReactJsComponentFactoryProxy(_TestJsComponent),
                   null,
                 ),
             throwsArgumentError);
@@ -50,7 +49,7 @@ main() {
       test('props factory is not provided when using custom props class', () {
         expect(
             () => uiJsComponent<TestProps>(
-                  ReactJsComponentFactoryProxy(_jsButton),
+                  ReactJsComponentFactoryProxy(_TestJsComponent),
                   UiFactoryConfig(displayName: 'Foo'),
                 ),
             throwsArgumentError);
@@ -59,7 +58,7 @@ main() {
       test('config not the correct type', () {
         expect(
             () => uiJsComponent<TestProps>(
-                  ReactJsComponentFactoryProxy(_jsButton),
+                  ReactJsComponentFactoryProxy(_TestJsComponent),
                   'foo',
                 ),
             throwsArgumentError);
@@ -76,16 +75,12 @@ void jsComponentTestHelper(UiFactory<TestProps> factory) {
     var node = view.getByTestId('testId');
 
     // Sanity check for values with no props set.
-    expect(node, isA<ButtonElement>());
+    expect(node, isA<SpanElement>());
     expect(node, hasTextContent(''));
-    expect(node, isNot(hasButtonSize(ButtonSize.LARGE)));
-    expect(node, isEnabled);
-
+    
     view.rerender(
       (factory()
         ..addTestId('testId')
-        ..size = 'large'
-        ..disabled = true
         ..component = 'div'
       )('rendered content'),
     );
@@ -94,8 +89,6 @@ void jsComponentTestHelper(UiFactory<TestProps> factory) {
     // Verify the expected outcome of each prop.
     expect(node, isA<DivElement>());
     expect(node, hasTextContent('rendered content'));
-    expect(node, hasButtonSize(ButtonSize.LARGE));
-    expect(node, hasClasses('Mui-disabled'));
   });
 
   group('initializes the factory variable with a function', () {
@@ -192,28 +185,28 @@ void jsComponentTestHelper(UiFactory<TestProps> factory) {
   });
 }
 
-@JS('ReactMaterialUI.Button')
-external ReactClass get _jsButton;
+@JS('TestJsComponent')
+external ReactClass get _TestJsComponent;
 
 UiFactory<TestProps> Test = uiJsComponent(
-  ReactJsComponentFactoryProxy(_jsButton),
+  ReactJsComponentFactoryProxy(_TestJsComponent),
   _$TestConfig, // ignore: undefined_identifier
 );
 
 UiFactory<TestProps> TestCustom = uiJsComponent(
-  ReactJsComponentFactoryProxy(_jsButton),
+  ReactJsComponentFactoryProxy(_TestJsComponent),
   UiFactoryConfig(
     propsFactory: PropsFactory.fromUiFactory(Test),
   ),
 );
 
 final NoLHSTest = uiJsComponent<TestProps>(
-  ReactJsComponentFactoryProxy(_jsButton),
+  ReactJsComponentFactoryProxy(_TestJsComponent),
   _$NoLHSTestConfig, // ignore: undefined_identifier
 );
 
 final _Test = uiJsComponent<TestProps>(
-  ReactJsComponentFactoryProxy(_jsButton),
+  ReactJsComponentFactoryProxy(_TestJsComponent),
   _$_TestConfig, // ignore: undefined_identifier
 );
 
