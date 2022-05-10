@@ -1,5 +1,11 @@
 # OverReact Changelog
 
+## [4.3.0](https://github.com/Workiva/over_react/compare/4.2.9...4.3.0)
+
+- [#742] Update AriaPropsMixin
+- [#737] Temporarily disable the mockito builder for better build perf
+- [#741] Replace deprecated commands with new dart commands
+
 ## [4.2.9](https://github.com/Workiva/over_react/compare/4.2.8...4.2.9)
 
 - [#733] Update SafeRenderManager to not be retained by the React tree it renders, to aid in memory leak testing. Outside of that context, this change has negligible effects.
