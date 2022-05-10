@@ -5,12 +5,9 @@ import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/source/source_range.dart';
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:meta/meta.dart';
-// ignore: implementation_imports
-import 'package:over_react/src/builder/parsing.dart';
-// ignore: implementation_imports
-import 'package:over_react/src/builder/util.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/doc_utils/maturity.dart';
+import 'package:over_react_analyzer_plugin/src/over_react_builder_parsing.dart';
 import 'package:over_react_analyzer_plugin/src/util/boilerplate_utils.dart';
 import 'package:source_span/source_span.dart';
 
@@ -119,7 +116,7 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
       // Do not lint anything that is not a likely boilerplate member that will actually get generated.
       if (member.versionConfidences.toList().every((vcp) => vcp.confidence <= Confidence.neutral)) continue;
 
-      if (isPart(result.unit)) continue;
+      if (result.isPart) continue;
 
       if (_overReactGeneratedPartDirective == null) {
         await _addPartDirectiveErrorForMember(
@@ -198,7 +195,7 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
         overReactGeneratedPartDirectiveIsValid(_overReactGeneratedPartDirective, result.uri);
 
     final hasDeclarations = await _computeBoilerplateErrors(result, collector);
-    if (isPart(result.unit)) {
+    if (result.isPart) {
       return;
     }
 

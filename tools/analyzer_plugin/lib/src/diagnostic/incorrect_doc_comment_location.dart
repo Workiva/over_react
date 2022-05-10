@@ -1,7 +1,6 @@
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
-// ignore: implementation_imports
-import 'package:over_react/src/builder/parsing.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
+import 'package:over_react_analyzer_plugin/src/over_react_builder_parsing.dart';
 import 'package:source_span/source_span.dart';
 
 const _desc = r'Place documentation comments above component factories.';

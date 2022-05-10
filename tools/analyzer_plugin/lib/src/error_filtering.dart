@@ -30,7 +30,6 @@
 // The analyzer normally filters out errors with "ignore" comments,
 // but it doesn't do it for plugin errors, so we need to do that in this plugin.
 
-// ignore: implementation_imports
 import 'package:analyzer/source/line_info.dart';
 import 'package:analyzer/src/ignore_comments/ignore_info.dart' show IgnoreInfo; // ignore: implementation_imports
 import 'package:analyzer_plugin/protocol/protocol_common.dart';

@@ -1,16 +1,7 @@
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:over_react_analyzer_plugin/src/assist/contributor_base.dart';
+import 'package:over_react_analyzer_plugin/src/over_react_builder_parsing.dart';
 import 'package:source_span/source_span.dart';
-
-// ignore_for_file: implementation_imports
-import 'package:over_react/src/builder/parsing/declarations.dart';
-import 'package:over_react/src/builder/parsing/declarations_from_members.dart';
-import 'package:over_react/src/builder/parsing/error_collection.dart';
-import 'package:over_react/src/builder/parsing/member_association.dart';
-import 'package:over_react/src/builder/parsing/members.dart';
-import 'package:over_react/src/builder/parsing/members_from_ast.dart';
-import 'package:over_react/src/builder/parsing/util.dart';
-import 'package:over_react/src/builder/parsing/version.dart';
 
 /// A mixin that allows easy access to common APIs needed when writing assists
 /// that manipulate component boilerplate.
