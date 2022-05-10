@@ -122,7 +122,7 @@ abstract class ComponentUsageDiagnosticContributor extends DiagnosticContributor
 abstract class DiagnosticCollector {
   void addRawError(AnalysisError error, {PrioritizedSourceChange? fix});
 
-  void addError(DiagnosticCode code, Location location, {bool hasFix, List<Object?>? errorMessageArgs});
+  void addError(DiagnosticCode code, Location location, {bool hasFix, List<Object?> errorMessageArgs});
 
   ///
   /// use of `buildFileEdit`]` is recommended:
@@ -147,8 +147,8 @@ abstract class DiagnosticCollector {
   Future<void> addErrorWithFix(DiagnosticCode code, Location location,
       {FixKind? fixKind,
       FutureOr<SourceChange> Function()? computeFix,
-      List<Object>? errorMessageArgs,
-      List<Object>? fixMessageArgs});
+      List<Object> errorMessageArgs,
+      List<Object> fixMessageArgs});
 }
 
 // ignore: subtype_of_sealed_class
@@ -173,8 +173,8 @@ class DiagnosticCollectorImpl implements DiagnosticCollector {
       {bool hasFix = false,
       FixKind? fixKind,
       SourceChange? fixChange,
-      List<Object?>? errorMessageArgs,
-      List<Object>? fixMessageArgs}) {
+      List<Object?> errorMessageArgs = const [],
+      List<Object> fixMessageArgs = const []}) {
     // FIXME(nullsafety) better checks/errors when some args aren't provided
 
     PrioritizedSourceChange? fix;
@@ -182,7 +182,7 @@ class DiagnosticCollectorImpl implements DiagnosticCollector {
       if (fixChange.edits.isNotEmpty) {
         fixChange
           ..id = fixKind!.id
-          ..message = _formatList(fixKind.message, fixMessageArgs!);
+          ..message = _formatList(fixKind.message, fixMessageArgs);
         fix = PrioritizedSourceChange(fixKind.priority, fixChange);
         hasFix = true;
       }
@@ -192,7 +192,7 @@ class DiagnosticCollectorImpl implements DiagnosticCollector {
       code.errorSeverity,
       code.type,
       location,
-      _formatList(code.message, errorMessageArgs!),
+      _formatList(code.message, errorMessageArgs),
       code.name,
       correction: code.correction,
       url: code.url,
@@ -206,8 +206,8 @@ class DiagnosticCollectorImpl implements DiagnosticCollector {
   Future<void> addErrorWithFix(DiagnosticCode code, Location location,
       {FixKind? fixKind,
       FutureOr<SourceChange> Function()? computeFix,
-      List<Object>? errorMessageArgs,
-      List<Object>? fixMessageArgs}) async {
+      List<Object> errorMessageArgs = const [],
+      List<Object> fixMessageArgs = const []}) async {
     addError(
       code,
       location,
