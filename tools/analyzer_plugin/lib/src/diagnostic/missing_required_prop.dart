@@ -2,7 +2,6 @@ import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/type.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/doc_utils/maturity.dart';
-import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 
 const _desc = r'Avoid omitting props that are required.';
 // <editor-fold desc="Documentation Details">

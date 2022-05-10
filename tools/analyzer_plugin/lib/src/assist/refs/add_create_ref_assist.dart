@@ -3,7 +3,6 @@ import 'package:analyzer_plugin/utilities/assist/assist.dart';
 import 'package:analyzer_plugin/utilities/change_builder/change_builder_core.dart';
 import 'package:over_react_analyzer_plugin/src/assist/contributor_base.dart';
 import 'package:over_react_analyzer_plugin/src/component_usage.dart';
-import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 
 import 'add_create_ref.dart' as create_ref_util;
 

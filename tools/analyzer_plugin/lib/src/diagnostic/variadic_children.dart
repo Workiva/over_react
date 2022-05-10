@@ -1,7 +1,6 @@
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
-import 'package:over_react_analyzer_plugin/src/fluent_interface_util/cascade_read.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util/cascade_edits.dart';
 import 'package:over_react_analyzer_plugin/src/util/util.dart';
 

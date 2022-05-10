@@ -10,6 +10,7 @@ dependencies:
   analyzer_plugin: ^0.6.0
   collection: ^1.14.0
   over_react: 4.2.9
+  over_react_codemod: 2.1.1
   meta: ^1.1.6
   path: ^1.5.1
   source_span: ^1.7.0

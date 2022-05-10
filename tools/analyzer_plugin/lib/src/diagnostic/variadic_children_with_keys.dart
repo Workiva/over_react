@@ -89,7 +89,7 @@ class VariadicChildrenWithKeys extends ComponentUsageDiagnosticContributor {
         if (prop.name.name == 'key' && isAConstantValue(prop.rightHandSide)) {
           await collector.addErrorWithFix(
             code,
-            result.locationFor(prop.assignment),
+            result.locationFor(prop.node),
             errorMessageArgs: [reasonWhyUnnecessary],
             fixKind: fixKind,
             computeFix: () => buildFileEdit(result, (builder) {

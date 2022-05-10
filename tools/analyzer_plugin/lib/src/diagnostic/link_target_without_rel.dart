@@ -58,8 +58,8 @@ class LinkTargetUsageWithoutRelDiagnostic extends ComponentUsageDiagnosticContri
   @override
   computeErrorsForUsage(result, collector, usage) async {
     String hrefValue;
-    Pair<PropertyAccess, Expression> targetPropSection;
-    Pair<PropertyAccess, Expression> relPropSection;
+    Pair<Expression, Expression> targetPropSection;
+    Pair<Expression, Expression> relPropSection;
     for (final prop in usage.cascadedProps) {
       final propName = prop.name.name;
       if (propName == 'href') {

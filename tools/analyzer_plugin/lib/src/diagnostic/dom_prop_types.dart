@@ -1,5 +1,4 @@
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
-import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 
 const _desc = r'Avoid setting props that map to invalid HTML element attributes.';
 // <editor-fold desc="Documentation Details">
@@ -48,8 +47,8 @@ class InvalidDomAttributeDiagnostic extends ComponentUsageDiagnosticContributor 
 
     for (final prop in usage.cascadedProps) {
       // If the prop name is prefixed with anything other than `dom` (e.g. `aria`), ignore it.
-      final targetName = prop.targetName;
-      if (targetName != null && targetName.name != 'dom') continue;
+      final prefix = prop.prefix;
+      if (prefix != null && prefix.name != 'dom') continue;
       final allowedElements = getAttributeMeta(prop.name.name);
       if (allowedElements == null) continue;
 

@@ -27,9 +27,9 @@ class DuplicatePropCascadeDiagnostic extends ComponentUsageDiagnosticContributor
   @override
   computeErrorsForUsage(result, collector, usage) async {
     final propUsagesByName = groupBy<PropAssignment, String>(usage.cascadedProps, (prop) {
-      final targetName = prop.targetName;
-      if (targetName != null && targetName.name != 'dom') {
-        return '${targetName.name}.${prop.name.name}';
+      final prefix = prop.prefix;
+      if (prefix != null && prefix.name != 'dom') {
+        return '${prefix.name}.${prop.name.name}';
       }
 
       return prop.name.name;

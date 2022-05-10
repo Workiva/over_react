@@ -1,7 +1,6 @@
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
-import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
 
 const _desc = r'Do not use string CSS property values without specifying a unit.';

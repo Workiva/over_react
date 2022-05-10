@@ -3,7 +3,6 @@ import 'package:analyzer/source/line_info.dart';
 import 'package:analyzer_plugin/utilities/change_builder/change_builder_dart.dart';
 import 'package:analyzer_plugin/utilities/range_factory.dart';
 import 'package:over_react_analyzer_plugin/src/component_usage.dart';
-import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 import 'package:over_react_analyzer_plugin/src/indent_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/util.dart';
 
@@ -91,6 +90,8 @@ void removeProp(FluentComponentUsage usage, DartFileEditBuilder fileBuilder, Pro
     // Remove from the first `..` through the closing paren, which also removes all whitespace/newlines as desired.
     fileBuilder.addDeletion(range.endEnd(cascade.target, parenthesizedCascade.rightParenthesis));
   } else {
-    fileBuilder.addDeletion(prop.rangeForRemoval); // ignore: invalid_use_of_protected_member
+    // Include the space between the previous token and the start of this assignment, so that
+    // the entire prop line is removed.
+    fileBuilder.addDeletion(range.endEnd(prop.node.beginToken.previous, prop.node));
   }
 }

@@ -1,7 +1,6 @@
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/source/source_range.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
-import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/util.dart';
 
 const _desc = r'Avoid forwarding custom props to a Dom builder.';
@@ -57,7 +56,7 @@ class ForwardOnlyDomPropsToDomBuildersDiagnostic extends ComponentUsageDiagnosti
 
     for (final invocation in usage.cascadedMethodInvocations) {
       if (invocation.methodName.name != 'modifyProps') continue;
-      final propModifier = invocation.argumentList.arguments.whereType<SimpleIdentifier>().firstOrNull;
+      final propModifier = invocation.node.argumentList.arguments.whereType<SimpleIdentifier>().firstOrNull;
       if (propModifier == null) continue;
 
       if (propModifier.name == 'addUnconsumedProps') {

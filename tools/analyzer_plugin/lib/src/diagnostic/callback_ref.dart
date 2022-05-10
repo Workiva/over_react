@@ -1,5 +1,4 @@
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
-import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 
 import 'package:over_react_analyzer_plugin/src/assist/refs/add_create_ref.dart' show addCreateRef;
 import 'string_ref.dart';
