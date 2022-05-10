@@ -30,8 +30,10 @@ extension ResultLocation on ResolvedUnitResult {
       }
     }
 
-    final info = lineInfo.getLocation(offset);
-    return Location(path, offset, length, info.lineNumber, info.columnNumber);
+    final startInfo = lineInfo.getLocation(offset);
+    final endInfo = lineInfo.getLocation(end);
+    return Location(path, offset, length, startInfo.lineNumber,
+        startInfo.columnNumber, endInfo.lineNumber, endInfo.columnNumber);
   }
 
   Location locationFor(SyntacticEntity entity) {

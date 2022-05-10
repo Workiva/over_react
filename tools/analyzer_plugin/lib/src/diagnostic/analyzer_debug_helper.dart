@@ -22,6 +22,6 @@ class AnalyzerDebugHelper {
   void log(String message, [ResolvedUnitResult new_result, DiagnosticCollector new_collector]) {
     result = new_result ?? result;
     collector = new_collector ?? collector;
-    collector.addError(code, Location(result.path, 0, 0, 1, 0), errorMessageArgs: [message]);
+    collector.addError(code, Location(result.path, 0, 0, 1, 1, 1, 1), errorMessageArgs: [message]);
   }
 }

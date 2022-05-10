@@ -151,12 +151,15 @@ class OverReactAnalyzerPlugin extends OverReactAnalyzerPluginBase {
   AnalysisDriverGeneric createAnalysisDriver(plugin.ContextRoot contextRoot) {
     final root = ContextRoot(contextRoot.root, contextRoot.exclude, pathContext: resourceProvider.pathContext)
       ..optionsFilePath = contextRoot.optionsFile;
-    final contextBuilder = ContextBuilder(resourceProvider, sdkManager, null)
+    final contextBuilder = ContextBuilder(resourceProvider, sdkManager)
       ..analysisDriverScheduler = analysisDriverScheduler
       ..byteStore = byteStore
-      ..performanceLog = performanceLog
-      ..fileContentOverlay = fileContentOverlay;
-    final result = contextBuilder.buildDriver(root);
+      ..performanceLog = performanceLog;
+    final workspace = ContextBuilder.createWorkspace(
+        resourceProvider: resourceProvider,
+        options: ContextBuilderOptions(),
+        rootPath: contextRoot.root);
+    final result = contextBuilder.buildDriver(root, workspace);
     runZoned(() {
       result.results.listen(processDiagnosticsForResult);
       // TODO: Once we are ready to bump the SDK lower bound to 2.8.x, we should swap this out for `runZoneGuarded`.

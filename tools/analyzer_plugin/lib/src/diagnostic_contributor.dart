@@ -136,7 +136,7 @@ abstract class DiagnosticCollector {
   /// though you can still do it manually:
   ///
   ///     computeFix: () {
-  ///       final builder = new DartChangeBuilder(result.session);
+  ///       final builder = new ChangeBuilder(result.session);
   ///       await builder.addFileEdit(result.path, (builder) {
   ///         builder.addSimpleInsertion(cascade.offset, '(');
   ///         builder.addSimpleInsertion(cascade.end, ')');
