@@ -24,24 +24,31 @@ import 'package:test/test.dart';
 
 import 'over_react/util/cast_ui_factory_test.dart' as cast_ui_factory_test;
 import 'over_react/util/class_names_test.dart' as class_names_test;
-import 'over_react/util/component_debug_name_test.dart' as component_debug_name_test;
+import 'over_react/util/component_debug_name_test.dart'
+    as component_debug_name_test;
 import 'over_react/util/constants_base_test.dart' as constants_base_test;
 import 'over_react/util/css_value_util_test.dart' as css_value_util_test;
 import 'over_react/util/dom_util_test.dart' as dom_util_test;
 import 'over_react/util/equality_test.dart' as equality_test;
 import 'over_react/util/guid_util_test.dart' as guid_util_test;
-import 'over_react/util/handler_chain_util_test.dart' as handler_chain_util_test;
+import 'over_react/util/handler_chain_util_test.dart'
+    as handler_chain_util_test;
 import 'over_react/util/hoc_test.dart' as hoc_test;
 import 'over_react/util/map_util_test.dart' as map_util_test;
 import 'over_react/util/pretty_print_test.dart' as pretty_print_test;
-import 'over_react/util/prop_key_util_test_dart2.dart' as prop_key_util_test_dart2;
+import 'over_react/util/prop_key_util_test_dart2.dart'
+    as prop_key_util_test_dart2;
 import 'over_react/util/react_util_test.dart' as react_util_test;
 import 'over_react/util/react_wrappers_test.dart' as react_wrappers_test;
 import 'over_react/util/rem_util_test.dart' as rem_util_test;
-import 'over_react/util/safe_render_manager/safe_render_manager_test.dart' as safe_render_manager_test;
-import 'over_react/util/safe_render_manager/safe_render_manager_helper_test.dart' as safe_render_manager_helper_test;
+import 'over_react/util/safe_render_manager/safe_render_manager_test.dart'
+    as safe_render_manager_test;
+import 'over_react/util/safe_render_manager/safe_render_manager_helper_test.dart'
+    as safe_render_manager_helper_test;
 import 'over_react/util/string_util_test.dart' as string_util_test;
 import 'over_react/util/test_mode_test.dart' as test_mode_test;
+import 'over_react/util/js_component_test.dart' as js_component_test;
+import 'over_react/util/prop_conversion_test.dart' as prop_conversion_test;
 
 void main() {
   enableTestMode();
@@ -66,4 +73,6 @@ void main() {
   safe_render_manager_helper_test.main();
   string_util_test.main();
   test_mode_test.main();
+  js_component_test.main();
+  prop_conversion_test.main();
 }
