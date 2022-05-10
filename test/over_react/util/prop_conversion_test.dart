@@ -19,7 +19,6 @@ import 'package:react_testing_library/react_testing_library.dart';
 import 'package:react_testing_library/user_event.dart';
 import 'package:test/test.dart';
 
-
 import 'ref_test_cases.dart';
 part 'prop_conversion_test.over_react.g.dart';
 
@@ -285,14 +284,16 @@ main() {
                 group('A nested map prop', () {
                   test('using the typed props map', () {
                     final builder = TestJs()
-                      ..buttonProps = (domProps()..style = {'display': 'block'});
+                      ..buttonProps =
+                          (domProps()..style = {'display': 'block'});
                     expect(domProps(builder.buttonProps).style,
                         allOf(isA<Map>(), {'display': 'block'}));
                   });
 
                   test('not using the typed props map', () {
                     final builder = TestJs()
-                      ..buttonProps = (domProps()..style = {'display': 'block'});
+                      ..buttonProps =
+                          (domProps()..style = {'display': 'block'});
                     final propKey = domProps.getPropKey((p) => p.style);
                     expect(builder.buttonProps,
                         containsPair(propKey, isA<JsMap>()),

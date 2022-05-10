@@ -7,7 +7,6 @@ import 'package:react/react_client/js_backed_map.dart';
 import 'package:react/react_client/component_factory.dart';
 import 'package:react/react_client/react_interop.dart' show JsRef;
 
-
 // Export JsMap since props that utilize jsifyMapProp/unjsifyMapProp
 // via custom getters/setters will need JsMap to avoid implicit cast errors.
 export 'package:react/react_client/js_backed_map.dart' show JsMap;
@@ -90,7 +89,8 @@ dynamic jsifyRefProp(dynamic value) {
 /// Should be used alongside [unjsifyRefProp].
 ///
 /// Note that Dart refs currently lose their reified types when jsified/unjsified.
-dynamic unjsifyRefProp(dynamic value, {@visibleForTesting bool throwOnUnhandled = false}) {
+dynamic unjsifyRefProp(dynamic value,
+    {@visibleForTesting bool throwOnUnhandled = false}) {
   // Case 1: null
   if (value == null) return null;
 

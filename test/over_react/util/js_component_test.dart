@@ -13,7 +13,6 @@ import 'package:react/react_client.dart';
 import 'package:react/react_client/react_interop.dart';
 import 'package:test/test.dart';
 
-
 part 'js_component_test.over_react.g.dart';
 
 main() {
@@ -68,7 +67,9 @@ main() {
 }
 
 void jsComponentTestHelper(UiFactory<TestProps> factory) {
-  test('renders a component from end to end, successfully reading props via typed getters', () {
+  test(
+      'renders a component from end to end, successfully reading props via typed getters',
+      () {
     var view = rtl.render(
       (factory()..addTestId('testId'))(),
     );
@@ -77,12 +78,11 @@ void jsComponentTestHelper(UiFactory<TestProps> factory) {
     // Sanity check for values with no props set.
     expect(node, isA<SpanElement>());
     expect(node, hasTextContent(''));
-    
+
     view.rerender(
       (factory()
         ..addTestId('testId')
-        ..component = 'div'
-      )('rendered content'),
+        ..component = 'div')('rendered content'),
     );
     node = view.getByTestId('testId');
 
@@ -98,7 +98,9 @@ void jsComponentTestHelper(UiFactory<TestProps> factory) {
       expect(instance, isA<Map>());
     });
 
-    test('that returns a new props class implementation instance backed by an existing map', () {
+    test(
+        'that returns a new props class implementation instance backed by an existing map',
+        () {
       Map existingMap = {'stringProp': 'test'};
       final props = factory(existingMap);
 
@@ -134,8 +136,10 @@ void jsComponentTestHelper(UiFactory<TestProps> factory) {
 
         secondProps = factory();
 
-        expect(secondProps.stringProp, isNull, reason: 'Test setup sanity check');
-        expect(secondProps.anotherProp, isNull, reason: 'Test setup sanity check');
+        expect(secondProps.stringProp, isNull,
+            reason: 'Test setup sanity check');
+        expect(secondProps.anotherProp, isNull,
+            reason: 'Test setup sanity check');
       });
 
       test('', () {
@@ -145,7 +149,8 @@ void jsComponentTestHelper(UiFactory<TestProps> factory) {
       });
 
       test('and consumed props are correctly filtered', () {
-        final consumedProps = initialProps.staticMeta.forMixins({TestPropsMixin});
+        final consumedProps =
+            initialProps.staticMeta.forMixins({TestPropsMixin});
         secondProps.addUnconsumedProps(initialProps, consumedProps);
         expect(secondProps.stringProp, isNull);
         expect(secondProps.anotherProp, anotherProp);
@@ -164,7 +169,8 @@ void jsComponentTestHelper(UiFactory<TestProps> factory) {
 
         secondProps = factory();
 
-        expect(secondProps.className, isNull, reason: 'Test setup sanity check');
+        expect(secondProps.className, isNull,
+            reason: 'Test setup sanity check');
       });
 
       test('', () {
@@ -175,8 +181,10 @@ void jsComponentTestHelper(UiFactory<TestProps> factory) {
       });
 
       test('and consumed props are correctly filtered', () {
-        expect(initialProps.className, isNotNull, reason: 'Test setup sanity check');
-        secondProps.addUnconsumedDomProps(initialProps, [PropsMeta.forSimpleKey('className')]);
+        expect(initialProps.className, isNotNull,
+            reason: 'Test setup sanity check');
+        secondProps.addUnconsumedDomProps(
+            initialProps, [PropsMeta.forSimpleKey('className')]);
         expect(secondProps.stringProp, isNull);
         expect(secondProps.anotherProp, isNull);
         expect(secondProps.className, isNull);

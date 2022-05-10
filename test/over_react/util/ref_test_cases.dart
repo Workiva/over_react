@@ -50,7 +50,8 @@ class RefTestCaseCollection<T> {
       verifyRefWasUpdated: (actualValue) =>
           expect(calls, [same(actualValue)], reason: _reasonMessage(name)),
       getCurrent: () => calls.single,
-      meta: RefTestCaseMeta(name, RefKind.callback, isJs: false, isStronglyTyped: false),
+      meta: RefTestCaseMeta(name, RefKind.callback,
+          isJs: false, isStronglyTyped: false),
     );
   }
 
@@ -63,7 +64,8 @@ class RefTestCaseCollection<T> {
       verifyRefWasUpdated: (actualValue) =>
           expect(calls, [same(actualValue)], reason: _reasonMessage(name)),
       getCurrent: () => calls.single,
-      meta: RefTestCaseMeta(name, RefKind.callback, isJs: false, isStronglyTyped: true),
+      meta: RefTestCaseMeta(name, RefKind.callback,
+          isJs: false, isStronglyTyped: true),
     );
   }
 
@@ -76,7 +78,8 @@ class RefTestCaseCollection<T> {
       verifyRefWasUpdated: (actualValue) =>
           expect(ref.current, same(actualValue), reason: _reasonMessage(name)),
       getCurrent: () => ref.current,
-      meta: RefTestCaseMeta(name, RefKind.object, isJs: false, isStronglyTyped: false),
+      meta: RefTestCaseMeta(name, RefKind.object,
+          isJs: false, isStronglyTyped: false),
     );
   }
 
@@ -89,7 +92,8 @@ class RefTestCaseCollection<T> {
       verifyRefWasUpdated: (actualValue) =>
           expect(ref.current, same(actualValue), reason: _reasonMessage(name)),
       getCurrent: () => ref.current,
-      meta: RefTestCaseMeta(name, RefKind.object, isJs: false, isStronglyTyped: true),
+      meta: RefTestCaseMeta(name, RefKind.object,
+          isJs: false, isStronglyTyped: true),
     );
   }
 
@@ -102,7 +106,8 @@ class RefTestCaseCollection<T> {
       verifyRefWasUpdated: (actualValue) =>
           expect(calls, [same(actualValue)], reason: _reasonMessage(name)),
       getCurrent: () => calls.single,
-      meta: RefTestCaseMeta(name, RefKind.callback, isJs: true, isStronglyTyped: false),
+      meta: RefTestCaseMeta(name, RefKind.callback,
+          isJs: true, isStronglyTyped: false),
     );
   }
 
@@ -115,7 +120,8 @@ class RefTestCaseCollection<T> {
       verifyRefWasUpdated: (actualValue) =>
           expect(ref.current, same(actualValue), reason: _reasonMessage(name)),
       getCurrent: () => ref.current,
-      meta: RefTestCaseMeta(name, RefKind.object, isJs: true, isStronglyTyped: false),
+      meta: RefTestCaseMeta(name, RefKind.object,
+          isJs: true, isStronglyTyped: false),
     );
   }
 
@@ -139,10 +145,13 @@ class RefTestCaseCollection<T> {
   RefTestCase createCaseByName(String name) =>
       createAllCases().singleWhere((c) => c.meta.name == name);
 
-  RefTestCaseMeta testCaseMetaByName(String name) => createCaseByName(name).meta;
+  RefTestCaseMeta testCaseMetaByName(String name) =>
+      createCaseByName(name).meta;
 
-  List<String> get allTestCaseNames => allTestCaseMetas.map((m) => m.name).toList();
-  List<RefTestCaseMeta> get allTestCaseMetas => createAllCases().map((c) => c.meta).toList();
+  List<String> get allTestCaseNames =>
+      allTestCaseMetas.map((m) => m.name).toList();
+  List<RefTestCaseMeta> get allTestCaseMetas =>
+      createAllCases().map((c) => c.meta).toList();
 }
 
 class RefTestCaseMeta {
@@ -156,10 +165,12 @@ class RefTestCaseMeta {
 
   final bool isStronglyTyped;
 
-  const RefTestCaseMeta(this.name, this.kind, {this.isJs = false, this.isStronglyTyped = false});
+  const RefTestCaseMeta(this.name, this.kind,
+      {this.isJs = false, this.isStronglyTyped = false});
 
   @override
-  String toString() => '$name ($kind, isJs: $isJs, isStronglyTyped: $isStronglyTyped)';
+  String toString() =>
+      '$name ($kind, isJs: $isJs, isStronglyTyped: $isStronglyTyped)';
 }
 
 enum RefKind {
