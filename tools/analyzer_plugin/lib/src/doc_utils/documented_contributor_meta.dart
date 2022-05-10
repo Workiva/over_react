@@ -94,9 +94,9 @@ abstract class DocumentedContributorMetaBase implements IContributorMetaBase {
 class DocumentedAssistContributorMeta extends DocumentedContributorMetaBase
     implements Comparable<DocumentedAssistContributorMeta> {
   @override
-  final String name;
+  final String/*!*/ name;
   @override
-  final String description;
+  final String/*!*/ description;
   @override
   final String details;
   @override
@@ -138,9 +138,9 @@ class DocumentedAssistContributorMeta extends DocumentedContributorMetaBase
 class DocumentedDiagnosticContributorMeta extends DocumentedContributorMetaBase
     implements Comparable<DocumentedDiagnosticContributorMeta> {
   @override
-  final String name;
+  final String/*!*/ name;
   @override
-  final String description;
+  final String/*!*/ description;
   @override
   final String details;
   @override

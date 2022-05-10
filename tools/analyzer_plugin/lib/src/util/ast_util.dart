@@ -32,7 +32,7 @@ String getConstOrLiteralStringValueFrom(Expression expr) {
 }
 
 /// Returns a lazy iterable of all descendants of [node], in breadth-first order.
-Iterable<AstNode> allDescendants(AstNode node) sync* {
+Iterable<AstNode> allDescendants(AstNode/*!*/ node) sync* {
   final nodesQueue = Queue<AstNode>()..add(node);
   while (nodesQueue.isNotEmpty) {
     final current = nodesQueue.removeFirst();

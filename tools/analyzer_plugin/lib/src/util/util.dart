@@ -32,7 +32,7 @@ extension IterableUtil<E> on Iterable<E> {
   /// if no such element is found.
   ///
   /// Throws a [StateError] if there is no matching element and [orElse] is omitted.
-  T/*?*/ firstWhereType<T>({T/*?*/ Function() orElse}) =>
+  T/*!*/ firstWhereType<T>({T/*!*/ Function() orElse}) =>
       whereType<T>().firstWhere((_) => true, orElse: orElse);
 }
 

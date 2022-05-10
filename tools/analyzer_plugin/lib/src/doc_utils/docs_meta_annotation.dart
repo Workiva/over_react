@@ -9,7 +9,7 @@ import 'package:over_react_analyzer_plugin/src/doc_utils/maturity.dart';
 /// > See: [DocumentedAssistContributorMeta.fromAnnotatedFieldAst] and [DocumentedDiagnosticContributorMeta..fromAnnotatedField]
 class DocsMeta implements IContributorMetaBase {
   @override
-  final String description;
+  final String/*!*/ description;
   @override
   final String details;
   @override

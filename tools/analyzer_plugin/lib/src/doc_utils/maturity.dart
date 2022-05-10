@@ -27,6 +27,8 @@
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+import 'package:meta/meta.dart';
+
 class Maturity implements Comparable<Maturity> {
   static const Maturity stable = Maturity._('stable', ordinal: 0);
   static const Maturity experimental = Maturity._('experimental', ordinal: 1);
@@ -35,7 +37,7 @@ class Maturity implements Comparable<Maturity> {
   final String name;
   final int ordinal;
 
-  factory Maturity(String name, {int ordinal}) {
+  factory Maturity(String name, {@required int ordinal}) {
     switch (name.toLowerCase()) {
       case 'stable':
         return stable;
@@ -48,7 +50,7 @@ class Maturity implements Comparable<Maturity> {
     }
   }
 
-  const Maturity._(this.name, {this.ordinal});
+  const Maturity._(this.name, {@required this.ordinal});
 
   @override
   int compareTo(Maturity other) => ordinal - other.ordinal;

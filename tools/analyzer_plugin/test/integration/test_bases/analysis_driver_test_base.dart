@@ -44,16 +44,16 @@ abstract class AnalysisDriverTestBase {
   /// The analysis driver that computes analysis results for the test sources
   /// created via [newSource] that are then used by the plugin contributors
   /// under test.
-  AnalysisDriver get analysisDriver => _analysisDriver;
+  AnalysisDriver/*!*/ get analysisDriver => _analysisDriver;
   AnalysisDriver _analysisDriver;
 
   /// Provider of all resources created during and needed for tests.
-  MemoryResourceProvider get resourceProvider => _resourceProvider;
+  MemoryResourceProvider/*!*/ get resourceProvider => _resourceProvider;
   MemoryResourceProvider _resourceProvider;
 
   /// Absolute path to the in-memory folder within which all test sources are
   /// created.
-  String get testPath => _testPath;
+  String/*!*/ get testPath => _testPath;
   String _testPath;
 
   /// Creates and returns a new source file at [path] with optional file
@@ -120,7 +120,7 @@ abstract class AnalysisDriverTestBase {
   /// Returns the parsed package config from the
   /// `.dart_tool/package_config.json` file for the
   /// `over_react_analyzer_plugin` package.
-  static Future<PackageConfig> _getRootPackageConfig() async =>
+  static Future<PackageConfig/*!*/> _getRootPackageConfig() async =>
       _realPackageConfig ??= await findPackageConfig(Directory.current, recurse: false);
   static PackageConfig _realPackageConfig;
 

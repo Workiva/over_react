@@ -35,7 +35,7 @@ class SourceSelection {
 /// extend a test base for the specific type of contributor, like
 /// [AssistTestBase].
 abstract class ServerPluginContributorTestBase extends AnalysisDriverTestBase {
-  PluginForTest get testPlugin => _plugin;
+  PluginForTest/*!*/ get testPlugin => _plugin;
 
   /// Applies the given [change] to [source], writes it via [resourceProvider]
   /// and returns the updated [Source].

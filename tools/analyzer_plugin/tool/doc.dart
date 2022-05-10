@@ -92,7 +92,7 @@ Future<void> main([List<String> args]) async {
     return;
   }
 
-  var outDir = options['out'] as String;
+  var outDir = options['out'] as String/*!*/;
   final ghPages = options['gh-pages'] as bool;
   if (ghPages) {
     outDir = '../../analyzer_plugin';
