@@ -59,7 +59,7 @@ mixin DiagnosticMixin on ServerPlugin {
   Future<List<AnalysisError>> getAllErrors(ResolvedUnitResult analysisResult) async {
     try {
       // If there is no relevant analysis result, notify the analyzer of no errors.
-      if (analysisResult.unit == null || analysisResult.libraryElement == null) {
+      if (analysisResult.unit == null) {
         channel.sendNotification(plugin.AnalysisErrorsParams(analysisResult.path!, []).toNotification());
         return [];
       }

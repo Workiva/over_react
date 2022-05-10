@@ -102,7 +102,7 @@ class OptionsSample {
   Iterable<DocumentedDiagnosticContributorMeta> rules;
   OptionsSample(this.rules);
 
-  void generate(String filePath) {
+  void generate(String? filePath) {
     var generated = _generate();
     if (filePath != null) {
       var outPath = '$filePath/options/index.html';

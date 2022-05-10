@@ -37,8 +37,6 @@ Iterable<AstNode> allDescendants(AstNode node) sync* {
   final nodesQueue = Queue<AstNode>()..add(node);
   while (nodesQueue.isNotEmpty) {
     final current = nodesQueue.removeFirst();
-    if (current == null) return;
-
     for (final child in current.childEntities) {
       if (child is AstNode) {
         yield child;

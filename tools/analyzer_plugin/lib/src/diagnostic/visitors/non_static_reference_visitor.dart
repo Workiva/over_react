@@ -85,7 +85,7 @@ bool referencesImplicitThis(SimpleIdentifier identifier) {
   }
   // qualified property access
   if (parent is PropertyAccess) {
-    if (identical(parent.propertyName, identifier) && parent.realTarget != null) {
+    if (identical(parent.propertyName, identifier)) {
       return false;
     }
   }

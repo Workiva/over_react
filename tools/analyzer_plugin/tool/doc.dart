@@ -119,13 +119,11 @@ ${parser.usage}
 
 Future<void> generateDocs(String baseDir, DocsGenerationConfig config) async {
   var outDir = '$baseDir/${config.outputSubDir}';
-  if (outDir != null) {
-    final d = Directory(outDir);
-    if (d.existsSync()) {
-      d.deleteSync(recursive: true);
-    }
-    d.createSync(recursive: true);
+  final d = Directory(outDir);
+  if (d.existsSync()) {
+    d.deleteSync(recursive: true);
   }
+  d.createSync(recursive: true);
 
   // Generate the index ("landing") page for a certain type of contributor defined in the config
   config.getIndexGenerator().generate(outDir);

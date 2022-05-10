@@ -34,15 +34,22 @@ abstract class DiagnosticTestBase extends ServerPluginContributorTestBase {
   ///
   /// This will be used to filter the error fixes produced by the test plugin to
   /// only those originating from this diagnostic contributor.
-  FixKind get fixKindUnderTest;
+  FixKind? get fixKindUnderTest;
+
+  void _throwIfNoFix() {
+    if (!(fixKindUnderTest != null)) {
+      throw UnsupportedError("Expected 'fixKindUnderTest' to be non-null");
+    }
+  }
 
   /// Applies the source change from [errorFix] to [source] and returns the
   /// updated source.
   Source applyErrorFixes(AnalysisErrorFixes errorFix, Source source) {
+    _throwIfNoFix();
     final fixes = errorFix.fixes;
     expect(fixes, hasLength(1), reason: 'Expected error fix to have exactly one change.');
     final fix = fixes.single;
-    expect(fix, isFix(fixKindUnderTest), reason: 'Expected fix to match the fix kind under test.');
+    expect(fix, isFix(fixKindUnderTest!), reason: 'Expected fix to match the fix kind under test.');
     return applySourceChange(fix.change, source);
   }
 
@@ -59,15 +66,16 @@ abstract class DiagnosticTestBase extends ServerPluginContributorTestBase {
   /// Returns the error fix for the single error produced at [selection] and
   /// fails the test if anything other than a single error fix is produced.
   Future<AnalysisErrorFixes> expectAndGetSingleErrorFix(SourceSelection selection) async {
+    _throwIfNoFix();
     final allErrorFixes = await _getAllErrorFixesAtSelection(selection);
     expect(allErrorFixes, hasLength(1),
         reason: 'Expected only a single error at selection (selection: ${selection.target})');
     final errorFix = allErrorFixes.single;
-    expect(errorFix.error, isDiagnostic(errorUnderTest, hasFix: fixKindUnderTest != null),
+    expect(errorFix.error, isDiagnostic(errorUnderTest, hasFix: true),
         reason: 'Expected error to match the `errorUnderTest` (selection: ${selection.target})');
     expect(errorFix.fixes, hasLength(1),
         reason: 'Expected only a single error fix at selection. (selection: ${selection.target})');
-    expect(errorFix.fixes, everyElement(isFix(fixKindUnderTest)),
+    expect(errorFix.fixes, everyElement(isFix(fixKindUnderTest!)),
         reason: 'Expected error fix to match the `fixKindUnderTest` (selection: ${selection.target})');
     return errorFix;
   }
