@@ -111,6 +111,8 @@ jobs:
         id: resolve
         run: |
           dart tool/set_analyzer_constraint.dart "${{ matrix.analyzer }}"
+          # Show the updated version constraint
+          git diff pubspec.yaml
           dart pub get
 
       - name: Analyze package source
