@@ -84,6 +84,7 @@ jobs:
   validate_analyzer:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         sdk: [ 2.13.4, stable ]
         analyzer: [^0.40.0, ^0.41.0, ^0.42.0, ^1.0.0]
@@ -93,6 +94,7 @@ jobs:
         include:
           - sdk: stable
             analyzer: ^1.0.0
+    steps:
       - name: Validate dependency resolution, static analysis, and builder when using analyzer ${{ matrix.analyzer }}
         run: ./tool/validate_analyzer_version.sh "${{ matrix.analyzer }}"
 
