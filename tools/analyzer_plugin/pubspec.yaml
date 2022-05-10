@@ -29,7 +29,7 @@ dev_dependencies:
   mockito: ^4.1.1
   package_config: ^2.0.0
   test: ^1.14.0
-  test_reflective_loader: ^0.1.9
+  test_reflective_loader: ^0.2.0
   workiva_analysis_options: ^1.1.0
   yaml: ^3.0.0
 
@@ -43,6 +43,6 @@ dependency_validator:
 #
 # In CI, this should also be the path to the over_react checkout
 #
-# dependency_overrides:
-#   over_react:
-#     path: /Users/me/workspaces/over_react
+dependency_overrides:
+  over_react:
+    path: /Users/greglittlefield/workspaces/over_react
