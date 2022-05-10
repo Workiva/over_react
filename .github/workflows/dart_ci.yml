@@ -87,7 +87,11 @@ jobs:
       fail-fast: false
       matrix:
         sdk: [ 2.13.4, stable ]
-        analyzer: [^0.40.0, ^0.41.0, ^0.42.0, ^1.0.0]
+        analyzer:
+          - ^0.40.0
+          - ^0.41.0
+          # No ^0.42.0 since that line only contains 0.42.0-nullsafety.0, which is the 1.0.0 prerelease
+          - ^1.0.0
         # For stable, only validate analyzer ^1.0.0. Otherwise, validate all analyzer versions.
         exclude:
           - sdk: stable
