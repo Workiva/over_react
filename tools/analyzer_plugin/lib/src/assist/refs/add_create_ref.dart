@@ -34,7 +34,7 @@ void addCreateRef(
   const nameGroup = 'refName';
   const typeGroup = 'refType';
 
-  final lineInfo = result.unit.lineInfo;
+  final lineInfo = result.lineInfo;
   String oldStringRefSource;
   final componentName = usage.componentName;
   final lowerCaseComponentName =
@@ -172,13 +172,13 @@ PropertyInducingElement _getRefCallbackAssignedField(Expression refPropRhs) {
   return null;
 }
 
-Pair<int, AstNode> _getRefInsertionLocation(AstNode node, LineInfo lineInfo) {
+Pair<int, AstNode/*!*/> _getRefInsertionLocation(AstNode node, LineInfo lineInfo) {
   final closestUnit = node.thisOrAncestorOfType<CompilationUnit>();
   // For now, don't support expression bodies since we can't easily insert a ref statement
   final closestFunctionBody = node.thisOrAncestorOfType<BlockFunctionBody>();
   final closestClass = node.thisOrAncestorOfType<ClassDeclaration>();
 
-  AstNode parent;
+  AstNode/*!*/ parent;
   int offset;
 
   if (closestClass != null) {
@@ -187,12 +187,9 @@ Pair<int, AstNode> _getRefInsertionLocation(AstNode node, LineInfo lineInfo) {
   } else if (closestFunctionBody != null) {
     parent = closestFunctionBody;
     offset = nextLine(closestFunctionBody.block.leftBracket.end, lineInfo);
-  } else if (closestUnit != null) {
+  } else {
     parent = closestUnit;
     offset = prevLine(node.thisOrAncestorMatching((node) => node is CompilationUnitMember).offset, lineInfo);
-  } else {
-    // Not sure how we got here... TODO throw error instead or handle this return value at call site
-    return Pair(-1, null);
   }
 
   for (final child in parent.childEntities.toList().reversed) {

@@ -39,7 +39,7 @@ String _attrToReactishAttr(String attr) {
 }
 
 /// Converts element names to the names  their React DOM factory counterparts.
-String _elToReactEl(String el) {
+String _elToReactEl(String/*!*/ el) {
   const _elToReactEl = {
     'var': 'variable',
     'set': 'svgSet',

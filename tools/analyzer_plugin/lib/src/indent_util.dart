@@ -22,7 +22,7 @@ SourceEdit setIndent(String source, LineInfo info, int offset, String indent) {
 ///     getIndent('  foo', 5); // '  '
 ///     getIndent('  foo', 2); // '  '
 ///     getIndent('  foo', 1); // ' '
-String getIndent(String source, LineInfo info, int offset) {
+String/*!*/ getIndent(String source, LineInfo info, int offset) {
   final beginningOfColumn = offset - (info.getLocation(offset).columnNumber - 1);
   final lineContentUpToOffset = source.substring(beginningOfColumn, offset);
   return RegExp(r'^ *').firstMatch(lineContentUpToOffset)[0];

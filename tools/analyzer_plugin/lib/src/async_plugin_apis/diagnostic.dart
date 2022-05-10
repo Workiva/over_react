@@ -48,7 +48,7 @@ import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/error_filtering.dart';
 
 mixin DiagnosticMixin on ServerPlugin {
-  List<DiagnosticContributor> getDiagnosticContributors(String path);
+  List<DiagnosticContributor> getDiagnosticContributors(String/*!*/ path);
 
   /// Computes errors based on an analysis result and notifies the analyzer.
   Future<void> processDiagnosticsForResult(ResolvedUnitResult analysisResult) async {
@@ -179,9 +179,8 @@ class _DiagnosticGenerator {
 
     // The analyzer normally filters out errors with "ignore" comments,
     // but it doesn't do it for plugin errors, so we need to do that here.
-    final lineInfo = unitResult.unit.lineInfo;
-    final filteredErrors =
-        filterIgnores(collector.errors, lineInfo, () => IgnoreInfo.forDart(unitResult.unit, unitResult.content));
+    final filteredErrors = filterIgnores(
+        collector.errors, unitResult.lineInfo, () => IgnoreInfo.forDart(unitResult.unit, unitResult.content));
 
     return _GeneratorResult(filteredErrors, notifications);
   }

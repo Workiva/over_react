@@ -4,6 +4,7 @@ import 'package:analyzer/dart/element/type.dart';
 import 'package:analyzer/dart/element/type_provider.dart';
 import 'package:analyzer/dart/element/type_system.dart';
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
+import 'package:meta/meta.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/util/constants.dart';
 import 'package:over_react_analyzer_plugin/src/util/react_types.dart';
@@ -89,7 +90,7 @@ class InvalidChildDiagnostic extends ComponentUsageDiagnosticContributor {
 }
 
 Future<void> validateReactChildType(DartType type, TypeSystem typeSystem, TypeProvider typeProvider,
-    {FutureOr<void> Function(DartType invalidType) onInvalidType}) async {
+    {@required FutureOr<void> Function(DartType invalidType) onInvalidType}) async {
   // Couldn't be resolved
   if (type == null) return;
   // Couldn't be resolved to anything more specific; `Object` might be

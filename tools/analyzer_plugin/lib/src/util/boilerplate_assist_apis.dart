@@ -52,7 +52,7 @@ mixin ComponentDeclarationAssistApi on AssistContributorBase {
 
   /// Checks the context of the assist node and returns if it is an appropriate
   /// context to suggest a component level assist.
-  bool get isAValidComponentDeclaration {
+  bool/*!*/ get isAValidComponentDeclaration {
     if (_isAValidComponentDeclaration == null) {
       throw StateError('API not initialized. Call `initializeAssistApi` before accessible API members.');
     }
@@ -62,13 +62,14 @@ mixin ComponentDeclarationAssistApi on AssistContributorBase {
 
   String get normalizedComponentName => normalizeNameAndRemoveSuffix(componentDeclaration.component);
 
-  NamedType get componentSupertypeNode => componentDeclaration.component.nodeHelper.superclass;
+  // FIXME(nullsafety) update _validateAndDetectBoilerplate to check that this is non-null
+  NamedType/*!*/ get componentSupertypeNode => componentDeclaration.component.nodeHelper.superclass;
 
   Union<BoilerplateProps, BoilerplatePropsMixin> get props => componentDeclaration.props;
 
   Union<BoilerplateState, BoilerplateStateMixin> get state => componentDeclaration.state;
 
-  bool _validateAndDetectBoilerplate() {
+  bool/*!*/ _validateAndDetectBoilerplate() {
     if (node is! SimpleIdentifier || node.parent is! ClassDeclaration) return false;
     final parent = node.parent as ClassDeclaration;
 
@@ -116,7 +117,7 @@ mixin ComponentDeclarationAssistApi on AssistContributorBase {
   ///       }
   ///     }
   ///     ```
-  bool initializeAssistApi(String sourceFileContent) {
+  bool/*!*/ initializeAssistApi(String sourceFileContent) {
     componentSourceFile = SourceFile.fromString(sourceFileContent);
     errorCollector = ErrorCollector.print(componentSourceFile);
     return _validateAndDetectBoilerplate();

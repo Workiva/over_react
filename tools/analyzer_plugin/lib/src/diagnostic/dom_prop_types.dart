@@ -48,7 +48,8 @@ class InvalidDomAttributeDiagnostic extends ComponentUsageDiagnosticContributor 
 
     for (final prop in usage.cascadedProps) {
       // If the prop name is prefixed with anything other than `dom` (e.g. `aria`), ignore it.
-      if (prop.targetName != null && prop.targetName.name != 'dom') continue;
+      final targetName = prop.targetName;
+      if (targetName != null && targetName.name != 'dom') continue;
       final allowedElements = getAttributeMeta(prop.name.name);
       if (allowedElements == null) continue;
 

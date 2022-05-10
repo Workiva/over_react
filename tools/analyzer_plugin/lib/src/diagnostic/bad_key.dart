@@ -176,12 +176,14 @@ class BadKeyDiagnostic extends ComponentUsageDiagnosticContributor {
     }
   }
 
-  static bool inheritsToStringImplFromObject(Element element) => element
-      ?.tryCast<ClassElement>()
-      ?.lookUpConcreteMethod('toString', element.library)
-      ?.thisOrAncestorOfType<ClassElement>()
-      ?.thisType
-      ?.isDartCoreObject;
+  static bool inheritsToStringImplFromObject(Element/*?*/ element) =>
+      element
+          ?.tryCast<ClassElement>()
+          ?.lookUpConcreteMethod('toString', element.library)
+          ?.thisOrAncestorOfType<ClassElement>()
+          ?.thisType
+          ?.isDartCoreObject ??
+      false;
 }
 
 /// Recursively collects expressions that are used to effectively call `toString()`:
@@ -189,7 +191,7 @@ class BadKeyDiagnostic extends ComponentUsageDiagnosticContributor {
 /// - toString calls
 /// - string interpolation
 class ToStringedVisitor extends RecursiveAstVisitor<void> {
-  final toStringedExpressions = <Expression>[];
+  final toStringedExpressions = <Expression/*!*/>[];
 
   @override
   void visitMethodInvocation(MethodInvocation node) {

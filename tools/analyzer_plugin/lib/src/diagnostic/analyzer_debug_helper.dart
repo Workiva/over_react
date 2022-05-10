@@ -7,6 +7,7 @@ import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 class AnalyzerDebugHelper {
   AnalyzerDebugHelper([this.result, this.collector]);
 
+  // FIXME(nullsafety) clean up nullability
   ResolvedUnitResult result;
   DiagnosticCollector collector;
   static const code = DiagnosticCode(

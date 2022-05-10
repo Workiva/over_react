@@ -120,8 +120,8 @@ void main() {
           expect(editList, isNotNull);
           expect(editList.length, 1, reason: 'there should be one edit in the file');
 
-          final offset = result.unit.lineInfo
-              .getOffsetOfLineAfter(nextLine(result.unit.directives.last.end, result.unit.lineInfo));
+          final offset = result.lineInfo
+              .getOffsetOfLineAfter(nextLine(result.unit.directives.last.end, result.lineInfo));
           expect(editList.first.offset, offset, reason: 'should be new line between existing directives and new part');
           expect(editList.first.length, 0, reason: 'nothing is replaced');
           expect(editList.first.replacement, 'part \'foo.over_react.g.dart\';\n\n');
@@ -137,7 +137,7 @@ void main() {
           expect(editList, isNotNull);
           expect(editList.length, 1, reason: 'there should be one edit in the file');
 
-          final offset = result.unit.lineInfo.getOffsetOfLineAfter(result.unit.directives.last.end);
+          final offset = result.lineInfo.getOffsetOfLineAfter(result.unit.directives.last.end);
           expect(editList.first.offset, offset, reason: 'new part should be on the line after existing part');
           expect(editList.first.length, 0, reason: 'nothing is replaced');
           expect(editList.first.replacement, 'part \'foo.over_react.g.dart\';\n\n');

@@ -170,11 +170,13 @@ class DiagnosticCollectorImpl implements DiagnosticCollector {
 
   @override
   void addError(DiagnosticCode code, Location location,
-      {bool hasFix = false,
+      {bool/*!*/ hasFix = false,
       FixKind fixKind,
       SourceChange fixChange,
       List<Object> errorMessageArgs,
       List<Object> fixMessageArgs}) {
+    // FIXME(nullsafety) better checks/errors when some args aren't provided
+
     PrioritizedSourceChange fix;
     if (fixChange != null) {
       if (fixChange.edits.isNotEmpty) {
@@ -251,7 +253,7 @@ class DiagnosticCollectorImpl implements DiagnosticCollector {
 ///     format('Hello, {0}!', ['John']) = 'Hello, John!'
 ///     format('{0} are you {1}ing?', ['How', 'do']) = 'How are you doing?'
 ///     format('{0} are you {1}ing?', ['What', 'read']) = 'What are you reading?'
-String _formatList(String pattern, List<Object> arguments) {
+String _formatList(String pattern, List<Object>/*!*/ arguments) {
   if (arguments == null || arguments.isEmpty) {
     assert(!pattern.contains(RegExp(r'\{(\d+)\}')), 'Message requires arguments, but none were provided.');
     return pattern;
