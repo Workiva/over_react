@@ -1,3 +1,6 @@
+// Disable null-safety in the plugin entrypoint until all dependencies are null-safe,
+// otherwise tests won't be able to run. See: https://github.com/dart-lang/test#compiler-flags
+// @dart=2.9
 import 'dart:async';
 
 import 'package:analyzer_plugin/utilities/assist/assist.dart';
