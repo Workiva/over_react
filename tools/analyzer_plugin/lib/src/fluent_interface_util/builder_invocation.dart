@@ -16,7 +16,7 @@ void buildMissingInvocationEdits(Expression expression, DartFileEditBuilder buil
     builder.addSimpleInsertion(expression.end, '()');
   } else if (expression.parent is ParenthesizedExpression) {
     // Expression is the child of a parenthesized expression
-    builder.addSimpleInsertion(expression.parent.end, '()');
+    builder.addSimpleInsertion(expression.parent!.end, '()');
   } else {
     if (expression is CascadeExpression) {
       // Expression is unparenthesized cascade

@@ -63,7 +63,7 @@ class InvalidDomAttributeDiagnostic extends ComponentUsageDiagnosticContributor 
   }
 }
 
-List<String> getAttributeMeta(String propName) {
+List<String>? getAttributeMeta(String propName) {
   return allowedHtmlElementsForAttribute[propName] ??
       allowedHtmlElementsForAttribute[propName.toLowerCase()] ??
       allowedHtmlElementsForAttribute[_camelToSpinalCase(propName)];

@@ -59,8 +59,8 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
 
   // FIXME(nullsafety) come back and clean up fields
 
-  PartDirective _overReactGeneratedPartDirective;
-  bool _overReactGeneratedPartDirectiveIsValid;
+  PartDirective? _overReactGeneratedPartDirective;
+  late bool _overReactGeneratedPartDirectiveIsValid;
 
   /// Returns true if the [unit] representing a part file has declarations.
   ///
@@ -69,7 +69,7 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
     return orbp.getBoilerplateDeclarations(
         orbp.detectBoilerplateMembers(unit),
         orbp.ErrorCollector.callback(
-          SourceFile.fromString(parentResult.content, url: parentResult.path),
+          SourceFile.fromString(parentResult.content!, url: parentResult.path),
           onError: (message, [span]) {
             // no-op. It is assumed this method will run for parent files, and the part file will get analyzed in it's own
             // context
@@ -86,28 +86,28 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
   /// Also returns whether the component has valid over_react declarations, which is useful in determining whether to
   /// validate the generated part directive.
   Future<bool> _computeBoilerplateErrors(ResolvedUnitResult result, DiagnosticCollector collector) async {
-    final debugMatch = _debugFlagPattern.firstMatch(result.content);
+    final debugMatch = _debugFlagPattern.firstMatch(result.content!);
     final debug = debugMatch != null;
     if (debug) {
-      collector.addError(debugCode, result.location(offset: debugMatch.start, end: debugMatch.end),
+      collector.addError(debugCode, result.location(offset: debugMatch!.start, end: debugMatch.end),
           errorMessageArgs: ['Boilerplate debugging hints enabled']);
     }
 
-    final sourceFile = SourceFile.fromString(result.content, url: result.path);
+    final sourceFile = SourceFile.fromString(result.content!, url: result.path);
 
     final errorCollector = orbp.ErrorCollector.callback(
       sourceFile,
       onError: (message, [span]) {
-        final location = result.location(range: span.asRangeOrEmpty());
+        final location = result.location(range: span!.asRangeOrEmpty());
         collector.addError(errorCode, location, errorMessageArgs: [message]);
       },
       onWarning: (message, [span]) {
-        final location = result.location(range: span.asRangeOrEmpty());
+        final location = result.location(range: span!.asRangeOrEmpty());
         collector.addError(warningCode, location, errorMessageArgs: [message]);
       },
     );
 
-    final members = orbp.detectBoilerplateMembers(result.unit);
+    final members = orbp.detectBoilerplateMembers(result.unit!);
     for (final member in members.allMembers) {
       if (debug) {
         collector.addError(debugCode, result.locationFor(member.name), errorMessageArgs: [member.debugString]);
@@ -159,7 +159,7 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
     if (!hasDeclarations && _overReactGeneratedPartDirective != null) {
       await collector.addErrorWithFix(
         errorCode,
-        result.locationFor(_overReactGeneratedPartDirective),
+        result.locationFor(_overReactGeneratedPartDirective!),
         errorMessageArgs: [
           // ignore: no_adjacent_strings_in_list
           'This part will not be generated because there are no valid OverReact component boilerplate '
@@ -168,7 +168,7 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
         ],
         fixKind: unnecessaryGeneratedPartFixKind,
         computeFix: () => buildFileEdit(result, (builder) {
-          removeOverReactGeneratedPartDirective(builder, result.unit);
+          removeOverReactGeneratedPartDirective(builder, result.unit!);
         }),
       );
     } else if (hasDeclarations &&
@@ -176,13 +176,13 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
         !_overReactGeneratedPartDirectiveIsValid) {
       await collector.addErrorWithFix(
         errorCode,
-        result.locationFor(_overReactGeneratedPartDirective),
+        result.locationFor(_overReactGeneratedPartDirective!),
         errorMessageArgs: [
           'The generated part name must match the name of the file that contains it, but with `over_react.g.dart` for the file extension.'
         ],
         fixKind: invalidGeneratedPartFixKind,
         computeFix: () => buildFileEdit(result, (builder) {
-          fixOverReactGeneratedPartDirective(builder, result.unit, result.uri);
+          fixOverReactGeneratedPartDirective(builder, result.unit!, result.uri);
         }),
       );
     }
@@ -190,16 +190,16 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
 
   @override
   Future<void> computeErrors(result, collector) async {
-    _overReactGeneratedPartDirective = getOverReactGeneratedPartDirective(result.unit);
+    _overReactGeneratedPartDirective = getOverReactGeneratedPartDirective(result.unit!);
     _overReactGeneratedPartDirectiveIsValid = _overReactGeneratedPartDirective != null &&
-        overReactGeneratedPartDirectiveIsValid(_overReactGeneratedPartDirective, result.uri);
+        overReactGeneratedPartDirectiveIsValid(_overReactGeneratedPartDirective!, result.uri);
 
     final hasDeclarations = await _computeBoilerplateErrors(result, collector);
     if (result.isPart) {
       return;
     }
 
-    final parts = getNonGeneratedParts(result.unit);
+    final parts = getNonGeneratedParts(result.unit!);
 
     // compute errors for parts files
     var anyPartHasDeclarations = false;
@@ -207,7 +207,7 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
       final uri = part.uriSource?.uri;
       // URI could not be resolved or source does not exist
       if (uri == null) continue;
-      final partResult = result.session.getParsedUnit(result.session.uriConverter.uriToPath(uri));
+      final partResult = result.session.getParsedUnit(result.session.uriConverter.uriToPath(uri)!);
 
       if (_partHasDeclarations(partResult.unit, result)) {
         anyPartHasDeclarations = true;
@@ -218,10 +218,10 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
   }
 
   Future<void> _addPartDirectiveErrorForMember({
-    @required ResolvedUnitResult result,
-    @required DiagnosticCollector collector,
-    @required orbp.BoilerplateMember member,
-    @required PartDirectiveErrorType errorType,
+    required ResolvedUnitResult result,
+    required DiagnosticCollector collector,
+    required orbp.BoilerplateMember member,
+    required PartDirectiveErrorType errorType,
   }) {
     const memberMissingPartErrorMsg = 'A `.over_react.g.dart` part directive is required';
     const memberInvalidPartErrorMsg = 'A valid `.over_react.g.dart` part directive is required';
@@ -230,8 +230,8 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
     final memberPartDirectiveFixKind =
         errorType == PartDirectiveErrorType.missing ? missingGeneratedPartFixKind : invalidGeneratedPartFixKind;
     final fixFn = errorType == PartDirectiveErrorType.missing
-        ? addOverReactGeneratedPartDirective
-        : fixOverReactGeneratedPartDirective;
+        ? addOverReactGeneratedPartDirective as void Function(DartFileEditBuilder, CompilationUnit?, Uri)
+        : fixOverReactGeneratedPartDirective as void Function(DartFileEditBuilder, CompilationUnit?, Uri);
 
     return collector.addErrorWithFix(
       errorCode,
@@ -257,5 +257,5 @@ Iterable<PartDirective> getNonGeneratedParts(CompilationUnit libraryUnit) {
   return libraryUnit.directives
       .whereType<PartDirective>()
       // Ignore all generated `.g.dart` parts.
-      .where((part) => !part.uri.stringValue.endsWith('.g.dart'));
+      .where((part) => !part.uri.stringValue!.endsWith('.g.dart'));
 }

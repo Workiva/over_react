@@ -41,7 +41,7 @@ class AddPropsAssistContributor extends AssistContributorBase {
     }
 
     final sourceChange = await buildFileEdit(request.result, (builder) {
-      addProp(usage, builder, request.result.content, request.result.lineInfo, buildNameEdit: (builder) {
+      addProp(usage, builder, request.result.content!, request.result.lineInfo, buildNameEdit: (builder) {
         // TODO how to start completion of props?
         // TODO figure out why the offset of this of off
         builder.selectHere();

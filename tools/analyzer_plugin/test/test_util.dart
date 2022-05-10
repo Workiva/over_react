@@ -121,7 +121,7 @@ Future<Map<String, ResolvedUnitResult>> parseAndGetResolvedUnits(Map<String, Str
     final result = await context.currentSession.getResolvedUnit(transformPath(path));
     final lineInfo = result.lineInfo;
     final filteredErrors =
-        filterIgnores(result.errors, lineInfo, () => IgnoreInfo.forDart(result.unit, result.content));
+        filterIgnores(result.errors, lineInfo, () => IgnoreInfo.forDart(result.unit!, result.content!));
     if (filteredErrors.isNotEmpty) {
       throw ArgumentError('Parse errors in source "$path":\n${filteredErrors.join('\n')}');
     }
@@ -161,12 +161,12 @@ List<AnalysisError> _filterIgnored(List<AnalysisError> errors, IgnoreInfo ignore
 /// To return resolved AST, set [isResolved] to true.
 ///
 /// Returns null if [expression] is not an [InvocationExpression].
-Future<InvocationExpression> parseExpression(
+Future<InvocationExpression?> parseExpression(
   String expression, {
   String imports = '',
   bool isResolved = false,
 }) async {
-  CompilationUnit unit;
+  CompilationUnit? unit;
   final source = '''
     $imports
     void wrapperFunction() {
@@ -179,7 +179,7 @@ Future<InvocationExpression> parseExpression(
   } else {
     unit = parseString(content: source).unit;
   }
-  final parsedFunction = unit.childEntities.whereType<FunctionDeclaration>().last;
+  final parsedFunction = unit!.childEntities.whereType<FunctionDeclaration>().last;
   final body = parsedFunction.functionExpression.body as BlockFunctionBody;
   final statement = body.block.statements.single as ExpressionStatement;
   final invocationExpression = statement.expression;

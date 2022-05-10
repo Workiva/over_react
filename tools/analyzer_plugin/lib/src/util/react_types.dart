@@ -7,7 +7,7 @@ extension ReactTypes$DartType on DartType {
   bool get isPropsClass => element.isPropsClass;
 }
 
-extension ReactTypes$Element on Element /*?*/ {
+extension ReactTypes$Element on Element? {
   bool get isComponentClass => isOrIsSubtypeOfTypeFromPackage('Component', 'react');
   bool get isReactElement => isOrIsSubtypeOfTypeFromPackage('ReactElement', 'react');
   bool get isPropsClass => isOrIsSubtypeOfTypeFromPackage('UiProps', 'over_react');
@@ -41,7 +41,7 @@ extension ReactTypes$Element on Element /*?*/ {
 // THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-extension ElementSubtypeUtils on Element /*?*/ {
+extension ElementSubtypeUtils on Element? {
   bool isOrIsSubtypeOfTypeFromPackage(String typeName, String packageName) {
     final that = this;
     return that is ClassElement &&
@@ -54,7 +54,7 @@ extension ElementSubtypeUtils on Element /*?*/ {
 }
 
 extension on Element {
-  bool isDeclaredInPackage(String packageName) => isUriWithinPackage(source.uri, packageName);
+  bool isDeclaredInPackage(String packageName) => isUriWithinPackage(source!.uri, packageName);
 }
 
 bool isUriWithinPackage(Uri uri, String packageName) =>

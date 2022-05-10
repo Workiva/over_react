@@ -70,7 +70,7 @@ class PropTypesReturnValueDiagnostic extends DiagnosticContributor {
   @override
   computeErrors(result, collector) async {
     final visitor = PropTypesVisitor();
-    result.unit.accept(visitor);
+    result.unit!.accept(visitor);
     final throwExpressionsForPropKey = [
       ...?visitor.mapVisitor?.values?.map((value) => allDescendantsOfType<ThrowExpression>(value))?.toList(),
     ];

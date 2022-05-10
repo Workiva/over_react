@@ -7,18 +7,18 @@ import 'package:over_react_analyzer_plugin/src/async_plugin_apis/assist.dart';
 export 'package:over_react_analyzer_plugin/src/doc_utils/docs_meta_annotation.dart';
 
 abstract class AssistContributorBase extends Object implements AsyncAssistContributor {
-  DartAssistRequest _request;
-  AssistCollector _collector;
-  AstNode _node;
+  DartAssistRequest? _request;
+  AssistCollector? _collector;
+  AstNode? _node;
 
-  DartAssistRequest/*!*/ get request => _throwIfNull(_request, 'request');
-  AssistCollector/*!*/ get collector => _throwIfNull(_collector, 'collector');
-  AstNode/*!*/ get node => _throwIfNull(_node, 'node', "To use 'node', you must call 'setupCompute' and only access 'node' if its return value is 'true'.");
-  set request(DartAssistRequest/*?*/ value) => _request = null;
-  set collector(AssistCollector/*?*/ value) => _collector = null;
-  set node(AstNode/*?*/ value) => _node = null;
+  DartAssistRequest get request => _throwIfNull(_request, 'request');
+  AssistCollector get collector => _throwIfNull(_collector, 'collector');
+  AstNode get node => _throwIfNull(_node, 'node', "To use 'node', you must call 'setupCompute' and only access 'node' if its return value is 'true'.");
+  set request(DartAssistRequest? value) => _request = null;
+  set collector(AssistCollector? value) => _collector = null;
+  set node(AstNode? value) => _node = null;
 
-  static T/*!*/ _throwIfNull<T>(T/*?*/ value, String name, [String message = '']) {
+  static T _throwIfNull<T>(T? value, String name, [String message = '']) {
     if (value != null) return value;
     throw StateError("'$name' is unset. $message");
   }

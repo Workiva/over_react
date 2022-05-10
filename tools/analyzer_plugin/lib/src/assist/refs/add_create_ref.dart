@@ -5,6 +5,7 @@ import 'package:analyzer/source/line_info.dart';
 import 'package:analyzer/source/source_range.dart';
 import 'package:analyzer_plugin/utilities/change_builder/change_builder_dart.dart';
 import 'package:analyzer_plugin/utilities/pair.dart';
+import 'package:collection/collection.dart' show IterableExtension;
 import 'package:over_react_analyzer_plugin/src/component_usage.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/analyzer_debug_helper.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
@@ -20,7 +21,7 @@ enum RefTypeToReplace {
 typedef CreateRefLinkedEditFn = void Function(
   DartFileEditBuilder builder,
   FluentComponentUsage usage, {
-  String groupName,
+  String? groupName,
 });
 
 /// Utility function shared between diagnostics and assists to add a field to a
@@ -29,20 +30,20 @@ void addCreateRef(
   DartFileEditBuilder builder,
   FluentComponentUsage usage,
   ResolvedUnitResult result, {
-  AnalyzerDebugHelper debug,
+  AnalyzerDebugHelper? debug,
 }) {
   const nameGroup = 'refName';
   const typeGroup = 'refType';
 
   final lineInfo = result.lineInfo;
-  String oldStringRefSource;
+  String? oldStringRefSource;
   final componentName = usage.componentName;
   final lowerCaseComponentName =
       componentName == null ? 'component' : componentName.substring(0, 1).toLowerCase() + componentName.substring(1);
   var createRefFieldName = '_${lowerCaseComponentName}Ref';
-  PropertyInducingElement createRefField;
-  RefTypeToReplace refTypeToReplace;
-  Expression callbackRefPropRhs;
+  PropertyInducingElement? createRefField;
+  RefTypeToReplace? refTypeToReplace;
+  Expression? callbackRefPropRhs;
 
   final enclosingClassOrMixin = usage.node.thisOrAncestorOfType<ClassOrMixinDeclaration>();
 
@@ -51,14 +52,14 @@ void addCreateRef(
       // TODO split this out somewhere, make more robust
       : (componentName != null ? '${componentName}Component' : 'var');
 
-  final refProp = usage.cascadedProps.firstWhere((prop) => prop.name.name == 'ref', orElse: () => null);
+  final refProp = usage.cascadedProps.firstWhereOrNull((prop) => prop.name.name == 'ref');
   if (refProp != null) {
     // A fix is being used to replace a String / callback ref with a createRef reference.
     final rhs = refProp.rightHandSide;
-    if (rhs.staticType.isDartCoreString) {
+    if (rhs.staticType!.isDartCoreString) {
       refTypeToReplace = RefTypeToReplace.string;
       oldStringRefSource = rhs.toSource();
-    } else if (result.typeSystem.isSubtypeOf(rhs.staticType, result.typeProvider.functionType)) {
+    } else if (result.typeSystem.isSubtypeOf(rhs.staticType!, result.typeProvider.functionType)) {
       callbackRefPropRhs = rhs;
       refTypeToReplace = RefTypeToReplace.callback;
       createRefField = _getRefCallbackAssignedField(rhs);
@@ -73,7 +74,7 @@ void addCreateRef(
     });
   } else {
     // An assist is being used to add a ref, so we have to add the ref prop as a cascaded setter
-    addProp(usage, builder, result.content, lineInfo, name: 'ref', buildValueEdit: (builder) {
+    addProp(usage, builder, result.content!, lineInfo, name: 'ref', buildValueEdit: (builder) {
       builder.addSimpleLinkedEdit(nameGroup, createRefFieldName);
     });
   }
@@ -93,7 +94,7 @@ void addCreateRef(
 
     builder.addReplacement(SourceRange(declOfVarRefIsAssignedTo.offset, declOfVarRefIsAssignedTo.length), (_builder) {
       _addCreateRefFieldDeclaration(_builder);
-      if (enclosingClassOrMixin.getField(createRefFieldName).declaredElement.isPublic) {
+      if (enclosingClassOrMixin.getField(createRefFieldName)!.declaredElement!.isPublic) {
         _builder.write(
             '// FIXME: All usages of `$createRefFieldName` outside of this class must be changed to `$createRefFieldName.current` to finalize the conversion to createRef().');
       }
@@ -120,7 +121,7 @@ void addCreateRef(
     final insertionParent = insertionLocation.last;
     final indent = insertionParent is CompilationUnit
         ? ''
-        : getIndent(result.content, lineInfo, insertionParent.parent.offset) + '  ';
+        : getIndent(result.content!, lineInfo, insertionParent.parent!.offset) + '  ';
 
     builder.addInsertion(insertionOffset, (_builder) {
       _builder.write('$indent');
@@ -131,7 +132,7 @@ void addCreateRef(
 
     if (refProp != null) {
       // Replace all usages of ref('oldStringRef') with the new ref field
-      final stringRefReferences = allDescendantsOfType<Identifier>(enclosingClassOrMixin).where((identifier) {
+      final stringRefReferences = allDescendantsOfType<Identifier>(enclosingClassOrMixin!).where((identifier) {
         final parentFunctionInvocation = identifier.thisOrAncestorOfType<FunctionExpressionInvocation>();
         if (parentFunctionInvocation == null) return false;
 
@@ -139,7 +140,7 @@ void addCreateRef(
       });
 
       for (final identifier in stringRefReferences) {
-        final parentFunctionInvocation = identifier.thisOrAncestorOfType<FunctionExpressionInvocation>();
+        final parentFunctionInvocation = identifier.thisOrAncestorOfType<FunctionExpressionInvocation>()!;
         builder.addReplacement(SourceRange(parentFunctionInvocation.offset, parentFunctionInvocation.length),
             (_builder) {
           _builder.write(createRefFieldName);
@@ -149,11 +150,11 @@ void addCreateRef(
   }
 }
 
-PropertyInducingElement _getRefCallbackAssignedField(Expression refPropRhs) {
+PropertyInducingElement? _getRefCallbackAssignedField(Expression refPropRhs) {
   final function = refPropRhs?.unParenthesized?.tryCast<FunctionExpression>();
   if (function == null) return null;
 
-  final refCallbackArg = function.parameters.parameters.firstOrNull;
+  final refCallbackArg = function.parameters!.parameters.firstOrNull;
   if (refCallbackArg == null) return null;
 
   final referencesToArg = allDescendantsOfType<Identifier>(function.body)
@@ -172,13 +173,13 @@ PropertyInducingElement _getRefCallbackAssignedField(Expression refPropRhs) {
   return null;
 }
 
-Pair<int, AstNode/*!*/> _getRefInsertionLocation(AstNode node, LineInfo lineInfo) {
+Pair<int, AstNode> _getRefInsertionLocation(AstNode node, LineInfo lineInfo) {
   final closestUnit = node.thisOrAncestorOfType<CompilationUnit>();
   // For now, don't support expression bodies since we can't easily insert a ref statement
   final closestFunctionBody = node.thisOrAncestorOfType<BlockFunctionBody>();
   final closestClass = node.thisOrAncestorOfType<ClassDeclaration>();
 
-  AstNode/*!*/ parent;
+  AstNode parent;
   int offset;
 
   if (closestClass != null) {
@@ -188,8 +189,8 @@ Pair<int, AstNode/*!*/> _getRefInsertionLocation(AstNode node, LineInfo lineInfo
     parent = closestFunctionBody;
     offset = nextLine(closestFunctionBody.block.leftBracket.end, lineInfo);
   } else {
-    parent = closestUnit;
-    offset = prevLine(node.thisOrAncestorMatching((node) => node is CompilationUnitMember).offset, lineInfo);
+    parent = closestUnit!;
+    offset = prevLine(node.thisOrAncestorMatching((node) => node is CompilationUnitMember)!.offset, lineInfo);
   }
 
   for (final child in parent.childEntities.toList().reversed) {

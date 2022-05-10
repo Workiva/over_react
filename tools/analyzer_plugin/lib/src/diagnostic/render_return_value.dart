@@ -116,7 +116,7 @@ class RenderReturnValueDiagnostic extends DiagnosticContributor {
   computeErrors(result, collector) async {
     // This is the return type even if it's not explicitly declared.
     final visitor = RenderVisitor();
-    result.unit.accept(visitor);
+    result.unit!.accept(visitor);
     for (final returnExpression in visitor.renderReturnExpressions) {
       final returnType = returnExpression.staticType;
       if (returnType == null || returnType.isDynamic || returnType.isDartCoreObject || returnType.isVoid) {

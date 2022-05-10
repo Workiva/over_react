@@ -21,7 +21,7 @@ class SourceSelection {
   final Source source;
   final int offset;
   final int length;
-  final String target;
+  final String? target;
 
   SourceSelection(this.source, this.offset, this.length, {this.target});
 }
@@ -35,7 +35,7 @@ class SourceSelection {
 /// extend a test base for the specific type of contributor, like
 /// [AssistTestBase].
 abstract class ServerPluginContributorTestBase extends AnalysisDriverTestBase {
-  PluginForTest/*!*/ get testPlugin => _plugin;
+  PluginForTest get testPlugin => _plugin!;
 
   /// Applies the given [change] to [source], writes it via [resourceProvider]
   /// and returns the updated [Source].
@@ -78,7 +78,7 @@ abstract class ServerPluginContributorTestBase extends AnalysisDriverTestBase {
   /// - be at least as long as the selection you want to create
   /// - be as short as possible, given the previous two are satisifed
   /// - contain two `#` symbols that define the selection range in the target
-  SourceSelection createSelection(Source source, String target, {int offset}) {
+  SourceSelection createSelection(Source source, String target, {int? offset}) {
     final parts = target.split('#');
     expect(parts, hasLength(3), reason: 'Target must have two "#" symbols denoting the selection range.');
     final before = parts[0];
@@ -94,13 +94,13 @@ abstract class ServerPluginContributorTestBase extends AnalysisDriverTestBase {
   /// Will fail the test if any unexpected plugin errors were sent on the plugin
   /// communication channel.
   void expectNoPluginErrors() {
-    final pluginErrors = _channel.sentNotifications.where((n) => n.event == 'plugin.error');
+    final pluginErrors = _channel!.sentNotifications.where((n) => n.event == 'plugin.error');
     expect(pluginErrors, isEmpty,
         reason: 'Unexpected plugin error(s):\n${pluginErrors.map((e) => e.toJson()).join('\n')}');
   }
 
-  StubChannel _channel;
-  PluginForTest _plugin;
+  StubChannel? _channel;
+  PluginForTest? _plugin;
 
   @override
   @mustCallSuper
@@ -108,7 +108,7 @@ abstract class ServerPluginContributorTestBase extends AnalysisDriverTestBase {
     await super.setUp();
 
     _channel = StubChannel();
-    _plugin = PluginForTest(analysisDriver, resourceProvider)..start(_channel);
+    _plugin = PluginForTest(analysisDriver, resourceProvider)..start(_channel!);
 
     // ignore: missing_required_param
     final contextRoot = ContextRoot(testPath, []);

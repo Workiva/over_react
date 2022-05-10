@@ -82,7 +82,7 @@ abstract class ContributorDocPage<T extends DocumentedContributorMetaBase> {
          </header>
          <section>
 
-            ${markdownToHtml(contributor.details)}
+            ${markdownToHtml(contributor.details!)}
 
          </section>
       </div>

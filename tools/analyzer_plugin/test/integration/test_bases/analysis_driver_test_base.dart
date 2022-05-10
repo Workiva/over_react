@@ -13,6 +13,7 @@ import 'package:analyzer/src/generated/engine.dart';
 import 'package:analyzer/src/generated/source.dart';
 import 'package:analyzer/src/source/package_map_resolver.dart';
 import 'package:analyzer/src/test_utilities/mock_sdk.dart';
+import 'package:collection/collection.dart' show IterableExtension;
 import 'package:meta/meta.dart';
 import 'package:package_config/package_config.dart';
 import 'package:path/path.dart' as p;
@@ -44,24 +45,24 @@ abstract class AnalysisDriverTestBase {
   /// The analysis driver that computes analysis results for the test sources
   /// created via [newSource] that are then used by the plugin contributors
   /// under test.
-  AnalysisDriver/*!*/ get analysisDriver => _analysisDriver;
-  AnalysisDriver _analysisDriver;
+  AnalysisDriver get analysisDriver => _analysisDriver!;
+  AnalysisDriver? _analysisDriver;
 
   /// Provider of all resources created during and needed for tests.
-  MemoryResourceProvider/*!*/ get resourceProvider => _resourceProvider;
-  MemoryResourceProvider _resourceProvider;
+  MemoryResourceProvider get resourceProvider => _resourceProvider!;
+  MemoryResourceProvider? _resourceProvider;
 
   /// Absolute path to the in-memory folder within which all test sources are
   /// created.
-  String/*!*/ get testPath => _testPath;
-  String _testPath;
+  String get testPath => _testPath!;
+  String? _testPath;
 
   /// Creates and returns a new source file at [path] with optional file
   /// [contents].
   ///
   /// [path] must be relative; the returned source will be created within
   /// [testPath].
-  Source newSource(String path, [String contents]) {
+  Source newSource(String path, [String? contents]) {
     expect(p.isAbsolute(path), isFalse, reason: 'newSource() must be called with a relative path');
     final absolutePath = p.join(testPath, path);
     final file = resourceProvider.newFile(absolutePath, contents ?? '');
@@ -106,7 +107,7 @@ abstract class AnalysisDriverTestBase {
 
     final contextCollection = AnalysisContextCollectionImpl(
         includedPaths: [testPath], resourceProvider: resourceProvider, sdkPath: resourceProvider.convertPath('/sdk'));
-    _analysisDriver.analysisContext = contextCollection.contextFor(testPath);
+    _analysisDriver!.analysisContext = contextCollection.contextFor(testPath);
   }
 
   @mustCallSuper
@@ -120,15 +121,15 @@ abstract class AnalysisDriverTestBase {
   /// Returns the parsed package config from the
   /// `.dart_tool/package_config.json` file for the
   /// `over_react_analyzer_plugin` package.
-  static Future<PackageConfig/*!*/> _getRootPackageConfig() async =>
-      _realPackageConfig ??= await findPackageConfig(Directory.current, recurse: false);
-  static PackageConfig _realPackageConfig;
+  static Future<PackageConfig> _getRootPackageConfig() async =>
+      (_realPackageConfig ??= await findPackageConfig(Directory.current, recurse: false))!;
+  static PackageConfig? _realPackageConfig;
 
   /// Finds the source of [packageName] and copies the physical resources into
   /// the [memory] resoure provider at the `/packages/$packageName` location.
   static Future<Folder> _loadRealPackage(String packageName, MemoryResourceProvider memory) async {
     final package =
-        (await _getRootPackageConfig()).packages.firstWhere((pkg) => pkg.name == packageName, orElse: () => null);
+        (await _getRootPackageConfig()).packages.firstWhereOrNull((pkg) => pkg.name == packageName)!;
     expect(package, isNotNull,
         reason: 'Could not load "$packageName" into MemoryResourceProvider because it is not a dependency.');
     final physicalRoot = p.normalize(package.packageUriRoot.toFilePath());

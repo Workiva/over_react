@@ -47,7 +47,7 @@ import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/error_filtering.dart';
 
 mixin DiagnosticMixin on ServerPlugin {
-  List<DiagnosticContributor> getDiagnosticContributors(String/*!*/ path);
+  List<DiagnosticContributor> getDiagnosticContributors(String path);
 
   /// Computes errors based on an analysis result and notifies the analyzer.
   Future<void> processDiagnosticsForResult(ResolvedUnitResult analysisResult) async {
@@ -60,16 +60,16 @@ mixin DiagnosticMixin on ServerPlugin {
     try {
       // If there is no relevant analysis result, notify the analyzer of no errors.
       if (analysisResult.unit == null || analysisResult.libraryElement == null) {
-        channel.sendNotification(plugin.AnalysisErrorsParams(analysisResult.path, []).toNotification());
+        channel.sendNotification(plugin.AnalysisErrorsParams(analysisResult.path!, []).toNotification());
         return [];
       }
 
       // If there is something to analyze, do so and notify the analyzer.
       // Note that notifying with an empty set of errors is important as
       // this clears errors if they were fixed.
-      final generator = _DiagnosticGenerator(getDiagnosticContributors(analysisResult.path));
+      final generator = _DiagnosticGenerator(getDiagnosticContributors(analysisResult.path!));
       final result = await generator.generateErrors(analysisResult);
-      channel.sendNotification(plugin.AnalysisErrorsParams(analysisResult.path, result.result).toNotification());
+      channel.sendNotification(plugin.AnalysisErrorsParams(analysisResult.path!, result.result).toNotification());
       result.sendNotifications(channel);
       return result.result;
     } catch (e, stackTrace) {
@@ -157,7 +157,7 @@ class _DiagnosticGenerator {
       if (request.offset >= errorStart && request.offset <= errorEnd) {
         fixes.add(AnalysisErrorFixes(
           error,
-          fixes: [collector.fixes[i]],
+          fixes: [collector.fixes[i]!],
         ));
       }
     }
@@ -179,7 +179,7 @@ class _DiagnosticGenerator {
     // The analyzer normally filters out errors with "ignore" comments,
     // but it doesn't do it for plugin errors, so we need to do that here.
     final filteredErrors = filterIgnores(
-        collector.errors, unitResult.lineInfo, () => IgnoreInfo.forDart(unitResult.unit, unitResult.content));
+        collector.errors, unitResult.lineInfo, () => IgnoreInfo.forDart(unitResult.unit!, unitResult.content!));
 
     return _GeneratorResult(filteredErrors, notifications);
   }

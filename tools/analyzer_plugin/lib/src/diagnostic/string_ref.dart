@@ -85,7 +85,7 @@ class StringRefDiagnostic extends ComponentUsageDiagnosticContributor {
   @override
   computeErrorsForUsage(result, collector, usage) async {
     for (final prop in usage.cascadedProps) {
-      if (prop.name.name == 'ref' && prop.rightHandSide.staticType.isDartCoreString) {
+      if (prop.name.name == 'ref' && prop.rightHandSide.staticType!.isDartCoreString) {
         await collector.addErrorWithFix(
           code,
           result.locationFor(prop.rightHandSide),

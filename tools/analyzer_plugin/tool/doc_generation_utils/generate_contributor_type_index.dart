@@ -38,8 +38,8 @@ abstract class ContributorIndexer {
   final String pageTitle;
   final String bodySubtitle;
   ContributorIndexer({
-    @required this.pageTitle,
-    @required this.bodySubtitle,
+    required this.pageTitle,
+    required this.bodySubtitle,
   });
 
   void generate(String filePath) {

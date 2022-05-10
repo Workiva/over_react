@@ -11,9 +11,9 @@ import 'package:over_react_analyzer_plugin/src/util/node.dart';
 
 typedef BoilerplateLinkedEditFn = void Function(
   DartEditBuilder builder, {
-  String groupName,
-  String componentFactoryName,
-  String Function({int indent}) getComponentRenderReturnValueSrc,
+  String? groupName,
+  String? componentFactoryName,
+  String Function({int? indent})? getComponentRenderReturnValueSrc,
 });
 
 abstract class _ExtractComponentAssistContributorBase extends AssistContributorBase {
@@ -42,7 +42,7 @@ abstract class _ExtractComponentAssistContributorBase extends AssistContributorB
     final sourceChange = await buildFileEdit(request.result, (builder) {
       // TODO: It would be nice to ensure that an OverReact generated part directive is added, but it doesn't seem possible without screwing up the offsets for all the edits that follow.
 
-      final content = request.result.content;
+      final content = request.result.content!;
       builder.addInsertion(content.length, (builder) {
         builder.write('\n');
         addBoilerplateLinkedEditFn(

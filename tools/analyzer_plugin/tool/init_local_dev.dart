@@ -14,7 +14,7 @@ import 'logging.dart';
 final logger = Logger('init_local_dev');
 
 final resourceProvider = PhysicalResourceProvider.INSTANCE;
-final pluginManagerStateFolder = resourceProvider.getStateLocation('.plugin_manager')/*!*/;
+final pluginManagerStateFolder = resourceProvider.getStateLocation('.plugin_manager')!;
 
 /// Normally, the Dart Analysis Server does a one-time copy of plugin code into the Dart Analysis Server state folder
 /// (usually `~/.dartServer/.plugin_manager`), and never updates for plugins derived from path dependencies (TODO make dart-lang issue for this).
@@ -98,7 +98,7 @@ void validatePackageRoot(String pluginPath) {
     throw Exception('pubspec.yaml does not exist in package root');
   }
 
-  String/*!*/ name;
+  String name;
   try {
     final pubspecContents = pluginPubspec.readAsStringSync();
     final pubspecYaml = loadYaml(pubspecContents) as Map;

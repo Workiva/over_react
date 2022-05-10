@@ -67,7 +67,7 @@ class CallbackRefDiagnostic extends ComponentUsageDiagnosticContributor {
   computeErrorsForUsage(result, collector, usage) async {
     for (final prop in usage.cascadedProps) {
       if (prop.name.name == 'ref' &&
-          result.typeSystem.isSubtypeOf(prop.rightHandSide.staticType, result.typeProvider.functionType)) {
+          result.typeSystem.isSubtypeOf(prop.rightHandSide.staticType!, result.typeProvider.functionType)) {
         await collector.addErrorWithFix(
           code,
           result.locationFor(prop.rightHandSide),

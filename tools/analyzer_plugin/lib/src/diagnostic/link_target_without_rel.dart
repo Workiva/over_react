@@ -57,13 +57,13 @@ class LinkTargetUsageWithoutRelDiagnostic extends ComponentUsageDiagnosticContri
 
   @override
   computeErrorsForUsage(result, collector, usage) async {
-    String hrefValue;
-    Pair<Expression, Expression> targetPropSection;
-    Pair<Expression, Expression> relPropSection;
+    String? hrefValue;
+    Pair<Expression, Expression>? targetPropSection;
+    Pair<Expression, Expression>? relPropSection;
     for (final prop in usage.cascadedProps) {
       final propName = prop.name.name;
       if (propName == 'href') {
-        hrefValue = prop.rightHandSide.staticType.isDartCoreNull ? null : prop.rightHandSide.toString();
+        hrefValue = prop.rightHandSide.staticType!.isDartCoreNull ? null : prop.rightHandSide.toString();
       } else if (propName == 'target') {
         targetPropSection = Pair(prop.leftHandSide, prop.rightHandSide);
       } else if (propName == 'rel') {
@@ -71,15 +71,15 @@ class LinkTargetUsageWithoutRelDiagnostic extends ComponentUsageDiagnosticContri
       }
     }
 
-    if (hrefValue == null || targetPropSection == null || targetPropSection.last.staticType.isDartCoreNull) return;
+    if (hrefValue == null || targetPropSection == null || targetPropSection.last.staticType!.isDartCoreNull) return;
 
     const requiredRelValues = {
       'noopener',
       'noreferrer',
     };
     var actualRelValues = <String>{};
-    var offerQuickFix = relPropSection == null || relPropSection.last.staticType.isDartCoreNull;
-    if (relPropSection != null && relPropSection.last.staticType.isDartCoreString) {
+    var offerQuickFix = relPropSection == null || relPropSection.last.staticType!.isDartCoreNull;
+    if (relPropSection != null && relPropSection.last.staticType!.isDartCoreString) {
       offerQuickFix = relPropSection.last is StringLiteral;
 
       final declaredValues = getConstOrLiteralStringValueFrom(relPropSection.last)?.split(' ')?.toSet();
@@ -98,7 +98,7 @@ class LinkTargetUsageWithoutRelDiagnostic extends ComponentUsageDiagnosticContri
           fixKind: fixKind,
           computeFix: () => buildFileEdit(result, (builder) {
             if (relPropSection == null) {
-              addProp(usage, builder, result.content, result.lineInfo,
+              addProp(usage, builder, result.content!, result.lineInfo,
                   name: 'rel', value: "'${requiredRelValues.join(' ')}'");
             } else {
               builder.addSimpleReplacement(

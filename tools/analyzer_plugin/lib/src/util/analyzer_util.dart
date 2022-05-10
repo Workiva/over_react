@@ -48,23 +48,23 @@ class NodeLocator extends UnifyingAstVisitor<void> {
 
   /// The element that was found that corresponds to the given source range, or
   /// `null` if there is no such element.
-  AstNode _foundNode;
+  AstNode? _foundNode;
 
   /// Initialize a newly created locator to locate an [AstNode] by locating the
   /// node within an AST structure that corresponds to the given range of
   /// characters (between the [startOffset] and [endOffset] in the source.
-  NodeLocator(int startOffset, [int endOffset])
+  NodeLocator(int startOffset, [int? endOffset])
       : _startOffset = startOffset,
         _endOffset = endOffset ?? startOffset;
 
   /// Return the node that was found that corresponds to the given source range
   /// or `null` if there is no such node.
-  AstNode get foundNode => _foundNode;
+  AstNode? get foundNode => _foundNode;
 
   /// Search within the given AST [node] for an identifier representing an
   /// element in the specified source range. Return the element that was found,
   /// or `null` if no element was found.
-  AstNode searchWithin(AstNode node) {
+  AstNode? searchWithin(AstNode? node) {
     if (node == null) {
       return null;
     }
@@ -84,18 +84,18 @@ class NodeLocator extends UnifyingAstVisitor<void> {
     }
     // Check whether the current node covers the selection.
     var beginToken = node.beginToken;
-    var endToken = node.endToken;
+    Token? endToken = node.endToken;
     // Don't include synthetic tokens.
     while (endToken != beginToken) {
       // Fasta scanner reports unterminated string literal errors
       // and generates a synthetic string token with non-zero length.
       // Because of this, check for length > 0 rather than !isSynthetic.
-      if (endToken.type == TokenType.EOF || endToken.length > 0) {
+      if (endToken!.type == TokenType.EOF || endToken.length > 0) {
         break;
       }
       endToken = endToken.previous;
     }
-    var end = endToken.end;
+    var end = endToken!.end;
     var start = node.offset;
     if (end < _startOffset || start > _endOffset) {
       return;
@@ -129,20 +129,20 @@ class NodeLocator2 extends UnifyingAstVisitor<void> {
   final int _endOffset;
 
   /// The found node or `null` if there is no such node.
-  AstNode _foundNode;
+  AstNode? _foundNode;
 
   /// Initialize a newly created locator to locate the deepest [AstNode] for
   /// which `node.offset <= [startOffset]` and `[endOffset] < node.end`.
   ///
   /// If [endOffset] is not provided, then it is considered the same as the
   /// given [startOffset].
-  NodeLocator2(int startOffset, [int endOffset])
+  NodeLocator2(int startOffset, [int? endOffset])
       : _startOffset = startOffset,
         _endOffset = endOffset ?? startOffset;
 
   /// Search within the given AST [node] and return the node that was found,
   /// or `null` if no node was found.
-  AstNode searchWithin(AstNode node) {
+  AstNode? searchWithin(AstNode node) {
     if (node == null) {
       return null;
     }
@@ -162,18 +162,18 @@ class NodeLocator2 extends UnifyingAstVisitor<void> {
     }
     // Check whether the current node covers the selection.
     var beginToken = node.beginToken;
-    var endToken = node.endToken;
+    Token? endToken = node.endToken;
     // Don't include synthetic tokens.
     while (endToken != beginToken) {
       // Fasta scanner reports unterminated string literal errors
       // and generates a synthetic string token with non-zero length.
       // Because of this, check for length > 0 rather than !isSynthetic.
-      if (endToken.type == TokenType.EOF || endToken.length > 0) {
+      if (endToken!.type == TokenType.EOF || endToken.length > 0) {
         break;
       }
       endToken = endToken.previous;
     }
-    var end = endToken.end;
+    var end = endToken!.end;
     var start = node.offset;
     if (end <= _startOffset || start > _endOffset) {
       return;
@@ -285,7 +285,7 @@ class ConstantEvaluator extends GeneralizingAstVisitor<Object> {
   static Object NOT_A_CONSTANT = Object();
 
   @override
-  Object visitAdjacentStrings(AdjacentStrings node) {
+  Object? visitAdjacentStrings(AdjacentStrings node) {
     final buffer = StringBuffer();
     for (final string in node.strings) {
       final value = string.accept(this);
@@ -298,7 +298,7 @@ class ConstantEvaluator extends GeneralizingAstVisitor<Object> {
   }
 
   @override
-  Object visitBinaryExpression(BinaryExpression node) {
+  Object? visitBinaryExpression(BinaryExpression node) {
     final leftOperand = node.leftOperand.accept(this);
     if (identical(leftOperand, NOT_A_CONSTANT)) {
       return leftOperand;
@@ -428,10 +428,10 @@ class ConstantEvaluator extends GeneralizingAstVisitor<Object> {
   Object visitDoubleLiteral(DoubleLiteral node) => node.value;
 
   @override
-  Object visitIntegerLiteral(IntegerLiteral node) => node.value;
+  Object? visitIntegerLiteral(IntegerLiteral node) => node.value;
 
   @override
-  Object visitInterpolationExpression(InterpolationExpression node) {
+  Object? visitInterpolationExpression(InterpolationExpression node) {
     final value = node.expression.accept(this);
     if (value == null || value is bool || value is String || value is num) {
       return value;
@@ -443,8 +443,8 @@ class ConstantEvaluator extends GeneralizingAstVisitor<Object> {
   Object visitInterpolationString(InterpolationString node) => node.value;
 
   @override
-  Object visitListLiteral(ListLiteral node) {
-    final list = <Object>[];
+  Object? visitListLiteral(ListLiteral node) {
+    final list = <Object?>[];
     for (final element in node.elements) {
       if (element is Expression) {
         final value = element.accept(this);
@@ -468,16 +468,16 @@ class ConstantEvaluator extends GeneralizingAstVisitor<Object> {
   Object visitNode(AstNode node) => NOT_A_CONSTANT;
 
   @override
-  Object visitNullLiteral(NullLiteral node) => null;
+  Object? visitNullLiteral(NullLiteral node) => null;
 
   @override
-  Object visitParenthesizedExpression(ParenthesizedExpression node) => node.expression.accept(this);
+  Object? visitParenthesizedExpression(ParenthesizedExpression node) => node.expression.accept(this);
 
   @override
   Object visitPrefixedIdentifier(PrefixedIdentifier node) => _getConstantValue(null);
 
   @override
-  Object visitPrefixExpression(PrefixExpression node) {
+  Object? visitPrefixExpression(PrefixExpression node) {
     final operand = node.operand.accept(this);
     if (identical(operand, NOT_A_CONSTANT)) {
       return operand;
@@ -513,7 +513,7 @@ class ConstantEvaluator extends GeneralizingAstVisitor<Object> {
     // There are a lot of constants that this class does not support, so we
     // didn't add support for set literals. As a result, this assumes that we're
     // looking at a map literal until we prove otherwise.
-    Map<String, Object> map = HashMap<String, Object>();
+    Map<String, Object?> map = HashMap<String, Object?>();
     for (final element in node.elements) {
       if (element is MapLiteralEntry) {
         final key = element.key.accept(this);
@@ -539,7 +539,7 @@ class ConstantEvaluator extends GeneralizingAstVisitor<Object> {
   Object visitSimpleStringLiteral(SimpleStringLiteral node) => node.value;
 
   @override
-  Object visitStringInterpolation(StringInterpolation node) {
+  Object? visitStringInterpolation(StringInterpolation node) {
     final buffer = StringBuffer();
     for (final element in node.elements) {
       final value = element.accept(this);
@@ -566,7 +566,7 @@ class ConstantEvaluator extends GeneralizingAstVisitor<Object> {
 
   /// Return the constant value of the static constant represented by the given
   /// [element].
-  Object _getConstantValue(Element element) {
+  Object _getConstantValue(Element? element) {
     // TODO(brianwilkerson) Implement this
 //    if (element is FieldElement) {
 //      FieldElement field = element;

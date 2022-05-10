@@ -89,8 +89,8 @@ class InvalidChildDiagnostic extends ComponentUsageDiagnosticContributor {
   }
 }
 
-Future<void> validateReactChildType(DartType type, TypeSystem typeSystem, TypeProvider typeProvider,
-    {@required FutureOr<void> Function(DartType invalidType) onInvalidType}) async {
+Future<void> validateReactChildType(DartType? type, TypeSystem typeSystem, TypeProvider typeProvider,
+    {required FutureOr<void> Function(DartType invalidType) onInvalidType}) async {
   // Couldn't be resolved
   if (type == null) return;
   // Couldn't be resolved to anything more specific; `Object` might be

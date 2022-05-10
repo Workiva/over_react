@@ -172,7 +172,7 @@ class OverReactAnalyzerPlugin extends OverReactAnalyzerPluginBase {
 
   @override
   void contentChanged(String path) {
-    super.driverForPath(path).addFile(path);
+    super.driverForPath(path)!.addFile(path);
   }
 
   @override
@@ -219,7 +219,7 @@ class OverReactAnalyzerPlugin extends OverReactAnalyzerPluginBase {
       var contextRoot = contextRootContaining(file);
       if (contextRoot != null) {
         // TODO(brianwilkerson) Which driver should we use if there is no context root?
-        var driver = driverMap[contextRoot]/*!*/;
+        var driver = driverMap[contextRoot]!;
         filesByDriver.putIfAbsent(driver, () => <String>[]).add(file);
       }
     }

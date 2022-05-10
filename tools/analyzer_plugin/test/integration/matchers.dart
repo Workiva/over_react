@@ -29,7 +29,7 @@ TypeMatcher<PrioritizedSourceChange> isFix(FixKind fixKind) => isA<PrioritizedSo
 /// - The analysis error either has a fix or does not, based on [hasFix]
 /// - If [locatedAt] is non-null, the analysis error's location (offset and
 ///   length) matches it
-TypeMatcher<AnalysisError> isDiagnostic(DiagnosticCode diagnosticCode, {bool hasFix, SourceSelection locatedAt}) {
+TypeMatcher<AnalysisError> isDiagnostic(DiagnosticCode diagnosticCode, {bool? hasFix, SourceSelection? locatedAt}) {
   hasFix ??= false;
   var matcher = isA<AnalysisError>()
       .havingCode(diagnosticCode.name)
@@ -49,7 +49,7 @@ TypeMatcher<AnalysisError> isDiagnostic(DiagnosticCode diagnosticCode, {bool has
 extension AnalysisErrorHavingUtils on TypeMatcher<AnalysisError> {
   TypeMatcher<AnalysisError> havingCode(String code) => having((e) => e.code, 'code', code);
 
-  TypeMatcher<AnalysisError> havingCorrection(String correction) =>
+  TypeMatcher<AnalysisError> havingCorrection(String? correction) =>
       having((e) => e.correction, 'correction', correction);
 
   TypeMatcher<AnalysisError> havingLocation(Matcher matcher) => having((e) => e.location, 'location', matcher);
@@ -106,8 +106,8 @@ class _LocationMatcher extends Matcher {
 
   @override
   bool matches(dynamic item, Map matchState) {
-    int/*!*/ offset;
-    int/*!*/ length;
+    int offset;
+    int length;
     if (item is SourceSelection) {
       offset = item.offset;
       length = item.length;

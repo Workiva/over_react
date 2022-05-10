@@ -59,7 +59,7 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
 
   static final fixKind = FixKind(code.name, 200, 'Add required prop \'{0}\'');
 
-  ClassElement _cachedAccessorClass;
+  ClassElement? _cachedAccessorClass;
 
   @override
   computeErrorsForUsage(result, collector, usage) async {
@@ -70,7 +70,7 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
     var builderType = usage.builder.staticType;
     // Handle generic factories (todo might not be needed)
     while (builderType is TypeParameterType) {
-      builderType = (builderType as TypeParameterType).bound;
+      builderType = builderType.bound;
     }
 
     // todo check if factory invocation
@@ -96,14 +96,14 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
             return false;
           }
 
-          _cachedAccessorClass ??= typeLibrary.getType('Accessor');
-          if (!result.typeSystem.isAssignableTo(type, _cachedAccessorClass.thisType)) {
+          _cachedAccessorClass ??= typeLibrary!.getType('Accessor');
+          if (!result.typeSystem.isAssignableTo(type!, _cachedAccessorClass!.thisType)) {
             return false;
           }
 
           // This is null when isRequired does not have a valid value
           // (e.g., as the user is typing it in)
-          return value.getField('isRequired').toBoolValue() ?? false;
+          return value!.getField('isRequired')!.toBoolValue() ?? false;
         })) {
           requiredFields.add(field);
         }

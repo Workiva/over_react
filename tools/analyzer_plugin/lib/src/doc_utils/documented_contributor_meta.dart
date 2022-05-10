@@ -44,12 +44,12 @@ abstract class IContributorMetaBase {
   String get description;
 
   /// Detailed documentation _(in markdown format)_ suitable for display on a documentation website.
-  String get details;
+  String? get details;
 
   /// The version the contributor was added in.
   ///
   /// > Should default to [defaultSince].
-  String get since;
+  String? get since;
 
   /// The maturity of the contributor.
   ///
@@ -75,13 +75,13 @@ abstract class DocumentedContributorMetaBase implements IContributorMetaBase {
   /// Returns a `DocsMeta` instance constructed by parsing the AST of the provided annotated [element].
   static DocsMeta getDocsMetaFromAnnotation(FieldElement element) {
     final annotation =
-        element.metadata.singleWhere((a) => a.element.thisOrAncestorOfType<ClassElement>().name == 'DocsMeta');
-    final annotationObj = annotation.computeConstantValue();
-    final description = annotationObj.getField('description').toStringValue();
-    final details = annotationObj.getField('details').toStringValue();
+        element.metadata.singleWhere((a) => a.element!.thisOrAncestorOfType<ClassElement>()!.name == 'DocsMeta');
+    final annotationObj = annotation.computeConstantValue()!;
+    final description = annotationObj.getField('description')!.toStringValue()!;
+    final details = annotationObj.getField('details')!.toStringValue();
     final maturity =
-        getMatchingConst(annotationObj.getField('maturity'), Maturity.VALUES) ?? IContributorMetaBase.defaultMaturity;
-    final since = annotationObj.getField('since').toStringValue() ?? IContributorMetaBase.defaultSince;
+        getMatchingConst(annotationObj.getField('maturity')!, Maturity.VALUES) ?? IContributorMetaBase.defaultMaturity;
+    final since = annotationObj.getField('since')!.toStringValue() ?? IContributorMetaBase.defaultSince;
 
     return DocsMeta(description, details: details, since: since, maturity: maturity);
   }
@@ -94,11 +94,11 @@ abstract class DocumentedContributorMetaBase implements IContributorMetaBase {
 class DocumentedAssistContributorMeta extends DocumentedContributorMetaBase
     implements Comparable<DocumentedAssistContributorMeta> {
   @override
-  final String/*!*/ name;
+  final String name;
   @override
-  final String/*!*/ description;
+  final String description;
   @override
-  final String details;
+  final String? details;
   @override
   final String since;
   @override
@@ -113,8 +113,8 @@ class DocumentedAssistContributorMeta extends DocumentedContributorMetaBase
   factory DocumentedAssistContributorMeta.fromAnnotatedFieldAst(FieldElement element) {
     final metaFromAnnotation = DocumentedContributorMetaBase.getDocsMetaFromAnnotation(element);
 
-    final assistKindObj = element.computeConstantValue();
-    final name = assistKindObj.getField('id').toStringValue();
+    final assistKindObj = element.computeConstantValue()!;
+    final name = assistKindObj.getField('id')!.toStringValue()!;
 
     return DocumentedAssistContributorMeta._(
       name,
@@ -138,13 +138,13 @@ class DocumentedAssistContributorMeta extends DocumentedContributorMetaBase
 class DocumentedDiagnosticContributorMeta extends DocumentedContributorMetaBase
     implements Comparable<DocumentedDiagnosticContributorMeta> {
   @override
-  final String/*!*/ name;
+  final String name;
   @override
-  final String/*!*/ description;
+  final String description;
   @override
-  final String details;
+  final String? details;
   @override
-  final String since;
+  final String? since;
   @override
   final Maturity maturity;
 
@@ -161,8 +161,8 @@ class DocumentedDiagnosticContributorMeta extends DocumentedContributorMetaBase
   DocumentedDiagnosticContributorMeta._(
     this.name,
     this.description, {
-    @required this.severity,
-    @required this.type,
+    required this.severity,
+    required this.type,
     this.since,
     this.maturity = Maturity.stable,
     this.details,
@@ -172,10 +172,10 @@ class DocumentedDiagnosticContributorMeta extends DocumentedContributorMetaBase
   factory DocumentedDiagnosticContributorMeta.fromAnnotatedField(FieldElement element) {
     final metaFromAnnotation = DocumentedContributorMetaBase.getDocsMetaFromAnnotation(element);
 
-    final diagnosticCodeObj = element.computeConstantValue();
-    final name = diagnosticCodeObj.getField('name').toStringValue();
-    final severity = diagnosticCodeObj.getField('errorSeverity');
-    final type = diagnosticCodeObj.getField('type');
+    final diagnosticCodeObj = element.computeConstantValue()!;
+    final name = diagnosticCodeObj.getField('name')!.toStringValue()!;
+    final severity = diagnosticCodeObj.getField('errorSeverity')!;
+    final type = diagnosticCodeObj.getField('type')!;
 
     return DocumentedDiagnosticContributorMeta._(
       name,

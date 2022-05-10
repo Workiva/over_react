@@ -50,7 +50,7 @@ class WrapUnwrapAssistContributor extends AssistContributorBase {
       return;
     }
 
-    final content = request.result.content;
+    final content = request.result.content!;
     final widgetSrc = content.substring(usage.node.offset, usage.node.end);
     final widgetSrcIndentedOneLevel = widgetSrc.split('\n').map((line) => '  ' + line).join('\n');
     final widgetIndent = getIndent(content, request.result.lineInfo, usage.node.offset);

@@ -62,7 +62,7 @@ class DiagnosticCode {
     this.errorSeverity,
     this.type, {
     this.correction,
-    String url,
+    String? url,
   }) : url = url ?? '$analyzerPluginLintDocsUrl$name.html';
 
   /// The name of the error code.
@@ -75,7 +75,7 @@ class DiagnosticCode {
   /// The template used to create the correction to be displayed for this error,
   /// or `null` if there is no correction information for this error. The
   /// correction should indicate how the user can fix the error.
-  final String correction;
+  final String? correction;
 
   /// The URL of a page containing documentation associated with this error.
   final String url;
@@ -110,7 +110,7 @@ abstract class ComponentUsageDiagnosticContributor extends DiagnosticContributor
   @override
   Future<void> computeErrors(ResolvedUnitResult result, DiagnosticCollector collector) async {
     final usages = <FluentComponentUsage>[];
-    result.unit.accept(ComponentUsageVisitor(usages.add));
+    result.unit!.accept(ComponentUsageVisitor(usages.add));
     for (final usage in usages) {
       await computeErrorsForUsage(result, collector, usage);
     }
@@ -120,9 +120,9 @@ abstract class ComponentUsageDiagnosticContributor extends DiagnosticContributor
 /// An object that [DiagnosticContributor]s use to record errors and fixes.
 @sealed
 abstract class DiagnosticCollector {
-  void addRawError(AnalysisError error, {PrioritizedSourceChange fix});
+  void addRawError(AnalysisError error, {PrioritizedSourceChange? fix});
 
-  void addError(DiagnosticCode code, Location location, {bool hasFix, List<Object> errorMessageArgs});
+  void addError(DiagnosticCode code, Location location, {bool? hasFix, List<Object?>? errorMessageArgs});
 
   ///
   /// use of `buildFileEdit`]` is recommended:
@@ -145,44 +145,44 @@ abstract class DiagnosticCollector {
   ///     }
   ///
   Future<void> addErrorWithFix(DiagnosticCode code, Location location,
-      {FixKind fixKind,
-      FutureOr<SourceChange> Function() computeFix,
-      List<Object> errorMessageArgs,
-      List<Object> fixMessageArgs});
+      {FixKind? fixKind,
+      FutureOr<SourceChange> Function()? computeFix,
+      List<Object>? errorMessageArgs,
+      List<Object>? fixMessageArgs});
 }
 
 // ignore: subtype_of_sealed_class
 @protected
 class DiagnosticCollectorImpl implements DiagnosticCollector {
-  DiagnosticCollectorImpl({@required this.shouldComputeFixes});
+  DiagnosticCollectorImpl({required this.shouldComputeFixes});
 
   final bool shouldComputeFixes;
 
   /// The list of assists that have been collected.
   final List<AnalysisError> errors = [];
-  final List<PrioritizedSourceChange> fixes = [];
+  final List<PrioritizedSourceChange?> fixes = [];
 
   @override
-  void addRawError(AnalysisError error, {PrioritizedSourceChange fix}) {
+  void addRawError(AnalysisError error, {PrioritizedSourceChange? fix}) {
     errors.add(error);
     fixes.add(fix);
   }
 
   @override
   void addError(DiagnosticCode code, Location location,
-      {bool/*!*/ hasFix = false,
-      FixKind fixKind,
-      SourceChange fixChange,
-      List<Object> errorMessageArgs,
-      List<Object> fixMessageArgs}) {
+      {bool hasFix = false,
+      FixKind? fixKind,
+      SourceChange? fixChange,
+      List<Object?>? errorMessageArgs,
+      List<Object>? fixMessageArgs}) {
     // FIXME(nullsafety) better checks/errors when some args aren't provided
 
-    PrioritizedSourceChange fix;
+    PrioritizedSourceChange? fix;
     if (fixChange != null) {
       if (fixChange.edits.isNotEmpty) {
         fixChange
-          ..id = fixKind.id
-          ..message = _formatList(fixKind.message, fixMessageArgs);
+          ..id = fixKind!.id
+          ..message = _formatList(fixKind.message, fixMessageArgs!);
         fix = PrioritizedSourceChange(fixKind.priority, fixChange);
         hasFix = true;
       }
@@ -192,7 +192,7 @@ class DiagnosticCollectorImpl implements DiagnosticCollector {
       code.errorSeverity,
       code.type,
       location,
-      _formatList(code.message, errorMessageArgs),
+      _formatList(code.message, errorMessageArgs!),
       code.name,
       correction: code.correction,
       url: code.url,
@@ -204,16 +204,16 @@ class DiagnosticCollectorImpl implements DiagnosticCollector {
 
   @override
   Future<void> addErrorWithFix(DiagnosticCode code, Location location,
-      {FixKind fixKind,
-      FutureOr<SourceChange> Function() computeFix,
-      List<Object> errorMessageArgs,
-      List<Object> fixMessageArgs}) async {
+      {FixKind? fixKind,
+      FutureOr<SourceChange> Function()? computeFix,
+      List<Object>? errorMessageArgs,
+      List<Object>? fixMessageArgs}) async {
     addError(
       code,
       location,
       hasFix: true,
       fixKind: fixKind,
-      fixChange: shouldComputeFixes ? await computeFix() : null,
+      fixChange: shouldComputeFixes ? await computeFix!() : null,
       errorMessageArgs: errorMessageArgs,
       fixMessageArgs: fixMessageArgs,
     );
@@ -253,15 +253,15 @@ class DiagnosticCollectorImpl implements DiagnosticCollector {
 ///     format('Hello, {0}!', ['John']) = 'Hello, John!'
 ///     format('{0} are you {1}ing?', ['How', 'do']) = 'How are you doing?'
 ///     format('{0} are you {1}ing?', ['What', 'read']) = 'What are you reading?'
-String _formatList(String pattern, List<Object>/*!*/ arguments) {
+String _formatList(String pattern, List<Object?> arguments) {
   if (arguments == null || arguments.isEmpty) {
     assert(!pattern.contains(RegExp(r'\{(\d+)\}')), 'Message requires arguments, but none were provided.');
     return pattern;
   }
   return pattern.replaceAllMapped(RegExp(r'\{(\d+)\}'), (match) {
-    final indexStr = match.group(1);
+    final indexStr = match.group(1)!;
     final index = int.parse(indexStr);
-    final arg = arguments[index];
+    final arg = arguments[index]!;
     assert(arg != null);
     return arg?.toString();
   });

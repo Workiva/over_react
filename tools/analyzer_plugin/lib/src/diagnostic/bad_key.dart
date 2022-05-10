@@ -119,7 +119,7 @@ class BadKeyDiagnostic extends ComponentUsageDiagnosticContributor {
       final visitor = ToStringedVisitor();
       prop.rightHandSide.accept(visitor);
       for (final expression in visitor.toStringedExpressions) {
-        processToStringedExpressionInKey(result, collector, expression);
+        processToStringedExpressionInKey(result, collector, expression!);
       }
     }
   }
@@ -175,10 +175,10 @@ class BadKeyDiagnostic extends ComponentUsageDiagnosticContributor {
     }
   }
 
-  static bool inheritsToStringImplFromObject(Element/*?*/ element) =>
+  static bool inheritsToStringImplFromObject(Element? element) =>
       element
           ?.tryCast<ClassElement>()
-          ?.lookUpConcreteMethod('toString', element.library)
+          ?.lookUpConcreteMethod('toString', element.library!)
           ?.thisOrAncestorOfType<ClassElement>()
           ?.thisType
           ?.isDartCoreObject ??
@@ -190,7 +190,7 @@ class BadKeyDiagnostic extends ComponentUsageDiagnosticContributor {
 /// - toString calls
 /// - string interpolation
 class ToStringedVisitor extends RecursiveAstVisitor<void> {
-  final toStringedExpressions = <Expression/*!*/>[];
+  final List<Expression?> toStringedExpressions = <Expression>[];
 
   @override
   void visitMethodInvocation(MethodInvocation node) {

@@ -10,7 +10,7 @@ Future<SourceChange> buildFileEdit(
   FutureOr<void> Function(DartFileEditBuilder builder) buildFileEdit,
 ) async {
   final builder = ChangeBuilder();
-  await builder.addDartFileEdit(result.path, buildFileEdit);
+  await builder.addDartFileEdit(result.path!, buildFileEdit);
   return builder.sourceChange;
 }
 

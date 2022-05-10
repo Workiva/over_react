@@ -6,8 +6,8 @@ String getNodeSource(
   InvocationExpression node,
   String fileContent,
   LineInfo lineInfo, {
-  int indent,
-  int firstLineIndent,
+  int? indent,
+  int? firstLineIndent,
 }) {
   final src = fileContent.substring(node.offset, node.end);
   final nodeIndent = getIndent(fileContent, lineInfo, node.offset).length;

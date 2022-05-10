@@ -66,7 +66,7 @@ class ConsumedPropsReturnValueDiagnostic extends DiagnosticContributor {
   computeErrors(result, collector) async {
     final visitor = ConsumedPropsVisitor();
 
-    result.unit.accept(visitor);
+    result.unit!.accept(visitor);
 
     final consumedPropsDeclarations = visitor.consumedPropsDeclarations;
 

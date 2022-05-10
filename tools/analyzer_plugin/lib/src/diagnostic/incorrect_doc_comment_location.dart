@@ -99,9 +99,9 @@ class IncorrectDocCommentLocationDiagnostic extends DiagnosticContributor {
 
   @override
   computeErrors(result, collector) async {
-    final sourceFile = SourceFile.fromString(result.content, url: result.path);
+    final sourceFile = SourceFile.fromString(result.content!, url: result.path);
     final errorCollector = orbp.ErrorCollector.callback(sourceFile);
-    final declarations = orbp.parseDeclarations(result.unit, errorCollector);
+    final declarations = orbp.parseDeclarations(result.unit!, errorCollector);
 
     for (final decl in declarations) {
       if (decl is orbp.PropsMapViewOrFunctionComponentDeclaration) continue;

@@ -14,7 +14,7 @@ abstract class ContributorMetaRegistry<T extends DocumentedContributorMetaBase> 
   Iterable<T> get meta => _metaMap.values;
 
   /// Return the contributor metadata with the given [name].
-  T operator [](String name) => _metaMap[name];
+  T? operator [](String name) => _metaMap[name];
 
   /// Adds the [meta] to this registry, keyed by the [DocumentedContributorMetaBase.name] found in the provided [meta].
   void register(T meta) {

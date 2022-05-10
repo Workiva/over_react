@@ -76,9 +76,9 @@ void _addUiComponentBoilerplateComponent(
   String groupName = 'orStless',
   String componentFactoryName = 'Foo',
   String baseComponentClassName = 'UiComponent2',
-  String Function({int indent}) getComponentRenderReturnValueSrc,
+  String Function({int indent})? getComponentRenderReturnValueSrc,
 }) {
-  String componentRenderReturnValueSrc;
+  String? componentRenderReturnValueSrc;
   if (getComponentRenderReturnValueSrc != null) {
     componentRenderReturnValueSrc = getComponentRenderReturnValueSrc(indent: 4);
   }
@@ -119,11 +119,11 @@ void _addUiComponentBoilerplateComponent(
 
 void addUiComponentBoilerplateLinkedEdit(
   DartEditBuilder builder, {
-  String groupName = 'orStless',
-  String componentFactoryName = 'Foo',
-  String Function({int indent}) getComponentRenderReturnValueSrc,
+  String? groupName = 'orStless',
+  String? componentFactoryName = 'Foo',
+  String Function({int indent})? getComponentRenderReturnValueSrc,
 }) {
-  _addUiComponentBoilerplateFactory(builder, groupName: groupName, componentFactoryName: componentFactoryName);
+  _addUiComponentBoilerplateFactory(builder, groupName: groupName!, componentFactoryName: componentFactoryName!);
   _addUiComponentBoilerplateProps(builder, groupName: groupName, componentFactoryName: componentFactoryName);
   _addUiComponentBoilerplateComponent(builder,
       groupName: groupName,
@@ -133,11 +133,11 @@ void addUiComponentBoilerplateLinkedEdit(
 
 void addUiStatefulComponentBoilerplateLinkedEdit(
   DartEditBuilder builder, {
-  String groupName = 'orStful',
-  String componentFactoryName = 'Foo',
-  String Function({int indent}) getComponentRenderReturnValueSrc,
+  String? groupName = 'orStful',
+  String? componentFactoryName = 'Foo',
+  String Function({int indent})? getComponentRenderReturnValueSrc,
 }) {
-  _addUiComponentBoilerplateFactory(builder, groupName: groupName, componentFactoryName: componentFactoryName);
+  _addUiComponentBoilerplateFactory(builder, groupName: groupName!, componentFactoryName: componentFactoryName!);
   _addUiComponentBoilerplateProps(builder, groupName: groupName, componentFactoryName: componentFactoryName);
   _addUiComponentBoilerplateState(builder, groupName: groupName, componentFactoryName: componentFactoryName);
   _addUiComponentBoilerplateComponent(builder,
@@ -151,7 +151,7 @@ void addFluxUiComponentBoilerplateLinkedEdit(
   DartEditBuilder builder, {
   String groupName = 'orFlux',
   String componentFactoryName = 'Foo',
-  String Function({int indent}) getComponentRenderReturnValueSrc,
+  String Function({int indent})? getComponentRenderReturnValueSrc,
 }) {
   _addUiComponentBoilerplateFactory(builder, groupName: groupName, componentFactoryName: componentFactoryName);
   _addUiComponentBoilerplateFluxProps(builder, groupName: groupName, componentFactoryName: componentFactoryName);
@@ -166,7 +166,7 @@ void addFluxUiStatefulComponentBoilerplateLinkedEdit(
   DartEditBuilder builder, {
   String groupName = 'orFluxStful',
   String componentFactoryName = 'Foo',
-  String Function({int indent}) getComponentRenderReturnValueSrc,
+  String Function({int? indent})? getComponentRenderReturnValueSrc,
 }) {
   _addUiComponentBoilerplateFactory(builder, groupName: groupName, componentFactoryName: componentFactoryName);
   _addUiComponentBoilerplateFluxProps(builder, groupName: groupName, componentFactoryName: componentFactoryName);

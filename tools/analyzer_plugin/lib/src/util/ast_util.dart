@@ -11,8 +11,8 @@ import 'package:analyzer/source/line_info.dart';
 import 'package:over_react_analyzer_plugin/src/util/analyzer_util.dart';
 
 /// Returns a String value when a literal or constant var/identifier is found within [expr].
-String getConstOrLiteralStringValueFrom(Expression expr) {
-  if (!expr.staticType.isDartCoreString) return null;
+String? getConstOrLiteralStringValueFrom(Expression expr) {
+  if (!expr.staticType!.isDartCoreString) return null;
 
   if (expr is StringInterpolation) {
     final constantValue = expr.accept(ConstantEvaluator());
@@ -32,7 +32,7 @@ String getConstOrLiteralStringValueFrom(Expression expr) {
 }
 
 /// Returns a lazy iterable of all descendants of [node], in breadth-first order.
-Iterable<AstNode> allDescendants(AstNode/*!*/ node) sync* {
+Iterable<AstNode> allDescendants(AstNode node) sync* {
   final nodesQueue = Queue<AstNode>()..add(node);
   while (nodesQueue.isNotEmpty) {
     final current = nodesQueue.removeFirst();
@@ -52,7 +52,7 @@ Iterable<T> allDescendantsOfType<T extends AstNode>(AstNode node) => allDescenda
 
 extension ClassOrMixinDeclarationUtils on ClassOrMixinDeclaration {
   /// Similar to [getField], but returns the entire declaration instead.
-  FieldDeclaration getFieldDeclaration(String name) => getField(name)?.thisOrAncestorOfType<FieldDeclaration>();
+  FieldDeclaration? getFieldDeclaration(String name) => getField(name)?.thisOrAncestorOfType<FieldDeclaration>();
 }
 
 int prevLine(int offset, LineInfo lineInfo) {
@@ -82,7 +82,7 @@ extension FunctionBodyUtils on FunctionBody {
       for (final statement in self.returnStatements) {
         // Expression is null for returns statements without values (`return;`). Skip those.
         if (statement.expression != null) {
-          yield statement.expression;
+          yield statement.expression!;
         }
       }
     }
@@ -121,7 +121,7 @@ class _ReturnStatementsForBodyVisitor extends RecursiveAstVisitor<void> {
 /// Currently only works when the fields within [T] only contain core types and not other constant classes.
 T getMatchingConst<T>(DartObject object, Iterable<T> values) {
   final classMirror = reflectClass(T);
-  final objectTypeName = object.type.element.name;
+  final objectTypeName = object.type!.element!.name;
   final valueTypeName = classMirror.simpleName.name;
 
   if (objectTypeName != valueTypeName) {
@@ -137,14 +137,14 @@ T getMatchingConst<T>(DartObject object, Iterable<T> values) {
       // Need to use the field symbol and not it converted back from a string or it won't work
       // for private members.
       final dynamic valueFieldValue = reflect(value).getField(field).reflectee;
-      final objectFieldValue = object.getField(field.name).toWhateverValue();
+      final objectFieldValue = object.getField(field.name)!.toWhateverValue();
       return valueFieldValue == objectFieldValue;
     });
   });
 }
 
 extension on DartObject {
-  Object toWhateverValue() =>
+  Object? toWhateverValue() =>
       toBoolValue() ??
       toDoubleValue() ??
       toFunctionValue() ??

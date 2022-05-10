@@ -11,10 +11,10 @@ void addProp(
   DartFileEditBuilder fileBuilder,
   String source,
   LineInfo lineInfo, {
-  String name,
-  String value,
-  void Function(DartEditBuilder builder) buildNameEdit,
-  void Function(DartEditBuilder builder) buildValueEdit,
+  String? name,
+  String? value,
+  void Function(DartEditBuilder builder)? buildNameEdit,
+  void Function(DartEditBuilder builder)? buildValueEdit,
   bool forceOwnLine = false,
 }) {
   if ((name == null) == (buildNameEdit == null)) {
@@ -37,7 +37,7 @@ void addProp(
   }
 
   if (usage.cascadeExpression != null) {
-    final sections = usage.cascadeExpression.cascadeSections;
+    final sections = usage.cascadeExpression!.cascadeSections;
     if (isSameLine(lineInfo, usage.node.function.offset, sections.first.offset)) {
       // todo handle some cascades being on separate lines
       // todo handle multiline cascades
@@ -56,7 +56,7 @@ void addProp(
     if (name != null) {
       builder.write(name);
     } else {
-      buildNameEdit(builder);
+      buildNameEdit!(builder);
     }
 
     if (value != null) {
@@ -81,7 +81,7 @@ void addProp(
 ///
 /// If [prop] is the last cascade on the parenthesized builder, this removes the parentheses for a better user experience.
 void removeProp(FluentComponentUsage usage, DartFileEditBuilder fileBuilder, PropAssignment prop) {
-  final cascade = usage.cascadeExpression;
+  final cascade = usage.cascadeExpression!;
   // Defensively check that this is a ParenthesizedExpression in case there's some weird syntax issue.
   final parenthesizedCascade = cascade.parent.tryCast<ParenthesizedExpression>();
 
@@ -92,6 +92,6 @@ void removeProp(FluentComponentUsage usage, DartFileEditBuilder fileBuilder, Pro
   } else {
     // Include the space between the previous token and the start of this assignment, so that
     // the entire prop line is removed.
-    fileBuilder.addDeletion(range.endEnd(prop.node.beginToken.previous, prop.node));
+    fileBuilder.addDeletion(range.endEnd(prop.node.beginToken.previous!, prop.node));
   }
 }

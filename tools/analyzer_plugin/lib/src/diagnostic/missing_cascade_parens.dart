@@ -74,12 +74,12 @@ class MissingCascadeParensDiagnostic extends DiagnosticContributor {
       }.contains(error.errorCode.name);
 
       if (isBadFunction || isBadArity || isVoidUsage) {
-        final node = NodeLocator(error.offset, error.offset + error.length).searchWithin(result.unit);
+        final node = NodeLocator(error.offset, error.offset + error.length).searchWithin(result.unit)!;
 
         final debug = AnalyzerDebugHelper(result, collector);
         debug.log('node.type: ${node.runtimeType}');
 
-        InvocationExpression invocation;
+        InvocationExpression? invocation;
         final parent = node.parent;
         if (isBadArity && node is ArgumentList && parent is InvocationExpression) {
           invocation = parent;
@@ -102,7 +102,7 @@ class MissingCascadeParensDiagnostic extends DiagnosticContributor {
               fixKind: fixKind,
               computeFix: () => buildFileEdit(result, (builder) {
                 builder.addSimpleInsertion(cascade.offset, '(');
-                builder.addSimpleInsertion(invocation.argumentList.offset, ')');
+                builder.addSimpleInsertion(invocation!.argumentList.offset, ')');
               }),
             );
           }
@@ -112,8 +112,8 @@ class MissingCascadeParensDiagnostic extends DiagnosticContributor {
         debug.log('${invocation.function.staticType?.getDisplayString(withNullability: false)}');
 
         if (isBadFunction && (invocation.function.staticType?.isReactElement ?? false)) {
-          final expr = invocation.function?.tryCast<InvocationExpression>() ??
-              invocation.function?.tryCast<ParenthesizedExpression>()?.unParenthesized?.tryCast();
+          final expr = (invocation.function?.tryCast<InvocationExpression>() ??
+              invocation.function?.tryCast<ParenthesizedExpression>()?.unParenthesized?.tryCast() as InvocationExpression)!;
 
           debug.log('expr: ${expr?.runtimeType} ${expr?.toSource()}');
           debug.log('expr.parent: ${expr?.parent?.runtimeType} ${expr?.parent?.toSource()}');

@@ -44,12 +44,12 @@ class BoolPropNameReadabilityDiagnostic extends DiagnosticContributor {
     final typeProvider = result.libraryElement.typeProvider;
     final visitor = PropsVisitor();
 
-    result.unit.accept(visitor);
+    result.unit!.accept(visitor);
 
     final returnMixins = visitor.returnMixins;
 
     for (final propsClass in returnMixins) {
-      final mixinFields = propsClass.declaredElement.fields;
+      final mixinFields = propsClass.declaredElement!.fields;
       for (final field in mixinFields) {
         final propName = field.name;
         if (field.type != typeProvider.boolType) continue;
@@ -71,7 +71,7 @@ class _ReadabilityResult {
   final bool isReadable;
   final List<String> reasons;
 
-  _ReadabilityResult({@required this.isReadable, @required this.reasons});
+  _ReadabilityResult({required this.isReadable, required this.reasons});
 }
 
 _ReadabilityResult checkBoolPropReadability(String propName) {

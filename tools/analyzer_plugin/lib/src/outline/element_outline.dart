@@ -12,7 +12,7 @@ class ReactElementOutlineContributor implements OutlineContributor {
     if (request is! DartOutlineRequest) return;
     if (!request.path.contains('example')) return;
 
-    final result = (request as DartOutlineRequest).result;
+    final result = request.result;
 //
 //    // need at least one outline for some reason
 //    final element = new plugin.Element(plugin.ElementKind.UNKNOWN, '', 0);
@@ -20,7 +20,7 @@ class ReactElementOutlineContributor implements OutlineContributor {
 //    collector.startElement(element, result.unit.offset, result.unit.length);
 //    collector.endElement();
 
-    result.unit.declaredElement.lineInfo;
+    result.unit!.declaredElement!.lineInfo;
 
     final elementEndStack = <int>[];
 
@@ -41,13 +41,13 @@ class ReactElementOutlineContributor implements OutlineContributor {
         elementEndStack.add(end);
       }
     });
-    result.unit.accept(visitor);
+    result.unit!.accept(visitor);
 
     if (elementEndStack.isEmpty) {
       // need at least one outline for some reason
       final element = plugin.Element(plugin.ElementKind.UNKNOWN, '', 0);
       // Outlines work intermittently, less so when this element does not constitute the whole file
-      collector.startElement(element, result.unit.offset, result.unit.length);
+      collector.startElement(element, result.unit!.offset, result.unit!.length);
       collector.endElement();
     } else {
       while (elementEndStack.isNotEmpty) {

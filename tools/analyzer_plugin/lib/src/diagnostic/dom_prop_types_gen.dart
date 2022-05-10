@@ -14,7 +14,7 @@ void main() {
       globalAttributes.add(attr);
     } else {
       supportedElements[attr] =
-          RegExp(r'<(\w+)>').allMatches(elementsColumn).map((match) => match.group(1)).map(_elToReactEl).toList();
+          RegExp(r'<(\w+)>').allMatches(elementsColumn).map((match) => match.group(1)).map(_elToReactEl as _ Function(String?)).toList() as List<String>;
     }
   }
 
@@ -39,7 +39,7 @@ String _attrToReactishAttr(String attr) {
 }
 
 /// Converts element names to the names  their React DOM factory counterparts.
-String _elToReactEl(String/*!*/ el) {
+String _elToReactEl(String el) {
   const _elToReactEl = {
     'var': 'variable',
     'set': 'svgSet',

@@ -3,7 +3,7 @@ library over_react_analyzer_plugin.src.util;
 
 export 'package:collection/collection.dart' show IterableExtension, IterableNullableExtension;
 
-extension TryCast<T> on T {
+extension TryCast<T> on T? {
   /// Returns this casted as [S] if it is an instance of that type, or `null` otherwise.
   ///
   /// Useful for simplifying is-checks, especially on nested objects.
@@ -21,7 +21,7 @@ extension TryCast<T> on T {
   ///     // With tryCast
   ///     final block = node.body?.tryCast<BlockFunctionBody>()?.block;
   ///
-  S/*?*/ tryCast<S extends T>() {
+  S? tryCast<S extends T>() {
     final value = this;
     return value is S ? value : null;
   }
@@ -32,7 +32,7 @@ extension IterableUtil<E> on Iterable<E> {
   /// if no such element is found.
   ///
   /// Throws a [StateError] if there is no matching element and [orElse] is omitted.
-  T/*!*/ firstWhereType<T>({T/*!*/ Function() orElse}) =>
+  T firstWhereType<T>({T Function()? orElse}) =>
       whereType<T>().firstWhere((_) => true, orElse: orElse);
 }
 
