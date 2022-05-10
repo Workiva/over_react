@@ -7,7 +7,6 @@ import 'package:over_react_analyzer_plugin/src/assist/contributor_base.dart';
 import 'package:over_react_analyzer_plugin/src/indent_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/boilerplate_assist_apis.dart';
 import 'package:over_react_analyzer_plugin/src/util/fix.dart';
-import 'package:over_react_analyzer_plugin/src/util/util.dart';
 
 const _makeStatefulDesc = r'Make component stateful';
 // <editor-fold desc="Make Stateful Documentation Details">
