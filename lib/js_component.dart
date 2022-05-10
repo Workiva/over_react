@@ -12,5 +12,5 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-export '/src/util/js_component.dart';
-export '/src/util/prop_conversion.dart';
+export 'src/util/js_component.dart';
+export 'src/util/prop_conversion.dart';
