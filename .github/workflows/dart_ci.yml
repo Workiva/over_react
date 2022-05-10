@@ -107,8 +107,20 @@ jobs:
       - name: Print Dart SDK version
         run: dart --version
 
-      - name: Validate dependency resolution, static analysis, and builder when using analyzer ${{ matrix.analyzer }}
-        run: ./tool/validate_analyzer_version.sh "${{ matrix.analyzer }}"
+      - name: Update analyzer constraint to ${{ matrix.analyzer }} and validate `pub get` can resolve
+        id: resolve
+        run: |
+          dart tool/set_analyzer_constraint.dart "${{ matrix.analyzer }}"
+          dart pub get
+
+      - name: Analyze package source
+        run: dart analyze .
+
+      - name: Verify builder runs without errors
+        run: dart run build_runner build --build-filter='**.dart' --delete-conflicting-outputs
+
+      - name: Run builder tests
+        run: dart run test -p vm -- test/vm_tests/builder
 
   analyzer_plugin:
     runs-on: ubuntu-latest
