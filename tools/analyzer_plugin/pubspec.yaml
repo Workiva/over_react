@@ -42,6 +42,11 @@ dependency_validator:
     - over_react
 
 dependency_overrides:
+  # Necessary to be able to run dart_dev without errors
+  dart_dev:
+    git:
+      url: git@github.com:Workiva/dart_dev.git
+      ref: fix-running-in-null-safe-package
   # Necessary due to conflict between over_react and over_react_analyzer plugin
   meta: ^1.7.0
 
