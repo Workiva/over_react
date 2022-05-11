@@ -1,4 +1,3 @@
-//@dart=2.9
 // Adapted from analyzer-0.39.17/lib/src/dart/ast/constant_evaluator.dart
 // Copyright (c) 2019, the Dart project authors. Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
@@ -95,13 +94,13 @@ import 'util.dart';
 /// In addition, this class defines several values that can be returned to
 /// indicate various conditions encountered during evaluation. These are
 /// documented with the static fields that define those values.
-class ConstantEvaluator extends GeneralizingAstVisitor<Object> {
+class ConstantEvaluator extends GeneralizingAstVisitor<Object?> {
   /// The value returned for expressions (or non-expression nodes) that are not
   /// compile-time constant expressions.
   static Object NOT_A_CONSTANT = Object();
 
   @override
-  Object visitAdjacentStrings(AdjacentStrings node) {
+  Object? visitAdjacentStrings(AdjacentStrings node) {
     var buffer = StringBuffer();
     for (final string in node.strings) {
       var value = string.accept(this);
@@ -114,7 +113,7 @@ class ConstantEvaluator extends GeneralizingAstVisitor<Object> {
   }
 
   @override
-  Object visitBinaryExpression(BinaryExpression node) {
+  Object? visitBinaryExpression(BinaryExpression node) {
     var leftOperand = node.leftOperand.accept(this);
     if (identical(leftOperand, NOT_A_CONSTANT)) {
       return leftOperand;
@@ -238,16 +237,16 @@ class ConstantEvaluator extends GeneralizingAstVisitor<Object> {
   }
 
   @override
-  Object visitBooleanLiteral(BooleanLiteral node) => node.value;
+  Object? visitBooleanLiteral(BooleanLiteral node) => node.value;
 
   @override
-  Object visitDoubleLiteral(DoubleLiteral node) => node.value;
+  Object? visitDoubleLiteral(DoubleLiteral node) => node.value;
 
   @override
-  Object visitIntegerLiteral(IntegerLiteral node) => node.value;
+  Object? visitIntegerLiteral(IntegerLiteral node) => node.value;
 
   @override
-  Object visitInterpolationExpression(InterpolationExpression node) {
+  Object? visitInterpolationExpression(InterpolationExpression node) {
     var value = node.expression.accept(this);
     if (value == null || value is bool || value is String || value is num) {
       return value;
@@ -256,11 +255,11 @@ class ConstantEvaluator extends GeneralizingAstVisitor<Object> {
   }
 
   @override
-  Object visitInterpolationString(InterpolationString node) => node.value;
+  Object? visitInterpolationString(InterpolationString node) => node.value;
 
   @override
-  Object visitListLiteral(ListLiteral node) {
-    var list = <Object>[];
+  Object? visitListLiteral(ListLiteral node) {
+    var list = <Object?>[];
     for (final element in node.elements) {
       if (element is Expression) {
         var value = element.accept(this);
@@ -278,22 +277,22 @@ class ConstantEvaluator extends GeneralizingAstVisitor<Object> {
   }
 
   @override
-  Object visitMethodInvocation(MethodInvocation node) => visitNode(node);
+  Object? visitMethodInvocation(MethodInvocation node) => visitNode(node);
 
   @override
-  Object visitNode(AstNode node) => NOT_A_CONSTANT;
+  Object? visitNode(AstNode node) => NOT_A_CONSTANT;
 
   @override
-  Object visitNullLiteral(NullLiteral node) => null;
+  Object? visitNullLiteral(NullLiteral node) => null;
 
   @override
-  Object visitParenthesizedExpression(ParenthesizedExpression node) => node.expression.accept(this);
+  Object? visitParenthesizedExpression(ParenthesizedExpression node) => node.expression.accept<Object?>(this);
 
   @override
-  Object visitPrefixedIdentifier(PrefixedIdentifier node) => _getConstantValue(node.staticElement);
+  Object? visitPrefixedIdentifier(PrefixedIdentifier node) => _getConstantValue(node.staticElement);
 
   @override
-  Object visitPrefixExpression(PrefixExpression node) {
+  Object? visitPrefixExpression(PrefixExpression node) {
     var operand = node.operand.accept(this);
     if (identical(operand, NOT_A_CONSTANT)) {
       return operand;
@@ -322,16 +321,16 @@ class ConstantEvaluator extends GeneralizingAstVisitor<Object> {
   }
 
   @override
-  Object visitPropertyAccess(PropertyAccess node) {
+  Object? visitPropertyAccess(PropertyAccess node) {
     if (node.isCascaded) {
-      return node.realTarget.accept(this);
+      return node.realTarget.accept<Object?>(this);
     }
 
     final constantValue = _getConstantValue(node.propertyName.staticElement);
     if (constantValue != NOT_A_CONSTANT) return constantValue;
 
     final targetparentPotentialConstant =
-        node.target?.tryCast<PropertyAccess>()?.propertyName?.staticElement ??
+        node.target?.tryCast<PropertyAccess>()?.propertyName.staticElement ??
             node.target?.tryCast<Identifier>()?.staticElement;
     if (targetparentPotentialConstant != null) {
       final targetValue = _tryComputeConstantValue(targetparentPotentialConstant);
@@ -347,11 +346,11 @@ class ConstantEvaluator extends GeneralizingAstVisitor<Object> {
   }
 
   @override
-  Object visitSetOrMapLiteral(SetOrMapLiteral node) {
+  Object? visitSetOrMapLiteral(SetOrMapLiteral node) {
     // There are a lot of constants that this class does not support, so we
     // didn't add support for set literals. As a result, this assumes that we're
     // looking at a map literal until we prove otherwise.
-    final map = <String, Object>{};
+    final map = <String, Object?>{};
     for (final element in node.elements) {
       if (element is MapLiteralEntry) {
         final key = element.key.accept(this);
@@ -371,13 +370,13 @@ class ConstantEvaluator extends GeneralizingAstVisitor<Object> {
   }
 
   @override
-  Object visitSimpleIdentifier(SimpleIdentifier node) => _getConstantValue(node.staticElement);
+  Object? visitSimpleIdentifier(SimpleIdentifier node) => _getConstantValue(node.staticElement);
 
   @override
-  Object visitSimpleStringLiteral(SimpleStringLiteral node) => node.value;
+  Object? visitSimpleStringLiteral(SimpleStringLiteral node) => node.value;
 
   @override
-  Object visitStringInterpolation(StringInterpolation node) {
+  Object? visitStringInterpolation(StringInterpolation node) {
     final buffer = StringBuffer();
     for (final element in node.elements) {
       var value = element.accept(this);
@@ -390,7 +389,7 @@ class ConstantEvaluator extends GeneralizingAstVisitor<Object> {
   }
 
   @override
-  Object visitSymbolLiteral(SymbolLiteral node) {
+  Object? visitSymbolLiteral(SymbolLiteral node) {
     // TODO(brianwilkerson) This isn't optimal because a Symbol is not a String.
     var buffer = StringBuffer();
     for (final component in node.components) {
@@ -404,14 +403,14 @@ class ConstantEvaluator extends GeneralizingAstVisitor<Object> {
 
   /// Return the constant value of the static constant represented by the given
   /// [element].
-  static Object _getConstantValue(Element element) {
+  static Object? _getConstantValue(Element? element) {
     if (element == null) return NOT_A_CONSTANT;
     final constantValue = _tryComputeConstantValue(element);
     if (constantValue == null) return NOT_A_CONSTANT;
     return _tryConvertDartObject(constantValue);
   }
 
-  static DartObject _tryComputeConstantValue(Element element) {
+  static DartObject? _tryComputeConstantValue(Element? element) {
     if (element is VariableElement) {
       return element.computeConstantValue();
     }
@@ -422,7 +421,11 @@ class ConstantEvaluator extends GeneralizingAstVisitor<Object> {
     return null;
   }
 
-  static Object _tryConvertDartObject(DartObject object) {
+  static Object? _tryConvertDartObject(DartObject? object) {
+    if (object == null) {
+      return NOT_A_CONSTANT;
+    }
+
     if (object.isNull) return null;
 
     {
@@ -463,7 +466,7 @@ class ConstantEvaluator extends GeneralizingAstVisitor<Object> {
 }
 
 extension on DartObject {
-  DartObject getFieldOnThisOrSuper(String fieldName) {
+  DartObject? getFieldOnThisOrSuper(String fieldName) {
     return getField(fieldName) ?? getField('(super)')?.getFieldOnThisOrSuper(fieldName);
   }
 }
