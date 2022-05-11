@@ -41,6 +41,10 @@ dependency_validator:
     - meta
     - over_react
 
+dependency_overrides:
+  # Necessary due to conflict between over_react and over_react_analyzer plugin
+  meta: ^1.7.0
+
 # If you're developing on changes in over_react that the analyzer plugin needs to consume,
 # point to the local copy of over_react. This must be an absolute path.
 #
