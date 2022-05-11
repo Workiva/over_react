@@ -1,5 +1,5 @@
-// From analyzer 0.39.17 src/dart/ast/utilities.dart
-// Permalink: https://github.com/dart-lang/sdk/blob/0412862a9f9dad6af60aa93fa54516d88a993abb/pkg/analyzer/lib/src/dart/ast/utilities.dart
+// From analyzer 1.7.2 src/dart/ast/utilities.dart
+// Permalink: https://github.com/dart-lang/sdk/blob/d97bd979570c4aacde322d8b04256ce477aa9729/pkg/analyzer/lib/src/dart/ast/utilities.dart
 //
 // Copyright 2013, the Dart project authors. All rights reserved.
 // Redistribution and use in source and binary forms, with or without
@@ -84,18 +84,18 @@ class NodeLocator extends UnifyingAstVisitor<void> {
     }
     // Check whether the current node covers the selection.
     var beginToken = node.beginToken;
-    Token? endToken = node.endToken;
+    var endToken = node.endToken;
     // Don't include synthetic tokens.
     while (endToken != beginToken) {
       // Fasta scanner reports unterminated string literal errors
       // and generates a synthetic string token with non-zero length.
       // Because of this, check for length > 0 rather than !isSynthetic.
-      if (endToken!.type == TokenType.EOF || endToken.length > 0) {
+      if (endToken.type == TokenType.EOF || endToken.length > 0) {
         break;
       }
-      endToken = endToken.previous;
+      endToken = endToken.previous!;
     }
-    var end = endToken!.end;
+    var end = endToken.end;
     var start = node.offset;
     if (end < _startOffset || start > _endOffset) {
       return;
@@ -142,7 +142,7 @@ class NodeLocator2 extends UnifyingAstVisitor<void> {
 
   /// Search within the given AST [node] and return the node that was found,
   /// or `null` if no node was found.
-  AstNode? searchWithin(AstNode node) {
+  AstNode? searchWithin(AstNode? node) {
     if (node == null) {
       return null;
     }
@@ -162,18 +162,18 @@ class NodeLocator2 extends UnifyingAstVisitor<void> {
     }
     // Check whether the current node covers the selection.
     var beginToken = node.beginToken;
-    Token? endToken = node.endToken;
+    var endToken = node.endToken;
     // Don't include synthetic tokens.
     while (endToken != beginToken) {
       // Fasta scanner reports unterminated string literal errors
       // and generates a synthetic string token with non-zero length.
       // Because of this, check for length > 0 rather than !isSynthetic.
-      if (endToken!.type == TokenType.EOF || endToken.length > 0) {
+      if (endToken.type == TokenType.EOF || endToken.length > 0) {
         break;
       }
-      endToken = endToken.previous;
+      endToken = endToken.previous!;
     }
-    var end = endToken!.end;
+    var end = endToken.end;
     var start = node.offset;
     if (end <= _startOffset || start > _endOffset) {
       return;
