@@ -3,33 +3,20 @@ library over_react_analyzer_plugin.src.ast_util;
 
 import 'dart:collection';
 import 'dart:mirrors';
+
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:analyzer/dart/constant/value.dart';
-import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/source/line_info.dart';
-import 'package:over_react_analyzer_plugin/src/util/analyzer_util.dart';
+import 'package:over_react_analyzer_plugin/src/util/constant_evaluator.dart';
 
 /// Returns a String value when a literal or constant var/identifier is found within [expr].
 String? getConstOrLiteralStringValueFrom(Expression expr) {
   final staticType = expr.staticType;
   if (staticType == null || !staticType.isDartCoreString) return null;
 
-  if (expr is StringInterpolation) {
-    final constantValue = expr.accept(ConstantEvaluator());
-    return constantValue is String ? constantValue : null;
-  } else if (expr is StringLiteral) {
-    return expr.stringValue;
-  } else if (expr is SimpleIdentifier) {
-    final element = expr.staticElement;
-    if (element is PropertyAccessorElement) {
-      return element.variable.computeConstantValue()?.toStringValue();
-    } else if (element is VariableElement) {
-      return element.computeConstantValue()?.toStringValue();
-    }
-  }
-
-  return null;
+  final constantValue = expr.accept(ConstantEvaluator());
+  return constantValue is String ? constantValue : null;
 }
 
 /// Returns a lazy iterable of all descendants of [node], in breadth-first order.
