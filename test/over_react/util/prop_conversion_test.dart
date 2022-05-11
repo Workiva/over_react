@@ -1035,7 +1035,7 @@ UiFactory<DartTestJsWrapperProps> DartTestJsWrapper = uiForwardRef(
 );
 
 //
-// OverReact bindings for a JS test component, used as a MUI component analogue
+// OverReact bindings for a JS test component
 // to assert correct behavior in more functional-style cases.
 //
 
