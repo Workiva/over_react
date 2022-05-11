@@ -284,17 +284,15 @@ main() {
                 group('A nested map prop', () {
                   test('using the typed props map', () {
                     final builder = TestJs()
-                      ..buttonProps =
-                          (domProps()..style = {'display': 'block'});
-                    expect(domProps(builder.buttonProps).style,
-                        allOf(isA<Map>(), {'display': 'block'}));
+                      ..buttonProps = (TestJs()..buttonProps = {'foo': 'bar'});
+                    expect(TestJs(builder.buttonProps).buttonProps,
+                        allOf(isA<Map>(), {'foo': 'bar'}));
                   });
 
                   test('not using the typed props map', () {
                     final builder = TestJs()
-                      ..buttonProps =
-                          (domProps()..style = {'display': 'block'});
-                    final propKey = domProps.getPropKey((p) => p.style);
+                      ..buttonProps = (TestJs()..buttonProps = {'foo': 'bar'});
+                    final propKey = TestJs.getPropKey((p) => p.buttonProps);
                     expect(builder.buttonProps,
                         containsPair(propKey, isA<JsMap>()),
                         reason: 'not a Dart map due to tradeoffs');
