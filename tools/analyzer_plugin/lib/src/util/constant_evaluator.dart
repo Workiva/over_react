@@ -329,9 +329,8 @@ class ConstantEvaluator extends GeneralizingAstVisitor<Object?> {
     final constantValue = _getConstantValue(node.propertyName.staticElement);
     if (constantValue != NOT_A_CONSTANT) return constantValue;
 
-    final targetparentPotentialConstant =
-        node.target?.tryCast<PropertyAccess>()?.propertyName.staticElement ??
-            node.target?.tryCast<Identifier>()?.staticElement;
+    final targetparentPotentialConstant = node.target?.tryCast<PropertyAccess>()?.propertyName.staticElement ??
+        node.target?.tryCast<Identifier>()?.staticElement;
     if (targetparentPotentialConstant != null) {
       final targetValue = _tryComputeConstantValue(targetparentPotentialConstant);
       if (targetValue != null) {
@@ -429,10 +428,8 @@ class ConstantEvaluator extends GeneralizingAstVisitor<Object?> {
     if (object.isNull) return null;
 
     {
-      final primitiveValue = object.toBoolValue() ??
-          object.toDoubleValue() ??
-          object.toIntValue() ??
-          object.toStringValue();
+      final primitiveValue =
+          object.toBoolValue() ?? object.toDoubleValue() ?? object.toIntValue() ?? object.toStringValue();
       if (primitiveValue != null) return primitiveValue;
     }
     // FIXME these shallow checks should be sufficient, and rule out any nested cases, right?
@@ -453,11 +450,8 @@ class ConstantEvaluator extends GeneralizingAstVisitor<Object?> {
     {
       final mapValue = object.toMapValue();
       if (mapValue != null) {
-        final map = mapValue.map(
-            (key, value) => MapEntry(_tryConvertDartObject(key), _tryConvertDartObject(value)));
-        return (map.containsKey(NOT_A_CONSTANT) || map.containsValue(NOT_A_CONSTANT))
-            ? NOT_A_CONSTANT
-            : map;
+        final map = mapValue.map((key, value) => MapEntry(_tryConvertDartObject(key), _tryConvertDartObject(value)));
+        return (map.containsKey(NOT_A_CONSTANT) || map.containsValue(NOT_A_CONSTANT)) ? NOT_A_CONSTANT : map;
       }
     }
 
