@@ -139,7 +139,7 @@ class OverReactBuilder extends Builder {
 
     // Generate over_react code for each part file of the input library.
     for (final part in parts) {
-      final partId = AssetId.resolve(
+      final partId = resolveAssetId(
         part.uri.stringValue,
         from: buildStep.inputId);
       if (!await buildStep.canRead(partId)) {
@@ -220,5 +220,26 @@ class OverReactBuilder extends Builder {
       log.severe('Error formatting generated code', e, st);
     }
     await buildStep.writeAsString(outputId, output);
+  }
+}
+
+/// A compatibility layer for [AssetId.resolve],
+/// which in build <2.0.0 accepts a String for the first argument and
+/// and in build >=2.0.0 accepts a Uri for the first argument.
+///
+/// This function allows us to support build 1.x and 2.x
+///
+// TODO remove once we're off of build 1.x
+AssetId resolveAssetId(String uri, {AssetId from}) {
+  try {
+    // `as dynamic` is necessary to prevent compile errors.
+    // This ignore is to prevent analysis implicit cast errors.
+    // ignore: argument_type_not_assignable
+    return AssetId.resolve(uri as dynamic, from: from);
+  } catch (_) {
+    // `as dynamic` is necessary to prevent compile errors.
+    // This ignore is to prevent analysis implicit cast errors.
+    // ignore: argument_type_not_assignable
+    return AssetId.resolve(Uri.parse(uri) as dynamic, from: from);
   }
 }
