@@ -6,6 +6,7 @@ import 'package:analyzer_plugin/utilities/range_factory.dart';
 import 'package:collection/collection.dart' show IterableExtension;
 import 'package:over_react_analyzer_plugin/src/assist/contributor_base.dart';
 import 'package:over_react_analyzer_plugin/src/indent_util.dart';
+import 'package:over_react_analyzer_plugin/src/over_react_builder_parsing.dart' as orbp;
 import 'package:over_react_analyzer_plugin/src/util/boilerplate_assist_apis.dart';
 import 'package:over_react_analyzer_plugin/src/util/fix.dart';
 

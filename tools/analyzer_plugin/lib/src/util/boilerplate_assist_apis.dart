@@ -2,7 +2,6 @@ import 'package:analyzer/dart/ast/ast.dart';
 import 'package:collection/collection.dart' show IterableExtension;
 import 'package:over_react_analyzer_plugin/src/assist/contributor_base.dart';
 import 'package:over_react_analyzer_plugin/src/over_react_builder_parsing.dart' as orbp;
-export 'package:over_react_analyzer_plugin/src/over_react_builder_parsing.dart' show UnionHelper;
 import 'package:source_span/source_span.dart';
 
 /// A mixin that allows easy access to common APIs needed when writing assists

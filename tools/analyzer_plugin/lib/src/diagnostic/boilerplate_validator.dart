@@ -69,14 +69,11 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
         orbp.detectBoilerplateMembers(unit),
         orbp.ErrorCollector.callback(
           SourceFile.fromString(parentResult.content!, url: parentResult.path),
-          onError: (message, [span]) {
-            // no-op. It is assumed this method will run for parent files, and the part file will get analyzed in it's own
-            // context
-          },
-          onWarning: (message, [span]) {
-            // no-op. It is assumed this method will run for parent files, and the part file will get analyzed in it's own
-            // context
-          },
+          // no-op for these.
+          // It is assumed this method will run for parent files, and the part file will get analyzed in its own context.
+          // Need types on the second args to avoid nullability errors, since they come from a non-null-safe library.
+          onError: (message, [SourceSpan? span]) {}, // ignore: avoid_types_on_closure_parameters
+          onWarning: (message, [SourceSpan? span]) {}, // ignore: avoid_types_on_closure_parameters
         )).isNotEmpty;
   }
 
@@ -96,11 +93,14 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
 
     final errorCollector = orbp.ErrorCollector.callback(
       sourceFile,
-      onError: (message, [span]) {
+      // Need types on these args to avoid nullability errors, since they come from a non-null-safe library.
+      // ignore: avoid_types_on_closure_parameters
+      onError: (message, [SourceSpan? span]) {
         final location = result.location(range: span?.asRange() ?? SourceRange.EMPTY);
         collector.addError(errorCode, location, errorMessageArgs: [message]);
       },
-      onWarning: (message, [span]) {
+      // ignore: avoid_types_on_closure_parameters
+      onWarning: (message, [SourceSpan? span]) {
         final location = result.location(range: span?.asRange() ?? SourceRange.EMPTY);
         collector.addError(warningCode, location, errorMessageArgs: [message]);
       },
