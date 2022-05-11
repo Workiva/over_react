@@ -46,6 +46,6 @@ dependency_validator:
 #
 # In CI, this should also be the path to the over_react checkout
 #
-dependency_overrides:
-  over_react:
-    path: /Users/greglittlefield/workspaces/over_react
+# dependency_overrides:
+#   over_react:
+#     path: /Users/me/workspaces/over_react
