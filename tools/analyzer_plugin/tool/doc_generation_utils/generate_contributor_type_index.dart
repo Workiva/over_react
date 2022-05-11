@@ -29,7 +29,6 @@
 
 import 'dart:io';
 
-
 import '../doc.dart' show logger;
 import 'shared_html.dart';
 

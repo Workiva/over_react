@@ -126,7 +126,6 @@ class ToggleComponentStatefulness extends AssistContributorBase with ComponentDe
       'FluxUiComponent2': 'FluxUiStatefulComponent2',
     };
 
-    return baseMapping[oldBase] ??
-        baseMapping.keys.firstWhereOrNull((key) => baseMapping[key] == oldBase);
+    return baseMapping[oldBase] ?? baseMapping.keys.firstWhereOrNull((key) => baseMapping[key] == oldBase);
   }
 }

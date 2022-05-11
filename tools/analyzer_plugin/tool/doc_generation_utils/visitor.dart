@@ -18,7 +18,8 @@ Future<void> registerContributorMetadata(List<DocsGenerationConfig> configs) asy
   );
   for (final filePath
       in Glob('lib/src/{${configs.map((c) => c.srcDir).join(',')}}/**').listSync().map((f) => p.canonicalize(f.path))) {
-    final resolvedUnit = await collection.contextFor(filePath).currentSession.getResolvedUnit2(filePath) as ResolvedUnitResult;
+    final resolvedUnit =
+        await collection.contextFor(filePath).currentSession.getResolvedUnit2(filePath) as ResolvedUnitResult;
     resolvedUnit.unit!.declaredElement!.accept(ContributorVisitor(configs));
   }
 }
@@ -42,7 +43,8 @@ class ContributorVisitor extends RecursiveElementVisitor<void> {
         }
 
         if (field.type.element?.isOrIsSubtypeOfTypeFromPackage(
-            config.typeNameOfAnnotatedField, config.packageNameContainingAnnotatedFieldType) ?? false) {
+                config.typeNameOfAnnotatedField, config.packageNameContainingAnnotatedFieldType) ??
+            false) {
           config.registry.register(config.getMeta(field));
         } else {
           throw UnsupportedError(

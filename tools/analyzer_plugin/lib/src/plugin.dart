@@ -156,9 +156,7 @@ class OverReactAnalyzerPlugin extends OverReactAnalyzerPluginBase {
       ..byteStore = byteStore
       ..performanceLog = performanceLog;
     final workspace = ContextBuilder.createWorkspace(
-        resourceProvider: resourceProvider,
-        options: ContextBuilderOptions(),
-        rootPath: contextRoot.root);
+        resourceProvider: resourceProvider, options: ContextBuilderOptions(), rootPath: contextRoot.root);
     final result = contextBuilder.buildDriver(root, workspace);
     runZonedGuarded(() {
       result.results.listen(processDiagnosticsForResult);

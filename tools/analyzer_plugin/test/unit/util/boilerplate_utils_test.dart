@@ -123,8 +123,8 @@ void main() {
           expect(editList, isNotNull);
           expect(editList.length, 1, reason: 'there should be one edit in the file');
 
-          final offset = result.lineInfo
-              .getOffsetOfLineAfter(nextLine(result.unit.directives.last.end, result.lineInfo));
+          final offset =
+              result.lineInfo.getOffsetOfLineAfter(nextLine(result.unit.directives.last.end, result.lineInfo));
           expect(editList.first.offset, offset, reason: 'should be new line between existing directives and new part');
           expect(editList.first.length, 0, reason: 'nothing is replaced');
           expect(editList.first.replacement, 'part \'foo.over_react.g.dart\';\n\n');

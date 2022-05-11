@@ -67,16 +67,18 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
   ///
   /// Does not report any errors for the part file, as those are handled when the part file is analyzed
   bool _partHasDeclarations(CompilationUnit unit, ResolvedUnitResult parentResult) {
-    return orbp.getBoilerplateDeclarations(
-        orbp.detectBoilerplateMembers(unit),
-        orbp.ErrorCollector.callback(
-          SourceFile.fromString(parentResult.content!, url: parentResult.path),
-          // no-op for these.
-          // It is assumed this method will run for parent files, and the part file will get analyzed in its own context.
-          // Need types on the second args to avoid nullability errors, since they come from a non-null-safe library.
-          onError: (message, [SourceSpan? span]) {}, // ignore: avoid_types_on_closure_parameters
-          onWarning: (message, [SourceSpan? span]) {}, // ignore: avoid_types_on_closure_parameters
-        )).isNotEmpty;
+    return orbp
+        .getBoilerplateDeclarations(
+            orbp.detectBoilerplateMembers(unit),
+            orbp.ErrorCollector.callback(
+              SourceFile.fromString(parentResult.content!, url: parentResult.path),
+              // no-op for these.
+              // It is assumed this method will run for parent files, and the part file will get analyzed in its own context.
+              // Need types on the second args to avoid nullability errors, since they come from a non-null-safe library.
+              onError: (message, [SourceSpan? span]) {}, // ignore: avoid_types_on_closure_parameters
+              onWarning: (message, [SourceSpan? span]) {}, // ignore: avoid_types_on_closure_parameters
+            ))
+        .isNotEmpty;
   }
 
   /// Computes errors for over_react boilerplate
@@ -254,11 +256,10 @@ extension on SourceSpan {
 
 // TODO use the version from over_react instead after initial release
 Iterable<PartDirective> getNonGeneratedParts(CompilationUnit libraryUnit) {
-  return libraryUnit.directives
-      .whereType<PartDirective>()
+  return libraryUnit.directives.whereType<PartDirective>()
       // Ignore all generated `.g.dart` parts.
       .where((part) {
-        final stringValue = part.uri.stringValue;
-        return stringValue == null || !stringValue.endsWith('.g.dart');
-      });
+    final stringValue = part.uri.stringValue;
+    return stringValue == null || !stringValue.endsWith('.g.dart');
+  });
 }

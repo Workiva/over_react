@@ -49,8 +49,7 @@ extension ElementSubtypeUtils on Element {
             that.allSupertypes.any((type) => type.element.isTypeFromPackage(typeName, packageName)));
   }
 
-  bool isTypeFromPackage(String typeName, String packageName) =>
-      name == typeName && isDeclaredInPackage(packageName);
+  bool isTypeFromPackage(String typeName, String packageName) => name == typeName && isDeclaredInPackage(packageName);
 }
 
 extension on Element {

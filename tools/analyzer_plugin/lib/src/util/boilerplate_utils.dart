@@ -43,7 +43,8 @@ String _generateValidOverReactGeneratedPartDirective(CompilationUnit unit, Uri f
 /// Adds a `.over_react.g.dart` [PartDirective] to the file being edited by the [builder].
 ///
 /// Corrects existing over_react part directives and is a no-op if a valid one already exists.
-void addOverReactGeneratedPartDirective(DartFileEditBuilder builder, CompilationUnit unit, LineInfo lineInfo, Uri fileUri) {
+void addOverReactGeneratedPartDirective(
+    DartFileEditBuilder builder, CompilationUnit unit, LineInfo lineInfo, Uri fileUri) {
   Directive? lastDirective;
   if (unit.directives.isNotEmpty) {
     lastDirective = unit.directives.last;

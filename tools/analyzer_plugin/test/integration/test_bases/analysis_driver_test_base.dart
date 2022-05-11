@@ -93,7 +93,7 @@ abstract class AnalysisDriverTestBase {
       scheduler: analysisScheduler,
       logger: logger,
       resourceProvider: resourceProvider,
-      byteStore:  MemoryByteStore(),
+      byteStore: MemoryByteStore(),
       sourceFactory: SourceFactory([
         DartUriResolver(sdk),
         PackageMapUriResolver(resourceProvider, packageMap),
@@ -126,8 +126,7 @@ abstract class AnalysisDriverTestBase {
   /// Finds the source of [packageName] and copies the physical resources into
   /// the [memory] resoure provider at the `/packages/$packageName` location.
   static Future<Folder> _loadRealPackage(String packageName, MemoryResourceProvider memory) async {
-    final package =
-        (await _getRootPackageConfig()).packages.firstWhereOrNull((pkg) => pkg.name == packageName)!;
+    final package = (await _getRootPackageConfig()).packages.firstWhereOrNull((pkg) => pkg.name == packageName)!;
     expect(package, isNotNull,
         reason: 'Could not load "$packageName" into MemoryResourceProvider because it is not a dependency.');
     final physicalRoot = p.normalize(package.packageUriRoot.toFilePath());

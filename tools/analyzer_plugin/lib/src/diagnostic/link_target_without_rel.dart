@@ -71,7 +71,9 @@ class LinkTargetUsageWithoutRelDiagnostic extends ComponentUsageDiagnosticContri
       }
     }
 
-    if (hrefValue == null || targetPropSection == null || (targetPropSection.last.staticType?.isDartCoreNull ?? false)) {
+    if (hrefValue == null ||
+        targetPropSection == null ||
+        (targetPropSection.last.staticType?.isDartCoreNull ?? false)) {
       return;
     }
 
