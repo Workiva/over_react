@@ -31,13 +31,13 @@
 
 import 'dart:async';
 
+import 'package:analyzer/dart/analysis/context_builder.dart';
+import 'package:analyzer/dart/analysis/context_locator.dart';
 import 'package:analyzer/file_system/file_system.dart';
 // ignore: implementation_imports
-import 'package:analyzer/src/context/builder.dart';
+import 'package:analyzer/src/dart/analysis/context_builder.dart' show ContextBuilderImpl;
 // ignore: implementation_imports
-import 'package:analyzer/src/context/context_root.dart';
-// ignore: implementation_imports
-import 'package:analyzer/src/dart/analysis/driver.dart';
+import 'package:analyzer/src/dart/analysis/driver.dart' show AnalysisDriver, AnalysisDriverGeneric;
 import 'package:analyzer_plugin/plugin/navigation_mixin.dart';
 import 'package:analyzer_plugin/plugin/plugin.dart';
 import 'package:analyzer_plugin/protocol/protocol_generated.dart' as plugin;
@@ -149,21 +149,32 @@ class OverReactAnalyzerPlugin extends OverReactAnalyzerPluginBase {
 
   @override
   AnalysisDriverGeneric createAnalysisDriver(plugin.ContextRoot contextRoot) {
-    final root = ContextRoot(contextRoot.root, contextRoot.exclude, pathContext: resourceProvider.pathContext)
-      ..optionsFilePath = contextRoot.optionsFile;
-    final contextBuilder = ContextBuilder(resourceProvider, sdkManager)
-      ..analysisDriverScheduler = analysisDriverScheduler
-      ..byteStore = byteStore
-      ..performanceLog = performanceLog;
-    final workspace = ContextBuilder.createWorkspace(
-        resourceProvider: resourceProvider, options: ContextBuilderOptions(), rootPath: contextRoot.root);
-    final result = contextBuilder.buildDriver(root, workspace);
+    final root = ContextLocator(resourceProvider: resourceProvider).locateRoots(
+      includedPaths: [contextRoot.root],
+      excludedPaths: contextRoot.exclude,
+      optionsFile: contextRoot.optionsFile,
+    ).single;
+    final contextBuilder = ContextBuilder(resourceProvider: resourceProvider) as ContextBuilderImpl;
+    final context = contextBuilder.createContext(
+      contextRoot: root,
+      scheduler: analysisDriverScheduler,
+      byteStore: byteStore,
+      performanceLog: performanceLog,
+    );
+    final driver = context.driver;
+    try {
+      driver.currentSession.analysisContext;
+    } catch (_) {
+      channel.sendNotification(
+          plugin.PluginErrorParams(false, 'Error fetching analysis context; assists may be unavailable', '')
+              .toNotification());
+    }
     runZonedGuarded(() {
-      result.results.listen(processDiagnosticsForResult);
+      driver.results.listen(processDiagnosticsForResult);
     }, (e, stackTrace) {
       channel.sendNotification(plugin.PluginErrorParams(false, e.toString(), stackTrace.toString()).toNotification());
     });
-    return result;
+    return driver;
   }
 
   @override
