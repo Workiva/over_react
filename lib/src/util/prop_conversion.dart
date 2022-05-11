@@ -124,4 +124,4 @@ dynamic unjsifyRefProp(dynamic value,
 ///
 /// We also have to use a WeakMap instead of a JS property (or an Expando, whose DDC implementation uses JS properties),
 /// since those can't be used  with sealed JS objects (like React.createRef() objects in development builds, and potentially other cases).
-final _dartRefForJsRef = WeakMap<JsRef, Ref>();
+final _dartRefForJsRef = WeakMap();
