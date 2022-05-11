@@ -9,7 +9,10 @@ dependencies:
   analyzer: ^1.7.2
   analyzer_plugin: ^0.6.0
   collection: ^1.15.0-nullsafety.4
-  over_react: 4.2.9
+  # Upon release, this should be pinned to the over_react version from ../../pubspec.yaml
+  # so that it always resolves to the same version of over_react that the user has pulled in,
+  # and thus has the same boilerplate parsing code that's running in the builder.
+  over_react: 4.3.1
   over_react_codemod: 2.1.1
   meta: ^1.1.6
   path: ^1.5.1

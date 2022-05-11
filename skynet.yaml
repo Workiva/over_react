@@ -1,0 +1,6 @@
+name: Nothing
+description: We must have at least one skynet plan to make Workiva release pipelines happy.
+image: drydock.workiva.net/workiva/skynet-images:node-test-image-latest
+
+scripts:
+  - echo "I have made RM happy"
