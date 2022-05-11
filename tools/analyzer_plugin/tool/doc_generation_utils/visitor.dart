@@ -1,4 +1,5 @@
 import 'package:analyzer/dart/analysis/analysis_context_collection.dart';
+import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/visitor.dart';
 import 'package:analyzer/file_system/physical_file_system.dart';
@@ -17,7 +18,7 @@ Future<void> registerContributorMetadata(List<DocsGenerationConfig> configs) asy
   );
   for (final filePath
       in Glob('lib/src/{${configs.map((c) => c.srcDir).join(',')}}/**').listSync().map((f) => p.canonicalize(f.path))) {
-    final resolvedUnit = await collection.contextFor(filePath).currentSession.getResolvedUnit(filePath);
+    final resolvedUnit = await collection.contextFor(filePath).currentSession.getResolvedUnit2(filePath) as ResolvedUnitResult;
     resolvedUnit.unit!.declaredElement!.accept(ContributorVisitor(configs));
   }
 }

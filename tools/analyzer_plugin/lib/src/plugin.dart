@@ -160,11 +160,9 @@ class OverReactAnalyzerPlugin extends OverReactAnalyzerPluginBase {
         options: ContextBuilderOptions(),
         rootPath: contextRoot.root);
     final result = contextBuilder.buildDriver(root, workspace);
-    runZoned(() {
+    runZonedGuarded(() {
       result.results.listen(processDiagnosticsForResult);
-      // TODO: Once we are ready to bump the SDK lower bound to 2.8.x, we should swap this out for `runZoneGuarded`.
-      // ignore: avoid_types_on_closure_parameters
-    }, onError: (Object e, StackTrace stackTrace) {
+    }, (e, stackTrace) {
       channel.sendNotification(plugin.PluginErrorParams(false, e.toString(), stackTrace.toString()).toNotification());
     });
     return result;
