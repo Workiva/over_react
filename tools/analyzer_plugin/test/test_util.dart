@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:analyzer/dart/analysis/analysis_context_collection.dart';
 import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/analysis/utilities.dart';
@@ -95,13 +98,42 @@ Future<ResolvedUnitResult> parseAndGetResolvedUnit(String dartSource, {String pa
 /// ```
 Future<Map<String, ResolvedUnitResult>> parseAndGetResolvedUnits(Map<String, String> dartSourcesByPath) async {
   // Must be absolute.
-  // Hack: use a path inside this project directory so that we end up in the same context as the current package,
-  // and can resolve imports for all dependencies (including over_react, react, etc.)
-  final pathPrefix = p.absolute('_fake_in_memory_path');
+  const pathPrefix = '/fake_in_memory_path';
 
   String transformPath(String path) => p.join(pathPrefix, path);
 
   final resourceProvider = OverlayResourceProvider(PhysicalResourceProvider.INSTANCE);
+
+  // Create a fake in memory package that opts out of null safety
+  // TODO clean this up, perhaps use SharedAnalysisContextCollection from over_react_codemod
+  const packageName = 'package_depending_on_over_react';
+  resourceProvider.setOverlay(transformPath('pubspec.yaml'),
+      content: '''
+name: $packageName
+publish_to: none
+environment:
+  # Opt out of null safety since it gets in our way for these tests
+  sdk: '>=2.11.0 <3.0.0'
+dependencies:
+  over_react: ^4.3.1
+''',
+      modificationStamp: 0);
+  // Steal the packages file from this project, which depends on over_react
+  final currentPackageConfig = File('.dart_tool/package_config.json').readAsStringSync();
+  final updatedConfig = jsonDecode(currentPackageConfig) as Map;
+  (updatedConfig['packages'] as List).cast<Map>()
+    // Need to get rid of this config so its rootUri doesn't cause it to get used for this package.
+    ..removeSingleWhere((package) => package['name'] == 'over_react_analyzer_plugin')
+    ..add(<String, String>{
+      "name": packageName,
+      "rootUri": "../",
+      "packageUri": "lib/",
+      // Opt out of null safety since it gets in our way for these tests
+      "languageVersion": "2.7",
+    });
+  resourceProvider.setOverlay(transformPath('.dart_tool/package_config.json'),
+      content: jsonEncode(updatedConfig), modificationStamp: 0);
+
   dartSourcesByPath.forEach((path, source) {
     resourceProvider.setOverlay(
       transformPath(path),
@@ -123,7 +155,8 @@ Future<Map<String, ResolvedUnitResult>> parseAndGetResolvedUnits(Map<String, Str
     final filteredErrors =
         filterIgnores(result.errors, lineInfo, () => IgnoreInfo.forDart(result.unit!, result.content!));
     if (filteredErrors.isNotEmpty) {
-      throw ArgumentError('Parse errors in source "$path":\n${filteredErrors.join('\n')}');
+      final source = dartSourcesByPath[path];
+      throw ArgumentError('Parse errors in source "$path":\n${filteredErrors.join('\n')}\nFull source:\n$source');
     }
     results[path] = result;
   }
@@ -187,4 +220,16 @@ Future<InvocationExpression?> parseExpression(
     return invocationExpression;
   }
   return null;
+}
+
+extension<E> on List<E> {
+  E removeSingleWhere(bool Function(E) test) {
+    final firstIndex = indexWhere(test);
+    if (firstIndex == -1) throw StateError('No matching item found');
+
+    final lastIndex = lastIndexWhere(test);
+    if (lastIndex != firstIndex) throw StateError('More than one matching item found');
+
+    return removeAt(firstIndex);
+  }
 }
