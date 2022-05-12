@@ -40,7 +40,9 @@ class InvalidDomAttributeDiagnostic extends ComponentUsageDiagnosticContributor 
     // Don't support SVG icons since we only have HTML element metadata.
     if (!usage.isDom || usage.isSvg) return;
 
-    final nodeName = usage.componentName;
+    final nodeName = usage.domNodeName;
+    if (nodeName == null) return;
+
 //    if (usage.isSvg && nodeName != 'svg') {
 //      nodeName = nodeName.replaceFirst(new RegExp(r'^svg'), '');
 //    }

@@ -37,7 +37,7 @@ void addCreateRef(
 
   final lineInfo = result.lineInfo;
   String? oldStringRefSource;
-  final componentName = usage.componentName;
+  final componentName = usage.domNodeName ?? usage.componentName;
   final lowerCaseComponentName =
       componentName == null ? 'component' : componentName.substring(0, 1).toLowerCase() + componentName.substring(1);
   var createRefFieldName = '_${lowerCaseComponentName}Ref';
