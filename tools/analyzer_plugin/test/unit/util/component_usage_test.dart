@@ -127,7 +127,7 @@ void main() {
           }.forEach((source, reason) {
             test('`$source`', () async {
               final expressionNode =
-                  await parseInvocation(source, isResolved: isResolved);
+                  await parseInvocation(source, imports: fooComponents, isResolved: isResolved);
               var componentUsage = getComponentUsage(expressionNode);
               expect(componentUsage, isNull, reason: '$source is $reason');
             });
