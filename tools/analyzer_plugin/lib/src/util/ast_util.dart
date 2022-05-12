@@ -7,6 +7,7 @@ import 'dart:mirrors';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:analyzer/dart/constant/value.dart';
+import 'package:analyzer/dart/element/type.dart';
 import 'package:analyzer/source/line_info.dart';
 import 'package:over_react_analyzer_plugin/src/util/constant_evaluator.dart';
 
@@ -35,6 +36,24 @@ Iterable<AstNode> allDescendants(AstNode node) sync* {
 
 /// Returns a lazy iterable of all descendants of [node] of type [T], in breadth-first order.
 Iterable<T> allDescendantsOfType<T extends AstNode>(AstNode node) => allDescendants(node).whereType<T>();
+
+extension AstNodeAncestors on AstNode {
+  /// A lazy iterable of all ancestors of this node.
+  Iterable<AstNode> get ancestors sync* {
+    final parent = this.parent;
+    if (parent != null) {
+      yield parent;
+      yield* parent.ancestors;
+    }
+  }
+}
+
+extension TypeOrBound on DartType {
+  DartType get typeOrBound {
+    final self = this;
+    return self is TypeParameterType ? self.bound.typeOrBound : self;
+  }
+}
 
 extension ClassOrMixinDeclarationUtils on ClassOrMixinDeclaration {
   /// Similar to [getField], but returns the entire declaration instead.

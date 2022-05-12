@@ -1,19 +1,27 @@
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/type.dart';
+import 'ast_util.dart';
 
 extension ReactTypes$DartType on DartType {
-  bool get isComponentClass => element?.isComponentClass ?? false;
-  bool get isReactElement => element?.isReactElement ?? false;
-  bool get isPropsClass => element?.isPropsClass ?? false;
+  bool get isComponentClass => typeOrBound.element?.isComponentClass ?? false;
+  bool get isReactElement => typeOrBound.element?.isReactElement ?? false;
+  bool get isPropsClass => typeOrBound.element?.isPropsClass ?? false;
 }
 
 extension ReactTypes$Element on Element {
-  bool get isComponentClass => isOrIsSubtypeOfTypeFromPackage('Component', 'react');
-  bool get isReactElement => isOrIsSubtypeOfTypeFromPackage('ReactElement', 'react');
-  bool get isPropsClass => isOrIsSubtypeOfTypeFromPackage('UiProps', 'over_react');
+  bool get isComponentClass => isOrIsSubtypeOfElementFromPackage('Component', 'react');
+  bool get isReactElement => isOrIsSubtypeOfElementFromPackage('ReactElement', 'react');
+  bool get isPropsClass => isOrIsSubtypeOfElementFromPackage('UiProps', 'over_react');
+
+  bool isOrIsSubtypeOfElementFromPackage(String typeName, String packageName) {
+    final element = this;
+    return element is ClassElement &&
+        (element.isElementFromPackage(typeName, packageName) ||
+            element.allSupertypes.any((type) => type.element.isElementFromPackage(typeName, packageName)));
+  }
 }
 
-// Adapted from https://github.com/dart-lang/sdk/blob/279024d823707f1f4d5edc05c374ca813edbd73e/pkg/analysis_server/lib/src/utilities/flutter.dart#L279
+// Adapted from https://github.com/dart-lang/sdk/blob/279024d823707f1f4d5edc05c374ca813edbd73e/pkg/analysis_server/lib/src/utilities/flutter.dart#L560
 //
 // Copyright 2014, the Dart project authors. All rights reserved.
 // Redistribution and use in source and binary forms, with or without
@@ -41,19 +49,14 @@ extension ReactTypes$Element on Element {
 // THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-extension ElementSubtypeUtils on Element {
-  bool isOrIsSubtypeOfTypeFromPackage(String typeName, String packageName) {
-    final that = this;
-    return that is ClassElement &&
-        (that.isTypeFromPackage(typeName, packageName) ||
-            that.allSupertypes.any((type) => type.element.isTypeFromPackage(typeName, packageName)));
+extension ElementPackageUtils on Element {
+  bool isElementFromPackage(String typeName, String packageName) =>
+      name == typeName && isDeclaredInPackage(packageName);
+
+  bool isDeclaredInPackage(String packageName) {
+    final uri = source?.uri;
+    return uri != null && isUriWithinPackage(uri, packageName);
   }
-
-  bool isTypeFromPackage(String typeName, String packageName) => name == typeName && isDeclaredInPackage(packageName);
-}
-
-extension on Element {
-  bool isDeclaredInPackage(String packageName) => isUriWithinPackage(source!.uri, packageName);
 }
 
 bool isUriWithinPackage(Uri uri, String packageName) =>

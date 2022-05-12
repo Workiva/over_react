@@ -31,7 +31,7 @@ class ContributorVisitor extends RecursiveElementVisitor<void> {
   @override
   void visitClassElement(ClassElement element) {
     for (final config in _configs) {
-      if (!element.isOrIsSubtypeOfTypeFromPackage(
+      if (!element.isOrIsSubtypeOfElementFromPackage(
           config.typeNameOfContributorClass, config.packageNameContainingContributorClass)) continue;
 
       final annotatedFields = element.fields
@@ -42,7 +42,7 @@ class ContributorVisitor extends RecursiveElementVisitor<void> {
               'The DocsMeta() annotation should only be used to annotate constant values:\n    ${field.toString()}');
         }
 
-        if (field.type.element?.isOrIsSubtypeOfTypeFromPackage(
+        if (field.type.element?.isOrIsSubtypeOfElementFromPackage(
                 config.typeNameOfAnnotatedField, config.packageNameContainingAnnotatedFieldType) ??
             false) {
           config.registry.register(config.getMeta(field));
