@@ -12,8 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'dart:collection';
-
 import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/type.dart';
@@ -109,22 +107,24 @@ void main() {
         group(
             'returns null for invocations that are not fluent interface usages:',
             () {
-          const {
+          ({
             'Dom.h1()': 'not full invocation',
             'Foo()': 'not full invocation',
             'fooFactory()': 'not full invocation',
-            'foo()': 'not a valid builder',
-            'foo.bar()': 'not a valid builder',
-            'foo().bar()': 'not a valid builder',
-            'foo.bar.baz()': 'not a valid builder',
-            'foo()()': 'not a valid builder',
-            '_foo()()': 'not a valid builder',
-            'toBuilder()': 'blocked method name',
-            'toBuilder()()': 'blocked method name',
-            'foo.toBuilder()': 'blocked method name',
-            'foo().toBuilder()': 'blocked method name',
-            'foo.bar.toBuilder()': 'blocked method name',
-          }.forEach((source, reason) {
+            if (!isResolved) ...{
+              'foo()': 'not a valid builder',
+              'foo.bar()': 'not a valid builder',
+              'foo().bar()': 'not a valid builder',
+              'foo.bar.baz()': 'not a valid builder',
+              'foo()()': 'not a valid builder',
+              '_foo()()': 'not a valid builder',
+              'toBuilder()': 'blocked method name',
+              'toBuilder()()': 'blocked method name',
+              'foo.toBuilder()': 'blocked method name',
+              'foo().toBuilder()': 'blocked method name',
+              'foo.bar.toBuilder()': 'blocked method name',
+            }
+          }).forEach((source, reason) {
             test('`$source`', () async {
               final expressionNode =
                   await parseInvocation(source, imports: fooComponents, isResolved: isResolved);
@@ -461,7 +461,7 @@ void main() {
                   ..["indexRead2"]
                   ..methodInvocation2(null)
                 )()
-            ''', isResolved: isResolved))!;
+            ''', imports: fooComponents, isResolved: isResolved))!;
           });
 
           group('return the expected values for different types of cascades',
@@ -538,7 +538,7 @@ void main() {
           test('no arguments', () async {
             final usage = getComponentUsage(await parseInvocation('''
                 Foo()()
-            ''', isResolved: isResolved))!;
+            ''', imports: fooComponents, isResolved: isResolved))!;
             expect(usage.children, isEmpty);
           });
 
@@ -546,7 +546,7 @@ void main() {
             test('single argument', () async {
               final usage = getComponentUsage(await parseInvocation('''
                   Foo()(Dom.h1()())
-              ''', isResolved: isResolved))!;
+              ''', imports: fooComponents, isResolved: isResolved))!;
               expect(usage.children, [
                 isA<ExpressionComponentChild>()
                     .havingSource('Dom.h1()()')
@@ -557,7 +557,7 @@ void main() {
             test('multiple arguments', () async {
               final usage = getComponentUsage(await parseInvocation('''
                   Foo()(Dom.h1()(), 2, "3")
-              ''', isResolved: isResolved))!;
+              ''', imports: fooComponents, isResolved: isResolved))!;
               expect(usage.children, [
                 isA<ExpressionComponentChild>()
                     .havingSource('Dom.h1()()')
@@ -576,7 +576,7 @@ void main() {
             test('containing only expressions', () async {
               final usage = getComponentUsage(await parseInvocation('''
                   Foo()([Dom.h1()(), 2, "3"])
-              ''', isResolved: isResolved))!;
+              ''', imports: fooComponents, isResolved: isResolved))!;
               expect(usage.children, [
                 isA<ExpressionComponentChild>()
                     .havingSource('Dom.h1()()')
@@ -597,8 +597,14 @@ void main() {
                     ...someChildren,
                     if (condition) someChild,
                     if (condition) ...someChildren,
-                    for (final item in items) renderChild(child),
+                    for (final item in items) renderChild(item),
                   ])
+              ''', imports: '''$fooComponents
+                  bool condition;
+                  var someChild;
+                  Iterable someChildren;
+                  Iterable items;
+                  renderChild(child) {}
               ''', isResolved: isResolved))!;
               expect(usage.children, [
                 isA<ExpressionComponentChild>()
@@ -611,7 +617,7 @@ void main() {
                 isA<CollectionElementComponentChild>()
                     .havingSource('if (condition) ...someChildren'),
                 isA<CollectionElementComponentChild>().havingSource(
-                    'for (final item in items) renderChild(child)'),
+                    'for (final item in items) renderChild(item)'),
               ]);
             });
           });
@@ -619,7 +625,7 @@ void main() {
           test('children within multiple list literals', () async {
             final usage = getComponentUsage(await parseInvocation('''
                 Foo()([1, 2], [3, 4])
-            ''', isResolved: isResolved))!;
+            ''', imports: fooComponents, isResolved: isResolved))!;
             expect(usage.children, [
               isA<ExpressionComponentChild>()
                   .havingSource('[1, 2]')
@@ -634,7 +640,7 @@ void main() {
               () async {
             final usage = getComponentUsage(await parseInvocation('''
                 Foo()([[1, 2], [3, 4]])
-            ''', isResolved: isResolved))!;
+            ''', imports: fooComponents, isResolved: isResolved))!;
             expect(usage.children, [
               isA<ExpressionComponentChild>()
                   .havingSource('[1, 2]')
@@ -650,7 +656,7 @@ void main() {
           test('for a simple prop', () async {
             final assignment = getComponentUsage(await parseInvocation('''
                 (Foo()..cascadedProp = null)()
-            ''', isResolved: isResolved))!.cascadedProps.single;
+            ''', imports: fooComponents, isResolved: isResolved))!.cascadedProps.single;
 
             expect(assignment.node, hasSource('..cascadedProp = null'));
             expect(assignment.name.name, 'cascadedProp');
@@ -665,7 +671,7 @@ void main() {
           test('for a prefixed prop', () async {
             final assignment = getComponentUsage(await parseInvocation('''
                 (Foo()..dom.role = null)()
-            ''', isResolved: isResolved))!.cascadedProps.single;
+            ''', imports: fooComponents, isResolved: isResolved))!.cascadedProps.single;
 
             expect(assignment.node, hasSource('..dom.role = null'));
             expect(assignment.name.name, 'role');
@@ -682,7 +688,7 @@ void main() {
           test('for a simple access', () async {
             final getter = getComponentUsage(await parseInvocation('''
                 (Foo()..bar)()
-            ''', isResolved: isResolved))!.cascadedGetters.single;
+            ''', imports: fooComponents, isResolved: isResolved))!.cascadedGetters.single;
 
             expect(getter.node, hasSource('..bar'));
             expect(getter.name, hasSource('bar'));
@@ -691,7 +697,7 @@ void main() {
           test('for a prefixed access', () async {
             final getter = getComponentUsage(await parseInvocation('''
                 (Foo()..bar.baz)()
-            ''', isResolved: isResolved))!.cascadedGetters.single;
+            ''', imports: fooComponents, isResolved: isResolved))!.cascadedGetters.single;
 
             expect(getter.node, hasSource('..bar.baz'));
             expect(getter.name, hasSource('baz'));
@@ -701,7 +707,7 @@ void main() {
         test('IndexPropAssignment getters return the correct values', () async {
           final indexAssignment = getComponentUsage(await parseInvocation('''
               (Foo()..["bar"] = null)()
-          ''', isResolved: isResolved))!.cascadedIndexAssignments.single;
+          ''', imports: fooComponents, isResolved: isResolved))!.cascadedIndexAssignments.single;
 
           expect(indexAssignment.node, hasSource('..["bar"] = null'));
           expect(indexAssignment.leftHandSide, hasSource('..["bar"]'));
@@ -712,11 +718,11 @@ void main() {
         test('BuilderMethodInvocation getters return the correct values',
             () async {
           final invocation = getComponentUsage(await parseInvocation('''
-              (Foo()..bar())()
-          ''', isResolved: isResolved))!.cascadedMethodInvocations.single;
+              (Foo()..addTestId('testId'))()
+          ''', imports: fooComponents, isResolved: isResolved))!.cascadedMethodInvocations.single;
 
-          expect(invocation.node, hasSource('..bar()'));
-          expect(invocation.methodName, hasSource('bar'));
+          expect(invocation.node, hasSource("..addTestId('testId')"));
+          expect(invocation.methodName, hasSource('addTestId'));
         });
       }
 
@@ -750,7 +756,7 @@ void main() {
           () async {
         final expression = await parseExpression('Dom.div()()',
             isResolved: true,
-            imports: 'import "package:over_react/over_react.dart"');
+            imports: 'import "package:over_react/over_react.dart";');
         expect(typeCategoryForReactNode(expression),
             ReactNodeTypeCategory.reactElement);
       });
@@ -878,7 +884,26 @@ class BuilderTestCase {
 const fooComponents = /*language=dart*/ r'''
 import 'package:over_react/over_react.dart';
 UiFactory<FooProps> Foo = _$Foo; // ignore: undefined_identifier, invalid_assignment
-mixin FooProps on UiProps {}
+mixin FooProps on UiProps {
+  var cascadedProp;
+  var bar;
+  
+  var getter1;
+  var getter2;
+  var setter1;
+  var setter2;
+  
+  PrefixedProps get prefix;
+  
+  methodInvocation1() {}
+  methodInvocation2() {}
+}
+mixin PrefixedProps on UiProps {
+  var prefixedGetter1;
+  var prefixedGetter2;
+  var prefixedSetter1;
+  var prefixedSetter2;
+}
 class FooComponent extends UiComponent2<FooProps> {
   @override
   void render() {}
@@ -892,6 +917,7 @@ class BarComponent extends UiComponent2<BarProps> {
 FooProps getFooBuilder() => Foo();
 FooProps getBuilderForFoo() => Foo();
 FooProps toBuilder() => Foo();
+UiFactory<FooProps> fooFactory = Foo;
 ''';
 
 /// An enumeration of all the supported OverReact component builders that can be detected
