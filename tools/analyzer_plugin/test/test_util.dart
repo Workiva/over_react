@@ -194,7 +194,7 @@ List<AnalysisError> _filterIgnored(List<AnalysisError> errors, IgnoreInfo ignore
 /// To return resolved AST, set [isResolved] to true.
 ///
 /// Returns null if [expression] is not an [InvocationExpression].
-Future<InvocationExpression?> parseExpression(
+Future<Expression> parseExpression(
   String expression, {
   String imports = '',
   bool isResolved = false,
@@ -215,11 +215,7 @@ Future<InvocationExpression?> parseExpression(
   final parsedFunction = unit.childEntities.whereType<FunctionDeclaration>().last;
   final body = parsedFunction.functionExpression.body as BlockFunctionBody;
   final statement = body.block.statements.single as ExpressionStatement;
-  final invocationExpression = statement.expression;
-  if (invocationExpression is InvocationExpression) {
-    return invocationExpression;
-  }
-  return null;
+  return statement.expression;
 }
 
 extension<E> on List<E> {
