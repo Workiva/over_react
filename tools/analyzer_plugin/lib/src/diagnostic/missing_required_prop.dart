@@ -100,8 +100,9 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
             return false;
           }
 
-          _cachedAccessorClass ??= typeLibrary.getType('Accessor');
-          if (!result.typeSystem.isAssignableTo(type, _cachedAccessorClass!.thisType)) {
+          // ignore: unnecessary_parenthesis
+          final accessorClass = (_cachedAccessorClass ??= typeLibrary.getType('Accessor')!);
+          if (!result.typeSystem.isAssignableTo(type, accessorClass.thisType)) {
             return false;
           }
 

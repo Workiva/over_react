@@ -154,7 +154,7 @@ PropertyInducingElement? _getRefCallbackAssignedField(Expression refPropRhs) {
   final function = refPropRhs.unParenthesized.tryCast<FunctionExpression>();
   if (function == null) return null;
 
-  final refCallbackArg = function.parameters!.parameters.firstOrNull;
+  final refCallbackArg = function.parameters?.parameters.firstOrNull;
   if (refCallbackArg == null) return null;
 
   final referencesToArg = allDescendantsOfType<Identifier>(function.body)

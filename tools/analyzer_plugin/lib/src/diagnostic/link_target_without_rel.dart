@@ -82,7 +82,7 @@ class LinkTargetUsageWithoutRelDiagnostic extends ComponentUsageDiagnosticContri
       'noreferrer',
     };
     var actualRelValues = <String>{};
-    var offerQuickFix = relPropSection == null || relPropSection.last.staticType!.isDartCoreNull;
+    var offerQuickFix = relPropSection == null || (relPropSection.last.staticType?.isDartCoreNull ?? false);
     if (relPropSection != null && (relPropSection.last.staticType?.isDartCoreString ?? false)) {
       offerQuickFix = relPropSection.last is StringLiteral;
 
