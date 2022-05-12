@@ -70,8 +70,7 @@ class FluentComponentUsage {
 
   /// The class element for the builder's props class (or, for parameterized types
   /// the bound of that type), or `null` if this usage is not fully resolved.
-  ClassElement? get propsClassElement =>
-      builderType?.typeOrBound.tryCast<InterfaceType>()?.element;
+  ClassElement? get propsClassElement => builderType?.typeOrBound.tryCast<InterfaceType>()?.element;
 
   /// The name of the builder's props class (or, for parameterized types
   /// the bound of that type), or `null` if this usage is not fully resolved.
@@ -92,8 +91,7 @@ class FluentComponentUsage {
 
     final builder = this.builder;
     if (builder is MethodInvocation) {
-      final methodElement =
-          builder.methodName.staticElement?.tryCast<MethodElement>();
+      final methodElement = builder.methodName.staticElement?.tryCast<MethodElement>();
       if (methodElement != null && methodElement.isStatic) {
         final className = methodElement.enclosingElement.name;
         if (className != null) {
@@ -103,8 +101,7 @@ class FluentComponentUsage {
     }
 
     final propsName = this.propsName;
-    if (propsName != null &&
-        !const {'dynamic', 'UiProps'}.contains(propsName)) {
+    if (propsName != null && !const {'dynamic', 'UiProps'}.contains(propsName)) {
       // Some props classes have an extra "Component" part in their name.
       return propsName.replaceFirst(RegExp(r'(Component)?Props$'), '');
     }
@@ -142,8 +139,7 @@ class FluentComponentUsage {
     }
   }
 
-  List<Expression> get cascadeSections =>
-      cascadeExpression?.cascadeSections ?? const [];
+  List<Expression> get cascadeSections => cascadeExpression?.cascadeSections ?? const [];
 
   /// The prop assignments cascaded on this usage's builder.
   ///
@@ -156,8 +152,7 @@ class FluentComponentUsage {
   /// The prop reads cascaded on this usage's builder.
   ///
   /// See also: other `cascaded`* methods in this class.
-  Iterable<PropRead> get cascadedGetters =>
-      cascadeSections.whereType<PropertyAccess>().map((p) => PropRead(p));
+  Iterable<PropRead> get cascadedGetters => cascadeSections.whereType<PropertyAccess>().map((p) => PropRead(p));
 
   /// The index prop assignments cascaded on this usage's builder.
   ///
@@ -170,10 +165,9 @@ class FluentComponentUsage {
   /// The method calls cascaded on this usage's builder.
   ///
   /// See also: other `cascaded`* methods in this class.
-  Iterable<BuilderMethodInvocation> get cascadedMethodInvocations =>
-      cascadeSections
-          .whereType<MethodInvocation>()
-          .map((methodInvocation) => BuilderMethodInvocation(methodInvocation));
+  Iterable<BuilderMethodInvocation> get cascadedMethodInvocations => cascadeSections
+      .whereType<MethodInvocation>()
+      .map((methodInvocation) => BuilderMethodInvocation(methodInvocation));
 
   /// All the cascades on this usage's builder, each wrapped in one of the
   /// [BuilderMemberAccess] subtypes.
@@ -450,8 +444,7 @@ class _PropertyAccessPropAssignment extends PropAssignment {
   Expression get target => leftHandSide.realTarget;
 
   @override
-  SimpleIdentifier? get prefix =>
-      leftHandSide.target?.tryCast<PropertyAccess>()?.propertyName;
+  SimpleIdentifier? get prefix => leftHandSide.target?.tryCast<PropertyAccess>()?.propertyName;
 }
 
 /// An assignment of a property using `operator[]=` on a [FluentComponentUsage] builder.
@@ -581,24 +574,19 @@ FluentComponentUsage? getComponentUsage(InvocationExpression node) {
       } else {
         final builderName = _getUnresolvedComponentName(builder);
         if (builderName != null) {
-          isComponent =
-              RegExp(r'(?:^|\.)Dom\.[a-z0-9]+$').hasMatch(builderName) ||
-                  RegExp(r'factory|builder', caseSensitive: false)
-                      .hasMatch(builderName) ||
-                  RegExp(r'(?:^|\.)[A-Z][^\.]*$').hasMatch(builderName);
+          isComponent = RegExp(r'(?:^|\.)Dom\.[a-z0-9]+$').hasMatch(builderName) ||
+              RegExp(r'factory|builder', caseSensitive: false).hasMatch(builderName) ||
+              RegExp(r'(?:^|\.)[A-Z][^\.]*$').hasMatch(builderName);
         } else {
           isComponent = false;
         }
       }
     } else if (builder is Identifier) {
       final parent = builder.parent;
-      if (parent is MethodInvocation &&
-          parent.methodName == builder &&
-          methodNameBlockList.contains(builder.name)) {
+      if (parent is MethodInvocation && parent.methodName == builder && methodNameBlockList.contains(builder.name)) {
         isComponent = false;
       } else {
-        isComponent =
-            RegExp(r'builder', caseSensitive: false).hasMatch(builder.name);
+        isComponent = RegExp(r'builder', caseSensitive: false).hasMatch(builder.name);
       }
     } else {
       isComponent = false;
@@ -705,7 +693,6 @@ class ComponentUsageVisitor extends RecursiveAstVisitor<void> {
     node.visitChildren(this);
   }
 }
-
 
 extension DomNodeName on FluentComponentUsage {
   String? get domNodeName {
