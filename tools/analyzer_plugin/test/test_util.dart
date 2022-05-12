@@ -82,6 +82,7 @@ Future<ResolvedUnitResult> parseAndGetResolvedUnit(String dartSource, {String pa
 var _hasInitializedSharedCollection = false;
 late AnalysisContextCollection _sharedCollection;
 late OverlayResourceProvider _sharedResourceProvider;
+var _dartSourcePathsAddedInPreviousCall = <String>[];
 
 /// Parses a collection of Dart sources and returns the resolved ASTs,
 /// throwing if there are any static analysis errors.
@@ -147,13 +148,24 @@ Future<Map<String, ResolvedUnitResult>> parseAndGetResolvedUnits(Map<String, Str
         content: jsonEncode(updatedConfig), modificationStamp: 0);
 
     _sharedCollection = AnalysisContextCollection(
-      includedPaths: dartSourcesByAbsolutePath.keys.toList(),
+      includedPaths: [pathPrefix],
       resourceProvider: _sharedResourceProvider,
     );
     _hasInitializedSharedCollection = true;
   }
 
+  // Clean up overlays for previous calls, and let the driver know the file has changed so it doesn't cache the result
+  // if this call uses files of the same name.
+  // Do this before each call instead of after getting the resolved unit
+  // so that the session associate with the result remains valid after this function returns.
+  for (final absolutePath in _dartSourcePathsAddedInPreviousCall) {
+    _sharedResourceProvider.removeOverlay(absolutePath);
+    (_sharedCollection.contextFor(absolutePath) as DriverBasedAnalysisContext).driver.removeFile(absolutePath);
+  }
+  _dartSourcePathsAddedInPreviousCall = [];
+
   dartSourcesByAbsolutePath.forEach((absolutePath, source) {
+    _dartSourcePathsAddedInPreviousCall.add(absolutePath);
     _sharedResourceProvider.setOverlay(
       absolutePath,
       content: source,
@@ -161,32 +173,23 @@ Future<Map<String, ResolvedUnitResult>> parseAndGetResolvedUnits(Map<String, Str
     );
   });
 
-  try {
-    final results = <String, ResolvedUnitResult>{};
-    for (final path in dartSourcesByPath.keys) {
-      final absolutePath = transformPath(path);
-      final context = _sharedCollection.contextFor(absolutePath);
-      final result = await context.currentSession.getResolvedUnit2(absolutePath) as ResolvedUnitResult;
-      final lineInfo = result.lineInfo;
-      final filteredErrors =
-          filterIgnores(result.errors, lineInfo, () => IgnoreInfo.forDart(result.unit!, result.content!))
-              // only fail for error severity errors.
-              .where((error) => error.severity == Severity.error);
-      if (filteredErrors.isNotEmpty) {
-        final source = dartSourcesByPath[path];
-        throw ArgumentError('Parse errors in source "$path":\n${filteredErrors.join('\n')}\nFull source:\n$source');
-      }
-      results[path] = result;
+  final results = <String, ResolvedUnitResult>{};
+  for (final path in dartSourcesByPath.keys) {
+    final absolutePath = transformPath(path);
+    final context = _sharedCollection.contextFor(absolutePath);
+    final result = await context.currentSession.getResolvedUnit2(absolutePath) as ResolvedUnitResult;
+    final lineInfo = result.lineInfo;
+    final filteredErrors =
+        filterIgnores(result.errors, lineInfo, () => IgnoreInfo.forDart(result.unit!, result.content!))
+            // only fail for error severity errors.
+            .where((error) => error.severity == Severity.error);
+    if (filteredErrors.isNotEmpty) {
+      final source = dartSourcesByPath[path];
+      throw ArgumentError('Parse errors in source "$path":\n${filteredErrors.join('\n')}\nFull source:\n$source');
     }
-    return results;
-  } finally {
-    // Clean up files overlays
-    dartSourcesByAbsolutePath.forEach((absolutePath, source) {
-      _sharedResourceProvider.removeOverlay(absolutePath);
-      // Make sure the driver doesn't cache this file for subsequent calls to this function using files of the same name.
-      (_sharedCollection.contextFor(absolutePath) as DriverBasedAnalysisContext).driver.removeFile(absolutePath);
-    });
+    results[path] = result;
   }
+  return results;
 }
 
 List<AnalysisError> filterIgnores(List<AnalysisError> errors, LineInfo lineInfo, IgnoreInfo Function() lazyIgnoreInfo) {
