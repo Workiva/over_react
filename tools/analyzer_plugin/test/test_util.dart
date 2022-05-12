@@ -5,7 +5,9 @@ import 'package:analyzer/dart/analysis/analysis_context_collection.dart';
 import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:analyzer/dart/ast/ast.dart';
+import 'package:analyzer/diagnostic/diagnostic.dart';
 import 'package:analyzer/error/error.dart';
+import 'package:analyzer/src/dart/analysis/driver_based_analysis_context.dart' show DriverBasedAnalysisContext;
 import 'package:analyzer/file_system/overlay_file_system.dart';
 import 'package:analyzer/file_system/physical_file_system.dart';
 import 'package:analyzer/source/line_info.dart';
@@ -74,6 +76,13 @@ Future<ResolvedUnitResult> parseAndGetResolvedUnit(String dartSource, {String pa
   return results.values.single;
 }
 
+// Reuse an analysis context across multiple calls,
+// which is much faster than spinning up a new one each time
+// when resolving files.
+var _hasInitializedSharedCollection = false;
+late AnalysisContextCollection _sharedCollection;
+late OverlayResourceProvider _sharedResourceProvider;
+
 /// Parses a collection of Dart sources and returns the resolved ASTs,
 /// throwing if there are any static analysis errors.
 ///
@@ -102,65 +111,82 @@ Future<Map<String, ResolvedUnitResult>> parseAndGetResolvedUnits(Map<String, Str
 
   String transformPath(String path) => p.join(pathPrefix, path);
 
-  final resourceProvider = OverlayResourceProvider(PhysicalResourceProvider.INSTANCE);
+  final dartSourcesByAbsolutePath = dartSourcesByPath.map((key, value) => MapEntry(transformPath(key), value));
 
-  // Create a fake in memory package that opts out of null safety
-  // TODO clean this up, perhaps use SharedAnalysisContextCollection from over_react_codemod
-  const packageName = 'package_depending_on_over_react';
-  resourceProvider.setOverlay(transformPath('pubspec.yaml'),
-      content: '''
-name: $packageName
-publish_to: none
-environment:
-  # Opt out of null safety since it gets in our way for these tests
-  sdk: '>=2.11.0 <3.0.0'
-dependencies:
-  over_react: ^4.3.1
-''',
-      modificationStamp: 0);
-  // Steal the packages file from this project, which depends on over_react
-  final currentPackageConfig = File('.dart_tool/package_config.json').readAsStringSync();
-  final updatedConfig = jsonDecode(currentPackageConfig) as Map;
-  (updatedConfig['packages'] as List).cast<Map>()
-    // Need to get rid of this config so its rootUri doesn't cause it to get used for this package.
-    ..removeSingleWhere((package) => package['name'] == 'over_react_analyzer_plugin')
-    ..add(<String, String>{
-      "name": packageName,
-      "rootUri": "../",
-      "packageUri": "lib/",
-      // Opt out of null safety since it gets in our way for these tests
-      "languageVersion": "2.7",
-    });
-  resourceProvider.setOverlay(transformPath('.dart_tool/package_config.json'),
-      content: jsonEncode(updatedConfig), modificationStamp: 0);
+  if (!_hasInitializedSharedCollection) {
+    _sharedResourceProvider = OverlayResourceProvider(PhysicalResourceProvider.INSTANCE);
 
-  dartSourcesByPath.forEach((path, source) {
-    resourceProvider.setOverlay(
-      transformPath(path),
+    // Create a fake in memory package that opts out of null safety
+    // TODO clean this up, perhaps use SharedAnalysisContextCollection from over_react_codemod
+    const packageName = 'package_depending_on_over_react';
+    _sharedResourceProvider.setOverlay(transformPath('pubspec.yaml'),
+        content: '''
+  name: $packageName
+  publish_to: none
+  environment:
+    # Opt out of null safety since it gets in our way for these tests
+    sdk: '>=2.11.0 <3.0.0'
+  dependencies:
+    over_react: ^4.3.1
+  ''',
+        modificationStamp: 0);
+    // Steal the packages file from this project, which depends on over_react
+    final currentPackageConfig = File('.dart_tool/package_config.json').readAsStringSync();
+    final updatedConfig = jsonDecode(currentPackageConfig) as Map;
+    (updatedConfig['packages'] as List).cast<Map>()
+      // Need to get rid of this config so its rootUri doesn't cause it to get used for this package.
+      ..removeSingleWhere((package) => package['name'] == 'over_react_analyzer_plugin')
+      ..add(<String, String>{
+        "name": packageName,
+        "rootUri": "../",
+        "packageUri": "lib/",
+        // Opt out of null safety since it gets in our way for these tests
+        "languageVersion": "2.7",
+      });
+    _sharedResourceProvider.setOverlay(transformPath('.dart_tool/package_config.json'),
+        content: jsonEncode(updatedConfig), modificationStamp: 0);
+
+    _sharedCollection = AnalysisContextCollection(
+      includedPaths: dartSourcesByAbsolutePath.keys.toList(),
+      resourceProvider: _sharedResourceProvider,
+    );
+    _hasInitializedSharedCollection = true;
+  }
+
+  dartSourcesByAbsolutePath.forEach((absolutePath, source) {
+    _sharedResourceProvider.setOverlay(
+      absolutePath,
       content: source,
       modificationStamp: 0,
     );
   });
 
-  final collection = AnalysisContextCollection(
-    includedPaths: dartSourcesByPath.keys.map(transformPath).toList(),
-    resourceProvider: resourceProvider,
-  );
-
-  final results = <String, ResolvedUnitResult>{};
-  for (final path in dartSourcesByPath.keys) {
-    final context = collection.contextFor(transformPath(path));
-    final result = await context.currentSession.getResolvedUnit2(transformPath(path)) as ResolvedUnitResult;
-    final lineInfo = result.lineInfo;
-    final filteredErrors =
-        filterIgnores(result.errors, lineInfo, () => IgnoreInfo.forDart(result.unit!, result.content!));
-    if (filteredErrors.isNotEmpty) {
-      final source = dartSourcesByPath[path];
-      throw ArgumentError('Parse errors in source "$path":\n${filteredErrors.join('\n')}\nFull source:\n$source');
+  try {
+    final results = <String, ResolvedUnitResult>{};
+    for (final path in dartSourcesByPath.keys) {
+      final absolutePath = transformPath(path);
+      final context = _sharedCollection.contextFor(absolutePath);
+      final result = await context.currentSession.getResolvedUnit2(absolutePath) as ResolvedUnitResult;
+      final lineInfo = result.lineInfo;
+      final filteredErrors =
+          filterIgnores(result.errors, lineInfo, () => IgnoreInfo.forDart(result.unit!, result.content!))
+              // only fail for error severity errors.
+              .where((error) => error.severity == Severity.error);
+      if (filteredErrors.isNotEmpty) {
+        final source = dartSourcesByPath[path];
+        throw ArgumentError('Parse errors in source "$path":\n${filteredErrors.join('\n')}\nFull source:\n$source');
+      }
+      results[path] = result;
     }
-    results[path] = result;
+    return results;
+  } finally {
+    // Clean up files overlays
+    dartSourcesByAbsolutePath.forEach((absolutePath, source) {
+      _sharedResourceProvider.removeOverlay(absolutePath);
+      // Make sure the driver doesn't cache this file for subsequent calls to this function using files of the same name.
+      (_sharedCollection.contextFor(absolutePath) as DriverBasedAnalysisContext).driver.removeFile(absolutePath);
+    });
   }
-  return results;
 }
 
 List<AnalysisError> filterIgnores(List<AnalysisError> errors, LineInfo lineInfo, IgnoreInfo Function() lazyIgnoreInfo) {
