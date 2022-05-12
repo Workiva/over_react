@@ -1,3 +1,4 @@
+import 'package:analyzer/dart/ast/ast.dart';
 // ignore: implementation_imports
 import 'package:over_react_codemod/src/util/component_usage.dart';
 
@@ -16,4 +17,11 @@ extension DomNodeName on FluentComponentUsage {
 
     return nodeNameMatch.group(1)!;
   }
+}
+
+/// Returns all component usages in [node] and its descendants.
+List<FluentComponentUsage> getAllComponentUsages(AstNode node) {
+  final usages = <FluentComponentUsage>[];
+  node.accept(ComponentUsageVisitor(usages.add));
+  return usages;
 }

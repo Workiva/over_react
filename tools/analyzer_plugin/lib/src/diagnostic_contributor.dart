@@ -111,6 +111,11 @@ abstract class ComponentUsageDiagnosticContributor extends DiagnosticContributor
   Future<void> computeErrors(ResolvedUnitResult result, DiagnosticCollector collector) async {
     final usages = <FluentComponentUsage>[];
     result.unit!.accept(ComponentUsageVisitor(usages.add));
+    await computeErrorsForUsages(result, collector, usages);
+  }
+
+  Future<void> computeErrorsForUsages(
+      ResolvedUnitResult result, DiagnosticCollector collector, Iterable<FluentComponentUsage> usages) async {
     for (final usage in usages) {
       await computeErrorsForUsage(result, collector, usage);
     }

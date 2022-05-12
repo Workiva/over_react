@@ -171,9 +171,20 @@ class _DiagnosticGenerator {
   Future<_GeneratorResult<List<AnalysisError>>> _generateErrors(
       ResolvedUnitResult unitResult, DiagnosticCollectorImpl collector) async {
     final notifications = <Notification>[];
+
+    // Reuse component usages so we don't have to recompute them for each ComponentUsageDiagnosticContributor.
+    List<FluentComponentUsage>? _usages;
+    // Lazily compute the usage so any errors get handled as part of each diagnostic's try/catch.
+    // TODO: collect data how long this takes.
+    List<FluentComponentUsage> getUsages() => _usages ??= getAllComponentUsages(unitResult.unit!);
+
     for (final contributor in contributors) {
       try {
-        await contributor.computeErrors(unitResult, collector);
+        if (contributor is ComponentUsageDiagnosticContributor) {
+          await contributor.computeErrorsForUsages(unitResult, collector, getUsages());
+        } else {
+          await contributor.computeErrors(unitResult, collector);
+        }
       } catch (exception, stackTrace) {
         notifications.add(PluginErrorParams(false, exception.toString(), stackTrace.toString()).toNotification());
       }
