@@ -801,7 +801,7 @@ mixin FooProps on UiProps {
   PrefixedProps get prefix;
   
   methodInvocation1() {}
-  methodInvocation2() {}
+  methodInvocation2(arg) {}
 }
 mixin PrefixedProps on UiProps {
   var prefixedGetter1;
