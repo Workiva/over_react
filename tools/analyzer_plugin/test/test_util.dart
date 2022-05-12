@@ -200,10 +200,12 @@ Future<Expression> parseExpression(
   bool isResolved = false,
 }) async {
   late CompilationUnit unit;
+  // Wrap the expression in parens to ensure this is interpreted as an expression
+  // for ambiguous cases (e.g, a map literal that could be interpreted as an empty block).
   final source = '''
     $imports
     void wrapperFunction() {
-      $expression;
+      ($expression);
     }
   ''';
   if (isResolved) {
@@ -215,7 +217,8 @@ Future<Expression> parseExpression(
   final parsedFunction = unit.childEntities.whereType<FunctionDeclaration>().last;
   final body = parsedFunction.functionExpression.body as BlockFunctionBody;
   final statement = body.block.statements.single as ExpressionStatement;
-  return statement.expression;
+  // Unwrap the expression. Don't use `.unparenthesized` since it unwraps all sets of parentheses.
+  return (statement.expression as ParenthesizedExpression).expression;
 }
 
 extension<E> on List<E> {
