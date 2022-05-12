@@ -20,6 +20,7 @@ import 'package:analyzer/dart/element/type.dart';
 import 'package:collection/collection.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:over_react_analyzer_plugin/src/component_usage.dart';
+import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
 import 'package:test/test.dart';
 
 import '../../test_util.dart';
@@ -1008,26 +1009,6 @@ CompilationUnit parseAndGetUnit(String dartSource) {
   }
   return result.unit;
 }
-
-/// Returns a lazy iterable of all descendants of [node], in breadth-first order.
-Iterable<AstNode> allDescendants(AstNode node) sync* {
-  final nodesQueue = Queue<AstNode>()..add(node);
-  while (nodesQueue.isNotEmpty) {
-    final current = nodesQueue.removeFirst();
-
-    for (final child in current.childEntities) {
-      if (child is AstNode) {
-        yield child;
-        nodesQueue.add(child);
-      }
-    }
-  }
-}
-
-/// Returns a lazy iterable of all descendants of [node] of type [T], in breadth-first order.
-Iterable<T> allDescendantsOfType<T extends AstNode>(AstNode node) =>
-    allDescendants(node).whereType<T>();
-
 /// Parses [dartSource] and returns the first node of type [T].
 ///
 /// Useful for easily creating a node of a certain type for tests.
