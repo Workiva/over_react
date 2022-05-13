@@ -58,9 +58,9 @@ class NonDefaultedPropDiagnostic extends DiagnosticContributor {
   computeErrors(result, collector) async {
     final notUsingDefaults = <Tuple2<Expression, VariableDeclaration>>[];
 
-    result.unit!.accept(FunctionComponentVisitor((body) {
+    result.unit!.accept(FunctionComponentVisitor((component) {
       final visitor = NonDefaultedPropVisitor();
-      body.accept(visitor);
+      component.body.accept(visitor);
       visitor.defaultedPropVariablesByPropName.forEach((propName, variable) {
         visitor.propAccessesByName[propName]
             ?.where((access) => !variable.containsEntity(access))

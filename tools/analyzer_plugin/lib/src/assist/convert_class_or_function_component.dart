@@ -103,14 +103,14 @@ class ConvertClassOrFunctionComponentAssistContributor extends AssistContributor
     collector.addAssist(PrioritizedSourceChange(convertToFunction.priority, sourceChange));
   }
 
-  Future<void> _tryConvertFunctionComponent(FunctionBody functionComponentBody) async {
+  Future<void> _tryConvertFunctionComponent(FunctionComponent functionComponent) async {
     // todo replace with real boilerplate logic
 
-    final factory = functionComponentBody.thisOrAncestorOfType<VariableDeclaration>();
+    final factory = functionComponent.factoryVariable;
     if (factory == null) return;
 
-    final factoryInitializer = factory.initializer;
-    if (factoryInitializer == null) return;
+    final functionComponentBody = functionComponent.body;
+    final factoryInitializer = factory.initializer!;
 
     final name = factory.name.name;
     final componentClassName = '${name}Component';
