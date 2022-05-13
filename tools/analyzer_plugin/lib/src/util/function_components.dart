@@ -4,6 +4,9 @@ import 'package:analyzer/dart/ast/visitor.dart';
 import 'ast_util.dart';
 import 'util.dart';
 
+FunctionBody? getClosestFunctionComponent(AstNode node) =>
+    node.ancestors.whereType<FunctionBody>().firstWhereOrNull(isFunctionComponent);
+
 bool isFunctionComponent(FunctionBody body) {
   final invocationOfFunctionThisIsAnArgTo =
       body.parentExpression?.parent?.tryCast<ArgumentList>()?.parent?.tryCast<InvocationExpression>();

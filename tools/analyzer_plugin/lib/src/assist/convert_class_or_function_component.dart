@@ -6,7 +6,6 @@ import 'package:analyzer_plugin/utilities/change_builder/change_builder_core.dar
 import 'package:analyzer_plugin/utilities/range_factory.dart';
 import 'package:over_react_analyzer_plugin/src/assist/contributor_base.dart';
 import 'package:over_react_analyzer_plugin/src/indent_util.dart';
-import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/function_components.dart';
 import 'package:over_react_analyzer_plugin/src/util/util.dart';
 
@@ -36,11 +35,10 @@ class ConvertClassOrFunctionComponentAssistContributor extends AssistContributor
 
     // todo replace with real boilerplate logic
     // todo make sure this works on the whole factory variable declaration
-    for (final body in node.ancestors.whereType<FunctionBody>()) {
-      if (isFunctionComponent(body)) {
-        await _tryConvertFunctionComponent(body);
-        return;
-      }
+    final closestFunctionComponent = getClosestFunctionComponent(node);
+    if (closestFunctionComponent != null) {
+      await _tryConvertFunctionComponent(closestFunctionComponent);
+      return;
     }
   }
 

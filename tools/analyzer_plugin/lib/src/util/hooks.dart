@@ -2,12 +2,16 @@ import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
 
 import 'ast_util.dart';
+import 'util.dart';
 
 final _hookNamePattern = RegExp(r'^use[A-Z0-9].*$');
 
 /// Catch all identifiers that begin with "use" followed by an uppercase Latin
 /// character to exclude identifiers like "user".
 bool isHookName(String s) => _hookNamePattern.hasMatch(s);
+
+FunctionBody? getClosestCustomHookFunction(AstNode node) =>
+    node.ancestors.whereType<FunctionBody>().firstWhereOrNull(isCustomHookFunction);
 
 bool isCustomHookFunction(FunctionBody body) {
   final declaration = body.parentDeclaration;
