@@ -76,7 +76,7 @@ class MissingCascadeParensDiagnostic extends DiagnosticContributor {
       if (isBadFunction || isBadArity || isVoidUsage) {
         final node = NodeLocator(error.offset, error.offset + error.length).searchWithin(result.unit)!;
 
-        final debug = AnalyzerDebugHelper(result, collector);
+        final debug = AnalyzerDebugHelper(result, collector, enabled: false);
         debug.log('node.type: ${node.runtimeType}');
 
         InvocationExpression invocation;

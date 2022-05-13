@@ -137,13 +137,15 @@ class BadKeyDiagnostic extends ComponentUsageDiagnosticContributor {
     // Type can't be resolved; bail out.
     if (topLevelKeyType == null) return;
 
+    final typedProvider = result.typeProvider;
+
     // Special-case for Iterables and Maps: check if their (keys and) values are allowed types.
     final isIterableOrMap =
         // Need to make sure it's not null since null is a subtype of all nullable-types.
         !topLevelKeyType.isDartCoreNull &&
             [
-              result.typeProvider.iterableObjectType,
-              result.typeProvider.mapObjectObjectType,
+              typedProvider.iterableType(typedProvider.dynamicType),
+              typedProvider.mapType(typedProvider.dynamicType, typedProvider.dynamicType),
             ].any((type) => result.typeSystem.isSubtypeOf(topLevelKeyType, type));
 
     final keyTypesToProcess = {

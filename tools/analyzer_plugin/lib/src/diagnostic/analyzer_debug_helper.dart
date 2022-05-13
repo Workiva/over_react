@@ -5,7 +5,10 @@ import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 /// Usage:
 ///     final debug = AnalyzerDebugHelper(result, collector);
 class AnalyzerDebugHelper {
-  AnalyzerDebugHelper(this.result, this.collector);
+  /// Whether debug messages are enabled.
+  bool enabled;
+
+  AnalyzerDebugHelper(this.result, this.collector, {this.enabled = false});
 
   final ResolvedUnitResult result;
   final DiagnosticCollector collector;
@@ -20,6 +23,7 @@ class AnalyzerDebugHelper {
   ///     final debug = AnalyzerDebugHelper(result, collector);
   ///     debug.log('message');
   void log(String message) {
+    if (!enabled) return;
     collector.addError(code, Location(result.path!, 0, 0, 1, 1, 1, 1), errorMessageArgs: [message]);
   }
 
@@ -27,6 +31,7 @@ class AnalyzerDebugHelper {
   ///     final debug = AnalyzerDebugHelper(result, collector);
   ///     debug.log('message', result.locationFor(node));
   void logWithLocation(String message, Location location) {
+    if (!enabled) return;
     collector.addError(code, location, errorMessageArgs: [message]);
   }
 }
