@@ -3,7 +3,7 @@ import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 
 /// Usage:
-///     AnalyzerDebugHelper debug = new AnalyzerDebugHelper(result, collector);
+///     final debug = AnalyzerDebugHelper(result, collector);
 class AnalyzerDebugHelper {
   AnalyzerDebugHelper(this.result, this.collector);
 
@@ -17,9 +17,16 @@ class AnalyzerDebugHelper {
   );
 
   /// Usage:
-  ///     AnalyzerDebugHelper debug = new AnalyzerDebugHelper(result, collector);
+  ///     final debug = AnalyzerDebugHelper(result, collector);
   ///     debug.log('message');
   void log(String message) {
     collector.addError(code, Location(result.path!, 0, 0, 1, 1, 1, 1), errorMessageArgs: [message]);
+  }
+
+  /// Usage:
+  ///     final debug = AnalyzerDebugHelper(result, collector);
+  ///     debug.log('message', result.locationFor(node));
+  void logWithLocation(String message, Location location) {
+    collector.addError(code, location, errorMessageArgs: [message]);
   }
 }

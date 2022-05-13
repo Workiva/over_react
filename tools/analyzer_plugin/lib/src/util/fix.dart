@@ -14,6 +14,15 @@ Future<SourceChange> buildFileEdit(
   return builder.sourceChange;
 }
 
+Future<SourceChange> buildSimpleFileEdit(
+  ResolvedUnitResult result,
+  void Function(FileEditBuilder builder) buildFileEdit,
+) async {
+  final builder = ChangeBuilder(session: result.session);
+  await builder.addGenericFileEdit(result.path!, buildFileEdit);
+  return builder.sourceChange;
+}
+
 //Future<SourceChange> Function() getFixComputer(
 //  ResolvedUnitResult result,
 //  FutureOr<void> Function(DartFileEditBuilder builder) buildFileEdit,

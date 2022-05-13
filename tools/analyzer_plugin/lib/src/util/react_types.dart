@@ -12,6 +12,8 @@ extension ReactTypes$Element on Element {
   bool get isComponentClass => isOrIsSubtypeOfElementFromPackage('Component', 'react');
   bool get isReactElement => isOrIsSubtypeOfElementFromPackage('ReactElement', 'react');
   bool get isPropsClass => isOrIsSubtypeOfElementFromPackage('UiProps', 'over_react');
+  bool get isStateHook => isOrIsSubtypeOfElementFromPackage('StateHook', 'react');
+  bool get isReducerHook => isOrIsSubtypeOfElementFromPackage('ReducerHook', 'react');
 
   bool isOrIsSubtypeOfElementFromPackage(String typeName, String packageName) {
     final element = this;
