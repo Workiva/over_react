@@ -171,7 +171,6 @@ extension on Symbol {
   String get name => MirrorSystem.getName(this);
 }
 
-
 extension AstNodeRangeHelper on AstNode {
   bool containsRangeOf(AstNode other) => other.offset >= offset && other.end <= end;
 }

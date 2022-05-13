@@ -698,8 +698,10 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
           diagnosticCollector.addErrorWithFix(
             HooksExhaustiveDeps.code,
             result.locationFor(declaredDependencyNode),
-          // todo(greg) better error and fix message
-            errorMessageArgs: ["React Hook ${getSource(reactiveHook)} has a StateHook object '$dependencySource' in its dependency list, which will change every render and cause the effect to always run."],
+            // todo(greg) better error and fix message
+            errorMessageArgs: [
+              "React Hook ${getSource(reactiveHook)} has a StateHook object '$dependencySource' in its dependency list, which will change every render and cause the effect to always run."
+            ],
             fixKind: HooksExhaustiveDeps.fixKind,
             fixMessageArgs: ["Depend on '$dependencySourceValue' instead."],
             computeFix: () => buildSimpleFileEdit(result, (builder) {
@@ -708,7 +710,6 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
           );
           continue;
         }
-
 
         // Try to normalize the declared dependency. If we can't then an error
         // will be thrown. We will catch that error and report an error.

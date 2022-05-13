@@ -65,8 +65,7 @@ class RulesOfHooks extends DiagnosticContributor {
             " $mustBeCalledInMessage");
       } else if (body.parentDeclaration != null) {
         // Custom message if we found an invalid function name.
-        addErrorForHook(
-            "React Hook '${hook.hookName}' is called in function '${body.functionNameOrDescription}'"
+        addErrorForHook("React Hook '${hook.hookName}' is called in function '${body.functionNameOrDescription}'"
             " that is neither a React function component nor a custom React Hook function."
             " React function components must be declared using 'uiFunction' or 'uiForwardRef' in over_react,"
             " or using 'registerFunctionComponent' or 'forwardRef2' in react-dart."
