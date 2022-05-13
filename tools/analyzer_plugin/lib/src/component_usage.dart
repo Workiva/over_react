@@ -62,6 +62,7 @@ class FluentComponentUsage {
 
   /// The static type of this usage's builder, or `null` if this usage is not fully resolved.
   DartType? get builderType {
+    // Check this so we don't return `dynamic`
     if (!hasUnresolvedOrDynamicReferences(builder)) {
       return builder.staticType;
     }
@@ -110,9 +111,13 @@ class FluentComponentUsage {
   }
 
   /// Whether this usage is a DOM/SVG component.
+  ///
+  /// Will `be false` if the type of the builder is not resolved.
   bool get isDom => const {'DomProps', 'SvgProps'}.contains(propsName);
 
   /// Whether this usage is an SVG component.
+  ///
+  /// Will `be false` if the type of the builder is not resolved.
   bool get isSvg => const {'SvgProps'}.contains(propsName);
 
   /// The children of this usage.
@@ -487,33 +492,55 @@ class IndexPropAssignment extends BuilderMemberAccess {
 /// If dynamic member accesses are rare, this can a more accurate alternative
 /// than just checking for [Expression.staticType], since that often shows up
 /// as `dynamic` in resolved contexts when something doesn't fully resolve.
-bool hasUnresolvedOrDynamicReferences(Expression expression) {
+///
+/// By default, function bodies are not checked unless [checkFunctionBodies] is set,
+/// as a performance optimization.
+bool hasUnresolvedOrDynamicReferences(Expression expression, {bool checkFunctionBodies = false}) {
   if (expression.staticType == null) return true;
 
-  final visitor = _ResolvedExpressionVisitor();
+  final visitor = _ResolvedExpressionVisitor(checkFunctionBodies: checkFunctionBodies);
   expression.accept(visitor);
   return visitor.hasUnresolvedOrDynamicReferences;
 }
 
 class _ResolvedExpressionVisitor extends GeneralizingAstVisitor<void> {
+  final bool checkFunctionBodies;
+
+  _ResolvedExpressionVisitor({required this.checkFunctionBodies});
+
   var hasUnresolvedOrDynamicReferences = false;
 
   @override
-  visitIdentifier(Identifier node) {
-    super.visitIdentifier(node);
+  void visitNode(AstNode node) {
+    // If we've found a match, short-circuit and stop visiting.
+    if (hasUnresolvedOrDynamicReferences) return;
 
-    if (node.staticElement == null) {
-      hasUnresolvedOrDynamicReferences = true;
+    super.visitNode(node);
+  }
+
+  @override
+  visitFunctionBody(FunctionBody node) {
+    if (checkFunctionBodies) {
+      super.visitFunctionBody(node);
     }
   }
 
   @override
-  visitInvocationExpression(InvocationExpression node) {
-    super.visitInvocationExpression(node);
+  visitIdentifier(Identifier node) {
+    if (node.staticElement == null) {
+      hasUnresolvedOrDynamicReferences = true;
+    }
 
+    super.visitIdentifier(node);
+  }
+
+  @override
+  visitInvocationExpression(InvocationExpression node) {
     if (node.staticInvokeType == null) {
       hasUnresolvedOrDynamicReferences = true;
     }
+
+    super.visitInvocationExpression(node);
   }
 }
 

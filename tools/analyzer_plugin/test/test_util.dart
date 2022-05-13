@@ -231,10 +231,14 @@ Future<Expression> parseExpression(
   late CompilationUnit unit;
   // Wrap the expression in parens to ensure this is interpreted as an expression
   // for ambiguous cases (e.g, a map literal that could be interpreted as an empty block).
+  // Put the closing paren on its own line so that end-of-line comments don't comment it out,
+  // and the opening paren on its own line so any ignore comments aren't treated as end-of-line comments.
   final source = '''
     $imports
     void wrapperFunction() {
-      ($expression);
+      (
+        $expression
+      );
     }
   ''';
   if (isResolved) {

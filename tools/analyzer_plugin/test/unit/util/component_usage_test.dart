@@ -37,7 +37,7 @@ void main() {
                     await parseInvocation(source, imports: builderSource.imports, isResolved: isResolved);
                 final componentUsage = getComponentUsage(expressionNode);
 
-                checkComponentUsage(componentUsage, builderSource, source);
+                checkComponentUsage(componentUsage, builderSource, source, isResolvedAst: isResolved);
               });
             });
           });
@@ -52,7 +52,8 @@ void main() {
                     await parseInvocation(source, imports: builderSource.imports, isResolved: isResolved);
                 var componentUsage = getComponentUsage(expressionNode);
 
-                checkComponentUsage(componentUsage, builderSource, source, cascadeSource);
+                checkComponentUsage(componentUsage, builderSource, source,
+                    cascadeSource: cascadeSource, isResolvedAst: isResolved);
               });
             });
           });
@@ -66,7 +67,7 @@ void main() {
                     await parseInvocation(source, imports: builderSource.imports, isResolved: isResolved);
                 var componentUsage = getComponentUsage(expressionNode);
 
-                checkComponentUsage(componentUsage, builderSource, source);
+                checkComponentUsage(componentUsage, builderSource, source, isResolvedAst: isResolved);
               });
             });
           });
@@ -90,7 +91,7 @@ void main() {
             final componentUsage = getComponentUsage(expressionNode);
 
             if (isResolved) {
-              checkComponentUsage(componentUsage, testCase, source);
+              checkComponentUsage(componentUsage, testCase, source, isResolvedAst: isResolved);
             } else {
               expect(componentUsage, isNull, reason: 'should not be detected as a usage when not resolved');
             }
@@ -122,6 +123,39 @@ void main() {
               expect(componentUsage, isNull, reason: '$source is $reason');
             });
           });
+        });
+
+        group('when the factory is dynamic', () {
+          const testCase = BuilderTestCase(
+            source: 'Dynamic()',
+            imports: '''
+              import 'package:over_react/over_react.dart';
+              
+              dynamic Dynamic;
+            ''',
+            canBuilderResolve: false,
+            componentName: 'Dynamic',
+            unresolvedComponentName: 'Dynamic',
+            factoryName: 'Dynamic',
+            propsName: null,
+            isDom: false,
+            isSvg: false,
+          );
+          final source = '${testCase.source}()';
+
+          if (isResolved) {
+            test('returns null', () async {
+              final expressionNode = await parseInvocation(source, imports: testCase.imports, isResolved: isResolved);
+              var componentUsage = getComponentUsage(expressionNode);
+              expect(componentUsage, isNull);
+            });
+          } else {
+            test('returns null', () async {
+              final expressionNode = await parseInvocation(source, imports: testCase.imports, isResolved: isResolved);
+              var componentUsage = getComponentUsage(expressionNode);
+              checkComponentUsage(componentUsage, testCase, source, isResolvedAst: isResolved);
+            });
+          }
         });
       }
 
@@ -206,7 +240,8 @@ void main() {
 
             test('node is a $name which is already a component usage', () {
               final componentUsage = identifyUsage(expressionNode);
-              checkComponentUsage(componentUsage, builderSource, source, cascadeSource);
+              checkComponentUsage(componentUsage, builderSource, source,
+                  cascadeSource: cascadeSource, isResolvedAst: true);
             });
 
             group('node inside $name', () {
@@ -215,7 +250,8 @@ void main() {
                     getComponentUsage(expressionNode)?.cascadeExpression?.cascadeSections.firstOrNull;
                 expect(cascadeExpression?.toSource(), '..id = \'123\'');
                 final componentUsage = identifyUsage(cascadeExpression);
-                checkComponentUsage(componentUsage, builderSource, source, cascadeSource);
+                checkComponentUsage(componentUsage, builderSource, source,
+                    cascadeSource: cascadeSource, isResolvedAst: true);
               });
 
               test('is a child should return null', () {
@@ -230,14 +266,18 @@ void main() {
           group('a $name is a child of another component', () {
             final cascadeSource = '${builderSource.source}..id = \'123\'';
             final childSource = '($cascadeSource)(\'stringChild\')';
-            final nestedSource = 'Bar()($childSource)';
+            final wrappedSource = 'Parent()($childSource)';
             late InvocationExpression expressionNode;
             late InvocationExpression childExpression;
 
             setUpAll(() async {
               expressionNode = await parseInvocation(
-                nestedSource,
-                imports: builderSource.imports,
+                wrappedSource,
+                imports: builderSource.imports +
+                    r'''
+                    UiFactory<ParentProps> Parent = _$Parent; // ignore: undefined_identifier, invalid_assignment
+                    mixin ParentProps on UiProps {}
+                ''',
                 isResolved: true,
               );
 
@@ -252,21 +292,23 @@ void main() {
               checkComponentUsage(
                   componentUsage,
                   BuilderTestCase(
-                    source: 'Bar()',
-                    imports: '',
-                    componentName: 'Bar',
-                    unresolvedComponentName: 'Bar',
-                    factoryName: 'Bar',
-                    propsName: 'BarProps',
+                    source: 'Parent()',
+                    imports: '<<this value is unused>>',
+                    componentName: 'Parent',
+                    unresolvedComponentName: 'Parent',
+                    factoryName: 'Parent',
+                    propsName: 'ParentProps',
                     isDom: false,
                     isSvg: false,
                   ),
-                  nestedSource);
+                  wrappedSource,
+                  isResolvedAst: true);
             });
 
             test('and node is the child component', () {
               final componentUsage = identifyUsage(childExpression);
-              checkComponentUsage(componentUsage, builderSource, childSource, cascadeSource);
+              checkComponentUsage(componentUsage, builderSource, childSource,
+                  cascadeSource: cascadeSource, isResolvedAst: true);
             });
 
             group('and the node inside the child component', () {
@@ -275,7 +317,8 @@ void main() {
                     getComponentUsage(childExpression)?.cascadeExpression?.cascadeSections.firstOrNull;
                 expect(cascadeExpression?.toSource(), '..id = \'123\'');
                 final componentUsage = identifyUsage(cascadeExpression);
-                checkComponentUsage(componentUsage, builderSource, childSource, cascadeSource);
+                checkComponentUsage(componentUsage, builderSource, childSource,
+                    cascadeSource: cascadeSource, isResolvedAst: true);
               });
 
               test('is a child should return null', () {
@@ -349,7 +392,7 @@ void main() {
               expect(
                 componentUsage?.factoryTopLevelVariableElement,
                 // Only resolved component factories will have `factoryTopLevelVariableElement`
-                name.contains('component factory')
+                builderSource.canBuilderResolve && name.contains('component factory')
                     ? isA<TopLevelVariableElement>().having((f) => f.name, 'name', equals(builderSource.componentName))
                     : isNull,
               );
@@ -379,12 +422,16 @@ void main() {
 
               expect(
                 componentUsage.propsClassElement,
-                isA<ClassElement>().having((c) => c.name, 'name', builderSource.propsName),
+                builderSource.canBuilderResolve
+                    ? isA<ClassElement>().having((c) => c.name, 'name', builderSource.propsName)
+                    : isNull,
               );
               expect(
                 componentUsage.builderType,
-                isA<DartType>()
-                    .having((t) => t.getDisplayString(withNullability: false), 'display name', builderSource.propsName),
+                builderSource.canBuilderResolve
+                    ? isA<DartType>().having(
+                        (t) => t.getDisplayString(withNullability: false), 'display name', builderSource.propsName)
+                    : isNull,
               );
             });
           });
@@ -738,45 +785,56 @@ extension<T extends ExpressionComponentChild> on TypeMatcher<T> {
   TypeMatcher<T> havingIsVariadic(dynamic matcher) => having((c) => c.isVariadic, 'isVariadic', matcher);
 }
 
-void checkComponentUsage(FluentComponentUsage? componentUsage, BuilderTestCase builderSource, String source,
-    [String? cascadeSource]) {
+void checkComponentUsage(
+  FluentComponentUsage? componentUsage,
+  BuilderTestCase builderSource,
+  String source, {
+  String? cascadeSource,
+  required bool isResolvedAst,
+}) {
   expect(componentUsage, isNotNull);
   componentUsage!;
   expect(componentUsage.builder.toSource(), builderSource.source);
+  expect(componentUsage.node.toSource(), source);
+  expect(componentUsage.cascadeExpression?.toSource(), cascadeSource ?? isNull);
+
+  final expectResolvedBuilder = isResolvedAst && builderSource.canBuilderResolve;
+  expect(componentUsage.isBuilderResolved, expectResolvedBuilder);
   expect(
     componentUsage.factory,
     isA<Identifier>().having(
         (f) => f.name,
         'name',
-        equals(componentUsage.isBuilderResolved
+        equals(expectResolvedBuilder
             ? builderSource.factoryName
             // Remove the import namespace for unresolved AST.
             : builderSource.factoryName.split('.').last)),
   );
-  expect(componentUsage.propsName, componentUsage.isBuilderResolved ? builderSource.propsName : isNull);
-  expect(componentUsage.node.toSource(), source);
+
+  expect(componentUsage.propsName, expectResolvedBuilder ? builderSource.propsName! : isNull);
   expect(componentUsage.componentName,
-      componentUsage.isBuilderResolved ? builderSource.componentName : builderSource.unresolvedComponentName);
-  if (componentUsage.isBuilderResolved) {
+      expectResolvedBuilder ? builderSource.componentName : builderSource.unresolvedComponentName);
+  if (expectResolvedBuilder) {
     expect(componentUsage.isDom, builderSource.isDom);
     expect(componentUsage.isSvg, builderSource.isSvg);
   }
-  expect(componentUsage.cascadeExpression?.toSource(), cascadeSource ?? isNull);
 }
 
 class BuilderTestCase {
   final String source;
   final String imports;
+  final bool canBuilderResolve;
   final String componentName;
   final String? unresolvedComponentName;
   final String factoryName;
-  final String propsName;
+  final String? propsName;
   final bool isDom;
   final bool isSvg;
 
   const BuilderTestCase({
     required this.source,
     required this.imports,
+    this.canBuilderResolve = true,
     required this.componentName,
     required this.unresolvedComponentName,
     required this.factoryName,
@@ -867,6 +925,35 @@ const buildersToTest = {
     unresolvedComponentName: 'Foo',
     factoryName: 'Foo',
     propsName: 'FooProps',
+    isDom: false,
+    isSvg: false,
+  ),
+  'unresolved component factory': BuilderTestCase(
+    source: 'Unresolved()',
+    imports: '''
+      import 'package:over_react/over_react.dart';
+      // Suppress warnings for the invalid invocation of this factory;
+      // we want to make sure it gets picked up even when using a resolved AST.
+      // ignore_for_file: unresolved_identifier, undefined_function
+    ''',
+    canBuilderResolve: false,
+    componentName: 'Unresolved',
+    unresolvedComponentName: 'Unresolved',
+    factoryName: 'Unresolved',
+    propsName: null,
+    isDom: false,
+    isSvg: false,
+  ),
+  'generic UiFactory component factory': BuilderTestCase(
+    source: 'Generic()',
+    imports: '''
+      import 'package:over_react/over_react.dart';
+      UiFactory Generic;
+    ''',
+    componentName: 'Generic',
+    unresolvedComponentName: 'Generic',
+    factoryName: 'Generic',
+    propsName: 'UiProps',
     isDom: false,
     isSvg: false,
   ),
