@@ -200,8 +200,7 @@ const unitlessNumberStyles = {
 ///
 /// If [content] is null, a string version of the the `null` literal will be
 /// returned instead.
-String _stringLiteral(String? content,
-    {bool quote = true, bool useSingleQuote = true}) {
+String _stringLiteral(String? content, {bool quote = true, bool useSingleQuote = true}) {
   // Adapted from dart.convert library's JSON encoder:
   // https://github.com/dart-lang/sdk/blob/1.12.0/sdk/lib/convert/json.dart#L565
   //
@@ -308,9 +307,7 @@ String _stringLiteral(String? content,
           writeCharCode(hexDigit(charCode & 0xf));
           break;
       }
-    } else if (charCode == quoteChar ||
-        charCode == BACKSLASH ||
-        charCode == DOLLAR_SIGN) {
+    } else if (charCode == quoteChar || charCode == BACKSLASH || charCode == DOLLAR_SIGN) {
       if (i > offset) writeStringSlice(content, offset, i);
       offset = i + 1;
       writeCharCode(BACKSLASH);

@@ -91,7 +91,6 @@ class NonDefaultedPropDiagnostic extends DiagnosticContributor {
   }
 }
 
-
 class NonDefaultedPropVisitor extends GeneralizingAstVisitor<void> {
   final propAccessesByName = <String, List<Expression>>{};
 
