@@ -4,10 +4,11 @@ import 'package:analyzer/dart/ast/visitor.dart';
 import 'ast_util.dart';
 import 'util.dart';
 
-final _hookNamePattern = RegExp(r'^use[A-Z0-9].*$');
-
 /// Catch all identifiers that begin with "use" followed by an uppercase Latin
 /// character to exclude identifiers like "user".
+///
+/// Also accept hooks prefixed with `_` and `$`.
+final _hookNamePattern = RegExp(r'^[_$]*use[A-Z0-9].*$');
 bool isHookName(String s) => _hookNamePattern.hasMatch(s);
 
 FunctionBody? getClosestCustomHookFunction(AstNode node) =>
