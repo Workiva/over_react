@@ -12,7 +12,7 @@ class FunctionComponent {
   FunctionComponent(this.body);
 
   @override
-  operator==(other) => other is FunctionComponent && other.body == body;
+  bool operator==(other) => other is FunctionComponent && other.body == body;
 
   @override
   int get hashCode => body.hashCode;
@@ -57,6 +57,10 @@ FunctionComponent? getClosestFunctionComponent(AstNode node) {
 FunctionBody? getClosestFunctionComponentBody(AstNode node) =>
     node.ancestors.whereType<FunctionBody>().firstWhereOrNull(isFunctionComponent);
 
+/// Returns whether [body] is a React function component body.
+///
+/// This is determined by checking if it's the body of a function passed into one of the various
+/// APIs for creating a function component: `uiFunctionComponent`, `uiForwardRef`, `registerFunctionComponent`, etc.
 bool isFunctionComponent(FunctionBody body) {
   final invocationOfFunctionThisIsAnArgTo =
       body.parentExpression?.parent?.tryCast<ArgumentList>()?.parent?.tryCast<InvocationExpression>();
@@ -89,25 +93,21 @@ bool isFunctionComponent(FunctionBody body) {
   return false;
 }
 
+/// Returns all function components in [node] and its descendants.
+List<FunctionComponent> getAllFunctionComponents(AstNode node) {
+  final components = <FunctionComponent>[];
+  node.accept(FunctionComponentVisitor(components.add));
+  return components;
+}
+
+/// A recursive visitor that calls [onFunctionComponent] for each function component it encounters.
 class FunctionComponentVisitor extends GeneralizingAstVisitor<void> {
   final void Function(FunctionComponent) onFunctionComponent;
 
   FunctionComponentVisitor(this.onFunctionComponent);
 
-  // final _functionComponentBodyStack = <FunctionBody>[];
-
   @override
   void visitFunctionBody(FunctionBody node) {
-    // final isFunctionComponentBody = isFunctionComponent(node);
-    // if (isFunctionComponentBody) {
-    //   _functionComponentBodyStack.add(node);
-    // }
-    // super.visitFunctionBody(node);
-    // if (isFunctionComponentBody) {
-    //   final popped = _functionComponentBodyStack.removeLast();
-    //   assert(popped == node);
-    // }
-
     if (isFunctionComponent(node)) {
       onFunctionComponent(FunctionComponent(node));
     }

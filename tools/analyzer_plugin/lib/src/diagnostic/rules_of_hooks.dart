@@ -25,9 +25,7 @@ class RulesOfHooks extends DiagnosticContributor {
 
   @override
   Future<void> computeErrors(result, collector) async {
-    final visitor = HooksUsagesVisitor();
-    result.unit!.accept(visitor);
-    for (final hook in visitor.hookUsages) {
+    for (final hook in getAllHookUsages(result.unit!)) {
       const sameOrderMessage = "React Hooks must be called in the exact same order in every component render.";
       const mustBeCalledInMessage =
           "React Hooks must be called in a React function component or a custom React Hook function.";
@@ -35,7 +33,7 @@ class RulesOfHooks extends DiagnosticContributor {
       void addErrorForHook(String message) =>
           collector.addError(code, result.locationFor(hook.node), errorMessageArgs: [message]);
 
-      final body = hook.nearestFunctionBody;
+      final body = hook.node.thisOrAncestorOfType<FunctionBody>();
       if (body == null) {
         addErrorForHook("React Hook '${hook.hookName}' cannot be called outside of a function. $mustBeCalledInMessage");
       } else if (isFunctionComponent(body) || isCustomHookFunction(body)) {

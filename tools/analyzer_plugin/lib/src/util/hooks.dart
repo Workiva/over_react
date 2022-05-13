@@ -19,23 +19,39 @@ bool isCustomHookFunction(FunctionBody body) {
   return declaration != null && isHookName(declaration.name.name);
 }
 
+/// A utility class that provides information about a usage of a React hook.
 class HookUsage {
   final MethodInvocation node;
 
   HookUsage(this.node);
 
-  String get hookName => node.methodName.name;
+  @override
+  bool operator==(other) => other is HookUsage && other.node == node;
 
-  FunctionBody? get nearestFunctionBody => node.thisOrAncestorOfType<FunctionBody>();
+  @override
+  int get hashCode => node.hashCode;
+
+  /// The name of the hook being invoked.
+  Identifier get hookName => node.methodName;
 }
 
-class HooksUsagesVisitor extends RecursiveAstVisitor<void> {
-  final hookUsages = <HookUsage>[];
+/// Returns all usages of React Hooks components in [node] and its descendants.
+List<HookUsage> getAllHookUsages(AstNode node) {
+  final usages = <HookUsage>[];
+  node.accept(HookUsageVisitor(usages.add));
+  return usages;
+}
+
+/// A recursive visitor that calls [onHookUsage] for each usages of React hooks it encounters.
+class HookUsageVisitor extends RecursiveAstVisitor<void> {
+  final void Function(HookUsage) onHookUsage;
+
+  HookUsageVisitor(this.onHookUsage);
 
   @override
   void visitMethodInvocation(MethodInvocation node) {
     if (isHookName(node.methodName.name)) {
-      hookUsages.add(HookUsage(node));
+      onHookUsage(HookUsage(node));
     }
 
     super.visitMethodInvocation(node);
