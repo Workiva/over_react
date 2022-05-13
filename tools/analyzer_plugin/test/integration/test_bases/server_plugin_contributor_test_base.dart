@@ -9,6 +9,8 @@ import '../stubs.dart';
 import 'analysis_driver_test_base.dart';
 import 'assist_test_base.dart';
 
+export 'package:analyzer/src/generated/source.dart' show Source;
+
 /// Representation of a selected range on a [Source] file.
 ///
 /// Useful when testing assist and diagnostic contributors that use the
@@ -24,6 +26,30 @@ class SourceSelection {
   final String? target;
 
   SourceSelection(this.source, this.offset, this.length, {this.target});
+}
+
+extension AsRange$SourceRange on SourceSelection {
+  /// Returns SourceRange using [offset] and [length].
+  ///
+  /// Useful when you're dealing with ranges represented by incompatible types,
+  /// and need to compare them (using [SourceRange.intersects], etc.).
+  SourceRange toRange() => SourceRange(offset, length);
+}
+
+extension AsRange$Location on Location {
+  /// Returns SourceRange using [offset] and [length].
+  ///
+  /// Useful when you're dealing with ranges represented by incompatible types,
+  /// and need to compare them (using [SourceRange.intersects], etc.).
+  SourceRange toRange() => SourceRange(offset, length);
+}
+
+extension AsRange$Position on Position {
+  /// Returns SourceRange using [offset]].
+  ///
+  /// Useful when you're dealing with ranges represented by incompatible types,
+  /// and need to compare them (using [SourceRange.intersects], etc.).
+  SourceRange toRange() => SourceRange(offset, 0);
 }
 
 /// Test base that handles constructing an analysis server plugin designed for

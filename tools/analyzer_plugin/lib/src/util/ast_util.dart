@@ -249,3 +249,22 @@ extension on Symbol {
 extension AstNodeRangeHelper on AstNode {
   bool containsRangeOf(AstNode other) => other.offset >= offset && other.end <= end;
 }
+
+extension EmptyIdentifier on Expression {
+  /// Whether this is an identifier with no name, usually stubbed in by the
+  /// parser in response to invalid syntax.
+  ///
+  /// Example:
+  ///
+  /// ```dart
+  /// // '..foo = '
+  /// print(assignmentExpressionWithNoRhs.toSource());
+  ///
+  /// // 'true'
+  /// print(assignmentExpressionWithNoRhs.rightHandSide.isEmdtyIdentifier);
+  /// ```
+  bool get isEmptyIdentifier {
+    final self = this;
+    return self is SimpleIdentifier && self.name == '';
+  }
+}

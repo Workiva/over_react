@@ -4,11 +4,9 @@
 import 'dart:async';
 
 import 'package:over_react_analyzer_plugin/src/diagnostic/arrow_function_prop.dart';
-import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:test/test.dart';
 import 'package:test_reflective_loader/test_reflective_loader.dart';
 
-import '../matchers.dart';
 import '../test_bases/diagnostic_test_base.dart';
 
 void main() {
@@ -20,10 +18,10 @@ void main() {
 @reflectiveTest
 class ArrowFunctionPropCascadeDiagnosticTest extends DiagnosticTestBase {
   @override
-  DiagnosticCode get errorUnderTest => ArrowFunctionPropCascadeDiagnostic.code;
+  get errorsUnderTest => {ArrowFunctionPropCascadeDiagnostic.code};
 
   @override
-  FixKind get fixKindUnderTest => ArrowFunctionPropCascadeDiagnostic.fixKind;
+  get fixKindsUnderTest => {ArrowFunctionPropCascadeDiagnostic.fixKind};
 
   static String simpleSource = /*language=dart*/ '''
 import 'package:over_react/over_react.dart';
@@ -104,7 +102,7 @@ var bar = (Dom.div()..onSubmit = (_) => null..key = 'bar')('');
       createSelection(source, 'onSubmit = #(_) => null#'),
     ];
     for (final selection in errorSelections) {
-      expect(allErrors, contains(isDiagnostic(errorUnderTest, locatedAt: selection, hasFix: true)));
+      expect(allErrors, contains(isAnErrorUnderTest(locatedAt: selection, hasFix: true)));
     }
   }
 }

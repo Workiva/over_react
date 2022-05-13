@@ -4,6 +4,7 @@ import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/type.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
+import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/util.dart';
 
 const _sharedBadKeyDetailsIntro = r'**PREFER** to use a value for `props.key` that is guaranteed to be unique.';
@@ -129,8 +130,10 @@ class BadKeyDiagnostic extends ComponentUsageDiagnosticContributor {
     DiagnosticCollector collector,
     Expression expression,
   ) {
-    final topLevelKeyType = expression.staticType;
+    // Edge case for syntax errors
+    if (expression.isEmptyIdentifier) return;
 
+    final topLevelKeyType = expression.staticType;
     // Type can't be resolved; bail out.
     if (topLevelKeyType == null) return;
 
