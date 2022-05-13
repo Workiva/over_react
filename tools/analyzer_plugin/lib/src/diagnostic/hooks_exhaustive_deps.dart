@@ -186,7 +186,7 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
   // Should be shared between visitors.
   /// A mapping from setState references to setState declarations
   final setStateCallSites = WeakMap<Identifier, VariableDeclaration>();
-  final stateVariables = WeakSet();
+  final stateVariables = WeakSet<Identifier>();
   final stableKnownValueCache = WeakMap<Identifier, bool>();
   final functionWithoutCapturedValueCache = WeakMap<Element, bool>();
 
@@ -201,7 +201,7 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
   final ResolvedUnitResult result;
   final String Function(SyntacticEntity entity) getSource;
   final RegExp additionalHooks;
-  final void Function(String string, dynamic location) debug;
+  final void Function(String string, Object location) debug;
 
   _ExhaustiveDepsVisitor({
     @required this.diagnosticCollector,
@@ -1797,7 +1797,7 @@ String joinEnglish(List<String> arr) {
   return s;
 }
 
-extension<E extends Comparable> on Iterable<E> {
+extension<E extends Comparable<dynamic>> on Iterable<E> {
   /// Whether the elements in this collection are already sorted.
   bool get isSorted {
     var isFirst = true;
@@ -1876,10 +1876,11 @@ String prettyString(Object obj) {
     }
   } else if (obj is Map) {
     final namespacedKeys = <String, List<String>>{};
-    final otherKeys = [];
+    final otherKeys = <dynamic>[];
 
     final shouldNamespace = obj.keys
-        .where((key) => key is String && key.contains(namespaceSeparator))
+        .whereType<String>()
+        .where((key) => key.contains(namespaceSeparator))
         .hasLengthOfAtLeast(namespaceThreshold);
 
     obj.keys.forEach((dynamic key) {
@@ -1900,7 +1901,7 @@ String prettyString(Object obj) {
     pairs.addAll(namespacedKeys.keys.map((namespace) {
       String renderSubKey(String subkey) {
         var key = '$namespace$subkey';
-        var value = obj[key];
+        dynamic value = obj[key];
 
         return '$subkey: ' + prettyString(value);
       }

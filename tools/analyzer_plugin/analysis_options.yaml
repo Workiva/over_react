@@ -5,7 +5,7 @@ analyzer:
     - playground/**
   strong-mode:
     implicit-casts: false
-#    implicit-dynamic: false
+    implicit-dynamic: false
   errors:
     # Treat missing required parameters as a warning (not a hint)
     missing_required_param: warning
