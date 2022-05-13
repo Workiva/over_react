@@ -48,6 +48,26 @@ extension AstNodeAncestors on AstNode {
   }
 }
 
+/// Returns all the ancestors of [node] up until [ancestor], not including [ancestor].
+///
+/// Throws an error if [ancestor] is not an ancestor of [node], to help avoid
+/// mistakenly passing in unrelated nodes.
+List<AstNode> ancestorsBetween(AstNode node, AstNode ancestor) {
+  final ancestorsBetween = <AstNode>[];
+  var foundAncestor = false;
+  for (final a in node.ancestors) {
+    if (a == ancestor) {
+      foundAncestor = true;
+      break;
+    }
+    ancestorsBetween.add(a);
+  }
+  if (!foundAncestor) {
+    throw ArgumentError("'node' is not a descendant of 'ancestor'");
+  }
+  return ancestorsBetween;
+}
+
 extension TypeOrBound on DartType {
   DartType get typeOrBound {
     final self = this;

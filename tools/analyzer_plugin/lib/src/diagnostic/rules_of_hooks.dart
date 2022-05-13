@@ -85,31 +85,22 @@ class RulesOfHooks extends DiagnosticContributor {
     }
   }
 
-  static bool _isWithinLoop(FunctionBody body, HookUsage hook) =>
-      body !=
-      hook.node.thisOrAncestorMatching((ancestor) {
-        return ancestor is ForStatement ||
-            ancestor is WhileStatement ||
-            ancestor is DoStatement ||
-            ancestor is ForElement ||
-            ancestor == body;
-      });
+  static bool _isWithinLoop(FunctionBody body, HookUsage hook) => // force dartfmt line wrap
+      ancestorsBetween(hook.node, body).any((ancestor) =>
+          ancestor is ForStatement || // force dartfmt line wrap
+          ancestor is WhileStatement ||
+          ancestor is DoStatement ||
+          ancestor is ForElement);
 
-  static bool _isWithinCondition(FunctionBody body, HookUsage hook) =>
-      body !=
-      hook.node.thisOrAncestorMatching((ancestor) {
-        return ancestor is IfStatement ||
-            ancestor is SwitchStatement ||
-            ancestor is ConditionalExpression ||
-            ancestor is IfElement ||
-            ancestor == body;
-      });
+  static bool _isWithinCondition(FunctionBody body, HookUsage hook) => // force dartfmt line wrap
+      ancestorsBetween(hook.node, body).any((ancestor) =>
+          ancestor is IfStatement || // force dartfmt line wrap
+          ancestor is SwitchStatement ||
+          ancestor is ConditionalExpression ||
+          ancestor is IfElement);
 
   static bool _isPotentiallyShortCircuited(FunctionBody body, HookUsage hook) =>
-      body !=
-      hook.node.thisOrAncestorMatching((ancestor) {
-        if (ancestor == body) return true;
-
+      ancestorsBetween(hook.node, body).any((ancestor) {
         // Short-circuiting binary expression
         if (ancestor is BinaryExpression &&
             const {
