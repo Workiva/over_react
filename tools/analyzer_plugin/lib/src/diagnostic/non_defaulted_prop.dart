@@ -1,4 +1,3 @@
-//@dart=2.9
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/token.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
@@ -59,13 +58,13 @@ class NonDefaultedPropDiagnostic extends DiagnosticContributor {
   computeErrors(result, collector) async {
     final notUsingDefaults = <Tuple2<Expression, VariableDeclaration>>[];
 
-    result.unit.accept(FunctionComponentVisitor((body) {
+    result.unit!.accept(FunctionComponentVisitor((body) {
       final visitor = NonDefaultedPropVisitor();
       body.accept(visitor);
       visitor.defaultedPropVariablesByPropName.forEach((propName, variable) {
         visitor.propAccessesByName[propName]
             ?.where((access) => !variable.containsEntity(access))
-            ?.forEach((access) => notUsingDefaults.add(Tuple2(access, variable)));
+            .forEach((access) => notUsingDefaults.add(Tuple2(access, variable)));
       });
       // final debug = AnalyzerDebugHelper(result, collector);
       // debug.log('defaultedPropVariablesByPropName: ${visitor.defaultedPropVariablesByPropName}, propAccessesByName: ${visitor.propAccessesByName}');
