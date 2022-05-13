@@ -1,4 +1,3 @@
-//@dart=2.9
 // Adapted from https://github.com/facebook/react/blob/master@%7B2020-08-05%2000:00%7D/packages/eslint-plugin-react-hooks/src/RulesOfHooks.js
 
 // Copyright (c) Facebook, Inc. and its affiliates.
@@ -32,7 +31,7 @@ class RulesOfHooks extends DiagnosticContributor {
   @override
   Future<void> computeErrors(result, collector) async {
     final visitor = HooksUsagesVisitor();
-    result.unit.accept(visitor);
+    result.unit!.accept(visitor);
     for (final hook in visitor.hookUsages) {
       const sameOrderMessage = "React Hooks must be called in the exact same order in every component render.";
       const mustBeCalledInMessage =
@@ -46,7 +45,7 @@ class RulesOfHooks extends DiagnosticContributor {
         addErrorForHook("React Hook '${hook.hookName}' cannot be called outside of a function. $mustBeCalledInMessage");
       } else if (body.isFunctionComponent || body.isCustomHook) {
         // Validate that the order of this hook is the same every call.
-        String errorMessage;
+        String? errorMessage;
         if (_isWithinLoop(body, hook)) {
           errorMessage = "may be executed more than once because it is called in a loop.";
         } else if (_isWithinCondition(body, hook)) {
@@ -67,7 +66,7 @@ class RulesOfHooks extends DiagnosticContributor {
       } else if (body.parentDeclaration != null) {
         // Custom message if we found an invalid function name.
         addErrorForHook(
-            "React Hook '${hook.hookName}' is called in function '${body.parentExpression.parentDeclaration.name.name}'"
+            "React Hook '${hook.hookName}' is called in function '${body.functionNameOrDescription}'"
             " that is neither a React function component nor a custom React Hook function."
             " React function components must be declared using 'uiFunction' or 'uiForwardRef' in over_react,"
             " or using 'registerFunctionComponent' or 'forwardRef2' in react-dart."
@@ -119,7 +118,7 @@ class RulesOfHooks extends DiagnosticContributor {
               TokenType.BAR_BAR,
               TokenType.AMPERSAND_AMPERSAND,
             }.contains(ancestor.operator.type) &&
-            (ancestor.rightOperand?.containsRangeOf(hook.node) ?? false)) {
+            (ancestor.rightOperand.containsRangeOf(hook.node))) {
           return true;
         }
 
@@ -130,7 +129,7 @@ class RulesOfHooks extends DiagnosticContributor {
                 TokenType.BAR_BAR_EQ,
                 TokenType.AMPERSAND_AMPERSAND_EQ,
               }.contains(ancestor.operator.type) &&
-              (ancestor.rightHandSide?.containsRangeOf(hook.node) ?? false)) {
+              (ancestor.rightHandSide.containsRangeOf(hook.node))) {
             return true;
           }
           // Null-aware assignment expression
@@ -182,29 +181,37 @@ class HookUsage {
 
   String get hookName => node.methodName.name;
 
-  FunctionBody get nearestFunctionBody => node.thisOrAncestorOfType<FunctionBody>();
+  FunctionBody? get nearestFunctionBody => node.thisOrAncestorOfType<FunctionBody>();
 }
 
 extension on FunctionBody {
-  FunctionExpression get parentExpression => parent?.tryCast();
-  FunctionDeclaration get parentDeclaration => parentExpression?.parentDeclaration;
-  MethodDeclaration get parentMethod => parent?.tryCast();
+  FunctionExpression? get parentExpression => parent?.tryCast();
+  FunctionDeclaration? get parentDeclaration => parentExpression?.parentDeclaration;
+  MethodDeclaration? get parentMethod => parent?.tryCast();
+
+  String get functionNameOrDescription {
+    final name = parentExpression?.parentDeclaration?.name.name;
+    if (name != null) return name;
+
+    // TODO come up with a better description in some cases
+    return '<anonymous closure>';
+  }
 
   bool get isFunctionComponent {
     final invocationOfFunctionThisIsAnArgTo =
         parentExpression?.parent?.tryCast<ArgumentList>()?.parent?.tryCast<InvocationExpression>();
 
     // ignore: omit_local_variable_types
-    final String nameOfFunctionThisIsAnArgTo =
+    final String? nameOfFunctionThisIsAnArgTo =
         // Top-level function invocations (optionally namespaced)
-        invocationOfFunctionThisIsAnArgTo?.tryCast<MethodInvocation>()?.methodName?.name ??
+        invocationOfFunctionThisIsAnArgTo?.tryCast<MethodInvocation>()?.methodName.name ??
             // Invocations top-level function variables with namespaced imports (e.g., registerFunctionComponent)
             invocationOfFunctionThisIsAnArgTo
                 ?.tryCast<FunctionExpressionInvocation>()
                 ?.function
-                ?.tryCast<PrefixedIdentifier>()
+                .tryCast<PrefixedIdentifier>()
                 ?.identifier
-                ?.name;
+                .name;
 
     if (nameOfFunctionThisIsAnArgTo != null) {
       return const {
@@ -229,7 +236,7 @@ extension on FunctionBody {
 }
 
 extension on FunctionExpression {
-  FunctionDeclaration get parentDeclaration => parent?.tryCast();
+  FunctionDeclaration? get parentDeclaration => parent?.tryCast();
 }
 
 class HooksUsagesVisitor extends RecursiveAstVisitor<void> {
