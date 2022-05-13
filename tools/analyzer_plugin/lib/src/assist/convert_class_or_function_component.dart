@@ -27,14 +27,14 @@ class ConvertClassOrFunctionComponentAssistContributor extends AssistContributor
     await super.computeAssists(request, collector);
     if (!setupCompute()) return;
 
+    // todo get this working on the factory as well
     final closestClass = node.thisOrAncestorOfType<ClassDeclaration>();
     if (closestClass != null) {
       await _tryConvertClassComponent(closestClass);
       return;
     }
 
-    // todo replace with real boilerplate logic
-    // todo make sure this works on the whole factory variable declaration
+    // todo make sure this works on the whole factory variable declaration and not just when you're inside the function
     final closestFunctionComponent = getClosestFunctionComponent(node);
     if (closestFunctionComponent != null) {
       await _tryConvertFunctionComponent(closestFunctionComponent);
@@ -43,7 +43,7 @@ class ConvertClassOrFunctionComponentAssistContributor extends AssistContributor
   }
 
   Future<void> _tryConvertClassComponent(ClassDeclaration closestClass) async {
-    // todo replace with real boilerplate logic
+    // todo use over_react builders' boilerplate parsing to get the associated factory and config instead of this logic
 
     if (!closestClass.name.name.endsWith('Component')) return;
 
@@ -104,13 +104,13 @@ class ConvertClassOrFunctionComponentAssistContributor extends AssistContributor
   }
 
   Future<void> _tryConvertFunctionComponent(FunctionComponent functionComponent) async {
-    // todo replace with real boilerplate logic
-
     final factory = functionComponent.factoryVariable;
     if (factory == null) return;
 
     final functionComponentBody = functionComponent.body;
     final factoryInitializer = factory.initializer!;
+
+    // todo use over_react builders' boilerplate parsing to get the associated factory and name of assiciated props class instead of this logic
 
     final name = factory.name.name;
     final componentClassName = '${name}Component';
@@ -118,7 +118,7 @@ class ConvertClassOrFunctionComponentAssistContributor extends AssistContributor
     final propsClassName = '${name}Props';
 
     // todo check for hooks
-    // todo migrate defaults
+    // todo migrate defaults?
 
     final renderSource = request.result.content!.substring(functionComponentBody.offset,
         functionComponentBody.tryCast<ExpressionFunctionBody>()?.semicolon?.offset ?? functionComponentBody.end);
