@@ -1,4 +1,3 @@
-//@dart=2.9
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:analyzer_plugin/protocol/protocol_generated.dart';
@@ -55,33 +54,35 @@ class ConvertClassOrFunctionComponentAssistContributor extends AssistContributor
 
     final factory = node
         .thisOrAncestorOfType<CompilationUnit>()
-        .declarations
+        ?.declarations
         .whereType<TopLevelVariableDeclaration>()
         .expand((element) => element.variables.variables)
         .firstWhere((element) => element.name.name == name);
     if (factory == null) return;
-    final factoryDecl = factory.thisOrAncestorOfType<TopLevelVariableDeclaration>();
 
-    if (factory.initializer == null) return;
+    final factoryDecl = factory.thisOrAncestorOfType<TopLevelVariableDeclaration>()!;
+
+    final factoryInitializer = factory.initializer;
+    if (factoryInitializer == null) return;
 
     // todo check for other methods
     // todo migrate defaults
 
-    final render = closestClass.members.whereType<MethodDeclaration>().firstWhere((m) => m.name.name == 'render');
+    final render = closestClass.members.whereType<MethodDeclaration>().firstWhereOrNull((m) => m.name.name == 'render');
     if (render == null) return;
 
     final renderBody = render.body;
     if (renderBody is EmptyFunctionBody) return;
 
-    final renderSource = request.result.content.substring(
-        renderBody.offset, renderBody is ExpressionFunctionBody ? renderBody.semicolon.offset : renderBody.end);
+    final renderSource = request.result.content!.substring(
+        renderBody.offset, renderBody.tryCast<ExpressionFunctionBody>()?.semicolon?.offset ?? renderBody.end);
 
     final changeBuilder = ChangeBuilder(session: request.result.session);
 
-    await changeBuilder.addGenericFileEdit(request.result.path, (builder) {
+    await changeBuilder.addGenericFileEdit(request.result.path!, (builder) {
       builder.addSimpleReplacement(range.node(closestClass), '');
       builder.addSimpleReplacement(
-          range.node(factory.initializer),
+          range.node(factoryInitializer),
           'uiFunction(\n'
           '  (props) $renderSource,\n'
           '  $generatedFactoryConfigName, // ignore:undefined_identifier\n'
@@ -89,14 +90,14 @@ class ConvertClassOrFunctionComponentAssistContributor extends AssistContributor
 
       final comment = factoryDecl.semicolon.next?.precedingComments;
       if (comment != null && isSameLine(request.result.lineInfo, comment.offset, factoryDecl.semicolon.end)) {
-        if (request.result.content.substring(comment.offset, comment.end).contains('undefined_identifier')) {
+        if (request.result.content!.substring(comment.offset, comment.end).contains('undefined_identifier')) {
           builder.addSimpleReplacement(range.token(comment), '');
         }
       }
 
       // todo also remove undefined_identifier comment from class factory
     });
-    changeBuilder.setSelection(Position(request.result.path, factory.initializer.offset));
+    changeBuilder.setSelection(Position(request.result.path!, factoryInitializer.offset));
 
     final sourceChange = changeBuilder.sourceChange
       ..message = convertToFunction.message
@@ -110,6 +111,9 @@ class ConvertClassOrFunctionComponentAssistContributor extends AssistContributor
     final factory = functionComponentBody.thisOrAncestorOfType<VariableDeclaration>();
     if (factory == null) return;
 
+    final factoryInitializer = factory.initializer;
+    if (factoryInitializer == null) return;
+
     final name = factory.name.name;
     final componentClassName = '${name}Component';
     final generatedFactoryName = '_\$$name';
@@ -118,22 +122,22 @@ class ConvertClassOrFunctionComponentAssistContributor extends AssistContributor
     // todo check for hooks
     // todo migrate defaults
 
-    final renderSource = request.result.content.substring(functionComponentBody.offset,
+    final renderSource = request.result.content!.substring(functionComponentBody.offset,
         functionComponentBody.tryCast<ExpressionFunctionBody>()?.semicolon?.offset ?? functionComponentBody.end);
 
     final changeBuilder = ChangeBuilder(session: request.result.session);
 
-    await changeBuilder.addGenericFileEdit(request.result.path, (builder) {
+    await changeBuilder.addGenericFileEdit(request.result.path!, (builder) {
       // todo also add undefined_identifier to initializer class factory
-      builder.addSimpleReplacement(range.node(factory.initializer), 'castUiFactory($generatedFactoryName)');
+      builder.addSimpleReplacement(range.node(factoryInitializer), 'castUiFactory($generatedFactoryName)');
 
       // TODO find real props class and put after that
       final insertionLocation = (node
                   .thisOrAncestorOfType<CompilationUnit>()
                   ?.declarations
-                  ?.whereType<NamedCompilationUnitMember>()
-                  ?.firstWhere((element) => element.name.name == propsClassName, orElse: () => null) ??
-              factory.initializer.thisOrAncestorOfType<CompilationUnitMember>())
+                  .whereType<NamedCompilationUnitMember>()
+                  .firstWhereOrNull((element) => element.name.name == propsClassName) ??
+              factoryInitializer.thisOrAncestorOfType<CompilationUnitMember>()!)
           .end;
 
       final needsSemicolon = functionComponentBody is ExpressionFunctionBody;
