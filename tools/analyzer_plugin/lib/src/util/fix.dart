@@ -14,7 +14,7 @@ Future<SourceChange> buildFileEdit(
   return builder.sourceChange;
 }
 
-Future<SourceChange> buildSimpleFileEdit(
+Future<SourceChange> buildGenericFileEdit(
   ResolvedUnitResult result,
   void Function(FileEditBuilder builder) buildFileEdit,
 ) async {

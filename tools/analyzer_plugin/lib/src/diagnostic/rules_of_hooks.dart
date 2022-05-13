@@ -7,16 +7,11 @@
 
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/token.dart';
-import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
+import 'package:over_react_analyzer_plugin/src/util/function_components.dart';
+import 'package:over_react_analyzer_plugin/src/util/hooks.dart';
 import 'package:over_react_analyzer_plugin/src/util/util.dart';
-
-final _hookNamePattern = RegExp(r'^use[A-Z0-9].*$');
-
-/// Catch all identifiers that begin with "use" followed by an uppercase Latin
-/// character to exclude identifiers like "user".
-bool isHookName(String s) => _hookNamePattern.hasMatch(s);
 
 class RulesOfHooks extends DiagnosticContributor {
   @DocsMeta('Enforces the Rules of Hooks', details: '')
@@ -43,7 +38,7 @@ class RulesOfHooks extends DiagnosticContributor {
       final body = hook.nearestFunctionBody;
       if (body == null) {
         addErrorForHook("React Hook '${hook.hookName}' cannot be called outside of a function. $mustBeCalledInMessage");
-      } else if (body.isFunctionComponent || body.isCustomHook) {
+      } else if (isFunctionComponent(body) || isCustomHookFunction(body)) {
         // Validate that the order of this hook is the same every call.
         String? errorMessage;
         if (_isWithinLoop(body, hook)) {
@@ -162,82 +157,4 @@ class RulesOfHooks extends DiagnosticContributor {
 
         return hook.node.offset > ret.offset;
       });
-}
-
-class HookUsage {
-  final MethodInvocation node;
-
-  HookUsage(this.node);
-
-  String get hookName => node.methodName.name;
-
-  FunctionBody? get nearestFunctionBody => node.thisOrAncestorOfType<FunctionBody>();
-}
-
-extension on FunctionBody {
-  FunctionExpression? get parentExpression => parent?.tryCast();
-  FunctionDeclaration? get parentDeclaration => parentExpression?.parentDeclaration;
-  MethodDeclaration? get parentMethod => parent?.tryCast();
-
-  String get functionNameOrDescription {
-    final name = parentExpression?.parentDeclaration?.name.name;
-    if (name != null) return name;
-
-    // TODO come up with a better description in some cases
-    return '<anonymous closure>';
-  }
-
-  bool get isFunctionComponent {
-    final invocationOfFunctionThisIsAnArgTo =
-        parentExpression?.parent?.tryCast<ArgumentList>()?.parent?.tryCast<InvocationExpression>();
-
-    // ignore: omit_local_variable_types
-    final String? nameOfFunctionThisIsAnArgTo =
-        // Top-level function invocations (optionally namespaced)
-        invocationOfFunctionThisIsAnArgTo?.tryCast<MethodInvocation>()?.methodName.name ??
-            // Invocations top-level function variables with namespaced imports (e.g., registerFunctionComponent)
-            invocationOfFunctionThisIsAnArgTo
-                ?.tryCast<FunctionExpressionInvocation>()
-                ?.function
-                .tryCast<PrefixedIdentifier>()
-                ?.identifier
-                .name;
-
-    if (nameOfFunctionThisIsAnArgTo != null) {
-      return const {
-        // over_react
-        'uiFunction',
-        'uiForwardRef',
-        // react-dart
-        'registerFunctionComponent',
-        'forwardRef',
-        'forwardRef2',
-      }.contains(nameOfFunctionThisIsAnArgTo);
-    }
-
-    // Method/constructor declaration, getter, etc
-    return false;
-  }
-
-  bool get isCustomHook {
-    final declaration = parentDeclaration;
-    return declaration != null && isHookName(declaration.name.name);
-  }
-}
-
-extension on FunctionExpression {
-  FunctionDeclaration? get parentDeclaration => parent?.tryCast();
-}
-
-class HooksUsagesVisitor extends RecursiveAstVisitor<void> {
-  final hookUsages = <HookUsage>[];
-
-  @override
-  void visitMethodInvocation(MethodInvocation node) {
-    if (isHookName(node.methodName.name)) {
-      hookUsages.add(HookUsage(node));
-    }
-
-    super.visitMethodInvocation(node);
-  }
 }

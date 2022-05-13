@@ -34,3 +34,10 @@ extension IterableUtil<E> on Iterable<E> {
   /// Throws a [StateError] if there is no matching element and [orElse] is omitted.
   T firstWhereType<T>({T Function()? orElse}) => whereType<T>().firstWhere((_) => true, orElse: orElse);
 }
+
+class Tuple2<T1, T2> {
+  final T1 item1;
+  final T2 item2;
+
+  Tuple2(this.item1, this.item2);
+}

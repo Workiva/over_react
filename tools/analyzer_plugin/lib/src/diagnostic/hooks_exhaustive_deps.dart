@@ -704,7 +704,7 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
             ],
             fixKind: HooksExhaustiveDeps.fixKind,
             fixMessageArgs: ["Depend on '$dependencySourceValue' instead."],
-            computeFix: () => buildSimpleFileEdit(result, (builder) {
+            computeFix: () => buildGenericFileEdit(result, (builder) {
               builder.addSimpleReplacement(range.node(declaredDependencyNode), dependencySourceValue);
             }),
           );
@@ -850,7 +850,7 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
             errorMessageArgs: [message],
             fixKind: HooksExhaustiveDeps.fixKind,
             fixMessageArgs: ["Wrap the $constructionType of '$constructionName' in its own $wrapperHook() Hook."],
-            computeFix: () => buildSimpleFileEdit(
+            computeFix: () => buildGenericFileEdit(
               result,
               (builder) {
                 // final parts = wrapperHook == 'useMemo' ? ['useMemo(() => ', ')'] : ['useCallback(', ')'];
@@ -1134,7 +1134,7 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
       ],
       fixKind: HooksExhaustiveDeps.fixKind,
       fixMessageArgs: ["Update the dependencies array to be: [${suggestedDeps.map(formatDependency).join(', ')}]"],
-      computeFix: () => buildSimpleFileEdit(result, (e) {
+      computeFix: () => buildGenericFileEdit(result, (e) {
         e.addSimpleReplacement(
             range.node(declaredDependenciesNode), "[${suggestedDeps.map(formatDependency).join(', ')}]");
       }),
@@ -1245,7 +1245,7 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
       ],
       fixKind: HooksExhaustiveDeps.fixKind,
       fixMessageArgs: ["Update the dependencies array to be: [$callbackName]"],
-      computeFix: () => buildSimpleFileEdit(result, (e) {
+      computeFix: () => buildGenericFileEdit(result, (e) {
         e.addSimpleReplacement(range.node(declaredDependenciesNode), "[$callbackName]");
       }),
     );
@@ -1587,21 +1587,14 @@ List<_Construction> scanForConstructions({
   }
 
   return constructions.map((tuple) {
-    final declaration = tuple.first;
-    final depType = tuple.second;
+    final declaration = tuple.item1;
+    final depType = tuple.item2;
     return _Construction(
       declaration: declaration,
       depType: depType,
       isUsedOutsideOfHook: isUsedOutsideOfHook(declaration),
     );
   }).toList();
-}
-
-class Tuple2<T1, T2> {
-  final T1 first;
-  final T2 second;
-
-  const Tuple2(this.first, this.second);
 }
 
 class _Construction {
@@ -1813,20 +1806,6 @@ extension<E extends Comparable<dynamic>> on Iterable<E> {
     }
     return true;
   }
-}
-
-SimpleIdentifier propertyNameFromNonCascadedAccessOrInvocation(Expression node) {
-  if (node is PrefixedIdentifier) {
-    return node.identifier;
-  }
-  if (node is PropertyAccess && !node.isCascaded) {
-    return node.propertyName;
-  }
-  if (node is MethodInvocation && !node.isCascaded) {
-    return node.methodName;
-  }
-
-  return null;
 }
 
 extension on Element {

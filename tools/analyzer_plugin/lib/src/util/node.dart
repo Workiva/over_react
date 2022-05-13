@@ -1,4 +1,5 @@
 import 'package:analyzer/dart/ast/ast.dart';
+import 'package:analyzer/dart/ast/syntactic_entity.dart';
 import 'package:analyzer/source/line_info.dart';
 import 'package:over_react_analyzer_plugin/src/indent_util.dart';
 
@@ -37,4 +38,8 @@ String getNodeSource(
       return src.split('\n').map((line) => line.replaceFirst(' ' * (nodeIndent - indent), '')).join('\n');
     }
   }
+}
+
+extension ContainsEntity on SyntacticEntity {
+  bool containsEntity(SyntacticEntity other) => other.offset >= offset && other.end <= end;
 }

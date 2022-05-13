@@ -9,7 +9,9 @@ import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:analyzer/dart/constant/value.dart';
 import 'package:analyzer/dart/element/type.dart';
 import 'package:analyzer/source/line_info.dart';
-import 'package:over_react_analyzer_plugin/src/util/constant_evaluator.dart';
+
+import 'constant_evaluator.dart';
+import 'util.dart';
 
 /// Returns a String value when a literal or constant var/identifier is found within [expr].
 String? getConstOrLiteralStringValueFrom(Expression expr) {
@@ -88,12 +90,52 @@ int nextLine(int offset, LineInfo lineInfo) {
   return lineInfo.getOffsetOfLineAfter(offset);
 }
 
+SimpleIdentifier? propertyNameFromNonCascadedAccessOrInvocation(Expression node) {
+  if (node is PrefixedIdentifier) {
+    return node.identifier;
+  }
+  if (node is PropertyAccess && !node.isCascaded) {
+    return node.propertyName;
+  }
+  if (node is MethodInvocation && !node.isCascaded) {
+    return node.methodName;
+  }
+
+  return null;
+}
+
+Tuple2<SimpleIdentifier, SimpleIdentifier>? getSimpleTargetAndPropertyName(Expression node) {
+  if (node is PrefixedIdentifier) {
+    return Tuple2(node.prefix, node.identifier);
+  }
+
+  if (node is PropertyAccess) {
+    final target = node.target;
+    if (target is SimpleIdentifier) {
+      return Tuple2(target, node.propertyName);
+    }
+  }
+  if (node is MethodInvocation) {
+    final target = node.target;
+    if (target is SimpleIdentifier) {
+      return Tuple2(target, node.methodName);
+    }
+  }
+
+  return null;
+}
+
+
 bool isAConstantValue(Expression expr) {
   if (expr is SetOrMapLiteral) return expr.isConst;
   if (expr is ListLiteral) return expr.isConst;
   if (expr is InstanceCreationExpression) return expr.isConst;
 
   return expr.accept(ConstantEvaluator()) != ConstantEvaluator.NOT_A_CONSTANT;
+}
+
+extension on FunctionExpression {
+  FunctionDeclaration? get parentDeclaration => parent?.tryCast();
 }
 
 extension FunctionBodyUtils on FunctionBody {
@@ -116,6 +158,20 @@ extension FunctionBodyUtils on FunctionBody {
         if (expression != null) yield expression;
       }
     }
+  }
+
+  FunctionExpression? get parentExpression => parent?.tryCast();
+
+  FunctionDeclaration? get parentDeclaration => parentExpression?.parentDeclaration;
+
+  MethodDeclaration? get parentMethod => parent?.tryCast();
+
+  String get functionNameOrDescription {
+    final name = parentExpression?.parentDeclaration?.name.name;
+    if (name != null) return name;
+
+    // TODO come up with a better description in some cases
+    return '<anonymous closure>';
   }
 }
 
