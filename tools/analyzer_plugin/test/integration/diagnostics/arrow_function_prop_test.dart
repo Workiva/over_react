@@ -18,10 +18,10 @@ void main() {
 @reflectiveTest
 class ArrowFunctionPropCascadeDiagnosticTest extends DiagnosticTestBase {
   @override
-  get errorsUnderTest => {ArrowFunctionPropCascadeDiagnostic.code};
+  get errorUnderTest => ArrowFunctionPropCascadeDiagnostic.code;
 
   @override
-  get fixKindsUnderTest => {ArrowFunctionPropCascadeDiagnostic.fixKind};
+  get fixKindUnderTest => ArrowFunctionPropCascadeDiagnostic.fixKind;
 
   static String simpleSource = /*language=dart*/ '''
 import 'package:over_react/over_react.dart';
@@ -76,7 +76,7 @@ var foo = (Dom.div()
   Future<void> test_errorFix() async {
     var source = newSource('test.dart', simpleSource);
     final selection = createSelection(source, "#(_) => 'click'#");
-    final errorFix = await expectAndGetSingleErrorFix(selection);
+    final errorFix = await expectSingleErrorFix(selection);
     expect(errorFix.fixes.single.change.selection, isNull);
     source = applyErrorFixes(errorFix, source);
     expect(source.contents.data, r'''

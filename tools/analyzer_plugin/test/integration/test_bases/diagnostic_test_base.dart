@@ -12,8 +12,8 @@ export 'package:analyzer/src/generated/source.dart' show Source;
 /// Test base for integration tests that exercise a single diagnostic
 /// contributor.
 ///
-/// Tests should extend this class and override [errorsUnderTest] to
-/// return the contributor that is being tested.
+/// Tests should extend this class and override [errorUnderTest] to
+/// return the error that is being tested.
 ///
 /// Most tests should use [newSource] to create a test source file,
 /// [createSelection] to select a range within that source, and one of the
@@ -29,34 +29,34 @@ abstract class DiagnosticTestBase extends ServerPluginContributorTestBase {
   ///
   /// This will be used to filter the analysis errors produced by the test
   /// plugin to only those originating from this diagnostic contributor.
-  Set<DiagnosticCode> get errorsUnderTest;
+  DiagnosticCode? get errorUnderTest;
 
   /// Tests should override this to return the [FixKind] for the diagnostic
   /// contributor that is being tested.
   ///
   /// This will be used to filter the error fixes produced by the test plugin to
   /// only those originating from this diagnostic contributor.
-  Set<FixKind> get fixKindsUnderTest;
+  FixKind? get fixKindUnderTest;
 
   void _throwIfNoFix() {
-    if (fixKindsUnderTest.isEmpty) {
-      throw UnsupportedError("Expected 'fixKindsUnderTest' to be non-empty");
+    if (fixKindUnderTest == null) {
+      throw UnsupportedError("Expected 'fixKindsUnderTest' to be non-null");
     }
   }
 
-  /// Returns a matcher that matches any [errorsUnderTest].
+  /// Returns a matcher that matches [errorUnderTest].
   ///
   /// See [isDiagnostic] for more details.
   Matcher isAnErrorUnderTest({bool? hasFix, SourceSelection? locatedAt}) {
-    hasFix ??= fixKindsUnderTest.isNotEmpty;
-    return anyOf(errorsUnderTest.map((e) => isDiagnostic(e, hasFix: hasFix, locatedAt: locatedAt)).toList());
+    hasFix ??= fixKindUnderTest != null;
+    return isDiagnostic(errorUnderTest!, hasFix: hasFix, locatedAt: locatedAt);
   }
 
-  /// Returns a matcher that matches any [fixKindsUnderTest].
+  /// Returns a matcher that matches [fixKindUnderTest].
   ///
   /// See [isFix] for more details.
   Matcher isAFixUnderTest() {
-    return anyOf(fixKindsUnderTest.map(isFix).toList());
+    return isFix(fixKindUnderTest!);
   }
 
   /// Applies the source change from [errorFix] to [source] and returns the
@@ -76,12 +76,16 @@ abstract class DiagnosticTestBase extends ServerPluginContributorTestBase {
     final source = newSource('test.dart', sourceContents);
     for (final target in selectionTargets) {
       final selection = createSelection(source, target);
-      await expectAndGetSingleErrorFix(selection);
+      await expectSingleErrorFix(selection);
     }
   }
 
-  Future<AnalysisError> expectAndGetSingleErrorAtSelection(SourceSelection selection,
-      {bool exactSelectionMatch = true}) async {
+  /// Expects a single error at the given selection string, and returns that error.
+  Future<AnalysisError> expectSingleErrorAtSelection(Source source, String selection,
+          {bool exactSelectionMatch = true}) =>
+      expectSingleErrorAt(createSelection(source, selection), exactSelectionMatch: exactSelectionMatch);
+
+  Future<AnalysisError> expectSingleErrorAt(SourceSelection selection, {bool exactSelectionMatch = true}) async {
     final errorsAtSelection = await _getAllErrorsAtSelection(selection);
     expect(errorsAtSelection, [isAnErrorUnderTest()],
         reason: 'Expected a single error that matches `errorUnderTest` (selection: ${selection.target}.');
@@ -95,7 +99,12 @@ abstract class DiagnosticTestBase extends ServerPluginContributorTestBase {
 
   /// Returns the error fix for the single error produced at [selection] and
   /// fails the test if anything other than a single error fix is produced.
-  Future<AnalysisErrorFixes> expectAndGetSingleErrorFix(SourceSelection selection) async {
+  Future<AnalysisErrorFixes> expectSingleErrorFixAtSelection(Source source, String selection) =>
+      expectSingleErrorFix(createSelection(source, selection));
+
+  /// Returns the error fix for the single error produced at [selection] and
+  /// fails the test if anything other than a single error fix is produced.
+  Future<AnalysisErrorFixes> expectSingleErrorFix(SourceSelection selection) async {
     _throwIfNoFix();
     final allErrorFixes = await _getAllErrorFixesAtSelection(selection);
     expect(allErrorFixes, hasLength(1),
