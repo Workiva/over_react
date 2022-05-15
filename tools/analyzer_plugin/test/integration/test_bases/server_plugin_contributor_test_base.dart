@@ -106,12 +106,21 @@ abstract class ServerPluginContributorTestBase extends AnalysisDriverTestBase {
   /// - contain two `#` symbols that define the selection range in the target
   SourceSelection createSelection(Source source, String target, {int? offset}) {
     final parts = target.split('#');
-    expect(parts, hasLength(3), reason: 'Target must have two "#" symbols denoting the selection range.');
+    if (parts.length != 3) {
+      throw ArgumentError.value(target, 'target', 'must have two "#" symbols denoting the selection range.');
+    }
     final before = parts[0];
     final selection = parts[1];
     final after = parts[2];
-    final loc = source.contents.data.indexOf('$before$selection$after');
-    expect(loc, greaterThanOrEqualTo(0), reason: 'Target was not found in source: $target');
+    final searchString = '$before$selection$after';
+    final loc = source.contents.data.indexOf(searchString);
+    if (loc == -1) {
+      throw ArgumentError('Target was not found in source: $target');
+    }
+    final nextLoc = source.contents.data.indexOf(searchString, loc + 1);
+    if (nextLoc != -1) {
+      throw ArgumentError('More than one match for target found in source: $target');
+    }
     final offset = loc + before.length;
     final length = selection.length;
     return SourceSelection(source, offset, length, target: target);
