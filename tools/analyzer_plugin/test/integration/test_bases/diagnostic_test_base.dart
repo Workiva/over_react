@@ -87,9 +87,14 @@ abstract class DiagnosticTestBase extends ServerPluginContributorTestBase {
 
   Future<AnalysisError> expectSingleErrorAt(SourceSelection selection, {bool exactSelectionMatch = true}) async {
     final errorsAtSelection = await _getAllErrorsAtSelection(selection);
-    expect(errorsAtSelection, [isAnErrorUnderTest()],
-        reason: 'Expected a single error that matches `errorUnderTest` (selection: ${selection.target}.');
-    final error = errorsAtSelection[0];
+
+    final reason = 'Expected a single error that matches `errorUnderTest` (selection: ${selection.target}.';
+    // Only use the equals/list matcher if we have a length other than 1
+    // since its mismatch message is more verbose for the length==1 case.
+    errorsAtSelection.length == 1
+        ? expect(errorsAtSelection.single, isAnErrorUnderTest(), reason: reason)
+        : expect(errorsAtSelection, [isAnErrorUnderTest()], reason: reason);
+    final error = errorsAtSelection.single;
 
     if (exactSelectionMatch) {
       expect(error.location, matchesSelectionLocation(selection), reason: 'error location should match selection');
