@@ -113,14 +113,15 @@ abstract class DiagnosticTestBase extends ServerPluginContributorTestBase {
     _throwIfNoFix();
     final allErrorFixes = await _getAllErrorFixesAtSelection(selection);
     expect(allErrorFixes, hasLength(1),
-        reason: 'Expected only a single error at selection (selection: ${selection.target})');
+        reason: 'Expected only a single error with fixes at selection (selection: ${selection.target})');
     final errorFix = allErrorFixes.single;
     expect(errorFix.error, isAnErrorUnderTest(),
         reason: 'Expected error to match the `errorUnderTest` (selection: ${selection.target})');
-    expect(errorFix.fixes, hasLength(1),
-        reason: 'Expected only a single error fix at selection. (selection: ${selection.target})');
-    expect(errorFix.fixes, everyElement(isAFixUnderTest()),
-        reason: 'Expected error fix to match the `fixKindUnderTest` (selection: ${selection.target})');
+
+    final reason = 'Expected a single fix that matches `fixKindUnderTest` (selection: ${selection.target}.';
+    errorFix.fixes.length == 1
+        ? expect(errorFix.fixes.single, isAFixUnderTest(), reason: reason)
+        : expect(errorFix.fixes, [isAFixUnderTest()], reason: reason);
     return errorFix;
   }
 
