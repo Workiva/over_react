@@ -102,7 +102,9 @@ class BadKeyDiagnosticTest_LowQualityCode extends BadKeyDiagnosticTest {
   }
 
   Future<void> test_Null() async {
-    final source = newSourceWithPrefix(/*language=dart*/ r'''test() => (Dom.div()..key = null)();''');
+    final source = newSourceWithPrefix(/*language=dart*/ r'''
+        test() => (Dom.div()..key = null)();
+    ''');
     final selection = createSelection(source, '= #null#');
     final error = await expectSingleErrorAt(selection);
     expect(error.message, contains("'Null.toString()'"));
@@ -115,44 +117,54 @@ class BadKeyDiagnosticTest_ToString extends BadKeyDiagnosticTest {
   get errorUnderTest => BadKeyDiagnostic.toStringCode;
 
   Future<void> test_rawObjecct() async {
-    final source = newSourceWithPrefix(/*language=dart*/ r'''test() => (Dom.div()..key = modelVar)();''');
+    final source = newSourceWithPrefix(/*language=dart*/ r'''
+        test() => (Dom.div()..key = modelVar)();
+    ''');
     final selection = createSelection(source, '= #modelVar#)');
     final error = await expectSingleErrorAt(selection);
     expect(error.message, contains("'MyModel.toString()'"));
   }
 
   Future<void> test_explicitToString() async {
-    final source = newSourceWithPrefix(/*language=dart*/ r'''test() => (Dom.div()..key = modelVar.toString())();''');
+    final source = newSourceWithPrefix(/*language=dart*/ r'''
+        test() => (Dom.div()..key = modelVar.toString())();
+    ''');
     final selection = createSelection(source, '= #modelVar#.toString())');
     final error = await expectSingleErrorAt(selection);
     expect(error.message, contains("'MyModel.toString()'"));
   }
 
   Future<void> test_explicitToStringNested() async {
-    final source = newSourceWithPrefix(/*language=dart*/
-        r'''test() => (Dom.div()..key = deriveKeyFrom(modelVar.toString()))();''');
+    final source = newSourceWithPrefix(/*language=dart*/ r'''
+        test() => (Dom.div()..key = deriveKeyFrom(modelVar.toString()))();
+    ''');
     final selection = createSelection(source, '= deriveKeyFrom(#modelVar#.toString())');
     final error = await expectSingleErrorAt(selection);
     expect(error.message, contains("'MyModel.toString()'"));
   }
 
   Future<void> test_interpolated() async {
-    final source = newSourceWithPrefix(/*language=dart*/
-        r'''test() => (Dom.div()..key = 'interpolated $modelVar')();''');
+    final source = newSourceWithPrefix(/*language=dart*/ r'''
+        test() => (Dom.div()..key = 'interpolated $modelVar')();
+    ''');
     final selection = createSelection(source, r"= 'interpolated $#modelVar#')");
     final error = await expectSingleErrorAt(selection);
     expect(error.message, contains("'MyModel.toString()'"));
   }
 
   Future<void> test_inMap() async {
-    final source = newSourceWithPrefix(/*language=dart*/ r'''test() => (Dom.div()..key = {'foo': modelVar})();''');
+    final source = newSourceWithPrefix(/*language=dart*/ r'''
+        test() => (Dom.div()..key = {'foo': modelVar})();
+    ''');
     final selection = createSelection(source, r"= #{'foo': modelVar}#");
     final error = await expectSingleErrorAt(selection);
     expect(error.message, contains("'MyModel.toString()' (from Map<String, MyModel>)"));
   }
 
   Future<void> test_inList() async {
-    final source = newSourceWithPrefix(/*language=dart*/ r'''test() => (Dom.div()..key = [modelVar])();''');
+    final source = newSourceWithPrefix(/*language=dart*/ r'''
+        test() => (Dom.div()..key = [modelVar])();
+    ''');
     final selection = createSelection(source, r"= #[modelVar]#");
     final error = await expectSingleErrorAt(selection);
     expect(error.message, contains("'MyModel.toString()' (from List<MyModel>)"));
@@ -165,7 +177,9 @@ class BadKeyDiagnosticTest_UnknownKeyType extends BadKeyDiagnosticTest {
   get errorUnderTest => BadKeyDiagnostic.dynamicOrObjectCode;
 
   Future<void> test_object() async {
-    final source = newSourceWithPrefix(/*language=dart*/ r'''test() => (Dom.div()..key = objectVar)();''');
+    final source = newSourceWithPrefix(/*language=dart*/ r'''
+        test() => (Dom.div()..key = objectVar)();
+    ''');
     final selection = createSelection(source, '= #objectVar#');
     final error = await expectSingleErrorAt(selection);
     expect(error.message, contains("'Object.toString()'"));
@@ -181,22 +195,27 @@ class BadKeyDiagnosticTest_UnknownKeyType extends BadKeyDiagnosticTest {
   }
 
   Future<void> test_dynamic() async {
-    final source = newSourceWithPrefix(/*language=dart*/ r'''test() => (Dom.div()..key = dynamicVar)();''');
+    final source = newSourceWithPrefix(/*language=dart*/ r'''
+        test() => (Dom.div()..key = dynamicVar)();
+    ''');
     final selection = createSelection(source, r"= #dynamicVar#");
     final error = await expectSingleErrorAt(selection);
     expect(error.message, contains("'dynamic.toString()'"));
   }
 
   Future<void> test_inMap() async {
-    final source = newSourceWithPrefix(/*language=dart*/
-        r'''test() => (Dom.div()..key = {'foo': modelVar, 'bar': 1})();''');
+    final source = newSourceWithPrefix(/*language=dart*/ r'''
+        test() => (Dom.div()..key = {'foo': modelVar, 'bar': 1})();
+    ''');
     final selection = createSelection(source, r"= #{'foo': modelVar, 'bar': 1}#");
     final error = await expectSingleErrorAt(selection);
     expect(error.message, contains("'Object.toString()' (from Map<String, Object>)"));
   }
 
   Future<void> test_inList() async {
-    final source = newSourceWithPrefix(/*language=dart*/ r'''test() => (Dom.div()..key = [dynamicVar])();''');
+    final source = newSourceWithPrefix(/*language=dart*/ r'''
+        test() => (Dom.div()..key = [dynamicVar])();
+    ''');
     final selection = createSelection(source, r"= #[dynamicVar]#");
     final error = await expectSingleErrorAt(selection);
     expect(error.message, contains("'dynamic.toString()' (from List<dynamic>)"));
