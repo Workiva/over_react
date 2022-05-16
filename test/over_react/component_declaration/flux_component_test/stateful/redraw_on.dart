@@ -16,6 +16,7 @@
 part of over_react.component_declaration.flux_component_test;
 
 @Factory()
+// ignore: undefined_identifier, invalid_assignment
 UiFactory<TestStatefulRedrawOnProps> TestStatefulRedrawOn = _$TestStatefulRedrawOn;
 
 @Props()

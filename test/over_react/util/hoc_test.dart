@@ -14,6 +14,7 @@
 
 import 'package:over_react/over_react.dart';
 import 'package:over_react/over_react_redux.dart';
+import 'package:redux/redux.dart';
 import 'package:test/test.dart';
 
 import '../../over_react_redux/fixtures/counter.dart';
@@ -22,6 +23,12 @@ import '../../test_util/test_util.dart';
 
 main() {
   group('composeHocs', () {
+    Store<CounterState> store1;
+
+    setUp(() {
+      store1 = Store(counterStateReducer, initialState: CounterState());
+    });
+
     test('will render a nested component', () {
       CounterProps Function() components = composeHocs([
         connect<CounterState, CounterProps>(),

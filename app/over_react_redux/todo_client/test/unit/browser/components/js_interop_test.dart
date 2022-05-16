@@ -14,7 +14,6 @@ import 'package:todo_client/src/utils.dart';
 external JsMap get mockJsMap;
 
 main() {
-  setClientConfiguration();
   JsBackedMap mockJsBackedMap;
 
   setUpAll(() async {

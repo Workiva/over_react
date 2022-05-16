@@ -72,7 +72,8 @@ abstract class ComponentGenerator extends BoilerplateDeclarationGenerator {
         ..writeln('      \'resort is to use typedPropsFactoryJs.\');')
         ..writeln('    super.props = value;')
         // TODO is this implementation still needed here to get good dart2js output, or can we do it in the superclass?
-        ..writeln('    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));')
+        ..writeln(
+            '    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);')
         ..writeln('  }')
         ..writeln()
         ..writeln('  @override ')
@@ -99,7 +100,7 @@ abstract class ComponentGenerator extends BoilerplateDeclarationGenerator {
         ..writeln('      \'Component2.state should only be set via \'')
         ..writeln('      \'initialState or setState.\');')
         ..writeln('    super.state = value;')
-        ..writeln('    _cachedTypedState = typedStateFactoryJs(value);')
+        ..writeln('    _cachedTypedState = typedStateFactoryJs(value as JsBackedMap);')
         ..writeln('  }')
         ..writeln()
         ..writeln('  @override ')
@@ -172,16 +173,7 @@ class _ComponentGenerator extends ComponentGenerator {
 
   @override
   void _generateAdditionalComponentBody() {
-    outputContentsBuffer
-      ..writeln()
-      ..writeln('  @override')
-      ..writeln('  PropsMetaCollection get propsMeta => const PropsMetaCollection({');
-    for (final name in declaration.allPropsMixins) {
-      final names = TypedMapNames(name.name);
-      outputContentsBuffer.write('    ${generatedMixinWarningCommentLine(names, isProps: true)}');
-      outputContentsBuffer.writeln('    ${names.consumerName}: ${names.publicGeneratedMetaName},');
-    }
-    outputContentsBuffer.writeln('  });');
+    generatePropsMeta(outputContentsBuffer, declaration.allPropsMixins);
   }
 }
 

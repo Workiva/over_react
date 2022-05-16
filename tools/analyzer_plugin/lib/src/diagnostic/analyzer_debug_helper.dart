@@ -3,12 +3,15 @@ import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 
 /// Usage:
-///     AnalyzerDebugHelper debug = new AnalyzerDebugHelper(result, collector);
+///     final debug = AnalyzerDebugHelper(result, collector);
 class AnalyzerDebugHelper {
-  AnalyzerDebugHelper([this.result, this.collector]);
+  /// Whether debug messages are enabled.
+  bool enabled;
 
-  ResolvedUnitResult result;
-  DiagnosticCollector collector;
+  AnalyzerDebugHelper(this.result, this.collector, {this.enabled = false});
+
+  final ResolvedUnitResult result;
+  final DiagnosticCollector collector;
   static const code = DiagnosticCode(
     'over_react_debug_analyzer_plugin_helper',
     "{0}",
@@ -17,11 +20,18 @@ class AnalyzerDebugHelper {
   );
 
   /// Usage:
-  ///     AnalyzerDebugHelper debug = new AnalyzerDebugHelper(result, collector);
+  ///     final debug = AnalyzerDebugHelper(result, collector);
   ///     debug.log('message');
-  void log(String message, [ResolvedUnitResult new_result, DiagnosticCollector new_collector]) {
-    result = new_result ?? result;
-    collector = new_collector ?? collector;
-    collector.addError(code, Location(result.path, 0, 0, 1, 0), errorMessageArgs: [message]);
+  void log(String message) {
+    if (!enabled) return;
+    collector.addError(code, Location(result.path!, 0, 0, 1, 1, 1, 1), errorMessageArgs: [message]);
+  }
+
+  /// Usage:
+  ///     final debug = AnalyzerDebugHelper(result, collector);
+  ///     debug.log('message', result.locationFor(node));
+  void logWithLocation(String message, Location location) {
+    if (!enabled) return;
+    collector.addError(code, location, errorMessageArgs: [message]);
   }
 }

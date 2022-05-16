@@ -32,8 +32,8 @@ abstract class _$ButtonGroupPropsAccessorsMixin implements _$ButtonGroupProps {
   /// <!-- Generated from [_$ButtonGroupProps.size] -->
   @override
   ButtonGroupSize get size =>
-      props[_$key__size___$ButtonGroupProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__size___$ButtonGroupProps] ?? null) as ButtonGroupSize;
+
   /// Apply a button size variation universally to every [Button] within the [ButtonGroup].
   ///
   /// See: <http://v4-alpha.getbootstrap.com/components/button-group/#sizing>.
@@ -50,8 +50,8 @@ abstract class _$ButtonGroupPropsAccessorsMixin implements _$ButtonGroupProps {
   /// <!-- Generated from [_$ButtonGroupProps.skin] -->
   @override
   ButtonSkin get skin =>
-      props[_$key__skin___$ButtonGroupProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__skin___$ButtonGroupProps] ?? null) as ButtonSkin;
+
   /// The [ButtonSkin] variation applied to every [Button] within the [ButtonGroup].
   ///
   /// <!-- Generated from [_$ButtonGroupProps.skin] -->
@@ -67,8 +67,8 @@ abstract class _$ButtonGroupPropsAccessorsMixin implements _$ButtonGroupProps {
   /// <!-- Generated from [_$ButtonGroupProps.isVertical] -->
   @override
   bool get isVertical =>
-      props[_$key__isVertical___$ButtonGroupProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__isVertical___$ButtonGroupProps] ?? null) as bool;
+
   /// Make the [Button]s within a [ButtonGroup] stack vertically.
   ///
   /// See: <http://v4-alpha.getbootstrap.com/components/button-group/#vertical-variation>.

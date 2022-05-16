@@ -14,15 +14,12 @@
 
 import 'dart:html';
 
-import 'package:over_react/over_react.dart';
 import 'package:over_react/components.dart' as v2;
 import 'package:over_react/react_dom.dart' as react_dom;
 
 import 'src/demos.dart';
 
 void main() {
-  setClientConfiguration();
-
   react_dom.render(
     v2.ErrorBoundary()(buttonExamplesDemo()), querySelector('$demoMountNodeSelectorPrefix--button'));
 

@@ -19,7 +19,7 @@ UiFactory<TaskCountBadgeProps> TaskCountBadge = connect<AppState, TaskCountBadge
     areStatePropsEqual: (nextProps, prevProps) {
       return ListEquality().equals(nextProps.assignedTodoIds, prevProps.assignedTodoIds);
     },
-)(_$TaskCountBadge); // ignore: undefined_identifier
+)(castUiFactory(_$TaskCountBadge)); // ignore: undefined_identifier
 
 mixin TaskCountBadgePropsMixin on UiProps {
   @requiredProp

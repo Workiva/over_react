@@ -26,8 +26,8 @@ abstract class _$FooPropsAccessorsMixin implements _$FooProps {
   /// <!-- Generated from [_$FooProps._privateProp] -->
   @override
   String get _privateProp =>
-      props[_$key___privateProp___$FooProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key___privateProp___$FooProps] ?? null) as String;
+
   /// <!-- Generated from [_$FooProps._privateProp] -->
   @override
   set _privateProp(String value) =>

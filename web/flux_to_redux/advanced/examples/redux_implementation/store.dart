@@ -36,8 +36,12 @@ class ReduxState {
         this.blockTwoBackgroundColor = 'orange',
         this.blockThreeBackgroundColor = 'blue';
 
-  ReduxState.update(ReduxState oldState,
-      {mainBackgroundColor, blockOneBackgroundColor, blockTwoBackgroundColor, blockThreeBackgroundColor})
+  ReduxState.update(ReduxState oldState, {
+        String mainBackgroundColor,
+        String blockOneBackgroundColor,
+        String blockTwoBackgroundColor,
+        String blockThreeBackgroundColor,
+      })
       : this.mainBackgroundColor = mainBackgroundColor ?? oldState.mainBackgroundColor,
         this.blockOneBackgroundColor = blockOneBackgroundColor ?? oldState.blockOneBackgroundColor,
         this.blockTwoBackgroundColor = blockTwoBackgroundColor ?? oldState.blockTwoBackgroundColor,

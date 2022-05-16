@@ -1,7 +1,6 @@
 // ignore: deprecated_member_use
-import 'package:analyzer/analyzer.dart'
-    show CompileTimeErrorCode, NodeLocator, StaticTypeWarningCode, StaticWarningCode;
 import 'package:analyzer/dart/ast/ast.dart';
+import 'package:over_react_analyzer_plugin/src/util/analyzer_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/react_types.dart';
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/analyzer_debug_helper.dart';
@@ -56,29 +55,28 @@ class MissingCascadeParensDiagnostic extends DiagnosticContributor {
   // Make smaller (higher priority) than
   // REMOVE_PARENTHESIS_IN_GETTER_INVOCATION
 
-  static final fixKind = FixKind(code.name, 400, 'Add parentheses around props cascade',
-      appliedTogetherMessage: 'Add parentheses around props cascades');
+  static final fixKind = FixKind(code.name, 400, 'Add parentheses around props cascade');
 
   @override
   computeErrors(result, collector) async {
     for (final error in result.errors) {
       final isBadFunction = const {
-        StaticTypeWarningCode.INVOCATION_OF_NON_FUNCTION,
-        StaticTypeWarningCode.INVOCATION_OF_NON_FUNCTION_EXPRESSION,
-      }.contains(error.errorCode);
+        'INVOCATION_OF_NON_FUNCTION',
+        'INVOCATION_OF_NON_FUNCTION_EXPRESSION',
+      }.contains(error.errorCode.name);
       final isBadArity = const {
-        CompileTimeErrorCode.NOT_ENOUGH_POSITIONAL_ARGUMENTS,
-        CompileTimeErrorCode.EXTRA_POSITIONAL_ARGUMENTS_COULD_BE_NAMED,
-        CompileTimeErrorCode.EXTRA_POSITIONAL_ARGUMENTS,
-      }.contains(error.errorCode);
+        'NOT_ENOUGH_POSITIONAL_ARGUMENTS',
+        'EXTRA_POSITIONAL_ARGUMENTS_COULD_BE_NAMED',
+        'EXTRA_POSITIONAL_ARGUMENTS',
+      }.contains(error.errorCode.name);
       final isVoidUsage = const {
-        StaticWarningCode.USE_OF_VOID_RESULT,
-      }.contains(error.errorCode);
+        'USE_OF_VOID_RESULT',
+      }.contains(error.errorCode.name);
 
       if (isBadFunction || isBadArity || isVoidUsage) {
-        final node = NodeLocator(error.offset, error.offset + error.length).searchWithin(result.unit);
+        final node = NodeLocator(error.offset, error.offset + error.length).searchWithin(result.unit)!;
 
-        final debug = AnalyzerDebugHelper(result, collector);
+        final debug = AnalyzerDebugHelper(result, collector, enabled: false);
         debug.log('node.type: ${node.runtimeType}');
 
         InvocationExpression invocation;
@@ -90,14 +88,14 @@ class MissingCascadeParensDiagnostic extends DiagnosticContributor {
           invocation = parent;
         } else if (isVoidUsage && parent is InvocationExpression) {
           invocation = parent;
+        } else {
+          return;
         }
-        debug.log('invocation : ${invocation?.toSource()}');
-
-        if (invocation == null) return;
+        debug.log('invocation : ${invocation.toSource()}');
 
         final cascade = invocation.parent?.tryCast<AssignmentExpression>()?.parent?.tryCast<CascadeExpression>();
         if (cascade != null) {
-          if (cascade?.target?.staticType?.isPropsClass ?? false) {
+          if (cascade.target.staticType?.isPropsClass ?? false) {
             await collector.addErrorWithFix(
               code,
               result.locationFor(cascade),
@@ -111,16 +109,16 @@ class MissingCascadeParensDiagnostic extends DiagnosticContributor {
           continue;
         }
 
-        debug.log('${invocation.function.staticType?.getDisplayString()}');
+        debug.log('${invocation.function.staticType?.getDisplayString(withNullability: false)}');
 
         if (isBadFunction && (invocation.function.staticType?.isReactElement ?? false)) {
-          final expr = invocation.function?.tryCast<InvocationExpression>() ??
-              invocation.function?.tryCast<ParenthesizedExpression>()?.unParenthesized?.tryCast();
+          final expr = invocation.function.tryCast<InvocationExpression>() ??
+              invocation.function.tryCast<ParenthesizedExpression>()?.unParenthesized.tryCast<InvocationExpression>();
 
           debug.log('expr: ${expr?.runtimeType} ${expr?.toSource()}');
           debug.log('expr.parent: ${expr?.parent?.runtimeType} ${expr?.parent?.toSource()}');
 
-          if (expr.argumentList.arguments.firstOrNull?.staticType?.isPropsClass ?? false) {
+          if (expr != null && (expr.argumentList.arguments.firstOrNull?.staticType?.isPropsClass ?? false)) {
             await collector.addErrorWithFix(
               code,
               result.locationFor(node),

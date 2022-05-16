@@ -16,7 +16,7 @@ part of prop_tyepdef_test_fixtures;
 
 @Factory()
 UiFactory<TestConsumingAbstractCustomRendererComponentProps> TestConsumingAbstractCustomRendererComponent =
-    _$TestConsumingAbstractCustomRendererComponent;
+    _$TestConsumingAbstractCustomRendererComponent; // ignore: undefined_identifier, invalid_assignment
 
 @Props()
 class _$TestConsumingAbstractCustomRendererComponentProps extends UiProps {

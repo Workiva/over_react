@@ -53,7 +53,7 @@ abstract class _$$TestBasicProps extends _$TestBasicProps
 
   factory _$$TestBasicProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestBasicProps$JsMap(backingMap);
+      return _$$TestBasicProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$TestBasicProps$PlainMap(backingMap);
     }
@@ -126,7 +126,8 @@ class _$TestBasicComponent extends TestBasicComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -197,7 +198,7 @@ abstract class _$$TestHandlerLifecycleProps extends _$TestHandlerLifecycleProps
 
   factory _$$TestHandlerLifecycleProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestHandlerLifecycleProps$JsMap(backingMap);
+      return _$$TestHandlerLifecycleProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$TestHandlerLifecycleProps$PlainMap(backingMap);
     }
@@ -271,7 +272,8 @@ class _$TestHandlerLifecycleComponent extends TestHandlerLifecycleComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -344,7 +346,7 @@ abstract class _$$TestHandlerPrecedenceProps
 
   factory _$$TestHandlerPrecedenceProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestHandlerPrecedenceProps$JsMap(backingMap);
+      return _$$TestHandlerPrecedenceProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$TestHandlerPrecedenceProps$PlainMap(backingMap);
     }
@@ -419,7 +421,8 @@ class _$TestHandlerPrecedenceComponent extends TestHandlerPrecedenceComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -464,8 +467,8 @@ abstract class _$TestPropValidationPropsAccessorsMixin
   @override
   @requiredProp
   String get required =>
-      props[_$key__required___$TestPropValidationProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__required___$TestPropValidationProps] ?? null) as String;
+
   /// <!-- Generated from [_$TestPropValidationProps.required] -->
   @override
   @requiredProp
@@ -511,7 +514,7 @@ abstract class _$$TestPropValidationProps extends _$TestPropValidationProps
 
   factory _$$TestPropValidationProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestPropValidationProps$JsMap(backingMap);
+      return _$$TestPropValidationProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$TestPropValidationProps$PlainMap(backingMap);
     }
@@ -584,7 +587,8 @@ class _$TestPropValidationComponent extends TestPropValidationComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -655,7 +659,7 @@ abstract class _$$TestRedrawOnProps extends _$TestRedrawOnProps
 
   factory _$$TestRedrawOnProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestRedrawOnProps$JsMap(backingMap);
+      return _$$TestRedrawOnProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$TestRedrawOnProps$PlainMap(backingMap);
     }
@@ -728,7 +732,8 @@ class _$TestRedrawOnComponent extends TestRedrawOnComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -799,7 +804,7 @@ abstract class _$$TestStoreHandlersProps extends _$TestStoreHandlersProps
 
   factory _$$TestStoreHandlersProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestStoreHandlersProps$JsMap(backingMap);
+      return _$$TestStoreHandlersProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$TestStoreHandlersProps$PlainMap(backingMap);
     }
@@ -872,7 +877,8 @@ class _$TestStoreHandlersComponent extends TestStoreHandlersComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -943,7 +949,7 @@ abstract class _$$TestStatefulBasicProps extends _$TestStatefulBasicProps
 
   factory _$$TestStatefulBasicProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestStatefulBasicProps$JsMap(backingMap);
+      return _$$TestStatefulBasicProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$TestStatefulBasicProps$PlainMap(backingMap);
     }
@@ -1027,7 +1033,7 @@ abstract class _$$TestStatefulBasicState extends _$TestStatefulBasicState
 
   factory _$$TestStatefulBasicState(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestStatefulBasicState$JsMap(backingMap);
+      return _$$TestStatefulBasicState$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$TestStatefulBasicState$PlainMap(backingMap);
     }
@@ -1091,7 +1097,8 @@ class _$TestStatefulBasicComponent extends TestStatefulBasicComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -1113,7 +1120,7 @@ class _$TestStatefulBasicComponent extends TestStatefulBasicComponent {
         'Component2.state should only be set via '
         'initialState or setState.');
     super.state = value;
-    _cachedTypedState = typedStateFactoryJs(value);
+    _cachedTypedState = typedStateFactoryJs(value as JsBackedMap);
   }
 
   @override
@@ -1187,7 +1194,8 @@ abstract class _$$TestStatefulHandlerLifecycleProps
 
   factory _$$TestStatefulHandlerLifecycleProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestStatefulHandlerLifecycleProps$JsMap(backingMap);
+      return _$$TestStatefulHandlerLifecycleProps$JsMap(
+          backingMap as JsBackedMap);
     } else {
       return _$$TestStatefulHandlerLifecycleProps$PlainMap(backingMap);
     }
@@ -1275,7 +1283,8 @@ abstract class _$$TestStatefulHandlerLifecycleState
 
   factory _$$TestStatefulHandlerLifecycleState(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestStatefulHandlerLifecycleState$JsMap(backingMap);
+      return _$$TestStatefulHandlerLifecycleState$JsMap(
+          backingMap as JsBackedMap);
     } else {
       return _$$TestStatefulHandlerLifecycleState$PlainMap(backingMap);
     }
@@ -1342,7 +1351,8 @@ class _$TestStatefulHandlerLifecycleComponent
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -1365,7 +1375,7 @@ class _$TestStatefulHandlerLifecycleComponent
         'Component2.state should only be set via '
         'initialState or setState.');
     super.state = value;
-    _cachedTypedState = typedStateFactoryJs(value);
+    _cachedTypedState = typedStateFactoryJs(value as JsBackedMap);
   }
 
   @override
@@ -1440,7 +1450,8 @@ abstract class _$$TestStatefulHandlerPrecedenceProps
 
   factory _$$TestStatefulHandlerPrecedenceProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestStatefulHandlerPrecedenceProps$JsMap(backingMap);
+      return _$$TestStatefulHandlerPrecedenceProps$JsMap(
+          backingMap as JsBackedMap);
     } else {
       return _$$TestStatefulHandlerPrecedenceProps$PlainMap(backingMap);
     }
@@ -1528,7 +1539,8 @@ abstract class _$$TestStatefulHandlerPrecedenceState
 
   factory _$$TestStatefulHandlerPrecedenceState(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestStatefulHandlerPrecedenceState$JsMap(backingMap);
+      return _$$TestStatefulHandlerPrecedenceState$JsMap(
+          backingMap as JsBackedMap);
     } else {
       return _$$TestStatefulHandlerPrecedenceState$PlainMap(backingMap);
     }
@@ -1595,7 +1607,8 @@ class _$TestStatefulHandlerPrecedenceComponent
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -1618,7 +1631,7 @@ class _$TestStatefulHandlerPrecedenceComponent
         'Component2.state should only be set via '
         'initialState or setState.');
     super.state = value;
-    _cachedTypedState = typedStateFactoryJs(value);
+    _cachedTypedState = typedStateFactoryJs(value as JsBackedMap);
   }
 
   @override
@@ -1664,8 +1677,9 @@ abstract class _$TestStatefulPropValidationPropsAccessorsMixin
   @override
   @requiredProp
   String get required =>
-      props[_$key__required___$TestStatefulPropValidationProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__required___$TestStatefulPropValidationProps] ?? null)
+          as String;
+
   /// <!-- Generated from [_$TestStatefulPropValidationProps.required] -->
   @override
   @override
@@ -1715,7 +1729,8 @@ abstract class _$$TestStatefulPropValidationProps
 
   factory _$$TestStatefulPropValidationProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestStatefulPropValidationProps$JsMap(backingMap);
+      return _$$TestStatefulPropValidationProps$JsMap(
+          backingMap as JsBackedMap);
     } else {
       return _$$TestStatefulPropValidationProps$PlainMap(backingMap);
     }
@@ -1802,7 +1817,8 @@ abstract class _$$TestStatefulPropValidationState
 
   factory _$$TestStatefulPropValidationState(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestStatefulPropValidationState$JsMap(backingMap);
+      return _$$TestStatefulPropValidationState$JsMap(
+          backingMap as JsBackedMap);
     } else {
       return _$$TestStatefulPropValidationState$PlainMap(backingMap);
     }
@@ -1869,7 +1885,8 @@ class _$TestStatefulPropValidationComponent
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -1892,7 +1909,7 @@ class _$TestStatefulPropValidationComponent
         'Component2.state should only be set via '
         'initialState or setState.');
     super.state = value;
-    _cachedTypedState = typedStateFactoryJs(value);
+    _cachedTypedState = typedStateFactoryJs(value as JsBackedMap);
   }
 
   @override
@@ -1964,7 +1981,7 @@ abstract class _$$TestStatefulRedrawOnProps extends _$TestStatefulRedrawOnProps
 
   factory _$$TestStatefulRedrawOnProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestStatefulRedrawOnProps$JsMap(backingMap);
+      return _$$TestStatefulRedrawOnProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$TestStatefulRedrawOnProps$PlainMap(backingMap);
     }
@@ -2049,7 +2066,7 @@ abstract class _$$TestStatefulRedrawOnState extends _$TestStatefulRedrawOnState
 
   factory _$$TestStatefulRedrawOnState(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestStatefulRedrawOnState$JsMap(backingMap);
+      return _$$TestStatefulRedrawOnState$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$TestStatefulRedrawOnState$PlainMap(backingMap);
     }
@@ -2114,7 +2131,8 @@ class _$TestStatefulRedrawOnComponent extends TestStatefulRedrawOnComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -2137,7 +2155,7 @@ class _$TestStatefulRedrawOnComponent extends TestStatefulRedrawOnComponent {
         'Component2.state should only be set via '
         'initialState or setState.');
     super.state = value;
-    _cachedTypedState = typedStateFactoryJs(value);
+    _cachedTypedState = typedStateFactoryJs(value as JsBackedMap);
   }
 
   @override
@@ -2211,7 +2229,7 @@ abstract class _$$TestStatefulStoreHandlersProps
 
   factory _$$TestStatefulStoreHandlersProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestStatefulStoreHandlersProps$JsMap(backingMap);
+      return _$$TestStatefulStoreHandlersProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$TestStatefulStoreHandlersProps$PlainMap(backingMap);
     }
@@ -2298,7 +2316,7 @@ abstract class _$$TestStatefulStoreHandlersState
 
   factory _$$TestStatefulStoreHandlersState(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestStatefulStoreHandlersState$JsMap(backingMap);
+      return _$$TestStatefulStoreHandlersState$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$TestStatefulStoreHandlersState$PlainMap(backingMap);
     }
@@ -2365,7 +2383,8 @@ class _$TestStatefulStoreHandlersComponent
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -2388,7 +2407,7 @@ class _$TestStatefulStoreHandlersComponent
         'Component2.state should only be set via '
         'initialState or setState.');
     super.state = value;
-    _cachedTypedState = typedStateFactoryJs(value);
+    _cachedTypedState = typedStateFactoryJs(value as JsBackedMap);
   }
 
   @override

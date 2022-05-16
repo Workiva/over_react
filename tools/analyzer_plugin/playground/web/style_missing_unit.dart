@@ -37,7 +37,7 @@ styleMissingUnit() {
 
 UiFactory<SomeWidgetWithBadStylesProps> SomeWidgetWithBadStyles =
     // ignore: undefined_identifier
-    _$SomeWidgetWithBadStyles;
+    castUiFactory(_$SomeWidgetWithBadStyles);
 
 mixin SomeWidgetWithBadStylesProps on UiProps {}
 

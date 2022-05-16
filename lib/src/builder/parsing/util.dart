@@ -30,7 +30,10 @@ extension TryCast<T> on T {
   ///     // With tryCast
   ///     final block = node.body?.tryCast<BlockFunctionBody>()?.block;
   ///
-  S tryCast<S extends T>() => this is S ? this : null;
+  S tryCast<S extends T>() {
+    final value = this;
+    return value is S ? value : null;
+  }
 }
 
 extension IterableUtil<E> on Iterable<E> {

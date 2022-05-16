@@ -15,6 +15,7 @@
 part of '../component_integration_test.dart';
 
 @Factory()
+// ignore: undefined_identifier, invalid_assignment
 UiFactory<IsNotErrorBoundaryProps> IsNotErrorBoundary = _$IsNotErrorBoundary;
 
 @Props()

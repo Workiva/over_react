@@ -16,12 +16,13 @@ import 'package:over_react/over_react.dart';
 
 part 'with_legacy_props_mixin.over_react.g.dart';
 
-UiFactory<BasicProps> Basic = _$Basic; // ignore: undefined_identifier
+UiFactory<BasicProps> Basic = castUiFactory(_$Basic); // ignore: undefined_identifier
 
 mixin BasicPropsMixin on UiProps {
   String basicProp;
 }
 
+// ignore: deprecated_member_use_from_same_package
 class BasicProps = UiProps with BasicPropsMixin, TransitionPropsMixin;
 
 class BasicComponent extends UiComponent2<BasicProps> {

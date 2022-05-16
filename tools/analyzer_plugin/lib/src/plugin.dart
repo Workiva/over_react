@@ -31,18 +31,19 @@
 
 import 'dart:async';
 
+import 'package:analyzer/dart/analysis/context_builder.dart';
+import 'package:analyzer/dart/analysis/context_locator.dart';
 import 'package:analyzer/file_system/file_system.dart';
 // ignore: implementation_imports
-import 'package:analyzer/src/context/builder.dart';
+import 'package:analyzer/src/dart/analysis/context_builder.dart' show ContextBuilderImpl;
 // ignore: implementation_imports
-import 'package:analyzer/src/context/context_root.dart';
-// ignore: implementation_imports
-import 'package:analyzer/src/dart/analysis/driver.dart';
+import 'package:analyzer/src/dart/analysis/driver.dart' show AnalysisDriver, AnalysisDriverGeneric;
 import 'package:analyzer_plugin/plugin/navigation_mixin.dart';
 import 'package:analyzer_plugin/plugin/plugin.dart';
 import 'package:analyzer_plugin/protocol/protocol_generated.dart' as plugin;
 import 'package:analyzer_plugin/utilities/navigation/navigation.dart';
 import 'package:over_react_analyzer_plugin/src/assist/add_props.dart';
+import 'package:over_react_analyzer_plugin/src/assist/convert_class_or_function_component.dart';
 import 'package:over_react_analyzer_plugin/src/assist/extract_component.dart';
 import 'package:over_react_analyzer_plugin/src/assist/refs/add_create_ref_assist.dart';
 import 'package:over_react_analyzer_plugin/src/assist/toggle_stateful.dart';
@@ -61,11 +62,13 @@ import 'package:over_react_analyzer_plugin/src/diagnostic/invalid_child.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/iterator_key.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/link_target_without_rel.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/missing_cascade_parens.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/non_defaulted_prop.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/proptypes_return_value.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/pseudo_static_lifecycle.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/render_return_value.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/rules_of_hooks.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/string_ref.dart';
-import 'package:over_react_analyzer_plugin/src/diagnostic/style_missing_unit.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/style_value_diagnostic.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/variadic_children.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/variadic_children_with_keys.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
@@ -95,6 +98,7 @@ abstract class OverReactAnalyzerPluginBase extends ServerPlugin
         ExtractComponentAssistContributor(),
         ExtractStatefulComponentAssistContributor(),
         ToggleComponentStatefulness(),
+        ConvertClassOrFunctionComponentAssistContributor(),
         // TODO re-enable this when it's more polished
 //        WrapUnwrapAssistContributor(),
       ];
@@ -121,13 +125,16 @@ abstract class OverReactAnalyzerPluginBase extends ServerPlugin
         InvalidDomAttributeDiagnostic(),
         // TODO: Re-enable this once consumers can disable lints via analysis_options.yaml
 //        BoolPropNameReadabilityDiagnostic(),
-        StyleMissingUnitDiagnostic(),
+        StyleValueDiagnostic(),
         BoilerplateValidatorDiagnostic(),
         VariadicChildrenWithKeys(),
         IncorrectDocCommentLocationDiagnostic(),
         ConsumedPropsReturnValueDiagnostic(),
         ForwardOnlyDomPropsToDomBuildersDiagnostic(),
         IteratorKey(),
+        RulesOfHooks(),
+        // HooksExhaustiveDeps(),
+        NonDefaultedPropDiagnostic(),
       ];
 
   // @override
@@ -149,27 +156,37 @@ class OverReactAnalyzerPlugin extends OverReactAnalyzerPluginBase {
 
   @override
   AnalysisDriverGeneric createAnalysisDriver(plugin.ContextRoot contextRoot) {
-    final root = ContextRoot(contextRoot.root, contextRoot.exclude, pathContext: resourceProvider.pathContext)
-      ..optionsFilePath = contextRoot.optionsFile;
-    final contextBuilder = ContextBuilder(resourceProvider, sdkManager, null)
-      ..analysisDriverScheduler = analysisDriverScheduler
-      ..byteStore = byteStore
-      ..performanceLog = performanceLog
-      ..fileContentOverlay = fileContentOverlay;
-    final result = contextBuilder.buildDriver(root);
-    runZoned(() {
-      result.results.listen(processDiagnosticsForResult);
-      // TODO: Once we are ready to bump the SDK lower bound to 2.8.x, we should swap this out for `runZoneGuarded`.
-      // ignore: avoid_types_on_closure_parameters
-    }, onError: (Object e, StackTrace stackTrace) {
+    final root = ContextLocator(resourceProvider: resourceProvider).locateRoots(
+      includedPaths: [contextRoot.root],
+      excludedPaths: contextRoot.exclude,
+      optionsFile: contextRoot.optionsFile,
+    ).single;
+    final contextBuilder = ContextBuilder(resourceProvider: resourceProvider) as ContextBuilderImpl;
+    final context = contextBuilder.createContext(
+      contextRoot: root,
+      scheduler: analysisDriverScheduler,
+      byteStore: byteStore,
+      performanceLog: performanceLog,
+    );
+    final driver = context.driver;
+    try {
+      driver.currentSession.analysisContext;
+    } catch (_) {
+      channel.sendNotification(
+          plugin.PluginErrorParams(false, 'Error fetching analysis context; assists may be unavailable', '')
+              .toNotification());
+    }
+    runZonedGuarded(() {
+      driver.results.listen(processDiagnosticsForResult);
+    }, (e, stackTrace) {
       channel.sendNotification(plugin.PluginErrorParams(false, e.toString(), stackTrace.toString()).toNotification());
     });
-    return result;
+    return driver;
   }
 
   @override
   void contentChanged(String path) {
-    super.driverForPath(path).addFile(path);
+    super.driverForPath(path)!.addFile(path);
   }
 
   @override
@@ -216,7 +233,7 @@ class OverReactAnalyzerPlugin extends OverReactAnalyzerPluginBase {
       var contextRoot = contextRootContaining(file);
       if (contextRoot != null) {
         // TODO(brianwilkerson) Which driver should we use if there is no context root?
-        var driver = driverMap[contextRoot];
+        var driver = driverMap[contextRoot]!;
         filesByDriver.putIfAbsent(driver, () => <String>[]).add(file);
       }
     }

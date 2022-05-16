@@ -16,7 +16,7 @@ import 'package:over_react/over_react.dart';
 
 part 'generic_inheritance_super.over_react.g.dart';
 
-UiFactory<GenericSuperProps> GenericSuper = _$GenericSuper; // ignore: undefined_identifier
+UiFactory<GenericSuperProps> GenericSuper = castUiFactory(_$GenericSuper); // ignore: undefined_identifier
 
 class GenericSuperProps = UiProps with GenericSuperPropsMixin;
 

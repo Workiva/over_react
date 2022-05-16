@@ -62,7 +62,7 @@ UiFactory<ConnectFluxBigBlockProps> ConnectFluxBigBlock = composeHocs([
     mapActionsToProps: (actions) =>
         (ConnectFluxBigBlock()..changeBlockThreeBackgroundColor = actions.changeBlockThreeBackgroundColor),
   ),
-])(_$ConnectFluxBigBlock); // ignore: undefined_identifier
+])(castUiFactory(_$ConnectFluxBigBlock)); // ignore: undefined_identifier
 
 mixin ConnectFluxBigBlockPropsMixin on UiProps {
   String backgroundColor; // [1]

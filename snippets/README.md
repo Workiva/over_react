@@ -6,8 +6,11 @@ Below is a list of all available over_react snippets and their Triggers for Webs
 | -------: | ------- |
 | `orStless`  |  Stateless component skeleton with abbreviated props declaration |
 | `orStful`  | Stateful component skeleton with abbreviated props and state declarations |
+| `orStlessConnect`  |  Stateless component skeleton with the generated factory wrapped in `connect` |
+| `orFunc`  | Function component skeleton with abbreviated props declaration |
 | `orAdvStless`   | Stateless component skeleton with a props class alias|
 | `orAdvStful`   | Stateful component skeleton with props and state class aliases|
+| `orAdvFunc`   | Function component skeleton with props class alias|
 
 ## WebStorm and IntelliJ Snippets
 

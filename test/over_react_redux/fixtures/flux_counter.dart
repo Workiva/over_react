@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// ignore_for_file: deprecated_member_use_from_same_package
 import 'package:over_react/over_react.dart';
 
 import 'connect_flux_store.dart';
@@ -19,6 +20,7 @@ import 'connect_flux_store.dart';
 part 'flux_counter.over_react.g.dart';
 
 @Factory()
+// ignore: undefined_identifier, invalid_assignment
 UiFactory<FluxCounterProps> FluxCounter = _$FluxCounter;
 
 @Props()

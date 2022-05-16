@@ -56,5 +56,5 @@ dynamic render(ReactElement element, Element mountNode) {
 ///
 /// > Proxies [react_dom.unmountComponentAtNode].
 bool unmountComponentAtNode(Element mountNode) {
-  return react_dom.unmountComponentAtNode(mountNode);
+  return react_dom.unmountComponentAtNode(mountNode) as bool;
 }

@@ -34,7 +34,7 @@ abstract class BuiltReduxUiProps<V extends Built<V, B>, B extends Builder<V, B>,
   String get _storePropKey => '${propKeyNamespace}store';
 
   /// The [Store] prop defined by [V], [B], and [A].
-  Store<V, B, A> get store => props[_storePropKey];
+  Store<V, B, A> get store => props[_storePropKey] as Store<V, B, A>;
   set store(Store<V, B, A> value) => props[_storePropKey] = value;
 
   /// The [ReduxActions] prop defined by [A].

@@ -41,7 +41,7 @@ main() {
 
 
 @Factory()
-UiFactory<FooProps> Foo = _$Foo;
+UiFactory<FooProps> Foo = _$Foo; // ignore: undefined_identifier, invalid_assignment
 
 @Props()
 class _$FooProps extends UiProps {

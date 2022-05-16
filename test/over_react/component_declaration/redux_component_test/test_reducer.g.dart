@@ -44,12 +44,8 @@ class _$BaseState extends BaseState {
       (new BaseStateBuilder()..update(updates)).build();
 
   _$BaseState._({this.count1, this.count2}) : super._() {
-    if (count1 == null) {
-      throw new BuiltValueNullFieldError('BaseState', 'count1');
-    }
-    if (count2 == null) {
-      throw new BuiltValueNullFieldError('BaseState', 'count2');
-    }
+    BuiltValueNullFieldError.checkNotNull(count1, 'BaseState', 'count1');
+    BuiltValueNullFieldError.checkNotNull(count2, 'BaseState', 'count2');
   }
 
   @override
@@ -95,9 +91,10 @@ class BaseStateBuilder implements Builder<BaseState, BaseStateBuilder> {
   BaseStateBuilder();
 
   BaseStateBuilder get _$this {
-    if (_$v != null) {
-      _count1 = _$v.count1;
-      _count2 = _$v.count2;
+    final $v = _$v;
+    if ($v != null) {
+      _count1 = $v.count1;
+      _count2 = $v.count2;
       _$v = null;
     }
     return this;
@@ -105,9 +102,7 @@ class BaseStateBuilder implements Builder<BaseState, BaseStateBuilder> {
 
   @override
   void replace(BaseState other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$BaseState;
   }
 
@@ -118,10 +113,15 @@ class BaseStateBuilder implements Builder<BaseState, BaseStateBuilder> {
 
   @override
   _$BaseState build() {
-    final _$result = _$v ?? new _$BaseState._(count1: count1, count2: count2);
+    final _$result = _$v ??
+        new _$BaseState._(
+            count1: BuiltValueNullFieldError.checkNotNull(
+                count1, 'BaseState', 'count1'),
+            count2: BuiltValueNullFieldError.checkNotNull(
+                count2, 'BaseState', 'count2'));
     replace(_$result);
     return _$result;
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new

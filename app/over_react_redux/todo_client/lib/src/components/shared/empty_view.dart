@@ -8,7 +8,7 @@ part 'empty_view.over_react.g.dart';
 /// or an empty view such as a 404 error page.
 
 UiFactory<EmptyViewProps> EmptyView =
-        _$EmptyView; // ignore: undefined_identifier
+        castUiFactory(_$EmptyView); // ignore: undefined_identifier
 
 mixin EmptyViewProps on UiProps {
   /// The layout of the [EmptyView].

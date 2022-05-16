@@ -19,14 +19,28 @@ import 'package:react/react_client/react_interop.dart';
 part 'custom_error_boundary.over_react.g.dart';
 
 @Factory()
-// ignore: undefined_identifier
+// ignore: undefined_identifier, invalid_assignment
 UiFactory<CustomErrorBoundaryProps> CustomErrorBoundary = _$CustomErrorBoundary;
 
 @Props()
 class _$CustomErrorBoundaryProps extends UiProps with ErrorBoundaryPropsMixin {}
 
+class CustomErrorBoundaryProps extends _$CustomErrorBoundaryProps
+// ignore: mixin_of_non_class, undefined_class
+    with _$CustomErrorBoundaryPropsAccessorsMixin {
+  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value, invalid_assignment
+  static const PropsMeta meta = _$metaForCustomErrorBoundaryProps;
+}
+
 @State()
 class _$CustomErrorBoundaryState extends UiState with ErrorBoundaryStateMixin {}
+
+class CustomErrorBoundaryState extends _$CustomErrorBoundaryState
+// ignore: mixin_of_non_class, undefined_class
+    with _$CustomErrorBoundaryStateAccessorsMixin {
+  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value, invalid_assignment
+  static const StateMeta meta = _$metaForCustomErrorBoundaryState;
+}
 
 @Component2(isErrorBoundary: true)
 class CustomErrorBoundaryComponent extends UiStatefulComponent2<CustomErrorBoundaryProps, CustomErrorBoundaryState>

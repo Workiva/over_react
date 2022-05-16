@@ -2,7 +2,7 @@ import 'package:over_react/over_react.dart';
 
 part 'foo.over_react.g.dart';
 
-UiFactory<FooProps> Foo = _$Foo; // ignore: undefined_identifier
+UiFactory<FooProps> Foo = castUiFactory(_$Foo); // ignore: undefined_identifier
 
 mixin FooProps on UiProps {}
 
@@ -14,7 +14,7 @@ class FooComponent extends UiComponent2<FooProps> {
   render() {}
 }
 
-UiFactory<BarProps> Bar = _$Bar; // ignore: undefined_identifier
+UiFactory<BarProps> Bar = castUiFactory(_$Bar); // ignore: undefined_identifier
 
 mixin BarPropsMixin on UiProps {}
 

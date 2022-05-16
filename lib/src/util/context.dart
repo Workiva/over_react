@@ -13,7 +13,6 @@
 // limitations under the License.
 
 import 'package:meta/meta.dart';
-import 'package:over_react/src/component_declaration/component_base.dart' as component_base;
 import 'package:over_react/src/component_declaration/builder_helpers.dart' as builder_helpers;
 import 'package:over_react/over_react.dart';
 import 'package:react/react_client/react_interop.dart';
@@ -49,7 +48,7 @@ class Context<TValue> {
   Context(this.Provider, this.Consumer, this.reactDartContext);
 
   /// The react.dart version of this context.
-  final react.Context reactDartContext;
+  final react.Context<TValue> reactDartContext;
 
   /// The react.js version of this context.
   ReactContext get jsThis => reactDartContext.jsThis;
@@ -136,7 +135,7 @@ class ProviderProps<TValue> extends builder_helpers.UiProps {
   @override
   bool get $isClassGenerated => true;
 
-  TValue get value => props['value'];
+  TValue get value => props['value'] as TValue;
   set value(TValue v) => props['value'] = v;
 }
 
@@ -183,7 +182,7 @@ class ConsumerProps<TValue> extends builder_helpers.UiProps {
   @override
   // ignore: invalid_override_different_default_values_positional
   ReactElement call([covariant dynamic Function(TValue value) c1, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c2 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c3 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c4 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c5 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c6 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c7 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c8 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c9 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c10 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c11 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c12 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c13 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c14 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c15 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c16 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c17 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c18 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c19 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c20 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c21 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c22 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c23 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c24 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c25 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c26 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c27 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c28 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c29 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c30 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c31 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c32 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c33 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c34 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c35 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c36 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c37 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c38 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c39 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c40 = _nope]) {
-    return componentFactory.build(props, c1 != null ? [c1] : []);
+    return componentFactory.build(props, c1 != null ? [c1] : []) as ReactElement;
   }
 }
 
@@ -237,10 +236,8 @@ class _DO_NOT_USE_OR_YOU_WILL_BE_FIRED {
 ///
 /// Learn more: <https://reactjs.org/docs/context.html#reactcreatecontext>
 Context<TValue> createContext<TValue>([TValue defaultValue, int Function(TValue, TValue) calculateChangedBits]) {
-  react.Context reactDartContext = react.createContext(defaultValue, calculateChangedBits != null ? (dynamic arg1, dynamic arg2) => calculateChangedBits(arg1, arg2) : null);
-  // ignore: prefer_function_declarations_over_variables, avoid_types_on_closure_parameters
-  UiFactory<ProviderProps> Provider = ([Map map]) => (ProviderProps<TValue>(map)..componentFactory = reactDartContext.Provider);
-  // ignore: prefer_function_declarations_over_variables, avoid_types_on_closure_parameters
-  UiFactory<ConsumerProps> Consumer = ([Map map]) => (ConsumerProps<TValue>(map)..componentFactory = reactDartContext.Consumer);
+  final reactDartContext = react.createContext<TValue>(defaultValue, calculateChangedBits != null ? (dynamic arg1, dynamic arg2) => calculateChangedBits(arg1 as TValue, arg2 as TValue) : null);
+  Provider([Map map]) => (ProviderProps<TValue>(map as JsBackedMap)..componentFactory = reactDartContext.Provider);
+  Consumer([Map map]) => (ConsumerProps<TValue>(map as JsBackedMap)..componentFactory = reactDartContext.Consumer);
   return Context<TValue>(Provider, Consumer, reactDartContext);
 }

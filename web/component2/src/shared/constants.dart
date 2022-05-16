@@ -60,14 +60,15 @@ mixin AbstractInputPropsMixin on UiProps {
   ///
   /// If unspecified, [AbstractInputStateMixin.id] will be generated.
   ///
-  /// _Proxies [DomProps.id]._
+  /// _Proxies [DomPropsMixin.id]._
+  @override
   String get id;
 
   /// The HTML `name` attribute to be applied to `<input>`.
   ///
   /// If unspecified, [AbstractInputStateMixin.name] will be generated.
   ///
-  /// _Proxies [DomProps.name]._
+  /// _Proxies [DomPropsMixin.name]._
   @Accessor(keyNamespace: '')
   String name;
 
@@ -76,7 +77,7 @@ mixin AbstractInputPropsMixin on UiProps {
   ///
   /// See: [React Controlled Components](https://facebook.github.io/react/docs/forms.html#controlled-components)
   ///
-  /// _Proxies [DomProps.value]._
+  /// _Proxies [DomPropsMixin.value]._
   @Accessor(keyNamespace: '')
   dynamic value;
 

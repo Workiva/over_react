@@ -25,7 +25,7 @@ SourceEdit setIndent(String source, LineInfo info, int offset, String indent) {
 String getIndent(String source, LineInfo info, int offset) {
   final beginningOfColumn = offset - (info.getLocation(offset).columnNumber - 1);
   final lineContentUpToOffset = source.substring(beginningOfColumn, offset);
-  return RegExp(r'^ *').firstMatch(lineContentUpToOffset)[0];
+  return RegExp(r'^ *').firstMatch(lineContentUpToOffset)![0]!;
 }
 
 /// Returns whether [offsetA] and [offsetB] within are on the same line, according to [info[.

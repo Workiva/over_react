@@ -55,7 +55,7 @@ abstract class _$$OneLevelWrapper2Props extends _$OneLevelWrapper2Props
 
   factory _$$OneLevelWrapper2Props(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$OneLevelWrapper2Props$JsMap(backingMap);
+      return _$$OneLevelWrapper2Props$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$OneLevelWrapper2Props$PlainMap(backingMap);
     }
@@ -128,7 +128,8 @@ class _$OneLevelWrapper2Component extends OneLevelWrapper2Component {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override

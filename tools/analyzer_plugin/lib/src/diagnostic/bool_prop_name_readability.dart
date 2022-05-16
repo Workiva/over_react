@@ -1,6 +1,5 @@
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
-import 'package:meta/meta.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/util/react_types.dart';
 
@@ -44,16 +43,15 @@ class BoolPropNameReadabilityDiagnostic extends DiagnosticContributor {
     final typeProvider = result.libraryElement.typeProvider;
     final visitor = PropsVisitor();
 
-    result.unit.accept(visitor);
+    result.unit!.accept(visitor);
 
     final returnMixins = visitor.returnMixins;
 
     for (final propsClass in returnMixins) {
-      final mixinFields = propsClass.declaredElement.fields;
+      final mixinFields = propsClass.declaredElement!.fields;
       for (final field in mixinFields) {
         final propName = field.name;
         if (field.type != typeProvider.boolType) continue;
-        if (propName == null) continue; // just in case
 
         final fieldDecl = propsClass.getField(propName);
         if (fieldDecl == null) continue;
@@ -71,7 +69,7 @@ class _ReadabilityResult {
   final bool isReadable;
   final List<String> reasons;
 
-  _ReadabilityResult({@required this.isReadable, @required this.reasons});
+  _ReadabilityResult({required this.isReadable, required this.reasons});
 }
 
 _ReadabilityResult checkBoolPropReadability(String propName) {
@@ -114,14 +112,14 @@ class PropsVisitor extends SimpleAstVisitor<void> {
 
   @override
   void visitClassDeclaration(ClassDeclaration node) {
-    if (node.declaredElement.isPropsClass) {
+    if (node.declaredElement?.isPropsClass ?? false) {
       returnMixins.add(node);
     }
   }
 
   @override
   void visitMixinDeclaration(MixinDeclaration node) {
-    if (node.declaredElement.isPropsClass) {
+    if (node.declaredElement?.isPropsClass ?? false) {
       returnMixins.add(node);
     }
   }

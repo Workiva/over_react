@@ -1,7 +1,6 @@
 @TestOn('browser')
 import 'dart:convert';
 
-import 'package:over_react/over_react.dart';
 import 'package:test/test.dart';
 
 import 'package:todo_client/src/actions.dart';
@@ -13,7 +12,6 @@ import 'package:todo_client/src/store.dart';
 import '../fixtures/utils.dart';
 
 main() {
-  setClientConfiguration();
   const reasonCurrentSetShouldBePersisted =
         'The state update should be persisted as the "current" set in window.localStorage';
 

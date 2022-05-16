@@ -116,7 +116,7 @@ class RenderReturnValueDiagnostic extends DiagnosticContributor {
   computeErrors(result, collector) async {
     // This is the return type even if it's not explicitly declared.
     final visitor = RenderVisitor();
-    result.unit.accept(visitor);
+    result.unit!.accept(visitor);
     for (final returnExpression in visitor.renderReturnExpressions) {
       final returnType = returnExpression.staticType;
       if (returnType == null || returnType.isDynamic || returnType.isDartCoreObject || returnType.isVoid) {
@@ -131,14 +131,14 @@ class RenderReturnValueDiagnostic extends DiagnosticContributor {
           await collector.addErrorWithFix(
             code,
             location,
-            errorMessageArgs: [returnType.getDisplayString(), missingBuilderMessageSuffix],
+            errorMessageArgs: [returnType.getDisplayString(withNullability: false), missingBuilderMessageSuffix],
             fixKind: addBuilderInvocationFix,
             computeFix: () => buildFileEdit(result, (builder) {
               buildMissingInvocationEdits(returnExpression, builder);
             }),
           );
         } else {
-          collector.addError(code, location, errorMessageArgs: [returnType.getDisplayString()]);
+          collector.addError(code, location, errorMessageArgs: [returnType.getDisplayString(withNullability: false)]);
         }
       });
 
@@ -166,7 +166,7 @@ class RenderVisitor extends SimpleAstVisitor<void> {
 
   @override
   void visitClassDeclaration(ClassDeclaration node) {
-    if (node.declaredElement.isComponentClass) {
+    if (node.declaredElement?.isComponentClass ?? false) {
       node.visitChildren(this);
     }
   }

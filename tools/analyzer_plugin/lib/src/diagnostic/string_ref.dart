@@ -1,5 +1,4 @@
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
-import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 
 import 'package:over_react_analyzer_plugin/src/assist/refs/add_create_ref.dart' show addCreateRef;
 import 'callback_ref.dart';
@@ -86,7 +85,7 @@ class StringRefDiagnostic extends ComponentUsageDiagnosticContributor {
   @override
   computeErrorsForUsage(result, collector, usage) async {
     for (final prop in usage.cascadedProps) {
-      if (prop.name.name == 'ref' && prop.rightHandSide.staticType.isDartCoreString) {
+      if (prop.name.name == 'ref' && (prop.rightHandSide.staticType?.isDartCoreString ?? false)) {
         await collector.addErrorWithFix(
           code,
           result.locationFor(prop.rightHandSide),

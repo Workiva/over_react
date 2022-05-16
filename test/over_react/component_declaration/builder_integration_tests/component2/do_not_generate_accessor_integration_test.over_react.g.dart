@@ -27,8 +27,9 @@ abstract class _$DoNotGenerateAccessorTestPropsAccessorsMixin
   /// <!-- Generated from [_$DoNotGenerateAccessorTestProps.generated1Prop] -->
   @override
   dynamic get generated1Prop =>
-      props[_$key__generated1Prop___$DoNotGenerateAccessorTestProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__generated1Prop___$DoNotGenerateAccessorTestProps] ?? null)
+          as dynamic;
+
   /// <!-- Generated from [_$DoNotGenerateAccessorTestProps.generated1Prop] -->
   @override
   set generated1Prop(dynamic value) =>
@@ -37,8 +38,9 @@ abstract class _$DoNotGenerateAccessorTestPropsAccessorsMixin
   /// <!-- Generated from [_$DoNotGenerateAccessorTestProps.generated2Prop] -->
   @override
   dynamic get generated2Prop =>
-      props[_$key__generated2Prop___$DoNotGenerateAccessorTestProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__generated2Prop___$DoNotGenerateAccessorTestProps] ?? null)
+          as dynamic;
+
   /// <!-- Generated from [_$DoNotGenerateAccessorTestProps.generated2Prop] -->
   @override
   set generated2Prop(dynamic value) =>
@@ -47,9 +49,10 @@ abstract class _$DoNotGenerateAccessorTestPropsAccessorsMixin
   /// <!-- Generated from [_$DoNotGenerateAccessorTestProps.explicitlyGeneratedProp] -->
   @override
   @Accessor(doNotGenerate: false)
-  dynamic get explicitlyGeneratedProp =>
-      props[_$key__explicitlyGeneratedProp___$DoNotGenerateAccessorTestProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  dynamic get explicitlyGeneratedProp => (props[
+          _$key__explicitlyGeneratedProp___$DoNotGenerateAccessorTestProps] ??
+      null) as dynamic;
+
   /// <!-- Generated from [_$DoNotGenerateAccessorTestProps.explicitlyGeneratedProp] -->
   @override
   @Accessor(doNotGenerate: false)
@@ -114,7 +117,7 @@ abstract class _$$DoNotGenerateAccessorTestProps
 
   factory _$$DoNotGenerateAccessorTestProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$DoNotGenerateAccessorTestProps$JsMap(backingMap);
+      return _$$DoNotGenerateAccessorTestProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$DoNotGenerateAccessorTestProps$PlainMap(backingMap);
     }
@@ -177,8 +180,9 @@ abstract class _$DoNotGenerateAccessorTestStateAccessorsMixin
   /// <!-- Generated from [_$DoNotGenerateAccessorTestState.generated1State] -->
   @override
   dynamic get generated1State =>
-      state[_$key__generated1State___$DoNotGenerateAccessorTestState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (state[_$key__generated1State___$DoNotGenerateAccessorTestState] ?? null)
+          as dynamic;
+
   /// <!-- Generated from [_$DoNotGenerateAccessorTestState.generated1State] -->
   @override
   set generated1State(dynamic value) =>
@@ -187,8 +191,9 @@ abstract class _$DoNotGenerateAccessorTestStateAccessorsMixin
   /// <!-- Generated from [_$DoNotGenerateAccessorTestState.generated2State] -->
   @override
   dynamic get generated2State =>
-      state[_$key__generated2State___$DoNotGenerateAccessorTestState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (state[_$key__generated2State___$DoNotGenerateAccessorTestState] ?? null)
+          as dynamic;
+
   /// <!-- Generated from [_$DoNotGenerateAccessorTestState.generated2State] -->
   @override
   set generated2State(dynamic value) =>
@@ -197,10 +202,10 @@ abstract class _$DoNotGenerateAccessorTestStateAccessorsMixin
   /// <!-- Generated from [_$DoNotGenerateAccessorTestState.explicitlyGeneratedState] -->
   @override
   @Accessor(doNotGenerate: false)
-  dynamic get explicitlyGeneratedState =>
-      state[
+  dynamic get explicitlyGeneratedState => (state[
           _$key__explicitlyGeneratedState___$DoNotGenerateAccessorTestState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      null) as dynamic;
+
   /// <!-- Generated from [_$DoNotGenerateAccessorTestState.explicitlyGeneratedState] -->
   @override
   @Accessor(doNotGenerate: false)
@@ -259,7 +264,7 @@ abstract class _$$DoNotGenerateAccessorTestState
 
   factory _$$DoNotGenerateAccessorTestState(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$DoNotGenerateAccessorTestState$JsMap(backingMap);
+      return _$$DoNotGenerateAccessorTestState$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$DoNotGenerateAccessorTestState$PlainMap(backingMap);
     }
@@ -326,7 +331,8 @@ class _$DoNotGenerateAccessorTestComponent
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -349,7 +355,7 @@ class _$DoNotGenerateAccessorTestComponent
         'Component2.state should only be set via '
         'initialState or setState.');
     super.state = value;
-    _cachedTypedState = typedStateFactoryJs(value);
+    _cachedTypedState = typedStateFactoryJs(value as JsBackedMap);
   }
 
   @override

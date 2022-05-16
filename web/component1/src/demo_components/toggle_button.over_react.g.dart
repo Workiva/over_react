@@ -27,7 +27,7 @@ abstract class _$ToggleButtonPropsAccessorsMixin
 
   /// Whether the `<input>` rendered by the [ToggleButton] should have focus upon mounting.
   ///
-  /// _Proxies [DomProps.autoFocus]._
+  /// _Proxies [DomPropsMixin.autoFocus]._
   ///
   /// Default: `false`
   ///
@@ -35,11 +35,11 @@ abstract class _$ToggleButtonPropsAccessorsMixin
   @override
   @Accessor(keyNamespace: '')
   bool get autoFocus =>
-      props[_$key__autoFocus___$ToggleButtonProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__autoFocus___$ToggleButtonProps] ?? null) as bool;
+
   /// Whether the `<input>` rendered by the [ToggleButton] should have focus upon mounting.
   ///
-  /// _Proxies [DomProps.autoFocus]._
+  /// _Proxies [DomPropsMixin.autoFocus]._
   ///
   /// Default: `false`
   ///
@@ -58,7 +58,7 @@ abstract class _$ToggleButtonPropsAccessorsMixin
   ///
   /// Related: [checked]
   ///
-  /// _Proxies [DomProps.defaultChecked]._
+  /// _Proxies [DomPropsMixin.defaultChecked]._
   ///
   /// See: <https://facebook.github.io/react/docs/forms.html#uncontrolled-components>.
   ///
@@ -66,8 +66,8 @@ abstract class _$ToggleButtonPropsAccessorsMixin
   @override
   @Accessor(keyNamespace: '')
   bool get defaultChecked =>
-      props[_$key__defaultChecked___$ToggleButtonProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__defaultChecked___$ToggleButtonProps] ?? null) as bool;
+
   /// Whether the [ToggleButton] is checked by default.
   ///
   /// Setting this without the setting the [checked] prop to will make the
@@ -77,7 +77,7 @@ abstract class _$ToggleButtonPropsAccessorsMixin
   ///
   /// Related: [checked]
   ///
-  /// _Proxies [DomProps.defaultChecked]._
+  /// _Proxies [DomPropsMixin.defaultChecked]._
   ///
   /// See: <https://facebook.github.io/react/docs/forms.html#uncontrolled-components>.
   ///
@@ -95,7 +95,7 @@ abstract class _$ToggleButtonPropsAccessorsMixin
   ///
   /// Related: [defaultChecked]
   ///
-  /// _Proxies [DomProps.checked]._
+  /// _Proxies [DomPropsMixin.checked]._
   ///
   /// See: <https://facebook.github.io/react/docs/forms.html#controlled-components>.
   ///
@@ -103,8 +103,8 @@ abstract class _$ToggleButtonPropsAccessorsMixin
   @override
   @Accessor(keyNamespace: '')
   bool get checked =>
-      props[_$key__checked___$ToggleButtonProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__checked___$ToggleButtonProps] ?? null) as bool;
+
   /// Whether the [ToggleButton] is checked.
   ///
   /// Setting this will make the [ToggleButton] _controlled_; it will not update
@@ -113,7 +113,7 @@ abstract class _$ToggleButtonPropsAccessorsMixin
   ///
   /// Related: [defaultChecked]
   ///
-  /// _Proxies [DomProps.checked]._
+  /// _Proxies [DomPropsMixin.checked]._
   ///
   /// See: <https://facebook.github.io/react/docs/forms.html#controlled-components>.
   ///
@@ -197,17 +197,17 @@ abstract class _$ToggleButtonStateAccessorsMixin
   /// Tracks if the [ToggleButton] is focused. Determines whether to render with the `js-focus` CSS
   /// class.
   ///
-  /// Initial: [ToggleButtonProps.autoFocus]
+  /// Initial: `ToggleButtonProps.autoFocus`
   ///
   /// <!-- Generated from [_$ToggleButtonState.isFocused] -->
   @override
   bool get isFocused =>
-      state[_$key__isFocused___$ToggleButtonState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (state[_$key__isFocused___$ToggleButtonState] ?? null) as bool;
+
   /// Tracks if the [ToggleButton] is focused. Determines whether to render with the `js-focus` CSS
   /// class.
   ///
-  /// Initial: [ToggleButtonProps.autoFocus]
+  /// Initial: `ToggleButtonProps.autoFocus`
   ///
   /// <!-- Generated from [_$ToggleButtonState.isFocused] -->
   @override
@@ -216,16 +216,16 @@ abstract class _$ToggleButtonStateAccessorsMixin
 
   /// Tracks if the [ToggleButton] input is `checked`. Determines whether to render with the `active` CSS class.
   ///
-  /// Initial: [ToggleButtonProps.checked] `??` [ToggleButtonProps.defaultChecked] `?? false`
+  /// Initial: `ToggleButtonProps.checked ?? ToggleButtonProps.defaultChecked ?? false`
   ///
   /// <!-- Generated from [_$ToggleButtonState.isChecked] -->
   @override
   bool get isChecked =>
-      state[_$key__isChecked___$ToggleButtonState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (state[_$key__isChecked___$ToggleButtonState] ?? null) as bool;
+
   /// Tracks if the [ToggleButton] input is `checked`. Determines whether to render with the `active` CSS class.
   ///
-  /// Initial: [ToggleButtonProps.checked] `??` [ToggleButtonProps.defaultChecked] `?? false`
+  /// Initial: `ToggleButtonProps.checked ?? ToggleButtonProps.defaultChecked ?? false`
   ///
   /// <!-- Generated from [_$ToggleButtonState.isChecked] -->
   @override

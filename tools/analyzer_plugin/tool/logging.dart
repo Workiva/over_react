@@ -6,7 +6,7 @@ import 'package:logging/logging.dart';
 void initLogging({bool verbose = true}) {
   Logger.root.level = verbose ? Level.ALL : Level.INFO;
   Logger.root.onRecord.listen((rec) {
-    String Function(String) colorizer;
+    String? Function(String) colorizer;
     IOSink output;
 
     if (rec.level >= Level.SEVERE) {

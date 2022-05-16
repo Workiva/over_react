@@ -8,7 +8,7 @@ import 'package:todo_client/src/components/shared/material_ui.dart';
 part 'local_storage_menu_item_input.over_react.g.dart';
 
 UiFactory<LocalStorageMenuItemInputProps> LocalStorageMenuItemInput =
-    _$LocalStorageMenuItemInput; // ignore: undefined_identifier
+    castUiFactory(_$LocalStorageMenuItemInput); // ignore: undefined_identifier
 
 @Props(keyNamespace: '')
 mixin LocalStorageMenuItemInputProps on UiProps {

@@ -19,6 +19,7 @@ import 'test_context.dart';
 part 'context_type_component.over_react.g.dart';
 
 @Factory()
+// ignore: undefined_identifier, invalid_assignment
 UiFactory<ContextTypeProps> ContextType = _$ContextType;
 
 @Props()

@@ -19,7 +19,6 @@ library deprecated_abstract_transition_test;
 import 'dart:async';
 import 'dart:html';
 
-import 'package:dart2_constant/core.dart' as d2c;
 import 'package:meta/meta.dart';
 import 'package:over_react/over_react.dart';
 import 'package:over_react_test/over_react_test.dart';
@@ -64,7 +63,7 @@ main() {
 
           expect(transitioner.state.transitionPhase, equals(TransitionPhase.HIDING));
 
-          await Future.delayed(d2c.Duration.zero);
+          await Future.delayed(Duration.zero);
           expect(transitioner.state.transitionPhase, equals(TransitionPhase.HIDING),
               reason: 'should still be waiting for a transition event');
 
@@ -96,7 +95,7 @@ main() {
 
           expect(transitioner.state.transitionPhase, equals(TransitionPhase.SHOWING));
 
-          await Future.delayed(d2c.Duration.zero);
+          await Future.delayed(Duration.zero);
           expect(transitioner.state.transitionPhase, equals(TransitionPhase.SHOWING),
               reason: 'should still be waiting for a transition event');
 
@@ -131,7 +130,7 @@ main() {
 
           expect(transitioner.state.transitionPhase, equals(TransitionPhase.HIDING));
 
-          await Future.delayed(d2c.Duration.zero);
+          await Future.delayed(Duration.zero);
           expect(transitioner.state.transitionPhase, equals(TransitionPhase.HIDING),
               reason: 'should still be waiting for a transition event');
 
@@ -143,7 +142,7 @@ main() {
 
           expect(transitioner.state.transitionPhase, equals(TransitionPhase.SHOWING));
 
-          await Future.delayed(d2c.Duration.zero);
+          await Future.delayed(Duration.zero);
           expect(transitioner.state.transitionPhase, equals(TransitionPhase.SHOWING),
               reason: 'should still be waiting for a transition event');
 
@@ -183,7 +182,7 @@ main() {
 
           expect(transitioner.state.transitionPhase, equals(TransitionPhase.SHOWING));
 
-          await Future.delayed(d2c.Duration.zero);
+          await Future.delayed(Duration.zero);
           expect(transitioner.state.transitionPhase, equals(TransitionPhase.SHOWING),
               reason: 'should still be waiting for a transition event');
 
@@ -228,7 +227,7 @@ main() {
             expect(transitioner.state.transitionPhase, equals(TransitionPhase.SHOWING));
 
             for (var i = 0; i < expectedTransitionInCount; i++) {
-              await Future.delayed(d2c.Duration.zero);
+              await Future.delayed(Duration.zero);
               expect(transitioner.state.transitionPhase, equals(TransitionPhase.SHOWING),
                   reason: 'should still be waiting for a transition event');
 
@@ -244,7 +243,7 @@ main() {
             expect(transitioner.state.transitionPhase, equals(TransitionPhase.HIDING));
 
             for (var i = 0; i < expectedTransitionOutCount; i++) {
-              await Future.delayed(d2c.Duration.zero);
+              await Future.delayed(Duration.zero);
               expect(transitioner.state.transitionPhase, equals(TransitionPhase.HIDING),
                   reason: 'should still be waiting for a transition event');
 
@@ -510,7 +509,7 @@ main() {
 
         expect(transitioner.state.transitionPhase, TransitionPhase.HIDING);
 
-        await Future.delayed(d2c.Duration.zero);
+        await Future.delayed(Duration.zero);
 
         expect(transitioner.state.transitionPhase, TransitionPhase.HIDDEN);
 
@@ -566,7 +565,7 @@ main() {
             for (var record in records) {
               if (record.attributeName != transitionPhaseTestAttr) continue;
               transitionAttrMutations.add([
-                record.oldValue,
+                record.oldValue as String,
                 // ignore: avoid_as
                 (record.target as Element).attributes[record.attributeName],
               ]);
@@ -637,7 +636,7 @@ main() {
 }
 
 @Factory()
-UiFactory<TransitionerProps> Transitioner = _$Transitioner;
+UiFactory<TransitionerProps> Transitioner = _$Transitioner; // ignore: undefined_identifier, invalid_assignment
 
 @Props()
 class _$TransitionerProps extends AbstractTransitionProps {
@@ -753,6 +752,6 @@ class TransitionerComponent extends AbstractTransitionComponent<TransitionerProp
   @override
   void setState(dynamic newState, [Function() callback]) {
     super.setState(newState, callback);
-    transitionPhasesSet.add(newState.transitionPhase);
+    transitionPhasesSet.add(typedStateFactory(newState as Map).transitionPhase);
   }
 }

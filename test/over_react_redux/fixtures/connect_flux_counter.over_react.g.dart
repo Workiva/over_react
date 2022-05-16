@@ -27,8 +27,8 @@ abstract class _$ConnectFluxCounterPropsAccessorsMixin
   /// <!-- Generated from [_$ConnectFluxCounterProps.currentCount] -->
   @override
   int get currentCount =>
-      props[_$key__currentCount___$ConnectFluxCounterProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__currentCount___$ConnectFluxCounterProps] ?? null) as int;
+
   /// <!-- Generated from [_$ConnectFluxCounterProps.currentCount] -->
   @override
   set currentCount(int value) =>
@@ -37,8 +37,9 @@ abstract class _$ConnectFluxCounterPropsAccessorsMixin
   /// <!-- Generated from [_$ConnectFluxCounterProps.wrapperStyles] -->
   @override
   Map<String, dynamic> get wrapperStyles =>
-      props[_$key__wrapperStyles___$ConnectFluxCounterProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__wrapperStyles___$ConnectFluxCounterProps] ?? null)
+          as Map<String, dynamic>;
+
   /// <!-- Generated from [_$ConnectFluxCounterProps.wrapperStyles] -->
   @override
   set wrapperStyles(Map<String, dynamic> value) =>
@@ -47,8 +48,9 @@ abstract class _$ConnectFluxCounterPropsAccessorsMixin
   /// <!-- Generated from [_$ConnectFluxCounterProps.mutatedList] -->
   @override
   List<String> get mutatedList =>
-      props[_$key__mutatedList___$ConnectFluxCounterProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__mutatedList___$ConnectFluxCounterProps] ?? null)
+          as List<String>;
+
   /// <!-- Generated from [_$ConnectFluxCounterProps.mutatedList] -->
   @override
   set mutatedList(List<String> value) =>
@@ -57,8 +59,9 @@ abstract class _$ConnectFluxCounterPropsAccessorsMixin
   /// <!-- Generated from [_$ConnectFluxCounterProps.increment] -->
   @override
   void Function() get increment =>
-      props[_$key__increment___$ConnectFluxCounterProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__increment___$ConnectFluxCounterProps] ?? null) as void
+          Function();
+
   /// <!-- Generated from [_$ConnectFluxCounterProps.increment] -->
   @override
   set increment(void Function() value) =>
@@ -67,8 +70,9 @@ abstract class _$ConnectFluxCounterPropsAccessorsMixin
   /// <!-- Generated from [_$ConnectFluxCounterProps.decrement] -->
   @override
   void Function() get decrement =>
-      props[_$key__decrement___$ConnectFluxCounterProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__decrement___$ConnectFluxCounterProps] ?? null) as void
+          Function();
+
   /// <!-- Generated from [_$ConnectFluxCounterProps.decrement] -->
   @override
   set decrement(void Function() value) =>
@@ -77,12 +81,23 @@ abstract class _$ConnectFluxCounterPropsAccessorsMixin
   /// <!-- Generated from [_$ConnectFluxCounterProps.mutateStoreDirectly] -->
   @override
   void Function() get mutateStoreDirectly =>
-      props[_$key__mutateStoreDirectly___$ConnectFluxCounterProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__mutateStoreDirectly___$ConnectFluxCounterProps] ?? null)
+          as void Function();
+
   /// <!-- Generated from [_$ConnectFluxCounterProps.mutateStoreDirectly] -->
   @override
   set mutateStoreDirectly(void Function() value) =>
       props[_$key__mutateStoreDirectly___$ConnectFluxCounterProps] = value;
+
+  /// <!-- Generated from [_$ConnectFluxCounterProps.actions] -->
+  @override
+  FluxActions get actions =>
+      (props[_$key__actions___$ConnectFluxCounterProps] ?? null) as FluxActions;
+
+  /// <!-- Generated from [_$ConnectFluxCounterProps.actions] -->
+  @override
+  set actions(FluxActions value) =>
+      props[_$key__actions___$ConnectFluxCounterProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__currentCount___$ConnectFluxCounterProps =
       PropDescriptor(_$key__currentCount___$ConnectFluxCounterProps);
@@ -97,6 +112,8 @@ abstract class _$ConnectFluxCounterPropsAccessorsMixin
   static const PropDescriptor
       _$prop__mutateStoreDirectly___$ConnectFluxCounterProps =
       PropDescriptor(_$key__mutateStoreDirectly___$ConnectFluxCounterProps);
+  static const PropDescriptor _$prop__actions___$ConnectFluxCounterProps =
+      PropDescriptor(_$key__actions___$ConnectFluxCounterProps);
   static const String _$key__currentCount___$ConnectFluxCounterProps =
       'ConnectFluxCounterProps.currentCount';
   static const String _$key__wrapperStyles___$ConnectFluxCounterProps =
@@ -109,6 +126,8 @@ abstract class _$ConnectFluxCounterPropsAccessorsMixin
       'ConnectFluxCounterProps.decrement';
   static const String _$key__mutateStoreDirectly___$ConnectFluxCounterProps =
       'ConnectFluxCounterProps.mutateStoreDirectly';
+  static const String _$key__actions___$ConnectFluxCounterProps =
+      'ConnectFluxCounterProps.actions';
 
   static const List<PropDescriptor> $props = [
     _$prop__currentCount___$ConnectFluxCounterProps,
@@ -116,7 +135,8 @@ abstract class _$ConnectFluxCounterPropsAccessorsMixin
     _$prop__mutatedList___$ConnectFluxCounterProps,
     _$prop__increment___$ConnectFluxCounterProps,
     _$prop__decrement___$ConnectFluxCounterProps,
-    _$prop__mutateStoreDirectly___$ConnectFluxCounterProps
+    _$prop__mutateStoreDirectly___$ConnectFluxCounterProps,
+    _$prop__actions___$ConnectFluxCounterProps
   ];
   static const List<String> $propKeys = [
     _$key__currentCount___$ConnectFluxCounterProps,
@@ -124,7 +144,8 @@ abstract class _$ConnectFluxCounterPropsAccessorsMixin
     _$key__mutatedList___$ConnectFluxCounterProps,
     _$key__increment___$ConnectFluxCounterProps,
     _$key__decrement___$ConnectFluxCounterProps,
-    _$key__mutateStoreDirectly___$ConnectFluxCounterProps
+    _$key__mutateStoreDirectly___$ConnectFluxCounterProps,
+    _$key__actions___$ConnectFluxCounterProps
   ];
 }
 
@@ -153,7 +174,7 @@ abstract class _$$ConnectFluxCounterProps extends _$ConnectFluxCounterProps
 
   factory _$$ConnectFluxCounterProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$ConnectFluxCounterProps$JsMap(backingMap);
+      return _$$ConnectFluxCounterProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$ConnectFluxCounterProps$PlainMap(backingMap);
     }
@@ -226,7 +247,8 @@ class _$ConnectFluxCounterComponent extends ConnectFluxCounterComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override

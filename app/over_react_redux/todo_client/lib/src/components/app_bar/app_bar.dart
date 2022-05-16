@@ -6,7 +6,7 @@ import 'package:todo_client/src/components/shared/material_ui.dart';
 part 'app_bar.over_react.g.dart';
 
 UiFactory<TodoAppBarProps> TodoAppBar =
-    _$TodoAppBar; // ignore: undefined_identifier
+    castUiFactory(_$TodoAppBar); // ignore: undefined_identifier
 
 mixin TodoAppBarProps on UiProps {}
 

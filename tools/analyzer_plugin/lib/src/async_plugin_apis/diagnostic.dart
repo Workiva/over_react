@@ -36,7 +36,6 @@ import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer_plugin/channel/channel.dart';
 import 'package:analyzer_plugin/plugin/plugin.dart';
 import 'package:analyzer_plugin/protocol/protocol.dart';
-import 'package:analyzer_plugin/protocol/protocol_common.dart' as plugin;
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:analyzer_plugin/protocol/protocol_generated.dart' as plugin;
 import 'package:analyzer_plugin/protocol/protocol_generated.dart';
@@ -60,17 +59,17 @@ mixin DiagnosticMixin on ServerPlugin {
   Future<List<AnalysisError>> getAllErrors(ResolvedUnitResult analysisResult) async {
     try {
       // If there is no relevant analysis result, notify the analyzer of no errors.
-      if (analysisResult.unit == null || analysisResult.libraryElement == null) {
-        channel.sendNotification(plugin.AnalysisErrorsParams(analysisResult.path, []).toNotification());
+      if (analysisResult.unit == null) {
+        channel.sendNotification(plugin.AnalysisErrorsParams(analysisResult.path!, []).toNotification());
         return [];
       }
 
       // If there is something to analyze, do so and notify the analyzer.
       // Note that notifying with an empty set of errors is important as
       // this clears errors if they were fixed.
-      final generator = _DiagnosticGenerator(getDiagnosticContributors(analysisResult.path));
+      final generator = _DiagnosticGenerator(getDiagnosticContributors(analysisResult.path!));
       final result = await generator.generateErrors(analysisResult);
-      channel.sendNotification(plugin.AnalysisErrorsParams(analysisResult.path, result.result).toNotification());
+      channel.sendNotification(plugin.AnalysisErrorsParams(analysisResult.path!, result.result).toNotification());
       result.sendNotifications(channel);
       return result.result;
     } catch (e, stackTrace) {
@@ -101,7 +100,7 @@ mixin DiagnosticMixin on ServerPlugin {
     final path = parameters.file;
     final offset = parameters.offset;
     final result = await getResolvedUnitResult(path);
-    return DartFixesRequestImpl(resourceProvider, offset, null, result);
+    return DartFixesRequestImpl(resourceProvider, offset, [], result);
   }
 
   // from DartFixesMixin
@@ -156,10 +155,13 @@ class _DiagnosticGenerator {
       // `<=` because we do want the end to be inclusive (you should get
       // the fix when your cursor is on the tail end of the error).
       if (request.offset >= errorStart && request.offset <= errorEnd) {
-        fixes.add(AnalysisErrorFixes(
-          error,
-          fixes: [collector.fixes[i]],
-        ));
+        final fix = collector.fixes[i];
+        if (fix != null) {
+          fixes.add(AnalysisErrorFixes(
+            error,
+            fixes: [fix],
+          ));
+        }
       }
     }
 
@@ -169,9 +171,20 @@ class _DiagnosticGenerator {
   Future<_GeneratorResult<List<AnalysisError>>> _generateErrors(
       ResolvedUnitResult unitResult, DiagnosticCollectorImpl collector) async {
     final notifications = <Notification>[];
+
+    // Reuse component usages so we don't have to recompute them for each ComponentUsageDiagnosticContributor.
+    List<FluentComponentUsage>? _usages;
+    // Lazily compute the usage so any errors get handled as part of each diagnostic's try/catch.
+    // TODO: collect data how long this takes.
+    List<FluentComponentUsage> getUsages() => _usages ??= getAllComponentUsages(unitResult.unit!);
+
     for (final contributor in contributors) {
       try {
-        await contributor.computeErrors(unitResult, collector);
+        if (contributor is ComponentUsageDiagnosticContributor) {
+          await contributor.computeErrorsForUsages(unitResult, collector, getUsages());
+        } else {
+          await contributor.computeErrors(unitResult, collector);
+        }
       } catch (exception, stackTrace) {
         notifications.add(PluginErrorParams(false, exception.toString(), stackTrace.toString()).toNotification());
       }
@@ -179,9 +192,8 @@ class _DiagnosticGenerator {
 
     // The analyzer normally filters out errors with "ignore" comments,
     // but it doesn't do it for plugin errors, so we need to do that here.
-    final lineInfo = unitResult.unit.lineInfo;
-    final filteredErrors =
-        filterIgnores(collector.errors, lineInfo, () => IgnoreInfo.calculateIgnores(unitResult.content, lineInfo));
+    final filteredErrors = filterIgnores(
+        collector.errors, unitResult.lineInfo, () => IgnoreInfo.forDart(unitResult.unit!, unitResult.content!));
 
     return _GeneratorResult(filteredErrors, notifications);
   }

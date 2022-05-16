@@ -18,7 +18,7 @@ import 'state_mixin.dart' as sm;
 
 part 'namespaced_imports.over_react.g.dart';
 
-UiFactory<BasicProps> Basic = _$Basic; // ignore: undefined_identifier
+UiFactory<BasicProps> Basic = castUiFactory(_$Basic); // ignore: undefined_identifier
 
 mixin BasicPropsMixin on UiProps, pm.ExamplePropsMixin {
   String basicProp;

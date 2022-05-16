@@ -2,7 +2,6 @@ import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/type.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/doc_utils/maturity.dart';
-import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 
 const _desc = r'Avoid omitting props that are required.';
 // <editor-fold desc="Documentation Details">
@@ -60,7 +59,7 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
 
   static final fixKind = FixKind(code.name, 200, 'Add required prop \'{0}\'');
 
-  ClassElement _cachedAccessorClass;
+  ClassElement? _cachedAccessorClass;
 
   @override
   computeErrorsForUsage(result, collector, usage) async {
@@ -71,11 +70,11 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
     var builderType = usage.builder.staticType;
     // Handle generic factories (todo might not be needed)
     while (builderType is TypeParameterType) {
-      builderType = (builderType as TypeParameterType).bound;
+      builderType = builderType.bound;
     }
 
     // todo check if factory invocation
-    if (builderType is InterfaceType && builderType.element?.name != 'UiProps') {
+    if (builderType is InterfaceType && builderType.element.name != 'UiProps') {
       final classAndSuperclasses = [builderType.element, ...builderType.element.allSupertypes.map((t) => t.element)];
       final allFields = classAndSuperclasses.expand((c) => c.fields);
       for (final field in allFields) {
@@ -91,20 +90,25 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
           if (annotation.isOverride) return false;
 
           final value = annotation.computeConstantValue();
-          final type = value?.type;
-          final typeLibrary = type?.element?.library;
-          if (typeLibrary?.name != 'over_react.component_declaration.annotations') {
+          if (value == null) return false;
+
+          final type = value.type;
+          if (type == null) return false;
+
+          final typeLibrary = type.element?.library;
+          if (typeLibrary == null || typeLibrary.name != 'over_react.component_declaration.annotations') {
             return false;
           }
 
-          _cachedAccessorClass ??= typeLibrary.getType('Accessor');
-          if (!result.typeSystem.isAssignableTo(type, _cachedAccessorClass.thisType)) {
+          // ignore: unnecessary_parenthesis
+          final accessorClass = (_cachedAccessorClass ??= typeLibrary.getType('Accessor')!);
+          if (!result.typeSystem.isAssignableTo(type, accessorClass.thisType)) {
             return false;
           }
 
           // This is null when isRequired does not have a valid value
           // (e.g., as the user is typing it in)
-          return value.getField('isRequired').toBoolValue() ?? false;
+          return value.getField('isRequired')!.toBoolValue() ?? false;
         })) {
           requiredFields.add(field);
         }

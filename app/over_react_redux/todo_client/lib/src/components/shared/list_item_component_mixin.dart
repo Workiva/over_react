@@ -20,8 +20,8 @@ mixin ListItemMixin<M extends BaseModel, T extends ListItemPropsMixin, S extends
     ..localModel = props.model
   );
 
-  Map<String, dynamic> get sharedExpansionPanelProps => {
-    'onChange': handleExpansionPanelExpandedStateChange,
+  Map<String, dynamic> get sharedAccordionProps => {
+    'onChange': handleAccordionExpandedStateChange,
     'expanded': props.isSelected,
     'style': highlightedItemStyle,
   };
@@ -36,7 +36,7 @@ mixin ListItemMixin<M extends BaseModel, T extends ListItemPropsMixin, S extends
   bool get allowExpansion => hasDetails || props.isEditable;
 
   @protected
-  void handleExpansionPanelExpandedStateChange([SyntheticEvent event]) {
+  void handleAccordionExpandedStateChange([SyntheticEvent event]) {
     if (!allowExpansion) return;
     event?.stopPropagation();
     toggleSelect();

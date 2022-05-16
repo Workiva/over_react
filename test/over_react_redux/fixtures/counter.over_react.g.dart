@@ -26,8 +26,8 @@ abstract class _$CounterPropsAccessorsMixin implements _$CounterProps {
   /// <!-- Generated from [_$CounterProps.currentCount] -->
   @override
   int get currentCount =>
-      props[_$key__currentCount___$CounterProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__currentCount___$CounterProps] ?? null) as int;
+
   /// <!-- Generated from [_$CounterProps.currentCount] -->
   @override
   set currentCount(int value) =>
@@ -36,8 +36,9 @@ abstract class _$CounterPropsAccessorsMixin implements _$CounterProps {
   /// <!-- Generated from [_$CounterProps.wrapperStyles] -->
   @override
   Map<String, dynamic> get wrapperStyles =>
-      props[_$key__wrapperStyles___$CounterProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__wrapperStyles___$CounterProps] ?? null)
+          as Map<String, dynamic>;
+
   /// <!-- Generated from [_$CounterProps.wrapperStyles] -->
   @override
   set wrapperStyles(Map<String, dynamic> value) =>
@@ -46,8 +47,8 @@ abstract class _$CounterPropsAccessorsMixin implements _$CounterProps {
   /// <!-- Generated from [_$CounterProps.increment] -->
   @override
   void Function() get increment =>
-      props[_$key__increment___$CounterProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__increment___$CounterProps] ?? null) as void Function();
+
   /// <!-- Generated from [_$CounterProps.increment] -->
   @override
   set increment(void Function() value) =>
@@ -56,8 +57,8 @@ abstract class _$CounterPropsAccessorsMixin implements _$CounterProps {
   /// <!-- Generated from [_$CounterProps.decrement] -->
   @override
   void Function() get decrement =>
-      props[_$key__decrement___$CounterProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__decrement___$CounterProps] ?? null) as void Function();
+
   /// <!-- Generated from [_$CounterProps.decrement] -->
   @override
   set decrement(void Function() value) =>
@@ -117,7 +118,7 @@ abstract class _$$CounterProps extends _$CounterProps
 
   factory _$$CounterProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$CounterProps$JsMap(backingMap);
+      return _$$CounterProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$CounterProps$PlainMap(backingMap);
     }
@@ -190,7 +191,8 @@ class _$CounterComponent extends CounterComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override

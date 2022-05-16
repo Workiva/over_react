@@ -15,8 +15,8 @@ mixin $AbstractTransitionState on AbstractTransitionState {
   static const StateMeta meta = _$metaForAbstractTransitionState;
   @override
   TransitionPhase get transitionPhase =>
-      state[_$key__transitionPhase__AbstractTransitionState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (state[_$key__transitionPhase__AbstractTransitionState] ?? null)
+          as TransitionPhase;
   @override
   set transitionPhase(TransitionPhase value) =>
       state[_$key__transitionPhase__AbstractTransitionState] = value;

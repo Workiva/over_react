@@ -59,4 +59,4 @@ mixin TransitionPropsMixin on UiProps {
   Callback onDidShow;
 }
 
-UiFactory<TransitionPropsMixin> TransitionPropsMapView = _$TransitionPropsMapView;
+UiFactory<TransitionPropsMixin> TransitionPropsMapView = castUiFactory(_$TransitionPropsMapView);

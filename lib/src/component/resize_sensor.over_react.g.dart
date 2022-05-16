@@ -33,13 +33,13 @@ _$$ResizeSensorProps _$ResizeSensor([Map backingProps]) => backingProps == null
 abstract class _$$ResizeSensorProps extends UiProps
     with
         ResizeSensorProps,
-        $ResizeSensorProps // If this generated mixin is undefined, it's likely because ResizeSensorProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ResizeSensorProps.
+        $ResizeSensorProps // If this generated mixin is undefined, it's likely because ResizeSensorProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ResizeSensorProps, and check that $ResizeSensorProps is exported/imported properly.
 {
   _$$ResizeSensorProps._();
 
   factory _$$ResizeSensorProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$ResizeSensorProps$JsMap(backingMap);
+      return _$$ResizeSensorProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$ResizeSensorProps$PlainMap(backingMap);
     }
@@ -57,6 +57,12 @@ abstract class _$$ResizeSensorProps extends UiProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => '';
+
+  @override
+  PropsMetaCollection get staticMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because ResizeSensorProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ResizeSensorProps, and check that $ResizeSensorProps is exported/imported properly.
+        ResizeSensorProps: $ResizeSensorProps.meta,
+      });
 }
 
 // Concrete props implementation that can be backed by any [Map].
@@ -118,7 +124,8 @@ class _$ResizeSensorComponent extends ResizeSensorComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -140,7 +147,7 @@ class _$ResizeSensorComponent extends ResizeSensorComponent {
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because ResizeSensorProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ResizeSensorProps.
+        // If this generated mixin is undefined, it's likely because ResizeSensorProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ResizeSensorProps, and check that $ResizeSensorProps is exported/imported properly.
         ResizeSensorProps: $ResizeSensorProps.meta,
       });
 }
@@ -153,57 +160,51 @@ mixin $ResizeSensorProps on ResizeSensorProps {
   static const PropsMeta meta = _$metaForResizeSensorProps;
   @override
   ResizeSensorHandler get onInitialize =>
-      props[_$key__onInitialize__ResizeSensorProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onInitialize__ResizeSensorProps] ?? null)
+          as ResizeSensorHandler;
   @override
   set onInitialize(ResizeSensorHandler value) =>
       props[_$key__onInitialize__ResizeSensorProps] = value;
   @override
   ResizeSensorHandler get onResize =>
-      props[_$key__onResize__ResizeSensorProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onResize__ResizeSensorProps] ?? null)
+          as ResizeSensorHandler;
   @override
   set onResize(ResizeSensorHandler value) =>
       props[_$key__onResize__ResizeSensorProps] = value;
   @override
   bool get isFlexChild =>
-      props[_$key__isFlexChild__ResizeSensorProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__isFlexChild__ResizeSensorProps] ?? null) as bool;
   @override
   set isFlexChild(bool value) =>
       props[_$key__isFlexChild__ResizeSensorProps] = value;
   @override
   bool get isFlexContainer =>
-      props[_$key__isFlexContainer__ResizeSensorProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__isFlexContainer__ResizeSensorProps] ?? null) as bool;
   @override
   set isFlexContainer(bool value) =>
       props[_$key__isFlexContainer__ResizeSensorProps] = value;
   @override
-  bool get shrink =>
-      props[_$key__shrink__ResizeSensorProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  bool get shrink => (props[_$key__shrink__ResizeSensorProps] ?? null) as bool;
   @override
   set shrink(bool value) => props[_$key__shrink__ResizeSensorProps] = value;
   @override
   bool get quickMount =>
-      props[_$key__quickMount__ResizeSensorProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__quickMount__ResizeSensorProps] ?? null) as bool;
   @override
   set quickMount(bool value) =>
       props[_$key__quickMount__ResizeSensorProps] = value;
   @override
   BoolCallback get onDetachedMountCheck =>
-      props[_$key__onDetachedMountCheck__ResizeSensorProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onDetachedMountCheck__ResizeSensorProps] ?? null)
+          as BoolCallback;
   @override
   set onDetachedMountCheck(BoolCallback value) =>
       props[_$key__onDetachedMountCheck__ResizeSensorProps] = value;
   @override
   @visibleForTesting
   Callback get onDidReset =>
-      props[_$key__onDidReset__ResizeSensorProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onDidReset__ResizeSensorProps] ?? null) as Callback;
   @override
   @visibleForTesting
   set onDidReset(Callback value) =>

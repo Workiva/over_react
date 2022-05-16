@@ -26,8 +26,8 @@ abstract class _$FooPropsAccessorsMixin implements _$FooProps {
   /// <!-- Generated from [_$FooProps._privateProp] -->
   @override
   String get _privateProp =>
-      props[_$key___privateProp___$FooProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key___privateProp___$FooProps] ?? null) as String;
+
   /// <!-- Generated from [_$FooProps._privateProp] -->
   @override
   set _privateProp(String value) =>
@@ -64,7 +64,7 @@ abstract class _$$FooProps extends _$FooProps
 
   factory _$$FooProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$FooProps$JsMap(backingMap);
+      return _$$FooProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$FooProps$PlainMap(backingMap);
     }
@@ -137,7 +137,8 @@ class _$FooComponent extends FooComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override

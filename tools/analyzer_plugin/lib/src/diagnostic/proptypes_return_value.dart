@@ -70,9 +70,9 @@ class PropTypesReturnValueDiagnostic extends DiagnosticContributor {
   @override
   computeErrors(result, collector) async {
     final visitor = PropTypesVisitor();
-    result.unit.accept(visitor);
+    result.unit!.accept(visitor);
     final throwExpressionsForPropKey = [
-      ...?visitor.mapVisitor?.values?.map((value) => allDescendantsOfType<ThrowExpression>(value))?.toList(),
+      ...visitor.mapVisitor.values.map((value) => allDescendantsOfType<ThrowExpression>(value)).toList(),
     ];
 
     for (final throwExpressions in throwExpressionsForPropKey) {
@@ -96,6 +96,6 @@ class PropTypeFunctionBlockVisitor extends RecursiveAstVisitor<void> {
 
   @override
   void visitExpressionStatement(ExpressionStatement node) {
-    throwExpressions.addAll(node.childEntities?.whereType<ThrowExpression>() ?? []);
+    throwExpressions.addAll(node.childEntities.whereType<ThrowExpression>());
   }
 }

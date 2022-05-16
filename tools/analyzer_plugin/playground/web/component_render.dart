@@ -2,7 +2,7 @@ import 'package:over_react/over_react.dart';
 
 part 'component_render.over_react.g.dart';
 
-UiFactory<BadRenderProps> BadRender = _$BadRender; // ignore: undefined_identifier
+UiFactory<BadRenderProps> BadRender = castUiFactory(_$BadRender); // ignore: undefined_identifier
 
 mixin BadRenderProps on UiProps {}
 

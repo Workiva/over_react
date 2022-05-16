@@ -15,8 +15,7 @@ mixin $ExamplePropsMixin on ExamplePropsMixin {
   static const PropsMeta meta = _$metaForExamplePropsMixin;
   @override
   String get propMixin1 =>
-      props[_$key__propMixin1__ExamplePropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__propMixin1__ExamplePropsMixin] ?? null) as String;
   @override
   set propMixin1(String value) =>
       props[_$key__propMixin1__ExamplePropsMixin] = value;
@@ -48,8 +47,8 @@ mixin $RequiresOtherMixinPropsMixin<T extends Iterable, U>
   static const PropsMeta meta = _$metaForRequiresOtherMixinPropsMixin;
   @override
   String get otherPropMixin =>
-      props[_$key__otherPropMixin__RequiresOtherMixinPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__otherPropMixin__RequiresOtherMixinPropsMixin] ?? null)
+          as String;
   @override
   set otherPropMixin(String value) =>
       props[_$key__otherPropMixin__RequiresOtherMixinPropsMixin] = value;

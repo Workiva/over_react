@@ -22,7 +22,7 @@ part 'big_block.over_react.g.dart';
 UiFactory<BigBlockProps> BigBlock = connect<RandomColorState, BigBlockProps>(
   mapStateToProps: (state) => (BigBlock()..backgroundColor = state.backgroundColor),
   mapDispatchToProps: (dispatch) => (BigBlock()..changeBackgroundColor = () => dispatch(UpdateBackgroundColorAction())),
-)(_$BigBlock); // ignore: undefined_identifier
+)(castUiFactory(_$BigBlock)); // ignore: undefined_identifier
 
 mixin BigBlockProps on UiProps {
   String backgroundColor;

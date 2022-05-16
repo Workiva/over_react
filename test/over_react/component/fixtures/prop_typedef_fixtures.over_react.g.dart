@@ -14,10 +14,10 @@ abstract class _$TestAbstractCustomRendererComponentPropsAccessorsMixin
 
   /// <!-- Generated from [_$TestAbstractCustomRendererComponentProps.customRenderer] -->
   @override
-  CustomRenderFunction get customRenderer =>
-      props[
+  CustomRenderFunction get customRenderer => (props[
           _$key__customRenderer___$TestAbstractCustomRendererComponentProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      null) as CustomRenderFunction;
+
   /// <!-- Generated from [_$TestAbstractCustomRendererComponentProps.customRenderer] -->
   @override
   set customRenderer(CustomRenderFunction value) =>
@@ -31,9 +31,13 @@ abstract class _$TestAbstractCustomRendererComponentPropsAccessorsMixin
           TestAbstractCustomRendererComponentState,
           TestAbstractCustomRendererComponentComponent>
       get parameterizedCustomRenderer =>
-          props[
-              _$key__parameterizedCustomRenderer___$TestAbstractCustomRendererComponentProps] ??
-          null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+          (props[_$key__parameterizedCustomRenderer___$TestAbstractCustomRendererComponentProps] ??
+                  null)
+              as CustomRenderFunction<
+                  TestAbstractCustomRendererComponentProps,
+                  TestAbstractCustomRendererComponentState,
+                  TestAbstractCustomRendererComponentComponent>;
+
   /// <!-- Generated from [_$TestAbstractCustomRendererComponentProps.parameterizedCustomRenderer] -->
   @override
   set parameterizedCustomRenderer(
@@ -48,8 +52,9 @@ abstract class _$TestAbstractCustomRendererComponentPropsAccessorsMixin
   /// <!-- Generated from [_$TestAbstractCustomRendererComponentProps.somePropKey] -->
   @override
   String get somePropKey =>
-      props[_$key__somePropKey___$TestAbstractCustomRendererComponentProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__somePropKey___$TestAbstractCustomRendererComponentProps] ??
+          null) as String;
+
   /// <!-- Generated from [_$TestAbstractCustomRendererComponentProps.somePropKey] -->
   @override
   set somePropKey(String value) =>
@@ -110,8 +115,9 @@ abstract class _$TestAbstractCustomRendererComponentStateAccessorsMixin
   /// <!-- Generated from [_$TestAbstractCustomRendererComponentState.someStateKey] -->
   @override
   String get someStateKey =>
-      state[_$key__someStateKey___$TestAbstractCustomRendererComponentState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (state[_$key__someStateKey___$TestAbstractCustomRendererComponentState] ??
+          null) as String;
+
   /// <!-- Generated from [_$TestAbstractCustomRendererComponentState.someStateKey] -->
   @override
   set someStateKey(String value) =>
@@ -166,10 +172,10 @@ abstract class _$TestConsumingAbstractCustomRendererComponentPropsAccessorsMixin
 
   /// <!-- Generated from [_$TestConsumingAbstractCustomRendererComponentProps.propKeyValueToTest] -->
   @override
-  String get propKeyValueToTest =>
-      props[
+  String get propKeyValueToTest => (props[
           _$key__propKeyValueToTest___$TestConsumingAbstractCustomRendererComponentProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      null) as String;
+
   /// <!-- Generated from [_$TestConsumingAbstractCustomRendererComponentProps.propKeyValueToTest] -->
   @override
   set propKeyValueToTest(String value) => props[
@@ -178,10 +184,10 @@ abstract class _$TestConsumingAbstractCustomRendererComponentPropsAccessorsMixin
 
   /// <!-- Generated from [_$TestConsumingAbstractCustomRendererComponentProps.stateKeyValueToTest] -->
   @override
-  String get stateKeyValueToTest =>
-      props[
+  String get stateKeyValueToTest => (props[
           _$key__stateKeyValueToTest___$TestConsumingAbstractCustomRendererComponentProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      null) as String;
+
   /// <!-- Generated from [_$TestConsumingAbstractCustomRendererComponentProps.stateKeyValueToTest] -->
   @override
   set stateKeyValueToTest(String value) => props[
@@ -248,7 +254,7 @@ abstract class _$$TestConsumingAbstractCustomRendererComponentProps
   factory _$$TestConsumingAbstractCustomRendererComponentProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
       return _$$TestConsumingAbstractCustomRendererComponentProps$JsMap(
-          backingMap);
+          backingMap as JsBackedMap);
     } else {
       return _$$TestConsumingAbstractCustomRendererComponentProps$PlainMap(
           backingMap);
@@ -329,7 +335,8 @@ class _$TestConsumingAbstractCustomRendererComponentComponent
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -375,10 +382,10 @@ abstract class _$TestConsumingCustomRendererComponentPropsAccessorsMixin
 
   /// <!-- Generated from [_$TestConsumingCustomRendererComponentProps.propKeyValueToTest] -->
   @override
-  String get propKeyValueToTest =>
-      props[
+  String get propKeyValueToTest => (props[
           _$key__propKeyValueToTest___$TestConsumingCustomRendererComponentProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      null) as String;
+
   /// <!-- Generated from [_$TestConsumingCustomRendererComponentProps.propKeyValueToTest] -->
   @override
   set propKeyValueToTest(String value) => props[
@@ -387,10 +394,10 @@ abstract class _$TestConsumingCustomRendererComponentPropsAccessorsMixin
 
   /// <!-- Generated from [_$TestConsumingCustomRendererComponentProps.stateKeyValueToTest] -->
   @override
-  String get stateKeyValueToTest =>
-      props[
+  String get stateKeyValueToTest => (props[
           _$key__stateKeyValueToTest___$TestConsumingCustomRendererComponentProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      null) as String;
+
   /// <!-- Generated from [_$TestConsumingCustomRendererComponentProps.stateKeyValueToTest] -->
   @override
   set stateKeyValueToTest(String value) => props[
@@ -451,7 +458,8 @@ abstract class _$$TestConsumingCustomRendererComponentProps
 
   factory _$$TestConsumingCustomRendererComponentProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestConsumingCustomRendererComponentProps$JsMap(backingMap);
+      return _$$TestConsumingCustomRendererComponentProps$JsMap(
+          backingMap as JsBackedMap);
     } else {
       return _$$TestConsumingCustomRendererComponentProps$PlainMap(backingMap);
     }
@@ -529,7 +537,8 @@ class _$TestConsumingCustomRendererComponentComponent
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -574,10 +583,10 @@ abstract class _$TestCustomRendererFromAbstractComponentPropsAccessorsMixin
 
   /// <!-- Generated from [_$TestCustomRendererFromAbstractComponentProps.someInitialStateKeyValue] -->
   @override
-  String get someInitialStateKeyValue =>
-      props[
+  String get someInitialStateKeyValue => (props[
           _$key__someInitialStateKeyValue___$TestCustomRendererFromAbstractComponentProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      null) as String;
+
   /// <!-- Generated from [_$TestCustomRendererFromAbstractComponentProps.someInitialStateKeyValue] -->
   @override
   set someInitialStateKeyValue(String value) => props[
@@ -631,7 +640,8 @@ abstract class _$$TestCustomRendererFromAbstractComponentProps
 
   factory _$$TestCustomRendererFromAbstractComponentProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestCustomRendererFromAbstractComponentProps$JsMap(backingMap);
+      return _$$TestCustomRendererFromAbstractComponentProps$JsMap(
+          backingMap as JsBackedMap);
     } else {
       return _$$TestCustomRendererFromAbstractComponentProps$PlainMap(
           backingMap);
@@ -724,7 +734,8 @@ abstract class _$$TestCustomRendererFromAbstractComponentState
 
   factory _$$TestCustomRendererFromAbstractComponentState(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestCustomRendererFromAbstractComponentState$JsMap(backingMap);
+      return _$$TestCustomRendererFromAbstractComponentState$JsMap(
+          backingMap as JsBackedMap);
     } else {
       return _$$TestCustomRendererFromAbstractComponentState$PlainMap(
           backingMap);
@@ -793,7 +804,8 @@ class _$TestCustomRendererFromAbstractComponentComponent
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -818,7 +830,7 @@ class _$TestCustomRendererFromAbstractComponentComponent
         'Component2.state should only be set via '
         'initialState or setState.');
     super.state = value;
-    _cachedTypedState = typedStateFactoryJs(value);
+    _cachedTypedState = typedStateFactoryJs(value as JsBackedMap);
   }
 
   @override
@@ -863,8 +875,9 @@ abstract class _$TestCustomRendererComponentPropsAccessorsMixin
   /// <!-- Generated from [_$TestCustomRendererComponentProps.customRenderer] -->
   @override
   CustomRenderFunction get customRenderer =>
-      props[_$key__customRenderer___$TestCustomRendererComponentProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__customRenderer___$TestCustomRendererComponentProps] ?? null)
+          as CustomRenderFunction;
+
   /// <!-- Generated from [_$TestCustomRendererComponentProps.customRenderer] -->
   @override
   set customRenderer(CustomRenderFunction value) =>
@@ -877,9 +890,13 @@ abstract class _$TestCustomRendererComponentPropsAccessorsMixin
           TestCustomRendererComponentState,
           TestCustomRendererComponentComponent>
       get parameterizedCustomRenderer =>
-          props[
-              _$key__parameterizedCustomRenderer___$TestCustomRendererComponentProps] ??
-          null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+          (props[_$key__parameterizedCustomRenderer___$TestCustomRendererComponentProps] ??
+                  null)
+              as CustomRenderFunction<
+                  TestCustomRendererComponentProps,
+                  TestCustomRendererComponentState,
+                  TestCustomRendererComponentComponent>;
+
   /// <!-- Generated from [_$TestCustomRendererComponentProps.parameterizedCustomRenderer] -->
   @override
   set parameterizedCustomRenderer(
@@ -894,8 +911,9 @@ abstract class _$TestCustomRendererComponentPropsAccessorsMixin
   /// <!-- Generated from [_$TestCustomRendererComponentProps.somePropKey] -->
   @override
   String get somePropKey =>
-      props[_$key__somePropKey___$TestCustomRendererComponentProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__somePropKey___$TestCustomRendererComponentProps] ?? null)
+          as String;
+
   /// <!-- Generated from [_$TestCustomRendererComponentProps.somePropKey] -->
   @override
   set somePropKey(String value) =>
@@ -903,10 +921,10 @@ abstract class _$TestCustomRendererComponentPropsAccessorsMixin
 
   /// <!-- Generated from [_$TestCustomRendererComponentProps.someInitialStateKeyValue] -->
   @override
-  String get someInitialStateKeyValue =>
-      props[
+  String get someInitialStateKeyValue => (props[
           _$key__someInitialStateKeyValue___$TestCustomRendererComponentProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      null) as String;
+
   /// <!-- Generated from [_$TestCustomRendererComponentProps.someInitialStateKeyValue] -->
   @override
   set someInitialStateKeyValue(String value) => props[
@@ -981,7 +999,8 @@ abstract class _$$TestCustomRendererComponentProps
 
   factory _$$TestCustomRendererComponentProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestCustomRendererComponentProps$JsMap(backingMap);
+      return _$$TestCustomRendererComponentProps$JsMap(
+          backingMap as JsBackedMap);
     } else {
       return _$$TestCustomRendererComponentProps$PlainMap(backingMap);
     }
@@ -1044,8 +1063,9 @@ abstract class _$TestCustomRendererComponentStateAccessorsMixin
   /// <!-- Generated from [_$TestCustomRendererComponentState.someStateKey] -->
   @override
   String get someStateKey =>
-      state[_$key__someStateKey___$TestCustomRendererComponentState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (state[_$key__someStateKey___$TestCustomRendererComponentState] ?? null)
+          as String;
+
   /// <!-- Generated from [_$TestCustomRendererComponentState.someStateKey] -->
   @override
   set someStateKey(String value) =>
@@ -1087,7 +1107,8 @@ abstract class _$$TestCustomRendererComponentState
 
   factory _$$TestCustomRendererComponentState(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestCustomRendererComponentState$JsMap(backingMap);
+      return _$$TestCustomRendererComponentState$JsMap(
+          backingMap as JsBackedMap);
     } else {
       return _$$TestCustomRendererComponentState$PlainMap(backingMap);
     }
@@ -1154,7 +1175,8 @@ class _$TestCustomRendererComponentComponent
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -1177,7 +1199,7 @@ class _$TestCustomRendererComponentComponent
         'Component2.state should only be set via '
         'initialState or setState.');
     super.state = value;
-    _cachedTypedState = typedStateFactoryJs(value);
+    _cachedTypedState = typedStateFactoryJs(value as JsBackedMap);
   }
 
   @override

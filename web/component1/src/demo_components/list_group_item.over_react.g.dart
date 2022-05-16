@@ -34,8 +34,9 @@ abstract class _$ListGroupItemPropsAccessorsMixin
   /// <!-- Generated from [_$ListGroupItemProps.elementType] -->
   @override
   ListGroupItemElementType get elementType =>
-      props[_$key__elementType___$ListGroupItemProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__elementType___$ListGroupItemProps] ?? null)
+          as ListGroupItemElementType;
+
   /// The HTML element type for the [ListGroupItem], specifying its DOM
   /// representation when rendered.
   ///
@@ -56,8 +57,8 @@ abstract class _$ListGroupItemPropsAccessorsMixin
   /// <!-- Generated from [_$ListGroupItemProps.header] -->
   @override
   dynamic get header =>
-      props[_$key__header___$ListGroupItemProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__header___$ListGroupItemProps] ?? null) as dynamic;
+
   /// Optional header text to display within the [ListGroupItem] above
   /// the value of [children].
   ///
@@ -75,8 +76,9 @@ abstract class _$ListGroupItemPropsAccessorsMixin
   /// <!-- Generated from [_$ListGroupItemProps.headerSize] -->
   @override
   ListGroupItemHeaderElementSize get headerSize =>
-      props[_$key__headerSize___$ListGroupItemProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__headerSize___$ListGroupItemProps] ?? null)
+          as ListGroupItemHeaderElementSize;
+
   /// The size of the [header] text you desire.
   ///
   /// Default: [ListGroupItemHeaderElementSize.H5]
@@ -91,8 +93,8 @@ abstract class _$ListGroupItemPropsAccessorsMixin
   /// <!-- Generated from [_$ListGroupItemProps.headerProps] -->
   @override
   Map get headerProps =>
-      props[_$key__headerProps___$ListGroupItemProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__headerProps___$ListGroupItemProps] ?? null) as Map;
+
   /// Additional props to be added to the [header] element _(if specified)_.
   ///
   /// <!-- Generated from [_$ListGroupItemProps.headerProps] -->
@@ -109,8 +111,8 @@ abstract class _$ListGroupItemPropsAccessorsMixin
   /// <!-- Generated from [_$ListGroupItemProps.skin] -->
   @override
   ListGroupItemSkin get skin =>
-      props[_$key__skin___$ListGroupItemProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__skin___$ListGroupItemProps] ?? null) as ListGroupItemSkin;
+
   /// The skin / "context" for the [ListGroupItem].
   ///
   /// See: <http://v4-alpha.getbootstrap.com/components/list-group/#contextual-classes>.
@@ -131,8 +133,8 @@ abstract class _$ListGroupItemPropsAccessorsMixin
   /// <!-- Generated from [_$ListGroupItemProps.isActive] -->
   @override
   bool get isActive =>
-      props[_$key__isActive___$ListGroupItemProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__isActive___$ListGroupItemProps] ?? null) as bool;
+
   /// Whether the [ListGroupItem] should appear "active".
   ///
   /// See: <http://v4-alpha.getbootstrap.com/components/list-group/#anchors-and-buttons>
@@ -154,8 +156,8 @@ abstract class _$ListGroupItemPropsAccessorsMixin
   @override
   @Accessor(key: 'disabled', keyNamespace: '')
   bool get isDisabled =>
-      props[_$key__isDisabled___$ListGroupItemProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__isDisabled___$ListGroupItemProps] ?? null) as bool;
+
   /// Whether the [ListGroupItem] is disabled.
   ///
   /// See: <http://v4-alpha.getbootstrap.com/components/list-group/#disabled-items>
@@ -172,19 +174,19 @@ abstract class _$ListGroupItemPropsAccessorsMixin
   ///
   /// If set, the item will render via [Dom.a].
   ///
-  /// _Proxies [DomProps.href]_
+  /// _Proxies [DomPropsMixin.href]_
   ///
   /// <!-- Generated from [_$ListGroupItemProps.href] -->
   @override
   @Accessor(keyNamespace: '')
   String get href =>
-      props[_$key__href___$ListGroupItemProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__href___$ListGroupItemProps] ?? null) as String;
+
   /// The HTML `href` attribute value for the [ListGroupItem].
   ///
   /// If set, the item will render via [Dom.a].
   ///
-  /// _Proxies [DomProps.href]_
+  /// _Proxies [DomPropsMixin.href]_
   ///
   /// <!-- Generated from [_$ListGroupItemProps.href] -->
   @override
@@ -195,19 +197,19 @@ abstract class _$ListGroupItemPropsAccessorsMixin
   ///
   /// If set, the item will render via [Dom.a].
   ///
-  /// _Proxies [DomProps.target]_
+  /// _Proxies [DomPropsMixin.target]_
   ///
   /// <!-- Generated from [_$ListGroupItemProps.target] -->
   @override
   @Accessor(keyNamespace: '')
   String get target =>
-      props[_$key__target___$ListGroupItemProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__target___$ListGroupItemProps] ?? null) as String;
+
   /// The HTML `target` attribute value for the [ListGroupItem].
   ///
   /// If set, the item will render via [Dom.a].
   ///
-  /// _Proxies [DomProps.target]_
+  /// _Proxies [DomPropsMixin.target]_
   ///
   /// <!-- Generated from [_$ListGroupItemProps.target] -->
   @override
@@ -220,21 +222,21 @@ abstract class _$ListGroupItemPropsAccessorsMixin
   ///
   /// This will only be applied if [onClick] is also set.
   ///
-  /// _Proxies [DomProps.type]_
+  /// _Proxies [DomPropsMixin.type]_
   ///
   /// Default: [ButtonType.BUTTON]
   ///
   /// <!-- Generated from [_$ListGroupItemProps.type] -->
   @override
   ButtonType get type =>
-      props[_$key__type___$ListGroupItemProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__type___$ListGroupItemProps] ?? null) as ButtonType;
+
   /// The HTML `type` attribute value for the [ListGroupItem] when
   /// rendered via [Dom.button].
   ///
   /// This will only be applied if [onClick] is also set.
   ///
-  /// _Proxies [DomProps.type]_
+  /// _Proxies [DomPropsMixin.type]_
   ///
   /// Default: [ButtonType.BUTTON]
   ///

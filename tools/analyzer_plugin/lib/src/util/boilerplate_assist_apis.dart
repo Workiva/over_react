@@ -1,16 +1,10 @@
 import 'package:analyzer/dart/ast/ast.dart';
+import 'package:collection/collection.dart' show IterableExtension;
 import 'package:over_react_analyzer_plugin/src/assist/contributor_base.dart';
+// This error is unavoidable until over_react's builder is null-safe. See this library's doc comment for more info.
+// ignore: import_of_legacy_library_into_null_safe
+import 'package:over_react_analyzer_plugin/src/over_react_builder_parsing.dart' as orbp;
 import 'package:source_span/source_span.dart';
-
-// ignore_for_file: implementation_imports
-import 'package:over_react/src/builder/parsing/declarations.dart';
-import 'package:over_react/src/builder/parsing/declarations_from_members.dart';
-import 'package:over_react/src/builder/parsing/error_collection.dart';
-import 'package:over_react/src/builder/parsing/member_association.dart';
-import 'package:over_react/src/builder/parsing/members.dart';
-import 'package:over_react/src/builder/parsing/members_from_ast.dart';
-import 'package:over_react/src/builder/parsing/util.dart';
-import 'package:over_react/src/builder/parsing/version.dart';
 
 /// A mixin that allows easy access to common APIs needed when writing assists
 /// that manipulate component boilerplate.
@@ -37,18 +31,18 @@ import 'package:over_react/src/builder/parsing/version.dart';
 /// 3. The assist declaration should call `initializeAssistApi` before any instance
 /// specific logic is implemented. See 'initializeAssistApi' below for an example.
 mixin ComponentDeclarationAssistApi on AssistContributorBase {
-  SourceFile componentSourceFile;
+  late SourceFile componentSourceFile;
 
   /// A context variable representing the component being targeted by the assist.
   ///
   /// After triggering the assist off of the component class name, the mixin initialization
   /// will detect the related boilerplate and set this as the entrypoint. This process
   /// will occur for the relevant component every time the assist is triggered.
-  ClassComponentDeclaration componentDeclaration;
+  orbp.ClassComponentDeclaration? componentDeclaration;
 
-  ErrorCollector errorCollector;
+  late orbp.ErrorCollector errorCollector;
 
-  bool _isAValidComponentDeclaration;
+  bool? _isAValidComponentDeclaration;
 
   /// Checks the context of the assist node and returns if it is an appropriate
   /// context to suggest a component level assist.
@@ -57,30 +51,31 @@ mixin ComponentDeclarationAssistApi on AssistContributorBase {
       throw StateError('API not initialized. Call `initializeAssistApi` before accessible API members.');
     }
 
-    return _isAValidComponentDeclaration;
+    return _isAValidComponentDeclaration!;
   }
 
-  String get normalizedComponentName => normalizeNameAndRemoveSuffix(componentDeclaration.component);
+  String get normalizedComponentName => orbp.normalizeNameAndRemoveSuffix(componentDeclaration!.component);
 
-  NamedType get componentSupertypeNode => componentDeclaration.component.nodeHelper.superclass;
+  // FIXME(nullsafety) update _validateAndDetectBoilerplate to check that this is non-null
+  NamedType get componentSupertypeNode => componentDeclaration!.component.nodeHelper.superclass!;
 
-  Union<BoilerplateProps, BoilerplatePropsMixin> get props => componentDeclaration.props;
+  orbp.Union<orbp.BoilerplateProps, orbp.BoilerplatePropsMixin> get props => componentDeclaration!.props;
 
-  Union<BoilerplateState, BoilerplateStateMixin> get state => componentDeclaration.state;
+  orbp.Union<orbp.BoilerplateState, orbp.BoilerplateStateMixin>? get state => componentDeclaration!.state;
 
   bool _validateAndDetectBoilerplate() {
     if (node is! SimpleIdentifier || node.parent is! ClassDeclaration) return false;
-    final parent = node.parent as ClassDeclaration;
+    final parent = node.parent as ClassDeclaration?;
 
-    final members = detectBoilerplateMembers(node.thisOrAncestorOfType<CompilationUnit>());
-    final declarations = getBoilerplateDeclarations(members, errorCollector).toList();
+    final members = orbp.detectBoilerplateMembers(node.thisOrAncestorOfType<CompilationUnit>()!);
+    final declarations = orbp.getBoilerplateDeclarations(members, errorCollector).toList();
 
-    componentDeclaration = declarations.whereType<ClassComponentDeclaration>().firstWhere((c) {
+    componentDeclaration = declarations.whereType<orbp.ClassComponentDeclaration>().firstWhereOrNull((c) {
       return c.component.node == parent;
-    }, orElse: () => null);
+    });
 
     _isAValidComponentDeclaration =
-        componentDeclaration != null && componentDeclaration.version == Version.v4_mixinBased;
+        componentDeclaration != null && componentDeclaration!.version == orbp.Version.v4_mixinBased;
     return isAValidComponentDeclaration;
   }
 
@@ -118,7 +113,7 @@ mixin ComponentDeclarationAssistApi on AssistContributorBase {
   ///     ```
   bool initializeAssistApi(String sourceFileContent) {
     componentSourceFile = SourceFile.fromString(sourceFileContent);
-    errorCollector = ErrorCollector.print(componentSourceFile);
+    errorCollector = orbp.ErrorCollector.print(componentSourceFile);
     return _validateAndDetectBoilerplate();
   }
 }

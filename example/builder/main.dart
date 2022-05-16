@@ -15,18 +15,30 @@
 import 'dart:html';
 
 import 'package:over_react/over_react.dart';
+import 'package:over_react/over_react_flux.dart';
 import 'package:react/react_dom.dart' as react_dom;
+import 'package:redux/redux.dart';
 
 import './src/abstract_inheritance.dart';
 import './src/basic.dart';
 import './src/basic_library.dart';
 import './src/generic_inheritance_sub.dart';
 import './src/generic_inheritance_super.dart';
+import './src/function_component.dart' as function;
+import 'src/functional_consumed_props.dart';
+import 'src/new_class_consumed_props.dart';
+
+class ExampleState {
+  final String testValue;
+
+  ExampleState(this.testValue);
+}
+
+Store store = Store<ExampleState>((_, __) => ExampleState('foo'), initialState: ExampleState('foo'));
 
 main() {
-  setClientConfiguration();
-
   react_dom.render(
+      (ReduxProvider()..store = store)(
       Dom.div()(
         Dom.h3()('Components'),
         (Basic()
@@ -52,12 +64,23 @@ main() {
           ..subProp = 'sub prop part of lib'
           ..superProp = 'super prop part of lib'
         )(),
+        Dom.h3()('Function component:'),
+        function.functionComponentContent(),
         Dom.h3()('getDefaultProps via component factories'),
         componentConstructorsByName.keys.map((name) => Dom.div()(
           'new $name()',
           ' - ',
           componentConstructorsByName[name]().toString(),
         )).toList(),
+        (SomeParent()
+          ..aParentProp = 'parent'
+          ..aPropToBePassed = 'passed'
+        )(),
+        (SomeClassParent()
+          ..aParentProp = 'classParent'
+          ..aPropToBePassed = 'passed'
+        )(),
+      )
       ), querySelector('#content')
   );
 }

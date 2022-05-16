@@ -4,37 +4,50 @@ publish_to: none
 description: Dart analyzer plugin for OverReact
 repository: https://github.com/Workiva/over_react/tree/master/tools/analyzer_plugin
 environment:
-  sdk: '>=2.7.0 <3.0.0'
+  sdk: '>=2.12.0 <3.0.0'
 dependencies:
-  analyzer: '^0.39.10'
-  analyzer_plugin: '^0.2.4'
-  collection: ^1.14.0
+  analyzer: ^1.7.2
+  analyzer_plugin: ^0.6.0
+  collection: ^1.15.0-nullsafety.4
+  meta: ^1.1.6
   # Upon release, this should be pinned to the over_react version from ../../pubspec.yaml
   # so that it always resolves to the same version of over_react that the user has pulled in,
   # and thus has the same boilerplate parsing code that's running in the builder.
-  over_react: 3.6.0
-  meta: ^1.1.6
+  over_react: 4.3.1
   path: ^1.5.1
   source_span: ^1.7.0
 dev_dependencies:
-  args: ^1.6.0
-  build_runner: ^1.0.0
-  build_test: ^1.0.0
-  build_vm_compilers: ^1.0.0
-  convert: ^2.1.1
-  crypto: ^2.1.5
+  args: ^2.0.0
+  build_runner: ^2.0.0
+  build_test: ^2.0.0
+  convert: ^3.0.0
+  crypto: ^3.0.0
   dart_dev: ^3.0.0
-  dependency_validator: ^1.4.0
-  glob: ^1.2.0
-  io: ^0.3.2+1
-  logging: ^0.11.3+2
-  markdown: ^2.1.5
+  dependency_validator: ^3.0.0
+  glob: ^2.0.0
+  io: ^1.0.0
+  logging: ^1.0.1
+  markdown: ^4.0.0
   mockito: ^4.1.1
-  package_config: ^1.9.3
+  package_config: ^2.0.0
   test: ^1.14.0
-  test_reflective_loader: ^0.1.9
+  test_reflective_loader: ^0.2.0
   workiva_analysis_options: ^1.1.0
-  yaml: ^2.2.1
+  yaml: ^3.0.0
+
+dependency_validator:
+  ignore:
+    - meta
+    - over_react
+
+dependency_overrides:
+  # Necessary to be able to run dart_dev without errors
+  dart_dev:
+    git:
+      url: git@github.com:Workiva/dart_dev.git
+      ref: fix-running-in-null-safe-package
+  # Necessary due to conflict between over_react and over_react_analyzer plugin
+  meta: ^1.7.0
 
 # If you're developing on changes in over_react that the analyzer plugin needs to consume,
 # point to the local copy of over_react. This must be an absolute path.

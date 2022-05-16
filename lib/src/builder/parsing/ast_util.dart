@@ -16,6 +16,7 @@ import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/syntactic_entity.dart';
 import 'package:analyzer/dart/ast/token.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
+import 'package:over_react/src/builder/codegen/names.dart';
 import 'package:source_span/source_span.dart';
 import 'package:transformer_utils/transformer_utils.dart';
 
@@ -41,6 +42,18 @@ extension InitializerHelperTopLevel on TopLevelVariableDeclaration {
 
   /// The first variable in this list.
   VariableDeclaration get firstVariable => variables.firstVariable;
+
+  /// Returns whether or not there is a generated config being used.
+  bool get usesAGeneratedConfig {
+    final generatedPrivateConfigName = FactoryNames(firstVariable.name.name).privateConfigName;
+    // ignore: deprecated_member_use_from_same_package
+    final generatedPublicConfigName = FactoryNames(firstVariable.name.name).publicConfigName;
+    return firstInitializer != null &&
+        anyDescendantIdentifiers(firstInitializer, (identifier) {
+          return identifier.nameWithoutPrefix == generatedPrivateConfigName ||
+              identifier.nameWithoutPrefix == generatedPublicConfigName;
+        });
+  }
 }
 
 /// Extension built on both [TypeNameHelper] and [NameHelper] to allow
@@ -65,6 +78,8 @@ extension NameHelper on Identifier {
     final self = this;
     return self is PrefixedIdentifier ? self.identifier.name : self.name;
   }
+
+  bool get isFunctionType => ['uiFunction', 'uiForwardRef', 'uiJsComponent'].contains(this.name);
 }
 
 /// Utilities related to detecting a super class on a [MixinDeclaration]
@@ -145,8 +160,9 @@ extension SourceFileSpanHelper on SourceFile {
   /// Returns a span for the given [AstNode] or [Token].
   ///
   /// If it's an [AstNode], the span starts after the doc comment and metadata (see [getSpanForNode]).
-  FileSpan spanFor(SyntacticEntity nodeOrToken) =>
-      nodeOrToken is AstNode ? getSpanForNode(this, nodeOrToken) : _getSpanForEntity(nodeOrToken);
+  FileSpan spanFor(SyntacticEntity nodeOrToken) => nodeOrToken is AstNode
+      ? getSpanForNode(this, nodeOrToken) as FileSpan
+      : _getSpanForEntity(nodeOrToken);
 
   FileSpan _getSpanForEntity(SyntacticEntity node) => span(node.offset, node.end);
 }
@@ -173,10 +189,18 @@ bool anyDescendantIdentifiers(Expression expression, bool Function(Identifier) t
   return visitor.hasMatch;
 }
 
+/// Returns the [Identifier] within [expression] matches the predicate [test].
+SimpleIdentifier getDescendantIdentifier(Expression expression, bool Function(Identifier) test) {
+  final visitor = _AnyDescendantIdentifiersVisitor(test);
+  expression.accept(visitor);
+  return visitor.match;
+}
+
 class _AnyDescendantIdentifiersVisitor extends UnifyingAstVisitor<void> {
   final bool Function(Identifier) _test;
 
   bool hasMatch = false;
+  SimpleIdentifier match;
 
   _AnyDescendantIdentifiersVisitor(this._test);
 
@@ -192,6 +216,7 @@ class _AnyDescendantIdentifiersVisitor extends UnifyingAstVisitor<void> {
   void visitSimpleIdentifier(SimpleIdentifier identifier) {
     if (_test(identifier)) {
       hasMatch = true;
+      match = identifier;
     }
 
     super.visitSimpleIdentifier(identifier);

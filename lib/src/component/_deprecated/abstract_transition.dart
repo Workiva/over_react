@@ -159,7 +159,7 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps,
 
   /// Begin showing the [AbstractTransitionComponent], unless:
   ///   * The [AbstractTransitionComponent] is already shown or is in the process of showing.
-  ///   * The [AbstractTransitionProps.onWillShow] callback returns `false`.
+  ///   * The [TransitionPropsMixin.onWillShow] callback returns `false`.
   void _handleShow() {
     if (isOrWillBeShown) {
       return;
@@ -179,7 +179,7 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps,
 
   /// Begin hiding the [AbstractTransitionComponent], unless:
   ///   * The [AbstractTransitionComponent] is already hidden or is in the process of being hidden.
-  ///   * The [AbstractTransitionProps.onWillHide] callback returns `false`.
+  ///   * The [TransitionPropsMixin.onWillHide] callback returns `false`.
   void _handleHide() {
     if (isOrWillBeHidden) {
       return;
@@ -426,7 +426,7 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps,
     _handleHide();
   }
 
-  /// Toggles the visibility of the [AbstractTransitionComponent] based on the value of [AbstractTransitionState.transitionPhase].
+  /// Toggles the visibility of the [AbstractTransitionComponent] based on the value of `AbstractTransitionState.transitionPhase`.
   void toggle() {
     if (isOrWillBeShown) {
       /// If the [AbstractTransitionComponent] is shown or in the process of showing, hide it.

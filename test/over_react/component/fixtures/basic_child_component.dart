@@ -17,7 +17,7 @@ import 'package:over_react/over_react.dart';
 part 'basic_child_component.over_react.g.dart';
 
 @Factory()
-UiFactory<BasicChildProps> BasicChild = _$BasicChild;
+UiFactory<BasicChildProps> BasicChild = _$BasicChild; // ignore: undefined_identifier, invalid_assignment
 
 @Props()
 class _$BasicChildProps extends UiProps {}

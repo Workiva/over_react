@@ -139,7 +139,7 @@ class OverReactBuilder extends Builder {
 
     // Generate over_react code for each part file of the input library.
     for (final part in parts) {
-      final partId = AssetId.resolve(
+      final partId = resolveAssetId(
         part.uri.stringValue,
         from: buildStep.inputId);
       if (!await buildStep.canRead(partId)) {
@@ -159,7 +159,10 @@ class OverReactBuilder extends Builder {
         log.severe('Missing "part \'$expectedPart\';".');
       }
 
-      await _writePart(buildStep, outputId, outputs);
+      // Generated part files must have matching language version comments, so copy them over if they exist.
+      // TODO use CompilationUnit.languageVersionToken instead of parsing this manually once we're sure we can get on analyzer version 0.39.5 or greater
+      final languageVersionCommentMatch = RegExp(r'//\s*@dart\s*=\s*.+').firstMatch(source);
+      await _writePart(buildStep, outputId, outputs, languageVersionComment: languageVersionCommentMatch?.group(0));
     } else {
       if (hasOutputPartDirective()) {
         log.warning('An over_react part directive was found in ${buildStep.inputId.path}, '
@@ -186,10 +189,14 @@ class OverReactBuilder extends Builder {
     return null;
   }
 
-  static FutureOr<void> _writePart(BuildStep buildStep, AssetId outputId, Iterable<String> outputs) async {
+  static FutureOr<void> _writePart(BuildStep buildStep, AssetId outputId, Iterable<String> outputs, {String languageVersionComment}) async {
     final partOf = "'${p.basename(buildStep.inputId.uri.toString())}'";
 
-    final buffer = StringBuffer()
+    final buffer = StringBuffer();
+    if (languageVersionComment != null) {
+      buffer.writeln(languageVersionComment);
+    }
+    buffer
       ..writeln('// GENERATED CODE - DO NOT MODIFY BY HAND')
       ..writeln()
       ..writeln('// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators')
@@ -213,5 +220,26 @@ class OverReactBuilder extends Builder {
       log.severe('Error formatting generated code', e, st);
     }
     await buildStep.writeAsString(outputId, output);
+  }
+}
+
+/// A compatibility layer for [AssetId.resolve],
+/// which in build <2.0.0 accepts a String for the first argument and
+/// and in build >=2.0.0 accepts a Uri for the first argument.
+///
+/// This function allows us to support build 1.x and 2.x
+///
+// TODO remove once we're off of build 1.x
+AssetId resolveAssetId(String uri, {AssetId from}) {
+  try {
+    // `as dynamic` is necessary to prevent compile errors.
+    // This ignore is to prevent analysis implicit cast errors.
+    // ignore: argument_type_not_assignable
+    return AssetId.resolve(uri as dynamic, from: from);
+  } catch (_) {
+    // `as dynamic` is necessary to prevent compile errors.
+    // This ignore is to prevent analysis implicit cast errors.
+    // ignore: argument_type_not_assignable
+    return AssetId.resolve(Uri.parse(uri) as dynamic, from: from);
   }
 }

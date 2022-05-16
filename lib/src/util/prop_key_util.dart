@@ -24,7 +24,7 @@ import 'dart:collection';
 String getPropKey<T extends Map>(void Function(T keySpy) accessProp, T Function(Map props) factory) {
   return _getKey((keySpy) {
     return accessProp(factory(keySpy));
-  });
+  }) as String;
 }
 
 dynamic _getKey(void Function(Map keySpy) accessKey) {

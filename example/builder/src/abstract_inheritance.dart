@@ -38,7 +38,7 @@ abstract class SuperComponent<T extends SuperPropsMixin, V extends SuperStateMix
 
 //---------------------------- Sub Component ----------------------------
 
-UiFactory<SubProps> Sub = _$Sub; // ignore: undefined_identifier
+UiFactory<SubProps> Sub = castUiFactory(_$Sub); // ignore: undefined_identifier
 
 mixin SubPropsMixin on UiProps {
   String subProp;

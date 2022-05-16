@@ -27,8 +27,8 @@ abstract class _$TypedFactoryTesterPropsAccessorsMixin
   /// <!-- Generated from [_$TypedFactoryTesterProps.testProp] -->
   @override
   bool get testProp =>
-      props[_$key__testProp___$TypedFactoryTesterProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__testProp___$TypedFactoryTesterProps] ?? null) as bool;
+
   /// <!-- Generated from [_$TypedFactoryTesterProps.testProp] -->
   @override
   set testProp(bool value) =>
@@ -72,7 +72,7 @@ abstract class _$$TypedFactoryTesterProps extends _$TypedFactoryTesterProps
 
   factory _$$TypedFactoryTesterProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TypedFactoryTesterProps$JsMap(backingMap);
+      return _$$TypedFactoryTesterProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$TypedFactoryTesterProps$PlainMap(backingMap);
     }
@@ -133,8 +133,8 @@ abstract class _$TypedFactoryTesterStateAccessorsMixin
   /// <!-- Generated from [_$TypedFactoryTesterState.testState] -->
   @override
   bool get testState =>
-      state[_$key__testState___$TypedFactoryTesterState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (state[_$key__testState___$TypedFactoryTesterState] ?? null) as bool;
+
   /// <!-- Generated from [_$TypedFactoryTesterState.testState] -->
   @override
   set testState(bool value) =>
@@ -173,7 +173,7 @@ abstract class _$$TypedFactoryTesterState extends _$TypedFactoryTesterState
 
   factory _$$TypedFactoryTesterState(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TypedFactoryTesterState$JsMap(backingMap);
+      return _$$TypedFactoryTesterState$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$TypedFactoryTesterState$PlainMap(backingMap);
     }
@@ -237,7 +237,8 @@ class _$TypedFactoryTesterComponent extends TypedFactoryTesterComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -260,7 +261,7 @@ class _$TypedFactoryTesterComponent extends TypedFactoryTesterComponent {
         'Component2.state should only be set via '
         'initialState or setState.');
     super.state = value;
-    _cachedTypedState = typedStateFactoryJs(value);
+    _cachedTypedState = typedStateFactoryJs(value as JsBackedMap);
   }
 
   @override

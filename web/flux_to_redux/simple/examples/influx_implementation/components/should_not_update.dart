@@ -22,7 +22,7 @@ part 'should_not_update.over_react.g.dart';
 UiFactory<ShouldNotUpdateProps> ShouldNotUpdate = connect<FluxStore, ShouldNotUpdateProps>(
   mapStateToProps: (_) => {},
   pure: false,
-)(_$ShouldNotUpdate); // ignore: undefined_identifier
+)(castUiFactory(_$ShouldNotUpdate)); // ignore: undefined_identifier
 
 mixin ShouldNotUpdateProps on UiProps {
   String text;

@@ -115,7 +115,7 @@ class BoilerplateComponent extends BoilerplateMember {
       // This is a warning since emitting an error would break existing code that's doing this.
       errorCollector.addWarning(
           'Components should not add their own implementations of ${member.name.name}.',
-          errorCollector.spanFor(member));
+          errorCollector.spanFor(member.name));
     });
 
     // Ensure that Component2 declarations do not use legacy lifecycle methods.
@@ -136,7 +136,7 @@ class BoilerplateComponent extends BoilerplateMember {
                $helpMessage
                
                See https://reactjs.org/docs/react-component.html#legacy-lifecycle-methods for additional information.   
-               '''), errorCollector.spanFor(method));
+               '''), errorCollector.spanFor(method.name));
         }
       });
     }

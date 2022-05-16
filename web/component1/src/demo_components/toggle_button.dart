@@ -25,6 +25,7 @@ part 'toggle_button.over_react.g.dart';
 ///
 /// See: <http://v4-alpha.getbootstrap.com/components/buttons/#checkbox-and-radio-buttons>
 @Factory()
+// ignore: undefined_identifier, invalid_assignment
 UiFactory<ToggleButtonProps> ToggleButton = _$ToggleButton;
 
 @Props()
@@ -32,7 +33,7 @@ class _$ToggleButtonProps extends ButtonProps with
     AbstractInputPropsMixin {
   /// Whether the `<input>` rendered by the [ToggleButton] should have focus upon mounting.
   ///
-  /// _Proxies [DomProps.autoFocus]._
+  /// _Proxies [DomPropsMixin.autoFocus]._
   ///
   /// Default: `false`
   @Accessor(keyNamespace: '')
@@ -47,7 +48,7 @@ class _$ToggleButtonProps extends ButtonProps with
   ///
   /// Related: [checked]
   ///
-  /// _Proxies [DomProps.defaultChecked]._
+  /// _Proxies [DomPropsMixin.defaultChecked]._
   ///
   /// See: <https://facebook.github.io/react/docs/forms.html#uncontrolled-components>.
   @Accessor(keyNamespace: '')
@@ -61,7 +62,7 @@ class _$ToggleButtonProps extends ButtonProps with
   ///
   /// Related: [defaultChecked]
   ///
-  /// _Proxies [DomProps.checked]._
+  /// _Proxies [DomPropsMixin.checked]._
   ///
   /// See: <https://facebook.github.io/react/docs/forms.html#controlled-components>.
   @Accessor(keyNamespace: '')
@@ -74,12 +75,12 @@ class _$ToggleButtonState extends ButtonState with
   /// Tracks if the [ToggleButton] is focused. Determines whether to render with the `js-focus` CSS
   /// class.
   ///
-  /// Initial: [ToggleButtonProps.autoFocus]
+  /// Initial: `ToggleButtonProps.autoFocus`
   bool isFocused;
 
   /// Tracks if the [ToggleButton] input is `checked`. Determines whether to render with the `active` CSS class.
   ///
-  /// Initial: [ToggleButtonProps.checked] `??` [ToggleButtonProps.defaultChecked] `?? false`
+  /// Initial: `ToggleButtonProps.checked ?? ToggleButtonProps.defaultChecked ?? false`
   bool isChecked;
 }
 
@@ -88,7 +89,7 @@ class ToggleButtonComponent extends ButtonComponent<ToggleButtonProps, ToggleBut
   // Refs
 
   /// A reference to the [Dom.input] rendered via [renderInput] within the [ToggleButton].
-  InputElement inputRef;
+  final inputRef = createRef<InputElement>();
 
   @override
   Map getDefaultProps() => (newProps()
@@ -150,7 +151,7 @@ class ToggleButtonComponent extends ButtonComponent<ToggleButtonProps, ToggleBut
       ..onChange = props.onChange
       ..onClick = props.onClick
       ..style = makeInputNodeInvisible
-      ..ref = (ref) { inputRef = ref; }
+      ..ref = inputRef
       ..key = 'input';
 
     // ********************************************************
@@ -195,13 +196,13 @@ class ToggleButtonComponent extends ButtonComponent<ToggleButtonProps, ToggleBut
     'pointerEvents': 'none'
   };
 
-  /// Checks the `<input>` element to ensure that [ToggleButtonState.isChecked]
+  /// Checks the `<input>` element to ensure that `ToggleButtonState.isChecked`
   /// matches the value of the [InputElement.checked] attribute.
   ///
-  /// Does not refresh the state if [ToggleButtonProps.checked] is not null
+  /// Does not refresh the state if `ToggleButtonProps.checked` is not null
   /// (the component is a "controlled" component).
   void refreshState() {
-    if (!_isControlled) setState(newState()..isChecked = inputRef.checked);
+    if (!_isControlled) setState(newState()..isChecked = inputRef.current.checked);
   }
 
   void _validateProps(ToggleButtonProps props) {

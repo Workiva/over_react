@@ -39,6 +39,7 @@ void main(){
 
 
 @Factory()
+// ignore: undefined_identifier, invalid_assignment
 UiFactory<TypedFactoryTesterProps> TypedFactoryTester = _$TypedFactoryTester;
 
 @Props()
