@@ -116,7 +116,7 @@ class BadKeyDiagnosticTest_ToString extends BadKeyDiagnosticTest {
   @override
   get errorUnderTest => BadKeyDiagnostic.toStringCode;
 
-  Future<void> test_rawObjecct() async {
+  Future<void> test_rawObject() async {
     final source = newSourceWithPrefix(/*language=dart*/ r'''
         test() => (Dom.div()..key = modelVar)();
     ''');
