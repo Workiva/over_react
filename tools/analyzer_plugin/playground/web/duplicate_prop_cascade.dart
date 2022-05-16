@@ -3,7 +3,7 @@ import 'package:over_react/over_react.dart';
 part 'duplicate_prop_cascade.over_react.g.dart';
 
 duplicatePropCascade() {
-  (Compound()
+  (Custom()
     ..size = 2
     ..dom.size = 2 // Should not lint as dupe
     ..dom.hidden = false
@@ -45,16 +45,14 @@ duplicatePropCascadeWithMoreThanOneDupe() {
   )('foo');
 }
 
-UiFactory<CompoundProps> Compound =
-    // ignore: undefined_identifier
-    _$Compound;
-
-mixin CompoundProps on UiProps {
+mixin CustomProps on UiProps {
   int size;
   bool hidden;
 }
 
-class CompoundComponent extends UiComponent2<CompoundProps> {
-  @override
-  render() {}
-}
+final Custom = uiFunction<CustomProps>(
+  (props) {
+    return null;
+  },
+  _$CustomConfig, // ignore: undefined_identifier
+);
