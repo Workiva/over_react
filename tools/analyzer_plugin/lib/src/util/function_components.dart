@@ -12,7 +12,7 @@ class FunctionComponent {
   FunctionComponent(this.body);
 
   @override
-  bool operator==(other) => other is FunctionComponent && other.body == body;
+  bool operator ==(other) => other is FunctionComponent && other.body == body;
 
   @override
   int get hashCode => body.hashCode;
@@ -46,7 +46,6 @@ class FunctionComponent {
   ///
   /// See [factoryVariable] for more info on when this may be null.
   SimpleIdentifier? get factoryName => factoryVariable?.name;
-
 }
 
 FunctionComponent? getClosestFunctionComponent(AstNode node) {
