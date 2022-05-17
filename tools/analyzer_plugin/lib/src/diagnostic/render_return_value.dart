@@ -5,6 +5,7 @@ import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/invalid_child.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/constants.dart';
+import 'package:over_react_analyzer_plugin/src/util/function_components.dart';
 import 'package:over_react_analyzer_plugin/src/util/react_types.dart';
 import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
 
@@ -115,9 +116,16 @@ class RenderReturnValueDiagnostic extends DiagnosticContributor {
   @override
   computeErrors(result, collector) async {
     // This is the return type even if it's not explicitly declared.
-    final visitor = RenderVisitor();
-    result.unit!.accept(visitor);
-    for (final returnExpression in visitor.renderReturnExpressions) {
+    final classComponentVisitor = ClassComponentRenderVisitor();
+    result.unit!.accept(classComponentVisitor);
+    final fnComponents = getAllFunctionComponents(result.unit!);
+
+    final allReturnExpressions = <Expression>[
+      ...classComponentVisitor.renderReturnExpressions,
+      ...fnComponents.map((component) => component.body.returnExpressions).expand((i) => i),
+    ];
+
+    for (final returnExpression in allReturnExpressions) {
       final returnType = returnExpression.staticType;
       if (returnType == null || returnType.isDynamic || returnType.isDartCoreObject || returnType.isVoid) {
         continue;
@@ -154,9 +162,11 @@ class RenderReturnValueDiagnostic extends DiagnosticContributor {
       }
     }
   }
+
+  Future<void> computeErrorsForClassComponent(Expression returnExpression) async {}
 }
 
-class RenderVisitor extends SimpleAstVisitor<void> {
+class ClassComponentRenderVisitor extends SimpleAstVisitor<void> {
   final renderReturnExpressions = <Expression>[];
 
   @override
