@@ -37,8 +37,10 @@ dev_dependencies:
 
 dependency_validator:
   ignore:
-    - meta
+    # Ignore the over_react pin
     - over_react
+  exclude:
+    - playground/**
 
 dependency_overrides:
   # Necessary to be able to run dart_dev without errors
