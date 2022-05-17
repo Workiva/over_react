@@ -52,7 +52,8 @@ dependency_overrides:
   meta: ^1.7.0
 
 workiva:
-  disable_core_checks: true
+  core_checks:
+    react_boilerplate: disabled
 
 # If you're developing on changes in over_react that the analyzer plugin needs to consume,
 # point to the local copy of over_react. This must be an absolute path.
