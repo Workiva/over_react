@@ -10,34 +10,49 @@ import 'package:over_react_analyzer_plugin/src/util/util.dart';
 
 const _desc = r'Use of non defaulted props in function components';
 // <editor-fold desc="Documentation Details">
-// todo update this documentation
 const _details = r'''
 
-This diagnostic detects syntax errors related to the parentheses around over_react builder cascades.
+This diagnostic detects when a prop that has a default value in a function component is used directly instead of its defaulted equivalent.
 
-**Well-formed:**
+**BAD:** `props.content` is used instead of `content` which defaults the prop.
 ```
-@override
-render() {
-  return (Dom.div()
-    ..id = 'foo'
-    ..className = 'foo--variant'
-  )(
-    'Hi there',
-  );
+import 'package:over_react/over_react.dart';
+
+part 'foo.over_react.g.dart';
+
+UiFactory<FooProps> Foo = uiFunction(
+  (props) {
+    // Default props
+    final content = props.content ?? 'abc';
+
+    return Dom.div()(props.content);
+  },
+  _$FooConfig, // ignore: undefined_identifier
+);
+
+mixin FooProps on UiProps {
+  String content;
 }
 ```
 
-**Syntax errors due to missing parentheses:**
+**GOOD:**
 ```
-@override
-render() {
-  return Dom.div()
-    ..id = 'foo'
-    ..className = 'foo--variant'
-  (
-    'Hi there',
-  );
+import 'package:over_react/over_react.dart';
+
+part 'foo.over_react.g.dart';
+
+UiFactory<FooProps> Foo = uiFunction(
+  (props) {
+    // Default props
+    final content = props.content ?? 'abc';
+
+    return Dom.div()(content);
+  },
+  _$FooConfig, // ignore: undefined_identifier
+);
+
+mixin FooProps on UiProps {
+  String content;
 }
 ```
 
@@ -67,8 +82,6 @@ class NonDefaultedPropDiagnostic extends DiagnosticContributor {
             ?.where((access) => !variable.containsEntity(access))
             .forEach((access) => notUsingDefaults.add(Tuple2(access, variable)));
       });
-      // final debug = AnalyzerDebugHelper(result, collector);
-      // debug.log('defaultedPropVariablesByPropName: ${visitor.defaultedPropVariablesByPropName}, propAccessesByName: ${visitor.propAccessesByName}');
     }));
 
     for (final tuple in notUsingDefaults) {

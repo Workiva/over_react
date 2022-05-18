@@ -4,13 +4,14 @@ part 'non_defaulted_prop.over_react.g.dart';
 
 UiFactory<FooProps> Foo = uiFunction(
   (props) {
-    final prop1 = props.prop1 ?? 'abc';
+    // Default props
+    final content = props.content ?? 'abc';
 
-    return (Dom.div()..id = props.prop1)(prop1);
+    return Dom.div()(props.content);
   },
   _$FooConfig, // ignore: undefined_identifier
 );
 
 mixin FooProps on UiProps {
-  String prop1;
+  String content;
 }
