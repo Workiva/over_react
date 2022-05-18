@@ -65,7 +65,7 @@ final domComponentUsage = (Dom.div()
   ..aria.hidden = false
 )();
 ''');
-    expect((await getAllErrors(source)).allErrors, isEmpty);
+    expect(await getAllErrors(source), isEmpty);
   }
 
   Future<void> test_dupeDomPropFix() async {
@@ -284,7 +284,7 @@ final customComponentUsage = (Custom()
   ..aria.hidden = false
 )();
 ''');
-    final allErrors = (await getAllErrors(source)).allErrors;
+    final allErrors = await getAllErrors(source);
     expect(
         allErrors,
         unorderedEquals(<Matcher>[

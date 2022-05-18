@@ -43,6 +43,7 @@ abstract class AnalysisDriverTestBase {
     // FIXME add all transitive deps of over_react (or do that in the package config logic)
     'over_react',
     'react',
+    'collection',
   ];
 
   /// The analysis driver that computes analysis results for the test sources

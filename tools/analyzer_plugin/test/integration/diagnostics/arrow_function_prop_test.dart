@@ -33,7 +33,7 @@ var foo = (Dom.div()
 
   Future<void> test_noError() async {
     final source = newSource('test.dart', 'var foo = true;');
-    expect((await getAllErrors(source)).allErrors, isEmpty);
+    expect(await getAllErrors(source), isEmpty);
   }
 
   Future<void> test_noErrorLastInCascade() async {
@@ -44,14 +44,13 @@ var foo = (Dom.div()
         ..onClick = (_) => 'click'
       )('hello');
     ''');
-    expect((await getAllErrors(source)).allErrors, isEmpty);
+    expect(await getAllErrors(source), isEmpty);
   }
 
   Future<void> test_noErrorLastInCascadeWithDescendantCascade() async {
     final source = newSource('test.dart', /*language=dart*/ r'''
       import 'package:over_react/over_react.dart';
-      
-      // ignore: uri_has_not_been_generated
+
       part 'test.over_react.g.dart';
       
       mixin FooState on UiState {
@@ -67,7 +66,7 @@ var foo = (Dom.div()
         }
       }
     ''');
-    expect((await getAllErrors(source)).allErrors, isEmpty);
+    expect(await getAllErrors(source), isEmpty);
   }
 
   Future<void> test_noErrorForSelection() async {

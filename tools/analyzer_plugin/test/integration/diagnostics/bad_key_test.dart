@@ -66,7 +66,7 @@ class BadKeyDiagnosticTest_NoErrors extends BadKeyDiagnosticTest {
       ];
     ''');
 
-    expect((await getAllErrors(source, includeOtherCodes: true)).allErrors, isEmpty);
+    expect(await getAllErrors(source, includeOtherCodes: true), isEmpty);
   }
 
   Future<void> test_noErrorsEvenWithEdgeCases() async {
@@ -86,7 +86,7 @@ class BadKeyDiagnosticTest_NoErrors extends BadKeyDiagnosticTest {
     ''');
 
     expect(
-        (await getAllErrors(source, includeOtherCodes: true)).allErrors,
+        await getAllErrors(source, includeOtherCodes: true),
         unorderedEquals(<dynamic>[
           isA<AnalysisError>().havingCode('missing_identifier'),
           isA<AnalysisError>().havingCode('missing_identifier'),

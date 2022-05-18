@@ -2,6 +2,7 @@ import 'package:analyzer/src/generated/source.dart';
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:analyzer_plugin/protocol/protocol_generated.dart';
 import 'package:analyzer_plugin/utilities/analyzer_converter.dart';
+import 'package:collection/collection.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:test/test.dart';
 
@@ -134,8 +135,9 @@ abstract class DiagnosticTestBase extends ServerPluginContributorTestBase {
 
   /// Returns all errors produced over the entire [source] and fails the test if
   /// any of them do not match [isAnErrorUnderTest] or [isAFixUnderTest].
-  Future<DartAndPluginErrors> getAllErrors(Source source, {bool includeOtherCodes = false}) async {
-    final errors = await _getAllErrors(source);
+  Future<DartAndPluginErrors> getAllErrors(Source source,
+      {bool includeOtherCodes = false, DartErrorFilter dartErrorFilter = defaultDartErrorFilter}) async {
+    final errors = await _getAllErrors(source, dartErrorFilter: dartErrorFilter);
     if (!includeOtherCodes) {
       expect(errors.dartErrors, isEmpty,
           reason: 'Expected there to be no errors coming from the analyzer and not the plugin.'
@@ -173,13 +175,17 @@ abstract class DiagnosticTestBase extends ServerPluginContributorTestBase {
     return errorsOverlappingSelection;
   }
 
-  Future<DartAndPluginErrors> _getAllErrors(Source source) async {
+  Future<DartAndPluginErrors> _getAllErrors(Source source,
+      {DartErrorFilter dartErrorFilter = defaultDartErrorFilter}) async {
     final result = await testPlugin.getResolvedUnitResult(sourcePath(source));
-    final dartErrors = AnalyzerConverter().convertAnalysisErrors(
-      result.errors,
-      lineInfo: result.lineInfo,
-      options: result.session.analysisContext.analysisOptions,
-    );
+    final dartErrors = AnalyzerConverter()
+        .convertAnalysisErrors(
+          result.errors.toList(),
+          lineInfo: result.lineInfo,
+          options: result.session.analysisContext.analysisOptions,
+        )
+        .where(dartErrorFilter)
+        .toList();
     final pluginErrors = await testPlugin.getAllErrors(result);
     return DartAndPluginErrors(dartErrors: dartErrors, pluginErrors: pluginErrors);
   }
@@ -191,8 +197,9 @@ abstract class DiagnosticTestBase extends ServerPluginContributorTestBase {
   }
 }
 
-/// Errors for a given source, broken up into errors originating from the analysis server and from the plugin.
-class DartAndPluginErrors {
+/// An iterable for errors for a given source, with methods that break it up into
+/// errors originating from the analysis server and from the plugin.
+class DartAndPluginErrors extends CombinedIterableView<AnalysisError> {
   /// Errors originating from the Dart analysis server.
   final List<AnalysisError> dartErrors;
 
@@ -202,5 +209,10 @@ class DartAndPluginErrors {
   /// [dartErrors] and [pluginErrors] combined.
   List<AnalysisError> get allErrors => [...dartErrors, ...pluginErrors];
 
-  DartAndPluginErrors({required this.dartErrors, required this.pluginErrors});
+  DartAndPluginErrors({required this.dartErrors, required this.pluginErrors}) : super([dartErrors, pluginErrors]);
 }
+
+typedef DartErrorFilter = bool Function(AnalysisError);
+
+bool defaultDartErrorFilter(AnalysisError error) =>
+    error.severity != AnalysisErrorSeverity.INFO && error.code != 'uri_has_not_been_generated';
