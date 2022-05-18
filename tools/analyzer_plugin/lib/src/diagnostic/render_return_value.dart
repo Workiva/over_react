@@ -162,8 +162,6 @@ class RenderReturnValueDiagnostic extends DiagnosticContributor {
       }
     }
   }
-
-  Future<void> computeErrorsForClassComponent(Expression returnExpression) async {}
 }
 
 class ClassComponentRenderVisitor extends SimpleAstVisitor<void> {
