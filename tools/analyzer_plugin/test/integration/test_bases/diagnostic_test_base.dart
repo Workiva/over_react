@@ -88,7 +88,7 @@ abstract class DiagnosticTestBase extends ServerPluginContributorTestBase {
       expectSingleErrorAt(createSelection(source, selection), exactSelectionMatch: exactSelectionMatch);
 
   Future<AnalysisError> expectSingleErrorAt(SourceSelection selection, {bool exactSelectionMatch = true}) async {
-    final errorsAtSelection = (await _getAllErrorsAtSelection(selection)).allErrors;
+    final errorsAtSelection = await _getAllErrorsAtSelection(selection);
 
     final reason = 'Expected a single error that matches `errorUnderTest` (selection: ${selection.target}.';
     // Only use the equals/list matcher if we have a length other than 1
@@ -135,7 +135,7 @@ abstract class DiagnosticTestBase extends ServerPluginContributorTestBase {
 
   /// Returns all errors produced over the entire [source] and fails the test if
   /// any of them do not match [isAnErrorUnderTest] or [isAFixUnderTest].
-  Future<DartAndPluginErrors> getAllErrors(Source source,
+  Future<DartAndPluginErrorsIterable> getAllErrors(Source source,
       {bool includeOtherCodes = false, DartErrorFilter dartErrorFilter = defaultDartErrorFilter}) async {
     final errors = await _getAllErrors(source, dartErrorFilter: dartErrorFilter);
     if (!includeOtherCodes) {
@@ -149,7 +149,7 @@ abstract class DiagnosticTestBase extends ServerPluginContributorTestBase {
     return errors;
   }
 
-  Future<DartAndPluginErrors> getAllErrorsAtSelection(SourceSelection selection,
+  Future<DartAndPluginErrorsIterable> getAllErrorsAtSelection(SourceSelection selection,
       {bool includeOtherCodes = false}) async {
     final errors = await _getAllErrorsAtSelection(selection);
     if (!includeOtherCodes) {
@@ -164,18 +164,18 @@ abstract class DiagnosticTestBase extends ServerPluginContributorTestBase {
   }
 
   /// Returns all error fixes produced at [selection].
-  Future<DartAndPluginErrors> _getAllErrorsAtSelection(SourceSelection selection) async {
+  Future<DartAndPluginErrorsIterable> _getAllErrorsAtSelection(SourceSelection selection) async {
     bool isErrorAtSelection(AnalysisError error) => error.location.toRange().intersects(selection.toRange());
 
     final allErrors = await _getAllErrors(selection.source);
-    final errorsOverlappingSelection = DartAndPluginErrors(
+    final errorsOverlappingSelection = DartAndPluginErrorsIterable(
       dartErrors: allErrors.dartErrors.where(isErrorAtSelection).toList(),
       pluginErrors: allErrors.pluginErrors.where(isErrorAtSelection).toList(),
     );
     return errorsOverlappingSelection;
   }
 
-  Future<DartAndPluginErrors> _getAllErrors(Source source,
+  Future<DartAndPluginErrorsIterable> _getAllErrors(Source source,
       {DartErrorFilter dartErrorFilter = defaultDartErrorFilter}) async {
     final result = await testPlugin.getResolvedUnitResult(sourcePath(source));
     final dartErrors = AnalyzerConverter()
@@ -187,7 +187,7 @@ abstract class DiagnosticTestBase extends ServerPluginContributorTestBase {
         .where(dartErrorFilter)
         .toList();
     final pluginErrors = await testPlugin.getAllErrors(result);
-    return DartAndPluginErrors(dartErrors: dartErrors, pluginErrors: pluginErrors);
+    return DartAndPluginErrorsIterable(dartErrors: dartErrors, pluginErrors: pluginErrors);
   }
 
   /// Returns all error fixes prroduced at [selection].
@@ -197,19 +197,17 @@ abstract class DiagnosticTestBase extends ServerPluginContributorTestBase {
   }
 }
 
-/// An iterable for errors for a given source, with methods that break it up into
+/// An iterable for errors for a given source, with getters that break it up into
 /// errors originating from the analysis server and from the plugin.
-class DartAndPluginErrors extends CombinedIterableView<AnalysisError> {
+class DartAndPluginErrorsIterable extends CombinedIterableView<AnalysisError> {
   /// Errors originating from the Dart analysis server.
   final List<AnalysisError> dartErrors;
 
   /// Errors originating from the analyzer plugin being tested.
   final List<AnalysisError> pluginErrors;
 
-  /// [dartErrors] and [pluginErrors] combined.
-  List<AnalysisError> get allErrors => [...dartErrors, ...pluginErrors];
-
-  DartAndPluginErrors({required this.dartErrors, required this.pluginErrors}) : super([dartErrors, pluginErrors]);
+  DartAndPluginErrorsIterable({required this.dartErrors, required this.pluginErrors})
+      : super([dartErrors, pluginErrors]);
 }
 
 typedef DartErrorFilter = bool Function(AnalysisError);

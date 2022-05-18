@@ -26,7 +26,6 @@ class DuplicatePropCascadeDiagnosticTest extends DiagnosticTestBase {
   static const customComponentDefinition = /*language=dart*/ r'''
 import 'package:over_react/over_react.dart';
 
-// ignore: uri_has_not_been_generated
 part 'test.over_react.g.dart';
 
 mixin CustomProps on UiProps {
