@@ -25,6 +25,8 @@ class NonDefaultedPropDiagnosticTest extends DiagnosticTestBase {
 
   Future<void> test_noErrorDefaultUsed() async {
     final source = newSource('test.dart', /*language=dart*/ r'''
+import 'package:over_react/over_react.dart';
+
 part 'test.over_react.g.dart';
 
 mixin FooProps on UiProps {
@@ -48,6 +50,8 @@ final Foo = uiFunction<FooProps>(
 
   Future<void> test_noErrorSameNameButNotDefault() async {
     final source = newSource('test.dart', /*language=dart*/ r'''
+import 'package:over_react/over_react.dart';
+
 part 'test.over_react.g.dart';
 
 mixin FooProps on UiProps {
@@ -71,6 +75,8 @@ final Foo = uiFunction<FooProps>(
 
   Future<void> test_errorFix() async {
     String contents(String propUsage) => '''
+import 'package:over_react/over_react.dart';
+
 part 'test.over_react.g.dart';
 
 mixin FooProps on UiProps {
@@ -101,6 +107,8 @@ final Foo = uiFunction<FooProps>(
 
   Future<void> test_errorFixWithDifferentName() async {
     String contents(String propUsage) => '''
+import 'package:over_react/over_react.dart';
+
 part 'test.over_react.g.dart';
 
 mixin FooProps on UiProps {
@@ -131,6 +139,8 @@ final Foo = uiFunction<FooProps>(
 
   Future<void> test_multipleErrorsAndFixes() async {
     var source = newSource('test.dart', /*language=dart*/ r'''
+import 'package:over_react/over_react.dart';
+
 part 'test.over_react.g.dart';
 
 mixin FooProps on UiProps {
@@ -179,6 +189,8 @@ final Foo = uiFunction<FooProps>(
     }
 
     expect(source.contents.data, /*language=dart*/ r'''
+import 'package:over_react/over_react.dart';
+
 part 'test.over_react.g.dart';
 
 mixin FooProps on UiProps {
