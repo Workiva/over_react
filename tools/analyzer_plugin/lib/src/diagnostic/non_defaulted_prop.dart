@@ -8,8 +8,9 @@ import 'package:over_react_analyzer_plugin/src/util/function_components.dart';
 import 'package:over_react_analyzer_plugin/src/util/node.dart';
 import 'package:over_react_analyzer_plugin/src/util/util.dart';
 
-const _desc = r'Use of non defaulted props in funcgtion components';
+const _desc = r'Use of non defaulted props in function components';
 // <editor-fold desc="Documentation Details">
+// todo update this documentation
 const _details = r'''
 
 This diagnostic detects syntax errors related to the parentheses around over_react builder cascades.
