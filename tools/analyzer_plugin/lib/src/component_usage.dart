@@ -422,6 +422,9 @@ abstract class PropAssignment extends BuilderMemberAccess {
   @override
   AssignmentExpression get node;
 
+  /// The element that declares the prop being assigned.
+  Element? get staticElement => node.writeElement;
+
   /// The property access representing the left hand side of this assignment.
   Expression get leftHandSide => node.leftHandSide;
 

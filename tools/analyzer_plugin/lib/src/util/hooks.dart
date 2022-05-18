@@ -26,7 +26,7 @@ class HookUsage {
   HookUsage(this.node);
 
   @override
-  bool operator==(other) => other is HookUsage && other.node == node;
+  bool operator ==(other) => other is HookUsage && other.node == node;
 
   @override
   int get hashCode => node.hashCode;

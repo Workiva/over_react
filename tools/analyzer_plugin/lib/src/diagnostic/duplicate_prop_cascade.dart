@@ -32,7 +32,9 @@ class DuplicatePropCascadeDiagnostic extends ComponentUsageDiagnosticContributor
         return '${prefix.name}.${prop.name.name}';
       }
 
-      return prop.name.name;
+      // Prefix with the class the prop was declared in so that things like `.dom.type` don't conflict with an unrelated `type` prop.
+      final enclosingElementName = prop.staticElement?.enclosingElement?.name ?? '';
+      return '$enclosingElementName.${prop.name.name}';
     });
     final propUsagesWithDuplicates = propUsagesByName.values.where((usages) => usages.length > 1);
     for (final propUsages in propUsagesWithDuplicates) {

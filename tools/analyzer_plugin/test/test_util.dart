@@ -134,9 +134,22 @@ Future<Map<String, ResolvedUnitResult>> parseAndGetResolvedUnits(Map<String, Str
     // Steal the packages file from this project, which depends on over_react
     final currentPackageConfig = File('.dart_tool/package_config.json').readAsStringSync();
     final updatedConfig = jsonDecode(currentPackageConfig) as Map;
-    (updatedConfig['packages'] as List).cast<Map>()
+    var updatedPackages = (updatedConfig['packages'] as List).cast<Map>()
       // Need to get rid of this config so its rootUri doesn't cause it to get used for this package.
-      ..removeSingleWhere((package) => package['name'] == 'over_react_analyzer_plugin')
+      ..removeSingleWhere((package) => package['name'] == 'over_react_analyzer_plugin');
+    updatedPackages = updatedPackages.map((e) {
+      // Transform any relative paths to absolute ones, since they're relative to
+      // over_react_analyzer_plugin and not this new fake package.
+      var rootUri = e['rootUri'] as String;
+      if (!Uri.parse(rootUri).hasScheme) {
+        // fixme verify relative to pubspec.yaml
+        rootUri = Uri.file(p.canonicalize(p.absolute('pubspec.yaml', rootUri))).toString();
+      }
+      return <dynamic, dynamic>{
+        ...e,
+        'rootUri': rootUri,
+      };
+    }).toList()
       ..add(<String, String>{
         "name": packageName,
         "rootUri": "../",
@@ -144,6 +157,7 @@ Future<Map<String, ResolvedUnitResult>> parseAndGetResolvedUnits(Map<String, Str
         // Opt out of null safety since it gets in our way for these tests
         "languageVersion": "2.7",
       });
+    updatedConfig['packages'] = updatedPackages;
     _sharedResourceProvider.setOverlay(transformPath('.dart_tool/package_config.json'),
         content: jsonEncode(updatedConfig), modificationStamp: 0);
 
