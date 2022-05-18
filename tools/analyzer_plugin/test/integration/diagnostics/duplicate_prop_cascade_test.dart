@@ -60,10 +60,11 @@ final foo = (Dom.div()
 )();
 ''');
     final allErrors = await getAllErrors(source);
-    expect(allErrors, hasLength(2));
-
-    for (final selection in [createSelection(source, "#..id# = '1'"), createSelection(source, "#..dom.id# = 'foo'")]) {
-      expect(allErrors, contains(isAnErrorUnderTest(locatedAt: selection, hasFix: true)));
-    }
+    expect(
+        allErrors,
+        unorderedEquals(<Matcher>[
+          isAnErrorUnderTest(locatedAt: createSelection(source, "#..id# = '1'"), hasFix: true),
+          isAnErrorUnderTest(locatedAt: createSelection(source, "#..dom.id# = 'foo'"), hasFix: true),
+        ]));
   }
 }
