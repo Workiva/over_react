@@ -33,7 +33,7 @@ var foo = (Dom.div()
 
   Future<void> test_noError() async {
     final source = newSource('test.dart', 'var foo = true;');
-    expect(await getAllErrors(source), isEmpty);
+    expect((await getAllErrors(source)).allErrors, isEmpty);
   }
 
   Future<void> test_noErrorLastInCascade() async {
@@ -44,18 +44,30 @@ var foo = (Dom.div()
         ..onClick = (_) => 'click'
       )('hello');
     ''');
-    expect(await getAllErrors(source), isEmpty);
+    expect((await getAllErrors(source)).allErrors, isEmpty);
   }
 
   Future<void> test_noErrorLastInCascadeWithDescendantCascade() async {
     final source = newSource('test.dart', /*language=dart*/ r'''
       import 'package:over_react/over_react.dart';
       
-      var foo = (Dom.div()
-        ..onClick = (_) => setState(newState()..foo = 'bar')
-      )('hello');
+      // ignore: uri_has_not_been_generated
+      part 'test.over_react.g.dart';
+      
+      mixin FooState on UiState {
+        var foo;
+      }
+      
+      abstract class FooComponent extends UiStatefulComponent2<UiProps, FooState> {
+        @override
+        render() {
+          return (Dom.div()
+            ..onClick = (_) => setState(newState()..foo = 'bar')
+          )('hello');
+        }
+      }
     ''');
-    expect(await getAllErrors(source), isEmpty);
+    expect((await getAllErrors(source)).allErrors, isEmpty);
   }
 
   Future<void> test_noErrorForSelection() async {
@@ -95,14 +107,14 @@ var foo = (Dom.div()..onClick = (_) => null..key = 'foo')('');
 var bar = (Dom.div()..onSubmit = (_) => null..key = 'bar')('');
 ''');
 
-    final allErrors = await getAllErrors(source);
+    final allErrors = await getAllErrors(source, includeOtherCodes: true);
 
     final errorSelections = [
       createSelection(source, 'onClick = #(_) => null#'),
       createSelection(source, 'onSubmit = #(_) => null#'),
     ];
     for (final selection in errorSelections) {
-      expect(allErrors, contains(isAnErrorUnderTest(locatedAt: selection, hasFix: true)));
+      expect(allErrors.pluginErrors, contains(isAnErrorUnderTest(locatedAt: selection, hasFix: true)));
     }
   }
 }

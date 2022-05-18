@@ -154,7 +154,8 @@ class BadKeyDiagnostic extends ComponentUsageDiagnosticContributor {
 
     for (final type in keyTypesToProcess) {
       // Provide context if this type was derived from a Map/Iterable type argument.
-      getTypeContextString() => type == topLevelKeyType ? '' : ' (from $topLevelKeyType)';
+      getTypeContextString() =>
+          type == topLevelKeyType ? '' : ' (from ${topLevelKeyType.getDisplayString(withNullability: false)})';
 
       if (type.isDartCoreInt || type.isDartCoreDouble || type.isDartCoreString || type.isDartCoreSymbol) {
         // Ignore core types that have good `Object.toString` implementations values.

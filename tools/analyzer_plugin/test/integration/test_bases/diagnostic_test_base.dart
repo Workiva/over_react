@@ -1,6 +1,7 @@
 import 'package:analyzer/src/generated/source.dart';
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:analyzer_plugin/protocol/protocol_generated.dart';
+import 'package:analyzer_plugin/utilities/analyzer_converter.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:test/test.dart';
 
@@ -86,7 +87,7 @@ abstract class DiagnosticTestBase extends ServerPluginContributorTestBase {
       expectSingleErrorAt(createSelection(source, selection), exactSelectionMatch: exactSelectionMatch);
 
   Future<AnalysisError> expectSingleErrorAt(SourceSelection selection, {bool exactSelectionMatch = true}) async {
-    final errorsAtSelection = await _getAllErrorsAtSelection(selection);
+    final errorsAtSelection = (await _getAllErrorsAtSelection(selection)).allErrors;
 
     final reason = 'Expected a single error that matches `errorUnderTest` (selection: ${selection.target}.';
     // Only use the equals/list matcher if we have a length other than 1
@@ -133,36 +134,54 @@ abstract class DiagnosticTestBase extends ServerPluginContributorTestBase {
 
   /// Returns all errors produced over the entire [source] and fails the test if
   /// any of them do not match [isAnErrorUnderTest] or [isAFixUnderTest].
-  Future<List<AnalysisError>> getAllErrors(Source source, {bool includeOtherCodes = false}) async {
+  Future<DartAndPluginErrors> getAllErrors(Source source, {bool includeOtherCodes = false}) async {
     final errors = await _getAllErrors(source);
     if (!includeOtherCodes) {
-      expect(errors, everyElement(isAnErrorUnderTest()),
+      expect(errors.dartErrors, isEmpty,
+          reason: 'Expected there to be no errors coming from the analyzer and not the plugin.'
+              ' Ensure your test source is free of unintentional errors, such as syntax errors and missing imports.'
+              ' If errors are expected, set includeOtherErrorCodes:true.');
+      expect(errors.pluginErrors, everyElement(isAnErrorUnderTest()),
           reason: 'Expected all errors to match the error & fix kinds under test.');
     }
     return errors;
   }
 
-  Future<List<AnalysisError>> getAllErrorsAtSelection(SourceSelection selection,
+  Future<DartAndPluginErrors> getAllErrorsAtSelection(SourceSelection selection,
       {bool includeOtherCodes = false}) async {
     final errors = await _getAllErrorsAtSelection(selection);
     if (!includeOtherCodes) {
-      expect(errors, everyElement(isAnErrorUnderTest()),
+      expect(errors.dartErrors, isEmpty,
+          reason: 'Expected there to be no errors coming from the analyzer and not the plugin.'
+              ' Ensure your test source is free of unintentional errors, such as syntax errors and missing imports.'
+              ' If errors are expected, set includeOtherErrorCodes:true.');
+      expect(errors.pluginErrors, everyElement(isAnErrorUnderTest()),
           reason: 'Expected all errors to match the error & fix kinds under test.');
     }
     return errors;
   }
 
   /// Returns all error fixes produced at [selection].
-  Future<List<AnalysisError>> _getAllErrorsAtSelection(SourceSelection selection) async {
+  Future<DartAndPluginErrors> _getAllErrorsAtSelection(SourceSelection selection) async {
+    bool isErrorAtSelection(AnalysisError error) => error.location.toRange().intersects(selection.toRange());
+
     final allErrors = await _getAllErrors(selection.source);
-    final errorsOverlappingSelection =
-        allErrors.where((e) => e.location.toRange().intersects(selection.toRange())).toList();
+    final errorsOverlappingSelection = DartAndPluginErrors(
+      dartErrors: allErrors.dartErrors.where(isErrorAtSelection).toList(),
+      pluginErrors: allErrors.pluginErrors.where(isErrorAtSelection).toList(),
+    );
     return errorsOverlappingSelection;
   }
 
-  Future<List<AnalysisError>> _getAllErrors(Source source) async {
-    final analysisResult = await testPlugin.getResolvedUnitResult(sourcePath(source));
-    return testPlugin.getAllErrors(analysisResult);
+  Future<DartAndPluginErrors> _getAllErrors(Source source) async {
+    final result = await testPlugin.getResolvedUnitResult(sourcePath(source));
+    final dartErrors = AnalyzerConverter().convertAnalysisErrors(
+      result.errors,
+      lineInfo: result.lineInfo,
+      options: result.session.analysisContext.analysisOptions,
+    );
+    final pluginErrors = await testPlugin.getAllErrors(result);
+    return DartAndPluginErrors(dartErrors: dartErrors, pluginErrors: pluginErrors);
   }
 
   /// Returns all error fixes prroduced at [selection].
@@ -170,4 +189,13 @@ abstract class DiagnosticTestBase extends ServerPluginContributorTestBase {
     final parameters = EditGetFixesParams(sourcePath(selection.source), selection.offset);
     return (await testPlugin.handleEditGetFixes(parameters)).fixes;
   }
+}
+
+class DartAndPluginErrors {
+  final List<AnalysisError> dartErrors;
+  final List<AnalysisError> pluginErrors;
+
+  List<AnalysisError> get allErrors => [...dartErrors, ...pluginErrors];
+
+  DartAndPluginErrors({required this.dartErrors, required this.pluginErrors});
 }

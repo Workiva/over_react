@@ -2,11 +2,13 @@
 // ignore_for_file: camel_case_types
 import 'dart:async';
 
+import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/bad_key.dart';
 import 'package:test/test.dart';
 import 'package:test_reflective_loader/test_reflective_loader.dart';
 
 import '../test_bases/diagnostic_test_base.dart';
+import '../matchers.dart';
 
 void main() {
   defineReflectiveSuite(() {
@@ -64,7 +66,7 @@ class BadKeyDiagnosticTest_NoErrors extends BadKeyDiagnosticTest {
       ];
     ''');
 
-    expect(await getAllErrors(source, includeOtherCodes: true), isEmpty);
+    expect((await getAllErrors(source, includeOtherCodes: true)).allErrors, isEmpty);
   }
 
   Future<void> test_noErrorsEvenWithEdgeCases() async {
@@ -83,7 +85,14 @@ class BadKeyDiagnosticTest_NoErrors extends BadKeyDiagnosticTest {
       ];
     ''');
 
-    expect(await getAllErrors(source, includeOtherCodes: true), isEmpty);
+    expect(
+        (await getAllErrors(source, includeOtherCodes: true)).allErrors,
+        unorderedEquals(<dynamic>[
+          isA<AnalysisError>().havingCode('missing_identifier'),
+          isA<AnalysisError>().havingCode('missing_identifier'),
+          isA<AnalysisError>().havingCode('use_of_void_result'),
+        ]),
+        reason: 'should only have the Dart analysis errors we expect');
   }
 }
 

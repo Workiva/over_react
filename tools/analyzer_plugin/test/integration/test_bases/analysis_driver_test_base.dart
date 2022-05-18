@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:analyzer/dart/analysis/features.dart';
 import 'package:analyzer/file_system/file_system.dart';
 import 'package:analyzer/file_system/memory_file_system.dart';
 import 'package:analyzer/file_system/physical_file_system.dart';
@@ -16,6 +17,7 @@ import 'package:collection/collection.dart' show IterableExtension;
 import 'package:meta/meta.dart';
 import 'package:package_config/package_config.dart';
 import 'package:path/path.dart' as p;
+import 'package:pub_semver/pub_semver.dart';
 import 'package:test/test.dart';
 
 import 'assist_test_base.dart';
@@ -38,7 +40,9 @@ abstract class AnalysisDriverTestBase {
   /// with a [PackageMapUriResolver] that knows where these packages are so that
   /// test sources can import from them.
   static const _realPackagesToCopyIntoResourceProvider = [
+    // FIXME add all transitive deps of over_react (or do that in the package config logic)
     'over_react',
+    'react',
   ];
 
   /// The analysis driver that computes analysis results for the test sources
@@ -87,6 +91,11 @@ abstract class AnalysisDriverTestBase {
     // within this directory.
     _testPath = resourceProvider.newFolder('/test').path;
 
+    // Disable null safety
+    final languageVersion = Version.parse('2.7.0');
+    final languageConstraint = VersionConstraint.compatibleWith(languageVersion);
+    final featureSet = FeatureSet.fromEnableFlags2(sdkLanguageVersion: languageVersion, flags: []);
+
     final logger = PerformanceLog(StringBuffer());
     final analysisScheduler = AnalysisDriverScheduler(logger)..start();
     _analysisDriver = AnalysisDriver.tmp1(
@@ -99,7 +108,11 @@ abstract class AnalysisDriverTestBase {
         PackageMapUriResolver(resourceProvider, packageMap),
         ResourceUriResolver(resourceProvider),
       ]),
-      analysisOptions: AnalysisOptionsImpl(),
+      analysisOptions: AnalysisOptionsImpl()
+        ..sdkVersionConstraint = languageConstraint
+        ..contextFeatures = featureSet
+        ..nonPackageLanguageVersion = languageVersion
+        ..nonPackageFeatureSet = featureSet,
       packages: Packages.empty,
     );
 

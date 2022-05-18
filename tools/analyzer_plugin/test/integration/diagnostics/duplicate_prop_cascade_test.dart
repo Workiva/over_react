@@ -25,6 +25,9 @@ class DuplicatePropCascadeDiagnosticTest extends DiagnosticTestBase {
 
   Future<void> test_noError() async {
     final source = newSource('test.dart', /*language=dart*/ r'''
+import 'package:over_react/over_react.dart';
+
+// ignore: uri_has_not_been_generated
 part 'test.over_react.g.dart';
 
 mixin CustomProps on UiProps {
@@ -47,11 +50,13 @@ final customUsage = (Custom()
   ..hidden = false
 )();
 ''');
-    expect(await getAllErrors(source), isEmpty);
+    expect((await getAllErrors(source)).allErrors, isEmpty);
   }
 
   Future<void> test_error() async {
     final source = newSource('test.dart', /*language=dart*/ r'''
+import 'package:over_react/over_react.dart';
+
 final foo = (Dom.div()
   ..id = '1'
   ..dom.id = 'foo'
@@ -59,7 +64,7 @@ final foo = (Dom.div()
   ..aria.hidden = false
 )();
 ''');
-    final allErrors = await getAllErrors(source);
+    final allErrors = (await getAllErrors(source)).allErrors;
     expect(allErrors, hasLength(2));
 
     for (final selection in [createSelection(source, "#..id# = '1'"), createSelection(source, "#..dom.id# = 'foo'")]) {
