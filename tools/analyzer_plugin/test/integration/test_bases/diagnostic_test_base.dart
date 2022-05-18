@@ -191,10 +191,15 @@ abstract class DiagnosticTestBase extends ServerPluginContributorTestBase {
   }
 }
 
+/// Errors for a given source, broken up into errors originating from the analysis server and from the plugin.
 class DartAndPluginErrors {
+  /// Errors originating from the Dart analysis server.
   final List<AnalysisError> dartErrors;
+
+  /// Errors originating from the analyzer plugin being tested.
   final List<AnalysisError> pluginErrors;
 
+  /// [dartErrors] and [pluginErrors] combined.
   List<AnalysisError> get allErrors => [...dartErrors, ...pluginErrors];
 
   DartAndPluginErrors({required this.dartErrors, required this.pluginErrors});
