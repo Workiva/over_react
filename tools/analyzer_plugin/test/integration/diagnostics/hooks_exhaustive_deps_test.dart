@@ -2,7 +2,6 @@
 // otherwise tests won't be able to run. See: https://github.com/dart-lang/test#compiler-flags
 //@dart=2.9
 
-import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:collection/collection.dart';
 import 'package:meta/meta.dart';
