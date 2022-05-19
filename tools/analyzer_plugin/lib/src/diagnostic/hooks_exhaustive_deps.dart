@@ -106,8 +106,8 @@ class WeakMap<K extends Object, V extends Object> {
     _valueFor[key] = null;
   }
 
-  V? putIfAbsent(K key, V Function() ifAbsent) {
-    if (has(key)) return get(key);
+  V putIfAbsent(K key, V Function() ifAbsent) {
+    if (has(key)) return get(key)!;
     final value = ifAbsent();
     set(key, value);
     return value;
@@ -115,7 +115,7 @@ class WeakMap<K extends Object, V extends Object> {
 }
 
 extension<K extends Object, V extends Object> on V Function(K) {
-  V? Function(K) memoizeWithWeakMap(WeakMap<K, V> map) {
+  V Function(K) memoizeWithWeakMap(WeakMap<K, V> map) {
     return (key) => map.putIfAbsent(key, () => this(key));
   }
 }
@@ -380,7 +380,7 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
     }
 
     // Remember such values. Avoid re-running extra checks on them.
-    final memoizedIsStableKnownHookValue = isStableKnownHookValue.memoizeWithWeakMap(stableKnownValueCache) as bool Function(Identifier);
+    final memoizedIsStableKnownHookValue = isStableKnownHookValue.memoizeWithWeakMap(stableKnownValueCache);
 
     // Some are just functions that don't reference anything dynamic.
     bool isFunctionWithoutCapturedValues(Element resolved) {
@@ -412,7 +412,7 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
     }
 
     final memoizedIsFunctionWithoutCapturedValues =
-        isFunctionWithoutCapturedValues.memoizeWithWeakMap(functionWithoutCapturedValueCache) as bool Function(Element?);
+        isFunctionWithoutCapturedValues.memoizeWithWeakMap(functionWithoutCapturedValueCache);
 
     // These are usually mistaken. Collect them.
     final currentRefsInEffectCleanup = <String, _RefInEffectCleanup>{};
@@ -487,7 +487,7 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
       if (!dependencies.containsKey(dependency)) {
         final isStable = memoizedIsStableKnownHookValue(reference) ||
             // FIXME handle .call tearoffs
-            memoizedIsFunctionWithoutCapturedValues(reference.staticElement);
+            (reference.staticElement != null && memoizedIsFunctionWithoutCapturedValues(reference.staticElement!));
         dependencies[dependency] = _Dependency(
           isStable: isStable,
           references: [reference],
