@@ -2,6 +2,8 @@
 // otherwise tests won't be able to run. See: https://github.com/dart-lang/test#compiler-flags
 //@dart=2.9
 
+import 'package:analyzer/dart/element/element.dart';
+import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:collection/collection.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/hooks_exhaustive_deps.dart';
 import 'package:test/test.dart';
@@ -31,12 +33,18 @@ mixin TestProps on UiProps {
 
 // Globals used by test cases
 TestProps props;
-int setInterval(Function, int duration) => 0;
+int setInterval(Function callback, int duration) => 0;
 void clearInterval(int id) {}
 dynamic someFunc() => null;
 ''';
 
     String wrapInFunction(String code) => 'void __testCaseWrapperFunction() {\n\n$code\n\n}';
+
+    bool errorFilter(AnalysisError error) =>
+        defaultDartErrorFilter(error) &&
+        !{
+          'unused_import',
+        }.contains(error.code);
 
     group('test cases that should pass', () {
       final tests = tco.tests['tests'].cast<String, List<dynamic>>();
@@ -48,8 +56,8 @@ dynamic someFunc() => null;
           final code = preamble + wrapInFunction(element['code'] as String);
           try {
             final source = testBase.newSource('test.dart', code);
-            await testBase.expectNoErrors(source);
-          } catch(_) {
+            await testBase.expectNoErrors(source, dartErrorFilter: errorFilter);
+          } catch (_) {
             print('Source: ```\n$code\n```');
             rethrow;
           }
