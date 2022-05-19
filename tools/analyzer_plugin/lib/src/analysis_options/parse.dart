@@ -14,7 +14,7 @@ PluginAnalysisOptions? _parseAnalysisOptions(YamlMap yaml) {
   final dynamic overReact = yaml['over_react'];
   if (overReact is YamlMap) {
     final errors = _parseErrors(overReact);
-    return PluginAnalysisOptions(errors);
+    return PluginAnalysisOptions(errors: errors);
   }
 
   return null;

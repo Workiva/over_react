@@ -1,6 +1,6 @@
 class PluginAnalysisOptions {
   final Map<String, AnalysisOptionsSeverity> errors;
-  PluginAnalysisOptions(this.errors);
+  PluginAnalysisOptions({required this.errors});
 }
 
 enum AnalysisOptionsSeverity {
