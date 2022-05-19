@@ -820,7 +820,7 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
       );
       constructions.forEach((_construction) {
         final construction = _construction.declaration;
-        final constructionName = construction.declaredElement!.name;
+        final constructionName = _construction.declarationElement.name;
 
         final isUsedOutsideOfHook = _construction.isUsedOutsideOfHook;
         final depType = _construction.depType;
@@ -1062,7 +1062,9 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
             if (maybeCall is InvocationExpression) {
               final maybeCallFunction = maybeCall.function;
               final maybeCallFunctionName = maybeCallFunction.tryCast<MethodInvocation>()?.methodName.name ??
-                  maybeCallFunction.tryCast<Identifier>()?.name;
+                  maybeCallFunction.tryCast<Identifier>()?.name ??
+                  // TODO(greg) is there a better fallback than this?
+                  maybeCallFunction.toSource();
               final correspondingStateVariable = setStateCallSites.getNullableKey(
                 maybeCallFunction.tryCast(),
               );
@@ -1071,14 +1073,14 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
                   // setCount(count + 1)
                   setStateRecommendation = _SetStateRecommendation(
                     missingDep: missingDep,
-                    setter: maybeCallFunctionName!,
+                    setter: maybeCallFunctionName,
                     form: _SetStateRecommendationForm.updater,
                   );
                 } else if (stateVariables.has(id)) {
                   // setCount(count + increment)
                   setStateRecommendation = _SetStateRecommendation(
                     missingDep: missingDep,
-                    setter: maybeCallFunctionName!,
+                    setter: maybeCallFunctionName,
                     form: _SetStateRecommendationForm.reducer,
                   );
                 } else {
@@ -1089,7 +1091,7 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
                   if (def != null && def is ParameterElement) {
                     setStateRecommendation = _SetStateRecommendation(
                       missingDep: missingDep,
-                      setter: maybeCallFunctionName!,
+                      setter: maybeCallFunctionName,
                       form: _SetStateRecommendationForm.inlineReducer,
                     );
                   }
@@ -1495,7 +1497,7 @@ _Recommendations collectRecommendations({
 
 // If the node will result in constructing a referentially unique value, return
 // its human readable type name, else return null.
-String? getConstructionExpressionType(Expression? node) {
+String? getConstructionExpressionType(Expression node) {
   if (node is InstanceCreationExpression) {
     if (node.isConst) return null;
     return node.constructorName.type.name.name;
@@ -1524,7 +1526,7 @@ String? getConstructionExpressionType(Expression? node) {
     return null;
   } else if (node is AsExpression) {
     return getConstructionExpressionType(node.expression);
-  } else if (node is InvocationExpression && node.staticType!.isReactElement) {
+  } else if (node is InvocationExpression && (node.staticType?.isReactElement ?? false)) {
     return 'ReactElement';
   } else {
     return null;
@@ -1538,7 +1540,7 @@ List<_Construction> scanForConstructions({
   required Iterable<_DeclaredDependency> declaredDependencies,
   required AstNode declaredDependenciesNode,
 }) {
-  final constructions = declaredDependencies.map<Tuple2<Declaration, String>?>((dep) {
+  final constructions = declaredDependencies.map<Tuple3<Declaration, Element, String>?>((dep) {
     // FIXME this should be equivalent, but need to figure out how chained properties work... I'm not sure how that would work with analyzePropertyChain being used with the existing code to look up identifiers
     // final ref = componentScope.variables.firstWhere((v) => v.name == key, orElse: () => null);
     final refElement = dep.node.tryCast<Identifier>()?.staticElement;
@@ -1548,6 +1550,9 @@ List<_Construction> scanForConstructions({
     if (declaration == null) {
       return null;
     }
+    // TODO(greg) are these the same?
+    final declarationElement = declaration.declaredElement ?? refElement;
+    
     // final handleChange = () {};
     // final foo = {};
     // final foo = [];
@@ -1555,27 +1560,28 @@ List<_Construction> scanForConstructions({
     if (declaration is VariableDeclaration) {
       // Const variables never change
       if (declaration.isConst) return null;
-      if (declaration.initializer != null) {
+      final initializer = declaration.initializer;
+      if (initializer != null) {
         // todo should this be stricter in Dart?
         final constantExpressionType = getConstructionExpressionType(
-          declaration.initializer,
+          initializer,
         );
         if (constantExpressionType != null) {
-          return Tuple2(declaration, constantExpressionType);
+          return Tuple3(declaration, declarationElement, constantExpressionType);
         }
       }
       return null;
     }
     // handleChange() {}
     if (declaration is FunctionDeclaration) {
-      return Tuple2(declaration, _DepType.function);
+      return Tuple3(declaration, declarationElement, _DepType.function);
     }
 
     return null;
   }).whereNotNull();
 
-  bool isUsedOutsideOfHook(Declaration declaration) {
-    for (final reference in findReferences(declaration.declaredElement!, declaration.root)) {
+  bool isUsedOutsideOfHook(Declaration declaration, Element declarationElement) {
+    for (final reference in findReferences(declarationElement, declaration.root)) {
       // TODO better implementation of this
       // Crude implementation of ignoring initializer
       if (declaration.containsRangeOf(reference)) {
@@ -1598,21 +1604,24 @@ List<_Construction> scanForConstructions({
 
   return constructions.map((tuple) {
     final declaration = tuple.item1;
-    final depType = tuple.item2;
+    final declarationElement = tuple.item2;
+    final depType = tuple.item3;
     return _Construction(
       declaration: declaration,
+      declarationElement: declarationElement,
       depType: depType,
-      isUsedOutsideOfHook: isUsedOutsideOfHook(declaration),
+      isUsedOutsideOfHook: isUsedOutsideOfHook(declaration, declarationElement),
     );
   }).toList();
 }
 
 class _Construction {
   final Declaration declaration;
+  final Element declarationElement;
   final String depType;
   final bool isUsedOutsideOfHook;
 
-  _Construction({required this.declaration, required this.depType, required this.isUsedOutsideOfHook});
+  _Construction({required this.declaration, required this.declarationElement, required this.depType, required this.isUsedOutsideOfHook});
 }
 
 abstract class _DepType {
@@ -1626,7 +1635,7 @@ abstract class _DepType {
 /// props.(foo) => (props.foo)
 /// props.foo.(bar) => (props).foo.bar
 /// props.foo.bar.(baz) => (props).foo.bar.baz
-AstNode? getDependency(AstNode node) {
+AstNode getDependency(AstNode node) {
   final parent = node.parent!;
   final grandparent = parent.parent;
 
@@ -1648,7 +1657,12 @@ AstNode? getDependency(AstNode node) {
   }
 
   if (node is PropertyAccess && parent is AssignmentExpression && parent.leftHandSide == node) {
-    return node.target;
+    final target = node.target;
+    // This can be null if cascaded.
+    // FIXME(greg) we should probably have better cascaded checks above
+    if (target != null) {
+      return target;
+    }
   }
   if (node is PrefixedIdentifier && parent is AssignmentExpression && parent.leftHandSide == node) {
     return node.prefix;
@@ -1708,7 +1722,7 @@ void markNode(AstNode node, Map<String, bool>? optionalChains, String result, {r
 /// foo(.)bar -> 'foo.bar'
 /// foo.bar(.)baz -> 'foo.bar.baz'
 /// Otherwise throw.
-String analyzePropertyChain(AstNode? node, Map<String, bool>? optionalChains) {
+String analyzePropertyChain(AstNode node, Map<String, bool>? optionalChains) {
   if (node is SimpleIdentifier) {
     final result = node.name;
     if (optionalChains != null) {
@@ -1717,7 +1731,9 @@ String analyzePropertyChain(AstNode? node, Map<String, bool>? optionalChains) {
     }
     return result;
   } else if (node is PropertyAccess) {
-    final object = analyzePropertyChain(node.target, optionalChains);
+    // FIXME(greg) look into this more and clean this up
+    assert(!node.isCascaded, 'cascaded members are unexpected here');
+    final object = analyzePropertyChain(node.target!, optionalChains);
     final property = analyzePropertyChain(node.propertyName, null);
     final result = "$object.$property";
     markNode(node, optionalChains, result, isOptional: node.isNullAware);
@@ -1879,8 +1895,7 @@ String prettyString(Object? obj) {
         var namespace = key.substring(0, index);
         var subkey = key.substring(index);
 
-        namespacedKeys[namespace] ??= <String>[];
-        namespacedKeys[namespace]!.add(subkey);
+        (namespacedKeys[namespace] ??= []).add(subkey);
       } else {
         otherKeys.add(key);
       }
@@ -1888,15 +1903,16 @@ String prettyString(Object? obj) {
 
     final pairs = <String>[];
 
-    pairs.addAll(namespacedKeys.keys.map((namespace) {
+    pairs.addAll(namespacedKeys.entries.map((entry) {
+      final namespace = entry.key;
+      final subkeys = entry.value;
+
       String renderSubKey(String subkey) {
         var key = '$namespace$subkey';
         dynamic value = obj[key];
 
         return '$subkey: ' + prettyString(value);
       }
-
-      Iterable<String> subkeys = namespacedKeys[namespace]!;
 
       return '$namespace…\n' + _indentString(subkeys.map(renderSubKey).map((pair) => pair + ',\n').join());
     }));
