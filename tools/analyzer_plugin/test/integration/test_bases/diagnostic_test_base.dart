@@ -149,6 +149,19 @@ abstract class DiagnosticTestBase extends ServerPluginContributorTestBase {
     return errors;
   }
 
+  /// Returns all errors produced over the entire [source] and fails the test if
+  /// any of them do not match [isAnErrorUnderTest] or [isAFixUnderTest].
+  Future<void> expectNoErrors(Source source,
+      {DartErrorFilter dartErrorFilter = defaultDartErrorFilter}) async {
+    final errors = await _getAllErrors(source, dartErrorFilter: dartErrorFilter);
+    expect(errors.dartErrors, isEmpty,
+        reason: 'Expected there to be no errors coming from the analyzer and not the plugin.'
+            ' Ensure your test source is free of unintentional errors, such as syntax errors and missing imports.'
+            ' If errors are expected, set includeOtherErrorCodes:true.');
+    expect(errors.pluginErrors, everyElement(isAnErrorUnderTest()),
+        reason: 'Expected there to be no plugin errors.');
+  }
+
   Future<DartAndPluginErrorsIterable> getAllErrorsAtSelection(SourceSelection selection,
       {bool includeOtherCodes = false}) async {
     final errors = await _getAllErrorsAtSelection(selection);

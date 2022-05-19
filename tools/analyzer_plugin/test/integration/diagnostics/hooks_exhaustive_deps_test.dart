@@ -21,19 +21,22 @@ void main() {
 import 'package:over_react/over_react.dart';
 import 'package:over_react/over_react.dart' as over_react;
 
-part 'test.over_react.g.dart'
-
-int setInterval(Function, int duration) => 0;
-void clearInterval(int id) {}
+part 'test.over_react.g.dart';
 
 mixin TestProps on UiProps {
   var foo;
   var bar;
   List items;
 }
+
+// Globals used by test cases
+TestProps props;
+int setInterval(Function, int duration) => 0;
+void clearInterval(int id) {}
+dynamic someFunc() => null;
 ''';
 
-    String wrapInFunction(String code) => 'void someFunction() {\n\n$code\n\n}';
+    String wrapInFunction(String code) => 'void __testCaseWrapperFunction() {\n\n$code\n\n}';
 
     group('test cases that should pass', () {
       final tests = tco.tests['tests'].cast<String, List<dynamic>>();
@@ -45,8 +48,7 @@ mixin TestProps on UiProps {
           final code = preamble + wrapInFunction(element['code'] as String);
           try {
             final source = testBase.newSource('test.dart', code);
-            final errors = await testBase.getAllErrors(source);
-            expect(errors, isEmpty);
+            await testBase.expectNoErrors(source);
           } catch(_) {
             print('Source: ```\n$code\n```');
             rethrow;
