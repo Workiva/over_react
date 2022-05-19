@@ -24,3 +24,22 @@ class BadRenderComponent extends UiComponent2<BadRenderProps> {
     ];
   }
 }
+
+final BadRenderFnComponent = uiFunction<UiProps>(
+  (props) {
+    if (props.id == 'something') {
+      return false;
+    }
+
+    if (props.children.isEmpty) {
+      // Uninvoked builder: has quick-fix
+      return Dom.div();
+    }
+
+    return [
+      Dom.div()(),
+      Dom.span()(),
+    ];
+  },
+  UiFactoryConfig(displayName: 'BadRenderFnComponent'),
+);

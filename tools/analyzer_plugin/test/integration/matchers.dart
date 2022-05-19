@@ -47,17 +47,19 @@ TypeMatcher<AnalysisError> isDiagnostic(DiagnosticCode diagnosticCode, {bool? ha
 /// Convenience methods that leverage [TypeMatcher.having] to make it easy to
 /// add expectations for properties specific to [AnalysisError].
 extension AnalysisErrorHavingUtils on TypeMatcher<AnalysisError> {
-  TypeMatcher<AnalysisError> havingCode(String code) => having((e) => e.code, 'code', code);
+  TypeMatcher<AnalysisError> havingCode(/*String|Matcher*/ dynamic code) => having((e) => e.code, 'code', code);
 
-  TypeMatcher<AnalysisError> havingCorrection(String? correction) =>
+  TypeMatcher<AnalysisError> havingCorrection(/*String?|Matcher*/ dynamic correction) =>
       having((e) => e.correction, 'correction', correction);
 
-  TypeMatcher<AnalysisError> havingLocation(Matcher matcher) => having((e) => e.location, 'location', matcher);
+  TypeMatcher<AnalysisError> havingLocation(/*Matcher|Matcher*/ dynamic matcher) =>
+      having((e) => e.location, 'location', matcher);
 
-  TypeMatcher<AnalysisError> havingSeverity(AnalysisErrorSeverity severity) =>
+  TypeMatcher<AnalysisError> havingSeverity(/*AnalysisErrorSeverity|Matcher*/ dynamic severity) =>
       having((e) => e.severity, 'severity', severity);
 
-  TypeMatcher<AnalysisError> havingType(AnalysisErrorType type) => having((e) => e.type, 'type', type);
+  TypeMatcher<AnalysisError> havingType(/*AnalysisErrorType|Matcher*/ dynamic type) =>
+      having((e) => e.type, 'type', type);
 
   TypeMatcher<AnalysisError> thatHasFix() => having((e) => e.hasFix, 'hasFix', isTrue);
 
