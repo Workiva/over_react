@@ -44,13 +44,13 @@ import 'package:analyzer_plugin/src/utilities/fixes/fixes.dart';
 import 'package:analyzer_plugin/utilities/fixes/fixes.dart';
 import 'package:meta/meta.dart';
 import 'package:over_react_analyzer_plugin/src/async_plugin_apis/error_severity_provider.dart';
-import 'package:over_react_analyzer_plugin/src/config/config_error_severity_provider.dart';
-import 'package:over_react_analyzer_plugin/src/config/reader.dart';
+import 'package:over_react_analyzer_plugin/src/analysis_options/error_severity_provider.dart';
+import 'package:over_react_analyzer_plugin/src/analysis_options/reader.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/error_filtering.dart';
 
 mixin DiagnosticMixin on ServerPlugin {
-  final ConfigReader _configReader = ConfigReader();
+  final AnalysisOptionsReader _analysisOptionsReader = AnalysisOptionsReader();
 
   List<DiagnosticContributor> getDiagnosticContributors(String path);
 
@@ -62,7 +62,7 @@ mixin DiagnosticMixin on ServerPlugin {
   /// Computes errors based on an analysis result, notifies the analyzer, and
   /// then returns the list of errors.
   Future<List<AnalysisError>> getAllErrors(ResolvedUnitResult analysisResult) async {
-    final config = _configReader.getConfigForResult(analysisResult);
+    final analysisOptions = _analysisOptionsReader.getAnalysisOptionsForResult(analysisResult);
 
     try {
       // If there is no relevant analysis result, notify the analyzer of no errors.
@@ -76,7 +76,7 @@ mixin DiagnosticMixin on ServerPlugin {
       // this clears errors if they were fixed.
       final generator = _DiagnosticGenerator(
         getDiagnosticContributors(analysisResult.path!),
-        errorSeverityProvider: ConfigErrorSeverityProvider(config),
+        errorSeverityProvider: AnalysisOptionsErrorSeverityProvider(analysisOptions),
       );
       final result = await generator.generateErrors(analysisResult);
       channel.sendNotification(plugin.AnalysisErrorsParams(analysisResult.path!, result.result).toNotification());
@@ -93,12 +93,12 @@ mixin DiagnosticMixin on ServerPlugin {
   Future<plugin.EditGetFixesResult> handleEditGetFixes(plugin.EditGetFixesParams parameters) async {
     // We want request errors to propagate if they throw
     final request = await _getFixesRequest(parameters);
-    final config = _configReader.getConfigForResult(request.result);
+    final analysisOptions = _analysisOptionsReader.getAnalysisOptionsForResult(request.result);
 
     try {
       final generator = _DiagnosticGenerator(
         getDiagnosticContributors(parameters.file),
-        errorSeverityProvider: ConfigErrorSeverityProvider(config),
+        errorSeverityProvider: AnalysisOptionsErrorSeverityProvider(analysisOptions),
       );
       final result = await generator.generateFixesResponse(request);
       result.sendNotifications(channel);

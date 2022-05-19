@@ -1,26 +1,26 @@
-import 'package:over_react_analyzer_plugin/src/config/config.dart';
+import 'package:over_react_analyzer_plugin/src/analysis_options/plugin_analysis_options.dart';
 import 'package:yaml/yaml.dart';
 
-Config? processAnalysisOptionsFile(String fileContents) {
+PluginAnalysisOptions? processAnalysisOptionsFile(String fileContents) {
   final yaml = loadYamlNode(fileContents);
   if (yaml is YamlMap) {
-    return _parseConfig(yaml);
+    return _parseAnalysisOptions(yaml);
   }
 
   return null;
 }
 
-Config? _parseConfig(YamlMap yaml) {
+PluginAnalysisOptions? _parseAnalysisOptions(YamlMap yaml) {
   final dynamic overReact = yaml['over_react'];
   if (overReact is YamlMap) {
     final errors = _parseErrors(overReact);
-    return Config(errors);
+    return PluginAnalysisOptions(errors);
   }
 
   return null;
 }
 
-Map<String, ConfigSeverity> _parseErrors(YamlMap overReact) {
+Map<String, AnalysisOptionsSeverity> _parseErrors(YamlMap overReact) {
   final dynamic errors = overReact['errors'];
   if (errors is YamlMap) {
     return _yamlMapToDartMap(errors);
@@ -28,8 +28,8 @@ Map<String, ConfigSeverity> _parseErrors(YamlMap overReact) {
   return {};
 }
 
-Map<String, ConfigSeverity> _yamlMapToDartMap(YamlMap errors) {
-  final map = <String, ConfigSeverity>{};
+Map<String, AnalysisOptionsSeverity> _yamlMapToDartMap(YamlMap errors) {
+  final map = <String, AnalysisOptionsSeverity>{};
 
   for (final key in errors.keys) {
     if (key is String) {
@@ -47,8 +47,8 @@ Map<String, ConfigSeverity> _yamlMapToDartMap(YamlMap errors) {
 }
 
 const _severityMap = {
-  'ignore': ConfigSeverity.ignore,
-  'info': ConfigSeverity.info,
-  'error': ConfigSeverity.error,
-  'warning': ConfigSeverity.warning,
+  'ignore': AnalysisOptionsSeverity.ignore,
+  'info': AnalysisOptionsSeverity.info,
+  'error': AnalysisOptionsSeverity.error,
+  'warning': AnalysisOptionsSeverity.warning,
 };
