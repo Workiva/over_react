@@ -839,7 +839,7 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
             // allow this fix for them.
             depType == 'function') {
           // FIXME(greg) is it safe to assume this here?
-          assert(construction.initializer != null);
+          final constructionInitializer = construction.initializer!;
 
           // FIXME(greg) this is async :/
           diagnosticCollector.addErrorWithFix(
@@ -857,13 +857,13 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
                 // not adding [] because would that changes semantics.
 
                 if (wrapperHook == 'useMemo') {
-                  builder.addSimpleInsertion(construction.initializer!.offset, '$wrapperHook(() => ');
-                  builder.addSimpleInsertion(construction.initializer!.end, ')');
+                  builder.addSimpleInsertion(constructionInitializer.offset, '$wrapperHook(() => ');
+                  builder.addSimpleInsertion(constructionInitializer.end, ')');
                 } else {
-                  builder.addSimpleInsertion(construction.initializer!.offset, '$wrapperHook(');
+                  builder.addSimpleInsertion(constructionInitializer.offset, '$wrapperHook(');
                   // Add a placeholder here so there isn't a static error about using useCallback with the wrong number of arguments.
                   // FIXME(greg) figure out if this is the right way to handle this.
-                  builder.addSimpleInsertion(construction.initializer!.end, ', [/* FIXME add dependencies */])');
+                  builder.addSimpleInsertion(constructionInitializer.end, ', [/* FIXME add dependencies */])');
                 }
               },
             ),
