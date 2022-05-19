@@ -1,4 +1,4 @@
-// Adapted from https://github.com/facebook/react/blob/master@%7B2020-10-16%7D/packages/eslint-plugin-react-hooks/src/ExhaustiveDeps.js
+// Adapted from https://github.com/facebook/react/blob/main@%7B2020-10-16%7D/packages/eslint-plugin-react-hooks/src/ExhaustiveDeps.js
 
 // Copyright (c) Facebook, Inc. and its affiliates.
 //
