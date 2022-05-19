@@ -13,7 +13,6 @@ import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer_plugin/protocol/protocol_common.dart' show Location;
 import 'package:collection/collection.dart' show IterableExtension;
-import 'package:meta/meta.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/analyzer_debug_helper.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/util/analyzer_util.dart';
@@ -426,7 +425,7 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
       var isInReturnedFunction = false;
       reference.ancestors.whereType<FunctionBody>().takeWhile((ancestor) => ancestor != node).forEach((current) {
         // TODO why doesn't the original source just check the last one?
-        isInReturnedFunction = current?.parentOfType<FunctionExpression>()?.parentOfType<ReturnStatement>() != null;
+        isInReturnedFunction = current.parentOfType<FunctionExpression>()?.parentOfType<ReturnStatement>() != null;
       });
       return isInReturnedFunction;
     }
@@ -468,7 +467,7 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
           isEffect &&
               // ... and this look like accessing .current...
               dependencyNode is Identifier &&
-              dependencyNode.parent.tryCast<PropertyAccess>()?.propertyName?.name == 'current' &&
+              dependencyNode.parent.tryCast<PropertyAccess>()?.propertyName.name == 'current' &&
               // ...in a cleanup function or below...
               isInsideEffectCleanup(reference)) {
         currentRefsInEffectCleanup[dependency] = _RefInEffectCleanup(
@@ -513,7 +512,7 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
           final parent = reference.parent;
           if (
               // ref.current
-              parent?.tryCast<PropertyAccess>()?.propertyName?.name == 'current' &&
+              parent?.tryCast<PropertyAccess>()?.propertyName.name == 'current' &&
                   // ref.current = <something>
                   parent!.parent?.tryCast<AssignmentExpression>()?.leftHandSide == parent) {
             foundCurrentAssignment = true;
@@ -693,7 +692,7 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
         }
 
         // Special case for Dart: whole state hook passed in as dependency.
-        if (declaredDependencyNode?.staticType?.element?.isStateHook ?? false) {
+        if (declaredDependencyNode.staticType?.element?.isStateHook ?? false) {
           final dependencySource = getSource(declaredDependencyNode);
           final dependencySourceValue = '$dependencySource.value';
           // fixme(greg) conditionally suggest value or removing the dep based on whether count.value is used in hook? Also figure out why `useEffect(() => print(count.value), [count]);` triggers missing dependency case
@@ -833,7 +832,7 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
         final causation = depType == 'conditional' || depType == 'logical expression' ? 'could make' : 'makes';
 
         final message = "The '$constructionName' $depType $causation the dependencies of "
-            "$reactiveHookName Hook (at line ${result.lineInfo?.getLocation(declaredDependenciesNode.offset)?.lineNumber}) "
+            "$reactiveHookName Hook (at line ${result.lineInfo.getLocation(declaredDependenciesNode.offset).lineNumber}) "
             "change on every render. $advice";
 
         // Only handle the simple case of variable assignments.
@@ -1055,7 +1054,7 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
           while (maybeCall != null && maybeCall != componentFunction.body) {
             if (maybeCall is InvocationExpression) {
               final maybeCallFunction = maybeCall.function;
-              final maybeCallFunctionName = maybeCallFunction.tryCast<MethodInvocation>()?.methodName?.name ??
+              final maybeCallFunctionName = maybeCallFunction.tryCast<MethodInvocation>()?.methodName.name ??
                   maybeCallFunction.tryCast<Identifier>()?.name;
               final correspondingStateVariable = setStateCallSites.getNullableKey(
                 maybeCallFunction.tryCast(),
@@ -1535,7 +1534,7 @@ List<_Construction> scanForConstructions({
   final constructions = declaredDependencies.map<Tuple2<Declaration, String>?>((dep) {
     // FIXME this should be equivalent, but need to figure out how chained properties work... I'm not sure how that would work with analyzePropertyChain being used with the existing code to look up identifiers
     // final ref = componentScope.variables.firstWhere((v) => v.name == key, orElse: () => null);
-    final refElement = dep.node?.tryCast<Identifier>()?.staticElement;
+    final refElement = dep.node.tryCast<Identifier>()?.staticElement;
     if (refElement == null) return null;
 
     final declaration = lookUpDeclaration(refElement, dep.node.root);
@@ -1732,7 +1731,7 @@ AstNode getNodeWithoutReactNamespace(Expression node) {
   if (node is PrefixedIdentifier) {
     if (node.prefix.staticElement is LibraryElement) {}
   } else if (node is PropertyAccess) {
-    if (node.realTarget?.tryCast<Identifier>()?.staticElement is LibraryElement) {
+    if (node.realTarget.tryCast<Identifier>()?.staticElement is LibraryElement) {
       return node.propertyName;
     }
   }
