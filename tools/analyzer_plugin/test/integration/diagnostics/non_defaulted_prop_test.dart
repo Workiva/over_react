@@ -96,7 +96,7 @@ final Foo = uiFunction<FooProps>(
     final selection = createSelection(source, "(#props.content#)");
 
     // Verify error.
-    expect((await getAllErrors(source)).single, isAnErrorUnderTest(locatedAt: selection, hasFix: true));
+    await expectSingleErrorAt(selection);
 
     // Verify fix.
     final errorFix = await expectSingleErrorFix(selection);
@@ -128,7 +128,7 @@ final Foo = uiFunction<FooProps>(
     final selection = createSelection(source, "(#props.content#)");
 
     // Verify error.
-    expect((await getAllErrors(source)).single, isAnErrorUnderTest(locatedAt: selection, hasFix: true));
+    await expectSingleErrorAt(selection);
 
     // Verify fix.
     final errorFix = await expectSingleErrorFix(selection);

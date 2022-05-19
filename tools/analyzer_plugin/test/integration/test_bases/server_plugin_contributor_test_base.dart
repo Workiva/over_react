@@ -129,6 +129,12 @@ abstract class ServerPluginContributorTestBase extends AnalysisDriverTestBase {
   /// Will fail the test if any unexpected plugin errors were sent on the plugin
   /// communication channel.
   void expectNoPluginErrors() {
+    if (_channel == null) {
+      throw ArgumentError(
+          '_channel was unexpectedly null, meaning setUp may have thrown an error that wasn\'t handled yet. '
+          'Try returning early from this function instead of throwing this error to show the real error.');
+    }
+
     final pluginErrors = _channel!.sentNotifications.where((n) => n.event == 'plugin.error');
     expect(pluginErrors, isEmpty,
         reason: 'Unexpected plugin error(s):\n${pluginErrors.map((e) => e.toJson()).join('\n')}');

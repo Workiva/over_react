@@ -302,12 +302,14 @@ $customComponentDefinition
 
 final domComponentUsage = (Dom.div()
   ..aria.hidden = false
-  ..addProps(ariaProps()..hidden = true)
+  // Work around dart:collection's MapView not existing in MockSdk, and thus AriaPropsMapView not being a Map.
+  ..addProps((ariaProps()..hidden = true) as Map)
 )();
 
 final customComponentUsage = (Custom()
   ..aria.hidden = true
-  ..addProps(ariaProps()..hidden = false)
+  // Work around dart:collection's MapView not existing in MockSdk, and thus AriaPropsMapView not being a Map.
+  ..addProps((ariaProps()..hidden = false) as Map)
 )();
 ''');
     expect(await getAllErrors(source), isEmpty);
