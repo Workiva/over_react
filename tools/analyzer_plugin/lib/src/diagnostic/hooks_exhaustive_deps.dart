@@ -89,11 +89,12 @@ class WeakSet<E> {
   }
 }
 
-class WeakMap<K, V> {
+class WeakMap<K, V extends Object> {
   final _keys = WeakSet<K>();
   final _valueFor = Expando<V>();
 
   V? get(K key) => has(key) ? _valueFor[key!] : null;
+  V? getNullableKey(K? key) => key == null ? null : get(key);
 
   void set(K key, V value) {
     _keys.add(key);
@@ -115,7 +116,7 @@ class WeakMap<K, V> {
   }
 }
 
-extension<K, V> on V Function(K) {
+extension<K, V extends Object> on V Function(K) {
   V? Function(K) memoizeWithWeakMap(WeakMap<K, V> map) {
     return (key) => map.putIfAbsent(key, () => this(key));
   }
@@ -186,7 +187,7 @@ Iterable<Identifier> resolvedReferencesWithin(AstNode node) =>
 class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
   // Should be shared between visitors.
   /// A mapping from setState references to setState declarations
-  final setStateCallSites = WeakMap<Identifier?, VariableDeclaration?>();
+  final setStateCallSites = WeakMap<Identifier, VariableDeclaration>();
   final stateVariables = WeakSet<Identifier>();
   final stableKnownValueCache = WeakMap<Identifier, bool>();
   final functionWithoutCapturedValueCache = WeakMap<Element, bool>();
@@ -1056,7 +1057,7 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
               final maybeCallFunction = maybeCall.function;
               final maybeCallFunctionName = maybeCallFunction.tryCast<MethodInvocation>()?.methodName?.name ??
                   maybeCallFunction.tryCast<Identifier>()?.name;
-              final correspondingStateVariable = setStateCallSites.get(
+              final correspondingStateVariable = setStateCallSites.getNullableKey(
                 maybeCallFunction.tryCast(),
               );
               if (correspondingStateVariable != null) {
