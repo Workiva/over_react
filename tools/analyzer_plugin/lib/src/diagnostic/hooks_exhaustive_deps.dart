@@ -135,9 +135,13 @@ class _Dependency {
 
 class _RefInEffectCleanup {
   final Identifier reference;
+
+  /// [reference].staticElement, but stored as a separate non-nullable field.
+  final Element referenceElement;
+
   final Identifier dependencyNode;
 
-  _RefInEffectCleanup({required this.reference, required this.dependencyNode});
+  _RefInEffectCleanup({required this.reference, required this.referenceElement, required this.dependencyNode});
 
   @override
   String toString() => prettyString({
@@ -291,11 +295,12 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
     // False for everything else.
     bool isStableKnownHookValue(Identifier reference) {
       // FIXME what about function declarations? are those handled elsewhere
-      final declaration = lookUpDeclaration(reference.staticElement!, reference.root)?.tryCast<VariableDeclaration>();
-      var init = declaration?.initializer;
-      if (init == null) {
-        return false;
-      }
+      final referenceElement = reference.staticElement;
+      final declaration = referenceElement == null ? null : lookUpDeclaration(referenceElement, reference.root)?.tryCast<VariableDeclaration>();
+      if (declaration == null) return false;
+
+      var init = declaration.initializer;
+      if (init == null) return false;
 
       Expression unwrap(Expression expr) {
         if (expr is AsExpression) return expr.expression;
@@ -312,7 +317,7 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
       // > This might happen if variable is declared after the callback.
       // but that isn't possible in Dart, so we can omit that logic.
 
-      if (declaration!.isConst || (declaration.isFinal && !declaration.isLate && isAConstantValue(init))) {
+      if (declaration.isConst || (declaration.isFinal && !declaration.isLate && isAConstantValue(init))) {
         // Definitely stable
         return true;
       }
@@ -337,8 +342,10 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
         }
       }
 
-      SimpleIdentifier? propertyBeingAccessed() =>
-          propertyNameFromNonCascadedAccessOrInvocation(reference.parent.tryCast<Expression>()!);
+      SimpleIdentifier? propertyBeingAccessed() {
+        final parentExpression = reference.parent.tryCast<Expression>();
+        return parentExpression == null ? null : propertyNameFromNonCascadedAccessOrInvocation(parentExpression);
+      }
 
       if (reference.staticType?.element?.isStateHook ?? false) {
         // Check whether this reference is only used to access the stable hook property.
@@ -443,9 +450,10 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
       // scope then we don't care about this reference.
 
       // TODO follow up on this and see how dynamic calls are treated
-      if (reference.staticElement == null) continue;
+      final referenceElement = reference.staticElement;
+      if (referenceElement == null) continue;
 
-      if (!isDeclaredInPureScope(reference.staticElement!)) {
+      if (!isDeclaredInPureScope(referenceElement)) {
         continue;
       }
 
@@ -471,6 +479,7 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
               isInsideEffectCleanup(reference)) {
         currentRefsInEffectCleanup[dependency] = _RefInEffectCleanup(
           reference: reference,
+          referenceElement: referenceElement,
           dependencyNode: dependencyNode,
         );
       }
@@ -484,16 +493,17 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
 
       // Add the dependency to a map so we can make sure it is referenced
       // again in our dependencies array. Remember whether it's stable.
-      if (!dependencies.containsKey(dependency)) {
+      final existingDependency = dependencies[dependency];
+      if (existingDependency == null) {
         final isStable = memoizedIsStableKnownHookValue(reference) ||
             // FIXME handle .call tearoffs
-            (reference.staticElement != null && memoizedIsFunctionWithoutCapturedValues(reference.staticElement!));
+            memoizedIsFunctionWithoutCapturedValues(referenceElement);
         dependencies[dependency] = _Dependency(
           isStable: isStable,
           references: [reference],
         );
       } else {
-        dependencies[dependency]!.references.add(reference);
+        existingDependency.references.add(reference);
       }
     }
 
@@ -510,10 +520,11 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
         for (final reference in findReferences(reference.staticElement!, reference.root)) {
           final parent = reference.parent;
           if (
+              parent != null &&
               // ref.current
-              parent?.tryCast<PropertyAccess>()?.propertyName.name == 'current' &&
+              parent.tryCast<PropertyAccess>()?.propertyName.name == 'current' &&
                   // ref.current = <something>
-                  parent!.parent?.tryCast<AssignmentExpression>()?.leftHandSide == parent) {
+                  parent.parent?.tryCast<AssignmentExpression>()?.leftHandSide == parent) {
             foundCurrentAssignment = true;
             break;
           }
