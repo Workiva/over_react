@@ -85,7 +85,7 @@ class StyleValueDiagnostic extends ComponentUsageDiagnosticContributor {
           fixKind: propertyFixKind,
           fixMessageArgs: [camelCaseName],
           computeFix: () => buildGenericFileEdit(result, (builder) {
-            builder.addSimpleReplacement(range.node(entry.key), _stringLiteral(camelCaseName));
+            builder.addSimpleReplacement(range.node(entry.key), stringLiteral(camelCaseName));
           }),
         );
       } else {
@@ -200,7 +200,7 @@ const unitlessNumberStyles = {
 ///
 /// If [content] is null, a string version of the the `null` literal will be
 /// returned instead.
-String _stringLiteral(String? content, {bool quote = true, bool useSingleQuote = true}) {
+String stringLiteral(String? content, {bool quote = true, bool useSingleQuote = true}) {
   // Adapted from dart.convert library's JSON encoder:
   // https://github.com/dart-lang/sdk/blob/1.12.0/sdk/lib/convert/json.dart#L565
   //
