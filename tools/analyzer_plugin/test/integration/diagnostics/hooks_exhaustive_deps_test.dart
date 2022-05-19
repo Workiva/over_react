@@ -27,16 +27,24 @@ import 'package:over_react/over_react.dart' as over_react;
 part 'test.over_react.g.dart';
 
 mixin TestProps on UiProps {
+  // FIXME do we need to make these non-dynamic?
   var foo;
   var bar;
+  var history;
+  var innerRef;
   List items;
+  num delay;
+  Function myEffect;
 }
 
 // Globals used by test cases
 TestProps props;
+var global;
 int setInterval(Function callback, int duration) => 0;
 void clearInterval(int id) {}
 dynamic someFunc() => null;
+Function debounce(Function callback, num delay) => null;
+dynamic renderHelperConfusedWithEffect(Function callback, dynamic secondArg);
 ''';
 
     String wrapInFunction(String code) => 'void __testCaseWrapperFunction() {\n\n$code\n\n}';
@@ -45,7 +53,9 @@ dynamic someFunc() => null;
         defaultErrorFilter(error, isFromPlugin: isFromPlugin) &&
         !{
           'unused_import',
-        }.contains(error.code);
+        }.contains(error.code) &&
+            // These are intentionally undefined references
+        !(error.code == 'undefined_identifier' && error.message.contains("Undefined name 'unresolved'."));
 
     group('test cases that should pass', () {
       final tests = tco.tests['tests'].cast<String, List<dynamic>>();
@@ -58,6 +68,9 @@ dynamic someFunc() => null;
           try {
             final source = testBase.newSource('test.dart', code);
             await testBase.expectNoErrors(source, errorFilter: errorFilter);
+            // Run this here even though it's also in tearDown, so that we can see the source
+            // when there's failures caused by this expectation.
+            testBase.expectNoPluginErrors();
           } catch (_) {
             print('Source: ```\n$code\n```');
             rethrow;

@@ -96,15 +96,6 @@ final MyComponent = uiFunction<TestProps>((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction<TestProps>((_) {
-  final local = someFunc();
-  useEffect(() {
-    print(local);
-  }, [null, null, null, local, null, null, null]);
-}, null);''',
-      },
-      {
-        'code': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
   var foo = props.foo;
 
@@ -361,11 +352,11 @@ final MyComponent = uiFunction<TestProps>((_) {
         'code': /*language=dart*/ r'''
 final local = {};
 final MyComponent = uiFunction<TestProps>((_) {
-  final myEffect = () {
-    otherThing()
-  }
   final otherThing = () {
     print(local);
+  }
+  final myEffect = () {
+    otherThing()
   }
   useEffect(myEffect, []);
 }, null);''',
@@ -6058,11 +6049,11 @@ final MyComponent = uiFunction<TestProps>((_) {
         'code': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
-  final myEffect = () {
-    otherThing();
-  };
   final otherThing = () {
     print(local);
+  };
+  final myEffect = () {
+    otherThing();
   };
   useEffect(myEffect, []);
 }, null);''',
@@ -6076,11 +6067,11 @@ final MyComponent = uiFunction<TestProps>((_) {
                 'output': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
-  final myEffect = () {
-    otherThing();
-  };
   final otherThing = () {
     print(local);
+  };
+  final myEffect = () {
+    otherThing();
   };
   useEffect(myEffect, [otherThing]);
 }, null);''',
@@ -7422,12 +7413,12 @@ final MyComponent = uiFunction<TestProps>((_) {
         'code': /*language=dart*/ r'''
 final local = {};
 final MyComponent = uiFunction<TestProps>((_) {
-  final myEffect = () {
-    otherThing()
-  }
   final otherThing = () {
     print(local);
-  }
+  };
+  final myEffect = () {
+    otherThing();
+  };
   useEffect(myEffect, []);
 }, null);''',
       },
@@ -13119,11 +13110,11 @@ final MyComponent = uiFunction<TestProps>((_) {
         'code': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
-  final myEffect = () {
-    otherThing();
-  };
   final otherThing = () {
     print(local);
+  };
+  final myEffect = () {
+    otherThing();
   };
   useEffect(myEffect, []);
 }, null);''',
@@ -13137,11 +13128,11 @@ final MyComponent = uiFunction<TestProps>((_) {
                 'output': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
-  final myEffect = () {
-    otherThing();
-  };
   final otherThing = () {
     print(local);
+  };
+  final myEffect = () {
+    otherThing();
   };
   useEffect(myEffect, [otherThing]);
 }, null);''',
@@ -20180,11 +20171,11 @@ final MyComponent = uiFunction<TestProps>((_) {
         'code': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
-  final myEffect = () {
-    otherThing();
-  };
   final otherThing = () {
     print(local);
+  };
+  final myEffect = () {
+    otherThing();
   };
   useEffect(myEffect, []);
 }, null);''',
@@ -20198,11 +20189,11 @@ final MyComponent = uiFunction<TestProps>((_) {
                 'output': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
-  final myEffect = () {
-    otherThing();
-  };
   final otherThing = () {
     print(local);
+  };
+  final myEffect = () {
+    otherThing();
   };
   useEffect(myEffect, [otherThing]);
 }, null);''',
@@ -27241,11 +27232,11 @@ final MyComponent = uiFunction<TestProps>((_) {
         'code': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
-  final myEffect = () {
-    otherThing();
-  };
   final otherThing = () {
     print(local);
+  };
+  final myEffect = () {
+    otherThing();
   };
   useEffect(myEffect, []);
 }, null);''',
@@ -27259,11 +27250,11 @@ final MyComponent = uiFunction<TestProps>((_) {
                 'output': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
-  final myEffect = () {
-    otherThing();
-  };
   final otherThing = () {
     print(local);
+  };
+  final myEffect = () {
+    otherThing();
   };
   useEffect(myEffect, [otherThing]);
 }, null);''',
