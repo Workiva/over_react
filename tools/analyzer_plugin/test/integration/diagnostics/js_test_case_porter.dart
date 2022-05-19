@@ -79,7 +79,8 @@ String portJsToDart(String code) {
       .replaceAll('React.', 'over_react.')
       .replaceAll('JSON.stringify', 'jsonEncode')
       // This needs to happen before other function conversions
-      .replaceAllMapped(RegExp(r'^(\s*)function\s*([A-Z]\w+)(\([\s\S]+\n\1\})', multiLine: true),
+      // Use replaceAllMappedIteratively to handle nested components
+      .replaceAllMappedIteratively(RegExp(r'^(\s*)function\s*([A-Z]\w+)(\([\s\S]+\n\1\})', multiLine: true),
           (match) => '${match.group(1)}final ${match.group(2)} = uiFunction(${match.group(3)}, null);')
       // Local functions
       .replaceAllMapped(RegExp(r'\bfunction\s*(\w+)\s*\('), (match) => '${match.group(1)}(')
@@ -138,6 +139,22 @@ String portJsToDart(String code) {
       });
 
   return newCode;
+}
+
+extension on String {
+  String replaceAllMappedIteratively(Pattern from, String Function(Match match) replace, {int maxIterations = 10}) {
+    var current = this;
+    for (var i = 0; i < maxIterations; i++) {
+      var newString = current.replaceAllMapped(from, replace);
+      if (newString == current) {
+        return newString;
+      }
+      current = newString;
+    }
+    throw ArgumentError(
+        'String replacement modified the string even after $maxIterations iterations, and may infinitely replace.'
+        ' Check your pattern to make sure this doesn\'t happen. String after max replacements: $current');
+  }
 }
 
 class StateNames {

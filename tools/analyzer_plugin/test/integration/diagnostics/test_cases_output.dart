@@ -67,13 +67,13 @@ final MyComponent = uiFunction<TestProps>((_) {
         'code': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((_) {
   final local1 = someFunc();
-  MyNestedComponent() {
+  final MyNestedComponent = uiFunction<TestProps>((_) {
     final local2 = someFunc();
     useCallback(() {
       print(local1);
       print(local2);
     }, [local2]);
-  }
+  }, null);
 }, null);''',
       },
       {
@@ -1701,13 +1701,13 @@ final MyComponent = uiFunction<TestProps>((_) {
         'code': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((_) {
   final local1 = someFunc();
-  MyNestedComponent() {
+  final MyNestedComponent = uiFunction<TestProps>((_) {
     final local2 = {};
     useCallback(() {
       print(local1);
       print(local2);
     }, [local1]);
-  }
+  }, null);
 }, null);''',
         'errors': [
           {
@@ -1719,13 +1719,13 @@ final MyComponent = uiFunction<TestProps>((_) {
                 'output': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((_) {
   final local1 = someFunc();
-  MyNestedComponent() {
+  final MyNestedComponent = uiFunction<TestProps>((_) {
     final local2 = {};
     useCallback(() {
       print(local1);
       print(local2);
     }, [local2]);
-  }
+  }, null);
 }, null);''',
               }
             ],
@@ -7128,13 +7128,13 @@ final MyComponent = uiFunction<TestProps>((_) {
         'code': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((_) {
   final local1 = someFunc();
-  MyNestedComponent() {
+  final MyNestedComponent = uiFunction<TestProps>((_) {
     final local2 = someFunc();
     useCallback(() {
       print(local1);
       print(local2);
     }, [local2]);
-  }
+  }, null);
 }, null);''',
       },
       {
@@ -8762,13 +8762,13 @@ final MyComponent = uiFunction<TestProps>((_) {
         'code': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((_) {
   final local1 = someFunc();
-  MyNestedComponent() {
+  final MyNestedComponent = uiFunction<TestProps>((_) {
     final local2 = {};
     useCallback(() {
       print(local1);
       print(local2);
     }, [local1]);
-  }
+  }, null);
 }, null);''',
         'errors': [
           {
@@ -8780,13 +8780,13 @@ final MyComponent = uiFunction<TestProps>((_) {
                 'output': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((_) {
   final local1 = someFunc();
-  MyNestedComponent() {
+  final MyNestedComponent = uiFunction<TestProps>((_) {
     final local2 = {};
     useCallback(() {
       print(local1);
       print(local2);
     }, [local2]);
-  }
+  }, null);
 }, null);''',
               }
             ],
@@ -14189,13 +14189,13 @@ final MyComponent = uiFunction<TestProps>((_) {
         'code': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((_) {
   final local1 = someFunc();
-  MyNestedComponent() {
+  final MyNestedComponent = uiFunction<TestProps>((_) {
     final local2 = someFunc();
     useCallback(() {
       print(local1);
       print(local2);
     }, [local2]);
-  }
+  }, null);
 }, null);''',
       },
       {
@@ -15823,13 +15823,13 @@ final MyComponent = uiFunction<TestProps>((_) {
         'code': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((_) {
   final local1 = someFunc();
-  MyNestedComponent() {
+  final MyNestedComponent = uiFunction<TestProps>((_) {
     final local2 = {};
     useCallback(() {
       print(local1);
       print(local2);
     }, [local1]);
-  }
+  }, null);
 }, null);''',
         'errors': [
           {
@@ -15841,13 +15841,13 @@ final MyComponent = uiFunction<TestProps>((_) {
                 'output': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((_) {
   final local1 = someFunc();
-  MyNestedComponent() {
+  final MyNestedComponent = uiFunction<TestProps>((_) {
     final local2 = {};
     useCallback(() {
       print(local1);
       print(local2);
     }, [local2]);
-  }
+  }, null);
 }, null);''',
               }
             ],
@@ -21250,13 +21250,13 @@ final MyComponent = uiFunction<TestProps>((_) {
         'code': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((_) {
   final local1 = someFunc();
-  MyNestedComponent() {
+  final MyNestedComponent = uiFunction<TestProps>((_) {
     final local2 = someFunc();
     useCallback(() {
       print(local1);
       print(local2);
     }, [local2]);
-  }
+  }, null);
 }, null);''',
       },
       {
@@ -22884,13 +22884,13 @@ final MyComponent = uiFunction<TestProps>((_) {
         'code': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((_) {
   final local1 = someFunc();
-  MyNestedComponent() {
+  final MyNestedComponent = uiFunction<TestProps>((_) {
     final local2 = {};
     useCallback(() {
       print(local1);
       print(local2);
     }, [local1]);
-  }
+  }, null);
 }, null);''',
         'errors': [
           {
@@ -22902,13 +22902,13 @@ final MyComponent = uiFunction<TestProps>((_) {
                 'output': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((_) {
   final local1 = someFunc();
-  MyNestedComponent() {
+  final MyNestedComponent = uiFunction<TestProps>((_) {
     final local2 = {};
     useCallback(() {
       print(local1);
       print(local2);
     }, [local2]);
-  }
+  }, null);
 }, null);''',
               }
             ],
