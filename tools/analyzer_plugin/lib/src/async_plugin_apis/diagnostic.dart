@@ -43,10 +43,15 @@ import 'package:analyzer_plugin/protocol/protocol_generated.dart';
 import 'package:analyzer_plugin/src/utilities/fixes/fixes.dart';
 import 'package:analyzer_plugin/utilities/fixes/fixes.dart';
 import 'package:meta/meta.dart';
+import 'package:over_react_analyzer_plugin/src/async_plugin_apis/error_severity_provider.dart';
+import 'package:over_react_analyzer_plugin/src/config/config_error_severity_provider.dart';
+import 'package:over_react_analyzer_plugin/src/config/reader.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/error_filtering.dart';
 
 mixin DiagnosticMixin on ServerPlugin {
+  final ConfigReader _configReader = ConfigReader();
+
   List<DiagnosticContributor> getDiagnosticContributors(String path);
 
   /// Computes errors based on an analysis result and notifies the analyzer.
@@ -57,6 +62,8 @@ mixin DiagnosticMixin on ServerPlugin {
   /// Computes errors based on an analysis result, notifies the analyzer, and
   /// then returns the list of errors.
   Future<List<AnalysisError>> getAllErrors(ResolvedUnitResult analysisResult) async {
+    final config = await _configReader.getConfigForResult(analysisResult);
+
     try {
       // If there is no relevant analysis result, notify the analyzer of no errors.
       if (analysisResult.unit == null) {
@@ -67,7 +74,10 @@ mixin DiagnosticMixin on ServerPlugin {
       // If there is something to analyze, do so and notify the analyzer.
       // Note that notifying with an empty set of errors is important as
       // this clears errors if they were fixed.
-      final generator = _DiagnosticGenerator(getDiagnosticContributors(analysisResult.path!));
+      final generator = _DiagnosticGenerator(
+        getDiagnosticContributors(analysisResult.path!),
+        errorSeverityProvider: ConfigErrorSeverityProvider(config),
+      );
       final result = await generator.generateErrors(analysisResult);
       channel.sendNotification(plugin.AnalysisErrorsParams(analysisResult.path!, result.result).toNotification());
       result.sendNotifications(channel);
@@ -83,8 +93,13 @@ mixin DiagnosticMixin on ServerPlugin {
   Future<plugin.EditGetFixesResult> handleEditGetFixes(plugin.EditGetFixesParams parameters) async {
     // We want request errors to propagate if they throw
     final request = await _getFixesRequest(parameters);
+    final config = await _configReader.getConfigForResult(request.result);
+
     try {
-      final generator = _DiagnosticGenerator(getDiagnosticContributors(parameters.file));
+      final generator = _DiagnosticGenerator(
+        getDiagnosticContributors(parameters.file),
+        errorSeverityProvider: ConfigErrorSeverityProvider(config),
+      );
       final result = await generator.generateFixesResponse(request);
       result.sendNotifications(channel);
       return result.result;
@@ -122,7 +137,10 @@ mixin DiagnosticMixin on ServerPlugin {
 class _DiagnosticGenerator {
   /// Initialize a newly created errors generator to use the given
   /// [contributors].
-  _DiagnosticGenerator(this.contributors);
+  _DiagnosticGenerator(this.contributors, {required ErrorSeverityProvider errorSeverityProvider})
+      : _errorSeverityProvider = errorSeverityProvider;
+
+  final ErrorSeverityProvider _errorSeverityProvider;
 
   /// The contributors to be used to generate the errors.
   final List<DiagnosticContributor> contributors;
@@ -151,6 +169,17 @@ class _DiagnosticGenerator {
       final error = collector.errors[i];
       final errorStart = error.location.offset;
       final errorEnd = errorStart + error.location.length;
+
+      if (_errorSeverityProvider.isCodeConfigured(error.code)) {
+        if (_errorSeverityProvider.isCodeDisabled(error.code)) {
+          continue;
+        } else {
+          final severity = _errorSeverityProvider.severityForCode(error.code);
+          if (severity != null) {
+            error.severity = severity;
+          }
+        }
+      }
 
       // `<=` because we do want the end to be inclusive (you should get
       // the fix when your cursor is on the tail end of the error).
@@ -195,7 +224,28 @@ class _DiagnosticGenerator {
     final filteredErrors = filterIgnores(
         collector.errors, unitResult.lineInfo, () => IgnoreInfo.forDart(unitResult.unit!, unitResult.content!));
 
-    return _GeneratorResult(filteredErrors, notifications);
+    final configuredErrors = configureErrorSeverity(filteredErrors);
+
+    return _GeneratorResult(configuredErrors, notifications);
+  }
+
+  List<AnalysisError> configureErrorSeverity(List<AnalysisError> errors) {
+    final configuredErrors = <AnalysisError>[];
+    for (final error in errors) {
+      if (_errorSeverityProvider.isCodeConfigured(error.code)) {
+        if (!_errorSeverityProvider.isCodeDisabled(error.code)) {
+          final severity = _errorSeverityProvider.severityForCode(error.code);
+          if (severity != null) {
+            error.severity = severity;
+          }
+          configuredErrors.add(error);
+        }
+      } else {
+        configuredErrors.add(error);
+      }
+    }
+
+    return configuredErrors;
   }
 }
 
