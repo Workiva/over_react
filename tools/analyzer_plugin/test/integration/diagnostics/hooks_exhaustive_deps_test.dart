@@ -44,7 +44,7 @@ int setInterval(Function callback, int duration) => 0;
 void clearInterval(int id) {}
 dynamic someFunc() => null;
 Function debounce(Function callback, num delay) => null;
-dynamic renderHelperConfusedWithEffect(Function callback, dynamic secondArg);
+dynamic renderHelperConfusedWithEffect(Function callback, dynamic secondArg) => null;
 ''';
 
     String wrapInFunction(String code) => 'void __testCaseWrapperFunction() {\n\n$code\n\n}';
