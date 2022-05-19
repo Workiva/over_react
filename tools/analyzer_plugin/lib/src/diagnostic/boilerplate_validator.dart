@@ -232,9 +232,6 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
         errorType == PartDirectiveErrorType.missing ? memberMissingPartErrorMsg : memberInvalidPartErrorMsg;
     final memberPartDirectiveFixKind =
         errorType == PartDirectiveErrorType.missing ? missingGeneratedPartFixKind : invalidGeneratedPartFixKind;
-    final fixFn = errorType == PartDirectiveErrorType.missing
-        ? addOverReactGeneratedPartDirective as void Function(DartFileEditBuilder, CompilationUnit?, Uri)
-        : fixOverReactGeneratedPartDirective as void Function(DartFileEditBuilder, CompilationUnit?, Uri);
 
     return collector.addErrorWithFix(
       errorCode,
@@ -242,7 +239,11 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
       errorMessageArgs: ['$memberPartDirectiveErrorMsg to use OverReact component boilerplate.'],
       fixKind: memberPartDirectiveFixKind,
       computeFix: () => buildFileEdit(result, (builder) {
-        fixFn(builder, result.unit, result.uri);
+        if (errorType == PartDirectiveErrorType.missing) {
+          addOverReactGeneratedPartDirective(builder, result.unit!, result.lineInfo, result.uri);
+        } else {
+          fixOverReactGeneratedPartDirective(builder, result.unit!, result.uri);
+        }
       }),
     );
   }

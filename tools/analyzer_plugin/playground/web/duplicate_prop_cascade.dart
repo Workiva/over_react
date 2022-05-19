@@ -9,10 +9,14 @@ duplicatePropCascade() {
     ..dom.hidden = false
     ..aria.hidden = false
     ..hidden = false // None of these "hidden" props should be linted as dupes
+    ..id = '1'
+    ..dom.id = 'foo' // Should lint as dupe of `id`
+    ..dom.id = 'bar' // Should lint as dupe of `id`
   )();
   (Dom.div()
     ..id = '1'
     ..dom.id = 'foo' // Should lint as dupe of `id`
+    ..dom.id = 'bar' // Should lint as dupe of `id`
     ..id = '2'
     ..hidden = false
     ..aria.hidden = false // Should not lint as dupe of `hidden`
