@@ -136,8 +136,8 @@ abstract class DiagnosticTestBase extends ServerPluginContributorTestBase {
   /// Returns all errors produced over the entire [source] and fails the test if
   /// any of them do not match [isAnErrorUnderTest] or [isAFixUnderTest].
   Future<DartAndPluginErrorsIterable> getAllErrors(Source source,
-      {bool includeOtherCodes = false, DartErrorFilter dartErrorFilter = defaultDartErrorFilter}) async {
-    final errors = await _getAllErrors(source, dartErrorFilter: dartErrorFilter);
+      {bool includeOtherCodes = false, ErrorFilter dartErrorFilter = defaultErrorFilter}) async {
+    final errors = await _getAllErrors(source, errorFilter: dartErrorFilter);
     if (!includeOtherCodes) {
       expect(errors.dartErrors, isEmpty,
           reason: 'Expected there to be no errors coming from the analyzer and not the plugin.'
@@ -151,15 +151,13 @@ abstract class DiagnosticTestBase extends ServerPluginContributorTestBase {
 
   /// Returns all errors produced over the entire [source] and fails the test if
   /// any of them do not match [isAnErrorUnderTest] or [isAFixUnderTest].
-  Future<void> expectNoErrors(Source source,
-      {DartErrorFilter dartErrorFilter = defaultDartErrorFilter}) async {
-    final errors = await _getAllErrors(source, dartErrorFilter: dartErrorFilter);
+  Future<void> expectNoErrors(Source source, {ErrorFilter errorFilter = defaultErrorFilter}) async {
+    final errors = await _getAllErrors(source, errorFilter: errorFilter);
     expect(errors.dartErrors, isEmpty,
         reason: 'Expected there to be no errors coming from the analyzer and not the plugin.'
             ' Ensure your test source is free of unintentional errors, such as syntax errors and missing imports.'
             ' If errors are expected, set includeOtherErrorCodes:true.');
-    expect(errors.pluginErrors, isEmpty,
-        reason: 'Expected there to be no plugin errors.');
+    expect(errors.pluginErrors, isEmpty, reason: 'Expected there to be no plugin errors.');
   }
 
   Future<DartAndPluginErrorsIterable> getAllErrorsAtSelection(SourceSelection selection,
@@ -189,7 +187,7 @@ abstract class DiagnosticTestBase extends ServerPluginContributorTestBase {
   }
 
   Future<DartAndPluginErrorsIterable> _getAllErrors(Source source,
-      {DartErrorFilter dartErrorFilter = defaultDartErrorFilter}) async {
+      {ErrorFilter errorFilter = defaultErrorFilter}) async {
     final result = await testPlugin.getResolvedUnitResult(sourcePath(source));
     final dartErrors = AnalyzerConverter()
         .convertAnalysisErrors(
@@ -197,9 +195,10 @@ abstract class DiagnosticTestBase extends ServerPluginContributorTestBase {
           lineInfo: result.lineInfo,
           options: result.session.analysisContext.analysisOptions,
         )
-        .where(dartErrorFilter)
+        .where((e) => errorFilter(e, isFromPlugin: false))
         .toList();
-    final pluginErrors = await testPlugin.getAllErrors(result);
+    final pluginErrors =
+        (await testPlugin.getAllErrors(result)).where((e) => errorFilter(e, isFromPlugin: true)).toList();
     return DartAndPluginErrorsIterable(dartErrors: dartErrors, pluginErrors: pluginErrors);
   }
 
@@ -223,7 +222,11 @@ class DartAndPluginErrorsIterable extends CombinedIterableView<AnalysisError> {
       : super([dartErrors, pluginErrors]);
 }
 
-typedef DartErrorFilter = bool Function(AnalysisError);
+typedef ErrorFilter = bool Function(AnalysisError, {required bool isFromPlugin});
 
-bool defaultDartErrorFilter(AnalysisError error) =>
-    error.severity != AnalysisErrorSeverity.INFO && error.code != 'uri_has_not_been_generated';
+bool defaultErrorFilter(AnalysisError error, {required bool isFromPlugin}) =>
+    error.severity != AnalysisErrorSeverity.INFO &&
+    !(const {
+      'over_react_debug_analyzer_plugin_helper',
+      'uri_has_not_been_generated',
+    }.contains(error.code));

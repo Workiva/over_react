@@ -5,6 +5,7 @@
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:collection/collection.dart';
+import 'package:meta/meta.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/hooks_exhaustive_deps.dart';
 import 'package:test/test.dart';
 import 'package:test_reflective_loader/test_reflective_loader.dart';
@@ -40,8 +41,8 @@ dynamic someFunc() => null;
 
     String wrapInFunction(String code) => 'void __testCaseWrapperFunction() {\n\n$code\n\n}';
 
-    bool errorFilter(AnalysisError error) =>
-        defaultDartErrorFilter(error) &&
+    bool errorFilter(AnalysisError error, {@required bool isFromPlugin}) =>
+        defaultErrorFilter(error, isFromPlugin: isFromPlugin) &&
         !{
           'unused_import',
         }.contains(error.code);
@@ -56,7 +57,7 @@ dynamic someFunc() => null;
           final code = preamble + wrapInFunction(element['code'] as String);
           try {
             final source = testBase.newSource('test.dart', code);
-            await testBase.expectNoErrors(source, dartErrorFilter: errorFilter);
+            await testBase.expectNoErrors(source, errorFilter: errorFilter);
           } catch (_) {
             print('Source: ```\n$code\n```');
             rethrow;
