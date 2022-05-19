@@ -158,7 +158,7 @@ abstract class DiagnosticTestBase extends ServerPluginContributorTestBase {
         reason: 'Expected there to be no errors coming from the analyzer and not the plugin.'
             ' Ensure your test source is free of unintentional errors, such as syntax errors and missing imports.'
             ' If errors are expected, set includeOtherErrorCodes:true.');
-    expect(errors.pluginErrors, everyElement(isAnErrorUnderTest()),
+    expect(errors.pluginErrors, isEmpty,
         reason: 'Expected there to be no plugin errors.');
   }
 
