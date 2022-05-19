@@ -135,8 +135,8 @@ class _Dependency {
 }
 
 class _RefInEffectCleanup {
-  final Identifier reference;
-  final Identifier dependencyNode;
+  final Identifier/*!*/ reference;
+  final Identifier/*!*/ dependencyNode;
 
   _RefInEffectCleanup({this.reference, this.dependencyNode});
 
@@ -1262,9 +1262,9 @@ enum _SetStateRecommendationForm {
 }
 
 class _SetStateRecommendation {
-  final String missingDep;
-  final String setter;
-  final _SetStateRecommendationForm form;
+  final String/*!*/ missingDep;
+  final String/*!*/ setter;
+  final _SetStateRecommendationForm/*!*/ form;
 
   _SetStateRecommendation({this.missingDep, this.setter, this.form});
 }
@@ -1277,10 +1277,10 @@ extension on AstNode {
 }
 
 class _Recommendations {
-  final List<String> suggestedDependencies;
-  final Set<String> unnecessaryDependencies;
-  final Set<String> missingDependencies;
-  final Set<String> duplicateDependencies;
+  final List<String>/*!*/ suggestedDependencies;
+  final Set<String>/*!*/ unnecessaryDependencies;
+  final Set<String>/*!*/ missingDependencies;
+  final Set<String>/*!*/ duplicateDependencies;
 
   _Recommendations({
     this.suggestedDependencies,
@@ -1292,16 +1292,16 @@ class _Recommendations {
 
 class _DepTree {
   /// True if used in code
-  bool isUsed;
+  bool/*!*/ isUsed;
 
   /// True if specified in deps
-  bool isSatisfiedRecursively;
+  bool/*!*/ isSatisfiedRecursively;
 
   /// True if something deeper is used by code
-  bool isSubtreeUsed;
+  bool/*!*/ isSubtreeUsed;
 
   // Nodes for properties
-  final Map<String, _DepTree> children;
+  final Map<String, _DepTree>/*!*/ children;
 
   _DepTree({this.isUsed, this.isSatisfiedRecursively, this.isSubtreeUsed, this.children});
 }
@@ -1601,9 +1601,9 @@ List<_Construction> scanForConstructions({
 }
 
 class _Construction {
-  final Declaration declaration;
-  final String depType;
-  final bool isUsedOutsideOfHook;
+  final Declaration/*!*/ declaration;
+  final String/*!*/ depType;
+  final bool/*!*/ isUsedOutsideOfHook;
 
   _Construction({this.declaration, this.depType, this.isUsedOutsideOfHook});
 }
@@ -1650,14 +1650,14 @@ AstNode getDependency(AstNode node) {
   return node;
 }
 
-List<Identifier> findReferences(Element element, AstNode root) {
+List<Identifier> findReferences(Element/*!*/ element, AstNode root) {
   final visitor = ReferenceVisitor(element);
   root.accept(visitor);
   return visitor.references;
 }
 
 class ReferenceVisitor extends RecursiveAstVisitor<void> {
-  final Element _targetElement;
+  final Element/*!*/ _targetElement;
 
   final List<Identifier> references = [];
 
@@ -1677,7 +1677,7 @@ class ReferenceVisitor extends RecursiveAstVisitor<void> {
 /// Note: If the node argument is an OptionalMemberExpression, it doesn't necessarily mean it is optional.
 /// It just means there is an optional member somewhere inside.
 /// This particular node might still represent a required member, so check .optional field.
-void markNode(AstNode node, Map<String, bool> optionalChains, String result, {@required bool isOptional}) {
+void markNode(AstNode node, Map<String, bool> optionalChains, String result, {@required bool/*?*/ isOptional}) {
   if (optionalChains != null && isOptional == null) {
     throw ArgumentError('isOptional must be specified when optionalChains is');
   }
