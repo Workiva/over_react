@@ -170,16 +170,11 @@ class _DiagnosticGenerator {
       final errorStart = error.location.offset;
       final errorEnd = errorStart + error.location.length;
 
-      if (_errorSeverityProvider.isCodeConfigured(error.code)) {
-        if (_errorSeverityProvider.isCodeDisabled(error.code)) {
-          continue;
-        } else {
-          final severity = _errorSeverityProvider.severityForCode(error.code);
-          if (severity != null) {
-            error.severity = severity;
-          }
-        }
+      if (_errorSeverityProvider.isCodeDisabled(error.code)) {
+        continue;
       }
+
+      _configureErrorSeverity(error);
 
       // `<=` because we do want the end to be inclusive (you should get
       // the fix when your cursor is on the tail end of the error).
@@ -221,31 +216,34 @@ class _DiagnosticGenerator {
 
     // The analyzer normally filters out errors with "ignore" comments,
     // but it doesn't do it for plugin errors, so we need to do that here.
-    final filteredErrors = filterIgnores(
+    var filteredErrors = filterIgnores(
         collector.errors, unitResult.lineInfo, () => IgnoreInfo.forDart(unitResult.unit!, unitResult.content!));
 
-    final configuredErrors = configureErrorSeverity(filteredErrors);
+    filteredErrors = _configureErrorSeverities(filteredErrors);
 
-    return _GeneratorResult(configuredErrors, notifications);
+    return _GeneratorResult(filteredErrors, notifications);
   }
 
-  List<AnalysisError> configureErrorSeverity(List<AnalysisError> errors) {
+  List<AnalysisError> _configureErrorSeverities(List<AnalysisError> errors) {
     final configuredErrors = <AnalysisError>[];
     for (final error in errors) {
-      if (_errorSeverityProvider.isCodeConfigured(error.code)) {
-        if (!_errorSeverityProvider.isCodeDisabled(error.code)) {
-          final severity = _errorSeverityProvider.severityForCode(error.code);
-          if (severity != null) {
-            error.severity = severity;
-          }
-          configuredErrors.add(error);
-        }
-      } else {
-        configuredErrors.add(error);
+      if (_errorSeverityProvider.isCodeDisabled(error.code)) {
+        continue;
       }
+      _configureErrorSeverity(error);
+      configuredErrors.add(error);
     }
 
     return configuredErrors;
+  }
+
+  void _configureErrorSeverity(AnalysisError error) {
+    if (_errorSeverityProvider.isCodeConfigured(error.code)) {
+      final severity = _errorSeverityProvider.severityForCode(error.code);
+      if (severity != null) {
+        error.severity = severity;
+      }
+    }
   }
 }
 
