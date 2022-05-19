@@ -18,6 +18,7 @@ import 'package:over_react_analyzer_plugin/src/diagnostic/analyzer_debug_helper.
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/util/analyzer_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
+import 'package:over_react_analyzer_plugin/src/util/function_components.dart';
 import 'package:over_react_analyzer_plugin/src/util/util.dart';
 import 'package:over_react_analyzer_plugin/src/util/react_types.dart';
 
@@ -48,7 +49,7 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
 
   @override
   Future<void> computeErrors(result, collector) async {
-    final helper = AnalyzerDebugHelper(result, collector);
+    final helper = AnalyzerDebugHelper(result, collector, enabled: debugEnabled);
     result.unit.accept(_ExhaustiveDepsVisitor(
       result: result,
       diagnosticCollector: collector,
@@ -252,7 +253,9 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
     // since hooks can only be called from the top level).
 
     // todo improve this
-    final componentFunction = node.ancestors.whereType<FunctionExpression>().last;
+    final componentFunctionBody = getClosestFunctionComponentOrHookBody(node);
+    assert(componentFunctionBody != null);
+    final componentFunction = componentFunctionBody.parentExpression;
     assert(componentFunction != null);
     assert(componentFunction != node.thisOrAncestorOfType<FunctionExpression>());
 

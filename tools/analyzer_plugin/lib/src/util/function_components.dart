@@ -1,5 +1,6 @@
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
+import 'package:over_react_analyzer_plugin/src/util/hooks.dart';
 
 import 'ast_util.dart';
 import 'util.dart';
@@ -55,6 +56,9 @@ FunctionComponent? getClosestFunctionComponent(AstNode node) {
 
 FunctionBody? getClosestFunctionComponentBody(AstNode node) =>
     node.ancestors.whereType<FunctionBody>().firstWhereOrNull(isFunctionComponent);
+
+FunctionBody? getClosestFunctionComponentOrHookBody(AstNode node) =>
+    node.ancestors.whereType<FunctionBody>().firstWhereOrNull((body) => isFunctionComponent(body) || isCustomHookFunction(body));
 
 /// Returns whether [body] is a React function component body.
 ///
