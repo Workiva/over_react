@@ -100,7 +100,7 @@ final MyComponent = uiFunction((_) {
   final local = someFunc();
   useEffect(() {
     print(local);
-  }, [,,,local,,,]);
+  }, [null, null, null, local, null, null, null]);
 }, null);''',
       },
       {
@@ -387,7 +387,7 @@ final MyComponent = uiFunction((props) {
 final MyComponent = uiFunction((props) {
   var myEffect = props.myEffect;
 
-  useEffect(myEffect, [,myEffect]);
+  useEffect(myEffect, [null, myEffect]);
 }, null);''',
       },
       {
@@ -395,7 +395,7 @@ final MyComponent = uiFunction((props) {
 final MyComponent = uiFunction((props) {
   var myEffect = props.myEffect;
 
-  useEffect(myEffect, [,myEffect,,]);
+  useEffect(myEffect, [null, myEffect, null, null]);
 }, null);''',
       },
       {
@@ -7161,7 +7161,7 @@ final MyComponent = uiFunction((_) {
   final local = someFunc();
   useEffect(() {
     print(local);
-  }, [,,,local,,,]);
+  }, [null, null, null, local, null, null, null]);
 }, null);''',
       },
       {
@@ -7448,7 +7448,7 @@ final MyComponent = uiFunction((props) {
 final MyComponent = uiFunction((props) {
   var myEffect = props.myEffect;
 
-  useEffect(myEffect, [,myEffect]);
+  useEffect(myEffect, [null, myEffect]);
 }, null);''',
       },
       {
@@ -7456,7 +7456,7 @@ final MyComponent = uiFunction((props) {
 final MyComponent = uiFunction((props) {
   var myEffect = props.myEffect;
 
-  useEffect(myEffect, [,myEffect,,]);
+  useEffect(myEffect, [null, myEffect, null, null]);
 }, null);''',
       },
       {
@@ -14222,7 +14222,7 @@ final MyComponent = uiFunction((_) {
   final local = someFunc();
   useEffect(() {
     print(local);
-  }, [,,,local,,,]);
+  }, [null, null, null, local, null, null, null]);
 }, null);''',
       },
       {
@@ -14509,7 +14509,7 @@ final MyComponent = uiFunction((props) {
 final MyComponent = uiFunction((props) {
   var myEffect = props.myEffect;
 
-  useEffect(myEffect, [,myEffect]);
+  useEffect(myEffect, [null, myEffect]);
 }, null);''',
       },
       {
@@ -14517,7 +14517,7 @@ final MyComponent = uiFunction((props) {
 final MyComponent = uiFunction((props) {
   var myEffect = props.myEffect;
 
-  useEffect(myEffect, [,myEffect,,]);
+  useEffect(myEffect, [null, myEffect, null, null]);
 }, null);''',
       },
       {
@@ -21283,7 +21283,7 @@ final MyComponent = uiFunction((_) {
   final local = someFunc();
   useEffect(() {
     print(local);
-  }, [,,,local,,,]);
+  }, [null, null, null, local, null, null, null]);
 }, null);''',
       },
       {
@@ -21570,7 +21570,7 @@ final MyComponent = uiFunction((props) {
 final MyComponent = uiFunction((props) {
   var myEffect = props.myEffect;
 
-  useEffect(myEffect, [,myEffect]);
+  useEffect(myEffect, [null, myEffect]);
 }, null);''',
       },
       {
@@ -21578,7 +21578,7 @@ final MyComponent = uiFunction((props) {
 final MyComponent = uiFunction((props) {
   var myEffect = props.myEffect;
 
-  useEffect(myEffect, [,myEffect,,]);
+  useEffect(myEffect, [null, myEffect, null, null]);
 }, null);''',
       },
       {

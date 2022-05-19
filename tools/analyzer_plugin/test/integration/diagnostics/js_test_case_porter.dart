@@ -128,7 +128,12 @@ String portJsToDart(String code) {
       .replaceAll('uiFunction(()', 'uiFunction((_)')
       // This needs to happen after the hook conversion
       .replaceAllMapped(RegExp(r'\bconst (\w+)'), (match) => 'final ${match.group(1)}')
-      .replaceAllMapped(RegExp(r'\blet (\w+)'), (match) => 'var ${match.group(1)}');
+      .replaceAllMapped(RegExp(r'\blet (\w+)'), (match) => 'var ${match.group(1)}')
+      // Adjacent commas in lists. This needs to happen after destructuring conversion
+      .replaceAllMapped(RegExp(r'\[\s*(,[^\]]+|[^\]]+,|[^\]],\s*,[^\]]+)\s*\]'), (match) {
+        final listItems = match[1]!;
+        return '[' + listItems.split(',').map((e) => e.trim()).map((e) => e.isEmpty ? 'null' : e).join(', ') + ']';
+      });
 
   return newCode;
 }
