@@ -71,40 +71,39 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
   }
 }
 
-class WeakSet<E> {
+class WeakSet<E extends Object> {
   final _isEntry = Expando<Object>();
 
   void add(E key) {
-    _isEntry[key!] = const Object();
+    _isEntry[key] = const Object();
   }
 
   bool has(E key) {
-    if (key == null) return false;
     return _isEntry[key] != null;
   }
 
   void remove(E key) {
-    _isEntry[key!] = null;
+    _isEntry[key] = null;
   }
 }
 
-class WeakMap<K, V extends Object> {
+class WeakMap<K extends Object, V extends Object> {
   final _keys = WeakSet<K>();
   final _valueFor = Expando<V>();
 
-  V? get(K key) => has(key) ? _valueFor[key!] : null;
+  V? get(K key) => has(key) ? _valueFor[key] : null;
   V? getNullableKey(K? key) => key == null ? null : get(key);
 
   void set(K key, V value) {
     _keys.add(key);
-    _valueFor[key!] = value;
+    _valueFor[key] = value;
   }
 
   bool has(K key) => _keys.has(key);
 
   void remove(K key) {
     _keys.remove(key);
-    _valueFor[key!] = null;
+    _valueFor[key] = null;
   }
 
   V? putIfAbsent(K key, V Function() ifAbsent) {
@@ -115,7 +114,7 @@ class WeakMap<K, V extends Object> {
   }
 }
 
-extension<K, V extends Object> on V Function(K) {
+extension<K extends Object, V extends Object> on V Function(K) {
   V? Function(K) memoizeWithWeakMap(WeakMap<K, V> map) {
     return (key) => map.putIfAbsent(key, () => this(key));
   }
