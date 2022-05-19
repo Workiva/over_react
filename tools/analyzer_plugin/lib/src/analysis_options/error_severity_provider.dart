@@ -3,13 +3,13 @@ import 'package:over_react_analyzer_plugin/src/analysis_options/plugin_analysis_
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 
 class AnalysisOptionsErrorSeverityProvider implements ErrorSeverityProvider {
-  final PluginAnalysisOptions? analysisOption;
+  final PluginAnalysisOptions? _analysisOption;
 
-  AnalysisOptionsErrorSeverityProvider(this.analysisOption);
+  AnalysisOptionsErrorSeverityProvider(this._analysisOption);
 
   @override
   bool isCodeConfigured(String errorCode) {
-    final errors = analysisOption?.errors;
+    final errors = _analysisOption?.errors;
     if (errors == null) {
       return false;
     }
@@ -19,7 +19,7 @@ class AnalysisOptionsErrorSeverityProvider implements ErrorSeverityProvider {
 
   @override
   bool isCodeDisabled(String errorCode) {
-    final errors = analysisOption?.errors;
+    final errors = _analysisOption?.errors;
     if (errors == null) {
       return false;
     }
@@ -29,7 +29,7 @@ class AnalysisOptionsErrorSeverityProvider implements ErrorSeverityProvider {
 
   @override
   AnalysisErrorSeverity? severityForCode(String errorCode) {
-    final errors = analysisOption?.errors;
+    final errors = _analysisOption?.errors;
     if (errors == null) {
       return null;
     }

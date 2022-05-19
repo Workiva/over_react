@@ -4,7 +4,7 @@ import 'package:over_react_analyzer_plugin/src/analysis_options/plugin_analysis_
 import 'package:over_react_analyzer_plugin/src/analysis_options/parse.dart';
 
 class AnalysisOptionsReader {
-  final cachedAnalysisOptions = <String, PluginAnalysisOptions?>{};
+  final _cachedAnalysisOptions = <String, PluginAnalysisOptions?>{};
 
   PluginAnalysisOptions? getAnalysisOptionsForResult(ResolvedUnitResult result) {
     final file = result.session.analysisContext.contextRoot.optionsFile;
@@ -16,12 +16,12 @@ class AnalysisOptionsReader {
   }
 
   PluginAnalysisOptions? _getAnalysisOptionForFilePath(File file) {
-    if (cachedAnalysisOptions.containsKey(file.path)) {
-      return cachedAnalysisOptions[file.path];
+    if (_cachedAnalysisOptions.containsKey(file.path)) {
+      return _cachedAnalysisOptions[file.path];
     }
 
     final _analysisOptions = _readAnalysisOptionForFilePath(file);
-    cachedAnalysisOptions[file.path] = _analysisOptions;
+    _cachedAnalysisOptions[file.path] = _analysisOptions;
     return _analysisOptions;
   }
 
