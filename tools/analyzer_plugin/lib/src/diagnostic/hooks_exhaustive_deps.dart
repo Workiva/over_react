@@ -648,11 +648,6 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
       );
     } else {
       for (final _declaredDependencyNode in declaredDependenciesNode.elements) {
-        // Skip elided elements.
-        if (_declaredDependencyNode == null) {
-          continue;
-        }
-
         String? invalidType;
         if (_declaredDependencyNode is SpreadElement) {
           invalidType = 'a spread element';
@@ -968,15 +963,17 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
         return;
       }
       final refs = propDep.references;
-      if (refs == null) {
-        return;
-      }
+      // FIXME(greg) was this null-check dead code in the original implementation?
+      // if (refs == null) {
+      //   return;
+      // }
       var isPropsOnlyUsedInMembers = true;
       for (final ref in refs) {
-        if (ref == null) {
-          isPropsOnlyUsedInMembers = false;
-          break;
-        }
+        // FIXME(greg) was this null-check dead code in the original implementation?
+        // if (ref == null) {
+        //   isPropsOnlyUsedInMembers = false;
+        //   break;
+        // }
         final parent = ref.parent;
         if (parent == null) {
           isPropsOnlyUsedInMembers = false;
