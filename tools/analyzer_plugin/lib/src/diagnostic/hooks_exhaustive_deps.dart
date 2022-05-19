@@ -256,18 +256,16 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
     // since hooks can only be called from the top level).
 
     // todo improve this
-    final componentFunctionBody = getClosestFunctionComponentOrHookBody(node);
-    assert(componentFunctionBody != null);
-    final componentFunction = componentFunctionBody!.parentExpression;
-    assert(componentFunction != null);
-    assert(componentFunction != node.thisOrAncestorOfType<FunctionExpression>());
+    final componentOrCustomHookFunctionBody = getClosestFunctionComponentOrHookBody(node);
+    final componentOrCustomHookFunction = componentOrCustomHookFunctionBody?.parentExpression;
+    assert(componentOrCustomHookFunction == null || componentOrCustomHookFunction != node.thisOrAncestorOfType<FunctionExpression>());
 
-    final componentFunctionElement = componentFunction!.declaredElement!;
+    final componentOrCustomHookFunctionElement = componentOrCustomHookFunction?.declaredElement;
 
-    debug('componentFunctionElement: ' + componentFunctionElement.debugString, componentFunction.offset);
+    debug('componentOrCustomHookFunctionElement: ${componentOrCustomHookFunctionElement?.debugString}', componentOrCustomHookFunction?.offset ?? 0);
 
     bool isDeclaredInPureScope(Element element) =>
-        element.thisOrAncestorOfType<ExecutableElement>() == componentFunctionElement;
+        element.thisOrAncestorOfType<ExecutableElement>() == componentOrCustomHookFunctionElement;
 
     // uiFunction((props), {
     //   // Pure scope 2
@@ -400,7 +398,7 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
       if (fnNode == null) return false;
 
       // If it's outside the component, it also can't capture values.
-      if (!componentFunction.containsRangeOf(fnNode)) return true;
+      if (componentOrCustomHookFunction != null && !componentOrCustomHookFunction.containsRangeOf(fnNode)) return true;
 
       // Does this function capture any values
       // that are in pure scopes (aka render)?
@@ -771,7 +769,7 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
           maybeID = maybeID.prefix;
         }
         final isDeclaredInComponent =
-            maybeID.tryCast<Identifier>()?.staticElement?.enclosingElement == componentFunctionElement;
+            maybeID.tryCast<Identifier>()?.staticElement?.enclosingElement == componentOrCustomHookFunctionElement;
 
         // Add the dependency to our declared dependency map.
         declaredDependencies.add(_DeclaredDependency(
@@ -1058,7 +1056,7 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
         for (final id in references) {
           var maybeCall = id.parent;
           // Try to see if we have setState(someExpr(missingDep)).
-          while (maybeCall != null && maybeCall != componentFunction.body) {
+          while (maybeCall != null && maybeCall != componentOrCustomHookFunction?.body) {
             if (maybeCall is InvocationExpression) {
               final maybeCallFunction = maybeCall.function;
               final maybeCallFunctionName = maybeCallFunction.tryCast<MethodInvocation>()?.methodName.name ??
