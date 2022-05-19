@@ -69,7 +69,9 @@ String portJsToDart(String code) {
   newCode = unindent(newCode.trimRight());
 
   newCode = newCode
-      // arrow functions
+      // Arrow functions without parens (need to run before arrow block functions are handled)
+      .replaceAllMapped(RegExp(r'(\w+) =>'), (match) => '(${match[1]!}) =>')
+      // arrow block functions
       .replaceAll(') => {', ') {')
       .replaceAll('console.log(', 'print(')
       .replaceAll('===', '==')
@@ -82,7 +84,8 @@ String portJsToDart(String code) {
       // Local functions
       .replaceAllMapped(RegExp(r'\bfunction\s*(\w+)\s*\('), (match) => '${match.group(1)}(')
       // Function expressions
-      .replaceAllMapped(RegExp(r'\bfunction\s*\w*\s*\('), (match) => '(');
+      .replaceAllMapped(RegExp(r'\bfunction\s*\w*\s*\('), (match) => '(')
+      .replaceAllMapped(RegExp(r'async\s+(\w*\s*\([^(]*\))\s+\{'), (match) => '${match[1]!} async {');
 
   {
     final useStatePattern = RegExp(r'(?:const|let) \[(\w+)?,\s*(\w+)?] =');
