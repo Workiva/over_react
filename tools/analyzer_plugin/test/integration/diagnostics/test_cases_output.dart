@@ -4,7 +4,7 @@ const tests = {
     'valid': [
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   useEffect(() {
     print(local);
@@ -13,7 +13,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   useEffect(() {
     final local = {};
     print(local);
@@ -22,7 +22,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = someFunc();
   useEffect(() {
     print(local);
@@ -31,7 +31,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   useEffect(() {
     print(props.foo);
   }, []);
@@ -39,7 +39,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local1 = {};
   {
     final local2 = {};
@@ -52,7 +52,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local1 = someFunc();
   {
     final local2 = someFunc();
@@ -65,7 +65,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local1 = someFunc();
   MyNestedComponent() {
     final local2 = someFunc();
@@ -78,7 +78,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = someFunc();
   useEffect(() {
     print(local);
@@ -88,7 +88,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   useEffect(() {
     print(unresolved);
   }, []);
@@ -96,7 +96,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = someFunc();
   useEffect(() {
     print(local);
@@ -105,7 +105,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var foo = props.foo;
 
   useEffect(() {
@@ -115,7 +115,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var foo = props.foo;
 
   useEffect(() {
@@ -126,7 +126,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var history = props.history;
 
   useEffect(() {
@@ -136,7 +136,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {});
   useLayoutEffect(() {});
   useImperativeHandle(props.innerRef, () {});
@@ -144,7 +144,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo);
   }, [props.foo]);
@@ -152,7 +152,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo);
     print(props.bar);
@@ -161,7 +161,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo);
     print(props.bar);
@@ -170,7 +170,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final local = someFunc();
   useEffect(() {
     print(props.foo);
@@ -181,7 +181,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final local = {};
   useEffect(() {
     print(props.foo);
@@ -196,7 +196,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo?.bar?.baz ?? null);
   }, [props.foo]);
@@ -204,7 +204,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo?.bar);
   }, [props.foo?.bar]);
@@ -212,7 +212,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo?.bar);
   }, [props.foo.bar]);
@@ -220,7 +220,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo.bar);
   }, [props.foo?.bar]);
@@ -228,7 +228,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo.bar);
     print(props.foo?.bar);
@@ -237,7 +237,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo.bar);
     print(props.foo?.bar);
@@ -246,7 +246,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo);
     print(props.foo?.bar);
@@ -255,7 +255,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo?.toString());
   }, [props.foo]);
@@ -263,7 +263,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useMemo(() {
     print(props.foo?.toString());
   }, [props.foo]);
@@ -271,7 +271,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useCallback(() {
     print(props.foo?.toString());
   }, [props.foo]);
@@ -279,7 +279,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useCallback(() {
     print(props.foo.bar?.toString());
   }, [props.foo.bar]);
@@ -287,7 +287,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useCallback(() {
     print(props.foo?.bar?.toString());
   }, [props.foo.bar]);
@@ -295,7 +295,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useCallback(() {
     print(props.foo.bar.toString());
   }, [props?.foo?.bar]);
@@ -303,7 +303,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useCallback(() {
     print(props.foo?.bar?.baz);
   }, [props?.foo.bar?.baz]);
@@ -311,7 +311,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final myEffect = () {
     // Doesn't use anything
   };
@@ -321,7 +321,7 @@ final MyComponent = uiFunction((_) {
       {
         'code': /*language=dart*/ r'''
 final local = {};
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final myEffect = () {
     print(local);
   };
@@ -331,7 +331,7 @@ final MyComponent = uiFunction((_) {
       {
         'code': /*language=dart*/ r'''
 final local = {};
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   myEffect() {
     print(local);
   }
@@ -340,7 +340,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = someFunc();
   myEffect() {
     print(local);
@@ -350,7 +350,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   myEffect() {
     print(global);
   }
@@ -360,7 +360,7 @@ final MyComponent = uiFunction((_) {
       {
         'code': /*language=dart*/ r'''
 final local = {};
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final myEffect = () {
     otherThing()
   }
@@ -372,7 +372,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var delay = props.delay;
 
   final local = {};
@@ -384,7 +384,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var myEffect = props.myEffect;
 
   useEffect(myEffect, [null, myEffect]);
@@ -392,7 +392,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var myEffect = props.myEffect;
 
   useEffect(myEffect, [null, myEffect, null, null]);
@@ -404,13 +404,13 @@ var local = {};
 myEffect() {
   print(local);
 }
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   useEffect(myEffect, []);
 }, null);''',
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var myEffect = props.myEffect;
 
   useEffect(myEffect, [myEffect]);
@@ -418,7 +418,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var myEffect = props.myEffect;
 
   useEffect(myEffect);
@@ -426,7 +426,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useCustomEffect(() {
     print(props.foo);
   });
@@ -439,7 +439,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useCustomEffect(() {
     print(props.foo);
   }, [props.foo]);
@@ -452,7 +452,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useCustomEffect(() {
     print(props.foo);
   }, []);
@@ -465,7 +465,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useWithoutEffectSuffix(() {
     print(props.foo);
   }, []);
@@ -473,7 +473,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   return renderHelperConfusedWithEffect(() {
     print(props.foo);
   }, []);
@@ -499,7 +499,7 @@ final local1 = {};
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final ref = useRef();
   useEffect(() {
     print(ref.current);
@@ -508,7 +508,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final ref = useRef();
   useEffect(() {
     print(ref.current);
@@ -517,7 +517,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var maybeRef2 = props.maybeRef2;
   var foo = props.foo;
 
@@ -579,7 +579,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var maybeRef2 = props.maybeRef2;
 
   final definitelyRef1 = useRef();
@@ -650,7 +650,7 @@ final MyComponent = forwardRef((props, ref) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var obj = someFunc();
   useEffect(() {
     obj.foo = true;
@@ -659,7 +659,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var foo = {}
   useEffect(() {
     foo.bar.baz = 43;
@@ -668,7 +668,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final myRef = useRef();
   useEffect(() {
     final handleMove = () {};
@@ -682,7 +682,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final myRef = useRef();
   useEffect(() {
     final handleMove = () {};
@@ -708,7 +708,7 @@ useMyThing(myRef) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final myRef = useRef();
   useEffect(() {
     final handleMove = () {};
@@ -777,7 +777,7 @@ useMyThing() {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local1 = 42;
   final local2 = '42';
   final local3 = null;
@@ -790,7 +790,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local1 = 42;
   final local2 = '42';
   final local3 = null;
@@ -803,14 +803,14 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final local = props.local;
   useEffect(() {}, [local]);
 }, null);''',
       },
       {
         'code': /*language=dart*/ r'''
-final Foo = uiFunction((props) {
+final Foo = uiFunction<TestProps>((props) {
   var activeTab = props.activeTab;
 
   useEffect(() {
@@ -820,7 +820,7 @@ final Foo = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo.bar.baz);
   }, [props]);
@@ -837,7 +837,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final fn = useCallback(() {
     print(props.foo.bar.baz);
   }, [props]);
@@ -854,7 +854,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   handleNext1() {
     print('hello');
   }
@@ -877,7 +877,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   handleNext() {
     print('hello');
   }
@@ -894,7 +894,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var state = useState();
   var dispatch = over_react.useReducer();
   handleNext1(value) {
@@ -941,7 +941,7 @@ useInterval(callback, delay) {
       },
       {
         'code': /*language=dart*/ r'''
-final Counter = uiFunction((_) {
+final Counter = uiFunction<TestProps>((_) {
   var count = useState(0);
   useEffect(() {
     var id = setInterval(() {
@@ -954,7 +954,7 @@ final Counter = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Counter = uiFunction((_) {
+final Counter = uiFunction<TestProps>((_) {
   var count = useState(0);
   tick() {
     count.set((c) => c + 1);
@@ -970,7 +970,7 @@ final Counter = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Counter = uiFunction((_) {
+final Counter = uiFunction<TestProps>((_) {
   var count = useReducer((state, action) {
     if (action == 'inc') {
       return state + 1;
@@ -987,7 +987,7 @@ final Counter = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Counter = uiFunction((_) {
+final Counter = uiFunction<TestProps>((_) {
   var count = useReducer((state, action) {
     if (action == 'inc') {
       return state + 1;
@@ -1005,7 +1005,7 @@ final Counter = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Podcasts = uiFunction((_) {
+final Podcasts = uiFunction<TestProps>((_) {
   useEffect(() {
     podcasts.set([]);
   }, []);
@@ -1025,7 +1025,7 @@ withFetch(fetchPodcasts) {
       },
       {
         'code': /*language=dart*/ r'''
-final Podcasts = uiFunction((props) {
+final Podcasts = uiFunction<TestProps>((props) {
   var id = props.id;
 
   var podcasts = useState(null);
@@ -1039,7 +1039,7 @@ final Podcasts = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final Counter = uiFunction((_) {
+final Counter = uiFunction<TestProps>((_) {
   var count = useState(0);
   increment(x) {
     return x + 1;
@@ -1055,7 +1055,7 @@ final Counter = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Counter = uiFunction((_) {
+final Counter = uiFunction<TestProps>((_) {
   var count = useState(0);
   increment(x) {
     return x + 1;
@@ -1072,7 +1072,7 @@ final Counter = uiFunction((_) {
       {
         'code': /*language=dart*/ r'''
 import increment from './increment';
-final Counter = uiFunction((_) {
+final Counter = uiFunction<TestProps>((_) {
   var count = useState(0);
   useEffect(() {
     var id = setInterval(() {
@@ -1100,7 +1100,7 @@ withStuff(increment) {
       },
       {
         'code': /*language=dart*/ r'''
-final App = uiFunction((_) {
+final App = uiFunction<TestProps>((_) {
   var query = useState('react');
   var state = useState(null);
   useEffect(() {
@@ -1122,7 +1122,7 @@ final App = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Example = uiFunction((_) {
+final Example = uiFunction<TestProps>((_) {
   final foo = useCallback(() {
     foo();
   }, []);
@@ -1130,7 +1130,7 @@ final Example = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Example = uiFunction((props) {
+final Example = uiFunction<TestProps>((props) {
   var prop = props.prop;
 
   final foo = useCallback(() {
@@ -1142,7 +1142,7 @@ final Example = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final Hello = uiFunction((_) {
+final Hello = uiFunction<TestProps>((_) {
   var state = useState(0);
   useEffect(() {
     final handleResize = () => state.set(window.innerWidth);
@@ -1153,7 +1153,7 @@ final Hello = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Example = uiFunction((_) {
+final Example = uiFunction<TestProps>((_) {
   useEffect(() {
     arguments
   }, [])
@@ -1161,7 +1161,7 @@ final Example = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Example = uiFunction((_) {
+final Example = uiFunction<TestProps>((_) {
   useEffect(() {
     final bar = () {
       arguments;
@@ -1172,7 +1172,7 @@ final Example = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Example = uiFunction((props) {
+final Example = uiFunction<TestProps>((props) {
   useEffect(() {
     var topHeight = 0;
     topHeight = props.upperViewHeight;
@@ -1181,7 +1181,7 @@ final Example = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final Example = uiFunction((props) {
+final Example = uiFunction<TestProps>((props) {
   useEffect(() {
     var topHeight = 0;
     topHeight = props?.upperViewHeight;
@@ -1190,7 +1190,7 @@ final Example = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final Example = uiFunction((props) {
+final Example = uiFunction<TestProps>((props) {
   useEffect(() {
     var topHeight = 0;
     topHeight = props?.upperViewHeight;
@@ -1237,7 +1237,7 @@ useFoo() {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var foo = props.foo;
 
   return useMemo(() => foo, [foo])
@@ -1245,7 +1245,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final foo = true ? "fine" : "also fine";
   return useMemo(() => foo, [foo]);
 }, null);''',
@@ -1254,7 +1254,7 @@ final MyComponent = uiFunction((_) {
     'invalid': [
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useCallback(() {
     print(props.foo?.toString());
   }, []);
@@ -1267,7 +1267,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props.foo]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useCallback(() {
     print(props.foo?.toString());
   }, [props.foo]);
@@ -1279,7 +1279,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useCallback(() {
     print(props.foo?.bar.baz);
   }, []);
@@ -1293,7 +1293,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [props.foo?.bar.baz]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useCallback(() {
     print(props.foo?.bar.baz);
   }, [props.foo?.bar.baz]);
@@ -1305,7 +1305,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useCallback(() {
     print(props.foo?.bar?.baz);
   }, []);
@@ -1319,7 +1319,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [props.foo?.bar?.baz]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useCallback(() {
     print(props.foo?.bar?.baz);
   }, [props.foo?.bar?.baz]);
@@ -1331,7 +1331,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useCallback(() {
     print(props.foo?.bar.toString());
   }, []);
@@ -1344,7 +1344,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props.foo?.bar]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useCallback(() {
     print(props.foo?.bar.toString());
   }, [props.foo?.bar]);
@@ -1356,7 +1356,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = someFunc();
   useEffect(() {
     print(local);
@@ -1370,7 +1370,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = someFunc();
   useEffect(() {
     print(local);
@@ -1383,7 +1383,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   var local = 42;
   useEffect(() {
     print(local);
@@ -1397,7 +1397,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   var local = 42;
   useEffect(() {
     print(local);
@@ -1410,7 +1410,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = /foo/;
   useEffect(() {
     print(local);
@@ -1424,7 +1424,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = /foo/;
   useEffect(() {
     print(local);
@@ -1437,7 +1437,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final value = useMemo(() { return 2*2; });
   final fn = useCallback(() { alert('foo'); });
 }, null);''',
@@ -1456,7 +1456,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var fn1 = props.fn1;
   var fn2 = props.fn2;
 
@@ -1478,7 +1478,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   useEffect()
   useLayoutEffect()
   useCallback()
@@ -1509,7 +1509,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = someFunc();
   useEffect(() {
     if (true) {
@@ -1525,7 +1525,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = someFunc();
   useEffect(() {
     if (true) {
@@ -1540,7 +1540,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   useEffect(() {
     try {
@@ -1556,7 +1556,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   useEffect(() {
     try {
@@ -1571,7 +1571,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   useEffect(() {
     inner() {
@@ -1588,7 +1588,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   useEffect(() {
     inner() {
@@ -1604,7 +1604,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local1 = someFunc();
   {
     final local2 = someFunc();
@@ -1622,7 +1622,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local1, local2]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local1 = someFunc();
   {
     final local2 = someFunc();
@@ -1639,7 +1639,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local1 = {};
   final local2 = {};
   useEffect(() {
@@ -1655,7 +1655,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local1, local2]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local1 = {};
   final local2 = {};
   useEffect(() {
@@ -1670,7 +1670,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local1 = {};
   final local2 = {};
   useMemo(() {
@@ -1685,7 +1685,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local1]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local1 = {};
   final local2 = {};
   useMemo(() {
@@ -1699,7 +1699,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local1 = someFunc();
   MyNestedComponent() {
     final local2 = {};
@@ -1717,7 +1717,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local2]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local1 = someFunc();
   MyNestedComponent() {
     final local2 = {};
@@ -1734,7 +1734,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   useEffect(() {
     print(local);
@@ -1749,7 +1749,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   useEffect(() {
     print(local);
@@ -1763,7 +1763,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   useEffect(() {
     print(local);
@@ -1778,7 +1778,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   useEffect(() {
     print(local);
@@ -1792,7 +1792,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   useCallback(() {}, [window]);
 }, null);''',
         'errors': [
@@ -1803,7 +1803,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: []',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   useCallback(() {}, []);
 }, null);''',
               }
@@ -1813,7 +1813,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var local = props.foo;
   useCallback(() {}, [local]);
 }, null);''',
@@ -1825,7 +1825,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: []',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var local = props.foo;
   useCallback(() {}, []);
 }, null);''',
@@ -1836,7 +1836,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var history = props.history;
 
   useEffect(() {
@@ -1851,7 +1851,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [history]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var history = props.history;
 
   useEffect(() {
@@ -1865,7 +1865,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var history = props.history;
 
   useEffect(() {
@@ -1883,7 +1883,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [history.foo]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var history = props.history;
 
   useEffect(() {
@@ -1900,7 +1900,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var history = props.history;
 
   useEffect(() {
@@ -1917,7 +1917,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [history?.foo]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var history = props.history;
 
   useEffect(() {
@@ -1933,7 +1933,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   useEffect(() {}, ['foo']);
 }, null);''',
         'errors': [
@@ -1946,7 +1946,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var foo = props.foo;
   var bar = props.bar;
   var baz = props.baz;
@@ -1963,7 +1963,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [bar, baz, foo]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var foo = props.foo;
   var bar = props.bar;
   var baz = props.baz;
@@ -1989,7 +1989,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var foo = props.foo;
   var bar = props.bar;
   var baz = props.baz;
@@ -2006,7 +2006,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [bar, baz, foo]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var foo = props.foo;
   var bar = props.bar;
   var baz = props.baz;
@@ -2037,7 +2037,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final dependencies = [];
   useEffect(() {}, dependencies);
 }, null);''',
@@ -2051,7 +2051,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   final dependencies = [local];
   useEffect(() {
@@ -2071,7 +2071,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   final dependencies = [local];
   useEffect(() {
@@ -2085,7 +2085,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   final dependencies = [local];
   useEffect(() {
@@ -2100,7 +2100,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   final dependencies = [local];
   useEffect(() {
@@ -2119,7 +2119,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = someFunc();
   useEffect(() {
     print(local);
@@ -2135,7 +2135,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   useEffect(() {
     print(local);
@@ -2149,7 +2149,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   useEffect(() {
     print(local);
@@ -2167,7 +2167,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.items[0]);
   }, [props.items[0]]);
@@ -2180,7 +2180,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props.items]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.items[0]);
   }, [props.items]);
@@ -2197,7 +2197,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.items[0]);
   }, [props.items, props.items[0]]);
@@ -2212,7 +2212,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var items = props.items;
 
   useEffect(() {
@@ -2227,7 +2227,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [items]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var items = props.items;
 
   useEffect(() {
@@ -2246,7 +2246,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var items = props.items;
 
   useEffect(() {
@@ -2263,7 +2263,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final local = {};
   useCallback(() {
     print(props.foo);
@@ -2278,7 +2278,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final local = {};
   useCallback(() {
     print(props.foo);
@@ -2292,7 +2292,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final local = {};
   useCallback(() {
     print(props.foo);
@@ -2308,7 +2308,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [props.bar, props.foo]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final local = {};
   useCallback(() {
     print(props.foo);
@@ -2322,7 +2322,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {id: 42};
   useEffect(() {
     print(local);
@@ -2337,7 +2337,7 @@ final MyComponent = uiFunction((_) {
                 'desc':
                     'Update the dependencies array to be: [local, local.id]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {id: 42};
   useEffect(() {
     print(local);
@@ -2350,7 +2350,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {id: 42};
   final fn = useCallback(() {
     print(local);
@@ -2364,7 +2364,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {id: 42};
   final fn = useCallback(() {
     print(local);
@@ -2377,7 +2377,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {id: 42};
   final fn = useCallback(() {
     print(local);
@@ -2391,7 +2391,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {id: 42};
   final fn = useCallback(() {
     print(local);
@@ -2404,7 +2404,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final fn = useCallback(() {
     print(props.foo.bar.baz);
   }, []);
@@ -2418,7 +2418,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [props.foo.bar.baz]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final fn = useCallback(() {
     print(props.foo.bar.baz);
   }, [props.foo.bar.baz]);
@@ -2430,7 +2430,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var color = {}
   final fn = useCallback(() {
     print(props.foo.bar.baz);
@@ -2446,7 +2446,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [color, props.foo.bar.baz]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var color = {}
   final fn = useCallback(() {
     print(props.foo.bar.baz);
@@ -2460,7 +2460,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final fn = useCallback(() {
     print(props.foo.bar.baz);
   }, [props.foo.bar.baz, props.foo]);
@@ -2473,7 +2473,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props.foo]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final fn = useCallback(() {
     print(props.foo.bar.baz);
   }, [props.foo]);
@@ -2485,7 +2485,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final fn = useCallback(() {
     print(props.foo.bar.baz);
     print(props.foo.fizz.bizz);
@@ -2500,7 +2500,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [props.foo.bar.baz, props.foo.fizz.bizz]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final fn = useCallback(() {
     print(props.foo.bar.baz);
     print(props.foo.fizz.bizz);
@@ -2513,7 +2513,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final fn = useCallback(() {
     print(props.foo.bar);
   }, [props.foo.bar.baz]);
@@ -2526,7 +2526,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props.foo.bar]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final fn = useCallback(() {
     print(props.foo.bar);
   }, [props.foo.bar]);
@@ -2538,7 +2538,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final fn = useCallback(() {
     print(props);
     print(props.hello);
@@ -2552,7 +2552,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final fn = useCallback(() {
     print(props);
     print(props.hello);
@@ -2565,7 +2565,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   useEffect(() {
     print(local);
@@ -2579,7 +2579,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   useEffect(() {
     print(local);
@@ -2592,7 +2592,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local1 = {};
   useCallback(() {
     final local1 = {};
@@ -2607,7 +2607,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: []',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local1 = {};
   useCallback(() {
     final local1 = {};
@@ -2621,7 +2621,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local1 = {};
   useCallback(() {}, [local1]);
 }, null);''',
@@ -2633,7 +2633,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: []',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local1 = {};
   useCallback(() {}, []);
 }, null);''',
@@ -2644,7 +2644,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo);
   }, []);
@@ -2657,7 +2657,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props.foo]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo);
   }, [props.foo]);
@@ -2669,7 +2669,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo);
     print(props.bar);
@@ -2684,7 +2684,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [props.bar, props.foo]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo);
     print(props.bar);
@@ -2697,7 +2697,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var a, b, c, d, e, f, g;
   useEffect(() {
     print(b, e, d, c, a, g, f);
@@ -2712,7 +2712,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [c, a, g, b, e, d, f]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var a, b, c, d, e, f, g;
   useEffect(() {
     print(b, e, d, c, a, g, f);
@@ -2725,7 +2725,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var a, b, c, d, e, f, g;
   useEffect(() {
     print(b, e, d, c, a, g, f);
@@ -2740,7 +2740,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [a, b, c, d, e, f, g]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var a, b, c, d, e, f, g;
   useEffect(() {
     print(b, e, d, c, a, g, f);
@@ -2753,7 +2753,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var a, b, c, d, e, f, g;
   useEffect(() {
     print(b, e, d, c, a, g, f);
@@ -2768,7 +2768,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [a, b, c, d, e, f, g]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var a, b, c, d, e, f, g;
   useEffect(() {
     print(b, e, d, c, a, g, f);
@@ -2781,7 +2781,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final local = {};
   useEffect(() {
     print(props.foo);
@@ -2798,7 +2798,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [local, props.bar, props.foo]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final local = {};
   useEffect(() {
     print(props.foo);
@@ -2813,7 +2813,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final local = {};
   useEffect(() {
     print(props.foo);
@@ -2829,7 +2829,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [local, props]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final local = {};
   useEffect(() {
     print(props.foo);
@@ -2844,7 +2844,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo);
   }, []);
@@ -2875,7 +2875,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props.foo]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo);
   }, [props.foo]);
@@ -2908,7 +2908,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props.foo]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo);
   }, []);
@@ -2941,7 +2941,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props.foo]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo);
   }, []);
@@ -2974,7 +2974,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props.foo]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo);
   }, []);
@@ -3007,7 +3007,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props.foo]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo);
   }, []);
@@ -3040,7 +3040,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props.foo]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo);
   }, []);
@@ -3070,7 +3070,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useCustomEffect(() {
     print(props.foo);
   }, []);
@@ -3097,7 +3097,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props.foo]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useCustomEffect(() {
     print(props.foo);
   }, [props.foo]);
@@ -3121,7 +3121,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props.foo]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useCustomEffect(() {
     print(props.foo);
   }, []);
@@ -3145,7 +3145,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props.foo]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useCustomEffect(() {
     print(props.foo);
   }, []);
@@ -3166,7 +3166,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   useEffect(() {
     print(local);
@@ -3180,7 +3180,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   useEffect(() {
     print(local);
@@ -3198,7 +3198,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   useEffect(() {
     print(local);
@@ -3212,7 +3212,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   useEffect(() {
     print(local);
@@ -3230,7 +3230,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {}, [props?.attribute.method()]);
 }, null);''',
         'errors': [
@@ -3243,7 +3243,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {}, [props.method()]);
 }, null);''',
         'errors': [
@@ -3256,7 +3256,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final ref = useRef();
   var state = useState();
   useEffect(() {
@@ -3272,7 +3272,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [state]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final ref = useRef();
   var state = useState();
   useEffect(() {
@@ -3287,7 +3287,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final ref = useRef();
   var state = useState();
   useEffect(() {
@@ -3303,7 +3303,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [ref, state]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final ref = useRef();
   var state = useState();
   useEffect(() {
@@ -3318,7 +3318,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final ref1 = useRef();
   final ref2 = useRef();
   useEffect(() {
@@ -3337,7 +3337,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [props.color, props.someOtherRefs]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final ref1 = useRef();
   final ref2 = useRef();
   useEffect(() {
@@ -3354,7 +3354,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final ref1 = useRef();
   final ref2 = useRef();
   useEffect(() {
@@ -3373,7 +3373,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [props.someOtherRefs, props.color]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final ref1 = useRef();
   final ref2 = useRef();
   useEffect(() {
@@ -3390,7 +3390,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final ref1 = useRef();
   final ref2 = useRef();
   useEffect(() {
@@ -3409,7 +3409,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [props.someOtherRefs, props.color]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final ref1 = useRef();
   final ref2 = useRef();
   useEffect(() {
@@ -3426,7 +3426,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final ref = useRef();
   useEffect(() {
     print(ref.current);
@@ -3440,7 +3440,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: []',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final ref = useRef();
   useEffect(() {
     print(ref.current);
@@ -3453,7 +3453,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var activeTab = props.activeTab;
 
   final ref1 = useRef();
@@ -3471,7 +3471,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [activeTab]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var activeTab = props.activeTab;
 
   final ref1 = useRef();
@@ -3488,7 +3488,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var activeTab = props.activeTab;
   var initY = props.initY;
 
@@ -3507,7 +3507,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [initY]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var activeTab = props.activeTab;
   var initY = props.initY;
 
@@ -3525,7 +3525,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final ref = useRef();
   useEffect(() {
     print(ref.current);
@@ -3539,7 +3539,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [ref]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final ref = useRef();
   useEffect(() {
     print(ref.current);
@@ -3581,7 +3581,7 @@ final MyComponent = forwardRef((props, ref) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     if (props.onChange) {
       props.onChange();
@@ -3596,7 +3596,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     if (props.onChange) {
       props.onChange();
@@ -3610,7 +3610,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     if (props?.onChange) {
       props?.onChange();
@@ -3625,7 +3625,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     if (props?.onChange) {
       props?.onChange();
@@ -3639,7 +3639,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     play() {
       props.onPlay();
@@ -3657,7 +3657,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     play() {
       props.onPlay();
@@ -3674,7 +3674,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     if (props.foo.onChange) {
       props.foo.onChange();
@@ -3689,7 +3689,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props.foo]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     if (props.foo.onChange) {
       props.foo.onChange();
@@ -3703,7 +3703,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     props.onChange();
     if (props.foo.onChange) {
@@ -3719,7 +3719,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     props.onChange();
     if (props.foo.onChange) {
@@ -3734,7 +3734,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   const [skillsCount] = useState();
   useEffect(() {
     if (skillsCount == 0 && !props.isEditMode) {
@@ -3751,7 +3751,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [skillsCount, props.isEditMode, props.toggleEditMode, props]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   const [skillsCount] = useState();
   useEffect(() {
     if (skillsCount == 0 && !props.isEditMode) {
@@ -3766,7 +3766,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   const [skillsCount] = useState();
   useEffect(() {
     if (skillsCount == 0 && !props.isEditMode) {
@@ -3783,7 +3783,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [props, skillsCount]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   const [skillsCount] = useState();
   useEffect(() {
     if (skillsCount == 0 && !props.isEditMode) {
@@ -3798,7 +3798,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     externalCall(props);
     props.onChange();
@@ -3812,7 +3812,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     externalCall(props);
     props.onChange();
@@ -3825,7 +3825,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     props.onChange();
     externalCall(props);
@@ -3839,7 +3839,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     props.onChange();
     externalCall(props);
@@ -3852,7 +3852,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var value;
   var value2;
   var value3;
@@ -3897,7 +3897,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var value;
   var value2;
   var value3;
@@ -3933,7 +3933,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final myRef = useRef();
   useEffect(() {
     final handleMove = () {};
@@ -3952,7 +3952,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final myRef = useRef();
   useEffect(() {
     final handleMove = () {};
@@ -3971,7 +3971,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final myRef = useRef();
   useEffect(() {
     final handleMove = () {};
@@ -4053,7 +4053,7 @@ useMyThing(myRef, active) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final myRef = useRef();
   useLayoutEffect_SAFE_FOR_SSR(() {
     final handleMove = () {};
@@ -4063,7 +4063,7 @@ final MyComponent = uiFunction((_) {
   return <div ref={myRef} />;
 }, null);''',
         'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final myRef = useRef();
   useLayoutEffect_SAFE_FOR_SSR(() {
     final handleMove = () {};
@@ -4083,7 +4083,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local1 = 42;
   final local2 = '42';
   final local3 = null;
@@ -4104,7 +4104,7 @@ final MyComponent = uiFunction((_) {
                 'desc':
                     'Update the dependencies array to be: [local1, local3, local4]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local1 = 42;
   final local2 = '42';
   final local3 = null;
@@ -4123,7 +4123,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   useEffect(() {
     window.scrollTo(0, 0);
   }, [window]);
@@ -4136,7 +4136,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: []',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   useEffect(() {
     window.scrollTo(0, 0);
   }, []);
@@ -4149,7 +4149,7 @@ final MyComponent = uiFunction((_) {
       {
         'code': /*language=dart*/ r'''
 import MutableStore from 'store';
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   useEffect(() {
     print(MutableStore.hello);
   }, [MutableStore.hello]);
@@ -4163,7 +4163,7 @@ final MyComponent = uiFunction((_) {
                 'desc': 'Update the dependencies array to be: []',
                 'output': /*language=dart*/ r'''
 import MutableStore from 'store';
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   useEffect(() {
     print(MutableStore.hello);
   }, []);
@@ -4177,7 +4177,7 @@ final MyComponent = uiFunction((_) {
         'code': /*language=dart*/ r'''
 import MutableStore from 'store';
 var z = {};
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var x = props.foo;
   {
     var y = props.bar;
@@ -4197,7 +4197,7 @@ final MyComponent = uiFunction((props) {
                 'output': /*language=dart*/ r'''
 import MutableStore from 'store';
 var z = {};
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var x = props.foo;
   {
     var y = props.bar;
@@ -4215,7 +4215,7 @@ final MyComponent = uiFunction((props) {
         'code': /*language=dart*/ r'''
 import MutableStore from 'store';
 var z = {};
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var x = props.foo;
   {
     var y = props.bar;
@@ -4235,7 +4235,7 @@ final MyComponent = uiFunction((props) {
                 'output': /*language=dart*/ r'''
 import MutableStore from 'store';
 var z = {};
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var x = props.foo;
   {
     var y = props.bar;
@@ -4253,7 +4253,7 @@ final MyComponent = uiFunction((props) {
         'code': /*language=dart*/ r'''
 import MutableStore from 'store';
 var z = {};
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var x = props.foo;
   {
     var y = props.bar;
@@ -4272,7 +4272,7 @@ final MyComponent = uiFunction((props) {
                 'output': /*language=dart*/ r'''
 import MutableStore from 'store';
 var z = {};
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var x = props.foo;
   {
     var y = props.bar;
@@ -4290,7 +4290,7 @@ final MyComponent = uiFunction((props) {
         'code': /*language=dart*/ r'''
 import MutableStore from 'store';
 var z = {};
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var x = props.foo;
   {
     var y = props.bar;
@@ -4309,7 +4309,7 @@ final MyComponent = uiFunction((props) {
                 'output': /*language=dart*/ r'''
 import MutableStore from 'store';
 var z = {};
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var x = props.foo;
   {
     var y = props.bar;
@@ -4325,7 +4325,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var state = useState();
   var dispatch = over_react.useReducer();
   var taint = props.foo;
@@ -4360,7 +4360,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [handleNext1]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var state = useState();
   var dispatch = over_react.useReducer();
   var taint = props.foo;
@@ -4397,7 +4397,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [handleNext2]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var state = useState();
   var dispatch = over_react.useReducer();
   var taint = props.foo;
@@ -4434,7 +4434,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [handleNext3]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var state = useState();
   var dispatch = over_react.useReducer();
   var taint = props.foo;
@@ -4468,7 +4468,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var state = useState();
   var dispatch = over_react.useReducer();
   var taint = props.foo;
@@ -4505,7 +4505,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [handleNext1]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var state = useState();
   var dispatch = over_react.useReducer();
   var taint = props.foo;
@@ -4544,7 +4544,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [handleNext2]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var state = useState();
   var dispatch = over_react.useReducer();
   var taint = props.foo;
@@ -4583,7 +4583,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [handleNext3]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var state = useState();
   var dispatch = over_react.useReducer();
   var taint = props.foo;
@@ -4619,7 +4619,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var state = useState();
   var dispatch = over_react.useReducer();
   var taint = props.foo;
@@ -4656,7 +4656,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [handleNext1]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var state = useState();
   var dispatch = over_react.useReducer();
   var taint = props.foo;
@@ -4695,7 +4695,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [handleNext2]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var state = useState();
   var dispatch = over_react.useReducer();
   var taint = props.foo;
@@ -4734,7 +4734,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [handleNext3]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var state = useState();
   var dispatch = over_react.useReducer();
   var taint = props.foo;
@@ -4770,7 +4770,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var state = useState();
   handleNext(value) {
     state.set(value);
@@ -4789,7 +4789,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var state = useState();
   final handleNext = (value) {
     state.set(value);
@@ -4808,7 +4808,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var state = useState();
   final handleNext = (value) {
     state.set(value);
@@ -4827,7 +4827,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Wrap the definition of \'handleNext\' in its own useCallback() Hook.',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var state = useState();
   final handleNext = useCallback((value) {
     state.set(value);
@@ -4844,7 +4844,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   handleNext1() {
     print('hello');
   }
@@ -4884,7 +4884,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   handleNext1() {
     print('hello');
   }
@@ -4927,7 +4927,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   handleNext1() {
     print('hello');
   }
@@ -4975,7 +4975,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Wrap the definition of \'handleNext2\' in its own useCallback() Hook.',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   handleNext1() {
     print('hello');
   }
@@ -5020,7 +5020,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Wrap the definition of \'handleNext3\' in its own useCallback() Hook.',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   handleNext1() {
     print('hello');
   }
@@ -5061,7 +5061,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final handleNext1 = () {
     print('hello');
   };
@@ -5086,7 +5086,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Wrap the definition of \'handleNext1\' in its own useCallback() Hook.',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final handleNext1 = useCallback(() {
     print('hello');
   });
@@ -5113,7 +5113,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Wrap the definition of \'handleNext1\' in its own useCallback() Hook.',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final handleNext1 = useCallback(() {
     print('hello');
   });
@@ -5146,7 +5146,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var handleNext = () {
     print('hello');
   };
@@ -5168,7 +5168,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Wrap the definition of \'handleNext\' in its own useCallback() Hook.',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var handleNext = useCallback(() {
     print('hello');
   });
@@ -5188,7 +5188,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var state = useState();
   var taint = props.foo;
   handleNext(value) {
@@ -5210,7 +5210,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final Counter = uiFunction((_) {
+final Counter = uiFunction<TestProps>((_) {
   var count = useState(0);
   useEffect(() {
     var id = setInterval(() {
@@ -5228,7 +5228,7 @@ final Counter = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [count]',
                 'output': /*language=dart*/ r'''
-final Counter = uiFunction((_) {
+final Counter = uiFunction<TestProps>((_) {
   var count = useState(0);
   useEffect(() {
     var id = setInterval(() {
@@ -5245,7 +5245,7 @@ final Counter = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Counter = uiFunction((_) {
+final Counter = uiFunction<TestProps>((_) {
   var count = useState(0);
   var increment = useState(0);
   useEffect(() {
@@ -5265,7 +5265,7 @@ final Counter = uiFunction((_) {
                 'desc':
                     'Update the dependencies array to be: [count, increment]',
                 'output': /*language=dart*/ r'''
-final Counter = uiFunction((_) {
+final Counter = uiFunction<TestProps>((_) {
   var count = useState(0);
   var increment = useState(0);
   useEffect(() {
@@ -5283,7 +5283,7 @@ final Counter = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Counter = uiFunction((_) {
+final Counter = uiFunction<TestProps>((_) {
   var count = useState(0);
   var increment = useState(0);
   useEffect(() {
@@ -5302,7 +5302,7 @@ final Counter = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [increment]',
                 'output': /*language=dart*/ r'''
-final Counter = uiFunction((_) {
+final Counter = uiFunction<TestProps>((_) {
   var count = useState(0);
   var increment = useState(0);
   useEffect(() {
@@ -5320,7 +5320,7 @@ final Counter = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Counter = uiFunction((_) {
+final Counter = uiFunction<TestProps>((_) {
   var count = useState(0);
   var increment = useCustomHook();
   useEffect(() {
@@ -5339,7 +5339,7 @@ final Counter = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [increment]',
                 'output': /*language=dart*/ r'''
-final Counter = uiFunction((_) {
+final Counter = uiFunction<TestProps>((_) {
   var count = useState(0);
   var increment = useCustomHook();
   useEffect(() {
@@ -5357,7 +5357,7 @@ final Counter = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Counter = uiFunction((props) {
+final Counter = uiFunction<TestProps>((props) {
   var step = props.step;
 
   var count = useState(0);
@@ -5380,7 +5380,7 @@ final Counter = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [increment]',
                 'output': /*language=dart*/ r'''
-final Counter = uiFunction((props) {
+final Counter = uiFunction<TestProps>((props) {
   var step = props.step;
 
   var count = useState(0);
@@ -5402,7 +5402,7 @@ final Counter = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final Counter = uiFunction((props) {
+final Counter = uiFunction<TestProps>((props) {
   var step = props.step;
 
   var count = useState(0);
@@ -5427,7 +5427,7 @@ final Counter = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final Counter = uiFunction((props) {
+final Counter = uiFunction<TestProps>((props) {
   var increment = props.increment;
 
   var count = useState(0);
@@ -5447,7 +5447,7 @@ final Counter = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [increment]',
                 'output': /*language=dart*/ r'''
-final Counter = uiFunction((props) {
+final Counter = uiFunction<TestProps>((props) {
   var increment = props.increment;
 
   var count = useState(0);
@@ -5466,7 +5466,7 @@ final Counter = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final Counter = uiFunction((_) {
+final Counter = uiFunction<TestProps>((_) {
   var count = useState(0);
   tick() {
     count.set(count.value + 1);
@@ -5487,7 +5487,7 @@ final Counter = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [tick]',
                 'output': /*language=dart*/ r'''
-final Counter = uiFunction((_) {
+final Counter = uiFunction<TestProps>((_) {
   var count = useState(0);
   tick() {
     count.set(count.value + 1);
@@ -5507,7 +5507,7 @@ final Counter = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Podcasts = uiFunction((_) {
+final Podcasts = uiFunction<TestProps>((_) {
   useEffect(() {
     alert(podcasts.value);
   }, []);
@@ -5521,7 +5521,7 @@ final Podcasts = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [podcasts]',
                 'output': /*language=dart*/ r'''
-final Podcasts = uiFunction((_) {
+final Podcasts = uiFunction<TestProps>((_) {
   useEffect(() {
     alert(podcasts.value);
   }, [podcasts.value]);
@@ -5534,7 +5534,7 @@ final Podcasts = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Podcasts = uiFunction((props) {
+final Podcasts = uiFunction<TestProps>((props) {
   var fetchPodcasts = props.fetchPodcasts;
   var id = props.id;
 
@@ -5552,7 +5552,7 @@ final Podcasts = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [fetchPodcasts, id]',
                 'output': /*language=dart*/ r'''
-final Podcasts = uiFunction((props) {
+final Podcasts = uiFunction<TestProps>((props) {
   var fetchPodcasts = props.fetchPodcasts;
   var id = props.id;
 
@@ -5568,7 +5568,7 @@ final Podcasts = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final Podcasts = uiFunction(({ api: { fetchPodcasts }, id }) {
+final Podcasts = uiFunction<TestProps>(({ api: { fetchPodcasts }, id }) {
   var podcasts = useState(null);
   useEffect(() {
     fetchPodcasts(id).then(podcasts.set);
@@ -5583,7 +5583,7 @@ final Podcasts = uiFunction(({ api: { fetchPodcasts }, id }) {
                 'desc':
                     'Update the dependencies array to be: [fetchPodcasts, id]',
                 'output': /*language=dart*/ r'''
-final Podcasts = uiFunction(({ api: { fetchPodcasts }, id }) {
+final Podcasts = uiFunction<TestProps>(({ api: { fetchPodcasts }, id }) {
   var podcasts = useState(null);
   useEffect(() {
     fetchPodcasts(id).then(podcasts.set);
@@ -5596,7 +5596,7 @@ final Podcasts = uiFunction(({ api: { fetchPodcasts }, id }) {
       },
       {
         'code': /*language=dart*/ r'''
-final Podcasts = uiFunction((props) {
+final Podcasts = uiFunction<TestProps>((props) {
   var fetchPodcasts = props.fetchPodcasts;
   var fetchPodcasts2 = props.fetchPodcasts2;
   var id = props.id;
@@ -5619,7 +5619,7 @@ final Podcasts = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [fetchPodcasts, fetchPodcasts2, id]',
                 'output': /*language=dart*/ r'''
-final Podcasts = uiFunction((props) {
+final Podcasts = uiFunction<TestProps>((props) {
   var fetchPodcasts = props.fetchPodcasts;
   var fetchPodcasts2 = props.fetchPodcasts2;
   var id = props.id;
@@ -5640,7 +5640,7 @@ final Podcasts = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final Podcasts = uiFunction((props) {
+final Podcasts = uiFunction<TestProps>((props) {
   var fetchPodcasts = props.fetchPodcasts;
   var id = props.id;
 
@@ -5659,7 +5659,7 @@ final Podcasts = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [fetchPodcasts, id]',
                 'output': /*language=dart*/ r'''
-final Podcasts = uiFunction((props) {
+final Podcasts = uiFunction<TestProps>((props) {
   var fetchPodcasts = props.fetchPodcasts;
   var id = props.id;
 
@@ -5676,7 +5676,7 @@ final Podcasts = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final Podcasts = uiFunction((props) {
+final Podcasts = uiFunction<TestProps>((props) {
   var fetchPodcasts = props.fetchPodcasts;
   var id = props.id;
 
@@ -5695,7 +5695,7 @@ final Podcasts = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [fetchPodcasts, id]',
                 'output': /*language=dart*/ r'''
-final Podcasts = uiFunction((props) {
+final Podcasts = uiFunction<TestProps>((props) {
   var fetchPodcasts = props.fetchPodcasts;
   var id = props.id;
 
@@ -5712,7 +5712,7 @@ final Podcasts = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final Thing = uiFunction((_) {
+final Thing = uiFunction<TestProps>((_) {
   useEffect(() {
     final fetchData = () async {};
     fetchData();
@@ -5726,7 +5726,7 @@ final Thing = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: []',
                 'output': /*language=dart*/ r'''
-final Thing = uiFunction((_) {
+final Thing = uiFunction<TestProps>((_) {
   useEffect(() {
     final fetchData = () async {};
     fetchData();
@@ -5739,7 +5739,7 @@ final Thing = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Hello = uiFunction((_) {
+final Hello = uiFunction<TestProps>((_) {
   var state = useState(0);
   useEffect(() {
     state.set({});
@@ -5753,7 +5753,7 @@ final Hello = uiFunction((_) {
               {
                 'desc': 'Add dependencies array: []',
                 'output': /*language=dart*/ r'''
-final Hello = uiFunction((_) {
+final Hello = uiFunction<TestProps>((_) {
   var state = useState(0);
   useEffect(() {
     state.set({});
@@ -5766,7 +5766,7 @@ final Hello = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Hello = uiFunction((_) {
+final Hello = uiFunction<TestProps>((_) {
   var data = useState(0);
   useEffect(() {
     fetchData.then(data.set);
@@ -5780,7 +5780,7 @@ final Hello = uiFunction((_) {
               {
                 'desc': 'Add dependencies array: []',
                 'output': /*language=dart*/ r'''
-final Hello = uiFunction((_) {
+final Hello = uiFunction<TestProps>((_) {
   var data = useState(0);
   useEffect(() {
     fetchData.then(data.set);
@@ -5793,7 +5793,7 @@ final Hello = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Hello = uiFunction((props) {
+final Hello = uiFunction<TestProps>((props) {
   var country = props.country;
 
   var data = useState(0);
@@ -5809,7 +5809,7 @@ final Hello = uiFunction((props) {
               {
                 'desc': 'Add dependencies array: [country]',
                 'output': /*language=dart*/ r'''
-final Hello = uiFunction((props) {
+final Hello = uiFunction<TestProps>((props) {
   var country = props.country;
 
   var data = useState(0);
@@ -5824,7 +5824,7 @@ final Hello = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final Hello = uiFunction((props) {
+final Hello = uiFunction<TestProps>((props) {
   var prop1 = props.prop1;
   var prop2 = props.prop2;
 
@@ -5843,7 +5843,7 @@ final Hello = uiFunction((props) {
               {
                 'desc': 'Add dependencies array: [prop1, prop2]',
                 'output': /*language=dart*/ r'''
-final Hello = uiFunction((props) {
+final Hello = uiFunction<TestProps>((props) {
   var prop1 = props.prop1;
   var prop2 = props.prop2;
 
@@ -5861,7 +5861,7 @@ final Hello = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final Thing = uiFunction((_) {
+final Thing = uiFunction<TestProps>((_) {
   useEffect(() async {}, []);
 }, null);''',
         'errors': [
@@ -5885,7 +5885,7 @@ Learn more about data fetching with Hooks: https://reactjs.org/link/hooks-data-f
       },
       {
         'code': /*language=dart*/ r'''
-final Thing = uiFunction((_) {
+final Thing = uiFunction<TestProps>((_) {
   useEffect(() async {});
 }, null);''',
         'errors': [
@@ -5909,7 +5909,7 @@ Learn more about data fetching with Hooks: https://reactjs.org/link/hooks-data-f
       },
       {
         'code': /*language=dart*/ r'''
-final Example = uiFunction((_) {
+final Example = uiFunction<TestProps>((_) {
   final foo = useCallback(() {
     foo();
   }, [foo]);
@@ -5922,7 +5922,7 @@ final Example = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: []',
                 'output': /*language=dart*/ r'''
-final Example = uiFunction((_) {
+final Example = uiFunction<TestProps>((_) {
   final foo = useCallback(() {
     foo();
   }, []);
@@ -5934,7 +5934,7 @@ final Example = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Example = uiFunction((props) {
+final Example = uiFunction<TestProps>((props) {
   var prop = props.prop;
 
   final foo = useCallback(() {
@@ -5952,7 +5952,7 @@ final Example = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [prop]',
                 'output': /*language=dart*/ r'''
-final Example = uiFunction((props) {
+final Example = uiFunction<TestProps>((props) {
   var prop = props.prop;
 
   final foo = useCallback(() {
@@ -5969,7 +5969,7 @@ final Example = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   myEffect() {
     print(local);
@@ -5984,7 +5984,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   myEffect() {
     print(local);
@@ -5998,7 +5998,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   final myEffect = () {
     print(local);
@@ -6013,7 +6013,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   final myEffect = () {
     print(local);
@@ -6027,7 +6027,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   final myEffect = () {
     print(local);
@@ -6042,7 +6042,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   final myEffect = () {
     print(local);
@@ -6056,7 +6056,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   final myEffect = () {
     otherThing();
@@ -6074,7 +6074,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [otherThing]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   final myEffect = () {
     otherThing();
@@ -6091,7 +6091,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   final myEffect = debounce(() {
     print(local);
@@ -6106,7 +6106,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [myEffect]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   final myEffect = debounce(() {
     print(local);
@@ -6120,7 +6120,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   final myEffect = debounce(() {
     print(local);
@@ -6135,7 +6135,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [myEffect]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   final myEffect = debounce(() {
     print(local);
@@ -6149,7 +6149,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var myEffect = props.myEffect;
 
   useEffect(myEffect, []);
@@ -6162,7 +6162,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [myEffect]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var myEffect = props.myEffect;
 
   useEffect(myEffect, [myEffect]);
@@ -6174,7 +6174,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   useEffect(debounce(() {
     print(local);
@@ -6190,14 +6190,14 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   useEffect(() {
     print(local);
   }, []);
 }, null);''',
         'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   useEffect(() {
     print(local);
@@ -6217,7 +6217,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var foo = {}
   useEffect(() {
     foo.bar.baz = 43;
@@ -6233,7 +6233,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [foo.bar, props.foo.bar]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var foo = {}
   useEffect(() {
     foo.bar.baz = 43;
@@ -6247,7 +6247,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final Component = uiFunction((_) {
+final Component = uiFunction<TestProps>((_) {
   final foo = {};
   useMemo(() => foo, [foo]);
 }, null);''',
@@ -6261,7 +6261,7 @@ final Component = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Component = uiFunction((_) {
+final Component = uiFunction<TestProps>((_) {
   final foo = [];
   useMemo(() => foo, [foo]);
 }, null);''',
@@ -6275,7 +6275,7 @@ final Component = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Component = uiFunction((_) {
+final Component = uiFunction<TestProps>((_) {
   final foo = () {};
   useMemo(() => foo, [foo]);
 }, null);''',
@@ -6289,7 +6289,7 @@ final Component = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Component = uiFunction((_) {
+final Component = uiFunction<TestProps>((_) {
   final foo = bar(){};
   useMemo(() => foo, [foo]);
 }, null);''',
@@ -6303,7 +6303,7 @@ final Component = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Component = uiFunction((_) {
+final Component = uiFunction<TestProps>((_) {
   final foo = class {};
   useMemo(() => foo, [foo]);
 }, null);''',
@@ -6317,7 +6317,7 @@ final Component = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Component = uiFunction((_) {
+final Component = uiFunction<TestProps>((_) {
   final foo = true ? {} : "fine";
   useMemo(() => foo, [foo]);
 }, null);''',
@@ -6331,7 +6331,7 @@ final Component = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Component = uiFunction((_) {
+final Component = uiFunction<TestProps>((_) {
   final foo = bar || {};
   useMemo(() => foo, [foo]);
 }, null);''',
@@ -6345,7 +6345,7 @@ final Component = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Component = uiFunction((_) {
+final Component = uiFunction<TestProps>((_) {
   final foo = bar ?? {};
   useMemo(() => foo, [foo]);
 }, null);''',
@@ -6359,7 +6359,7 @@ final Component = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Component = uiFunction((_) {
+final Component = uiFunction<TestProps>((_) {
   final foo = bar && {};
   useMemo(() => foo, [foo]);
 }, null);''',
@@ -6373,7 +6373,7 @@ final Component = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Component = uiFunction((_) {
+final Component = uiFunction<TestProps>((_) {
   final foo = bar ? baz ? {} : null : null;
   useMemo(() => foo, [foo]);
 }, null);''',
@@ -6387,7 +6387,7 @@ final Component = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Component = uiFunction((_) {
+final Component = uiFunction<TestProps>((_) {
   var foo = {};
   useMemo(() => foo, [foo]);
 }, null);''',
@@ -6401,7 +6401,7 @@ final Component = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Component = uiFunction((_) {
+final Component = uiFunction<TestProps>((_) {
   var foo = {};
   useMemo(() => foo, [foo]);
 }, null);''',
@@ -6415,7 +6415,7 @@ final Component = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Component = uiFunction((_) {
+final Component = uiFunction<TestProps>((_) {
   final foo = {};
   useCallback(() {
     print(foo);
@@ -6431,7 +6431,7 @@ final Component = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Component = uiFunction((_) {
+final Component = uiFunction<TestProps>((_) {
   final foo = {};
   useEffect(() {
     print(foo);
@@ -6447,7 +6447,7 @@ final Component = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Component = uiFunction((_) {
+final Component = uiFunction<TestProps>((_) {
   final foo = {};
   useLayoutEffect(() {
     print(foo);
@@ -6463,7 +6463,7 @@ final Component = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Component = uiFunction((_) {
+final Component = uiFunction<TestProps>((_) {
   final foo = {};
   useImperativeHandle(
     ref,
@@ -6483,7 +6483,7 @@ final Component = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Foo = uiFunction((section) {
+final Foo = uiFunction<TestProps>((section) {
   final foo = section.section_components?.edges ?? [];
   useEffect(() {
     print(foo);
@@ -6499,7 +6499,7 @@ final Foo = uiFunction((section) {
       },
       {
         'code': /*language=dart*/ r'''
-final Foo = uiFunction((section) {
+final Foo = uiFunction<TestProps>((section) {
   final foo = {};
   print(foo);
   useMemo(() {
@@ -6516,7 +6516,7 @@ final Foo = uiFunction((section) {
       },
       {
         'code': /*language=dart*/ r'''
-final Foo = uiFunction((_) {
+final Foo = uiFunction<TestProps>((_) {
   final foo = <>Hi!</>;
   useMemo(() {
     print(foo);
@@ -6532,7 +6532,7 @@ final Foo = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Foo = uiFunction((_) {
+final Foo = uiFunction<TestProps>((_) {
   final foo = <div>Hi!</div>;
   useMemo(() {
     print(foo);
@@ -6548,7 +6548,7 @@ final Foo = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Foo = uiFunction((_) {
+final Foo = uiFunction<TestProps>((_) {
   final foo = bar = {};
   useMemo(() {
     print(foo);
@@ -6564,7 +6564,7 @@ final Foo = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Foo = uiFunction((_) {
+final Foo = uiFunction<TestProps>((_) {
   final foo = new String('foo'); // Note 'foo' will be boxed, and thus an object and thus compared by reference.
   useMemo(() {
     print(foo);
@@ -6580,7 +6580,7 @@ final Foo = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Foo = uiFunction((_) {
+final Foo = uiFunction<TestProps>((_) {
   final foo = new Map([]);
   useMemo(() {
     print(foo);
@@ -6596,7 +6596,7 @@ final Foo = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Foo = uiFunction((_) {
+final Foo = uiFunction<TestProps>((_) {
   final foo = /reg/;
   useMemo(() {
     print(foo);
@@ -6612,7 +6612,7 @@ final Foo = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Foo = uiFunction((_) {
+final Foo = uiFunction<TestProps>((_) {
   class Bar {};
   useMemo(() {
     print(new Bar());
@@ -6628,7 +6628,7 @@ final Foo = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Foo = uiFunction((_) {
+final Foo = uiFunction<TestProps>((_) {
   final foo = {};
   useLayoutEffect(() {
     print(foo);
@@ -6656,7 +6656,7 @@ final Foo = uiFunction((_) {
     'valid': [
       {
         'code': /*language=dart*/ r'''
-final Example = uiFunction((props) {
+final Example = uiFunction<TestProps>((props) {
   var prop = props.prop;
 
   final bar = useEffect(<T>(a: T): (Hello) {
@@ -6668,7 +6668,7 @@ final Example = uiFunction((props) {
     'invalid': [
       {
         'code': /*language=dart*/ r'''
-final Foo = uiFunction((_) {
+final Foo = uiFunction<TestProps>((_) {
   final foo = ({}: any);
   useMemo(() {
     print(foo);
@@ -6688,7 +6688,7 @@ final Foo = uiFunction((_) {
     'valid': [
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final ref = useRef() as over_react.MutableRefObject<HTMLDivElement>;
   useEffect(() {
     print(ref.current);
@@ -6697,7 +6697,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   var state = over_react.useState<number>(0);
   useEffect(() {
     final someNumber: typeof state.value = 2;
@@ -6707,7 +6707,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final App = uiFunction((_) {
+final App = uiFunction<TestProps>((_) {
   final foo = {x: 1};
   over_react.useEffect(() {
     final bar = {x: 2};
@@ -6720,7 +6720,7 @@ final App = uiFunction((_) {
     'invalid': [
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {} as string;
   useEffect(() {
     print(local);
@@ -6734,7 +6734,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {} as string;
   useEffect(() {
     print(local);
@@ -6747,7 +6747,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final App = uiFunction((_) {
+final App = uiFunction<TestProps>((_) {
   final foo = {x: 1};
   final bar = {x: 2};
   useEffect(() {
@@ -6763,7 +6763,7 @@ final App = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [bar]',
                 'output': /*language=dart*/ r'''
-final App = uiFunction((_) {
+final App = uiFunction<TestProps>((_) {
   final foo = {x: 1};
   final bar = {x: 2};
   useEffect(() {
@@ -6778,7 +6778,7 @@ final App = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final pizza = {};
   useEffect(() => ({
     crust: pizza.crust,
@@ -6794,7 +6794,7 @@ final MyComponent = uiFunction((_) {
                 'desc':
                     'Update the dependencies array to be: [pizza.crust, pizza?.toppings]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final pizza = {};
   useEffect(() => ({
     crust: pizza.crust,
@@ -6808,7 +6808,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final pizza = {};
   useEffect(() => ({
     crust: pizza?.crust,
@@ -6823,7 +6823,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [pizza.crust]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final pizza = {};
   useEffect(() => ({
     crust: pizza?.crust,
@@ -6837,7 +6837,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final pizza = {};
   useEffect(() => ({
     crust: pizza.crust,
@@ -6852,7 +6852,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [pizza.crust]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final pizza = {};
   useEffect(() => ({
     crust: pizza.crust,
@@ -6866,7 +6866,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final pizza = {};
   useEffect(() => ({
     crust: pizza?.crust,
@@ -6881,7 +6881,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [pizza?.crust]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final pizza = {};
   useEffect(() => ({
     crust: pizza?.crust,
@@ -6895,7 +6895,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Example = uiFunction((props) {
+final Example = uiFunction<TestProps>((props) {
   useEffect(() {
     var topHeight = 0;
     topHeight = props.upperViewHeight;
@@ -6910,7 +6910,7 @@ final Example = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [props.upperViewHeight]',
                 'output': /*language=dart*/ r'''
-final Example = uiFunction((props) {
+final Example = uiFunction<TestProps>((props) {
   useEffect(() {
     var topHeight = 0;
     topHeight = props.upperViewHeight;
@@ -6923,7 +6923,7 @@ final Example = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final Example = uiFunction((props) {
+final Example = uiFunction<TestProps>((props) {
   useEffect(() {
     var topHeight = 0;
     topHeight = props?.upperViewHeight;
@@ -6938,7 +6938,7 @@ final Example = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [props?.upperViewHeight]',
                 'output': /*language=dart*/ r'''
-final Example = uiFunction((props) {
+final Example = uiFunction<TestProps>((props) {
   useEffect(() {
     var topHeight = 0;
     topHeight = props?.upperViewHeight;
@@ -6951,7 +6951,7 @@ final Example = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   var state = over_react.useState<number>(0);
   useEffect(() {
     final someNumber: typeof state.value = 2;
@@ -6966,7 +6966,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [state]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   var state = over_react.useState<number>(0);
   useEffect(() {
     final someNumber: typeof state.value = 2;
@@ -6980,7 +6980,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   var state = over_react.useState<number>(0);
   useMemo(() {
     final someNumber: typeof state.value = 2;
@@ -6995,7 +6995,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: []',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   var state = over_react.useState<number>(0);
   useMemo(() {
     final someNumber: typeof state.value = 2;
@@ -7009,7 +7009,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Foo = uiFunction((_) {
+final Foo = uiFunction<TestProps>((_) {
   final foo = {} as any;
   useMemo(() {
     print(foo);
@@ -7030,7 +7030,7 @@ final Foo = uiFunction((_) {
     'invalid': [
       {
         'code': /*language=dart*/ r'''
-final Foo = uiFunction((props) {
+final Foo = uiFunction<TestProps>((props) {
   var Component = props.Component;
 
   over_react.useEffect(() {
@@ -7045,7 +7045,7 @@ final Foo = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [Component]',
                 'output': /*language=dart*/ r'''
-final Foo = uiFunction((props) {
+final Foo = uiFunction<TestProps>((props) {
   var Component = props.Component;
 
   over_react.useEffect(() {
@@ -7065,7 +7065,7 @@ const testsFlow = {
     'valid': [
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   useEffect(() {
     print(local);
@@ -7074,7 +7074,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   useEffect(() {
     final local = {};
     print(local);
@@ -7083,7 +7083,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = someFunc();
   useEffect(() {
     print(local);
@@ -7092,7 +7092,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   useEffect(() {
     print(props.foo);
   }, []);
@@ -7100,7 +7100,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local1 = {};
   {
     final local2 = {};
@@ -7113,7 +7113,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local1 = someFunc();
   {
     final local2 = someFunc();
@@ -7126,7 +7126,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local1 = someFunc();
   MyNestedComponent() {
     final local2 = someFunc();
@@ -7139,7 +7139,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = someFunc();
   useEffect(() {
     print(local);
@@ -7149,7 +7149,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   useEffect(() {
     print(unresolved);
   }, []);
@@ -7157,7 +7157,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = someFunc();
   useEffect(() {
     print(local);
@@ -7166,7 +7166,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var foo = props.foo;
 
   useEffect(() {
@@ -7176,7 +7176,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var foo = props.foo;
 
   useEffect(() {
@@ -7187,7 +7187,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var history = props.history;
 
   useEffect(() {
@@ -7197,7 +7197,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {});
   useLayoutEffect(() {});
   useImperativeHandle(props.innerRef, () {});
@@ -7205,7 +7205,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo);
   }, [props.foo]);
@@ -7213,7 +7213,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo);
     print(props.bar);
@@ -7222,7 +7222,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo);
     print(props.bar);
@@ -7231,7 +7231,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final local = someFunc();
   useEffect(() {
     print(props.foo);
@@ -7242,7 +7242,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final local = {};
   useEffect(() {
     print(props.foo);
@@ -7257,7 +7257,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo?.bar?.baz ?? null);
   }, [props.foo]);
@@ -7265,7 +7265,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo?.bar);
   }, [props.foo?.bar]);
@@ -7273,7 +7273,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo?.bar);
   }, [props.foo.bar]);
@@ -7281,7 +7281,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo.bar);
   }, [props.foo?.bar]);
@@ -7289,7 +7289,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo.bar);
     print(props.foo?.bar);
@@ -7298,7 +7298,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo.bar);
     print(props.foo?.bar);
@@ -7307,7 +7307,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo);
     print(props.foo?.bar);
@@ -7316,7 +7316,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo?.toString());
   }, [props.foo]);
@@ -7324,7 +7324,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useMemo(() {
     print(props.foo?.toString());
   }, [props.foo]);
@@ -7332,7 +7332,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useCallback(() {
     print(props.foo?.toString());
   }, [props.foo]);
@@ -7340,7 +7340,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useCallback(() {
     print(props.foo.bar?.toString());
   }, [props.foo.bar]);
@@ -7348,7 +7348,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useCallback(() {
     print(props.foo?.bar?.toString());
   }, [props.foo.bar]);
@@ -7356,7 +7356,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useCallback(() {
     print(props.foo.bar.toString());
   }, [props?.foo?.bar]);
@@ -7364,7 +7364,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useCallback(() {
     print(props.foo?.bar?.baz);
   }, [props?.foo.bar?.baz]);
@@ -7372,7 +7372,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final myEffect = () {
     // Doesn't use anything
   };
@@ -7382,7 +7382,7 @@ final MyComponent = uiFunction((_) {
       {
         'code': /*language=dart*/ r'''
 final local = {};
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final myEffect = () {
     print(local);
   };
@@ -7392,7 +7392,7 @@ final MyComponent = uiFunction((_) {
       {
         'code': /*language=dart*/ r'''
 final local = {};
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   myEffect() {
     print(local);
   }
@@ -7401,7 +7401,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = someFunc();
   myEffect() {
     print(local);
@@ -7411,7 +7411,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   myEffect() {
     print(global);
   }
@@ -7421,7 +7421,7 @@ final MyComponent = uiFunction((_) {
       {
         'code': /*language=dart*/ r'''
 final local = {};
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final myEffect = () {
     otherThing()
   }
@@ -7433,7 +7433,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var delay = props.delay;
 
   final local = {};
@@ -7445,7 +7445,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var myEffect = props.myEffect;
 
   useEffect(myEffect, [null, myEffect]);
@@ -7453,7 +7453,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var myEffect = props.myEffect;
 
   useEffect(myEffect, [null, myEffect, null, null]);
@@ -7465,13 +7465,13 @@ var local = {};
 myEffect() {
   print(local);
 }
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   useEffect(myEffect, []);
 }, null);''',
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var myEffect = props.myEffect;
 
   useEffect(myEffect, [myEffect]);
@@ -7479,7 +7479,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var myEffect = props.myEffect;
 
   useEffect(myEffect);
@@ -7487,7 +7487,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useCustomEffect(() {
     print(props.foo);
   });
@@ -7500,7 +7500,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useCustomEffect(() {
     print(props.foo);
   }, [props.foo]);
@@ -7513,7 +7513,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useCustomEffect(() {
     print(props.foo);
   }, []);
@@ -7526,7 +7526,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useWithoutEffectSuffix(() {
     print(props.foo);
   }, []);
@@ -7534,7 +7534,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   return renderHelperConfusedWithEffect(() {
     print(props.foo);
   }, []);
@@ -7560,7 +7560,7 @@ final local1 = {};
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final ref = useRef();
   useEffect(() {
     print(ref.current);
@@ -7569,7 +7569,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final ref = useRef();
   useEffect(() {
     print(ref.current);
@@ -7578,7 +7578,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var maybeRef2 = props.maybeRef2;
   var foo = props.foo;
 
@@ -7640,7 +7640,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var maybeRef2 = props.maybeRef2;
 
   final definitelyRef1 = useRef();
@@ -7711,7 +7711,7 @@ final MyComponent = forwardRef((props, ref) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var obj = someFunc();
   useEffect(() {
     obj.foo = true;
@@ -7720,7 +7720,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var foo = {}
   useEffect(() {
     foo.bar.baz = 43;
@@ -7729,7 +7729,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final myRef = useRef();
   useEffect(() {
     final handleMove = () {};
@@ -7743,7 +7743,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final myRef = useRef();
   useEffect(() {
     final handleMove = () {};
@@ -7769,7 +7769,7 @@ useMyThing(myRef) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final myRef = useRef();
   useEffect(() {
     final handleMove = () {};
@@ -7838,7 +7838,7 @@ useMyThing() {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local1 = 42;
   final local2 = '42';
   final local3 = null;
@@ -7851,7 +7851,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local1 = 42;
   final local2 = '42';
   final local3 = null;
@@ -7864,14 +7864,14 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final local = props.local;
   useEffect(() {}, [local]);
 }, null);''',
       },
       {
         'code': /*language=dart*/ r'''
-final Foo = uiFunction((props) {
+final Foo = uiFunction<TestProps>((props) {
   var activeTab = props.activeTab;
 
   useEffect(() {
@@ -7881,7 +7881,7 @@ final Foo = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo.bar.baz);
   }, [props]);
@@ -7898,7 +7898,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final fn = useCallback(() {
     print(props.foo.bar.baz);
   }, [props]);
@@ -7915,7 +7915,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   handleNext1() {
     print('hello');
   }
@@ -7938,7 +7938,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   handleNext() {
     print('hello');
   }
@@ -7955,7 +7955,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var state = useState();
   var dispatch = over_react.useReducer();
   handleNext1(value) {
@@ -8002,7 +8002,7 @@ useInterval(callback, delay) {
       },
       {
         'code': /*language=dart*/ r'''
-final Counter = uiFunction((_) {
+final Counter = uiFunction<TestProps>((_) {
   var count = useState(0);
   useEffect(() {
     var id = setInterval(() {
@@ -8015,7 +8015,7 @@ final Counter = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Counter = uiFunction((_) {
+final Counter = uiFunction<TestProps>((_) {
   var count = useState(0);
   tick() {
     count.set((c) => c + 1);
@@ -8031,7 +8031,7 @@ final Counter = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Counter = uiFunction((_) {
+final Counter = uiFunction<TestProps>((_) {
   var count = useReducer((state, action) {
     if (action == 'inc') {
       return state + 1;
@@ -8048,7 +8048,7 @@ final Counter = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Counter = uiFunction((_) {
+final Counter = uiFunction<TestProps>((_) {
   var count = useReducer((state, action) {
     if (action == 'inc') {
       return state + 1;
@@ -8066,7 +8066,7 @@ final Counter = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Podcasts = uiFunction((_) {
+final Podcasts = uiFunction<TestProps>((_) {
   useEffect(() {
     podcasts.set([]);
   }, []);
@@ -8086,7 +8086,7 @@ withFetch(fetchPodcasts) {
       },
       {
         'code': /*language=dart*/ r'''
-final Podcasts = uiFunction((props) {
+final Podcasts = uiFunction<TestProps>((props) {
   var id = props.id;
 
   var podcasts = useState(null);
@@ -8100,7 +8100,7 @@ final Podcasts = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final Counter = uiFunction((_) {
+final Counter = uiFunction<TestProps>((_) {
   var count = useState(0);
   increment(x) {
     return x + 1;
@@ -8116,7 +8116,7 @@ final Counter = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Counter = uiFunction((_) {
+final Counter = uiFunction<TestProps>((_) {
   var count = useState(0);
   increment(x) {
     return x + 1;
@@ -8133,7 +8133,7 @@ final Counter = uiFunction((_) {
       {
         'code': /*language=dart*/ r'''
 import increment from './increment';
-final Counter = uiFunction((_) {
+final Counter = uiFunction<TestProps>((_) {
   var count = useState(0);
   useEffect(() {
     var id = setInterval(() {
@@ -8161,7 +8161,7 @@ withStuff(increment) {
       },
       {
         'code': /*language=dart*/ r'''
-final App = uiFunction((_) {
+final App = uiFunction<TestProps>((_) {
   var query = useState('react');
   var state = useState(null);
   useEffect(() {
@@ -8183,7 +8183,7 @@ final App = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Example = uiFunction((_) {
+final Example = uiFunction<TestProps>((_) {
   final foo = useCallback(() {
     foo();
   }, []);
@@ -8191,7 +8191,7 @@ final Example = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Example = uiFunction((props) {
+final Example = uiFunction<TestProps>((props) {
   var prop = props.prop;
 
   final foo = useCallback(() {
@@ -8203,7 +8203,7 @@ final Example = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final Hello = uiFunction((_) {
+final Hello = uiFunction<TestProps>((_) {
   var state = useState(0);
   useEffect(() {
     final handleResize = () => state.set(window.innerWidth);
@@ -8214,7 +8214,7 @@ final Hello = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Example = uiFunction((_) {
+final Example = uiFunction<TestProps>((_) {
   useEffect(() {
     arguments
   }, [])
@@ -8222,7 +8222,7 @@ final Example = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Example = uiFunction((_) {
+final Example = uiFunction<TestProps>((_) {
   useEffect(() {
     final bar = () {
       arguments;
@@ -8233,7 +8233,7 @@ final Example = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Example = uiFunction((props) {
+final Example = uiFunction<TestProps>((props) {
   useEffect(() {
     var topHeight = 0;
     topHeight = props.upperViewHeight;
@@ -8242,7 +8242,7 @@ final Example = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final Example = uiFunction((props) {
+final Example = uiFunction<TestProps>((props) {
   useEffect(() {
     var topHeight = 0;
     topHeight = props?.upperViewHeight;
@@ -8251,7 +8251,7 @@ final Example = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final Example = uiFunction((props) {
+final Example = uiFunction<TestProps>((props) {
   useEffect(() {
     var topHeight = 0;
     topHeight = props?.upperViewHeight;
@@ -8298,7 +8298,7 @@ useFoo() {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var foo = props.foo;
 
   return useMemo(() => foo, [foo])
@@ -8306,7 +8306,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final foo = true ? "fine" : "also fine";
   return useMemo(() => foo, [foo]);
 }, null);''',
@@ -8315,7 +8315,7 @@ final MyComponent = uiFunction((_) {
     'invalid': [
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useCallback(() {
     print(props.foo?.toString());
   }, []);
@@ -8328,7 +8328,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props.foo]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useCallback(() {
     print(props.foo?.toString());
   }, [props.foo]);
@@ -8340,7 +8340,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useCallback(() {
     print(props.foo?.bar.baz);
   }, []);
@@ -8354,7 +8354,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [props.foo?.bar.baz]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useCallback(() {
     print(props.foo?.bar.baz);
   }, [props.foo?.bar.baz]);
@@ -8366,7 +8366,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useCallback(() {
     print(props.foo?.bar?.baz);
   }, []);
@@ -8380,7 +8380,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [props.foo?.bar?.baz]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useCallback(() {
     print(props.foo?.bar?.baz);
   }, [props.foo?.bar?.baz]);
@@ -8392,7 +8392,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useCallback(() {
     print(props.foo?.bar.toString());
   }, []);
@@ -8405,7 +8405,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props.foo?.bar]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useCallback(() {
     print(props.foo?.bar.toString());
   }, [props.foo?.bar]);
@@ -8417,7 +8417,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = someFunc();
   useEffect(() {
     print(local);
@@ -8431,7 +8431,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = someFunc();
   useEffect(() {
     print(local);
@@ -8444,7 +8444,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   var local = 42;
   useEffect(() {
     print(local);
@@ -8458,7 +8458,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   var local = 42;
   useEffect(() {
     print(local);
@@ -8471,7 +8471,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = /foo/;
   useEffect(() {
     print(local);
@@ -8485,7 +8485,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = /foo/;
   useEffect(() {
     print(local);
@@ -8498,7 +8498,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final value = useMemo(() { return 2*2; });
   final fn = useCallback(() { alert('foo'); });
 }, null);''',
@@ -8517,7 +8517,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var fn1 = props.fn1;
   var fn2 = props.fn2;
 
@@ -8539,7 +8539,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   useEffect()
   useLayoutEffect()
   useCallback()
@@ -8570,7 +8570,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = someFunc();
   useEffect(() {
     if (true) {
@@ -8586,7 +8586,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = someFunc();
   useEffect(() {
     if (true) {
@@ -8601,7 +8601,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   useEffect(() {
     try {
@@ -8617,7 +8617,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   useEffect(() {
     try {
@@ -8632,7 +8632,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   useEffect(() {
     inner() {
@@ -8649,7 +8649,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   useEffect(() {
     inner() {
@@ -8665,7 +8665,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local1 = someFunc();
   {
     final local2 = someFunc();
@@ -8683,7 +8683,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local1, local2]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local1 = someFunc();
   {
     final local2 = someFunc();
@@ -8700,7 +8700,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local1 = {};
   final local2 = {};
   useEffect(() {
@@ -8716,7 +8716,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local1, local2]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local1 = {};
   final local2 = {};
   useEffect(() {
@@ -8731,7 +8731,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local1 = {};
   final local2 = {};
   useMemo(() {
@@ -8746,7 +8746,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local1]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local1 = {};
   final local2 = {};
   useMemo(() {
@@ -8760,7 +8760,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local1 = someFunc();
   MyNestedComponent() {
     final local2 = {};
@@ -8778,7 +8778,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local2]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local1 = someFunc();
   MyNestedComponent() {
     final local2 = {};
@@ -8795,7 +8795,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   useEffect(() {
     print(local);
@@ -8810,7 +8810,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   useEffect(() {
     print(local);
@@ -8824,7 +8824,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   useEffect(() {
     print(local);
@@ -8839,7 +8839,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   useEffect(() {
     print(local);
@@ -8853,7 +8853,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   useCallback(() {}, [window]);
 }, null);''',
         'errors': [
@@ -8864,7 +8864,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: []',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   useCallback(() {}, []);
 }, null);''',
               }
@@ -8874,7 +8874,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var local = props.foo;
   useCallback(() {}, [local]);
 }, null);''',
@@ -8886,7 +8886,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: []',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var local = props.foo;
   useCallback(() {}, []);
 }, null);''',
@@ -8897,7 +8897,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var history = props.history;
 
   useEffect(() {
@@ -8912,7 +8912,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [history]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var history = props.history;
 
   useEffect(() {
@@ -8926,7 +8926,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var history = props.history;
 
   useEffect(() {
@@ -8944,7 +8944,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [history.foo]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var history = props.history;
 
   useEffect(() {
@@ -8961,7 +8961,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var history = props.history;
 
   useEffect(() {
@@ -8978,7 +8978,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [history?.foo]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var history = props.history;
 
   useEffect(() {
@@ -8994,7 +8994,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   useEffect(() {}, ['foo']);
 }, null);''',
         'errors': [
@@ -9007,7 +9007,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var foo = props.foo;
   var bar = props.bar;
   var baz = props.baz;
@@ -9024,7 +9024,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [bar, baz, foo]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var foo = props.foo;
   var bar = props.bar;
   var baz = props.baz;
@@ -9050,7 +9050,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var foo = props.foo;
   var bar = props.bar;
   var baz = props.baz;
@@ -9067,7 +9067,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [bar, baz, foo]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var foo = props.foo;
   var bar = props.bar;
   var baz = props.baz;
@@ -9098,7 +9098,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final dependencies = [];
   useEffect(() {}, dependencies);
 }, null);''',
@@ -9112,7 +9112,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   final dependencies = [local];
   useEffect(() {
@@ -9132,7 +9132,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   final dependencies = [local];
   useEffect(() {
@@ -9146,7 +9146,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   final dependencies = [local];
   useEffect(() {
@@ -9161,7 +9161,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   final dependencies = [local];
   useEffect(() {
@@ -9180,7 +9180,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = someFunc();
   useEffect(() {
     print(local);
@@ -9196,7 +9196,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   useEffect(() {
     print(local);
@@ -9210,7 +9210,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   useEffect(() {
     print(local);
@@ -9228,7 +9228,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.items[0]);
   }, [props.items[0]]);
@@ -9241,7 +9241,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props.items]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.items[0]);
   }, [props.items]);
@@ -9258,7 +9258,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.items[0]);
   }, [props.items, props.items[0]]);
@@ -9273,7 +9273,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var items = props.items;
 
   useEffect(() {
@@ -9288,7 +9288,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [items]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var items = props.items;
 
   useEffect(() {
@@ -9307,7 +9307,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var items = props.items;
 
   useEffect(() {
@@ -9324,7 +9324,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final local = {};
   useCallback(() {
     print(props.foo);
@@ -9339,7 +9339,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final local = {};
   useCallback(() {
     print(props.foo);
@@ -9353,7 +9353,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final local = {};
   useCallback(() {
     print(props.foo);
@@ -9369,7 +9369,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [props.bar, props.foo]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final local = {};
   useCallback(() {
     print(props.foo);
@@ -9383,7 +9383,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {id: 42};
   useEffect(() {
     print(local);
@@ -9398,7 +9398,7 @@ final MyComponent = uiFunction((_) {
                 'desc':
                     'Update the dependencies array to be: [local, local.id]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {id: 42};
   useEffect(() {
     print(local);
@@ -9411,7 +9411,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {id: 42};
   final fn = useCallback(() {
     print(local);
@@ -9425,7 +9425,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {id: 42};
   final fn = useCallback(() {
     print(local);
@@ -9438,7 +9438,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {id: 42};
   final fn = useCallback(() {
     print(local);
@@ -9452,7 +9452,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {id: 42};
   final fn = useCallback(() {
     print(local);
@@ -9465,7 +9465,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final fn = useCallback(() {
     print(props.foo.bar.baz);
   }, []);
@@ -9479,7 +9479,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [props.foo.bar.baz]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final fn = useCallback(() {
     print(props.foo.bar.baz);
   }, [props.foo.bar.baz]);
@@ -9491,7 +9491,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var color = {}
   final fn = useCallback(() {
     print(props.foo.bar.baz);
@@ -9507,7 +9507,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [color, props.foo.bar.baz]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var color = {}
   final fn = useCallback(() {
     print(props.foo.bar.baz);
@@ -9521,7 +9521,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final fn = useCallback(() {
     print(props.foo.bar.baz);
   }, [props.foo.bar.baz, props.foo]);
@@ -9534,7 +9534,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props.foo]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final fn = useCallback(() {
     print(props.foo.bar.baz);
   }, [props.foo]);
@@ -9546,7 +9546,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final fn = useCallback(() {
     print(props.foo.bar.baz);
     print(props.foo.fizz.bizz);
@@ -9561,7 +9561,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [props.foo.bar.baz, props.foo.fizz.bizz]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final fn = useCallback(() {
     print(props.foo.bar.baz);
     print(props.foo.fizz.bizz);
@@ -9574,7 +9574,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final fn = useCallback(() {
     print(props.foo.bar);
   }, [props.foo.bar.baz]);
@@ -9587,7 +9587,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props.foo.bar]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final fn = useCallback(() {
     print(props.foo.bar);
   }, [props.foo.bar]);
@@ -9599,7 +9599,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final fn = useCallback(() {
     print(props);
     print(props.hello);
@@ -9613,7 +9613,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final fn = useCallback(() {
     print(props);
     print(props.hello);
@@ -9626,7 +9626,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   useEffect(() {
     print(local);
@@ -9640,7 +9640,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   useEffect(() {
     print(local);
@@ -9653,7 +9653,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local1 = {};
   useCallback(() {
     final local1 = {};
@@ -9668,7 +9668,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: []',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local1 = {};
   useCallback(() {
     final local1 = {};
@@ -9682,7 +9682,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local1 = {};
   useCallback(() {}, [local1]);
 }, null);''',
@@ -9694,7 +9694,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: []',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local1 = {};
   useCallback(() {}, []);
 }, null);''',
@@ -9705,7 +9705,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo);
   }, []);
@@ -9718,7 +9718,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props.foo]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo);
   }, [props.foo]);
@@ -9730,7 +9730,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo);
     print(props.bar);
@@ -9745,7 +9745,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [props.bar, props.foo]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo);
     print(props.bar);
@@ -9758,7 +9758,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var a, b, c, d, e, f, g;
   useEffect(() {
     print(b, e, d, c, a, g, f);
@@ -9773,7 +9773,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [c, a, g, b, e, d, f]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var a, b, c, d, e, f, g;
   useEffect(() {
     print(b, e, d, c, a, g, f);
@@ -9786,7 +9786,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var a, b, c, d, e, f, g;
   useEffect(() {
     print(b, e, d, c, a, g, f);
@@ -9801,7 +9801,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [a, b, c, d, e, f, g]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var a, b, c, d, e, f, g;
   useEffect(() {
     print(b, e, d, c, a, g, f);
@@ -9814,7 +9814,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var a, b, c, d, e, f, g;
   useEffect(() {
     print(b, e, d, c, a, g, f);
@@ -9829,7 +9829,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [a, b, c, d, e, f, g]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var a, b, c, d, e, f, g;
   useEffect(() {
     print(b, e, d, c, a, g, f);
@@ -9842,7 +9842,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final local = {};
   useEffect(() {
     print(props.foo);
@@ -9859,7 +9859,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [local, props.bar, props.foo]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final local = {};
   useEffect(() {
     print(props.foo);
@@ -9874,7 +9874,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final local = {};
   useEffect(() {
     print(props.foo);
@@ -9890,7 +9890,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [local, props]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final local = {};
   useEffect(() {
     print(props.foo);
@@ -9905,7 +9905,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo);
   }, []);
@@ -9936,7 +9936,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props.foo]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo);
   }, [props.foo]);
@@ -9969,7 +9969,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props.foo]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo);
   }, []);
@@ -10002,7 +10002,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props.foo]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo);
   }, []);
@@ -10035,7 +10035,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props.foo]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo);
   }, []);
@@ -10068,7 +10068,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props.foo]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo);
   }, []);
@@ -10101,7 +10101,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props.foo]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo);
   }, []);
@@ -10131,7 +10131,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useCustomEffect(() {
     print(props.foo);
   }, []);
@@ -10158,7 +10158,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props.foo]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useCustomEffect(() {
     print(props.foo);
   }, [props.foo]);
@@ -10182,7 +10182,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props.foo]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useCustomEffect(() {
     print(props.foo);
   }, []);
@@ -10206,7 +10206,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props.foo]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useCustomEffect(() {
     print(props.foo);
   }, []);
@@ -10227,7 +10227,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   useEffect(() {
     print(local);
@@ -10241,7 +10241,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   useEffect(() {
     print(local);
@@ -10259,7 +10259,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   useEffect(() {
     print(local);
@@ -10273,7 +10273,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   useEffect(() {
     print(local);
@@ -10291,7 +10291,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {}, [props?.attribute.method()]);
 }, null);''',
         'errors': [
@@ -10304,7 +10304,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {}, [props.method()]);
 }, null);''',
         'errors': [
@@ -10317,7 +10317,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final ref = useRef();
   var state = useState();
   useEffect(() {
@@ -10333,7 +10333,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [state]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final ref = useRef();
   var state = useState();
   useEffect(() {
@@ -10348,7 +10348,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final ref = useRef();
   var state = useState();
   useEffect(() {
@@ -10364,7 +10364,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [ref, state]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final ref = useRef();
   var state = useState();
   useEffect(() {
@@ -10379,7 +10379,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final ref1 = useRef();
   final ref2 = useRef();
   useEffect(() {
@@ -10398,7 +10398,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [props.color, props.someOtherRefs]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final ref1 = useRef();
   final ref2 = useRef();
   useEffect(() {
@@ -10415,7 +10415,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final ref1 = useRef();
   final ref2 = useRef();
   useEffect(() {
@@ -10434,7 +10434,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [props.someOtherRefs, props.color]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final ref1 = useRef();
   final ref2 = useRef();
   useEffect(() {
@@ -10451,7 +10451,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final ref1 = useRef();
   final ref2 = useRef();
   useEffect(() {
@@ -10470,7 +10470,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [props.someOtherRefs, props.color]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final ref1 = useRef();
   final ref2 = useRef();
   useEffect(() {
@@ -10487,7 +10487,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final ref = useRef();
   useEffect(() {
     print(ref.current);
@@ -10501,7 +10501,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: []',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final ref = useRef();
   useEffect(() {
     print(ref.current);
@@ -10514,7 +10514,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var activeTab = props.activeTab;
 
   final ref1 = useRef();
@@ -10532,7 +10532,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [activeTab]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var activeTab = props.activeTab;
 
   final ref1 = useRef();
@@ -10549,7 +10549,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var activeTab = props.activeTab;
   var initY = props.initY;
 
@@ -10568,7 +10568,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [initY]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var activeTab = props.activeTab;
   var initY = props.initY;
 
@@ -10586,7 +10586,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final ref = useRef();
   useEffect(() {
     print(ref.current);
@@ -10600,7 +10600,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [ref]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final ref = useRef();
   useEffect(() {
     print(ref.current);
@@ -10642,7 +10642,7 @@ final MyComponent = forwardRef((props, ref) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     if (props.onChange) {
       props.onChange();
@@ -10657,7 +10657,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     if (props.onChange) {
       props.onChange();
@@ -10671,7 +10671,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     if (props?.onChange) {
       props?.onChange();
@@ -10686,7 +10686,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     if (props?.onChange) {
       props?.onChange();
@@ -10700,7 +10700,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     play() {
       props.onPlay();
@@ -10718,7 +10718,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     play() {
       props.onPlay();
@@ -10735,7 +10735,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     if (props.foo.onChange) {
       props.foo.onChange();
@@ -10750,7 +10750,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props.foo]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     if (props.foo.onChange) {
       props.foo.onChange();
@@ -10764,7 +10764,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     props.onChange();
     if (props.foo.onChange) {
@@ -10780,7 +10780,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     props.onChange();
     if (props.foo.onChange) {
@@ -10795,7 +10795,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   const [skillsCount] = useState();
   useEffect(() {
     if (skillsCount == 0 && !props.isEditMode) {
@@ -10812,7 +10812,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [skillsCount, props.isEditMode, props.toggleEditMode, props]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   const [skillsCount] = useState();
   useEffect(() {
     if (skillsCount == 0 && !props.isEditMode) {
@@ -10827,7 +10827,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   const [skillsCount] = useState();
   useEffect(() {
     if (skillsCount == 0 && !props.isEditMode) {
@@ -10844,7 +10844,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [props, skillsCount]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   const [skillsCount] = useState();
   useEffect(() {
     if (skillsCount == 0 && !props.isEditMode) {
@@ -10859,7 +10859,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     externalCall(props);
     props.onChange();
@@ -10873,7 +10873,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     externalCall(props);
     props.onChange();
@@ -10886,7 +10886,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     props.onChange();
     externalCall(props);
@@ -10900,7 +10900,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     props.onChange();
     externalCall(props);
@@ -10913,7 +10913,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var value;
   var value2;
   var value3;
@@ -10958,7 +10958,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var value;
   var value2;
   var value3;
@@ -10994,7 +10994,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final myRef = useRef();
   useEffect(() {
     final handleMove = () {};
@@ -11013,7 +11013,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final myRef = useRef();
   useEffect(() {
     final handleMove = () {};
@@ -11032,7 +11032,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final myRef = useRef();
   useEffect(() {
     final handleMove = () {};
@@ -11114,7 +11114,7 @@ useMyThing(myRef, active) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final myRef = useRef();
   useLayoutEffect_SAFE_FOR_SSR(() {
     final handleMove = () {};
@@ -11124,7 +11124,7 @@ final MyComponent = uiFunction((_) {
   return <div ref={myRef} />;
 }, null);''',
         'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final myRef = useRef();
   useLayoutEffect_SAFE_FOR_SSR(() {
     final handleMove = () {};
@@ -11144,7 +11144,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local1 = 42;
   final local2 = '42';
   final local3 = null;
@@ -11165,7 +11165,7 @@ final MyComponent = uiFunction((_) {
                 'desc':
                     'Update the dependencies array to be: [local1, local3, local4]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local1 = 42;
   final local2 = '42';
   final local3 = null;
@@ -11184,7 +11184,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   useEffect(() {
     window.scrollTo(0, 0);
   }, [window]);
@@ -11197,7 +11197,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: []',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   useEffect(() {
     window.scrollTo(0, 0);
   }, []);
@@ -11210,7 +11210,7 @@ final MyComponent = uiFunction((_) {
       {
         'code': /*language=dart*/ r'''
 import MutableStore from 'store';
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   useEffect(() {
     print(MutableStore.hello);
   }, [MutableStore.hello]);
@@ -11224,7 +11224,7 @@ final MyComponent = uiFunction((_) {
                 'desc': 'Update the dependencies array to be: []',
                 'output': /*language=dart*/ r'''
 import MutableStore from 'store';
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   useEffect(() {
     print(MutableStore.hello);
   }, []);
@@ -11238,7 +11238,7 @@ final MyComponent = uiFunction((_) {
         'code': /*language=dart*/ r'''
 import MutableStore from 'store';
 var z = {};
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var x = props.foo;
   {
     var y = props.bar;
@@ -11258,7 +11258,7 @@ final MyComponent = uiFunction((props) {
                 'output': /*language=dart*/ r'''
 import MutableStore from 'store';
 var z = {};
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var x = props.foo;
   {
     var y = props.bar;
@@ -11276,7 +11276,7 @@ final MyComponent = uiFunction((props) {
         'code': /*language=dart*/ r'''
 import MutableStore from 'store';
 var z = {};
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var x = props.foo;
   {
     var y = props.bar;
@@ -11296,7 +11296,7 @@ final MyComponent = uiFunction((props) {
                 'output': /*language=dart*/ r'''
 import MutableStore from 'store';
 var z = {};
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var x = props.foo;
   {
     var y = props.bar;
@@ -11314,7 +11314,7 @@ final MyComponent = uiFunction((props) {
         'code': /*language=dart*/ r'''
 import MutableStore from 'store';
 var z = {};
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var x = props.foo;
   {
     var y = props.bar;
@@ -11333,7 +11333,7 @@ final MyComponent = uiFunction((props) {
                 'output': /*language=dart*/ r'''
 import MutableStore from 'store';
 var z = {};
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var x = props.foo;
   {
     var y = props.bar;
@@ -11351,7 +11351,7 @@ final MyComponent = uiFunction((props) {
         'code': /*language=dart*/ r'''
 import MutableStore from 'store';
 var z = {};
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var x = props.foo;
   {
     var y = props.bar;
@@ -11370,7 +11370,7 @@ final MyComponent = uiFunction((props) {
                 'output': /*language=dart*/ r'''
 import MutableStore from 'store';
 var z = {};
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var x = props.foo;
   {
     var y = props.bar;
@@ -11386,7 +11386,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var state = useState();
   var dispatch = over_react.useReducer();
   var taint = props.foo;
@@ -11421,7 +11421,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [handleNext1]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var state = useState();
   var dispatch = over_react.useReducer();
   var taint = props.foo;
@@ -11458,7 +11458,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [handleNext2]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var state = useState();
   var dispatch = over_react.useReducer();
   var taint = props.foo;
@@ -11495,7 +11495,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [handleNext3]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var state = useState();
   var dispatch = over_react.useReducer();
   var taint = props.foo;
@@ -11529,7 +11529,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var state = useState();
   var dispatch = over_react.useReducer();
   var taint = props.foo;
@@ -11566,7 +11566,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [handleNext1]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var state = useState();
   var dispatch = over_react.useReducer();
   var taint = props.foo;
@@ -11605,7 +11605,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [handleNext2]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var state = useState();
   var dispatch = over_react.useReducer();
   var taint = props.foo;
@@ -11644,7 +11644,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [handleNext3]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var state = useState();
   var dispatch = over_react.useReducer();
   var taint = props.foo;
@@ -11680,7 +11680,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var state = useState();
   var dispatch = over_react.useReducer();
   var taint = props.foo;
@@ -11717,7 +11717,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [handleNext1]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var state = useState();
   var dispatch = over_react.useReducer();
   var taint = props.foo;
@@ -11756,7 +11756,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [handleNext2]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var state = useState();
   var dispatch = over_react.useReducer();
   var taint = props.foo;
@@ -11795,7 +11795,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [handleNext3]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var state = useState();
   var dispatch = over_react.useReducer();
   var taint = props.foo;
@@ -11831,7 +11831,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var state = useState();
   handleNext(value) {
     state.set(value);
@@ -11850,7 +11850,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var state = useState();
   final handleNext = (value) {
     state.set(value);
@@ -11869,7 +11869,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var state = useState();
   final handleNext = (value) {
     state.set(value);
@@ -11888,7 +11888,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Wrap the definition of \'handleNext\' in its own useCallback() Hook.',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var state = useState();
   final handleNext = useCallback((value) {
     state.set(value);
@@ -11905,7 +11905,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   handleNext1() {
     print('hello');
   }
@@ -11945,7 +11945,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   handleNext1() {
     print('hello');
   }
@@ -11988,7 +11988,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   handleNext1() {
     print('hello');
   }
@@ -12036,7 +12036,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Wrap the definition of \'handleNext2\' in its own useCallback() Hook.',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   handleNext1() {
     print('hello');
   }
@@ -12081,7 +12081,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Wrap the definition of \'handleNext3\' in its own useCallback() Hook.',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   handleNext1() {
     print('hello');
   }
@@ -12122,7 +12122,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final handleNext1 = () {
     print('hello');
   };
@@ -12147,7 +12147,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Wrap the definition of \'handleNext1\' in its own useCallback() Hook.',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final handleNext1 = useCallback(() {
     print('hello');
   });
@@ -12174,7 +12174,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Wrap the definition of \'handleNext1\' in its own useCallback() Hook.',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final handleNext1 = useCallback(() {
     print('hello');
   });
@@ -12207,7 +12207,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var handleNext = () {
     print('hello');
   };
@@ -12229,7 +12229,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Wrap the definition of \'handleNext\' in its own useCallback() Hook.',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var handleNext = useCallback(() {
     print('hello');
   });
@@ -12249,7 +12249,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var state = useState();
   var taint = props.foo;
   handleNext(value) {
@@ -12271,7 +12271,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final Counter = uiFunction((_) {
+final Counter = uiFunction<TestProps>((_) {
   var count = useState(0);
   useEffect(() {
     var id = setInterval(() {
@@ -12289,7 +12289,7 @@ final Counter = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [count]',
                 'output': /*language=dart*/ r'''
-final Counter = uiFunction((_) {
+final Counter = uiFunction<TestProps>((_) {
   var count = useState(0);
   useEffect(() {
     var id = setInterval(() {
@@ -12306,7 +12306,7 @@ final Counter = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Counter = uiFunction((_) {
+final Counter = uiFunction<TestProps>((_) {
   var count = useState(0);
   var increment = useState(0);
   useEffect(() {
@@ -12326,7 +12326,7 @@ final Counter = uiFunction((_) {
                 'desc':
                     'Update the dependencies array to be: [count, increment]',
                 'output': /*language=dart*/ r'''
-final Counter = uiFunction((_) {
+final Counter = uiFunction<TestProps>((_) {
   var count = useState(0);
   var increment = useState(0);
   useEffect(() {
@@ -12344,7 +12344,7 @@ final Counter = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Counter = uiFunction((_) {
+final Counter = uiFunction<TestProps>((_) {
   var count = useState(0);
   var increment = useState(0);
   useEffect(() {
@@ -12363,7 +12363,7 @@ final Counter = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [increment]',
                 'output': /*language=dart*/ r'''
-final Counter = uiFunction((_) {
+final Counter = uiFunction<TestProps>((_) {
   var count = useState(0);
   var increment = useState(0);
   useEffect(() {
@@ -12381,7 +12381,7 @@ final Counter = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Counter = uiFunction((_) {
+final Counter = uiFunction<TestProps>((_) {
   var count = useState(0);
   var increment = useCustomHook();
   useEffect(() {
@@ -12400,7 +12400,7 @@ final Counter = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [increment]',
                 'output': /*language=dart*/ r'''
-final Counter = uiFunction((_) {
+final Counter = uiFunction<TestProps>((_) {
   var count = useState(0);
   var increment = useCustomHook();
   useEffect(() {
@@ -12418,7 +12418,7 @@ final Counter = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Counter = uiFunction((props) {
+final Counter = uiFunction<TestProps>((props) {
   var step = props.step;
 
   var count = useState(0);
@@ -12441,7 +12441,7 @@ final Counter = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [increment]',
                 'output': /*language=dart*/ r'''
-final Counter = uiFunction((props) {
+final Counter = uiFunction<TestProps>((props) {
   var step = props.step;
 
   var count = useState(0);
@@ -12463,7 +12463,7 @@ final Counter = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final Counter = uiFunction((props) {
+final Counter = uiFunction<TestProps>((props) {
   var step = props.step;
 
   var count = useState(0);
@@ -12488,7 +12488,7 @@ final Counter = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final Counter = uiFunction((props) {
+final Counter = uiFunction<TestProps>((props) {
   var increment = props.increment;
 
   var count = useState(0);
@@ -12508,7 +12508,7 @@ final Counter = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [increment]',
                 'output': /*language=dart*/ r'''
-final Counter = uiFunction((props) {
+final Counter = uiFunction<TestProps>((props) {
   var increment = props.increment;
 
   var count = useState(0);
@@ -12527,7 +12527,7 @@ final Counter = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final Counter = uiFunction((_) {
+final Counter = uiFunction<TestProps>((_) {
   var count = useState(0);
   tick() {
     count.set(count.value + 1);
@@ -12548,7 +12548,7 @@ final Counter = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [tick]',
                 'output': /*language=dart*/ r'''
-final Counter = uiFunction((_) {
+final Counter = uiFunction<TestProps>((_) {
   var count = useState(0);
   tick() {
     count.set(count.value + 1);
@@ -12568,7 +12568,7 @@ final Counter = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Podcasts = uiFunction((_) {
+final Podcasts = uiFunction<TestProps>((_) {
   useEffect(() {
     alert(podcasts.value);
   }, []);
@@ -12582,7 +12582,7 @@ final Podcasts = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [podcasts]',
                 'output': /*language=dart*/ r'''
-final Podcasts = uiFunction((_) {
+final Podcasts = uiFunction<TestProps>((_) {
   useEffect(() {
     alert(podcasts.value);
   }, [podcasts.value]);
@@ -12595,7 +12595,7 @@ final Podcasts = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Podcasts = uiFunction((props) {
+final Podcasts = uiFunction<TestProps>((props) {
   var fetchPodcasts = props.fetchPodcasts;
   var id = props.id;
 
@@ -12613,7 +12613,7 @@ final Podcasts = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [fetchPodcasts, id]',
                 'output': /*language=dart*/ r'''
-final Podcasts = uiFunction((props) {
+final Podcasts = uiFunction<TestProps>((props) {
   var fetchPodcasts = props.fetchPodcasts;
   var id = props.id;
 
@@ -12629,7 +12629,7 @@ final Podcasts = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final Podcasts = uiFunction(({ api: { fetchPodcasts }, id }) {
+final Podcasts = uiFunction<TestProps>(({ api: { fetchPodcasts }, id }) {
   var podcasts = useState(null);
   useEffect(() {
     fetchPodcasts(id).then(podcasts.set);
@@ -12644,7 +12644,7 @@ final Podcasts = uiFunction(({ api: { fetchPodcasts }, id }) {
                 'desc':
                     'Update the dependencies array to be: [fetchPodcasts, id]',
                 'output': /*language=dart*/ r'''
-final Podcasts = uiFunction(({ api: { fetchPodcasts }, id }) {
+final Podcasts = uiFunction<TestProps>(({ api: { fetchPodcasts }, id }) {
   var podcasts = useState(null);
   useEffect(() {
     fetchPodcasts(id).then(podcasts.set);
@@ -12657,7 +12657,7 @@ final Podcasts = uiFunction(({ api: { fetchPodcasts }, id }) {
       },
       {
         'code': /*language=dart*/ r'''
-final Podcasts = uiFunction((props) {
+final Podcasts = uiFunction<TestProps>((props) {
   var fetchPodcasts = props.fetchPodcasts;
   var fetchPodcasts2 = props.fetchPodcasts2;
   var id = props.id;
@@ -12680,7 +12680,7 @@ final Podcasts = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [fetchPodcasts, fetchPodcasts2, id]',
                 'output': /*language=dart*/ r'''
-final Podcasts = uiFunction((props) {
+final Podcasts = uiFunction<TestProps>((props) {
   var fetchPodcasts = props.fetchPodcasts;
   var fetchPodcasts2 = props.fetchPodcasts2;
   var id = props.id;
@@ -12701,7 +12701,7 @@ final Podcasts = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final Podcasts = uiFunction((props) {
+final Podcasts = uiFunction<TestProps>((props) {
   var fetchPodcasts = props.fetchPodcasts;
   var id = props.id;
 
@@ -12720,7 +12720,7 @@ final Podcasts = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [fetchPodcasts, id]',
                 'output': /*language=dart*/ r'''
-final Podcasts = uiFunction((props) {
+final Podcasts = uiFunction<TestProps>((props) {
   var fetchPodcasts = props.fetchPodcasts;
   var id = props.id;
 
@@ -12737,7 +12737,7 @@ final Podcasts = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final Podcasts = uiFunction((props) {
+final Podcasts = uiFunction<TestProps>((props) {
   var fetchPodcasts = props.fetchPodcasts;
   var id = props.id;
 
@@ -12756,7 +12756,7 @@ final Podcasts = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [fetchPodcasts, id]',
                 'output': /*language=dart*/ r'''
-final Podcasts = uiFunction((props) {
+final Podcasts = uiFunction<TestProps>((props) {
   var fetchPodcasts = props.fetchPodcasts;
   var id = props.id;
 
@@ -12773,7 +12773,7 @@ final Podcasts = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final Thing = uiFunction((_) {
+final Thing = uiFunction<TestProps>((_) {
   useEffect(() {
     final fetchData = () async {};
     fetchData();
@@ -12787,7 +12787,7 @@ final Thing = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: []',
                 'output': /*language=dart*/ r'''
-final Thing = uiFunction((_) {
+final Thing = uiFunction<TestProps>((_) {
   useEffect(() {
     final fetchData = () async {};
     fetchData();
@@ -12800,7 +12800,7 @@ final Thing = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Hello = uiFunction((_) {
+final Hello = uiFunction<TestProps>((_) {
   var state = useState(0);
   useEffect(() {
     state.set({});
@@ -12814,7 +12814,7 @@ final Hello = uiFunction((_) {
               {
                 'desc': 'Add dependencies array: []',
                 'output': /*language=dart*/ r'''
-final Hello = uiFunction((_) {
+final Hello = uiFunction<TestProps>((_) {
   var state = useState(0);
   useEffect(() {
     state.set({});
@@ -12827,7 +12827,7 @@ final Hello = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Hello = uiFunction((_) {
+final Hello = uiFunction<TestProps>((_) {
   var data = useState(0);
   useEffect(() {
     fetchData.then(data.set);
@@ -12841,7 +12841,7 @@ final Hello = uiFunction((_) {
               {
                 'desc': 'Add dependencies array: []',
                 'output': /*language=dart*/ r'''
-final Hello = uiFunction((_) {
+final Hello = uiFunction<TestProps>((_) {
   var data = useState(0);
   useEffect(() {
     fetchData.then(data.set);
@@ -12854,7 +12854,7 @@ final Hello = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Hello = uiFunction((props) {
+final Hello = uiFunction<TestProps>((props) {
   var country = props.country;
 
   var data = useState(0);
@@ -12870,7 +12870,7 @@ final Hello = uiFunction((props) {
               {
                 'desc': 'Add dependencies array: [country]',
                 'output': /*language=dart*/ r'''
-final Hello = uiFunction((props) {
+final Hello = uiFunction<TestProps>((props) {
   var country = props.country;
 
   var data = useState(0);
@@ -12885,7 +12885,7 @@ final Hello = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final Hello = uiFunction((props) {
+final Hello = uiFunction<TestProps>((props) {
   var prop1 = props.prop1;
   var prop2 = props.prop2;
 
@@ -12904,7 +12904,7 @@ final Hello = uiFunction((props) {
               {
                 'desc': 'Add dependencies array: [prop1, prop2]',
                 'output': /*language=dart*/ r'''
-final Hello = uiFunction((props) {
+final Hello = uiFunction<TestProps>((props) {
   var prop1 = props.prop1;
   var prop2 = props.prop2;
 
@@ -12922,7 +12922,7 @@ final Hello = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final Thing = uiFunction((_) {
+final Thing = uiFunction<TestProps>((_) {
   useEffect(() async {}, []);
 }, null);''',
         'errors': [
@@ -12946,7 +12946,7 @@ Learn more about data fetching with Hooks: https://reactjs.org/link/hooks-data-f
       },
       {
         'code': /*language=dart*/ r'''
-final Thing = uiFunction((_) {
+final Thing = uiFunction<TestProps>((_) {
   useEffect(() async {});
 }, null);''',
         'errors': [
@@ -12970,7 +12970,7 @@ Learn more about data fetching with Hooks: https://reactjs.org/link/hooks-data-f
       },
       {
         'code': /*language=dart*/ r'''
-final Example = uiFunction((_) {
+final Example = uiFunction<TestProps>((_) {
   final foo = useCallback(() {
     foo();
   }, [foo]);
@@ -12983,7 +12983,7 @@ final Example = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: []',
                 'output': /*language=dart*/ r'''
-final Example = uiFunction((_) {
+final Example = uiFunction<TestProps>((_) {
   final foo = useCallback(() {
     foo();
   }, []);
@@ -12995,7 +12995,7 @@ final Example = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Example = uiFunction((props) {
+final Example = uiFunction<TestProps>((props) {
   var prop = props.prop;
 
   final foo = useCallback(() {
@@ -13013,7 +13013,7 @@ final Example = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [prop]',
                 'output': /*language=dart*/ r'''
-final Example = uiFunction((props) {
+final Example = uiFunction<TestProps>((props) {
   var prop = props.prop;
 
   final foo = useCallback(() {
@@ -13030,7 +13030,7 @@ final Example = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   myEffect() {
     print(local);
@@ -13045,7 +13045,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   myEffect() {
     print(local);
@@ -13059,7 +13059,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   final myEffect = () {
     print(local);
@@ -13074,7 +13074,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   final myEffect = () {
     print(local);
@@ -13088,7 +13088,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   final myEffect = () {
     print(local);
@@ -13103,7 +13103,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   final myEffect = () {
     print(local);
@@ -13117,7 +13117,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   final myEffect = () {
     otherThing();
@@ -13135,7 +13135,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [otherThing]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   final myEffect = () {
     otherThing();
@@ -13152,7 +13152,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   final myEffect = debounce(() {
     print(local);
@@ -13167,7 +13167,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [myEffect]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   final myEffect = debounce(() {
     print(local);
@@ -13181,7 +13181,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   final myEffect = debounce(() {
     print(local);
@@ -13196,7 +13196,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [myEffect]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   final myEffect = debounce(() {
     print(local);
@@ -13210,7 +13210,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var myEffect = props.myEffect;
 
   useEffect(myEffect, []);
@@ -13223,7 +13223,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [myEffect]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var myEffect = props.myEffect;
 
   useEffect(myEffect, [myEffect]);
@@ -13235,7 +13235,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   useEffect(debounce(() {
     print(local);
@@ -13251,14 +13251,14 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   useEffect(() {
     print(local);
   }, []);
 }, null);''',
         'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   useEffect(() {
     print(local);
@@ -13278,7 +13278,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var foo = {}
   useEffect(() {
     foo.bar.baz = 43;
@@ -13294,7 +13294,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [foo.bar, props.foo.bar]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var foo = {}
   useEffect(() {
     foo.bar.baz = 43;
@@ -13308,7 +13308,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final Component = uiFunction((_) {
+final Component = uiFunction<TestProps>((_) {
   final foo = {};
   useMemo(() => foo, [foo]);
 }, null);''',
@@ -13322,7 +13322,7 @@ final Component = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Component = uiFunction((_) {
+final Component = uiFunction<TestProps>((_) {
   final foo = [];
   useMemo(() => foo, [foo]);
 }, null);''',
@@ -13336,7 +13336,7 @@ final Component = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Component = uiFunction((_) {
+final Component = uiFunction<TestProps>((_) {
   final foo = () {};
   useMemo(() => foo, [foo]);
 }, null);''',
@@ -13350,7 +13350,7 @@ final Component = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Component = uiFunction((_) {
+final Component = uiFunction<TestProps>((_) {
   final foo = bar(){};
   useMemo(() => foo, [foo]);
 }, null);''',
@@ -13364,7 +13364,7 @@ final Component = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Component = uiFunction((_) {
+final Component = uiFunction<TestProps>((_) {
   final foo = class {};
   useMemo(() => foo, [foo]);
 }, null);''',
@@ -13378,7 +13378,7 @@ final Component = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Component = uiFunction((_) {
+final Component = uiFunction<TestProps>((_) {
   final foo = true ? {} : "fine";
   useMemo(() => foo, [foo]);
 }, null);''',
@@ -13392,7 +13392,7 @@ final Component = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Component = uiFunction((_) {
+final Component = uiFunction<TestProps>((_) {
   final foo = bar || {};
   useMemo(() => foo, [foo]);
 }, null);''',
@@ -13406,7 +13406,7 @@ final Component = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Component = uiFunction((_) {
+final Component = uiFunction<TestProps>((_) {
   final foo = bar ?? {};
   useMemo(() => foo, [foo]);
 }, null);''',
@@ -13420,7 +13420,7 @@ final Component = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Component = uiFunction((_) {
+final Component = uiFunction<TestProps>((_) {
   final foo = bar && {};
   useMemo(() => foo, [foo]);
 }, null);''',
@@ -13434,7 +13434,7 @@ final Component = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Component = uiFunction((_) {
+final Component = uiFunction<TestProps>((_) {
   final foo = bar ? baz ? {} : null : null;
   useMemo(() => foo, [foo]);
 }, null);''',
@@ -13448,7 +13448,7 @@ final Component = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Component = uiFunction((_) {
+final Component = uiFunction<TestProps>((_) {
   var foo = {};
   useMemo(() => foo, [foo]);
 }, null);''',
@@ -13462,7 +13462,7 @@ final Component = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Component = uiFunction((_) {
+final Component = uiFunction<TestProps>((_) {
   var foo = {};
   useMemo(() => foo, [foo]);
 }, null);''',
@@ -13476,7 +13476,7 @@ final Component = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Component = uiFunction((_) {
+final Component = uiFunction<TestProps>((_) {
   final foo = {};
   useCallback(() {
     print(foo);
@@ -13492,7 +13492,7 @@ final Component = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Component = uiFunction((_) {
+final Component = uiFunction<TestProps>((_) {
   final foo = {};
   useEffect(() {
     print(foo);
@@ -13508,7 +13508,7 @@ final Component = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Component = uiFunction((_) {
+final Component = uiFunction<TestProps>((_) {
   final foo = {};
   useLayoutEffect(() {
     print(foo);
@@ -13524,7 +13524,7 @@ final Component = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Component = uiFunction((_) {
+final Component = uiFunction<TestProps>((_) {
   final foo = {};
   useImperativeHandle(
     ref,
@@ -13544,7 +13544,7 @@ final Component = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Foo = uiFunction((section) {
+final Foo = uiFunction<TestProps>((section) {
   final foo = section.section_components?.edges ?? [];
   useEffect(() {
     print(foo);
@@ -13560,7 +13560,7 @@ final Foo = uiFunction((section) {
       },
       {
         'code': /*language=dart*/ r'''
-final Foo = uiFunction((section) {
+final Foo = uiFunction<TestProps>((section) {
   final foo = {};
   print(foo);
   useMemo(() {
@@ -13577,7 +13577,7 @@ final Foo = uiFunction((section) {
       },
       {
         'code': /*language=dart*/ r'''
-final Foo = uiFunction((_) {
+final Foo = uiFunction<TestProps>((_) {
   final foo = <>Hi!</>;
   useMemo(() {
     print(foo);
@@ -13593,7 +13593,7 @@ final Foo = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Foo = uiFunction((_) {
+final Foo = uiFunction<TestProps>((_) {
   final foo = <div>Hi!</div>;
   useMemo(() {
     print(foo);
@@ -13609,7 +13609,7 @@ final Foo = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Foo = uiFunction((_) {
+final Foo = uiFunction<TestProps>((_) {
   final foo = bar = {};
   useMemo(() {
     print(foo);
@@ -13625,7 +13625,7 @@ final Foo = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Foo = uiFunction((_) {
+final Foo = uiFunction<TestProps>((_) {
   final foo = new String('foo'); // Note 'foo' will be boxed, and thus an object and thus compared by reference.
   useMemo(() {
     print(foo);
@@ -13641,7 +13641,7 @@ final Foo = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Foo = uiFunction((_) {
+final Foo = uiFunction<TestProps>((_) {
   final foo = new Map([]);
   useMemo(() {
     print(foo);
@@ -13657,7 +13657,7 @@ final Foo = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Foo = uiFunction((_) {
+final Foo = uiFunction<TestProps>((_) {
   final foo = /reg/;
   useMemo(() {
     print(foo);
@@ -13673,7 +13673,7 @@ final Foo = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Foo = uiFunction((_) {
+final Foo = uiFunction<TestProps>((_) {
   class Bar {};
   useMemo(() {
     print(new Bar());
@@ -13689,7 +13689,7 @@ final Foo = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Foo = uiFunction((_) {
+final Foo = uiFunction<TestProps>((_) {
   final foo = {};
   useLayoutEffect(() {
     print(foo);
@@ -13717,7 +13717,7 @@ final Foo = uiFunction((_) {
     'valid': [
       {
         'code': /*language=dart*/ r'''
-final Example = uiFunction((props) {
+final Example = uiFunction<TestProps>((props) {
   var prop = props.prop;
 
   final bar = useEffect(<T>(a: T): (Hello) {
@@ -13729,7 +13729,7 @@ final Example = uiFunction((props) {
     'invalid': [
       {
         'code': /*language=dart*/ r'''
-final Foo = uiFunction((_) {
+final Foo = uiFunction<TestProps>((_) {
   final foo = ({}: any);
   useMemo(() {
     print(foo);
@@ -13749,7 +13749,7 @@ final Foo = uiFunction((_) {
     'valid': [
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final ref = useRef() as over_react.MutableRefObject<HTMLDivElement>;
   useEffect(() {
     print(ref.current);
@@ -13758,7 +13758,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   var state = over_react.useState<number>(0);
   useEffect(() {
     final someNumber: typeof state.value = 2;
@@ -13768,7 +13768,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final App = uiFunction((_) {
+final App = uiFunction<TestProps>((_) {
   final foo = {x: 1};
   over_react.useEffect(() {
     final bar = {x: 2};
@@ -13781,7 +13781,7 @@ final App = uiFunction((_) {
     'invalid': [
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {} as string;
   useEffect(() {
     print(local);
@@ -13795,7 +13795,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {} as string;
   useEffect(() {
     print(local);
@@ -13808,7 +13808,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final App = uiFunction((_) {
+final App = uiFunction<TestProps>((_) {
   final foo = {x: 1};
   final bar = {x: 2};
   useEffect(() {
@@ -13824,7 +13824,7 @@ final App = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [bar]',
                 'output': /*language=dart*/ r'''
-final App = uiFunction((_) {
+final App = uiFunction<TestProps>((_) {
   final foo = {x: 1};
   final bar = {x: 2};
   useEffect(() {
@@ -13839,7 +13839,7 @@ final App = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final pizza = {};
   useEffect(() => ({
     crust: pizza.crust,
@@ -13855,7 +13855,7 @@ final MyComponent = uiFunction((_) {
                 'desc':
                     'Update the dependencies array to be: [pizza.crust, pizza?.toppings]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final pizza = {};
   useEffect(() => ({
     crust: pizza.crust,
@@ -13869,7 +13869,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final pizza = {};
   useEffect(() => ({
     crust: pizza?.crust,
@@ -13884,7 +13884,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [pizza.crust]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final pizza = {};
   useEffect(() => ({
     crust: pizza?.crust,
@@ -13898,7 +13898,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final pizza = {};
   useEffect(() => ({
     crust: pizza.crust,
@@ -13913,7 +13913,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [pizza.crust]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final pizza = {};
   useEffect(() => ({
     crust: pizza.crust,
@@ -13927,7 +13927,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final pizza = {};
   useEffect(() => ({
     crust: pizza?.crust,
@@ -13942,7 +13942,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [pizza?.crust]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final pizza = {};
   useEffect(() => ({
     crust: pizza?.crust,
@@ -13956,7 +13956,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Example = uiFunction((props) {
+final Example = uiFunction<TestProps>((props) {
   useEffect(() {
     var topHeight = 0;
     topHeight = props.upperViewHeight;
@@ -13971,7 +13971,7 @@ final Example = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [props.upperViewHeight]',
                 'output': /*language=dart*/ r'''
-final Example = uiFunction((props) {
+final Example = uiFunction<TestProps>((props) {
   useEffect(() {
     var topHeight = 0;
     topHeight = props.upperViewHeight;
@@ -13984,7 +13984,7 @@ final Example = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final Example = uiFunction((props) {
+final Example = uiFunction<TestProps>((props) {
   useEffect(() {
     var topHeight = 0;
     topHeight = props?.upperViewHeight;
@@ -13999,7 +13999,7 @@ final Example = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [props?.upperViewHeight]',
                 'output': /*language=dart*/ r'''
-final Example = uiFunction((props) {
+final Example = uiFunction<TestProps>((props) {
   useEffect(() {
     var topHeight = 0;
     topHeight = props?.upperViewHeight;
@@ -14012,7 +14012,7 @@ final Example = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   var state = over_react.useState<number>(0);
   useEffect(() {
     final someNumber: typeof state.value = 2;
@@ -14027,7 +14027,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [state]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   var state = over_react.useState<number>(0);
   useEffect(() {
     final someNumber: typeof state.value = 2;
@@ -14041,7 +14041,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   var state = over_react.useState<number>(0);
   useMemo(() {
     final someNumber: typeof state.value = 2;
@@ -14056,7 +14056,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: []',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   var state = over_react.useState<number>(0);
   useMemo(() {
     final someNumber: typeof state.value = 2;
@@ -14070,7 +14070,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Foo = uiFunction((_) {
+final Foo = uiFunction<TestProps>((_) {
   final foo = {} as any;
   useMemo(() {
     print(foo);
@@ -14091,7 +14091,7 @@ final Foo = uiFunction((_) {
     'invalid': [
       {
         'code': /*language=dart*/ r'''
-final Foo = uiFunction((props) {
+final Foo = uiFunction<TestProps>((props) {
   var Component = props.Component;
 
   over_react.useEffect(() {
@@ -14106,7 +14106,7 @@ final Foo = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [Component]',
                 'output': /*language=dart*/ r'''
-final Foo = uiFunction((props) {
+final Foo = uiFunction<TestProps>((props) {
   var Component = props.Component;
 
   over_react.useEffect(() {
@@ -14126,7 +14126,7 @@ const testsTypescript = {
     'valid': [
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   useEffect(() {
     print(local);
@@ -14135,7 +14135,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   useEffect(() {
     final local = {};
     print(local);
@@ -14144,7 +14144,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = someFunc();
   useEffect(() {
     print(local);
@@ -14153,7 +14153,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   useEffect(() {
     print(props.foo);
   }, []);
@@ -14161,7 +14161,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local1 = {};
   {
     final local2 = {};
@@ -14174,7 +14174,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local1 = someFunc();
   {
     final local2 = someFunc();
@@ -14187,7 +14187,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local1 = someFunc();
   MyNestedComponent() {
     final local2 = someFunc();
@@ -14200,7 +14200,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = someFunc();
   useEffect(() {
     print(local);
@@ -14210,7 +14210,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   useEffect(() {
     print(unresolved);
   }, []);
@@ -14218,7 +14218,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = someFunc();
   useEffect(() {
     print(local);
@@ -14227,7 +14227,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var foo = props.foo;
 
   useEffect(() {
@@ -14237,7 +14237,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var foo = props.foo;
 
   useEffect(() {
@@ -14248,7 +14248,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var history = props.history;
 
   useEffect(() {
@@ -14258,7 +14258,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {});
   useLayoutEffect(() {});
   useImperativeHandle(props.innerRef, () {});
@@ -14266,7 +14266,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo);
   }, [props.foo]);
@@ -14274,7 +14274,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo);
     print(props.bar);
@@ -14283,7 +14283,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo);
     print(props.bar);
@@ -14292,7 +14292,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final local = someFunc();
   useEffect(() {
     print(props.foo);
@@ -14303,7 +14303,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final local = {};
   useEffect(() {
     print(props.foo);
@@ -14318,7 +14318,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo?.bar?.baz ?? null);
   }, [props.foo]);
@@ -14326,7 +14326,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo?.bar);
   }, [props.foo?.bar]);
@@ -14334,7 +14334,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo?.bar);
   }, [props.foo.bar]);
@@ -14342,7 +14342,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo.bar);
   }, [props.foo?.bar]);
@@ -14350,7 +14350,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo.bar);
     print(props.foo?.bar);
@@ -14359,7 +14359,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo.bar);
     print(props.foo?.bar);
@@ -14368,7 +14368,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo);
     print(props.foo?.bar);
@@ -14377,7 +14377,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo?.toString());
   }, [props.foo]);
@@ -14385,7 +14385,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useMemo(() {
     print(props.foo?.toString());
   }, [props.foo]);
@@ -14393,7 +14393,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useCallback(() {
     print(props.foo?.toString());
   }, [props.foo]);
@@ -14401,7 +14401,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useCallback(() {
     print(props.foo.bar?.toString());
   }, [props.foo.bar]);
@@ -14409,7 +14409,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useCallback(() {
     print(props.foo?.bar?.toString());
   }, [props.foo.bar]);
@@ -14417,7 +14417,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useCallback(() {
     print(props.foo.bar.toString());
   }, [props?.foo?.bar]);
@@ -14425,7 +14425,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useCallback(() {
     print(props.foo?.bar?.baz);
   }, [props?.foo.bar?.baz]);
@@ -14433,7 +14433,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final myEffect = () {
     // Doesn't use anything
   };
@@ -14443,7 +14443,7 @@ final MyComponent = uiFunction((_) {
       {
         'code': /*language=dart*/ r'''
 final local = {};
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final myEffect = () {
     print(local);
   };
@@ -14453,7 +14453,7 @@ final MyComponent = uiFunction((_) {
       {
         'code': /*language=dart*/ r'''
 final local = {};
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   myEffect() {
     print(local);
   }
@@ -14462,7 +14462,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = someFunc();
   myEffect() {
     print(local);
@@ -14472,7 +14472,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   myEffect() {
     print(global);
   }
@@ -14482,7 +14482,7 @@ final MyComponent = uiFunction((_) {
       {
         'code': /*language=dart*/ r'''
 final local = {};
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final myEffect = () {
     otherThing()
   }
@@ -14494,7 +14494,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var delay = props.delay;
 
   final local = {};
@@ -14506,7 +14506,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var myEffect = props.myEffect;
 
   useEffect(myEffect, [null, myEffect]);
@@ -14514,7 +14514,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var myEffect = props.myEffect;
 
   useEffect(myEffect, [null, myEffect, null, null]);
@@ -14526,13 +14526,13 @@ var local = {};
 myEffect() {
   print(local);
 }
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   useEffect(myEffect, []);
 }, null);''',
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var myEffect = props.myEffect;
 
   useEffect(myEffect, [myEffect]);
@@ -14540,7 +14540,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var myEffect = props.myEffect;
 
   useEffect(myEffect);
@@ -14548,7 +14548,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useCustomEffect(() {
     print(props.foo);
   });
@@ -14561,7 +14561,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useCustomEffect(() {
     print(props.foo);
   }, [props.foo]);
@@ -14574,7 +14574,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useCustomEffect(() {
     print(props.foo);
   }, []);
@@ -14587,7 +14587,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useWithoutEffectSuffix(() {
     print(props.foo);
   }, []);
@@ -14595,7 +14595,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   return renderHelperConfusedWithEffect(() {
     print(props.foo);
   }, []);
@@ -14621,7 +14621,7 @@ final local1 = {};
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final ref = useRef();
   useEffect(() {
     print(ref.current);
@@ -14630,7 +14630,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final ref = useRef();
   useEffect(() {
     print(ref.current);
@@ -14639,7 +14639,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var maybeRef2 = props.maybeRef2;
   var foo = props.foo;
 
@@ -14701,7 +14701,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var maybeRef2 = props.maybeRef2;
 
   final definitelyRef1 = useRef();
@@ -14772,7 +14772,7 @@ final MyComponent = forwardRef((props, ref) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var obj = someFunc();
   useEffect(() {
     obj.foo = true;
@@ -14781,7 +14781,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var foo = {}
   useEffect(() {
     foo.bar.baz = 43;
@@ -14790,7 +14790,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final myRef = useRef();
   useEffect(() {
     final handleMove = () {};
@@ -14804,7 +14804,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final myRef = useRef();
   useEffect(() {
     final handleMove = () {};
@@ -14830,7 +14830,7 @@ useMyThing(myRef) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final myRef = useRef();
   useEffect(() {
     final handleMove = () {};
@@ -14899,7 +14899,7 @@ useMyThing() {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local1 = 42;
   final local2 = '42';
   final local3 = null;
@@ -14912,7 +14912,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local1 = 42;
   final local2 = '42';
   final local3 = null;
@@ -14925,14 +14925,14 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final local = props.local;
   useEffect(() {}, [local]);
 }, null);''',
       },
       {
         'code': /*language=dart*/ r'''
-final Foo = uiFunction((props) {
+final Foo = uiFunction<TestProps>((props) {
   var activeTab = props.activeTab;
 
   useEffect(() {
@@ -14942,7 +14942,7 @@ final Foo = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo.bar.baz);
   }, [props]);
@@ -14959,7 +14959,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final fn = useCallback(() {
     print(props.foo.bar.baz);
   }, [props]);
@@ -14976,7 +14976,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   handleNext1() {
     print('hello');
   }
@@ -14999,7 +14999,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   handleNext() {
     print('hello');
   }
@@ -15016,7 +15016,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var state = useState();
   var dispatch = over_react.useReducer();
   handleNext1(value) {
@@ -15063,7 +15063,7 @@ useInterval(callback, delay) {
       },
       {
         'code': /*language=dart*/ r'''
-final Counter = uiFunction((_) {
+final Counter = uiFunction<TestProps>((_) {
   var count = useState(0);
   useEffect(() {
     var id = setInterval(() {
@@ -15076,7 +15076,7 @@ final Counter = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Counter = uiFunction((_) {
+final Counter = uiFunction<TestProps>((_) {
   var count = useState(0);
   tick() {
     count.set((c) => c + 1);
@@ -15092,7 +15092,7 @@ final Counter = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Counter = uiFunction((_) {
+final Counter = uiFunction<TestProps>((_) {
   var count = useReducer((state, action) {
     if (action == 'inc') {
       return state + 1;
@@ -15109,7 +15109,7 @@ final Counter = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Counter = uiFunction((_) {
+final Counter = uiFunction<TestProps>((_) {
   var count = useReducer((state, action) {
     if (action == 'inc') {
       return state + 1;
@@ -15127,7 +15127,7 @@ final Counter = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Podcasts = uiFunction((_) {
+final Podcasts = uiFunction<TestProps>((_) {
   useEffect(() {
     podcasts.set([]);
   }, []);
@@ -15147,7 +15147,7 @@ withFetch(fetchPodcasts) {
       },
       {
         'code': /*language=dart*/ r'''
-final Podcasts = uiFunction((props) {
+final Podcasts = uiFunction<TestProps>((props) {
   var id = props.id;
 
   var podcasts = useState(null);
@@ -15161,7 +15161,7 @@ final Podcasts = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final Counter = uiFunction((_) {
+final Counter = uiFunction<TestProps>((_) {
   var count = useState(0);
   increment(x) {
     return x + 1;
@@ -15177,7 +15177,7 @@ final Counter = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Counter = uiFunction((_) {
+final Counter = uiFunction<TestProps>((_) {
   var count = useState(0);
   increment(x) {
     return x + 1;
@@ -15194,7 +15194,7 @@ final Counter = uiFunction((_) {
       {
         'code': /*language=dart*/ r'''
 import increment from './increment';
-final Counter = uiFunction((_) {
+final Counter = uiFunction<TestProps>((_) {
   var count = useState(0);
   useEffect(() {
     var id = setInterval(() {
@@ -15222,7 +15222,7 @@ withStuff(increment) {
       },
       {
         'code': /*language=dart*/ r'''
-final App = uiFunction((_) {
+final App = uiFunction<TestProps>((_) {
   var query = useState('react');
   var state = useState(null);
   useEffect(() {
@@ -15244,7 +15244,7 @@ final App = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Example = uiFunction((_) {
+final Example = uiFunction<TestProps>((_) {
   final foo = useCallback(() {
     foo();
   }, []);
@@ -15252,7 +15252,7 @@ final Example = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Example = uiFunction((props) {
+final Example = uiFunction<TestProps>((props) {
   var prop = props.prop;
 
   final foo = useCallback(() {
@@ -15264,7 +15264,7 @@ final Example = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final Hello = uiFunction((_) {
+final Hello = uiFunction<TestProps>((_) {
   var state = useState(0);
   useEffect(() {
     final handleResize = () => state.set(window.innerWidth);
@@ -15275,7 +15275,7 @@ final Hello = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Example = uiFunction((_) {
+final Example = uiFunction<TestProps>((_) {
   useEffect(() {
     arguments
   }, [])
@@ -15283,7 +15283,7 @@ final Example = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Example = uiFunction((_) {
+final Example = uiFunction<TestProps>((_) {
   useEffect(() {
     final bar = () {
       arguments;
@@ -15294,7 +15294,7 @@ final Example = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Example = uiFunction((props) {
+final Example = uiFunction<TestProps>((props) {
   useEffect(() {
     var topHeight = 0;
     topHeight = props.upperViewHeight;
@@ -15303,7 +15303,7 @@ final Example = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final Example = uiFunction((props) {
+final Example = uiFunction<TestProps>((props) {
   useEffect(() {
     var topHeight = 0;
     topHeight = props?.upperViewHeight;
@@ -15312,7 +15312,7 @@ final Example = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final Example = uiFunction((props) {
+final Example = uiFunction<TestProps>((props) {
   useEffect(() {
     var topHeight = 0;
     topHeight = props?.upperViewHeight;
@@ -15359,7 +15359,7 @@ useFoo() {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var foo = props.foo;
 
   return useMemo(() => foo, [foo])
@@ -15367,7 +15367,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final foo = true ? "fine" : "also fine";
   return useMemo(() => foo, [foo]);
 }, null);''',
@@ -15376,7 +15376,7 @@ final MyComponent = uiFunction((_) {
     'invalid': [
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useCallback(() {
     print(props.foo?.toString());
   }, []);
@@ -15389,7 +15389,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props.foo]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useCallback(() {
     print(props.foo?.toString());
   }, [props.foo]);
@@ -15401,7 +15401,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useCallback(() {
     print(props.foo?.bar.baz);
   }, []);
@@ -15415,7 +15415,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [props.foo?.bar.baz]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useCallback(() {
     print(props.foo?.bar.baz);
   }, [props.foo?.bar.baz]);
@@ -15427,7 +15427,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useCallback(() {
     print(props.foo?.bar?.baz);
   }, []);
@@ -15441,7 +15441,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [props.foo?.bar?.baz]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useCallback(() {
     print(props.foo?.bar?.baz);
   }, [props.foo?.bar?.baz]);
@@ -15453,7 +15453,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useCallback(() {
     print(props.foo?.bar.toString());
   }, []);
@@ -15466,7 +15466,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props.foo?.bar]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useCallback(() {
     print(props.foo?.bar.toString());
   }, [props.foo?.bar]);
@@ -15478,7 +15478,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = someFunc();
   useEffect(() {
     print(local);
@@ -15492,7 +15492,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = someFunc();
   useEffect(() {
     print(local);
@@ -15505,7 +15505,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   var local = 42;
   useEffect(() {
     print(local);
@@ -15519,7 +15519,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   var local = 42;
   useEffect(() {
     print(local);
@@ -15532,7 +15532,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = /foo/;
   useEffect(() {
     print(local);
@@ -15546,7 +15546,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = /foo/;
   useEffect(() {
     print(local);
@@ -15559,7 +15559,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final value = useMemo(() { return 2*2; });
   final fn = useCallback(() { alert('foo'); });
 }, null);''',
@@ -15578,7 +15578,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var fn1 = props.fn1;
   var fn2 = props.fn2;
 
@@ -15600,7 +15600,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   useEffect()
   useLayoutEffect()
   useCallback()
@@ -15631,7 +15631,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = someFunc();
   useEffect(() {
     if (true) {
@@ -15647,7 +15647,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = someFunc();
   useEffect(() {
     if (true) {
@@ -15662,7 +15662,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   useEffect(() {
     try {
@@ -15678,7 +15678,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   useEffect(() {
     try {
@@ -15693,7 +15693,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   useEffect(() {
     inner() {
@@ -15710,7 +15710,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   useEffect(() {
     inner() {
@@ -15726,7 +15726,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local1 = someFunc();
   {
     final local2 = someFunc();
@@ -15744,7 +15744,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local1, local2]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local1 = someFunc();
   {
     final local2 = someFunc();
@@ -15761,7 +15761,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local1 = {};
   final local2 = {};
   useEffect(() {
@@ -15777,7 +15777,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local1, local2]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local1 = {};
   final local2 = {};
   useEffect(() {
@@ -15792,7 +15792,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local1 = {};
   final local2 = {};
   useMemo(() {
@@ -15807,7 +15807,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local1]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local1 = {};
   final local2 = {};
   useMemo(() {
@@ -15821,7 +15821,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local1 = someFunc();
   MyNestedComponent() {
     final local2 = {};
@@ -15839,7 +15839,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local2]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local1 = someFunc();
   MyNestedComponent() {
     final local2 = {};
@@ -15856,7 +15856,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   useEffect(() {
     print(local);
@@ -15871,7 +15871,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   useEffect(() {
     print(local);
@@ -15885,7 +15885,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   useEffect(() {
     print(local);
@@ -15900,7 +15900,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   useEffect(() {
     print(local);
@@ -15914,7 +15914,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   useCallback(() {}, [window]);
 }, null);''',
         'errors': [
@@ -15925,7 +15925,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: []',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   useCallback(() {}, []);
 }, null);''',
               }
@@ -15935,7 +15935,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var local = props.foo;
   useCallback(() {}, [local]);
 }, null);''',
@@ -15947,7 +15947,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: []',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var local = props.foo;
   useCallback(() {}, []);
 }, null);''',
@@ -15958,7 +15958,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var history = props.history;
 
   useEffect(() {
@@ -15973,7 +15973,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [history]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var history = props.history;
 
   useEffect(() {
@@ -15987,7 +15987,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var history = props.history;
 
   useEffect(() {
@@ -16005,7 +16005,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [history.foo]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var history = props.history;
 
   useEffect(() {
@@ -16022,7 +16022,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var history = props.history;
 
   useEffect(() {
@@ -16039,7 +16039,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [history?.foo]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var history = props.history;
 
   useEffect(() {
@@ -16055,7 +16055,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   useEffect(() {}, ['foo']);
 }, null);''',
         'errors': [
@@ -16068,7 +16068,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var foo = props.foo;
   var bar = props.bar;
   var baz = props.baz;
@@ -16085,7 +16085,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [bar, baz, foo]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var foo = props.foo;
   var bar = props.bar;
   var baz = props.baz;
@@ -16111,7 +16111,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var foo = props.foo;
   var bar = props.bar;
   var baz = props.baz;
@@ -16128,7 +16128,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [bar, baz, foo]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var foo = props.foo;
   var bar = props.bar;
   var baz = props.baz;
@@ -16159,7 +16159,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final dependencies = [];
   useEffect(() {}, dependencies);
 }, null);''',
@@ -16173,7 +16173,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   final dependencies = [local];
   useEffect(() {
@@ -16193,7 +16193,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   final dependencies = [local];
   useEffect(() {
@@ -16207,7 +16207,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   final dependencies = [local];
   useEffect(() {
@@ -16222,7 +16222,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   final dependencies = [local];
   useEffect(() {
@@ -16241,7 +16241,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = someFunc();
   useEffect(() {
     print(local);
@@ -16257,7 +16257,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   useEffect(() {
     print(local);
@@ -16271,7 +16271,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   useEffect(() {
     print(local);
@@ -16289,7 +16289,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.items[0]);
   }, [props.items[0]]);
@@ -16302,7 +16302,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props.items]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.items[0]);
   }, [props.items]);
@@ -16319,7 +16319,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.items[0]);
   }, [props.items, props.items[0]]);
@@ -16334,7 +16334,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var items = props.items;
 
   useEffect(() {
@@ -16349,7 +16349,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [items]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var items = props.items;
 
   useEffect(() {
@@ -16368,7 +16368,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var items = props.items;
 
   useEffect(() {
@@ -16385,7 +16385,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final local = {};
   useCallback(() {
     print(props.foo);
@@ -16400,7 +16400,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final local = {};
   useCallback(() {
     print(props.foo);
@@ -16414,7 +16414,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final local = {};
   useCallback(() {
     print(props.foo);
@@ -16430,7 +16430,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [props.bar, props.foo]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final local = {};
   useCallback(() {
     print(props.foo);
@@ -16444,7 +16444,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {id: 42};
   useEffect(() {
     print(local);
@@ -16459,7 +16459,7 @@ final MyComponent = uiFunction((_) {
                 'desc':
                     'Update the dependencies array to be: [local, local.id]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {id: 42};
   useEffect(() {
     print(local);
@@ -16472,7 +16472,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {id: 42};
   final fn = useCallback(() {
     print(local);
@@ -16486,7 +16486,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {id: 42};
   final fn = useCallback(() {
     print(local);
@@ -16499,7 +16499,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {id: 42};
   final fn = useCallback(() {
     print(local);
@@ -16513,7 +16513,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {id: 42};
   final fn = useCallback(() {
     print(local);
@@ -16526,7 +16526,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final fn = useCallback(() {
     print(props.foo.bar.baz);
   }, []);
@@ -16540,7 +16540,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [props.foo.bar.baz]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final fn = useCallback(() {
     print(props.foo.bar.baz);
   }, [props.foo.bar.baz]);
@@ -16552,7 +16552,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var color = {}
   final fn = useCallback(() {
     print(props.foo.bar.baz);
@@ -16568,7 +16568,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [color, props.foo.bar.baz]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var color = {}
   final fn = useCallback(() {
     print(props.foo.bar.baz);
@@ -16582,7 +16582,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final fn = useCallback(() {
     print(props.foo.bar.baz);
   }, [props.foo.bar.baz, props.foo]);
@@ -16595,7 +16595,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props.foo]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final fn = useCallback(() {
     print(props.foo.bar.baz);
   }, [props.foo]);
@@ -16607,7 +16607,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final fn = useCallback(() {
     print(props.foo.bar.baz);
     print(props.foo.fizz.bizz);
@@ -16622,7 +16622,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [props.foo.bar.baz, props.foo.fizz.bizz]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final fn = useCallback(() {
     print(props.foo.bar.baz);
     print(props.foo.fizz.bizz);
@@ -16635,7 +16635,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final fn = useCallback(() {
     print(props.foo.bar);
   }, [props.foo.bar.baz]);
@@ -16648,7 +16648,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props.foo.bar]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final fn = useCallback(() {
     print(props.foo.bar);
   }, [props.foo.bar]);
@@ -16660,7 +16660,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final fn = useCallback(() {
     print(props);
     print(props.hello);
@@ -16674,7 +16674,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final fn = useCallback(() {
     print(props);
     print(props.hello);
@@ -16687,7 +16687,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   useEffect(() {
     print(local);
@@ -16701,7 +16701,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   useEffect(() {
     print(local);
@@ -16714,7 +16714,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local1 = {};
   useCallback(() {
     final local1 = {};
@@ -16729,7 +16729,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: []',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local1 = {};
   useCallback(() {
     final local1 = {};
@@ -16743,7 +16743,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local1 = {};
   useCallback(() {}, [local1]);
 }, null);''',
@@ -16755,7 +16755,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: []',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local1 = {};
   useCallback(() {}, []);
 }, null);''',
@@ -16766,7 +16766,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo);
   }, []);
@@ -16779,7 +16779,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props.foo]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo);
   }, [props.foo]);
@@ -16791,7 +16791,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo);
     print(props.bar);
@@ -16806,7 +16806,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [props.bar, props.foo]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo);
     print(props.bar);
@@ -16819,7 +16819,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var a, b, c, d, e, f, g;
   useEffect(() {
     print(b, e, d, c, a, g, f);
@@ -16834,7 +16834,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [c, a, g, b, e, d, f]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var a, b, c, d, e, f, g;
   useEffect(() {
     print(b, e, d, c, a, g, f);
@@ -16847,7 +16847,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var a, b, c, d, e, f, g;
   useEffect(() {
     print(b, e, d, c, a, g, f);
@@ -16862,7 +16862,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [a, b, c, d, e, f, g]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var a, b, c, d, e, f, g;
   useEffect(() {
     print(b, e, d, c, a, g, f);
@@ -16875,7 +16875,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var a, b, c, d, e, f, g;
   useEffect(() {
     print(b, e, d, c, a, g, f);
@@ -16890,7 +16890,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [a, b, c, d, e, f, g]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var a, b, c, d, e, f, g;
   useEffect(() {
     print(b, e, d, c, a, g, f);
@@ -16903,7 +16903,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final local = {};
   useEffect(() {
     print(props.foo);
@@ -16920,7 +16920,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [local, props.bar, props.foo]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final local = {};
   useEffect(() {
     print(props.foo);
@@ -16935,7 +16935,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final local = {};
   useEffect(() {
     print(props.foo);
@@ -16951,7 +16951,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [local, props]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final local = {};
   useEffect(() {
     print(props.foo);
@@ -16966,7 +16966,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo);
   }, []);
@@ -16997,7 +16997,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props.foo]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo);
   }, [props.foo]);
@@ -17030,7 +17030,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props.foo]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo);
   }, []);
@@ -17063,7 +17063,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props.foo]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo);
   }, []);
@@ -17096,7 +17096,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props.foo]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo);
   }, []);
@@ -17129,7 +17129,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props.foo]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo);
   }, []);
@@ -17162,7 +17162,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props.foo]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo);
   }, []);
@@ -17192,7 +17192,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useCustomEffect(() {
     print(props.foo);
   }, []);
@@ -17219,7 +17219,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props.foo]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useCustomEffect(() {
     print(props.foo);
   }, [props.foo]);
@@ -17243,7 +17243,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props.foo]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useCustomEffect(() {
     print(props.foo);
   }, []);
@@ -17267,7 +17267,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props.foo]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useCustomEffect(() {
     print(props.foo);
   }, []);
@@ -17288,7 +17288,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   useEffect(() {
     print(local);
@@ -17302,7 +17302,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   useEffect(() {
     print(local);
@@ -17320,7 +17320,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   useEffect(() {
     print(local);
@@ -17334,7 +17334,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   useEffect(() {
     print(local);
@@ -17352,7 +17352,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {}, [props?.attribute.method()]);
 }, null);''',
         'errors': [
@@ -17365,7 +17365,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {}, [props.method()]);
 }, null);''',
         'errors': [
@@ -17378,7 +17378,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final ref = useRef();
   var state = useState();
   useEffect(() {
@@ -17394,7 +17394,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [state]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final ref = useRef();
   var state = useState();
   useEffect(() {
@@ -17409,7 +17409,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final ref = useRef();
   var state = useState();
   useEffect(() {
@@ -17425,7 +17425,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [ref, state]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final ref = useRef();
   var state = useState();
   useEffect(() {
@@ -17440,7 +17440,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final ref1 = useRef();
   final ref2 = useRef();
   useEffect(() {
@@ -17459,7 +17459,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [props.color, props.someOtherRefs]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final ref1 = useRef();
   final ref2 = useRef();
   useEffect(() {
@@ -17476,7 +17476,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final ref1 = useRef();
   final ref2 = useRef();
   useEffect(() {
@@ -17495,7 +17495,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [props.someOtherRefs, props.color]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final ref1 = useRef();
   final ref2 = useRef();
   useEffect(() {
@@ -17512,7 +17512,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final ref1 = useRef();
   final ref2 = useRef();
   useEffect(() {
@@ -17531,7 +17531,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [props.someOtherRefs, props.color]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final ref1 = useRef();
   final ref2 = useRef();
   useEffect(() {
@@ -17548,7 +17548,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final ref = useRef();
   useEffect(() {
     print(ref.current);
@@ -17562,7 +17562,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: []',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final ref = useRef();
   useEffect(() {
     print(ref.current);
@@ -17575,7 +17575,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var activeTab = props.activeTab;
 
   final ref1 = useRef();
@@ -17593,7 +17593,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [activeTab]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var activeTab = props.activeTab;
 
   final ref1 = useRef();
@@ -17610,7 +17610,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var activeTab = props.activeTab;
   var initY = props.initY;
 
@@ -17629,7 +17629,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [initY]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var activeTab = props.activeTab;
   var initY = props.initY;
 
@@ -17647,7 +17647,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final ref = useRef();
   useEffect(() {
     print(ref.current);
@@ -17661,7 +17661,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [ref]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final ref = useRef();
   useEffect(() {
     print(ref.current);
@@ -17703,7 +17703,7 @@ final MyComponent = forwardRef((props, ref) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     if (props.onChange) {
       props.onChange();
@@ -17718,7 +17718,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     if (props.onChange) {
       props.onChange();
@@ -17732,7 +17732,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     if (props?.onChange) {
       props?.onChange();
@@ -17747,7 +17747,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     if (props?.onChange) {
       props?.onChange();
@@ -17761,7 +17761,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     play() {
       props.onPlay();
@@ -17779,7 +17779,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     play() {
       props.onPlay();
@@ -17796,7 +17796,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     if (props.foo.onChange) {
       props.foo.onChange();
@@ -17811,7 +17811,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props.foo]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     if (props.foo.onChange) {
       props.foo.onChange();
@@ -17825,7 +17825,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     props.onChange();
     if (props.foo.onChange) {
@@ -17841,7 +17841,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     props.onChange();
     if (props.foo.onChange) {
@@ -17856,7 +17856,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   const [skillsCount] = useState();
   useEffect(() {
     if (skillsCount == 0 && !props.isEditMode) {
@@ -17873,7 +17873,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [skillsCount, props.isEditMode, props.toggleEditMode, props]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   const [skillsCount] = useState();
   useEffect(() {
     if (skillsCount == 0 && !props.isEditMode) {
@@ -17888,7 +17888,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   const [skillsCount] = useState();
   useEffect(() {
     if (skillsCount == 0 && !props.isEditMode) {
@@ -17905,7 +17905,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [props, skillsCount]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   const [skillsCount] = useState();
   useEffect(() {
     if (skillsCount == 0 && !props.isEditMode) {
@@ -17920,7 +17920,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     externalCall(props);
     props.onChange();
@@ -17934,7 +17934,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     externalCall(props);
     props.onChange();
@@ -17947,7 +17947,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     props.onChange();
     externalCall(props);
@@ -17961,7 +17961,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     props.onChange();
     externalCall(props);
@@ -17974,7 +17974,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var value;
   var value2;
   var value3;
@@ -18019,7 +18019,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var value;
   var value2;
   var value3;
@@ -18055,7 +18055,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final myRef = useRef();
   useEffect(() {
     final handleMove = () {};
@@ -18074,7 +18074,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final myRef = useRef();
   useEffect(() {
     final handleMove = () {};
@@ -18093,7 +18093,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final myRef = useRef();
   useEffect(() {
     final handleMove = () {};
@@ -18175,7 +18175,7 @@ useMyThing(myRef, active) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final myRef = useRef();
   useLayoutEffect_SAFE_FOR_SSR(() {
     final handleMove = () {};
@@ -18185,7 +18185,7 @@ final MyComponent = uiFunction((_) {
   return <div ref={myRef} />;
 }, null);''',
         'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final myRef = useRef();
   useLayoutEffect_SAFE_FOR_SSR(() {
     final handleMove = () {};
@@ -18205,7 +18205,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local1 = 42;
   final local2 = '42';
   final local3 = null;
@@ -18226,7 +18226,7 @@ final MyComponent = uiFunction((_) {
                 'desc':
                     'Update the dependencies array to be: [local1, local3, local4]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local1 = 42;
   final local2 = '42';
   final local3 = null;
@@ -18245,7 +18245,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   useEffect(() {
     window.scrollTo(0, 0);
   }, [window]);
@@ -18258,7 +18258,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: []',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   useEffect(() {
     window.scrollTo(0, 0);
   }, []);
@@ -18271,7 +18271,7 @@ final MyComponent = uiFunction((_) {
       {
         'code': /*language=dart*/ r'''
 import MutableStore from 'store';
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   useEffect(() {
     print(MutableStore.hello);
   }, [MutableStore.hello]);
@@ -18285,7 +18285,7 @@ final MyComponent = uiFunction((_) {
                 'desc': 'Update the dependencies array to be: []',
                 'output': /*language=dart*/ r'''
 import MutableStore from 'store';
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   useEffect(() {
     print(MutableStore.hello);
   }, []);
@@ -18299,7 +18299,7 @@ final MyComponent = uiFunction((_) {
         'code': /*language=dart*/ r'''
 import MutableStore from 'store';
 var z = {};
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var x = props.foo;
   {
     var y = props.bar;
@@ -18319,7 +18319,7 @@ final MyComponent = uiFunction((props) {
                 'output': /*language=dart*/ r'''
 import MutableStore from 'store';
 var z = {};
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var x = props.foo;
   {
     var y = props.bar;
@@ -18337,7 +18337,7 @@ final MyComponent = uiFunction((props) {
         'code': /*language=dart*/ r'''
 import MutableStore from 'store';
 var z = {};
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var x = props.foo;
   {
     var y = props.bar;
@@ -18357,7 +18357,7 @@ final MyComponent = uiFunction((props) {
                 'output': /*language=dart*/ r'''
 import MutableStore from 'store';
 var z = {};
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var x = props.foo;
   {
     var y = props.bar;
@@ -18375,7 +18375,7 @@ final MyComponent = uiFunction((props) {
         'code': /*language=dart*/ r'''
 import MutableStore from 'store';
 var z = {};
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var x = props.foo;
   {
     var y = props.bar;
@@ -18394,7 +18394,7 @@ final MyComponent = uiFunction((props) {
                 'output': /*language=dart*/ r'''
 import MutableStore from 'store';
 var z = {};
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var x = props.foo;
   {
     var y = props.bar;
@@ -18412,7 +18412,7 @@ final MyComponent = uiFunction((props) {
         'code': /*language=dart*/ r'''
 import MutableStore from 'store';
 var z = {};
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var x = props.foo;
   {
     var y = props.bar;
@@ -18431,7 +18431,7 @@ final MyComponent = uiFunction((props) {
                 'output': /*language=dart*/ r'''
 import MutableStore from 'store';
 var z = {};
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var x = props.foo;
   {
     var y = props.bar;
@@ -18447,7 +18447,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var state = useState();
   var dispatch = over_react.useReducer();
   var taint = props.foo;
@@ -18482,7 +18482,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [handleNext1]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var state = useState();
   var dispatch = over_react.useReducer();
   var taint = props.foo;
@@ -18519,7 +18519,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [handleNext2]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var state = useState();
   var dispatch = over_react.useReducer();
   var taint = props.foo;
@@ -18556,7 +18556,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [handleNext3]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var state = useState();
   var dispatch = over_react.useReducer();
   var taint = props.foo;
@@ -18590,7 +18590,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var state = useState();
   var dispatch = over_react.useReducer();
   var taint = props.foo;
@@ -18627,7 +18627,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [handleNext1]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var state = useState();
   var dispatch = over_react.useReducer();
   var taint = props.foo;
@@ -18666,7 +18666,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [handleNext2]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var state = useState();
   var dispatch = over_react.useReducer();
   var taint = props.foo;
@@ -18705,7 +18705,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [handleNext3]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var state = useState();
   var dispatch = over_react.useReducer();
   var taint = props.foo;
@@ -18741,7 +18741,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var state = useState();
   var dispatch = over_react.useReducer();
   var taint = props.foo;
@@ -18778,7 +18778,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [handleNext1]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var state = useState();
   var dispatch = over_react.useReducer();
   var taint = props.foo;
@@ -18817,7 +18817,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [handleNext2]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var state = useState();
   var dispatch = over_react.useReducer();
   var taint = props.foo;
@@ -18856,7 +18856,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [handleNext3]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var state = useState();
   var dispatch = over_react.useReducer();
   var taint = props.foo;
@@ -18892,7 +18892,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var state = useState();
   handleNext(value) {
     state.set(value);
@@ -18911,7 +18911,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var state = useState();
   final handleNext = (value) {
     state.set(value);
@@ -18930,7 +18930,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var state = useState();
   final handleNext = (value) {
     state.set(value);
@@ -18949,7 +18949,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Wrap the definition of \'handleNext\' in its own useCallback() Hook.',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var state = useState();
   final handleNext = useCallback((value) {
     state.set(value);
@@ -18966,7 +18966,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   handleNext1() {
     print('hello');
   }
@@ -19006,7 +19006,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   handleNext1() {
     print('hello');
   }
@@ -19049,7 +19049,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   handleNext1() {
     print('hello');
   }
@@ -19097,7 +19097,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Wrap the definition of \'handleNext2\' in its own useCallback() Hook.',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   handleNext1() {
     print('hello');
   }
@@ -19142,7 +19142,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Wrap the definition of \'handleNext3\' in its own useCallback() Hook.',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   handleNext1() {
     print('hello');
   }
@@ -19183,7 +19183,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final handleNext1 = () {
     print('hello');
   };
@@ -19208,7 +19208,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Wrap the definition of \'handleNext1\' in its own useCallback() Hook.',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final handleNext1 = useCallback(() {
     print('hello');
   });
@@ -19235,7 +19235,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Wrap the definition of \'handleNext1\' in its own useCallback() Hook.',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final handleNext1 = useCallback(() {
     print('hello');
   });
@@ -19268,7 +19268,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var handleNext = () {
     print('hello');
   };
@@ -19290,7 +19290,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Wrap the definition of \'handleNext\' in its own useCallback() Hook.',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var handleNext = useCallback(() {
     print('hello');
   });
@@ -19310,7 +19310,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var state = useState();
   var taint = props.foo;
   handleNext(value) {
@@ -19332,7 +19332,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final Counter = uiFunction((_) {
+final Counter = uiFunction<TestProps>((_) {
   var count = useState(0);
   useEffect(() {
     var id = setInterval(() {
@@ -19350,7 +19350,7 @@ final Counter = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [count]',
                 'output': /*language=dart*/ r'''
-final Counter = uiFunction((_) {
+final Counter = uiFunction<TestProps>((_) {
   var count = useState(0);
   useEffect(() {
     var id = setInterval(() {
@@ -19367,7 +19367,7 @@ final Counter = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Counter = uiFunction((_) {
+final Counter = uiFunction<TestProps>((_) {
   var count = useState(0);
   var increment = useState(0);
   useEffect(() {
@@ -19387,7 +19387,7 @@ final Counter = uiFunction((_) {
                 'desc':
                     'Update the dependencies array to be: [count, increment]',
                 'output': /*language=dart*/ r'''
-final Counter = uiFunction((_) {
+final Counter = uiFunction<TestProps>((_) {
   var count = useState(0);
   var increment = useState(0);
   useEffect(() {
@@ -19405,7 +19405,7 @@ final Counter = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Counter = uiFunction((_) {
+final Counter = uiFunction<TestProps>((_) {
   var count = useState(0);
   var increment = useState(0);
   useEffect(() {
@@ -19424,7 +19424,7 @@ final Counter = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [increment]',
                 'output': /*language=dart*/ r'''
-final Counter = uiFunction((_) {
+final Counter = uiFunction<TestProps>((_) {
   var count = useState(0);
   var increment = useState(0);
   useEffect(() {
@@ -19442,7 +19442,7 @@ final Counter = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Counter = uiFunction((_) {
+final Counter = uiFunction<TestProps>((_) {
   var count = useState(0);
   var increment = useCustomHook();
   useEffect(() {
@@ -19461,7 +19461,7 @@ final Counter = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [increment]',
                 'output': /*language=dart*/ r'''
-final Counter = uiFunction((_) {
+final Counter = uiFunction<TestProps>((_) {
   var count = useState(0);
   var increment = useCustomHook();
   useEffect(() {
@@ -19479,7 +19479,7 @@ final Counter = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Counter = uiFunction((props) {
+final Counter = uiFunction<TestProps>((props) {
   var step = props.step;
 
   var count = useState(0);
@@ -19502,7 +19502,7 @@ final Counter = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [increment]',
                 'output': /*language=dart*/ r'''
-final Counter = uiFunction((props) {
+final Counter = uiFunction<TestProps>((props) {
   var step = props.step;
 
   var count = useState(0);
@@ -19524,7 +19524,7 @@ final Counter = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final Counter = uiFunction((props) {
+final Counter = uiFunction<TestProps>((props) {
   var step = props.step;
 
   var count = useState(0);
@@ -19549,7 +19549,7 @@ final Counter = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final Counter = uiFunction((props) {
+final Counter = uiFunction<TestProps>((props) {
   var increment = props.increment;
 
   var count = useState(0);
@@ -19569,7 +19569,7 @@ final Counter = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [increment]',
                 'output': /*language=dart*/ r'''
-final Counter = uiFunction((props) {
+final Counter = uiFunction<TestProps>((props) {
   var increment = props.increment;
 
   var count = useState(0);
@@ -19588,7 +19588,7 @@ final Counter = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final Counter = uiFunction((_) {
+final Counter = uiFunction<TestProps>((_) {
   var count = useState(0);
   tick() {
     count.set(count.value + 1);
@@ -19609,7 +19609,7 @@ final Counter = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [tick]',
                 'output': /*language=dart*/ r'''
-final Counter = uiFunction((_) {
+final Counter = uiFunction<TestProps>((_) {
   var count = useState(0);
   tick() {
     count.set(count.value + 1);
@@ -19629,7 +19629,7 @@ final Counter = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Podcasts = uiFunction((_) {
+final Podcasts = uiFunction<TestProps>((_) {
   useEffect(() {
     alert(podcasts.value);
   }, []);
@@ -19643,7 +19643,7 @@ final Podcasts = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [podcasts]',
                 'output': /*language=dart*/ r'''
-final Podcasts = uiFunction((_) {
+final Podcasts = uiFunction<TestProps>((_) {
   useEffect(() {
     alert(podcasts.value);
   }, [podcasts.value]);
@@ -19656,7 +19656,7 @@ final Podcasts = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Podcasts = uiFunction((props) {
+final Podcasts = uiFunction<TestProps>((props) {
   var fetchPodcasts = props.fetchPodcasts;
   var id = props.id;
 
@@ -19674,7 +19674,7 @@ final Podcasts = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [fetchPodcasts, id]',
                 'output': /*language=dart*/ r'''
-final Podcasts = uiFunction((props) {
+final Podcasts = uiFunction<TestProps>((props) {
   var fetchPodcasts = props.fetchPodcasts;
   var id = props.id;
 
@@ -19690,7 +19690,7 @@ final Podcasts = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final Podcasts = uiFunction(({ api: { fetchPodcasts }, id }) {
+final Podcasts = uiFunction<TestProps>(({ api: { fetchPodcasts }, id }) {
   var podcasts = useState(null);
   useEffect(() {
     fetchPodcasts(id).then(podcasts.set);
@@ -19705,7 +19705,7 @@ final Podcasts = uiFunction(({ api: { fetchPodcasts }, id }) {
                 'desc':
                     'Update the dependencies array to be: [fetchPodcasts, id]',
                 'output': /*language=dart*/ r'''
-final Podcasts = uiFunction(({ api: { fetchPodcasts }, id }) {
+final Podcasts = uiFunction<TestProps>(({ api: { fetchPodcasts }, id }) {
   var podcasts = useState(null);
   useEffect(() {
     fetchPodcasts(id).then(podcasts.set);
@@ -19718,7 +19718,7 @@ final Podcasts = uiFunction(({ api: { fetchPodcasts }, id }) {
       },
       {
         'code': /*language=dart*/ r'''
-final Podcasts = uiFunction((props) {
+final Podcasts = uiFunction<TestProps>((props) {
   var fetchPodcasts = props.fetchPodcasts;
   var fetchPodcasts2 = props.fetchPodcasts2;
   var id = props.id;
@@ -19741,7 +19741,7 @@ final Podcasts = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [fetchPodcasts, fetchPodcasts2, id]',
                 'output': /*language=dart*/ r'''
-final Podcasts = uiFunction((props) {
+final Podcasts = uiFunction<TestProps>((props) {
   var fetchPodcasts = props.fetchPodcasts;
   var fetchPodcasts2 = props.fetchPodcasts2;
   var id = props.id;
@@ -19762,7 +19762,7 @@ final Podcasts = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final Podcasts = uiFunction((props) {
+final Podcasts = uiFunction<TestProps>((props) {
   var fetchPodcasts = props.fetchPodcasts;
   var id = props.id;
 
@@ -19781,7 +19781,7 @@ final Podcasts = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [fetchPodcasts, id]',
                 'output': /*language=dart*/ r'''
-final Podcasts = uiFunction((props) {
+final Podcasts = uiFunction<TestProps>((props) {
   var fetchPodcasts = props.fetchPodcasts;
   var id = props.id;
 
@@ -19798,7 +19798,7 @@ final Podcasts = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final Podcasts = uiFunction((props) {
+final Podcasts = uiFunction<TestProps>((props) {
   var fetchPodcasts = props.fetchPodcasts;
   var id = props.id;
 
@@ -19817,7 +19817,7 @@ final Podcasts = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [fetchPodcasts, id]',
                 'output': /*language=dart*/ r'''
-final Podcasts = uiFunction((props) {
+final Podcasts = uiFunction<TestProps>((props) {
   var fetchPodcasts = props.fetchPodcasts;
   var id = props.id;
 
@@ -19834,7 +19834,7 @@ final Podcasts = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final Thing = uiFunction((_) {
+final Thing = uiFunction<TestProps>((_) {
   useEffect(() {
     final fetchData = () async {};
     fetchData();
@@ -19848,7 +19848,7 @@ final Thing = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: []',
                 'output': /*language=dart*/ r'''
-final Thing = uiFunction((_) {
+final Thing = uiFunction<TestProps>((_) {
   useEffect(() {
     final fetchData = () async {};
     fetchData();
@@ -19861,7 +19861,7 @@ final Thing = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Hello = uiFunction((_) {
+final Hello = uiFunction<TestProps>((_) {
   var state = useState(0);
   useEffect(() {
     state.set({});
@@ -19875,7 +19875,7 @@ final Hello = uiFunction((_) {
               {
                 'desc': 'Add dependencies array: []',
                 'output': /*language=dart*/ r'''
-final Hello = uiFunction((_) {
+final Hello = uiFunction<TestProps>((_) {
   var state = useState(0);
   useEffect(() {
     state.set({});
@@ -19888,7 +19888,7 @@ final Hello = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Hello = uiFunction((_) {
+final Hello = uiFunction<TestProps>((_) {
   var data = useState(0);
   useEffect(() {
     fetchData.then(data.set);
@@ -19902,7 +19902,7 @@ final Hello = uiFunction((_) {
               {
                 'desc': 'Add dependencies array: []',
                 'output': /*language=dart*/ r'''
-final Hello = uiFunction((_) {
+final Hello = uiFunction<TestProps>((_) {
   var data = useState(0);
   useEffect(() {
     fetchData.then(data.set);
@@ -19915,7 +19915,7 @@ final Hello = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Hello = uiFunction((props) {
+final Hello = uiFunction<TestProps>((props) {
   var country = props.country;
 
   var data = useState(0);
@@ -19931,7 +19931,7 @@ final Hello = uiFunction((props) {
               {
                 'desc': 'Add dependencies array: [country]',
                 'output': /*language=dart*/ r'''
-final Hello = uiFunction((props) {
+final Hello = uiFunction<TestProps>((props) {
   var country = props.country;
 
   var data = useState(0);
@@ -19946,7 +19946,7 @@ final Hello = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final Hello = uiFunction((props) {
+final Hello = uiFunction<TestProps>((props) {
   var prop1 = props.prop1;
   var prop2 = props.prop2;
 
@@ -19965,7 +19965,7 @@ final Hello = uiFunction((props) {
               {
                 'desc': 'Add dependencies array: [prop1, prop2]',
                 'output': /*language=dart*/ r'''
-final Hello = uiFunction((props) {
+final Hello = uiFunction<TestProps>((props) {
   var prop1 = props.prop1;
   var prop2 = props.prop2;
 
@@ -19983,7 +19983,7 @@ final Hello = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final Thing = uiFunction((_) {
+final Thing = uiFunction<TestProps>((_) {
   useEffect(() async {}, []);
 }, null);''',
         'errors': [
@@ -20007,7 +20007,7 @@ Learn more about data fetching with Hooks: https://reactjs.org/link/hooks-data-f
       },
       {
         'code': /*language=dart*/ r'''
-final Thing = uiFunction((_) {
+final Thing = uiFunction<TestProps>((_) {
   useEffect(() async {});
 }, null);''',
         'errors': [
@@ -20031,7 +20031,7 @@ Learn more about data fetching with Hooks: https://reactjs.org/link/hooks-data-f
       },
       {
         'code': /*language=dart*/ r'''
-final Example = uiFunction((_) {
+final Example = uiFunction<TestProps>((_) {
   final foo = useCallback(() {
     foo();
   }, [foo]);
@@ -20044,7 +20044,7 @@ final Example = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: []',
                 'output': /*language=dart*/ r'''
-final Example = uiFunction((_) {
+final Example = uiFunction<TestProps>((_) {
   final foo = useCallback(() {
     foo();
   }, []);
@@ -20056,7 +20056,7 @@ final Example = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Example = uiFunction((props) {
+final Example = uiFunction<TestProps>((props) {
   var prop = props.prop;
 
   final foo = useCallback(() {
@@ -20074,7 +20074,7 @@ final Example = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [prop]',
                 'output': /*language=dart*/ r'''
-final Example = uiFunction((props) {
+final Example = uiFunction<TestProps>((props) {
   var prop = props.prop;
 
   final foo = useCallback(() {
@@ -20091,7 +20091,7 @@ final Example = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   myEffect() {
     print(local);
@@ -20106,7 +20106,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   myEffect() {
     print(local);
@@ -20120,7 +20120,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   final myEffect = () {
     print(local);
@@ -20135,7 +20135,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   final myEffect = () {
     print(local);
@@ -20149,7 +20149,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   final myEffect = () {
     print(local);
@@ -20164,7 +20164,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   final myEffect = () {
     print(local);
@@ -20178,7 +20178,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   final myEffect = () {
     otherThing();
@@ -20196,7 +20196,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [otherThing]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   final myEffect = () {
     otherThing();
@@ -20213,7 +20213,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   final myEffect = debounce(() {
     print(local);
@@ -20228,7 +20228,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [myEffect]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   final myEffect = debounce(() {
     print(local);
@@ -20242,7 +20242,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   final myEffect = debounce(() {
     print(local);
@@ -20257,7 +20257,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [myEffect]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   final myEffect = debounce(() {
     print(local);
@@ -20271,7 +20271,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var myEffect = props.myEffect;
 
   useEffect(myEffect, []);
@@ -20284,7 +20284,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [myEffect]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var myEffect = props.myEffect;
 
   useEffect(myEffect, [myEffect]);
@@ -20296,7 +20296,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   useEffect(debounce(() {
     print(local);
@@ -20312,14 +20312,14 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   useEffect(() {
     print(local);
   }, []);
 }, null);''',
         'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   useEffect(() {
     print(local);
@@ -20339,7 +20339,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var foo = {}
   useEffect(() {
     foo.bar.baz = 43;
@@ -20355,7 +20355,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [foo.bar, props.foo.bar]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var foo = {}
   useEffect(() {
     foo.bar.baz = 43;
@@ -20369,7 +20369,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final Component = uiFunction((_) {
+final Component = uiFunction<TestProps>((_) {
   final foo = {};
   useMemo(() => foo, [foo]);
 }, null);''',
@@ -20383,7 +20383,7 @@ final Component = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Component = uiFunction((_) {
+final Component = uiFunction<TestProps>((_) {
   final foo = [];
   useMemo(() => foo, [foo]);
 }, null);''',
@@ -20397,7 +20397,7 @@ final Component = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Component = uiFunction((_) {
+final Component = uiFunction<TestProps>((_) {
   final foo = () {};
   useMemo(() => foo, [foo]);
 }, null);''',
@@ -20411,7 +20411,7 @@ final Component = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Component = uiFunction((_) {
+final Component = uiFunction<TestProps>((_) {
   final foo = bar(){};
   useMemo(() => foo, [foo]);
 }, null);''',
@@ -20425,7 +20425,7 @@ final Component = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Component = uiFunction((_) {
+final Component = uiFunction<TestProps>((_) {
   final foo = class {};
   useMemo(() => foo, [foo]);
 }, null);''',
@@ -20439,7 +20439,7 @@ final Component = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Component = uiFunction((_) {
+final Component = uiFunction<TestProps>((_) {
   final foo = true ? {} : "fine";
   useMemo(() => foo, [foo]);
 }, null);''',
@@ -20453,7 +20453,7 @@ final Component = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Component = uiFunction((_) {
+final Component = uiFunction<TestProps>((_) {
   final foo = bar || {};
   useMemo(() => foo, [foo]);
 }, null);''',
@@ -20467,7 +20467,7 @@ final Component = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Component = uiFunction((_) {
+final Component = uiFunction<TestProps>((_) {
   final foo = bar ?? {};
   useMemo(() => foo, [foo]);
 }, null);''',
@@ -20481,7 +20481,7 @@ final Component = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Component = uiFunction((_) {
+final Component = uiFunction<TestProps>((_) {
   final foo = bar && {};
   useMemo(() => foo, [foo]);
 }, null);''',
@@ -20495,7 +20495,7 @@ final Component = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Component = uiFunction((_) {
+final Component = uiFunction<TestProps>((_) {
   final foo = bar ? baz ? {} : null : null;
   useMemo(() => foo, [foo]);
 }, null);''',
@@ -20509,7 +20509,7 @@ final Component = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Component = uiFunction((_) {
+final Component = uiFunction<TestProps>((_) {
   var foo = {};
   useMemo(() => foo, [foo]);
 }, null);''',
@@ -20523,7 +20523,7 @@ final Component = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Component = uiFunction((_) {
+final Component = uiFunction<TestProps>((_) {
   var foo = {};
   useMemo(() => foo, [foo]);
 }, null);''',
@@ -20537,7 +20537,7 @@ final Component = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Component = uiFunction((_) {
+final Component = uiFunction<TestProps>((_) {
   final foo = {};
   useCallback(() {
     print(foo);
@@ -20553,7 +20553,7 @@ final Component = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Component = uiFunction((_) {
+final Component = uiFunction<TestProps>((_) {
   final foo = {};
   useEffect(() {
     print(foo);
@@ -20569,7 +20569,7 @@ final Component = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Component = uiFunction((_) {
+final Component = uiFunction<TestProps>((_) {
   final foo = {};
   useLayoutEffect(() {
     print(foo);
@@ -20585,7 +20585,7 @@ final Component = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Component = uiFunction((_) {
+final Component = uiFunction<TestProps>((_) {
   final foo = {};
   useImperativeHandle(
     ref,
@@ -20605,7 +20605,7 @@ final Component = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Foo = uiFunction((section) {
+final Foo = uiFunction<TestProps>((section) {
   final foo = section.section_components?.edges ?? [];
   useEffect(() {
     print(foo);
@@ -20621,7 +20621,7 @@ final Foo = uiFunction((section) {
       },
       {
         'code': /*language=dart*/ r'''
-final Foo = uiFunction((section) {
+final Foo = uiFunction<TestProps>((section) {
   final foo = {};
   print(foo);
   useMemo(() {
@@ -20638,7 +20638,7 @@ final Foo = uiFunction((section) {
       },
       {
         'code': /*language=dart*/ r'''
-final Foo = uiFunction((_) {
+final Foo = uiFunction<TestProps>((_) {
   final foo = <>Hi!</>;
   useMemo(() {
     print(foo);
@@ -20654,7 +20654,7 @@ final Foo = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Foo = uiFunction((_) {
+final Foo = uiFunction<TestProps>((_) {
   final foo = <div>Hi!</div>;
   useMemo(() {
     print(foo);
@@ -20670,7 +20670,7 @@ final Foo = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Foo = uiFunction((_) {
+final Foo = uiFunction<TestProps>((_) {
   final foo = bar = {};
   useMemo(() {
     print(foo);
@@ -20686,7 +20686,7 @@ final Foo = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Foo = uiFunction((_) {
+final Foo = uiFunction<TestProps>((_) {
   final foo = new String('foo'); // Note 'foo' will be boxed, and thus an object and thus compared by reference.
   useMemo(() {
     print(foo);
@@ -20702,7 +20702,7 @@ final Foo = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Foo = uiFunction((_) {
+final Foo = uiFunction<TestProps>((_) {
   final foo = new Map([]);
   useMemo(() {
     print(foo);
@@ -20718,7 +20718,7 @@ final Foo = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Foo = uiFunction((_) {
+final Foo = uiFunction<TestProps>((_) {
   final foo = /reg/;
   useMemo(() {
     print(foo);
@@ -20734,7 +20734,7 @@ final Foo = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Foo = uiFunction((_) {
+final Foo = uiFunction<TestProps>((_) {
   class Bar {};
   useMemo(() {
     print(new Bar());
@@ -20750,7 +20750,7 @@ final Foo = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Foo = uiFunction((_) {
+final Foo = uiFunction<TestProps>((_) {
   final foo = {};
   useLayoutEffect(() {
     print(foo);
@@ -20778,7 +20778,7 @@ final Foo = uiFunction((_) {
     'valid': [
       {
         'code': /*language=dart*/ r'''
-final Example = uiFunction((props) {
+final Example = uiFunction<TestProps>((props) {
   var prop = props.prop;
 
   final bar = useEffect(<T>(a: T): (Hello) {
@@ -20790,7 +20790,7 @@ final Example = uiFunction((props) {
     'invalid': [
       {
         'code': /*language=dart*/ r'''
-final Foo = uiFunction((_) {
+final Foo = uiFunction<TestProps>((_) {
   final foo = ({}: any);
   useMemo(() {
     print(foo);
@@ -20810,7 +20810,7 @@ final Foo = uiFunction((_) {
     'valid': [
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final ref = useRef() as over_react.MutableRefObject<HTMLDivElement>;
   useEffect(() {
     print(ref.current);
@@ -20819,7 +20819,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   var state = over_react.useState<number>(0);
   useEffect(() {
     final someNumber: typeof state.value = 2;
@@ -20829,7 +20829,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final App = uiFunction((_) {
+final App = uiFunction<TestProps>((_) {
   final foo = {x: 1};
   over_react.useEffect(() {
     final bar = {x: 2};
@@ -20842,7 +20842,7 @@ final App = uiFunction((_) {
     'invalid': [
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {} as string;
   useEffect(() {
     print(local);
@@ -20856,7 +20856,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {} as string;
   useEffect(() {
     print(local);
@@ -20869,7 +20869,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final App = uiFunction((_) {
+final App = uiFunction<TestProps>((_) {
   final foo = {x: 1};
   final bar = {x: 2};
   useEffect(() {
@@ -20885,7 +20885,7 @@ final App = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [bar]',
                 'output': /*language=dart*/ r'''
-final App = uiFunction((_) {
+final App = uiFunction<TestProps>((_) {
   final foo = {x: 1};
   final bar = {x: 2};
   useEffect(() {
@@ -20900,7 +20900,7 @@ final App = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final pizza = {};
   useEffect(() => ({
     crust: pizza.crust,
@@ -20916,7 +20916,7 @@ final MyComponent = uiFunction((_) {
                 'desc':
                     'Update the dependencies array to be: [pizza.crust, pizza?.toppings]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final pizza = {};
   useEffect(() => ({
     crust: pizza.crust,
@@ -20930,7 +20930,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final pizza = {};
   useEffect(() => ({
     crust: pizza?.crust,
@@ -20945,7 +20945,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [pizza.crust]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final pizza = {};
   useEffect(() => ({
     crust: pizza?.crust,
@@ -20959,7 +20959,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final pizza = {};
   useEffect(() => ({
     crust: pizza.crust,
@@ -20974,7 +20974,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [pizza.crust]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final pizza = {};
   useEffect(() => ({
     crust: pizza.crust,
@@ -20988,7 +20988,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final pizza = {};
   useEffect(() => ({
     crust: pizza?.crust,
@@ -21003,7 +21003,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [pizza?.crust]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final pizza = {};
   useEffect(() => ({
     crust: pizza?.crust,
@@ -21017,7 +21017,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Example = uiFunction((props) {
+final Example = uiFunction<TestProps>((props) {
   useEffect(() {
     var topHeight = 0;
     topHeight = props.upperViewHeight;
@@ -21032,7 +21032,7 @@ final Example = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [props.upperViewHeight]',
                 'output': /*language=dart*/ r'''
-final Example = uiFunction((props) {
+final Example = uiFunction<TestProps>((props) {
   useEffect(() {
     var topHeight = 0;
     topHeight = props.upperViewHeight;
@@ -21045,7 +21045,7 @@ final Example = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final Example = uiFunction((props) {
+final Example = uiFunction<TestProps>((props) {
   useEffect(() {
     var topHeight = 0;
     topHeight = props?.upperViewHeight;
@@ -21060,7 +21060,7 @@ final Example = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [props?.upperViewHeight]',
                 'output': /*language=dart*/ r'''
-final Example = uiFunction((props) {
+final Example = uiFunction<TestProps>((props) {
   useEffect(() {
     var topHeight = 0;
     topHeight = props?.upperViewHeight;
@@ -21073,7 +21073,7 @@ final Example = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   var state = over_react.useState<number>(0);
   useEffect(() {
     final someNumber: typeof state.value = 2;
@@ -21088,7 +21088,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [state]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   var state = over_react.useState<number>(0);
   useEffect(() {
     final someNumber: typeof state.value = 2;
@@ -21102,7 +21102,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   var state = over_react.useState<number>(0);
   useMemo(() {
     final someNumber: typeof state.value = 2;
@@ -21117,7 +21117,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: []',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   var state = over_react.useState<number>(0);
   useMemo(() {
     final someNumber: typeof state.value = 2;
@@ -21131,7 +21131,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Foo = uiFunction((_) {
+final Foo = uiFunction<TestProps>((_) {
   final foo = {} as any;
   useMemo(() {
     print(foo);
@@ -21152,7 +21152,7 @@ final Foo = uiFunction((_) {
     'invalid': [
       {
         'code': /*language=dart*/ r'''
-final Foo = uiFunction((props) {
+final Foo = uiFunction<TestProps>((props) {
   var Component = props.Component;
 
   over_react.useEffect(() {
@@ -21167,7 +21167,7 @@ final Foo = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [Component]',
                 'output': /*language=dart*/ r'''
-final Foo = uiFunction((props) {
+final Foo = uiFunction<TestProps>((props) {
   var Component = props.Component;
 
   over_react.useEffect(() {
@@ -21187,7 +21187,7 @@ const testsTypescriptEslintParserV4 = {
     'valid': [
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   useEffect(() {
     print(local);
@@ -21196,7 +21196,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   useEffect(() {
     final local = {};
     print(local);
@@ -21205,7 +21205,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = someFunc();
   useEffect(() {
     print(local);
@@ -21214,7 +21214,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   useEffect(() {
     print(props.foo);
   }, []);
@@ -21222,7 +21222,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local1 = {};
   {
     final local2 = {};
@@ -21235,7 +21235,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local1 = someFunc();
   {
     final local2 = someFunc();
@@ -21248,7 +21248,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local1 = someFunc();
   MyNestedComponent() {
     final local2 = someFunc();
@@ -21261,7 +21261,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = someFunc();
   useEffect(() {
     print(local);
@@ -21271,7 +21271,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   useEffect(() {
     print(unresolved);
   }, []);
@@ -21279,7 +21279,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = someFunc();
   useEffect(() {
     print(local);
@@ -21288,7 +21288,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var foo = props.foo;
 
   useEffect(() {
@@ -21298,7 +21298,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var foo = props.foo;
 
   useEffect(() {
@@ -21309,7 +21309,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var history = props.history;
 
   useEffect(() {
@@ -21319,7 +21319,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {});
   useLayoutEffect(() {});
   useImperativeHandle(props.innerRef, () {});
@@ -21327,7 +21327,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo);
   }, [props.foo]);
@@ -21335,7 +21335,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo);
     print(props.bar);
@@ -21344,7 +21344,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo);
     print(props.bar);
@@ -21353,7 +21353,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final local = someFunc();
   useEffect(() {
     print(props.foo);
@@ -21364,7 +21364,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final local = {};
   useEffect(() {
     print(props.foo);
@@ -21379,7 +21379,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo?.bar?.baz ?? null);
   }, [props.foo]);
@@ -21387,7 +21387,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo?.bar);
   }, [props.foo?.bar]);
@@ -21395,7 +21395,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo?.bar);
   }, [props.foo.bar]);
@@ -21403,7 +21403,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo.bar);
   }, [props.foo?.bar]);
@@ -21411,7 +21411,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo.bar);
     print(props.foo?.bar);
@@ -21420,7 +21420,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo.bar);
     print(props.foo?.bar);
@@ -21429,7 +21429,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo);
     print(props.foo?.bar);
@@ -21438,7 +21438,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo?.toString());
   }, [props.foo]);
@@ -21446,7 +21446,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useMemo(() {
     print(props.foo?.toString());
   }, [props.foo]);
@@ -21454,7 +21454,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useCallback(() {
     print(props.foo?.toString());
   }, [props.foo]);
@@ -21462,7 +21462,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useCallback(() {
     print(props.foo.bar?.toString());
   }, [props.foo.bar]);
@@ -21470,7 +21470,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useCallback(() {
     print(props.foo?.bar?.toString());
   }, [props.foo.bar]);
@@ -21478,7 +21478,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useCallback(() {
     print(props.foo.bar.toString());
   }, [props?.foo?.bar]);
@@ -21486,7 +21486,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useCallback(() {
     print(props.foo?.bar?.baz);
   }, [props?.foo.bar?.baz]);
@@ -21494,7 +21494,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final myEffect = () {
     // Doesn't use anything
   };
@@ -21504,7 +21504,7 @@ final MyComponent = uiFunction((_) {
       {
         'code': /*language=dart*/ r'''
 final local = {};
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final myEffect = () {
     print(local);
   };
@@ -21514,7 +21514,7 @@ final MyComponent = uiFunction((_) {
       {
         'code': /*language=dart*/ r'''
 final local = {};
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   myEffect() {
     print(local);
   }
@@ -21523,7 +21523,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = someFunc();
   myEffect() {
     print(local);
@@ -21533,7 +21533,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   myEffect() {
     print(global);
   }
@@ -21543,7 +21543,7 @@ final MyComponent = uiFunction((_) {
       {
         'code': /*language=dart*/ r'''
 final local = {};
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final myEffect = () {
     otherThing()
   }
@@ -21555,7 +21555,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var delay = props.delay;
 
   final local = {};
@@ -21567,7 +21567,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var myEffect = props.myEffect;
 
   useEffect(myEffect, [null, myEffect]);
@@ -21575,7 +21575,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var myEffect = props.myEffect;
 
   useEffect(myEffect, [null, myEffect, null, null]);
@@ -21587,13 +21587,13 @@ var local = {};
 myEffect() {
   print(local);
 }
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   useEffect(myEffect, []);
 }, null);''',
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var myEffect = props.myEffect;
 
   useEffect(myEffect, [myEffect]);
@@ -21601,7 +21601,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var myEffect = props.myEffect;
 
   useEffect(myEffect);
@@ -21609,7 +21609,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useCustomEffect(() {
     print(props.foo);
   });
@@ -21622,7 +21622,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useCustomEffect(() {
     print(props.foo);
   }, [props.foo]);
@@ -21635,7 +21635,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useCustomEffect(() {
     print(props.foo);
   }, []);
@@ -21648,7 +21648,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useWithoutEffectSuffix(() {
     print(props.foo);
   }, []);
@@ -21656,7 +21656,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   return renderHelperConfusedWithEffect(() {
     print(props.foo);
   }, []);
@@ -21682,7 +21682,7 @@ final local1 = {};
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final ref = useRef();
   useEffect(() {
     print(ref.current);
@@ -21691,7 +21691,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final ref = useRef();
   useEffect(() {
     print(ref.current);
@@ -21700,7 +21700,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var maybeRef2 = props.maybeRef2;
   var foo = props.foo;
 
@@ -21762,7 +21762,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var maybeRef2 = props.maybeRef2;
 
   final definitelyRef1 = useRef();
@@ -21833,7 +21833,7 @@ final MyComponent = forwardRef((props, ref) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var obj = someFunc();
   useEffect(() {
     obj.foo = true;
@@ -21842,7 +21842,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var foo = {}
   useEffect(() {
     foo.bar.baz = 43;
@@ -21851,7 +21851,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final myRef = useRef();
   useEffect(() {
     final handleMove = () {};
@@ -21865,7 +21865,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final myRef = useRef();
   useEffect(() {
     final handleMove = () {};
@@ -21891,7 +21891,7 @@ useMyThing(myRef) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final myRef = useRef();
   useEffect(() {
     final handleMove = () {};
@@ -21960,7 +21960,7 @@ useMyThing() {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local1 = 42;
   final local2 = '42';
   final local3 = null;
@@ -21973,7 +21973,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local1 = 42;
   final local2 = '42';
   final local3 = null;
@@ -21986,14 +21986,14 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final local = props.local;
   useEffect(() {}, [local]);
 }, null);''',
       },
       {
         'code': /*language=dart*/ r'''
-final Foo = uiFunction((props) {
+final Foo = uiFunction<TestProps>((props) {
   var activeTab = props.activeTab;
 
   useEffect(() {
@@ -22003,7 +22003,7 @@ final Foo = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo.bar.baz);
   }, [props]);
@@ -22020,7 +22020,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final fn = useCallback(() {
     print(props.foo.bar.baz);
   }, [props]);
@@ -22037,7 +22037,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   handleNext1() {
     print('hello');
   }
@@ -22060,7 +22060,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   handleNext() {
     print('hello');
   }
@@ -22077,7 +22077,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var state = useState();
   var dispatch = over_react.useReducer();
   handleNext1(value) {
@@ -22124,7 +22124,7 @@ useInterval(callback, delay) {
       },
       {
         'code': /*language=dart*/ r'''
-final Counter = uiFunction((_) {
+final Counter = uiFunction<TestProps>((_) {
   var count = useState(0);
   useEffect(() {
     var id = setInterval(() {
@@ -22137,7 +22137,7 @@ final Counter = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Counter = uiFunction((_) {
+final Counter = uiFunction<TestProps>((_) {
   var count = useState(0);
   tick() {
     count.set((c) => c + 1);
@@ -22153,7 +22153,7 @@ final Counter = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Counter = uiFunction((_) {
+final Counter = uiFunction<TestProps>((_) {
   var count = useReducer((state, action) {
     if (action == 'inc') {
       return state + 1;
@@ -22170,7 +22170,7 @@ final Counter = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Counter = uiFunction((_) {
+final Counter = uiFunction<TestProps>((_) {
   var count = useReducer((state, action) {
     if (action == 'inc') {
       return state + 1;
@@ -22188,7 +22188,7 @@ final Counter = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Podcasts = uiFunction((_) {
+final Podcasts = uiFunction<TestProps>((_) {
   useEffect(() {
     podcasts.set([]);
   }, []);
@@ -22208,7 +22208,7 @@ withFetch(fetchPodcasts) {
       },
       {
         'code': /*language=dart*/ r'''
-final Podcasts = uiFunction((props) {
+final Podcasts = uiFunction<TestProps>((props) {
   var id = props.id;
 
   var podcasts = useState(null);
@@ -22222,7 +22222,7 @@ final Podcasts = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final Counter = uiFunction((_) {
+final Counter = uiFunction<TestProps>((_) {
   var count = useState(0);
   increment(x) {
     return x + 1;
@@ -22238,7 +22238,7 @@ final Counter = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Counter = uiFunction((_) {
+final Counter = uiFunction<TestProps>((_) {
   var count = useState(0);
   increment(x) {
     return x + 1;
@@ -22255,7 +22255,7 @@ final Counter = uiFunction((_) {
       {
         'code': /*language=dart*/ r'''
 import increment from './increment';
-final Counter = uiFunction((_) {
+final Counter = uiFunction<TestProps>((_) {
   var count = useState(0);
   useEffect(() {
     var id = setInterval(() {
@@ -22283,7 +22283,7 @@ withStuff(increment) {
       },
       {
         'code': /*language=dart*/ r'''
-final App = uiFunction((_) {
+final App = uiFunction<TestProps>((_) {
   var query = useState('react');
   var state = useState(null);
   useEffect(() {
@@ -22305,7 +22305,7 @@ final App = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Example = uiFunction((_) {
+final Example = uiFunction<TestProps>((_) {
   final foo = useCallback(() {
     foo();
   }, []);
@@ -22313,7 +22313,7 @@ final Example = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Example = uiFunction((props) {
+final Example = uiFunction<TestProps>((props) {
   var prop = props.prop;
 
   final foo = useCallback(() {
@@ -22325,7 +22325,7 @@ final Example = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final Hello = uiFunction((_) {
+final Hello = uiFunction<TestProps>((_) {
   var state = useState(0);
   useEffect(() {
     final handleResize = () => state.set(window.innerWidth);
@@ -22336,7 +22336,7 @@ final Hello = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Example = uiFunction((_) {
+final Example = uiFunction<TestProps>((_) {
   useEffect(() {
     arguments
   }, [])
@@ -22344,7 +22344,7 @@ final Example = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Example = uiFunction((_) {
+final Example = uiFunction<TestProps>((_) {
   useEffect(() {
     final bar = () {
       arguments;
@@ -22355,7 +22355,7 @@ final Example = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Example = uiFunction((props) {
+final Example = uiFunction<TestProps>((props) {
   useEffect(() {
     var topHeight = 0;
     topHeight = props.upperViewHeight;
@@ -22364,7 +22364,7 @@ final Example = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final Example = uiFunction((props) {
+final Example = uiFunction<TestProps>((props) {
   useEffect(() {
     var topHeight = 0;
     topHeight = props?.upperViewHeight;
@@ -22373,7 +22373,7 @@ final Example = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final Example = uiFunction((props) {
+final Example = uiFunction<TestProps>((props) {
   useEffect(() {
     var topHeight = 0;
     topHeight = props?.upperViewHeight;
@@ -22420,7 +22420,7 @@ useFoo() {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var foo = props.foo;
 
   return useMemo(() => foo, [foo])
@@ -22428,7 +22428,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final foo = true ? "fine" : "also fine";
   return useMemo(() => foo, [foo]);
 }, null);''',
@@ -22437,7 +22437,7 @@ final MyComponent = uiFunction((_) {
     'invalid': [
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useCallback(() {
     print(props.foo?.toString());
   }, []);
@@ -22450,7 +22450,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props.foo]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useCallback(() {
     print(props.foo?.toString());
   }, [props.foo]);
@@ -22462,7 +22462,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useCallback(() {
     print(props.foo?.bar.baz);
   }, []);
@@ -22476,7 +22476,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [props.foo?.bar.baz]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useCallback(() {
     print(props.foo?.bar.baz);
   }, [props.foo?.bar.baz]);
@@ -22488,7 +22488,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useCallback(() {
     print(props.foo?.bar?.baz);
   }, []);
@@ -22502,7 +22502,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [props.foo?.bar?.baz]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useCallback(() {
     print(props.foo?.bar?.baz);
   }, [props.foo?.bar?.baz]);
@@ -22514,7 +22514,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useCallback(() {
     print(props.foo?.bar.toString());
   }, []);
@@ -22527,7 +22527,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props.foo?.bar]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useCallback(() {
     print(props.foo?.bar.toString());
   }, [props.foo?.bar]);
@@ -22539,7 +22539,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = someFunc();
   useEffect(() {
     print(local);
@@ -22553,7 +22553,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = someFunc();
   useEffect(() {
     print(local);
@@ -22566,7 +22566,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   var local = 42;
   useEffect(() {
     print(local);
@@ -22580,7 +22580,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   var local = 42;
   useEffect(() {
     print(local);
@@ -22593,7 +22593,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = /foo/;
   useEffect(() {
     print(local);
@@ -22607,7 +22607,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = /foo/;
   useEffect(() {
     print(local);
@@ -22620,7 +22620,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final value = useMemo(() { return 2*2; });
   final fn = useCallback(() { alert('foo'); });
 }, null);''',
@@ -22639,7 +22639,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var fn1 = props.fn1;
   var fn2 = props.fn2;
 
@@ -22661,7 +22661,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   useEffect()
   useLayoutEffect()
   useCallback()
@@ -22692,7 +22692,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = someFunc();
   useEffect(() {
     if (true) {
@@ -22708,7 +22708,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = someFunc();
   useEffect(() {
     if (true) {
@@ -22723,7 +22723,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   useEffect(() {
     try {
@@ -22739,7 +22739,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   useEffect(() {
     try {
@@ -22754,7 +22754,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   useEffect(() {
     inner() {
@@ -22771,7 +22771,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   useEffect(() {
     inner() {
@@ -22787,7 +22787,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local1 = someFunc();
   {
     final local2 = someFunc();
@@ -22805,7 +22805,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local1, local2]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local1 = someFunc();
   {
     final local2 = someFunc();
@@ -22822,7 +22822,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local1 = {};
   final local2 = {};
   useEffect(() {
@@ -22838,7 +22838,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local1, local2]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local1 = {};
   final local2 = {};
   useEffect(() {
@@ -22853,7 +22853,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local1 = {};
   final local2 = {};
   useMemo(() {
@@ -22868,7 +22868,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local1]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local1 = {};
   final local2 = {};
   useMemo(() {
@@ -22882,7 +22882,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local1 = someFunc();
   MyNestedComponent() {
     final local2 = {};
@@ -22900,7 +22900,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local2]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local1 = someFunc();
   MyNestedComponent() {
     final local2 = {};
@@ -22917,7 +22917,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   useEffect(() {
     print(local);
@@ -22932,7 +22932,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   useEffect(() {
     print(local);
@@ -22946,7 +22946,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   useEffect(() {
     print(local);
@@ -22961,7 +22961,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   useEffect(() {
     print(local);
@@ -22975,7 +22975,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   useCallback(() {}, [window]);
 }, null);''',
         'errors': [
@@ -22986,7 +22986,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: []',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   useCallback(() {}, []);
 }, null);''',
               }
@@ -22996,7 +22996,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var local = props.foo;
   useCallback(() {}, [local]);
 }, null);''',
@@ -23008,7 +23008,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: []',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var local = props.foo;
   useCallback(() {}, []);
 }, null);''',
@@ -23019,7 +23019,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var history = props.history;
 
   useEffect(() {
@@ -23034,7 +23034,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [history]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var history = props.history;
 
   useEffect(() {
@@ -23048,7 +23048,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var history = props.history;
 
   useEffect(() {
@@ -23066,7 +23066,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [history.foo]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var history = props.history;
 
   useEffect(() {
@@ -23083,7 +23083,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var history = props.history;
 
   useEffect(() {
@@ -23100,7 +23100,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [history?.foo]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var history = props.history;
 
   useEffect(() {
@@ -23116,7 +23116,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   useEffect(() {}, ['foo']);
 }, null);''',
         'errors': [
@@ -23129,7 +23129,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var foo = props.foo;
   var bar = props.bar;
   var baz = props.baz;
@@ -23146,7 +23146,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [bar, baz, foo]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var foo = props.foo;
   var bar = props.bar;
   var baz = props.baz;
@@ -23172,7 +23172,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var foo = props.foo;
   var bar = props.bar;
   var baz = props.baz;
@@ -23189,7 +23189,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [bar, baz, foo]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var foo = props.foo;
   var bar = props.bar;
   var baz = props.baz;
@@ -23220,7 +23220,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final dependencies = [];
   useEffect(() {}, dependencies);
 }, null);''',
@@ -23234,7 +23234,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   final dependencies = [local];
   useEffect(() {
@@ -23254,7 +23254,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   final dependencies = [local];
   useEffect(() {
@@ -23268,7 +23268,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   final dependencies = [local];
   useEffect(() {
@@ -23283,7 +23283,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   final dependencies = [local];
   useEffect(() {
@@ -23302,7 +23302,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = someFunc();
   useEffect(() {
     print(local);
@@ -23318,7 +23318,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   useEffect(() {
     print(local);
@@ -23332,7 +23332,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   useEffect(() {
     print(local);
@@ -23350,7 +23350,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.items[0]);
   }, [props.items[0]]);
@@ -23363,7 +23363,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props.items]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.items[0]);
   }, [props.items]);
@@ -23380,7 +23380,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.items[0]);
   }, [props.items, props.items[0]]);
@@ -23395,7 +23395,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var items = props.items;
 
   useEffect(() {
@@ -23410,7 +23410,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [items]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var items = props.items;
 
   useEffect(() {
@@ -23429,7 +23429,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var items = props.items;
 
   useEffect(() {
@@ -23446,7 +23446,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final local = {};
   useCallback(() {
     print(props.foo);
@@ -23461,7 +23461,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final local = {};
   useCallback(() {
     print(props.foo);
@@ -23475,7 +23475,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final local = {};
   useCallback(() {
     print(props.foo);
@@ -23491,7 +23491,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [props.bar, props.foo]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final local = {};
   useCallback(() {
     print(props.foo);
@@ -23505,7 +23505,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {id: 42};
   useEffect(() {
     print(local);
@@ -23520,7 +23520,7 @@ final MyComponent = uiFunction((_) {
                 'desc':
                     'Update the dependencies array to be: [local, local.id]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {id: 42};
   useEffect(() {
     print(local);
@@ -23533,7 +23533,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {id: 42};
   final fn = useCallback(() {
     print(local);
@@ -23547,7 +23547,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {id: 42};
   final fn = useCallback(() {
     print(local);
@@ -23560,7 +23560,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {id: 42};
   final fn = useCallback(() {
     print(local);
@@ -23574,7 +23574,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {id: 42};
   final fn = useCallback(() {
     print(local);
@@ -23587,7 +23587,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final fn = useCallback(() {
     print(props.foo.bar.baz);
   }, []);
@@ -23601,7 +23601,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [props.foo.bar.baz]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final fn = useCallback(() {
     print(props.foo.bar.baz);
   }, [props.foo.bar.baz]);
@@ -23613,7 +23613,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var color = {}
   final fn = useCallback(() {
     print(props.foo.bar.baz);
@@ -23629,7 +23629,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [color, props.foo.bar.baz]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var color = {}
   final fn = useCallback(() {
     print(props.foo.bar.baz);
@@ -23643,7 +23643,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final fn = useCallback(() {
     print(props.foo.bar.baz);
   }, [props.foo.bar.baz, props.foo]);
@@ -23656,7 +23656,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props.foo]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final fn = useCallback(() {
     print(props.foo.bar.baz);
   }, [props.foo]);
@@ -23668,7 +23668,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final fn = useCallback(() {
     print(props.foo.bar.baz);
     print(props.foo.fizz.bizz);
@@ -23683,7 +23683,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [props.foo.bar.baz, props.foo.fizz.bizz]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final fn = useCallback(() {
     print(props.foo.bar.baz);
     print(props.foo.fizz.bizz);
@@ -23696,7 +23696,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final fn = useCallback(() {
     print(props.foo.bar);
   }, [props.foo.bar.baz]);
@@ -23709,7 +23709,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props.foo.bar]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final fn = useCallback(() {
     print(props.foo.bar);
   }, [props.foo.bar]);
@@ -23721,7 +23721,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final fn = useCallback(() {
     print(props);
     print(props.hello);
@@ -23735,7 +23735,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final fn = useCallback(() {
     print(props);
     print(props.hello);
@@ -23748,7 +23748,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   useEffect(() {
     print(local);
@@ -23762,7 +23762,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   useEffect(() {
     print(local);
@@ -23775,7 +23775,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local1 = {};
   useCallback(() {
     final local1 = {};
@@ -23790,7 +23790,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: []',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local1 = {};
   useCallback(() {
     final local1 = {};
@@ -23804,7 +23804,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local1 = {};
   useCallback(() {}, [local1]);
 }, null);''',
@@ -23816,7 +23816,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: []',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local1 = {};
   useCallback(() {}, []);
 }, null);''',
@@ -23827,7 +23827,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo);
   }, []);
@@ -23840,7 +23840,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props.foo]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo);
   }, [props.foo]);
@@ -23852,7 +23852,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo);
     print(props.bar);
@@ -23867,7 +23867,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [props.bar, props.foo]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo);
     print(props.bar);
@@ -23880,7 +23880,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var a, b, c, d, e, f, g;
   useEffect(() {
     print(b, e, d, c, a, g, f);
@@ -23895,7 +23895,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [c, a, g, b, e, d, f]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var a, b, c, d, e, f, g;
   useEffect(() {
     print(b, e, d, c, a, g, f);
@@ -23908,7 +23908,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var a, b, c, d, e, f, g;
   useEffect(() {
     print(b, e, d, c, a, g, f);
@@ -23923,7 +23923,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [a, b, c, d, e, f, g]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var a, b, c, d, e, f, g;
   useEffect(() {
     print(b, e, d, c, a, g, f);
@@ -23936,7 +23936,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var a, b, c, d, e, f, g;
   useEffect(() {
     print(b, e, d, c, a, g, f);
@@ -23951,7 +23951,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [a, b, c, d, e, f, g]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var a, b, c, d, e, f, g;
   useEffect(() {
     print(b, e, d, c, a, g, f);
@@ -23964,7 +23964,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final local = {};
   useEffect(() {
     print(props.foo);
@@ -23981,7 +23981,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [local, props.bar, props.foo]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final local = {};
   useEffect(() {
     print(props.foo);
@@ -23996,7 +23996,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final local = {};
   useEffect(() {
     print(props.foo);
@@ -24012,7 +24012,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [local, props]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final local = {};
   useEffect(() {
     print(props.foo);
@@ -24027,7 +24027,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo);
   }, []);
@@ -24058,7 +24058,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props.foo]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo);
   }, [props.foo]);
@@ -24091,7 +24091,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props.foo]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo);
   }, []);
@@ -24124,7 +24124,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props.foo]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo);
   }, []);
@@ -24157,7 +24157,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props.foo]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo);
   }, []);
@@ -24190,7 +24190,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props.foo]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo);
   }, []);
@@ -24223,7 +24223,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props.foo]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     print(props.foo);
   }, []);
@@ -24253,7 +24253,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useCustomEffect(() {
     print(props.foo);
   }, []);
@@ -24280,7 +24280,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props.foo]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useCustomEffect(() {
     print(props.foo);
   }, [props.foo]);
@@ -24304,7 +24304,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props.foo]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useCustomEffect(() {
     print(props.foo);
   }, []);
@@ -24328,7 +24328,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props.foo]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useCustomEffect(() {
     print(props.foo);
   }, []);
@@ -24349,7 +24349,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   useEffect(() {
     print(local);
@@ -24363,7 +24363,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   useEffect(() {
     print(local);
@@ -24381,7 +24381,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   useEffect(() {
     print(local);
@@ -24395,7 +24395,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   useEffect(() {
     print(local);
@@ -24413,7 +24413,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {}, [props?.attribute.method()]);
 }, null);''',
         'errors': [
@@ -24426,7 +24426,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {}, [props.method()]);
 }, null);''',
         'errors': [
@@ -24439,7 +24439,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final ref = useRef();
   var state = useState();
   useEffect(() {
@@ -24455,7 +24455,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [state]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final ref = useRef();
   var state = useState();
   useEffect(() {
@@ -24470,7 +24470,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final ref = useRef();
   var state = useState();
   useEffect(() {
@@ -24486,7 +24486,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [ref, state]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final ref = useRef();
   var state = useState();
   useEffect(() {
@@ -24501,7 +24501,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final ref1 = useRef();
   final ref2 = useRef();
   useEffect(() {
@@ -24520,7 +24520,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [props.color, props.someOtherRefs]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final ref1 = useRef();
   final ref2 = useRef();
   useEffect(() {
@@ -24537,7 +24537,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final ref1 = useRef();
   final ref2 = useRef();
   useEffect(() {
@@ -24556,7 +24556,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [props.someOtherRefs, props.color]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final ref1 = useRef();
   final ref2 = useRef();
   useEffect(() {
@@ -24573,7 +24573,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final ref1 = useRef();
   final ref2 = useRef();
   useEffect(() {
@@ -24592,7 +24592,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [props.someOtherRefs, props.color]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final ref1 = useRef();
   final ref2 = useRef();
   useEffect(() {
@@ -24609,7 +24609,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final ref = useRef();
   useEffect(() {
     print(ref.current);
@@ -24623,7 +24623,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: []',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final ref = useRef();
   useEffect(() {
     print(ref.current);
@@ -24636,7 +24636,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var activeTab = props.activeTab;
 
   final ref1 = useRef();
@@ -24654,7 +24654,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [activeTab]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var activeTab = props.activeTab;
 
   final ref1 = useRef();
@@ -24671,7 +24671,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var activeTab = props.activeTab;
   var initY = props.initY;
 
@@ -24690,7 +24690,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [initY]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var activeTab = props.activeTab;
   var initY = props.initY;
 
@@ -24708,7 +24708,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final ref = useRef();
   useEffect(() {
     print(ref.current);
@@ -24722,7 +24722,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [ref]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final ref = useRef();
   useEffect(() {
     print(ref.current);
@@ -24764,7 +24764,7 @@ final MyComponent = forwardRef((props, ref) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     if (props.onChange) {
       props.onChange();
@@ -24779,7 +24779,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     if (props.onChange) {
       props.onChange();
@@ -24793,7 +24793,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     if (props?.onChange) {
       props?.onChange();
@@ -24808,7 +24808,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     if (props?.onChange) {
       props?.onChange();
@@ -24822,7 +24822,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     play() {
       props.onPlay();
@@ -24840,7 +24840,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     play() {
       props.onPlay();
@@ -24857,7 +24857,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     if (props.foo.onChange) {
       props.foo.onChange();
@@ -24872,7 +24872,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props.foo]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     if (props.foo.onChange) {
       props.foo.onChange();
@@ -24886,7 +24886,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     props.onChange();
     if (props.foo.onChange) {
@@ -24902,7 +24902,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     props.onChange();
     if (props.foo.onChange) {
@@ -24917,7 +24917,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   const [skillsCount] = useState();
   useEffect(() {
     if (skillsCount == 0 && !props.isEditMode) {
@@ -24934,7 +24934,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [skillsCount, props.isEditMode, props.toggleEditMode, props]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   const [skillsCount] = useState();
   useEffect(() {
     if (skillsCount == 0 && !props.isEditMode) {
@@ -24949,7 +24949,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   const [skillsCount] = useState();
   useEffect(() {
     if (skillsCount == 0 && !props.isEditMode) {
@@ -24966,7 +24966,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [props, skillsCount]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   const [skillsCount] = useState();
   useEffect(() {
     if (skillsCount == 0 && !props.isEditMode) {
@@ -24981,7 +24981,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     externalCall(props);
     props.onChange();
@@ -24995,7 +24995,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     externalCall(props);
     props.onChange();
@@ -25008,7 +25008,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     props.onChange();
     externalCall(props);
@@ -25022,7 +25022,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [props]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     props.onChange();
     externalCall(props);
@@ -25035,7 +25035,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var value;
   var value2;
   var value3;
@@ -25080,7 +25080,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var value;
   var value2;
   var value3;
@@ -25116,7 +25116,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final myRef = useRef();
   useEffect(() {
     final handleMove = () {};
@@ -25135,7 +25135,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final myRef = useRef();
   useEffect(() {
     final handleMove = () {};
@@ -25154,7 +25154,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final myRef = useRef();
   useEffect(() {
     final handleMove = () {};
@@ -25236,7 +25236,7 @@ useMyThing(myRef, active) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final myRef = useRef();
   useLayoutEffect_SAFE_FOR_SSR(() {
     final handleMove = () {};
@@ -25246,7 +25246,7 @@ final MyComponent = uiFunction((_) {
   return <div ref={myRef} />;
 }, null);''',
         'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final myRef = useRef();
   useLayoutEffect_SAFE_FOR_SSR(() {
     final handleMove = () {};
@@ -25266,7 +25266,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local1 = 42;
   final local2 = '42';
   final local3 = null;
@@ -25287,7 +25287,7 @@ final MyComponent = uiFunction((_) {
                 'desc':
                     'Update the dependencies array to be: [local1, local3, local4]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local1 = 42;
   final local2 = '42';
   final local3 = null;
@@ -25306,7 +25306,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   useEffect(() {
     window.scrollTo(0, 0);
   }, [window]);
@@ -25319,7 +25319,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: []',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   useEffect(() {
     window.scrollTo(0, 0);
   }, []);
@@ -25332,7 +25332,7 @@ final MyComponent = uiFunction((_) {
       {
         'code': /*language=dart*/ r'''
 import MutableStore from 'store';
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   useEffect(() {
     print(MutableStore.hello);
   }, [MutableStore.hello]);
@@ -25346,7 +25346,7 @@ final MyComponent = uiFunction((_) {
                 'desc': 'Update the dependencies array to be: []',
                 'output': /*language=dart*/ r'''
 import MutableStore from 'store';
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   useEffect(() {
     print(MutableStore.hello);
   }, []);
@@ -25360,7 +25360,7 @@ final MyComponent = uiFunction((_) {
         'code': /*language=dart*/ r'''
 import MutableStore from 'store';
 var z = {};
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var x = props.foo;
   {
     var y = props.bar;
@@ -25380,7 +25380,7 @@ final MyComponent = uiFunction((props) {
                 'output': /*language=dart*/ r'''
 import MutableStore from 'store';
 var z = {};
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var x = props.foo;
   {
     var y = props.bar;
@@ -25398,7 +25398,7 @@ final MyComponent = uiFunction((props) {
         'code': /*language=dart*/ r'''
 import MutableStore from 'store';
 var z = {};
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var x = props.foo;
   {
     var y = props.bar;
@@ -25418,7 +25418,7 @@ final MyComponent = uiFunction((props) {
                 'output': /*language=dart*/ r'''
 import MutableStore from 'store';
 var z = {};
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var x = props.foo;
   {
     var y = props.bar;
@@ -25436,7 +25436,7 @@ final MyComponent = uiFunction((props) {
         'code': /*language=dart*/ r'''
 import MutableStore from 'store';
 var z = {};
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var x = props.foo;
   {
     var y = props.bar;
@@ -25455,7 +25455,7 @@ final MyComponent = uiFunction((props) {
                 'output': /*language=dart*/ r'''
 import MutableStore from 'store';
 var z = {};
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var x = props.foo;
   {
     var y = props.bar;
@@ -25473,7 +25473,7 @@ final MyComponent = uiFunction((props) {
         'code': /*language=dart*/ r'''
 import MutableStore from 'store';
 var z = {};
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var x = props.foo;
   {
     var y = props.bar;
@@ -25492,7 +25492,7 @@ final MyComponent = uiFunction((props) {
                 'output': /*language=dart*/ r'''
 import MutableStore from 'store';
 var z = {};
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var x = props.foo;
   {
     var y = props.bar;
@@ -25508,7 +25508,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var state = useState();
   var dispatch = over_react.useReducer();
   var taint = props.foo;
@@ -25543,7 +25543,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [handleNext1]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var state = useState();
   var dispatch = over_react.useReducer();
   var taint = props.foo;
@@ -25580,7 +25580,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [handleNext2]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var state = useState();
   var dispatch = over_react.useReducer();
   var taint = props.foo;
@@ -25617,7 +25617,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [handleNext3]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var state = useState();
   var dispatch = over_react.useReducer();
   var taint = props.foo;
@@ -25651,7 +25651,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var state = useState();
   var dispatch = over_react.useReducer();
   var taint = props.foo;
@@ -25688,7 +25688,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [handleNext1]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var state = useState();
   var dispatch = over_react.useReducer();
   var taint = props.foo;
@@ -25727,7 +25727,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [handleNext2]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var state = useState();
   var dispatch = over_react.useReducer();
   var taint = props.foo;
@@ -25766,7 +25766,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [handleNext3]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var state = useState();
   var dispatch = over_react.useReducer();
   var taint = props.foo;
@@ -25802,7 +25802,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var state = useState();
   var dispatch = over_react.useReducer();
   var taint = props.foo;
@@ -25839,7 +25839,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [handleNext1]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var state = useState();
   var dispatch = over_react.useReducer();
   var taint = props.foo;
@@ -25878,7 +25878,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [handleNext2]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var state = useState();
   var dispatch = over_react.useReducer();
   var taint = props.foo;
@@ -25917,7 +25917,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [handleNext3]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var state = useState();
   var dispatch = over_react.useReducer();
   var taint = props.foo;
@@ -25953,7 +25953,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var state = useState();
   handleNext(value) {
     state.set(value);
@@ -25972,7 +25972,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var state = useState();
   final handleNext = (value) {
     state.set(value);
@@ -25991,7 +25991,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var state = useState();
   final handleNext = (value) {
     state.set(value);
@@ -26010,7 +26010,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Wrap the definition of \'handleNext\' in its own useCallback() Hook.',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var state = useState();
   final handleNext = useCallback((value) {
     state.set(value);
@@ -26027,7 +26027,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   handleNext1() {
     print('hello');
   }
@@ -26067,7 +26067,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   handleNext1() {
     print('hello');
   }
@@ -26110,7 +26110,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   handleNext1() {
     print('hello');
   }
@@ -26158,7 +26158,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Wrap the definition of \'handleNext2\' in its own useCallback() Hook.',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   handleNext1() {
     print('hello');
   }
@@ -26203,7 +26203,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Wrap the definition of \'handleNext3\' in its own useCallback() Hook.',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   handleNext1() {
     print('hello');
   }
@@ -26244,7 +26244,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final handleNext1 = () {
     print('hello');
   };
@@ -26269,7 +26269,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Wrap the definition of \'handleNext1\' in its own useCallback() Hook.',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final handleNext1 = useCallback(() {
     print('hello');
   });
@@ -26296,7 +26296,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Wrap the definition of \'handleNext1\' in its own useCallback() Hook.',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   final handleNext1 = useCallback(() {
     print('hello');
   });
@@ -26329,7 +26329,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var handleNext = () {
     print('hello');
   };
@@ -26351,7 +26351,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Wrap the definition of \'handleNext\' in its own useCallback() Hook.',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var handleNext = useCallback(() {
     print('hello');
   });
@@ -26371,7 +26371,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var state = useState();
   var taint = props.foo;
   handleNext(value) {
@@ -26393,7 +26393,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final Counter = uiFunction((_) {
+final Counter = uiFunction<TestProps>((_) {
   var count = useState(0);
   useEffect(() {
     var id = setInterval(() {
@@ -26411,7 +26411,7 @@ final Counter = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [count]',
                 'output': /*language=dart*/ r'''
-final Counter = uiFunction((_) {
+final Counter = uiFunction<TestProps>((_) {
   var count = useState(0);
   useEffect(() {
     var id = setInterval(() {
@@ -26428,7 +26428,7 @@ final Counter = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Counter = uiFunction((_) {
+final Counter = uiFunction<TestProps>((_) {
   var count = useState(0);
   var increment = useState(0);
   useEffect(() {
@@ -26448,7 +26448,7 @@ final Counter = uiFunction((_) {
                 'desc':
                     'Update the dependencies array to be: [count, increment]',
                 'output': /*language=dart*/ r'''
-final Counter = uiFunction((_) {
+final Counter = uiFunction<TestProps>((_) {
   var count = useState(0);
   var increment = useState(0);
   useEffect(() {
@@ -26466,7 +26466,7 @@ final Counter = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Counter = uiFunction((_) {
+final Counter = uiFunction<TestProps>((_) {
   var count = useState(0);
   var increment = useState(0);
   useEffect(() {
@@ -26485,7 +26485,7 @@ final Counter = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [increment]',
                 'output': /*language=dart*/ r'''
-final Counter = uiFunction((_) {
+final Counter = uiFunction<TestProps>((_) {
   var count = useState(0);
   var increment = useState(0);
   useEffect(() {
@@ -26503,7 +26503,7 @@ final Counter = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Counter = uiFunction((_) {
+final Counter = uiFunction<TestProps>((_) {
   var count = useState(0);
   var increment = useCustomHook();
   useEffect(() {
@@ -26522,7 +26522,7 @@ final Counter = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [increment]',
                 'output': /*language=dart*/ r'''
-final Counter = uiFunction((_) {
+final Counter = uiFunction<TestProps>((_) {
   var count = useState(0);
   var increment = useCustomHook();
   useEffect(() {
@@ -26540,7 +26540,7 @@ final Counter = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Counter = uiFunction((props) {
+final Counter = uiFunction<TestProps>((props) {
   var step = props.step;
 
   var count = useState(0);
@@ -26563,7 +26563,7 @@ final Counter = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [increment]',
                 'output': /*language=dart*/ r'''
-final Counter = uiFunction((props) {
+final Counter = uiFunction<TestProps>((props) {
   var step = props.step;
 
   var count = useState(0);
@@ -26585,7 +26585,7 @@ final Counter = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final Counter = uiFunction((props) {
+final Counter = uiFunction<TestProps>((props) {
   var step = props.step;
 
   var count = useState(0);
@@ -26610,7 +26610,7 @@ final Counter = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final Counter = uiFunction((props) {
+final Counter = uiFunction<TestProps>((props) {
   var increment = props.increment;
 
   var count = useState(0);
@@ -26630,7 +26630,7 @@ final Counter = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [increment]',
                 'output': /*language=dart*/ r'''
-final Counter = uiFunction((props) {
+final Counter = uiFunction<TestProps>((props) {
   var increment = props.increment;
 
   var count = useState(0);
@@ -26649,7 +26649,7 @@ final Counter = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final Counter = uiFunction((_) {
+final Counter = uiFunction<TestProps>((_) {
   var count = useState(0);
   tick() {
     count.set(count.value + 1);
@@ -26670,7 +26670,7 @@ final Counter = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [tick]',
                 'output': /*language=dart*/ r'''
-final Counter = uiFunction((_) {
+final Counter = uiFunction<TestProps>((_) {
   var count = useState(0);
   tick() {
     count.set(count.value + 1);
@@ -26690,7 +26690,7 @@ final Counter = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Podcasts = uiFunction((_) {
+final Podcasts = uiFunction<TestProps>((_) {
   useEffect(() {
     alert(podcasts.value);
   }, []);
@@ -26704,7 +26704,7 @@ final Podcasts = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [podcasts]',
                 'output': /*language=dart*/ r'''
-final Podcasts = uiFunction((_) {
+final Podcasts = uiFunction<TestProps>((_) {
   useEffect(() {
     alert(podcasts.value);
   }, [podcasts.value]);
@@ -26717,7 +26717,7 @@ final Podcasts = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Podcasts = uiFunction((props) {
+final Podcasts = uiFunction<TestProps>((props) {
   var fetchPodcasts = props.fetchPodcasts;
   var id = props.id;
 
@@ -26735,7 +26735,7 @@ final Podcasts = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [fetchPodcasts, id]',
                 'output': /*language=dart*/ r'''
-final Podcasts = uiFunction((props) {
+final Podcasts = uiFunction<TestProps>((props) {
   var fetchPodcasts = props.fetchPodcasts;
   var id = props.id;
 
@@ -26751,7 +26751,7 @@ final Podcasts = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final Podcasts = uiFunction(({ api: { fetchPodcasts }, id }) {
+final Podcasts = uiFunction<TestProps>(({ api: { fetchPodcasts }, id }) {
   var podcasts = useState(null);
   useEffect(() {
     fetchPodcasts(id).then(podcasts.set);
@@ -26766,7 +26766,7 @@ final Podcasts = uiFunction(({ api: { fetchPodcasts }, id }) {
                 'desc':
                     'Update the dependencies array to be: [fetchPodcasts, id]',
                 'output': /*language=dart*/ r'''
-final Podcasts = uiFunction(({ api: { fetchPodcasts }, id }) {
+final Podcasts = uiFunction<TestProps>(({ api: { fetchPodcasts }, id }) {
   var podcasts = useState(null);
   useEffect(() {
     fetchPodcasts(id).then(podcasts.set);
@@ -26779,7 +26779,7 @@ final Podcasts = uiFunction(({ api: { fetchPodcasts }, id }) {
       },
       {
         'code': /*language=dart*/ r'''
-final Podcasts = uiFunction((props) {
+final Podcasts = uiFunction<TestProps>((props) {
   var fetchPodcasts = props.fetchPodcasts;
   var fetchPodcasts2 = props.fetchPodcasts2;
   var id = props.id;
@@ -26802,7 +26802,7 @@ final Podcasts = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [fetchPodcasts, fetchPodcasts2, id]',
                 'output': /*language=dart*/ r'''
-final Podcasts = uiFunction((props) {
+final Podcasts = uiFunction<TestProps>((props) {
   var fetchPodcasts = props.fetchPodcasts;
   var fetchPodcasts2 = props.fetchPodcasts2;
   var id = props.id;
@@ -26823,7 +26823,7 @@ final Podcasts = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final Podcasts = uiFunction((props) {
+final Podcasts = uiFunction<TestProps>((props) {
   var fetchPodcasts = props.fetchPodcasts;
   var id = props.id;
 
@@ -26842,7 +26842,7 @@ final Podcasts = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [fetchPodcasts, id]',
                 'output': /*language=dart*/ r'''
-final Podcasts = uiFunction((props) {
+final Podcasts = uiFunction<TestProps>((props) {
   var fetchPodcasts = props.fetchPodcasts;
   var id = props.id;
 
@@ -26859,7 +26859,7 @@ final Podcasts = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final Podcasts = uiFunction((props) {
+final Podcasts = uiFunction<TestProps>((props) {
   var fetchPodcasts = props.fetchPodcasts;
   var id = props.id;
 
@@ -26878,7 +26878,7 @@ final Podcasts = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [fetchPodcasts, id]',
                 'output': /*language=dart*/ r'''
-final Podcasts = uiFunction((props) {
+final Podcasts = uiFunction<TestProps>((props) {
   var fetchPodcasts = props.fetchPodcasts;
   var id = props.id;
 
@@ -26895,7 +26895,7 @@ final Podcasts = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final Thing = uiFunction((_) {
+final Thing = uiFunction<TestProps>((_) {
   useEffect(() {
     final fetchData = () async {};
     fetchData();
@@ -26909,7 +26909,7 @@ final Thing = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: []',
                 'output': /*language=dart*/ r'''
-final Thing = uiFunction((_) {
+final Thing = uiFunction<TestProps>((_) {
   useEffect(() {
     final fetchData = () async {};
     fetchData();
@@ -26922,7 +26922,7 @@ final Thing = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Hello = uiFunction((_) {
+final Hello = uiFunction<TestProps>((_) {
   var state = useState(0);
   useEffect(() {
     state.set({});
@@ -26936,7 +26936,7 @@ final Hello = uiFunction((_) {
               {
                 'desc': 'Add dependencies array: []',
                 'output': /*language=dart*/ r'''
-final Hello = uiFunction((_) {
+final Hello = uiFunction<TestProps>((_) {
   var state = useState(0);
   useEffect(() {
     state.set({});
@@ -26949,7 +26949,7 @@ final Hello = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Hello = uiFunction((_) {
+final Hello = uiFunction<TestProps>((_) {
   var data = useState(0);
   useEffect(() {
     fetchData.then(data.set);
@@ -26963,7 +26963,7 @@ final Hello = uiFunction((_) {
               {
                 'desc': 'Add dependencies array: []',
                 'output': /*language=dart*/ r'''
-final Hello = uiFunction((_) {
+final Hello = uiFunction<TestProps>((_) {
   var data = useState(0);
   useEffect(() {
     fetchData.then(data.set);
@@ -26976,7 +26976,7 @@ final Hello = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Hello = uiFunction((props) {
+final Hello = uiFunction<TestProps>((props) {
   var country = props.country;
 
   var data = useState(0);
@@ -26992,7 +26992,7 @@ final Hello = uiFunction((props) {
               {
                 'desc': 'Add dependencies array: [country]',
                 'output': /*language=dart*/ r'''
-final Hello = uiFunction((props) {
+final Hello = uiFunction<TestProps>((props) {
   var country = props.country;
 
   var data = useState(0);
@@ -27007,7 +27007,7 @@ final Hello = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final Hello = uiFunction((props) {
+final Hello = uiFunction<TestProps>((props) {
   var prop1 = props.prop1;
   var prop2 = props.prop2;
 
@@ -27026,7 +27026,7 @@ final Hello = uiFunction((props) {
               {
                 'desc': 'Add dependencies array: [prop1, prop2]',
                 'output': /*language=dart*/ r'''
-final Hello = uiFunction((props) {
+final Hello = uiFunction<TestProps>((props) {
   var prop1 = props.prop1;
   var prop2 = props.prop2;
 
@@ -27044,7 +27044,7 @@ final Hello = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final Thing = uiFunction((_) {
+final Thing = uiFunction<TestProps>((_) {
   useEffect(() async {}, []);
 }, null);''',
         'errors': [
@@ -27068,7 +27068,7 @@ Learn more about data fetching with Hooks: https://reactjs.org/link/hooks-data-f
       },
       {
         'code': /*language=dart*/ r'''
-final Thing = uiFunction((_) {
+final Thing = uiFunction<TestProps>((_) {
   useEffect(() async {});
 }, null);''',
         'errors': [
@@ -27092,7 +27092,7 @@ Learn more about data fetching with Hooks: https://reactjs.org/link/hooks-data-f
       },
       {
         'code': /*language=dart*/ r'''
-final Example = uiFunction((_) {
+final Example = uiFunction<TestProps>((_) {
   final foo = useCallback(() {
     foo();
   }, [foo]);
@@ -27105,7 +27105,7 @@ final Example = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: []',
                 'output': /*language=dart*/ r'''
-final Example = uiFunction((_) {
+final Example = uiFunction<TestProps>((_) {
   final foo = useCallback(() {
     foo();
   }, []);
@@ -27117,7 +27117,7 @@ final Example = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Example = uiFunction((props) {
+final Example = uiFunction<TestProps>((props) {
   var prop = props.prop;
 
   final foo = useCallback(() {
@@ -27135,7 +27135,7 @@ final Example = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [prop]',
                 'output': /*language=dart*/ r'''
-final Example = uiFunction((props) {
+final Example = uiFunction<TestProps>((props) {
   var prop = props.prop;
 
   final foo = useCallback(() {
@@ -27152,7 +27152,7 @@ final Example = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   myEffect() {
     print(local);
@@ -27167,7 +27167,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   myEffect() {
     print(local);
@@ -27181,7 +27181,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   final myEffect = () {
     print(local);
@@ -27196,7 +27196,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   final myEffect = () {
     print(local);
@@ -27210,7 +27210,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   final myEffect = () {
     print(local);
@@ -27225,7 +27225,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   final myEffect = () {
     print(local);
@@ -27239,7 +27239,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   final myEffect = () {
     otherThing();
@@ -27257,7 +27257,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [otherThing]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   final myEffect = () {
     otherThing();
@@ -27274,7 +27274,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   final myEffect = debounce(() {
     print(local);
@@ -27289,7 +27289,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [myEffect]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   final myEffect = debounce(() {
     print(local);
@@ -27303,7 +27303,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   final myEffect = debounce(() {
     print(local);
@@ -27318,7 +27318,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [myEffect]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   final myEffect = debounce(() {
     print(local);
@@ -27332,7 +27332,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var myEffect = props.myEffect;
 
   useEffect(myEffect, []);
@@ -27345,7 +27345,7 @@ final MyComponent = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [myEffect]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var myEffect = props.myEffect;
 
   useEffect(myEffect, [myEffect]);
@@ -27357,7 +27357,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   useEffect(debounce(() {
     print(local);
@@ -27373,14 +27373,14 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   useEffect(() {
     print(local);
   }, []);
 }, null);''',
         'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {};
   useEffect(() {
     print(local);
@@ -27400,7 +27400,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var foo = {}
   useEffect(() {
     foo.bar.baz = 43;
@@ -27416,7 +27416,7 @@ final MyComponent = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [foo.bar, props.foo.bar]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((props) {
+final MyComponent = uiFunction<TestProps>((props) {
   var foo = {}
   useEffect(() {
     foo.bar.baz = 43;
@@ -27430,7 +27430,7 @@ final MyComponent = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final Component = uiFunction((_) {
+final Component = uiFunction<TestProps>((_) {
   final foo = {};
   useMemo(() => foo, [foo]);
 }, null);''',
@@ -27444,7 +27444,7 @@ final Component = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Component = uiFunction((_) {
+final Component = uiFunction<TestProps>((_) {
   final foo = [];
   useMemo(() => foo, [foo]);
 }, null);''',
@@ -27458,7 +27458,7 @@ final Component = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Component = uiFunction((_) {
+final Component = uiFunction<TestProps>((_) {
   final foo = () {};
   useMemo(() => foo, [foo]);
 }, null);''',
@@ -27472,7 +27472,7 @@ final Component = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Component = uiFunction((_) {
+final Component = uiFunction<TestProps>((_) {
   final foo = bar(){};
   useMemo(() => foo, [foo]);
 }, null);''',
@@ -27486,7 +27486,7 @@ final Component = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Component = uiFunction((_) {
+final Component = uiFunction<TestProps>((_) {
   final foo = class {};
   useMemo(() => foo, [foo]);
 }, null);''',
@@ -27500,7 +27500,7 @@ final Component = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Component = uiFunction((_) {
+final Component = uiFunction<TestProps>((_) {
   final foo = true ? {} : "fine";
   useMemo(() => foo, [foo]);
 }, null);''',
@@ -27514,7 +27514,7 @@ final Component = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Component = uiFunction((_) {
+final Component = uiFunction<TestProps>((_) {
   final foo = bar || {};
   useMemo(() => foo, [foo]);
 }, null);''',
@@ -27528,7 +27528,7 @@ final Component = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Component = uiFunction((_) {
+final Component = uiFunction<TestProps>((_) {
   final foo = bar ?? {};
   useMemo(() => foo, [foo]);
 }, null);''',
@@ -27542,7 +27542,7 @@ final Component = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Component = uiFunction((_) {
+final Component = uiFunction<TestProps>((_) {
   final foo = bar && {};
   useMemo(() => foo, [foo]);
 }, null);''',
@@ -27556,7 +27556,7 @@ final Component = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Component = uiFunction((_) {
+final Component = uiFunction<TestProps>((_) {
   final foo = bar ? baz ? {} : null : null;
   useMemo(() => foo, [foo]);
 }, null);''',
@@ -27570,7 +27570,7 @@ final Component = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Component = uiFunction((_) {
+final Component = uiFunction<TestProps>((_) {
   var foo = {};
   useMemo(() => foo, [foo]);
 }, null);''',
@@ -27584,7 +27584,7 @@ final Component = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Component = uiFunction((_) {
+final Component = uiFunction<TestProps>((_) {
   var foo = {};
   useMemo(() => foo, [foo]);
 }, null);''',
@@ -27598,7 +27598,7 @@ final Component = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Component = uiFunction((_) {
+final Component = uiFunction<TestProps>((_) {
   final foo = {};
   useCallback(() {
     print(foo);
@@ -27614,7 +27614,7 @@ final Component = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Component = uiFunction((_) {
+final Component = uiFunction<TestProps>((_) {
   final foo = {};
   useEffect(() {
     print(foo);
@@ -27630,7 +27630,7 @@ final Component = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Component = uiFunction((_) {
+final Component = uiFunction<TestProps>((_) {
   final foo = {};
   useLayoutEffect(() {
     print(foo);
@@ -27646,7 +27646,7 @@ final Component = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Component = uiFunction((_) {
+final Component = uiFunction<TestProps>((_) {
   final foo = {};
   useImperativeHandle(
     ref,
@@ -27666,7 +27666,7 @@ final Component = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Foo = uiFunction((section) {
+final Foo = uiFunction<TestProps>((section) {
   final foo = section.section_components?.edges ?? [];
   useEffect(() {
     print(foo);
@@ -27682,7 +27682,7 @@ final Foo = uiFunction((section) {
       },
       {
         'code': /*language=dart*/ r'''
-final Foo = uiFunction((section) {
+final Foo = uiFunction<TestProps>((section) {
   final foo = {};
   print(foo);
   useMemo(() {
@@ -27699,7 +27699,7 @@ final Foo = uiFunction((section) {
       },
       {
         'code': /*language=dart*/ r'''
-final Foo = uiFunction((_) {
+final Foo = uiFunction<TestProps>((_) {
   final foo = <>Hi!</>;
   useMemo(() {
     print(foo);
@@ -27715,7 +27715,7 @@ final Foo = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Foo = uiFunction((_) {
+final Foo = uiFunction<TestProps>((_) {
   final foo = <div>Hi!</div>;
   useMemo(() {
     print(foo);
@@ -27731,7 +27731,7 @@ final Foo = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Foo = uiFunction((_) {
+final Foo = uiFunction<TestProps>((_) {
   final foo = bar = {};
   useMemo(() {
     print(foo);
@@ -27747,7 +27747,7 @@ final Foo = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Foo = uiFunction((_) {
+final Foo = uiFunction<TestProps>((_) {
   final foo = new String('foo'); // Note 'foo' will be boxed, and thus an object and thus compared by reference.
   useMemo(() {
     print(foo);
@@ -27763,7 +27763,7 @@ final Foo = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Foo = uiFunction((_) {
+final Foo = uiFunction<TestProps>((_) {
   final foo = new Map([]);
   useMemo(() {
     print(foo);
@@ -27779,7 +27779,7 @@ final Foo = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Foo = uiFunction((_) {
+final Foo = uiFunction<TestProps>((_) {
   final foo = /reg/;
   useMemo(() {
     print(foo);
@@ -27795,7 +27795,7 @@ final Foo = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Foo = uiFunction((_) {
+final Foo = uiFunction<TestProps>((_) {
   class Bar {};
   useMemo(() {
     print(new Bar());
@@ -27811,7 +27811,7 @@ final Foo = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Foo = uiFunction((_) {
+final Foo = uiFunction<TestProps>((_) {
   final foo = {};
   useLayoutEffect(() {
     print(foo);
@@ -27839,7 +27839,7 @@ final Foo = uiFunction((_) {
     'valid': [
       {
         'code': /*language=dart*/ r'''
-final Example = uiFunction((props) {
+final Example = uiFunction<TestProps>((props) {
   var prop = props.prop;
 
   final bar = useEffect(<T>(a: T): (Hello) {
@@ -27851,7 +27851,7 @@ final Example = uiFunction((props) {
     'invalid': [
       {
         'code': /*language=dart*/ r'''
-final Foo = uiFunction((_) {
+final Foo = uiFunction<TestProps>((_) {
   final foo = ({}: any);
   useMemo(() {
     print(foo);
@@ -27871,7 +27871,7 @@ final Foo = uiFunction((_) {
     'valid': [
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final ref = useRef() as over_react.MutableRefObject<HTMLDivElement>;
   useEffect(() {
     print(ref.current);
@@ -27880,7 +27880,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   var state = over_react.useState<number>(0);
   useEffect(() {
     final someNumber: typeof state.value = 2;
@@ -27890,7 +27890,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final App = uiFunction((_) {
+final App = uiFunction<TestProps>((_) {
   final foo = {x: 1};
   over_react.useEffect(() {
     final bar = {x: 2};
@@ -27903,7 +27903,7 @@ final App = uiFunction((_) {
     'invalid': [
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {} as string;
   useEffect(() {
     print(local);
@@ -27917,7 +27917,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [local]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final local = {} as string;
   useEffect(() {
     print(local);
@@ -27930,7 +27930,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final App = uiFunction((_) {
+final App = uiFunction<TestProps>((_) {
   final foo = {x: 1};
   final bar = {x: 2};
   useEffect(() {
@@ -27946,7 +27946,7 @@ final App = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [bar]',
                 'output': /*language=dart*/ r'''
-final App = uiFunction((_) {
+final App = uiFunction<TestProps>((_) {
   final foo = {x: 1};
   final bar = {x: 2};
   useEffect(() {
@@ -27961,7 +27961,7 @@ final App = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final pizza = {};
   useEffect(() => ({
     crust: pizza.crust,
@@ -27977,7 +27977,7 @@ final MyComponent = uiFunction((_) {
                 'desc':
                     'Update the dependencies array to be: [pizza.crust, pizza?.toppings]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final pizza = {};
   useEffect(() => ({
     crust: pizza.crust,
@@ -27991,7 +27991,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final pizza = {};
   useEffect(() => ({
     crust: pizza?.crust,
@@ -28006,7 +28006,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [pizza.crust]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final pizza = {};
   useEffect(() => ({
     crust: pizza?.crust,
@@ -28020,7 +28020,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final pizza = {};
   useEffect(() => ({
     crust: pizza.crust,
@@ -28035,7 +28035,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [pizza.crust]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final pizza = {};
   useEffect(() => ({
     crust: pizza.crust,
@@ -28049,7 +28049,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final pizza = {};
   useEffect(() => ({
     crust: pizza?.crust,
@@ -28064,7 +28064,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [pizza?.crust]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   final pizza = {};
   useEffect(() => ({
     crust: pizza?.crust,
@@ -28078,7 +28078,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Example = uiFunction((props) {
+final Example = uiFunction<TestProps>((props) {
   useEffect(() {
     var topHeight = 0;
     topHeight = props.upperViewHeight;
@@ -28093,7 +28093,7 @@ final Example = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [props.upperViewHeight]',
                 'output': /*language=dart*/ r'''
-final Example = uiFunction((props) {
+final Example = uiFunction<TestProps>((props) {
   useEffect(() {
     var topHeight = 0;
     topHeight = props.upperViewHeight;
@@ -28106,7 +28106,7 @@ final Example = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final Example = uiFunction((props) {
+final Example = uiFunction<TestProps>((props) {
   useEffect(() {
     var topHeight = 0;
     topHeight = props?.upperViewHeight;
@@ -28121,7 +28121,7 @@ final Example = uiFunction((props) {
                 'desc':
                     'Update the dependencies array to be: [props?.upperViewHeight]',
                 'output': /*language=dart*/ r'''
-final Example = uiFunction((props) {
+final Example = uiFunction<TestProps>((props) {
   useEffect(() {
     var topHeight = 0;
     topHeight = props?.upperViewHeight;
@@ -28134,7 +28134,7 @@ final Example = uiFunction((props) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   var state = over_react.useState<number>(0);
   useEffect(() {
     final someNumber: typeof state.value = 2;
@@ -28149,7 +28149,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: [state]',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   var state = over_react.useState<number>(0);
   useEffect(() {
     final someNumber: typeof state.value = 2;
@@ -28163,7 +28163,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   var state = over_react.useState<number>(0);
   useMemo(() {
     final someNumber: typeof state.value = 2;
@@ -28178,7 +28178,7 @@ final MyComponent = uiFunction((_) {
               {
                 'desc': 'Update the dependencies array to be: []',
                 'output': /*language=dart*/ r'''
-final MyComponent = uiFunction((_) {
+final MyComponent = uiFunction<TestProps>((_) {
   var state = over_react.useState<number>(0);
   useMemo(() {
     final someNumber: typeof state.value = 2;
@@ -28192,7 +28192,7 @@ final MyComponent = uiFunction((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Foo = uiFunction((_) {
+final Foo = uiFunction<TestProps>((_) {
   final foo = {} as any;
   useMemo(() {
     print(foo);
@@ -28213,7 +28213,7 @@ final Foo = uiFunction((_) {
     'invalid': [
       {
         'code': /*language=dart*/ r'''
-final Foo = uiFunction((props) {
+final Foo = uiFunction<TestProps>((props) {
   var Component = props.Component;
 
   over_react.useEffect(() {
@@ -28228,7 +28228,7 @@ final Foo = uiFunction((props) {
               {
                 'desc': 'Update the dependencies array to be: [Component]',
                 'output': /*language=dart*/ r'''
-final Foo = uiFunction((props) {
+final Foo = uiFunction<TestProps>((props) {
   var Component = props.Component;
 
   over_react.useEffect(() {

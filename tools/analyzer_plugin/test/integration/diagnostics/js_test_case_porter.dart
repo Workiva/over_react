@@ -126,6 +126,8 @@ String portJsToDart(String code) {
         return 'uiFunction((props) {\n' + args.map((arg) => '  var $arg = props.$arg;\n').join();
       })
       .replaceAll('uiFunction(()', 'uiFunction((_)')
+      // Add type args to get props typing
+      .replaceAll('uiFunction(', 'uiFunction<TestProps>(')
       // This needs to happen after the hook conversion
       .replaceAllMapped(RegExp(r'\bconst (\w+)'), (match) => 'final ${match.group(1)}')
       .replaceAllMapped(RegExp(r'\blet (\w+)'), (match) => 'var ${match.group(1)}')
