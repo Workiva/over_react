@@ -253,13 +253,13 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
     // since hooks can only be called from the top level).
 
     // todo improve this
-    final componentFunctionBody = getClosestFunctionComponentOrHookBody(node)!;
+    final componentFunctionBody = getClosestFunctionComponentOrHookBody(node);
     assert(componentFunctionBody != null);
-    final componentFunction = componentFunctionBody.parentExpression!;
+    final componentFunction = componentFunctionBody!.parentExpression;
     assert(componentFunction != null);
     assert(componentFunction != node.thisOrAncestorOfType<FunctionExpression>());
 
-    final componentFunctionElement = componentFunction.declaredElement!;
+    final componentFunctionElement = componentFunction!.declaredElement!;
 
     debug('componentFunctionElement: ' + componentFunctionElement.debugString, componentFunction.offset);
 
