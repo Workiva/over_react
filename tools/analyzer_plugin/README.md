@@ -30,7 +30,29 @@
         - over_react
     ```
 1. Restart the Dart Analysis Server in your IDE. The plugin may take a minute to load after built-in analysis completes.
-   
+
+## Configuration
+
+The severity of specific diagnostics can optionally be adjusted in analysis_options.yaml. Individual diagnostics can also be disabled.
+
+To configure the plugin, add a `over_react` key to analysis_options.yaml:
+```yaml
+analyzer:
+  plugins:
+    - over_react
+
+over_react:
+  errors:
+    over_react_boilerplate_error: error
+    over_react_incorrect_doc_comment_location: warning
+    over_react_unnecessary_key: info
+    over_react_pseudo_static_lifecycle: ignore
+```
+
+In the example above, the first three diagnostics are adjusted to have severities of `error`, `warning`, and `info`. The final diagnostic is disabled.
+
+If a diagnostic is not listed in the analysis_options.yaml, it's default severity will be used.
+
 ## Repo Structure
 
 See the [analyzer_plugin package structure documentation][analyzer_plugin_package_structure] for terminology and more info.
