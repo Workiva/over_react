@@ -1,12 +1,14 @@
 import 'package:over_react_analyzer_plugin/src/analysis_options/plugin_analysis_options.dart';
 import 'package:yaml/yaml.dart';
 
+/// Parses the given yaml and returns over react analyzer plugin configuration options.
 PluginAnalysisOptions? processAnalysisOptionsFile(String fileContents) {
   final yaml = loadYamlNode(fileContents);
   if (yaml is YamlMap) {
     return _parseAnalysisOptions(yaml);
   }
 
+  // If the file isn't a map, return null
   return null;
 }
 
@@ -17,6 +19,7 @@ PluginAnalysisOptions? _parseAnalysisOptions(YamlMap yaml) {
     return PluginAnalysisOptions(errors: errors);
   }
 
+  // If there is no `over_react` key in the yaml file, return null.
   return null;
 }
 
@@ -25,6 +28,8 @@ Map<String, AnalysisOptionsSeverity> _parseErrors(YamlMap overReact) {
   if (errors is YamlMap) {
     return _yamlMapToDartMap(errors);
   }
+
+  // If there is no `errors` key under the `over_react` key, an empty error map.
   return {};
 }
 

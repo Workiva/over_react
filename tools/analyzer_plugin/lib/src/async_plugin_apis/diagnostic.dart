@@ -171,6 +171,7 @@ class _DiagnosticGenerator {
       final errorEnd = errorStart + error.location.length;
 
       if (_errorSeverityProvider.isCodeDisabled(error.code)) {
+        // This error has been disabled by configuration; skip it.
         continue;
       }
 
@@ -224,10 +225,13 @@ class _DiagnosticGenerator {
     return _GeneratorResult(filteredErrors, notifications);
   }
 
+  /// Iterates the all the errors, removing errors that have been disabled and adjusting the severity of others based on
+  /// configuration.
   List<AnalysisError> _configureErrorSeverities(List<AnalysisError> errors) {
     final configuredErrors = <AnalysisError>[];
     for (final error in errors) {
       if (_errorSeverityProvider.isCodeDisabled(error.code)) {
+        // This error has been disabled by configuration; skip it.
         continue;
       }
       _configureErrorSeverity(error);
@@ -237,6 +241,7 @@ class _DiagnosticGenerator {
     return configuredErrors;
   }
 
+  /// Adjusts the severity of the given error based on configuration.
   void _configureErrorSeverity(AnalysisError error) {
     if (_errorSeverityProvider.isCodeConfigured(error.code)) {
       final severity = _errorSeverityProvider.severityForCode(error.code);
