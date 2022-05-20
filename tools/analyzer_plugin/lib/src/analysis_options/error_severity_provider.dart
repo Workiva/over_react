@@ -2,7 +2,7 @@ import 'package:over_react_analyzer_plugin/src/async_plugin_apis/error_severity_
 import 'package:over_react_analyzer_plugin/src/analysis_options/plugin_analysis_options.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 
-/// Provider of lint configuration options based on the given [PluginAnalysisOptions].
+/// Provider of configuration options based on the given [PluginAnalysisOptions].
 class AnalysisOptionsErrorSeverityProvider implements ErrorSeverityProvider {
   final PluginAnalysisOptions? _analysisOption;
 
