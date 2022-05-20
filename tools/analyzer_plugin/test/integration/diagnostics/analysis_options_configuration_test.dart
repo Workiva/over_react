@@ -69,8 +69,7 @@ void main() {
 class AnalysisOptionsConfigurationTest extends ServerPluginContributorTestBase {
   final String _yamlContents;
 
-  AnalysisOptionsConfigurationTest({String yamlContents})
-      : _yamlContents = yamlContents;
+  AnalysisOptionsConfigurationTest({String yamlContents}) : _yamlContents = yamlContents;
 
   @override
   String get analysisOptionsYamlContents => _yamlContents;
@@ -88,7 +87,6 @@ over_react:
   errors:
     over_react_boilerplate_error: error''';
 
-
 const yamlWarn = '''analyzer:
   plugins:
     over_react
@@ -96,7 +94,6 @@ const yamlWarn = '''analyzer:
 over_react:
   errors:
     over_react_boilerplate_error: warning''';
-
 
 const yamlInfo = '''analyzer:
   plugins:
