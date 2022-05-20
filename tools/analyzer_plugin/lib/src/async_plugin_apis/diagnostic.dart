@@ -215,12 +215,15 @@ class _DiagnosticGenerator {
       }
     }
 
-    // The analyzer normally filters out errors with "ignore" comments,
-    // but it doesn't do it for plugin errors, so we need to do that here.
-    var filteredErrors = filterIgnores(
-        collector.errors, unitResult.lineInfo, () => IgnoreInfo.forDart(unitResult.unit!, unitResult.content!));
-
-    filteredErrors = _configureErrorSeverities(filteredErrors);
+    final filteredErrors = _configureErrorSeverities(
+      // The analyzer normally filters out errors with "ignore" comments,
+      // but it doesn't do it for plugin errors, so we need to do that here.
+      filterIgnores(
+        collector.errors,
+        unitResult.lineInfo,
+        () => IgnoreInfo.forDart(unitResult.unit!, unitResult.content!),
+      ),
+    );
 
     return _GeneratorResult(filteredErrors, notifications);
   }
