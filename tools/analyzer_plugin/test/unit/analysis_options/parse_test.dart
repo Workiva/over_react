@@ -35,6 +35,13 @@ void main() {
       expect(options.errors['over_react_boilerplate_error'], equals(AnalysisOptionsSeverity.error));
       expect(options.errors['over_react_pseudo_static_lifecycle'], equals(AnalysisOptionsSeverity.ignore));
     });
+
+    test('with empty error list', () {
+      final options = processAnalysisOptionsFile(emptyErrorListYaml);
+      expect(options, isNotNull);
+      options!;
+      expect(options.errors, hasLength(0));
+    });
   });
 }
 
@@ -87,3 +94,15 @@ over_react:
     over_react_boilerplate_error: error
     over_react_incorrect_doc_comment_location: critical
     over_react_pseudo_static_lifecycle: ignore''';
+
+const emptyErrorListYaml = '''include: package:workiva_analysis_options/v1.recommended.yaml
+
+analyzer:
+  plugins:
+    over_react
+  errors:
+    missing_required_param: warning
+
+over_react:
+  errors:
+''';
