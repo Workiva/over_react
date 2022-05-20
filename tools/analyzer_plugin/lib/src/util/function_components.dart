@@ -57,8 +57,9 @@ FunctionComponent? getClosestFunctionComponent(AstNode node) {
 FunctionBody? getClosestFunctionComponentBody(AstNode node) =>
     node.ancestors.whereType<FunctionBody>().firstWhereOrNull(isFunctionComponent);
 
-FunctionBody? getClosestFunctionComponentOrHookBody(AstNode node) =>
-    node.ancestors.whereType<FunctionBody>().firstWhereOrNull((body) => isFunctionComponent(body) || isCustomHookFunction(body));
+FunctionBody? getClosestFunctionComponentOrHookBody(AstNode node) => node.ancestors
+    .whereType<FunctionBody>()
+    .firstWhereOrNull((body) => isFunctionComponent(body) || isCustomHookFunction(body));
 
 /// Returns whether [body] is a React function component body.
 ///

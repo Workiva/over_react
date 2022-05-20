@@ -53,7 +53,7 @@ dynamic renderHelperConfusedWithEffect(Function callback, dynamic secondArg) => 
         !{
           'unused_import',
         }.contains(error.code) &&
-            // These are intentionally undefined references
+        // These are intentionally undefined references
         !(error.code == 'undefined_identifier' && error.message.contains("Undefined name 'unresolved'."));
 
     group('test cases that should pass', () {

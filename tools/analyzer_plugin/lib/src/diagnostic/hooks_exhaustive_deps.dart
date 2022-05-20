@@ -261,11 +261,13 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
     // todo improve this
     final componentOrCustomHookFunctionBody = getClosestFunctionComponentOrHookBody(node);
     final componentOrCustomHookFunction = componentOrCustomHookFunctionBody?.parentExpression;
-    assert(componentOrCustomHookFunction == null || componentOrCustomHookFunction != node.thisOrAncestorOfType<FunctionExpression>());
+    assert(componentOrCustomHookFunction == null ||
+        componentOrCustomHookFunction != node.thisOrAncestorOfType<FunctionExpression>());
 
     final componentOrCustomHookFunctionElement = componentOrCustomHookFunction?.declaredElement;
 
-    debug('componentOrCustomHookFunctionElement: ${componentOrCustomHookFunctionElement?.debugString}', componentOrCustomHookFunction?.offset ?? 0);
+    debug('componentOrCustomHookFunctionElement: ${componentOrCustomHookFunctionElement?.debugString}',
+        componentOrCustomHookFunction?.offset ?? 0);
 
     bool isDeclaredInPureScope(Element element) =>
         element.thisOrAncestorOfType<ExecutableElement>() == componentOrCustomHookFunctionElement;
@@ -297,7 +299,9 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
     bool isStableKnownHookValue(Identifier reference) {
       // FIXME what about function declarations? are those handled elsewhere
       final referenceElement = reference.staticElement;
-      final declaration = referenceElement == null ? null : lookUpDeclaration(referenceElement, reference.root)?.tryCast<VariableDeclaration>();
+      final declaration = referenceElement == null
+          ? null
+          : lookUpDeclaration(referenceElement, reference.root)?.tryCast<VariableDeclaration>();
       if (declaration == null) return false;
 
       var init = declaration.initializer;
@@ -520,12 +524,11 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
         // TODO find root for reference element, which may be in a different AST than the reference
         for (final reference in findReferences(reference.staticElement!, reference.root)) {
           final parent = reference.parent;
-          if (
-              parent != null &&
+          if (parent != null &&
               // ref.current
               parent.tryCast<PropertyAccess>()?.propertyName.name == 'current' &&
-                  // ref.current = <something>
-                  parent.parent?.tryCast<AssignmentExpression>()?.leftHandSide == parent) {
+              // ref.current = <something>
+              parent.parent?.tryCast<AssignmentExpression>()?.leftHandSide == parent) {
             foundCurrentAssignment = true;
             break;
           }
@@ -1313,7 +1316,11 @@ class _DepTree {
   // Nodes for properties
   final Map<String, _DepTree> children;
 
-  _DepTree({required this.isUsed, required this.isSatisfiedRecursively, required this.isSubtreeUsed, required this.children});
+  _DepTree(
+      {required this.isUsed,
+      required this.isSatisfiedRecursively,
+      required this.isSubtreeUsed,
+      required this.children});
 }
 
 class _DeclaredDependency {
@@ -1553,7 +1560,7 @@ List<_Construction> scanForConstructions({
     }
     // TODO(greg) are these the same?
     final declarationElement = declaration.declaredElement ?? refElement;
-    
+
     // final handleChange = () {};
     // final foo = {};
     // final foo = [];
@@ -1622,7 +1629,11 @@ class _Construction {
   final String depType;
   final bool isUsedOutsideOfHook;
 
-  _Construction({required this.declaration, required this.declarationElement, required this.depType, required this.isUsedOutsideOfHook});
+  _Construction(
+      {required this.declaration,
+      required this.declarationElement,
+      required this.depType,
+      required this.isUsedOutsideOfHook});
 }
 
 abstract class _DepType {
