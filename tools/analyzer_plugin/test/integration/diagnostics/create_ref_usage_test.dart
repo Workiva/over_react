@@ -23,6 +23,43 @@ class CreateRefUsageDiagnosticTest extends DiagnosticTestBase {
   @override
   get fixKindUnderTest => CreateRefUsageDiagnostic.fixKind;
 
+  Future<void> test_noErrorFunction() async {
+    final source = newSource('test.dart', /*language=dart*/ r'''
+import 'package:over_react/over_react.dart';
+
+ReactElement someFunction(Map props) {
+  final ref = createRef();
+  
+  return (Dom.div()..ref = ref)();
+}
+''');
+    expect(await getAllErrors(source), isEmpty);
+  }
+
+  Future<void> test_noErrorClassComponent() async {
+    final source = newSource('test.dart', /*language=dart*/ r'''
+import 'package:over_react/over_react.dart';
+
+part 'test.over_react.g.dart';
+
+UiFactory<FooProps> Foo = castUiFactory(_$Foo); // ignore: undefined_identifier
+
+mixin FooProps on UiProps {}
+
+class FooComponent extends UiComponent2<FooProps> {
+  @override
+  get defaultProps => (newProps());
+
+  @override
+  render() {
+    final ref = createRef();
+    return (Dom.div()..ref = ref)();
+  }
+}
+''');
+    expect(await getAllErrors(source), isEmpty);
+  }
+
   Future<void> test_noErrorUseRef() async {
     final source = newSource('test.dart', /*language=dart*/ r'''
 import 'package:over_react/over_react.dart' hide createRef;
@@ -70,7 +107,7 @@ final Foo = uiFunction<FooProps>(
     final selection = createSelection(source, "#createRef#");
 
     // Verify error.
-    expect((await getAllErrors(source)).single, isAnErrorUnderTest(locatedAt: selection, hasFix: true));
+    await expectSingleErrorAt(selection);
 
     // Verify fix.
     final errorFix = await expectSingleErrorFix(selection);

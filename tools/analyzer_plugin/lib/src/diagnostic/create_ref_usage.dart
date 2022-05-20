@@ -63,25 +63,28 @@ class CreateRefUsageDiagnostic extends DiagnosticContributor {
 
   @override
   computeErrors(result, collector) async {
-    result.unit!.accept(FunctionComponentVisitor((component) async {
-      final visitor = CreateRefUsageVisitor();
-      component.body.accept(visitor);
-      for (final createRefInvocation in visitor.createRefInvocations.keys) {
-        await collector.addErrorWithFix(
-          code,
-          result.locationFor(createRefInvocation),
-          fixKind: fixKind,
-          computeFix: () => buildGenericFileEdit(result, (builder) {
-            builder.addSimpleReplacement(range.node(createRefInvocation), 'useRef');
-          }),
-        );
+    final unit = result.unit;
+    if (unit != null) {
+      for (final component in getAllFunctionComponents(unit)) {
+        final visitor = CreateRefUsageVisitor();
+        component.body.accept(visitor);
+        for (final createRefInvocation in visitor.createRefInvocations) {
+          await collector.addErrorWithFix(
+            code,
+            result.locationFor(createRefInvocation),
+            fixKind: fixKind,
+            computeFix: () => buildGenericFileEdit(result, (builder) {
+              builder.addSimpleReplacement(range.node(createRefInvocation), 'useRef');
+            }),
+          );
+        }
       }
-    }));
+    }
   }
 }
 
 class CreateRefUsageVisitor extends GeneralizingAstVisitor<void> {
-  final createRefInvocations = <SimpleIdentifier, Uri>{};
+  final createRefInvocations = <SimpleIdentifier>[];
 
   @override
   void visitMethodInvocation(MethodInvocation node) {
@@ -90,7 +93,7 @@ class CreateRefUsageVisitor extends GeneralizingAstVisitor<void> {
     final uri = methodName.staticElement?.source?.uri;
 
     if (methodName.name == 'createRef' && uri != null && isUriWithinPackage(uri, 'over_react')) {
-      createRefInvocations.putIfAbsent(methodName, () => uri);
+      createRefInvocations.add(methodName);
     }
   }
 }
