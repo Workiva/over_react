@@ -65,6 +65,9 @@ class PropTypesReturnValueDiagnostic extends DiagnosticContributor {
     correction: 'Return the error instead of throwing it.',
   );
 
+  @override
+  List<DiagnosticCode> get codes => [code];
+
   static final fixKind = FixKind(code.name, 200, 'Return the error');
 
   @override

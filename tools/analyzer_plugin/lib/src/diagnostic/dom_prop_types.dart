@@ -35,6 +35,9 @@ class InvalidDomAttributeDiagnostic extends ComponentUsageDiagnosticContributor 
   );
 
   @override
+  List<DiagnosticCode> get codes => [code];
+
+  @override
   computeErrorsForUsage(result, collector, usage) async {
     // todo support SVG icons
     // Don't support SVG icons since we only have HTML element metadata.

@@ -24,6 +24,9 @@ class RulesOfHooks extends DiagnosticContributor {
   );
 
   @override
+  List<DiagnosticCode> get codes => [code];
+
+  @override
   Future<void> computeErrors(result, collector) async {
     for (final hook in getAllHookUsages(result.unit!)) {
       const sameOrderMessage = "React Hooks must be called in the exact same order in every component render.";

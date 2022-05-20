@@ -56,6 +56,9 @@ class ConsumedPropsReturnValueDiagnostic extends DiagnosticContributor {
     correction: 'Use propsMeta.forMixins(...) instead.',
   );
 
+  @override
+  List<DiagnosticCode> get codes => [code];
+
   static final fixKind = FixKind(
     code.name,
     200,

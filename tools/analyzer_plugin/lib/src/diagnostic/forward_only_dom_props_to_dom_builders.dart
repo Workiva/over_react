@@ -48,6 +48,9 @@ class ForwardOnlyDomPropsToDomBuildersDiagnostic extends ComponentUsageDiagnosti
     correction: 'Use addUnconsumedDomProps instead of addUnconsumedProps.',
   );
 
+  @override
+  List<DiagnosticCode> get codes => [code];
+
   static final fixKind = FixKind(code.name, 200, 'Use addUnconsumedDomProps');
 
   @override

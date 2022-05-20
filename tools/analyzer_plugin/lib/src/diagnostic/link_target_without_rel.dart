@@ -53,6 +53,9 @@ class LinkTargetUsageWithoutRelDiagnostic extends ComponentUsageDiagnosticContri
     correction: 'Always add rel="noopener noreferrer" when using a target for a link.',
   );
 
+  @override
+  List<DiagnosticCode> get codes => [code];
+
   static final fixKind = FixKind(code.name, 200, 'Add rel="noopener noreferrer"');
 
   @override
