@@ -21,7 +21,7 @@ void main() {
       });
     }
 
-    Future<List<AnalysisError>> computeErrors() async {
+    Future<List<AnalysisError>> computeErrors({String sourceCode = boilerplateErrorSourceCode}) async {
       final source = testBase.newSource('test.dart', sourceCode);
 
       final result = await testBase.testPlugin.getResolvedUnitResult(testBase.sourcePath(source));
@@ -63,6 +63,15 @@ void main() {
       final errors = await computeErrors();
       expectSeverity(errors, AnalysisErrorSeverity.ERROR);
     });
+
+    // This test ensures that when one of the error codes for a diagnostic contributor is disabled, it doesn't prevent
+    // the other error codes from being computed.
+    test('configured with partially disabled diagnostic contributor', () async {
+      await setUp(yamlContents: yamlPartiallyDisabledContributor);
+      final errors = await computeErrors(sourceCode: badKeysSourceCode);
+      expect(errors, hasLength(1));
+      expect(errors.first.code, equals('over_react_hash_code_as_key'));
+    });
   });
 }
 
@@ -75,8 +84,20 @@ class AnalysisOptionsConfigurationTest extends ServerPluginContributorTestBase {
   String get analysisOptionsYamlContents => _yamlContents;
 }
 
-const sourceCode = /*language=dart*/ '''
+const boilerplateErrorSourceCode = /*language=dart*/ '''
 part 'test.over_react.g.dart';
+''';
+
+/// Code containing two bad keys. The first is bad because it is a bool. The second is bad because it is a hashcode.
+const badKeysSourceCode = /*language=dart*/ '''
+import 'package:over_react/over_react.dart';
+
+foo() {
+  return [
+      (Dom.div()..key = false)(),
+      (Dom.div()..key = 'asdf'.hashCode)(),
+    ];
+}
 ''';
 
 const yamlError = /*language=yaml*/ '''analyzer:
@@ -118,3 +139,14 @@ const yamlNotConfigured = /*language=yaml*/ '''analyzer:
 over_react:
   errors:
 ''';
+
+// `over_react_hash_code_as_key` and `over_react_low_quality_key` come from the same [DiagnosticContributor]. Here, one
+// is
+const yamlPartiallyDisabledContributor = /*language=yaml*/ '''analyzer:
+  plugins:
+    over_react
+
+over_react:
+  errors:
+    over_react_hash_code_as_key: error
+    over_react_low_quality_key: ignore''';
