@@ -64,6 +64,9 @@ class StyleValueDiagnostic extends ComponentUsageDiagnosticContributor {
   static final propertyFixKind = FixKind(propertyCode.name, 200, "Use camelCase property name: '{0}'");
 
   @override
+  List<DiagnosticCode> get codes => [code, propertyCode];
+
+  @override
   computeErrorsForUsage(result, collector, usage) async {
     // Collect these then iterate later to make keeping things async simpler
     final styleEntries = <MapLiteralEntry>[];

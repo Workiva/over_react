@@ -65,6 +65,9 @@ class VariadicChildrenWithKeys extends ComponentUsageDiagnosticContributor {
     url: 'https://reactjs.org/docs/lists-and-keys.html',
   );
 
+  @override
+  List<DiagnosticCode> get codes => [code];
+
   static final fixKind = FixKind(code.name, 200, 'Remove unnecessary key');
 
   @override

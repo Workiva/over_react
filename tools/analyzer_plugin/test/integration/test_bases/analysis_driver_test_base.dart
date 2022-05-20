@@ -61,6 +61,11 @@ abstract class AnalysisDriverTestBase {
   String get testPath => _testPath!;
   String? _testPath;
 
+  /// Contents of analysis_options.yaml file.
+  ///
+  /// This is optional; if `null`, there will be no analysis_options.yaml file.
+  String? get analysisOptionsYamlContents => null;
+
   /// Creates and returns a new source file at [path] with optional file
   /// [contents].
   ///
@@ -91,6 +96,13 @@ abstract class AnalysisDriverTestBase {
     // Setup a testing directory. All calls to [newSource] will create files
     // within this directory.
     _testPath = resourceProvider.newFolder('/test').path;
+
+    // Add a analysis_options.yaml file to the [resourceProvider] if the contents are specified.
+    final contents = analysisOptionsYamlContents;
+    if (contents != null) {
+      final absolutePath = p.join(testPath, 'analysis_options.yaml');
+      resourceProvider.newFile(absolutePath, contents);
+    }
 
     // Disable null safety
     final languageVersion = Version.parse('2.7.0');

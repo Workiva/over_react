@@ -62,6 +62,9 @@ class InvalidChildDiagnostic extends ComponentUsageDiagnosticContributor {
   );
 
   @override
+  List<DiagnosticCode> get codes => [code];
+
+  @override
   computeErrorsForUsage(result, collector, usage) async {
     for (final argument in usage.node.argumentList.arguments) {
       await validateReactChildType(argument.staticType, result.typeSystem, result.typeProvider,

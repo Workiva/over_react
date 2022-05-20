@@ -39,6 +39,9 @@ class BoolPropNameReadabilityDiagnostic extends DiagnosticContributor {
   );
 
   @override
+  List<DiagnosticCode> get codes => [code];
+
+  @override
   computeErrors(result, collector) async {
     final typeProvider = result.libraryElement.typeProvider;
     final visitor = PropsVisitor();
