@@ -79,7 +79,7 @@ const sourceCode = /*language=dart*/ '''
 part 'test.over_react.g.dart';
 ''';
 
-const yamlError = '''analyzer:
+const yamlError = /*language=yaml*/ '''analyzer:
   plugins:
     over_react
 
@@ -87,7 +87,7 @@ over_react:
   errors:
     over_react_boilerplate_error: error''';
 
-const yamlWarn = '''analyzer:
+const yamlWarn = /*language=yaml*/ '''analyzer:
   plugins:
     over_react
 
@@ -95,7 +95,7 @@ over_react:
   errors:
     over_react_boilerplate_error: warning''';
 
-const yamlInfo = '''analyzer:
+const yamlInfo = /*language=yaml*/ '''analyzer:
   plugins:
     over_react
 
@@ -103,7 +103,7 @@ over_react:
   errors:
     over_react_boilerplate_error: info''';
 
-const yamlIgnore = '''analyzer:
+const yamlIgnore = /*language=yaml*/ '''analyzer:
   plugins:
     over_react
 
@@ -111,7 +111,7 @@ over_react:
   errors:
     over_react_boilerplate_error: ignore''';
 
-const yamlNotConfigured = '''analyzer:
+const yamlNotConfigured = /*language=yaml*/ '''analyzer:
   plugins:
     over_react
 
