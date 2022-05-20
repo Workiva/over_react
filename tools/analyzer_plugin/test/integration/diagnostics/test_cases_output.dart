@@ -523,7 +523,7 @@ final MyComponent = uiFunction<TestProps>((props) {
   var state6 = useFunnyReducer(null, null);
   // const [isPending1] = useTransition();
   // var isPending2 = useTransition();
-  const [isPending3] = over_react.useTransition();
+  // const [isPending3] = over_react.useTransition();
   // var isPending4 = over_react.useTransition();
   final mySetState = useCallback(() {}, []);
   var myDispatch = useCallback(() {}, []);
@@ -7530,7 +7530,7 @@ final MyComponent = uiFunction<TestProps>((props) {
   var state6 = useFunnyReducer(null, null);
   const [isPending1] = useTransition();
   var isPending2 = useTransition();
-  const [isPending3] = over_react.useTransition();
+  // const [isPending3] = over_react.useTransition();
   var isPending4 = over_react.useTransition();
   final mySetState = useCallback(() {}, []);
   var myDispatch = useCallback(() {}, []);
@@ -8000,15 +8000,6 @@ final Counter = uiFunction<TestProps>((_) {
     return () => clearInterval(id);
   }, []);
   return Dom.h1()(count.state);
-}, null);''',
-      },
-      {
-        'code': /*language=dart*/ r'''
-final Podcasts = uiFunction<TestProps>((_) {
-  useEffect(() {
-    podcasts.set([]);
-  }, []);
-  var podcasts = useState(null);
 }, null);''',
       },
       {
