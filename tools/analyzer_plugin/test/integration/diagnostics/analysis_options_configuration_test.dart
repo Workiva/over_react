@@ -72,6 +72,20 @@ void main() {
       expect(errors, hasLength(1));
       expect(errors.first.code, equals('over_react_hash_code_as_key'));
     });
+
+    test('configured with fully disabled diagnostic contributor', () async {
+      await setUp(yamlContents: yamlFullyDisabledContributor);
+      final errors = await computeErrors(sourceCode: badKeysSourceCode);
+      expect(errors, isEmpty);
+    });
+
+    test('configured with fully enabled diagnostic contributor', () async {
+      await setUp(yamlContents: yamlFullyEnabledContributor);
+      final errors = await computeErrors(sourceCode: badKeysSourceCode);
+      expect(errors, hasLength(2));
+      expect(errors, contains(predicate<AnalysisError>((e) => e.code == 'over_react_hash_code_as_key')));
+      expect(errors, contains(predicate<AnalysisError>((e) => e.code == 'over_react_low_quality_key')));
+    });
   });
 }
 
@@ -150,3 +164,24 @@ over_react:
   errors:
     over_react_hash_code_as_key: error
     over_react_low_quality_key: ignore''';
+
+const yamlFullyEnabledContributor = /*language=yaml*/ '''analyzer:
+  plugins:
+    over_react
+
+over_react:
+  errors:
+    over_react_hash_code_as_key: error
+    over_react_low_quality_key: error''';
+
+
+const yamlFullyDisabledContributor = /*language=yaml*/ '''analyzer:
+  plugins:
+    over_react
+
+over_react:
+  errors:
+    over_react_hash_code_as_key: ignore
+    over_react_low_quality_key: ignore
+    over_react_object_to_string_as_key: ignore
+    over_react_unknown_key_type: ignore''';
