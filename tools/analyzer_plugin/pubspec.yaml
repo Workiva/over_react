@@ -16,6 +16,7 @@ dependencies:
   over_react: 4.3.1
   path: ^1.5.1
   source_span: ^1.7.0
+  yaml: ^3.0.0
 dev_dependencies:
   args: ^2.0.0
   build_test: ^2.0.0
@@ -32,7 +33,6 @@ dev_dependencies:
   test: ^1.14.0
   test_reflective_loader: ^0.2.0
   workiva_analysis_options: ^1.1.0
-  yaml: ^3.0.0
 
 dependency_validator:
   ignore:

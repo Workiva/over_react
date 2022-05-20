@@ -44,6 +44,9 @@ class VariadicChildrenDiagnostic extends ComponentUsageDiagnosticContributor {
     AnalysisErrorType.LINT,
   );
 
+  @override
+  List<DiagnosticCode> get codes => [code];
+
   static final fixKind = convertUsageListLiteralToVariadicChildrenFixKind(code);
 
   @override

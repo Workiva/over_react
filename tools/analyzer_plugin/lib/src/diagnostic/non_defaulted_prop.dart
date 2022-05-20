@@ -68,6 +68,9 @@ class NonDefaultedPropDiagnostic extends DiagnosticContributor {
     AnalysisErrorType.STATIC_WARNING,
   );
 
+  @override
+  List<DiagnosticCode> get codes => [code];
+
   static final fixKind = FixKind(code.name, 400, "Use local variable '{0}' with default value");
 
   @override

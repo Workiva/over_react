@@ -74,6 +74,9 @@ class IteratorKey extends ComponentUsageDiagnosticContributor {
         " or passing children as arguments as opposed to wrapping them in a list literal.",
   );
 
+  @override
+  List<DiagnosticCode> get codes => [code];
+
   static final listLiteralFixKind = convertUsageListLiteralToVariadicChildrenFixKind(code);
   static final mappedIterableFixKind = FixKind(code.name, 200, 'Add a key');
 

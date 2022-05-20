@@ -104,6 +104,9 @@ class BadKeyDiagnostic extends ComponentUsageDiagnosticContributor {
   );
 
   @override
+  List<DiagnosticCode> get codes => [hashCodeCode, toStringCode, dynamicOrObjectCode, lowQualityCode];
+
+  @override
   computeErrorsForUsage(result, collector, usage) async {
     for (final prop in usage.cascadedProps) {
       if (prop.name.name != 'key') continue;
