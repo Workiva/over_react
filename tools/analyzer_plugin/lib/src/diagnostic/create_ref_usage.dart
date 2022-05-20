@@ -59,6 +59,9 @@ class CreateRefUsageDiagnostic extends DiagnosticContributor {
     AnalysisErrorType.STATIC_WARNING,
   );
 
+  @override
+  List<DiagnosticCode> get codes => [code];
+
   static final fixKind = FixKind(code.name, 400, "Replace with useRef");
 
   @override
