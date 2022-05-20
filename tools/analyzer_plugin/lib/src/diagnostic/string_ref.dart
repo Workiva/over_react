@@ -1,6 +1,6 @@
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 
-import 'package:over_react_analyzer_plugin/src/assist/refs/add_create_ref.dart' show addCreateRef;
+import 'package:over_react_analyzer_plugin/src/assist/refs/add_create_ref.dart' show addUseOrCreateRef;
 import 'callback_ref.dart';
 
 const _desc = r'Avoid using deprecated string refs.';
@@ -69,7 +69,7 @@ class NavItemWrapperComponent extends UiComponent<NavItemWrapperProps> {
 
 /// A diagnostic that warns the user about String ref usage.
 ///
-/// > See: [addCreateRef], [CallbackRefDiagnostic]
+/// > See: [addUseOrCreateRef], [CallbackRefDiagnostic]
 class StringRefDiagnostic extends ComponentUsageDiagnosticContributor {
   @DocsMeta(_desc, details: _details)
   static const code = DiagnosticCode(
@@ -91,7 +91,7 @@ class StringRefDiagnostic extends ComponentUsageDiagnosticContributor {
           result.locationFor(prop.rightHandSide),
           fixKind: fixKind,
           computeFix: () => buildFileEdit(result, (builder) {
-            addCreateRef(builder, usage, result);
+            addUseOrCreateRef(builder, usage, result);
           }),
         );
       }

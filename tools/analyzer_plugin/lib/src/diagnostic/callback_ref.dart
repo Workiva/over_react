@@ -1,6 +1,6 @@
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 
-import 'package:over_react_analyzer_plugin/src/assist/refs/add_create_ref.dart' show addCreateRef;
+import 'package:over_react_analyzer_plugin/src/assist/refs/add_create_ref.dart' show addUseOrCreateRef;
 import 'string_ref.dart';
 
 const _desc = r'Avoid using callback refs to assign ref field values.';
@@ -50,18 +50,18 @@ class NavItemWrapperComponent extends UiComponent<NavItemWrapperProps> {
 
 /// A diagnostic that warns the user about callback ref usage.
 ///
-/// > See: [addCreateRef], [StringRefDiagnostic]
+/// > See: [addUseOrCreateRef], [StringRefDiagnostic]
 class CallbackRefDiagnostic extends ComponentUsageDiagnosticContributor {
   @DocsMeta(_desc, details: _details)
   static const code = DiagnosticCode(
-    'over_react_prefer_create_ref',
+    'over_react_prefer_use_or_create_ref',
     _desc,
     AnalysisErrorSeverity.INFO,
     AnalysisErrorType.HINT,
-    correction: 'Use the return value of createRef() as the ref field value instead.',
+    correction: 'Use the return value of useRef() / createRef() as the ref field value instead.',
   );
 
-  static final fixKind = FixKind(code.name, 200, 'Convert to createRef()');
+  static final fixKind = FixKind(code.name, 200, 'Convert to useRef() / createRef()');
 
   @override
   computeErrorsForUsage(result, collector, usage) async {
@@ -74,7 +74,7 @@ class CallbackRefDiagnostic extends ComponentUsageDiagnosticContributor {
             result.locationFor(prop.rightHandSide),
             fixKind: fixKind,
             computeFix: () => buildFileEdit(result, (builder) {
-              addCreateRef(builder, usage, result);
+              addUseOrCreateRef(builder, usage, result);
             }),
           );
         }

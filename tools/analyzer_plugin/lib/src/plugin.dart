@@ -94,7 +94,7 @@ abstract class OverReactAnalyzerPluginBase extends ServerPlugin
   @override
   List<AsyncAssistContributor> getAssistContributors(String path) => [
         AddPropsAssistContributor(),
-        AddCreateRefAssistContributor(),
+        AddUseOrCreateRefAssistContributor(),
         ExtractComponentAssistContributor(),
         ExtractStatefulComponentAssistContributor(),
         ToggleComponentStatefulness(),
