@@ -22,15 +22,7 @@ class AnalysisOptionsReader {
   }
 
   PluginAnalysisOptions? _getAnalysisOptionForFilePath(File file) {
-    if (_cachedAnalysisOptions.containsKey(file.path)) {
-      // Cache hit
-      return _cachedAnalysisOptions[file.path];
-    }
-
-    // Cache miss; read the file and add to the cache
-    final _analysisOptions = _readAnalysisOptionForFilePath(file);
-    _cachedAnalysisOptions[file.path] = _analysisOptions;
-    return _analysisOptions;
+    return _cachedAnalysisOptions.putIfAbsent(file.path, () => _readAnalysisOptionForFilePath(file));
   }
 
   PluginAnalysisOptions? _readAnalysisOptionForFilePath(File file) {
