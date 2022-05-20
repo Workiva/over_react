@@ -515,12 +515,12 @@ final MyComponent = uiFunction<TestProps>((props) {
   final definitelyRef1 = useRef();
   final definitelyRef2 = useRef();
   final maybeRef1 = useSomeOtherRefyThing();
-  var state1 = useState();
-  var state2 = over_react.useState();
-  var state3 = useReducer();
-  var state4 = over_react.useReducer();
-  var state5 = useFunnyState();
-  var state6 = useFunnyReducer();
+  var state1 = useState(null);
+  var state2 = over_react.useState(null);
+  var state3 = useReducer(null, null);
+  var state4 = over_react.useReducer(null, null);
+  var state5 = useFunnyState(null);
+  var state6 = useFunnyReducer(null, null);
   // const [isPending1] = useTransition();
   // var isPending2 = useTransition();
   const [isPending3] = over_react.useTransition();
@@ -535,8 +535,8 @@ final MyComponent = uiFunction<TestProps>((props) {
     print(maybeRef2.current);
     state1.set(null);
     state2.set(null);
-    state3.set(null);
-    state4.set(null);
+    state3.dispatch(null);
+    state4.dispatch(null);
     // startTransition1();
     // isPending2.set(null);
     // startTransition3();
@@ -544,8 +544,8 @@ final MyComponent = uiFunction<TestProps>((props) {
     // Dynamic
     print(state1.value);
     print(state2.value);
-    print(state3.value);
-    print(state4.value);
+    print(state3.state);
+    print(state4.state);
     print(state5.value);
     print(state6.value);
     print(isPending2.value);
@@ -557,7 +557,7 @@ final MyComponent = uiFunction<TestProps>((props) {
     state6.set(null);
   }, [
     // Dynamic
-    state1.value, state2.value, state3.value, state4.value, state5.value, state6.value,
+    state1.value, state2.value, state3.state, state4.state, state5.value, state6.value,
     maybeRef1, maybeRef2,
     // isPending2.value, isPending4.value,
     // Not sure; assume dynamic
@@ -576,12 +576,12 @@ final MyComponent = uiFunction<TestProps>((props) {
   final definitelyRef1 = useRef();
   final definitelyRef2 = useRef();
   final maybeRef1 = useSomeOtherRefyThing();
-  var state1 = useState();
-  var state2 = over_react.useState();
-  var state3 = useReducer();
-  var state4 = over_react.useReducer();
-  var state5 = useFunnyState();
-  var state6 = useFunnyReducer();
+  var state1 = useState(null);
+  var state2 = over_react.useState(null);
+  var state3 = useReducer(null, null);
+  var state4 = over_react.useReducer(null, null);
+  var state5 = useFunnyState(null);
+  var state6 = useFunnyReducer(null, null);
   final mySetState = useCallback(() {}, []);
   var myDispatch = useCallback(() {}, []);
   useEffect(() {
@@ -592,13 +592,13 @@ final MyComponent = uiFunction<TestProps>((props) {
     print(maybeRef2.current);
     state1.set(null);
     state2.set(null);
-    state3.set(null);
-    state4.set(null);
+    state3.dispatch(null);
+    state4.dispatch(null);
     // Dynamic
     print(state1.value);
     print(state2.value);
-    print(state3.value);
-    print(state4.value);
+    print(state3.state);
+    print(state4.state);
     print(state5.value);
     print(state6.value);
     mySetState();
@@ -608,7 +608,7 @@ final MyComponent = uiFunction<TestProps>((props) {
     state6.set(null);
   }, [
     // Dynamic
-    state1.value, state2.value, state3.value, state4.value, state5.value, state6.value,
+    state1.value, state2.value, state3.state, state4.state, state5.value, state6.value,
     maybeRef1, maybeRef2,
     // Not sure; assume dynamic
     mySetState, myDispatch,
@@ -757,7 +757,8 @@ useMyThing() {
 useMyThing() {
   final myRef = useRef();
   useEffect(() {
-    final handleMove = () {
+    Function handleMove;
+    handleMove = () {
       return () => window.removeEventListener('mousemove', handleMove);
     };
     window.addEventListener('mousemove', handleMove);
@@ -886,8 +887,8 @@ final MyComponent = uiFunction<TestProps>((props) {
       {
         'code': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  var state = useState();
-  var dispatch = over_react.useReducer();
+  var state = useState(null);
+  var dispatch = over_react.useReducer(null, null).dispatch;
   handleNext1(value) {
     var value2 = value * 100;
     state.set(value2);
@@ -899,7 +900,7 @@ final MyComponent = uiFunction<TestProps>((props) {
   };
   var handleNext3 = (value) {
     print(value);
-    dispatch.set({ type: 'x', value });
+    dispatch({ 'type': 'x', 'value': value });
   };
   useEffect(() {
     return Store.subscribe(handleNext1);
@@ -969,11 +970,11 @@ final Counter = uiFunction<TestProps>((_) {
   }, 0);
   useEffect(() {
     var id = setInterval(() {
-      count.set('inc');
+      count.dispatch('inc');
     }, 1000);
     return () => clearInterval(id);
   }, []);
-  return Dom.h1()(count.value);
+  return Dom.h1()(count.state);
 }, null);''',
       },
       {
@@ -985,13 +986,13 @@ final Counter = uiFunction<TestProps>((_) {
     }
   }, 0);
   final tick = () {
-    count.set('inc');
+    count.dispatch('inc');
   };
   useEffect(() {
     var id = setInterval(tick, 1000);
     return () => clearInterval(id);
   }, []);
-  return Dom.h1()(count.value);
+  return Dom.h1()(count.state);
 }, null);''',
       },
       {
@@ -1025,7 +1026,7 @@ final Podcasts = uiFunction<TestProps>((props) {
     doFetch({ fetchPodcasts }) {
       fetchPodcasts(id).then(podcasts.set);
     }
-    doFetch({ fetchPodcasts: API.fetchPodcasts });
+    doFetch(fetchPodcasts: API.fetchPodcasts);
   }, [id]);
 }, null);''',
       },
@@ -1038,7 +1039,7 @@ final Counter = uiFunction<TestProps>((_) {
   }
   useEffect(() {
     var id = setInterval(() {
-      count.set(increment);
+      count.setWithUpdater(increment);
     }, 1000);
     return () => clearInterval(id);
   }, []);
@@ -1067,7 +1068,7 @@ final Counter = uiFunction<TestProps>((_) {
   var count = useState(0);
   useEffect(() {
     var id = setInterval(() {
-      count.setWithUpdater((value) => value + increment);
+      count.setWithUpdater((value) => value + globalIncrementValue);
     }, 1000);
     return () => clearInterval(id);
   }, []);
@@ -1077,7 +1078,7 @@ final Counter = uiFunction<TestProps>((_) {
       {
         'code': /*language=dart*/ r'''
 withStuff(increment) {
-  return () {
+  return uiFunction((_) {
     var count = useState(0);
     useEffect(() {
       var id = setInterval(() {
@@ -1086,7 +1087,7 @@ withStuff(increment) {
       return () => clearInterval(id);
     }, []);
     return Dom.h1()(count.value);
-  };
+  }, null);
 }''',
       },
       {
@@ -1096,18 +1097,18 @@ final App = uiFunction<TestProps>((_) {
   var state = useState(null);
   useEffect(() {
     var ignore = false;
-    fetchSomething();
     fetchSomething() async {
       final result = await (await fetch('http://hn.algolia.com/api/v1/search?query.value=' + query.value)).json();
       if (!ignore) state.set(result);
     }
+    fetchSomething();
     return () { ignore = true; };
   }, [query.value]);
   return (
-    <>
-      <input value={query.value} onChange={(e) => query.set(e.target.value)} />
-      {jsonEncode(state.value)}
-    </>
+    Fragment()(
+      (Dom.input()..value = query.value ..onChange=(e) => query.set(e.target.value))(),
+      jsonEncode(state.value)
+    )
   );
 }, null);''',
       },
@@ -3204,7 +3205,7 @@ final MyComponent = uiFunction<TestProps>((props) {
         'code': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((_) {
   final ref = useRef();
-  var state = useState();
+  var state = useState(null);
   useEffect(() {
     ref.current = {};
     state.set(state.value + 1);
@@ -3220,7 +3221,7 @@ final MyComponent = uiFunction<TestProps>((_) {
                 'output': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((_) {
   final ref = useRef();
-  var state = useState();
+  var state = useState(null);
   useEffect(() {
     ref.current = {};
     state.set(state.value + 1);
@@ -3235,7 +3236,7 @@ final MyComponent = uiFunction<TestProps>((_) {
         'code': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((_) {
   final ref = useRef();
-  var state = useState();
+  var state = useState(null);
   useEffect(() {
     ref.current = {};
     state.set(state.value + 1);
@@ -3251,7 +3252,7 @@ final MyComponent = uiFunction<TestProps>((_) {
                 'output': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((_) {
   final ref = useRef();
-  var state = useState();
+  var state = useState(null);
   useEffect(() {
     ref.current = {};
     state.set(state.value + 1);
@@ -3681,9 +3682,9 @@ final MyComponent = uiFunction<TestProps>((props) {
       {
         'code': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  const [skillsCount] = useState();
+  const skillsCount = useState(null);
   useEffect(() {
-    if (skillsCount == 0 && !props.isEditMode) {
+    if (skillsCount.value == 0 && !props.isEditMode) {
       props.toggleEditMode();
     }
   }, [skillsCount, props.isEditMode, props.toggleEditMode]);
@@ -3698,9 +3699,9 @@ final MyComponent = uiFunction<TestProps>((props) {
                     'Update the dependencies array to be: [skillsCount, props.isEditMode, props.toggleEditMode, props]',
                 'output': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  const [skillsCount] = useState();
+  const skillsCount = useState(null);
   useEffect(() {
-    if (skillsCount == 0 && !props.isEditMode) {
+    if (skillsCount.value == 0 && !props.isEditMode) {
       props.toggleEditMode();
     }
   }, [skillsCount, props.isEditMode, props.toggleEditMode, props]);
@@ -3713,9 +3714,9 @@ final MyComponent = uiFunction<TestProps>((props) {
       {
         'code': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  const [skillsCount] = useState();
+  const skillsCount = useState(null);
   useEffect(() {
-    if (skillsCount == 0 && !props.isEditMode) {
+    if (skillsCount.value == 0 && !props.isEditMode) {
       props.toggleEditMode();
     }
   }, []);
@@ -3730,9 +3731,9 @@ final MyComponent = uiFunction<TestProps>((props) {
                     'Update the dependencies array to be: [props, skillsCount]',
                 'output': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  const [skillsCount] = useState();
+  const skillsCount = useState(null);
   useEffect(() {
-    if (skillsCount == 0 && !props.isEditMode) {
+    if (skillsCount.value == 0 && !props.isEditMode) {
       props.toggleEditMode();
     }
   }, [props, skillsCount]);
@@ -4262,8 +4263,8 @@ final MyComponent = uiFunction<TestProps>((props) {
       {
         'code': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  var state = useState();
-  var dispatch = over_react.useReducer();
+  var state = useState(null);
+  var dispatch = over_react.useReducer(null, null).dispatch;
   var taint = props.foo;
   handleNext1(value) {
     var value2 = value * taint;
@@ -4276,7 +4277,7 @@ final MyComponent = uiFunction<TestProps>((props) {
   };
   var handleNext3 = (value) {
     setTimeout(() => print(taint));
-    dispatch.set({ type: 'x', value });
+    dispatch({ 'type': 'x', 'value': value });
   };
   useEffect(() {
     return Store.subscribe(handleNext1);
@@ -4297,8 +4298,8 @@ final MyComponent = uiFunction<TestProps>((props) {
                 'desc': 'Update the dependencies array to be: [handleNext1]',
                 'output': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  var state = useState();
-  var dispatch = over_react.useReducer();
+  var state = useState(null);
+  var dispatch = over_react.useReducer(null, null).dispatch;
   var taint = props.foo;
   handleNext1(value) {
     var value2 = value * taint;
@@ -4311,7 +4312,7 @@ final MyComponent = uiFunction<TestProps>((props) {
   };
   var handleNext3 = (value) {
     setTimeout(() => print(taint));
-    dispatch.set({ type: 'x', value });
+    dispatch({ 'type': 'x', 'value': value });
   };
   useEffect(() {
     return Store.subscribe(handleNext1);
@@ -4334,8 +4335,8 @@ final MyComponent = uiFunction<TestProps>((props) {
                 'desc': 'Update the dependencies array to be: [handleNext2]',
                 'output': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  var state = useState();
-  var dispatch = over_react.useReducer();
+  var state = useState(null);
+  var dispatch = over_react.useReducer(null, null).dispatch;
   var taint = props.foo;
   handleNext1(value) {
     var value2 = value * taint;
@@ -4348,7 +4349,7 @@ final MyComponent = uiFunction<TestProps>((props) {
   };
   var handleNext3 = (value) {
     setTimeout(() => print(taint));
-    dispatch.set({ type: 'x', value });
+    dispatch({ 'type': 'x', 'value': value });
   };
   useEffect(() {
     return Store.subscribe(handleNext1);
@@ -4371,8 +4372,8 @@ final MyComponent = uiFunction<TestProps>((props) {
                 'desc': 'Update the dependencies array to be: [handleNext3]',
                 'output': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  var state = useState();
-  var dispatch = over_react.useReducer();
+  var state = useState(null);
+  var dispatch = over_react.useReducer(null, null).dispatch;
   var taint = props.foo;
   handleNext1(value) {
     var value2 = value * taint;
@@ -4385,7 +4386,7 @@ final MyComponent = uiFunction<TestProps>((props) {
   };
   var handleNext3 = (value) {
     setTimeout(() => print(taint));
-    dispatch.set({ type: 'x', value });
+    dispatch({ 'type': 'x', 'value': value });
   };
   useEffect(() {
     return Store.subscribe(handleNext1);
@@ -4405,8 +4406,8 @@ final MyComponent = uiFunction<TestProps>((props) {
       {
         'code': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  var state = useState();
-  var dispatch = over_react.useReducer();
+  var state = useState(null);
+  var dispatch = over_react.useReducer(null, null).dispatch;
   var taint = props.foo;
   // Shouldn't affect anything
   handleChange() {}
@@ -4421,7 +4422,7 @@ final MyComponent = uiFunction<TestProps>((props) {
   };
   var handleNext3 = (value) {
     print(taint);
-    dispatch.set({ type: 'x', value });
+    dispatch({ 'type': 'x', 'value': value });
   };
   useEffect(() {
     return Store.subscribe(handleNext1);
@@ -4442,8 +4443,8 @@ final MyComponent = uiFunction<TestProps>((props) {
                 'desc': 'Update the dependencies array to be: [handleNext1]',
                 'output': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  var state = useState();
-  var dispatch = over_react.useReducer();
+  var state = useState(null);
+  var dispatch = over_react.useReducer(null, null).dispatch;
   var taint = props.foo;
   // Shouldn't affect anything
   handleChange() {}
@@ -4458,7 +4459,7 @@ final MyComponent = uiFunction<TestProps>((props) {
   };
   var handleNext3 = (value) {
     print(taint);
-    dispatch.set({ type: 'x', value });
+    dispatch({ 'type': 'x', 'value': value });
   };
   useEffect(() {
     return Store.subscribe(handleNext1);
@@ -4481,8 +4482,8 @@ final MyComponent = uiFunction<TestProps>((props) {
                 'desc': 'Update the dependencies array to be: [handleNext2]',
                 'output': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  var state = useState();
-  var dispatch = over_react.useReducer();
+  var state = useState(null);
+  var dispatch = over_react.useReducer(null, null).dispatch;
   var taint = props.foo;
   // Shouldn't affect anything
   handleChange() {}
@@ -4497,7 +4498,7 @@ final MyComponent = uiFunction<TestProps>((props) {
   };
   var handleNext3 = (value) {
     print(taint);
-    dispatch.set({ type: 'x', value });
+    dispatch({ 'type': 'x', 'value': value });
   };
   useEffect(() {
     return Store.subscribe(handleNext1);
@@ -4520,8 +4521,8 @@ final MyComponent = uiFunction<TestProps>((props) {
                 'desc': 'Update the dependencies array to be: [handleNext3]',
                 'output': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  var state = useState();
-  var dispatch = over_react.useReducer();
+  var state = useState(null);
+  var dispatch = over_react.useReducer(null, null).dispatch;
   var taint = props.foo;
   // Shouldn't affect anything
   handleChange() {}
@@ -4536,7 +4537,7 @@ final MyComponent = uiFunction<TestProps>((props) {
   };
   var handleNext3 = (value) {
     print(taint);
-    dispatch.set({ type: 'x', value });
+    dispatch({ 'type': 'x', 'value': value });
   };
   useEffect(() {
     return Store.subscribe(handleNext1);
@@ -4556,8 +4557,8 @@ final MyComponent = uiFunction<TestProps>((props) {
       {
         'code': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  var state = useState();
-  var dispatch = over_react.useReducer();
+  var state = useState(null);
+  var dispatch = over_react.useReducer(null, null).dispatch;
   var taint = props.foo;
   // Shouldn't affect anything
   final handleChange = () {};
@@ -4572,7 +4573,7 @@ final MyComponent = uiFunction<TestProps>((props) {
   };
   var handleNext3 = (value) {
     print(taint);
-    dispatch.set({ type: 'x', value });
+    dispatch({ 'type': 'x', 'value': value });
   };
   useEffect(() {
     return Store.subscribe(handleNext1);
@@ -4593,8 +4594,8 @@ final MyComponent = uiFunction<TestProps>((props) {
                 'desc': 'Update the dependencies array to be: [handleNext1]',
                 'output': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  var state = useState();
-  var dispatch = over_react.useReducer();
+  var state = useState(null);
+  var dispatch = over_react.useReducer(null, null).dispatch;
   var taint = props.foo;
   // Shouldn't affect anything
   final handleChange = () {};
@@ -4609,7 +4610,7 @@ final MyComponent = uiFunction<TestProps>((props) {
   };
   var handleNext3 = (value) {
     print(taint);
-    dispatch.set({ type: 'x', value });
+    dispatch({ 'type': 'x', 'value': value });
   };
   useEffect(() {
     return Store.subscribe(handleNext1);
@@ -4632,8 +4633,8 @@ final MyComponent = uiFunction<TestProps>((props) {
                 'desc': 'Update the dependencies array to be: [handleNext2]',
                 'output': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  var state = useState();
-  var dispatch = over_react.useReducer();
+  var state = useState(null);
+  var dispatch = over_react.useReducer(null, null).dispatch;
   var taint = props.foo;
   // Shouldn't affect anything
   final handleChange = () {};
@@ -4648,7 +4649,7 @@ final MyComponent = uiFunction<TestProps>((props) {
   };
   var handleNext3 = (value) {
     print(taint);
-    dispatch.set({ type: 'x', value });
+    dispatch({ 'type': 'x', 'value': value });
   };
   useEffect(() {
     return Store.subscribe(handleNext1);
@@ -4671,8 +4672,8 @@ final MyComponent = uiFunction<TestProps>((props) {
                 'desc': 'Update the dependencies array to be: [handleNext3]',
                 'output': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  var state = useState();
-  var dispatch = over_react.useReducer();
+  var state = useState(null);
+  var dispatch = over_react.useReducer(null, null).dispatch;
   var taint = props.foo;
   // Shouldn't affect anything
   final handleChange = () {};
@@ -4687,7 +4688,7 @@ final MyComponent = uiFunction<TestProps>((props) {
   };
   var handleNext3 = (value) {
     print(taint);
-    dispatch.set({ type: 'x', value });
+    dispatch({ 'type': 'x', 'value': value });
   };
   useEffect(() {
     return Store.subscribe(handleNext1);
@@ -4707,7 +4708,7 @@ final MyComponent = uiFunction<TestProps>((props) {
       {
         'code': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  var state = useState();
+  var state = useState(null);
   handleNext(value) {
     state.set(value);
   }
@@ -4726,7 +4727,7 @@ final MyComponent = uiFunction<TestProps>((props) {
       {
         'code': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  var state = useState();
+  var state = useState(null);
   final handleNext = (value) {
     state.set(value);
   };
@@ -4745,7 +4746,7 @@ final MyComponent = uiFunction<TestProps>((props) {
       {
         'code': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  var state = useState();
+  var state = useState(null);
   final handleNext = (value) {
     state.set(value);
   };
@@ -4764,7 +4765,7 @@ final MyComponent = uiFunction<TestProps>((props) {
                     'Wrap the definition of \'handleNext\' in its own useCallback() Hook.',
                 'output': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  var state = useState();
+  var state = useState(null);
   final handleNext = useCallback((value) {
     state.set(value);
   });
@@ -5125,7 +5126,7 @@ final MyComponent = uiFunction<TestProps>((props) {
       {
         'code': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  var state = useState();
+  var state = useState(null);
   var taint = props.foo;
   handleNext(value) {
     var value2 = value * taint;
@@ -5619,7 +5620,7 @@ final Podcasts = uiFunction<TestProps>((props) {
   var podcasts = useState(null);
   useEffect(() {
     print(fetchPodcasts);
-    fetchPodcasts?.(id).then(podcasts.set);
+    fetchPodcasts?.call(id).then(podcasts.set);
   }, [id]);
 }, null);''',
         'errors': [
@@ -5638,7 +5639,7 @@ final Podcasts = uiFunction<TestProps>((props) {
   var podcasts = useState(null);
   useEffect(() {
     print(fetchPodcasts);
-    fetchPodcasts?.(id).then(podcasts.set);
+    fetchPodcasts?.call(id).then(podcasts.set);
   }, [fetchPodcasts, id]);
 }, null);''',
               }
@@ -7521,12 +7522,12 @@ final MyComponent = uiFunction<TestProps>((props) {
   final definitelyRef1 = useRef();
   final definitelyRef2 = useRef();
   final maybeRef1 = useSomeOtherRefyThing();
-  var state1 = useState();
-  var state2 = over_react.useState();
-  var state3 = useReducer();
-  var state4 = over_react.useReducer();
-  var state5 = useFunnyState();
-  var state6 = useFunnyReducer();
+  var state1 = useState(null);
+  var state2 = over_react.useState(null);
+  var state3 = useReducer(null, null);
+  var state4 = over_react.useReducer(null, null);
+  var state5 = useFunnyState(null);
+  var state6 = useFunnyReducer(null, null);
   const [isPending1] = useTransition();
   var isPending2 = useTransition();
   const [isPending3] = over_react.useTransition();
@@ -7541,8 +7542,8 @@ final MyComponent = uiFunction<TestProps>((props) {
     print(maybeRef2.current);
     state1.set(null);
     state2.set(null);
-    state3.set(null);
-    state4.set(null);
+    state3.dispatch(null);
+    state4.dispatch(null);
     // startTransition1();
     // isPending2.set(null);
     // startTransition3();
@@ -7550,8 +7551,8 @@ final MyComponent = uiFunction<TestProps>((props) {
     // Dynamic
     print(state1.value);
     print(state2.value);
-    print(state3.value);
-    print(state4.value);
+    print(state3.state);
+    print(state4.state);
     print(state5.value);
     print(state6.value);
     print(isPending2.value);
@@ -7563,7 +7564,7 @@ final MyComponent = uiFunction<TestProps>((props) {
     state6.set(null);
   }, [
     // Dynamic
-    state1.value, state2.value, state3.value, state4.value, state5.value, state6.value,
+    state1.value, state2.value, state3.state, state4.state, state5.value, state6.value,
     maybeRef1, maybeRef2,
     // isPending2.value, isPending4.value,
     // Not sure; assume dynamic
@@ -7582,12 +7583,12 @@ final MyComponent = uiFunction<TestProps>((props) {
   final definitelyRef1 = useRef();
   final definitelyRef2 = useRef();
   final maybeRef1 = useSomeOtherRefyThing();
-  var state1 = useState();
-  var state2 = over_react.useState();
-  var state3 = useReducer();
-  var state4 = over_react.useReducer();
-  var state5 = useFunnyState();
-  var state6 = useFunnyReducer();
+  var state1 = useState(null);
+  var state2 = over_react.useState(null);
+  var state3 = useReducer(null, null);
+  var state4 = over_react.useReducer(null, null);
+  var state5 = useFunnyState(null);
+  var state6 = useFunnyReducer(null, null);
   final mySetState = useCallback(() {}, []);
   var myDispatch = useCallback(() {}, []);
   useEffect(() {
@@ -7598,13 +7599,13 @@ final MyComponent = uiFunction<TestProps>((props) {
     print(maybeRef2.current);
     state1.set(null);
     state2.set(null);
-    state3.set(null);
-    state4.set(null);
+    state3.dispatch(null);
+    state4.dispatch(null);
     // Dynamic
     print(state1.value);
     print(state2.value);
-    print(state3.value);
-    print(state4.value);
+    print(state3.state);
+    print(state4.state);
     print(state5.value);
     print(state6.value);
     mySetState();
@@ -7614,7 +7615,7 @@ final MyComponent = uiFunction<TestProps>((props) {
     state6.set(null);
   }, [
     // Dynamic
-    state1.value, state2.value, state3.value, state4.value, state5.value, state6.value,
+    state1.value, state2.value, state3.state, state4.state, state5.value, state6.value,
     maybeRef1, maybeRef2,
     // Not sure; assume dynamic
     mySetState, myDispatch,
@@ -7763,7 +7764,8 @@ useMyThing() {
 useMyThing() {
   final myRef = useRef();
   useEffect(() {
-    final handleMove = () {
+    Function handleMove;
+    handleMove = () {
       return () => window.removeEventListener('mousemove', handleMove);
     };
     window.addEventListener('mousemove', handleMove);
@@ -7892,8 +7894,8 @@ final MyComponent = uiFunction<TestProps>((props) {
       {
         'code': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  var state = useState();
-  var dispatch = over_react.useReducer();
+  var state = useState(null);
+  var dispatch = over_react.useReducer(null, null).dispatch;
   handleNext1(value) {
     var value2 = value * 100;
     state.set(value2);
@@ -7905,7 +7907,7 @@ final MyComponent = uiFunction<TestProps>((props) {
   };
   var handleNext3 = (value) {
     print(value);
-    dispatch.set({ type: 'x', value });
+    dispatch({ 'type': 'x', 'value': value });
   };
   useEffect(() {
     return Store.subscribe(handleNext1);
@@ -7975,11 +7977,11 @@ final Counter = uiFunction<TestProps>((_) {
   }, 0);
   useEffect(() {
     var id = setInterval(() {
-      count.set('inc');
+      count.dispatch('inc');
     }, 1000);
     return () => clearInterval(id);
   }, []);
-  return Dom.h1()(count.value);
+  return Dom.h1()(count.state);
 }, null);''',
       },
       {
@@ -7991,13 +7993,13 @@ final Counter = uiFunction<TestProps>((_) {
     }
   }, 0);
   final tick = () {
-    count.set('inc');
+    count.dispatch('inc');
   };
   useEffect(() {
     var id = setInterval(tick, 1000);
     return () => clearInterval(id);
   }, []);
-  return Dom.h1()(count.value);
+  return Dom.h1()(count.state);
 }, null);''',
       },
       {
@@ -8031,7 +8033,7 @@ final Podcasts = uiFunction<TestProps>((props) {
     doFetch({ fetchPodcasts }) {
       fetchPodcasts(id).then(podcasts.set);
     }
-    doFetch({ fetchPodcasts: API.fetchPodcasts });
+    doFetch(fetchPodcasts: API.fetchPodcasts);
   }, [id]);
 }, null);''',
       },
@@ -8039,12 +8041,12 @@ final Podcasts = uiFunction<TestProps>((props) {
         'code': /*language=dart*/ r'''
 final Counter = uiFunction<TestProps>((_) {
   var count = useState(0);
-  increment(x) {
+  increment(int x) {
     return x + 1;
   }
   useEffect(() {
     var id = setInterval(() {
-      count.set(increment);
+      count.setWithUpdater(increment);
     }, 1000);
     return () => clearInterval(id);
   }, []);
@@ -8073,7 +8075,7 @@ final Counter = uiFunction<TestProps>((_) {
   var count = useState(0);
   useEffect(() {
     var id = setInterval(() {
-      count.setWithUpdater((value) => value + increment);
+      count.setWithUpdater((value) => value + globalIncrementValue);
     }, 1000);
     return () => clearInterval(id);
   }, []);
@@ -8083,7 +8085,7 @@ final Counter = uiFunction<TestProps>((_) {
       {
         'code': /*language=dart*/ r'''
 withStuff(increment) {
-  return () {
+  return uiFunction((_) {
     var count = useState(0);
     useEffect(() {
       var id = setInterval(() {
@@ -8093,7 +8095,7 @@ withStuff(increment) {
     }, []);
     return Dom.h1()(count.value);
   }
-}''',
+, null)}''',
       },
       {
         'code': /*language=dart*/ r'''
@@ -8102,18 +8104,18 @@ final App = uiFunction<TestProps>((_) {
   var state = useState(null);
   useEffect(() {
     var ignore = false;
-    fetchSomething();
     fetchSomething() async {
       final result = await (await fetch('http://hn.algolia.com/api/v1/search?query.value=' + query.value)).json();
       if (!ignore) state.set(result);
     }
+    fetchSomething();
     return () { ignore = true; };
   }, [query.value]);
   return (
-    <>
-      <input value={query.value} onChange={(e) => query.set(e.target.value)} />
-      {jsonEncode(state.value)}
-    </>
+    Fragment()(
+      (Dom.input()..value = query.value ..onChange=(e) => query.set(e.target.value))(),
+      jsonEncode(state.value)
+    )
   );
 }, null);''',
       },
@@ -10241,7 +10243,7 @@ final MyComponent = uiFunction<TestProps>((props) {
         'code': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((_) {
   final ref = useRef();
-  var state = useState();
+  var state = useState(null);
   useEffect(() {
     ref.current = {};
     state.set(state.value + 1);
@@ -10257,7 +10259,7 @@ final MyComponent = uiFunction<TestProps>((_) {
                 'output': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((_) {
   final ref = useRef();
-  var state = useState();
+  var state = useState(null);
   useEffect(() {
     ref.current = {};
     state.set(state.value + 1);
@@ -10272,7 +10274,7 @@ final MyComponent = uiFunction<TestProps>((_) {
         'code': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((_) {
   final ref = useRef();
-  var state = useState();
+  var state = useState(null);
   useEffect(() {
     ref.current = {};
     state.set(state.value + 1);
@@ -10288,7 +10290,7 @@ final MyComponent = uiFunction<TestProps>((_) {
                 'output': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((_) {
   final ref = useRef();
-  var state = useState();
+  var state = useState(null);
   useEffect(() {
     ref.current = {};
     state.set(state.value + 1);
@@ -10718,9 +10720,9 @@ final MyComponent = uiFunction<TestProps>((props) {
       {
         'code': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  const [skillsCount] = useState();
+  const skillsCount = useState(null);
   useEffect(() {
-    if (skillsCount == 0 && !props.isEditMode) {
+    if (skillsCount.value == 0 && !props.isEditMode) {
       props.toggleEditMode();
     }
   }, [skillsCount, props.isEditMode, props.toggleEditMode]);
@@ -10735,9 +10737,9 @@ final MyComponent = uiFunction<TestProps>((props) {
                     'Update the dependencies array to be: [skillsCount, props.isEditMode, props.toggleEditMode, props]',
                 'output': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  const [skillsCount] = useState();
+  const skillsCount = useState(null);
   useEffect(() {
-    if (skillsCount == 0 && !props.isEditMode) {
+    if (skillsCount.value == 0 && !props.isEditMode) {
       props.toggleEditMode();
     }
   }, [skillsCount, props.isEditMode, props.toggleEditMode, props]);
@@ -10750,9 +10752,9 @@ final MyComponent = uiFunction<TestProps>((props) {
       {
         'code': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  const [skillsCount] = useState();
+  const skillsCount = useState(null);
   useEffect(() {
-    if (skillsCount == 0 && !props.isEditMode) {
+    if (skillsCount.value == 0 && !props.isEditMode) {
       props.toggleEditMode();
     }
   }, []);
@@ -10767,9 +10769,9 @@ final MyComponent = uiFunction<TestProps>((props) {
                     'Update the dependencies array to be: [props, skillsCount]',
                 'output': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  const [skillsCount] = useState();
+  const skillsCount = useState(null);
   useEffect(() {
-    if (skillsCount == 0 && !props.isEditMode) {
+    if (skillsCount.value == 0 && !props.isEditMode) {
       props.toggleEditMode();
     }
   }, [props, skillsCount]);
@@ -11299,8 +11301,8 @@ final MyComponent = uiFunction<TestProps>((props) {
       {
         'code': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  var state = useState();
-  var dispatch = over_react.useReducer();
+  var state = useState(null);
+  var dispatch = over_react.useReducer(null, null).dispatch;
   var taint = props.foo;
   handleNext1(value) {
     var value2 = value * taint;
@@ -11313,7 +11315,7 @@ final MyComponent = uiFunction<TestProps>((props) {
   };
   var handleNext3 = (value) {
     setTimeout(() => print(taint));
-    dispatch.set({ type: 'x', value });
+    dispatch({ 'type': 'x', 'value': value });
   };
   useEffect(() {
     return Store.subscribe(handleNext1);
@@ -11334,8 +11336,8 @@ final MyComponent = uiFunction<TestProps>((props) {
                 'desc': 'Update the dependencies array to be: [handleNext1]',
                 'output': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  var state = useState();
-  var dispatch = over_react.useReducer();
+  var state = useState(null);
+  var dispatch = over_react.useReducer(null, null).dispatch;
   var taint = props.foo;
   handleNext1(value) {
     var value2 = value * taint;
@@ -11348,7 +11350,7 @@ final MyComponent = uiFunction<TestProps>((props) {
   };
   var handleNext3 = (value) {
     setTimeout(() => print(taint));
-    dispatch.set({ type: 'x', value });
+    dispatch({ 'type': 'x', 'value': value });
   };
   useEffect(() {
     return Store.subscribe(handleNext1);
@@ -11371,8 +11373,8 @@ final MyComponent = uiFunction<TestProps>((props) {
                 'desc': 'Update the dependencies array to be: [handleNext2]',
                 'output': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  var state = useState();
-  var dispatch = over_react.useReducer();
+  var state = useState(null);
+  var dispatch = over_react.useReducer(null, null).dispatch;
   var taint = props.foo;
   handleNext1(value) {
     var value2 = value * taint;
@@ -11385,7 +11387,7 @@ final MyComponent = uiFunction<TestProps>((props) {
   };
   var handleNext3 = (value) {
     setTimeout(() => print(taint));
-    dispatch.set({ type: 'x', value });
+    dispatch({ 'type': 'x', 'value': value });
   };
   useEffect(() {
     return Store.subscribe(handleNext1);
@@ -11408,8 +11410,8 @@ final MyComponent = uiFunction<TestProps>((props) {
                 'desc': 'Update the dependencies array to be: [handleNext3]',
                 'output': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  var state = useState();
-  var dispatch = over_react.useReducer();
+  var state = useState(null);
+  var dispatch = over_react.useReducer(null, null).dispatch;
   var taint = props.foo;
   handleNext1(value) {
     var value2 = value * taint;
@@ -11422,7 +11424,7 @@ final MyComponent = uiFunction<TestProps>((props) {
   };
   var handleNext3 = (value) {
     setTimeout(() => print(taint));
-    dispatch.set({ type: 'x', value });
+    dispatch({ 'type': 'x', 'value': value });
   };
   useEffect(() {
     return Store.subscribe(handleNext1);
@@ -11442,8 +11444,8 @@ final MyComponent = uiFunction<TestProps>((props) {
       {
         'code': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  var state = useState();
-  var dispatch = over_react.useReducer();
+  var state = useState(null);
+  var dispatch = over_react.useReducer(null, null).dispatch;
   var taint = props.foo;
   // Shouldn't affect anything
   handleChange() {}
@@ -11458,7 +11460,7 @@ final MyComponent = uiFunction<TestProps>((props) {
   };
   var handleNext3 = (value) {
     print(taint);
-    dispatch.set({ type: 'x', value });
+    dispatch({ 'type': 'x', 'value': value });
   };
   useEffect(() {
     return Store.subscribe(handleNext1);
@@ -11479,8 +11481,8 @@ final MyComponent = uiFunction<TestProps>((props) {
                 'desc': 'Update the dependencies array to be: [handleNext1]',
                 'output': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  var state = useState();
-  var dispatch = over_react.useReducer();
+  var state = useState(null);
+  var dispatch = over_react.useReducer(null, null).dispatch;
   var taint = props.foo;
   // Shouldn't affect anything
   handleChange() {}
@@ -11495,7 +11497,7 @@ final MyComponent = uiFunction<TestProps>((props) {
   };
   var handleNext3 = (value) {
     print(taint);
-    dispatch.set({ type: 'x', value });
+    dispatch({ 'type': 'x', 'value': value });
   };
   useEffect(() {
     return Store.subscribe(handleNext1);
@@ -11518,8 +11520,8 @@ final MyComponent = uiFunction<TestProps>((props) {
                 'desc': 'Update the dependencies array to be: [handleNext2]',
                 'output': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  var state = useState();
-  var dispatch = over_react.useReducer();
+  var state = useState(null);
+  var dispatch = over_react.useReducer(null, null).dispatch;
   var taint = props.foo;
   // Shouldn't affect anything
   handleChange() {}
@@ -11534,7 +11536,7 @@ final MyComponent = uiFunction<TestProps>((props) {
   };
   var handleNext3 = (value) {
     print(taint);
-    dispatch.set({ type: 'x', value });
+    dispatch({ 'type': 'x', 'value': value });
   };
   useEffect(() {
     return Store.subscribe(handleNext1);
@@ -11557,8 +11559,8 @@ final MyComponent = uiFunction<TestProps>((props) {
                 'desc': 'Update the dependencies array to be: [handleNext3]',
                 'output': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  var state = useState();
-  var dispatch = over_react.useReducer();
+  var state = useState(null);
+  var dispatch = over_react.useReducer(null, null).dispatch;
   var taint = props.foo;
   // Shouldn't affect anything
   handleChange() {}
@@ -11573,7 +11575,7 @@ final MyComponent = uiFunction<TestProps>((props) {
   };
   var handleNext3 = (value) {
     print(taint);
-    dispatch.set({ type: 'x', value });
+    dispatch({ 'type': 'x', 'value': value });
   };
   useEffect(() {
     return Store.subscribe(handleNext1);
@@ -11593,8 +11595,8 @@ final MyComponent = uiFunction<TestProps>((props) {
       {
         'code': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  var state = useState();
-  var dispatch = over_react.useReducer();
+  var state = useState(null);
+  var dispatch = over_react.useReducer(null, null).dispatch;
   var taint = props.foo;
   // Shouldn't affect anything
   final handleChange = () {};
@@ -11609,7 +11611,7 @@ final MyComponent = uiFunction<TestProps>((props) {
   };
   var handleNext3 = (value) {
     print(taint);
-    dispatch.set({ type: 'x', value });
+    dispatch({ 'type': 'x', 'value': value });
   };
   useEffect(() {
     return Store.subscribe(handleNext1);
@@ -11630,8 +11632,8 @@ final MyComponent = uiFunction<TestProps>((props) {
                 'desc': 'Update the dependencies array to be: [handleNext1]',
                 'output': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  var state = useState();
-  var dispatch = over_react.useReducer();
+  var state = useState(null);
+  var dispatch = over_react.useReducer(null, null).dispatch;
   var taint = props.foo;
   // Shouldn't affect anything
   final handleChange = () {};
@@ -11646,7 +11648,7 @@ final MyComponent = uiFunction<TestProps>((props) {
   };
   var handleNext3 = (value) {
     print(taint);
-    dispatch.set({ type: 'x', value });
+    dispatch({ 'type': 'x', 'value': value });
   };
   useEffect(() {
     return Store.subscribe(handleNext1);
@@ -11669,8 +11671,8 @@ final MyComponent = uiFunction<TestProps>((props) {
                 'desc': 'Update the dependencies array to be: [handleNext2]',
                 'output': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  var state = useState();
-  var dispatch = over_react.useReducer();
+  var state = useState(null);
+  var dispatch = over_react.useReducer(null, null).dispatch;
   var taint = props.foo;
   // Shouldn't affect anything
   final handleChange = () {};
@@ -11685,7 +11687,7 @@ final MyComponent = uiFunction<TestProps>((props) {
   };
   var handleNext3 = (value) {
     print(taint);
-    dispatch.set({ type: 'x', value });
+    dispatch({ 'type': 'x', 'value': value });
   };
   useEffect(() {
     return Store.subscribe(handleNext1);
@@ -11708,8 +11710,8 @@ final MyComponent = uiFunction<TestProps>((props) {
                 'desc': 'Update the dependencies array to be: [handleNext3]',
                 'output': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  var state = useState();
-  var dispatch = over_react.useReducer();
+  var state = useState(null);
+  var dispatch = over_react.useReducer(null, null).dispatch;
   var taint = props.foo;
   // Shouldn't affect anything
   final handleChange = () {};
@@ -11724,7 +11726,7 @@ final MyComponent = uiFunction<TestProps>((props) {
   };
   var handleNext3 = (value) {
     print(taint);
-    dispatch.set({ type: 'x', value });
+    dispatch({ 'type': 'x', 'value': value });
   };
   useEffect(() {
     return Store.subscribe(handleNext1);
@@ -11744,7 +11746,7 @@ final MyComponent = uiFunction<TestProps>((props) {
       {
         'code': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  var state = useState();
+  var state = useState(null);
   handleNext(value) {
     state.set(value);
   }
@@ -11763,7 +11765,7 @@ final MyComponent = uiFunction<TestProps>((props) {
       {
         'code': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  var state = useState();
+  var state = useState(null);
   final handleNext = (value) {
     state.set(value);
   };
@@ -11782,7 +11784,7 @@ final MyComponent = uiFunction<TestProps>((props) {
       {
         'code': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  var state = useState();
+  var state = useState(null);
   final handleNext = (value) {
     state.set(value);
   };
@@ -11801,7 +11803,7 @@ final MyComponent = uiFunction<TestProps>((props) {
                     'Wrap the definition of \'handleNext\' in its own useCallback() Hook.',
                 'output': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  var state = useState();
+  var state = useState(null);
   final handleNext = useCallback((value) {
     state.set(value);
   });
@@ -12162,7 +12164,7 @@ final MyComponent = uiFunction<TestProps>((props) {
       {
         'code': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  var state = useState();
+  var state = useState(null);
   var taint = props.foo;
   handleNext(value) {
     var value2 = value * taint;
@@ -12656,7 +12658,7 @@ final Podcasts = uiFunction<TestProps>((props) {
   var podcasts = useState(null);
   useEffect(() {
     print(fetchPodcasts);
-    fetchPodcasts?.(id).then(podcasts.set);
+    fetchPodcasts?.call(id).then(podcasts.set);
   }, [id]);
 }, null);''',
         'errors': [
@@ -12675,7 +12677,7 @@ final Podcasts = uiFunction<TestProps>((props) {
   var podcasts = useState(null);
   useEffect(() {
     print(fetchPodcasts);
-    fetchPodcasts?.(id).then(podcasts.set);
+    fetchPodcasts?.call(id).then(podcasts.set);
   }, [fetchPodcasts, id]);
 }, null);''',
               }
@@ -14558,12 +14560,12 @@ final MyComponent = uiFunction<TestProps>((props) {
   final definitelyRef1 = useRef();
   final definitelyRef2 = useRef();
   final maybeRef1 = useSomeOtherRefyThing();
-  var state1 = useState();
-  var state2 = over_react.useState();
-  var state3 = useReducer();
-  var state4 = over_react.useReducer();
-  var state5 = useFunnyState();
-  var state6 = useFunnyReducer();
+  var state1 = useState(null);
+  var state2 = over_react.useState(null);
+  var state3 = useReducer(null, null);
+  var state4 = over_react.useReducer(null, null);
+  var state5 = useFunnyState(null);
+  var state6 = useFunnyReducer(null, null);
   // const [isPending1] = useTransition();
   // var isPending2 = useTransition();
   // const [isPending3] = over_react.useTransition();
@@ -14578,8 +14580,8 @@ final MyComponent = uiFunction<TestProps>((props) {
     print(maybeRef2.current);
     state1.set(null);
     state2.set(null);
-    state3.set(null);
-    state4.set(null);
+    state3.dispatch(null);
+    state4.dispatch(null);
     // startTransition1();
     // isPending2.set(null);
     // startTransition3();
@@ -14587,8 +14589,8 @@ final MyComponent = uiFunction<TestProps>((props) {
     // Dynamic
     print(state1.value);
     print(state2.value);
-    print(state3.value);
-    print(state4.value);
+    print(state3.state);
+    print(state4.state);
     print(state5.value);
     print(state6.value);
     print(isPending2.value);
@@ -14600,7 +14602,7 @@ final MyComponent = uiFunction<TestProps>((props) {
     state6.set(null);
   }, [
     // Dynamic
-    state1.value, state2.value, state3.value, state4.value, state5.value, state6.value,
+    state1.value, state2.value, state3.state, state4.state, state5.value, state6.value,
     maybeRef1, maybeRef2,
     // isPending2.value, isPending4.value,
     // Not sure; assume dynamic
@@ -14619,12 +14621,12 @@ final MyComponent = uiFunction<TestProps>((props) {
   final definitelyRef1 = useRef();
   final definitelyRef2 = useRef();
   final maybeRef1 = useSomeOtherRefyThing();
-  var state1 = useState();
-  var state2 = over_react.useState();
-  var state3 = useReducer();
-  var state4 = over_react.useReducer();
-  var state5 = useFunnyState();
-  var state6 = useFunnyReducer();
+  var state1 = useState(null);
+  var state2 = over_react.useState(null);
+  var state3 = useReducer(null, null);
+  var state4 = over_react.useReducer(null, null);
+  var state5 = useFunnyState(null);
+  var state6 = useFunnyReducer(null, null);
   final mySetState = useCallback(() {}, []);
   var myDispatch = useCallback(() {}, []);
   useEffect(() {
@@ -14635,13 +14637,13 @@ final MyComponent = uiFunction<TestProps>((props) {
     print(maybeRef2.current);
     state1.set(null);
     state2.set(null);
-    state3.set(null);
-    state4.set(null);
+    state3.dispatch(null);
+    state4.dispatch(null);
     // Dynamic
     print(state1.value);
     print(state2.value);
-    print(state3.value);
-    print(state4.value);
+    print(state3.state);
+    print(state4.state);
     print(state5.value);
     print(state6.value);
     mySetState();
@@ -14651,7 +14653,7 @@ final MyComponent = uiFunction<TestProps>((props) {
     state6.set(null);
   }, [
     // Dynamic
-    state1.value, state2.value, state3.value, state4.value, state5.value, state6.value,
+    state1.value, state2.value, state3.state, state4.state, state5.value, state6.value,
     maybeRef1, maybeRef2,
     // Not sure; assume dynamic
     mySetState, myDispatch,
@@ -14929,8 +14931,8 @@ final MyComponent = uiFunction<TestProps>((props) {
       {
         'code': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  var state = useState();
-  var dispatch = over_react.useReducer();
+  var state = useState(null);
+  var dispatch = over_react.useReducer(null, null).dispatch;
   handleNext1(value) {
     var value2 = value * 100;
     state.set(value2);
@@ -14942,7 +14944,7 @@ final MyComponent = uiFunction<TestProps>((props) {
   };
   var handleNext3 = (value) {
     print(value);
-    dispatch.set({ type: 'x', value });
+    dispatch({ 'type': 'x', 'value': value });
   };
   useEffect(() {
     return Store.subscribe(handleNext1);
@@ -15012,7 +15014,7 @@ final Counter = uiFunction<TestProps>((_) {
   }, 0);
   useEffect(() {
     var id = setInterval(() {
-      count.set('inc');
+      count.dispatch('inc');
     }, 1000);
     return () => clearInterval(id);
   }, []);
@@ -15028,7 +15030,7 @@ final Counter = uiFunction<TestProps>((_) {
     }
   }, 0);
   final tick = () {
-    count.set('inc');
+    count.dispatch('inc');
   };
   useEffect(() {
     var id = setInterval(tick, 1000);
@@ -15068,7 +15070,7 @@ final Podcasts = uiFunction<TestProps>((props) {
     doFetch({ fetchPodcasts }) {
       fetchPodcasts(id).then(podcasts.set);
     }
-    doFetch({ fetchPodcasts: API.fetchPodcasts });
+    doFetch(fetchPodcasts: API.fetchPodcasts);
   }, [id]);
 }, null);''',
       },
@@ -15081,7 +15083,7 @@ final Counter = uiFunction<TestProps>((_) {
   }
   useEffect(() {
     var id = setInterval(() {
-      count.set(increment);
+      count.setWithUpdater(increment);
     }, 1000);
     return () => clearInterval(id);
   }, []);
@@ -15110,7 +15112,7 @@ final Counter = uiFunction<TestProps>((_) {
   var count = useState(0);
   useEffect(() {
     var id = setInterval(() {
-      count.setWithUpdater((value) => value + increment);
+      count.setWithUpdater((value) => value + globalIncrementValue);
     }, 1000);
     return () => clearInterval(id);
   }, []);
@@ -15120,7 +15122,7 @@ final Counter = uiFunction<TestProps>((_) {
       {
         'code': /*language=dart*/ r'''
 withStuff(increment) {
-  return () {
+  return uiFunction((_) {
     var count = useState(0);
     useEffect(() {
       var id = setInterval(() {
@@ -15129,7 +15131,7 @@ withStuff(increment) {
       return () => clearInterval(id);
     }, []);
     return Dom.h1()(count.value);
-  };
+  }, null);
 }''',
       },
       {
@@ -15139,18 +15141,18 @@ final App = uiFunction<TestProps>((_) {
   var state = useState(null);
   useEffect(() {
     var ignore = false;
-    fetchSomething();
     fetchSomething() async {
       final result = await (await fetch('http://hn.algolia.com/api/v1/search?query.value=' + query.value)).json();
       if (!ignore) state.set(result);
     }
+    fetchSomething();
     return () { ignore = true; };
   }, [query.value]);
   return (
-    <>
-      <input value={query.value} onChange={(e) => query.set(e.target.value)} />
-      {jsonEncode(state.value)}
-    </>
+    Fragment()(
+      (Dom.input()..value = query.value ..onChange=(e) => query.set(e.target.value))(),
+      jsonEncode(state.value)
+    )
   );
 }, null);''',
       },
@@ -17278,7 +17280,7 @@ final MyComponent = uiFunction<TestProps>((props) {
         'code': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((_) {
   final ref = useRef();
-  var state = useState();
+  var state = useState(null);
   useEffect(() {
     ref.current = {};
     state.set(state.value + 1);
@@ -17294,7 +17296,7 @@ final MyComponent = uiFunction<TestProps>((_) {
                 'output': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((_) {
   final ref = useRef();
-  var state = useState();
+  var state = useState(null);
   useEffect(() {
     ref.current = {};
     state.set(state.value + 1);
@@ -17309,7 +17311,7 @@ final MyComponent = uiFunction<TestProps>((_) {
         'code': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((_) {
   final ref = useRef();
-  var state = useState();
+  var state = useState(null);
   useEffect(() {
     ref.current = {};
     state.set(state.value + 1);
@@ -17325,7 +17327,7 @@ final MyComponent = uiFunction<TestProps>((_) {
                 'output': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((_) {
   final ref = useRef();
-  var state = useState();
+  var state = useState(null);
   useEffect(() {
     ref.current = {};
     state.set(state.value + 1);
@@ -17755,9 +17757,9 @@ final MyComponent = uiFunction<TestProps>((props) {
       {
         'code': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  const [skillsCount] = useState();
+  const skillsCount = useState(null);
   useEffect(() {
-    if (skillsCount == 0 && !props.isEditMode) {
+    if (skillsCount.value == 0 && !props.isEditMode) {
       props.toggleEditMode();
     }
   }, [skillsCount, props.isEditMode, props.toggleEditMode]);
@@ -17772,9 +17774,9 @@ final MyComponent = uiFunction<TestProps>((props) {
                     'Update the dependencies array to be: [skillsCount, props.isEditMode, props.toggleEditMode, props]',
                 'output': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  const [skillsCount] = useState();
+  const skillsCount = useState(null);
   useEffect(() {
-    if (skillsCount == 0 && !props.isEditMode) {
+    if (skillsCount.value == 0 && !props.isEditMode) {
       props.toggleEditMode();
     }
   }, [skillsCount, props.isEditMode, props.toggleEditMode, props]);
@@ -17787,9 +17789,9 @@ final MyComponent = uiFunction<TestProps>((props) {
       {
         'code': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  const [skillsCount] = useState();
+  const skillsCount = useState(null);
   useEffect(() {
-    if (skillsCount == 0 && !props.isEditMode) {
+    if (skillsCount.value == 0 && !props.isEditMode) {
       props.toggleEditMode();
     }
   }, []);
@@ -17804,9 +17806,9 @@ final MyComponent = uiFunction<TestProps>((props) {
                     'Update the dependencies array to be: [props, skillsCount]',
                 'output': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  const [skillsCount] = useState();
+  const skillsCount = useState(null);
   useEffect(() {
-    if (skillsCount == 0 && !props.isEditMode) {
+    if (skillsCount.value == 0 && !props.isEditMode) {
       props.toggleEditMode();
     }
   }, [props, skillsCount]);
@@ -18336,8 +18338,8 @@ final MyComponent = uiFunction<TestProps>((props) {
       {
         'code': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  var state = useState();
-  var dispatch = over_react.useReducer();
+  var state = useState(null);
+  var dispatch = over_react.useReducer(null, null).dispatch;
   var taint = props.foo;
   handleNext1(value) {
     var value2 = value * taint;
@@ -18350,7 +18352,7 @@ final MyComponent = uiFunction<TestProps>((props) {
   };
   var handleNext3 = (value) {
     setTimeout(() => print(taint));
-    dispatch.set({ type: 'x', value });
+    dispatch({ 'type': 'x', 'value': value });
   };
   useEffect(() {
     return Store.subscribe(handleNext1);
@@ -18371,8 +18373,8 @@ final MyComponent = uiFunction<TestProps>((props) {
                 'desc': 'Update the dependencies array to be: [handleNext1]',
                 'output': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  var state = useState();
-  var dispatch = over_react.useReducer();
+  var state = useState(null);
+  var dispatch = over_react.useReducer(null, null).dispatch;
   var taint = props.foo;
   handleNext1(value) {
     var value2 = value * taint;
@@ -18385,7 +18387,7 @@ final MyComponent = uiFunction<TestProps>((props) {
   };
   var handleNext3 = (value) {
     setTimeout(() => print(taint));
-    dispatch.set({ type: 'x', value });
+    dispatch({ 'type': 'x', 'value': value });
   };
   useEffect(() {
     return Store.subscribe(handleNext1);
@@ -18408,8 +18410,8 @@ final MyComponent = uiFunction<TestProps>((props) {
                 'desc': 'Update the dependencies array to be: [handleNext2]',
                 'output': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  var state = useState();
-  var dispatch = over_react.useReducer();
+  var state = useState(null);
+  var dispatch = over_react.useReducer(null, null).dispatch;
   var taint = props.foo;
   handleNext1(value) {
     var value2 = value * taint;
@@ -18422,7 +18424,7 @@ final MyComponent = uiFunction<TestProps>((props) {
   };
   var handleNext3 = (value) {
     setTimeout(() => print(taint));
-    dispatch.set({ type: 'x', value });
+    dispatch({ 'type': 'x', 'value': value });
   };
   useEffect(() {
     return Store.subscribe(handleNext1);
@@ -18445,8 +18447,8 @@ final MyComponent = uiFunction<TestProps>((props) {
                 'desc': 'Update the dependencies array to be: [handleNext3]',
                 'output': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  var state = useState();
-  var dispatch = over_react.useReducer();
+  var state = useState(null);
+  var dispatch = over_react.useReducer(null, null).dispatch;
   var taint = props.foo;
   handleNext1(value) {
     var value2 = value * taint;
@@ -18459,7 +18461,7 @@ final MyComponent = uiFunction<TestProps>((props) {
   };
   var handleNext3 = (value) {
     setTimeout(() => print(taint));
-    dispatch.set({ type: 'x', value });
+    dispatch({ 'type': 'x', 'value': value });
   };
   useEffect(() {
     return Store.subscribe(handleNext1);
@@ -18479,8 +18481,8 @@ final MyComponent = uiFunction<TestProps>((props) {
       {
         'code': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  var state = useState();
-  var dispatch = over_react.useReducer();
+  var state = useState(null);
+  var dispatch = over_react.useReducer(null, null).dispatch;
   var taint = props.foo;
   // Shouldn't affect anything
   handleChange() {}
@@ -18495,7 +18497,7 @@ final MyComponent = uiFunction<TestProps>((props) {
   };
   var handleNext3 = (value) {
     print(taint);
-    dispatch.set({ type: 'x', value });
+    dispatch({ 'type': 'x', 'value': value });
   };
   useEffect(() {
     return Store.subscribe(handleNext1);
@@ -18516,8 +18518,8 @@ final MyComponent = uiFunction<TestProps>((props) {
                 'desc': 'Update the dependencies array to be: [handleNext1]',
                 'output': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  var state = useState();
-  var dispatch = over_react.useReducer();
+  var state = useState(null);
+  var dispatch = over_react.useReducer(null, null).dispatch;
   var taint = props.foo;
   // Shouldn't affect anything
   handleChange() {}
@@ -18532,7 +18534,7 @@ final MyComponent = uiFunction<TestProps>((props) {
   };
   var handleNext3 = (value) {
     print(taint);
-    dispatch.set({ type: 'x', value });
+    dispatch({ 'type': 'x', 'value': value });
   };
   useEffect(() {
     return Store.subscribe(handleNext1);
@@ -18555,8 +18557,8 @@ final MyComponent = uiFunction<TestProps>((props) {
                 'desc': 'Update the dependencies array to be: [handleNext2]',
                 'output': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  var state = useState();
-  var dispatch = over_react.useReducer();
+  var state = useState(null);
+  var dispatch = over_react.useReducer(null, null).dispatch;
   var taint = props.foo;
   // Shouldn't affect anything
   handleChange() {}
@@ -18571,7 +18573,7 @@ final MyComponent = uiFunction<TestProps>((props) {
   };
   var handleNext3 = (value) {
     print(taint);
-    dispatch.set({ type: 'x', value });
+    dispatch({ 'type': 'x', 'value': value });
   };
   useEffect(() {
     return Store.subscribe(handleNext1);
@@ -18594,8 +18596,8 @@ final MyComponent = uiFunction<TestProps>((props) {
                 'desc': 'Update the dependencies array to be: [handleNext3]',
                 'output': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  var state = useState();
-  var dispatch = over_react.useReducer();
+  var state = useState(null);
+  var dispatch = over_react.useReducer(null, null).dispatch;
   var taint = props.foo;
   // Shouldn't affect anything
   handleChange() {}
@@ -18610,7 +18612,7 @@ final MyComponent = uiFunction<TestProps>((props) {
   };
   var handleNext3 = (value) {
     print(taint);
-    dispatch.set({ type: 'x', value });
+    dispatch({ 'type': 'x', 'value': value });
   };
   useEffect(() {
     return Store.subscribe(handleNext1);
@@ -18630,8 +18632,8 @@ final MyComponent = uiFunction<TestProps>((props) {
       {
         'code': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  var state = useState();
-  var dispatch = over_react.useReducer();
+  var state = useState(null);
+  var dispatch = over_react.useReducer(null, null).dispatch;
   var taint = props.foo;
   // Shouldn't affect anything
   final handleChange = () {};
@@ -18646,7 +18648,7 @@ final MyComponent = uiFunction<TestProps>((props) {
   };
   var handleNext3 = (value) {
     print(taint);
-    dispatch.set({ type: 'x', value });
+    dispatch({ 'type': 'x', 'value': value });
   };
   useEffect(() {
     return Store.subscribe(handleNext1);
@@ -18667,8 +18669,8 @@ final MyComponent = uiFunction<TestProps>((props) {
                 'desc': 'Update the dependencies array to be: [handleNext1]',
                 'output': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  var state = useState();
-  var dispatch = over_react.useReducer();
+  var state = useState(null);
+  var dispatch = over_react.useReducer(null, null).dispatch;
   var taint = props.foo;
   // Shouldn't affect anything
   final handleChange = () {};
@@ -18683,7 +18685,7 @@ final MyComponent = uiFunction<TestProps>((props) {
   };
   var handleNext3 = (value) {
     print(taint);
-    dispatch.set({ type: 'x', value });
+    dispatch({ 'type': 'x', 'value': value });
   };
   useEffect(() {
     return Store.subscribe(handleNext1);
@@ -18706,8 +18708,8 @@ final MyComponent = uiFunction<TestProps>((props) {
                 'desc': 'Update the dependencies array to be: [handleNext2]',
                 'output': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  var state = useState();
-  var dispatch = over_react.useReducer();
+  var state = useState(null);
+  var dispatch = over_react.useReducer(null, null).dispatch;
   var taint = props.foo;
   // Shouldn't affect anything
   final handleChange = () {};
@@ -18722,7 +18724,7 @@ final MyComponent = uiFunction<TestProps>((props) {
   };
   var handleNext3 = (value) {
     print(taint);
-    dispatch.set({ type: 'x', value });
+    dispatch({ 'type': 'x', 'value': value });
   };
   useEffect(() {
     return Store.subscribe(handleNext1);
@@ -18745,8 +18747,8 @@ final MyComponent = uiFunction<TestProps>((props) {
                 'desc': 'Update the dependencies array to be: [handleNext3]',
                 'output': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  var state = useState();
-  var dispatch = over_react.useReducer();
+  var state = useState(null);
+  var dispatch = over_react.useReducer(null, null).dispatch;
   var taint = props.foo;
   // Shouldn't affect anything
   final handleChange = () {};
@@ -18761,7 +18763,7 @@ final MyComponent = uiFunction<TestProps>((props) {
   };
   var handleNext3 = (value) {
     print(taint);
-    dispatch.set({ type: 'x', value });
+    dispatch({ 'type': 'x', 'value': value });
   };
   useEffect(() {
     return Store.subscribe(handleNext1);
@@ -18781,7 +18783,7 @@ final MyComponent = uiFunction<TestProps>((props) {
       {
         'code': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  var state = useState();
+  var state = useState(null);
   handleNext(value) {
     state.set(value);
   }
@@ -18800,7 +18802,7 @@ final MyComponent = uiFunction<TestProps>((props) {
       {
         'code': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  var state = useState();
+  var state = useState(null);
   final handleNext = (value) {
     state.set(value);
   };
@@ -18819,7 +18821,7 @@ final MyComponent = uiFunction<TestProps>((props) {
       {
         'code': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  var state = useState();
+  var state = useState(null);
   final handleNext = (value) {
     state.set(value);
   };
@@ -18838,7 +18840,7 @@ final MyComponent = uiFunction<TestProps>((props) {
                     'Wrap the definition of \'handleNext\' in its own useCallback() Hook.',
                 'output': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  var state = useState();
+  var state = useState(null);
   final handleNext = useCallback((value) {
     state.set(value);
   });
@@ -19199,7 +19201,7 @@ final MyComponent = uiFunction<TestProps>((props) {
       {
         'code': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  var state = useState();
+  var state = useState(null);
   var taint = props.foo;
   handleNext(value) {
     var value2 = value * taint;
@@ -19693,7 +19695,7 @@ final Podcasts = uiFunction<TestProps>((props) {
   var podcasts = useState(null);
   useEffect(() {
     print(fetchPodcasts);
-    fetchPodcasts?.(id).then(podcasts.set);
+    fetchPodcasts?.call(id).then(podcasts.set);
   }, [id]);
 }, null);''',
         'errors': [
@@ -19712,7 +19714,7 @@ final Podcasts = uiFunction<TestProps>((props) {
   var podcasts = useState(null);
   useEffect(() {
     print(fetchPodcasts);
-    fetchPodcasts?.(id).then(podcasts.set);
+    fetchPodcasts?.call(id).then(podcasts.set);
   }, [fetchPodcasts, id]);
 }, null);''',
               }
@@ -21595,12 +21597,12 @@ final MyComponent = uiFunction<TestProps>((props) {
   final definitelyRef1 = useRef();
   final definitelyRef2 = useRef();
   final maybeRef1 = useSomeOtherRefyThing();
-  var state1 = useState();
-  var state2 = over_react.useState();
-  var state3 = useReducer();
-  var state4 = over_react.useReducer();
-  var state5 = useFunnyState();
-  var state6 = useFunnyReducer();
+  var state1 = useState(null);
+  var state2 = over_react.useState(null);
+  var state3 = useReducer(null, null);
+  var state4 = over_react.useReducer(null, null);
+  var state5 = useFunnyState(null);
+  var state6 = useFunnyReducer(null, null);
   // const [isPending1] = useTransition();
   // var isPending2 = useTransition();
   // const [isPending3] = over_react.useTransition();
@@ -21615,8 +21617,8 @@ final MyComponent = uiFunction<TestProps>((props) {
     print(maybeRef2.current);
     state1.set(null);
     state2.set(null);
-    state3.set(null);
-    state4.set(null);
+    state3.dispatch(null);
+    state4.dispatch(null);
     // startTransition1();
     // isPending2.set(null);
     // startTransition3();
@@ -21624,8 +21626,8 @@ final MyComponent = uiFunction<TestProps>((props) {
     // Dynamic
     print(state1.value);
     print(state2.value);
-    print(state3.value);
-    print(state4.value);
+    print(state3.state);
+    print(state4.state);
     print(state5.value);
     print(state6.value);
     // print(isPending2.value);
@@ -21637,7 +21639,7 @@ final MyComponent = uiFunction<TestProps>((props) {
     state6.set(null);
   }, [
     // Dynamic
-    state1.value, state2.value, state3.value, state4.value, state5.value, state6.value,
+    state1.value, state2.value, state3.state, state4.state, state5.value, state6.value,
     maybeRef1, maybeRef2,
     // isPending2.value, isPending4.value,
     // Not sure; assume dynamic
@@ -21656,12 +21658,12 @@ final MyComponent = uiFunction<TestProps>((props) {
   final definitelyRef1 = useRef();
   final definitelyRef2 = useRef();
   final maybeRef1 = useSomeOtherRefyThing();
-  var state1 = useState();
-  var state2 = over_react.useState();
-  var state3 = useReducer();
-  var state4 = over_react.useReducer();
-  var state5 = useFunnyState();
-  var state6 = useFunnyReducer();
+  var state1 = useState(null);
+  var state2 = over_react.useState(null);
+  var state3 = useReducer(null, null);
+  var state4 = over_react.useReducer(null, null);
+  var state5 = useFunnyState(null);
+  var state6 = useFunnyReducer(null, null);
   final mySetState = useCallback(() {}, []);
   var myDispatch = useCallback(() {}, []);
   useEffect(() {
@@ -21672,13 +21674,13 @@ final MyComponent = uiFunction<TestProps>((props) {
     print(maybeRef2.current);
     state1.set(null);
     state2.set(null);
-    state3.set(null);
-    state4.set(null);
+    state3.dispatch(null);
+    state4.dispatch(null);
     // Dynamic
     print(state1.value);
     print(state2.value);
-    print(state3.value);
-    print(state4.value);
+    print(state3.state);
+    print(state4.state);
     print(state5.value);
     print(state6.value);
     mySetState();
@@ -21688,7 +21690,7 @@ final MyComponent = uiFunction<TestProps>((props) {
     state6.set(null);
   }, [
     // Dynamic
-    state1.value, state2.value, state3.value, state4.value, state5.value, state6.value,
+    state1.value, state2.value, state3.state, state4.state, state5.value, state6.value,
     maybeRef1, maybeRef2,
     // Not sure; assume dynamic
     mySetState, myDispatch,
@@ -21966,8 +21968,8 @@ final MyComponent = uiFunction<TestProps>((props) {
       {
         'code': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  var state = useState();
-  var dispatch = over_react.useReducer();
+  var state = useState(null);
+  var dispatch = over_react.useReducer(null, null).dispatch;
   handleNext1(value) {
     var value2 = value * 100;
     state.set(value2);
@@ -21979,7 +21981,7 @@ final MyComponent = uiFunction<TestProps>((props) {
   };
   var handleNext3 = (value) {
     print(value);
-    dispatch.set({ type: 'x', value });
+    dispatch({ 'type': 'x', 'value': value });
   };
   useEffect(() {
     return Store.subscribe(handleNext1);
@@ -22049,11 +22051,11 @@ final Counter = uiFunction<TestProps>((_) {
   }, 0);
   useEffect(() {
     var id = setInterval(() {
-      count.set('inc');
+      count.dispatch('inc');
     }, 1000);
     return () => clearInterval(id);
   }, []);
-  return Dom.h1()(count.value);
+  return Dom.h1()(count.state);
 }, null);''',
       },
       {
@@ -22065,13 +22067,13 @@ final Counter = uiFunction<TestProps>((_) {
     }
   }, 0);
   final tick = () {
-    count.set('inc');
+    count.dispatch('inc');
   };
   useEffect(() {
     var id = setInterval(tick, 1000);
     return () => clearInterval(id);
   }, []);
-  return Dom.h1()(count.value);
+  return Dom.h1()(count.state);
 }, null);''',
       },
       {
@@ -22096,7 +22098,7 @@ final Podcasts = uiFunction<TestProps>((props) {
     doFetch({ fetchPodcasts }) {
       fetchPodcasts(id).then(podcasts.set);
     }
-    doFetch({ fetchPodcasts: API.fetchPodcasts });
+    doFetch(fetchPodcasts: API.fetchPodcasts);
   }, [id]);
 }, null);''',
       },
@@ -22109,7 +22111,7 @@ final Counter = uiFunction<TestProps>((_) {
   }
   useEffect(() {
     var id = setInterval(() {
-      count.set(increment);
+      count.setWithUpdater(increment);
     }, 1000);
     return () => clearInterval(id);
   }, []);
@@ -22138,7 +22140,7 @@ final Counter = uiFunction<TestProps>((_) {
   var count = useState(0);
   useEffect(() {
     var id = setInterval(() {
-      count.setWithUpdater((value) => value + increment);
+      count.setWithUpdater((value) => value + globalIncrementValue);
     }, 1000);
     return () => clearInterval(id);
   }, []);
@@ -22148,7 +22150,7 @@ final Counter = uiFunction<TestProps>((_) {
       {
         'code': /*language=dart*/ r'''
 withStuff(increment) {
-  return () {
+  return uiFunction((_) {
     var count = useState(0);
     useEffect(() {
       var id = setInterval(() {
@@ -22157,7 +22159,7 @@ withStuff(increment) {
       return () => clearInterval(id);
     }, []);
     return Dom.h1()(count.value);
-  };
+  }, null);
 }''',
       },
       {
@@ -22167,18 +22169,18 @@ final App = uiFunction<TestProps>((_) {
   var state = useState(null);
   useEffect(() {
     var ignore = false;
-    fetchSomething();
     fetchSomething() async {
       final result = await (await fetch('http://hn.algolia.com/api/v1/search?query.value=' + query.value)).json();
       if (!ignore) state.set(result);
     }
+    fetchSomething();
     return () { ignore = true; };
   }, [query.value]);
   return (
-    <>
-      <input value={query.value} onChange={(e) => query.set(e.target.value)} />
-      {jsonEncode(state.value)}
-    </>
+    Fragment()(
+      (Dom.input()..value = query.value ..onChange=(e) => query.set(e.target.value))(),
+      jsonEncode(state.value)
+    )
   );
 }, null);''',
       },
@@ -24320,7 +24322,7 @@ final MyComponent = uiFunction<TestProps>((props) {
         'code': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((_) {
   final ref = useRef();
-  var state = useState();
+  var state = useState(null);
   useEffect(() {
     ref.current = {};
     state.set(state.value + 1);
@@ -24336,7 +24338,7 @@ final MyComponent = uiFunction<TestProps>((_) {
                 'output': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((_) {
   final ref = useRef();
-  var state = useState();
+  var state = useState(null);
   useEffect(() {
     ref.current = {};
     state.set(state.value + 1);
@@ -24351,7 +24353,7 @@ final MyComponent = uiFunction<TestProps>((_) {
         'code': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((_) {
   final ref = useRef();
-  var state = useState();
+  var state = useState(null);
   useEffect(() {
     ref.current = {};
     state.set(state.value + 1);
@@ -24367,7 +24369,7 @@ final MyComponent = uiFunction<TestProps>((_) {
                 'output': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((_) {
   final ref = useRef();
-  var state = useState();
+  var state = useState(null);
   useEffect(() {
     ref.current = {};
     state.set(state.value + 1);
@@ -24797,9 +24799,9 @@ final MyComponent = uiFunction<TestProps>((props) {
       {
         'code': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  const [skillsCount] = useState();
+  const skillsCount = useState(null);
   useEffect(() {
-    if (skillsCount == 0 && !props.isEditMode) {
+    if (skillsCount.value == 0 && !props.isEditMode) {
       props.toggleEditMode();
     }
   }, [skillsCount, props.isEditMode, props.toggleEditMode]);
@@ -24814,9 +24816,9 @@ final MyComponent = uiFunction<TestProps>((props) {
                     'Update the dependencies array to be: [skillsCount, props.isEditMode, props.toggleEditMode, props]',
                 'output': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  const [skillsCount] = useState();
+  const skillsCount = useState(null);
   useEffect(() {
-    if (skillsCount == 0 && !props.isEditMode) {
+    if (skillsCount.value == 0 && !props.isEditMode) {
       props.toggleEditMode();
     }
   }, [skillsCount, props.isEditMode, props.toggleEditMode, props]);
@@ -24829,9 +24831,9 @@ final MyComponent = uiFunction<TestProps>((props) {
       {
         'code': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  const [skillsCount] = useState();
+  const skillsCount = useState(null);
   useEffect(() {
-    if (skillsCount == 0 && !props.isEditMode) {
+    if (skillsCount.value == 0 && !props.isEditMode) {
       props.toggleEditMode();
     }
   }, []);
@@ -24846,9 +24848,9 @@ final MyComponent = uiFunction<TestProps>((props) {
                     'Update the dependencies array to be: [props, skillsCount]',
                 'output': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  const [skillsCount] = useState();
+  const skillsCount = useState(null);
   useEffect(() {
-    if (skillsCount == 0 && !props.isEditMode) {
+    if (skillsCount.value == 0 && !props.isEditMode) {
       props.toggleEditMode();
     }
   }, [props, skillsCount]);
@@ -25378,8 +25380,8 @@ final MyComponent = uiFunction<TestProps>((props) {
       {
         'code': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  var state = useState();
-  var dispatch = over_react.useReducer();
+  var state = useState(null);
+  var dispatch = over_react.useReducer(null, null).dispatch;
   var taint = props.foo;
   handleNext1(value) {
     var value2 = value * taint;
@@ -25392,7 +25394,7 @@ final MyComponent = uiFunction<TestProps>((props) {
   };
   var handleNext3 = (value) {
     setTimeout(() => print(taint));
-    dispatch.set({ type: 'x', value });
+    dispatch({ 'type': 'x', 'value': value });
   };
   useEffect(() {
     return Store.subscribe(handleNext1);
@@ -25413,8 +25415,8 @@ final MyComponent = uiFunction<TestProps>((props) {
                 'desc': 'Update the dependencies array to be: [handleNext1]',
                 'output': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  var state = useState();
-  var dispatch = over_react.useReducer();
+  var state = useState(null);
+  var dispatch = over_react.useReducer(null, null).dispatch;
   var taint = props.foo;
   handleNext1(value) {
     var value2 = value * taint;
@@ -25427,7 +25429,7 @@ final MyComponent = uiFunction<TestProps>((props) {
   };
   var handleNext3 = (value) {
     setTimeout(() => print(taint));
-    dispatch.set({ type: 'x', value });
+    dispatch({ 'type': 'x', 'value': value });
   };
   useEffect(() {
     return Store.subscribe(handleNext1);
@@ -25450,8 +25452,8 @@ final MyComponent = uiFunction<TestProps>((props) {
                 'desc': 'Update the dependencies array to be: [handleNext2]',
                 'output': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  var state = useState();
-  var dispatch = over_react.useReducer();
+  var state = useState(null);
+  var dispatch = over_react.useReducer(null, null).dispatch;
   var taint = props.foo;
   handleNext1(value) {
     var value2 = value * taint;
@@ -25464,7 +25466,7 @@ final MyComponent = uiFunction<TestProps>((props) {
   };
   var handleNext3 = (value) {
     setTimeout(() => print(taint));
-    dispatch.set({ type: 'x', value });
+    dispatch({ 'type': 'x', 'value': value });
   };
   useEffect(() {
     return Store.subscribe(handleNext1);
@@ -25487,8 +25489,8 @@ final MyComponent = uiFunction<TestProps>((props) {
                 'desc': 'Update the dependencies array to be: [handleNext3]',
                 'output': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  var state = useState();
-  var dispatch = over_react.useReducer();
+  var state = useState(null);
+  var dispatch = over_react.useReducer(null, null).dispatch;
   var taint = props.foo;
   handleNext1(value) {
     var value2 = value * taint;
@@ -25501,7 +25503,7 @@ final MyComponent = uiFunction<TestProps>((props) {
   };
   var handleNext3 = (value) {
     setTimeout(() => print(taint));
-    dispatch.set({ type: 'x', value });
+    dispatch({ 'type': 'x', 'value': value });
   };
   useEffect(() {
     return Store.subscribe(handleNext1);
@@ -25521,8 +25523,8 @@ final MyComponent = uiFunction<TestProps>((props) {
       {
         'code': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  var state = useState();
-  var dispatch = over_react.useReducer();
+  var state = useState(null);
+  var dispatch = over_react.useReducer(null, null).dispatch;
   var taint = props.foo;
   // Shouldn't affect anything
   handleChange() {}
@@ -25537,7 +25539,7 @@ final MyComponent = uiFunction<TestProps>((props) {
   };
   var handleNext3 = (value) {
     print(taint);
-    dispatch.set({ type: 'x', value });
+    dispatch({ 'type': 'x', 'value': value });
   };
   useEffect(() {
     return Store.subscribe(handleNext1);
@@ -25558,8 +25560,8 @@ final MyComponent = uiFunction<TestProps>((props) {
                 'desc': 'Update the dependencies array to be: [handleNext1]',
                 'output': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  var state = useState();
-  var dispatch = over_react.useReducer();
+  var state = useState(null);
+  var dispatch = over_react.useReducer(null, null).dispatch;
   var taint = props.foo;
   // Shouldn't affect anything
   handleChange() {}
@@ -25574,7 +25576,7 @@ final MyComponent = uiFunction<TestProps>((props) {
   };
   var handleNext3 = (value) {
     print(taint);
-    dispatch.set({ type: 'x', value });
+    dispatch({ 'type': 'x', 'value': value });
   };
   useEffect(() {
     return Store.subscribe(handleNext1);
@@ -25597,8 +25599,8 @@ final MyComponent = uiFunction<TestProps>((props) {
                 'desc': 'Update the dependencies array to be: [handleNext2]',
                 'output': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  var state = useState();
-  var dispatch = over_react.useReducer();
+  var state = useState(null);
+  var dispatch = over_react.useReducer(null, null).dispatch;
   var taint = props.foo;
   // Shouldn't affect anything
   handleChange() {}
@@ -25613,7 +25615,7 @@ final MyComponent = uiFunction<TestProps>((props) {
   };
   var handleNext3 = (value) {
     print(taint);
-    dispatch.set({ type: 'x', value });
+    dispatch({ 'type': 'x', 'value': value });
   };
   useEffect(() {
     return Store.subscribe(handleNext1);
@@ -25636,8 +25638,8 @@ final MyComponent = uiFunction<TestProps>((props) {
                 'desc': 'Update the dependencies array to be: [handleNext3]',
                 'output': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  var state = useState();
-  var dispatch = over_react.useReducer();
+  var state = useState(null);
+  var dispatch = over_react.useReducer(null, null).dispatch;
   var taint = props.foo;
   // Shouldn't affect anything
   handleChange() {}
@@ -25652,7 +25654,7 @@ final MyComponent = uiFunction<TestProps>((props) {
   };
   var handleNext3 = (value) {
     print(taint);
-    dispatch.set({ type: 'x', value });
+    dispatch({ 'type': 'x', 'value': value });
   };
   useEffect(() {
     return Store.subscribe(handleNext1);
@@ -25672,8 +25674,8 @@ final MyComponent = uiFunction<TestProps>((props) {
       {
         'code': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  var state = useState();
-  var dispatch = over_react.useReducer();
+  var state = useState(null);
+  var dispatch = over_react.useReducer(null, null).dispatch;
   var taint = props.foo;
   // Shouldn't affect anything
   final handleChange = () {};
@@ -25688,7 +25690,7 @@ final MyComponent = uiFunction<TestProps>((props) {
   };
   var handleNext3 = (value) {
     print(taint);
-    dispatch.set({ type: 'x', value });
+    dispatch({ 'type': 'x', 'value': value });
   };
   useEffect(() {
     return Store.subscribe(handleNext1);
@@ -25709,8 +25711,8 @@ final MyComponent = uiFunction<TestProps>((props) {
                 'desc': 'Update the dependencies array to be: [handleNext1]',
                 'output': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  var state = useState();
-  var dispatch = over_react.useReducer();
+  var state = useState(null);
+  var dispatch = over_react.useReducer(null, null).dispatch;
   var taint = props.foo;
   // Shouldn't affect anything
   final handleChange = () {};
@@ -25725,7 +25727,7 @@ final MyComponent = uiFunction<TestProps>((props) {
   };
   var handleNext3 = (value) {
     print(taint);
-    dispatch.set({ type: 'x', value });
+    dispatch({ 'type': 'x', 'value': value });
   };
   useEffect(() {
     return Store.subscribe(handleNext1);
@@ -25748,8 +25750,8 @@ final MyComponent = uiFunction<TestProps>((props) {
                 'desc': 'Update the dependencies array to be: [handleNext2]',
                 'output': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  var state = useState();
-  var dispatch = over_react.useReducer();
+  var state = useState(null);
+  var dispatch = over_react.useReducer(null, null).dispatch;
   var taint = props.foo;
   // Shouldn't affect anything
   final handleChange = () {};
@@ -25764,7 +25766,7 @@ final MyComponent = uiFunction<TestProps>((props) {
   };
   var handleNext3 = (value) {
     print(taint);
-    dispatch.set({ type: 'x', value });
+    dispatch({ 'type': 'x', 'value': value });
   };
   useEffect(() {
     return Store.subscribe(handleNext1);
@@ -25787,8 +25789,8 @@ final MyComponent = uiFunction<TestProps>((props) {
                 'desc': 'Update the dependencies array to be: [handleNext3]',
                 'output': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  var state = useState();
-  var dispatch = over_react.useReducer();
+  var state = useState(null);
+  var dispatch = over_react.useReducer(null, null).dispatch;
   var taint = props.foo;
   // Shouldn't affect anything
   final handleChange = () {};
@@ -25803,7 +25805,7 @@ final MyComponent = uiFunction<TestProps>((props) {
   };
   var handleNext3 = (value) {
     print(taint);
-    dispatch.set({ type: 'x', value });
+    dispatch({ 'type': 'x', 'value': value });
   };
   useEffect(() {
     return Store.subscribe(handleNext1);
@@ -25823,7 +25825,7 @@ final MyComponent = uiFunction<TestProps>((props) {
       {
         'code': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  var state = useState();
+  var state = useState(null);
   handleNext(value) {
     state.set(value);
   }
@@ -25842,7 +25844,7 @@ final MyComponent = uiFunction<TestProps>((props) {
       {
         'code': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  var state = useState();
+  var state = useState(null);
   final handleNext = (value) {
     state.set(value);
   };
@@ -25861,7 +25863,7 @@ final MyComponent = uiFunction<TestProps>((props) {
       {
         'code': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  var state = useState();
+  var state = useState(null);
   final handleNext = (value) {
     state.set(value);
   };
@@ -25880,7 +25882,7 @@ final MyComponent = uiFunction<TestProps>((props) {
                     'Wrap the definition of \'handleNext\' in its own useCallback() Hook.',
                 'output': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  var state = useState();
+  var state = useState(null);
   final handleNext = useCallback((value) {
     state.set(value);
   });
@@ -26241,7 +26243,7 @@ final MyComponent = uiFunction<TestProps>((props) {
       {
         'code': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  var state = useState();
+  var state = useState(null);
   var taint = props.foo;
   handleNext(value) {
     var value2 = value * taint;
@@ -26735,7 +26737,7 @@ final Podcasts = uiFunction<TestProps>((props) {
   var podcasts = useState(null);
   useEffect(() {
     print(fetchPodcasts);
-    fetchPodcasts?.(id).then(podcasts.set);
+    fetchPodcasts?.call(id).then(podcasts.set);
   }, [id]);
 }, null);''',
         'errors': [
@@ -26754,7 +26756,7 @@ final Podcasts = uiFunction<TestProps>((props) {
   var podcasts = useState(null);
   useEffect(() {
     print(fetchPodcasts);
-    fetchPodcasts?.(id).then(podcasts.set);
+    fetchPodcasts?.call(id).then(podcasts.set);
   }, [fetchPodcasts, id]);
 }, null);''',
               }

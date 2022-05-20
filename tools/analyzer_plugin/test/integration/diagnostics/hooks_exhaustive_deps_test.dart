@@ -29,6 +29,7 @@ part 'test.over_react.g.dart';
 
 // window isn't defined in MockSdk's dart:html
 dynamic window;
+dynamic jsonEncode;
 
 mixin TestProps on UiProps {
   // FIXME do we need to make these non-dynamic?
@@ -41,18 +42,25 @@ mixin TestProps on UiProps {
   Function myEffect;
   num upperViewHeight;
   var local;
+  var activeTab;
 }
 
 // Globals used by test cases
 TestProps props;
 var global;
 var arguments;
-int setInterval(Function callback, int duration) => 0;
+var foo;
+var fetch;
+var globalIncrementValue;
+int setInterval(Function callback, [int duration]) => 0;
 void clearInterval(int id) {}
+int setTimeout(Function callback, [int duration]) => 0;
+void clearTimeout(int id) {}
 dynamic someFunc() => null;
 Function debounce(Function callback, num delay) => null;
 dynamic renderHelperConfusedWithEffect(Function callback, dynamic secondArg) => null;
 void useCustomEffect(Function callback, [List dependencies]) {}
+void useWithoutEffectSuffix(Function callback, [List dependencies]) {}
 T increment<T extends num>(T value) => value + 1;
 
 abstract class UseTransitionHook {
@@ -67,6 +75,11 @@ abstract class Store {
 abstract class MutableStore {
   static dynamic get hello => null;
 }
+abstract class API {
+  static dynamic fetchPodcasts() => null;
+}
+StateHook<T> useFunnyState<T>(T initialState) {}
+ReducerHook<T, dynamic, dynamic> useFunnyReducer<T>(dynamic reducer, T initialState) {}
 ''';
 
     String wrapInFunction(String code) => 'void __testCaseWrapperFunction() {\n\n$code\n\n}';
