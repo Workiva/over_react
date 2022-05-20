@@ -20,10 +20,15 @@ void main() {
     tearDown(() => testBase.tearDown());
 
     const preamble = r'''
+import 'dart:html';
+
 import 'package:over_react/over_react.dart';
 import 'package:over_react/over_react.dart' as over_react;
 
 part 'test.over_react.g.dart';
+
+// window isn't defined in MockSdk's dart:html
+dynamic window;
 
 mixin TestProps on UiProps {
   // FIXME do we need to make these non-dynamic?
@@ -34,16 +39,34 @@ mixin TestProps on UiProps {
   List items;
   num delay;
   Function myEffect;
+  num upperViewHeight;
+  var local;
 }
 
 // Globals used by test cases
 TestProps props;
 var global;
+var arguments;
 int setInterval(Function callback, int duration) => 0;
 void clearInterval(int id) {}
 dynamic someFunc() => null;
 Function debounce(Function callback, num delay) => null;
 dynamic renderHelperConfusedWithEffect(Function callback, dynamic secondArg) => null;
+void useCustomEffect(Function callback, [List dependencies]) {}
+T increment<T extends num>(T value) => value + 1;
+
+abstract class UseTransitionHook {
+  bool get isPending;
+  Function get startTransition;
+}
+UseTransitionHook useTransition() => null;
+
+abstract class Store {
+  static Function subscribe(Function listener) => null;
+}
+abstract class MutableStore {
+  static dynamic get hello => null;
+}
 ''';
 
     String wrapInFunction(String code) => 'void __testCaseWrapperFunction() {\n\n$code\n\n}';

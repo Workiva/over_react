@@ -354,10 +354,10 @@ final local = {};
 final MyComponent = uiFunction<TestProps>((_) {
   final otherThing = () {
     print(local);
-  }
+  };
   final myEffect = () {
-    otherThing()
-  }
+    otherThing();
+  };
   useEffect(myEffect, []);
 }, null);''',
       },
@@ -521,10 +521,10 @@ final MyComponent = uiFunction<TestProps>((props) {
   var state4 = over_react.useReducer();
   var state5 = useFunnyState();
   var state6 = useFunnyReducer();
-  const [isPending1] = useTransition();
-  var isPending2 = useTransition();
+  // const [isPending1] = useTransition();
+  // var isPending2 = useTransition();
   const [isPending3] = over_react.useTransition();
-  var isPending4 = over_react.useTransition();
+  // var isPending4 = over_react.useTransition();
   final mySetState = useCallback(() {}, []);
   var myDispatch = useCallback(() {}, []);
   useEffect(() {
@@ -537,10 +537,10 @@ final MyComponent = uiFunction<TestProps>((props) {
     state2.set(null);
     state3.set(null);
     state4.set(null);
-    startTransition1();
-    isPending2.set(null);
-    startTransition3();
-    isPending4.set(null);
+    // startTransition1();
+    // isPending2.set(null);
+    // startTransition3();
+    // isPending4.set(null);
     // Dynamic
     print(state1.value);
     print(state2.value);
@@ -559,7 +559,7 @@ final MyComponent = uiFunction<TestProps>((props) {
     // Dynamic
     state1.value, state2.value, state3.value, state4.value, state5.value, state6.value,
     maybeRef1, maybeRef2,
-    isPending2.value, isPending4.value,
+    // isPending2.value, isPending4.value,
     // Not sure; assume dynamic
     mySetState, myDispatch,
     state5.set, state6.set
@@ -623,20 +623,20 @@ final MyComponent = uiFunction<TestProps>((props) {
         'code': /*language=dart*/ r'''
 final MyComponent = forwardRef((props, ref) {
   useImperativeHandle(ref, () => ({
-    focus() {
-      alert(props.hello);
+    'focus': () {
+      window.alert(props.hello);
     }
-  }))
+  }));
 });''',
       },
       {
         'code': /*language=dart*/ r'''
 final MyComponent = forwardRef((props, ref) {
   useImperativeHandle(ref, () => ({
-    focus() {
-      alert(props.hello);
+    'focus': () {
+      window.alert(props.hello);
     }
-  }), [props.hello])
+  }), [props.hello]);
 });''',
       },
       {
@@ -651,7 +651,7 @@ final MyComponent = uiFunction<TestProps>((props) {
       {
         'code': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  var foo = {}
+  dynamic foo;
   useEffect(() {
     foo.bar.baz = 43;
   }, [foo.bar]);
@@ -665,10 +665,10 @@ final MyComponent = uiFunction<TestProps>((_) {
     final handleMove = () {};
     myRef.current = {};
     return () {
-      print(myRef.current.toString())
+      print(myRef.current.toString());
     };
   }, []);
-  return <div />;
+  return Dom.div()();
 }, null);''',
       },
       {
@@ -679,10 +679,10 @@ final MyComponent = uiFunction<TestProps>((_) {
     final handleMove = () {};
     myRef.current = {};
     return () {
-      print(myRef?.current?.toString())
+      print(myRef?.current?.toString());
     };
   }, []);
-  return <div />;
+  return Dom.div()();
 }, null);''',
       },
       {
@@ -692,7 +692,7 @@ useMyThing(myRef) {
     final handleMove = () {};
     myRef.current = {};
     return () {
-      print(myRef.current.toString())
+      print(myRef.current.toString());
     };
   }, [myRef]);
 }''',
@@ -707,7 +707,7 @@ final MyComponent = uiFunction<TestProps>((_) {
     node.addEventListener('mousemove', handleMove);
     return () => node.removeEventListener('mousemove', handleMove);
   }, []);
-  return <div ref={myRef} />;
+  return (Dom.div()..ref = myRef)();
 }, null);''',
       },
       {
@@ -719,7 +719,7 @@ useMyThing(myRef) {
     node.addEventListener('mousemove', handleMove);
     return () => node.removeEventListener('mousemove', handleMove);
   }, [myRef]);
-  return <div ref={myRef} />;
+  return (Dom.div()..ref = myRef)();
 }''',
       },
       {
@@ -734,7 +734,7 @@ useMyThing(myRef) {
         myRef.current.removeEventListener('mousemove', handleMouse);
         myRef.current.removeEventListener('mousein', handleMouse);
       });
-    }
+    };
   }, [myRef]);
 }''',
       },
@@ -744,12 +744,12 @@ useMyThing() {
   final myRef = useRef();
   useEffect(() {
     final handleMove = () {
-      print(myRef.current)
+      print(myRef.current);
     };
     window.addEventListener('mousemove', handleMove);
     return () => window.removeEventListener('mousemove', handleMove);
   }, []);
-  return <div ref={myRef} />;
+  return (Dom.div()..ref = myRef)();
 }''',
       },
       {
@@ -763,7 +763,7 @@ useMyThing() {
     window.addEventListener('mousemove', handleMove);
     return () {};
   }, []);
-  return <div ref={myRef} />;
+  return (Dom.div()..ref = myRef)();
 }''',
       },
       {
@@ -936,11 +936,11 @@ final Counter = uiFunction<TestProps>((_) {
   var count = useState(0);
   useEffect(() {
     var id = setInterval(() {
-      count.set((c) => c + 1);
+      count.setWithUpdater((c) => c + 1);
     }, 1000);
     return () => clearInterval(id);
   }, []);
-  return <h1>{count.value}</h1>;
+  return Dom.h1()(count.value);
 }, null);''',
       },
       {
@@ -948,7 +948,7 @@ final Counter = uiFunction<TestProps>((_) {
 final Counter = uiFunction<TestProps>((_) {
   var count = useState(0);
   tick() {
-    count.set((c) => c + 1);
+    count.setWithUpdater((c) => c + 1);
   }
   useEffect(() {
     var id = setInterval(() {
@@ -956,7 +956,7 @@ final Counter = uiFunction<TestProps>((_) {
     }, 1000);
     return () => clearInterval(id);
   }, []);
-  return <h1>{count.value}</h1>;
+  return Dom.h1()(count.value);
 }, null);''',
       },
       {
@@ -973,7 +973,7 @@ final Counter = uiFunction<TestProps>((_) {
     }, 1000);
     return () => clearInterval(id);
   }, []);
-  return <h1>{count.value}</h1>;
+  return Dom.h1()(count.value);
 }, null);''',
       },
       {
@@ -991,7 +991,7 @@ final Counter = uiFunction<TestProps>((_) {
     var id = setInterval(tick, 1000);
     return () => clearInterval(id);
   }, []);
-  return <h1>{count.value}</h1>;
+  return Dom.h1()(count.value);
 }, null);''',
       },
       {
@@ -1006,12 +1006,13 @@ final Podcasts = uiFunction<TestProps>((_) {
       {
         'code': /*language=dart*/ r'''
 withFetch(fetchPodcasts) {
-  return Podcasts({ id }) {
+  return uiFunction((props) {
+    final id = props.id;
     var podcasts = useState(null);
     useEffect(() {
       fetchPodcasts(id).then(podcasts.set);
     }, [id]);
-  }
+  }, null);
 }''',
       },
       {
@@ -1041,7 +1042,7 @@ final Counter = uiFunction<TestProps>((_) {
     }, 1000);
     return () => clearInterval(id);
   }, []);
-  return <h1>{count.value}</h1>;
+  return Dom.h1()(count.value);
 }, null);''',
       },
       {
@@ -1053,40 +1054,39 @@ final Counter = uiFunction<TestProps>((_) {
   }
   useEffect(() {
     var id = setInterval(() {
-      count.set((count.value) => increment(count.value));
+      count.setWithUpdater((value) => increment(value));
     }, 1000);
     return () => clearInterval(id);
   }, []);
-  return <h1>{count.value}</h1>;
+  return Dom.h1()(count.value);
 }, null);''',
       },
       {
         'code': /*language=dart*/ r'''
-import increment from './increment';
 final Counter = uiFunction<TestProps>((_) {
   var count = useState(0);
   useEffect(() {
     var id = setInterval(() {
-      count.set((count.value) => count.value + increment);
+      count.setWithUpdater((value) => value + increment);
     }, 1000);
     return () => clearInterval(id);
   }, []);
-  return <h1>{count.value}</h1>;
+  return Dom.h1()(count.value);
 }, null);''',
       },
       {
         'code': /*language=dart*/ r'''
 withStuff(increment) {
-  return Counter() {
+  return () {
     var count = useState(0);
     useEffect(() {
       var id = setInterval(() {
-        count.set((count.value) => count.value + increment);
+        count.setWithUpdater((value) => value + increment);
       }, 1000);
       return () => clearInterval(id);
     }, []);
-    return <h1>{count.value}</h1>;
-  }
+    return Dom.h1()(count.value);
+  };
 }''',
       },
       {
@@ -1146,8 +1146,8 @@ final Hello = uiFunction<TestProps>((_) {
         'code': /*language=dart*/ r'''
 final Example = uiFunction<TestProps>((_) {
   useEffect(() {
-    arguments
-  }, [])
+    arguments;
+  }, []);
 }, null);''',
       },
       {
@@ -1158,7 +1158,7 @@ final Example = uiFunction<TestProps>((_) {
       arguments;
     };
     bar();
-  }, [])
+  }, []);
 }, null);''',
       },
       {
@@ -1203,25 +1203,11 @@ useFoo(){
       },
       {
         'code': /*language=dart*/ r'''
-useFoo(){
-  let {foo} = {foo: 1};
-  return useMemo(() => foo, [foo]);
-}''',
-      },
-      {
-        'code': /*language=dart*/ r'''
-useFoo(){
-  let [foo] = [1];
-  return useMemo(() => foo, [foo]);
-}''',
-      },
-      {
-        'code': /*language=dart*/ r'''
 useFoo() {
   final foo = "fine";
   if (true) {
     // Shadowed variable with constant construction in a nested scope is fine.
-    final foo = {};
+    dynamic foo;
   }
   return useMemo(() => foo, [foo]);
 }''',
@@ -1231,7 +1217,7 @@ useFoo() {
 final MyComponent = uiFunction<TestProps>((props) {
   var foo = props.foo;
 
-  return useMemo(() => foo, [foo])
+  return useMemo(() => foo, [foo]);
 }, null);''',
       },
       {
@@ -1430,7 +1416,7 @@ final MyComponent = uiFunction<TestProps>((_) {
         'code': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
   final value = useMemo(() { return 2*2; });
-  final fn = useCallback(() { alert('foo'); });
+  final fn = useCallback(() { window.alert('foo'); });
 }, null);''',
         'errors': [
           {
@@ -1463,37 +1449,6 @@ final MyComponent = uiFunction<TestProps>((props) {
           {
             'message':
                 'React Hook useCallback does nothing when called with only one argument. Did you forget to pass an array of dependencies?',
-            'suggestions': null,
-          }
-        ],
-      },
-      {
-        'code': /*language=dart*/ r'''
-final MyComponent = uiFunction<TestProps>((_) {
-  useEffect()
-  useLayoutEffect()
-  useCallback()
-  useMemo()
-}, null);''',
-        'errors': [
-          {
-            'message':
-                'React Hook useEffect requires an effect callback. Did you forget to pass a callback to the hook?',
-            'suggestions': null,
-          },
-          {
-            'message':
-                'React Hook useLayoutEffect requires an effect callback. Did you forget to pass a callback to the hook?',
-            'suggestions': null,
-          },
-          {
-            'message':
-                'React Hook useCallback requires an effect callback. Did you forget to pass a callback to the hook?',
-            'suggestions': null,
-          },
-          {
-            'message':
-                'React Hook useMemo requires an effect callback. Did you forget to pass a callback to the hook?',
             'suggestions': null,
           }
         ],
@@ -3315,7 +3270,7 @@ final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     ref1.current.focus();
     print(ref2.current.textContent);
-    alert(props.someOtherRefs.current.innerHTML);
+    window.alert(props.someOtherRefs.current.innerHTML);
     fetch(props.color);
   }, []);
 }, null);''',
@@ -3334,7 +3289,7 @@ final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     ref1.current.focus();
     print(ref2.current.textContent);
-    alert(props.someOtherRefs.current.innerHTML);
+    window.alert(props.someOtherRefs.current.innerHTML);
     fetch(props.color);
   }, [props.color, props.someOtherRefs]);
 }, null);''',
@@ -3351,7 +3306,7 @@ final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     ref1.current.focus();
     print(ref2.current.textContent);
-    alert(props.someOtherRefs.current.innerHTML);
+    window.alert(props.someOtherRefs.current.innerHTML);
     fetch(props.color);
   }, [ref1.current, ref2.current, props.someOtherRefs, props.color]);
 }, null);''',
@@ -3370,7 +3325,7 @@ final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     ref1.current.focus();
     print(ref2.current.textContent);
-    alert(props.someOtherRefs.current.innerHTML);
+    window.alert(props.someOtherRefs.current.innerHTML);
     fetch(props.color);
   }, [props.someOtherRefs, props.color]);
 }, null);''',
@@ -3387,7 +3342,7 @@ final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     ref1?.current?.focus();
     print(ref2?.current?.textContent);
-    alert(props.someOtherRefs.current.innerHTML);
+    window.alert(props.someOtherRefs.current.innerHTML);
     fetch(props.color);
   }, [ref1?.current, ref2?.current, props.someOtherRefs, props.color]);
 }, null);''',
@@ -3406,7 +3361,7 @@ final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     ref1?.current?.focus();
     print(ref2?.current?.textContent);
-    alert(props.someOtherRefs.current.innerHTML);
+    window.alert(props.someOtherRefs.current.innerHTML);
     fetch(props.color);
   }, [props.someOtherRefs, props.color]);
 }, null);''',
@@ -3545,10 +3500,10 @@ final MyComponent = uiFunction<TestProps>((_) {
         'code': /*language=dart*/ r'''
 final MyComponent = forwardRef((props, ref) {
   useImperativeHandle(ref, () => ({
-    focus() {
-      alert(props.hello);
+    'focus': () {
+      window.alert(props.hello);
     }
-  }), [])
+  }), []);
 });''',
         'errors': [
           {
@@ -3560,10 +3515,10 @@ final MyComponent = forwardRef((props, ref) {
                 'output': /*language=dart*/ r'''
 final MyComponent = forwardRef((props, ref) {
   useImperativeHandle(ref, () => ({
-    focus() {
-      alert(props.hello);
+    'focus': () {
+      window.alert(props.hello);
     }
-  }), [props.hello])
+  }), [props.hello]);
 });''',
               }
             ],
@@ -3931,7 +3886,7 @@ final MyComponent = uiFunction<TestProps>((_) {
     myRef.current.addEventListener('mousemove', handleMove);
     return () => myRef.current.removeEventListener('mousemove', handleMove);
   }, []);
-  return <div ref={myRef} />;
+  return (Dom.div()..ref = myRef)();
 }, null);''',
         'errors': [
           {
@@ -3950,7 +3905,7 @@ final MyComponent = uiFunction<TestProps>((_) {
     myRef?.current?.addEventListener('mousemove', handleMove);
     return () => myRef?.current?.removeEventListener('mousemove', handleMove);
   }, []);
-  return <div ref={myRef} />;
+  return (Dom.div()..ref = myRef)();
 }, null);''',
         'errors': [
           {
@@ -3969,7 +3924,7 @@ final MyComponent = uiFunction<TestProps>((_) {
     myRef.current.addEventListener('mousemove', handleMove);
     return () => myRef.current.removeEventListener('mousemove', handleMove);
   });
-  return <div ref={myRef} />;
+  return (Dom.div()..ref = myRef)();
 }, null);''',
         'errors': [
           {
@@ -4008,7 +3963,7 @@ useMyThing(myRef) {
         myRef.current.removeEventListener('mousemove', handleMouse);
         myRef.current.removeEventListener('mousein', handleMouse);
       });
-    }
+    };
   }, [myRef]);
 }''',
         'errors': [
@@ -4030,7 +3985,7 @@ useMyThing(myRef, active) {
         setTimeout(() {
           myRef.current.removeEventListener('mousemove', handleMove);
         });
-      }
+      };
     }
   }, [myRef, active]);
 }''',
@@ -4051,7 +4006,7 @@ final MyComponent = uiFunction<TestProps>((_) {
     myRef.current.addEventListener('mousemove', handleMove);
     return () => myRef.current.removeEventListener('mousemove', handleMove);
   });
-  return <div ref={myRef} />;
+  return (Dom.div()..ref = myRef)();
 }, null);''',
         'output': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((_) {
@@ -4061,7 +4016,7 @@ final MyComponent = uiFunction<TestProps>((_) {
     myRef.current.addEventListener('mousemove', handleMove);
     return () => myRef.current.removeEventListener('mousemove', handleMove);
   });
-  return <div ref={myRef} />;
+  return (Dom.div()..ref = myRef)();
 }, null);''',
         'errors': [
           'The ref value \'myRef.current\' will likely have changed by the time this effect cleanup function runs. If this ref points to a node rendered by React, copy \'myRef.current\' to a variable inside the effect, and use that variable in the cleanup function.'
@@ -4139,7 +4094,6 @@ final MyComponent = uiFunction<TestProps>((_) {
       },
       {
         'code': /*language=dart*/ r'''
-import MutableStore from 'store';
 final MyComponent = uiFunction<TestProps>((_) {
   useEffect(() {
     print(MutableStore.hello);
@@ -4153,7 +4107,6 @@ final MyComponent = uiFunction<TestProps>((_) {
               {
                 'desc': 'Update the dependencies array to be: []',
                 'output': /*language=dart*/ r'''
-import MutableStore from 'store';
 final MyComponent = uiFunction<TestProps>((_) {
   useEffect(() {
     print(MutableStore.hello);
@@ -4166,7 +4119,6 @@ final MyComponent = uiFunction<TestProps>((_) {
       },
       {
         'code': /*language=dart*/ r'''
-import MutableStore from 'store';
 var z = {};
 final MyComponent = uiFunction<TestProps>((props) {
   var x = props.foo;
@@ -4186,7 +4138,6 @@ final MyComponent = uiFunction<TestProps>((props) {
                 'desc':
                     'Update the dependencies array to be: [props.foo, x, y]',
                 'output': /*language=dart*/ r'''
-import MutableStore from 'store';
 var z = {};
 final MyComponent = uiFunction<TestProps>((props) {
   var x = props.foo;
@@ -4204,7 +4155,6 @@ final MyComponent = uiFunction<TestProps>((props) {
       },
       {
         'code': /*language=dart*/ r'''
-import MutableStore from 'store';
 var z = {};
 final MyComponent = uiFunction<TestProps>((props) {
   var x = props.foo;
@@ -4224,7 +4174,6 @@ final MyComponent = uiFunction<TestProps>((props) {
                 'desc':
                     'Update the dependencies array to be: [props.foo, x, y]',
                 'output': /*language=dart*/ r'''
-import MutableStore from 'store';
 var z = {};
 final MyComponent = uiFunction<TestProps>((props) {
   var x = props.foo;
@@ -4242,7 +4191,6 @@ final MyComponent = uiFunction<TestProps>((props) {
       },
       {
         'code': /*language=dart*/ r'''
-import MutableStore from 'store';
 var z = {};
 final MyComponent = uiFunction<TestProps>((props) {
   var x = props.foo;
@@ -4261,7 +4209,6 @@ final MyComponent = uiFunction<TestProps>((props) {
               {
                 'desc': 'Update the dependencies array to be: []',
                 'output': /*language=dart*/ r'''
-import MutableStore from 'store';
 var z = {};
 final MyComponent = uiFunction<TestProps>((props) {
   var x = props.foo;
@@ -4279,7 +4226,6 @@ final MyComponent = uiFunction<TestProps>((props) {
       },
       {
         'code': /*language=dart*/ r'''
-import MutableStore from 'store';
 var z = {};
 final MyComponent = uiFunction<TestProps>((props) {
   var x = props.foo;
@@ -4298,7 +4244,6 @@ final MyComponent = uiFunction<TestProps>((props) {
               {
                 'desc': 'Update the dependencies array to be: []',
                 'output': /*language=dart*/ r'''
-import MutableStore from 'store';
 var z = {};
 final MyComponent = uiFunction<TestProps>((props) {
   var x = props.foo;
@@ -4807,7 +4752,7 @@ final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     return Store.subscribe(handleNext);
   }, [handleNext]);
-  return <div onClick={handleNext} />;
+  return (Dom.div()..onClick = handleNext)();
 }, null);''',
         'errors': [
           {
@@ -4826,7 +4771,7 @@ final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     return Store.subscribe(handleNext);
   }, [handleNext]);
-  return <div onClick={handleNext} />;
+  return (Dom.div()..onClick = handleNext)();
 }, null);''',
               }
             ],
@@ -5209,7 +5154,7 @@ final Counter = uiFunction<TestProps>((_) {
     }, 1000);
     return () => clearInterval(id);
   }, []);
-  return <h1>{count.value}</h1>;
+  return Dom.h1()(count.value);
 }, null);''',
         'errors': [
           {
@@ -5227,7 +5172,7 @@ final Counter = uiFunction<TestProps>((_) {
     }, 1000);
     return () => clearInterval(id);
   }, [count.value]);
-  return <h1>{count.value}</h1>;
+  return Dom.h1()(count.value);
 }, null);''',
               }
             ],
@@ -5245,7 +5190,7 @@ final Counter = uiFunction<TestProps>((_) {
     }, 1000);
     return () => clearInterval(id);
   }, []);
-  return <h1>{count.value}</h1>;
+  return Dom.h1()(count.value);
 }, null);''',
         'errors': [
           {
@@ -5265,7 +5210,7 @@ final Counter = uiFunction<TestProps>((_) {
     }, 1000);
     return () => clearInterval(id);
   }, [count.value, increment.value]);
-  return <h1>{count.value}</h1>;
+  return Dom.h1()(count.value);
 }, null);''',
               }
             ],
@@ -5279,11 +5224,11 @@ final Counter = uiFunction<TestProps>((_) {
   var increment = useState(0);
   useEffect(() {
     var id = setInterval(() {
-      count.set((count.value) => count.value + increment.value);
+      count.setWithUpdater((value) => value + increment.value);
     }, 1000);
     return () => clearInterval(id);
   }, []);
-  return <h1>{count.value}</h1>;
+  return Dom.h1()(count.value);
 }, null);''',
         'errors': [
           {
@@ -5298,11 +5243,11 @@ final Counter = uiFunction<TestProps>((_) {
   var increment = useState(0);
   useEffect(() {
     var id = setInterval(() {
-      count.set((count.value) => count.value + increment.value);
+      count.setWithUpdater((value) => value + increment.value);
     }, 1000);
     return () => clearInterval(id);
   }, [increment.value]);
-  return <h1>{count.value}</h1>;
+  return Dom.h1()(count.value);
 }, null);''',
               }
             ],
@@ -5316,11 +5261,11 @@ final Counter = uiFunction<TestProps>((_) {
   var increment = useCustomHook();
   useEffect(() {
     var id = setInterval(() {
-      count.set((count.value) => count.value + increment);
+      count.setWithUpdater((value) => value + increment);
     }, 1000);
     return () => clearInterval(id);
   }, []);
-  return <h1>{count.value}</h1>;
+  return Dom.h1()(count.value);
 }, null);''',
         'errors': [
           {
@@ -5335,11 +5280,11 @@ final Counter = uiFunction<TestProps>((_) {
   var increment = useCustomHook();
   useEffect(() {
     var id = setInterval(() {
-      count.set((count.value) => count.value + increment);
+      count.setWithUpdater((value) => value + increment);
     }, 1000);
     return () => clearInterval(id);
   }, [increment]);
-  return <h1>{count.value}</h1>;
+  return Dom.h1()(count.value);
 }, null);''',
               }
             ],
@@ -5357,11 +5302,11 @@ final Counter = uiFunction<TestProps>((props) {
   }
   useEffect(() {
     var id = setInterval(() {
-      count.set((count.value) => increment(count.value));
+      count.setWithUpdater((value) => increment(value));
     }, 1000);
     return () => clearInterval(id);
   }, []);
-  return <h1>{count.value}</h1>;
+  return Dom.h1()(count.value);
 }, null);''',
         'errors': [
           {
@@ -5380,11 +5325,11 @@ final Counter = uiFunction<TestProps>((props) {
   }
   useEffect(() {
     var id = setInterval(() {
-      count.set((count.value) => increment(count.value));
+      count.setWithUpdater((value) => increment(value));
     }, 1000);
     return () => clearInterval(id);
   }, [increment]);
-  return <h1>{count.value}</h1>;
+  return Dom.h1()(count.value);
 }, null);''',
               }
             ],
@@ -5402,11 +5347,11 @@ final Counter = uiFunction<TestProps>((props) {
   }
   useEffect(() {
     var id = setInterval(() {
-      count.set((count.value) => increment(count.value));
+      count.setWithUpdater((value) => increment(value));
     }, 1000);
     return () => clearInterval(id);
   }, [increment]);
-  return <h1>{count.value}</h1>;
+  return Dom.h1()(count.value);
 }, null);''',
         'errors': [
           {
@@ -5424,11 +5369,11 @@ final Counter = uiFunction<TestProps>((props) {
   var count = useState(0);
   useEffect(() {
     var id = setInterval(() {
-      count.set((count.value) => count.value + increment);
+      count.setWithUpdater((value) => value + increment);
     }, 1000);
     return () => clearInterval(id);
   }, []);
-  return <h1>{count.value}</h1>;
+  return Dom.h1()(count.value);
 }, null);''',
         'errors': [
           {
@@ -5444,11 +5389,11 @@ final Counter = uiFunction<TestProps>((props) {
   var count = useState(0);
   useEffect(() {
     var id = setInterval(() {
-      count.set((count.value) => count.value + increment);
+      count.setWithUpdater((value) => value + increment);
     }, 1000);
     return () => clearInterval(id);
   }, [increment]);
-  return <h1>{count.value}</h1>;
+  return Dom.h1()(count.value);
 }, null);''',
               }
             ],
@@ -5468,7 +5413,7 @@ final Counter = uiFunction<TestProps>((_) {
     }, 1000);
     return () => clearInterval(id);
   }, []);
-  return <h1>{count.value}</h1>;
+  return Dom.h1()(count.value);
 }, null);''',
         'errors': [
           {
@@ -5489,7 +5434,7 @@ final Counter = uiFunction<TestProps>((_) {
     }, 1000);
     return () => clearInterval(id);
   }, [tick]);
-  return <h1>{count.value}</h1>;
+  return Dom.h1()(count.value);
 }, null);''',
               }
             ],
@@ -5500,7 +5445,7 @@ final Counter = uiFunction<TestProps>((_) {
         'code': /*language=dart*/ r'''
 final Podcasts = uiFunction<TestProps>((_) {
   useEffect(() {
-    alert(podcasts.value);
+    window.alert(podcasts.value);
   }, []);
   var podcasts = useState(null);
 }, null);''',
@@ -5514,7 +5459,7 @@ final Podcasts = uiFunction<TestProps>((_) {
                 'output': /*language=dart*/ r'''
 final Podcasts = uiFunction<TestProps>((_) {
   useEffect(() {
-    alert(podcasts.value);
+    window.alert(podcasts.value);
   }, [podcasts.value]);
   var podcasts = useState(null);
 }, null);''',
@@ -6209,7 +6154,7 @@ final MyComponent = uiFunction<TestProps>((_) {
       {
         'code': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  var foo = {}
+  dynamic foo;
   useEffect(() {
     foo.bar.baz = 43;
     props.foo.bar.baz = 1;
@@ -6225,7 +6170,7 @@ final MyComponent = uiFunction<TestProps>((props) {
                     'Update the dependencies array to be: [foo.bar, props.foo.bar]',
                 'output': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  var foo = {}
+  dynamic foo;
   useEffect(() {
     foo.bar.baz = 43;
     props.foo.bar.baz = 1;
@@ -6239,7 +6184,7 @@ final MyComponent = uiFunction<TestProps>((props) {
       {
         'code': /*language=dart*/ r'''
 final Component = uiFunction<TestProps>((_) {
-  final foo = {};
+  dynamic foo;
   useMemo(() => foo, [foo]);
 }, null);''',
         'errors': [
@@ -6379,7 +6324,7 @@ final Component = uiFunction<TestProps>((_) {
       {
         'code': /*language=dart*/ r'''
 final Component = uiFunction<TestProps>((_) {
-  var foo = {};
+  dynamic foo;
   useMemo(() => foo, [foo]);
 }, null);''',
         'errors': [
@@ -6393,7 +6338,7 @@ final Component = uiFunction<TestProps>((_) {
       {
         'code': /*language=dart*/ r'''
 final Component = uiFunction<TestProps>((_) {
-  var foo = {};
+  dynamic foo;
   useMemo(() => foo, [foo]);
 }, null);''',
         'errors': [
@@ -6407,7 +6352,7 @@ final Component = uiFunction<TestProps>((_) {
       {
         'code': /*language=dart*/ r'''
 final Component = uiFunction<TestProps>((_) {
-  final foo = {};
+  dynamic foo;
   useCallback(() {
     print(foo);
   }, [foo]);
@@ -6423,7 +6368,7 @@ final Component = uiFunction<TestProps>((_) {
       {
         'code': /*language=dart*/ r'''
 final Component = uiFunction<TestProps>((_) {
-  final foo = {};
+  dynamic foo;
   useEffect(() {
     print(foo);
   }, [foo]);
@@ -6439,7 +6384,7 @@ final Component = uiFunction<TestProps>((_) {
       {
         'code': /*language=dart*/ r'''
 final Component = uiFunction<TestProps>((_) {
-  final foo = {};
+  dynamic foo;
   useLayoutEffect(() {
     print(foo);
   }, [foo]);
@@ -6455,7 +6400,7 @@ final Component = uiFunction<TestProps>((_) {
       {
         'code': /*language=dart*/ r'''
 final Component = uiFunction<TestProps>((_) {
-  final foo = {};
+  dynamic foo;
   useImperativeHandle(
     ref,
     () {
@@ -6491,7 +6436,7 @@ final Foo = uiFunction<TestProps>((section) {
       {
         'code': /*language=dart*/ r'''
 final Foo = uiFunction<TestProps>((section) {
-  final foo = {};
+  dynamic foo;
   print(foo);
   useMemo(() {
     print(foo);
@@ -6620,7 +6565,7 @@ final Foo = uiFunction<TestProps>((_) {
       {
         'code': /*language=dart*/ r'''
 final Foo = uiFunction<TestProps>((_) {
-  final foo = {};
+  dynamic foo;
   useLayoutEffect(() {
     print(foo);
   }, [foo]);
@@ -6693,7 +6638,7 @@ final MyComponent = uiFunction<TestProps>((_) {
   useEffect(() {
     final someNumber: typeof state.value = 2;
     state.set((prevState) => prevState + someNumber);
-  }, [])
+  }, []);
 }, null);''',
       },
       {
@@ -6947,7 +6892,7 @@ final MyComponent = uiFunction<TestProps>((_) {
   useEffect(() {
     final someNumber: typeof state.value = 2;
     state.set((prevState) => prevState + someNumber + state.value);
-  }, [])
+  }, []);
 }, null);''',
         'errors': [
           {
@@ -6962,7 +6907,7 @@ final MyComponent = uiFunction<TestProps>((_) {
   useEffect(() {
     final someNumber: typeof state.value = 2;
     state.set((prevState) => prevState + someNumber + state.value);
-  }, [state.value])
+  }, [state.value]);
 }, null);''',
               }
             ],
@@ -6976,7 +6921,7 @@ final MyComponent = uiFunction<TestProps>((_) {
   useMemo(() {
     final someNumber: typeof state.value = 2;
     print(someNumber);
-  }, [state.value])
+  }, [state.value]);
 }, null);''',
         'errors': [
           {
@@ -6991,7 +6936,7 @@ final MyComponent = uiFunction<TestProps>((_) {
   useMemo(() {
     final someNumber: typeof state.value = 2;
     print(someNumber);
-  }, [])
+  }, []);
 }, null);''',
               }
             ],
@@ -7598,10 +7543,10 @@ final MyComponent = uiFunction<TestProps>((props) {
     state2.set(null);
     state3.set(null);
     state4.set(null);
-    startTransition1();
-    isPending2.set(null);
-    startTransition3();
-    isPending4.set(null);
+    // startTransition1();
+    // isPending2.set(null);
+    // startTransition3();
+    // isPending4.set(null);
     // Dynamic
     print(state1.value);
     print(state2.value);
@@ -7620,7 +7565,7 @@ final MyComponent = uiFunction<TestProps>((props) {
     // Dynamic
     state1.value, state2.value, state3.value, state4.value, state5.value, state6.value,
     maybeRef1, maybeRef2,
-    isPending2.value, isPending4.value,
+    // isPending2.value, isPending4.value,
     // Not sure; assume dynamic
     mySetState, myDispatch,
     state5.set, state6.set
@@ -7684,20 +7629,20 @@ final MyComponent = uiFunction<TestProps>((props) {
         'code': /*language=dart*/ r'''
 final MyComponent = forwardRef((props, ref) {
   useImperativeHandle(ref, () => ({
-    focus() {
-      alert(props.hello);
+    'focus': () {
+      window.alert(props.hello);
     }
-  }))
+  }));
 });''',
       },
       {
         'code': /*language=dart*/ r'''
 final MyComponent = forwardRef((props, ref) {
   useImperativeHandle(ref, () => ({
-    focus() {
-      alert(props.hello);
+    'focus': () {
+      window.alert(props.hello);
     }
-  }), [props.hello])
+  }), [props.hello]);
 });''',
       },
       {
@@ -7712,7 +7657,7 @@ final MyComponent = uiFunction<TestProps>((props) {
       {
         'code': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  var foo = {}
+  dynamic foo;
   useEffect(() {
     foo.bar.baz = 43;
   }, [foo.bar]);
@@ -7726,10 +7671,10 @@ final MyComponent = uiFunction<TestProps>((_) {
     final handleMove = () {};
     myRef.current = {};
     return () {
-      print(myRef.current.toString())
+      print(myRef.current.toString());
     };
   }, []);
-  return <div />;
+  return Dom.div()();
 }, null);''',
       },
       {
@@ -7740,20 +7685,20 @@ final MyComponent = uiFunction<TestProps>((_) {
     final handleMove = () {};
     myRef.current = {};
     return () {
-      print(myRef?.current?.toString())
+      print(myRef?.current?.toString());
     };
   }, []);
-  return <div />;
+  return Dom.div()();
 }, null);''',
       },
       {
         'code': /*language=dart*/ r'''
 useMyThing(myRef) {
-  useEffect(() {
+  useEffe;ct(() {
     final handleMove = () {};
     myRef.current = {};
     return () {
-      print(myRef.current.toString())
+      print(myRef.current.toString());
     };
   }, [myRef]);
 }''',
@@ -7768,7 +7713,7 @@ final MyComponent = uiFunction<TestProps>((_) {
     node.addEventListener('mousemove', handleMove);
     return () => node.removeEventListener('mousemove', handleMove);
   }, []);
-  return <div ref={myRef} />;
+  return (Dom.div()..ref = myRef)();
 }, null);''',
       },
       {
@@ -7780,7 +7725,7 @@ useMyThing(myRef) {
     node.addEventListener('mousemove', handleMove);
     return () => node.removeEventListener('mousemove', handleMove);
   }, [myRef]);
-  return <div ref={myRef} />;
+  return (Dom.div()..ref = myRef)();
 }''',
       },
       {
@@ -7795,7 +7740,7 @@ useMyThing(myRef) {
         myRef.current.removeEventListener('mousemove', handleMouse);
         myRef.current.removeEventListener('mousein', handleMouse);
       });
-    }
+    };
   }, [myRef]);
 }''',
       },
@@ -7805,12 +7750,12 @@ useMyThing() {
   final myRef = useRef();
   useEffect(() {
     final handleMove = () {
-      print(myRef.current)
+      print(myRef.current);
     };
     window.addEventListener('mousemove', handleMove);
     return () => window.removeEventListener('mousemove', handleMove);
   }, []);
-  return <div ref={myRef} />;
+  return (Dom.div()..ref = myRef)();
 }''',
       },
       {
@@ -7824,7 +7769,7 @@ useMyThing() {
     window.addEventListener('mousemove', handleMove);
     return () {};
   }, []);
-  return <div ref={myRef} />;
+  return (Dom.div()..ref = myRef)();
 }''',
       },
       {
@@ -7997,11 +7942,11 @@ final Counter = uiFunction<TestProps>((_) {
   var count = useState(0);
   useEffect(() {
     var id = setInterval(() {
-      count.set((c) => c + 1);
+      count.setWithUpdater((c) => c + 1);
     }, 1000);
     return () => clearInterval(id);
   }, []);
-  return <h1>{count.value}</h1>;
+  return Dom.h1()(count.value);
 }, null);''',
       },
       {
@@ -8009,7 +7954,7 @@ final Counter = uiFunction<TestProps>((_) {
 final Counter = uiFunction<TestProps>((_) {
   var count = useState(0);
   tick() {
-    count.set((c) => c + 1);
+    count.setWithUpdater((c) => c + 1);
   }
   useEffect(() {
     var id = setInterval(() {
@@ -8017,7 +7962,7 @@ final Counter = uiFunction<TestProps>((_) {
     }, 1000);
     return () => clearInterval(id);
   }, []);
-  return <h1>{count.value}</h1>;
+  return Dom.h1()(count.value);
 }, null);''',
       },
       {
@@ -8034,7 +7979,7 @@ final Counter = uiFunction<TestProps>((_) {
     }, 1000);
     return () => clearInterval(id);
   }, []);
-  return <h1>{count.value}</h1>;
+  return Dom.h1()(count.value);
 }, null);''',
       },
       {
@@ -8052,7 +7997,7 @@ final Counter = uiFunction<TestProps>((_) {
     var id = setInterval(tick, 1000);
     return () => clearInterval(id);
   }, []);
-  return <h1>{count.value}</h1>;
+  return Dom.h1()(count.value);
 }, null);''',
       },
       {
@@ -8067,12 +8012,13 @@ final Podcasts = uiFunction<TestProps>((_) {
       {
         'code': /*language=dart*/ r'''
 withFetch(fetchPodcasts) {
-  return Podcasts({ id }) {
+  return uiFunction((props) {
+    final id = props.id;
     var podcasts = useState(null);
     useEffect(() {
       fetchPodcasts(id).then(podcasts.set);
     }, [id]);
-  }
+  }, null);
 }''',
       },
       {
@@ -8102,7 +8048,7 @@ final Counter = uiFunction<TestProps>((_) {
     }, 1000);
     return () => clearInterval(id);
   }, []);
-  return <h1>{count.value}</h1>;
+  return Dom.h1()(count.value);
 }, null);''',
       },
       {
@@ -8114,39 +8060,38 @@ final Counter = uiFunction<TestProps>((_) {
   }
   useEffect(() {
     var id = setInterval(() {
-      count.set((count.value) => increment(count.value));
+      count.setWithUpdater((value) => increment(value));
     }, 1000);
     return () => clearInterval(id);
   }, []);
-  return <h1>{count.value}</h1>;
+  return Dom.h1()(count.value);
 }, null);''',
       },
       {
         'code': /*language=dart*/ r'''
-import increment from './increment';
 final Counter = uiFunction<TestProps>((_) {
   var count = useState(0);
   useEffect(() {
     var id = setInterval(() {
-      count.set((count.value) => count.value + increment);
+      count.setWithUpdater((value) => value + increment);
     }, 1000);
     return () => clearInterval(id);
   }, []);
-  return <h1>{count.value}</h1>;
+  return Dom.h1()(count.value);
 }, null);''',
       },
       {
         'code': /*language=dart*/ r'''
 withStuff(increment) {
-  return Counter() {
+  return () {
     var count = useState(0);
     useEffect(() {
       var id = setInterval(() {
-        count.set((count.value) => count.value + increment);
+        count.setWithUpdater((value) => value + increment);
       }, 1000);
       return () => clearInterval(id);
     }, []);
-    return <h1>{count.value}</h1>;
+    return Dom.h1()(count.value);
   }
 }''',
       },
@@ -8207,8 +8152,8 @@ final Hello = uiFunction<TestProps>((_) {
         'code': /*language=dart*/ r'''
 final Example = uiFunction<TestProps>((_) {
   useEffect(() {
-    arguments
-  }, [])
+    arguments;
+  }, []);
 }, null);''',
       },
       {
@@ -8219,7 +8164,7 @@ final Example = uiFunction<TestProps>((_) {
       arguments;
     };
     bar();
-  }, [])
+  }, []);
 }, null);''',
       },
       {
@@ -8264,25 +8209,11 @@ useFoo(){
       },
       {
         'code': /*language=dart*/ r'''
-useFoo(){
-  let {foo} = {foo: 1};
-  return useMemo(() => foo, [foo]);
-}''',
-      },
-      {
-        'code': /*language=dart*/ r'''
-useFoo(){
-  let [foo] = [1];
-  return useMemo(() => foo, [foo]);
-}''',
-      },
-      {
-        'code': /*language=dart*/ r'''
 useFoo() {
   final foo = "fine";
   if (true) {
     // Shadowed variable with constant construction in a nested scope is fine.
-    final foo = {};
+    dynamic foo;
   }
   return useMemo(() => foo, [foo]);
 }''',
@@ -8292,7 +8223,7 @@ useFoo() {
 final MyComponent = uiFunction<TestProps>((props) {
   var foo = props.foo;
 
-  return useMemo(() => foo, [foo])
+  return useMemo(() => foo, [foo]);
 }, null);''',
       },
       {
@@ -8491,7 +8422,7 @@ final MyComponent = uiFunction<TestProps>((_) {
         'code': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
   final value = useMemo(() { return 2*2; });
-  final fn = useCallback(() { alert('foo'); });
+  final fn = useCallback(() { window.alert('foo'); });
 }, null);''',
         'errors': [
           {
@@ -10376,7 +10307,7 @@ final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     ref1.current.focus();
     print(ref2.current.textContent);
-    alert(props.someOtherRefs.current.innerHTML);
+    window.alert(props.someOtherRefs.current.innerHTML);
     fetch(props.color);
   }, []);
 }, null);''',
@@ -10395,7 +10326,7 @@ final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     ref1.current.focus();
     print(ref2.current.textContent);
-    alert(props.someOtherRefs.current.innerHTML);
+    window.alert(props.someOtherRefs.current.innerHTML);
     fetch(props.color);
   }, [props.color, props.someOtherRefs]);
 }, null);''',
@@ -10412,7 +10343,7 @@ final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     ref1.current.focus();
     print(ref2.current.textContent);
-    alert(props.someOtherRefs.current.innerHTML);
+    window.alert(props.someOtherRefs.current.innerHTML);
     fetch(props.color);
   }, [ref1.current, ref2.current, props.someOtherRefs, props.color]);
 }, null);''',
@@ -10431,7 +10362,7 @@ final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     ref1.current.focus();
     print(ref2.current.textContent);
-    alert(props.someOtherRefs.current.innerHTML);
+    window.alert(props.someOtherRefs.current.innerHTML);
     fetch(props.color);
   }, [props.someOtherRefs, props.color]);
 }, null);''',
@@ -10448,7 +10379,7 @@ final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     ref1?.current?.focus();
     print(ref2?.current?.textContent);
-    alert(props.someOtherRefs.current.innerHTML);
+    window.alert(props.someOtherRefs.current.innerHTML);
     fetch(props.color);
   }, [ref1?.current, ref2?.current, props.someOtherRefs, props.color]);
 }, null);''',
@@ -10467,7 +10398,7 @@ final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     ref1?.current?.focus();
     print(ref2?.current?.textContent);
-    alert(props.someOtherRefs.current.innerHTML);
+    window.alert(props.someOtherRefs.current.innerHTML);
     fetch(props.color);
   }, [props.someOtherRefs, props.color]);
 }, null);''',
@@ -10606,10 +10537,10 @@ final MyComponent = uiFunction<TestProps>((_) {
         'code': /*language=dart*/ r'''
 final MyComponent = forwardRef((props, ref) {
   useImperativeHandle(ref, () => ({
-    focus() {
-      alert(props.hello);
+    'focus': () {
+      window.alert(props.hello);
     }
-  }), [])
+  }), []);
 });''',
         'errors': [
           {
@@ -10621,10 +10552,10 @@ final MyComponent = forwardRef((props, ref) {
                 'output': /*language=dart*/ r'''
 final MyComponent = forwardRef((props, ref) {
   useImperativeHandle(ref, () => ({
-    focus() {
-      alert(props.hello);
+    'focus': () {
+      window.alert(props.hello);
     }
-  }), [props.hello])
+  }), [props.hello]);
 });''',
               }
             ],
@@ -10992,7 +10923,7 @@ final MyComponent = uiFunction<TestProps>((_) {
     myRef.current.addEventListener('mousemove', handleMove);
     return () => myRef.current.removeEventListener('mousemove', handleMove);
   }, []);
-  return <div ref={myRef} />;
+  return (Dom.div()..ref = myRef)();
 }, null);''',
         'errors': [
           {
@@ -11011,7 +10942,7 @@ final MyComponent = uiFunction<TestProps>((_) {
     myRef?.current?.addEventListener('mousemove', handleMove);
     return () => myRef?.current?.removeEventListener('mousemove', handleMove);
   }, []);
-  return <div ref={myRef} />;
+  return (Dom.div()..ref = myRef)();
 }, null);''',
         'errors': [
           {
@@ -11030,7 +10961,7 @@ final MyComponent = uiFunction<TestProps>((_) {
     myRef.current.addEventListener('mousemove', handleMove);
     return () => myRef.current.removeEventListener('mousemove', handleMove);
   });
-  return <div ref={myRef} />;
+  return (Dom.div()..ref = myRef)();
 }, null);''',
         'errors': [
           {
@@ -11069,7 +11000,7 @@ useMyThing(myRef) {
         myRef.current.removeEventListener('mousemove', handleMouse);
         myRef.current.removeEventListener('mousein', handleMouse);
       });
-    }
+    };
   }, [myRef]);
 }''',
         'errors': [
@@ -11091,7 +11022,7 @@ useMyThing(myRef, active) {
         setTimeout(() {
           myRef.current.removeEventListener('mousemove', handleMove);
         });
-      }
+      };
     }
   }, [myRef, active]);
 }''',
@@ -11112,7 +11043,7 @@ final MyComponent = uiFunction<TestProps>((_) {
     myRef.current.addEventListener('mousemove', handleMove);
     return () => myRef.current.removeEventListener('mousemove', handleMove);
   });
-  return <div ref={myRef} />;
+  return (Dom.div()..ref = myRef)();
 }, null);''',
         'output': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((_) {
@@ -11122,7 +11053,7 @@ final MyComponent = uiFunction<TestProps>((_) {
     myRef.current.addEventListener('mousemove', handleMove);
     return () => myRef.current.removeEventListener('mousemove', handleMove);
   });
-  return <div ref={myRef} />;
+  return (Dom.div()..ref = myRef)();
 }, null);''',
         'errors': [
           'The ref value \'myRef.current\' will likely have changed by the time this effect cleanup function runs. If this ref points to a node rendered by React, copy \'myRef.current\' to a variable inside the effect, and use that variable in the cleanup function.'
@@ -11200,7 +11131,6 @@ final MyComponent = uiFunction<TestProps>((_) {
       },
       {
         'code': /*language=dart*/ r'''
-import MutableStore from 'store';
 final MyComponent = uiFunction<TestProps>((_) {
   useEffect(() {
     print(MutableStore.hello);
@@ -11214,7 +11144,6 @@ final MyComponent = uiFunction<TestProps>((_) {
               {
                 'desc': 'Update the dependencies array to be: []',
                 'output': /*language=dart*/ r'''
-import MutableStore from 'store';
 final MyComponent = uiFunction<TestProps>((_) {
   useEffect(() {
     print(MutableStore.hello);
@@ -11227,7 +11156,6 @@ final MyComponent = uiFunction<TestProps>((_) {
       },
       {
         'code': /*language=dart*/ r'''
-import MutableStore from 'store';
 var z = {};
 final MyComponent = uiFunction<TestProps>((props) {
   var x = props.foo;
@@ -11247,7 +11175,6 @@ final MyComponent = uiFunction<TestProps>((props) {
                 'desc':
                     'Update the dependencies array to be: [props.foo, x, y]',
                 'output': /*language=dart*/ r'''
-import MutableStore from 'store';
 var z = {};
 final MyComponent = uiFunction<TestProps>((props) {
   var x = props.foo;
@@ -11265,7 +11192,6 @@ final MyComponent = uiFunction<TestProps>((props) {
       },
       {
         'code': /*language=dart*/ r'''
-import MutableStore from 'store';
 var z = {};
 final MyComponent = uiFunction<TestProps>((props) {
   var x = props.foo;
@@ -11285,7 +11211,6 @@ final MyComponent = uiFunction<TestProps>((props) {
                 'desc':
                     'Update the dependencies array to be: [props.foo, x, y]',
                 'output': /*language=dart*/ r'''
-import MutableStore from 'store';
 var z = {};
 final MyComponent = uiFunction<TestProps>((props) {
   var x = props.foo;
@@ -11303,7 +11228,6 @@ final MyComponent = uiFunction<TestProps>((props) {
       },
       {
         'code': /*language=dart*/ r'''
-import MutableStore from 'store';
 var z = {};
 final MyComponent = uiFunction<TestProps>((props) {
   var x = props.foo;
@@ -11322,7 +11246,6 @@ final MyComponent = uiFunction<TestProps>((props) {
               {
                 'desc': 'Update the dependencies array to be: []',
                 'output': /*language=dart*/ r'''
-import MutableStore from 'store';
 var z = {};
 final MyComponent = uiFunction<TestProps>((props) {
   var x = props.foo;
@@ -11340,7 +11263,6 @@ final MyComponent = uiFunction<TestProps>((props) {
       },
       {
         'code': /*language=dart*/ r'''
-import MutableStore from 'store';
 var z = {};
 final MyComponent = uiFunction<TestProps>((props) {
   var x = props.foo;
@@ -11359,7 +11281,6 @@ final MyComponent = uiFunction<TestProps>((props) {
               {
                 'desc': 'Update the dependencies array to be: []',
                 'output': /*language=dart*/ r'''
-import MutableStore from 'store';
 var z = {};
 final MyComponent = uiFunction<TestProps>((props) {
   var x = props.foo;
@@ -11868,7 +11789,7 @@ final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     return Store.subscribe(handleNext);
   }, [handleNext]);
-  return <div onClick={handleNext} />;
+  return (Dom.div()..onClick = handleNext)();
 }, null);''',
         'errors': [
           {
@@ -11887,7 +11808,7 @@ final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     return Store.subscribe(handleNext);
   }, [handleNext]);
-  return <div onClick={handleNext} />;
+  return (Dom.div()..onClick = handleNext)();
 }, null);''',
               }
             ],
@@ -12270,7 +12191,7 @@ final Counter = uiFunction<TestProps>((_) {
     }, 1000);
     return () => clearInterval(id);
   }, []);
-  return <h1>{count.value}</h1>;
+  return Dom.h1()(count.value);
 }, null);''',
         'errors': [
           {
@@ -12288,7 +12209,7 @@ final Counter = uiFunction<TestProps>((_) {
     }, 1000);
     return () => clearInterval(id);
   }, [count.value]);
-  return <h1>{count.value}</h1>;
+  return Dom.h1()(count.value);
 }, null);''',
               }
             ],
@@ -12306,7 +12227,7 @@ final Counter = uiFunction<TestProps>((_) {
     }, 1000);
     return () => clearInterval(id);
   }, []);
-  return <h1>{count.value}</h1>;
+  return Dom.h1()(count.value);
 }, null);''',
         'errors': [
           {
@@ -12326,7 +12247,7 @@ final Counter = uiFunction<TestProps>((_) {
     }, 1000);
     return () => clearInterval(id);
   }, [count.value, increment.value]);
-  return <h1>{count.value}</h1>;
+  return Dom.h1()(count.value);
 }, null);''',
               }
             ],
@@ -12340,11 +12261,11 @@ final Counter = uiFunction<TestProps>((_) {
   var increment = useState(0);
   useEffect(() {
     var id = setInterval(() {
-      count.set((count.value) => count.value + increment.value);
+      count.setWithUpdater((value) => value + increment.value);
     }, 1000);
     return () => clearInterval(id);
   }, []);
-  return <h1>{count.value}</h1>;
+  return Dom.h1()(count.value);
 }, null);''',
         'errors': [
           {
@@ -12359,11 +12280,11 @@ final Counter = uiFunction<TestProps>((_) {
   var increment = useState(0);
   useEffect(() {
     var id = setInterval(() {
-      count.set((count.value) => count.value + increment.value);
+      count.setWithUpdater((value) => value + increment.value);
     }, 1000);
     return () => clearInterval(id);
   }, [increment.value]);
-  return <h1>{count.value}</h1>;
+  return Dom.h1()(count.value);
 }, null);''',
               }
             ],
@@ -12377,11 +12298,11 @@ final Counter = uiFunction<TestProps>((_) {
   var increment = useCustomHook();
   useEffect(() {
     var id = setInterval(() {
-      count.set((count.value) => count.value + increment);
+      count.setWithUpdater((value) => value + increment);
     }, 1000);
     return () => clearInterval(id);
   }, []);
-  return <h1>{count.value}</h1>;
+  return Dom.h1()(count.value);
 }, null);''',
         'errors': [
           {
@@ -12396,11 +12317,11 @@ final Counter = uiFunction<TestProps>((_) {
   var increment = useCustomHook();
   useEffect(() {
     var id = setInterval(() {
-      count.set((count.value) => count.value + increment);
+      count.setWithUpdater((value) => value + increment);
     }, 1000);
     return () => clearInterval(id);
   }, [increment]);
-  return <h1>{count.value}</h1>;
+  return Dom.h1()(count.value);
 }, null);''',
               }
             ],
@@ -12418,11 +12339,11 @@ final Counter = uiFunction<TestProps>((props) {
   }
   useEffect(() {
     var id = setInterval(() {
-      count.set((count.value) => increment(count.value));
+      count.setWithUpdater((value) => increment(value));
     }, 1000);
     return () => clearInterval(id);
   }, []);
-  return <h1>{count.value}</h1>;
+  return Dom.h1()(count.value);
 }, null);''',
         'errors': [
           {
@@ -12441,11 +12362,11 @@ final Counter = uiFunction<TestProps>((props) {
   }
   useEffect(() {
     var id = setInterval(() {
-      count.set((count.value) => increment(count.value));
+      count.setWithUpdater((value) => increment(value));
     }, 1000);
     return () => clearInterval(id);
   }, [increment]);
-  return <h1>{count.value}</h1>;
+  return Dom.h1()(count.value);
 }, null);''',
               }
             ],
@@ -12463,11 +12384,11 @@ final Counter = uiFunction<TestProps>((props) {
   }
   useEffect(() {
     var id = setInterval(() {
-      count.set((count.value) => increment(count.value));
+      count.setWithUpdater((value) => increment(value));
     }, 1000);
     return () => clearInterval(id);
   }, [increment]);
-  return <h1>{count.value}</h1>;
+  return Dom.h1()(count.value);
 }, null);''',
         'errors': [
           {
@@ -12485,11 +12406,11 @@ final Counter = uiFunction<TestProps>((props) {
   var count = useState(0);
   useEffect(() {
     var id = setInterval(() {
-      count.set((count.value) => count.value + increment);
+      count.setWithUpdater((value) => value + increment);
     }, 1000);
     return () => clearInterval(id);
   }, []);
-  return <h1>{count.value}</h1>;
+  return Dom.h1()(count.value);
 }, null);''',
         'errors': [
           {
@@ -12505,11 +12426,11 @@ final Counter = uiFunction<TestProps>((props) {
   var count = useState(0);
   useEffect(() {
     var id = setInterval(() {
-      count.set((count.value) => count.value + increment);
+      count.setWithUpdater((value) => value + increment);
     }, 1000);
     return () => clearInterval(id);
   }, [increment]);
-  return <h1>{count.value}</h1>;
+  return Dom.h1()(count.value);
 }, null);''',
               }
             ],
@@ -12529,7 +12450,7 @@ final Counter = uiFunction<TestProps>((_) {
     }, 1000);
     return () => clearInterval(id);
   }, []);
-  return <h1>{count.value}</h1>;
+  return Dom.h1()(count.value);
 }, null);''',
         'errors': [
           {
@@ -12550,7 +12471,7 @@ final Counter = uiFunction<TestProps>((_) {
     }, 1000);
     return () => clearInterval(id);
   }, [tick]);
-  return <h1>{count.value}</h1>;
+  return Dom.h1()(count.value);
 }, null);''',
               }
             ],
@@ -12561,7 +12482,7 @@ final Counter = uiFunction<TestProps>((_) {
         'code': /*language=dart*/ r'''
 final Podcasts = uiFunction<TestProps>((_) {
   useEffect(() {
-    alert(podcasts.value);
+    window.alert(podcasts.value);
   }, []);
   var podcasts = useState(null);
 }, null);''',
@@ -12575,7 +12496,7 @@ final Podcasts = uiFunction<TestProps>((_) {
                 'output': /*language=dart*/ r'''
 final Podcasts = uiFunction<TestProps>((_) {
   useEffect(() {
-    alert(podcasts.value);
+    window.alert(podcasts.value);
   }, [podcasts.value]);
   var podcasts = useState(null);
 }, null);''',
@@ -13270,7 +13191,7 @@ final MyComponent = uiFunction<TestProps>((_) {
       {
         'code': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  var foo = {}
+  dynamic foo;
   useEffect(() {
     foo.bar.baz = 43;
     props.foo.bar.baz = 1;
@@ -13286,7 +13207,7 @@ final MyComponent = uiFunction<TestProps>((props) {
                     'Update the dependencies array to be: [foo.bar, props.foo.bar]',
                 'output': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  var foo = {}
+  dynamic foo;
   useEffect(() {
     foo.bar.baz = 43;
     props.foo.bar.baz = 1;
@@ -13300,7 +13221,7 @@ final MyComponent = uiFunction<TestProps>((props) {
       {
         'code': /*language=dart*/ r'''
 final Component = uiFunction<TestProps>((_) {
-  final foo = {};
+  dynamic foo;
   useMemo(() => foo, [foo]);
 }, null);''',
         'errors': [
@@ -13440,7 +13361,7 @@ final Component = uiFunction<TestProps>((_) {
       {
         'code': /*language=dart*/ r'''
 final Component = uiFunction<TestProps>((_) {
-  var foo = {};
+  dynamic foo;
   useMemo(() => foo, [foo]);
 }, null);''',
         'errors': [
@@ -13454,7 +13375,7 @@ final Component = uiFunction<TestProps>((_) {
       {
         'code': /*language=dart*/ r'''
 final Component = uiFunction<TestProps>((_) {
-  var foo = {};
+  dynamic foo;
   useMemo(() => foo, [foo]);
 }, null);''',
         'errors': [
@@ -13468,7 +13389,7 @@ final Component = uiFunction<TestProps>((_) {
       {
         'code': /*language=dart*/ r'''
 final Component = uiFunction<TestProps>((_) {
-  final foo = {};
+  dynamic foo;
   useCallback(() {
     print(foo);
   }, [foo]);
@@ -13484,7 +13405,7 @@ final Component = uiFunction<TestProps>((_) {
       {
         'code': /*language=dart*/ r'''
 final Component = uiFunction<TestProps>((_) {
-  final foo = {};
+  dynamic foo;
   useEffect(() {
     print(foo);
   }, [foo]);
@@ -13500,7 +13421,7 @@ final Component = uiFunction<TestProps>((_) {
       {
         'code': /*language=dart*/ r'''
 final Component = uiFunction<TestProps>((_) {
-  final foo = {};
+  dynamic foo;
   useLayoutEffect(() {
     print(foo);
   }, [foo]);
@@ -13516,7 +13437,7 @@ final Component = uiFunction<TestProps>((_) {
       {
         'code': /*language=dart*/ r'''
 final Component = uiFunction<TestProps>((_) {
-  final foo = {};
+  dynamic foo;
   useImperativeHandle(
     ref,
     () {
@@ -13552,7 +13473,7 @@ final Foo = uiFunction<TestProps>((section) {
       {
         'code': /*language=dart*/ r'''
 final Foo = uiFunction<TestProps>((section) {
-  final foo = {};
+  dynamic foo;
   print(foo);
   useMemo(() {
     print(foo);
@@ -13681,7 +13602,7 @@ final Foo = uiFunction<TestProps>((_) {
       {
         'code': /*language=dart*/ r'''
 final Foo = uiFunction<TestProps>((_) {
-  final foo = {};
+  dynamic foo;
   useLayoutEffect(() {
     print(foo);
   }, [foo]);
@@ -13754,7 +13675,7 @@ final MyComponent = uiFunction<TestProps>((_) {
   useEffect(() {
     final someNumber: typeof state.value = 2;
     state.set((prevState) => prevState + someNumber);
-  }, [])
+  }, []);
 }, null);''',
       },
       {
@@ -14008,7 +13929,7 @@ final MyComponent = uiFunction<TestProps>((_) {
   useEffect(() {
     final someNumber: typeof state.value = 2;
     state.set((prevState) => prevState + someNumber + state.value);
-  }, [])
+  }, []);
 }, null);''',
         'errors': [
           {
@@ -14023,7 +13944,7 @@ final MyComponent = uiFunction<TestProps>((_) {
   useEffect(() {
     final someNumber: typeof state.value = 2;
     state.set((prevState) => prevState + someNumber + state.value);
-  }, [state.value])
+  }, [state.value]);
 }, null);''',
               }
             ],
@@ -14037,7 +13958,7 @@ final MyComponent = uiFunction<TestProps>((_) {
   useMemo(() {
     final someNumber: typeof state.value = 2;
     print(someNumber);
-  }, [state.value])
+  }, [state.value]);
 }, null);''',
         'errors': [
           {
@@ -14052,7 +13973,7 @@ final MyComponent = uiFunction<TestProps>((_) {
   useMemo(() {
     final someNumber: typeof state.value = 2;
     print(someNumber);
-  }, [])
+  }, []);
 }, null);''',
               }
             ],
@@ -14475,11 +14396,11 @@ final MyComponent = uiFunction<TestProps>((_) {
 final local = {};
 final MyComponent = uiFunction<TestProps>((_) {
   final myEffect = () {
-    otherThing()
-  }
+    otherThing();
+  };
   final otherThing = () {
     print(local);
-  }
+  };
   useEffect(myEffect, []);
 }, null);''',
       },
@@ -14643,10 +14564,10 @@ final MyComponent = uiFunction<TestProps>((props) {
   var state4 = over_react.useReducer();
   var state5 = useFunnyState();
   var state6 = useFunnyReducer();
-  const [isPending1] = useTransition();
-  var isPending2 = useTransition();
-  const [isPending3] = over_react.useTransition();
-  var isPending4 = over_react.useTransition();
+  // const [isPending1] = useTransition();
+  // var isPending2 = useTransition();
+  // const [isPending3] = over_react.useTransition();
+  // var isPending4 = over_react.useTransition();
   final mySetState = useCallback(() {}, []);
   var myDispatch = useCallback(() {}, []);
   useEffect(() {
@@ -14659,10 +14580,10 @@ final MyComponent = uiFunction<TestProps>((props) {
     state2.set(null);
     state3.set(null);
     state4.set(null);
-    startTransition1();
-    isPending2.set(null);
-    startTransition3();
-    isPending4.set(null);
+    // startTransition1();
+    // isPending2.set(null);
+    // startTransition3();
+    // isPending4.set(null);
     // Dynamic
     print(state1.value);
     print(state2.value);
@@ -14681,7 +14602,7 @@ final MyComponent = uiFunction<TestProps>((props) {
     // Dynamic
     state1.value, state2.value, state3.value, state4.value, state5.value, state6.value,
     maybeRef1, maybeRef2,
-    isPending2.value, isPending4.value,
+    // isPending2.value, isPending4.value,
     // Not sure; assume dynamic
     mySetState, myDispatch,
     state5.set, state6.set
@@ -14745,20 +14666,20 @@ final MyComponent = uiFunction<TestProps>((props) {
         'code': /*language=dart*/ r'''
 final MyComponent = forwardRef((props, ref) {
   useImperativeHandle(ref, () => ({
-    focus() {
-      alert(props.hello);
+    'focus': () {
+      window.alert(props.hello);
     }
-  }))
+  }));
 });''',
       },
       {
         'code': /*language=dart*/ r'''
 final MyComponent = forwardRef((props, ref) {
   useImperativeHandle(ref, () => ({
-    focus() {
-      alert(props.hello);
+    'focus': () {
+      window.alert(props.hello);
     }
-  }), [props.hello])
+  }), [props.hello]);
 });''',
       },
       {
@@ -14773,7 +14694,7 @@ final MyComponent = uiFunction<TestProps>((props) {
       {
         'code': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  var foo = {}
+  dynamic foo;
   useEffect(() {
     foo.bar.baz = 43;
   }, [foo.bar]);
@@ -14787,10 +14708,10 @@ final MyComponent = uiFunction<TestProps>((_) {
     final handleMove = () {};
     myRef.current = {};
     return () {
-      print(myRef.current.toString())
+      print(myRef.current.toString());
     };
   }, []);
-  return <div />;
+  return Dom.div()();
 }, null);''',
       },
       {
@@ -14801,10 +14722,10 @@ final MyComponent = uiFunction<TestProps>((_) {
     final handleMove = () {};
     myRef.current = {};
     return () {
-      print(myRef?.current?.toString())
+      print(myRef?.current?.toString());
     };
   }, []);
-  return <div />;
+  return Dom.div()();
 }, null);''',
       },
       {
@@ -14814,7 +14735,7 @@ useMyThing(myRef) {
     final handleMove = () {};
     myRef.current = {};
     return () {
-      print(myRef.current.toString())
+      print(myRef.current.toString());
     };
   }, [myRef]);
 }''',
@@ -14829,7 +14750,7 @@ final MyComponent = uiFunction<TestProps>((_) {
     node.addEventListener('mousemove', handleMove);
     return () => node.removeEventListener('mousemove', handleMove);
   }, []);
-  return <div ref={myRef} />;
+  return (Dom.div()..ref = myRef)();
 }, null);''',
       },
       {
@@ -14841,7 +14762,7 @@ useMyThing(myRef) {
     node.addEventListener('mousemove', handleMove);
     return () => node.removeEventListener('mousemove', handleMove);
   }, [myRef]);
-  return <div ref={myRef} />;
+  return (Dom.div()..ref = myRef)();
 }''',
       },
       {
@@ -14856,7 +14777,7 @@ useMyThing(myRef) {
         myRef.current.removeEventListener('mousemove', handleMouse);
         myRef.current.removeEventListener('mousein', handleMouse);
       });
-    }
+    };
   }, [myRef]);
 }''',
       },
@@ -14866,12 +14787,12 @@ useMyThing() {
   final myRef = useRef();
   useEffect(() {
     final handleMove = () {
-      print(myRef.current)
+      print(myRef.current);
     };
     window.addEventListener('mousemove', handleMove);
     return () => window.removeEventListener('mousemove', handleMove);
   }, []);
-  return <div ref={myRef} />;
+  return (Dom.div()..ref = myRef)();
 }''',
       },
       {
@@ -14885,7 +14806,7 @@ useMyThing() {
     window.addEventListener('mousemove', handleMove);
     return () {};
   }, []);
-  return <div ref={myRef} />;
+  return (Dom.div()..ref = myRef)();
 }''',
       },
       {
@@ -15058,11 +14979,11 @@ final Counter = uiFunction<TestProps>((_) {
   var count = useState(0);
   useEffect(() {
     var id = setInterval(() {
-      count.set((c) => c + 1);
+      count.setWithUpdater((c) => c + 1);
     }, 1000);
     return () => clearInterval(id);
   }, []);
-  return <h1>{count.value}</h1>;
+  return Dom.h1()(count.value);
 }, null);''',
       },
       {
@@ -15070,7 +14991,7 @@ final Counter = uiFunction<TestProps>((_) {
 final Counter = uiFunction<TestProps>((_) {
   var count = useState(0);
   tick() {
-    count.set((c) => c + 1);
+    count.setWithUpdater((c) => c + 1);
   }
   useEffect(() {
     var id = setInterval(() {
@@ -15078,7 +14999,7 @@ final Counter = uiFunction<TestProps>((_) {
     }, 1000);
     return () => clearInterval(id);
   }, []);
-  return <h1>{count.value}</h1>;
+  return Dom.h1()(count.value);
 }, null);''',
       },
       {
@@ -15095,7 +15016,7 @@ final Counter = uiFunction<TestProps>((_) {
     }, 1000);
     return () => clearInterval(id);
   }, []);
-  return <h1>{count.value}</h1>;
+  return Dom.h1()(count.value);
 }, null);''',
       },
       {
@@ -15113,7 +15034,7 @@ final Counter = uiFunction<TestProps>((_) {
     var id = setInterval(tick, 1000);
     return () => clearInterval(id);
   }, []);
-  return <h1>{count.value}</h1>;
+  return Dom.h1()(count.value);
 }, null);''',
       },
       {
@@ -15128,12 +15049,13 @@ final Podcasts = uiFunction<TestProps>((_) {
       {
         'code': /*language=dart*/ r'''
 withFetch(fetchPodcasts) {
-  return Podcasts({ id }) {
+  return uiFunction((props) {
+    final id = props.id;
     var podcasts = useState(null);
     useEffect(() {
       fetchPodcasts(id).then(podcasts.set);
     }, [id]);
-  }
+  }, null);
 }''',
       },
       {
@@ -15163,7 +15085,7 @@ final Counter = uiFunction<TestProps>((_) {
     }, 1000);
     return () => clearInterval(id);
   }, []);
-  return <h1>{count.value}</h1>;
+  return Dom.h1()(count.value);
 }, null);''',
       },
       {
@@ -15175,40 +15097,39 @@ final Counter = uiFunction<TestProps>((_) {
   }
   useEffect(() {
     var id = setInterval(() {
-      count.set((count.value) => increment(count.value));
+      count.setWithUpdater((value) => increment(value));
     }, 1000);
     return () => clearInterval(id);
   }, []);
-  return <h1>{count.value}</h1>;
+  return Dom.h1()(count.value);
 }, null);''',
       },
       {
         'code': /*language=dart*/ r'''
-import increment from './increment';
 final Counter = uiFunction<TestProps>((_) {
   var count = useState(0);
   useEffect(() {
     var id = setInterval(() {
-      count.set((count.value) => count.value + increment);
+      count.setWithUpdater((value) => value + increment);
     }, 1000);
     return () => clearInterval(id);
   }, []);
-  return <h1>{count.value}</h1>;
+  return Dom.h1()(count.value);
 }, null);''',
       },
       {
         'code': /*language=dart*/ r'''
 withStuff(increment) {
-  return Counter() {
+  return () {
     var count = useState(0);
     useEffect(() {
       var id = setInterval(() {
-        count.set((count.value) => count.value + increment);
+        count.setWithUpdater((value) => value + increment);
       }, 1000);
       return () => clearInterval(id);
     }, []);
-    return <h1>{count.value}</h1>;
-  }
+    return Dom.h1()(count.value);
+  };
 }''',
       },
       {
@@ -15268,8 +15189,8 @@ final Hello = uiFunction<TestProps>((_) {
         'code': /*language=dart*/ r'''
 final Example = uiFunction<TestProps>((_) {
   useEffect(() {
-    arguments
-  }, [])
+    arguments;
+  }, []);
 }, null);''',
       },
       {
@@ -15280,7 +15201,7 @@ final Example = uiFunction<TestProps>((_) {
       arguments;
     };
     bar();
-  }, [])
+  }, []);
 }, null);''',
       },
       {
@@ -15325,25 +15246,11 @@ useFoo(){
       },
       {
         'code': /*language=dart*/ r'''
-useFoo(){
-  let {foo} = {foo: 1};
-  return useMemo(() => foo, [foo]);
-}''',
-      },
-      {
-        'code': /*language=dart*/ r'''
-useFoo(){
-  let [foo] = [1];
-  return useMemo(() => foo, [foo]);
-}''',
-      },
-      {
-        'code': /*language=dart*/ r'''
 useFoo() {
   final foo = "fine";
   if (true) {
     // Shadowed variable with constant construction in a nested scope is fine.
-    final foo = {};
+    dynamic foo;
   }
   return useMemo(() => foo, [foo]);
 }''',
@@ -15353,7 +15260,7 @@ useFoo() {
 final MyComponent = uiFunction<TestProps>((props) {
   var foo = props.foo;
 
-  return useMemo(() => foo, [foo])
+  return useMemo(() => foo, [foo]);
 }, null);''',
       },
       {
@@ -15552,7 +15459,7 @@ final MyComponent = uiFunction<TestProps>((_) {
         'code': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
   final value = useMemo(() { return 2*2; });
-  final fn = useCallback(() { alert('foo'); });
+  final fn = useCallback(() { window.alert('foo'); });
 }, null);''',
         'errors': [
           {
@@ -17437,7 +17344,7 @@ final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     ref1.current.focus();
     print(ref2.current.textContent);
-    alert(props.someOtherRefs.current.innerHTML);
+    window.alert(props.someOtherRefs.current.innerHTML);
     fetch(props.color);
   }, []);
 }, null);''',
@@ -17456,7 +17363,7 @@ final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     ref1.current.focus();
     print(ref2.current.textContent);
-    alert(props.someOtherRefs.current.innerHTML);
+    window.alert(props.someOtherRefs.current.innerHTML);
     fetch(props.color);
   }, [props.color, props.someOtherRefs]);
 }, null);''',
@@ -17473,7 +17380,7 @@ final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     ref1.current.focus();
     print(ref2.current.textContent);
-    alert(props.someOtherRefs.current.innerHTML);
+    window.alert(props.someOtherRefs.current.innerHTML);
     fetch(props.color);
   }, [ref1.current, ref2.current, props.someOtherRefs, props.color]);
 }, null);''',
@@ -17492,7 +17399,7 @@ final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     ref1.current.focus();
     print(ref2.current.textContent);
-    alert(props.someOtherRefs.current.innerHTML);
+    window.alert(props.someOtherRefs.current.innerHTML);
     fetch(props.color);
   }, [props.someOtherRefs, props.color]);
 }, null);''',
@@ -17509,7 +17416,7 @@ final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     ref1?.current?.focus();
     print(ref2?.current?.textContent);
-    alert(props.someOtherRefs.current.innerHTML);
+    window.alert(props.someOtherRefs.current.innerHTML);
     fetch(props.color);
   }, [ref1?.current, ref2?.current, props.someOtherRefs, props.color]);
 }, null);''',
@@ -17528,7 +17435,7 @@ final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     ref1?.current?.focus();
     print(ref2?.current?.textContent);
-    alert(props.someOtherRefs.current.innerHTML);
+    window.alert(props.someOtherRefs.current.innerHTML);
     fetch(props.color);
   }, [props.someOtherRefs, props.color]);
 }, null);''',
@@ -17667,10 +17574,10 @@ final MyComponent = uiFunction<TestProps>((_) {
         'code': /*language=dart*/ r'''
 final MyComponent = forwardRef((props, ref) {
   useImperativeHandle(ref, () => ({
-    focus() {
-      alert(props.hello);
+    'focus': () {
+      window.alert(props.hello);
     }
-  }), [])
+  }), []);
 });''',
         'errors': [
           {
@@ -17682,10 +17589,10 @@ final MyComponent = forwardRef((props, ref) {
                 'output': /*language=dart*/ r'''
 final MyComponent = forwardRef((props, ref) {
   useImperativeHandle(ref, () => ({
-    focus() {
-      alert(props.hello);
+    'focus': () {
+      window.alert(props.hello);
     }
-  }), [props.hello])
+  }), [props.hello]);
 });''',
               }
             ],
@@ -18053,7 +17960,7 @@ final MyComponent = uiFunction<TestProps>((_) {
     myRef.current.addEventListener('mousemove', handleMove);
     return () => myRef.current.removeEventListener('mousemove', handleMove);
   }, []);
-  return <div ref={myRef} />;
+  return (Dom.div()..ref = myRef)();
 }, null);''',
         'errors': [
           {
@@ -18072,7 +17979,7 @@ final MyComponent = uiFunction<TestProps>((_) {
     myRef?.current?.addEventListener('mousemove', handleMove);
     return () => myRef?.current?.removeEventListener('mousemove', handleMove);
   }, []);
-  return <div ref={myRef} />;
+  return (Dom.div()..ref = myRef)();
 }, null);''',
         'errors': [
           {
@@ -18091,7 +17998,7 @@ final MyComponent = uiFunction<TestProps>((_) {
     myRef.current.addEventListener('mousemove', handleMove);
     return () => myRef.current.removeEventListener('mousemove', handleMove);
   });
-  return <div ref={myRef} />;
+  return (Dom.div()..ref = myRef)();
 }, null);''',
         'errors': [
           {
@@ -18152,7 +18059,7 @@ useMyThing(myRef, active) {
         setTimeout(() {
           myRef.current.removeEventListener('mousemove', handleMove);
         });
-      }
+      };
     }
   }, [myRef, active]);
 }''',
@@ -18173,7 +18080,7 @@ final MyComponent = uiFunction<TestProps>((_) {
     myRef.current.addEventListener('mousemove', handleMove);
     return () => myRef.current.removeEventListener('mousemove', handleMove);
   });
-  return <div ref={myRef} />;
+  return (Dom.div()..ref = myRef)();
 }, null);''',
         'output': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((_) {
@@ -18183,7 +18090,7 @@ final MyComponent = uiFunction<TestProps>((_) {
     myRef.current.addEventListener('mousemove', handleMove);
     return () => myRef.current.removeEventListener('mousemove', handleMove);
   });
-  return <div ref={myRef} />;
+  return (Dom.div()..ref = myRef)();
 }, null);''',
         'errors': [
           'The ref value \'myRef.current\' will likely have changed by the time this effect cleanup function runs. If this ref points to a node rendered by React, copy \'myRef.current\' to a variable inside the effect, and use that variable in the cleanup function.'
@@ -18261,7 +18168,6 @@ final MyComponent = uiFunction<TestProps>((_) {
       },
       {
         'code': /*language=dart*/ r'''
-import MutableStore from 'store';
 final MyComponent = uiFunction<TestProps>((_) {
   useEffect(() {
     print(MutableStore.hello);
@@ -18275,7 +18181,6 @@ final MyComponent = uiFunction<TestProps>((_) {
               {
                 'desc': 'Update the dependencies array to be: []',
                 'output': /*language=dart*/ r'''
-import MutableStore from 'store';
 final MyComponent = uiFunction<TestProps>((_) {
   useEffect(() {
     print(MutableStore.hello);
@@ -18288,7 +18193,6 @@ final MyComponent = uiFunction<TestProps>((_) {
       },
       {
         'code': /*language=dart*/ r'''
-import MutableStore from 'store';
 var z = {};
 final MyComponent = uiFunction<TestProps>((props) {
   var x = props.foo;
@@ -18308,7 +18212,6 @@ final MyComponent = uiFunction<TestProps>((props) {
                 'desc':
                     'Update the dependencies array to be: [props.foo, x, y]',
                 'output': /*language=dart*/ r'''
-import MutableStore from 'store';
 var z = {};
 final MyComponent = uiFunction<TestProps>((props) {
   var x = props.foo;
@@ -18326,7 +18229,6 @@ final MyComponent = uiFunction<TestProps>((props) {
       },
       {
         'code': /*language=dart*/ r'''
-import MutableStore from 'store';
 var z = {};
 final MyComponent = uiFunction<TestProps>((props) {
   var x = props.foo;
@@ -18346,7 +18248,6 @@ final MyComponent = uiFunction<TestProps>((props) {
                 'desc':
                     'Update the dependencies array to be: [props.foo, x, y]',
                 'output': /*language=dart*/ r'''
-import MutableStore from 'store';
 var z = {};
 final MyComponent = uiFunction<TestProps>((props) {
   var x = props.foo;
@@ -18364,7 +18265,6 @@ final MyComponent = uiFunction<TestProps>((props) {
       },
       {
         'code': /*language=dart*/ r'''
-import MutableStore from 'store';
 var z = {};
 final MyComponent = uiFunction<TestProps>((props) {
   var x = props.foo;
@@ -18383,7 +18283,6 @@ final MyComponent = uiFunction<TestProps>((props) {
               {
                 'desc': 'Update the dependencies array to be: []',
                 'output': /*language=dart*/ r'''
-import MutableStore from 'store';
 var z = {};
 final MyComponent = uiFunction<TestProps>((props) {
   var x = props.foo;
@@ -18401,7 +18300,6 @@ final MyComponent = uiFunction<TestProps>((props) {
       },
       {
         'code': /*language=dart*/ r'''
-import MutableStore from 'store';
 var z = {};
 final MyComponent = uiFunction<TestProps>((props) {
   var x = props.foo;
@@ -18420,7 +18318,6 @@ final MyComponent = uiFunction<TestProps>((props) {
               {
                 'desc': 'Update the dependencies array to be: []',
                 'output': /*language=dart*/ r'''
-import MutableStore from 'store';
 var z = {};
 final MyComponent = uiFunction<TestProps>((props) {
   var x = props.foo;
@@ -18929,7 +18826,7 @@ final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     return Store.subscribe(handleNext);
   }, [handleNext]);
-  return <div onClick={handleNext} />;
+  return (Dom.div()..onClick = handleNext)();
 }, null);''',
         'errors': [
           {
@@ -18948,7 +18845,7 @@ final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     return Store.subscribe(handleNext);
   }, [handleNext]);
-  return <div onClick={handleNext} />;
+  return (Dom.div()..onClick = handleNext)();
 }, null);''',
               }
             ],
@@ -19331,7 +19228,7 @@ final Counter = uiFunction<TestProps>((_) {
     }, 1000);
     return () => clearInterval(id);
   }, []);
-  return <h1>{count.value}</h1>;
+  return Dom.h1()(count.value);
 }, null);''',
         'errors': [
           {
@@ -19349,7 +19246,7 @@ final Counter = uiFunction<TestProps>((_) {
     }, 1000);
     return () => clearInterval(id);
   }, [count.value]);
-  return <h1>{count.value}</h1>;
+  return Dom.h1()(count.value);
 }, null);''',
               }
             ],
@@ -19367,7 +19264,7 @@ final Counter = uiFunction<TestProps>((_) {
     }, 1000);
     return () => clearInterval(id);
   }, []);
-  return <h1>{count.value}</h1>;
+  return Dom.h1()(count.value);
 }, null);''',
         'errors': [
           {
@@ -19387,7 +19284,7 @@ final Counter = uiFunction<TestProps>((_) {
     }, 1000);
     return () => clearInterval(id);
   }, [count.value, increment.value]);
-  return <h1>{count.value}</h1>;
+  return Dom.h1()(count.value);
 }, null);''',
               }
             ],
@@ -19401,11 +19298,11 @@ final Counter = uiFunction<TestProps>((_) {
   var increment = useState(0);
   useEffect(() {
     var id = setInterval(() {
-      count.set((count.value) => count.value + increment.value);
+      count.setWithUpdater((value) => value + increment.value);
     }, 1000);
     return () => clearInterval(id);
   }, []);
-  return <h1>{count.value}</h1>;
+  return Dom.h1()(count.value);
 }, null);''',
         'errors': [
           {
@@ -19420,11 +19317,11 @@ final Counter = uiFunction<TestProps>((_) {
   var increment = useState(0);
   useEffect(() {
     var id = setInterval(() {
-      count.set((count.value) => count.value + increment.value);
+      count.setWithUpdater((value) => value + increment.value);
     }, 1000);
     return () => clearInterval(id);
   }, [increment.value]);
-  return <h1>{count.value}</h1>;
+  return Dom.h1()(count.value);
 }, null);''',
               }
             ],
@@ -19438,11 +19335,11 @@ final Counter = uiFunction<TestProps>((_) {
   var increment = useCustomHook();
   useEffect(() {
     var id = setInterval(() {
-      count.set((count.value) => count.value + increment);
+      count.setWithUpdater((value) => value + increment);
     }, 1000);
     return () => clearInterval(id);
   }, []);
-  return <h1>{count.value}</h1>;
+  return Dom.h1()(count.value);
 }, null);''',
         'errors': [
           {
@@ -19457,11 +19354,11 @@ final Counter = uiFunction<TestProps>((_) {
   var increment = useCustomHook();
   useEffect(() {
     var id = setInterval(() {
-      count.set((count.value) => count.value + increment);
+      count.setWithUpdater((value) => value + increment);
     }, 1000);
     return () => clearInterval(id);
   }, [increment]);
-  return <h1>{count.value}</h1>;
+  return Dom.h1()(count.value);
 }, null);''',
               }
             ],
@@ -19479,11 +19376,11 @@ final Counter = uiFunction<TestProps>((props) {
   }
   useEffect(() {
     var id = setInterval(() {
-      count.set((count.value) => increment(count.value));
+      count.setWithUpdater((value) => increment(value));
     }, 1000);
     return () => clearInterval(id);
   }, []);
-  return <h1>{count.value}</h1>;
+  return Dom.h1()(count.value);
 }, null);''',
         'errors': [
           {
@@ -19502,11 +19399,11 @@ final Counter = uiFunction<TestProps>((props) {
   }
   useEffect(() {
     var id = setInterval(() {
-      count.set((count.value) => increment(count.value));
+      count.setWithUpdater((value) => increment(value));
     }, 1000);
     return () => clearInterval(id);
   }, [increment]);
-  return <h1>{count.value}</h1>;
+  return Dom.h1()(count.value);
 }, null);''',
               }
             ],
@@ -19524,11 +19421,11 @@ final Counter = uiFunction<TestProps>((props) {
   }
   useEffect(() {
     var id = setInterval(() {
-      count.set((count.value) => increment(count.value));
+      count.setWithUpdater((value) => increment(value));
     }, 1000);
     return () => clearInterval(id);
   }, [increment]);
-  return <h1>{count.value}</h1>;
+  return Dom.h1()(count.value);
 }, null);''',
         'errors': [
           {
@@ -19546,11 +19443,11 @@ final Counter = uiFunction<TestProps>((props) {
   var count = useState(0);
   useEffect(() {
     var id = setInterval(() {
-      count.set((count.value) => count.value + increment);
+      count.setWithUpdater((value) => value + increment);
     }, 1000);
     return () => clearInterval(id);
   }, []);
-  return <h1>{count.value}</h1>;
+  return Dom.h1()(count.value);
 }, null);''',
         'errors': [
           {
@@ -19566,11 +19463,11 @@ final Counter = uiFunction<TestProps>((props) {
   var count = useState(0);
   useEffect(() {
     var id = setInterval(() {
-      count.set((count.value) => count.value + increment);
+      count.setWithUpdater((value) => value + increment);
     }, 1000);
     return () => clearInterval(id);
   }, [increment]);
-  return <h1>{count.value}</h1>;
+  return Dom.h1()(count.value);
 }, null);''',
               }
             ],
@@ -19590,7 +19487,7 @@ final Counter = uiFunction<TestProps>((_) {
     }, 1000);
     return () => clearInterval(id);
   }, []);
-  return <h1>{count.value}</h1>;
+  return Dom.h1()(count.value);
 }, null);''',
         'errors': [
           {
@@ -19611,7 +19508,7 @@ final Counter = uiFunction<TestProps>((_) {
     }, 1000);
     return () => clearInterval(id);
   }, [tick]);
-  return <h1>{count.value}</h1>;
+  return Dom.h1()(count.value);
 }, null);''',
               }
             ],
@@ -19622,7 +19519,7 @@ final Counter = uiFunction<TestProps>((_) {
         'code': /*language=dart*/ r'''
 final Podcasts = uiFunction<TestProps>((_) {
   useEffect(() {
-    alert(podcasts.value);
+    window.alert(podcasts.value);
   }, []);
   var podcasts = useState(null);
 }, null);''',
@@ -19636,7 +19533,7 @@ final Podcasts = uiFunction<TestProps>((_) {
                 'output': /*language=dart*/ r'''
 final Podcasts = uiFunction<TestProps>((_) {
   useEffect(() {
-    alert(podcasts.value);
+    window.alert(podcasts.value);
   }, [podcasts.value]);
   var podcasts = useState(null);
 }, null);''',
@@ -20331,7 +20228,7 @@ final MyComponent = uiFunction<TestProps>((_) {
       {
         'code': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  var foo = {}
+  dynamic foo;
   useEffect(() {
     foo.bar.baz = 43;
     props.foo.bar.baz = 1;
@@ -20347,7 +20244,7 @@ final MyComponent = uiFunction<TestProps>((props) {
                     'Update the dependencies array to be: [foo.bar, props.foo.bar]',
                 'output': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  var foo = {}
+  dynamic foo;
   useEffect(() {
     foo.bar.baz = 43;
     props.foo.bar.baz = 1;
@@ -20361,7 +20258,7 @@ final MyComponent = uiFunction<TestProps>((props) {
       {
         'code': /*language=dart*/ r'''
 final Component = uiFunction<TestProps>((_) {
-  final foo = {};
+  dynamic foo;
   useMemo(() => foo, [foo]);
 }, null);''',
         'errors': [
@@ -20501,7 +20398,7 @@ final Component = uiFunction<TestProps>((_) {
       {
         'code': /*language=dart*/ r'''
 final Component = uiFunction<TestProps>((_) {
-  var foo = {};
+  dynamic foo;
   useMemo(() => foo, [foo]);
 }, null);''',
         'errors': [
@@ -20515,7 +20412,7 @@ final Component = uiFunction<TestProps>((_) {
       {
         'code': /*language=dart*/ r'''
 final Component = uiFunction<TestProps>((_) {
-  var foo = {};
+  dynamic foo;
   useMemo(() => foo, [foo]);
 }, null);''',
         'errors': [
@@ -20529,7 +20426,7 @@ final Component = uiFunction<TestProps>((_) {
       {
         'code': /*language=dart*/ r'''
 final Component = uiFunction<TestProps>((_) {
-  final foo = {};
+  dynamic foo;
   useCallback(() {
     print(foo);
   }, [foo]);
@@ -20545,7 +20442,7 @@ final Component = uiFunction<TestProps>((_) {
       {
         'code': /*language=dart*/ r'''
 final Component = uiFunction<TestProps>((_) {
-  final foo = {};
+  dynamic foo;
   useEffect(() {
     print(foo);
   }, [foo]);
@@ -20561,7 +20458,7 @@ final Component = uiFunction<TestProps>((_) {
       {
         'code': /*language=dart*/ r'''
 final Component = uiFunction<TestProps>((_) {
-  final foo = {};
+  dynamic foo;
   useLayoutEffect(() {
     print(foo);
   }, [foo]);
@@ -20577,7 +20474,7 @@ final Component = uiFunction<TestProps>((_) {
       {
         'code': /*language=dart*/ r'''
 final Component = uiFunction<TestProps>((_) {
-  final foo = {};
+  dynamic foo;
   useImperativeHandle(
     ref,
     () {
@@ -20613,7 +20510,7 @@ final Foo = uiFunction<TestProps>((section) {
       {
         'code': /*language=dart*/ r'''
 final Foo = uiFunction<TestProps>((section) {
-  final foo = {};
+  dynamic foo;
   print(foo);
   useMemo(() {
     print(foo);
@@ -20742,7 +20639,7 @@ final Foo = uiFunction<TestProps>((_) {
       {
         'code': /*language=dart*/ r'''
 final Foo = uiFunction<TestProps>((_) {
-  final foo = {};
+  dynamic foo;
   useLayoutEffect(() {
     print(foo);
   }, [foo]);
@@ -20815,7 +20712,7 @@ final MyComponent = uiFunction<TestProps>((_) {
   useEffect(() {
     final someNumber: typeof state.value = 2;
     state.set((prevState) => prevState + someNumber);
-  }, [])
+  }, []);
 }, null);''',
       },
       {
@@ -21069,7 +20966,7 @@ final MyComponent = uiFunction<TestProps>((_) {
   useEffect(() {
     final someNumber: typeof state.value = 2;
     state.set((prevState) => prevState + someNumber + state.value);
-  }, [])
+  }, []);
 }, null);''',
         'errors': [
           {
@@ -21084,7 +20981,7 @@ final MyComponent = uiFunction<TestProps>((_) {
   useEffect(() {
     final someNumber: typeof state.value = 2;
     state.set((prevState) => prevState + someNumber + state.value);
-  }, [state.value])
+  }, [state.value]);
 }, null);''',
               }
             ],
@@ -21098,7 +20995,7 @@ final MyComponent = uiFunction<TestProps>((_) {
   useMemo(() {
     final someNumber: typeof state.value = 2;
     print(someNumber);
-  }, [state.value])
+  }, [state.value]);
 }, null);''',
         'errors': [
           {
@@ -21113,7 +21010,7 @@ final MyComponent = uiFunction<TestProps>((_) {
   useMemo(() {
     final someNumber: typeof state.value = 2;
     print(someNumber);
-  }, [])
+  }, []);
 }, null);''',
               }
             ],
@@ -21536,11 +21433,11 @@ final MyComponent = uiFunction<TestProps>((_) {
 final local = {};
 final MyComponent = uiFunction<TestProps>((_) {
   final myEffect = () {
-    otherThing()
-  }
+    otherThing();
+  };
   final otherThing = () {
     print(local);
-  }
+  };
   useEffect(myEffect, []);
 }, null);''',
       },
@@ -21704,10 +21601,10 @@ final MyComponent = uiFunction<TestProps>((props) {
   var state4 = over_react.useReducer();
   var state5 = useFunnyState();
   var state6 = useFunnyReducer();
-  const [isPending1] = useTransition();
-  var isPending2 = useTransition();
-  const [isPending3] = over_react.useTransition();
-  var isPending4 = over_react.useTransition();
+  // const [isPending1] = useTransition();
+  // var isPending2 = useTransition();
+  // const [isPending3] = over_react.useTransition();
+  // var isPending4 = over_react.useTransition();
   final mySetState = useCallback(() {}, []);
   var myDispatch = useCallback(() {}, []);
   useEffect(() {
@@ -21720,10 +21617,10 @@ final MyComponent = uiFunction<TestProps>((props) {
     state2.set(null);
     state3.set(null);
     state4.set(null);
-    startTransition1();
-    isPending2.set(null);
-    startTransition3();
-    isPending4.set(null);
+    // startTransition1();
+    // isPending2.set(null);
+    // startTransition3();
+    // isPending4.set(null);
     // Dynamic
     print(state1.value);
     print(state2.value);
@@ -21731,8 +21628,8 @@ final MyComponent = uiFunction<TestProps>((props) {
     print(state4.value);
     print(state5.value);
     print(state6.value);
-    print(isPending2.value);
-    print(isPending4.value);
+    // print(isPending2.value);
+    // print(isPending4.value);
     mySetState();
     myDispatch();
     // Not sure; assume dynamic
@@ -21742,7 +21639,7 @@ final MyComponent = uiFunction<TestProps>((props) {
     // Dynamic
     state1.value, state2.value, state3.value, state4.value, state5.value, state6.value,
     maybeRef1, maybeRef2,
-    isPending2.value, isPending4.value,
+    // isPending2.value, isPending4.value,
     // Not sure; assume dynamic
     mySetState, myDispatch,
     state5.set, state6.set
@@ -21806,20 +21703,20 @@ final MyComponent = uiFunction<TestProps>((props) {
         'code': /*language=dart*/ r'''
 final MyComponent = forwardRef((props, ref) {
   useImperativeHandle(ref, () => ({
-    focus() {
-      alert(props.hello);
+    'focus': () {
+      window.alert(props.hello);
     }
-  }))
+  }));
 });''',
       },
       {
         'code': /*language=dart*/ r'''
 final MyComponent = forwardRef((props, ref) {
   useImperativeHandle(ref, () => ({
-    focus() {
-      alert(props.hello);
+    'focus': () {
+      window.alert(props.hello);
     }
-  }), [props.hello])
+  }), [props.hello]);
 });''',
       },
       {
@@ -21834,7 +21731,7 @@ final MyComponent = uiFunction<TestProps>((props) {
       {
         'code': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  var foo = {}
+  dynamic foo;
   useEffect(() {
     foo.bar.baz = 43;
   }, [foo.bar]);
@@ -21848,10 +21745,10 @@ final MyComponent = uiFunction<TestProps>((_) {
     final handleMove = () {};
     myRef.current = {};
     return () {
-      print(myRef.current.toString())
+      print(myRef.current.toString());
     };
   }, []);
-  return <div />;
+  return Dom.div()();
 }, null);''',
       },
       {
@@ -21862,10 +21759,10 @@ final MyComponent = uiFunction<TestProps>((_) {
     final handleMove = () {};
     myRef.current = {};
     return () {
-      print(myRef?.current?.toString())
+      print(myRef?.current?.toString());
     };
   }, []);
-  return <div />;
+  return Dom.div()();
 }, null);''',
       },
       {
@@ -21875,7 +21772,7 @@ useMyThing(myRef) {
     final handleMove = () {};
     myRef.current = {};
     return () {
-      print(myRef.current.toString())
+      print(myRef.current.toString());
     };
   }, [myRef]);
 }''',
@@ -21890,7 +21787,7 @@ final MyComponent = uiFunction<TestProps>((_) {
     node.addEventListener('mousemove', handleMove);
     return () => node.removeEventListener('mousemove', handleMove);
   }, []);
-  return <div ref={myRef} />;
+  return (Dom.div()..ref = myRef)();
 }, null);''',
       },
       {
@@ -21902,7 +21799,7 @@ useMyThing(myRef) {
     node.addEventListener('mousemove', handleMove);
     return () => node.removeEventListener('mousemove', handleMove);
   }, [myRef]);
-  return <div ref={myRef} />;
+  return (Dom.div()..ref = myRef)();
 }''',
       },
       {
@@ -21917,7 +21814,7 @@ useMyThing(myRef) {
         myRef.current.removeEventListener('mousemove', handleMouse);
         myRef.current.removeEventListener('mousein', handleMouse);
       });
-    }
+    };
   }, [myRef]);
 }''',
       },
@@ -21927,12 +21824,12 @@ useMyThing() {
   final myRef = useRef();
   useEffect(() {
     final handleMove = () {
-      print(myRef.current)
+      print(myRef.current);
     };
     window.addEventListener('mousemove', handleMove);
     return () => window.removeEventListener('mousemove', handleMove);
   }, []);
-  return <div ref={myRef} />;
+  return (Dom.div()..ref = myRef)();
 }''',
       },
       {
@@ -21946,7 +21843,7 @@ useMyThing() {
     window.addEventListener('mousemove', handleMove);
     return () {};
   }, []);
-  return <div ref={myRef} />;
+  return (Dom.div()..ref = myRef)();
 }''',
       },
       {
@@ -22119,11 +22016,11 @@ final Counter = uiFunction<TestProps>((_) {
   var count = useState(0);
   useEffect(() {
     var id = setInterval(() {
-      count.set((c) => c + 1);
+      count.setWithUpdater((c) => c + 1);
     }, 1000);
     return () => clearInterval(id);
   }, []);
-  return <h1>{count.value}</h1>;
+  return Dom.h1()(count.value);
 }, null);''',
       },
       {
@@ -22131,7 +22028,7 @@ final Counter = uiFunction<TestProps>((_) {
 final Counter = uiFunction<TestProps>((_) {
   var count = useState(0);
   tick() {
-    count.set((c) => c + 1);
+    count.setWithUpdater((c) => c + 1);
   }
   useEffect(() {
     var id = setInterval(() {
@@ -22139,7 +22036,7 @@ final Counter = uiFunction<TestProps>((_) {
     }, 1000);
     return () => clearInterval(id);
   }, []);
-  return <h1>{count.value}</h1>;
+  return Dom.h1()(count.value);
 }, null);''',
       },
       {
@@ -22156,7 +22053,7 @@ final Counter = uiFunction<TestProps>((_) {
     }, 1000);
     return () => clearInterval(id);
   }, []);
-  return <h1>{count.value}</h1>;
+  return Dom.h1()(count.value);
 }, null);''',
       },
       {
@@ -22174,27 +22071,19 @@ final Counter = uiFunction<TestProps>((_) {
     var id = setInterval(tick, 1000);
     return () => clearInterval(id);
   }, []);
-  return <h1>{count.value}</h1>;
-}, null);''',
-      },
-      {
-        'code': /*language=dart*/ r'''
-final Podcasts = uiFunction<TestProps>((_) {
-  useEffect(() {
-    podcasts.set([]);
-  }, []);
-  var podcasts = useState(null);
+  return Dom.h1()(count.value);
 }, null);''',
       },
       {
         'code': /*language=dart*/ r'''
 withFetch(fetchPodcasts) {
-  return Podcasts({ id }) {
+  return uiFunction((props) {
+    final id = props.id;
     var podcasts = useState(null);
     useEffect(() {
       fetchPodcasts(id).then(podcasts.set);
     }, [id]);
-  }
+  }, null);
 }''',
       },
       {
@@ -22224,7 +22113,7 @@ final Counter = uiFunction<TestProps>((_) {
     }, 1000);
     return () => clearInterval(id);
   }, []);
-  return <h1>{count.value}</h1>;
+  return Dom.h1()(count.value);
 }, null);''',
       },
       {
@@ -22236,40 +22125,39 @@ final Counter = uiFunction<TestProps>((_) {
   }
   useEffect(() {
     var id = setInterval(() {
-      count.set((count.value) => increment(count.value));
+      count.setWithUpdater((value) => increment(value));
     }, 1000);
     return () => clearInterval(id);
   }, []);
-  return <h1>{count.value}</h1>;
+  return Dom.h1()(count.value);
 }, null);''',
       },
       {
         'code': /*language=dart*/ r'''
-import increment from './increment';
 final Counter = uiFunction<TestProps>((_) {
   var count = useState(0);
   useEffect(() {
     var id = setInterval(() {
-      count.set((count.value) => count.value + increment);
+      count.setWithUpdater((value) => value + increment);
     }, 1000);
     return () => clearInterval(id);
   }, []);
-  return <h1>{count.value}</h1>;
+  return Dom.h1()(count.value);
 }, null);''',
       },
       {
         'code': /*language=dart*/ r'''
 withStuff(increment) {
-  return Counter() {
+  return () {
     var count = useState(0);
     useEffect(() {
       var id = setInterval(() {
-        count.set((count.value) => count.value + increment);
+        count.setWithUpdater((value) => value + increment);
       }, 1000);
       return () => clearInterval(id);
     }, []);
-    return <h1>{count.value}</h1>;
-  }
+    return Dom.h1()(count.value);
+  };
 }''',
       },
       {
@@ -22329,8 +22217,8 @@ final Hello = uiFunction<TestProps>((_) {
         'code': /*language=dart*/ r'''
 final Example = uiFunction<TestProps>((_) {
   useEffect(() {
-    arguments
-  }, [])
+    arguments;
+  }, []);
 }, null);''',
       },
       {
@@ -22341,7 +22229,7 @@ final Example = uiFunction<TestProps>((_) {
       arguments;
     };
     bar();
-  }, [])
+  }, []);
 }, null);''',
       },
       {
@@ -22404,7 +22292,7 @@ useFoo() {
   final foo = "fine";
   if (true) {
     // Shadowed variable with constant construction in a nested scope is fine.
-    final foo = {};
+    dynamic foo;
   }
   return useMemo(() => foo, [foo]);
 }''',
@@ -22414,7 +22302,7 @@ useFoo() {
 final MyComponent = uiFunction<TestProps>((props) {
   var foo = props.foo;
 
-  return useMemo(() => foo, [foo])
+  return useMemo(() => foo, [foo]);
 }, null);''',
       },
       {
@@ -22613,7 +22501,7 @@ final MyComponent = uiFunction<TestProps>((_) {
         'code': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
   final value = useMemo(() { return 2*2; });
-  final fn = useCallback(() { alert('foo'); });
+  final fn = useCallback(() { window.alert('foo'); });
 }, null);''',
         'errors': [
           {
@@ -24498,7 +24386,7 @@ final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     ref1.current.focus();
     print(ref2.current.textContent);
-    alert(props.someOtherRefs.current.innerHTML);
+    window.alert(props.someOtherRefs.current.innerHTML);
     fetch(props.color);
   }, []);
 }, null);''',
@@ -24517,7 +24405,7 @@ final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     ref1.current.focus();
     print(ref2.current.textContent);
-    alert(props.someOtherRefs.current.innerHTML);
+    window.alert(props.someOtherRefs.current.innerHTML);
     fetch(props.color);
   }, [props.color, props.someOtherRefs]);
 }, null);''',
@@ -24534,7 +24422,7 @@ final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     ref1.current.focus();
     print(ref2.current.textContent);
-    alert(props.someOtherRefs.current.innerHTML);
+    window.alert(props.someOtherRefs.current.innerHTML);
     fetch(props.color);
   }, [ref1.current, ref2.current, props.someOtherRefs, props.color]);
 }, null);''',
@@ -24553,7 +24441,7 @@ final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     ref1.current.focus();
     print(ref2.current.textContent);
-    alert(props.someOtherRefs.current.innerHTML);
+    window.alert(props.someOtherRefs.current.innerHTML);
     fetch(props.color);
   }, [props.someOtherRefs, props.color]);
 }, null);''',
@@ -24570,7 +24458,7 @@ final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     ref1?.current?.focus();
     print(ref2?.current?.textContent);
-    alert(props.someOtherRefs.current.innerHTML);
+    window.alert(props.someOtherRefs.current.innerHTML);
     fetch(props.color);
   }, [ref1?.current, ref2?.current, props.someOtherRefs, props.color]);
 }, null);''',
@@ -24589,7 +24477,7 @@ final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     ref1?.current?.focus();
     print(ref2?.current?.textContent);
-    alert(props.someOtherRefs.current.innerHTML);
+    window.alert(props.someOtherRefs.current.innerHTML);
     fetch(props.color);
   }, [props.someOtherRefs, props.color]);
 }, null);''',
@@ -24728,10 +24616,10 @@ final MyComponent = uiFunction<TestProps>((_) {
         'code': /*language=dart*/ r'''
 final MyComponent = forwardRef((props, ref) {
   useImperativeHandle(ref, () => ({
-    focus() {
-      alert(props.hello);
+    'focus': () {
+      window.alert(props.hello);
     }
-  }), [])
+  }), []);
 });''',
         'errors': [
           {
@@ -24743,10 +24631,10 @@ final MyComponent = forwardRef((props, ref) {
                 'output': /*language=dart*/ r'''
 final MyComponent = forwardRef((props, ref) {
   useImperativeHandle(ref, () => ({
-    focus() {
-      alert(props.hello);
+    'focus': () {
+      window.alert(props.hello);
     }
-  }), [props.hello])
+  }), [props.hello]);
 });''',
               }
             ],
@@ -25114,7 +25002,7 @@ final MyComponent = uiFunction<TestProps>((_) {
     myRef.current.addEventListener('mousemove', handleMove);
     return () => myRef.current.removeEventListener('mousemove', handleMove);
   }, []);
-  return <div ref={myRef} />;
+  return (Dom.div()..ref = myRef)();
 }, null);''',
         'errors': [
           {
@@ -25133,7 +25021,7 @@ final MyComponent = uiFunction<TestProps>((_) {
     myRef?.current?.addEventListener('mousemove', handleMove);
     return () => myRef?.current?.removeEventListener('mousemove', handleMove);
   }, []);
-  return <div ref={myRef} />;
+  return (Dom.div()..ref = myRef)();
 }, null);''',
         'errors': [
           {
@@ -25152,7 +25040,7 @@ final MyComponent = uiFunction<TestProps>((_) {
     myRef.current.addEventListener('mousemove', handleMove);
     return () => myRef.current.removeEventListener('mousemove', handleMove);
   });
-  return <div ref={myRef} />;
+  return (Dom.div()..ref = myRef)();
 }, null);''',
         'errors': [
           {
@@ -25191,7 +25079,7 @@ useMyThing(myRef) {
         myRef.current.removeEventListener('mousemove', handleMouse);
         myRef.current.removeEventListener('mousein', handleMouse);
       });
-    }
+    };
   }, [myRef]);
 }''',
         'errors': [
@@ -25213,7 +25101,7 @@ useMyThing(myRef, active) {
         setTimeout(() {
           myRef.current.removeEventListener('mousemove', handleMove);
         });
-      }
+      };
     }
   }, [myRef, active]);
 }''',
@@ -25234,7 +25122,7 @@ final MyComponent = uiFunction<TestProps>((_) {
     myRef.current.addEventListener('mousemove', handleMove);
     return () => myRef.current.removeEventListener('mousemove', handleMove);
   });
-  return <div ref={myRef} />;
+  return (Dom.div()..ref = myRef)();
 }, null);''',
         'output': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((_) {
@@ -25244,7 +25132,7 @@ final MyComponent = uiFunction<TestProps>((_) {
     myRef.current.addEventListener('mousemove', handleMove);
     return () => myRef.current.removeEventListener('mousemove', handleMove);
   });
-  return <div ref={myRef} />;
+  return (Dom.div()..ref = myRef)();
 }, null);''',
         'errors': [
           'The ref value \'myRef.current\' will likely have changed by the time this effect cleanup function runs. If this ref points to a node rendered by React, copy \'myRef.current\' to a variable inside the effect, and use that variable in the cleanup function.'
@@ -25322,7 +25210,6 @@ final MyComponent = uiFunction<TestProps>((_) {
       },
       {
         'code': /*language=dart*/ r'''
-import MutableStore from 'store';
 final MyComponent = uiFunction<TestProps>((_) {
   useEffect(() {
     print(MutableStore.hello);
@@ -25336,7 +25223,6 @@ final MyComponent = uiFunction<TestProps>((_) {
               {
                 'desc': 'Update the dependencies array to be: []',
                 'output': /*language=dart*/ r'''
-import MutableStore from 'store';
 final MyComponent = uiFunction<TestProps>((_) {
   useEffect(() {
     print(MutableStore.hello);
@@ -25349,7 +25235,6 @@ final MyComponent = uiFunction<TestProps>((_) {
       },
       {
         'code': /*language=dart*/ r'''
-import MutableStore from 'store';
 var z = {};
 final MyComponent = uiFunction<TestProps>((props) {
   var x = props.foo;
@@ -25369,7 +25254,6 @@ final MyComponent = uiFunction<TestProps>((props) {
                 'desc':
                     'Update the dependencies array to be: [props.foo, x, y]',
                 'output': /*language=dart*/ r'''
-import MutableStore from 'store';
 var z = {};
 final MyComponent = uiFunction<TestProps>((props) {
   var x = props.foo;
@@ -25387,7 +25271,6 @@ final MyComponent = uiFunction<TestProps>((props) {
       },
       {
         'code': /*language=dart*/ r'''
-import MutableStore from 'store';
 var z = {};
 final MyComponent = uiFunction<TestProps>((props) {
   var x = props.foo;
@@ -25407,7 +25290,6 @@ final MyComponent = uiFunction<TestProps>((props) {
                 'desc':
                     'Update the dependencies array to be: [props.foo, x, y]',
                 'output': /*language=dart*/ r'''
-import MutableStore from 'store';
 var z = {};
 final MyComponent = uiFunction<TestProps>((props) {
   var x = props.foo;
@@ -25425,7 +25307,6 @@ final MyComponent = uiFunction<TestProps>((props) {
       },
       {
         'code': /*language=dart*/ r'''
-import MutableStore from 'store';
 var z = {};
 final MyComponent = uiFunction<TestProps>((props) {
   var x = props.foo;
@@ -25444,7 +25325,6 @@ final MyComponent = uiFunction<TestProps>((props) {
               {
                 'desc': 'Update the dependencies array to be: []',
                 'output': /*language=dart*/ r'''
-import MutableStore from 'store';
 var z = {};
 final MyComponent = uiFunction<TestProps>((props) {
   var x = props.foo;
@@ -25462,7 +25342,6 @@ final MyComponent = uiFunction<TestProps>((props) {
       },
       {
         'code': /*language=dart*/ r'''
-import MutableStore from 'store';
 var z = {};
 final MyComponent = uiFunction<TestProps>((props) {
   var x = props.foo;
@@ -25481,7 +25360,6 @@ final MyComponent = uiFunction<TestProps>((props) {
               {
                 'desc': 'Update the dependencies array to be: []',
                 'output': /*language=dart*/ r'''
-import MutableStore from 'store';
 var z = {};
 final MyComponent = uiFunction<TestProps>((props) {
   var x = props.foo;
@@ -25990,7 +25868,7 @@ final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     return Store.subscribe(handleNext);
   }, [handleNext]);
-  return <div onClick={handleNext} />;
+  return (Dom.div()..onClick = handleNext)();
 }, null);''',
         'errors': [
           {
@@ -26009,7 +25887,7 @@ final MyComponent = uiFunction<TestProps>((props) {
   useEffect(() {
     return Store.subscribe(handleNext);
   }, [handleNext]);
-  return <div onClick={handleNext} />;
+  return (Dom.div()..onClick = handleNext)();
 }, null);''',
               }
             ],
@@ -26392,7 +26270,7 @@ final Counter = uiFunction<TestProps>((_) {
     }, 1000);
     return () => clearInterval(id);
   }, []);
-  return <h1>{count.value}</h1>;
+  return Dom.h1()(count.value);
 }, null);''',
         'errors': [
           {
@@ -26410,7 +26288,7 @@ final Counter = uiFunction<TestProps>((_) {
     }, 1000);
     return () => clearInterval(id);
   }, [count.value]);
-  return <h1>{count.value}</h1>;
+  return Dom.h1()(count.value);
 }, null);''',
               }
             ],
@@ -26428,7 +26306,7 @@ final Counter = uiFunction<TestProps>((_) {
     }, 1000);
     return () => clearInterval(id);
   }, []);
-  return <h1>{count.value}</h1>;
+  return Dom.h1()(count.value);
 }, null);''',
         'errors': [
           {
@@ -26448,7 +26326,7 @@ final Counter = uiFunction<TestProps>((_) {
     }, 1000);
     return () => clearInterval(id);
   }, [count.value, increment.value]);
-  return <h1>{count.value}</h1>;
+  return Dom.h1()(count.value);
 }, null);''',
               }
             ],
@@ -26462,11 +26340,11 @@ final Counter = uiFunction<TestProps>((_) {
   var increment = useState(0);
   useEffect(() {
     var id = setInterval(() {
-      count.set((count.value) => count.value + increment.value);
+      count.setWithUpdater((value) => value + increment.value);
     }, 1000);
     return () => clearInterval(id);
   }, []);
-  return <h1>{count.value}</h1>;
+  return Dom.h1()(count.value);
 }, null);''',
         'errors': [
           {
@@ -26481,11 +26359,11 @@ final Counter = uiFunction<TestProps>((_) {
   var increment = useState(0);
   useEffect(() {
     var id = setInterval(() {
-      count.set((count.value) => count.value + increment.value);
+      count.setWithUpdater((value) => value + increment.value);
     }, 1000);
     return () => clearInterval(id);
   }, [increment.value]);
-  return <h1>{count.value}</h1>;
+  return Dom.h1()(count.value);
 }, null);''',
               }
             ],
@@ -26499,11 +26377,11 @@ final Counter = uiFunction<TestProps>((_) {
   var increment = useCustomHook();
   useEffect(() {
     var id = setInterval(() {
-      count.set((count.value) => count.value + increment);
+      count.setWithUpdater((value) => value + increment);
     }, 1000);
     return () => clearInterval(id);
   }, []);
-  return <h1>{count.value}</h1>;
+  return Dom.h1()(count.value);
 }, null);''',
         'errors': [
           {
@@ -26518,11 +26396,11 @@ final Counter = uiFunction<TestProps>((_) {
   var increment = useCustomHook();
   useEffect(() {
     var id = setInterval(() {
-      count.set((count.value) => count.value + increment);
+      count.setWithUpdater((value) => value + increment);
     }, 1000);
     return () => clearInterval(id);
   }, [increment]);
-  return <h1>{count.value}</h1>;
+  return Dom.h1()(count.value);
 }, null);''',
               }
             ],
@@ -26540,11 +26418,11 @@ final Counter = uiFunction<TestProps>((props) {
   }
   useEffect(() {
     var id = setInterval(() {
-      count.set((count.value) => increment(count.value));
+      count.setWithUpdater((value) => increment(value));
     }, 1000);
     return () => clearInterval(id);
   }, []);
-  return <h1>{count.value}</h1>;
+  return Dom.h1()(count.value);
 }, null);''',
         'errors': [
           {
@@ -26563,11 +26441,11 @@ final Counter = uiFunction<TestProps>((props) {
   }
   useEffect(() {
     var id = setInterval(() {
-      count.set((count.value) => increment(count.value));
+      count.setWithUpdater((value) => increment(value));
     }, 1000);
     return () => clearInterval(id);
   }, [increment]);
-  return <h1>{count.value}</h1>;
+  return Dom.h1()(count.value);
 }, null);''',
               }
             ],
@@ -26585,11 +26463,11 @@ final Counter = uiFunction<TestProps>((props) {
   }
   useEffect(() {
     var id = setInterval(() {
-      count.set((count.value) => increment(count.value));
+      count.setWithUpdater((value) => increment(value));
     }, 1000);
     return () => clearInterval(id);
   }, [increment]);
-  return <h1>{count.value}</h1>;
+  return Dom.h1()(count.value);
 }, null);''',
         'errors': [
           {
@@ -26607,11 +26485,11 @@ final Counter = uiFunction<TestProps>((props) {
   var count = useState(0);
   useEffect(() {
     var id = setInterval(() {
-      count.set((count.value) => count.value + increment);
+      count.setWithUpdater((value) => value + increment);
     }, 1000);
     return () => clearInterval(id);
   }, []);
-  return <h1>{count.value}</h1>;
+  return Dom.h1()(count.value);
 }, null);''',
         'errors': [
           {
@@ -26627,11 +26505,11 @@ final Counter = uiFunction<TestProps>((props) {
   var count = useState(0);
   useEffect(() {
     var id = setInterval(() {
-      count.set((count.value) => count.value + increment);
+      count.setWithUpdater((value) => value + increment);
     }, 1000);
     return () => clearInterval(id);
   }, [increment]);
-  return <h1>{count.value}</h1>;
+  return Dom.h1()(count.value);
 }, null);''',
               }
             ],
@@ -26651,7 +26529,7 @@ final Counter = uiFunction<TestProps>((_) {
     }, 1000);
     return () => clearInterval(id);
   }, []);
-  return <h1>{count.value}</h1>;
+  return Dom.h1()(count.value);
 }, null);''',
         'errors': [
           {
@@ -26672,7 +26550,7 @@ final Counter = uiFunction<TestProps>((_) {
     }, 1000);
     return () => clearInterval(id);
   }, [tick]);
-  return <h1>{count.value}</h1>;
+  return Dom.h1()(count.value);
 }, null);''',
               }
             ],
@@ -26683,7 +26561,7 @@ final Counter = uiFunction<TestProps>((_) {
         'code': /*language=dart*/ r'''
 final Podcasts = uiFunction<TestProps>((_) {
   useEffect(() {
-    alert(podcasts.value);
+    window.alert(podcasts.value);
   }, []);
   var podcasts = useState(null);
 }, null);''',
@@ -26697,7 +26575,7 @@ final Podcasts = uiFunction<TestProps>((_) {
                 'output': /*language=dart*/ r'''
 final Podcasts = uiFunction<TestProps>((_) {
   useEffect(() {
-    alert(podcasts.value);
+    window.alert(podcasts.value);
   }, [podcasts.value]);
   var podcasts = useState(null);
 }, null);''',
@@ -27392,7 +27270,7 @@ final MyComponent = uiFunction<TestProps>((_) {
       {
         'code': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  var foo = {}
+  dynamic foo;
   useEffect(() {
     foo.bar.baz = 43;
     props.foo.bar.baz = 1;
@@ -27408,7 +27286,7 @@ final MyComponent = uiFunction<TestProps>((props) {
                     'Update the dependencies array to be: [foo.bar, props.foo.bar]',
                 'output': /*language=dart*/ r'''
 final MyComponent = uiFunction<TestProps>((props) {
-  var foo = {}
+  dynamic foo;
   useEffect(() {
     foo.bar.baz = 43;
     props.foo.bar.baz = 1;
@@ -27422,7 +27300,7 @@ final MyComponent = uiFunction<TestProps>((props) {
       {
         'code': /*language=dart*/ r'''
 final Component = uiFunction<TestProps>((_) {
-  final foo = {};
+  dynamic foo;
   useMemo(() => foo, [foo]);
 }, null);''',
         'errors': [
@@ -27562,7 +27440,7 @@ final Component = uiFunction<TestProps>((_) {
       {
         'code': /*language=dart*/ r'''
 final Component = uiFunction<TestProps>((_) {
-  var foo = {};
+  dynamic foo;
   useMemo(() => foo, [foo]);
 }, null);''',
         'errors': [
@@ -27576,7 +27454,7 @@ final Component = uiFunction<TestProps>((_) {
       {
         'code': /*language=dart*/ r'''
 final Component = uiFunction<TestProps>((_) {
-  var foo = {};
+  dynamic foo;
   useMemo(() => foo, [foo]);
 }, null);''',
         'errors': [
@@ -27590,7 +27468,7 @@ final Component = uiFunction<TestProps>((_) {
       {
         'code': /*language=dart*/ r'''
 final Component = uiFunction<TestProps>((_) {
-  final foo = {};
+  dynamic foo;
   useCallback(() {
     print(foo);
   }, [foo]);
@@ -27606,7 +27484,7 @@ final Component = uiFunction<TestProps>((_) {
       {
         'code': /*language=dart*/ r'''
 final Component = uiFunction<TestProps>((_) {
-  final foo = {};
+  dynamic foo;
   useEffect(() {
     print(foo);
   }, [foo]);
@@ -27622,7 +27500,7 @@ final Component = uiFunction<TestProps>((_) {
       {
         'code': /*language=dart*/ r'''
 final Component = uiFunction<TestProps>((_) {
-  final foo = {};
+  dynamic foo;
   useLayoutEffect(() {
     print(foo);
   }, [foo]);
@@ -27638,7 +27516,7 @@ final Component = uiFunction<TestProps>((_) {
       {
         'code': /*language=dart*/ r'''
 final Component = uiFunction<TestProps>((_) {
-  final foo = {};
+  dynamic foo;
   useImperativeHandle(
     ref,
     () {
@@ -27674,7 +27552,7 @@ final Foo = uiFunction<TestProps>((section) {
       {
         'code': /*language=dart*/ r'''
 final Foo = uiFunction<TestProps>((section) {
-  final foo = {};
+  dynamic foo;
   print(foo);
   useMemo(() {
     print(foo);
@@ -27803,7 +27681,7 @@ final Foo = uiFunction<TestProps>((_) {
       {
         'code': /*language=dart*/ r'''
 final Foo = uiFunction<TestProps>((_) {
-  final foo = {};
+  dynamic foo;
   useLayoutEffect(() {
     print(foo);
   }, [foo]);
@@ -27876,7 +27754,7 @@ final MyComponent = uiFunction<TestProps>((_) {
   useEffect(() {
     final someNumber: typeof state.value = 2;
     state.set((prevState) => prevState + someNumber);
-  }, [])
+  }, []);
 }, null);''',
       },
       {
@@ -28130,7 +28008,7 @@ final MyComponent = uiFunction<TestProps>((_) {
   useEffect(() {
     final someNumber: typeof state.value = 2;
     state.set((prevState) => prevState + someNumber + state.value);
-  }, [])
+  }, []);
 }, null);''',
         'errors': [
           {
@@ -28145,7 +28023,7 @@ final MyComponent = uiFunction<TestProps>((_) {
   useEffect(() {
     final someNumber: typeof state.value = 2;
     state.set((prevState) => prevState + someNumber + state.value);
-  }, [state.value])
+  }, [state.value]);
 }, null);''',
               }
             ],
@@ -28159,7 +28037,7 @@ final MyComponent = uiFunction<TestProps>((_) {
   useMemo(() {
     final someNumber: typeof state.value = 2;
     print(someNumber);
-  }, [state.value])
+  }, [state.value]);
 }, null);''',
         'errors': [
           {
@@ -28174,7 +28052,7 @@ final MyComponent = uiFunction<TestProps>((_) {
   useMemo(() {
     final someNumber: typeof state.value = 2;
     print(someNumber);
-  }, [])
+  }, []);
 }, null);''',
               }
             ],

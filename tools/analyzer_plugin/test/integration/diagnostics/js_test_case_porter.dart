@@ -74,6 +74,7 @@ String portJsToDart(String code) {
       // arrow block functions
       .replaceAll(') => {', ') {')
       .replaceAll('console.log(', 'print(')
+      .replaceAll(RegExp(r'\balert\('), 'window.alert(')
       .replaceAll('===', '==')
       .replaceAll('!==', '!=')
       .replaceAll('React.', 'over_react.')
@@ -136,7 +137,11 @@ String portJsToDart(String code) {
       .replaceAllMapped(RegExp(r'\[\s*(,[^\]]+|[^\]]+,|[^\]],\s*,[^\]]+)\s*\]'), (match) {
         final listItems = match[1]!;
         return '[' + listItems.split(',').map((e) => e.trim()).map((e) => e.isEmpty ? 'null' : e).join(', ') + ']';
-      });
+      })
+  .replaceAll('<div ref={myRef} />', '(Dom.div()..ref = myRef)()')
+  .replaceAll('<div onClick={handleNext} />', '(Dom.div()..onClick = handleNext)()')
+  .replaceAll('<div />', 'Dom.div()()')
+  .replaceAll('<h1>{count.value}</h1>', 'Dom.h1()(count.value)');
 
   return newCode;
 }
