@@ -52,6 +52,9 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
   static const debugCode =
       DiagnosticCode('over_react_boilerplate_debug', '{0}', AnalysisErrorSeverity.INFO, AnalysisErrorType.HINT);
 
+  @override
+  List<DiagnosticCode> get codes => [errorCode, warningCode, debugCode];
+
   static final missingGeneratedPartFixKind = FixKind(errorCode.name, 200, 'Add generated part directive');
   static final invalidGeneratedPartFixKind = FixKind(errorCode.name, 200, 'Fix generated part directive');
   static final unnecessaryGeneratedPartFixKind = FixKind(errorCode.name, 200, 'Remove generated part directive');

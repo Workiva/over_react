@@ -204,6 +204,14 @@ class _DiagnosticGenerator {
     List<FluentComponentUsage> getUsages() => _usages ??= getAllComponentUsages(unitResult.unit!);
 
     for (final contributor in contributors) {
+      final isEveryCodeDisabled = contributor.codes.every(
+        (e) => _errorSeverityProvider.isCodeDisabled(e.name),
+      );
+      if (isEveryCodeDisabled) {
+        // Don't compute errors if all of the codes provided by the contributor are disabled
+        continue;
+      }
+
       try {
         if (contributor is ComponentUsageDiagnosticContributor) {
           await contributor.computeErrorsForUsages(unitResult, collector, getUsages());

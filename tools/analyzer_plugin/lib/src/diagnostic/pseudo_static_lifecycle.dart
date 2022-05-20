@@ -53,6 +53,9 @@ class PseudoStaticLifecycleDiagnostic extends DiagnosticContributor {
   );
 
   @override
+  List<DiagnosticCode> get codes => [code];
+
+  @override
   computeErrors(result, collector) async {
     // This is the return type even if it's not explicitly declared.
     final visitor = LifecycleMethodVisitor();

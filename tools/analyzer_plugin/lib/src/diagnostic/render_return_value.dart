@@ -111,6 +111,9 @@ class RenderReturnValueDiagnostic extends DiagnosticContributor {
     correction: 'Return null instead.',
   );
 
+  @override
+  List<DiagnosticCode> get codes => [invalidTypeErrorCode, preferNullOverFalseErrorCode];
+
   static final falseToNull = FixKind(preferNullOverFalseErrorCode.name, 200, 'Return null instead');
 
   @override

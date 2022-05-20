@@ -44,6 +44,9 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
     url: 'https://reactjs.org/docs/hooks-rules.html',
   );
 
+  @override
+  List<DiagnosticCode> get codes => [code];
+
   static final fixKind = FixKind(code.name, 200, "{0}");
 
   @override

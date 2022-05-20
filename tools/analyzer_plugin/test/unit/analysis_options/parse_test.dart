@@ -63,7 +63,7 @@ over_react:
     over_react_unnecessary_key: info
     over_react_pseudo_static_lifecycle: ignore''';
 
-const pluginNotConfiguredYaml = '''include: package:workiva_analysis_options/v1.recommended.yaml
+const pluginNotConfiguredYaml = /*language=yaml*/ '''include: package:workiva_analysis_options/v1.recommended.yaml
 
 analyzer:
   plugins:
@@ -71,7 +71,7 @@ analyzer:
   errors:
     missing_required_param: warning''';
 
-const noErrorSectionYaml = '''include: package:workiva_analysis_options/v1.recommended.yaml
+const noErrorSectionYaml = /*language=yaml*/ '''include: package:workiva_analysis_options/v1.recommended.yaml
 
 analyzer:
   plugins:
@@ -84,7 +84,7 @@ over_react:
     over_react_boilerplate_error: error
     over_react_pseudo_static_lifecycle: ignore''';
 
-const invalidSeverityLevelYaml = '''include: package:workiva_analysis_options/v1.recommended.yaml
+const invalidSeverityLevelYaml = /*language=yaml*/ '''include: package:workiva_analysis_options/v1.recommended.yaml
 
 analyzer:
   plugins:
@@ -98,7 +98,7 @@ over_react:
     over_react_incorrect_doc_comment_location: critical
     over_react_pseudo_static_lifecycle: ignore''';
 
-const emptyErrorListYaml = '''include: package:workiva_analysis_options/v1.recommended.yaml
+const emptyErrorListYaml = /*language=yaml*/ '''include: package:workiva_analysis_options/v1.recommended.yaml
 
 analyzer:
   plugins:

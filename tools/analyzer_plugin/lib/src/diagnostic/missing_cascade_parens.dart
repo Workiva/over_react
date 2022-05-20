@@ -52,6 +52,9 @@ class MissingCascadeParensDiagnostic extends DiagnosticContributor {
     correction: "Try adding parentheses around the cascaded props",
   );
 
+  @override
+  List<DiagnosticCode> get codes => [code];
+
   // Make smaller (higher priority) than
   // REMOVE_PARENTHESIS_IN_GETTER_INVOCATION
 

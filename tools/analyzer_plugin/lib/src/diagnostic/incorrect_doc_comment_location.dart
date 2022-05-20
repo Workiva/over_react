@@ -93,6 +93,9 @@ class IncorrectDocCommentLocationDiagnostic extends DiagnosticContributor {
         'Place documentation comments above the UiFactory instead so that consumers can see them when consuming them.',
   );
 
+  @override
+  List<DiagnosticCode> get codes => [code];
+
   static final fixKind = FixKind(
     code.name,
     200,
