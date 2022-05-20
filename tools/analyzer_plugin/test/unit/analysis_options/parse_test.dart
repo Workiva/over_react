@@ -34,6 +34,9 @@ void main() {
       expect(options.errors, hasLength(2));
       expect(options.errors['over_react_boilerplate_error'], equals(AnalysisOptionsSeverity.error));
       expect(options.errors['over_react_pseudo_static_lifecycle'], equals(AnalysisOptionsSeverity.ignore));
+
+      // Invalid severity level is not included.
+      expect(options.errors.keys, isNot(contains('over_react_incorrect_doc_comment_location')));
     });
 
     test('with empty error list', () {
