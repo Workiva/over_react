@@ -43,6 +43,8 @@ mixin TestProps on UiProps {
   num upperViewHeight;
   var local;
   var activeTab;
+  var maybeRef2;
+  var prop;
 }
 
 // Globals used by test cases
@@ -52,6 +54,7 @@ var arguments;
 var foo;
 var fetch;
 var globalIncrementValue;
+var maybeRef1;
 int setInterval(Function callback, [int duration]) => 0;
 void clearInterval(int id) {}
 int setTimeout(Function callback, [int duration]) => 0;
@@ -80,17 +83,19 @@ abstract class API {
 }
 StateHook<T> useFunnyState<T>(T initialState) {}
 ReducerHook<T, dynamic, dynamic> useFunnyReducer<T>(dynamic reducer, T initialState) {}
+dynamic useSomeOtherRefyThing() => null;
 ''';
 
     String wrapInFunction(String code) => 'void __testCaseWrapperFunction() {\n\n$code\n\n}';
 
-    bool errorFilter(AnalysisError error, {@required bool isFromPlugin}) =>
+    bool errorFilter(AnalysisError error, {@required bool isFromPlugin, bool ignoreRulesOfHooks = false}) =>
         defaultErrorFilter(error, isFromPlugin: isFromPlugin) &&
         !{
           'unused_import',
         }.contains(error.code) &&
         // These are intentionally undefined references
-        !(error.code == 'undefined_identifier' && error.message.contains("Undefined name 'unresolved'."));
+        !(error.code == 'undefined_identifier' && error.message.contains("Undefined name 'unresolved'.")) &&
+        !(ignoreRulesOfHooks && error.code == 'over_react_rules_of_hooks');
 
     group('test cases that should pass', () {
       final tests = tco.tests['tests'].cast<String, List<dynamic>>();
@@ -100,9 +105,12 @@ ReducerHook<T, dynamic, dynamic> useFunnyReducer<T>(dynamic reducer, T initialSt
           // Need to wrap in a function because some of the code includes statements that aren't valid
           // outside of a function context.
           final code = preamble + wrapInFunction(element['code'] as String);
+          final ignoreRulesOfHooks = element['isOutsideOfFunctionComponentOrHook'] as bool ?? false;
           try {
             final source = testBase.newSource('test.dart', code);
-            await testBase.expectNoErrors(source, errorFilter: errorFilter);
+            await testBase.expectNoErrors(source,
+                errorFilter: (error, {@required isFromPlugin}) =>
+                    errorFilter(error, isFromPlugin: isFromPlugin, ignoreRulesOfHooks: ignoreRulesOfHooks));
             // Run this here even though it's also in tearDown, so that we can see the source
             // when there's failures caused by this expectation.
             testBase.expectNoPluginErrors();

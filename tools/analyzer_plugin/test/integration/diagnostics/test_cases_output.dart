@@ -471,6 +471,7 @@ final MyComponent = uiFunction<TestProps>((props) {
 }, null);''',
       },
       {
+        'isOutsideOfFunctionComponentOrHook': true,
         'code': /*language=dart*/ r'''
 final local = {};
 useEffect(() {
@@ -478,6 +479,7 @@ useEffect(() {
 }, []);''',
       },
       {
+        'isOutsideOfFunctionComponentOrHook': true,
         'code': /*language=dart*/ r'''
 final local1 = {};
 {
@@ -547,7 +549,7 @@ final MyComponent = uiFunction<TestProps>((props) {
     print(state3.state);
     print(state4.state);
     print(state5.value);
-    print(state6.value);
+    print(state6.state);
     // print(isPending2.value);
     // print(isPending4.value);
     mySetState();
@@ -557,7 +559,7 @@ final MyComponent = uiFunction<TestProps>((props) {
     state6.dispatch(null);
   }, [
     // Dynamic
-    state1.value, state2.value, state3.state, state4.state, state5.value, state6.value,
+    state1.value, state2.value, state3.state, state4.state, state5.value, state6.state,
     maybeRef1, maybeRef2,
     // isPending2.value, isPending4.value,
     // Not sure; assume dynamic
@@ -600,7 +602,7 @@ final MyComponent = uiFunction<TestProps>((props) {
     print(state3.state);
     print(state4.state);
     print(state5.value);
-    print(state6.value);
+    print(state6.state);
     mySetState();
     myDispatch();
     // Not sure; assume dynamic
@@ -608,14 +610,14 @@ final MyComponent = uiFunction<TestProps>((props) {
     state6.dispatch(null);
   }, [
     // Dynamic
-    state1.value, state2.value, state3.state, state4.state, state5.value, state6.value,
+    state1.value, state2.value, state3.state, state4.state, state5.value, state6.state,
     maybeRef1, maybeRef2,
     // Not sure; assume dynamic
     mySetState, myDispatch,
     state5.set, state6.dispatch,
     // In this test, we specify static deps.
     // That should be okay too!
-    definitelyRef1, definitelyRef2, state1.set, state2.set, state3.set, state4.set
+    definitelyRef1, definitelyRef2, state1.set, state2.set, state3.dispatch, state4.dispatch
   ]);
 }, null);''',
       },
@@ -1034,7 +1036,7 @@ final Podcasts = uiFunction<TestProps>((props) {
         'code': /*language=dart*/ r'''
 final Counter = uiFunction<TestProps>((_) {
   var count = useState(0);
-  increment(x) {
+  int increment(int x) {
     return x + 1;
   }
   useEffect(() {
@@ -1050,7 +1052,7 @@ final Counter = uiFunction<TestProps>((_) {
         'code': /*language=dart*/ r'''
 final Counter = uiFunction<TestProps>((_) {
   var count = useState(0);
-  increment(x) {
+  int increment(int x) {
     return x + 1;
   }
   useEffect(() {
@@ -5298,7 +5300,7 @@ final Counter = uiFunction<TestProps>((props) {
   var step = props.step;
 
   var count = useState(0);
-  increment(x) {
+  int increment(int x) {
     return x + step;
   }
   useEffect(() {
@@ -5321,7 +5323,7 @@ final Counter = uiFunction<TestProps>((props) {
   var step = props.step;
 
   var count = useState(0);
-  increment(x) {
+  int increment(int x) {
     return x + step;
   }
   useEffect(() {
@@ -5343,7 +5345,7 @@ final Counter = uiFunction<TestProps>((props) {
   var step = props.step;
 
   var count = useState(0);
-  increment(x) {
+  int increment(int x) {
     return x + step;
   }
   useEffect(() {
@@ -7478,6 +7480,7 @@ final MyComponent = uiFunction<TestProps>((props) {
 }, null);''',
       },
       {
+        'isOutsideOfFunctionComponentOrHook': true,
         'code': /*language=dart*/ r'''
 final local = {};
 useEffect(() {
@@ -7485,6 +7488,7 @@ useEffect(() {
 }, []);''',
       },
       {
+        'isOutsideOfFunctionComponentOrHook': true,
         'code': /*language=dart*/ r'''
 final local1 = {};
 {
@@ -7554,7 +7558,7 @@ final MyComponent = uiFunction<TestProps>((props) {
     print(state3.state);
     print(state4.state);
     print(state5.value);
-    print(state6.value);
+    print(state6.state);
     // print(isPending2.value);
     // print(isPending4.value);
     mySetState();
@@ -7564,7 +7568,7 @@ final MyComponent = uiFunction<TestProps>((props) {
     state6.dispatch(null);
   }, [
     // Dynamic
-    state1.value, state2.value, state3.state, state4.state, state5.value, state6.value,
+    state1.value, state2.value, state3.state, state4.state, state5.value, state6.state,
     maybeRef1, maybeRef2,
     // isPending2.value, isPending4.value,
     // Not sure; assume dynamic
@@ -7607,7 +7611,7 @@ final MyComponent = uiFunction<TestProps>((props) {
     print(state3.state);
     print(state4.state);
     print(state5.value);
-    print(state6.value);
+    print(state6.state);
     mySetState();
     myDispatch();
     // Not sure; assume dynamic
@@ -7615,14 +7619,14 @@ final MyComponent = uiFunction<TestProps>((props) {
     state6.dispatch(null);
   }, [
     // Dynamic
-    state1.value, state2.value, state3.state, state4.state, state5.value, state6.value,
+    state1.value, state2.value, state3.state, state4.state, state5.value, state6.state,
     maybeRef1, maybeRef2,
     // Not sure; assume dynamic
     mySetState, myDispatch,
     state5.set, state6.dispatch,
     // In this test, we specify static deps.
     // That should be okay too!
-    definitelyRef1, definitelyRef2, state1.set, state2.set, state3.set, state4.set
+    definitelyRef1, definitelyRef2, state1.set, state2.set, state3.dispatch, state4.dispatch
   ]);
 }, null);''',
       },
@@ -8048,7 +8052,7 @@ final Counter = uiFunction<TestProps>((_) {
         'code': /*language=dart*/ r'''
 final Counter = uiFunction<TestProps>((_) {
   var count = useState(0);
-  increment(x) {
+  int increment(int x) {
     return x + 1;
   }
   useEffect(() {
@@ -12327,7 +12331,7 @@ final Counter = uiFunction<TestProps>((props) {
   var step = props.step;
 
   var count = useState(0);
-  increment(x) {
+  int increment(int x) {
     return x + step;
   }
   useEffect(() {
@@ -12350,7 +12354,7 @@ final Counter = uiFunction<TestProps>((props) {
   var step = props.step;
 
   var count = useState(0);
-  increment(x) {
+  int increment(int x) {
     return x + step;
   }
   useEffect(() {
@@ -12372,7 +12376,7 @@ final Counter = uiFunction<TestProps>((props) {
   var step = props.step;
 
   var count = useState(0);
-  increment(x) {
+  int increment(int x) {
     return x + step;
   }
   useEffect(() {
@@ -14507,6 +14511,7 @@ final MyComponent = uiFunction<TestProps>((props) {
 }, null);''',
       },
       {
+        'isOutsideOfFunctionComponentOrHook': true,
         'code': /*language=dart*/ r'''
 final local = {};
 useEffect(() {
@@ -14514,6 +14519,7 @@ useEffect(() {
 }, []);''',
       },
       {
+        'isOutsideOfFunctionComponentOrHook': true,
         'code': /*language=dart*/ r'''
 final local1 = {};
 {
@@ -14583,7 +14589,7 @@ final MyComponent = uiFunction<TestProps>((props) {
     print(state3.state);
     print(state4.state);
     print(state5.value);
-    print(state6.value);
+    print(state6.state);
     // print(isPending2.value);
     // print(isPending4.value);
     mySetState();
@@ -14593,7 +14599,7 @@ final MyComponent = uiFunction<TestProps>((props) {
     state6.dispatch(null);
   }, [
     // Dynamic
-    state1.value, state2.value, state3.state, state4.state, state5.value, state6.value,
+    state1.value, state2.value, state3.state, state4.state, state5.value, state6.state,
     maybeRef1, maybeRef2,
     // isPending2.value, isPending4.value,
     // Not sure; assume dynamic
@@ -14636,7 +14642,7 @@ final MyComponent = uiFunction<TestProps>((props) {
     print(state3.state);
     print(state4.state);
     print(state5.value);
-    print(state6.value);
+    print(state6.state);
     mySetState();
     myDispatch();
     // Not sure; assume dynamic
@@ -14644,14 +14650,14 @@ final MyComponent = uiFunction<TestProps>((props) {
     state6.dispatch(null);
   }, [
     // Dynamic
-    state1.value, state2.value, state3.state, state4.state, state5.value, state6.value,
+    state1.value, state2.value, state3.state, state4.state, state5.value, state6.state,
     maybeRef1, maybeRef2,
     // Not sure; assume dynamic
     mySetState, myDispatch,
     state5.set, state6.dispatch,
     // In this test, we specify static deps.
     // That should be okay too!
-    definitelyRef1, definitelyRef2, state1.set, state2.set, state3.set, state4.set
+    definitelyRef1, definitelyRef2, state1.set, state2.set, state3.dispatch, state4.dispatch
   ]);
 }, null);''',
       },
@@ -15069,7 +15075,7 @@ final Podcasts = uiFunction<TestProps>((props) {
         'code': /*language=dart*/ r'''
 final Counter = uiFunction<TestProps>((_) {
   var count = useState(0);
-  increment(x) {
+  int increment(int x) {
     return x + 1;
   }
   useEffect(() {
@@ -15085,7 +15091,7 @@ final Counter = uiFunction<TestProps>((_) {
         'code': /*language=dart*/ r'''
 final Counter = uiFunction<TestProps>((_) {
   var count = useState(0);
-  increment(x) {
+  int increment(int x) {
     return x + 1;
   }
   useEffect(() {
@@ -19364,7 +19370,7 @@ final Counter = uiFunction<TestProps>((props) {
   var step = props.step;
 
   var count = useState(0);
-  increment(x) {
+  int increment(int x) {
     return x + step;
   }
   useEffect(() {
@@ -19387,7 +19393,7 @@ final Counter = uiFunction<TestProps>((props) {
   var step = props.step;
 
   var count = useState(0);
-  increment(x) {
+  int increment(int x) {
     return x + step;
   }
   useEffect(() {
@@ -19409,7 +19415,7 @@ final Counter = uiFunction<TestProps>((props) {
   var step = props.step;
 
   var count = useState(0);
-  increment(x) {
+  int increment(int x) {
     return x + step;
   }
   useEffect(() {
@@ -21544,6 +21550,7 @@ final MyComponent = uiFunction<TestProps>((props) {
 }, null);''',
       },
       {
+        'isOutsideOfFunctionComponentOrHook': true,
         'code': /*language=dart*/ r'''
 final local = {};
 useEffect(() {
@@ -21551,6 +21558,7 @@ useEffect(() {
 }, []);''',
       },
       {
+        'isOutsideOfFunctionComponentOrHook': true,
         'code': /*language=dart*/ r'''
 final local1 = {};
 {
@@ -21620,7 +21628,7 @@ final MyComponent = uiFunction<TestProps>((props) {
     print(state3.state);
     print(state4.state);
     print(state5.value);
-    print(state6.value);
+    print(state6.state);
     // print(isPending2.value);
     // print(isPending4.value);
     mySetState();
@@ -21630,7 +21638,7 @@ final MyComponent = uiFunction<TestProps>((props) {
     state6.dispatch(null);
   }, [
     // Dynamic
-    state1.value, state2.value, state3.state, state4.state, state5.value, state6.value,
+    state1.value, state2.value, state3.state, state4.state, state5.value, state6.state,
     maybeRef1, maybeRef2,
     // isPending2.value, isPending4.value,
     // Not sure; assume dynamic
@@ -21673,7 +21681,7 @@ final MyComponent = uiFunction<TestProps>((props) {
     print(state3.state);
     print(state4.state);
     print(state5.value);
-    print(state6.value);
+    print(state6.state);
     mySetState();
     myDispatch();
     // Not sure; assume dynamic
@@ -21681,14 +21689,14 @@ final MyComponent = uiFunction<TestProps>((props) {
     state6.dispatch(null);
   }, [
     // Dynamic
-    state1.value, state2.value, state3.state, state4.state, state5.value, state6.value,
+    state1.value, state2.value, state3.state, state4.state, state5.value, state6.state,
     maybeRef1, maybeRef2,
     // Not sure; assume dynamic
     mySetState, myDispatch,
     state5.set, state6.dispatch,
     // In this test, we specify static deps.
     // That should be okay too!
-    definitelyRef1, definitelyRef2, state1.set, state2.set, state3.set, state4.set
+    definitelyRef1, definitelyRef2, state1.set, state2.set, state3.dispatch, state4.dispatch
   ]);
 }, null);''',
       },
@@ -22097,7 +22105,7 @@ final Podcasts = uiFunction<TestProps>((props) {
         'code': /*language=dart*/ r'''
 final Counter = uiFunction<TestProps>((_) {
   var count = useState(0);
-  increment(x) {
+  int increment(int x) {
     return x + 1;
   }
   useEffect(() {
@@ -22113,7 +22121,7 @@ final Counter = uiFunction<TestProps>((_) {
         'code': /*language=dart*/ r'''
 final Counter = uiFunction<TestProps>((_) {
   var count = useState(0);
-  increment(x) {
+  int increment(int x) {
     return x + 1;
   }
   useEffect(() {
@@ -26406,7 +26414,7 @@ final Counter = uiFunction<TestProps>((props) {
   var step = props.step;
 
   var count = useState(0);
-  increment(x) {
+  int increment(int x) {
     return x + step;
   }
   useEffect(() {
@@ -26429,7 +26437,7 @@ final Counter = uiFunction<TestProps>((props) {
   var step = props.step;
 
   var count = useState(0);
-  increment(x) {
+  int increment(int x) {
     return x + step;
   }
   useEffect(() {
@@ -26451,7 +26459,7 @@ final Counter = uiFunction<TestProps>((props) {
   var step = props.step;
 
   var count = useState(0);
-  increment(x) {
+  int increment(int x) {
     return x + step;
   }
   useEffect(() {
