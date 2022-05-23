@@ -999,15 +999,6 @@ final Counter = uiFunction<TestProps>((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Podcasts = uiFunction<TestProps>((_) {
-  useEffect(() {
-    podcasts.set([]);
-  }, []);
-  var podcasts = useState(null);
-}, null);''',
-      },
-      {
-        'code': /*language=dart*/ r'''
 withFetch(fetchPodcasts) {
   return uiFunction((props) {
     final id = props.id;
