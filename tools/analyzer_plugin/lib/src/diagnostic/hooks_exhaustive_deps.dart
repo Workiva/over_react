@@ -270,6 +270,8 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
         componentOrCustomHookFunction?.offset ?? 0);
 
     bool isDeclaredInPureScope(Element element) =>
+        // todo(greg) is this function even valid when this is null?
+        componentOrCustomHookFunctionElement != null &&
         element.thisOrAncestorOfType<ExecutableElement>() == componentOrCustomHookFunctionElement;
 
     // uiFunction((props), {
