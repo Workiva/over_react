@@ -548,13 +548,13 @@ final MyComponent = uiFunction<TestProps>((props) {
     print(state4.state);
     print(state5.value);
     print(state6.value);
-    print(isPending2.value);
-    print(isPending4.value);
+    // print(isPending2.value);
+    // print(isPending4.value);
     mySetState();
     myDispatch();
     // Not sure; assume dynamic
     state5.set(null);
-    state6.set(null);
+    state6.dispatch(null);
   }, [
     // Dynamic
     state1.value, state2.value, state3.state, state4.state, state5.value, state6.value,
@@ -562,7 +562,7 @@ final MyComponent = uiFunction<TestProps>((props) {
     // isPending2.value, isPending4.value,
     // Not sure; assume dynamic
     mySetState, myDispatch,
-    state5.set, state6.set
+    state5.set, state6.dispatch
     // In this test, we don't specify static deps.
     // That should be okay.
   ]);
@@ -605,14 +605,14 @@ final MyComponent = uiFunction<TestProps>((props) {
     myDispatch();
     // Not sure; assume dynamic
     state5.set(null);
-    state6.set(null);
+    state6.dispatch(null);
   }, [
     // Dynamic
     state1.value, state2.value, state3.state, state4.state, state5.value, state6.value,
     maybeRef1, maybeRef2,
     // Not sure; assume dynamic
     mySetState, myDispatch,
-    state5.set, state6.set,
+    state5.set, state6.dispatch,
     // In this test, we specify static deps.
     // That should be okay too!
     definitelyRef1, definitelyRef2, state1.set, state2.set, state3.set, state4.set
@@ -7555,13 +7555,13 @@ final MyComponent = uiFunction<TestProps>((props) {
     print(state4.state);
     print(state5.value);
     print(state6.value);
-    print(isPending2.value);
-    print(isPending4.value);
+    // print(isPending2.value);
+    // print(isPending4.value);
     mySetState();
     myDispatch();
     // Not sure; assume dynamic
     state5.set(null);
-    state6.set(null);
+    state6.dispatch(null);
   }, [
     // Dynamic
     state1.value, state2.value, state3.state, state4.state, state5.value, state6.value,
@@ -7569,7 +7569,7 @@ final MyComponent = uiFunction<TestProps>((props) {
     // isPending2.value, isPending4.value,
     // Not sure; assume dynamic
     mySetState, myDispatch,
-    state5.set, state6.set
+    state5.set, state6.dispatch
     // In this test, we don't specify static deps.
     // That should be okay.
   ]);
@@ -7612,14 +7612,14 @@ final MyComponent = uiFunction<TestProps>((props) {
     myDispatch();
     // Not sure; assume dynamic
     state5.set(null);
-    state6.set(null);
+    state6.dispatch(null);
   }, [
     // Dynamic
     state1.value, state2.value, state3.state, state4.state, state5.value, state6.value,
     maybeRef1, maybeRef2,
     // Not sure; assume dynamic
     mySetState, myDispatch,
-    state5.set, state6.set,
+    state5.set, state6.dispatch,
     // In this test, we specify static deps.
     // That should be okay too!
     definitelyRef1, definitelyRef2, state1.set, state2.set, state3.set, state4.set
@@ -14584,13 +14584,13 @@ final MyComponent = uiFunction<TestProps>((props) {
     print(state4.state);
     print(state5.value);
     print(state6.value);
-    print(isPending2.value);
-    print(isPending4.value);
+    // print(isPending2.value);
+    // print(isPending4.value);
     mySetState();
     myDispatch();
     // Not sure; assume dynamic
     state5.set(null);
-    state6.set(null);
+    state6.dispatch(null);
   }, [
     // Dynamic
     state1.value, state2.value, state3.state, state4.state, state5.value, state6.value,
@@ -14598,7 +14598,7 @@ final MyComponent = uiFunction<TestProps>((props) {
     // isPending2.value, isPending4.value,
     // Not sure; assume dynamic
     mySetState, myDispatch,
-    state5.set, state6.set
+    state5.set, state6.dispatch
     // In this test, we don't specify static deps.
     // That should be okay.
   ]);
@@ -14641,14 +14641,14 @@ final MyComponent = uiFunction<TestProps>((props) {
     myDispatch();
     // Not sure; assume dynamic
     state5.set(null);
-    state6.set(null);
+    state6.dispatch(null);
   }, [
     // Dynamic
     state1.value, state2.value, state3.state, state4.state, state5.value, state6.value,
     maybeRef1, maybeRef2,
     // Not sure; assume dynamic
     mySetState, myDispatch,
-    state5.set, state6.set,
+    state5.set, state6.dispatch,
     // In this test, we specify static deps.
     // That should be okay too!
     definitelyRef1, definitelyRef2, state1.set, state2.set, state3.set, state4.set
@@ -21627,7 +21627,7 @@ final MyComponent = uiFunction<TestProps>((props) {
     myDispatch();
     // Not sure; assume dynamic
     state5.set(null);
-    state6.set(null);
+    state6.dispatch(null);
   }, [
     // Dynamic
     state1.value, state2.value, state3.state, state4.state, state5.value, state6.value,
@@ -21635,7 +21635,7 @@ final MyComponent = uiFunction<TestProps>((props) {
     // isPending2.value, isPending4.value,
     // Not sure; assume dynamic
     mySetState, myDispatch,
-    state5.set, state6.set
+    state5.set, state6.dispatch
     // In this test, we don't specify static deps.
     // That should be okay.
   ]);
@@ -21678,14 +21678,14 @@ final MyComponent = uiFunction<TestProps>((props) {
     myDispatch();
     // Not sure; assume dynamic
     state5.set(null);
-    state6.set(null);
+    state6.dispatch(null);
   }, [
     // Dynamic
     state1.value, state2.value, state3.state, state4.state, state5.value, state6.value,
     maybeRef1, maybeRef2,
     // Not sure; assume dynamic
     mySetState, myDispatch,
-    state5.set, state6.set,
+    state5.set, state6.dispatch,
     // In this test, we specify static deps.
     // That should be okay too!
     definitelyRef1, definitelyRef2, state1.set, state2.set, state3.set, state4.set
