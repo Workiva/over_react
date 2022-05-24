@@ -9,7 +9,10 @@ const _desc = r'Prefer useRef over createRef within a function component.';
 // <editor-fold desc="Documentation Details">
 const _details = r'''
 
-This diagnostic detects when `createRef`, instead of `useRef`, is used inside a function component.
+This diagnostic detects when `createRef`, instead of `useRef`, is used inside a function component,
+since usually it's a mistake.
+
+`createRef` creates a new ref object each time, while `useRef` persists for the lifetime of the component.
 
 **BAD:** 
 ```
@@ -54,7 +57,7 @@ class CreateRefUsageDiagnostic extends DiagnosticContributor {
   @DocsMeta(_desc, details: _details)
   static const code = DiagnosticCode(
     'over_react_create_ref_usage',
-    "Prefer useRef over createRef within a function component.",
+    "Prefer useRef over createRef within function components.",
     AnalysisErrorSeverity.WARNING,
     AnalysisErrorType.STATIC_WARNING,
   );
