@@ -183,7 +183,7 @@ class DiagnosticCollectorImpl implements DiagnosticCollector {
       SourceChange? fixChange,
       List<Object?> errorMessageArgs = const [],
       List<Object> fixMessageArgs = const []}) {
-    // FIXME(nullsafety) better checks/errors when some args aren't provided
+    // TODO(nullsafety) better checks/errors when some args aren't provided
 
     PrioritizedSourceChange? fix;
     if (fixChange != null) {
