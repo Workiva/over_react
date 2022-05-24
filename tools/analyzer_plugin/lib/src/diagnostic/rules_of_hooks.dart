@@ -56,6 +56,7 @@ From the React [the React Rules of Hooks docs](https://reactjs.org/docs/hooks-ru
 > By following this rule, you ensure that all stateful logic in a component is clearly visible from its source code.
 
 ''';
+
 // </editor-fold>
 class RulesOfHooks extends DiagnosticContributor {
   @DocsMeta(_desc, details: _details)
