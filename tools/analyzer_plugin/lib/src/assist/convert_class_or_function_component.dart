@@ -63,8 +63,7 @@ class ConvertClassOrFunctionComponentAssistContributor extends AssistContributor
     final factoryInitializer = factory.initializer;
     if (factoryInitializer == null) return;
 
-    // todo check for other methods
-    // todo migrate defaults
+    // todo migrate defaults?
 
     final render = closestClass.members.whereType<MethodDeclaration>().firstWhereOrNull((m) => m.name.name == 'render');
     if (render == null) return;
