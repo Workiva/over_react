@@ -22,7 +22,7 @@ dev_dependencies:
   build_test: ^2.0.0
   convert: ^3.0.0
   crypto: ^3.0.0
-  dart_dev: ^3.0.0
+  dart_dev: ^3.8.5
   dependency_validator: ^3.0.0
   glob: ^2.0.0
   io: ^1.0.0
@@ -42,11 +42,6 @@ dependency_validator:
     - playground/**
 
 dependency_overrides:
-  # Necessary to be able to run dart_dev without errors
-  dart_dev:
-    git:
-      url: https://github.com/Workiva/dart_dev.git
-      ref: fix-running-in-null-safe-package
   # Necessary due to conflict between over_react and over_react_analyzer plugin
   meta: ^1.7.0
 
