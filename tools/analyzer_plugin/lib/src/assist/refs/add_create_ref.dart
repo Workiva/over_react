@@ -173,11 +173,10 @@ VariableElement? _getRefCallbackAssignedField(Expression refPropRhs) {
     if (parent is AssignmentExpression && parent.rightHandSide == reference) {
       final lhs = parent.leftHandSide;
       if (lhs is Identifier) {
-        if (lhs.staticElement is VariableElement) {
-          return lhs.staticElement as VariableElement;
-        }
-
-        return lhs.staticElement.tryCast<PropertyAccessorElement>()?.variable;
+        final varInFnComponent = lhs.staticElement?.tryCast<VariableElement>();
+        final varInClassComponent =
+            lhs.parent?.tryCast<AssignmentExpression>()?.writeElement?.tryCast<PropertyAccessorElement>()?.variable;
+        return varInFnComponent ?? varInClassComponent;
       }
     }
   }
