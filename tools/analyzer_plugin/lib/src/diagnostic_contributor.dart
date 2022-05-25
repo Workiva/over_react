@@ -97,6 +97,9 @@ class DiagnosticCode {
 ///
 /// Clients may implement this class when implementing plugins.
 abstract class DiagnosticContributor {
+  /// List of all possible [DiagnosticCode]s that this contributor could compute as errors.
+  List<DiagnosticCode> get codes;
+
   /// Contribute errors for the location in the file specified by the given
   /// [result] into the given [collector].
   Future<void> computeErrors(ResolvedUnitResult result, DiagnosticCollector collector);
@@ -180,7 +183,7 @@ class DiagnosticCollectorImpl implements DiagnosticCollector {
       SourceChange? fixChange,
       List<Object?> errorMessageArgs = const [],
       List<Object> fixMessageArgs = const []}) {
-    // FIXME(nullsafety) better checks/errors when some args aren't provided
+    // TODO(nullsafety) better checks/errors when some args aren't provided
 
     PrioritizedSourceChange? fix;
     if (fixChange != null) {

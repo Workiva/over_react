@@ -52,13 +52,16 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
   static const debugCode =
       DiagnosticCode('over_react_boilerplate_debug', '{0}', AnalysisErrorSeverity.INFO, AnalysisErrorType.HINT);
 
+  @override
+  List<DiagnosticCode> get codes => [errorCode, warningCode, debugCode];
+
   static final missingGeneratedPartFixKind = FixKind(errorCode.name, 200, 'Add generated part directive');
   static final invalidGeneratedPartFixKind = FixKind(errorCode.name, 200, 'Fix generated part directive');
   static final unnecessaryGeneratedPartFixKind = FixKind(errorCode.name, 200, 'Remove generated part directive');
 
   static final _debugFlagPattern = RegExp(r'debug:.*\bover_react_boilerplate\b');
 
-  // FIXME(nullsafety) come back and clean up fields
+  // TODO(nullsafety) come back and clean up fields
 
   PartDirective? _overReactGeneratedPartDirective;
   late bool _overReactGeneratedPartDirectiveIsValid;

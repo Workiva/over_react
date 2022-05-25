@@ -12,7 +12,8 @@ const _desc = r'Use of non defaulted props in function components';
 // <editor-fold desc="Documentation Details">
 const _details = r'''
 
-This diagnostic detects when a prop that has a default value in a function component is used directly instead of its defaulted equivalent.
+This diagnostic detects when a prop that has a default value in a function component is used directly instead of its defaulted equivalent,
+since this is usually a mistake, and can result in unexpected null errors.
 
 **BAD:** `props.content` is used instead of `content` which defaults the prop.
 ```
@@ -67,6 +68,9 @@ class NonDefaultedPropDiagnostic extends DiagnosticContributor {
     AnalysisErrorSeverity.WARNING,
     AnalysisErrorType.STATIC_WARNING,
   );
+
+  @override
+  List<DiagnosticCode> get codes => [code];
 
   static final fixKind = FixKind(code.name, 400, "Use local variable '{0}' with default value");
 

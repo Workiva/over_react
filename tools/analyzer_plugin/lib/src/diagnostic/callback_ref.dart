@@ -62,6 +62,9 @@ class CallbackRefDiagnostic extends ComponentUsageDiagnosticContributor {
     correction: 'Use the return value of useRef() / createRef() as the ref field value instead.',
   );
 
+  @override
+  List<DiagnosticCode> get codes => [code];
+
   static final fixKind = FixKind(code.name, 200, 'Convert to useRef() / createRef()');
 
   @override

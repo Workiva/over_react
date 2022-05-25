@@ -1,9 +1,26 @@
-// Adapted from https://github.com/facebook/react/blob/master@%7B2020-08-05%2000:00%7D/packages/eslint-plugin-react-hooks/src/RulesOfHooks.js
-
+// Adapted from https://github.com/facebook/react/blob/main@%7B2020-08-05%2000:00%7D/packages/eslint-plugin-react-hooks/src/RulesOfHooks.js
+//
+// MIT License
+//
 // Copyright (c) Facebook, Inc. and its affiliates.
 //
-// This source code is licensed under the MIT license found in the
-// LICENSE file in the root directory of this source tree.
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
 
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/token.dart';
@@ -13,8 +30,36 @@ import 'package:over_react_analyzer_plugin/src/util/function_components.dart';
 import 'package:over_react_analyzer_plugin/src/util/hooks.dart';
 import 'package:over_react_analyzer_plugin/src/util/util.dart';
 
+const _desc = r'Enforces the Rules of Hooks';
+// <editor-fold desc="Documentation Details">
+const _details = r'''
+
+This diagnostic enforces the Rules of Hooks.
+
+From the React [the React Rules of Hooks docs](https://reactjs.org/docs/hooks-rules.html):
+
+> Hooks are a new addition in React 16.8. They let you use state and other React features without writing a class.
+> 
+> Hooks are JavaScript functions, but you need to follow two rules when using them.
+> 
+> ### Only Call Hooks at the Top Level
+> Don’t call Hooks inside loops, conditions, or nested functions. Instead, always use Hooks at the top level of your React function, before any early returns. 
+> By following this rule, you ensure that Hooks are called in the same order each time a component renders. 
+> That’s what allows React to correctly preserve the state of Hooks between multiple `useState` and `useEffect` calls. (If you’re curious, we’ll explain this in depth below.)
+> 
+> ### Only Call Hooks from React Functions
+> Don’t call Hooks from regular JavaScript functions. Instead, you can:
+> 
+> - ✅ Call Hooks from React function components.
+> - ✅ Call Hooks from custom Hooks (we’ll learn about them on the next page).
+>
+> By following this rule, you ensure that all stateful logic in a component is clearly visible from its source code.
+
+''';
+
+// </editor-fold>
 class RulesOfHooks extends DiagnosticContributor {
-  @DocsMeta('Enforces the Rules of Hooks', details: '')
+  @DocsMeta(_desc, details: _details)
   static const code = DiagnosticCode(
     'over_react_rules_of_hooks',
     "{0}",
@@ -22,6 +67,9 @@ class RulesOfHooks extends DiagnosticContributor {
     AnalysisErrorType.STATIC_WARNING,
     url: 'https://reactjs.org/docs/hooks-rules.html',
   );
+
+  @override
+  List<DiagnosticCode> get codes => [code];
 
   @override
   Future<void> computeErrors(result, collector) async {

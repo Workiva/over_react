@@ -80,6 +80,9 @@ class StringRefDiagnostic extends ComponentUsageDiagnosticContributor {
     correction: 'Try using createRef() or a callback ref instead.',
   );
 
+  @override
+  List<DiagnosticCode> get codes => [code];
+
   static final fixKind = FixKind(code.name, 200, 'Convert to createRef()');
 
   @override

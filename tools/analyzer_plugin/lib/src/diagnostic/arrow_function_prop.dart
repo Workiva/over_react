@@ -45,6 +45,9 @@ class ArrowFunctionPropCascadeDiagnostic extends ComponentUsageDiagnosticContrib
     correction: 'Try wrapping the arrow functions in parentheses or using a block function.',
   );
 
+  @override
+  List<DiagnosticCode> get codes => [code];
+
   static final fixKind = FixKind(code.name, 200, 'Wrap arrow function in parentheses');
 
   @override

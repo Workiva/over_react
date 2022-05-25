@@ -1,6 +1,7 @@
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/source/source_range.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
+import 'package:over_react_analyzer_plugin/src/util/function_components.dart';
 import 'package:over_react_analyzer_plugin/src/util/util.dart';
 
 const _desc = r'Avoid forwarding custom props to a Dom builder.';
@@ -48,6 +49,9 @@ class ForwardOnlyDomPropsToDomBuildersDiagnostic extends ComponentUsageDiagnosti
     correction: 'Use addUnconsumedDomProps instead of addUnconsumedProps.',
   );
 
+  @override
+  List<DiagnosticCode> get codes => [code];
+
   static final fixKind = FixKind(code.name, 200, 'Use addUnconsumedDomProps');
 
   @override
@@ -55,8 +59,17 @@ class ForwardOnlyDomPropsToDomBuildersDiagnostic extends ComponentUsageDiagnosti
     if (!usage.isDom) return;
 
     for (final invocation in usage.cascadedMethodInvocations) {
-      if (invocation.methodName.name != 'modifyProps') continue;
-      final propModifier = invocation.node.argumentList.arguments.whereType<SimpleIdentifier>().firstOrNull;
+      final isFnComponent = getClosestFunctionComponent(usage.node) != null;
+      final invocationName = invocation.methodName.name;
+      if (!isFnComponent && invocationName != 'modifyProps') continue;
+
+      // In function components, the prop modifier is the same as the cascaded method invocation
+      // since you directly call `..addUnconsumedProps` instead of `..modifyProps(addUnconsumedProps)`.
+      final propModifier = isFnComponent
+          // ..#addUnconsumedProps#(props, consumedProps)
+          ? invocation.node.methodName
+          // ..modifyProps(#addUnconsumedProps#)
+          : invocation.node.argumentList.arguments.whereType<SimpleIdentifier>().firstOrNull;
       if (propModifier == null) continue;
 
       if (propModifier.name == 'addUnconsumedProps') {

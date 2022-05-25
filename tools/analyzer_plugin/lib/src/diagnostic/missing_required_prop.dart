@@ -57,6 +57,9 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
     AnalysisErrorType.STATIC_WARNING,
   );
 
+  @override
+  List<DiagnosticCode> get codes => [code];
+
   static final fixKind = FixKind(code.name, 200, 'Add required prop \'{0}\'');
 
   ClassElement? _cachedAccessorClass;

@@ -22,6 +22,9 @@ class DuplicatePropCascadeDiagnostic extends ComponentUsageDiagnosticContributor
       AnalysisErrorSeverity.WARNING,
       AnalysisErrorType.STATIC_TYPE_WARNING);
 
+  @override
+  List<DiagnosticCode> get codes => [code];
+
   static final fixKind = FixKind(code.name, 200, 'Remove duplicate prop keys / values');
 
   @override
