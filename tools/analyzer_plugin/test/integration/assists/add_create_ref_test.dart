@@ -25,7 +25,7 @@ class AddUseOrCreateRefAssistTest extends AssistTestBase {
   String usageSourceWithinClassComponent({@required bool fixed}) => '''
 import 'package:over_react/over_react.dart';
 
-part 'refs.over_react.g.dart';
+part 'test.over_react.g.dart';
 
 UiFactory<HasNoRefsProps> HasNoRefs = castUiFactory(_\$HasNoRefs); // ignore: undefined_identifier
 
@@ -35,7 +35,9 @@ class HasNoRefsComponent extends UiComponent2<HasNoRefsProps> {
   ${fixed ? 'final _childRef = createRef<dynamic>();\n\n  ' : ''}
   @override
   render() {
-    return ${fixed ? '(Child()..ref = _childRef)' : 'Child()'}(props.children);
+    return ${fixed ? '''(Child()
+      ..id = 'foo'
+      ..ref = _childRef)''' : '''(Child()..id = 'foo')'''}(props.children);
   }
 }
 ''';
@@ -46,7 +48,9 @@ import 'package:over_react/over_react.dart';
 final HasNoRefs = uiFunction<UiProps>(
   (props) {
     ${fixed ? 'final _childRef = useRef<dynamic>();\n\n    ' : ''}
-    return ${fixed ? '(Child()..ref = _childRef)' : 'Child()'}(props.children);
+    return ${fixed ? '''(Child()
+      ..id = 'foo'
+      ..ref = _childRef)''' : '''(Child()..id = 'foo')'''}(props.children);
   },
   UiFactoryConfig(displayName: 'HasNoRefs'),
 );
@@ -58,17 +62,100 @@ final HasNoRefs = uiFunction<UiProps>(
     await expectNoAssist(selection);
   }
 
-  Future<void> test_classComponentAssist() async {
+  Future<void> test_noAssistWithExistingRefInFnComponentDecl() async {
+    final source = newSource('test.dart', '''
+import 'package:over_react/over_react.dart';
+
+final HasRefs = uiFunction<UiProps>(
+  (props) {
+    final _childRef = useRef<dynamic>();
+    return (Child()..ref = _childRef)(props.children);
+  },
+  UiFactoryConfig(displayName: 'HasRefs'),
+);
+''');
+    final selection = createSelection(source, 'return (##Child()');
+    await expectNoAssist(selection);
+  }
+
+  Future<void> test_noAssistWithSelectionOutsideReturnExpressionInFnComponent() async {
+    var source = newSource('test.dart', usageSourceWithinFnComponent(fixed: false));
+    var selection = createSelection(source, '<UiProps>(##');
+    await expectNoAssist(selection);
+  }
+
+  Future<void> test_noAssistWithExistingRefInClassComponentDecl() async {
+    final source = newSource('test.dart', '''
+import 'package:over_react/over_react.dart';
+
+part 'test.over_react.g.dart';
+
+UiFactory<HasRefsProps> HasRefs = castUiFactory(_\$HasRefs); // ignore: undefined_identifier
+
+mixin HasRefsProps on UiProps {}
+
+class HasRefsComponent extends UiComponent2<HasRefsProps> {
+  final _childRef = createRef<dynamic>();
+  
+  @override
+  render() {
+    return (Child()..ref = _childRef)(props.children);
+  }
+}
+''');
+    final selection = createSelection(source, 'return (##Child()');
+    await expectNoAssist(selection);
+  }
+
+  Future<void> test_noAssistWithSelectionOutsideReturnExpressionInClassComponent() async {
     var source = newSource('test.dart', usageSourceWithinClassComponent(fixed: false));
-    var selection = createSelection(source, 'return #Child#()');
+    var selection = createSelection(source, '<HasNoRefsProps> {##');
+    await expectNoAssist(selection);
+  }
+
+  Future<void> test_classComponentAssist_componentNameSelection() async {
+    var source = newSource('test.dart', usageSourceWithinClassComponent(fixed: false));
+    var selection = createSelection(source, 'return (#Child#()');
     final change = await expectAndGetSingleAssist(selection);
     source = applySourceChange(change, source);
     expect(source.contents.data, usageSourceWithinClassComponent(fixed: true));
   }
 
-  Future<void> test_fnComponentAssist() async {
+  Future<void> test_classComponentAssist_zeroWidthSelection() async {
+    var source = newSource('test.dart', usageSourceWithinClassComponent(fixed: false));
+    var selection = createSelection(source, 'return (##Child()');
+    final change = await expectAndGetSingleAssist(selection);
+    source = applySourceChange(change, source);
+    expect(source.contents.data, usageSourceWithinClassComponent(fixed: true));
+  }
+
+  Future<void> test_classComponentAssist_propCascadeSelection() async {
+    var source = newSource('test.dart', usageSourceWithinClassComponent(fixed: false));
+    var selection = createSelection(source, '..id ##= \'foo\'');
+    final change = await expectAndGetSingleAssist(selection);
+    source = applySourceChange(change, source);
+    expect(source.contents.data, usageSourceWithinClassComponent(fixed: true));
+  }
+
+  Future<void> test_fnComponentAssist_componentNameSelection() async {
     var source = newSource('test.dart', usageSourceWithinFnComponent(fixed: false));
-    var selection = createSelection(source, 'return #Child#()');
+    var selection = createSelection(source, 'return (#Child#()');
+    final change = await expectAndGetSingleAssist(selection);
+    source = applySourceChange(change, source);
+    expect(source.contents.data, usageSourceWithinFnComponent(fixed: true));
+  }
+
+  Future<void> test_fnComponentAssist_zeroWidthSelection() async {
+    var source = newSource('test.dart', usageSourceWithinFnComponent(fixed: false));
+    var selection = createSelection(source, 'return (##Child()');
+    final change = await expectAndGetSingleAssist(selection);
+    source = applySourceChange(change, source);
+    expect(source.contents.data, usageSourceWithinFnComponent(fixed: true));
+  }
+
+  Future<void> test_fnComponentAssist_propCascadeSelection() async {
+    var source = newSource('test.dart', usageSourceWithinFnComponent(fixed: false));
+    var selection = createSelection(source, '..id ##= \'foo\'');
     final change = await expectAndGetSingleAssist(selection);
     source = applySourceChange(change, source);
     expect(source.contents.data, usageSourceWithinFnComponent(fixed: true));
