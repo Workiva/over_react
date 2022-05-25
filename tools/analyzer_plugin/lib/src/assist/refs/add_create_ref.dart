@@ -84,20 +84,20 @@ void addUseOrCreateRef(
     _builder.addSimpleLinkedEdit(nameGroup, createRefFieldName);
     _builder.write(isUsageInFnComponent ? ' = useRef<' : ' = createRef<');
     _builder.addSimpleLinkedEdit(typeGroup, refTypeName);
-    _builder.write('>()');
-    if (fromAssist) {
-      // If there was not already a variable decl where the ref was being stored,
-      // we need to include the semi-colon as part of the addition of the variable decl addition.
-      _builder.write(';');
-    }
+    _builder.write('>();');
   }
 
   if (refTypeToReplace == RefTypeToReplace.callback) {
     // Its a callback ref - meaning there is an existing field we need to update.
-    final declOfVarRefIsAssignedTo = lookUpVariable(createRefField, result.unit)?.parent as VariableDeclarationList?;
+    final declOfVarRefIsAssignedTo = lookUpVariable(createRefField, result.unit);
     if (declOfVarRefIsAssignedTo == null) return;
 
-    builder.addReplacement(SourceRange(declOfVarRefIsAssignedTo.offset, declOfVarRefIsAssignedTo.length), (_builder) {
+    final nodeToReplace =
+        // Get the parent of the parent VariableDeclarationList so that its semicolon is included in the range as well.
+        declOfVarRefIsAssignedTo.parent.tryCast<VariableDeclarationList>()?.parent ??
+            // If for some reason that's unavailable (unlikely), fall back to the variable itself
+            declOfVarRefIsAssignedTo;
+    builder.addReplacement(SourceRange(nodeToReplace.offset, nodeToReplace.length), (_builder) {
       _addCreateRefFieldDeclaration(_builder);
       if (createRefField!.isPublic) {
         _builder.write(
