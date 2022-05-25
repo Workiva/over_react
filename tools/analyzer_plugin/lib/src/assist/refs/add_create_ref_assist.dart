@@ -45,7 +45,7 @@ class AddUseOrCreateRefAssistContributor extends AssistContributorBase {
 
     final changeBuilder = ChangeBuilder(session: request.result.session);
     await changeBuilder.addDartFileEdit(request.result.path!, (builder) {
-      return ref_util.addUseOrCreateRef(builder, usage, request.result, fromAssist: true);
+      return ref_util.addUseOrCreateRef(builder, usage, request.result);
     });
 
     final sourceChange = changeBuilder.sourceChange

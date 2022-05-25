@@ -31,7 +31,6 @@ void addUseOrCreateRef(
   DartFileEditBuilder builder,
   FluentComponentUsage usage,
   ResolvedUnitResult result, {
-  bool fromAssist = false,
   AnalyzerDebugHelper? debug,
 }) {
   const nameGroup = 'refName';
