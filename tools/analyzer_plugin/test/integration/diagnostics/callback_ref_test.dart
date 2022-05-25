@@ -12,6 +12,7 @@ import '../test_bases/diagnostic_test_base.dart';
 void main() {
   defineReflectiveSuite(() {
     defineReflectiveTests(CallbackRefDiagnosticFnComponentTest);
+    defineReflectiveTests(CallbackRefDiagnosticClassComponentTest);
   });
 }
 
