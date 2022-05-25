@@ -1,3 +1,4 @@
+import 'package:analyzer/dart/ast/ast.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 
 import 'package:over_react_analyzer_plugin/src/assist/refs/add_create_ref.dart' show addUseOrCreateRef;
@@ -69,14 +70,24 @@ class CallbackRefDiagnostic extends ComponentUsageDiagnosticContributor {
       if (prop.name.name == 'ref') {
         final rhsStaticType = prop.rightHandSide.staticType;
         if (rhsStaticType != null && result.typeSystem.isSubtypeOf(rhsStaticType, result.typeProvider.functionType)) {
-          await collector.addErrorWithFix(
-            code,
-            result.locationFor(prop.rightHandSide),
-            fixKind: fixKind,
-            computeFix: () => buildFileEdit(result, (builder) {
-              addUseOrCreateRef(builder, usage, result);
-            }),
-          );
+          if (prop.rightHandSide is SimpleIdentifier) {
+            // Its a tearoff. The `addUseOrCreateRef` utility we use to build fixes is not
+            // yet able to handle tearoff callback refs, so just add the error.
+            collector.addError(
+              code,
+              result.locationFor(prop.rightHandSide),
+              hasFix: false,
+            );
+          } else {
+            await collector.addErrorWithFix(
+              code,
+              result.locationFor(prop.rightHandSide),
+              fixKind: fixKind,
+              computeFix: () => buildFileEdit(result, (builder) {
+                addUseOrCreateRef(builder, usage, result);
+              }),
+            );
+          }
         }
       }
     }

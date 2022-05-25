@@ -27,6 +27,8 @@ typedef CreateRefLinkedEditFn = void Function(
 
 /// Utility function shared between diagnostics and assists to add a field to a
 /// component assigned to the return value of a `createRef()` call.
+///
+/// > Note: This currently cannot handle callback refs that are tear-offs.
 void addUseOrCreateRef(
   DartFileEditBuilder builder,
   FluentComponentUsage usage,
@@ -47,9 +49,7 @@ void addUseOrCreateRef(
   RefTypeToReplace? refTypeToReplace;
   Expression? callbackRefPropRhs;
 
-  final refTypeName = usage.isDom
-      ? 'Element'
-      : 'dynamic';
+  final refTypeName = usage.isDom ? 'Element' : 'dynamic';
 
   final refProp = usage.cascadedProps.firstWhereOrNull((prop) => prop.name.name == 'ref');
   if (refProp != null) {

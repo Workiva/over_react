@@ -13,6 +13,11 @@ final UsesCallbackRef = uiFunction<UiProps>(
   (props) {
     ChildComponent _someCustomRefName;
     ChildComponent _anotherCustomRefName;
+    ChildComponent _customRefAssignedInTearoff;
+
+    void _tearOffRefAssignment(ChildComponent ref) {
+      _customRefAssignedInTearoff = ref;
+    }
 
     void foo() {
       _someCustomRefName.someMethodName();
@@ -22,15 +27,25 @@ final UsesCallbackRef = uiFunction<UiProps>(
       _anotherCustomRefName.someMethodName();
       _anotherCustomRefName?.anotherMethodName();
       final baz = _anotherCustomRefName.someGetter;
+
+      _customRefAssignedInTearoff.someMethodName();
+      _customRefAssignedInTearoff?.anotherMethodName();
+      final biz = _customRefAssignedInTearoff.someGetter;
     }
 
     return Fragment()(
       (Child()
-        ..ref = _someCustomRefName)(props.children),
+        ..ref = (ref) {
+          _someCustomRefName = ref;
+        })(props.children),
       (Child()
         ..id = 'bar'
         ..ref = ((ref) => _anotherCustomRefName = ref)
       )('hi'),
+      (Child()
+        ..id = 'biz'
+        ..ref = _tearOffRefAssignment
+      )('yo'),
       (Child())('there'),
     );
   },
