@@ -22,18 +22,6 @@ abstract class CallbackRefDiagnosticTest extends DiagnosticTestBase {
   @override
   get fixKindUnderTest => CallbackRefDiagnostic.fixKind;
 
-  static const refVarDeclarations = '''
-    ChildComponent _someCustomRefName;
-    ChildComponent _anotherCustomRefName;''';
-
-  static const refVarDeclarationsFixedSome = '''
-    final _someCustomRefName = useRef<dynamic>();
-    ChildComponent _anotherCustomRefName;''';
-
-  static const refVarDeclarationsFixedTheRest = '''
-    final _someCustomRefName = useRef<dynamic>();
-    final _anotherCustomRefName = useRef<dynamic>();''';
-
   static const refUsage = '''
     void foo() {
       _someCustomRefName.someMethodName();
@@ -119,7 +107,8 @@ import 'package:over_react/over_react.dart';
 
 final UsesCallbackRef = uiFunction<UiProps>(
   (props) {
-    ${CallbackRefDiagnosticTest.refVarDeclarations}
+    ChildComponent _someCustomRefName;
+    ChildComponent _anotherCustomRefName;
 
     ${CallbackRefDiagnosticTest.refUsage}
 
@@ -134,7 +123,8 @@ import 'package:over_react/over_react.dart';
 
 final UsesCallbackRef = uiFunction<UiProps>(
   (props) {
-    ${CallbackRefDiagnosticTest.refVarDeclarationsFixedSome}
+    final _someCustomRefName = useRef<dynamic>();
+    ChildComponent _anotherCustomRefName;
 
     ${CallbackRefDiagnosticTest.refUsageFixedSome}
 
@@ -149,7 +139,8 @@ import 'package:over_react/over_react.dart';
 
 final UsesCallbackRef = uiFunction<UiProps>(
   (props) {
-    ${CallbackRefDiagnosticTest.refVarDeclarationsFixedTheRest}
+    final _someCustomRefName = useRef<dynamic>();
+    final _anotherCustomRefName = useRef<dynamic>();
 
     ${CallbackRefDiagnosticTest.refUsageFixedTheRest}
 
@@ -199,7 +190,8 @@ UiFactory<UsesCallbackRefProps> UsesCallbackRef = castUiFactory(_\$UsesCallbackR
 mixin UsesCallbackRefProps on UiProps {}
 
 class UsesCallbackRefComponent extends UiComponent2<UsesCallbackRefProps> {
-  ${CallbackRefDiagnosticTest.refVarDeclarations}
+  ChildComponent _someCustomRefName;
+  ChildComponent _anotherCustomRefName;
 
   @override
   render() {
@@ -220,7 +212,8 @@ UiFactory<UsesCallbackRefProps> UsesCallbackRef = castUiFactory(_\$UsesCallbackR
 mixin UsesCallbackRefProps on UiProps {}
 
 class UsesCallbackRefComponent extends UiComponent2<UsesCallbackRefProps> {
-  ${CallbackRefDiagnosticTest.refVarDeclarationsFixedSome}
+  final _someCustomRefName = createRef<dynamic>();
+  ChildComponent _anotherCustomRefName;
 
   @override
   render() {
@@ -241,7 +234,8 @@ UiFactory<UsesCallbackRefProps> UsesCallbackRef = castUiFactory(_\$UsesCallbackR
 mixin UsesCallbackRefProps on UiProps {}
 
 class UsesCallbackRefComponent extends UiComponent2<UsesCallbackRefProps> {
-  ${CallbackRefDiagnosticTest.refVarDeclarationsFixedTheRest}
+  final _someCustomRefName = createRef<dynamic>();
+  final _anotherCustomRefName = createRef<dynamic>();
 
   @override
   render() {
