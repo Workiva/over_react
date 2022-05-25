@@ -48,9 +48,6 @@ void addUseOrCreateRef(
   RefTypeToReplace? refTypeToReplace;
   Expression? callbackRefPropRhs;
 
-  // final enclosingClassOrMixin = usage.node.thisOrAncestorOfType<ClassOrMixinDeclaration>();
-  // final enclosingFnExpression = usage.node.thisOrAncestorOfType<FunctionExp
-
   final refTypeName = usage.isDom
       ? 'Element'
       : 'dynamic';
