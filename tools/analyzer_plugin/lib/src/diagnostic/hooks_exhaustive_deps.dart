@@ -165,17 +165,6 @@ class _RefInEffectCleanup {
       });
 }
 
-VariableDeclaration lookUpVariable(Element element, AstNode root) {
-  // if (element is ExecutableElement) return null;
-
-  final node = NodeLocator2(element.nameOffset).searchWithin(root);
-  if (node is Identifier && node.staticElement == element) {
-    return node.parent.tryCast<VariableDeclaration>();
-  }
-
-  return null;
-}
-
 FunctionExpression lookUpFunction(Element element, AstNode root) {
   final node = NodeLocator2(element.nameOffset).searchWithin(root);
   if (node is Identifier && node.staticElement == element) {

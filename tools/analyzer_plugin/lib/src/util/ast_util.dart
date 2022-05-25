@@ -7,11 +7,26 @@ import 'dart:mirrors';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:analyzer/dart/constant/value.dart';
+import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/type.dart';
 import 'package:analyzer/source/line_info.dart';
 
+import 'analyzer_util.dart';
 import 'constant_evaluator.dart';
 import 'util.dart';
+
+/// Returns an AST associated with the [element] by searching within [root],
+/// or null is returned if the [element] is not found.
+VariableDeclaration? lookUpVariable(Element? element, AstNode? root) {
+  if (element == null || root == null) return null;
+
+  final node = NodeLocator2(element.nameOffset).searchWithin(root);
+  if (node is Identifier && node.staticElement == element) {
+    return node.parent.tryCast<VariableDeclaration>();
+  }
+
+  return null;
+}
 
 /// Returns a String value when a literal or constant var/identifier is found within [expr].
 String? getConstOrLiteralStringValueFrom(Expression expr) {

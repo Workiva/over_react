@@ -11,6 +11,7 @@ import 'package:over_react_analyzer_plugin/src/diagnostic/analyzer_debug_helper.
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 import 'package:over_react_analyzer_plugin/src/indent_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
+import 'package:over_react_analyzer_plugin/src/util/function_components.dart';
 import 'package:over_react_analyzer_plugin/src/util/util.dart';
 
 enum RefTypeToReplace {
@@ -26,7 +27,9 @@ typedef CreateRefLinkedEditFn = void Function(
 
 /// Utility function shared between diagnostics and assists to add a field to a
 /// component assigned to the return value of a `createRef()` call.
-void addCreateRef(
+///
+/// > Note: This currently cannot handle callback refs that are tear-offs.
+void addUseOrCreateRef(
   DartFileEditBuilder builder,
   FluentComponentUsage usage,
   ResolvedUnitResult result, {
@@ -35,22 +38,18 @@ void addCreateRef(
   const nameGroup = 'refName';
   const typeGroup = 'refType';
 
+  final isUsageInFnComponent = getClosestFunctionComponent(usage.node) != null;
   final lineInfo = result.lineInfo;
   String? oldStringRefSource;
   final componentName = usage.domNodeName ?? usage.componentName;
   final lowerCaseComponentName =
       componentName == null ? 'component' : componentName.substring(0, 1).toLowerCase() + componentName.substring(1);
   var createRefFieldName = '_${lowerCaseComponentName}Ref';
-  PropertyInducingElement? createRefField;
+  VariableElement? createRefField;
   RefTypeToReplace? refTypeToReplace;
   Expression? callbackRefPropRhs;
 
-  final enclosingClassOrMixin = usage.node.thisOrAncestorOfType<ClassOrMixinDeclaration>();
-
-  final refTypeName = usage.isDom
-      ? 'Element'
-      // TODO split this out somewhere, make more robust
-      : (componentName != null ? '${componentName}Component' : 'var');
+  final refTypeName = usage.isDom ? 'Element' : 'dynamic';
 
   final refProp = usage.cascadedProps.firstWhereOrNull((prop) => prop.name.name == 'ref');
   if (refProp != null) {
@@ -64,7 +63,7 @@ void addCreateRef(
       refTypeToReplace = RefTypeToReplace.callback;
       createRefField = _getRefCallbackAssignedField(rhs);
       if (createRefField != null) {
-        createRefFieldName = createRefField.name;
+        createRefFieldName = createRefField.name!;
       }
     }
 
@@ -82,30 +81,39 @@ void addCreateRef(
   void _addCreateRefFieldDeclaration(DartEditBuilder _builder) {
     _builder.write('final ');
     _builder.addSimpleLinkedEdit(nameGroup, createRefFieldName);
-    _builder.write(' = createRef<');
+    _builder.write(isUsageInFnComponent ? ' = useRef<' : ' = createRef<');
     _builder.addSimpleLinkedEdit(typeGroup, refTypeName);
     _builder.write('>();');
   }
 
-  if (enclosingClassOrMixin != null && refTypeToReplace == RefTypeToReplace.callback) {
+  if (refTypeToReplace == RefTypeToReplace.callback) {
     // Its a callback ref - meaning there is an existing field we need to update.
-    final declOfVarRefIsAssignedTo = enclosingClassOrMixin.getFieldDeclaration(createRefFieldName);
+    final declOfVarRefIsAssignedTo = lookUpVariable(createRefField, result.unit);
     if (declOfVarRefIsAssignedTo == null) return;
 
-    builder.addReplacement(SourceRange(declOfVarRefIsAssignedTo.offset, declOfVarRefIsAssignedTo.length), (_builder) {
+    final nodeToReplace =
+        // Get the parent of the parent VariableDeclarationList so that its semicolon is included in the range as well.
+        declOfVarRefIsAssignedTo.parent.tryCast<VariableDeclarationList>()?.parent ??
+            // If for some reason that's unavailable (unlikely), fall back to the variable itself
+            declOfVarRefIsAssignedTo;
+    builder.addReplacement(SourceRange(nodeToReplace.offset, nodeToReplace.length), (_builder) {
       _addCreateRefFieldDeclaration(_builder);
-      if (enclosingClassOrMixin.getField(createRefFieldName)!.declaredElement!.isPublic) {
+      if (createRefField!.isPublic) {
         _builder.write(
             '// FIXME: All usages of `$createRefFieldName` outside of this class must be changed to `$createRefFieldName.current` to finalize the conversion to createRef().');
       }
     });
 
     // Append all usages of the field the return value of createRef() is assigned to with `.current`
-    allDescendantsOfType<Identifier>(enclosingClassOrMixin).where((identifier) {
+    allDescendantsOfType<Identifier>(result.unit!).where((identifier) {
       // Don't replace the field declaration or existing usages in the ref, since we do that elsewhere.
       if (identifier.thisOrAncestorOfType<VariableDeclaration>()?.declaredElement == createRefField ||
           identifier.thisOrAncestorMatching((ancestor) => ancestor == callbackRefPropRhs) != null) {
         return false;
+      }
+
+      if (identifier.staticElement is VariableElement) {
+        return identifier.staticElement == createRefField;
       }
       return identifier.staticElement?.tryCast<PropertyAccessorElement>()?.variable == createRefField;
     }).forEach((identifier) {
@@ -132,7 +140,7 @@ void addCreateRef(
 
     if (refProp != null) {
       // Replace all usages of ref('oldStringRef') with the new ref field
-      final stringRefReferences = allDescendantsOfType<Identifier>(enclosingClassOrMixin!).where((identifier) {
+      final stringRefReferences = allDescendantsOfType<Identifier>(result.unit!).where((identifier) {
         final parentFunctionInvocation = identifier.thisOrAncestorOfType<FunctionExpressionInvocation>();
         if (parentFunctionInvocation == null) return false;
 
@@ -150,7 +158,7 @@ void addCreateRef(
   }
 }
 
-PropertyInducingElement? _getRefCallbackAssignedField(Expression refPropRhs) {
+VariableElement? _getRefCallbackAssignedField(Expression refPropRhs) {
   final function = refPropRhs.unParenthesized.tryCast<FunctionExpression>();
   if (function == null) return null;
 
@@ -165,7 +173,10 @@ PropertyInducingElement? _getRefCallbackAssignedField(Expression refPropRhs) {
     if (parent is AssignmentExpression && parent.rightHandSide == reference) {
       final lhs = parent.leftHandSide;
       if (lhs is Identifier) {
-        return lhs.staticElement.tryCast<PropertyAccessorElement>()?.variable;
+        final varInFnComponent = lhs.staticElement?.tryCast<VariableElement>();
+        final varInClassComponent =
+            lhs.parent?.tryCast<AssignmentExpression>()?.writeElement?.tryCast<PropertyAccessorElement>()?.variable;
+        return varInFnComponent ?? varInClassComponent;
       }
     }
   }
