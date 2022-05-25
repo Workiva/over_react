@@ -37,7 +37,7 @@ void addUseOrCreateRef(
   const nameGroup = 'refName';
   const typeGroup = 'refType';
 
-  final isFnComponentUsage = getClosestFunctionComponent(usage.node) != null;
+  final isUsageInFnComponent = getClosestFunctionComponent(usage.node) != null;
   final lineInfo = result.lineInfo;
   String? oldStringRefSource;
   final componentName = usage.domNodeName ?? usage.componentName;
@@ -82,7 +82,7 @@ void addUseOrCreateRef(
   void _addCreateRefFieldDeclaration(DartEditBuilder _builder) {
     _builder.write('final ');
     _builder.addSimpleLinkedEdit(nameGroup, createRefFieldName);
-    _builder.write(isFnComponentUsage ? ' = useRef<' : ' = createRef<');
+    _builder.write(isUsageInFnComponent ? ' = useRef<' : ' = createRef<');
     _builder.addSimpleLinkedEdit(typeGroup, refTypeName);
     _builder.write('>()');
     if (fromAssist) {
