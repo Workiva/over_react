@@ -21,7 +21,7 @@
     * [Documenting Diagnostics and Assists](#documenting-diagnostics-and-assists)
 * __[Feature Ideas & Inspiration](#feature-ideas--inspiration)__
 
-### How To Use It
+## How To Use It
 1. Add over_react to your pubspec.yaml
 1. Enable the plugin in your analysis_options.yaml:
     ```yaml
