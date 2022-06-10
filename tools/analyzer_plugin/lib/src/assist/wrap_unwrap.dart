@@ -105,16 +105,20 @@ List<String> getComponentFactorySuggestions(
 }) {
   bool isUiFactory(Element element) {
     if (const {'domProps', 'ariaProps'}.contains(element.name)) return false;
+
+    // Watch out: PropertyAccessorElement is  a subtype of FunctionTypedElement
     if (element is FunctionTypedElement) {
+      if (element is PropertyAccessorElement) {
+        return element.isGetter &&
+            isUiFactoryType(element.returnType, typeSystem: typeSystem, uiFactoryType: uiFactoryType);
+      } else {
+        return isUiFactoryType(element.type, typeSystem: typeSystem, uiFactoryType: uiFactoryType);
+      }
+    } else if (element is PropertyInducingElement) {
       return isUiFactoryType(element.type, typeSystem: typeSystem, uiFactoryType: uiFactoryType);
+    } else {
+      return false;
     }
-    if (element is PropertyAccessorElement && element.isGetter) {
-      return isUiFactoryType(element.returnType, typeSystem: typeSystem, uiFactoryType: uiFactoryType);
-    }
-    if (element is PropertyInducingElement) {
-      return isUiFactoryType(element.type, typeSystem: typeSystem, uiFactoryType: uiFactoryType);
-    }
-    return false;
   }
 
   final names = <String>[];
@@ -122,20 +126,15 @@ List<String> getComponentFactorySuggestions(
   names.addAll(library.topLevelElements.where(isUiFactory).map((e) => e.name).whereNotNull());
 
   names.addAll(library.imports.expand((import) sync* {
-    String? prefixName;
-    final prefix = import.prefix;
-    if (prefix != null) {
-      prefixName = prefix.name;
-    }
-    String withPrefix(String name) => prefixName == null ? name : '$prefixName.$name';
+    // These keys come with the namespace included
+    yield* import.namespace.definedNames.entries.where((e) => isUiFactory(e.value)).map((e) => e.key);
 
-    yield* import.namespace.definedNames.entries.where((e) => isUiFactory(e.value)).map((e) => withPrefix(e.key));
-
-    if (isUriWithinPackage(import.librarySource.uri, 'over_react') &&
-        import.namespace.definedNames.containsKey('Dom')) {
-      const domComponentsToSuggest = ['div', 'span'];
-
-      yield* domComponentsToSuggest.map((component) => withPrefix('Dom.$component'));
+    if (isUriWithinPackage(import.librarySource.uri, 'over_react')) {
+      final domEntry = import.namespace.definedNames.entries.firstWhereOrNull((entry) => entry.value.name == 'Dom');
+      if (domEntry != null) {
+        const domComponentsToSuggest = ['div', 'span'];
+        yield* domComponentsToSuggest.map((component) => '${domEntry.key}.$component');
+      }
     }
   }));
 
