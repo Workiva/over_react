@@ -47,6 +47,7 @@ import 'package:over_react_analyzer_plugin/src/assist/convert_class_or_function_
 import 'package:over_react_analyzer_plugin/src/assist/extract_component.dart';
 import 'package:over_react_analyzer_plugin/src/assist/refs/add_create_ref_assist.dart';
 import 'package:over_react_analyzer_plugin/src/assist/toggle_stateful.dart';
+import 'package:over_react_analyzer_plugin/src/assist/wrap_unwrap.dart';
 import 'package:over_react_analyzer_plugin/src/async_plugin_apis/assist.dart';
 import 'package:over_react_analyzer_plugin/src/async_plugin_apis/diagnostic.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/arrow_function_prop.dart';
@@ -100,8 +101,7 @@ abstract class OverReactAnalyzerPluginBase extends ServerPlugin
         ExtractStatefulComponentAssistContributor(),
         ToggleComponentStatefulness(),
         ConvertClassOrFunctionComponentAssistContributor(),
-        // TODO re-enable this when it's more polished
-//        WrapUnwrapAssistContributor(),
+        WrapUnwrapAssistContributor(),
       ];
 
   @override
