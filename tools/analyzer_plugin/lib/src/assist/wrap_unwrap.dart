@@ -98,6 +98,7 @@ class WrapUnwrapAssistContributor extends AssistContributorBase {
   }
 }
 
+// TODO probably need to optimize this
 List<String> getComponentFactorySuggestions(
   LibraryElement library, {
   required FunctionType uiFactoryType,
@@ -129,7 +130,9 @@ List<String> getComponentFactorySuggestions(
     // These keys come with the namespace included
     yield* import.namespace.definedNames.entries.where((e) => isUiFactory(e.value)).map((e) => e.key);
 
-    if (isUriWithinPackage(import.librarySource.uri, 'over_react')) {
+    // TODO clean this up
+    final importedUri = import.importedLibrary?.librarySource.uri;
+    if (importedUri != null && isUriWithinPackage(importedUri, 'over_react')) {
       final domEntry = import.namespace.definedNames.entries.firstWhereOrNull((entry) => entry.value.name == 'Dom');
       if (domEntry != null) {
         const domComponentsToSuggest = ['div', 'span'];
