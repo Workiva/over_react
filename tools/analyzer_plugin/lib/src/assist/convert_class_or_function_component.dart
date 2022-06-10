@@ -17,10 +17,10 @@ const _convertToFunctionDetails = r'''''';
 
 class ConvertClassOrFunctionComponentAssistContributor extends AssistContributorBase {
   @DocsMeta(_convertToClassDesc, details: _convertToClassDetails)
-  static const convertToClass = AssistKind('convertToClass', 30, _convertToClassDesc);
+  static const convertToClass = AssistKind('convertToClass', 40, _convertToClassDesc);
 
   @DocsMeta(_convertToFunctionDesc, details: _convertToFunctionDetails)
-  static const convertToFunction = AssistKind('convertToFunction', 30, _convertToFunctionDesc);
+  static const convertToFunction = AssistKind('convertToFunction', 40, _convertToFunctionDesc);
 
   @override
   Future<void> computeAssists(DartAssistRequest request, AssistCollector collector) async {
