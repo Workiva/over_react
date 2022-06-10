@@ -1,8 +1,10 @@
 import 'package:analyzer/dart/analysis/analysis_context_collection.dart';
+import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/visitor.dart';
 import 'package:analyzer/file_system/physical_file_system.dart';
 import 'package:glob/glob.dart';
+import 'package:glob/list_local_fs.dart';
 import 'package:over_react_analyzer_plugin/src/util/react_types.dart';
 import 'package:path/path.dart' as p;
 
@@ -16,8 +18,9 @@ Future<void> registerContributorMetadata(List<DocsGenerationConfig> configs) asy
   );
   for (final filePath
       in Glob('lib/src/{${configs.map((c) => c.srcDir).join(',')}}/**').listSync().map((f) => p.canonicalize(f.path))) {
-    final resolvedUnit = await collection.contextFor(filePath).currentSession.getResolvedUnit(filePath);
-    resolvedUnit.unit.declaredElement.accept(ContributorVisitor(configs));
+    final resolvedUnit =
+        await collection.contextFor(filePath).currentSession.getResolvedUnit2(filePath) as ResolvedUnitResult;
+    resolvedUnit.unit!.declaredElement!.accept(ContributorVisitor(configs));
   }
 }
 
@@ -28,19 +31,20 @@ class ContributorVisitor extends RecursiveElementVisitor<void> {
   @override
   void visitClassElement(ClassElement element) {
     for (final config in _configs) {
-      if (!element.isOrIsSubtypeOfTypeFromPackage(
+      if (!element.isOrIsSubtypeOfElementFromPackage(
           config.typeNameOfContributorClass, config.packageNameContainingContributorClass)) continue;
 
       final annotatedFields = element.fields
-          .where((f) => f.metadata.any((a) => a.element.thisOrAncestorOfType<ClassElement>()?.name == 'DocsMeta'));
+          .where((f) => f.metadata.any((a) => a.element!.thisOrAncestorOfType<ClassElement>()?.name == 'DocsMeta'));
       for (final field in annotatedFields) {
         if (!field.isConst) {
           throw UnsupportedError(
               'The DocsMeta() annotation should only be used to annotate constant values:\n    ${field.toString()}');
         }
 
-        if (field.type.element.isOrIsSubtypeOfTypeFromPackage(
-            config.typeNameOfAnnotatedField, config.packageNameContainingAnnotatedFieldType)) {
+        if (field.type.element?.isOrIsSubtypeOfElementFromPackage(
+                config.typeNameOfAnnotatedField, config.packageNameContainingAnnotatedFieldType) ??
+            false) {
           config.registry.register(config.getMeta(field));
         } else {
           throw UnsupportedError(

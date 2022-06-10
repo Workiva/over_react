@@ -1,5 +1,4 @@
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
-import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 
 const _desc = r'Avoid setting props that map to invalid HTML element attributes.';
 // <editor-fold desc="Documentation Details">
@@ -36,19 +35,25 @@ class InvalidDomAttributeDiagnostic extends ComponentUsageDiagnosticContributor 
   );
 
   @override
+  List<DiagnosticCode> get codes => [code];
+
+  @override
   computeErrorsForUsage(result, collector, usage) async {
     // todo support SVG icons
     // Don't support SVG icons since we only have HTML element metadata.
     if (!usage.isDom || usage.isSvg) return;
 
-    final nodeName = usage.componentName;
+    final nodeName = usage.domNodeName;
+    if (nodeName == null) return;
+
 //    if (usage.isSvg && nodeName != 'svg') {
 //      nodeName = nodeName.replaceFirst(new RegExp(r'^svg'), '');
 //    }
 
     for (final prop in usage.cascadedProps) {
       // If the prop name is prefixed with anything other than `dom` (e.g. `aria`), ignore it.
-      if (prop.targetName != null && prop.targetName.name != 'dom') continue;
+      final prefix = prop.prefix;
+      if (prefix != null && prefix.name != 'dom') continue;
       final allowedElements = getAttributeMeta(prop.name.name);
       if (allowedElements == null) continue;
 
@@ -63,7 +68,7 @@ class InvalidDomAttributeDiagnostic extends ComponentUsageDiagnosticContributor 
   }
 }
 
-List<String> getAttributeMeta(String propName) {
+List<String>? getAttributeMeta(String propName) {
   return allowedHtmlElementsForAttribute[propName] ??
       allowedHtmlElementsForAttribute[propName.toLowerCase()] ??
       allowedHtmlElementsForAttribute[_camelToSpinalCase(propName)];

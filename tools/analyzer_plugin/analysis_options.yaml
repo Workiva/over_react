@@ -13,6 +13,7 @@ analyzer:
     missing_return: warning
     # Override workiva_analysis_options upgrade to warning
     unused_import: info
+    import_of_legacy_library_into_null_safe: warning
 
     # ignores from v1.recommended
     prefer_interpolation_to_compose_strings: ignore

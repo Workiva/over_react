@@ -3,35 +3,38 @@ library over_react_analyzer_plugin.src.ast_util;
 
 import 'dart:collection';
 import 'dart:mirrors';
+
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:analyzer/dart/constant/value.dart';
 import 'package:analyzer/dart/element/element.dart';
+import 'package:analyzer/dart/element/type.dart';
 import 'package:analyzer/source/line_info.dart';
-import 'package:over_react_analyzer_plugin/src/util/analyzer_util.dart';
 
-export 'package:over_react/src/builder/parsing/ast_util.dart';
-export 'package:over_react/src/builder/parsing/util.dart';
+import 'analyzer_util.dart';
+import 'constant_evaluator.dart';
+import 'util.dart';
 
-/// Returns a String value when a literal or constant var/identifier is found within [expr].
-String getConstOrLiteralStringValueFrom(Expression expr) {
-  if (!expr.staticType.isDartCoreString) return null;
+/// Returns an AST associated with the [element] by searching within [root],
+/// or null is returned if the [element] is not found.
+VariableDeclaration? lookUpVariable(Element? element, AstNode? root) {
+  if (element == null || root == null) return null;
 
-  if (expr is StringInterpolation) {
-    final constantValue = expr.accept(ConstantEvaluator());
-    return constantValue is String ? constantValue : null;
-  } else if (expr is StringLiteral) {
-    return expr.stringValue;
-  } else if (expr is SimpleIdentifier) {
-    final element = expr.staticElement;
-    if (element is PropertyAccessorElement) {
-      return element.variable.computeConstantValue()?.toStringValue();
-    } else if (element is VariableElement) {
-      return element.computeConstantValue()?.toStringValue();
-    }
+  final node = NodeLocator2(element.nameOffset).searchWithin(root);
+  if (node is Identifier && node.staticElement == element) {
+    return node.parent.tryCast<VariableDeclaration>();
   }
 
   return null;
+}
+
+/// Returns a String value when a literal or constant var/identifier is found within [expr].
+String? getConstOrLiteralStringValueFrom(Expression expr) {
+  final staticType = expr.staticType;
+  if (staticType == null || !staticType.isDartCoreString) return null;
+
+  final constantValue = expr.accept(ConstantEvaluator());
+  return constantValue is String ? constantValue : null;
 }
 
 /// Returns a lazy iterable of all descendants of [node], in breadth-first order.
@@ -39,8 +42,6 @@ Iterable<AstNode> allDescendants(AstNode node) sync* {
   final nodesQueue = Queue<AstNode>()..add(node);
   while (nodesQueue.isNotEmpty) {
     final current = nodesQueue.removeFirst();
-    if (current == null) return;
-
     for (final child in current.childEntities) {
       if (child is AstNode) {
         yield child;
@@ -53,9 +54,47 @@ Iterable<AstNode> allDescendants(AstNode node) sync* {
 /// Returns a lazy iterable of all descendants of [node] of type [T], in breadth-first order.
 Iterable<T> allDescendantsOfType<T extends AstNode>(AstNode node) => allDescendants(node).whereType<T>();
 
+extension AstNodeAncestors on AstNode {
+  /// A lazy iterable of all ancestors of this node.
+  Iterable<AstNode> get ancestors sync* {
+    final parent = this.parent;
+    if (parent != null) {
+      yield parent;
+      yield* parent.ancestors;
+    }
+  }
+}
+
+/// Returns all the ancestors of [node] up until [ancestor], not including [ancestor].
+///
+/// Throws an error if [ancestor] is not an ancestor of [node], to help avoid
+/// mistakenly passing in unrelated nodes.
+List<AstNode> ancestorsBetween(AstNode node, AstNode ancestor) {
+  final ancestorsBetween = <AstNode>[];
+  var foundAncestor = false;
+  for (final a in node.ancestors) {
+    if (a == ancestor) {
+      foundAncestor = true;
+      break;
+    }
+    ancestorsBetween.add(a);
+  }
+  if (!foundAncestor) {
+    throw ArgumentError("'node' is not a descendant of 'ancestor'");
+  }
+  return ancestorsBetween;
+}
+
+extension TypeOrBound on DartType {
+  DartType get typeOrBound {
+    final self = this;
+    return self is TypeParameterType ? self.bound.typeOrBound : self;
+  }
+}
+
 extension ClassOrMixinDeclarationUtils on ClassOrMixinDeclaration {
   /// Similar to [getField], but returns the entire declaration instead.
-  FieldDeclaration getFieldDeclaration(String name) => getField(name)?.thisOrAncestorOfType<FieldDeclaration>();
+  FieldDeclaration? getFieldDeclaration(String name) => getField(name)?.thisOrAncestorOfType<FieldDeclaration>();
 }
 
 int prevLine(int offset, LineInfo lineInfo) {
@@ -66,7 +105,52 @@ int nextLine(int offset, LineInfo lineInfo) {
   return lineInfo.getOffsetOfLineAfter(offset);
 }
 
-bool isAConstantValue(Expression expr) => expr.accept(ConstantEvaluator()) != ConstantEvaluator.NOT_A_CONSTANT;
+SimpleIdentifier? propertyNameFromNonCascadedAccessOrInvocation(Expression node) {
+  if (node is PrefixedIdentifier) {
+    return node.identifier;
+  }
+  if (node is PropertyAccess && !node.isCascaded) {
+    return node.propertyName;
+  }
+  if (node is MethodInvocation && !node.isCascaded) {
+    return node.methodName;
+  }
+
+  return null;
+}
+
+Tuple2<SimpleIdentifier, SimpleIdentifier>? getSimpleTargetAndPropertyName(Expression node) {
+  if (node is PrefixedIdentifier) {
+    return Tuple2(node.prefix, node.identifier);
+  }
+
+  if (node is PropertyAccess) {
+    final target = node.target;
+    if (target is SimpleIdentifier) {
+      return Tuple2(target, node.propertyName);
+    }
+  }
+  if (node is MethodInvocation) {
+    final target = node.target;
+    if (target is SimpleIdentifier) {
+      return Tuple2(target, node.methodName);
+    }
+  }
+
+  return null;
+}
+
+bool isAConstantValue(Expression expr) {
+  if (expr is SetOrMapLiteral) return expr.isConst;
+  if (expr is ListLiteral) return expr.isConst;
+  if (expr is InstanceCreationExpression) return expr.isConst;
+
+  return expr.accept(ConstantEvaluator()) != ConstantEvaluator.NOT_A_CONSTANT;
+}
+
+extension on FunctionExpression {
+  FunctionDeclaration? get parentDeclaration => parent?.tryCast();
+}
 
 extension FunctionBodyUtils on FunctionBody {
   /// An of expressions representing:
@@ -84,11 +168,24 @@ extension FunctionBodyUtils on FunctionBody {
     } else if (self is BlockFunctionBody) {
       for (final statement in self.returnStatements) {
         // Expression is null for returns statements without values (`return;`). Skip those.
-        if (statement.expression != null) {
-          yield statement.expression;
-        }
+        final expression = statement.expression;
+        if (expression != null) yield expression;
       }
     }
+  }
+
+  FunctionExpression? get parentExpression => parent?.tryCast();
+
+  FunctionDeclaration? get parentDeclaration => parentExpression?.parentDeclaration;
+
+  MethodDeclaration? get parentMethod => parent?.tryCast();
+
+  String get functionNameOrDescription {
+    final name = parentExpression?.parentDeclaration?.name.name;
+    if (name != null) return name;
+
+    // TODO come up with a better description in some cases
+    return '<anonymous closure>';
   }
 }
 
@@ -124,7 +221,7 @@ class _ReturnStatementsForBodyVisitor extends RecursiveAstVisitor<void> {
 /// Currently only works when the fields within [T] only contain core types and not other constant classes.
 T getMatchingConst<T>(DartObject object, Iterable<T> values) {
   final classMirror = reflectClass(T);
-  final objectTypeName = object.type.element.name;
+  final objectTypeName = object.type!.element!.name;
   final valueTypeName = classMirror.simpleName.name;
 
   if (objectTypeName != valueTypeName) {
@@ -140,14 +237,14 @@ T getMatchingConst<T>(DartObject object, Iterable<T> values) {
       // Need to use the field symbol and not it converted back from a string or it won't work
       // for private members.
       final dynamic valueFieldValue = reflect(value).getField(field).reflectee;
-      final objectFieldValue = object.getField(field.name).toWhateverValue();
+      final objectFieldValue = object.getField(field.name)!.toWhateverValue();
       return valueFieldValue == objectFieldValue;
     });
   });
 }
 
 extension on DartObject {
-  Object toWhateverValue() =>
+  Object? toWhateverValue() =>
       toBoolValue() ??
       toDoubleValue() ??
       toFunctionValue() ??
@@ -162,4 +259,27 @@ extension on DartObject {
 
 extension on Symbol {
   String get name => MirrorSystem.getName(this);
+}
+
+extension AstNodeRangeHelper on AstNode {
+  bool containsRangeOf(AstNode other) => other.offset >= offset && other.end <= end;
+}
+
+extension EmptyIdentifier on Expression {
+  /// Whether this is an identifier with no name, usually stubbed in by the
+  /// parser in response to invalid syntax.
+  ///
+  /// Example:
+  ///
+  /// ```dart
+  /// // '..foo = '
+  /// print(assignmentExpressionWithNoRhs.toSource());
+  ///
+  /// // 'true'
+  /// print(assignmentExpressionWithNoRhs.rightHandSide.isEmdtyIdentifier);
+  /// ```
+  bool get isEmptyIdentifier {
+    final self = this;
+    return self is SimpleIdentifier && self.name == '';
+  }
 }

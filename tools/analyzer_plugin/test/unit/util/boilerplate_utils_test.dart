@@ -1,3 +1,6 @@
+// Disable null-safety in the plugin entrypoint until all dependencies are null-safe,
+// otherwise tests won't be able to run. See: https://github.com/dart-lang/test#compiler-flags
+// @dart=2.9
 import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
@@ -61,7 +64,7 @@ void main() {
         final unit = parseAndGetUnit(sourceWithOverReactPart);
         final result = getOverReactGeneratedPartDirective(unit);
         expect(result, isA<PartDirective>());
-        expect(result.uri?.stringValue, 'foo.over_react.g.dart');
+        expect(result.uri.stringValue, 'foo.over_react.g.dart');
       });
 
       group('returns null when', () {
@@ -103,7 +106,7 @@ void main() {
       test('does nothing if there is already a valid part directive', () async {
         final sourceFileEdits = await getSourceFileEdits(
           sourceWithOverReactPart,
-          (builder, result) => addOverReactGeneratedPartDirective(builder, result.unit, result.uri),
+          (builder, result) => addOverReactGeneratedPartDirective(builder, result.unit, result.lineInfo, result.uri),
           path: 'foo.dart',
         );
         expect(sourceFileEdits, isEmpty);
@@ -113,15 +116,15 @@ void main() {
         test('when there are no part directives in the file', () async {
           final result = await parseAndGetResolvedUnit(sourceWithNoPart, path: 'foo.dart');
           final sourceChange = await buildFileEdit(result, (builder) {
-            addOverReactGeneratedPartDirective(builder, result.unit, result.uri);
+            addOverReactGeneratedPartDirective(builder, result.unit, result.lineInfo, result.uri);
           });
-          final editList = sourceChange.edits?.firstOrNull?.edits;
+          final editList = sourceChange.edits.firstOrNull?.edits;
 
           expect(editList, isNotNull);
           expect(editList.length, 1, reason: 'there should be one edit in the file');
 
-          final offset = result.unit.lineInfo
-              .getOffsetOfLineAfter(nextLine(result.unit.directives.last.end, result.unit.lineInfo));
+          final offset =
+              result.lineInfo.getOffsetOfLineAfter(nextLine(result.unit.directives.last.end, result.lineInfo));
           expect(editList.first.offset, offset, reason: 'should be new line between existing directives and new part');
           expect(editList.first.length, 0, reason: 'nothing is replaced');
           expect(editList.first.replacement, 'part \'foo.over_react.g.dart\';\n\n');
@@ -130,14 +133,14 @@ void main() {
         test('when there is an existing part directive in the file', () async {
           final result = await parseAndGetResolvedUnit(sourceWithNonOverReactPart, path: 'foo.dart');
           final sourceChange = await buildFileEdit(result, (builder) {
-            addOverReactGeneratedPartDirective(builder, result.unit, result.uri);
+            addOverReactGeneratedPartDirective(builder, result.unit, result.lineInfo, result.uri);
           });
-          final editList = sourceChange.edits?.firstOrNull?.edits;
+          final editList = sourceChange.edits.firstOrNull?.edits;
 
           expect(editList, isNotNull);
           expect(editList.length, 1, reason: 'there should be one edit in the file');
 
-          final offset = result.unit.lineInfo.getOffsetOfLineAfter(result.unit.directives.last.end);
+          final offset = result.lineInfo.getOffsetOfLineAfter(result.unit.directives.last.end);
           expect(editList.first.offset, offset, reason: 'new part should be on the line after existing part');
           expect(editList.first.length, 0, reason: 'nothing is replaced');
           expect(editList.first.replacement, 'part \'foo.over_react.g.dart\';\n\n');
@@ -147,9 +150,9 @@ void main() {
       test('replaces existing over_react part directive if it doesn\'t match file uri', () async {
         final result = await parseAndGetResolvedUnit(sourceWithOverReactPart, path: 'different_file_name.dart');
         final sourceChange = await buildFileEdit(result, (builder) {
-          addOverReactGeneratedPartDirective(builder, result.unit, result.uri);
+          addOverReactGeneratedPartDirective(builder, result.unit, result.lineInfo, result.uri);
         });
-        final editList = sourceChange.edits?.firstOrNull?.edits;
+        final editList = sourceChange.edits.firstOrNull?.edits;
 
         expect(editList, isNotNull);
         expect(editList.length, 1, reason: 'there should be one edit in the file');
@@ -188,7 +191,7 @@ void main() {
           final sourceChange = await buildFileEdit(result, (builder) {
             removeOverReactGeneratedPartDirective(builder, result.unit);
           });
-          final editList = sourceChange.edits?.firstOrNull?.edits;
+          final editList = sourceChange.edits.firstOrNull?.edits;
 
           expect(editList, isNotNull);
           expect(editList.length, 1, reason: 'there should be one edit in the file');
@@ -222,7 +225,7 @@ void main() {
           final sourceChange = await buildFileEdit(result, (builder) {
             removeOverReactGeneratedPartDirective(builder, result.unit);
           });
-          final editList = sourceChange.edits?.firstOrNull?.edits;
+          final editList = sourceChange.edits.firstOrNull?.edits;
 
           expect(editList, isNotNull);
           expect(editList.length, 1, reason: 'there should be one edit in the file');
@@ -270,7 +273,7 @@ void main() {
         final sourceChange = await buildFileEdit(result, (builder) {
           fixOverReactGeneratedPartDirective(builder, result.unit, result.uri);
         });
-        final editList = sourceChange.edits?.firstOrNull?.edits;
+        final editList = sourceChange.edits.firstOrNull?.edits;
 
         expect(editList, isNotNull);
         expect(editList.length, 1, reason: 'there should be one edit in the file');

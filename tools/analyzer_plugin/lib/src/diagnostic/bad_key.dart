@@ -4,7 +4,7 @@ import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/type.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
-import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
+import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/util.dart';
 
 const _sharedBadKeyDetailsIntro = r'**PREFER** to use a value for `props.key` that is guaranteed to be unique.';
@@ -104,6 +104,9 @@ class BadKeyDiagnostic extends ComponentUsageDiagnosticContributor {
   );
 
   @override
+  List<DiagnosticCode> get codes => [hashCodeCode, toStringCode, dynamicOrObjectCode, lowQualityCode];
+
+  @override
   computeErrorsForUsage(result, collector, usage) async {
     for (final prop in usage.cascadedProps) {
       if (prop.name.name != 'key') continue;
@@ -130,18 +133,22 @@ class BadKeyDiagnostic extends ComponentUsageDiagnosticContributor {
     DiagnosticCollector collector,
     Expression expression,
   ) {
-    final topLevelKeyType = expression.staticType;
+    // Edge case for syntax errors
+    if (expression.isEmptyIdentifier) return;
 
+    final topLevelKeyType = expression.staticType;
     // Type can't be resolved; bail out.
     if (topLevelKeyType == null) return;
+
+    final typedProvider = result.typeProvider;
 
     // Special-case for Iterables and Maps: check if their (keys and) values are allowed types.
     final isIterableOrMap =
         // Need to make sure it's not null since null is a subtype of all nullable-types.
         !topLevelKeyType.isDartCoreNull &&
             [
-              result.typeProvider.iterableObjectType,
-              result.typeProvider.mapObjectObjectType,
+              typedProvider.iterableType(typedProvider.dynamicType),
+              typedProvider.mapType(typedProvider.dynamicType, typedProvider.dynamicType),
             ].any((type) => result.typeSystem.isSubtypeOf(topLevelKeyType, type));
 
     final keyTypesToProcess = {
@@ -150,7 +157,8 @@ class BadKeyDiagnostic extends ComponentUsageDiagnosticContributor {
 
     for (final type in keyTypesToProcess) {
       // Provide context if this type was derived from a Map/Iterable type argument.
-      getTypeContextString() => type == topLevelKeyType ? '' : ' (from $topLevelKeyType)';
+      getTypeContextString() =>
+          type == topLevelKeyType ? '' : ' (from ${topLevelKeyType.getDisplayString(withNullability: false)})';
 
       if (type.isDartCoreInt || type.isDartCoreDouble || type.isDartCoreString || type.isDartCoreSymbol) {
         // Ignore core types that have good `Object.toString` implementations values.
@@ -166,7 +174,7 @@ class BadKeyDiagnostic extends ComponentUsageDiagnosticContributor {
           result.locationFor(expression),
           errorMessageArgs: [type.getDisplayString(withNullability: false), getTypeContextString()],
         );
-      } else if (inheritsToStringImplFromObject(type?.element)) {
+      } else if (type.element != null && inheritsToStringImplFromObject(type.element!)) {
         collector.addError(
           toStringCode,
           result.locationFor(expression),
@@ -176,12 +184,14 @@ class BadKeyDiagnostic extends ComponentUsageDiagnosticContributor {
     }
   }
 
-  static bool inheritsToStringImplFromObject(Element element) => element
-      ?.tryCast<ClassElement>()
-      ?.lookUpConcreteMethod('toString', element.library)
-      ?.thisOrAncestorOfType<ClassElement>()
-      ?.thisType
-      ?.isDartCoreObject;
+  static bool inheritsToStringImplFromObject(Element element) =>
+      element
+          .tryCast<ClassElement>()
+          ?.lookUpConcreteMethod('toString', element.library!)
+          ?.thisOrAncestorOfType<ClassElement>()
+          ?.thisType
+          .isDartCoreObject ??
+      false;
 }
 
 /// Recursively collects expressions that are used to effectively call `toString()`:
@@ -196,7 +206,11 @@ class ToStringedVisitor extends RecursiveAstVisitor<void> {
     super.visitMethodInvocation(node);
 
     if (node.methodName.name == 'toString') {
-      toStringedExpressions.add(node.realTarget);
+      final target = node.realTarget;
+      // This can be null if implicitly using `this`. Ignore this case.
+      if (target != null) {
+        toStringedExpressions.add(target);
+      }
     }
   }
 

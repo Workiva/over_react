@@ -53,20 +53,23 @@ class PseudoStaticLifecycleDiagnostic extends DiagnosticContributor {
   );
 
   @override
+  List<DiagnosticCode> get codes => [code];
+
+  @override
   computeErrors(result, collector) async {
     // This is the return type even if it's not explicitly declared.
     final visitor = LifecycleMethodVisitor();
-    result.unit.accept(visitor);
+    result.unit!.accept(visitor);
 
     for (final reference in visitor.nonStaticReferences) {
       if (reference is SimpleIdentifier && allowedInstanceMembers.contains(reference.name)) {
         continue;
       }
 
-      int offset;
-      int end;
+      int? offset;
+      int? end;
 
-      final enclosingMethodName = reference.thisOrAncestorOfType<MethodDeclaration>().name;
+      final enclosingMethodName = reference.thisOrAncestorOfType<MethodDeclaration>()!.name;
       if (reference is SuperExpression || reference is ThisExpression) {
         final parent = reference.parent;
         if (parent is MethodInvocation) {
@@ -124,7 +127,7 @@ class LifecycleMethodVisitor extends GeneralizingAstVisitor<void> {
     for (final member in node.members) {
       if (member is MethodDeclaration && staticMethodNames.contains(member.name.name)) {
         final visitor = ReferenceVisitor();
-        member.body?.accept(visitor);
+        member.body.accept(visitor);
         nonStaticReferences.addAll(visitor.nonStaticReferences);
       }
     }

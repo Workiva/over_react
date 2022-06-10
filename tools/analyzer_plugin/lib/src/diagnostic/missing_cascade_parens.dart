@@ -52,11 +52,13 @@ class MissingCascadeParensDiagnostic extends DiagnosticContributor {
     correction: "Try adding parentheses around the cascaded props",
   );
 
+  @override
+  List<DiagnosticCode> get codes => [code];
+
   // Make smaller (higher priority) than
   // REMOVE_PARENTHESIS_IN_GETTER_INVOCATION
 
-  static final fixKind = FixKind(code.name, 400, 'Add parentheses around props cascade',
-      appliedTogetherMessage: 'Add parentheses around props cascades');
+  static final fixKind = FixKind(code.name, 400, 'Add parentheses around props cascade');
 
   @override
   computeErrors(result, collector) async {
@@ -75,9 +77,9 @@ class MissingCascadeParensDiagnostic extends DiagnosticContributor {
       }.contains(error.errorCode.name);
 
       if (isBadFunction || isBadArity || isVoidUsage) {
-        final node = NodeLocator(error.offset, error.offset + error.length).searchWithin(result.unit);
+        final node = NodeLocator(error.offset, error.offset + error.length).searchWithin(result.unit)!;
 
-        final debug = AnalyzerDebugHelper(result, collector);
+        final debug = AnalyzerDebugHelper(result, collector, enabled: false);
         debug.log('node.type: ${node.runtimeType}');
 
         InvocationExpression invocation;
@@ -89,14 +91,14 @@ class MissingCascadeParensDiagnostic extends DiagnosticContributor {
           invocation = parent;
         } else if (isVoidUsage && parent is InvocationExpression) {
           invocation = parent;
+        } else {
+          return;
         }
-        debug.log('invocation : ${invocation?.toSource()}');
-
-        if (invocation == null) return;
+        debug.log('invocation : ${invocation.toSource()}');
 
         final cascade = invocation.parent?.tryCast<AssignmentExpression>()?.parent?.tryCast<CascadeExpression>();
         if (cascade != null) {
-          if (cascade?.target?.staticType?.isPropsClass ?? false) {
+          if (cascade.target.staticType?.isPropsClass ?? false) {
             await collector.addErrorWithFix(
               code,
               result.locationFor(cascade),
@@ -113,13 +115,13 @@ class MissingCascadeParensDiagnostic extends DiagnosticContributor {
         debug.log('${invocation.function.staticType?.getDisplayString(withNullability: false)}');
 
         if (isBadFunction && (invocation.function.staticType?.isReactElement ?? false)) {
-          final expr = invocation.function?.tryCast<InvocationExpression>() ??
-              invocation.function?.tryCast<ParenthesizedExpression>()?.unParenthesized?.tryCast();
+          final expr = invocation.function.tryCast<InvocationExpression>() ??
+              invocation.function.tryCast<ParenthesizedExpression>()?.unParenthesized.tryCast<InvocationExpression>();
 
           debug.log('expr: ${expr?.runtimeType} ${expr?.toSource()}');
           debug.log('expr.parent: ${expr?.parent?.runtimeType} ${expr?.parent?.toSource()}');
 
-          if (expr.argumentList.arguments.firstOrNull?.staticType?.isPropsClass ?? false) {
+          if (expr != null && (expr.argumentList.arguments.firstOrNull?.staticType?.isPropsClass ?? false)) {
             await collector.addErrorWithFix(
               code,
               result.locationFor(node),
