@@ -3,6 +3,7 @@ import 'package:over_react/over_react.dart';
 
 import 'package:todo_client/src/components/shared/material_ui.dart';
 import 'package:todo_client/src/components/shared/empty_view.dart';
+import 'package:todo_client/src/intl/todo_client_intl.dart';
 
 part 'display_list.over_react.g.dart';
 
@@ -24,11 +25,11 @@ class DisplayListComponent extends UiComponent2<DisplayListProps> {
     if (props.children.isEmpty) {
       return (EmptyView()
         ..type = EmptyViewType.VBLOCK
-        ..header = 'No ${props.listItemTypeDescription} to show'
+        ..header = TodoClientIntl.emptyView(props.listItemTypeDescription)
         ..glyph = InfoIcon({'color': 'disabled'})
         ..addTestId('todo_client.DisplayList.EmptyView')
       )(
-        'You should totally create one!',
+        TodoClientIntl.youShouldTotallyCreateOne,
       );
     }
 

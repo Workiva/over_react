@@ -6,6 +6,7 @@ import 'package:over_react/over_react_redux.dart';
 import 'package:over_react/src/component/test_fixtures/redraw_counter_component_mixin.dart';
 
 import 'package:todo_client/src/actions.dart';
+import 'package:todo_client/src/intl/todo_client_intl.dart';
 import 'package:todo_client/src/models/todo.dart';
 import 'package:todo_client/src/components/shared/list_item_expansion_panel_summary.dart';
 import 'package:todo_client/src/components/shared/list_item_mixin.dart';
@@ -119,9 +120,9 @@ class TodoListItemComponent extends UiStatefulComponent2<TodoListItemProps, Todo
       (TodoItemTextField()
         ..readOnly = !props.isEditable
         ..autoFocus = props.isEditable
-        ..label = 'Description'
+        ..label = TodoClientIntl.description
         ..onChange = _updateDescriptionValue
-        ..placeholder = 'Describe the task...'
+        ..placeholder = TodoClientIntl.describeTheTask
         ..value = model.description
         ..onClickWhenEditable = (event) { event.stopPropagation(); }
         ..addTestId('todo_client.TodoListItem.descriptionTextField')
@@ -155,11 +156,11 @@ class TodoListItemComponent extends UiStatefulComponent2<TodoListItemProps, Todo
   ReactElement _renderTaskNotes() {
     return (TodoItemTextField()
       ..readOnly = !props.isEditable
-      ..label = 'Notes'
+      ..label = TodoClientIntl.notes
       ..multiline = true
       ..['rows'] = 3
       ..onChange = _updateNoteValue
-      ..placeholder = 'Add some notes about the task'
+      ..placeholder = TodoClientIntl.addSomeNotesAboutThe
       ..value = model.notes
       ..addTestId('todo_client.TodoListItem.notesTextField')
     )();

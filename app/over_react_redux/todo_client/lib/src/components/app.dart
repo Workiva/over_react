@@ -4,6 +4,7 @@ import 'package:over_react/over_react_redux.dart';
 import 'package:over_react/src/component/test_fixtures/redraw_counter_component_mixin.dart';
 
 import 'package:todo_client/src/actions.dart';
+import 'package:todo_client/src/intl/todo_client_intl.dart';
 import 'package:todo_client/src/store.dart';
 import 'package:todo_client/src/models/todo.dart';
 import 'package:todo_client/src/models/user.dart';
@@ -73,8 +74,8 @@ class TodoAppComponent extends UiComponent2<TodoAppProps> with RedrawCounterMixi
     },
       (CreateInput()
         ..autoFocus = true
-        ..label = 'New Todo'
-        ..placeholder = 'Create new Todo'
+        ..label = TodoClientIntl.newTodo
+        ..placeholder = TodoClientIntl.createNewTodo
         ..onCreate = props.createTodo
         ..addTestId('todo_client.createTodoInput')
       )(),
@@ -91,8 +92,8 @@ class TodoAppComponent extends UiComponent2<TodoAppProps> with RedrawCounterMixi
       'style': {'height': '100%'},
     },
       (CreateInput()
-        ..label = 'New User'
-        ..placeholder = 'Create new User'
+        ..label = TodoClientIntl.newUser
+        ..placeholder = TodoClientIntl.createNewUser
         ..onCreate = props.createUser
         ..addTestId('todo_client.createUserInput')
       )(),

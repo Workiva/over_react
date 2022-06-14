@@ -6,6 +6,7 @@ import 'package:over_react/over_react_redux.dart';
 import 'package:over_react/src/component/test_fixtures/redraw_counter_component_mixin.dart';
 
 import 'package:todo_client/src/actions.dart';
+import 'package:todo_client/src/intl/todo_client_intl.dart';
 import 'package:todo_client/src/models/user.dart';
 import 'package:todo_client/src/components/shared/avatar_with_colors.dart';
 import 'package:todo_client/src/components/shared/list_item_expansion_panel_summary.dart';
@@ -105,9 +106,9 @@ class UserListItemComponent extends UiStatefulComponent2<UserListItemProps, User
       (TodoItemTextField()
         ..readOnly = !props.isEditable
         ..autoFocus = props.isEditable
-        ..label = 'Name'
+        ..label = TodoClientIntl.name
         ..onChange = _updateNameValue
-        ..placeholder = 'Enter a name...'
+        ..placeholder = TodoClientIntl.enterAName
         ..value = model.name
         ..onClickWhenEditable = (event) { event.stopPropagation(); }
         ..['inputProps'] = {
@@ -127,11 +128,11 @@ class UserListItemComponent extends UiStatefulComponent2<UserListItemProps, User
   ReactElement _renderUserBio() {
     return (TodoItemTextField()
       ..readOnly = !props.isEditable
-      ..label = 'Biography'
+      ..label = TodoClientIntl.biography
       ..multiline = true
       ..['rows'] = 3
       ..onChange = _updateBioValue
-      ..placeholder = 'Tell us a little bit about ${model.name}'
+      ..placeholder = TodoClientIntl.UserListItemComponent_intlFunction0(model.name)
       ..value = model.bio
     )();
   }
