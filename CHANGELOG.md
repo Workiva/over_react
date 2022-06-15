@@ -2,7 +2,9 @@
 
 ## [4.4.0](https://github.com/Workiva/over_react/compare/4.3.1...4.4.0)
 
-### Analyzer Plugin
+- [#743] Add `js_component.dart` entrypoint with utilities for wrapping JS React components. More in-depth documentation around how to use these APIs and best practices is coming soon.
+
+#### Analyzer Plugin
 
 - Fix diagnostics not working in Dart >=2.13, by upgrading to analyzer_plugin 0.6.0
 - Diagnostics can be configured with custom severity, including disabling them ([docs](https://github.com/Workiva/over_react/blob/master/tools/analyzer_plugin/README.md#configuration))
