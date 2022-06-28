@@ -1,7 +1,7 @@
 name: verify-github-actions
 description: Verify that the github actions run passed, this is needed to make pipelines pass without manual intervention
 contact: 'Frontend Frameworks Architecture / #support-frontend-architecture'
-image: drydock.workiva.net/workiva/skynet-images:3693290 # Uses the image from this branch: https://github.com/Workiva/skynet-images/pull/127
+image: drydock.workiva.net/workiva/skynet-images:3708893 # Uses the image from this branch: https://github.com/Workiva/skynet-images/pull/127
 size: small
 timeout: 600
 
