@@ -1,10 +1,10 @@
 # Wrapping JS Components
 
-This document talks about using the `uiJsComponent` API to create a Dart component API that wraps an existing JS component. For example, if you need to consume a component from an open source JS library in Dart, you would need to wrap that component with an interop layer. The `uiJsComponent` API exists to take care of wrapping the primary component API, along with adding a space to declare prop typings using the same `mixin` based syntax that OverReact supports.
+This guide talks about using the `uiJsComponent` API to create a Dart component API that wraps an existing JS component. For example, if you need to consume a component from an open source JS library in Dart, you would need to wrap that component with an interop layer. The `uiJsComponent` API exists to take care of wrapping the primary component API, along with adding a space to declare prop typings using the same `mixin` based syntax that OverReact supports.
 
 ## tl;dr
 
-The details of this document are important as there are multiple gotchas that can take the form of runtime errors, undetectable until a particular edge case is hit by a user. Therefore, it is **highly recommended** that the entirety of this guide is read and understood before adopting this pattern. That being said, it may be useful to have a holistic view of what this approach looks like. The collapsed summary region below cantains a full example of wrapping a JS component that can be used as a reference or template.
+The details of this guide are important as there are multiple gotchas that can take the form of runtime errors, undetectable until a particular edge case is hit by a user. Therefore, it is **highly recommended** that the entirety of this guide is read and understood before adopting this pattern. That being said, it may be useful to have a holistic view of what this approach looks like. The collapsed summary region below cantains a full example of wrapping a JS component that can be used as a reference or template.
 
 <details>
 
@@ -33,14 +33,14 @@ mixin SomeJsComponentProps on UiProps {
 external ReactClass get _jsSomeJsComponent; /* [8] */
 ```
 
-Below are more detailed explanations of each part of the code. Each of these points correlates to a more thorough section that adds as much information as possible.
+Below are more detailed explanations of each part of the code. These points are ordered from top to bottom and not necessarily in the order it makes sense to write the code. Each of these points correlates to a more thorough section later in the guide that adds more detailed information.
 
-1. Add the `JS()` annotation and a library directive. Because this is a file implementing JS interop, it is necessary to use the `JS()` annotiation. A library directive is necessary when using the `JS()` annotation. The actual library name is not important as far as the wrapping and interop go, but it should be unique to the component.
+1. Add the `JS()` annotation and a library directive. Because this is a file implementing JS interop, it is necessary to use the `JS()` annotation. When using a `JS()` annotation, it is also necessary to have a library directive. The actual library name is not important as far as the wrapping and interop go, but it should be unique to the file.
 1. Add the `part` directive. Just like any other OverReact component, the file needs to have a `part` that matches the file's name. Nothing special needs to be done here as far as wrapping the JS component goes.
 1. Invoke `uiJsComponent`. Note that the left hand side of the declaration looks exactly like a standard, all-Dart functional component declaration. However, instead of `uiFunction`, the API being use is `uiJsComponent`.
 1. Wrap the JS interop variable with `ReactJsComponentFactoryProxy`. The JS variable (`_jsSomeJsComponent` in this case) is defined below. `ReactJsComponentFactoryProxy` is a wrapper that understands how to create a React element (in Dart) from the JS component.
-1. Set the prop's namespace to be empty. JS component's do not have a key namespace like OverReact components do. Therefore, in order to set props as expected, there should be no namespace.
-1. Add types for the props. In the cases where types map one-to-one from JS to Dart, this will be pretty easy. There are more challenging cases to watch out for, though. For more information, see the [Adding Prop Typings](#adding-prop-typings) section.
+1. Set the prop's namespace to be empty. JS components do not have a key namespace like OverReact components do. Therefore, in order to set props as expected using Dart, there should be no namespace.
+1. Add types for the props. In the cases where types map one-to-one from JS to Dart, this is really straightforward. There are more challenging cases to watch out for, though. For more information, see the [Adding Prop Typings](#adding-prop-typings) section.
 1. Annotate the JS variable. This anotation should match the component's name on the JS side, including any namespacing that's happening on the JS side.
 
    For example, in this case, the component comes from a library called `MagicalJsPackage`. The component's name is `SomeJsComponent`, and in the JS world, could be used in JSX like:
@@ -49,9 +49,7 @@ Below are more detailed explanations of each part of the code. Each of these poi
    <SomeJsComponent />
    ```
 
-   Together, that means that the reference needs to be `MagicalJsPackage.SomeJsComponent`. If this is not done correctly, a runtime error will fire.
-
-   All in all, this could be one of the more complicated steps. For more information, see the [Adding a JS Variable](#adding-the-js-variable) section for more information.
+   Together, that means that the reference needs to be `MagicalJsPackage.SomeJsComponent`. If this is not done correctly, a runtime error will fire. Depending on the JS package setup, this could be one of the more complicated steps. For more information, see the [Adding a JS Variable](#adding-the-js-variable) section.
 
 1. Create the JS variable. This step is very straightforward, with eleboration only necessary to note that the name of the variable can be anything. Our norm is `js{ComponentName}` to both tie it to and contrast it from the Dart `UiFactory`, but as far as Dart interop goes, the name isn't significant.
 
@@ -59,7 +57,7 @@ Below are more detailed explanations of each part of the code. Each of these poi
 
 ## Using `uiJsComponent`
 
-`uiJsComponent` is used to create the `UiFactory` attached to the JS component. In other words, after using `uiJsComponent`, you will have a Dart `UiFactory` that can be used like a factory that was written entirely in Dart. Invoking the `uiJsComponent` itself is actually one of the simplest parts of the wrapping process and is ultimately the culmination of other steps. However, because it's the heart of the everything, we wanted to introduce it early as the cornerstone that will tie upcoming sections together.
+`uiJsComponent` is used to create the `UiFactory` attached to the JS component. In other words, after using `uiJsComponent`, you will have a Dart `UiFactory` that can be used like a factory that was written entirely in Dart. Invoking the `uiJsComponent` itself is actually one of the simplest parts of the wrapping process and is ultimately the culmination of other steps. However, because it's the heart of the everything, we wanted to introduce it early as the cornerstone that will tie upcoming sections together. If you want to walk through this guide step by step though, then adding the code from this section should be the last block to be added in the component file.
 
 Invoking the API looks like:
 
@@ -72,7 +70,7 @@ UiFactory<SomeJsComponentProps> SomeJsComponent = uiJsComponent(
 
 Areas of similarity between this and a functional component declaration are:
 
-1. The typing on the left hand side of the declaration is created the same way (`UiFactory<SomeProps>`)
+1. The typing on the left hand side of the declaration is created the same way (`UiFactory<SomeJsComponentProps>`)
 1. A generated config (`_$SomeJsComponentConfig` here) is necessary and ignored by the analyzer
 
 The differences are:
@@ -80,7 +78,7 @@ The differences are:
 1. The correct API is `uiJsComponent` instead of `uiFunction`
 1. `ReactJsComponentFactoryProxy(_jsSomeJsComponent)` is passed in instead of a function
 
-The most notable difference is number 2. `_jsSomeJsComponent` is a JS interop variable created to reference the JS component itself. That JS variable is something we'll dive deeper into later in the [Adding the JS Variable section](#adding-the-js-variable).
+The most notable difference is number 2. `_jsSomeJsComponent` is a JS interop variable created to reference the JS component itself. That JS variable is something we'll dive deeper into in the [Adding the JS Variable section](#adding-the-js-variable).
 
 The `ReactJsComponentFactoryProxy` is a wrapper for the JS component that understands how to create, within Dart, a React element from the JS component. As far as what's necessary to know for creating these components, that's it. The syntax is basically boilerplate that can be copy and pasted from component to component, just changing the JS variable to match the new component.
 
@@ -108,39 +106,39 @@ import 'package:over_react/over_react.dart';
 part 'some_js_component.over_react.g.dart';
 ```
 
-Imports are standard (the `js.dart` import provides the `JS()` annotation) and the `part` is the same as you would expect in any OverReact component.
+Imports are standard (the `js.dart` import provides the `JS()` annotation), and the `part` is the same as you would expect in any OverReact component.
 
-Something that may be new is the usage of the `JS()` annotation. This is necessary in files performing interop operations and therefore is required. The annotation must be attached to a library directive, and therefore the library directive is also required. The name of the library can be anything, with the main limitation being that it should be unique to the file.
+Something that may be new is the usage of the `JS()` annotation. This is necessary in files performing interop operations and therefore is required in this file. A library directive is also required here because the `JS()` annotation must be attached to a library. The name of the library can be anything, with the main limitation being that it should be unique to the file.
 
 ## Adding the JS Variable
 
-To provide a Dart component, the Dart component must wrap the JS version. This means that the JS version must be accessible in Dart. The way to do that is to use interop to create a reference to the JS API. That looks like:
+To create a Dart component, it must wrap the JS version. This means that the JS version must be accessible in Dart. The way to do that is to use interop to create a reference to the JS API. That looks like:
 
 ```dart
 @JS('MagicalJsPackage.SomeJsComponent')
 external ReactClass get _jsSomeJsComponent;
 ```
 
-There are two pieces here. The first piece is creating an annotation and creating a getter.
+There are two pieces here. The first piece is creating a getter and the second is adding an annotation.
 
 ### Creating the Getter
 
 Creating the getter is very simple. The code here can basically be copied and pasted from the code found in this doc, just changing the name of the getter to be something more specific than `_jsSomeJsComponent`. However, the name can really be anything. We have the norm of using `_js{ComponentName}` because:
 
-- It's private by default, which is preferred because the use case for the JS veriable itself is limited
-- It makes it clear it's the _JS_ version of the component, while also coupling it with the Dart API by including the component's name
+- It's private, which is preferred because the use case for the JS veriable itself is limited
+- It makes it clear it's the _JS_ version of the component, while also including the component's name and thereby coupling it with the Dart API
 
-You may wonder why the name doesn't need to match the name of the JS component. For example, a component named `SomeJsComponent` can have a Dart interop getter called `_jsSomeJsComponent`. This is possible because the actual link between Dart and JS is created [with the annotation](#creating-the-annotation).
+You may wonder why the name doesn't need to match the name of the JS component. For example, a component named `SomeJsComponent` can have a Dart interop getter called `foofoocuddlypoops`. This is possible because the actual link between Dart and JS is created [with the annotation](#creating-the-annotation).
 
 ### Creating the Annotation
 
-The annotation is how Dart knows what JS API needs to be referenced. In other words, if you do:
+The annotation is how Dart knows what JS API needs to be linked to the Dart variable. In other words, if you do:
 
 ```dart
 @JS('SomeJsComponent')
 ```
 
-Dart will expect to find a property on the JavaScript window, in the browser, called `SomeJsComponent`. Future references to the Dart getter then will be linked directly to that JS property on the window. This can get complicated because the exact name of the API will likely include the name of the library and any namespacing on the JS side. Ultimately, it depends on how the JavaScript is bundled and exported from that bundle.
+Dart will expect to find a property on the `Window`, in the browser, called `SomeJsComponent`. Future references to the Dart getter will be linked directly to that JS property on the window. This can get complicated because the exact name of the API will likely include the name of the library and any namespacing on the JS side. Ultimately, it depends on how the JavaScript is bundled and how the API is exported from that bundle.
 
 For example, React is a JS bundle attached to the page and one of the [interop references looks like this](https://github.com/Workiva/react-dart/blob/e5d995927cbdfc6722d7313c172dd6c58dcbb586/lib/react_client/react_interop.dart#L359-L366):
 
@@ -157,9 +155,9 @@ Here we're focusing on the annotation. The package is "React" and the API export
 @JS('MagicalJsPackage.SomeJsComponent')
 ```
 
-> Reminder: The JavaScript bundle for the JS must be added to the HTML page as script, [similar to how React is added](https://github.com/Workiva/react-dart/blob/e5d995927cbdfc6722d7313c172dd6c58dcbb586/example/js_components/index.html#L19-L20), or else this interop step will always fail.
+> Reminder: The JavaScript bundle for the JS must be added to the HTML page as a script, [similar to how React is added](https://github.com/Workiva/over_react/blob/82cacd3c12ab99b7a6fd9ddb0698a0cc844aa8a8/example/builder/index.html#L36-L37), or else this interop step will always fail.
 
-To check that the correct name is, you can use the browser devtools to attempt to access the property on the window.
+To check that the correct name is, you can use the browser devtools to attempt to access the property on the window. If the property is valid and generally where you expect it to be then it's likely correct.
 
 <img src='./images/ui_js_component/interop_ref.gif' alt='Accessing the property in the devtools' />
 
@@ -188,16 +186,16 @@ Props with those types require special utilities (such as `jsifyMapProp`) in ord
 
 These are tables that helps illustrate the typing of a prop in TypeScipt and Dart. If the library you're wrapping does not have explicit types in TypeScript for the components, it may have `PropTypes` that are fairly similar. If no types are available, erroring on the safe side is best as Dart can throw runtime errors if the type is incorrect. Some conversions are explained further in the [Supplemental Explanations section](#supplamental-explanations).
 
-> **NOTE** that these tables are not exhaustive. They try to cover the major types that are likely to come up but don't include every type and variation that TS allows for.
+> **NOTE** that these tables are not exhaustive. They cover the major types that are likely to come up but don't include every type and variation that TS allows.
 
 #### Standard Types
 
 | TypeScript                   | Dart                        | Notes                                                                                                                                                                                      |
 | ---------------------------- | --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `number`                     | `num`                       |                                                                                                                                                                                            |
-| `string`                     | `string`                    |                                                                                                                                                                                            |
-| `boolean`                    | bool                        |                                                                                                                                                                                            |
-| `Array<T>` \| `T[]`          | `List<T>`                   |                                                                                                                                                                                            |
+| `string`                     | `String`                    |                                                                                                                                                                                            |
+| `boolean`                    | `bool`                      |                                                                                                                                                                                            |
+| `Array<T>` or `T[]`          | `List<T>`                   | For example, `Array<string>` and `string[]` would both translate to `List<String>`.                                                                                                        |
 | `unknown`                    | `dynamic`                   |                                                                                                                                                                                            |
 | `any`                        | `dynamic`                   |                                                                                                                                                                                            |
 | `null`                       | `null`                      |                                                                                                                                                                                            |
@@ -209,14 +207,14 @@ These are tables that helps illustrate the typing of a prop in TypeScipt and Dar
 
 #### Exotic Types
 
-Some TS types are either complex, either mapping directly to an existing React type or requiring more intricate getters and setters.
+Some TS types are complex, either mapping directly to an existing React type or requiring more intricate getters and setters.
 
-| TypeScript                                                              | TypeScript Example                                                                                        | Dart                                                             | Dart Example                                                                                                    |
-| ----------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
-| `React.ReactElement`                                                    | [MUI Chip][example_ts_reactelement]                                                                       | `ReactElement`                                                   | [RMUI Chip][example_dart_reactelement]                                                                          |
-| `React.ReactNode`                                                       | [MUI Chip][example_ts_reactnode]                                                                          | dynamic                                                          | [RMUI Chip][example_dart_reactnode]                                                                             |
-| anything that translates to a Dart `Map` (`interfaces`, `objects`, etc) | [MUI Autocomplete Interface][example_ts_interface], [MUI Autocomplete Anon Object][example_ts_anonobject] | See examples and the [Converting Maps section](#converting-maps) | [RMUI Autocomplete Interface][example_dart_interface], [RMUI Autocomplete Anon Object][example_dart_anonobject] |
-| refs (`React.ForwardedRef`, `React.RefObject`, `React.Ref`)             | [MUI TextField Ref][example_ts_ref]                                                                       | See example and the [Converting Refs section](#converting-refs)  | [RMUI TextField Ref][example_dart_ref]                                                                          |
+| TypeScript                                                              | TypeScript Example                                                                                                | Dart                                                             | Dart Example                                                                                                            |
+| ----------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| `React.ReactElement`                                                    | [MUI Chip's avatar][example_ts_reactelement]                                                                      | `ReactElement`                                                   | [RMUI Chip's avatar][example_dart_reactelement]                                                                         |
+| `React.ReactNode`                                                       | [MUI Chip's label][example_ts_reactnode]                                                                          | dynamic                                                          | [RMUI Chip's label][example_dart_reactnode]                                                                             |
+| anything that translates to a Dart `Map` (`interfaces`, `objects`, etc) | [MUI Autocomplete's ChipProps][example_ts_interface], [MUI Autocomplete's componentsProps][example_ts_anonobject] | See examples and the [Converting Maps section](#converting-maps) | [RMUI Autocomplete's ChipProps][example_dart_interface], [RMUI Autocomplete's componentsProps][example_dart_anonobject] |
+| refs (`React.ForwardedRef`, `React.RefObject`, `React.Ref`)             | [MUI TextField inputRef][example_ts_ref]                                                                          | See example and the [Converting Refs section](#converting-refs)  | [RMUI TextField inputRef][example_dart_ref]                                                                             |
 
 #### Supplamental Explanations
 
@@ -224,7 +222,7 @@ Some of the conversations above require additional explanation to clarify why th
 
 ##### Converting Maps
 
-Props are commonly typed as something that's shaped like a Dart `Map`. Anything with keys and values fall into that category, which can be anything that looks like:
+Props are commonly typed as something that's shaped like a Dart `Map`. Anything with keys and values fall into that category, which in TS, can be things that looks like:
 
 ```ts
 // Each prop here is a different form of an object type
@@ -265,7 +263,7 @@ The steps are:
 1. Add an `@Accesssor` annotation to the property with a key that matches the prop name. This will link the `JsMap` property to the JS prop.
 1. Add `Map` getters and setters named the same as the prop.
    - The getter should use `unjsifyMapProp` to convert the JS property to a Dart `Map`
-   - The setter should use `jsifyMapProp` to convert the Dart map to JS.
+   - The setter should use `jsifyMapProp` to convert the Dart `Map` to JS.
 
 ##### Converting Refs
 
@@ -306,7 +304,7 @@ The steps are:
 Some function props may conflict with the `UbiquitousDomPropsMixin`. This will happen if:
 
 1. The component specifies a function that is typically reserved for `UbiquitousDomPropsMixin`. These are typically fundamental event handlers on HTML elements, such as `onClick`, `onChange`, etc.
-1. The component's prop's function signature is not the same. This typically takes the form of adding extra parameters that the standart event handlers do not have.
+1. The prop's function signature is not the same as the version on `UbiquitousDomPropsMixin`. This typically takes the form of adding extra parameters that the standard event handlers do not have.
 
 This causes problems in Dart because if the type of the function signature does not match what Dart expects, it will throw a runtime error. Here's what that could look like in TS:
 
@@ -317,14 +315,14 @@ interface SomeJsComponentProps {
 }
 ```
 
-in Dart, to work around that, you would do something like:
+In Dart, to work around that, you would do something like:
 
 ```dart
 mixin SomeJsComponentProps on UiProps {
- @Accessor(key: 'onClick')
+  @Accessor(key: 'onClick')
   void Function(SyntheticMouseEvent event, String id) onClick_SomeJsComponent;
 
-   @Deprecated('Use onClick_SomeJsComponent for proper typing')
+  @Deprecated('Use onClick_SomeJsComponent for proper typing')
   @override
   get onClick;
 
@@ -336,10 +334,10 @@ mixin SomeJsComponentProps on UiProps {
 
 The steps are:
 
-1. Add overridden getters and setters for the function. Overriding is necessary because `UiProps` already contributes the property.
-1. Deprecate those getters and setters. This isn't necesssary to avoid runtime errors, but it's an important step because those properties should not be accessed by consumers.
+1. Add overridden getters and setters for the prop. Overriding is necessary because `UiProps` already contributes the property.
+1. Deprecate those getters and setters. This isn't necesssary to avoid runtime errors, but it's an important step because those properties should not be accessed by devs.
 1. Add a new property that has the correct type for the function. We recommend using the original prop name and adding a namespace suffix (i.e. `onClick` becomes `onClick_SomeJsComponent`). That way, even though the property can't be the same name as the original prop itself (i.e. `onClick`), it allows developers to begin typing the name of the original prop and use autocomplete from there.
-1. Add an `Accessor()` annotation with a key matching the name of the original prop. This links the namespaced prop to the the JS property it is replacing.
+1. Add an `Accessor()` annotation with a key matching the name of the original prop. This links the namespaced prop to the JS property it is replacing.
 
 ### Props Conversion Example
 
@@ -450,10 +448,10 @@ test('onClick', () {
 This test is:
 
 1. Rendering the component in a strict mode wrapper
-1. Getting clicked
+1. Clicking the component
 1. Checking that an event of the specific type was fired
 
-Most tests like this can be that simple because typically the most important thing is just that the function fires as expected without dismounting the React tree.
+Most function prop tests can be that simple because typically the most important thing is just that the function fires as expected without dismounting the React tree.
 
 ## Conclusion
 
