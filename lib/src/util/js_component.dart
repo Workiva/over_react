@@ -3,7 +3,7 @@ import 'package:react/react_client/component_factory.dart';
 
 /// Creates a Dart component factory that wraps a ReactJS [factoryProxy].
 ///
-/// More in-depth documentation for wrapping JS components is coming soon.
+/// See the [complete guide to wrapping JS components](https://github.com/Workiva/over_react/blob/master/doc/wrapping_js_components.md) for more information.
 ///
 /// Example:
 /// ```dart
