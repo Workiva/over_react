@@ -1,10 +1,12 @@
 # Wrapping JS Components
 
-This guide talks about using the `uiJsComponent` API to create a Dart component API that wraps an existing JS component. For example, if you need to consume a component from an open source JS library in Dart, you would need to wrap that component with an interop layer. The `uiJsComponent` API exists to take care of wrapping the primary component API, along with adding a space to declare prop typings using the same `mixin` based syntax that OverReact supports.
+The JavaScript community is full of great open source libraries that export React components. These JavaScript components can be consumed in Dart by using JS interop to wrap the component and expose a Dart API for it. This process ultimately looks like writing a new Dart OverReact component but with specific steps to make sure it's wired up to the JavaScript side correctly. This guide walks through how to do that wiring process and helps make developers aware of the pitfalls that can cause trouble.
 
 ## tl;dr
 
 The details of this guide are important as there are multiple gotchas that can take the form of runtime errors, undetectable until a particular edge case is hit by a user. Therefore, it is **highly recommended** that the entirety of this guide is read and understood before adopting this pattern. That being said, it may be useful to have a holistic view of what this approach looks like. The collapsed summary region below cantains a full example of wrapping a JS component that can be used as a reference or template.
+
+> **NOTE** that all future code examples are all named the same as the code within the summary. If it ever feels confusing how a code snippet fits into the bigger picture, the code from the summary can be used to tie it all together.
 
 <details>
 
@@ -33,11 +35,11 @@ mixin SomeJsComponentProps on UiProps {
 external ReactClass get _jsSomeJsComponent; /* [8] */
 ```
 
-Below are more detailed explanations of each part of the code. These points are ordered from top to bottom and not necessarily in the order it makes sense to write the code. Each of these points correlates to a more thorough section later in the guide that adds more detailed information.
+Below are more detailed explanations of each part of the code. These points are ordered from top to bottom and are not necessarily in the order it makes sense to write the actual code. Each of these points correlates to a more thorough section later in the guide.
 
 1. Add the `JS()` annotation and a library directive. Because this is a file implementing JS interop, it is necessary to use the `JS()` annotation. When using a `JS()` annotation, it is also necessary to have a library directive. The actual library name is not important as far as the wrapping and interop go, but it should be unique to the file.
 1. Add the `part` directive. Just like any other OverReact component, the file needs to have a `part` that matches the file's name. Nothing special needs to be done here as far as wrapping the JS component goes.
-1. Invoke `uiJsComponent`. Note that the left hand side of the declaration looks exactly like a standard, all-Dart functional component declaration. However, instead of `uiFunction`, the API being use is `uiJsComponent`.
+1. Invoke `uiJsComponent`. Note that the left hand side of the declaration looks exactly like a standard, all-Dart functional component declaration. However, on the right hand side, instead of using `uiFunction`, the API being use is `uiJsComponent`.
 1. Wrap the JS interop variable with `ReactJsComponentFactoryProxy`. The JS variable (`_jsSomeJsComponent` in this case) is defined below. `ReactJsComponentFactoryProxy` is a wrapper that understands how to create a React element (in Dart) from the JS component.
 1. Set the prop's namespace to be empty. JS components do not have a key namespace like OverReact components do. Therefore, in order to set props as expected using Dart, there should be no namespace.
 1. Add types for the props. In the cases where types map one-to-one from JS to Dart, this is really straightforward. There are more challenging cases to watch out for, though. For more information, see the [Adding Prop Typings](#adding-prop-typings) section.
@@ -57,7 +59,7 @@ Below are more detailed explanations of each part of the code. These points are 
 
 ## Using `uiJsComponent`
 
-`uiJsComponent` is used to create the `UiFactory` attached to the JS component. In other words, after using `uiJsComponent`, you will have a Dart `UiFactory` that can be used like a factory that was written entirely in Dart. Invoking the `uiJsComponent` itself is actually one of the simplest parts of the wrapping process and is ultimately the culmination of other steps. However, because it's the heart of the everything, we wanted to introduce it early as the cornerstone that will tie upcoming sections together. If you want to walk through this guide step by step though, then adding the code from this section should be the last block to be added in the component file.
+`uiJsComponent` is used to create the Dart `UiFactory` attached to the JS component. In other words, after using `uiJsComponent`, you will have a Dart `UiFactory` that can be used like a factory that was written entirely in Dart. Invoking `uiJsComponent` itself is actually one of the simplest parts of the wrapping process and is ultimately the culmination of other steps. However, because it's the heart of the everything, we wanted to introduce it early as the cornerstone that will tie upcoming sections together. If you want to walk through this guide step by step though, then adding the code from this section should be the last block to be added in the component file.
 
 Invoking the API looks like:
 
@@ -80,13 +82,13 @@ The differences are:
 
 The most notable difference is number 2. `_jsSomeJsComponent` is a JS interop variable created to reference the JS component itself. That JS variable is something we'll dive deeper into in the [Adding the JS Variable section](#adding-the-js-variable).
 
-The `ReactJsComponentFactoryProxy` is a wrapper for the JS component that understands how to create, within Dart, a React element from the JS component. As far as what's necessary to know for creating these components, that's it. The syntax is basically boilerplate that can be copy and pasted from component to component, just changing the JS variable to match the new component.
+The `ReactJsComponentFactoryProxy` is a wrapper for the JS component that understands how to create, within Dart, a React element from the JS component. As far as what's necessary to know for wrapping JS components, that's it. The syntax is basically boilerplate that can be copy and pasted from component to component, just changing the JS variable to match the new component.
 
 That being said, for those wanting some deeper context, `ReactJsComponentFactoryProxy` is the tip of a larger iceburg. When instantiating `ReactJsComponentFactoryProxy`, you may notice some optional parameters on the constructor. Those parameters are used to effect how the component handles certain interop cases for the component. They exist because `ReactJsComponentFactoryProxy` is used under the hood in several different contexts (like powering `uiForwardRef`), some of which require unique behaviors when it comes to interop.
 
 It is unlikely that you will hit scenarios where settings these parameters is necessary, and therefore, it is generally discouraged to change them away from the default. If the wrapped component is not behaving as expected, reach out to us on [Slack][slack] so we can help!
 
-## Adding Important Directives
+## Adding Directives
 
 The important directives for this process are:
 
@@ -112,7 +114,7 @@ Something that may be new is the usage of the `JS()` annotation. This is necessa
 
 ## Adding the JS Variable
 
-To create a Dart component, it must wrap the JS version. This means that the JS version must be accessible in Dart. The way to do that is to use interop to create a reference to the JS API. That looks like:
+To a Dart API, a Dart component must wrap the JS version. This means that the JS version must be accessible in Dart. The way to do that is to use interop to create a reference to the JS API. That looks like:
 
 ```dart
 @JS('MagicalJsPackage.SomeJsComponent')
@@ -132,7 +134,7 @@ You may wonder why the name doesn't need to match the name of the JS component. 
 
 ### Creating the Annotation
 
-The annotation is how Dart knows what JS API needs to be linked to the Dart variable. In other words, if you do:
+The annotation is how Dart knows what JS API needs to be linked to the Dart getter. In other words, if you do:
 
 ```dart
 @JS('SomeJsComponent')
@@ -140,24 +142,15 @@ The annotation is how Dart knows what JS API needs to be linked to the Dart vari
 
 Dart will expect to find a property on the `Window`, in the browser, called `SomeJsComponent`. Future references to the Dart getter will be linked directly to that JS property on the window. This can get complicated because the exact name of the API will likely include the name of the library and any namespacing on the JS side. Ultimately, it depends on how the JavaScript is bundled and how the API is exported from that bundle.
 
-For example, React is a JS bundle attached to the page and one of the [interop references looks like this](https://github.com/Workiva/react-dart/blob/e5d995927cbdfc6722d7313c172dd6c58dcbb586/lib/react_client/react_interop.dart#L359-L366):
-
-```dart
-@JS('React.PropTypes')
-abstract class PropTypes {
-  // ...
-}
-```
-
-Here we're focusing on the annotation. The package is "React" and the API exported from that package is "PropTypes". Typically, wrapping a component from a JS library will look similar and the annotation will be something like:
+For example, imagine our package is called `MagicalJsPackage`. The bundle for the package is namespaced by the package name, and therefore when it's attached to the page, its members are nested within the namespace. We want to access the component `SomeJsComponent`. Putting it all together, we'd expect the annotation to be:
 
 ```dart
 @JS('MagicalJsPackage.SomeJsComponent')
 ```
 
-> Reminder: The JavaScript bundle for the JS must be added to the HTML page as a script, [similar to how React is added](https://github.com/Workiva/over_react/blob/82cacd3c12ab99b7a6fd9ddb0698a0cc844aa8a8/example/builder/index.html#L36-L37), or else this interop step will always fail.
+> Reminder: The JavaScript bundle for the JS must be added to the HTML page as a script, [similar to how React is added](https://github.com/Workiva/over_react/blob/82cacd3c12ab99b7a6fd9ddb0698a0cc844aa8a8/example/builder/index.html#L36-L37), or else this interop step will always fail at runtime.
 
-To check that the correct name is, you can use the browser devtools to attempt to access the property on the window. If the property is valid and generally where you expect it to be then it's likely correct.
+To check that the correct name is, you can use the browser devtools to attempt to access the property on the `Window`. If the property is valid and generally where you expect it to be then it's likely correct.
 
 <img src='./images/ui_js_component/interop_ref.gif' alt='Accessing the property in the devtools' />
 
@@ -169,13 +162,13 @@ If the annotation does not have the correct name, rendering the component will f
 
 ## Adding Prop Typings
 
-The last step is creating a props mixin for the component. In its simplest form, this props mixin is purely to add type safety when using the component in Dart. In other words, in simple cases, you're just adding a property to the props mixin that lines up with a prop on the JS side, and Dart will handle converting that data from Dart to JavaScript.
+The last step is creating a props mixin for the component. In its simplest form, this props mixin is purely to add type safety when using the component in Dart. In other words, in simple cases, you're just adding a property to the props mixin that lines up with a prop on the JS side, and [react-dart][react-dart] will handle converting that data from Dart to JavaScript.
 
-However, there are special cases that require processing the data manually instead of letting Dart do the translation. These are cases that can cause runtime errors if not handled correctly.
+However, there are special cases that require processing the data more manually. These are cases that can cause runtime errors if not handled correctly.
 
 ### Manually Processing Prop Data
 
-While most Dart and JS types get converted nicely during interop, some cases require manual intervention in order to be handled correctly. These cases are:
+While most Dart and JS types get converted nicely by [react-dart][react-dart]'s interop handling, some cases require manual intervention in order to be handled correctly. These cases are:
 
 - Any JS type that translates to a Dart `Map` type
 - React `ref` types
@@ -247,6 +240,7 @@ type AnotherType = {
 JavaScript `object`s and Dart `Map`s do not convert automatically like primitives do. In order to allow the data to be passed from Dart to JavaScript, interop utilites must be used. Converting any one of those map props looks like:
 
 ```dart
+@Props(keyNamespace: '')
 mixin SomeJsComponentProps on UiProps {
   Map get aMapProp => unjsifyMapProp(_aMapProp$rawJs);
 
@@ -280,7 +274,7 @@ interface SomeJsComponentProps {
 Refs are special JS object types that need to be converted to and from Dart using interop utilities. Converting any one of those ref types looks like:
 
 ```dart
-
+@Props(keyNamespace: '')
 mixin SomeJsComponentProps on UiProps {
   dynamic get someRef => unjsifyRefProp(_someRef$rawJs);
 
@@ -318,6 +312,7 @@ interface SomeJsComponentProps {
 In Dart, to work around that, you would do something like:
 
 ```dart
+@Props(keyNamespace: '')
 mixin SomeJsComponentProps on UiProps {
   @Accessor(key: 'onClick')
   void Function(SyntheticMouseEvent event, String id) onClick_SomeJsComponent;
@@ -355,6 +350,7 @@ interface SomeJsComponentProps {
 In Dart, that would look like:
 
 ```dart
+@Props(keyNamespace: '')
 mixin SomeJsComponentProps on UiProps {
   // START REF PROP
   dynamic get childRef => unjsifyRefProp(_childRef$rawJs);
@@ -368,7 +364,7 @@ mixin SomeJsComponentProps on UiProps {
   String content;
 
   // START ONCLICK
-    @Accessor(key: 'onClick')
+  @Accessor(key: 'onClick')
   void Function(SynethicMouseEvent event, String id) onClick_SomeJsComponent;
 
   @Deprecated('Use onClick_SomeJsComponent for proper typing')
@@ -468,3 +464,4 @@ Hopefully wrapping your JS component goes smoothly! However, even simple compone
 [example_dart_anonobject]: https://github.com/Workiva/react_material_ui/blob/4fc41fe8393b424beac513ec99a98be5f09bd1ab/lib/src/components/mui_material/autocomplete/autocomplete.dart#L120-L132
 [example_ts_ref]: https://github.com/mui/material-ui/blob/d73fadbb12cc48a981a39d4ccaeacd8021ab9efa/packages/mui-material/src/TextField/TextField.d.ts#L98
 [example_dart_ref]: https://github.com/Workiva/react_material_ui/blob/4fc41fe8393b424beac513ec99a98be5f09bd1ab/lib/src/components/custom/wsd/text_field/text_field.dart#L175-L187
+[react-dart]: https://github.com/Workiva/react-dart
