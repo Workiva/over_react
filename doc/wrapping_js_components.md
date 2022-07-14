@@ -1,5 +1,26 @@
 # Wrapping JS Components
 
+- **[tl;dr](#tldr)**
+- **[Using uiJsComponent](#using-uijscomponent)**
+- **[Adding Directives](#adding-directives)**
+- **[Adding the JS Variable](#adding-the-js-variable)**
+  - [Creating the Getter](#creating-the-getter)
+  - [Creating the Annotation](#creating-the-annotation)
+- **[Adding Prop Typings](#adding-prop-typings)**
+  - [Manually Processing Prop Data](#manually-processing-prop-data)
+  - [Props Conversion Tables](#props-conversion-tables)
+    - [Standard Types](#standard-types)
+    - [Exotic Types](#exotic-types)
+    - [Supplamental Explanations](#supplamental-explanations)
+      - [Converting Maps](#converting-maps)
+      - [Converting Refs](#converting-refs)
+      - [Converting Conflicting Function Props](#converting-conflicting-function-props)
+    - [Props Conversion Example](#props-conversion-example)
+- **[Testing Your Dart Component](#testing-your-dart-component)**
+  - **[Test to Verify Component Mount](#test-to-verify-component-mount)**
+  - **[Testing Function Props](#testing-function-props)**
+- **[Conclusion](#conclusion)**
+
 The JavaScript community is full of great open source libraries that export React components. These JavaScript components can be consumed in Dart by using JS interop to wrap the component and expose a Dart API for it. This process ultimately looks like writing a new Dart OverReact component but with specific steps to make sure it's wired up to the JavaScript side correctly. This guide walks through how to do that wiring process and helps make developers aware of the pitfalls that can cause trouble.
 
 ## tl;dr
