@@ -17,8 +17,8 @@
       - [Converting Conflicting Function Props](#converting-conflicting-function-props)
     - [Props Conversion Example](#props-conversion-example)
 - **[Testing Your Dart Component](#testing-your-dart-component)**
-  - **[Test to Verify Component Mount](#test-to-verify-component-mount)**
-  - **[Testing Function Props](#testing-function-props)**
+  - [Test to Verify Component Mount](#test-to-verify-component-mount)
+  - [Testing Function Props](#testing-function-props)
 - **[Conclusion](#conclusion)**
 
 The JavaScript community is full of great open source libraries that export React components. These JavaScript components can be consumed in Dart by using JS interop to wrap the component and expose a Dart API for it. This process ultimately looks like writing a new Dart OverReact component but with specific steps to make sure it's wired up to the JavaScript side correctly. This guide walks through how to do that wiring process and helps make developers aware of the pitfalls that can cause trouble.
