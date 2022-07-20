@@ -11,7 +11,7 @@
   - [Props Conversion Tables](#props-conversion-tables)
     - [Standard Types](#standard-types)
     - [Exotic Types](#exotic-types)
-    - [Supplamental Explanations](#supplamental-explanations)
+    - [Supplemental Explanations](#supplemental-explanations)
       - [Converting Maps](#converting-maps)
       - [Converting Refs](#converting-refs)
       - [Converting Conflicting Function Props](#converting-conflicting-function-props)
@@ -25,7 +25,7 @@ The JavaScript community is full of great open source libraries that export Reac
 
 ## tl;dr
 
-The details of this guide are important as there are multiple gotchas that can take the form of runtime errors, undetectable until a particular edge case is hit by a user. Therefore, it is **highly recommended** that the entirety of this guide is read and understood before adopting this pattern. That being said, it may be useful to have a holistic view of what this approach looks like. The collapsed summary region below cantains a full example of wrapping a JS component that can be used as a reference or template.
+The details of this guide are important as there are multiple gotchas that can take the form of runtime errors, undetectable until a particular edge case is hit by a user. Therefore, it is **highly recommended** that the entirety of this guide is read and understood before adopting this pattern. That being said, it may be useful to have a holistic view of what this approach looks like. The collapsed summary region below contains a full example of wrapping a JS component that can be used as a reference or template.
 
 > **NOTE** that all future code examples are all named the same as the code within the summary. If it ever feels confusing how a code snippet fits into the bigger picture, the code from the summary can be used to tie it all together.
 
@@ -64,7 +64,7 @@ Below are more detailed explanations of each part of the code. These points are 
 1. Wrap the JS interop variable with `ReactJsComponentFactoryProxy`. The JS variable (`_jsSomeJsComponent` in this case) is defined below. `ReactJsComponentFactoryProxy` is a wrapper that understands how to create a React element (in Dart) from the JS component.
 1. Set the prop's namespace to be empty. JS components do not have a key namespace like OverReact components do. Therefore, in order to set props as expected using Dart, there should be no namespace.
 1. Add types for the props. In the cases where types map one-to-one from JS to Dart, this is really straightforward. There are more challenging cases to watch out for, though. For more information, see the [Adding Prop Typings](#adding-prop-typings) section.
-1. Annotate the JS variable. This anotation should match the component's name on the JS side, including any namespacing that's happening on the JS side.
+1. Annotate the JS variable. This annotation should match the component's name on the JS side, including any namespacing that's happening on the JS side.
 
    For example, in this case, the component comes from a library called `MagicalJsPackage`. The component's name is `SomeJsComponent`, and in the JS world, could be used in JSX like:
 
@@ -74,7 +74,7 @@ Below are more detailed explanations of each part of the code. These points are 
 
    Together, that means that the reference needs to be `MagicalJsPackage.SomeJsComponent`. If this is not done correctly, a runtime error will fire. Depending on the JS package setup, this could be one of the more complicated steps. For more information, see the [Adding a JS Variable](#adding-the-js-variable) section.
 
-1. Create the JS variable. This step is very straightforward, with eleboration only necessary to note that the name of the variable can be anything. Our norm is `js{ComponentName}` to both tie it to and contrast it from the Dart `UiFactory`, but as far as Dart interop goes, the name isn't significant.
+1. Create the JS variable. This step is very straightforward, with elaboration only necessary to note that the name of the variable can be anything. Our norm is `js{ComponentName}` to both tie it to and contrast it from the Dart `UiFactory`, but as far as Dart interop goes, the name isn't significant.
 
 </details>
 
@@ -105,7 +105,7 @@ The most notable difference is number 2. `_jsSomeJsComponent` is a JS interop va
 
 The `ReactJsComponentFactoryProxy` is a wrapper for the JS component that understands how to create, within Dart, a React element from the JS component. As far as what's necessary to know for wrapping JS components, that's it. The syntax is basically boilerplate that can be copy and pasted from component to component, just changing the JS variable to match the new component.
 
-That being said, for those wanting some deeper context, `ReactJsComponentFactoryProxy` is the tip of a larger iceburg. When instantiating `ReactJsComponentFactoryProxy`, you may notice some optional parameters on the constructor. Those parameters are used to effect how the component handles certain interop cases for the component. They exist because `ReactJsComponentFactoryProxy` is used under the hood in several different contexts (like powering `uiForwardRef`), some of which require unique behaviors when it comes to interop.
+That being said, for those wanting some deeper context, `ReactJsComponentFactoryProxy` is the tip of a larger iceberg. When instantiating `ReactJsComponentFactoryProxy`, you may notice some optional parameters on the constructor. Those parameters are used to effect how the component handles certain interop cases for the component. They exist because `ReactJsComponentFactoryProxy` is used under the hood in several different contexts (like powering `uiForwardRef`), some of which require unique behaviors when it comes to interop.
 
 It is unlikely that you will hit scenarios where settings these parameters is necessary, and therefore, it is generally discouraged to change them away from the default. If the wrapped component is not behaving as expected, reach out to us on [Slack][slack] so we can help!
 
@@ -148,7 +148,7 @@ There are two pieces here. The first piece is creating a getter and the second i
 
 Creating the getter is very simple. The code here can basically be copied and pasted from the code found in this doc, just changing the name of the getter to be something more specific than `_jsSomeJsComponent`. However, the name can really be anything. We have the norm of using `_js{ComponentName}` because:
 
-- It's private, which is preferred because the use case for the JS veriable itself is limited
+- It's private, which is preferred because the use case for the JS variable itself is limited
 - It makes it clear it's the _JS_ version of the component, while also including the component's name and thereby coupling it with the Dart API
 
 You may wonder why the name doesn't need to match the name of the JS component. For example, a component named `SomeJsComponent` can have a Dart interop getter called `foofoocuddlypoops`. This is possible because the actual link between Dart and JS is created [with the annotation](#creating-the-annotation).
@@ -179,7 +179,7 @@ If the annotation does not have the correct name, rendering the component will f
 
 <img src='./images/ui_js_component/interop_reference_error.png' alt='Accessing the property in the devtools' />
 
-> **NOTE** if after correctly creating the annotation, you find that it does not have a library prefix and only requires the component name (i.e. `JS('SomeJsComponent')` and not something like `JS('MagicalJsPackage.SomeJsComponent')`), you should **heavily** consider configuring your bundle to have at least a package namespace (i.e. the 'MagicalJsPackage' prefix). Attaching components to the global namespace both pollutes that namespace as well as risks naming collisons.
+> **NOTE** if after correctly creating the annotation, you find that it does not have a library prefix and only requires the component name (i.e. `JS('SomeJsComponent')` and not something like `JS('MagicalJsPackage.SomeJsComponent')`), you should **heavily** consider configuring your bundle to have at least a package namespace (i.e. the 'MagicalJsPackage' prefix). Attaching components to the global namespace both pollutes that namespace as well as risks naming collisions.
 
 ## Adding Prop Typings
 
@@ -194,11 +194,11 @@ While most Dart and JS types get converted nicely by [react-dart][react-dart]'s 
 - Any JS type that translates to a Dart `Map` type
 - React `ref` types
 
-Props with those types require special utilities (such as `jsifyMapProp`) in order to behave correctly. These utilities were built, and have [exhaustive test coverage](https://github.com/Workiva/over_react/blob/master/test/over_react/util/prop_conversion_test.dart), to be sure that the data is handled precisely. While these circumstances are documented further in the [Supplemental Explanations section](#supplamental-explanations), it bears repeating that props with these types should be watched for and handled carefully.
+Props with those types require special utilities (such as `jsifyMapProp`) in order to behave correctly. These utilities were built, and have [exhaustive test coverage](https://github.com/Workiva/over_react/blob/master/test/over_react/util/prop_conversion_test.dart), to be sure that the data is handled precisely. While these circumstances are documented further in the [Supplemental Explanations section](#supplemental-explanations), it bears repeating that props with these types should be watched for and handled carefully.
 
 ### Props Conversion Tables
 
-These are tables that helps illustrate the typing of a prop in TypeScipt and Dart. If the library you're wrapping does not have explicit types in TypeScript for the components, it may have `PropTypes` that are fairly similar. If no types are available, erroring on the safe side is best as Dart can throw runtime errors if the type is incorrect. Some conversions are explained further in the [Supplemental Explanations section](#supplamental-explanations).
+These are tables that helps illustrate the typing of a prop in TypeScript and Dart. If the library you're wrapping does not have explicit types in TypeScript for the components, it may have `PropTypes` that are fairly similar. If no types are available, erroring on the safe side is best as Dart can throw runtime errors if the type is incorrect. Some conversions are explained further in the [Supplemental Explanations section](#supplemental-explanations).
 
 > **NOTE** that these tables are not exhaustive. They cover the major types that are likely to come up but don't include every type and variation that TS allows.
 
@@ -230,7 +230,7 @@ Some TS types are complex, either mapping directly to an existing React type or 
 | anything that translates to a Dart `Map` (`interfaces`, `objects`, etc) | [MUI Autocomplete's ChipProps][example_ts_interface], [MUI Autocomplete's componentsProps][example_ts_anonobject] | See examples and the [Converting Maps section](#converting-maps) | [RMUI Autocomplete's ChipProps][example_dart_interface], [RMUI Autocomplete's componentsProps][example_dart_anonobject] |
 | refs (`React.ForwardedRef`, `React.RefObject`, `React.Ref`)             | [MUI TextField inputRef][example_ts_ref]                                                                          | See example and the [Converting Refs section](#converting-refs)  | [RMUI TextField inputRef][example_dart_ref]                                                                             |
 
-#### Supplamental Explanations
+#### Supplemental Explanations
 
 Some of the conversations above require additional explanation to clarify why the conversion looks the way it does.
 
@@ -258,7 +258,7 @@ type AnotherType = {
 };
 ```
 
-JavaScript `object`s and Dart `Map`s do not convert automatically like primitives do. In order to allow the data to be passed from Dart to JavaScript, interop utilites must be used. Converting any one of those map props looks like:
+JavaScript `object`s and Dart `Map`s do not convert automatically like primitives do. In order to allow the data to be passed from Dart to JavaScript, interop utilities must be used. Converting any one of those map props looks like:
 
 ```dart
 @Props(keyNamespace: '')
@@ -275,7 +275,7 @@ mixin SomeJsComponentProps on UiProps {
 The steps are:
 
 1. Create a `JsMap` property that will represent the raw JS data for the component. This is necessary because the raw JS is not in a consumable form and should not be accessed directly.
-1. Add an `@Accesssor` annotation to the property with a key that matches the prop name. This will link the `JsMap` property to the JS prop.
+1. Add an `@Accessor` annotation to the property with a key that matches the prop name. This will link the `JsMap` property to the JS prop.
 1. Add `Map` getters and setters named the same as the prop.
    - The getter should use `unjsifyMapProp` to convert the JS property to a Dart `Map`
    - The setter should use `jsifyMapProp` to convert the Dart `Map` to JS.
@@ -309,7 +309,7 @@ mixin SomeJsComponentProps on UiProps {
 The steps are:
 
 1. Create a `dynamic` property that will represent the raw JS ref property for the component. This is necessary because the raw JS is not in a consumable form and should not be accessed directly.
-1. Add an `@Accesssor` annotation to the property with a key that matches the prop name. This will link the Dart ref property to the JS prop.
+1. Add an `@Accessor` annotation to the property with a key that matches the prop name. This will link the Dart ref property to the JS prop.
 1. Add ref getters and setters named the same as the prop.
    - The getter should use `unjsifyRefProp` to convert the JS property to a Dart `Map`
    - The setter should use `jsifyRefProp` to convert the Dart map to JS.
@@ -351,7 +351,7 @@ mixin SomeJsComponentProps on UiProps {
 The steps are:
 
 1. Add overridden getters and setters for the prop. Overriding is necessary because `UiProps` already contributes the property.
-1. Deprecate those getters and setters. This isn't necesssary to avoid runtime errors, but it's an important step because those properties should not be accessed by devs.
+1. Deprecate those getters and setters. This isn't necessary to avoid runtime errors, but it's an important step because those properties should not be accessed by devs.
 1. Add a new property that has the correct type for the function. We recommend using the original prop name and adding a namespace suffix (i.e. `onClick` becomes `onClick_SomeJsComponent`). That way, even though the property can't be the same name as the original prop itself (i.e. `onClick`), it allows developers to begin typing the name of the original prop and use autocomplete from there.
 1. Add an `Accessor()` annotation with a key matching the name of the original prop. This links the namespaced prop to the JS property it is replacing.
 
@@ -386,7 +386,7 @@ mixin SomeJsComponentProps on UiProps {
 
   // START ONCLICK
   @Accessor(key: 'onClick')
-  void Function(SynethicMouseEvent event, String id) onClick_SomeJsComponent;
+  void Function(SyntheticMouseEvent event, String id) onClick_SomeJsComponent;
 
   @Deprecated('Use onClick_SomeJsComponent for proper typing')
   @override
@@ -446,7 +446,7 @@ The breakdown of this test is:
 
 ### Testing Function Props
 
-Function props can be deceptively tricky to wrap correctly. Fundamentally it's important to check that all the parameters can get converted from Dart to JS as expected, but explicitly testing it via UI interactions also ensures that the JS component invokes it as expected. JavaScript is not strict on the arity of functions. A JS package may advertise that a function has a specific type but then actually invoke it with paremeters that Dart does not expect. This will cause a runtime error in Dart.
+Function props can be deceptively tricky to wrap correctly. Fundamentally it's important to check that all the parameters can get converted from Dart to JS as expected, but explicitly testing it via UI interactions also ensures that the JS component invokes it as expected. JavaScript is not strict on the arity of functions. A JS package may advertise that a function has a specific type but then actually invoke it with parameters that Dart does not expect. This will cause a runtime error in Dart.
 
 To guard against that, it is recommended to write a test for every function prop that was wrapped. One of these tests may look like:
 
