@@ -1107,26 +1107,6 @@ final App = uiFunction<TestProps>((_) {
       },
       {
         'code': /*language=dart*/ r'''
-final Example = uiFunction<TestProps>((_) {
-  final foo = useCallback(() {
-    foo();
-  }, []);
-}, null);''',
-      },
-      {
-        'code': /*language=dart*/ r'''
-final Example = uiFunction<TestProps>((props) {
-  var prop = props.prop;
-
-  final foo = useCallback(() {
-    if (prop) {
-      foo();
-    }
-  }, [prop]);
-}, null);''',
-      },
-      {
-        'code': /*language=dart*/ r'''
 final Hello = uiFunction<TestProps>((_) {
   var state = useState(0);
   useEffect(() {
