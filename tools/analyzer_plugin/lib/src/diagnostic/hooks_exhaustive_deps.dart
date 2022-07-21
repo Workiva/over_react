@@ -345,11 +345,11 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
       // final setCount = useCount(1).set;
       if (init is PropertyAccess) {
         final property = init.propertyName.name;
-        if (stableStateHookMethods.contains(property) && (init.staticType?.element?.isStateHook ?? false)) {
+        if (stableStateHookMethods.contains(property) && (init.target?.staticType?.element?.isStateHook ?? false)) {
           setStateCallSites.set(reference, declaration);
           return true;
         }
-        if (stableReducerHookMethods.contains(property) && (init.staticType?.element?.isReducerHook ?? false)) {
+        if (stableReducerHookMethods.contains(property) && (init.target?.staticType?.element?.isReducerHook ?? false)) {
           return true;
         }
       }
