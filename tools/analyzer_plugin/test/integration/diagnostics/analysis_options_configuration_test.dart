@@ -174,7 +174,6 @@ over_react:
     over_react_hash_code_as_key: error
     over_react_low_quality_key: error''';
 
-
 const yamlFullyDisabledContributor = /*language=yaml*/ '''analyzer:
   plugins:
     over_react

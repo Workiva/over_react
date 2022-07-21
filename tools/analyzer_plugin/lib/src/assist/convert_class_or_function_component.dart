@@ -17,10 +17,10 @@ const _convertToFunctionDetails = r'''''';
 
 class ConvertClassOrFunctionComponentAssistContributor extends AssistContributorBase {
   @DocsMeta(_convertToClassDesc, details: _convertToClassDetails)
-  static const convertToClass = AssistKind('convertToClass', 30, _convertToClassDesc);
+  static const convertToClass = AssistKind('convertToClass', 40, _convertToClassDesc);
 
   @DocsMeta(_convertToFunctionDesc, details: _convertToFunctionDetails)
-  static const convertToFunction = AssistKind('convertToFunction', 30, _convertToFunctionDesc);
+  static const convertToFunction = AssistKind('convertToFunction', 40, _convertToFunctionDesc);
 
   @override
   Future<void> computeAssists(DartAssistRequest request, AssistCollector collector) async {
@@ -63,8 +63,7 @@ class ConvertClassOrFunctionComponentAssistContributor extends AssistContributor
     final factoryInitializer = factory.initializer;
     if (factoryInitializer == null) return;
 
-    // todo check for other methods
-    // todo migrate defaults
+    // todo migrate defaults?
 
     final render = closestClass.members.whereType<MethodDeclaration>().firstWhereOrNull((m) => m.name.name == 'render');
     if (render == null) return;
@@ -72,8 +71,34 @@ class ConvertClassOrFunctionComponentAssistContributor extends AssistContributor
     final renderBody = render.body;
     if (renderBody is EmptyFunctionBody) return;
 
-    final renderSource = request.result.content!.substring(
-        renderBody.offset, renderBody.tryCast<ExpressionFunctionBody>()?.semicolon?.offset ?? renderBody.end);
+    final getSource = request.result.content!.substring;
+
+    const classMemberIndent = '  ';
+    const functionComponentBodyIndent = '    ';
+
+    late String newRenderSource;
+    if (renderBody is BlockFunctionBody) {
+      newRenderSource = getSource(renderBody.block.leftBracket.end, renderBody.block.rightBracket.offset);
+    } else if (renderBody is ExpressionFunctionBody) {
+      final bodyExpressionSource = getSource(renderBody.expression.offset, renderBody.expression.end);
+      newRenderSource = '\n${functionComponentBodyIndent}return $bodyExpressionSource;\n';
+    } else {
+      // This case is currently unreachable, but may become reachable if new function body types are ever added.
+      newRenderSource = getSource(renderBody.offset, renderBody.end);
+    }
+
+    final otherMethodsSources = closestClass.members
+        .where((member) => member != render)
+        // Add indentation since `.offset` won't include it.
+        // Assume it's two spaces since it should always be, and getting the actual indent is more effort.
+        .map((e) => classMemberIndent + getSource(e.offset, e.end))
+        // Indent one more level to match the new indentation of the function body.
+        .map((e) => e.split('\n').map((e) => '  $e').join('\n'))
+        .join('\n\n');
+
+    if (otherMethodsSources.isNotEmpty) {
+      newRenderSource = '\n$otherMethodsSources\n$newRenderSource';
+    }
 
     final changeBuilder = ChangeBuilder(session: request.result.session);
 
@@ -82,7 +107,7 @@ class ConvertClassOrFunctionComponentAssistContributor extends AssistContributor
       builder.addSimpleReplacement(
           range.node(factoryInitializer),
           'uiFunction(\n'
-          '  (props) $renderSource,\n'
+          '  (props) {$newRenderSource},\n'
           '  $generatedFactoryConfigName, // ignore:undefined_identifier\n'
           ')');
 

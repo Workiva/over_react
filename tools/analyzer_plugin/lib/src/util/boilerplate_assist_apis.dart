@@ -56,7 +56,7 @@ mixin ComponentDeclarationAssistApi on AssistContributorBase {
 
   String get normalizedComponentName => orbp.normalizeNameAndRemoveSuffix(componentDeclaration!.component);
 
-  // FIXME(nullsafety) update _validateAndDetectBoilerplate to check that this is non-null
+  // TODO(nullsafety) update _validateAndDetectBoilerplate to check that this is non-null
   NamedType get componentSupertypeNode => componentDeclaration!.component.nodeHelper.superclass!;
 
   orbp.Union<orbp.BoilerplateProps, orbp.BoilerplatePropsMixin> get props => componentDeclaration!.props;

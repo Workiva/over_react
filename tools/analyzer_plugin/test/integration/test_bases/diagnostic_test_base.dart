@@ -202,7 +202,7 @@ abstract class DiagnosticTestBase extends ServerPluginContributorTestBase {
     return DartAndPluginErrorsIterable(dartErrors: dartErrors, pluginErrors: pluginErrors);
   }
 
-  /// Returns all error fixes prroduced at [selection].
+  /// Returns all error fixes produced at [selection].
   Future<List<AnalysisErrorFixes>> _getAllErrorFixesAtSelection(SourceSelection selection) async {
     final parameters = EditGetFixesParams(sourcePath(selection.source), selection.offset);
     return (await testPlugin.handleEditGetFixes(parameters)).fixes;

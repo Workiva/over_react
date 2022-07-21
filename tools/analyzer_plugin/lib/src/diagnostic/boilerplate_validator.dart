@@ -61,7 +61,7 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
 
   static final _debugFlagPattern = RegExp(r'debug:.*\bover_react_boilerplate\b');
 
-  // FIXME(nullsafety) come back and clean up fields
+  // TODO(nullsafety) come back and clean up fields
 
   PartDirective? _overReactGeneratedPartDirective;
   late bool _overReactGeneratedPartDirectiveIsValid;

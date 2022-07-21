@@ -54,6 +54,7 @@ import 'package:over_react_analyzer_plugin/src/diagnostic/bad_key.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/boilerplate_validator.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/callback_ref.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/consumed_props_return_value.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/create_ref_usage.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/dom_prop_types.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/duplicate_prop_cascade.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/forward_only_dom_props_to_dom_builders.dart';
@@ -95,7 +96,7 @@ abstract class OverReactAnalyzerPluginBase extends ServerPlugin
   @override
   List<AsyncAssistContributor> getAssistContributors(String path) => [
         AddPropsAssistContributor(),
-        AddCreateRefAssistContributor(),
+        AddUseOrCreateRefAssistContributor(),
         ExtractComponentAssistContributor(),
         ExtractStatefulComponentAssistContributor(),
         ToggleComponentStatefulness(),
@@ -136,6 +137,7 @@ abstract class OverReactAnalyzerPluginBase extends ServerPlugin
         RulesOfHooks(),
         HooksExhaustiveDeps(),
         NonDefaultedPropDiagnostic(),
+        CreateRefUsageDiagnostic(),
       ];
 
   // @override

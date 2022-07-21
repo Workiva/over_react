@@ -11,7 +11,7 @@
 
 ---
 
-* __[Try it in your Package](#try-it-in-your-package)__
+* __[How To Use It](#how-to-use-it)__
 * __[Repo Structure](#repo-structure)__
 * __[Local Development](#local-development)__
     * [Setup](#setup)
@@ -21,7 +21,7 @@
     * [Documenting Diagnostics and Assists](#documenting-diagnostics-and-assists)
 * __[Feature Ideas & Inspiration](#feature-ideas--inspiration)__
 
-## Try it in your package!
+## How To Use It
 1. Add over_react to your pubspec.yaml
 1. Enable the plugin in your analysis_options.yaml:
     ```yaml
@@ -31,7 +31,9 @@
     ```
 1. Restart the Dart Analysis Server in your IDE. The plugin may take a minute to load after built-in analysis completes.
 
-## Configuration
+Note that, currently, diagnostics only show up in your IDE, and not in command line tools like `dart analyze` (see https://github.com/dart-lang/sdk/issues/38407 for more info). As a result, running diagnostics in CI is not supported at this time.
+
+### Configuration
 
 The severity of specific diagnostics can optionally be adjusted in analysis_options.yaml. Individual diagnostics can also be disabled.
 

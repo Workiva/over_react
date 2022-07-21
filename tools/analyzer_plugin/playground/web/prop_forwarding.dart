@@ -16,3 +16,14 @@ class DomWrapperComponent extends UiComponent2<DomWrapperProps> {
     )();
   }
 }
+
+final DomWrapperFn = uiFunction<UiProps>(
+  (props) {
+    return (Dom.div()
+      // This should lint since only dom props can be forwarded to Dom components
+      ..addUnconsumedProps(props, const [])
+      ..id = 'foo'
+    )();
+  },
+  UiFactoryConfig(displayName: 'DomWrapperFn'),
+);
