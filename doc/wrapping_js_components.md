@@ -6,11 +6,11 @@
   - [Interop Level](#level-2-interop-level)
   - [JS Level](#level-1-javascript-land)
 - **[Implementation](#implementation)**
-  - [Adding Directives](#adding-directives)
   - [Adding the JS Variable](#adding-the-js-variable)
     - [Creating the Getter](#creating-the-getter)
     - [Creating the Annotation](#creating-the-annotation)
   - [Adding Prop Typings](#adding-prop-typings)
+    - [Props Conversion Example](#props-conversion-example)
     - [Manually Processing Prop Data](#manually-processing-prop-data)
     - [Props Conversion Tables](#props-conversion-tables)
       - [Standard Types](#standard-types)
@@ -19,7 +19,6 @@
         - [Converting Maps](#converting-maps)
         - [Converting Refs](#converting-refs)
         - [Converting Conflicting Function Props](#converting-conflicting-function-props)
-      - [Props Conversion Example](#props-conversion-example)
   - [Using uiJsComponent](#using-uijscomponent)
   - [Testing Your Dart Component](#testing-your-dart-component)
     - [Test to Verify Component Mount](#test-to-verify-component-mount)
@@ -158,40 +157,25 @@ That being said, for those wanting some deeper context, `ReactJsComponentFactory
 
 It is unlikely that you will hit scenarios where settings these parameters is necessary, and therefore, it is generally discouraged to change them away from the default. If the wrapped component is not behaving as expected, reach out to us on [Slack][slack] so we can help!
 
-### Adding Directives
+### Adding the JS Variable
 
-The important directives for this process are:
-
-1. The JS annotation and a library directive
-1. Imports
-1. Part directive
-
-Altogether they look like:
+To a Dart API, a Dart component must wrap the JS version. This means that the JS version must be accessible in Dart. The way to do that is to use interop to create a reference to the JS API. That looks like:
 
 ```dart
 @JS()
 library some_library.path.to.component;
 
 import 'package:js/js.dart';
-import 'package:over_react/over_react.dart';
 
-part 'some_js_component.over_react.g.dart';
-```
-
-Imports are standard (the `js.dart` import provides the `JS()` annotation), and the `part` is the same as you would expect in any OverReact component.
-
-Something that may be new is the usage of the `JS()` annotation. This is necessary in files performing interop operations and therefore is required in this file. A library directive is also required here because the `JS()` annotation must be attached to a library. The name of the library can be anything, with the main limitation being that it should be unique to the file.
-
-### Adding the JS Variable
-
-To a Dart API, a Dart component must wrap the JS version. This means that the JS version must be accessible in Dart. The way to do that is to use interop to create a reference to the JS API. That looks like:
-
-```dart
 @JS('MagicalJsPackage.ArbitraryComponent')
 external ReactClass get _jsArbitraryComponent;
 ```
 
-There are two pieces here. The first piece is creating a getter and the second is adding an annotation.
+There are three pieces here:
+
+1. Adding directives
+1. Creating the getter
+1. Attaching the annotation
 
 #### Creating the Getter
 
@@ -232,9 +216,77 @@ If the annotation does not have the correct name, rendering the component will f
 
 ### Adding Prop Typings
 
-The last step is creating a props mixin for the component. In its simplest form, this props mixin is purely to add type safety when using the component in Dart. In other words, in simple cases, you're just adding a property to the props mixin that lines up with a prop on the JS side, and [react-dart][react-dart] will handle converting that data from Dart to JavaScript.
+Next, create the props mixin for your component. In its simplest form, this props mixin is purely to add type safety when using the component in Dart. In other words, in simple cases, you're just adding a property to the props mixin that lines up with a prop on the JS side, and [react-dart][react-dart] will handle converting that data from Dart to JavaScript.
 
 However, there are special cases that require processing the data more manually. These are cases that can cause runtime errors if not handled correctly.
+
+#### Props Conversion Example
+
+Start by adding your component imports, if you haven't already.
+
+```dart
+import 'package:over_react/over_react.dart';
+
+part 'arbitrary_component.over_react.g.dart';
+```
+
+These are just the standard OverReact component directives. Altogether, the imports section of your file should look something like:
+
+```dart
+@JS()
+library some_library.path.to.component;
+
+import 'package:js/js.dart';
+import 'package:over_react/over_react.dart';
+
+part 'arbitrary_component.over_react.g.dart';
+```
+
+After that, move on to converting the TS props interface to a Dart mixin. Say you are given a props interface (or type) that looks like:
+
+```ts
+interface ArbitraryComponentProps {
+  childRef: React.Ref<any>;
+  content: string;
+  onClick: (e: React.MouseEvent, id: string) => void;
+  size: 2 | 4 | 6 | 8;
+}
+```
+
+In Dart, that would look like:
+
+```dart
+@Props(keyNamespace: '')
+mixin ArbitraryComponentProps on UiProps {
+  // START REF PROP
+  dynamic get childRef => unjsifyRefProp(_childRef$rawJs);
+
+  set childRef(dynamic value) => _childRef$rawJs = jsifyRefProp(value);
+
+  @Accessor(key: 'childRef')
+  dynamic _childRef$rawJs;
+  // END REF PROP
+
+  String content;
+
+  // START ONCLICK
+  @Accessor(key: 'onClick')
+  void Function(SyntheticMouseEvent event, String id) onClick_ArbitraryComponent;
+
+  @Deprecated('Use onClick_ArbitraryComponent for proper typing')
+  @override
+  get onClick;
+
+  @Deprecated('Use onClick_ArbitraryComponent for proper typing')
+  @override
+  set onClick(value);
+  // END ONCLICK
+
+  num size;
+}
+```
+
+Note that some props converted to Dart nicely (`content`, `size`), while others required more intricate conversions (`ref`, `onClick`). These intricate conversions are discussed more in upcoming sections.
 
 #### Manually Processing Prop Data
 
@@ -403,52 +455,6 @@ The steps are:
 1. Deprecate those getters and setters. This isn't necessary to avoid runtime errors, but it's an important step because those properties should not be accessed by devs.
 1. Add a new property that has the correct type for the function. We recommend using the original prop name and adding a namespace suffix (i.e. `onClick` becomes `onClick_ArbitraryComponent`). That way, even though the property can't be the same name as the original prop itself (i.e. `onClick`), it allows developers to begin typing the name of the original prop and use autocomplete from there.
 1. Add an `Accessor()` annotation with a key matching the name of the original prop. This links the namespaced prop to the JS property it is replacing.
-
-#### Props Conversion Example
-
-Say you are given a props interface (or type) that looks like:
-
-```ts
-interface ArbitraryComponentProps {
-  childRef: React.Ref<any>;
-  content: string;
-  onClick: (e: React.MouseEvent, id: string) => void;
-  size: 2 | 4 | 6 | 8;
-}
-```
-
-In Dart, that would look like:
-
-```dart
-@Props(keyNamespace: '')
-mixin ArbitraryComponentProps on UiProps {
-  // START REF PROP
-  dynamic get childRef => unjsifyRefProp(_childRef$rawJs);
-
-  set childRef(dynamic value) => _childRef$rawJs = jsifyRefProp(value);
-
-  @Accessor(key: 'childRef')
-  dynamic _childRef$rawJs;
-  // END REF PROP
-
-  String content;
-
-  // START ONCLICK
-  @Accessor(key: 'onClick')
-  void Function(SyntheticMouseEvent event, String id) onClick_ArbitraryComponent;
-
-  @Deprecated('Use onClick_ArbitraryComponent for proper typing')
-  @override
-  get onClick;
-
-  @Deprecated('Use onClick_ArbitraryComponent for proper typing')
-  @override
-  set onClick(value);
-  // END ONCLICK
-
-  num size;
-}
-```
 
 ### Using `uiJsComponent`
 
