@@ -19,7 +19,7 @@
       - [Exotic Types](#exotic-types)
       - [Supplemental Explanations](#supplemental-explanations)
         - [Conversion through Getters and Setters](#conversion-through-getters-and-setters)
-        - [Converting Maps](#converting-maps)
+        - [Converting JS Objects](#converting-javascript-object-types)
         - [Converting Refs](#converting-refs)
         - [Converting Conflicting Function Props](#converting-conflicting-function-props)
   - [Using uiJsComponent](#using-uijscomponent)
