@@ -111,16 +111,7 @@ final tests = {
         }, null);
       ''',
     },
-    {
-      'code': r'''
-        final MyComponent = uiFunction<TestProps>((_) {
-          final local = someFunc();
-          useEffect(() {
-            print(local);
-          }, [null, null, null, local, null, null, null]);
-        }, null);
-      ''',
-    },
+    /* (1 case previously here involving holes in arrays (e.g., `[,,'value']`) was removed, since there is no equivalent in Dart) */
     {
       // Regression test
       'code': r'''
