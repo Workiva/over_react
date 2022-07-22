@@ -98,9 +98,7 @@ dynamic useSomeOtherRefyThing() => null;
         !(ignoreRulesOfHooks && error.code == 'over_react_rules_of_hooks');
 
     group('test cases that should pass', () {
-      final tests = tco.tests['tests'].cast<String, List<dynamic>>();
-      final valid = tests['valid'].cast<Map<dynamic, dynamic>>();
-      valid.forEachIndexed((i, element) {
+      tco.tests['valid'].forEachIndexed((i, element) {
         test('valid[$i]', () async {
           // Need to wrap in a function because some of the code includes statements that aren't valid
           // outside of a function context.
