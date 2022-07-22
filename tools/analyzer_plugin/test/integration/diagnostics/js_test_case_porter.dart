@@ -1,72 +1,138 @@
-import 'dart:convert';
 import 'dart:io';
 
-import 'package:dart_style/dart_style.dart';
+import 'package:analyzer/dart/analysis/utilities.dart';
+import 'package:analyzer/dart/ast/ast.dart';
+import 'package:analyzer/dart/ast/token.dart';
+import 'package:analyzer/dart/ast/visitor.dart';
+import 'package:analyzer/source/line_info.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/style_value_diagnostic.dart';
+import 'package:over_react_analyzer_plugin/src/indent_util.dart';
 
-import 'hooks_exhaustive_deps_cases.dart';
+import 'codemod/util.dart';
 
 void main() {
-  // Hack: make a mutable copy of these
-  final testCases = (jsonDecode(jsonEncode({
-    'tests': tests,
-    'testsFlow': testsFlow,
-    'testsTypescript': testsTypescript,
-    'testsTypescriptEslintParserV4': testsTypescriptEslintParserV4,
-  })) as Map)
-      .cast<String, Map>();
+  final source = File('test/integration/diagnostics/hooks_exhaustive_deps_cases.dart').readAsStringSync();
+  final parsed = parseString(content: source);
+  final visitor = TestCaseVisitor(source, parsed.lineInfo);
+  parsed.unit.accept(visitor);
 
-  testCases.values.expand((element) => element.values.cast<List<dynamic>>()).flatten().cast<Map>().forEach((e) {
-    e['code'] = portJsToDart(e['code'] as String);
-    final output = e['output'] as String?;
-    if (output != null) {
-      e['output'] = portJsToDart(output);
-    }
-    (e['errors'] as List<dynamic>?)
-        ?.whereType<Map>()
-        .expand<dynamic>((error) => error['suggestions'] as List<dynamic>? ?? <dynamic>[])
-        .forEach((dynamic suggestion) {
-      if (suggestion is! Map) {
-        throw Exception('Not a map: $suggestion');
+  File('test/integration/diagnostics/test_cases_output.dart').writeAsStringSync(applyPatches(source, visitor.patches));
+  //
+  // final source = File('test/integration/diagnostics/test_cases_output.dart').readAsStringSync();
+  // final parsed = parseString(content: source);
+  // final visitor = TrailingCommasVisitor(source, parsed.lineInfo);
+  // parsed.unit.accept(visitor);
+  //
+  // File('test/integration/diagnostics/test_cases_output.dart').writeAsStringSync(applyPatches(source, visitor.patches));
+}
+
+Iterable<Expression> flattenAdditionExpression(Expression expression) sync* {
+  if (expression is BinaryExpression && expression.operator.type == TokenType.PLUS) {
+    yield* flattenAdditionExpression(expression.leftOperand);
+    yield* flattenAdditionExpression(expression.rightOperand);
+  } else {
+    yield expression;
+  }
+}
+
+class TrailingCommasVisitor extends RecursiveAstVisitor<void> {
+  final LineInfo lineInfo;
+  final String source;
+
+  TrailingCommasVisitor(this.source, this.lineInfo);
+
+  final patches = <Patch>[];
+
+  @override
+  void visitListLiteral(ListLiteral node) {
+    if (node.elements.isNotEmpty) {
+      final tokenBeforePotentialTrailingComma = node.elements.last.endToken;
+      if (tokenBeforePotentialTrailingComma.next!.type != TokenType.COMMA) {
+        patches.add(Patch(',', tokenBeforePotentialTrailingComma.end, tokenBeforePotentialTrailingComma.end));
       }
-      suggestion['output'] = portJsToDart(suggestion['output'] as String);
-    });
-  });
-
-  final output = StringBuffer()
-    ..writeln(
-        '// ignore_for_file: implicit_dynamic_map_literal, implicit_dynamic_list_literal, prefer_adjacent_string_concatenation');
-
-  testCases
-      .mapKeyValue((name, cases) => convertToDartConstantSource(testCases, variableName: name).toString())
-      .forEach(output.write);
-
-  File('test/integration/diagnostics/test_cases_output.dart').writeAsStringSync(output.toString());
-  File('test/integration/diagnostics/test_cases_output.dart')
-      .writeAsStringSync(DartFormatter().format(output.toString()));
+    }
+    super.visitListLiteral(node);
+  }
 }
 
-// extension<E> on Iterable<E> {
-//   Iterable<T> betterErrorCast<T>() => map((e) {
-//         if (e is! T) throw ArgumentError('Not a T: $e');
-//         return e;
-//       }).cast<T>();
-// }
+class TestCaseVisitor extends RecursiveAstVisitor<void> {
+  final LineInfo lineInfo;
+  final String source;
 
-extension<T> on Iterable<Iterable<T>> {
-  Iterable<T> flatten() => expand((element) => element);
+  TestCaseVisitor(this.source, this.lineInfo);
+
+  final patches = <Patch>[];
+
+  @override
+  void visitMapLiteralEntry(MapLiteralEntry node) {
+    void handleExpression(Expression e) {
+      if (e is Identifier) {
+        patches.add(Patch(e.name == 'undefined' ? 'null' : "'${e.name}'", e.offset, e.end));
+      } else {
+        e.accept(this);
+      }
+    }
+
+    // Inline variables
+    handleExpression(node.key);
+    handleExpression(node.value);
+  }
+
+  @override
+  void visitBinaryExpression(BinaryExpression node) {
+    final expressionsBeingAdded = flattenAdditionExpression(node).toList();
+    if (expressionsBeingAdded.length > 1 && expressionsBeingAdded.every((e) => e is SimpleStringLiteral)) {
+      patches.add(Patch(
+        stringLiteral(
+          expressionsBeingAdded.cast<SimpleStringLiteral>().map((s) => s.value).join(''),
+          useSingleQuote: true,
+        ),
+        node.offset,
+        node.end,
+      ));
+    } else {
+      super.visitBinaryExpression(node);
+    }
+  }
+
+  @override
+  void visitSimpleStringLiteral(SimpleStringLiteral node) {
+    if (node.isRaw && node.isMultiline) {
+      final indent = getIndent(source, lineInfo, node.offset);
+
+      final ported = portJsToDart(unindent(node.value.trimRight()));
+
+      final additionalIndent = ' ' * 2;
+
+      final newString = "r'''\n" +
+          ported.splitMapJoin('\n', onNonMatch: (line) => line.isEmpty ? line : '$indent$additionalIndent$line') +
+          "\n$indent'''";
+
+      patches.add(Patch(newString, node.offset, node.end));
+    } else {
+      super.visitSimpleStringLiteral(node);
+    }
+  }
 }
 
-extension<K, V> on Map<K, V> {
-  Iterable<T> mapKeyValue<T>(T Function(K, V) mapper) => entries.map((entry) => mapper(entry.key, entry.value));
+String transformIndentedMultilineString(String string, String Function(String normalized) process) {
+  var newString = string.trimRight();
+  final indent = getIndentOfString(newString);
+  newString = unindent(newString);
+  newString = '\n' +
+      newString.splitMapJoin('\n', onNonMatch: (line) => line.isEmpty ? line : '$indent$line') +
+      '\n${indent.replaceFirst('  ', '')}';
+  return newString;
 }
 
 /// Does an incomplete port of JS syntax to the Dart equivalent,
 /// to help assist in porting JS test cases to dart.
 String portJsToDart(String code) {
-  var newCode = code;
+  if (getIndentOfString(code).isNotEmpty) {
+    throw ArgumentError('code must be unindented first');
+  }
 
-  newCode = unindent(newCode.trimRight());
+  var newCode = code;
 
   newCode = newCode
       // Arrow functions without parens (need to run before arrow block functions are handled)
@@ -138,10 +204,10 @@ String portJsToDart(String code) {
         final listItems = match[1]!;
         return '[' + listItems.split(',').map((e) => e.trim()).map((e) => e.isEmpty ? 'null' : e).join(', ') + ']';
       })
-  .replaceAll('<div ref={myRef} />', '(Dom.div()..ref = myRef)()')
-  .replaceAll('<div onClick={handleNext} />', '(Dom.div()..onClick = handleNext)()')
-  .replaceAll('<div />', 'Dom.div()()')
-  .replaceAll('<h1>{count.value}</h1>', 'Dom.h1()(count.value)');
+      .replaceAll('<div ref={myRef} />', '(Dom.div()..ref = myRef)()')
+      .replaceAll('<div onClick={handleNext} />', '(Dom.div()..onClick = handleNext)()')
+      .replaceAll('<div />', 'Dom.div()()')
+      .replaceAll('<h1>{count.value}</h1>', 'Dom.h1()(count.value)');
 
   return newCode;
 }
@@ -196,124 +262,11 @@ class StateNames {
 ///       ))
 ///     )()
 String unindent(String multilineString) {
-  var indent = RegExp(r'^( *)').firstMatch(multilineString)![1];
-  if (indent == null || indent.isEmpty) {
+  var indent = getIndentOfString(multilineString);
+  if (indent.isEmpty) {
     throw ArgumentError('String has no indent: $multilineString');
   }
   return multilineString.trim().replaceAll('\n$indent', '\n');
 }
 
-/// Writes Dart source code containing the constant representation of [object]
-/// to the provided [outputBuffer] (or a new one if none is specified), and
-/// returns that buffer/
-///
-/// [object] must be a value that can be represented by dart:core
-/// collections/primitives, and may have a nested structure of compatible values.
-///
-/// When [variableName] is non-null, the output will be a constant variable
-/// declaration; otherwise, it will be a an expression.
-StringBuffer convertToDartConstantSource(Object? object,
-    {String? variableName, StringBuffer? outputBuffer, bool multlineStrings = true, String? language = 'dart'}) {
-  outputBuffer ??= StringBuffer();
-
-  if (variableName != null) {
-    outputBuffer.write('const $variableName = ');
-  }
-
-  if (object is Map) {
-    outputBuffer.write('{');
-    object.forEach((dynamic key, dynamic value) {
-      outputBuffer!.write(convertToDartConstantSource(key));
-      outputBuffer.write(': ');
-      outputBuffer.write(convertToDartConstantSource(value));
-      outputBuffer.write(', ');
-    });
-    outputBuffer.write('}');
-  } else if (object is List) {
-    outputBuffer.write('[');
-    outputBuffer.writeAll(object.map<dynamic>(convertToDartConstantSource), ', ');
-    outputBuffer.write(']');
-  } else if (object is Set) {
-    if (object.isEmpty) {
-      // Type parameter needed to disambiguate empty sets from empty Maps where type cannot be inferred
-      outputBuffer.write('<dynamic>{}');
-    } else {
-      outputBuffer.write('{');
-      outputBuffer.writeAll(object.map<dynamic>(convertToDartConstantSource), ', ');
-      outputBuffer.write('}');
-    }
-  } else if (object is num) {
-    if (object.isFinite) {
-      outputBuffer.write(object);
-    } else if (object.isNaN) {
-      outputBuffer.write('double.nan');
-    } else if (object == double.infinity) {
-      outputBuffer.write('double.infinity');
-    } else if (object == double.negativeInfinity) {
-      outputBuffer.write('double.negativeInfinity');
-    } else {
-      throw ArgumentError.value(object, '', 'Unhandled number value');
-    }
-  } else if (object is bool || object == null) {
-    outputBuffer.write(object);
-  } else if (object is String) {
-    if (!object.contains('\n')) {
-      outputBuffer.write(stringLiteral(object));
-    } else if (multlineStrings) {
-      if (language != null) {
-        outputBuffer.write('/*language=dart*/');
-      }
-      outputBuffer.write(rawMultlineStringLiteral(object));
-    } else {
-      // Write strings with newlines as a series of adjacent strings, which is
-      // more readable in the generated code (the indentation of multiline
-      // strings decreases legibility), which is helpful for debugging the builder.
-      //
-      // Example of adjacent vs multiline:
-      //
-      //     const $demoSourceData = {
-      //       'someMethodAdjacent': {
-      //         'source': ""
-      //             "(Dom.div()\n"
-      //             "  ..id = 'foo'\n"
-      //             "  ..className = 'bar'\n"
-      //             ")()",
-      //        },
-      //       'someMethodMultiline': {
-      //         'source': '''
-      //     (Dom.div()
-      //       ..id = 'foo'
-      //       ..className = 'bar'
-      //     )()''',
-      //        },
-      //     };
-
-      // Write an empty string to start the adjacent string list so all lines
-      // are aligned with continuation indents.
-      // The comment is necessary to force a line break so the strings don't
-      // all end up on one line.
-      outputBuffer.write('"" //\n');
-
-      final lines = object.split('\n');
-      for (var i = 0; i < lines.length - 1; i++) {
-        final line = lines[i];
-        outputBuffer.write(stringLiteral('$line\n', useSingleQuote: false));
-        outputBuffer.write(' ');
-      }
-      outputBuffer.write(stringLiteral(lines.last, useSingleQuote: false));
-    }
-  } else {
-    throw ArgumentError.value(object, '', 'Unsupported value');
-  }
-
-  if (variableName != null) {
-    outputBuffer.write(';');
-  }
-
-  return outputBuffer;
-}
-
-String rawMultlineStringLiteral(String content) {
-  if (content.contains("'''")) throw ArgumentError("Must not contain '''");
-  return "r'''\n$content'''";
-}
+String getIndentOfString(String multilineString) => RegExp(r'^( *)').firstMatch(multilineString)![1]!;
