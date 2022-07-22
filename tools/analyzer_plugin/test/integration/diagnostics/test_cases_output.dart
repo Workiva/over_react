@@ -1,6 +1,9 @@
 // ignore_for_file: implicit_dynamic_map_literal, implicit_dynamic_list_literal, prefer_adjacent_string_concatenation
 
-const tests = {
+// Taken from https://github.com/facebook/react/blob/cae635054e17a6f107a39d328649137b83f25972/packages/eslint-plugin-react-hooks/__tests__/ESLintRuleExhaustiveDeps-test.js
+
+/// Tests that are valid/invalid across all parsers
+final tests = {
   'valid': [
     {
       'code': r'''
@@ -33,6 +36,11 @@ const tests = {
       ''',
     },
     {
+      // OK because '''props''' wasn't defined.
+      // We don't technically know if '''props''' is supposed
+      // to be an import that hasn't been added yet, or
+      // a component-level variable. Ignore it until it
+      //  gets defined (a different rule would flag it anyway).
       'code': r'''
         final MyComponent = uiFunction<TestProps>((_) {
           useEffect(() {
@@ -105,6 +113,17 @@ const tests = {
     },
     {
       'code': r'''
+        final MyComponent = uiFunction<TestProps>((_) {
+          final local = someFunc();
+          useEffect(() {
+            print(local);
+          }, [null, null, null, local, null, null, null]);
+        }, null);
+      ''',
+    },
+    {
+      // Regression test
+      'code': r'''
         final MyComponent = uiFunction<TestProps>((props) {
           var foo = props.foo;
 
@@ -115,6 +134,7 @@ const tests = {
       ''',
     },
     {
+      // Regression test
       'code': r'''
         final MyComponent = uiFunction<TestProps>((props) {
           var foo = props.foo;
@@ -127,6 +147,7 @@ const tests = {
       ''',
     },
     {
+      // Regression test
       'code': r'''
         final MyComponent = uiFunction<TestProps>((props) {
           var history = props.history;
@@ -138,6 +159,7 @@ const tests = {
       ''',
     },
     {
+      // Valid because they have meaning without deps.
       'code': r'''
         final MyComponent = uiFunction<TestProps>((props) {
           useEffect(() {});
@@ -188,6 +210,9 @@ const tests = {
       ''',
     },
     {
+      // [props, props.foo] is technically unnecessary ('props' covers 'props.foo').
+      // However, it's valid for effects to over-specify their deps.
+      // So we don't warn about this. We *would* warn about useMemo/useCallback.
       'code': r'''
         final MyComponent = uiFunction<TestProps>((props) {
           final local = {};
@@ -203,6 +228,7 @@ const tests = {
         }, null);
       ''',
     },
+    // Nullish coalescing and optional chaining
     {
       'code': r'''
         final MyComponent = uiFunction<TestProps>((props) {
@@ -400,6 +426,8 @@ const tests = {
       ''',
     },
     {
+      // Valid because even though we don't inspect the function itself,
+      // at least it's passed as a dependency.
       'code': r'''
         final MyComponent = uiFunction<TestProps>((props) {
           var delay = props.delay;
@@ -451,6 +479,7 @@ const tests = {
       ''',
     },
     {
+      // Valid because has no deps.
       'code': r'''
         final MyComponent = uiFunction<TestProps>((props) {
           var myEffect = props.myEffect;
@@ -468,9 +497,7 @@ const tests = {
         }, null);
       ''',
       'options': [
-        {
-          'additionalHooks': 'useCustomEffect',
-        },
+        {'additionalHooks': 'useCustomEffect'}
       ],
     },
     {
@@ -482,9 +509,7 @@ const tests = {
         }, null);
       ''',
       'options': [
-        {
-          'additionalHooks': 'useCustomEffect',
-        },
+        {'additionalHooks': 'useCustomEffect'}
       ],
     },
     {
@@ -496,9 +521,7 @@ const tests = {
         }, null);
       ''',
       'options': [
-        {
-          'additionalHooks': 'useAnotherEffect',
-        },
+        {'additionalHooks': 'useAnotherEffect'}
       ],
     },
     {
@@ -520,7 +543,7 @@ const tests = {
       ''',
     },
     {
-      'isOutsideOfFunctionComponentOrHook': true,
+      // Valid because we don't care about hooks outside of components.
       'code': r'''
         final local = {};
         useEffect(() {
@@ -529,7 +552,7 @@ const tests = {
       ''',
     },
     {
-      'isOutsideOfFunctionComponentOrHook': true,
+      // Valid because we don't care about hooks outside of components.
       'code': r'''
         final local1 = {};
         {
@@ -699,6 +722,9 @@ const tests = {
       ''',
     },
     {
+      // This is not ideal but warning would likely create
+      // too many false positives. We do, however, prevent
+      // direct assignments.
       'code': r'''
         final MyComponent = uiFunction<TestProps>((props) {
           var obj = someFunc();
@@ -719,6 +745,9 @@ const tests = {
       ''',
     },
     {
+      // Valid because we assign ref.current
+      // ourselves. Therefore it's likely not
+      // a ref managed by React.
       'code': r'''
         final MyComponent = uiFunction<TestProps>((_) {
           final myRef = useRef();
@@ -734,6 +763,9 @@ const tests = {
       ''',
     },
     {
+      // Valid because we assign ref.current
+      // ourselves. Therefore it's likely not
+      // a ref managed by React.
       'code': r'''
         final MyComponent = uiFunction<TestProps>((_) {
           final myRef = useRef();
@@ -749,6 +781,9 @@ const tests = {
       ''',
     },
     {
+      // Valid because we assign ref.current
+      // ourselves. Therefore it's likely not
+      // a ref managed by React.
       'code': r'''
         useMyThing(myRef) {
           useEffect(() {
@@ -762,6 +797,7 @@ const tests = {
       ''',
     },
     {
+      // Valid because the ref is captured.
       'code': r'''
         final MyComponent = uiFunction<TestProps>((_) {
           final myRef = useRef();
@@ -776,6 +812,7 @@ const tests = {
       ''',
     },
     {
+      // Valid because the ref is captured.
       'code': r'''
         useMyThing(myRef) {
           useEffect(() {
@@ -789,6 +826,7 @@ const tests = {
       ''',
     },
     {
+      // Valid because it's not an effect.
       'code': r'''
         useMyThing(myRef) {
           useCallback(() {
@@ -806,6 +844,7 @@ const tests = {
       ''',
     },
     {
+      // Valid because we read ref.current in a function that isn't cleanup.
       'code': r'''
         useMyThing() {
           final myRef = useRef();
@@ -821,6 +860,7 @@ const tests = {
       ''',
     },
     {
+      // Valid because we read ref.current in a function that isn't cleanup.
       'code': r'''
         useMyThing() {
           final myRef = useRef();
@@ -837,6 +877,7 @@ const tests = {
       ''',
     },
     {
+      // Valid because it's a primitive constant.
       'code': r'''
         final MyComponent = uiFunction<TestProps>((_) {
           final local1 = 42;
@@ -851,6 +892,7 @@ const tests = {
       ''',
     },
     {
+      // It's not a mistake to specify constant values though.
       'code': r'''
         final MyComponent = uiFunction<TestProps>((_) {
           final local1 = 42;
@@ -865,6 +907,7 @@ const tests = {
       ''',
     },
     {
+      // It is valid for effects to over-specify their deps.
       'code': r'''
         final MyComponent = uiFunction<TestProps>((props) {
           final local = props.local;
@@ -873,6 +916,8 @@ const tests = {
       ''',
     },
     {
+      // Valid even though activeTab is "unused".
+      // We allow over-specifying deps for effects, but not callbacks or memo.
       'code': r'''
         final Foo = uiFunction<TestProps>((props) {
           var activeTab = props.activeTab;
@@ -884,6 +929,8 @@ const tests = {
       ''',
     },
     {
+      // It is valid to specify broader effect deps than strictly necessary.
+      // Don't warn for this.
       'code': r'''
         final MyComponent = uiFunction<TestProps>((props) {
           useEffect(() {
@@ -902,6 +949,8 @@ const tests = {
       ''',
     },
     {
+      // It is *also* valid to specify broader memo/callback deps than strictly necessary.
+      // Don't warn for this either.
       'code': r'''
         final MyComponent = uiFunction<TestProps>((props) {
           final fn = useCallback(() {
@@ -920,6 +969,8 @@ const tests = {
       ''',
     },
     {
+      // Declaring handleNext is optional because
+      // it doesn't use anything in the function scope.
       'code': r'''
         final MyComponent = uiFunction<TestProps>((props) {
           handleNext1() {
@@ -944,6 +995,8 @@ const tests = {
       ''',
     },
     {
+      // Declaring handleNext is optional because
+      // it doesn't use anything in the function scope.
       'code': r'''
         final MyComponent = uiFunction<TestProps>((props) {
           handleNext() {
@@ -962,6 +1015,8 @@ const tests = {
       ''',
     },
     {
+      // Declaring handleNext is optional because
+      // everything they use is fully static.
       'code': r'''
         final MyComponent = uiFunction<TestProps>((props) {
           var state = useState(null);
@@ -1074,7 +1129,18 @@ const tests = {
             var id = setInterval(tick, 1000);
             return () => clearInterval(id);
           }, []);
-          return Dom.h1()(count.state);
+          return Dom.h1()(count.value);
+        }, null);
+      ''',
+    },
+    {
+      // Regression test for a crash
+      'code': r'''
+        final Podcasts = uiFunction<TestProps>((_) {
+          useEffect(() {
+            podcasts.set([]);
+          }, []);
+          var podcasts = useState(null);
         }, null);
       ''',
     },
@@ -1195,6 +1261,28 @@ const tests = {
     },
     {
       'code': r'''
+        final Example = uiFunction<TestProps>((_) {
+          final foo = useCallback(() {
+            foo();
+          }, []);
+        }, null);
+      ''',
+    },
+    {
+      'code': r'''
+        final Example = uiFunction<TestProps>((props) {
+          var prop = props.prop;
+
+          final foo = useCallback(() {
+            if (prop) {
+              foo();
+            }
+          }, [prop]);
+        }, null);
+      ''',
+    },
+    {
+      'code': r'''
         final Hello = uiFunction<TestProps>((_) {
           var state = useState(0);
           useEffect(() {
@@ -1205,6 +1293,7 @@ const tests = {
         }, null);
       ''',
     },
+    /* (Cases previously here involving `arguments` keyword were removed) */
     {
       'code': r'''
         final Example = uiFunction<TestProps>((_) {
@@ -1226,6 +1315,7 @@ const tests = {
         }, null);
       ''',
     },
+    // Regression test.
     {
       'code': r'''
         final Example = uiFunction<TestProps>((props) {
@@ -1236,6 +1326,7 @@ const tests = {
         }, null);
       ''',
     },
+    // Regression test.
     {
       'code': r'''
         final Example = uiFunction<TestProps>((props) {
@@ -1246,6 +1337,7 @@ const tests = {
         }, null);
       ''',
     },
+    // Regression test.
     {
       'code': r'''
         final Example = uiFunction<TestProps>((props) {
@@ -1271,6 +1363,7 @@ const tests = {
         }
       ''',
     },
+    /* (Cases previously here involving destructuring keyword were removed) */
     {
       'code': r'''
         useFoo() {
@@ -1440,6 +1533,9 @@ const tests = {
       ],
     },
     {
+      // Note: we *could* detect it's a primitive and never assigned
+      // even though it's not a constant -- but we currently don't.
+      // So this is an error.
       'code': r'''
         final MyComponent = uiFunction<TestProps>((_) {
           var local = 42;
@@ -1469,6 +1565,7 @@ const tests = {
       ],
     },
     {
+      // Regexes are literals but potentially stateful.
       'code': r'''
         final MyComponent = uiFunction<TestProps>((_) {
           final local = /foo/;
@@ -1498,12 +1595,14 @@ const tests = {
       ],
     },
     {
+      // Invalid because they don't have a meaning without deps.
       'code': r'''
         final MyComponent = uiFunction<TestProps>((props) {
           final value = useMemo(() { return 2*2; });
           final fn = useCallback(() { window.alert('foo'); });
         }, null);
       ''',
+      // We don't know what you meant.
       'errors': [
         {
           'message':
@@ -1518,6 +1617,7 @@ const tests = {
       ],
     },
     {
+      // Invalid because they don't have a meaning without deps.
       'code': r'''
         final MyComponent = uiFunction<TestProps>((props) {
           var fn1 = props.fn1;
@@ -1540,7 +1640,9 @@ const tests = {
         },
       ],
     },
+    /* (Cases previously here involving missing effect callback arguments were removed) */
     {
+      // Regression test
       'code': r'''
         final MyComponent = uiFunction<TestProps>((_) {
           final local = someFunc();
@@ -1574,6 +1676,7 @@ const tests = {
       ],
     },
     {
+      // Regression test
       'code': r'''
         final MyComponent = uiFunction<TestProps>((_) {
           final local = {};
@@ -1607,6 +1710,7 @@ const tests = {
       ],
     },
     {
+      // Regression test
       'code': r'''
         final MyComponent = uiFunction<TestProps>((_) {
           final local = {};
@@ -1865,6 +1969,8 @@ const tests = {
       ],
     },
     {
+      // It is not valid for useCallback to specify extraneous deps
+      // because it doesn't serve as a side effect trigger unlike useEffect.
       'code': r'''
         final MyComponent = uiFunction<TestProps>((props) {
           var local = props.foo;
@@ -2001,7 +2107,9 @@ const tests = {
       'errors': [
         {
           'message':
+              // Don't assume user meant '''foo''' because it's not used in the effect.
               'The \'foo\' literal is not a valid dependency because it never changes. You can safely remove it.',
+          // TODO: provide suggestion.
           'suggestions': null,
         },
       ],
@@ -2127,6 +2235,7 @@ const tests = {
         {
           'message':
               'React Hook useEffect was passed a dependency list that is not an array literal. This means we can\'t statically verify whether you\'ve passed the correct dependencies.',
+          // TODO: should this autofix or bail out?
           'suggestions': null,
         },
         {
@@ -2181,6 +2290,7 @@ const tests = {
         {
           'message':
               'React Hook useEffect has a spread element in its dependency array. This means we can\'t statically verify whether you\'ve passed the correct dependencies.',
+          // TODO: should this autofix or bail out?
           'suggestions': null,
         },
       ],
@@ -2215,6 +2325,8 @@ const tests = {
         {
           'message':
               'React Hook useEffect has a missing dependency: \'local\'. Either include it or remove the dependency array.',
+          // TODO: I'm not sure this is a good idea.
+          // Maybe bail out?
           'suggestions': [
             {
               'desc': 'Update the dependencies array to be: [local]',
@@ -2280,6 +2392,7 @@ const tests = {
         {
           'message':
               'React Hook useEffect has a complex expression in the dependency array. Extract it to a separate variable so it can be statically checked.',
+          // TODO: ideally suggestion would remove the bad expression?
           'suggestions': null,
         },
       ],
@@ -2334,11 +2447,17 @@ const tests = {
         {
           'message':
               'React Hook useEffect has a complex expression in the dependency array. Extract it to a separate variable so it can be statically checked.',
+          // TODO: ideally suggeston would remove the bad expression?
           'suggestions': null,
         },
       ],
     },
     {
+      // It is not valid for useCallback to specify extraneous deps
+      // because it doesn't serve as a side effect trigger unlike useEffect.
+      // However, we generally allow specifying *broader* deps as escape hatch.
+      // So while [props, props.foo] is unnecessary, 'props' wins here as the
+      // broader one, and this is why 'props.foo' is reported as unnecessary.
       'code': r'''
         final MyComponent = uiFunction<TestProps>((props) {
           final local = {};
@@ -2370,6 +2489,7 @@ const tests = {
       ],
     },
     {
+      // Since we don't have 'props' in the list, we'll suggest narrow dependencies.
       'code': r'''
         final MyComponent = uiFunction<TestProps>((props) {
           final local = {};
@@ -2401,6 +2521,8 @@ const tests = {
       ],
     },
     {
+      // Effects are allowed to over-specify deps. We'll complain about missing
+      // 'local', but we won't remove the already-specified 'local.id' from your list.
       'code': r'''
         final MyComponent = uiFunction<TestProps>((_) {
           final local = {id: 42};
@@ -2430,6 +2552,8 @@ const tests = {
       ],
     },
     {
+      // Callbacks are not allowed to over-specify deps. So we'll complain about missing
+      // 'local' and we will also *remove* 'local.id' from your list.
       'code': r'''
         final MyComponent = uiFunction<TestProps>((_) {
           final local = {id: 42};
@@ -2459,6 +2583,8 @@ const tests = {
       ],
     },
     {
+      // Callbacks are not allowed to over-specify deps. So we'll complain about
+      // the unnecessary 'local.id'.
       'code': r'''
         final MyComponent = uiFunction<TestProps>((_) {
           final local = {id: 42};
@@ -2546,6 +2672,11 @@ const tests = {
       ],
     },
     {
+      // Callbacks are not allowed to over-specify deps. So one of these is extra.
+      // However, it *is* allowed to specify broader deps then strictly necessary.
+      // So in this case we ask you to remove 'props.foo.bar.baz' because 'props.foo'
+      // already covers it, and having both is unnecessary.
+      // TODO: maybe consider suggesting a narrower one by default in these cases.
       'code': r'''
         final MyComponent = uiFunction<TestProps>((props) {
           final fn = useCallback(() {
@@ -2602,6 +2733,12 @@ const tests = {
       ],
     },
     {
+      // Normally we allow specifying deps too broadly.
+      // So we'd be okay if 'props.foo.bar' was there rather than 'props.foo.bar.baz'.
+      // However, 'props.foo.bar.baz' is missing. So we know there is a mistake.
+      // When we're sure there is a mistake, for callbacks we will rebuild the list
+      // from scratch. This will set the user on a better path by default.
+      // This is why we end up with just 'props.foo.bar', and not them both.
       'code': r'''
         final MyComponent = uiFunction<TestProps>((props) {
           final fn = useCallback(() {
@@ -2811,6 +2948,7 @@ const tests = {
         {
           'message':
               'React Hook useEffect has missing dependencies: \'b\', \'d\', \'e\', and \'f\'. Either include them or remove the dependency array.',
+          // Don't alphabetize if it wasn't alphabetized in the first place.
           'suggestions': [
             {
               'desc': 'Update the dependencies array to be: [c, a, g, b, e, d, f]',
@@ -2840,6 +2978,7 @@ const tests = {
         {
           'message':
               'React Hook useEffect has missing dependencies: \'b\', \'d\', \'e\', and \'f\'. Either include them or remove the dependency array.',
+          // Alphabetize if it was alphabetized.
           'suggestions': [
             {
               'desc': 'Update the dependencies array to be: [a, b, c, d, e, f, g]',
@@ -2869,6 +3008,7 @@ const tests = {
         {
           'message':
               'React Hook useEffect has missing dependencies: \'a\', \'b\', \'c\', \'d\', \'e\', \'f\', and \'g\'. Either include them or remove the dependency array.',
+          // Alphabetize if it was empty.
           'suggestions': [
             {
               'desc': 'Update the dependencies array to be: [a, b, c, d, e, f, g]',
@@ -3202,9 +3342,7 @@ const tests = {
         }, null);
       ''',
       'options': [
-        {
-          'additionalHooks': 'useCustomEffect',
-        },
+        {'additionalHooks': 'useCustomEffect'}
       ],
       'errors': [
         {
@@ -3297,6 +3435,7 @@ const tests = {
         {
           'message':
               'React Hook useEffect has a missing dependency: \'local\'. Either include it or remove the dependency array.',
+          // TODO: should we bail out instead?
           'suggestions': [
             {
               'desc': 'Update the dependencies array to be: [local]',
@@ -3331,6 +3470,7 @@ const tests = {
         {
           'message':
               'React Hook useEffect has a missing dependency: \'local\'. Either include it or remove the dependency array.',
+          // TODO: should we bail out instead?
           'suggestions': [
             {
               'desc': 'Update the dependencies array to be: [local]',
@@ -3384,7 +3524,7 @@ const tests = {
       'code': r'''
         final MyComponent = uiFunction<TestProps>((_) {
           final ref = useRef();
-          var state = useState(null);
+          var state = useState();
           useEffect(() {
             ref.current = {};
             state.set(state.value + 1);
@@ -3428,6 +3568,9 @@ const tests = {
         {
           'message':
               'React Hook useEffect has a missing dependency: \'state\'. Either include it or remove the dependency array. You can also do a functional update \'setState(s => ...)\' if you only need \'state\' in the \'setState\' call.',
+          // We don't ask to remove static deps but don't add them either.
+          // Don't suggest removing "ref" (it's fine either way)
+          // but *do* add "state". *Don't* add "setState" ourselves.
           'suggestions': [
             {
               'desc': 'Update the dependencies array to be: [ref, state]',
@@ -3961,6 +4104,7 @@ const tests = {
           }, []);
         }, null);
       ''',
+      // Don't suggest to destructure props here since you can't.
       'errors': [
         {
           'message':
@@ -3990,6 +4134,7 @@ const tests = {
           }, []);
         }, null);
       ''',
+      // Don't suggest to destructure props here since you can't.
       'errors': [
         {
           'message':
@@ -4033,24 +4178,31 @@ const tests = {
           }, []);
         }, null);
       ''',
+      // This is a separate warning unrelated to others.
+      // We could've made a separate rule for it but it's rare enough to name it.
+      // No suggestions because the intent isn't clear.
       'errors': [
         {
           'message':
+              // value2
               'Assignments to the \'value2\' variable from inside React Hook useEffect will be lost after each render. To preserve the value over time, store it in a useRef Hook and keep the mutable value in the \'.current\' property. Otherwise, you can move this variable directly inside useEffect.',
           'suggestions': null,
         },
         {
           'message':
+              // value
               'Assignments to the \'value\' variable from inside React Hook useEffect will be lost after each render. To preserve the value over time, store it in a useRef Hook and keep the mutable value in the \'.current\' property. Otherwise, you can move this variable directly inside useEffect.',
           'suggestions': null,
         },
         {
           'message':
+              // value4
               'Assignments to the \'value4\' variable from inside React Hook useEffect will be lost after each render. To preserve the value over time, store it in a useRef Hook and keep the mutable value in the \'.current\' property. Otherwise, you can move this variable directly inside useEffect.',
           'suggestions': null,
         },
         {
           'message':
+              // asyncValue
               'Assignments to the \'asyncValue\' variable from inside React Hook useEffect will be lost after each render. To preserve the value over time, store it in a useRef Hook and keep the mutable value in the \'.current\' property. Otherwise, you can move this variable directly inside useEffect.',
           'suggestions': null,
         },
@@ -4075,19 +4227,25 @@ const tests = {
           }, [value, value2, value3]);
         }, null);
       ''',
+      // This is a separate warning unrelated to others.
+      // We could've made a separate rule for it but it's rare enough to name it.
+      // No suggestions because the intent isn't clear.
       'errors': [
         {
           'message':
+              // value
               'Assignments to the \'value\' variable from inside React Hook useEffect will be lost after each render. To preserve the value over time, store it in a useRef Hook and keep the mutable value in the \'.current\' property. Otherwise, you can move this variable directly inside useEffect.',
           'suggestions': null,
         },
         {
           'message':
+              // value2
               'Assignments to the \'value2\' variable from inside React Hook useEffect will be lost after each render. To preserve the value over time, store it in a useRef Hook and keep the mutable value in the \'.current\' property. Otherwise, you can move this variable directly inside useEffect.',
           'suggestions': null,
         },
         {
           'message':
+              // asyncValue
               'Assignments to the \'asyncValue\' variable from inside React Hook useEffect will be lost after each render. To preserve the value over time, store it in a useRef Hook and keep the mutable value in the \'.current\' property. Otherwise, you can move this variable directly inside useEffect.',
           'suggestions': null,
         },
@@ -4246,12 +4404,11 @@ const tests = {
         'The ref value \'myRef.current\' will likely have changed by the time this effect cleanup function runs. If this ref points to a node rendered by React, copy \'myRef.current\' to a variable inside the effect, and use that variable in the cleanup function.',
       ],
       'options': [
-        {
-          'additionalHooks': 'useLayoutEffect_SAFE_FOR_SSR',
-        },
+        {'additionalHooks': 'useLayoutEffect_SAFE_FOR_SSR'}
       ],
     },
     {
+      // Autofix ignores constant primitives (leaving the ones that are there).
       'code': r'''
         final MyComponent = uiFunction<TestProps>((_) {
           final local1 = 42;
@@ -4400,6 +4557,8 @@ const tests = {
         {
           'message':
               'React Hook useEffect has unnecessary dependencies: \'MutableStore.hello.world\', \'global.stuff\', and \'z\'. Either exclude them or remove the dependency array. Outer scope values like \'MutableStore.hello.world\' aren\'t valid dependencies because mutating them doesn\'t re-render the component.',
+          // The output should contain the ones that are inside a component
+          // since there are legit reasons to over-specify them for effects.
           'suggestions': [
             {
               'desc': 'Update the dependencies array to be: [props.foo, x, y]',
@@ -4495,6 +4654,7 @@ const tests = {
       ],
     },
     {
+      // Every almost-static function is tainted by a dynamic value.
       'code': r'''
         final MyComponent = uiFunction<TestProps>((props) {
           var state = useState(null);
@@ -4642,6 +4802,7 @@ const tests = {
       ],
     },
     {
+      // Regression test
       'code': r'''
         final MyComponent = uiFunction<TestProps>((props) {
           var state = useState(null);
@@ -4797,6 +4958,7 @@ const tests = {
       ],
     },
     {
+      // Regression test
       'code': r'''
         final MyComponent = uiFunction<TestProps>((props) {
           var state = useState(null);
@@ -4967,11 +5129,15 @@ const tests = {
         {
           'message':
               'The \'handleNext\' function makes the dependencies of useEffect Hook (at line 11) change on every render. Move it inside the useEffect callback. Alternatively, wrap the definition of \'handleNext\' in its own useCallback() Hook.',
+          // Not gonna fix a function definition
+          // because it's not always safe due to hoisting.
           'suggestions': null,
         },
       ],
     },
     {
+      // Even if the function only references static values,
+      // once you specify it in deps, it will invalidate them.
       'code': r'''
         final MyComponent = uiFunction<TestProps>((props) {
           var state = useState(null);
@@ -4987,11 +5153,18 @@ const tests = {
         {
           'message':
               'The \'handleNext\' function makes the dependencies of useEffect Hook (at line 11) change on every render. Move it inside the useEffect callback. Alternatively, wrap the definition of \'handleNext\' in its own useCallback() Hook.',
+          // We don't fix moving (too invasive). But that's the suggested fix
+          // when only effect uses this function. Otherwise, we'd useCallback.
           'suggestions': null,
         },
       ],
     },
     {
+      // Even if the function only references static values,
+      // once you specify it in deps, it will invalidate them.
+      // However, we can't suggest moving handleNext into the
+      // effect because it is *also* used outside of it.
+      // So our suggestion is useCallback().
       'code': r'''
         final MyComponent = uiFunction<TestProps>((props) {
           var state = useState(null);
@@ -5008,6 +5181,8 @@ const tests = {
         {
           'message':
               'The \'handleNext\' function makes the dependencies of useEffect Hook (at line 11) change on every render. To fix this, wrap the definition of \'handleNext\' in its own useCallback() Hook.',
+          // We fix this one with useCallback since it's
+          // the easy fix and you can't just move it into effect.
           'suggestions': [
             {
               'desc': 'Wrap the definition of \'handleNext\' in its own useCallback() Hook.',
@@ -5095,6 +5270,8 @@ const tests = {
           }, [handleNext3]);
         }, null);
       ''',
+      // Suggestions don't wrap into useCallback here
+      // because they are only referenced by effect itself.
       'errors': [
         {
           'message':
@@ -5159,6 +5336,8 @@ const tests = {
         {
           'message':
               'The \'handleNext2\' function makes the dependencies of useLayoutEffect Hook (at line 19) change on every render. To fix this, wrap the definition of \'handleNext2\' in its own useCallback() Hook.',
+          // Suggestion wraps into useCallback where possible (variables only)
+          // because they are only referenced outside the effect.
           'suggestions': [
             {
               'desc': 'Wrap the definition of \'handleNext2\' in its own useCallback() Hook.',
@@ -5204,6 +5383,8 @@ const tests = {
         {
           'message':
               'The \'handleNext3\' function makes the dependencies of useMemo Hook (at line 23) change on every render. To fix this, wrap the definition of \'handleNext3\' in its own useCallback() Hook.',
+          // Autofix wraps into useCallback where possible (variables only)
+          // because they are only referenced outside the effect.
           'suggestions': [
             {
               'desc': 'Wrap the definition of \'handleNext3\' in its own useCallback() Hook.',
@@ -5267,6 +5448,11 @@ const tests = {
           }, [handleNext1, handleNext2]);
         }, null);
       ''',
+      // Normally we'd suggest moving handleNext inside an
+      // effect. But it's used by more than one. So we
+      // suggest useCallback() and use it for the autofix
+      // where possible (variable but not declaration).
+      // TODO: we could coalesce messages for the same function if it affects multiple Hooks.
       'errors': [
         {
           'message':
@@ -5354,6 +5540,10 @@ const tests = {
         {
           'message':
               'The \'handleNext\' function makes the dependencies of useEffect Hook (at line 13) change on every render. To fix this, wrap the definition of \'handleNext\' in its own useCallback() Hook.',
+          // Normally we'd suggest moving handleNext inside an
+          // effect. But it's used more than once.
+          // TODO: our autofix here isn't quite sufficient because
+          // it only wraps the first definition. But seems ok.
           'suggestions': [
             {
               'desc': 'Wrap the definition of \'handleNext\' in its own useCallback() Hook.',
@@ -5529,6 +5719,9 @@ const tests = {
           return Dom.h1()(count.value);
         }, null);
       ''',
+      // This intentionally doesn't show the reducer message
+      // because we don't know if it's safe for it to close over a value.
+      // We only show it for state variables (and possibly props).
       'errors': [
         {
           'message':
@@ -5572,6 +5765,9 @@ const tests = {
           return Dom.h1()(count.value);
         }, null);
       ''',
+      // This intentionally doesn't show the reducer message
+      // because we don't know if it's safe for it to close over a value.
+      // We only show it for state variables (and possibly props).
       'errors': [
         {
           'message':
@@ -5684,6 +5880,10 @@ const tests = {
           return Dom.h1()(count.value);
         }, null);
       ''',
+      // TODO: ideally this should suggest useState updater form
+      // since this code doesn't actually work. The autofix could
+      // at least avoid suggesting 'tick' since it's obviously
+      // always different, and thus useless.
       'errors': [
         {
           'message':
@@ -5712,6 +5912,7 @@ const tests = {
       ],
     },
     {
+      // Regression test for a crash
       'code': r'''
         final Podcasts = uiFunction<TestProps>((_) {
           useEffect(() {
@@ -5724,6 +5925,9 @@ const tests = {
         {
           'message':
               'React Hook useEffect has a missing dependency: \'podcasts\'. Either include it or remove the dependency array.',
+          // Note: this autofix is shady because
+          // the variable is used before declaration.
+          // TODO: Maybe we can catch those fixes and not autofix.
           'suggestions': [
             {
               'desc': 'Update the dependencies array to be: [podcasts]',
@@ -5924,6 +6128,8 @@ const tests = {
       ],
     },
     {
+      // The mistake here is that it was moved inside the effect
+      // so it can't be referenced in the deps array.
       'code': r'''
         final Thing = uiFunction<TestProps>((_) {
           useEffect(() {
@@ -6443,6 +6649,7 @@ const tests = {
           }, []);
         }, null);
       ''',
+      // Dangerous autofix is enabled due to the option:
       'output': r'''
         final MyComponent = uiFunction<TestProps>((_) {
           final local = {};
@@ -6457,10 +6664,9 @@ const tests = {
               'React Hook useEffect has a missing dependency: \'local\'. Either include it or remove the dependency array.',
         },
       ],
+      // Keep this until major IDEs and VS Code FB ESLint plugin support Suggestions API.
       'options': [
-        {
-          'enableDangerousAutofixThisMayCauseInfiniteLoops': true,
-        },
+        {'enableDangerousAutofixThisMayCauseInfiniteLoops': true}
       ],
     },
     {
@@ -6922,6 +7128,451 @@ const tests = {
           'message':
               'The \'foo\' object makes the dependencies of useEffect Hook (at line 9) change on every render. To fix this, wrap the initialization of \'foo\' in its own useMemo() Hook.',
           'suggestions': null,
+        },
+      ],
+    },
+  ],
+};
+
+// Tests that are only valid/invalid across parsers supporting Flow
+final testsFlow = {
+  'valid': [
+    // Ignore Generic Type Variables for arrow functions
+    {
+      'code': r'''
+        final Example = uiFunction<TestProps>((props) {
+          var prop = props.prop;
+
+          final bar = useEffect(<T>(a: T): (Hello) {
+            prop();
+          }, [prop]);
+        }, null);
+      ''',
+    },
+  ],
+  'invalid': [
+    {
+      'code': r'''
+        final Foo = uiFunction<TestProps>((_) {
+          final foo = ({}: any);
+          useMemo(() {
+            print(foo);
+          }, [foo]);
+        }, null);
+      ''',
+      'errors': [
+        {
+          'message':
+              'The \'foo\' object makes the dependencies of useMemo Hook (at line 6) change on every render. Move it inside the useMemo callback. Alternatively, wrap the initialization of \'foo\' in its own useMemo() Hook.',
+          'suggestions': null,
+        },
+      ],
+    },
+  ],
+};
+
+// Tests that are only valid/invalid across parsers supporting TypeScript
+final testsTypescript = {
+  'valid': [
+    {
+      // '''ref''' is still constant, despite the cast.
+      'code': r'''
+        final MyComponent = uiFunction<TestProps>((_) {
+          final ref = useRef() as over_react.MutableRefObject<HTMLDivElement>;
+          useEffect(() {
+            print(ref.current);
+          }, []);
+        }, null);
+      ''',
+    },
+    {
+      'code': r'''
+        final MyComponent = uiFunction<TestProps>((_) {
+          var state = over_react.useState<number>(0);
+          useEffect(() {
+            final someNumber: typeof state.value = 2;
+            state.set((prevState) => prevState + someNumber);
+          }, [])
+        }, null);
+      ''',
+    },
+    {
+      'code': r'''
+        final App = uiFunction<TestProps>((_) {
+          final foo = {x: 1};
+          over_react.useEffect(() {
+            final bar = {x: 2};
+            final baz = bar as typeof foo;
+            print(baz);
+          }, []);
+        }, null);
+      ''',
+    },
+  ],
+  'invalid': [
+    {
+      // '''local''' is still non-constant, despite the cast.
+      'code': r'''
+        final MyComponent = uiFunction<TestProps>((_) {
+          final local = {} as string;
+          useEffect(() {
+            print(local);
+          }, []);
+        }, null);
+      ''',
+      'errors': [
+        {
+          'message':
+              'React Hook useEffect has a missing dependency: \'local\'. Either include it or remove the dependency array.',
+          'suggestions': [
+            {
+              'desc': 'Update the dependencies array to be: [local]',
+              'output': r'''
+                final MyComponent = uiFunction<TestProps>((_) {
+                  final local = {} as string;
+                  useEffect(() {
+                    print(local);
+                  }, [local]);
+                }, null);
+              ''',
+            },
+          ],
+        },
+      ],
+    },
+    {
+      'code': r'''
+        final App = uiFunction<TestProps>((_) {
+          final foo = {x: 1};
+          final bar = {x: 2};
+          useEffect(() {
+            final baz = bar as typeof foo;
+            print(baz);
+          }, []);
+        }, null);
+      ''',
+      'errors': [
+        {
+          'message':
+              'React Hook useEffect has a missing dependency: \'bar\'. Either include it or remove the dependency array.',
+          'suggestions': [
+            {
+              'desc': 'Update the dependencies array to be: [bar]',
+              'output': r'''
+                final App = uiFunction<TestProps>((_) {
+                  final foo = {x: 1};
+                  final bar = {x: 2};
+                  useEffect(() {
+                    final baz = bar as typeof foo;
+                    print(baz);
+                  }, [bar]);
+                }, null);
+              ''',
+            },
+          ],
+        },
+      ],
+    },
+    {
+      'code': r'''
+        final MyComponent = uiFunction<TestProps>((_) {
+          final pizza = {};
+          useEffect(() => ({
+            crust: pizza.crust,
+            toppings: pizza?.toppings,
+          }), []);
+        }, null);
+      ''',
+      'errors': [
+        {
+          'message':
+              'React Hook useEffect has missing dependencies: \'pizza.crust\' and \'pizza?.toppings\'. Either include them or remove the dependency array.',
+          'suggestions': [
+            {
+              'desc': 'Update the dependencies array to be: [pizza.crust, pizza?.toppings]',
+              'output': r'''
+                final MyComponent = uiFunction<TestProps>((_) {
+                  final pizza = {};
+                  useEffect(() => ({
+                    crust: pizza.crust,
+                    toppings: pizza?.toppings,
+                  }), [pizza.crust, pizza?.toppings]);
+                }, null);
+              ''',
+            },
+          ],
+        },
+      ],
+    },
+    {
+      'code': r'''
+        final MyComponent = uiFunction<TestProps>((_) {
+          final pizza = {};
+          useEffect(() => ({
+            crust: pizza?.crust,
+            density: pizza.crust.density,
+          }), []);
+        }, null);
+      ''',
+      'errors': [
+        {
+          'message':
+              'React Hook useEffect has a missing dependency: \'pizza.crust\'. Either include it or remove the dependency array.',
+          'suggestions': [
+            {
+              'desc': 'Update the dependencies array to be: [pizza.crust]',
+              'output': r'''
+                final MyComponent = uiFunction<TestProps>((_) {
+                  final pizza = {};
+                  useEffect(() => ({
+                    crust: pizza?.crust,
+                    density: pizza.crust.density,
+                  }), [pizza.crust]);
+                }, null);
+              ''',
+            },
+          ],
+        },
+      ],
+    },
+    {
+      'code': r'''
+        final MyComponent = uiFunction<TestProps>((_) {
+          final pizza = {};
+          useEffect(() => ({
+            crust: pizza.crust,
+            density: pizza?.crust.density,
+          }), []);
+        }, null);
+      ''',
+      'errors': [
+        {
+          'message':
+              'React Hook useEffect has a missing dependency: \'pizza.crust\'. Either include it or remove the dependency array.',
+          'suggestions': [
+            {
+              'desc': 'Update the dependencies array to be: [pizza.crust]',
+              'output': r'''
+                final MyComponent = uiFunction<TestProps>((_) {
+                  final pizza = {};
+                  useEffect(() => ({
+                    crust: pizza.crust,
+                    density: pizza?.crust.density,
+                  }), [pizza.crust]);
+                }, null);
+              ''',
+            },
+          ],
+        },
+      ],
+    },
+    {
+      'code': r'''
+        final MyComponent = uiFunction<TestProps>((_) {
+          final pizza = {};
+          useEffect(() => ({
+            crust: pizza?.crust,
+            density: pizza?.crust.density,
+          }), []);
+        }, null);
+      ''',
+      'errors': [
+        {
+          'message':
+              'React Hook useEffect has a missing dependency: \'pizza?.crust\'. Either include it or remove the dependency array.',
+          'suggestions': [
+            {
+              'desc': 'Update the dependencies array to be: [pizza?.crust]',
+              'output': r'''
+                final MyComponent = uiFunction<TestProps>((_) {
+                  final pizza = {};
+                  useEffect(() => ({
+                    crust: pizza?.crust,
+                    density: pizza?.crust.density,
+                  }), [pizza?.crust]);
+                }, null);
+              ''',
+            },
+          ],
+        },
+      ],
+    },
+    // Regression test.
+    {
+      'code': r'''
+        final Example = uiFunction<TestProps>((props) {
+          useEffect(() {
+            var topHeight = 0;
+            topHeight = props.upperViewHeight;
+          }, []);
+        }, null);
+      ''',
+      'errors': [
+        {
+          'message':
+              'React Hook useEffect has a missing dependency: \'props.upperViewHeight\'. Either include it or remove the dependency array.',
+          'suggestions': [
+            {
+              'desc': 'Update the dependencies array to be: [props.upperViewHeight]',
+              'output': r'''
+                final Example = uiFunction<TestProps>((props) {
+                  useEffect(() {
+                    var topHeight = 0;
+                    topHeight = props.upperViewHeight;
+                  }, [props.upperViewHeight]);
+                }, null);
+              ''',
+            },
+          ],
+        },
+      ],
+    },
+    // Regression test.
+    {
+      'code': r'''
+        final Example = uiFunction<TestProps>((props) {
+          useEffect(() {
+            var topHeight = 0;
+            topHeight = props?.upperViewHeight;
+          }, []);
+        }, null);
+      ''',
+      'errors': [
+        {
+          'message':
+              'React Hook useEffect has a missing dependency: \'props?.upperViewHeight\'. Either include it or remove the dependency array.',
+          'suggestions': [
+            {
+              'desc': 'Update the dependencies array to be: [props?.upperViewHeight]',
+              'output': r'''
+                final Example = uiFunction<TestProps>((props) {
+                  useEffect(() {
+                    var topHeight = 0;
+                    topHeight = props?.upperViewHeight;
+                  }, [props?.upperViewHeight]);
+                }, null);
+              ''',
+            },
+          ],
+        },
+      ],
+    },
+    {
+      'code': r'''
+        final MyComponent = uiFunction<TestProps>((_) {
+          var state = over_react.useState<number>(0);
+          useEffect(() {
+            final someNumber: typeof state.value = 2;
+            state.set((prevState) => prevState + someNumber + state.value);
+          }, [])
+        }, null);
+      ''',
+      'errors': [
+        {
+          'message':
+              'React Hook useEffect has a missing dependency: \'state\'. Either include it or remove the dependency array. You can also do a functional update \'setState(s => ...)\' if you only need \'state\' in the \'setState\' call.',
+          'suggestions': [
+            {
+              'desc': 'Update the dependencies array to be: [state]',
+              'output': r'''
+                final MyComponent = uiFunction<TestProps>((_) {
+                  var state = over_react.useState<number>(0);
+                  useEffect(() {
+                    final someNumber: typeof state.value = 2;
+                    state.set((prevState) => prevState + someNumber + state.value);
+                  }, [state.value])
+                }, null);
+              ''',
+            },
+          ],
+        },
+      ],
+    },
+    {
+      'code': r'''
+        final MyComponent = uiFunction<TestProps>((_) {
+          var state = over_react.useState<number>(0);
+          useMemo(() {
+            final someNumber: typeof state.value = 2;
+            print(someNumber);
+          }, [state.value])
+        }, null);
+      ''',
+      'errors': [
+        {
+          'message':
+              'React Hook useMemo has an unnecessary dependency: \'state\'. Either exclude it or remove the dependency array.',
+          'suggestions': [
+            {
+              'desc': 'Update the dependencies array to be: []',
+              'output': r'''
+                final MyComponent = uiFunction<TestProps>((_) {
+                  var state = over_react.useState<number>(0);
+                  useMemo(() {
+                    final someNumber: typeof state.value = 2;
+                    print(someNumber);
+                  }, [])
+                }, null);
+              ''',
+            },
+          ],
+        },
+      ],
+    },
+    {
+      'code': r'''
+        final Foo = uiFunction<TestProps>((_) {
+          final foo = {} as any;
+          useMemo(() {
+            print(foo);
+          }, [foo]);
+        }, null);
+      ''',
+      'errors': [
+        {
+          'message':
+              'The \'foo\' object makes the dependencies of useMemo Hook (at line 6) change on every render. Move it inside the useMemo callback. Alternatively, wrap the initialization of \'foo\' in its own useMemo() Hook.',
+          'suggestions': null,
+        },
+      ],
+    },
+  ],
+};
+
+// Tests that are only valid/invalid for '''@typescript-eslint/parser@4.x'''
+final testsTypescriptEslintParserV4 = {
+  'valid': [],
+  'invalid': [
+    // TODO: Should also be invalid as part of the JS test suite i.e. be invalid with babel eslint parsers.
+    // It doesn't use any explicit types but any JS is still valid TS.
+    {
+      'code': r'''
+        final Foo = uiFunction<TestProps>((props) {
+          var Component = props.Component;
+
+          over_react.useEffect(() {
+            print(<Component />);
+          }, []);
+        }, null);;
+      ''',
+      'errors': [
+        {
+          'message':
+              'React Hook React.useEffect has a missing dependency: \'Component\'. Either include it or remove the dependency array.',
+          'suggestions': [
+            {
+              'desc': 'Update the dependencies array to be: [Component]',
+              'output': r'''
+                final Foo = uiFunction<TestProps>((props) {
+                  var Component = props.Component;
+
+                  over_react.useEffect(() {
+                    print(<Component />);
+                  }, [Component]);
+                }, null);;
+              ''',
+            },
+          ],
         },
       ],
     },
