@@ -470,7 +470,7 @@ const tests = {
       'options': [
         {
           'additionalHooks': 'useCustomEffect',
-        }
+        },
       ],
     },
     {
@@ -484,7 +484,7 @@ const tests = {
       'options': [
         {
           'additionalHooks': 'useCustomEffect',
-        }
+        },
       ],
     },
     {
@@ -498,7 +498,7 @@ const tests = {
       'options': [
         {
           'additionalHooks': 'useAnotherEffect',
-        }
+        },
       ],
     },
     {
@@ -1299,7 +1299,7 @@ const tests = {
           return useMemo(() => foo, [foo]);
         }, null);
       ''',
-    }
+    },
   ],
   'invalid': [
     {
@@ -1324,9 +1324,9 @@ const tests = {
                   }, [props.foo]);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -1351,9 +1351,9 @@ const tests = {
                   }, [props.foo?.bar.baz]);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -1378,9 +1378,9 @@ const tests = {
                   }, [props.foo?.bar?.baz]);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -1405,9 +1405,9 @@ const tests = {
                   }, [props.foo?.bar]);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -1434,9 +1434,9 @@ const tests = {
                   }, [local]);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -1463,9 +1463,9 @@ const tests = {
                   }, [local]);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -1492,9 +1492,9 @@ const tests = {
                   }, [local]);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -1514,7 +1514,7 @@ const tests = {
           'message':
               'React Hook useCallback does nothing when called with only one argument. Did you forget to pass an array of dependencies?',
           'suggestions': null,
-        }
+        },
       ],
     },
     {
@@ -1537,7 +1537,7 @@ const tests = {
           'message':
               'React Hook useCallback does nothing when called with only one argument. Did you forget to pass an array of dependencies?',
           'suggestions': null,
-        }
+        },
       ],
     },
     {
@@ -1568,9 +1568,9 @@ const tests = {
                   }, [local]);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -1601,9 +1601,9 @@ const tests = {
                   }, [local]);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -1636,9 +1636,9 @@ const tests = {
                   }, [local]);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -1673,9 +1673,9 @@ const tests = {
                   }
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -1706,9 +1706,9 @@ const tests = {
                   }, [local1, local2]);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -1737,9 +1737,9 @@ const tests = {
                   }, [local1]);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -1774,9 +1774,9 @@ const tests = {
                   }, null);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -1805,9 +1805,9 @@ const tests = {
                   }, [local]);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -1836,9 +1836,9 @@ const tests = {
                   }, [local]);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -1859,9 +1859,9 @@ const tests = {
                   useCallback(() {}, []);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -1884,9 +1884,9 @@ const tests = {
                   useCallback(() {}, []);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -1915,9 +1915,9 @@ const tests = {
                   }, [history]);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -1952,9 +1952,9 @@ const tests = {
                   }, [history.foo]);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -1987,9 +1987,9 @@ const tests = {
                   }, [history?.foo]);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -2003,7 +2003,7 @@ const tests = {
           'message':
               'The \'foo\' literal is not a valid dependency because it never changes. You can safely remove it.',
           'suggestions': null,
-        }
+        },
       ],
     },
     {
@@ -2036,7 +2036,7 @@ const tests = {
                   }, [bar, baz, foo]);
                 }, null);
               ''',
-            }
+            },
           ],
         },
         {
@@ -2048,7 +2048,7 @@ const tests = {
           'message':
               'The \'bar\' literal is not a valid dependency because it never changes. Did you mean to include bar in the array instead?',
           'suggestions': null,
-        }
+        },
       ],
     },
     {
@@ -2081,7 +2081,7 @@ const tests = {
                   }, [bar, baz, foo]);
                 }, null);
               ''',
-            }
+            },
           ],
         },
         {
@@ -2095,7 +2095,7 @@ const tests = {
         {
           'message': 'The null literal is not a valid dependency because it never changes. You can safely remove it.',
           'suggestions': null,
-        }
+        },
       ],
     },
     {
@@ -2110,7 +2110,7 @@ const tests = {
           'message':
               'React Hook useEffect was passed a dependency list that is not an array literal. This means we can\'t statically verify whether you\'ve passed the correct dependencies.',
           'suggestions': null,
-        }
+        },
       ],
     },
     {
@@ -2144,9 +2144,9 @@ const tests = {
                   }, [local]);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -2175,14 +2175,14 @@ const tests = {
                   }, [local]);
                 }, null);
               ''',
-            }
+            },
           ],
         },
         {
           'message':
               'React Hook useEffect has a spread element in its dependency array. This means we can\'t statically verify whether you\'ve passed the correct dependencies.',
           'suggestions': null,
-        }
+        },
       ],
     },
     {
@@ -2199,7 +2199,7 @@ const tests = {
           'message':
               'React Hook useEffect has a spread element in its dependency array. This means we can\'t statically verify whether you\'ve passed the correct dependencies.',
           'suggestions': null,
-        }
+        },
       ],
     },
     {
@@ -2226,14 +2226,14 @@ const tests = {
                   }, [local]);
                 }, null);
               ''',
-            }
+            },
           ],
         },
         {
           'message':
               'React Hook useEffect has a complex expression in the dependency array. Extract it to a separate variable so it can be statically checked.',
           'suggestions': null,
-        }
+        },
       ],
     },
     {
@@ -2258,14 +2258,14 @@ const tests = {
                   }, [props.items]);
                 }, null);
               ''',
-            }
+            },
           ],
         },
         {
           'message':
               'React Hook useEffect has a complex expression in the dependency array. Extract it to a separate variable so it can be statically checked.',
           'suggestions': null,
-        }
+        },
       ],
     },
     {
@@ -2281,7 +2281,7 @@ const tests = {
           'message':
               'React Hook useEffect has a complex expression in the dependency array. Extract it to a separate variable so it can be statically checked.',
           'suggestions': null,
-        }
+        },
       ],
     },
     {
@@ -2310,14 +2310,14 @@ const tests = {
                   }, [items]);
                 }, null);
               ''',
-            }
+            },
           ],
         },
         {
           'message':
               'React Hook useEffect has a complex expression in the dependency array. Extract it to a separate variable so it can be statically checked.',
           'suggestions': null,
-        }
+        },
       ],
     },
     {
@@ -2335,7 +2335,7 @@ const tests = {
           'message':
               'React Hook useEffect has a complex expression in the dependency array. Extract it to a separate variable so it can be statically checked.',
           'suggestions': null,
-        }
+        },
       ],
     },
     {
@@ -2364,9 +2364,9 @@ const tests = {
                   }, [props]);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -2395,9 +2395,9 @@ const tests = {
                   }, [props.bar, props.foo]);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -2424,9 +2424,9 @@ const tests = {
                   }, [local, local.id]);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -2453,9 +2453,9 @@ const tests = {
                   }, [local]);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -2482,9 +2482,9 @@ const tests = {
                   }, [local]);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -2509,9 +2509,9 @@ const tests = {
                   }, [props.foo.bar.baz]);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -2540,9 +2540,9 @@ const tests = {
                   }, [color, props.foo.bar.baz]);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -2567,9 +2567,9 @@ const tests = {
                   }, [props.foo]);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -2596,9 +2596,9 @@ const tests = {
                   }, [props.foo.bar.baz, props.foo.fizz.bizz]);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -2623,9 +2623,9 @@ const tests = {
                   }, [props.foo.bar]);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -2652,9 +2652,9 @@ const tests = {
                   }, [props]);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -2681,9 +2681,9 @@ const tests = {
                   }, [local]);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -2712,9 +2712,9 @@ const tests = {
                   }, []);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -2737,9 +2737,9 @@ const tests = {
                   useCallback(() {}, []);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -2764,9 +2764,9 @@ const tests = {
                   }, [props.foo]);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -2793,9 +2793,9 @@ const tests = {
                   }, [props.bar, props.foo]);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -2822,9 +2822,9 @@ const tests = {
                   }, [c, a, g, b, e, d, f]);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -2851,9 +2851,9 @@ const tests = {
                   }, [a, b, c, d, e, f, g]);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -2880,9 +2880,9 @@ const tests = {
                   }, [a, b, c, d, e, f, g]);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -2913,9 +2913,9 @@ const tests = {
                   }, [local, props.bar, props.foo]);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -2946,9 +2946,9 @@ const tests = {
                   }, [local, props]);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -3009,7 +3009,7 @@ const tests = {
                   }, []);
                 }, null);
               ''',
-            }
+            },
           ],
         },
         {
@@ -3043,7 +3043,7 @@ const tests = {
                   }, []);
                 }, null);
               ''',
-            }
+            },
           ],
         },
         {
@@ -3077,7 +3077,7 @@ const tests = {
                   }, []);
                 }, null);
               ''',
-            }
+            },
           ],
         },
         {
@@ -3111,7 +3111,7 @@ const tests = {
                   }, []);
                 }, null);
               ''',
-            }
+            },
           ],
         },
         {
@@ -3145,7 +3145,7 @@ const tests = {
                   }, []);
                 }, null);
               ''',
-            }
+            },
           ],
         },
         {
@@ -3179,9 +3179,9 @@ const tests = {
                   }, []);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -3204,7 +3204,7 @@ const tests = {
       'options': [
         {
           'additionalHooks': 'useCustomEffect',
-        }
+        },
       ],
       'errors': [
         {
@@ -3229,7 +3229,7 @@ const tests = {
                   }, []);
                 }, null);
               ''',
-            }
+            },
           ],
         },
         {
@@ -3254,7 +3254,7 @@ const tests = {
                   }, []);
                 }, null);
               ''',
-            }
+            },
           ],
         },
         {
@@ -3279,9 +3279,9 @@ const tests = {
                   }, []);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -3308,14 +3308,14 @@ const tests = {
                   }, [local]);
                 }, null);
               ''',
-            }
+            },
           ],
         },
         {
           'message':
               'React Hook useEffect has a complex expression in the dependency array. Extract it to a separate variable so it can be statically checked.',
           'suggestions': null,
-        }
+        },
       ],
     },
     {
@@ -3342,14 +3342,14 @@ const tests = {
                   }, [local]);
                 }, null);
               ''',
-            }
+            },
           ],
         },
         {
           'message':
               'React Hook useEffect has a complex expression in the dependency array. Extract it to a separate variable so it can be statically checked.',
           'suggestions': null,
-        }
+        },
       ],
     },
     {
@@ -3363,7 +3363,7 @@ const tests = {
           'message':
               'React Hook useEffect has a complex expression in the dependency array. Extract it to a separate variable so it can be statically checked.',
           'suggestions': null,
-        }
+        },
       ],
     },
     {
@@ -3377,7 +3377,7 @@ const tests = {
           'message':
               'React Hook useEffect has a complex expression in the dependency array. Extract it to a separate variable so it can be statically checked.',
           'suggestions': null,
-        }
+        },
       ],
     },
     {
@@ -3408,9 +3408,9 @@ const tests = {
                   }, [state.value]);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -3441,9 +3441,9 @@ const tests = {
                   }, [ref, state.value]);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -3478,9 +3478,9 @@ const tests = {
                   }, [props.color, props.someOtherRefs]);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -3515,9 +3515,9 @@ const tests = {
                   }, [props.someOtherRefs, props.color]);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -3552,9 +3552,9 @@ const tests = {
                   }, [props.someOtherRefs, props.color]);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -3581,9 +3581,9 @@ const tests = {
                   }, []);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -3618,9 +3618,9 @@ const tests = {
                   }, [activeTab]);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -3657,9 +3657,9 @@ const tests = {
                   }, [initY]);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -3686,9 +3686,9 @@ const tests = {
                   }, [ref]);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -3717,9 +3717,9 @@ const tests = {
                   }), [props.hello]);
                 });
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -3748,9 +3748,9 @@ const tests = {
                   }, [props]);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -3779,9 +3779,9 @@ const tests = {
                   }, [props]);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -3816,9 +3816,9 @@ const tests = {
                   }, [props]);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -3847,9 +3847,9 @@ const tests = {
                   }, [props.foo]);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -3880,9 +3880,9 @@ const tests = {
                   }, [props]);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -3914,9 +3914,9 @@ const tests = {
                   }, [skillsCount, props.isEditMode, props.toggleEditMode, props]);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -3947,9 +3947,9 @@ const tests = {
                   }, [props, skillsCount]);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -3976,9 +3976,9 @@ const tests = {
                   }, [props]);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -4005,9 +4005,9 @@ const tests = {
                   }, [props]);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -4053,7 +4053,7 @@ const tests = {
           'message':
               'Assignments to the \'asyncValue\' variable from inside React Hook useEffect will be lost after each render. To preserve the value over time, store it in a useRef Hook and keep the mutable value in the \'.current\' property. Otherwise, you can move this variable directly inside useEffect.',
           'suggestions': null,
-        }
+        },
       ],
     },
     {
@@ -4090,7 +4090,7 @@ const tests = {
           'message':
               'Assignments to the \'asyncValue\' variable from inside React Hook useEffect will be lost after each render. To preserve the value over time, store it in a useRef Hook and keep the mutable value in the \'.current\' property. Otherwise, you can move this variable directly inside useEffect.',
           'suggestions': null,
-        }
+        },
       ],
     },
     {
@@ -4110,7 +4110,7 @@ const tests = {
           'message':
               'The ref value \'myRef.current\' will likely have changed by the time this effect cleanup function runs. If this ref points to a node rendered by React, copy \'myRef.current\' to a variable inside the effect, and use that variable in the cleanup function.',
           'suggestions': null,
-        }
+        },
       ],
     },
     {
@@ -4130,7 +4130,7 @@ const tests = {
           'message':
               'The ref value \'myRef.current\' will likely have changed by the time this effect cleanup function runs. If this ref points to a node rendered by React, copy \'myRef.current\' to a variable inside the effect, and use that variable in the cleanup function.',
           'suggestions': null,
-        }
+        },
       ],
     },
     {
@@ -4150,7 +4150,7 @@ const tests = {
           'message':
               'The ref value \'myRef.current\' will likely have changed by the time this effect cleanup function runs. If this ref points to a node rendered by React, copy \'myRef.current\' to a variable inside the effect, and use that variable in the cleanup function.',
           'suggestions': null,
-        }
+        },
       ],
     },
     {
@@ -4168,7 +4168,7 @@ const tests = {
           'message':
               'The ref value \'myRef.current\' will likely have changed by the time this effect cleanup function runs. If this ref points to a node rendered by React, copy \'myRef.current\' to a variable inside the effect, and use that variable in the cleanup function.',
           'suggestions': null,
-        }
+        },
       ],
     },
     {
@@ -4192,7 +4192,7 @@ const tests = {
           'message':
               'The ref value \'myRef.current\' will likely have changed by the time this effect cleanup function runs. If this ref points to a node rendered by React, copy \'myRef.current\' to a variable inside the effect, and use that variable in the cleanup function.',
           'suggestions': null,
-        }
+        },
       ],
     },
     {
@@ -4216,7 +4216,7 @@ const tests = {
           'message':
               'The ref value \'myRef.current\' will likely have changed by the time this effect cleanup function runs. If this ref points to a node rendered by React, copy \'myRef.current\' to a variable inside the effect, and use that variable in the cleanup function.',
           'suggestions': null,
-        }
+        },
       ],
     },
     {
@@ -4243,12 +4243,12 @@ const tests = {
         }, null);
       ''',
       'errors': [
-        'The ref value \'myRef.current\' will likely have changed by the time this effect cleanup function runs. If this ref points to a node rendered by React, copy \'myRef.current\' to a variable inside the effect, and use that variable in the cleanup function.'
+        'The ref value \'myRef.current\' will likely have changed by the time this effect cleanup function runs. If this ref points to a node rendered by React, copy \'myRef.current\' to a variable inside the effect, and use that variable in the cleanup function.',
       ],
       'options': [
         {
           'additionalHooks': 'useLayoutEffect_SAFE_FOR_SSR',
-        }
+        },
       ],
     },
     {
@@ -4287,9 +4287,9 @@ const tests = {
                   }, [local1, local3, local4]);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -4314,9 +4314,9 @@ const tests = {
                   }, []);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -4341,9 +4341,9 @@ const tests = {
                   }, []);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -4378,9 +4378,9 @@ const tests = {
                   }
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -4415,9 +4415,9 @@ const tests = {
                   }
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -4452,9 +4452,9 @@ const tests = {
                   }
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -4489,9 +4489,9 @@ const tests = {
                   }
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -4560,7 +4560,7 @@ const tests = {
                   }, []);
                 }, null);
               ''',
-            }
+            },
           ],
         },
         {
@@ -4598,7 +4598,7 @@ const tests = {
                   }, []);
                 }, null);
               ''',
-            }
+            },
           ],
         },
         {
@@ -4636,9 +4636,9 @@ const tests = {
                   }, [handleNext3]);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -4711,7 +4711,7 @@ const tests = {
                   }, []);
                 }, null);
               ''',
-            }
+            },
           ],
         },
         {
@@ -4751,7 +4751,7 @@ const tests = {
                   }, []);
                 }, null);
               ''',
-            }
+            },
           ],
         },
         {
@@ -4791,9 +4791,9 @@ const tests = {
                   }, [handleNext3]);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -4866,7 +4866,7 @@ const tests = {
                   }, []);
                 }, null);
               ''',
-            }
+            },
           ],
         },
         {
@@ -4906,7 +4906,7 @@ const tests = {
                   }, []);
                 }, null);
               ''',
-            }
+            },
           ],
         },
         {
@@ -4946,9 +4946,9 @@ const tests = {
                   }, [handleNext3]);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -4968,7 +4968,7 @@ const tests = {
           'message':
               'The \'handleNext\' function makes the dependencies of useEffect Hook (at line 11) change on every render. Move it inside the useEffect callback. Alternatively, wrap the definition of \'handleNext\' in its own useCallback() Hook.',
           'suggestions': null,
-        }
+        },
       ],
     },
     {
@@ -4988,7 +4988,7 @@ const tests = {
           'message':
               'The \'handleNext\' function makes the dependencies of useEffect Hook (at line 11) change on every render. Move it inside the useEffect callback. Alternatively, wrap the definition of \'handleNext\' in its own useCallback() Hook.',
           'suggestions': null,
-        }
+        },
       ],
     },
     {
@@ -5023,9 +5023,9 @@ const tests = {
                   return (Dom.div()..onClick = handleNext)();
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -5066,7 +5066,7 @@ const tests = {
           'message':
               'The \'handleNext3\' function makes the dependencies of useMemo Hook (at line 20) change on every render. Move it inside the useMemo callback. Alternatively, wrap the definition of \'handleNext3\' in its own useCallback() Hook.',
           'suggestions': null,
-        }
+        },
       ],
     },
     {
@@ -5110,7 +5110,7 @@ const tests = {
           'message':
               'The \'handleNext3\' function makes the dependencies of useMemo Hook (at line 23) change on every render. Move it inside the useMemo callback. Alternatively, wrap the definition of \'handleNext3\' in its own useCallback() Hook.',
           'suggestions': null,
-        }
+        },
       ],
     },
     {
@@ -5198,7 +5198,7 @@ const tests = {
                   );
                 }, null);
               ''',
-            }
+            },
           ],
         },
         {
@@ -5243,9 +5243,9 @@ const tests = {
                   );
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -5292,7 +5292,7 @@ const tests = {
                   }, [handleNext1, handleNext2]);
                 }, null);
               ''',
-            }
+            },
           ],
         },
         {
@@ -5319,7 +5319,7 @@ const tests = {
                   }, [handleNext1, handleNext2]);
                 }, null);
               ''',
-            }
+            },
           ],
         },
         {
@@ -5331,7 +5331,7 @@ const tests = {
           'message':
               'The \'handleNext2\' function makes the dependencies of useEffect Hook (at line 16) change on every render. To fix this, wrap the definition of \'handleNext2\' in its own useCallback() Hook.',
           'suggestions': null,
-        }
+        },
       ],
     },
     {
@@ -5372,9 +5372,9 @@ const tests = {
                   }, [handleNext]);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -5397,7 +5397,7 @@ const tests = {
           'message':
               'The \'handleNext\' function makes the dependencies of useEffect Hook (at line 14) change on every render. Move it inside the useEffect callback. Alternatively, wrap the definition of \'handleNext\' in its own useCallback() Hook.',
           'suggestions': null,
-        }
+        },
       ],
     },
     {
@@ -5432,9 +5432,9 @@ const tests = {
                   return Dom.h1()(count.value);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -5471,9 +5471,9 @@ const tests = {
                   return Dom.h1()(count.value);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -5510,9 +5510,9 @@ const tests = {
                   return Dom.h1()(count.value);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -5549,9 +5549,9 @@ const tests = {
                   return Dom.h1()(count.value);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -5596,9 +5596,9 @@ const tests = {
                   return Dom.h1()(count.value);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -5624,7 +5624,7 @@ const tests = {
           'message':
               'The \'increment\' function makes the dependencies of useEffect Hook (at line 14) change on every render. Move it inside the useEffect callback. Alternatively, wrap the definition of \'increment\' in its own useCallback() Hook.',
           'suggestions': null,
-        }
+        },
       ],
     },
     {
@@ -5663,9 +5663,9 @@ const tests = {
                   return Dom.h1()(count.value);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -5706,9 +5706,9 @@ const tests = {
                   return Dom.h1()(count.value);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -5735,9 +5735,9 @@ const tests = {
                   var podcasts = useState(null);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -5770,9 +5770,9 @@ const tests = {
                   }, [fetchPodcasts, id]);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -5799,9 +5799,9 @@ const tests = {
                   }, [fetchPodcasts, id]);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -5844,9 +5844,9 @@ const tests = {
                   }, [fetchPodcasts, fetchPodcasts2, id]);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -5881,9 +5881,9 @@ const tests = {
                   }, [fetchPodcasts, id]);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -5918,9 +5918,9 @@ const tests = {
                   }, [fetchPodcasts, id]);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -5947,9 +5947,9 @@ const tests = {
                   }, []);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -5976,9 +5976,9 @@ const tests = {
                   }, []);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -6005,9 +6005,9 @@ const tests = {
                   }, []);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -6038,9 +6038,9 @@ const tests = {
                   }, [country]);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -6077,9 +6077,9 @@ const tests = {
                   }, [prop1, prop2]);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -6105,7 +6105,7 @@ const tests = {
             Learn more about data fetching with Hooks: https://reactjs.org/link/hooks-data-fetching
           ''',
           'suggestions': null,
-        }
+        },
       ],
     },
     {
@@ -6131,7 +6131,7 @@ const tests = {
             Learn more about data fetching with Hooks: https://reactjs.org/link/hooks-data-fetching
           ''',
           'suggestions': null,
-        }
+        },
       ],
     },
     {
@@ -6156,9 +6156,9 @@ const tests = {
                   }, []);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -6193,9 +6193,9 @@ const tests = {
                   }, [foo]);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -6224,9 +6224,9 @@ const tests = {
                   useEffect(myEffect, [local]);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -6255,9 +6255,9 @@ const tests = {
                   useEffect(myEffect, [local]);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -6286,9 +6286,9 @@ const tests = {
                   useEffect(myEffect, [local]);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -6323,9 +6323,9 @@ const tests = {
                   useEffect(myEffect, [otherThing]);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -6354,9 +6354,9 @@ const tests = {
                   useEffect(myEffect, [myEffect]);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -6385,9 +6385,9 @@ const tests = {
                   useEffect(myEffect, [myEffect]);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -6412,9 +6412,9 @@ const tests = {
                   useEffect(myEffect, [myEffect]);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -6431,7 +6431,7 @@ const tests = {
           'message':
               'React Hook useEffect received a function whose dependencies are unknown. Pass an inline function instead.',
           'suggestions': [],
-        }
+        },
       ],
     },
     {
@@ -6455,12 +6455,12 @@ const tests = {
         {
           'message':
               'React Hook useEffect has a missing dependency: \'local\'. Either include it or remove the dependency array.',
-        }
+        },
       ],
       'options': [
         {
           'enableDangerousAutofixThisMayCauseInfiniteLoops': true,
-        }
+        },
       ],
     },
     {
@@ -6489,9 +6489,9 @@ const tests = {
                   }, [foo.bar, props.foo.bar]);
                 }, null);
               ''',
-            }
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -6506,7 +6506,7 @@ const tests = {
           'message':
               'The \'foo\' object makes the dependencies of useMemo Hook (at line 4) change on every render. Move it inside the useMemo callback. Alternatively, wrap the initialization of \'foo\' in its own useMemo() Hook.',
           'suggestions': null,
-        }
+        },
       ],
     },
     {
@@ -6521,7 +6521,7 @@ const tests = {
           'message':
               'The \'foo\' array makes the dependencies of useMemo Hook (at line 4) change on every render. Move it inside the useMemo callback. Alternatively, wrap the initialization of \'foo\' in its own useMemo() Hook.',
           'suggestions': null,
-        }
+        },
       ],
     },
     {
@@ -6536,7 +6536,7 @@ const tests = {
           'message':
               'The \'foo\' function makes the dependencies of useMemo Hook (at line 4) change on every render. Move it inside the useMemo callback. Alternatively, wrap the definition of \'foo\' in its own useCallback() Hook.',
           'suggestions': null,
-        }
+        },
       ],
     },
     {
@@ -6551,7 +6551,7 @@ const tests = {
           'message':
               'The \'foo\' function makes the dependencies of useMemo Hook (at line 4) change on every render. Move it inside the useMemo callback. Alternatively, wrap the definition of \'foo\' in its own useCallback() Hook.',
           'suggestions': null,
-        }
+        },
       ],
     },
     {
@@ -6566,7 +6566,7 @@ const tests = {
           'message':
               'The \'foo\' class makes the dependencies of useMemo Hook (at line 4) change on every render. Move it inside the useMemo callback. Alternatively, wrap the initialization of \'foo\' in its own useMemo() Hook.',
           'suggestions': null,
-        }
+        },
       ],
     },
     {
@@ -6581,7 +6581,7 @@ const tests = {
           'message':
               'The \'foo\' conditional could make the dependencies of useMemo Hook (at line 4) change on every render. Move it inside the useMemo callback. Alternatively, wrap the initialization of \'foo\' in its own useMemo() Hook.',
           'suggestions': null,
-        }
+        },
       ],
     },
     {
@@ -6596,7 +6596,7 @@ const tests = {
           'message':
               'The \'foo\' logical expression could make the dependencies of useMemo Hook (at line 4) change on every render. Move it inside the useMemo callback. Alternatively, wrap the initialization of \'foo\' in its own useMemo() Hook.',
           'suggestions': null,
-        }
+        },
       ],
     },
     {
@@ -6611,7 +6611,7 @@ const tests = {
           'message':
               'The \'foo\' logical expression could make the dependencies of useMemo Hook (at line 4) change on every render. Move it inside the useMemo callback. Alternatively, wrap the initialization of \'foo\' in its own useMemo() Hook.',
           'suggestions': null,
-        }
+        },
       ],
     },
     {
@@ -6626,7 +6626,7 @@ const tests = {
           'message':
               'The \'foo\' logical expression could make the dependencies of useMemo Hook (at line 4) change on every render. Move it inside the useMemo callback. Alternatively, wrap the initialization of \'foo\' in its own useMemo() Hook.',
           'suggestions': null,
-        }
+        },
       ],
     },
     {
@@ -6641,7 +6641,7 @@ const tests = {
           'message':
               'The \'foo\' conditional could make the dependencies of useMemo Hook (at line 4) change on every render. Move it inside the useMemo callback. Alternatively, wrap the initialization of \'foo\' in its own useMemo() Hook.',
           'suggestions': null,
-        }
+        },
       ],
     },
     {
@@ -6656,7 +6656,7 @@ const tests = {
           'message':
               'The \'foo\' object makes the dependencies of useMemo Hook (at line 4) change on every render. Move it inside the useMemo callback. Alternatively, wrap the initialization of \'foo\' in its own useMemo() Hook.',
           'suggestions': null,
-        }
+        },
       ],
     },
     {
@@ -6671,7 +6671,7 @@ const tests = {
           'message':
               'The \'foo\' object makes the dependencies of useMemo Hook (at line 4) change on every render. Move it inside the useMemo callback. Alternatively, wrap the initialization of \'foo\' in its own useMemo() Hook.',
           'suggestions': null,
-        }
+        },
       ],
     },
     {
@@ -6688,7 +6688,7 @@ const tests = {
           'message':
               'The \'foo\' object makes the dependencies of useCallback Hook (at line 6) change on every render. Move it inside the useCallback callback. Alternatively, wrap the initialization of \'foo\' in its own useMemo() Hook.',
           'suggestions': null,
-        }
+        },
       ],
     },
     {
@@ -6705,7 +6705,7 @@ const tests = {
           'message':
               'The \'foo\' object makes the dependencies of useEffect Hook (at line 6) change on every render. Move it inside the useEffect callback. Alternatively, wrap the initialization of \'foo\' in its own useMemo() Hook.',
           'suggestions': null,
-        }
+        },
       ],
     },
     {
@@ -6722,7 +6722,7 @@ const tests = {
           'message':
               'The \'foo\' object makes the dependencies of useLayoutEffect Hook (at line 6) change on every render. Move it inside the useLayoutEffect callback. Alternatively, wrap the initialization of \'foo\' in its own useMemo() Hook.',
           'suggestions': null,
-        }
+        },
       ],
     },
     {
@@ -6743,7 +6743,7 @@ const tests = {
           'message':
               'The \'foo\' object makes the dependencies of useImperativeHandle Hook (at line 9) change on every render. Move it inside the useImperativeHandle callback. Alternatively, wrap the initialization of \'foo\' in its own useMemo() Hook.',
           'suggestions': null,
-        }
+        },
       ],
     },
     {
@@ -6760,7 +6760,7 @@ const tests = {
           'message':
               'The \'foo\' logical expression could make the dependencies of useEffect Hook (at line 6) change on every render. Move it inside the useEffect callback. Alternatively, wrap the initialization of \'foo\' in its own useMemo() Hook.',
           'suggestions': null,
-        }
+        },
       ],
     },
     {
@@ -6778,7 +6778,7 @@ const tests = {
           'message':
               'The \'foo\' object makes the dependencies of useMemo Hook (at line 7) change on every render. To fix this, wrap the initialization of \'foo\' in its own useMemo() Hook.',
           'suggestions': null,
-        }
+        },
       ],
     },
     {
@@ -6795,7 +6795,7 @@ const tests = {
           'message':
               'The \'foo\' JSX fragment makes the dependencies of useMemo Hook (at line 6) change on every render. Move it inside the useMemo callback. Alternatively, wrap the initialization of \'foo\' in its own useMemo() Hook.',
           'suggestions': null,
-        }
+        },
       ],
     },
     {
@@ -6812,7 +6812,7 @@ const tests = {
           'message':
               'The \'foo\' JSX element makes the dependencies of useMemo Hook (at line 6) change on every render. Move it inside the useMemo callback. Alternatively, wrap the initialization of \'foo\' in its own useMemo() Hook.',
           'suggestions': null,
-        }
+        },
       ],
     },
     {
@@ -6829,7 +6829,7 @@ const tests = {
           'message':
               'The \'foo\' assignment expression makes the dependencies of useMemo Hook (at line 6) change on every render. Move it inside the useMemo callback. Alternatively, wrap the initialization of \'foo\' in its own useMemo() Hook.',
           'suggestions': null,
-        }
+        },
       ],
     },
     {
@@ -6846,7 +6846,7 @@ const tests = {
           'message':
               'The \'foo\' object construction makes the dependencies of useMemo Hook (at line 6) change on every render. Move it inside the useMemo callback. Alternatively, wrap the initialization of \'foo\' in its own useMemo() Hook.',
           'suggestions': null,
-        }
+        },
       ],
     },
     {
@@ -6863,7 +6863,7 @@ const tests = {
           'message':
               'The \'foo\' object construction makes the dependencies of useMemo Hook (at line 6) change on every render. Move it inside the useMemo callback. Alternatively, wrap the initialization of \'foo\' in its own useMemo() Hook.',
           'suggestions': null,
-        }
+        },
       ],
     },
     {
@@ -6880,7 +6880,7 @@ const tests = {
           'message':
               'The \'foo\' regular expression makes the dependencies of useMemo Hook (at line 6) change on every render. Move it inside the useMemo callback. Alternatively, wrap the initialization of \'foo\' in its own useMemo() Hook.',
           'suggestions': null,
-        }
+        },
       ],
     },
     {
@@ -6897,7 +6897,7 @@ const tests = {
           'message':
               'The \'Bar\' class makes the dependencies of useMemo Hook (at line 6) change on every render. Move it inside the useMemo callback. Alternatively, wrap the initialization of \'Bar\' in its own useMemo() Hook.',
           'suggestions': null,
-        }
+        },
       ],
     },
     {
@@ -6922,8 +6922,8 @@ const tests = {
           'message':
               'The \'foo\' object makes the dependencies of useEffect Hook (at line 9) change on every render. To fix this, wrap the initialization of \'foo\' in its own useMemo() Hook.',
           'suggestions': null,
-        }
+        },
       ],
-    }
+    },
   ],
 };
