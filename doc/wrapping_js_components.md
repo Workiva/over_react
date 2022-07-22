@@ -5,8 +5,9 @@
   - [Dart Level](#level-3-the-dart-level)
   - [Interop Level](#level-2-interop-level)
   - [JS Level](#level-1-javascript-land)
-  - [Conclusion](#conclusion)
+  - [Conclusion](#theoretical-conclusion)
 - **[Implementation](#implementation)**
+  - [Pre-Requisites](#pre-requisites)
   - [Adding the JS Variable](#adding-the-js-variable)
     - [Adding the Directives](#adding-the-directives)
     - [Creating the Getter](#creating-the-getter)
@@ -17,6 +18,7 @@
       - [Standard Types](#standard-types)
       - [Exotic Types](#exotic-types)
       - [Supplemental Explanations](#supplemental-explanations)
+        - [Conversion through Getters and Setters](#conversion-through-getters-and-setters)
         - [Converting Maps](#converting-maps)
         - [Converting Refs](#converting-refs)
         - [Converting Conflicting Function Props](#converting-conflicting-function-props)
@@ -24,13 +26,13 @@
   - [Testing Your Dart Component](#testing-your-dart-component)
     - [Test to Verify Component Mount](#test-to-verify-component-mount)
     - [Testing Function Props](#testing-function-props)
-- **[Conclusion](#conclusion-1)**
+- **[Conclusion](#conclusion)**
 
 ## Intro
 
 The JavaScript community is full of great open source libraries that export React components. These JavaScript components can be consumed in Dart by using JS interop to wrap the component and expose a Dart API for it. This process ultimately looks like writing a new Dart OverReact component, with the exception that the Dart component is linked to a JS implementation instead of a Dart one.
 
-This guide as a whole walks through how to do that linking process and helps make developers aware of the pitfalls that can cause trouble. This section in particular includes a high level description of that whole process. Future sections dive deeper into each step to explain why steps happen as they do or explain things to watch out for.
+This guide as a whole walks through how to do that linking process and helps make developers aware of the pitfalls that can cause trouble. This section in particular includes a high level technical description of that whole process. Future sections dive deeper into each step to explain why steps happen as they do or explain things to watch out for.
 
 ```dart
 @JS() /* [1] */
@@ -55,12 +57,12 @@ mixin ArbitraryComponentProps on UiProps {
 external ReactClass get _jsArbitraryComponent; /* [8] */
 ```
 
-Below are more detailed explanations of each part of the code. These points are ordered from top to bottom and are not necessarily in the order it makes sense to write the actual code. Each of these points correlates to a more thorough section later in the guide.
+Each notable section of code is briefly explained below. These points are ordered from top to bottom and are not necessarily in the order it makes sense to write the actual code. Each of these sections correlates to a more thorough section later in the guide.
 
 1. Add the `JS()` annotation and a library directive. Because this is a file implementing JS interop, it is necessary to use the `JS()` annotation. When using a `JS()` annotation, it is also necessary to have a library directive. The actual library name is not important as far as the wrapping and interop go, but it should be unique to the file.
 1. Add the `part` directive. Just like any other OverReact component, the file needs to have a `part` that matches the file's name. Nothing special needs to be done here as far as wrapping the JS component goes.
 1. Invoke `uiJsComponent`. Note that the left hand side of the declaration looks exactly like a standard, all-Dart functional component declaration. However, on the right hand side, instead of using `uiFunction`, the API being use is `uiJsComponent`.
-1. Wrap the JS interop variable with `ReactJsComponentFactoryProxy`. The JS variable (`_jsArbitraryComponent` in this case) is defined below. `ReactJsComponentFactoryProxy` is a wrapper that understands how to create a React element (in Dart) from the JS component.
+1. Wrap the JS interop variable with `ReactJsComponentFactoryProxy`. The JS variable (`_jsArbitraryComponent` in this case) is defined below. `ReactJsComponentFactoryProxy` is a wrapper that understands how to create a `ReactElement` (in Dart) from the JS component.
 1. Set the prop's namespace to be empty. JS components do not have a key namespace like OverReact components do. Therefore, in order to set props as expected using Dart, there should be no namespace.
 1. Add types for the props. In the cases where types map one-to-one from JS to Dart, this is really straightforward. There are more challenging cases to watch out for, though. For more information, see the [Adding Prop Typings](#adding-prop-typings) section.
 1. Annotate the JS variable. This annotation should match the global JS variable that exposes the component to be wrapped.
@@ -97,7 +99,7 @@ Now `propsInstance` can be used to customize the element's props or to _build_ t
 final aReactElement = propsInstance();
 ```
 
-Usually, invoking the `UiFactory` and props instance are done in immediate succession.
+Usually, invoking the `UiFactory` and building the `ReactElement` are done in immediate succession.
 
 ```dart
 return (
@@ -140,19 +142,27 @@ That getter can then be used whenever it's necessary to reference the raw JS com
 In order for that getter to be valid though, it must be pointing to tangible JavaScript somewhere. The interop APIs look for that JavaScript as a property of the `Window` object. In order to add the JavaScript to the `Window`, you must:
 
 1. Have a JavaScript bundle. This bundle should wrap its contents in a namespace (like it's package name) and export the JS component.
-1. Attach the bundle to the html page loading the application, similar to how [React is added][react-script].
+1. Load the JS bundle into the application. One way to do this is similar to how [React is added][react-script] to a page.
 
-If you are wrapping a JS library without any customizations, it's likely the bundle already exists as a [UMD module](https://jameshfisher.com/2020/10/04/what-are-umd-modules/). If you need to write your own JS or make customizations, it's necessary to create your own bundle. If you have any questions around bundling, let us know in [Slack][slack]!
+If you are wrapping a JS library without any customizations, it's likely the bundle already exists as a [UMD module](https://jameshfisher.com/2020/10/04/what-are-umd-modules/) or similar format. If you need to write your own JS or make customizations, it's necessary to create your own bundle. If you have any questions around bundling, let us know in [Slack][slack]!
 
-### Conclusion
+### Theoretical Conclusion
 
 This section gave a high level view of how wrapping a JS component works in theory. You must wrap the JS component in such a way that it follows OverReact's pattern of using `UiFactory` to create a props instance capable of building a `ReactElement`. This is possible with `uiJsComponent`, which takes in a `ReactJsComponentFactoryProxy` that points to a raw JS component attached to the `Window`.
 
-The rest of this guide will reference this same concepts as it implements the code step-by-step.
+The rest of this guide will reference these same concepts as it implements the code step-by-step.
 
 ### Implementation
 
-With the theory in mind, this section implements the necessary pieces step by step. At this point, create a file (named like you would name a Dart component file) and follow the steps to begin adding your code!
+With the theory in mind, this section implements the necessary pieces step by step.
+
+### Pre-Requisites
+
+Before jumping into wrapping your component, here is a list of things to do to get set up:
+
+- Make sure your package depends on `over_react: ^4.4.0`.
+- Have a JS bundle and load the JS script in any applications that will use the component (in an `example` directory, test template, `app` directory, etc). **NOTE** that if your package is consumed by a different one, it is important to ensure that the consuming package(s) know to load the script in their applications too.
+- Create a file for your component. The file name does not have to be unique for this process and can be consistent with existing naming patterns in your package.
 
 ### Adding the JS Variable
 
@@ -189,7 +199,13 @@ The `js.dart` import gives access to the `JS()` annotation. The `JS()` annotatio
 
 #### Creating the Getter
 
-Creating the getter is very simple. The code here can basically be copied and pasted from the code found in this doc, just changing the name of the getter to be something more specific than `_jsArbitraryComponent`. However, the name can really be anything. We have the norm of using `_js{ComponentName}` because:
+Creating the getter is very simple.
+
+```dart
+external ReactClass get _jsArbitraryComponent;
+```
+
+The code here can basically be copied and pasted from the code found in this doc, just changing the name of the getter to be something more specific than `_jsArbitraryComponent`. However, the name can really be anything. We have the norm of using `_js{ComponentName}` because:
 
 - It's private, which is preferred because the use case for the JS variable itself is limited
 - It makes it clear it's the _JS_ version of the component, while also including the component's name and thereby coupling it with the Dart API
@@ -210,9 +226,9 @@ then Dart will expect to find the property `ArbitraryComponent` on the `Window`.
 @JS('MagicalJsPackage.ArbitraryComponent')
 ```
 
-> Reminder: The JavaScript bundle for the JS must be added to the HTML page as a script, [similar to how React is added][react-script], or else this interop step will always fail at runtime.
+> Reminder: The JavaScript bundle for the JS must be loaded into the application, [potentially similar to how React is added][react-script], or else this interop step will always fail at runtime.
 
-To check that the correct name is, you can use the browser devtools to attempt to access the property on the `Window`. If the property is valid and generally where you expect it to be then it's likely correct.
+To check that the name is correct, you can use the browser devtools to attempt to access the property on the `Window`. If the property is valid and generally where you expect it to be then it's likely correct.
 
 <img src='./images/ui_js_component/interop_ref.gif' alt='Accessing the property in the devtools' />
 
@@ -226,11 +242,11 @@ If the annotation does not have the correct name, rendering the component will f
 
 Next, you'll want to create the props mixin for your component. A props mixin declares props, types them, and in more advanced cases converts their values. In simple cases, you're just adding a property to the props mixin that lines up with a prop on the JS side, and [react-dart][react-dart] will handle converting that data from Dart to JavaScript. Meanwhile, other cases require manual type conversions to form the data in a way that JS can understand.
 
-This section will give a basic example of what writing this mixin looks like and then give more examples of specific type conversions.
+This section will give a basic example of what writing this mixin looks like and then give additional examples of more complex type conversions.
 
 #### Props Conversion Example
 
-Start by adding your component imports, if you haven't already.
+Start by adding your component imports to your file, if you haven't already.
 
 ```dart
 import 'package:over_react/over_react.dart';
@@ -323,7 +339,7 @@ These are tables that helps illustrate the typing of a prop in TypeScript and Da
 
 ##### Exotic Types
 
-Exotic types are those that may need more care to convert. Some are just special because they correlate to very specific preexisting Dart types. Watch carefully for these types of props as the translation to Dart may seem intuitive when it actually requires special care. Some of these cases are discussed further in the [Supplemental Explanations section](#supplemental-explanations).
+Exotic types are those that may need more care to convert. Watch carefully for these types of props as the translation to Dart may seem intuitive when it actually requires special care. These cases are discussed further in the [Supplemental Explanations section](#supplemental-explanations).
 
 | TypeScript                                                              | TypeScript Example                                                                                                | Dart                                                             | Dart Example                                                                                                            |
 | ----------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
@@ -350,7 +366,7 @@ mixin ArbitraryComponentProps on UiProps {
 }
 ```
 
-Each piece of this code block is broken down further in upcoming sections, but from a high level, patterns like this are necessary to allow the component to receive raw JS data from the JS library. When rendering a JS component through Dart, it's possible that on the JS side will also attempt to pass props into the component. This issue is complex and [a full explanation exists](https://sandbox.wdesk.com/a/QWNjb3VudB8yMDAx/doc/1ce2dddb987b4b25a2e0f3a7804fc4af/r/-1/v/1/sec/1ce2dddb987b4b25a2e0f3a7804fc4af_1165).
+Each piece of this code block is described further in upcoming sections, but from a high level, patterns like this are necessary to allow the component to receive raw JS data from the JS library. When rendering a JS and Dart components together, it's possible that the JS side will attempt to pass props into the component. This situation is complex and [a full explanation exists](https://sandbox.wdesk.com/a/QWNjb3VudB8yMDAx/doc/1ce2dddb987b4b25a2e0f3a7804fc4af/r/-1/v/1/sec/1ce2dddb987b4b25a2e0f3a7804fc4af_1165).
 
 The effect is that types which cannot be safely converted from JS to Dart should use a JS type (like `JsMap`) as the Dart type. Otherwise, it risks unexpected runtime errors due to invalid typing. To make it possible to work with these types, getters and setters are used to manually handle translation of the JS typed prop when necessary.
 
@@ -383,7 +399,7 @@ type AnotherType = {
 };
 ```
 
-When the properties of an object is known, the best conversion is to create a JS interop class. For example, given the TS structure of:
+When the properties of an object are known, the best conversion is to create a JS interop class. For example, given the TS structure of:
 
 ```ts
 interface ArbitraryComponentProps {
@@ -421,7 +437,7 @@ class AnonObjectTypeObject /* [3] */ {
 
 Breaking this down into its parts:
 
-1. **Annotate the class with the `JS()` annotation.** This tells Dart that this is an interop class it represents a JS class.
+1. **Annotate the class with the `JS()` annotation.** This tells Dart that this is an interop class that represents a JS class.
 1. **Annotate the class with the `@anonymous` annotation** This means that the class does not have a tangible constructor to use when creating the class. When the TS type being converted is an _object_ and not a formal _class_, this will usually be the case. This pattern tends to be more common in JS than using formal classes.
 1. **Name the class anything.** The name is not significant to interop, but we have the norm of naming it very closely to the prop it's representing.
 1. **Create a factory for the class.** Because there is no constructor, this is how developers can create instances of the class to pass into the prop. There should be a named parameter for every property on the class.
@@ -622,12 +638,12 @@ The breakdown of this test is:
 
 Function props can be deceptively tricky to wrap correctly. Fundamentally it's important to check that all the parameters can get converted from Dart to JS as expected, but explicitly testing it via UI interactions also ensures that the JS component invokes it as expected. JavaScript allows for a function to be called with any number of arguments, whereas in Dart calling a function with more or fewer arguments than it expects is a runtime error.
 
-To guard against that, it is recommended to write a test for every function prop that was wrapped. One of these tests may look like:
+To guard against that, it is recommended to write a test for every function prop that was wrapped. One of these tests may look like (using [React Testing Library](https://github.com/Workiva/react_testing_library)):
 
 ```dart
 test('onClick', () {
   final events = [];
-  final view = rtl.render(
+  final view = render(
     (Button()..onClick = (e) => events.add(e))(),
     wrapper: StrictMode,
   );
