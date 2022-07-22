@@ -546,6 +546,7 @@ final tests = {
       // Valid because we don't care about hooks outside of components.
       'code': r'''
         final local = {};
+        // ignore: over_react_rules_of_hooks
         useEffect(() {
           print(local);
         }, []);
@@ -557,6 +558,7 @@ final tests = {
         final local1 = {};
         {
           final local2 = {};
+          // ignore: over_react_rules_of_hooks
           useEffect(() {
             print(local1);
             print(local2);
@@ -1129,21 +1131,12 @@ final tests = {
             var id = setInterval(tick, 1000);
             return () => clearInterval(id);
           }, []);
-          return Dom.h1()(count.value);
+          return Dom.h1()(count.state);
         }, null);
       ''',
     },
-    {
-      // Regression test for a crash
-      'code': r'''
-        final Podcasts = uiFunction<TestProps>((_) {
-          useEffect(() {
-            podcasts.set([]);
-          }, []);
-          var podcasts = useState(null);
-        }, null);
-      ''',
-    },
+    /* ("Regression test for a crash" previously here was removed since the original cause of the crash is not applicable
+        in the Dart logic, and the test case involving variables declared after they're referenced is not valid in Dart.) */
     {
       'code': r'''
         withFetch(fetchPodcasts) {
@@ -1259,28 +1252,7 @@ final tests = {
         }, null);
       ''',
     },
-    {
-      'code': r'''
-        final Example = uiFunction<TestProps>((_) {
-          final foo = useCallback(() {
-            foo();
-          }, []);
-        }, null);
-      ''',
-    },
-    {
-      'code': r'''
-        final Example = uiFunction<TestProps>((props) {
-          var prop = props.prop;
-
-          final foo = useCallback(() {
-            if (prop) {
-              foo();
-            }
-          }, [prop]);
-        }, null);
-      ''',
-    },
+    /* (2 cases previously here involving referencing functions inside their declarations were removed, since that's not valid in Dart) */
     {
       'code': r'''
         final Hello = uiFunction<TestProps>((_) {

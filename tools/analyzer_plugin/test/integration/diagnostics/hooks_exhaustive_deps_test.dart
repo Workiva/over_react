@@ -20,6 +20,8 @@ void main() {
     tearDown(() => testBase.tearDown());
 
     const preamble = r'''
+// ignore_for_file: unused_import
+    
 import 'dart:html';
 
 import 'package:over_react/over_react.dart';
@@ -88,14 +90,10 @@ dynamic useSomeOtherRefyThing() => null;
 
     String wrapInFunction(String code) => 'void __testCaseWrapperFunction() {\n\n$code\n\n}';
 
-    bool errorFilter(AnalysisError error, {@required bool isFromPlugin, bool ignoreRulesOfHooks = false}) =>
+    bool errorFilter(AnalysisError error, {@required bool isFromPlugin}) =>
         defaultErrorFilter(error, isFromPlugin: isFromPlugin) &&
-        !{
-          'unused_import',
-        }.contains(error.code) &&
         // These are intentionally undefined references
-        !(error.code == 'undefined_identifier' && error.message.contains("Undefined name 'unresolved'.")) &&
-        !(ignoreRulesOfHooks && error.code == 'over_react_rules_of_hooks');
+        !(error.code == 'undefined_identifier' && error.message.contains("Undefined name 'unresolved'."));
 
     group('test cases that should pass', () {
       tco.tests['valid'].forEachIndexed((i, element) {
@@ -103,12 +101,9 @@ dynamic useSomeOtherRefyThing() => null;
           // Need to wrap in a function because some of the code includes statements that aren't valid
           // outside of a function context.
           final code = preamble + wrapInFunction(element['code'] as String);
-          final ignoreRulesOfHooks = element['isOutsideOfFunctionComponentOrHook'] as bool ?? false;
           try {
             final source = testBase.newSource('test.dart', code);
-            await testBase.expectNoErrors(source,
-                errorFilter: (error, {@required isFromPlugin}) =>
-                    errorFilter(error, isFromPlugin: isFromPlugin, ignoreRulesOfHooks: ignoreRulesOfHooks));
+            await testBase.expectNoErrors(source, errorFilter: errorFilter);
             // Run this here even though it's also in tearDown, so that we can see the source
             // when there's failures caused by this expectation.
             testBase.expectNoPluginErrors();
