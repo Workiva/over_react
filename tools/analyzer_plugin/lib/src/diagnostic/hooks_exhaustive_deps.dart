@@ -111,6 +111,7 @@ class WeakMap<K extends Object, V extends Object> {
   final _valueFor = Expando<V>();
 
   V? get(K key) => has(key) ? _valueFor[key] : null;
+
   V? getNullableKey(K? key) => key == null ? null : get(key);
 
   void set(K key, V value) {
