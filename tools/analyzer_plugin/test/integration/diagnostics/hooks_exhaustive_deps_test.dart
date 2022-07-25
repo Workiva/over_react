@@ -9,6 +9,7 @@ import 'package:over_react_analyzer_plugin/src/diagnostic/hooks_exhaustive_deps.
 import 'package:test/test.dart';
 import 'package:test_reflective_loader/test_reflective_loader.dart';
 
+import '../matchers.dart';
 import '../test_bases/diagnostic_test_base.dart';
 import 'test_cases_output.dart' as tco;
 
@@ -112,6 +113,61 @@ dynamic useSomeOtherRefyThing() => null;
             rethrow;
           }
         });
+      });
+    });
+
+    group('test cases that should warn', () {
+      tco.tests['invalid'].forEachIndexed((i, element) {
+        test('invalid[$i]', () async {
+          // Need to wrap in a function because some of the code includes statements that aren't valid
+          // outside of a function context.
+          final code = preamble + wrapInFunction(element['code'] as String);
+          final expectedErrors = (element['errors'] as List).cast<Map>();
+          expect(expectedErrors, isNotEmpty);
+
+          try {
+            final source = testBase.newSource('test.dart', code);
+            final errors = await testBase.getAllErrors(source, includeOtherCodes: true, errorFilter: errorFilter);
+            expect(errors.dartErrors, isEmpty,
+                reason: 'Expected there to be no errors coming from the analyzer and not the plugin.'
+                    ' Ensure your test source is free of unintentional errors, such as syntax errors and missing imports.'
+                    ' If errors are expected, set includeOtherErrorCodes:true.');
+            expect(errors.pluginErrors,
+                everyElement(AnalysisErrorHavingUtils(isA<AnalysisError>()).havingCode(HooksExhaustiveDeps.code.name)),
+                reason: 'Expected all errors to match the error & fix kinds under test.');
+
+            final expectedMessages = expectedErrors.map((e) => e['message'] as String).toList();
+            final actualMessages = errors.map((e) => e.message).toList();
+
+            // expect(errors, unorderedEquals(expectedErrors.map((e) => isDiagnostic(HooksExhaustiveDeps.code).havingMessage(contains(e['message'] as String));
+            expect(actualMessages, unorderedEquals(expectedMessages.map<Matcher>(contains)));
+            //fixme(greg) suggestions
+
+            // Run this here even though it's also in tearDown, so that we can see the source
+            // when there's failures caused by this expectation.
+            testBase.expectNoPluginErrors();
+          } catch (_) {
+            print('Source: ```\n$code\n```');
+            rethrow;
+          }
+        });
+      });
+
+      test('use of state.value without it in the dependency list', () async {
+        final source = testBase.newSource(
+            'test.dart',
+            preamble + /*language=dart*/ r'''
+          final Foo = uiFunction((props) {
+            final count = useState();
+            final otherValue = props.id;
+            useEffect(() {
+              print(otherValue);
+              print(count.value);
+            }, [otherValue]);
+          }, null);
+        ''');
+        final selection = testBase.createSelection(source, ', #[otherValue]#);');
+        await testBase.expectSingleErrorAt(selection, hasFix: true);
       });
     });
   });
