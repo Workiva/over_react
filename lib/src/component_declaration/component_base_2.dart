@@ -68,10 +68,6 @@ ReactDartComponentFactoryProxy2 registerComponent2(react.Component2 Function() d
     bridgeFactory: UiComponent2BridgeImpl.bridgeFactory,
   );
 
-  if (displayName != null) {
-    reactComponentFactory.reactClass.displayName = displayName;
-  }
-
   registerComponentTypeAlias(reactComponentFactory, builderFactory);
   registerComponentTypeAlias(reactComponentFactory, componentClass);
 
