@@ -2011,7 +2011,7 @@ final tests = {
           var baz = props.baz;
 
           useEffect(() {
-            print(foo, bar, baz);
+            print([foo, bar, baz]);
           }, ['foo', 'bar']);
         }, null);
       ''',
@@ -2029,7 +2029,7 @@ final tests = {
                   var baz = props.baz;
 
                   useEffect(() {
-                    print(foo, bar, baz);
+                    print([foo, bar, baz]);
                   }, [bar, baz, foo]);
                 }, null);
               ''',
@@ -2056,7 +2056,7 @@ final tests = {
           var baz = props.baz;
 
           useEffect(() {
-            print(foo, bar, baz);
+            print([foo, bar, baz]);
           }, [42, false, null]);
         }, null);
       ''',
@@ -2074,7 +2074,7 @@ final tests = {
                   var baz = props.baz;
 
                   useEffect(() {
-                    print(foo, bar, baz);
+                    print([foo, bar, baz]);
                   }, [bar, baz, foo]);
                 }, null);
               ''',
@@ -2829,7 +2829,7 @@ final tests = {
         final MyComponent = uiFunction<TestProps>((props) {
           var a, b, c, d, e, f, g;
           useEffect(() {
-            print(b, e, d, c, a, g, f);
+            print([b, e, d, c, a, g, f]);
           }, [c, a, g]);
         }, null);
       ''',
@@ -2845,7 +2845,7 @@ final tests = {
                 final MyComponent = uiFunction<TestProps>((props) {
                   var a, b, c, d, e, f, g;
                   useEffect(() {
-                    print(b, e, d, c, a, g, f);
+                    print([b, e, d, c, a, g, f]);
                   }, [c, a, g, b, e, d, f]);
                 }, null);
               ''',
@@ -2859,7 +2859,7 @@ final tests = {
         final MyComponent = uiFunction<TestProps>((props) {
           var a, b, c, d, e, f, g;
           useEffect(() {
-            print(b, e, d, c, a, g, f);
+            print([b, e, d, c, a, g, f]);
           }, [a, c, g]);
         }, null);
       ''',
@@ -2875,7 +2875,7 @@ final tests = {
                 final MyComponent = uiFunction<TestProps>((props) {
                   var a, b, c, d, e, f, g;
                   useEffect(() {
-                    print(b, e, d, c, a, g, f);
+                    print([b, e, d, c, a, g, f]);
                   }, [a, b, c, d, e, f, g]);
                 }, null);
               ''',
@@ -2889,7 +2889,7 @@ final tests = {
         final MyComponent = uiFunction<TestProps>((props) {
           var a, b, c, d, e, f, g;
           useEffect(() {
-            print(b, e, d, c, a, g, f);
+            print([b, e, d, c, a, g, f]);
           }, []);
         }, null);
       ''',
@@ -2905,7 +2905,7 @@ final tests = {
                 final MyComponent = uiFunction<TestProps>((props) {
                   var a, b, c, d, e, f, g;
                   useEffect(() {
-                    print(b, e, d, c, a, g, f);
+                    print([b, e, d, c, a, g, f]);
                   }, [a, b, c, d, e, f, g]);
                 }, null);
               ''',

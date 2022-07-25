@@ -38,6 +38,7 @@ mixin TestProps on UiProps {
   // FIXME do we need to make these non-dynamic?
   var foo;
   var bar;
+  var baz;
   var history;
   var innerRef;
   List items;
