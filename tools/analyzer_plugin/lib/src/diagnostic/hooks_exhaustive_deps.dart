@@ -776,11 +776,12 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
 
         // todo(greg) handle / warn about cascades?
         Expression? maybeID = declaredDependencyNode;
-        while (maybeID is PropertyAccess) {
-          maybeID = maybeID.target;
-        }
-        while (maybeID is PrefixedIdentifier) {
-          maybeID = maybeID.prefix;
+        while (maybeID is PropertyAccess || maybeID is PrefixedIdentifier) {
+          if (maybeID is PropertyAccess) {
+            maybeID = maybeID.target;
+          } else {
+            maybeID = (maybeID as PrefixedIdentifier).prefix;
+          }
         }
         final isDeclaredInComponent =
             maybeID.tryCast<Identifier>()?.staticElement?.enclosingElement == componentOrCustomHookFunctionElement;
@@ -1001,8 +1002,7 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
           isPropsOnlyUsedInMembers = false;
           break;
         }
-        if (!(parent is PropertyAccess && parent.target == ref) &&
-            !(parent is MethodInvocation && parent.target == ref)) {
+        if (parent is Expression && getSimpleTargetAndPropertyName(parent)?.item1 == ref) {
           isPropsOnlyUsedInMembers = false;
           break;
         }
@@ -1676,6 +1676,7 @@ AstNode getDependency(AstNode node) {
     return getDependency(parent);
   }
 
+  // TODO(greg) use getSimpleTargetAndPropertyName here?
   if (node is PropertyAccess && parent is AssignmentExpression && parent.leftHandSide == node) {
     final target = node.target;
     // This can be null if cascaded.
