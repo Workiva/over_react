@@ -226,6 +226,7 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
 
 // Visitor for both function expressions and arrow function expressions.
   void visitFunctionWithDependencies({
+    // FIXME(greg) rename this to something better like callbackBody
     required FunctionBody node,
     required AstNode? declaredDependenciesNode,
     required AstNode reactiveHook,
@@ -263,6 +264,8 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
     // Pure scopes include all scopes from the parent scope of the callback
     // to the first function scope (which will be either the component/render function or a custom hook,
     // since hooks can only be called from the top level).
+
+    final callbackFunctionElement = node.parentDeclaration?.declaredElement;
 
     // todo improve this
     final componentOrCustomHookFunctionBody = getClosestFunctionComponentOrHookBody(node);
@@ -657,6 +660,7 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
 
     final declaredDependencies = <_DeclaredDependency>[];
     final externalDependencies = <String>{};
+    final externalDependenciesDeclaredInCallback = <String>{};
     if (declaredDependenciesNode is! ListLiteral) {
       // If the declared dependencies are not an array expression then we
       // can't verify that the user provided the correct dependencies. Tell
@@ -783,8 +787,10 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
             maybeID = (maybeID as PrefixedIdentifier).prefix;
           }
         }
+        final enclosingElement = maybeID.tryCast<Identifier>()?.staticElement?.enclosingElement;
         final isDeclaredInComponent =
-            maybeID.tryCast<Identifier>()?.staticElement?.enclosingElement == componentOrCustomHookFunctionElement;
+            enclosingElement != null && enclosingElement == componentOrCustomHookFunctionElement;
+        final isDeclaredInCallback = enclosingElement != null && enclosingElement == callbackFunctionElement;
 
         // Add the dependency to our declared dependency map.
         declaredDependencies.add(_DeclaredDependency(
@@ -795,6 +801,9 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
 
         if (!isDeclaredInComponent) {
           externalDependencies.add(declaredDependency);
+        }
+        if (!isDeclaredInCallback) {
+          externalDependenciesDeclaredInCallback.add(declaredDependency);
         }
       }
     }
@@ -964,15 +973,13 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
         extraWarning = " Mutable values like '$badRef' aren't valid dependencies "
             "because mutating them doesn't re-render the component.";
       } else if (externalDependencies.isNotEmpty) {
-        // FIXME store actual reference to dep instead of just string representation
-        // final dep = externalDependencies.first;
-        // // Don't show this warning for things that likely just got moved *inside* the callback
-        // // because in that case they're clearly not referring to globals.
-        // if (!scope.set.contains(dep)) {
-        //   extraWarning =
-        //     " Outer scope values like '$dep' aren't valid dependencies "
-        //     "because mutating them doesn't re-render the component.";
-        // }
+        final dep = externalDependencies.first;
+        // Don't show this warning for things that likely just got moved *inside* the callback
+        // because in that case they're clearly not referring to globals.
+        if (externalDependenciesDeclaredInCallback.contains(dep)) {
+          extraWarning = " Outer scope values like '$dep' aren't valid dependencies "
+              "because mutating them doesn't re-render the component.";
+        }
       }
     }
 
