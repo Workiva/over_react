@@ -87,15 +87,16 @@ abstract class DiagnosticTestBase extends ServerPluginContributorTestBase {
           {bool exactSelectionMatch = true}) =>
       expectSingleErrorAt(createSelection(source, selection), exactSelectionMatch: exactSelectionMatch);
 
-  Future<AnalysisError> expectSingleErrorAt(SourceSelection selection, {bool exactSelectionMatch = true}) async {
+  Future<AnalysisError> expectSingleErrorAt(SourceSelection selection,
+      {bool exactSelectionMatch = true, bool? hasFix}) async {
     final errorsAtSelection = await _getAllErrorsAtSelection(selection);
 
     final reason = 'Expected a single error that matches `errorUnderTest` (selection: ${selection.target}.';
     // Only use the equals/list matcher if we have a length other than 1
     // since its mismatch message is more verbose for the length==1 case.
     errorsAtSelection.length == 1
-        ? expect(errorsAtSelection.single, isAnErrorUnderTest(), reason: reason)
-        : expect(errorsAtSelection, [isAnErrorUnderTest()], reason: reason);
+        ? expect(errorsAtSelection.single, isAnErrorUnderTest(hasFix: hasFix), reason: reason)
+        : expect(errorsAtSelection, [isAnErrorUnderTest(hasFix: hasFix)], reason: reason);
     final error = errorsAtSelection.single;
 
     if (exactSelectionMatch) {
@@ -136,8 +137,8 @@ abstract class DiagnosticTestBase extends ServerPluginContributorTestBase {
   /// Returns all errors produced over the entire [source] and fails the test if
   /// any of them do not match [isAnErrorUnderTest] or [isAFixUnderTest].
   Future<DartAndPluginErrorsIterable> getAllErrors(Source source,
-      {bool includeOtherCodes = false, ErrorFilter dartErrorFilter = defaultErrorFilter}) async {
-    final errors = await _getAllErrors(source, errorFilter: dartErrorFilter);
+      {bool includeOtherCodes = false, ErrorFilter errorFilter = defaultErrorFilter}) async {
+    final errors = await _getAllErrors(source, errorFilter: errorFilter);
     if (!includeOtherCodes) {
       expect(errors.dartErrors, isEmpty,
           reason: 'Expected there to be no errors coming from the analyzer and not the plugin.'
