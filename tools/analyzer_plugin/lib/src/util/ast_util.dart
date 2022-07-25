@@ -140,6 +140,11 @@ Tuple2<SimpleIdentifier, SimpleIdentifier>? getSimpleTargetAndPropertyName(Expre
   return null;
 }
 
+Identifier? getPropertyBeingAccessed(AstNode? node) {
+  if (node is! Expression) return null;
+  return getSimpleTargetAndPropertyName(node)?.item2;
+}
+
 bool isAConstantValue(Expression expr) {
   if (expr is SetOrMapLiteral) return expr.isConst;
   if (expr is ListLiteral) return expr.isConst;

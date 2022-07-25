@@ -487,7 +487,7 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
           isEffect &&
               // ... and this look like accessing .current...
               dependencyNode is Identifier &&
-              dependencyNode.parent.tryCast<PropertyAccess>()?.propertyName.name == 'current' &&
+              getPropertyBeingAccessed(dependencyNode.parent)?.name == 'current' &&
               // ...in a cleanup function or below...
               isInsideEffectCleanup(reference)) {
         currentRefsInEffectCleanup[dependency] = _RefInEffectCleanup(
@@ -529,12 +529,12 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
         // Is React managing this ref or us?
         // Let's see if we can find a .current assignment.
         var foundCurrentAssignment = false;
-        // TODO find root for reference element, which may be in a different AST than the reference
+        // This only finds references in the same file, but that's okay for our purposes.
         for (final reference in findReferences(reference.staticElement!, reference.root)) {
           final parent = reference.parent;
           if (parent != null &&
               // ref.current
-              parent.tryCast<PropertyAccess>()?.propertyName.name == 'current' &&
+              getPropertyBeingAccessed(parent)?.name == 'current' &&
               // ref.current = <something>
               parent.parent?.tryCast<AssignmentExpression>()?.leftHandSide == parent) {
             foundCurrentAssignment = true;
