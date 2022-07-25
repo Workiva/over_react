@@ -703,15 +703,6 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
 
         // FIXME check here or somewhere else to ensure whole hook (state, ref?) isn't passed in, provide quick fix; perhaps non-destructured hooks being passed in are accounted for alredy?
 
-        if (isAConstantValue(declaredDependencyNode)) {
-          reportProblem(
-            node: declaredDependencyNode,
-            message: "The '${declaredDependencyNode.toSource()}' constant expression is not a valid dependency "
-                "because it never changes. ",
-          );
-          continue;
-        }
-
         // Special case for Dart: whole state hook passed in as dependency.
         if (declaredDependencyNode.staticType?.element?.isStateHook ?? false) {
           final dependencySource = getSource(declaredDependencyNode);
@@ -745,32 +736,38 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
           );
         } catch (error) {
           if (error.toString().contains('Unsupported node type')) {
-            // FIXME figure out what was actually going on here with .raw/.value
-            // if (declaredDependencyNode.type == 'Literal') {
-            //   if (dependencies.containsKey(declaredDependencyNode.value)) {
-            //     reportProblem(
-            //       node: declaredDependencyNode,
-            //       message:
-            //         "The ${declaredDependencyNode.raw} literal is not a valid dependency "
-            //         "because it never changes. "
-            //         "Did you mean to include ${declaredDependencyNode.value} in the array instead?",
-            //     );
-            //   } else {
-            //     reportProblem(
-            //       node: declaredDependencyNode,
-            //       message:
-            //         "The ${declaredDependencyNode.raw} literal is not a valid dependency "
-            //         'because it never changes. You can safely remove it.',
-            //     );
-            //   }
-            // } else {
-            reportProblem(
-              node: declaredDependencyNode,
-              message: "React Hook ${getSource(reactiveHook)} has a "
-                  "complex expression in the dependency array. "
-                  'Extract it to a separate variable so it can be statically checked.',
-            );
-            // }
+            if (declaredDependencyNode is SimpleStringLiteral &&
+                dependencies.containsKey(declaredDependencyNode.value)) {
+              reportProblem(
+                node: declaredDependencyNode,
+                message: "The ${declaredDependencyNode.toSource()} literal is not a valid dependency "
+                    "because it never changes."
+                    " Did you mean to include ${declaredDependencyNode.value} in the array instead?",
+              );
+            } else if (isAConstantValue(declaredDependencyNode)) {
+              // Provide slightly improved wording in the case of literals.
+              // Don't forget that literals aren't always constant, so this needs to stay inside a isConstantValue check.
+              if (declaredDependencyNode is Literal) {
+                reportProblem(
+                  node: declaredDependencyNode,
+                  message: "The ${declaredDependencyNode.toSource()} literal is not a valid dependency "
+                      "because it never changes. You can safely remove it.",
+                );
+              } else {
+                reportProblem(
+                  node: declaredDependencyNode,
+                  message: "The '${declaredDependencyNode.toSource()}' expression is not a valid dependency "
+                      "because it never changes. You can safely remove it.",
+                );
+              }
+            } else {
+              reportProblem(
+                node: declaredDependencyNode,
+                message: "React Hook ${getSource(reactiveHook)} has a "
+                    "complex expression in the dependency array. "
+                    'Extract it to a separate variable so it can be statically checked.',
+              );
+            }
 
             continue;
           } else {
