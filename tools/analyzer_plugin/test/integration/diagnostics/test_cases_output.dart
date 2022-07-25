@@ -1369,10 +1369,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useCallback has a missing dependency: \'props.foo\'. Either include it or remove the dependency array.',
+              'React Hook useCallback has a missing dependency: \'props.foo\'. Either include it or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [props.foo]',
+              'desc': 'Update the dependencies list to be: [props.foo]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
                   useCallback(() {
@@ -1396,10 +1396,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useCallback has a missing dependency: \'props.foo?.bar.baz\'. Either include it or remove the dependency array.',
+              'React Hook useCallback has a missing dependency: \'props.foo?.bar.baz\'. Either include it or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [props.foo?.bar.baz]',
+              'desc': 'Update the dependencies list to be: [props.foo?.bar.baz]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
                   useCallback(() {
@@ -1423,10 +1423,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useCallback has a missing dependency: \'props.foo?.bar?.baz\'. Either include it or remove the dependency array.',
+              'React Hook useCallback has a missing dependency: \'props.foo?.bar?.baz\'. Either include it or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [props.foo?.bar?.baz]',
+              'desc': 'Update the dependencies list to be: [props.foo?.bar?.baz]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
                   useCallback(() {
@@ -1450,10 +1450,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useCallback has a missing dependency: \'props.foo?.bar\'. Either include it or remove the dependency array.',
+              'React Hook useCallback has a missing dependency: \'props.foo?.bar\'. Either include it or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [props.foo?.bar]',
+              'desc': 'Update the dependencies list to be: [props.foo?.bar]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
                   useCallback(() {
@@ -1478,10 +1478,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has a missing dependency: \'local\'. Either include it or remove the dependency array.',
+              'React Hook useEffect has a missing dependency: \'local\'. Either include it or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [local]',
+              'desc': 'Update the dependencies list to be: [local]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((_) {
                   final local = someFunc();
@@ -1510,10 +1510,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has a missing dependency: \'local\'. Either include it or remove the dependency array.',
+              'React Hook useEffect has a missing dependency: \'local\'. Either include it or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [local]',
+              'desc': 'Update the dependencies list to be: [local]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((_) {
                   var local = 42;
@@ -1545,10 +1545,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has a missing dependency: \'local\'. Either include it or remove the dependency array.',
+              'React Hook useEffect has a missing dependency: \'local\'. Either include it or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [local]',
+              'desc': 'Update the dependencies list to be: [local]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((_) {
                   final local = someFunc();
@@ -1579,10 +1579,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has a missing dependency: \'local\'. Either include it or remove the dependency array.',
+              'React Hook useEffect has a missing dependency: \'local\'. Either include it or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [local]',
+              'desc': 'Update the dependencies list to be: [local]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((_) {
                   final local = {};
@@ -1614,10 +1614,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has a missing dependency: \'local\'. Either include it or remove the dependency array.',
+              'React Hook useEffect has a missing dependency: \'local\'. Either include it or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [local]',
+              'desc': 'Update the dependencies list to be: [local]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((_) {
                   final local = {};
@@ -1650,10 +1650,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has missing dependencies: \'local1\' and \'local2\'. Either include them or remove the dependency array.',
+              'React Hook useEffect has missing dependencies: \'local1\' and \'local2\'. Either include them or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [local1, local2]',
+              'desc': 'Update the dependencies list to be: [local1, local2]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((_) {
                   final local1 = someFunc();
@@ -1685,10 +1685,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has a missing dependency: \'local2\'. Either include it or remove the dependency array.',
+              'React Hook useEffect has a missing dependency: \'local2\'. Either include it or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [local1, local2]',
+              'desc': 'Update the dependencies list to be: [local1, local2]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((_) {
                   final local1 = {};
@@ -1717,10 +1717,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useMemo has an unnecessary dependency: \'local2\'. Either exclude it or remove the dependency array.',
+              'React Hook useMemo has an unnecessary dependency: \'local2\'. Either exclude it or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [local1]',
+              'desc': 'Update the dependencies list to be: [local1]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((_) {
                   final local1 = {};
@@ -1751,10 +1751,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useCallback has a missing dependency: \'local2\'. Either include it or remove the dependency array. Outer scope values like \'local1\' aren\'t valid dependencies because mutating them doesn\'t re-render the component.',
+              'React Hook useCallback has a missing dependency: \'local2\'. Either include it or remove the dependency list. Outer scope values like \'local1\' aren\'t valid dependencies because mutating them doesn\'t re-render the component.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [local2]',
+              'desc': 'Update the dependencies list to be: [local2]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((_) {
                   final local1 = someFunc();
@@ -1785,10 +1785,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has a missing dependency: \'local\'. Either include it or remove the dependency array.',
+              'React Hook useEffect has a missing dependency: \'local\'. Either include it or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [local]',
+              'desc': 'Update the dependencies list to be: [local]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((_) {
                   final local = {};
@@ -1816,10 +1816,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has a duplicate dependency: \'local\'. Either omit it or remove the dependency array.',
+              'React Hook useEffect has a duplicate dependency: \'local\'. Either omit it or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [local]',
+              'desc': 'Update the dependencies list to be: [local]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((_) {
                   final local = {};
@@ -1843,10 +1843,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useCallback has an unnecessary dependency: \'window\'. Either exclude it or remove the dependency array. Outer scope values like \'window\' aren\'t valid dependencies because mutating them doesn\'t re-render the component.',
+              'React Hook useCallback has an unnecessary dependency: \'window\'. Either exclude it or remove the dependency list. Outer scope values like \'window\' aren\'t valid dependencies because mutating them doesn\'t re-render the component.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: []',
+              'desc': 'Update the dependencies list to be: []',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((_) {
                   useCallback(() {}, []);
@@ -1869,10 +1869,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useCallback has an unnecessary dependency: \'local\'. Either exclude it or remove the dependency array.',
+              'React Hook useCallback has an unnecessary dependency: \'local\'. Either exclude it or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: []',
+              'desc': 'Update the dependencies list to be: []',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
                   var local = props.foo;
@@ -1897,10 +1897,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has a missing dependency: \'history\'. Either include it or remove the dependency array.',
+              'React Hook useEffect has a missing dependency: \'history\'. Either include it or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [history]',
+              'desc': 'Update the dependencies list to be: [history]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
                   var history = props.history;
@@ -1931,10 +1931,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has a missing dependency: \'history.foo\'. Either include it or remove the dependency array.',
+              'React Hook useEffect has a missing dependency: \'history.foo\'. Either include it or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [history.foo]',
+              'desc': 'Update the dependencies list to be: [history.foo]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
                   var history = props.history;
@@ -1967,10 +1967,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has a missing dependency: \'history?.foo\'. Either include it or remove the dependency array.',
+              'React Hook useEffect has a missing dependency: \'history?.foo\'. Either include it or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [history?.foo]',
+              'desc': 'Update the dependencies list to be: [history?.foo]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
                   var history = props.history;
@@ -2018,10 +2018,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has missing dependencies: \'bar\', \'baz\', and \'foo\'. Either include them or remove the dependency array.',
+              'React Hook useEffect has missing dependencies: \'bar\', \'baz\', and \'foo\'. Either include them or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [bar, baz, foo]',
+              'desc': 'Update the dependencies list to be: [bar, baz, foo]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
                   var foo = props.foo;
@@ -2038,12 +2038,12 @@ final tests = {
         },
         {
           'message':
-              'The \'foo\' literal is not a valid dependency because it never changes. Did you mean to include foo in the array instead?',
+              'The \'foo\' literal is not a valid dependency because it never changes. Did you mean to include foo in the list instead?',
           'suggestions': null,
         },
         {
           'message':
-              'The \'bar\' literal is not a valid dependency because it never changes. Did you mean to include bar in the array instead?',
+              'The \'bar\' literal is not a valid dependency because it never changes. Did you mean to include bar in the list instead?',
           'suggestions': null,
         },
       ],
@@ -2063,10 +2063,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has missing dependencies: \'bar\', \'baz\', and \'foo\'. Either include them or remove the dependency array.',
+              'React Hook useEffect has missing dependencies: \'bar\', \'baz\', and \'foo\'. Either include them or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [bar, baz, foo]',
+              'desc': 'Update the dependencies list to be: [bar, baz, foo]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
                   var foo = props.foo;
@@ -2105,7 +2105,7 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect was passed a dependency list that is not an array literal. This means we can\'t statically verify whether you\'ve passed the correct dependencies.',
+              'React Hook useEffect was passed a dependency list that is not a list literal. This means we can\'t statically verify whether you\'ve passed the correct dependencies.',
           'suggestions': null,
         },
       ],
@@ -2123,16 +2123,16 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect was passed a dependency list that is not an array literal. This means we can\'t statically verify whether you\'ve passed the correct dependencies.',
+              'React Hook useEffect was passed a dependency list that is not a list literal. This means we can\'t statically verify whether you\'ve passed the correct dependencies.',
           // TODO: should this autofix or bail out?
           'suggestions': null,
         },
         {
           'message':
-              'React Hook useEffect has a missing dependency: \'local\'. Either include it or remove the dependency array.',
+              'React Hook useEffect has a missing dependency: \'local\'. Either include it or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [local]',
+              'desc': 'Update the dependencies list to be: [local]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((_) {
                   final local = {};
@@ -2160,10 +2160,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has a missing dependency: \'local\'. Either include it or remove the dependency array.',
+              'React Hook useEffect has a missing dependency: \'local\'. Either include it or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [local]',
+              'desc': 'Update the dependencies list to be: [local]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((_) {
                   final local = {};
@@ -2178,7 +2178,7 @@ final tests = {
         },
         {
           'message':
-              'React Hook useEffect has a spread element in its dependency array. This means we can\'t statically verify whether you\'ve passed the correct dependencies.',
+              'React Hook useEffect has a spread element in its dependency list. This means we can\'t statically verify whether you\'ve passed the correct dependencies.',
           // TODO: should this autofix or bail out?
           'suggestions': null,
         },
@@ -2196,7 +2196,7 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has a spread element in its dependency array. This means we can\'t statically verify whether you\'ve passed the correct dependencies.',
+              'React Hook useEffect has a spread element in its dependency list. This means we can\'t statically verify whether you\'ve passed the correct dependencies.',
           'suggestions': null,
         },
       ],
@@ -2213,12 +2213,12 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has a missing dependency: \'local\'. Either include it or remove the dependency array.',
+              'React Hook useEffect has a missing dependency: \'local\'. Either include it or remove the dependency list.',
           // TODO: I'm not sure this is a good idea.
           // Maybe bail out?
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [local]',
+              'desc': 'Update the dependencies list to be: [local]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((_) {
                   final local = {};
@@ -2232,7 +2232,7 @@ final tests = {
         },
         {
           'message':
-              'React Hook useEffect has a complex expression in the dependency array. Extract it to a separate variable so it can be statically checked.',
+              'React Hook useEffect has a complex expression in the dependency list. Extract it to a separate variable so it can be statically checked.',
           'suggestions': null,
         },
       ],
@@ -2248,10 +2248,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has a missing dependency: \'props.items\'. Either include it or remove the dependency array.',
+              'React Hook useEffect has a missing dependency: \'props.items\'. Either include it or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [props.items]',
+              'desc': 'Update the dependencies list to be: [props.items]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
                   useEffect(() {
@@ -2264,7 +2264,7 @@ final tests = {
         },
         {
           'message':
-              'React Hook useEffect has a complex expression in the dependency array. Extract it to a separate variable so it can be statically checked.',
+              'React Hook useEffect has a complex expression in the dependency list. Extract it to a separate variable so it can be statically checked.',
           'suggestions': null,
         },
       ],
@@ -2280,7 +2280,7 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has a complex expression in the dependency array. Extract it to a separate variable so it can be statically checked.',
+              'React Hook useEffect has a complex expression in the dependency list. Extract it to a separate variable so it can be statically checked.',
           // TODO: ideally suggestion would remove the bad expression?
           'suggestions': null,
         },
@@ -2299,10 +2299,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has a missing dependency: \'items\'. Either include it or remove the dependency array.',
+              'React Hook useEffect has a missing dependency: \'items\'. Either include it or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [items]',
+              'desc': 'Update the dependencies list to be: [items]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
                   var items = props.items;
@@ -2317,7 +2317,7 @@ final tests = {
         },
         {
           'message':
-              'React Hook useEffect has a complex expression in the dependency array. Extract it to a separate variable so it can be statically checked.',
+              'React Hook useEffect has a complex expression in the dependency list. Extract it to a separate variable so it can be statically checked.',
           'suggestions': null,
         },
       ],
@@ -2335,7 +2335,7 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has a complex expression in the dependency array. Extract it to a separate variable so it can be statically checked.',
+              'React Hook useEffect has a complex expression in the dependency list. Extract it to a separate variable so it can be statically checked.',
           // TODO: ideally suggeston would remove the bad expression?
           'suggestions': null,
         },
@@ -2359,10 +2359,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useCallback has an unnecessary dependency: \'props.foo\'. Either exclude it or remove the dependency array.',
+              'React Hook useCallback has an unnecessary dependency: \'props.foo\'. Either exclude it or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [props]',
+              'desc': 'Update the dependencies list to be: [props]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
                   final local = {};
@@ -2391,10 +2391,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useCallback has missing dependencies: \'props.bar\' and \'props.foo\'. Either include them or remove the dependency array.',
+              'React Hook useCallback has missing dependencies: \'props.bar\' and \'props.foo\'. Either include them or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [props.bar, props.foo]',
+              'desc': 'Update the dependencies list to be: [props.bar, props.foo]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
                   final local = {};
@@ -2423,10 +2423,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has a missing dependency: \'local\'. Either include it or remove the dependency array.',
+              'React Hook useEffect has a missing dependency: \'local\'. Either include it or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [local, local.id]',
+              'desc': 'Update the dependencies list to be: [local, local.id]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((_) {
                   final local = {id: 42};
@@ -2454,10 +2454,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useCallback has a missing dependency: \'local\'. Either include it or remove the dependency array.',
+              'React Hook useCallback has a missing dependency: \'local\'. Either include it or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [local]',
+              'desc': 'Update the dependencies list to be: [local]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((_) {
                   final local = {id: 42};
@@ -2485,10 +2485,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useCallback has an unnecessary dependency: \'local.id\'. Either exclude it or remove the dependency array.',
+              'React Hook useCallback has an unnecessary dependency: \'local.id\'. Either exclude it or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [local]',
+              'desc': 'Update the dependencies list to be: [local]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((_) {
                   final local = {id: 42};
@@ -2513,10 +2513,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useCallback has a missing dependency: \'props.foo.bar.baz\'. Either include it or remove the dependency array.',
+              'React Hook useCallback has a missing dependency: \'props.foo.bar.baz\'. Either include it or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [props.foo.bar.baz]',
+              'desc': 'Update the dependencies list to be: [props.foo.bar.baz]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
                   final fn = useCallback(() {
@@ -2542,10 +2542,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useCallback has a missing dependency: \'color\'. Either include it or remove the dependency array.',
+              'React Hook useCallback has a missing dependency: \'color\'. Either include it or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [color, props.foo.bar.baz]',
+              'desc': 'Update the dependencies list to be: [color, props.foo.bar.baz]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
                   var color = {}
@@ -2576,10 +2576,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useCallback has an unnecessary dependency: \'props.foo.bar.baz\'. Either exclude it or remove the dependency array.',
+              'React Hook useCallback has an unnecessary dependency: \'props.foo.bar.baz\'. Either exclude it or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [props.foo]',
+              'desc': 'Update the dependencies list to be: [props.foo]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
                   final fn = useCallback(() {
@@ -2604,10 +2604,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useCallback has missing dependencies: \'props.foo.bar.baz\' and \'props.foo.fizz.bizz\'. Either include them or remove the dependency array.',
+              'React Hook useCallback has missing dependencies: \'props.foo.bar.baz\' and \'props.foo.fizz.bizz\'. Either include them or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [props.foo.bar.baz, props.foo.fizz.bizz]',
+              'desc': 'Update the dependencies list to be: [props.foo.bar.baz, props.foo.fizz.bizz]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
                   final fn = useCallback(() {
@@ -2638,10 +2638,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useCallback has a missing dependency: \'props.foo.bar\'. Either include it or remove the dependency array.',
+              'React Hook useCallback has a missing dependency: \'props.foo.bar\'. Either include it or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [props.foo.bar]',
+              'desc': 'Update the dependencies list to be: [props.foo.bar]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
                   final fn = useCallback(() {
@@ -2666,10 +2666,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useCallback has a missing dependency: \'props\'. Either include it or remove the dependency array.',
+              'React Hook useCallback has a missing dependency: \'props\'. Either include it or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [props]',
+              'desc': 'Update the dependencies list to be: [props]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
                   final fn = useCallback(() {
@@ -2695,10 +2695,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has a duplicate dependency: \'local\'. Either omit it or remove the dependency array.',
+              'React Hook useEffect has a duplicate dependency: \'local\'. Either omit it or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [local]',
+              'desc': 'Update the dependencies list to be: [local]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((_) {
                   final local = {};
@@ -2725,10 +2725,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useCallback has an unnecessary dependency: \'local1\'. Either exclude it or remove the dependency array.',
+              'React Hook useCallback has an unnecessary dependency: \'local1\'. Either exclude it or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: []',
+              'desc': 'Update the dependencies list to be: []',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((_) {
                   final local1 = {};
@@ -2753,10 +2753,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useCallback has an unnecessary dependency: \'local1\'. Either exclude it or remove the dependency array.',
+              'React Hook useCallback has an unnecessary dependency: \'local1\'. Either exclude it or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: []',
+              'desc': 'Update the dependencies list to be: []',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((_) {
                   final local1 = {};
@@ -2779,10 +2779,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has a missing dependency: \'props.foo\'. Either include it or remove the dependency array.',
+              'React Hook useEffect has a missing dependency: \'props.foo\'. Either include it or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [props.foo]',
+              'desc': 'Update the dependencies list to be: [props.foo]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
                   useEffect(() {
@@ -2807,10 +2807,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has missing dependencies: \'props.bar\' and \'props.foo\'. Either include them or remove the dependency array.',
+              'React Hook useEffect has missing dependencies: \'props.bar\' and \'props.foo\'. Either include them or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [props.bar, props.foo]',
+              'desc': 'Update the dependencies list to be: [props.bar, props.foo]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
                   useEffect(() {
@@ -2836,11 +2836,11 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has missing dependencies: \'b\', \'d\', \'e\', and \'f\'. Either include them or remove the dependency array.',
+              'React Hook useEffect has missing dependencies: \'b\', \'d\', \'e\', and \'f\'. Either include them or remove the dependency list.',
           // Don't alphabetize if it wasn't alphabetized in the first place.
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [c, a, g, b, e, d, f]',
+              'desc': 'Update the dependencies list to be: [c, a, g, b, e, d, f]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
                   var a, b, c, d, e, f, g;
@@ -2866,11 +2866,11 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has missing dependencies: \'b\', \'d\', \'e\', and \'f\'. Either include them or remove the dependency array.',
+              'React Hook useEffect has missing dependencies: \'b\', \'d\', \'e\', and \'f\'. Either include them or remove the dependency list.',
           // Alphabetize if it was alphabetized.
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [a, b, c, d, e, f, g]',
+              'desc': 'Update the dependencies list to be: [a, b, c, d, e, f, g]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
                   var a, b, c, d, e, f, g;
@@ -2896,11 +2896,11 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has missing dependencies: \'a\', \'b\', \'c\', \'d\', \'e\', \'f\', and \'g\'. Either include them or remove the dependency array.',
+              'React Hook useEffect has missing dependencies: \'a\', \'b\', \'c\', \'d\', \'e\', \'f\', and \'g\'. Either include them or remove the dependency list.',
           // Alphabetize if it was empty.
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [a, b, c, d, e, f, g]',
+              'desc': 'Update the dependencies list to be: [a, b, c, d, e, f, g]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
                   var a, b, c, d, e, f, g;
@@ -2928,10 +2928,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has missing dependencies: \'local\', \'props.bar\', and \'props.foo\'. Either include them or remove the dependency array.',
+              'React Hook useEffect has missing dependencies: \'local\', \'props.bar\', and \'props.foo\'. Either include them or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [local, props.bar, props.foo]',
+              'desc': 'Update the dependencies list to be: [local, props.bar, props.foo]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
                   final local = {};
@@ -2961,10 +2961,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has a missing dependency: \'local\'. Either include it or remove the dependency array.',
+              'React Hook useEffect has a missing dependency: \'local\'. Either include it or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [local, props]',
+              'desc': 'Update the dependencies list to be: [local, props]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
                   final local = {};
@@ -3009,10 +3009,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has a missing dependency: \'props.foo\'. Either include it or remove the dependency array.',
+              'React Hook useEffect has a missing dependency: \'props.foo\'. Either include it or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [props.foo]',
+              'desc': 'Update the dependencies list to be: [props.foo]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
                   useEffect(() {
@@ -3043,10 +3043,10 @@ final tests = {
         },
         {
           'message':
-              'React Hook useCallback has a missing dependency: \'props.foo\'. Either include it or remove the dependency array.',
+              'React Hook useCallback has a missing dependency: \'props.foo\'. Either include it or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [props.foo]',
+              'desc': 'Update the dependencies list to be: [props.foo]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
                   useEffect(() {
@@ -3077,10 +3077,10 @@ final tests = {
         },
         {
           'message':
-              'React Hook useMemo has a missing dependency: \'props.foo\'. Either include it or remove the dependency array.',
+              'React Hook useMemo has a missing dependency: \'props.foo\'. Either include it or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [props.foo]',
+              'desc': 'Update the dependencies list to be: [props.foo]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
                   useEffect(() {
@@ -3111,10 +3111,10 @@ final tests = {
         },
         {
           'message':
-              'React Hook React.useEffect has a missing dependency: \'props.foo\'. Either include it or remove the dependency array.',
+              'React Hook React.useEffect has a missing dependency: \'props.foo\'. Either include it or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [props.foo]',
+              'desc': 'Update the dependencies list to be: [props.foo]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
                   useEffect(() {
@@ -3145,10 +3145,10 @@ final tests = {
         },
         {
           'message':
-              'React Hook React.useCallback has a missing dependency: \'props.foo\'. Either include it or remove the dependency array.',
+              'React Hook React.useCallback has a missing dependency: \'props.foo\'. Either include it or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [props.foo]',
+              'desc': 'Update the dependencies list to be: [props.foo]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
                   useEffect(() {
@@ -3179,10 +3179,10 @@ final tests = {
         },
         {
           'message':
-              'React Hook React.useMemo has a missing dependency: \'props.foo\'. Either include it or remove the dependency array.',
+              'React Hook React.useMemo has a missing dependency: \'props.foo\'. Either include it or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [props.foo]',
+              'desc': 'Update the dependencies list to be: [props.foo]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
                   useEffect(() {
@@ -3236,10 +3236,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useCustomEffect has a missing dependency: \'props.foo\'. Either include it or remove the dependency array.',
+              'React Hook useCustomEffect has a missing dependency: \'props.foo\'. Either include it or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [props.foo]',
+              'desc': 'Update the dependencies list to be: [props.foo]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
                   useCustomEffect(() {
@@ -3261,10 +3261,10 @@ final tests = {
         },
         {
           'message':
-              'React Hook useEffect has a missing dependency: \'props.foo\'. Either include it or remove the dependency array.',
+              'React Hook useEffect has a missing dependency: \'props.foo\'. Either include it or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [props.foo]',
+              'desc': 'Update the dependencies list to be: [props.foo]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
                   useCustomEffect(() {
@@ -3286,10 +3286,10 @@ final tests = {
         },
         {
           'message':
-              'React Hook React.useEffect has a missing dependency: \'props.foo\'. Either include it or remove the dependency array.',
+              'React Hook React.useEffect has a missing dependency: \'props.foo\'. Either include it or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [props.foo]',
+              'desc': 'Update the dependencies list to be: [props.foo]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
                   useCustomEffect(() {
@@ -3323,11 +3323,11 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has a missing dependency: \'local\'. Either include it or remove the dependency array.',
+              'React Hook useEffect has a missing dependency: \'local\'. Either include it or remove the dependency list.',
           // TODO: should we bail out instead?
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [local]',
+              'desc': 'Update the dependencies list to be: [local]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((_) {
                   final local = {};
@@ -3341,7 +3341,7 @@ final tests = {
         },
         {
           'message':
-              'React Hook useEffect has a complex expression in the dependency array. Extract it to a separate variable so it can be statically checked.',
+              'React Hook useEffect has a complex expression in the dependency list. Extract it to a separate variable so it can be statically checked.',
           'suggestions': null,
         },
       ],
@@ -3358,11 +3358,11 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has a missing dependency: \'local\'. Either include it or remove the dependency array.',
+              'React Hook useEffect has a missing dependency: \'local\'. Either include it or remove the dependency list.',
           // TODO: should we bail out instead?
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [local]',
+              'desc': 'Update the dependencies list to be: [local]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((_) {
                   final local = {};
@@ -3376,7 +3376,7 @@ final tests = {
         },
         {
           'message':
-              'React Hook useEffect has a complex expression in the dependency array. Extract it to a separate variable so it can be statically checked.',
+              'React Hook useEffect has a complex expression in the dependency list. Extract it to a separate variable so it can be statically checked.',
           'suggestions': null,
         },
       ],
@@ -3390,7 +3390,7 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has a complex expression in the dependency array. Extract it to a separate variable so it can be statically checked.',
+              'React Hook useEffect has a complex expression in the dependency list. Extract it to a separate variable so it can be statically checked.',
           'suggestions': null,
         },
       ],
@@ -3404,7 +3404,7 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has a complex expression in the dependency array. Extract it to a separate variable so it can be statically checked.',
+              'React Hook useEffect has a complex expression in the dependency list. Extract it to a separate variable so it can be statically checked.',
           'suggestions': null,
         },
       ],
@@ -3423,10 +3423,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has a missing dependency: \'state\'. Either include it or remove the dependency array. You can also do a functional update \'setState(s => ...)\' if you only need \'state\' in the \'setState\' call.',
+              'React Hook useEffect has a missing dependency: \'state\'. Either include it or remove the dependency list. You can also do a functional update \'setState(s => ...)\' if you only need \'state\' in the \'setState\' call.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [state]',
+              'desc': 'Update the dependencies list to be: [state]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((_) {
                   final ref = useRef();
@@ -3456,13 +3456,13 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has a missing dependency: \'state\'. Either include it or remove the dependency array. You can also do a functional update \'setState(s => ...)\' if you only need \'state\' in the \'setState\' call.',
+              'React Hook useEffect has a missing dependency: \'state\'. Either include it or remove the dependency list. You can also do a functional update \'setState(s => ...)\' if you only need \'state\' in the \'setState\' call.',
           // We don't ask to remove static deps but don't add them either.
           // Don't suggest removing "ref" (it's fine either way)
           // but *do* add "state". *Don't* add "setState" ourselves.
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [ref, state]',
+              'desc': 'Update the dependencies list to be: [ref, state]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((_) {
                   final ref = useRef();
@@ -3494,10 +3494,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has missing dependencies: \'props.color\' and \'props.someOtherRefs\'. Either include them or remove the dependency array.',
+              'React Hook useEffect has missing dependencies: \'props.color\' and \'props.someOtherRefs\'. Either include them or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [props.color, props.someOtherRefs]',
+              'desc': 'Update the dependencies list to be: [props.color, props.someOtherRefs]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
                   final ref1 = useRef();
@@ -3531,10 +3531,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has unnecessary dependencies: \'ref1.current\' and \'ref2.current\'. Either exclude them or remove the dependency array. Mutable values like \'ref1.current\' aren\'t valid dependencies because mutating them doesn\'t re-render the component.',
+              'React Hook useEffect has unnecessary dependencies: \'ref1.current\' and \'ref2.current\'. Either exclude them or remove the dependency list. Mutable values like \'ref1.current\' aren\'t valid dependencies because mutating them doesn\'t re-render the component.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [props.someOtherRefs, props.color]',
+              'desc': 'Update the dependencies list to be: [props.someOtherRefs, props.color]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
                   final ref1 = useRef();
@@ -3568,10 +3568,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has unnecessary dependencies: \'ref1.current\' and \'ref2.current\'. Either exclude them or remove the dependency array. Mutable values like \'ref1.current\' aren\'t valid dependencies because mutating them doesn\'t re-render the component.',
+              'React Hook useEffect has unnecessary dependencies: \'ref1.current\' and \'ref2.current\'. Either exclude them or remove the dependency list. Mutable values like \'ref1.current\' aren\'t valid dependencies because mutating them doesn\'t re-render the component.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [props.someOtherRefs, props.color]',
+              'desc': 'Update the dependencies list to be: [props.someOtherRefs, props.color]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
                   final ref1 = useRef();
@@ -3601,10 +3601,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has an unnecessary dependency: \'ref.current\'. Either exclude it or remove the dependency array. Mutable values like \'ref.current\' aren\'t valid dependencies because mutating them doesn\'t re-render the component.',
+              'React Hook useEffect has an unnecessary dependency: \'ref.current\'. Either exclude it or remove the dependency list. Mutable values like \'ref.current\' aren\'t valid dependencies because mutating them doesn\'t re-render the component.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: []',
+              'desc': 'Update the dependencies list to be: []',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((_) {
                   final ref = useRef();
@@ -3634,10 +3634,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has unnecessary dependencies: \'ref1.current\' and \'ref2.current\'. Either exclude them or remove the dependency array. Mutable values like \'ref1.current\' aren\'t valid dependencies because mutating them doesn\'t re-render the component.',
+              'React Hook useEffect has unnecessary dependencies: \'ref1.current\' and \'ref2.current\'. Either exclude them or remove the dependency list. Mutable values like \'ref1.current\' aren\'t valid dependencies because mutating them doesn\'t re-render the component.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [activeTab]',
+              'desc': 'Update the dependencies list to be: [activeTab]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
                   var activeTab = props.activeTab;
@@ -3672,10 +3672,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useCallback has unnecessary dependencies: \'activeTab\', \'ref1.current\', and \'ref2.current\'. Either exclude them or remove the dependency array. Mutable values like \'ref1.current\' aren\'t valid dependencies because mutating them doesn\'t re-render the component.',
+              'React Hook useCallback has unnecessary dependencies: \'activeTab\', \'ref1.current\', and \'ref2.current\'. Either exclude them or remove the dependency list. Mutable values like \'ref1.current\' aren\'t valid dependencies because mutating them doesn\'t re-render the component.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [initY]',
+              'desc': 'Update the dependencies list to be: [initY]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
                   var activeTab = props.activeTab;
@@ -3706,10 +3706,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has an unnecessary dependency: \'ref.current\'. Either exclude it or remove the dependency array. Mutable values like \'ref.current\' aren\'t valid dependencies because mutating them doesn\'t re-render the component.',
+              'React Hook useEffect has an unnecessary dependency: \'ref.current\'. Either exclude it or remove the dependency list. Mutable values like \'ref.current\' aren\'t valid dependencies because mutating them doesn\'t re-render the component.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [ref]',
+              'desc': 'Update the dependencies list to be: [ref]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((_) {
                   final ref = useRef();
@@ -3736,10 +3736,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useImperativeHandle has a missing dependency: \'props.hello\'. Either include it or remove the dependency array.',
+              'React Hook useImperativeHandle has a missing dependency: \'props.hello\'. Either include it or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [props.hello]',
+              'desc': 'Update the dependencies list to be: [props.hello]',
               'output': r'''
                 final MyComponent = forwardRef((props, ref) {
                   useImperativeHandle(ref, () => ({
@@ -3767,10 +3767,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has a missing dependency: \'props\'. Either include it or remove the dependency array. However, \'props\' will change when *any* prop changes, so the preferred fix is to destructure the \'props\' object outside of the useEffect call and refer to those specific props inside useEffect.',
+              'React Hook useEffect has a missing dependency: \'props\'. Either include it or remove the dependency list. However, \'props\' will change when *any* prop changes, so the preferred fix is to destructure the \'props\' object outside of the useEffect call and refer to those specific props inside useEffect.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [props]',
+              'desc': 'Update the dependencies list to be: [props]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
                   useEffect(() {
@@ -3798,10 +3798,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has a missing dependency: \'props\'. Either include it or remove the dependency array. However, \'props\' will change when *any* prop changes, so the preferred fix is to destructure the \'props\' object outside of the useEffect call and refer to those specific props inside useEffect.',
+              'React Hook useEffect has a missing dependency: \'props\'. Either include it or remove the dependency list. However, \'props\' will change when *any* prop changes, so the preferred fix is to destructure the \'props\' object outside of the useEffect call and refer to those specific props inside useEffect.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [props]',
+              'desc': 'Update the dependencies list to be: [props]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
                   useEffect(() {
@@ -3832,10 +3832,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has a missing dependency: \'props\'. Either include it or remove the dependency array. However, \'props\' will change when *any* prop changes, so the preferred fix is to destructure the \'props\' object outside of the useEffect call and refer to those specific props inside useEffect.',
+              'React Hook useEffect has a missing dependency: \'props\'. Either include it or remove the dependency list. However, \'props\' will change when *any* prop changes, so the preferred fix is to destructure the \'props\' object outside of the useEffect call and refer to those specific props inside useEffect.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [props]',
+              'desc': 'Update the dependencies list to be: [props]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
                   useEffect(() {
@@ -3866,10 +3866,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has a missing dependency: \'props.foo\'. Either include it or remove the dependency array.',
+              'React Hook useEffect has a missing dependency: \'props.foo\'. Either include it or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [props.foo]',
+              'desc': 'Update the dependencies list to be: [props.foo]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
                   useEffect(() {
@@ -3898,10 +3898,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has a missing dependency: \'props\'. Either include it or remove the dependency array. However, \'props\' will change when *any* prop changes, so the preferred fix is to destructure the \'props\' object outside of the useEffect call and refer to those specific props inside useEffect.',
+              'React Hook useEffect has a missing dependency: \'props\'. Either include it or remove the dependency list. However, \'props\' will change when *any* prop changes, so the preferred fix is to destructure the \'props\' object outside of the useEffect call and refer to those specific props inside useEffect.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [props]',
+              'desc': 'Update the dependencies list to be: [props]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
                   useEffect(() {
@@ -3931,11 +3931,11 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has a missing dependency: \'props\'. Either include it or remove the dependency array. However, \'props\' will change when *any* prop changes, so the preferred fix is to destructure the \'props\' object outside of the useEffect call and refer to those specific props inside useEffect.',
+              'React Hook useEffect has a missing dependency: \'props\'. Either include it or remove the dependency list. However, \'props\' will change when *any* prop changes, so the preferred fix is to destructure the \'props\' object outside of the useEffect call and refer to those specific props inside useEffect.',
           'suggestions': [
             {
               'desc':
-                  'Update the dependencies array to be: [skillsCount, props.isEditMode, props.toggleEditMode, props]',
+                  'Update the dependencies list to be: [skillsCount, props.isEditMode, props.toggleEditMode, props]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
                   const skillsCount = useState(null);
@@ -3965,10 +3965,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has missing dependencies: \'props\' and \'skillsCount\'. Either include them or remove the dependency array. However, \'props\' will change when *any* prop changes, so the preferred fix is to destructure the \'props\' object outside of the useEffect call and refer to those specific props inside useEffect.',
+              'React Hook useEffect has missing dependencies: \'props\' and \'skillsCount\'. Either include them or remove the dependency list. However, \'props\' will change when *any* prop changes, so the preferred fix is to destructure the \'props\' object outside of the useEffect call and refer to those specific props inside useEffect.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [props, skillsCount]',
+              'desc': 'Update the dependencies list to be: [props, skillsCount]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
                   const skillsCount = useState(null);
@@ -3997,10 +3997,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has a missing dependency: \'props\'. Either include it or remove the dependency array.',
+              'React Hook useEffect has a missing dependency: \'props\'. Either include it or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [props]',
+              'desc': 'Update the dependencies list to be: [props]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
                   useEffect(() {
@@ -4027,10 +4027,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has a missing dependency: \'props\'. Either include it or remove the dependency array.',
+              'React Hook useEffect has a missing dependency: \'props\'. Either include it or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [props]',
+              'desc': 'Update the dependencies list to be: [props]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
                   useEffect(() {
@@ -4315,10 +4315,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has a missing dependency: \'local4\'. Either include it or remove the dependency array.',
+              'React Hook useEffect has a missing dependency: \'local4\'. Either include it or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [local1, local3, local4]',
+              'desc': 'Update the dependencies list to be: [local1, local3, local4]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((_) {
                   final local1 = 42;
@@ -4349,10 +4349,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has an unnecessary dependency: \'window\'. Either exclude it or remove the dependency array. Outer scope values like \'window\' aren\'t valid dependencies because mutating them doesn\'t re-render the component.',
+              'React Hook useEffect has an unnecessary dependency: \'window\'. Either exclude it or remove the dependency list. Outer scope values like \'window\' aren\'t valid dependencies because mutating them doesn\'t re-render the component.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: []',
+              'desc': 'Update the dependencies list to be: []',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((_) {
                   useEffect(() {
@@ -4376,10 +4376,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has an unnecessary dependency: \'MutableStore.hello\'. Either exclude it or remove the dependency array. Outer scope values like \'MutableStore.hello\' aren\'t valid dependencies because mutating them doesn\'t re-render the component.',
+              'React Hook useEffect has an unnecessary dependency: \'MutableStore.hello\'. Either exclude it or remove the dependency list. Outer scope values like \'MutableStore.hello\' aren\'t valid dependencies because mutating them doesn\'t re-render the component.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: []',
+              'desc': 'Update the dependencies list to be: []',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((_) {
                   useEffect(() {
@@ -4408,10 +4408,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has unnecessary dependencies: \'MutableStore.hello.world\', \'global.stuff\', and \'z\'. Either exclude them or remove the dependency array. Outer scope values like \'MutableStore.hello.world\' aren\'t valid dependencies because mutating them doesn\'t re-render the component.',
+              'React Hook useEffect has unnecessary dependencies: \'MutableStore.hello.world\', \'global.stuff\', and \'z\'. Either exclude them or remove the dependency list. Outer scope values like \'MutableStore.hello.world\' aren\'t valid dependencies because mutating them doesn\'t re-render the component.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [props.foo, x, y]',
+              'desc': 'Update the dependencies list to be: [props.foo, x, y]',
               'output': r'''
                 var z = {};
                 final MyComponent = uiFunction<TestProps>((props) {
@@ -4445,12 +4445,12 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has unnecessary dependencies: \'MutableStore.hello.world\', \'global.stuff\', and \'z\'. Either exclude them or remove the dependency array. Outer scope values like \'MutableStore.hello.world\' aren\'t valid dependencies because mutating them doesn\'t re-render the component.',
+              'React Hook useEffect has unnecessary dependencies: \'MutableStore.hello.world\', \'global.stuff\', and \'z\'. Either exclude them or remove the dependency list. Outer scope values like \'MutableStore.hello.world\' aren\'t valid dependencies because mutating them doesn\'t re-render the component.',
           // The output should contain the ones that are inside a component
           // since there are legit reasons to over-specify them for effects.
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [props.foo, x, y]',
+              'desc': 'Update the dependencies list to be: [props.foo, x, y]',
               'output': r'''
                 var z = {};
                 final MyComponent = uiFunction<TestProps>((props) {
@@ -4484,10 +4484,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useCallback has unnecessary dependencies: \'MutableStore.hello.world\', \'global.stuff\', \'props.foo\', \'x\', \'y\', and \'z\'. Either exclude them or remove the dependency array. Outer scope values like \'MutableStore.hello.world\' aren\'t valid dependencies because mutating them doesn\'t re-render the component.',
+              'React Hook useCallback has unnecessary dependencies: \'MutableStore.hello.world\', \'global.stuff\', \'props.foo\', \'x\', \'y\', and \'z\'. Either exclude them or remove the dependency list. Outer scope values like \'MutableStore.hello.world\' aren\'t valid dependencies because mutating them doesn\'t re-render the component.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: []',
+              'desc': 'Update the dependencies list to be: []',
               'output': r'''
                 var z = {};
                 final MyComponent = uiFunction<TestProps>((props) {
@@ -4521,10 +4521,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useCallback has unnecessary dependencies: \'MutableStore.hello.world\', \'global.stuff\', \'props.foo\', \'x\', \'y\', and \'z\'. Either exclude them or remove the dependency array. Outer scope values like \'MutableStore.hello.world\' aren\'t valid dependencies because mutating them doesn\'t re-render the component.',
+              'React Hook useCallback has unnecessary dependencies: \'MutableStore.hello.world\', \'global.stuff\', \'props.foo\', \'x\', \'y\', and \'z\'. Either exclude them or remove the dependency list. Outer scope values like \'MutableStore.hello.world\' aren\'t valid dependencies because mutating them doesn\'t re-render the component.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: []',
+              'desc': 'Update the dependencies list to be: []',
               'output': r'''
                 var z = {};
                 final MyComponent = uiFunction<TestProps>((props) {
@@ -4576,10 +4576,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has a missing dependency: \'handleNext1\'. Either include it or remove the dependency array.',
+              'React Hook useEffect has a missing dependency: \'handleNext1\'. Either include it or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [handleNext1]',
+              'desc': 'Update the dependencies list to be: [handleNext1]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
                   var state = useState(null);
@@ -4614,10 +4614,10 @@ final tests = {
         },
         {
           'message':
-              'React Hook useLayoutEffect has a missing dependency: \'handleNext2\'. Either include it or remove the dependency array.',
+              'React Hook useLayoutEffect has a missing dependency: \'handleNext2\'. Either include it or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [handleNext2]',
+              'desc': 'Update the dependencies list to be: [handleNext2]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
                   var state = useState(null);
@@ -4652,10 +4652,10 @@ final tests = {
         },
         {
           'message':
-              'React Hook useMemo has a missing dependency: \'handleNext3\'. Either include it or remove the dependency array.',
+              'React Hook useMemo has a missing dependency: \'handleNext3\'. Either include it or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [handleNext3]',
+              'desc': 'Update the dependencies list to be: [handleNext3]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
                   var state = useState(null);
@@ -4726,10 +4726,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has a missing dependency: \'handleNext1\'. Either include it or remove the dependency array.',
+              'React Hook useEffect has a missing dependency: \'handleNext1\'. Either include it or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [handleNext1]',
+              'desc': 'Update the dependencies list to be: [handleNext1]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
                   var state = useState(null);
@@ -4766,10 +4766,10 @@ final tests = {
         },
         {
           'message':
-              'React Hook useLayoutEffect has a missing dependency: \'handleNext2\'. Either include it or remove the dependency array.',
+              'React Hook useLayoutEffect has a missing dependency: \'handleNext2\'. Either include it or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [handleNext2]',
+              'desc': 'Update the dependencies list to be: [handleNext2]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
                   var state = useState(null);
@@ -4806,10 +4806,10 @@ final tests = {
         },
         {
           'message':
-              'React Hook useMemo has a missing dependency: \'handleNext3\'. Either include it or remove the dependency array.',
+              'React Hook useMemo has a missing dependency: \'handleNext3\'. Either include it or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [handleNext3]',
+              'desc': 'Update the dependencies list to be: [handleNext3]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
                   var state = useState(null);
@@ -4882,10 +4882,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has a missing dependency: \'handleNext1\'. Either include it or remove the dependency array.',
+              'React Hook useEffect has a missing dependency: \'handleNext1\'. Either include it or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [handleNext1]',
+              'desc': 'Update the dependencies list to be: [handleNext1]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
                   var state = useState(null);
@@ -4922,10 +4922,10 @@ final tests = {
         },
         {
           'message':
-              'React Hook useLayoutEffect has a missing dependency: \'handleNext2\'. Either include it or remove the dependency array.',
+              'React Hook useLayoutEffect has a missing dependency: \'handleNext2\'. Either include it or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [handleNext2]',
+              'desc': 'Update the dependencies list to be: [handleNext2]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
                   var state = useState(null);
@@ -4962,10 +4962,10 @@ final tests = {
         },
         {
           'message':
-              'React Hook useMemo has a missing dependency: \'handleNext3\'. Either include it or remove the dependency array.',
+              'React Hook useMemo has a missing dependency: \'handleNext3\'. Either include it or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [handleNext3]',
+              'desc': 'Update the dependencies list to be: [handleNext3]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
                   var state = useState(null);
@@ -5495,10 +5495,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has a missing dependency: \'count\'. Either include it or remove the dependency array. You can also do a functional update \'setCount(c => ...)\' if you only need \'count\' in the \'setCount\' call.',
+              'React Hook useEffect has a missing dependency: \'count\'. Either include it or remove the dependency list. You can also do a functional update \'setCount(c => ...)\' if you only need \'count\' in the \'setCount\' call.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [count]',
+              'desc': 'Update the dependencies list to be: [count]',
               'output': r'''
                 final Counter = uiFunction<TestProps>((_) {
                   var count = useState(0);
@@ -5533,10 +5533,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has missing dependencies: \'count\' and \'increment\'. Either include them or remove the dependency array. You can also do a functional update \'setCount(c => ...)\' if you only need \'count\' in the \'setCount\' call.',
+              'React Hook useEffect has missing dependencies: \'count\' and \'increment\'. Either include them or remove the dependency list. You can also do a functional update \'setCount(c => ...)\' if you only need \'count\' in the \'setCount\' call.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [count, increment]',
+              'desc': 'Update the dependencies list to be: [count, increment]',
               'output': r'''
                 final Counter = uiFunction<TestProps>((_) {
                   var count = useState(0);
@@ -5572,10 +5572,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has a missing dependency: \'increment\'. Either include it or remove the dependency array. You can also replace multiple useState variables with useReducer if \'setCount\' needs the current value of \'increment\'.',
+              'React Hook useEffect has a missing dependency: \'increment\'. Either include it or remove the dependency list. You can also replace multiple useState variables with useReducer if \'setCount\' needs the current value of \'increment\'.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [increment]',
+              'desc': 'Update the dependencies list to be: [increment]',
               'output': r'''
                 final Counter = uiFunction<TestProps>((_) {
                   var count = useState(0);
@@ -5614,10 +5614,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has a missing dependency: \'increment\'. Either include it or remove the dependency array.',
+              'React Hook useEffect has a missing dependency: \'increment\'. Either include it or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [increment]',
+              'desc': 'Update the dependencies list to be: [increment]',
               'output': r'''
                 final Counter = uiFunction<TestProps>((_) {
                   var count = useState(0);
@@ -5660,10 +5660,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has a missing dependency: \'increment\'. Either include it or remove the dependency array.',
+              'React Hook useEffect has a missing dependency: \'increment\'. Either include it or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [increment]',
+              'desc': 'Update the dependencies list to be: [increment]',
               'output': r'''
                 final Counter = uiFunction<TestProps>((props) {
                   var step = props.step;
@@ -5730,10 +5730,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has a missing dependency: \'increment\'. Either include it or remove the dependency array. If \'setCount\' needs the current value of \'increment\', you can also switch to useReducer instead of useState and read \'increment\' in the reducer.',
+              'React Hook useEffect has a missing dependency: \'increment\'. Either include it or remove the dependency list. If \'setCount\' needs the current value of \'increment\', you can also switch to useReducer instead of useState and read \'increment\' in the reducer.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [increment]',
+              'desc': 'Update the dependencies list to be: [increment]',
               'output': r'''
                 final Counter = uiFunction<TestProps>((props) {
                   var increment = props.increment;
@@ -5776,10 +5776,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has a missing dependency: \'tick\'. Either include it or remove the dependency array.',
+              'React Hook useEffect has a missing dependency: \'tick\'. Either include it or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [tick]',
+              'desc': 'Update the dependencies list to be: [tick]',
               'output': r'''
                 final Counter = uiFunction<TestProps>((_) {
                   var count = useState(0);
@@ -5813,13 +5813,13 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has a missing dependency: \'podcasts\'. Either include it or remove the dependency array.',
+              'React Hook useEffect has a missing dependency: \'podcasts\'. Either include it or remove the dependency list.',
           // Note: this autofix is shady because
           // the variable is used before declaration.
           // TODO: Maybe we can catch those fixes and not autofix.
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [podcasts]',
+              'desc': 'Update the dependencies list to be: [podcasts]',
               'output': r'''
                 final Podcasts = uiFunction<TestProps>((_) {
                   useEffect(() {
@@ -5848,10 +5848,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has a missing dependency: \'fetchPodcasts\'. Either include it or remove the dependency array. If \'fetchPodcasts\' changes too often, find the parent component that defines it and wrap that definition in useCallback.',
+              'React Hook useEffect has a missing dependency: \'fetchPodcasts\'. Either include it or remove the dependency list. If \'fetchPodcasts\' changes too often, find the parent component that defines it and wrap that definition in useCallback.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [fetchPodcasts, id]',
+              'desc': 'Update the dependencies list to be: [fetchPodcasts, id]',
               'output': r'''
                 final Podcasts = uiFunction<TestProps>((props) {
                   var fetchPodcasts = props.fetchPodcasts;
@@ -5880,10 +5880,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has a missing dependency: \'fetchPodcasts\'. Either include it or remove the dependency array. If \'fetchPodcasts\' changes too often, find the parent component that defines it and wrap that definition in useCallback.',
+              'React Hook useEffect has a missing dependency: \'fetchPodcasts\'. Either include it or remove the dependency list. If \'fetchPodcasts\' changes too often, find the parent component that defines it and wrap that definition in useCallback.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [fetchPodcasts, id]',
+              'desc': 'Update the dependencies list to be: [fetchPodcasts, id]',
               'output': r'''
                 final Podcasts = uiFunction<TestProps>(({ api: { fetchPodcasts }, id }) {
                   var podcasts = useState(null);
@@ -5917,10 +5917,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has missing dependencies: \'fetchPodcasts\' and \'fetchPodcasts2\'. Either include them or remove the dependency array. If \'fetchPodcasts\' changes too often, find the parent component that defines it and wrap that definition in useCallback.',
+              'React Hook useEffect has missing dependencies: \'fetchPodcasts\' and \'fetchPodcasts2\'. Either include them or remove the dependency list. If \'fetchPodcasts\' changes too often, find the parent component that defines it and wrap that definition in useCallback.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [fetchPodcasts, fetchPodcasts2, id]',
+              'desc': 'Update the dependencies list to be: [fetchPodcasts, fetchPodcasts2, id]',
               'output': r'''
                 final Podcasts = uiFunction<TestProps>((props) {
                   var fetchPodcasts = props.fetchPodcasts;
@@ -5958,10 +5958,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has a missing dependency: \'fetchPodcasts\'. Either include it or remove the dependency array. If \'fetchPodcasts\' changes too often, find the parent component that defines it and wrap that definition in useCallback.',
+              'React Hook useEffect has a missing dependency: \'fetchPodcasts\'. Either include it or remove the dependency list. If \'fetchPodcasts\' changes too often, find the parent component that defines it and wrap that definition in useCallback.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [fetchPodcasts, id]',
+              'desc': 'Update the dependencies list to be: [fetchPodcasts, id]',
               'output': r'''
                 final Podcasts = uiFunction<TestProps>((props) {
                   var fetchPodcasts = props.fetchPodcasts;
@@ -5995,10 +5995,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has a missing dependency: \'fetchPodcasts\'. Either include it or remove the dependency array. If \'fetchPodcasts\' changes too often, find the parent component that defines it and wrap that definition in useCallback.',
+              'React Hook useEffect has a missing dependency: \'fetchPodcasts\'. Either include it or remove the dependency list. If \'fetchPodcasts\' changes too often, find the parent component that defines it and wrap that definition in useCallback.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [fetchPodcasts, id]',
+              'desc': 'Update the dependencies list to be: [fetchPodcasts, id]',
               'output': r'''
                 final Podcasts = uiFunction<TestProps>((props) {
                   var fetchPodcasts = props.fetchPodcasts;
@@ -6030,10 +6030,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has an unnecessary dependency: \'fetchData\'. Either exclude it or remove the dependency array.',
+              'React Hook useEffect has an unnecessary dependency: \'fetchData\'. Either exclude it or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: []',
+              'desc': 'Update the dependencies list to be: []',
               'output': r'''
                 final Thing = uiFunction<TestProps>((_) {
                   useEffect(() {
@@ -6062,7 +6062,7 @@ final tests = {
               'React Hook useEffect contains a call to \'setState\'. Without a list of dependencies, this can lead to an infinite chain of updates. To fix this, pass [] as a second argument to the useEffect Hook.',
           'suggestions': [
             {
-              'desc': 'Add dependencies array: []',
+              'desc': 'Add dependencies list: []',
               'output': r'''
                 final Hello = uiFunction<TestProps>((_) {
                   var state = useState(0);
@@ -6091,7 +6091,7 @@ final tests = {
               'React Hook useEffect contains a call to \'setData\'. Without a list of dependencies, this can lead to an infinite chain of updates. To fix this, pass [] as a second argument to the useEffect Hook.',
           'suggestions': [
             {
-              'desc': 'Add dependencies array: []',
+              'desc': 'Add dependencies list: []',
               'output': r'''
                 final Hello = uiFunction<TestProps>((_) {
                   var data = useState(0);
@@ -6122,7 +6122,7 @@ final tests = {
               'React Hook useEffect contains a call to \'setData\'. Without a list of dependencies, this can lead to an infinite chain of updates. To fix this, pass [country] as a second argument to the useEffect Hook.',
           'suggestions': [
             {
-              'desc': 'Add dependencies array: [country]',
+              'desc': 'Add dependencies list: [country]',
               'output': r'''
                 final Hello = uiFunction<TestProps>((props) {
                   var country = props.country;
@@ -6158,7 +6158,7 @@ final tests = {
               'React Hook useEffect contains a call to \'setState\'. Without a list of dependencies, this can lead to an infinite chain of updates. To fix this, pass [prop1, prop2] as a second argument to the useEffect Hook.',
           'suggestions': [
             {
-              'desc': 'Add dependencies array: [prop1, prop2]',
+              'desc': 'Add dependencies list: [prop1, prop2]',
               'output': r'''
                 final Hello = uiFunction<TestProps>((props) {
                   var prop1 = props.prop1;
@@ -6240,10 +6240,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useCallback has an unnecessary dependency: \'foo\'. Either exclude it or remove the dependency array.',
+              'React Hook useCallback has an unnecessary dependency: \'foo\'. Either exclude it or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: []',
+              'desc': 'Update the dependencies list to be: []',
               'output': r'''
                 final Example = uiFunction<TestProps>((_) {
                   final foo = useCallback(() {
@@ -6272,10 +6272,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useCallback has a missing dependency: \'prop\'. Either include it or remove the dependency array.',
+              'React Hook useCallback has a missing dependency: \'prop\'. Either include it or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [prop]',
+              'desc': 'Update the dependencies list to be: [prop]',
               'output': r'''
                 final Example = uiFunction<TestProps>((props) {
                   var prop = props.prop;
@@ -6306,10 +6306,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has a missing dependency: \'local\'. Either include it or remove the dependency array.',
+              'React Hook useEffect has a missing dependency: \'local\'. Either include it or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [local]',
+              'desc': 'Update the dependencies list to be: [local]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((_) {
                   final local = {};
@@ -6337,10 +6337,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has a missing dependency: \'local\'. Either include it or remove the dependency array.',
+              'React Hook useEffect has a missing dependency: \'local\'. Either include it or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [local]',
+              'desc': 'Update the dependencies list to be: [local]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((_) {
                   final local = {};
@@ -6368,10 +6368,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has a missing dependency: \'local\'. Either include it or remove the dependency array.',
+              'React Hook useEffect has a missing dependency: \'local\'. Either include it or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [local]',
+              'desc': 'Update the dependencies list to be: [local]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((_) {
                   final local = {};
@@ -6402,10 +6402,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has a missing dependency: \'otherThing\'. Either include it or remove the dependency array.',
+              'React Hook useEffect has a missing dependency: \'otherThing\'. Either include it or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [otherThing]',
+              'desc': 'Update the dependencies list to be: [otherThing]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((_) {
                   final local = {};
@@ -6436,10 +6436,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has a missing dependency: \'myEffect\'. Either include it or remove the dependency array.',
+              'React Hook useEffect has a missing dependency: \'myEffect\'. Either include it or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [myEffect]',
+              'desc': 'Update the dependencies list to be: [myEffect]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((_) {
                   final local = {};
@@ -6467,10 +6467,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has a missing dependency: \'myEffect\'. Either include it or remove the dependency array.',
+              'React Hook useEffect has a missing dependency: \'myEffect\'. Either include it or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [myEffect]',
+              'desc': 'Update the dependencies list to be: [myEffect]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((_) {
                   final local = {};
@@ -6496,10 +6496,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has a missing dependency: \'myEffect\'. Either include it or remove the dependency array.',
+              'React Hook useEffect has a missing dependency: \'myEffect\'. Either include it or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [myEffect]',
+              'desc': 'Update the dependencies list to be: [myEffect]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
                   var myEffect = props.myEffect;
@@ -6550,7 +6550,7 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has a missing dependency: \'local\'. Either include it or remove the dependency array.',
+              'React Hook useEffect has a missing dependency: \'local\'. Either include it or remove the dependency list.',
         },
       ],
       // Keep this until major IDEs and VS Code FB ESLint plugin support Suggestions API.
@@ -6571,10 +6571,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has missing dependencies: \'foo.bar\' and \'props.foo.bar\'. Either include them or remove the dependency array.',
+              'React Hook useEffect has missing dependencies: \'foo.bar\' and \'props.foo.bar\'. Either include them or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [foo.bar, props.foo.bar]',
+              'desc': 'Update the dependencies list to be: [foo.bar, props.foo.bar]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
                   dynamic foo;
@@ -6614,7 +6614,7 @@ final tests = {
       'errors': [
         {
           'message':
-              'The \'foo\' array makes the dependencies of useMemo Hook (at line 4) change on every render. Move it inside the useMemo callback. Alternatively, wrap the initialization of \'foo\' in its own useMemo() Hook.',
+              'The \'foo\' list makes the dependencies of useMemo Hook (at line 4) change on every render. Move it inside the useMemo callback. Alternatively, wrap the initialization of \'foo\' in its own useMemo() Hook.',
           'suggestions': null,
         },
       ],
@@ -7112,10 +7112,10 @@ final testsTypescript = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has a missing dependency: \'local\'. Either include it or remove the dependency array.',
+              'React Hook useEffect has a missing dependency: \'local\'. Either include it or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [local]',
+              'desc': 'Update the dependencies list to be: [local]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((_) {
                   final local = {} as string;
@@ -7143,10 +7143,10 @@ final testsTypescript = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has a missing dependency: \'bar\'. Either include it or remove the dependency array.',
+              'React Hook useEffect has a missing dependency: \'bar\'. Either include it or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [bar]',
+              'desc': 'Update the dependencies list to be: [bar]',
               'output': r'''
                 final App = uiFunction<TestProps>((_) {
                   final foo = {x: 1};
@@ -7175,10 +7175,10 @@ final testsTypescript = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has missing dependencies: \'pizza.crust\' and \'pizza?.toppings\'. Either include them or remove the dependency array.',
+              'React Hook useEffect has missing dependencies: \'pizza.crust\' and \'pizza?.toppings\'. Either include them or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [pizza.crust, pizza?.toppings]',
+              'desc': 'Update the dependencies list to be: [pizza.crust, pizza?.toppings]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((_) {
                   final pizza = {};
@@ -7206,10 +7206,10 @@ final testsTypescript = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has a missing dependency: \'pizza.crust\'. Either include it or remove the dependency array.',
+              'React Hook useEffect has a missing dependency: \'pizza.crust\'. Either include it or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [pizza.crust]',
+              'desc': 'Update the dependencies list to be: [pizza.crust]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((_) {
                   final pizza = {};
@@ -7237,10 +7237,10 @@ final testsTypescript = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has a missing dependency: \'pizza.crust\'. Either include it or remove the dependency array.',
+              'React Hook useEffect has a missing dependency: \'pizza.crust\'. Either include it or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [pizza.crust]',
+              'desc': 'Update the dependencies list to be: [pizza.crust]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((_) {
                   final pizza = {};
@@ -7268,10 +7268,10 @@ final testsTypescript = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has a missing dependency: \'pizza?.crust\'. Either include it or remove the dependency array.',
+              'React Hook useEffect has a missing dependency: \'pizza?.crust\'. Either include it or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [pizza?.crust]',
+              'desc': 'Update the dependencies list to be: [pizza?.crust]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((_) {
                   final pizza = {};
@@ -7299,10 +7299,10 @@ final testsTypescript = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has a missing dependency: \'props.upperViewHeight\'. Either include it or remove the dependency array.',
+              'React Hook useEffect has a missing dependency: \'props.upperViewHeight\'. Either include it or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [props.upperViewHeight]',
+              'desc': 'Update the dependencies list to be: [props.upperViewHeight]',
               'output': r'''
                 final Example = uiFunction<TestProps>((props) {
                   useEffect(() {
@@ -7329,10 +7329,10 @@ final testsTypescript = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has a missing dependency: \'props?.upperViewHeight\'. Either include it or remove the dependency array.',
+              'React Hook useEffect has a missing dependency: \'props?.upperViewHeight\'. Either include it or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [props?.upperViewHeight]',
+              'desc': 'Update the dependencies list to be: [props?.upperViewHeight]',
               'output': r'''
                 final Example = uiFunction<TestProps>((props) {
                   useEffect(() {
@@ -7359,10 +7359,10 @@ final testsTypescript = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has a missing dependency: \'state\'. Either include it or remove the dependency array. You can also do a functional update \'setState(s => ...)\' if you only need \'state\' in the \'setState\' call.',
+              'React Hook useEffect has a missing dependency: \'state\'. Either include it or remove the dependency list. You can also do a functional update \'setState(s => ...)\' if you only need \'state\' in the \'setState\' call.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [state]',
+              'desc': 'Update the dependencies list to be: [state]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((_) {
                   var state = over_react.useState<number>(0);
@@ -7390,10 +7390,10 @@ final testsTypescript = {
       'errors': [
         {
           'message':
-              'React Hook useMemo has an unnecessary dependency: \'state\'. Either exclude it or remove the dependency array.',
+              'React Hook useMemo has an unnecessary dependency: \'state\'. Either exclude it or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: []',
+              'desc': 'Update the dependencies list to be: []',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((_) {
                   var state = over_react.useState<number>(0);
@@ -7447,10 +7447,10 @@ final testsTypescriptEslintParserV4 = {
       'errors': [
         {
           'message':
-              'React Hook React.useEffect has a missing dependency: \'Component\'. Either include it or remove the dependency array.',
+              'React Hook React.useEffect has a missing dependency: \'Component\'. Either include it or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies array to be: [Component]',
+              'desc': 'Update the dependencies list to be: [Component]',
               'output': r'''
                 final Foo = uiFunction<TestProps>((props) {
                   var Component = props.Component;

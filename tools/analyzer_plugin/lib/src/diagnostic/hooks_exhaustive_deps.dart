@@ -642,7 +642,7 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
               "] as a second argument to the $reactiveHookName Hook.",
           // suggest: [
           //   {
-          //     desc: "Add dependencies array: [${suggestedDependencies.join(
+          //     desc: "Add dependencies list: [${suggestedDependencies.join(
           //       ', ',
           //     )}]",
           //     fix(fixer) {
@@ -742,7 +742,7 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
                 node: declaredDependencyNode,
                 message: "The ${declaredDependencyNode.toSource()} literal is not a valid dependency "
                     "because it never changes."
-                    " Did you mean to include ${declaredDependencyNode.value} in the array instead?",
+                    " Did you mean to include ${declaredDependencyNode.value} in the list instead?",
               );
             } else if (isAConstantValue(declaredDependencyNode)) {
               // Provide slightly improved wording in the case of literals.
@@ -764,7 +764,7 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
               reportProblem(
                 node: declaredDependencyNode,
                 message: "React Hook ${getSource(reactiveHook)} has a "
-                    "complex expression in the dependency array. "
+                    "complex expression in the dependency list. "
                     'Extract it to a separate variable so it can be statically checked.',
               );
             }
@@ -960,7 +960,7 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
           (deps.length > 1 ? 'dependencies' : 'dependency') +
           ': ' +
           joinEnglish((deps.toList()..sort()).map((name) => "'" + formatDependency(name) + "'").toList()) +
-          ". Either $fixVerb ${deps.length > 1 ? 'them' : 'it'} or remove the dependency array.";
+          ". Either $fixVerb ${deps.length > 1 ? 'them' : 'it'} or remove the dependency list.";
     }
 
     String? extraWarning;
@@ -1161,7 +1161,7 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
             (extraWarning ?? ''),
       ],
       fixKind: HooksExhaustiveDeps.fixKind,
-      fixMessageArgs: ["Update the dependencies array to be: [${suggestedDeps.map(formatDependency).join(', ')}]"],
+      fixMessageArgs: ["Update the dependencies list to be: [${suggestedDeps.map(formatDependency).join(', ')}]"],
       computeFix: () => buildGenericFileEdit(result, (e) {
         e.addSimpleReplacement(
             range.node(declaredDependenciesNode), "[${suggestedDeps.map(formatDependency).join(', ')}]");
@@ -1194,7 +1194,7 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
         reportProblem(
           node: reactiveHook,
           message: "React Hook $reactiveHookName does nothing when called with "
-              "only one argument. Did you forget to pass an array of "
+              "only one argument. Did you forget to pass a list of "
               "dependencies?",
         );
       }
@@ -1269,10 +1269,10 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
       errorMessageArgs: [
         // ignore: prefer_adjacent_string_concatenation
         "React Hook $reactiveHookName has a missing dependency: '$callbackName'. " +
-            "Either include it or remove the dependency array."
+            "Either include it or remove the dependency list."
       ],
       fixKind: HooksExhaustiveDeps.fixKind,
-      fixMessageArgs: ["Update the dependencies array to be: [$callbackName]"],
+      fixMessageArgs: ["Update the dependencies list to be: [$callbackName]"],
       computeFix: () => buildGenericFileEdit(result, (e) {
         e.addSimpleReplacement(range.node(declaredDependenciesNode), "[$callbackName]");
       }),
