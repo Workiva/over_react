@@ -49,6 +49,8 @@ mixin TestProps on UiProps {
   var activeTab;
   var maybeRef2;
   var prop;
+  Function fn1;
+  Function fn2;
 }
 
 // Globals used by test cases

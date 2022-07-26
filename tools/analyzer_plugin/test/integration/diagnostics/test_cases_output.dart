@@ -1528,7 +1528,56 @@ final tests = {
       ],
     },
     /* (1 cases previously here involving regex literals was removed) */
-    /* (2 cases previously here involving missing dependencies argument was removed, since that's a static error in the Dart APIs) */
+    {
+      // Invalid because they don't have a meaning without deps.
+      'code': r'''
+        final MyComponent = uiFunction<TestProps>((props) {
+          final value = useMemo(() { return 2*2; });
+          // In JS, dependencies are optional for both functions. In Dart, they're required for only useCallback (this is likely an oversight).
+          // ignore: not_enough_positional_arguments
+          final fn = useCallback(() { window.alert('foo'); });
+        }, null);
+      ''',
+      // We don't know what you meant.
+      'errors': [
+        {
+          'message':
+              'React Hook useMemo does nothing when called with only one argument. Did you forget to pass a list of dependencies?',
+          'suggestions': null,
+        },
+        {
+          'message':
+              'React Hook useCallback does nothing when called with only one argument. Did you forget to pass a list of dependencies?',
+          'suggestions': null,
+        },
+      ],
+    },
+    {
+      // Invalid because they don't have a meaning without deps.
+      'code': r'''
+        final MyComponent = uiFunction<TestProps>((props) {
+          var fn1 = props.fn1;
+          var fn2 = props.fn2;
+
+          final value = useMemo(fn1);
+          // In JS, dependencies are optional for both functions. In Dart, they're required for only useCallback (this is likely an oversight).
+          // ignore: not_enough_positional_arguments
+          final fn = useCallback(fn2);
+        }, null);
+      ''',
+      'errors': [
+        {
+          'message':
+              'React Hook useMemo does nothing when called with only one argument. Did you forget to pass a list of dependencies?',
+          'suggestions': null,
+        },
+        {
+          'message':
+              'React Hook useCallback does nothing when called with only one argument. Did you forget to pass a list of dependencies?',
+          'suggestions': null,
+        },
+      ],
+    },
     /* (Cases previously here involving missing effect callback arguments were removed) */
     {
       // Regression test
