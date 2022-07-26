@@ -689,7 +689,7 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
         if (invalidType != null) {
           reportProblem(
             node: _declaredDependencyNode,
-            message: "React Hook ${getSource(reactiveHook)} has $invalidType"
+            message: "React Hook ${getSource(reactiveHook)} has $invalidType "
                 "in its dependency list. This means we can't "
                 "statically verify whether you've passed the "
                 'correct dependencies.',
