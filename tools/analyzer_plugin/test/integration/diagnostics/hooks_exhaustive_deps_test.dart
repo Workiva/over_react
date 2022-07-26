@@ -112,8 +112,8 @@ class SomeObject {
         test('valid[$i]', () async {
           // Need to wrap in a function because some of the code includes statements that aren't valid
           // outside of a function context.
-          final rawCode = wrapInFunction(element['code'] as String);
-          final code = preamble + rawCode;
+          final rawCode = element['code'] as String;
+          final code = preamble + wrapInFunction(rawCode);
           try {
             final source = testBase.newSource('test.dart', code);
             await testBase.expectNoErrors(source, errorFilter: errorFilter);
@@ -133,8 +133,9 @@ class SomeObject {
         test('invalid[$i]', () async {
           // Need to wrap in a function because some of the code includes statements that aren't valid
           // outside of a function context.
-          final rawCode = wrapInFunction(element['code'] as String);
-          final code = preamble + rawCode;
+          final rawCode = element['code'] as String;
+          final code = preamble + wrapInFunction(rawCode);
+
           final expectedErrors = (element['errors'] as List).cast<Map>();
           expect(expectedErrors, isNotEmpty);
 
