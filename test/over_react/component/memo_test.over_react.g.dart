@@ -161,6 +161,9 @@ class _$BasicUiComponent2Component extends BasicUiComponent2Component {
   @override
   bool get $isClassGenerated => true;
 
+  @override
+  String get displayName => 'BasicUiComponent2';
+
   /// The default consumed props, taken from _$BasicUiComponent2Props.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override

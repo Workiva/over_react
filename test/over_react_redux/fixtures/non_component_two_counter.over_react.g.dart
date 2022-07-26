@@ -88,6 +88,9 @@ class _$NonComponentTwoCounterComponent
   @override
   bool get $isClassGenerated => true;
 
+  @override
+  String get displayName => 'NonComponentTwoCounter';
+
   /// The default consumed props, taken from _$NonComponentTwoCounterProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override

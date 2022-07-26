@@ -206,6 +206,9 @@ class _$ButtonGroupComponent extends ButtonGroupComponent {
   @override
   bool get $isClassGenerated => true;
 
+  @override
+  String get displayName => 'ButtonGroup';
+
   /// The default consumed props, taken from _$ButtonGroupProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override

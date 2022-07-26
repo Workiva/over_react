@@ -142,6 +142,9 @@ class _$FluxCounterComponent extends FluxCounterComponent {
   @override
   bool get $isClassGenerated => true;
 
+  @override
+  String get displayName => 'FluxCounter';
+
   /// The default consumed props, taken from _$FluxCounterProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override

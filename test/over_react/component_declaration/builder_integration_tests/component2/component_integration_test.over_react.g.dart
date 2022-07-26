@@ -284,6 +284,9 @@ class _$ComponentTestComponent extends ComponentTestComponent {
   @override
   bool get $isClassGenerated => true;
 
+  @override
+  String get displayName => 'ComponentTest';
+
   /// The default consumed props, taken from _$ComponentTestProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
@@ -430,6 +433,9 @@ class _$IsErrorBoundaryComponent extends IsErrorBoundaryComponent {
   @override
   bool get $isClassGenerated => true;
 
+  @override
+  String get displayName => 'IsErrorBoundary';
+
   /// The default consumed props, taken from _$IsErrorBoundaryProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
@@ -575,6 +581,9 @@ class _$IsNotErrorBoundaryComponent extends IsNotErrorBoundaryComponent {
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'IsNotErrorBoundary';
 
   /// The default consumed props, taken from _$IsNotErrorBoundaryProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.

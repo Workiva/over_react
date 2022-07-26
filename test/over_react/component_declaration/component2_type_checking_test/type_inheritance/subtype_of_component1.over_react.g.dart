@@ -150,6 +150,9 @@ class _$TestSubtypeOfComponent1Component
   @override
   bool get $isClassGenerated => true;
 
+  @override
+  String get displayName => 'TestSubtypeOfComponent1';
+
   /// The default consumed props, taken from _$TestSubtypeOfComponent1Props.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override

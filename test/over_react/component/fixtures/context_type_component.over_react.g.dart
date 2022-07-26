@@ -142,6 +142,9 @@ class _$ContextTypeComponent extends ContextTypeComponent {
   @override
   bool get $isClassGenerated => true;
 
+  @override
+  String get displayName => 'ContextType';
+
   /// The default consumed props, taken from _$ContextTypeProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override

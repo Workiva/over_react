@@ -141,6 +141,9 @@ class _$ClassComponentComponent extends ClassComponentComponent {
   @override
   bool get $isClassGenerated => true;
 
+  @override
+  String get displayName => 'ClassComponent';
+
   /// The default consumed props, comprising all props mixins used by ClassComponentProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override

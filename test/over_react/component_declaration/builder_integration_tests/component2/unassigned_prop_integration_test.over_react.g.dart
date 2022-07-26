@@ -171,6 +171,9 @@ class _$FooComponent extends FooComponent {
   @override
   bool get $isClassGenerated => true;
 
+  @override
+  String get displayName => 'Foo';
+
   /// The default consumed props, taken from _$FooProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override

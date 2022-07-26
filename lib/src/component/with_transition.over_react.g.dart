@@ -230,6 +230,9 @@ class _$WithTransitionComponent extends WithTransitionComponent {
   @override
   bool get $isClassGenerated => true;
 
+  @override
+  String get displayName => 'WithTransition';
+
   /// The default consumed props, comprising all props mixins used by WithTransitionProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override

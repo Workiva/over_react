@@ -411,6 +411,9 @@ class _$ProgressComponent extends ProgressComponent {
   @override
   bool get $isClassGenerated => true;
 
+  @override
+  String get displayName => 'Progress';
+
   /// The default consumed props, taken from _$ProgressProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override

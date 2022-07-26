@@ -86,6 +86,9 @@ class _$TestDefaultComponent extends TestDefaultComponent {
   @override
   bool get $isClassGenerated => true;
 
+  @override
+  String get displayName => 'TestDefault';
+
   /// The default consumed props, taken from _$TestDefaultProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
@@ -173,6 +176,9 @@ class _$TestConnectComponent extends TestConnectComponent {
   @override
   bool get $isClassGenerated => true;
 
+  @override
+  String get displayName => 'TestConnect';
+
   /// The default consumed props, taken from _$TestConnectProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
@@ -258,6 +264,9 @@ class _$TestPureComponent extends TestPureComponent {
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'TestPure';
 
   /// The default consumed props, taken from _$TestPureProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.

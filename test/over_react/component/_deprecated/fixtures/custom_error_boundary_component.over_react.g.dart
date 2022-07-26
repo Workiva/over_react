@@ -244,6 +244,9 @@ class _$CustomErrorBoundaryComponent extends CustomErrorBoundaryComponent {
   @override
   bool get $isClassGenerated => true;
 
+  @override
+  String get displayName => 'CustomErrorBoundary';
+
   /// The default consumed props, taken from _$CustomErrorBoundaryProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override

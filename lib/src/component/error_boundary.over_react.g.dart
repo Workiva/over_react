@@ -226,6 +226,9 @@ class _$ErrorBoundaryComponent extends ErrorBoundaryComponent {
   @override
   bool get $isClassGenerated => true;
 
+  @override
+  String get displayName => 'ErrorBoundary';
+
   /// The default consumed props, comprising all props mixins used by ErrorBoundaryProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override

@@ -232,6 +232,9 @@ class _$SafeRenderManagerHelperComponent
   @override
   bool get $isClassGenerated => true;
 
+  @override
+  String get displayName => 'SafeRenderManagerHelper';
+
   /// The default consumed props, comprising all props mixins used by SafeRenderManagerHelperProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override

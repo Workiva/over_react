@@ -87,6 +87,9 @@ class _$TwoLevelWrapperComponent extends TwoLevelWrapperComponent {
   @override
   bool get $isClassGenerated => true;
 
+  @override
+  String get displayName => 'TwoLevelWrapper';
+
   /// The default consumed props, taken from _$TwoLevelWrapperProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override

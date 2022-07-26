@@ -139,6 +139,9 @@ class _$FlawedOnMountComponent extends FlawedOnMountComponent {
   @override
   bool get $isClassGenerated => true;
 
+  @override
+  String get displayName => 'FlawedOnMount';
+
   /// The default consumed props, taken from _$FlawedOnMountProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override

@@ -141,6 +141,9 @@ class _$DomTestComponent extends DomTestComponent {
   @override
   bool get $isClassGenerated => true;
 
+  @override
+  String get displayName => 'DomTest';
+
   /// The default consumed props, taken from _$DomTestProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override

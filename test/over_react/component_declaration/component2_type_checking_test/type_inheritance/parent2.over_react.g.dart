@@ -142,6 +142,9 @@ class _$TestParent2Component extends TestParent2Component {
   @override
   bool get $isClassGenerated => true;
 
+  @override
+  String get displayName => 'TestParent2';
+
   /// The default consumed props, taken from _$TestParent2Props.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override

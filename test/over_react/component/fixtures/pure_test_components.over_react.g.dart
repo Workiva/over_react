@@ -142,6 +142,9 @@ class _$PureTestWrapperComponent extends PureTestWrapperComponent {
   @override
   bool get $isClassGenerated => true;
 
+  @override
+  String get displayName => 'PureTestWrapper';
+
   /// The default consumed props, comprising all props mixins used by PureTestWrapperProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
@@ -375,6 +378,9 @@ class _$PureTestComponent extends PureTestComponent {
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'PureTest';
 
   /// The default consumed props, comprising all props mixins used by PureTestProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.

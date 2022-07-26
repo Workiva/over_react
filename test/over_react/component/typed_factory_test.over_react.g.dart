@@ -277,6 +277,9 @@ class _$TypedFactoryTesterComponent extends TypedFactoryTesterComponent {
   @override
   bool get $isClassGenerated => true;
 
+  @override
+  String get displayName => 'TypedFactoryTester';
+
   /// The default consumed props, taken from _$TypedFactoryTesterProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override

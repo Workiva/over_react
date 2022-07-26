@@ -136,6 +136,9 @@ class _$TagComponent extends TagComponent {
   @override
   bool get $isClassGenerated => true;
 
+  @override
+  String get displayName => 'Tag';
+
   /// The default consumed props, taken from _$TagProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override

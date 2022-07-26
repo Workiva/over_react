@@ -143,6 +143,9 @@ class _$FlawedWithStringChildComponent extends FlawedWithStringChildComponent {
   @override
   bool get $isClassGenerated => true;
 
+  @override
+  String get displayName => 'FlawedWithStringChild';
+
   /// The default consumed props, taken from _$FlawedWithStringChildProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override

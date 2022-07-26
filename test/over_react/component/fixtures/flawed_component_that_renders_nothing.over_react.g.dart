@@ -139,6 +139,9 @@ class _$FlawedWithNoChildComponent extends FlawedWithNoChildComponent {
   @override
   bool get $isClassGenerated => true;
 
+  @override
+  String get displayName => 'FlawedWithNoChild';
+
   /// The default consumed props, taken from _$FlawedWithNoChildProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override

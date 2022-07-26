@@ -88,6 +88,9 @@ class _$TestSubsubtypeComponent extends TestSubsubtypeComponent {
   @override
   bool get $isClassGenerated => true;
 
+  @override
+  String get displayName => 'TestSubsubtype';
+
   /// The default consumed props, taken from _$TestSubsubtypeProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override

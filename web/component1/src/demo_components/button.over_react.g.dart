@@ -344,6 +344,9 @@ class _$ButtonComponent extends ButtonComponent {
   @override
   bool get $isClassGenerated => true;
 
+  @override
+  String get displayName => 'Button';
+
   /// The default consumed props, taken from _$ButtonProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override

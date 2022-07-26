@@ -140,6 +140,9 @@ class _$CustomTestComponent extends CustomTestComponent {
   @override
   bool get $isClassGenerated => true;
 
+  @override
+  String get displayName => 'CustomTest';
+
   /// The default consumed props, comprising all props mixins used by CustomTestProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override

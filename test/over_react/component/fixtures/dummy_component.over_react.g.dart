@@ -153,6 +153,9 @@ class _$DummyComponent extends DummyComponent {
   @override
   bool get $isClassGenerated => true;
 
+  @override
+  String get displayName => 'Dummy';
+
   /// The default consumed props, taken from _$DummyProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override

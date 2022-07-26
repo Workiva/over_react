@@ -264,6 +264,9 @@ class _$ConnectFluxCounterComponent extends ConnectFluxCounterComponent {
   @override
   bool get $isClassGenerated => true;
 
+  @override
+  String get displayName => 'ConnectFluxCounter';
+
   /// The default consumed props, taken from _$ConnectFluxCounterProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override

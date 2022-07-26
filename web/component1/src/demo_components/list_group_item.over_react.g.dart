@@ -366,6 +366,9 @@ class _$ListGroupItemComponent extends ListGroupItemComponent {
   @override
   bool get $isClassGenerated => true;
 
+  @override
+  String get displayName => 'ListGroupItem';
+
   /// The default consumed props, taken from _$ListGroupItemProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override

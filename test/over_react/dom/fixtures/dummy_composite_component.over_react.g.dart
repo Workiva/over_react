@@ -149,6 +149,9 @@ class _$TestCompositeComponentComponent
   @override
   bool get $isClassGenerated => true;
 
+  @override
+  String get displayName => 'TestCompositeComponent';
+
   /// The default consumed props, taken from _$TestCompositeComponentProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override

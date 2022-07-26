@@ -145,6 +145,9 @@ class _$TestExtendtype2Component extends TestExtendtype2Component {
   @override
   bool get $isClassGenerated => true;
 
+  @override
+  String get displayName => 'TestExtendtype2';
+
   /// The default consumed props, taken from _$TestExtendtype2Props.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override

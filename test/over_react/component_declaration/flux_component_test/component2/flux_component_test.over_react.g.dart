@@ -142,6 +142,9 @@ class _$TestBasicComponent extends TestBasicComponent {
   @override
   bool get $isClassGenerated => true;
 
+  @override
+  String get displayName => 'TestBasic';
+
   /// The default consumed props, taken from _$TestBasicProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
@@ -288,6 +291,9 @@ class _$TestHandlerLifecycleComponent extends TestHandlerLifecycleComponent {
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'TestHandlerLifecycle';
 
   /// The default consumed props, taken from _$TestHandlerLifecycleProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
@@ -437,6 +443,9 @@ class _$TestHandlerPrecedenceComponent extends TestHandlerPrecedenceComponent {
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'TestHandlerPrecedence';
 
   /// The default consumed props, taken from _$TestHandlerPrecedenceProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
@@ -604,6 +613,9 @@ class _$TestPropValidationComponent extends TestPropValidationComponent {
   @override
   bool get $isClassGenerated => true;
 
+  @override
+  String get displayName => 'TestPropValidation';
+
   /// The default consumed props, taken from _$TestPropValidationProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
@@ -747,6 +759,9 @@ class _$TestRedrawOnComponent extends TestRedrawOnComponent {
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'TestRedrawOn';
 
   /// The default consumed props, taken from _$TestRedrawOnProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
@@ -892,6 +907,9 @@ class _$TestStoreHandlersComponent extends TestStoreHandlersComponent {
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'TestStoreHandlers';
 
   /// The default consumed props, taken from _$TestStoreHandlersProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
@@ -1134,6 +1152,9 @@ class _$TestStatefulBasicComponent extends TestStatefulBasicComponent {
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'TestStatefulBasic';
 
   /// The default consumed props, taken from _$TestStatefulBasicProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
@@ -1391,6 +1412,9 @@ class _$TestStatefulHandlerLifecycleComponent
   @override
   bool get $isClassGenerated => true;
 
+  @override
+  String get displayName => 'TestStatefulHandlerLifecycle';
+
   /// The default consumed props, taken from _$TestStatefulHandlerLifecycleProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
@@ -1646,6 +1670,9 @@ class _$TestStatefulHandlerPrecedenceComponent
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'TestStatefulHandlerPrecedence';
 
   /// The default consumed props, taken from _$TestStatefulHandlerPrecedenceProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
@@ -1925,6 +1952,9 @@ class _$TestStatefulPropValidationComponent
   @override
   bool get $isClassGenerated => true;
 
+  @override
+  String get displayName => 'TestStatefulPropValidation';
+
   /// The default consumed props, taken from _$TestStatefulPropValidationProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
@@ -2170,6 +2200,9 @@ class _$TestStatefulRedrawOnComponent extends TestStatefulRedrawOnComponent {
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'TestStatefulRedrawOn';
 
   /// The default consumed props, taken from _$TestStatefulRedrawOnProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
@@ -2422,6 +2455,9 @@ class _$TestStatefulStoreHandlersComponent
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'TestStatefulStoreHandlers';
 
   /// The default consumed props, taken from _$TestStatefulStoreHandlersProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.

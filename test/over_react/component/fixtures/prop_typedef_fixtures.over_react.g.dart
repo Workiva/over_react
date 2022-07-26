@@ -354,6 +354,9 @@ class _$TestConsumingAbstractCustomRendererComponentComponent
   @override
   bool get $isClassGenerated => true;
 
+  @override
+  String get displayName => 'TestConsumingAbstractCustomRendererComponent';
+
   /// The default consumed props, taken from _$TestConsumingAbstractCustomRendererComponentProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
@@ -554,6 +557,9 @@ class _$TestConsumingCustomRendererComponentComponent
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'TestConsumingCustomRendererComponent';
 
   /// The default consumed props, taken from _$TestConsumingCustomRendererComponentProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
@@ -846,6 +852,9 @@ class _$TestCustomRendererFromAbstractComponentComponent
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'TestCustomRendererFromAbstractComponent';
 
   /// The default consumed props, taken from _$TestCustomRendererFromAbstractComponentProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
@@ -1214,6 +1223,9 @@ class _$TestCustomRendererComponentComponent
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'TestCustomRendererComponent';
 
   /// The default consumed props, taken from _$TestCustomRendererComponentProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.

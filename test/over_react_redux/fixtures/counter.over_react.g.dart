@@ -207,6 +207,9 @@ class _$CounterComponent extends CounterComponent {
   @override
   bool get $isClassGenerated => true;
 
+  @override
+  String get displayName => 'Counter';
+
   /// The default consumed props, taken from _$CounterProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override

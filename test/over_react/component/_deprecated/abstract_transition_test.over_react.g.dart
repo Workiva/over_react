@@ -297,6 +297,9 @@ class _$TransitionerComponent extends TransitionerComponent {
   @override
   bool get $isClassGenerated => true;
 
+  @override
+  String get displayName => 'Transitioner';
+
   /// The default consumed props, taken from _$TransitionerProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override

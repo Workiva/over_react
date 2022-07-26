@@ -487,6 +487,9 @@ class _$NamespacedAccessorTestComponent
   @override
   bool get $isClassGenerated => true;
 
+  @override
+  String get displayName => 'NamespacedAccessorTest';
+
   /// The default consumed props, taken from _$NamespacedAccessorTestProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override

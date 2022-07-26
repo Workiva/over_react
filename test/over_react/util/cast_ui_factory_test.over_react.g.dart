@@ -139,6 +139,9 @@ class _$BasicComponent extends BasicComponent {
   @override
   bool get $isClassGenerated => true;
 
+  @override
+  String get displayName => 'Basic';
+
   /// The default consumed props, comprising all props mixins used by BasicProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override

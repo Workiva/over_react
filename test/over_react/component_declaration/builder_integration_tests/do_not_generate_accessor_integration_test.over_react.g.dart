@@ -256,6 +256,9 @@ class _$DoNotGenerateAccessorTestComponent
   @override
   bool get $isClassGenerated => true;
 
+  @override
+  String get displayName => 'DoNotGenerateAccessorTest';
+
   /// The default consumed props, taken from _$DoNotGenerateAccessorTestProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override

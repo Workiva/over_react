@@ -162,6 +162,9 @@ class _$DoNotReferenceThisFactoryExceptForInASingleTestComponentn
   @override
   bool get $isClassGenerated => true;
 
+  @override
+  String get displayName => 'DoNotReferenceThisFactoryExceptForInASingleTest';
+
   /// The default consumed props, comprising all props mixins used by DoNotReferenceThisFactoryExceptForInASingleTestProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override

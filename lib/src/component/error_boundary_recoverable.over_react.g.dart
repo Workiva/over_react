@@ -236,6 +236,9 @@ class _$RecoverableErrorBoundaryComponent
   @override
   bool get $isClassGenerated => true;
 
+  @override
+  String get displayName => 'RecoverableErrorBoundary';
+
   /// The default consumed props, comprising all props mixins used by RecoverableErrorBoundaryProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override

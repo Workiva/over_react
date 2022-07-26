@@ -87,6 +87,9 @@ class _$OneLevelWrapperComponent extends OneLevelWrapperComponent {
   @override
   bool get $isClassGenerated => true;
 
+  @override
+  String get displayName => 'OneLevelWrapper';
+
   /// The default consumed props, taken from _$OneLevelWrapperProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override

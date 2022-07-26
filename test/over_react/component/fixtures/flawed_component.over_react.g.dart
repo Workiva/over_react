@@ -278,6 +278,9 @@ class _$FlawedComponent extends FlawedComponent {
   @override
   bool get $isClassGenerated => true;
 
+  @override
+  String get displayName => 'Flawed';
+
   /// The default consumed props, taken from _$FlawedProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override

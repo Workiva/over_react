@@ -141,6 +141,9 @@ class _$TestComponent2Component extends TestComponent2Component {
   @override
   bool get $isClassGenerated => true;
 
+  @override
+  String get displayName => 'TestComponent2';
+
   /// The default consumed props, comprising all props mixins used by TestComponent2Props.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
@@ -227,6 +230,9 @@ class _$TestComponentComponent extends TestComponentComponent {
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'TestComponent';
 
   /// The default consumed props, taken from _$TestComponentProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.

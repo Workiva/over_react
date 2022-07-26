@@ -203,6 +203,9 @@ class _$ComponentTestComponent extends ComponentTestComponent {
   @override
   bool get $isClassGenerated => true;
 
+  @override
+  String get displayName => 'ComponentTest';
+
   /// The default consumed props, taken from _$ComponentTestProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override

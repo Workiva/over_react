@@ -242,6 +242,9 @@ class _$BasicPartOfLibComponent extends BasicPartOfLibComponent {
   @override
   bool get $isClassGenerated => true;
 
+  @override
+  String get displayName => 'BasicPartOfLib';
+
   /// The default consumed props, taken from _$BasicPartOfLibProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
@@ -339,6 +342,9 @@ class _$SubPartOfLibComponent extends SubPartOfLibComponent {
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'SubPartOfLib';
 
   /// The default consumed props, taken from _$SubPartOfLibProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.

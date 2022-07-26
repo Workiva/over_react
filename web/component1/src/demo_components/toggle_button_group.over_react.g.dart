@@ -135,6 +135,9 @@ class _$ToggleButtonGroupComponent extends ToggleButtonGroupComponent {
   @override
   bool get $isClassGenerated => true;
 
+  @override
+  String get displayName => 'ToggleButtonGroup';
+
   /// The default consumed props, taken from _$ToggleButtonGroupProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override

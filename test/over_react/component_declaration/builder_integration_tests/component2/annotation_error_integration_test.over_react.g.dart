@@ -91,6 +91,9 @@ class _$AnnotationErrorDefaultPropsComponent
   @override
   bool get $isClassGenerated => true;
 
+  @override
+  String get displayName => 'AnnotationErrorDefaultProps';
+
   /// The default consumed props, taken from _$AnnotationErrorDefaultPropsProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
@@ -178,6 +181,9 @@ class _$AnnotationErrorComponent extends AnnotationErrorComponent {
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'AnnotationError';
 
   /// The default consumed props, taken from _$AnnotationErrorProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
@@ -314,6 +320,9 @@ class _$AnnotationErrorStatefulComponent
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'AnnotationErrorStateful';
 
   /// The default consumed props, taken from _$AnnotationErrorStatefulProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
@@ -462,6 +471,9 @@ class _$AnnotationErrorStatefulDefaultPropsComponent
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'AnnotationErrorStatefulDefaultProps';
 
   /// The default consumed props, taken from _$AnnotationErrorStatefulDefaultPropsProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.

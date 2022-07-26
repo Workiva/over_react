@@ -224,6 +224,9 @@ class _$Basic2Component extends Basic2Component {
   @override
   bool get $isClassGenerated => true;
 
+  @override
+  String get displayName => 'Basic';
+
   /// The default consumed props, taken from _$BasicProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override

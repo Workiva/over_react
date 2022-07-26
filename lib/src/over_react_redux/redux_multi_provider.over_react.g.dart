@@ -181,6 +181,9 @@ class _$ReduxMultiProviderComponent extends ReduxMultiProviderComponent {
   @override
   bool get $isClassGenerated => true;
 
+  @override
+  String get displayName => 'ReduxMultiProvider';
+
   /// The default consumed props, taken from _$ReduxMultiProviderProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
