@@ -586,8 +586,8 @@ final tests = {
           final definitelyRef1 = useRef();
           final definitelyRef2 = useRef();
           final maybeRef1 = useSomeOtherRefyThing();
-          var state1 = useState(null);
-          var state2 = over_react.useState(null);
+          var state1 = useState<dynamic>(null);
+          var state2 = over_react.useState<dynamic>(null);
           var state3 = useReducer(null, null);
           var state4 = over_react.useReducer(null, null);
           var state5 = useFunnyState(null);
@@ -648,8 +648,8 @@ final tests = {
           final definitelyRef1 = useRef();
           final definitelyRef2 = useRef();
           final maybeRef1 = useSomeOtherRefyThing();
-          var state1 = useState(null);
-          var state2 = over_react.useState(null);
+          var state1 = useState<dynamic>(null);
+          var state2 = over_react.useState<dynamic>(null);
           var state3 = useReducer(null, null);
           var state4 = over_react.useReducer(null, null);
           var state5 = useFunnyState(null);
@@ -1012,7 +1012,7 @@ final tests = {
       // everything they use is fully static.
       'code': r'''
         final MyComponent = uiFunction<TestProps>((props) {
-          var state = useState(null);
+          var state = useState<dynamic>(null);
           var dispatch = over_react.useReducer(null, null).dispatch;
           handleNext1(value) {
             var value2 = value * 100;
@@ -1133,7 +1133,7 @@ final tests = {
         withFetch(fetchPodcasts) {
           return uiFunction((props) {
             final id = props.id;
-            var podcasts = useState(null);
+            var podcasts = useState<dynamic>(null);
             useEffect(() {
               fetchPodcasts(id).then(podcasts.set);
             }, [id]);
@@ -1146,7 +1146,7 @@ final tests = {
         final Podcasts = uiFunction<TestProps>((props) {
           var id = props.id;
 
-          var podcasts = useState(null);
+          var podcasts = useState<dynamic>(null);
           useEffect(() {
             doFetch({ fetchPodcasts }) {
               fetchPodcasts(id).then(podcasts.set);
@@ -1224,7 +1224,7 @@ final tests = {
       'code': r'''
         final App = uiFunction<TestProps>((_) {
           var query = useState('react');
-          var state = useState(null);
+          var state = useState<dynamic>(null);
           useEffect(() {
             var ignore = false;
             fetchSomething() async {
@@ -3484,7 +3484,7 @@ final tests = {
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((_) {
                   final ref = useRef();
-                  var state = useState(null);
+                  var state = useState<dynamic>(null);
                   useEffect(() {
                     ref.current = {};
                     state.set(state.value + 1);
@@ -3500,7 +3500,7 @@ final tests = {
       'code': r'''
         final MyComponent = uiFunction<TestProps>((_) {
           final ref = useRef();
-          var state = useState(null);
+          var state = useState<dynamic>(null);
           useEffect(() {
             ref.current = {};
             state.set(state.value + 1);
@@ -3520,7 +3520,7 @@ final tests = {
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((_) {
                   final ref = useRef();
-                  var state = useState(null);
+                  var state = useState<dynamic>(null);
                   useEffect(() {
                     ref.current = {};
                     state.set(state.value + 1);
@@ -3974,7 +3974,7 @@ final tests = {
     {
       'code': r'''
         final MyComponent = uiFunction<TestProps>((props) {
-          const skillsCount = useState(null);
+          const skillsCount = useState<dynamic>(null);
           useEffect(() {
             if (skillsCount.value == 0 && !props.isEditMode) {
               props.toggleEditMode();
@@ -3992,7 +3992,7 @@ final tests = {
                   'Update the dependencies list to be: [skillsCount, props.isEditMode, props.toggleEditMode, props]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
-                  const skillsCount = useState(null);
+                  const skillsCount = useState<dynamic>(null);
                   useEffect(() {
                     if (skillsCount.value == 0 && !props.isEditMode) {
                       props.toggleEditMode();
@@ -4008,7 +4008,7 @@ final tests = {
     {
       'code': r'''
         final MyComponent = uiFunction<TestProps>((props) {
-          const skillsCount = useState(null);
+          const skillsCount = useState<dynamic>(null);
           useEffect(() {
             if (skillsCount.value == 0 && !props.isEditMode) {
               props.toggleEditMode();
@@ -4025,7 +4025,7 @@ final tests = {
               'desc': 'Update the dependencies list to be: [props, skillsCount]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
-                  const skillsCount = useState(null);
+                  const skillsCount = useState<dynamic>(null);
                   useEffect(() {
                     if (skillsCount.value == 0 && !props.isEditMode) {
                       props.toggleEditMode();
@@ -4600,7 +4600,7 @@ final tests = {
       // Every almost-static function is tainted by a dynamic value.
       'code': r'''
         final MyComponent = uiFunction<TestProps>((props) {
-          var state = useState(null);
+          var state = useState<dynamic>(null);
           var dispatch = over_react.useReducer(null, null).dispatch;
           var taint = props.foo;
           handleNext1(value) {
@@ -4636,7 +4636,7 @@ final tests = {
               'desc': 'Update the dependencies list to be: [handleNext1]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
-                  var state = useState(null);
+                  var state = useState<dynamic>(null);
                   var dispatch = over_react.useReducer(null, null).dispatch;
                   var taint = props.foo;
                   handleNext1(value) {
@@ -4674,7 +4674,7 @@ final tests = {
               'desc': 'Update the dependencies list to be: [handleNext2]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
-                  var state = useState(null);
+                  var state = useState<dynamic>(null);
                   var dispatch = over_react.useReducer(null, null).dispatch;
                   var taint = props.foo;
                   handleNext1(value) {
@@ -4712,7 +4712,7 @@ final tests = {
               'desc': 'Update the dependencies list to be: [handleNext3]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
-                  var state = useState(null);
+                  var state = useState<dynamic>(null);
                   var dispatch = over_react.useReducer(null, null).dispatch;
                   var taint = props.foo;
                   handleNext1(value) {
@@ -4748,7 +4748,7 @@ final tests = {
       // Regression test
       'code': r'''
         final MyComponent = uiFunction<TestProps>((props) {
-          var state = useState(null);
+          var state = useState<dynamic>(null);
           var dispatch = over_react.useReducer(null, null).dispatch;
           var taint = props.foo;
           // Shouldn't affect anything
@@ -4786,7 +4786,7 @@ final tests = {
               'desc': 'Update the dependencies list to be: [handleNext1]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
-                  var state = useState(null);
+                  var state = useState<dynamic>(null);
                   var dispatch = over_react.useReducer(null, null).dispatch;
                   var taint = props.foo;
                   // Shouldn't affect anything
@@ -4826,7 +4826,7 @@ final tests = {
               'desc': 'Update the dependencies list to be: [handleNext2]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
-                  var state = useState(null);
+                  var state = useState<dynamic>(null);
                   var dispatch = over_react.useReducer(null, null).dispatch;
                   var taint = props.foo;
                   // Shouldn't affect anything
@@ -4866,7 +4866,7 @@ final tests = {
               'desc': 'Update the dependencies list to be: [handleNext3]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
-                  var state = useState(null);
+                  var state = useState<dynamic>(null);
                   var dispatch = over_react.useReducer(null, null).dispatch;
                   var taint = props.foo;
                   // Shouldn't affect anything
@@ -4904,7 +4904,7 @@ final tests = {
       // Regression test
       'code': r'''
         final MyComponent = uiFunction<TestProps>((props) {
-          var state = useState(null);
+          var state = useState<dynamic>(null);
           var dispatch = over_react.useReducer(null, null).dispatch;
           var taint = props.foo;
           // Shouldn't affect anything
@@ -4942,7 +4942,7 @@ final tests = {
               'desc': 'Update the dependencies list to be: [handleNext1]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
-                  var state = useState(null);
+                  var state = useState<dynamic>(null);
                   var dispatch = over_react.useReducer(null, null).dispatch;
                   var taint = props.foo;
                   // Shouldn't affect anything
@@ -4982,7 +4982,7 @@ final tests = {
               'desc': 'Update the dependencies list to be: [handleNext2]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
-                  var state = useState(null);
+                  var state = useState<dynamic>(null);
                   var dispatch = over_react.useReducer(null, null).dispatch;
                   var taint = props.foo;
                   // Shouldn't affect anything
@@ -5022,7 +5022,7 @@ final tests = {
               'desc': 'Update the dependencies list to be: [handleNext3]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
-                  var state = useState(null);
+                  var state = useState<dynamic>(null);
                   var dispatch = over_react.useReducer(null, null).dispatch;
                   var taint = props.foo;
                   // Shouldn't affect anything
@@ -5059,7 +5059,7 @@ final tests = {
     {
       'code': r'''
         final MyComponent = uiFunction<TestProps>((props) {
-          var state = useState(null);
+          var state = useState<dynamic>(null);
           handleNext(value) {
             state.set(value);
           }
@@ -5083,7 +5083,7 @@ final tests = {
       // once you specify it in deps, it will invalidate them.
       'code': r'''
         final MyComponent = uiFunction<TestProps>((props) {
-          var state = useState(null);
+          var state = useState<dynamic>(null);
           final handleNext = (value) {
             state.set(value);
           };
@@ -5110,7 +5110,7 @@ final tests = {
       // So our suggestion is useCallback().
       'code': r'''
         final MyComponent = uiFunction<TestProps>((props) {
-          var state = useState(null);
+          var state = useState<dynamic>(null);
           final handleNext = (value) {
             state.set(value);
           };
@@ -5131,7 +5131,7 @@ final tests = {
               'desc': 'Wrap the definition of \'handleNext\' in its own useCallback() Hook.',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
-                  var state = useState(null);
+                  var state = useState<dynamic>(null);
                   final handleNext = useCallback((value) {
                     state.set(value);
                   });
@@ -5513,7 +5513,7 @@ final tests = {
     {
       'code': r'''
         final MyComponent = uiFunction<TestProps>((props) {
-          var state = useState(null);
+          var state = useState<dynamic>(null);
           var taint = props.foo;
           handleNext(value) {
             var value2 = value * taint;
@@ -5861,7 +5861,7 @@ final tests = {
           useEffect(() {
             window.alert(podcasts.value);
           }, []);
-          var podcasts = useState(null);
+          var podcasts = useState<dynamic>(null);
         }, null);
       ''',
       'errors': [
@@ -5879,7 +5879,7 @@ final tests = {
                   useEffect(() {
                     window.alert(podcasts.value);
                   }, [podcasts.value]);
-                  var podcasts = useState(null);
+                  var podcasts = useState<dynamic>(null);
                 }, null);
               ''',
             },
@@ -5893,7 +5893,7 @@ final tests = {
           var fetchPodcasts = props.fetchPodcasts;
           var id = props.id;
 
-          var podcasts = useState(null);
+          var podcasts = useState<dynamic>(null);
           useEffect(() {
             fetchPodcasts(id).then(podcasts.set);
           }, [id]);
@@ -5911,7 +5911,7 @@ final tests = {
                   var fetchPodcasts = props.fetchPodcasts;
                   var id = props.id;
 
-                  var podcasts = useState(null);
+                  var podcasts = useState<dynamic>(null);
                   useEffect(() {
                     fetchPodcasts(id).then(podcasts.set);
                   }, [fetchPodcasts, id]);
@@ -5925,7 +5925,7 @@ final tests = {
     {
       'code': r'''
         final Podcasts = uiFunction<TestProps>(({ api: { fetchPodcasts }, id }) {
-          var podcasts = useState(null);
+          var podcasts = useState<dynamic>(null);
           useEffect(() {
             fetchPodcasts(id).then(podcasts.set);
           }, [id]);
@@ -5940,7 +5940,7 @@ final tests = {
               'desc': 'Update the dependencies list to be: [fetchPodcasts, id]',
               'output': r'''
                 final Podcasts = uiFunction<TestProps>(({ api: { fetchPodcasts }, id }) {
-                  var podcasts = useState(null);
+                  var podcasts = useState<dynamic>(null);
                   useEffect(() {
                     fetchPodcasts(id).then(podcasts.set);
                   }, [fetchPodcasts, id]);
@@ -5958,7 +5958,7 @@ final tests = {
           var fetchPodcasts2 = props.fetchPodcasts2;
           var id = props.id;
 
-          var podcasts = useState(null);
+          var podcasts = useState<dynamic>(null);
           useEffect(() {
             setTimeout(() {
               print(id);
@@ -5981,7 +5981,7 @@ final tests = {
                   var fetchPodcasts2 = props.fetchPodcasts2;
                   var id = props.id;
 
-                  var podcasts = useState(null);
+                  var podcasts = useState<dynamic>(null);
                   useEffect(() {
                     setTimeout(() {
                       print(id);
@@ -6002,7 +6002,7 @@ final tests = {
           var fetchPodcasts = props.fetchPodcasts;
           var id = props.id;
 
-          var podcasts = useState(null);
+          var podcasts = useState<dynamic>(null);
           useEffect(() {
             print(fetchPodcasts);
             fetchPodcasts(id).then(podcasts.set);
@@ -6021,7 +6021,7 @@ final tests = {
                   var fetchPodcasts = props.fetchPodcasts;
                   var id = props.id;
 
-                  var podcasts = useState(null);
+                  var podcasts = useState<dynamic>(null);
                   useEffect(() {
                     print(fetchPodcasts);
                     fetchPodcasts(id).then(podcasts.set);
@@ -6039,7 +6039,7 @@ final tests = {
           var fetchPodcasts = props.fetchPodcasts;
           var id = props.id;
 
-          var podcasts = useState(null);
+          var podcasts = useState<dynamic>(null);
           useEffect(() {
             print(fetchPodcasts);
             fetchPodcasts?.call(id).then(podcasts.set);
@@ -6058,7 +6058,7 @@ final tests = {
                   var fetchPodcasts = props.fetchPodcasts;
                   var id = props.id;
 
-                  var podcasts = useState(null);
+                  var podcasts = useState<dynamic>(null);
                   useEffect(() {
                     print(fetchPodcasts);
                     fetchPodcasts?.call(id).then(podcasts.set);
