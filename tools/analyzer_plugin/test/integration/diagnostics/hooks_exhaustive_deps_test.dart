@@ -90,6 +90,11 @@ abstract class API {
 StateHook<T> useFunnyState<T>(T initialState) {}
 ReducerHook<T, dynamic, dynamic> useFunnyReducer<T>(dynamic reducer, T initialState) {}
 dynamic useSomeOtherRefyThing() => null;
+String computeCacheKey(dynamic object) => null;
+class SomeObject {
+  final int id;
+  SomeObject({this.id});
+}
 ''';
 
     String wrapInFunction(String code) => 'void __testCaseWrapperFunction() {\n\n$code\n\n}';

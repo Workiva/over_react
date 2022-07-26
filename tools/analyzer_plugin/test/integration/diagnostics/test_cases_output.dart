@@ -2239,6 +2239,7 @@ final tests = {
           final local = someFunc();
           useEffect(() {
             print(local);
+            // ignore: undefined_identifier
           }, [local, ...dependencies]);
         }, null);
       ''',
@@ -2463,7 +2464,7 @@ final tests = {
       // 'local', but we won't remove the already-specified 'local.id' from your list.
       'code': r'''
         final MyComponent = uiFunction<TestProps>((_) {
-          final local = {id: 42};
+          final local = SomeObject(id: 42);
           useEffect(() {
             print(local);
           }, [local.id]);
@@ -2478,7 +2479,7 @@ final tests = {
               'desc': 'Update the dependencies list to be: [local, local.id]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((_) {
-                  final local = {id: 42};
+                  final local = SomeObject(id: 42);
                   useEffect(() {
                     print(local);
                   }, [local, local.id]);
@@ -2494,7 +2495,7 @@ final tests = {
       // 'local' and we will also *remove* 'local.id' from your list.
       'code': r'''
         final MyComponent = uiFunction<TestProps>((_) {
-          final local = {id: 42};
+          final local = SomeObject(id: 42);
           final fn = useCallback(() {
             print(local);
           }, [local.id]);
@@ -2509,7 +2510,7 @@ final tests = {
               'desc': 'Update the dependencies list to be: [local]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((_) {
-                  final local = {id: 42};
+                  final local = SomeObject(id: 42);
                   final fn = useCallback(() {
                     print(local);
                   }, [local]);
@@ -2525,7 +2526,7 @@ final tests = {
       // the unnecessary 'local.id'.
       'code': r'''
         final MyComponent = uiFunction<TestProps>((_) {
-          final local = {id: 42};
+          final local = SomeObject(id: 42);
           final fn = useCallback(() {
             print(local);
           }, [local.id, local]);
@@ -2540,7 +2541,7 @@ final tests = {
               'desc': 'Update the dependencies list to be: [local]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((_) {
-                  final local = {id: 42};
+                  final local = SomeObject(id: 42);
                   final fn = useCallback(() {
                     print(local);
                   }, [local]);
