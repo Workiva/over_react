@@ -109,7 +109,8 @@ class SomeObject {
         test('valid[$i]', () async {
           // Need to wrap in a function because some of the code includes statements that aren't valid
           // outside of a function context.
-          final code = preamble + wrapInFunction(element['code'] as String);
+          final rawCode = wrapInFunction(element['code'] as String);
+          final code = preamble + rawCode;
           try {
             final source = testBase.newSource('test.dart', code);
             await testBase.expectNoErrors(source, errorFilter: errorFilter);
@@ -117,7 +118,7 @@ class SomeObject {
             // when there's failures caused by this expectation.
             testBase.expectNoPluginErrors();
           } catch (_) {
-            print('Source: ```\n$code\n```');
+            print('Raw source (before adding preamble and wrapper): ```\n$rawCode\n```');
             rethrow;
           }
         });
@@ -129,7 +130,8 @@ class SomeObject {
         test('invalid[$i]', () async {
           // Need to wrap in a function because some of the code includes statements that aren't valid
           // outside of a function context.
-          final code = preamble + wrapInFunction(element['code'] as String);
+          final rawCode = wrapInFunction(element['code'] as String);
+          final code = preamble + rawCode;
           final expectedErrors = (element['errors'] as List).cast<Map>();
           expect(expectedErrors, isNotEmpty);
 
@@ -155,7 +157,7 @@ class SomeObject {
             // when there's failures caused by this expectation.
             testBase.expectNoPluginErrors();
           } catch (_) {
-            print('Source: ```\n$code\n```');
+            print('Raw source (before adding preamble and wrapper): ```\n$rawCode\n```');
             rethrow;
           }
         });
