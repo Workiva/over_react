@@ -3,6 +3,7 @@ import 'package:yaml/yaml.dart';
 
 /// Parses the given yaml and returns over react analyzer plugin configuration options.
 PluginAnalysisOptions? processAnalysisOptionsFile(String fileContents) {
+  // fixme catch parse errors, add test coverage
   final yaml = loadYamlNode(fileContents);
   if (yaml is YamlMap) {
     return _parseAnalysisOptions(yaml);
@@ -15,12 +16,29 @@ PluginAnalysisOptions? processAnalysisOptionsFile(String fileContents) {
 PluginAnalysisOptions? _parseAnalysisOptions(YamlMap yaml) {
   final dynamic overReact = yaml['over_react'];
   if (overReact is YamlMap) {
-    final errors = _parseErrors(overReact);
-    return PluginAnalysisOptions(errors: errors);
+    return PluginAnalysisOptions(
+      errors: _parseErrors(overReact),
+      exhaustiveDepsAdditionalHooksPattern: _parseExhaustiveDepsAdditionalHooksPattern(overReact),
+    );
   }
 
   // If there is no `over_react` key in the yaml file, return null.
   return null;
+}
+
+RegExp? _parseExhaustiveDepsAdditionalHooksPattern(YamlMap overReact) {
+  final dynamic exhaustiveDeps = overReact['exhaustive_deps'];
+  if (exhaustiveDeps is! YamlMap) return null;
+
+  final dynamic additionalHooks = exhaustiveDeps['additional_hooks'];
+  if (additionalHooks is! String) return null;
+
+  try {
+    // This will throw if the regex is invalid.
+    return RegExp(additionalHooks);
+  } catch (_) {
+    return null;
+  }
 }
 
 Map<String, AnalysisOptionsSeverity> _parseErrors(YamlMap overReact) {

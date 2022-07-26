@@ -50,7 +50,7 @@ import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/error_filtering.dart';
 
 mixin DiagnosticMixin on ServerPlugin {
-  final AnalysisOptionsReader _analysisOptionsReader = AnalysisOptionsReader();
+  PluginOptionsReader get pluginOptionsReader;
 
   List<DiagnosticContributor> getDiagnosticContributors(String path);
 
@@ -62,7 +62,7 @@ mixin DiagnosticMixin on ServerPlugin {
   /// Computes errors based on an analysis result, notifies the analyzer, and
   /// then returns the list of errors.
   Future<List<AnalysisError>> getAllErrors(ResolvedUnitResult analysisResult) async {
-    final analysisOptions = _analysisOptionsReader.getAnalysisOptionsForResult(analysisResult);
+    final analysisOptions = pluginOptionsReader.getAnalysisOptionsForResult(analysisResult);
 
     try {
       // If there is no relevant analysis result, notify the analyzer of no errors.
@@ -93,7 +93,7 @@ mixin DiagnosticMixin on ServerPlugin {
   Future<plugin.EditGetFixesResult> handleEditGetFixes(plugin.EditGetFixesParams parameters) async {
     // We want request errors to propagate if they throw
     final request = await _getFixesRequest(parameters);
-    final analysisOptions = _analysisOptionsReader.getAnalysisOptionsForResult(request.result);
+    final analysisOptions = pluginOptionsReader.getAnalysisOptionsForResult(request.result);
 
     try {
       final generator = _DiagnosticGenerator(

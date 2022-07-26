@@ -42,6 +42,8 @@ import 'package:analyzer_plugin/plugin/navigation_mixin.dart';
 import 'package:analyzer_plugin/plugin/plugin.dart';
 import 'package:analyzer_plugin/protocol/protocol_generated.dart' as plugin;
 import 'package:analyzer_plugin/utilities/navigation/navigation.dart';
+import 'package:over_react_analyzer_plugin/src/analysis_options/plugin_analysis_options.dart';
+import 'package:over_react_analyzer_plugin/src/analysis_options/reader.dart';
 import 'package:over_react_analyzer_plugin/src/assist/add_props.dart';
 import 'package:over_react_analyzer_plugin/src/assist/convert_class_or_function_component.dart';
 import 'package:over_react_analyzer_plugin/src/assist/extract_component.dart';
@@ -86,6 +88,9 @@ abstract class OverReactAnalyzerPluginBase extends ServerPlugin
   OverReactAnalyzerPluginBase(ResourceProvider provider) : super(provider);
 
   @override
+  final pluginOptionsReader = PluginOptionsReader();
+
+  @override
   List<String> get fileGlobsToAnalyze => const ['*.dart'];
 
   // This is the protocol version, not the plugin version. It must match the
@@ -108,37 +113,49 @@ abstract class OverReactAnalyzerPluginBase extends ServerPlugin
   @override
   List<NavigationContributor> getNavigationContributors(String path) => [];
 
+  PluginAnalysisOptions? optionsForPath(String path) {
+    final contextRoot = contextRootContaining(path);
+    if (contextRoot == null) return null;
+
+    return pluginOptionsReader.getOptionsForPluginContextRoot(contextRoot, resourceProvider);
+  }
+
   @override
-  List<DiagnosticContributor> getDiagnosticContributors(String path) => [
-        PropTypesReturnValueDiagnostic(),
-        DuplicatePropCascadeDiagnostic(),
-        LinkTargetUsageWithoutRelDiagnostic(),
-        BadKeyDiagnostic(),
-        VariadicChildrenDiagnostic(),
-        ArrowFunctionPropCascadeDiagnostic(),
-        RenderReturnValueDiagnostic(),
-        InvalidChildDiagnostic(),
-        StringRefDiagnostic(),
-        CallbackRefDiagnostic(),
-        MissingCascadeParensDiagnostic(),
-        // TODO: Re-enable this once consumers can disable lints via analysis_options.yaml
+  List<DiagnosticContributor> getDiagnosticContributors(String path) {
+    final options = optionsForPath(path);
+    return [
+      PropTypesReturnValueDiagnostic(),
+      DuplicatePropCascadeDiagnostic(),
+      LinkTargetUsageWithoutRelDiagnostic(),
+      BadKeyDiagnostic(),
+      VariadicChildrenDiagnostic(),
+      ArrowFunctionPropCascadeDiagnostic(),
+      RenderReturnValueDiagnostic(),
+      InvalidChildDiagnostic(),
+      StringRefDiagnostic(),
+      CallbackRefDiagnostic(),
+      MissingCascadeParensDiagnostic(),
+      // TODO: Re-enable this once consumers can disable lints via analysis_options.yaml
 //      MissingRequiredPropDiagnostic(),
-        PseudoStaticLifecycleDiagnostic(),
-        InvalidDomAttributeDiagnostic(),
-        // TODO: Re-enable this once consumers can disable lints via analysis_options.yaml
+      PseudoStaticLifecycleDiagnostic(),
+      InvalidDomAttributeDiagnostic(),
+      // TODO: Re-enable this once consumers can disable lints via analysis_options.yaml
 //        BoolPropNameReadabilityDiagnostic(),
-        StyleValueDiagnostic(),
-        BoilerplateValidatorDiagnostic(),
-        VariadicChildrenWithKeys(),
-        IncorrectDocCommentLocationDiagnostic(),
-        ConsumedPropsReturnValueDiagnostic(),
-        ForwardOnlyDomPropsToDomBuildersDiagnostic(),
-        IteratorKey(),
-        RulesOfHooks(),
-        HooksExhaustiveDeps(),
-        NonDefaultedPropDiagnostic(),
-        CreateRefUsageDiagnostic(),
-      ];
+      StyleValueDiagnostic(),
+      BoilerplateValidatorDiagnostic(),
+      VariadicChildrenWithKeys(),
+      IncorrectDocCommentLocationDiagnostic(),
+      ConsumedPropsReturnValueDiagnostic(),
+      ForwardOnlyDomPropsToDomBuildersDiagnostic(),
+      IteratorKey(),
+      RulesOfHooks(),
+      HooksExhaustiveDeps(
+        additionalHooksPattern: options?.exhaustiveDepsAdditionalHooksPattern,
+      ),
+      NonDefaultedPropDiagnostic(),
+      CreateRefUsageDiagnostic(),
+    ];
+  }
 
   // @override
   // List<OutlineContributor> getOutlineContributors(String path) => [

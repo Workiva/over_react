@@ -65,10 +65,15 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
 
   static final fixKind = FixKind(code.name, 200, "{0}");
 
+  final RegExp? additionalHooksPattern;
+
+  HooksExhaustiveDeps({this.additionalHooksPattern});
+
   @override
   Future<void> computeErrors(result, collector) async {
     final helper = AnalyzerDebugHelper(result, collector, enabled: debugEnabled);
     result.unit!.accept(_ExhaustiveDepsVisitor(
+      additionalHooks: additionalHooksPattern,
       result: result,
       diagnosticCollector: collector,
       getSource: (node) => result.content!.substring(node.offset, node.end),
