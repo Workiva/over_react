@@ -2582,7 +2582,7 @@ final tests = {
     {
       'code': r'''
         final MyComponent = uiFunction<TestProps>((props) {
-          var color = {}
+          var color = {};
           final fn = useCallback(() {
             print(props.foo.bar.baz);
             print(color);
@@ -2598,7 +2598,7 @@ final tests = {
               'desc': 'Update the dependencies list to be: [color, props.foo.bar.baz]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
-                  var color = {}
+                  var color = {};
                   final fn = useCallback(() {
                     print(props.foo.bar.baz);
                     print(color);
@@ -3051,6 +3051,7 @@ final tests = {
           over_react.useMemo(() {
             print(props.foo);
           }, []);
+          // ignore: undefined_function
           over_react.notReactiveHook(() {
             print(props.foo);
           }, []);
@@ -3161,7 +3162,7 @@ final tests = {
         },
         {
           'message':
-              'React Hook React.useEffect has a missing dependency: \'props.foo\'. Either include it or remove the dependency list.',
+              'React Hook useEffect has a missing dependency: \'props.foo\'. Either include it or remove the dependency list.',
           'suggestions': [
             {
               'desc': 'Update the dependencies list to be: [props.foo]',
@@ -3195,7 +3196,7 @@ final tests = {
         },
         {
           'message':
-              'React Hook React.useCallback has a missing dependency: \'props.foo\'. Either include it or remove the dependency list.',
+              'React Hook useCallback has a missing dependency: \'props.foo\'. Either include it or remove the dependency list.',
           'suggestions': [
             {
               'desc': 'Update the dependencies list to be: [props.foo]',
@@ -3229,7 +3230,7 @@ final tests = {
         },
         {
           'message':
-              'React Hook React.useMemo has a missing dependency: \'props.foo\'. Either include it or remove the dependency list.',
+              'React Hook useMemo has a missing dependency: \'props.foo\'. Either include it or remove the dependency list.',
           'suggestions': [
             {
               'desc': 'Update the dependencies list to be: [props.foo]',
@@ -3275,6 +3276,7 @@ final tests = {
           over_react.useEffect(() {
             print(props.foo);
           }, []);
+          // ignore: undefined_function
           over_react.useCustomEffect(() {
             print(props.foo);
           }, []);
@@ -3336,7 +3338,7 @@ final tests = {
         },
         {
           'message':
-              'React Hook React.useEffect has a missing dependency: \'props.foo\'. Either include it or remove the dependency list.',
+              'React Hook useEffect has a missing dependency: \'props.foo\'. Either include it or remove the dependency list.',
           'suggestions': [
             {
               'desc': 'Update the dependencies list to be: [props.foo]',
@@ -3364,6 +3366,7 @@ final tests = {
     {
       'code': r'''
         final MyComponent = uiFunction<TestProps>((_) {
+          var a, b;
           final local = {};
           useEffect(() {
             print(local);
@@ -3399,10 +3402,11 @@ final tests = {
     {
       'code': r'''
         final MyComponent = uiFunction<TestProps>((_) {
+          var a;
           final local = {};
           useEffect(() {
             print(local);
-          }, [a && local]);
+          }, [a ?? local]);
         }, null);
       ''',
       'errors': [
@@ -3448,7 +3452,7 @@ final tests = {
     {
       'code': r'''
         final MyComponent = uiFunction<TestProps>((props) {
-          useEffect(() {}, [props.method()]);
+          useEffect(() {}, [props.function()]);
         }, null);
       ''',
       'errors': [
@@ -3463,7 +3467,7 @@ final tests = {
       'code': r'''
         final MyComponent = uiFunction<TestProps>((_) {
           final ref = useRef();
-          var state = useState();
+          var state = useState(0);
           useEffect(() {
             ref.current = {};
             state.set(state.value + 1);
@@ -7497,7 +7501,7 @@ final testsTypescriptEslintParserV4 = {
       'errors': [
         {
           'message':
-              'React Hook React.useEffect has a missing dependency: \'Component\'. Either include it or remove the dependency list.',
+              'React Hook useEffect has a missing dependency: \'Component\'. Either include it or remove the dependency list.',
           'suggestions': [
             {
               'desc': 'Update the dependencies list to be: [Component]',

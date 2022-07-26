@@ -51,6 +51,9 @@ mixin TestProps on UiProps {
   var prop;
   Function fn1;
   Function fn2;
+  var hello;
+  var attribute;
+  Function function;
 }
 
 // Globals used by test cases
