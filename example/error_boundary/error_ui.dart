@@ -81,16 +81,16 @@ class ErrorUiComponent
               )(
                 Dom.div()('Stack'),
                 Dom.div()(
-                  state.stack.contains('ThrowingComponentComponent')
-                      ? 'Detected ThrowingComponentComponent ✅'
-                      : 'Failed to Find ThrowingComponentComponent ❌',
+                  state.stack.contains('ThrowingComponent')
+                      ? 'Detected ThrowingComponent ✅'
+                      : 'Failed to Find ThrowingComponent ❌',
                 ),
               ),
               (Dom.div()
                 ..addProp('dangerouslySetInnerHTML', {
                   '__html': state.stack
-                      .replaceAll('ThrowingComponentComponent',
-                          '<span style="color: green">ThrowingComponentComponent</span>')
+                      .replaceAll('ThrowingComponent',
+                          '<span style="color: green">ThrowingComponent</span>')
                       .replaceAll('at', '<br /><br />at')
                 })
               )(),
