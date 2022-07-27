@@ -1779,12 +1779,21 @@ String analyzePropertyChain(AstNode node, Map<String, bool>? optionalChains) {
   }
 }
 
-// todo unit test this and remove extraneous cases
+// todo(greg) unit test this and remove extraneous cases
 AstNode getNodeWithoutReactNamespace(Expression node) {
+  bool isPrefixedOverReactApi({required Identifier prefix, required Identifier identifier}) {
+    return prefix.staticElement is PrefixElement &&
+        (identifier.staticElement?.isDeclaredInPackage('over_react') ?? false);
+  }
+
   if (node is PrefixedIdentifier) {
-    if (node.prefix.staticElement is LibraryElement) {}
+    if (isPrefixedOverReactApi(prefix: node.prefix, identifier: node.identifier)) {
+      return node.identifier;
+    }
   } else if (node is PropertyAccess) {
-    if (node.realTarget.tryCast<Identifier>()?.staticElement is LibraryElement) {
+    final realTarget = node.realTarget;
+    if (realTarget is Identifier &&
+        isPrefixedOverReactApi(prefix: realTarget, identifier: node.propertyName)) {
       return node.propertyName;
     }
   }
@@ -1812,6 +1821,7 @@ int getReactiveHookCallbackIndex(Expression calleeNode, {RegExp? additionalHooks
       // useImperativeHandle(ref, fn)
       return 1;
     default:
+      // FIXME(greg) should we strip prefix before passing it into additionalHooks?
       if (node == calleeNode && additionalHooks != null) {
         // Allow the user to provide a regular expression which enables the lint to
         // target custom reactive hooks.
