@@ -33,6 +33,7 @@ import 'dart:async';
 
 import 'package:analyzer/dart/analysis/context_builder.dart';
 import 'package:analyzer/dart/analysis/context_locator.dart';
+import 'package:analyzer/dart/analysis/context_root.dart' as analyzer;
 import 'package:analyzer/file_system/file_system.dart';
 // ignore: implementation_imports
 import 'package:analyzer/src/dart/analysis/context_builder.dart' show ContextBuilderImpl;
@@ -113,11 +114,23 @@ abstract class OverReactAnalyzerPluginBase extends ServerPlugin
   @override
   List<NavigationContributor> getNavigationContributors(String path) => [];
 
-  PluginAnalysisOptions? optionsForPath(String path) {
-    final contextRoot = contextRootContaining(path);
-    if (contextRoot == null) return null;
+  // FIXME(greg) clean all this up, maybe find a better way
+  analyzer.ContextRoot? _analyzerContextRootForPath(String path) {
+    final driver = driverForPath(path);
+    if (driver == null) return null;
 
-    return pluginOptionsReader.getOptionsForPluginContextRoot(contextRoot, resourceProvider);
+    // TODO should this throw?
+    if (driver is! AnalysisDriver) return null;
+
+    return driver.analysisContext?.contextRoot;
+  }
+
+  PluginAnalysisOptions? optionsForPath(String path) {
+    // Do not use protocol.ContextRoot's optionsFile, since it's null at least in tests.
+    // We'll use te driver's context instead.
+    final contextRoot = _analyzerContextRootForPath(path);
+    if (contextRoot == null) return null;
+    return pluginOptionsReader.getOptionsForContextRoot(contextRoot);
   }
 
   @override
