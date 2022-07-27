@@ -2,6 +2,8 @@
 // otherwise tests won't be able to run. See: https://github.com/dart-lang/test#compiler-flags
 //@dart=2.9
 
+import 'dart:convert';
+
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:collection/collection.dart';
 import 'package:meta/meta.dart';
@@ -15,11 +17,6 @@ import 'test_cases_output.dart' as tco;
 
 void main() {
   group('HooksExhaustiveDeps', () {
-    HooksExhaustiveDepsDiagnosticTest testBase;
-    setUpAll(() => testBase = HooksExhaustiveDepsDiagnosticTest());
-    setUp(() => testBase.setUp());
-    tearDown(() => testBase.tearDown());
-
     const preamble = r'''
 // ignore_for_file: unused_import
     
@@ -107,12 +104,42 @@ class SomeObject {
         // These are intentionally undefined references
         !(error.code == 'undefined_identifier' && error.message.contains("Undefined name 'unresolved'."));
 
+    Future<HooksExhaustiveDepsDiagnosticTest> setUpTestBase(TestCase testCase) async {
+      final additionalHooks = testCase.options
+          ?.where((option) => option.containsKey('additionalHooks'))
+          ?.map((option) => option['additionalHooks'] as String)
+          ?.firstOrNull;
+
+      String analysisYaml;
+      if (additionalHooks != null) {
+        print('ADDITIONAL HOOKS: $additionalHooks');
+        // JSON is a subset of Yaml. :)
+        // Also, this way, we don't have to worry about escaping strings if we're constructing the yaml ortselves.
+        analysisYaml = jsonEncode({
+          'over_react': {
+            'exhaustive_deps': {
+              'additional_hooks': additionalHooks,
+            },
+          },
+        });
+      }
+
+      final testBase = HooksExhaustiveDepsDiagnosticTest(analysisOptionsYamlContents: analysisYaml);
+      await testBase.setUp();
+      addTearDown(testBase.tearDown);
+      return testBase;
+    }
+
     group('test cases that should pass', () {
       tco.tests['valid'].forEachIndexed((i, element) {
         test('valid[$i]', () async {
+          final testCase = TestCase.fromJson(element);
+
+          final testBase = await setUpTestBase(testCase);
+
           // Need to wrap in a function because some of the code includes statements that aren't valid
           // outside of a function context.
-          final rawCode = element['code'] as String;
+          final rawCode = testCase.code;
           final code = preamble + wrapInFunction(rawCode);
           try {
             final source = testBase.newSource('test.dart', code);
@@ -131,12 +158,16 @@ class SomeObject {
     group('test cases that should warn', () {
       tco.tests['invalid'].forEachIndexed((i, element) {
         test('invalid[$i]', () async {
+          final testCase = TestCase.fromJson(element);
+
+          final testBase = await setUpTestBase(testCase);
+
           // Need to wrap in a function because some of the code includes statements that aren't valid
           // outside of a function context.
-          final rawCode = element['code'] as String;
+          final rawCode = testCase.code;
           final code = preamble + wrapInFunction(rawCode);
 
-          final expectedErrors = (element['errors'] as List).cast<Map>();
+          final expectedErrors = testCase.errors;
           expect(expectedErrors, isNotEmpty);
 
           try {
@@ -168,6 +199,10 @@ class SomeObject {
       });
 
       test('use of state.value without it in the dependency list', () async {
+        final testBase = HooksExhaustiveDepsDiagnosticTest();
+        await testBase.setUp();
+        addTearDown(testBase.tearDown);
+
         final source = testBase.newSource(
             'test.dart',
             preamble + /*language=dart*/ r'''
@@ -187,8 +222,25 @@ class SomeObject {
   });
 }
 
+class TestCase {
+  final Map<dynamic, dynamic> _testCaseJson;
+
+  TestCase.fromJson(this._testCaseJson);
+
+  String get code => _testCaseJson['code'] as String;
+
+  List<Map> get errors => (_testCaseJson['errors'] as List).cast();
+
+  List<Map> get options => (_testCaseJson['options'] as List)?.cast();
+}
+
 @reflectiveTest
 class HooksExhaustiveDepsDiagnosticTest extends DiagnosticTestBase {
+  @override
+  final String analysisOptionsYamlContents;
+
+  HooksExhaustiveDepsDiagnosticTest({this.analysisOptionsYamlContents});
+
   @override
   get errorUnderTest => HooksExhaustiveDeps.code;
 
