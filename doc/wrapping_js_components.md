@@ -34,6 +34,8 @@ This guide will walk you through the process of wrapping a JavaScript React comp
 
 The JavaScript community is full of great open source libraries that export React components. These JavaScript components can be consumed in Dart by using JS interop to wrap the component and expose a Dart API for it. This process ultimately looks like writing a new Dart OverReact component, with the exception that the Dart component is linked to a JS implementation instead of a Dart one.
 
+You must wrap the JS component in such a way that it follows OverReact's pattern of using `UiFactory` to create a props instance capable of building a `ReactElement`. This is possible with `uiJsComponent`, which takes in a `ReactJsComponentFactoryProxy` that points to a raw JS component included on the `window`.
+
 This guide as a whole walks through how to do that linking process and helps make developers aware of the pitfalls that can cause trouble. This section in particular includes a high level technical description of that whole process. Future sections dive deeper into each step to explain why steps happen as they do or explain things to watch out for.
 
 ```dart
@@ -59,7 +61,7 @@ mixin ArbitraryComponentProps on UiProps {
 
   @Accessor(key: 'aMapProp')
   JsMap _aMapProp$rawJs;
- }
+}
 
 @JS('MagicalJsPackage.ArbitraryComponent') /* [7] */
 external ReactClass get _jsArbitraryComponent; /* [8] */
@@ -147,13 +149,13 @@ external ReactClass get _jsArbitraryComponent;
 
 That getter can then be used whenever it's necessary to reference the raw JS component, such as when instantiating `ReactJsComponentFactoryProxy`.
 
-In order for that getter to be valid though, it must be pointing to tangible JavaScript somewhere. The interop APIs look for that JavaScript as a property of the `Window` object. Your JavaScript component can be attached in several ways, but it must happen before the `UiFactory` attempts to reference the interop getter. Otherwise, a runtime error will fire.
+In order for that getter to be valid though, it must be pointing to tangible JavaScript somewhere. The interop APIs look for that JavaScript as a property of the `window`. Your JavaScript component can be included in several ways, but it must happen before the `UiFactory` attempts to reference the interop getter. Otherwise, a runtime error will fire.
 
-One way to attach the JavaScript is to use a bundle like [React usually is][react-dart]. If you are wrapping a JS library without any customizations, it's likely the bundle already exists as a [UMD module](https://jameshfisher.com/2020/10/04/what-are-umd-modules/) or similar format. If you need to write your own JS or make customizations, it's necessary to create and attach a custom build. If you have any questions around this, let us know in [Slack][slack]!
+One way to load the JavaScript is to use a bundle like [React usually is][react-dart]. If you are wrapping a JS library without any customizations, it's likely the bundle already exists as a [UMD module](https://jameshfisher.com/2020/10/04/what-are-umd-modules/) or similar format. If you need to write your own JS or make customizations, it's necessary to create and load a custom build. If you have any questions around this, let us know in [Slack][slack]!
 
 ### Theoretical Conclusion
 
-This section gave a high level view of how wrapping a JS component works in theory. You must wrap the JS component in such a way that it follows OverReact's pattern of using `UiFactory` to create a props instance capable of building a `ReactElement`. This is possible with `uiJsComponent`, which takes in a `ReactJsComponentFactoryProxy` that points to a raw JS component attached to the `Window`.
+This section gave a high level view of how wrapping a JS component works in theory. You must wrap the JS component in such a way that it follows OverReact's pattern of using `UiFactory` to create a props instance capable of building a `ReactElement`. This is possible with `uiJsComponent`, which takes in a `ReactJsComponentFactoryProxy` that points to a raw JS component included on the `window`.
 
 The rest of this guide will reference these same concepts as it implements the code step-by-step.
 
@@ -210,30 +212,34 @@ Creating the getter is very simple.
 external ReactClass get _jsArbitraryComponent;
 ```
 
-The code here can basically be copied and pasted from the code found in this doc, just changing the name of the getter to be something more specific than `_jsArbitraryComponent`. However, the name can really be anything. We have the norm of using `_js{ComponentName}` because:
+The code here can basically be copied and pasted from the code found in this doc, just changing the name of the getter to be something more specific than `_jsArbitraryComponent`. However, the name can really be anything. We have the convention of using `_js{ComponentName}` because:
 
 - It's private, which is preferred because the use case for the JS variable itself is limited
 - It makes it clear it's the _JS_ version of the component, while also including the component's name and thereby coupling it with the Dart API
 
-You may wonder why the name doesn't need to match the name of the JS component. For example, a component named `ArbitraryComponent` can have a Dart interop getter called `foofoocuddlypoops`. This is possible because the actual link between Dart and JS is created [with the annotation](#creating-the-annotation).
+This name of this getter doesn't need to match the name of the JS component because the actual link between Dart and JS is created [with the annotation](#creating-the-annotation).
 
 #### Creating the Annotation
 
-The annotation is how Dart knows what JS API needs to be linked to the Dart getter. Whatever you set as the annotation parameter will be used by Dart to find the JS implementation. Dart will expect to find the parameter as a property on the `Window` in the browser. Future references to the Dart getter will be linked directly to that tangible JS on the `Window`. That means that if the annotation looks like:
+The annotation binds the getter to a global JS property (a property on the `window`) with the specified name. For example, a getter annotated with:
 
 ```dart
 @JS('ArbitraryComponent')
 ```
 
-then Dart will expect to find the property `ArbitraryComponent` on the `window`. However, we **strongly** recommend ensuring that your bundle is namespaced and all exports are nested inside that namespace. This is important to ensure that there are not naming collisions due to two components with the same name being attached to the `Window`. Consequently, if the package is named `MagicalJsPackage`, your annotation would probably look like:
+will return the result of the JS expression: `window.ArbitraryComponent`.
+
+However, we **strongly** recommend namespacing your components by nesting them within another object, as opposed to adding them directly to the window, to avoid potential collisions with JS APIs added by other packages. Consequently, if the namespace is `MagicalJsPackage`, your annotation would look like:
 
 ```dart
 @JS('MagicalJsPackage.ArbitraryComponent')
 ```
 
+and would correspond to `window.MagicalJsPackage.ArbitraryComponent`.
+
 > Reminder: The JavaScript bundle for the JS must be loaded into the application, [potentially similar to how React is added][react-script], or else this interop step will always fail at runtime.
 
-To check that the name is correct, you can use the browser devtools to attempt to access the property on the `Window`. If the property is valid and generally where you expect it to be then it's likely correct.
+To check that the name is correct, you can use the browser devtools to attempt to access the property on the `window`. If the property is valid and generally where you expect it to be then it's likely correct.
 
 <img src='./images/ui_js_component/interop_ref.gif' alt='Accessing the property in the devtools' />
 
@@ -241,7 +247,7 @@ If the annotation does not have the correct name, rendering the component will f
 
 <img src='./images/ui_js_component/interop_reference_error.png' alt='Accessing the property in the devtools' />
 
-> **One more reminder** that if after correctly creating the annotation, you find that it does not have a library prefix and only requires the component name (i.e. `JS('ArbitraryComponent')` and not something like `JS('MagicalJsPackage.ArbitraryComponent')`), you should **heavily** consider configuring your bundle to have at least a package namespace (i.e. the 'MagicalJsPackage' prefix). Attaching components to the global namespace both pollutes that namespace as well as risks naming collisions.
+> **One more reminder** that if after correctly creating the annotation, you find that it does not have a library prefix and only requires the component name (i.e. `JS('ArbitraryComponent')` and not something like `JS('MagicalJsPackage.ArbitraryComponent')`), you should **heavily** consider configuring your bundle to have at least a package namespace (i.e. the 'MagicalJsPackage' prefix). Loading components to the global namespace both pollutes that namespace as well as risks naming collisions.
 
 ### Adding Prop Typings
 
@@ -294,7 +300,7 @@ mixin ArbitraryComponentProps on UiProps {
 
   @Accessor(key: 'anObjProp')
   JsMap _anObjProp$rawJs;
-  // START MAP PROP
+  // END MAP PROP
 
   String content;
 
@@ -563,8 +569,8 @@ mixin ArbitraryComponentProps on UiProps {
 
 The steps are:
 
-1. Add overridden getters and setters for the prop. Overriding is necessary because `UiProps` already contributes the property.
-1. Deprecate those getters and setters. This isn't necessary to avoid runtime errors, but it's an important step because those properties should not be accessed by devs.
+1. Override the getters and setters for the prop and deprecate them. Overriding is necessary because `UiProps` already contributes the property.
+   > This isn't necessary to avoid runtime errors
 1. Add a new property that has the correct type for the function. We recommend using the original prop name and adding a namespace suffix (i.e. `onClick` becomes `onClick_ArbitraryComponent`). That way, even though the property can't be the same name as the original prop itself (i.e. `onClick`), it allows developers to begin typing the name of the original prop and use autocomplete from there.
 1. Add an `Accessor()` annotation with a key matching the name of the original prop. This links the namespaced prop to the JS property it is replacing.
 
