@@ -284,6 +284,7 @@ interface ArbitraryComponentProps {
   anObjProp: Record<string, bool>;
   content: string;
   onClick: (e: React.MouseEvent, id: string) => void;
+  onBlur: (e: React.FocusEvent) => void; // the same type as React.EventHandler<React.FocusEvent>
   size: 2 | 4 | 6 | 8;
 }
 ```
@@ -316,6 +317,8 @@ mixin ArbitraryComponentProps on UiProps {
   @override
   set onClick(value);
   // END ONCLICK
+
+  void Function(SyntheticFocusEvent event) onBlur;
 
   num size;
 }
