@@ -151,7 +151,7 @@ That getter can then be used whenever it's necessary to reference the raw JS com
 
 In order for that getter to be valid though, it must be pointing to tangible JavaScript somewhere. The interop APIs look for that JavaScript as a property of the `window`. Your JavaScript component can be included in several ways, but it must happen before the `UiFactory` attempts to reference the interop getter. Otherwise, a runtime error will fire.
 
-One way to load the JavaScript is to use a bundle like [React usually is][react-dart]. If you are wrapping a JS library without any customizations, it's likely the bundle already exists as a [UMD module](https://jameshfisher.com/2020/10/04/what-are-umd-modules/) or similar format. If you need to write your own JS or make customizations, it's necessary to create and load a custom build. If you have any questions around this, let us know in [Slack][slack]!
+One way to load the JavaScript is to use a bundle, like how [React is loaded in Dart][react-dart]. If you are wrapping a JS library without any customizations, it's likely the bundle already exists as a [UMD module](https://jameshfisher.com/2020/10/04/what-are-umd-modules/) or similar format. If you need to write your own JS or make customizations, it's necessary to create and load a custom build. If you have any questions around this, let us know in [Slack][slack]!
 
 ### Theoretical Conclusion
 
@@ -502,7 +502,7 @@ The steps are:
 
 ###### Converting Refs
 
-If you read the "Index Signature" section of [Converting Maps](#converting-maps), this section will be very similar (just with different interop utilities). Say you have props that look like:
+If you read the "Index Signature" section of [Converting Javascript Object Types](#converting-javascript-object-types), this section will be very similar (just with different interop utilities). Say you have props that look like:
 
 ```ts
 interface ArbitraryComponentProps {
