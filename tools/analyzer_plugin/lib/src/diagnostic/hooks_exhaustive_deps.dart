@@ -542,11 +542,11 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
             memoizedIsFunctionWithoutCapturedValues(referenceElement);
         dependencies[dependency] = _Dependency(
           isStable: isStable,
-          // FIXME(greg) is it okay that for the `state.set` case, the reference is still `state`? Should probably update this. Maybe we move special casing out of isStableKnownHookValue and remove method logic from getDependency?
+          // Note that for the the `state.set` case, the reference is still `state`.
           references: [reference],
         );
       } else {
-        // FIXME(greg) is it okay that for the `state.set` case, the reference is still `state`? Should probably update this. Maybe we move special casing out of isStableKnownHookValue and remove method logic from getDependency?
+        // Note that for the the `state.set` case, the reference is still `state`.
         existingDependency.references.add(reference);
       }
     }
@@ -1100,20 +1100,23 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
         final usedDep = dependencies[missingDep]!;
         final references = usedDep.references;
         for (final id in references) {
-          var maybeCall = id.parent;
           // Try to see if we have setState(someExpr(missingDep)).
-          while (maybeCall != null && maybeCall != componentOrCustomHookFunction?.body) {
+          for (var maybeCall = id.parent;
+              maybeCall != null && maybeCall != componentOrCustomHookFunction?.body;
+              maybeCall = maybeCall.parent) {
             if (maybeCall is InvocationExpression) {
               final maybeCallFunction = maybeCall.function;
-              final maybeCallFunctionName = maybeCallFunction.tryCast<MethodInvocation>()?.methodName.name ??
+              final maybeCallFunctionName = (maybeCall is MethodInvocation && maybeCall.target != null
+                      ? '${maybeCall.target!.toSource()}.${maybeCall.methodName.name}'
+                      : null) ??
                   maybeCallFunction.tryCast<Identifier>()?.name ??
                   // TODO(greg) is there a better fallback than this?
                   maybeCallFunction.toSource();
-              final correspondingStateVariable = setStateCallSites.getNullableKey(
-                maybeCallFunction.tryCast(),
-              );
+              final correspondingStateVariable = setStateCallSites.getNullableKey(maybeCallFunction.tryCast()) ??
+                  // This case is necessary for `stateVar.set` calls, since key for setStateCallSites is the `stateVar` identifier, not `set`.
+                  setStateCallSites.getNullableKey(maybeCall.tryCast<MethodInvocation>()?.target.tryCast());
               if (correspondingStateVariable != null) {
-                if (correspondingStateVariable.name.name == missingDep) {
+                if ('${correspondingStateVariable.name.name}.value' == missingDep) {
                   // setCount(count + 1)
                   setStateRecommendation = _SetStateRecommendation(
                     missingDep: missingDep,
@@ -1143,7 +1146,6 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
                 break;
               }
             }
-            maybeCall = maybeCall.parent;
           }
           if (setStateRecommendation != null) {
             break;
@@ -1706,15 +1708,13 @@ AstNode getDependency(AstNode node) {
           grandparent.function == parent)) {
     return getDependency(parent);
   }
-  // FIXME(greg) finish figuring out if this is kosher, document
-  // This MethodInvocation check deviates from the JS, and may be necessary for stateHook.set  (FIXME or does it deviate due to the different nesting of invocation ast?)
-  // FIXME(greg) or should we special-case when we're collecting the dependency?
+
+  // This MethodInvocation check deviates from the JS, and is necessary to handle stable hook methods.
   if (parent is MethodInvocation &&
       parent.target == node &&
-      parent.methodName.name != 'current' && // FIXME only test for ref/dynamic values?
-      !(grandparent is InvocationExpression &&
-          // fixme is this right?
-          grandparent.function == parent)) {
+      (parent.target?.staticType?.element?.isStateHook ?? false) &&
+      // FIXME(greg) support other stable hook types and methods, DRY up logic.
+      parent.methodName.name == 'set') {
     return getDependency(parent);
   }
 
@@ -1809,6 +1809,7 @@ String analyzePropertyChain(AstNode node, Map<String, bool>? optionalChains) {
     return result;
     // rule out cascades and implicit this // fixme greg update other locations to use this pattern
   } else if (node is MethodInvocation && node.target != null) {
+    // This MethodInvocation check deviates from the JS, and is necessary to handle stable hook methods.
     // FIXME(greg) look into this more and clean this up
     assert(!node.isCascaded, 'cascaded members are unexpected here');
     final object = analyzePropertyChain(node.target!, optionalChains);
