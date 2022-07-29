@@ -313,6 +313,49 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
     //       ^^^ true for this reference
     // False for everything else.
     bool isStableKnownHookValue(Identifier reference) {
+      // todo support useTransition
+      const stateHookSetMethods = {'set', 'setWithUpdater'};
+      const stableStateHookMethods = {...stateHookSetMethods};
+      const stableReducerHookMethods = {'dispatch'};
+
+      {
+        final parent = reference.parent;
+        Expression? target;
+        Identifier? property;
+        if (parent is MethodInvocation && !parent.isCascaded) {
+          target = parent.target;
+          property = parent.methodName;
+        } else if (parent is PropertyAccess && !parent.isCascaded) {
+          target = parent.target;
+          property = parent.propertyName;
+        } else if (parent is PrefixedIdentifier) {
+          target = parent.prefix;
+          property = parent.identifier;
+        }
+
+        if (target == reference) {
+          property!;
+          // Check whether this reference is only used to access the stable hook property.
+          if ((target?.staticType?.element?.isStateHook ?? false) && stableStateHookMethods.contains(property.name)) {
+            // FIXME(greg) what about edge cases here?
+            if (stateHookSetMethods.contains(property.name)) {
+              // TODO(greg) DRY up
+              final referenceElement = reference.staticElement;
+              final declaration = referenceElement == null
+                  ? null
+                  : lookUpDeclaration(referenceElement, reference.root)?.tryCast<VariableDeclaration>();
+              if (declaration != null) {
+                setStateCallSites.set(reference, declaration);
+              }
+            }
+            return true;
+          } else if ((target?.staticType?.element?.isReducerHook ?? false) &&
+              stableReducerHookMethods.contains(property.name)) {
+            return true;
+          }
+        }
+      }
+
       // FIXME what about function declarations? are those handled elsewhere
       final referenceElement = reference.staticElement;
       final declaration = referenceElement == null
@@ -346,10 +389,6 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
       // Detect known Hook calls
       // const [_, setState] = useState()
 
-      // todo support useTransition
-      const stableStateHookMethods = {'set', 'setWithUpdater'};
-      const stableReducerHookMethods = {'dispatch'};
-
       // Handle hook tearoffs
       // final setCount = useCount(1).set;
       if (init is PropertyAccess) {
@@ -361,29 +400,6 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
         if (stableReducerHookMethods.contains(property) && (init.target?.staticType?.element?.isReducerHook ?? false)) {
           return true;
         }
-      }
-
-      SimpleIdentifier? propertyBeingAccessed() {
-        final parentExpression = reference.parent.tryCast<Expression>();
-        return parentExpression == null ? null : propertyNameFromNonCascadedAccessOrInvocation(parentExpression);
-      }
-
-      if (reference.staticType?.element?.isStateHook ?? false) {
-        // Check whether this reference is only used to access the stable hook property.
-        final property = propertyBeingAccessed();
-        if (property != null && stableStateHookMethods.contains(property.name)) {
-          setStateCallSites.set(reference, declaration);
-          return true;
-        }
-        return false;
-      }
-      if (reference.staticType?.element?.isReducerHook ?? false) {
-        // Check whether this reference is only used to access the stable hook property.
-        final property = propertyBeingAccessed();
-        if (property != null && stableReducerHookMethods.contains(property.name)) {
-          return true;
-        }
-        return false;
       }
 
       if (init is! InvocationExpression) {
@@ -462,6 +478,8 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
     final dependencies = <String, _Dependency>{};
     final optionalChains = <String, bool>{};
 
+    // The original implementation needs to recurse to process references in child scopes,
+    // but we can process all descendant references regardless of scope in one go.
     for (final reference in resolvedReferencesWithin(node)) {
       // debug(
       //     'reference.staticElement.ancestors: \n${prettyString(reference.staticElement.ancestors.map(elementDebugString).toList())}',
@@ -469,6 +487,9 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
 
       // If this reference is not resolved or it is not declared in a pure
       // scope then we don't care about this reference.
+      //
+      // Note that with the implementation of `resolvedReferencesWithin`,
+      // this is also necessary to filter out references to properties on object.
 
       // TODO follow up on this and see how dynamic calls are treated
       final referenceElement = reference.staticElement;
@@ -521,9 +542,11 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
             memoizedIsFunctionWithoutCapturedValues(referenceElement);
         dependencies[dependency] = _Dependency(
           isStable: isStable,
+          // FIXME(greg) is it okay that for the `state.set` case, the reference is still `state`? Should probably update this. Maybe we move special casing out of isStableKnownHookValue and remove method logic from getDependency?
           references: [reference],
         );
       } else {
+        // FIXME(greg) is it okay that for the `state.set` case, the reference is still `state`? Should probably update this. Maybe we move special casing out of isStableKnownHookValue and remove method logic from getDependency?
         existingDependency.references.add(reference);
       }
     }
@@ -1670,7 +1693,7 @@ AstNode getDependency(AstNode node) {
 
   if (parent is PropertyAccess &&
       parent.target == node &&
-      parent.propertyName.name != 'current' &&
+      parent.propertyName.name != 'current' && // FIXME only test for ref/dynamic values?
       !(grandparent is InvocationExpression &&
           // fixme is this right?
           grandparent.function == parent)) {
@@ -1678,7 +1701,18 @@ AstNode getDependency(AstNode node) {
   }
   if (parent is PrefixedIdentifier &&
       parent.prefix == node &&
-      parent.identifier.name != 'current' &&
+      parent.identifier.name != 'current' && // FIXME only test for ref/dynamic values?
+      !(grandparent is InvocationExpression &&
+          // fixme is this right?
+          grandparent.function == parent)) {
+    return getDependency(parent);
+  }
+  // FIXME(greg) finish figuring out if this is kosher, document
+  // This MethodInvocation check deviates from the JS, and may be necessary for stateHook.set  (FIXME or does it deviate due to the different nesting of invocation ast?)
+  // FIXME(greg) or should we special-case when we're collecting the dependency?
+  if (parent is MethodInvocation &&
+      parent.target == node &&
+      parent.methodName.name != 'current' && // FIXME only test for ref/dynamic values?
       !(grandparent is InvocationExpression &&
           // fixme is this right?
           grandparent.function == parent)) {
@@ -1774,6 +1808,15 @@ String analyzePropertyChain(AstNode node, Map<String, bool>? optionalChains) {
     final result = "$object.$property";
     markNode(node, optionalChains, result, isOptional: false);
     return result;
+    // rule out cascades and implicit this // fixme greg update other locations to use this pattern
+  } else if (node is MethodInvocation && node.target != null) {
+    // FIXME(greg) look into this more and clean this up
+    assert(!node.isCascaded, 'cascaded members are unexpected here');
+    final object = analyzePropertyChain(node.target!, optionalChains);
+    final property = analyzePropertyChain(node.methodName, null);
+    final result = "$object.$property";
+    markNode(node, optionalChains, result, isOptional: false);
+    return result;
   } else {
     throw ArgumentError("Unsupported node type: ${node.runtimeType}");
   }
@@ -1792,8 +1835,7 @@ AstNode getNodeWithoutReactNamespace(Expression node) {
     }
   } else if (node is PropertyAccess) {
     final realTarget = node.realTarget;
-    if (realTarget is Identifier &&
-        isPrefixedOverReactApi(prefix: realTarget, identifier: node.propertyName)) {
+    if (realTarget is Identifier && isPrefixedOverReactApi(prefix: realTarget, identifier: node.propertyName)) {
       return node.propertyName;
     }
   }

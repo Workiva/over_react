@@ -181,6 +181,7 @@ extension FunctionBodyUtils on FunctionBody {
 
   FunctionExpression? get parentExpression => parent?.tryCast();
 
+  // TODO(greg) ancestorDeclaration might be better?
   FunctionDeclaration? get parentDeclaration => parentExpression?.parentDeclaration;
 
   MethodDeclaration? get parentMethod => parent?.tryCast();

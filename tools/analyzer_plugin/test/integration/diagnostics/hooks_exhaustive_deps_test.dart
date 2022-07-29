@@ -155,6 +155,8 @@ class SomeObject {
       });
     });
 
+    //fixme add regression test for this case: useEffect(() {state.set(1);state.value;}, [])
+
     group('test cases that should warn', () {
       tco.tests['invalid'].forEachIndexed((i, element) {
         test('invalid[$i]', () async {
