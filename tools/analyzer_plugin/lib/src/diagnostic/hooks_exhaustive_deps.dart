@@ -621,7 +621,7 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
         reportProblem(
           node: dependencyNode.parent!,
           message: "The ref value '$dependency.current' will likely have "
-              "changed by the time this effect cleanup runs. If "
+              "changed by the time this effect cleanup function runs. If "
               "this ref points to a node rendered by React, copy "
               "'$dependency.current' to a variable inside the effect, and "
               "use that variable in the cleanup function.",
