@@ -187,7 +187,7 @@ class SomeObject {
             final actualMessages = errors.map((e) => e.message).toList();
 
             // expect(errors, unorderedEquals(expectedErrors.map((e) => isDiagnostic(HooksExhaustiveDeps.code).havingMessage(contains(e['message'] as String));
-            expect(actualMessages, unorderedEquals(expectedMessages.map<Matcher>(contains)));
+            expect(actualMessages, unorderedEquals(expectedMessages));
             //fixme(greg) suggestions
 
             // Run this here even though it's also in tearDown, so that we can see the source
