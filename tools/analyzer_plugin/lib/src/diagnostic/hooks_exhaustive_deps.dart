@@ -1151,25 +1151,24 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
         }
       }
       if (setStateRecommendation != null) {
+        final setter = setStateRecommendation.setter;
+        final missingDep = setStateRecommendation.missingDep;
         switch (setStateRecommendation.form) {
           case _SetStateRecommendationForm.reducer:
             extraWarning = " You can also replace multiple useState variables with useReducer "
-                "if '${setStateRecommendation.setter}' needs the "
-                "current value of '${setStateRecommendation.missingDep}'.";
+                "if '$setter' needs the current value of '$missingDep'.";
             break;
           case _SetStateRecommendationForm.inlineReducer:
-            extraWarning = " If '${setStateRecommendation.setter}' needs the "
-                "current value of '${setStateRecommendation.missingDep}', "
+            extraWarning = " If '$setter' needs the current value of '$missingDep', "
                 "you can also switch to useReducer instead of useState and "
-                "read '${setStateRecommendation.missingDep}' in the reducer.";
+                "read '$missingDep' in the reducer.";
             break;
           case _SetStateRecommendationForm.updater:
-            extraWarning =
-                " You can also do a functional update '${setStateRecommendation.setter}(${setStateRecommendation.missingDep.substring(
-              0,
-              1,
-            )} => ...)' if you only need '${setStateRecommendation.missingDep}'"
-                " in the '${setStateRecommendation.setter}' call.";
+            final updaterArgumentName = missingDep.substring(0, 1);
+            final functionalUpdateSetter = '${setter}WithUpdater';
+            extraWarning = " You can also do a functional update"
+                " '$functionalUpdateSetter(($updaterArgumentName) => ...)'"
+                " if you only need '$missingDep' in the '$setter' call.";
             break;
         }
       }

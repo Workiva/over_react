@@ -3477,7 +3477,7 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has a missing dependency: \'state\'. Either include it or remove the dependency list. You can also do a functional update \'setState(s => ...)\' if you only need \'state\' in the \'setState\' call.',
+              'React Hook useEffect has a missing dependency: \'state.value\'. Either include it or remove the dependency list. You can also do a functional update \'state.setWithUpdater((s) => ...)\' if you only need \'state.value\' in the \'state.set\' call.',
           'suggestions': [
             {
               'desc': 'Update the dependencies list to be: [state]',
@@ -3510,7 +3510,7 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has a missing dependency: \'state\'. Either include it or remove the dependency list. You can also do a functional update \'setState(s => ...)\' if you only need \'state\' in the \'setState\' call.',
+              'React Hook useEffect has a missing dependency: \'state.value\'. Either include it or remove the dependency list. You can also do a functional update \'state.setWithUpdater((s) => ...)\' if you only need \'state.value\' in the \'state.set\' call.',
           // We don't ask to remove static deps but don't add them either.
           // Don't suggest removing "ref" (it's fine either way)
           // but *do* add "state". *Don't* add "setState" ourselves.
@@ -5549,7 +5549,7 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has a missing dependency: \'count\'. Either include it or remove the dependency list. You can also do a functional update \'setCount(c => ...)\' if you only need \'count\' in the \'setCount\' call.',
+              'React Hook useEffect has a missing dependency: \'count.value\'. Either include it or remove the dependency list. You can also do a functional update \'count.setWithUpdater((c) => ...)\' if you only need \'count.value\' in the \'count.set\' call.',
           'suggestions': [
             {
               'desc': 'Update the dependencies list to be: [count]',
@@ -5587,7 +5587,7 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has missing dependencies: \'count\' and \'increment\'. Either include them or remove the dependency list. You can also do a functional update \'setCount(c => ...)\' if you only need \'count\' in the \'setCount\' call.',
+              'React Hook useEffect has missing dependencies: \'count.value\' and \'increment.value\'. Either include them or remove the dependency list. You can also do a functional update \'count.setWithUpdater((c) => ...)\' if you only need \'count.value\' in the \'count.set\' call.',
           'suggestions': [
             {
               'desc': 'Update the dependencies list to be: [count, increment]',
@@ -7413,7 +7413,7 @@ final testsTypescript = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has a missing dependency: \'state\'. Either include it or remove the dependency list. You can also do a functional update \'setState(s => ...)\' if you only need \'state\' in the \'setState\' call.',
+              'React Hook useEffect has a missing dependency: \'state.value\'. Either include it or remove the dependency list. You can also do a functional update \'state.setWithUpdater((s) => ...)\' if you only need \'state.value\' in the \'state.set\' call.',
           'suggestions': [
             {
               'desc': 'Update the dependencies list to be: [state]',
