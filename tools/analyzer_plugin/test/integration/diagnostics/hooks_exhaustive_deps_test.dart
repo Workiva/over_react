@@ -183,8 +183,10 @@ class SomeObject {
                 everyElement(AnalysisErrorHavingUtils(isA<AnalysisError>()).havingCode(HooksExhaustiveDeps.code.name)),
                 reason: 'Expected all errors to match the error & fix kinds under test.');
 
-            final expectedMessages = expectedErrors.map((e) => e['message'] as String).toList();
-            final actualMessages = errors.map((e) => e.message).toList();
+            // Replace line numbers in messages so we don't have to update them every time the preamble changes.
+            String ignoreLineNumber(String message) => message.replaceAll(RegExp(r'at line \d+'), 'at line {{IGNORED}}');
+            final expectedMessages = expectedErrors.map((e) => e['message'] as String).map(ignoreLineNumber).toList();
+            final actualMessages = errors.map((e) => e.message).map(ignoreLineNumber).toList();
 
             // expect(errors, unorderedEquals(expectedErrors.map((e) => isDiagnostic(HooksExhaustiveDeps.code).havingMessage(contains(e['message'] as String));
             expect(actualMessages, unorderedEquals(expectedMessages));
