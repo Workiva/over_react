@@ -200,6 +200,77 @@ Declaration? lookUpDeclaration(Element element, AstNode root) {
 Iterable<Identifier> resolvedReferencesWithin(AstNode node) =>
     allDescendantsOfType<Identifier>(node).where((e) => e.staticElement != null);
 
+enum HookTypeWithStableMethods { stateHook, reducerHook }
+
+class StableHookMethodInfo {
+  final Expression node;
+
+  final Expression target;
+  final Identifier property;
+  final HookTypeWithStableMethods hookType;
+
+  StableHookMethodInfo({
+    required this.node,
+    required this.target,
+    required this.property,
+    required this.hookType,
+  }) : assert(target.parent == node && property.parent == node);
+
+  bool get isStateSetterMethod =>
+      hookType == HookTypeWithStableMethods.stateHook && stateHookSetMethods.contains(property.name);
+
+  static const stateHookSetMethods = {'set', 'setWithUpdater'};
+  static const stableStateHookMethods = {...stateHookSetMethods};
+  static const stableReducerHookMethods = {'dispatch'};
+// TODO uncomment once TransitionHook is implemented.
+// static const stableTransitionHookMethods = {'startTransition'};
+}
+
+/// If [node] is an access of a stable hook method on a hook object (either a method call or a tearoff),
+/// returns information about that usage. Otherwise, returns `null.
+StableHookMethodInfo? getStableHookMethodInfo(AstNode node) {
+  // This check is redundant with the if-else below, but allows for type promotion of `node`.
+  if (node is! Expression) return null;
+
+  Expression? target;
+  Identifier property;
+  if (node is MethodInvocation && !node.isCascaded) {
+    target = node.target;
+    property = node.methodName;
+  } else if (node is PropertyAccess && !node.isCascaded) {
+    target = node.target;
+    property = node.propertyName;
+  } else if (node is PrefixedIdentifier) {
+    target = node.prefix;
+    property = node.identifier;
+  } else {
+    return null;
+  }
+
+  if (target == null) return null;
+
+  // Check whether this reference is only used to access the stable hook property.
+  if ((target.staticType?.element?.isStateHook ?? false) &&
+      StableHookMethodInfo.stableStateHookMethods.contains(property.name)) {
+    return StableHookMethodInfo(
+        node: node, target: target, property: property, hookType: HookTypeWithStableMethods.stateHook);
+  }
+
+  if ((target.staticType?.element?.isReducerHook ?? false) &&
+      StableHookMethodInfo.stableReducerHookMethods.contains(property.name)) {
+    return StableHookMethodInfo(
+        node: node, target: target, property: property, hookType: HookTypeWithStableMethods.reducerHook);
+  }
+
+  // TODO uncomment once TransitionHook is implemented.
+  // if ((target.staticType?.element?.isTransitionHook ?? false) &&
+  //     stableTransitionHookMethods.contains(property.name)) {
+  //   return Tuple2(HookTypeWithStableMethods.transitionHook, property.name);
+  // }
+
+  return null;
+}
+
 class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
   // Should be shared between visitors.
   /// A mapping from setState references to setState declarations
@@ -313,46 +384,24 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
     //       ^^^ true for this reference
     // False for everything else.
     bool isStableKnownHookValue(Identifier reference) {
-      // todo support useTransition
-      const stateHookSetMethods = {'set', 'setWithUpdater'};
-      const stableStateHookMethods = {...stateHookSetMethods};
-      const stableReducerHookMethods = {'dispatch'};
-
       {
+        // Check whether this reference is only used to access the stable hook property.
         final parent = reference.parent;
-        Expression? target;
-        Identifier? property;
-        if (parent is MethodInvocation && !parent.isCascaded) {
-          target = parent.target;
-          property = parent.methodName;
-        } else if (parent is PropertyAccess && !parent.isCascaded) {
-          target = parent.target;
-          property = parent.propertyName;
-        } else if (parent is PrefixedIdentifier) {
-          target = parent.prefix;
-          property = parent.identifier;
-        }
-
-        if (target == reference) {
-          property!;
-          // Check whether this reference is only used to access the stable hook property.
-          if ((target?.staticType?.element?.isStateHook ?? false) && stableStateHookMethods.contains(property.name)) {
-            // FIXME(greg) what about edge cases here?
-            if (stateHookSetMethods.contains(property.name)) {
-              // TODO(greg) DRY up
-              final referenceElement = reference.staticElement;
-              final declaration = referenceElement == null
-                  ? null
-                  : lookUpDeclaration(referenceElement, reference.root)?.tryCast<VariableDeclaration>();
-              if (declaration != null) {
-                setStateCallSites.set(reference, declaration);
-              }
+        final stableHookInfo = parent != null ? getStableHookMethodInfo(parent) : null;
+        if (stableHookInfo != null && stableHookInfo.target == reference) {
+          // FIXME(greg) what about edge cases here?
+          if (stableHookInfo.isStateSetterMethod) {
+            // TODO(greg) DRY up
+            final referenceElement = reference.staticElement;
+            final declaration = referenceElement == null
+                ? null
+                : lookUpDeclaration(referenceElement, reference.root)?.tryCast<VariableDeclaration>();
+            if (declaration != null) {
+              setStateCallSites.set(reference, declaration);
             }
-            return true;
-          } else if ((target?.staticType?.element?.isReducerHook ?? false) &&
-              stableReducerHookMethods.contains(property.name)) {
-            return true;
           }
+
+          return true;
         }
       }
 
@@ -391,13 +440,12 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
 
       // Handle hook tearoffs
       // final setCount = useCount(1).set;
-      if (init is PropertyAccess) {
-        final property = init.propertyName.name;
-        if (stableStateHookMethods.contains(property) && (init.target?.staticType?.element?.isStateHook ?? false)) {
-          setStateCallSites.set(reference, declaration);
-          return true;
-        }
-        if (stableReducerHookMethods.contains(property) && (init.target?.staticType?.element?.isReducerHook ?? false)) {
+      if (init is PropertyAccess || init is PrefixedIdentifier) {
+        final stableHookInfo = getStableHookMethodInfo(init);
+        if (stableHookInfo != null) {
+          if (stableHookInfo.isStateSetterMethod) {
+            setStateCallSites.set(reference, declaration);
+          }
           return true;
         }
       }
@@ -1704,11 +1752,7 @@ AstNode getDependency(AstNode node) {
   }
 
   // This MethodInvocation check deviates from the JS, and is necessary to handle stable hook methods.
-  if (parent is MethodInvocation &&
-      parent.target == node &&
-      (parent.target?.staticType?.element?.isStateHook ?? false) &&
-      // FIXME(greg) support other stable hook types and methods, DRY up logic.
-      parent.methodName.name == 'set') {
+  if (parent is MethodInvocation && parent.target == node && getStableHookMethodInfo(parent) != null) {
     return getDependency(parent);
   }
 
