@@ -1093,9 +1093,9 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
 
     if (extraWarning == null && missingDependencies.isNotEmpty) {
       _SetStateRecommendation? setStateRecommendation;
-      missingDependencies.forEach((missingDep) {
+      for (final missingDep in missingDependencies) {
         if (setStateRecommendation != null) {
-          return;
+          break;
         }
         final usedDep = dependencies[missingDep]!;
         final references = usedDep.references;
@@ -1149,27 +1149,27 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
             break;
           }
         }
-      });
+      }
       if (setStateRecommendation != null) {
-        switch (setStateRecommendation!.form) {
+        switch (setStateRecommendation.form) {
           case _SetStateRecommendationForm.reducer:
             extraWarning = " You can also replace multiple useState variables with useReducer "
-                "if '${setStateRecommendation!.setter}' needs the "
-                "current value of '${setStateRecommendation!.missingDep}'.";
+                "if '${setStateRecommendation.setter}' needs the "
+                "current value of '${setStateRecommendation.missingDep}'.";
             break;
           case _SetStateRecommendationForm.inlineReducer:
-            extraWarning = " If '${setStateRecommendation!.setter}' needs the "
-                "current value of '${setStateRecommendation!.missingDep}', "
+            extraWarning = " If '${setStateRecommendation.setter}' needs the "
+                "current value of '${setStateRecommendation.missingDep}', "
                 "you can also switch to useReducer instead of useState and "
-                "read '${setStateRecommendation!.missingDep}' in the reducer.";
+                "read '${setStateRecommendation.missingDep}' in the reducer.";
             break;
           case _SetStateRecommendationForm.updater:
             extraWarning =
-                " You can also do a functional update '${setStateRecommendation!.setter}(${setStateRecommendation!.missingDep.substring(
+                " You can also do a functional update '${setStateRecommendation.setter}(${setStateRecommendation.missingDep.substring(
               0,
               1,
-            )} => ...)' if you only need '${setStateRecommendation!.missingDep}'"
-                " in the '${setStateRecommendation!.setter}' call.";
+            )} => ...)' if you only need '${setStateRecommendation.missingDep}'"
+                " in the '${setStateRecommendation.setter}' call.";
             break;
         }
       }
