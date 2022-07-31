@@ -583,12 +583,15 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
 
       // Add the dependency to a map so we can make sure it is referenced
       // again in our dependencies array. Remember whether it's stable.
-      dependencies[dependency] ??= _Dependency(
-        isStable: memoizedIsStableKnownHookValue(reference) ||
-            // FIXME handle .call tearoffs
-            memoizedIsFunctionWithoutCapturedValues(referenceElement),
-        references: [],
-      )
+      // ignore: avoid_single_cascade_in_expression_statements
+      dependencies.putIfAbsent(dependency, () {
+        return _Dependency(
+          isStable: memoizedIsStableKnownHookValue(reference) ||
+              // FIXME handle .call tearoffs
+              memoizedIsFunctionWithoutCapturedValues(referenceElement),
+          references: [],
+        );
+      })
         // Note that for the the `state.set` case, the reference is still `state`.
         ..references.add(reference);
     }
