@@ -5627,7 +5627,7 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has a missing dependency: \'increment\'. Either include it or remove the dependency list. You can also replace multiple useState variables with useReducer if \'setCount\' needs the current value of \'increment\'.',
+              'React Hook useEffect has a missing dependency: \'increment\'. Either include it or remove the dependency list. You can also replace multiple useState variables with useReducer if \'count.set\' needs the current value of \'increment\'.',
           'suggestions': [
             {
               'desc': 'Update the dependencies list to be: [increment]',
@@ -5785,7 +5785,7 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has a missing dependency: \'increment\'. Either include it or remove the dependency list. If \'setCount\' needs the current value of \'increment\', you can also switch to useReducer instead of useState and read \'increment\' in the reducer.',
+              'React Hook useEffect has a missing dependency: \'increment\'. Either include it or remove the dependency list. If \'count.set\' needs the current value of \'increment\', you can also switch to useReducer instead of useState and read \'increment\' in the reducer.',
           'suggestions': [
             {
               'desc': 'Update the dependencies list to be: [increment]',
@@ -6086,7 +6086,7 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect contains a call to \'setState\'. Without a list of dependencies, this can lead to an infinite chain of updates. To fix this, pass [] as a second argument to the useEffect Hook.',
+              'React Hook useEffect contains a call to \'state.set\'. Without a list of dependencies, this can lead to an infinite chain of updates. To fix this, pass [] as a second argument to the useEffect Hook.',
           'suggestions': [
             {
               'desc': 'Add dependencies list: []',
@@ -6115,7 +6115,7 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect contains a call to \'setData\'. Without a list of dependencies, this can lead to an infinite chain of updates. To fix this, pass [] as a second argument to the useEffect Hook.',
+              'React Hook useEffect contains a call to \'data.set\'. Without a list of dependencies, this can lead to an infinite chain of updates. To fix this, pass [] as a second argument to the useEffect Hook.',
           'suggestions': [
             {
               'desc': 'Add dependencies list: []',
@@ -6146,7 +6146,7 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect contains a call to \'setData\'. Without a list of dependencies, this can lead to an infinite chain of updates. To fix this, pass [country] as a second argument to the useEffect Hook.',
+              'React Hook useEffect contains a call to \'data.set\'. Without a list of dependencies, this can lead to an infinite chain of updates. To fix this, pass [country] as a second argument to the useEffect Hook.',
           'suggestions': [
             {
               'desc': 'Add dependencies list: [country]',
@@ -6182,7 +6182,7 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect contains a call to \'setState\'. Without a list of dependencies, this can lead to an infinite chain of updates. To fix this, pass [prop1, prop2] as a second argument to the useEffect Hook.',
+              'React Hook useEffect contains a call to \'state.set\'. Without a list of dependencies, this can lead to an infinite chain of updates. To fix this, pass [prop1, prop2] as a second argument to the useEffect Hook.',
           'suggestions': [
             {
               'desc': 'Add dependencies list: [prop1, prop2]',
