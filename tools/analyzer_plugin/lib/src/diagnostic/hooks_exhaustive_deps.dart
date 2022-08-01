@@ -807,45 +807,40 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
             declaredDependencyNode,
             null,
           );
-        } catch (error) {
-          if (error.toString().contains('Unsupported node type')) {
-            if (declaredDependencyNode is SimpleStringLiteral &&
-                dependencies.containsKey(declaredDependencyNode.value)) {
+        } on UnsupportedNodeTypeException catch (_) {
+          if (declaredDependencyNode is SimpleStringLiteral && dependencies.containsKey(declaredDependencyNode.value)) {
+            reportProblem(
+              node: declaredDependencyNode,
+              message: "The ${declaredDependencyNode.toSource()} literal is not a valid dependency "
+                  "because it never changes."
+                  " Did you mean to include ${declaredDependencyNode.value} in the list instead?",
+            );
+          } else if (isAConstantValue(declaredDependencyNode)) {
+            // Provide slightly improved wording in the case of literals.
+            // Don't forget that literals aren't always constant, so this needs to stay inside a isConstantValue check.
+            if (declaredDependencyNode is Literal) {
               reportProblem(
                 node: declaredDependencyNode,
                 message: "The ${declaredDependencyNode.toSource()} literal is not a valid dependency "
-                    "because it never changes."
-                    " Did you mean to include ${declaredDependencyNode.value} in the list instead?",
+                    "because it never changes. You can safely remove it.",
               );
-            } else if (isAConstantValue(declaredDependencyNode)) {
-              // Provide slightly improved wording in the case of literals.
-              // Don't forget that literals aren't always constant, so this needs to stay inside a isConstantValue check.
-              if (declaredDependencyNode is Literal) {
-                reportProblem(
-                  node: declaredDependencyNode,
-                  message: "The ${declaredDependencyNode.toSource()} literal is not a valid dependency "
-                      "because it never changes. You can safely remove it.",
-                );
-              } else {
-                reportProblem(
-                  node: declaredDependencyNode,
-                  message: "The '${declaredDependencyNode.toSource()}' expression is not a valid dependency "
-                      "because it never changes. You can safely remove it.",
-                );
-              }
             } else {
               reportProblem(
                 node: declaredDependencyNode,
-                message: "React Hook ${getSource(reactiveHook)} has a "
-                    "complex expression in the dependency list. "
-                    'Extract it to a separate variable so it can be statically checked.',
+                message: "The '${declaredDependencyNode.toSource()}' expression is not a valid dependency "
+                    "because it never changes. You can safely remove it.",
               );
             }
-
-            continue;
           } else {
-            rethrow;
+            reportProblem(
+              node: declaredDependencyNode,
+              message: "React Hook ${getSource(reactiveHook)} has a "
+                  "complex expression in the dependency list. "
+                  'Extract it to a separate variable so it can be statically checked.',
+            );
           }
+
+          continue;
         }
 
         // todo(greg) handle / warn about cascades?
@@ -1859,8 +1854,17 @@ String analyzePropertyChain(AstNode node, Map<String, bool>? optionalChains) {
     markNode(node, optionalChains, result, isOptional: false);
     return result;
   } else {
-    throw ArgumentError("Unsupported node type: ${node.runtimeType}");
+    throw UnsupportedNodeTypeException(node);
   }
+}
+
+class UnsupportedNodeTypeException implements Exception {
+  AstNode node;
+
+  UnsupportedNodeTypeException(this.node);
+
+  @override
+  String toString() => '$runtimeType: ${node.runtimeType} (source: ${node.toSource()})';
 }
 
 // todo(greg) unit test this and remove extraneous cases
@@ -1911,12 +1915,8 @@ int getReactiveHookCallbackIndex(Expression calleeNode, {RegExp? additionalHooks
         String name;
         try {
           name = analyzePropertyChain(node, null);
-        } on Object catch (error) {
-          if (error.toString().contains('Unsupported node type')) {
-            return 0;
-          } else {
-            rethrow;
-          }
+        } on UnsupportedNodeTypeException catch (_) {
+          return 0;
         }
         return additionalHooks.hasMatch(name) ? 0 : -1;
       } else {
