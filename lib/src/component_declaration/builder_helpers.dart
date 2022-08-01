@@ -134,6 +134,27 @@ abstract class UiProps extends component_base.UiProps with GeneratedClass {
   @toBeGenerated PropsMetaCollection get staticMeta => throw UngeneratedError(member: #meta);
 }
 
+extension UnusedProps<T extends UiProps> on T {
+  Map get unused => getUnused();
+
+  Map getUnused([Set<Type> usedPropMixins]) {
+    try {
+      final unusedProps = {};
+      final usedProps = staticMeta.forMixins(usedPropMixins ?? {T});
+      final usedPropKeys = usedProps.map((consumedProps) => consumedProps.keys).toList();
+      forwardUnconsumedPropsV2(props, propsToUpdate: unusedProps, keySetsToOmit: usedPropKeys);
+      return unusedProps;
+    } catch(_) {
+      if (usedPropMixins == null) {
+        throw ArgumentError('Could not find props meta for type $T.'
+          ' If this is not a props mixin, you need to specify its mixins as the second argument.  For example:'
+          '\n  ..addAll(props.getUnused({${T}Mixin}, …)');
+      }
+      rethrow;
+    }
+  }
+}
+
 /// A [dart.collection.MapView]-like class with strongly-typed getters/setters for React state.
 ///
 /// To be used with the over_react builder to generate concrete state implementations
