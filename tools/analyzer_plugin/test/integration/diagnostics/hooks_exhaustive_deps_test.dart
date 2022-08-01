@@ -61,6 +61,9 @@ mixin TestProps on UiProps {
   Function fetchPodcasts;
   Function fetchPodcasts2;
   var country;
+  var prop1;
+  var prop2;
+  var section_components;
 }
 
 // Globals used by test cases

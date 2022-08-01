@@ -5259,15 +5259,15 @@ final tests = {
             return Store.subscribe(() => handleNext3());
           }, [handleNext3]);
           return (
-            <div
-              onClick={() {
+            (Dom.div()
+              ..onClick = (_) {
                 handleNext1();
                 setTimeout(handleNext2);
                 setTimeout(() {
                   handleNext3();
                 });
-              }}
-            />
+              }
+            )()
           );
         }, null);
       ''',
@@ -5309,15 +5309,15 @@ final tests = {
                     return Store.subscribe(() => handleNext3());
                   }, [handleNext3]);
                   return (
-                    <div
-                      onClick={() {
+                    (Dom.div()
+                      ..onClick = (_) {
                         handleNext1();
                         setTimeout(handleNext2);
                         setTimeout(() {
                           handleNext3();
                         });
-                      }}
-                    />
+                      }
+                    )()
                   );
                 }, null);
               ''',
@@ -5356,15 +5356,15 @@ final tests = {
                     return Store.subscribe(() => handleNext3());
                   }, [handleNext3]);
                   return (
-                    <div
-                      onClick={() {
+                    (Dom.div()
+                      ..onClick = (_) {
                         handleNext1();
                         setTimeout(handleNext2);
                         setTimeout(() {
                           handleNext3();
                         });
-                      }}
-                    />
+                      }
+                    )()
                   );
                 }, null);
               ''',
@@ -6833,7 +6833,7 @@ final tests = {
     {
       'code': r'''
         final Component = uiFunction<TestProps>((_) {
-          dynamic foo;
+          final foo = {};
           useLayoutEffect(() {
             print(foo);
           }, [foo]);
@@ -6850,9 +6850,9 @@ final tests = {
     {
       'code': r'''
         final Component = uiFunction<TestProps>((_) {
-          dynamic foo;
+          final foo = {};
           useImperativeHandle(
-            ref,
+            {},
             () {
                print(foo);
             },
@@ -6870,8 +6870,8 @@ final tests = {
     },
     {
       'code': r'''
-        final Foo = uiFunction<TestProps>((section) {
-          final foo = section.section_components?.edges ?? [];
+        final Foo = uiFunction<TestProps>((props) {
+          final foo = props.section_components?.edges ?? [];
           useEffect(() {
             print(foo);
           }, [foo]);
@@ -6887,8 +6887,8 @@ final tests = {
     },
     {
       'code': r'''
-        final Foo = uiFunction<TestProps>((section) {
-          dynamic foo;
+        final Foo = uiFunction<TestProps>((_) {
+          final foo = {};
           print(foo);
           useMemo(() {
             print(foo);
@@ -6906,7 +6906,7 @@ final tests = {
     {
       'code': r'''
         final Foo = uiFunction<TestProps>((_) {
-          final foo = <>Hi!</>;
+          final foo = Fragment()('Hi!');
           useMemo(() {
             print(foo);
           }, [foo]);
@@ -6923,7 +6923,7 @@ final tests = {
     {
       'code': r'''
         final Foo = uiFunction<TestProps>((_) {
-          final foo = <div>Hi!</div>;
+          final foo = Dom.div()('Hi!');
           useMemo(() {
             print(foo);
           }, [foo]);
@@ -6940,6 +6940,7 @@ final tests = {
     {
       'code': r'''
         final Foo = uiFunction<TestProps>((_) {
+          var bar;
           final foo = bar = {};
           useMemo(() {
             print(foo);
