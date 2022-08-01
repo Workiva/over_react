@@ -3812,8 +3812,8 @@ final tests = {
       'code': r'''
         final MyComponent = uiFunction<TestProps>((props) {
           useEffect(() {
-            if (props.onChange) {
-              props.onChange();
+            if (props.onChange != null) {
+              props.onChange(null);
             }
           }, []);
         }, null);
@@ -3828,8 +3828,8 @@ final tests = {
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
                   useEffect(() {
-                    if (props.onChange) {
-                      props.onChange();
+                    if (props.onChange != null) {
+                      props.onChange(null);
                     }
                   }, [props]);
                 }, null);
@@ -3839,12 +3839,13 @@ final tests = {
         },
       ],
     },
+    // FIXME(greg) need to add a null-aware call test case here or somewhere?
     {
       'code': r'''
         final MyComponent = uiFunction<TestProps>((props) {
           useEffect(() {
-            if (props?.onChange) {
-              props?.onChange();
+            if (props?.onChange != null) {
+              props?.onChange(null);
             }
           }, []);
         }, null);
@@ -3859,8 +3860,8 @@ final tests = {
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
                   useEffect(() {
-                    if (props?.onChange) {
-                      props?.onChange();
+                    if (props?.onChange != null) {
+                      props?.onChange(null);
                     }
                   }, [props]);
                 }, null);
@@ -3911,7 +3912,7 @@ final tests = {
       'code': r'''
         final MyComponent = uiFunction<TestProps>((props) {
           useEffect(() {
-            if (props.foo.onChange) {
+            if (props.foo.onChange != null) {
               props.foo.onChange();
             }
           }, []);
@@ -3927,7 +3928,7 @@ final tests = {
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
                   useEffect(() {
-                    if (props.foo.onChange) {
+                    if (props.foo.onChange != null) {
                       props.foo.onChange();
                     }
                   }, [props.foo]);
@@ -3942,7 +3943,7 @@ final tests = {
       'code': r'''
         final MyComponent = uiFunction<TestProps>((props) {
           useEffect(() {
-            props.onChange();
+            props.onChange(null);
             if (props.foo.onChange) {
               props.foo.onChange();
             }
@@ -3959,7 +3960,7 @@ final tests = {
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
                   useEffect(() {
-                    props.onChange();
+                    props.onChange(null);
                     if (props.foo.onChange) {
                       props.foo.onChange();
                     }
@@ -3974,7 +3975,7 @@ final tests = {
     {
       'code': r'''
         final MyComponent = uiFunction<TestProps>((props) {
-          const skillsCount = useState<dynamic>(null);
+          final skillsCount = useState<dynamic>(null);
           useEffect(() {
             if (skillsCount.value == 0 && !props.isEditMode) {
               props.toggleEditMode();
@@ -3992,7 +3993,7 @@ final tests = {
                   'Update the dependencies list to be: [skillsCount, props.isEditMode, props.toggleEditMode, props]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
-                  const skillsCount = useState<dynamic>(null);
+                  final skillsCount = useState<dynamic>(null);
                   useEffect(() {
                     if (skillsCount.value == 0 && !props.isEditMode) {
                       props.toggleEditMode();
@@ -4008,7 +4009,7 @@ final tests = {
     {
       'code': r'''
         final MyComponent = uiFunction<TestProps>((props) {
-          const skillsCount = useState<dynamic>(null);
+          final skillsCount = useState<dynamic>(null);
           useEffect(() {
             if (skillsCount.value == 0 && !props.isEditMode) {
               props.toggleEditMode();
@@ -4025,7 +4026,7 @@ final tests = {
               'desc': 'Update the dependencies list to be: [props, skillsCount]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
-                  const skillsCount = useState<dynamic>(null);
+                  final skillsCount = useState<dynamic>(null);
                   useEffect(() {
                     if (skillsCount.value == 0 && !props.isEditMode) {
                       props.toggleEditMode();
@@ -4043,7 +4044,7 @@ final tests = {
         final MyComponent = uiFunction<TestProps>((props) {
           useEffect(() {
             externalCall(props);
-            props.onChange();
+            props.onChange(null);
           }, []);
         }, null);
       ''',
@@ -4059,7 +4060,7 @@ final tests = {
                 final MyComponent = uiFunction<TestProps>((props) {
                   useEffect(() {
                     externalCall(props);
-                    props.onChange();
+                    props.onChange(null);
                   }, [props]);
                 }, null);
               ''',
@@ -4072,7 +4073,7 @@ final tests = {
       'code': r'''
         final MyComponent = uiFunction<TestProps>((props) {
           useEffect(() {
-            props.onChange();
+            props.onChange(null);
             externalCall(props);
           }, []);
         }, null);
@@ -4088,7 +4089,7 @@ final tests = {
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
                   useEffect(() {
-                    props.onChange();
+                    props.onChange(null);
                     externalCall(props);
                   }, [props]);
                 }, null);
@@ -4454,7 +4455,7 @@ final tests = {
           {
             var y = props.bar;
             useEffect(() {
-              print(MutableStore.hello.world, props.foo, x, y, z, global.stuff);
+              print([MutableStore.hello.world, props.foo, x, y, z, global.stuff]);
             }, [MutableStore.hello.world, props.foo, x, y, z, global.stuff]);
           }
         }, null);
@@ -4473,7 +4474,7 @@ final tests = {
                   {
                     var y = props.bar;
                     useEffect(() {
-                      print(MutableStore.hello.world, props.foo, x, y, z, global.stuff);
+                      print([MutableStore.hello.world, props.foo, x, y, z, global.stuff]);
                     }, [props.foo, x, y]);
                   }
                 }, null);
@@ -5922,35 +5923,7 @@ final tests = {
         },
       ],
     },
-    {
-      'code': r'''
-        final Podcasts = uiFunction<TestProps>(({ api: { fetchPodcasts }, id }) {
-          var podcasts = useState<dynamic>(null);
-          useEffect(() {
-            fetchPodcasts(id).then(podcasts.set);
-          }, [id]);
-        }, null);
-      ''',
-      'errors': [
-        {
-          'message':
-              'React Hook useEffect has a missing dependency: \'fetchPodcasts\'. Either include it or remove the dependency list. If \'fetchPodcasts\' changes too often, find the parent component that defines it and wrap that definition in useCallback.',
-          'suggestions': [
-            {
-              'desc': 'Update the dependencies list to be: [fetchPodcasts, id]',
-              'output': r'''
-                final Podcasts = uiFunction<TestProps>(({ api: { fetchPodcasts }, id }) {
-                  var podcasts = useState<dynamic>(null);
-                  useEffect(() {
-                    fetchPodcasts(id).then(podcasts.set);
-                  }, [fetchPodcasts, id]);
-                }, null);
-              ''',
-            },
-          ],
-        },
-      ],
-    },
+    /* (1 case previously here was removed, since it was the same as the above test, only props were destructured in the argument list) */
     {
       'code': r'''
         final Podcasts = uiFunction<TestProps>((props) {
@@ -6135,7 +6108,7 @@ final tests = {
         final Hello = uiFunction<TestProps>((_) {
           var data = useState(0);
           useEffect(() {
-            fetchData.then(data.set);
+            fetchDataFuture.then(data.set);
           });
         }, null);
       ''',
@@ -6150,7 +6123,7 @@ final tests = {
                 final Hello = uiFunction<TestProps>((_) {
                   var data = useState(0);
                   useEffect(() {
-                    fetchData.then(data.set);
+                    fetchDataFuture.then(data.set);
                   }, []);
                 }, null);
               ''',

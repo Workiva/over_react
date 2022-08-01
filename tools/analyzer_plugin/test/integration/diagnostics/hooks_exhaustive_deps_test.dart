@@ -51,6 +51,16 @@ mixin TestProps on UiProps {
   var hello;
   var attribute;
   Function function;
+  Ref<dynamic> someOtherRefs;
+  var color;
+  var initY;
+  Function onPlay;
+  Function onPause;
+  bool isEditMode;
+  Function toggleEditMode;
+  Function fetchPodcasts;
+  Function fetchPodcasts2;
+  var country;
 }
 
 // Globals used by test cases
@@ -67,6 +77,7 @@ int setTimeout(Function callback, [int duration]) => 0;
 void clearTimeout(int id) {}
 dynamic someFunc() => null;
 Function debounce(Function callback, num delay) => null;
+num delay;
 dynamic renderHelperConfusedWithEffect(Function callback, dynamic secondArg) => null;
 void useCustomEffect(Function callback, [List dependencies]) {}
 void useWithoutEffectSuffix(Function callback, [List dependencies]) {}
@@ -95,6 +106,8 @@ class SomeObject {
   final int id;
   SomeObject({this.id});
 }
+void useLayoutEffect_SAFE_FOR_SSR(dynamic Function() callback, [List<dynamic> dependencies]) {}
+Future<dynamic> fetchDataFuture;
 ''';
 
     String wrapInFunction(String code) => 'void __testCaseWrapperFunction() {\n\n$code\n\n}';
