@@ -1844,7 +1844,7 @@ String analyzePropertyChain(AstNode node, Map<String, bool>? optionalChains) {
     markNode(node, optionalChains, result, isOptional: false);
     return result;
     // rule out cascades and implicit this // fixme greg update other locations to use this pattern
-  } else if (node is MethodInvocation && node.target != null) {
+  } else if (node is MethodInvocation && node.target != null && getStableHookMethodInfo(node) != null) {
     // This MethodInvocation check deviates from the JS, and is necessary to handle stable hook methods.
     // FIXME(greg) look into this more and clean this up
     assert(!node.isCascaded, 'cascaded members are unexpected here');
