@@ -12,20 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Currently dart_dev only runs tests on dart files that end with _test.
-// So this file's name had to change to match.
-// It can be changed back when that issue is taken care of.
-// https://github.com/Workiva/dart_dev/issues/74
 @TestOn('browser')
-library prod_test;
+library error_boundary_test;
 
-import 'package:over_react/over_react.dart';
 import 'package:test/test.dart';
 
-import 'over_react/component/error_boundary/error_boundary_prod_test.dart' as error_boundary_prod_test;
+import 'shared_stack_tests.dart';
 
 void main() {
-  enableTestMode();
-
-  error_boundary_prod_test.main();
+  group('ErrorBoundary', sharedErrorBoundaryStackTests);
 }

@@ -21,6 +21,7 @@ import 'package:over_react/src/component/error_boundary_recoverable.dart';
 import 'package:test/test.dart';
 
 import 'shared_error_boundary_tests.dart';
+import 'shared_stack_tests.dart';
 
 void main() {
   group('RecoverableErrorBoundary', () {
@@ -29,5 +30,7 @@ void main() {
 
   group('ErrorBoundary', () {
     sharedErrorBoundaryTests(() => ErrorBoundary(), isWrapper: true);
+
+    sharedErrorBoundaryStackTests();
   });
 }

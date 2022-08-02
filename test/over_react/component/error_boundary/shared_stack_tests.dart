@@ -12,64 +12,60 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-@TestOn('browser')
-library error_boundary_test;
-
 import 'package:meta/meta.dart';
 import 'package:over_react/over_react.dart' hide ErrorBoundary;
 import 'package:react_testing_library/react_testing_library.dart' as rtl;
 import 'package:over_react/components.dart';
 import 'package:test/test.dart';
 
-part 'error_boundary_prod_test.over_react.g.dart';
+part 'shared_stack_tests.over_react.g.dart';
 
-void main() {
-  group('ErrorBoundary', () {
-    group(
-        'includes the Dart component displayName in error boundary errors for', () {
-      void expectRenderErrorWithComponentName(ReactElement element,
-          {@required String expectedComponentName}) {
-        final capturedInfos = <ReactErrorInfo>[];
-        rtl.render(
-            (ErrorBoundary()
-              ..onComponentDidCatch = (error, info) {
-                capturedInfos.add(info);
-              })(element));
+@isTestGroup
+void sharedErrorBoundaryStackTests() {
+  group(
+      'includes the Dart component displayName in error boundary errors for', () {
+    void expectRenderErrorWithComponentName(ReactElement element,
+        {@required String expectedComponentName}) {
+      final capturedInfos = <ReactErrorInfo>[];
+      rtl.render(
+          (ErrorBoundary()
+            ..onComponentDidCatch = (error, info) {
+              capturedInfos.add(info);
+            })(element));
 
-        expect(capturedInfos, hasLength(1),
-            reason: 'test setup check; should have captured a single component error');
-        expect(capturedInfos[0].componentStack,
-            contains('at $expectedComponentName'));
-      }
+      expect(capturedInfos, hasLength(1),
+          reason: 'test setup check; should have captured a single component error');
+      expect(capturedInfos[0].componentStack,
+          contains('at $expectedComponentName'));
+    }
 
 
-      test('Component components', () {
-        expectRenderErrorWithComponentName(
-          ThrowingComponent()(),
-          expectedComponentName: 'ThrowingComponent',
-        );
-      });
+    test('Component components', () {
+      expectRenderErrorWithComponentName(
+        ThrowingComponent()(),
+        expectedComponentName: 'ThrowingComponent',
+      );
+    });
 
-      test('Component2 components', () {
-        expectRenderErrorWithComponentName(
-          ThrowingComponent2()(),
-          expectedComponentName: 'ThrowingComponent2',
-        );
-      });
+    test('Component2 components', () {
+      expectRenderErrorWithComponentName(
+        ThrowingComponent2()(),
+        expectedComponentName: 'ThrowingComponent2',
+      );
+    });
 
-      test('function components', () {
-        expectRenderErrorWithComponentName(
-          ThrowingFunctionComponent()(),
-          expectedComponentName: 'ThrowingFunctionComponent',
-        );
-      });
+    test('function components', () {
+      expectRenderErrorWithComponentName(
+        ThrowingFunctionComponent()(),
+        expectedComponentName: 'ThrowingFunctionComponent',
+      );
+    });
 
-      test('forwardRef function components', () {
-        expectRenderErrorWithComponentName(
-          ThrowingForwardRefComponent()(),
-          expectedComponentName: 'ThrowingForwardRefComponent',
-        );
-      });
+    test('forwardRef function components', () {
+      expectRenderErrorWithComponentName(
+        ThrowingForwardRefComponent()(),
+        expectedComponentName: 'ThrowingForwardRefComponent',
+      );
     });
   });
 }
