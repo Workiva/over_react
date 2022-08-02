@@ -29,6 +29,7 @@ void sharedErrorBoundaryStackTests() {
       final capturedInfos = <ReactErrorInfo>[];
       rtl.render(
           (ErrorBoundary()
+            ..shouldLogErrors = false
             ..onComponentDidCatch = (error, info) {
               capturedInfos.add(info);
             })(element));
