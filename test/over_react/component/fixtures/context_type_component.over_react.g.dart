@@ -16,7 +16,6 @@ final $ContextTypeComponentFactory = registerComponent2(
   componentClass: ContextTypeComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'ContextType',
 );
 
 abstract class _$ContextTypePropsAccessorsMixin implements _$ContextTypeProps {

@@ -16,7 +16,6 @@ final $TagComponentFactory = registerComponent(
   componentClass: TagComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'Tag',
 );
 
 abstract class _$TagPropsAccessorsMixin implements _$TagProps {

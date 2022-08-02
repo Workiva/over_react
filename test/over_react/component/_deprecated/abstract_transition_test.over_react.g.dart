@@ -16,7 +16,6 @@ final $TransitionerComponentFactory = registerComponent(
   componentClass: TransitionerComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'Transitioner',
 );
 
 abstract class _$TransitionerPropsAccessorsMixin

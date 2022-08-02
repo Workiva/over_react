@@ -16,7 +16,6 @@ final $ButtonGroupComponentFactory = registerComponent(
   componentClass: ButtonGroupComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'ButtonGroup',
 );
 
 abstract class _$ButtonGroupPropsAccessorsMixin implements _$ButtonGroupProps {

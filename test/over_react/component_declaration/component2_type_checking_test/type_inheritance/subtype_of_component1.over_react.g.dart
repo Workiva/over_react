@@ -15,9 +15,8 @@ final $TestSubtypeOfComponent1ComponentFactory = registerComponent2(
   builderFactory: _$TestSubtypeOfComponent1,
   componentClass: TestSubtypeOfComponent1Component,
   isWrapper: false,
-  parentType: $TestParentComponentFactory,
-  /* from `subtypeOf: TestParentComponent` */
-  displayName: 'TestSubtypeOfComponent1',
+  parentType:
+      $TestParentComponentFactory, /* from `subtypeOf: TestParentComponent` */
 );
 
 abstract class _$TestSubtypeOfComponent1PropsAccessorsMixin

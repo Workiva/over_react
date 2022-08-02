@@ -18,7 +18,6 @@ final $PureTestWrapperComponentFactory = registerComponent2(
   componentClass: PureTestWrapperComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'PureTestWrapper',
 );
 
 _$$PureTestWrapperProps _$PureTestWrapper([Map backingProps]) =>
@@ -168,7 +167,6 @@ final $PureTestComponentFactory = registerComponent2(
   componentClass: PureTestComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'PureTest',
 );
 
 _$$PureTestProps _$PureTest([Map backingProps]) => backingProps == null

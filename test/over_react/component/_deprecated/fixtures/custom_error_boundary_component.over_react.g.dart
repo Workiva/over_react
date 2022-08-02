@@ -16,7 +16,6 @@ final $CustomErrorBoundaryComponentFactory = registerComponent2(
   componentClass: CustomErrorBoundaryComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'CustomErrorBoundary',
   skipMethods: const [],
 );
 

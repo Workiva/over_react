@@ -18,7 +18,6 @@ final $BasicPartOfLibComponentFactory = registerComponent2(
   componentClass: BasicPartOfLibComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'BasicPartOfLib',
 );
 
 _$$BasicPartOfLibProps _$BasicPartOfLib([Map backingProps]) =>
@@ -387,7 +386,6 @@ final $SubPartOfLibComponentFactory = registerComponent2(
   componentClass: SubPartOfLibComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'SubPartOfLib',
 );
 
 _$$SubPartOfLibProps _$SubPartOfLib([Map backingProps]) => backingProps == null

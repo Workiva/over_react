@@ -16,7 +16,6 @@ final $CounterComponentFactory = registerComponent2(
   componentClass: CounterComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'Counter',
 );
 
 abstract class _$CounterPropsAccessorsMixin implements _$CounterProps {

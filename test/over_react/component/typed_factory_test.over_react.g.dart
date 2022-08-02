@@ -16,7 +16,6 @@ final $TypedFactoryTesterComponentFactory = registerComponent2(
   componentClass: TypedFactoryTesterComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'TypedFactoryTester',
 );
 
 abstract class _$TypedFactoryTesterPropsAccessorsMixin

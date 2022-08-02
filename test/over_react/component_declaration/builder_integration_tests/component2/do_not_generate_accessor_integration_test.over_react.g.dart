@@ -16,7 +16,6 @@ final $DoNotGenerateAccessorTestComponentFactory = registerComponent2(
   componentClass: DoNotGenerateAccessorTestComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'DoNotGenerateAccessorTest',
 );
 
 abstract class _$DoNotGenerateAccessorTestPropsAccessorsMixin

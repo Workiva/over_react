@@ -18,7 +18,6 @@ final $CustomTestComponentFactory = registerComponent2(
   componentClass: CustomTestComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'CustomTest',
 );
 
 _$$CustomTestProps _$CustomTest([Map backingProps]) => backingProps == null

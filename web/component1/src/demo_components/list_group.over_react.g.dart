@@ -16,7 +16,6 @@ final $ListGroupComponentFactory = registerComponent(
   componentClass: ListGroupComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'ListGroup',
 );
 
 abstract class _$ListGroupPropsAccessorsMixin implements _$ListGroupProps {

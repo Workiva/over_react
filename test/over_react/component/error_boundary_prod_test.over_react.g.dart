@@ -18,7 +18,6 @@ final $ThrowingComponent2ComponentFactory = registerComponent2(
   componentClass: ThrowingComponent2Component,
   isWrapper: false,
   parentType: null,
-  displayName: 'ThrowingComponent2',
 );
 
 _$$ThrowingComponent2Props _$ThrowingComponent2([Map backingProps]) =>
@@ -166,7 +165,6 @@ final $ThrowingComponentComponentFactory = registerComponent(
   componentClass: ThrowingComponentComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'ThrowingComponent',
 );
 
 abstract class _$ThrowingComponentPropsAccessorsMixin

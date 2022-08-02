@@ -16,7 +16,6 @@ final $TestComponentFactory = registerComponent(
   componentClass: TestComponent,
   isWrapper: true,
   parentType: null,
-  displayName: 'Test',
 );
 
 abstract class _$TestPropsAccessorsMixin implements _$TestProps {

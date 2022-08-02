@@ -18,7 +18,6 @@ final $TransitionerComponentFactory = registerComponent2(
   componentClass: TransitionerComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'Transitioner',
 );
 
 _$$TransitionerProps _$Transitioner([Map backingProps]) => backingProps == null

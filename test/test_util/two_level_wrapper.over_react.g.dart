@@ -16,7 +16,6 @@ final $TwoLevelWrapperComponentFactory = registerComponent(
   componentClass: TwoLevelWrapperComponent,
   isWrapper: true,
   parentType: null,
-  displayName: 'TwoLevelWrapper',
 );
 
 abstract class _$TwoLevelWrapperPropsAccessorsMixin

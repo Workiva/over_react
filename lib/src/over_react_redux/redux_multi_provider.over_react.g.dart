@@ -16,7 +16,6 @@ final $ReduxMultiProviderComponentFactory = registerComponent2(
   componentClass: ReduxMultiProviderComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'ReduxMultiProvider',
 );
 
 abstract class _$ReduxMultiProviderPropsAccessorsMixin

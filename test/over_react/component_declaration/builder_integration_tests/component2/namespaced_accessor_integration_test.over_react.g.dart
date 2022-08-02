@@ -16,7 +16,6 @@ final $NamespacedAccessorTestComponentFactory = registerComponent2(
   componentClass: NamespacedAccessorTestComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'NamespacedAccessorTest',
 );
 
 abstract class _$NamespacedAccessorTestPropsAccessorsMixin

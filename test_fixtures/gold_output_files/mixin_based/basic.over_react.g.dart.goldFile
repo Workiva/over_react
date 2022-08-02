@@ -18,7 +18,6 @@ final $BasicComponentFactory = registerComponent2(
   componentClass: BasicComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'Basic',
 );
 
 _$$BasicProps _$Basic([Map backingProps]) => backingProps == null

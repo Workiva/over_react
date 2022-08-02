@@ -18,7 +18,6 @@ final $CounterComponentFactory = registerComponent2(
   componentClass: CounterComponent,
   isWrapper: false,
   parentType: null,
-  displayName: '_Counter',
 );
 
 _$$CounterProps _$_Counter([Map backingProps]) => backingProps == null

@@ -16,7 +16,6 @@ final $FluxCounterComponentFactory = registerComponent2(
   componentClass: FluxCounterComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'FluxCounter',
 );
 
 abstract class _$FluxCounterPropsAccessorsMixin implements _$FluxCounterProps {

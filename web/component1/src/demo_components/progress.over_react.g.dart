@@ -16,7 +16,6 @@ final $ProgressComponentFactory = registerComponent(
   componentClass: ProgressComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'Progress',
 );
 
 abstract class _$ProgressPropsAccessorsMixin implements _$ProgressProps {

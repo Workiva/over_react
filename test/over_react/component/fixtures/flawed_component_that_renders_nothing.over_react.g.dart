@@ -16,7 +16,6 @@ final $FlawedWithNoChildComponentFactory = registerComponent2(
   componentClass: FlawedWithNoChildComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'FlawedWithNoChild',
 );
 
 abstract class _$FlawedWithNoChildPropsAccessorsMixin

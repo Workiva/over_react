@@ -16,7 +16,6 @@ final $OneLevelWrapper2ComponentFactory = registerComponent2(
   componentClass: OneLevelWrapper2Component,
   isWrapper: true,
   parentType: null,
-  displayName: 'OneLevelWrapper2',
 );
 
 abstract class _$OneLevelWrapper2PropsAccessorsMixin

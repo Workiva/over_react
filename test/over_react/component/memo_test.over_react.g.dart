@@ -16,7 +16,6 @@ final $BasicUiComponent2ComponentFactory = registerComponent2(
   componentClass: BasicUiComponent2Component,
   isWrapper: false,
   parentType: null,
-  displayName: 'BasicUiComponent2',
 );
 
 abstract class _$BasicUiComponent2PropsAccessorsMixin

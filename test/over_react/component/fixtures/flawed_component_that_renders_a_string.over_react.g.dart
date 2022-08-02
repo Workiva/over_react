@@ -16,7 +16,6 @@ final $FlawedWithStringChildComponentFactory = registerComponent2(
   componentClass: FlawedWithStringChildComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'FlawedWithStringChild',
 );
 
 abstract class _$FlawedWithStringChildPropsAccessorsMixin

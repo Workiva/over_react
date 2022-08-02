@@ -16,7 +16,6 @@ final $TestDefaultComponentFactory = registerComponent(
   componentClass: TestDefaultComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'TestDefault',
 );
 
 abstract class _$TestDefaultPropsAccessorsMixin implements _$TestDefaultProps {
@@ -106,7 +105,6 @@ final $TestConnectComponentFactory = registerComponent(
   componentClass: TestConnectComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'TestConnect',
 );
 
 abstract class _$TestConnectPropsAccessorsMixin implements _$TestConnectProps {
@@ -196,7 +194,6 @@ final $TestPureComponentFactory = registerComponent(
   componentClass: TestPureComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'TestPure',
 );
 
 abstract class _$TestPurePropsAccessorsMixin implements _$TestPureProps {

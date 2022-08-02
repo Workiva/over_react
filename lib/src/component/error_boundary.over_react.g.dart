@@ -18,7 +18,6 @@ final $ErrorBoundaryComponentFactory = registerComponent2(
   componentClass: ErrorBoundaryComponent,
   isWrapper: true,
   parentType: null,
-  displayName: 'ErrorBoundary',
   skipMethods: const [],
 );
 

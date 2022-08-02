@@ -18,9 +18,8 @@ final $DoNotReferenceThisFactoryExceptForInASingleTestComponentnFactory =
   builderFactory: _$DoNotReferenceThisFactoryExceptForInASingleTest,
   componentClass: DoNotReferenceThisFactoryExceptForInASingleTestComponentn,
   isWrapper: false,
-  parentType: $TestAbstract2ComponentFactory,
-  /* from `subtypeOf: TestAbstract2Component` */
-  displayName: 'DoNotReferenceThisFactoryExceptForInASingleTest',
+  parentType:
+      $TestAbstract2ComponentFactory, /* from `subtypeOf: TestAbstract2Component` */
 );
 
 _$$DoNotReferenceThisFactoryExceptForInASingleTestProps

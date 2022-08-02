@@ -16,7 +16,6 @@ final $_Dummy2ComponentFactory = registerComponent2(
   componentClass: _Dummy2Component,
   isWrapper: false,
   parentType: null,
-  displayName: '_Dummy2',
 );
 
 abstract class _$_Dummy2PropsAccessorsMixin implements _$_Dummy2Props {

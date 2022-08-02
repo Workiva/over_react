@@ -16,7 +16,6 @@ final $ComponentTestComponentFactory = registerComponent2(
   componentClass: ComponentTestComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'ComponentTest',
 );
 
 abstract class _$ComponentTestPropsAccessorsMixin
@@ -304,7 +303,6 @@ final $IsErrorBoundaryComponentFactory = registerComponent2(
   componentClass: IsErrorBoundaryComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'IsErrorBoundary',
   skipMethods: const [],
 );
 
@@ -453,7 +451,6 @@ final $IsNotErrorBoundaryComponentFactory = registerComponent2(
   componentClass: IsNotErrorBoundaryComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'IsNotErrorBoundary',
 );
 
 abstract class _$IsNotErrorBoundaryPropsAccessorsMixin

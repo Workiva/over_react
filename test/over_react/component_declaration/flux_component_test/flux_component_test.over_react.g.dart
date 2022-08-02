@@ -16,7 +16,6 @@ final $TestBasicComponentFactory = registerComponent(
   componentClass: TestBasicComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'TestBasic',
 );
 
 abstract class _$TestBasicPropsAccessorsMixin implements _$TestBasicProps {
@@ -106,7 +105,6 @@ final $TestHandlerLifecycleComponentFactory = registerComponent(
   componentClass: TestHandlerLifecycleComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'TestHandlerLifecycle',
 );
 
 abstract class _$TestHandlerLifecyclePropsAccessorsMixin
@@ -197,7 +195,6 @@ final $TestHandlerPrecedenceComponentFactory = registerComponent(
   componentClass: TestHandlerPrecedenceComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'TestHandlerPrecedence',
 );
 
 abstract class _$TestHandlerPrecedencePropsAccessorsMixin
@@ -288,7 +285,6 @@ final $TestPropValidationComponentFactory = registerComponent(
   componentClass: TestPropValidationComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'TestPropValidation',
 );
 
 abstract class _$TestPropValidationPropsAccessorsMixin
@@ -399,7 +395,6 @@ final $TestRedrawOnComponentFactory = registerComponent(
   componentClass: TestRedrawOnComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'TestRedrawOn',
 );
 
 abstract class _$TestRedrawOnPropsAccessorsMixin
@@ -490,7 +485,6 @@ final $TestStoreHandlersComponentFactory = registerComponent(
   componentClass: TestStoreHandlersComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'TestStoreHandlers',
 );
 
 abstract class _$TestStoreHandlersPropsAccessorsMixin
@@ -581,7 +575,6 @@ final $TestStatefulBasicComponentFactory = registerComponent(
   componentClass: TestStatefulBasicComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'TestStatefulBasic',
 );
 
 abstract class _$TestStatefulBasicPropsAccessorsMixin
@@ -719,7 +712,6 @@ final $TestStatefulHandlerLifecycleComponentFactory = registerComponent(
   componentClass: TestStatefulHandlerLifecycleComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'TestStatefulHandlerLifecycle',
 );
 
 abstract class _$TestStatefulHandlerLifecyclePropsAccessorsMixin
@@ -863,7 +855,6 @@ final $TestStatefulHandlerPrecedenceComponentFactory = registerComponent(
   componentClass: TestStatefulHandlerPrecedenceComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'TestStatefulHandlerPrecedence',
 );
 
 abstract class _$TestStatefulHandlerPrecedencePropsAccessorsMixin
@@ -1007,7 +998,6 @@ final $TestStatefulPropValidationComponentFactory = registerComponent(
   componentClass: TestStatefulPropValidationComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'TestStatefulPropValidation',
 );
 
 abstract class _$TestStatefulPropValidationPropsAccessorsMixin
@@ -1173,7 +1163,6 @@ final $TestStatefulRedrawOnComponentFactory = registerComponent(
   componentClass: TestStatefulRedrawOnComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'TestStatefulRedrawOn',
 );
 
 abstract class _$TestStatefulRedrawOnPropsAccessorsMixin
@@ -1311,7 +1300,6 @@ final $TestStatefulStoreHandlersComponentFactory = registerComponent(
   componentClass: TestStatefulStoreHandlersComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'TestStatefulStoreHandlers',
 );
 
 abstract class _$TestStatefulStoreHandlersPropsAccessorsMixin

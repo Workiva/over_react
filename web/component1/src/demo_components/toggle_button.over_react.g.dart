@@ -15,9 +15,7 @@ final $ToggleButtonComponentFactory = registerComponent(
   builderFactory: _$ToggleButton,
   componentClass: ToggleButtonComponent,
   isWrapper: false,
-  parentType: $ButtonComponentFactory,
-  /* from `subtypeOf: ButtonComponent` */
-  displayName: 'ToggleButton',
+  parentType: $ButtonComponentFactory, /* from `subtypeOf: ButtonComponent` */
 );
 
 abstract class _$ToggleButtonPropsAccessorsMixin

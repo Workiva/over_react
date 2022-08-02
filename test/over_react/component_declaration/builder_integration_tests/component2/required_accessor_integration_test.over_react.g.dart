@@ -16,7 +16,6 @@ final $ComponentTestComponentFactory = registerComponent2(
   componentClass: ComponentTestComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'ComponentTest',
 );
 
 abstract class _$ComponentTestPropsAccessorsMixin

@@ -16,7 +16,6 @@ final $ButtonComponentFactory = registerComponent(
   componentClass: ButtonComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'Button',
 );
 
 abstract class _$ButtonPropsAccessorsMixin implements _$ButtonProps {

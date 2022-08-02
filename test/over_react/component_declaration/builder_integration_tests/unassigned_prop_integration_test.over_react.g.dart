@@ -16,7 +16,6 @@ final $FooComponentFactory = registerComponent(
   componentClass: FooComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'Foo',
 );
 
 abstract class _$FooPropsAccessorsMixin implements _$FooProps {

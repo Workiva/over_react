@@ -18,7 +18,6 @@ final $RecoverableErrorBoundaryComponentFactory = registerComponent2(
   componentClass: RecoverableErrorBoundaryComponent,
   isWrapper: true,
   parentType: null,
-  displayName: 'RecoverableErrorBoundary',
   skipMethods: const [],
 );
 

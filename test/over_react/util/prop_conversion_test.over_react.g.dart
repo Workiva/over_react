@@ -18,7 +18,6 @@ final $ClassComponentComponentFactory = registerComponent2(
   componentClass: ClassComponentComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'ClassComponent',
 );
 
 _$$ClassComponentProps _$ClassComponent([Map backingProps]) =>

@@ -16,7 +16,6 @@ final $TestBComponentFactory = registerComponent(
   componentClass: TestBComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'TestB',
 );
 
 abstract class _$TestBPropsAccessorsMixin implements _$TestBProps {

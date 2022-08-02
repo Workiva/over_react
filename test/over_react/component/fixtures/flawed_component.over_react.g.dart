@@ -16,7 +16,6 @@ final $FlawedComponentFactory = registerComponent2(
   componentClass: FlawedComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'Flawed',
 );
 
 abstract class _$FlawedPropsAccessorsMixin implements _$FlawedProps {

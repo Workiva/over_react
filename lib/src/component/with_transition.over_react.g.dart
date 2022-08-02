@@ -18,7 +18,6 @@ final $WithTransitionComponentFactory = registerComponent2(
   componentClass: WithTransitionComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'WithTransition',
 );
 
 _$$WithTransitionProps _$WithTransition([Map backingProps]) =>

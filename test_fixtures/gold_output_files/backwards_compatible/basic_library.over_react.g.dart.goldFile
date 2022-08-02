@@ -16,7 +16,6 @@ final $BasicPartOfLibComponentFactory = registerComponent(
   componentClass: BasicPartOfLibComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'BasicPartOfLib',
 );
 
 abstract class _$BasicPartOfLibPropsAccessorsMixin
@@ -262,7 +261,6 @@ final $SubPartOfLibComponentFactory = registerComponent(
   componentClass: SubPartOfLibComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'SubPartOfLib',
 );
 
 abstract class _$SubPartOfLibPropsAccessorsMixin

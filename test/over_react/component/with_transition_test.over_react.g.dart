@@ -18,7 +18,6 @@ final $WithTransitionTesterComponentFactory = registerComponent2(
   componentClass: WithTransitionTesterComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'WithTransitionTester',
 );
 
 _$$WithTransitionTesterProps _$WithTransitionTester([Map backingProps]) =>

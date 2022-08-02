@@ -16,7 +16,6 @@ final $Basic2ComponentFactory = registerComponent2(
   componentClass: Basic2Component,
   isWrapper: false,
   parentType: null,
-  displayName: 'Basic',
 );
 
 abstract class _$BasicPropsAccessorsMixin implements _$BasicProps {

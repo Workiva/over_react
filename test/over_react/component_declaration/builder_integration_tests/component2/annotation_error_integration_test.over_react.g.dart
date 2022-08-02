@@ -16,7 +16,6 @@ final $AnnotationErrorDefaultPropsComponentFactory = registerComponent(
   componentClass: AnnotationErrorDefaultPropsComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'AnnotationErrorDefaultProps',
 );
 
 abstract class _$AnnotationErrorDefaultPropsPropsAccessorsMixin
@@ -111,7 +110,6 @@ final $AnnotationErrorComponentFactory = registerComponent(
   componentClass: AnnotationErrorComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'AnnotationError',
 );
 
 abstract class _$AnnotationErrorPropsAccessorsMixin
@@ -202,7 +200,6 @@ final $AnnotationErrorStatefulComponentFactory = registerComponent(
   componentClass: AnnotationErrorStatefulComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'AnnotationErrorStateful',
 );
 
 abstract class _$AnnotationErrorStatefulPropsAccessorsMixin
@@ -341,7 +338,6 @@ final $AnnotationErrorStatefulDefaultPropsComponentFactory = registerComponent(
   componentClass: AnnotationErrorStatefulDefaultPropsComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'AnnotationErrorStatefulDefaultProps',
 );
 
 abstract class _$AnnotationErrorStatefulDefaultPropsPropsAccessorsMixin

@@ -18,7 +18,6 @@ final $TestComponent2ComponentFactory = registerComponent2(
   componentClass: TestComponent2Component,
   isWrapper: false,
   parentType: null,
-  displayName: 'TestComponent2',
 );
 
 _$$TestComponent2Props _$TestComponent2([Map backingProps]) =>
@@ -165,7 +164,6 @@ final $TestComponentComponentFactory = registerComponent(
   componentClass: TestComponentComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'TestComponent',
 );
 
 abstract class _$TestComponentPropsAccessorsMixin

@@ -15,9 +15,8 @@ final $ToggleButtonGroupComponentFactory = registerComponent(
   builderFactory: _$ToggleButtonGroup,
   componentClass: ToggleButtonGroupComponent,
   isWrapper: false,
-  parentType: $ButtonGroupComponentFactory,
-  /* from `subtypeOf: ButtonGroupComponent` */
-  displayName: 'ToggleButtonGroup',
+  parentType:
+      $ButtonGroupComponentFactory, /* from `subtypeOf: ButtonGroupComponent` */
 );
 
 abstract class _$ToggleButtonGroupPropsAccessorsMixin

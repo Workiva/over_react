@@ -16,7 +16,6 @@ final $StatefulComponentTestComponentFactory = registerComponent2(
   componentClass: StatefulComponentTestComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'StatefulComponentTest',
 );
 
 abstract class _$StatefulComponentTestPropsAccessorsMixin

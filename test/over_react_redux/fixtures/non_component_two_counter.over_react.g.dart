@@ -16,7 +16,6 @@ final $NonComponentTwoCounterComponentFactory = registerComponent(
   componentClass: NonComponentTwoCounterComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'NonComponentTwoCounter',
 );
 
 abstract class _$NonComponentTwoCounterPropsAccessorsMixin

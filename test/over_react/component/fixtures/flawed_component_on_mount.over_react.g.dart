@@ -16,7 +16,6 @@ final $FlawedOnMountComponentFactory = registerComponent2(
   componentClass: FlawedOnMountComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'FlawedOnMount',
 );
 
 abstract class _$FlawedOnMountPropsAccessorsMixin

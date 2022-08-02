@@ -162,7 +162,6 @@ final $TestConsumingAbstractCustomRendererComponentComponentFactory =
   componentClass: TestConsumingAbstractCustomRendererComponentComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'TestConsumingAbstractCustomRendererComponent',
 );
 
 abstract class _$TestConsumingAbstractCustomRendererComponentPropsAccessorsMixin
@@ -375,7 +374,6 @@ final $TestConsumingCustomRendererComponentComponentFactory =
   componentClass: TestConsumingCustomRendererComponentComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'TestConsumingCustomRendererComponent',
 );
 
 abstract class _$TestConsumingCustomRendererComponentPropsAccessorsMixin
@@ -579,7 +577,6 @@ final $TestCustomRendererFromAbstractComponentComponentFactory =
   componentClass: TestCustomRendererFromAbstractComponentComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'TestCustomRendererFromAbstractComponent',
 );
 
 abstract class _$TestCustomRendererFromAbstractComponentPropsAccessorsMixin
@@ -873,7 +870,6 @@ final $TestCustomRendererComponentComponentFactory = registerComponent2(
   componentClass: TestCustomRendererComponentComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'TestCustomRendererComponent',
 );
 
 abstract class _$TestCustomRendererComponentPropsAccessorsMixin

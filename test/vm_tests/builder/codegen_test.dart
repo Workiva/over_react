@@ -313,7 +313,6 @@ main() {
                     '  componentClass: ${baseName}Component,\n'
                     '  isWrapper: false,\n'
                     '  parentType: null,\n'
-                    '  displayName: \'$baseName\',\n'
                   ');\n'));
               });
             }

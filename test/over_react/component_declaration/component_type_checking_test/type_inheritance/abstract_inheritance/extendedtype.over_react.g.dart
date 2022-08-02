@@ -15,9 +15,8 @@ final $TestExtendtypeComponentFactory = registerComponent(
   builderFactory: _$TestExtendtype,
   componentClass: TestExtendtypeComponent,
   isWrapper: false,
-  parentType: $TestAbstractComponentFactory,
-  /* from `subtypeOf: TestAbstractComponent` */
-  displayName: 'TestExtendtype',
+  parentType:
+      $TestAbstractComponentFactory, /* from `subtypeOf: TestAbstractComponent` */
 );
 
 abstract class _$TestExtendtypePropsAccessorsMixin

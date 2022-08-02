@@ -16,7 +16,6 @@ final $TestParent2ComponentFactory = registerComponent2(
   componentClass: TestParent2Component,
   isWrapper: false,
   parentType: null,
-  displayName: 'TestParent2',
 );
 
 abstract class _$TestParent2PropsAccessorsMixin implements _$TestParent2Props {

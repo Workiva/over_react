@@ -16,7 +16,6 @@ final $ResizeSensorComponentFactory = registerComponent2(
   componentClass: ResizeSensorComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'ResizeSensor',
 );
 
 @Deprecated(

@@ -16,7 +16,6 @@ final $ContextProviderWrapperComponentFactory = registerComponent2(
   componentClass: ContextProviderWrapperComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'ContextProviderWrapper',
 );
 
 abstract class _$ContextProviderWrapperPropsAccessorsMixin

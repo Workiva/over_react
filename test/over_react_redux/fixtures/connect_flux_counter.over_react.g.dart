@@ -16,7 +16,6 @@ final $ConnectFluxCounterComponentFactory = registerComponent2(
   componentClass: ConnectFluxCounterComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'ConnectFluxCounter',
 );
 
 abstract class _$ConnectFluxCounterPropsAccessorsMixin

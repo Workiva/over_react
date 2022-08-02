@@ -51,7 +51,7 @@ ReactDartComponentFactoryProxy2 registerAbstractComponent2(Type abstractComponen
 /// * [builderFactory]/[componentClass]: the [UiFactory] and [UiComponent2] members to be potentially
 /// used as types for [isComponentOfType]/`getComponentFactory`.
 ///
-/// * [displayName]: the name of the component for use when debugging.
+/// * [displayName]: (DEPRECATED) the name of the component for use when debugging.
 ReactDartComponentFactoryProxy2 registerComponent2(react.Component2 Function() dartComponentFactory, {
     bool isWrapper = false,
     // This must remain typed in a way that both UiComponent and UiComponent2 classes can be passed as the `subtypeOf` value.
@@ -59,6 +59,7 @@ ReactDartComponentFactoryProxy2 registerComponent2(react.Component2 Function() d
     ReactDartComponentFactoryProxy parentType,
     UiFactory builderFactory,
     Type componentClass,
+    @Deprecated('The display name is now set automatically and setting this does nothing')
     String displayName,
     Iterable<String> skipMethods = const ['getDerivedStateFromError', 'componentDidCatch'],
 }) {

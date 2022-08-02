@@ -16,7 +16,6 @@ final $ListGroupItemComponentFactory = registerComponent(
   componentClass: ListGroupItemComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'ListGroupItem',
 );
 
 abstract class _$ListGroupItemPropsAccessorsMixin

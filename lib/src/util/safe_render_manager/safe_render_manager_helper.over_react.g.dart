@@ -18,7 +18,6 @@ final $SafeRenderManagerHelperComponentFactory = registerComponent2(
   componentClass: SafeRenderManagerHelperComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'SafeRenderManagerHelper',
 );
 
 _$$SafeRenderManagerHelperProps _$SafeRenderManagerHelper([Map backingProps]) =>

@@ -18,7 +18,6 @@ final $ResizeSensorComponentFactory = registerComponent2(
   componentClass: ResizeSensorComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'ResizeSensor',
 );
 
 _$$ResizeSensorProps _$ResizeSensor([Map backingProps]) => backingProps == null
