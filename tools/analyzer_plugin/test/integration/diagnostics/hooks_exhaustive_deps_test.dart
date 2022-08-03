@@ -113,6 +113,7 @@ class SomeObject {
 void useLayoutEffect_SAFE_FOR_SSR(dynamic Function() callback, [List<dynamic> dependencies]) {}
 Future<dynamic> fetchDataFuture;
 dynamic useCustomHook() => null;
+void externalCall(dynamic arg) {}
 ''';
 
     String wrapInFunction(String code) => 'void __testCaseWrapperFunction() {\n\n$code\n\n}';
