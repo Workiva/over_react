@@ -357,7 +357,9 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
     bool isDeclaredInPureScope(Element element) =>
         // todo(greg) is this function even valid when this is null?
         componentOrCustomHookFunctionElement != null &&
-        element.thisOrAncestorOfType<ExecutableElement>() == componentOrCustomHookFunctionElement;
+        // Don't use thisOrAncestorOfType with since `element` may itself be an ExecutableElement (e.g., local functions).
+        // FIXME(greg) audit existing usages of thisOrAncestor* for similar bugs
+        element.ancestorOfType<ExecutableElement>() == componentOrCustomHookFunctionElement;
 
     // uiFunction((props), {
     //   // Pure scope 2
@@ -1966,6 +1968,18 @@ extension on Element {
       yield* enclosingElement.ancestors;
     }
   }
+
+  /// Returns the most immediate ancestor of this element
+  /// that has the given type, or `null` if there is no such element.
+  // ignore: unused_element
+  E? ancestorOfType<E extends Element>() => enclosingElement?.thisOrAncestorOfType<E>();
+
+  /// Returns the most immediate ancestor of this element
+  /// for which the [predicate] returns `true`, or `null` if there is no such
+  /// element.
+  // ignore: unused_element
+  E? ancestorMatching<E extends Element>(bool Function(Element) predicate) =>
+      enclosingElement?.thisOrAncestorMatching(predicate);
 }
 
 extension<E> on List<E> {
