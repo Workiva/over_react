@@ -20,10 +20,10 @@ import 'package:over_react/src/component/error_boundary_api.dart';
 import 'package:over_react_test/over_react_test.dart';
 import 'package:test/test.dart';
 
-import './fixtures/flawed_component.dart';
-import './fixtures/flawed_component_on_mount.dart';
-import './fixtures/flawed_component_that_renders_a_string.dart';
-import './fixtures/flawed_component_that_renders_nothing.dart';
+import '../fixtures/flawed_component.dart';
+import '../fixtures/flawed_component_on_mount.dart';
+import '../fixtures/flawed_component_that_renders_a_string.dart';
+import '../fixtures/flawed_component_that_renders_nothing.dart';
 
 /// [isWrapper] identifies an ErrorBoundary that wraps another Error Boundary in order to handle
 /// render cycle "unrecoverable" errors.

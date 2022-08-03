@@ -16,7 +16,6 @@ final $ContextProviderWrapperComponentFactory = registerComponent2(
   componentClass: ContextProviderWrapperComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'ContextProviderWrapper',
 );
 
 abstract class _$ContextProviderWrapperPropsAccessorsMixin
@@ -267,6 +266,9 @@ class _$ContextProviderWrapperComponent
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'ContextProviderWrapper';
 
   /// The default consumed props, taken from _$ContextProviderWrapperProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.

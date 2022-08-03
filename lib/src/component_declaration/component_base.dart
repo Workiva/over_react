@@ -48,7 +48,7 @@ export 'component_type_checking.dart' show isComponentOfType, isValidElementOfTy
 /// * [builderFactory]/[componentClass]: the [UiFactory] and [UiComponent] members to be potentially
 /// used as types for [isComponentOfType]/`getComponentFactory`.
 ///
-/// * [displayName]: the name of the component for use when debugging.
+/// * [displayName]: (DEPRECATED) the name of the component for use when debugging.
 ///
 /// __Deprecated.__ Use `registerComponent2` instead.
 @Deprecated('4.0.0')
@@ -58,14 +58,11 @@ ReactDartComponentFactoryProxy registerComponent(react.Component Function() dart
     ReactDartComponentFactoryProxy parentType,
     UiFactory builderFactory,
     Type componentClass,
+    @Deprecated('The display name is now set automatically and setting this does nothing')
     String displayName,
 }) {
   // ignore: deprecated_member_use
   final reactComponentFactory = react.registerComponent(dartComponentFactory) as ReactDartComponentFactoryProxy;
-
-  if (displayName != null) {
-    reactComponentFactory.reactClass.displayName = displayName;
-  }
 
   registerComponentTypeAlias(reactComponentFactory, builderFactory);
   registerComponentTypeAlias(reactComponentFactory, componentClass);

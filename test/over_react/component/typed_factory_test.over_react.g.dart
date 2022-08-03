@@ -16,7 +16,6 @@ final $TypedFactoryTesterComponentFactory = registerComponent2(
   componentClass: TypedFactoryTesterComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'TypedFactoryTester',
 );
 
 abstract class _$TypedFactoryTesterPropsAccessorsMixin
@@ -276,6 +275,9 @@ class _$TypedFactoryTesterComponent extends TypedFactoryTesterComponent {
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'TypedFactoryTester';
 
   /// The default consumed props, taken from _$TypedFactoryTesterProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.

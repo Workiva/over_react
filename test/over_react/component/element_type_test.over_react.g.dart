@@ -18,7 +18,6 @@ final $CustomTestComponentFactory = registerComponent2(
   componentClass: CustomTestComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'CustomTest',
 );
 
 _$$CustomTestProps _$CustomTest([Map backingProps]) => backingProps == null
@@ -139,6 +138,9 @@ class _$CustomTestComponent extends CustomTestComponent {
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'CustomTest';
 
   /// The default consumed props, comprising all props mixins used by CustomTestProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.

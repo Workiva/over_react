@@ -18,7 +18,6 @@ final $ClassComponentComponentFactory = registerComponent2(
   componentClass: ClassComponentComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'ClassComponent',
 );
 
 _$$ClassComponentProps _$ClassComponent([Map backingProps]) =>
@@ -140,6 +139,9 @@ class _$ClassComponentComponent extends ClassComponentComponent {
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'ClassComponent';
 
   /// The default consumed props, comprising all props mixins used by ClassComponentProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.

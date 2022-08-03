@@ -1,4 +1,4 @@
-// Copyright 2019 Workiva Inc.
+// Copyright 2022 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,22 +12,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-@TestOn('browser')
-@Timeout(Duration(seconds: 2))
-library error_boundary_test;
+import 'dart:html';
 
-import 'package:over_react/components.dart';
-import 'package:over_react/src/component/error_boundary_recoverable.dart';
-import 'package:test/test.dart';
+import 'package:react/react_dom.dart' as react_dom;
 
-import 'shared_error_boundary_tests.dart';
+import 'error_ui.dart';
 
 void main() {
-  group('RecoverableErrorBoundary', () {
-    sharedErrorBoundaryTests(() => RecoverableErrorBoundary());
-  });
+  render() {
+    react_dom.render(ErrorUi()(), querySelector('#content'));
+  }
 
-  group('ErrorBoundary', () {
-    sharedErrorBoundaryTests(() => ErrorBoundary(), isWrapper: true);
-  });
+  render();
 }
