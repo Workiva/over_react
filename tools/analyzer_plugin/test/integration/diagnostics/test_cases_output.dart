@@ -3980,7 +3980,7 @@ final tests = {
             if (skillsCount.value == 0 && !props.isEditMode) {
               props.toggleEditMode();
             }
-          }, [skillsCount, props.isEditMode, props.toggleEditMode]);
+          }, [skillsCount.value, props.isEditMode, props.toggleEditMode]);
         }, null);
       ''',
       'errors': [
@@ -3990,7 +3990,7 @@ final tests = {
           'suggestions': [
             {
               'desc':
-                  'Update the dependencies list to be: [skillsCount, props.isEditMode, props.toggleEditMode, props]',
+                  'Update the dependencies list to be: [skillsCount.value, props.isEditMode, props.toggleEditMode, props]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
                   final skillsCount = useState<dynamic>(null);
@@ -3998,7 +3998,7 @@ final tests = {
                     if (skillsCount.value == 0 && !props.isEditMode) {
                       props.toggleEditMode();
                     }
-                  }, [skillsCount, props.isEditMode, props.toggleEditMode, props]);
+                  }, [skillsCount.value, props.isEditMode, props.toggleEditMode, props]);
                 }, null);
               ''',
             },
@@ -4020,10 +4020,10 @@ final tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has missing dependencies: \'props\' and \'skillsCount\'. Either include them or remove the dependency list. However, \'props\' will change when *any* prop changes, so the preferred fix is to destructure the \'props\' object outside of the useEffect call and refer to those specific props inside useEffect.',
+              'React Hook useEffect has missing dependencies: \'props\' and \'skillsCount.value\'. Either include them or remove the dependency list. However, \'props\' will change when *any* prop changes, so the preferred fix is to destructure the \'props\' object outside of the useEffect call and refer to those specific props inside useEffect.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies list to be: [props, skillsCount]',
+              'desc': 'Update the dependencies list to be: [props, skillsCount.value]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
                   final skillsCount = useState<dynamic>(null);
@@ -4031,7 +4031,7 @@ final tests = {
                     if (skillsCount.value == 0 && !props.isEditMode) {
                       props.toggleEditMode();
                     }
-                  }, [props, skillsCount]);
+                  }, [props, skillsCount.value]);
                 }, null);
               ''',
             },
