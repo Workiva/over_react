@@ -329,7 +329,7 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
       reportProblem(
         node: node,
         message: "Effect callbacks are synchronous to prevent race conditions. "
-            "Put the async inside:\n\n"
+            "Put the async function inside:\n\n"
             'useEffect(() {\n'
             '  fetchData() async {\n'
             '    // You can await here\n'
@@ -1356,8 +1356,8 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
       // useEffect(generateEffectBody(), []);
       reportProblem(
         node: reactiveHook,
-        message: "React Hook $reactiveHookName received a whose dependencies "
-            "are unknown. Pass an inline instead.",
+        message: "React Hook $reactiveHookName received a function whose dependencies "
+            "are unknown. Pass an inline function instead.",
       );
       return; // Handled
     }
