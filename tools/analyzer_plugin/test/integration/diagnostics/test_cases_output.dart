@@ -6082,8 +6082,10 @@ final tests = {
       'code': r'''
         final Hello = uiFunction<TestProps>((_) {
           var state = useState(0);
+          // In JS, dependencies are optional. In Dart, they're required for only useCallback (this is likely an oversight).
+          // ignore: not_enough_positional_arguments
           useEffect(() {
-            state.set({});
+            state.set(1);
           });
         }, null);
       ''',
@@ -6098,7 +6100,7 @@ final tests = {
                 final Hello = uiFunction<TestProps>((_) {
                   var state = useState(0);
                   useEffect(() {
-                    state.set({});
+                    state.set(1);
                   }, []);
                 }, null);
               ''',
@@ -6138,10 +6140,12 @@ final tests = {
     },
     {
       'code': r'''
+        Function fetchData;
         final Hello = uiFunction<TestProps>((props) {
           var country = props.country;
-
           var data = useState(0);
+          // In JS, dependencies are optional. In Dart, they're required for only useCallback (this is likely an oversight).
+          // ignore: not_enough_positional_arguments
           useEffect(() {
             fetchData(country).then(data.set);
           });
@@ -6216,20 +6220,19 @@ final tests = {
       ''',
       'errors': [
         {
-          'message': r'''
-            Effect callbacks are synchronous to prevent race conditions. Put the async function inside:
-
-            useEffect(() => {
-              async function fetchData() {
-                // You can await here
-                const response = await MyAPI.getData(someId);
-                // ...
-              }
-              fetchData();
-            }, [someId]); // Or [] if effect doesn't need props or state
-
-            Learn more about data fetching with Hooks: https://reactjs.org/link/hooks-data-fetching
-          ''',
+          'message': ""
+              "Effect callbacks are synchronous to prevent race conditions. Put the async function inside:\n"
+              "\n"
+              "useEffect(() {\n"
+              "  fetchData() async {\n"
+              "    // You can await here\n"
+              "    final response = await myAPI.getData(someId);\n"
+              "    // ...\n"
+              "  }\n"
+              "  fetchData();\n"
+              "}, [someId]); // Or [] if effect doesn't need props or state\n"
+              "\n"
+              "Learn more about data fetching with Hooks: https://reactjs.org/link/hooks-data-fetching",
           'suggestions': null,
         },
       ],
@@ -6242,20 +6245,19 @@ final tests = {
       ''',
       'errors': [
         {
-          'message': r'''
-            Effect callbacks are synchronous to prevent race conditions. Put the async function inside:
-
-            useEffect(() => {
-              async function fetchData() {
-                // You can await here
-                const response = await MyAPI.getData(someId);
-                // ...
-              }
-              fetchData();
-            }, [someId]); // Or [] if effect doesn't need props or state
-
-            Learn more about data fetching with Hooks: https://reactjs.org/link/hooks-data-fetching
-          ''',
+          'message': ""
+              "Effect callbacks are synchronous to prevent race conditions. Put the async function inside:\n"
+              "\n"
+              "useEffect(() {\n"
+              "  fetchData() async {\n"
+              "    // You can await here\n"
+              "    final response = await myAPI.getData(someId);\n"
+              "    // ...\n"
+              "  }\n"
+              "  fetchData();\n"
+              "}, [someId]); // Or [] if effect doesn't need props or state\n"
+              "\n"
+              "Learn more about data fetching with Hooks: https://reactjs.org/link/hooks-data-fetching",
           'suggestions': null,
         },
       ],
