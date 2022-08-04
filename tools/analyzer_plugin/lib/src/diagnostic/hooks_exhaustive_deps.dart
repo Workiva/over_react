@@ -37,6 +37,8 @@ import 'package:over_react_analyzer_plugin/src/util/function_components.dart';
 import 'package:over_react_analyzer_plugin/src/util/util.dart';
 import 'package:over_react_analyzer_plugin/src/util/react_types.dart';
 
+// ignore_for_file: avoid_function_literals_in_foreach_calls
+
 // API reference for JS reference/scope APIs:
 // https://eslint.org/docs/developer-guide/scope-manager-interface
 
@@ -175,6 +177,7 @@ class _RefInEffectCleanup {
       });
 }
 
+// FIXME(greg) unit test these functions
 FunctionExpression? lookUpFunction(Element element, AstNode root) {
   final node = NodeLocator2(element.nameOffset).searchWithin(root);
   if (node is Identifier && node.staticElement == element) {
@@ -186,10 +189,21 @@ FunctionExpression? lookUpFunction(Element element, AstNode root) {
   return null;
 }
 
+// FIXME(greg) make name clear about the cases it handles (variables, functions?, not parameters)
 Declaration? lookUpDeclaration(Element element, AstNode root) {
   // if (element is ExecutableElement) return null;
   final node = NodeLocator2(element.nameOffset).searchWithin(root);
   final declaration = node?.thisOrAncestorOfType<Declaration>();
+  if (declaration?.declaredElement == element) {
+    return declaration;
+  }
+
+  return null;
+}
+
+FormalParameter? lookUpParameter(Element element, AstNode root) {
+  final node = NodeLocator2(element.nameOffset).searchWithin(root);
+  final declaration = node?.thisOrAncestorOfType<FormalParameter>();
   if (declaration?.declaredElement == element) {
     return declaration;
   }
@@ -1097,40 +1111,52 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
     if (extraWarning == null && missingDependencies.isNotEmpty) {
       // See if the user is trying to avoid specifying a callable prop.
       // This usually means they're unaware of useCallback.
-      String? missingCallbackDep;
-      // FIXME make dependencies use identifiers and not just strings so we can resolve them
-      // ignore_for_file: avoid_function_literals_in_foreach_calls
-      // missingDependencies.forEach((missingDep) {
-      //   if (missingCallbackDep != null) {
-      //     return;
-      //   }
-      //   // Is this a variable from top scope?
-      //   final topScopeRef = componentScope.set.get(missingDep);
-      //   final usedDep = dependencies[missingDep];
-      //   if (usedDep.references[0].resolved != topScopeRef) {
-      //     return;
-      //   }
-      //   // Is this a destructured prop?
-      //   final def = topScopeRef.defs[0];
-      //   if (def == null || def.name == null || def.type != 'Parameter') {
-      //     return;
-      //   }
-      //   // Was it called in at least one case? Then it's a function.
-      //   var isFunctionCall = false;
-      //   for (final id in usedDep.references) {
-      //     if (id?.parent?.tryCast<InvocationExpression>()?.function == id) {
-      //       isFunctionCall = true;
-      //       break;
-      //     }
-      //   }
-      //   if (!isFunctionCall) {
-      //     return;
-      //   }
-      //   // If it's missing (i.e. in component scope) *and* it's a parameter
-      //   // then it is definitely coming from props destructuring.
-      //   // (It could also be props itself but we wouldn't be calling it then.)
-      //   missingCallbackDep = missingDep;
-      // });
+      final missingCallbackDep = missingDependencies.firstWhereOrNull((missingDep) {
+        // Is this a variable from top scope?
+        // FIXME(greg) can we reuse logic from scanForConstructions here?
+        final usedDep = dependencies[missingDep];
+        if (usedDep == null) return false;
+        final reference = usedDep.references.first;
+        final usedDepElement = reference.staticElement;
+        if (usedDepElement == null) return false;
+        if (usedDepElement.enclosingElement != componentOrCustomHookFunctionElement) {
+          return false;
+        }
+        final variable = lookUpVariable(usedDepElement, node.root);
+        if (variable == null) return false;
+
+        // Is this a prop assigned to a variable?
+        // FIXME(greg) can we reuse logic from non_defaulted_prop here?
+        final initializer = variable.initializer;
+        if (initializer == null) return false;
+        final initializerTargetElement = getSimpleTargetAndPropertyName(initializer)?.item1.staticElement;
+        bool isProps(Element e) {
+          // FIXME(greg) make this way better
+          return e.name == 'props' &&
+              e.enclosingElement == componentOrCustomHookFunctionElement &&
+              lookUpParameter(e, node.root)?.parent == componentOrCustomHookFunction?.parameters;
+        }
+
+        if (initializerTargetElement == null || !isProps(initializerTargetElement)) {
+          return false;
+        }
+
+        // Was it called in at least one case? Then it's a function.
+        final isFunctionCall = usedDep.references.any((id) {
+          final parentInvocation = id.parent?.tryCast<InvocationExpression>();
+          if (parentInvocation == null) return false;
+
+          return parentInvocation.function == id ||
+              (parentInvocation is MethodInvocation &&
+                  parentInvocation.target == id &&
+                  parentInvocation.methodName.name == 'call');
+        });
+        if (!isFunctionCall) {
+          return false;
+        }
+
+        return true;
+      });
       if (missingCallbackDep != null) {
         extraWarning = " If '$missingCallbackDep' changes too often, "
             "find the parent component that defines it "
