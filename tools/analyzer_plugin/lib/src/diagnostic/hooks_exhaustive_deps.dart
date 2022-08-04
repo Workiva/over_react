@@ -906,7 +906,9 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
       final constructions = scanForConstructions(
         declaredDependencies: declaredDependencies,
         declaredDependenciesNode: declaredDependenciesNode,
+        callbackNode: node,
       );
+      debug('constructions: $constructions', node.offset);
       constructions.forEach((_construction) {
         final construction = _construction.declaration;
         final constructionName = _construction.declarationElement.name;
@@ -931,6 +933,7 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
 
         // Only handle the simple case of variable assignments.
         // Wrapping function declarations can mess up hoisting.
+        // FIXME(greg) change this since hoisting doesn't exist in Dart functions
         if (isUsedOutsideOfHook &&
             construction is VariableDeclaration &&
             // Objects may be mutated ater construction, which would make this
@@ -1630,6 +1633,7 @@ String? getConstructionExpressionType(Expression node) {
 List<_Construction> scanForConstructions({
   required Iterable<_DeclaredDependency> declaredDependencies,
   required AstNode declaredDependenciesNode,
+  required AstNode callbackNode,
 }) {
   final constructions = declaredDependencies.map<Tuple3<Declaration, Element, String>?>((dep) {
     // FIXME this should be equivalent, but need to figure out how chained properties work... I'm not sure how that would work with analyzePropertyChain being used with the existing code to look up identifiers
@@ -1673,21 +1677,15 @@ List<_Construction> scanForConstructions({
 
   bool isUsedOutsideOfHook(Declaration declaration, Element declarationElement) {
     for (final reference in findReferences(declarationElement, declaration.root)) {
-      // TODO better implementation of this
-      // Crude implementation of ignoring initializer
-      if (declaration.containsRangeOf(reference)) {
-        continue;
-      }
-
       final parent = reference.parent;
-      if (parent is AssignmentExpression && parent.leftHandSide == reference) {
-        return true;
-      }
-
-      // This reference is outside the Hook callback.
-      // It can only be legit if it's the deps array.
-      if (!declaredDependenciesNode.containsRangeOf(reference)) {
-        return true;
+      // TODO(greg) make sure there aren't edge cases here
+      if (parent is Declaration && parent.declaredElement == declarationElement) continue;
+      if (!callbackNode.containsRangeOf(reference)) {
+        // This reference is outside the Hook callback.
+        // It can only be legit if it's the deps array.
+        if (!declaredDependenciesNode.containsRangeOf(reference)) {
+          return true;
+        }
       }
     }
     return false;
@@ -1717,6 +1715,13 @@ class _Construction {
       required this.declarationElement,
       required this.depType,
       required this.isUsedOutsideOfHook});
+
+  @override
+  String toString() => prettyString({
+        'declaration': declaration,
+        'depType': depType,
+        'isUsedOutsideOfHook': isUsedOutsideOfHook,
+      });
 }
 
 abstract class _DepType {
