@@ -6671,6 +6671,7 @@ final tests = {
     {
       'code': r'''
         final Component = uiFunction<TestProps>((_) {
+          dynamic bar;
           final foo = bar ?? {};
           useMemo(() => foo, [foo]);
         }, null);
@@ -6687,6 +6688,8 @@ final tests = {
     {
       'code': r'''
         final Component = uiFunction<TestProps>((_) {
+          dynamic bar;
+          dynamic baz;
           final foo = bar ? baz ? {} : null : null;
           useMemo(() => foo, [foo]);
         }, null);
@@ -6968,7 +6971,7 @@ final testsFlow = {
       'errors': [
         {
           'message':
-              'The \'foo\' object makes the dependencies of useMemo Hook (at line 6) change on every render. Move it inside the useMemo callback. Alternatively, wrap the initialization of \'foo\' in its own useMemo() Hook.',
+              'The \'foo\' Map makes the dependencies of useMemo Hook (at line 6) change on every render. Move it inside the useMemo callback. Alternatively, wrap the initialization of \'foo\' in its own useMemo() Hook.',
           'suggestions': null,
         },
       ],
@@ -7336,7 +7339,7 @@ final testsTypescript = {
       'errors': [
         {
           'message':
-              'The \'foo\' object makes the dependencies of useMemo Hook (at line 6) change on every render. Move it inside the useMemo callback. Alternatively, wrap the initialization of \'foo\' in its own useMemo() Hook.',
+              'The \'foo\' Map makes the dependencies of useMemo Hook (at line 6) change on every render. Move it inside the useMemo callback. Alternatively, wrap the initialization of \'foo\' in its own useMemo() Hook.',
           'suggestions': null,
         },
       ],
