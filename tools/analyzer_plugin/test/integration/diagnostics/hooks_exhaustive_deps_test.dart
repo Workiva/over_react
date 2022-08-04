@@ -65,6 +65,7 @@ mixin TestProps on UiProps {
   var prop2;
   var section_components;
   int step;
+  var increment;
 }
 
 // Globals used by test cases
