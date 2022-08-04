@@ -6622,18 +6622,19 @@ final tests = {
     {
       'code': r'''
         final Component = uiFunction<TestProps>((_) {
-          dynamic foo;
+          final foo = {};
           useMemo(() => foo, [foo]);
         }, null);
       ''',
       'errors': [
         {
           'message':
-              'The \'foo\' object makes the dependencies of useMemo Hook (at line 4) change on every render. Move it inside the useMemo callback. Alternatively, wrap the initialization of \'foo\' in its own useMemo() Hook.',
+              'The \'foo\' Map makes the dependencies of useMemo Hook (at line 4) change on every render. Move it inside the useMemo callback. Alternatively, wrap the initialization of \'foo\' in its own useMemo() Hook.',
           'suggestions': null,
         },
       ],
     },
+    /* (2 cases previously here involving var/let were consolidated into a single case below) */
     {
       'code': r'''
         final Component = uiFunction<TestProps>((_) {
@@ -6644,56 +6645,13 @@ final tests = {
       'errors': [
         {
           'message':
-              'The \'foo\' list makes the dependencies of useMemo Hook (at line 4) change on every render. Move it inside the useMemo callback. Alternatively, wrap the initialization of \'foo\' in its own useMemo() Hook.',
+              'The \'foo\' List makes the dependencies of useMemo Hook (at line 4) change on every render. Move it inside the useMemo callback. Alternatively, wrap the initialization of \'foo\' in its own useMemo() Hook.',
           'suggestions': null,
         },
       ],
     },
-    {
-      'code': r'''
-        final Component = uiFunction<TestProps>((_) {
-          final foo = () {};
-          useMemo(() => foo, [foo]);
-        }, null);
-      ''',
-      'errors': [
-        {
-          'message':
-              'The \'foo\' function makes the dependencies of useMemo Hook (at line 4) change on every render. Move it inside the useMemo callback. Alternatively, wrap the definition of \'foo\' in its own useCallback() Hook.',
-          'suggestions': null,
-        },
-      ],
-    },
-    {
-      'code': r'''
-        final Component = uiFunction<TestProps>((_) {
-          final foo = bar(){};
-          useMemo(() => foo, [foo]);
-        }, null);
-      ''',
-      'errors': [
-        {
-          'message':
-              'The \'foo\' function makes the dependencies of useMemo Hook (at line 4) change on every render. Move it inside the useMemo callback. Alternatively, wrap the definition of \'foo\' in its own useCallback() Hook.',
-          'suggestions': null,
-        },
-      ],
-    },
-    {
-      'code': r'''
-        final Component = uiFunction<TestProps>((_) {
-          final foo = class {};
-          useMemo(() => foo, [foo]);
-        }, null);
-      ''',
-      'errors': [
-        {
-          'message':
-              'The \'foo\' class makes the dependencies of useMemo Hook (at line 4) change on every render. Move it inside the useMemo callback. Alternatively, wrap the initialization of \'foo\' in its own useMemo() Hook.',
-          'suggestions': null,
-        },
-      ],
-    },
+    /* (1 case previously here involving named functions was removed, since there is no equivalent in Dart) */
+    /* (1 case previously here involving class expressions was removed, since there is no equivalent in Dart) */
     {
       'code': r'''
         final Component = uiFunction<TestProps>((_) {
@@ -6709,21 +6667,7 @@ final tests = {
         },
       ],
     },
-    {
-      'code': r'''
-        final Component = uiFunction<TestProps>((_) {
-          final foo = bar || {};
-          useMemo(() => foo, [foo]);
-        }, null);
-      ''',
-      'errors': [
-        {
-          'message':
-              'The \'foo\' logical expression could make the dependencies of useMemo Hook (at line 4) change on every render. Move it inside the useMemo callback. Alternatively, wrap the initialization of \'foo\' in its own useMemo() Hook.',
-          'suggestions': null,
-        },
-      ],
-    },
+    /* (1 case previously here involving || operator on non-booleans was removed, since there is no equivalent in Dart) */
     {
       'code': r'''
         final Component = uiFunction<TestProps>((_) {
@@ -6734,26 +6678,12 @@ final tests = {
       'errors': [
         {
           'message':
-              'The \'foo\' logical expression could make the dependencies of useMemo Hook (at line 4) change on every render. Move it inside the useMemo callback. Alternatively, wrap the initialization of \'foo\' in its own useMemo() Hook.',
+              'The \'foo\' binary expression could make the dependencies of useMemo Hook (at line 4) change on every render. Move it inside the useMemo callback. Alternatively, wrap the initialization of \'foo\' in its own useMemo() Hook.',
           'suggestions': null,
         },
       ],
     },
-    {
-      'code': r'''
-        final Component = uiFunction<TestProps>((_) {
-          final foo = bar && {};
-          useMemo(() => foo, [foo]);
-        }, null);
-      ''',
-      'errors': [
-        {
-          'message':
-              'The \'foo\' logical expression could make the dependencies of useMemo Hook (at line 4) change on every render. Move it inside the useMemo callback. Alternatively, wrap the initialization of \'foo\' in its own useMemo() Hook.',
-          'suggestions': null,
-        },
-      ],
-    },
+    /* (1 case previously here involving && operator on non-booleans was removed, since there is no equivalent in Dart) */
     {
       'code': r'''
         final Component = uiFunction<TestProps>((_) {
@@ -6769,17 +6699,18 @@ final tests = {
         },
       ],
     },
+    /* (2 cases previously here involving var/let were consolidated into a single case below) */
     {
       'code': r'''
         final Component = uiFunction<TestProps>((_) {
-          dynamic foo;
+          var foo = {};
           useMemo(() => foo, [foo]);
         }, null);
       ''',
       'errors': [
         {
           'message':
-              'The \'foo\' object makes the dependencies of useMemo Hook (at line 4) change on every render. Move it inside the useMemo callback. Alternatively, wrap the initialization of \'foo\' in its own useMemo() Hook.',
+              'The \'foo\' Map makes the dependencies of useMemo Hook (at line 4) change on every render. Move it inside the useMemo callback. Alternatively, wrap the initialization of \'foo\' in its own useMemo() Hook.',
           'suggestions': null,
         },
       ],
@@ -6787,22 +6718,7 @@ final tests = {
     {
       'code': r'''
         final Component = uiFunction<TestProps>((_) {
-          dynamic foo;
-          useMemo(() => foo, [foo]);
-        }, null);
-      ''',
-      'errors': [
-        {
-          'message':
-              'The \'foo\' object makes the dependencies of useMemo Hook (at line 4) change on every render. Move it inside the useMemo callback. Alternatively, wrap the initialization of \'foo\' in its own useMemo() Hook.',
-          'suggestions': null,
-        },
-      ],
-    },
-    {
-      'code': r'''
-        final Component = uiFunction<TestProps>((_) {
-          dynamic foo;
+          final foo = {};
           useCallback(() {
             print(foo);
           }, [foo]);
@@ -6811,7 +6727,7 @@ final tests = {
       'errors': [
         {
           'message':
-              'The \'foo\' object makes the dependencies of useCallback Hook (at line 6) change on every render. Move it inside the useCallback callback. Alternatively, wrap the initialization of \'foo\' in its own useMemo() Hook.',
+              'The \'foo\' Map makes the dependencies of useCallback Hook (at line 6) change on every render. Move it inside the useCallback callback. Alternatively, wrap the initialization of \'foo\' in its own useMemo() Hook.',
           'suggestions': null,
         },
       ],
@@ -6819,7 +6735,7 @@ final tests = {
     {
       'code': r'''
         final Component = uiFunction<TestProps>((_) {
-          dynamic foo;
+          final foo = {};
           useEffect(() {
             print(foo);
           }, [foo]);
@@ -6828,7 +6744,7 @@ final tests = {
       'errors': [
         {
           'message':
-              'The \'foo\' object makes the dependencies of useEffect Hook (at line 6) change on every render. Move it inside the useEffect callback. Alternatively, wrap the initialization of \'foo\' in its own useMemo() Hook.',
+              'The \'foo\' Map makes the dependencies of useEffect Hook (at line 6) change on every render. Move it inside the useEffect callback. Alternatively, wrap the initialization of \'foo\' in its own useMemo() Hook.',
           'suggestions': null,
         },
       ],
@@ -6845,7 +6761,7 @@ final tests = {
       'errors': [
         {
           'message':
-              'The \'foo\' object makes the dependencies of useLayoutEffect Hook (at line 6) change on every render. Move it inside the useLayoutEffect callback. Alternatively, wrap the initialization of \'foo\' in its own useMemo() Hook.',
+              'The \'foo\' Map makes the dependencies of useLayoutEffect Hook (at line 6) change on every render. Move it inside the useLayoutEffect callback. Alternatively, wrap the initialization of \'foo\' in its own useMemo() Hook.',
           'suggestions': null,
         },
       ],
@@ -6866,7 +6782,7 @@ final tests = {
       'errors': [
         {
           'message':
-              'The \'foo\' object makes the dependencies of useImperativeHandle Hook (at line 9) change on every render. Move it inside the useImperativeHandle callback. Alternatively, wrap the initialization of \'foo\' in its own useMemo() Hook.',
+              'The \'foo\' Map makes the dependencies of useImperativeHandle Hook (at line 9) change on every render. Move it inside the useImperativeHandle callback. Alternatively, wrap the initialization of \'foo\' in its own useMemo() Hook.',
           'suggestions': null,
         },
       ],
@@ -6883,7 +6799,7 @@ final tests = {
       'errors': [
         {
           'message':
-              'The \'foo\' logical expression could make the dependencies of useEffect Hook (at line 6) change on every render. Move it inside the useEffect callback. Alternatively, wrap the initialization of \'foo\' in its own useMemo() Hook.',
+              'The \'foo\' binary expression could make the dependencies of useEffect Hook (at line 6) change on every render. Move it inside the useEffect callback. Alternatively, wrap the initialization of \'foo\' in its own useMemo() Hook.',
           'suggestions': null,
         },
       ],
@@ -6901,7 +6817,7 @@ final tests = {
       'errors': [
         {
           'message':
-              'The \'foo\' object makes the dependencies of useMemo Hook (at line 7) change on every render. To fix this, wrap the initialization of \'foo\' in its own useMemo() Hook.',
+              'The \'foo\' Map makes the dependencies of useMemo Hook (at line 7) change on every render. To fix this, wrap the initialization of \'foo\' in its own useMemo() Hook.',
           'suggestions': null,
         },
       ],
@@ -6918,7 +6834,7 @@ final tests = {
       'errors': [
         {
           'message':
-              'The \'foo\' JSX fragment makes the dependencies of useMemo Hook (at line 6) change on every render. Move it inside the useMemo callback. Alternatively, wrap the initialization of \'foo\' in its own useMemo() Hook.',
+              'The \'foo\' ReactElement makes the dependencies of useMemo Hook (at line 6) change on every render. Move it inside the useMemo callback. Alternatively, wrap the initialization of \'foo\' in its own useMemo() Hook.',
           'suggestions': null,
         },
       ],
@@ -6935,7 +6851,7 @@ final tests = {
       'errors': [
         {
           'message':
-              'The \'foo\' JSX element makes the dependencies of useMemo Hook (at line 6) change on every render. Move it inside the useMemo callback. Alternatively, wrap the initialization of \'foo\' in its own useMemo() Hook.',
+              'The \'foo\' ReactElement makes the dependencies of useMemo Hook (at line 6) change on every render. Move it inside the useMemo callback. Alternatively, wrap the initialization of \'foo\' in its own useMemo() Hook.',
           'suggestions': null,
         },
       ],
@@ -6958,10 +6874,11 @@ final tests = {
         },
       ],
     },
+    /* (1 cases previously here involving boxed primitives was removed, since there is no equivalent in Dart) */
     {
       'code': r'''
         final Foo = uiFunction<TestProps>((_) {
-          final foo = new String('foo'); // Note 'foo' will be boxed, and thus an object and thus compared by reference.
+          final foo = Object();
           useMemo(() {
             print(foo);
           }, [foo]);
@@ -6970,7 +6887,7 @@ final tests = {
       'errors': [
         {
           'message':
-              'The \'foo\' object construction makes the dependencies of useMemo Hook (at line 6) change on every render. Move it inside the useMemo callback. Alternatively, wrap the initialization of \'foo\' in its own useMemo() Hook.',
+              'The \'foo\' Map construction makes the dependencies of useMemo Hook (at line 6) change on every render. Move it inside the useMemo callback. Alternatively, wrap the initialization of \'foo\' in its own useMemo() Hook.',
           'suggestions': null,
         },
       ],
@@ -6978,7 +6895,7 @@ final tests = {
     {
       'code': r'''
         final Foo = uiFunction<TestProps>((_) {
-          final foo = new Map([]);
+          final foo = new Object();
           useMemo(() {
             print(foo);
           }, [foo]);
@@ -6987,49 +6904,17 @@ final tests = {
       'errors': [
         {
           'message':
-              'The \'foo\' object construction makes the dependencies of useMemo Hook (at line 6) change on every render. Move it inside the useMemo callback. Alternatively, wrap the initialization of \'foo\' in its own useMemo() Hook.',
+              'The \'foo\' Map construction makes the dependencies of useMemo Hook (at line 6) change on every render. Move it inside the useMemo callback. Alternatively, wrap the initialization of \'foo\' in its own useMemo() Hook.',
           'suggestions': null,
         },
       ],
     },
+    /* (1 cases previously here involving regular expression literals was removed, since there is no equivalent in Dart) */
+    /* (1 cases previously here involving class expressions was removed, since there is no equivalent in Dart) */
     {
       'code': r'''
         final Foo = uiFunction<TestProps>((_) {
-          final foo = /reg/;
-          useMemo(() {
-            print(foo);
-          }, [foo]);
-        }, null);
-      ''',
-      'errors': [
-        {
-          'message':
-              'The \'foo\' regular expression makes the dependencies of useMemo Hook (at line 6) change on every render. Move it inside the useMemo callback. Alternatively, wrap the initialization of \'foo\' in its own useMemo() Hook.',
-          'suggestions': null,
-        },
-      ],
-    },
-    {
-      'code': r'''
-        final Foo = uiFunction<TestProps>((_) {
-          class Bar {};
-          useMemo(() {
-            print(new Bar());
-          }, [Bar]);
-        }, null);
-      ''',
-      'errors': [
-        {
-          'message':
-              'The \'Bar\' class makes the dependencies of useMemo Hook (at line 6) change on every render. Move it inside the useMemo callback. Alternatively, wrap the initialization of \'Bar\' in its own useMemo() Hook.',
-          'suggestions': null,
-        },
-      ],
-    },
-    {
-      'code': r'''
-        final Foo = uiFunction<TestProps>((_) {
-          dynamic foo;
+          final foo = {};
           useLayoutEffect(() {
             print(foo);
           }, [foo]);
@@ -7041,12 +6926,12 @@ final tests = {
       'errors': [
         {
           'message':
-              'The \'foo\' object makes the dependencies of useLayoutEffect Hook (at line 6) change on every render. To fix this, wrap the initialization of \'foo\' in its own useMemo() Hook.',
+              'The \'foo\' Map makes the dependencies of useLayoutEffect Hook (at line 6) change on every render. To fix this, wrap the initialization of \'foo\' in its own useMemo() Hook.',
           'suggestions': null,
         },
         {
           'message':
-              'The \'foo\' object makes the dependencies of useEffect Hook (at line 9) change on every render. To fix this, wrap the initialization of \'foo\' in its own useMemo() Hook.',
+              'The \'foo\' Map makes the dependencies of useEffect Hook (at line 9) change on every render. To fix this, wrap the initialization of \'foo\' in its own useMemo() Hook.',
           'suggestions': null,
         },
       ],
