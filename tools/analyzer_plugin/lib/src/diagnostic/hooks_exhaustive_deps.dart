@@ -1637,46 +1637,6 @@ List<_Construction> scanForConstructions({
   required AstNode declaredDependenciesNode,
   required AstNode callbackNode,
 }) {
-  final constructions = declaredDependencies.map<Tuple3<Declaration, Element, String>?>((dep) {
-    // FIXME this should be equivalent, but need to figure out how chained properties work... I'm not sure how that would work with analyzePropertyChain being used with the existing code to look up identifiers
-    // final ref = componentScope.variables.firstWhere((v) => v.name == key, orElse: () => null);
-    final refElement = dep.node.tryCast<Identifier>()?.staticElement;
-    if (refElement == null) return null;
-
-    final declaration = lookUpDeclaration(refElement, dep.node.root);
-    if (declaration == null) {
-      return null;
-    }
-    // TODO(greg) are these the same?
-    final declarationElement = declaration.declaredElement ?? refElement;
-
-    // final handleChange = () {};
-    // final foo = {};
-    // final foo = [];
-    // etc.
-    if (declaration is VariableDeclaration) {
-      // Const variables never change
-      if (declaration.isConst) return null;
-      final initializer = declaration.initializer;
-      if (initializer != null) {
-        // todo should this be stricter in Dart?
-        final constantExpressionType = getConstructionExpressionType(
-          initializer,
-        );
-        if (constantExpressionType != null) {
-          return Tuple3(declaration, declarationElement, constantExpressionType);
-        }
-      }
-      return null;
-    }
-    // handleChange() {}
-    if (declaration is FunctionDeclaration) {
-      return Tuple3(declaration, declarationElement, _DepType.function);
-    }
-
-    return null;
-  }).whereNotNull();
-
   bool isUsedOutsideOfHook(Declaration declaration, Element declarationElement) {
     for (final reference in findReferences(declarationElement, declaration.root)) {
       final parent = reference.parent;
@@ -1693,22 +1653,65 @@ List<_Construction> scanForConstructions({
     return false;
   }
 
-  return constructions.map((tuple) {
-    final declaration = tuple.item1;
-    final declarationElement = tuple.item2;
-    final depType = tuple.item3;
-    return _Construction(
-      declaration: declaration,
-      declarationElement: declarationElement,
-      depType: depType,
-      isUsedOutsideOfHook: isUsedOutsideOfHook(declaration, declarationElement),
-    );
-  }).toList();
+  return declaredDependencies
+      .map<_Construction?>((dep) {
+        // FIXME this should be equivalent, but need to figure out how chained properties work... I'm not sure how that would work with analyzePropertyChain being used with the existing code to look up identifiers
+        // final ref = componentScope.variables.firstWhere((v) => v.name == key, orElse: () => null);
+        final refElement = dep.node.tryCast<Identifier>()?.staticElement;
+        if (refElement == null) return null;
+
+        final declaration = lookUpDeclaration(refElement, dep.node.root);
+        if (declaration == null) {
+          return null;
+        }
+        // TODO(greg) are these the same?
+        final declarationElement = declaration.declaredElement ?? refElement;
+
+        // final handleChange = () {};
+        // final foo = {};
+        // final foo = [];
+        // etc.
+        if (declaration is VariableDeclaration) {
+          // Const variables never change
+          if (declaration.isConst) return null;
+          final initializer = declaration.initializer;
+          if (initializer != null) {
+            // todo should this be stricter in Dart?
+            final constantExpressionType = getConstructionExpressionType(
+              initializer,
+            );
+            if (constantExpressionType != null) {
+              return _Construction(
+                declaration: declaration,
+                declarationElement: declarationElement,
+                depType: constantExpressionType,
+                isUsedOutsideOfHook: isUsedOutsideOfHook(declaration, declarationElement),
+              );
+            }
+          }
+          return null;
+        }
+        // handleChange() {}
+        if (declaration is FunctionDeclaration) {
+          return _Construction(
+            declaration: declaration,
+            declarationElement: declarationElement,
+            depType: _DepType.function,
+            isUsedOutsideOfHook: isUsedOutsideOfHook(declaration, declarationElement),
+          );
+        }
+
+        return null;
+      })
+      .whereNotNull()
+      .toList();
 }
 
 class _Construction {
   final Declaration declaration;
   final Element declarationElement;
+
+  /// Will either be a constant in [_DepType] or the name of the object/constructor being used.
   final String depType;
   final bool isUsedOutsideOfHook;
 
