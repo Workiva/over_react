@@ -915,9 +915,9 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
 
         final isUsedOutsideOfHook = _construction.isUsedOutsideOfHook;
         final depType = _construction.depType;
-        final wrapperHook = depType == 'function' ? 'useCallback' : 'useMemo';
+        final wrapperHook = depType == _DepType.function ? 'useCallback' : 'useMemo';
 
-        final constructionType = depType == 'function' ? 'definition' : 'initialization';
+        final constructionType = depType == _DepType.function ? 'definition' : 'initialization';
 
         final defaultAdvice = "wrap the $constructionType of '$constructionName' in its own $wrapperHook() Hook.";
 
@@ -925,7 +925,8 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
             ? "To fix this, $defaultAdvice"
             : "Move it inside the $reactiveHookName callback. Alternatively, $defaultAdvice";
 
-        final causation = depType == 'conditional' || depType == 'logical expression' ? 'could make' : 'makes';
+        final causation =
+            depType == _DepType.conditional || depType == _DepType.binaryExpression ? 'could make' : 'makes';
 
         final message = "The '$constructionName' $depType $causation the dependencies of "
             "$reactiveHookName Hook (at line ${result.lineInfo.getLocation(declaredDependenciesNode.offset).lineNumber}) "
@@ -939,7 +940,7 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
             // Objects may be mutated ater construction, which would make this
             // fix unsafe. Functions _probably_ won't be mutated, so we'll
             // allow this fix for them.
-            depType == 'function') {
+            depType == _DepType.function) {
           // FIXME(greg) is it safe to assume this here?
           final constructionInitializer = construction.initializer!;
 
@@ -1596,32 +1597,32 @@ String? getConstructionExpressionType(Expression node) {
     if (node.isConst) return null;
     return node.constructorName.type.name.name;
   } else if (node is ListLiteral) {
-    return 'List';
+    return _DepType.list;
   } else if (node is SetOrMapLiteral) {
-    return node.isMap ? 'Map' : 'Set';
+    return node.isMap ? _DepType.map : _DepType.set;
   } else if (node is FunctionExpression) {
-    return 'function';
+    return _DepType.function;
   } else if (node is ConditionalExpression) {
     if (getConstructionExpressionType(node.thenExpression) != null ||
         getConstructionExpressionType(node.elseExpression) != null) {
-      return 'conditional';
+      return _DepType.conditional;
     }
     return null;
   } else if (node is BinaryExpression) {
     if (getConstructionExpressionType(node.leftOperand) != null ||
         getConstructionExpressionType(node.rightOperand) != null) {
-      return 'binary expression';
+      return _DepType.binaryExpression;
     }
     return null;
   } else if (node is AssignmentExpression) {
     if (getConstructionExpressionType(node.rightHandSide) != null) {
-      return 'assignment expression';
+      return _DepType.assignmentExpression;
     }
     return null;
   } else if (node is AsExpression) {
     return getConstructionExpressionType(node.expression);
   } else if (node is InvocationExpression && (node.staticType?.isReactElement ?? false)) {
-    return 'ReactElement';
+    return _DepType.reactElement;
   } else {
     return null;
   }
@@ -1725,8 +1726,14 @@ class _Construction {
 }
 
 abstract class _DepType {
-  // static const classDep = 'class';
+  static const list = 'List';
+  static const map = 'Map';
+  static const set = 'Set';
   static const function = 'function';
+  static const conditional = 'conditional';
+  static const binaryExpression = 'binary expression';
+  static const assignmentExpression = 'assignment expression';
+  static const reactElement = 'ReactElement';
 }
 
 // fixme Greg this doc comment has to be incorrect for some cases, right?
