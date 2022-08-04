@@ -6891,7 +6891,7 @@ final tests = {
       'errors': [
         {
           'message':
-              'The \'foo\' Map construction makes the dependencies of useMemo Hook (at line 6) change on every render. Move it inside the useMemo callback. Alternatively, wrap the initialization of \'foo\' in its own useMemo() Hook.',
+              'The \'foo\' Object makes the dependencies of useMemo Hook (at line 6) change on every render. Move it inside the useMemo callback. Alternatively, wrap the initialization of \'foo\' in its own useMemo() Hook.',
           'suggestions': null,
         },
       ],
@@ -6908,7 +6908,7 @@ final tests = {
       'errors': [
         {
           'message':
-              'The \'foo\' Map construction makes the dependencies of useMemo Hook (at line 6) change on every render. Move it inside the useMemo callback. Alternatively, wrap the initialization of \'foo\' in its own useMemo() Hook.',
+              'The \'foo\' Object makes the dependencies of useMemo Hook (at line 6) change on every render. Move it inside the useMemo callback. Alternatively, wrap the initialization of \'foo\' in its own useMemo() Hook.',
           'suggestions': null,
         },
       ],
