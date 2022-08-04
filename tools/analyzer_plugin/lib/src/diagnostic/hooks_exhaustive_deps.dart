@@ -779,6 +779,7 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
         // FIXME check here or somewhere else to ensure whole hook (state, ref?) isn't passed in, provide quick fix; perhaps non-destructured hooks being passed in are accounted for alredy?
 
         // Special case for Dart: whole state hook passed in as dependency.
+        // FIXME(greg) add test cases
         if (declaredDependencyNode.staticType?.element?.isStateHook ?? false) {
           final dependencySource = getSource(declaredDependencyNode);
           final dependencySourceValue = '$dependencySource.value';
