@@ -6989,7 +6989,7 @@ final Map<String, List<Map<String, Object>>> testsTypescript = {
       // '''ref''' is still constant, despite the cast.
       'code': r'''
         final MyComponent = uiFunction<TestProps>((_) {
-          final ref = useRef() as over_react.Ref<HTMLDivElement>;
+          final ref = useRef() as over_react.Ref<DivElement>;
           useEffect(() {
             print(ref.current);
           }, []);
@@ -7035,8 +7035,8 @@ final Map<String, List<Map<String, Object>>> testsTypescript = {
         final MyComponent = uiFunction<TestProps>((_) {
           dynamic pizza;
           useEffect(() => ({
-            crust: pizza.crust,
-            toppings: pizza?.toppings,
+            'crust': pizza.crust,
+            'toppings': pizza?.toppings,
           }), []);
         }, null);
       ''',
@@ -7051,8 +7051,8 @@ final Map<String, List<Map<String, Object>>> testsTypescript = {
                 final MyComponent = uiFunction<TestProps>((_) {
                   final pizza = {};
                   useEffect(() => ({
-                    crust: pizza.crust,
-                    toppings: pizza?.toppings,
+                    'crust': pizza.crust,
+                    'toppings': pizza?.toppings,
                   }), [pizza.crust, pizza?.toppings]);
                 }, null);
               ''',
@@ -7066,7 +7066,7 @@ final Map<String, List<Map<String, Object>>> testsTypescript = {
         final MyComponent = uiFunction<TestProps>((_) {
           dynamic pizza;
           useEffect(() => ({
-            crust: pizza?.crust,
+            'crust': pizza?.crust,
             density: pizza.crust.density,
           }), []);
         }, null);
@@ -7082,7 +7082,7 @@ final Map<String, List<Map<String, Object>>> testsTypescript = {
                 final MyComponent = uiFunction<TestProps>((_) {
                   final pizza = {};
                   useEffect(() => ({
-                    crust: pizza?.crust,
+                    'crust': pizza?.crust,
                     density: pizza.crust.density,
                   }), [pizza.crust]);
                 }, null);
@@ -7097,7 +7097,7 @@ final Map<String, List<Map<String, Object>>> testsTypescript = {
         final MyComponent = uiFunction<TestProps>((_) {
           dynamic pizza;
           useEffect(() => ({
-            crust: pizza.crust,
+            'crust': pizza.crust,
             density: pizza?.crust.density,
           }), []);
         }, null);
@@ -7113,7 +7113,7 @@ final Map<String, List<Map<String, Object>>> testsTypescript = {
                 final MyComponent = uiFunction<TestProps>((_) {
                   final pizza = {};
                   useEffect(() => ({
-                    crust: pizza.crust,
+                    'crust': pizza.crust,
                     density: pizza?.crust.density,
                   }), [pizza.crust]);
                 }, null);
@@ -7128,7 +7128,7 @@ final Map<String, List<Map<String, Object>>> testsTypescript = {
         final MyComponent = uiFunction<TestProps>((_) {
           dynamic pizza;
           useEffect(() => ({
-            crust: pizza?.crust,
+            'crust': pizza?.crust,
             density: pizza?.crust.density,
           }), []);
         }, null);
@@ -7144,7 +7144,7 @@ final Map<String, List<Map<String, Object>>> testsTypescript = {
                 final MyComponent = uiFunction<TestProps>((_) {
                   final pizza = {};
                   useEffect(() => ({
-                    crust: pizza?.crust,
+                    'crust': pizza?.crust,
                     density: pizza?.crust.density,
                   }), [pizza?.crust]);
                 }, null);
@@ -7221,7 +7221,7 @@ final Map<String, List<Map<String, Object>>> testsTypescript = {
           useEffect(() {
             final someNumber = 2;
             state.setWithUpdater((prevState) => prevState + someNumber + state.value);
-          }, [])
+          }, []);
         }, null);
       ''',
       'errors': [
