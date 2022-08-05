@@ -3,7 +3,7 @@
 // Taken from https://github.com/facebook/react/blob/cae635054e17a6f107a39d328649137b83f25972/packages/eslint-plugin-react-hooks/__tests__/ESLintRuleExhaustiveDeps-test.js
 
 /// Tests that are valid/invalid across all parsers
-final tests = {
+final Map<String, List<Map<String, Object>>> tests = {
   'valid': [
     {
       'code': r'''
@@ -6946,7 +6946,7 @@ final tests = {
 };
 
 // Tests that are only valid/invalid across parsers supporting Flow
-final testsFlow = {
+final Map<String, List<Map<String, Object>>> testsFlow = {
   'valid': [
     // Ignore Generic Type Variables for arrow functions
     {
@@ -6954,7 +6954,7 @@ final testsFlow = {
         final Example = uiFunction<TestProps>((props) {
           var prop = props.prop;
 
-          final bar = useEffect(<T>(a: T): (Hello) {
+          final bar = useEffect(<T>(T arg) {
             prop();
           }, [prop]);
         }, null);
@@ -6965,7 +6965,7 @@ final testsFlow = {
     {
       'code': r'''
         final Foo = uiFunction<TestProps>((_) {
-          final foo = ({}: any);
+          final dynamic foo = {};
           useMemo(() {
             print(foo);
           }, [foo]);
@@ -6983,49 +6983,27 @@ final testsFlow = {
 };
 
 // Tests that are only valid/invalid across parsers supporting TypeScript
-final testsTypescript = {
+final Map<String, List<Map<String, Object>>> testsTypescript = {
   'valid': [
     {
       // '''ref''' is still constant, despite the cast.
       'code': r'''
         final MyComponent = uiFunction<TestProps>((_) {
-          final ref = useRef() as over_react.MutableRefObject<HTMLDivElement>;
+          final ref = useRef() as over_react.Ref<HTMLDivElement>;
           useEffect(() {
             print(ref.current);
           }, []);
         }, null);
       ''',
     },
-    {
-      'code': r'''
-        final MyComponent = uiFunction<TestProps>((_) {
-          var state = over_react.useState<number>(0);
-          useEffect(() {
-            final someNumber: typeof state.value = 2;
-            state.set((prevState) => prevState + someNumber);
-          }, [])
-        }, null);
-      ''',
-    },
-    {
-      'code': r'''
-        final App = uiFunction<TestProps>((_) {
-          final foo = {x: 1};
-          over_react.useEffect(() {
-            final bar = {x: 2};
-            final baz = bar as typeof foo;
-            print(baz);
-          }, []);
-        }, null);
-      ''',
-    },
+    /* (2 cases previously here involving typeof references was removed, since there is no equivalent in Dart) */
   ],
   'invalid': [
     {
       // '''local''' is still non-constant, despite the cast.
       'code': r'''
         final MyComponent = uiFunction<TestProps>((_) {
-          final local = {} as string;
+          final local = ({} as dynamic) as String;
           useEffect(() {
             print(local);
           }, []);
@@ -7051,43 +7029,11 @@ final testsTypescript = {
         },
       ],
     },
-    {
-      'code': r'''
-        final App = uiFunction<TestProps>((_) {
-          final foo = {x: 1};
-          final bar = {x: 2};
-          useEffect(() {
-            final baz = bar as typeof foo;
-            print(baz);
-          }, []);
-        }, null);
-      ''',
-      'errors': [
-        {
-          'message':
-              'React Hook useEffect has a missing dependency: \'bar\'. Either include it or remove the dependency list.',
-          'suggestions': [
-            {
-              'desc': 'Update the dependencies list to be: [bar]',
-              'output': r'''
-                final App = uiFunction<TestProps>((_) {
-                  final foo = {x: 1};
-                  final bar = {x: 2};
-                  useEffect(() {
-                    final baz = bar as typeof foo;
-                    print(baz);
-                  }, [bar]);
-                }, null);
-              ''',
-            },
-          ],
-        },
-      ],
-    },
+    /* (1 case previously here involving typeof references was removed, since there is no equivalent in Dart) */
     {
       'code': r'''
         final MyComponent = uiFunction<TestProps>((_) {
-          final pizza = {};
+          dynamic pizza;
           useEffect(() => ({
             crust: pizza.crust,
             toppings: pizza?.toppings,
@@ -7118,7 +7064,7 @@ final testsTypescript = {
     {
       'code': r'''
         final MyComponent = uiFunction<TestProps>((_) {
-          final pizza = {};
+          dynamic pizza;
           useEffect(() => ({
             crust: pizza?.crust,
             density: pizza.crust.density,
@@ -7149,7 +7095,7 @@ final testsTypescript = {
     {
       'code': r'''
         final MyComponent = uiFunction<TestProps>((_) {
-          final pizza = {};
+          dynamic pizza;
           useEffect(() => ({
             crust: pizza.crust,
             density: pizza?.crust.density,
@@ -7180,7 +7126,7 @@ final testsTypescript = {
     {
       'code': r'''
         final MyComponent = uiFunction<TestProps>((_) {
-          final pizza = {};
+          dynamic pizza;
           useEffect(() => ({
             crust: pizza?.crust,
             density: pizza?.crust.density,
@@ -7271,10 +7217,10 @@ final testsTypescript = {
     {
       'code': r'''
         final MyComponent = uiFunction<TestProps>((_) {
-          var state = over_react.useState<number>(0);
+          var state = over_react.useState<num>(0);
           useEffect(() {
-            final someNumber: typeof state.value = 2;
-            state.set((prevState) => prevState + someNumber + state.value);
+            final someNumber = 2;
+            state.setWithUpdater((prevState) => prevState + someNumber + state.value);
           }, [])
         }, null);
       ''',
@@ -7299,41 +7245,11 @@ final testsTypescript = {
         },
       ],
     },
-    {
-      'code': r'''
-        final MyComponent = uiFunction<TestProps>((_) {
-          var state = over_react.useState<number>(0);
-          useMemo(() {
-            final someNumber: typeof state.value = 2;
-            print(someNumber);
-          }, [state.value])
-        }, null);
-      ''',
-      'errors': [
-        {
-          'message':
-              'React Hook useMemo has an unnecessary dependency: \'state\'. Either exclude it or remove the dependency list.',
-          'suggestions': [
-            {
-              'desc': 'Update the dependencies list to be: []',
-              'output': r'''
-                final MyComponent = uiFunction<TestProps>((_) {
-                  var state = over_react.useState<number>(0);
-                  useMemo(() {
-                    final someNumber: typeof state.value = 2;
-                    print(someNumber);
-                  }, [])
-                }, null);
-              ''',
-            },
-          ],
-        },
-      ],
-    },
+    /* (1 case previously here involving typeof references was removed, since there is no equivalent in Dart) */
     {
       'code': r'''
         final Foo = uiFunction<TestProps>((_) {
-          final foo = {} as any;
+          final foo = {} as dynamic;
           useMemo(() {
             print(foo);
           }, [foo]);
@@ -7351,7 +7267,7 @@ final testsTypescript = {
 };
 
 // Tests that are only valid/invalid for '''@typescript-eslint/parser@4.x'''
-final testsTypescriptEslintParserV4 = {
+final Map<String, List<Map<String, Object>>> testsTypescriptEslintParserV4 = {
   'valid': [],
   'invalid': [
     // TODO: Should also be invalid as part of the JS test suite i.e. be invalid with babel eslint parsers.
@@ -7362,7 +7278,7 @@ final testsTypescriptEslintParserV4 = {
           var Component = props.Component;
 
           over_react.useEffect(() {
-            print(<Component />);
+            print(Component()());
           }, []);
         }, null);;
       ''',

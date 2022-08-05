@@ -66,6 +66,7 @@ mixin TestProps on UiProps {
   var section_components;
   int step;
   var increment;
+  UiFactory Component;
 }
 
 // Globals used by test cases
@@ -150,99 +151,111 @@ void externalCall(dynamic arg) {}
       return testBase;
     }
 
-    group('test cases that should pass', () {
-      tco.tests['valid'].forEachIndexed((i, element) {
-        test('valid[$i]', () async {
-          final testCase = TestCase.fromJson(element);
+    ({
+      'tests': tco.tests,
+      'testsFlow': tco.testsFlow,
+      'testsTypescript': tco.testsTypescript,
+      'testsTypescriptEslintParserV4': tco.testsTypescriptEslintParserV4,
+    }).forEach((suiteName, suite) {
+      group('$suiteName:', () {
+        group('test cases that should pass', () {
+          suite['valid'].forEachIndexed((i, element) {
+            test('valid[$i]', () async {
+              final testCase = TestCase.fromJson(element);
 
-          final testBase = await setUpTestBase(testCase);
+              final testBase = await setUpTestBase(testCase);
 
-          // Need to wrap in a function because some of the code includes statements that aren't valid
-          // outside of a function context.
-          final rawCode = testCase.code;
-          final code = preamble + wrapInFunction(rawCode);
-          try {
-            final source = testBase.newSource('test.dart', code);
-            await testBase.expectNoErrors(source, errorFilter: errorFilter);
-            // Run this here even though it's also in tearDown, so that we can see the source
-            // when there's failures caused by this expectation.
-            testBase.expectNoPluginErrors();
-          } catch (_) {
-            print('Raw source (before adding preamble and wrapper): ```\n$rawCode\n```');
-            rethrow;
-          }
+              // Need to wrap in a function because some of the code includes statements that aren't valid
+              // outside of a function context.
+              final rawCode = testCase.code;
+              final code = preamble + wrapInFunction(rawCode);
+              try {
+                final source = testBase.newSource('test.dart', code);
+                await testBase.expectNoErrors(source, errorFilter: errorFilter);
+                // Run this here even though it's also in tearDown, so that we can see the source
+                // when there's failures caused by this expectation.
+                testBase.expectNoPluginErrors();
+              } catch (_) {
+                print('Raw source (before adding preamble and wrapper): ```\n$rawCode\n```');
+                rethrow;
+              }
+            });
+          });
+        });
+
+        //fixme add regression test for this case: useEffect(() {state.set(1);state.value;}, [])
+
+        group('test cases that should warn', () {
+          suite['invalid'].forEachIndexed((i, element) {
+            test('invalid[$i]', () async {
+              final testCase = TestCase.fromJson(element);
+
+              final testBase = await setUpTestBase(testCase);
+
+              // Need to wrap in a function because some of the code includes statements that aren't valid
+              // outside of a function context.
+              final rawCode = testCase.code;
+              final code = preamble + wrapInFunction(rawCode);
+
+              final expectedErrors = testCase.errors;
+              expect(expectedErrors, isNotEmpty);
+
+              try {
+                final source = testBase.newSource('test.dart', code);
+                final errors = await testBase.getAllErrors(source, includeOtherCodes: true, errorFilter: errorFilter);
+                expect(errors.dartErrors, isEmpty,
+                    reason: 'Expected there to be no errors coming from the analyzer and not the plugin.'
+                        ' Ensure your test source is free of unintentional errors, such as syntax errors and missing imports.'
+                        ' If errors are expected, set includeOtherErrorCodes:true.');
+                expect(
+                    errors.pluginErrors,
+                    everyElement(
+                        AnalysisErrorHavingUtils(isA<AnalysisError>()).havingCode(HooksExhaustiveDeps.code.name)),
+                    reason: 'Expected all errors to match the error & fix kinds under test.');
+
+                // Replace line numbers in messages so we don't have to update them every time the preamble changes.
+                String ignoreLineNumber(String message) =>
+                    message.replaceAll(RegExp(r'at line \d+'), 'at line {{IGNORED}}');
+                final expectedMessages =
+                    expectedErrors.map((e) => e['message'] as String).map(ignoreLineNumber).toList();
+                final actualMessages = errors.map((e) => e.message).map(ignoreLineNumber).toList();
+
+                // expect(errors, unorderedEquals(expectedErrors.map((e) => isDiagnostic(HooksExhaustiveDeps.code).havingMessage(contains(e['message'] as String));
+                expect(actualMessages, unorderedEquals(expectedMessages));
+                //fixme(greg) suggestions
+
+                // Run this here even though it's also in tearDown, so that we can see the source
+                // when there's failures caused by this expectation.
+                testBase.expectNoPluginErrors();
+              } catch (_) {
+                print('Raw source (before adding preamble and wrapper): ```\n$rawCode\n```');
+                rethrow;
+              }
+            });
+          });
         });
       });
     });
 
-    //fixme add regression test for this case: useEffect(() {state.set(1);state.value;}, [])
+    test('use of state.value without it in the dependency list', () async {
+      final testBase = HooksExhaustiveDepsDiagnosticTest();
+      await testBase.setUp();
+      addTearDown(testBase.tearDown);
 
-    group('test cases that should warn', () {
-      tco.tests['invalid'].forEachIndexed((i, element) {
-        test('invalid[$i]', () async {
-          final testCase = TestCase.fromJson(element);
-
-          final testBase = await setUpTestBase(testCase);
-
-          // Need to wrap in a function because some of the code includes statements that aren't valid
-          // outside of a function context.
-          final rawCode = testCase.code;
-          final code = preamble + wrapInFunction(rawCode);
-
-          final expectedErrors = testCase.errors;
-          expect(expectedErrors, isNotEmpty);
-
-          try {
-            final source = testBase.newSource('test.dart', code);
-            final errors = await testBase.getAllErrors(source, includeOtherCodes: true, errorFilter: errorFilter);
-            expect(errors.dartErrors, isEmpty,
-                reason: 'Expected there to be no errors coming from the analyzer and not the plugin.'
-                    ' Ensure your test source is free of unintentional errors, such as syntax errors and missing imports.'
-                    ' If errors are expected, set includeOtherErrorCodes:true.');
-            expect(errors.pluginErrors,
-                everyElement(AnalysisErrorHavingUtils(isA<AnalysisError>()).havingCode(HooksExhaustiveDeps.code.name)),
-                reason: 'Expected all errors to match the error & fix kinds under test.');
-
-            // Replace line numbers in messages so we don't have to update them every time the preamble changes.
-            String ignoreLineNumber(String message) =>
-                message.replaceAll(RegExp(r'at line \d+'), 'at line {{IGNORED}}');
-            final expectedMessages = expectedErrors.map((e) => e['message'] as String).map(ignoreLineNumber).toList();
-            final actualMessages = errors.map((e) => e.message).map(ignoreLineNumber).toList();
-
-            // expect(errors, unorderedEquals(expectedErrors.map((e) => isDiagnostic(HooksExhaustiveDeps.code).havingMessage(contains(e['message'] as String));
-            expect(actualMessages, unorderedEquals(expectedMessages));
-            //fixme(greg) suggestions
-
-            // Run this here even though it's also in tearDown, so that we can see the source
-            // when there's failures caused by this expectation.
-            testBase.expectNoPluginErrors();
-          } catch (_) {
-            print('Raw source (before adding preamble and wrapper): ```\n$rawCode\n```');
-            rethrow;
-          }
-        });
-      });
-
-      test('use of state.value without it in the dependency list', () async {
-        final testBase = HooksExhaustiveDepsDiagnosticTest();
-        await testBase.setUp();
-        addTearDown(testBase.tearDown);
-
-        final source = testBase.newSource(
-            'test.dart',
-            preamble + /*language=dart*/ r'''
-          final Foo = uiFunction((props) {
-            final count = useState();
-            final otherValue = props.id;
-            useEffect(() {
-              print(otherValue);
-              print(count.value);
-            }, [otherValue]);
-          }, null);
-        ''');
-        final selection = testBase.createSelection(source, ', #[otherValue]#);');
-        await testBase.expectSingleErrorAt(selection, hasFix: true);
-      });
+      final source = testBase.newSource(
+          'test.dart',
+          preamble + /*language=dart*/ r'''
+        final Foo = uiFunction((props) {
+          final count = useState();
+          final otherValue = props.id;
+          useEffect(() {
+            print(otherValue);
+            print(count.value);
+          }, [otherValue]);
+        }, null);
+      ''');
+      final selection = testBase.createSelection(source, ', #[otherValue]#);');
+      await testBase.expectSingleErrorAt(selection, hasFix: true);
     });
   });
 }
