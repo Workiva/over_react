@@ -3361,6 +3361,31 @@ final Map<String, List<Map<String, Object>>> tests = {
             },
           ],
         },
+        {
+          'message':
+              'React Hook useCustomEffect has a missing dependency: \'props.foo\'. Either include it or remove the dependency list.',
+          'suggestions': [
+            {
+              'desc': 'Update the dependencies list to be: [props.foo]',
+              'output': r'''
+                final MyComponent = uiFunction<TestProps>((props) {
+                  useCustomEffect(() {
+                    print(props.foo);
+                  }, [props.foo]);
+                  useEffect(() {
+                    print(props.foo);
+                  }, []);
+                  over_react.useEffect(() {
+                    print(props.foo);
+                  }, []);
+                  over_react.useCustomEffect(() {
+                    print(props.foo);
+                  }, []);
+                }, null);
+              ''',
+            },
+          ],
+        },
       ],
     },
     {
