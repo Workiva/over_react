@@ -6989,7 +6989,7 @@ final Map<String, List<Map<String, Object>>> testsTypescript = {
       // '''ref''' is still constant, despite the cast.
       'code': r'''
         final MyComponent = uiFunction<TestProps>((_) {
-          final ref = useRef() as over_react.Ref<DivElement>;
+          final ref = useRef() as over_react.Ref<Element>;
           useEffect(() {
             print(ref.current);
           }, []);
@@ -7067,7 +7067,7 @@ final Map<String, List<Map<String, Object>>> testsTypescript = {
           dynamic pizza;
           useEffect(() => ({
             'crust': pizza?.crust,
-            density: pizza.crust.density,
+            'density': pizza.crust.density,
           }), []);
         }, null);
       ''',
@@ -7083,7 +7083,7 @@ final Map<String, List<Map<String, Object>>> testsTypescript = {
                   final pizza = {};
                   useEffect(() => ({
                     'crust': pizza?.crust,
-                    density: pizza.crust.density,
+                    'density': pizza.crust.density,
                   }), [pizza.crust]);
                 }, null);
               ''',
@@ -7098,7 +7098,7 @@ final Map<String, List<Map<String, Object>>> testsTypescript = {
           dynamic pizza;
           useEffect(() => ({
             'crust': pizza.crust,
-            density: pizza?.crust.density,
+            'density': pizza?.crust.density,
           }), []);
         }, null);
       ''',
@@ -7114,7 +7114,7 @@ final Map<String, List<Map<String, Object>>> testsTypescript = {
                   final pizza = {};
                   useEffect(() => ({
                     'crust': pizza.crust,
-                    density: pizza?.crust.density,
+                    'density': pizza?.crust.density,
                   }), [pizza.crust]);
                 }, null);
               ''',
@@ -7129,7 +7129,7 @@ final Map<String, List<Map<String, Object>>> testsTypescript = {
           dynamic pizza;
           useEffect(() => ({
             'crust': pizza?.crust,
-            density: pizza?.crust.density,
+            'density': pizza?.crust.density,
           }), []);
         }, null);
       ''',
@@ -7145,7 +7145,7 @@ final Map<String, List<Map<String, Object>>> testsTypescript = {
                   final pizza = {};
                   useEffect(() => ({
                     'crust': pizza?.crust,
-                    density: pizza?.crust.density,
+                    'density': pizza?.crust.density,
                   }), [pizza?.crust]);
                 }, null);
               ''',
@@ -7227,7 +7227,7 @@ final Map<String, List<Map<String, Object>>> testsTypescript = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has a missing dependency: \'state.value\'. Either include it or remove the dependency list. You can also do a functional update \'state.setWithUpdater((s) => ...)\' if you only need \'state.value\' in the \'state.set\' call.',
+              'React Hook useEffect has a missing dependency: \'state.value\'. Either include it or remove the dependency list. You can also do a functional update \'state.setWithUpdater((s) => ...)\' if you only need \'state.value\' in the \'state.setWithUpdater\' call.',
           'suggestions': [
             {
               'desc': 'Update the dependencies list to be: [state]',
