@@ -3821,7 +3821,7 @@ final Map<String, List<Map<String, Object>>> tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has a missing dependency: \'props\'. Either include it or remove the dependency list. However, \'props\' will change when *any* prop changes, so the preferred fix is to destructure the \'props\' object outside of the useEffect call and refer to those specific props inside useEffect.',
+              'React Hook useEffect has a missing dependency: \'props.onChange\'. Either include it or remove the dependency list.',
           'suggestions': [
             {
               'desc': 'Update the dependencies list to be: [props]',
@@ -3853,7 +3853,7 @@ final Map<String, List<Map<String, Object>>> tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has a missing dependency: \'props\'. Either include it or remove the dependency list. However, \'props\' will change when *any* prop changes, so the preferred fix is to destructure the \'props\' object outside of the useEffect call and refer to those specific props inside useEffect.',
+              'React Hook useEffect has a missing dependency: \'props?.onChange\'. Either include it or remove the dependency list.',
           'suggestions': [
             {
               'desc': 'Update the dependencies list to be: [props]',
@@ -3887,7 +3887,7 @@ final Map<String, List<Map<String, Object>>> tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has a missing dependency: \'props\'. Either include it or remove the dependency list. However, \'props\' will change when *any* prop changes, so the preferred fix is to destructure the \'props\' object outside of the useEffect call and refer to those specific props inside useEffect.',
+              'React Hook useEffect has missing dependencies: \'props.onPause\' and \'props.onPlay\'. Either include them or remove the dependency list.',
           'suggestions': [
             {
               'desc': 'Update the dependencies list to be: [props]',
@@ -3953,7 +3953,7 @@ final Map<String, List<Map<String, Object>>> tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has a missing dependency: \'props\'. Either include it or remove the dependency list. However, \'props\' will change when *any* prop changes, so the preferred fix is to destructure the \'props\' object outside of the useEffect call and refer to those specific props inside useEffect.',
+              'React Hook useEffect has missing dependencies: \'props.foo\' and \'props.onChange\'. Either include them or remove the dependency list.',
           'suggestions': [
             {
               'desc': 'Update the dependencies list to be: [props]',
@@ -4020,7 +4020,7 @@ final Map<String, List<Map<String, Object>>> tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has missing dependencies: \'props\' and \'skillsCount.value\'. Either include them or remove the dependency list. However, \'props\' will change when *any* prop changes, so the preferred fix is to destructure the \'props\' object outside of the useEffect call and refer to those specific props inside useEffect.',
+              'React Hook useEffect has missing dependencies: \'props.isEditMode\', \'props.toggleEditMode\', and \'skillsCount.value\'. Either include them or remove the dependency list.',
           'suggestions': [
             {
               'desc': 'Update the dependencies list to be: [props, skillsCount.value]',

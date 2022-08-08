@@ -1769,6 +1769,76 @@ abstract class _DepType {
   static const reactElement = 'ReactElement';
 }
 
+class PropertyInvocation {
+  final InvocationExpression invocation;
+  final Identifier functionName;
+  final Expression? target;
+  final Expression? realTarget;
+  final bool isNullAware;
+
+  PropertyInvocation({
+    required this.invocation,
+    required this.functionName,
+    required this.target,
+    required this.realTarget,
+    required this.isNullAware,
+  });
+
+  // FIXME add null check and error message for
+  factory PropertyInvocation.from(InvocationExpression node) => detect(node)!;
+
+  static PropertyInvocation? detect(AstNode node) {
+    if (node is! InvocationExpression) return null;
+
+    // FIXME(greg) - do we want to restrict target to be certain types? (e.g., rule out `foo.bar.baz()` or `foo().bar()`)
+    //  or should that go in isInvocationADiscreteDependency?
+
+    // FIXME(greg) detect .call?
+    if (node is MethodInvocation) {
+      return PropertyInvocation(
+        invocation: node,
+        functionName: node.methodName,
+        target: node.target,
+        realTarget: node.realTarget,
+        isNullAware: node.isNullAware,
+      );
+    }
+
+    // FunctionExpressionInvocation cases
+    final function = node.function;
+    if (function is PropertyAccess) {
+      return PropertyInvocation(
+        invocation: node,
+        functionName: function.propertyName,
+        target: function.target,
+        realTarget: function.realTarget,
+        // TODO(greg) this might not ever this ever be true except for the .call case
+        isNullAware: function.isNullAware,
+      );
+    } else if (function is PrefixedIdentifier) {
+      return PropertyInvocation(
+        invocation: node,
+        functionName: function.identifier,
+        target: function.prefix,
+        realTarget: function.prefix,
+        isNullAware: false,
+      );
+    }
+  }
+
+  static PropertyInvocation? detectClosest(AstNode node) =>
+      detect(node) ?? node.ancestors.map(detect).whereNotNull().firstOrNull;
+}
+
+bool isInvocationADiscreteDependency(PropertyInvocation invocation) {
+  // FIXME(greg) should we do this better/differently?
+  bool isProps(Expression e) => e is Identifier && e.name == 'props';
+
+  final target = invocation.target;
+  // FIXME(greg) pull this out better
+  return target != null && (getStableHookMethodInfo(invocation.functionName.parent!) != null || isProps(target));
+}
+
 // fixme Greg this doc comment has to be incorrect for some cases, right?
 /// Assuming () means the passed/returned node:
 /// (props) => (props)
@@ -1778,6 +1848,20 @@ abstract class _DepType {
 AstNode getDependency(AstNode node) {
   final parent = node.parent!;
   final grandparent = parent.parent;
+
+  // Invocations can show up as MethodInvocations or an FunctionExpressionInvocation with a PropertyAccess.
+  // We want to handle both here.
+  // This invocation check deviates from the JS, and is necessary to handle stable hook methods and function props.
+  final propertyInvocation = PropertyInvocation.detectClosest(node);
+  if (propertyInvocation != null && propertyInvocation.target == node) {
+    if (isInvocationADiscreteDependency(propertyInvocation)) {
+      // Return this directly since we don't want to recurse into property accesses on the return value.
+      return propertyInvocation.invocation;
+    }
+  }
+
+  // 1.
+  // FIXME(greg) are there other places we don't handle the FunctionExpressionInvocation case properly?
 
   if (parent is PropertyAccess &&
       parent.target == node &&
@@ -1793,11 +1877,6 @@ AstNode getDependency(AstNode node) {
       !(grandparent is InvocationExpression &&
           // fixme is this right?
           grandparent.function == parent)) {
-    return getDependency(parent);
-  }
-
-  // This MethodInvocation check deviates from the JS, and is necessary to handle stable hook methods.
-  if (parent is MethodInvocation && parent.target == node && getStableHookMethodInfo(parent) != null) {
     return getDependency(parent);
   }
 
@@ -1869,6 +1948,8 @@ void markNode(AstNode node, Map<String, bool>? optionalChains, String result, {r
 /// foo.bar(.)baz -> 'foo.bar.baz'
 /// Otherwise throw.
 String analyzePropertyChain(AstNode node, Map<String, bool>? optionalChains) {
+  late final propertyInvocation = PropertyInvocation.detect(node);
+
   if (node is SimpleIdentifier) {
     final result = node.name;
     if (optionalChains != null) {
@@ -1891,14 +1972,14 @@ String analyzePropertyChain(AstNode node, Map<String, bool>? optionalChains) {
     markNode(node, optionalChains, result, isOptional: false);
     return result;
     // rule out cascades and implicit this // fixme greg update other locations to use this pattern
-  } else if (node is MethodInvocation && node.target != null && getStableHookMethodInfo(node) != null) {
-    // This MethodInvocation check deviates from the JS, and is necessary to handle stable hook methods.
-    // FIXME(greg) look into this more and clean this up
-    assert(!node.isCascaded, 'cascaded members are unexpected here');
-    final object = analyzePropertyChain(node.target!, optionalChains);
-    final property = analyzePropertyChain(node.methodName, null);
+  } else if (propertyInvocation != null &&
+      propertyInvocation.target != null &&
+      isInvocationADiscreteDependency(propertyInvocation)) {
+    // This invocation check deviates from the JS, and is necessary to handle stable hook methods and function props.
+    final object = analyzePropertyChain(propertyInvocation.target!, optionalChains);
+    final property = analyzePropertyChain(propertyInvocation.functionName, null);
     final result = "$object.$property";
-    markNode(node, optionalChains, result, isOptional: false);
+    markNode(node, optionalChains, result, isOptional: propertyInvocation.isNullAware);
     return result;
   } else {
     throw UnsupportedNodeTypeException(node);
