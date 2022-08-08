@@ -1356,6 +1356,19 @@ final Map<String, List<Map<String, Object>>> tests = {
         }, null);
       ''',
     },
+    // This previously-invalid test case is valid for the Dart implementation.
+    {
+      'code': r'''
+        final MyComponent = uiFunction<TestProps>((props) {
+          final skillsCount = useState<dynamic>(null);
+          useEffect(() {
+            if (skillsCount.value == 0 && !props.isEditMode) {
+              props.toggleEditMode();
+            }
+          }, [skillsCount.value, props.isEditMode, props.toggleEditMode]);
+        }, null);
+      ''',
+    }
   ],
   'invalid': [
     {
@@ -3997,40 +4010,7 @@ final Map<String, List<Map<String, Object>>> tests = {
         },
       ],
     },
-    {
-      'code': r'''
-        final MyComponent = uiFunction<TestProps>((props) {
-          final skillsCount = useState<dynamic>(null);
-          useEffect(() {
-            if (skillsCount.value == 0 && !props.isEditMode) {
-              props.toggleEditMode();
-            }
-          }, [skillsCount.value, props.isEditMode, props.toggleEditMode]);
-        }, null);
-      ''',
-      'errors': [
-        {
-          'message':
-              'React Hook useEffect has a missing dependency: \'props\'. Either include it or remove the dependency list. However, \'props\' will change when *any* prop changes, so the preferred fix is to destructure the \'props\' object outside of the useEffect call and refer to those specific props inside useEffect.',
-          'suggestions': [
-            {
-              'desc':
-                  'Update the dependencies list to be: [skillsCount.value, props.isEditMode, props.toggleEditMode, props]',
-              'output': r'''
-                final MyComponent = uiFunction<TestProps>((props) {
-                  final skillsCount = useState<dynamic>(null);
-                  useEffect(() {
-                    if (skillsCount.value == 0 && !props.isEditMode) {
-                      props.toggleEditMode();
-                    }
-                  }, [skillsCount.value, props.isEditMode, props.toggleEditMode, props]);
-                }, null);
-              ''',
-            },
-          ],
-        },
-      ],
-    },
+    /* 1 test case previously here was moved to be a valid test case, since it involved a function prop call declared as a dependency, which is now allowed */
     {
       'code': r'''
         final MyComponent = uiFunction<TestProps>((props) {
