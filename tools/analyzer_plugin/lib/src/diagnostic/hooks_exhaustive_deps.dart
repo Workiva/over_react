@@ -1240,7 +1240,9 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
             break;
           case _SetStateRecommendationForm.updater:
             final updaterArgumentName = missingDep.substring(0, 1);
-            final functionalUpdateSetter = '${setter}WithUpdater';
+            // This might already by an updater function, if they're referencing the state in the updater.
+            // TODO(greg) add a better message for this case, telling them to use the arg instead?
+            final functionalUpdateSetter = setter.endsWith('WithUpdater') ? setter : '${setter}WithUpdater';
             extraWarning = " You can also do a functional update"
                 " '$functionalUpdateSetter(($updaterArgumentName) => ...)'"
                 " if you only need '$missingDep' in the '$setter' call.";
