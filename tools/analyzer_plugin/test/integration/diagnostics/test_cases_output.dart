@@ -5884,39 +5884,8 @@ final Map<String, List<Map<String, Object>>> tests = {
         },
       ],
     },
-    {
-      // Regression test for a crash
-      'code': r'''
-        final Podcasts = uiFunction<TestProps>((_) {
-          useEffect(() {
-            window.alert(podcasts.value);
-          }, []);
-          var podcasts = useState<dynamic>(null);
-        }, null);
-      ''',
-      'errors': [
-        {
-          'message':
-              'React Hook useEffect has a missing dependency: \'podcasts\'. Either include it or remove the dependency list.',
-          // Note: this autofix is shady because
-          // the variable is used before declaration.
-          // TODO: Maybe we can catch those fixes and not autofix.
-          'suggestions': [
-            {
-              'desc': 'Update the dependencies list to be: [podcasts]',
-              'output': r'''
-                final Podcasts = uiFunction<TestProps>((_) {
-                  useEffect(() {
-                    window.alert(podcasts.value);
-                  }, [podcasts.value]);
-                  var podcasts = useState<dynamic>(null);
-                }, null);
-              ''',
-            },
-          ],
-        },
-      ],
-    },
+    /* ("Regression test for a crash" previously here was removed since the original cause of the crash is not applicable
+       in the Dart logic, and the test case involving variables declared after they're referenced is not valid in Dart.) */
     {
       'code': r'''
         final Podcasts = uiFunction<TestProps>((props) {
@@ -6080,6 +6049,9 @@ final Map<String, List<Map<String, Object>>> tests = {
           useEffect(() {
             final fetchData = () async {};
             fetchData();
+            // This case specifically involves an undefined name as a result of
+            // moving a function (fetchData) into callback.
+            // ignore: undefined_identifier
           }, [fetchData]);
         }, null);
       ''',
@@ -6287,70 +6259,7 @@ final Map<String, List<Map<String, Object>>> tests = {
         },
       ],
     },
-    {
-      'code': r'''
-        final Example = uiFunction<TestProps>((_) {
-          final foo = useCallback(() {
-            foo();
-          }, [foo]);
-        }, null);
-      ''',
-      'errors': [
-        {
-          'message':
-              'React Hook useCallback has an unnecessary dependency: \'foo\'. Either exclude it or remove the dependency list.',
-          'suggestions': [
-            {
-              'desc': 'Update the dependencies list to be: []',
-              'output': r'''
-                final Example = uiFunction<TestProps>((_) {
-                  final foo = useCallback(() {
-                    foo();
-                  }, []);
-                }, null);
-              ''',
-            },
-          ],
-        },
-      ],
-    },
-    {
-      'code': r'''
-        final Example = uiFunction<TestProps>((props) {
-          var prop = props.prop;
-
-          final foo = useCallback(() {
-            prop.hello(foo);
-          }, [foo]);
-          final bar = useCallback(() {
-            foo();
-          }, [foo]);
-        }, null);
-      ''',
-      'errors': [
-        {
-          'message':
-              'React Hook useCallback has a missing dependency: \'prop\'. Either include it or remove the dependency list.',
-          'suggestions': [
-            {
-              'desc': 'Update the dependencies list to be: [prop]',
-              'output': r'''
-                final Example = uiFunction<TestProps>((props) {
-                  var prop = props.prop;
-
-                  final foo = useCallback(() {
-                    prop.hello(foo);
-                  }, [prop]);
-                  final bar = useCallback(() {
-                    foo();
-                  }, [foo]);
-                }, null);
-              ''',
-            },
-          ],
-        },
-      ],
-    },
+    /* 2 test cases previously was removed involving referencing variables inside their initializers, since that it not allowed in Dart */
     {
       'code': r'''
         final MyComponent = uiFunction<TestProps>((_) {
