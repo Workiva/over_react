@@ -570,6 +570,7 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
       final dependency = analyzePropertyChain(
         dependencyNode,
         optionalChains,
+        isInvocationAllowedForNode: true,
       );
       debug(
           'dependency: $dependency, dependencyNode: ${dependencyNode.runtimeType} $dependencyNode, reference ${reference.runtimeType} $reference',
@@ -824,6 +825,9 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
           declaredDependency = analyzePropertyChain(
             declaredDependencyNode,
             null,
+            // While invocations are allowed in certain cases when using dependencies,
+            // they're not allowed in the dependency list.
+            isInvocationAllowedForNode: false,
           );
         } on UnsupportedNodeTypeException catch (_) {
           if (declaredDependencyNode is SimpleStringLiteral && dependencies.containsKey(declaredDependencyNode.value)) {
@@ -1947,7 +1951,11 @@ void markNode(AstNode node, Map<String, bool>? optionalChains, String result, {r
 /// foo(.)bar -> 'foo.bar'
 /// foo.bar(.)baz -> 'foo.bar.baz'
 /// Otherwise throw.
-String analyzePropertyChain(AstNode node, Map<String, bool>? optionalChains) {
+///
+/// If [isInvocationAllowedForNode] is true, then invocations will be handled (for certain cases,
+/// like function props and stable hook methods). Otherwise, this will throw.
+String analyzePropertyChain(AstNode node, Map<String, bool>? optionalChains,
+    {required bool isInvocationAllowedForNode}) {
   late final propertyInvocation = PropertyInvocation.detect(node);
 
   if (node is SimpleIdentifier) {
@@ -1960,24 +1968,25 @@ String analyzePropertyChain(AstNode node, Map<String, bool>? optionalChains) {
   } else if (node is PropertyAccess) {
     // FIXME(greg) look into this more and clean this up
     assert(!node.isCascaded, 'cascaded members are unexpected here');
-    final object = analyzePropertyChain(node.target!, optionalChains);
-    final property = analyzePropertyChain(node.propertyName, null);
+    final object = analyzePropertyChain(node.target!, optionalChains, isInvocationAllowedForNode: false);
+    final property = analyzePropertyChain(node.propertyName, null, isInvocationAllowedForNode: false);
     final result = "$object.$property";
     markNode(node, optionalChains, result, isOptional: node.isNullAware);
     return result;
   } else if (node is PrefixedIdentifier) {
-    final object = analyzePropertyChain(node.prefix, optionalChains);
-    final property = analyzePropertyChain(node.identifier, null);
+    final object = analyzePropertyChain(node.prefix, optionalChains, isInvocationAllowedForNode: false);
+    final property = analyzePropertyChain(node.identifier, null, isInvocationAllowedForNode: false);
     final result = "$object.$property";
     markNode(node, optionalChains, result, isOptional: false);
     return result;
     // rule out cascades and implicit this // fixme greg update other locations to use this pattern
-  } else if (propertyInvocation != null &&
+  } else if (isInvocationAllowedForNode &&
+      propertyInvocation != null &&
       propertyInvocation.target != null &&
       isInvocationADiscreteDependency(propertyInvocation)) {
     // This invocation check deviates from the JS, and is necessary to handle stable hook methods and function props.
-    final object = analyzePropertyChain(propertyInvocation.target!, optionalChains);
-    final property = analyzePropertyChain(propertyInvocation.functionName, null);
+    final object = analyzePropertyChain(propertyInvocation.target!, optionalChains, isInvocationAllowedForNode: false);
+    final property = analyzePropertyChain(propertyInvocation.functionName, null, isInvocationAllowedForNode: false);
     final result = "$object.$property";
     markNode(node, optionalChains, result, isOptional: propertyInvocation.isNullAware);
     return result;
@@ -2042,7 +2051,7 @@ int getReactiveHookCallbackIndex(Expression calleeNode, {RegExp? additionalHooks
         // target custom reactive hooks.
         String name;
         try {
-          name = analyzePropertyChain(node, null);
+          name = analyzePropertyChain(node, null, isInvocationAllowedForNode: false);
         } on UnsupportedNodeTypeException catch (_) {
           return 0;
         }
