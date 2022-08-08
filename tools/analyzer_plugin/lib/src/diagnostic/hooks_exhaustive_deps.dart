@@ -51,7 +51,7 @@ import 'package:over_react_analyzer_plugin/src/util/react_types.dart';
 //
 
 class HooksExhaustiveDeps extends DiagnosticContributor {
-  static const debugEnabled = false;
+  static final _debugFlagPattern = RegExp(r'debug:.*\bover_react_hooks_exhaustive_deps\b');
 
   @DocsMeta('Verifies the list of dependencies for React Hooks like useEffect and similar', details: '')
   static const code = DiagnosticCode(
@@ -73,6 +73,7 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
 
   @override
   Future<void> computeErrors(result, collector) async {
+    final debugEnabled = _debugFlagPattern.hasMatch(result.content!);
     final helper = AnalyzerDebugHelper(result, collector, enabled: debugEnabled);
     result.unit!.accept(_ExhaustiveDepsVisitor(
       additionalHooks: additionalHooksPattern,
@@ -80,7 +81,7 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
       diagnosticCollector: collector,
       getSource: (node) => result.content!.substring(node.offset, node.end),
       debug: (string, location) {
-        if (!debugEnabled) return;
+        if (!helper.enabled) return;
         Location _location;
         if (location is Location) {
           _location = location;
