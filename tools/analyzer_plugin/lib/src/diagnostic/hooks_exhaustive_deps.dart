@@ -375,6 +375,26 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
         // FIXME(greg) audit existing usages of thisOrAncestor* for similar bugs
         element.ancestorOfType<ExecutableElement>() == componentOrCustomHookFunctionElement;
 
+    // Returns whether [element] is a variable assigned to a prop value.
+    bool isPropVariable(Element element) {
+      if (!isDeclaredInPureScope(element)) return false;
+      final variable = lookUpVariable(element, node.root);
+      if (variable == null) return false;
+
+      // FIXME(greg) can we reuse logic from non_defaulted_prop here? Should this handle more cases
+      final initializer = variable.initializer;
+      if (initializer == null) return false;
+      final initializerTargetElement = getSimpleTargetAndPropertyName(initializer)?.item1.staticElement;
+      bool isProps(Element e) {
+        // FIXME(greg) make this way better
+        return e.name == 'props' &&
+            e.enclosingElement == componentOrCustomHookFunctionElement &&
+            lookUpParameter(e, node.root)?.parent == componentOrCustomHookFunction?.parameters;
+      }
+
+      return initializerTargetElement != null && isProps(initializerTargetElement);
+    }
+
     // uiFunction((props), {
     //   // Pure scope 2
     //   var renderVar;
@@ -1122,28 +1142,7 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
         if (usedDep == null) return false;
         final reference = usedDep.references.first;
         final usedDepElement = reference.staticElement;
-        if (usedDepElement == null) return false;
-        if (usedDepElement.enclosingElement != componentOrCustomHookFunctionElement) {
-          return false;
-        }
-        final variable = lookUpVariable(usedDepElement, node.root);
-        if (variable == null) return false;
-
-        // Is this a prop assigned to a variable?
-        // FIXME(greg) can we reuse logic from non_defaulted_prop here?
-        final initializer = variable.initializer;
-        if (initializer == null) return false;
-        final initializerTargetElement = getSimpleTargetAndPropertyName(initializer)?.item1.staticElement;
-        bool isProps(Element e) {
-          // FIXME(greg) make this way better
-          return e.name == 'props' &&
-              e.enclosingElement == componentOrCustomHookFunctionElement &&
-              lookUpParameter(e, node.root)?.parent == componentOrCustomHookFunction?.parameters;
-        }
-
-        if (initializerTargetElement == null || !isProps(initializerTargetElement)) {
-          return false;
-        }
+        if (usedDepElement == null || !isPropVariable(usedDepElement)) return false;
 
         // Was it called in at least one case? Then it's a function.
         final isFunctionCall = usedDep.references.any((id) {
@@ -1208,11 +1207,9 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
                     form: _SetStateRecommendationForm.reducer,
                   );
                 } else {
-                  // If it's a parameter *and* a missing dep,
-                  // it must be a prop or something inside a prop.
-                  // Therefore, recommend an inline reducer.
+                  // Recommend an inline reducer if it's a prop.
                   final def = id.staticElement;
-                  if (def != null && def is ParameterElement) {
+                  if (def != null && isPropVariable(def)) {
                     setStateRecommendation = _SetStateRecommendation(
                       missingDep: missingDep,
                       setter: maybeCallFunctionName,

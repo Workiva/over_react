@@ -5776,6 +5776,7 @@ final Map<String, List<Map<String, Object>>> tests = {
         },
       ],
     },
+    // FIXME(greg) does this also need a non-destructured test case?
     {
       'code': r'''
         final Counter = uiFunction<TestProps>((props) {
@@ -5794,7 +5795,7 @@ final Map<String, List<Map<String, Object>>> tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has a missing dependency: \'increment\'. Either include it or remove the dependency list. If \'count.set\' needs the current value of \'increment\', you can also switch to useReducer instead of useState and read \'increment\' in the reducer.',
+              'React Hook useEffect has a missing dependency: \'increment\'. Either include it or remove the dependency list. If \'count.setWithUpdater\' needs the current value of \'increment\', you can also switch to useReducer instead of useState and read \'increment\' in the reducer.',
           'suggestions': [
             {
               'desc': 'Update the dependencies list to be: [increment]',
