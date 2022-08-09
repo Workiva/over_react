@@ -5636,7 +5636,7 @@ final Map<String, List<Map<String, Object>>> tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has a missing dependency: \'increment.value\'. Either include it or remove the dependency list. You can also replace multiple useState variables with useReducer if \'count.set\' needs the current value of \'increment\'.',
+              'React Hook useEffect has a missing dependency: \'increment.value\'. Either include it or remove the dependency list. You can also replace multiple useState variables with useReducer if \'count.setWithUpdater\' needs \'increment.value\'.',
           'suggestions': [
             {
               'desc': 'Update the dependencies list to be: [increment]',

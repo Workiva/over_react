@@ -290,7 +290,6 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
   // Should be shared between visitors.
   /// A mapping from setState references to setState declarations
   final setStateCallSites = WeakMap<Identifier, VariableDeclaration>();
-  final stateVariables = WeakSet<Identifier>();
   final stableKnownValueCache = WeakMap<Identifier, bool>();
   final functionWithoutCapturedValueCache = WeakMap<Element, bool>();
 
@@ -1201,7 +1200,7 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
                     setter: maybeCallFunctionName,
                     form: _SetStateRecommendationForm.updater,
                   );
-                } else if (stateVariables.has(id)) {
+                } else if (id.staticType?.isStateHook ?? false) {
                   // setCount(count + increment)
                   setStateRecommendation = _SetStateRecommendation(
                     missingDep: missingDep,
@@ -1236,7 +1235,7 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
         switch (setStateRecommendation.form) {
           case _SetStateRecommendationForm.reducer:
             extraWarning = " You can also replace multiple useState variables with useReducer "
-                "if '$setter' needs the current value of '$missingDep'.";
+                "if '$setter' needs '$missingDep'.";
             break;
           case _SetStateRecommendationForm.inlineReducer:
             extraWarning = " If '$setter' needs the current value of '$missingDep', "
