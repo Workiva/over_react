@@ -265,13 +265,13 @@ StableHookMethodInfo? getStableHookMethodInfo(AstNode node) {
   if (target == null) return null;
 
   // Check whether this reference is only used to access the stable hook property.
-  if ((target.staticType?.element?.isStateHook ?? false) &&
+  if ((target.staticType?.isStateHook ?? false) &&
       StableHookMethodInfo.stableStateHookMethods.contains(property.name)) {
     return StableHookMethodInfo(
         node: node, target: target, property: property, hookType: HookTypeWithStableMethods.stateHook);
   }
 
-  if ((target.staticType?.element?.isReducerHook ?? false) &&
+  if ((target.staticType?.isReducerHook ?? false) &&
       StableHookMethodInfo.stableReducerHookMethods.contains(property.name)) {
     return StableHookMethodInfo(
         node: node, target: target, property: property, hookType: HookTypeWithStableMethods.reducerHook);
@@ -796,7 +796,7 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
 
         // Special case for Dart: whole state hook passed in as dependency.
         // FIXME(greg) add test cases
-        if (declaredDependencyNode.staticType?.element?.isStateHook ?? false) {
+        if (declaredDependencyNode.staticType?.isStateHook ?? false) {
           final dependencySource = getSource(declaredDependencyNode);
           final dependencySourceValue = '$dependencySource.value';
           // fixme(greg) conditionally suggest value or removing the dep based on whether count.value is used in hook? Also figure out why `useEffect(() => print(count.value), [count]);` triggers missing dependency case

@@ -6,6 +6,8 @@ extension ReactTypes$DartType on DartType {
   bool get isComponentClass => typeOrBound.element?.isComponentClass ?? false;
   bool get isReactElement => typeOrBound.element?.isReactElement ?? false;
   bool get isPropsClass => typeOrBound.element?.isPropsClass ?? false;
+  bool get isStateHook => typeOrBound.element?.isStateHook ?? false;
+  bool get isReducerHook => typeOrBound.element?.isReducerHook ?? false;
 }
 
 extension ReactTypes$Element on Element {
