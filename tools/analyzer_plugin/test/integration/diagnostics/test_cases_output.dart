@@ -3859,7 +3859,7 @@ final Map<String, List<Map<String, Object>>> tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has a missing dependency: \'props.onChange\'. Either include it or remove the dependency list.',
+              'React Hook useEffect has a missing dependency: \'props.onChange\'. Either include it or remove the dependency list. If \'props.onChange\' changes too often, find the parent component that defines it and wrap that definition in useCallback.',
           'suggestions': [
             {
               'desc': 'Update the dependencies list to be: [props]',
@@ -3891,7 +3891,7 @@ final Map<String, List<Map<String, Object>>> tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has a missing dependency: \'props?.onChange\'. Either include it or remove the dependency list.',
+              'React Hook useEffect has a missing dependency: \'props?.onChange\'. Either include it or remove the dependency list. If \'props?.onChange\' changes too often, find the parent component that defines it and wrap that definition in useCallback.',
           'suggestions': [
             {
               'desc': 'Update the dependencies list to be: [props]',
@@ -3925,7 +3925,7 @@ final Map<String, List<Map<String, Object>>> tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has missing dependencies: \'props.onPause\' and \'props.onPlay\'. Either include them or remove the dependency list.',
+              'React Hook useEffect has missing dependencies: \'props.onPause\' and \'props.onPlay\'. Either include them or remove the dependency list. If any of \'props.onPause\' or \'props.onPlay\' changes too often, find the parent component that defines it and wrap that definition in useCallback.',
           'suggestions': [
             {
               'desc': 'Update the dependencies list to be: [props]',
@@ -3991,7 +3991,7 @@ final Map<String, List<Map<String, Object>>> tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has missing dependencies: \'props.foo\' and \'props.onChange\'. Either include them or remove the dependency list.',
+              'React Hook useEffect has missing dependencies: \'props.foo\' and \'props.onChange\'. Either include them or remove the dependency list. If \'props.onChange\' changes too often, find the parent component that defines it and wrap that definition in useCallback.',
           'suggestions': [
             {
               'desc': 'Update the dependencies list to be: [props]',
@@ -4025,7 +4025,7 @@ final Map<String, List<Map<String, Object>>> tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has missing dependencies: \'props.isEditMode\', \'props.toggleEditMode\', and \'skillsCount.value\'. Either include them or remove the dependency list.',
+              'React Hook useEffect has missing dependencies: \'props.isEditMode\', \'props.toggleEditMode\', and \'skillsCount.value\'. Either include them or remove the dependency list. If \'props.toggleEditMode\' changes too often, find the parent component that defines it and wrap that definition in useCallback.',
           'suggestions': [
             {
               'desc': 'Update the dependencies list to be: [props, skillsCount.value]',
@@ -5902,6 +5902,41 @@ final Map<String, List<Map<String, Object>>> tests = {
         },
       ],
     },
+    // This test case was added to verify the same behavior for direct invocations of function props,
+    // since they're treated differently in the Dart implementation of this lint.
+    {
+      'code': r'''
+        final Podcasts = uiFunction<TestProps>((props) {
+          var id = props.id;
+
+          var podcasts = useState<dynamic>(null);
+          useEffect(() {
+            props.fetchPodcasts(id).then(podcasts.set);
+          }, [id]);
+        }, null);
+      ''',
+      'errors': [
+        {
+          'message':
+              'React Hook useEffect has a missing dependency: \'props.fetchPodcasts\'. Either include it or remove the dependency list. If \'props.fetchPodcasts\' changes too often, find the parent component that defines it and wrap that definition in useCallback.',
+          'suggestions': [
+            {
+              'desc': 'Update the dependencies list to be: [props.fetchPodcasts, id]',
+              'output': r'''
+                final Podcasts = uiFunction<TestProps>((props) {
+                  var id = props.id;
+
+                  var podcasts = useState<dynamic>(null);
+                  useEffect(() {
+                    props.fetchPodcasts(id).then(podcasts.set);
+                  }, [props.fetchPodcasts, id]);
+                }, null);
+              ''',
+            },
+          ],
+        },
+      ],
+    },
     /* (1 case previously here was removed, since it was the same as the above test, only props were destructured in the argument list) */
     {
       'code': r'''
@@ -5923,7 +5958,7 @@ final Map<String, List<Map<String, Object>>> tests = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has missing dependencies: \'fetchPodcasts\' and \'fetchPodcasts2\'. Either include them or remove the dependency list. If \'fetchPodcasts\' changes too often, find the parent component that defines it and wrap that definition in useCallback.',
+              'React Hook useEffect has missing dependencies: \'fetchPodcasts\' and \'fetchPodcasts2\'. Either include them or remove the dependency list. If any of \'fetchPodcasts\' or \'fetchPodcasts2\' changes too often, find the parent component that defines it and wrap that definition in useCallback.',
           'suggestions': [
             {
               'desc': 'Update the dependencies list to be: [fetchPodcasts, fetchPodcasts2, id]',

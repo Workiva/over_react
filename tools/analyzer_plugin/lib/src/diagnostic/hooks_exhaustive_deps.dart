@@ -28,7 +28,7 @@ import 'package:analyzer/dart/ast/syntactic_entity.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer_plugin/protocol/protocol_common.dart' show Location;
-import 'package:collection/collection.dart' show IterableExtension;
+import 'package:collection/collection.dart' show IterableExtension, IterableZip;
 import 'package:over_react_analyzer_plugin/src/diagnostic/analyzer_debug_helper.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/util/analyzer_util.dart';
@@ -150,14 +150,18 @@ extension<K extends Object, V extends Object> on V Function(K) {
 
 class _Dependency {
   final bool isStable;
-  final List<Identifier> references;
 
-  _Dependency({required this.isStable, required this.references});
+  // TODO(greg) make this a list of tuples
+  final List<Identifier> references;
+  final List<Expression> dependencyNodes;
+
+  _Dependency({required this.isStable, required this.references, required this.dependencyNodes});
 
   @override
   String toString() => prettyString({
         'isStable': isStable,
         'references': references,
+        'dependencyNodes': dependencyNodes,
       });
 }
 
@@ -375,6 +379,13 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
         // FIXME(greg) audit existing usages of thisOrAncestor* for similar bugs
         element.ancestorOfType<ExecutableElement>() == componentOrCustomHookFunctionElement;
 
+    bool isProps(Element e) {
+      // FIXME(greg) make this way better
+      return e.name == 'props' &&
+          e.enclosingElement == componentOrCustomHookFunctionElement &&
+          lookUpParameter(e, node.root)?.parent == componentOrCustomHookFunction?.parameters;
+    }
+
     // Returns whether [element] is a variable assigned to a prop value.
     bool isPropVariable(Element element) {
       if (!isDeclaredInPureScope(element)) return false;
@@ -385,14 +396,24 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
       final initializer = variable.initializer;
       if (initializer == null) return false;
       final initializerTargetElement = getSimpleTargetAndPropertyName(initializer)?.item1.staticElement;
-      bool isProps(Element e) {
-        // FIXME(greg) make this way better
-        return e.name == 'props' &&
-            e.enclosingElement == componentOrCustomHookFunctionElement &&
-            lookUpParameter(e, node.root)?.parent == componentOrCustomHookFunction?.parameters;
-      }
 
       return initializerTargetElement != null && isProps(initializerTargetElement);
+    }
+
+    bool isPropOrPropVariable(Expression e) {
+      if (e is SimpleIdentifier) {
+        final element = e.staticElement;
+        if (element != null) {
+          return isPropVariable(element);
+        }
+      }
+      final access = getSimpleTargetAndPropertyName(e);
+      if (access != null) {
+        final targetElement = access.item1.staticElement;
+        if (targetElement != null) return isProps(targetElement);
+      }
+
+      return false;
     }
 
     // uiFunction((props), {
@@ -620,17 +641,18 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
 
       // Add the dependency to a map so we can make sure it is referenced
       // again in our dependencies array. Remember whether it's stable.
-      // ignore: avoid_single_cascade_in_expression_statements
       dependencies.putIfAbsent(dependency, () {
         return _Dependency(
           isStable: memoizedIsStableKnownHookValue(reference) ||
               // FIXME handle .call tearoffs
               memoizedIsFunctionWithoutCapturedValues(referenceElement),
           references: [],
+          dependencyNodes: [],
         );
       })
         // Note that for the the `state.set` case, the reference is still `state`.
-        ..references.add(reference);
+        ..references.add(reference)
+        ..dependencyNodes.add(dependencyNode);
     }
 
     // Warn about accessing .current in cleanup effects.
@@ -1093,77 +1115,38 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
       }
     }
 
-    // FIXME(greg) change this behavior since tearoffs bind `this` in Dart, and also worrying about props being called with `this` isn't worth the confusion this messaging brings
-    // "props.foo()" marks "props" as a dependency because it has
-    // a "this" value. This warning can be confusing.
-    // So if we're going to show it, append a clarification.
-    if (extraWarning == null && missingDependencies.contains('props')) {
-      final propDep = dependencies['props'];
-      if (propDep == null) {
-        return;
-      }
-      final refs = propDep.references;
-      // FIXME(greg) was this null-check dead code in the original implementation?
-      // if (refs == null) {
-      //   return;
-      // }
-      var isPropsOnlyUsedInMembers = true;
-      for (final ref in refs) {
-        // FIXME(greg) was this null-check dead code in the original implementation?
-        // if (ref == null) {
-        //   isPropsOnlyUsedInMembers = false;
-        //   break;
-        // }
-        final parent = ref.parent;
-        if (parent == null) {
-          isPropsOnlyUsedInMembers = false;
-          break;
-        }
-        if (parent is Expression && getSimpleTargetAndPropertyName(parent)?.item1 == ref) {
-          isPropsOnlyUsedInMembers = false;
-          break;
-        }
-      }
-      if (isPropsOnlyUsedInMembers) {
-        extraWarning = " However, 'props' will change when *any* prop changes, so the "
-            "preferred fix is to destructure the 'props' object outside of "
-            "the $reactiveHookName call and refer to those specific props "
-            "inside ${getSource(reactiveHook)}.";
-      }
-    }
+    // Removed extra warning around this old beavior:
+    // // "props.foo()" marks "props" as a dependency because it has
+    // // a "this" value. This warning can be confusing.
+    // // So if we're going to show it, append a clarification.
+    // which is no longer relevant in this implementation since "props.foo()" no longer marks "props" as a dependency.
 
     if (extraWarning == null && missingDependencies.isNotEmpty) {
       // See if the user is trying to avoid specifying a callable prop.
       // This usually means they're unaware of useCallback.
-      final missingCallbackDep = missingDependencies.firstWhereOrNull((missingDep) {
+      final missingCallbackDeps = missingDependencies.where((missingDep) {
         // Is this a variable from top scope?
         // FIXME(greg) can we reuse logic from scanForConstructions here?
         final usedDep = dependencies[missingDep];
         if (usedDep == null) return false;
-        final reference = usedDep.references.first;
-        final usedDepElement = reference.staticElement;
-        if (usedDepElement == null || !isPropVariable(usedDepElement)) return false;
 
-        // Was it called in at least one case? Then it's a function.
-        final isFunctionCall = usedDep.references.any((id) {
-          final parentInvocation = id.parent?.tryCast<InvocationExpression>();
-          if (parentInvocation == null) return false;
+        return usedDep.dependencyNodes.any((dependencyNode) {
+          final invocation = PropertyInvocation.detect(dependencyNode);
+          if (invocation == null) return false;
 
-          return parentInvocation.function == id ||
-              (parentInvocation is MethodInvocation &&
-                  parentInvocation.target == id &&
-                  parentInvocation.methodName.name == 'call');
+          // Need to try both here so that MethodInvocation is handled properly.
+          // FIXME greg clean thhis up; there are other cases where we have to do this
+          return isPropOrPropVariable(invocation.invocation) || isPropOrPropVariable(invocation.invocation.function);
         });
-        if (!isFunctionCall) {
-          return false;
-        }
-
-        return true;
-      });
-      if (missingCallbackDep != null) {
-        extraWarning = " If '$missingCallbackDep' changes too often, "
-            "find the parent component that defines it "
-            "and wrap that definition in useCallback.";
+      }).toList();
+      if (missingCallbackDeps.isNotEmpty) {
+        extraWarning = " If " +
+            (missingCallbackDeps.length == 1
+                ? "'${formatDependency(missingCallbackDeps.single)}'"
+                : "any of " + joinEnglish((missingCallbackDeps.toList()..sort()).map((d) => "'$d'").toList(), 'or')) +
+            " changes too often, "
+                "find the parent component that defines it "
+                "and wrap that definition in useCallback.";
       }
     }
 
@@ -1174,10 +1157,11 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
           break;
         }
         final usedDep = dependencies[missingDep]!;
-        final references = usedDep.references;
-        for (final id in references) {
+        for (final zipped in tupleZip(usedDep.dependencyNodes, usedDep.references)) {
+          final dependencyNode = zipped.item1;
+          final reference = zipped.item2;
           // Try to see if we have setState(someExpr(missingDep)).
-          for (var maybeCall = id.parent;
+          for (var maybeCall = dependencyNode.parent;
               maybeCall != null && maybeCall != componentOrCustomHookFunction?.body;
               maybeCall = maybeCall.parent) {
             if (maybeCall is InvocationExpression) {
@@ -1199,7 +1183,7 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
                     setter: maybeCallFunctionName,
                     form: _SetStateRecommendationForm.updater,
                   );
-                } else if (id.staticType?.isStateHook ?? false) {
+                } else if (reference.staticType?.isStateHook ?? false) {
                   // setCount(count + increment)
                   setStateRecommendation = _SetStateRecommendation(
                     missingDep: missingDep,
@@ -1208,8 +1192,8 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
                   );
                 } else {
                   // Recommend an inline reducer if it's a prop.
-                  final def = id.staticElement;
-                  if (def != null && isPropVariable(def)) {
+                  // FIXME(greg) do we need dependencyNode here or can we just do `isProps(reference) || isPropVariable(reference)`?
+                  if (isPropOrPropVariable(dependencyNode)) {
                     setStateRecommendation = _SetStateRecommendation(
                       missingDep: missingDep,
                       setter: maybeCallFunctionName,
@@ -1845,7 +1829,7 @@ bool isInvocationADiscreteDependency(PropertyInvocation invocation) {
 /// props.(foo) => (props.foo)
 /// props.foo.(bar) => (props).foo.bar
 /// props.foo.bar.(baz) => (props).foo.bar.baz
-AstNode getDependency(AstNode node) {
+Expression getDependency(Expression node) {
   final parent = node.parent!;
   final grandparent = parent.parent;
 
@@ -2058,14 +2042,14 @@ int getReactiveHookCallbackIndex(Expression calleeNode, {RegExp? additionalHooks
   }
 }
 
-String joinEnglish(List<String> arr) {
+String joinEnglish(List<String> arr, [String joinWord = 'and']) {
   var s = '';
   for (var i = 0; i < arr.length; i++) {
     s += arr[i];
     if (i == 0 && arr.length == 2) {
-      s += ' and ';
+      s += ' $joinWord ';
     } else if (i == arr.length - 2 && arr.length > 2) {
-      s += ', and ';
+      s += ', $joinWord ';
     } else if (i < arr.length - 1) {
       s += ', ';
     }
@@ -2209,3 +2193,6 @@ String prettyString(Object? obj) {
 extension on Iterable {
   bool hasLengthOfAtLeast(int length) => take(length).length == length;
 }
+
+Iterable<Tuple2<A, B>> tupleZip<A, B>(Iterable<A> a, Iterable<B> b) =>
+    IterableZip([a, b]).map((list) => Tuple2(list[0] as A, list[1] as B));
