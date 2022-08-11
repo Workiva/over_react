@@ -354,8 +354,6 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
     // to the first function scope (which will be either the component/render function or a custom hook,
     // since hooks can only be called from the top level).
 
-    final callbackFunctionElement = node.parentDeclaration?.declaredElement;
-
     // todo improve this
     final componentOrCustomHookFunctionBody = getClosestFunctionComponentOrHookBody(node);
     final componentOrCustomHookFunction = componentOrCustomHookFunctionBody?.parentExpression;
@@ -769,7 +767,6 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
 
     final declaredDependencies = <_DeclaredDependency>[];
     final externalDependencies = <String>{};
-    final externalDependenciesDeclaredInCallback = <String>{};
     if (declaredDependenciesNode is! ListLiteral) {
       // If the declared dependencies are not an array expression then we
       // can't verify that the user provided the correct dependencies. Tell
@@ -895,7 +892,6 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
         final enclosingElement = maybeID.tryCast<Identifier>()?.staticElement?.enclosingElement;
         final isDeclaredInComponent =
             enclosingElement != null && enclosingElement == componentOrCustomHookFunctionElement;
-        final isDeclaredInCallback = enclosingElement != null && enclosingElement == callbackFunctionElement;
 
         // Add the dependency to our declared dependency map.
         declaredDependencies.add(_DeclaredDependency(
@@ -906,9 +902,6 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
 
         if (!isDeclaredInComponent) {
           externalDependencies.add(declaredDependency);
-        }
-        if (!isDeclaredInCallback) {
-          externalDependenciesDeclaredInCallback.add(declaredDependency);
         }
       }
     }
@@ -1085,7 +1078,8 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
         final dep = externalDependencies.first;
         // Don't show this warning for things that likely just got moved *inside* the callback
         // because in that case they're clearly not referring to globals.
-        if (externalDependenciesDeclaredInCallback.contains(dep)) {
+        final isDeclaredInCallbackFunction = _hasDeclarationWithName(node, dep);
+        if (!isDeclaredInCallbackFunction) {
           extraWarning = " Outer scope values like '$dep' aren't valid dependencies "
               "because mutating them doesn't re-render the component.";
         }
@@ -1366,6 +1360,66 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
         e.addSimpleReplacement(range.node(declaredDependenciesNode), "[$callbackName]");
       }),
     );
+  }
+}
+
+/// Returns whether [body] has a declaration (a variable or local function) with the name
+/// [childName].
+///
+/// Declarations in nested functions are ignored.
+///
+/// Example:
+///
+/// ```dart
+/// // For the code:
+/// //    void parent(arg) {
+/// //      var variable;
+/// //      void function() {
+/// //        var nestedVariable;
+/// //      }
+/// //      {
+/// //        var insideBlock;
+/// //      }
+/// //    }
+/// _hasDeclarationWithName(parentEl, 'variable');       // true
+/// _hasDeclarationWithName(parentEl, 'function');       // true
+/// _hasDeclarationWithName(parentEl, 'insideBlock');    // true
+/// _hasDeclarationWithName(parentEl, 'nestedVariable'); // false - nested inside another function
+/// _hasDeclarationWithName(parentEl, 'arg');            // false - arguments aren't matched
+/// ```
+bool _hasDeclarationWithName(FunctionBody body, String childName) {
+  // Can't use an ElementVisitor Here since FunctionElement doesn't have references to child declarations.
+  // Use a visitor so we properly handle declarations inside blocks.
+  var hasMatch = false;
+  body.visitChildren(_ChildLocalVariableOrFunctionDeclarationVisitor((_, name) {
+    if (name.name == childName) {
+      hasMatch = true;
+    }
+  }));
+  return hasMatch;
+}
+
+class _ChildLocalVariableOrFunctionDeclarationVisitor extends RecursiveAstVisitor<void> {
+  final void Function(Declaration, SimpleIdentifier name) onChildLocalDeclaration;
+
+  _ChildLocalVariableOrFunctionDeclarationVisitor(this.onChildLocalDeclaration);
+
+  @override
+  void visitVariableDeclaration(VariableDeclaration node) {
+    super.visitVariableDeclaration(node);
+    onChildLocalDeclaration(node, node.name);
+  }
+
+  @override
+  void visitFunctionDeclaration(FunctionDeclaration node) {
+    super.visitFunctionDeclaration(node);
+    onChildLocalDeclaration(node, node.name);
+  }
+
+  @override
+  void visitFunctionExpression(FunctionExpression node) {
+    // Don't call super so that we don't recurse into function expressions,
+    // allowing us to ignore their parameters and any descendant declarations.
   }
 }
 
