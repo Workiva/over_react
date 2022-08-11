@@ -161,7 +161,7 @@ class _Dependency {
   String toString() => prettyString({
         'isStable': isStable,
         'references': references,
-        'dependencyNodes': dependencyNodes,
+        'dependencyNodes': dependencyNodes.map((d) => '$d - ${d.runtimeType}').toList(),
       });
 }
 
@@ -1131,12 +1131,35 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
         if (usedDep == null) return false;
 
         return usedDep.dependencyNodes.any((dependencyNode) {
-          final invocation = PropertyInvocation.detect(dependencyNode);
-          if (invocation == null) return false;
+          // Need to handle the following cases:
+          // Source            | dependencyNode type/source                  | invocation node/type
+          // ------------------|-------------------------------------------------------------------------------------------------------
+          // `foo()`           | SimpleIdentifier: `foo`                     | FunctionExpressionInvocation: dependencyNode.parent
+          // ------------------|-------------------------------------------------------------------------------------------------------
+          // FIXME(greg) handle this case - test case 119
+          // `foo.call()`      | SimpleIdentifier: `foo`                     | MethodInvocation: dependencyNode.parent
+          // ------------------|-------------------------------------------------------------------------------------------------------
+          // `foo()`           | SimpleIdentifier: `foo`                     | FunctionExpressionInvocation: dependencyNode.parent
+          // ------------------|-------------------------------------------------------------------------------------------------------
+          //                     //FIXME(greg) does MethodInvocation actually happen anywhere?
+          // `props.foo()`     | MethodInvocation: `props.foo()`             | MethodInvocation: dependencyNode
+          //                   | or                                          |
+          //                   | FunctionExpressionInvocation: `props.foo()` | MethodInvocation: dependencyNode
+          // ------------------|-------------------------------------------------------------------------------------------------------
+          // `props.foo.call()`| PrefixedIdentifier: `props.foo`             | MethodInvocation: dependencyNode.parent
 
-          // Need to try both here so that MethodInvocation is handled properly.
-          // FIXME greg clean thhis up; there are other cases where we have to do this
-          return isPropOrPropVariable(invocation.invocation) || isPropOrPropVariable(invocation.invocation.function);
+          // Need to check both the invocation for MethodInvocation, or the parent for other calls.
+          // FIXME(greg) clean this up along with similar logic elsewhere
+          if (dependencyNode is MethodInvocation) {
+            return isPropOrPropVariable(dependencyNode);
+          }
+          if (dependencyNode is FunctionExpressionInvocation) {
+            return isPropOrPropVariable(dependencyNode.function);
+          }
+          if (dependencyNode.parent?.tryCast<InvocationExpression>()?.function == dependencyNode) {
+            return isPropOrPropVariable(dependencyNode);
+          }
+          return false;
         });
       }).toList();
       if (missingCallbackDeps.isNotEmpty) {
