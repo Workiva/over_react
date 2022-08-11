@@ -28,7 +28,7 @@ import 'package:analyzer/dart/ast/syntactic_entity.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer_plugin/protocol/protocol_common.dart' show Location;
-import 'package:collection/collection.dart' show IterableExtension, IterableZip;
+import 'package:collection/collection.dart' show IterableExtension;
 import 'package:over_react_analyzer_plugin/src/diagnostic/analyzer_debug_helper.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/util/analyzer_util.dart';
@@ -153,15 +153,13 @@ class _Dependency {
 
   // TODO(greg) make this a list of tuples
   final List<Identifier> references;
-  final List<Expression> dependencyNodes;
 
-  _Dependency({required this.isStable, required this.references, required this.dependencyNodes});
+  _Dependency({required this.isStable, required this.references});
 
   @override
   String toString() => prettyString({
         'isStable': isStable,
         'references': references,
-        'dependencyNodes': dependencyNodes.map((d) => '$d - ${d.runtimeType}').toList(),
       });
 }
 
@@ -171,14 +169,11 @@ class _RefInEffectCleanup {
   /// [reference].staticElement, but stored as a separate non-nullable field.
   final Element referenceElement;
 
-  final Identifier dependencyNode;
-
-  _RefInEffectCleanup({required this.reference, required this.referenceElement, required this.dependencyNode});
+  _RefInEffectCleanup({required this.reference, required this.referenceElement});
 
   @override
   String toString() => prettyString({
         'reference': reference,
-        'dependencyNode': dependencyNode,
       });
 }
 
@@ -400,22 +395,6 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
       return initializerTargetElement != null && isProps(initializerTargetElement);
     }
 
-    bool isPropOrPropVariable(Expression e) {
-      if (e is SimpleIdentifier) {
-        final element = e.staticElement;
-        if (element != null) {
-          return isPropVariable(element);
-        }
-      }
-      final access = getSimpleTargetAndPropertyName(e);
-      if (access != null) {
-        final targetElement = access.item1.staticElement;
-        if (targetElement != null) return isProps(targetElement);
-      }
-
-      return false;
-    }
-
     // uiFunction((props), {
     //   // Pure scope 2
     //   var renderVar;
@@ -628,7 +607,6 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
         currentRefsInEffectCleanup[dependency] = _RefInEffectCleanup(
           reference: reference,
           referenceElement: referenceElement,
-          dependencyNode: dependencyNode,
         );
       }
 
@@ -641,25 +619,24 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
 
       // Add the dependency to a map so we can make sure it is referenced
       // again in our dependencies array. Remember whether it's stable.
-      dependencies.putIfAbsent(dependency, () {
-        return _Dependency(
-          isStable: memoizedIsStableKnownHookValue(reference) ||
-              // FIXME handle .call tearoffs
-              memoizedIsFunctionWithoutCapturedValues(referenceElement),
-          references: [],
-          dependencyNodes: [],
-        );
-      })
-        // Note that for the the `state.set` case, the reference is still `state`.
-        ..references.add(reference)
-        ..dependencyNodes.add(dependencyNode);
+      dependencies
+          .putIfAbsent(dependency, () {
+            return _Dependency(
+              isStable: memoizedIsStableKnownHookValue(reference) ||
+                  // FIXME handle .call tearoffs
+                  memoizedIsFunctionWithoutCapturedValues(referenceElement),
+              references: [],
+            );
+          })
+          // Note that for the the `state.set` case, the reference is still `state`.
+          .references
+          .add(reference);
     }
 
     // Warn about accessing .current in cleanup effects.
     currentRefsInEffectCleanup.forEach(
       (dependency, _entry) {
         final reference = _entry.reference;
-        final dependencyNode = _entry.dependencyNode;
 
         // Is React managing this ref or us?
         // Let's see if we can find a .current assignment.
@@ -681,7 +658,7 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
           return;
         }
         reportProblem(
-          node: dependencyNode.parent!,
+          node: reference.parent!,
           message: "The ref value '$dependency.current' will likely have "
               "changed by the time this effect cleanup function runs. If "
               "this ref points to a node rendered by React, copy "
@@ -1130,35 +1107,37 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
         final usedDep = dependencies[missingDep];
         if (usedDep == null) return false;
 
-        return usedDep.dependencyNodes.any((dependencyNode) {
-          // Need to handle the following cases:
-          // Source            | dependencyNode type/source                  | invocation node/type
-          // ------------------|-------------------------------------------------------------------------------------------------------
-          // `foo()`           | SimpleIdentifier: `foo`                     | FunctionExpressionInvocation: dependencyNode.parent
-          // ------------------|-------------------------------------------------------------------------------------------------------
-          // FIXME(greg) handle this case - test case 119
-          // `foo.call()`      | SimpleIdentifier: `foo`                     | MethodInvocation: dependencyNode.parent
-          // ------------------|-------------------------------------------------------------------------------------------------------
-          // `foo()`           | SimpleIdentifier: `foo`                     | FunctionExpressionInvocation: dependencyNode.parent
-          // ------------------|-------------------------------------------------------------------------------------------------------
-          //                     //FIXME(greg) does MethodInvocation actually happen anywhere?
-          // `props.foo()`     | MethodInvocation: `props.foo()`             | MethodInvocation: dependencyNode
-          //                   | or                                          |
-          //                   | FunctionExpressionInvocation: `props.foo()` | MethodInvocation: dependencyNode
-          // ------------------|-------------------------------------------------------------------------------------------------------
-          // `props.foo.call()`| PrefixedIdentifier: `props.foo`             | MethodInvocation: dependencyNode.parent
+        return usedDep.references.any((ref) {
+          final element = ref.staticElement;
+          if (element != null && isPropVariable(element)) {
+            // foo()
+            if (ref.parent.tryCast<InvocationExpression>()?.function == ref) {
+              return true;
+            }
+            // foo.call()
+            final inv = PropertyInvocation.detectClosest(ref);
+            if (inv != null) {
+              return inv.target == ref && inv.functionName.name == 'call';
+            }
+          }
 
-          // Need to check both the invocation for MethodInvocation, or the parent for other calls.
-          // FIXME(greg) clean this up along with similar logic elsewhere
-          if (dependencyNode is MethodInvocation) {
-            return isPropOrPropVariable(dependencyNode);
+          if (element != null && isProps(element)) {
+            final inv = PropertyInvocation.detectClosest(ref);
+            if (inv != null) {
+              final target = inv.target;
+              // props.foo()
+              if (target == ref) {
+                return true;
+              }
+              // props.foo.call()
+              if (inv.functionName.name == 'call' &&
+                  target != null &&
+                  getSimpleTargetAndPropertyName(target)?.item1 == ref) {
+                return true;
+              }
+            }
           }
-          if (dependencyNode is FunctionExpressionInvocation) {
-            return isPropOrPropVariable(dependencyNode.function);
-          }
-          if (dependencyNode.parent?.tryCast<InvocationExpression>()?.function == dependencyNode) {
-            return isPropOrPropVariable(dependencyNode);
-          }
+
           return false;
         });
       }).toList();
@@ -1180,11 +1159,9 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
           break;
         }
         final usedDep = dependencies[missingDep]!;
-        for (final zipped in tupleZip(usedDep.dependencyNodes, usedDep.references)) {
-          final dependencyNode = zipped.item1;
-          final reference = zipped.item2;
+        for (final reference in usedDep.references) {
           // Try to see if we have setState(someExpr(missingDep)).
-          for (var maybeCall = dependencyNode.parent;
+          for (var maybeCall = reference.parent;
               maybeCall != null && maybeCall != componentOrCustomHookFunction?.body;
               maybeCall = maybeCall.parent) {
             if (maybeCall is InvocationExpression) {
@@ -1215,8 +1192,8 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
                   );
                 } else {
                   // Recommend an inline reducer if it's a prop.
-                  // FIXME(greg) do we need dependencyNode here or can we just do `isProps(reference) || isPropVariable(reference)`?
-                  if (isPropOrPropVariable(dependencyNode)) {
+                  final referenceElement = reference.staticElement;
+                  if (referenceElement != null && (isProps(referenceElement) || isPropVariable(referenceElement))) {
                     setStateRecommendation = _SetStateRecommendation(
                       missingDep: missingDep,
                       setter: maybeCallFunctionName,
@@ -2216,6 +2193,3 @@ String prettyString(Object? obj) {
 extension on Iterable {
   bool hasLengthOfAtLeast(int length) => take(length).length == length;
 }
-
-Iterable<Tuple2<A, B>> tupleZip<A, B>(Iterable<A> a, Iterable<B> b) =>
-    IterableZip([a, b]).map((list) => Tuple2(list[0] as A, list[1] as B));
