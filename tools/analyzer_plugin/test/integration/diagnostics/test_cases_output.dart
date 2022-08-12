@@ -7235,7 +7235,7 @@ final Map<String, List<Map<String, Object>>> testsTypescriptEslintParserV4 = {
       'errors': [
         {
           'message':
-              'React Hook useEffect has a missing dependency: \'Component\'. Either include it or remove the dependency list.',
+              'React Hook useEffect has a missing dependency: \'Component\'. Either include it or remove the dependency list. If \'Component\' changes too often, find the parent component that defines it and wrap that definition in useCallback.',
           'suggestions': [
             {
               'desc': 'Update the dependencies list to be: [Component]',
