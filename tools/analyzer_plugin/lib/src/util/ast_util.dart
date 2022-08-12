@@ -119,7 +119,10 @@ SimpleIdentifier? propertyNameFromNonCascadedAccessOrInvocation(Expression node)
   return null;
 }
 
-Tuple2<SimpleIdentifier, SimpleIdentifier>? getSimpleTargetAndPropertyName(Expression node) {
+Tuple2<SimpleIdentifier, SimpleIdentifier>? getSimpleTargetAndPropertyName(
+  Expression node, {
+  required bool allowMethodInvocation,
+}) {
   if (node is PrefixedIdentifier) {
     return Tuple2(node.prefix, node.identifier);
   }
@@ -130,7 +133,7 @@ Tuple2<SimpleIdentifier, SimpleIdentifier>? getSimpleTargetAndPropertyName(Expre
       return Tuple2(target, node.propertyName);
     }
   }
-  if (node is MethodInvocation) {
+  if (allowMethodInvocation && node is MethodInvocation) {
     final target = node.target;
     if (target is SimpleIdentifier) {
       return Tuple2(target, node.methodName);
@@ -142,7 +145,7 @@ Tuple2<SimpleIdentifier, SimpleIdentifier>? getSimpleTargetAndPropertyName(Expre
 
 Identifier? getPropertyBeingAccessed(AstNode? node) {
   if (node is! Expression) return null;
-  return getSimpleTargetAndPropertyName(node)?.item2;
+  return getSimpleTargetAndPropertyName(node, allowMethodInvocation: true)?.item2;
 }
 
 bool isAConstantValue(Expression expr) {

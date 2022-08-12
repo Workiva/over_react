@@ -123,7 +123,7 @@ class NonDefaultedPropVisitor extends GeneralizingAstVisitor<void> {
 
     // todo probably improve this?
     if (initializer is BinaryExpression && initializer.operator.type == TokenType.QUESTION_QUESTION) {
-      final parts = getSimpleTargetAndPropertyName(initializer.leftOperand);
+      final parts = getSimpleTargetAndPropertyName(initializer.leftOperand, allowMethodInvocation: true);
       if (parts != null) {
         final targetName = parts.item1;
         if (targetName.name == 'props') {
@@ -147,13 +147,8 @@ class NonDefaultedPropVisitor extends GeneralizingAstVisitor<void> {
   void visitPropertyAccess(PropertyAccess node) {
     super.visitPropertyAccess(node);
 
-    final parts = getSimpleTargetAndPropertyName(node);
-    if (parts != null) {
-      final targetName = parts.item1;
-      if (targetName.name == 'props') {
-        final propertyName = parts.item2;
-        propAccessesByName.putIfAbsent(propertyName.name, () => []).add(node);
-      }
+    if (node.target.tryCast<SimpleIdentifier>()?.name == 'props') {
+      propAccessesByName.putIfAbsent(node.propertyName.name, () => []).add(node);
     }
   }
 }

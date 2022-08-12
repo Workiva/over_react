@@ -384,10 +384,10 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
       final variable = lookUpVariable(element, node.root);
       if (variable == null) return false;
 
-      // FIXME(greg) can we reuse logic from non_defaulted_prop here? Should this handle more cases
       final initializer = variable.initializer;
       if (initializer == null) return false;
-      final initializerTargetElement = getSimpleTargetAndPropertyName(initializer)?.item1.staticElement;
+      final initializerTargetElement =
+          getSimpleTargetAndPropertyName(initializer, allowMethodInvocation: false)?.item1.staticElement;
 
       return initializerTargetElement != null && isProps(initializerTargetElement);
     }
@@ -1118,7 +1118,7 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
               // props.foo.call()
               if (inv.functionName.name == 'call' &&
                   target != null &&
-                  getSimpleTargetAndPropertyName(target)?.item1 == ref) {
+                  getSimpleTargetAndPropertyName(target, allowMethodInvocation: false)?.item1 == ref) {
                 return true;
               }
             }
@@ -1889,31 +1889,20 @@ Expression getDependency(Expression node) {
   if (parent is PropertyAccess &&
       parent.target == node &&
       parent.propertyName.name != 'current' && // FIXME only test for ref/dynamic values?
-      !(grandparent is InvocationExpression &&
-          // fixme is this right?
-          grandparent.function == parent)) {
+      !(grandparent is InvocationExpression && grandparent.function == parent)) {
     return getDependency(parent);
   }
   if (parent is PrefixedIdentifier &&
       parent.prefix == node &&
       parent.identifier.name != 'current' && // FIXME only test for ref/dynamic values?
-      !(grandparent is InvocationExpression &&
-          // fixme is this right?
-          grandparent.function == parent)) {
+      !(grandparent is InvocationExpression && grandparent.function == parent)) {
     return getDependency(parent);
   }
 
-  // TODO(greg) use getSimpleTargetAndPropertyName here?
-  if (node is PropertyAccess && parent is AssignmentExpression && parent.leftHandSide == node) {
-    final target = node.target;
-    // This can be null if cascaded.
-    // FIXME(greg) we should probably have better cascaded checks above
-    if (target != null) {
-      return target;
-    }
-  }
-  if (node is PrefixedIdentifier && parent is AssignmentExpression && parent.leftHandSide == node) {
-    return node.prefix;
+  // FIXME(greg) make sure we have test cases for these, including cascaded assignments: `dependency..property = value`
+  if (parent is AssignmentExpression && parent.leftHandSide == node) {
+    if (node is PropertyAccess) return node.realTarget;
+    if (node is PrefixedIdentifier) return node.prefix;
   }
 
   return node;
