@@ -6898,18 +6898,7 @@ final Map<String, List<Map<String, Object>>> tests = {
 // Tests that are only valid/invalid across parsers supporting Flow
 final Map<String, List<Map<String, Object>>> testsFlow = {
   'valid': [
-    // Ignore Generic Type Variables for arrow functions
-    {
-      'code': r'''
-        final Example = uiFunction<TestProps>((props) {
-          var prop = props.prop;
-
-          final bar = useEffect(<T>(T arg) {
-            prop();
-          }, [prop]);
-        }, null);
-      ''',
-    },
+    /* 1 test case previously here was remove since generic function types aren't valid as arguments to function calls */
   ],
   'invalid': [
     {
