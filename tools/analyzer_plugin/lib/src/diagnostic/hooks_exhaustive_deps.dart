@@ -151,7 +151,6 @@ extension<K extends Object, V extends Object> on V Function(K) {
 class _Dependency {
   final bool isStable;
 
-  // TODO(greg) make this a list of tuples
   final List<Identifier> references;
 
   _Dependency({required this.isStable, required this.references});
@@ -418,18 +417,21 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
     //       ^^^ true for this reference
     // False for everything else.
     bool isStableKnownHookValue(Identifier reference) {
+      VariableDeclaration? lookUpVariableDeclarationForReference() {
+        final referenceElement = reference.staticElement;
+        return referenceElement == null
+            ? null
+            : lookUpDeclaration(referenceElement, reference.root)?.tryCast<VariableDeclaration>();
+      }
+
+      // Check whether this reference is only used to a stable hook property.
       {
-        // Check whether this reference is only used to access the stable hook property.
         final parent = reference.parent;
         final stableHookInfo = parent != null ? getStableHookMethodInfo(parent) : null;
         if (stableHookInfo != null && stableHookInfo.target == reference) {
           // FIXME(greg) what about edge cases here?
           if (stableHookInfo.isStateSetterMethod) {
-            // TODO(greg) DRY up
-            final referenceElement = reference.staticElement;
-            final declaration = referenceElement == null
-                ? null
-                : lookUpDeclaration(referenceElement, reference.root)?.tryCast<VariableDeclaration>();
+            final declaration = lookUpVariableDeclarationForReference();
             if (declaration != null) {
               setStateCallSites.set(reference, declaration);
             }
@@ -439,11 +441,9 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
         }
       }
 
-      // FIXME what about function declarations? are those handled elsewhere
-      final referenceElement = reference.staticElement;
-      final declaration = referenceElement == null
-          ? null
-          : lookUpDeclaration(referenceElement, reference.root)?.tryCast<VariableDeclaration>();
+      // Look up the variable declaration.
+      // Don't worry about functions, since they're handled in memoizedIsFunctionWithoutCapturedValues.
+      final declaration = lookUpVariableDeclarationForReference();
       if (declaration == null) return false;
 
       var init = declaration.initializer;
@@ -491,7 +491,7 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
       // TODO do we need to check for direct invocations for other cases if typing is available?
 
       var callee = init.function;
-      // fixme handle namespaced imports
+      // fixme(greg) handle namespaced imports, add test cases for useRef
       if (callee is! Identifier) {
         return false;
       }
@@ -544,16 +544,9 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
     final currentRefsInEffectCleanup = <String, _RefInEffectCleanup>{};
 
     // Is this reference inside a cleanup function for this effect node?
-    // We can check by traversing scopes upwards  from the reference, and checking
-    // if the last "return () => " we encounter is located directly inside the effect.
-    bool isInsideEffectCleanup(AstNode reference) {
-      var isInReturnedFunction = false;
-      reference.ancestors.whereType<FunctionBody>().takeWhile((ancestor) => ancestor != node).forEach((current) {
-        // TODO why doesn't the original source just check the last one?
-        isInReturnedFunction = current.parentOfType<FunctionExpression>()?.parentOfType<ReturnStatement>() != null;
-      });
-      return isInReturnedFunction;
-    }
+    bool isInsideEffectCleanup(AstNode reference) => node.returnExpressions
+        .whereType<FunctionExpression>()
+        .any((cleanupFunction) => cleanupFunction.body.containsRangeOf(reference));
 
     // Get dependencies from all our resolved references in pure scopes.
     // Key is dependency string, value is whether it's stable.
@@ -621,7 +614,6 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
           .putIfAbsent(dependency, () {
             return _Dependency(
               isStable: memoizedIsStableKnownHookValue(reference) ||
-                  // FIXME handle .call tearoffs
                   memoizedIsFunctionWithoutCapturedValues(referenceElement),
               references: [],
             );
@@ -814,7 +806,7 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
         if (declaredDependencyNode.staticType?.isStateHook ?? false) {
           final dependencySource = getSource(declaredDependencyNode);
           final dependencySourceValue = '$dependencySource.value';
-          // fixme(greg) conditionally suggest value or removing the dep based on whether count.value is used in hook? Also figure out why `useEffect(() => print(count.value), [count]);` triggers missing dependency case
+          // fixme(greg) conditionally suggest value or removing the dep based on whether count.value is used in hook, add test cases. Maybe move this check to later on?
 
           // FIXME(greg) this is async :/
           diagnosticCollector.addErrorWithFix(
@@ -1435,13 +1427,6 @@ class _SetStateRecommendation {
   final _SetStateRecommendationForm form;
 
   _SetStateRecommendation({required this.missingDep, required this.setter, required this.form});
-}
-
-extension on AstNode {
-  T? parentOfType<T extends AstNode>() {
-    final parent = this.parent;
-    return parent is T ? parent : null;
-  }
 }
 
 class _Recommendations {
