@@ -34,6 +34,7 @@ import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/util/analyzer_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/function_components.dart';
+import 'package:over_react_analyzer_plugin/src/util/pretty_print.dart';
 import 'package:over_react_analyzer_plugin/src/util/util.dart';
 import 'package:over_react_analyzer_plugin/src/util/react_types.dart';
 import 'package:over_react_analyzer_plugin/src/util/weak_collections.dart';
@@ -107,7 +108,7 @@ class _Dependency {
   _Dependency({required this.isStable, required this.references});
 
   @override
-  String toString() => prettyString({
+  String toString() => prettyPrint({
         'isStable': isStable,
         'references': references,
       });
@@ -122,7 +123,7 @@ class _RefInEffectCleanup {
   _RefInEffectCleanup({required this.reference, required this.referenceElement});
 
   @override
-  String toString() => prettyString({
+  String toString() => prettyPrint({
         'reference': reference,
       });
 }
@@ -508,7 +509,7 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
     // but we can process all descendant references regardless of scope in one go.
     for (final reference in resolvedReferencesWithin(node)) {
       // debug(
-      //     'reference.staticElement.ancestors: \n${prettyString(reference.staticElement.ancestors.map(elementDebugString).toList())}',
+      //     'reference.staticElement.ancestors: \n${prettyPrint(reference.staticElement.ancestors.map(elementDebugString).toList())}',
       //     reference);
 
       // If this reference is not resolved or it is not declared in a pure
@@ -850,7 +851,7 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
     }
 
     debug(
-        prettyString({
+        prettyPrint({
           'dependencies': dependencies,
           'declaredDependencies': declaredDependencies,
           'stableDependencies': stableDependencies,
@@ -1423,7 +1424,7 @@ class _DeclaredDependency {
   _DeclaredDependency(this.key, this.node, {this.debugEnclosingElement});
 
   @override
-  String toString() => prettyString({
+  String toString() => prettyPrint({
         'key': key,
         'node': node,
         'debugEnclosingElement': debugEnclosingElement?.debugString,
@@ -1725,7 +1726,7 @@ class _Construction {
       required this.isUsedOutsideOfHook});
 
   @override
-  String toString() => prettyString({
+  String toString() => prettyPrint({
         'declaration': declaration,
         'depType': depType,
         'isUsedOutsideOfHook': isUsedOutsideOfHook,
@@ -1991,96 +1992,4 @@ extension on Element {
   // ignore: unused_element
   E? ancestorMatching<E extends Element>(bool Function(Element) predicate) =>
       enclosingElement?.thisOrAncestorMatching(predicate);
-}
-
-// Adapted from over_react's prettyPrintMap
-
-const String nonBreakingSpace = '\u00a0';
-// Use non-breaking spaces so leading spaces show up in IDE tooltips.
-const String _indent = '$nonBreakingSpace$nonBreakingSpace';
-const int _maxKeyValuePairsPerLine = 2;
-const int _maxListItemsPerLine = 4;
-const int _maxSingleLineListOrMapLength = 50;
-
-const namespaceThreshold = 2;
-const namespaceSeparator = '.';
-
-/// Indents [str] by [_indent], trimming any trailing whitespace.
-String _indentString(String str) {
-  return str.split('\n').map((line) => (_indent + line).trimRight()).join('\n');
-}
-
-String prettyString(Object? obj) {
-  if (obj is List) {
-    var items = obj.map(prettyString).toList();
-
-    final singleLineInner = items.join(', ');
-    if (items.length > _maxListItemsPerLine ||
-        items.any((items) => items.contains('\n')) ||
-        singleLineInner.length > _maxSingleLineListOrMapLength) {
-      var inner = _indentString(items.join(',\n'));
-      return '[\n$inner\n]';
-    } else {
-      return '[$singleLineInner]';
-    }
-  } else if (obj is Map) {
-    final namespacedKeys = <String, List<String>>{};
-    final otherKeys = <dynamic>[];
-
-    final shouldNamespace = obj.keys
-        .whereType<String>()
-        .where((key) => key.contains(namespaceSeparator))
-        .hasLengthOfAtLeast(namespaceThreshold);
-
-    obj.keys.forEach((dynamic key) {
-      if (shouldNamespace && key is String && key.contains(namespaceSeparator)) {
-        var index = key.indexOf(namespaceSeparator);
-        var namespace = key.substring(0, index);
-        var subkey = key.substring(index);
-
-        (namespacedKeys[namespace] ??= []).add(subkey);
-      } else {
-        otherKeys.add(key);
-      }
-    });
-
-    final pairs = <String>[];
-
-    pairs.addAll(namespacedKeys.entries.map((entry) {
-      final namespace = entry.key;
-      final subkeys = entry.value;
-
-      String renderSubKey(String subkey) {
-        var key = '$namespace$subkey';
-        dynamic value = obj[key];
-
-        return '$subkey: ' + prettyString(value);
-      }
-
-      return '$namespace…\n' + _indentString(subkeys.map(renderSubKey).map((pair) => pair + ',\n').join());
-    }));
-
-    pairs.addAll(otherKeys.map((dynamic key) {
-      return '$key: ' + prettyString(obj[key]) + ',';
-    }));
-
-    final trailingComma = RegExp(r'\s*,\s*$');
-
-    final singleLineInner = pairs.join(' ').replaceFirst(trailingComma, '');
-
-    if (pairs.length > _maxKeyValuePairsPerLine ||
-        pairs.any((pair) => pair.contains('\n')) ||
-        singleLineInner.length > _maxSingleLineListOrMapLength) {
-      var inner = _indentString(pairs.join('\n')).replaceFirst(trailingComma, '');
-      return '{\n$inner\n}';
-    } else {
-      return '{$singleLineInner}';
-    }
-  } else {
-    return obj.toString();
-  }
-}
-
-extension on Iterable {
-  bool hasLengthOfAtLeast(int length) => take(length).length == length;
 }
