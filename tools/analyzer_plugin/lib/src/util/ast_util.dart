@@ -148,6 +148,90 @@ Identifier? getPropertyBeingAccessed(AstNode? node) {
   return getSimpleTargetAndPropertyName(node, allowMethodInvocation: true)?.item2;
 }
 
+class PropertyInvocation {
+  final InvocationExpression invocation;
+  final Identifier functionName;
+  final Expression? target;
+  final Expression? realTarget;
+  final bool isNullAware;
+
+  PropertyInvocation({
+    required this.invocation,
+    required this.functionName,
+    required this.target,
+    required this.realTarget,
+    required this.isNullAware,
+  });
+
+  // FIXME add null check and error message for
+  factory PropertyInvocation.from(InvocationExpression node) => detect(node)!;
+
+  static PropertyInvocation? detect(AstNode node) {
+    if (node is! InvocationExpression) return null;
+
+    // FIXME(greg) - do we want to restrict target to be certain types? (e.g., rule out `foo.bar.baz()` or `foo().bar()`)
+    //  or should that go in isInvocationADiscreteDependency?
+
+    // FIXME(greg) detect .call?
+    if (node is MethodInvocation) {
+      return PropertyInvocation(
+        invocation: node,
+        functionName: node.methodName,
+        target: node.target,
+        realTarget: node.realTarget,
+        isNullAware: node.isNullAware,
+      );
+    }
+
+    // FunctionExpressionInvocation cases
+    final function = node.function;
+    if (function is PropertyAccess) {
+      return PropertyInvocation(
+        invocation: node,
+        functionName: function.propertyName,
+        target: function.target,
+        realTarget: function.realTarget,
+        // TODO(greg) this might not ever this ever be true except for the .call case
+        isNullAware: function.isNullAware,
+      );
+    } else if (function is PrefixedIdentifier) {
+      return PropertyInvocation(
+        invocation: node,
+        functionName: function.identifier,
+        target: function.prefix,
+        realTarget: function.prefix,
+        isNullAware: false,
+      );
+    }
+  }
+
+  static PropertyInvocation? detectClosest(AstNode node) =>
+      detect(node) ?? node.ancestors.map(detect).whereNotNull().firstOrNull;
+}
+
+List<Identifier> findReferences(Element element, AstNode root) {
+  final visitor = ReferenceVisitor(element);
+  root.accept(visitor);
+  return visitor.references;
+}
+
+class ReferenceVisitor extends RecursiveAstVisitor<void> {
+  final Element _targetElement;
+
+  final List<Identifier> references = [];
+
+  ReferenceVisitor(this._targetElement);
+
+  @override
+  void visitSimpleIdentifier(SimpleIdentifier node) {
+    super.visitSimpleIdentifier(node);
+
+    if (node.staticElement == _targetElement) {
+      references.add(node);
+    }
+  }
+}
+
 bool isAConstantValue(Expression expr) {
   if (expr is SetOrMapLiteral) return expr.isConst;
   if (expr is ListLiteral) return expr.isConst;

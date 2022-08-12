@@ -36,6 +36,7 @@ import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/function_components.dart';
 import 'package:over_react_analyzer_plugin/src/util/util.dart';
 import 'package:over_react_analyzer_plugin/src/util/react_types.dart';
+import 'package:over_react_analyzer_plugin/src/util/weak_collections.dart';
 
 // ignore_for_file: avoid_function_literals_in_foreach_calls
 
@@ -95,56 +96,6 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
         helper.logWithLocation(string, _location);
       },
     ));
-  }
-}
-
-class WeakSet<E extends Object> {
-  final _isEntry = Expando<Object>();
-
-  void add(E key) {
-    _isEntry[key] = const Object();
-  }
-
-  bool has(E key) {
-    return _isEntry[key] != null;
-  }
-
-  void remove(E key) {
-    _isEntry[key] = null;
-  }
-}
-
-class WeakMap<K extends Object, V extends Object> {
-  final _keys = WeakSet<K>();
-  final _valueFor = Expando<V>();
-
-  V? get(K key) => has(key) ? _valueFor[key] : null;
-
-  V? getNullableKey(K? key) => key == null ? null : get(key);
-
-  void set(K key, V value) {
-    _keys.add(key);
-    _valueFor[key] = value;
-  }
-
-  bool has(K key) => _keys.has(key);
-
-  void remove(K key) {
-    _keys.remove(key);
-    _valueFor[key] = null;
-  }
-
-  V putIfAbsent(K key, V Function() ifAbsent) {
-    if (has(key)) return get(key)!;
-    final value = ifAbsent();
-    set(key, value);
-    return value;
-  }
-}
-
-extension<K extends Object, V extends Object> on V Function(K) {
-  V Function(K) memoizeWithWeakMap(WeakMap<K, V> map) {
-    return (key) => map.putIfAbsent(key, () => this(key));
   }
 }
 
@@ -1792,66 +1743,6 @@ abstract class _DepType {
   static const reactElement = 'ReactElement';
 }
 
-class PropertyInvocation {
-  final InvocationExpression invocation;
-  final Identifier functionName;
-  final Expression? target;
-  final Expression? realTarget;
-  final bool isNullAware;
-
-  PropertyInvocation({
-    required this.invocation,
-    required this.functionName,
-    required this.target,
-    required this.realTarget,
-    required this.isNullAware,
-  });
-
-  // FIXME add null check and error message for
-  factory PropertyInvocation.from(InvocationExpression node) => detect(node)!;
-
-  static PropertyInvocation? detect(AstNode node) {
-    if (node is! InvocationExpression) return null;
-
-    // FIXME(greg) - do we want to restrict target to be certain types? (e.g., rule out `foo.bar.baz()` or `foo().bar()`)
-    //  or should that go in isInvocationADiscreteDependency?
-
-    // FIXME(greg) detect .call?
-    if (node is MethodInvocation) {
-      return PropertyInvocation(
-        invocation: node,
-        functionName: node.methodName,
-        target: node.target,
-        realTarget: node.realTarget,
-        isNullAware: node.isNullAware,
-      );
-    }
-
-    // FunctionExpressionInvocation cases
-    final function = node.function;
-    if (function is PropertyAccess) {
-      return PropertyInvocation(
-        invocation: node,
-        functionName: function.propertyName,
-        target: function.target,
-        realTarget: function.realTarget,
-        // TODO(greg) this might not ever this ever be true except for the .call case
-        isNullAware: function.isNullAware,
-      );
-    } else if (function is PrefixedIdentifier) {
-      return PropertyInvocation(
-        invocation: node,
-        functionName: function.identifier,
-        target: function.prefix,
-        realTarget: function.prefix,
-        isNullAware: false,
-      );
-    }
-  }
-
-  static PropertyInvocation? detectClosest(AstNode node) =>
-      detect(node) ?? node.ancestors.map(detect).whereNotNull().firstOrNull;
-}
 
 bool isInvocationADiscreteDependency(PropertyInvocation invocation) {
   // FIXME(greg) should we do this better/differently?
@@ -1906,29 +1797,6 @@ Expression getDependency(Expression node) {
   }
 
   return node;
-}
-
-List<Identifier> findReferences(Element element, AstNode root) {
-  final visitor = ReferenceVisitor(element);
-  root.accept(visitor);
-  return visitor.references;
-}
-
-class ReferenceVisitor extends RecursiveAstVisitor<void> {
-  final Element _targetElement;
-
-  final List<Identifier> references = [];
-
-  ReferenceVisitor(this._targetElement);
-
-  @override
-  void visitSimpleIdentifier(SimpleIdentifier node) {
-    super.visitSimpleIdentifier(node);
-
-    if (node.staticElement == _targetElement) {
-      references.add(node);
-    }
-  }
 }
 
 /// Mark a node as either optional or required.
@@ -2123,11 +1991,6 @@ extension on Element {
   // ignore: unused_element
   E? ancestorMatching<E extends Element>(bool Function(Element) predicate) =>
       enclosingElement?.thisOrAncestorMatching(predicate);
-}
-
-extension<E> on List<E> {
-  /// Returns the element at [index], or `null` if the index is greater than the length of the list.
-  E? elementAtOrNull(int index) => index < length ? this[index] : null;
 }
 
 // Adapted from over_react's prettyPrintMap
