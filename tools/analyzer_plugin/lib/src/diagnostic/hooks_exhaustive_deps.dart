@@ -166,7 +166,7 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
     }
 
     if (callback is FunctionExpression) {
-      await visitFunctionWithDependencies(node: callback.body, info: info);
+      await visitFunctionWithDependencies(callbackFunction: callback, info: info);
       return; // Handled
     } else if (callback is Identifier) {
       if (declaredDependenciesNode == null) {
@@ -198,7 +198,7 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
         // // or
         // final effectBody = () {...};
         // useEffect(() => { ... }, []);
-        await visitFunctionWithDependencies(node: function.body, info: info);
+        await visitFunctionWithDependencies(callbackFunction: function, info: info);
         return; // Handled
       }
       // Unhandled
@@ -233,19 +233,18 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
 // Visitor for both function expressions and arrow function expressions.
   Future<void> visitFunctionWithDependencies({
     required ReactiveHookCallbackInfo info,
-    // FIXME(greg) rename this to something better like callbackBody
-    required FunctionBody node,
+    required FunctionExpression callbackFunction,
   }) async {
     final reactiveHook = info.reactiveHook;
     final reactiveHookName = info.reactiveHookName;
     final declaredDependenciesNode = info.declaredDependenciesNode;
     final isEffect = info.isEffect;
 
-    final rootNode = node.root;
+    final rootNode = callbackFunction.root;
 
-    if (isEffect && node.isAsynchronous) {
+    if (isEffect && callbackFunction.body.isAsynchronous) {
       reportProblem(
-        node: node,
+        node: callbackFunction,
         message: "Effect callbacks are synchronous to prevent race conditions. "
             "Put the async function inside:\n\n"
             'useEffect(() {\n'
@@ -274,10 +273,9 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
     // since hooks can only be called from the top level).
 
     // todo improve this
-    final componentOrCustomHookFunctionBody = getClosestFunctionComponentOrHookBody(node);
+    final componentOrCustomHookFunctionBody = getClosestFunctionComponentOrHookBody(callbackFunction);
     final componentOrCustomHookFunction = componentOrCustomHookFunctionBody?.parentExpression;
-    assert(componentOrCustomHookFunction == null ||
-        componentOrCustomHookFunction != node.thisOrAncestorOfType<FunctionExpression>());
+    assert(componentOrCustomHookFunction == null || componentOrCustomHookFunction != callbackFunction);
 
     final componentOrCustomHookFunctionElement = componentOrCustomHookFunction?.declaredElement;
 
@@ -295,13 +293,13 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
       // FIXME(greg) make this way better
       return e.name == 'props' &&
           e.enclosingElement == componentOrCustomHookFunctionElement &&
-          lookUpParameter(e, node.root)?.parent == componentOrCustomHookFunction?.parameters;
+          lookUpParameter(e, rootNode)?.parent == componentOrCustomHookFunction?.parameters;
     }
 
     // Returns whether [element] is a variable assigned to a prop value.
     bool isPropVariable(Element element) {
       if (!isDeclaredInPureScope(element)) return false;
-      final variable = lookUpVariable(element, node.root);
+      final variable = lookUpVariable(element, rootNode);
       if (variable == null) return false;
 
       final initializer = variable.initializer;
@@ -464,7 +462,7 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
     final currentRefsInEffectCleanup = <String, _RefInEffectCleanup>{};
 
     // Is this reference inside a cleanup function for this effect node?
-    bool isInsideEffectCleanup(AstNode reference) => node.returnExpressions
+    bool isInsideEffectCleanup(AstNode reference) => callbackFunction.body.returnExpressions
         .whereType<FunctionExpression>()
         .any((cleanupFunction) => cleanupFunction.body.containsRangeOf(reference));
 
@@ -475,7 +473,7 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
 
     // The original implementation needs to recurse to process references in child scopes,
     // but we can process all descendant references regardless of scope in one go.
-    for (final reference in resolvedReferencesWithin(node)) {
+    for (final reference in resolvedReferencesWithin(callbackFunction)) {
       // debug(
       //     'reference.staticElement.ancestors: \n${prettyPrint(reference.staticElement.ancestors.map(elementDebugString).toList())}',
       //     reference);
@@ -522,7 +520,8 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
       }
 
       // FIXME need to check more parents for GenericFunctionType case?
-      if (node.parent is NamedType) {
+      // FIXME(greg) add test cases
+      if (reference.parent is NamedType) {
         continue;
       }
 
@@ -637,7 +636,7 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
             return;
           }
 
-          final isDirectlyInsideEffect = reference.thisOrAncestorOfType<FunctionBody>() == node;
+          final isDirectlyInsideEffect = reference.thisOrAncestorOfType<FunctionBody>() == callbackFunction.body;
           if (isDirectlyInsideEffect) {
             // TODO: we could potentially ignore early returns.
             setStateInsideEffectWithoutDeps = key;
@@ -825,7 +824,7 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
           'externalDependencies': externalDependencies,
           'isEffect': isEffect,
         }),
-        node.offset);
+        callbackFunction.body.offset);
 
     final recommendations = collectRecommendations(
       dependencies: dependencies,
@@ -848,9 +847,9 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
       final constructions = scanForConstructions(
         declaredDependencies: declaredDependencies,
         declaredDependenciesNode: declaredDependenciesNode,
-        callbackNode: node,
+        callbackNode: callbackFunction,
       );
-      debug('constructions: $constructions', node.offset);
+      debug('constructions: $constructions', callbackFunction.body.offset);
       for (final _construction in constructions) {
         final construction = _construction.declaration;
         final constructionName = _construction.declarationElement.name;
@@ -988,7 +987,7 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
         final dep = externalDependencies.first;
         // Don't show this warning for things that likely just got moved *inside* the callback
         // because in that case they're clearly not referring to globals.
-        final isDeclaredInCallbackFunction = _hasDeclarationWithName(node, dep);
+        final isDeclaredInCallbackFunction = _hasDeclarationWithName(callbackFunction.body, dep);
         if (!isDeclaredInCallbackFunction) {
           extraWarning = " Outer scope values like '$dep' aren't valid dependencies "
               "because mutating them doesn't re-render the component.";
