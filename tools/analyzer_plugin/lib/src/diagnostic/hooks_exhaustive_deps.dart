@@ -73,206 +73,174 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
 
   HooksExhaustiveDeps({this.additionalHooksPattern});
 
-  @override
-  Future<void> computeErrors(result, collector) async {
-    final debugEnabled = _debugFlagPattern.hasMatch(result.content!);
-    final helper = AnalyzerDebugHelper(result, collector, enabled: debugEnabled);
-    result.unit!.accept(_ExhaustiveDepsVisitor(
-      additionalHooks: additionalHooksPattern,
-      result: result,
-      diagnosticCollector: collector,
-      getSource: (node) => result.content!.substring(node.offset, node.end),
-      debug: (string, location) {
-        if (!helper.enabled) return;
-        Location _location;
-        if (location is Location) {
-          _location = location;
-        } else if (location is AstNode) {
-          _location = result.locationFor(location);
-        } else if (location is int) {
-          _location = result.location(offset: location);
-        } else {
-          throw ArgumentError.value(location, 'location');
-        }
-        helper.logWithLocation(string, _location);
-      },
-    ));
-  }
-}
-
-class _Dependency {
-  final bool isStable;
-
-  final List<Identifier> references;
-
-  _Dependency({required this.isStable, required this.references});
-
-  @override
-  String toString() => prettyPrint({
-        'isStable': isStable,
-        'references': references,
-      });
-}
-
-class _RefInEffectCleanup {
-  final Identifier reference;
-
-  /// [reference].staticElement, but stored as a separate non-nullable field.
-  final Element referenceElement;
-
-  _RefInEffectCleanup({required this.reference, required this.referenceElement});
-
-  @override
-  String toString() => prettyPrint({
-        'reference': reference,
-      });
-}
-
-// FIXME(greg) unit test these functions
-FunctionExpression? lookUpFunction(Element element, AstNode root) {
-  final node = NodeLocator2(element.nameOffset).searchWithin(root);
-  if (node is Identifier && node.staticElement == element) {
-    final parent = node.parent;
-    return parent.tryCast<FunctionDeclaration>()?.functionExpression ??
-        parent.tryCast<VariableDeclaration>()?.initializer?.tryCast<FunctionExpression>();
-  }
-
-  return null;
-}
-
-// FIXME(greg) make name clear about the cases it handles (variables, functions?, not parameters)
-Declaration? lookUpDeclaration(Element element, AstNode root) {
-  // if (element is ExecutableElement) return null;
-  final node = NodeLocator2(element.nameOffset).searchWithin(root);
-  final declaration = node?.thisOrAncestorOfType<Declaration>();
-  if (declaration?.declaredElement == element) {
-    return declaration;
-  }
-
-  return null;
-}
-
-FormalParameter? lookUpParameter(Element element, AstNode root) {
-  final node = NodeLocator2(element.nameOffset).searchWithin(root);
-  final declaration = node?.thisOrAncestorOfType<FormalParameter>();
-  if (declaration?.declaredElement == element) {
-    return declaration;
-  }
-
-  return null;
-}
-
-Iterable<Identifier> resolvedReferencesWithin(AstNode node) =>
-    allDescendantsOfType<Identifier>(node).where((e) => e.staticElement != null);
-
-enum HookTypeWithStableMethods { stateHook, reducerHook }
-
-class StableHookMethodInfo {
-  final Expression node;
-
-  final Expression target;
-  final Identifier property;
-  final HookTypeWithStableMethods hookType;
-
-  StableHookMethodInfo({
-    required this.node,
-    required this.target,
-    required this.property,
-    required this.hookType,
-  }) : assert(target.parent == node && property.parent == node);
-
-  bool get isStateSetterMethod =>
-      hookType == HookTypeWithStableMethods.stateHook && stateHookSetMethods.contains(property.name);
-
-  static const stateHookSetMethods = {'set', 'setWithUpdater'};
-  static const stableStateHookMethods = {...stateHookSetMethods};
-  static const stableReducerHookMethods = {'dispatch'};
-// TODO uncomment once TransitionHook is implemented.
-// static const stableTransitionHookMethods = {'startTransition'};
-}
-
-/// If [node] is an access of a stable hook method on a hook object (either a method call or a tearoff),
-/// returns information about that usage. Otherwise, returns `null.
-StableHookMethodInfo? getStableHookMethodInfo(AstNode node) {
-  // This check is redundant with the if-else below, but allows for type promotion of `node`.
-  if (node is! Expression) return null;
-
-  Expression? target;
-  Identifier property;
-  if (node is MethodInvocation && !node.isCascaded) {
-    target = node.target;
-    property = node.methodName;
-  } else if (node is PropertyAccess && !node.isCascaded) {
-    target = node.target;
-    property = node.propertyName;
-  } else if (node is PrefixedIdentifier) {
-    target = node.prefix;
-    property = node.identifier;
-  } else {
-    return null;
-  }
-
-  if (target == null) return null;
-
-  // Check whether this reference is only used to access the stable hook property.
-  if ((target.staticType?.isStateHook ?? false) &&
-      StableHookMethodInfo.stableStateHookMethods.contains(property.name)) {
-    return StableHookMethodInfo(
-        node: node, target: target, property: property, hookType: HookTypeWithStableMethods.stateHook);
-  }
-
-  if ((target.staticType?.isReducerHook ?? false) &&
-      StableHookMethodInfo.stableReducerHookMethods.contains(property.name)) {
-    return StableHookMethodInfo(
-        node: node, target: target, property: property, hookType: HookTypeWithStableMethods.reducerHook);
-  }
-
-  // TODO uncomment once TransitionHook is implemented.
-  // if ((target.staticType?.element?.isTransitionHook ?? false) &&
-  //     stableTransitionHookMethods.contains(property.name)) {
-  //   return Tuple2(HookTypeWithStableMethods.transitionHook, property.name);
-  // }
-
-  return null;
-}
-
-class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
   // Should be shared between visitors.
   /// A mapping from setState references to setState declarations
   final setStateCallSites = WeakMap<Identifier, VariableDeclaration>();
   final stableKnownValueCache = WeakMap<Identifier, bool>();
   final functionWithoutCapturedValueCache = WeakMap<Element, bool>();
 
-  DiagnosticCollector diagnosticCollector;
+  // Variables referenced in helper methods, which are easier to temporarily set on the class than pass around.
+  // Since these variables can't be non-nullable, expose non-nullable getters so that we don't have to use `!` everywhere,
+  // and so that we get better error messages if they're ever null.
+  ResolvedUnitResult? _result;
+  DiagnosticCollector? _collector;
+  AnalyzerDebugHelper? _debugHelper;
+
+  StateError _uninitializedError(String name) =>
+      StateError('$name is null. Check computeErrors to make sure it is initialized.');
+
+  ResolvedUnitResult get result => _result ?? (throw _uninitializedError('result'));
+
+  DiagnosticCollector get collector => _collector ?? (throw _uninitializedError('collector'));
+
+  AnalyzerDebugHelper get debugHelper => _debugHelper ?? (throw _uninitializedError('debugHelper'));
+
+  @override
+  Future<void> computeErrors(result, collector) async {
+    try {
+      _result = result;
+      _collector = collector;
+      _debugHelper = AnalyzerDebugHelper(result, collector, enabled: _debugFlagPattern.hasMatch(result.content!));
+
+      final reactiveHookCallbacks = <ReactiveHookCallbackInfo>[];
+      result.unit!.accept(_ExhaustiveDepsVisitor(
+        additionalHooks: additionalHooksPattern,
+        onReactiveHookCallback: reactiveHookCallbacks.add,
+      ));
+
+      for (final callback in reactiveHookCallbacks) {
+        await _handleReactiveHookCallback(callback);
+      }
+    } finally {
+      _result = null;
+      _collector = null;
+      _debugHelper = null;
+    }
+  }
+
+  void debug(String string, dynamic location) {
+    if (!debugHelper.enabled) return;
+    Location _location;
+    if (location is Location) {
+      _location = location;
+    } else if (location is AstNode) {
+      _location = result.locationFor(location);
+    } else if (location is int) {
+      _location = result.location(offset: location);
+    } else {
+      throw ArgumentError.value(location, 'location');
+    }
+    debugHelper.logWithLocation(string, _location);
+  }
+
+  String getSource(SyntacticEntity entity) => result.content!.substring(entity.offset, entity.end);
 
   void reportProblem({required AstNode node, String? message}) {
-    diagnosticCollector.addError(HooksExhaustiveDeps.code, result.locationFor(node), errorMessageArgs: [
+    collector.addError(HooksExhaustiveDeps.code, result.locationFor(node), errorMessageArgs: [
       message ?? '',
     ]);
   }
 
-  final ResolvedUnitResult result;
-  final String Function(SyntacticEntity entity) getSource;
-  final RegExp? additionalHooks;
-  final void Function(String string, Object? location) debug;
+  Future<void> _handleReactiveHookCallback(ReactiveHookCallbackInfo info) async {
+    final callback = info.callback;
+    final reactiveHook = info.reactiveHook;
+    final reactiveHookName = info.reactiveHookName;
+    final declaredDependenciesNode = info.declaredDependenciesNode;
+    final isEffect = info.isEffect;
 
-  _ExhaustiveDepsVisitor({
-    required this.diagnosticCollector,
-    required this.getSource,
-    required this.result,
-    required this.debug,
-    this.additionalHooks,
-  });
+    // Check the declared dependencies for this reactive hook. If there is no
+    // second argument then the reactive callback will re-run on every render.
+    // So no need to check for dependency inclusion.
+    if (declaredDependenciesNode == null && !isEffect) {
+      // These are only used for optimization.
+      if (reactiveHookName == 'useMemo' || reactiveHookName == 'useCallback') {
+        // TODO: Can this have a suggestion?
+        reportProblem(
+          node: reactiveHook,
+          message: "React Hook $reactiveHookName does nothing when called with "
+              "only one argument. Did you forget to pass a list of "
+              "dependencies?",
+        );
+      }
+      return;
+    }
+
+    if (callback is FunctionExpression) {
+      await visitFunctionWithDependencies(node: callback.body, info: info);
+      return; // Handled
+    } else if (callback is Identifier) {
+      if (declaredDependenciesNode == null) {
+        // No deps, no problems.
+        return; // Handled
+      }
+      // The function passed as a callback is not written inline.
+      // But perhaps it's in the dependencies array?
+      if (declaredDependenciesNode is ListLiteral &&
+          declaredDependenciesNode.elements.whereType<Identifier>().any(
+                (el) => el.name == callback.name,
+              )) {
+        // If it's already in the list of deps, we don't care because
+        // this is valid regardless.
+        return; // Handled
+      }
+      // We'll do our best effort to find it, complain otherwise.
+      final declaration = callback.staticElement?.declaration;
+      if (declaration == null) {
+        // If it's not in scope, we don't care.
+        return; // Handled
+      }
+      // The function passed as a callback is not written inline.
+      // But it's defined somewhere in the render scope.
+      // We'll do our best effort to find and check it, complain otherwise.
+      final function = lookUpFunction(declaration, callback.root);
+      if (function != null) {
+        // effectBody() {...};
+        // // or
+        // final effectBody = () {...};
+        // useEffect(() => { ... }, []);
+        await visitFunctionWithDependencies(node: function.body, info: info);
+        return; // Handled
+      }
+      // Unhandled
+    } else {
+      // useEffect(generateEffectBody(), []);
+      reportProblem(
+        node: reactiveHook,
+        message: "React Hook $reactiveHookName received a function whose dependencies "
+            "are unknown. Pass an inline function instead.",
+      );
+      return; // Handled
+    }
+
+    // Something unusual. Fall back to suggesting to add the body itself as a dep.
+    final callbackName = callback.name;
+    await collector.addErrorWithFix(
+      HooksExhaustiveDeps.code,
+      result.locationFor(reactiveHook),
+      errorMessageArgs: [
+        // ignore: prefer_adjacent_string_concatenation
+        "React Hook $reactiveHookName has a missing dependency: '$callbackName'. " +
+            "Either include it or remove the dependency list."
+      ],
+      fixKind: HooksExhaustiveDeps.fixKind,
+      fixMessageArgs: ["Update the dependencies list to be: [$callbackName]"],
+      computeFix: () => buildGenericFileEdit(result, (e) {
+        e.addSimpleReplacement(range.node(declaredDependenciesNode), "[$callbackName]");
+      }),
+    );
+  }
 
 // Visitor for both function expressions and arrow function expressions.
-  void visitFunctionWithDependencies({
+  Future<void> visitFunctionWithDependencies({
+    required ReactiveHookCallbackInfo info,
     // FIXME(greg) rename this to something better like callbackBody
     required FunctionBody node,
-    required AstNode? declaredDependenciesNode,
-    required AstNode reactiveHook,
-    required String reactiveHookName,
-    required bool isEffect,
-  }) {
+  }) async {
+    final reactiveHook = info.reactiveHook;
+    final reactiveHookName = info.reactiveHookName;
+    final declaredDependenciesNode = info.declaredDependenciesNode;
+    final isEffect = info.isEffect;
+
     final rootNode = node.root;
 
     if (isEffect && node.isAsynchronous) {
@@ -760,8 +728,7 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
           final dependencySourceValue = '$dependencySource.value';
           // fixme(greg) conditionally suggest value or removing the dep based on whether count.value is used in hook, add test cases. Maybe move this check to later on?
 
-          // FIXME(greg) this is async :/
-          diagnosticCollector.addErrorWithFix(
+          await collector.addErrorWithFix(
             HooksExhaustiveDeps.code,
             result.locationFor(declaredDependencyNode),
             // todo(greg) better error and fix message
@@ -884,7 +851,7 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
         callbackNode: node,
       );
       debug('constructions: $constructions', node.offset);
-      constructions.forEach((_construction) {
+      for (final _construction in constructions) {
         final construction = _construction.declaration;
         final constructionName = _construction.declarationElement.name;
 
@@ -919,8 +886,7 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
           // FIXME(greg) is it safe to assume this here?
           final constructionInitializer = construction.initializer!;
 
-          // FIXME(greg) this is async :/
-          diagnosticCollector.addErrorWithFix(
+          await collector.addErrorWithFix(
             HooksExhaustiveDeps.code,
             result.locationFor(construction),
             errorMessageArgs: [message],
@@ -949,13 +915,13 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
         } else {
           // TODO: What if the function needs to change on every render anyway?
           // Should we suggest removing effect deps as an appropriate fix too?
-          diagnosticCollector.addError(
+          collector.addError(
             HooksExhaustiveDeps.code,
             result.locationFor(construction),
             errorMessageArgs: [message],
           );
         }
-      });
+      }
       return;
     }
 
@@ -1174,8 +1140,7 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
       }
     }
 
-    // FIXME this is async :/
-    diagnosticCollector.addErrorWithFix(
+    await collector.addErrorWithFix(
       HooksExhaustiveDeps.code,
       result.locationFor(declaredDependenciesNode),
       errorMessageArgs: [
@@ -1195,6 +1160,16 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
       }),
     );
   }
+}
+
+class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
+  final RegExp? additionalHooks;
+  final void Function(ReactiveHookCallbackInfo) onReactiveHookCallback;
+
+  _ExhaustiveDepsVisitor({
+    this.additionalHooks,
+    required this.onReactiveHookCallback,
+  });
 
   @override
   void visitInvocationExpression(InvocationExpression node) {
@@ -1205,106 +1180,176 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
       // Not a React Hook call that needs deps.
       return;
     }
+
     final callback = node.argumentList.arguments.elementAtOrNull(callbackIndex);
     final reactiveHook = node.function;
     final reactiveHookName = getNodeWithoutReactNamespace(reactiveHook).toSource();
     final declaredDependenciesNode = node.argumentList.arguments.elementAtOrNull(callbackIndex + 1);
     final isEffect = RegExp(r'Effect($|[^a-z])').hasMatch(reactiveHookName);
 
-    // Check the declared dependencies for this reactive hook. If there is no
-    // second argument then the reactive callback will re-run on every render.
-    // So no need to check for dependency inclusion.
-    if (declaredDependenciesNode == null && !isEffect) {
-      // These are only used for optimization.
-      if (reactiveHookName == 'useMemo' || reactiveHookName == 'useCallback') {
-        // TODO: Can this have a suggestion?
-        reportProblem(
-          node: reactiveHook,
-          message: "React Hook $reactiveHookName does nothing when called with "
-              "only one argument. Did you forget to pass a list of "
-              "dependencies?",
-        );
-      }
-      return;
-    }
-
-    if (callback is FunctionExpression) {
-      visitFunctionWithDependencies(
-        node: callback.body,
-        declaredDependenciesNode: declaredDependenciesNode,
-        reactiveHook: reactiveHook,
-        reactiveHookName: reactiveHookName,
-        isEffect: isEffect,
-      );
-      return; // Handled
-    } else if (callback is Identifier) {
-      if (declaredDependenciesNode == null) {
-        // No deps, no problems.
-        return; // Handled
-      }
-      // The function passed as a callback is not written inline.
-      // But perhaps it's in the dependencies array?
-      if (declaredDependenciesNode is ListLiteral &&
-          declaredDependenciesNode.elements.whereType<Identifier>().any(
-                (el) => el.name == callback.name,
-              )) {
-        // If it's already in the list of deps, we don't care because
-        // this is valid regardless.
-        return; // Handled
-      }
-      // We'll do our best effort to find it, complain otherwise.
-      final declaration = callback.staticElement?.declaration;
-      if (declaration == null) {
-        // If it's not in scope, we don't care.
-        return; // Handled
-      }
-      // The function passed as a callback is not written inline.
-      // But it's defined somewhere in the render scope.
-      // We'll do our best effort to find and check it, complain otherwise.
-      final function = lookUpFunction(declaration, callback.root);
-      if (function != null) {
-        // effectBody() {...};
-        // // or
-        // final effectBody = () {...};
-        // useEffect(() => { ... }, []);
-        visitFunctionWithDependencies(
-          node: function.body,
-          declaredDependenciesNode: declaredDependenciesNode,
-          reactiveHook: reactiveHook,
-          reactiveHookName: reactiveHookName,
-          isEffect: isEffect,
-        );
-        return; // Handled
-      }
-      // Unhandled
-    } else {
-      // useEffect(generateEffectBody(), []);
-      reportProblem(
-        node: reactiveHook,
-        message: "React Hook $reactiveHookName received a function whose dependencies "
-            "are unknown. Pass an inline function instead.",
-      );
-      return; // Handled
-    }
-
-    // Something unusual. Fall back to suggesting to add the body itself as a dep.
-    final callbackName = callback.name;
-    // FIXME this is async :/
-    diagnosticCollector.addErrorWithFix(
-      HooksExhaustiveDeps.code,
-      result.locationFor(reactiveHook),
-      errorMessageArgs: [
-        // ignore: prefer_adjacent_string_concatenation
-        "React Hook $reactiveHookName has a missing dependency: '$callbackName'. " +
-            "Either include it or remove the dependency list."
-      ],
-      fixKind: HooksExhaustiveDeps.fixKind,
-      fixMessageArgs: ["Update the dependencies list to be: [$callbackName]"],
-      computeFix: () => buildGenericFileEdit(result, (e) {
-        e.addSimpleReplacement(range.node(declaredDependenciesNode), "[$callbackName]");
-      }),
-    );
+    onReactiveHookCallback(ReactiveHookCallbackInfo(
+      node: node,
+      callback: callback,
+      reactiveHook: reactiveHook,
+      reactiveHookName: reactiveHookName,
+      declaredDependenciesNode: declaredDependenciesNode,
+      isEffect: isEffect,
+    ));
   }
+}
+
+class ReactiveHookCallbackInfo {
+  final InvocationExpression? node;
+  final Expression? callback;
+  final Expression reactiveHook;
+  final String reactiveHookName;
+  final Expression? declaredDependenciesNode;
+  final bool isEffect;
+
+  ReactiveHookCallbackInfo({
+    required this.node,
+    required this.callback,
+    required this.reactiveHook,
+    required this.reactiveHookName,
+    required this.declaredDependenciesNode,
+    required this.isEffect,
+  });
+}
+
+class _Dependency {
+  final bool isStable;
+
+  final List<Identifier> references;
+
+  _Dependency({required this.isStable, required this.references});
+
+  @override
+  String toString() => prettyPrint({
+        'isStable': isStable,
+        'references': references,
+      });
+}
+
+class _RefInEffectCleanup {
+  final Identifier reference;
+
+  /// [reference].staticElement, but stored as a separate non-nullable field.
+  final Element referenceElement;
+
+  _RefInEffectCleanup({required this.reference, required this.referenceElement});
+
+  @override
+  String toString() => prettyPrint({
+        'reference': reference,
+      });
+}
+
+// FIXME(greg) unit test these functions
+FunctionExpression? lookUpFunction(Element element, AstNode root) {
+  final node = NodeLocator2(element.nameOffset).searchWithin(root);
+  if (node is Identifier && node.staticElement == element) {
+    final parent = node.parent;
+    return parent.tryCast<FunctionDeclaration>()?.functionExpression ??
+        parent.tryCast<VariableDeclaration>()?.initializer?.tryCast<FunctionExpression>();
+  }
+
+  return null;
+}
+
+// FIXME(greg) make name clear about the cases it handles (variables, functions?, not parameters)
+Declaration? lookUpDeclaration(Element element, AstNode root) {
+  // if (element is ExecutableElement) return null;
+  final node = NodeLocator2(element.nameOffset).searchWithin(root);
+  final declaration = node?.thisOrAncestorOfType<Declaration>();
+  if (declaration?.declaredElement == element) {
+    return declaration;
+  }
+
+  return null;
+}
+
+FormalParameter? lookUpParameter(Element element, AstNode root) {
+  final node = NodeLocator2(element.nameOffset).searchWithin(root);
+  final declaration = node?.thisOrAncestorOfType<FormalParameter>();
+  if (declaration?.declaredElement == element) {
+    return declaration;
+  }
+
+  return null;
+}
+
+Iterable<Identifier> resolvedReferencesWithin(AstNode node) =>
+    allDescendantsOfType<Identifier>(node).where((e) => e.staticElement != null);
+
+enum HookTypeWithStableMethods { stateHook, reducerHook }
+
+class StableHookMethodInfo {
+  final Expression node;
+
+  final Expression target;
+  final Identifier property;
+  final HookTypeWithStableMethods hookType;
+
+  StableHookMethodInfo({
+    required this.node,
+    required this.target,
+    required this.property,
+    required this.hookType,
+  }) : assert(target.parent == node && property.parent == node);
+
+  bool get isStateSetterMethod =>
+      hookType == HookTypeWithStableMethods.stateHook && stateHookSetMethods.contains(property.name);
+
+  static const stateHookSetMethods = {'set', 'setWithUpdater'};
+  static const stableStateHookMethods = {...stateHookSetMethods};
+  static const stableReducerHookMethods = {'dispatch'};
+// TODO uncomment once TransitionHook is implemented.
+// static const stableTransitionHookMethods = {'startTransition'};
+}
+
+/// If [node] is an access of a stable hook method on a hook object (either a method call or a tearoff),
+/// returns information about that usage. Otherwise, returns `null.
+StableHookMethodInfo? getStableHookMethodInfo(AstNode node) {
+  // This check is redundant with the if-else below, but allows for type promotion of `node`.
+  if (node is! Expression) return null;
+
+  Expression? target;
+  Identifier property;
+  if (node is MethodInvocation && !node.isCascaded) {
+    target = node.target;
+    property = node.methodName;
+  } else if (node is PropertyAccess && !node.isCascaded) {
+    target = node.target;
+    property = node.propertyName;
+  } else if (node is PrefixedIdentifier) {
+    target = node.prefix;
+    property = node.identifier;
+  } else {
+    return null;
+  }
+
+  if (target == null) return null;
+
+  // Check whether this reference is only used to access the stable hook property.
+  if ((target.staticType?.isStateHook ?? false) &&
+      StableHookMethodInfo.stableStateHookMethods.contains(property.name)) {
+    return StableHookMethodInfo(
+        node: node, target: target, property: property, hookType: HookTypeWithStableMethods.stateHook);
+  }
+
+  if ((target.staticType?.isReducerHook ?? false) &&
+      StableHookMethodInfo.stableReducerHookMethods.contains(property.name)) {
+    return StableHookMethodInfo(
+        node: node, target: target, property: property, hookType: HookTypeWithStableMethods.reducerHook);
+  }
+
+  // TODO uncomment once TransitionHook is implemented.
+  // if ((target.staticType?.element?.isTransitionHook ?? false) &&
+  //     stableTransitionHookMethods.contains(property.name)) {
+  //   return Tuple2(HookTypeWithStableMethods.transitionHook, property.name);
+  // }
+
+  return null;
 }
 
 /// Returns whether [body] has a declaration (a variable or local function) with the name
@@ -1743,7 +1788,6 @@ abstract class _DepType {
   static const assignmentExpression = 'assignment expression';
   static const reactElement = 'ReactElement';
 }
-
 
 bool isInvocationADiscreteDependency(PropertyInvocation invocation) {
   // FIXME(greg) should we do this better/differently?
