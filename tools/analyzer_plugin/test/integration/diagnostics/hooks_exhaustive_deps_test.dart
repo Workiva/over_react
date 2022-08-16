@@ -6,6 +6,7 @@ import 'dart:convert';
 
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:collection/collection.dart';
+import 'package:dart_style/dart_style.dart';
 import 'package:meta/meta.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/hooks_exhaustive_deps.dart';
 import 'package:test/test.dart';
@@ -13,10 +14,12 @@ import 'package:test_reflective_loader/test_reflective_loader.dart';
 
 import '../matchers.dart';
 import '../test_bases/diagnostic_test_base.dart';
+import '../test_bases/server_plugin_contributor_test_base.dart';
 import 'test_cases_output.dart' as tco;
 
 void main() {
   group('HooksExhaustiveDeps', () {
+    // TODO(greg) inline some of these globals to avoid potential shadowing / bad references and to clean things ups
     const preamble = r'''
 // ignore_for_file: unused_import
     
@@ -133,9 +136,8 @@ void externalCall(dynamic arg) {}
 
       String analysisYaml;
       if (additionalHooks != null) {
-        print('ADDITIONAL HOOKS: $additionalHooks');
-        // JSON is a subset of Yaml. :)
-        // Also, this way, we don't have to worry about escaping strings if we're constructing the yaml ortselves.
+        // Yaml is a superset of JSON, so we can use it where Yaml is expected. And outputting JSON is easier. :)
+        // Also, this way, we don't have to worry about escaping strings if we're constructing the yaml ourselves.
         analysisYaml = jsonEncode({
           'over_react': {
             'exhaustive_deps': {
@@ -213,16 +215,86 @@ void externalCall(dynamic arg) {}
                         AnalysisErrorHavingUtils(isA<AnalysisError>()).havingCode(HooksExhaustiveDeps.code.name)),
                     reason: 'Expected all errors to match the error & fix kinds under test.');
 
-                // Replace line numbers in messages so we don't have to update them every time the preamble changes.
-                String ignoreLineNumber(String message) =>
-                    message.replaceAll(RegExp(r'at line \d+'), 'at line {{IGNORED}}');
-                final expectedMessages =
-                    expectedErrors.map((e) => e['message'] as String).map(ignoreLineNumber).toList();
-                final actualMessages = errors.map((e) => e.message).map(ignoreLineNumber).toList();
+                final expectedErrorIndexByActualErrorIndex = <int, int>{};
 
-                // expect(errors, unorderedEquals(expectedErrors.map((e) => isDiagnostic(HooksExhaustiveDeps.code).havingMessage(contains(e['message'] as String));
-                expect(actualMessages, unorderedEquals(expectedMessages));
-                //fixme(greg) suggestions
+                {
+                  // Replace line numbers in messages so we don't have to update them every time the preamble changes.
+                  String ignoreLineNumber(String message) =>
+                      message.replaceAll(RegExp(r'at line \d+'), 'at line {{IGNORED}}');
+                  final expectedMessages =
+                      expectedErrors.map((e) => e['message'] as String).map(ignoreLineNumber).toList();
+                  final actualMessages = errors.map((e) => e.message).map(ignoreLineNumber).toList();
+
+                  // expect(errors, unorderedEquals(expectedErrors.map((e) => isDiagnostic(HooksExhaustiveDeps.code).havingMessage(contains(e['message'] as String));
+                  expect(actualMessages, unorderedEquals(expectedMessages));
+
+                  expectedMessages.forEachIndexed((expectedIndex, expectedMessage) {
+                    final actualIndex = actualMessages.indexOf(expectedMessage);
+                    expectedErrorIndexByActualErrorIndex[actualIndex] = expectedIndex;
+                  });
+                }
+
+                // Suggestions
+                //           'suggestions': [
+                //             {
+                //               'desc': 'Update the dependencies list to be: [props.foo]',
+                //               'output': r'''
+                //                 final MyComponent = uiFunction<TestProps>((props) {
+                //                   useCallback(() {
+                //                     print(props.foo?.toString());
+                //                   }, [props.foo]);
+                //                 }, null);
+                //               ''',
+                //             },
+                for (var i = 0; i < errors.length; i++) {
+                  final actualError = errors.elementAt(i);
+                  final expectedError = expectedErrors[expectedErrorIndexByActualErrorIndex[i]];
+
+                  final suggestions = (expectedError['suggestions'] as List ?? <dynamic>[]).cast<Map>();
+
+                  if (suggestions.isEmpty) {
+                    expect(actualError.hasFix, isFalse, reason: 'was not expecting fixes');
+                  } else {
+                    expect(actualError.hasFix, isTrue, reason: 'was expecting fixes: $suggestions');
+
+                    if (suggestions.length > 1) {
+                      throw UnimplementedError('Test does not currently support multiple suggestions');
+                    }
+
+                    final suggestion = suggestions.single;
+                    final desc = suggestion['desc'] as String;
+                    final output = suggestion['output'] as String;
+                    expect(desc, isNotNull, reason: 'test setup check: test suggestion \'desc\' should not be null');
+                    expect(output, isNotNull,
+                        reason: 'test setup check: test suggestion \'output\' should not be null');
+
+                    final actualFix = await testBase.expectSingleErrorFix(
+                        SourceSelection(source, actualError.location.offset, actualError.location.length));
+                    expect(actualFix.fixes.map((fix) => fix.change.message).toList(), [desc],
+                        reason: 'fix message should match');
+
+                    final fixedSource = testBase.applyErrorFixes(actualFix, source);
+
+                    // The source is indented differently, so we'll format before comparing instead to get better
+                    // failure messages if they don't match (equalsIgnoringWhitespace has pretty hard to read messages).
+                    final formatter = DartFormatter();
+                    String tryFormat(String source, String sourceName) {
+                      try {
+                        return formatter.format(source);
+                      } on FormatterException catch (e) {
+                        fail('Failure formatting source "$sourceName": $e. Source:\n$source');
+                      }
+                    }
+
+                    final expectedOutputWithoutPreamble = tryFormat(wrapInFunction(output), 'expected output');
+                    final actualOutputWithoutPreamble =
+                        tryFormat(fixedSource.contents.data.replaceFirst(preamble, ''), 'actual output');
+
+                    expect(actualOutputWithoutPreamble, expectedOutputWithoutPreamble,
+                        reason: 'applying fixes should match expected output');
+                  }
+                }
+                // await testBase.applyErrorFixes(source);
 
                 // Run this here even though it's also in tearDown, so that we can see the source
                 // when there's failures caused by this expectation.
@@ -283,5 +355,5 @@ class HooksExhaustiveDepsDiagnosticTest extends DiagnosticTestBase {
   get errorUnderTest => HooksExhaustiveDeps.code;
 
   @override
-  get fixKindUnderTest => null;
+  get fixKindUnderTest => HooksExhaustiveDeps.fixKind;
 }

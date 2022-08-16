@@ -3056,17 +3056,17 @@ final Map<String, List<Map<String, Object>>> tests = {
             print(props.foo);
           }, []);
           over_react.useEffect(() {
-            print(props.foo);
+            print(props.bar);
           }, []);
           over_react.useCallback(() {
-            print(props.foo);
+            print(props.bar);
           }, []);
           over_react.useMemo(() {
-            print(props.foo);
+            print(props.bar);
           }, []);
           // ignore: undefined_function
           over_react.notReactiveHook(() {
-            print(props.foo);
+            print(props.bar);
           }, []);
         }, null);
       ''',
@@ -3089,16 +3089,17 @@ final Map<String, List<Map<String, Object>>> tests = {
                     print(props.foo);
                   }, []);
                   over_react.useEffect(() {
-                    print(props.foo);
+                    print(props.bar);
                   }, []);
                   over_react.useCallback(() {
-                    print(props.foo);
+                    print(props.bar);
                   }, []);
                   over_react.useMemo(() {
-                    print(props.foo);
+                    print(props.bar);
                   }, []);
+                  // ignore: undefined_function
                   over_react.notReactiveHook(() {
-                    print(props.foo);
+                    print(props.bar);
                   }, []);
                 }, null);
               ''',
@@ -3123,16 +3124,17 @@ final Map<String, List<Map<String, Object>>> tests = {
                     print(props.foo);
                   }, []);
                   over_react.useEffect(() {
-                    print(props.foo);
+                    print(props.bar);
                   }, []);
                   over_react.useCallback(() {
-                    print(props.foo);
+                    print(props.bar);
                   }, []);
                   over_react.useMemo(() {
-                    print(props.foo);
+                    print(props.bar);
                   }, []);
+                  // ignore: undefined_function
                   over_react.notReactiveHook(() {
-                    print(props.foo);
+                    print(props.bar);
                   }, []);
                 }, null);
               ''',
@@ -3157,16 +3159,17 @@ final Map<String, List<Map<String, Object>>> tests = {
                     print(props.foo);
                   }, [props.foo]);
                   over_react.useEffect(() {
-                    print(props.foo);
+                    print(props.bar);
                   }, []);
                   over_react.useCallback(() {
-                    print(props.foo);
+                    print(props.bar);
                   }, []);
                   over_react.useMemo(() {
-                    print(props.foo);
+                    print(props.bar);
                   }, []);
+                  // ignore: undefined_function
                   over_react.notReactiveHook(() {
-                    print(props.foo);
+                    print(props.bar);
                   }, []);
                 }, null);
               ''',
@@ -3175,10 +3178,10 @@ final Map<String, List<Map<String, Object>>> tests = {
         },
         {
           'message':
-              'React Hook useEffect has a missing dependency: \'props.foo\'. Either include it or remove the dependency list.',
+              'React Hook useEffect has a missing dependency: \'props.bar\'. Either include it or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies list to be: [props.foo]',
+              'desc': 'Update the dependencies list to be: [props.bar]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
                   useEffect(() {
@@ -3191,16 +3194,17 @@ final Map<String, List<Map<String, Object>>> tests = {
                     print(props.foo);
                   }, []);
                   over_react.useEffect(() {
-                    print(props.foo);
-                  }, [props.foo]);
+                    print(props.bar);
+                  }, [props.bar]);
                   over_react.useCallback(() {
-                    print(props.foo);
+                    print(props.bar);
                   }, []);
                   over_react.useMemo(() {
-                    print(props.foo);
+                    print(props.bar);
                   }, []);
+                  // ignore: undefined_function
                   over_react.notReactiveHook(() {
-                    print(props.foo);
+                    print(props.bar);
                   }, []);
                 }, null);
               ''',
@@ -3209,10 +3213,10 @@ final Map<String, List<Map<String, Object>>> tests = {
         },
         {
           'message':
-              'React Hook useCallback has a missing dependency: \'props.foo\'. Either include it or remove the dependency list.',
+              'React Hook useCallback has a missing dependency: \'props.bar\'. Either include it or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies list to be: [props.foo]',
+              'desc': 'Update the dependencies list to be: [props.bar]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
                   useEffect(() {
@@ -3225,16 +3229,17 @@ final Map<String, List<Map<String, Object>>> tests = {
                     print(props.foo);
                   }, []);
                   over_react.useEffect(() {
-                    print(props.foo);
+                    print(props.bar);
                   }, []);
                   over_react.useCallback(() {
-                    print(props.foo);
-                  }, [props.foo]);
+                    print(props.bar);
+                  }, [props.bar]);
                   over_react.useMemo(() {
-                    print(props.foo);
+                    print(props.bar);
                   }, []);
+                  // ignore: undefined_function
                   over_react.notReactiveHook(() {
-                    print(props.foo);
+                    print(props.bar);
                   }, []);
                 }, null);
               ''',
@@ -3243,10 +3248,10 @@ final Map<String, List<Map<String, Object>>> tests = {
         },
         {
           'message':
-              'React Hook useMemo has a missing dependency: \'props.foo\'. Either include it or remove the dependency list.',
+              'React Hook useMemo has a missing dependency: \'props.bar\'. Either include it or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies list to be: [props.foo]',
+              'desc': 'Update the dependencies list to be: [props.bar]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
                   useEffect(() {
@@ -3259,16 +3264,17 @@ final Map<String, List<Map<String, Object>>> tests = {
                     print(props.foo);
                   }, []);
                   over_react.useEffect(() {
-                    print(props.foo);
+                    print(props.bar);
                   }, []);
                   over_react.useCallback(() {
-                    print(props.foo);
+                    print(props.bar);
                   }, []);
                   over_react.useMemo(() {
-                    print(props.foo);
-                  }, [props.foo]);
+                    print(props.bar);
+                  }, [props.bar]);
+                  // ignore: undefined_function
                   over_react.notReactiveHook(() {
-                    print(props.foo);
+                    print(props.bar);
                   }, []);
                 }, null);
               ''',
@@ -3287,11 +3293,11 @@ final Map<String, List<Map<String, Object>>> tests = {
             print(props.foo);
           }, []);
           over_react.useEffect(() {
-            print(props.foo);
+            print(props.bar);
           }, []);
           // ignore: undefined_function
           over_react.useCustomEffect(() {
-            print(props.foo);
+            print(props.bar);
           }, []);
         }, null);
       ''',
@@ -3314,10 +3320,11 @@ final Map<String, List<Map<String, Object>>> tests = {
                     print(props.foo);
                   }, []);
                   over_react.useEffect(() {
-                    print(props.foo);
+                    print(props.bar);
                   }, []);
+                  // ignore: undefined_function
                   over_react.useCustomEffect(() {
-                    print(props.foo);
+                    print(props.bar);
                   }, []);
                 }, null);
               ''',
@@ -3339,8 +3346,33 @@ final Map<String, List<Map<String, Object>>> tests = {
                     print(props.foo);
                   }, [props.foo]);
                   over_react.useEffect(() {
+                    print(props.bar);
+                  }, []);
+                  over_react.useCustomEffect(() {
+                    print(props.bar);
+                  }, []);
+                }, null);
+              ''',
+            },
+          ],
+        },
+        {
+          'message':
+              'React Hook useEffect has a missing dependency: \'props.bar\'. Either include it or remove the dependency list.',
+          'suggestions': [
+            {
+              'desc': 'Update the dependencies list to be: [props.bar]',
+              'output': r'''
+                final MyComponent = uiFunction<TestProps>((props) {
+                  useCustomEffect(() {
                     print(props.foo);
                   }, []);
+                  useEffect(() {
+                    print(props.foo);
+                  }, []);
+                  over_react.useEffect(() {
+                    print(props.bar);
+                  }, [props.bar]);
                   over_react.useCustomEffect(() {
                     print(props.foo);
                   }, []);
@@ -3351,10 +3383,10 @@ final Map<String, List<Map<String, Object>>> tests = {
         },
         {
           'message':
-              'React Hook useEffect has a missing dependency: \'props.foo\'. Either include it or remove the dependency list.',
+              'React Hook useCustomEffect has a missing dependency: \'props.bar\'. Either include it or remove the dependency list.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies list to be: [props.foo]',
+              'desc': 'Update the dependencies list to be: [props.bar]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
                   useCustomEffect(() {
@@ -3364,36 +3396,11 @@ final Map<String, List<Map<String, Object>>> tests = {
                     print(props.foo);
                   }, []);
                   over_react.useEffect(() {
-                    print(props.foo);
-                  }, [props.foo]);
-                  over_react.useCustomEffect(() {
-                    print(props.foo);
-                  }, []);
-                }, null);
-              ''',
-            },
-          ],
-        },
-        {
-          'message':
-              'React Hook useCustomEffect has a missing dependency: \'props.foo\'. Either include it or remove the dependency list.',
-          'suggestions': [
-            {
-              'desc': 'Update the dependencies list to be: [props.foo]',
-              'output': r'''
-                final MyComponent = uiFunction<TestProps>((props) {
-                  useCustomEffect(() {
-                    print(props.foo);
-                  }, [props.foo]);
-                  useEffect(() {
-                    print(props.foo);
-                  }, []);
-                  over_react.useEffect(() {
-                    print(props.foo);
+                    print(props.bar);
                   }, []);
                   over_react.useCustomEffect(() {
-                    print(props.foo);
-                  }, []);
+                    print(props.bar);
+                  }, [props.bar]);
                 }, null);
               ''',
             },
@@ -3421,6 +3428,7 @@ final Map<String, List<Map<String, Object>>> tests = {
               'desc': 'Update the dependencies list to be: [local]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((_) {
+                  var a, b;
                   final local = {};
                   useEffect(() {
                     print(local);
@@ -3457,6 +3465,7 @@ final Map<String, List<Map<String, Object>>> tests = {
               'desc': 'Update the dependencies list to be: [local]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((_) {
+                  var a;
                   final local = {};
                   useEffect(() {
                     print(local);
@@ -3518,11 +3527,11 @@ final Map<String, List<Map<String, Object>>> tests = {
               'React Hook useEffect has a missing dependency: \'state.value\'. Either include it or remove the dependency list. You can also do a functional update \'state.setWithUpdater((s) => ...)\' if you only need \'state.value\' in the \'state.set\' call.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies list to be: [state]',
+              'desc': 'Update the dependencies list to be: [state.value]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((_) {
                   final ref = useRef();
-                  var state = useState<dynamic>(null);
+                  var state = useState(0);
                   useEffect(() {
                     ref.current = {};
                     state.set(state.value + 1);
@@ -3554,7 +3563,7 @@ final Map<String, List<Map<String, Object>>> tests = {
           // but *do* add "state". *Don't* add "setState" ourselves.
           'suggestions': [
             {
-              'desc': 'Update the dependencies list to be: [ref, state]',
+              'desc': 'Update the dependencies list to be: [ref, state.value]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((_) {
                   final ref = useRef();
@@ -3862,14 +3871,14 @@ final Map<String, List<Map<String, Object>>> tests = {
               'React Hook useEffect has a missing dependency: \'props.onChange\'. Either include it or remove the dependency list. If \'props.onChange\' changes too often, find the parent component that defines it and wrap that definition in useCallback.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies list to be: [props]',
+              'desc': 'Update the dependencies list to be: [props.onChange]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
                   useEffect(() {
                     if (props.onChange != null) {
                       props.onChange(null);
                     }
-                  }, [props]);
+                  }, [props.onChange]);
                 }, null);
               ''',
             },
@@ -3894,14 +3903,14 @@ final Map<String, List<Map<String, Object>>> tests = {
               'React Hook useEffect has a missing dependency: \'props?.onChange\'. Either include it or remove the dependency list. If \'props?.onChange\' changes too often, find the parent component that defines it and wrap that definition in useCallback.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies list to be: [props]',
+              'desc': 'Update the dependencies list to be: [props?.onChange]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
                   useEffect(() {
                     if (props?.onChange != null) {
                       props?.onChange(null);
                     }
-                  }, [props]);
+                  }, [props?.onChange]);
                 }, null);
               ''',
             },
@@ -3928,7 +3937,7 @@ final Map<String, List<Map<String, Object>>> tests = {
               'React Hook useEffect has missing dependencies: \'props.onPause\' and \'props.onPlay\'. Either include them or remove the dependency list. If any of \'props.onPause\' or \'props.onPlay\' changes too often, find the parent component that defines it and wrap that definition in useCallback.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies list to be: [props]',
+              'desc': 'Update the dependencies list to be: [props.onPause, props.onPlay]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
                   useEffect(() {
@@ -3938,7 +3947,7 @@ final Map<String, List<Map<String, Object>>> tests = {
                     pause() {
                       props.onPause();
                     }
-                  }, [props]);
+                  }, [props.onPause, props.onPlay]);
                 }, null);
               ''',
             },
@@ -3994,7 +4003,7 @@ final Map<String, List<Map<String, Object>>> tests = {
               'React Hook useEffect has missing dependencies: \'props.foo\' and \'props.onChange\'. Either include them or remove the dependency list. If \'props.onChange\' changes too often, find the parent component that defines it and wrap that definition in useCallback.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies list to be: [props]',
+              'desc': 'Update the dependencies list to be: [props.foo, props.onChange]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
                   useEffect(() {
@@ -4002,7 +4011,7 @@ final Map<String, List<Map<String, Object>>> tests = {
                     if (props.foo.onChange) {
                       props.foo.onChange();
                     }
-                  }, [props]);
+                  }, [props.foo, props.onChange]);
                 }, null);
               ''',
             },
@@ -4028,7 +4037,7 @@ final Map<String, List<Map<String, Object>>> tests = {
               'React Hook useEffect has missing dependencies: \'props.isEditMode\', \'props.toggleEditMode\', and \'skillsCount.value\'. Either include them or remove the dependency list. If \'props.toggleEditMode\' changes too often, find the parent component that defines it and wrap that definition in useCallback.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies list to be: [props, skillsCount.value]',
+              'desc': 'Update the dependencies list to be: [props.isEditMode, props.toggleEditMode, skillsCount.value]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
                   final skillsCount = useState<dynamic>(null);
@@ -4036,7 +4045,7 @@ final Map<String, List<Map<String, Object>>> tests = {
                     if (skillsCount.value == 0 && !props.isEditMode) {
                       props.toggleEditMode();
                     }
-                  }, [props, skillsCount.value]);
+                  }, [props.isEditMode, props.toggleEditMode, skillsCount.value]);
                 }, null);
               ''',
             },
@@ -7169,7 +7178,7 @@ final Map<String, List<Map<String, Object>>> testsTypescript = {
               'React Hook useEffect has a missing dependency: \'state.value\'. Either include it or remove the dependency list. You can also do a functional update \'state.setWithUpdater((s) => ...)\' if you only need \'state.value\' in the \'state.setWithUpdater\' call.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies list to be: [state]',
+              'desc': 'Update the dependencies list to be: [state.value]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((_) {
                   var state = over_react.useState<number>(0);
