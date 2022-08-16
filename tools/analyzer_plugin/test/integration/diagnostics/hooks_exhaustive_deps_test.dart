@@ -204,21 +204,34 @@ void externalCall(dynamic arg) {}
                       AnalysisErrorHavingUtils(isA<AnalysisError>()).havingCode(HooksExhaustiveDeps.code.name)),
                   reason: 'Expected all errors to match the error & fix kinds under test.');
 
+              /// A mapping of the index of the actual error to the index of te expected error,
+              /// so we can validate the appropriate fixes for each below.
               final expectedErrorIndexByActualErrorIndex = <int, int>{};
 
               {
-                // Replace line numbers in messages so we don't have to update them every time the preamble changes.
-                String ignoreLineNumber(String message) =>
-                    message.replaceAll(RegExp(r'at line \d+'), 'at line {{IGNORED}}');
-                final expectedMessages =
-                    expectedErrors.map((e) => e['message'] as String).map(ignoreLineNumber).toList();
-                final actualMessages = errors.map((e) => e.message).map(ignoreLineNumber).toList();
+                final expectedMessages = expectedErrors.map((e) => e['message'] as String).toList();
 
-                // expect(errors, unorderedEquals(expectedErrors.map((e) => isDiagnostic(HooksExhaustiveDeps.code).havingMessage(contains(e['message'] as String));
+                // Replace line numbers in messages so we don't have to update them every time the preamble changes.
+                // Do this instead of just ignoring line numbers in the messages, since that can lead to ambiguities
+                // between similar errors with different line numbers when mapping their indexes below.
+                final numPreambleLinesAdded = '\n'.allMatches(preamble).length;
+                final actualMessages = errors.map((e) {
+                  return e.message.replaceAllMapped(RegExp(r'(at line )(\d+)'), (match) {
+                    final lineNumber = int.parse(match[2]);
+                    return '${match[1]}${lineNumber - numPreambleLinesAdded}';
+                  });
+                }).toList();
+
                 expect(actualMessages, unorderedEquals(expectedMessages));
 
                 expectedMessages.forEachIndexed((expectedIndex, expectedMessage) {
                   final actualIndex = actualMessages.indexOf(expectedMessage);
+                  if (expectedErrorIndexByActualErrorIndex.containsKey(actualIndex)) {
+                    throw StateError(
+                        'The same expected error message occurs twice, preventing us from mapping them unambiguously.'
+                        ' Please update the test case to not have two of the exact same error messages.'
+                        ' Duplicate message: "$expectedMessage"');
+                  }
                   expectedErrorIndexByActualErrorIndex[actualIndex] = expectedIndex;
                 });
               }
@@ -242,6 +255,8 @@ void externalCall(dynamic arg) {}
                 try {
                   expectedError = expectedErrors[expectedErrorIndex];
                 } catch (_) {
+                  // The StateError check in the mapping should probably render this catch unreachable, but we'll
+                  // leave this in here just in case.
                   print('Error mapping actual error at index $i to expected error');
                   print('expectedErrorIndex: $expectedErrorIndex');
                   print('actualError: $actualError');
@@ -264,10 +279,11 @@ void externalCall(dynamic arg) {}
                   expect(actualError.hasFix, isFalse, reason: 'was not expecting the error to report it has a fix');
                   expect(actualFixesForError, isEmpty, reason: 'was not expecting fixes');
                 } else {
+                  String prettyExpectedFixes() => JsonEncoder.withIndent('  ').convert(expectedFixes);
                   expect(actualError.hasFix, isTrue,
-                      reason: 'error should report it has a fix. Expected fixes: $expectedFixes');
+                      reason: 'error should report it has a fix. Expected fixes: ${prettyExpectedFixes()}');
                   expect(actualFixesForError, isNotEmpty,
-                      reason: 'was expecting fixes but got none. Expected fixes: $expectedFixes');
+                      reason: 'was expecting fixes but got none. Expected fixes: ${prettyExpectedFixes()}');
                   expect(
                       actualFixesForError,
                       everyElement(
