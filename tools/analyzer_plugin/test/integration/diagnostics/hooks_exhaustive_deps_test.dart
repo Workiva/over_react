@@ -123,8 +123,6 @@ dynamic useCustomHook() => null;
 void externalCall(dynamic arg) {}
 ''';
 
-    String wrapInFunction(String code) => 'void __testCaseWrapperFunction() {\n\n$code\n\n}';
-
     bool errorFilter(AnalysisError error, {@required bool isFromPlugin}) =>
         defaultErrorFilter(error, isFromPlugin: isFromPlugin) &&
         // These are intentionally undefined references
@@ -172,7 +170,7 @@ void externalCall(dynamic arg) {}
               // Need to wrap in a function because some of the code includes statements that aren't valid
               // outside of a function context.
               final rawCode = testCase.code;
-              final code = preamble + wrapInFunction(rawCode);
+              final code = preamble + rawCode;
               try {
                 final source = testBase.newSource('test.dart', code);
                 await testBase.expectNoErrors(source, errorFilter: errorFilter);
@@ -180,7 +178,7 @@ void externalCall(dynamic arg) {}
                 // when there's failures caused by this expectation.
                 testBase.expectNoPluginErrors();
               } catch (_) {
-                print('Raw source (before adding preamble and wrapper): ```\n$rawCode\n```');
+                print('Raw source (before adding preamble): ```\n$rawCode\n```');
                 rethrow;
               }
             });
@@ -199,7 +197,7 @@ void externalCall(dynamic arg) {}
               // Need to wrap in a function because some of the code includes statements that aren't valid
               // outside of a function context.
               final rawCode = testCase.code;
-              final code = preamble + wrapInFunction(rawCode);
+              final code = preamble + rawCode;
 
               final expectedErrors = testCase.errors;
               expect(expectedErrors, isNotEmpty);
@@ -306,7 +304,7 @@ void externalCall(dynamic arg) {}
                       }
 
                       final expectedOutputWithoutPreamble =
-                          tryFormat(wrapInFunction(expectedOutput), 'expected output');
+                          tryFormat(expectedOutput, 'expected output');
                       final actualOutputWithoutPreamble =
                           tryFormat(fixedSource.contents.data.replaceFirst(preamble, ''), 'actual output');
 
@@ -326,7 +324,7 @@ void externalCall(dynamic arg) {}
                 // when there's failures caused by this expectation.
                 testBase.expectNoPluginErrors();
               } catch (_) {
-                print('Raw source (before adding preamble and wrapper): ```\n$rawCode\n```');
+                print('Raw source (before adding preamble): ```\n$rawCode\n```');
                 rethrow;
               }
             });

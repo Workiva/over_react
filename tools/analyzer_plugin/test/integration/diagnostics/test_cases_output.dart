@@ -536,24 +536,28 @@ final Map<String, List<Map<String, Object>>> tests = {
     {
       // Valid because we don't care about hooks outside of components.
       'code': r'''
-        final local = {};
-        // ignore: over_react_rules_of_hooks
-        useEffect(() {
-          print(local);
-        }, []);
+        nonHookFunction() {
+          final local = {};
+          // ignore: over_react_rules_of_hooks
+          useEffect(() {
+            print(local);
+          }, []);
+        }
       ''',
     },
     {
       // Valid because we don't care about hooks outside of components.
       'code': r'''
-        final local1 = {};
-        {
-          final local2 = {};
-          // ignore: over_react_rules_of_hooks
-          useEffect(() {
-            print(local1);
-            print(local2);
-          }, []);
+        nonHookFunction() {
+          final local1 = {};
+          {
+            final local2 = {};
+            // ignore: over_react_rules_of_hooks
+            useEffect(() {
+              print(local1);
+              print(local2);
+            }, []);
+          }
         }
       ''',
     },
@@ -694,24 +698,24 @@ final Map<String, List<Map<String, Object>>> tests = {
     },
     {
       'code': r'''
-        final MyComponent = forwardRef((props, ref) {
+        final MyComponent = uiForwardRef<TestProps>((props, ref) {
           useImperativeHandle(ref, () => ({
             'focus': () {
               window.alert(props.hello);
             }
           }));
-        });
+        }, null);
       ''',
     },
     {
       'code': r'''
-        final MyComponent = forwardRef((props, ref) {
+        final MyComponent = uiForwardRef<TestProps>((props, ref) {
           useImperativeHandle(ref, () => ({
             'focus': () {
               window.alert(props.hello);
             }
           }), [props.hello]);
-        });
+        }, null);
       ''',
     },
     {
@@ -3829,13 +3833,13 @@ final Map<String, List<Map<String, Object>>> tests = {
     },
     {
       'code': r'''
-        final MyComponent = forwardRef((props, ref) {
+        final MyComponent = uiForwardRef<TestProps>((props, ref) {
           useImperativeHandle(ref, () => ({
             'focus': () {
               window.alert(props.hello);
             }
           }), []);
-        });
+        }, null);
       ''',
       'errors': [
         {
@@ -3845,13 +3849,13 @@ final Map<String, List<Map<String, Object>>> tests = {
             {
               'desc': 'Update the dependencies list to be: [props.hello]',
               'output': r'''
-                final MyComponent = forwardRef((props, ref) {
+                final MyComponent = uiForwardRef<TestProps>((props, ref) {
                   useImperativeHandle(ref, () => ({
                     'focus': () {
                       window.alert(props.hello);
                     }
                   }), [props.hello]);
-                });
+                }, null);
               ''',
             },
           ],
@@ -7209,7 +7213,7 @@ final Map<String, List<Map<String, Object>>> testsTypescriptEslintParserV4 = {
           over_react.useEffect(() {
             print(Component()());
           }, []);
-        }, null);;
+        }, null);
       ''',
       'errors': [
         {
@@ -7225,7 +7229,7 @@ final Map<String, List<Map<String, Object>>> testsTypescriptEslintParserV4 = {
                   over_react.useEffect(() {
                     print(<Component />);
                   }, [Component]);
-                }, null);;
+                }, null);
               ''',
             },
           ],
