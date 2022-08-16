@@ -3348,6 +3348,7 @@ final Map<String, List<Map<String, Object>>> tests = {
                   over_react.useEffect(() {
                     print(props.bar);
                   }, []);
+                  // ignore: undefined_function
                   over_react.useCustomEffect(() {
                     print(props.bar);
                   }, []);
@@ -3373,6 +3374,7 @@ final Map<String, List<Map<String, Object>>> tests = {
                   over_react.useEffect(() {
                     print(props.bar);
                   }, [props.bar]);
+                  // ignore: undefined_function
                   over_react.useCustomEffect(() {
                     print(props.foo);
                   }, []);
@@ -3398,6 +3400,7 @@ final Map<String, List<Map<String, Object>>> tests = {
                   over_react.useEffect(() {
                     print(props.bar);
                   }, []);
+                  // ignore: undefined_function
                   over_react.useCustomEffect(() {
                     print(props.bar);
                   }, [props.bar]);
@@ -5571,7 +5574,7 @@ final Map<String, List<Map<String, Object>>> tests = {
               'React Hook useEffect has a missing dependency: \'count.value\'. Either include it or remove the dependency list. You can also do a functional update \'count.setWithUpdater((c) => ...)\' if you only need \'count.value\' in the \'count.set\' call.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies list to be: [count]',
+              'desc': 'Update the dependencies list to be: [count.value]',
               'output': r'''
                 final Counter = uiFunction<TestProps>((_) {
                   var count = useState(0);
@@ -5609,7 +5612,7 @@ final Map<String, List<Map<String, Object>>> tests = {
               'React Hook useEffect has missing dependencies: \'count.value\' and \'increment.value\'. Either include them or remove the dependency list. You can also do a functional update \'count.setWithUpdater((c) => ...)\' if you only need \'count.value\' in the \'count.set\' call.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies list to be: [count, increment]',
+              'desc': 'Update the dependencies list to be: [count.value, increment.value]',
               'output': r'''
                 final Counter = uiFunction<TestProps>((_) {
                   var count = useState(0);
@@ -5648,7 +5651,7 @@ final Map<String, List<Map<String, Object>>> tests = {
               'React Hook useEffect has a missing dependency: \'increment.value\'. Either include it or remove the dependency list. You can also replace multiple useState variables with useReducer if \'count.setWithUpdater\' needs \'increment.value\'.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies list to be: [increment]',
+              'desc': 'Update the dependencies list to be: [increment.value]',
               'output': r'''
                 final Counter = uiFunction<TestProps>((_) {
                   var count = useState(0);
@@ -5810,7 +5813,7 @@ final Map<String, List<Map<String, Object>>> tests = {
               'desc': 'Update the dependencies list to be: [increment]',
               'output': r'''
                 final Counter = uiFunction<TestProps>((props) {
-                  var increment = props.increment;
+                  final increment = props.increment;
 
                   var count = useState(0);
                   useEffect(() {
@@ -5930,7 +5933,7 @@ final Map<String, List<Map<String, Object>>> tests = {
               'React Hook useEffect has a missing dependency: \'props.fetchPodcasts\'. Either include it or remove the dependency list. If \'props.fetchPodcasts\' changes too often, find the parent component that defines it and wrap that definition in useCallback.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies list to be: [props.fetchPodcasts, id]',
+              'desc': 'Update the dependencies list to be: [id, props.fetchPodcasts]',
               'output': r'''
                 final Podcasts = uiFunction<TestProps>((props) {
                   var id = props.id;
@@ -5938,7 +5941,7 @@ final Map<String, List<Map<String, Object>>> tests = {
                   var podcasts = useState<dynamic>(null);
                   useEffect(() {
                     props.fetchPodcasts(id).then(podcasts.set);
-                  }, [props.fetchPodcasts, id]);
+                  }, [id, props.fetchPodcasts]);
                 }, null);
               ''',
             },
@@ -6521,35 +6524,7 @@ final Map<String, List<Map<String, Object>>> tests = {
         },
       ],
     },
-    {
-      'code': r'''
-        final MyComponent = uiFunction<TestProps>((_) {
-          final local = {};
-          useEffect(() {
-            print(local);
-          }, []);
-        }, null);
-      ''',
-      // Dangerous autofix is enabled due to the option:
-      'output': r'''
-        final MyComponent = uiFunction<TestProps>((_) {
-          final local = {};
-          useEffect(() {
-            print(local);
-          }, [local]);
-        }, null);
-      ''',
-      'errors': [
-        {
-          'message':
-              'React Hook useEffect has a missing dependency: \'local\'. Either include it or remove the dependency list.',
-        },
-      ],
-      // Keep this until major IDEs and VS Code FB ESLint plugin support Suggestions API.
-      'options': [
-        {'enableDangerousAutofixThisMayCauseInfiniteLoops': true}
-      ],
-    },
+    /* 1 test case previously here was removed around enableDangerousAutofixThisMayCauseInfiniteLoops, which is not applicable in this implementation */
     {
       'code': r'''
         final MyComponent = uiFunction<TestProps>((props) {
