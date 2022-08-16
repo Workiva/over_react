@@ -165,20 +165,13 @@ void externalCall(dynamic arg) {}
             test('valid[$i]', () async {
               final testCase = TestCase.fromJson(element);
 
-              final testBase = await setUpTestBase(testCase);
+              // When there are test failures, it's useful to have the original source handy for debugging
+              // and for searching for the test case object up the test case.
+              printOnFailure('Test case source (before adding preamble): ```\n${testCase.code}\n```');
 
-              final rawCode = testCase.code;
-              final code = preamble + rawCode;
-              try {
-                final source = testBase.newSource('test.dart', code);
-                await testBase.expectNoErrors(source, errorFilter: errorFilter);
-                // Run this here even though it's also in tearDown, so that we can see the source
-                // when there's failures caused by this expectation.
-                testBase.expectNoPluginErrors();
-              } catch (_) {
-                print('Raw source (before adding preamble): ```\n$rawCode\n```');
-                rethrow;
-              }
+              final testBase = await setUpTestBase(testCase);
+              final source = testBase.newSource('test.dart', preamble + testCase.code);
+              await testBase.expectNoErrors(source, errorFilter: errorFilter);
             });
           });
         });
@@ -190,150 +183,141 @@ void externalCall(dynamic arg) {}
             test('invalid[$i]', () async {
               final testCase = TestCase.fromJson(element);
 
-              final testBase = await setUpTestBase(testCase);
+              // When there are test failures, it's useful to have the original source handy for debugging
+              // and for searching for the test case object up the test case.
+              printOnFailure('Test case source (before adding preamble): ```\n${testCase.code}\n```');
 
-              final rawCode = testCase.code;
-              final code = preamble + rawCode;
+              final testBase = await setUpTestBase(testCase);
 
               final expectedErrors = testCase.errors;
               expect(expectedErrors, isNotEmpty);
 
-              try {
-                final source = testBase.newSource('test.dart', code);
-                final errors = await testBase.getAllErrors(source, includeOtherCodes: true, errorFilter: errorFilter);
-                expect(errors.dartErrors, isEmpty,
-                    reason: 'Expected there to be no errors coming from the analyzer and not the plugin.'
-                        ' Ensure your test source is free of unintentional errors, such as syntax errors and missing imports.'
-                        ' If errors are expected, set includeOtherErrorCodes:true.');
-                expect(
-                    errors.pluginErrors,
-                    everyElement(
-                        AnalysisErrorHavingUtils(isA<AnalysisError>()).havingCode(HooksExhaustiveDeps.code.name)),
-                    reason: 'Expected all errors to match the error & fix kinds under test.');
+              final source = testBase.newSource('test.dart', preamble + testCase.code);
+              final errors = await testBase.getAllErrors(source, includeOtherCodes: true, errorFilter: errorFilter);
+              expect(errors.dartErrors, isEmpty,
+                  reason: 'Expected there to be no errors coming from the analyzer and not the plugin.'
+                      ' Ensure your test source is free of unintentional errors, such as syntax errors and missing imports.'
+                      ' If errors are expected, set includeOtherErrorCodes:true.');
+              expect(
+                  errors.pluginErrors,
+                  everyElement(
+                      AnalysisErrorHavingUtils(isA<AnalysisError>()).havingCode(HooksExhaustiveDeps.code.name)),
+                  reason: 'Expected all errors to match the error & fix kinds under test.');
 
-                final expectedErrorIndexByActualErrorIndex = <int, int>{};
+              final expectedErrorIndexByActualErrorIndex = <int, int>{};
 
-                {
-                  // Replace line numbers in messages so we don't have to update them every time the preamble changes.
-                  String ignoreLineNumber(String message) =>
-                      message.replaceAll(RegExp(r'at line \d+'), 'at line {{IGNORED}}');
-                  final expectedMessages =
-                      expectedErrors.map((e) => e['message'] as String).map(ignoreLineNumber).toList();
-                  final actualMessages = errors.map((e) => e.message).map(ignoreLineNumber).toList();
+              {
+                // Replace line numbers in messages so we don't have to update them every time the preamble changes.
+                String ignoreLineNumber(String message) =>
+                    message.replaceAll(RegExp(r'at line \d+'), 'at line {{IGNORED}}');
+                final expectedMessages =
+                    expectedErrors.map((e) => e['message'] as String).map(ignoreLineNumber).toList();
+                final actualMessages = errors.map((e) => e.message).map(ignoreLineNumber).toList();
 
-                  // expect(errors, unorderedEquals(expectedErrors.map((e) => isDiagnostic(HooksExhaustiveDeps.code).havingMessage(contains(e['message'] as String));
-                  expect(actualMessages, unorderedEquals(expectedMessages));
+                // expect(errors, unorderedEquals(expectedErrors.map((e) => isDiagnostic(HooksExhaustiveDeps.code).havingMessage(contains(e['message'] as String));
+                expect(actualMessages, unorderedEquals(expectedMessages));
 
-                  expectedMessages.forEachIndexed((expectedIndex, expectedMessage) {
-                    final actualIndex = actualMessages.indexOf(expectedMessage);
-                    expectedErrorIndexByActualErrorIndex[actualIndex] = expectedIndex;
-                  });
+                expectedMessages.forEachIndexed((expectedIndex, expectedMessage) {
+                  final actualIndex = actualMessages.indexOf(expectedMessage);
+                  expectedErrorIndexByActualErrorIndex[actualIndex] = expectedIndex;
+                });
+              }
+
+              // Suggestions
+              //           'suggestions': [
+              //             {
+              //               'desc': 'Update the dependencies list to be: [props.foo]',
+              //               'output': r'''
+              //                 final MyComponent = uiFunction<TestProps>((props) {
+              //                   useCallback(() {
+              //                     print(props.foo?.toString());
+              //                   }, [props.foo]);
+              //                 }, null);
+              //               ''',
+              //             },
+              for (var i = 0; i < errors.length; i++) {
+                final actualError = errors.elementAt(i);
+                Map<dynamic, dynamic> expectedError;
+                final expectedErrorIndex = expectedErrorIndexByActualErrorIndex[i];
+                try {
+                  expectedError = expectedErrors[expectedErrorIndex];
+                } catch (_) {
+                  print('Error mapping actual error at index $i to expected error');
+                  print('expectedErrorIndex: $expectedErrorIndex');
+                  print('actualError: $actualError');
+                  print('expectedErrorIndexByActualErrorIndex: $expectedErrorIndexByActualErrorIndex');
+                  print('expectedErrors: $expectedErrors');
+                  print('errors: $errors');
+                  rethrow;
                 }
 
-                // Suggestions
-                //           'suggestions': [
-                //             {
-                //               'desc': 'Update the dependencies list to be: [props.foo]',
-                //               'output': r'''
-                //                 final MyComponent = uiFunction<TestProps>((props) {
-                //                   useCallback(() {
-                //                     print(props.foo?.toString());
-                //                   }, [props.foo]);
-                //                 }, null);
-                //               ''',
-                //             },
-                for (var i = 0; i < errors.length; i++) {
-                  final actualError = errors.elementAt(i);
-                  Map<dynamic, dynamic> expectedError;
-                  final expectedErrorIndex = expectedErrorIndexByActualErrorIndex[i];
+                final expectedFixes = (expectedError['suggestions'] as List ?? <dynamic>[]).cast<Map>();
+
+                final actualFixesForError = (await testBase.getAllErrorFixesAtSelection(
+                        SourceSelection(source, actualError.location.offset, actualError.location.length)))
+                    // Some cases have multiple errors on the same selection, each potentially having their own fix.
+                    // Sometimes, the codes are the same, too, so we'll ise the message to disambiguate.
+                    .where((f) => f.error.code == actualError.code && f.error.message == actualError.message)
+                    .toList();
+
+                if (expectedFixes.isEmpty) {
+                  expect(actualError.hasFix, isFalse, reason: 'was not expecting the error to report it has a fix');
+                  expect(actualFixesForError, isEmpty, reason: 'was not expecting fixes');
+                } else {
+                  expect(actualError.hasFix, isTrue,
+                      reason: 'error should report it has a fix. Expected fixes: $expectedFixes');
+                  expect(actualFixesForError, isNotEmpty,
+                      reason: 'was expecting fixes but got none. Expected fixes: $expectedFixes');
+                  expect(
+                      actualFixesForError,
+                      everyElement(
+                          isA<AnalysisErrorFixes>().having((f) => f.fixes, 'fixes', [testBase.isAFixUnderTest()])));
+
+                  if (expectedFixes.length > 1 || actualFixesForError.length > 1) {
+                    throw UnimplementedError('Test does not currently support multiple suggestions/fixes');
+                  }
+
+                  final expectedFix = expectedFixes.single;
+                  final expectedFixMessage = expectedFix['desc'] as String;
+                  final expectedOutput = expectedFix['output'] as String;
+                  expect(expectedFixMessage, isNotNull,
+                      reason: 'test setup check: test suggestion \'desc\' should not be null');
+                  expect(expectedOutput, isNotNull,
+                      reason: 'test setup check: test suggestion \'output\' should not be null');
+
+                  final actualFix = actualFixesForError.single;
+                  expect(actualFix.fixes.map((fix) => fix.change.message).toList(), [expectedFixMessage],
+                      reason: 'fix message should match');
+
+                  final sourceBeforeFixes = source.contents.data;
                   try {
-                    expectedError = expectedErrors[expectedErrorIndex];
-                  } catch (_) {
-                    print('Error mapping actual error at index $i to expected error');
-                    print('expectedErrorIndex: $expectedErrorIndex');
-                    print('actualError: $actualError');
-                    print('expectedErrorIndexByActualErrorIndex: $expectedErrorIndexByActualErrorIndex');
-                    print('expectedErrors: $expectedErrors');
-                    print('errors: $errors');
-                    rethrow;
-                  }
+                    final fixedSource = testBase.applyErrorFixes(actualFix, source);
 
-                  final expectedFixes = (expectedError['suggestions'] as List ?? <dynamic>[]).cast<Map>();
-
-                  final actualFixesForError = (await testBase.getAllErrorFixesAtSelection(
-                          SourceSelection(source, actualError.location.offset, actualError.location.length)))
-                      // Some cases have multiple errors on the same selection, each potentially having their own fix.
-                      // Sometimes, the codes are the same, too, so we'll ise the message to disambiguate.
-                      .where((f) => f.error.code == actualError.code && f.error.message == actualError.message)
-                      .toList();
-
-                  if (expectedFixes.isEmpty) {
-                    expect(actualError.hasFix, isFalse, reason: 'was not expecting the error to report it has a fix');
-                    expect(actualFixesForError, isEmpty, reason: 'was not expecting fixes');
-                  } else {
-                    expect(actualError.hasFix, isTrue,
-                        reason: 'error should report it has a fix. Expected fixes: $expectedFixes');
-                    expect(actualFixesForError, isNotEmpty,
-                        reason: 'was expecting fixes but got none. Expected fixes: $expectedFixes');
-                    expect(
-                        actualFixesForError,
-                        everyElement(
-                            isA<AnalysisErrorFixes>().having((f) => f.fixes, 'fixes', [testBase.isAFixUnderTest()])));
-
-                    if (expectedFixes.length > 1 || actualFixesForError.length > 1) {
-                      throw UnimplementedError('Test does not currently support multiple suggestions/fixes');
-                    }
-
-                    final expectedFix = expectedFixes.single;
-                    final expectedFixMessage = expectedFix['desc'] as String;
-                    final expectedOutput = expectedFix['output'] as String;
-                    expect(expectedFixMessage, isNotNull,
-                        reason: 'test setup check: test suggestion \'desc\' should not be null');
-                    expect(expectedOutput, isNotNull,
-                        reason: 'test setup check: test suggestion \'output\' should not be null');
-
-                    final actualFix = actualFixesForError.single;
-                    expect(actualFix.fixes.map((fix) => fix.change.message).toList(), [expectedFixMessage],
-                        reason: 'fix message should match');
-
-                    final sourceBeforeFixes = source.contents.data;
-                    try {
-                      final fixedSource = testBase.applyErrorFixes(actualFix, source);
-
-                      // The source is indented differently, so we'll format before comparing instead to get better
-                      // failure messages if they don't match (equalsIgnoringWhitespace has pretty hard to read messages).
-                      final formatter = DartFormatter();
-                      String tryFormat(String source, String sourceName) {
-                        try {
-                          return formatter.format(source);
-                        } on FormatterException catch (e) {
-                          fail('Failure formatting source "$sourceName": $e. Source:\n$source');
-                        }
+                    // The source is indented differently, so we'll format before comparing instead to get better
+                    // failure messages if they don't match (equalsIgnoringWhitespace has pretty hard to read messages).
+                    final formatter = DartFormatter();
+                    String tryFormat(String source, String sourceName) {
+                      try {
+                        return formatter.format(source);
+                      } on FormatterException catch (e) {
+                        fail('Failure formatting source "$sourceName": $e. Source:\n$source');
                       }
-
-                      final expectedOutputWithoutPreamble =
-                          tryFormat(expectedOutput, 'expected output');
-                      final actualOutputWithoutPreamble =
-                          tryFormat(fixedSource.contents.data.replaceFirst(preamble, ''), 'actual output');
-
-                      expect(actualOutputWithoutPreamble, expectedOutputWithoutPreamble,
-                          reason: 'applying fixes should match expected output');
-                    } finally {
-                      // When fixes are applied, they get written to the source file.
-                      // This means that later iterations in the loop will have unexpected changes, and also their
-                      // fixes won't always end up in the right places since their offsets are stale.
-                      // Revert the changes to the file so that other iterations can test their fixes without interference.
-                      testBase.resourceProvider.updateFile(p.normalize(source.uri.toFilePath()), sourceBeforeFixes);
                     }
+
+                    final expectedOutputWithoutPreamble = tryFormat(expectedOutput, 'expected output');
+                    final actualOutputWithoutPreamble =
+                        tryFormat(fixedSource.contents.data.replaceFirst(preamble, ''), 'actual output');
+
+                    expect(actualOutputWithoutPreamble, expectedOutputWithoutPreamble,
+                        reason: 'applying fixes should match expected output');
+                  } finally {
+                    // When fixes are applied, they get written to the source file.
+                    // This means that later iterations in the loop will have unexpected changes, and also their
+                    // fixes won't always end up in the right places since their offsets are stale.
+                    // Revert the changes to the file so that other iterations can test their fixes without interference.
+                    testBase.resourceProvider.updateFile(p.normalize(source.uri.toFilePath()), sourceBeforeFixes);
                   }
                 }
-
-                // Run this here even though it's also in tearDown, so that we can see the source
-                // when there's failures caused by this expectation.
-                testBase.expectNoPluginErrors();
-              } catch (_) {
-                print('Raw source (before adding preamble): ```\n$rawCode\n```');
-                rethrow;
               }
             });
           });
