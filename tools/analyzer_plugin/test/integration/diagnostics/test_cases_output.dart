@@ -3376,7 +3376,7 @@ final Map<String, List<Map<String, Object>>> tests = {
                   }, [props.bar]);
                   // ignore: undefined_function
                   over_react.useCustomEffect(() {
-                    print(props.foo);
+                    print(props.bar);
                   }, []);
                 }, null);
               ''',
@@ -5156,7 +5156,7 @@ final Map<String, List<Map<String, Object>>> tests = {
                   var state = useState<dynamic>(null);
                   final handleNext = useCallback((value) {
                     state.set(value);
-                  });
+                  }, [/* FIXME add dependencies */]);
                   useEffect(() {
                     return Store.subscribe(handleNext);
                   }, [handleNext]);
@@ -5313,7 +5313,7 @@ final Map<String, List<Map<String, Object>>> tests = {
                   }
                   final handleNext2 = useCallback(() {
                     print('hello');
-                  });
+                  }, [/* FIXME add dependencies */]);
                   var handleNext3 = () {
                     print('hello');
                   };
@@ -5363,7 +5363,7 @@ final Map<String, List<Map<String, Object>>> tests = {
                   };
                   var handleNext3 = useCallback(() {
                     print('hello');
-                  });
+                  }, [/* FIXME add dependencies */]);
                   useEffect(() {
                     handleNext1();
                     return Store.subscribe(() => handleNext1());
@@ -5429,7 +5429,7 @@ final Map<String, List<Map<String, Object>>> tests = {
                 final MyComponent = uiFunction<TestProps>((props) {
                   final handleNext1 = useCallback(() {
                     print('hello');
-                  });
+                  }, [/* FIXME add dependencies */]);
                   handleNext2() {
                     print('hello');
                   }
@@ -5456,7 +5456,7 @@ final Map<String, List<Map<String, Object>>> tests = {
                 final MyComponent = uiFunction<TestProps>((props) {
                   final handleNext1 = useCallback(() {
                     print('hello');
-                  });
+                  }, [/* FIXME add dependencies */]);
                   handleNext2() {
                     print('hello');
                   }
@@ -5516,7 +5516,7 @@ final Map<String, List<Map<String, Object>>> tests = {
                 final MyComponent = uiFunction<TestProps>((props) {
                   var handleNext = useCallback(() {
                     print('hello');
-                  });
+                  }, [/* FIXME add dependencies */]);
                   if (props.foo) {
                     handleNext = () {
                       print('hello');
@@ -6095,6 +6095,9 @@ final Map<String, List<Map<String, Object>>> tests = {
                   useEffect(() {
                     final fetchData = () async {};
                     fetchData();
+                    // This case specifically involves an undefined name as a result of
+                    // moving a function (fetchData) into callback.
+                    // ignore: undefined_identifier
                   }, []);
                 }, null);
               ''',
@@ -6124,6 +6127,8 @@ final Map<String, List<Map<String, Object>>> tests = {
               'output': r'''
                 final Hello = uiFunction<TestProps>((_) {
                   var state = useState(0);
+                  // In JS, dependencies are optional. In Dart, they're required for only useCallback (this is likely an oversight).
+                  // ignore: not_enough_positional_arguments
                   useEffect(() {
                     state.set(1);
                   }, []);
@@ -6186,8 +6191,9 @@ final Map<String, List<Map<String, Object>>> tests = {
               'output': r'''
                 final Hello = uiFunction<TestProps>((props) {
                   var country = props.country;
-
                   var data = useState(0);
+                  // In JS, dependencies are optional. In Dart, they're required for only useCallback (this is likely an oversight).
+                  // ignore: not_enough_positional_arguments
                   useEffect(() {
                     fetchData(country).then(data.set);
                   }, [country]);
