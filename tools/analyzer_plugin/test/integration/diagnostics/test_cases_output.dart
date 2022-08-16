@@ -6951,7 +6951,7 @@ final Map<String, List<Map<String, Object>>> testsTypescript = {
               'desc': 'Update the dependencies list to be: [local]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((_) {
-                  final local = {} as string;
+                  final local = ({} as dynamic) as String;
                   useEffect(() {
                     print(local);
                   }, [local]);
@@ -6982,7 +6982,7 @@ final Map<String, List<Map<String, Object>>> testsTypescript = {
               'desc': 'Update the dependencies list to be: [pizza.crust, pizza?.toppings]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((_) {
-                  final pizza = {};
+                  dynamic pizza;
                   useEffect(() => ({
                     'crust': pizza.crust,
                     'toppings': pizza?.toppings,
@@ -7013,7 +7013,7 @@ final Map<String, List<Map<String, Object>>> testsTypescript = {
               'desc': 'Update the dependencies list to be: [pizza.crust]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((_) {
-                  final pizza = {};
+                  dynamic pizza;
                   useEffect(() => ({
                     'crust': pizza?.crust,
                     'density': pizza.crust.density,
@@ -7044,7 +7044,7 @@ final Map<String, List<Map<String, Object>>> testsTypescript = {
               'desc': 'Update the dependencies list to be: [pizza.crust]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((_) {
-                  final pizza = {};
+                  dynamic pizza;
                   useEffect(() => ({
                     'crust': pizza.crust,
                     'density': pizza?.crust.density,
@@ -7075,7 +7075,7 @@ final Map<String, List<Map<String, Object>>> testsTypescript = {
               'desc': 'Update the dependencies list to be: [pizza?.crust]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((_) {
-                  final pizza = {};
+                  dynamic pizza;
                   useEffect(() => ({
                     'crust': pizza?.crust,
                     'density': pizza?.crust.density,
@@ -7166,11 +7166,11 @@ final Map<String, List<Map<String, Object>>> testsTypescript = {
               'desc': 'Update the dependencies list to be: [state.value]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((_) {
-                  var state = over_react.useState<number>(0);
+                  var state = over_react.useState<num>(0);
                   useEffect(() {
-                    final someNumber: typeof state.value = 2;
-                    state.set((prevState) => prevState + someNumber + state.value);
-                  }, [state.value])
+                    final someNumber = 2;
+                    state.setWithUpdater((prevState) => prevState + someNumber + state.value);
+                  }, [state.value]);
                 }, null);
               ''',
             },
@@ -7227,7 +7227,7 @@ final Map<String, List<Map<String, Object>>> testsTypescriptEslintParserV4 = {
                   var Component = props.Component;
 
                   over_react.useEffect(() {
-                    print(<Component />);
+                    print(Component()());
                   }, [Component]);
                 }, null);
               ''',
