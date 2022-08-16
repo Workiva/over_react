@@ -21,7 +21,6 @@ import 'test_cases_output.dart' as tco;
 
 void main() {
   group('HooksExhaustiveDeps', () {
-    // TODO(greg) inline some of these globals to avoid potential shadowing / bad references and to clean things ups
     const preamble = r'''
 // ignore_for_file: unused_import
     
@@ -37,7 +36,6 @@ dynamic window;
 dynamic jsonEncode;
 
 mixin TestProps on UiProps {
-  // FIXME do we need to make these non-dynamic?
   var foo;
   var bar;
   var baz;
@@ -74,53 +72,28 @@ mixin TestProps on UiProps {
   UiFactory Component;
 }
 
-// Globals used by test cases
-TestProps props;
-var global;
-var arguments;
-var foo;
-var fetch;
-var globalIncrementValue;
-var maybeRef1;
+// Globals used by multiple test cases
 int setInterval(Function callback, [int duration]) => 0;
 void clearInterval(int id) {}
 int setTimeout(Function callback, [int duration]) => 0;
 void clearTimeout(int id) {}
-dynamic someFunc() => null;
-Function debounce(Function callback, num delay) => null;
-num delay;
-dynamic renderHelperConfusedWithEffect(Function callback, dynamic secondArg) => null;
+Function fetch;
 void useCustomEffect(Function callback, [List dependencies]) {}
-void useWithoutEffectSuffix(Function callback, [List dependencies]) {}
-T increment<T extends num>(T value) => value + 1;
+Function debounce(Function callback, num delay) => null;
+var global;
+dynamic someFunc() => null;
 
-abstract class UseTransitionHook {
-  bool get isPending;
-  Function get startTransition;
-}
-UseTransitionHook useTransition() => null;
-
+// Classes used by multiple test cases
 abstract class Store {
   static Function subscribe(Function listener) => null;
 }
 abstract class MutableStore {
   static dynamic get hello => null;
 }
-abstract class API {
-  static dynamic fetchPodcasts() => null;
-}
-StateHook<T> useFunnyState<T>(T initialState) {}
-ReducerHook<T, dynamic, dynamic> useFunnyReducer<T>(dynamic reducer, T initialState) {}
-dynamic useSomeOtherRefyThing() => null;
-String computeCacheKey(dynamic object) => null;
 class SomeObject {
   final int id;
   SomeObject({this.id});
 }
-void useLayoutEffect_SAFE_FOR_SSR(dynamic Function() callback, [List<dynamic> dependencies]) {}
-Future<dynamic> fetchDataFuture;
-dynamic useCustomHook() => null;
-void externalCall(dynamic arg) {}
 ''';
 
     bool errorFilter(AnalysisError error, {@required bool isFromPlugin}) =>

@@ -1295,7 +1295,7 @@ class StableHookMethodInfo {
   static const stateHookSetMethods = {'set', 'setWithUpdater'};
   static const stableStateHookMethods = {...stateHookSetMethods};
   static const stableReducerHookMethods = {'dispatch'};
-// TODO uncomment once TransitionHook is implemented.
+// TODO uncomment once useTransition is implemented.
 // static const stableTransitionHookMethods = {'startTransition'};
 }
 

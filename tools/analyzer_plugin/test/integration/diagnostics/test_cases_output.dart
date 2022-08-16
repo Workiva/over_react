@@ -44,6 +44,7 @@ final Map<String, List<Map<String, Object>>> tests = {
       'code': r'''
         final MyComponent = uiFunction<TestProps>((_) {
           useEffect(() {
+            // ignore: undefined_identifier
             print(props.foo);
           }, []);
         }, null);
@@ -517,6 +518,7 @@ final Map<String, List<Map<String, Object>>> tests = {
     },
     {
       'code': r'''
+        void useWithoutEffectSuffix(Function callback, [List dependencies]) {}
         final MyComponent = uiFunction<TestProps>((props) {
           useWithoutEffectSuffix(() {
             print(props.foo);
@@ -526,6 +528,7 @@ final Map<String, List<Map<String, Object>>> tests = {
     },
     {
       'code': r'''
+        dynamic renderHelperConfusedWithEffect(Function callback, dynamic secondArg) => null;
         final MyComponent = uiFunction<TestProps>((props) {
           return renderHelperConfusedWithEffect(() {
             print(props.foo);
@@ -583,6 +586,9 @@ final Map<String, List<Map<String, Object>>> tests = {
     },
     {
       'code': r'''
+        StateHook<T> useFunnyState<T>(T initialState) {}
+        ReducerHook<T, dynamic, dynamic> useFunnyReducer<T>(dynamic reducer, T initialState) {}
+        dynamic useSomeOtherRefyThing() => null;
         final MyComponent = uiFunction<TestProps>((props) {
           var maybeRef2 = props.maybeRef2;
           var foo = props.foo;
@@ -596,6 +602,7 @@ final Map<String, List<Map<String, Object>>> tests = {
           var state4 = over_react.useReducer(null, null);
           var state5 = useFunnyState(null);
           var state6 = useFunnyReducer(null, null);
+          // TODO uncomment once useTransition is implemented.
           // const [isPending1] = useTransition();
           // var isPending2 = useTransition();
           // const [isPending3] = over_react.useTransition();
@@ -646,6 +653,9 @@ final Map<String, List<Map<String, Object>>> tests = {
     },
     {
       'code': r'''
+        StateHook<T> useFunnyState<T>(T initialState) {}
+        ReducerHook<T, dynamic, dynamic> useFunnyReducer<T>(dynamic reducer, T initialState) {}
+        dynamic useSomeOtherRefyThing() => null;
         final MyComponent = uiFunction<TestProps>((props) {
           var maybeRef2 = props.maybeRef2;
 
@@ -1015,6 +1025,7 @@ final Map<String, List<Map<String, Object>>> tests = {
       // Declaring handleNext is optional because
       // everything they use is fully static.
       'code': r'''
+        Function foo;
         final MyComponent = uiFunction<TestProps>((props) {
           var state = useState<dynamic>(null);
           var dispatch = over_react.useReducer(null, null).dispatch;
@@ -1147,6 +1158,9 @@ final Map<String, List<Map<String, Object>>> tests = {
     },
     {
       'code': r'''
+        abstract class API {
+          static dynamic fetchPodcasts() => null;
+        }
         final Podcasts = uiFunction<TestProps>((props) {
           var id = props.id;
 
@@ -1196,6 +1210,7 @@ final Map<String, List<Map<String, Object>>> tests = {
     },
     {
       'code': r'''
+        var globalIncrementValue;
         final Counter = uiFunction<TestProps>((_) {
           var count = useState(0);
           useEffect(() {
@@ -1260,28 +1275,7 @@ final Map<String, List<Map<String, Object>>> tests = {
         }, null);
       ''',
     },
-    /* (Cases previously here involving `arguments` keyword were removed) */
-    {
-      'code': r'''
-        final Example = uiFunction<TestProps>((_) {
-          useEffect(() {
-            arguments;
-          }, []);
-        }, null);
-      ''',
-    },
-    {
-      'code': r'''
-        final Example = uiFunction<TestProps>((_) {
-          useEffect(() {
-            final bar = () {
-              arguments;
-            };
-            bar();
-          }, []);
-        }, null);
-      ''',
-    },
+    /* (2 cases previously here involving `arguments` keyword were removed) */
     // Regression test.
     {
       'code': r'''
@@ -2270,6 +2264,7 @@ final Map<String, List<Map<String, Object>>> tests = {
     },
     {
       'code': r'''
+        String computeCacheKey(dynamic object) => null;
         final MyComponent = uiFunction<TestProps>((_) {
           final local = {};
           useEffect(() {
@@ -2287,6 +2282,7 @@ final Map<String, List<Map<String, Object>>> tests = {
             {
               'desc': 'Update the dependencies list to be: [local]',
               'output': r'''
+                String computeCacheKey(dynamic object) => null;
                 final MyComponent = uiFunction<TestProps>((_) {
                   final local = {};
                   useEffect(() {
@@ -4062,6 +4058,7 @@ final Map<String, List<Map<String, Object>>> tests = {
     },
     {
       'code': r'''
+        void externalCall(dynamic arg) {}
         final MyComponent = uiFunction<TestProps>((props) {
           useEffect(() {
             externalCall(props);
@@ -4078,6 +4075,7 @@ final Map<String, List<Map<String, Object>>> tests = {
             {
               'desc': 'Update the dependencies list to be: [props]',
               'output': r'''
+                void externalCall(dynamic arg) {}
                 final MyComponent = uiFunction<TestProps>((props) {
                   useEffect(() {
                     externalCall(props);
@@ -4092,6 +4090,7 @@ final Map<String, List<Map<String, Object>>> tests = {
     },
     {
       'code': r'''
+        void externalCall(dynamic arg) {}
         final MyComponent = uiFunction<TestProps>((props) {
           useEffect(() {
             props.onChange(null);
@@ -4108,6 +4107,7 @@ final Map<String, List<Map<String, Object>>> tests = {
             {
               'desc': 'Update the dependencies list to be: [props]',
               'output': r'''
+                void externalCall(dynamic arg) {}
                 final MyComponent = uiFunction<TestProps>((props) {
                   useEffect(() {
                     props.onChange(null);
@@ -4344,6 +4344,7 @@ final Map<String, List<Map<String, Object>>> tests = {
     },
     {
       'code': r'''
+        void useLayoutEffect_SAFE_FOR_SSR(dynamic Function() callback, [List<dynamic> dependencies]) {}
         final MyComponent = uiFunction<TestProps>((_) {
           final myRef = useRef();
           useLayoutEffect_SAFE_FOR_SSR(() {
@@ -4355,6 +4356,7 @@ final Map<String, List<Map<String, Object>>> tests = {
         }, null);
       ''',
       'output': r'''
+        void useLayoutEffect_SAFE_FOR_SSR(dynamic Function() callback, [List<dynamic> dependencies]) {}
         final MyComponent = uiFunction<TestProps>((_) {
           final myRef = useRef();
           useLayoutEffect_SAFE_FOR_SSR(() {
@@ -5676,6 +5678,7 @@ final Map<String, List<Map<String, Object>>> tests = {
     },
     {
       'code': r'''
+        dynamic useCustomHook() => null;
         final Counter = uiFunction<TestProps>((_) {
           var count = useState(0);
           var increment = useCustomHook();
@@ -5699,6 +5702,7 @@ final Map<String, List<Map<String, Object>>> tests = {
             {
               'desc': 'Update the dependencies list to be: [increment]',
               'output': r'''
+                dynamic useCustomHook() => null;
                 final Counter = uiFunction<TestProps>((_) {
                   var count = useState(0);
                   var increment = useCustomHook();
@@ -6145,6 +6149,7 @@ final Map<String, List<Map<String, Object>>> tests = {
     },
     {
       'code': r'''
+        Future<dynamic> fetchDataFuture;
         final Hello = uiFunction<TestProps>((_) {
           var data = useState(0);
           useEffect(() {
@@ -6160,6 +6165,7 @@ final Map<String, List<Map<String, Object>>> tests = {
             {
               'desc': 'Add dependencies list: []',
               'output': r'''
+                Future<dynamic> fetchDataFuture;
                 final Hello = uiFunction<TestProps>((_) {
                   var data = useState(0);
                   useEffect(() {
@@ -6431,6 +6437,7 @@ final Map<String, List<Map<String, Object>>> tests = {
     },
     {
       'code': r'''
+        num delay;
         final MyComponent = uiFunction<TestProps>((_) {
           final local = {};
           final myEffect = debounce(() {
@@ -6447,6 +6454,7 @@ final Map<String, List<Map<String, Object>>> tests = {
             {
               'desc': 'Update the dependencies list to be: [myEffect]',
               'output': r'''
+                num delay;
                 final MyComponent = uiFunction<TestProps>((_) {
                   final local = {};
                   final myEffect = debounce(() {
@@ -6462,6 +6470,7 @@ final Map<String, List<Map<String, Object>>> tests = {
     },
     {
       'code': r'''
+        num delay;
         final MyComponent = uiFunction<TestProps>((_) {
           final local = {};
           final myEffect = debounce(() {
@@ -6478,6 +6487,7 @@ final Map<String, List<Map<String, Object>>> tests = {
             {
               'desc': 'Update the dependencies list to be: [myEffect]',
               'output': r'''
+                num delay;
                 final MyComponent = uiFunction<TestProps>((_) {
                   final local = {};
                   final myEffect = debounce(() {
@@ -6520,6 +6530,7 @@ final Map<String, List<Map<String, Object>>> tests = {
     },
     {
       'code': r'''
+        num delay;
         final MyComponent = uiFunction<TestProps>((_) {
           final local = {};
           useEffect(debounce(() {
