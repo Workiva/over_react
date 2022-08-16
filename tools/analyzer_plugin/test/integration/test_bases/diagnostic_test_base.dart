@@ -114,7 +114,7 @@ abstract class DiagnosticTestBase extends ServerPluginContributorTestBase {
   /// fails the test if anything other than a single error fix is produced.
   Future<AnalysisErrorFixes> expectSingleErrorFix(SourceSelection selection) async {
     _throwIfNoFix();
-    final allErrorFixes = await _getAllErrorFixesAtSelection(selection);
+    final allErrorFixes = await getAllErrorFixesAtSelection(selection);
     expect(allErrorFixes, hasLength(1),
         reason: 'Expected only a single error with fixes at selection (selection: ${selection.target})');
     final errorFix = allErrorFixes.single;
@@ -130,7 +130,7 @@ abstract class DiagnosticTestBase extends ServerPluginContributorTestBase {
 
   /// Fails the test if [selection] produces any errors.
   Future<void> expectNoErrorFix(SourceSelection selection) async {
-    expect(await _getAllErrorFixesAtSelection(selection), isEmpty,
+    expect(await getAllErrorFixesAtSelection(selection), isEmpty,
         reason: 'Unexpected error at selection: ${selection.target}');
   }
 
@@ -204,7 +204,7 @@ abstract class DiagnosticTestBase extends ServerPluginContributorTestBase {
   }
 
   /// Returns all error fixes produced at [selection].
-  Future<List<AnalysisErrorFixes>> _getAllErrorFixesAtSelection(SourceSelection selection) async {
+  Future<List<AnalysisErrorFixes>> getAllErrorFixesAtSelection(SourceSelection selection) async {
     final parameters = EditGetFixesParams(sourcePath(selection.source), selection.offset);
     return (await testPlugin.handleEditGetFixes(parameters)).fixes;
   }

@@ -5,9 +5,11 @@
 import 'dart:convert';
 
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
+import 'package:analyzer_plugin/protocol/protocol_generated.dart';
 import 'package:collection/collection.dart';
 import 'package:dart_style/dart_style.dart';
 import 'package:meta/meta.dart';
+import 'package:path/path.dart' as p;
 import 'package:over_react_analyzer_plugin/src/diagnostic/hooks_exhaustive_deps.dart';
 import 'package:test/test.dart';
 import 'package:test_reflective_loader/test_reflective_loader.dart';
@@ -250,51 +252,75 @@ void externalCall(dynamic arg) {}
                   final actualError = errors.elementAt(i);
                   final expectedError = expectedErrors[expectedErrorIndexByActualErrorIndex[i]];
 
-                  final suggestions = (expectedError['suggestions'] as List ?? <dynamic>[]).cast<Map>();
+                  final expectedFixes = (expectedError['suggestions'] as List ?? <dynamic>[]).cast<Map>();
 
-                  if (suggestions.isEmpty) {
-                    expect(actualError.hasFix, isFalse, reason: 'was not expecting fixes');
+                  final actualFixesForError = (await testBase.getAllErrorFixesAtSelection(
+                          SourceSelection(source, actualError.location.offset, actualError.location.length)))
+                      // Some cases have multiple errors on the same selection, each potentially having their own fix.
+                      // Sometimes, the codes are the same, too, so we'll ise the message to disambiguate.
+                      .where((f) => f.error.code == actualError.code && f.error.message == actualError.message)
+                      .toList();
+
+                  if (expectedFixes.isEmpty) {
+                    expect(actualError.hasFix, isFalse, reason: 'was not expecting the error to report it has a fix');
+                    expect(actualFixesForError, isEmpty, reason: 'was not expecting fixes');
                   } else {
-                    expect(actualError.hasFix, isTrue, reason: 'was expecting fixes: $suggestions');
+                    expect(actualError.hasFix, isTrue,
+                        reason: 'error should report it has a fix. Expected fixes: $expectedFixes');
+                    expect(actualFixesForError, isNotEmpty,
+                        reason: 'was expecting fixes but got none. Expected fixes: $expectedFixes');
+                    expect(
+                        actualFixesForError,
+                        everyElement(
+                            isA<AnalysisErrorFixes>().having((f) => f.fixes, 'fixes', [testBase.isAFixUnderTest()])));
 
-                    if (suggestions.length > 1) {
-                      throw UnimplementedError('Test does not currently support multiple suggestions');
+                    if (expectedFixes.length > 1 || actualFixesForError.length > 1) {
+                      throw UnimplementedError('Test does not currently support multiple suggestions/fixes');
                     }
 
-                    final suggestion = suggestions.single;
-                    final desc = suggestion['desc'] as String;
-                    final output = suggestion['output'] as String;
-                    expect(desc, isNotNull, reason: 'test setup check: test suggestion \'desc\' should not be null');
-                    expect(output, isNotNull,
+                    final expectedFix = expectedFixes.single;
+                    final expectedFixMessage = expectedFix['desc'] as String;
+                    final expectedOutput = expectedFix['output'] as String;
+                    expect(expectedFixMessage, isNotNull,
+                        reason: 'test setup check: test suggestion \'desc\' should not be null');
+                    expect(expectedOutput, isNotNull,
                         reason: 'test setup check: test suggestion \'output\' should not be null');
 
-                    final actualFix = await testBase.expectSingleErrorFix(
-                        SourceSelection(source, actualError.location.offset, actualError.location.length));
-                    expect(actualFix.fixes.map((fix) => fix.change.message).toList(), [desc],
+                    final actualFix = actualFixesForError.single;
+                    expect(actualFix.fixes.map((fix) => fix.change.message).toList(), [expectedFixMessage],
                         reason: 'fix message should match');
 
-                    final fixedSource = testBase.applyErrorFixes(actualFix, source);
+                    final sourceBeforeFixes = source.contents.data;
+                    try {
+                      final fixedSource = testBase.applyErrorFixes(actualFix, source);
 
-                    // The source is indented differently, so we'll format before comparing instead to get better
-                    // failure messages if they don't match (equalsIgnoringWhitespace has pretty hard to read messages).
-                    final formatter = DartFormatter();
-                    String tryFormat(String source, String sourceName) {
-                      try {
-                        return formatter.format(source);
-                      } on FormatterException catch (e) {
-                        fail('Failure formatting source "$sourceName": $e. Source:\n$source');
+                      // The source is indented differently, so we'll format before comparing instead to get better
+                      // failure messages if they don't match (equalsIgnoringWhitespace has pretty hard to read messages).
+                      final formatter = DartFormatter();
+                      String tryFormat(String source, String sourceName) {
+                        try {
+                          return formatter.format(source);
+                        } on FormatterException catch (e) {
+                          fail('Failure formatting source "$sourceName": $e. Source:\n$source');
+                        }
                       }
+
+                      final expectedOutputWithoutPreamble =
+                          tryFormat(wrapInFunction(expectedOutput), 'expected output');
+                      final actualOutputWithoutPreamble =
+                          tryFormat(fixedSource.contents.data.replaceFirst(preamble, ''), 'actual output');
+
+                      expect(actualOutputWithoutPreamble, expectedOutputWithoutPreamble,
+                          reason: 'applying fixes should match expected output');
+                    } finally {
+                      // When fixes are applied, they get written to the source file.
+                      // This means that later iterations in the loop will have unexpected changes, and also their
+                      // fixes won't always end up in the right places since their offsets are stale.
+                      // Revert the changes to the file so that other iterations can test their fixes without interference.
+                      testBase.resourceProvider.updateFile(p.normalize(source.uri.toFilePath()), sourceBeforeFixes);
                     }
-
-                    final expectedOutputWithoutPreamble = tryFormat(wrapInFunction(output), 'expected output');
-                    final actualOutputWithoutPreamble =
-                        tryFormat(fixedSource.contents.data.replaceFirst(preamble, ''), 'actual output');
-
-                    expect(actualOutputWithoutPreamble, expectedOutputWithoutPreamble,
-                        reason: 'applying fixes should match expected output');
                   }
                 }
-                // await testBase.applyErrorFixes(source);
 
                 // Run this here even though it's also in tearDown, so that we can see the source
                 // when there's failures caused by this expectation.
