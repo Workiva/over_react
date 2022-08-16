@@ -6193,6 +6193,7 @@ final Map<String, List<Map<String, Object>>> tests = {
             {
               'desc': 'Add dependencies list: [country]',
               'output': r'''
+                Function fetchData;
                 final Hello = uiFunction<TestProps>((props) {
                   var country = props.country;
                   var data = useState(0);

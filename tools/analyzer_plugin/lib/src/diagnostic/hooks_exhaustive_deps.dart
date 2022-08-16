@@ -651,26 +651,22 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
           externalDependencies: {},
           isEffect: true,
         ).suggestedDependencies;
-        reportProblem(
-          node: reactiveHook,
-          message: "React Hook $reactiveHookName contains a call to '$setStateInsideEffectWithoutDeps'. "
-              "Without a list of dependencies, this can lead to an infinite chain of updates. "
-              "To fix this, pass ["
-              "${suggestedDependencies.join(', ')}"
-              "] as a second argument to the $reactiveHookName Hook.",
-          // suggest: [
-          //   {
-          //     desc: "Add dependencies list: [${suggestedDependencies.join(
-          //       ', ',
-          //     )}]",
-          //     fix(fixer) {
-          //       return fixer.insertTextAfter(
-          //         node,
-          //         ", [${suggestedDependencies.join(', ')}]",
-          //       );
-          //     },
-          //   },
-          // ],
+        await collector.addErrorWithFix(
+          code,
+          result.locationFor(reactiveHook),
+          errorMessageArgs: [
+            // ignore: no_adjacent_strings_in_list
+            "React Hook $reactiveHookName contains a call to '$setStateInsideEffectWithoutDeps'. "
+                "Without a list of dependencies, this can lead to an infinite chain of updates. "
+                "To fix this, pass ["
+                "${suggestedDependencies.join(', ')}"
+                "] as a second argument to the $reactiveHookName Hook.",
+          ],
+          fixKind: fixKind,
+          fixMessageArgs: ['Add dependencies list: [${suggestedDependencies.join(', ')}]'],
+          computeFix: () => buildGenericFileEdit(result, (builder) {
+            builder.addSimpleInsertion(callbackFunction.end, ', [${suggestedDependencies.join(', ')}]');
+          }),
         );
       }
       return;
