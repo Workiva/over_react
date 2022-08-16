@@ -244,7 +244,19 @@ void externalCall(dynamic arg) {}
                 //             },
                 for (var i = 0; i < errors.length; i++) {
                   final actualError = errors.elementAt(i);
-                  final expectedError = expectedErrors[expectedErrorIndexByActualErrorIndex[i]];
+                  Map<dynamic, dynamic> expectedError;
+                  final expectedErrorIndex = expectedErrorIndexByActualErrorIndex[i];
+                  try {
+                    expectedError = expectedErrors[expectedErrorIndex];
+                  } catch (_) {
+                    print('Error mapping actual error at index $i to expected error');
+                    print('expectedErrorIndex: $expectedErrorIndex');
+                    print('actualError: $actualError');
+                    print('expectedErrorIndexByActualErrorIndex: $expectedErrorIndexByActualErrorIndex');
+                    print('expectedErrors: $expectedErrors');
+                    print('errors: $errors');
+                    rethrow;
+                  }
 
                   final expectedFixes = (expectedError['suggestions'] as List ?? <dynamic>[]).cast<Map>();
 
