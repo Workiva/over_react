@@ -167,8 +167,6 @@ void externalCall(dynamic arg) {}
 
               final testBase = await setUpTestBase(testCase);
 
-              // Need to wrap in a function because some of the code includes statements that aren't valid
-              // outside of a function context.
               final rawCode = testCase.code;
               final code = preamble + rawCode;
               try {
@@ -194,8 +192,6 @@ void externalCall(dynamic arg) {}
 
               final testBase = await setUpTestBase(testCase);
 
-              // Need to wrap in a function because some of the code includes statements that aren't valid
-              // outside of a function context.
               final rawCode = testCase.code;
               final code = preamble + rawCode;
 
