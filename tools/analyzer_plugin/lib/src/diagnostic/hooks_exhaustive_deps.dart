@@ -890,18 +890,15 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
             computeFix: () => buildGenericFileEdit(
               result,
               (builder) {
-                // final parts = wrapperHook == 'useMemo' ? ['useMemo(() => ', ')'] : ['useCallback(', ')'];
                 // TODO: ideally we'd gather deps here but it would require
                 // restructuring the rule code. Note we're
                 // not adding [] because would that changes semantics.
-
                 if (wrapperHook == 'useMemo') {
                   builder.addSimpleInsertion(constructionInitializer.offset, '$wrapperHook(() => ');
                   builder.addSimpleInsertion(constructionInitializer.end, ')');
                 } else {
                   builder.addSimpleInsertion(constructionInitializer.offset, '$wrapperHook(');
                   // Add a placeholder here so there isn't a static error about using useCallback with the wrong number of arguments.
-                  // FIXME(greg) figure out if this is the right way to handle this.
                   builder.addSimpleInsertion(constructionInitializer.end, ', [/* FIXME add dependencies */])');
                 }
               },
