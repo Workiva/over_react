@@ -720,23 +720,70 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
         // FIXME(greg) add test cases
         if (declaredDependencyNode.staticType?.isStateHook ?? false) {
           final dependencySource = getSource(declaredDependencyNode);
-          final dependencySourceValue = '$dependencySource.value';
-          // fixme(greg) conditionally suggest value or removing the dep based on whether count.value is used in hook, add test cases. Maybe move this check to later on?
+          final dependencySourceWithValue = '$dependencySource.value';
+          final dependencySourceWithStableMethods =
+              stableStateHookMethods.map((m) => '$dependencySource.$m').toList();
+
+          // // Conditionally suggest value or removing the dep based on whether `stateHook.value` is used.
+          // // This check isn't perfect, but
+          final dependsOnValue =
+              // stateHook.value
+              dependencies.containsKey(dependencySourceWithValue) ||
+                  // stateHook.value.something
+                  dependencies.keys.any((dependency) => dependency.startsWith('$dependencySourceWithValue.'));
+
+          final dependsOnStableMethod = dependencySourceWithStableMethods.any((dependencySourceWithStableMethod) =>
+              // stateHook.set
+              dependencies.containsKey(dependencySourceWithStableMethod) ||
+              // stateHook.set.something
+              dependencies.keys.any((dependency) => dependency.startsWith('$dependencySourceWithStableMethod.')));
 
           await collector.addErrorWithFix(
             HooksExhaustiveDeps.code,
             result.locationFor(declaredDependencyNode),
             // todo(greg) better error and fix message
             errorMessageArgs: [
-              "React Hook ${getSource(reactiveHook)} has a StateHook object '$dependencySource' in its dependency list, which will change every render and cause the effect to always run."
+              // ignore: no_adjacent_strings_in_list
+              "The '$dependencySource' StateHook (from useState) makes the dependencies of "
+                      "React Hook ${getSource(reactiveHook)} change every render, and should not be depended on directly." +
+                  // FIXME(greg) show/suggest stateHook.value.something if it's the only dependency referencing stateHook.value
+                  (dependsOnValue ? " Since '$dependencySourceWithValue' is being used, depend on that instead." : "") +
+                  (dependsOnStableMethod
+                      // FIXME(greg) show only stable methods being used?
+                      ? " Since ${joinEnglish(dependencySourceWithStableMethods.map((m) => "'$m'"))} "
+                          "are stable across renders, no dependencies are required to use them"
+                          "${dependsOnValue ? '' :
+                              // Include an extra message in this case, since otherwise we don't tell the user what to do with this dependency.
+                              ', and this dependency can be safely removed'}."
+                      : "")
+
+              // "If '$dependencySourceWithValue' is used within ${getSource(reactiveHook)}, then the dependency should be '$dependencySourceWithValue'."
+              // " Otherwise, this dependency can be safely removed."
             ],
+            // Logic around missing and unnecessary dependencies below should take over for the fix.
             fixKind: HooksExhaustiveDeps.fixKind,
-            fixMessageArgs: ["Depend on '$dependencySourceValue' instead."],
+            fixMessageArgs: [
+              if (dependsOnValue)
+                "Change the dependency to '$dependencySourceWithValue'."
+              else
+                'Remove the dependency on $dependencySource.'
+            ],
             computeFix: () => buildGenericFileEdit(result, (builder) {
-              builder.addSimpleReplacement(range.node(declaredDependencyNode), dependencySourceValue);
+              if (dependsOnValue) {
+                builder.addSimpleReplacement(range.node(declaredDependencyNode), dependencySourceWithValue);
+              } else {
+                builder.addDeletion(range.nodeInList(declaredDependenciesNode.elements, declaredDependencyNode));
+              }
             }),
           );
-          continue;
+          // Return here so that other dependency checks don't interfere.
+          return;
+
+          // FIXME(greg) make sure we want to return here and not continue. If we do want to return, add explanation about why, and what would happen if we were to continue (adapt below comment).
+          // // By continuing here, the dependency isn't added to declaredDependencies, allowing the rest of our
+          // // dependency computation logic to work and not treat `state.value` as being satisfied by `state`.
+          // // If this approach becomes an issue in the future, we can adjust it so long as test cases pass.
+          // continue;
         }
 
         // Try to normalize the declared dependency. If we can't then an error
@@ -1275,6 +1322,11 @@ Iterable<Identifier> resolvedReferencesWithin(AstNode node) =>
 
 enum HookTypeWithStableMethods { stateHook, reducerHook, transitionHook }
 
+const stateHookSetMethods = {'set', 'setWithUpdater'};
+const stableStateHookMethods = {...stateHookSetMethods};
+const stableReducerHookMethods = {'dispatch'};
+const stableTransitionHookMethods = {'startTransition'};
+
 class StableHookMethodInfo {
   final Expression node;
 
@@ -1291,11 +1343,6 @@ class StableHookMethodInfo {
 
   bool get isStateSetterMethod =>
       hookType == HookTypeWithStableMethods.stateHook && stateHookSetMethods.contains(property.name);
-
-  static const stateHookSetMethods = {'set', 'setWithUpdater'};
-  static const stableStateHookMethods = {...stateHookSetMethods};
-  static const stableReducerHookMethods = {'dispatch'};
-  static const stableTransitionHookMethods = {'startTransition'};
 }
 
 /// If [node] is an access of a stable hook method on a hook object (either a method call or a tearoff),
@@ -1322,21 +1369,15 @@ StableHookMethodInfo? getStableHookMethodInfo(AstNode node) {
   if (target == null) return null;
 
   // Check whether this reference is only used to access the stable hook property.
-
-  if ((target.staticType?.isStateHook ?? false) &&
-      StableHookMethodInfo.stableStateHookMethods.contains(property.name)) {
+  if ((target.staticType?.isStateHook ?? false) && stableStateHookMethods.contains(property.name)) {
     return StableHookMethodInfo(
         node: node, target: target, property: property, hookType: HookTypeWithStableMethods.stateHook);
   }
-
-  if ((target.staticType?.isReducerHook ?? false) &&
-      StableHookMethodInfo.stableReducerHookMethods.contains(property.name)) {
+  if ((target.staticType?.isReducerHook ?? false) && stableReducerHookMethods.contains(property.name)) {
     return StableHookMethodInfo(
         node: node, target: target, property: property, hookType: HookTypeWithStableMethods.reducerHook);
   }
-
-  if ((target.staticType?.isTransitionHook ?? false) &&
-      StableHookMethodInfo.stableTransitionHookMethods.contains(property.name)) {
+  if ((target.staticType?.isTransitionHook ?? false) && stableTransitionHookMethods.contains(property.name)) {
     return StableHookMethodInfo(
         node: node, target: target, property: property, hookType: HookTypeWithStableMethods.transitionHook);
   }
@@ -1975,7 +2016,8 @@ int getReactiveHookCallbackIndex(Expression calleeNode, {RegExp? additionalHooks
   }
 }
 
-String joinEnglish(List<String> arr, [String joinWord = 'and']) {
+String joinEnglish(Iterable<String> items, [String joinWord = 'and']) {
+  final arr = items is List<String> ? items : items.toList();
   var s = '';
   for (var i = 0; i < arr.length; i++) {
     s += arr[i];
