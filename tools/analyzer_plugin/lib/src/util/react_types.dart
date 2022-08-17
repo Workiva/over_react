@@ -8,6 +8,7 @@ extension ReactTypes$DartType on DartType {
   bool get isPropsClass => typeOrBound.element?.isPropsClass ?? false;
   bool get isStateHook => typeOrBound.element?.isStateHook ?? false;
   bool get isReducerHook => typeOrBound.element?.isReducerHook ?? false;
+  bool get isTransitionHook => typeOrBound.element?.isTransitionHook ?? false;
 }
 
 extension ReactTypes$Element on Element {
@@ -16,6 +17,9 @@ extension ReactTypes$Element on Element {
   bool get isPropsClass => isOrIsSubtypeOfElementFromPackage('UiProps', 'over_react');
   bool get isStateHook => isOrIsSubtypeOfElementFromPackage('StateHook', 'react');
   bool get isReducerHook => isOrIsSubtypeOfElementFromPackage('ReducerHook', 'react');
+  bool get isTransitionHook => false;
+  // TODO uncomment one useTransition/TransitionHook is implemented
+  // bool get isTransitionHook => isOrIsSubtypeOfElementFromPackage('TransitionHook', 'react');
 
   bool isOrIsSubtypeOfElementFromPackage(String typeName, String packageName) {
     final element = this;

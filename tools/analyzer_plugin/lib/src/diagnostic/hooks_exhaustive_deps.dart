@@ -1273,7 +1273,7 @@ FormalParameter? lookUpParameter(Element element, AstNode root) {
 Iterable<Identifier> resolvedReferencesWithin(AstNode node) =>
     allDescendantsOfType<Identifier>(node).where((e) => e.staticElement != null);
 
-enum HookTypeWithStableMethods { stateHook, reducerHook }
+enum HookTypeWithStableMethods { stateHook, reducerHook, transitionHook }
 
 class StableHookMethodInfo {
   final Expression node;
@@ -1295,8 +1295,7 @@ class StableHookMethodInfo {
   static const stateHookSetMethods = {'set', 'setWithUpdater'};
   static const stableStateHookMethods = {...stateHookSetMethods};
   static const stableReducerHookMethods = {'dispatch'};
-// TODO uncomment once useTransition is implemented.
-// static const stableTransitionHookMethods = {'startTransition'};
+  static const stableTransitionHookMethods = {'startTransition'};
 }
 
 /// If [node] is an access of a stable hook method on a hook object (either a method call or a tearoff),
@@ -1323,6 +1322,7 @@ StableHookMethodInfo? getStableHookMethodInfo(AstNode node) {
   if (target == null) return null;
 
   // Check whether this reference is only used to access the stable hook property.
+
   if ((target.staticType?.isStateHook ?? false) &&
       StableHookMethodInfo.stableStateHookMethods.contains(property.name)) {
     return StableHookMethodInfo(
@@ -1335,11 +1335,11 @@ StableHookMethodInfo? getStableHookMethodInfo(AstNode node) {
         node: node, target: target, property: property, hookType: HookTypeWithStableMethods.reducerHook);
   }
 
-  // TODO uncomment once TransitionHook is implemented.
-  // if ((target.staticType?.element?.isTransitionHook ?? false) &&
-  //     stableTransitionHookMethods.contains(property.name)) {
-  //   return Tuple2(HookTypeWithStableMethods.transitionHook, property.name);
-  // }
+  if ((target.staticType?.isTransitionHook ?? false) &&
+      StableHookMethodInfo.stableTransitionHookMethods.contains(property.name)) {
+    return StableHookMethodInfo(
+        node: node, target: target, property: property, hookType: HookTypeWithStableMethods.transitionHook);
+  }
 
   return null;
 }
