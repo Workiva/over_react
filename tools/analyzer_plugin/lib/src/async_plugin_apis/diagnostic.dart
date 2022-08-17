@@ -39,6 +39,7 @@ import 'package:analyzer_plugin/protocol/protocol.dart';
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:analyzer_plugin/protocol/protocol_generated.dart' as plugin;
 import 'package:analyzer_plugin/protocol/protocol_generated.dart';
+
 // ignore: implementation_imports
 import 'package:analyzer_plugin/src/utilities/fixes/fixes.dart';
 import 'package:analyzer_plugin/utilities/fixes/fixes.dart';
@@ -46,8 +47,10 @@ import 'package:meta/meta.dart';
 import 'package:over_react_analyzer_plugin/src/async_plugin_apis/error_severity_provider.dart';
 import 'package:over_react_analyzer_plugin/src/analysis_options/error_severity_provider.dart';
 import 'package:over_react_analyzer_plugin/src/analysis_options/reader.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/analyzer_debug_helper.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/error_filtering.dart';
+import 'package:over_react_analyzer_plugin/src/util/pretty_print.dart';
 
 mixin DiagnosticMixin on ServerPlugin {
   PluginOptionsReader get pluginOptionsReader;
@@ -118,11 +121,11 @@ mixin DiagnosticMixin on ServerPlugin {
     return DartFixesRequestImpl(resourceProvider, offset, [], result);
   }
 
-  // from DartFixesMixin
+// from DartFixesMixin
 //  List<AnalysisError> _getErrors(int offset, ResolvedUnitResult result) {
 //    LineInfo lineInfo = result.lineInfo;
 //    int offsetLine = lineInfo.getLocation(offset).lineNumber;
-  // these errors don't include ones from the plugin, which doesn't seem right...
+// these errors don't include ones from the plugin, which doesn't seem right...
 //    return result.errors.where((AnalysisError error) {
 //      int errorLine = lineInfo.getLocation(error.offset).lineNumber;
 //      return errorLine == offsetLine;
@@ -135,6 +138,8 @@ mixin DiagnosticMixin on ServerPlugin {
 /// a given result unit or fixes request.
 @sealed
 class _DiagnosticGenerator {
+  static final _metricsDebugFlagPattern = RegExp(r'debug:.*\bover_react_metrics\b');
+
   /// Initialize a newly created errors generator to use the given
   /// [contributors].
   _DiagnosticGenerator(this.contributors, {required ErrorSeverityProvider errorSeverityProvider})
@@ -203,15 +208,26 @@ class _DiagnosticGenerator {
     // TODO: collect data how long this takes.
     List<FluentComponentUsage> getUsages() => _usages ??= getAllComponentUsages(unitResult.unit!);
 
+    /// A mapping of diagnostic names to their durations, in microseconds.
+    final diagnosticMetrics = <String, int>{};
+
+    final metricsDebugFlagMatch = _metricsDebugFlagPattern.firstMatch(unitResult.content ?? '');
+
+    final totalStopwatch = Stopwatch()..start();
+    final disabledCheckStopwatch = Stopwatch()..start();
+
     for (final contributor in contributors) {
+      disabledCheckStopwatch.start();
       final isEveryCodeDisabled = contributor.codes.every(
         (e) => _errorSeverityProvider.isCodeDisabled(e.name),
       );
+      disabledCheckStopwatch.stop();
       if (isEveryCodeDisabled) {
         // Don't compute errors if all of the codes provided by the contributor are disabled
         continue;
       }
 
+      final contributorStopwatch = Stopwatch()..start();
       try {
         if (contributor is ComponentUsageDiagnosticContributor) {
           await contributor.computeErrorsForUsages(unitResult, collector, getUsages());
@@ -221,6 +237,27 @@ class _DiagnosticGenerator {
       } catch (exception, stackTrace) {
         notifications.add(PluginErrorParams(false, exception.toString(), stackTrace.toString()).toNotification());
       }
+      contributorStopwatch.stop();
+      if (metricsDebugFlagMatch != null) {
+        diagnosticMetrics[contributor.runtimeType.toString()] = contributorStopwatch.elapsedMicroseconds;
+      }
+    }
+
+    totalStopwatch.stop();
+    if (metricsDebugFlagMatch != null) {
+      String formatMicroseconds(int microseconds) =>
+          '${(microseconds / Duration.microsecondsPerMillisecond).toStringAsFixed(3)}ms';
+      final message = 'OverReact Analyzer Plugin diagnostic metrics (current file): ' +
+          prettyPrint(<String, String>{
+            ...diagnosticMetrics.map((name, microseconds) => MapEntry(name, formatMicroseconds(microseconds))),
+            'Total': formatMicroseconds(totalStopwatch.elapsedMicroseconds),
+            'Diagnostic code disabled checks': formatMicroseconds(disabledCheckStopwatch.elapsedMicroseconds),
+            'Loop overhead (Total - SUM(Diagnostics))': formatMicroseconds(totalStopwatch.elapsedMicroseconds -
+                disabledCheckStopwatch.elapsedMicroseconds -
+                diagnosticMetrics.values.fold(0, (a, b) => a + b)),
+          });
+      AnalyzerDebugHelper(unitResult, collector, enabled: true).logWithLocation(
+          message, unitResult.location(offset: metricsDebugFlagMatch.start, end: metricsDebugFlagMatch.end));
     }
 
     final filteredErrors = _configureErrorSeverities(
