@@ -719,58 +719,59 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
         // Special case for Dart: whole state hook passed in as dependency.
         // FIXME(greg) add test cases
         if (declaredDependencyNode.staticType?.isStateHook ?? false) {
-          final dependencySource = getSource(declaredDependencyNode);
-          final dependencySourceWithValue = '$dependencySource.value';
-          final dependencySourceWithStableMethods =
-              stableStateHookMethods.map((m) => '$dependencySource.$m').toList();
+          final declaredDepSource = getSource(declaredDependencyNode);
 
-          // // Conditionally suggest value or removing the dep based on whether `stateHook.value` is used.
-          // // This check isn't perfect, but
-          final dependsOnValue =
-              // stateHook.value
-              dependencies.containsKey(dependencySourceWithValue) ||
-                  // stateHook.value.something
-                  dependencies.keys.any((dependency) => dependency.startsWith('$dependencySourceWithValue.'));
+          // Conditionally suggest value or removing the dep based on whether `stateHook.value` is used.
+          // This check isn't perfect, but should handle most cases.
+          //
+          // Dependencies have `?.` normalized to `.`, but they may still be accessing properties or calling methods.
+          // For example: `stateHook.set.call`, `stateHook.value()`. So, use regexes with word boundaries.
+          final dependenciesUsingValue =
+              dependencies.keys.where(RegExp(r'^' + RegExp.escape(declaredDepSource) + r'\.value\b').hasMatch).toList();
+          final stableMethodsUsed = stableStateHookMethods
+              .where((method) => dependencies.keys.any(
+                  RegExp(r'^' + RegExp.escape(declaredDepSource) + r'\.' + RegExp.escape(method) + r'\b').hasMatch))
+              .toList();
 
-          final dependsOnStableMethod = dependencySourceWithStableMethods.any((dependencySourceWithStableMethod) =>
-              // stateHook.set
-              dependencies.containsKey(dependencySourceWithStableMethod) ||
-              // stateHook.set.something
-              dependencies.keys.any((dependency) => dependency.startsWith('$dependencySourceWithStableMethod.')));
+          final shouldDependOnValue = dependenciesUsingValue.isNotEmpty;
+          final suggestedValueDependency =
+              dependenciesUsingValue.length == 1 ? dependenciesUsingValue.single : '$declaredDepSource.value';
+
+          // TODO(greg) have a fallback check if stableMethodsUsed.isEmpty && dependenciesUsingValue.isEmpty but dependencies contains a reference to declaredDependencyNode?
+
+          final messageBuffer = StringBuffer()
+            ..write("The '$declaredDepSource' StateHook (from useState)")
+            ..write(" makes the dependencies of React Hook ${getSource(reactiveHook)}")
+            ..write(" change every render, and should not be depended on directly.");
+          if (stableMethodsUsed.isNotEmpty) {
+            messageBuffer
+              ..write(" Since ")
+              ..write(joinEnglish(stableMethodsUsed.map((m) => "'$declaredDepSource.$m'")))
+              ..write(stableMethodsUsed.length == 1 ? ' is' : ' are')
+              ..write(" stable across renders, no dependencies are required to use ")
+              ..write(stableMethodsUsed.length == 1 ? ' it' : ' them')
+              // Include an extra message when !shouldDependOnValue, since otherwise we don't tell the user what to do with this dependency.
+              ..write(shouldDependOnValue ? '.' : ", and this dependency can be safely removed.");
+          }
+          if (shouldDependOnValue) {
+            messageBuffer.write(" Since '$suggestedValueDependency' is being used, depend on that instead.");
+          }
+          // FIXME(greg) add message like we have elsewhere when using `setWithUpdater` and `.value`.
 
           await collector.addErrorWithFix(
             HooksExhaustiveDeps.code,
             result.locationFor(declaredDependencyNode),
-            // todo(greg) better error and fix message
-            errorMessageArgs: [
-              // ignore: no_adjacent_strings_in_list
-              "The '$dependencySource' StateHook (from useState) makes the dependencies of "
-                      "React Hook ${getSource(reactiveHook)} change every render, and should not be depended on directly." +
-                  // FIXME(greg) show/suggest stateHook.value.something if it's the only dependency referencing stateHook.value
-                  (dependsOnValue ? " Since '$dependencySourceWithValue' is being used, depend on that instead." : "") +
-                  (dependsOnStableMethod
-                      // FIXME(greg) show only stable methods being used?
-                      ? " Since ${joinEnglish(dependencySourceWithStableMethods.map((m) => "'$m'"))} "
-                          "are stable across renders, no dependencies are required to use them"
-                          "${dependsOnValue ? '' :
-                              // Include an extra message in this case, since otherwise we don't tell the user what to do with this dependency.
-                              ', and this dependency can be safely removed'}."
-                      : "")
-
-              // "If '$dependencySourceWithValue' is used within ${getSource(reactiveHook)}, then the dependency should be '$dependencySourceWithValue'."
-              // " Otherwise, this dependency can be safely removed."
-            ],
-            // Logic around missing and unnecessary dependencies below should take over for the fix.
+            errorMessageArgs: [messageBuffer.toString()],
             fixKind: HooksExhaustiveDeps.fixKind,
             fixMessageArgs: [
-              if (dependsOnValue)
-                "Change the dependency to '$dependencySourceWithValue'."
+              if (shouldDependOnValue)
+                "Change the dependency to '$suggestedValueDependency'."
               else
-                'Remove the dependency on $dependencySource.'
+                "Remove the dependency on '$declaredDepSource'."
             ],
             computeFix: () => buildGenericFileEdit(result, (builder) {
-              if (dependsOnValue) {
-                builder.addSimpleReplacement(range.node(declaredDependencyNode), dependencySourceWithValue);
+              if (shouldDependOnValue) {
+                builder.addSimpleReplacement(range.node(declaredDependencyNode), suggestedValueDependency);
               } else {
                 builder.addDeletion(range.nodeInList(declaredDependenciesNode.elements, declaredDependencyNode));
               }
