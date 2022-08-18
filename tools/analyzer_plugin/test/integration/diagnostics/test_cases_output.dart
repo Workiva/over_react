@@ -7232,7 +7232,7 @@ final Map<String, List<Map<String, Object>>> testsTypescript = {
         {
           'message':
               'The \'count\' StateHook (from useState) makes the dependencies of React Hook useEffect change every render, and should not itself be a dependency.'
-                  ' Since \'count.value\' is being used, depend on that instead.',
+                  ' Since \'count.value\' is being used, depend on it instead.',
           'suggestions': [
             {
               'desc': 'Change the dependency to: count.value',
@@ -7263,7 +7263,7 @@ final Map<String, List<Map<String, Object>>> testsTypescript = {
         {
           'message':
               'The \'count\' StateHook (from useState) makes the dependencies of React Hook useEffect change every render, and should not itself be a dependency.'
-                  ' Since \'count.value.isEven\' is being used, depend on that instead.',
+                  ' Since \'count.value.isEven\' is being used, depend on it instead.',
           'suggestions': [
             {
               'desc': 'Change the dependency to: count.value.isEven',
@@ -7295,7 +7295,7 @@ final Map<String, List<Map<String, Object>>> testsTypescript = {
         {
           'message':
               'The \'count\' StateHook (from useState) makes the dependencies of React Hook useEffect change every render, and should not itself be a dependency.'
-                  ' Since \'count.value\' is being used, depend on that instead.',
+                  ' Since \'count.value\' is being used, depend on it instead.',
           'suggestions': [
             {
               'desc': 'Change the dependency to: count.value',
@@ -7460,7 +7460,7 @@ final Map<String, List<Map<String, Object>>> testsTypescript = {
           'message':
               'The \'count\' StateHook (from useState) makes the dependencies of React Hook useEffect change every render, and should not itself be a dependency.'
                   ' Since \'count.set\' is stable across renders, no dependencies are required to use it.'
-                  ' Since \'count.value\' is being used, depend on that instead.',
+                  ' Since \'count.value\' is being used, depend on it instead.',
           'suggestions': [
             {
               'desc': 'Change the dependency to: count.value',
@@ -7493,7 +7493,7 @@ final Map<String, List<Map<String, Object>>> testsTypescript = {
           'message':
               'The \'count\' StateHook (from useState) makes the dependencies of React Hook useEffect change every render, and should not itself be a dependency.'
                   ' Since \'count.set\' is stable across renders, no dependencies are required to use it.'
-                  ' Since \'count.value\' is being used, depend on that instead.',
+                  ' Since \'count.value\' is being used, depend on it instead.',
           'suggestions': [
             {
               'desc': 'Change the dependency to: count.value',
@@ -7570,7 +7570,7 @@ final Map<String, List<Map<String, Object>>> testsTypescript = {
           // TODO(greg) improve the message for this case?
           'message':
               'The \'count\' StateHook (from useState) makes the dependencies of React Hook useEffect change every render, and should not itself be a dependency.'
-                  ' Since \'count.value\' is being used, depend on that instead.',
+                  ' Since \'count.value\' is being used, depend on it instead.',
           'suggestions': null,
         }
       ],
@@ -7612,12 +7612,13 @@ final Map<String, List<Map<String, Object>>> testsTypescript = {
           'message':
               'The \'count\' StateHook (from useState) makes the dependencies of React Hook useEffect change every render, and should not itself be a dependency.'
                   ' Since \'count.set\' is stable across renders, no dependencies are required to use it.'
-                  ' Since \'count.value\' is being used, depend on that instead.',
+                  ' Since \'count.value\' is being used, depend on it instead.',
           'suggestions': null,
         }
       ],
     },
     {
+      // No special case for this one. Once they add the dependency, they'll get a better message.
       'name': 'StateHook not a dependency, callback uses whole object',
       'code': r''' 
         final MyComponent = uiFunction<TestProps>((_) {
@@ -7629,9 +7630,56 @@ final Map<String, List<Map<String, Object>>> testsTypescript = {
       ''',
       'errors': [
         {
-          // FIXME(greg) figure out a better the message for this case?
-          'message': 'Something',
-          'suggestions': null,
+          'message':
+              'React Hook useEffect has a missing dependency: \'count\'. Either include it or remove the dependency list.',
+          'suggestions': [
+            {
+              'desc': 'Update the dependencies list to be: [count]',
+              'output': r'''
+                final MyComponent = uiFunction<TestProps>((_) {
+                  final count = useState(0);
+                  useEffect(() {
+                    print(count);
+                  }, [count]);
+                }, null);
+              '''
+            }
+          ],
+        }
+      ],
+    },
+    {
+      // No special case for this one. Once they add the dependency, they'll get a better message.
+      'name': 'StateHook not a dependency, callback uses whole object and and `value` and stable setter',
+      'code': r''' 
+        final MyComponent = uiFunction<TestProps>((_) {
+          final count = useState(0);
+          useEffect(() {
+            print(count);
+            print(count.value);
+            count.set(1);
+          }, []);
+        }, null);
+      ''',
+      'errors': [
+        {
+          'message':
+              'React Hook useEffect has a missing dependency: \'count\'. Either include it or remove the dependency list.',
+          'suggestions': [
+            {
+              'desc': 'Update the dependencies list to be: [count]',
+              'output': r'''
+                final MyComponent = uiFunction<TestProps>((_) {
+                  final count = useState(0);
+                  useEffect(() {
+                    print(count);
+                    print(count.value);
+                    count.set(1);
+                  }, [count]);
+                }, null);
+              '''
+            }
+          ],
         }
       ],
     },

@@ -1075,10 +1075,10 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
       }
     }
 
-    // Removed extra warning around this old beavior:
-    // // "props.foo()" marks "props" as a dependency because it has
-    // // a "this" value. This warning can be confusing.
-    // // So if we're going to show it, append a clarification.
+    // The Dart implementation of this lint removes extra warning around this old behavior:
+    //     // "props.foo()" marks "props" as a dependency because it has
+    //     // a "this" value. This warning can be confusing.
+    //     // So if we're going to show it, append a clarification.
     // which is no longer relevant in this implementation since "props.foo()" no longer marks "props" as a dependency.
 
     if (extraWarning == null && missingDependencies.isNotEmpty) {
