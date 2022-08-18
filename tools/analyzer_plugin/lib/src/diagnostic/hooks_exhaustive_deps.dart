@@ -732,6 +732,8 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
               .where((method) => dependencies.keys.any(
                   RegExp(r'^' + RegExp.escape(declaredDepSource) + r'\.' + RegExp.escape(method) + r'\b').hasMatch))
               .toList();
+          // TODO(greg) is there a better way to do this?
+          final usesWholeValue = dependencies.containsKey(declaredDepSource);
 
           final shouldDependOnValue = dependenciesUsingValue.isNotEmpty;
           final suggestedValueDependency =
@@ -751,32 +753,42 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
               ..write(" stable across renders, no dependencies are required to use")
               ..write(stableMethodsUsed.length == 1 ? ' it' : ' them')
               // Include an extra message when !shouldDependOnValue, since otherwise we don't tell the user what to do with this dependency.
-              ..write(shouldDependOnValue ? '.' : ", and this dependency can be safely removed.");
+              // But, don't include it when usesWholeValue, since the dependency can't be safely removed.
+              ..write(!shouldDependOnValue && !usesWholeValue ? ", and this dependency can be safely removed." : '.');
           }
           if (shouldDependOnValue) {
             messageBuffer.write(" Since '$suggestedValueDependency' is being used, depend on that instead.");
           }
           // FIXME(greg) add message like we have elsewhere when using `setWithUpdater` and `.value`.
 
-          await collector.addErrorWithFix(
-            HooksExhaustiveDeps.code,
-            result.locationFor(declaredDependencyNode),
-            errorMessageArgs: [messageBuffer.toString()],
-            fixKind: HooksExhaustiveDeps.fixKind,
-            fixMessageArgs: [
-              if (shouldDependOnValue)
-                "Change the dependency to: $suggestedValueDependency"
-              else
-                "Remove the dependency on '$declaredDepSource'."
-            ],
-            computeFix: () => buildGenericFileEdit(result, (builder) {
-              if (shouldDependOnValue) {
-                builder.addSimpleReplacement(range.node(declaredDependencyNode), suggestedValueDependency);
-              } else {
-                builder.addDeletion(range.nodeInList(declaredDependenciesNode.elements, declaredDependencyNode));
-              }
-            }),
-          );
+          if (usesWholeValue) {
+            // We can't automatically fix in this case, so just warn.
+            collector.addError(
+              HooksExhaustiveDeps.code,
+              result.locationFor(declaredDependencyNode),
+              errorMessageArgs: [messageBuffer.toString()],
+            );
+          } else {
+            await collector.addErrorWithFix(
+              HooksExhaustiveDeps.code,
+              result.locationFor(declaredDependencyNode),
+              errorMessageArgs: [messageBuffer.toString()],
+              fixKind: HooksExhaustiveDeps.fixKind,
+              fixMessageArgs: [
+                if (shouldDependOnValue)
+                  "Change the dependency to: $suggestedValueDependency"
+                else
+                  "Remove the dependency on '$declaredDepSource'."
+              ],
+              computeFix: () => buildGenericFileEdit(result, (builder) {
+                if (shouldDependOnValue) {
+                  builder.addSimpleReplacement(range.node(declaredDependencyNode), suggestedValueDependency);
+                } else {
+                  builder.addDeletion(range.nodeInList(declaredDependenciesNode.elements, declaredDependencyNode));
+                }
+              }),
+            );
+          }
           // Return here so that other dependency checks don't interfere.
           // TODO(greg) if people ignore this, they won't get other dependency checks below :/. Should we move this check, or should we not care about that case?
           return;

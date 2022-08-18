@@ -1366,6 +1366,16 @@ final Map<String, List<Map<String, Object>>> tests = {
           }, [skillsCount.value, props.isEditMode, props.toggleEditMode]);
         }, null);
       ''',
+    },
+    {
+      'code': r'''
+        final MyComponent = uiFunction<TestProps>((_) {
+          final _button = useMemo(() => Dom.button()('Click me'), []);
+          final _controls = useMemo(() {
+            return Dom.div()(_button);
+          }, [_button]);
+        }, null);
+      '''
     }
   ],
   'invalid': [
@@ -7578,7 +7588,6 @@ final Map<String, List<Map<String, Object>>> testsTypescript = {
       ''',
       'errors': [
         {
-          // TODO(greg) improve the message for this case?
           'message':
               'The \'count\' StateHook (from useState) makes the dependencies of React Hook useEffect change every render, and should not itself be a dependency.'
                   ' Since \'count.set\' is stable across renders, no dependencies are required to use it.',
@@ -7593,16 +7602,35 @@ final Map<String, List<Map<String, Object>>> testsTypescript = {
           final count = useState(0);
           useEffect(() {
             print(count);
+            print(count.value);
             count.set(1);
           }, [count]);
         }, null);
       ''',
       'errors': [
         {
-          // TODO(greg) improve the message for this case?
           'message':
               'The \'count\' StateHook (from useState) makes the dependencies of React Hook useEffect change every render, and should not itself be a dependency.'
-                  ' Since \'count.set\' is stable across renders, no dependencies are required to use it.',
+                  ' Since \'count.set\' is stable across renders, no dependencies are required to use it.'
+                  ' Since \'count.value\' is being used, depend on that instead.',
+          'suggestions': null,
+        }
+      ],
+    },
+    {
+      'name': 'StateHook not a dependency, callback uses whole object',
+      'code': r''' 
+        final MyComponent = uiFunction<TestProps>((_) {
+          final count = useState(0);
+          useEffect(() {
+            print(count);
+          }, []);
+        }, null);
+      ''',
+      'errors': [
+        {
+          // FIXME(greg) figure out a better the message for this case?
+          'message': 'Something',
           'suggestions': null,
         }
       ],
