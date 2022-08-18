@@ -135,9 +135,8 @@ class SomeObject {
       group('$suiteName:', () {
         group('test cases that should pass', () {
           suite['valid'].forEachIndexed((i, element) {
-            test('valid[$i]', () async {
-              final testCase = TestCase.fromJson(element);
-
+            final testCase = TestCase.fromJson(element);
+            test('valid[$i]${testCase.name == null ? '' : ' - ${testCase.name}'}', () async {
               // When there are test failures, it's useful to have the original source handy for debugging
               // and for searching for the test case object up the test case.
               printOnFailure('Test case source (before adding preamble): ```\n${testCase.code}\n```');
@@ -153,9 +152,8 @@ class SomeObject {
 
         group('test cases that should warn', () {
           suite['invalid'].forEachIndexed((i, element) {
-            test('invalid[$i]', () async {
-              final testCase = TestCase.fromJson(element);
-
+            final testCase = TestCase.fromJson(element);
+            test('invalid[$i]${testCase.name == null ? '' : ' - ${testCase.name}'}', () async {
               // When there are test failures, it's useful to have the original source handy for debugging
               // and for searching for the test case object up the test case.
               printOnFailure('Test case source (before adding preamble): ```\n${testCase.code}\n```');
@@ -341,6 +339,8 @@ class TestCase {
   final Map<dynamic, dynamic> _testCaseJson;
 
   TestCase.fromJson(this._testCaseJson);
+
+  String get name => _testCaseJson['name'] as String;
 
   String get code => _testCaseJson['code'] as String;
 

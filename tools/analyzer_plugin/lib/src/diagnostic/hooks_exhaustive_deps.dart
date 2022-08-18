@@ -742,13 +742,13 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
           final messageBuffer = StringBuffer()
             ..write("The '$declaredDepSource' StateHook (from useState)")
             ..write(" makes the dependencies of React Hook ${getSource(reactiveHook)}")
-            ..write(" change every render, and should not be depended on directly.");
+            ..write(" change every render, and should not itself be a dependency.");
           if (stableMethodsUsed.isNotEmpty) {
             messageBuffer
               ..write(" Since ")
               ..write(joinEnglish(stableMethodsUsed.map((m) => "'$declaredDepSource.$m'")))
               ..write(stableMethodsUsed.length == 1 ? ' is' : ' are')
-              ..write(" stable across renders, no dependencies are required to use ")
+              ..write(" stable across renders, no dependencies are required to use")
               ..write(stableMethodsUsed.length == 1 ? ' it' : ' them')
               // Include an extra message when !shouldDependOnValue, since otherwise we don't tell the user what to do with this dependency.
               ..write(shouldDependOnValue ? '.' : ", and this dependency can be safely removed.");
@@ -765,7 +765,7 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
             fixKind: HooksExhaustiveDeps.fixKind,
             fixMessageArgs: [
               if (shouldDependOnValue)
-                "Change the dependency to '$suggestedValueDependency'."
+                "Change the dependency to: $suggestedValueDependency"
               else
                 "Remove the dependency on '$declaredDepSource'."
             ],
@@ -778,6 +778,7 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
             }),
           );
           // Return here so that other dependency checks don't interfere.
+          // TODO(greg) if people ignore this, they won't get other dependency checks below :/. Should we move this check, or should we not care about that case?
           return;
 
           // FIXME(greg) make sure we want to return here and not continue. If we do want to return, add explanation about why, and what would happen if we were to continue (adapt below comment).

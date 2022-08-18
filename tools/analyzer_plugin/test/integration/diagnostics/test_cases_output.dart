@@ -7208,6 +7208,405 @@ final Map<String, List<Map<String, Object>>> testsTypescript = {
         },
       ],
     },
+    {
+      'name': 'StateHook as dependency, callback uses `.value`',
+      'code': r'''
+        final MyComponent = uiFunction<TestProps>((_) {
+          final count = useState(0);
+          useEffect(() {
+            print(count.value);
+          }, [count]);
+        }, null);
+      ''',
+      'errors': [
+        {
+          'message':
+              'The \'count\' StateHook (from useState) makes the dependencies of React Hook useEffect change every render, and should not itself be a dependency.'
+                  ' Since \'count.value\' is being used, depend on that instead.',
+          'suggestions': [
+            {
+              'desc': 'Change the dependency to: count.value',
+              'output': r'''
+                final MyComponent = uiFunction<TestProps>((_) {
+                  final count = useState(0);
+                  useEffect(() {
+                    print(count.value);
+                  }, [count.value]);
+                }, null);
+              ''',
+            },
+          ],
+        },
+      ],
+    },
+    {
+      'name': 'StateHook as dependency, callback uses property on `value`',
+      'code': r'''
+        final MyComponent = uiFunction<TestProps>((_) {
+          final count = useState(0);
+          useEffect(() {
+            print(count.value.isEven);
+          }, [count]);
+        }, null);
+      ''',
+      'errors': [
+        {
+          'message':
+              'The \'count\' StateHook (from useState) makes the dependencies of React Hook useEffect change every render, and should not itself be a dependency.'
+                  ' Since \'count.value.isEven\' is being used, depend on that instead.',
+          'suggestions': [
+            {
+              'desc': 'Change the dependency to: count.value.isEven',
+              'output': r'''
+                final MyComponent = uiFunction<TestProps>((_) {
+                  final count = useState(0);
+                  useEffect(() {
+                    print(count.value.isEven);
+                  }, [count.value.isEven]);
+                }, null);
+              ''',
+            },
+          ],
+        },
+      ],
+    },
+    {
+      'name': 'StateHook as dependency, callback uses `value` and property on `value`',
+      'code': r'''
+        final MyComponent = uiFunction<TestProps>((_) {
+          final count = useState(0);
+          useEffect(() {
+            print(count.value);
+            print(count.value.isEven);
+          }, [count]);
+        }, null);
+      ''',
+      'errors': [
+        {
+          'message':
+              'The \'count\' StateHook (from useState) makes the dependencies of React Hook useEffect change every render, and should not itself be a dependency.'
+                  ' Since \'count.value\' is being used, depend on that instead.',
+          'suggestions': [
+            {
+              'desc': 'Change the dependency to: count.value',
+              'output': r'''
+                final MyComponent = uiFunction<TestProps>((_) {
+                  final count = useState(0);
+                  useEffect(() {
+                    print(count.value);
+                    print(count.value.isEven);
+                  }, [count.value]);
+                }, null);
+              ''',
+            },
+          ],
+        },
+      ],
+    },
+    {
+      'name': 'StateHook as dependency, callback uses `set`',
+      'code': r'''
+        final MyComponent = uiFunction<TestProps>((_) {
+          final count = useState(0);
+          useEffect(() {
+            count.set(1);
+          }, [count]);
+        }, null);
+      ''',
+      'errors': [
+        {
+          'message':
+              'The \'count\' StateHook (from useState) makes the dependencies of React Hook useEffect change every render, and should not itself be a dependency.'
+                  ' Since \'count.set\' is stable across renders, no dependencies are required to use it, and this dependency can be safely removed.',
+          'suggestions': [
+            {
+              'desc': 'Remove the dependency on \'count\'.',
+              'output': r'''
+                final MyComponent = uiFunction<TestProps>((_) {
+                  final count = useState(0);
+                  useEffect(() {
+                    count.set(1);
+                  }, []);
+                }, null);
+              ''',
+            },
+          ],
+        },
+      ],
+    },
+    {
+      // This tests:
+      // 1. That other dependencies are left alone
+      // 2. Removal of the comma after the dependency
+      'name': 'StateHook as dependency, callback uses stable setter, and there are other dependencies in the list',
+      'code': r'''
+        final MyComponent = uiFunction<TestProps>((props) {
+          final count = useState(0);
+          useEffect(() {
+            count.set(1);
+            print([props.foo, props.bar]);
+          }, [props.foo, count, props.bar]);
+        }, null);
+      ''',
+      'errors': [
+        {
+          'message':
+              'The \'count\' StateHook (from useState) makes the dependencies of React Hook useEffect change every render, and should not itself be a dependency.'
+                  ' Since \'count.set\' is stable across renders, no dependencies are required to use it, and this dependency can be safely removed.',
+          'suggestions': [
+            {
+              'desc': 'Remove the dependency on \'count\'.',
+              'output': r'''
+                final MyComponent = uiFunction<TestProps>((props) {
+                  final count = useState(0);
+                  useEffect(() {
+                    count.set(1);
+                    print([props.foo, props.bar]);
+                  }, [props.foo, props.bar]);
+                }, null);
+              ''',
+            },
+          ],
+        },
+      ],
+    },
+    {
+      'name': 'StateHook as dependency, callback uses `setWithUpdater`',
+      'code': r'''
+        final MyComponent = uiFunction<TestProps>((_) {
+          final count = useState(0);
+          useEffect(() {
+            count.setWithUpdater((c) => c + 1);
+          }, [count]);
+        }, null);
+      ''',
+      'errors': [
+        {
+          'message':
+              'The \'count\' StateHook (from useState) makes the dependencies of React Hook useEffect change every render, and should not itself be a dependency.'
+                  ' Since \'count.setWithUpdater\' is stable across renders, no dependencies are required to use it, and this dependency can be safely removed.',
+          'suggestions': [
+            {
+              'desc': 'Remove the dependency on \'count\'.',
+              'output': r'''
+                final MyComponent = uiFunction<TestProps>((_) {
+                  final count = useState(0);
+                  useEffect(() {
+                    count.setWithUpdater((c) => c + 1);
+                  }, []);
+                }, null);
+              ''',
+            },
+          ],
+        },
+      ],
+    },
+    {
+      'name': 'StateHook as dependency, callback uses `set` and `setWithUpdater`',
+      'code': r'''
+        final MyComponent = uiFunction<TestProps>((_) {
+          final count = useState(0);
+          useEffect(() {
+            count.set(1);
+            count.setWithUpdater((c) => c + 1);
+          }, [count]);
+        }, null);
+      ''',
+      'errors': [
+        {
+          'message':
+              'The \'count\' StateHook (from useState) makes the dependencies of React Hook useEffect change every render, and should not itself be a dependency.'
+                  ' Since \'count.set\' and \'count.setWithUpdater\' are stable across renders, no dependencies are required to use them, and this dependency can be safely removed.',
+          'suggestions': [
+            {
+              'desc': 'Remove the dependency on \'count\'.',
+              'output': r'''
+                final MyComponent = uiFunction<TestProps>((_) {
+                  final count = useState(0);
+                  useEffect(() {
+                    count.set(1);
+                    count.setWithUpdater((c) => c + 1);
+                  }, []);
+                }, null);
+              ''',
+            },
+          ],
+        }
+      ],
+    },
+    {
+      'name': 'StateHook as dependency, callback uses `set` and `value`',
+      'code': r'''
+        final MyComponent = uiFunction<TestProps>((_) {
+          final count = useState(0);
+          useEffect(() {
+            print(count.value);
+            count.set(0);
+          }, [count]);
+        }, null);
+      ''',
+      'errors': [
+        {
+          'message':
+              'The \'count\' StateHook (from useState) makes the dependencies of React Hook useEffect change every render, and should not itself be a dependency.'
+                  ' Since \'count.set\' is stable across renders, no dependencies are required to use it.'
+                  ' Since \'count.value\' is being used, depend on that instead.',
+          'suggestions': [
+            {
+              'desc': 'Change the dependency to: count.value',
+              'output': r'''
+                final MyComponent = uiFunction<TestProps>((_) {
+                  final count = useState(0);
+                  useEffect(() {
+                    print(count.value);
+                    count.set(0);
+                  }, [count.value]);
+                }, null);
+              ''',
+            },
+          ],
+        },
+      ],
+    },
+    {
+      'name': 'StateHook as dependency, callback uses `value` inside `set`',
+      'code': r'''
+        final MyComponent = uiFunction<TestProps>((_) {
+          final count = useState(0);
+          useEffect(() {
+            count.set(count.value + 1);
+          }, [count]);
+        }, null);
+      ''',
+      'errors': [
+        {
+          'message':
+              'The \'count\' StateHook (from useState) makes the dependencies of React Hook useEffect change every render, and should not itself be a dependency.'
+                  ' Since \'count.set\' is stable across renders, no dependencies are required to use it.'
+                  ' Since \'count.value\' is being used, depend on that instead.',
+          'suggestions': [
+            {
+              'desc': 'Change the dependency to: count.value',
+              'output': r'''
+                final MyComponent = uiFunction<TestProps>((_) {
+                  final count = useState(0);
+                  useEffect(() {
+                    count.set(count.value + 1);
+                  }, [count.value]);
+                }, null);
+              ''',
+            },
+          ],
+        },
+      ],
+    },
+    {
+      'name': 'StateHook as dependency, is unused',
+      'code': r'''
+        final MyComponent = uiFunction<TestProps>((_) {
+          final count = useState(0);
+          useEffect(() {}, [count]);
+        }, null);
+      ''',
+      'errors': [
+        {
+          'message':
+              'The \'count\' StateHook (from useState) makes the dependencies of React Hook useEffect change every render, and should not itself be a dependency.',
+          'suggestions': [
+            {
+              'desc': 'Remove the dependency on \'count\'.',
+              'output': r'''
+                final MyComponent = uiFunction<TestProps>((_) {
+                  final count = useState(0);
+                  useEffect(() {}, []);
+                }, null);
+              ''',
+            },
+          ],
+        }
+      ],
+    },
+    {
+      'name': 'StateHook as dependency, callback uses whole object',
+      'code': r'''
+        final MyComponent = uiFunction<TestProps>((_) {
+          final count = useState(0);
+          useEffect(() {
+            print(count);
+          }, [count]);
+        }, null);
+      ''',
+      'errors': [
+        {
+          'message':
+              'The \'count\' StateHook (from useState) makes the dependencies of React Hook useEffect change every render, and should not itself be a dependency.',
+          'suggestions': null,
+        }
+      ],
+    },
+    {
+      'name': 'StateHook as dependency, callback uses whole object and `value`',
+      'code': r'''
+        final MyComponent = uiFunction<TestProps>((_) {
+          final count = useState(0);
+          useEffect(() {
+            print(count);
+            print(count.value);
+          }, [count]);
+        }, null);
+      ''',
+      'errors': [
+        {
+          // TODO(greg) improve the message for this case?
+          'message':
+              'The \'count\' StateHook (from useState) makes the dependencies of React Hook useEffect change every render, and should not itself be a dependency.'
+                  ' Since \'count.value\' is being used, depend on that instead.',
+          'suggestions': null,
+        }
+      ],
+    },
+    {
+      'name': 'StateHook as dependency, callback uses whole object and stable setter',
+      'code': r'''
+        final MyComponent = uiFunction<TestProps>((_) {
+          final count = useState(0);
+          useEffect(() {
+            print(count);
+            count.set(1);
+          }, [count]);
+        }, null);
+      ''',
+      'errors': [
+        {
+          // TODO(greg) improve the message for this case?
+          'message':
+              'The \'count\' StateHook (from useState) makes the dependencies of React Hook useEffect change every render, and should not itself be a dependency.'
+                  ' Since \'count.set\' is stable across renders, no dependencies are required to use it.',
+          'suggestions': null,
+        }
+      ],
+    },
+    {
+      'name': 'StateHook as dependency, callback uses whole object and `value` and stable setter',
+      'code': r''' 
+        final MyComponent = uiFunction<TestProps>((_) {
+          final count = useState(0);
+          useEffect(() {
+            print(count);
+            count.set(1);
+          }, [count]);
+        }, null);
+      ''',
+      'errors': [
+        {
+          // TODO(greg) improve the message for this case?
+          'message':
+              'The \'count\' StateHook (from useState) makes the dependencies of React Hook useEffect change every render, and should not itself be a dependency.'
+                  ' Since \'count.set\' is stable across renders, no dependencies are required to use it.',
+          'suggestions': null,
+        }
+      ],
+    },
   ],
 };
 
