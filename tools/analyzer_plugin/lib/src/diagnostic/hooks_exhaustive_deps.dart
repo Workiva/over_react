@@ -910,9 +910,34 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
       for (final _construction in constructions) {
         final construction = _construction.declaration;
         final constructionName = _construction.declarationElement.name;
+        final depType = _construction.depType;
+
+        if (_DepType.hookObjects.contains(depType)) {
+          final stableMembers = stableHookMembersByDepType[depType]!;
+          final unstableMembers = unstableHookMembersByDepTypeForErrorMessagesOnly[depType]!;
+
+          final declaredDependencyNode = _construction.declaredDependency.node;
+          final declaredDependencySource = getSource(declaredDependencyNode);
+
+          collector.addError(
+            HooksExhaustiveDeps.code,
+            result.locationFor(declaredDependencyNode),
+            errorMessageArgs: [
+              // ignore: no_adjacent_strings_in_list
+              "The '$declaredDependencySource' $depType"
+                  " makes the dependencies of React Hook ${getSource(reactiveHook)}"
+                  " change every render, and should not itself be a dependency."
+                  " If you're using ${joinEnglish(unstableMembers.map((m) => "'$declaredDependencySource.$m'"), 'or')},"
+                  " then depend on ${unstableMembers.length == 1 ? 'that' : 'those'} instead."
+                  " Since ${joinEnglish(stableMembers.map((m) => "'$declaredDependencySource.$m'"))}"
+                  " are stable across renders, you do not need a dependency"
+                  " to use ${stableMembers.length == 1 ? 'it' : 'them'}.",
+            ],
+          );
+          continue;
+        }
 
         final isUsedOutsideOfHook = _construction.isUsedOutsideOfHook;
-        final depType = _construction.depType;
         final wrapperHook = depType == _DepType.function ? 'useCallback' : 'useMemo';
 
         final constructionType = depType == _DepType.function ? 'definition' : 'initialization';
@@ -965,15 +990,16 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
               },
             ),
           );
-        } else {
-          // TODO: What if the function needs to change on every render anyway?
-          // Should we suggest removing effect deps as an appropriate fix too?
-          collector.addError(
-            HooksExhaustiveDeps.code,
-            result.locationFor(construction),
-            errorMessageArgs: [message],
-          );
+          continue;
         }
+
+        // TODO: What if the function needs to change on every render anyway?
+        // Should we suggest removing effect deps as an appropriate fix too?
+        collector.addError(
+          HooksExhaustiveDeps.code,
+          result.locationFor(construction),
+          errorMessageArgs: [message],
+        );
       }
       return;
     }
@@ -1340,6 +1366,20 @@ const stateHookSetMethods = {'set', 'setWithUpdater'};
 const stableStateHookMethods = {...stateHookSetMethods};
 const stableReducerHookMethods = {'dispatch'};
 const stableTransitionHookMethods = {'startTransition'};
+
+const stableHookMembersByDepType = {
+  _DepType.reducerHook: stableReducerHookMethods,
+  _DepType.stateHook: stableStateHookMethods,
+  _DepType.transitionHook: stableTransitionHookMethods,
+};
+
+/// These aren't exhaustive (they don't include hashCode, and may be missing properties added in the future),
+/// and should only be used in error messages, and not in tests for stability of members.
+const unstableHookMembersByDepTypeForErrorMessagesOnly = {
+  _DepType.reducerHook: {'state'},
+  _DepType.stateHook: {'value'},
+  _DepType.transitionHook: {'isPending'},
+};
 
 class StableHookMethodInfo {
   final Expression node;
@@ -1720,6 +1760,12 @@ String? getConstructionExpressionType(Expression node) {
     return getConstructionExpressionType(node.expression);
   } else if (node is InvocationExpression && (node.staticType?.isReactElement ?? false)) {
     return _DepType.reactElement;
+  } else if (node.staticType?.isStateHook ?? false) {
+    return _DepType.stateHook;
+  } else if (node.staticType?.isReducerHook ?? false) {
+    return _DepType.reducerHook;
+  } else if (node.staticType?.isTransitionHook ?? false) {
+    return _DepType.transitionHook;
   } else {
     return null;
   }
@@ -1778,6 +1824,7 @@ List<_Construction> scanForConstructions({
             );
             if (constantExpressionType != null) {
               return _Construction(
+                declaredDependency: dep,
                 declaration: declaration,
                 declarationElement: declarationElement,
                 depType: constantExpressionType,
@@ -1790,6 +1837,7 @@ List<_Construction> scanForConstructions({
         // handleChange() {}
         if (declaration is FunctionDeclaration) {
           return _Construction(
+            declaredDependency: dep,
             declaration: declaration,
             declarationElement: declarationElement,
             depType: _DepType.function,
@@ -1804,6 +1852,7 @@ List<_Construction> scanForConstructions({
 }
 
 class _Construction {
+  final _DeclaredDependency declaredDependency;
   final Declaration declaration;
   final Element declarationElement;
 
@@ -1811,14 +1860,17 @@ class _Construction {
   final String depType;
   final bool isUsedOutsideOfHook;
 
-  _Construction(
-      {required this.declaration,
-      required this.declarationElement,
-      required this.depType,
-      required this.isUsedOutsideOfHook});
+  _Construction({
+    required this.declaredDependency,
+    required this.declaration,
+    required this.declarationElement,
+    required this.depType,
+    required this.isUsedOutsideOfHook,
+  });
 
   @override
   String toString() => prettyPrint({
+        'declaredDependency': declaredDependency,
         'declaration': declaration,
         'depType': depType,
         'isUsedOutsideOfHook': isUsedOutsideOfHook,
@@ -1834,6 +1886,10 @@ abstract class _DepType {
   static const binaryExpression = 'binary expression';
   static const assignmentExpression = 'assignment expression';
   static const reactElement = 'ReactElement';
+  static const reducerHook = 'ReducerHook (from useReducer)';
+  static const stateHook = 'StateHook (from useState)';
+  static const transitionHook = 'TransitionHook (from useTransition)';
+  static const hookObjects = {reducerHook, stateHook, transitionHook};
 }
 
 bool isInvocationADiscreteDependency(PropertyInvocation invocation) {
