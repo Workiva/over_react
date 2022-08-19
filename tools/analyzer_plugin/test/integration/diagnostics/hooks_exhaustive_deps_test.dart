@@ -247,8 +247,9 @@ class SomeObject {
                     .toList();
 
                 if (expectedFixes.isEmpty) {
-                  expect(actualError.hasFix, isFalse, reason: 'was not expecting the error to report it has a fix');
+                  // Check this before `.hasFix` one so we can see the actual fixes if this `expect` fails.
                   expect(actualFixesForError, isEmpty, reason: 'was not expecting fixes');
+                  expect(actualError.hasFix, isFalse, reason: 'was not expecting the error to report it has a fix');
                 } else {
                   String prettyExpectedFixes() => JsonEncoder.withIndent('  ').convert(expectedFixes);
                   expect(actualError.hasFix, isTrue,

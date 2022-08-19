@@ -28,6 +28,7 @@ import 'package:analyzer/dart/ast/syntactic_entity.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer_plugin/protocol/protocol_common.dart' show Location;
+import 'package:analyzer_plugin/utilities/range_factory.dart';
 import 'package:collection/collection.dart' show IterableExtension;
 import 'package:over_react_analyzer_plugin/src/diagnostic/analyzer_debug_helper.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
@@ -35,8 +36,9 @@ import 'package:over_react_analyzer_plugin/src/util/analyzer_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/function_components.dart';
 import 'package:over_react_analyzer_plugin/src/util/pretty_print.dart';
-import 'package:over_react_analyzer_plugin/src/util/util.dart';
+import 'package:over_react_analyzer_plugin/src/util/range.dart';
 import 'package:over_react_analyzer_plugin/src/util/react_types.dart';
+import 'package:over_react_analyzer_plugin/src/util/util.dart';
 import 'package:over_react_analyzer_plugin/src/util/weak_collections.dart';
 
 // ignore_for_file: avoid_function_literals_in_foreach_calls
@@ -714,92 +716,6 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
         // if (declaredDependencyNode is! Expression) { ...  continue;}
         final declaredDependencyNode = _declaredDependencyNode as Expression;
 
-        // FIXME check here or somewhere else to ensure whole hook (state, ref?) isn't passed in, provide quick fix; perhaps non-destructured hooks being passed in are accounted for alredy?
-
-        // Special case for Dart: whole state hook passed in as dependency.
-        // FIXME(greg) add test cases
-        if (declaredDependencyNode.staticType?.isStateHook ?? false) {
-          final declaredDepSource = getSource(declaredDependencyNode);
-
-          // Conditionally suggest value or removing the dep based on whether `stateHook.value` is used.
-          // This check isn't perfect, but should handle most cases.
-          //
-          // Dependencies have `?.` normalized to `.`, but they may still be accessing properties or calling methods.
-          // For example: `stateHook.set.call`, `stateHook.value()`. So, use regexes with word boundaries.
-          final dependenciesUsingValue =
-              dependencies.keys.where(RegExp(r'^' + RegExp.escape(declaredDepSource) + r'\.value\b').hasMatch).toList();
-          final stableMethodsUsed = stableStateHookMethods
-              .where((method) => dependencies.keys.any(
-                  RegExp(r'^' + RegExp.escape(declaredDepSource) + r'\.' + RegExp.escape(method) + r'\b').hasMatch))
-              .toList();
-          // TODO(greg) is there a better way to do this?
-          final usesWholeValue = dependencies.containsKey(declaredDepSource);
-
-          final shouldDependOnValue = dependenciesUsingValue.isNotEmpty;
-          final suggestedValueDependency =
-              dependenciesUsingValue.length == 1 ? dependenciesUsingValue.single : '$declaredDepSource.value';
-
-          // TODO(greg) have a fallback check if stableMethodsUsed.isEmpty && dependenciesUsingValue.isEmpty but dependencies contains a reference to declaredDependencyNode?
-
-          final messageBuffer = StringBuffer()
-            ..write("The '$declaredDepSource' StateHook (from useState)")
-            ..write(" makes the dependencies of React Hook ${getSource(reactiveHook)}")
-            ..write(" change every render, and should not itself be a dependency.");
-          if (stableMethodsUsed.isNotEmpty) {
-            messageBuffer
-              ..write(" Since ")
-              ..write(joinEnglish(stableMethodsUsed.map((m) => "'$declaredDepSource.$m'")))
-              ..write(stableMethodsUsed.length == 1 ? ' is' : ' are')
-              ..write(" stable across renders, no dependencies are required to use")
-              ..write(stableMethodsUsed.length == 1 ? ' it' : ' them')
-              // Include an extra message when !shouldDependOnValue, since otherwise we don't tell the user what to do with this dependency.
-              // But, don't include it when usesWholeValue, since the dependency can't be safely removed.
-              ..write(!shouldDependOnValue && !usesWholeValue ? ", and this dependency can be safely removed." : '.');
-          }
-          if (shouldDependOnValue) {
-            messageBuffer.write(" Since '$suggestedValueDependency' is being used, depend on that instead.");
-          }
-          // FIXME(greg) add message like we have elsewhere when using `setWithUpdater` and `.value`.
-
-          if (usesWholeValue) {
-            // We can't automatically fix in this case, so just warn.
-            collector.addError(
-              HooksExhaustiveDeps.code,
-              result.locationFor(declaredDependencyNode),
-              errorMessageArgs: [messageBuffer.toString()],
-            );
-          } else {
-            await collector.addErrorWithFix(
-              HooksExhaustiveDeps.code,
-              result.locationFor(declaredDependencyNode),
-              errorMessageArgs: [messageBuffer.toString()],
-              fixKind: HooksExhaustiveDeps.fixKind,
-              fixMessageArgs: [
-                if (shouldDependOnValue)
-                  "Change the dependency to: $suggestedValueDependency"
-                else
-                  "Remove the dependency on '$declaredDepSource'."
-              ],
-              computeFix: () => buildGenericFileEdit(result, (builder) {
-                if (shouldDependOnValue) {
-                  builder.addSimpleReplacement(range.node(declaredDependencyNode), suggestedValueDependency);
-                } else {
-                  builder.addDeletion(range.nodeInList(declaredDependenciesNode.elements, declaredDependencyNode));
-                }
-              }),
-            );
-          }
-          // Return here so that other dependency checks don't interfere.
-          // TODO(greg) if people ignore this, they won't get other dependency checks below :/. Should we move this check, or should we not care about that case?
-          return;
-
-          // FIXME(greg) make sure we want to return here and not continue. If we do want to return, add explanation about why, and what would happen if we were to continue (adapt below comment).
-          // // By continuing here, the dependency isn't added to declaredDependencies, allowing the rest of our
-          // // dependency computation logic to work and not treat `state.value` as being satisfied by `state`.
-          // // If this approach becomes an issue in the future, we can adjust it so long as test cases pass.
-          // continue;
-        }
-
         // Try to normalize the declared dependency. If we can't then an error
         // will be thrown. We will catch that error and report an error.
         String declaredDependency;
@@ -917,23 +833,87 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
           final unstableMembers = unstableHookMembersByDepTypeForErrorMessagesOnly[depType]!;
 
           final declaredDependencyNode = _construction.declaredDependency.node;
-          final declaredDependencySource = getSource(declaredDependencyNode);
+          final declaredDepSource = getSource(declaredDependencyNode);
 
-          collector.addError(
-            HooksExhaustiveDeps.code,
-            result.locationFor(declaredDependencyNode),
-            errorMessageArgs: [
-              // ignore: no_adjacent_strings_in_list
-              "The '$declaredDependencySource' $depType"
-                  " makes the dependencies of React Hook ${getSource(reactiveHook)}"
-                  " change every render, and should not itself be a dependency."
-                  " If you're using ${joinEnglish(unstableMembers.map((m) => "'$declaredDependencySource.$m'"), 'or')},"
-                  " then depend on ${unstableMembers.length == 1 ? 'that' : 'those'} instead."
-                  " Since ${joinEnglish(stableMembers.map((m) => "'$declaredDependencySource.$m'"))}"
-                  " are stable across renders, you do not need a dependency"
-                  " to use ${stableMembers.length == 1 ? 'it' : 'them'}.",
-            ],
-          );
+          // Conditionally suggest value or removing the dep based on whether `stateHook.value` is used.
+          // This check isn't perfect, but should handle most cases.
+          //
+          // Dependencies have `?.` normalized to `.`, but they may still be accessing properties or calling methods.
+          // For example: `stateHook.set.call`, `stateHook.value()`. So, use regexes with word boundaries.
+          final unstableMembersUsed =
+              // todo is this missing cases?
+              unstableMembers
+                  .where((method) => dependencies.keys.any(
+                      RegExp(r'^' + RegExp.escape(declaredDepSource) + r'\.' + RegExp.escape(method) + r'\b').hasMatch))
+                  .toList();
+          // FIXME(greg) stableMembers isn't exhaustive
+          final stableMembersUsed = stableMembers
+              .where((method) => dependencies.keys.any(
+                  RegExp(r'^' + RegExp.escape(declaredDepSource) + r'\.' + RegExp.escape(method) + r'\b').hasMatch))
+              .toList();
+          // TODO(greg) is there a better way to do this?
+          final usesWholeValue = dependencies.containsKey(declaredDepSource);
+
+          // FIXME(greg) count references instead.
+          final usesOnlyStableValues = stableMembersUsed.isNotEmpty && unstableMembersUsed.isEmpty && !usesWholeValue;
+
+          // todo(greg) use references instead?
+          // FIXME(greg) sub-properties?
+          final suggestedUnstableMemberDependencies = unstableMembersUsed.map((m) => '$declaredDepSource.$m').toList();
+
+          final messageBuffer = StringBuffer()
+            ..write("The '$declaredDepSource' $depType")
+            ..write(" makes the dependencies of React Hook ${getSource(reactiveHook)}")
+            ..write(" change every render, and should not itself be a dependency.");
+          if (stableMembersUsed.isNotEmpty) {
+            messageBuffer
+              ..write(" Since ")
+              ..write(joinEnglish(stableMembersUsed.map((m) => "'$declaredDepSource.$m'")))
+              ..write(stableMembersUsed.length == 1 ? " is" : " are")
+              ..write(" stable across renders, no dependencies are required to use")
+              ..write(stableMembersUsed.length == 1 ? " it" : " them")
+              ..write(usesOnlyStableValues ? ", and this dependency can be safely removed." : '.');
+          }
+          if (suggestedUnstableMemberDependencies.isNotEmpty) {
+            messageBuffer
+              ..write(" Since ")
+              ..write(joinEnglish(suggestedUnstableMemberDependencies.map((d) => "'$d'")))
+              ..write(suggestedUnstableMemberDependencies.length == 1 ? " is" : " are")
+              ..write(" being used, depend on")
+              ..write(suggestedUnstableMemberDependencies.length == 1 ? " it" : " them")
+              ..write(" instead.");
+          }
+          // FIXME(greg) add message like we have elsewhere when using `setWithUpdater` and `.value`.
+
+          if (usesWholeValue) {
+            // We can't automatically fix in this case, so just warn.
+            collector.addError(
+              HooksExhaustiveDeps.code,
+              result.locationFor(declaredDependencyNode),
+              errorMessageArgs: [messageBuffer.toString()],
+            );
+          } else {
+            await collector.addErrorWithFix(
+              HooksExhaustiveDeps.code,
+              result.locationFor(declaredDependencyNode),
+              errorMessageArgs: [messageBuffer.toString()],
+              fixKind: HooksExhaustiveDeps.fixKind,
+              fixMessageArgs: [
+                if (suggestedUnstableMemberDependencies.isNotEmpty)
+                  "Change the dependency to: ${suggestedUnstableMemberDependencies.join(', ')}"
+                else
+                  "Remove the dependency on '$declaredDepSource'."
+              ],
+              computeFix: () => buildGenericFileEdit(result, (builder) {
+                if (suggestedUnstableMemberDependencies.isNotEmpty) {
+                  builder.addSimpleReplacement(
+                      range.node(declaredDependencyNode), suggestedUnstableMemberDependencies.join(', '));
+                } else {
+                  builder.addDeletion(range.nodeInList2(declaredDependencyNode));
+                }
+              }),
+            );
+          }
           continue;
         }
 
