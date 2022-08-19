@@ -14,4 +14,8 @@
 /// The easiest way to opt out of sound null safety is to add language version comments to each entrypoint.
 library over_react_analyzer_plugin.over_react_builder_parsing;
 
-export 'package:over_react/src/builder/parsing.dart';
+export 'package:over_react/src/builder/parsing.dart'
+    hide
+        // Hide so they don't cause conflicts with this package's extensions
+        TryCast,
+        IterableUtil;

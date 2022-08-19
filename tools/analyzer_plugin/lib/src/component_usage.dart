@@ -115,6 +115,8 @@ class FluentComponentUsage {
   /// Will `be false` if the type of the builder is not resolved.
   bool get isDom => const {'DomProps', 'SvgProps'}.contains(propsName);
 
+  bool get isFragment => const {'FragmentProps'}.contains(propsName);
+
   /// Whether this usage is an SVG component.
   ///
   /// Will `be false` if the type of the builder is not resolved.
