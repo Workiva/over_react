@@ -72,6 +72,7 @@ Future<void> main(List<String> args) async {
       }
 
       dotEdgeLines.add([
+        // TODO sanitize IDs here instead?
         '${usage.owner.id} -> ${usage.component.id}',
         '[penwidth=2.0]',
         if (usage.location.url != null) ...[
@@ -79,12 +80,11 @@ Future<void> main(List<String> args) async {
           '[URL=${stringLiteral(usage.location.url, useSingleQuote: false)}]',
         ],
       ].join(' '));
-      void addNodeForReference(Node node, [String additionalLabel = '']) {
+      void addNodeForReference(Node node) {
         dotNodeLinesById.putIfAbsent(node.id, () {
-          var label = node.label + additionalLabel;
           return [
             '${node.id}',
-            ' [label=${stringLiteral(label, useSingleQuote: false)}]',
+            ' [label=${stringLiteral(node.label, useSingleQuote: false)}]',
             ' [shape=${node.shape}]',
             // ' [URL=${stringLiteral(node.url, useSingleQuote: false)}]',
           ].join(' ');
@@ -143,29 +143,27 @@ Iterable<Usage> processUnit(ResolvedUnitResult result, ScrapedPackageInfo? packa
   for (final usage in cu.getAllComponentUsages(result.unit!)) {
     if (usage.isDom || usage.isFragment) continue;
 
-    Owner getOwner() {
+    Node getOwner() {
       {
         final closestFunctionComponent = getClosestFunctionComponent(usage.node);
         if (closestFunctionComponent != null) {
           final factoryElement = closestFunctionComponent.factoryVariable?.declaredElement;
-          final componentReference = factoryElement != null
+          return factoryElement != null
               ? ResolvedComponentReference(factory: factoryElement)
               : UnresolvableComponentReference(
                   closestFunctionComponent.factoryName?.toSource() ?? closestFunctionComponent.body.toSource(),
                 );
-          return ComponentOwner(componentReference);
         }
       }
       {
         final closestClassComponent = getClosestClassComponent(usage.node);
         if (closestClassComponent != null) {
           final factoryElement = closestClassComponent.factory.node.firstVariable.declaredElement;
-          final componentReference = factoryElement != null
+          return factoryElement != null
               ? ResolvedComponentReference(factory: factoryElement)
               : UnresolvableComponentReference(
                   (closestClassComponent.factory?.name.name ?? closestClassComponent.component?.name.name)!,
                 );
-          return ComponentOwner(componentReference);
         }
       }
       final closestClassElement =
@@ -229,7 +227,7 @@ class Usage {
 
   // FIXME make non-nullable, implement
   final Destination? destination;
-  final Owner owner;
+  final Node owner;
   final SourceLocation location;
 
   Usage({
@@ -279,48 +277,59 @@ abstract class Node {
 // Uri get uri;
 }
 
-abstract class Owner implements Node {
+mixin ElementBasedNode on Node {
+  Element get element;
+
+  @override
+  String get id => elementId(element);
+
+  @override
+  String get label => element.name!;
+
+  @override
+  String get shape => getShapeForElement(element);
+
+  Uri? get uri => element.source?.uri;
+}
+
+mixin MaybeElementBasedNode on Node {
   Element? get element;
 
+  String get fallbackId;
+
+  String get fallbackName;
+
+  @override
+  String get id => element == null ? sanitizeId(fallbackId) : elementId(element!);
+
+  @override
+  String get label => fallbackName;
+
+  @override
+  String get shape => element == null ? 'box' : getShapeForElement(element!);
+
+  Uri? get uri => element?.source?.uri;
+}
+
+String getShapeForElement(Element e) {
+  if (e is TopLevelVariableElement) return 'ellipse';
+  if (e is ClassElement) return 'box';
+  if (e is ExecutableElement) return 'cds';
+
+  return 'box';
+}
+
+abstract class Owner implements Node {
 // @override
 // Uri? get uri => element?.source.uri;
 }
 
-class ComponentOwner implements Owner {
-  final ComponentReference component;
-
+class NonComponentClassOwner extends Owner with ElementBasedNode {
   @override
-  String get id => component.id;
-
-  @override
-  String get label => component.label;
-
-  @override
-  String get shape => component.shape;
-
-  ComponentOwner(this.component);
-
-  @override
-  Element? get element => component.tryCast<ResolvedComponentReference>()?.factory;
-}
-
-class NonComponentClassOwner extends Owner {
-  final ClassElement classElement;
+  final ClassElement element;
   final ClassMemberElement? member;
 
-  @override
-  String get label => classElement.name;
-
-  NonComponentClassOwner(this.classElement, this.member);
-
-  @override
-  String get id => sanitizeId('other__$classElement');
-
-  @override
-  String get shape => 'box';
-
-  @override
-  Element? get element => classElement;
+  NonComponentClassOwner(this.element, this.member);
 }
 
 // class TopLevelFunctionOwner extends Owner {
@@ -329,36 +338,46 @@ class NonComponentClassOwner extends Owner {
 //   TopLevelFunctionOwner(this.functionElement);
 // }
 
-class OtherOwner extends Owner {
+class OtherOwner extends Owner with MaybeElementBasedNode {
+  @override
+  final Element? element;
   final String description;
 
-  OtherOwner(this.description);
+  OtherOwner(this.element, this.description);
 
   factory OtherOwner.fromNode(AstNode node) {
-    return OtherOwner(node.ancestors
-        .map<String?>((e) {
-          if (e is FunctionDeclaration) return e.name.name;
-          if (e is VariableDeclaration) return e.name.name;
-          if (e is NamedCompilationUnitMember) return e.name.name;
-          return null;
-        })
-        .whereNotNull()
-        .toList()
-        .reversed
-        .join(' > '));
+    Element? closestResolvedElement;
+    final description = node.toSource() +
+        ' > ' +
+        node.ancestors
+            .map<String?>((e) {
+              if (e is FunctionDeclaration) {
+                closestResolvedElement ??= e.declaredElement;
+                return e.name.name;
+              }
+              if (e is VariableDeclaration) {
+                closestResolvedElement ??= e.declaredElement;
+                return e.name.name;
+              }
+              if (e is NamedCompilationUnitMember) {
+                closestResolvedElement ??= e.declaredElement;
+                return e.name.name;
+              }
+              return null;
+            })
+            .whereNotNull()
+            .toList()
+            .reversed
+            .join(' > ');
+    return OtherOwner(closestResolvedElement, description);
   }
 
+  // FIXME use a counter here, or maybe something else unique like source location.
   @override
-  String get id => sanitizeId('other__$description');
+  String get fallbackId => 'other__$description';
 
   @override
-  String get label => description;
-
-  @override
-  String get shape => 'cds';
-
-  @override
-  Element? get element => null;
+  String get fallbackName => description;
 }
 
 abstract class ComponentReference implements Node {}
@@ -373,19 +392,13 @@ String sanitizeId(String id) {
 
 String elementId(Element e) => sanitizeId('${e.name}_${e.id}');
 
-class ResolvedComponentReference extends ComponentReference {
+class ResolvedComponentReference extends ComponentReference with ElementBasedNode {
   final VariableElement factory;
 
   ResolvedComponentReference({required this.factory});
 
   @override
-  String get id => elementId(factory);
-
-  @override
-  String get label => factory.name!;
-
-  @override
-  String get shape => 'ellipse';
+  Element get element => factory;
 }
 
 class UnresolvableComponentReference extends ComponentReference {
