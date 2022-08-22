@@ -30,8 +30,8 @@ import 'package:over_react_analyzer_plugin/src/over_react_builder_parsing.dart' 
 import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/function_components.dart';
 import 'package:over_react_analyzer_plugin/src/util/util.dart';
-import 'package:source_span/source_span.dart';
 import 'package:path/path.dart' as p;
+import 'package:source_span/source_span.dart';
 
 import 'package_info.dart';
 
@@ -49,9 +49,21 @@ Future<void> main(List<String> args) async {
   final dotNodeLinesById = <String, String>{};
   final dotEdgeLines = <String>[];
 
-  await for (final tuple in getUnits(paths)) {
-    final unitResult = tuple.item1;
-    for (final usage in processUnit(unitResult, tuple.item2)) {
+  await for (final unitResult in getUnits(paths)) {
+    String? tryUriAsLink(Uri? uri, {int? lineNumber, int? endLineNumber}) {
+      if (uri == null) return null;
+      final info =
+          scrapePackageInfoForUriFromContextRoot(uri, unitResult.session.analysisContext.contextRoot.workspace.root);
+      return uriAsLink(info, uri, lineNumber: lineNumber, endLineNumber: endLineNumber);
+    }
+
+    String? tryUriAsUrlAttribute(Uri? uri, {int? lineNumber, int? endLineNumber}) {
+      final url = tryUriAsLink(uri);
+      if (url == null) return null;
+      return '[URL=${stringLiteral(url, useSingleQuote: false)}]';
+    }
+
+    for (final usage in processUnit(unitResult)) {
       if (usage.component.label == 'Block' ||
           usage.component.label == 'VBlock' ||
           usage.component.label == 'ErrorBoundary') {
@@ -75,19 +87,17 @@ Future<void> main(List<String> args) async {
         // TODO sanitize IDs here instead?
         '${usage.owner.id} -> ${usage.component.id}',
         '[penwidth=2.0]',
-        if (usage.location.url != null) ...[
-          '[color="#0f4cc5"]',
-          '[URL=${stringLiteral(usage.location.url, useSingleQuote: false)}]',
-        ],
-      ].join(' '));
+        '[color="#0f4cc5"]',
+        tryUriAsUrlAttribute(usage.location.uri)!,
+      ].whereNotNull().join(' '));
       void addNodeForReference(Node node) {
         dotNodeLinesById.putIfAbsent(node.id, () {
           return [
             '${node.id}',
             ' [label=${stringLiteral(node.label, useSingleQuote: false)}]',
             ' [shape=${node.shape}]',
-            // ' [URL=${stringLiteral(node.url, useSingleQuote: false)}]',
-          ].join(' ');
+            tryUriAsUrlAttribute(node.uri),
+          ].whereNotNull().join(' ');
         });
       }
 
@@ -99,6 +109,7 @@ Future<void> main(List<String> args) async {
   File('react_component_graph.dot').writeAsStringSync([
     'digraph {\n',
     ...dotNodeLinesById.values,
+    '',
     ...dotEdgeLines,
     '\n}',
   ].join('\n'));
@@ -106,7 +117,7 @@ Future<void> main(List<String> args) async {
   print('Done');
 }
 
-Stream<Tuple2<ResolvedUnitResult, ScrapedPackageInfo?>> getUnits(List<String> paths) async* {
+Stream<ResolvedUnitResult> getUnits(List<String> paths) async* {
   paths = paths.map(p.canonicalize).toList();
 
   final contextCollection = AnalysisContextCollection(
@@ -121,15 +132,14 @@ Stream<Tuple2<ResolvedUnitResult, ScrapedPackageInfo?>> getUnits(List<String> pa
     final context = contextCollection.contextFor(filePath);
     final unitResult = await context.currentSession.getResolvedUnit2(filePath);
     if (unitResult is ResolvedUnitResult) {
-      yield Tuple2(
-          unitResult, scrapePackageInfoForUriFromContextRoot(unitResult.uri, context.contextRoot.workspace.root));
+      yield unitResult;
     } else {
       throw Exception('Invalid result: $unitResult');
     }
   }
 }
 
-Iterable<Usage> processUnit(ResolvedUnitResult result, ScrapedPackageInfo? packageInfo) sync* {
+Iterable<Usage> processUnit(ResolvedUnitResult result) sync* {
   late final componentDeclarations = orbp.parseDeclarations(
       result.unit,
       // TODO make a noop ErrorCollector
@@ -213,8 +223,7 @@ Iterable<Usage> processUnit(ResolvedUnitResult result, ScrapedPackageInfo? packa
       usageType: UsageType.render,
       // destination: getDestinationOfExpression(usage.node, context),
       owner: getOwner(),
-      location: SourceLocation(result.uri, location.lineNumber, location.columnNumber,
-          uriAsLink(packageInfo, result.uri, lineNumber: location.lineNumber)),
+      location: SourceLocation(result.uri, location.lineNumber, location.columnNumber),
     );
   }
 }
@@ -248,9 +257,7 @@ class SourceLocation {
   /// The one-based index of the column.
   final int columnNumber;
 
-  final String? url;
-
-  SourceLocation(this.uri, this.lineNumber, this.columnNumber, this.url);
+  SourceLocation(this.uri, this.lineNumber, this.columnNumber);
 }
 
 class Context {
@@ -273,8 +280,8 @@ abstract class Node {
   String get label;
 
   String get shape;
-//
-// Uri get uri;
+
+  Uri? get uri;
 }
 
 mixin ElementBasedNode on Node {
@@ -284,11 +291,23 @@ mixin ElementBasedNode on Node {
   String get id => elementId(element);
 
   @override
-  String get label => element.name!;
+  String get label {
+    final labelBuf = StringBuffer();
+    labelBuf.write(element.name!);
+
+    // FIXME need to strip leading `///`.
+    // final docComment = (element.documentationComment ?? '').split('\n\n').first.trim();
+    // if (docComment.isNotEmpty) {
+    //   //FIXME escape
+    //   labelBuf.write('<BR><FONT POINT-SIZE="10.0">$docComment</FONT></BR>');
+    // }
+    return labelBuf.toString();
+  }
 
   @override
   String get shape => getShapeForElement(element);
 
+  @override
   Uri? get uri => element.source?.uri;
 }
 
@@ -308,6 +327,7 @@ mixin MaybeElementBasedNode on Node {
   @override
   String get shape => element == null ? 'box' : getShapeForElement(element!);
 
+  @override
   Uri? get uri => element?.source?.uri;
 }
 
@@ -347,28 +367,26 @@ class OtherOwner extends Owner with MaybeElementBasedNode {
 
   factory OtherOwner.fromNode(AstNode node) {
     Element? closestResolvedElement;
-    final description = node.toSource() +
-        ' > ' +
-        node.ancestors
-            .map<String?>((e) {
-              if (e is FunctionDeclaration) {
-                closestResolvedElement ??= e.declaredElement;
-                return e.name.name;
-              }
-              if (e is VariableDeclaration) {
-                closestResolvedElement ??= e.declaredElement;
-                return e.name.name;
-              }
-              if (e is NamedCompilationUnitMember) {
-                closestResolvedElement ??= e.declaredElement;
-                return e.name.name;
-              }
-              return null;
-            })
-            .whereNotNull()
-            .toList()
-            .reversed
-            .join(' > ');
+    final description = node.ancestors
+        .map<String?>((e) {
+          if (e is FunctionDeclaration) {
+            closestResolvedElement ??= e.declaredElement;
+            return e.name.name;
+          }
+          if (e is VariableDeclaration) {
+            closestResolvedElement ??= e.declaredElement;
+            return e.name.name;
+          }
+          if (e is NamedCompilationUnitMember) {
+            closestResolvedElement ??= e.declaredElement;
+            return e.name.name;
+          }
+          return null;
+        })
+        .whereNotNull()
+        .toList()
+        .reversed
+        .join(' > ');
     return OtherOwner(closestResolvedElement, description);
   }
 
@@ -418,6 +436,9 @@ class UnresolvableComponentReference extends ComponentReference {
 
   @override
   String get shape => 'ellipse';
+
+  @override
+  Uri? get uri => null;
 }
 
 abstract class Destination {}
