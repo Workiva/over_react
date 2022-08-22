@@ -36,10 +36,11 @@ import 'package:path/path.dart' as p;
 import 'package_info.dart';
 
 Future<void> main(List<String> args) async {
-  final argParser = ArgParser()..addMultiOption('ignore-component');
+  final argParser = ArgParser()..addMultiOption('ignore-package')..addMultiOption('ignore-component');
 
   final parsed = argParser.parse(args);
-  final ignorePatterns = (parsed['ignore-component'] as List<String>).map((p) => RegExp(p));
+  final componentIgnorePatterns = (parsed['ignore-component'] as List<String>).map((p) => RegExp(p));
+  final packageIgnorePatterns = (parsed['ignore-package'] as List<String>).map((p) => RegExp(p));
 
   final paths = [...parsed.rest];
   if (paths.isEmpty) paths.add('lib');
@@ -56,8 +57,18 @@ Future<void> main(List<String> args) async {
           usage.component.label == 'ErrorBoundary') {
         continue;
       }
-      if (ignorePatterns.any((p) => p.hasMatch(usage.component.label))) {
+      if (componentIgnorePatterns.any((p) => p.hasMatch(usage.component.label))) {
         continue;
+      }
+      if (componentIgnorePatterns.any((p) => p.hasMatch(usage.owner.label))) {
+        continue;
+      }
+      {
+        final uri = usage.component.tryCast<ResolvedComponentReference>()?.factory.source?.uri;
+        final packageName = uri == null ? null : getPackageName(uri);
+        if (packageName != null && packageIgnorePatterns.any((p) => p.hasMatch(packageName))) {
+          continue;
+        }
       }
 
       dotEdgeLines.add([
