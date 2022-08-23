@@ -22,6 +22,7 @@ import 'package:args/args.dart';
 import 'package:collection/collection.dart';
 import 'package:glob/glob.dart';
 import 'package:glob/list_local_fs.dart';
+import 'package:markdown/markdown.dart' as markdown;
 import 'package:over_react_analyzer_plugin/src/component_usage.dart' as cu;
 import 'package:over_react_analyzer_plugin/src/diagnostic/style_value_diagnostic.dart';
 
@@ -33,6 +34,7 @@ import 'package:over_react_analyzer_plugin/src/util/util.dart';
 import 'package:path/path.dart' as p;
 import 'package:source_span/source_span.dart';
 
+import 'comment.dart';
 import 'package_info.dart';
 
 Future<void> main(List<String> args) async {
@@ -101,7 +103,7 @@ Future<void> main(List<String> args) async {
         dotNodeLinesById.putIfAbsent(node.id, () {
           return [
             '${node.id}',
-            ' [label=${stringLiteral(node.label, useSingleQuote: false)}]',
+            ' [label=${node.label}]',
             ' [shape=${node.shape}]',
             tryLocationAsUrlAttribute(node.location) ?? tryUriAsUrlAttribute(node.uri),
           ].whereNotNull().join(' ');
@@ -299,17 +301,29 @@ mixin ElementBasedNode on Node {
   @override
   String get id => elementId(element);
 
+  static const includeDocComments = true;
+
   @override
   String get label {
-    final labelBuf = StringBuffer();
-    labelBuf.write(element.name!);
+    if (!includeDocComments) {
+      return stringLiteral(element.name!, useSingleQuote: false);
+    }
 
-    // FIXME need to strip leading `///`.
-    // final docComment = (element.documentationComment ?? '').split('\n\n').first.trim();
-    // if (docComment.isNotEmpty) {
-    //   //FIXME escape
-    //   labelBuf.write('<BR><FONT POINT-SIZE="10.0">$docComment</FONT></BR>');
-    // }
+    final labelBuf = StringBuffer()..write('<');
+    labelBuf.write(markdown.markdownToHtml(element.name!, inlineOnly: true));
+
+    final summary = getDartDocSummary(getDartDocPlainText(element.documentationComment));
+    if (summary != null) {
+      final html = markdown
+          // This also mostly escapes things
+          .markdownToHtml(summary, inlineOnly: true)
+          .replaceAll('\n', ' ')
+          // GraphViz doesn't support code tags. Hackily remove them.
+          .replaceAll('<code>', '')
+          .replaceAll('</code>', '');
+      labelBuf.write('<BR /><FONT POINT-SIZE="10.0">$html</FONT>');
+    }
+    labelBuf.write('>');
     return labelBuf.toString();
   }
 
@@ -343,7 +357,7 @@ mixin MaybeElementBasedNode on Node {
   String get id => element == null ? sanitizeId(fallbackId) : elementId(element!);
 
   @override
-  String get label => fallbackName;
+  String get label => stringLiteral(fallbackName, useSingleQuote: false);
 
   @override
   String get shape => element == null ? 'box' : getShapeForElement(element!);
@@ -468,7 +482,7 @@ class UnresolvableComponentReference extends ComponentReference {
   String get id => sanitizeId('${builder}_unresolved_$_unresolvedReferenceId');
 
   @override
-  String get label => '(Unresolved) $builder';
+  String get label => stringLiteral('(Unresolved) $builder', useSingleQuote: false);
 
   @override
   String get shape => 'ellipse';
