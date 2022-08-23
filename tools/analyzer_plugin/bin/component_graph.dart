@@ -63,6 +63,13 @@ Future<void> main(List<String> args) async {
       return '[URL=${stringLiteral(url, useSingleQuote: false)}]';
     }
 
+    String? tryLocationAsUrlAttribute(SourceLocation? location) {
+      if (location == null) return null;
+      final url = tryUriAsLink(location.uri, lineNumber: location.lineNumber);
+      if (url == null) return null;
+      return '[URL=${stringLiteral(url, useSingleQuote: false)}]';
+    }
+
     for (final usage in processUnit(unitResult)) {
       if (usage.component.label == 'Block' ||
           usage.component.label == 'VBlock' ||
@@ -88,7 +95,7 @@ Future<void> main(List<String> args) async {
         '${usage.owner.id} -> ${usage.component.id}',
         '[penwidth=2.0]',
         '[color="#0f4cc5"]',
-        tryUriAsUrlAttribute(usage.location.uri)!,
+        tryLocationAsUrlAttribute(usage.location)!,
       ].whereNotNull().join(' '));
       void addNodeForReference(Node node) {
         dotNodeLinesById.putIfAbsent(node.id, () {
@@ -96,7 +103,7 @@ Future<void> main(List<String> args) async {
             '${node.id}',
             ' [label=${stringLiteral(node.label, useSingleQuote: false)}]',
             ' [shape=${node.shape}]',
-            tryUriAsUrlAttribute(node.uri),
+            tryLocationAsUrlAttribute(node.location) ?? tryUriAsUrlAttribute(node.uri),
           ].whereNotNull().join(' ');
         });
       }
@@ -282,6 +289,8 @@ abstract class Node {
   String get shape;
 
   Uri? get uri;
+
+  SourceLocation? get location;
 }
 
 mixin ElementBasedNode on Node {
@@ -309,6 +318,18 @@ mixin ElementBasedNode on Node {
 
   @override
   Uri? get uri => element.source?.uri;
+
+  @override
+  SourceLocation? get location {
+    final uri = this.uri;
+    if (uri == null) return null;
+
+    final source = element.source;
+    if (source == null) return null;
+
+    final location = SourceFile.fromString(source.contents.data).location(element.nameOffset);
+    return SourceLocation(uri, location.line + 1, location.column + 1);
+  }
 }
 
 mixin MaybeElementBasedNode on Node {
@@ -329,6 +350,21 @@ mixin MaybeElementBasedNode on Node {
 
   @override
   Uri? get uri => element?.source?.uri;
+
+  @override
+  SourceLocation? get location {
+    final uri = this.uri;
+    if (uri == null) return null;
+
+    final element = this.element;
+    if (element == null) return null;
+
+    final source = element.source;
+    if (source == null) return null;
+
+    final location = SourceFile.fromString(source.contents.data).location(element.nameOffset);
+    return SourceLocation(uri, location.line + 1, location.column + 1);
+  }
 }
 
 String getShapeForElement(Element e) {
@@ -439,6 +475,9 @@ class UnresolvableComponentReference extends ComponentReference {
 
   @override
   Uri? get uri => null;
+
+  @override
+  SourceLocation? get location => null;
 }
 
 abstract class Destination {}
