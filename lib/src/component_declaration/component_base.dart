@@ -574,13 +574,13 @@ abstract class UiProps extends MapBase
     // down the line instead.
     assert(
         componentFactory != null,
-        'componentFactory is null. Possible causes:\n'
-        '1. Something went wrong when initializing the `\$${runtimeType}Factory` variable in the generated code.\n'
-        '   Check for errors in the console for more information.'
-        '2. This is a props map view factory (declared as just a factory and props), and should not be invoked.\n'
+        'Most likely, another error occurred while initializing this component\'s declaration (via `\$${runtimeType}Factory`); '
+        'to find the real issue, look for earlier errors in theh console output.\n\n'
+        'Other potential causes:'
+        '1. This is a props map view factory (declared as just a factory and props), and should not be invoked.\n'
         '   This can also happen if your component didn\'t get grouped with your factory/props (e.g., if its name doesn\'t match).'
-        '3. This is a function component factory that was set up improperly, not wrapping the generated function in `uiFunction`.\n'
-        '4. componentFactory was erroneously assigned to null on this UiProps instance, potentially in an HOC function.');
+        '2. This is a function component factory that was set up improperly, not wrapping the generated function in `uiFunction`.\n'
+        '3. componentFactory was erroneously assigned to null on this UiProps instance, potentially in an HOC function.');
   }
 
   /// Returns a new component with this builder's [props] and the specified [children].
