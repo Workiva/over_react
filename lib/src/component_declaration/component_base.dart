@@ -575,7 +575,7 @@ abstract class UiProps extends MapBase
     assert(
         componentFactory != null,
         'Most likely, another error occurred while initializing this component\'s declaration (via `\$${runtimeType}Factory`); '
-        'to find the real issue, look for earlier errors in theh console output.\n\n'
+        'to find the real issue, look for earlier errors in the console output.\n\n'
         'Other potential causes:'
         '1. This is a props map view factory (declared as just a factory and props), and should not be invoked.\n'
         '   This can also happen if your component didn\'t get grouped with your factory/props (e.g., if its name doesn\'t match).'
