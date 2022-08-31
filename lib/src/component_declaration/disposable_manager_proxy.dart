@@ -64,8 +64,8 @@ mixin DisposableManagerProxy on react.Component implements DisposableManagerV7 {
           onError: onError, onDone: onDone, cancelOnError: cancelOnError);
 
   @override
-  Disposable manageAndReturnDisposable(Disposable disposable) =>
-      _getDisposableProxy().manageAndReturnDisposable(disposable);
+  Disposable manageAndReturnTypedDisposable(Disposable disposable) =>
+      _getDisposableProxy().manageAndReturnTypedDisposable(disposable);
 
   @override
   Completer<T> manageCompleter<T>(Completer<T> completer) =>
@@ -78,8 +78,8 @@ mixin DisposableManagerProxy on react.Component implements DisposableManagerV7 {
   /// DEPRECATED. Use [getManagedDisposer] instead.
   @Deprecated('w_common 2.0.0')
   @override
-  void manageDisposer(Disposer disposer) =>
-      _getDisposableProxy().manageDisposer(disposer);
+  void getManagedDisposer(Disposer disposer) =>
+      _getDisposableProxy().getManagedDisposer(disposer);
 
   @override
   void manageStreamController(StreamController controller) =>
@@ -88,12 +88,12 @@ mixin DisposableManagerProxy on react.Component implements DisposableManagerV7 {
   /// DEPRECATED. Use [listenToStream] instead.
   @Deprecated('w_common 2.0.0')
   @override
-  void manageStreamSubscription(StreamSubscription subscription) =>
-      _getDisposableProxy().manageStreamSubscription(subscription);
+  void listenToStream(StreamSubscription subscription) =>
+      _getDisposableProxy().listenToStream(subscription);
 
   /// Automatically dispose another object when this object is disposed.
   ///
-  /// This method is an extension to `manageAndReturnDisposable` and returns the
+  /// This method is an extension to `manageAndReturnTypedDisposable` and returns the
   /// passed in [Disposable] as its original type in addition to handling its
   /// disposal. The method should be used when a variable is set and should
   /// conditionally be managed for disposal. The most common case will be dealing
