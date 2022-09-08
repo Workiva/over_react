@@ -12,7 +12,7 @@ analyzer:
   errors:
     invalid_export_of_internal_element: warning
     unused_import: warning
-    duplicate_import: warning
+    duplicate_import: ignore
     missing_required_param: error
     must_call_super: error
     uri_has_not_been_generated: ignore
