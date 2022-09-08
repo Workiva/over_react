@@ -54,3 +54,6 @@ dependency_validator:
     - tools/**
   ignore:
     - meta
+
+dependency_overrides:
+  w_module: ^2.0.0
