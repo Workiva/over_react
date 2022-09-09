@@ -1,5 +1,10 @@
 # OverReact Changelog
 
+## [4.4.3](https://github.com/Workiva/over_react/compare/4.4.2...4.4.3)
+	* [#774] Make error message when component failed to initialize more helpful
+	* [#778] Allow wcommon 2
+	* [#779] Remove duplicate import
+
 ## [4.4.2](https://github.com/Workiva/over_react/compare/4.4.1...4.4.2)
 - [#770] Fix component names not showing in Error Boundary stacks for class-based components
 - [#769] Add [documentation for wrapping JS components](https://github.com/Workiva/over_react/blob/master/doc/wrapping_js_components.md) using `uiJsComponent`
