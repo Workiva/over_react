@@ -32,4 +32,4 @@ dev_dependencies:
 dependency_overrides:
   over_react:
     path: '../../../'
-  w_common: ^2.0.0
+
