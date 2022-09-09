@@ -11,7 +11,6 @@ analyzer:
     - ddc_precompiled/**
   errors:
     invalid_export_of_internal_element: warning
-    unused_import: warning
     duplicate_import: warning
     missing_required_param: error
     must_call_super: error
