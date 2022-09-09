@@ -1,8 +1,8 @@
 # OverReact Changelog
 
 ## [4.4.3](https://github.com/Workiva/over_react/compare/4.4.2...4.4.3)
-	* [#774] Make error message when component failed to initialize more helpful
-	* [#778] Allow w_common 2
+- [#774] Make error message when component failed to initialize more helpful
+- [#778] Allow w_common 2
 
 ## [4.4.2](https://github.com/Workiva/over_react/compare/4.4.1...4.4.2)
 - [#770] Fix component names not showing in Error Boundary stacks for class-based components
