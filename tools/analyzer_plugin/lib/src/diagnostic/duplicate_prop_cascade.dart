@@ -22,16 +22,27 @@ class DuplicatePropCascadeDiagnostic extends ComponentUsageDiagnosticContributor
       AnalysisErrorSeverity.WARNING,
       AnalysisErrorType.STATIC_TYPE_WARNING);
 
+  @override
+  List<DiagnosticCode> get codes => [code];
+
   static final fixKind = FixKind(code.name, 200, 'Remove duplicate prop keys / values');
 
   @override
   computeErrorsForUsage(result, collector, usage) async {
     final propUsagesByName = groupBy<PropAssignment, String>(usage.cascadedProps, (prop) {
-      if (prop.targetName != null && prop.targetName.name != 'dom') {
-        return '${prop.targetName.name}.${prop.name.name}';
+      final prefix = prop.prefix;
+      if (prefix != null && prefix.name != 'dom') {
+        return '${prefix.name}.${prop.name.name}';
       }
 
-      return prop.name.name;
+      // Prefix with the class the prop was declared in so that things like `.dom.type` don't conflict with an unrelated `type` prop.
+      final enclosingElementName = prop.staticElement?.enclosingElement?.name ?? '';
+      // If it comes from DomPropsMixin / UbiquitousDomPropsMixin, the key is considered non-namespaced.
+      if (['DomPropsMixin', 'UbiquitousDomPropsMixin'].contains(enclosingElementName)) {
+        return prop.name.name;
+      }
+
+      return '$enclosingElementName.${prop.name.name}';
     });
     final propUsagesWithDuplicates = propUsagesByName.values.where((usages) => usages.length > 1);
     for (final propUsages in propUsagesWithDuplicates) {

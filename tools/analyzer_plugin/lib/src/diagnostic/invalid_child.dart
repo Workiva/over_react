@@ -62,6 +62,9 @@ class InvalidChildDiagnostic extends ComponentUsageDiagnosticContributor {
   );
 
   @override
+  List<DiagnosticCode> get codes => [code];
+
+  @override
   computeErrorsForUsage(result, collector, usage) async {
     for (final argument in usage.node.argumentList.arguments) {
       await validateReactChildType(argument.staticType, result.typeSystem, result.typeProvider,
@@ -88,8 +91,8 @@ class InvalidChildDiagnostic extends ComponentUsageDiagnosticContributor {
   }
 }
 
-Future<void> validateReactChildType(DartType type, TypeSystem typeSystem, TypeProvider typeProvider,
-    {FutureOr<void> Function(DartType invalidType) onInvalidType}) async {
+Future<void> validateReactChildType(DartType? type, TypeSystem typeSystem, TypeProvider typeProvider,
+    {required FutureOr<void> Function(DartType invalidType) onInvalidType}) async {
   // Couldn't be resolved
   if (type == null) return;
   // Couldn't be resolved to anything more specific; `Object` might be
@@ -107,9 +110,8 @@ Future<void> validateReactChildType(DartType type, TypeSystem typeSystem, TypePr
   if (typeSystem.isSubtypeOf(type, typeProvider.iterableDynamicType)) {
     // Use the least-upper-bound to get the an instance of the Iterable type with matching type arguments.
     // e.g., leastUpperBound(`List<String>`, `Iterable<bottom>`) should yield `Iterable<String>`
-    final lub = typeSystem.leastUpperBound(type, typeProvider.iterableType2(typeProvider.bottomType));
-    final iterableTypeArg =
-        lub.isDartCoreIterable ? lub.tryCast<ParameterizedType>()?.typeArguments?.firstOrNull : null;
+    final lub = typeSystem.leastUpperBound(type, typeProvider.iterableType(typeProvider.bottomType));
+    final iterableTypeArg = lub.isDartCoreIterable ? lub.tryCast<ParameterizedType>()?.typeArguments.firstOrNull : null;
     if (iterableTypeArg != null) {
       await validateReactChildType(iterableTypeArg, typeSystem, typeProvider, onInvalidType: onInvalidType);
     }

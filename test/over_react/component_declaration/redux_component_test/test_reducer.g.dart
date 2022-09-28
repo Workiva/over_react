@@ -44,12 +44,8 @@ class _$BaseState extends BaseState {
       (new BaseStateBuilder()..update(updates)).build();
 
   _$BaseState._({this.count1, this.count2}) : super._() {
-    if (count1 == null) {
-      throw new BuiltValueNullFieldError('BaseState', 'count1');
-    }
-    if (count2 == null) {
-      throw new BuiltValueNullFieldError('BaseState', 'count2');
-    }
+    BuiltValueNullFieldError.checkNotNull(count1, 'BaseState', 'count1');
+    BuiltValueNullFieldError.checkNotNull(count2, 'BaseState', 'count2');
   }
 
   @override
@@ -95,9 +91,10 @@ class BaseStateBuilder implements Builder<BaseState, BaseStateBuilder> {
   BaseStateBuilder();
 
   BaseStateBuilder get _$this {
-    if (_$v != null) {
-      _count1 = _$v.count1;
-      _count2 = _$v.count2;
+    final $v = _$v;
+    if ($v != null) {
+      _count1 = $v.count1;
+      _count2 = $v.count2;
       _$v = null;
     }
     return this;
@@ -105,9 +102,7 @@ class BaseStateBuilder implements Builder<BaseState, BaseStateBuilder> {
 
   @override
   void replace(BaseState other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$BaseState;
   }
 
@@ -118,7 +113,12 @@ class BaseStateBuilder implements Builder<BaseState, BaseStateBuilder> {
 
   @override
   _$BaseState build() {
-    final _$result = _$v ?? new _$BaseState._(count1: count1, count2: count2);
+    final _$result = _$v ??
+        new _$BaseState._(
+            count1: BuiltValueNullFieldError.checkNotNull(
+                count1, 'BaseState', 'count1'),
+            count2: BuiltValueNullFieldError.checkNotNull(
+                count2, 'BaseState', 'count2'));
     replace(_$result);
     return _$result;
   }

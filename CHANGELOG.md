@@ -1,5 +1,48 @@
 # OverReact Changelog
 
+## [4.4.3](https://github.com/Workiva/over_react/compare/4.4.2...4.4.3)
+- [#774] Make error message when component failed to initialize more helpful
+- [#778] Allow w_common 2
+
+## [4.4.2](https://github.com/Workiva/over_react/compare/4.4.1...4.4.2)
+- [#770] Fix component names not showing in Error Boundary stacks for class-based components
+- [#769] Add [documentation for wrapping JS components](https://github.com/Workiva/over_react/blob/master/doc/wrapping_js_components.md) using `uiJsComponent`
+
+## [4.4.1](https://github.com/Workiva/over_react/compare/4.4.0...4.4.1)
+- [#764] (Example app) Widen uuid dependency
+
+## [4.4.0](https://github.com/Workiva/over_react/compare/4.3.1...4.4.0)
+
+- [#743] Add `js_component.dart` entrypoint with utilities for wrapping JS React components. More in-depth documentation around how to use these APIs and best practices is coming soon.
+
+#### Analyzer Plugin
+
+- Fix diagnostics not working in Dart >=2.13, by upgrading to analyzer_plugin 0.6.0
+- Diagnostics can be configured with custom severity, including disabling them ([docs](https://github.com/Workiva/over_react/blob/master/tools/analyzer_plugin/README.md#configuration))
+- New diagnostics:
+    - `over_react_create_ref_usage` - Warns when using createRef in a function component instead of useRef
+    - `over_react_non_defaulted_prop` - Warns when using a prop in a function component instead of a local variable that defaults the prop
+    - `over_react_rules_of_hooks` - Warns when calling hooks conditionally or using hooks outside of function components or custom hook functions
+    - `over_react_style_camel_case` - Warns when using non-camelCased keys in `style` maps, which get ignored by React
+- New assists:
+  - Convert between function and class component syntax (only moves code around and doesn't migrate lifecycle methods, state, hooks, etc.)
+- Improvements to existing features:
+    - `over_react_invalid_render_return_type` - Update to work with function components
+    - `over_react_duplicate_prop_cascade` - Fix duplicate DOM props not linting in certain cases
+    - "Add ref" assist and ref object quick fixes - Update to work with function components
+- Migrate most code to null safety, fix several potential null errors
+- Improve test coverage
+
+## [4.3.1](https://github.com/Workiva/over_react/compare/4.3.0...4.3.1)
+
+- [#736] Raise dependency upper bounds to allow analyzer 1.x, built_redux 8.x, dart_style 2.x, and quiver 3.x
+
+## [4.3.0](https://github.com/Workiva/over_react/compare/4.2.9...4.3.0)
+
+- [#742] Update AriaPropsMixin
+- [#737] Temporarily disable the mockito builder for better build perf
+- [#741] Replace deprecated commands with new dart commands
+
 ## [4.2.9](https://github.com/Workiva/over_react/compare/4.2.8...4.2.9)
 
 - [#733] Update SafeRenderManager to not be retained by the React tree it renders, to aid in memory leak testing. Outside of that context, this change has negligible effects.

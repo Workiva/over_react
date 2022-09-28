@@ -78,14 +78,14 @@ void main() {
       var renderedInstance = render(TestDefault()..store = store);
       TestDefaultComponent component = getDartComponent(renderedInstance);
 
-      store.actions.trigger1();
+      store.actions.trigger1(null);
       await Future.delayed(Duration.zero);
 
       expect(component.numberOfRedraws, 1);
 
       unmount(renderedInstance);
 
-      store.actions.trigger1();
+      store.actions.trigger1(null);
       await Future.delayed(Duration.zero);
 
       expect(component.numberOfRedraws, 1,
@@ -101,11 +101,11 @@ void main() {
       var renderedInstance = render(TestConnect()..store = stores);
       TestConnectComponent component = getDartComponent(renderedInstance);
 
-      stores.actions.trigger1();
+      stores.actions.trigger1(null);
       await Future.delayed(Duration.zero);
       expect(component.numberOfRedraws, 1);
 
-      stores.actions.trigger2();
+      stores.actions.trigger2(null);
       await Future.delayed(Duration.zero);
       expect(component.numberOfRedraws, 1);
     });
@@ -120,7 +120,7 @@ void main() {
         var jacket = mount<TestPureComponent>((TestPure()..store = store)());
         TestPureComponent component = jacket.getDartInstance();
 
-        store.actions.trigger1();
+        store.actions.trigger1(null);
         await Future.delayed(Duration.zero);
         expect(component.numberOfRedraws, 1);
       });
@@ -196,7 +196,7 @@ void main() {
       var jacket = mount<TestDefaultComponent>((TestDefault()..store = store)());
       TestDefaultComponent component = jacket.getDartInstance();
 
-      store.actions.trigger1();
+      store.actions.trigger1(null);
       await Future.delayed(Duration.zero);
       expect(component.numberOfRedraws, 1);
 
@@ -204,7 +204,7 @@ void main() {
 
       expect(component.numberOfRedraws, 2);
 
-      updatedStore.actions.trigger1();
+      updatedStore.actions.trigger1(null);
       await Future.delayed(Duration.zero);
       expect(component.numberOfRedraws, 3);
     });

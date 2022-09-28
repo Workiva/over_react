@@ -16,7 +16,6 @@ final $ErrorBoundaryComponentFactory = registerComponent2(
   componentClass: ErrorBoundaryComponent,
   isWrapper: true,
   parentType: null,
-  displayName: 'ErrorBoundary',
   skipMethods: const [],
 );
 
@@ -249,6 +248,9 @@ class _$ErrorBoundaryComponent extends ErrorBoundaryComponent {
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'ErrorBoundary';
 
   /// The default consumed props, taken from _$ErrorBoundaryProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.

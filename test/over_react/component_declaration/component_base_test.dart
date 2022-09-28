@@ -1507,7 +1507,7 @@ main() {
 
         test('displayName', () {
           var reactComponentFactory = registerComponent(dummyComponentFactory, displayName: 'testDisplayName');
-          expect(reactComponentFactory.type.displayName, equals('testDisplayName'));
+          expect(reactComponentFactory.type.displayName, isNot(equals('testDisplayName')), reason: 'The displayName parameter no longer sets the component\'s displayName.');
         });
 
         group('registers a type alias for', () {

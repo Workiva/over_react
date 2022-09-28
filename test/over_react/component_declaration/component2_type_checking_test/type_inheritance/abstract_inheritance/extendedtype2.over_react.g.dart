@@ -15,9 +15,8 @@ final $TestExtendtype2ComponentFactory = registerComponent2(
   builderFactory: _$TestExtendtype2,
   componentClass: TestExtendtype2Component,
   isWrapper: false,
-  parentType: $TestAbstract2ComponentFactory,
-  /* from `subtypeOf: TestAbstract2Component` */
-  displayName: 'TestExtendtype2',
+  parentType:
+      $TestAbstract2ComponentFactory, /* from `subtypeOf: TestAbstract2Component` */
 );
 
 abstract class _$TestExtendtype2PropsAccessorsMixin
@@ -144,6 +143,9 @@ class _$TestExtendtype2Component extends TestExtendtype2Component {
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'TestExtendtype2';
 
   /// The default consumed props, taken from _$TestExtendtype2Props.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.

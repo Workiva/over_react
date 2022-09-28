@@ -52,7 +52,7 @@ abstract class ContributorDocPage<T extends DocumentedContributorMetaBase> {
     }
   }
 
-  void generate(String filePath) {
+  void generate(String? filePath) {
     var generated = _generate();
     if (filePath != null) {
       var outPath = '$filePath/${contributor.name}.html';
@@ -82,7 +82,7 @@ abstract class ContributorDocPage<T extends DocumentedContributorMetaBase> {
          </header>
          <section>
 
-            ${markdownToHtml(contributor.details)}
+            ${markdownToHtml(contributor.details!)}
 
          </section>
       </div>

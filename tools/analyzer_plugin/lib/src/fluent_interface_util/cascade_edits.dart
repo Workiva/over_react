@@ -3,7 +3,6 @@ import 'package:analyzer/source/line_info.dart';
 import 'package:analyzer_plugin/utilities/change_builder/change_builder_dart.dart';
 import 'package:analyzer_plugin/utilities/range_factory.dart';
 import 'package:over_react_analyzer_plugin/src/component_usage.dart';
-import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 import 'package:over_react_analyzer_plugin/src/indent_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/util.dart';
 
@@ -12,10 +11,10 @@ void addProp(
   DartFileEditBuilder fileBuilder,
   String source,
   LineInfo lineInfo, {
-  String name,
-  String value,
-  void Function(DartEditBuilder builder) buildNameEdit,
-  void Function(DartEditBuilder builder) buildValueEdit,
+  String? name,
+  String? value,
+  void Function(DartEditBuilder builder)? buildNameEdit,
+  void Function(DartEditBuilder builder)? buildValueEdit,
   bool forceOwnLine = false,
 }) {
   if ((name == null) == (buildNameEdit == null)) {
@@ -38,7 +37,7 @@ void addProp(
   }
 
   if (usage.cascadeExpression != null) {
-    final sections = usage.cascadeExpression.cascadeSections;
+    final sections = usage.cascadeExpression!.cascadeSections;
     if (isSameLine(lineInfo, usage.node.function.offset, sections.first.offset)) {
       // todo handle some cascades being on separate lines
       // todo handle multiline cascades
@@ -57,7 +56,7 @@ void addProp(
     if (name != null) {
       builder.write(name);
     } else {
-      buildNameEdit(builder);
+      buildNameEdit!(builder);
     }
 
     if (value != null) {
@@ -82,7 +81,7 @@ void addProp(
 ///
 /// If [prop] is the last cascade on the parenthesized builder, this removes the parentheses for a better user experience.
 void removeProp(FluentComponentUsage usage, DartFileEditBuilder fileBuilder, PropAssignment prop) {
-  final cascade = usage.cascadeExpression;
+  final cascade = usage.cascadeExpression!;
   // Defensively check that this is a ParenthesizedExpression in case there's some weird syntax issue.
   final parenthesizedCascade = cascade.parent.tryCast<ParenthesizedExpression>();
 
@@ -91,6 +90,8 @@ void removeProp(FluentComponentUsage usage, DartFileEditBuilder fileBuilder, Pro
     // Remove from the first `..` through the closing paren, which also removes all whitespace/newlines as desired.
     fileBuilder.addDeletion(range.endEnd(cascade.target, parenthesizedCascade.rightParenthesis));
   } else {
-    fileBuilder.addDeletion(prop.rangeForRemoval); // ignore: invalid_use_of_protected_member
+    // Include the space between the previous token and the start of this assignment, so that
+    // the entire prop line is removed.
+    fileBuilder.addDeletion(range.endEnd(prop.node.beginToken.previous!, prop.node));
   }
 }
