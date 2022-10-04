@@ -23,7 +23,7 @@ class ConvertClassOrFunctionComponentAssistContributor extends AssistContributor
   static const convertToFunction = AssistKind('convertToFunction', 40, _convertToFunctionDesc);
 
   @override
-  Future<void> computeAssists(DartAssistRequest request, AssistCollector collector) async {
+  Future<void> computeAssists(request, collector) async {
     await super.computeAssists(request, collector);
     if (!setupCompute()) return;
 

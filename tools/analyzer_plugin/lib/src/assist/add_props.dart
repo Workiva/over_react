@@ -20,7 +20,7 @@ class AddPropsAssistContributor extends AssistContributorBase {
   static const addPropsKind = AssistKind('addProps', 31, 'Add props');
 
   @override
-  Future<void> computeAssists(DartAssistRequest request, AssistCollector collector) async {
+  Future<void> computeAssists(request, collector) async {
     await super.computeAssists(request, collector);
     if (!setupCompute()) return;
 

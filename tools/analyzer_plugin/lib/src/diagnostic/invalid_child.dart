@@ -66,8 +66,11 @@ class InvalidChildDiagnostic extends ComponentUsageDiagnosticContributor {
 
   @override
   computeErrorsForUsage(result, collector, usage) async {
+    final resolved = result.resolved;
+    if (resolved == null) return;
+
     for (final argument in usage.node.argumentList.arguments) {
-      await validateReactChildType(argument.staticType, result.typeSystem, result.typeProvider,
+      await validateReactChildType(argument.staticType, resolved.typeSystem, resolved.typeProvider,
           onInvalidType: (invalidType) async {
         final location = result.locationFor(argument);
 

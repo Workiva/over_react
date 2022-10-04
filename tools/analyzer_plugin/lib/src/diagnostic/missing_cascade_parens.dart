@@ -62,7 +62,10 @@ class MissingCascadeParensDiagnostic extends DiagnosticContributor {
 
   @override
   computeErrors(result, collector) async {
-    for (final error in result.errors) {
+    final resolved = result.resolved;
+    if (resolved == null) return;
+
+    for (final error in resolved.errors) {
       final isBadFunction = const {
         'INVOCATION_OF_NON_FUNCTION',
         'INVOCATION_OF_NON_FUNCTION_EXPRESSION',

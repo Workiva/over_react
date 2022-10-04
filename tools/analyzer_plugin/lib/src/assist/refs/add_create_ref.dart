@@ -1,4 +1,3 @@
-import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/source/line_info.dart';
@@ -8,6 +7,7 @@ import 'package:analyzer_plugin/utilities/pair.dart';
 import 'package:collection/collection.dart' show IterableExtension;
 import 'package:over_react_analyzer_plugin/src/component_usage.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/analyzer_debug_helper.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 import 'package:over_react_analyzer_plugin/src/indent_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
@@ -32,7 +32,7 @@ typedef CreateRefLinkedEditFn = void Function(
 void addUseOrCreateRef(
   DartFileEditBuilder builder,
   FluentComponentUsage usage,
-  ResolvedUnitResult result, {
+  PotentiallyResolvedResult result, {
   AnalyzerDebugHelper? debug,
 }) {
   const nameGroup = 'refName';
@@ -55,15 +55,18 @@ void addUseOrCreateRef(
   if (refProp != null) {
     // A fix is being used to replace a String / callback ref with a createRef reference.
     final rhs = refProp.rightHandSide;
-    if (rhs.staticType!.isDartCoreString) {
-      refTypeToReplace = RefTypeToReplace.string;
-      oldStringRefSource = rhs.toSource();
-    } else if (result.typeSystem.isSubtypeOf(rhs.staticType!, result.typeProvider.functionType)) {
-      callbackRefPropRhs = rhs;
-      refTypeToReplace = RefTypeToReplace.callback;
-      createRefField = _getRefCallbackAssignedField(rhs);
-      if (createRefField != null) {
-        createRefFieldName = createRefField.name!;
+    final staticType = rhs.staticType;
+    if (staticType != null) {
+      if (staticType.isDartCoreString) {
+        refTypeToReplace = RefTypeToReplace.string;
+        oldStringRefSource = rhs.toSource();
+      } else if (result.resolved?.typeSystem.isSubtypeOf(staticType, result.resolved!.typeProvider.functionType) ?? false) {
+        callbackRefPropRhs = rhs;
+        refTypeToReplace = RefTypeToReplace.callback;
+        createRefField = _getRefCallbackAssignedField(rhs);
+        if (createRefField != null) {
+          createRefFieldName = createRefField.name!;
+        }
       }
     }
 

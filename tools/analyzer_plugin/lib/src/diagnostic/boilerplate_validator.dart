@@ -69,7 +69,7 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
   /// Returns true if the [unit] representing a part file has declarations.
   ///
   /// Does not report any errors for the part file, as those are handled when the part file is analyzed
-  bool _partHasDeclarations(CompilationUnit unit, ResolvedUnitResult parentResult) {
+  bool _partHasDeclarations(CompilationUnit unit, PotentiallyResolvedResult parentResult) {
     return orbp
         .getBoilerplateDeclarations(
             orbp.detectBoilerplateMembers(unit),
@@ -88,7 +88,7 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
   ///
   /// Also returns whether the component has valid over_react declarations, which is useful in determining whether to
   /// validate the generated part directive.
-  Future<bool> _computeBoilerplateErrors(ResolvedUnitResult result, DiagnosticCollector collector) async {
+  Future<bool> _computeBoilerplateErrors(PotentiallyResolvedResult result, DiagnosticCollector collector) async {
     final debugMatch = _debugFlagPattern.firstMatch(result.content!);
     final debug = debugMatch != null;
     if (debug) {
@@ -161,7 +161,7 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
   }
 
   Future<void> _computePartDirectiveErrors(
-      ResolvedUnitResult result, DiagnosticCollector collector, bool hasDeclarations) async {
+      PotentiallyResolvedResult result, DiagnosticCollector collector, bool hasDeclarations) async {
     if (!hasDeclarations && _overReactGeneratedPartDirective != null) {
       await collector.addErrorWithFix(
         errorCode,
@@ -208,23 +208,35 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
     final parts = getNonGeneratedParts(result.unit!);
 
     // compute errors for parts files
-    var anyPartHasDeclarations = false;
+    var anyPartMightHaveDeclarations = false;
     for (final part in parts) {
       final uri = part.uriSource?.uri;
       // URI could not be resolved or source does not exist
-      if (uri == null) continue;
+      if (uri == null) {
+        // If it couldn't be resolved, proceed as if there might be declarations
+        // so we don't show the user an incorrect error.
+        anyPartMightHaveDeclarations = true;
+        continue;
+      }
       final partResult = result.session.getParsedUnit2(result.session.uriConverter.uriToPath(uri)!);
 
-      if (partResult is ParsedUnitResult && _partHasDeclarations(partResult.unit, result)) {
-        anyPartHasDeclarations = true;
+      if (partResult is! ParsedUnitResult) {
+        // If it couldn't be resolved, proceed as if there might be declarations
+        // so we don't show the user an incorrect error.
+        anyPartMightHaveDeclarations = true;
+        continue;
+      }
+
+      if (_partHasDeclarations(partResult.unit, result)) {
+        anyPartMightHaveDeclarations = true;
       }
     }
 
-    await _computePartDirectiveErrors(result, collector, hasDeclarations || anyPartHasDeclarations);
+    await _computePartDirectiveErrors(result, collector, hasDeclarations || anyPartMightHaveDeclarations);
   }
 
   Future<void> _addPartDirectiveErrorForMember({
-    required ResolvedUnitResult result,
+    required PotentiallyResolvedResult result,
     required DiagnosticCollector collector,
     required orbp.BoilerplateMember member,
     required PartDirectiveErrorType errorType,

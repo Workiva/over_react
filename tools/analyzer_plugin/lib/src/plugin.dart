@@ -30,18 +30,24 @@
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import 'dart:async';
+import 'dart:collection';
 
 import 'package:analyzer/dart/analysis/context_builder.dart';
 import 'package:analyzer/dart/analysis/context_locator.dart';
 import 'package:analyzer/dart/analysis/context_root.dart' as analyzer;
+import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/file_system/file_system.dart';
+
 // ignore: implementation_imports
 import 'package:analyzer/src/dart/analysis/context_builder.dart' show ContextBuilderImpl;
+
 // ignore: implementation_imports
 import 'package:analyzer/src/dart/analysis/driver.dart' show AnalysisDriver, AnalysisDriverGeneric;
 import 'package:analyzer_plugin/plugin/navigation_mixin.dart';
 import 'package:analyzer_plugin/plugin/plugin.dart';
+import 'package:analyzer_plugin/protocol/protocol.dart';
 import 'package:analyzer_plugin/protocol/protocol_generated.dart' as plugin;
+import 'package:analyzer_plugin/protocol/protocol_generated.dart';
 import 'package:analyzer_plugin/utilities/navigation/navigation.dart';
 import 'package:over_react_analyzer_plugin/src/analysis_options/plugin_analysis_options.dart';
 import 'package:over_react_analyzer_plugin/src/analysis_options/reader.dart';
@@ -78,18 +84,57 @@ import 'package:over_react_analyzer_plugin/src/diagnostic/variadic_children.dart
 import 'package:over_react_analyzer_plugin/src/diagnostic/variadic_children_with_keys.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 
+import 'assist/contributor_base.dart';
+
+enum RunMode {
+  resolved,
+  unresolved,
+}
+
 abstract class OverReactAnalyzerPluginBase extends ServerPlugin
     with
+    // Don't mix in anything Dart.+Mixin from analyzer_plugin, since it might request resolved results when we don't want it to.
 //    OutlineMixin, DartOutlineMixin,
         DiagnosticMixin,
         NavigationMixin,
-        DartNavigationMixin,
+        // DartNavigationMixin,
         AsyncAssistsMixin,
         AsyncDartAssistsMixin {
   OverReactAnalyzerPluginBase(ResourceProvider provider) : super(provider);
 
   @override
   final pluginOptionsReader = PluginOptionsReader();
+
+  RunMode get runMode => RunMode.unresolved;
+
+  @override
+  Future<PotentiallyResolvedDartAssistRequest> getAssistRequest(EditGetAssistsParams parameters) async {
+    final path = parameters.file;
+    final result = await getPotentiallyResolvedResult(path);
+    return DartPotentiallyResolvedDartAssistRequestImpl(resourceProvider, parameters.offset, parameters.length, result);
+  }
+
+  Future<PotentiallyResolvedResult> getPotentiallyResolvedResult(String path) async => runMode == RunMode.resolved
+      ? PotentiallyResolvedResult.resolved(await getResolvedUnitResult(path))
+      : PotentiallyResolvedResult.unresolved(getUnResolvedUnitResult(path));
+
+  /// Return the result of analyzing the file with the given [path].
+  ///
+  /// Throw a [RequestFailure] is the file cannot be analyzed or if the driver
+  /// associated with the file is not an [AnalysisDriver].
+  ParsedUnitResult getUnResolvedUnitResult(String path) {
+    var driver = driverForPath(path);
+    if (driver is! AnalysisDriver) {
+      // Return an error from the request.
+      throw RequestFailure(RequestErrorFactory.pluginError('Failed to parse $path', null));
+    }
+    var result = driver.getFileSync2(path);
+    if (result is! ParsedUnitResult) {
+      // Return an error from the request.
+      throw RequestFailure(RequestErrorFactory.pluginError('Failed to parse $path', null));
+    }
+    return result;
+  }
 
   @override
   List<String> get fileGlobsToAnalyze => const ['*.dart'];
@@ -179,7 +224,19 @@ abstract class OverReactAnalyzerPluginBase extends ServerPlugin
 
 /// Analyzer plugin for over_react.
 class OverReactAnalyzerPlugin extends OverReactAnalyzerPluginBase {
-  OverReactAnalyzerPlugin(ResourceProvider provider) : super(provider);
+  OverReactAnalyzerPlugin(ResourceProvider provider) : super(provider) {
+
+      runZonedGuarded(() {
+        _unresolvedWorker.pathsStream
+        .map((p) => (driverForPath(p) as AnalysisDriver).parseFileSync2(p))
+        .whereType<ParsedUnitResult>()
+        .map((p) => PotentiallyResolvedResult.unresolved(p))
+        .listen(processDiagnosticsForResult);
+      }, (e, stackTrace) {
+        channel.sendNotification(plugin.PluginErrorParams(false, e.toString(), stackTrace.toString()).toNotification());
+      });
+
+  }
 
   @override
   String get name => 'over_react';
@@ -209,26 +266,79 @@ class OverReactAnalyzerPlugin extends OverReactAnalyzerPluginBase {
           plugin.PluginErrorParams(false, 'Error fetching analysis context; assists may be unavailable', '')
               .toNotification());
     }
-    runZonedGuarded(() {
-      driver.results.listen(processDiagnosticsForResult);
-    }, (e, stackTrace) {
-      channel.sendNotification(plugin.PluginErrorParams(false, e.toString(), stackTrace.toString()).toNotification());
-    });
+
+    if (runMode == RunMode.resolved) {
+      runZonedGuarded(() {
+        driver.results.map((r) => PotentiallyResolvedResult.resolved(r)).listen(processDiagnosticsForResult);
+      }, (e, stackTrace) {
+        channel.sendNotification(plugin.PluginErrorParams(false, e.toString(), stackTrace.toString()).toNotification());
+      });
+    }
     return driver;
   }
 
-  @override
-  void contentChanged(String path) {
-    super.driverForPath(path)!.addFile(path);
-  }
+  final _unresolvedWorker = UnresolvedUnitWorker();
 
   @override
-  Future<plugin.AnalysisSetContextRootsResult> handleAnalysisSetContextRoots(
-      plugin.AnalysisSetContextRootsParams parameters) async {
-    final result = await super.handleAnalysisSetContextRoots(parameters);
-    // The super-call adds files to the driver, so we need to prioritize them so they get analyzed.
+  void contentChanged(String path) {
+    if (runMode == RunMode.resolved) {
+      super.driverForPath(path)!.addFile(path);
+    } else {
+      _unresolvedWorker.addPriorityPath(path);
+    }
+  }
+
+  /// Handle an 'analysis.setContextRoots' request.
+  ///
+  /// Throw a [RequestFailure] if the request could not be handled.
+  @override
+  Future<AnalysisSetContextRootsResult> handleAnalysisSetContextRoots(AnalysisSetContextRootsParams parameters) async {
+    var contextRoots = parameters.roots;
+    var oldRoots = driverMap.keys.toList();
+    for (final contextRoot in contextRoots) {
+      if (!oldRoots.remove(contextRoot)) {
+        // The context is new, so we create a driver for it. Creating the driver
+        // has the side-effect of adding it to the analysis driver scheduler.
+        var driver = createAnalysisDriver(contextRoot);
+        driverMap[contextRoot] = driver;
+        _addFilesToDriver(driver, resourceProvider.getResource(contextRoot.root), contextRoot.exclude);
+      }
+    }
+    for (final contextRoot in oldRoots) {
+      // The context has been removed, so we remove its driver.
+      var driver = driverMap.remove(contextRoot);
+      // The `dispose` method has the side-effect of removing the driver from
+      // the analysis driver scheduler.
+      driver?.dispose();
+    }
+
     _updatePriorityFiles();
-    return result;
+
+    return AnalysisSetContextRootsResult();
+  }
+
+  /// Add all of the files contained in the given [resource] that are not in the
+  /// list of [excluded] resources to the given [driver].
+  void _addFilesToDriver(AnalysisDriverGeneric driver, Resource resource, List<String> excluded) {
+    var path = resource.path;
+    if (excluded.contains(path)) {
+      return;
+    }
+    if (resource is File) {
+      if (runMode == RunMode.resolved) {
+        driver.addFile(path);
+      } else {
+        _unresolvedWorker.addPath(path);
+      }
+    } else if (resource is Folder) {
+      try {
+        for (var child in resource.getChildren()) {
+          _addFilesToDriver(driver, child, excluded);
+        }
+      } on FileSystemException {
+        // The folder does not exist, so ignore it.
+      }
+    }
   }
 
   List<String> _filesFromSetPriorityFilesRequest = [];
@@ -252,26 +362,61 @@ class OverReactAnalyzerPlugin extends OverReactAnalyzerPluginBase {
   /// As a result, [processDiagnosticsForResult] will get called with resolved units, and thus all of our diagnostics
   /// will get run on all files in the repo instead of only the currently open/edited ones!
   void _updatePriorityFiles() {
-    final filesToFullyResolve = {
-      // Ensure these go first, since they're actually considered priority; ...
-      ..._filesFromSetPriorityFilesRequest,
+    if (runMode == RunMode.resolved) {
+      final filesToFullyResolve = {
+        // Ensure these go first, since they're actually considered priority; ...
+        ..._filesFromSetPriorityFilesRequest,
 
-      /// ... all other files need to be analyzed, but don't trump priority/
-      for (var driver2 in driverMap.values) ...(driver2 as AnalysisDriver).addedFiles,
-    };
+        /// ... all other files need to be analyzed, but don't trump priority/
+        for (var driver2 in driverMap.values) ...(driver2 as AnalysisDriver).addedFiles,
+      };
 
-    // From ServerPlugin.handleAnalysisSetPriorityFiles
-    final filesByDriver = <AnalysisDriverGeneric, List<String>>{};
-    for (final file in filesToFullyResolve) {
-      var contextRoot = contextRootContaining(file);
-      if (contextRoot != null) {
-        // TODO(brianwilkerson) Which driver should we use if there is no context root?
-        var driver = driverMap[contextRoot]!;
-        filesByDriver.putIfAbsent(driver, () => <String>[]).add(file);
+      // From ServerPlugin.handleAnalysisSetPriorityFiles
+      final filesByDriver = <AnalysisDriverGeneric, List<String>>{};
+      for (final file in filesToFullyResolve) {
+        var contextRoot = contextRootContaining(file);
+        if (contextRoot != null) {
+          // TODO(brianwilkerson) Which driver should we use if there is no context root?
+          var driver = driverMap[contextRoot]!;
+          filesByDriver.putIfAbsent(driver, () => <String>[]).add(file);
+        }
       }
+      filesByDriver.forEach((driver, files) {
+        driver.priorityFiles = files;
+      });
+    } else {
+      _filesFromSetPriorityFilesRequest.reversed.forEach(_unresolvedWorker.addPriorityPath);
     }
-    filesByDriver.forEach((driver, files) {
-      driver.priorityFiles = files;
-    });
   }
+}
+
+class UnresolvedUnitWorker {
+  final _queue = Queue<String>();
+
+  void addPath(String path) {
+    if (!_queue.contains(path)) {
+      _queue.add(path);
+      _sc.add(null);
+    }
+  }
+
+  void addPriorityPath(String path) {
+    _queue.remove(path);
+    _queue.addFirst(path);
+    _sc.add(null);
+  }
+
+  void removePath(String path) {}
+
+  late final _sc = StreamController<void>();
+
+  Stream<String> get pathsStream => _sc.stream.asyncExpand((_) async* {
+        if (_queue.isNotEmpty) {
+          yield _queue.removeFirst();
+        }
+      });
+}
+
+extension<E> on Stream<E> {
+  Stream<T> whereType<T extends E>() => where((e) => e is T).cast();
 }

@@ -69,10 +69,13 @@ class CallbackRefDiagnostic extends ComponentUsageDiagnosticContributor {
 
   @override
   computeErrorsForUsage(result, collector, usage) async {
+    final resolved = result.resolved;
+    if (resolved == null) return;
+
     for (final prop in usage.cascadedProps) {
       if (prop.name.name == 'ref') {
         final rhsStaticType = prop.rightHandSide.staticType;
-        if (rhsStaticType != null && result.typeSystem.isSubtypeOf(rhsStaticType, result.typeProvider.functionType)) {
+        if (rhsStaticType != null && resolved.typeSystem.isSubtypeOf(rhsStaticType, resolved.typeProvider.functionType)) {
           if (prop.rightHandSide is SimpleIdentifier) {
             // Its a tearoff. The `addUseOrCreateRef` utility we use to build fixes is not
             // yet able to handle tearoff callback refs, so just add the error.

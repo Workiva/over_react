@@ -27,13 +27,14 @@
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/file_system/file_system.dart';
 import 'package:analyzer_plugin/plugin/plugin.dart';
 import 'package:analyzer_plugin/protocol/protocol.dart';
 import 'package:analyzer_plugin/protocol/protocol_generated.dart';
-import 'package:analyzer_plugin/utilities/assist/assist.dart';
+import 'package:analyzer_plugin/utilities/assist/assist.dart' hide AssistRequest, DartAssistRequest;
 import 'package:analyzer_plugin/utilities/generator.dart';
+import 'package:over_react_analyzer_plugin/src/assist/contributor_base.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 
 /// A concrete implementation of [AssistCollector].
 class _AssistCollectorImpl implements AssistCollector {
@@ -52,7 +53,7 @@ class _AssistCollectorImpl implements AssistCollector {
 abstract class AsyncAssistContributor {
   /// Contribute assists for the location in the file specified by the given
   /// [request] into the given [collector].
-  Future<void> computeAssists(covariant AssistRequest request, AssistCollector collector);
+  Future<void> computeAssists(PotentiallyResolvedDartAssistRequest request, AssistCollector collector);
 }
 
 /// A generator that will generate an 'edit.getAssists' response.
@@ -69,7 +70,7 @@ class _AsyncAssistGenerator {
   /// Create an 'edit.getAssists' response for the location in the file specified
   /// by the given [request]. If any of the contributors throws an exception,
   /// also create a non-fatal 'plugin.error' notification.
-  Future<GeneratorResult<EditGetAssistsResult>> generateAssistsResponse(AssistRequest request) async {
+  Future<GeneratorResult<EditGetAssistsResult>> generateAssistsResponse(PotentiallyResolvedDartAssistRequest request) async {
     final notifications = <Notification>[];
     final collector = _AssistCollectorImpl();
     for (final contributor in contributors) {
@@ -98,7 +99,7 @@ mixin AsyncAssistsMixin on ServerPlugin {
   /// returned from [getAssistContributors].
   ///
   /// Throw a [RequestFailure] if the request could not be created.
-  Future<AssistRequest> getAssistRequest(EditGetAssistsParams parameters);
+  Future<PotentiallyResolvedDartAssistRequest> getAssistRequest(EditGetAssistsParams parameters);
 
   @override
   Future<EditGetAssistsResult> handleEditGetAssists(EditGetAssistsParams parameters) async {
@@ -120,17 +121,13 @@ mixin AsyncAssistsMixin on ServerPlugin {
 /// [AsyncAssistsMixin] as a mix-in.
 mixin AsyncDartAssistsMixin on AsyncAssistsMixin {
   @override
-  Future<AssistRequest> getAssistRequest(EditGetAssistsParams parameters) async {
-    final path = parameters.file;
-    final result = await getResolvedUnitResult(path);
-    return _DartAssistRequestImpl(resourceProvider, parameters.offset, parameters.length, result);
-  }
+  Future<PotentiallyResolvedDartAssistRequest> getAssistRequest(EditGetAssistsParams parameters);
 }
 
 /// A concrete implementation of [DartAssistRequest].
-class _DartAssistRequestImpl implements DartAssistRequest {
+class DartPotentiallyResolvedDartAssistRequestImpl implements PotentiallyResolvedDartAssistRequest {
   /// Initialize a newly create request with the given data.
-  _DartAssistRequestImpl(this.resourceProvider, this.offset, this.length, this.result);
+  DartPotentiallyResolvedDartAssistRequestImpl(this.resourceProvider, this.offset, this.length, this.result);
 
   @override
   final ResourceProvider resourceProvider;
@@ -142,5 +139,5 @@ class _DartAssistRequestImpl implements DartAssistRequest {
   final int length;
 
   @override
-  final ResolvedUnitResult result;
+  final PotentiallyResolvedResult result;
 }

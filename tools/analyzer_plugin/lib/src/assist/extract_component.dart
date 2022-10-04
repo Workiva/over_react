@@ -22,7 +22,7 @@ abstract class _ExtractComponentAssistContributorBase extends AssistContributorB
   BoilerplateLinkedEditFn get addBoilerplateLinkedEditFn;
 
   @override
-  Future<void> computeAssists(DartAssistRequest request, AssistCollector collector) async {
+  Future<void> computeAssists(request, collector) async {
     // Only compute when there's a selection
     //
     // TODO: Its pretty annoying that if your selection includes the semi-colon at the end of a return statement, the length is zero.

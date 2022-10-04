@@ -1,4 +1,3 @@
-import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 
@@ -10,7 +9,7 @@ class AnalyzerDebugHelper {
 
   AnalyzerDebugHelper(this.result, this.collector, {this.enabled = false});
 
-  final ResolvedUnitResult result;
+  final PotentiallyResolvedResult result;
   final DiagnosticCollector collector;
   static const code = DiagnosticCode(
     'over_react_debug_analyzer_plugin_helper',

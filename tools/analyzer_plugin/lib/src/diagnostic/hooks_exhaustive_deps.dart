@@ -22,7 +22,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/syntactic_entity.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
@@ -84,14 +83,14 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
   // Variables referenced in helper methods, which are easier to temporarily set on the class than pass around.
   // Since these variables can't be non-nullable, expose non-nullable getters so that we don't have to use `!` everywhere,
   // and so that we get better error messages if they're ever null.
-  ResolvedUnitResult? _result;
+  PotentiallyResolvedResult? _result;
   DiagnosticCollector? _collector;
   AnalyzerDebugHelper? _debugHelper;
 
   StateError _uninitializedError(String name) =>
       StateError('$name is null. Check computeErrors to make sure it is initialized.');
 
-  ResolvedUnitResult get result => _result ?? (throw _uninitializedError('result'));
+  PotentiallyResolvedResult get result => _result ?? (throw _uninitializedError('result'));
 
   DiagnosticCollector get collector => _collector ?? (throw _uninitializedError('collector'));
 
@@ -99,6 +98,8 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
 
   @override
   Future<void> computeErrors(result, collector) async {
+    if (result.resolved == null) return;
+
     try {
       _result = result;
       _collector = collector;

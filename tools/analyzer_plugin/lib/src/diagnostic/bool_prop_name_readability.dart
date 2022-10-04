@@ -43,7 +43,9 @@ class BoolPropNameReadabilityDiagnostic extends DiagnosticContributor {
 
   @override
   computeErrors(result, collector) async {
-    final typeProvider = result.libraryElement.typeProvider;
+    final typeProvider = result.resolved?.typeProvider;
+    if (typeProvider == null)  return;
+
     final visitor = PropsVisitor();
 
     result.unit!.accept(visitor);

@@ -66,6 +66,9 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
 
   @override
   computeErrorsForUsage(result, collector, usage) async {
+    final resolved = result.resolved;
+    if (resolved == null) return;
+
     final requiredFields = <FieldElement>[];
 
     // FIXME this almost definitely needs optimization/caching
@@ -105,7 +108,7 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
 
           // ignore: unnecessary_parenthesis
           final accessorClass = (_cachedAccessorClass ??= typeLibrary.getType('Accessor')!);
-          if (!result.typeSystem.isAssignableTo(type, accessorClass.thisType)) {
+          if (!resolved.typeSystem.isAssignableTo(type, accessorClass.thisType)) {
             return false;
           }
 

@@ -3,6 +3,9 @@
 import 'dart:async';
 
 import 'package:analyzer/dart/analysis/results.dart';
+import 'package:analyzer/dart/analysis/session.dart';
+import 'package:analyzer/dart/ast/ast.dart';
+import 'package:analyzer/source/line_info.dart';
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:analyzer_plugin/protocol/protocol_generated.dart';
 import 'package:analyzer_plugin/utilities/fixes/fixes.dart';
@@ -102,23 +105,44 @@ abstract class DiagnosticContributor {
 
   /// Contribute errors for the location in the file specified by the given
   /// [result] into the given [collector].
-  Future<void> computeErrors(ResolvedUnitResult result, DiagnosticCollector collector);
+  Future<void> computeErrors(PotentiallyResolvedResult result, DiagnosticCollector collector);
+}
+
+
+class PotentiallyResolvedResult {
+  final ResolvedUnitResult? resolved;
+  final ParsedUnitResult? unresolved;
+
+  CompilationUnit? get unit => resolved?.unit ?? unresolved?.unit;
+  String? get content => resolved?.content ?? unresolved?.content;
+
+  PotentiallyResolvedResult.resolved(ResolvedUnitResult this.resolved) : unresolved = null;
+  PotentiallyResolvedResult.unresolved(ParsedUnitResult this.unresolved) : resolved = null;
+
+  String? get path => resolved?.path ?? unresolved?.path;
+  Uri get uri => (resolved?.uri ?? unresolved?.uri)!;
+
+  AnalysisSession get session => (resolved?.session ?? unresolved?.session)!;
+
+  LineInfo get lineInfo => (resolved?.lineInfo ?? unresolved?.lineInfo)!;
+
+  bool get isPart => (resolved?.isPart ?? unresolved?.isPart)!;
 }
 
 abstract class ComponentUsageDiagnosticContributor extends DiagnosticContributor {
   // computeErrorsForUsage(result, collector, usage) async {
   Future<void> computeErrorsForUsage(
-      ResolvedUnitResult result, DiagnosticCollector collector, FluentComponentUsage usage);
+      PotentiallyResolvedResult result, DiagnosticCollector collector, FluentComponentUsage usage);
 
   @override
-  Future<void> computeErrors(ResolvedUnitResult result, DiagnosticCollector collector) async {
+  Future<void> computeErrors(PotentiallyResolvedResult result, DiagnosticCollector collector) async {
     final usages = <FluentComponentUsage>[];
     result.unit!.accept(ComponentUsageVisitor(usages.add));
     await computeErrorsForUsages(result, collector, usages);
   }
 
   Future<void> computeErrorsForUsages(
-      ResolvedUnitResult result, DiagnosticCollector collector, Iterable<FluentComponentUsage> usages) async {
+      PotentiallyResolvedResult result, DiagnosticCollector collector, Iterable<FluentComponentUsage> usages) async {
     for (final usage in usages) {
       await computeErrorsForUsage(result, collector, usage);
     }

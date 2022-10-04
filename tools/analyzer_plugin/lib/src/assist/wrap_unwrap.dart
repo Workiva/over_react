@@ -36,7 +36,7 @@ class WrapUnwrapAssistContributor extends AssistContributorBase {
   static const wrapInElement = AssistKind('wrapInElement', 30, _desc);
 
   @override
-  Future<void> computeAssists(DartAssistRequest request, AssistCollector collector) async {
+  Future<void> computeAssists(request, collector) async {
     await super.computeAssists(request, collector);
     if (!setupCompute()) return;
 

@@ -27,7 +27,7 @@ class AddUseOrCreateRefAssistContributor extends AssistContributorBase {
   static const addRef = AssistKind('addRef', 32, 'Add ref');
 
   @override
-  Future<void> computeAssists(DartAssistRequest request, AssistCollector collector) async {
+  Future<void> computeAssists(request, collector) async {
     await super.computeAssists(request, collector);
     if (!setupCompute()) return;
 

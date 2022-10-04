@@ -1,4 +1,3 @@
-import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/variadic_children.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
@@ -81,7 +80,7 @@ class IteratorKey extends ComponentUsageDiagnosticContributor {
   static final mappedIterableFixKind = FixKind(code.name, 200, 'Add a key');
 
   @override
-  computeErrorsForUsage(ResolvedUnitResult result, DiagnosticCollector collector, FluentComponentUsage usage) async {
+  computeErrorsForUsage(PotentiallyResolvedResult result, DiagnosticCollector collector, FluentComponentUsage usage) async {
     final arguments = usage.node.argumentList.arguments;
 
     for (final argument in arguments) {

@@ -118,6 +118,10 @@ class RenderReturnValueDiagnostic extends DiagnosticContributor {
 
   @override
   computeErrors(result, collector) async {
+
+    final resolved = result.resolved;
+    if (resolved == null) return;
+
     // This is the return type even if it's not explicitly declared.
     final classComponentVisitor = ClassComponentRenderVisitor();
     result.unit!.accept(classComponentVisitor);
@@ -134,7 +138,7 @@ class RenderReturnValueDiagnostic extends DiagnosticContributor {
         continue;
       }
 
-      await validateReactChildType(returnType, result.typeSystem, result.typeProvider,
+      await validateReactChildType(returnType, resolved.typeSystem, resolved.typeProvider,
           onInvalidType: (invalidType) async {
         const code = invalidTypeErrorCode;
         final location = result.locationFor(returnExpression);

@@ -93,7 +93,7 @@ mixin ComponentDeclarationAssistApi on AssistContributorBase {
   ///
   ///     class ExampleAssist extends AssistContributorBase with ComponentDeclarationAssistApi {
   ///       @override
-  ///       Future<void> computeAssists(DartAssistRequest request, AssistCollector collector) async {
+  ///       Future<void> computeAssists(request, collector) async {
   ///         await super.computeAssists(request, collector);
   ///         if (!setupCompute()) return;
   ///

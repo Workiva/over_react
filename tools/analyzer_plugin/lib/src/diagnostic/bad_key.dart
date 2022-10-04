@@ -1,4 +1,3 @@
-import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:analyzer/dart/element/element.dart';
@@ -129,7 +128,7 @@ class BadKeyDiagnostic extends ComponentUsageDiagnosticContributor {
   }
 
   static void processToStringedExpressionInKey(
-    ResolvedUnitResult result,
+    PotentiallyResolvedResult result,
     DiagnosticCollector collector,
     Expression expression,
   ) {
@@ -140,7 +139,9 @@ class BadKeyDiagnostic extends ComponentUsageDiagnosticContributor {
     // Type can't be resolved; bail out.
     if (topLevelKeyType == null) return;
 
-    final typedProvider = result.typeProvider;
+    final typedProvider = result.resolved?.typeProvider;
+    final typeSystem = result.resolved?.typeSystem;
+    if (typedProvider == null || typeSystem == null) return;
 
     // Special-case for Iterables and Maps: check if their (keys and) values are allowed types.
     final isIterableOrMap =
@@ -149,7 +150,7 @@ class BadKeyDiagnostic extends ComponentUsageDiagnosticContributor {
             [
               typedProvider.iterableType(typedProvider.dynamicType),
               typedProvider.mapType(typedProvider.dynamicType, typedProvider.dynamicType),
-            ].any((type) => result.typeSystem.isSubtypeOf(topLevelKeyType, type));
+            ].any((type) => typeSystem.isSubtypeOf(topLevelKeyType, type));
 
     final keyTypesToProcess = {
       if (isIterableOrMap) ...(topLevelKeyType as InterfaceType).typeArguments else topLevelKeyType,

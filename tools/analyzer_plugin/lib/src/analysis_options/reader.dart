@@ -1,8 +1,8 @@
 import 'package:analyzer/dart/analysis/context_root.dart';
-import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/file_system/file_system.dart' as analyzer_fs;
 import 'package:over_react_analyzer_plugin/src/analysis_options/parse.dart';
 import 'package:over_react_analyzer_plugin/src/analysis_options/plugin_analysis_options.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 
 /// An analysis_options.yaml reader that parses the appropriate analysis_options.yaml file
 /// and returns the configuration options for the over react analyzer plugin.
@@ -12,7 +12,7 @@ import 'package:over_react_analyzer_plugin/src/analysis_options/plugin_analysis_
 class PluginOptionsReader {
   final _cachedAnalysisOptions = <String, PluginAnalysisOptions?>{};
 
-  PluginAnalysisOptions? getAnalysisOptionsForResult(ResolvedUnitResult result) =>
+  PluginAnalysisOptions? getAnalysisOptionsForResult(PotentiallyResolvedResult result) =>
       getOptionsForContextRoot(result.session.analysisContext.contextRoot);
 
   PluginAnalysisOptions? getOptionsForContextRoot(ContextRoot root) {
