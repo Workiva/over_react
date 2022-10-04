@@ -944,32 +944,40 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
             // fix unsafe. Functions _probably_ won't be mutated, so we'll
             // allow this fix for them.
             depType == _DepType.function) {
-          // FIXME(greg) is it safe to assume this here?
-          final constructionInitializer = construction.initializer!;
-
-          await collector.addErrorWithFix(
-            HooksExhaustiveDeps.code,
-            result.locationFor(construction),
-            errorMessageArgs: [message],
-            fixKind: HooksExhaustiveDeps.fixKind,
-            fixMessageArgs: ["Wrap the $constructionType of '$constructionName' in its own $wrapperHook() Hook."],
-            computeFix: () => buildGenericFileEdit(
-              result,
-              (builder) {
-                // TODO: ideally we'd gather deps here but it would require
-                // restructuring the rule code. Note we're
-                // not adding [] because would that changes semantics.
-                if (wrapperHook == 'useMemo') {
-                  builder.addSimpleInsertion(constructionInitializer.offset, '$wrapperHook(() => ');
-                  builder.addSimpleInsertion(constructionInitializer.end, ')');
-                } else {
-                  builder.addSimpleInsertion(constructionInitializer.offset, '$wrapperHook(');
-                  // Add a placeholder here so there isn't a static error about using useCallback with the wrong number of arguments.
-                  builder.addSimpleInsertion(constructionInitializer.end, ', [/* FIXME add dependencies */])');
-                }
-              },
-            ),
-          );
+          // At the time of writing, this is currently always non-null here, but that isn't guaranteed in null safety
+          // and may change in the future..
+          final constructionInitializer = construction.initializer;
+          if (constructionInitializer == null) {
+            collector.addError(
+              HooksExhaustiveDeps.code,
+              result.locationFor(construction),
+              errorMessageArgs: [message],
+            );
+          } else {
+            await collector.addErrorWithFix(
+              HooksExhaustiveDeps.code,
+              result.locationFor(construction),
+              errorMessageArgs: [message],
+              fixKind: HooksExhaustiveDeps.fixKind,
+              fixMessageArgs: ["Wrap the $constructionType of '$constructionName' in its own $wrapperHook() Hook."],
+              computeFix: () => buildGenericFileEdit(
+                result,
+                (builder) {
+                  // TODO: ideally we'd gather deps here but it would require
+                  // restructuring the rule code. Note we're
+                  // not adding [] because would that changes semantics.
+                  if (wrapperHook == 'useMemo') {
+                    builder.addSimpleInsertion(constructionInitializer.offset, '$wrapperHook(() => ');
+                    builder.addSimpleInsertion(constructionInitializer.end, ')');
+                  } else {
+                    builder.addSimpleInsertion(constructionInitializer.offset, '$wrapperHook(');
+                    // Add a placeholder here so there isn't a static error about using useCallback with the wrong number of arguments.
+                    builder.addSimpleInsertion(constructionInitializer.end, ', [/* FIXME add dependencies */])');
+                  }
+                },
+              ),
+            );
+          }
           continue;
         }
 

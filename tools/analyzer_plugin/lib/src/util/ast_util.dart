@@ -161,8 +161,14 @@ class PropertyInvocation {
     required this.isNullAware,
   });
 
-  // FIXME add null check and error message for
-  factory PropertyInvocation.from(InvocationExpression node) => detect(node)!;
+  factory PropertyInvocation.from(InvocationExpression node) {
+    final detected = detect(node);
+    if (detected == null) {
+      throw ArgumentError.value(node, 'node',
+          'Node does not represent a property invocation. Consider using PropertyInvocation.detect instead, which returns a nullable result.');
+    }
+    return detected;
+  }
 
   static PropertyInvocation? detect(AstNode node) {
     if (node is! InvocationExpression) return null;
