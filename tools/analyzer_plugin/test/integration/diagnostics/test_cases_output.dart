@@ -7650,6 +7650,71 @@ final Map<String, List<Map<String, Object>>> testsTypescript = {
     },
     {
       // No special case for this one. Once they add the dependency, they'll get a better message.
+      'name': 'StateHook not a dependency, callback uses whole object and `value`',
+      'code': r''' 
+        final MyComponent = uiFunction<TestProps>((_) {
+          final count = useState(0);
+          useEffect(() {
+            print(count);
+            print(count.value);
+          }, []);
+        }, null);
+      ''',
+      'errors': [
+        {
+          'message':
+              'React Hook useEffect has a missing dependency: \'count\'. Either include it or remove the dependency list.',
+          'suggestions': [
+            {
+              'desc': 'Update the dependencies list to be: [count]',
+              'output': r'''
+                final MyComponent = uiFunction<TestProps>((_) {
+                  final count = useState(0);
+                  useEffect(() {
+                    print(count);
+                    print(count.value);
+                  }, [count]);
+                }, null);
+              '''
+            }
+          ],
+        }
+      ],
+    },
+    {
+      'name': 'StateHook not a dependency, callback uses whole object and stable setter',
+      'code': r''' 
+        final MyComponent = uiFunction<TestProps>((_) {
+          final count = useState(0);
+          useEffect(() {
+            print(count);
+            count.set(1);
+          }, []);
+        }, null);
+      ''',
+      'errors': [
+        {
+          'message':
+              'React Hook useEffect has a missing dependency: \'count\'. Either include it or remove the dependency list.',
+          'suggestions': [
+            {
+              'desc': 'Update the dependencies list to be: [count]',
+              'output': r'''
+                final MyComponent = uiFunction<TestProps>((_) {
+                  final count = useState(0);
+                  useEffect(() {
+                    print(count);
+                    count.set(1);
+                  }, [count]);
+                }, null);
+              '''
+            }
+          ],
+        }
+      ],
+    },
+    {
+      // No special case for this one. Once they add the dependency, they'll get a better message.
       'name': 'StateHook not a dependency, callback uses whole object and and `value` and stable setter',
       'code': r''' 
         final MyComponent = uiFunction<TestProps>((_) {
@@ -7683,6 +7748,39 @@ final Map<String, List<Map<String, Object>>> testsTypescript = {
         }
       ],
     },
+    {
+      // This test case is redundant with another test above, but is added among this set of tests for completeness.
+      'name': 'StateHook not a dependency, callback uses value and stable setter',
+      'code': r''' 
+        final MyComponent = uiFunction<TestProps>((_) {
+          final count = useState(0);
+          useEffect(() {
+            print(count.value);
+            count.set(1);
+          }, []);
+        }, null);
+      ''',
+      'errors': [
+        {
+          'message':
+              'React Hook useEffect has a missing dependency: \'count.value\'. Either include it or remove the dependency list.',
+          'suggestions': [
+            {
+              'desc': 'Update the dependencies list to be: [count.value]',
+              'output': r'''
+                final MyComponent = uiFunction<TestProps>((_) {
+                  final count = useState(0);
+                  useEffect(() {
+                    print(count.value);
+                    count.set(1);
+                  }, [count.value]);
+                }, null);
+              '''
+            }
+          ],
+        }
+      ],
+    }
   ],
 };
 

@@ -148,8 +148,6 @@ class SomeObject {
           });
         });
 
-        //fixme add regression test for this case: useEffect(() {state.set(1);state.value;}, [])
-
         group('test cases that should warn', () {
           suite['invalid'].forEachIndexed((i, element) {
             final testCase = TestCase.fromJson(element);
