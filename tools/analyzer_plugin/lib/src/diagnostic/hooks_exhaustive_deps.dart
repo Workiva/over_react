@@ -1746,7 +1746,10 @@ String? getConstructionExpressionType(Expression node) {
     return null;
   } else if (node is AsExpression) {
     return getConstructionExpressionType(node.expression);
-  } else if (node is InvocationExpression && (node.staticType?.isReactElement ?? false)) {
+    // We can't just check for InvocationExpression with a staticType of ReactElement, since that gives false positives
+    // for certain stable functions that return the same ReactElement (e.g., useMemo, render props).
+    // Look for a component usage instead.
+  } else if (node is InvocationExpression && getComponentUsage(node) != null) {
     return _DepType.reactElement;
   } else if (node.staticType?.isStateHook ?? false) {
     return _DepType.stateHook;
