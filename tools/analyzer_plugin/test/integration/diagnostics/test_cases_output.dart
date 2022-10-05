@@ -7250,6 +7250,8 @@ final Map<String, List<Map<String, Object>>> testsTypescript = {
       ],
     },
     {
+      // For now, we recommend the value as a dependency,
+      // but in a future improvement could recommend the property.
       'name': 'StateHook as dependency, callback uses property on `value`',
       'code': r'''
         final MyComponent = uiFunction<TestProps>((_) {
@@ -7263,16 +7265,16 @@ final Map<String, List<Map<String, Object>>> testsTypescript = {
         {
           'message':
               'The \'count\' StateHook (from useState) makes the dependencies of React Hook useEffect change every render, and should not itself be a dependency.'
-                  ' Since \'count.value.isEven\' is being used, depend on it instead.',
+                  ' Since \'count.value\' is being used, depend on it instead.',
           'suggestions': [
             {
-              'desc': 'Change the dependency to: count.value.isEven',
+              'desc': 'Change the dependency to: count.value',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((_) {
                   final count = useState(0);
                   useEffect(() {
                     print(count.value.isEven);
-                  }, [count.value.isEven]);
+                  }, [count.value]);
                 }, null);
               ''',
             },

@@ -858,7 +858,7 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
           final usesOnlyStableValues = stableMembersUsed.isNotEmpty && unstableMembersUsed.isEmpty && !usesWholeValue;
 
           // todo(greg) use references instead?
-          // FIXME(greg) sub-properties?
+          // TODO(greg) Recommend sub-properties as dependencies
           final suggestedUnstableMemberDependencies = unstableMembersUsed.map((m) => '$declaredDepSource.$m').toList();
 
           final messageBuffer = StringBuffer()
