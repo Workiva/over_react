@@ -1376,7 +1376,19 @@ final Map<String, List<Map<String, Object>>> tests = {
           }, [_button]);
         }, null);
       '''
-    }
+    },
+    {
+      'name': 'Generic type parameter referenced inside callback from outer scope',
+      'code': r'''
+        UiFactory createComponent<T>() {
+          return uiFunction<TestProps>((_) {
+            useEffect(() {
+              final items = <T>[];
+            }, []);
+          }, null);
+        }
+      ''',
+    },
   ],
   'invalid': [
     {
@@ -7780,7 +7792,35 @@ final Map<String, List<Map<String, Object>>> testsTypescript = {
           ],
         }
       ],
-    }
+    },
+    {
+      'name': 'Generic type parameter referenced inside callback from pure scope',
+      'code': r'''
+        void useSomething<T>() {
+          useEffect(() {
+            final items = <T>[];
+          }, []);
+        }
+      ''',
+      'errors': [
+        {
+          'message':
+              'React Hook useEffect has a missing dependency: \'T\'. Either include it or remove the dependency list.',
+          'suggestions': [
+            {
+              'desc': 'Update the dependencies list to be: [T]',
+              'output': r'''
+                void useSomething<T>() {
+                  useEffect(() {
+                    final items = <T>[];
+                  }, [T]);
+                }
+              '''
+            }
+          ],
+        }
+      ]
+    },
   ],
 };
 

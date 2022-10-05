@@ -521,14 +521,6 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
         );
       }
 
-      // FIXME need to check more parents for GenericFunctionType case?
-      // FIXME(greg) add test cases
-      if (reference.parent is NamedType) {
-        continue;
-      }
-
-      // FIXME add tests to ensure references to type parameters don't make it this far.
-
       // Add the dependency to a map so we can make sure it is referenced
       // again in our dependencies array. Remember whether it's stable.
       dependencies
