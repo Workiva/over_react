@@ -407,10 +407,7 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
         return false;
       }
 
-      // TODO do we need to check for direct invocations for other cases if typing is available?
-
       var callee = init.function;
-      // fixme(greg) handle namespaced imports, add test cases for useRef
       if (callee is! Identifier) {
         return false;
       }
@@ -433,8 +430,11 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
 
       // It's couldn't be looked up, it's either:
       // - not a function, and we need to return false
-      // - a function expression // todo return true for this case?
-      // - not in the same file // todo return true for this case?
+      // - one of the following cases which shouldn't ever get hit for the callers of this
+      //   function, since it's only called with elements declared within a pure scope
+      //   that correspond to an identifier reference within the hook callback:
+      //     - a function expression (shouldn't get hit since identifiers can't reference an expression)
+      //     - not in the same file (shouldn't get hit since these aren't declared within a pure scope)
       if (fnNode == null) return false;
 
       // If it's outside the component, it also can't capture values.
