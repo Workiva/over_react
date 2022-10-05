@@ -829,8 +829,8 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
         final depType = _construction.depType;
 
         if (_DepType.hookObjects.contains(depType)) {
-          final stableMembers = stableHookMembersByDepType[depType]!;
-          final unstableMembers = unstableHookMembersByDepTypeForErrorMessagesOnly[depType]!;
+          final stableMembers = HookConstants.stableMembersByDepType[depType]!;
+          final unstableMembers = HookConstants.unstableMembersByDepTypeForErrorMessagesOnly[depType]!;
 
           final declaredDependencyNode = _construction.declaredDependency.node;
           final declaredDepSource = getSource(declaredDependencyNode);
@@ -1350,24 +1350,27 @@ Iterable<Identifier> resolvedReferencesWithin(AstNode node) =>
 
 enum HookTypeWithStableMethods { stateHook, reducerHook, transitionHook }
 
-const stateHookSetMethods = {'set', 'setWithUpdater'};
-const stableStateHookMethods = {...stateHookSetMethods};
-const stableReducerHookMethods = {'dispatch'};
-const stableTransitionHookMethods = {'startTransition'};
+abstract class HookConstants {
+  static const stateSetMethods = {'set', 'setWithUpdater'};
 
-const stableHookMembersByDepType = {
-  _DepType.reducerHook: stableReducerHookMethods,
-  _DepType.stateHook: stableStateHookMethods,
-  _DepType.transitionHook: stableTransitionHookMethods,
-};
+  static const stableStateMethods = {...stateSetMethods};
+  static const stableReducerMethods = {'dispatch'};
+  static const stableTransitionMethods = {'startTransition'};
 
-/// These aren't exhaustive (they don't include hashCode, and may be missing properties added in the future),
-/// and should only be used in error messages, and not in tests for stability of members.
-const unstableHookMembersByDepTypeForErrorMessagesOnly = {
-  _DepType.reducerHook: {'state'},
-  _DepType.stateHook: {'value'},
-  _DepType.transitionHook: {'isPending'},
-};
+  static const stableMembersByDepType = {
+    _DepType.reducerHook: HookConstants.stableReducerMethods,
+    _DepType.stateHook: HookConstants.stableStateMethods,
+    _DepType.transitionHook: HookConstants.stableTransitionMethods,
+  };
+
+  /// These aren't exhaustive (they don't include hashCode, and may be missing properties added in the future),
+  /// and should only be used in error messages, and not in tests for stability of members.
+  static const unstableMembersByDepTypeForErrorMessagesOnly = {
+    _DepType.reducerHook: {'state'},
+    _DepType.stateHook: {'value'},
+    _DepType.transitionHook: {'isPending'},
+  };
+}
 
 class StableHookMethodInfo {
   final Expression node;
@@ -1384,7 +1387,7 @@ class StableHookMethodInfo {
   }) : assert(target.parent == node && property.parent == node);
 
   bool get isStateSetterMethod =>
-      hookType == HookTypeWithStableMethods.stateHook && stateHookSetMethods.contains(property.name);
+      hookType == HookTypeWithStableMethods.stateHook && HookConstants.stateSetMethods.contains(property.name);
 }
 
 /// If [node] is an access of a stable hook method on a hook object (either a method call or a tearoff),
@@ -1410,16 +1413,19 @@ StableHookMethodInfo? getStableHookMethodInfo(AstNode node) {
 
   if (target == null) return null;
 
+  final staticType = target.staticType;
+  if (staticType == null) return null;
+
   // Check whether this reference is only used to access the stable hook property.
-  if ((target.staticType?.isStateHook ?? false) && stableStateHookMethods.contains(property.name)) {
+  if (staticType.isStateHook && HookConstants.stableStateMethods.contains(property.name)) {
     return StableHookMethodInfo(
         node: node, target: target, property: property, hookType: HookTypeWithStableMethods.stateHook);
   }
-  if ((target.staticType?.isReducerHook ?? false) && stableReducerHookMethods.contains(property.name)) {
+  if (staticType.isReducerHook && HookConstants.stableReducerMethods.contains(property.name)) {
     return StableHookMethodInfo(
         node: node, target: target, property: property, hookType: HookTypeWithStableMethods.reducerHook);
   }
-  if ((target.staticType?.isTransitionHook ?? false) && stableTransitionHookMethods.contains(property.name)) {
+  if (staticType.isTransitionHook && HookConstants.stableTransitionMethods.contains(property.name)) {
     return StableHookMethodInfo(
         node: node, target: target, property: property, hookType: HookTypeWithStableMethods.transitionHook);
   }
