@@ -829,49 +829,52 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
         final depType = _construction.depType;
 
         if (_DepType.hookObjects.contains(depType)) {
-          final stableMembers = HookConstants.stableMembersByDepType[depType]!;
-          final unstableMembers = HookConstants.unstableMembersByDepTypeForErrorMessagesOnly[depType]!;
+          final allKnownUnstableMembers = HookConstants.knownUnstableMembersByDepType[depType]!;
 
           final declaredDependencyNode = _construction.declaredDependency.node;
           final declaredDepSource = getSource(declaredDependencyNode);
 
-          // Conditionally suggest value or removing the dep based on whether `stateHook.value` is used.
+          // Conditionally suggest value or removing the dep based on whether unstable values (e.g., `stateHook.value`)
+          // are used.
+          //
           // This check isn't perfect, but should handle most cases.
           //
           // Dependencies have `?.` normalized to `.`, but they may still be accessing properties or calling methods.
           // For example: `stateHook.set.call`, `stateHook.value()`. So, use regexes with word boundaries.
-          final unstableMembersUsed =
-              // todo is this missing cases?
-              unstableMembers
-                  .where((method) => dependencies.keys.any(
-                      RegExp(r'^' + RegExp.escape(declaredDepSource) + r'\.' + RegExp.escape(method) + r'\b').hasMatch))
-                  .toList();
-          // FIXME(greg) stableMembers isn't exhaustive
-          final stableMembersUsed = stableMembers
-              .where((method) => dependencies.keys.any(
-                  RegExp(r'^' + RegExp.escape(declaredDepSource) + r'\.' + RegExp.escape(method) + r'\b').hasMatch))
+
+          final dependencyPattern = RegExp(r'^' + RegExp.escape(declaredDepSource) + r'\b');
+          RegExp dependencyMemberPattern(String memberName) =>
+              RegExp(r'^' + RegExp.escape(declaredDepSource) + r'\.' + RegExp.escape(memberName) + r'\b');
+          bool isDependencyUsage(String dependency) => dependencyPattern.hasMatch(dependency);
+
+          final allDependenciesUsingHook = dependencies.keys.where(isDependencyUsage).toSet();
+          final stableDependenciesUsingHook = allDependenciesUsingHook.where(stableDependencies.contains).toSet();
+          final unstableDependenciesUsingHook = allDependenciesUsingHook.difference(stableDependenciesUsingHook);
+
+          final usesWholeValue = unstableDependenciesUsingHook.contains(declaredDepSource);
+          final usesOnlyStableValues = unstableDependenciesUsingHook.isEmpty;
+
+          // Don't suggest using the dependencies themselves, since they might include sub-properties,
+          // which may or may not the right thing to depend on. E.g., (`stateHook.object.getterThatReturnsNewInstanceEveryTime`).
+          // Instead, recommend the unstable members themselves, and if the user wants to drill down further, they can
+          // after applying the suggestion.
+          final knownUnstableMembersUsed = allKnownUnstableMembers
+              .where((member) => unstableDependenciesUsingHook.any(dependencyMemberPattern(member).hasMatch))
               .toList();
-          // TODO(greg) is there a better way to do this?
-          final usesWholeValue = dependencies.containsKey(declaredDepSource);
-
-          // FIXME(greg) count references instead.
-          final usesOnlyStableValues = stableMembersUsed.isNotEmpty && unstableMembersUsed.isEmpty && !usesWholeValue;
-
-          // todo(greg) use references instead?
-          // TODO(greg) Recommend sub-properties as dependencies
-          final suggestedUnstableMemberDependencies = unstableMembersUsed.map((m) => '$declaredDepSource.$m').toList();
+          final suggestedUnstableMemberDependencies =
+              knownUnstableMembersUsed.map((m) => '$declaredDepSource.$m').toList();
 
           final messageBuffer = StringBuffer()
             ..write("The '$declaredDepSource' $depType")
             ..write(" makes the dependencies of React Hook ${getSource(reactiveHook)}")
             ..write(" change every render, and should not itself be a dependency.");
-          if (stableMembersUsed.isNotEmpty) {
+          if (stableDependenciesUsingHook.isNotEmpty) {
             messageBuffer
               ..write(" Since ")
-              ..write(joinEnglish(stableMembersUsed.map((m) => "'$declaredDepSource.$m'")))
-              ..write(stableMembersUsed.length == 1 ? " is" : " are")
+              ..write(joinEnglish(stableDependenciesUsingHook.map((d) => "'$d'")))
+              ..write(stableDependenciesUsingHook.length == 1 ? " is" : " are")
               ..write(" stable across renders, no dependencies are required to use")
-              ..write(stableMembersUsed.length == 1 ? " it" : " them")
+              ..write(stableDependenciesUsingHook.length == 1 ? " it" : " them")
               ..write(usesOnlyStableValues ? ", and this dependency can be safely removed." : '.');
           }
           if (suggestedUnstableMemberDependencies.isNotEmpty) {
@@ -1357,15 +1360,9 @@ abstract class HookConstants {
   static const stableReducerMethods = {'dispatch'};
   static const stableTransitionMethods = {'startTransition'};
 
-  static const stableMembersByDepType = {
-    _DepType.reducerHook: HookConstants.stableReducerMethods,
-    _DepType.stateHook: HookConstants.stableStateMethods,
-    _DepType.transitionHook: HookConstants.stableTransitionMethods,
-  };
-
   /// These aren't exhaustive (they don't include hashCode, and may be missing properties added in the future),
-  /// and should only be used in error messages, and not in tests for stability of members.
-  static const unstableMembersByDepTypeForErrorMessagesOnly = {
+  /// and should only be used in error messages or suggestions, and not in tests for stability of members.
+  static const knownUnstableMembersByDepType = {
     _DepType.reducerHook: {'state'},
     _DepType.stateHook: {'value'},
     _DepType.transitionHook: {'isPending'},

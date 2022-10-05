@@ -7250,8 +7250,6 @@ final Map<String, List<Map<String, Object>>> testsTypescript = {
       ],
     },
     {
-      // For now, we recommend the value as a dependency,
-      // but in a future improvement could recommend the property.
       'name': 'StateHook as dependency, callback uses property on `value`',
       'code': r'''
         final MyComponent = uiFunction<TestProps>((_) {
