@@ -349,7 +349,6 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
         final parent = reference.parent;
         final stableHookInfo = parent != null ? getStableHookMethodInfo(parent) : null;
         if (stableHookInfo != null && stableHookInfo.target == reference) {
-          // FIXME(greg) what about edge cases here?
           if (stableHookInfo.isStateSetterMethod) {
             final declaration = lookUpVariableDeclarationForReference();
             if (declaration != null) {
@@ -624,7 +623,6 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
             return;
           }
 
-          // FIXME should this use Dart element model to check this as opposed to WeakMap?
           final isSetState = setStateCallSites.has(reference);
           if (!isSetState) {
             return;
@@ -932,7 +930,7 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
 
         // Only handle the simple case of variable assignments.
         // Wrapping function declarations can mess up hoisting.
-        // FIXME(greg) change this since hoisting doesn't exist in Dart functions
+        // TODO(greg) change this since hoisting doesn't exist in Dart functions
         if (isUsedOutsideOfHook &&
             construction is VariableDeclaration &&
             // Objects may be mutated ater construction, which would make this
@@ -1069,7 +1067,7 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
       // This usually means they're unaware of useCallback.
       final missingCallbackDeps = missingDependencies.where((missingDep) {
         // Is this a variable from top scope?
-        // FIXME(greg) can we reuse logic from scanForConstructions here?
+        // TODO(greg) can we reuse logic from scanForConstructions here?
         final usedDep = dependencies[missingDep];
         if (usedDep == null) return false;
 
