@@ -5884,8 +5884,8 @@ final Map<String, List<Map<String, Object>>> tests = {
         },
       ],
     },
-    // FIXME(greg) does this also need a non-destructured test case?
     {
+      'name': 'Missing prop dependency used in state setter (prop variable)',
       'code': r'''
         final Counter = uiFunction<TestProps>((props) {
           final increment = props.increment;
@@ -5918,6 +5918,44 @@ final Map<String, List<Map<String, Object>>> tests = {
                     }, 1000);
                     return () => clearInterval(id);
                   }, [increment]);
+                  return Dom.h1()(count.value);
+                }, null);
+              ''',
+            },
+          ],
+        },
+      ],
+    },
+    {
+      'name': 'Missing prop dependency used in state setter (accessed via `props.`)',
+      'code': r'''
+        final Counter = uiFunction<TestProps>((props) {
+          var count = useState(0);
+          useEffect(() {
+            var id = setInterval(() {
+              count.setWithUpdater((value) => value + props.increment);
+            }, 1000);
+            return () => clearInterval(id);
+          }, []);
+          return Dom.h1()(count.value);
+        }, null);
+      ''',
+      'errors': [
+        {
+          'message':
+              'React Hook useEffect has a missing dependency: \'props.increment\'. Either include it or remove the dependency list. If \'count.setWithUpdater\' needs the current value of \'props.increment\', you can also switch to useReducer instead of useState and read \'props.increment\' in the reducer.',
+          'suggestions': [
+            {
+              'desc': 'Update the dependencies list to be: [props.increment]',
+              'output': r'''
+                final Counter = uiFunction<TestProps>((props) {
+                  var count = useState(0);
+                  useEffect(() {
+                    var id = setInterval(() {
+                      count.setWithUpdater((value) => value + props.increment);
+                    }, 1000);
+                    return () => clearInterval(id);
+                  }, [props.increment]);
                   return Dom.h1()(count.value);
                 }, null);
               ''',
