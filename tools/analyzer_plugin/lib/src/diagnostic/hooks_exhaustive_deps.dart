@@ -288,11 +288,9 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
         // todo(greg) is this function even valid when this is null?
         componentOrCustomHookFunctionElement != null &&
         // Don't use thisOrAncestorOfType with since `element` may itself be an ExecutableElement (e.g., local functions).
-        // FIXME(greg) audit existing usages of thisOrAncestor* for similar bugs
         element.ancestorOfType<ExecutableElement>() == componentOrCustomHookFunctionElement;
 
     bool isProps(Element e) {
-      // FIXME(greg) make this way better
       return e.name == 'props' &&
           e.enclosingElement == componentOrCustomHookFunctionElement &&
           lookUpParameter(e, rootNode)?.parent == componentOrCustomHookFunction?.parameters;
@@ -876,7 +874,7 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
               ..write(suggestedUnstableMemberDependencies.length == 1 ? " it" : " them")
               ..write(" instead.");
           }
-          // FIXME(greg) add message like we have elsewhere when using `setWithUpdater` and `.value`.
+          // TODO(greg) add message like we have elsewhere when using `setWithUpdater` and `.value`.
 
           if (usesWholeValue) {
             // We can't automatically fix in this case, so just warn.
