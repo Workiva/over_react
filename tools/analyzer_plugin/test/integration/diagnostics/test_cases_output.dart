@@ -3893,6 +3893,36 @@ final Map<String, List<Map<String, Object>>> tests = {
       ],
     },
     {
+      // In this case it's important that the call is the only reference to the prop
+      'name': 'Calling a function prop',
+      'code': r'''
+        final MyComponent = uiFunction<TestProps>((props) {
+          useEffect(() {
+            props.onChange(null);
+          }, []);
+        }, null);
+      ''',
+      'errors': [
+        {
+          'message':
+              'React Hook useEffect has a missing dependency: \'props.onChange\'. Either include it or remove the dependency list. If \'props.onChange\' changes too often, find the parent component that defines it and wrap that definition in useCallback.',
+          'suggestions': [
+            {
+              'desc': 'Update the dependencies list to be: [props.onChange]',
+              'output': r'''
+                final MyComponent = uiFunction<TestProps>((props) {
+                  useEffect(() {
+                    props.onChange(null);
+                  }, [props.onChange]);
+                }, null);
+              ''',
+            },
+          ],
+        },
+      ],
+    },
+    {
+      'name': 'Calling a function prop with another non-call reference present',
       'code': r'''
         final MyComponent = uiFunction<TestProps>((props) {
           useEffect(() {
@@ -3923,14 +3953,12 @@ final Map<String, List<Map<String, Object>>> tests = {
         },
       ],
     },
-    // FIXME(greg) need to add a null-aware call test case here or somewhere?
     {
+      'name': 'Calling a function prop with a null-aware on props',
       'code': r'''
         final MyComponent = uiFunction<TestProps>((props) {
           useEffect(() {
-            if (props?.onChange != null) {
-              props?.onChange(null);
-            }
+            props?.onChange(null);
           }, []);
         }, null);
       ''',
@@ -3944,10 +3972,36 @@ final Map<String, List<Map<String, Object>>> tests = {
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
                   useEffect(() {
-                    if (props?.onChange != null) {
-                      props?.onChange(null);
-                    }
+                    props?.onChange(null);
                   }, [props?.onChange]);
+                }, null);
+              ''',
+            },
+          ],
+        },
+      ],
+    },
+    {
+      'name': 'Calling a function prop with a null-aware on the call',
+      'code': r'''
+        final MyComponent = uiFunction<TestProps>((props) {
+          useEffect(() {
+            props.onChange?.call(null);
+          }, []);
+        }, null);
+      ''',
+      'errors': [
+        {
+          'message':
+              'React Hook useEffect has a missing dependency: \'props.onChange\'. Either include it or remove the dependency list. If \'props.onChange\' changes too often, find the parent component that defines it and wrap that definition in useCallback.',
+          'suggestions': [
+            {
+              'desc': 'Update the dependencies list to be: [props.onChange]',
+              'output': r'''
+                final MyComponent = uiFunction<TestProps>((props) {
+                  useEffect(() {
+                    props.onChange?.call(null);
+                  }, [props.onChange]);
                 }, null);
               ''',
             },
