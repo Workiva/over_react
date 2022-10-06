@@ -1744,17 +1744,11 @@ List<_Construction> scanForConstructions({
 
   return declaredDependencies
       .map<_Construction?>((dep) {
-        // FIXME this should be equivalent, but need to figure out how chained properties work... I'm not sure how that would work with analyzePropertyChain being used with the existing code to look up identifiers
-        // final ref = componentScope.variables.firstWhere((v) => v.name == key, orElse: () => null);
-        final refElement = dep.node.tryCast<Identifier>()?.staticElement;
-        if (refElement == null) return null;
+        final declarationElement = dep.node.tryCast<Identifier>()?.staticElement;
+        if (declarationElement == null) return null;
 
-        final declaration = lookUpDeclaration(refElement, dep.node.root);
-        if (declaration == null) {
-          return null;
-        }
-        // TODO(greg) are these the same?
-        final declarationElement = declaration.declaredElement ?? refElement;
+        final declaration = lookUpDeclaration(declarationElement, dep.node.root);
+        if (declaration == null) return null;
 
         // final handleChange = () {};
         // final foo = {};
@@ -1839,13 +1833,22 @@ abstract class _DepType {
   static const hookObjects = {reducerHook, stateHook, transitionHook};
 }
 
+/// Returns whether a property invocation should be treated as a separate dependency from its parent,
+/// which is the default behavior. For example, the dependency of `props.foo` should be `props`.
+///
+/// Returns true for stable hook calls and calls to function props.
+///
+/// For example, the dependency for `props.someFunction()` should be `props.someFunction` instead of `props,
+/// and the dependency for `stateHook.set(null)` should be `stateHook.set` and not `stateHook`.
 bool isInvocationADiscreteDependency(PropertyInvocation invocation) {
-  // FIXME(greg) should we do this better/differently?
   bool isProps(Expression e) => e is Identifier && e.name == 'props';
 
   final target = invocation.target;
-  // FIXME(greg) pull this out better
-  return target != null && (getStableHookMethodInfo(invocation.functionName.parent!) != null || isProps(target));
+  assert(target != null,
+      'target should never be null; callers should check that first, since cascaded calls should not be treated as dependencies');
+  if (target == null) return false;
+
+  return isProps(target) || getStableHookMethodInfo(invocation.functionName.parent!) != null;
 }
 
 // fixme Greg this doc comment has to be incorrect for some cases, right?
@@ -1874,13 +1877,13 @@ Expression getDependency(Expression node) {
 
   if (parent is PropertyAccess &&
       parent.target == node &&
-      parent.propertyName.name != 'current' && // FIXME only test for ref/dynamic values?
+      parent.propertyName.name != 'current' && // TODO(greg) only test for ref/dynamic values?
       !(grandparent is InvocationExpression && grandparent.function == parent)) {
     return getDependency(parent);
   }
   if (parent is PrefixedIdentifier &&
       parent.prefix == node &&
-      parent.identifier.name != 'current' && // FIXME only test for ref/dynamic values?
+      parent.identifier.name != 'current' && // TODO(greg) only test for ref/dynamic values?
       !(grandparent is InvocationExpression && grandparent.function == parent)) {
     return getDependency(parent);
   }
