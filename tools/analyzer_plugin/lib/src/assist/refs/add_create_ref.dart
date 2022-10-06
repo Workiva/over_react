@@ -87,8 +87,9 @@ void addUseOrCreateRef(
   }
 
   if (refTypeToReplace == RefTypeToReplace.callback) {
+    if (createRefField == null) return;
     // Its a callback ref - meaning there is an existing field we need to update.
-    final declOfVarRefIsAssignedTo = lookUpVariable(createRefField, result.unit);
+    final declOfVarRefIsAssignedTo = lookUpVariable(createRefField, result.unit!);
     if (declOfVarRefIsAssignedTo == null) return;
 
     final nodeToReplace =

@@ -32,7 +32,6 @@ import 'package:analyzer_plugin/utilities/range_factory.dart';
 import 'package:collection/collection.dart' show IterableExtension;
 import 'package:over_react_analyzer_plugin/src/diagnostic/analyzer_debug_helper.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
-import 'package:over_react_analyzer_plugin/src/util/analyzer_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/function_components.dart';
 import 'package:over_react_analyzer_plugin/src/util/pretty_print.dart';
@@ -1300,40 +1299,6 @@ class _RefInEffectCleanup {
   String toString() => prettyPrint({
         'reference': reference,
       });
-}
-
-// FIXME(greg) unit test these functions
-FunctionExpression? lookUpFunction(Element element, AstNode root) {
-  final node = NodeLocator2(element.nameOffset).searchWithin(root);
-  if (node is Identifier && node.staticElement == element) {
-    final parent = node.parent;
-    return parent.tryCast<FunctionDeclaration>()?.functionExpression ??
-        parent.tryCast<VariableDeclaration>()?.initializer?.tryCast<FunctionExpression>();
-  }
-
-  return null;
-}
-
-// FIXME(greg) make name clear about the cases it handles (variables, functions?, not parameters)
-Declaration? lookUpDeclaration(Element element, AstNode root) {
-  // if (element is ExecutableElement) return null;
-  final node = NodeLocator2(element.nameOffset).searchWithin(root);
-  final declaration = node?.thisOrAncestorOfType<Declaration>();
-  if (declaration?.declaredElement == element) {
-    return declaration;
-  }
-
-  return null;
-}
-
-FormalParameter? lookUpParameter(Element element, AstNode root) {
-  final node = NodeLocator2(element.nameOffset).searchWithin(root);
-  final declaration = node?.thisOrAncestorOfType<FormalParameter>();
-  if (declaration?.declaredElement == element) {
-    return declaration;
-  }
-
-  return null;
 }
 
 Iterable<Identifier> resolvedReferencesWithin(AstNode node) =>

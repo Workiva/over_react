@@ -13,11 +13,9 @@ import 'analyzer_util.dart';
 import 'constant_evaluator.dart';
 import 'util.dart';
 
-/// Returns an AST associated with the [element] by searching within [root],
-/// or null is returned if the [element] is not found.
-VariableDeclaration? lookUpVariable(Element? element, AstNode? root) {
-  if (element == null || root == null) return null;
-
+/// Returns the AST node of the variable declaration associated with the [element] within [root],
+/// or null if the [element] doesn't correspond to a variable declaration, or if it can't be found in [root].
+VariableDeclaration? lookUpVariable(Element element, AstNode root) {
   final node = NodeLocator2(element.nameOffset).searchWithin(root);
   if (node is Identifier && node.staticElement == element) {
     return node.parent.tryCast<VariableDeclaration>();
@@ -25,6 +23,51 @@ VariableDeclaration? lookUpVariable(Element? element, AstNode? root) {
 
   return null;
 }
+
+/// Returns the AST node of the function expression corresponding to [element] within [root],
+/// which can be either a function declaration or a variable declaration that's
+/// initialized to a function expression.
+///
+/// Returns null if the [element] doesn't correspond to one of these cases, or if it can't be found in [root].
+FunctionExpression? lookUpFunction(Element element, AstNode root) {
+  final node = NodeLocator2(element.nameOffset).searchWithin(root);
+  if (node is Identifier && node.staticElement == element) {
+    final parent = node.parent;
+    return parent.tryCast<FunctionDeclaration>()?.functionExpression ??
+        parent.tryCast<VariableDeclaration>()?.initializer?.tryCast<FunctionExpression>();
+  }
+
+  return null;
+}
+
+/// Returns the AST node that declares [element] within [root],
+/// assuming the node that declares it is a `Declaration` instance.
+///
+/// Returns null if the [element] doesn't correspond to a `Declaration`, or if it can't be found in [root].
+Declaration? lookUpDeclaration(Element element, AstNode root) {
+  // if (element is ExecutableElement) return null;
+  final node = NodeLocator2(element.nameOffset).searchWithin(root);
+  final declaration = node?.thisOrAncestorOfType<Declaration>();
+  if (declaration?.declaredElement == element) {
+    return declaration;
+  }
+
+  return null;
+}
+
+/// Returns the AST node that declares the formal parameter [element] within [root].
+///
+/// Returns null if the [element] doesn't correspond to a formal parameter, or if it can't be found in [root].
+FormalParameter? lookUpParameter(Element element, AstNode root) {
+  final node = NodeLocator2(element.nameOffset).searchWithin(root);
+  final declaration = node?.thisOrAncestorOfType<FormalParameter>();
+  if (declaration?.declaredElement == element) {
+    return declaration;
+  }
+
+  return null;
+}
+
 
 /// Returns a String value when a literal or constant var/identifier is found within [expr].
 String? getConstOrLiteralStringValueFrom(Expression expr) {
