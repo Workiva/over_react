@@ -273,7 +273,7 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
     // to the first function scope (which will be either the component/render function or a custom hook,
     // since hooks can only be called from the top level).
 
-    // todo improve this
+    // todo clean this up
     final componentOrCustomHookFunctionBody = getClosestFunctionComponentOrHookBody(callbackFunction);
     final componentOrCustomHookFunction = componentOrCustomHookFunctionBody?.parentExpression;
     assert(componentOrCustomHookFunction == null || componentOrCustomHookFunction != callbackFunction);
@@ -482,7 +482,6 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
       // Note that with the implementation of `resolvedReferencesWithin`,
       // this is also necessary to filter out references to properties on object.
 
-      // TODO follow up on this and see how dynamic calls are treated
       final referenceElement = reference.staticElement;
       if (referenceElement == null) continue;
 
@@ -699,8 +698,7 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
           continue;
         }
 
-        // new variable since breaks don't have type promition yet. TODO switch to the following when nnbd is enabled
-        // if (declaredDependencyNode is! Expression) { ...  continue;}
+        // New variable since the checks above guarantee it's an Expression, but don't type promote it.
         final declaredDependencyNode = _declaredDependencyNode as Expression;
 
         // Try to normalize the declared dependency. If we can't then an error
@@ -1131,7 +1129,6 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
                       ? '${maybeCall.target!.toSource()}.${maybeCall.methodName.name}'
                       : null) ??
                   maybeCallFunction.tryCast<Identifier>()?.name ??
-                  // TODO(greg) is there a better fallback than this?
                   maybeCallFunction.toSource();
               final correspondingStateVariable = setStateCallSites.getNullableKey(maybeCallFunction.tryCast()) ??
                   // This case is necessary for `stateVar.set` calls, since key for setStateCallSites is the `stateVar` identifier, not `set`.
@@ -1716,7 +1713,6 @@ String? getConstructionExpressionType(Expression node) {
   } else {
     return null;
   }
-  // todo what about function calls...?
 }
 
 // Finds variables declared as dependencies
@@ -1759,7 +1755,6 @@ List<_Construction> scanForConstructions({
           if (declaration.isConst) return null;
           final initializer = declaration.initializer;
           if (initializer != null) {
-            // todo should this be stricter in Dart?
             final constantExpressionType = getConstructionExpressionType(
               initializer,
             );
@@ -1851,7 +1846,6 @@ bool isInvocationADiscreteDependency(PropertyInvocation invocation) {
   return isProps(target) || getStableHookMethodInfo(invocation.functionName.parent!) != null;
 }
 
-// fixme Greg this doc comment has to be incorrect for some cases, right?
 /// Assuming () means the passed/returned node:
 /// (props) => (props)
 /// props.(foo) => (props.foo)
@@ -1871,9 +1865,6 @@ Expression getDependency(Expression node) {
       return propertyInvocation.invocation;
     }
   }
-
-  // 1.
-  // FIXME(greg) are there other places we don't handle the FunctionExpressionInvocation case properly?
 
   if (parent is PropertyAccess &&
       parent.target == node &&
@@ -1978,7 +1969,7 @@ class UnsupportedNodeTypeException implements Exception {
   String toString() => '$runtimeType: ${node.runtimeType} (source: ${node.toSource()})';
 }
 
-// todo(greg) unit test this and remove extraneous cases
+// FIXME(greg) unit test this and remove extraneous cases
 AstNode getNodeWithoutReactNamespace(Expression node) {
   bool isPrefixedOverReactApi({required Identifier prefix, required Identifier identifier}) {
     return prefix.staticElement is PrefixElement &&
