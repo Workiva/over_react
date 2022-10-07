@@ -4,16 +4,19 @@
 
 import 'dart:convert';
 
+import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:analyzer_plugin/protocol/protocol_generated.dart';
 import 'package:collection/collection.dart';
 import 'package:dart_style/dart_style.dart';
 import 'package:meta/meta.dart';
+import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
 import 'package:path/path.dart' as p;
 import 'package:over_react_analyzer_plugin/src/diagnostic/hooks_exhaustive_deps.dart';
 import 'package:test/test.dart';
 import 'package:test_reflective_loader/test_reflective_loader.dart';
 
+import '../../test_util.dart';
 import '../matchers.dart';
 import '../test_bases/diagnostic_test_base.dart';
 import '../test_bases/server_plugin_contributor_test_base.dart';
@@ -330,6 +333,67 @@ class SomeObject {
       ''');
       final selection = testBase.createSelection(source, ', #[otherValue]#);');
       await testBase.expectSingleErrorAt(selection, hasFix: true);
+    });
+
+    group('internal utilities', () {
+      group(
+          'getReactiveHookCallbackIndex (and by extension, getNodeWithoutReactNamespace)'
+          ' works as expected when the hook being called uses', () {
+        test('a non-namespaced over_react import', () async {
+          final unit = (await parseAndGetResolvedUnit(r'''
+            import 'package:over_react/over_react.dart';
+            test() {
+              useEffect(() {}, []);
+            }
+          ''')).unit;
+          final invocations =
+              allDescendantsOfType<ExpressionStatement>(unit).map((s) => s.expression as InvocationExpression).toList();
+          expect(invocations, hasLength(1));
+
+          expect(invocations.map((i) => getReactiveHookCallbackIndex(i.function)).toList(), [
+            isNot(-1),
+          ]);
+        });
+
+        test('a namespaced over_react import', () async {
+          final unit = (await parseAndGetResolvedUnit(r'''
+            import 'package:over_react/over_react.dart' as foo;
+            test() {
+              foo.useEffect(() {}, []);
+              // Force this to be a FunctionExpressionInvocation
+              (foo.useEffect)(() {}, []);
+            }
+          ''')).unit;
+          final invocations =
+              allDescendantsOfType<ExpressionStatement>(unit).map((s) => s.expression as InvocationExpression).toList();
+          expect(invocations, hasLength(2));
+
+          expect(invocations.map((i) => getReactiveHookCallbackIndex(i.function)).toList(), [
+            isNot(-1),
+            isNot(-1),
+          ]);
+        });
+
+        test('an unresolved namespaced import', () async {
+          final unit = (await parseAndGetResolvedUnit(r'''
+            test() {
+              // ignore: undefined_identifier
+              foo.useEffect(() {}, []);
+              // Force this to be a FunctionExpressionInvocation
+              // ignore: undefined_identifier
+              (foo.useEffect)(() {}, []);
+            }
+          ''')).unit;
+          final invocations =
+              allDescendantsOfType<ExpressionStatement>(unit).map((s) => s.expression as InvocationExpression).toList();
+          expect(invocations, hasLength(2));
+
+          expect(invocations.map((i) => getReactiveHookCallbackIndex(i.function)).toList(), [
+            isNot(-1),
+            isNot(-1),
+          ]);
+        });
+      });
     });
   });
 }

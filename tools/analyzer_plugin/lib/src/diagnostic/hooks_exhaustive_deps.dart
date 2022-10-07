@@ -1969,11 +1969,11 @@ class UnsupportedNodeTypeException implements Exception {
   String toString() => '$runtimeType: ${node.runtimeType} (source: ${node.toSource()})';
 }
 
-// FIXME(greg) unit test this and remove extraneous cases
 AstNode getNodeWithoutReactNamespace(Expression node) {
   bool isPrefixedOverReactApi({required Identifier prefix, required Identifier identifier}) {
-    return prefix.staticElement is PrefixElement &&
-        (identifier.staticElement?.isDeclaredInPackage('over_react') ?? false);
+    // Assume unresolved calls are from over_react.
+    return (prefix.staticElement == null || prefix.staticElement is PrefixElement) &&
+        (identifier.staticElement?.isDeclaredInPackage('over_react') ?? true);
   }
 
   if (node is PrefixedIdentifier) {
@@ -1995,6 +1995,7 @@ AstNode getNodeWithoutReactNamespace(Expression node) {
 // 1 for useImperativeHandle(ref, fn).
 // For additionally configured Hooks, assume that they're like useEffect (0).
 int getReactiveHookCallbackIndex(Expression calleeNode, {RegExp? additionalHooks}) {
+  calleeNode = calleeNode.unParenthesized;
   final node = getNodeWithoutReactNamespace(calleeNode);
   if (node is! Identifier) {
     return -1;
