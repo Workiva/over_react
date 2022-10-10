@@ -314,27 +314,6 @@ class SomeObject {
       });
     });
 
-    test('use of state.value without it in the dependency list', () async {
-      final testBase = HooksExhaustiveDepsDiagnosticTest();
-      await testBase.setUp();
-      addTearDown(testBase.tearDown);
-
-      final source = testBase.newSource(
-          'test.dart',
-          preamble + /*language=dart*/ r'''
-        final Foo = uiFunction((props) {
-          final count = useState();
-          final otherValue = props.id;
-          useEffect(() {
-            print(otherValue);
-            print(count.value);
-          }, [otherValue]);
-        }, null);
-      ''');
-      final selection = testBase.createSelection(source, ', #[otherValue]#);');
-      await testBase.expectSingleErrorAt(selection, hasFix: true);
-    });
-
     group('internal utilities', () {
       group(
           'getReactiveHookCallbackIndex (and by extension, getNodeWithoutReactNamespace)'
