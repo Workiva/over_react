@@ -2982,6 +2982,82 @@ final Map<String, List<Map<String, Object>>> tests = {
       ],
     },
     {
+      'name': 'Formats dependencies in fix with newlines if old dependencies had newlines',
+      'code': r'''
+        final MyComponent = uiFunction<TestProps>((props) {
+          var a, b, c, d;
+          useEffect(() {
+            print([a, b, c, d]);
+          }, [
+            a,
+            b
+          ]);
+        }, null);
+      ''',
+      'errors': [
+        {
+          'message':
+              'React Hook useEffect has missing dependencies: \'c\' and \'d\'. Either include them or remove the dependency list.',
+          'suggestions': [
+            {
+              'desc': 'Update the dependencies list to be: [a, b, c, d]',
+              'output': r'''
+                final MyComponent = uiFunction<TestProps>((props) {
+                  var a, b, c, d;
+                  useEffect(() {
+                    print([a, b, c, d]);
+                  }, [
+                    a,
+                    b,
+                    c,
+                    d
+                  ]);
+                }, null);
+              ''',
+            },
+          ],
+        },
+      ],
+    },
+    {
+      'name': 'Formats dependencies in fix with trailing commas if old dependencies had trailing commas',
+      'code': r'''
+        final MyComponent = uiFunction<TestProps>((props) {
+          var a, b, c, d;
+          useEffect(() {
+            print([a, b, c, d]);
+          }, [
+            a,
+            b,
+          ]);
+        }, null);
+      ''',
+      'errors': [
+        {
+          'message':
+              'React Hook useEffect has missing dependencies: \'c\' and \'d\'. Either include them or remove the dependency list.',
+          'suggestions': [
+            {
+              'desc': 'Update the dependencies list to be: [a, b, c, d]',
+              'output': r'''
+                final MyComponent = uiFunction<TestProps>((props) {
+                  var a, b, c, d;
+                  useEffect(() {
+                    print([a, b, c, d]);
+                  }, [
+                    a,
+                    b,
+                    c,
+                    d,
+                  ]);
+                }, null);
+              ''',
+            },
+          ],
+        },
+      ],
+    },
+    {
       'code': r'''
         final MyComponent = uiFunction<TestProps>((props) {
           var a, b, c, d, e, f, g;
@@ -4069,6 +4145,34 @@ final Map<String, List<Map<String, Object>>> tests = {
                     if (props.foo.onChange != null) {
                       props.foo.onChange();
                     }
+                  }, [props.foo]);
+                }, null);
+              ''',
+            },
+          ],
+        },
+      ],
+    },
+    {
+      'name': 'Calling a function property of an object without any dependencies',
+      'code': r'''
+        final MyComponent = uiFunction<TestProps>((props) {
+          useEffect(() {
+            props.foo.onChange();
+          }, []);
+        }, null);
+      ''',
+      'errors': [
+        {
+          'message':
+              'React Hook useEffect has a missing dependency: \'props.foo\'. Either include it or remove the dependency list.',
+          'suggestions': [
+            {
+              'desc': 'Update the dependencies list to be: [props.foo]',
+              'output': r'''
+                final MyComponent = uiFunction<TestProps>((props) {
+                  useEffect(() {
+                    props.foo.onChange();
                   }, [props.foo]);
                 }, null);
               ''',

@@ -22,9 +22,12 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+import 'dart:math';
+
 import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/syntactic_entity.dart';
+import 'package:analyzer/dart/ast/token.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer_plugin/protocol/protocol_common.dart' show Location;
@@ -32,6 +35,7 @@ import 'package:analyzer_plugin/utilities/range_factory.dart';
 import 'package:collection/collection.dart' show IterableExtension;
 import 'package:over_react_analyzer_plugin/src/diagnostic/analyzer_debug_helper.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
+import 'package:over_react_analyzer_plugin/src/indent_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/function_components.dart';
 import 'package:over_react_analyzer_plugin/src/util/pretty_print.dart';
@@ -1218,6 +1222,48 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
       }
     }
 
+    /// Returns Dart source code for a dependencies list containing the given [dependencies], whose elements
+    /// are Dart source code strings.
+    ///
+    /// This method conditionally includes newlines and trailing commas if the existing dependencies list
+    /// had them. That way, any replacement is less jarring to the user, it's easier to see what
+    /// changed without reformatting, and the existing style is preserved.
+    String prettyDependenciesList(Iterable<String> dependencies) {
+      bool useNewlines;
+      bool useTrailingComma;
+      String listElementIndent;
+      if (declaredDependenciesNode is ListLiteral && declaredDependenciesNode.elements.isNotEmpty) {
+        final arbitraryElement = declaredDependenciesNode.elements.first;
+        useNewlines =
+            !isSameLine(result.lineInfo, arbitraryElement.offset, declaredDependenciesNode.leftBracket.offset);
+        useTrailingComma = declaredDependenciesNode.rightBracket.previous?.type == TokenType.COMMA;
+        listElementIndent = getIndent(result.content!, result.lineInfo, arbitraryElement.offset);
+      } else {
+        useNewlines = false;
+        useTrailingComma = false;
+        listElementIndent = '';
+      }
+
+      /// Returns the [indent] decreased by one level of indentation, if possible.
+      ///
+      /// decreaseIndent('    ' /*(4 spaces)*/) // '  ' (2 spaces)
+      /// decreaseIndent('') // ''
+      String decreaseIndent(String indent) {
+        // `min` with the length since we can't assume te string will always be at least two characters long.
+        return indent.substring(min(2, indent.length));
+      }
+
+      final newDepsSource = StringBuffer()..write('[');
+      if (useNewlines) newDepsSource.writeln();
+      newDepsSource.write(
+          dependencies.map((dep) => useNewlines ? '$listElementIndent$dep' : dep).join(useNewlines ? ',\n' : ', '));
+      if (useTrailingComma) newDepsSource.write(',');
+      if (useNewlines) newDepsSource.write('\n${decreaseIndent(listElementIndent)}');
+      newDepsSource.write(']');
+
+      return newDepsSource.toString();
+    }
+
     await collector.addErrorWithFix(
       HooksExhaustiveDeps.code,
       result.locationFor(declaredDependenciesNode),
@@ -1234,7 +1280,7 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
       fixMessageArgs: ["Update the dependencies list to be: [${suggestedDeps.map(formatDependency).join(', ')}]"],
       computeFix: () => buildGenericFileEdit(result, (e) {
         e.addSimpleReplacement(
-            range.node(declaredDependenciesNode), "[${suggestedDeps.map(formatDependency).join(', ')}]");
+            range.node(declaredDependenciesNode), prettyDependenciesList(suggestedDeps.map(formatDependency)));
       }),
     );
   }
