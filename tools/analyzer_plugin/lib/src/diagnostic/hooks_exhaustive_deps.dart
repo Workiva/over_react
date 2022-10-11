@@ -923,50 +923,74 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
             "$reactiveHookName Hook (at line ${result.lineInfo.getLocation(declaredDependenciesNode.offset).lineNumber}) "
             "change on every render. $advice";
 
-        // Only handle the simple case of variable assignments.
-        // Wrapping function declarations can mess up hoisting.
-        // TODO(greg) change this since hoisting doesn't exist in Dart functions
-        if (isUsedOutsideOfHook &&
-            construction is VariableDeclaration &&
-            // Objects may be mutated ater construction, which would make this
-            // fix unsafe. Functions _probably_ won't be mutated, so we'll
-            // allow this fix for them.
-            depType == _DepType.function) {
-          // At the time of writing, this is currently always non-null here, but that isn't guaranteed in null safety
-          // and may change in the future..
-          final constructionInitializer = construction.initializer;
-          if (constructionInitializer == null) {
-            collector.addError(
-              HooksExhaustiveDeps.code,
-              result.locationFor(construction),
-              errorMessageArgs: [message],
-            );
-          } else {
+        // Note that, unlike the original JS implementation, we handle functions since they aren't hoisted in Dart.
+        if (isUsedOutsideOfHook && depType == _DepType.function) {
+          if (construction is FunctionDeclaration) {
             await collector.addErrorWithFix(
               HooksExhaustiveDeps.code,
               result.locationFor(construction),
               errorMessageArgs: [message],
               fixKind: HooksExhaustiveDeps.fixKind,
-              fixMessageArgs: ["Wrap the $constructionType of '$constructionName' in its own $wrapperHook() Hook."],
+              fixMessageArgs: ["Wrap the $constructionType of '$constructionName' in its own useCallback() Hook."],
               computeFix: () => buildGenericFileEdit(
                 result,
                 (builder) {
+                  // Replace the return type through the name:
+                  // `void something(arg) {…}` -> `final something = useCallback((arg) {…}, […]);`
+                  // This also preserves generic function expressions.
+                  // `void something<T generic>(T arg) {…}` -> `final something = useCallback(<T>(T arg) {…}, […]);`
+                  builder.addSimpleReplacement(range.startEnd(construction, construction.name),
+                      'final ${construction.name.name} = useCallback(');
                   // TODO: ideally we'd gather deps here but it would require
                   // restructuring the rule code. Note we're
                   // not adding [] because would that changes semantics.
-                  if (wrapperHook == 'useMemo') {
-                    builder.addSimpleInsertion(constructionInitializer.offset, '$wrapperHook(() => ');
-                    builder.addSimpleInsertion(constructionInitializer.end, ')');
-                  } else {
-                    builder.addSimpleInsertion(constructionInitializer.offset, '$wrapperHook(');
-                    // Add a placeholder here so there isn't a static error about using useCallback with the wrong number of arguments.
-                    builder.addSimpleInsertion(constructionInitializer.end, ', [/* FIXME add dependencies */])');
-                  }
+                  // Add a placeholder here so there isn't a static error about using useCallback with the wrong number of arguments.
+                  builder.addSimpleInsertion(construction.end, ', [/* FIXME add dependencies */]);');
                 },
               ),
             );
+            continue;
           }
-          continue;
+          // Objects may be mutated ater construction, which would make this
+          // fix unsafe. Functions _probably_ won't be mutated, so we'll
+          // allow this fix for them.
+          else if (construction is VariableDeclaration) {
+            // At the time of writing, this is currently always non-null here, but that isn't guaranteed in null safety
+            // and may change in the future..
+            final constructionInitializer = construction.initializer;
+            if (constructionInitializer == null) {
+              collector.addError(
+                HooksExhaustiveDeps.code,
+                result.locationFor(construction),
+                errorMessageArgs: [message],
+              );
+            } else {
+              await collector.addErrorWithFix(
+                HooksExhaustiveDeps.code,
+                result.locationFor(construction),
+                errorMessageArgs: [message],
+                fixKind: HooksExhaustiveDeps.fixKind,
+                fixMessageArgs: ["Wrap the $constructionType of '$constructionName' in its own $wrapperHook() Hook."],
+                computeFix: () => buildGenericFileEdit(
+                  result,
+                  (builder) {
+                    // TODO: ideally we'd gather deps here but it would require
+                    // restructuring the rule code. Note we're
+                    // not adding [] because would that changes semantics.
+                    if (wrapperHook == 'useMemo') {
+                      builder.addSimpleInsertion(constructionInitializer.offset, '$wrapperHook(() => ');
+                      builder.addSimpleInsertion(constructionInitializer.end, ')');
+                    } else {
+                      builder.addSimpleInsertion(constructionInitializer.offset, '$wrapperHook(');
+                      // Add a placeholder here so there isn't a static error about using useCallback with the wrong number of arguments.
+                      builder.addSimpleInsertion(constructionInitializer.end, ', [/* FIXME add dependencies */])');
+                    }
+                  },
+                ),
+              );
+            }
+            continue;
+          }
         }
 
         // TODO: What if the function needs to change on every render anyway?

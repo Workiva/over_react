@@ -5390,13 +5390,55 @@ final Map<String, List<Map<String, Object>>> tests = {
         {
           'message':
               'The \'handleNext1\' function makes the dependencies of useEffect Hook (at line 14) change on every render. To fix this, wrap the definition of \'handleNext1\' in its own useCallback() Hook.',
-          'suggestions': null,
+          // Suggestion wraps into useCallback where possible
+          // because they are also referenced outside the effect.
+          'suggestions': [
+            {
+              'desc': 'Wrap the definition of \'handleNext1\' in its own useCallback() Hook.',
+              'output': r'''
+                final MyComponent = uiFunction<TestProps>((props) {
+                  final handleNext1 = useCallback(() {
+                    print('hello');
+                  }, [/* FIXME add dependencies */]);
+                  final handleNext2 = () {
+                    print('hello');
+                  };
+                  var handleNext3 = () {
+                    print('hello');
+                  };
+                  useEffect(() {
+                    handleNext1();
+                    return Store.subscribe(() => handleNext1());
+                  }, [handleNext1]);
+                  useLayoutEffect(() {
+                    handleNext2();
+                    return Store.subscribe(() => handleNext2());
+                  }, [handleNext2]);
+                  useMemo(() {
+                    handleNext3();
+                    return Store.subscribe(() => handleNext3());
+                  }, [handleNext3]);
+                  return (
+                    (Dom.div()
+                      ..onClick = (_) {
+                        handleNext1();
+                        setTimeout(handleNext2);
+                        setTimeout(() {
+                          handleNext3();
+                        });
+                      }
+                    )()
+                  );
+                }, null);
+              ''',
+            },
+          ],
         },
         {
           'message':
               'The \'handleNext2\' function makes the dependencies of useLayoutEffect Hook (at line 18) change on every render. To fix this, wrap the definition of \'handleNext2\' in its own useCallback() Hook.',
-          // Suggestion wraps into useCallback where possible (variables only)
-          // because they are only referenced outside the effect.
+          // Suggestion wraps into useCallback where possible
+          // because they are also referenced outside the effect.
           'suggestions': [
             {
               'desc': 'Wrap the definition of \'handleNext2\' in its own useCallback() Hook.',
@@ -5442,8 +5484,8 @@ final Map<String, List<Map<String, Object>>> tests = {
         {
           'message':
               'The \'handleNext3\' function makes the dependencies of useMemo Hook (at line 22) change on every render. To fix this, wrap the definition of \'handleNext3\' in its own useCallback() Hook.',
-          // Autofix wraps into useCallback where possible (variables only)
-          // because they are only referenced outside the effect.
+          // Autofix wraps into useCallback where possible
+          // because they are also referenced outside the effect.
           'suggestions': [
             {
               'desc': 'Wrap the definition of \'handleNext3\' in its own useCallback() Hook.',
@@ -5510,7 +5552,7 @@ final Map<String, List<Map<String, Object>>> tests = {
       // Normally we'd suggest moving handleNext inside an
       // effect. But it's used by more than one. So we
       // suggest useCallback() and use it for the autofix
-      // where possible (variable but not declaration).
+      // where possible.
       // TODO: we could coalesce messages for the same function if it affects multiple Hooks.
       'errors': [
         {
@@ -5570,12 +5612,56 @@ final Map<String, List<Map<String, Object>>> tests = {
         {
           'message':
               'The \'handleNext2\' function makes the dependencies of useEffect Hook (at line 11) change on every render. To fix this, wrap the definition of \'handleNext2\' in its own useCallback() Hook.',
-          'suggestions': null,
+          'suggestions': [
+            {
+              'desc': 'Wrap the definition of \'handleNext2\' in its own useCallback() Hook.',
+              'output': r'''
+                final MyComponent = uiFunction<TestProps>((props) {
+                  final handleNext1 = () {
+                    print('hello');
+                  };
+                  final handleNext2 = useCallback(() {
+                    print('hello');
+                  }, [/* FIXME add dependencies */]);
+                  useEffect(() {
+                    return Store.subscribe(handleNext1);
+                    return Store.subscribe(handleNext2);
+                  }, [handleNext1, handleNext2]);
+                  useEffect(() {
+                    return Store.subscribe(handleNext1);
+                    return Store.subscribe(handleNext2);
+                  }, [handleNext1, handleNext2]);
+                }, null);
+              ''',
+            },
+          ]
         },
         {
           'message':
               'The \'handleNext2\' function makes the dependencies of useEffect Hook (at line 15) change on every render. To fix this, wrap the definition of \'handleNext2\' in its own useCallback() Hook.',
-          'suggestions': null,
+          'suggestions': [
+            {
+              'desc': 'Wrap the definition of \'handleNext2\' in its own useCallback() Hook.',
+              'output': r'''
+                final MyComponent = uiFunction<TestProps>((props) {
+                  final handleNext1 = () {
+                    print('hello');
+                  };
+                  final handleNext2 = useCallback(() {
+                    print('hello');
+                  }, [/* FIXME add dependencies */]);
+                  useEffect(() {
+                    return Store.subscribe(handleNext1);
+                    return Store.subscribe(handleNext2);
+                  }, [handleNext1, handleNext2]);
+                  useEffect(() {
+                    return Store.subscribe(handleNext1);
+                    return Store.subscribe(handleNext2);
+                  }, [handleNext1, handleNext2]);
+                }, null);
+              ''',
+            },
+          ]
         },
       ],
     },
