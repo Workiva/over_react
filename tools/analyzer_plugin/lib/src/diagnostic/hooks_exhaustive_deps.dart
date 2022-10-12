@@ -44,8 +44,6 @@ import 'package:over_react_analyzer_plugin/src/util/react_types.dart';
 import 'package:over_react_analyzer_plugin/src/util/util.dart';
 import 'package:over_react_analyzer_plugin/src/util/weak_collections.dart';
 
-// ignore_for_file: avoid_function_literals_in_foreach_calls
-
 // API reference for JS reference/scope APIs:
 // https://eslint.org/docs/developer-guide/scope-manager-interface
 
@@ -618,14 +616,14 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
         if (setStateInsideEffectWithoutDeps != null) {
           return;
         }
-        references.forEach((reference) {
+        for (final reference in references) {
           if (setStateInsideEffectWithoutDeps != null) {
-            return;
+            continue;
           }
 
           final isSetState = setStateCallSites.has(reference);
           if (!isSetState) {
-            return;
+            continue;
           }
 
           final isDirectlyInsideEffect = reference.thisOrAncestorOfType<FunctionBody>() == callbackFunction.body;
@@ -633,7 +631,7 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
             // TODO: we could potentially ignore early returns.
             setStateInsideEffectWithoutDeps = key;
           }
-        });
+        }
       });
       if (setStateInsideEffectWithoutDeps != null) {
         final suggestedDependencies = collectRecommendations(
@@ -1636,25 +1634,25 @@ _Recommendations collectRecommendations({
 
   // Mark all required nodes first.
   // Imagine exclamation marks next to each used deep property.
-  dependencies.forEach((key, _) {
+  for (final key in dependencies.keys) {
     final node = getOrCreateNodeByPath(depTree, key);
     node.isUsed = true;
     markAllParentsByPath(depTree, key, (parent) {
       parent.isSubtreeUsed = true;
     });
-  });
+  }
 
   // Mark all satisfied nodes.
   // Imagine checkmarks next to each declared dependency.
-  declaredDependencies.forEach((_entry) {
+  for (final _entry in declaredDependencies) {
     final key = _entry.key;
     final node = getOrCreateNodeByPath(depTree, key);
     node.isSatisfiedRecursively = true;
-  });
-  stableDependencies.forEach((key) {
+  }
+  for (final key in stableDependencies) {
     final node = getOrCreateNodeByPath(depTree, key);
     node.isSatisfiedRecursively = true;
-  });
+  }
 
   // Now we can learn which dependencies are missing or necessary.
   final missingDependencies = <String>{};
@@ -1700,7 +1698,7 @@ _Recommendations collectRecommendations({
   final suggestedDependencies = <String>[];
   final unnecessaryDependencies = <String>{};
   final duplicateDependencies = <String>{};
-  declaredDependencies.forEach((_entry) {
+  for (final _entry in declaredDependencies) {
     final key = _entry.key;
     // Does this declared dep satisfy a real need?
     if (satisfyingDependencies.contains(key)) {
@@ -1725,7 +1723,7 @@ _Recommendations collectRecommendations({
         unnecessaryDependencies.add(key);
       }
     }
-  });
+  }
 
   // Then add the missing ones at the end.
   suggestedDependencies.addAll(missingDependencies);
