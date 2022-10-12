@@ -47,14 +47,6 @@ import 'package:over_react_analyzer_plugin/src/util/weak_collections.dart';
 // API reference for JS reference/scope APIs:
 // https://eslint.org/docs/developer-guide/scope-manager-interface
 
-//
-// final _hookNamePattern = RegExp(r'^use[A-Z0-9].*$');
-//
-// /// Catch all identifiers that begin with "use" followed by an uppercase Latin
-// /// character to exclude identifiers like "user".
-// bool isHookName(String s) => _hookNamePattern.hasMatch(s);
-//
-
 class HooksExhaustiveDeps extends DiagnosticContributor {
   static final _debugFlagPattern = RegExp(r'debug:.*\bover_react_hooks_exhaustive_deps\b');
 
@@ -288,8 +280,8 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
     bool isDeclaredInPureScope(Element element) =>
         // todo(greg) is this function even valid when this is null?
         componentOrCustomHookFunctionElement != null &&
-        // Don't use thisOrAncestorOfType with since `element` may itself be an ExecutableElement (e.g., local functions).
-        element.ancestorOfType<ExecutableElement>() == componentOrCustomHookFunctionElement;
+        // Use thisOrAncestorOfType on the parent since `element` may itself be an ExecutableElement (e.g., local functions).
+        element.enclosingElement?.thisOrAncestorOfType<ExecutableElement>() == componentOrCustomHookFunctionElement;
 
     bool isProps(Element e) {
       return e.name == 'props' &&
@@ -390,7 +382,7 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
       // Detect known Hook calls
       // const [_, setState] = useState()
 
-      // Handle hook tearoffs
+      // Handle hook tear-offs
       // final setCount = useCount(1).set;
       if (init is PropertyAccess || init is PrefixedIdentifier) {
         final stableHookInfo = getStableHookMethodInfo(init);
@@ -953,7 +945,7 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
             );
             continue;
           }
-          // Objects may be mutated ater construction, which would make this
+          // Objects may be mutated after construction, which would make this
           // fix unsafe. Functions _probably_ won't be mutated, so we'll
           // allow this fix for them.
           else if (construction is VariableDeclaration) {
@@ -2127,27 +2119,4 @@ extension<E extends Comparable<dynamic>> on Iterable<E> {
     }
     return true;
   }
-}
-
-extension on Element {
-  // ignore: unused_element
-  Iterable<Element> get ancestors sync* {
-    final enclosingElement = this.enclosingElement;
-    if (enclosingElement != null) {
-      yield enclosingElement;
-      yield* enclosingElement.ancestors;
-    }
-  }
-
-  /// Returns the most immediate ancestor of this element
-  /// that has the given type, or `null` if there is no such element.
-  // ignore: unused_element
-  E? ancestorOfType<E extends Element>() => enclosingElement?.thisOrAncestorOfType<E>();
-
-  /// Returns the most immediate ancestor of this element
-  /// for which the [predicate] returns `true`, or `null` if there is no such
-  /// element.
-  // ignore: unused_element
-  E? ancestorMatching<E extends Element>(bool Function(Element) predicate) =>
-      enclosingElement?.thisOrAncestorMatching(predicate);
 }
