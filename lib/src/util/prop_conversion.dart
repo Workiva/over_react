@@ -11,6 +11,10 @@ import 'package:react/react_client/react_interop.dart' show JsRef, ReactContext;
 // via custom getters/setters will need JsMap to avoid implicit cast errors.
 export 'package:react/react_client/js_backed_map.dart' show JsMap;
 
+// Export ReactContext since props that utilize jsifyContextProp/unjsifyContextProp
+// via custom getters/setters will need ReactContext to avoid implicit cast errors.
+export 'package:react/react_client/react_interop.dart' show ReactContext;
+
 /// Returns a JS-deep-converted version of [value] for storage in the props map, or null if [value] is null.
 ///
 /// For use in JS component prop setters where the component expects a JS object, but typing the getter/setter
