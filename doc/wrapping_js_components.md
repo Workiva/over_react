@@ -23,6 +23,7 @@ This guide will walk you through the process of wrapping a JavaScript React comp
         - [Conversion through Getters and Setters](#conversion-through-getters-and-setters)
         - [Converting JS Objects](#converting-javascript-object-types)
         - [Converting Refs](#converting-refs)
+        - [Converting Contexts](#converting-contexts)
         - [Converting Conflicting Function Props](#converting-conflicting-function-props)
   - [Using uiJsComponent](#using-uijscomponent)
   - [Testing Your Dart Component](#testing-your-dart-component)
@@ -362,6 +363,7 @@ Exotic types are those that may need more care to convert. Watch carefully for t
 | -------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
 | Object types (`interface`, anon object types, index signature types) | [MUI Autocomplete's ChipProps][example_ts_interface], [MUI Menu's anchorPosition][example_ts_knowntypes] | See examples and the [Converting Objects section](#converting-javascript-object-types) | [RMUI Autocomplete's ChipProps][example_dart_interface], [RMUI Menu's anchorPosition][example_dart_knowntypes] |
 | refs (`React.ForwardedRef`, `React.RefObject`, `React.Ref`)          | [MUI TextField inputRef][example_ts_ref]                                                                 | See example and the [Converting Refs section](#converting-refs)                        | [RMUI TextField inputRef][example_dart_ref]                                                                    |
+| React Context (`React.Context`) | | See example and the [Converting Contexts section](#converting-contexts) | |
 
 ##### Supplemental Explanations
 
@@ -535,6 +537,41 @@ The steps are:
 1. Add ref getters and setters named the same as the prop.
    - The getter should use `unjsifyRefProp` to convert the JS property to Dart.
    - The setter should use `jsifyRefProp` to convert the Dart map to JS.
+
+
+###### Converting Contexts
+
+If you read [Converting Refs](#converting-refs), this section will be very similar (just with different interop utilities). Say you have props that look like:
+
+```ts
+interface ArbitraryComponentProps {
+  someContext: React.Context<string>;
+}
+```
+
+React contexts are special JS object types that need to be converted to and from Dart using interop utilities. Converting them looks like:
+
+```dart
+@Props(keyNamespace: '')
+mixin ArbitraryComponentProps on UiProps {
+  Context<String> get someContext => unjsifyContextProp(_someContext$rawJs);
+
+  set someContext(Context<String> value) => _someContext$rawJs = jsifyContextProp(value);
+
+  @Accessor(key: 'someContext')
+  ReactContext _someContext$rawJs;
+}
+```
+
+> **For more information** on why getters and setters are used here, see the [Conversion through Getters and Setters section](#conversion-through-getters-and-setters).
+
+The steps are:
+
+1. Create a `ReactContext` property that will represent the raw JS context property for the component. This is necessary because the raw JS is not in a consumable form and should not be accessed directly.
+1. Add an `@Accessor` annotation to the property with a key that matches the prop name. This will link the Dart context property to the JS prop.
+1. Add context getters and setters named the same as the prop.
+   - The getter should use `unjsifyContextProp` to convert the JS context object to its Dart equivalent.
+   - The setter should use `jsifyContextProp` to convert the Dart context object to its JS representation.
 
 ###### Converting Conflicting Function Props
 
