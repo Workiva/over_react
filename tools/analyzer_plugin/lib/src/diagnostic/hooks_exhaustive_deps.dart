@@ -149,7 +149,7 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
     if (declaredDependenciesNode == null && !isEffect) {
       // These are only used for optimization.
       if (reactiveHookName == 'useMemo' || reactiveHookName == 'useCallback') {
-        // TODO: Can this have a suggestion?
+        // TODO(ported): Can this have a suggestion?
         reportProblem(
           node: reactiveHook,
           message: "React Hook $reactiveHookName does nothing when called with "
@@ -267,7 +267,7 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
     // to the first function scope (which will be either the component/render function or a custom hook,
     // since hooks can only be called from the top level).
 
-    // todo clean this up
+    // TODO(greg) clean this up
     final componentOrCustomHookFunctionBody = getClosestFunctionComponentOrHookBody(callbackFunction);
     final componentOrCustomHookFunction = componentOrCustomHookFunctionBody?.parentExpression;
     assert(componentOrCustomHookFunction == null || componentOrCustomHookFunction != callbackFunction);
@@ -278,7 +278,7 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
         componentOrCustomHookFunction?.offset ?? 0);
 
     bool isDeclaredInPureScope(Element element) =>
-        // todo(greg) is this function even valid when this is null?
+        // TODO(greg) is this function even valid when this is null?
         componentOrCustomHookFunctionElement != null &&
         // Use thisOrAncestorOfType on the parent since `element` may itself be an ExecutableElement (e.g., local functions).
         element.enclosingElement?.thisOrAncestorOfType<ExecutableElement>() == componentOrCustomHookFunctionElement;
@@ -587,7 +587,7 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
       }
       for (final reference in dep.references) {
         final parent = reference.parent;
-        // todo make a utility to check for assignments
+        // TODO(greg) make a utility to check for assignments
         if (parent is AssignmentExpression && parent.leftHandSide == reference) {
           reportStaleAssignment(parent, key);
         }
@@ -620,7 +620,7 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
 
           final isDirectlyInsideEffect = reference.thisOrAncestorOfType<FunctionBody>() == callbackFunction.body;
           if (isDirectlyInsideEffect) {
-            // TODO: we could potentially ignore early returns.
+            // TODO(ported): we could potentially ignore early returns.
             setStateInsideEffectWithoutDeps = key;
           }
         }
@@ -742,7 +742,7 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
           continue;
         }
 
-        // todo(greg) handle / warn about cascades?
+        // TODO(greg) handle / warn about cascades?
         Expression? maybeID = declaredDependencyNode;
         while (maybeID is PropertyAccess || maybeID is PrefixedIdentifier) {
           if (maybeID is PropertyAccess) {
@@ -935,9 +935,9 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
                   // `void something<T generic>(T arg) {…}` -> `final something = useCallback(<T>(T arg) {…}, […]);`
                   builder.addSimpleReplacement(range.startEnd(construction, construction.name),
                       'final ${construction.name.name} = useCallback(');
-                  // TODO: ideally we'd gather deps here but it would require
-                  // restructuring the rule code. Note we're
-                  // not adding [] because would that changes semantics.
+                  // TODO(ported): ideally we'd gather deps here but it would require
+                  //  restructuring the rule code. Note we're
+                  //  not adding [] because would that changes semantics.
                   // Add a placeholder here so there isn't a static error about using useCallback with the wrong number of arguments.
                   builder.addSimpleInsertion(construction.end, ', [/* FIXME add dependencies */]);');
                 },
@@ -968,9 +968,9 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
                 computeFix: () => buildGenericFileEdit(
                   result,
                   (builder) {
-                    // TODO: ideally we'd gather deps here but it would require
-                    // restructuring the rule code. Note we're
-                    // not adding [] because would that changes semantics.
+                    // TODO(ported): ideally we'd gather deps here but it would require
+                    //  restructuring the rule code. Note we're
+                    //  not adding [] because would that changes semantics.
                     if (wrapperHook == 'useMemo') {
                       builder.addSimpleInsertion(constructionInitializer.offset, '$wrapperHook(() => ');
                       builder.addSimpleInsertion(constructionInitializer.end, ')');
@@ -987,8 +987,8 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
           }
         }
 
-        // TODO: What if the function needs to change on every render anyway?
-        // Should we suggest removing effect deps as an appropriate fix too?
+        // TODO(ported): What if the function needs to change on every render anyway?
+        //  Should we suggest removing effect deps as an appropriate fix too?
         collector.addError(
           HooksExhaustiveDeps.code,
           result.locationFor(construction),
