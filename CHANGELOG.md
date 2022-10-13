@@ -1,5 +1,12 @@
 # OverReact Changelog
 
+## [4.5.0](https://github.com/Workiva/over_react/compare/4.4.4...4.5.0)
+- [#785] Add utilities for jsifying/unsifying context props
+
+## [4.4.4](https://github.com/Workiva/over_react/compare/4.4.3...4.4.4)
+- [#782] w_common v2 rollout (part 1)
+- [#783] w_common v2 rollout (part 2)
+
 ## [4.4.3](https://github.com/Workiva/over_react/compare/4.4.2...4.4.3)
 - [#774] Make error message when component failed to initialize more helpful
 - [#778] Allow w_common 2
