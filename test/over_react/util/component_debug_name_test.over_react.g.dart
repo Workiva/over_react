@@ -18,7 +18,6 @@ final $TestComponent2ComponentFactory = registerComponent2(
   componentClass: TestComponent2Component,
   isWrapper: false,
   parentType: null,
-  displayName: 'TestComponent2',
 );
 
 _$$TestComponent2Props _$TestComponent2([Map backingProps]) =>
@@ -141,6 +140,9 @@ class _$TestComponent2Component extends TestComponent2Component {
   @override
   bool get $isClassGenerated => true;
 
+  @override
+  String get displayName => 'TestComponent2';
+
   /// The default consumed props, comprising all props mixins used by TestComponent2Props.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
@@ -162,7 +164,6 @@ final $TestComponentComponentFactory = registerComponent(
   componentClass: TestComponentComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'TestComponent',
 );
 
 abstract class _$TestComponentPropsAccessorsMixin
@@ -227,6 +228,9 @@ class _$TestComponentComponent extends TestComponentComponent {
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'TestComponent';
 
   /// The default consumed props, taken from _$TestComponentProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.

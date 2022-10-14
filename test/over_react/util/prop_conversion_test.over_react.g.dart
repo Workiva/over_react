@@ -18,7 +18,6 @@ final $ClassComponentComponentFactory = registerComponent2(
   componentClass: ClassComponentComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'ClassComponent',
 );
 
 _$$ClassComponentProps _$ClassComponent([Map backingProps]) =>
@@ -140,6 +139,9 @@ class _$ClassComponentComponent extends ClassComponentComponent {
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'ClassComponent';
 
   /// The default consumed props, comprising all props mixins used by ClassComponentProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
@@ -319,6 +321,14 @@ mixin $TestJsProps on TestJsProps {
   set _$raw$inputRef(dynamic value) =>
       props[_$key___$raw$inputRef__TestJsProps] = value;
   @override
+  @Accessor(key: 'messageContext')
+  ReactContext get _$raw$messageContext =>
+      (props[_$key___$raw$messageContext__TestJsProps] ?? null) as ReactContext;
+  @override
+  @Accessor(key: 'messageContext')
+  set _$raw$messageContext(ReactContext value) =>
+      props[_$key___$raw$messageContext__TestJsProps] = value;
+  @override
   dynamic get component =>
       (props[_$key__component__TestJsProps] ?? null) as dynamic;
   @override
@@ -340,6 +350,8 @@ mixin $TestJsProps on TestJsProps {
       PropDescriptor(_$key___$raw$buttonProps__TestJsProps);
   static const PropDescriptor _$prop___$raw$inputRef__TestJsProps =
       PropDescriptor(_$key___$raw$inputRef__TestJsProps);
+  static const PropDescriptor _$prop___$raw$messageContext__TestJsProps =
+      PropDescriptor(_$key___$raw$messageContext__TestJsProps);
   static const PropDescriptor _$prop__component__TestJsProps =
       PropDescriptor(_$key__component__TestJsProps);
   static const PropDescriptor _$prop__inputComponent__TestJsProps =
@@ -348,6 +360,8 @@ mixin $TestJsProps on TestJsProps {
       PropDescriptor(_$key__buttonComponent__TestJsProps);
   static const String _$key___$raw$buttonProps__TestJsProps = 'buttonProps';
   static const String _$key___$raw$inputRef__TestJsProps = 'inputRef';
+  static const String _$key___$raw$messageContext__TestJsProps =
+      'messageContext';
   static const String _$key__component__TestJsProps = 'component';
   static const String _$key__inputComponent__TestJsProps = 'inputComponent';
   static const String _$key__buttonComponent__TestJsProps = 'buttonComponent';
@@ -355,6 +369,7 @@ mixin $TestJsProps on TestJsProps {
   static const List<PropDescriptor> $props = [
     _$prop___$raw$buttonProps__TestJsProps,
     _$prop___$raw$inputRef__TestJsProps,
+    _$prop___$raw$messageContext__TestJsProps,
     _$prop__component__TestJsProps,
     _$prop__inputComponent__TestJsProps,
     _$prop__buttonComponent__TestJsProps
@@ -362,6 +377,7 @@ mixin $TestJsProps on TestJsProps {
   static const List<String> $propKeys = [
     _$key___$raw$buttonProps__TestJsProps,
     _$key___$raw$inputRef__TestJsProps,
+    _$key___$raw$messageContext__TestJsProps,
     _$key__component__TestJsProps,
     _$key__inputComponent__TestJsProps,
     _$key__buttonComponent__TestJsProps

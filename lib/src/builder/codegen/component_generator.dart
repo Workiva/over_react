@@ -31,6 +31,7 @@ abstract class ComponentGenerator extends BoilerplateDeclarationGenerator {
   TypedMapNames propsNames;
   TypedMapNames stateNames;
   ComponentNames componentNames;
+  FactoryNames factoryNames;
 
   BoilerplateComponent get component;
   bool get hasState;
@@ -122,6 +123,9 @@ abstract class ComponentGenerator extends BoilerplateDeclarationGenerator {
       ..writeln('  @override')
       ..writeln('  bool get \$isClassGenerated => true;')
       ..writeln()
+      ..writeln('  @override')
+      ..writeln('  String get displayName => \'${factoryNames.unprefixedConsumerName}\';')
+      ..writeln()
       ..writeln('  $defaultConsumedPropsImpl');
 
     _generateAdditionalComponentBody();
@@ -145,11 +149,15 @@ class _ComponentGenerator extends ComponentGenerator {
   @override
   final ComponentNames componentNames;
 
+  @override
+  final FactoryNames factoryNames;
+
   _ComponentGenerator(this.declaration)
       : this.propsNames = TypedMapNames(declaration.props.either.name.name),
         this.stateNames =
             declaration.state == null ? null : TypedMapNames(declaration.state.either.name.name),
         this.componentNames = ComponentNames(declaration.component.name.name),
+        this.factoryNames = FactoryNames(declaration.factory.name.name),
         super._();
 
   @override
@@ -190,11 +198,15 @@ class _LegacyComponentGenerator extends ComponentGenerator {
   @override
   final ComponentNames componentNames;
 
+  @override
+  final FactoryNames factoryNames;
+
   _LegacyComponentGenerator(this.declaration)
       : this.propsNames = TypedMapNames(declaration.props.name.name),
         this.stateNames =
             declaration.state == null ? null : TypedMapNames(declaration.state.name.name),
         this.componentNames = ComponentNames(declaration.component.name.name),
+        this.factoryNames = FactoryNames(declaration.factory.name.name),
         super._();
 
   @override

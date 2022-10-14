@@ -15,9 +15,8 @@ final $ToggleButtonGroupComponentFactory = registerComponent(
   builderFactory: _$ToggleButtonGroup,
   componentClass: ToggleButtonGroupComponent,
   isWrapper: false,
-  parentType: $ButtonGroupComponentFactory,
-  /* from `subtypeOf: ButtonGroupComponent` */
-  displayName: 'ToggleButtonGroup',
+  parentType:
+      $ButtonGroupComponentFactory, /* from `subtypeOf: ButtonGroupComponent` */
 );
 
 abstract class _$ToggleButtonGroupPropsAccessorsMixin
@@ -134,6 +133,9 @@ class _$ToggleButtonGroupComponent extends ToggleButtonGroupComponent {
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'ToggleButtonGroup';
 
   /// The default consumed props, taken from _$ToggleButtonGroupProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.

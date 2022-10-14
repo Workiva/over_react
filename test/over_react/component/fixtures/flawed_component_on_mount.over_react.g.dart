@@ -16,7 +16,6 @@ final $FlawedOnMountComponentFactory = registerComponent2(
   componentClass: FlawedOnMountComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'FlawedOnMount',
 );
 
 abstract class _$FlawedOnMountPropsAccessorsMixin
@@ -138,6 +137,9 @@ class _$FlawedOnMountComponent extends FlawedOnMountComponent {
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'FlawedOnMount';
 
   /// The default consumed props, taken from _$FlawedOnMountProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.

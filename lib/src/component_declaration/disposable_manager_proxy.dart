@@ -65,7 +65,7 @@ mixin DisposableManagerProxy on react.Component implements DisposableManagerV7 {
 
   @override
   Disposable manageAndReturnDisposable(Disposable disposable) =>
-      _getDisposableProxy().manageAndReturnDisposable(disposable);
+      _getDisposableProxy().manageAndReturnTypedDisposable(disposable);
 
   @override
   Completer<T> manageCompleter<T>(Completer<T> completer) =>
@@ -79,7 +79,7 @@ mixin DisposableManagerProxy on react.Component implements DisposableManagerV7 {
   @Deprecated('w_common 2.0.0')
   @override
   void manageDisposer(Disposer disposer) =>
-      _getDisposableProxy().manageDisposer(disposer);
+      _getDisposableProxy().getManagedDisposer(disposer);
 
   @override
   void manageStreamController(StreamController controller) =>
@@ -89,7 +89,7 @@ mixin DisposableManagerProxy on react.Component implements DisposableManagerV7 {
   @Deprecated('w_common 2.0.0')
   @override
   void manageStreamSubscription(StreamSubscription subscription) =>
-      _getDisposableProxy().manageStreamSubscription(subscription);
+      _getDisposableProxy().getManagedDisposer(subscription.cancel);
 
   /// Automatically dispose another object when this object is disposed.
   ///

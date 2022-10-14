@@ -16,7 +16,6 @@ final $BasicChildComponentFactory = registerComponent2(
   componentClass: BasicChildComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'BasicChild',
 );
 
 abstract class _$BasicChildPropsAccessorsMixin implements _$BasicChildProps {
@@ -141,6 +140,9 @@ class _$BasicChildComponent extends BasicChildComponent {
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'BasicChild';
 
   /// The default consumed props, taken from _$BasicChildProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.

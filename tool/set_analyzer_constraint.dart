@@ -1,12 +1,10 @@
 import 'dart:io';
 
-final analyzerConstraintPattern =
-    RegExp(r'^( +analyzer:\s*).+', multiLine: true);
+final analyzerConstraintPattern = RegExp(r'^( +analyzer:\s*).+', multiLine: true);
 
 void main(List<String> args) {
   if (args.length != 1) {
-    throw ArgumentError(
-        'Expected a single arg for the new analyzer constraint. Args: $args');
+    throw ArgumentError('Expected a single arg for the new analyzer constraint. Args: $args');
   }
   final newAnalyzerConstraint = args.single;
 
@@ -20,6 +18,5 @@ void main(List<String> args) {
   }
 
   pubspec.writeAsStringSync(pubspecContents.replaceFirstMapped(
-      analyzerConstraintPattern,
-      (match) => '${match.group(1)}$newAnalyzerConstraint'));
+      analyzerConstraintPattern, (match) => '${match.group(1)}$newAnalyzerConstraint'));
 }

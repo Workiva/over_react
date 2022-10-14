@@ -1,5 +1,23 @@
 # OverReact Changelog
 
+## [4.5.0](https://github.com/Workiva/over_react/compare/4.4.4...4.5.0)
+- [#785] Add utilities for jsifying/unsifying context props
+
+## [4.4.4](https://github.com/Workiva/over_react/compare/4.4.3...4.4.4)
+- [#782] w_common v2 rollout (part 1)
+- [#783] w_common v2 rollout (part 2)
+
+## [4.4.3](https://github.com/Workiva/over_react/compare/4.4.2...4.4.3)
+- [#774] Make error message when component failed to initialize more helpful
+- [#778] Allow w_common 2
+
+## [4.4.2](https://github.com/Workiva/over_react/compare/4.4.1...4.4.2)
+- [#770] Fix component names not showing in Error Boundary stacks for class-based components
+- [#769] Add [documentation for wrapping JS components](https://github.com/Workiva/over_react/blob/master/doc/wrapping_js_components.md) using `uiJsComponent`
+
+## [4.4.1](https://github.com/Workiva/over_react/compare/4.4.0...4.4.1)
+- [#764] (Example app) Widen uuid dependency
+
 ## [4.4.0](https://github.com/Workiva/over_react/compare/4.3.1...4.4.0)
 
 - [#743] Add `js_component.dart` entrypoint with utilities for wrapping JS React components. More in-depth documentation around how to use these APIs and best practices is coming soon.
