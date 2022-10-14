@@ -82,6 +82,7 @@ import 'package:over_react_analyzer_plugin/src/diagnostic/style_value_diagnostic
 import 'package:over_react_analyzer_plugin/src/diagnostic/variadic_children.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/variadic_children_with_keys.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
+import 'package:path/path.dart' as p;
 
 import 'assist/contributor_base.dart';
 
@@ -199,7 +200,18 @@ class OverReactAnalyzerPlugin extends OverReactAnalyzerPluginBase {
   OverReactAnalyzerPlugin(ResourceProvider provider) : super(provider) {
     runZonedGuarded(() {
       _unresolvedWorker.pathsStream
-          .map((p) => (driverForPath(p) as AnalysisDriver).parseFileSync2(p))
+          // Don't try to parse non-Dart files, since those can cause parseFileSync2 to throw.
+          .where((path) => p.extension(path) == '.dart')
+          .map((path) {
+            final driver = driverForPath(path) as AnalysisDriver?;
+            if (driver == null) return null;
+            try {
+              return driver.parseFileSync2(path);
+            } catch (e, st) {
+              channel.sendNotification(
+                  plugin.PluginErrorParams(false, 'Error parsing file "$path": $e', st.toString()).toNotification());
+            }
+          })
           .whereType<ParsedUnitResult>()
           .map((p) => PotentiallyResolvedResult.unresolved(p))
           .listen(processDiagnosticsForResult);
