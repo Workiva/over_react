@@ -189,7 +189,7 @@ abstract class DiagnosticTestBase extends ServerPluginContributorTestBase {
 
   Future<DartAndPluginErrorsIterable> _getAllErrors(Source source,
       {ErrorFilter errorFilter = defaultErrorFilter}) async {
-    final result = await testPlugin.getResolvedUnitResult(sourcePath(source));
+    final result = await testPlugin.getPotentiallyResolvedResult(sourcePath(source));
     final dartErrors = AnalyzerConverter()
         .convertAnalysisErrors(
           result.errors.toList(),

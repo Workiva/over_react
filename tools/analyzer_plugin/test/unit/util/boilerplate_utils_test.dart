@@ -115,7 +115,7 @@ void main() {
       group('adds a valid part directive', () {
         test('when there are no part directives in the file', () async {
           final result = await parseAndGetResolvedUnit(sourceWithNoPart, path: 'foo.dart');
-          final sourceChange = await buildFileEdit(result, (builder) {
+          final sourceChange = await buildFileEdit(result.asPotentiallyResolvedResult(), (builder) {
             addOverReactGeneratedPartDirective(builder, result.unit, result.lineInfo, result.uri);
           });
           final editList = sourceChange.edits.firstOrNull?.edits;
@@ -132,7 +132,7 @@ void main() {
 
         test('when there is an existing part directive in the file', () async {
           final result = await parseAndGetResolvedUnit(sourceWithNonOverReactPart, path: 'foo.dart');
-          final sourceChange = await buildFileEdit(result, (builder) {
+          final sourceChange = await buildFileEdit(result.asPotentiallyResolvedResult(), (builder) {
             addOverReactGeneratedPartDirective(builder, result.unit, result.lineInfo, result.uri);
           });
           final editList = sourceChange.edits.firstOrNull?.edits;
@@ -149,7 +149,7 @@ void main() {
 
       test('replaces existing over_react part directive if it doesn\'t match file uri', () async {
         final result = await parseAndGetResolvedUnit(sourceWithOverReactPart, path: 'different_file_name.dart');
-        final sourceChange = await buildFileEdit(result, (builder) {
+        final sourceChange = await buildFileEdit(result.asPotentiallyResolvedResult(), (builder) {
           addOverReactGeneratedPartDirective(builder, result.unit, result.lineInfo, result.uri);
         });
         final editList = sourceChange.edits.firstOrNull?.edits;
@@ -188,7 +188,7 @@ void main() {
       group('removes over_react part directive if it exists', () {
         test('', () async {
           final result = await parseAndGetResolvedUnit(sourceWithOverReactPart, path: 'foo.dart');
-          final sourceChange = await buildFileEdit(result, (builder) {
+          final sourceChange = await buildFileEdit(result.asPotentiallyResolvedResult(), (builder) {
             removeOverReactGeneratedPartDirective(builder, result.unit);
           });
           final editList = sourceChange.edits.firstOrNull?.edits;
@@ -222,7 +222,7 @@ void main() {
               void render() {}
             }
           ''', path: 'foo.dart');
-          final sourceChange = await buildFileEdit(result, (builder) {
+          final sourceChange = await buildFileEdit(result.asPotentiallyResolvedResult(), (builder) {
             removeOverReactGeneratedPartDirective(builder, result.unit);
           });
           final editList = sourceChange.edits.firstOrNull?.edits;
@@ -270,7 +270,7 @@ void main() {
 
       test('replaces over_react part directive that does not match file uri', () async {
         final result = await parseAndGetResolvedUnit(sourceWithOverReactPart, path: 'different_file_name.dart');
-        final sourceChange = await buildFileEdit(result, (builder) {
+        final sourceChange = await buildFileEdit(result.asPotentiallyResolvedResult(), (builder) {
           fixOverReactGeneratedPartDirective(builder, result.unit, result.uri);
         });
         final editList = sourceChange.edits.firstOrNull?.edits;
@@ -308,7 +308,7 @@ Future<List<SourceFileEdit>> getSourceFileEdits(
   String path = 'foo.dart',
 }) async {
   final result = await parseAndGetResolvedUnit(dartSource, path: path);
-  final sourceChange = await buildFileEdit(result, (builder) {
+  final sourceChange = await buildFileEdit(result.asPotentiallyResolvedResult(), (builder) {
     callUtilityFunction(builder, result);
   });
   return sourceChange.edits;

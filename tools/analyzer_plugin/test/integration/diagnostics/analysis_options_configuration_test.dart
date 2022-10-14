@@ -24,7 +24,7 @@ void main() {
     Future<List<AnalysisError>> computeErrors({String sourceCode = boilerplateErrorSourceCode}) async {
       final source = testBase.newSource('test.dart', sourceCode);
 
-      final result = await testBase.testPlugin.getResolvedUnitResult(testBase.sourcePath(source));
+      final result = await testBase.testPlugin.getPotentiallyResolvedResult(testBase.sourcePath(source));
       final errors = await testBase.testPlugin.getAllErrors(result);
       return errors;
     }

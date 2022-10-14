@@ -2,15 +2,12 @@
 
 import 'dart:async';
 
-import 'package:analyzer/dart/analysis/results.dart';
-import 'package:analyzer/dart/analysis/session.dart';
-import 'package:analyzer/dart/ast/ast.dart';
-import 'package:analyzer/source/line_info.dart';
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:analyzer_plugin/protocol/protocol_generated.dart';
 import 'package:analyzer_plugin/utilities/fixes/fixes.dart';
 import 'package:meta/meta.dart';
 import 'package:over_react_analyzer_plugin/src/util/constants.dart';
+import 'package:over_react_analyzer_plugin/src/util/potentially_resolved_result.dart';
 
 import 'component_usage.dart';
 
@@ -19,9 +16,10 @@ export 'package:analyzer_plugin/utilities/change_builder/change_builder_dart.dar
 export 'package:analyzer_plugin/utilities/fixes/fixes.dart' show FixKind;
 export 'package:analyzer_plugin/utilities/range_factory.dart' show range;
 export 'package:over_react_analyzer_plugin/src/component_usage.dart';
+export 'package:over_react_analyzer_plugin/src/doc_utils/docs_meta_annotation.dart';
 export 'package:over_react_analyzer_plugin/src/util/fix.dart';
 export 'package:over_react_analyzer_plugin/src/util/location.dart';
-export 'package:over_react_analyzer_plugin/src/doc_utils/docs_meta_annotation.dart';
+export 'package:over_react_analyzer_plugin/src/util/potentially_resolved_result.dart';
 
 /// An error code associated with an [AnalysisError].
 ///
@@ -108,26 +106,6 @@ abstract class DiagnosticContributor {
   Future<void> computeErrors(PotentiallyResolvedResult result, DiagnosticCollector collector);
 }
 
-
-class PotentiallyResolvedResult {
-  final ResolvedUnitResult? resolved;
-  final ParsedUnitResult? unresolved;
-
-  CompilationUnit? get unit => resolved?.unit ?? unresolved?.unit;
-  String? get content => resolved?.content ?? unresolved?.content;
-
-  PotentiallyResolvedResult.resolved(ResolvedUnitResult this.resolved) : unresolved = null;
-  PotentiallyResolvedResult.unresolved(ParsedUnitResult this.unresolved) : resolved = null;
-
-  String? get path => resolved?.path ?? unresolved?.path;
-  Uri get uri => (resolved?.uri ?? unresolved?.uri)!;
-
-  AnalysisSession get session => (resolved?.session ?? unresolved?.session)!;
-
-  LineInfo get lineInfo => (resolved?.lineInfo ?? unresolved?.lineInfo)!;
-
-  bool get isPart => (resolved?.isPart ?? unresolved?.isPart)!;
-}
 
 abstract class ComponentUsageDiagnosticContributor extends DiagnosticContributor {
   // computeErrorsForUsage(result, collector, usage) async {
