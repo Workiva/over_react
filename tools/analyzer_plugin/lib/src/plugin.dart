@@ -56,6 +56,7 @@ import 'package:over_react_analyzer_plugin/src/assist/refs/add_create_ref_assist
 import 'package:over_react_analyzer_plugin/src/assist/toggle_stateful.dart';
 import 'package:over_react_analyzer_plugin/src/async_plugin_apis/assist.dart';
 import 'package:over_react_analyzer_plugin/src/async_plugin_apis/diagnostic.dart';
+import 'package:over_react_analyzer_plugin/src/async_plugin_apis/potentially_resolved_server_plugin.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/arrow_function_prop.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/bad_key.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/boilerplate_validator.dart';
@@ -84,13 +85,9 @@ import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 
 import 'assist/contributor_base.dart';
 
-enum RunMode {
-  resolved,
-  unresolved,
-}
-
 abstract class OverReactAnalyzerPluginBase extends ServerPlugin
     with
+      PotentiallyResolvedServerPlugin,
         // Don't mix in anything Dart.+Mixin from analyzer_plugin, since it might request resolved results when we don't want it to.
 //    OutlineMixin, DartOutlineMixin,
         DiagnosticMixin,
@@ -103,6 +100,7 @@ abstract class OverReactAnalyzerPluginBase extends ServerPlugin
   @override
   final pluginOptionsReader = PluginOptionsReader();
 
+  @override
   RunMode get runMode => RunMode.unresolved;
 
   @override
@@ -112,27 +110,6 @@ abstract class OverReactAnalyzerPluginBase extends ServerPlugin
     return DartPotentiallyResolvedDartAssistRequestImpl(resourceProvider, parameters.offset, parameters.length, result);
   }
 
-  Future<PotentiallyResolvedResult> getPotentiallyResolvedResult(String path) async => runMode == RunMode.resolved
-      ? PotentiallyResolvedResult.resolved(await getResolvedUnitResult(path))
-      : PotentiallyResolvedResult.unresolved(getUnResolvedUnitResult(path));
-
-  /// Return the result of analyzing the file with the given [path].
-  ///
-  /// Throw a [RequestFailure] is the file cannot be analyzed or if the driver
-  /// associated with the file is not an [AnalysisDriver].
-  ParsedUnitResult getUnResolvedUnitResult(String path) {
-    var driver = driverForPath(path);
-    if (driver is! AnalysisDriver) {
-      // Return an error from the request.
-      throw RequestFailure(RequestErrorFactory.pluginError('Failed to parse $path', null));
-    }
-    var result = driver.parseFileSync2(path);
-    if (result is! ParsedUnitResult) {
-      // Return an error from the request.
-      throw RequestFailure(RequestErrorFactory.pluginError('Failed to parse $path', null));
-    }
-    return result;
-  }
 
   @override
   List<String> get fileGlobsToAnalyze => const ['*.dart'];

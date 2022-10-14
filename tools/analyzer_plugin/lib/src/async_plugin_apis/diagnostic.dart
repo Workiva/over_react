@@ -32,12 +32,14 @@
 
 import 'dart:async';
 
+import 'package:analyzer/error/error.dart' as analyzer;
+import 'package:analyzer/file_system/file_system.dart';
 import 'package:analyzer_plugin/channel/channel.dart';
-import 'package:analyzer_plugin/plugin/plugin.dart';
 import 'package:analyzer_plugin/protocol/protocol.dart';
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:analyzer_plugin/protocol/protocol_generated.dart' as plugin;
 import 'package:analyzer_plugin/protocol/protocol_generated.dart';
+import 'package:analyzer_plugin/utilities/fixes/fixes.dart';
 
 import 'package:meta/meta.dart';
 import 'package:over_react_analyzer_plugin/src/async_plugin_apis/error_severity_provider.dart';
@@ -48,8 +50,9 @@ import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/error_filtering.dart';
 import 'package:over_react_analyzer_plugin/src/util/pretty_print.dart';
 
+import 'potentially_resolved_server_plugin.dart';
 
-mixin DiagnosticMixin on ServerPlugin {
+mixin DiagnosticMixin on PotentiallyResolvedServerPlugin {
   PluginOptionsReader get pluginOptionsReader;
 
   List<DiagnosticContributor> getDiagnosticContributors(String path);
@@ -91,44 +94,59 @@ mixin DiagnosticMixin on ServerPlugin {
 
   @override
   Future<plugin.EditGetFixesResult> handleEditGetFixes(plugin.EditGetFixesParams parameters) async {
-    // // We want request errors to propagate if they throw
-    // final request = await _getFixesRequest(parameters);
-    // final analysisOptions = pluginOptionsReader.getAnalysisOptionsForResult(request.result);
-    //
-    // try {
-    //   final generator = _DiagnosticGenerator(
-    //     getDiagnosticContributors(parameters.file),
-    //     errorSeverityProvider: AnalysisOptionsErrorSeverityProvider(analysisOptions),
-    //   );
-    //   final result = await generator.generateFixesResponse(request);
-    //   result.sendNotifications(channel);
-    //   return result.result;
-    // } catch (e, stackTrace) {
-    //   // Notify the analyzer that an exception happened.
-    //   channel.sendNotification(plugin.PluginErrorParams(false, e.toString(), stackTrace.toString()).toNotification());
+    // We want request errors to propagate if they throw
+    final request = await _getFixesRequest(parameters);
+    final analysisOptions = pluginOptionsReader.getAnalysisOptionsForResult(request.result);
+
+    try {
+      final generator = _DiagnosticGenerator(
+        getDiagnosticContributors(parameters.file),
+        errorSeverityProvider: AnalysisOptionsErrorSeverityProvider(analysisOptions),
+      );
+      final result = await generator.generateFixesResponse(request);
+      result.sendNotifications(channel);
+      return result.result;
+    } catch (e, stackTrace) {
+      // Notify the analyzer that an exception happened.
+      channel.sendNotification(plugin.PluginErrorParams(false, e.toString(), stackTrace.toString()).toNotification());
       return plugin.EditGetFixesResult([]);
-    // }
+    }
   }
 
-  // // from DartFixesMixin
-  // Future<DartFixesRequest> _getFixesRequest(EditGetFixesParams parameters) async {
-  //   final path = parameters.file;
-  //   final offset = parameters.offset;
-  //   final result = await getPotentiallyResolvedResult(path);
-  //   return DartFixesRequestImpl(resourceProvider, offset, [], result);
-  // }
+  // from DartFixesMixin
+  Future<PotentiallyResolvedDartFixesRequest> _getFixesRequest(EditGetFixesParams parameters) async {
+    final path = parameters.file;
+    final offset = parameters.offset;
+    final result = await getPotentiallyResolvedResult(path);
+    return PotentiallyResolvedDartFixesRequest(resourceProvider, offset, _getErrors(offset, result), result);
+  }
 
-// from DartFixesMixin
-//  List<AnalysisError> _getErrors(int offset, PotentiallyResolvedResult result) {
-//    LineInfo lineInfo = result.lineInfo;
-//    int offsetLine = lineInfo.getLocation(offset).lineNumber;
-// these errors don't include ones from the plugin, which doesn't seem right...
-//    return result.errors.where((AnalysisError error) {
-//      int errorLine = lineInfo.getLocation(error.offset).lineNumber;
-//      return errorLine == offsetLine;
-//    }).toList();
-//    return result.errors;
-//  }
+  // from DartFixesMixin
+  List<analyzer.AnalysisError> _getErrors(int offset, PotentiallyResolvedResult result) {
+    final lineInfo = result.lineInfo;
+    final offsetLine = lineInfo.getLocation(offset).lineNumber;
+    // these errors don't include ones from the plugin, which doesn't seem right...
+    return result.errors.where((error) {
+      final errorLine = lineInfo.getLocation(error.offset).lineNumber;
+      return errorLine == offsetLine;
+    }).toList();
+  }
+}
+
+class PotentiallyResolvedDartFixesRequest implements FixesRequest {
+  @override
+  final ResourceProvider resourceProvider;
+
+  @override
+  final int offset;
+
+  @override
+  final List<analyzer.AnalysisError> errorsToFix;
+
+  final PotentiallyResolvedResult result;
+
+  PotentiallyResolvedDartFixesRequest(
+      this.resourceProvider, this.offset, this.errorsToFix, this.result);
 }
 
 /// A class that generates errors and fixes for a set of [contributors] for
@@ -153,47 +171,48 @@ class _DiagnosticGenerator {
   Future<_GeneratorResult<List<AnalysisError>>> generateErrors(PotentiallyResolvedResult unitResult) async {
     return _generateErrors(unitResult, DiagnosticCollectorImpl(shouldComputeFixes: false));
   }
-  //
-  // /// Creates an 'edit.getFixes' response for the location in the file specified
-  // /// by the given [request]. If any of the contributors throws an exception,
-  // /// also create a non-fatal 'plugin.error' notification.
-  // Future<_GeneratorResult<EditGetFixesResult>> generateFixesResponse(DartFixesRequest request) async {
-  //   // Recompute the errors and then emit the matching fixes
-  //
-  //   final collector = DiagnosticCollectorImpl(shouldComputeFixes: true);
-  //   final errorsResult = await _generateErrors(request.result, collector);
-  //   final notifications = [...errorsResult.notifications];
-  //
-  //   // Return any fixes that contain the given offset.
-  //   // TODO use request.errorsToFix instead?
-  //   final fixes = <AnalysisErrorFixes>[];
-  //   for (var i = 0; i < collector.errors.length; i++) {
-  //     final error = collector.errors[i];
-  //     final errorStart = error.location.offset;
-  //     final errorEnd = errorStart + error.location.length;
-  //
-  //     if (_errorSeverityProvider.isCodeDisabled(error.code)) {
-  //       // This error has been disabled by configuration; skip it.
-  //       continue;
-  //     }
-  //
-  //     _configureErrorSeverity(error);
-  //
-  //     // `<=` because we do want the end to be inclusive (you should get
-  //     // the fix when your cursor is on the tail end of the error).
-  //     if (request.offset >= errorStart && request.offset <= errorEnd) {
-  //       final fix = collector.fixes[i];
-  //       if (fix != null) {
-  //         fixes.add(AnalysisErrorFixes(
-  //           error,
-  //           fixes: [fix],
-  //         ));
-  //       }
-  //     }
-  //   }
-  //
-  //   return _GeneratorResult(EditGetFixesResult(fixes), notifications);
-  // }
+
+
+  /// Creates an 'edit.getFixes' response for the location in the file specified
+  /// by the given [request]. If any of the contributors throws an exception,
+  /// also create a non-fatal 'plugin.error' notification.
+  Future<_GeneratorResult<EditGetFixesResult>> generateFixesResponse(PotentiallyResolvedDartFixesRequest request) async {
+    // Recompute the errors and then emit the matching fixes
+
+    final collector = DiagnosticCollectorImpl(shouldComputeFixes: true);
+    final errorsResult = await _generateErrors(request.result, collector);
+    final notifications = [...errorsResult.notifications];
+
+    // Return any fixes that contain the given offset.
+    // TODO use request.errorsToFix instead?
+    final fixes = <AnalysisErrorFixes>[];
+    for (var i = 0; i < collector.errors.length; i++) {
+      final error = collector.errors[i];
+      final errorStart = error.location.offset;
+      final errorEnd = errorStart + error.location.length;
+
+      if (_errorSeverityProvider.isCodeDisabled(error.code)) {
+        // This error has been disabled by configuration; skip it.
+        continue;
+      }
+
+      _configureErrorSeverity(error);
+
+      // `<=` because we do want the end to be inclusive (you should get
+      // the fix when your cursor is on the tail end of the error).
+      if (request.offset >= errorStart && request.offset <= errorEnd) {
+        final fix = collector.fixes[i];
+        if (fix != null) {
+          fixes.add(AnalysisErrorFixes(
+            error,
+            fixes: [fix],
+          ));
+        }
+      }
+    }
+
+    return _GeneratorResult(EditGetFixesResult(fixes), notifications);
+  }
 
   Future<_GeneratorResult<List<AnalysisError>>> _generateErrors(
       PotentiallyResolvedResult unitResult, DiagnosticCollectorImpl collector) async {
