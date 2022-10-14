@@ -184,7 +184,7 @@ Tuple2<SimpleIdentifier, SimpleIdentifier>? getSimpleTargetAndPropertyName(
   return null;
 }
 
-Identifier? getPropertyBeingAccessed(AstNode? node) {
+Identifier? getNonCascadedPropertyBeingAccessed(AstNode? node) {
   if (node is! Expression) return null;
   return getSimpleTargetAndPropertyName(node, allowMethodInvocation: true)?.item2;
 }

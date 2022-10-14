@@ -1401,6 +1401,17 @@ final Map<String, List<Map<String, Object>>> tests = {
         }
       ''',
     },
+    {
+      'name': 'Dependency with cascade in initializer',
+      'code': r'''
+        final MyComponent = uiFunction<TestProps>((props) {
+          final items = props.items..forEach((_) {});
+          useEffect(() {
+            print(items);
+          }, [items]);
+        }, null);
+      ''',
+    },
   ],
   'invalid': [
     {
@@ -3624,6 +3635,21 @@ final Map<String, List<Map<String, Object>>> tests = {
       ],
     },
     {
+      'name': 'Cascade in dependencies list',
+      'code': r'''
+        final MyComponent = uiFunction<TestProps>((props) {
+          useEffect(() {}, [props..function()]);
+        }, null);
+      ''',
+      'errors': [
+        {
+          'message':
+              'React Hook useEffect has a complex expression in the dependency list. Extract it to a separate variable so it can be statically checked.',
+          'suggestions': null,
+        },
+      ],
+    },
+    {
       'code': r'''
         final MyComponent = uiFunction<TestProps>((_) {
           final ref = useRef();
@@ -4082,6 +4108,26 @@ final Map<String, List<Map<String, Object>>> tests = {
               ''',
             },
           ],
+        },
+      ],
+    },
+    {
+      // FIXME(greg) add analogous valid case for props being the dependency
+      'name': 'Calling function props in a cascade',
+      'code': r'''
+        final MyComponent = uiFunction<TestProps>((props) {
+          useEffect(() {
+            props
+              ..onClick(null)
+              ..onChange(null);
+          }, []);
+        }, null);
+      ''',
+      'errors': [
+        {
+          'message':
+              'React Hook useEffect most likely has issues in its dependencies list, but the exact problems and recommended fixes could not be be computed since the dependency \'props\' is the target of a cascade. Try refactoring to not cascade on that dependency in the callback to get more helpful instructions and potentially a suggested fix.',
+          'suggestions': null,
         },
       ],
     },
@@ -7651,6 +7697,44 @@ final Map<String, List<Map<String, Object>>> testsTypescript = {
       ],
     },
     {
+      // Make sure we don't treat this case as a valid use of the dependency
+      'name': 'StateHook as dependency, callback uses cascaded `set` and discards the object',
+      'code': r'''
+        final MyComponent = uiFunction<TestProps>((_) {
+          final count = useState(0);
+          useEffect(() {
+            count..set(1);
+          }, [count]);
+        }, null);
+      ''',
+      'errors': [
+        {
+          'message':
+              'The \'count\' StateHook (from useState) makes the dependencies of React Hook useEffect change every render, and should not itself be a dependency.',
+          'suggestions': null,
+        },
+      ],
+    },
+    {
+      // Make sure we don't treat this case as a valid use of the dependency
+      'name': 'StateHook as dependency, callback uses cascaded `set` and uses the whole object',
+      'code': r'''
+        final MyComponent = uiFunction<TestProps>((_) {
+          final count = useState(0);
+          useEffect(() {
+            print(count..set(1));
+          }, [count]);
+        }, null);
+      ''',
+      'errors': [
+        {
+          'message':
+              'The \'count\' StateHook (from useState) makes the dependencies of React Hook useEffect change every render, and should not itself be a dependency.',
+          'suggestions': null,
+        },
+      ],
+    },
+    {
       // This tests:
       // 1. That other dependencies are left alone
       // 2. Removal of the comma after the dependency
@@ -8084,6 +8168,24 @@ final Map<String, List<Map<String, Object>>> testsTypescript = {
               '''
             }
           ],
+        }
+      ],
+    },
+    {
+      'name': 'StateHook not a dependency, callback uses cascaded stable setter and discards the object',
+      'code': r''' 
+        final MyComponent = uiFunction<TestProps>((_) {
+          final count = useState(0);
+          useEffect(() {
+            count..set(1);
+          }, []);
+        }, null);
+      ''',
+      'errors': [
+        {
+          'message':
+              'React Hook useEffect most likely has issues in its dependencies list, but the exact problems and recommended fixes could not be be computed since the dependency \'count\' is the target of a cascade. Try refactoring to not cascade on that dependency in the callback to get more helpful instructions and potentially a suggested fix.',
+          'suggestions': null,
         }
       ],
     },

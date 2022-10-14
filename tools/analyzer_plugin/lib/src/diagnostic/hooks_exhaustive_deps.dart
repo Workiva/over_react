@@ -486,13 +486,19 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
       // Narrow the scope of a dependency if it is, say, a member expression.
       // Then normalize the narrowed dependency.
       final dependencyNode = getDependency(reference);
+      final isUsedAsCascadeTarget = dependencyNode.parent?.tryCast<CascadeExpression>()?.target == dependencyNode;
       final dependency = analyzePropertyChain(
         dependencyNode,
         optionalChains,
         isInvocationAllowedForNode: true,
       );
       debug(
-          'dependency: $dependency, dependencyNode: ${dependencyNode.runtimeType} $dependencyNode, reference ${reference.runtimeType} $reference',
+          prettyPrint({
+            'dependency': dependency,
+            'dependencyNode': '${dependencyNode.runtimeType} $dependencyNode',
+            'reference': '${reference.runtimeType} $reference',
+            'isUsedAsCascadeTarget': isUsedAsCascadeTarget,
+          }),
           dependencyNode);
 
       // Accessing ref.current inside effect cleanup is bad.
@@ -501,7 +507,7 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
           isEffect &&
               // ... and this look like accessing .current...
               dependencyNode is Identifier &&
-              getPropertyBeingAccessed(dependencyNode.parent)?.name == 'current' &&
+              getNonCascadedPropertyBeingAccessed(dependencyNode.parent)?.name == 'current' &&
               // ...in a cleanup function or below...
               isInsideEffectCleanup(reference)) {
         currentRefsInEffectCleanup[dependency] = _RefInEffectCleanup(
@@ -512,17 +518,16 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
 
       // Add the dependency to a map so we can make sure it is referenced
       // again in our dependencies array. Remember whether it's stable.
-      dependencies
-          .putIfAbsent(dependency, () {
-            return _Dependency(
-              isStable: memoizedIsStableKnownHookValue(reference) ||
-                  memoizedIsFunctionWithoutCapturedValues(referenceElement),
-              references: [],
-            );
-          })
-          // Note that for the the `state.set` case, the reference is still `state`.
-          .references
-          .add(reference);
+      dependencies.putIfAbsent(dependency, () {
+        return _Dependency(
+          isStable:
+              memoizedIsStableKnownHookValue(reference) || memoizedIsFunctionWithoutCapturedValues(referenceElement),
+          references: [],
+        );
+      })
+        // Note that for the the `state.set` case, the reference is still `state`.
+        ..references.add(reference)
+        ..isUsedSomewhereAsCascadeTarget |= isUsedAsCascadeTarget;
     }
 
     // Warn about accessing .current in cleanup effects.
@@ -538,7 +543,7 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
           final parent = reference.parent;
           if (parent != null &&
               // ref.current
-              getPropertyBeingAccessed(parent)?.name == 'current' &&
+              getNonCascadedPropertyBeingAccessed(parent)?.name == 'current' &&
               // ref.current = <something>
               parent.parent?.tryCast<AssignmentExpression>()?.leftHandSide == parent) {
             foundCurrentAssignment = true;
@@ -998,6 +1003,44 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
       return;
     }
 
+    // Cascades are currently treated as references to the objects themselves.
+    // This causes problems when unstable hook objects (like StateHook) or props
+    // are the target of the cascade, since the logic below would recommend adding them
+    // as dependencies, as opposed to:
+    // - omitting the ddependencies in the case of hook objects
+    // - depending on more specific properties in the case of props.
+    //
+    // Until we have more comprehensive logic to process cascades differently, and ensure
+    // the value of the cascade expression (i.e., the cascade target) isn't used,
+    // we'll short circuit at this point and instruct the user to remove cascades so we
+    // can provide accurate messages and suggestions.
+    //
+    // Only do this when there are dependency problems, so that we don't block consumers from
+    // cascading on declared dependencies.
+    // FIXME(greg) add regression test case for that ^
+    final dependenciesUsedInCascade = [...missingDependencies, ...unnecessaryDependencies]
+        .where((d) => dependencies[d]!.isUsedSomewhereAsCascadeTarget)
+        .toSet();
+    if (dependenciesUsedInCascade.isNotEmpty) {
+      final messageBuffer = StringBuffer()
+        ..write("React Hook ${getSource(reactiveHook)} most likely has issues in its dependencies list,"
+            " but the exact problems and recommended fixes could not be be computed"
+            " since the ${dependenciesUsedInCascade.length == 1 ? 'dependency' : 'dependencies'} ")
+        ..write(joinEnglish((dependenciesUsedInCascade.toList()..sort()).map((name) => "'$name'")))
+        ..write(
+            dependenciesUsedInCascade.length == 1 ? " is the target of a cascade." : " are the targets of cascades.")
+        ..write(" Try refactoring to not cascade on ")
+        ..write(dependenciesUsedInCascade.length == 1 ? 'that dependency' : 'those dependencies')
+        ..write(" in the callback to get more helpful instructions and potentially a suggested fix.");
+
+      collector.addError(
+        HooksExhaustiveDeps.code,
+        result.locationFor(declaredDependenciesNode),
+        errorMessageArgs: [messageBuffer.toString()],
+      );
+      return;
+    }
+
     // If we're going to report a missing dependency,
     // we might as well recalculate the list ignoring
     // the currently specified deps. This can result
@@ -1335,12 +1378,15 @@ class _Dependency {
 
   final List<Identifier> references;
 
+  bool isUsedSomewhereAsCascadeTarget = false;
+
   _Dependency({required this.isStable, required this.references});
 
   @override
   String toString() => prettyPrint({
         'isStable': isStable,
         'references': references,
+        'isUsedSomewhereAsCascadeTarget': isUsedSomewhereAsCascadeTarget,
       });
 }
 
