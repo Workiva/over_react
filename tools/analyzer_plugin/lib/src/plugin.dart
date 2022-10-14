@@ -220,18 +220,17 @@ abstract class OverReactAnalyzerPluginBase extends ServerPlugin
 /// Analyzer plugin for over_react.
 class OverReactAnalyzerPlugin extends OverReactAnalyzerPluginBase {
   OverReactAnalyzerPlugin(ResourceProvider provider) : super(provider) {
-
-      runZonedGuarded(() {
-        _unresolvedWorker.pathsStream
-        .map((p) => (driverForPath(p) as AnalysisDriver).parseFileSync2(p))
-        .whereType<ParsedUnitResult>()
-        .map((p) => PotentiallyResolvedResult.unresolved(p))
-        .listen(processDiagnosticsForResult);
-      }, (e, stackTrace) {
-        channel.sendNotification(plugin.PluginErrorParams(false, e.toString(), stackTrace.toString()).toNotification());
-      });
-
+    runZonedGuarded(() {
+      _unresolvedWorker.pathsStream
+          .map((p) => (driverForPath(p) as AnalysisDriver).parseFileSync2(p))
+          .whereType<ParsedUnitResult>()
+          .map((p) => PotentiallyResolvedResult.unresolved(p))
+          .listen(processDiagnosticsForResult);
+    }, _handleErrorAsNotification);
   }
+
+  void _handleErrorAsNotification(Object error, StackTrace stackTrace) => channel
+      .sendNotification(plugin.PluginErrorParams(false, error.toString(), stackTrace.toString()).toNotification());
 
   @override
   String get name => 'over_react';
@@ -262,13 +261,23 @@ class OverReactAnalyzerPlugin extends OverReactAnalyzerPluginBase {
               .toNotification());
     }
 
-    if (runMode == RunMode.resolved) {
-      runZonedGuarded(() {
-        driver.results.map((r) => PotentiallyResolvedResult.resolved(r)).listen(processDiagnosticsForResult);
-      }, (e, stackTrace) {
-        channel.sendNotification(plugin.PluginErrorParams(false, e.toString(), stackTrace.toString()).toNotification());
-      });
+    switch (runMode) {
+      case RunMode.resolved:
+        runZonedGuarded(() {
+          driver.results.map((r) => PotentiallyResolvedResult.resolved(r)).listen(processDiagnosticsForResult);
+        }, _handleErrorAsNotification);
+        break;
+      case RunMode.unresolved:
+        runZonedGuarded(() {
+          driver.results.listen((r) {
+            throw StateError('Resolved AST was requested while in unresolved mode.'
+                ' This is a bug; please report it alongside the provided stacktrace'
+                ' to #support-ui-platform or via a GitHub issue in over_react.');
+          });
+        }, _handleErrorAsNotification);
+        break;
     }
+
     return driver;
   }
 
