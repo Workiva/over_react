@@ -126,7 +126,7 @@ abstract class OverReactAnalyzerPluginBase extends ServerPlugin
       // Return an error from the request.
       throw RequestFailure(RequestErrorFactory.pluginError('Failed to parse $path', null));
     }
-    var result = driver.getFileSync2(path);
+    var result = driver.parseFileSync2(path);
     if (result is! ParsedUnitResult) {
       // Return an error from the request.
       throw RequestFailure(RequestErrorFactory.pluginError('Failed to parse $path', null));
