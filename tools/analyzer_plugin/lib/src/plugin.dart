@@ -43,12 +43,10 @@ import 'package:analyzer/src/dart/analysis/context_builder.dart' show ContextBui
 
 // ignore: implementation_imports
 import 'package:analyzer/src/dart/analysis/driver.dart' show AnalysisDriver, AnalysisDriverGeneric;
-import 'package:analyzer_plugin/plugin/navigation_mixin.dart';
 import 'package:analyzer_plugin/plugin/plugin.dart';
 import 'package:analyzer_plugin/protocol/protocol.dart';
 import 'package:analyzer_plugin/protocol/protocol_generated.dart' as plugin;
 import 'package:analyzer_plugin/protocol/protocol_generated.dart';
-import 'package:analyzer_plugin/utilities/navigation/navigation.dart';
 import 'package:over_react_analyzer_plugin/src/analysis_options/plugin_analysis_options.dart';
 import 'package:over_react_analyzer_plugin/src/analysis_options/reader.dart';
 import 'package:over_react_analyzer_plugin/src/assist/add_props.dart';
@@ -93,10 +91,10 @@ enum RunMode {
 
 abstract class OverReactAnalyzerPluginBase extends ServerPlugin
     with
-    // Don't mix in anything Dart.+Mixin from analyzer_plugin, since it might request resolved results when we don't want it to.
+        // Don't mix in anything Dart.+Mixin from analyzer_plugin, since it might request resolved results when we don't want it to.
 //    OutlineMixin, DartOutlineMixin,
         DiagnosticMixin,
-        NavigationMixin,
+        // NavigationMixin,
         // DartNavigationMixin,
         AsyncAssistsMixin,
         AsyncDartAssistsMixin {
@@ -155,9 +153,6 @@ abstract class OverReactAnalyzerPluginBase extends ServerPlugin
         // TODO re-enable this when it's more polished
 //        WrapUnwrapAssistContributor(),
       ];
-
-  @override
-  List<NavigationContributor> getNavigationContributors(String path) => [];
 
   // FIXME(greg) clean all this up, maybe find a better way
   analyzer.ContextRoot? _analyzerContextRootForPath(String path) {
