@@ -64,7 +64,7 @@ class ToggleComponentStatefulness extends AssistContributorBase with ComponentDe
   Future<void> _addStatefulness() async {
     final sourceChange = await buildFileEdit(request.result, (builder) {
       final defaultProps = componentDeclaration!.component.nodeHelper.members.firstWhereOrNull((member) {
-        return member is MethodDeclaration && member.declaredElement!.name == 'defaultProps';
+        return member is MethodDeclaration && member.name.name == 'defaultProps';
       });
 
       const indent = '  ';
@@ -97,7 +97,7 @@ class ToggleComponentStatefulness extends AssistContributorBase with ComponentDe
   Future<void> _removeStatefulness() async {
     final sourceChange = await buildFileEdit(request.result, (builder) {
       final initialState = componentDeclaration!.component.nodeHelper.members.firstWhereOrNull((member) {
-        return member is MethodDeclaration && member.declaredElement!.name == 'initialState';
+        return member is MethodDeclaration && member.name.name == 'initialState';
       });
 
       builder.addDeletion(componentSourceFile.getEncompassingRangeFor(state!.either.nodeHelper.node));
