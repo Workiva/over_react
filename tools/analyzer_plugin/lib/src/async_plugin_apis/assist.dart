@@ -124,7 +124,7 @@ mixin AsyncDartAssistsMixin on AsyncAssistsMixin {
   Future<PotentiallyResolvedDartAssistRequest> getAssistRequest(EditGetAssistsParams parameters);
 }
 
-/// A concrete implementation of [DartAssistRequest].
+/// A concrete implementation of [PotentiallyResolvedDartAssistRequest].
 class DartPotentiallyResolvedDartAssistRequestImpl implements PotentiallyResolvedDartAssistRequest {
   /// Initialize a newly create request with the given data.
   DartPotentiallyResolvedDartAssistRequestImpl(this.resourceProvider, this.offset, this.length, this.result);

@@ -336,7 +336,7 @@ class OverReactAnalyzerPlugin extends OverReactAnalyzerPluginBase {
       }
     } else if (resource is Folder) {
       try {
-        for (var child in resource.getChildren()) {
+        for (final child in resource.getChildren()) {
           _addFilesToDriver(driver, child, excluded);
         }
       } on FileSystemException {
