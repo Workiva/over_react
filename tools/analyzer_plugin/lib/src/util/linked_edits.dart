@@ -1,7 +1,7 @@
-import 'package:analyzer_plugin/utilities/change_builder/change_builder_dart.dart';
+import 'package:analyzer_plugin/utilities/change_builder/change_builder_core.dart';
 
 void _addUiComponentBoilerplateFactory(
-  DartEditBuilder builder, {
+  EditBuilder builder, {
   String groupName = 'orStless',
   String componentFactoryName = 'Foo',
 }) {
@@ -21,7 +21,7 @@ void _addUiComponentBoilerplateFactory(
 }
 
 void _addUiComponentBoilerplateProps(
-  DartEditBuilder builder, {
+  EditBuilder builder, {
   String groupName = 'orStless',
   String componentFactoryName = 'Foo',
 }) {
@@ -34,7 +34,7 @@ void _addUiComponentBoilerplateProps(
 }
 
 void _addUiComponentBoilerplateFluxProps(
-  DartEditBuilder builder, {
+  EditBuilder builder, {
   String groupName = 'orFlux',
   String componentFactoryName = 'Foo',
 }) {
@@ -59,7 +59,7 @@ void _addUiComponentBoilerplateFluxProps(
 }
 
 void _addUiComponentBoilerplateState(
-  DartEditBuilder builder, {
+  EditBuilder builder, {
   String groupName = 'orStful',
   String componentFactoryName = 'Foo',
 }) {
@@ -72,7 +72,7 @@ void _addUiComponentBoilerplateState(
 }
 
 void _addUiComponentBoilerplateComponent(
-  DartEditBuilder builder, {
+  EditBuilder builder, {
   String groupName = 'orStless',
   String componentFactoryName = 'Foo',
   String baseComponentClassName = 'UiComponent2',
@@ -118,7 +118,7 @@ void _addUiComponentBoilerplateComponent(
 }
 
 void addUiComponentBoilerplateLinkedEdit(
-  DartEditBuilder builder, {
+  EditBuilder builder, {
   String groupName = 'orStless',
   String componentFactoryName = 'Foo',
   String Function({int? indent})? getComponentRenderReturnValueSrc,
@@ -132,7 +132,7 @@ void addUiComponentBoilerplateLinkedEdit(
 }
 
 void addUiStatefulComponentBoilerplateLinkedEdit(
-  DartEditBuilder builder, {
+  EditBuilder builder, {
   String groupName = 'orStful',
   String componentFactoryName = 'Foo',
   String Function({int? indent})? getComponentRenderReturnValueSrc,
@@ -148,7 +148,7 @@ void addUiStatefulComponentBoilerplateLinkedEdit(
 }
 
 void addFluxUiComponentBoilerplateLinkedEdit(
-  DartEditBuilder builder, {
+  EditBuilder builder, {
   String groupName = 'orFlux',
   String componentFactoryName = 'Foo',
   String Function({int? indent})? getComponentRenderReturnValueSrc,
@@ -163,7 +163,7 @@ void addFluxUiComponentBoilerplateLinkedEdit(
 }
 
 void addFluxUiStatefulComponentBoilerplateLinkedEdit(
-  DartEditBuilder builder, {
+  EditBuilder builder, {
   String groupName = 'orFluxStful',
   String componentFactoryName = 'Foo',
   String Function({int? indent})? getComponentRenderReturnValueSrc,

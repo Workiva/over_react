@@ -1,4 +1,5 @@
 import 'package:analyzer/dart/ast/ast.dart';
+import 'package:analyzer_plugin/utilities/change_builder/change_builder_core.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util/cascade_edits.dart';
@@ -82,7 +83,7 @@ FixKind convertUsageListLiteralToVariadicChildrenFixKind(
 /// Can be shared in [convertUsageListLiteralToVariadicChildrenFixKind] quick fixes for lints
 /// involving the keying of children / use of list literals as element children.
 void convertUsageListLiteralToVariadicChildren(
-  DartFileEditBuilder builder,
+  FileEditBuilder builder,
   ListLiteral listLiteral, {
   bool removeKeyFromChildren = true,
 }) {

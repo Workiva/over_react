@@ -1,6 +1,6 @@
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/source/line_info.dart';
-import 'package:analyzer_plugin/utilities/change_builder/change_builder_dart.dart';
+import 'package:analyzer_plugin/utilities/change_builder/change_builder_core.dart';
 import 'package:analyzer_plugin/utilities/range_factory.dart';
 import 'package:over_react_analyzer_plugin/src/component_usage.dart';
 import 'package:over_react_analyzer_plugin/src/indent_util.dart';
@@ -8,13 +8,13 @@ import 'package:over_react_analyzer_plugin/src/util/util.dart';
 
 void addProp(
   FluentComponentUsage usage,
-  DartFileEditBuilder fileBuilder,
+  FileEditBuilder fileBuilder,
   String source,
   LineInfo lineInfo, {
   String? name,
   String? value,
-  void Function(DartEditBuilder builder)? buildNameEdit,
-  void Function(DartEditBuilder builder)? buildValueEdit,
+  void Function(EditBuilder builder)? buildNameEdit,
+  void Function(EditBuilder builder)? buildValueEdit,
   bool forceOwnLine = false,
 }) {
   if ((name == null) == (buildNameEdit == null)) {
@@ -80,7 +80,7 @@ void addProp(
 /// Adds edits to [fileBuilder] that remove [prop] from [usage].
 ///
 /// If [prop] is the last cascade on the parenthesized builder, this removes the parentheses for a better user experience.
-void removeProp(FluentComponentUsage usage, DartFileEditBuilder fileBuilder, PropAssignment prop) {
+void removeProp(FluentComponentUsage usage, FileEditBuilder fileBuilder, PropAssignment prop) {
   final cascade = usage.cascadeExpression!;
   // Defensively check that this is a ParenthesizedExpression in case there's some weird syntax issue.
   final parenthesizedCascade = cascade.parent.tryCast<ParenthesizedExpression>();

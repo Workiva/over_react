@@ -4,6 +4,7 @@
 import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
+import 'package:analyzer_plugin/utilities/change_builder/change_builder_core.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/boilerplate_utils.dart';
@@ -304,7 +305,7 @@ Future<void> checkPartValidity({
 
 Future<List<SourceFileEdit>> getSourceFileEdits(
   String dartSource,
-  void Function(DartFileEditBuilder builder, ResolvedUnitResult result) callUtilityFunction, {
+  void Function(FileEditBuilder builder, ResolvedUnitResult result) callUtilityFunction, {
   String path = 'foo.dart',
 }) async {
   final result = await parseAndGetResolvedUnit(dartSource, path: path);

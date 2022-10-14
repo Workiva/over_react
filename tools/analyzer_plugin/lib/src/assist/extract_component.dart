@@ -2,7 +2,7 @@ import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/source/source_range.dart';
 import 'package:analyzer_plugin/protocol/protocol_generated.dart';
 import 'package:analyzer_plugin/utilities/assist/assist.dart';
-import 'package:analyzer_plugin/utilities/change_builder/change_builder_dart.dart';
+import 'package:analyzer_plugin/utilities/change_builder/change_builder_core.dart';
 import 'package:over_react_analyzer_plugin/src/assist/contributor_base.dart';
 import 'package:over_react_analyzer_plugin/src/component_usage.dart';
 import 'package:over_react_analyzer_plugin/src/util/fix.dart';
@@ -10,7 +10,7 @@ import 'package:over_react_analyzer_plugin/src/util/linked_edits.dart';
 import 'package:over_react_analyzer_plugin/src/util/node.dart';
 
 typedef BoilerplateLinkedEditFn = void Function(
-  DartEditBuilder builder, {
+  EditBuilder builder, {
   String groupName,
   String componentFactoryName,
   String Function({int? indent})? getComponentRenderReturnValueSrc,

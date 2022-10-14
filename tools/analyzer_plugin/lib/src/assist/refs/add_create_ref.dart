@@ -2,7 +2,7 @@ import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/source/line_info.dart';
 import 'package:analyzer/source/source_range.dart';
-import 'package:analyzer_plugin/utilities/change_builder/change_builder_dart.dart';
+import 'package:analyzer_plugin/utilities/change_builder/change_builder_core.dart';
 import 'package:analyzer_plugin/utilities/pair.dart';
 import 'package:collection/collection.dart' show IterableExtension;
 import 'package:over_react_analyzer_plugin/src/component_usage.dart';
@@ -20,7 +20,7 @@ enum RefTypeToReplace {
 }
 
 typedef CreateRefLinkedEditFn = void Function(
-  DartFileEditBuilder builder,
+  FileEditBuilder builder,
   FluentComponentUsage usage, {
   String? groupName,
 });
@@ -30,7 +30,7 @@ typedef CreateRefLinkedEditFn = void Function(
 ///
 /// > Note: This currently cannot handle callback refs that are tear-offs.
 void addUseOrCreateRef(
-  DartFileEditBuilder builder,
+  FileEditBuilder builder,
   FluentComponentUsage usage,
   PotentiallyResolvedResult result, {
   AnalyzerDebugHelper? debug,
@@ -81,7 +81,7 @@ void addUseOrCreateRef(
     });
   }
 
-  void _addCreateRefFieldDeclaration(DartEditBuilder _builder) {
+  void _addCreateRefFieldDeclaration(EditBuilder _builder) {
     _builder.write('final ');
     _builder.addSimpleLinkedEdit(nameGroup, createRefFieldName);
     _builder.write(isUsageInFnComponent ? ' = useRef<' : ' = createRef<');

@@ -1,7 +1,7 @@
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/source/line_info.dart';
 import 'package:analyzer/source/source_range.dart';
-import 'package:analyzer_plugin/utilities/change_builder/change_builder_dart.dart';
+import 'package:analyzer_plugin/utilities/change_builder/change_builder_core.dart';
 import 'package:collection/collection.dart' show IterableExtension;
 import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
 import 'package:path/path.dart' as p;
@@ -44,7 +44,7 @@ String _generateValidOverReactGeneratedPartDirective(CompilationUnit unit, Uri f
 ///
 /// Corrects existing over_react part directives and is a no-op if a valid one already exists.
 void addOverReactGeneratedPartDirective(
-    DartFileEditBuilder builder, CompilationUnit unit, LineInfo lineInfo, Uri fileUri) {
+    FileEditBuilder builder, CompilationUnit unit, LineInfo lineInfo, Uri fileUri) {
   Directive? lastDirective;
   if (unit.directives.isNotEmpty) {
     lastDirective = unit.directives.last;
@@ -69,7 +69,7 @@ void addOverReactGeneratedPartDirective(
 /// Removes a `.over_react.g.dart` [PartDirective] from the file being edited by the [builder].
 ///
 /// Is a no-op if one does not exist.
-void removeOverReactGeneratedPartDirective(DartFileEditBuilder builder, CompilationUnit unit) {
+void removeOverReactGeneratedPartDirective(FileEditBuilder builder, CompilationUnit unit) {
   final generatedPartDirective = getOverReactGeneratedPartDirective(unit);
 
   if (generatedPartDirective == null) return;
@@ -81,7 +81,7 @@ void removeOverReactGeneratedPartDirective(DartFileEditBuilder builder, Compilat
 /// path of the file being edited by the [builder].
 ///
 /// > Related: [overReactGeneratedPartDirectiveIsValid]
-void fixOverReactGeneratedPartDirective(DartFileEditBuilder builder, CompilationUnit unit, Uri fileUri) {
+void fixOverReactGeneratedPartDirective(FileEditBuilder builder, CompilationUnit unit, Uri fileUri) {
   final partDirective = getOverReactGeneratedPartDirective(unit);
 
   if (partDirective == null || overReactGeneratedPartDirectiveIsValid(partDirective, fileUri)) return;
