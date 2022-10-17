@@ -1380,6 +1380,18 @@ final Map<String, List<Map<String, Object>>> tests = {
       ''',
     },
     {
+      'name': 'Calling function props in a cascade with props as dependency',
+      'code': r'''
+        final MyComponent = uiFunction<TestProps>((props) {
+          useEffect(() {
+            props
+              ..onClick(null)
+              ..onChange(null);
+          }, [props]);
+        }, null);
+      ''',
+    },
+    {
       'code': r'''
         final MyComponent = uiFunction<TestProps>((_) {
           final _button = useMemo(() => Dom.button()('Click me'), []);
@@ -4134,7 +4146,6 @@ final Map<String, List<Map<String, Object>>> tests = {
       ],
     },
     {
-      // FIXME(greg) add analogous valid case for props being the dependency
       'name': 'Calling function props in a cascade',
       'code': r'''
         final MyComponent = uiFunction<TestProps>((props) {
