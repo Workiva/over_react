@@ -2125,7 +2125,7 @@ final Map<String, List<Map<String, Object>>> tests = {
           'message':
               // Don't assume user meant '''foo''' because it's not used in the effect.
               'The \'foo\' literal is not a valid dependency because it never changes. You can safely remove it.',
-          // TODO: provide suggestion.
+          // TODO(ported):provide suggestion.
           'suggestions': null,
         },
       ],
@@ -2251,7 +2251,7 @@ final Map<String, List<Map<String, Object>>> tests = {
         {
           'message':
               'React Hook useEffect was passed a dependency list that is not a list literal. This means we can\'t statically verify whether you\'ve passed the correct dependencies.',
-          // TODO: should this autofix or bail out?
+          // TODO(ported):should this autofix or bail out?
           'suggestions': null,
         },
         {
@@ -2306,7 +2306,7 @@ final Map<String, List<Map<String, Object>>> tests = {
         {
           'message':
               'React Hook useEffect has a spread element in its dependency list. This means we can\'t statically verify whether you\'ve passed the correct dependencies.',
-          // TODO: should this autofix or bail out?
+          // TODO(ported):should this autofix or bail out?
           'suggestions': null,
         },
       ],
@@ -2343,8 +2343,8 @@ final Map<String, List<Map<String, Object>>> tests = {
         {
           'message':
               'React Hook useEffect has a missing dependency: \'local\'. Either include it or remove the dependency list.',
-          // TODO: I'm not sure this is a good idea.
-          // Maybe bail out?
+          // TODO(ported):I'm not sure this is a good idea.
+          //  Maybe bail out?
           'suggestions': [
             {
               'desc': 'Update the dependencies list to be: [local]',
@@ -2411,7 +2411,7 @@ final Map<String, List<Map<String, Object>>> tests = {
         {
           'message':
               'React Hook useEffect has a complex expression in the dependency list. Extract it to a separate variable so it can be statically checked.',
-          // TODO: ideally suggestion would remove the bad expression?
+          // TODO(ported):ideally suggestion would remove the bad expression?
           'suggestions': null,
         },
       ],
@@ -2466,7 +2466,7 @@ final Map<String, List<Map<String, Object>>> tests = {
         {
           'message':
               'React Hook useEffect has a complex expression in the dependency list. Extract it to a separate variable so it can be statically checked.',
-          // TODO: ideally suggeston would remove the bad expression?
+          // TODO(ported):ideally suggeston would remove the bad expression?
           'suggestions': null,
         },
       ],
@@ -2695,7 +2695,7 @@ final Map<String, List<Map<String, Object>>> tests = {
       // However, it *is* allowed to specify broader deps then strictly necessary.
       // So in this case we ask you to remove 'props.foo.bar.baz' because 'props.foo'
       // already covers it, and having both is unnecessary.
-      // TODO: maybe consider suggesting a narrower one by default in these cases.
+      // TODO(ported):maybe consider suggesting a narrower one by default in these cases.
       'code': r'''
         final MyComponent = uiFunction<TestProps>((props) {
           final fn = useCallback(() {
@@ -3568,7 +3568,7 @@ final Map<String, List<Map<String, Object>>> tests = {
         {
           'message':
               'React Hook useEffect has a missing dependency: \'local\'. Either include it or remove the dependency list.',
-          // TODO: should we bail out instead?
+          // TODO(ported):should we bail out instead?
           'suggestions': [
             {
               'desc': 'Update the dependencies list to be: [local]',
@@ -3605,7 +3605,7 @@ final Map<String, List<Map<String, Object>>> tests = {
         {
           'message':
               'React Hook useEffect has a missing dependency: \'local\'. Either include it or remove the dependency list.',
-          // TODO: should we bail out instead?
+          // TODO(ported):should we bail out instead?
           'suggestions': [
             {
               'desc': 'Update the dependencies list to be: [local]',
@@ -5725,7 +5725,7 @@ final Map<String, List<Map<String, Object>>> tests = {
       // effect. But it's used by more than one. So we
       // suggest useCallback() and use it for the autofix
       // where possible.
-      // TODO: we could coalesce messages for the same function if it affects multiple Hooks.
+      // TODO(ported):we could coalesce messages for the same function if it affects multiple Hooks.
       'errors': [
         {
           'message':
@@ -5859,8 +5859,8 @@ final Map<String, List<Map<String, Object>>> tests = {
               'The \'handleNext\' function makes the dependencies of useEffect Hook (at line 12) change on every render. To fix this, wrap the definition of \'handleNext\' in its own useCallback() Hook.',
           // Normally we'd suggest moving handleNext inside an
           // effect. But it's used more than once.
-          // TODO: our autofix here isn't quite sufficient because
-          // it only wraps the first definition. But seems ok.
+          // TODO(ported):our autofix here isn't quite sufficient because
+          //  it only wraps the first definition. But seems ok.
           'suggestions': [
             {
               'desc': 'Wrap the definition of \'handleNext\' in its own useCallback() Hook.',
@@ -6238,10 +6238,10 @@ final Map<String, List<Map<String, Object>>> tests = {
           return Dom.h1()(count.value);
         }, null);
       ''',
-      // TODO: ideally this should suggest useState updater form
-      // since this code doesn't actually work. The autofix could
-      // at least avoid suggesting 'tick' since it's obviously
-      // always different, and thus useless.
+      // TODO(ported):ideally this should suggest useState updater form
+      //  since this code doesn't actually work. The autofix could
+      //  at least avoid suggesting 'tick' since it's obviously
+      //  always different, and thus useless.
       'errors': [
         {
           'message':
@@ -8246,8 +8246,8 @@ final Map<String, List<Map<String, Object>>> testsTypescript = {
 final Map<String, List<Map<String, Object>>> testsTypescriptEslintParserV4 = {
   'valid': [],
   'invalid': [
-    // TODO: Should also be invalid as part of the JS test suite i.e. be invalid with babel eslint parsers.
-    // It doesn't use any explicit types but any JS is still valid TS.
+    // TODO(ported):Should also be invalid as part of the JS test suite i.e. be invalid with babel eslint parsers.
+    //  It doesn't use any explicit types but any JS is still valid TS.
     {
       'code': r'''
         final Foo = uiFunction<TestProps>((props) {
