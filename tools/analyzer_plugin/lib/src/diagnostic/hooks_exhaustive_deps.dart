@@ -747,7 +747,6 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
           continue;
         }
 
-        // TODO(greg) handle / warn about cascades?
         Expression? maybeID = declaredDependencyNode;
         while (maybeID is PropertyAccess || maybeID is PrefixedIdentifier) {
           if (maybeID is PropertyAccess) {
@@ -2037,7 +2036,6 @@ String analyzePropertyChain(AstNode node, Map<String, bool>? optionalChains,
     }
     return result;
   } else if (node is PropertyAccess) {
-    // FIXME(greg) look into this more and clean this up
     assert(!node.isCascaded, 'cascaded members are unexpected here');
     final object = analyzePropertyChain(node.target!, optionalChains, isInvocationAllowedForNode: false);
     final property = analyzePropertyChain(node.propertyName, null, isInvocationAllowedForNode: false);
@@ -2050,9 +2048,9 @@ String analyzePropertyChain(AstNode node, Map<String, bool>? optionalChains,
     final result = "$object.$property";
     markNode(node, optionalChains, result, isOptional: false);
     return result;
-    // rule out cascades and implicit this // fixme greg update other locations to use this pattern
   } else if (isInvocationAllowedForNode &&
       propertyInvocation != null &&
+      // Rule out cascades and implicit this
       propertyInvocation.target != null &&
       isInvocationADiscreteDependency(propertyInvocation)) {
     // This invocation check deviates from the JS, and is necessary to handle stable hook methods and function props.
