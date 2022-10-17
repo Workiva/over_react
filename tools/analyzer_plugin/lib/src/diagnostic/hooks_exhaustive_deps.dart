@@ -1006,7 +1006,7 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
     // This causes problems when unstable hook objects (like StateHook) or props
     // are the target of the cascade, since the logic below would recommend adding them
     // as dependencies, as opposed to:
-    // - omitting the ddependencies in the case of hook objects
+    // - omitting the dependencies in the case of hook objects
     // - depending on more specific properties in the case of props.
     //
     // Until we have more comprehensive logic to process cascades differently, and ensure
@@ -2113,7 +2113,7 @@ int getReactiveHookCallbackIndex(Expression calleeNode, {RegExp? additionalHooks
       // useImperativeHandle(ref, fn)
       return 1;
     default:
-      // FIXME(greg) should we strip prefix before passing it into additionalHooks?
+      // TODO(greg) should we strip prefix before passing it into additionalHooks?
       if (node == calleeNode && additionalHooks != null) {
         // Allow the user to provide a regular expression which enables the lint to
         // target custom reactive hooks.
