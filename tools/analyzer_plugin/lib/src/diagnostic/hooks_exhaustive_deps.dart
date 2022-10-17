@@ -1017,7 +1017,7 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
     // Only do this when there are dependency problems, so that we don't block consumers from
     // cascading on declared dependencies.
     final dependenciesUsedInCascade = [...missingDependencies, ...unnecessaryDependencies]
-        .where((d) => dependencies[d]!.isUsedSomewhereAsCascadeTarget)
+        .where((d) => dependencies[d]?.isUsedSomewhereAsCascadeTarget ?? false)
         .toSet();
     if (dependenciesUsedInCascade.isNotEmpty) {
       final messageBuffer = StringBuffer()
