@@ -1,8 +1,8 @@
 import 'package:analyzer_plugin/protocol/protocol_generated.dart';
 import 'package:analyzer_plugin/utilities/assist/assist.dart';
-import 'package:analyzer_plugin/utilities/change_builder/change_builder_core.dart';
 import 'package:over_react_analyzer_plugin/src/assist/contributor_base.dart';
 import 'package:over_react_analyzer_plugin/src/component_usage.dart';
+import 'package:over_react_analyzer_plugin/src/util/fix.dart';
 
 import 'add_create_ref.dart' as ref_util;
 
@@ -43,12 +43,11 @@ class AddUseOrCreateRefAssistContributor extends AssistContributorBase {
     // replace existing refs with createRef.
     if (usage.cascadedProps.any((prop) => prop.name.name == 'ref')) return;
 
-    final changeBuilder = ChangeBuilder(session: request.result.session);
-    await changeBuilder.addDartFileEdit(request.result.path!, (builder) {
+    final sourceChange = await buildFileEdit(request.result, (builder) {
       return ref_util.addUseOrCreateRef(builder, usage, request.result);
     });
 
-    final sourceChange = changeBuilder.sourceChange
+    sourceChange
       ..message = addRef.message
       ..id = addRef.id;
     collector.addAssist(PrioritizedSourceChange(addRef.priority, sourceChange));
