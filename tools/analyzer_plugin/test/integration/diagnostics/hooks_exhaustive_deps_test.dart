@@ -34,9 +34,12 @@ import 'package:over_react/over_react.dart' as over_react;
 
 part 'test.over_react.g.dart';
 
-// window isn't defined in MockSdk's dart:html
+// Implement APIs not defined in MockSdk
 dynamic window;
-dynamic jsonEncode;
+String jsonEncode(Object object) => 'json';
+extension on List {
+  set length(int newLength) {}
+}
 
 mixin TestProps on UiProps {
   var foo;
