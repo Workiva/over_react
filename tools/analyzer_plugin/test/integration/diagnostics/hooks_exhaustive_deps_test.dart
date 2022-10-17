@@ -100,6 +100,9 @@ class SomeObject {
   final int id;
   SomeObject({this.id});
 }
+class ObjectWithWritableField {
+  var field;
+}
 ''';
 
     bool errorFilter(AnalysisError error, {@required bool isFromPlugin}) =>

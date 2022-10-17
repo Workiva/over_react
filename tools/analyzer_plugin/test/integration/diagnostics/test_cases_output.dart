@@ -1427,10 +1427,10 @@ final Map<String, List<Map<String, Object>>> tests = {
       'name': 'Cascaded assignment on dependency inside callback',
       'code': r'''
         final MyComponent = uiFunction<TestProps>((props) {
-          final items = useMemo(() => props.items.toList(), [props.items]);
+          final object = useMemo(() => ObjectWithWritableField(), []);
           useEffect(() {
-            items..length = 1;
-          }, [items]);
+            object..field = 'something';
+          }, [object]);
         }, null);
       ''',
     },
