@@ -1016,7 +1016,6 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
     //
     // Only do this when there are dependency problems, so that we don't block consumers from
     // cascading on declared dependencies.
-    // FIXME(greg) add regression test case for that ^
     final dependenciesUsedInCascade = [...missingDependencies, ...unnecessaryDependencies]
         .where((d) => dependencies[d]!.isUsedSomewhereAsCascadeTarget)
         .toSet();
@@ -1984,7 +1983,6 @@ Expression getDependency(Expression node) {
     return getDependency(parent);
   }
 
-  // FIXME(greg) make sure we have test cases for these, including cascaded assignments: `dependency..property = value`
   if (parent is AssignmentExpression && parent.leftHandSide == node) {
     if (node is PropertyAccess) return node.realTarget;
     if (node is PrefixedIdentifier) return node.prefix;

@@ -1412,6 +1412,28 @@ final Map<String, List<Map<String, Object>>> tests = {
         }, null);
       ''',
     },
+    {
+      'name': 'Cascade on dependency inside callback',
+      'code': r'''
+        final MyComponent = uiFunction<TestProps>((props) {
+          final items = props.items;
+          useEffect(() {
+            print(items..forEach((_) {}));
+          }, [items]);
+        }, null);
+      ''',
+    },
+    {
+      'name': 'Cascaded assignment on dependency inside callback',
+      'code': r'''
+        final MyComponent = uiFunction<TestProps>((props) {
+          final items = useMemo(() => props.items.toList(), [props.items]);
+          useEffect(() {
+            items..length = 1;
+          }, [items]);
+        }, null);
+      ''',
+    },
   ],
   'invalid': [
     {
