@@ -31,6 +31,14 @@ mixin PotentiallyResolvedServerPlugin on ServerPlugin {
       ? PotentiallyResolvedResult.resolved(await getResolvedUnitResult(path))
       : PotentiallyResolvedResult.unresolved(getUnResolvedUnitResult(path));
 
+  @override
+  Future<ResolvedUnitResult> getResolvedUnitResult(String path) async {
+    if (runMode == RunMode.unresolved) {
+      throw StateError('Cannot resolve path $path while in unresolved mode; this is a bug.');
+    }
+    return super.getResolvedUnitResult(path);
+  }
+
   /// Return the result of analyzing the file with the given [path].
   ///
   /// Throw a [RequestFailure] is the file cannot be analyzed or if the driver
