@@ -20,7 +20,7 @@ import '../../test_util.dart';
 import '../matchers.dart';
 import '../test_bases/diagnostic_test_base.dart';
 import '../test_bases/server_plugin_contributor_test_base.dart';
-import 'test_cases_output.dart' as tco;
+import 'hooks_exhaustive_deps_test_cases.dart' as test_cases;
 
 void main() {
   group('HooksExhaustiveDeps', () {
@@ -136,10 +136,10 @@ class ObjectWithWritableField {
     }
 
     ({
-      'tests': tco.tests,
-      'testsFlow': tco.testsFlow,
-      'testsTypescript': tco.testsTypescript,
-      'testsTypescriptEslintParserV4': tco.testsTypescriptEslintParserV4,
+      'tests': test_cases.tests,
+      'testsFlow': test_cases.testsFlow,
+      'testsTypescript': test_cases.testsTypescript,
+      'testsTypescriptEslintParserV4': test_cases.testsTypescriptEslintParserV4,
     }).forEach((suiteName, suite) {
       group('$suiteName:', () {
         group('test cases that should pass', () {
