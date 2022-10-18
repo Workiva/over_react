@@ -3,7 +3,7 @@ import 'package:yaml/yaml.dart';
 
 /// Parses the given yaml and returns over react analyzer plugin configuration options.
 PluginAnalysisOptions? processAnalysisOptionsFile(String fileContents) {
-  // fixme catch parse errors, add test coverage
+  // TODO catch parse errors, add test coverage
   final yaml = loadYamlNode(fileContents);
   if (yaml is YamlMap) {
     return _parseAnalysisOptions(yaml);

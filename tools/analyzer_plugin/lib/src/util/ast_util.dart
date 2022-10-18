@@ -257,17 +257,17 @@ class PropertyInvocation {
 }
 
 List<Identifier> findReferences(Element element, AstNode root) {
-  final visitor = ReferenceVisitor(element);
+  final visitor = _ReferenceVisitor(element);
   root.accept(visitor);
   return visitor.references;
 }
 
-class ReferenceVisitor extends RecursiveAstVisitor<void> {
+class _ReferenceVisitor extends RecursiveAstVisitor<void> {
   final Element _targetElement;
 
   final List<Identifier> references = [];
 
-  ReferenceVisitor(this._targetElement);
+  _ReferenceVisitor(this._targetElement);
 
   @override
   void visitSimpleIdentifier(SimpleIdentifier node) {

@@ -150,8 +150,7 @@ abstract class DiagnosticTestBase extends ServerPluginContributorTestBase {
     return errors;
   }
 
-  /// Returns all errors produced over the entire [source] and fails the test if
-  /// any of them do not match [isAnErrorUnderTest] or [isAFixUnderTest].
+  /// Fails the test if there are any errors in [source].
   Future<void> expectNoErrors(Source source, {ErrorFilter errorFilter = defaultErrorFilter}) async {
     final errors = await _getAllErrors(source, errorFilter: errorFilter);
     expect(errors.dartErrors, isEmpty,

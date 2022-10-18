@@ -19,8 +19,10 @@ import 'package:analyzer/source/source_range.dart';
 import 'package:analyzer_plugin/utilities/range_factory.dart';
 
 extension RangeFactoryAddons on RangeFactory {
-  /// Return a source range that covers the given [item] (including a leading or
+  /// Returns a source range that covers the given [item] (including a leading or
   /// trailing comma as appropriate).
+  ///
+  /// Like [nodeInList] but doesn't require a reference to the parent node.
   SourceRange nodeInList2(AstNode item) {
     // Remove the trailing comma.
     var nextToken = item.endToken.next;
