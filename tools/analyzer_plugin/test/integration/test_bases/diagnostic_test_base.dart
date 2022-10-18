@@ -225,7 +225,8 @@ class DartAndPluginErrorsIterable extends CombinedIterableView<AnalysisError> {
 typedef ErrorFilter = bool Function(AnalysisError, {required bool isFromPlugin});
 
 bool defaultErrorFilter(AnalysisError error, {required bool isFromPlugin}) =>
-    error.severity != AnalysisErrorSeverity.INFO &&
+    // Only filter out infos that don't come from the plugin.
+    (isFromPlugin || error.severity != AnalysisErrorSeverity.INFO) &&
     !(const {
       'over_react_debug_analyzer_plugin_helper',
       'uri_has_not_been_generated',
