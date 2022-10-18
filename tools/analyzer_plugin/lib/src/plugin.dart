@@ -114,7 +114,7 @@ abstract class OverReactAnalyzerPluginBase extends ServerPlugin
   @override
   List<NavigationContributor> getNavigationContributors(String path) => [];
 
-  // FIXME(greg) clean all this up, maybe find a better way
+  // TODO(greg) is there a better way to do this?
   analyzer.ContextRoot? _analyzerContextRootForPath(String path) {
     final driver = driverForPath(path);
     if (driver == null) return null;
