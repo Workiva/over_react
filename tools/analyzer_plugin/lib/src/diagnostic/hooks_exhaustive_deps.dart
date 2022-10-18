@@ -44,13 +44,150 @@ import 'package:over_react_analyzer_plugin/src/util/react_types.dart';
 import 'package:over_react_analyzer_plugin/src/util/util.dart';
 import 'package:over_react_analyzer_plugin/src/util/weak_collections.dart';
 
-// API reference for JS reference/scope APIs:
-// https://eslint.org/docs/developer-guide/scope-manager-interface
+const _desc = r'Verifies the list of dependencies for React Hooks like useEffect and similar.';
+// <editor-fold desc="Documentation Details">
+const _details = r'''
+**DO** include dependencies for all values from the component scope (such as props and state) that change over time and that are used by the effect. See [this note in thhe React docs](https://reactjs.org/docs/hooks-effect.html#:~:text=If%20you%20use%20this%20optimization%2C%20make%20sure%20the%20array%20includes) for more info.
 
+**GOOD:**
+```dart
+final initialCount = props.initialCount;
+
+final count = useCount(0);
+
+final resetCount = useCallback(() {
+  count.set(initialCount)
+}, [initialCount]);
+
+useEffect(() {
+  props.onCountChange(count.value);
+}, [count.value, props.onCountChange]);
+```
+
+**BAD:**
+```dart
+final initialCount = props.initialCount;
+
+final count = useCount(0);
+
+final resetCount = useCallback(() {
+  count.set(initialCount)
+// Missing `initialCount`; this callback will reference a stale value.
+}, []);
+ 
+useEffect(() async {
+  props.onCountChange(count.value);
+// `count` will be a new StateHook instance each render, so this effect will always run.
+// We want just `count.value`.
+}, [count, props.onCountChange]);                                   
+```
+
+--- 
+
+Custom hooks can be validated (assuming the first argument is the callback and the second argument is
+the dependencies list) by configuring a name regular expression in `analysis_options.yaml`:
+```yaml
+over_react:
+  exhaustive_deps:
+    additional_hooks: ^(useMyEffect1|useMyEffect2)$
+```
+We suggest to use this option __very sparingly, if at all__. Generally saying, we recommend most custom Hooks to
+not use the dependencies argument, and instead provide a higher-level API that is more focused around a specific
+use case.
+
+''';
+// </editor-fold>
+
+/// A diagnostic that validates the dependencies of React hooks, such as `useEffect`, `useMemo`, and `useCallback`.
+///
+/// Ported/forked from [the JS eslint-plugin-react-hooks rule](https://github.com/facebook/react/blob/main@%7B2020-10-16%7D/packages/eslint-plugin-react-hooks/src/ExhaustiveDeps.js),
+/// this diagnostic aims to provide parity with the dev experience of that lint, with some behavior altered
+/// where it makes sense to accommodate differences between JavaScript, Dart, and their respective React APIs.
+///
+/// Custom hooks can be validated (assuming the first argument is the callback and the second argument is
+/// the dependencies list) by configuring a name regular expression in `analysis_options.yaml`:
+/// ```yaml
+/// over_react:
+///   exhaustive_deps:
+///     additional_hooks: ^(useMyEffect1|useMyEffect2)$
+/// ```
+/// We suggest to use this option __very sparingly, if at all__. Generally saying, we recommend most custom Hooks to
+/// not use the dependencies argument, and instead provide a higher-level API that is more focused around a specific
+/// use case.
+///
+/// ## Notable behavioral differences:
+///
+/// ### Detecting stable/unstable hook values (useState, useReducer, etc.)
+///
+/// JavaScript supports destructuring, whereas Dart does not. Since `useState` and similar hooks are typically
+/// destructured in JS, but can't be in Dart without an unwieldy amount of code, logic was added to accommodate
+/// usages of the non-destructured hook object:
+///
+/// ```dart
+/// final count = useState(0);
+/// // No dependency needed for `.set` or `.setWithUpdater`.
+/// final resetCount = useCallback(() => count.set(0), []);
+/// // A dependency is needed for `.value`.
+/// useEffect(() {
+///   print('Count changed to: ${count.value}');
+/// }, [count.value]);
+/// ```
+///
+/// ### `this` and calls to function props
+///
+/// Invoking functions on an object in JavaScript populates `this` with the object the function was called on
+/// (unless `.bind` is used), whereas Dart's' `this` is defined lexically and is the same regardless of how the
+/// function is called.
+///
+/// This means that in JS, a call to `props.callback()` can't depend on just `props.callback`, and needs to also
+/// depend on `props` since it's `props` that will be passed as `this` when `callback` is invoked. To work around this,
+/// it's recommended to destructure these callbacks so that when they're called, we're not relying on the parent object
+/// and invalidating the dependencies on every render:
+///
+/// ```js
+/// // Instead of:
+/// useEffect(() => props.callback(), [props]);
+/// // ...it's recommended to do:
+/// const {callback} = props;
+/// useEffect(() => callback(), [callback]);
+/// ```
+///
+/// In Dart, we don't have that same problem, and can depend on just `props.callback`:
+///
+/// ```dart
+/// // This is fine:
+/// useEffect(() => props.callback(), [props.callback]);
+/// // ...and this is also fine:
+/// final callback = props.callback;
+/// useEffect(() => callback(), [callback]);
+/// ```
+///
+/// ### Hoisting
+/// JavaScript supports hoisting of functions and variables (meaning they can be used before they're defined),
+/// whereas Dart does not.
+///
+/// As a result, we can make some assumptions and perform certain fixes (like changing a local function into a
+/// function variable wrapped in useCallback) that wouldn't be possible in JavaScript without more thorough checks.
+///
+/// ## Notable implementation differences:
+/// The JavaScript implementation relies heavily on [ScopeManager](https://eslint.org/docs/developer-guide/scope-manager-interface)
+/// APIs, which Dart's analyzer package doesn't have a 1:1 equivalent for. These parts have been refactored to use the
+/// element model (resolved AST) and other information in the AST instead.
+///
+/// The JavaScript implementation ran synchronously in a visitor, whereas the Dart implementation needed to be async
+/// in order to use ErrorCollector APIs. So, it synchronously finds calls to validate, and then asynchronously
+/// processes them.
+///
+/// Dart language features that needed additional logic to support:
+/// - Cascades
+/// - Method invocations and nested property accesses (they come in a few different forms, and have ASTs structures
+///   that can have different nesting than in JS)
+/// - Collection elements (spreads, if/for-elements, etc.)
+/// - Constant variables/expressions
 class HooksExhaustiveDeps extends DiagnosticContributor {
   static final _debugFlagPattern = RegExp(r'debug:.*\bover_react_hooks_exhaustive_deps\b');
 
-  @DocsMeta('Verifies the list of dependencies for React Hooks like useEffect and similar', details: '')
+  @DocsMeta(_desc, details: _details)
   static const code = DiagnosticCode(
     'over_react_hooks_exhaustive_deps',
     "{0}",
