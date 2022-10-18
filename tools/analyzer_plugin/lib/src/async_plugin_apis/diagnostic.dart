@@ -65,7 +65,7 @@ mixin DiagnosticMixin on ServerPlugin {
   /// Computes errors based on an analysis result, notifies the analyzer, and
   /// then returns the list of errors.
   Future<List<AnalysisError>> getAllErrors(ResolvedUnitResult analysisResult) async {
-    final analysisOptions = pluginOptionsReader.getAnalysisOptionsForResult(analysisResult);
+    final analysisOptions = pluginOptionsReader.getOptionsForResult(analysisResult);
 
     try {
       // If there is no relevant analysis result, notify the analyzer of no errors.
@@ -96,7 +96,7 @@ mixin DiagnosticMixin on ServerPlugin {
   Future<plugin.EditGetFixesResult> handleEditGetFixes(plugin.EditGetFixesParams parameters) async {
     // We want request errors to propagate if they throw
     final request = await _getFixesRequest(parameters);
-    final analysisOptions = pluginOptionsReader.getAnalysisOptionsForResult(request.result);
+    final analysisOptions = pluginOptionsReader.getOptionsForResult(request.result);
 
     try {
       final generator = _DiagnosticGenerator(
