@@ -185,7 +185,7 @@ use case.
 /// - Collection elements (spreads, if/for-elements, etc.)
 /// - Constant variables/expressions
 class HooksExhaustiveDeps extends DiagnosticContributor {
-  static final _debugFlagPattern = RegExp(r'debug:.*\bover_react_hooks_exhaustive_deps\b');
+  static final _debugCommentPattern = getDebugCommentPattern('over_react_hooks_exhaustive_deps');
 
   @DocsMeta(_desc, details: _details)
   static const code = DiagnosticCode(
@@ -232,7 +232,7 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
     try {
       _result = result;
       _collector = collector;
-      _debugHelper = AnalyzerDebugHelper(result, collector, enabled: _debugFlagPattern.hasMatch(result.content!));
+      _debugHelper = AnalyzerDebugHelper(result, collector, enabled: _debugCommentPattern.hasMatch(result.content!));
 
       final reactiveHookCallbacks = <ReactiveHookCallbackInfo>[];
       result.unit!.accept(_ExhaustiveDepsVisitor(

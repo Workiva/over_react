@@ -35,3 +35,14 @@ class AnalyzerDebugHelper {
     collector.addError(code, location, errorMessageArgs: [message]);
   }
 }
+
+/// Returns a pattern that matches a file with a `// debug:` comment with the given [debugCode].
+///
+/// Useful for conditionally enabling [AnalyzerDebugHelper] infos based on the presence of a comment
+/// in a file.
+///
+/// For example, `getDebugCommentPattern('foo')` will match files containing the following comments:
+///
+/// - `// debug: foo`
+/// - `//debug:foo,bar`
+RegExp getDebugCommentPattern(String debugCode) => RegExp(r'//\s*debug:.*\b' + RegExp.escape(debugCode) + r'\b');

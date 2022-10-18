@@ -138,7 +138,7 @@ mixin DiagnosticMixin on ServerPlugin {
 /// a given result unit or fixes request.
 @sealed
 class _DiagnosticGenerator {
-  static final _metricsDebugFlagPattern = RegExp(r'debug:.*\bover_react_metrics\b');
+  static final _metricsDebugCommentPattern = getDebugCommentPattern('over_react_metrics');
 
   /// Initialize a newly created errors generator to use the given
   /// [contributors].
@@ -211,7 +211,7 @@ class _DiagnosticGenerator {
     /// A mapping of diagnostic names to their durations, in microseconds.
     final diagnosticMetrics = <String, int>{};
 
-    final metricsDebugFlagMatch = _metricsDebugFlagPattern.firstMatch(unitResult.content ?? '');
+    final metricsDebugFlagMatch = _metricsDebugCommentPattern.firstMatch(unitResult.content ?? '');
 
     final totalStopwatch = Stopwatch()..start();
     final disabledCheckStopwatch = Stopwatch()..start();
