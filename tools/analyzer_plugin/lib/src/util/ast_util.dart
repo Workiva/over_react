@@ -188,6 +188,11 @@ Identifier? getNonCascadedPropertyBeingAccessed(AstNode? node) {
   return getSimpleTargetAndPropertyName(node, allowMethodInvocation: true)?.item2;
 }
 
+/// An abstraction representing an invocation that looks like calling a property on an object,
+/// which does not have a single AST representation.
+///
+/// For example, it could be a [MethodInvocation], or a [FunctionExpressionInvocation] where the expression is a
+/// [PropertyAccess] or [PrefixedIdentifier].
 class PropertyInvocation {
   final InvocationExpression invocation;
   final Identifier functionName;
@@ -203,6 +208,9 @@ class PropertyInvocation {
     required this.isNullAware,
   });
 
+  /// Constructs a property invocation represented by [node], throwing if it doesn't represent one.
+  ///
+  /// If you're unsure whether a node is a property invocation, use [detect] instead.
   factory PropertyInvocation.from(InvocationExpression node) {
     final detected = detect(node);
     if (detected == null) {
@@ -212,13 +220,14 @@ class PropertyInvocation {
     return detected;
   }
 
+  /// Returns a property invocation for [node], or `null` if it does not represent one.
   static PropertyInvocation? detect(AstNode node) {
     if (node is! InvocationExpression) return null;
 
-    // FIXME(greg) - do we want to restrict target to be certain types? (e.g., rule out `foo.bar.baz()` or `foo().bar()`)
+    // TODO(greg) - do we want to restrict target to be certain types? (e.g., rule out `foo.bar.baz()` or `foo().bar()`)
     //  or should that go in isInvocationADiscreteDependency?
 
-    // FIXME(greg) detect .call?
+    // TODO(greg) detect .call?
     if (node is MethodInvocation) {
       return PropertyInvocation(
         invocation: node,
@@ -251,11 +260,14 @@ class PropertyInvocation {
     }
   }
 
+  /// Returns the closest property invocation, starting with [node] and working up its ancestors, that can be
+  /// [detect]ed, or null if there is none.
   static PropertyInvocation? detectClosest(AstNode node) =>
       detect(node) ?? node.ancestors.map(detect).whereNotNull().firstOrNull;
 }
 
-List<Identifier> findReferences(Element element, AstNode root) {
+/// Returns all the identifiers in [root] that represent a resolved reference to [element].
+List<SimpleIdentifier> allResolvedReferencesTo(Element element, AstNode root) {
   final visitor = _ReferenceVisitor(element);
   root.accept(visitor);
   return visitor.references;
@@ -264,7 +276,7 @@ List<Identifier> findReferences(Element element, AstNode root) {
 class _ReferenceVisitor extends RecursiveAstVisitor<void> {
   final Element _targetElement;
 
-  final List<Identifier> references = [];
+  final List<SimpleIdentifier> references = [];
 
   _ReferenceVisitor(this._targetElement);
 

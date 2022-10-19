@@ -676,7 +676,7 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
         // Let's see if we can find a .current assignment.
         var foundCurrentAssignment = false;
         // This only finds references in the same file, but that's okay for our purposes.
-        for (final reference in findReferences(reference.staticElement!, reference.root)) {
+        for (final reference in allResolvedReferencesTo(reference.staticElement!, reference.root)) {
           final parent = reference.parent;
           if (parent != null &&
               // ref.current
@@ -1964,7 +1964,7 @@ List<_Construction> scanForConstructions({
   required AstNode callbackNode,
 }) {
   bool isUsedOutsideOfHook(Declaration declaration, Element declarationElement) {
-    for (final reference in findReferences(declarationElement, declaration.root)) {
+    for (final reference in allResolvedReferencesTo(declarationElement, declaration.root)) {
       final parent = reference.parent;
       // TODO(greg) make sure there aren't edge cases here
       if (parent is Declaration && parent.declaredElement == declarationElement) continue;
