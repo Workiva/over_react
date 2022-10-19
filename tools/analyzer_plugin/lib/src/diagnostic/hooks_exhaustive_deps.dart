@@ -250,7 +250,12 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
     }
   }
 
-  void debug(String string, dynamic location) {
+  /// Adds a debug hint with a string from [computeString] at [location],
+  /// which can be a [Location], [AstNode], or int offset.
+  ///
+  /// Takes in a function instead of a string so that the computation can be skipped
+  /// if debug hints aren't enabled, as a performance optimization.
+  void debug(String Function() computeString, dynamic location) {
     if (!debugHelper.enabled) return;
     Location _location;
     if (location is Location) {
@@ -262,7 +267,7 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
     } else {
       throw ArgumentError.value(location, 'location');
     }
-    debugHelper.logWithLocation(string, _location);
+    debugHelper.logWithLocation(computeString(), _location);
   }
 
   String getSource(SyntacticEntity entity) => result.content!.substring(entity.offset, entity.end);
@@ -411,7 +416,7 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
 
     final componentOrCustomHookFunctionElement = componentOrCustomHookFunction?.declaredElement;
 
-    debug('componentOrCustomHookFunctionElement: ${componentOrCustomHookFunctionElement?.debugString}',
+    debug(() => 'componentOrCustomHookFunctionElement: ${componentOrCustomHookFunctionElement?.debugString}',
         componentOrCustomHookFunction?.offset ?? 0);
 
     bool isDeclaredInPureScope(Element element) =>
@@ -630,7 +635,7 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
         isInvocationAllowedForNode: true,
       );
       debug(
-          prettyPrint({
+          () => prettyPrint({
             'dependency': dependency,
             'dependencyNode': '${dependencyNode.runtimeType} $dependencyNode',
             'reference': '${reference.runtimeType} $reference',
@@ -910,7 +915,7 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
     }
 
     debug(
-        prettyPrint({
+      () => prettyPrint({
           'dependencies': dependencies,
           'declaredDependencies': declaredDependencies,
           'stableDependencies': stableDependencies,
@@ -942,7 +947,7 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
         declaredDependenciesNode: declaredDependenciesNode,
         callbackNode: callbackFunction,
       );
-      debug('constructions: $constructions', callbackFunction.body.offset);
+      debug(() => 'constructions: $constructions', callbackFunction.body.offset);
       for (final _construction in constructions) {
         final construction = _construction.declaration;
         final constructionName = _construction.declarationElement.name;
