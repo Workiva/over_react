@@ -247,9 +247,13 @@ class _DiagnosticGenerator {
     if (metricsDebugFlagMatch != null) {
       String formatMicroseconds(int microseconds) =>
           '${(microseconds / Duration.microsecondsPerMillisecond).toStringAsFixed(3)}ms';
+      String asPercentageOfTotal(int microseconds) =>
+          '${(microseconds / totalStopwatch.elapsedMicroseconds * 100).toStringAsFixed(1)}%';
+
       final message = 'OverReact Analyzer Plugin diagnostic metrics (current file): ' +
           prettyPrint(<String, String>{
-            ...diagnosticMetrics.map((name, microseconds) => MapEntry(name, formatMicroseconds(microseconds))),
+            ...diagnosticMetrics.map((name, microseconds) =>
+                MapEntry(name, '${formatMicroseconds(microseconds)} (${asPercentageOfTotal(microseconds)})')),
             'Total': formatMicroseconds(totalStopwatch.elapsedMicroseconds),
             'Diagnostic code disabled checks': formatMicroseconds(disabledCheckStopwatch.elapsedMicroseconds),
             'Loop overhead (Total - SUM(Diagnostics))': formatMicroseconds(totalStopwatch.elapsedMicroseconds -
