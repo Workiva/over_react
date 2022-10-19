@@ -12,38 +12,28 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-class WeakSet<E extends Object> {
-  final _isEntry = Expando<bool>();
-
-  void add(E key) => _isEntry[key] = true;
-
-  bool has(E key) => _isEntry[key] ?? false;
-
-  void remove(E key) => _isEntry[key] = null;
-}
-
+/// A wrapper around [Expando] with a more [Map]-like interface, with typing on keys.
+///
+/// Keys may not be primitive values, and as a result keys are also non-nullable.
+///
+/// Values may also not be nullable in order to simplify the [has]/[putIfAbsent] implementations
+/// by assuming that `null` Expando values correspond unambiguously to unset keys.
 class WeakMap<K extends Object, V extends Object> {
-  final _keys = WeakSet<K>();
   final _valueFor = Expando<V>();
 
-  V? get(K key) => has(key) ? _valueFor[key] : null;
+  V? get(K key) => _valueFor[key];
 
   V? getNullableKey(K? key) => key == null ? null : get(key);
 
-  void set(K key, V value) {
-    _keys.add(key);
-    _valueFor[key] = value;
-  }
+  void set(K key, V value) => _valueFor[key] = value;
 
-  bool has(K key) => _keys.has(key);
+  bool has(K key) => get(key) != null;
 
-  void remove(K key) {
-    _keys.remove(key);
-    _valueFor[key] = null;
-  }
+  void remove(K key) => _valueFor[key] = null;
 
   V putIfAbsent(K key, V Function() ifAbsent) {
-    if (has(key)) return get(key)!;
+    final existingValue = get(key);
+    if (existingValue != null) return existingValue;
     final value = ifAbsent();
     set(key, value);
     return value;

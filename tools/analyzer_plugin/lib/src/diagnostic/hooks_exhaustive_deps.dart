@@ -42,7 +42,7 @@ import 'package:over_react_analyzer_plugin/src/util/pretty_print.dart';
 import 'package:over_react_analyzer_plugin/src/util/range.dart';
 import 'package:over_react_analyzer_plugin/src/util/react_types.dart';
 import 'package:over_react_analyzer_plugin/src/util/util.dart';
-import 'package:over_react_analyzer_plugin/src/util/weak_collections.dart';
+import 'package:over_react_analyzer_plugin/src/util/weak_map.dart';
 
 const _desc = r'Verifies the list of dependencies for React Hooks like useEffect and similar.';
 // <editor-fold desc="Documentation Details">
