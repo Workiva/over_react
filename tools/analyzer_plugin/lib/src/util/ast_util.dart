@@ -68,7 +68,6 @@ FormalParameter? lookUpParameter(Element element, AstNode root) {
   return null;
 }
 
-
 /// Returns a String value when a literal or constant var/identifier is found within [expr].
 String? getConstOrLiteralStringValueFrom(Expression expr) {
   final staticType = expr.staticType;
