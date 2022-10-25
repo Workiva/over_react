@@ -12,11 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:mockito/mockito.dart';
 import 'package:over_react/over_react.dart';
 import 'package:over_react/src/over_react_redux/value_mutation_checker.dart';
 import 'package:react/react.dart' as react;
 import 'package:test/test.dart';
+
+import '../mockito.mocks.dart';
 
 // ignore_for_file: invalid_use_of_protected_member
 main() {
@@ -150,5 +151,3 @@ void sharedHashTests(InstanceHasher Function() getHasher) {
     });
   });
 }
-
-class MockList extends Mock implements List {}
