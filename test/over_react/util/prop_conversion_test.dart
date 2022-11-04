@@ -726,7 +726,7 @@ main() {
                   r"Expected a value of type 'Map[^']*', but got one of type 'NativeJavaScriptObject'")),
               // dart2js error message
               matches(RegExp(
-                  r"type 'UnknownJavaScriptObject' is not a subtype of type 'Map[^']*'")),
+                  r"type '(Unknown|Plain)JavaScriptObject' is not a subtype of type 'Map[^']*'")),
             )),
           ]);
 
