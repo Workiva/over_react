@@ -56,11 +56,27 @@ final Foo6 = uiFunction<FooProps>((props) {
   }, [id]);
 }, null);
 
-useSomething2() {
+void useSomething2() {
   final a = {};
   useEffect(() {
     a['something'] = 'something else';
   }, [a]);
+}
+
+void useSomething3(String something) {
+  var a = 1;
+  useEffect(() {
+    a = 2;
+  }, []);
+}
+
+void useSomething4() {
+  const a = {};
+  final b = 1;
+  useEffect(() {
+    print(a);
+    print(b);
+  }, []);
 }
 
 final Foo7 = uiFunction<FooProps>((props) {
@@ -69,15 +85,6 @@ final Foo7 = uiFunction<FooProps>((props) {
     print('I don\'t even use id');
   }, [id]);
 }, null);
-
-useSomethingElse() {
-  const a = {};
-  final b = 1;
-  useEffect(() {
-    print(a);
-    print(b);
-  }, []);
-}
 
 final Foo7 = uiFunction<FooProps>((props) {
   final count = useState(0);
@@ -93,8 +100,21 @@ final Foo7 = uiFunction<FooProps>((props) {
   // foo();
 }, null);
 
-// FIXME(greg) - make these warn, add regression tests
+void useSomething5() {
+  final ref = useRef();
+  useEffect(() {
+    return () {
+      ref.current;
+    };
+  }, []);
+}
 
+void useSomething6() {
+  function() {}
+  useEffect(() {}, [function(), Object(), {}, [], Dom.div()()]);
+}
+
+// TODO(FED-519) these should warn
 final Foo333 = uiFunction<FooProps>((_) {
   final count = useState(0);
   useEffect(() {
