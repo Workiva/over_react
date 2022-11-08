@@ -205,7 +205,10 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
 
   HooksExhaustiveDeps({this.additionalHooksPattern});
 
-  // Should be shared between visitors.
+  // (ported) Should be shared between visitors.
+  // For now, these aren't static variables, since it's unclear whether that would help
+  // or cause issues in this Dart implementation based on whether AST nodes and elements are or aren't reused.
+  // From a brief investigation, WeakMap doesn't seem to result in any worse performance than Map here.
   /// A mapping from setState references to setState declarations
   final setStateCallSites = WeakMap<Identifier, VariableDeclaration>();
   final stableKnownValueCache = WeakMap<Identifier, bool>();
@@ -536,17 +539,8 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
         }
       }
 
-      if (init is! InvocationExpression) {
-        return false;
-      }
-
-      var callee = init.function;
-      if (callee is! Identifier) {
-        return false;
-      }
-      final name = callee.name;
-      if (name == 'useRef') {
-        // useRef() return value is stable.
+      // useRef() return value is stable.
+      if (init.tryCast<InvocationExpression>()?.function.tryCast<Identifier>()?.name == 'useRef') {
         return true;
       }
 
@@ -1565,6 +1559,9 @@ abstract class HookConstants {
   };
 }
 
+/// Information about a stable hook method reference.
+///
+/// For example, `stateHook.set`, `reducerHook.dispatch`.
 class StableHookMethodInfo {
   final Expression node;
 
@@ -1584,7 +1581,7 @@ class StableHookMethodInfo {
 }
 
 /// If [node] is an access of a stable hook method on a hook object (either a method call or a tearoff),
-/// returns information about that usage. Otherwise, returns `null.
+/// returns information about that usage. Otherwise, returns `null`.
 StableHookMethodInfo? getStableHookMethodInfo(AstNode node) {
   // This check is redundant with the if-else below, but allows for type promotion of `node`.
   if (node is! Expression) return null;
