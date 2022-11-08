@@ -12,7 +12,7 @@ import 'package:dart_style/dart_style.dart';
 import 'package:meta/meta.dart';
 import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
 import 'package:path/path.dart' as p;
-import 'package:over_react_analyzer_plugin/src/diagnostic/hooks_exhaustive_deps.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/exhaustive_deps.dart';
 import 'package:test/test.dart';
 import 'package:test_reflective_loader/test_reflective_loader.dart';
 
@@ -20,10 +20,10 @@ import '../../test_util.dart';
 import '../matchers.dart';
 import '../test_bases/diagnostic_test_base.dart';
 import '../test_bases/server_plugin_contributor_test_base.dart';
-import 'hooks_exhaustive_deps_test_cases.dart' as test_cases;
+import 'exhaustive_deps_test_cases.dart' as test_cases;
 
 void main() {
-  group('HooksExhaustiveDeps', () {
+  group('ExhaustiveDeps', () {
     const preamble = r'''
 // ignore_for_file: unused_import
     
@@ -179,7 +179,7 @@ class ObjectWithWritableField {
               expect(
                   errors.pluginErrors,
                   everyElement(
-                      AnalysisErrorHavingUtils(isA<AnalysisError>()).havingCode(HooksExhaustiveDeps.code.name)),
+                      AnalysisErrorHavingUtils(isA<AnalysisError>()).havingCode(ExhaustiveDeps.code.name)),
                   reason: 'Expected all errors to match the error & fix kinds under test.');
 
               /// A mapping of the index of the actual error to the index of te expected error,
@@ -405,8 +405,8 @@ class HooksExhaustiveDepsDiagnosticTest extends DiagnosticTestBase {
   HooksExhaustiveDepsDiagnosticTest({this.analysisOptionsYamlContents});
 
   @override
-  get errorUnderTest => HooksExhaustiveDeps.code;
+  get errorUnderTest => ExhaustiveDeps.code;
 
   @override
-  get fixKindUnderTest => HooksExhaustiveDeps.fixKind;
+  get fixKindUnderTest => ExhaustiveDeps.fixKind;
 }

@@ -119,7 +119,7 @@ Currently-available debug info:
 - `// debug: over_react_boilerplate`- shows how over_react boilerplate will be parsed/detected by the over_react
   builder and analyzer functionality dealing with component declarations
 - `// debug: over_react_metrics` - shows performance data on how long diagnostics took to run
-- `// debug: over_react_hooks_exhaustive_deps` - shows info on how dependencies were detected/interpreted
+- `// debug: over_react_exhaustive_deps` - shows info on how dependencies were detected/interpreted
 
 #### Attaching a Debugger
 The dev experience when working on this plugin isn't ideal (See the `analyzer_plugin` debugging docs [for more information](https://github.com/dart-lang/sdk/blob/master/pkg/analyzer_plugin/doc/tutorial/debugging.md)), but it's possible debug and see logs from the plugin.

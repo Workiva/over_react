@@ -184,12 +184,12 @@ use case.
 ///   that can have different nesting than in JS)
 /// - Collection elements (spreads, if/for-elements, etc.)
 /// - Constant variables/expressions
-class HooksExhaustiveDeps extends DiagnosticContributor {
-  static final _debugCommentPattern = getDebugCommentPattern('over_react_hooks_exhaustive_deps');
+class ExhaustiveDeps extends DiagnosticContributor {
+  static final _debugCommentPattern = getDebugCommentPattern('over_react_exhaustive_deps');
 
   @DocsMeta(_desc, details: _details)
   static const code = DiagnosticCode(
-    'over_react_hooks_exhaustive_deps',
+    'over_react_exhaustive_deps',
     "{0}",
     AnalysisErrorSeverity.ERROR,
     AnalysisErrorType.STATIC_WARNING,
@@ -203,7 +203,7 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
 
   final RegExp? additionalHooksPattern;
 
-  HooksExhaustiveDeps({this.additionalHooksPattern});
+  ExhaustiveDeps({this.additionalHooksPattern});
 
   // (ported) Should be shared between visitors.
   // For now, these aren't static variables, since it's unclear whether that would help
@@ -276,7 +276,7 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
   String getSource(SyntacticEntity entity) => result.content!.substring(entity.offset, entity.end);
 
   void reportProblem({required AstNode node, required String message}) =>
-      collector.addError(HooksExhaustiveDeps.code, result.locationFor(node), errorMessageArgs: [message]);
+      collector.addError(ExhaustiveDeps.code, result.locationFor(node), errorMessageArgs: [message]);
 
   Future<void> _handleReactiveHookCallback(ReactiveHookCallbackInfo info) async {
     final callback = info.callback;
@@ -352,14 +352,14 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
     // Something unusual. Fall back to suggesting to add the body itself as a dep.
     final callbackName = callback.name;
     await collector.addErrorWithFix(
-      HooksExhaustiveDeps.code,
+      ExhaustiveDeps.code,
       result.locationFor(reactiveHook),
       errorMessageArgs: [
         // ignore: prefer_adjacent_string_concatenation
         "React Hook $reactiveHookName has a missing dependency: '$callbackName'. " +
             "Either include it or remove the dependency list."
       ],
-      fixKind: HooksExhaustiveDeps.fixKind,
+      fixKind: ExhaustiveDeps.fixKind,
       fixMessageArgs: ["Update the dependencies list to be: [$callbackName]"],
       computeFix: () => buildGenericFileEdit(result, (e) {
         e.addSimpleReplacement(range.node(declaredDependenciesNode), "[$callbackName]");
@@ -1007,16 +1007,16 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
           if (usesWholeValue) {
             // We can't automatically fix in this case, so just warn.
             collector.addError(
-              HooksExhaustiveDeps.code,
+              ExhaustiveDeps.code,
               result.locationFor(declaredDependencyNode),
               errorMessageArgs: [messageBuffer.toString()],
             );
           } else {
             await collector.addErrorWithFix(
-              HooksExhaustiveDeps.code,
+              ExhaustiveDeps.code,
               result.locationFor(declaredDependencyNode),
               errorMessageArgs: [messageBuffer.toString()],
-              fixKind: HooksExhaustiveDeps.fixKind,
+              fixKind: ExhaustiveDeps.fixKind,
               fixMessageArgs: [
                 if (suggestedUnstableMemberDependencies.isNotEmpty)
                   "Change the dependency to: ${suggestedUnstableMemberDependencies.join(', ')}"
@@ -1058,10 +1058,10 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
         if (isUsedOutsideOfHook && depType == _DepType.function) {
           if (construction is FunctionDeclaration) {
             await collector.addErrorWithFix(
-              HooksExhaustiveDeps.code,
+              ExhaustiveDeps.code,
               result.locationFor(construction),
               errorMessageArgs: [message],
-              fixKind: HooksExhaustiveDeps.fixKind,
+              fixKind: ExhaustiveDeps.fixKind,
               fixMessageArgs: ["Wrap the $constructionType of '$constructionName' in its own useCallback() Hook."],
               computeFix: () => buildGenericFileEdit(
                 result,
@@ -1091,16 +1091,16 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
             final constructionInitializer = construction.initializer;
             if (constructionInitializer == null) {
               collector.addError(
-                HooksExhaustiveDeps.code,
+                ExhaustiveDeps.code,
                 result.locationFor(construction),
                 errorMessageArgs: [message],
               );
             } else {
               await collector.addErrorWithFix(
-                HooksExhaustiveDeps.code,
+                ExhaustiveDeps.code,
                 result.locationFor(construction),
                 errorMessageArgs: [message],
-                fixKind: HooksExhaustiveDeps.fixKind,
+                fixKind: ExhaustiveDeps.fixKind,
                 fixMessageArgs: ["Wrap the $constructionType of '$constructionName' in its own $wrapperHook() Hook."],
                 computeFix: () => buildGenericFileEdit(
                   result,
@@ -1127,7 +1127,7 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
         // TODO(ported): What if the function needs to change on every render anyway?
         //  Should we suggest removing effect deps as an appropriate fix too?
         collector.addError(
-          HooksExhaustiveDeps.code,
+          ExhaustiveDeps.code,
           result.locationFor(construction),
           errorMessageArgs: [message],
         );
@@ -1165,7 +1165,7 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
         ..write(" in the callback to get more helpful instructions and potentially a suggested fix.");
 
       collector.addError(
-        HooksExhaustiveDeps.code,
+        ExhaustiveDeps.code,
         result.locationFor(declaredDependenciesNode),
         errorMessageArgs: [messageBuffer.toString()],
       );
@@ -1429,7 +1429,7 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
     }
 
     await collector.addErrorWithFix(
-      HooksExhaustiveDeps.code,
+      ExhaustiveDeps.code,
       result.locationFor(declaredDependenciesNode),
       errorMessageArgs: [
         "React Hook ${getSource(reactiveHook)} has " +
@@ -1440,7 +1440,7 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
                 '<unexpected case when building warning message>') +
             (extraWarning ?? ''),
       ],
-      fixKind: HooksExhaustiveDeps.fixKind,
+      fixKind: ExhaustiveDeps.fixKind,
       fixMessageArgs: ["Update the dependencies list to be: [${suggestedDeps.map(formatDependency).join(', ')}]"],
       computeFix: () => buildGenericFileEdit(result, (e) {
         e.addSimpleReplacement(
