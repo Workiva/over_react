@@ -110,7 +110,7 @@ This script sets up a symlink to point to the original plugin directory (replaci
 
 #### Showing Debug Info
 
-Via `AnalyzerDebugHelper`, it's possible for diagnistics to show debug information for specific locations in a file
+Via `AnalyzerDebugHelper`, it's possible for diagnostics to show debug information for specific locations in a file
 as infos, which can be helpful to develop/troubleshoot
 issues without having to attach a debugger.
 
