@@ -275,11 +275,8 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
 
   String getSource(SyntacticEntity entity) => result.content!.substring(entity.offset, entity.end);
 
-  void reportProblem({required AstNode node, String? message}) {
-    collector.addError(HooksExhaustiveDeps.code, result.locationFor(node), errorMessageArgs: [
-      message ?? '',
-    ]);
-  }
+  void reportProblem({required AstNode node, required String message}) =>
+      collector.addError(HooksExhaustiveDeps.code, result.locationFor(node), errorMessageArgs: [message]);
 
   Future<void> _handleReactiveHookCallback(ReactiveHookCallbackInfo info) async {
     final callback = info.callback;
@@ -628,14 +625,14 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
         optionalChains,
         isInvocationAllowedForNode: true,
       );
-      debug(
-          () => prettyPrint({
-            'dependency': dependency,
-            'dependencyNode': '${dependencyNode.runtimeType} $dependencyNode',
-            'reference': '${reference.runtimeType} $reference',
-            'isUsedAsCascadeTarget': isUsedAsCascadeTarget,
-          }),
-          dependencyNode);
+      debug(() {
+        return prettyPrint({
+          'dependency': dependency,
+          'dependencyNode': '${dependencyNode.runtimeType} $dependencyNode',
+          'reference': '${reference.runtimeType} $reference',
+          'isUsedAsCascadeTarget': isUsedAsCascadeTarget,
+        });
+      }, dependencyNode);
 
       // Accessing ref.current inside effect cleanup is bad.
       if (
@@ -908,15 +905,15 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
       }
     }
 
-    debug(
-      () => prettyPrint({
-          'dependencies': dependencies,
-          'declaredDependencies': declaredDependencies,
-          'stableDependencies': stableDependencies,
-          'externalDependencies': externalDependencies,
-          'isEffect': isEffect,
-        }),
-        callbackFunction.body.offset);
+    debug(() {
+      return prettyPrint({
+        'dependencies': dependencies,
+        'declaredDependencies': declaredDependencies,
+        'stableDependencies': stableDependencies,
+        'externalDependencies': externalDependencies,
+        'isEffect': isEffect,
+      });
+    }, callbackFunction.body.offset);
 
     final recommendations = collectRecommendations(
       dependencies: dependencies,
