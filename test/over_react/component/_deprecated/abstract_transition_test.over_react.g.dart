@@ -16,7 +16,6 @@ final $TransitionerComponentFactory = registerComponent(
   componentClass: TransitionerComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'Transitioner',
 );
 
 abstract class _$TransitionerPropsAccessorsMixin
@@ -296,6 +295,9 @@ class _$TransitionerComponent extends TransitionerComponent {
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'Transitioner';
 
   /// The default consumed props, taken from _$TransitionerProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.

@@ -16,7 +16,6 @@ final $TestCompositeComponentComponentFactory = registerComponent(
   componentClass: TestCompositeComponentComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'TestCompositeComponent',
 );
 
 abstract class _$TestCompositeComponentPropsAccessorsMixin
@@ -148,6 +147,9 @@ class _$TestCompositeComponentComponent
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'TestCompositeComponent';
 
   /// The default consumed props, taken from _$TestCompositeComponentProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.

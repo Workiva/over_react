@@ -18,7 +18,6 @@ final $CounterComponentFactory = registerComponent2(
   componentClass: CounterComponent,
   isWrapper: false,
   parentType: null,
-  displayName: '_Counter',
 );
 
 _$$CounterProps _$_Counter([Map backingProps]) => backingProps == null
@@ -144,6 +143,9 @@ class _$CounterComponent extends CounterComponent {
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'Counter';
 
   /// The default consumed props, comprising all props mixins used by CounterProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.

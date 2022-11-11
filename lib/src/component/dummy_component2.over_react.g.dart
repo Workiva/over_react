@@ -16,7 +16,6 @@ final $_Dummy2ComponentFactory = registerComponent2(
   componentClass: _Dummy2Component,
   isWrapper: false,
   parentType: null,
-  displayName: '_Dummy2',
 );
 
 abstract class _$_Dummy2PropsAccessorsMixin implements _$_Dummy2Props {
@@ -140,6 +139,9 @@ class _$_Dummy2Component extends _Dummy2Component {
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => '_Dummy2';
 
   /// The default consumed props, taken from _$_Dummy2Props.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.

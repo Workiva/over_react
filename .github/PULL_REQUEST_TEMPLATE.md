@@ -12,7 +12,7 @@
 ## Review
 _[See CONTRIBUTING.md][contributing-review-types] for more details on review types (+1 / QA +1 / +10) and code review process._
 
-  <!-- If you're making a PR from outside of the Client Platform team, then first off, thanks! :)
+  <!-- If you're making a PR from outside of the Frontend Frameworks Design team, then first off, thanks! :)
 
         For open-source contributors, tag @Workiva/app-frameworks and we'll take a look!
 
@@ -36,7 +36,7 @@ Please review: <!-- Tag people here or via GitHub's "Request Review" feature-->
 
 ## Merge Checklist
 While we perform many automated checks before auto-merging, some manual checks are needed:
-- [ ] A Client Platform member has reviewed these changes
+- [ ] A Frontend Frameworks Design member has reviewed these changes
 - [ ] There are no unaddressed comments _- this check can be automated if reviewers use the "Request Changes" feature_
 - [ ] _For release PRs -_ Version metadata in Rosie comment is correct
 

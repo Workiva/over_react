@@ -7,13 +7,14 @@ import 'dart:html';
 import 'dart:js_util';
 
 import 'package:js/js.dart';
+import 'package:react/react.dart' as react;
 import 'package:over_react/over_react.dart';
 import 'package:over_react/components.dart' as components;
 import 'package:over_react/src/util/js_component.dart';
 import 'package:over_react/src/util/prop_conversion.dart';
 import 'package:react/react_client/component_factory.dart';
 import 'package:react/react_client/react_interop.dart'
-    show React, ReactClass, ReactComponent;
+    show React, ReactClass, ReactComponent, ReactContext;
 import 'package:react_testing_library/matchers.dart';
 import 'package:react_testing_library/react_testing_library.dart';
 import 'package:react_testing_library/user_event.dart';
@@ -224,6 +225,83 @@ main() {
         test('arbitrary JS objects', () {
           final object = newObject();
           expect(jsifyAndUnjsify(object), same(object));
+        });
+      });
+      
+      group('jsifyContextProp', () {
+        test('passes through null', () {
+          expect(jsifyContextProp(null), null);
+        });
+
+        test('converts Dart context objects', () {
+          final dartContext = createContext();
+          expect(jsifyContextProp(dartContext), same(dartContext.jsThis));
+        });
+      });
+
+      group('unjsifyContextProp', () {
+        test('passes through null', () {
+          expect(unjsifyContextProp(null), null);
+        });
+
+        test('converts JS context objects to Dart context objects (dynamic generic type)', () {
+          final jsContext = react.createContext().jsThis;
+          expect(unjsifyContextProp<dynamic>(jsContext), isA<Context>());
+          expect(unjsifyContextProp<dynamic>(jsContext).jsThis, same(jsContext));
+        });
+
+        test('converts JS context objects to Dart context objects (with generic type)', () {
+          final jsContext = react.createContext().jsThis;
+          expect(unjsifyContextProp<String>(jsContext), isA<Context<String>>());
+          expect(unjsifyContextProp<String>(jsContext).jsThis, same(jsContext));
+        });
+      });
+
+      group(
+          'unjsifyContextProp(jsifyContextProp(object)) returns a value equivalent to `object` when passed',
+          () {
+        Context<T> jsifyAndUnjsify<T>(Context<T> value) =>
+            unjsifyContextProp(jsifyContextProp(value));
+
+        test('null', () {
+          expect(jsifyAndUnjsify(null), null);
+        });
+
+        test('Dart context object', () {
+          final context = createContext();
+          expect(jsifyAndUnjsify(context).jsThis, same(context.jsThis));
+        });
+
+        group('Dart context objects (with same reified generic type)', () {
+          test('when the type parameter is dynamic', () {
+            final dartContext = createContext<Element>();
+            // Specify dynamic here so the static type parameter to this method
+            // doesn't influence the reified type.
+            expect(jsifyAndUnjsify<dynamic>(dartContext), same(dartContext));
+
+            // These expectations are redundant due to the `same` expectation above,
+            // but this is really the behavior we want to test.
+            expect(jsifyAndUnjsify<dynamic>(dartContext),
+                isA<Context>().havingJsThis(same(dartContext.jsThis)),
+                reason: 'should be backed by the same JS object');
+            expect(jsifyAndUnjsify<dynamic>(dartContext), isA<Context<Element>>(),
+                reason: 'should have the same reified type');
+          });
+
+          test('when the type parameter is specified/inferred', () {
+            final dartContext = createContext<Element>();
+            // Specify dynamic here so the static type parameter to this method
+            // doesn't influence the reified type.
+            expect(jsifyAndUnjsify(dartContext), same(dartContext));
+
+            // These expectations are redundant due to the `same` expectation above,
+            // but this is really the behavior we want to test.
+            expect(jsifyAndUnjsify(dartContext),
+                isA<Context>().havingJsThis(same(dartContext.jsThis)),
+                reason: 'should be backed by the same JS object');
+            expect(jsifyAndUnjsify(dartContext), isA<Context<Element>>(),
+                reason: 'should have the same reified type');
+          });
         });
       });
     });
@@ -512,6 +590,52 @@ main() {
           });
         });
       });
+
+      group('context props using (un)jsifyContextProp', () {
+        group('get converted to JS context', () {
+          group('in the setter, and gets unconverted in getter', () {
+            // This case is a little redundant with the (un)jsifyContextProp tests above, but include it for completeness.
+            test('when set to a Context', () {
+              final context = createContext<String>();
+
+              final builder = TestJs()..messageContext = context;
+
+              final propKey = TestJs.getPropKey((p) => p.messageContext);
+              expect(builder, {propKey: isA<ReactContext>()},
+                  reason:
+                      'test setup: should have converted to a JS context for storage in props map');
+              expect(builder.messageContext, isA<Context>(),
+                  reason:
+                      'should have unconverted JS context to a Dart context in the typed getter');
+            });
+
+            // This case is a little redundant with the (un)jsifyContextProp tests above, but include it for completeness.
+            test('when null', () {
+              final builder = TestJs();
+
+              expect(builder, {}, reason: 'test setup check');
+              expect(builder.messageContext, isNull);
+
+              builder.messageContext = null;
+              final propKey = TestJs.getPropKey((p) => p.messageContext);
+              expect(builder, {propKey: null});
+              expect(builder.messageContext, isNull);
+            });
+          });
+
+          test('and can be read properly by the JS component', () {
+            final context = createContext<String>();
+            final view =
+                render((context.Provider()..value = 'test context value')(
+              (TestJs()..messageContext = context)(),
+            ));
+            final alert = view.getByRole('alert');
+            expect(alert, hasTextContent('test context value'),
+                reason: 'messageContext should have been readable by JS component'
+                    ' and used to render the alert');
+          });
+        });
+      });
     });
 
     group('works as expected in advanced cases:', () {
@@ -602,7 +726,7 @@ main() {
                   r"Expected a value of type 'Map[^']*', but got one of type 'NativeJavaScriptObject'")),
               // dart2js error message
               matches(RegExp(
-                  r"type 'UnknownJavaScriptObject' is not a subtype of type 'Map[^']*'")),
+                  r"type '(Unknown|Plain)JavaScriptObject' is not a subtype of type 'Map[^']*'")),
             )),
           ]);
 
@@ -885,6 +1009,11 @@ extension on TypeMatcher<Ref> {
       having((ref) => ref.jsRef, 'jsRef', matcher);
 }
 
+extension on TypeMatcher<Context> {
+  Matcher havingJsThis(dynamic matcher) =>
+      having((ref) => ref.jsThis, 'jsThis', matcher);
+}
+
 extension on TypeMatcher<Object> {
   Matcher havingToStringValue(dynamic matcher) =>
       having((o) => o.toString(), 'toString() value', matcher);
@@ -1050,6 +1179,12 @@ mixin TestJsProps on UiProps {
 
   dynamic get inputRef => unjsifyRefProp(_$raw$inputRef);
   set inputRef(dynamic value) => _$raw$inputRef = jsifyRefProp(value);
+
+  @Accessor(key: 'messageContext')
+  ReactContext _$raw$messageContext;
+
+  Context<String> get messageContext => unjsifyContextProp(_$raw$messageContext);
+  set messageContext(Context<String> value) => _$raw$messageContext = jsifyContextProp(value);
 
   dynamic /*ElementType*/ component;
   dynamic /*ElementType*/ inputComponent;
