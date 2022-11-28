@@ -210,7 +210,14 @@ class OverReactAnalyzerPlugin extends OverReactAnalyzerPluginBase {
               .toNotification());
     }
     runZonedGuarded(() {
-      driver.results.listen(processDiagnosticsForResult);
+      driver.results.listen((result) {
+        final path = result.path;
+        if (path != null) {
+          // FIXME this will definitely have race conditions with contentChanged
+          _alreadyResolvedFiles.add(path);
+        }
+        processDiagnosticsForResult(result);
+      });
     }, (e, stackTrace) {
       channel.sendNotification(plugin.PluginErrorParams(false, e.toString(), stackTrace.toString()).toNotification());
     });
@@ -219,6 +226,8 @@ class OverReactAnalyzerPlugin extends OverReactAnalyzerPluginBase {
 
   @override
   void contentChanged(String path) {
+    _alreadyResolvedFiles.remove(path);
+    // FIXME take ignores into account here
     super.driverForPath(path)!.addFile(path);
   }
 
@@ -232,6 +241,8 @@ class OverReactAnalyzerPlugin extends OverReactAnalyzerPluginBase {
   }
 
   List<String> _filesFromSetPriorityFilesRequest = [];
+
+  final _alreadyResolvedFiles = <String>{};
 
   @override
   Future<plugin.AnalysisSetPriorityFilesResult> handleAnalysisSetPriorityFiles(
@@ -257,8 +268,10 @@ class OverReactAnalyzerPlugin extends OverReactAnalyzerPluginBase {
       ..._filesFromSetPriorityFilesRequest,
 
       /// ... all other files need to be analyzed, but don't trump priority/
-      for (var driver2 in driverMap.values) ...(driver2 as AnalysisDriver).addedFiles,
+      for (var driver2 in driverMap.values) ...(driver2 as AnalysisDriver).addedFiles.difference(_alreadyResolvedFiles),
     };
+
+    filesToFullyResolve.removeWhere((f) => f.contains('/graph_app/test/'));
 
     // From ServerPlugin.handleAnalysisSetPriorityFiles
     final filesByDriver = <AnalysisDriverGeneric, List<String>>{};
