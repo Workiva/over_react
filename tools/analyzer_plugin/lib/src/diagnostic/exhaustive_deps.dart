@@ -47,6 +47,14 @@ import 'package:over_react_analyzer_plugin/src/util/weak_map.dart';
 const _desc = r'Verifies the list of dependencies for React Hooks like useEffect and similar.';
 // <editor-fold desc="Documentation Details">
 const _details = r'''
+Ported/forked from the JS eslint-plugin-react-hooks `react-hooks/exhaustive-deps` rule 
+([info from the React docs](https://reactjs.org/docs/hooks-effect.html#:~:text=If%20you%20use%20this%20optimization%2C%20make%20sure%20the%20array%20includes),
+ [package](https://www.npmjs.com/package/eslint-plugin-react-hooks),
+ [source](https://github.com/facebook/react/blob/main@%7B2020-10-16%7D/packages/eslint-plugin-react-hooks/src/ExhaustiveDeps.js)),
+this Dart lint aims to provide parity with the dev experience of the JS lint rule, with some tweaks to work better with Dart and its flavor of React APIs.
+
+---
+
 **DO** include dependencies for all values from the component scope (such as props and state) that change over time and that are used by the effect. See [this note in thhe React docs](https://reactjs.org/docs/hooks-effect.html#:~:text=If%20you%20use%20this%20optimization%2C%20make%20sure%20the%20array%20includes) for more info.
 
 **GOOD:**
@@ -100,8 +108,11 @@ use case.
 
 /// A diagnostic that validates the dependencies of React hooks, such as `useEffect`, `useMemo`, and `useCallback`.
 ///
-/// Ported/forked from [the JS eslint-plugin-react-hooks rule](https://github.com/facebook/react/blob/main@%7B2020-10-16%7D/packages/eslint-plugin-react-hooks/src/ExhaustiveDeps.js),
-/// this diagnostic aims to provide parity with the dev experience of that lint, with some behavior altered
+/// Ported/forked from the JS eslint-plugin-react-hooks `react-hooks/exhaustive-deps` rule
+/// ([info from the React docs](https://reactjs.org/docs/hooks-effect.html#:~:text=If%20you%20use%20this%20optimization%2C%20make%20sure%20the%20array%20includes),
+///  [package](https://www.npmjs.com/package/eslint-plugin-react-hooks),
+///  [source](https://github.com/facebook/react/blob/main@%7B2020-10-16%7D/packages/eslint-plugin-react-hooks/src/ExhaustiveDeps.js)
+/// ), this Dart lint aims to provide parity with the dev experience of the JS lint rule, with some behavior altered
 /// where it makes sense to accommodate differences between JavaScript, Dart, and their respective React APIs.
 ///
 /// Custom hooks can be validated (assuming the first argument is the callback and the second argument is
