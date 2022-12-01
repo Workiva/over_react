@@ -21,6 +21,8 @@ analyzer:
     prefer_single_quotes: ignore
     type_annotate_public_apis: ignore
     prefer_final_locals: ignore
+    # This is less readable in some cases, and isn't worth it.
+    join_return_with_assignment: ignore
 
 linter:
   rules:

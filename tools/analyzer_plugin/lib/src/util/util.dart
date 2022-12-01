@@ -35,6 +35,11 @@ extension IterableUtil<E> on Iterable<E> {
   T firstWhereType<T>({T Function()? orElse}) => whereType<T>().firstWhere((_) => true, orElse: orElse);
 }
 
+extension ListUtil<E> on List<E> {
+  /// Returns the element at [index], or `null` if the index is greater than the length of this list.
+  E? elementAtOrNull(int index) => index < length ? this[index] : null;
+}
+
 class Tuple2<T1, T2> {
   final T1 item1;
   final T2 item2;

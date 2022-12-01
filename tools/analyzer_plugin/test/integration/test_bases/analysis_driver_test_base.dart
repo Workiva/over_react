@@ -98,6 +98,7 @@ abstract class AnalysisDriverTestBase {
     _testPath = resourceProvider.newFolder('/test').path;
 
     // Add a analysis_options.yaml file to the [resourceProvider] if the contents are specified.
+    // If this isn't set up here, `AnalysisContext.optionsFile` will be null even if the file is added later.
     final contents = analysisOptionsYamlContents;
     if (contents != null) {
       final absolutePath = p.join(testPath, 'analysis_options.yaml');

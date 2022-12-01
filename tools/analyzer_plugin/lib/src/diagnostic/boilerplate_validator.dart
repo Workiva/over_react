@@ -12,6 +12,8 @@ import 'package:over_react_analyzer_plugin/src/over_react_builder_parsing.dart' 
 import 'package:over_react_analyzer_plugin/src/util/boilerplate_utils.dart';
 import 'package:source_span/source_span.dart';
 
+import 'analyzer_debug_helper.dart';
+
 const _errorDesc = 'Something is malformed in your component boilerplate.';
 // TODO: Add a more detailed description about the types of things our validator catches
 // <editor-fold desc="Error Documentation Details">
@@ -59,7 +61,7 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
   static final invalidGeneratedPartFixKind = FixKind(errorCode.name, 200, 'Fix generated part directive');
   static final unnecessaryGeneratedPartFixKind = FixKind(errorCode.name, 200, 'Remove generated part directive');
 
-  static final _debugFlagPattern = RegExp(r'debug:.*\bover_react_boilerplate\b');
+  static final _debugCommentPattern = getDebugCommentPattern('over_react_boilerplate');
 
   // TODO(nullsafety) come back and clean up fields
 
@@ -89,7 +91,7 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
   /// Also returns whether the component has valid over_react declarations, which is useful in determining whether to
   /// validate the generated part directive.
   Future<bool> _computeBoilerplateErrors(ResolvedUnitResult result, DiagnosticCollector collector) async {
-    final debugMatch = _debugFlagPattern.firstMatch(result.content!);
+    final debugMatch = _debugCommentPattern.firstMatch(result.content!);
     final debug = debugMatch != null;
     if (debug) {
       collector.addError(debugCode, result.location(offset: debugMatch!.start, end: debugMatch.end),
