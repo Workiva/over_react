@@ -3,7 +3,7 @@
    <head>
       <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="chrome=1">
-<title>addProps</title>
+<title>over_react_create_ref_usage</title>
 <link rel="stylesheet" href="../stylesheets/styles.css">
 <link rel="stylesheet" href="../stylesheets/pygment_trac.css">
 <script src="../javascripts/scale.fix.js"></script>
@@ -16,8 +16,9 @@
    <body>
       <div class="wrapper">
          <header>
-            <h1>addProps</h1>
-            
+            <h1>over_react_create_ref_usage</h1>
+            <p>Severity: AnalysisErrorSeverity.WARNING</p>
+  
             <p>Maturity: stable</p>
             <p style="padding-bottom: 10px;">Since 1.0.0</p>
             <!--getBadges(name)-->
@@ -25,8 +26,41 @@
          </header>
          <section>
 
-            <p>When an over_react component builder is selected by the user, the assist adds a cascading setter 
-<code>..</code> operator - and the parenthetical closure around the builder if one does not already exist.</p>
+            <p>This diagnostic detects when <code>createRef</code>, instead of <code>useRef</code>, is used inside a function component,
+since usually it's a mistake.</p>
+<p><code>createRef</code> creates a new ref object each time, while <code>useRef</code> persists for the lifetime of the component.</p>
+<p><strong>BAD:</strong></p>
+<pre><code>import 'package:over_react/over_react.dart';
+
+part 'create_ref_usage.over_react.g.dart';
+
+UiFactory&lt;FooProps&gt; Foo = uiFunction(
+  (props) {
+    final ref = createRef();
+
+    return (Dom.div()..ref = ref)();
+  },
+  _$FooConfig, // ignore: undefined_identifier
+);
+
+mixin FooProps on UiProps {}
+</code></pre>
+<p><strong>GOOD:</strong></p>
+<pre><code>import 'package:over_react/over_react.dart';
+
+part 'create_ref_usage.over_react.g.dart';
+
+UiFactory&lt;FooProps&gt; Foo = uiFunction(
+  (props) {
+    final ref = useRef();
+
+    return (Dom.div()..ref = ref)();
+  },
+  _$FooConfig, // ignore: undefined_identifier
+);
+
+mixin FooProps on UiProps {}
+</code></pre>
 
 
          </section>

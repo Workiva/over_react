@@ -1,0 +1,86 @@
+<!doctype html>
+<html>
+   <head>
+      <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<title>over_react_exhaustive_deps</title>
+<link rel="stylesheet" href="../stylesheets/styles.css">
+<link rel="stylesheet" href="../stylesheets/pygment_trac.css">
+<script src="../javascripts/scale.fix.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<!--[if lt IE 9]>
+<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+   </head>
+   <body>
+      <div class="wrapper">
+         <header>
+            <h1>over_react_exhaustive_deps</h1>
+            <p>Severity: AnalysisErrorSeverity.ERROR</p>
+  
+            <p>Maturity: stable</p>
+            <p style="padding-bottom: 10px;">Since 1.0.0</p>
+            <!--getBadges(name)-->
+            <p class="view"><a href="https://github.com/Workiva/over_react/blob/master/tools/analyzer_plugin/">View the Project on GitHub <small>workiva/over_react</small></a></p>
+         </header>
+         <section>
+
+            <p>Ported/forked from the JS eslint-plugin-react-hooks <code>react-hooks/exhaustive-deps</code> rule 
+(<a href="https://reactjs.org/docs/hooks-effect.html#:~:text=If%20you%20use%20this%20optimization%2C%20make%20sure%20the%20array%20includes">info from the React docs</a>,
+ <a href="https://www.npmjs.com/package/eslint-plugin-react-hooks">package</a>,
+ <a href="https://github.com/facebook/react/blob/main@%7B2020-10-16%7D/packages/eslint-plugin-react-hooks/src/ExhaustiveDeps.js">source</a>),
+this Dart lint aims to provide parity with the dev experience of the JS lint rule, with some tweaks to work better with Dart and its flavor of React APIs.</p>
+<hr />
+<p><strong>DO</strong> include dependencies for all values from the component scope (such as props and state) that change over time and that are used by the effect. See <a href="https://reactjs.org/docs/hooks-effect.html#:~:text=If%20you%20use%20this%20optimization%2C%20make%20sure%20the%20array%20includes">this note in thhe React docs</a> for more info.</p>
+<p><strong>GOOD:</strong></p>
+<pre><code class="language-dart">final initialCount = props.initialCount;
+
+final count = useCount(0);
+
+final resetCount = useCallback(() {
+  count.set(initialCount)
+}, [initialCount]);
+
+useEffect(() {
+  props.onCountChange(count.value);
+}, [count.value, props.onCountChange]);
+</code></pre>
+<p><strong>BAD:</strong></p>
+<pre><code class="language-dart">final initialCount = props.initialCount;
+
+final count = useCount(0);
+
+final resetCount = useCallback(() {
+  count.set(initialCount)
+// Missing `initialCount`; this callback will reference a stale value.
+}, []);
+ 
+useEffect(() async {
+  props.onCountChange(count.value);
+// `count` will be a new StateHook instance each render, so this effect will always run.
+// We want just `count.value`.
+}, [count, props.onCountChange]);                                   
+</code></pre>
+<hr />
+<p>Custom hooks can be validated (assuming the first argument is the callback and the second argument is
+the dependencies list) by configuring a name regular expression in <code>analysis_options.yaml</code>:</p>
+<pre><code class="language-yaml">over_react:
+  exhaustive_deps:
+    additional_hooks: ^(useMyEffect1|useMyEffect2)$
+</code></pre>
+<p>We suggest to use this option <strong>very sparingly, if at all</strong>. Generally saying, we recommend most custom Hooks to
+not use the dependencies argument, and instead provide a higher-level API that is more focused around a specific
+use case.</p>
+
+
+         </section>
+      </div>
+      <footer>
+   <p>Project maintained by <a href="https://workiva.github.io/" target="_blank" rel="noopener noreferrer">Workiva</a></p>
+   <p>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist" target="_blank" rel="noopener noreferrer">orderedlist</a></p>
+</footer>
+<!--[if !IE]><script>fixScale(document);</script><![endif]-->
+
+   </body>
+</html>

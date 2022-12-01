@@ -3,7 +3,7 @@
    <head>
       <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="chrome=1">
-<title>over_react_prefer_create_ref</title>
+<title>over_react_non_defaulted_prop</title>
 <link rel="stylesheet" href="../stylesheets/styles.css">
 <link rel="stylesheet" href="../stylesheets/pygment_trac.css">
 <script src="../javascripts/scale.fix.js"></script>
@@ -16,8 +16,8 @@
    <body>
       <div class="wrapper">
          <header>
-            <h1>over_react_prefer_create_ref</h1>
-            <p>Severity: AnalysisErrorSeverity.INFO</p>
+            <h1>over_react_non_defaulted_prop</h1>
+            <p>Severity: AnalysisErrorSeverity.WARNING</p>
   
             <p>Maturity: stable</p>
             <p style="padding-bottom: 10px;">Since 1.0.0</p>
@@ -26,37 +26,46 @@
          </header>
          <section>
 
-            <p><strong>PREFER</strong> to use the return value of <code>createRef()</code> as the ref field value.</p>
-<p><strong>GOOD:</strong></p>
-<pre><code>class NavItemWrapperComponent extends UiComponent&lt;NavItemWrapperProps&gt; {
-  final _navItemRef = createRef&lt;NavItemComponent&gt;();
-  
-  @override
-  render() {
-    return (NavItem()
-      ..modifyProps(addUnconsumedProps)
-      ..ref = _navItemRef
-    )(props.children);
-  }
+            <p>This diagnostic detects when a prop that has a default value in a function component is used directly instead of its defaulted equivalent,
+since this is usually a mistake, and can result in unexpected null errors.</p>
+<p><strong>BAD:</strong> <code>props.content</code> is used instead of <code>content</code> which defaults the prop.</p>
+<pre><code>import 'package:over_react/over_react.dart';
+
+part 'foo.over_react.g.dart';
+
+UiFactory&lt;FooProps&gt; Foo = uiFunction(
+  (props) {
+    // Default props
+    final content = props.content ?? 'abc';
+
+    return Dom.div()(props.content);
+  },
+  _$FooConfig, // ignore: undefined_identifier
+);
+
+mixin FooProps on UiProps {
+  String content;
 }
 </code></pre>
-<p><strong>BAD:</strong></p>
-<pre><code>class NavItemWrapperComponent extends UiComponent&lt;NavItemWrapperProps&gt; {
-  NavItemComponent _navItemRef;
-  
-  @override
-  render() {
-    return (NavItem()
-      ..modifyProps(addUnconsumedProps)
-      ..ref = (ref) { _navItemRef = ref; }
-    )(props.children);
-  }
+<p><strong>GOOD:</strong></p>
+<pre><code>import 'package:over_react/over_react.dart';
+
+part 'foo.over_react.g.dart';
+
+UiFactory&lt;FooProps&gt; Foo = uiFunction(
+  (props) {
+    // Default props
+    final content = props.content ?? 'abc';
+
+    return Dom.div()(content);
+  },
+  _$FooConfig, // ignore: undefined_identifier
+);
+
+mixin FooProps on UiProps {
+  String content;
 }
-</code></pre><blockquote>
-  <a href="https://reactjs.org/docs/refs-and-the-dom.html#creating-refs" target="_blank" rel="noreferrer noopener">
-    Read more about <code>createRef()</code>
-  </a>
-</blockquote>
+</code></pre>
 
 
          </section>
