@@ -86,7 +86,7 @@ abstract class ExampleComponentState implements Built<AppSubstate, AppSubstateBu
 UiFactory<ExampleProps> Example = connect<AppState, ExampleProps>(
     // The `text` prop points to the `text` state field
     mapStateToProps: (state) => (Example()..text = state.text),
-)(_$Example);
+)(castUiFactory(_$Example));
 
 // Redux Props Class (e.g. a normal props class)
 mixin ExampleProps on UiProps {
@@ -392,7 +392,7 @@ Once all of the state pieces have been updated, the UiComponents are ready to be
 
         // Simple BuiltReduxUiComponent
         // Assume there is a store with a state field `text` and an action `updateText`.
-        UiFactory<SimpleProps> Simple = _$Simple;
+        UiFactory<SimpleProps> Simple = castUiFactory(_$Simple);
 
         mixin SimplePropsMixin on UiProps {}
   

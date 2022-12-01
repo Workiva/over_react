@@ -16,7 +16,6 @@ final $TestBasicComponentFactory = registerComponent2(
   componentClass: TestBasicComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'TestBasic',
 );
 
 abstract class _$TestBasicPropsAccessorsMixin implements _$TestBasicProps {
@@ -53,7 +52,7 @@ abstract class _$$TestBasicProps extends _$TestBasicProps
 
   factory _$$TestBasicProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestBasicProps$JsMap(backingMap);
+      return _$$TestBasicProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$TestBasicProps$PlainMap(backingMap);
     }
@@ -126,7 +125,8 @@ class _$TestBasicComponent extends TestBasicComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -140,6 +140,9 @@ class _$TestBasicComponent extends TestBasicComponent {
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'TestBasic';
 
   /// The default consumed props, taken from _$TestBasicProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
@@ -158,7 +161,6 @@ final $TestHandlerLifecycleComponentFactory = registerComponent2(
   componentClass: TestHandlerLifecycleComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'TestHandlerLifecycle',
 );
 
 abstract class _$TestHandlerLifecyclePropsAccessorsMixin
@@ -197,7 +199,7 @@ abstract class _$$TestHandlerLifecycleProps extends _$TestHandlerLifecycleProps
 
   factory _$$TestHandlerLifecycleProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestHandlerLifecycleProps$JsMap(backingMap);
+      return _$$TestHandlerLifecycleProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$TestHandlerLifecycleProps$PlainMap(backingMap);
     }
@@ -271,7 +273,8 @@ class _$TestHandlerLifecycleComponent extends TestHandlerLifecycleComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -286,6 +289,9 @@ class _$TestHandlerLifecycleComponent extends TestHandlerLifecycleComponent {
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'TestHandlerLifecycle';
 
   /// The default consumed props, taken from _$TestHandlerLifecycleProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
@@ -304,7 +310,6 @@ final $TestHandlerPrecedenceComponentFactory = registerComponent2(
   componentClass: TestHandlerPrecedenceComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'TestHandlerPrecedence',
 );
 
 abstract class _$TestHandlerPrecedencePropsAccessorsMixin
@@ -344,7 +349,7 @@ abstract class _$$TestHandlerPrecedenceProps
 
   factory _$$TestHandlerPrecedenceProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestHandlerPrecedenceProps$JsMap(backingMap);
+      return _$$TestHandlerPrecedenceProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$TestHandlerPrecedenceProps$PlainMap(backingMap);
     }
@@ -419,7 +424,8 @@ class _$TestHandlerPrecedenceComponent extends TestHandlerPrecedenceComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -434,6 +440,9 @@ class _$TestHandlerPrecedenceComponent extends TestHandlerPrecedenceComponent {
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'TestHandlerPrecedence';
 
   /// The default consumed props, taken from _$TestHandlerPrecedenceProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
@@ -452,7 +461,6 @@ final $TestPropValidationComponentFactory = registerComponent2(
   componentClass: TestPropValidationComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'TestPropValidation',
 );
 
 abstract class _$TestPropValidationPropsAccessorsMixin
@@ -464,8 +472,8 @@ abstract class _$TestPropValidationPropsAccessorsMixin
   @override
   @requiredProp
   String get required =>
-      props[_$key__required___$TestPropValidationProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__required___$TestPropValidationProps] ?? null) as String;
+
   /// <!-- Generated from [_$TestPropValidationProps.required] -->
   @override
   @requiredProp
@@ -511,7 +519,7 @@ abstract class _$$TestPropValidationProps extends _$TestPropValidationProps
 
   factory _$$TestPropValidationProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestPropValidationProps$JsMap(backingMap);
+      return _$$TestPropValidationProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$TestPropValidationProps$PlainMap(backingMap);
     }
@@ -584,7 +592,8 @@ class _$TestPropValidationComponent extends TestPropValidationComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -599,6 +608,9 @@ class _$TestPropValidationComponent extends TestPropValidationComponent {
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'TestPropValidation';
 
   /// The default consumed props, taken from _$TestPropValidationProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
@@ -617,7 +629,6 @@ final $TestRedrawOnComponentFactory = registerComponent2(
   componentClass: TestRedrawOnComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'TestRedrawOn',
 );
 
 abstract class _$TestRedrawOnPropsAccessorsMixin
@@ -655,7 +666,7 @@ abstract class _$$TestRedrawOnProps extends _$TestRedrawOnProps
 
   factory _$$TestRedrawOnProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestRedrawOnProps$JsMap(backingMap);
+      return _$$TestRedrawOnProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$TestRedrawOnProps$PlainMap(backingMap);
     }
@@ -728,7 +739,8 @@ class _$TestRedrawOnComponent extends TestRedrawOnComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -742,6 +754,9 @@ class _$TestRedrawOnComponent extends TestRedrawOnComponent {
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'TestRedrawOn';
 
   /// The default consumed props, taken from _$TestRedrawOnProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
@@ -760,7 +775,6 @@ final $TestStoreHandlersComponentFactory = registerComponent2(
   componentClass: TestStoreHandlersComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'TestStoreHandlers',
 );
 
 abstract class _$TestStoreHandlersPropsAccessorsMixin
@@ -799,7 +813,7 @@ abstract class _$$TestStoreHandlersProps extends _$TestStoreHandlersProps
 
   factory _$$TestStoreHandlersProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestStoreHandlersProps$JsMap(backingMap);
+      return _$$TestStoreHandlersProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$TestStoreHandlersProps$PlainMap(backingMap);
     }
@@ -872,7 +886,8 @@ class _$TestStoreHandlersComponent extends TestStoreHandlersComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -886,6 +901,9 @@ class _$TestStoreHandlersComponent extends TestStoreHandlersComponent {
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'TestStoreHandlers';
 
   /// The default consumed props, taken from _$TestStoreHandlersProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
@@ -904,7 +922,6 @@ final $TestStatefulBasicComponentFactory = registerComponent2(
   componentClass: TestStatefulBasicComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'TestStatefulBasic',
 );
 
 abstract class _$TestStatefulBasicPropsAccessorsMixin
@@ -943,7 +960,7 @@ abstract class _$$TestStatefulBasicProps extends _$TestStatefulBasicProps
 
   factory _$$TestStatefulBasicProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestStatefulBasicProps$JsMap(backingMap);
+      return _$$TestStatefulBasicProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$TestStatefulBasicProps$PlainMap(backingMap);
     }
@@ -1027,7 +1044,7 @@ abstract class _$$TestStatefulBasicState extends _$TestStatefulBasicState
 
   factory _$$TestStatefulBasicState(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestStatefulBasicState$JsMap(backingMap);
+      return _$$TestStatefulBasicState$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$TestStatefulBasicState$PlainMap(backingMap);
     }
@@ -1091,7 +1108,8 @@ class _$TestStatefulBasicComponent extends TestStatefulBasicComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -1113,7 +1131,7 @@ class _$TestStatefulBasicComponent extends TestStatefulBasicComponent {
         'Component2.state should only be set via '
         'initialState or setState.');
     super.state = value;
-    _cachedTypedState = typedStateFactoryJs(value);
+    _cachedTypedState = typedStateFactoryJs(value as JsBackedMap);
   }
 
   @override
@@ -1127,6 +1145,9 @@ class _$TestStatefulBasicComponent extends TestStatefulBasicComponent {
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'TestStatefulBasic';
 
   /// The default consumed props, taken from _$TestStatefulBasicProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
@@ -1145,7 +1166,6 @@ final $TestStatefulHandlerLifecycleComponentFactory = registerComponent2(
   componentClass: TestStatefulHandlerLifecycleComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'TestStatefulHandlerLifecycle',
 );
 
 abstract class _$TestStatefulHandlerLifecyclePropsAccessorsMixin
@@ -1187,7 +1207,8 @@ abstract class _$$TestStatefulHandlerLifecycleProps
 
   factory _$$TestStatefulHandlerLifecycleProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestStatefulHandlerLifecycleProps$JsMap(backingMap);
+      return _$$TestStatefulHandlerLifecycleProps$JsMap(
+          backingMap as JsBackedMap);
     } else {
       return _$$TestStatefulHandlerLifecycleProps$PlainMap(backingMap);
     }
@@ -1275,7 +1296,8 @@ abstract class _$$TestStatefulHandlerLifecycleState
 
   factory _$$TestStatefulHandlerLifecycleState(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestStatefulHandlerLifecycleState$JsMap(backingMap);
+      return _$$TestStatefulHandlerLifecycleState$JsMap(
+          backingMap as JsBackedMap);
     } else {
       return _$$TestStatefulHandlerLifecycleState$PlainMap(backingMap);
     }
@@ -1342,7 +1364,8 @@ class _$TestStatefulHandlerLifecycleComponent
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -1365,7 +1388,7 @@ class _$TestStatefulHandlerLifecycleComponent
         'Component2.state should only be set via '
         'initialState or setState.');
     super.state = value;
-    _cachedTypedState = typedStateFactoryJs(value);
+    _cachedTypedState = typedStateFactoryJs(value as JsBackedMap);
   }
 
   @override
@@ -1380,6 +1403,9 @@ class _$TestStatefulHandlerLifecycleComponent
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'TestStatefulHandlerLifecycle';
 
   /// The default consumed props, taken from _$TestStatefulHandlerLifecycleProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
@@ -1398,7 +1424,6 @@ final $TestStatefulHandlerPrecedenceComponentFactory = registerComponent2(
   componentClass: TestStatefulHandlerPrecedenceComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'TestStatefulHandlerPrecedence',
 );
 
 abstract class _$TestStatefulHandlerPrecedencePropsAccessorsMixin
@@ -1440,7 +1465,8 @@ abstract class _$$TestStatefulHandlerPrecedenceProps
 
   factory _$$TestStatefulHandlerPrecedenceProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestStatefulHandlerPrecedenceProps$JsMap(backingMap);
+      return _$$TestStatefulHandlerPrecedenceProps$JsMap(
+          backingMap as JsBackedMap);
     } else {
       return _$$TestStatefulHandlerPrecedenceProps$PlainMap(backingMap);
     }
@@ -1528,7 +1554,8 @@ abstract class _$$TestStatefulHandlerPrecedenceState
 
   factory _$$TestStatefulHandlerPrecedenceState(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestStatefulHandlerPrecedenceState$JsMap(backingMap);
+      return _$$TestStatefulHandlerPrecedenceState$JsMap(
+          backingMap as JsBackedMap);
     } else {
       return _$$TestStatefulHandlerPrecedenceState$PlainMap(backingMap);
     }
@@ -1595,7 +1622,8 @@ class _$TestStatefulHandlerPrecedenceComponent
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -1618,7 +1646,7 @@ class _$TestStatefulHandlerPrecedenceComponent
         'Component2.state should only be set via '
         'initialState or setState.');
     super.state = value;
-    _cachedTypedState = typedStateFactoryJs(value);
+    _cachedTypedState = typedStateFactoryJs(value as JsBackedMap);
   }
 
   @override
@@ -1633,6 +1661,9 @@ class _$TestStatefulHandlerPrecedenceComponent
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'TestStatefulHandlerPrecedence';
 
   /// The default consumed props, taken from _$TestStatefulHandlerPrecedenceProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
@@ -1651,7 +1682,6 @@ final $TestStatefulPropValidationComponentFactory = registerComponent2(
   componentClass: TestStatefulPropValidationComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'TestStatefulPropValidation',
 );
 
 abstract class _$TestStatefulPropValidationPropsAccessorsMixin
@@ -1664,8 +1694,9 @@ abstract class _$TestStatefulPropValidationPropsAccessorsMixin
   @override
   @requiredProp
   String get required =>
-      props[_$key__required___$TestStatefulPropValidationProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__required___$TestStatefulPropValidationProps] ?? null)
+          as String;
+
   /// <!-- Generated from [_$TestStatefulPropValidationProps.required] -->
   @override
   @override
@@ -1715,7 +1746,8 @@ abstract class _$$TestStatefulPropValidationProps
 
   factory _$$TestStatefulPropValidationProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestStatefulPropValidationProps$JsMap(backingMap);
+      return _$$TestStatefulPropValidationProps$JsMap(
+          backingMap as JsBackedMap);
     } else {
       return _$$TestStatefulPropValidationProps$PlainMap(backingMap);
     }
@@ -1802,7 +1834,8 @@ abstract class _$$TestStatefulPropValidationState
 
   factory _$$TestStatefulPropValidationState(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestStatefulPropValidationState$JsMap(backingMap);
+      return _$$TestStatefulPropValidationState$JsMap(
+          backingMap as JsBackedMap);
     } else {
       return _$$TestStatefulPropValidationState$PlainMap(backingMap);
     }
@@ -1869,7 +1902,8 @@ class _$TestStatefulPropValidationComponent
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -1892,7 +1926,7 @@ class _$TestStatefulPropValidationComponent
         'Component2.state should only be set via '
         'initialState or setState.');
     super.state = value;
-    _cachedTypedState = typedStateFactoryJs(value);
+    _cachedTypedState = typedStateFactoryJs(value as JsBackedMap);
   }
 
   @override
@@ -1907,6 +1941,9 @@ class _$TestStatefulPropValidationComponent
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'TestStatefulPropValidation';
 
   /// The default consumed props, taken from _$TestStatefulPropValidationProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
@@ -1925,7 +1962,6 @@ final $TestStatefulRedrawOnComponentFactory = registerComponent2(
   componentClass: TestStatefulRedrawOnComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'TestStatefulRedrawOn',
 );
 
 abstract class _$TestStatefulRedrawOnPropsAccessorsMixin
@@ -1964,7 +2000,7 @@ abstract class _$$TestStatefulRedrawOnProps extends _$TestStatefulRedrawOnProps
 
   factory _$$TestStatefulRedrawOnProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestStatefulRedrawOnProps$JsMap(backingMap);
+      return _$$TestStatefulRedrawOnProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$TestStatefulRedrawOnProps$PlainMap(backingMap);
     }
@@ -2049,7 +2085,7 @@ abstract class _$$TestStatefulRedrawOnState extends _$TestStatefulRedrawOnState
 
   factory _$$TestStatefulRedrawOnState(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestStatefulRedrawOnState$JsMap(backingMap);
+      return _$$TestStatefulRedrawOnState$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$TestStatefulRedrawOnState$PlainMap(backingMap);
     }
@@ -2114,7 +2150,8 @@ class _$TestStatefulRedrawOnComponent extends TestStatefulRedrawOnComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -2137,7 +2174,7 @@ class _$TestStatefulRedrawOnComponent extends TestStatefulRedrawOnComponent {
         'Component2.state should only be set via '
         'initialState or setState.');
     super.state = value;
-    _cachedTypedState = typedStateFactoryJs(value);
+    _cachedTypedState = typedStateFactoryJs(value as JsBackedMap);
   }
 
   @override
@@ -2152,6 +2189,9 @@ class _$TestStatefulRedrawOnComponent extends TestStatefulRedrawOnComponent {
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'TestStatefulRedrawOn';
 
   /// The default consumed props, taken from _$TestStatefulRedrawOnProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
@@ -2170,7 +2210,6 @@ final $TestStatefulStoreHandlersComponentFactory = registerComponent2(
   componentClass: TestStatefulStoreHandlersComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'TestStatefulStoreHandlers',
 );
 
 abstract class _$TestStatefulStoreHandlersPropsAccessorsMixin
@@ -2211,7 +2250,7 @@ abstract class _$$TestStatefulStoreHandlersProps
 
   factory _$$TestStatefulStoreHandlersProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestStatefulStoreHandlersProps$JsMap(backingMap);
+      return _$$TestStatefulStoreHandlersProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$TestStatefulStoreHandlersProps$PlainMap(backingMap);
     }
@@ -2298,7 +2337,7 @@ abstract class _$$TestStatefulStoreHandlersState
 
   factory _$$TestStatefulStoreHandlersState(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestStatefulStoreHandlersState$JsMap(backingMap);
+      return _$$TestStatefulStoreHandlersState$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$TestStatefulStoreHandlersState$PlainMap(backingMap);
     }
@@ -2365,7 +2404,8 @@ class _$TestStatefulStoreHandlersComponent
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -2388,7 +2428,7 @@ class _$TestStatefulStoreHandlersComponent
         'Component2.state should only be set via '
         'initialState or setState.');
     super.state = value;
-    _cachedTypedState = typedStateFactoryJs(value);
+    _cachedTypedState = typedStateFactoryJs(value as JsBackedMap);
   }
 
   @override
@@ -2403,6 +2443,9 @@ class _$TestStatefulStoreHandlersComponent
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'TestStatefulStoreHandlers';
 
   /// The default consumed props, taken from _$TestStatefulStoreHandlersProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.

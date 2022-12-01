@@ -25,6 +25,7 @@ part 'list_group.over_react.g.dart';
 ///
 /// See: <https://getbootstrap.com/docs/4.4/components/list-group/>
 @Factory()
+// ignore: undefined_identifier, invalid_assignment
 UiFactory<ListGroupProps> ListGroup = _$ListGroup;
 
 @Props()

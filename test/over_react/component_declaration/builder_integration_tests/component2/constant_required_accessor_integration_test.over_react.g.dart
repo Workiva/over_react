@@ -16,7 +16,6 @@ final $ComponentTestComponentFactory = registerComponent2(
   componentClass: ComponentTestComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'ComponentTest',
 );
 
 abstract class _$ComponentTestPropsAccessorsMixin
@@ -28,8 +27,8 @@ abstract class _$ComponentTestPropsAccessorsMixin
   @override
   @requiredProp
   dynamic get required =>
-      props[_$key__required___$ComponentTestProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__required___$ComponentTestProps] ?? null) as dynamic;
+
   /// <!-- Generated from [_$ComponentTestProps.required] -->
   @override
   @requiredProp
@@ -40,8 +39,8 @@ abstract class _$ComponentTestPropsAccessorsMixin
   @override
   @nullableRequiredProp
   dynamic get nullable =>
-      props[_$key__nullable___$ComponentTestProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__nullable___$ComponentTestProps] ?? null) as dynamic;
+
   /// <!-- Generated from [_$ComponentTestProps.nullable] -->
   @override
   @nullableRequiredProp
@@ -52,8 +51,9 @@ abstract class _$ComponentTestPropsAccessorsMixin
   @override
   @requiredProp
   List get requiredAndLengthLimited =>
-      props[_$key__requiredAndLengthLimited___$ComponentTestProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__requiredAndLengthLimited___$ComponentTestProps] ?? null)
+          as List;
+
   /// <!-- Generated from [_$ComponentTestProps.requiredAndLengthLimited] -->
   @override
   @requiredProp
@@ -113,7 +113,7 @@ abstract class _$$ComponentTestProps extends _$ComponentTestProps
 
   factory _$$ComponentTestProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$ComponentTestProps$JsMap(backingMap);
+      return _$$ComponentTestProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$ComponentTestProps$PlainMap(backingMap);
     }
@@ -186,7 +186,8 @@ class _$ComponentTestComponent extends ComponentTestComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -200,6 +201,9 @@ class _$ComponentTestComponent extends ComponentTestComponent {
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'ComponentTest';
 
   /// The default consumed props, taken from _$ComponentTestProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.

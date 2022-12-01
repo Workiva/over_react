@@ -16,7 +16,6 @@ final $FooComponentFactory = registerComponent(
   componentClass: FooComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'Foo',
 );
 
 abstract class _$FooPropsAccessorsMixin implements _$FooProps {
@@ -26,8 +25,8 @@ abstract class _$FooPropsAccessorsMixin implements _$FooProps {
   /// <!-- Generated from [_$FooProps._privateProp] -->
   @override
   String get _privateProp =>
-      props[_$key___privateProp___$FooProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key___privateProp___$FooProps] ?? null) as String;
+
   /// <!-- Generated from [_$FooProps._privateProp] -->
   @override
   set _privateProp(String value) =>
@@ -94,6 +93,9 @@ class _$FooComponent extends FooComponent {
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'Foo';
 
   /// The default consumed props, taken from _$FooProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.

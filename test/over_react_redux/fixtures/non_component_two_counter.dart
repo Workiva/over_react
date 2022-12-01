@@ -18,6 +18,7 @@ import 'package:over_react/over_react_redux.dart';
 part 'non_component_two_counter.over_react.g.dart';
 // ignore_for_file: deprecated_member_use_from_same_package
 @Factory()
+// ignore: undefined_identifier, invalid_assignment
 UiFactory<NonComponentTwoCounterProps> NonComponentTwoCounter = _$NonComponentTwoCounter;
 
 @Props()

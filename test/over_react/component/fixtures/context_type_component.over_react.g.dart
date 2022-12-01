@@ -16,7 +16,6 @@ final $ContextTypeComponentFactory = registerComponent2(
   componentClass: ContextTypeComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'ContextType',
 );
 
 abstract class _$ContextTypePropsAccessorsMixin implements _$ContextTypeProps {
@@ -53,7 +52,7 @@ abstract class _$$ContextTypeProps extends _$ContextTypeProps
 
   factory _$$ContextTypeProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$ContextTypeProps$JsMap(backingMap);
+      return _$$ContextTypeProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$ContextTypeProps$PlainMap(backingMap);
     }
@@ -126,7 +125,8 @@ class _$ContextTypeComponent extends ContextTypeComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -140,6 +140,9 @@ class _$ContextTypeComponent extends ContextTypeComponent {
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'ContextType';
 
   /// The default consumed props, taken from _$ContextTypeProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.

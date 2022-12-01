@@ -16,7 +16,6 @@ final $TestCompositeComponentComponentFactory = registerComponent(
   componentClass: TestCompositeComponentComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'TestCompositeComponent',
 );
 
 abstract class _$TestCompositeComponentPropsAccessorsMixin
@@ -27,8 +26,9 @@ abstract class _$TestCompositeComponentPropsAccessorsMixin
   /// <!-- Generated from [_$TestCompositeComponentProps.onComponentDidMount] -->
   @override
   Function get onComponentDidMount =>
-      props[_$key__onComponentDidMount___$TestCompositeComponentProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onComponentDidMount___$TestCompositeComponentProps] ?? null)
+          as Function;
+
   /// <!-- Generated from [_$TestCompositeComponentProps.onComponentDidMount] -->
   @override
   set onComponentDidMount(Function value) =>
@@ -37,8 +37,9 @@ abstract class _$TestCompositeComponentPropsAccessorsMixin
   /// <!-- Generated from [_$TestCompositeComponentProps.onComponentWillUnmount] -->
   @override
   Function get onComponentWillUnmount =>
-      props[_$key__onComponentWillUnmount___$TestCompositeComponentProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onComponentWillUnmount___$TestCompositeComponentProps] ??
+          null) as Function;
+
   /// <!-- Generated from [_$TestCompositeComponentProps.onComponentWillUnmount] -->
   @override
   set onComponentWillUnmount(Function value) =>
@@ -48,8 +49,9 @@ abstract class _$TestCompositeComponentPropsAccessorsMixin
   /// <!-- Generated from [_$TestCompositeComponentProps.onComponentDidUpdate] -->
   @override
   Function get onComponentDidUpdate =>
-      props[_$key__onComponentDidUpdate___$TestCompositeComponentProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onComponentDidUpdate___$TestCompositeComponentProps] ??
+          null) as Function;
+
   /// <!-- Generated from [_$TestCompositeComponentProps.onComponentDidUpdate] -->
   @override
   set onComponentDidUpdate(Function value) =>
@@ -145,6 +147,9 @@ class _$TestCompositeComponentComponent
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'TestCompositeComponent';
 
   /// The default consumed props, taken from _$TestCompositeComponentProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.

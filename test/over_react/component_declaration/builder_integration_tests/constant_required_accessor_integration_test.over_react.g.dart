@@ -16,7 +16,6 @@ final $ComponentTestComponentFactory = registerComponent(
   componentClass: ComponentTestComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'ComponentTest',
 );
 
 abstract class _$ComponentTestPropsAccessorsMixin
@@ -28,8 +27,8 @@ abstract class _$ComponentTestPropsAccessorsMixin
   @override
   @requiredProp
   dynamic get required =>
-      props[_$key__required___$ComponentTestProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__required___$ComponentTestProps] ?? null) as dynamic;
+
   /// <!-- Generated from [_$ComponentTestProps.required] -->
   @override
   @requiredProp
@@ -40,8 +39,8 @@ abstract class _$ComponentTestPropsAccessorsMixin
   @override
   @nullableRequiredProp
   dynamic get nullable =>
-      props[_$key__nullable___$ComponentTestProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__nullable___$ComponentTestProps] ?? null) as dynamic;
+
   /// <!-- Generated from [_$ComponentTestProps.nullable] -->
   @override
   @nullableRequiredProp
@@ -124,6 +123,9 @@ class _$ComponentTestComponent extends ComponentTestComponent {
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'ComponentTest';
 
   /// The default consumed props, taken from _$ComponentTestProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.

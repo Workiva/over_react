@@ -56,6 +56,9 @@ class ConsumedPropsReturnValueDiagnostic extends DiagnosticContributor {
     correction: 'Use propsMeta.forMixins(...) instead.',
   );
 
+  @override
+  List<DiagnosticCode> get codes => [code];
+
   static final fixKind = FixKind(
     code.name,
     200,
@@ -66,7 +69,7 @@ class ConsumedPropsReturnValueDiagnostic extends DiagnosticContributor {
   computeErrors(result, collector) async {
     final visitor = ConsumedPropsVisitor();
 
-    result.unit.accept(visitor);
+    result.unit!.accept(visitor);
 
     final consumedPropsDeclarations = visitor.consumedPropsDeclarations;
 
@@ -112,14 +115,14 @@ class ConsumedPropsVisitor extends SimpleAstVisitor<void> {
 
   @override
   void visitClassDeclaration(ClassDeclaration node) {
-    if (node.declaredElement.isComponentClass) {
+    if (node.declaredElement?.isComponentClass ?? false) {
       node.visitChildren(this);
     }
   }
 
   @override
   void visitMixinDeclaration(MixinDeclaration node) {
-    if (node.declaredElement.isComponentClass) {
+    if (node.declaredElement?.isComponentClass ?? false) {
       node.visitChildren(this);
     }
   }

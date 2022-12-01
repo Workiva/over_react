@@ -16,7 +16,6 @@ final $CustomErrorBoundaryComponentFactory = registerComponent2(
   componentClass: CustomErrorBoundaryComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'CustomErrorBoundary',
   skipMethods: const [],
 );
 
@@ -56,7 +55,7 @@ abstract class _$$CustomErrorBoundaryProps extends _$CustomErrorBoundaryProps
 
   factory _$$CustomErrorBoundaryProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$CustomErrorBoundaryProps$JsMap(backingMap);
+      return _$$CustomErrorBoundaryProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$CustomErrorBoundaryProps$PlainMap(backingMap);
     }
@@ -140,7 +139,7 @@ abstract class _$$CustomErrorBoundaryState extends _$CustomErrorBoundaryState
 
   factory _$$CustomErrorBoundaryState(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$CustomErrorBoundaryState$JsMap(backingMap);
+      return _$$CustomErrorBoundaryState$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$CustomErrorBoundaryState$PlainMap(backingMap);
     }
@@ -204,7 +203,8 @@ class _$CustomErrorBoundaryComponent extends CustomErrorBoundaryComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -227,7 +227,7 @@ class _$CustomErrorBoundaryComponent extends CustomErrorBoundaryComponent {
         'Component2.state should only be set via '
         'initialState or setState.');
     super.state = value;
-    _cachedTypedState = typedStateFactoryJs(value);
+    _cachedTypedState = typedStateFactoryJs(value as JsBackedMap);
   }
 
   @override
@@ -242,6 +242,9 @@ class _$CustomErrorBoundaryComponent extends CustomErrorBoundaryComponent {
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'CustomErrorBoundary';
 
   /// The default consumed props, taken from _$CustomErrorBoundaryProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.

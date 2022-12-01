@@ -19,6 +19,7 @@ import '../../component_type_checking_test/type_inheritance/parent.dart';
 part 'subtype_of_component1.over_react.g.dart';
 
 @Factory()
+// ignore: undefined_identifier, invalid_assignment
 UiFactory<TestSubtypeOfComponent1Props> TestSubtypeOfComponent1 = _$TestSubtypeOfComponent1;
 
 @Props()

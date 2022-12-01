@@ -23,6 +23,7 @@ export 'demos/button/button-active.dart';
 export 'demos/button/button-disabled.dart';
 
 export 'demos/custom_error_boundary.dart';
+export 'demos/ref.dart';
 
 export '../src/demo_components/prop_validation_wrap.dart';
 

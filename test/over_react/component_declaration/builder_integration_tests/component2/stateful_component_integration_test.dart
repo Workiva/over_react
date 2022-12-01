@@ -80,6 +80,7 @@ main() {
 
 
 @Factory()
+// ignore: undefined_identifier, invalid_assignment
 UiFactory<StatefulComponentTestProps> StatefulComponentTest = _$StatefulComponentTest;
 
 @Props()

@@ -146,6 +146,7 @@ class ErrorBoundaryComponent<T extends ErrorBoundaryProps, S extends ErrorBounda
   ///
   /// This can be called manually on the component instance using a `ref` -
   /// or by passing in a new child instance after a child has thrown an error.
+  @override
   void reset() {
     setState(initialState);
   }

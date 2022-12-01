@@ -16,7 +16,6 @@ final $TwoLevelWrapper2ComponentFactory = registerComponent2(
   componentClass: TwoLevelWrapper2Component,
   isWrapper: true,
   parentType: null,
-  displayName: 'TwoLevelWrapper2',
 );
 
 abstract class _$TwoLevelWrapper2PropsAccessorsMixin
@@ -55,7 +54,7 @@ abstract class _$$TwoLevelWrapper2Props extends _$TwoLevelWrapper2Props
 
   factory _$$TwoLevelWrapper2Props(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TwoLevelWrapper2Props$JsMap(backingMap);
+      return _$$TwoLevelWrapper2Props$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$TwoLevelWrapper2Props$PlainMap(backingMap);
     }
@@ -128,7 +127,8 @@ class _$TwoLevelWrapper2Component extends TwoLevelWrapper2Component {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -142,6 +142,9 @@ class _$TwoLevelWrapper2Component extends TwoLevelWrapper2Component {
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'TwoLevelWrapper2';
 
   /// The default consumed props, taken from _$TwoLevelWrapper2Props.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.

@@ -21,7 +21,7 @@ part 'list_group.over_react.g.dart';
 /// displaying lists of [ListGroupItem] components.
 ///
 /// See: <https://getbootstrap.com/docs/4.4/components/list-group/>
-UiFactory<ListGroupProps> ListGroup = _$ListGroup;
+UiFactory<ListGroupProps> ListGroup = castUiFactory(_$ListGroup); // ignore: undefined_identifier
 
 mixin ListGroupProps on UiProps {
   /// The HTML element type for the [ListGroup], specifying its

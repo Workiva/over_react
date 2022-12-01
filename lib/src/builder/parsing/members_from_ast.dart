@@ -168,6 +168,18 @@ class _BoilerplateMemberDetector {
       return;
     }
 
+    final rightHandSide = node.variables.firstInitializer;
+    if (rightHandSide != null && node.usesAGeneratedConfig) {
+      onFactory(BoilerplateFactory(
+          node,
+          VersionConfidences(
+            v4_mixinBased: Confidence.likely,
+            v3_legacyDart2Only: Confidence.none,
+            v2_legacyBackwardsCompat: Confidence.none,
+          )));
+      return;
+    }
+
     final type = node.variables.type;
     if (type != null) {
       if (type?.typeNameWithoutPrefix == 'UiFactory') {
@@ -204,11 +216,6 @@ class _BoilerplateMemberDetector {
           return;
         }
       }
-    } else {
-      // todo implement function components; should LHS typing not be required?
-      // if ((node.variables.firstInitializer?.tryCast<MethodInvocation>()?.methodName?.name == 'uiFunction') {
-      //   factories.add(BoilerplateFactory(node));
-      // }
     }
 
     return;
@@ -219,6 +226,7 @@ class _BoilerplateMemberDetector {
   //
 
   bool _detectClassBasedOnAnnotations(ClassishDeclaration classish, ClassishDeclaration companion) {
+    final node = classish.node;
     for (final annotation in classish.metadata) {
       switch (annotation.name.nameWithoutPrefix) {
         case 'Props':
@@ -226,9 +234,9 @@ class _BoilerplateMemberDetector {
           // assume that Dart mixins are not concrete props classes.
           //
           // Special-case: `@Props()` is allowed on the new boilerplate mixins
-          if (classish.node is MixinDeclaration) {
+          if (node is MixinDeclaration) {
             onPropsMixin(BoilerplatePropsMixin(
-                classish.node,
+                node,
                 companion,
                 _annotatedPropsOrStateMixinConfidence(classish, companion,
                     disableAnnotationAssert: true)));
@@ -243,9 +251,9 @@ class _BoilerplateMemberDetector {
           // assume that Dart mixins are not concrete state classes.
           //
           // Special-case: `@State()` is allowed on the new boilerplate mixins
-          if (classish.node is MixinDeclaration) {
+          if (node is MixinDeclaration) {
             onStateMixin(BoilerplateStateMixin(
-                classish.node,
+                node,
                 companion,
                 _annotatedPropsOrStateMixinConfidence(classish, companion,
                     disableAnnotationAssert: true)));
@@ -256,12 +264,12 @@ class _BoilerplateMemberDetector {
           return true;
 
         case 'PropsMixin':
-          onPropsMixin(BoilerplatePropsMixin(classish.node, companion,
+          onPropsMixin(BoilerplatePropsMixin(node as ClassOrMixinDeclaration, companion,
               _annotatedPropsOrStateMixinConfidence(classish, companion)));
           return true;
 
         case 'StateMixin':
-          onStateMixin(BoilerplateStateMixin(classish.node, companion,
+          onStateMixin(BoilerplateStateMixin(node as ClassOrMixinDeclaration, companion,
               _annotatedPropsOrStateMixinConfidence(classish, companion)));
           return true;
 
@@ -300,7 +308,7 @@ class _BoilerplateMemberDetector {
         'this function assumes that all nodes passed to this function are annotated');
 
     assert(node is! MixinDeclaration,
-        'Mixins should never make it in herel they should be classified as Props/State mixins');
+        'Mixins should never make it in here they should be classified as Props/State mixins');
 
     final hasGeneratedPrefix = node.name.name.startsWith(r'_$');
     final hasCompanionClass = companion != null;

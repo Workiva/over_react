@@ -21,7 +21,7 @@ part 'should_not_update.over_react.g.dart';
 
 UiFactory<ShouldNotUpdateProps> ShouldNotUpdate = connect<ReduxState, ShouldNotUpdateProps>(
   mapStateToProps: (_) => {},
-)(_$ShouldNotUpdate); // ignore: undefined_identifier
+)(castUiFactory(_$ShouldNotUpdate)); // ignore: undefined_identifier
 
 mixin ShouldNotUpdateProps on UiProps {}
 

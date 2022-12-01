@@ -35,7 +35,7 @@ UiFactory<ShouldNotUpdateProps> ShouldNotUpdate = composeHocs([
     mapStateToProps: (_) => {},
     pure: false,
   )
-])(_$ShouldNotUpdate); // ignore: undefined_identifier
+])(castUiFactory(_$ShouldNotUpdate)); // ignore: undefined_identifier
 
 mixin ShouldNotUpdateProps on UiProps {}
 

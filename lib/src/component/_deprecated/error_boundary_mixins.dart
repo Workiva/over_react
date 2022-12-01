@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// ignore_for_file: deprecated_member_use_from_same_package
 import 'dart:async';
 
 import 'package:logging/logging.dart';
@@ -369,8 +370,8 @@ mixin ErrorBoundaryMixin<T extends ErrorBoundaryPropsMixin, S extends ErrorBound
     )();
   }
 
-  /// Called via [componentDidCatch] to start a `Timer` that will nullify the [_lastError] and [_lastErrorInfo]
-  /// internal fields that keep track of the last error thrown.
+  /// Called via [componentDidCatch] to start a `Timer` that will nullify the [_domAtTimeOfError]
+  /// internal field that keeps track of the last error thrown.
   ///
   /// If an identical error is thrown by an identical child component twice in a row:
   ///

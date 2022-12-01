@@ -2,8 +2,6 @@ import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:analyzer_plugin/utilities/fixes/fixes.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
-import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
-import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
 
 const _desc = "Props can't be cascaded after unparenthesized arrow functions.";
 // <editor-fold desc="Documentation Details">
@@ -46,6 +44,9 @@ class ArrowFunctionPropCascadeDiagnostic extends ComponentUsageDiagnosticContrib
     AnalysisErrorType.SYNTACTIC_ERROR,
     correction: 'Try wrapping the arrow functions in parentheses or using a block function.',
   );
+
+  @override
+  List<DiagnosticCode> get codes => [code];
 
   static final fixKind = FixKind(code.name, 200, 'Wrap arrow function in parentheses');
 

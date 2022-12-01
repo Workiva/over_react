@@ -16,7 +16,6 @@ final $TagComponentFactory = registerComponent(
   componentClass: TagComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'Tag',
 );
 
 abstract class _$TagPropsAccessorsMixin implements _$TagProps {
@@ -31,9 +30,8 @@ abstract class _$TagPropsAccessorsMixin implements _$TagProps {
   ///
   /// <!-- Generated from [_$TagProps.skin] -->
   @override
-  TagSkin get skin =>
-      props[_$key__skin___$TagProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  TagSkin get skin => (props[_$key__skin___$TagProps] ?? null) as TagSkin;
+
   /// The skin / "context" for the [Tag].
   ///
   /// See: <https://getbootstrap.com/docs/4.4/components/tag/#contextual-variations>.
@@ -53,9 +51,8 @@ abstract class _$TagPropsAccessorsMixin implements _$TagProps {
   ///
   /// <!-- Generated from [_$TagProps.isPill] -->
   @override
-  bool get isPill =>
-      props[_$key__isPill___$TagProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  bool get isPill => (props[_$key__isPill___$TagProps] ?? null) as bool;
+
   /// Whether to render the [Tag] with rounded corners that make it look
   /// more like a "pill" (a.k.a Bootstrap v3 "badge")
   ///
@@ -137,6 +134,9 @@ class _$TagComponent extends TagComponent {
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'Tag';
 
   /// The default consumed props, taken from _$TagProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.

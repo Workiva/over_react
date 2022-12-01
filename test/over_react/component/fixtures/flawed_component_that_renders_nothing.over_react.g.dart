@@ -16,7 +16,6 @@ final $FlawedWithNoChildComponentFactory = registerComponent2(
   componentClass: FlawedWithNoChildComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'FlawedWithNoChild',
 );
 
 abstract class _$FlawedWithNoChildPropsAccessorsMixin
@@ -50,7 +49,7 @@ abstract class _$$FlawedWithNoChildProps extends _$FlawedWithNoChildProps
 
   factory _$$FlawedWithNoChildProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$FlawedWithNoChildProps$JsMap(backingMap);
+      return _$$FlawedWithNoChildProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$FlawedWithNoChildProps$PlainMap(backingMap);
     }
@@ -123,7 +122,8 @@ class _$FlawedWithNoChildComponent extends FlawedWithNoChildComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -137,6 +137,9 @@ class _$FlawedWithNoChildComponent extends FlawedWithNoChildComponent {
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'FlawedWithNoChild';
 
   /// The default consumed props, taken from _$FlawedWithNoChildProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.

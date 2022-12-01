@@ -36,18 +36,25 @@ import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer_plugin/channel/channel.dart';
 import 'package:analyzer_plugin/plugin/plugin.dart';
 import 'package:analyzer_plugin/protocol/protocol.dart';
-import 'package:analyzer_plugin/protocol/protocol_common.dart' as plugin;
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:analyzer_plugin/protocol/protocol_generated.dart' as plugin;
 import 'package:analyzer_plugin/protocol/protocol_generated.dart';
+
 // ignore: implementation_imports
 import 'package:analyzer_plugin/src/utilities/fixes/fixes.dart';
 import 'package:analyzer_plugin/utilities/fixes/fixes.dart';
 import 'package:meta/meta.dart';
+import 'package:over_react_analyzer_plugin/src/async_plugin_apis/error_severity_provider.dart';
+import 'package:over_react_analyzer_plugin/src/analysis_options/error_severity_provider.dart';
+import 'package:over_react_analyzer_plugin/src/analysis_options/reader.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/analyzer_debug_helper.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/error_filtering.dart';
+import 'package:over_react_analyzer_plugin/src/util/pretty_print.dart';
 
 mixin DiagnosticMixin on ServerPlugin {
+  PluginOptionsReader get pluginOptionsReader;
+
   List<DiagnosticContributor> getDiagnosticContributors(String path);
 
   /// Computes errors based on an analysis result and notifies the analyzer.
@@ -58,19 +65,24 @@ mixin DiagnosticMixin on ServerPlugin {
   /// Computes errors based on an analysis result, notifies the analyzer, and
   /// then returns the list of errors.
   Future<List<AnalysisError>> getAllErrors(ResolvedUnitResult analysisResult) async {
+    final analysisOptions = pluginOptionsReader.getOptionsForResult(analysisResult);
+
     try {
       // If there is no relevant analysis result, notify the analyzer of no errors.
-      if (analysisResult.unit == null || analysisResult.libraryElement == null) {
-        channel.sendNotification(plugin.AnalysisErrorsParams(analysisResult.path, []).toNotification());
+      if (analysisResult.unit == null) {
+        channel.sendNotification(plugin.AnalysisErrorsParams(analysisResult.path!, []).toNotification());
         return [];
       }
 
       // If there is something to analyze, do so and notify the analyzer.
       // Note that notifying with an empty set of errors is important as
       // this clears errors if they were fixed.
-      final generator = _DiagnosticGenerator(getDiagnosticContributors(analysisResult.path));
+      final generator = _DiagnosticGenerator(
+        getDiagnosticContributors(analysisResult.path!),
+        errorSeverityProvider: AnalysisOptionsErrorSeverityProvider(analysisOptions),
+      );
       final result = await generator.generateErrors(analysisResult);
-      channel.sendNotification(plugin.AnalysisErrorsParams(analysisResult.path, result.result).toNotification());
+      channel.sendNotification(plugin.AnalysisErrorsParams(analysisResult.path!, result.result).toNotification());
       result.sendNotifications(channel);
       return result.result;
     } catch (e, stackTrace) {
@@ -84,8 +96,13 @@ mixin DiagnosticMixin on ServerPlugin {
   Future<plugin.EditGetFixesResult> handleEditGetFixes(plugin.EditGetFixesParams parameters) async {
     // We want request errors to propagate if they throw
     final request = await _getFixesRequest(parameters);
+    final analysisOptions = pluginOptionsReader.getOptionsForResult(request.result);
+
     try {
-      final generator = _DiagnosticGenerator(getDiagnosticContributors(parameters.file));
+      final generator = _DiagnosticGenerator(
+        getDiagnosticContributors(parameters.file),
+        errorSeverityProvider: AnalysisOptionsErrorSeverityProvider(analysisOptions),
+      );
       final result = await generator.generateFixesResponse(request);
       result.sendNotifications(channel);
       return result.result;
@@ -101,14 +118,14 @@ mixin DiagnosticMixin on ServerPlugin {
     final path = parameters.file;
     final offset = parameters.offset;
     final result = await getResolvedUnitResult(path);
-    return DartFixesRequestImpl(resourceProvider, offset, null, result);
+    return DartFixesRequestImpl(resourceProvider, offset, [], result);
   }
 
-  // from DartFixesMixin
+// from DartFixesMixin
 //  List<AnalysisError> _getErrors(int offset, ResolvedUnitResult result) {
 //    LineInfo lineInfo = result.lineInfo;
 //    int offsetLine = lineInfo.getLocation(offset).lineNumber;
-  // these errors don't include ones from the plugin, which doesn't seem right...
+// these errors don't include ones from the plugin, which doesn't seem right...
 //    return result.errors.where((AnalysisError error) {
 //      int errorLine = lineInfo.getLocation(error.offset).lineNumber;
 //      return errorLine == offsetLine;
@@ -121,9 +138,14 @@ mixin DiagnosticMixin on ServerPlugin {
 /// a given result unit or fixes request.
 @sealed
 class _DiagnosticGenerator {
+  static final _metricsDebugCommentPattern = getDebugCommentPattern('over_react_metrics');
+
   /// Initialize a newly created errors generator to use the given
   /// [contributors].
-  _DiagnosticGenerator(this.contributors);
+  _DiagnosticGenerator(this.contributors, {required ErrorSeverityProvider errorSeverityProvider})
+      : _errorSeverityProvider = errorSeverityProvider;
+
+  final ErrorSeverityProvider _errorSeverityProvider;
 
   /// The contributors to be used to generate the errors.
   final List<DiagnosticContributor> contributors;
@@ -153,13 +175,23 @@ class _DiagnosticGenerator {
       final errorStart = error.location.offset;
       final errorEnd = errorStart + error.location.length;
 
+      if (_errorSeverityProvider.isCodeDisabled(error.code)) {
+        // This error has been disabled by configuration; skip it.
+        continue;
+      }
+
+      _configureErrorSeverity(error);
+
       // `<=` because we do want the end to be inclusive (you should get
       // the fix when your cursor is on the tail end of the error).
       if (request.offset >= errorStart && request.offset <= errorEnd) {
-        fixes.add(AnalysisErrorFixes(
-          error,
-          fixes: [collector.fixes[i]],
-        ));
+        final fix = collector.fixes[i];
+        if (fix != null) {
+          fixes.add(AnalysisErrorFixes(
+            error,
+            fixes: [fix],
+          ));
+        }
       }
     }
 
@@ -169,21 +201,106 @@ class _DiagnosticGenerator {
   Future<_GeneratorResult<List<AnalysisError>>> _generateErrors(
       ResolvedUnitResult unitResult, DiagnosticCollectorImpl collector) async {
     final notifications = <Notification>[];
+
+    // Reuse component usages so we don't have to recompute them for each ComponentUsageDiagnosticContributor.
+    List<FluentComponentUsage>? _usages;
+    // Lazily compute the usage so any errors get handled as part of each diagnostic's try/catch.
+    // TODO: collect data how long this takes.
+    List<FluentComponentUsage> getUsages() => _usages ??= getAllComponentUsages(unitResult.unit!);
+
+    /// A mapping of diagnostic names to their durations, in microseconds.
+    final diagnosticMetrics = <String, int>{};
+
+    final metricsDebugFlagMatch = _metricsDebugCommentPattern.firstMatch(unitResult.content ?? '');
+
+    final totalStopwatch = Stopwatch()..start();
+    final disabledCheckStopwatch = Stopwatch()..start();
+
     for (final contributor in contributors) {
+      disabledCheckStopwatch.start();
+      final isEveryCodeDisabled = contributor.codes.every(
+        (e) => _errorSeverityProvider.isCodeDisabled(e.name),
+      );
+      disabledCheckStopwatch.stop();
+      if (isEveryCodeDisabled) {
+        // Don't compute errors if all of the codes provided by the contributor are disabled
+        continue;
+      }
+
+      final contributorStopwatch = Stopwatch()..start();
       try {
-        await contributor.computeErrors(unitResult, collector);
+        if (contributor is ComponentUsageDiagnosticContributor) {
+          await contributor.computeErrorsForUsages(unitResult, collector, getUsages());
+        } else {
+          await contributor.computeErrors(unitResult, collector);
+        }
       } catch (exception, stackTrace) {
         notifications.add(PluginErrorParams(false, exception.toString(), stackTrace.toString()).toNotification());
       }
+      contributorStopwatch.stop();
+      if (metricsDebugFlagMatch != null) {
+        diagnosticMetrics[contributor.runtimeType.toString()] = contributorStopwatch.elapsedMicroseconds;
+      }
     }
 
-    // The analyzer normally filters out errors with "ignore" comments,
-    // but it doesn't do it for plugin errors, so we need to do that here.
-    final lineInfo = unitResult.unit.lineInfo;
-    final filteredErrors =
-        filterIgnores(collector.errors, lineInfo, () => IgnoreInfo.calculateIgnores(unitResult.content, lineInfo));
+    totalStopwatch.stop();
+    if (metricsDebugFlagMatch != null) {
+      String formatMicroseconds(int microseconds) =>
+          '${(microseconds / Duration.microsecondsPerMillisecond).toStringAsFixed(3)}ms';
+      String asPercentageOfTotal(int microseconds) =>
+          '${(microseconds / totalStopwatch.elapsedMicroseconds * 100).toStringAsFixed(1)}%';
+
+      final message = 'OverReact Analyzer Plugin diagnostic metrics (current file): ' +
+          prettyPrint(<String, String>{
+            ...diagnosticMetrics.map((name, microseconds) =>
+                MapEntry(name, '${formatMicroseconds(microseconds)} (${asPercentageOfTotal(microseconds)})')),
+            'Total': formatMicroseconds(totalStopwatch.elapsedMicroseconds),
+            'Diagnostic code disabled checks': formatMicroseconds(disabledCheckStopwatch.elapsedMicroseconds),
+            'Loop overhead (Total - SUM(Diagnostics))': formatMicroseconds(totalStopwatch.elapsedMicroseconds -
+                disabledCheckStopwatch.elapsedMicroseconds -
+                diagnosticMetrics.values.fold(0, (a, b) => a + b)),
+          });
+      AnalyzerDebugHelper(unitResult, collector, enabled: true).logWithLocation(
+          message, unitResult.location(offset: metricsDebugFlagMatch.start, end: metricsDebugFlagMatch.end));
+    }
+
+    final filteredErrors = _configureErrorSeverities(
+      // The analyzer normally filters out errors with "ignore" comments,
+      // but it doesn't do it for plugin errors, so we need to do that here.
+      filterIgnores(
+        collector.errors,
+        unitResult.lineInfo,
+        () => IgnoreInfo.forDart(unitResult.unit!, unitResult.content!),
+      ),
+    );
 
     return _GeneratorResult(filteredErrors, notifications);
+  }
+
+  /// Iterates the all the errors, removing errors that have been disabled and adjusting the severity of others based on
+  /// configuration.
+  List<AnalysisError> _configureErrorSeverities(List<AnalysisError> errors) {
+    final configuredErrors = <AnalysisError>[];
+    for (final error in errors) {
+      if (_errorSeverityProvider.isCodeDisabled(error.code)) {
+        // This error has been disabled by configuration; skip it.
+        continue;
+      }
+      _configureErrorSeverity(error);
+      configuredErrors.add(error);
+    }
+
+    return configuredErrors;
+  }
+
+  /// Adjusts the severity of the given error based on configuration.
+  void _configureErrorSeverity(AnalysisError error) {
+    if (_errorSeverityProvider.isCodeConfigured(error.code)) {
+      final severity = _errorSeverityProvider.severityForCode(error.code);
+      if (severity != null) {
+        error.severity = severity;
+      }
+    }
   }
 }
 

@@ -21,6 +21,7 @@ part 'tag.over_react.g.dart';
 ///
 /// See: <https://getbootstrap.com/docs/4.4/components/tag/>
 @Factory()
+// ignore: undefined_identifier, invalid_assignment
 UiFactory<TagProps> Tag = _$Tag;
 
 @Props()

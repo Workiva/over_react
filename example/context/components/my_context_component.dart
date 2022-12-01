@@ -19,7 +19,7 @@ import '../context.dart';
 part 'my_context_component.over_react.g.dart';
 
 UiFactory<MyContextComponentProps> MyContext =
-    _$MyContext; // ignore: undefined_identifier
+    castUiFactory(_$MyContext); // ignore: undefined_identifier
 
 mixin MyContextComponentProps on UiProps {}
 

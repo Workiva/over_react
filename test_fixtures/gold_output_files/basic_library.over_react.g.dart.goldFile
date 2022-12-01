@@ -16,7 +16,6 @@ final $BasicPartOfLibComponentFactory = registerComponent(
   componentClass: BasicPartOfLibComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'BasicPartOfLib',
 );
 
 abstract class _$BasicPartOfLibPropsAccessorsMixin
@@ -29,8 +28,8 @@ abstract class _$BasicPartOfLibPropsAccessorsMixin
   /// <!-- Generated from [_$BasicPartOfLibProps.basicProp] -->
   @override
   String get basicProp =>
-      props[_$key__basicProp___$BasicPartOfLibProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__basicProp___$BasicPartOfLibProps] ?? null) as String;
+
   /// Test that doc comment is copied over.
   ///
   /// <!-- Generated from [_$BasicPartOfLibProps.basicProp] -->
@@ -41,8 +40,8 @@ abstract class _$BasicPartOfLibPropsAccessorsMixin
   /// <!-- Generated from [_$BasicPartOfLibProps.basic1] -->
   @override
   String get basic1 =>
-      props[_$key__basic1___$BasicPartOfLibProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__basic1___$BasicPartOfLibProps] ?? null) as String;
+
   /// <!-- Generated from [_$BasicPartOfLibProps.basic1] -->
   @override
   set basic1(String value) =>
@@ -51,8 +50,8 @@ abstract class _$BasicPartOfLibPropsAccessorsMixin
   /// <!-- Generated from [_$BasicPartOfLibProps.basic2] -->
   @override
   String get basic2 =>
-      props[_$key__basic2___$BasicPartOfLibProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__basic2___$BasicPartOfLibProps] ?? null) as String;
+
   /// <!-- Generated from [_$BasicPartOfLibProps.basic2] -->
   @override
   set basic2(String value) =>
@@ -61,8 +60,8 @@ abstract class _$BasicPartOfLibPropsAccessorsMixin
   /// <!-- Generated from [_$BasicPartOfLibProps.basic3] -->
   @override
   String get basic3 =>
-      props[_$key__basic3___$BasicPartOfLibProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__basic3___$BasicPartOfLibProps] ?? null) as String;
+
   /// <!-- Generated from [_$BasicPartOfLibProps.basic3] -->
   @override
   set basic3(String value) =>
@@ -71,8 +70,8 @@ abstract class _$BasicPartOfLibPropsAccessorsMixin
   /// <!-- Generated from [_$BasicPartOfLibProps.basic4] -->
   @override
   String get basic4 =>
-      props[_$key__basic4___$BasicPartOfLibProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__basic4___$BasicPartOfLibProps] ?? null) as String;
+
   /// <!-- Generated from [_$BasicPartOfLibProps.basic4] -->
   @override
   set basic4(String value) =>
@@ -81,8 +80,8 @@ abstract class _$BasicPartOfLibPropsAccessorsMixin
   /// <!-- Generated from [_$BasicPartOfLibProps.basic5] -->
   @override
   String get basic5 =>
-      props[_$key__basic5___$BasicPartOfLibProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__basic5___$BasicPartOfLibProps] ?? null) as String;
+
   /// <!-- Generated from [_$BasicPartOfLibProps.basic5] -->
   @override
   set basic5(String value) =>
@@ -183,8 +182,8 @@ abstract class _$BasicPartOfLibStateAccessorsMixin
   /// <!-- Generated from [_$BasicPartOfLibState.basicState] -->
   @override
   String get basicState =>
-      state[_$key__basicState___$BasicPartOfLibState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (state[_$key__basicState___$BasicPartOfLibState] ?? null) as String;
+
   /// <!-- Generated from [_$BasicPartOfLibState.basicState] -->
   @override
   set basicState(String value) =>
@@ -252,6 +251,9 @@ class _$BasicPartOfLibComponent extends BasicPartOfLibComponent {
   @override
   bool get $isClassGenerated => true;
 
+  @override
+  String get displayName => 'BasicPartOfLib';
+
   /// The default consumed props, taken from _$BasicPartOfLibProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
@@ -269,7 +271,6 @@ final $SubPartOfLibComponentFactory = registerComponent(
   componentClass: SubPartOfLibComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'SubPartOfLib',
 );
 
 abstract class _$SubPartOfLibPropsAccessorsMixin
@@ -280,8 +281,8 @@ abstract class _$SubPartOfLibPropsAccessorsMixin
   /// <!-- Generated from [_$SubPartOfLibProps.subProp] -->
   @override
   String get subProp =>
-      props[_$key__subProp___$SubPartOfLibProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__subProp___$SubPartOfLibProps] ?? null) as String;
+
   /// <!-- Generated from [_$SubPartOfLibProps.subProp] -->
   @override
   set subProp(String value) =>
@@ -355,6 +356,9 @@ class _$SubPartOfLibComponent extends SubPartOfLibComponent {
   @override
   bool get $isClassGenerated => true;
 
+  @override
+  String get displayName => 'SubPartOfLib';
+
   /// The default consumed props, taken from _$SubPartOfLibProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
@@ -371,8 +375,8 @@ abstract class _$SuperPartOfLibPropsAccessorsMixin
   /// <!-- Generated from [_$SuperPartOfLibProps.superProp] -->
   @override
   String get superProp =>
-      props[_$key__superProp___$SuperPartOfLibProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__superProp___$SuperPartOfLibProps] ?? null) as String;
+
   /// <!-- Generated from [_$SuperPartOfLibProps.superProp] -->
   @override
   set superProp(String value) =>

@@ -16,7 +16,6 @@ final $FooComponentFactory = registerComponent2(
   componentClass: FooComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'Foo',
 );
 
 abstract class _$FooPropsAccessorsMixin implements _$FooProps {
@@ -26,8 +25,8 @@ abstract class _$FooPropsAccessorsMixin implements _$FooProps {
   /// <!-- Generated from [_$FooProps.stringProp] -->
   @override
   String get stringProp =>
-      props[_$key__stringProp___$FooProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__stringProp___$FooProps] ?? null) as String;
+
   /// <!-- Generated from [_$FooProps.stringProp] -->
   @override
   set stringProp(String value) => props[_$key__stringProp___$FooProps] = value;
@@ -35,8 +34,8 @@ abstract class _$FooPropsAccessorsMixin implements _$FooProps {
   /// <!-- Generated from [_$FooProps.unassignedProp] -->
   @override
   String get unassignedProp =>
-      props[_$key__unassignedProp___$FooProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__unassignedProp___$FooProps] ?? null) as String;
+
   /// <!-- Generated from [_$FooProps.unassignedProp] -->
   @override
   set unassignedProp(String value) =>
@@ -83,7 +82,7 @@ abstract class _$$FooProps extends _$FooProps
 
   factory _$$FooProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$FooProps$JsMap(backingMap);
+      return _$$FooProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$FooProps$PlainMap(backingMap);
     }
@@ -156,7 +155,8 @@ class _$FooComponent extends FooComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -169,6 +169,9 @@ class _$FooComponent extends FooComponent {
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'Foo';
 
   /// The default consumed props, taken from _$FooProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.

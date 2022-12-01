@@ -18,6 +18,7 @@ presets:
       - test/over_react_component_declaration_test.dart
       - test/over_react_component_test.dart
       - test/over_react_dom_test.dart
+      - test/over_react_prod_test.dart
       - test/over_react_util_test.dart
       - test/over_react_redux_test.dart
 
@@ -27,6 +28,7 @@ presets:
       - test/over_react_component_declaration_test.dart
       - test/over_react_component_test.dart
       - test/over_react_dom_test.dart
+      - test/over_react_prod_test.dart
       - test/over_react_util_test.dart
       - test/over_react_redux_test.dart
 

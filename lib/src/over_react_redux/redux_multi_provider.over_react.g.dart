@@ -16,7 +16,6 @@ final $ReduxMultiProviderComponentFactory = registerComponent2(
   componentClass: ReduxMultiProviderComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'ReduxMultiProvider',
 );
 
 abstract class _$ReduxMultiProviderPropsAccessorsMixin
@@ -35,8 +34,9 @@ abstract class _$ReduxMultiProviderPropsAccessorsMixin
   @override
   @requiredProp
   Map<Context, Store> get storesByContext =>
-      props[_$key__storesByContext___$ReduxMultiProviderProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__storesByContext___$ReduxMultiProviderProps] ?? null)
+          as Map<Context, Store>;
+
   /// A `Map` of contexts that connected components within the component tree
   /// can use to receive updates from specific stores.
   ///
@@ -90,7 +90,7 @@ abstract class _$$ReduxMultiProviderProps extends _$ReduxMultiProviderProps
 
   factory _$$ReduxMultiProviderProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$ReduxMultiProviderProps$JsMap(backingMap);
+      return _$$ReduxMultiProviderProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$ReduxMultiProviderProps$PlainMap(backingMap);
     }
@@ -163,7 +163,8 @@ class _$ReduxMultiProviderComponent extends ReduxMultiProviderComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -178,6 +179,9 @@ class _$ReduxMultiProviderComponent extends ReduxMultiProviderComponent {
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'ReduxMultiProvider';
 
   /// The default consumed props, taken from _$ReduxMultiProviderProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.

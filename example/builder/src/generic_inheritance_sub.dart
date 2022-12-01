@@ -17,7 +17,7 @@ import 'generic_inheritance_super.dart';
 
 part 'generic_inheritance_sub.over_react.g.dart';
 
-UiFactory<GenericSubProps> GenericSub = _$GenericSub; // ignore: undefined_identifier
+UiFactory<GenericSubProps> GenericSub = castUiFactory(_$GenericSub); // ignore: undefined_identifier
 
 mixin GenericSubPropsMixin on UiProps, GenericSuperPropsMixin {
   String subProp;

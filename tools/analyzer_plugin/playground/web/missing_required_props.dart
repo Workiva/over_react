@@ -9,7 +9,7 @@ main() {
   )();
 }
 
-UiFactory<BarProps> Bar = _$Bar; // ignore: undefined_identifier
+UiFactory<BarProps> Bar = castUiFactory(_$Bar); // ignore: undefined_identifier
 
 mixin BarProps on UiProps {
   @requiredProp

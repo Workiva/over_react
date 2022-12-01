@@ -17,8 +17,7 @@ mixin $FluxUiPropsMixin<ActionsT, StoresT>
   @override
   @override
   ActionsT get actions =>
-      props[_$key__actions__FluxUiPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__actions__FluxUiPropsMixin] ?? null) as ActionsT;
   @override
   @override
   set actions(ActionsT value) =>
@@ -26,8 +25,7 @@ mixin $FluxUiPropsMixin<ActionsT, StoresT>
   @override
   @override
   StoresT get store =>
-      props[_$key__store__FluxUiPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__store__FluxUiPropsMixin] ?? null) as StoresT;
   @override
   @override
   set store(StoresT value) => props[_$key__store__FluxUiPropsMixin] = value;

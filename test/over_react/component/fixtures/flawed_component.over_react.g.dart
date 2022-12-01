@@ -16,7 +16,6 @@ final $FlawedComponentFactory = registerComponent2(
   componentClass: FlawedComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'Flawed',
 );
 
 abstract class _$FlawedPropsAccessorsMixin implements _$FlawedProps {
@@ -26,8 +25,8 @@ abstract class _$FlawedPropsAccessorsMixin implements _$FlawedProps {
   /// <!-- Generated from [_$FlawedProps.buttonTestIdPrefix] -->
   @override
   String get buttonTestIdPrefix =>
-      props[_$key__buttonTestIdPrefix___$FlawedProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__buttonTestIdPrefix___$FlawedProps] ?? null) as String;
+
   /// <!-- Generated from [_$FlawedProps.buttonTestIdPrefix] -->
   @override
   set buttonTestIdPrefix(String value) =>
@@ -65,7 +64,7 @@ abstract class _$$FlawedProps extends _$FlawedProps
 
   factory _$$FlawedProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$FlawedProps$JsMap(backingMap);
+      return _$$FlawedProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$FlawedProps$PlainMap(backingMap);
     }
@@ -125,8 +124,8 @@ abstract class _$FlawedStateAccessorsMixin implements _$FlawedState {
   /// <!-- Generated from [_$FlawedState.errorCount] -->
   @override
   int get errorCount =>
-      state[_$key__errorCount___$FlawedState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (state[_$key__errorCount___$FlawedState] ?? null) as int;
+
   /// <!-- Generated from [_$FlawedState.errorCount] -->
   @override
   set errorCount(int value) => state[_$key__errorCount___$FlawedState] = value;
@@ -134,8 +133,8 @@ abstract class _$FlawedStateAccessorsMixin implements _$FlawedState {
   /// <!-- Generated from [_$FlawedState.differentTypeOfErrorCount] -->
   @override
   int get differentTypeOfErrorCount =>
-      state[_$key__differentTypeOfErrorCount___$FlawedState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (state[_$key__differentTypeOfErrorCount___$FlawedState] ?? null) as int;
+
   /// <!-- Generated from [_$FlawedState.differentTypeOfErrorCount] -->
   @override
   set differentTypeOfErrorCount(int value) =>
@@ -176,7 +175,7 @@ abstract class _$$FlawedState extends _$FlawedState
 
   factory _$$FlawedState(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$FlawedState$JsMap(backingMap);
+      return _$$FlawedState$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$FlawedState$PlainMap(backingMap);
     }
@@ -240,7 +239,8 @@ class _$FlawedComponent extends FlawedComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -262,7 +262,7 @@ class _$FlawedComponent extends FlawedComponent {
         'Component2.state should only be set via '
         'initialState or setState.');
     super.state = value;
-    _cachedTypedState = typedStateFactoryJs(value);
+    _cachedTypedState = typedStateFactoryJs(value as JsBackedMap);
   }
 
   @override
@@ -276,6 +276,9 @@ class _$FlawedComponent extends FlawedComponent {
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'Flawed';
 
   /// The default consumed props, taken from _$FlawedProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.

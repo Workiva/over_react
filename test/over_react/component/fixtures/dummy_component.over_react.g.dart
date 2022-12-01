@@ -16,7 +16,6 @@ final $DummyComponentFactory = registerComponent2(
   componentClass: DummyComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'Dummy',
 );
 
 abstract class _$DummyPropsAccessorsMixin implements _$DummyProps {
@@ -26,8 +25,8 @@ abstract class _$DummyPropsAccessorsMixin implements _$DummyProps {
   /// <!-- Generated from [_$DummyProps.onComponentDidMount] -->
   @override
   Function get onComponentDidMount =>
-      props[_$key__onComponentDidMount___$DummyProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onComponentDidMount___$DummyProps] ?? null) as Function;
+
   /// <!-- Generated from [_$DummyProps.onComponentDidMount] -->
   @override
   set onComponentDidMount(Function value) =>
@@ -65,7 +64,7 @@ abstract class _$$DummyProps extends _$DummyProps
 
   factory _$$DummyProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$DummyProps$JsMap(backingMap);
+      return _$$DummyProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$DummyProps$PlainMap(backingMap);
     }
@@ -138,7 +137,8 @@ class _$DummyComponent extends DummyComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -151,6 +151,9 @@ class _$DummyComponent extends DummyComponent {
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'Dummy';
 
   /// The default consumed props, taken from _$DummyProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.

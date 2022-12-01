@@ -16,7 +16,6 @@ final $OneLevelWrapper2ComponentFactory = registerComponent2(
   componentClass: OneLevelWrapper2Component,
   isWrapper: true,
   parentType: null,
-  displayName: 'OneLevelWrapper2',
 );
 
 abstract class _$OneLevelWrapper2PropsAccessorsMixin
@@ -55,7 +54,7 @@ abstract class _$$OneLevelWrapper2Props extends _$OneLevelWrapper2Props
 
   factory _$$OneLevelWrapper2Props(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$OneLevelWrapper2Props$JsMap(backingMap);
+      return _$$OneLevelWrapper2Props$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$OneLevelWrapper2Props$PlainMap(backingMap);
     }
@@ -128,7 +127,8 @@ class _$OneLevelWrapper2Component extends OneLevelWrapper2Component {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -142,6 +142,9 @@ class _$OneLevelWrapper2Component extends OneLevelWrapper2Component {
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'OneLevelWrapper2';
 
   /// The default consumed props, taken from _$OneLevelWrapper2Props.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.

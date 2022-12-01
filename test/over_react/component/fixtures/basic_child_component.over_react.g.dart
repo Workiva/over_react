@@ -16,7 +16,6 @@ final $BasicChildComponentFactory = registerComponent2(
   componentClass: BasicChildComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'BasicChild',
 );
 
 abstract class _$BasicChildPropsAccessorsMixin implements _$BasicChildProps {
@@ -53,7 +52,7 @@ abstract class _$$BasicChildProps extends _$BasicChildProps
 
   factory _$$BasicChildProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$BasicChildProps$JsMap(backingMap);
+      return _$$BasicChildProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$BasicChildProps$PlainMap(backingMap);
     }
@@ -126,7 +125,8 @@ class _$BasicChildComponent extends BasicChildComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -140,6 +140,9 @@ class _$BasicChildComponent extends BasicChildComponent {
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'BasicChild';
 
   /// The default consumed props, taken from _$BasicChildProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.

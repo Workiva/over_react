@@ -103,6 +103,7 @@ main() {
 
 
 @Factory()
+// ignore: undefined_identifier, invalid_assignment
 UiFactory<NamespacedAccessorTestProps> NamespacedAccessorTest = _$NamespacedAccessorTest;
 
 @Props(keyNamespace: 'custom props class namespace**')

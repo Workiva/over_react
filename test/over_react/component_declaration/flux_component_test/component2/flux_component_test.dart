@@ -19,6 +19,7 @@ library over_react.component_declaration.component2.flux_component_test;
 import 'dart:async';
 import 'dart:html';
 
+import 'package:logging/logging.dart';
 import 'package:pedantic/pedantic.dart';
 import 'package:test/test.dart';
 import 'package:w_flux/w_flux.dart';
@@ -227,6 +228,81 @@ void main() {
           jacket.unmount();
         });
       });
+
+      group('when attempting to listen to a disposed store', () {
+        const commonMessageString = 'Cannot listen to a disposed/disposing Store.';
+
+        FluxUiComponent2 component;
+
+        setUp(() {
+          var jacket = mount((testComponents.basic())());
+          component = jacket.getDartInstance() as FluxUiComponent2;
+        });
+
+        test('raises an assertion in DDC', () async {
+          final store = TestStore();
+          await store.dispose();
+
+          // ignore: invalid_use_of_protected_member
+          expect(() => component.listenToStoreForRedraw(store), throwsA(allOf(
+            isA<AssertionError>(),
+            hasToStringValue(contains(commonMessageString)),
+          )));
+        }, tags: 'ddc');
+
+        test('logs a warning in dart2js', () async {
+          final logs = <LogRecord>[];
+          final sub = Logger.root.onRecord
+              .where((log) =>
+                  log.loggerName.contains('over_react._FluxComponentMixin'))
+              .listen(logs.add);
+          addTearDown(sub.cancel);
+
+          {
+            final store = TestStoreWithCustomName();
+            await store.dispose();
+
+            // Ignore StateErrors thrown by the Store itself
+            try {
+              // ignore: invalid_use_of_protected_member
+              component.listenToStoreForRedraw(store);
+            } on StateError catch (_) {}
+
+            expect(logs, hasLength(1), reason: 'should have logged a single warning');
+            final log = logs[0];
+            expect(
+                log.loggerName,
+                anyOf(
+                  'over_react._FluxComponentMixin.TestBasic',
+                  'over_react._FluxComponentMixin.TestStatefulBasic'
+                ),
+                reason: 'should include component name');
+            expect(log.stackTrace, isNotNull);
+            expect(log.level, Level.WARNING);
+            expect(log.message, contains(commonMessageString));
+            expect(log.message, contains('a_custom_name'),
+                reason: 'should contain the store disposableTypeName');
+          }
+
+          logs.clear();
+
+          {
+            final store = TestStore();
+            await store.dispose();
+
+            // Ignore StateErrors thrown by the Store itself
+            try {
+              // ignore: invalid_use_of_protected_member
+              component.listenToStoreForRedraw(store);
+            } on StateError catch (_) {}
+
+            expect(logs, hasLength(1), reason: 'should have logged a single warning');
+            final log = logs[0];
+            expect(log.message, contains(store.runtimeType.toString()),
+                reason: 'should contain the store runtimeType when disposableTypeName is not overridden');
+          }
+        }, tags: 'no-ddc');
+      });
     }
 
     group('FluxUiComponent', () {
@@ -242,6 +318,11 @@ void main() {
 class TestActions {}
 
 class TestStore extends Store {}
+
+class TestStoreWithCustomName extends Store {
+  @override
+  String get disposableTypeName => 'a_custom_name';
+}
 
 class TestStores {
   TestStore store1 = TestStore();

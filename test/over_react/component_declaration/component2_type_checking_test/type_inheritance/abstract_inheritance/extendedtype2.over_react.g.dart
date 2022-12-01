@@ -15,9 +15,8 @@ final $TestExtendtype2ComponentFactory = registerComponent2(
   builderFactory: _$TestExtendtype2,
   componentClass: TestExtendtype2Component,
   isWrapper: false,
-  parentType: $TestAbstract2ComponentFactory,
-  /* from `subtypeOf: TestAbstract2Component` */
-  displayName: 'TestExtendtype2',
+  parentType:
+      $TestAbstract2ComponentFactory, /* from `subtypeOf: TestAbstract2Component` */
 );
 
 abstract class _$TestExtendtype2PropsAccessorsMixin
@@ -56,7 +55,7 @@ abstract class _$$TestExtendtype2Props extends _$TestExtendtype2Props
 
   factory _$$TestExtendtype2Props(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestExtendtype2Props$JsMap(backingMap);
+      return _$$TestExtendtype2Props$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$TestExtendtype2Props$PlainMap(backingMap);
     }
@@ -129,7 +128,8 @@ class _$TestExtendtype2Component extends TestExtendtype2Component {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -143,6 +143,9 @@ class _$TestExtendtype2Component extends TestExtendtype2Component {
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'TestExtendtype2';
 
   /// The default consumed props, taken from _$TestExtendtype2Props.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.

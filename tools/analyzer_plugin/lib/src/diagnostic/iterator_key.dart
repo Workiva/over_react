@@ -74,6 +74,9 @@ class IteratorKey extends ComponentUsageDiagnosticContributor {
         " or passing children as arguments as opposed to wrapping them in a list literal.",
   );
 
+  @override
+  List<DiagnosticCode> get codes => [code];
+
   static final listLiteralFixKind = convertUsageListLiteralToVariadicChildrenFixKind(code);
   static final mappedIterableFixKind = FixKind(code.name, 200, 'Add a key');
 
@@ -108,7 +111,7 @@ class IteratorKey extends ComponentUsageDiagnosticContributor {
       } else if (argument is MethodInvocation) {
         // 2nd case: Element mapping
         // Look through all method invocations (e.g. .map.toList()) until you find the mapping function
-        MethodInvocation mapStatement;
+        MethodInvocation? mapStatement;
         final invokedMethods = _buildInvocationList(argument);
         for (final method in invokedMethods) {
           if (method.methodName.name == 'map') {
@@ -139,7 +142,7 @@ class IteratorKey extends ComponentUsageDiagnosticContributor {
                 addProp(
                   returnedUsage,
                   builder,
-                  result.content,
+                  result.content!,
                   result.lineInfo,
                   name: 'key',
                   buildValueEdit: (_builder) {
@@ -160,7 +163,7 @@ class IteratorKey extends ComponentUsageDiagnosticContributor {
   List<MethodInvocation> _buildInvocationList(MethodInvocation method) {
     // A list of all the methods that could possibly be chained to the input method
     final methodsInvoked = <MethodInvocation>[];
-    for (var current = method; current != null; current = current.target.tryCast<MethodInvocation>()) {
+    for (MethodInvocation? current = method; current != null; current = current.target.tryCast<MethodInvocation>()) {
       methodsInvoked.add(current);
     }
     return methodsInvoked;

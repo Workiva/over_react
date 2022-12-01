@@ -51,13 +51,15 @@ ReactDartComponentFactoryProxy2 registerAbstractComponent2(Type abstractComponen
 /// * [builderFactory]/[componentClass]: the [UiFactory] and [UiComponent2] members to be potentially
 /// used as types for [isComponentOfType]/`getComponentFactory`.
 ///
-/// * [displayName]: the name of the component for use when debugging.
+/// * [displayName]: (DEPRECATED) the name of the component for use when debugging.
 ReactDartComponentFactoryProxy2 registerComponent2(react.Component2 Function() dartComponentFactory, {
     bool isWrapper = false,
     // This must remain typed in a way that both UiComponent and UiComponent2 classes can be passed as the `subtypeOf` value.
+    // ignore: deprecated_member_use
     ReactDartComponentFactoryProxy parentType,
     UiFactory builderFactory,
     Type componentClass,
+    @Deprecated('The display name is now set automatically and setting this does nothing')
     String displayName,
     Iterable<String> skipMethods = const ['getDerivedStateFromError', 'componentDidCatch'],
 }) {
@@ -67,14 +69,10 @@ ReactDartComponentFactoryProxy2 registerComponent2(react.Component2 Function() d
     bridgeFactory: UiComponent2BridgeImpl.bridgeFactory,
   );
 
-  if (displayName != null) {
-    reactComponentFactory.reactClass.displayName = displayName;
-  }
-
   registerComponentTypeAlias(reactComponentFactory, builderFactory);
   registerComponentTypeAlias(reactComponentFactory, componentClass);
 
-  setComponentTypeMeta(reactComponentFactory, isWrapper: isWrapper, parentType: parentType);
+  setComponentTypeMeta(reactComponentFactory.type, isWrapper: isWrapper, parentType: parentType?.type);
 
   return reactComponentFactory;
 }
@@ -716,7 +714,7 @@ class UiComponent2BridgeImpl extends Component2BridgeImpl {
       react.PropValidatorInfo _info,
     ) {
       var convertedProps = component.typedPropsFactoryJs(_props);
-      return _validator(convertedProps, _info);
+      return _validator(convertedProps, _info) as Error;
     }
 
     // Add [PropValidator]s for props annotated as required.
@@ -782,7 +780,7 @@ class UiComponent2BridgeImpl extends Component2BridgeImpl {
 
   /// A version of [setStateWithTypedUpdater] whose updater is passed typed views
   /// into the `prevState` and `props` arguments, allowing them to be typed automatically
-  /// within [UiStatefulComponent2.setStateWithUpdater].
+  /// within `UiStatefulComponent2.setStateWithUpdater`.
   void setStateWithTypedUpdater<TState extends UiState, TProps extends UiProps>(
     UiStatefulMixin2<TProps, TState> component,
     Map Function(TState prevState, TProps props) updater,

@@ -18,7 +18,6 @@ final $RecoverableErrorBoundaryComponentFactory = registerComponent2(
   componentClass: RecoverableErrorBoundaryComponent,
   isWrapper: true,
   parentType: null,
-  displayName: 'RecoverableErrorBoundary',
   skipMethods: const [],
 );
 
@@ -36,14 +35,14 @@ _$$RecoverableErrorBoundaryProps _$RecoverableErrorBoundary(
 abstract class _$$RecoverableErrorBoundaryProps extends UiProps
     with
         v2.ErrorBoundaryProps,
-        v2.$ErrorBoundaryProps // If this generated mixin is undefined, it's likely because v2.ErrorBoundaryProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of v2.ErrorBoundaryProps.
+        v2.$ErrorBoundaryProps // If this generated mixin is undefined, it's likely because v2.ErrorBoundaryProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of v2.ErrorBoundaryProps, and check that v2.$ErrorBoundaryProps is exported/imported properly.
     implements
         RecoverableErrorBoundaryProps {
   _$$RecoverableErrorBoundaryProps._();
 
   factory _$$RecoverableErrorBoundaryProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$RecoverableErrorBoundaryProps$JsMap(backingMap);
+      return _$$RecoverableErrorBoundaryProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$RecoverableErrorBoundaryProps$PlainMap(backingMap);
     }
@@ -61,6 +60,12 @@ abstract class _$$RecoverableErrorBoundaryProps extends UiProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => '';
+
+  @override
+  PropsMetaCollection get staticMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because v2.ErrorBoundaryProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of v2.ErrorBoundaryProps, and check that v2.$ErrorBoundaryProps is exported/imported properly.
+        v2.ErrorBoundaryProps: v2.$ErrorBoundaryProps.meta,
+      });
 }
 
 // Concrete props implementation that can be backed by any [Map].
@@ -110,14 +115,14 @@ class _$$RecoverableErrorBoundaryProps$JsMap
 abstract class _$$RecoverableErrorBoundaryState extends UiState
     with
         v2.ErrorBoundaryState,
-        v2.$ErrorBoundaryState // If this generated mixin is undefined, it's likely because v2.ErrorBoundaryState is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not exported. Check the declaration of v2.ErrorBoundaryState.
+        v2.$ErrorBoundaryState // If this generated mixin is undefined, it's likely because v2.ErrorBoundaryState is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not imported. Check the declaration of v2.ErrorBoundaryState, and check that v2.$ErrorBoundaryState is exported/imported properly.
     implements
         RecoverableErrorBoundaryState {
   _$$RecoverableErrorBoundaryState._();
 
   factory _$$RecoverableErrorBoundaryState(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$RecoverableErrorBoundaryState$JsMap(backingMap);
+      return _$$RecoverableErrorBoundaryState$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$RecoverableErrorBoundaryState$PlainMap(backingMap);
     }
@@ -190,7 +195,8 @@ class _$RecoverableErrorBoundaryComponent
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -213,7 +219,7 @@ class _$RecoverableErrorBoundaryComponent
         'Component2.state should only be set via '
         'initialState or setState.');
     super.state = value;
-    _cachedTypedState = typedStateFactoryJs(value);
+    _cachedTypedState = typedStateFactoryJs(value as JsBackedMap);
   }
 
   @override
@@ -229,6 +235,9 @@ class _$RecoverableErrorBoundaryComponent
   @override
   bool get $isClassGenerated => true;
 
+  @override
+  String get displayName => 'RecoverableErrorBoundary';
+
   /// The default consumed props, comprising all props mixins used by RecoverableErrorBoundaryProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
@@ -236,7 +245,7 @@ class _$RecoverableErrorBoundaryComponent
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because v2.ErrorBoundaryProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of v2.ErrorBoundaryProps.
+        // If this generated mixin is undefined, it's likely because v2.ErrorBoundaryProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of v2.ErrorBoundaryProps, and check that v2.$ErrorBoundaryProps is exported/imported properly.
         v2.ErrorBoundaryProps: v2.$ErrorBoundaryProps.meta,
       });
 }

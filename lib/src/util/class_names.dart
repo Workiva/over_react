@@ -20,7 +20,9 @@ import 'dart:collection';
 
 import 'package:over_react/over_react.dart' show
     // Must import these consts because they are used in the transformed code.
-    PropDescriptor, ConsumedProps, // ignore: unused_shown_name
+    // ignore: unused_shown_name
+    PropDescriptor, ConsumedProps,
+    // ignore: unused_shown_name
     PropsMeta, UiComponent, UiProps;
 import 'package:over_react/src/component_declaration/annotations.dart';
 
@@ -48,13 +50,13 @@ abstract class _$CssClassPropsMixin {
   /// String of space-delimited CSS classes to be added to the resultant DOM.
   ///
   /// All over_react components merge any added classes with this prop and the [classNameBlacklist] prop (see
-  /// [UiComponent.forwardingClassNameBuilder]).
+  /// `UiComponent.forwardingClassNameBuilder`).
   String className;
 
   /// String of space-delimited CSS classes to be blacklisted from being added to the resultant DOM.
   ///
   /// All over_react components merge any added classes with this prop and the [className] prop (see
-  /// [UiComponent.forwardingClassNameBuilder]).
+  /// `UiComponent.forwardingClassNameBuilder`).
   String classNameBlacklist;
 }
 
@@ -79,7 +81,7 @@ class ClassNameBuilder {
 
   /// Creates a new, empty `ClassNameBuilder` instance.
   ///
-  /// > Related: [UiComponent.forwardingClassNameBuilder]
+  /// > Related: `UiComponent.forwardingClassNameBuilder`
   ClassNameBuilder();
 
   /// Creates a new `ClassNameBuilder` with the [CssClassPropsMixin.className] values and

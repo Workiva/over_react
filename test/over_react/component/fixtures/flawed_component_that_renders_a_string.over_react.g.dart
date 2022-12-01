@@ -16,7 +16,6 @@ final $FlawedWithStringChildComponentFactory = registerComponent2(
   componentClass: FlawedWithStringChildComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'FlawedWithStringChild',
 );
 
 abstract class _$FlawedWithStringChildPropsAccessorsMixin
@@ -51,7 +50,7 @@ abstract class _$$FlawedWithStringChildProps
 
   factory _$$FlawedWithStringChildProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$FlawedWithStringChildProps$JsMap(backingMap);
+      return _$$FlawedWithStringChildProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$FlawedWithStringChildProps$PlainMap(backingMap);
     }
@@ -126,7 +125,8 @@ class _$FlawedWithStringChildComponent extends FlawedWithStringChildComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -141,6 +141,9 @@ class _$FlawedWithStringChildComponent extends FlawedWithStringChildComponent {
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'FlawedWithStringChild';
 
   /// The default consumed props, taken from _$FlawedWithStringChildProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.

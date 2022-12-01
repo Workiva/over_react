@@ -19,6 +19,7 @@ import 'package:over_react/over_react.dart';
 part 'test_a2.over_react.g.dart';
 
 @Factory()
+// ignore: undefined_identifier, invalid_assignment
 UiFactory<TestA2Props> TestA2 = _$TestA2;
 
 @Props()

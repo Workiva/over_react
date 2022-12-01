@@ -16,7 +16,6 @@ final $TestBasicComponentFactory = registerComponent(
   componentClass: TestBasicComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'TestBasic',
 );
 
 abstract class _$TestBasicPropsAccessorsMixin implements _$TestBasicProps {
@@ -86,6 +85,9 @@ class _$TestBasicComponent extends TestBasicComponent {
   @override
   bool get $isClassGenerated => true;
 
+  @override
+  String get displayName => 'TestBasic';
+
   /// The default consumed props, taken from _$TestBasicProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
@@ -103,7 +105,6 @@ final $TestHandlerLifecycleComponentFactory = registerComponent(
   componentClass: TestHandlerLifecycleComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'TestHandlerLifecycle',
 );
 
 abstract class _$TestHandlerLifecyclePropsAccessorsMixin
@@ -174,6 +175,9 @@ class _$TestHandlerLifecycleComponent extends TestHandlerLifecycleComponent {
   @override
   bool get $isClassGenerated => true;
 
+  @override
+  String get displayName => 'TestHandlerLifecycle';
+
   /// The default consumed props, taken from _$TestHandlerLifecycleProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
@@ -191,7 +195,6 @@ final $TestHandlerPrecedenceComponentFactory = registerComponent(
   componentClass: TestHandlerPrecedenceComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'TestHandlerPrecedence',
 );
 
 abstract class _$TestHandlerPrecedencePropsAccessorsMixin
@@ -262,6 +265,9 @@ class _$TestHandlerPrecedenceComponent extends TestHandlerPrecedenceComponent {
   @override
   bool get $isClassGenerated => true;
 
+  @override
+  String get displayName => 'TestHandlerPrecedence';
+
   /// The default consumed props, taken from _$TestHandlerPrecedenceProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
@@ -279,7 +285,6 @@ final $TestPropValidationComponentFactory = registerComponent(
   componentClass: TestPropValidationComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'TestPropValidation',
 );
 
 abstract class _$TestPropValidationPropsAccessorsMixin
@@ -291,8 +296,8 @@ abstract class _$TestPropValidationPropsAccessorsMixin
   @override
   @requiredProp
   String get required =>
-      props[_$key__required___$TestPropValidationProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__required___$TestPropValidationProps] ?? null) as String;
+
   /// <!-- Generated from [_$TestPropValidationProps.required] -->
   @override
   @requiredProp
@@ -370,6 +375,9 @@ class _$TestPropValidationComponent extends TestPropValidationComponent {
   @override
   bool get $isClassGenerated => true;
 
+  @override
+  String get displayName => 'TestPropValidation';
+
   /// The default consumed props, taken from _$TestPropValidationProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
@@ -387,7 +395,6 @@ final $TestRedrawOnComponentFactory = registerComponent(
   componentClass: TestRedrawOnComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'TestRedrawOn',
 );
 
 abstract class _$TestRedrawOnPropsAccessorsMixin
@@ -458,6 +465,9 @@ class _$TestRedrawOnComponent extends TestRedrawOnComponent {
   @override
   bool get $isClassGenerated => true;
 
+  @override
+  String get displayName => 'TestRedrawOn';
+
   /// The default consumed props, taken from _$TestRedrawOnProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
@@ -475,7 +485,6 @@ final $TestStoreHandlersComponentFactory = registerComponent(
   componentClass: TestStoreHandlersComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'TestStoreHandlers',
 );
 
 abstract class _$TestStoreHandlersPropsAccessorsMixin
@@ -546,6 +555,9 @@ class _$TestStoreHandlersComponent extends TestStoreHandlersComponent {
   @override
   bool get $isClassGenerated => true;
 
+  @override
+  String get displayName => 'TestStoreHandlers';
+
   /// The default consumed props, taken from _$TestStoreHandlersProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
@@ -563,7 +575,6 @@ final $TestStatefulBasicComponentFactory = registerComponent(
   componentClass: TestStatefulBasicComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'TestStatefulBasic',
 );
 
 abstract class _$TestStatefulBasicPropsAccessorsMixin
@@ -681,6 +692,9 @@ class _$TestStatefulBasicComponent extends TestStatefulBasicComponent {
   @override
   bool get $isClassGenerated => true;
 
+  @override
+  String get displayName => 'TestStatefulBasic';
+
   /// The default consumed props, taken from _$TestStatefulBasicProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
@@ -698,7 +712,6 @@ final $TestStatefulHandlerLifecycleComponentFactory = registerComponent(
   componentClass: TestStatefulHandlerLifecycleComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'TestStatefulHandlerLifecycle',
 );
 
 abstract class _$TestStatefulHandlerLifecyclePropsAccessorsMixin
@@ -822,6 +835,9 @@ class _$TestStatefulHandlerLifecycleComponent
   @override
   bool get $isClassGenerated => true;
 
+  @override
+  String get displayName => 'TestStatefulHandlerLifecycle';
+
   /// The default consumed props, taken from _$TestStatefulHandlerLifecycleProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
@@ -839,7 +855,6 @@ final $TestStatefulHandlerPrecedenceComponentFactory = registerComponent(
   componentClass: TestStatefulHandlerPrecedenceComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'TestStatefulHandlerPrecedence',
 );
 
 abstract class _$TestStatefulHandlerPrecedencePropsAccessorsMixin
@@ -963,6 +978,9 @@ class _$TestStatefulHandlerPrecedenceComponent
   @override
   bool get $isClassGenerated => true;
 
+  @override
+  String get displayName => 'TestStatefulHandlerPrecedence';
+
   /// The default consumed props, taken from _$TestStatefulHandlerPrecedenceProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
@@ -980,7 +998,6 @@ final $TestStatefulPropValidationComponentFactory = registerComponent(
   componentClass: TestStatefulPropValidationComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'TestStatefulPropValidation',
 );
 
 abstract class _$TestStatefulPropValidationPropsAccessorsMixin
@@ -993,8 +1010,9 @@ abstract class _$TestStatefulPropValidationPropsAccessorsMixin
   @override
   @requiredProp
   String get required =>
-      props[_$key__required___$TestStatefulPropValidationProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__required___$TestStatefulPropValidationProps] ?? null)
+          as String;
+
   /// <!-- Generated from [_$TestStatefulPropValidationProps.required] -->
   @override
   @override
@@ -1125,6 +1143,9 @@ class _$TestStatefulPropValidationComponent
   @override
   bool get $isClassGenerated => true;
 
+  @override
+  String get displayName => 'TestStatefulPropValidation';
+
   /// The default consumed props, taken from _$TestStatefulPropValidationProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
@@ -1142,7 +1163,6 @@ final $TestStatefulRedrawOnComponentFactory = registerComponent(
   componentClass: TestStatefulRedrawOnComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'TestStatefulRedrawOn',
 );
 
 abstract class _$TestStatefulRedrawOnPropsAccessorsMixin
@@ -1260,6 +1280,9 @@ class _$TestStatefulRedrawOnComponent extends TestStatefulRedrawOnComponent {
   @override
   bool get $isClassGenerated => true;
 
+  @override
+  String get displayName => 'TestStatefulRedrawOn';
+
   /// The default consumed props, taken from _$TestStatefulRedrawOnProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
@@ -1277,7 +1300,6 @@ final $TestStatefulStoreHandlersComponentFactory = registerComponent(
   componentClass: TestStatefulStoreHandlersComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'TestStatefulStoreHandlers',
 );
 
 abstract class _$TestStatefulStoreHandlersPropsAccessorsMixin
@@ -1396,6 +1418,9 @@ class _$TestStatefulStoreHandlersComponent
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'TestStatefulStoreHandlers';
 
   /// The default consumed props, taken from _$TestStatefulStoreHandlersProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.

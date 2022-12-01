@@ -16,7 +16,6 @@ final $TestParent2ComponentFactory = registerComponent2(
   componentClass: TestParent2Component,
   isWrapper: false,
   parentType: null,
-  displayName: 'TestParent2',
 );
 
 abstract class _$TestParent2PropsAccessorsMixin implements _$TestParent2Props {
@@ -53,7 +52,7 @@ abstract class _$$TestParent2Props extends _$TestParent2Props
 
   factory _$$TestParent2Props(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestParent2Props$JsMap(backingMap);
+      return _$$TestParent2Props$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$TestParent2Props$PlainMap(backingMap);
     }
@@ -126,7 +125,8 @@ class _$TestParent2Component extends TestParent2Component {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -140,6 +140,9 @@ class _$TestParent2Component extends TestParent2Component {
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'TestParent2';
 
   /// The default consumed props, taken from _$TestParent2Props.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.

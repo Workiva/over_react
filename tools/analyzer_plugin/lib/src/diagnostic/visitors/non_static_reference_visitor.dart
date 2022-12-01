@@ -68,7 +68,7 @@ bool referencesImplicitThis(SimpleIdentifier identifier) {
     return false;
   }
   // not a class member
-  final enclosingElement = element.enclosingElement;
+  final Element? enclosingElement = element.enclosingElement;
   if (enclosingElement is! ClassElement) {
     return false;
   }
@@ -85,7 +85,7 @@ bool referencesImplicitThis(SimpleIdentifier identifier) {
   }
   // qualified property access
   if (parent is PropertyAccess) {
-    if (identical(parent.propertyName, identifier) && parent.realTarget != null) {
+    if (identical(parent.propertyName, identifier)) {
       return false;
     }
   }

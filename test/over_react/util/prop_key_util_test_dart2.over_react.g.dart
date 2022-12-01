@@ -16,7 +16,6 @@ final $TestComponentFactory = registerComponent2(
   componentClass: TestComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'Test',
 );
 
 abstract class _$TestPropsAccessorsMixin implements _$TestProps {
@@ -25,18 +24,16 @@ abstract class _$TestPropsAccessorsMixin implements _$TestProps {
 
   /// <!-- Generated from [_$TestProps.foo] -->
   @override
-  String get foo =>
-      props[_$key__foo___$TestProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  String get foo => (props[_$key__foo___$TestProps] ?? null) as String;
+
   /// <!-- Generated from [_$TestProps.foo] -->
   @override
   set foo(String value) => props[_$key__foo___$TestProps] = value;
 
   /// <!-- Generated from [_$TestProps.bar] -->
   @override
-  String get bar =>
-      props[_$key__bar___$TestProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  String get bar => (props[_$key__bar___$TestProps] ?? null) as String;
+
   /// <!-- Generated from [_$TestProps.bar] -->
   @override
   set bar(String value) => props[_$key__bar___$TestProps] = value;
@@ -81,7 +78,7 @@ abstract class _$$TestProps extends _$TestProps
 
   factory _$$TestProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestProps$JsMap(backingMap);
+      return _$$TestProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$TestProps$PlainMap(backingMap);
     }
@@ -154,7 +151,8 @@ class _$TestComponent extends TestComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -167,6 +165,9 @@ class _$TestComponent extends TestComponent {
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'Test';
 
   /// The default consumed props, taken from _$TestProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.

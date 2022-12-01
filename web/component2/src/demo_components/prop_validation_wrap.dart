@@ -19,7 +19,7 @@ import 'button.dart';
 
 part 'prop_validation_wrap.over_react.g.dart';
 
-UiFactory<PropTypesWrapProps> PropTypesWrap = _$PropTypesWrap;
+UiFactory<PropTypesWrapProps> PropTypesWrap = castUiFactory(_$PropTypesWrap); // ignore: undefined_identifier
 
 mixin PropTypesWrapProps on UiProps {}
 

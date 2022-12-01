@@ -68,7 +68,7 @@ class ReduxState {
 
   ReduxState(this.backgroundColor);
 
-  ReduxState.from(ReduxState oldState, {backgroundColor})
+  ReduxState.from(ReduxState oldState, {String backgroundColor})
       : this.backgroundColor = backgroundColor ?? oldState.backgroundColor;
 }
 

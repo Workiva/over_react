@@ -2,7 +2,7 @@ import 'package:over_react/over_react.dart';
 
 part 'component_render.over_react.g.dart';
 
-UiFactory<BadRenderProps> BadRender = _$BadRender; // ignore: undefined_identifier
+UiFactory<BadRenderProps> BadRender = castUiFactory(_$BadRender); // ignore: undefined_identifier
 
 mixin BadRenderProps on UiProps {}
 
@@ -24,3 +24,22 @@ class BadRenderComponent extends UiComponent2<BadRenderProps> {
     ];
   }
 }
+
+final BadRenderFnComponent = uiFunction<UiProps>(
+  (props) {
+    if (props.id == 'something') {
+      return false;
+    }
+
+    if (props.children.isEmpty) {
+      // Uninvoked builder: has quick-fix
+      return Dom.div();
+    }
+
+    return [
+      Dom.div()(),
+      Dom.span()(),
+    ];
+  },
+  UiFactoryConfig(displayName: 'BadRenderFnComponent'),
+);

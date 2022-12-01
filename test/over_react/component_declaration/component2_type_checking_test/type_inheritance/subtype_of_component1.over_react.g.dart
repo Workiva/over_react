@@ -15,9 +15,8 @@ final $TestSubtypeOfComponent1ComponentFactory = registerComponent2(
   builderFactory: _$TestSubtypeOfComponent1,
   componentClass: TestSubtypeOfComponent1Component,
   isWrapper: false,
-  parentType: $TestParentComponentFactory,
-  /* from `subtypeOf: TestParentComponent` */
-  displayName: 'TestSubtypeOfComponent1',
+  parentType:
+      $TestParentComponentFactory, /* from `subtypeOf: TestParentComponent` */
 );
 
 abstract class _$TestSubtypeOfComponent1PropsAccessorsMixin
@@ -57,7 +56,7 @@ abstract class _$$TestSubtypeOfComponent1Props
 
   factory _$$TestSubtypeOfComponent1Props(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestSubtypeOfComponent1Props$JsMap(backingMap);
+      return _$$TestSubtypeOfComponent1Props$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$TestSubtypeOfComponent1Props$PlainMap(backingMap);
     }
@@ -133,7 +132,8 @@ class _$TestSubtypeOfComponent1Component
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -148,6 +148,9 @@ class _$TestSubtypeOfComponent1Component
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'TestSubtypeOfComponent1';
 
   /// The default consumed props, taken from _$TestSubtypeOfComponent1Props.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.

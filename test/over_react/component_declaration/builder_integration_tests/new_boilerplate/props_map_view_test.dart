@@ -86,7 +86,7 @@ main() {
   });
 }
 
-UiFactory<TestProps> Test = _$Test;
+UiFactory<TestProps> Test = _$Test; // ignore: undefined_identifier, invalid_assignment
 
 mixin TestProps on UiProps {
   String stringProp;

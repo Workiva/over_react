@@ -16,7 +16,6 @@ final $TestComponentFactory = registerComponent(
   componentClass: TestComponent,
   isWrapper: true,
   parentType: null,
-  displayName: 'Test',
 );
 
 abstract class _$TestPropsAccessorsMixin implements _$TestProps {
@@ -26,8 +25,9 @@ abstract class _$TestPropsAccessorsMixin implements _$TestProps {
   /// <!-- Generated from [_$TestProps.onComponentDidMount] -->
   @override
   LifecycleCallback get onComponentDidMount =>
-      props[_$key__onComponentDidMount___$TestProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onComponentDidMount___$TestProps] ?? null)
+          as LifecycleCallback;
+
   /// <!-- Generated from [_$TestProps.onComponentDidMount] -->
   @override
   set onComponentDidMount(LifecycleCallback value) =>
@@ -36,8 +36,9 @@ abstract class _$TestPropsAccessorsMixin implements _$TestProps {
   /// <!-- Generated from [_$TestProps.onComponentWillUpdate] -->
   @override
   LifecycleCallback get onComponentWillUpdate =>
-      props[_$key__onComponentWillUpdate___$TestProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onComponentWillUpdate___$TestProps] ?? null)
+          as LifecycleCallback;
+
   /// <!-- Generated from [_$TestProps.onComponentWillUpdate] -->
   @override
   set onComponentWillUpdate(LifecycleCallback value) =>
@@ -46,8 +47,9 @@ abstract class _$TestPropsAccessorsMixin implements _$TestProps {
   /// <!-- Generated from [_$TestProps.onComponentWillReceiveProps] -->
   @override
   LifecycleCallback get onComponentWillReceiveProps =>
-      props[_$key__onComponentWillReceiveProps___$TestProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onComponentWillReceiveProps___$TestProps] ?? null)
+          as LifecycleCallback;
+
   /// <!-- Generated from [_$TestProps.onComponentWillReceiveProps] -->
   @override
   set onComponentWillReceiveProps(LifecycleCallback value) =>
@@ -56,8 +58,9 @@ abstract class _$TestPropsAccessorsMixin implements _$TestProps {
   /// <!-- Generated from [_$TestProps.onComponentDidUpdate] -->
   @override
   LifecycleCallback get onComponentDidUpdate =>
-      props[_$key__onComponentDidUpdate___$TestProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onComponentDidUpdate___$TestProps] ?? null)
+          as LifecycleCallback;
+
   /// <!-- Generated from [_$TestProps.onComponentDidUpdate] -->
   @override
   set onComponentDidUpdate(LifecycleCallback value) =>
@@ -66,8 +69,9 @@ abstract class _$TestPropsAccessorsMixin implements _$TestProps {
   /// <!-- Generated from [_$TestProps.onComponentWillUnmount] -->
   @override
   LifecycleCallback get onComponentWillUnmount =>
-      props[_$key__onComponentWillUnmount___$TestProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onComponentWillUnmount___$TestProps] ?? null)
+          as LifecycleCallback;
+
   /// <!-- Generated from [_$TestProps.onComponentWillUnmount] -->
   @override
   set onComponentWillUnmount(LifecycleCallback value) =>
@@ -76,8 +80,8 @@ abstract class _$TestPropsAccessorsMixin implements _$TestProps {
   /// <!-- Generated from [_$TestProps.onRender] -->
   @override
   LifecycleCallback get onRender =>
-      props[_$key__onRender___$TestProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onRender___$TestProps] ?? null) as LifecycleCallback;
+
   /// <!-- Generated from [_$TestProps.onRender] -->
   @override
   set onRender(LifecycleCallback value) =>
@@ -178,6 +182,9 @@ class _$TestComponent extends TestComponent {
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'Test';
 
   /// The default consumed props, taken from _$TestProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.

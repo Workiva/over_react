@@ -111,13 +111,15 @@ class InstantiatedComponentMeta<TMeta> extends InstantiatedMeta<TMeta> {
 
     Identifier subtypeOfValue;
 
-    NamedExpression subtypeOfParam = instantiated.unsupportedArguments.firstWhere((expression) {
-      return expression is NamedExpression && expression.name.label.name == _subtypeOfParamName;
-    }, orElse: () => null);
+    NamedExpression subtypeOfParam = instantiated.unsupportedArguments
+        .whereType<NamedExpression>()
+        .firstWhere((expression) => expression.name.label.name == _subtypeOfParamName,
+            orElse: () => null);
 
     if (subtypeOfParam != null) {
-      if (subtypeOfParam.expression is Identifier) {
-        subtypeOfValue = subtypeOfParam.expression;
+      final expression = subtypeOfParam.expression;
+      if (expression is Identifier) {
+        subtypeOfValue = expression;
         instantiated.unsupportedArguments.remove(subtypeOfParam);
       } else {
         throw '`$_subtypeOfParamName` must be an identifier: $subtypeOfParam';

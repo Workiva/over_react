@@ -19,7 +19,7 @@ part 'tag.over_react.g.dart';
 /// for adding context to just about any content.
 ///
 /// See: <https://getbootstrap.com/docs/4.4/components/tag/>
-UiFactory<TagProps> Tag = _$Tag;
+UiFactory<TagProps> Tag = castUiFactory(_$Tag); // ignore: undefined_identifier
 
 mixin TagProps on UiProps {
   /// The skin / "context" for the [Tag].

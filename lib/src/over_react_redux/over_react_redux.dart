@@ -18,19 +18,26 @@ library over_react_redux;
 
 import 'dart:html';
 import 'dart:js_util' as js_util;
-import 'package:meta/meta.dart';
-import 'package:over_react/src/component_declaration/component_base.dart' as component_base;
-import 'package:over_react/src/component_declaration/builder_helpers.dart' as builder_helpers;
-import 'package:collection/collection.dart';
+
 import 'package:js/js.dart';
-import 'package:over_react/over_react.dart';
+import 'package:meta/meta.dart';
+import 'package:over_react/component_base.dart';
+import 'package:over_react/src/component_declaration/annotations.dart';
+import 'package:over_react/src/component_declaration/builder_helpers.dart' as builder_helpers;
 import 'package:over_react/src/component_declaration/component_type_checking.dart';
+import 'package:over_react/src/util/context.dart';
+import 'package:over_react/src/util/dart_value_wrapper.dart';
+import 'package:over_react/src/util/equality.dart';
 import 'package:react/react_client.dart';
-import 'package:react/react_client/react_interop.dart';
 import 'package:react/react_client/js_backed_map.dart';
+import 'package:react/react_client/react_interop.dart';
 import 'package:redux/redux.dart';
 
 part 'over_react_redux.over_react.g.dart';
+
+// Notes:
+//
+// [1] This value could be either a raw value or a value wrapped in DartValueWrapper.
 
 /// This class is present:
 ///
@@ -43,6 +50,7 @@ abstract class $ConnectPropsMixin {
   static const PropsMeta meta = _$metaForConnectPropsMixin;
 }
 
+// ignore: deprecated_member_use_from_same_package
 @PropsMixin(keyNamespace: '')
 abstract class _$ConnectPropsMixin implements UiProps {
   @override
@@ -74,25 +82,33 @@ typedef dynamic Dispatcher(dynamic action);
 ///  component needs.
 ///  - It is called every time the store state changes.
 ///  - It receives the entire store state, and should return an object of data this component needs.
-/// If you need access to the props provided to the connected component you can use [mapStateToPropsWithOwnProps],
-/// the second argument will be `ownProps`.
-/// See: <https://react-redux.js.org/using-react-redux/connect-mapstate#defining-mapstatetoprops>
-///
+///   - If you need access to the props provided to the connected component you can use [mapStateToPropsWithOwnProps],
+///     the second argument will be `ownProps`.
+///     See: <https://react-redux.js.org/using-react-redux/connect-mapstate#defining-mapstatetoprops>
+///   - If you need component-instance-specific initialization, such as to setup instance based selectors with memoization,
+///     you can use [makeMapStateToProps] or [makeMapStateToPropsWithOwnProps] as a factory function, they will be called
+///     once when the component instantiates, and their returns will be used as the actual [mapStateToProps].
+///     See: <https://redux.js.org/recipes/computing-derived-data#sharing-selectors-across-multiple-components>
+///     See: <https://react-redux.js.org/api/connect#factory-functions>
 /// - [mapDispatchToProps] will be called with dispatch as the first argument.
-/// You will normally make use of this by returning new functions that call dispatch() inside themselves,
-/// and either pass in a plain action directly or pass in the result of an action creator.
-/// If you need access to the props provided to the connected component you can use [mapDispatchToPropsWithOwnProps],
-/// the second argument will be `ownProps`.
-/// See: <https://react-redux.js.org/using-react-redux/connect-mapdispatch#defining-mapdispatchtoprops-as-a-function>
-///
+///   - You will normally make use of this by returning new functions that call dispatch() inside themselves,
+///     and either pass in a plain action directly or pass in the result of an action creator.
+///   - If you need access to the props provided to the connected component you can use [mapDispatchToPropsWithOwnProps],
+///     the second argument will be `ownProps`.
+///     See: <https://react-redux.js.org/using-react-redux/connect-mapdispatch#defining-mapdispatchtoprops-as-a-function>
+///   - If you need component-instance-specific initialization, such as to setup instance based selectors with memoization,
+///     you can use [makeMapDispatchToProps] or [makeMapDispatchToPropsWithOwnProps] as a factory function, they will be
+///     called once when the component instantiates, and their returns will be used as the actual [mapDispatchToProps].
+///     See: <https://redux.js.org/recipes/computing-derived-data#sharing-selectors-across-multiple-components>
+///     See: <https://react-redux.js.org/api/connect#factory-functions>
 /// - [mergeProps] if specified, defines how the final props for the wrapped component are determined.
 /// If you do not provide [mergeProps], the wrapped component receives {...ownProps, ...stateProps, ...dispatchProps}
 /// by default.
 ///
-/// - [areStatesEqual] does a simple `==` check by default.
-/// - [areOwnPropsEqual] does a shallow Map equality check by default.
-/// - [areStatePropsEqual] does a shallow Map equality check by default.
-/// - [areMergedPropsEqual] does a shallow Map equality check by default.
+/// - [areStatesEqual] does an equality check using JS `===` (equivalent to [identical]) by default.
+/// - [areOwnPropsEqual] does a shallow Map equality check using [propsOrStateMapsEqual] by default.
+/// - [areStatePropsEqual] does a shallow Map equality check using [propsOrStateMapsEqual] by default.
+/// - [areMergedPropsEqual] does a shallow Map equality check using [propsOrStateMapsEqual] by default.
 ///
 /// - [context] can be utilized to provide a custom context object created with `createContext`.
 /// [context] is how you can utilize multiple stores. While supported, this is not recommended. :P
@@ -145,21 +161,33 @@ typedef dynamic Dispatcher(dynamic action);
 UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extends UiProps>({
   Map Function(TReduxState state) mapStateToProps,
   Map Function(TReduxState state, TProps ownProps) mapStateToPropsWithOwnProps,
+  Map Function(TReduxState state) Function(TReduxState initialState, TProps initialOwnProps) makeMapStateToProps,
+  Map Function(TReduxState state, TProps ownProps) Function(TReduxState initialState, TProps initialOwnProps) makeMapStateToPropsWithOwnProps,
   Map Function(Dispatcher dispatch) mapDispatchToProps,
-  Map Function(dynamic Function(dynamic) dispatch, TProps ownProps) mapDispatchToPropsWithOwnProps,
+  Map Function(Dispatcher dispatch, TProps ownProps) mapDispatchToPropsWithOwnProps,
+  Map Function(Dispatcher dispatch) Function(Dispatcher dispatch, TProps ownProps) makeMapDispatchToProps,
+  Map Function(Dispatcher dispatch, TProps ownProps) Function(Dispatcher dispatch, TProps ownProps) makeMapDispatchToPropsWithOwnProps,
   Map Function(TProps stateProps, TProps dispatchProps, TProps ownProps) mergeProps,
   bool Function(TReduxState nextState, TReduxState prevState) areStatesEqual,
-  bool Function(TProps nextProps, TProps prevProps) areOwnPropsEqual,
-  bool Function(TProps nextProps, TProps prevProps) areStatePropsEqual,
-  bool Function(TProps nextProps, TProps prevProps) areMergedPropsEqual,
+  // Use default parameter values instead of ??= in the function body to allow consumers
+  // to specify `null` and fall back to the JS default.
+  bool Function(TProps nextProps, TProps prevProps) areOwnPropsEqual = propsOrStateMapsEqual,
+  bool Function(TProps nextProps, TProps prevProps) areStatePropsEqual = propsOrStateMapsEqual,
+  bool Function(TProps nextProps, TProps prevProps) areMergedPropsEqual = propsOrStateMapsEqual,
   Context context,
   bool pure = true,
   bool forwardRef = false,
 }) {
-  areStatesEqual ??= _defaultEquality;
-  areOwnPropsEqual ??= _shallowMapEquality;
-  areStatePropsEqual ??= _shallowMapEquality;
-  areMergedPropsEqual ??= _shallowMapEquality;
+  List<dynamic> mapStateToPropsCheck = [mapStateToProps, mapStateToPropsWithOwnProps, makeMapStateToProps, makeMapStateToPropsWithOwnProps]..removeWhere((x) => x == null);
+  List<dynamic> mapDispatchToPropsCheck = [mapDispatchToProps, mapDispatchToPropsWithOwnProps, makeMapDispatchToProps, makeMapDispatchToPropsWithOwnProps]..removeWhere((x) => x == null);
+
+  if (mapStateToPropsCheck.length > 1) {
+    throw ArgumentError('Only one of the following arguments can be provided at a time: [mapStateToProps, mapStateToPropsWithOwnProps, makeMapStateToProps, makeMapStateToPropsWithOwnProps]');
+  }
+
+  if (mapDispatchToPropsCheck.length > 1) {
+    throw ArgumentError('Only one of the following arguments can be provided at a time: [mapDispatchToProps, mapDispatchToPropsWithOwnProps, makeMapDispatchToProps, makeMapDispatchToPropsWithOwnProps]');
+  }
 
   UiFactory<TProps> wrapWithConnect(UiFactory<TProps> factory) {
     final dartComponentFactory = factory().componentFactory;
@@ -170,42 +198,104 @@ UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extend
 
     TProps jsPropsToTProps(JsMap jsProps) => factory(JsBackedMap.backedBy(jsProps));
 
-    Function allowInteropWithArgCount(Function dartFunction, int count) {
+    T allowInteropWithArgCount<T extends Function>(T dartFunction, int count) {
       var interopFunction = allowInterop(dartFunction);
       js_util.callMethod(js_util.getProperty(window, 'Object'), 'defineProperty', [interopFunction, 'length', js_util.jsify({'value': count})]);
       return interopFunction;
     }
 
-    JsMap handleMapStateToProps(ReactInteropValue jsState) {
+    JsMap handleMapStateToProps(Object /*[1]*/ jsState) {
       return jsMapFromProps(
         mapStateToProps(
-          unwrapInteropValue(jsState),
+          DartValueWrapper.unwrapIfNeeded(jsState),
         ),
       );
     }
 
-    JsMap handleMapStateToPropsWithOwnProps(ReactInteropValue jsState, JsMap jsOwnProps) {
+    JsMap handleMapStateToPropsWithOwnProps(Object /*[1]*/ jsState, JsMap jsOwnProps) {
       return jsMapFromProps(
         mapStateToPropsWithOwnProps(
-          unwrapInteropValue(jsState),
+          DartValueWrapper.unwrapIfNeeded(jsState),
           jsPropsToTProps(jsOwnProps),
         ),
       );
     }
 
-    JsMap handleMapDispatchToProps(dynamic Function(dynamic) dispatch) {
+    JsMap Function(Object /*[1]*/ jsState) handleMakeMapStateToProps(Object /*[1]*/ initialJsState, JsMap initialJsOwnProps) {
+      var mapToFactory = makeMapStateToProps(
+        DartValueWrapper.unwrapIfNeeded(initialJsState),
+        jsPropsToTProps(initialJsOwnProps)
+      );
+      JsMap handleMakeMapStateToPropsFactory(Object /*[1]*/ jsState) {
+        return jsMapFromProps(
+          mapToFactory(
+            DartValueWrapper.unwrapIfNeeded(jsState),
+          ),
+        );
+      }
+      return allowInteropWithArgCount(handleMakeMapStateToPropsFactory, 1);
+    }
+
+    JsMap Function(Object /*[1]*/ jsState, JsMap jsOwnProps) handleMakeMapStateToPropsWithOwnProps(Object /*[1]*/ initialJsState, JsMap initialJsOwnProps) {
+      var mapToFactory = makeMapStateToPropsWithOwnProps(
+        DartValueWrapper.unwrapIfNeeded(initialJsState),
+        jsPropsToTProps(initialJsOwnProps)
+      );
+      JsMap handleMakeMapStateToPropsWithOwnPropsFactory(Object /*[1]*/ jsState, JsMap jsOwnProps) {
+        return jsMapFromProps(
+          mapToFactory(
+            DartValueWrapper.unwrapIfNeeded(jsState),
+            jsPropsToTProps(jsOwnProps),
+          ),
+        );
+      }
+      return allowInteropWithArgCount(handleMakeMapStateToPropsWithOwnPropsFactory, 2);
+    }
+
+    JsMap handleMapDispatchToProps(Dispatcher dispatch) {
       return jsMapFromProps(
         mapDispatchToProps(dispatch),
       );
     }
 
-    JsMap handleMapDispatchToPropsWithOwnProps(Function dispatch, JsMap jsOwnProps) {
+    JsMap handleMapDispatchToPropsWithOwnProps(Dispatcher dispatch, JsMap jsOwnProps) {
       return jsMapFromProps(
         mapDispatchToPropsWithOwnProps(
           dispatch,
           jsPropsToTProps(jsOwnProps),
         )
       );
+    }
+
+    JsMap Function(Dispatcher dispatch) handleMakeMapDispatchToProps(Dispatcher dispatch, JsMap initialJsOwnProps) {
+      var mapToFactory = makeMapDispatchToProps(
+        dispatch,
+        jsPropsToTProps(initialJsOwnProps)
+      );
+      JsMap handleMakeMapDispatchToPropsFactory(Dispatcher dispatch) {
+        return jsMapFromProps(
+          mapToFactory(
+            dispatch,
+          ),
+        );
+      }
+      return allowInteropWithArgCount(handleMakeMapDispatchToPropsFactory, 1);
+    }
+
+    JsMap Function(Dispatcher dispatch, JsMap jsOwnProps) handleMakeMapDispatchToPropsWithOwnProps(Dispatcher dispatch, JsMap initialJsOwnProps) {
+      var mapToFactory = makeMapDispatchToPropsWithOwnProps(
+        dispatch,
+        jsPropsToTProps(initialJsOwnProps)
+      );
+      JsMap handleMakeMapDispatchToPropsWithOwnPropsFactory(Dispatcher dispatch, JsMap jsOwnProps) {
+        return jsMapFromProps(
+          mapToFactory(
+            dispatch,
+            jsPropsToTProps(jsOwnProps),
+          ),
+        );
+      }
+      return allowInteropWithArgCount(handleMakeMapDispatchToPropsWithOwnPropsFactory, 2);
     }
 
     JsMap handleMergeProps(JsMap jsStateProps, JsMap jsDispatchProps, JsMap jsOwnProps) {
@@ -218,8 +308,8 @@ UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extend
       );
     }
 
-    bool handleAreStatesEqual(ReactInteropValue jsNext, ReactInteropValue jsPrev) =>
-        areStatesEqual(unwrapInteropValue(jsNext), unwrapInteropValue(jsPrev));
+    bool handleAreStatesEqual(Object /*[1]*/ jsNext, Object /*[1]*/ jsPrev) =>
+        areStatesEqual(DartValueWrapper.unwrapIfNeeded(jsNext), DartValueWrapper.unwrapIfNeeded(jsPrev));
 
     bool handleAreOwnPropsEqual(JsMap jsNext, JsMap jsPrev) =>
         areOwnPropsEqual(jsPropsToTProps(jsNext), jsPropsToTProps(jsPrev));
@@ -230,20 +320,66 @@ UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extend
     bool handleAreMergedPropsEqual(JsMap jsNext, JsMap jsPrev) =>
         areMergedPropsEqual(jsPropsToTProps(jsNext), jsPropsToTProps(jsPrev));
 
+    final connectOptions = JsConnectOptions(
+      forwardRef: forwardRef,
+      pure: pure,
+      context: context?.jsThis ?? JsReactRedux.ReactReduxContext,
+    );
+    // These can't be `null` in the JS object, so we conditionally define them
+    // so they won't exist in the object if we don't want to specify them.
+    if (areStatesEqual != null) {
+      connectOptions.areStatesEqual = allowInterop(handleAreStatesEqual);
+    }
+    if (areOwnPropsEqual != null) {
+      connectOptions.areOwnPropsEqual = allowInterop(handleAreOwnPropsEqual);
+    }
+    if (areStatePropsEqual != null) {
+      connectOptions.areStatePropsEqual = allowInterop(handleAreStatePropsEqual);
+    }
+    if (areMergedPropsEqual != null) {
+      connectOptions.areMergedPropsEqual = allowInterop(handleAreMergedPropsEqual);
+    }
+
+    // return typed as dynamic in case we ever want to allow for the object based syntax
+    Function interopMapStateToPropsHandler() {
+      if (mapStateToProps != null) {
+        return allowInteropWithArgCount(handleMapStateToProps, 1);
+      }
+      if (mapStateToPropsWithOwnProps != null) {
+        return allowInteropWithArgCount(handleMapStateToPropsWithOwnProps, 2);
+      }
+      if (makeMapStateToProps != null) {
+        return allowInteropWithArgCount(handleMakeMapStateToProps, 2);
+      }
+      if (makeMapStateToPropsWithOwnProps != null) {
+        return allowInteropWithArgCount(handleMakeMapStateToPropsWithOwnProps, 2);
+      }
+      return null;
+    }
+
+    // return typed as dynamic in case we ever want to allow for the object based syntax
+    Function interopMapDispatchToPropsHandler() {
+      if (mapDispatchToProps != null) {
+        return allowInteropWithArgCount(handleMapDispatchToProps, 1);
+      }
+      if (mapDispatchToPropsWithOwnProps != null) {
+        return allowInteropWithArgCount(handleMapDispatchToPropsWithOwnProps, 2);
+      }
+      if (makeMapDispatchToProps != null) {
+        return allowInteropWithArgCount(handleMakeMapDispatchToProps, 2);
+      }
+      if (makeMapDispatchToPropsWithOwnProps != null) {
+        return allowInteropWithArgCount(handleMakeMapDispatchToPropsWithOwnProps, 2);
+      }
+      return null;
+    }
+
     final hoc = mockableJsConnect(
-      mapStateToProps != null ? allowInteropWithArgCount(handleMapStateToProps, 1) : mapStateToPropsWithOwnProps != null ? allowInteropWithArgCount(handleMapStateToPropsWithOwnProps, 2) : null,
-      mapDispatchToProps != null ? allowInteropWithArgCount(handleMapDispatchToProps, 1) : mapDispatchToPropsWithOwnProps != null ? allowInteropWithArgCount(handleMapDispatchToPropsWithOwnProps, 2) : null,
+      interopMapStateToPropsHandler(),
+      interopMapDispatchToPropsHandler(),
       mergeProps != null ? allowInterop(handleMergeProps) : null,
-      JsConnectOptions(
-        areStatesEqual: allowInterop(handleAreStatesEqual),
-        areOwnPropsEqual: allowInterop(handleAreOwnPropsEqual),
-        areStatePropsEqual: allowInterop(handleAreStatePropsEqual),
-        areMergedPropsEqual: allowInterop(handleAreMergedPropsEqual),
-        forwardRef: forwardRef,
-        pure: pure,
-        context: context?.jsThis ?? JsReactRedux.ReactReduxContext,
-      ),
-    )(dartComponentClass);
+      connectOptions,
+    )(dartComponentClass as ReactClass);
 
     /// Use a Dart proxy instead of a JS one since we're treating it like a Dart component:
     /// props values should be passed to the underlying component (e.g., those returned by mapStateToProps)
@@ -251,7 +387,7 @@ UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extend
     /// into Dart code (e.g., those passed into mapStateToPropsWithOwnProps/areOwnPropsEqual)
     /// without needing unwrapping/conversion.
     final hocFactoryProxy = ReactDartComponentFactoryProxy2(hoc);
-    setComponentTypeMeta(hocFactoryProxy, isHoc: true, parentType: dartComponentFactory);
+    setComponentTypeMeta(hocFactoryProxy.type, isHoc: true, parentType: dartComponentFactory.type);
 
     TProps connectedFactory([Map props]) {
       return (factory(props)..componentFactory = hocFactoryProxy);
@@ -263,13 +399,10 @@ UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extend
   return wrapWithConnect;
 }
 
-bool _defaultEquality(Object a, Object b) => a == b;
-bool _shallowMapEquality(Map a, Map b) => const MapEquality().equals(a, b);
-
 @JS('ReactRedux.connect')
 external ReactClass Function(ReactClass) _jsConnect(
     [
-      /* JsMap Function(dynamic state, [JsMap ownProps]) */ Function mapStateToProps,
+      /* JsMap Function(dynamic state, [JsMap ownProps]) | JsMap Function(dynamic state, [JsMap ownProps]) Function(dynamic state, [JsMap ownProps]) */ Function mapStateToProps,
       /* JsMap Function(dynamic dispatch, [JsMap ownProps]) | JsMap */ dynamic mapDispatchToProps,
       /* Function(JsMap stateProps, JsMap dispatchProps, JsMap ownProps) */ Function mergeProps,
       JsConnectOptions options,
@@ -316,7 +449,7 @@ class ReduxProviderProps extends builder_helpers.UiProps {
   bool get $isClassGenerated => true;
 
   /// The __single__ Redux store in your application.
-  Store get store => props['store'];
+  Store get store => props['store'] as Store;
 
   /// The __single__ Redux store in your application.
   set store(covariant Store v) => props['store'] = v;
@@ -340,9 +473,9 @@ UiFactory<ReduxProviderProps> ReduxProvider = ([map]) => ReduxProviderProps(map)
 class ReactJsReactReduxComponentFactoryProxy extends ReactJsContextComponentFactoryProxy {
   ReactJsReactReduxComponentFactoryProxy(
     ReactClass jsClass, {
-    shouldConvertDomProps = true,
-    isConsumer = false,
-    isProvider = false,
+    bool shouldConvertDomProps = true,
+    bool isConsumer = false,
+    bool isProvider = false,
   }) : super(jsClass, isProvider: isProvider, isConsumer: isConsumer, shouldConvertDomProps: shouldConvertDomProps);
 
   @override
@@ -355,7 +488,7 @@ class ReactJsReactReduxComponentFactoryProxy extends ReactJsContextComponentFact
     JsBackedMap propsForJs = JsBackedMap.from(props);
 
     if (propsForJs['store'] != null) {
-      propsForJs['store'] = _reduxifyStore(propsForJs['store']);
+      propsForJs['store'] = _reduxifyStore(propsForJs['store'] as Store);
     }
 
     if (propsForJs['context'] != null) {
@@ -367,27 +500,36 @@ class ReactJsReactReduxComponentFactoryProxy extends ReactJsContextComponentFact
 }
 
 /// Converts a Redux.dart [Store] into a Javascript object formatted for consumption by react-redux.
-JsReactReduxStore _reduxifyStore(Store store){
+JsReactReduxStore _reduxifyStore(Store store) {
   return JsReactReduxStore(
     getState: allowInterop(() {
-      return wrapInteropValue(store.state);
+      return DartValueWrapper.wrapIfNeeded(store.state);
     }),
     subscribe: allowInterop((cb) {
       return allowInterop(store.onChange.listen((_){cb();}).cancel);
     }),
     dispatch: allowInterop((action) {
       store.dispatch(action);
-    })
+    }),
+    dartStore: store,
   );
 }
 
 @JS()
 @anonymous
 class JsReactReduxStore {
+  /// The Dart Redux `Store` instance.
+  ///
+  /// Set once within [_reduxifyStore], and should only be used internally.
+  ///
+  /// > See: `createStoreHook` / `useStore`.
+  external Store get dartStore;
+
   external factory JsReactReduxStore({
-    ReactInteropValue Function() getState,
-    void Function(dynamic) dispatch,
+    Object /*[1]*/ Function() getState,
+    Dispatcher dispatch,
     Function Function(Function) subscribe,
+    Store dartStore,
   });
 }
 
@@ -395,14 +537,14 @@ class JsReactReduxStore {
 @JS()
 @anonymous
 class JsConnectOptions {
-    external set areStatesEqual(bool Function(ReactInteropValue, ReactInteropValue) value);
+    external set areStatesEqual(bool Function(Object /*[1]*/, Object /*[1]*/) value);
     external set areOwnPropsEqual(bool Function(JsMap, JsMap) value);
     external set areStatePropsEqual(bool Function(JsMap, JsMap) value);
     external set areMergedPropsEqual(bool Function(JsMap, JsMap) value);
     external set forwardRef(bool value);
     external set pure(bool value);
     external set context(ReactContext value);
-    external bool Function(ReactInteropValue, ReactInteropValue) get areStatesEqual;
+    external bool Function(Object /*[1]*/, Object /*[1]*/) get areStatesEqual;
     external bool Function(JsMap, JsMap) get areOwnPropsEqual;
     external bool Function(JsMap, JsMap) get areStatePropsEqual;
     external bool Function(JsMap, JsMap) get areMergedPropsEqual;
@@ -410,7 +552,7 @@ class JsConnectOptions {
     external bool get pure;
     external ReactContext get context;
   external factory JsConnectOptions({
-    bool Function(ReactInteropValue, ReactInteropValue) areStatesEqual,
+    bool Function(Object /*[1]*/, Object /*[1]*/) areStatesEqual,
     bool Function(JsMap, JsMap) areOwnPropsEqual,
     bool Function(JsMap, JsMap) areStatePropsEqual,
     bool Function(JsMap, JsMap) areMergedPropsEqual,
@@ -420,17 +562,3 @@ class JsConnectOptions {
   });
 }
 
-/// A wrapper class that prevents dart2js from jsifying [value].
-class ReactInteropValue {
-  dynamic value;
-}
-
-/// A helper function that retrieves the [value] from a [ReactInteropValue].
-T unwrapInteropValue<T>(ReactInteropValue value) {
-  return value.value;
-}
-
-/// A helper function that wraps a [value] in a [ReactInteropValue].
-ReactInteropValue wrapInteropValue(dynamic value) {
-  return ReactInteropValue()..value = value;
-}

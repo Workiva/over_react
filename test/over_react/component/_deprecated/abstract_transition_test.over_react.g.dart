@@ -16,7 +16,6 @@ final $TransitionerComponentFactory = registerComponent(
   componentClass: TransitionerComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'Transitioner',
 );
 
 abstract class _$TransitionerPropsAccessorsMixin
@@ -27,8 +26,9 @@ abstract class _$TransitionerPropsAccessorsMixin
   /// <!-- Generated from [_$TransitionerProps.onHandlePreShowing] -->
   @override
   Callback get onHandlePreShowing =>
-      props[_$key__onHandlePreShowing___$TransitionerProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onHandlePreShowing___$TransitionerProps] ?? null)
+          as Callback;
+
   /// <!-- Generated from [_$TransitionerProps.onHandlePreShowing] -->
   @override
   set onHandlePreShowing(Callback value) =>
@@ -37,8 +37,8 @@ abstract class _$TransitionerPropsAccessorsMixin
   /// <!-- Generated from [_$TransitionerProps.onHandleShowing] -->
   @override
   Callback get onHandleShowing =>
-      props[_$key__onHandleShowing___$TransitionerProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onHandleShowing___$TransitionerProps] ?? null) as Callback;
+
   /// <!-- Generated from [_$TransitionerProps.onHandleShowing] -->
   @override
   set onHandleShowing(Callback value) =>
@@ -47,8 +47,8 @@ abstract class _$TransitionerPropsAccessorsMixin
   /// <!-- Generated from [_$TransitionerProps.onHandleShown] -->
   @override
   Callback get onHandleShown =>
-      props[_$key__onHandleShown___$TransitionerProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onHandleShown___$TransitionerProps] ?? null) as Callback;
+
   /// <!-- Generated from [_$TransitionerProps.onHandleShown] -->
   @override
   set onHandleShown(Callback value) =>
@@ -57,8 +57,8 @@ abstract class _$TransitionerPropsAccessorsMixin
   /// <!-- Generated from [_$TransitionerProps.onHandleHiding] -->
   @override
   Callback get onHandleHiding =>
-      props[_$key__onHandleHiding___$TransitionerProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onHandleHiding___$TransitionerProps] ?? null) as Callback;
+
   /// <!-- Generated from [_$TransitionerProps.onHandleHiding] -->
   @override
   set onHandleHiding(Callback value) =>
@@ -67,8 +67,8 @@ abstract class _$TransitionerPropsAccessorsMixin
   /// <!-- Generated from [_$TransitionerProps.onHandleHidden] -->
   @override
   Callback get onHandleHidden =>
-      props[_$key__onHandleHidden___$TransitionerProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onHandleHidden___$TransitionerProps] ?? null) as Callback;
+
   /// <!-- Generated from [_$TransitionerProps.onHandleHidden] -->
   @override
   set onHandleHidden(Callback value) =>
@@ -77,8 +77,8 @@ abstract class _$TransitionerPropsAccessorsMixin
   /// <!-- Generated from [_$TransitionerProps.onPrepareShow] -->
   @override
   Callback get onPrepareShow =>
-      props[_$key__onPrepareShow___$TransitionerProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onPrepareShow___$TransitionerProps] ?? null) as Callback;
+
   /// <!-- Generated from [_$TransitionerProps.onPrepareShow] -->
   @override
   set onPrepareShow(Callback value) =>
@@ -87,8 +87,8 @@ abstract class _$TransitionerPropsAccessorsMixin
   /// <!-- Generated from [_$TransitionerProps.onPrepareHide] -->
   @override
   Callback get onPrepareHide =>
-      props[_$key__onPrepareHide___$TransitionerProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onPrepareHide___$TransitionerProps] ?? null) as Callback;
+
   /// <!-- Generated from [_$TransitionerProps.onPrepareHide] -->
   @override
   set onPrepareHide(Callback value) =>
@@ -97,8 +97,8 @@ abstract class _$TransitionerPropsAccessorsMixin
   /// <!-- Generated from [_$TransitionerProps.hasTransition] -->
   @override
   bool get hasTransition =>
-      props[_$key__hasTransition___$TransitionerProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__hasTransition___$TransitionerProps] ?? null) as bool;
+
   /// <!-- Generated from [_$TransitionerProps.hasTransition] -->
   @override
   set hasTransition(bool value) =>
@@ -107,8 +107,8 @@ abstract class _$TransitionerPropsAccessorsMixin
   /// <!-- Generated from [_$TransitionerProps.initiallyShown] -->
   @override
   bool get initiallyShown =>
-      props[_$key__initiallyShown___$TransitionerProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__initiallyShown___$TransitionerProps] ?? null) as bool;
+
   /// <!-- Generated from [_$TransitionerProps.initiallyShown] -->
   @override
   set initiallyShown(bool value) =>
@@ -117,8 +117,9 @@ abstract class _$TransitionerPropsAccessorsMixin
   /// <!-- Generated from [_$TransitionerProps.transitionTimeout] -->
   @override
   Duration get transitionTimeout =>
-      props[_$key__transitionTimeout___$TransitionerProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__transitionTimeout___$TransitionerProps] ?? null)
+          as Duration;
+
   /// <!-- Generated from [_$TransitionerProps.transitionTimeout] -->
   @override
   set transitionTimeout(Duration value) =>
@@ -294,6 +295,9 @@ class _$TransitionerComponent extends TransitionerComponent {
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'Transitioner';
 
   /// The default consumed props, taken from _$TransitionerProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.

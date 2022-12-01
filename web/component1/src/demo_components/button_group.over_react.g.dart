@@ -16,7 +16,6 @@ final $ButtonGroupComponentFactory = registerComponent(
   componentClass: ButtonGroupComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'ButtonGroup',
 );
 
 abstract class _$ButtonGroupPropsAccessorsMixin implements _$ButtonGroupProps {
@@ -32,8 +31,8 @@ abstract class _$ButtonGroupPropsAccessorsMixin implements _$ButtonGroupProps {
   /// <!-- Generated from [_$ButtonGroupProps.size] -->
   @override
   ButtonGroupSize get size =>
-      props[_$key__size___$ButtonGroupProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__size___$ButtonGroupProps] ?? null) as ButtonGroupSize;
+
   /// Apply a button size variation universally to every [Button] within the [ButtonGroup].
   ///
   /// See: <https://getbootstrap.com/docs/4.4/components/button-group/#sizing>.
@@ -50,8 +49,8 @@ abstract class _$ButtonGroupPropsAccessorsMixin implements _$ButtonGroupProps {
   /// <!-- Generated from [_$ButtonGroupProps.skin] -->
   @override
   ButtonSkin get skin =>
-      props[_$key__skin___$ButtonGroupProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__skin___$ButtonGroupProps] ?? null) as ButtonSkin;
+
   /// The [ButtonSkin] variation applied to every [Button] within the [ButtonGroup].
   ///
   /// <!-- Generated from [_$ButtonGroupProps.skin] -->
@@ -67,8 +66,8 @@ abstract class _$ButtonGroupPropsAccessorsMixin implements _$ButtonGroupProps {
   /// <!-- Generated from [_$ButtonGroupProps.isVertical] -->
   @override
   bool get isVertical =>
-      props[_$key__isVertical___$ButtonGroupProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__isVertical___$ButtonGroupProps] ?? null) as bool;
+
   /// Make the [Button]s within a [ButtonGroup] stack vertically.
   ///
   /// See: <https://getbootstrap.com/docs/4.4/components/button-group/#vertical-variation>.
@@ -205,6 +204,9 @@ class _$ButtonGroupComponent extends ButtonGroupComponent {
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'ButtonGroup';
 
   /// The default consumed props, taken from _$ButtonGroupProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.

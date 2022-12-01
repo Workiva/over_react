@@ -20,6 +20,8 @@ import 'package:react/react_client.dart';
 import 'package:react/react_client/js_backed_map.dart';
 import 'package:react/react.dart' as react;
 
+import '../../over_react.dart';
+
 class StrictModeProps extends component_base.UiProps
     with builder_helpers.GeneratedClass
     implements builder_helpers.UiProps {
@@ -29,6 +31,9 @@ class StrictModeProps extends component_base.UiProps
 
   @override
   ReactComponentFactoryProxy componentFactory = react.StrictMode;
+
+  @override
+  PropsMetaCollection get staticMeta => throw UnimplementedError('StrictModeProps instances do not implement instance meta');
 
   @override
   final Map props;
@@ -42,7 +47,7 @@ class StrictModeProps extends component_base.UiProps
 /// > Note:
 /// > Strict mode checks are run in development mode only; they do not impact the production build.
 ///
-/// Like [Fragment], [StrictMode] does not render any visible UI.
+/// Like [react.Fragment], [StrictMode] does not render any visible UI.
 /// It activates additional checks and warnings for its descendants.
 /// [StrictMode] currently helps with:
 /// - Identifying components with unsafe lifecycles

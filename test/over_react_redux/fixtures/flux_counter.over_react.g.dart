@@ -16,7 +16,6 @@ final $FluxCounterComponentFactory = registerComponent2(
   componentClass: FluxCounterComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'FluxCounter',
 );
 
 abstract class _$FluxCounterPropsAccessorsMixin implements _$FluxCounterProps {
@@ -53,7 +52,7 @@ abstract class _$$FluxCounterProps extends _$FluxCounterProps
 
   factory _$$FluxCounterProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$FluxCounterProps$JsMap(backingMap);
+      return _$$FluxCounterProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$FluxCounterProps$PlainMap(backingMap);
     }
@@ -126,7 +125,8 @@ class _$FluxCounterComponent extends FluxCounterComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -140,6 +140,9 @@ class _$FluxCounterComponent extends FluxCounterComponent {
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'FluxCounter';
 
   /// The default consumed props, taken from _$FluxCounterProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.

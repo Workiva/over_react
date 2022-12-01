@@ -16,12 +16,11 @@
 library dom_components_test;
 
 import 'package:over_react/over_react.dart';
-import 'package:react/react_client.dart';
 import 'package:test/test.dart';
 
 main() {
   group('Dom component:', () {
-    var expectedMethodsOnDom = <Function /* dom method */, String /* method name */>{
+    var expectedMethodsOnDom = <UiFactory /* dom method */, String /* method name */>{
       Dom.a: 'a', Dom.abbr: 'abbr', Dom.address: 'address', Dom.area: 'area', Dom.article: 'article',
       Dom.aside: 'aside', Dom.audio: 'audio', Dom.b: 'b', Dom.base: 'base', Dom.bdi: 'bdi', Dom.bdo: 'bdo',
       Dom.big: 'big', Dom.blockquote: 'blockquote', Dom.body: 'body', Dom.br: 'br', Dom.button: 'button',
@@ -84,8 +83,7 @@ main() {
       if (expectedTagName.startsWith(RegExp('svg.'))) expectedTagName = expectedTagName.substring(3);
 
       test('Dom.$methodName() generates the correct type', () {
-        DomProps builder = method();
-        ReactElement component = builder();
+        final component = method()();
         expect(component.type, equalsIgnoringCase(expectedTagName));
       });
     });

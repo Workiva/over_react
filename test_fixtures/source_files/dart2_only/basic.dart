@@ -5,6 +5,7 @@ part 'basic.over_react.g.dart';
 @Factory()
 UiFactory<BasicProps> Basic = _$Basic; // ignore: undefined_identifier
 
+@deprecated
 @Props()
 //// ignore: mixin_of_non_class,undefined_class
 class _$BasicProps extends UiProps {

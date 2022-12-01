@@ -22,12 +22,12 @@ import 'parsing_helpers.dart';
 main() {
   group('Member Association', () {
     BoilerplateMemberHelper memberHelper;
-    Iterable<BoilerplateFactory> factories;
-    Iterable<BoilerplateComponent> components;
-    Iterable<BoilerplateProps> props;
-    Iterable<BoilerplateState> states;
-    Iterable<BoilerplateStateMixin> stateMixins;
-    Iterable<BoilerplatePropsMixin> propsMixins;
+    List<BoilerplateFactory> factories;
+    List<BoilerplateComponent> components;
+    List<BoilerplateProps> props;
+    List<BoilerplateState> states;
+    List<BoilerplateStateMixin> stateMixins;
+    List<BoilerplatePropsMixin> propsMixins;
 
     group('normalizeName', () {
       test('removes the legacy prefixes from a string', () {
@@ -214,6 +214,28 @@ main() {
           expect(state.name.name, 'ThirdFooState');
 
           expect(getPropsFor(state, props, propsMixins).b.name.name, 'ThirdFooProps');
+        });
+      });
+    });
+
+    group('getPropsForFunctionComponent', () {
+      group('when passed a function component factory', () {
+        test('', () {
+          final factory = factories.firstWhere((factory) => factory.name.name == 'FunctionFoo');
+          expect(normalizeName(getPropsForFunctionComponent(props, propsMixins, factory).b.name.name),
+              'FunctionFoo2Props');
+        });
+
+        test('with no left hand typing', () {
+          final factory = factories.firstWhere((factory) => factory.name.name == 'FunctionFoo1');
+          expect(normalizeName(getPropsForFunctionComponent(props, propsMixins, factory).b.name.name),
+              'FunctionFoo2Props');
+        });
+
+        test('with prefixed props', () {
+          final factory = factories.firstWhere((factory) => factory.name.name == 'FunctionFoo2');
+          expect(normalizeName(getPropsForFunctionComponent(props, propsMixins, factory).b.name.name),
+              'FunctionFooProps');
         });
       });
     });
