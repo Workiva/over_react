@@ -1,5 +1,15 @@
 # OverReact Changelog
 
+## [4.6.0](https://github.com/Workiva/over_react/compare/4.5.0...4.6.0)
+#### Analyzer Plugin
+- [#788] Add new `over_react_hooks_exhaustive_deps` diagnostic that validates the dependency lists of React hooks such as `useEffect`, `useMemo`, and `useCallback`. 
+  
+  Ported/forked from the JS eslint-plugin-react-hooks `react-hooks/exhaustive-deps` rule 
+([info from the React docs](https://reactjs.org/docs/hooks-effect.html#:~:text=If%20you%20use%20this%20optimization%2C%20make%20sure%20the%20array%20includes),
+ [package](https://www.npmjs.com/package/eslint-plugin-react-hooks),
+ [source](https://github.com/facebook/react/blob/main@%7B2020-10-16%7D/packages/eslint-plugin-react-hooks/src/ExhaustiveDeps.js)),
+this Dart diagnostic aims to provide parity with the dev experience of the JS lint rule, with some tweaks to work better with Dart and over_react's flavor of React APIs.
+
 ## [4.5.0](https://github.com/Workiva/over_react/compare/4.4.4...4.5.0)
 - [#785] Add utilities for jsifying/unsifying context props
 
