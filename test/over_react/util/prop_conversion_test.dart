@@ -28,15 +28,13 @@ main() {
 
   group('prop conversion', () {
     group('utilities:', () {
+      Matcher hasJsBackedMapValue(dynamic matcher) => isA<JsMap>()
+          .having((jsMap) => JsBackedMap.backedBy(jsMap), 'JsBackedMap.backedBy', matcher);
+
       group('jsifyMapProp', () {
         test('passes through null values', () {
           expect(jsifyMapProp(null), null);
         });
-
-        Matcher hasJsBackedMapValue(dynamic matcher) => isA<JsMap>().having(
-            (jsMap) => JsBackedMap.backedBy(jsMap),
-            'JsBackedMap.backedBy',
-            matcher);
 
         test('converts maps to JS objects', () {
           expect(jsifyMapProp({'foo': 'bar'}),
@@ -75,14 +73,101 @@ main() {
           });
 
           test('casting the returned map to the correct type', () {
-            expect(
-                unjsifyMapProp<String, String>(jsify({'foo': 'bar'}) as JsMap),
+            expect(unjsifyMapProp<String, String>(jsify({'foo': 'bar'}) as JsMap),
                 isA<Map<String, String>>());
-            expect(unjsifyMapProp<String, int>(jsify({'foo': 1}) as JsMap),
-                isA<Map<String, int>>());
+            expect(
+                unjsifyMapProp<String, int>(jsify({'foo': 1}) as JsMap), isA<Map<String, int>>());
           });
         });
         // This function is tested more thoroughly and functionally in the "Map props using (un)jsifyMapProp" group below.
+      });
+
+      group('jsifyMapListProp', () {
+        test('passes through null values', () {
+          expect(jsifyMapListProp(null), null);
+        });
+
+        test('passes through empty list', () {
+          expect(jsifyMapListProp([]), []);
+        });
+
+        test('converts maps to JS objects', () {
+          expect(
+            jsifyMapListProp([
+              {'foo': 'bar'},
+              {'bar': 1},
+              {'foo2': true},
+            ]),
+            orderedEquals([
+              hasJsBackedMapValue({'foo': 'bar'}),
+              hasJsBackedMapValue({'bar': 1}),
+              hasJsBackedMapValue({'foo2': true}),
+            ]),
+          );
+        });
+
+        test('converts nested maps deep conversion of JS objects and functions', () {
+          dartFunction() {}
+
+          expect(
+            jsifyMapListProp([
+              {
+                'foo': {'bar': dartFunction}
+              }
+            ]),
+            orderedEquals([
+              hasJsBackedMapValue({
+                'foo': hasJsBackedMapValue({'bar': allowInterop(dartFunction)})
+              })
+            ]),
+          );
+        });
+      });
+
+      group('unjsifyMapListProp', () {
+        test('passes through null values', () {
+          expect(unjsifyMapListProp(null), null);
+        });
+
+        test('passes through empty list', () {
+          expect(unjsifyMapListProp([]), []);
+        });
+
+        group('converts JS objects to maps', () {
+          test('with the correct contents', () {
+            expect(
+              unjsifyMapListProp([
+                jsify({'foo': 'bar'}) as JsMap,
+                jsify({'bar': 1}) as JsMap,
+                jsify({'foo2': true}) as JsMap,
+              ]),
+              equals([
+                {'foo': 'bar'},
+                {'bar': 1},
+                {'foo2': true},
+              ]),
+            );
+          });
+
+          test('casting the returned map to the correct type', () {
+            expect(
+                unjsifyMapListProp<String, String>([
+                  jsify({'foo': 'bar'}) as JsMap
+                ]),
+                isA<List<Map<String, String>>>());
+            expect(
+                unjsifyMapListProp<String, int>([
+                  jsify({'foo': 1}) as JsMap
+                ]),
+                isA<List<Map<String, int>>>());
+            expect(
+                unjsifyMapListProp<String, dynamic>([
+                  jsify({'foo': 1}) as JsMap,
+                  jsify({'bar': true}) as JsMap
+                ]),
+                isA<List<Map<String, dynamic>>>());
+          });
+        });
       });
 
       group('jsifyRefProp', () {
