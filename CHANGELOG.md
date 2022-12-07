@@ -1,5 +1,8 @@
 # OverReact Changelog
 
+## [4.7.0](https://github.com/Workiva/over_react/compare/4.6.0...4.7.0)
+- [#795] Add `jsifyMapListProp` and `unjsifyMapListProp` conversion utils
+
 ## [4.6.0](https://github.com/Workiva/over_react/compare/4.5.0...4.6.0)
 #### Analyzer Plugin
 - [#788] Add new `over_react_hooks_exhaustive_deps` diagnostic that validates the dependency lists of React hooks such as `useEffect`, `useMemo`, and `useCallback`. 
