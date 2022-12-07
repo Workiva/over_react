@@ -159,21 +159,24 @@ main() {
 
           test('casting the returned list to the correct type', () {
             expect(
-                unjsifyMapListProp<String, String>([
-                  jsify({'foo': 'bar'}) as JsMap
-                ]),
-                isA<List<Map<String, String>>>());
+              unjsifyMapListProp<String, String>([
+                jsify({'foo': 'bar'}) as JsMap
+              ]),
+              allOf(isA<List<Map<String, String>>>(), everyElement(isA<Map<String, String>>())),
+            );
             expect(
-                unjsifyMapListProp<String, int>([
-                  jsify({'foo': 1}) as JsMap
-                ]),
-                isA<List<Map<String, int>>>());
+              unjsifyMapListProp<String, int>([
+                jsify({'foo': 1}) as JsMap
+              ]),
+              allOf(isA<List<Map<String, int>>>(), everyElement(isA<Map<String, int>>())),
+            );
             expect(
-                unjsifyMapListProp<String, dynamic>([
-                  jsify({'foo': 1}) as JsMap,
-                  jsify({'bar': true}) as JsMap
-                ]),
-                isA<List<Map<String, dynamic>>>());
+              unjsifyMapListProp<String, dynamic>([
+                jsify({'foo': 1}) as JsMap,
+                jsify({'bar': true}) as JsMap
+              ]),
+              allOf(isA<List<Map<String, dynamic>>>(), everyElement(isA<Map<String, dynamic>>())),
+            );
           });
         });
       });
