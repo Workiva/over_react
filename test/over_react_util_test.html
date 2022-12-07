@@ -28,6 +28,7 @@ limitations under the License.
       window.TestJsComponent = React.forwardRef(function(props, ref) {
         const {
           buttonProps = {},
+            listOfProps = [],
           inputRef,
           buttonComponent = 'button',
           inputComponent = 'input',
@@ -46,6 +47,7 @@ limitations under the License.
         }
         return React.createElement('div', {},
           React.createElement(buttonComponent, buttonProps),
+          React.createElement('li', listOfProps[0]),
           React.createElement(inputComponent, {type: 'text', ref: inputRef}),
           React.createElement(component, { ...rest, ref }, children),
           React.createElement('div', { role: 'alert' }, message),

@@ -313,6 +313,14 @@ mixin $TestJsProps on TestJsProps {
   set _$raw$buttonProps(JsMap value) =>
       props[_$key___$raw$buttonProps__TestJsProps] = value;
   @override
+  @Accessor(key: 'listOfProps')
+  List<dynamic> get _$raw$listOfProps =>
+      (props[_$key___$raw$listOfProps__TestJsProps] ?? null) as List<dynamic>;
+  @override
+  @Accessor(key: 'listOfProps')
+  set _$raw$listOfProps(List<dynamic> value) =>
+      props[_$key___$raw$listOfProps__TestJsProps] = value;
+  @override
   @Accessor(key: 'inputRef')
   dynamic get _$raw$inputRef =>
       (props[_$key___$raw$inputRef__TestJsProps] ?? null) as dynamic;
@@ -348,6 +356,8 @@ mixin $TestJsProps on TestJsProps {
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop___$raw$buttonProps__TestJsProps =
       PropDescriptor(_$key___$raw$buttonProps__TestJsProps);
+  static const PropDescriptor _$prop___$raw$listOfProps__TestJsProps =
+      PropDescriptor(_$key___$raw$listOfProps__TestJsProps);
   static const PropDescriptor _$prop___$raw$inputRef__TestJsProps =
       PropDescriptor(_$key___$raw$inputRef__TestJsProps);
   static const PropDescriptor _$prop___$raw$messageContext__TestJsProps =
@@ -359,6 +369,7 @@ mixin $TestJsProps on TestJsProps {
   static const PropDescriptor _$prop__buttonComponent__TestJsProps =
       PropDescriptor(_$key__buttonComponent__TestJsProps);
   static const String _$key___$raw$buttonProps__TestJsProps = 'buttonProps';
+  static const String _$key___$raw$listOfProps__TestJsProps = 'listOfProps';
   static const String _$key___$raw$inputRef__TestJsProps = 'inputRef';
   static const String _$key___$raw$messageContext__TestJsProps =
       'messageContext';
@@ -368,6 +379,7 @@ mixin $TestJsProps on TestJsProps {
 
   static const List<PropDescriptor> $props = [
     _$prop___$raw$buttonProps__TestJsProps,
+    _$prop___$raw$listOfProps__TestJsProps,
     _$prop___$raw$inputRef__TestJsProps,
     _$prop___$raw$messageContext__TestJsProps,
     _$prop__component__TestJsProps,
@@ -376,6 +388,7 @@ mixin $TestJsProps on TestJsProps {
   ];
   static const List<String> $propKeys = [
     _$key___$raw$buttonProps__TestJsProps,
+    _$key___$raw$listOfProps__TestJsProps,
     _$key___$raw$inputRef__TestJsProps,
     _$key___$raw$messageContext__TestJsProps,
     _$key__component__TestJsProps,
