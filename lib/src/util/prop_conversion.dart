@@ -57,8 +57,8 @@ List<JsMap> jsifyMapListProp(List<Map> value) {
 }
 
 /// Runs [unjsifyMapProp] on every JS Map in the [value].
-List<Map<K, V>> unjsifyMapListProp<K, V>(List<JsMap> value) {
-  return value?.map(unjsifyMapProp)?.toList()?.cast();
+List<Map<K, V>> unjsifyMapListProp<K, V>(List<dynamic> value) {
+  return value?.map((e) => unjsifyMapProp(e as JsMap))?.toList()?.cast();
 }
 
 /// Returns [value] converted to its JS ref representation for storage in a props map, or null of the [value] is null.
