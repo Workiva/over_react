@@ -608,7 +608,7 @@ main() {
         });
       });
 
-      group('Map props using (un)jsifyMapListProp', () {
+      group('List<Map> props using (un)jsifyMapListProp', () {
         group('get converted to JS objects', () {
           group('in the setter, and gets unconverted in getter', () {
             // This case is a little redundant with the (un)jsifyMapListProp tests above, but include it for completeness.
@@ -685,7 +685,7 @@ main() {
               });
 
               group('and then reading a nested value that gets unconverted:', () {
-                group('A nested map prop', () {
+                group('A nested map list prop', () {
                   test('using the typed props map', () {
                     final builder = TestJs()
                       ..listOfProps = [
@@ -733,7 +733,7 @@ main() {
                     reason:
                         'test setup: should have converted to a JS object for storage in props map');
 
-                // For this test, it's important to mutate the original `listOfProps` Map passed into `builder.listOfProps`,
+                // For this test, it's important to mutate the original `listOfProps` List passed into `builder.listOfProps`,
                 // and not the value returned from the `builder.listOfProps` getter.
                 listOfProps[0]['data-foo'] = 'bar';
                 expect(builder.listOfProps, [isEmpty]);
