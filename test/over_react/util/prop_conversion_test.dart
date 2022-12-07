@@ -91,6 +91,10 @@ main() {
           expect(jsifyMapListProp([]), []);
         });
 
+        test('passes through null list values', () {
+          expect(jsifyMapListProp([null]), [null]);
+        });
+
         test('converts maps to JS objects', () {
           expect(
             jsifyMapListProp([
@@ -133,6 +137,10 @@ main() {
           expect(unjsifyMapListProp([]), []);
         });
 
+        test('passes through null list values', () {
+          expect(unjsifyMapListProp([null]), [null]);
+        });
+
         group('converts JS objects to maps', () {
           test('with the correct contents', () {
             expect(
@@ -149,7 +157,7 @@ main() {
             );
           });
 
-          test('casting the returned map to the correct type', () {
+          test('casting the returned list to the correct type', () {
             expect(
                 unjsifyMapListProp<String, String>([
                   jsify({'foo': 'bar'}) as JsMap
@@ -640,6 +648,17 @@ main() {
               final propKey = TestJs.getPropKey((p) => p.listOfProps);
               expect(builder, {propKey: []});
               expect(builder.listOfProps, []);
+            });
+
+            test('when a null list value', () {
+              final builder = TestJs()..listOfProps = [null];
+
+              expect(builder.listOfProps, [null]);
+
+              builder.listOfProps = [null];
+              final propKey = TestJs.getPropKey((p) => p.listOfProps);
+              expect(builder, {propKey: [null]});
+              expect(builder.listOfProps, [null]);
             });
 
             group('and allows pattern of setting a map prop in a builder', () {
