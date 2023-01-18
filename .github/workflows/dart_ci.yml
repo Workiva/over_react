@@ -15,10 +15,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # Don't run on newer SDKs until we're able to get on analyzer 1.x,
-        # since our current analyzer version range results in build failures
-        # when analysis hits the `<<<` operator.
-        # sdk: [ 2.13.4, stable, dev ]
+        # Can't run on `dev` (Dart 3) until we're fully null-safe.
+        # TODO re-enable stable once we get the analysis/test parts of the build passing
         sdk: [ 2.13.4 ]
     steps:
       - uses: actions/checkout@v2
@@ -132,7 +130,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        sdk: [ 2.13.4, stable, dev ]
+        # Can't run on `dev` (Dart 3) until we're fully null-safe.
+        sdk: [ 2.13.4, stable ]
     steps:
       - uses: actions/checkout@v2
       - uses: dart-lang/setup-dart@v0.2
