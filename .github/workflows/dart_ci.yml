@@ -44,9 +44,8 @@ jobs:
         run: |
           # Analyze lib to ensure public APIs don't depend on build-to-cache files,
           # which could cause analysis issues for consumers who haven't run a build yet.
-          dartanalyzer lib
-          cd example/boilerplate_versions
-          dart analyze
+          dart analyze lib
+          dart analyze example/boilerplate_versions
         if: always() && steps.install.outcome == 'success'
 
       - id: build
