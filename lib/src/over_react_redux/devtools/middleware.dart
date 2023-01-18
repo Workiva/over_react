@@ -41,7 +41,7 @@ class _OverReactReduxDevToolsMiddleware extends MiddlewareClass {
   _ReduxDevToolsExtensionConnection devToolsExt;
   final Logger log = Logger('OverReactReduxDevToolsMiddleware');
 
-  _OverReactReduxDevToolsMiddleware() {
+  _OverReactReduxDevToolsMiddleware([Map<String, dynamic> options]) {
     var windowConsole = getProperty(window, 'console');
     log.onRecord.listen((rec) {
       // This return is to safeguard against this listener acting like
@@ -54,7 +54,7 @@ class _OverReactReduxDevToolsMiddleware extends MiddlewareClass {
       }
     });
     try {
-      devToolsExt = reduxExtConnect();
+      devToolsExt = reduxExtConnect(jsify(options));
       devToolsExt.subscribe(allowInterop(handleEventFromRemote));
     } catch (e) {
       log.warning(e);
@@ -193,3 +193,20 @@ class _OverReactReduxDevToolsMiddleware extends MiddlewareClass {
 /// );
 /// ```
 final MiddlewareClass overReactReduxDevToolsMiddleware = _OverReactReduxDevToolsMiddleware();
+
+/// A Middleware that can be added to a [DevToolsStore] in order to utilize the Redux DevTools browser extension.
+/// Similar to [overReactReduxDevToolsMiddleware], but allows passing of options to initialize dev tools with.
+///
+/// Example:
+/// ```
+/// var store = new DevToolsStore<AppState>(
+///   /*YourReducer*/,
+///   initialState: /*YourInitialState*/,
+///   middleware: [overReactReduxDevToolsMiddlewareFactory(name: 'My Store')],
+/// );
+/// ```
+MiddlewareClass overReactReduxDevToolsMiddlewareFactory({
+  String name,
+}) => _OverReactReduxDevToolsMiddleware({
+  'name': name,
+});
