@@ -1,5 +1,8 @@
 # OverReact Changelog
 
+## [4.8.0](https://github.com/Workiva/over_react/compare/4.7.0...4.8.0)
+- [#797] Add `overReactReduxDevToolsMiddlewareFactory` for constructing middleware with a `name`, allowing store instances to be separated in the Redux Dev Tools
+
 ## [4.7.0](https://github.com/Workiva/over_react/compare/4.6.0...4.7.0)
 - [#795] Add `jsifyMapListProp` and `unjsifyMapListProp` conversion utils
 
