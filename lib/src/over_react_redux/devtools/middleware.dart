@@ -41,7 +41,7 @@ class _OverReactReduxDevToolsMiddleware extends MiddlewareClass {
   _ReduxDevToolsExtensionConnection devToolsExt;
   final Logger log = Logger('OverReactReduxDevToolsMiddleware');
 
-  _OverReactReduxDevToolsMiddleware([Map<String, dynamic> options]) {
+  _OverReactReduxDevToolsMiddleware([Map<String, dynamic> options = const {}]) {
     var windowConsole = getProperty(window, 'console');
     log.onRecord.listen((rec) {
       // This return is to safeguard against this listener acting like
@@ -196,6 +196,11 @@ final MiddlewareClass overReactReduxDevToolsMiddleware = _OverReactReduxDevTools
 
 /// A Middleware that can be added to a [DevToolsStore] in order to utilize the Redux DevTools browser extension.
 /// Similar to [overReactReduxDevToolsMiddleware], but allows passing of options to initialize dev tools with.
+/// 
+/// Arguments:
+/// - [name] - the instance name to be shown on the monitor page. Default value is `document.title`. 
+///   If not specified and there's no document title, it will consist of tabId and instanceId. 
+///   Use this if your page has multiple stores.
 ///
 /// Example:
 /// ```
@@ -208,5 +213,5 @@ final MiddlewareClass overReactReduxDevToolsMiddleware = _OverReactReduxDevTools
 MiddlewareClass overReactReduxDevToolsMiddlewareFactory({
   String name,
 }) => _OverReactReduxDevToolsMiddleware({
-  'name': name,
+  if (name != null) 'name': name,
 });
