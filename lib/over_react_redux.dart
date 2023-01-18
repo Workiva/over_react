@@ -19,4 +19,4 @@ export 'src/over_react_redux/hooks/use_dispatch.dart' show createDispatchHook, u
 export 'src/over_react_redux/hooks/use_selector.dart' show createSelectorHook, useSelector;
 export 'src/over_react_redux/hooks/use_store.dart' show createStoreHook, useStore;
 export 'src/over_react_redux/devtools/middleware.dart' 
-  show overReactReduxDevToolsMiddleware, overReactReduxDevToolsMiddlewareFactory, ReduxDevToolsExtensionOptions;
+  show overReactReduxDevToolsMiddleware, overReactReduxDevToolsMiddlewareFactory;

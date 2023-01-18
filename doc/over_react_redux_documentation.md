@@ -648,3 +648,13 @@ Redux DevTools can be set up easily by adding only a few lines of code.
    - Firefox: https://addons.mozilla.org/en-US/firefox/addon/reduxdevtools/
 
 You can run your code and open the devtools in your browser!
+
+`overReactReduxDevToolsMiddlewareFactory` is also available to pass [options](https://github.com/reduxjs/redux-devtools/blob/main/extension/docs/API/Arguments.md) into the initialization of the redux dev tools.
+
+```dart
+var store = new DevToolsStore<AppState>(
+  /*ReducerName*/,
+  initialState: /*Default App State Object*/,
+  middleware: [overReactReduxDevToolsMiddlewareFactory(name: 'Some Custom Instance Name')],
+)
+```
