@@ -729,3 +729,5 @@ For state, we simply attempt to `jsonEncode` the entire thing. If your state can
 ___Making your actions and state json encodable___
 
 You can either write your own `toJson` methods for each of your actions and your state class. However, this quickly becomes cumbersome and error prone. Instead, the recommended way is to make use of the [json_annotation](https://pub.dev/packages/json_annotation) package to automatically generate `toJson` functions for you.
+
+[Additional documentation](https://pub.dev/packages/redux_remote_devtools) on using Redux DevTools.
