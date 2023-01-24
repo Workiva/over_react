@@ -662,72 +662,55 @@ var store = new DevToolsStore<AppState>(
 
 ### Integration With DevTools
 
-#### TL;DR
+In order to display the properties of Dart based `Action`s and `State` in the DevTools they must implement a `toJson` method. 
 
-Ensure that your `Action` and `State` implement a `toJson` method.
+`toJson` can be manually added to the classes, or added with the help of something like the the [json_serializable](https://pub.dev/packages/json_serializable) library. 
 
-#### Deep dive
-
-To be able to view and interact with your custom store within the Redux Devtools, your state and actions need to be 
-serializable. This can be implemented manually or with the help of the [json_serializable](https://pub.dev/packages/json_serializable) library.
-
-___Encoding Actions and State___
-
-In the Javascript world, Redux follows a convention that your redux state is a plain Javascript Object, and actions are also Javascript objects that have a type property. The JS Redux Devtools expect this. However, Redux.dart tries to take advantage of the strong typing available in Dart. To make Redux.dart work with the JS devtools, we need to convert actions and state instances to JSON before sending.
-
-Remember that the primary reason for using devtools is to allow the developer to reason about what the app is doing. Therefore, exact conversion is not strictly necessary - it's more important for what appears in devtools to be meaningful to the developer.
-
-___Enconding Strategy for Actions___
-We use the class name as the action type for class based actions. For enum typed actions, we use the value of the action. For example:
-
+State Example:
 ```dart
-enum EnumActions {
-  Action1,
-  Action2;
+class FooState {
+  bool foo = true;
+  
+  Map<String, dynamic> toJson() => {'foo':foo};
 }
 ```
-```dart
-class ClassAction {}
-```
-When converted, these actions will be `{"type": "Action1"}` or `{"type": "ClassAction"}`, etc.
 
-
-We also want to send the action properties over to devtools. To do this, we attempt to `jsonEncode` the entire Action, and
-attach this JSON data as a payload property. For example:
-
-```dart
-class ClassAction {
-  int someValue;
-
-  toJson() => {'someValue': this.someValue};
-}
-```
-Would appear in devtools as:
-
+When converted, the result of `toJson` will be used to present the entire state.
 ```json lines
 {
-    "type": "ClassAction",
-    "payload": {
-    "someValue": 5 // or whatever someValue was set to
-    },
+  "foo": true
 }
 ```
-This of course means your Actions need to be json encodable. You can do what the example above does and write your own `toJson` method. However, a better approach is to use a generator like [json_serializable](https://pub.dev/packages/json_serializable) to do it for you. If your action is not json encodable, the payload property will be missing in devtools.
 
-___Encoding strategy for State___
+Action Example:
+```dart
+class FooAction {
+  bool foo = false;
+  
+  Map<String,dynamic> toJson() => {'foo':foo};
+}
+```
 
-For state, we simply attempt to `jsonEncode` the entire thing. If your state cannot be converted, then state updates will not appear in devtools.
+When converted, the Class name will be the `type` property and `toJson` will become the `payload`
+```json lines
+{
+  "type": "FooAction",
+  "payload": {
+    "foo": false
+  }
+}
+```
 
-[//]: # (___Overriding these strategies___)
+Action (Enum) Example:
+```dart
+enum FooAction {
+  ACTION_1,
+  ACTION_2;
+}
+```
+When an enum `Action` is used the value of the action in the enum will be used
+```json lines
+{"type": "ACTION_1"}
+```
 
-[//]: # ()
-[//]: # (The strategy described above should work for most cases. However, if you want to do something different, you can replace the ActionEncoder and StateEncoder with your own implementations:)
-
-[//]: # ()
-[//]: # (var remoteDevtools = RemoteDevToolsMiddleware&#40;'192.168.1.52:8000', actionEncoder: MyCoolActionEncoder&#41;;)
-
-___Making your actions and state json encodable___
-
-You can either write your own `toJson` methods for each of your actions and your state class. However, this quickly becomes cumbersome and error prone. Instead, the recommended way is to make use of the [json_annotation](https://pub.dev/packages/json_annotation) package to automatically generate `toJson` functions for you.
-
-[Additional documentation](https://pub.dev/packages/redux_remote_devtools) on using Redux DevTools.
+For a more encoding details check out the [redux_remote_devtools](https://pub.dev/packages/redux_remote_devtools)
