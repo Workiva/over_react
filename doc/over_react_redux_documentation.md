@@ -664,7 +664,7 @@ var store = new DevToolsStore<AppState>(
 
 In order to display the properties of Dart based `Action`s and `State` in the DevTools they must implement a `toJson` method. 
 
-`toJson` can be manually added to the classes, or added with the help of something like the the [json_serializable](https://pub.dev/packages/json_serializable) library. 
+`toJson` can be manually added to the classes, or added with the help of something like the the [json_serializable](https://pub.dev/packages/json_serializable) library. In the event that a value is not directly encodeable to `json`, we will make an attempt to call `toJson` on the value.
 
 State Example:
 ```dart
@@ -687,7 +687,7 @@ Action Example:
 class FooAction {
   bool foo = false;
   
-  Map<String,dynamic> toJson() => {'foo':foo};
+  Map<String, dynamic> toJson() => {'foo':foo};
 }
 ```
 
