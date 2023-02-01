@@ -28,7 +28,7 @@ A Dart wrapper for React Redux, providing targeted state updates.
   - [useStore](#usestore)
 - **[Using Multiple Stores](#using-multiple-stores)**
 - **[Using Redux DevTools](#using-redux-devtools)**
-  - [Integrating with Devtools](#integration-with-devtools)
+  - [Integrating with DevTools](#integration-with-devtools)
 
 ## Purpose
 
@@ -664,7 +664,7 @@ var store = new DevToolsStore<AppState>(
 
 In order to display the properties of Dart based `Action`s and `State` in the DevTools they must implement a `toJson` method. 
 
-`toJson` can be manually added to the classes, or added with the help of something like the the [json_serializable](https://pub.dev/packages/json_serializable) library. In the event that a value is not directly encodeable to `json`, we will make an attempt to call `toJson` on the value.
+`toJson` can be manually added to the classes, or added with the help of something like the [json_serializable](https://pub.dev/packages/json_serializable) or [built_value](https://pub.dev/packages/built_value) and its serializers. In the event that a value is not directly encodeable to `json`, we will make an attempt to call `toJson` on the value.
 
 State Example:
 ```dart
@@ -691,7 +691,7 @@ class FooAction {
 }
 ```
 
-When converted, the Class name will be the `type` property and `toJson` will become the `payload`
+When converted, the class name will be the `type` property and `toJson` will become the `payload`
 ```json lines
 {
   "type": "FooAction",
@@ -705,7 +705,7 @@ Action (Enum) Example:
 ```dart
 enum FooAction {
   ACTION_1,
-  ACTION_2;
+  ACTION_2,
 }
 ```
 When an enum `Action` is used the value of the action in the enum will be used
