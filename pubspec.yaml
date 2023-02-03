@@ -54,3 +54,6 @@ dependency_validator:
     - tools/**
   ignore:
     - meta
+
+dependency_overrides:
+  platform_detect: ^2.0.0
