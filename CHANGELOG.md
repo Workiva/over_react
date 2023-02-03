@@ -1,5 +1,10 @@
 # OverReact Changelog
 
+## [4.8.1](https://github.com/Workiva/over_react/compare/4.8.0...4.8.1)
+
+- [#802] Raise platform_detect upperbound to allow 2.x
+- [#800] (Docs) Add Redux DevTools integration documentation
+
 ## [4.8.0](https://github.com/Workiva/over_react/compare/4.7.0...4.8.0)
 - [#797] Add `overReactReduxDevToolsMiddlewareFactory` for constructing middleware with a `name`, allowing store instances to be separated in the Redux Dev Tools
 
