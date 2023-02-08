@@ -57,8 +57,9 @@ jobs:
           if [ ${{ matrix.sdk }} = '2.18.7' ]; then
             git diff --exit-code
           else
-            # Exclude built_redux generated files since they may get generated differently in other Dart SDKs
-            git diff --exit-code -- ":(exclude)test/over_react/component_declaration/redux_component_test/test_reducer.g.dart"
+            # Don't check these generated files for other SDKs, since they may generate differently
+            # due to different resolved dependencies.
+            git diff --exit-code -- ":(exclude)test/mockito.mocks.dart" ":(exclude)test/over_react/component_declaration/redux_component_test/test_reducer.g.dart"
           fi
         if: always() && steps.install.outcome == 'success'
 
