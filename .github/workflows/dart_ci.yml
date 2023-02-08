@@ -69,7 +69,9 @@ jobs:
         if: always() && steps.install.outcome == 'success' && steps.build.outcome == 'success'
 
       - name: Run tests (VM)
-        run: dart pub run dart_dev test -P vm
+        # Can't use build_runner (which dart_dev uses if you depend on it) to run VM tests, since we get the error:
+        #    Unable to spawn isolate: /…/build_runner_testRU6M77/.packages: Error: Problem in packages configuration file: Unexpected character
+        run: dart test -P vm
         if: always() && steps.install.outcome == 'success' && steps.build.outcome == 'success'
 
       - name: Run tests (DDC)
