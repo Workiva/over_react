@@ -14,7 +14,7 @@ dependencies:
   dart_style: '>=1.2.5 <3.0.0'
   js: ^0.6.1+1
   logging: '>=0.11.3+2 <2.0.0'
-  meta: ^1.6.0 # Workaround to avoid https://github.com/dart-lang/sdk/issues/46142
+  meta: ^1.6.0
   path: ^1.5.1
   react: ^6.1.8
   redux: ">=3.0.0 <5.0.0"
