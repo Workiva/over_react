@@ -20,7 +20,7 @@ import 'package:over_react/src/builder/parsing.dart';
 import 'package:source_span/source_span.dart';
 import 'package:test/test.dart';
 
-import '../util.dart';
+import '../../../mockito.mocks.dart';
 
 main() {
   group('error collection -', () {

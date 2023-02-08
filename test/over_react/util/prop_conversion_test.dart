@@ -1072,7 +1072,7 @@ main() {
             isA<Object>().havingToStringValue(anyOf(
               // DDC error message
               matches(RegExp(
-                  r"Expected a value of type 'Map[^']*', but got one of type 'NativeJavaScriptObject'")),
+                  r"Expected a value of type 'Map[^']*', but got one of type '(Native|Legacy)JavaScriptObject'")),
               // dart2js error message
               matches(RegExp(
                   r"type '(Unknown|Plain)JavaScriptObject' is not a subtype of type 'Map[^']*'")),

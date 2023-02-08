@@ -14,7 +14,7 @@ dependencies:
   dart_style: '>=1.2.5 <3.0.0'
   js: ^0.6.1+1
   logging: '>=0.11.3+2 <2.0.0'
-  meta: ^1.6.0 # Workaround to avoid https://github.com/dart-lang/sdk/issues/46142
+  meta: ^1.6.0
   path: ^1.5.1
   react: ^6.1.8
   redux: ">=3.0.0 <5.0.0"
@@ -36,11 +36,13 @@ dev_dependencies:
   dependency_validator: '>=2.0.0 <4.0.0'
   glob: '>=1.2.0<3.0.0'
   io: '>=0.3.2+1 <2.0.0'
-  mockito: ^4.1.1
+  mockito: ^5.0.0
   react_testing_library: ^2.1.0
   over_react_test: ^2.10.2
   pedantic: ^1.8.0
-  test: ^1.15.7
+  # Pin as a workaround for https://github.com/dart-lang/test/issues/1594
+  # TODO Unpin and remove dependency_validator ignore once we can upgrade past 1.18.1, which is dependent on upgrading to at least analyzer 2.0.
+  test: '>=1.15.7 <1.18.0'
   yaml: '>=2.2.1 <4.0.0'
 
 workiva:
@@ -53,4 +55,4 @@ dependency_validator:
     - app/**
     - tools/**
   ignore:
-    - meta
+    - test
