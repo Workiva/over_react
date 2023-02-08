@@ -1,5 +1,10 @@
 # OverReact Changelog
 
+## [4.8.2](https://github.com/Workiva/over_react/compare/4.8.1...4.8.2)
+
+- [#804] Dependencies: raise analyzer to ^1.7.2, unpin meta
+- [#805] Internal CI and dev_dependencies updates
+
 ## [4.8.1](https://github.com/Workiva/over_react/compare/4.8.0...4.8.1)
 
 - [#802] Raise platform_detect upperbound to allow 2.x
