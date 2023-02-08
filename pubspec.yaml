@@ -41,7 +41,7 @@ dev_dependencies:
   over_react_test: ^2.10.2
   pedantic: ^1.8.0
   # Pin as a workaround for https://github.com/dart-lang/test/issues/1594
-  # TODO Unpin once we can upgrade past 1.18.1, which is dependent on upgrading to at least analyzer 2.0.
+  # TODO Unpin and remove dependency_validator ignore once we can upgrade past 1.18.1, which is dependent on upgrading to at least analyzer 2.0.
   test: '>=1.15.7 <1.18.0'
   yaml: '>=2.2.1 <4.0.0'
 
@@ -55,4 +55,4 @@ dependency_validator:
     - app/**
     - tools/**
   ignore:
-    - meta
+    - test
