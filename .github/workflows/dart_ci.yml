@@ -82,6 +82,44 @@ jobs:
         run: dart pub run dart_dev test --build-args="-r" -P dart2js
         if: always() && steps.install.outcome == 'success' && steps.build.outcome == 'success'
 
+  validate_analyzer:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # Can't run on `dev` (Dart 3) until we're fully null-safe.
+        # We can't run on Dart >=2.19 until https://github.com/dart-lang/sdk/issues/51128
+        # is fixed, or we work around it, which requires upgrading to analyzer ^5.1.0.
+        sdk: [ 2.13.4, 2.18.7 ]
+        analyzer:
+          - ^1.0.0
+          - ^2.0.0
+    steps:
+      - uses: actions/checkout@v2
+      - uses: dart-lang/setup-dart@v0.2
+        with:
+          sdk: ${{ matrix.sdk }}
+
+      - name: Print Dart SDK version
+        run: dart --version
+
+      - name: Update analyzer constraint to ${{ matrix.analyzer }} and validate `pub get` can resolve
+        id: resolve
+        run: |
+          dart tool/set_analyzer_constraint.dart "${{ matrix.analyzer }}"
+          # Show the updated version constraint
+          git diff pubspec.yaml
+          dart pub get
+
+      - name: Analyze package source
+        run: dart analyze .
+
+      - name: Verify builder runs without errors
+        run: dart run build_runner build --build-filter='**.dart' --delete-conflicting-outputs
+
+      - name: Run builder tests
+        run: dart run test -p vm -- test/vm_tests/builder
+
   analyzer_plugin:
     runs-on: ubuntu-latest
     defaults:
