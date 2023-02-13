@@ -190,7 +190,7 @@ Future<Map<String, ResolvedUnitResult>> parseAndGetResolvedUnits(Map<String, Str
   for (final path in dartSourcesByPath.keys) {
     final absolutePath = transformPath(path);
     final context = _sharedCollection.contextFor(absolutePath);
-    final result = await context.currentSession.getResolvedUnit2(absolutePath) as ResolvedUnitResult;
+    final result = await context.currentSession.getResolvedUnit(absolutePath) as ResolvedUnitResult;
     final lineInfo = result.lineInfo;
     final filteredErrors =
         filterIgnoresForErrors(result.errors, lineInfo, () => IgnoreInfo.forDart(result.unit, result.content))

@@ -69,12 +69,6 @@ mixin DiagnosticMixin on ServerPlugin {
     final analysisOptions = pluginOptionsReader.getOptionsForResult(analysisResult);
 
     try {
-      // If there is no relevant analysis result, notify the analyzer of no errors.
-      if (analysisResult.unit == null) {
-        channel.sendNotification(plugin.AnalysisErrorsParams(analysisResult.path, []).toNotification());
-        return [];
-      }
-
       // If there is something to analyze, do so and notify the analyzer.
       // Note that notifying with an empty set of errors is important as
       // this clears errors if they were fixed.

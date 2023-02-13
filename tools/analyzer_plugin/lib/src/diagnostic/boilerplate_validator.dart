@@ -214,7 +214,7 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
       final uri = part.uriSource?.uri;
       // URI could not be resolved or source does not exist
       if (uri == null) continue;
-      final partResult = result.session.getParsedUnit2(result.session.uriConverter.uriToPath(uri)!);
+      final partResult = result.session.getParsedUnit(result.session.uriConverter.uriToPath(uri)!);
 
       if (partResult is ParsedUnitResult && _partHasDeclarations(partResult.unit, result)) {
         anyPartHasDeclarations = true;

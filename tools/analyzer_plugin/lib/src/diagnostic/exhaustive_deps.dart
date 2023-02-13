@@ -1922,7 +1922,7 @@ _Recommendations collectRecommendations({
 String? getConstructionExpressionType(Expression node) {
   if (node is InstanceCreationExpression) {
     if (node.isConst) return null;
-    return node.constructorName.type.name.name;
+    return node.constructorName.type2.name.name;
   } else if (node is ListLiteral) {
     return _DepType.list;
   } else if (node is SetOrMapLiteral) {
