@@ -55,4 +55,4 @@ dependency_validator:
     - app/**
     - tools/**
   ignore:
-    - test
+    - mockito
