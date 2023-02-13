@@ -3,7 +3,6 @@
 //@dart=2.9
 
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
-import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:test/test.dart';
 
 import '../test_bases/server_plugin_contributor_test_base.dart';

@@ -47,7 +47,7 @@ class ToggleComponentStatefulness extends AssistContributorBase with ComponentDe
   @override
   Future<void> computeAssists(DartAssistRequest request, AssistCollector collector) async {
     await super.computeAssists(request, collector);
-    if (!setupCompute() || !initializeAssistApi(request.result.content!)) return;
+    if (!setupCompute() || !initializeAssistApi(request.result.content)) return;
 
     newComponentBaseClass = _getNewBase(componentSupertypeNode.name.name);
 

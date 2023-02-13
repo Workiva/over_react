@@ -71,7 +71,7 @@ mixin DiagnosticMixin on ServerPlugin {
     try {
       // If there is no relevant analysis result, notify the analyzer of no errors.
       if (analysisResult.unit == null) {
-        channel.sendNotification(plugin.AnalysisErrorsParams(analysisResult.path!, []).toNotification());
+        channel.sendNotification(plugin.AnalysisErrorsParams(analysisResult.path, []).toNotification());
         return [];
       }
 
@@ -79,11 +79,11 @@ mixin DiagnosticMixin on ServerPlugin {
       // Note that notifying with an empty set of errors is important as
       // this clears errors if they were fixed.
       final generator = _DiagnosticGenerator(
-        getDiagnosticContributors(analysisResult.path!),
+        getDiagnosticContributors(analysisResult.path),
         errorSeverityProvider: AnalysisOptionsErrorSeverityProvider(analysisOptions),
       );
       final result = await generator.generateErrors(analysisResult);
-      channel.sendNotification(plugin.AnalysisErrorsParams(analysisResult.path!, result.result).toNotification());
+      channel.sendNotification(plugin.AnalysisErrorsParams(analysisResult.path, result.result).toNotification());
       result.sendNotifications(channel);
       return result.result;
     } catch (e, stackTrace) {
@@ -207,12 +207,12 @@ class _DiagnosticGenerator {
     List<FluentComponentUsage>? _usages;
     // Lazily compute the usage so any errors get handled as part of each diagnostic's try/catch.
     // TODO: collect data how long this takes.
-    List<FluentComponentUsage> getUsages() => _usages ??= getAllComponentUsages(unitResult.unit!);
+    List<FluentComponentUsage> getUsages() => _usages ??= getAllComponentUsages(unitResult.unit);
 
     /// A mapping of diagnostic names to their durations, in microseconds.
     final diagnosticMetrics = <String, int>{};
 
-    final metricsDebugFlagMatch = _metricsDebugCommentPattern.firstMatch(unitResult.content ?? '');
+    final metricsDebugFlagMatch = _metricsDebugCommentPattern.firstMatch(unitResult.content);
 
     final totalStopwatch = Stopwatch()..start();
     final disabledCheckStopwatch = Stopwatch()..start();
@@ -271,7 +271,7 @@ class _DiagnosticGenerator {
       filterIgnoresForProtocolErrors(
         collector.errors,
         unitResult.lineInfo,
-        () => IgnoreInfo.forDart(unitResult.unit!, unitResult.content!),
+        () => IgnoreInfo.forDart(unitResult.unit, unitResult.content),
       ),
     );
 

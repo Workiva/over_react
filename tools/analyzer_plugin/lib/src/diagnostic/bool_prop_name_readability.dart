@@ -46,7 +46,7 @@ class BoolPropNameReadabilityDiagnostic extends DiagnosticContributor {
     final typeProvider = result.libraryElement.typeProvider;
     final visitor = PropsVisitor();
 
-    result.unit!.accept(visitor);
+    result.unit.accept(visitor);
 
     final returnMixins = visitor.returnMixins;
 

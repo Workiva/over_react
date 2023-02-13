@@ -104,7 +104,7 @@ class IgnoreInfo {
   /// comments in the given compilation [unit].
   IgnoreInfo.forDart(CompilationUnit unit, String content) {
     var lineInfo = unit.lineInfo!;
-    for (var comment in unit.ignoreComments) {
+    for (final comment in unit.ignoreComments) {
       var lexeme = comment.lexeme;
       if (lexeme.contains('ignore:')) {
         var location = lineInfo.getLocation(comment.offset);
@@ -136,8 +136,8 @@ class IgnoreInfo {
   /// Return a table mapping line numbers to the diagnostics that are ignored on
   /// that line.
   Map<int, List<IgnoredElement>> get ignoredOnLine {
-    Map<int, List<IgnoredElement>> ignoredOnLine = {};
-    for (var entry in _ignoredOnLine.entries) {
+    var ignoredOnLine = <int, List<IgnoredElement>>{};
+    for (final entry in _ignoredOnLine.entries) {
       ignoredOnLine[entry.key] = entry.value.toList();
     }
     return ignoredOnLine;
@@ -195,10 +195,10 @@ extension on CommentToken {
   /// Return the diagnostic names contained in this comment, assuming that it is
   /// a correctly formatted ignore comment.
   Iterable<IgnoredElement> get ignoredElements sync* {
-    int offset = lexeme.indexOf(':') + 1;
+    var offset = lexeme.indexOf(':') + 1;
     var names = lexeme.substring(offset).split(',');
     offset += this.offset;
-    for (var name in names) {
+    for (final name in names) {
       var trimmedName = name.trim();
       if (trimmedName.isNotEmpty) {
         if (trimmedName.contains(_errorCodeNameRegExp)) {

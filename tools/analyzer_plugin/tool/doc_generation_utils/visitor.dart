@@ -20,7 +20,7 @@ Future<void> registerContributorMetadata(List<DocsGenerationConfig> configs) asy
       in Glob('lib/src/{${configs.map((c) => c.srcDir).join(',')}}/**').listSync().map((f) => p.canonicalize(f.path))) {
     final resolvedUnit =
         await collection.contextFor(filePath).currentSession.getResolvedUnit2(filePath) as ResolvedUnitResult;
-    resolvedUnit.unit!.declaredElement!.accept(ContributorVisitor(configs));
+    resolvedUnit.unit.declaredElement!.accept(ContributorVisitor(configs));
   }
 }
 

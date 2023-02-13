@@ -6,11 +6,9 @@ import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/diagnostic/diagnostic.dart';
-import 'package:analyzer/error/error.dart';
 import 'package:analyzer/src/dart/analysis/driver_based_analysis_context.dart' show DriverBasedAnalysisContext;
 import 'package:analyzer/file_system/overlay_file_system.dart';
 import 'package:analyzer/file_system/physical_file_system.dart';
-import 'package:analyzer/source/line_info.dart';
 import 'package:over_react_analyzer_plugin/src/component_usage.dart';
 import 'package:over_react_analyzer_plugin/src/error_filtering.dart';
 import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
@@ -195,7 +193,7 @@ Future<Map<String, ResolvedUnitResult>> parseAndGetResolvedUnits(Map<String, Str
     final result = await context.currentSession.getResolvedUnit2(absolutePath) as ResolvedUnitResult;
     final lineInfo = result.lineInfo;
     final filteredErrors =
-        filterIgnoresForErrors(result.errors, lineInfo, () => IgnoreInfo.forDart(result.unit!, result.content!))
+        filterIgnoresForErrors(result.errors, lineInfo, () => IgnoreInfo.forDart(result.unit, result.content))
             // only fail for error severity errors.
             .where((error) => error.severity == Severity.error);
     if (filteredErrors.isNotEmpty) {
@@ -237,7 +235,7 @@ Future<Expression> parseExpression(
   ''';
   if (isResolved) {
     final result = await parseAndGetResolvedUnit(source);
-    unit = result.unit!;
+    unit = result.unit;
   } else {
     unit = parseString(content: source).unit;
   }
