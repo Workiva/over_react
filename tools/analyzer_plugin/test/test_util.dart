@@ -14,6 +14,7 @@ import 'package:analyzer/source/line_info.dart';
 import 'package:over_react_analyzer_plugin/src/component_usage.dart';
 import 'package:over_react_analyzer_plugin/src/error_filtering.dart';
 import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
+import 'package:over_react_analyzer_plugin/src/util/ignore_info.dart';
 import 'package:path/path.dart' as p;
 
 /// Parses [dartSource] and returns the unresolved AST, throwing if there are any syntax errors.
@@ -194,7 +195,7 @@ Future<Map<String, ResolvedUnitResult>> parseAndGetResolvedUnits(Map<String, Str
     final result = await context.currentSession.getResolvedUnit2(absolutePath) as ResolvedUnitResult;
     final lineInfo = result.lineInfo;
     final filteredErrors =
-        filterIgnores(result.errors, lineInfo, () => IgnoreInfo.forDart(result.unit!, result.content!))
+        filterIgnoresForErrors(result.errors, lineInfo, () => IgnoreInfo.forDart(result.unit!, result.content!))
             // only fail for error severity errors.
             .where((error) => error.severity == Severity.error);
     if (filteredErrors.isNotEmpty) {
@@ -206,27 +207,6 @@ Future<Map<String, ResolvedUnitResult>> parseAndGetResolvedUnits(Map<String, Str
   return results;
 }
 
-List<AnalysisError> filterIgnores(List<AnalysisError> errors, LineInfo lineInfo, IgnoreInfo Function() lazyIgnoreInfo) {
-  if (errors.isEmpty) {
-    return errors;
-  }
-
-  return _filterIgnored(errors, lazyIgnoreInfo(), lineInfo);
-}
-
-List<AnalysisError> _filterIgnored(List<AnalysisError> errors, IgnoreInfo ignoreInfo, LineInfo lineInfo) {
-  if (errors.isEmpty || !ignoreInfo.hasIgnores) {
-    return errors;
-  }
-
-  bool isIgnored(AnalysisError error) {
-    final errorLine = lineInfo.getLocation(error.offset).lineNumber;
-    final errorCode = error.errorCode.name.toLowerCase();
-    return ignoreInfo.ignoredAt(errorCode, errorLine);
-  }
-
-  return errors.where((e) => !isIgnored(e)).toList();
-}
 
 /// Returns [expression] parsed as AST.
 ///

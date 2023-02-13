@@ -6,8 +6,8 @@ repository: https://github.com/Workiva/over_react/tree/master/tools/analyzer_plu
 environment:
   sdk: '>=2.12.0 <3.0.0'
 dependencies:
-  analyzer: ^1.7.2
-  analyzer_plugin: ^0.6.0
+  analyzer: ^2.0.0
+  analyzer_plugin: ^0.7.0
   collection: ^1.15.0-nullsafety.4
   meta: ^1.6.0
   # Upon release, this should be pinned to the over_react version from ../../pubspec.yaml
@@ -41,10 +41,6 @@ dependency_validator:
     - over_react
   exclude:
     - playground/**
-
-dependency_overrides:
-  # Necessary due to conflict between over_react and over_react_analyzer plugin
-  meta: ^1.7.0
 
 workiva:
   core_checks:

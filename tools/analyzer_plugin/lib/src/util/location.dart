@@ -33,7 +33,7 @@ extension ResultLocation on ResolvedUnitResult {
     final startInfo = lineInfo.getLocation(offset);
     final endInfo = lineInfo.getLocation(end);
     return Location(
-        path!, offset, length, startInfo.lineNumber, startInfo.columnNumber, endInfo.lineNumber, endInfo.columnNumber);
+        path, offset, length, startInfo.lineNumber, startInfo.columnNumber, endLine: endInfo.lineNumber, endColumn: endInfo.columnNumber);
   }
 
   Location locationFor(SyntacticEntity entity) {

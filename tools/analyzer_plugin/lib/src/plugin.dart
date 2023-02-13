@@ -34,6 +34,7 @@ import 'dart:async';
 import 'package:analyzer/dart/analysis/context_builder.dart';
 import 'package:analyzer/dart/analysis/context_locator.dart';
 import 'package:analyzer/dart/analysis/context_root.dart' as analyzer;
+import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/file_system/file_system.dart';
 // ignore: implementation_imports
 import 'package:analyzer/src/dart/analysis/context_builder.dart' show ContextBuilderImpl;
@@ -77,6 +78,7 @@ import 'package:over_react_analyzer_plugin/src/diagnostic/style_value_diagnostic
 import 'package:over_react_analyzer_plugin/src/diagnostic/variadic_children.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/variadic_children_with_keys.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
+import 'package:over_react_analyzer_plugin/src/util/util.dart';
 
 abstract class OverReactAnalyzerPluginBase extends ServerPlugin
     with
@@ -210,7 +212,7 @@ class OverReactAnalyzerPlugin extends OverReactAnalyzerPluginBase {
               .toNotification());
     }
     runZonedGuarded(() {
-      driver.results.listen(processDiagnosticsForResult);
+      driver.results.whereType<ResolvedUnitResult>().listen(processDiagnosticsForResult);
     }, (e, stackTrace) {
       channel.sendNotification(plugin.PluginErrorParams(false, e.toString(), stackTrace.toString()).toNotification());
     });

@@ -50,6 +50,7 @@ import 'package:over_react_analyzer_plugin/src/analysis_options/reader.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/analyzer_debug_helper.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/error_filtering.dart';
+import 'package:over_react_analyzer_plugin/src/util/ignore_info.dart';
 import 'package:over_react_analyzer_plugin/src/util/pretty_print.dart';
 
 mixin DiagnosticMixin on ServerPlugin {
@@ -267,7 +268,7 @@ class _DiagnosticGenerator {
     final filteredErrors = _configureErrorSeverities(
       // The analyzer normally filters out errors with "ignore" comments,
       // but it doesn't do it for plugin errors, so we need to do that here.
-      filterIgnores(
+      filterIgnoresForProtocolErrors(
         collector.errors,
         unitResult.lineInfo,
         () => IgnoreInfo.forDart(unitResult.unit!, unitResult.content!),
