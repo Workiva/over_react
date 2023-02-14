@@ -10,12 +10,13 @@ import 'package:test_reflective_loader/test_reflective_loader.dart';
 import '../test_bases/diagnostic_test_base.dart';
 
 void main() {
-  defineReflectiveSuite(() {
-    defineReflectiveTests(BoilerplateValidatorDiagnosticTestFalsePositives);
-    defineReflectiveTests(BoilerplateValidatorDiagnosticTestMissingGeneratedPart);
-    defineReflectiveTests(BoilerplateValidatorDiagnosticTestUnnecessaryGeneratedPart);
-    defineReflectiveTests(BoilerplateValidatorDiagnosticTestInvalidGeneratedPartName);
-  });
+  // These tests can't run until this diagnostic is re-enabled in the plugin.
+  // defineReflectiveSuite(() {
+  //   defineReflectiveTests(BoilerplateValidatorDiagnosticTestFalsePositives);
+  //   defineReflectiveTests(BoilerplateValidatorDiagnosticTestMissingGeneratedPart);
+  //   defineReflectiveTests(BoilerplateValidatorDiagnosticTestUnnecessaryGeneratedPart);
+  //   defineReflectiveTests(BoilerplateValidatorDiagnosticTestInvalidGeneratedPartName);
+  // });
 }
 
 @reflectiveTest
