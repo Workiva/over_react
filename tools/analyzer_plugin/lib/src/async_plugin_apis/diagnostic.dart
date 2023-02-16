@@ -50,6 +50,7 @@ import 'package:over_react_analyzer_plugin/src/analysis_options/reader.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/analyzer_debug_helper.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/error_filtering.dart';
+import 'package:over_react_analyzer_plugin/src/util/ignore_info.dart';
 import 'package:over_react_analyzer_plugin/src/util/pretty_print.dart';
 
 mixin DiagnosticMixin on ServerPlugin {
@@ -68,21 +69,15 @@ mixin DiagnosticMixin on ServerPlugin {
     final analysisOptions = pluginOptionsReader.getOptionsForResult(analysisResult);
 
     try {
-      // If there is no relevant analysis result, notify the analyzer of no errors.
-      if (analysisResult.unit == null) {
-        channel.sendNotification(plugin.AnalysisErrorsParams(analysisResult.path!, []).toNotification());
-        return [];
-      }
-
       // If there is something to analyze, do so and notify the analyzer.
       // Note that notifying with an empty set of errors is important as
       // this clears errors if they were fixed.
       final generator = _DiagnosticGenerator(
-        getDiagnosticContributors(analysisResult.path!),
+        getDiagnosticContributors(analysisResult.path),
         errorSeverityProvider: AnalysisOptionsErrorSeverityProvider(analysisOptions),
       );
       final result = await generator.generateErrors(analysisResult);
-      channel.sendNotification(plugin.AnalysisErrorsParams(analysisResult.path!, result.result).toNotification());
+      channel.sendNotification(plugin.AnalysisErrorsParams(analysisResult.path, result.result).toNotification());
       result.sendNotifications(channel);
       return result.result;
     } catch (e, stackTrace) {
@@ -206,12 +201,12 @@ class _DiagnosticGenerator {
     List<FluentComponentUsage>? _usages;
     // Lazily compute the usage so any errors get handled as part of each diagnostic's try/catch.
     // TODO: collect data how long this takes.
-    List<FluentComponentUsage> getUsages() => _usages ??= getAllComponentUsages(unitResult.unit!);
+    List<FluentComponentUsage> getUsages() => _usages ??= getAllComponentUsages(unitResult.unit);
 
     /// A mapping of diagnostic names to their durations, in microseconds.
     final diagnosticMetrics = <String, int>{};
 
-    final metricsDebugFlagMatch = _metricsDebugCommentPattern.firstMatch(unitResult.content ?? '');
+    final metricsDebugFlagMatch = _metricsDebugCommentPattern.firstMatch(unitResult.content);
 
     final totalStopwatch = Stopwatch()..start();
     final disabledCheckStopwatch = Stopwatch()..start();
@@ -267,10 +262,10 @@ class _DiagnosticGenerator {
     final filteredErrors = _configureErrorSeverities(
       // The analyzer normally filters out errors with "ignore" comments,
       // but it doesn't do it for plugin errors, so we need to do that here.
-      filterIgnores(
+      filterIgnoresForProtocolErrors(
         collector.errors,
         unitResult.lineInfo,
-        () => IgnoreInfo.forDart(unitResult.unit!, unitResult.content!),
+        () => IgnoreInfo.forDart(unitResult.unit, unitResult.content),
       ),
     );
 

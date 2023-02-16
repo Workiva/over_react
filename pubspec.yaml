@@ -7,7 +7,7 @@ environment:
 
 dependencies:
   collection: ^1.14.11
-  analyzer: ^1.7.2
+  analyzer: '>=1.7.2 <3.0.0'
   build: '>=1.0.0 <3.0.0'
   built_redux: ">=7.4.2 <9.0.0"
   built_value: ^8.0.0
@@ -36,13 +36,13 @@ dev_dependencies:
   dependency_validator: '>=2.0.0 <4.0.0'
   glob: '>=1.2.0<3.0.0'
   io: '>=0.3.2+1 <2.0.0'
-  mockito: ^5.0.0
+  # Pin mockito to work around https://github.com/dart-lang/mockito/issues/552
+  # until we can get to 5.3.1, which requires a newer analyzer.
+  mockito: '>=5.0.0 <5.3.0'
   react_testing_library: ^2.1.0
   over_react_test: ^2.10.2
   pedantic: ^1.8.0
-  # Pin as a workaround for https://github.com/dart-lang/test/issues/1594
-  # TODO Unpin and remove dependency_validator ignore once we can upgrade past 1.18.1, which is dependent on upgrading to at least analyzer 2.0.
-  test: '>=1.15.7 <1.18.0'
+  test: ^1.15.7
   yaml: '>=2.2.1 <4.0.0'
 
 workiva:
@@ -55,4 +55,4 @@ dependency_validator:
     - app/**
     - tools/**
   ignore:
-    - test
+    - mockito

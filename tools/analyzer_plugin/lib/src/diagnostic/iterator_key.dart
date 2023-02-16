@@ -142,7 +142,7 @@ class IteratorKey extends ComponentUsageDiagnosticContributor {
                 addProp(
                   returnedUsage,
                   builder,
-                  result.content!,
+                  result.content,
                   result.lineInfo,
                   name: 'key',
                   buildValueEdit: (_builder) {

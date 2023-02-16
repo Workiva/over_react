@@ -105,7 +105,7 @@ class LinkTargetUsageWithoutRelDiagnostic extends ComponentUsageDiagnosticContri
           fixKind: fixKind,
           computeFix: () => buildFileEdit(result, (builder) {
             if (relPropSection == null) {
-              addProp(usage, builder, result.content!, result.lineInfo,
+              addProp(usage, builder, result.content, result.lineInfo,
                   name: 'rel', value: "'${requiredRelValues.join(' ')}'");
             } else {
               builder.addSimpleReplacement(
