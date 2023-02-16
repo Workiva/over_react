@@ -1,5 +1,9 @@
 # OverReact Changelog
 
+## [4.8.3](https://github.com/Workiva/over_react/compare/4.8.2...4.8.3)
+
+- [#807] Allow analyzer 2.x, fix analyzer plugin not starting in newer SDKs
+- 
 ## [4.8.2](https://github.com/Workiva/over_react/compare/4.8.1...4.8.2)
 
 - [#804] Dependencies: raise analyzer to ^1.7.2, unpin meta
