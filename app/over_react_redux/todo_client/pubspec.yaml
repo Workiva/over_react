@@ -9,7 +9,7 @@ dependencies:
   memoize: ^2.0.0
   meta: ^1.6.0
   over_react: ">=3.1.5 <5.0.0"
-  json_annotation: ^3.0.0
+  json_annotation: '>=4.0.0'
   redux: ">=3.0.0 <5.0.0"
   redux_dev_tools: ">=0.4.0 <0.6.0"
   uuid: '>=1.0.3 <4.0.0'
@@ -19,12 +19,12 @@ dev_dependencies:
   build_web_compilers: '>=2.5.1 <4.0.0'
   build_test: '>=0.10.9 <3.0.0'
   dart_dev: ^3.0.0
-  glob: ^1.2.0
-  json_serializable: ^3.2.2
+  glob: ^2.0.0
+  json_serializable: '>=4.0.0'
   over_react_test: ^2.10.2
   pedantic: ^1.8.0
   test: ^1.15.7
-  test_html_builder: ^2.2.2
+  test_html_builder: #^2.2.2
   time: ^1.2.0
   w_common: '^2.0.0'
   workiva_analysis_options: ^1.1.0

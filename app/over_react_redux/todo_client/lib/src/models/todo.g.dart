@@ -1,4 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// @dart=2.12
 
 part of 'todo.dart';
 
@@ -9,7 +10,7 @@ part of 'todo.dart';
 Todo _$TodoFromJson(Map<String, dynamic> json) {
   return Todo(
     description: json['description'] as String,
-    id: json['id'] as String,
+    id: json['id'] as String?,
     isCompleted: json['isCompleted'] as bool,
     isPublic: json['isPublic'] as bool,
     notes: json['notes'] as String,
