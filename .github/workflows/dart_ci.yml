@@ -94,12 +94,10 @@ jobs:
         analyzer:
           - ^1.0.0
           - ^2.0.0
-        # For 2.13.4, only validate analyzer ^1.0.0, since ^2.0.0 can't resolve.
+        # Don't validate analyzer ^2.0.0 in 2.13.4 since it can't resolve.
         exclude:
           - sdk: 2.13.4
-        include:
-          - sdk: 2.13.4
-            analyzer: ^1.0.0
+            analyzer: ^2.0.0
     steps:
       - uses: actions/checkout@v2
       - uses: dart-lang/setup-dart@v0.2
