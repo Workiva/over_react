@@ -49,8 +49,8 @@ class Context<TValue> {
   Context(this.Provider, this.Consumer, this.reactDartContext);
 
   factory Context.fromReactDartContext(react.Context<TValue> reactDartContext) {
-    ProviderProps<TValue> Provider([Map map]) => (ProviderProps<TValue>(map as JsBackedMap)..componentFactory = reactDartContext.Provider);
-    ConsumerProps<TValue> Consumer([Map map]) => (ConsumerProps<TValue>(map as JsBackedMap)..componentFactory = reactDartContext.Consumer);
+    ProviderProps<TValue> Provider([Map? map]) => (ProviderProps<TValue>(map as JsBackedMap)..componentFactory = reactDartContext.Provider);
+    ConsumerProps<TValue> Consumer([Map? map]) => (ConsumerProps<TValue>(map as JsBackedMap)..componentFactory = reactDartContext.Consumer);
     return Context<TValue>(Provider, Consumer, reactDartContext);
   }
 
@@ -140,6 +140,7 @@ class ProviderProps<TValue> extends builder_helpers.UiProps {
     this._props = backingMap ?? JsBackedMap();
   }
 
+  // FIXME 3.0.0 change this type to Map so the factory works as a MapView
   @override
   JsBackedMap get props => _props;
   JsBackedMap _props;
@@ -250,7 +251,7 @@ class _DO_NOT_USE_OR_YOU_WILL_BE_FIRED {
 ///     }
 ///
 /// Learn more: <https://reactjs.org/docs/context.html#reactcreatecontext>
-Context<TValue> createContext<TValue>([TValue? defaultValue, int Function(TValue?, TValue?) calculateChangedBits]) {
+Context<TValue> createContext<TValue>([TValue? defaultValue, int Function(TValue?, TValue?)? calculateChangedBits]) {
   final reactDartContext = react.createContext<TValue>(defaultValue, calculateChangedBits != null ? (dynamic arg1, dynamic arg2) => calculateChangedBits(arg1 as TValue, arg2 as TValue) : null);
   return Context<TValue>.fromReactDartContext(reactDartContext);
 }

@@ -232,7 +232,7 @@ void main() {
       group('when attempting to listen to a disposed store', () {
         const commonMessageString = 'Cannot listen to a disposed/disposing Store.';
 
-        FluxUiComponent2 component;
+        late FluxUiComponent2 component;
 
         setUp(() {
           var jacket = mount((testComponents.basic())());

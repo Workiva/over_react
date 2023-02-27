@@ -323,6 +323,7 @@ T useContext<T>(Context<T> context) => react_hooks.useContext(context.reactDartC
 /// ```
 ///
 /// Learn more: <https://reactjs.org/docs/hooks-reference.html#useref>.
+// FIXME null-safety, it isn't currently possible to create a non-nullable ref. Add an API for this?
 Ref<T?> useRef<T>([T? initialValue]) => react_hooks.useRef(initialValue);
 
 /// Returns a memoized version of the return value of [createFunction].

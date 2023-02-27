@@ -23,8 +23,8 @@ UiFactory<ErrorUiProps> ErrorUi =
 mixin ErrorUiProps on UiProps {}
 
 mixin ErrorUiState on UiState {
-  bool triggerError;
-  String stack;
+  bool? triggerError;
+  String? stack;
 }
 
 class ErrorUiComponent
@@ -34,6 +34,9 @@ class ErrorUiComponent
 
   @override
   render() {
+    final triggerError = state.triggerError!;
+    final stack = state.stack;
+
     return (Dom.div()
       ..style = {
         'margin': 16,
@@ -55,13 +58,13 @@ class ErrorUiComponent
             print(i.componentStack);
           }
         )(
-          state.triggerError ? (ThrowingComponent()()) : null,
+          triggerError ? (ThrowingComponent()()) : null,
         ),
       ),
       Dom.div()(
         (Dom.button()
           ..onClick = ((_) => setState(newState()..triggerError = true))
-          ..disabled = state.triggerError
+          ..disabled = triggerError
           ..style = {
             'margin': '0 5px 0 5px',
           }
@@ -71,13 +74,13 @@ class ErrorUiComponent
             ..triggerError = false
             ..stack = null
           ))
-          ..disabled = !state.triggerError
+          ..disabled = !triggerError
           ..style = {
             'margin': '0 5px 0 5px',
           }
         )('Reset'),
       ),
-      state.stack != null
+      stack != null
           ? (Dom.div()
             ..style = {
               'border': '1px solid black',
@@ -95,14 +98,14 @@ class ErrorUiComponent
               )(
                 Dom.div()('Stack'),
                 Dom.div()(
-                  state.stack.contains('ThrowingComponent')
+                  stack.contains('ThrowingComponent')
                       ? 'Detected ThrowingComponent ✅'
                       : 'Failed to Find ThrowingComponent ❌',
                 ),
               ),
               (Dom.div()
                 ..addProp('dangerouslySetInnerHTML', {
-                  '__html': state.stack
+                  '__html': stack
                       .replaceAll('ThrowingComponent',
                           '<span style="color: green">ThrowingComponent</span>')
                       .replaceAll('at', '<br /><br />at')

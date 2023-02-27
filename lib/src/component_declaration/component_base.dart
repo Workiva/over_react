@@ -102,7 +102,7 @@ extension UiFactoryHelpers<TProps extends bh.UiProps> on UiFactory<TProps> {
   /// For DOM components, this will be a [String] tagName (e.g., `'div'`, `'a'`).
   ///
   /// For composite components (react-dart or pure JS), this will be a [ReactClass].
-  dynamic get elementType => this().componentFactory.type;
+  dynamic get elementType => this().componentFactory!.type;
 }
 
 /// A utility variation on [UiFactory], __without__ a `backingProps` parameter.

@@ -118,7 +118,8 @@ class SafeRenderManager extends Disposable {
       // Create a closure variable so we're not retaining a reference to `this` inside `ref`.
       final _selfRef = this._selfRef;
       react_dom.render((SafeRenderManagerHelper()
-        ..ref = (ref) {
+        // ignore: avoid_types_on_closure_parameters
+        ..ref = (SafeRenderManagerHelperComponent? ref) {
           _selfRef.current?._helperRef(ref);
         }
         ..getInitialContent = () {

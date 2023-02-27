@@ -1,5 +1,4 @@
 import 'package:js/js.dart';
-import 'package:meta/meta.dart';
 import 'package:react/react_client/react_interop.dart';
 import 'package:test/test.dart';
 
@@ -23,10 +22,10 @@ class RefTestCase {
   final RefTestCaseMeta meta;
 
   RefTestCase({
-    @required this.ref,
-    @required this.verifyRefWasUpdated,
-    @required this.getCurrent,
-    @required this.meta,
+    required this.ref,
+    required this.verifyRefWasUpdated,
+    required this.getCurrent,
+    required this.meta,
   });
 }
 

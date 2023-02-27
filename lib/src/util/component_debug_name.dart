@@ -16,7 +16,7 @@ import 'package:over_react/component_base.dart';
 // ignore: comment_references
 /// This is preferable to [UiComponent.displayName] since that doesn't include
 /// the generated displayName passed to [registerComponent]/
-String getDebugNameForDartComponent(UiComponent component) {
+String? getDebugNameForDartComponent(UiComponent component) {
   // We don't have a great way of looking up the display name the component was
   // registered with, so we'll resort to pulling it off the JS component.
 
@@ -25,10 +25,10 @@ String getDebugNameForDartComponent(UiComponent component) {
   if (jsThis != null) {
     final jsPrototype = _getPrototypeOf(jsThis);
     final jsComponentType =
-        jsPrototype == null ? null : getProperty(jsPrototype, 'constructor');
+        jsPrototype == null ? null : getProperty<Object?>(jsPrototype, 'constructor');
     if (jsComponentType != null) {
-      return (getProperty(jsComponentType, 'displayName') as String) ??
-          (getProperty(jsComponentType, 'name') as String);
+      return getProperty<String?>(jsComponentType, 'displayName') ??
+          getProperty<String?>(jsComponentType, 'name');
     }
   }
 
@@ -37,4 +37,4 @@ String getDebugNameForDartComponent(UiComponent component) {
 }
 
 @JS('Object.getPrototypeOf')
-external dynamic _getPrototypeOf(dynamic object);
+external Object? _getPrototypeOf(dynamic object);

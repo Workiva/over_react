@@ -210,7 +210,7 @@ final MiddlewareClass overReactReduxDevToolsMiddleware = _OverReactReduxDevTools
 /// );
 /// ```
 MiddlewareClass overReactReduxDevToolsMiddlewareFactory({
-  String name,
+  String? name,
 }) => _OverReactReduxDevToolsMiddleware({
   if (name != null) 'name': name,
 });

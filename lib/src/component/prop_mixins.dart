@@ -68,7 +68,7 @@ abstract class _$ReactPropsMixin {
     return [value];
   }
 
-  set children(List<dynamic> value) => _raw$ReactProps$children = value;
+  set children(List<dynamic>? value) => _raw$ReactProps$children = value;
 
   /// A String that differentiates a component from its siblings.
   ///
@@ -103,7 +103,7 @@ abstract class $DomPropsMixin {
   static const PropsMeta meta = _$metaForDomPropsMixin;
 }
 
-Map<String, dynamic> _conditionallyUnconvertStyle(dynamic style) {
+Map<String, dynamic>? _conditionallyUnconvertStyle(dynamic style) {
   if (style == null) return null;
 
   // Check for Map and not Map<String, dynamic> so that the consumer gets the

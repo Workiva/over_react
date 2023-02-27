@@ -29,7 +29,7 @@ dynamic getRawDartChildren(var renderedInstance) {
 
 List<dynamic> getTypedDartChildren(var renderedInstance) {
   assert(isDartComponent(renderedInstance));
-  return domProps(getProps(renderedInstance)).children;
+  return domProps(getProps(renderedInstance)).children!;
 }
 
 bool isDDC() {

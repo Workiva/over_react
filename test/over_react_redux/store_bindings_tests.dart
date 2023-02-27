@@ -81,16 +81,16 @@ void main() {
 Matcher hasAttrs(Map<String, dynamic> attrs) =>
     allOf(attrs.entries.map((e) => hasAttr(e.key, e.value)).toList());
 
-@isTestGroup
-void sharedSelectorHookAndConnectTests<T>(
-  String name, {
-  @required T initialValue,
-  @required T updatedValue1,
-  @required T updatedValue2,
-  String Function(T) renderValue,
-}) {
-  renderValue ??= (value) => value.toString();
+String _defaultRenderValue(Object? value) => value.toString();
 
+@isTestGroup
+void sharedSelectorHookAndConnectTests<T extends Object?>(
+  String name, {
+  required T initialValue,
+  required T updatedValue1,
+  required T updatedValue2,
+  String Function(T) renderValue = _defaultRenderValue,
+}) {
   group(name, () {
     setUpAll(() {
       final allValues = [initialValue, updatedValue1, updatedValue2];
@@ -102,7 +102,7 @@ void sharedSelectorHookAndConnectTests<T>(
       }
     });
 
-    Store<TestState<T>> store;
+    late Store<TestState<T>> store;
 
     setUp(() {
       store = Store((state, action) {
@@ -124,7 +124,7 @@ void sharedSelectorHookAndConnectTests<T>(
 
     void sharedTests(
       UiFactory<TestSelectorProps> factory, {
-      Context context,
+      Context? context,
       bool supportsEqualityFunction = true,
     }) {
       test('properly selects the value without converting it whatsoever', () {
@@ -358,18 +358,19 @@ void sharedSelectorHookAndConnectTests<T>(
   });
 }
 
-class TestState<T> {
+class TestState<T extends Object?> {
   final T interestingValue;
   final int otherValue;
 
   TestState({
-    @required this.interestingValue,
-    @required this.otherValue,
+    required this.interestingValue,
+    required this.otherValue,
   });
 
   TestState<T> update({
-    T interestingValue,
-    int otherValue,
+    // FIXME this doesn't allow updating to null
+    T? interestingValue,
+    int? otherValue,
   }) =>
       TestState(
         interestingValue: interestingValue ?? this.interestingValue,
@@ -396,8 +397,8 @@ class MyDartObject {
 UiFactory<TestSelectorProps> TestSelector = uiFunction((_) {}, _$TestSelectorConfig); // ignore: undefined_identifier
 
 mixin TestSelectorProps on UiProps {
-  void Function(Object selectedValue) onRender;
-  bool Function(dynamic next, dynamic prev) equality;
+  void Function(Object? selectedValue)? onRender;
+  bool Function(dynamic next, dynamic prev)? equality;
 }
 
 // We also need this to generate _$TestConnectConfig for use in non-top-level components.
@@ -407,7 +408,7 @@ UiFactory<TestConnectProps> TestConnectMapView =
 class TestConnectProps = UiProps with TestSelectorProps, TestConnectPropsMixin;
 
 mixin TestConnectPropsMixin on UiProps {
-  Object interestingValue;
+  Object? interestingValue;
 }
 
 /// A hook that returns a count of calls to a function component's render, specific to that instance.
@@ -415,6 +416,5 @@ mixin TestConnectPropsMixin on UiProps {
 /// The result of the first call is `1`.
 int useRenderCount() {
   final count = useRef(0);
-  count.current++;
-  return count.current;
+  return (count.current = count.current! + 1);
 }

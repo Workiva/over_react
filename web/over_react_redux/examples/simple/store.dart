@@ -19,10 +19,10 @@ import 'package:redux/redux.dart';
 /// While it can make life easier, this practice is optional as all as the
 /// reducer receives a valid type and value parameter.
 class Action<T> {
-  Action({this.type, this.value});
+  Action({this.type, required this.value});
 
   final String? type;
-  final T? value;
+  final T value;
 
   /// Used to encode the data structure for the Redux DevTools.
   ///
@@ -62,14 +62,14 @@ Store store = Store<CounterState>(stateReducer, initialState: CounterState.defau
 
 /// The store state class with the properties that make up the entire store.
 class CounterState {
-  final int? smallCount;
-  final int? bigCount;
-  final String? name;
+  final int smallCount;
+  final int bigCount;
+  final String name;
 
   CounterState({
-    this.smallCount,
-    this.bigCount,
-    this.name,
+    required this.smallCount,
+    required this.bigCount,
+    required this.name,
   });
 
   /// A default state constructor.
@@ -105,9 +105,9 @@ class CounterState {
 /// the implementation of the other two options.
 int? smallCountReducer(CounterState? oldState, dynamic action) {
   if (action is SmallDecrementAction) {
-    return oldState!.smallCount! - action.value!;
+    return oldState!.smallCount - action.value;
   } else if (action is SmallIncrementAction) {
-    return oldState!.smallCount! + action.value!;
+    return oldState!.smallCount + action.value;
   } else {
     return oldState!.smallCount;
   }
@@ -115,15 +115,16 @@ int? smallCountReducer(CounterState? oldState, dynamic action) {
 
 int? bigCountReducer(CounterState? oldState, dynamic action) {
   if (action is BigDecrementAction) {
-    return oldState!.bigCount! - action.value!;
+    return oldState!.bigCount - action.value;
   } else if (action is BigIncrementAction) {
-    return oldState!.bigCount! + action.value!;
+    return oldState!.bigCount + action.value;
   } else {
     return oldState!.bigCount;
   }
 }
 
-CounterState stateReducer([CounterState? state, action]) => CounterState(
-    bigCount: bigCountReducer(state, action),
-    smallCount: smallCountReducer(state, action),
+CounterState stateReducer(CounterState state, action) => CounterState(
+    bigCount: bigCountReducer(state, action) ?? state.bigCount,
+    smallCount: smallCountReducer(state, action) ?? state.smallCount,
+    name: state.name,
 );

@@ -106,14 +106,14 @@ abstract class _$AriaPropsMixin {
   ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-braillelabel>
   @Accessor(key: 'aria-braillelabel')
-  String braillelabel;
+  String? braillelabel;
 
   /// Defines a human-readable, author-localized abbreviated description for the role of an element intended to
   /// be converted into Braille
   ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-brailleroledescription>
   @Accessor(key: 'aria-brailleroledescription')
-  String brailleroledescription;
+  String? brailleroledescription;
 
   /// Indicates whether an element, and its subtree, are currently being updated.
   ///
@@ -153,26 +153,26 @@ abstract class _$AriaPropsMixin {
   ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-colcount>
   @Accessor(key: 'aria-colcount')
-  int colcount;
+  int? colcount;
 
   /// Defines an element's column index or position with respect to the total number of columns within a
   /// table, grid, or treegrid
   ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-colindex>
   @Accessor(key: 'aria-colindex')
-  int colindex;
+  int? colindex;
 
   /// Defines a text alternative of the numeric aria-colindex
   ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-colindextext>
   @Accessor(key: 'aria-colindextext')
-  String colindextext;
+  String? colindextext;
 
   ///  Defines the number of columns spanned by a cell or gridcell within a table, grid, or treegrid
   ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-colspan>
   @Accessor(key: 'aria-colspan')
-  int colspan;
+  int? colspan;
 
   /// Identifies the element (or elements) whose contents or presence are controlled by the current
   /// element. See related aria-owns.
@@ -217,7 +217,7 @@ abstract class _$AriaPropsMixin {
   ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-description>
   @Accessor(key: 'aria-description')
-  String description;
+  String? description;
 
   /// Identifies the element (or elements) that provide additional information related to the object
   /// or complex descriptions to an object
@@ -267,7 +267,7 @@ abstract class _$AriaPropsMixin {
   ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-errormessage>
   @Accessor(key: 'aria-errormessage')
-  String errormessage;
+  String? errormessage;
 
   /// Indicates whether the element, or another grouping element it controls, is currently expanded
   /// or collapsed.
@@ -580,7 +580,7 @@ abstract class _$AriaPropsMixin {
   ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-placeholder>
   @Accessor(key: 'aria-placeholder')
-  String placeholder;
+  String? placeholder;
 
   /// Defines an element's number or position in the current set of listitems or treeitems. Not
   /// required if all elements in the set are present in the DOM. See related aria-setsize.
@@ -706,32 +706,32 @@ abstract class _$AriaPropsMixin {
   ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-roledescription>
   @Accessor(key: 'aria-roledescription')
-  String roledescription;
+  String? roledescription;
 
   /// Defines the total number of rows in a table, grid, or treegrid
   ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-rowcount>
   @Accessor(key: 'aria-rowcount')
-  int rowcount;
+  int? rowcount;
 
   /// Defines an element's position with respect to the total number of rows within a table, grid, or treegrid
   ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-rowindex>
   @Accessor(key: 'aria-rowindex')
-  int rowindex;
+  int? rowindex;
 
   /// Defines a text alternative of aria-rowindex
   ///
   /// The aria-rowindextext should only be included in addition to, not as a replacement of, the aria-rowindex
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-rowindextext>
   @Accessor(key: 'aria-rowindextext')
-  String rowindextext;
+  String? rowindextext;
 
   /// Defines the number of rows spanned by a cell or gridcell within a table, grid, or treegrid
   ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-rowspan>
   @Accessor(key: 'aria-rowspan')
-  int rowspan;
+  int? rowspan;
 
   /// Indicates the current 'selected' state of various widgets. See related aria-checked and aria-pressed.
   ///

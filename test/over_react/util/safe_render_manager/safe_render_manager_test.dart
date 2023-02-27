@@ -81,36 +81,36 @@ main() {
           test('by chaining any existing ref object re', () {
             final existingWrapperRef = createRef<WrapperComponent>();
 
-            renderManager.render((Wrapper()..ref = existingWrapperRef)());
+            renderManager!.render((Wrapper()..ref = existingWrapperRef)());
 
-            expect(renderManager.contentRef, isNotNull);
-            expect(existingWrapperRef.current, same(renderManager.contentRef));
+            expect(renderManager!.contentRef, isNotNull);
+            expect(existingWrapperRef.current, same(renderManager!.contentRef));
           });
         });
 
         group('when the content is a DOM component', () {
           test('when there is no existing ref', () {
-            renderManager.render(Dom.p()());
+            renderManager!.render(Dom.p()());
 
-            expect(renderManager.contentRef, isNotNull);
-            expect(renderManager.contentRef, isA<ParagraphElement>());
+            expect(renderManager!.contentRef, isNotNull);
+            expect(renderManager!.contentRef, isA<ParagraphElement>());
           });
 
           test('by chaining any existing callback ref', () {
-            ParagraphElement existingWrapperRef;
+            late ParagraphElement existingWrapperRef;
 
-            renderManager.render((Dom.p()..ref = ((ref) => existingWrapperRef = ref as ParagraphElement))());
+            renderManager!.render((Dom.p()..ref = ((ref) => existingWrapperRef = ref as ParagraphElement))());
 
-            expect(renderManager.contentRef, isNotNull);
-            expect(existingWrapperRef, same(renderManager.contentRef));
+            expect(renderManager!.contentRef, isNotNull);
+            expect(existingWrapperRef, same(renderManager!.contentRef));
           });
 
           test('by chaining any existing callback ref', () {
             final existingWrapperRef = createRef<ParagraphElement>();
 
-            renderManager.render((Dom.p()..ref = existingWrapperRef)());
+            renderManager!.render((Dom.p()..ref = existingWrapperRef)());
 
-            expect(renderManager.contentRef, isNotNull);
+            expect(renderManager!.contentRef, isNotNull);
             expect(existingWrapperRef.current, same(renderManager.contentRef));
           });
         });
