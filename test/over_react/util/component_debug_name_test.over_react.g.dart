@@ -20,7 +20,7 @@ final $TestComponent2ComponentFactory = registerComponent2(
   parentType: null,
 );
 
-_$$TestComponent2Props _$TestComponent2([Map backingProps]) =>
+_$$TestComponent2Props _$TestComponent2([Map? backingProps]) =>
     backingProps == null
         ? _$$TestComponent2Props$JsMap(JsBackedMap())
         : _$$TestComponent2Props(backingProps);
@@ -37,9 +37,9 @@ abstract class _$$TestComponent2Props extends UiProps
 {
   _$$TestComponent2Props._();
 
-  factory _$$TestComponent2Props(Map backingMap) {
+  factory _$$TestComponent2Props(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestComponent2Props$JsMap(backingMap as JsBackedMap);
+      return _$$TestComponent2Props$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$TestComponent2Props$PlainMap(backingMap);
     }
@@ -71,7 +71,7 @@ abstract class _$$TestComponent2Props extends UiProps
 class _$$TestComponent2Props$PlainMap extends _$$TestComponent2Props {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestComponent2Props$PlainMap(Map backingMap)
+  _$$TestComponent2Props$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -90,7 +90,7 @@ class _$$TestComponent2Props$PlainMap extends _$$TestComponent2Props {
 class _$$TestComponent2Props$JsMap extends _$$TestComponent2Props {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestComponent2Props$JsMap(JsBackedMap backingMap)
+  _$$TestComponent2Props$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -109,7 +109,7 @@ class _$$TestComponent2Props$JsMap extends _$$TestComponent2Props {
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
 class _$TestComponent2Component extends TestComponent2Component {
-  _$$TestComponent2Props$JsMap _cachedTypedProps;
+  late _$$TestComponent2Props$JsMap _cachedTypedProps;
 
   @override
   _$$TestComponent2Props$JsMap get props => _cachedTypedProps;
@@ -129,11 +129,11 @@ class _$TestComponent2Component extends TestComponent2Component {
   }
 
   @override
-  _$$TestComponent2Props$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
+  _$$TestComponent2Props$JsMap typedPropsFactoryJs(JsBackedMap? backingMap) =>
       _$$TestComponent2Props$JsMap(backingMap);
 
   @override
-  _$$TestComponent2Props typedPropsFactory(Map backingMap) =>
+  _$$TestComponent2Props typedPropsFactory(Map? backingMap) =>
       _$$TestComponent2Props(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
@@ -182,7 +182,7 @@ const PropsMeta _$metaForTestComponentProps = PropsMeta(
   keys: _$TestComponentPropsAccessorsMixin.$propKeys,
 );
 
-_$$TestComponentProps _$TestComponent([Map backingProps]) =>
+_$$TestComponentProps _$TestComponent([Map? backingProps]) =>
     _$$TestComponentProps(backingProps);
 
 // Concrete props implementation.
@@ -193,7 +193,7 @@ class _$$TestComponentProps extends _$TestComponentProps
     implements TestComponentProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestComponentProps(Map backingMap) : this._props = {} {
+  _$$TestComponentProps(Map? backingMap) : this._props = {} {
     this._props = backingMap ?? {};
   }
 
@@ -222,7 +222,7 @@ class _$$TestComponentProps extends _$TestComponentProps
 // generated for the associated props class.
 class _$TestComponentComponent extends TestComponentComponent {
   @override
-  _$$TestComponentProps typedPropsFactory(Map backingMap) =>
+  _$$TestComponentProps typedPropsFactory(Map? backingMap) =>
       _$$TestComponentProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.

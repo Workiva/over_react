@@ -14,9 +14,9 @@ part of 'js_component_test.dart';
 mixin $TestPropsMixin on TestPropsMixin {
   static const PropsMeta meta = _$metaForTestPropsMixin;
   @override
-  String get size => (props[_$key__size__TestPropsMixin] ?? null) as String;
+  String? get size => (props[_$key__size__TestPropsMixin] ?? null) as String?;
   @override
-  set size(String value) => props[_$key__size__TestPropsMixin] = value;
+  set size(String? value) => props[_$key__size__TestPropsMixin] = value;
   @override
   dynamic get component =>
       (props[_$key__component__TestPropsMixin] ?? null) as dynamic;
@@ -24,10 +24,10 @@ mixin $TestPropsMixin on TestPropsMixin {
   set component(dynamic value) =>
       props[_$key__component__TestPropsMixin] = value;
   @override
-  String get stringProp =>
-      (props[_$key__stringProp__TestPropsMixin] ?? null) as String;
+  String? get stringProp =>
+      (props[_$key__stringProp__TestPropsMixin] ?? null) as String?;
   @override
-  set stringProp(String value) =>
+  set stringProp(String? value) =>
       props[_$key__stringProp__TestPropsMixin] = value;
   @override
   dynamic get dynamicProp =>
@@ -86,15 +86,16 @@ const PropsMeta _$metaForTestPropsMixin = PropsMeta(
 mixin $ASecondPropsMixin on ASecondPropsMixin {
   static const PropsMeta meta = _$metaForASecondPropsMixin;
   @override
-  bool get disabled =>
-      (props[_$key__disabled__ASecondPropsMixin] ?? null) as bool;
+  bool? get disabled =>
+      (props[_$key__disabled__ASecondPropsMixin] ?? null) as bool?;
   @override
-  set disabled(bool value) => props[_$key__disabled__ASecondPropsMixin] = value;
+  set disabled(bool? value) =>
+      props[_$key__disabled__ASecondPropsMixin] = value;
   @override
-  String get anotherProp =>
-      (props[_$key__anotherProp__ASecondPropsMixin] ?? null) as String;
+  String? get anotherProp =>
+      (props[_$key__anotherProp__ASecondPropsMixin] ?? null) as String?;
   @override
-  set anotherProp(String value) =>
+  set anotherProp(String? value) =>
       props[_$key__anotherProp__ASecondPropsMixin] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__disabled__ASecondPropsMixin =
@@ -172,9 +173,9 @@ abstract class _$$TestProps extends UiProps
         TestProps {
   _$$TestProps._();
 
-  factory _$$TestProps(Map backingMap) {
+  factory _$$TestProps(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestProps$JsMap(backingMap as JsBackedMap);
+      return _$$TestProps$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$TestProps$PlainMap(backingMap);
     }
@@ -203,7 +204,7 @@ abstract class _$$TestProps extends UiProps
 class _$$TestProps$PlainMap extends _$$TestProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestProps$PlainMap(Map backingMap)
+  _$$TestProps$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -222,7 +223,7 @@ class _$$TestProps$PlainMap extends _$$TestProps {
 class _$$TestProps$JsMap extends _$$TestProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestProps$JsMap(JsBackedMap backingMap)
+  _$$TestProps$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();

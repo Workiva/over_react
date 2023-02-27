@@ -150,8 +150,8 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.braillelabel] -->
   @override
   @Accessor(key: 'aria-braillelabel')
-  String get braillelabel =>
-      (props[_$key__braillelabel___$AriaPropsMixin] ?? null) as String;
+  String? get braillelabel =>
+      (props[_$key__braillelabel___$AriaPropsMixin] ?? null) as String?;
 
   /// Defines a string value that labels the current element, which is intended to be converted into Braille.
   ///
@@ -166,7 +166,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.braillelabel] -->
   @override
   @Accessor(key: 'aria-braillelabel')
-  set braillelabel(String value) =>
+  set braillelabel(String? value) =>
       props[_$key__braillelabel___$AriaPropsMixin] = value;
 
   /// Defines a human-readable, author-localized abbreviated description for the role of an element intended to
@@ -177,9 +177,9 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.brailleroledescription] -->
   @override
   @Accessor(key: 'aria-brailleroledescription')
-  String get brailleroledescription =>
+  String? get brailleroledescription =>
       (props[_$key__brailleroledescription___$AriaPropsMixin] ?? null)
-          as String;
+          as String?;
 
   /// Defines a human-readable, author-localized abbreviated description for the role of an element intended to
   /// be converted into Braille
@@ -189,7 +189,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.brailleroledescription] -->
   @override
   @Accessor(key: 'aria-brailleroledescription')
-  set brailleroledescription(String value) =>
+  set brailleroledescription(String? value) =>
       props[_$key__brailleroledescription___$AriaPropsMixin] = value;
 
   /// Indicates whether an element, and its subtree, are currently being updated.
@@ -279,7 +279,8 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.colcount] -->
   @override
   @Accessor(key: 'aria-colcount')
-  int get colcount => (props[_$key__colcount___$AriaPropsMixin] ?? null) as int;
+  int? get colcount =>
+      (props[_$key__colcount___$AriaPropsMixin] ?? null) as int?;
 
   /// Defines the total number of columns in a table, grid, or treegrid when not all columns are present
   /// in the DOM.
@@ -289,7 +290,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.colcount] -->
   @override
   @Accessor(key: 'aria-colcount')
-  set colcount(int value) => props[_$key__colcount___$AriaPropsMixin] = value;
+  set colcount(int? value) => props[_$key__colcount___$AriaPropsMixin] = value;
 
   /// Defines an element's column index or position with respect to the total number of columns within a
   /// table, grid, or treegrid
@@ -299,7 +300,8 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.colindex] -->
   @override
   @Accessor(key: 'aria-colindex')
-  int get colindex => (props[_$key__colindex___$AriaPropsMixin] ?? null) as int;
+  int? get colindex =>
+      (props[_$key__colindex___$AriaPropsMixin] ?? null) as int?;
 
   /// Defines an element's column index or position with respect to the total number of columns within a
   /// table, grid, or treegrid
@@ -309,7 +311,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.colindex] -->
   @override
   @Accessor(key: 'aria-colindex')
-  set colindex(int value) => props[_$key__colindex___$AriaPropsMixin] = value;
+  set colindex(int? value) => props[_$key__colindex___$AriaPropsMixin] = value;
 
   /// Defines a text alternative of the numeric aria-colindex
   ///
@@ -318,8 +320,8 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.colindextext] -->
   @override
   @Accessor(key: 'aria-colindextext')
-  String get colindextext =>
-      (props[_$key__colindextext___$AriaPropsMixin] ?? null) as String;
+  String? get colindextext =>
+      (props[_$key__colindextext___$AriaPropsMixin] ?? null) as String?;
 
   /// Defines a text alternative of the numeric aria-colindex
   ///
@@ -328,7 +330,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.colindextext] -->
   @override
   @Accessor(key: 'aria-colindextext')
-  set colindextext(String value) =>
+  set colindextext(String? value) =>
       props[_$key__colindextext___$AriaPropsMixin] = value;
 
   ///  Defines the number of columns spanned by a cell or gridcell within a table, grid, or treegrid
@@ -338,7 +340,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.colspan] -->
   @override
   @Accessor(key: 'aria-colspan')
-  int get colspan => (props[_$key__colspan___$AriaPropsMixin] ?? null) as int;
+  int? get colspan => (props[_$key__colspan___$AriaPropsMixin] ?? null) as int?;
 
   ///  Defines the number of columns spanned by a cell or gridcell within a table, grid, or treegrid
   ///
@@ -347,7 +349,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.colspan] -->
   @override
   @Accessor(key: 'aria-colspan')
-  set colspan(int value) => props[_$key__colspan___$AriaPropsMixin] = value;
+  set colspan(int? value) => props[_$key__colspan___$AriaPropsMixin] = value;
 
   /// Identifies the element (or elements) whose contents or presence are controlled by the current
   /// element. See related aria-owns.
@@ -454,8 +456,8 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.description] -->
   @override
   @Accessor(key: 'aria-description')
-  String get description =>
-      (props[_$key__description___$AriaPropsMixin] ?? null) as String;
+  String? get description =>
+      (props[_$key__description___$AriaPropsMixin] ?? null) as String?;
 
   /// Defines a string value that describes or annotates the current element
   ///
@@ -467,7 +469,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.description] -->
   @override
   @Accessor(key: 'aria-description')
-  set description(String value) =>
+  set description(String? value) =>
       props[_$key__description___$AriaPropsMixin] = value;
 
   /// Identifies the element (or elements) that provide additional information related to the object
@@ -582,8 +584,8 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.errormessage] -->
   @override
   @Accessor(key: 'aria-errormessage')
-  String get errormessage =>
-      (props[_$key__errormessage___$AriaPropsMixin] ?? null) as String;
+  String? get errormessage =>
+      (props[_$key__errormessage___$AriaPropsMixin] ?? null) as String?;
 
   /// Identifies the element that provides an error message for that object
   ///
@@ -597,7 +599,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.errormessage] -->
   @override
   @Accessor(key: 'aria-errormessage')
-  set errormessage(String value) =>
+  set errormessage(String? value) =>
       props[_$key__errormessage___$AriaPropsMixin] = value;
 
   /// Indicates whether the element, or another grouping element it controls, is currently expanded
@@ -1327,8 +1329,8 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.placeholder] -->
   @override
   @Accessor(key: 'aria-placeholder')
-  String get placeholder =>
-      (props[_$key__placeholder___$AriaPropsMixin] ?? null) as String;
+  String? get placeholder =>
+      (props[_$key__placeholder___$AriaPropsMixin] ?? null) as String?;
 
   /// Defines a short hint (a word or short phrase) intended to help the user with data entry when a form
   /// control has no value. The hint can be a sample value or a brief description of the expected format
@@ -1338,7 +1340,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.placeholder] -->
   @override
   @Accessor(key: 'aria-placeholder')
-  set placeholder(String value) =>
+  set placeholder(String? value) =>
       props[_$key__placeholder___$AriaPropsMixin] = value;
 
   /// Defines an element's number or position in the current set of listitems or treeitems. Not
@@ -1627,8 +1629,8 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.roledescription] -->
   @override
   @Accessor(key: 'aria-roledescription')
-  String get roledescription =>
-      (props[_$key__roledescription___$AriaPropsMixin] ?? null) as String;
+  String? get roledescription =>
+      (props[_$key__roledescription___$AriaPropsMixin] ?? null) as String?;
 
   /// Defines an author-localized description for the role of an element
   ///
@@ -1640,7 +1642,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.roledescription] -->
   @override
   @Accessor(key: 'aria-roledescription')
-  set roledescription(String value) =>
+  set roledescription(String? value) =>
       props[_$key__roledescription___$AriaPropsMixin] = value;
 
   /// Defines the total number of rows in a table, grid, or treegrid
@@ -1650,7 +1652,8 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.rowcount] -->
   @override
   @Accessor(key: 'aria-rowcount')
-  int get rowcount => (props[_$key__rowcount___$AriaPropsMixin] ?? null) as int;
+  int? get rowcount =>
+      (props[_$key__rowcount___$AriaPropsMixin] ?? null) as int?;
 
   /// Defines the total number of rows in a table, grid, or treegrid
   ///
@@ -1659,7 +1662,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.rowcount] -->
   @override
   @Accessor(key: 'aria-rowcount')
-  set rowcount(int value) => props[_$key__rowcount___$AriaPropsMixin] = value;
+  set rowcount(int? value) => props[_$key__rowcount___$AriaPropsMixin] = value;
 
   /// Defines an element's position with respect to the total number of rows within a table, grid, or treegrid
   ///
@@ -1668,7 +1671,8 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.rowindex] -->
   @override
   @Accessor(key: 'aria-rowindex')
-  int get rowindex => (props[_$key__rowindex___$AriaPropsMixin] ?? null) as int;
+  int? get rowindex =>
+      (props[_$key__rowindex___$AriaPropsMixin] ?? null) as int?;
 
   /// Defines an element's position with respect to the total number of rows within a table, grid, or treegrid
   ///
@@ -1677,7 +1681,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.rowindex] -->
   @override
   @Accessor(key: 'aria-rowindex')
-  set rowindex(int value) => props[_$key__rowindex___$AriaPropsMixin] = value;
+  set rowindex(int? value) => props[_$key__rowindex___$AriaPropsMixin] = value;
 
   /// Defines a text alternative of aria-rowindex
   ///
@@ -1687,8 +1691,8 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.rowindextext] -->
   @override
   @Accessor(key: 'aria-rowindextext')
-  String get rowindextext =>
-      (props[_$key__rowindextext___$AriaPropsMixin] ?? null) as String;
+  String? get rowindextext =>
+      (props[_$key__rowindextext___$AriaPropsMixin] ?? null) as String?;
 
   /// Defines a text alternative of aria-rowindex
   ///
@@ -1698,7 +1702,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.rowindextext] -->
   @override
   @Accessor(key: 'aria-rowindextext')
-  set rowindextext(String value) =>
+  set rowindextext(String? value) =>
       props[_$key__rowindextext___$AriaPropsMixin] = value;
 
   /// Defines the number of rows spanned by a cell or gridcell within a table, grid, or treegrid
@@ -1708,7 +1712,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.rowspan] -->
   @override
   @Accessor(key: 'aria-rowspan')
-  int get rowspan => (props[_$key__rowspan___$AriaPropsMixin] ?? null) as int;
+  int? get rowspan => (props[_$key__rowspan___$AriaPropsMixin] ?? null) as int?;
 
   /// Defines the number of rows spanned by a cell or gridcell within a table, grid, or treegrid
   ///
@@ -1717,7 +1721,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.rowspan] -->
   @override
   @Accessor(key: 'aria-rowspan')
-  set rowspan(int value) => props[_$key__rowspan___$AriaPropsMixin] = value;
+  set rowspan(int? value) => props[_$key__rowspan___$AriaPropsMixin] = value;
 
   /// Indicates the current 'selected' state of various widgets. See related aria-checked and aria-pressed.
   ///
