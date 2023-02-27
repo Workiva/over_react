@@ -31,7 +31,7 @@ abstract class ComponentGenerator extends BoilerplateDeclarationGenerator {
   late TypedMapNames propsNames;
   TypedMapNames? stateNames;
   late ComponentNames componentNames;
-  FactoryNames factoryNames;
+  late FactoryNames factoryNames;
 
   BoilerplateComponent get component;
   bool get hasState;
