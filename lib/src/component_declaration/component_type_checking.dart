@@ -172,9 +172,8 @@ bool isTypeAlias(dynamic type) {
 /// Returns the [ComponentTypeMeta] associated with the component type [type] in [setComponentTypeMeta],
 /// or `const ComponentTypeMeta.none()` if there is no associated meta.
 ComponentTypeMeta getComponentTypeMeta(Object type) {
-  assert(isPotentiallyValidComponentType(type) &&
-      '`type` should be a valid component type (and not null or a type alias).'
-          is String);
+  assert(isPotentiallyValidComponentType(type),
+      '`type` should be a valid component type (and not null or a type alias).');
 
   if (type is! String) {
     return getProperty(type, _componentTypeMetaKey) as ComponentTypeMeta? ??
@@ -285,7 +284,7 @@ Object? getComponentTypeFromAlias(Object? typeAlias) {
     // JS functions with `is UiFactory` returns `true`, and we may not actually
     // be invoking a UiFactory.
     try {
-      final builder = typeAlias();
+      final builder = typeAlias() as dynamic;
       if (builder is component_base.UiProps) {
         return builder.componentFactory?.type;
       }
@@ -319,9 +318,8 @@ bool isPotentiallyValidComponentType(dynamic type) {
 ///     getParentTypes(getComponentTypeFromAlias(B)); // [A].map(getTypeFromAlias)
 ///     getParentTypes(getComponentTypeFromAlias(C)); // [B, A].map(getTypeFromAlias)
 Iterable<Object> getParentTypes(Object type) sync* {
-  assert(isPotentiallyValidComponentType(type) &&
-      '`type` should be a valid component type (and not null or a type alias).'
-          is String);
+  assert(isPotentiallyValidComponentType(type),
+      '`type` should be a valid component type (and not null or a type alias).');
 
   // FIXME null-safety what's the recommended way to write this kind of loop?
   Object? currentType = type;
@@ -360,8 +358,8 @@ bool isComponentOfType(ReactElement? instance, dynamic typeAlias,
 
   // Type-check instance wrappers.
   if (traverseWrappers && instanceTypeMeta.isWrapper) {
-    assert(isDartComponent(instance) &&
-        'Non-Dart components should not be wrappers' is String);
+    assert(isDartComponent(instance),
+        'Non-Dart components should not be wrappers');
 
     final children = getProps(instance)['children'] as List?;
     if (children == null || children.isEmpty) {

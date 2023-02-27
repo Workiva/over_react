@@ -98,7 +98,7 @@ void mapProxyTests(Map Function(Map proxiedMap) mapProxyFactory) {
       var testMap = {};
 
       proxy.addAll(testMap);
-      verify(backingMap.addAll(argThat(same(testMap))!));
+      verify(backingMap.addAll(argThat(same(testMap))));
     });
 
     test('clear', () {

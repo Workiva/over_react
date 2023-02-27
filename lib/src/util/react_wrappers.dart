@@ -139,7 +139,7 @@ Map getProps(dynamic/* ReactElement|ReactComponent */ instance, {bool traverseWr
       }
 
       if (instanceTypeMeta.isWrapper) {
-        assert(isDartComponent(instance) && 'Non-dart components should not be wrappers' is String);
+        assert(isDartComponent(instance), 'Non-dart components should not be wrappers');
 
         final children = getProps(instance)['children'] as List?;
 
