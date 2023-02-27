@@ -111,7 +111,7 @@ main() {
             renderManager!.render((Dom.p()..ref = existingWrapperRef)());
 
             expect(renderManager!.contentRef, isNotNull);
-            expect(existingWrapperRef.current, same(renderManager.contentRef));
+            expect(existingWrapperRef.current, same(renderManager!.contentRef));
           });
         });
       });

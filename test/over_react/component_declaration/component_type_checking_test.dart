@@ -200,7 +200,7 @@ main() {
         // This should be a new instance every test run, which is why we
         // don't set it up within the group.
         // ignore: prefer_function_declarations_over_variables
-        final UiFactory alias = ([backingMap]) => GenericUiProps(null, backingMap);
+        final UiFactory alias = ([backingMap]) => _UiPropsWithNullComponentFactory(backingMap);
         expect(getComponentTypeFromAlias(alias), isNull);
       });
 
@@ -611,3 +611,17 @@ react_interop.ReactClass createTestReactClass() {
 
 // ignore: prefer_function_declarations_over_variables
 UiFactory<UiProps> TestJs = ([backingMap]) => GenericUiProps(testJsComponentFactoryProxy, backingMap);
+
+
+class _UiPropsWithNullComponentFactory extends UiProps {
+  @override
+  final Map props;
+
+  _UiPropsWithNullComponentFactory([Map? props]) : this.props = props ?? JsBackedMap();
+
+  @override
+  String get propKeyNamespace => '';
+
+  @override
+  bool get $isClassGenerated => true;
+}

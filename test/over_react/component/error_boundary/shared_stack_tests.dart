@@ -25,7 +25,7 @@ void sharedErrorBoundaryStackTests() {
   group(
       'includes the Dart component displayName in error boundary errors for', () {
     void expectRenderErrorWithComponentName(ReactElement element,
-        {@required String expectedComponentName}) {
+        {required String expectedComponentName}) {
       final capturedInfos = <ReactErrorInfo>[];
       rtl.render(
           (ErrorBoundary()
