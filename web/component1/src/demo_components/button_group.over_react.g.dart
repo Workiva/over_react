@@ -16,7 +16,6 @@ final $ButtonGroupComponentFactory = registerComponent(
   componentClass: ButtonGroupComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'ButtonGroup',
 );
 
 abstract class _$ButtonGroupPropsAccessorsMixin implements _$ButtonGroupProps {
@@ -205,6 +204,9 @@ class _$ButtonGroupComponent extends ButtonGroupComponent {
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'ButtonGroup';
 
   /// The default consumed props, taken from _$ButtonGroupProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.

@@ -1,7 +1,6 @@
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:analyzer/source/source_range.dart';
-import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/visitors/proptypes_visitors.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
@@ -65,6 +64,9 @@ class PropTypesReturnValueDiagnostic extends DiagnosticContributor {
     correction: 'Return the error instead of throwing it.',
   );
 
+  @override
+  List<DiagnosticCode> get codes => [code];
+
   static final fixKind = FixKind(code.name, 200, 'Return the error');
 
   @override
@@ -72,7 +74,7 @@ class PropTypesReturnValueDiagnostic extends DiagnosticContributor {
     final visitor = PropTypesVisitor();
     result.unit.accept(visitor);
     final throwExpressionsForPropKey = [
-      ...?visitor.mapVisitor?.values?.map((value) => allDescendantsOfType<ThrowExpression>(value))?.toList(),
+      ...visitor.mapVisitor.values.map((value) => allDescendantsOfType<ThrowExpression>(value)).toList(),
     ];
 
     for (final throwExpressions in throwExpressionsForPropKey) {
@@ -96,6 +98,6 @@ class PropTypeFunctionBlockVisitor extends RecursiveAstVisitor<void> {
 
   @override
   void visitExpressionStatement(ExpressionStatement node) {
-    throwExpressions.addAll(node.childEntities?.whereType<ThrowExpression>() ?? []);
+    throwExpressions.addAll(node.childEntities.whereType<ThrowExpression>());
   }
 }

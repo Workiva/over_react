@@ -24,6 +24,7 @@ import 'package:over_react/src/builder/codegen.dart';
 import 'package:source_span/source_span.dart';
 import 'package:test/test.dart';
 
+import '../../mockito.mocks.dart';
 import './util.dart';
 
 main() {
@@ -313,7 +314,6 @@ main() {
                     '  componentClass: ${baseName}Component,\n'
                     '  isWrapper: false,\n'
                     '  parentType: null,\n'
-                    '  displayName: \'$baseName\',\n'
                   ');\n'));
               });
             }

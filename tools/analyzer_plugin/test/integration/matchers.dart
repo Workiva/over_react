@@ -1,4 +1,3 @@
-import 'package:analyzer/src/generated/source.dart';
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:analyzer_plugin/protocol/protocol_generated.dart';
 import 'package:analyzer_plugin/utilities/assist/assist.dart';
@@ -29,7 +28,7 @@ TypeMatcher<PrioritizedSourceChange> isFix(FixKind fixKind) => isA<PrioritizedSo
 /// - The analysis error either has a fix or does not, based on [hasFix]
 /// - If [locatedAt] is non-null, the analysis error's location (offset and
 ///   length) matches it
-TypeMatcher<AnalysisError> isDiagnostic(DiagnosticCode diagnosticCode, {bool hasFix, SourceSelection locatedAt}) {
+TypeMatcher<AnalysisError> isDiagnostic(DiagnosticCode diagnosticCode, {bool? hasFix, SourceSelection? locatedAt}) {
   hasFix ??= false;
   var matcher = isA<AnalysisError>()
       .havingCode(diagnosticCode.name)
@@ -47,17 +46,19 @@ TypeMatcher<AnalysisError> isDiagnostic(DiagnosticCode diagnosticCode, {bool has
 /// Convenience methods that leverage [TypeMatcher.having] to make it easy to
 /// add expectations for properties specific to [AnalysisError].
 extension AnalysisErrorHavingUtils on TypeMatcher<AnalysisError> {
-  TypeMatcher<AnalysisError> havingCode(String code) => having((e) => e.code, 'code', code);
+  TypeMatcher<AnalysisError> havingCode(/*String|Matcher*/ dynamic code) => having((e) => e.code, 'code', code);
 
-  TypeMatcher<AnalysisError> havingCorrection(String correction) =>
+  TypeMatcher<AnalysisError> havingCorrection(/*String?|Matcher*/ dynamic correction) =>
       having((e) => e.correction, 'correction', correction);
 
-  TypeMatcher<AnalysisError> havingLocation(Matcher matcher) => having((e) => e.location, 'location', matcher);
+  TypeMatcher<AnalysisError> havingLocation(/*Matcher|Matcher*/ dynamic matcher) =>
+      having((e) => e.location, 'location', matcher);
 
-  TypeMatcher<AnalysisError> havingSeverity(AnalysisErrorSeverity severity) =>
+  TypeMatcher<AnalysisError> havingSeverity(/*AnalysisErrorSeverity|Matcher*/ dynamic severity) =>
       having((e) => e.severity, 'severity', severity);
 
-  TypeMatcher<AnalysisError> havingType(AnalysisErrorType type) => having((e) => e.type, 'type', type);
+  TypeMatcher<AnalysisError> havingType(/*AnalysisErrorType|Matcher*/ dynamic type) =>
+      having((e) => e.type, 'type', type);
 
   TypeMatcher<AnalysisError> thatHasFix() => having((e) => e.hasFix, 'hasFix', isTrue);
 
@@ -106,8 +107,8 @@ class _LocationMatcher extends Matcher {
 
   @override
   bool matches(dynamic item, Map matchState) {
-    int offset;
-    int length;
+    int? offset;
+    int? length;
     if (item is SourceSelection) {
       offset = item.offset;
       length = item.length;

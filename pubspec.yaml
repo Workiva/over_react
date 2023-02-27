@@ -1,5 +1,5 @@
 name: over_react
-version: 4.1.0
+version: 4.8.3
 description: A library for building statically-typed React UI components using Dart.
 homepage: https://github.com/Workiva/over_react/
 environment:
@@ -15,7 +15,7 @@ dependencies:
   memoize: ^3.0.0
   meta: ^1.7.0
   path: ^1.8.0
-  react: ^6.0.0
+  react: ^6.1.8
   redux: ^5.0.0
   source_span: ^1.8.1
   transformer_utils: ^0.2.6
@@ -33,7 +33,10 @@ dev_dependencies:
 #  dart_dev: ^3.6.4
   glob: ^2.0.1
   io: ^1.0.3
-  mockito: ^5.0.12
+  # Pin mockito to work around https://github.com/dart-lang/mockito/issues/552
+  # until we can get to 5.3.1, which requires a newer analyzer.
+  mockito: '>=5.0.0 <5.3.0'
+  react_testing_library: ^2.1.0
   over_react_test: ^2.10.2
   pedantic: ^1.11.1
   test: ^1.17.10
@@ -49,8 +52,14 @@ dependency_overrides:
       url: git@github.com:Workiva/dart_transformer_utils.git
       ref: null-safety
 
-
 workiva:
   core_checks:
     version: 1
     react_boilerplate: disabled
+
+dependency_validator:
+  exclude:
+    - app/**
+    - tools/**
+  ignore:
+    - mockito

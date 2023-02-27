@@ -18,7 +18,6 @@ final $WithTransitionTesterComponentFactory = registerComponent2(
   componentClass: WithTransitionTesterComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'WithTransitionTester',
 );
 
 _$$WithTransitionTesterProps _$WithTransitionTester([Map? backingProps]) =>
@@ -147,6 +146,9 @@ class _$WithTransitionTesterComponent extends WithTransitionTesterComponent {
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'WithTransitionTester';
 
   /// The default consumed props, comprising all props mixins used by WithTransitionTesterProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.

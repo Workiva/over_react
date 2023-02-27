@@ -16,7 +16,6 @@ final $DoNotGenerateAccessorTestComponentFactory = registerComponent2(
   componentClass: DoNotGenerateAccessorTestComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'DoNotGenerateAccessorTest',
 );
 
 abstract class _$DoNotGenerateAccessorTestPropsAccessorsMixin
@@ -372,6 +371,9 @@ class _$DoNotGenerateAccessorTestComponent
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'DoNotGenerateAccessorTest';
 
   /// The default consumed props, taken from _$DoNotGenerateAccessorTestProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.

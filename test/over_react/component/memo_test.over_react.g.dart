@@ -16,7 +16,6 @@ final $BasicUiComponent2ComponentFactory = registerComponent2(
   componentClass: BasicUiComponent2Component,
   isWrapper: false,
   parentType: null,
-  displayName: 'BasicUiComponent2',
 );
 
 abstract class _$BasicUiComponent2PropsAccessorsMixin
@@ -161,6 +160,9 @@ class _$BasicUiComponent2Component extends BasicUiComponent2Component {
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'BasicUiComponent2';
 
   /// The default consumed props, taken from _$BasicUiComponent2Props.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.

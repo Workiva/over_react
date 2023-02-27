@@ -162,7 +162,6 @@ final $TestConsumingAbstractCustomRendererComponentComponentFactory =
   componentClass: TestConsumingAbstractCustomRendererComponentComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'TestConsumingAbstractCustomRendererComponent',
 );
 
 abstract class _$TestConsumingAbstractCustomRendererComponentPropsAccessorsMixin
@@ -356,6 +355,9 @@ class _$TestConsumingAbstractCustomRendererComponentComponent
   @override
   bool get $isClassGenerated => true;
 
+  @override
+  String get displayName => 'TestConsumingAbstractCustomRendererComponent';
+
   /// The default consumed props, taken from _$TestConsumingAbstractCustomRendererComponentProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
@@ -374,7 +376,6 @@ final $TestConsumingCustomRendererComponentComponentFactory =
   componentClass: TestConsumingCustomRendererComponentComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'TestConsumingCustomRendererComponent',
 );
 
 abstract class _$TestConsumingCustomRendererComponentPropsAccessorsMixin
@@ -557,6 +558,9 @@ class _$TestConsumingCustomRendererComponentComponent
   @override
   bool get $isClassGenerated => true;
 
+  @override
+  String get displayName => 'TestConsumingCustomRendererComponent';
+
   /// The default consumed props, taken from _$TestConsumingCustomRendererComponentProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
@@ -575,7 +579,6 @@ final $TestCustomRendererFromAbstractComponentComponentFactory =
   componentClass: TestCustomRendererFromAbstractComponentComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'TestCustomRendererFromAbstractComponent',
 );
 
 abstract class _$TestCustomRendererFromAbstractComponentPropsAccessorsMixin
@@ -849,6 +852,9 @@ class _$TestCustomRendererFromAbstractComponentComponent
   @override
   bool get $isClassGenerated => true;
 
+  @override
+  String get displayName => 'TestCustomRendererFromAbstractComponent';
+
   /// The default consumed props, taken from _$TestCustomRendererFromAbstractComponentProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
@@ -866,7 +872,6 @@ final $TestCustomRendererComponentComponentFactory = registerComponent2(
   componentClass: TestCustomRendererComponentComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'TestCustomRendererComponent',
 );
 
 abstract class _$TestCustomRendererComponentPropsAccessorsMixin
@@ -1216,6 +1221,9 @@ class _$TestCustomRendererComponentComponent
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'TestCustomRendererComponent';
 
   /// The default consumed props, taken from _$TestCustomRendererComponentProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.

@@ -11,7 +11,7 @@
 
 ---
 
-* __[Try it in your Package](#try-it-in-your-package)__
+* __[How To Use It](#how-to-use-it)__
 * __[Repo Structure](#repo-structure)__
 * __[Local Development](#local-development)__
     * [Setup](#setup)
@@ -21,7 +21,7 @@
     * [Documenting Diagnostics and Assists](#documenting-diagnostics-and-assists)
 * __[Feature Ideas & Inspiration](#feature-ideas--inspiration)__
 
-## Try it in your package!
+## How To Use It
 1. Add over_react to your pubspec.yaml
 1. Enable the plugin in your analysis_options.yaml:
     ```yaml
@@ -30,7 +30,31 @@
         - over_react
     ```
 1. Restart the Dart Analysis Server in your IDE. The plugin may take a minute to load after built-in analysis completes.
-   
+
+Note that, currently, diagnostics only show up in your IDE, and not in command line tools like `dart analyze` (see https://github.com/dart-lang/sdk/issues/38407 for more info). As a result, running diagnostics in CI is not supported at this time.
+
+### Configuration
+
+The severity of specific diagnostics can optionally be adjusted in analysis_options.yaml. Individual diagnostics can also be disabled.
+
+To configure the plugin, add a `over_react` key to analysis_options.yaml:
+```yaml
+analyzer:
+  plugins:
+    - over_react
+
+over_react:
+  errors:
+    over_react_boilerplate_error: error
+    over_react_incorrect_doc_comment_location: warning
+    over_react_unnecessary_key: info
+    over_react_pseudo_static_lifecycle: ignore
+```
+
+In the example above, the first three diagnostics are adjusted to have severities of `error`, `warning`, and `info`. The final diagnostic is disabled.
+
+If a diagnostic is not listed in the analysis_options.yaml, it's default severity will be used.
+
 ## Repo Structure
 
 See the [analyzer_plugin package structure documentation][analyzer_plugin_package_structure] for terminology and more info.
@@ -83,6 +107,21 @@ This script sets up a symlink to point to the original plugin directory (replaci
     * If you need to get the source for a replacement, use `sourceFile.getText(node.offset, node.end)`.
 
 ### Debugging the Plugin
+
+#### Showing Debug Info
+
+Via `AnalyzerDebugHelper`, it's possible for diagnostics to show debug information for specific locations in a file
+as infos, which can be helpful to develop/troubleshoot
+issues without having to attach a debugger.
+
+Some parts of the plugin show this debug info based on the presence of a comment anywhere in the file.
+Currently-available debug info:
+- `// debug: over_react_boilerplate`- shows how over_react boilerplate will be parsed/detected by the over_react
+  builder and analyzer functionality dealing with component declarations
+- `// debug: over_react_metrics` - shows performance data on how long diagnostics took to run
+- `// debug: over_react_exhaustive_deps` - shows info on how dependencies were detected/interpreted
+
+#### Attaching a Debugger
 The dev experience when working on this plugin isn't ideal (See the `analyzer_plugin` debugging docs [for more information](https://github.com/dart-lang/sdk/blob/master/pkg/analyzer_plugin/doc/tutorial/debugging.md)), but it's possible debug and see logs from the plugin.
 
 These instructions are currently for JetBrains IDEs (IntelliJ, WebStorm, etc.) only.

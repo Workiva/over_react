@@ -16,7 +16,6 @@ final $ButtonComponentFactory = registerComponent(
   componentClass: ButtonComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'Button',
 );
 
 abstract class _$ButtonPropsAccessorsMixin implements _$ButtonProps {
@@ -346,6 +345,9 @@ class _$ButtonComponent extends ButtonComponent {
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'Button';
 
   /// The default consumed props, taken from _$ButtonProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.

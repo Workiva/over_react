@@ -1,10 +1,10 @@
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
-import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/invalid_child.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/constants.dart';
+import 'package:over_react_analyzer_plugin/src/util/function_components.dart';
 import 'package:over_react_analyzer_plugin/src/util/react_types.dart';
 import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
 
@@ -110,14 +110,24 @@ class RenderReturnValueDiagnostic extends DiagnosticContributor {
     correction: 'Return null instead.',
   );
 
+  @override
+  List<DiagnosticCode> get codes => [invalidTypeErrorCode, preferNullOverFalseErrorCode];
+
   static final falseToNull = FixKind(preferNullOverFalseErrorCode.name, 200, 'Return null instead');
 
   @override
   computeErrors(result, collector) async {
     // This is the return type even if it's not explicitly declared.
-    final visitor = RenderVisitor();
-    result.unit.accept(visitor);
-    for (final returnExpression in visitor.renderReturnExpressions) {
+    final classComponentVisitor = ClassComponentRenderVisitor();
+    result.unit.accept(classComponentVisitor);
+    final fnComponents = getAllFunctionComponents(result.unit);
+
+    final allReturnExpressions = <Expression>[
+      ...classComponentVisitor.renderReturnExpressions,
+      ...fnComponents.map((component) => component.body.returnExpressions).expand((i) => i),
+    ];
+
+    for (final returnExpression in allReturnExpressions) {
       final returnType = returnExpression.staticType;
       if (returnType == null || returnType.isDynamic || returnType.isDartCoreObject || returnType.isVoid) {
         continue;
@@ -131,14 +141,14 @@ class RenderReturnValueDiagnostic extends DiagnosticContributor {
           await collector.addErrorWithFix(
             code,
             location,
-            errorMessageArgs: [returnType.getDisplayString(), missingBuilderMessageSuffix],
+            errorMessageArgs: [returnType.getDisplayString(withNullability: false), missingBuilderMessageSuffix],
             fixKind: addBuilderInvocationFix,
             computeFix: () => buildFileEdit(result, (builder) {
               buildMissingInvocationEdits(returnExpression, builder);
             }),
           );
         } else {
-          collector.addError(code, location, errorMessageArgs: [returnType.getDisplayString()]);
+          collector.addError(code, location, errorMessageArgs: [returnType.getDisplayString(withNullability: false)]);
         }
       });
 
@@ -156,7 +166,7 @@ class RenderReturnValueDiagnostic extends DiagnosticContributor {
   }
 }
 
-class RenderVisitor extends SimpleAstVisitor<void> {
+class ClassComponentRenderVisitor extends SimpleAstVisitor<void> {
   final renderReturnExpressions = <Expression>[];
 
   @override
@@ -166,7 +176,7 @@ class RenderVisitor extends SimpleAstVisitor<void> {
 
   @override
   void visitClassDeclaration(ClassDeclaration node) {
-    if (node.declaredElement.isComponentClass) {
+    if (node.declaredElement?.isComponentClass ?? false) {
       node.visitChildren(this);
     }
   }

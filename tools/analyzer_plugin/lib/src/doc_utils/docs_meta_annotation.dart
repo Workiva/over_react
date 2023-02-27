@@ -11,7 +11,7 @@ class DocsMeta implements IContributorMetaBase {
   @override
   final String description;
   @override
-  final String details;
+  final String? details;
   @override
   final String since;
   @override

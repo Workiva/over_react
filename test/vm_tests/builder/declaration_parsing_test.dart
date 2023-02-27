@@ -29,6 +29,7 @@ import 'package:over_react/src/component_declaration/annotations.dart' as annota
 import 'package:source_span/source_span.dart';
 import 'package:test/test.dart';
 
+import '../../mockito.mocks.dart';
 import './util.dart';
 import 'parsing/parsing_helpers.dart';
 

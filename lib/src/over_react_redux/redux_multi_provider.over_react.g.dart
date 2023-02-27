@@ -16,7 +16,6 @@ final $ReduxMultiProviderComponentFactory = registerComponent2(
   componentClass: ReduxMultiProviderComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'ReduxMultiProvider',
 );
 
 abstract class _$ReduxMultiProviderPropsAccessorsMixin
@@ -180,6 +179,9 @@ class _$ReduxMultiProviderComponent extends ReduxMultiProviderComponent {
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'ReduxMultiProvider';
 
   /// The default consumed props, taken from _$ReduxMultiProviderProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.

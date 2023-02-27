@@ -16,7 +16,6 @@ final $AnnotationErrorDefaultPropsComponentFactory = registerComponent(
   componentClass: AnnotationErrorDefaultPropsComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'AnnotationErrorDefaultProps',
 );
 
 abstract class _$AnnotationErrorDefaultPropsPropsAccessorsMixin
@@ -91,6 +90,9 @@ class _$AnnotationErrorDefaultPropsComponent
   @override
   bool get $isClassGenerated => true;
 
+  @override
+  String get displayName => 'AnnotationErrorDefaultProps';
+
   /// The default consumed props, taken from _$AnnotationErrorDefaultPropsProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
@@ -108,7 +110,6 @@ final $AnnotationErrorComponentFactory = registerComponent(
   componentClass: AnnotationErrorComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'AnnotationError',
 );
 
 abstract class _$AnnotationErrorPropsAccessorsMixin
@@ -179,6 +180,9 @@ class _$AnnotationErrorComponent extends AnnotationErrorComponent {
   @override
   bool get $isClassGenerated => true;
 
+  @override
+  String get displayName => 'AnnotationError';
+
   /// The default consumed props, taken from _$AnnotationErrorProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
@@ -196,7 +200,6 @@ final $AnnotationErrorStatefulComponentFactory = registerComponent(
   componentClass: AnnotationErrorStatefulComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'AnnotationErrorStateful',
 );
 
 abstract class _$AnnotationErrorStatefulPropsAccessorsMixin
@@ -316,6 +319,9 @@ class _$AnnotationErrorStatefulComponent
   @override
   bool get $isClassGenerated => true;
 
+  @override
+  String get displayName => 'AnnotationErrorStateful';
+
   /// The default consumed props, taken from _$AnnotationErrorStatefulProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
@@ -333,7 +339,6 @@ final $AnnotationErrorStatefulDefaultPropsComponentFactory = registerComponent(
   componentClass: AnnotationErrorStatefulDefaultPropsComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'AnnotationErrorStatefulDefaultProps',
 );
 
 abstract class _$AnnotationErrorStatefulDefaultPropsPropsAccessorsMixin
@@ -463,6 +468,9 @@ class _$AnnotationErrorStatefulDefaultPropsComponent
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'AnnotationErrorStatefulDefaultProps';
 
   /// The default consumed props, taken from _$AnnotationErrorStatefulDefaultPropsProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.

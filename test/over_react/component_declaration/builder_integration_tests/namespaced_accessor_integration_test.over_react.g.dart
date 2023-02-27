@@ -16,7 +16,6 @@ final $NamespacedAccessorTestComponentFactory = registerComponent(
   componentClass: NamespacedAccessorTestComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'NamespacedAccessorTest',
 );
 
 abstract class _$NamespacedAccessorTestPropsAccessorsMixin
@@ -371,6 +370,9 @@ class _$NamespacedAccessorTestComponent
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'NamespacedAccessorTest';
 
   /// The default consumed props, taken from _$NamespacedAccessorTestProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.

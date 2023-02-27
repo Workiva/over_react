@@ -5,10 +5,10 @@ import 'package:analyzer_plugin/protocol/protocol_common.dart';
 
 extension ResultLocation on ResolvedUnitResult {
   Location location({
-    int offset,
-    int end,
-    int length,
-    SourceRange range,
+    int? offset,
+    int? end,
+    int? length,
+    SourceRange? range,
   }) {
     if (range != null) {
       offset = range.offset;
@@ -30,8 +30,10 @@ extension ResultLocation on ResolvedUnitResult {
       }
     }
 
-    final info = lineInfo.getLocation(offset);
-    return Location(path, offset, length, info.lineNumber, info.columnNumber);
+    final startInfo = lineInfo.getLocation(offset);
+    final endInfo = lineInfo.getLocation(end);
+    return Location(
+        path, offset, length, startInfo.lineNumber, startInfo.columnNumber, endLine: endInfo.lineNumber, endColumn: endInfo.columnNumber);
   }
 
   Location locationFor(SyntacticEntity entity) {

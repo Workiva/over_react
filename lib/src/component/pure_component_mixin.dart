@@ -27,8 +27,7 @@ import 'package:over_react/over_react.dart';
 ///   list of children and pass that in as shown in the example below:
 ///
 /// ```dart
-/// import 'package:memoize/memoize.dart';
-///
+/// // imemo1 is from the `memoize` package
 /// final getMemoizedChildren = imemo1((items) => items.map((item) {
 ///   return (Child()
 ///     ..key = item.id

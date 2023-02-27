@@ -131,13 +131,35 @@ class ConnectFluxAdapterStore<S extends flux.Store> extends redux.Store<S> {
     });
 
     actionsForStore[store] = actions;
+
+    // This store is useless once the flux store is disposed, so for convenience,
+    // we'll tear it down for consumers.
+    //
+    // In most cases, though, from a memory management standpoint, tearing this
+    // store down shouldn't be necessary, since any components subscribed to it
+    // should have also been unmounted, leaving nothing to retain it.
+    //
+    // Use a null-aware to accommodate mock stores in unit tests that return null for `didDispose`.
+    store.didDispose?.whenComplete(teardown);
   }
+
+  bool _teardownCalled = false;
 
   @override
   Future teardown() async {
+    _teardownCalled = true;
+
     await _storeListener.cancel();
     await super.teardown();
   }
+}
+
+/// Not to be exported; only used to expose private fields for testing.
+@internal
+@visibleForTesting
+extension ConnectFluxAdapterStoreTestingHelper on ConnectFluxAdapterStore {
+  @visibleForTesting
+  bool get teardownCalled => _teardownCalled;
 }
 
 /// Adapts a Flux store to the interface of a Redux store.

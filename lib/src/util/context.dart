@@ -15,6 +15,7 @@
 import 'package:meta/meta.dart';
 import 'package:over_react/src/component_declaration/builder_helpers.dart' as builder_helpers;
 import 'package:over_react/over_react.dart';
+import 'package:react/react_client/component_factory.dart';
 import 'package:react/react_client/react_interop.dart';
 import 'package:react/react_client/js_backed_map.dart';
 import 'package:react/react.dart' as react;
@@ -46,6 +47,20 @@ import 'package:react/react.dart' as react;
 class Context<TValue> {
   // ignore: avoid_types_as_parameter_names
   Context(this.Provider, this.Consumer, this.reactDartContext);
+
+  factory Context.fromReactDartContext(react.Context<TValue> reactDartContext) {
+    ProviderProps<TValue> Provider([Map map]) => (ProviderProps<TValue>(map as JsBackedMap)..componentFactory = reactDartContext.Provider);
+    ConsumerProps<TValue> Consumer([Map map]) => (ConsumerProps<TValue>(map as JsBackedMap)..componentFactory = reactDartContext.Consumer);
+    return Context<TValue>(Provider, Consumer, reactDartContext);
+  }
+
+  factory Context.fromJsContext(ReactContext jsContext) {
+    return Context.fromReactDartContext(react.Context<TValue>(
+      ReactJsContextComponentFactoryProxy(jsContext.Provider, isProvider: true),
+      ReactJsContextComponentFactoryProxy(jsContext.Consumer, isConsumer: true),
+      jsContext,
+    ));
+  }
 
   /// The react.dart version of this context.
   final react.Context<TValue> reactDartContext;
@@ -235,9 +250,7 @@ class _DO_NOT_USE_OR_YOU_WILL_BE_FIRED {
 ///     }
 ///
 /// Learn more: <https://reactjs.org/docs/context.html#reactcreatecontext>
-Context<TValue> createContext<TValue>([TValue? defaultValue, int Function(TValue?, TValue?)? calculateChangedBits]) {
-  final reactDartContext = react.createContext<TValue>(defaultValue, calculateChangedBits != null ? (dynamic arg1, dynamic arg2) => calculateChangedBits(arg1 as TValue?, arg2 as TValue?) : null);
-  Provider([Map? map]) => (ProviderProps<TValue>(map as JsBackedMap?)..componentFactory = reactDartContext.Provider);
-  Consumer([Map? map]) => (ConsumerProps<TValue>(map as JsBackedMap?)..componentFactory = reactDartContext.Consumer);
-  return Context<TValue>(Provider, Consumer, reactDartContext);
+Context<TValue> createContext<TValue>([TValue? defaultValue, int Function(TValue?, TValue?) calculateChangedBits]) {
+  final reactDartContext = react.createContext<TValue>(defaultValue, calculateChangedBits != null ? (dynamic arg1, dynamic arg2) => calculateChangedBits(arg1 as TValue, arg2 as TValue) : null);
+  return Context<TValue>.fromReactDartContext(reactDartContext);
 }

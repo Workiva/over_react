@@ -16,7 +16,6 @@ final $ProgressComponentFactory = registerComponent(
   componentClass: ProgressComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'Progress',
 );
 
 abstract class _$ProgressPropsAccessorsMixin implements _$ProgressProps {
@@ -412,6 +411,9 @@ class _$ProgressComponent extends ProgressComponent {
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'Progress';
 
   /// The default consumed props, taken from _$ProgressProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.

@@ -140,7 +140,7 @@ class OverReactBuilder extends Builder {
 
     // Generate over_react code for each part file of the input library.
     for (final part in parts) {
-      final partId = AssetId.resolve(
+      final partId = resolveAssetId(
         Uri.parse(part.uri.stringValue!),
         from: buildStep.inputId);
       if (!await buildStep.canRead(partId)) {
@@ -160,11 +160,10 @@ class OverReactBuilder extends Builder {
         log.severe('Missing "part \'$expectedPart\';".');
       }
 
-      RegExpMatch? dartVersionCommentMatch;
-      if (source != null) {
-        dartVersionCommentMatch = RegExp(r'//\s*@dart = (\d+)\.(\d+)').firstMatch(source);
-      }
-      await _writePart(buildStep, outputId, outputs, dartVersionCommentMatch: dartVersionCommentMatch);
+      // Generated part files must have matching language version comments, so copy them over if they exist.
+      // TODO use CompilationUnit.languageVersionToken instead of parsing this manually once we're sure we can get on analyzer version 0.39.5 or greater
+      final languageVersionCommentMatch = RegExp(r'//\s*@dart\s*=\s*.+').firstMatch(source);
+      await _writePart(buildStep, outputId, outputs, languageVersionComment: languageVersionCommentMatch?.group(0));
     } else {
       if (hasOutputPartDirective()) {
         log.warning('An over_react part directive was found in ${buildStep.inputId.path}, '
@@ -191,24 +190,13 @@ class OverReactBuilder extends Builder {
     return null;
   }
 
-  static FutureOr<void> _writePart(BuildStep buildStep, AssetId outputId, Iterable<String> outputs, {RegExpMatch? dartVersionCommentMatch}) async {
-    // final dartVersion = Platform.version;
-    // bool nullSafetyIsTurnedOnByDefault = (int.tryParse(RegExp(r'(\d+)\.(\d+)').firstMatch(dartVersion).group(2)) ?? 0) >= 12;
-    bool isNullSafe = true;
-    // if (dartVersionCommentMatch != null) {
-    //   isNullSafe = (int.tryParse(dartVersionCommentMatch?.group(2)) ?? 0) >= 12;
-    // }
-    // if (isNullSafe && nullSafetyIsTurnedOnByDefault) {
-    //   throw UnsupportedError('The over_react builder does not yet support null safety. Add a // @dart = 2.7 comment at the top of your file.');
-    // }
+  static FutureOr<void> _writePart(BuildStep buildStep, AssetId outputId, Iterable<String> outputs, {String? languageVersionComment}) async {
     final partOf = "'${p.basename(buildStep.inputId.uri.toString())}'";
 
     final buffer = StringBuffer();
-
-    if (!isNullSafe) {
-      buffer.writeln('// @dart = ${dartVersionCommentMatch!.group(1)}.${dartVersionCommentMatch.group(2)}');
+    if (languageVersionComment != null) {
+      buffer.writeln(languageVersionComment);
     }
-
     buffer
       ..writeln('// GENERATED CODE - DO NOT MODIFY BY HAND')
       ..writeln()
@@ -233,5 +221,26 @@ class OverReactBuilder extends Builder {
       log.severe('Error formatting generated code', e, st);
     }
     await buildStep.writeAsString(outputId, output);
+  }
+}
+
+/// A compatibility layer for [AssetId.resolve],
+/// which in build <2.0.0 accepts a String for the first argument and
+/// and in build >=2.0.0 accepts a Uri for the first argument.
+///
+/// This function allows us to support build 1.x and 2.x
+///
+// TODO remove once we're off of build 1.x
+AssetId resolveAssetId(String uri, {AssetId from}) {
+  try {
+    // `as dynamic` is necessary to prevent compile errors.
+    // This ignore is to prevent analysis implicit cast errors.
+    // ignore: argument_type_not_assignable
+    return AssetId.resolve(uri as dynamic, from: from);
+  } catch (_) {
+    // `as dynamic` is necessary to prevent compile errors.
+    // This ignore is to prevent analysis implicit cast errors.
+    // ignore: argument_type_not_assignable
+    return AssetId.resolve(Uri.parse(uri) as dynamic, from: from);
   }
 }

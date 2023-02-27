@@ -16,7 +16,6 @@ final $StatefulComponentTestComponentFactory = registerComponent2(
   componentClass: StatefulComponentTestComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'StatefulComponentTest',
 );
 
 abstract class _$StatefulComponentTestPropsAccessorsMixin
@@ -390,6 +389,9 @@ class _$StatefulComponentTestComponent extends StatefulComponentTestComponent {
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'StatefulComponentTest';
 
   /// The default consumed props, taken from _$StatefulComponentTestProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.

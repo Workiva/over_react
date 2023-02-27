@@ -16,7 +16,6 @@ final $ConnectFluxCounterComponentFactory = registerComponent2(
   componentClass: ConnectFluxCounterComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'ConnectFluxCounter',
 );
 
 abstract class _$ConnectFluxCounterPropsAccessorsMixin
@@ -264,6 +263,9 @@ class _$ConnectFluxCounterComponent extends ConnectFluxCounterComponent {
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'ConnectFluxCounter';
 
   /// The default consumed props, taken from _$ConnectFluxCounterProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.

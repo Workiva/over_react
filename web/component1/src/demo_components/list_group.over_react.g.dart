@@ -16,7 +16,6 @@ final $ListGroupComponentFactory = registerComponent(
   componentClass: ListGroupComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'ListGroup',
 );
 
 abstract class _$ListGroupPropsAccessorsMixin implements _$ListGroupProps {
@@ -111,6 +110,9 @@ class _$ListGroupComponent extends ListGroupComponent {
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'ListGroup';
 
   /// The default consumed props, taken from _$ListGroupProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.

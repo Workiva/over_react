@@ -16,7 +16,6 @@ final $FooComponentFactory = registerComponent2(
   componentClass: FooComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'Foo',
 );
 
 abstract class _$FooPropsAccessorsMixin implements _$FooProps {
@@ -170,6 +169,9 @@ class _$FooComponent extends FooComponent {
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'Foo';
 
   /// The default consumed props, taken from _$FooProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.

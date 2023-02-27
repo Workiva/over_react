@@ -33,6 +33,8 @@ main() {
           BigCounter()(),
           Dom.h2()('Counter'),
           Counter()(),
+          Dom.h2()('HookCounter'),
+          Counter()(),
         ),
       ),
     ), querySelector('#content')

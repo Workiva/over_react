@@ -3,16 +3,15 @@ import 'dart:async';
 import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/source/source_range.dart';
-import 'package:analyzer_plugin/protocol/protocol_common.dart';
-import 'package:meta/meta.dart';
-// ignore: implementation_imports
-import 'package:over_react/src/builder/parsing.dart';
-// ignore: implementation_imports
-import 'package:over_react/src/builder/util.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/doc_utils/maturity.dart';
+// This error is unavoidable until over_react's builder is null-safe. See this library's doc comment for more info.
+// ignore: import_of_legacy_library_into_null_safe
+import 'package:over_react_analyzer_plugin/src/over_react_builder_parsing.dart' as orbp;
 import 'package:over_react_analyzer_plugin/src/util/boilerplate_utils.dart';
 import 'package:source_span/source_span.dart';
+
+import 'analyzer_debug_helper.dart';
 
 const _errorDesc = 'Something is malformed in your component boilerplate.';
 // TODO: Add a more detailed description about the types of things our validator catches
@@ -54,32 +53,36 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
   static const debugCode =
       DiagnosticCode('over_react_boilerplate_debug', '{0}', AnalysisErrorSeverity.INFO, AnalysisErrorType.HINT);
 
+  @override
+  List<DiagnosticCode> get codes => [errorCode, warningCode, debugCode];
+
   static final missingGeneratedPartFixKind = FixKind(errorCode.name, 200, 'Add generated part directive');
   static final invalidGeneratedPartFixKind = FixKind(errorCode.name, 200, 'Fix generated part directive');
   static final unnecessaryGeneratedPartFixKind = FixKind(errorCode.name, 200, 'Remove generated part directive');
 
-  static final _debugFlagPattern = RegExp(r'debug:.*\bover_react_boilerplate\b');
+  static final _debugCommentPattern = getDebugCommentPattern('over_react_boilerplate');
 
-  PartDirective _overReactGeneratedPartDirective;
-  bool _overReactGeneratedPartDirectiveIsValid;
+  // TODO(nullsafety) come back and clean up fields
+
+  PartDirective? _overReactGeneratedPartDirective;
+  late bool _overReactGeneratedPartDirectiveIsValid;
 
   /// Returns true if the [unit] representing a part file has declarations.
   ///
   /// Does not report any errors for the part file, as those are handled when the part file is analyzed
   bool _partHasDeclarations(CompilationUnit unit, ResolvedUnitResult parentResult) {
-    return getBoilerplateDeclarations(
-        detectBoilerplateMembers(unit),
-        ErrorCollector.callback(
-          SourceFile.fromString(parentResult.content, url: parentResult.path),
-          onError: (message, [span]) {
-            // no-op. It is assumed this method will run for parent files, and the part file will get analyzed in it's own
-            // context
-          },
-          onWarning: (message, [span]) {
-            // no-op. It is assumed this method will run for parent files, and the part file will get analyzed in it's own
-            // context
-          },
-        )).isNotEmpty;
+    return orbp
+        .getBoilerplateDeclarations(
+            orbp.detectBoilerplateMembers(unit),
+            orbp.ErrorCollector.callback(
+              SourceFile.fromString(parentResult.content, url: parentResult.path),
+              // no-op for these.
+              // It is assumed this method will run for parent files, and the part file will get analyzed in its own context.
+              // Need types on the second args to avoid nullability errors, since they come from a non-null-safe library.
+              onError: (message, [SourceSpan? span]) {}, // ignore: avoid_types_on_closure_parameters
+              onWarning: (message, [SourceSpan? span]) {}, // ignore: avoid_types_on_closure_parameters
+            ))
+        .isNotEmpty;
   }
 
   /// Computes errors for over_react boilerplate
@@ -87,37 +90,40 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
   /// Also returns whether the component has valid over_react declarations, which is useful in determining whether to
   /// validate the generated part directive.
   Future<bool> _computeBoilerplateErrors(ResolvedUnitResult result, DiagnosticCollector collector) async {
-    final debugMatch = _debugFlagPattern.firstMatch(result.content);
+    final debugMatch = _debugCommentPattern.firstMatch(result.content);
     final debug = debugMatch != null;
     if (debug) {
-      collector.addError(debugCode, result.location(offset: debugMatch.start, end: debugMatch.end),
+      collector.addError(debugCode, result.location(offset: debugMatch!.start, end: debugMatch.end),
           errorMessageArgs: ['Boilerplate debugging hints enabled']);
     }
 
     final sourceFile = SourceFile.fromString(result.content, url: result.path);
 
-    final errorCollector = ErrorCollector.callback(
+    final errorCollector = orbp.ErrorCollector.callback(
       sourceFile,
-      onError: (message, [span]) {
-        final location = result.location(range: span.asRangeOrEmpty());
+      // Need types on these args to avoid nullability errors, since they come from a non-null-safe library.
+      // ignore: avoid_types_on_closure_parameters
+      onError: (message, [SourceSpan? span]) {
+        final location = result.location(range: span?.asRange() ?? SourceRange.EMPTY);
         collector.addError(errorCode, location, errorMessageArgs: [message]);
       },
-      onWarning: (message, [span]) {
-        final location = result.location(range: span.asRangeOrEmpty());
+      // ignore: avoid_types_on_closure_parameters
+      onWarning: (message, [SourceSpan? span]) {
+        final location = result.location(range: span?.asRange() ?? SourceRange.EMPTY);
         collector.addError(warningCode, location, errorMessageArgs: [message]);
       },
     );
 
-    final members = detectBoilerplateMembers(result.unit);
+    final members = orbp.detectBoilerplateMembers(result.unit);
     for (final member in members.allMembers) {
       if (debug) {
         collector.addError(debugCode, result.locationFor(member.name), errorMessageArgs: [member.debugString]);
       }
 
       // Do not lint anything that is not a likely boilerplate member that will actually get generated.
-      if (member.versionConfidences.toList().every((vcp) => vcp.confidence <= Confidence.neutral)) continue;
+      if (member.versionConfidences.toList().every((vcp) => vcp.confidence <= orbp.Confidence.neutral)) continue;
 
-      if (isPart(result.unit)) continue;
+      if (result.isPart) continue;
 
       if (_overReactGeneratedPartDirective == null) {
         await _addPartDirectiveErrorForMember(
@@ -136,7 +142,7 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
       }
     }
 
-    final declarations = getBoilerplateDeclarations(members, errorCollector).toList();
+    final declarations = orbp.getBoilerplateDeclarations(members, errorCollector).toList();
     for (var j = 0; j < declarations.length; j++) {
       final declaration = declarations[j];
       declaration.validate(errorCollector);
@@ -160,7 +166,7 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
     if (!hasDeclarations && _overReactGeneratedPartDirective != null) {
       await collector.addErrorWithFix(
         errorCode,
-        result.locationFor(_overReactGeneratedPartDirective),
+        result.locationFor(_overReactGeneratedPartDirective!),
         errorMessageArgs: [
           // ignore: no_adjacent_strings_in_list
           'This part will not be generated because there are no valid OverReact component boilerplate '
@@ -177,7 +183,7 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
         !_overReactGeneratedPartDirectiveIsValid) {
       await collector.addErrorWithFix(
         errorCode,
-        result.locationFor(_overReactGeneratedPartDirective),
+        result.locationFor(_overReactGeneratedPartDirective!),
         errorMessageArgs: [
           'The generated part name must match the name of the file that contains it, but with `over_react.g.dart` for the file extension.'
         ],
@@ -193,10 +199,10 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
   Future<void> computeErrors(result, collector) async {
     _overReactGeneratedPartDirective = getOverReactGeneratedPartDirective(result.unit);
     _overReactGeneratedPartDirectiveIsValid = _overReactGeneratedPartDirective != null &&
-        overReactGeneratedPartDirectiveIsValid(_overReactGeneratedPartDirective, result.uri);
+        overReactGeneratedPartDirectiveIsValid(_overReactGeneratedPartDirective!, result.uri);
 
     final hasDeclarations = await _computeBoilerplateErrors(result, collector);
-    if (isPart(result.unit)) {
+    if (result.isPart) {
       return;
     }
 
@@ -208,9 +214,9 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
       final uri = part.uriSource?.uri;
       // URI could not be resolved or source does not exist
       if (uri == null) continue;
-      final partResult = result.session.getParsedUnit(result.session.uriConverter.uriToPath(uri));
+      final partResult = result.session.getParsedUnit(result.session.uriConverter.uriToPath(uri)!);
 
-      if (_partHasDeclarations(partResult.unit, result)) {
+      if (partResult is ParsedUnitResult && _partHasDeclarations(partResult.unit, result)) {
         anyPartHasDeclarations = true;
       }
     }
@@ -219,10 +225,10 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
   }
 
   Future<void> _addPartDirectiveErrorForMember({
-    @required ResolvedUnitResult result,
-    @required DiagnosticCollector collector,
-    @required BoilerplateMember member,
-    @required PartDirectiveErrorType errorType,
+    required ResolvedUnitResult result,
+    required DiagnosticCollector collector,
+    required orbp.BoilerplateMember member,
+    required PartDirectiveErrorType errorType,
   }) {
     const memberMissingPartErrorMsg = 'A `.over_react.g.dart` part directive is required';
     const memberInvalidPartErrorMsg = 'A valid `.over_react.g.dart` part directive is required';
@@ -230,9 +236,6 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
         errorType == PartDirectiveErrorType.missing ? memberMissingPartErrorMsg : memberInvalidPartErrorMsg;
     final memberPartDirectiveFixKind =
         errorType == PartDirectiveErrorType.missing ? missingGeneratedPartFixKind : invalidGeneratedPartFixKind;
-    final fixFn = errorType == PartDirectiveErrorType.missing
-        ? addOverReactGeneratedPartDirective
-        : fixOverReactGeneratedPartDirective;
 
     return collector.addErrorWithFix(
       errorCode,
@@ -240,7 +243,11 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
       errorMessageArgs: ['$memberPartDirectiveErrorMsg to use OverReact component boilerplate.'],
       fixKind: memberPartDirectiveFixKind,
       computeFix: () => buildFileEdit(result, (builder) {
-        fixFn(builder, result.unit, result.uri);
+        if (errorType == PartDirectiveErrorType.missing) {
+          addOverReactGeneratedPartDirective(builder, result.unit, result.lineInfo, result.uri);
+        } else {
+          fixOverReactGeneratedPartDirective(builder, result.unit, result.uri);
+        }
       }),
     );
   }
@@ -250,13 +257,14 @@ enum PartDirectiveErrorType { missing, invalid }
 
 extension on SourceSpan {
   SourceRange asRange() => SourceRange(start.offset, length);
-  SourceRange asRangeOrEmpty() => this == null ? SourceRange.EMPTY : asRange();
 }
 
 // TODO use the version from over_react instead after initial release
 Iterable<PartDirective> getNonGeneratedParts(CompilationUnit libraryUnit) {
-  return libraryUnit.directives
-      .whereType<PartDirective>()
+  return libraryUnit.directives.whereType<PartDirective>()
       // Ignore all generated `.g.dart` parts.
-      .where((part) => !part.uri.stringValue.endsWith('.g.dart'));
+      .where((part) {
+    final stringValue = part.uri.stringValue;
+    return stringValue == null || !stringValue.endsWith('.g.dart');
+  });
 }

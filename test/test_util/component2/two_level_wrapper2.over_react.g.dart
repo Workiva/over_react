@@ -16,7 +16,6 @@ final $TwoLevelWrapper2ComponentFactory = registerComponent2(
   componentClass: TwoLevelWrapper2Component,
   isWrapper: true,
   parentType: null,
-  displayName: 'TwoLevelWrapper2',
 );
 
 abstract class _$TwoLevelWrapper2PropsAccessorsMixin
@@ -143,6 +142,9 @@ class _$TwoLevelWrapper2Component extends TwoLevelWrapper2Component {
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'TwoLevelWrapper2';
 
   /// The default consumed props, taken from _$TwoLevelWrapper2Props.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.

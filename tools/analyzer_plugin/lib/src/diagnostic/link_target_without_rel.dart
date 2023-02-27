@@ -53,17 +53,20 @@ class LinkTargetUsageWithoutRelDiagnostic extends ComponentUsageDiagnosticContri
     correction: 'Always add rel="noopener noreferrer" when using a target for a link.',
   );
 
+  @override
+  List<DiagnosticCode> get codes => [code];
+
   static final fixKind = FixKind(code.name, 200, 'Add rel="noopener noreferrer"');
 
   @override
   computeErrorsForUsage(result, collector, usage) async {
-    String hrefValue;
-    Pair<PropertyAccess, Expression> targetPropSection;
-    Pair<PropertyAccess, Expression> relPropSection;
+    String? hrefValue;
+    Pair<Expression, Expression>? targetPropSection;
+    Pair<Expression, Expression>? relPropSection;
     for (final prop in usage.cascadedProps) {
       final propName = prop.name.name;
       if (propName == 'href') {
-        hrefValue = prop.rightHandSide.staticType.isDartCoreNull ? null : prop.rightHandSide.toString();
+        hrefValue = (prop.rightHandSide.staticType?.isDartCoreNull ?? false) ? null : prop.rightHandSide.toString();
       } else if (propName == 'target') {
         targetPropSection = Pair(prop.leftHandSide, prop.rightHandSide);
       } else if (propName == 'rel') {
@@ -71,18 +74,22 @@ class LinkTargetUsageWithoutRelDiagnostic extends ComponentUsageDiagnosticContri
       }
     }
 
-    if (hrefValue == null || targetPropSection == null || targetPropSection.last.staticType.isDartCoreNull) return;
+    if (hrefValue == null ||
+        targetPropSection == null ||
+        (targetPropSection.last.staticType?.isDartCoreNull ?? false)) {
+      return;
+    }
 
     const requiredRelValues = {
       'noopener',
       'noreferrer',
     };
     var actualRelValues = <String>{};
-    var offerQuickFix = relPropSection == null || relPropSection.last.staticType.isDartCoreNull;
-    if (relPropSection != null && relPropSection.last.staticType.isDartCoreString) {
+    var offerQuickFix = relPropSection == null || (relPropSection.last.staticType?.isDartCoreNull ?? false);
+    if (relPropSection != null && (relPropSection.last.staticType?.isDartCoreString ?? false)) {
       offerQuickFix = relPropSection.last is StringLiteral;
 
-      final declaredValues = getConstOrLiteralStringValueFrom(relPropSection.last)?.split(' ')?.toSet();
+      final declaredValues = getConstOrLiteralStringValueFrom(relPropSection.last)?.split(' ').toSet();
       if (declaredValues != null) {
         actualRelValues = declaredValues;
       }

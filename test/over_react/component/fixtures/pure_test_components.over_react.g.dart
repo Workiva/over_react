@@ -18,7 +18,6 @@ final $PureTestWrapperComponentFactory = registerComponent2(
   componentClass: PureTestWrapperComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'PureTestWrapper',
 );
 
 _$$PureTestWrapperProps _$PureTestWrapper([Map? backingProps]) =>
@@ -142,6 +141,9 @@ class _$PureTestWrapperComponent extends PureTestWrapperComponent {
   @override
   bool get $isClassGenerated => true;
 
+  @override
+  String get displayName => 'PureTestWrapper';
+
   /// The default consumed props, comprising all props mixins used by PureTestWrapperProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
@@ -165,7 +167,6 @@ final $PureTestComponentFactory = registerComponent2(
   componentClass: PureTestComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'PureTest',
 );
 
 _$$PureTestProps _$PureTest([Map? backingProps]) => backingProps == null
@@ -375,6 +376,9 @@ class _$PureTestComponent extends PureTestComponent {
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'PureTest';
 
   /// The default consumed props, comprising all props mixins used by PureTestProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.

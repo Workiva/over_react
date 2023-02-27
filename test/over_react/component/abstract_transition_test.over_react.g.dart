@@ -18,7 +18,6 @@ final $TransitionerComponentFactory = registerComponent2(
   componentClass: TransitionerComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'Transitioner',
 );
 
 _$$TransitionerProps _$Transitioner([Map? backingProps]) => backingProps == null
@@ -229,6 +228,9 @@ class _$TransitionerComponent extends TransitionerComponent {
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'Transitioner';
 
   /// The default consumed props, comprising all props mixins used by TransitionerProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.

@@ -12,8 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:logging/logging.dart';
-import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 
 const String factorySrc                  = '\n@Factory()\nUiFactory<FooProps> Foo = _\$Foo;\n';
@@ -584,9 +582,6 @@ class OverReactSrc {
 
   }
 }
-
-class MockLogger extends Mock implements Logger {}
-
 
 Iterable<T> expectLengthAndAllOfType<T>(Iterable<Object> items, int count) {
   expect(items, List.generate(count, (i) => isA<T>()));

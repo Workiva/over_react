@@ -18,9 +18,8 @@ final $DoNotReferenceThisFactoryExceptForInASingleTestComponentnFactory =
   builderFactory: _$DoNotReferenceThisFactoryExceptForInASingleTest,
   componentClass: DoNotReferenceThisFactoryExceptForInASingleTestComponentn,
   isWrapper: false,
-  parentType: $TestAbstract2ComponentFactory,
-  /* from `subtypeOf: TestAbstract2Component` */
-  displayName: 'DoNotReferenceThisFactoryExceptForInASingleTest',
+  parentType:
+      $TestAbstract2ComponentFactory, /* from `subtypeOf: TestAbstract2Component` */
 );
 
 _$$DoNotReferenceThisFactoryExceptForInASingleTestProps
@@ -161,6 +160,9 @@ class _$DoNotReferenceThisFactoryExceptForInASingleTestComponentn
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'DoNotReferenceThisFactoryExceptForInASingleTest';
 
   /// The default consumed props, comprising all props mixins used by DoNotReferenceThisFactoryExceptForInASingleTestProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.

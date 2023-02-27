@@ -16,7 +16,6 @@ final $ContextTypeComponentFactory = registerComponent2(
   componentClass: ContextTypeComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'ContextType',
 );
 
 abstract class _$ContextTypePropsAccessorsMixin implements _$ContextTypeProps {
@@ -141,6 +140,9 @@ class _$ContextTypeComponent extends ContextTypeComponent {
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'ContextType';
 
   /// The default consumed props, taken from _$ContextTypeProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.

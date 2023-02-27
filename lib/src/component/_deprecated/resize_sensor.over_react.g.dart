@@ -16,7 +16,6 @@ final $ResizeSensorComponentFactory = registerComponent2(
   componentClass: ResizeSensorComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'ResizeSensor',
 );
 
 @Deprecated(
@@ -146,6 +145,9 @@ class _$ResizeSensorComponent extends ResizeSensorComponent {
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'ResizeSensor';
 
   /// The default consumed props, taken from _$ResizeSensorProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
