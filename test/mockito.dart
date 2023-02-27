@@ -10,7 +10,7 @@ import 'package:mockito/annotations.dart';
 ])
 void main() {}
 
-String mapUpdateShim<K, V>(K key, V Function(V value) update,
-        {V Function() ifAbsent}) =>
+String mapUpdateShim<K, V>(K key, V Function(V value)? update,
+        {V Function()? ifAbsent}) =>
     'value';
-String mapPutIfAbsentShim<K, V>(K key, V Function() ifAbsent) => 'value';
+String mapPutIfAbsentShim<K, V>(K key, V Function()? ifAbsent) => 'value';
