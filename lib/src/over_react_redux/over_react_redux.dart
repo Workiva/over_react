@@ -204,7 +204,7 @@ UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extend
     JsMap handleMapStateToProps(Object /*[1]*/ jsState) {
       return jsMapFromProps(
         mapStateToProps!(
-          DartValueWrapper.unwrapIfNeeded(jsState) as TReduxState,
+          DartValueWrapper.unwrapIfNeeded(jsState),
         ),
       );
     }
@@ -212,7 +212,7 @@ UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extend
     JsMap handleMapStateToPropsWithOwnProps(Object /*[1]*/ jsState, JsMap jsOwnProps) {
       return jsMapFromProps(
         mapStateToPropsWithOwnProps!(
-          DartValueWrapper.unwrapIfNeeded(jsState) as TReduxState,
+          DartValueWrapper.unwrapIfNeeded(jsState),
           jsPropsToTProps(jsOwnProps),
         ),
       );
@@ -220,13 +220,13 @@ UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extend
 
     JsMap Function(Object /*[1]*/ jsState) handleMakeMapStateToProps(Object /*[1]*/ initialJsState, JsMap initialJsOwnProps) {
       var mapToFactory = makeMapStateToProps!(
-        DartValueWrapper.unwrapIfNeeded(initialJsState) as TReduxState,
+        DartValueWrapper.unwrapIfNeeded(initialJsState),
         jsPropsToTProps(initialJsOwnProps)
       );
       JsMap handleMakeMapStateToPropsFactory(Object /*[1]*/ jsState) {
         return jsMapFromProps(
           mapToFactory(
-            DartValueWrapper.unwrapIfNeeded(jsState) as TReduxState,
+            DartValueWrapper.unwrapIfNeeded(jsState),
           ),
         );
       }
@@ -235,13 +235,13 @@ UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extend
 
     JsMap Function(Object /*[1]*/ jsState, JsMap jsOwnProps) handleMakeMapStateToPropsWithOwnProps(Object /*[1]*/ initialJsState, JsMap initialJsOwnProps) {
       var mapToFactory = makeMapStateToPropsWithOwnProps!(
-        DartValueWrapper.unwrapIfNeeded(initialJsState) as TReduxState,
+        DartValueWrapper.unwrapIfNeeded(initialJsState),
         jsPropsToTProps(initialJsOwnProps)
       );
       JsMap handleMakeMapStateToPropsWithOwnPropsFactory(Object /*[1]*/ jsState, JsMap jsOwnProps) {
         return jsMapFromProps(
           mapToFactory(
-            DartValueWrapper.unwrapIfNeeded(jsState) as TReduxState,
+            DartValueWrapper.unwrapIfNeeded(jsState),
             jsPropsToTProps(jsOwnProps),
           ),
         );
@@ -306,7 +306,7 @@ UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extend
     }
 
     bool handleAreStatesEqual(Object /*[1]*/ jsNext, Object /*[1]*/ jsPrev) =>
-        areStatesEqual!(DartValueWrapper.unwrapIfNeeded(jsNext) as TReduxState, DartValueWrapper.unwrapIfNeeded(jsPrev) as TReduxState);
+        areStatesEqual!(DartValueWrapper.unwrapIfNeeded(jsNext), DartValueWrapper.unwrapIfNeeded(jsPrev));
 
     bool handleAreOwnPropsEqual(JsMap jsNext, JsMap jsPrev) =>
         areOwnPropsEqual!(jsPropsToTProps(jsNext), jsPropsToTProps(jsPrev));

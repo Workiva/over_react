@@ -136,7 +136,7 @@ TValue useSelector<TReduxState, TValue>(
   _JsReduxStateEqualityFn? jsEqualityFn = equalityFn == null
       ? null
       : allowInterop((nextJsValue, prevJsValue) =>
-          equalityFn(DartValueWrapper.unwrapIfNeeded(nextJsValue) as TValue?, DartValueWrapper.unwrapIfNeeded(prevJsValue) as TValue?));
+          equalityFn(DartValueWrapper.unwrapIfNeeded(nextJsValue), DartValueWrapper.unwrapIfNeeded(prevJsValue)));
 
   if (jsEqualityFn == null) {
     return DartValueWrapper.unwrapIfNeeded(_jsUseSelector(allowInterop(jsSelector)));
@@ -213,11 +213,11 @@ _SelectorFnHook<TReduxState> createSelectorHook<TReduxState>([Context? context])
     bool Function(TValue tNextValue, TValue tPrevValue)? equalityFn,
   ]) {
     Object? /*[1]*/ jsSelector(Object? /*[1]*/ jsState) =>
-        DartValueWrapper.wrapIfNeeded(selector(DartValueWrapper.unwrapIfNeeded(jsState) as TReduxState));
+        DartValueWrapper.wrapIfNeeded(selector(DartValueWrapper.unwrapIfNeeded(jsState)));
     _JsReduxStateEqualityFn? jsEqualityFn = equalityFn == null
         ? null
         : allowInterop((nextJsValue, prevJsValue) =>
-            equalityFn(DartValueWrapper.unwrapIfNeeded(nextJsValue) as TValue, DartValueWrapper.unwrapIfNeeded(prevJsValue) as TValue));
+            equalityFn(DartValueWrapper.unwrapIfNeeded(nextJsValue), DartValueWrapper.unwrapIfNeeded(prevJsValue)));
 
     if (jsEqualityFn == null) {
       return DartValueWrapper.unwrapIfNeeded(jsHook(allowInterop(jsSelector)));
