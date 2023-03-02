@@ -29,6 +29,7 @@ import './src/generic_inheritance_super.dart';
 import './src/function_component.dart' as function;
 import 'src/functional_consumed_props.dart';
 import 'src/new_class_consumed_props.dart';
+import 'src/nullability.dart';
 
 class ExampleState {
   final String testValue;
@@ -82,6 +83,7 @@ main() {
           ..aParentProp = 'classParent'
           ..aPropToBePassed = 'passed'
         )(),
+        renderNullability(),
       )
       ), querySelector('#content')
   );
