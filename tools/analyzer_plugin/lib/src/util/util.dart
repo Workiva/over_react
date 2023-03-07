@@ -40,6 +40,10 @@ extension ListUtil<E> on List<E> {
   E? elementAtOrNull(int index) => index < length ? this[index] : null;
 }
 
+extension StreamWhereType<E> on Stream<E> {
+  Stream<T> whereType<T>() => where((e) => e is T).cast();
+}
+
 class Tuple2<T1, T2> {
   final T1 item1;
   final T2 item2;

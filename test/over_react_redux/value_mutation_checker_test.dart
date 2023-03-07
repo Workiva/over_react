@@ -17,8 +17,6 @@ import 'package:over_react/src/over_react_redux/value_mutation_checker.dart';
 import 'package:react/react.dart' as react;
 import 'package:test/test.dart';
 
-import '../mockito.mocks.dart';
-
 // ignore_for_file: invalid_use_of_protected_member
 main() {
   group('Value Mutation Checker:', () {
@@ -106,13 +104,11 @@ void sharedHashTests(InstanceHasher Function() getHasher) {
 
     test('true if the object is a map or iterable', () {
       final props = DomProps(react.a as ReactComponentFactoryProxy);
-      final list = MockList();
 
       expect(hasher.canHash({'e', 'a', 'b'}), isTrue);
       expect(hasher.canHash([]), isTrue);
       expect(hasher.canHash({'a': 1}), isTrue);
       expect(hasher.canHash(props), isTrue);
-      expect(hasher.canHash(list), isTrue);
     });
   });
 

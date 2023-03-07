@@ -6,14 +6,15 @@ repository: https://github.com/Workiva/over_react/tree/master/tools/analyzer_plu
 environment:
   sdk: '>=2.12.0 <3.0.0'
 dependencies:
-  analyzer: ^1.7.2
-  analyzer_plugin: ^0.6.0
+  analyzer: ^2.4.0
+  # Can't be 0.7.0 since its results in errors around JenkinsSmiHash not existing
+  analyzer_plugin: ^0.8.0
   collection: ^1.15.0-nullsafety.4
   meta: ^1.6.0
   # Upon release, this should be pinned to the over_react version from ../../pubspec.yaml
   # so that it always resolves to the same version of over_react that the user has pulled in,
   # and thus has the same boilerplate parsing code that's running in the builder.
-  over_react: 4.8.2
+  over_react: 4.8.3
   path: ^1.5.1
   source_span: ^1.7.0
   yaml: ^3.0.0
@@ -41,10 +42,6 @@ dependency_validator:
     - over_react
   exclude:
     - playground/**
-
-dependency_overrides:
-  # Necessary due to conflict between over_react and over_react_analyzer plugin
-  meta: ^1.7.0
 
 workiva:
   core_checks:

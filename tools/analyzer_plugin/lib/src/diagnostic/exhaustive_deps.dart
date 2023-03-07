@@ -31,8 +31,6 @@ import 'package:analyzer/dart/ast/token.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer_plugin/protocol/protocol_common.dart' show Location;
-import 'package:analyzer_plugin/utilities/range_factory.dart';
-import 'package:collection/collection.dart' show IterableExtension;
 import 'package:over_react_analyzer_plugin/src/diagnostic/analyzer_debug_helper.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/indent_util.dart';
@@ -246,10 +244,10 @@ class ExhaustiveDeps extends DiagnosticContributor {
     try {
       _result = result;
       _collector = collector;
-      _debugHelper = AnalyzerDebugHelper(result, collector, enabled: _debugCommentPattern.hasMatch(result.content!));
+      _debugHelper = AnalyzerDebugHelper(result, collector, enabled: _debugCommentPattern.hasMatch(result.content));
 
       final reactiveHookCallbacks = <ReactiveHookCallbackInfo>[];
-      result.unit!.accept(_ExhaustiveDepsVisitor(
+      result.unit.accept(_ExhaustiveDepsVisitor(
         additionalHooks: additionalHooksPattern,
         onReactiveHookCallback: reactiveHookCallbacks.add,
       ));
@@ -284,7 +282,7 @@ class ExhaustiveDeps extends DiagnosticContributor {
     debugHelper.logWithLocation(computeString(), _location);
   }
 
-  String getSource(SyntacticEntity entity) => result.content!.substring(entity.offset, entity.end);
+  String getSource(SyntacticEntity entity) => result.content.substring(entity.offset, entity.end);
 
   void reportProblem({required AstNode node, required String message}) =>
       collector.addError(ExhaustiveDeps.code, result.locationFor(node), errorMessageArgs: [message]);
@@ -1412,7 +1410,7 @@ class ExhaustiveDeps extends DiagnosticContributor {
         useNewlines =
             !isSameLine(result.lineInfo, arbitraryElement.offset, declaredDependenciesNode.leftBracket.offset);
         useTrailingComma = declaredDependenciesNode.rightBracket.previous?.type == TokenType.COMMA;
-        listElementIndent = getIndent(result.content!, result.lineInfo, arbitraryElement.offset);
+        listElementIndent = getIndent(result.content, result.lineInfo, arbitraryElement.offset);
       } else {
         useNewlines = false;
         useTrailingComma = false;
@@ -1924,7 +1922,7 @@ _Recommendations collectRecommendations({
 String? getConstructionExpressionType(Expression node) {
   if (node is InstanceCreationExpression) {
     if (node.isConst) return null;
-    return node.constructorName.type.name.name;
+    return node.constructorName.type2.name.name;
   } else if (node is ListLiteral) {
     return _DepType.list;
   } else if (node is SetOrMapLiteral) {

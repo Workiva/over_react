@@ -1,6 +1,5 @@
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
-import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/invalid_child.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
@@ -120,8 +119,8 @@ class RenderReturnValueDiagnostic extends DiagnosticContributor {
   computeErrors(result, collector) async {
     // This is the return type even if it's not explicitly declared.
     final classComponentVisitor = ClassComponentRenderVisitor();
-    result.unit!.accept(classComponentVisitor);
-    final fnComponents = getAllFunctionComponents(result.unit!);
+    result.unit.accept(classComponentVisitor);
+    final fnComponents = getAllFunctionComponents(result.unit);
 
     final allReturnExpressions = <Expression>[
       ...classComponentVisitor.renderReturnExpressions,

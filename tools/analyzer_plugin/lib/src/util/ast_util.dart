@@ -258,6 +258,7 @@ class PropertyInvocation {
         isNullAware: false,
       );
     }
+    return null;
   }
 
   /// Returns the closest property invocation, starting with [node] and working up its ancestors, that can be

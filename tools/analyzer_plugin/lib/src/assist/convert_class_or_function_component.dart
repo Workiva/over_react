@@ -71,7 +71,7 @@ class ConvertClassOrFunctionComponentAssistContributor extends AssistContributor
     final renderBody = render.body;
     if (renderBody is EmptyFunctionBody) return;
 
-    final getSource = request.result.content!.substring;
+    final getSource = request.result.content.substring;
 
     const classMemberIndent = '  ';
     const functionComponentBodyIndent = '    ';
@@ -102,7 +102,7 @@ class ConvertClassOrFunctionComponentAssistContributor extends AssistContributor
 
     final changeBuilder = ChangeBuilder(session: request.result.session);
 
-    await changeBuilder.addGenericFileEdit(request.result.path!, (builder) {
+    await changeBuilder.addGenericFileEdit(request.result.path, (builder) {
       builder.addSimpleReplacement(range.node(closestClass), '');
       builder.addSimpleReplacement(
           range.node(factoryInitializer),
@@ -113,14 +113,14 @@ class ConvertClassOrFunctionComponentAssistContributor extends AssistContributor
 
       final comment = factoryDecl.semicolon.next?.precedingComments;
       if (comment != null && isSameLine(request.result.lineInfo, comment.offset, factoryDecl.semicolon.end)) {
-        if (request.result.content!.substring(comment.offset, comment.end).contains('undefined_identifier')) {
+        if (request.result.content.substring(comment.offset, comment.end).contains('undefined_identifier')) {
           builder.addSimpleReplacement(range.token(comment), '');
         }
       }
 
       // todo also remove undefined_identifier comment from class factory
     });
-    changeBuilder.setSelection(Position(request.result.path!, factoryInitializer.offset));
+    changeBuilder.setSelection(Position(request.result.path, factoryInitializer.offset));
 
     final sourceChange = changeBuilder.sourceChange
       ..message = convertToFunction.message
@@ -145,12 +145,12 @@ class ConvertClassOrFunctionComponentAssistContributor extends AssistContributor
     // todo check for hooks
     // todo migrate defaults?
 
-    final renderSource = request.result.content!.substring(functionComponentBody.offset,
+    final renderSource = request.result.content.substring(functionComponentBody.offset,
         functionComponentBody.tryCast<ExpressionFunctionBody>()?.semicolon?.offset ?? functionComponentBody.end);
 
     final changeBuilder = ChangeBuilder(session: request.result.session);
 
-    await changeBuilder.addGenericFileEdit(request.result.path!, (builder) {
+    await changeBuilder.addGenericFileEdit(request.result.path, (builder) {
       // todo also add undefined_identifier to initializer class factory
       builder.addSimpleReplacement(range.node(factoryInitializer), 'castUiFactory($generatedFactoryName)');
 

@@ -1,6 +1,5 @@
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
-import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/util/function_components.dart';
 import 'package:over_react_analyzer_plugin/src/util/react_types.dart';
@@ -70,20 +69,18 @@ class CreateRefUsageDiagnostic extends DiagnosticContributor {
   @override
   computeErrors(result, collector) async {
     final unit = result.unit;
-    if (unit != null) {
-      for (final component in getAllFunctionComponents(unit)) {
-        final visitor = CreateRefUsageVisitor();
-        component.body.accept(visitor);
-        for (final createRefInvocation in visitor.createRefInvocations) {
-          await collector.addErrorWithFix(
-            code,
-            result.locationFor(createRefInvocation),
-            fixKind: fixKind,
-            computeFix: () => buildGenericFileEdit(result, (builder) {
-              builder.addSimpleReplacement(range.node(createRefInvocation), 'useRef');
-            }),
-          );
-        }
+    for (final component in getAllFunctionComponents(unit)) {
+      final visitor = CreateRefUsageVisitor();
+      component.body.accept(visitor);
+      for (final createRefInvocation in visitor.createRefInvocations) {
+        await collector.addErrorWithFix(
+          code,
+          result.locationFor(createRefInvocation),
+          fixKind: fixKind,
+          computeFix: () => buildGenericFileEdit(result, (builder) {
+            builder.addSimpleReplacement(range.node(createRefInvocation), 'useRef');
+          }),
+        );
       }
     }
   }

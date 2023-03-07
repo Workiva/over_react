@@ -49,7 +49,7 @@ class NodeLocator2Test {
     final unit = parseAndGetUnit(code);
     final declaration = unit.declarations[0] as TopLevelVariableDeclaration;
     final variableList = declaration.variables;
-    final typeName = (variableList.type as TypeName).name;
+    final typeName = (variableList.type as NamedType).name;
     final varName = variableList.variables[0].name;
     expect(NodeLocator2(0).searchWithin(unit), same(unit));
     expect(NodeLocator2(1).searchWithin(unit), same(typeName));
@@ -70,7 +70,7 @@ class NodeLocator2Test {
     final unit = parseAndGetUnit(code);
     final declaration = unit.declarations[0] as TopLevelVariableDeclaration;
     final variableList = declaration.variables;
-    final typeName = (variableList.type as TypeName).name;
+    final typeName = (variableList.type as NamedType).name;
     final varName = variableList.variables[0].name;
     expect(NodeLocator2(-1, 2).searchWithin(unit), isNull);
     expect(NodeLocator2(0, 2).searchWithin(unit), same(unit));

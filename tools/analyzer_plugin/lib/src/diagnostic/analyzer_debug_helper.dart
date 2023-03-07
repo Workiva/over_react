@@ -24,7 +24,7 @@ class AnalyzerDebugHelper {
   ///     debug.log('message');
   void log(String message) {
     if (!enabled) return;
-    collector.addError(code, Location(result.path!, 0, 0, 1, 1, 1, 1), errorMessageArgs: [message]);
+    collector.addError(code, Location(result.path, 0, 0, 1, 1), errorMessageArgs: [message]);
   }
 
   /// Usage:
