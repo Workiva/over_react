@@ -56,3 +56,4 @@ dependency_validator:
     - tools/**
   ignore:
     - mockito
+    - mockito
