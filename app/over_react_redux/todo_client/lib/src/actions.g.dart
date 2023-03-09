@@ -8,12 +8,11 @@ part of 'actions.dart';
 // **************************************************************************
 
 SaveLocalStorageStateAsAction _$SaveLocalStorageStateAsActionFromJson(
-    Map<String, dynamic> json) {
-  return SaveLocalStorageStateAsAction(
-    json['name'] as String,
-    previousName: json['previousName'] as String?,
-  );
-}
+        Map<String, dynamic> json) =>
+    SaveLocalStorageStateAsAction(
+      json['name'] as String,
+      previousName: json['previousName'] as String?,
+    );
 
 Map<String, dynamic> _$SaveLocalStorageStateAsActionToJson(
         SaveLocalStorageStateAsAction instance) =>
