@@ -1,0 +1,7 @@
+# Files to be ignored when publishing this package, in addition to files excluded via parent directory ignores
+# (See comment in this directory's .gitignore for more info).
+
+# We don't need to publish this, and ignoring it seems to work around the following error when running `pub publish`:
+#
+#     Bad state: Unable to find the context to …/tools/analyzer_plugin/playground/web/bad_keys.dart
+playground/
