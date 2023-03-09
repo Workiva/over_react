@@ -1,5 +1,8 @@
 # OverReact Changelog
 
+## [4.8.4](https://github.com/Workiva/over_react/compare/4.8.3...4.8.4)
+4.8.3 was missing the analyzer plugin in the published package for some reason, and this release should hopefully include it again.
+
 ## [4.8.3](https://github.com/Workiva/over_react/compare/4.8.2...4.8.3)
 
 - [#807] Allow analyzer 2.x, fix analyzer plugin not starting in newer SDKs
