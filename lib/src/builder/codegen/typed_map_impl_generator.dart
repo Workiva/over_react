@@ -27,26 +27,27 @@ abstract class TypedMapImplGenerator extends BoilerplateDeclarationGenerator {
   // Provide factory constructors since they make invocations easier to read and tell apart
   // than all of the different subclasses.
 
-  factory TypedMapImplGenerator.legacyProps(LegacyClassComponentDeclaration declaration) =
+  factory TypedMapImplGenerator.legacyProps(LegacyClassComponentDeclaration declaration, {required bool nullSafety}) =
       _LegacyTypedMapImplGenerator.props;
 
-  factory TypedMapImplGenerator.legacyState(LegacyClassComponentDeclaration declaration) =
+  factory TypedMapImplGenerator.legacyState(LegacyClassComponentDeclaration declaration, {required bool nullSafety}) =
       _LegacyTypedMapImplGenerator.state;
 
-  factory TypedMapImplGenerator.props(ClassComponentDeclaration declaration) =
+  factory TypedMapImplGenerator.props(ClassComponentDeclaration declaration, {required bool nullSafety}) =
       _TypedMapImplGenerator.props;
 
-  factory TypedMapImplGenerator.state(ClassComponentDeclaration declaration) =
+  factory TypedMapImplGenerator.state(ClassComponentDeclaration declaration, {required bool nullSafety}) =
       _TypedMapImplGenerator.state;
 
   factory TypedMapImplGenerator.propsMapViewOrFunctionComponent(
-          PropsMapViewOrFunctionComponentDeclaration declaration) =
+          PropsMapViewOrFunctionComponentDeclaration declaration, {required bool nullSafety}) =
       _TypedMapImplGenerator.propsMapViewOrFunctionComponent;
 
   TypedMapNames get names;
   bool get isComponent2;
   List<FactoryNames> get factoryNames;
   bool get isProps;
+  bool get nullSafety;
 
   BoilerplateTypedMapMember? get member;
 
@@ -72,7 +73,7 @@ abstract class TypedMapImplGenerator extends BoilerplateDeclarationGenerator {
     assert(factoryNames.length == 1, 'factoryNames must have a length of 1');
 
     outputContentsBuffer!
-        .write('${names.implName} ${factoryNames.first.implName}([Map? backingProps]) => ');
+        .write('${names.implName} ${factoryNames.first.implName}([Map${nullSafety ? '?' : ''} backingProps]) => ');
 
     if (!isComponent2) {
       /// _$$FooProps _$Foo([Map backingProps]) => _$$FooProps(backingProps);
@@ -170,9 +171,9 @@ abstract class TypedMapImplGenerator extends BoilerplateDeclarationGenerator {
       buffer
         ..writeln('  ${names.implName}._();')
         ..writeln()
-        ..writeln('  factory ${names.implName}(Map? backingMap) {')
+        ..writeln('  factory ${names.implName}(Map${nullSafety ? '?' : ''} backingMap) {')
         ..writeln('    if (backingMap == null || backingMap is JsBackedMap) {')
-        ..writeln('      return ${names.jsMapImplName}(backingMap as JsBackedMap?);')
+        ..writeln('      return ${names.jsMapImplName}(backingMap as JsBackedMap${nullSafety ? '?' : ''});')
         ..writeln('    } else {')
         ..writeln('      return ${names.plainMapImplName}(backingMap);')
         ..writeln('    }')
@@ -184,7 +185,7 @@ abstract class TypedMapImplGenerator extends BoilerplateDeclarationGenerator {
         ..writeln(
             '  // of `_$propsOrState` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217')
         // TODO need to remove this workaround once https://github.com/dart-lang/sdk/issues/36217 is fixed get nice dart2js output
-        ..writeln('  ${names.implName}(Map? backingMap) : this._$propsOrState = {} {')
+        ..writeln('  ${names.implName}(Map${nullSafety ? '?' : ''} backingMap) : this._$propsOrState = {} {')
         ..writeln('     this._$propsOrState = backingMap ?? {};')
         ..writeln('  }');
     }
@@ -239,7 +240,7 @@ abstract class TypedMapImplGenerator extends BoilerplateDeclarationGenerator {
 ${internalGeneratedMemberDeprecationLine()}class ${names.plainMapImplName}$typeParamsOnClass extends ${names.implName}$typeParamsOnSuper {
   // This initializer of `_$propsOrState` to an empty map, as well as the reassignment
   // of `_$propsOrState` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  ${names.plainMapImplName}(Map? backingMap) : this._$propsOrState = {}, super._() {
+  ${names.plainMapImplName}(Map${nullSafety ? '?' : ''} backingMap) : this._$propsOrState = {}, super._() {
      this._$propsOrState = backingMap ?? {};
   }
   /// The backing $propsOrState map proxied by this class.
@@ -252,7 +253,7 @@ ${internalGeneratedMemberDeprecationLine()}class ${names.plainMapImplName}$typeP
 ${internalGeneratedMemberDeprecationLine()}class ${names.jsMapImplName}$typeParamsOnClass extends ${names.implName}$typeParamsOnSuper {
   // This initializer of `_$propsOrState` to an empty map, as well as the reassignment
   // of `_$propsOrState` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  ${names.jsMapImplName}(JsBackedMap? backingMap) : this._$propsOrState = JsBackedMap(), super._() {
+  ${names.jsMapImplName}(JsBackedMap${nullSafety ? '?' : ''} backingMap) : this._$propsOrState = JsBackedMap(), super._() {
      this._$propsOrState = backingMap ?? JsBackedMap();
   }
   /// The backing $propsOrState map proxied by this class.
@@ -281,13 +282,16 @@ class _LegacyTypedMapImplGenerator extends TypedMapImplGenerator {
   @override
   final BoilerplatePropsOrState? member;
 
-  _LegacyTypedMapImplGenerator.props(this.declaration)
+  @override
+  final bool nullSafety;
+
+  _LegacyTypedMapImplGenerator.props(this.declaration, {required this.nullSafety})
       : names = TypedMapNames(declaration.props.name.name),
         factoryNames = [FactoryNames(declaration.factory.name.name)],
         member = declaration.props,
         isProps = true;
 
-  _LegacyTypedMapImplGenerator.state(this.declaration)
+  _LegacyTypedMapImplGenerator.state(this.declaration, {required this.nullSafety})
       : names = TypedMapNames(declaration.state!.name.name),
         factoryNames = [FactoryNames(declaration.factory.name.name)],
         member = declaration.state,
@@ -351,7 +355,10 @@ class _TypedMapImplGenerator extends TypedMapImplGenerator {
 
   final List<Identifier>? allPropsMixins;
 
-  _TypedMapImplGenerator.props(ClassComponentDeclaration declaration)
+  @override
+  final bool nullSafety;
+
+  _TypedMapImplGenerator.props(ClassComponentDeclaration declaration, {required this.nullSafety})
       : names = TypedMapNames(declaration.props.either.name.name),
         factoryNames = [FactoryNames(declaration.factory.name.name)],
         member = declaration.props.either,
@@ -361,7 +368,7 @@ class _TypedMapImplGenerator extends TypedMapImplGenerator {
         isFunctionComponentDeclaration = false,
         version = declaration.version;
 
-  _TypedMapImplGenerator.state(ClassComponentDeclaration declaration)
+  _TypedMapImplGenerator.state(ClassComponentDeclaration declaration, {required this.nullSafety})
       : names = TypedMapNames(declaration.state!.either.name.name),
         factoryNames = [FactoryNames(declaration.factory.name.name)],
         member = declaration.state!.either,
@@ -372,7 +379,7 @@ class _TypedMapImplGenerator extends TypedMapImplGenerator {
         version = declaration.version;
 
   _TypedMapImplGenerator.propsMapViewOrFunctionComponent(
-      PropsMapViewOrFunctionComponentDeclaration declaration)
+      PropsMapViewOrFunctionComponentDeclaration declaration, {required this.nullSafety})
       : names = TypedMapNames(declaration.props.either.name.name),
         factoryNames =
             declaration.factories.map((factory) => FactoryNames(factory.name.name)).toList(),

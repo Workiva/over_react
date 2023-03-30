@@ -23,27 +23,29 @@ import 'util.dart';
 
 /// Base class for generating getters/setters for props/state fields, as well as meta constants.
 abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerator {
+  bool get nullSafety;
+
   TypedMapAccessorsGenerator();
 
   // Provide factory constructors since they make invocations easier to read and tell apart
   // than all of the different subclasses.
 
-  factory TypedMapAccessorsGenerator.propsMixin(PropsMixinDeclaration decl) =
+  factory TypedMapAccessorsGenerator.propsMixin(PropsMixinDeclaration decl, {required bool nullSafety}) =
       _TypedMapMixinAccessorsGenerator.props;
 
-  factory TypedMapAccessorsGenerator.stateMixin(StateMixinDeclaration decl) =
+  factory TypedMapAccessorsGenerator.stateMixin(StateMixinDeclaration decl, {required bool nullSafety}) =
       _TypedMapMixinAccessorsGenerator.state;
 
-  factory TypedMapAccessorsGenerator.legacyProps(LegacyClassComponentDeclaration decl) =
+  factory TypedMapAccessorsGenerator.legacyProps(LegacyClassComponentDeclaration decl, {required bool nullSafety}) =
       _LegacyTypedMapAccessorsGenerator.props;
 
-  factory TypedMapAccessorsGenerator.legacyState(LegacyClassComponentDeclaration decl) =
+  factory TypedMapAccessorsGenerator.legacyState(LegacyClassComponentDeclaration decl, {required bool nullSafety}) =
       _LegacyTypedMapAccessorsGenerator.state;
 
-  factory TypedMapAccessorsGenerator.legacyAbstractProps(LegacyAbstractPropsDeclaration decl) =
+  factory TypedMapAccessorsGenerator.legacyAbstractProps(LegacyAbstractPropsDeclaration decl, {required bool nullSafety}) =
       _LegacyTypedMapAccessorsGenerator.abstractProps;
 
-  factory TypedMapAccessorsGenerator.legacyAbstractState(LegacyAbstractStateDeclaration decl) =
+  factory TypedMapAccessorsGenerator.legacyAbstractState(LegacyAbstractStateDeclaration decl, {required bool nullSafety}) =
       _LegacyTypedMapAccessorsGenerator.abstractState;
 
   TypedMapType get type;
@@ -228,8 +230,8 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
 
         final fieldType = field.fields.type;
         final typeSource = fieldType?.toSource();
-        // FIXME this is ambiguous for typedefs of nullable types; how should we handle that?
-        final isNullable = fieldType == null || typeSource == 'dynamic' || fieldType.question != null;
+        // FIXME this is ambiguous for :typedefs of nullable types; how should we handle that?
+        final looksNonNullable = variable.isLate && fieldType?.question != null;
         final typeString = typeSource == null ? '' : '$typeSource ';
         final metadataSrc = StringBuffer();
         for (final annotation in field.metadata) {
@@ -264,7 +266,7 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
 
         String castAndNullCheckValueIfNecessary(String expression) {
           var value = expression;
-          if (!isNullable) {
+          if (nullSafety && looksNonNullable) {
             // add non-null assertion so that null values throw in the getter, as opposed to later on in consumption.
             // Casting to a non-null value doesn't seem to guarantee a null-check, so we do this explicitly.
             value = '($value)!';
@@ -355,13 +357,16 @@ class _TypedMapMixinAccessorsGenerator extends TypedMapAccessorsGenerator {
   @override
   final Version version;
 
-  _TypedMapMixinAccessorsGenerator.props(PropsMixinDeclaration decl)
+  @override
+  final bool nullSafety;
+
+  _TypedMapMixinAccessorsGenerator.props(PropsMixinDeclaration decl, {required this.nullSafety})
       : member = decl.mixin,
         names = TypedMapNames(decl.mixin.name.name),
         version = decl.version,
         type = TypedMapType.propsMixin;
 
-  _TypedMapMixinAccessorsGenerator.state(StateMixinDeclaration decl)
+  _TypedMapMixinAccessorsGenerator.state(StateMixinDeclaration decl, {required this.nullSafety})
       : member = decl.mixin,
         names = TypedMapNames(decl.mixin.name.name),
         version = decl.version,
@@ -391,25 +396,28 @@ class _LegacyTypedMapAccessorsGenerator extends TypedMapAccessorsGenerator {
   @override
   final Version version;
 
-  _LegacyTypedMapAccessorsGenerator.props(LegacyClassComponentDeclaration decl)
+  @override
+  final bool nullSafety;
+
+  _LegacyTypedMapAccessorsGenerator.props(LegacyClassComponentDeclaration decl, {required this.nullSafety})
       : member = decl.props,
         names = TypedMapNames(decl.props.name.name),
         version = decl.version,
         type = TypedMapType.props;
 
-  _LegacyTypedMapAccessorsGenerator.state(LegacyClassComponentDeclaration decl)
+  _LegacyTypedMapAccessorsGenerator.state(LegacyClassComponentDeclaration decl, {required this.nullSafety})
       : member = decl.state!,
         names = TypedMapNames(decl.state!.name.name),
         version = decl.version,
         type = TypedMapType.state;
 
-  _LegacyTypedMapAccessorsGenerator.abstractProps(LegacyAbstractPropsDeclaration decl)
+  _LegacyTypedMapAccessorsGenerator.abstractProps(LegacyAbstractPropsDeclaration decl, {required this.nullSafety})
       : member = decl.props,
         names = TypedMapNames(decl.props.name.name),
         version = decl.version,
         type = TypedMapType.abstractProps;
 
-  _LegacyTypedMapAccessorsGenerator.abstractState(LegacyAbstractStateDeclaration decl)
+  _LegacyTypedMapAccessorsGenerator.abstractState(LegacyAbstractStateDeclaration decl, {required this.nullSafety})
       : member = decl.state,
         names = TypedMapNames(decl.state.name.name),
         version = decl.version,

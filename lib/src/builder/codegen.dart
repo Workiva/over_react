@@ -29,8 +29,9 @@ class ImplGenerator {
   final StringBuffer outputContentsBuffer = StringBuffer();
   final Logger logger;
   final SourceFile sourceFile;
+  final bool nullSafety;
 
-  ImplGenerator(this.logger, this.sourceFile);
+  ImplGenerator(this.logger, this.sourceFile, {required this.nullSafety});
 
   void generate(BoilerplateDeclaration declaration) {
     switch (declaration.type) {
@@ -78,42 +79,42 @@ class ImplGenerator {
 
   void _generateLegacyClassComponent(LegacyClassComponentDeclaration declaration) {
     _generateUsing(ComponentFactoryProxyGenerator.legacy(declaration));
-    _generateUsing(TypedMapAccessorsGenerator.legacyProps(declaration));
-    _generateUsing(TypedMapImplGenerator.legacyProps(declaration));
+    _generateUsing(TypedMapAccessorsGenerator.legacyProps(declaration, nullSafety: nullSafety));
+    _generateUsing(TypedMapImplGenerator.legacyProps(declaration, nullSafety: nullSafety));
     if (declaration.state != null) {
-      _generateUsing(TypedMapAccessorsGenerator.legacyState(declaration));
-      _generateUsing(TypedMapImplGenerator.legacyState(declaration));
+      _generateUsing(TypedMapAccessorsGenerator.legacyState(declaration, nullSafety: nullSafety));
+      _generateUsing(TypedMapImplGenerator.legacyState(declaration, nullSafety: nullSafety));
     }
-    _generateUsing(ComponentGenerator.legacy(declaration));
+    _generateUsing(ComponentGenerator.legacy(declaration, nullSafety: nullSafety));
   }
 
   void _generateLegacyAbstractProps(LegacyAbstractPropsDeclaration declaration) {
-    _generateUsing(TypedMapAccessorsGenerator.legacyAbstractProps(declaration));
+    _generateUsing(TypedMapAccessorsGenerator.legacyAbstractProps(declaration, nullSafety: nullSafety));
   }
 
   void _generateLegacyAbstractState(LegacyAbstractStateDeclaration declaration) {
-    _generateUsing(TypedMapAccessorsGenerator.legacyAbstractState(declaration));
+    _generateUsing(TypedMapAccessorsGenerator.legacyAbstractState(declaration, nullSafety: nullSafety));
   }
 
   void _generatePropsMixin(PropsMixinDeclaration declaration) {
-    _generateUsing(TypedMapAccessorsGenerator.propsMixin(declaration));
+    _generateUsing(TypedMapAccessorsGenerator.propsMixin(declaration, nullSafety: nullSafety));
   }
 
   void _generateStateMixin(StateMixinDeclaration declaration) {
-    _generateUsing(TypedMapAccessorsGenerator.stateMixin(declaration));
+    _generateUsing(TypedMapAccessorsGenerator.stateMixin(declaration, nullSafety: nullSafety));
   }
 
   void _generateClassComponent(ClassComponentDeclaration declaration) {
     _generateUsing(ComponentFactoryProxyGenerator(declaration));
-    _generateUsing(TypedMapImplGenerator.props(declaration));
+    _generateUsing(TypedMapImplGenerator.props(declaration, nullSafety: nullSafety));
     if (declaration.state != null) {
-      _generateUsing(TypedMapImplGenerator.state(declaration));
+      _generateUsing(TypedMapImplGenerator.state(declaration, nullSafety: nullSafety));
     }
-    _generateUsing(ComponentGenerator(declaration));
+    _generateUsing(ComponentGenerator(declaration, nullSafety: nullSafety));
   }
 
   void _generatePropsMapViewOrFunctionComponent(
       PropsMapViewOrFunctionComponentDeclaration declaration) {
-    _generateUsing(TypedMapImplGenerator.propsMapViewOrFunctionComponent(declaration));
+    _generateUsing(TypedMapImplGenerator.propsMapViewOrFunctionComponent(declaration, nullSafety: nullSafety));
   }
 }

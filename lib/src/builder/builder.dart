@@ -98,7 +98,15 @@ class OverReactBuilder extends Builder {
       // Validate boilerplate declarations and generate if there aren't any errors.
       //
 
-      final generator = ImplGenerator(log, sourceFile);
+      // FIXME parse from pubspec; figure out how to read that
+      var nullSafety = false;
+      final languageVersionToken = unit.languageVersionToken;
+      if (languageVersionToken != null) {
+        nullSafety = languageVersionToken.major > 2 ||
+            (languageVersionToken.major == 2 && languageVersionToken.minor >= 12);
+      }
+
+      final generator = ImplGenerator(log, sourceFile, nullSafety: nullSafety);
 
       for (final declaration in declarations) {
         hadErrors = false;
