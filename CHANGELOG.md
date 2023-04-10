@@ -1,5 +1,8 @@
 # OverReact Changelog
 
+## [4.8.5](https://github.com/Workiva/over_react/compare/4.8.4...4.8.5)
+Dependency updates: `dart_dev: '>=3.0.0 <5.0.0'` and `w_common: '>=2.0.0 <4.0.0'`
+
 ## [4.8.4](https://github.com/Workiva/over_react/compare/4.8.3...4.8.4)
 4.8.3 was missing the analyzer plugin in the published package for some reason, and this release should hopefully include it again.
 
