@@ -56,3 +56,9 @@ dependency_validator:
     - tools/**
   ignore:
     - mockito
+
+dependency_overrides:
+  transformer_utils:
+    git:
+      url: ssh://git@github.com/Workiva/dart_transformer_utils.git
+      ref: null-safety
