@@ -14,6 +14,7 @@ dependency_overrides:
   over_react:
       path: ../../..
 
+  color: ^3.0.0
 workiva:
   core_checks:
     react_boilerplate: disabled

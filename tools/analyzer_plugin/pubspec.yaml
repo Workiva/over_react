@@ -55,3 +55,6 @@ workiva:
 # dependency_overrides:
 #   over_react:
 #     path: /Users/me/workspaces/over_react
+
+dependency_overrides:
+  color: ^3.0.0
