@@ -17,9 +17,10 @@ library over_react.component.suspense_component;
 
 import 'package:js/js.dart';
 import 'package:over_react/over_react.dart';
-import 'package:react/react_client.dart';
+import 'package:react/react.dart' as react;
 import 'package:over_react/src/util/js_component.dart';
-import 'package:react/react_client/react_interop.dart';
+
+part 'suspense_component.over_react.g.dart';
 
 /// [Suspense] lets you display a fallback UI until its children have finished loading.
 ///
@@ -54,7 +55,7 @@ import 'package:react/react_client/react_interop.dart';
 ///
 /// See: <https://react.dev/reference/react/Suspense>
 UiFactory<SuspenseProps> Suspense = uiJsComponent(
-  ReactJsComponentFactoryProxy(_jsSuspense),
+  react.Suspense,
   _$SuspenseConfig, // ignore: undefined_identifier
 );
 
@@ -66,6 +67,3 @@ class SuspenseProps = UiProps with SuspensePropsMixin;
 mixin SuspensePropsMixin on UiProps {
   /*ReactNode*/ dynamic fallback;
 }
-
-@JS('React.Suspense')
-external ReactClass get _jsSuspense;
