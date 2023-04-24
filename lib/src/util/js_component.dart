@@ -21,7 +21,7 @@ UiFactory<TProps> uiJsComponent<TProps extends UiProps>(
 ) {
   ArgumentError.checkNotNull(_config, '_config');
 
-  if (_config is! UiFactoryConfig) {
+  if (_config is! UiFactoryConfig<TProps>) {
     throw ArgumentError(
         '_config should be a UiFactory<TProps>. Make sure you are '
         r'using either the generated factory config (i.e. _$FooConfig) or manually '
