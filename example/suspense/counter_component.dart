@@ -14,15 +14,14 @@
 
 import 'package:over_react/over_react.dart';
 
+import 'third_party_file.dart';
+
 // ignore_for_file: uri_has_not_been_generated
-part 'lazy_component.over_react.g.dart';
+part 'counter_component.over_react.g.dart';
 
-@Props(keyNamespace: '')
-mixin LazyProps on UiProps {
-  num initialCount;
-}
+class CounterProps = UiProps with CounterPropsMixin;
 
-UiFactory<LazyProps> Lazy = uiFunction(
+UiFactory<CounterProps> Counter = uiFunction(
   (props) {
     final count = useState(props.initialCount ?? 0);
     final delta = useState(1);
@@ -42,5 +41,5 @@ UiFactory<LazyProps> Lazy = uiFunction(
       (Dom.button()..onClick = incrementDelta)('Increment delta'),
     );
   },
-  _$LazyConfig, // ignore: undefined_identifier
+  _$CounterConfig, // ignore: undefined_identifier
 );

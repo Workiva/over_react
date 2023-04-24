@@ -13,65 +13,30 @@
 // limitations under the License.
 
 import 'dart:html';
-import 'dart:js_util';
 
-import 'package:js/js.dart';
-import 'package:over_react/js_component.dart';
 import 'package:over_react/over_react.dart';
-import 'package:over_react/src/util/promise_interop.dart';
-import 'package:react/react_client/component_factory.dart';
 import 'package:react/react_dom.dart' as react_dom;
-import 'package:react/react_client/react_interop.dart' as react_interop;
+import 'counter_component.dart' deferred as lazy_component;
+import 'lazy.dart';
+import 'third_party_file.dart';
 
-import './lazy_component.dart' deferred as lazy_component;
-
-//part 'main.over_react.g.dart';
-
-@JS('React.lazy')
-external react_interop.ReactClass jsLazy(Promise Function() factory);
-
-// Only intended for testing purposes, Please do not copy/paste this into your repo.
-// This will most likely be added to the PUBLIC api in the future,
-// but needs more testing and Typing decisions to be made first.
-UiFactory<UiProps> lazy<T extends UiProps>(Future<UiFactory<T>> Function() factory) {
-  return uiJsComponent(
-    ReactJsComponentFactoryProxy(
-      jsLazy(
-        allowInterop(
-          () => futureToPromise(
-            // React.lazy only supports "default exports" from a module.
-            // This `{default: yourExport}` workaround can be found in the React.lazy RFC comments.
-            // See: https://github.com/reactjs/rfcs/pull/64#issuecomment-431507924
-            (() async {
-              //resolvedFactory = await factory();
-              return jsify({'default': (await factory()).elementType});
-            })(),
-          ),
-        ),
-      ),
-    ),
-    Dom.div.asForwardRefConfig(displayName: 'Lazy'),
-);
-}
-
-final Lazy = lazy(() async {
+final LazyCounter = lazy(() async {
   await lazy_component.loadLibrary();
   await Future.delayed(Duration(seconds: 5));
-  return lazy_component.Lazy;
-});
+  return lazy_component.Counter;
+},
+    UiFactoryConfig(
+      propsFactory: PropsFactory.fromUiFactory(CounterPropsMapView),
+      displayName: 'This does nothing...',
+    ));
 
 void main() {
-    react_dom.render(StrictMode()(
-      (Suspense()
-        ..fallback = (Dom.div()..id = 'suspense')(
-          'Loading...'
-          )
-        )(
-          (Lazy()..['initialCount'] = 2)(
-            (Dom.div()..id = 'Heyyy!')()
-          )
-        ),
+  react_dom.render(
+      StrictMode()(
+        (Suspense()
+              ..fallback = (Dom.div()..id = 'suspense')(
+                  'I am a fallback UI that will show while we load the lazy component! The load time is artificially inflated to last an additional 5 seconds just to prove its working!'))(
+            (LazyCounter()..initialCount = 2)((Dom.div()..id = 'Heyyy!')())),
       ),
-      querySelector('#content')
-    );
+      querySelector('#content'));
 }

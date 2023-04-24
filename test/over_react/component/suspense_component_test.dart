@@ -21,12 +21,12 @@ import 'package:js/js.dart';
 import 'package:over_react/js_component.dart';
 import 'package:over_react/over_react.dart';
 import 'package:over_react/src/util/promise_interop.dart';
-import 'package:over_react_test/over_react_test.dart';
 import 'package:react/react_client/component_factory.dart';
 import 'package:react/react_client/react_interop.dart' as react_interop;
+import 'package:react_testing_library/react_testing_library.dart';
 import 'package:test/test.dart';
-
-import 'fixtures/dummy_component.dart';
+import 'fixtures/lazy_load_me_props.dart';
+import 'fixtures/lazy_load_me_component.dart' deferred as lazy_load_me;
 
 @JS('React.lazy')
 external react_interop.ReactClass jsLazy(Promise Function() factory);
@@ -34,7 +34,7 @@ external react_interop.ReactClass jsLazy(Promise Function() factory);
 // Only intended for testing purposes, Please do not copy/paste this into your repo.
 // This will most likely be added to the PUBLIC api in the future,
 // but needs more testing and Typing decisions to be made first.
-UiFactory<UiProps> lazy<T extends UiProps>(Future<UiFactory<T>> Function() factory) {
+UiFactory<T> lazy<T extends UiProps>(Future<UiFactory<T>> Function() factory, UiFactoryConfig<T> factoryConfig) {
   return uiJsComponent(
     ReactJsComponentFactoryProxy(
       jsLazy(
@@ -51,56 +51,93 @@ UiFactory<UiProps> lazy<T extends UiProps>(Future<UiFactory<T>> Function() facto
         ),
       ),
     ),
-    Dom.div.asForwardRefConfig(displayName: 'Lazy'),
-);
+    factoryConfig,
+  );
 }
 
+const lazyId = 'lazy';
+const loadingId = 'loading';
 void main() {
   group('Suspense', () {
     test('renders fallback UI first followed by the real component', () {
-      final wrappingDivRef = createRef<Element>();
-
-      renderAttachedToDocument(
-        (Dom.div()
-          ..ref = wrappingDivRef
-        )(
-          (Suspense()..fallback = (Dom.span()..id = 'loading')())(
-            Dom.div()(),
-            Dom.div()(),
-            Dom.div()(),
-            Dom.div()(),
-          ),
+      final LazyLoadMe = lazy(
+        () async {
+          await lazy_load_me.loadLibrary();
+          await Future.delayed(Duration(seconds: 1));
+          return lazy_load_me.LazyLoadMe;
+        },
+        UiFactoryConfig(
+          displayName: 'LazyLoadMe',
+          propsFactory: PropsFactory.fromUiFactory(LazyLoadMePropsMapView),
         ),
       );
 
-      expect(wrappingDivRef.current.children, hasLength(4));
+      final view = render(
+        (Suspense()..fallback = (Dom.span()..addTestId(loadingId))())(
+          (LazyLoadMe()
+            ..addTestId(lazyId)
+            ..initialCount = 2)(),
+        ),
+      );
+
+      expect(view.getByTestId(loadingId), isNotNull);
+      expect(view.queryByTestId(lazyId), isNull);
+
+      expect(view.findByTestId(lazyId), isNotNull);
     });
 
-    test('is instant after the lazy component has been loaded once', () {
-      var callCount = 0;
-      var jacket = mount(
-        (Suspense()..key = 1)(
-          (Dummy()
-            ..onComponentDidMount = () {
-              callCount++;
-            })(),
+    test('is instant after the lazy component has been loaded once', () async {
+      const lazyLoadArtificialDelayInSeconds = 2;
+      final oneTenthOfArtificialDelayInMilliseconds = ((lazyLoadArtificialDelayInSeconds / 10) * 1000).round();
+
+      final LazyLoadMe = lazy(
+        () async {
+          await lazy_load_me.loadLibrary();
+          await Future.delayed(Duration(seconds: lazyLoadArtificialDelayInSeconds));
+          return lazy_load_me.LazyLoadMe;
+        },
+        UiFactoryConfig(
+          displayName: 'LazyLoadMe',
+          propsFactory: PropsFactory.fromUiFactory(LazyLoadMePropsMapView),
         ),
       );
 
-      expect(callCount, 1);
+      var mountPoint1 = DivElement();
+      var mountPoint2 = DivElement();
 
-      jacket.rerender(
-        (Suspense()..key = 2)(
-          (Dummy()
-            ..onComponentDidMount = () {
-              callCount++;
-            })(),
-        ),
-      );
+      final view1 = render(
+          (Suspense()..fallback = (Dom.span()..addTestId(loadingId))())(
+            (LazyLoadMe()
+              ..addTestId(lazyId)
+              ..initialCount = 2)(),
+          ),
+          baseElement: mountPoint1);
 
-      expect(callCount, 2,
-          reason:
-              'Dummy should have been remounted as a result of Suspense key changing');
+      expect(view1.getByTestId(loadingId), isNotNull);
+      expect(view1.queryByTestId(lazyId), isNull);
+
+      expect(view1.findByTestId(lazyId, timeout: Duration(seconds: lazyLoadArtificialDelayInSeconds + 1)), isNotNull);
+
+      final view2 = render(
+          (Suspense()..fallback = (Dom.span()..addTestId(loadingId))())(
+            (LazyLoadMe()
+              ..addTestId(lazyId)
+              ..initialCount = 2)(),
+          ),
+          baseElement: mountPoint2);
+
+      // Using a `findBy` with a timeout that is one tenth of the expected delay.
+      // This asserts that it renders almost immediately. T
+      // The loading ui will still show but is replaced almost immediately (like 1 animation frame).
+
+      expect(view2.findByTestId(lazyId, timeout: Duration(milliseconds: oneTenthOfArtificialDelayInMilliseconds)), isNotNull);
+
+      // Just asserting that `oneTenthOfArtificialDelayInMilliseconds` is in fact less than `lazyLoadArtificialDelayInSeconds`.
+      expect(oneTenthOfArtificialDelayInMilliseconds, 200);
+      expect(
+          Duration(milliseconds: oneTenthOfArtificialDelayInMilliseconds).inMilliseconds <
+              Duration(seconds: lazyLoadArtificialDelayInSeconds).inMilliseconds,
+          isTrue);
     });
   });
 }
