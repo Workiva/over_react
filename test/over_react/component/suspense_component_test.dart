@@ -14,7 +14,7 @@
 @JS()
 library suspense_component_test;
 
-import 'dart:html';
+import 'dart:async';
 import 'dart:js_util';
 
 import 'package:js/js.dart';
@@ -56,14 +56,16 @@ UiFactory<T> lazy<T extends UiProps>(Future<UiFactory<T>> Function() factory, Ui
 }
 
 const lazyId = 'lazy';
+const gregIsNotLazy = 'gregisnotlazy';
 const loadingId = 'loading';
 void main() {
   group('Suspense', () {
-    test('renders fallback UI first followed by the real component', () {
+    test('renders fallback UI first followed by the real component', () async {
+      final lazyLoadCompleter = Completer<void>();
       final LazyLoadMe = lazy(
         () async {
           await lazy_load_me.loadLibrary();
-          await Future.delayed(Duration(seconds: 1));
+          await lazyLoadCompleter.future;
           return lazy_load_me.LazyLoadMe;
         },
         UiFactoryConfig(
@@ -82,18 +84,18 @@ void main() {
 
       expect(view.getByTestId(loadingId), isNotNull);
       expect(view.queryByTestId(lazyId), isNull);
-
-      expect(view.findByTestId(lazyId), isNotNull);
+      lazyLoadCompleter.complete();
+      expect(await view.findByTestId(lazyId), isNotNull);
     });
 
     test('is instant after the lazy component has been loaded once', () async {
-      const lazyLoadArtificialDelayInSeconds = 2;
-      final oneTenthOfArtificialDelayInMilliseconds = ((lazyLoadArtificialDelayInSeconds / 10) * 1000).round();
+      final lazyLoadCompleter = Completer<void>();
+      const suspenseFallbackTimeout = Duration(milliseconds: 100);
 
       final LazyLoadMe = lazy(
         () async {
           await lazy_load_me.loadLibrary();
-          await Future.delayed(Duration(seconds: lazyLoadArtificialDelayInSeconds));
+          await lazyLoadCompleter.future;
           return lazy_load_me.LazyLoadMe;
         },
         UiFactoryConfig(
@@ -102,42 +104,36 @@ void main() {
         ),
       );
 
-      var mountPoint1 = DivElement();
-      var mountPoint2 = DivElement();
-
-      final view1 = render(
+      {
+        final view = render(
           (Suspense()..fallback = (Dom.span()..addTestId(loadingId))())(
             (LazyLoadMe()
               ..addTestId(lazyId)
               ..initialCount = 2)(),
           ),
-          baseElement: mountPoint1);
+        );
 
-      expect(view1.getByTestId(loadingId), isNotNull);
-      expect(view1.queryByTestId(lazyId), isNull);
+        expect(view.getByTestId(loadingId), isNotNull);
+        expect(view.queryByTestId(lazyId), isNull);
 
-      expect(view1.findByTestId(lazyId, timeout: Duration(seconds: lazyLoadArtificialDelayInSeconds + 1)), isNotNull);
+        await Future.delayed(Duration(seconds: 1));
+        expect(view.queryByTestId(lazyId), isNull, reason: 'should not be found until the lazy component finishes loading');
 
-      final view2 = render(
+        lazyLoadCompleter.complete();
+        expect(await view.findByTestId(lazyId, timeout: suspenseFallbackTimeout), isNotNull);
+        view.unmount();
+      }
+      {
+        final view = render(
           (Suspense()..fallback = (Dom.span()..addTestId(loadingId))())(
             (LazyLoadMe()
-              ..addTestId(lazyId)
+              ..addTestId(gregIsNotLazy)
               ..initialCount = 2)(),
           ),
-          baseElement: mountPoint2);
+        );
 
-      // Using a `findBy` with a timeout that is one tenth of the expected delay.
-      // This asserts that it renders almost immediately. T
-      // The loading ui will still show but is replaced almost immediately (like 1 animation frame).
-
-      expect(view2.findByTestId(lazyId, timeout: Duration(milliseconds: oneTenthOfArtificialDelayInMilliseconds)), isNotNull);
-
-      // Just asserting that `oneTenthOfArtificialDelayInMilliseconds` is in fact less than `lazyLoadArtificialDelayInSeconds`.
-      expect(oneTenthOfArtificialDelayInMilliseconds, 200);
-      expect(
-          Duration(milliseconds: oneTenthOfArtificialDelayInMilliseconds).inMilliseconds <
-              Duration(seconds: lazyLoadArtificialDelayInSeconds).inMilliseconds,
-          isTrue);
+        expect(view.getByTestId(gregIsNotLazy), isNotNull);
+      }
     });
   });
 }
