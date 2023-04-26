@@ -1,4 +1,4 @@
-// Copyright 2019 Workiva Inc.
+// Copyright 2023 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -24,7 +24,7 @@ part 'suspense_component.over_react.g.dart';
 
 /// [Suspense] lets you display a fallback UI until its children have finished loading.
 ///
-/// Like [react.Fragment], [Suspense] does not render any visible UI.
+/// Like [Fragment], [Suspense] does not render any visible UI.
 /// It lets you specify a loading indicator in case some components in
 /// the tree below it are not yet ready to render.
 /// [Suspense] currently works with:

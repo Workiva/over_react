@@ -1,4 +1,4 @@
-// Copyright 2022 Workiva Inc.
+// Copyright 2023 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -34,9 +34,14 @@ void main() {
   react_dom.render(
       StrictMode()(
         (Suspense()
-              ..fallback = (Dom.div()..id = 'suspense')(
-                  'I am a fallback UI that will show while we load the lazy component! The load time is artificially inflated to last an additional 5 seconds just to prove its working!'))(
-            (LazyCounter()..initialCount = 2)((Dom.div()..id = 'Heyyy!')())),
+          ..fallback = (Dom.div()..id = 'suspense')(
+            'I am a fallback UI that will show while we load the lazy component! The load time is artificially inflated to last an additional 5 seconds just to prove its working!',
+          )
+        )(
+          (LazyCounter()..initialCount = 2)(
+            (Dom.div()..id = 'Heyyy!')(),
+          ),
+        ),
       ),
       querySelector('#content'));
 }
