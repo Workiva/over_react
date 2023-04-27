@@ -62,7 +62,6 @@ UiFactory<SuspenseProps> Suspense = uiJsComponent(
 /// The concrete props class for the [Suspense] component.
 class SuspenseProps = UiProps with SuspensePropsMixin;
 
-
 @Props(keyNamespace: '')
 mixin SuspensePropsMixin on UiProps {
   /// The actual UI you intend to render. If children suspends while rendering, the Suspense boundary will
