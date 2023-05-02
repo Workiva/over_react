@@ -67,7 +67,7 @@ mixin SuspensePropsMixin on UiProps {
   /// The actual UI you intend to render. If children suspends while rendering, the Suspense boundary will
   /// switch to rendering fallback.
   @override
-  /*ReactNode*/ List<dynamic> children;
+  /*ReactNode*/ List<dynamic> get children;
 
   /// An alternate UI to render in place of the actual UI if it has not finished loading. Any valid React node is
   /// accepted, though in practice, a fallback is a lightweight placeholder view, such as a loading spinner or skeleton.

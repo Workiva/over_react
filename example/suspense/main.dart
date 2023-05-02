@@ -35,7 +35,7 @@ void main() {
       StrictMode()(
         (Suspense()
           ..fallback = (Dom.div()..id = 'suspense')(
-            'I am a fallback UI that will show while we load the lazy component! The load time is artificially inflated to last an additional 5 seconds just to prove its working!',
+            'I am a fallback UI that will show while we load the lazy component! The load time is artificially inflated to last an additional 5 seconds just to prove it\'s working!',
           )
         )(
           (LazyCounter()..initialCount = 2)(
