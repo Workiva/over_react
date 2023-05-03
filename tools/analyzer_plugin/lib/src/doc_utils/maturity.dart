@@ -35,7 +35,7 @@ class Maturity implements Comparable<Maturity> {
   final String name;
   final int ordinal;
 
-  factory Maturity(String name, {int ordinal}) {
+  factory Maturity(String name, {required int ordinal}) {
     switch (name.toLowerCase()) {
       case 'stable':
         return stable;
@@ -48,7 +48,7 @@ class Maturity implements Comparable<Maturity> {
     }
   }
 
-  const Maturity._(this.name, {this.ordinal});
+  const Maturity._(this.name, {required this.ordinal});
 
   @override
   int compareTo(Maturity other) => ordinal - other.ordinal;

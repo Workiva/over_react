@@ -16,7 +16,6 @@ final $NonComponentTwoCounterComponentFactory = registerComponent(
   componentClass: NonComponentTwoCounterComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'NonComponentTwoCounter',
 );
 
 abstract class _$NonComponentTwoCounterPropsAccessorsMixin
@@ -87,6 +86,9 @@ class _$NonComponentTwoCounterComponent
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'NonComponentTwoCounter';
 
   /// The default consumed props, taken from _$NonComponentTwoCounterProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.

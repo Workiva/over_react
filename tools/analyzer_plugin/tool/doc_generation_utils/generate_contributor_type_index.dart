@@ -29,8 +29,6 @@
 
 import 'dart:io';
 
-import 'package:meta/meta.dart';
-
 import '../doc.dart' show logger;
 import 'shared_html.dart';
 
@@ -38,11 +36,11 @@ abstract class ContributorIndexer {
   final String pageTitle;
   final String bodySubtitle;
   ContributorIndexer({
-    @required this.pageTitle,
-    @required this.bodySubtitle,
+    required this.pageTitle,
+    required this.bodySubtitle,
   });
 
-  void generate(String filePath) {
+  void generate(String? filePath) {
     var generated = _generate();
     if (filePath != null) {
       var outPath = '$filePath/index.html';

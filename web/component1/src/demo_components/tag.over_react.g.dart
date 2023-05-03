@@ -16,7 +16,6 @@ final $TagComponentFactory = registerComponent(
   componentClass: TagComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'Tag',
 );
 
 abstract class _$TagPropsAccessorsMixin implements _$TagProps {
@@ -135,6 +134,9 @@ class _$TagComponent extends TagComponent {
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'Tag';
 
   /// The default consumed props, taken from _$TagProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.

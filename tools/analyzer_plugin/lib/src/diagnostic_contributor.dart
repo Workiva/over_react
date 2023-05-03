@@ -62,7 +62,7 @@ class DiagnosticCode {
     this.errorSeverity,
     this.type, {
     this.correction,
-    String url,
+    String? url,
   }) : url = url ?? '$analyzerPluginLintDocsUrl$name.html';
 
   /// The name of the error code.
@@ -75,7 +75,7 @@ class DiagnosticCode {
   /// The template used to create the correction to be displayed for this error,
   /// or `null` if there is no correction information for this error. The
   /// correction should indicate how the user can fix the error.
-  final String correction;
+  final String? correction;
 
   /// The URL of a page containing documentation associated with this error.
   final String url;
@@ -97,6 +97,9 @@ class DiagnosticCode {
 ///
 /// Clients may implement this class when implementing plugins.
 abstract class DiagnosticContributor {
+  /// List of all possible [DiagnosticCode]s that this contributor could compute as errors.
+  List<DiagnosticCode> get codes;
+
   /// Contribute errors for the location in the file specified by the given
   /// [result] into the given [collector].
   Future<void> computeErrors(ResolvedUnitResult result, DiagnosticCollector collector);
@@ -111,6 +114,11 @@ abstract class ComponentUsageDiagnosticContributor extends DiagnosticContributor
   Future<void> computeErrors(ResolvedUnitResult result, DiagnosticCollector collector) async {
     final usages = <FluentComponentUsage>[];
     result.unit.accept(ComponentUsageVisitor(usages.add));
+    await computeErrorsForUsages(result, collector, usages);
+  }
+
+  Future<void> computeErrorsForUsages(
+      ResolvedUnitResult result, DiagnosticCollector collector, Iterable<FluentComponentUsage> usages) async {
     for (final usage in usages) {
       await computeErrorsForUsage(result, collector, usage);
     }
@@ -120,9 +128,9 @@ abstract class ComponentUsageDiagnosticContributor extends DiagnosticContributor
 /// An object that [DiagnosticContributor]s use to record errors and fixes.
 @sealed
 abstract class DiagnosticCollector {
-  void addRawError(AnalysisError error, {PrioritizedSourceChange fix});
+  void addRawError(AnalysisError error, {PrioritizedSourceChange? fix});
 
-  void addError(DiagnosticCode code, Location location, {bool hasFix, List<Object> errorMessageArgs});
+  void addError(DiagnosticCode code, Location location, {bool hasFix, List<Object?> errorMessageArgs});
 
   ///
   /// use of `buildFileEdit`]` is recommended:
@@ -136,7 +144,7 @@ abstract class DiagnosticCollector {
   /// though you can still do it manually:
   ///
   ///     computeFix: () {
-  ///       final builder = new DartChangeBuilder(result.session);
+  ///       final builder = new ChangeBuilder(result.session);
   ///       await builder.addFileEdit(result.path, (builder) {
   ///         builder.addSimpleInsertion(cascade.offset, '(');
   ///         builder.addSimpleInsertion(cascade.end, ')');
@@ -145,8 +153,8 @@ abstract class DiagnosticCollector {
   ///     }
   ///
   Future<void> addErrorWithFix(DiagnosticCode code, Location location,
-      {FixKind fixKind,
-      FutureOr<SourceChange> Function() computeFix,
+      {FixKind? fixKind,
+      FutureOr<SourceChange> Function()? computeFix,
       List<Object> errorMessageArgs,
       List<Object> fixMessageArgs});
 }
@@ -154,16 +162,16 @@ abstract class DiagnosticCollector {
 // ignore: subtype_of_sealed_class
 @protected
 class DiagnosticCollectorImpl implements DiagnosticCollector {
-  DiagnosticCollectorImpl({@required this.shouldComputeFixes});
+  DiagnosticCollectorImpl({required this.shouldComputeFixes});
 
   final bool shouldComputeFixes;
 
   /// The list of assists that have been collected.
   final List<AnalysisError> errors = [];
-  final List<PrioritizedSourceChange> fixes = [];
+  final List<PrioritizedSourceChange?> fixes = [];
 
   @override
-  void addRawError(AnalysisError error, {PrioritizedSourceChange fix}) {
+  void addRawError(AnalysisError error, {PrioritizedSourceChange? fix}) {
     errors.add(error);
     fixes.add(fix);
   }
@@ -171,15 +179,17 @@ class DiagnosticCollectorImpl implements DiagnosticCollector {
   @override
   void addError(DiagnosticCode code, Location location,
       {bool hasFix = false,
-      FixKind fixKind,
-      SourceChange fixChange,
-      List<Object> errorMessageArgs,
-      List<Object> fixMessageArgs}) {
-    PrioritizedSourceChange fix;
+      FixKind? fixKind,
+      SourceChange? fixChange,
+      List<Object?> errorMessageArgs = const [],
+      List<Object> fixMessageArgs = const []}) {
+    // TODO(nullsafety) better checks/errors when some args aren't provided
+
+    PrioritizedSourceChange? fix;
     if (fixChange != null) {
       if (fixChange.edits.isNotEmpty) {
         fixChange
-          ..id = fixKind.id
+          ..id = fixKind!.id
           ..message = _formatList(fixKind.message, fixMessageArgs);
         fix = PrioritizedSourceChange(fixKind.priority, fixChange);
         hasFix = true;
@@ -202,16 +212,16 @@ class DiagnosticCollectorImpl implements DiagnosticCollector {
 
   @override
   Future<void> addErrorWithFix(DiagnosticCode code, Location location,
-      {FixKind fixKind,
-      FutureOr<SourceChange> Function() computeFix,
-      List<Object> errorMessageArgs,
-      List<Object> fixMessageArgs}) async {
+      {FixKind? fixKind,
+      FutureOr<SourceChange> Function()? computeFix,
+      List<Object> errorMessageArgs = const [],
+      List<Object> fixMessageArgs = const []}) async {
     addError(
       code,
       location,
       hasFix: true,
       fixKind: fixKind,
-      fixChange: shouldComputeFixes ? await computeFix() : null,
+      fixChange: shouldComputeFixes ? await computeFix!() : null,
       errorMessageArgs: errorMessageArgs,
       fixMessageArgs: fixMessageArgs,
     );
@@ -251,16 +261,16 @@ class DiagnosticCollectorImpl implements DiagnosticCollector {
 ///     format('Hello, {0}!', ['John']) = 'Hello, John!'
 ///     format('{0} are you {1}ing?', ['How', 'do']) = 'How are you doing?'
 ///     format('{0} are you {1}ing?', ['What', 'read']) = 'What are you reading?'
-String _formatList(String pattern, List<Object> arguments) {
-  if (arguments == null || arguments.isEmpty) {
+String _formatList(String pattern, List<Object?> arguments) {
+  if (arguments.isEmpty) {
     assert(!pattern.contains(RegExp(r'\{(\d+)\}')), 'Message requires arguments, but none were provided.');
     return pattern;
   }
   return pattern.replaceAllMapped(RegExp(r'\{(\d+)\}'), (match) {
-    final indexStr = match.group(1);
+    final indexStr = match.group(1)!;
     final index = int.parse(indexStr);
     final arg = arguments[index];
     assert(arg != null);
-    return arg?.toString();
+    return arg.toString();
   });
 }

@@ -1,4 +1,4 @@
-FROM google/dart:2.7
+FROM google/dart:2.13
 
 # Expose env vars for git ssh access
 ARG GIT_SSH_KEY
@@ -15,6 +15,6 @@ RUN eval "$(ssh-agent -s)" && \
 
 WORKDIR /build/
 ADD pubspec.yaml /build
-RUN pub get
+RUN dart pub get
 ARG BUILD_ARTIFACTS_AUDIT=/build/pubspec.lock
 FROM scratch

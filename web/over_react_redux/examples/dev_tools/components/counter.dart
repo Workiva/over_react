@@ -18,6 +18,24 @@ import '../store.dart';
 
 part 'counter.over_react.g.dart';
 
+/// Connected Redux Component (useSelector hook)
+UiFactory<HookCounterProps> HookCounter = uiFunction((props) {
+  final currentCount = useSelector<CounterState, int>((state) => state.smallCount);
+  final dispatch = useDispatch();
+  return Dom.div()(
+    Dom.div()('Count: $currentCount'),
+    (Dom.button()..onClick = (_) {
+      dispatch(SmallIncrementAction());
+    })('+'),
+    (Dom.button()..onClick = (_) {
+      dispatch(SmallDecrementAction());
+    })('-'),
+    props.children
+  );
+}, _$HookCounterConfig); // ignore: undefined_identifier
+
+mixin HookCounterProps on UiProps {}
+
 UiFactory<CounterProps> Counter = connect<CounterState, CounterProps>(
     mapStateToProps: (state) => (_Counter()..currentCount = state.smallCount)
 )(_Counter);

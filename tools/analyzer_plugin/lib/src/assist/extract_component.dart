@@ -13,7 +13,7 @@ typedef BoilerplateLinkedEditFn = void Function(
   DartEditBuilder builder, {
   String groupName,
   String componentFactoryName,
-  String Function({int indent}) getComponentRenderReturnValueSrc,
+  String Function({int? indent})? getComponentRenderReturnValueSrc,
 });
 
 abstract class _ExtractComponentAssistContributorBase extends AssistContributorBase {

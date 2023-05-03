@@ -16,7 +16,6 @@ final $FlawedWithStringChildComponentFactory = registerComponent2(
   componentClass: FlawedWithStringChildComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'FlawedWithStringChild',
 );
 
 abstract class _$FlawedWithStringChildPropsAccessorsMixin
@@ -142,6 +141,9 @@ class _$FlawedWithStringChildComponent extends FlawedWithStringChildComponent {
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'FlawedWithStringChild';
 
   /// The default consumed props, taken from _$FlawedWithStringChildProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.

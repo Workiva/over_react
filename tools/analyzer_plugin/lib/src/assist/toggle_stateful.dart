@@ -1,14 +1,16 @@
-// ignore_for_file: implementation_imports
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer_plugin/protocol/protocol_generated.dart';
 import 'package:analyzer_plugin/utilities/assist/assist.dart';
 import 'package:analyzer_plugin/utilities/range_factory.dart';
 
+import 'package:collection/collection.dart' show IterableExtension;
 import 'package:over_react_analyzer_plugin/src/assist/contributor_base.dart';
 import 'package:over_react_analyzer_plugin/src/indent_util.dart';
+// This error is unavoidable until over_react's builder is null-safe. See this library's doc comment for more info.
+// ignore: import_of_legacy_library_into_null_safe
+import 'package:over_react_analyzer_plugin/src/over_react_builder_parsing.dart' as orbp;
 import 'package:over_react_analyzer_plugin/src/util/boilerplate_assist_apis.dart';
 import 'package:over_react_analyzer_plugin/src/util/fix.dart';
-import 'package:over_react/src/builder/parsing/util.dart';
 
 const _makeStatefulDesc = r'Make component stateful';
 // <editor-fold desc="Make Stateful Documentation Details">
@@ -40,7 +42,7 @@ class ToggleComponentStatefulness extends AssistContributorBase with ComponentDe
   /// The counterpart base component class that will replace the current one.
   ///
   /// e.g "UiComponent2" / "UiStatefulComponent2", "FluxUiComponent2" / "FluxUiStatefulComponent2"
-  String newComponentBaseClass;
+  String? newComponentBaseClass;
 
   @override
   Future<void> computeAssists(DartAssistRequest request, AssistCollector collector) async {
@@ -61,15 +63,15 @@ class ToggleComponentStatefulness extends AssistContributorBase with ComponentDe
 
   Future<void> _addStatefulness() async {
     final sourceChange = await buildFileEdit(request.result, (builder) {
-      final defaultProps = componentDeclaration.component.nodeHelper.members.firstWhere((member) {
-        return member is MethodDeclaration && member.declaredElement.name == 'defaultProps';
-      }, orElse: () => null);
+      final defaultProps = componentDeclaration!.component.nodeHelper.members.firstWhereOrNull((member) {
+        return member is MethodDeclaration && member.declaredElement!.name == 'defaultProps';
+      });
 
       const indent = '  ';
 
       final insertionOffset = defaultProps != null
           ? componentSourceFile.getOffsetForLineAfter(defaultProps.end)
-          : componentSourceFile.getOffsetForLineAfter(componentDeclaration.component.nodeHelper.node.offset);
+          : componentSourceFile.getOffsetForLineAfter(componentDeclaration!.component.nodeHelper.node.offset);
 
       builder.addInsertion(insertionOffset, (builder) {
         if (defaultProps != null) builder.write('\n');
@@ -94,11 +96,11 @@ class ToggleComponentStatefulness extends AssistContributorBase with ComponentDe
 
   Future<void> _removeStatefulness() async {
     final sourceChange = await buildFileEdit(request.result, (builder) {
-      final initialState = componentDeclaration.component.nodeHelper.members.firstWhere((member) {
-        return member is MethodDeclaration && member.declaredElement.name == 'initialState';
-      }, orElse: () => null);
+      final initialState = componentDeclaration!.component.nodeHelper.members.firstWhereOrNull((member) {
+        return member is MethodDeclaration && member.declaredElement!.name == 'initialState';
+      });
 
-      builder.addDeletion(componentSourceFile.getEncompassingRangeFor(state.either.nodeHelper.node));
+      builder.addDeletion(componentSourceFile.getEncompassingRangeFor(state!.either.nodeHelper.node));
 
       builder.addReplacement(range.node(componentSupertypeNode), (builder) {
         builder.write('$newComponentBaseClass<${normalizedComponentName}Props>');
@@ -118,13 +120,12 @@ class ToggleComponentStatefulness extends AssistContributorBase with ComponentDe
     collector.addAssist(PrioritizedSourceChange(makeStateless.priority, sourceChange));
   }
 
-  String _getNewBase(String oldBase) {
+  String? _getNewBase(String oldBase) {
     const baseMapping = {
       'UiComponent2': 'UiStatefulComponent2',
       'FluxUiComponent2': 'FluxUiStatefulComponent2',
     };
 
-    return baseMapping[oldBase] ??
-        baseMapping.keys.firstWhere((key) => baseMapping[key] == oldBase, orElse: () => null);
+    return baseMapping[oldBase] ?? baseMapping.keys.firstWhereOrNull((key) => baseMapping[key] == oldBase);
   }
 }

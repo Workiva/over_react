@@ -16,7 +16,6 @@ final $FlawedWithNoChildComponentFactory = registerComponent2(
   componentClass: FlawedWithNoChildComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'FlawedWithNoChild',
 );
 
 abstract class _$FlawedWithNoChildPropsAccessorsMixin
@@ -138,6 +137,9 @@ class _$FlawedWithNoChildComponent extends FlawedWithNoChildComponent {
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'FlawedWithNoChild';
 
   /// The default consumed props, taken from _$FlawedWithNoChildProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.

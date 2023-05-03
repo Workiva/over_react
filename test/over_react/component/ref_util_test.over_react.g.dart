@@ -18,7 +18,6 @@ final $BasicComponentFactory = registerComponent2(
   componentClass: BasicComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'Basic',
 );
 
 _$$BasicProps _$Basic([Map backingProps]) => backingProps == null
@@ -138,6 +137,9 @@ class _$BasicComponent extends BasicComponent {
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'Basic';
 
   /// The default consumed props, comprising all props mixins used by BasicProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.

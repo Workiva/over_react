@@ -1,11 +1,12 @@
+// Disable null-safety in the plugin entrypoint until all dependencies are null-safe,
+// otherwise tests won't be able to run. See: https://github.com/dart-lang/test#compiler-flags
+// @dart=2.9
 import 'dart:async';
 
 import 'package:over_react_analyzer_plugin/src/diagnostic/arrow_function_prop.dart';
-import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:test/test.dart';
 import 'package:test_reflective_loader/test_reflective_loader.dart';
 
-import '../matchers.dart';
 import '../test_bases/diagnostic_test_base.dart';
 
 void main() {
@@ -17,10 +18,10 @@ void main() {
 @reflectiveTest
 class ArrowFunctionPropCascadeDiagnosticTest extends DiagnosticTestBase {
   @override
-  DiagnosticCode get errorUnderTest => ArrowFunctionPropCascadeDiagnostic.code;
+  get errorUnderTest => ArrowFunctionPropCascadeDiagnostic.code;
 
   @override
-  FixKind get fixKindUnderTest => ArrowFunctionPropCascadeDiagnostic.fixKind;
+  get fixKindUnderTest => ArrowFunctionPropCascadeDiagnostic.fixKind;
 
   static String simpleSource = /*language=dart*/ '''
 import 'package:over_react/over_react.dart';
@@ -49,10 +50,21 @@ var foo = (Dom.div()
   Future<void> test_noErrorLastInCascadeWithDescendantCascade() async {
     final source = newSource('test.dart', /*language=dart*/ r'''
       import 'package:over_react/over_react.dart';
+
+      part 'test.over_react.g.dart';
       
-      var foo = (Dom.div()
-        ..onClick = (_) => setState(newState()..foo = 'bar')
-      )('hello');
+      mixin FooState on UiState {
+        var foo;
+      }
+      
+      abstract class FooComponent extends UiStatefulComponent2<UiProps, FooState> {
+        @override
+        render() {
+          return (Dom.div()
+            ..onClick = (_) => setState(newState()..foo = 'bar')
+          )('hello');
+        }
+      }
     ''');
     expect(await getAllErrors(source), isEmpty);
   }
@@ -75,7 +87,7 @@ var foo = (Dom.div()
   Future<void> test_errorFix() async {
     var source = newSource('test.dart', simpleSource);
     final selection = createSelection(source, "#(_) => 'click'#");
-    final errorFix = await expectAndGetSingleErrorFix(selection);
+    final errorFix = await expectSingleErrorFix(selection);
     expect(errorFix.fixes.single.change.selection, isNull);
     source = applyErrorFixes(errorFix, source);
     expect(source.contents.data, r'''
@@ -94,14 +106,14 @@ var foo = (Dom.div()..onClick = (_) => null..key = 'foo')('');
 var bar = (Dom.div()..onSubmit = (_) => null..key = 'bar')('');
 ''');
 
-    final allErrors = await getAllErrors(source);
+    final allErrors = await getAllErrors(source, includeOtherCodes: true);
 
     final errorSelections = [
       createSelection(source, 'onClick = #(_) => null#'),
       createSelection(source, 'onSubmit = #(_) => null#'),
     ];
     for (final selection in errorSelections) {
-      expect(allErrors, contains(isDiagnostic(errorUnderTest, locatedAt: selection, hasFix: true)));
+      expect(allErrors.pluginErrors, contains(isAnErrorUnderTest(locatedAt: selection, hasFix: true)));
     }
   }
 }

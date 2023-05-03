@@ -16,7 +16,6 @@ final $TestAComponentFactory = registerComponent(
   componentClass: TestAComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'TestA',
 );
 
 abstract class _$TestAPropsAccessorsMixin implements _$TestAProps {
@@ -82,6 +81,9 @@ class _$TestAComponent extends TestAComponent {
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'TestA';
 
   /// The default consumed props, taken from _$TestAProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.

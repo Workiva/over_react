@@ -16,7 +16,6 @@ final $ComponentTestComponentFactory = registerComponent2(
   componentClass: ComponentTestComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'ComponentTest',
 );
 
 abstract class _$ComponentTestPropsAccessorsMixin
@@ -284,6 +283,9 @@ class _$ComponentTestComponent extends ComponentTestComponent {
   @override
   bool get $isClassGenerated => true;
 
+  @override
+  String get displayName => 'ComponentTest';
+
   /// The default consumed props, taken from _$ComponentTestProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
@@ -301,7 +303,6 @@ final $IsErrorBoundaryComponentFactory = registerComponent2(
   componentClass: IsErrorBoundaryComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'IsErrorBoundary',
   skipMethods: const [],
 );
 
@@ -430,6 +431,9 @@ class _$IsErrorBoundaryComponent extends IsErrorBoundaryComponent {
   @override
   bool get $isClassGenerated => true;
 
+  @override
+  String get displayName => 'IsErrorBoundary';
+
   /// The default consumed props, taken from _$IsErrorBoundaryProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
@@ -447,7 +451,6 @@ final $IsNotErrorBoundaryComponentFactory = registerComponent2(
   componentClass: IsNotErrorBoundaryComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'IsNotErrorBoundary',
 );
 
 abstract class _$IsNotErrorBoundaryPropsAccessorsMixin
@@ -575,6 +578,9 @@ class _$IsNotErrorBoundaryComponent extends IsNotErrorBoundaryComponent {
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'IsNotErrorBoundary';
 
   /// The default consumed props, taken from _$IsNotErrorBoundaryProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.

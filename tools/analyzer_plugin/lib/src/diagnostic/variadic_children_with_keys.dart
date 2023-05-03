@@ -65,22 +65,25 @@ class VariadicChildrenWithKeys extends ComponentUsageDiagnosticContributor {
     url: 'https://reactjs.org/docs/lists-and-keys.html',
   );
 
+  @override
+  List<DiagnosticCode> get codes => [code];
+
   static final fixKind = FixKind(code.name, 200, 'Remove unnecessary key');
 
   @override
   computeErrorsForUsage(result, collector, usage) async {
-    String reasonWhyUnnecessary;
-    final parentMethodName = usage.node.thisOrAncestorOfType<MethodDeclaration>()?.name?.name;
+    String? reasonWhyUnnecessary;
+    final parentMethodName = usage.node.thisOrAncestorOfType<MethodDeclaration>()?.name.name;
 
     final parent = usage.node.parent;
 
     if (parent is ArgumentList) {
-      final enclosingUsage = identifyUsage(parent?.parent);
+      final enclosingUsage = identifyUsage(parent.parent);
 
-      if (enclosingUsage?.node?.argumentList == parent ?? false) {
+      if (enclosingUsage?.node.argumentList == parent) {
         reasonWhyUnnecessary = "it's passed as an argument as opposed to inside an Iterable";
       }
-    } else if (parent is ReturnStatement && (parentMethodName == 'render' ?? false)) {
+    } else if (parent is ReturnStatement && parentMethodName == 'render') {
       reasonWhyUnnecessary = "it's returned directly from 'render'";
     }
 
@@ -89,7 +92,7 @@ class VariadicChildrenWithKeys extends ComponentUsageDiagnosticContributor {
         if (prop.name.name == 'key' && isAConstantValue(prop.rightHandSide)) {
           await collector.addErrorWithFix(
             code,
-            result.locationFor(prop.assignment),
+            result.locationFor(prop.node),
             errorMessageArgs: [reasonWhyUnnecessary],
             fixKind: fixKind,
             computeFix: () => buildFileEdit(result, (builder) {

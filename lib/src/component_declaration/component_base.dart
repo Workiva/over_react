@@ -48,7 +48,7 @@ export 'component_type_checking.dart' show isComponentOfType, isValidElementOfTy
 /// * [builderFactory]/[componentClass]: the [UiFactory] and [UiComponent] members to be potentially
 /// used as types for [isComponentOfType]/`getComponentFactory`.
 ///
-/// * [displayName]: the name of the component for use when debugging.
+/// * [displayName]: (DEPRECATED) the name of the component for use when debugging.
 ///
 /// __Deprecated.__ Use `registerComponent2` instead.
 @Deprecated('4.0.0')
@@ -58,14 +58,11 @@ ReactDartComponentFactoryProxy registerComponent(react.Component Function() dart
     ReactDartComponentFactoryProxy parentType,
     UiFactory builderFactory,
     Type componentClass,
+    @Deprecated('The display name is now set automatically and setting this does nothing')
     String displayName,
 }) {
   // ignore: deprecated_member_use
   final reactComponentFactory = react.registerComponent(dartComponentFactory) as ReactDartComponentFactoryProxy;
-
-  if (displayName != null) {
-    reactComponentFactory.reactClass.displayName = displayName;
-  }
 
   registerComponentTypeAlias(reactComponentFactory, builderFactory);
   registerComponentTypeAlias(reactComponentFactory, componentClass);
@@ -99,6 +96,13 @@ extension UiFactoryHelpers<TProps extends bh.UiProps> on UiFactory<TProps> {
   ///
   /// See `uiForwardRef` for examples and context.
   UiFactoryConfig<TProps> asForwardRefConfig({String displayName}) => UiFactoryConfig(propsFactory: PropsFactory.fromUiFactory(this), displayName: displayName);
+
+  /// The type of the element created by this factory.
+  ///
+  /// For DOM components, this will be a [String] tagName (e.g., `'div'`, `'a'`).
+  ///
+  /// For composite components (react-dart or pure JS), this will be a [ReactClass].
+  dynamic get elementType => this().componentFactory.type;
 }
 
 /// A utility variation on [UiFactory], __without__ a `backingProps` parameter.
@@ -570,13 +574,13 @@ abstract class UiProps extends MapBase
     // down the line instead.
     assert(
         componentFactory != null,
-        'componentFactory is null. Possible causes:\n'
-        '1. Something went wrong when initializing the `\$${runtimeType}Factory` variable in the generated code.\n'
-        '   Check for errors in the console for more information.'
-        '2. This is a props map view factory (declared as just a factory and props), and should not be invoked.\n'
+        'Most likely, another error occurred while initializing this component\'s declaration (via `\$${runtimeType}Factory`); '
+        'to find the real issue, look for earlier errors in the console output.\n\n'
+        'Other potential causes:'
+        '1. This is a props map view factory (declared as just a factory and props), and should not be invoked.\n'
         '   This can also happen if your component didn\'t get grouped with your factory/props (e.g., if its name doesn\'t match).'
-        '3. This is a function component factory that was set up improperly, not wrapping the generated function in `uiFunction`.\n'
-        '4. componentFactory was erroneously assigned to null on this UiProps instance, potentially in an HOC function.');
+        '2. This is a function component factory that was set up improperly, not wrapping the generated function in `uiFunction`.\n'
+        '3. componentFactory was erroneously assigned to null on this UiProps instance, potentially in an HOC function.');
   }
 
   /// Returns a new component with this builder's [props] and the specified [children].

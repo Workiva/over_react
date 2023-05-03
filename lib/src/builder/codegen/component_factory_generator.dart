@@ -89,8 +89,7 @@ class ComponentFactoryProxyGenerator extends BoilerplateDeclarationGenerator {
       ..writeln('  builderFactory: ${factoryNames.implName},')
       ..writeln('  componentClass: ${componentNames.consumerName},')
       ..writeln('  isWrapper: ${component.meta.isWrapper},')
-      ..writeln('  parentType: $parentTypeParam,$parentTypeParamComment')
-      ..writeln('  displayName: ${stringLiteral(factoryNames.consumerName)},');
+      ..writeln('  parentType: $parentTypeParam,$parentTypeParamComment');
 
     // If isComponent2 is true, we can safely assume the component class has a
     // `@Component2()` (or no annotation), since other cases would fail validation.
@@ -101,6 +100,8 @@ class ComponentFactoryProxyGenerator extends BoilerplateDeclarationGenerator {
       outputContentsBuffer.writeln('    skipMethods: const [],');
     }
 
-    outputContentsBuffer..writeln(');')..writeln();
+    outputContentsBuffer
+      ..writeln(');')
+      ..writeln();
   }
 }

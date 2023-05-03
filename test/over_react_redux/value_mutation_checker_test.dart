@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:mockito/mockito.dart';
 import 'package:over_react/over_react.dart';
 import 'package:over_react/src/over_react_redux/value_mutation_checker.dart';
 import 'package:react/react.dart' as react;
@@ -105,13 +104,11 @@ void sharedHashTests(InstanceHasher Function() getHasher) {
 
     test('true if the object is a map or iterable', () {
       final props = DomProps(react.a as ReactComponentFactoryProxy);
-      final list = MockList();
 
       expect(hasher.canHash({'e', 'a', 'b'}), isTrue);
       expect(hasher.canHash([]), isTrue);
       expect(hasher.canHash({'a': 1}), isTrue);
       expect(hasher.canHash(props), isTrue);
-      expect(hasher.canHash(list), isTrue);
     });
   });
 
@@ -150,5 +147,3 @@ void sharedHashTests(InstanceHasher Function() getHasher) {
     });
   });
 }
-
-class MockList extends Mock implements List {}

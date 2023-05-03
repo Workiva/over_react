@@ -30,30 +30,35 @@
 // The analyzer normally filters out errors with "ignore" comments,
 // but it doesn't do it for plugin errors, so we need to do that in this plugin.
 
-// ignore: implementation_imports
+import 'package:analyzer/error/error.dart' as analyzer;
 import 'package:analyzer/source/line_info.dart';
-import 'package:analyzer/src/ignore_comments/ignore_info.dart' show IgnoreInfo; // ignore: implementation_imports
-import 'package:analyzer_plugin/protocol/protocol_common.dart';
+import 'package:analyzer_plugin/protocol/protocol_common.dart' as protocol;
+import 'package:over_react_analyzer_plugin/src/util/ignore_info.dart';
 
-export 'package:analyzer/src/ignore_comments/ignore_info.dart' show IgnoreInfo; // ignore: implementation_imports
+List<protocol.AnalysisError> filterIgnoresForProtocolErrors(List<protocol.AnalysisError> errors, LineInfo lineInfo, IgnoreInfo Function() lazyIgnoreInfo) {
+  if (errors.isEmpty) return errors;
 
-List<AnalysisError> filterIgnores(List<AnalysisError> errors, LineInfo lineInfo, IgnoreInfo Function() lazyIgnoreInfo) {
-  if (errors.isEmpty) {
-    return errors;
-  }
+  final ignoreInfo = lazyIgnoreInfo();
+  if (!ignoreInfo.hasIgnores) return errors;
 
-  return _filterIgnored(errors, lazyIgnoreInfo(), lineInfo);
-}
-
-List<AnalysisError> _filterIgnored(List<AnalysisError> errors, IgnoreInfo ignoreInfo, LineInfo lineInfo) {
-  if (errors.isEmpty || !ignoreInfo.hasIgnores) {
-    return errors;
-  }
-
-  bool isIgnored(AnalysisError error) {
+  bool isIgnored(protocol.AnalysisError error) {
     final errorLine = lineInfo.getLocation(error.location.offset).lineNumber;
     final errorCode = error.code.toLowerCase();
     return ignoreInfo.ignoredAt(errorCode, errorLine);
+  }
+
+  return errors.where((e) => !isIgnored(e)).toList();
+}
+
+List<analyzer.AnalysisError> filterIgnoresForErrors(List<analyzer.AnalysisError> errors, LineInfo lineInfo, IgnoreInfo Function() lazyIgnoreInfo) {
+  if (errors.isEmpty) return errors;
+
+  final ignoreInfo = lazyIgnoreInfo();
+  if (!ignoreInfo.hasIgnores) return errors;
+
+  bool isIgnored(analyzer.AnalysisError error) {
+    final errorLine = lineInfo.getLocation(error.offset).lineNumber;
+    return ignoreInfo.ignoredAt(error.errorCode.name, errorLine);
   }
 
   return errors.where((e) => !isIgnored(e)).toList();

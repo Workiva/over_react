@@ -16,7 +16,6 @@ final $CounterComponentFactory = registerComponent2(
   componentClass: CounterComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'Counter',
 );
 
 abstract class _$CounterPropsAccessorsMixin implements _$CounterProps {
@@ -206,6 +205,9 @@ class _$CounterComponent extends CounterComponent {
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'Counter';
 
   /// The default consumed props, taken from _$CounterProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.

@@ -131,18 +131,35 @@ class ConnectFluxAdapterStore<S extends flux.Store> extends redux.Store<S> {
     });
 
     actionsForStore[store] = actions;
+
+    // This store is useless once the flux store is disposed, so for convenience,
+    // we'll tear it down for consumers.
+    //
+    // In most cases, though, from a memory management standpoint, tearing this
+    // store down shouldn't be necessary, since any components subscribed to it
+    // should have also been unmounted, leaving nothing to retain it.
+    //
+    // Use a null-aware to accommodate mock stores in unit tests that return null for `didDispose`.
+    store.didDispose?.whenComplete(teardown);
   }
+
+  bool _teardownCalled = false;
 
   @override
   Future teardown() async {
-    print('Removing Weak Map Refs for: $store');
-    actionsForStore[store] = null;
-    _connectFluxAdapterFor[store] = null;
+    _teardownCalled = true;
 
-    print('Tearing Down: $store');
     await _storeListener.cancel();
     await super.teardown();
   }
+}
+
+/// Not to be exported; only used to expose private fields for testing.
+@internal
+@visibleForTesting
+extension ConnectFluxAdapterStoreTestingHelper on ConnectFluxAdapterStore {
+  @visibleForTesting
+  bool get teardownCalled => _teardownCalled;
 }
 
 /// Adapts a Flux store to the interface of a Redux store.
@@ -197,6 +214,11 @@ class FluxToReduxAdapterStore<S extends InfluxStoreMixin>
 
   @override
   Future teardown() async {
+    print('Removing Weak Map Refs for: $store');
+    actionsForStore[store] = null;
+    _connectFluxAdapterFor[store] = null;
+
+    print('Tearing Down: $store');
     await _storeListener.cancel();
     await super.teardown();
   }
@@ -425,9 +447,12 @@ UiFactory<TProps> Function(UiFactory<TProps>)
       mergeProps,
   // Use default parameter values instead of ??= in the function body to allow consumers
   // to specify `null` and fall back to the JS default.
-  bool Function(TProps nextProps, TProps prevProps) areOwnPropsEqual = propsOrStateMapsEqual,
-  bool Function(TProps nextProps, TProps prevProps) areStatePropsEqual = propsOrStateMapsEqual,
-  bool Function(TProps nextProps, TProps prevProps) areMergedPropsEqual = propsOrStateMapsEqual,
+  bool Function(TProps nextProps, TProps prevProps) areOwnPropsEqual =
+      propsOrStateMapsEqual,
+  bool Function(TProps nextProps, TProps prevProps) areStatePropsEqual =
+      propsOrStateMapsEqual,
+  bool Function(TProps nextProps, TProps prevProps) areMergedPropsEqual =
+      propsOrStateMapsEqual,
   Context context,
   bool pure = true,
   bool forwardRef = false,
@@ -600,6 +625,7 @@ UiFactory<TProps> Function(UiFactory<TProps>)
 
         return propsOrStateMapsEqual(nextProps, prevProps);
       }
+
       areStatePropsEqual = areStatePropsEqualWrapper;
     }
 
@@ -648,7 +674,8 @@ extension FluxStoreExtension<S extends flux.Store> on S {
           '`asConnectFluxStore` should not be used when the store is implementing InfluxStoreMixin. Use `asReduxStore` instead');
     }
 
-    return _connectFluxAdapterFor.putIfAbsentCasted(this, () => ConnectFluxAdapterStore(this, actions, middleware: middleware));
+    return _connectFluxAdapterFor.putIfAbsentCasted(this,
+        () => ConnectFluxAdapterStore(this, actions, middleware: middleware));
   }
 }
 
