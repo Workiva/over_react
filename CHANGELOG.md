@@ -1,22 +1,24 @@
 # OverReact Changelog
 
+## [4.9.0](https://github.com/Workiva/over_react/compare/4.8.5...4.9.0)
+- [#820] Add Suspense Component
+- [#819] More dependency updates
+
 ## [4.8.5](https://github.com/Workiva/over_react/compare/4.8.4...4.8.5)
-Dependency updates: `dart_dev: '>=3.0.0 <5.0.0'` and `w_common: '>=2.0.0 <4.0.0'`
+- [#815] Dependency updates: `dart_dev: '>=3.0.0 <5.0.0'`
+- [#816] Dependency updates: `w_common: '>=2.0.0 <4.0.0'`
 
 ## [4.8.4](https://github.com/Workiva/over_react/compare/4.8.3...4.8.4)
-4.8.3 was missing the analyzer plugin in the published package for some reason, and this release should hopefully include it again.
+- 4.8.3 was missing the analyzer plugin in the published package for some reason, and this release should hopefully include it again.
 
 ## [4.8.3](https://github.com/Workiva/over_react/compare/4.8.2...4.8.3)
-
 - [#807] Allow analyzer 2.x, fix analyzer plugin not starting in newer SDKs
-- 
-## [4.8.2](https://github.com/Workiva/over_react/compare/4.8.1...4.8.2)
 
+## [4.8.2](https://github.com/Workiva/over_react/compare/4.8.1...4.8.2)
 - [#804] Dependencies: raise analyzer to ^1.7.2, unpin meta
 - [#805] Internal CI and dev_dependencies updates
 
 ## [4.8.1](https://github.com/Workiva/over_react/compare/4.8.0...4.8.1)
-
 - [#802] Raise platform_detect upperbound to allow 2.x
 - [#800] (Docs) Add Redux DevTools integration documentation
 
