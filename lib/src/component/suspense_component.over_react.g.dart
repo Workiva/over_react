@@ -14,35 +14,20 @@ part of 'suspense_component.dart';
 mixin $SuspensePropsMixin on SuspensePropsMixin {
   static const PropsMeta meta = _$metaForSuspensePropsMixin;
   @override
-  @override
-  List<dynamic> get children =>
-      (props[_$key__children__SuspensePropsMixin] ?? null) as List<dynamic>;
-  @override
-  @override
-  set children(List<dynamic> value) =>
-      props[_$key__children__SuspensePropsMixin] = value;
-  @override
   dynamic get fallback =>
       (props[_$key__fallback__SuspensePropsMixin] ?? null) as dynamic;
   @override
   set fallback(dynamic value) =>
       props[_$key__fallback__SuspensePropsMixin] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__children__SuspensePropsMixin =
-      PropDescriptor(_$key__children__SuspensePropsMixin);
   static const PropDescriptor _$prop__fallback__SuspensePropsMixin =
       PropDescriptor(_$key__fallback__SuspensePropsMixin);
-  static const String _$key__children__SuspensePropsMixin = 'children';
   static const String _$key__fallback__SuspensePropsMixin = 'fallback';
 
   static const List<PropDescriptor> $props = [
-    _$prop__children__SuspensePropsMixin,
     _$prop__fallback__SuspensePropsMixin
   ];
-  static const List<String> $propKeys = [
-    _$key__children__SuspensePropsMixin,
-    _$key__fallback__SuspensePropsMixin
-  ];
+  static const List<String> $propKeys = [_$key__fallback__SuspensePropsMixin];
 }
 
 @Deprecated('This API is for use only within generated code.'
