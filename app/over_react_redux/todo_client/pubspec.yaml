@@ -32,3 +32,5 @@ dev_dependencies:
 dependency_overrides:
   over_react:
     path: '../../../'
+  redux: ^5.0.0
+  redux_dev_tools: ^0.7.0
