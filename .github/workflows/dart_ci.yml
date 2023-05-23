@@ -132,9 +132,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # Can't run in 2.13.4 since dependencies can no longer resolve in that version.
-        # Can't run on `dev` (Dart 3) until we're fully null-safe.
-        sdk: [ 2.18.7, stable ]
+        # Can't run on `stable` (Dart 3) until we're fully null-safe.
+        sdk: [ 2.18.7, 2.19.6 ]
     steps:
       - uses: actions/checkout@v2
       - uses: dart-lang/setup-dart@v0.2
