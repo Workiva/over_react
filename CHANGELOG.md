@@ -1,5 +1,43 @@
 # OverReact Changelog
 
+## [4.9.0](https://github.com/Workiva/over_react/compare/4.8.5...4.9.0)
+- [#820] Add Suspense Component
+- [#819] More dependency updates
+
+## [4.8.5](https://github.com/Workiva/over_react/compare/4.8.4...4.8.5)
+- [#815] Dependency updates: `dart_dev: '>=3.0.0 <5.0.0'`
+- [#816] Dependency updates: `w_common: '>=2.0.0 <4.0.0'`
+
+## [4.8.4](https://github.com/Workiva/over_react/compare/4.8.3...4.8.4)
+- 4.8.3 was missing the analyzer plugin in the published package for some reason, and this release should hopefully include it again.
+
+## [4.8.3](https://github.com/Workiva/over_react/compare/4.8.2...4.8.3)
+- [#807] Allow analyzer 2.x, fix analyzer plugin not starting in newer SDKs
+
+## [4.8.2](https://github.com/Workiva/over_react/compare/4.8.1...4.8.2)
+- [#804] Dependencies: raise analyzer to ^1.7.2, unpin meta
+- [#805] Internal CI and dev_dependencies updates
+
+## [4.8.1](https://github.com/Workiva/over_react/compare/4.8.0...4.8.1)
+- [#802] Raise platform_detect upperbound to allow 2.x
+- [#800] (Docs) Add Redux DevTools integration documentation
+
+## [4.8.0](https://github.com/Workiva/over_react/compare/4.7.0...4.8.0)
+- [#797] Add `overReactReduxDevToolsMiddlewareFactory` for constructing middleware with a `name`, allowing store instances to be separated in the Redux Dev Tools
+
+## [4.7.0](https://github.com/Workiva/over_react/compare/4.6.0...4.7.0)
+- [#795] Add `jsifyMapListProp` and `unjsifyMapListProp` conversion utils
+
+## [4.6.0](https://github.com/Workiva/over_react/compare/4.5.0...4.6.0)
+#### Analyzer Plugin
+- [#788] Add new `over_react_hooks_exhaustive_deps` diagnostic that validates the dependency lists of React hooks such as `useEffect`, `useMemo`, and `useCallback`. 
+  
+  Ported/forked from the JS eslint-plugin-react-hooks `react-hooks/exhaustive-deps` rule 
+([info from the React docs](https://reactjs.org/docs/hooks-effect.html#:~:text=If%20you%20use%20this%20optimization%2C%20make%20sure%20the%20array%20includes),
+ [package](https://www.npmjs.com/package/eslint-plugin-react-hooks),
+ [source](https://github.com/facebook/react/blob/main@%7B2020-10-16%7D/packages/eslint-plugin-react-hooks/src/ExhaustiveDeps.js)),
+this Dart diagnostic aims to provide parity with the dev experience of the JS lint rule, with some tweaks to work better with Dart and over_react's flavor of React APIs.
+
 ## [4.5.0](https://github.com/Workiva/over_react/compare/4.4.4...4.5.0)
 - [#785] Add utilities for jsifying/unsifying context props
 

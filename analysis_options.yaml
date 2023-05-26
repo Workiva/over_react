@@ -16,6 +16,9 @@ analyzer:
     missing_required_param: error
     must_call_super: error
     uri_has_not_been_generated: ignore
+    # Workaround for https://github.com/dart-lang/sdk/issues/51087
+    # TODO remove once we can run on Dart 2.19 (blocked by https://github.com/dart-lang/sdk/issues/51128 or working around it by upgrading to analyzer ^5.1.0)
+    part_of_different_library: ignore
 linter:
   rules:
     # -------------------

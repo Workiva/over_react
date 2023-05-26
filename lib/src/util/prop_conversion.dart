@@ -51,6 +51,16 @@ Map<K, V> unjsifyMapProp<K, V>(JsMap value) {
   return JsBackedMap.backedBy(value).cast();
 }
 
+/// Runs [jsifyMapProp] on every Dart Map in the [value].
+List<JsMap> jsifyMapListProp(List<Map> value) {
+  return value?.map(jsifyMapProp)?.toList();
+}
+
+/// Runs [unjsifyMapProp] on every JS Map in the [value].
+List<Map<K, V>> unjsifyMapListProp<K, V>(List<dynamic> value) {
+  return value?.map((e) => unjsifyMapProp<K, V>(e as JsMap))?.toList();
+}
+
 /// Returns [value] converted to its JS ref representation for storage in a props map, or null of the [value] is null.
 ///
 /// For use in JS component prop getters where the component expects a JS ref, but accepting Dart refs

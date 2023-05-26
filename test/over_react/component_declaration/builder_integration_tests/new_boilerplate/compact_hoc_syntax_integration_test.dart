@@ -31,7 +31,7 @@ main() {
         TestJacket<FooComponent> jacket;
         expect(() {
           jacket = mount(
-            (ReduxProvider()..store = Store((_, __) => null))(
+            (ReduxProvider()..store = Store((_, __) => null, initialState: null))(
               (Foo()..foo = 'bar')(),
             ),
           );
@@ -50,7 +50,7 @@ main() {
         TestJacket<FooComponent290> jacket;
         expect(() {
           jacket = mount(
-            (ReduxProvider()..store = Store((_, __) => null))(
+            (ReduxProvider()..store = Store((_, __) => null, initialState: null))(
               (Foo290()..foo = 'bar')(),
             ),
           );

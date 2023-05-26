@@ -28,11 +28,9 @@
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import 'package:analyzer/dart/element/element.dart';
-import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/doc_utils/maturity.dart';
-import 'package:over_react_analyzer_plugin/src/doc_utils/docs_meta_annotation.dart';
-import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
+import 'package:over_react_analyzer_plugin/src/util/constant_instantiation.dart';
 
 /// An interface implemented by registered metadata models and the annotation(s)
 /// that enable contribution to those models.

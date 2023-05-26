@@ -73,7 +73,7 @@ class RulesOfHooks extends DiagnosticContributor {
 
   @override
   Future<void> computeErrors(result, collector) async {
-    for (final hook in getAllHookUsages(result.unit!)) {
+    for (final hook in getAllHookUsages(result.unit)) {
       const sameOrderMessage = "React Hooks must be called in the exact same order in every component render.";
       const mustBeCalledInMessage =
           "React Hooks must be called in a React function component or a custom React Hook function.";

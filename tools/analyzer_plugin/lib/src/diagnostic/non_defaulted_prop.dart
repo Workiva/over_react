@@ -1,7 +1,6 @@
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/token.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
-import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/function_components.dart';
@@ -78,7 +77,7 @@ class NonDefaultedPropDiagnostic extends DiagnosticContributor {
   computeErrors(result, collector) async {
     final notUsingDefaults = <Tuple2<Expression, VariableDeclaration>>[];
 
-    result.unit!.accept(FunctionComponentVisitor((component) {
+    result.unit.accept(FunctionComponentVisitor((component) {
       final visitor = NonDefaultedPropVisitor();
       component.body.accept(visitor);
       visitor.defaultedPropVariablesByPropName.forEach((propName, variable) {
@@ -123,7 +122,7 @@ class NonDefaultedPropVisitor extends GeneralizingAstVisitor<void> {
 
     // todo probably improve this?
     if (initializer is BinaryExpression && initializer.operator.type == TokenType.QUESTION_QUESTION) {
-      final parts = getSimpleTargetAndPropertyName(initializer.leftOperand);
+      final parts = getSimpleTargetAndPropertyName(initializer.leftOperand, allowMethodInvocation: true);
       if (parts != null) {
         final targetName = parts.item1;
         if (targetName.name == 'props') {
@@ -147,13 +146,8 @@ class NonDefaultedPropVisitor extends GeneralizingAstVisitor<void> {
   void visitPropertyAccess(PropertyAccess node) {
     super.visitPropertyAccess(node);
 
-    final parts = getSimpleTargetAndPropertyName(node);
-    if (parts != null) {
-      final targetName = parts.item1;
-      if (targetName.name == 'props') {
-        final propertyName = parts.item2;
-        propAccessesByName.putIfAbsent(propertyName.name, () => []).add(node);
-      }
+    if (node.target.tryCast<SimpleIdentifier>()?.name == 'props') {
+      propAccessesByName.putIfAbsent(node.propertyName.name, () => []).add(node);
     }
   }
 }

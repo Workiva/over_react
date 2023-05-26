@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/source/source_range.dart';
-import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/doc_utils/maturity.dart';
 // This error is unavoidable until over_react's builder is null-safe. See this library's doc comment for more info.
@@ -11,6 +10,8 @@ import 'package:over_react_analyzer_plugin/src/doc_utils/maturity.dart';
 import 'package:over_react_analyzer_plugin/src/over_react_builder_parsing.dart' as orbp;
 import 'package:over_react_analyzer_plugin/src/util/boilerplate_utils.dart';
 import 'package:source_span/source_span.dart';
+
+import 'analyzer_debug_helper.dart';
 
 const _errorDesc = 'Something is malformed in your component boilerplate.';
 // TODO: Add a more detailed description about the types of things our validator catches
@@ -59,7 +60,7 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
   static final invalidGeneratedPartFixKind = FixKind(errorCode.name, 200, 'Fix generated part directive');
   static final unnecessaryGeneratedPartFixKind = FixKind(errorCode.name, 200, 'Remove generated part directive');
 
-  static final _debugFlagPattern = RegExp(r'debug:.*\bover_react_boilerplate\b');
+  static final _debugCommentPattern = getDebugCommentPattern('over_react_boilerplate');
 
   // TODO(nullsafety) come back and clean up fields
 
@@ -74,7 +75,7 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
         .getBoilerplateDeclarations(
             orbp.detectBoilerplateMembers(unit),
             orbp.ErrorCollector.callback(
-              SourceFile.fromString(parentResult.content!, url: parentResult.path),
+              SourceFile.fromString(parentResult.content, url: parentResult.path),
               // no-op for these.
               // It is assumed this method will run for parent files, and the part file will get analyzed in its own context.
               // Need types on the second args to avoid nullability errors, since they come from a non-null-safe library.
@@ -89,14 +90,14 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
   /// Also returns whether the component has valid over_react declarations, which is useful in determining whether to
   /// validate the generated part directive.
   Future<bool> _computeBoilerplateErrors(ResolvedUnitResult result, DiagnosticCollector collector) async {
-    final debugMatch = _debugFlagPattern.firstMatch(result.content!);
+    final debugMatch = _debugCommentPattern.firstMatch(result.content);
     final debug = debugMatch != null;
     if (debug) {
       collector.addError(debugCode, result.location(offset: debugMatch!.start, end: debugMatch.end),
           errorMessageArgs: ['Boilerplate debugging hints enabled']);
     }
 
-    final sourceFile = SourceFile.fromString(result.content!, url: result.path);
+    final sourceFile = SourceFile.fromString(result.content, url: result.path);
 
     final errorCollector = orbp.ErrorCollector.callback(
       sourceFile,
@@ -113,7 +114,7 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
       },
     );
 
-    final members = orbp.detectBoilerplateMembers(result.unit!);
+    final members = orbp.detectBoilerplateMembers(result.unit);
     for (final member in members.allMembers) {
       if (debug) {
         collector.addError(debugCode, result.locationFor(member.name), errorMessageArgs: [member.debugString]);
@@ -174,7 +175,7 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
         ],
         fixKind: unnecessaryGeneratedPartFixKind,
         computeFix: () => buildFileEdit(result, (builder) {
-          removeOverReactGeneratedPartDirective(builder, result.unit!);
+          removeOverReactGeneratedPartDirective(builder, result.unit);
         }),
       );
     } else if (hasDeclarations &&
@@ -188,7 +189,7 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
         ],
         fixKind: invalidGeneratedPartFixKind,
         computeFix: () => buildFileEdit(result, (builder) {
-          fixOverReactGeneratedPartDirective(builder, result.unit!, result.uri);
+          fixOverReactGeneratedPartDirective(builder, result.unit, result.uri);
         }),
       );
     }
@@ -196,7 +197,7 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
 
   @override
   Future<void> computeErrors(result, collector) async {
-    _overReactGeneratedPartDirective = getOverReactGeneratedPartDirective(result.unit!);
+    _overReactGeneratedPartDirective = getOverReactGeneratedPartDirective(result.unit);
     _overReactGeneratedPartDirectiveIsValid = _overReactGeneratedPartDirective != null &&
         overReactGeneratedPartDirectiveIsValid(_overReactGeneratedPartDirective!, result.uri);
 
@@ -205,7 +206,7 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
       return;
     }
 
-    final parts = getNonGeneratedParts(result.unit!);
+    final parts = getNonGeneratedParts(result.unit);
 
     // compute errors for parts files
     var anyPartHasDeclarations = false;
@@ -213,7 +214,7 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
       final uri = part.uriSource?.uri;
       // URI could not be resolved or source does not exist
       if (uri == null) continue;
-      final partResult = result.session.getParsedUnit2(result.session.uriConverter.uriToPath(uri)!);
+      final partResult = result.session.getParsedUnit(result.session.uriConverter.uriToPath(uri)!);
 
       if (partResult is ParsedUnitResult && _partHasDeclarations(partResult.unit, result)) {
         anyPartHasDeclarations = true;
@@ -243,9 +244,9 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
       fixKind: memberPartDirectiveFixKind,
       computeFix: () => buildFileEdit(result, (builder) {
         if (errorType == PartDirectiveErrorType.missing) {
-          addOverReactGeneratedPartDirective(builder, result.unit!, result.lineInfo, result.uri);
+          addOverReactGeneratedPartDirective(builder, result.unit, result.lineInfo, result.uri);
         } else {
-          fixOverReactGeneratedPartDirective(builder, result.unit!, result.uri);
+          fixOverReactGeneratedPartDirective(builder, result.unit, result.uri);
         }
       }),
     );
