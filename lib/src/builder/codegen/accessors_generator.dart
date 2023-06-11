@@ -238,8 +238,14 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
           metadataSrc.writeln('  ${annotation.toSource()}');
         }
 
-        String setterTypeString =
-            field.covariantKeyword == null ? typeString : '${field.covariantKeyword} $typeString';
+        const omitTypesInOverrides = true;
+
+        final getterTypeString = omitTypesInOverrides ? '' : typeString;
+        final setterTypeString =
+            // This change is attempting to help with null safe migration when generated code is available in legacy components
+            field.covariantKeyword == null
+                ? (omitTypesInOverrides ? '' : typeString)
+                : '${field.covariantKeyword} $typeString';
 
         // Carry over the existing doc comment since IDEs don't inherit
         // doc comments for some reason.
@@ -281,7 +287,7 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
             // '  @tryInline\n'
             '  @override\n'
             '$metadataSrc'
-            '  ${typeString}get $accessorName => ${castAndNullCheckValueIfNecessary('$proxiedMapName[$keyConstantName]')};\n'
+            '  ${getterTypeString}get $accessorName => ${castAndNullCheckValueIfNecessary('$proxiedMapName[$keyConstantName]')};\n'
             '$docComment'
             // '  @tryInline\n'
             '  @override\n'
