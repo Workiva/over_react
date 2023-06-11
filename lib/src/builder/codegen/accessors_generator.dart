@@ -231,7 +231,7 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
         final fieldType = field.fields.type;
         final typeSource = fieldType?.toSource();
         // FIXME this is ambiguous for :typedefs of nullable types; how should we handle that?
-        final looksNonNullable = variable.isLate && fieldType?.question != null;
+        final looksNonNullable = variable.isLate && fieldType?.question == null;
         final typeString = typeSource == null ? '' : '$typeSource ';
         final metadataSrc = StringBuffer();
         for (final annotation in field.metadata) {
@@ -281,10 +281,7 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
             // '  @tryInline\n'
             '  @override\n'
             '$metadataSrc'
-            // Add ` ?? null` to work around DDC bug: <https://github.com/dart-lang/sdk/issues/36052
-            // Apply this workaround ASAP, before the cast, to limit where undefined can leak into
-            // and potentially cause issues (for instance, DDC cast internals).
-            '  ${typeString}get $accessorName => ${castAndNullCheckValueIfNecessary('$proxiedMapName[$keyConstantName] ?? null')};\n'
+            '  ${typeString}get $accessorName => ${castAndNullCheckValueIfNecessary('$proxiedMapName[$keyConstantName]')};\n'
             '$docComment'
             // '  @tryInline\n'
             '  @override\n'
