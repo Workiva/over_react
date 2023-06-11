@@ -162,10 +162,10 @@ class _$ClassComponentComponent extends ClassComponentComponent {
 mixin $ExpectsDartMapPropProps on ExpectsDartMapPropProps {
   static const PropsMeta meta = _$metaForExpectsDartMapPropProps;
   @override
-  Map? get dartMapProp =>
-      (props[_$key__dartMapProp__ExpectsDartMapPropProps] ?? null) as Map?;
+  get dartMapProp =>
+      (props[_$key__dartMapProp__ExpectsDartMapPropProps]) as Map?;
   @override
-  set dartMapProp(Map? value) =>
+  set dartMapProp(value) =>
       props[_$key__dartMapProp__ExpectsDartMapPropProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__dartMapProp__ExpectsDartMapPropProps =
@@ -271,11 +271,10 @@ const PropsMeta _$metaForBasicForwardRefProps = PropsMeta(
 mixin $DartTestJsWrapperPropsMixin on DartTestJsWrapperPropsMixin {
   static const PropsMeta meta = _$metaForDartTestJsWrapperPropsMixin;
   @override
-  void Function(DartTestJsWrapperProps props)? get onRender =>
-      (props[_$key__onRender__DartTestJsWrapperPropsMixin] ?? null) as void
-          Function(DartTestJsWrapperProps props)?;
+  get onRender => (props[_$key__onRender__DartTestJsWrapperPropsMixin]) as void
+      Function(DartTestJsWrapperProps props)?;
   @override
-  set onRender(void Function(DartTestJsWrapperProps props)? value) =>
+  set onRender(value) =>
       props[_$key__onRender__DartTestJsWrapperPropsMixin] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__onRender__DartTestJsWrapperPropsMixin =
@@ -306,53 +305,49 @@ mixin $TestJsProps on TestJsProps {
   static const PropsMeta meta = _$metaForTestJsProps;
   @override
   @Accessor(key: 'buttonProps')
-  JsMap? get _$raw$buttonProps =>
-      (props[_$key___$raw$buttonProps__TestJsProps] ?? null) as JsMap?;
+  get _$raw$buttonProps =>
+      (props[_$key___$raw$buttonProps__TestJsProps]) as JsMap?;
   @override
   @Accessor(key: 'buttonProps')
-  set _$raw$buttonProps(JsMap? value) =>
+  set _$raw$buttonProps(value) =>
       props[_$key___$raw$buttonProps__TestJsProps] = value;
   @override
   @Accessor(key: 'listOfProps')
-  List<dynamic>? get _$raw$listOfProps =>
-      (props[_$key___$raw$listOfProps__TestJsProps] ?? null) as List<dynamic>?;
+  get _$raw$listOfProps =>
+      (props[_$key___$raw$listOfProps__TestJsProps]) as List<dynamic>?;
   @override
   @Accessor(key: 'listOfProps')
-  set _$raw$listOfProps(List<dynamic>? value) =>
+  set _$raw$listOfProps(value) =>
       props[_$key___$raw$listOfProps__TestJsProps] = value;
   @override
   @Accessor(key: 'inputRef')
-  dynamic get _$raw$inputRef =>
-      (props[_$key___$raw$inputRef__TestJsProps] ?? null) as dynamic;
+  get _$raw$inputRef => (props[_$key___$raw$inputRef__TestJsProps]) as dynamic;
   @override
   @Accessor(key: 'inputRef')
-  set _$raw$inputRef(dynamic value) =>
+  set _$raw$inputRef(value) =>
       props[_$key___$raw$inputRef__TestJsProps] = value;
   @override
   @Accessor(key: 'messageContext')
-  ReactContext? get _$raw$messageContext =>
-      (props[_$key___$raw$messageContext__TestJsProps] ?? null)
-          as ReactContext?;
+  get _$raw$messageContext =>
+      (props[_$key___$raw$messageContext__TestJsProps]) as ReactContext?;
   @override
   @Accessor(key: 'messageContext')
-  set _$raw$messageContext(ReactContext? value) =>
+  set _$raw$messageContext(value) =>
       props[_$key___$raw$messageContext__TestJsProps] = value;
   @override
-  dynamic get component =>
-      (props[_$key__component__TestJsProps] ?? null) as dynamic;
+  get component => (props[_$key__component__TestJsProps]) as dynamic;
   @override
-  set component(dynamic value) => props[_$key__component__TestJsProps] = value;
+  set component(value) => props[_$key__component__TestJsProps] = value;
   @override
-  dynamic get inputComponent =>
-      (props[_$key__inputComponent__TestJsProps] ?? null) as dynamic;
+  get inputComponent => (props[_$key__inputComponent__TestJsProps]) as dynamic;
   @override
-  set inputComponent(dynamic value) =>
+  set inputComponent(value) =>
       props[_$key__inputComponent__TestJsProps] = value;
   @override
-  dynamic get buttonComponent =>
-      (props[_$key__buttonComponent__TestJsProps] ?? null) as dynamic;
+  get buttonComponent =>
+      (props[_$key__buttonComponent__TestJsProps]) as dynamic;
   @override
-  set buttonComponent(dynamic value) =>
+  set buttonComponent(value) =>
       props[_$key__buttonComponent__TestJsProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop___$raw$buttonProps__TestJsProps =

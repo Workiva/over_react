@@ -30,8 +30,7 @@ abstract class _$ProgressPropsAccessorsMixin implements _$ProgressProps {
   ///
   /// <!-- Generated from [_$ProgressProps.value] -->
   @override
-  double? get value =>
-      (props[_$key__value___$ProgressProps] ?? null) as double?;
+  get value => (props[_$key__value___$ProgressProps]) as double?;
 
   /// The current value of the [Progress] component.
   ///
@@ -41,7 +40,7 @@ abstract class _$ProgressPropsAccessorsMixin implements _$ProgressProps {
   ///
   /// <!-- Generated from [_$ProgressProps.value] -->
   @override
-  set value(double? value) => props[_$key__value___$ProgressProps] = value;
+  set value(value) => props[_$key__value___$ProgressProps] = value;
 
   /// The min value of the [Progress] component.
   ///
@@ -49,7 +48,7 @@ abstract class _$ProgressPropsAccessorsMixin implements _$ProgressProps {
   ///
   /// <!-- Generated from [_$ProgressProps.min] -->
   @override
-  double? get min => (props[_$key__min___$ProgressProps] ?? null) as double?;
+  get min => (props[_$key__min___$ProgressProps]) as double?;
 
   /// The min value of the [Progress] component.
   ///
@@ -57,7 +56,7 @@ abstract class _$ProgressPropsAccessorsMixin implements _$ProgressProps {
   ///
   /// <!-- Generated from [_$ProgressProps.min] -->
   @override
-  set min(double? value) => props[_$key__min___$ProgressProps] = value;
+  set min(value) => props[_$key__min___$ProgressProps] = value;
 
   /// The max value of the [Progress] component.
   ///
@@ -65,7 +64,7 @@ abstract class _$ProgressPropsAccessorsMixin implements _$ProgressProps {
   ///
   /// <!-- Generated from [_$ProgressProps.max] -->
   @override
-  double? get max => (props[_$key__max___$ProgressProps] ?? null) as double?;
+  get max => (props[_$key__max___$ProgressProps]) as double?;
 
   /// The max value of the [Progress] component.
   ///
@@ -73,7 +72,7 @@ abstract class _$ProgressPropsAccessorsMixin implements _$ProgressProps {
   ///
   /// <!-- Generated from [_$ProgressProps.max] -->
   @override
-  set max(double? value) => props[_$key__max___$ProgressProps] = value;
+  set max(value) => props[_$key__max___$ProgressProps] = value;
 
   /// The skin / "context" for the [Progress] component.
   ///
@@ -83,8 +82,7 @@ abstract class _$ProgressPropsAccessorsMixin implements _$ProgressProps {
   ///
   /// <!-- Generated from [_$ProgressProps.skin] -->
   @override
-  ProgressSkin? get skin =>
-      (props[_$key__skin___$ProgressProps] ?? null) as ProgressSkin?;
+  get skin => (props[_$key__skin___$ProgressProps]) as ProgressSkin?;
 
   /// The skin / "context" for the [Progress] component.
   ///
@@ -94,7 +92,7 @@ abstract class _$ProgressPropsAccessorsMixin implements _$ProgressProps {
   ///
   /// <!-- Generated from [_$ProgressProps.skin] -->
   @override
-  set skin(ProgressSkin? value) => props[_$key__skin___$ProgressProps] = value;
+  set skin(value) => props[_$key__skin___$ProgressProps] = value;
 
   /// Whether to render a "Barber Pole" gradient stripe effect in the [Progress] component.
   ///
@@ -102,8 +100,7 @@ abstract class _$ProgressPropsAccessorsMixin implements _$ProgressProps {
   ///
   /// <!-- Generated from [_$ProgressProps.isStriped] -->
   @override
-  bool? get isStriped =>
-      (props[_$key__isStriped___$ProgressProps] ?? null) as bool?;
+  get isStriped => (props[_$key__isStriped___$ProgressProps]) as bool?;
 
   /// Whether to render a "Barber Pole" gradient stripe effect in the [Progress] component.
   ///
@@ -111,8 +108,7 @@ abstract class _$ProgressPropsAccessorsMixin implements _$ProgressProps {
   ///
   /// <!-- Generated from [_$ProgressProps.isStriped] -->
   @override
-  set isStriped(bool? value) =>
-      props[_$key__isStriped___$ProgressProps] = value;
+  set isStriped(value) => props[_$key__isStriped___$ProgressProps] = value;
 
   /// Whether to animate the "Barber Pole" gradient stripe effect in the [Progress] component.
   ///
@@ -122,8 +118,7 @@ abstract class _$ProgressPropsAccessorsMixin implements _$ProgressProps {
   ///
   /// <!-- Generated from [_$ProgressProps.isAnimated] -->
   @override
-  bool? get isAnimated =>
-      (props[_$key__isAnimated___$ProgressProps] ?? null) as bool?;
+  get isAnimated => (props[_$key__isAnimated___$ProgressProps]) as bool?;
 
   /// Whether to animate the "Barber Pole" gradient stripe effect in the [Progress] component.
   ///
@@ -133,8 +128,7 @@ abstract class _$ProgressPropsAccessorsMixin implements _$ProgressProps {
   ///
   /// <!-- Generated from [_$ProgressProps.isAnimated] -->
   @override
-  set isAnimated(bool? value) =>
-      props[_$key__isAnimated___$ProgressProps] = value;
+  set isAnimated(value) => props[_$key__isAnimated___$ProgressProps] = value;
 
   /// Optionally add a caption that describes the context of the [Progress] component.
   ///
@@ -144,8 +138,7 @@ abstract class _$ProgressPropsAccessorsMixin implements _$ProgressProps {
   ///
   /// <!-- Generated from [_$ProgressProps.caption] -->
   @override
-  String? get caption =>
-      (props[_$key__caption___$ProgressProps] ?? null) as String?;
+  get caption => (props[_$key__caption___$ProgressProps]) as String?;
 
   /// Optionally add a caption that describes the context of the [Progress] component.
   ///
@@ -155,20 +148,19 @@ abstract class _$ProgressPropsAccessorsMixin implements _$ProgressProps {
   ///
   /// <!-- Generated from [_$ProgressProps.caption] -->
   @override
-  set caption(String? value) => props[_$key__caption___$ProgressProps] = value;
+  set caption(value) => props[_$key__caption___$ProgressProps] = value;
 
   /// Additional props to be added to the [caption] element _(if specified)_.
   ///
   /// <!-- Generated from [_$ProgressProps.captionProps] -->
   @override
-  Map? get captionProps =>
-      (props[_$key__captionProps___$ProgressProps] ?? null) as Map?;
+  get captionProps => (props[_$key__captionProps___$ProgressProps]) as Map?;
 
   /// Additional props to be added to the [caption] element _(if specified)_.
   ///
   /// <!-- Generated from [_$ProgressProps.captionProps] -->
   @override
-  set captionProps(Map? value) =>
+  set captionProps(value) =>
       props[_$key__captionProps___$ProgressProps] = value;
 
   /// Whether the [caption] should be visible.
@@ -177,8 +169,7 @@ abstract class _$ProgressPropsAccessorsMixin implements _$ProgressProps {
   ///
   /// <!-- Generated from [_$ProgressProps.showCaption] -->
   @override
-  bool? get showCaption =>
-      (props[_$key__showCaption___$ProgressProps] ?? null) as bool?;
+  get showCaption => (props[_$key__showCaption___$ProgressProps]) as bool?;
 
   /// Whether the [caption] should be visible.
   ///
@@ -186,8 +177,7 @@ abstract class _$ProgressPropsAccessorsMixin implements _$ProgressProps {
   ///
   /// <!-- Generated from [_$ProgressProps.showCaption] -->
   @override
-  set showCaption(bool? value) =>
-      props[_$key__showCaption___$ProgressProps] = value;
+  set showCaption(value) => props[_$key__showCaption___$ProgressProps] = value;
 
   /// Whether the [caption] should be appended with the value of [value].
   ///
@@ -195,8 +185,8 @@ abstract class _$ProgressPropsAccessorsMixin implements _$ProgressProps {
   ///
   /// <!-- Generated from [_$ProgressProps.showPercentComplete] -->
   @override
-  bool? get showPercentComplete =>
-      (props[_$key__showPercentComplete___$ProgressProps] ?? null) as bool?;
+  get showPercentComplete =>
+      (props[_$key__showPercentComplete___$ProgressProps]) as bool?;
 
   /// Whether the [caption] should be appended with the value of [value].
   ///
@@ -204,21 +194,20 @@ abstract class _$ProgressPropsAccessorsMixin implements _$ProgressProps {
   ///
   /// <!-- Generated from [_$ProgressProps.showPercentComplete] -->
   @override
-  set showPercentComplete(bool? value) =>
+  set showPercentComplete(value) =>
       props[_$key__showPercentComplete___$ProgressProps] = value;
 
   /// Additional props to be added to the [Dom.div] that wraps around the [caption] element and `<progress>` element.
   ///
   /// <!-- Generated from [_$ProgressProps.rootNodeProps] -->
   @override
-  Map? get rootNodeProps =>
-      (props[_$key__rootNodeProps___$ProgressProps] ?? null) as Map?;
+  get rootNodeProps => (props[_$key__rootNodeProps___$ProgressProps]) as Map?;
 
   /// Additional props to be added to the [Dom.div] that wraps around the [caption] element and `<progress>` element.
   ///
   /// <!-- Generated from [_$ProgressProps.rootNodeProps] -->
   @override
-  set rootNodeProps(Map? value) =>
+  set rootNodeProps(value) =>
       props[_$key__rootNodeProps___$ProgressProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__value___$ProgressProps =
@@ -344,7 +333,7 @@ abstract class _$ProgressStateAccessorsMixin implements _$ProgressState {
   ///
   /// <!-- Generated from [_$ProgressState.id] -->
   @override
-  String? get id => (state[_$key__id___$ProgressState] ?? null) as String?;
+  get id => (state[_$key__id___$ProgressState]) as String?;
 
   /// An autogenerated GUID, used as a fallback when `ProgressProps.id` is unspecified, and
   /// saved on the state so it will persist across remounts.
@@ -354,7 +343,7 @@ abstract class _$ProgressStateAccessorsMixin implements _$ProgressState {
   ///
   /// <!-- Generated from [_$ProgressState.id] -->
   @override
-  set id(String? value) => state[_$key__id___$ProgressState] = value;
+  set id(value) => state[_$key__id___$ProgressState] = value;
   /* GENERATED CONSTANTS */
   static const StateDescriptor _$prop__id___$ProgressState =
       StateDescriptor(_$key__id___$ProgressState);

@@ -16,13 +16,11 @@ abstract class ConnectFluxPropsMixin<TActions>
 
   /// <!-- Generated from [_$ConnectFluxPropsMixin.actions] -->
   @override
-  TActions? get actions =>
-      (props[_$key__actions___$ConnectFluxPropsMixin] ?? null) as TActions?;
+  get actions => (props[_$key__actions___$ConnectFluxPropsMixin]) as TActions?;
 
   /// <!-- Generated from [_$ConnectFluxPropsMixin.actions] -->
   @override
-  set actions(TActions? value) =>
-      props[_$key__actions___$ConnectFluxPropsMixin] = value;
+  set actions(value) => props[_$key__actions___$ConnectFluxPropsMixin] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__actions___$ConnectFluxPropsMixin =
       PropDescriptor(_$key__actions___$ConnectFluxPropsMixin);

@@ -32,8 +32,7 @@ abstract class _$ToggleButtonPropsAccessorsMixin
   /// <!-- Generated from [_$ToggleButtonProps.autoFocus] -->
   @override
   @Accessor(keyNamespace: '')
-  bool? get autoFocus =>
-      (props[_$key__autoFocus___$ToggleButtonProps] ?? null) as bool?;
+  get autoFocus => (props[_$key__autoFocus___$ToggleButtonProps]) as bool?;
 
   /// Whether the `<input>` rendered by the [ToggleButton] should have focus upon mounting.
   ///
@@ -44,8 +43,7 @@ abstract class _$ToggleButtonPropsAccessorsMixin
   /// <!-- Generated from [_$ToggleButtonProps.autoFocus] -->
   @override
   @Accessor(keyNamespace: '')
-  set autoFocus(bool? value) =>
-      props[_$key__autoFocus___$ToggleButtonProps] = value;
+  set autoFocus(value) => props[_$key__autoFocus___$ToggleButtonProps] = value;
 
   /// Whether the [ToggleButton] is checked by default.
   ///
@@ -63,8 +61,8 @@ abstract class _$ToggleButtonPropsAccessorsMixin
   /// <!-- Generated from [_$ToggleButtonProps.defaultChecked] -->
   @override
   @Accessor(keyNamespace: '')
-  bool? get defaultChecked =>
-      (props[_$key__defaultChecked___$ToggleButtonProps] ?? null) as bool?;
+  get defaultChecked =>
+      (props[_$key__defaultChecked___$ToggleButtonProps]) as bool?;
 
   /// Whether the [ToggleButton] is checked by default.
   ///
@@ -82,7 +80,7 @@ abstract class _$ToggleButtonPropsAccessorsMixin
   /// <!-- Generated from [_$ToggleButtonProps.defaultChecked] -->
   @override
   @Accessor(keyNamespace: '')
-  set defaultChecked(bool? value) =>
+  set defaultChecked(value) =>
       props[_$key__defaultChecked___$ToggleButtonProps] = value;
 
   /// Whether the [ToggleButton] is checked.
@@ -100,8 +98,7 @@ abstract class _$ToggleButtonPropsAccessorsMixin
   /// <!-- Generated from [_$ToggleButtonProps.checked] -->
   @override
   @Accessor(keyNamespace: '')
-  bool? get checked =>
-      (props[_$key__checked___$ToggleButtonProps] ?? null) as bool?;
+  get checked => (props[_$key__checked___$ToggleButtonProps]) as bool?;
 
   /// Whether the [ToggleButton] is checked.
   ///
@@ -118,8 +115,7 @@ abstract class _$ToggleButtonPropsAccessorsMixin
   /// <!-- Generated from [_$ToggleButtonProps.checked] -->
   @override
   @Accessor(keyNamespace: '')
-  set checked(bool? value) =>
-      props[_$key__checked___$ToggleButtonProps] = value;
+  set checked(value) => props[_$key__checked___$ToggleButtonProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__autoFocus___$ToggleButtonProps =
       PropDescriptor(_$key__autoFocus___$ToggleButtonProps);
@@ -200,8 +196,7 @@ abstract class _$ToggleButtonStateAccessorsMixin
   ///
   /// <!-- Generated from [_$ToggleButtonState.isFocused] -->
   @override
-  bool? get isFocused =>
-      (state[_$key__isFocused___$ToggleButtonState] ?? null) as bool?;
+  get isFocused => (state[_$key__isFocused___$ToggleButtonState]) as bool?;
 
   /// Tracks if the [ToggleButton] is focused. Determines whether to render with the `js-focus` CSS
   /// class.
@@ -210,8 +205,7 @@ abstract class _$ToggleButtonStateAccessorsMixin
   ///
   /// <!-- Generated from [_$ToggleButtonState.isFocused] -->
   @override
-  set isFocused(bool? value) =>
-      state[_$key__isFocused___$ToggleButtonState] = value;
+  set isFocused(value) => state[_$key__isFocused___$ToggleButtonState] = value;
 
   /// Tracks if the [ToggleButton] input is `checked`. Determines whether to render with the `active` CSS class.
   ///
@@ -219,8 +213,7 @@ abstract class _$ToggleButtonStateAccessorsMixin
   ///
   /// <!-- Generated from [_$ToggleButtonState.isChecked] -->
   @override
-  bool? get isChecked =>
-      (state[_$key__isChecked___$ToggleButtonState] ?? null) as bool?;
+  get isChecked => (state[_$key__isChecked___$ToggleButtonState]) as bool?;
 
   /// Tracks if the [ToggleButton] input is `checked`. Determines whether to render with the `active` CSS class.
   ///
@@ -228,8 +221,7 @@ abstract class _$ToggleButtonStateAccessorsMixin
   ///
   /// <!-- Generated from [_$ToggleButtonState.isChecked] -->
   @override
-  set isChecked(bool? value) =>
-      state[_$key__isChecked___$ToggleButtonState] = value;
+  set isChecked(value) => state[_$key__isChecked___$ToggleButtonState] = value;
   /* GENERATED CONSTANTS */
   static const StateDescriptor _$prop__isFocused___$ToggleButtonState =
       StateDescriptor(_$key__isFocused___$ToggleButtonState);

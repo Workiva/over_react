@@ -45,8 +45,8 @@ abstract class _$AbstractTransitionStateAccessorsMixin
   ///
   /// <!-- Generated from [_$AbstractTransitionState.transitionPhase] -->
   @override
-  TransitionPhase? get transitionPhase =>
-      (state[_$key__transitionPhase___$AbstractTransitionState] ?? null)
+  get transitionPhase =>
+      (state[_$key__transitionPhase___$AbstractTransitionState])
           as TransitionPhase?;
 
   /// The current phase of transition the [AbstractTransitionComponent] is in.
@@ -55,7 +55,7 @@ abstract class _$AbstractTransitionStateAccessorsMixin
   ///
   /// <!-- Generated from [_$AbstractTransitionState.transitionPhase] -->
   @override
-  set transitionPhase(TransitionPhase? value) =>
+  set transitionPhase(value) =>
       state[_$key__transitionPhase___$AbstractTransitionState] = value;
   /* GENERATED CONSTANTS */
   static const StateDescriptor

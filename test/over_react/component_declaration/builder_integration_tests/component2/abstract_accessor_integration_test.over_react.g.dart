@@ -14,27 +14,26 @@ abstract class _$TestAbstractPropsAccessorsMixin
 
   /// <!-- Generated from [_$TestAbstractProps.stringProp] -->
   @override
-  String? get stringProp =>
-      (props[_$key__stringProp___$TestAbstractProps] ?? null) as String?;
+  get stringProp => (props[_$key__stringProp___$TestAbstractProps]) as String?;
 
   /// <!-- Generated from [_$TestAbstractProps.stringProp] -->
   @override
-  set stringProp(String? value) =>
+  set stringProp(value) =>
       props[_$key__stringProp___$TestAbstractProps] = value;
 
   /// <!-- Generated from [_$TestAbstractProps.dynamicProp] -->
   @override
-  dynamic get dynamicProp =>
-      (props[_$key__dynamicProp___$TestAbstractProps] ?? null) as dynamic;
+  get dynamicProp =>
+      (props[_$key__dynamicProp___$TestAbstractProps]) as dynamic;
 
   /// <!-- Generated from [_$TestAbstractProps.dynamicProp] -->
   @override
-  set dynamicProp(dynamic value) =>
+  set dynamicProp(value) =>
       props[_$key__dynamicProp___$TestAbstractProps] = value;
 
   /// <!-- Generated from [_$TestAbstractProps.untypedProp] -->
   @override
-  get untypedProp => props[_$key__untypedProp___$TestAbstractProps] ?? null;
+  get untypedProp => props[_$key__untypedProp___$TestAbstractProps];
 
   /// <!-- Generated from [_$TestAbstractProps.untypedProp] -->
   @override
@@ -44,39 +43,37 @@ abstract class _$TestAbstractPropsAccessorsMixin
   /// <!-- Generated from [_$TestAbstractProps.customKeyProp] -->
   @override
   @Accessor(key: 'custom key!')
-  dynamic get customKeyProp =>
-      (props[_$key__customKeyProp___$TestAbstractProps] ?? null) as dynamic;
+  get customKeyProp =>
+      (props[_$key__customKeyProp___$TestAbstractProps]) as dynamic;
 
   /// <!-- Generated from [_$TestAbstractProps.customKeyProp] -->
   @override
   @Accessor(key: 'custom key!')
-  set customKeyProp(dynamic value) =>
+  set customKeyProp(value) =>
       props[_$key__customKeyProp___$TestAbstractProps] = value;
 
   /// <!-- Generated from [_$TestAbstractProps.customNamespaceProp] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
-  dynamic get customNamespaceProp =>
-      (props[_$key__customNamespaceProp___$TestAbstractProps] ?? null)
-          as dynamic;
+  get customNamespaceProp =>
+      (props[_$key__customNamespaceProp___$TestAbstractProps]) as dynamic;
 
   /// <!-- Generated from [_$TestAbstractProps.customNamespaceProp] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
-  set customNamespaceProp(dynamic value) =>
+  set customNamespaceProp(value) =>
       props[_$key__customNamespaceProp___$TestAbstractProps] = value;
 
   /// <!-- Generated from [_$TestAbstractProps.customKeyAndNamespaceProp] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
-  dynamic get customKeyAndNamespaceProp =>
-      (props[_$key__customKeyAndNamespaceProp___$TestAbstractProps] ?? null)
-          as dynamic;
+  get customKeyAndNamespaceProp =>
+      (props[_$key__customKeyAndNamespaceProp___$TestAbstractProps]) as dynamic;
 
   /// <!-- Generated from [_$TestAbstractProps.customKeyAndNamespaceProp] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
-  set customKeyAndNamespaceProp(dynamic value) =>
+  set customKeyAndNamespaceProp(value) =>
       props[_$key__customKeyAndNamespaceProp___$TestAbstractProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__stringProp___$TestAbstractProps =
@@ -140,30 +137,29 @@ abstract class _$TestCustomNamespaceAbstractPropsAccessorsMixin
 
   /// <!-- Generated from [_$TestCustomNamespaceAbstractProps.stringProp] -->
   @override
-  String? get stringProp =>
-      (props[_$key__stringProp___$TestCustomNamespaceAbstractProps] ?? null)
-          as String?;
+  get stringProp =>
+      (props[_$key__stringProp___$TestCustomNamespaceAbstractProps]) as String?;
 
   /// <!-- Generated from [_$TestCustomNamespaceAbstractProps.stringProp] -->
   @override
-  set stringProp(String? value) =>
+  set stringProp(value) =>
       props[_$key__stringProp___$TestCustomNamespaceAbstractProps] = value;
 
   /// <!-- Generated from [_$TestCustomNamespaceAbstractProps.dynamicProp] -->
   @override
-  dynamic get dynamicProp =>
-      (props[_$key__dynamicProp___$TestCustomNamespaceAbstractProps] ?? null)
+  get dynamicProp =>
+      (props[_$key__dynamicProp___$TestCustomNamespaceAbstractProps])
           as dynamic;
 
   /// <!-- Generated from [_$TestCustomNamespaceAbstractProps.dynamicProp] -->
   @override
-  set dynamicProp(dynamic value) =>
+  set dynamicProp(value) =>
       props[_$key__dynamicProp___$TestCustomNamespaceAbstractProps] = value;
 
   /// <!-- Generated from [_$TestCustomNamespaceAbstractProps.untypedProp] -->
   @override
   get untypedProp =>
-      props[_$key__untypedProp___$TestCustomNamespaceAbstractProps] ?? null;
+      props[_$key__untypedProp___$TestCustomNamespaceAbstractProps];
 
   /// <!-- Generated from [_$TestCustomNamespaceAbstractProps.untypedProp] -->
   @override
@@ -173,41 +169,41 @@ abstract class _$TestCustomNamespaceAbstractPropsAccessorsMixin
   /// <!-- Generated from [_$TestCustomNamespaceAbstractProps.customKeyProp] -->
   @override
   @Accessor(key: 'custom key!')
-  dynamic get customKeyProp =>
-      (props[_$key__customKeyProp___$TestCustomNamespaceAbstractProps] ?? null)
+  get customKeyProp =>
+      (props[_$key__customKeyProp___$TestCustomNamespaceAbstractProps])
           as dynamic;
 
   /// <!-- Generated from [_$TestCustomNamespaceAbstractProps.customKeyProp] -->
   @override
   @Accessor(key: 'custom key!')
-  set customKeyProp(dynamic value) =>
+  set customKeyProp(value) =>
       props[_$key__customKeyProp___$TestCustomNamespaceAbstractProps] = value;
 
   /// <!-- Generated from [_$TestCustomNamespaceAbstractProps.customNamespaceProp] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
-  dynamic get customNamespaceProp =>
-      (props[_$key__customNamespaceProp___$TestCustomNamespaceAbstractProps] ??
-          null) as dynamic;
+  get customNamespaceProp =>
+      (props[_$key__customNamespaceProp___$TestCustomNamespaceAbstractProps])
+          as dynamic;
 
   /// <!-- Generated from [_$TestCustomNamespaceAbstractProps.customNamespaceProp] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
-  set customNamespaceProp(dynamic value) =>
+  set customNamespaceProp(value) =>
       props[_$key__customNamespaceProp___$TestCustomNamespaceAbstractProps] =
           value;
 
   /// <!-- Generated from [_$TestCustomNamespaceAbstractProps.customKeyAndNamespaceProp] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
-  dynamic get customKeyAndNamespaceProp => (props[
-          _$key__customKeyAndNamespaceProp___$TestCustomNamespaceAbstractProps] ??
-      null) as dynamic;
+  get customKeyAndNamespaceProp => (props[
+          _$key__customKeyAndNamespaceProp___$TestCustomNamespaceAbstractProps])
+      as dynamic;
 
   /// <!-- Generated from [_$TestCustomNamespaceAbstractProps.customKeyAndNamespaceProp] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
-  set customKeyAndNamespaceProp(dynamic value) => props[
+  set customKeyAndNamespaceProp(value) => props[
           _$key__customKeyAndNamespaceProp___$TestCustomNamespaceAbstractProps] =
       value;
   /* GENERATED CONSTANTS */
@@ -282,27 +278,27 @@ abstract class _$TestAbstractStateAccessorsMixin
 
   /// <!-- Generated from [_$TestAbstractState.stringState] -->
   @override
-  String? get stringState =>
-      (state[_$key__stringState___$TestAbstractState] ?? null) as String?;
+  get stringState =>
+      (state[_$key__stringState___$TestAbstractState]) as String?;
 
   /// <!-- Generated from [_$TestAbstractState.stringState] -->
   @override
-  set stringState(String? value) =>
+  set stringState(value) =>
       state[_$key__stringState___$TestAbstractState] = value;
 
   /// <!-- Generated from [_$TestAbstractState.dynamicState] -->
   @override
-  dynamic get dynamicState =>
-      (state[_$key__dynamicState___$TestAbstractState] ?? null) as dynamic;
+  get dynamicState =>
+      (state[_$key__dynamicState___$TestAbstractState]) as dynamic;
 
   /// <!-- Generated from [_$TestAbstractState.dynamicState] -->
   @override
-  set dynamicState(dynamic value) =>
+  set dynamicState(value) =>
       state[_$key__dynamicState___$TestAbstractState] = value;
 
   /// <!-- Generated from [_$TestAbstractState.untypedState] -->
   @override
-  get untypedState => state[_$key__untypedState___$TestAbstractState] ?? null;
+  get untypedState => state[_$key__untypedState___$TestAbstractState];
 
   /// <!-- Generated from [_$TestAbstractState.untypedState] -->
   @override
@@ -312,39 +308,38 @@ abstract class _$TestAbstractStateAccessorsMixin
   /// <!-- Generated from [_$TestAbstractState.customKeyState] -->
   @override
   @Accessor(key: 'custom key!')
-  dynamic get customKeyState =>
-      (state[_$key__customKeyState___$TestAbstractState] ?? null) as dynamic;
+  get customKeyState =>
+      (state[_$key__customKeyState___$TestAbstractState]) as dynamic;
 
   /// <!-- Generated from [_$TestAbstractState.customKeyState] -->
   @override
   @Accessor(key: 'custom key!')
-  set customKeyState(dynamic value) =>
+  set customKeyState(value) =>
       state[_$key__customKeyState___$TestAbstractState] = value;
 
   /// <!-- Generated from [_$TestAbstractState.customNamespaceState] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
-  dynamic get customNamespaceState =>
-      (state[_$key__customNamespaceState___$TestAbstractState] ?? null)
-          as dynamic;
+  get customNamespaceState =>
+      (state[_$key__customNamespaceState___$TestAbstractState]) as dynamic;
 
   /// <!-- Generated from [_$TestAbstractState.customNamespaceState] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
-  set customNamespaceState(dynamic value) =>
+  set customNamespaceState(value) =>
       state[_$key__customNamespaceState___$TestAbstractState] = value;
 
   /// <!-- Generated from [_$TestAbstractState.customKeyAndNamespaceState] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
-  dynamic get customKeyAndNamespaceState =>
-      (state[_$key__customKeyAndNamespaceState___$TestAbstractState] ?? null)
+  get customKeyAndNamespaceState =>
+      (state[_$key__customKeyAndNamespaceState___$TestAbstractState])
           as dynamic;
 
   /// <!-- Generated from [_$TestAbstractState.customKeyAndNamespaceState] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
-  set customKeyAndNamespaceState(dynamic value) =>
+  set customKeyAndNamespaceState(value) =>
       state[_$key__customKeyAndNamespaceState___$TestAbstractState] = value;
   /* GENERATED CONSTANTS */
   static const StateDescriptor _$prop__stringState___$TestAbstractState =
@@ -409,30 +404,30 @@ abstract class _$TestCustomNamespaceAbstractStateAccessorsMixin
 
   /// <!-- Generated from [_$TestCustomNamespaceAbstractState.stringState] -->
   @override
-  String? get stringState =>
-      (state[_$key__stringState___$TestCustomNamespaceAbstractState] ?? null)
+  get stringState =>
+      (state[_$key__stringState___$TestCustomNamespaceAbstractState])
           as String?;
 
   /// <!-- Generated from [_$TestCustomNamespaceAbstractState.stringState] -->
   @override
-  set stringState(String? value) =>
+  set stringState(value) =>
       state[_$key__stringState___$TestCustomNamespaceAbstractState] = value;
 
   /// <!-- Generated from [_$TestCustomNamespaceAbstractState.dynamicState] -->
   @override
-  dynamic get dynamicState =>
-      (state[_$key__dynamicState___$TestCustomNamespaceAbstractState] ?? null)
+  get dynamicState =>
+      (state[_$key__dynamicState___$TestCustomNamespaceAbstractState])
           as dynamic;
 
   /// <!-- Generated from [_$TestCustomNamespaceAbstractState.dynamicState] -->
   @override
-  set dynamicState(dynamic value) =>
+  set dynamicState(value) =>
       state[_$key__dynamicState___$TestCustomNamespaceAbstractState] = value;
 
   /// <!-- Generated from [_$TestCustomNamespaceAbstractState.untypedState] -->
   @override
   get untypedState =>
-      state[_$key__untypedState___$TestCustomNamespaceAbstractState] ?? null;
+      state[_$key__untypedState___$TestCustomNamespaceAbstractState];
 
   /// <!-- Generated from [_$TestCustomNamespaceAbstractState.untypedState] -->
   @override
@@ -442,41 +437,41 @@ abstract class _$TestCustomNamespaceAbstractStateAccessorsMixin
   /// <!-- Generated from [_$TestCustomNamespaceAbstractState.customKeyState] -->
   @override
   @Accessor(key: 'custom key!')
-  dynamic get customKeyState =>
-      (state[_$key__customKeyState___$TestCustomNamespaceAbstractState] ?? null)
+  get customKeyState =>
+      (state[_$key__customKeyState___$TestCustomNamespaceAbstractState])
           as dynamic;
 
   /// <!-- Generated from [_$TestCustomNamespaceAbstractState.customKeyState] -->
   @override
   @Accessor(key: 'custom key!')
-  set customKeyState(dynamic value) =>
+  set customKeyState(value) =>
       state[_$key__customKeyState___$TestCustomNamespaceAbstractState] = value;
 
   /// <!-- Generated from [_$TestCustomNamespaceAbstractState.customNamespaceState] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
-  dynamic get customNamespaceState =>
-      (state[_$key__customNamespaceState___$TestCustomNamespaceAbstractState] ??
-          null) as dynamic;
+  get customNamespaceState =>
+      (state[_$key__customNamespaceState___$TestCustomNamespaceAbstractState])
+          as dynamic;
 
   /// <!-- Generated from [_$TestCustomNamespaceAbstractState.customNamespaceState] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
-  set customNamespaceState(dynamic value) =>
+  set customNamespaceState(value) =>
       state[_$key__customNamespaceState___$TestCustomNamespaceAbstractState] =
           value;
 
   /// <!-- Generated from [_$TestCustomNamespaceAbstractState.customKeyAndNamespaceState] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
-  dynamic get customKeyAndNamespaceState => (state[
-          _$key__customKeyAndNamespaceState___$TestCustomNamespaceAbstractState] ??
-      null) as dynamic;
+  get customKeyAndNamespaceState => (state[
+          _$key__customKeyAndNamespaceState___$TestCustomNamespaceAbstractState])
+      as dynamic;
 
   /// <!-- Generated from [_$TestCustomNamespaceAbstractState.customKeyAndNamespaceState] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
-  set customKeyAndNamespaceState(dynamic value) => state[
+  set customKeyAndNamespaceState(value) => state[
           _$key__customKeyAndNamespaceState___$TestCustomNamespaceAbstractState] =
       value;
   /* GENERATED CONSTANTS */

@@ -25,104 +25,102 @@ abstract class _$TransitionerPropsAccessorsMixin
 
   /// <!-- Generated from [_$TransitionerProps.onHandlePreShowing] -->
   @override
-  Callback? get onHandlePreShowing =>
-      (props[_$key__onHandlePreShowing___$TransitionerProps] ?? null)
-          as Callback?;
+  get onHandlePreShowing =>
+      (props[_$key__onHandlePreShowing___$TransitionerProps]) as Callback?;
 
   /// <!-- Generated from [_$TransitionerProps.onHandlePreShowing] -->
   @override
-  set onHandlePreShowing(Callback? value) =>
+  set onHandlePreShowing(value) =>
       props[_$key__onHandlePreShowing___$TransitionerProps] = value;
 
   /// <!-- Generated from [_$TransitionerProps.onHandleShowing] -->
   @override
-  Callback? get onHandleShowing =>
-      (props[_$key__onHandleShowing___$TransitionerProps] ?? null) as Callback?;
+  get onHandleShowing =>
+      (props[_$key__onHandleShowing___$TransitionerProps]) as Callback?;
 
   /// <!-- Generated from [_$TransitionerProps.onHandleShowing] -->
   @override
-  set onHandleShowing(Callback? value) =>
+  set onHandleShowing(value) =>
       props[_$key__onHandleShowing___$TransitionerProps] = value;
 
   /// <!-- Generated from [_$TransitionerProps.onHandleShown] -->
   @override
-  Callback? get onHandleShown =>
-      (props[_$key__onHandleShown___$TransitionerProps] ?? null) as Callback?;
+  get onHandleShown =>
+      (props[_$key__onHandleShown___$TransitionerProps]) as Callback?;
 
   /// <!-- Generated from [_$TransitionerProps.onHandleShown] -->
   @override
-  set onHandleShown(Callback? value) =>
+  set onHandleShown(value) =>
       props[_$key__onHandleShown___$TransitionerProps] = value;
 
   /// <!-- Generated from [_$TransitionerProps.onHandleHiding] -->
   @override
-  Callback? get onHandleHiding =>
-      (props[_$key__onHandleHiding___$TransitionerProps] ?? null) as Callback?;
+  get onHandleHiding =>
+      (props[_$key__onHandleHiding___$TransitionerProps]) as Callback?;
 
   /// <!-- Generated from [_$TransitionerProps.onHandleHiding] -->
   @override
-  set onHandleHiding(Callback? value) =>
+  set onHandleHiding(value) =>
       props[_$key__onHandleHiding___$TransitionerProps] = value;
 
   /// <!-- Generated from [_$TransitionerProps.onHandleHidden] -->
   @override
-  Callback? get onHandleHidden =>
-      (props[_$key__onHandleHidden___$TransitionerProps] ?? null) as Callback?;
+  get onHandleHidden =>
+      (props[_$key__onHandleHidden___$TransitionerProps]) as Callback?;
 
   /// <!-- Generated from [_$TransitionerProps.onHandleHidden] -->
   @override
-  set onHandleHidden(Callback? value) =>
+  set onHandleHidden(value) =>
       props[_$key__onHandleHidden___$TransitionerProps] = value;
 
   /// <!-- Generated from [_$TransitionerProps.onPrepareShow] -->
   @override
-  Callback? get onPrepareShow =>
-      (props[_$key__onPrepareShow___$TransitionerProps] ?? null) as Callback?;
+  get onPrepareShow =>
+      (props[_$key__onPrepareShow___$TransitionerProps]) as Callback?;
 
   /// <!-- Generated from [_$TransitionerProps.onPrepareShow] -->
   @override
-  set onPrepareShow(Callback? value) =>
+  set onPrepareShow(value) =>
       props[_$key__onPrepareShow___$TransitionerProps] = value;
 
   /// <!-- Generated from [_$TransitionerProps.onPrepareHide] -->
   @override
-  Callback? get onPrepareHide =>
-      (props[_$key__onPrepareHide___$TransitionerProps] ?? null) as Callback?;
+  get onPrepareHide =>
+      (props[_$key__onPrepareHide___$TransitionerProps]) as Callback?;
 
   /// <!-- Generated from [_$TransitionerProps.onPrepareHide] -->
   @override
-  set onPrepareHide(Callback? value) =>
+  set onPrepareHide(value) =>
       props[_$key__onPrepareHide___$TransitionerProps] = value;
 
   /// <!-- Generated from [_$TransitionerProps.hasTransition] -->
   @override
-  bool? get hasTransition =>
-      (props[_$key__hasTransition___$TransitionerProps] ?? null) as bool?;
+  get hasTransition =>
+      (props[_$key__hasTransition___$TransitionerProps]) as bool?;
 
   /// <!-- Generated from [_$TransitionerProps.hasTransition] -->
   @override
-  set hasTransition(bool? value) =>
+  set hasTransition(value) =>
       props[_$key__hasTransition___$TransitionerProps] = value;
 
   /// <!-- Generated from [_$TransitionerProps.initiallyShown] -->
   @override
-  bool? get initiallyShown =>
-      (props[_$key__initiallyShown___$TransitionerProps] ?? null) as bool?;
+  get initiallyShown =>
+      (props[_$key__initiallyShown___$TransitionerProps]) as bool?;
 
   /// <!-- Generated from [_$TransitionerProps.initiallyShown] -->
   @override
-  set initiallyShown(bool? value) =>
+  set initiallyShown(value) =>
       props[_$key__initiallyShown___$TransitionerProps] = value;
 
   /// <!-- Generated from [_$TransitionerProps.transitionTimeout] -->
   @override
-  Duration? get transitionTimeout =>
-      (props[_$key__transitionTimeout___$TransitionerProps] ?? null)
-          as Duration?;
+  get transitionTimeout =>
+      (props[_$key__transitionTimeout___$TransitionerProps]) as Duration?;
 
   /// <!-- Generated from [_$TransitionerProps.transitionTimeout] -->
   @override
-  set transitionTimeout(Duration? value) =>
+  set transitionTimeout(value) =>
       props[_$key__transitionTimeout___$TransitionerProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__onHandlePreShowing___$TransitionerProps =

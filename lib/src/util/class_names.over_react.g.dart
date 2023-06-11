@@ -20,8 +20,7 @@ abstract class CssClassPropsMixin implements _$CssClassPropsMixin {
   ///
   /// <!-- Generated from [_$CssClassPropsMixin.className] -->
   @override
-  String? get className =>
-      (props[_$key__className___$CssClassPropsMixin] ?? null) as String?;
+  get className => (props[_$key__className___$CssClassPropsMixin]) as String?;
 
   /// String of space-delimited CSS classes to be added to the resultant DOM.
   ///
@@ -30,8 +29,7 @@ abstract class CssClassPropsMixin implements _$CssClassPropsMixin {
   ///
   /// <!-- Generated from [_$CssClassPropsMixin.className] -->
   @override
-  set className(String? value) =>
-      props[_$key__className___$CssClassPropsMixin] = value;
+  set className(value) => props[_$key__className___$CssClassPropsMixin] = value;
 
   /// String of space-delimited CSS classes to be blacklisted from being added to the resultant DOM.
   ///
@@ -40,9 +38,8 @@ abstract class CssClassPropsMixin implements _$CssClassPropsMixin {
   ///
   /// <!-- Generated from [_$CssClassPropsMixin.classNameBlacklist] -->
   @override
-  String? get classNameBlacklist =>
-      (props[_$key__classNameBlacklist___$CssClassPropsMixin] ?? null)
-          as String?;
+  get classNameBlacklist =>
+      (props[_$key__classNameBlacklist___$CssClassPropsMixin]) as String?;
 
   /// String of space-delimited CSS classes to be blacklisted from being added to the resultant DOM.
   ///
@@ -51,7 +48,7 @@ abstract class CssClassPropsMixin implements _$CssClassPropsMixin {
   ///
   /// <!-- Generated from [_$CssClassPropsMixin.classNameBlacklist] -->
   @override
-  set classNameBlacklist(String? value) =>
+  set classNameBlacklist(value) =>
       props[_$key__classNameBlacklist___$CssClassPropsMixin] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__className___$CssClassPropsMixin =

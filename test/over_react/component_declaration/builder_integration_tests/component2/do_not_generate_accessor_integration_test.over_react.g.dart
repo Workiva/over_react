@@ -25,37 +25,37 @@ abstract class _$DoNotGenerateAccessorTestPropsAccessorsMixin
 
   /// <!-- Generated from [_$DoNotGenerateAccessorTestProps.generated1Prop] -->
   @override
-  dynamic get generated1Prop =>
-      (props[_$key__generated1Prop___$DoNotGenerateAccessorTestProps] ?? null)
+  get generated1Prop =>
+      (props[_$key__generated1Prop___$DoNotGenerateAccessorTestProps])
           as dynamic;
 
   /// <!-- Generated from [_$DoNotGenerateAccessorTestProps.generated1Prop] -->
   @override
-  set generated1Prop(dynamic value) =>
+  set generated1Prop(value) =>
       props[_$key__generated1Prop___$DoNotGenerateAccessorTestProps] = value;
 
   /// <!-- Generated from [_$DoNotGenerateAccessorTestProps.generated2Prop] -->
   @override
-  dynamic get generated2Prop =>
-      (props[_$key__generated2Prop___$DoNotGenerateAccessorTestProps] ?? null)
+  get generated2Prop =>
+      (props[_$key__generated2Prop___$DoNotGenerateAccessorTestProps])
           as dynamic;
 
   /// <!-- Generated from [_$DoNotGenerateAccessorTestProps.generated2Prop] -->
   @override
-  set generated2Prop(dynamic value) =>
+  set generated2Prop(value) =>
       props[_$key__generated2Prop___$DoNotGenerateAccessorTestProps] = value;
 
   /// <!-- Generated from [_$DoNotGenerateAccessorTestProps.explicitlyGeneratedProp] -->
   @override
   @Accessor(doNotGenerate: false)
-  dynamic get explicitlyGeneratedProp => (props[
-          _$key__explicitlyGeneratedProp___$DoNotGenerateAccessorTestProps] ??
-      null) as dynamic;
+  get explicitlyGeneratedProp =>
+      (props[_$key__explicitlyGeneratedProp___$DoNotGenerateAccessorTestProps])
+          as dynamic;
 
   /// <!-- Generated from [_$DoNotGenerateAccessorTestProps.explicitlyGeneratedProp] -->
   @override
   @Accessor(doNotGenerate: false)
-  set explicitlyGeneratedProp(dynamic value) =>
+  set explicitlyGeneratedProp(value) =>
       props[_$key__explicitlyGeneratedProp___$DoNotGenerateAccessorTestProps] =
           value;
   /* GENERATED CONSTANTS */
@@ -179,37 +179,37 @@ abstract class _$DoNotGenerateAccessorTestStateAccessorsMixin
 
   /// <!-- Generated from [_$DoNotGenerateAccessorTestState.generated1State] -->
   @override
-  dynamic get generated1State =>
-      (state[_$key__generated1State___$DoNotGenerateAccessorTestState] ?? null)
+  get generated1State =>
+      (state[_$key__generated1State___$DoNotGenerateAccessorTestState])
           as dynamic;
 
   /// <!-- Generated from [_$DoNotGenerateAccessorTestState.generated1State] -->
   @override
-  set generated1State(dynamic value) =>
+  set generated1State(value) =>
       state[_$key__generated1State___$DoNotGenerateAccessorTestState] = value;
 
   /// <!-- Generated from [_$DoNotGenerateAccessorTestState.generated2State] -->
   @override
-  dynamic get generated2State =>
-      (state[_$key__generated2State___$DoNotGenerateAccessorTestState] ?? null)
+  get generated2State =>
+      (state[_$key__generated2State___$DoNotGenerateAccessorTestState])
           as dynamic;
 
   /// <!-- Generated from [_$DoNotGenerateAccessorTestState.generated2State] -->
   @override
-  set generated2State(dynamic value) =>
+  set generated2State(value) =>
       state[_$key__generated2State___$DoNotGenerateAccessorTestState] = value;
 
   /// <!-- Generated from [_$DoNotGenerateAccessorTestState.explicitlyGeneratedState] -->
   @override
   @Accessor(doNotGenerate: false)
-  dynamic get explicitlyGeneratedState => (state[
-          _$key__explicitlyGeneratedState___$DoNotGenerateAccessorTestState] ??
-      null) as dynamic;
+  get explicitlyGeneratedState =>
+      (state[_$key__explicitlyGeneratedState___$DoNotGenerateAccessorTestState])
+          as dynamic;
 
   /// <!-- Generated from [_$DoNotGenerateAccessorTestState.explicitlyGeneratedState] -->
   @override
   @Accessor(doNotGenerate: false)
-  set explicitlyGeneratedState(dynamic value) =>
+  set explicitlyGeneratedState(value) =>
       state[_$key__explicitlyGeneratedState___$DoNotGenerateAccessorTestState] =
           value;
   /* GENERATED CONSTANTS */

@@ -25,48 +25,46 @@ abstract class _$ComponentTestPropsAccessorsMixin
 
   /// <!-- Generated from [_$ComponentTestProps.stringProp] -->
   @override
-  String? get stringProp =>
-      (props[_$key__stringProp___$ComponentTestProps] ?? null) as String?;
+  get stringProp => (props[_$key__stringProp___$ComponentTestProps]) as String?;
 
   /// <!-- Generated from [_$ComponentTestProps.stringProp] -->
   @override
-  set stringProp(String? value) =>
+  set stringProp(value) =>
       props[_$key__stringProp___$ComponentTestProps] = value;
 
   /// <!-- Generated from [_$ComponentTestProps.shouldSetPropsDirectly] -->
   @override
-  bool? get shouldSetPropsDirectly =>
-      (props[_$key__shouldSetPropsDirectly___$ComponentTestProps] ?? null)
-          as bool?;
+  get shouldSetPropsDirectly =>
+      (props[_$key__shouldSetPropsDirectly___$ComponentTestProps]) as bool?;
 
   /// <!-- Generated from [_$ComponentTestProps.shouldSetPropsDirectly] -->
   @override
-  set shouldSetPropsDirectly(bool? value) =>
+  set shouldSetPropsDirectly(value) =>
       props[_$key__shouldSetPropsDirectly___$ComponentTestProps] = value;
 
   /// <!-- Generated from [_$ComponentTestProps.shouldUseJsFactory] -->
   @override
-  bool? get shouldUseJsFactory =>
-      (props[_$key__shouldUseJsFactory___$ComponentTestProps] ?? null) as bool?;
+  get shouldUseJsFactory =>
+      (props[_$key__shouldUseJsFactory___$ComponentTestProps]) as bool?;
 
   /// <!-- Generated from [_$ComponentTestProps.shouldUseJsFactory] -->
   @override
-  set shouldUseJsFactory(bool? value) =>
+  set shouldUseJsFactory(value) =>
       props[_$key__shouldUseJsFactory___$ComponentTestProps] = value;
 
   /// <!-- Generated from [_$ComponentTestProps.dynamicProp] -->
   @override
-  dynamic get dynamicProp =>
-      (props[_$key__dynamicProp___$ComponentTestProps] ?? null) as dynamic;
+  get dynamicProp =>
+      (props[_$key__dynamicProp___$ComponentTestProps]) as dynamic;
 
   /// <!-- Generated from [_$ComponentTestProps.dynamicProp] -->
   @override
-  set dynamicProp(dynamic value) =>
+  set dynamicProp(value) =>
       props[_$key__dynamicProp___$ComponentTestProps] = value;
 
   /// <!-- Generated from [_$ComponentTestProps.untypedProp] -->
   @override
-  get untypedProp => props[_$key__untypedProp___$ComponentTestProps] ?? null;
+  get untypedProp => props[_$key__untypedProp___$ComponentTestProps];
 
   /// <!-- Generated from [_$ComponentTestProps.untypedProp] -->
   @override
@@ -76,39 +74,38 @@ abstract class _$ComponentTestPropsAccessorsMixin
   /// <!-- Generated from [_$ComponentTestProps.customKeyProp] -->
   @override
   @Accessor(key: 'custom key!')
-  dynamic get customKeyProp =>
-      (props[_$key__customKeyProp___$ComponentTestProps] ?? null) as dynamic;
+  get customKeyProp =>
+      (props[_$key__customKeyProp___$ComponentTestProps]) as dynamic;
 
   /// <!-- Generated from [_$ComponentTestProps.customKeyProp] -->
   @override
   @Accessor(key: 'custom key!')
-  set customKeyProp(dynamic value) =>
+  set customKeyProp(value) =>
       props[_$key__customKeyProp___$ComponentTestProps] = value;
 
   /// <!-- Generated from [_$ComponentTestProps.customNamespaceProp] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
-  dynamic get customNamespaceProp =>
-      (props[_$key__customNamespaceProp___$ComponentTestProps] ?? null)
-          as dynamic;
+  get customNamespaceProp =>
+      (props[_$key__customNamespaceProp___$ComponentTestProps]) as dynamic;
 
   /// <!-- Generated from [_$ComponentTestProps.customNamespaceProp] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
-  set customNamespaceProp(dynamic value) =>
+  set customNamespaceProp(value) =>
       props[_$key__customNamespaceProp___$ComponentTestProps] = value;
 
   /// <!-- Generated from [_$ComponentTestProps.customKeyAndNamespaceProp] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
-  dynamic get customKeyAndNamespaceProp =>
-      (props[_$key__customKeyAndNamespaceProp___$ComponentTestProps] ?? null)
+  get customKeyAndNamespaceProp =>
+      (props[_$key__customKeyAndNamespaceProp___$ComponentTestProps])
           as dynamic;
 
   /// <!-- Generated from [_$ComponentTestProps.customKeyAndNamespaceProp] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
-  set customKeyAndNamespaceProp(dynamic value) =>
+  set customKeyAndNamespaceProp(value) =>
       props[_$key__customKeyAndNamespaceProp___$ComponentTestProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__stringProp___$ComponentTestProps =

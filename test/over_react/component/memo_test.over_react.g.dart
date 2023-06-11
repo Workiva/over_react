@@ -25,13 +25,11 @@ abstract class _$BasicUiComponent2PropsAccessorsMixin
 
   /// <!-- Generated from [_$BasicUiComponent2Props.childId] -->
   @override
-  String? get childId =>
-      (props[_$key__childId___$BasicUiComponent2Props] ?? null) as String?;
+  get childId => (props[_$key__childId___$BasicUiComponent2Props]) as String?;
 
   /// <!-- Generated from [_$BasicUiComponent2Props.childId] -->
   @override
-  set childId(String? value) =>
-      props[_$key__childId___$BasicUiComponent2Props] = value;
+  set childId(value) => props[_$key__childId___$BasicUiComponent2Props] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__childId___$BasicUiComponent2Props =
       PropDescriptor(_$key__childId___$BasicUiComponent2Props);
@@ -179,17 +177,15 @@ class _$BasicUiComponent2Component extends BasicUiComponent2Component {
 mixin $FunctionCustomPropsProps on FunctionCustomPropsProps {
   static const PropsMeta meta = _$metaForFunctionCustomPropsProps;
   @override
-  int? get testProp =>
-      (props[_$key__testProp__FunctionCustomPropsProps] ?? null) as int?;
+  get testProp => (props[_$key__testProp__FunctionCustomPropsProps]) as int?;
   @override
-  set testProp(int? value) =>
+  set testProp(value) =>
       props[_$key__testProp__FunctionCustomPropsProps] = value;
   @override
-  Function()? get testFuncProp =>
-      (props[_$key__testFuncProp__FunctionCustomPropsProps] ?? null)
-          as Function()?;
+  get testFuncProp =>
+      (props[_$key__testFuncProp__FunctionCustomPropsProps]) as Function()?;
   @override
-  set testFuncProp(Function()? value) =>
+  set testFuncProp(value) =>
       props[_$key__testFuncProp__FunctionCustomPropsProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__testProp__FunctionCustomPropsProps =

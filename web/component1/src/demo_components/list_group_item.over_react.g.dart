@@ -32,9 +32,8 @@ abstract class _$ListGroupItemPropsAccessorsMixin
   ///
   /// <!-- Generated from [_$ListGroupItemProps.elementType] -->
   @override
-  ListGroupItemElementType? get elementType =>
-      (props[_$key__elementType___$ListGroupItemProps] ?? null)
-          as ListGroupItemElementType?;
+  get elementType => (props[_$key__elementType___$ListGroupItemProps])
+      as ListGroupItemElementType?;
 
   /// The HTML element type for the [ListGroupItem], specifying its DOM
   /// representation when rendered.
@@ -45,7 +44,7 @@ abstract class _$ListGroupItemPropsAccessorsMixin
   ///
   /// <!-- Generated from [_$ListGroupItemProps.elementType] -->
   @override
-  set elementType(ListGroupItemElementType? value) =>
+  set elementType(value) =>
       props[_$key__elementType___$ListGroupItemProps] = value;
 
   /// Optional header text to display within the [ListGroupItem] above
@@ -55,8 +54,7 @@ abstract class _$ListGroupItemPropsAccessorsMixin
   ///
   /// <!-- Generated from [_$ListGroupItemProps.header] -->
   @override
-  dynamic get header =>
-      (props[_$key__header___$ListGroupItemProps] ?? null) as dynamic;
+  get header => (props[_$key__header___$ListGroupItemProps]) as dynamic;
 
   /// Optional header text to display within the [ListGroupItem] above
   /// the value of [children].
@@ -65,8 +63,7 @@ abstract class _$ListGroupItemPropsAccessorsMixin
   ///
   /// <!-- Generated from [_$ListGroupItemProps.header] -->
   @override
-  set header(dynamic value) =>
-      props[_$key__header___$ListGroupItemProps] = value;
+  set header(value) => props[_$key__header___$ListGroupItemProps] = value;
 
   /// The size of the [header] text you desire.
   ///
@@ -74,9 +71,8 @@ abstract class _$ListGroupItemPropsAccessorsMixin
   ///
   /// <!-- Generated from [_$ListGroupItemProps.headerSize] -->
   @override
-  ListGroupItemHeaderElementSize? get headerSize =>
-      (props[_$key__headerSize___$ListGroupItemProps] ?? null)
-          as ListGroupItemHeaderElementSize?;
+  get headerSize => (props[_$key__headerSize___$ListGroupItemProps])
+      as ListGroupItemHeaderElementSize?;
 
   /// The size of the [header] text you desire.
   ///
@@ -84,21 +80,20 @@ abstract class _$ListGroupItemPropsAccessorsMixin
   ///
   /// <!-- Generated from [_$ListGroupItemProps.headerSize] -->
   @override
-  set headerSize(ListGroupItemHeaderElementSize? value) =>
+  set headerSize(value) =>
       props[_$key__headerSize___$ListGroupItemProps] = value;
 
   /// Additional props to be added to the [header] element _(if specified)_.
   ///
   /// <!-- Generated from [_$ListGroupItemProps.headerProps] -->
   @override
-  Map? get headerProps =>
-      (props[_$key__headerProps___$ListGroupItemProps] ?? null) as Map?;
+  get headerProps => (props[_$key__headerProps___$ListGroupItemProps]) as Map?;
 
   /// Additional props to be added to the [header] element _(if specified)_.
   ///
   /// <!-- Generated from [_$ListGroupItemProps.headerProps] -->
   @override
-  set headerProps(Map? value) =>
+  set headerProps(value) =>
       props[_$key__headerProps___$ListGroupItemProps] = value;
 
   /// The skin / "context" for the [ListGroupItem].
@@ -109,8 +104,7 @@ abstract class _$ListGroupItemPropsAccessorsMixin
   ///
   /// <!-- Generated from [_$ListGroupItemProps.skin] -->
   @override
-  ListGroupItemSkin? get skin =>
-      (props[_$key__skin___$ListGroupItemProps] ?? null) as ListGroupItemSkin?;
+  get skin => (props[_$key__skin___$ListGroupItemProps]) as ListGroupItemSkin?;
 
   /// The skin / "context" for the [ListGroupItem].
   ///
@@ -120,8 +114,7 @@ abstract class _$ListGroupItemPropsAccessorsMixin
   ///
   /// <!-- Generated from [_$ListGroupItemProps.skin] -->
   @override
-  set skin(ListGroupItemSkin? value) =>
-      props[_$key__skin___$ListGroupItemProps] = value;
+  set skin(value) => props[_$key__skin___$ListGroupItemProps] = value;
 
   /// Whether the [ListGroupItem] should appear "active".
   ///
@@ -131,8 +124,7 @@ abstract class _$ListGroupItemPropsAccessorsMixin
   ///
   /// <!-- Generated from [_$ListGroupItemProps.isActive] -->
   @override
-  bool? get isActive =>
-      (props[_$key__isActive___$ListGroupItemProps] ?? null) as bool?;
+  get isActive => (props[_$key__isActive___$ListGroupItemProps]) as bool?;
 
   /// Whether the [ListGroupItem] should appear "active".
   ///
@@ -142,8 +134,7 @@ abstract class _$ListGroupItemPropsAccessorsMixin
   ///
   /// <!-- Generated from [_$ListGroupItemProps.isActive] -->
   @override
-  set isActive(bool? value) =>
-      props[_$key__isActive___$ListGroupItemProps] = value;
+  set isActive(value) => props[_$key__isActive___$ListGroupItemProps] = value;
 
   /// Whether the [ListGroupItem] is disabled.
   ///
@@ -154,8 +145,7 @@ abstract class _$ListGroupItemPropsAccessorsMixin
   /// <!-- Generated from [_$ListGroupItemProps.isDisabled] -->
   @override
   @Accessor(key: 'disabled', keyNamespace: '')
-  bool? get isDisabled =>
-      (props[_$key__isDisabled___$ListGroupItemProps] ?? null) as bool?;
+  get isDisabled => (props[_$key__isDisabled___$ListGroupItemProps]) as bool?;
 
   /// Whether the [ListGroupItem] is disabled.
   ///
@@ -166,7 +156,7 @@ abstract class _$ListGroupItemPropsAccessorsMixin
   /// <!-- Generated from [_$ListGroupItemProps.isDisabled] -->
   @override
   @Accessor(key: 'disabled', keyNamespace: '')
-  set isDisabled(bool? value) =>
+  set isDisabled(value) =>
       props[_$key__isDisabled___$ListGroupItemProps] = value;
 
   /// The HTML `href` attribute value for the [ListGroupItem].
@@ -178,8 +168,7 @@ abstract class _$ListGroupItemPropsAccessorsMixin
   /// <!-- Generated from [_$ListGroupItemProps.href] -->
   @override
   @Accessor(keyNamespace: '')
-  String? get href =>
-      (props[_$key__href___$ListGroupItemProps] ?? null) as String?;
+  get href => (props[_$key__href___$ListGroupItemProps]) as String?;
 
   /// The HTML `href` attribute value for the [ListGroupItem].
   ///
@@ -190,7 +179,7 @@ abstract class _$ListGroupItemPropsAccessorsMixin
   /// <!-- Generated from [_$ListGroupItemProps.href] -->
   @override
   @Accessor(keyNamespace: '')
-  set href(String? value) => props[_$key__href___$ListGroupItemProps] = value;
+  set href(value) => props[_$key__href___$ListGroupItemProps] = value;
 
   /// The HTML `target` attribute value for the [ListGroupItem].
   ///
@@ -201,8 +190,7 @@ abstract class _$ListGroupItemPropsAccessorsMixin
   /// <!-- Generated from [_$ListGroupItemProps.target] -->
   @override
   @Accessor(keyNamespace: '')
-  String? get target =>
-      (props[_$key__target___$ListGroupItemProps] ?? null) as String?;
+  get target => (props[_$key__target___$ListGroupItemProps]) as String?;
 
   /// The HTML `target` attribute value for the [ListGroupItem].
   ///
@@ -213,8 +201,7 @@ abstract class _$ListGroupItemPropsAccessorsMixin
   /// <!-- Generated from [_$ListGroupItemProps.target] -->
   @override
   @Accessor(keyNamespace: '')
-  set target(String? value) =>
-      props[_$key__target___$ListGroupItemProps] = value;
+  set target(value) => props[_$key__target___$ListGroupItemProps] = value;
 
   /// The HTML `type` attribute value for the [ListGroupItem] when
   /// rendered via [Dom.button].
@@ -227,8 +214,7 @@ abstract class _$ListGroupItemPropsAccessorsMixin
   ///
   /// <!-- Generated from [_$ListGroupItemProps.type] -->
   @override
-  ButtonType? get type =>
-      (props[_$key__type___$ListGroupItemProps] ?? null) as ButtonType?;
+  get type => (props[_$key__type___$ListGroupItemProps]) as ButtonType?;
 
   /// The HTML `type` attribute value for the [ListGroupItem] when
   /// rendered via [Dom.button].
@@ -241,8 +227,7 @@ abstract class _$ListGroupItemPropsAccessorsMixin
   ///
   /// <!-- Generated from [_$ListGroupItemProps.type] -->
   @override
-  set type(ButtonType? value) =>
-      props[_$key__type___$ListGroupItemProps] = value;
+  set type(value) => props[_$key__type___$ListGroupItemProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__elementType___$ListGroupItemProps =
       PropDescriptor(_$key__elementType___$ListGroupItemProps);

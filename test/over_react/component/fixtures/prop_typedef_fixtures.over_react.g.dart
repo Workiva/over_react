@@ -14,50 +14,40 @@ abstract class _$TestAbstractCustomRendererComponentPropsAccessorsMixin
 
   /// <!-- Generated from [_$TestAbstractCustomRendererComponentProps.customRenderer] -->
   @override
-  CustomRenderFunction? get customRenderer => (props[
-          _$key__customRenderer___$TestAbstractCustomRendererComponentProps] ??
-      null) as CustomRenderFunction?;
+  get customRenderer =>
+      (props[_$key__customRenderer___$TestAbstractCustomRendererComponentProps])
+          as CustomRenderFunction?;
 
   /// <!-- Generated from [_$TestAbstractCustomRendererComponentProps.customRenderer] -->
   @override
-  set customRenderer(CustomRenderFunction? value) =>
+  set customRenderer(value) =>
       props[_$key__customRenderer___$TestAbstractCustomRendererComponentProps] =
           value;
 
   /// <!-- Generated from [_$TestAbstractCustomRendererComponentProps.parameterizedCustomRenderer] -->
   @override
-  CustomRenderFunction<
+  get parameterizedCustomRenderer => (props[
+          _$key__parameterizedCustomRenderer___$TestAbstractCustomRendererComponentProps])
+      as CustomRenderFunction<
           TestAbstractCustomRendererComponentProps,
           TestAbstractCustomRendererComponentState,
-          TestAbstractCustomRendererComponentComponent>?
-      get parameterizedCustomRenderer =>
-          (props[_$key__parameterizedCustomRenderer___$TestAbstractCustomRendererComponentProps] ??
-                  null)
-              as CustomRenderFunction<
-                  TestAbstractCustomRendererComponentProps,
-                  TestAbstractCustomRendererComponentState,
-                  TestAbstractCustomRendererComponentComponent>?;
+          TestAbstractCustomRendererComponentComponent>?;
 
   /// <!-- Generated from [_$TestAbstractCustomRendererComponentProps.parameterizedCustomRenderer] -->
   @override
-  set parameterizedCustomRenderer(
-          CustomRenderFunction<
-                  TestAbstractCustomRendererComponentProps,
-                  TestAbstractCustomRendererComponentState,
-                  TestAbstractCustomRendererComponentComponent>?
-              value) =>
-      props[_$key__parameterizedCustomRenderer___$TestAbstractCustomRendererComponentProps] =
-          value;
+  set parameterizedCustomRenderer(value) => props[
+          _$key__parameterizedCustomRenderer___$TestAbstractCustomRendererComponentProps] =
+      value;
 
   /// <!-- Generated from [_$TestAbstractCustomRendererComponentProps.somePropKey] -->
   @override
-  String? get somePropKey =>
-      (props[_$key__somePropKey___$TestAbstractCustomRendererComponentProps] ??
-          null) as String?;
+  get somePropKey =>
+      (props[_$key__somePropKey___$TestAbstractCustomRendererComponentProps])
+          as String?;
 
   /// <!-- Generated from [_$TestAbstractCustomRendererComponentProps.somePropKey] -->
   @override
-  set somePropKey(String? value) =>
+  set somePropKey(value) =>
       props[_$key__somePropKey___$TestAbstractCustomRendererComponentProps] =
           value;
   /* GENERATED CONSTANTS */
@@ -114,13 +104,13 @@ abstract class _$TestAbstractCustomRendererComponentStateAccessorsMixin
 
   /// <!-- Generated from [_$TestAbstractCustomRendererComponentState.someStateKey] -->
   @override
-  String? get someStateKey =>
-      (state[_$key__someStateKey___$TestAbstractCustomRendererComponentState] ??
-          null) as String?;
+  get someStateKey =>
+      (state[_$key__someStateKey___$TestAbstractCustomRendererComponentState])
+          as String?;
 
   /// <!-- Generated from [_$TestAbstractCustomRendererComponentState.someStateKey] -->
   @override
-  set someStateKey(String? value) =>
+  set someStateKey(value) =>
       state[_$key__someStateKey___$TestAbstractCustomRendererComponentState] =
           value;
   /* GENERATED CONSTANTS */
@@ -171,25 +161,25 @@ abstract class _$TestConsumingAbstractCustomRendererComponentPropsAccessorsMixin
 
   /// <!-- Generated from [_$TestConsumingAbstractCustomRendererComponentProps.propKeyValueToTest] -->
   @override
-  String? get propKeyValueToTest => (props[
-          _$key__propKeyValueToTest___$TestConsumingAbstractCustomRendererComponentProps] ??
-      null) as String?;
+  get propKeyValueToTest => (props[
+          _$key__propKeyValueToTest___$TestConsumingAbstractCustomRendererComponentProps])
+      as String?;
 
   /// <!-- Generated from [_$TestConsumingAbstractCustomRendererComponentProps.propKeyValueToTest] -->
   @override
-  set propKeyValueToTest(String? value) => props[
+  set propKeyValueToTest(value) => props[
           _$key__propKeyValueToTest___$TestConsumingAbstractCustomRendererComponentProps] =
       value;
 
   /// <!-- Generated from [_$TestConsumingAbstractCustomRendererComponentProps.stateKeyValueToTest] -->
   @override
-  String? get stateKeyValueToTest => (props[
-          _$key__stateKeyValueToTest___$TestConsumingAbstractCustomRendererComponentProps] ??
-      null) as String?;
+  get stateKeyValueToTest => (props[
+          _$key__stateKeyValueToTest___$TestConsumingAbstractCustomRendererComponentProps])
+      as String?;
 
   /// <!-- Generated from [_$TestConsumingAbstractCustomRendererComponentProps.stateKeyValueToTest] -->
   @override
-  set stateKeyValueToTest(String? value) => props[
+  set stateKeyValueToTest(value) => props[
           _$key__stateKeyValueToTest___$TestConsumingAbstractCustomRendererComponentProps] =
       value;
   /* GENERATED CONSTANTS */
@@ -385,25 +375,25 @@ abstract class _$TestConsumingCustomRendererComponentPropsAccessorsMixin
 
   /// <!-- Generated from [_$TestConsumingCustomRendererComponentProps.propKeyValueToTest] -->
   @override
-  String? get propKeyValueToTest => (props[
-          _$key__propKeyValueToTest___$TestConsumingCustomRendererComponentProps] ??
-      null) as String?;
+  get propKeyValueToTest => (props[
+          _$key__propKeyValueToTest___$TestConsumingCustomRendererComponentProps])
+      as String?;
 
   /// <!-- Generated from [_$TestConsumingCustomRendererComponentProps.propKeyValueToTest] -->
   @override
-  set propKeyValueToTest(String? value) => props[
+  set propKeyValueToTest(value) => props[
           _$key__propKeyValueToTest___$TestConsumingCustomRendererComponentProps] =
       value;
 
   /// <!-- Generated from [_$TestConsumingCustomRendererComponentProps.stateKeyValueToTest] -->
   @override
-  String? get stateKeyValueToTest => (props[
-          _$key__stateKeyValueToTest___$TestConsumingCustomRendererComponentProps] ??
-      null) as String?;
+  get stateKeyValueToTest => (props[
+          _$key__stateKeyValueToTest___$TestConsumingCustomRendererComponentProps])
+      as String?;
 
   /// <!-- Generated from [_$TestConsumingCustomRendererComponentProps.stateKeyValueToTest] -->
   @override
-  set stateKeyValueToTest(String? value) => props[
+  set stateKeyValueToTest(value) => props[
           _$key__stateKeyValueToTest___$TestConsumingCustomRendererComponentProps] =
       value;
   /* GENERATED CONSTANTS */
@@ -588,13 +578,13 @@ abstract class _$TestCustomRendererFromAbstractComponentPropsAccessorsMixin
 
   /// <!-- Generated from [_$TestCustomRendererFromAbstractComponentProps.someInitialStateKeyValue] -->
   @override
-  String? get someInitialStateKeyValue => (props[
-          _$key__someInitialStateKeyValue___$TestCustomRendererFromAbstractComponentProps] ??
-      null) as String?;
+  get someInitialStateKeyValue => (props[
+          _$key__someInitialStateKeyValue___$TestCustomRendererFromAbstractComponentProps])
+      as String?;
 
   /// <!-- Generated from [_$TestCustomRendererFromAbstractComponentProps.someInitialStateKeyValue] -->
   @override
-  set someInitialStateKeyValue(String? value) => props[
+  set someInitialStateKeyValue(value) => props[
           _$key__someInitialStateKeyValue___$TestCustomRendererFromAbstractComponentProps] =
       value;
   /* GENERATED CONSTANTS */
@@ -881,60 +871,50 @@ abstract class _$TestCustomRendererComponentPropsAccessorsMixin
 
   /// <!-- Generated from [_$TestCustomRendererComponentProps.customRenderer] -->
   @override
-  CustomRenderFunction? get customRenderer =>
-      (props[_$key__customRenderer___$TestCustomRendererComponentProps] ?? null)
+  get customRenderer =>
+      (props[_$key__customRenderer___$TestCustomRendererComponentProps])
           as CustomRenderFunction?;
 
   /// <!-- Generated from [_$TestCustomRendererComponentProps.customRenderer] -->
   @override
-  set customRenderer(CustomRenderFunction? value) =>
+  set customRenderer(value) =>
       props[_$key__customRenderer___$TestCustomRendererComponentProps] = value;
 
   /// <!-- Generated from [_$TestCustomRendererComponentProps.parameterizedCustomRenderer] -->
   @override
-  CustomRenderFunction<
+  get parameterizedCustomRenderer => (props[
+          _$key__parameterizedCustomRenderer___$TestCustomRendererComponentProps])
+      as CustomRenderFunction<
           TestCustomRendererComponentProps,
           TestCustomRendererComponentState,
-          TestCustomRendererComponentComponent>?
-      get parameterizedCustomRenderer =>
-          (props[_$key__parameterizedCustomRenderer___$TestCustomRendererComponentProps] ??
-                  null)
-              as CustomRenderFunction<
-                  TestCustomRendererComponentProps,
-                  TestCustomRendererComponentState,
-                  TestCustomRendererComponentComponent>?;
+          TestCustomRendererComponentComponent>?;
 
   /// <!-- Generated from [_$TestCustomRendererComponentProps.parameterizedCustomRenderer] -->
   @override
-  set parameterizedCustomRenderer(
-          CustomRenderFunction<
-                  TestCustomRendererComponentProps,
-                  TestCustomRendererComponentState,
-                  TestCustomRendererComponentComponent>?
-              value) =>
-      props[_$key__parameterizedCustomRenderer___$TestCustomRendererComponentProps] =
-          value;
+  set parameterizedCustomRenderer(value) => props[
+          _$key__parameterizedCustomRenderer___$TestCustomRendererComponentProps] =
+      value;
 
   /// <!-- Generated from [_$TestCustomRendererComponentProps.somePropKey] -->
   @override
-  String? get somePropKey =>
-      (props[_$key__somePropKey___$TestCustomRendererComponentProps] ?? null)
+  get somePropKey =>
+      (props[_$key__somePropKey___$TestCustomRendererComponentProps])
           as String?;
 
   /// <!-- Generated from [_$TestCustomRendererComponentProps.somePropKey] -->
   @override
-  set somePropKey(String? value) =>
+  set somePropKey(value) =>
       props[_$key__somePropKey___$TestCustomRendererComponentProps] = value;
 
   /// <!-- Generated from [_$TestCustomRendererComponentProps.someInitialStateKeyValue] -->
   @override
-  String? get someInitialStateKeyValue => (props[
-          _$key__someInitialStateKeyValue___$TestCustomRendererComponentProps] ??
-      null) as String?;
+  get someInitialStateKeyValue => (props[
+          _$key__someInitialStateKeyValue___$TestCustomRendererComponentProps])
+      as String?;
 
   /// <!-- Generated from [_$TestCustomRendererComponentProps.someInitialStateKeyValue] -->
   @override
-  set someInitialStateKeyValue(String? value) => props[
+  set someInitialStateKeyValue(value) => props[
           _$key__someInitialStateKeyValue___$TestCustomRendererComponentProps] =
       value;
   /* GENERATED CONSTANTS */
@@ -1069,13 +1049,13 @@ abstract class _$TestCustomRendererComponentStateAccessorsMixin
 
   /// <!-- Generated from [_$TestCustomRendererComponentState.someStateKey] -->
   @override
-  String? get someStateKey =>
-      (state[_$key__someStateKey___$TestCustomRendererComponentState] ?? null)
+  get someStateKey =>
+      (state[_$key__someStateKey___$TestCustomRendererComponentState])
           as String?;
 
   /// <!-- Generated from [_$TestCustomRendererComponentState.someStateKey] -->
   @override
-  set someStateKey(String? value) =>
+  set someStateKey(value) =>
       state[_$key__someStateKey___$TestCustomRendererComponentState] = value;
   /* GENERATED CONSTANTS */
   static const StateDescriptor

@@ -25,36 +25,36 @@ abstract class _$TestCompositeComponentPropsAccessorsMixin
 
   /// <!-- Generated from [_$TestCompositeComponentProps.onComponentDidMount] -->
   @override
-  Function? get onComponentDidMount =>
-      (props[_$key__onComponentDidMount___$TestCompositeComponentProps] ?? null)
+  get onComponentDidMount =>
+      (props[_$key__onComponentDidMount___$TestCompositeComponentProps])
           as Function?;
 
   /// <!-- Generated from [_$TestCompositeComponentProps.onComponentDidMount] -->
   @override
-  set onComponentDidMount(Function? value) =>
+  set onComponentDidMount(value) =>
       props[_$key__onComponentDidMount___$TestCompositeComponentProps] = value;
 
   /// <!-- Generated from [_$TestCompositeComponentProps.onComponentWillUnmount] -->
   @override
-  Function? get onComponentWillUnmount =>
-      (props[_$key__onComponentWillUnmount___$TestCompositeComponentProps] ??
-          null) as Function?;
+  get onComponentWillUnmount =>
+      (props[_$key__onComponentWillUnmount___$TestCompositeComponentProps])
+          as Function?;
 
   /// <!-- Generated from [_$TestCompositeComponentProps.onComponentWillUnmount] -->
   @override
-  set onComponentWillUnmount(Function? value) =>
+  set onComponentWillUnmount(value) =>
       props[_$key__onComponentWillUnmount___$TestCompositeComponentProps] =
           value;
 
   /// <!-- Generated from [_$TestCompositeComponentProps.onComponentDidUpdate] -->
   @override
-  Function? get onComponentDidUpdate =>
-      (props[_$key__onComponentDidUpdate___$TestCompositeComponentProps] ??
-          null) as Function?;
+  get onComponentDidUpdate =>
+      (props[_$key__onComponentDidUpdate___$TestCompositeComponentProps])
+          as Function?;
 
   /// <!-- Generated from [_$TestCompositeComponentProps.onComponentDidUpdate] -->
   @override
-  set onComponentDidUpdate(Function? value) =>
+  set onComponentDidUpdate(value) =>
       props[_$key__onComponentDidUpdate___$TestCompositeComponentProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor

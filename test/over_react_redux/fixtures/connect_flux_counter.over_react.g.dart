@@ -25,78 +25,73 @@ abstract class _$ConnectFluxCounterPropsAccessorsMixin
 
   /// <!-- Generated from [_$ConnectFluxCounterProps.currentCount] -->
   @override
-  int? get currentCount =>
-      (props[_$key__currentCount___$ConnectFluxCounterProps] ?? null) as int?;
+  get currentCount =>
+      (props[_$key__currentCount___$ConnectFluxCounterProps]) as int?;
 
   /// <!-- Generated from [_$ConnectFluxCounterProps.currentCount] -->
   @override
-  set currentCount(int? value) =>
+  set currentCount(value) =>
       props[_$key__currentCount___$ConnectFluxCounterProps] = value;
 
   /// <!-- Generated from [_$ConnectFluxCounterProps.wrapperStyles] -->
   @override
-  Map<String, dynamic>? get wrapperStyles =>
-      (props[_$key__wrapperStyles___$ConnectFluxCounterProps] ?? null)
-          as Map<String, dynamic>?;
+  get wrapperStyles => (props[_$key__wrapperStyles___$ConnectFluxCounterProps])
+      as Map<String, dynamic>?;
 
   /// <!-- Generated from [_$ConnectFluxCounterProps.wrapperStyles] -->
   @override
-  set wrapperStyles(Map<String, dynamic>? value) =>
+  set wrapperStyles(value) =>
       props[_$key__wrapperStyles___$ConnectFluxCounterProps] = value;
 
   /// <!-- Generated from [_$ConnectFluxCounterProps.mutatedList] -->
   @override
-  List<String>? get mutatedList =>
-      (props[_$key__mutatedList___$ConnectFluxCounterProps] ?? null)
-          as List<String>?;
+  get mutatedList =>
+      (props[_$key__mutatedList___$ConnectFluxCounterProps]) as List<String>?;
 
   /// <!-- Generated from [_$ConnectFluxCounterProps.mutatedList] -->
   @override
-  set mutatedList(List<String>? value) =>
+  set mutatedList(value) =>
       props[_$key__mutatedList___$ConnectFluxCounterProps] = value;
 
   /// <!-- Generated from [_$ConnectFluxCounterProps.increment] -->
   @override
-  void Function()? get increment =>
-      (props[_$key__increment___$ConnectFluxCounterProps] ?? null) as void
-          Function()?;
+  get increment =>
+      (props[_$key__increment___$ConnectFluxCounterProps]) as void Function()?;
 
   /// <!-- Generated from [_$ConnectFluxCounterProps.increment] -->
   @override
-  set increment(void Function()? value) =>
+  set increment(value) =>
       props[_$key__increment___$ConnectFluxCounterProps] = value;
 
   /// <!-- Generated from [_$ConnectFluxCounterProps.decrement] -->
   @override
-  void Function()? get decrement =>
-      (props[_$key__decrement___$ConnectFluxCounterProps] ?? null) as void
-          Function()?;
+  get decrement =>
+      (props[_$key__decrement___$ConnectFluxCounterProps]) as void Function()?;
 
   /// <!-- Generated from [_$ConnectFluxCounterProps.decrement] -->
   @override
-  set decrement(void Function()? value) =>
+  set decrement(value) =>
       props[_$key__decrement___$ConnectFluxCounterProps] = value;
 
   /// <!-- Generated from [_$ConnectFluxCounterProps.mutateStoreDirectly] -->
   @override
-  void Function()? get mutateStoreDirectly =>
-      (props[_$key__mutateStoreDirectly___$ConnectFluxCounterProps] ?? null)
-          as void Function()?;
+  get mutateStoreDirectly =>
+      (props[_$key__mutateStoreDirectly___$ConnectFluxCounterProps]) as void
+          Function()?;
 
   /// <!-- Generated from [_$ConnectFluxCounterProps.mutateStoreDirectly] -->
   @override
-  set mutateStoreDirectly(void Function()? value) =>
+  set mutateStoreDirectly(value) =>
       props[_$key__mutateStoreDirectly___$ConnectFluxCounterProps] = value;
 
   /// <!-- Generated from [_$ConnectFluxCounterProps.actions] -->
   @override
-  FluxActions? get actions =>
-      (props[_$key__actions___$ConnectFluxCounterProps] ?? null)
-          as FluxActions?;
+  get actions =>
+      (props[_$key__actions___$ConnectFluxCounterProps]) as FluxActions?;
 
   /// <!-- Generated from [_$ConnectFluxCounterProps.actions] -->
   @override
-  set actions(FluxActions? value) =>
+  set actions(value) =>
       props[_$key__actions___$ConnectFluxCounterProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__currentCount___$ConnectFluxCounterProps =

@@ -28,16 +28,14 @@ abstract class _$ComponentTestPropsAccessorsMixin
   @Accessor(
       isRequired: true,
       requiredErrorMessage: 'This Prop is Required for testing purposes.')
-  dynamic get required =>
-      (props[_$key__required___$ComponentTestProps] ?? null) as dynamic;
+  get required => (props[_$key__required___$ComponentTestProps]) as dynamic;
 
   /// <!-- Generated from [_$ComponentTestProps.required] -->
   @override
   @Accessor(
       isRequired: true,
       requiredErrorMessage: 'This Prop is Required for testing purposes.')
-  set required(dynamic value) =>
-      props[_$key__required___$ComponentTestProps] = value;
+  set required(value) => props[_$key__required___$ComponentTestProps] = value;
 
   /// <!-- Generated from [_$ComponentTestProps.nullable] -->
   @override
@@ -45,8 +43,7 @@ abstract class _$ComponentTestPropsAccessorsMixin
       isRequired: true,
       isNullable: true,
       requiredErrorMessage: 'This prop can be set to null!')
-  dynamic get nullable =>
-      (props[_$key__nullable___$ComponentTestProps] ?? null) as dynamic;
+  get nullable => (props[_$key__nullable___$ComponentTestProps]) as dynamic;
 
   /// <!-- Generated from [_$ComponentTestProps.nullable] -->
   @override
@@ -54,12 +51,12 @@ abstract class _$ComponentTestPropsAccessorsMixin
       isRequired: true,
       isNullable: true,
       requiredErrorMessage: 'This prop can be set to null!')
-  set nullable(dynamic value) =>
-      props[_$key__nullable___$ComponentTestProps] = value;
+  set nullable(value) => props[_$key__nullable___$ComponentTestProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__required___$ComponentTestProps =
       PropDescriptor(_$key__required___$ComponentTestProps,
           isRequired: true,
+          isNullable: false,
           errorMessage: 'This Prop is Required for testing purposes.');
   static const PropDescriptor _$prop__nullable___$ComponentTestProps =
       PropDescriptor(_$key__nullable___$ComponentTestProps,

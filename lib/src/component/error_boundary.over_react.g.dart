@@ -247,56 +247,48 @@ class _$ErrorBoundaryComponent extends ErrorBoundaryComponent {
 mixin $ErrorBoundaryProps on ErrorBoundaryProps {
   static const PropsMeta meta = _$metaForErrorBoundaryProps;
   @override
-  Function(dynamic error, ReactErrorInfo info)? get onComponentDidCatch =>
-      (props[_$key__onComponentDidCatch__ErrorBoundaryProps] ?? null)
-          as Function(dynamic error, ReactErrorInfo info)?;
+  get onComponentDidCatch =>
+      (props[_$key__onComponentDidCatch__ErrorBoundaryProps]) as Function(
+          dynamic error, ReactErrorInfo info)?;
   @override
-  set onComponentDidCatch(
-          Function(dynamic error, ReactErrorInfo info)? value) =>
+  set onComponentDidCatch(value) =>
       props[_$key__onComponentDidCatch__ErrorBoundaryProps] = value;
   @override
-  Function(dynamic error, ReactErrorInfo info)?
-      get onComponentIsUnrecoverable =>
-          (props[_$key__onComponentIsUnrecoverable__ErrorBoundaryProps] ?? null)
-              as Function(dynamic error, ReactErrorInfo info)?;
+  get onComponentIsUnrecoverable =>
+      (props[_$key__onComponentIsUnrecoverable__ErrorBoundaryProps])
+          as Function(dynamic error, ReactErrorInfo info)?;
   @override
-  set onComponentIsUnrecoverable(
-          Function(dynamic error, ReactErrorInfo info)? value) =>
+  set onComponentIsUnrecoverable(value) =>
       props[_$key__onComponentIsUnrecoverable__ErrorBoundaryProps] = value;
   @override
-  ReactElement? Function(dynamic error, ReactErrorInfo? info)?
-      get fallbackUIRenderer =>
-          (props[_$key__fallbackUIRenderer__ErrorBoundaryProps] ?? null)
-              as ReactElement? Function(dynamic error, ReactErrorInfo? info)?;
+  get fallbackUIRenderer =>
+      (props[_$key__fallbackUIRenderer__ErrorBoundaryProps]) as ReactElement?
+          Function(dynamic error, ReactErrorInfo? info)?;
   @override
-  set fallbackUIRenderer(
-          ReactElement? Function(dynamic error, ReactErrorInfo? info)? value) =>
+  set fallbackUIRenderer(value) =>
       props[_$key__fallbackUIRenderer__ErrorBoundaryProps] = value;
   @override
-  Duration? get identicalErrorFrequencyTolerance =>
-      (props[_$key__identicalErrorFrequencyTolerance__ErrorBoundaryProps] ??
-          null) as Duration?;
+  get identicalErrorFrequencyTolerance =>
+      (props[_$key__identicalErrorFrequencyTolerance__ErrorBoundaryProps])
+          as Duration?;
   @override
-  set identicalErrorFrequencyTolerance(Duration? value) =>
+  set identicalErrorFrequencyTolerance(value) =>
       props[_$key__identicalErrorFrequencyTolerance__ErrorBoundaryProps] =
           value;
   @override
-  String? get loggerName =>
-      (props[_$key__loggerName__ErrorBoundaryProps] ?? null) as String?;
+  get loggerName => (props[_$key__loggerName__ErrorBoundaryProps]) as String?;
   @override
-  set loggerName(String? value) =>
-      props[_$key__loggerName__ErrorBoundaryProps] = value;
+  set loggerName(value) => props[_$key__loggerName__ErrorBoundaryProps] = value;
   @override
-  bool? get shouldLogErrors =>
-      (props[_$key__shouldLogErrors__ErrorBoundaryProps] ?? null) as bool?;
+  get shouldLogErrors =>
+      (props[_$key__shouldLogErrors__ErrorBoundaryProps]) as bool?;
   @override
-  set shouldLogErrors(bool? value) =>
+  set shouldLogErrors(value) =>
       props[_$key__shouldLogErrors__ErrorBoundaryProps] = value;
   @override
-  Logger? get logger =>
-      (props[_$key__logger__ErrorBoundaryProps] ?? null) as Logger?;
+  get logger => (props[_$key__logger__ErrorBoundaryProps]) as Logger?;
   @override
-  set logger(Logger? value) => props[_$key__logger__ErrorBoundaryProps] = value;
+  set logger(value) => props[_$key__logger__ErrorBoundaryProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__onComponentDidCatch__ErrorBoundaryProps =
       PropDescriptor(_$key__onComponentDidCatch__ErrorBoundaryProps);
@@ -365,17 +357,14 @@ const PropsMeta _$metaForErrorBoundaryProps = PropsMeta(
 mixin $ErrorBoundaryState on ErrorBoundaryState {
   static const StateMeta meta = _$metaForErrorBoundaryState;
   @override
-  bool? get hasError =>
-      (state[_$key__hasError__ErrorBoundaryState] ?? null) as bool?;
+  get hasError => (state[_$key__hasError__ErrorBoundaryState]) as bool?;
   @override
-  set hasError(bool? value) =>
-      state[_$key__hasError__ErrorBoundaryState] = value;
+  set hasError(value) => state[_$key__hasError__ErrorBoundaryState] = value;
   @override
-  bool? get showFallbackUIOnError =>
-      (state[_$key__showFallbackUIOnError__ErrorBoundaryState] ?? null)
-          as bool?;
+  get showFallbackUIOnError =>
+      (state[_$key__showFallbackUIOnError__ErrorBoundaryState]) as bool?;
   @override
-  set showFallbackUIOnError(bool? value) =>
+  set showFallbackUIOnError(value) =>
       state[_$key__showFallbackUIOnError__ErrorBoundaryState] = value;
   /* GENERATED CONSTANTS */
   static const StateDescriptor _$prop__hasError__ErrorBoundaryState =

@@ -26,49 +26,47 @@ abstract class _$ComponentTestPropsAccessorsMixin
   /// <!-- Generated from [_$ComponentTestProps.required] -->
   @override
   @requiredProp
-  dynamic get required =>
-      (props[_$key__required___$ComponentTestProps] ?? null) as dynamic;
+  get required => (props[_$key__required___$ComponentTestProps]) as dynamic;
 
   /// <!-- Generated from [_$ComponentTestProps.required] -->
   @override
   @requiredProp
-  set required(dynamic value) =>
-      props[_$key__required___$ComponentTestProps] = value;
+  set required(value) => props[_$key__required___$ComponentTestProps] = value;
 
   /// <!-- Generated from [_$ComponentTestProps.nullable] -->
   @override
   @nullableRequiredProp
-  dynamic get nullable =>
-      (props[_$key__nullable___$ComponentTestProps] ?? null) as dynamic;
+  get nullable => (props[_$key__nullable___$ComponentTestProps]) as dynamic;
 
   /// <!-- Generated from [_$ComponentTestProps.nullable] -->
   @override
   @nullableRequiredProp
-  set nullable(dynamic value) =>
-      props[_$key__nullable___$ComponentTestProps] = value;
+  set nullable(value) => props[_$key__nullable___$ComponentTestProps] = value;
 
   /// <!-- Generated from [_$ComponentTestProps.requiredAndLengthLimited] -->
   @override
   @requiredProp
-  List? get requiredAndLengthLimited =>
-      (props[_$key__requiredAndLengthLimited___$ComponentTestProps] ?? null)
-          as List?;
+  get requiredAndLengthLimited =>
+      (props[_$key__requiredAndLengthLimited___$ComponentTestProps]) as List?;
 
   /// <!-- Generated from [_$ComponentTestProps.requiredAndLengthLimited] -->
   @override
   @requiredProp
-  set requiredAndLengthLimited(List? value) =>
+  set requiredAndLengthLimited(value) =>
       props[_$key__requiredAndLengthLimited___$ComponentTestProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__required___$ComponentTestProps =
-      PropDescriptor(_$key__required___$ComponentTestProps, isRequired: true);
+      PropDescriptor(_$key__required___$ComponentTestProps,
+          isRequired: true, isNullable: false, errorMessage: '');
   static const PropDescriptor _$prop__nullable___$ComponentTestProps =
       PropDescriptor(_$key__nullable___$ComponentTestProps,
-          isRequired: true, isNullable: true);
+          isRequired: true, isNullable: true, errorMessage: '');
   static const PropDescriptor
       _$prop__requiredAndLengthLimited___$ComponentTestProps = PropDescriptor(
           _$key__requiredAndLengthLimited___$ComponentTestProps,
-          isRequired: true);
+          isRequired: true,
+          isNullable: false,
+          errorMessage: '');
   static const String _$key__required___$ComponentTestProps =
       'ComponentTestProps.required';
   static const String _$key__nullable___$ComponentTestProps =

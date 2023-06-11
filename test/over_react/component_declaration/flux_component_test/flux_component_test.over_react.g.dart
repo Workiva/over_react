@@ -295,18 +295,18 @@ abstract class _$TestPropValidationPropsAccessorsMixin
   /// <!-- Generated from [_$TestPropValidationProps.required] -->
   @override
   @requiredProp
-  String? get required =>
-      (props[_$key__required___$TestPropValidationProps] ?? null) as String?;
+  get required =>
+      (props[_$key__required___$TestPropValidationProps]) as String?;
 
   /// <!-- Generated from [_$TestPropValidationProps.required] -->
   @override
   @requiredProp
-  set required(String? value) =>
+  set required(value) =>
       props[_$key__required___$TestPropValidationProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__required___$TestPropValidationProps =
       PropDescriptor(_$key__required___$TestPropValidationProps,
-          isRequired: true);
+          isRequired: true, isNullable: false, errorMessage: '');
   static const String _$key__required___$TestPropValidationProps =
       'TestPropValidationProps.required';
 
@@ -1009,21 +1009,22 @@ abstract class _$TestStatefulPropValidationPropsAccessorsMixin
   @override
   @override
   @requiredProp
-  String? get required =>
-      (props[_$key__required___$TestStatefulPropValidationProps] ?? null)
-          as String?;
+  get required =>
+      (props[_$key__required___$TestStatefulPropValidationProps]) as String?;
 
   /// <!-- Generated from [_$TestStatefulPropValidationProps.required] -->
   @override
   @override
   @requiredProp
-  set required(String? value) =>
+  set required(value) =>
       props[_$key__required___$TestStatefulPropValidationProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor
       _$prop__required___$TestStatefulPropValidationProps = PropDescriptor(
           _$key__required___$TestStatefulPropValidationProps,
-          isRequired: true);
+          isRequired: true,
+          isNullable: false,
+          errorMessage: '');
   static const String _$key__required___$TestStatefulPropValidationProps =
       'TestStatefulPropValidationProps.required';
 

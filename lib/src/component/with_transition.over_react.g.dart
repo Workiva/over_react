@@ -253,24 +253,21 @@ class _$WithTransitionComponent extends WithTransitionComponent {
 mixin $WithTransitionPropsMixin on WithTransitionPropsMixin {
   static const PropsMeta meta = _$metaForWithTransitionPropsMixin;
   @override
-  bool? get isShown =>
-      (props[_$key__isShown__WithTransitionPropsMixin] ?? null) as bool?;
+  get isShown => (props[_$key__isShown__WithTransitionPropsMixin]) as bool?;
   @override
-  set isShown(bool? value) =>
-      props[_$key__isShown__WithTransitionPropsMixin] = value;
+  set isShown(value) => props[_$key__isShown__WithTransitionPropsMixin] = value;
   @override
-  Map<TransitionPhase, Map?>? get childPropsByPhase =>
-      (props[_$key__childPropsByPhase__WithTransitionPropsMixin] ?? null)
+  get childPropsByPhase =>
+      (props[_$key__childPropsByPhase__WithTransitionPropsMixin])
           as Map<TransitionPhase, Map?>?;
   @override
-  set childPropsByPhase(Map<TransitionPhase, Map?>? value) =>
+  set childPropsByPhase(value) =>
       props[_$key__childPropsByPhase__WithTransitionPropsMixin] = value;
   @override
-  Duration? get transitionTimeout =>
-      (props[_$key__transitionTimeout__WithTransitionPropsMixin] ?? null)
-          as Duration?;
+  get transitionTimeout =>
+      (props[_$key__transitionTimeout__WithTransitionPropsMixin]) as Duration?;
   @override
-  set transitionTimeout(Duration? value) =>
+  set transitionTimeout(value) =>
       props[_$key__transitionTimeout__WithTransitionPropsMixin] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__isShown__WithTransitionPropsMixin =
@@ -315,12 +312,11 @@ mixin $WithTransitionState on WithTransitionState {
   static const StateMeta meta = _$metaForWithTransitionState;
   @override
   @protected
-  TransitionPhase? get $transitionPhase =>
-      (state[_$key__$transitionPhase__WithTransitionState] ?? null)
-          as TransitionPhase?;
+  get $transitionPhase =>
+      (state[_$key__$transitionPhase__WithTransitionState]) as TransitionPhase?;
   @override
   @protected
-  set $transitionPhase(TransitionPhase? value) =>
+  set $transitionPhase(value) =>
       state[_$key__$transitionPhase__WithTransitionState] = value;
   /* GENERATED CONSTANTS */
   static const StateDescriptor _$prop__$transitionPhase__WithTransitionState =

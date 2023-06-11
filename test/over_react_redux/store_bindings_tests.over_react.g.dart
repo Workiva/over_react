@@ -14,19 +14,15 @@ part of 'store_bindings_tests.dart';
 mixin $TestSelectorProps on TestSelectorProps {
   static const PropsMeta meta = _$metaForTestSelectorProps;
   @override
-  void Function(Object? selectedValue)? get onRender =>
-      (props[_$key__onRender__TestSelectorProps] ?? null) as void Function(
-          Object? selectedValue)?;
+  get onRender => (props[_$key__onRender__TestSelectorProps]) as void Function(
+      Object? selectedValue)?;
   @override
-  set onRender(void Function(Object? selectedValue)? value) =>
-      props[_$key__onRender__TestSelectorProps] = value;
+  set onRender(value) => props[_$key__onRender__TestSelectorProps] = value;
   @override
-  bool Function(dynamic next, dynamic prev)? get equality =>
-      (props[_$key__equality__TestSelectorProps] ?? null) as bool Function(
-          dynamic next, dynamic prev)?;
+  get equality => (props[_$key__equality__TestSelectorProps]) as bool Function(
+      dynamic next, dynamic prev)?;
   @override
-  set equality(bool Function(dynamic next, dynamic prev)? value) =>
-      props[_$key__equality__TestSelectorProps] = value;
+  set equality(value) => props[_$key__equality__TestSelectorProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__onRender__TestSelectorProps =
       PropDescriptor(_$key__onRender__TestSelectorProps);
@@ -61,11 +57,10 @@ const PropsMeta _$metaForTestSelectorProps = PropsMeta(
 mixin $TestConnectPropsMixin on TestConnectPropsMixin {
   static const PropsMeta meta = _$metaForTestConnectPropsMixin;
   @override
-  Object? get interestingValue =>
-      (props[_$key__interestingValue__TestConnectPropsMixin] ?? null)
-          as Object?;
+  get interestingValue =>
+      (props[_$key__interestingValue__TestConnectPropsMixin]) as Object?;
   @override
-  set interestingValue(Object? value) =>
+  set interestingValue(value) =>
       props[_$key__interestingValue__TestConnectPropsMixin] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__interestingValue__TestConnectPropsMixin =

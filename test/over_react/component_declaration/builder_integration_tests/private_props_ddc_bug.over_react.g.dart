@@ -24,13 +24,11 @@ abstract class _$FooPropsAccessorsMixin implements _$FooProps {
 
   /// <!-- Generated from [_$FooProps._privateProp] -->
   @override
-  String? get _privateProp =>
-      (props[_$key___privateProp___$FooProps] ?? null) as String?;
+  get _privateProp => (props[_$key___privateProp___$FooProps]) as String?;
 
   /// <!-- Generated from [_$FooProps._privateProp] -->
   @override
-  set _privateProp(String? value) =>
-      props[_$key___privateProp___$FooProps] = value;
+  set _privateProp(value) => props[_$key___privateProp___$FooProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop___privateProp___$FooProps =
       PropDescriptor(_$key___privateProp___$FooProps);

@@ -23,8 +23,7 @@ abstract class ConnectPropsMixin implements _$ConnectPropsMixin {
   set dispatch(value) => props[_$key__dispatch___$ConnectPropsMixin] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__dispatch___$ConnectPropsMixin =
-      PropDescriptor(_$key__dispatch___$ConnectPropsMixin,
-          isRequired: false, isNullable: true, errorMessage: '');
+      PropDescriptor(_$key__dispatch___$ConnectPropsMixin);
   static const String _$key__dispatch___$ConnectPropsMixin = 'dispatch';
 
   static const List<PropDescriptor> $props = [
@@ -54,11 +53,9 @@ mixin $ReduxProviderPropsMixin on ReduxProviderPropsMixin {
   set context(value) => props[_$key__context__ReduxProviderPropsMixin] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__store__ReduxProviderPropsMixin =
-      PropDescriptor(_$key__store__ReduxProviderPropsMixin,
-          isRequired: false, isNullable: true, errorMessage: '');
+      PropDescriptor(_$key__store__ReduxProviderPropsMixin);
   static const PropDescriptor _$prop__context__ReduxProviderPropsMixin =
-      PropDescriptor(_$key__context__ReduxProviderPropsMixin,
-          isRequired: false, isNullable: true, errorMessage: '');
+      PropDescriptor(_$key__context__ReduxProviderPropsMixin);
   static const String _$key__store__ReduxProviderPropsMixin = 'store';
   static const String _$key__context__ReduxProviderPropsMixin = 'context';
 
