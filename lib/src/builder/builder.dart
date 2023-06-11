@@ -99,11 +99,14 @@ class OverReactBuilder extends Builder {
       //
 
       // FIXME parse from pubspec; figure out how to read that
-      var nullSafety = true;
+      bool nullSafety;
       final languageVersionToken = unit.languageVersionToken;
       if (languageVersionToken != null) {
         nullSafety = languageVersionToken.major > 2 ||
             (languageVersionToken.major == 2 && languageVersionToken.minor >= 12);
+      } else {
+        // During development, only enable null safety by default for over_react.
+        nullSafety = id.package == 'over_react';
       }
 
       final generator = ImplGenerator(log, sourceFile, nullSafety: nullSafety);
