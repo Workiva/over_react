@@ -228,9 +228,11 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
               span: getSpan(sourceFile!, field)));
         }
 
-        constantValue += ', isRequired: $isRequired';
-        constantValue += ', isNullable: $isPotentiallyNullable';
-        constantValue += ', errorMessage: ${stringLiteral(requiredErrorMessage)}';
+        if (isRequired) {
+          constantValue += ', isRequired: $isRequired';
+          constantValue += ', isNullable: $isPotentiallyNullable';
+          constantValue += ', errorMessage: ${stringLiteral(requiredErrorMessage)}';
+        }
         constantValue += ')';
 
         keyConstants[keyConstantName] = keyValue;
