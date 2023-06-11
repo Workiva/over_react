@@ -99,7 +99,7 @@ class OverReactBuilder extends Builder {
       //
 
       // FIXME parse from pubspec; figure out how to read that
-      var nullSafety = false;
+      var nullSafety = true;
       final languageVersionToken = unit.languageVersionToken;
       if (languageVersionToken != null) {
         nullSafety = languageVersionToken.major > 2 ||
