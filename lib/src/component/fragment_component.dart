@@ -12,32 +12,21 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:over_react/src/component_declaration/builder_helpers.dart'
-    as builder_helpers;
-import 'package:react/react_client.dart';
-import 'package:react/react_client/js_backed_map.dart';
+
+import 'package:over_react/src/util/js_component.dart';
 import 'package:react/react.dart' as react;
+import 'package:react/react_client/js_backed_map.dart';
 
-class FragmentProps extends builder_helpers.UiProps {
-  // Initialize to a JsBackedMap so that copying can be optimized
-  // when converting props during ReactElement creation.
-  FragmentProps([Map? props]) : this.props = props ?? JsBackedMap();
+import '../component_declaration/builder_helpers.dart';
+import '../component_declaration/function_component.dart';
 
-  @override
-  ReactComponentFactoryProxy? componentFactory = react.Fragment;
+part 'fragment_component.over_react.g.dart';
 
-  @override
-  final Map props;
-
-  @override
-  String get propKeyNamespace => '';
-
-  @override
-  bool get $isClassGenerated => true;
-}
+@Props(keyNamespace: '')
+class FragmentProps extends UiProps {}
 
 /// Fragment component that allows the wrapping of children without the necessity of using
 /// an element that adds an additional layer to the DOM (div, span, etc).
 ///
 /// See: <https://reactjs.org/docs/fragments.html>
-FragmentProps Fragment([Map? backingMap]) => FragmentProps(backingMap);
+final UiFactory<FragmentProps> Fragment = uiJsComponent(react.Fragment, _$FragmentConfig);

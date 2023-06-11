@@ -22,9 +22,11 @@ import 'package:over_react/component_base.dart';
 import 'package:over_react/src/component_declaration/annotations.dart';
 import 'package:over_react/src/component_declaration/builder_helpers.dart' as builder_helpers;
 import 'package:over_react/src/component_declaration/component_type_checking.dart';
+import 'package:over_react/src/component_declaration/function_component.dart';
 import 'package:over_react/src/util/context.dart';
 import 'package:over_react/src/util/dart_value_wrapper.dart';
 import 'package:over_react/src/util/equality.dart';
+import 'package:over_react/src/util/js_component.dart';
 import 'package:react/react_client.dart';
 import 'package:react/react_client/js_backed_map.dart';
 import 'package:react/react_client/react_interop.dart';
@@ -422,6 +424,15 @@ class JsReactRedux {
   external static ReactContext get ReactReduxContext;
 }
 
+@Props(keyNamespace: '')
+mixin ReduxProviderPropsMixin on UiProps {
+  /// The __single__ Redux store in your application.
+  Store? store;
+
+  /// You may provide a context instance. If you do so, you will need to provide the same context
+  /// instance to all of your connected components as well.
+  dynamic context;
+}
 
 /// [ReduxProviderProps] is a typed props class for [ReduxProvider].
 ///
@@ -430,42 +441,17 @@ class JsReactRedux {
 /// [context] You may provide a context instance. If you do so, you will need to provide the same context instance to all of your connected components as well.
 ///
 /// See: <https://react-redux.js.org/api/provider>
-class ReduxProviderProps extends builder_helpers.UiProps {
-  ReduxProviderProps([Map? props]) : this.props = props ?? JsBackedMap();
-
-  @override
-  final Map props;
-
-  @override
-  ReactComponentFactoryProxy get componentFactory => ReactJsReactReduxComponentFactoryProxy(JsReactRedux.Provider, isProvider: true);
-
-  @override
-  String get propKeyNamespace => '';
-
-  @override
-  bool get $isClassGenerated => true;
-
-  /// The __single__ Redux store in your application.
-  Store? get store => props['store'] as Store?;
-
-  /// The __single__ Redux store in your application.
-  set store(covariant Store? v) => props['store'] = v;
-
-  /// You may provide a context instance. If you do so, you will need to provide the same context
-  /// instance to all of your connected components as well.
-  dynamic get context => props['context'];
-
-  /// You may provide a context instance. If you do so, you will need to provide the same context
-  /// instance to all of your connected components as well.
-  set context(covariant dynamic v) => props['context'] = v;
-}
+class ReduxProviderProps = builder_helpers.UiProps with ReduxProviderPropsMixin;
 
 /// [ReduxProvider] makes the store available to any nested components that have been wrapped in the `connect()` function.
 ///
 /// You cannot use a connected component unless it is nested inside of a ReduxProvider.
 ///
 /// See: <https://react-redux.js.org/api/provider>
-UiFactory<ReduxProviderProps> ReduxProvider = ([map]) => ReduxProviderProps(map); // ignore: prefer_function_declarations_over_variables
+UiFactory<ReduxProviderProps> ReduxProvider = uiJsComponent(
+    ReactJsReactReduxComponentFactoryProxy(JsReactRedux.Provider, isProvider: true),
+    _$ReduxProviderConfig,
+);
 
 class ReactJsReactReduxComponentFactoryProxy extends ReactJsContextComponentFactoryProxy {
   ReactJsReactReduxComponentFactoryProxy(
