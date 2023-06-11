@@ -190,39 +190,47 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
 
         var annotationCount = 0;
 
+        var isRequired = false;
+        var isPotentiallyNullable = true;
+        var requiredErrorMessage = '';
+
+        if (variable.isLate) {
+          annotationCount++;
+          isRequired = true;
+          isPotentiallyNullable = true;
+        }
+
         if (accessorMeta != null) {
           annotationCount++;
 
           if (accessorMeta.isRequired) {
-            constantValue += ', isRequired: true';
-
-            if (accessorMeta.isNullable) constantValue += ', isNullable: true';
-
-            if (accessorMeta.requiredErrorMessage != null &&
-                accessorMeta.requiredErrorMessage!.isNotEmpty) {
-              constantValue +=
-                  ', errorMessage: ${stringLiteral(accessorMeta.requiredErrorMessage)}';
-            }
+            isRequired = true;
+            isPotentiallyNullable = accessorMeta.isNullable;
+            requiredErrorMessage = accessorMeta.requiredErrorMessage ?? '';
           }
         }
 
         if (requiredProp != null) {
           annotationCount++;
-          constantValue += ', isRequired: true';
+          isRequired = true;
+          isPotentiallyNullable = false;
         }
 
         if (nullableRequiredProp != null) {
-          annotationCount++;
-          constantValue += ', isRequired: true, isNullable: true';
+          isRequired = true;
+          isPotentiallyNullable = true;
         }
 
         if (annotationCount > 1) {
           logger!.severe(messageWithSpan(
-              '@requiredProp/@nullableProp/@Accessor cannot be used together.\n'
+              'late/@requiredProp/@nullableProp/@Accessor cannot be used together.\n'
               'You can use `@Accessor(isRequired: true)` or `isNullable: true` instead of the shorthand versions.',
               span: getSpan(sourceFile!, field)));
         }
 
+        constantValue += ', isRequired: $isRequired';
+        constantValue += ', isNullable: $isPotentiallyNullable';
+        constantValue += ', errorMessage: ${stringLiteral(requiredErrorMessage)}';
         constantValue += ')';
 
         keyConstants[keyConstantName] = keyValue;
