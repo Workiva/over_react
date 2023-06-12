@@ -169,6 +169,9 @@ class GenericUiProps extends UiProps {
 
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  PropsMetaCollection get staticMeta => const PropsMetaCollection({});
 }
 
 /// Helper class used to keep track of generated information for [uiFunction].

@@ -14,14 +14,14 @@
 
 library over_react.component_declaration.builder_helpers;
 
-import '../../component_base.dart';
+import 'package:meta/meta.dart';
 import '../../over_react.dart';
 import './component_base.dart' as component_base;
 import './annotations.dart' as annotations;
 
 export './annotations.dart';
 export './component_base.dart'
-    hide UiComponent, UiStatefulComponent, UiProps, UiState;
+    hide UiComponent, UiStatefulComponent, UiProps, UiState, CachedRequiredProps$PropsMeta;
 
 // ----------------------------------------------------------------------
 //   Base classes to be used by pre-generated code that stub out
@@ -132,6 +132,65 @@ abstract class UiProps extends component_base.UiProps with GeneratedClass {
   /// This can be used to derive consumed props by usage in conjunction with [addUnconsumedProps]
   /// and [addUnconsumedDomProps].
   @toBeGenerated PropsMetaCollection get staticMeta => throw UngeneratedError(member: #meta);
+
+  @override
+  @protected
+  @nonVirtual
+  void validateRequiredProps() {
+    List<PropDescriptor>? missingRequiredProps;
+    List<PropDescriptor>? nullNonNullableRequiredProps;
+
+    // for (final meta in staticMeta.all) {
+    //   for (final prop in meta.props) {
+    //     if (prop.isRequired) {
+    for (final prop in staticMeta.cachedRequiredProps) {
+      if (prop.isNullable) {
+        if (!props.containsKey(prop.key)) {
+          (missingRequiredProps ??= []).add(prop);
+        }
+      } else {
+        // Avoid looking up the key twice.
+        if (props[prop.key] == null) {
+          if (props.containsKey(prop.key)) {
+            (nullNonNullableRequiredProps ??= []).add(prop);
+          } else {
+            (missingRequiredProps ??= []).add(prop);
+          }
+        }
+      }
+    }
+
+    if (missingRequiredProps == null && nullNonNullableRequiredProps == null) {
+      return;
+    }
+
+    String formatPropKey(String propKey) => '`$propKey`';
+
+    final messageSegments = <String>[];
+    if (missingRequiredProps != null) {
+      messageSegments.add('Required props are missing: ${missingRequiredProps.map((prop) {
+        var propMessage = formatPropKey(prop.key);
+        if (prop.isNullable) propMessage += ' (can be null, but must be specified)';
+        return propMessage;
+      }).join(' ,')}.');
+    }
+    if (nullNonNullableRequiredProps != null) {
+      messageSegments
+          .add('Required non-nullable props are null: ${nullNonNullableRequiredProps.map((prop) {
+        return formatPropKey(prop.key);
+      }).join(' ,')}.');
+    }
+    throw MissingRequiredPropsError(messageSegments.join(' '));
+  }
+}
+
+class MissingRequiredPropsError {
+  final String _message;
+
+  MissingRequiredPropsError(this._message);
+
+  @override
+  String toString() => 'RequiredPropsError: $_message';
 }
 
 /// A [dart.collection.MapView]-like class with strongly-typed getters/setters for React state.

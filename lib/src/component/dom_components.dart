@@ -57,6 +57,9 @@ class DomProps extends builder_helpers.UiProps with DomPropsMixin {
 
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  builder_helpers.PropsMetaCollection get staticMeta => const builder_helpers.PropsMetaCollection({});
 }
 
 // Include pieces from builder_helpers so that consumers can type these instances
@@ -78,6 +81,9 @@ class SvgProps extends builder_helpers.UiProps with DomPropsMixin, SvgPropsMixin
 
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  builder_helpers.PropsMetaCollection get staticMeta => const builder_helpers.PropsMetaCollection({});
 }
 
 /// A class that provides namespacing for static DOM component factory methods, much like `React.DOM` in React JS.

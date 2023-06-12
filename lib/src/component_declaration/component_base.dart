@@ -623,6 +623,12 @@ abstract class UiProps extends MapBase
 
     assert(_validateChildren(childArguments.length == 1 ? childArguments.single : childArguments));
 
+    // FIXME not sure if validation should happen here or at render. Also need to add escape-hatch to opt out
+    assert(() {
+      validateRequiredProps();
+      return true;
+    }());
+
     // Use `build` instead of using emulated function behavior to work around DDC issue
     // https://github.com/dart-lang/sdk/issues/29904
     // Should have the benefit of better performance;
@@ -663,6 +669,9 @@ abstract class UiProps extends MapBase
       // ignore: deprecated_member_use
       ? (componentFactory as ReactDartComponentFactoryProxy).defaultProps
       : const {};
+
+  @protected
+  void validateRequiredProps() {}
 }
 
 /// A class that declares the `_map` getter shared by [PropsMapViewMixin]/[StateMapViewMixin] and [MapViewMixin].
@@ -971,4 +980,13 @@ class PropsMetaCollection extends _AccessorMetaCollection<PropDescriptor, PropsM
 
   @override
   List<PropDescriptor> get props => fields;
+
+}
+
+@internal
+extension CachedRequiredProps$PropsMeta on PropsMeta {
+  static final _cachedRequiredProps = Expando<List<PropDescriptor>>();
+  List<PropDescriptor> get cachedRequiredProps => _cachedRequiredProps[this] ??= _requiredProps;
+
+  List<PropDescriptor> get _requiredProps => props.where((p) => p.isRequired).toList(growable: false);
 }
