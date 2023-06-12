@@ -28,24 +28,24 @@ String getPropKey<T extends Map>(void Function(T keySpy) accessProp, T Function(
 }
 
 dynamic _getKey(void Function(Map keySpy) accessKey) {
-  var keySpy = _SingleKeyAccessMapSpy(const {});
-
-  accessKey(keySpy);
-
+  final keySpy = _SingleKeyAccessMapSpy();
+  // When they access a key, _SingleKeyAccessMapSpy will throw a KeyAccessedException.
+  try {
+    accessKey(keySpy);
+  } on KeyAccessedException catch (e) {
+    return e.key;
+  }
+  // Edge-case: they caught our exception; attempt to still return the caught key.
   return keySpy.key;
 }
 
 /// Helper class that stores the key accessed while getting a value within a Map.
-class _SingleKeyAccessMapSpy extends MapView {
-  _SingleKeyAccessMapSpy(Map map) : super(map);
-
+class _SingleKeyAccessMapSpy extends MapBase {
   bool _hasBeenAccessed = false;
-
-  dynamic _key;
+  Object? _key;
 
   dynamic get key {
     if (!_hasBeenAccessed) throw StateError('Key has not been accessed.');
-
     return _key;
   }
 
@@ -56,6 +56,29 @@ class _SingleKeyAccessMapSpy extends MapView {
     _key = key;
     _hasBeenAccessed = true;
 
-    return null;
+    // Throw an exception to ourselves, so that we don't trigger any type errors caused by
+    // returning null here.
+    throw KeyAccessedException(key);
   }
+
+  static UnsupportedError _unsupportedReadError() => UnsupportedError('Mutating this map is not supported; only read from it.');
+
+  @override
+  void operator []=(key, value) => throw _unsupportedReadError();
+
+  @override
+  void clear() => throw _unsupportedReadError();
+
+  @override
+  Iterable get keys => const [];
+
+  @override
+  remove(Object? key) => throw _unsupportedReadError();
+}
+
+// FIXME document, add test cases (especially for non-nullable props).
+class KeyAccessedException {
+  final Object? key;
+
+  KeyAccessedException(this.key);
 }
