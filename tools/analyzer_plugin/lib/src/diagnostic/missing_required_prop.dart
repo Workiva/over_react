@@ -1,7 +1,11 @@
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/type.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/analyzer_debug_helper.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/doc_utils/maturity.dart';
+import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
+
+import '../fluent_interface_util.dart';
 
 const _desc = r'Avoid omitting props that are required.';
 // <editor-fold desc="Documentation Details">
@@ -52,82 +56,117 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
   @DocsMeta(_desc, details: _details, maturity: Maturity.experimental)
   static const code = DiagnosticCode(
     'over_react_required_prop',
-    'The prop {0} is required.',
-    AnalysisErrorSeverity.INFO,
+    "{0}",
+    AnalysisErrorSeverity.WARNING,
     AnalysisErrorType.STATIC_WARNING,
   );
 
   @override
   List<DiagnosticCode> get codes => [code];
 
-  static final fixKind = FixKind(code.name, 200, 'Add required prop \'{0}\'');
+  static final fixKind = FixKind(code.name, 200, "{0}");
 
-  ClassElement? _cachedAccessorClass;
+  static final _debugCommentPattern = getDebugCommentPattern('over_react_required_props');
+
+  // final debugHelper = AnalyzerDebugHelper(result, collector, enabled: _debugCommentPattern.hasMatch(result.content));
 
   @override
   computeErrorsForUsage(result, collector, usage) async {
-    final requiredFields = <FieldElement>[];
+    final requiredFieldsByName = <String, FieldElement>{};
 
     // FIXME this almost definitely needs optimization/caching
 
     var builderType = usage.builder.staticType;
     // Handle generic factories (todo might not be needed)
-    while (builderType is TypeParameterType) {
-      builderType = builderType.bound;
+    if (builderType is TypeParameterType) {
+      builderType = builderType.typeOrBound;
     }
 
     // todo check if factory invocation
     if (builderType is InterfaceType && builderType.element.name != 'UiProps') {
-      final classAndSuperclasses = [builderType.element, ...builderType.element.allSupertypes.map((t) => t.element)];
-      final allFields = classAndSuperclasses.expand((c) => c.fields);
-      for (final field in allFields) {
-        if (requiredFields.any((requiredField) => requiredField.name == field.name)) {
+      for (final propField in builderType.element.allProps) {
+        if (requiredFieldsByName.containsKey(propField.name)) {
           // Short-circuit if we've already identified this field as required.
           // There might be duplicates if props are overridden, and there will
           // definitely be duplicates in the builder-generated code.
           continue;
         }
 
-        if (field.metadata.any((annotation) {
-          // Common case, might be good to short circuit here for perf
-          if (annotation.isOverride) return false;
-
-          final value = annotation.computeConstantValue();
-          if (value == null) return false;
-
-          final type = value.type;
-          if (type == null) return false;
-
-          final typeLibrary = type.element?.library;
-          if (typeLibrary == null || typeLibrary.name != 'over_react.component_declaration.annotations') {
-            return false;
-          }
-
-          // ignore: unnecessary_parenthesis
-          final accessorClass = (_cachedAccessorClass ??= typeLibrary.getType('Accessor')!);
-          if (!result.typeSystem.isAssignableTo(type, accessorClass.thisType)) {
-            return false;
-          }
-
-          // This is null when isRequired does not have a valid value
-          // (e.g., as the user is typing it in)
-          return value.getField('isRequired')!.toBoolValue() ?? false;
-        })) {
-          requiredFields.add(field);
+        if (isRequiredProp(propField)) {
+          requiredFieldsByName[propField.name] = propField;
         }
       }
     }
+    final debugHelper = AnalyzerDebugHelper(result, collector, enabled: _debugCommentPattern.hasMatch(result.content));
+    debugHelper.logWithLocation('Required props: $requiredFieldsByName', result.locationFor(usage.builder));
 
-    final missingRequiredFieldNames = requiredFields.map((f) => f.name).toSet()
-      ..removeAll(usage.cascadedProps.map((prop) => prop.name.name));
+    final missingRequiredFieldNames = requiredFieldsByName.keys.toSet()
+      ..removeAll(usage.cascadedProps.where((prop) => !prop.isPrefixed).map((prop) => prop.name.name));
 
-    for (final name in missingRequiredFieldNames) {
+    if (missingRequiredFieldNames.isNotEmpty) {
+      final isMultiple = missingRequiredFieldNames.length > 1;
+
+      // FIXME go back to one at a time
       collector.addError(
         code,
         result.locationFor(usage.builder),
-        errorMessageArgs: [name],
-        // todo fix to add prop
+        // fixKind: fixKind,
+        // fixMessageArgs: ['Add required ${isMultiple ? 'props' : 'prop'}: ${missingRequiredFieldNames.map((f) => "'$f'").join(', ')}.'],
+        errorMessageArgs: ['Missing required ${isMultiple ? 'props' : 'prop'}: ${missingRequiredFieldNames.map((f) => "'$f'").join(', ')}.'],
+        // computeFix:  () => buildFileEdit(result, (builder) {
+        //   addProp(usage, builder, result.content, result.lineInfo, name: name, buildValueEdit: (builder) {
+        //     builder.selectHere();
+        //   });
+        // }),
       );
     }
   }
+}
+
+extension on ClassElement {
+  Iterable<ClassElement> get thisAndSupertypes sync* {
+    yield this;
+    for (final s in allSupertypes) {
+      yield s.element;
+    }
+  }
+
+  Iterable<FieldElement> get allProps sync* {
+    for (final c in thisAndSupertypes) {
+      // FIXME handle legacy boilerplate prop mixins?
+      final isPropsMixin = c.isMixin && c.superclassConstraints.any((s) => s.element.name == 'UiProps');
+      if (!isPropsMixin) continue;
+      if (c.source.uri.path.endsWith('.over_react.g.dart')) continue;
+      // if (c.name == 'UbiquitousDomPropsMixin' || c.isDartCoreObject || c.source.uri.path.endsWith('.over_react.g.dart')) {
+      //   continue;
+      // }
+      yield* c.fields.where((f) => !f.isStatic);
+    }
+  }
+}
+
+enum PropRequiredness {
+  none,
+  late,
+  annotation
+}
+
+bool isRequiredProp(FieldElement field) {
+  if (field.isLate) return true;
+
+  if (field.metadata.any((annotation) {
+    // Common case, might be good to short circuit here for perf
+    if (annotation.isOverride) return false;
+    if (annotation.element?.library?.name != 'over_react.component_declaration.annotations') {
+      return false;
+    }
+    // It's almost always going to be `requiredProp` or `Accessor`;
+    // skip more checks an just try to pull `isRequired` prop off of them.
+    // If it fails, it's not the annotation we're interested in anyways.
+    return annotation.computeConstantValue()?.getField('isRequired')?.toBoolValue() ?? false;
+  })) {
+    return true;
+  }
+
+  return false;
 }
