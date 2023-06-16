@@ -47,6 +47,10 @@ dev_dependencies:
   yaml: ^3.1.0
 
 dependency_overrides:
+  dart_dev:
+    git:
+      ref: fix_up_null_safety_hunter
+      url: https://github.com/Workiva/dart_dev
   react:
     git:
       url: https://github.com/Workiva/react-dart
