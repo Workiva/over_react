@@ -50,6 +50,8 @@ import 'over_react/component/fragment_component_test.dart'
     as fragment_component_test;
 import 'over_react/component/strictmode_component_test.dart'
     as strictmode_component_test;
+import 'over_react/component/suspense_component_test.dart'
+    as suspense_component_test;
 import 'over_react/component/context_test.dart' as context_test;
 import 'over_react/component/typed_factory_test.dart' as typed_factory_test;
 
@@ -73,6 +75,7 @@ void main() {
   resize_sensor_test.main();
   fragment_component_test.main();
   strictmode_component_test.main();
+  suspense_component_test.main();
   context_test.main();
   typed_factory_test.main();
 }
