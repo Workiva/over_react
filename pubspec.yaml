@@ -49,8 +49,20 @@ dev_dependencies:
 dependency_overrides:
   react:
     git:
-      url: https://github.com/Workiva/react-dart.git
+      url: https://github.com/Workiva/react-dart
       ref: null-safety-manual
+  react_testing_library:
+    git:
+      url: https://github.com/Workiva/react_testing_library
+      ref: null-safety
+  over_react_test:
+    git:
+      url: https://github.com/Workiva/over_react_test
+      ref: null-safety
+  w_flux:
+    git:
+      url: https://github.com/Workiva/w_flux
+      ref: null-safety
 
 workiva:
   core_checks:
