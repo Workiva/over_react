@@ -18,7 +18,7 @@ dependencies:
   meta: ^1.6.0
   path: ^1.5.1
   react: ^6.1.8
-  redux: ">=3.0.0 <5.0.0"
+  redux: ">=5.0.0 <6.0.0"
   source_span: ^1.4.1
   transformer_utils: ^0.2.6
   w_common: '>=2.0.0 <4.0.0'
