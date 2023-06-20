@@ -1,6 +1,0 @@
-dependency_validator:
-  exclude:
-    - app/**
-    - tools/**
-  ignore:
-    - mockito
