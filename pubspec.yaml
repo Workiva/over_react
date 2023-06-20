@@ -50,10 +50,9 @@ dependency_overrides:
       ref: fix_up_null_safety_hunter
       url: https://github.com/Workiva/dart_dev
   react:
-    path: ../react-dart
-#    git:
-#      url: https://github.com/Workiva/react-dart
-#      ref: null-safety-manual
+    git:
+      url: https://github.com/Workiva/react-dart
+      ref: null-safety-manual
   react_testing_library:
     git:
       url: https://github.com/Workiva/react_testing_library
