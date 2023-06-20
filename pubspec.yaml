@@ -70,3 +70,11 @@ workiva:
   core_checks:
     version: 1
     react_boilerplate: disabled
+
+# Removing this causes dependency_validator to fail, even though this method of config is deprecated
+dependency_validator:
+  exclude:
+    - app/**
+    - tools/**
+  ignore:
+    - mockito
