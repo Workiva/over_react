@@ -6,7 +6,7 @@ part 'lazy_load_me_props.over_react.g.dart';
 // I, keal jones, am not a fan.
 @Props(keyNamespace: '')
 mixin LazyLoadMePropsMixin on UiProps {
-  late num initialCount;
+  num? initialCount;
 }
 
 UiFactory<LazyLoadMePropsMixin> LazyLoadMePropsMapView = castUiFactory(_$LazyLoadMePropsMapView);
