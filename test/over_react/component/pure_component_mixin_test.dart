@@ -25,9 +25,9 @@ main() {
   group('PureComponentMixin', () {
     const initialChildren = ['initial'];
     const nextChildren = ['next'];
-    TestJacket<PureTestWrapperComponent>? jacket;
+    late TestJacket<PureTestWrapperComponent> jacket;
 
-    PureTestComponent? getChildPureComponent() => jacket!.getDartInstance().pureComponentRef.current;
+    PureTestComponent? getChildPureComponent() => jacket.getDartInstance()!.pureComponentRef.current;
 
     void doInitialRender({bool supportsPropChildren = true, bool addVDomElToProps = false}) {
       jacket = mount(PureTestWrapper()(
@@ -42,51 +42,47 @@ main() {
             'so we can assert that functions that are not anonymous closures do not cause '
             'redraws every time `shouldComponentUpdate` is called.');
       expect(pureDartComponent.redrawCount, 0, reason: 'test setup sanity check');
-      expect(jacket!.getDartInstance().redrawCount, 0, reason: 'test setup sanity check');
+      expect(jacket.getDartInstance()!.redrawCount, 0, reason: 'test setup sanity check');
     }
-
-    tearDown(() {
-      jacket = null;
-    });
 
     group('prevents component updates', () {
       group('when a parent component redraws', () {
         test('', () {
           doInitialRender();
-          jacket!.getDartInstance().forceUpdate();
+          jacket.getDartInstance()!.forceUpdate();
 
-          expect(jacket!.getDartInstance().redrawCount, 1);
+          expect(jacket.getDartInstance()!.redrawCount, 1);
           expect(getChildPureComponent()!.redrawCount, 0);
         });
 
         test('unless the redraw results in new props being received', () {
           doInitialRender();
-          final currentSharedBoolPropValue = jacket!.getDartInstance().props.sharedBoolProp!;
-          jacket!.rerender((PureTestWrapper()..sharedBoolProp = !currentSharedBoolPropValue)(
+          final currentSharedBoolPropValue = jacket.getDartInstance()!.props.sharedBoolProp!;
+          jacket.rerender((PureTestWrapper()..sharedBoolProp = !currentSharedBoolPropValue)(
             initialChildren,
           ));
 
-          expect(jacket!.getDartInstance().redrawCount, 1);
+          expect(jacket.getDartInstance()!.redrawCount, 1);
           expect(getChildPureComponent()!.redrawCount, 1);
         });
 
         test('unless the redraw results in a new prop with a ReactElement value being received', () {
           doInitialRender(addVDomElToProps: true);
-          jacket!.rerender((PureTestWrapper()..someVDomEl = (PureTest()..id = 'updated')())(
+          jacket.rerender((PureTestWrapper()..someVDomEl = (PureTest()..id = 'updated')())(
             initialChildren,
           ));
 
-          expect(jacket!.getDartInstance().redrawCount, 1);
+          expect(jacket.getDartInstance()!.redrawCount, 1);
           expect(getChildPureComponent()!.redrawCount, 1);
         });
 
         test('unless the redraw results in new children being received', () {
           doInitialRender();
-          jacket!.rerender(PureTestWrapper()(
+          jacket.rerender(PureTestWrapper()(
             nextChildren,
           ));
 
-          expect(jacket!.getDartInstance().redrawCount, 1);
+          expect(jacket.getDartInstance()!.redrawCount, 1);
           expect(getChildPureComponent()!.redrawCount, 1);
         });
       });

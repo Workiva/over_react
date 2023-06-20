@@ -30,10 +30,10 @@ main() {
 
     void sharedTest() {
       final customRendererContainerNode =
-          queryByTestId(jacket!.getInstance(), 'customRendererContainer');
+          queryByTestId(jacket!.getInstance(), 'customRendererContainer')!;
       expect(customRendererContainerNode, isNotNull, reason: 'test setup sanity check');
       final parameterizedCustomRendererContainerNode =
-          queryByTestId(jacket!.getInstance(), 'parameterizedCustomRendererContainer');
+          queryByTestId(jacket!.getInstance(), 'parameterizedCustomRendererContainer')!;
       expect(parameterizedCustomRendererContainerNode, isNotNull, reason: 'test setup sanity check');
 
       expect(customRendererContainerNode.text, 'props.somePropKey: foo \nprops.someStateKey: bar');

@@ -52,7 +52,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
       var jacketOfFlawedComponentWithNoErrorBoundary = mount(Flawed()(), mountNode: mountNode!);
       expect(mountNode!.children, isNotEmpty, reason: 'test setup sanity check');
 
-      final buttonThatShouldThrowAnErrorWhenClicked = queryByTestId(jacketOfFlawedComponentWithNoErrorBoundary.getInstance(), 'flawedComponent_flawedButton');
+      final buttonThatShouldThrowAnErrorWhenClicked = queryByTestId(jacketOfFlawedComponentWithNoErrorBoundary.getInstance(), 'flawedComponent_flawedButton')!;
       expect(buttonThatShouldThrowAnErrorWhenClicked, isNotNull, reason: 'test setup sanity check');
 
       buttonThatShouldThrowAnErrorWhenClicked.click();
@@ -80,7 +80,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
       );
       expect(mountNode!.children, isNotEmpty, reason: 'test setup sanity check');
       // Cause an error to be thrown within a ReactJS lifecycle method
-      queryByTestId(jacket!.getInstance(), 'flawedComponent_flawedButton').click();
+      queryByTestId(jacket!.getInstance(), 'flawedComponent_flawedButton')!.click();
     });
 
     tearDown(() {
@@ -99,7 +99,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
 
     if (!isWrapper) {
       test('and sets `state.hasError` to true as a result', () {
-        expect(jacket!.getDartInstance().state.hasError, isTrue);
+        expect(jacket!.getDartInstance()!.state.hasError, isTrue);
       });
     }
 
@@ -113,7 +113,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
       jacket = mount(builder()((Flawed()..addTestId('flawed'))()), mountNode: mountNode!);
       // The click causes the componentDidCatch lifecycle method to execute
       // and we want to ensure that no Dart null error is thrown as a result of no consumer prop callback being set.
-      expect(() => queryByTestId(jacket!.getInstance(), 'flawedComponent_flawedButton').click(), returnsNormally);
+      expect(() => queryByTestId(jacket!.getInstance(), 'flawedComponent_flawedButton')!.click(), returnsNormally);
     });
   });
 
@@ -125,21 +125,21 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
   test('initializes with the expected initial state values', () {
     jacket = mount(builder()(dummyChild));
 
-    expect(jacket!.getDartInstance().state.hasError, isFalse);
+    expect(jacket!.getDartInstance()!.state.hasError, isFalse);
   });
 
   group('renders', () {
     test('its children when `state.error` is false', () {
       jacket = mount(builder()(dummyChild));
-      expect(jacket!.getDartInstance().state.hasError, isFalse, reason: 'test setup sanity check');
+      expect(jacket!.getDartInstance()!.state.hasError, isFalse, reason: 'test setup sanity check');
 
-      expect(jacket!.getNode().text, 'hi there');
+      expect(jacket!.getNode()!.text, 'hi there');
     });
 
     if (isWrapper) {
       test('no child when `state.error` is true and ignores when `state.showFallbackUIOnError` is false', () {
         jacket = mount(builder()(dummyChild));
-        final component = jacket!.getDartInstance();
+        final component = jacket!.getDartInstance()!;
         component.setState(component.newState()
           ..hasError = true
           ..showFallbackUIOnError = false
@@ -152,13 +152,13 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
     } else {
       test('its child when `state.error` is true and `state.showFallbackUIOnError` is false', () {
         jacket = mount(builder()(dummyChild));
-        final component = jacket!.getDartInstance();
+        final component = jacket!.getDartInstance()!;
         component.setState(component.newState()
           ..hasError = true
           ..showFallbackUIOnError = false
         );
 
-        expect(jacket!.getNode().text, 'hi there');
+        expect(jacket!.getNode()!.text, 'hi there');
       });
     }
 
@@ -166,7 +166,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
       test('and `state.showFallbackUIOnError` is true ("unrecoverable" error state)', () {
         jacket = mount(builder()(dummyChild));
         expect(getByTestId(jacket!.getInstance(), 'dummyChild'), isNotNull);
-        final component = jacket!.getDartInstance();
+        final component = jacket!.getDartInstance()!;
         component.setState(component.newState()
           ..hasError = true
           ..showFallbackUIOnError = true
@@ -184,11 +184,11 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
           }
 
           jacket = mount((builder()..addProps(ErrorBoundaryPropsMapView({})..fallbackUIRenderer = _fallbackUIRenderer))(dummyChild));
-          final component = jacket!.getDartInstance();
+          final component = jacket!.getDartInstance()!;
           component.setState(component.newState()..hasError = true);
 
           expect(jacket!.getNode(), hasNodeName('H4'), reason: '${ErrorBoundaryPropsMapView(jacket!.getProps()).fallbackUIRenderer}');
-          expect(jacket!.getNode().text, 'Something super not awesome just happened.');
+          expect(jacket!.getNode()?.text, 'Something super not awesome just happened.');
         });
       }
 
@@ -199,7 +199,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
               ..fallbackUIRenderer = (_, __) => (Dom.div()..addTestId('fallbackNode'))('Something went wrong')
             )
           )(dummyChild));
-          final component = jacket!.getDartInstance();
+          final component = jacket!.getDartInstance()!;
           component.setState(component.newState()
             ..hasError = true
           );
@@ -212,7 +212,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
         });
 
         test('when reset() is called', () {
-          var component = jacket!.getDartInstance();
+          var component = jacket!.getDartInstance()!;
           component.reset();
           expect(component.state.hasError, isFalse);
           expect(component.state.showFallbackUIOnError, isTrue);
@@ -228,8 +228,8 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
                 ..fallbackUIRenderer = (_, __) => (Dom.div()..addTestId('fallbackNode'))('Something went wrong')
               )
             )(newDummyChild));
-            expect(jacket!.getDartInstance().state.hasError, isFalse);
-            expect(jacket!.getDartInstance().state.showFallbackUIOnError, isTrue);
+            expect(jacket!.getDartInstance()!.state.hasError, isFalse);
+            expect(jacket!.getDartInstance()!.state.showFallbackUIOnError, isTrue);
             expect(getByTestId(jacket!.getInstance(), 'newDummyChild'), isNotNull);
             expect(getByTestId(jacket!.getInstance(), 'fallbackNode'), isNull);
           });
@@ -241,9 +241,9 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
               )
             )((FlawedOnMount()..addTestId('flawed'))()));
             if (!isWrapper) {
-              expect(jacket!.getDartInstance().state.hasError, isTrue);
+              expect(jacket!.getDartInstance()!.state.hasError, isTrue);
             }
-            expect(jacket!.getDartInstance().state.showFallbackUIOnError, isTrue);
+            expect(jacket!.getDartInstance()!.state.showFallbackUIOnError, isTrue);
             expect(getByTestId(jacket!.getInstance(), 'flawed'), isNull);
             expect(getByTestId(jacket!.getInstance(), 'fallbackNode'), isNotNull);
           });
@@ -262,10 +262,10 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
     dynamic errorSentToComponentIsUnrecoverableCallback;
     dynamic errorInfoSentToComponentIsUnrecoverableCallback;
 
-    Element getFlawedButtonNode() => queryByTestId(jacket!.getInstance(), 'flawedComponent_flawedButton');
-    Element getFlawedButtonThatThrowsADifferentErrorNode() => queryByTestId(jacket!.getInstance(), 'flawedComponent_flawedButtonThatThrowsADifferentError');
-    Element getNestedFlawedButtonNode() => queryByTestId(jacket!.getInstance(), 'nestedFlawedComponent_flawedButton');
-    Element getNestedFlawedButtonThatThrowsADifferentErrorNode() => queryByTestId(jacket!.getInstance(), 'nestedFlawedComponent_flawedButtonThatThrowsADifferentError');
+    Element getFlawedButtonNode() => queryByTestId(jacket!.getInstance(), 'flawedComponent_flawedButton')!;
+    Element getFlawedButtonThatThrowsADifferentErrorNode() => queryByTestId(jacket!.getInstance(), 'flawedComponent_flawedButtonThatThrowsADifferentError')!;
+    Element getNestedFlawedButtonNode() => queryByTestId(jacket!.getInstance(), 'nestedFlawedComponent_flawedButton')!;
+    Element getNestedFlawedButtonThatThrowsADifferentErrorNode() => queryByTestId(jacket!.getInstance(), 'nestedFlawedComponent_flawedButtonThatThrowsADifferentError')!;
 
     void _setCallbackVarValues() {
       expect(calls, isNotNull, reason: 'test setup sanity check');
@@ -364,7 +364,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
             test('the components wrapped by the ErrorBoundary get unmounted', () {
               expect(getByTestId(jacket!.getInstance(), 'flawedComponent'), isNull,
                   reason: 'The flawed component should have been unmounted');
-              expect(jacket!.getDartInstance().state.showFallbackUIOnError, isTrue,
+              expect(jacket!.getDartInstance()!.state.showFallbackUIOnError, isTrue,
                   reason: 'Fallback UI should be rendered instead of the flawed component tree');
               expect(jacket!.getNode(),
                   hasAttr(defaultTestIdKey, 'ErrorBoundary.unrecoverableErrorInnerHtmlContainerNode'));
@@ -400,7 +400,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
             test('the components wrapped by the ErrorBoundary get unmounted', () {
               expect(getByTestId(jacket!.getInstance(), 'flawedComponent'), isNull,
                   reason: 'The flawed component should have been unmounted');
-              expect(jacket!.getDartInstance().state.showFallbackUIOnError, isTrue,
+              expect(jacket!.getDartInstance()!.state.showFallbackUIOnError, isTrue,
                   reason: 'Fallback UI should be rendered instead of the flawed component tree');
               expect(jacket!.getNode(),
                   hasAttr(defaultTestIdKey, 'fallbackUIRenderer'));
@@ -437,18 +437,18 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
               expect(jacket!.getNode(),
                   isNot(hasAttr(defaultTestIdKey, 'ErrorBoundary.unrecoverableErrorInnerHtmlContainerNode')),
                   reason: 'test setup sanity check');
-              errorBoundaryInnerHtmlBeforeUnrecoverableError = jacket!.getNode().innerHtml;
+              errorBoundaryInnerHtmlBeforeUnrecoverableError = jacket!.getNode()!.innerHtml;
               await triggerErrorsViaButtonClickThatSignifyAnUnrecoverableComponent();
             });
 
             test('the components wrapped by the ErrorBoundary get unmounted', () {
               expect(getByTestId(jacket!.getInstance(), 'flawedComponent'), isNull,
                   reason: 'The flawed component should have been unmounted');
-              expect(jacket!.getDartInstance().state.showFallbackUIOnError, isTrue,
+              expect(jacket!.getDartInstance()!.state.showFallbackUIOnError, isTrue,
                   reason: 'Fallback UI should be rendered instead of the flawed component tree');
               expect(jacket!.getNode(),
                   hasAttr(defaultTestIdKey, 'ErrorBoundary.unrecoverableErrorInnerHtmlContainerNode'));
-              expect(jacket!.getNode().innerHtml, errorBoundaryInnerHtmlBeforeUnrecoverableError);
+              expect(jacket!.getNode()!.innerHtml, errorBoundaryInnerHtmlBeforeUnrecoverableError);
             });
 
             test('the correct callbacks are called with the correct arguments', () {
@@ -475,14 +475,14 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
               });
 
               test('the fallback UI node is rendered by the boundary', () {
-                expect(jacket!.getDartInstance().state.showFallbackUIOnError, isTrue,
+                expect(jacket!.getDartInstance()!.state.showFallbackUIOnError, isTrue,
                     reason: 'Fallback UI should be rendered instead of the flawed component tree');
                 expect(jacket!.getNode(),
                     hasAttr(defaultTestIdKey, 'ErrorBoundary.unrecoverableErrorInnerHtmlContainerNode'));
               });
 
               test('an empty string is rendered within the fallback UI node', () {
-                expect(jacket!.getNode().innerHtml, isEmpty);
+                expect(jacket!.getNode()!.innerHtml, isEmpty);
               });
 
               test('the correct callbacks are called with the correct arguments', () {
@@ -515,14 +515,14 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
               });
 
               test('the fallback UI node is rendered by the boundary', () {
-                expect(jacket!.getDartInstance().state.showFallbackUIOnError, isTrue,
+                expect(jacket!.getDartInstance()!.state.showFallbackUIOnError, isTrue,
                     reason: 'Fallback UI should be rendered instead of the flawed component tree');
                 expect(jacket!.getNode(),
                     hasAttr(defaultTestIdKey, 'ErrorBoundary.unrecoverableErrorInnerHtmlContainerNode'));
               });
 
               test('an empty string is rendered within the fallback UI node', () {
-                expect(jacket!.getNode().innerHtml, isEmpty);
+                expect(jacket!.getNode()!.innerHtml, isEmpty);
               });
 
               test('the correct callbacks are called with the correct arguments', () {
@@ -569,7 +569,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
             expect(getByTestId(jacket!.getInstance(), 'flawedComponent'), isNotNull,
                 reason: 'The flawed component should have been remounted');
             if (!isWrapper) {
-              expect(jacket!.getDartInstance().state.showFallbackUIOnError, isFalse,
+              expect(jacket!.getDartInstance()!.state.showFallbackUIOnError, isFalse,
                   reason: 'Fallback UI should not be rendered');
             }
           });
@@ -595,7 +595,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
             test('the components wrapped by the ErrorBoundary get unmounted', () {
               expect(getByTestId(jacket!.getInstance(), 'flawedComponent'), isNull,
                   reason: 'The flawed component should have been unmounted');
-              expect(jacket!.getDartInstance().state.showFallbackUIOnError, isTrue,
+              expect(jacket!.getDartInstance()!.state.showFallbackUIOnError, isTrue,
                   reason: 'Fallback UI should be rendered instead of the flawed component tree');
             });
 
@@ -630,18 +630,18 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
             expect(jacket!.getNode(),
                 isNot(hasAttr(defaultTestIdKey, 'ErrorBoundary.unrecoverableErrorInnerHtmlContainerNode')),
                 reason: 'test setup sanity check');
-            errorBoundaryInnerHtmlBeforeUnrecoverableError = jacket!.getNode().innerHtml;
+            errorBoundaryInnerHtmlBeforeUnrecoverableError = jacket!.getNode()!.innerHtml;
             await triggerErrorsViaButtonClickThatSignifyAnUnrecoverableComponent(throwExtraError: true);
           });
 
           test('the components wrapped by the ErrorBoundary get unmounted', () {
             expect(getByTestId(jacket!.getInstance(), 'flawedComponent'), isNull,
                 reason: 'The flawed component should have been unmounted');
-            expect(jacket!.getDartInstance().state.showFallbackUIOnError, isTrue,
+            expect(jacket!.getDartInstance()!.state.showFallbackUIOnError, isTrue,
                 reason: 'Fallback UI should be rendered instead of the flawed component tree');
             expect(jacket!.getNode(),
                 hasAttr(defaultTestIdKey, 'ErrorBoundary.unrecoverableErrorInnerHtmlContainerNode'));
-            expect(jacket!.getNode().innerHtml, errorBoundaryInnerHtmlBeforeUnrecoverableError);
+            expect(jacket!.getNode()!.innerHtml, errorBoundaryInnerHtmlBeforeUnrecoverableError);
           });
 
           test('the correct callbacks are called with the correct arguments', () {
@@ -679,7 +679,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
             expect(getByTestId(jacket!.getInstance(), 'flawedComponent'), isNotNull,
                 reason: 'The flawed component should have been remounted');
             if (!isWrapper) {
-              expect(jacket!.getDartInstance().state.showFallbackUIOnError, isFalse,
+              expect(jacket!.getDartInstance()!.state.showFallbackUIOnError, isFalse,
                   reason: 'Fallback UI should not be rendered');
             }
           });
@@ -705,7 +705,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
             test('the components wrapped by the ErrorBoundary get unmounted', () {
               expect(getByTestId(jacket!.getInstance(), 'flawedComponent'), isNull,
                   reason: 'The flawed component should have been unmounted');
-              expect(jacket!.getDartInstance().state.showFallbackUIOnError, isTrue,
+              expect(jacket!.getDartInstance()!.state.showFallbackUIOnError, isTrue,
                   reason: 'Fallback UI should be rendered instead of the flawed component tree');
             });
 
@@ -749,7 +749,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
             expect(getByTestId(jacket!.getInstance(), 'flawedComponent'), isNotNull,
                 reason: 'The flawed component should have been remounted');
             if (!isWrapper) {
-              expect(jacket!.getDartInstance().state.showFallbackUIOnError, isFalse,
+              expect(jacket!.getDartInstance()!.state.showFallbackUIOnError, isFalse,
                   reason: 'Fallback UI should not be rendered');
             }
           });
@@ -784,7 +784,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
             expect(getByTestId(jacket!.getInstance(), 'flawedComponent'), isNotNull,
                 reason: 'The flawed component should have been remounted');
             if (!isWrapper) {
-              expect(jacket!.getDartInstance().state.showFallbackUIOnError, isFalse,
+              expect(jacket!.getDartInstance()!.state.showFallbackUIOnError, isFalse,
                   reason: 'Fallback UI should not be rendered');
             }
           });
@@ -825,7 +825,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
             expect(getByTestId(jacket!.getInstance(), 'nestedFlawedComponent'), isNotNull,
                 reason: 'The flawed component should have been remounted');
             if (!isWrapper) {
-              expect(jacket!.getDartInstance().state.showFallbackUIOnError, isFalse,
+              expect(jacket!.getDartInstance()!.state.showFallbackUIOnError, isFalse,
                   reason: 'Fallback UI should not be rendered');
             }
           });
@@ -860,7 +860,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
             expect(getByTestId(jacket!.getInstance(), 'nestedFlawedComponent'), isNotNull,
                 reason: 'The flawed component should have been remounted');
             if (!isWrapper) {
-              expect(jacket!.getDartInstance().state.showFallbackUIOnError, isFalse,
+              expect(jacket!.getDartInstance()!.state.showFallbackUIOnError, isFalse,
                   reason: 'Fallback UI should not be rendered');
             }
           });
@@ -897,7 +897,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
             expect(getByTestId(jacket!.getInstance(), 'nestedFlawedComponent'), isNotNull,
                 reason: 'The flawed component should have been remounted');
             if (!isWrapper) {
-              expect(jacket!.getDartInstance().state.showFallbackUIOnError, isFalse,
+              expect(jacket!.getDartInstance()!.state.showFallbackUIOnError, isFalse,
                   reason: 'Fallback UI should not be rendered');
             }
           });
@@ -932,7 +932,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
             expect(getByTestId(jacket!.getInstance(), 'nestedFlawedComponent'), isNotNull,
                 reason: 'The flawed component should have been remounted');
             if (!isWrapper) {
-              expect(jacket!.getDartInstance().state.showFallbackUIOnError, isFalse,
+              expect(jacket!.getDartInstance()!.state.showFallbackUIOnError, isFalse,
                   reason: 'Fallback UI should not be rendered');
             }
           });
@@ -956,7 +956,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
 
     // Cause an error to be thrown within a ReactJS lifecycle method
     void triggerAComponentError() {
-      queryByTestId(jacket!.getInstance(), 'flawedComponent_flawedButton').click();
+      queryByTestId(jacket!.getInstance(), 'flawedComponent_flawedButton')!.click();
     }
 
     void sharedSetup({String? loggerName, bool shouldLogErrors = true, Logger? customLogger}) {

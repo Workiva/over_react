@@ -14,11 +14,9 @@ part of 'suspense_component.dart';
 mixin $SuspensePropsMixin on SuspensePropsMixin {
   static const PropsMeta meta = _$metaForSuspensePropsMixin;
   @override
-  dynamic get fallback =>
-      (props[_$key__fallback__SuspensePropsMixin] ?? null) as dynamic;
+  get fallback => (props[_$key__fallback__SuspensePropsMixin]) as dynamic;
   @override
-  set fallback(dynamic value) =>
-      props[_$key__fallback__SuspensePropsMixin] = value;
+  set fallback(value) => props[_$key__fallback__SuspensePropsMixin] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__fallback__SuspensePropsMixin =
       PropDescriptor(_$key__fallback__SuspensePropsMixin);
@@ -62,9 +60,9 @@ abstract class _$$SuspenseProps extends UiProps
         SuspenseProps {
   _$$SuspenseProps._();
 
-  factory _$$SuspenseProps(Map backingMap) {
+  factory _$$SuspenseProps(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$SuspenseProps$JsMap(backingMap as JsBackedMap);
+      return _$$SuspenseProps$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$SuspenseProps$PlainMap(backingMap);
     }
@@ -91,7 +89,7 @@ abstract class _$$SuspenseProps extends UiProps
 class _$$SuspenseProps$PlainMap extends _$$SuspenseProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$SuspenseProps$PlainMap(Map backingMap)
+  _$$SuspenseProps$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -110,7 +108,7 @@ class _$$SuspenseProps$PlainMap extends _$$SuspenseProps {
 class _$$SuspenseProps$JsMap extends _$$SuspenseProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$SuspenseProps$JsMap(JsBackedMap backingMap)
+  _$$SuspenseProps$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();

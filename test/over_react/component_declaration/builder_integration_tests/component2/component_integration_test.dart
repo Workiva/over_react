@@ -51,7 +51,7 @@ main() {
           (IsErrorBoundary())(Flawed()()),
           attachedToDocument: true,
         );
-        queryByTestId(jacket.getInstance(), 'flawedComponent_flawedButton').click();
+        queryByTestId(jacket.getInstance(), 'flawedComponent_flawedButton')!.click();
         expect(IsErrorBoundaryComponent.calls, unorderedEquals(['getDerivedStateFromError','componentDidCatch']));
       });
 
@@ -60,7 +60,7 @@ main() {
           (IsNotErrorBoundary())(Flawed()()),
           attachedToDocument: true,
         );
-        queryByTestId(jacket.getInstance(), 'flawedComponent_flawedButton').click();
+        queryByTestId(jacket.getInstance(), 'flawedComponent_flawedButton')!.click();
         expect(IsNotErrorBoundaryComponent.calls, []);
       });
     });

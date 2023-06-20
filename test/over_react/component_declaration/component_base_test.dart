@@ -174,20 +174,20 @@ main() {
 
       group('renders a DOM component with the correct children when', () {
         test('no children are passed in', () {
-          var renderedNode = renderAndGetDom(Dom.div()());
+          var renderedNode = renderAndGetDom(Dom.div()())!;
 
           expect(renderedNode.childNodes, isEmpty);
         });
 
         test('children is null', () {
-          var renderedNode = renderAndGetDom(Dom.div()(null));
+          var renderedNode = renderAndGetDom(Dom.div()(null))!;
 
           expect(renderedNode.childNodes, isEmpty);
         });
 
         test('a single child is passed in', () {
           var child = 'Only child';
-          var renderedNode = renderAndGetDom(Dom.div()(child));
+          var renderedNode = renderAndGetDom(Dom.div()(child))!;
           var children = List<Text>.from(renderedNode.childNodes.where((node) => node.nodeType != Node.COMMENT_NODE));
 
           expect(children.length, equals(1));
@@ -196,7 +196,7 @@ main() {
 
         test('children are set via a list', () {
           var children = ['First Child', 'Second Child'];
-          var renderedNode = renderAndGetDom(Dom.div()(children));
+          var renderedNode = renderAndGetDom(Dom.div()(children))!;
           var childNodes = renderedNode.childNodes.where((node) => node.nodeType != Node.COMMENT_NODE).toList();
 
           expect(childNodes.length, equals(2));
@@ -209,7 +209,7 @@ main() {
             yield 'First Child';
             yield 'Second Child';
           })();
-          var renderedNode = renderAndGetDom(Dom.div()(children));
+          var renderedNode = renderAndGetDom(Dom.div()(children))!;
           var childNodes = renderedNode.childNodes.where((node) => node.nodeType != Node.COMMENT_NODE).toList();
 
           expect(childNodes.length, equals(2));
@@ -220,7 +220,7 @@ main() {
         test('children are set variadically', () {
           var firstChild = 'First Child';
           var secondChild = 'Second Child';
-          var renderedNode = renderAndGetDom(Dom.div()(firstChild, secondChild));
+          var renderedNode = renderAndGetDom(Dom.div()(firstChild, secondChild))!;
           var children = renderedNode.childNodes.where((node) => node.nodeType != Node.COMMENT_NODE).toList();
 
           expect(children.length, equals(2));

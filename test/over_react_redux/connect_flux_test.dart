@@ -578,7 +578,7 @@ main() {
             ),
           ));
 
-          var bigCounter = queryByTestId(jacket!.mountNode, 'big-counter');
+          var bigCounter = queryByTestId(jacket!.mountNode, 'big-counter')!;
           var dispatchButton = queryByTestId(bigCounter, 'button-increment');
           click(dispatchButton);
 
@@ -749,7 +749,7 @@ main() {
         await Future(() {});
       });
 
-      logs.removeWhere((log) => log.contains('Cannot find native JavaScript type'));
+      logs.removeWhere((log) => log?.contains('Cannot find native JavaScript type') ?? true);
       expect(
           logs.first,
           contains(

@@ -572,9 +572,9 @@ main() {
           addTearDown(observer.disconnect);
 
           var jacket = mount<TransitionerComponent>(Transitioner()(), attachedToDocument: true);
-          observer.observe(jacket.getNode(), attributes: true, attributeOldValue: true);
+          observer.observe(jacket.getNode()!, attributes: true, attributeOldValue: true);
 
-          var component = jacket.getDartInstance();
+          var component = jacket.getDartInstance()!;
           component.setState(component.newState()..transitionPhase = TransitionPhase.PRE_SHOWING);
 
           // Wait for MutationObserver callback to fire.
@@ -589,7 +589,7 @@ main() {
 
         test('SHOWING', () {
           var jacket = mount<TransitionerComponent>(Transitioner()());
-          var component = jacket.getDartInstance();
+          var component = jacket.getDartInstance()!;
 
           component.setState(component.newState()..transitionPhase = TransitionPhase.SHOWING);
 
@@ -604,7 +604,7 @@ main() {
 
         test('HIDING', () {
           var jacket = mount<TransitionerComponent>(Transitioner()());
-          var component = jacket.getDartInstance();
+          var component = jacket.getDartInstance()!;
 
           component.setState(component.newState()..transitionPhase = TransitionPhase.HIDING);
 
@@ -613,7 +613,7 @@ main() {
 
         test('HIDDEN', () {
           var jacket = mount<TransitionerComponent>(Transitioner()());
-          var component = jacket.getDartInstance();
+          var component = jacket.getDartInstance()!;
 
           component.setState(component.newState()..transitionPhase = TransitionPhase.HIDDEN);
 
@@ -627,7 +627,7 @@ main() {
 
         var jacket = mount<TransitionerComponent>(Transitioner()());
 
-        expect(jacket.getNode().attributes, isNot(contains(transitionPhaseTestAttr)));
+        expect(jacket.getNode()!.attributes, isNot(contains(transitionPhaseTestAttr)));
       });
     });
   });

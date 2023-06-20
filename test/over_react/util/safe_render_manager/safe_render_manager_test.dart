@@ -420,7 +420,7 @@ main() {
                     )(), attachedToDocument: true);
 
                     // Use a real click since simulated clicks don't trigger this async behavior
-                    return () => jacket.getNode().click();
+                    return () => jacket.getNode()!.click();
                   },
                 );
               });
@@ -433,12 +433,12 @@ main() {
                     late TestJacket jacket;
                     jacket = mount((Wrapper()
                       ..onClick = (_) {
-                        jacket.getDartInstance().setState({}, doRenders);
+                        jacket.getDartInstance()!.setState({}, doRenders);
                       }
                     )(), attachedToDocument: true);
 
                     // Use a real click since simulated clicks don't trigger this async behavior
-                    return () => jacket.getNode().click();
+                    return () => jacket.getNode()!.click();
                   },
                 );
               });
@@ -452,7 +452,7 @@ main() {
                       ..onComponentWillUpdate = doRenders
                     )());
 
-                    return () => jacket.getDartInstance().redraw();
+                    return () => jacket.getDartInstance()!.redraw();
                   },
                 );
               });
@@ -466,7 +466,7 @@ main() {
                       ..onComponentDidUpdate = doRenders
                     )());
 
-                    return () => jacket.getDartInstance().redraw();
+                    return () => jacket.getDartInstance()!.redraw();
                   },
                 );
               });
@@ -666,7 +666,7 @@ main() {
                     )(), attachedToDocument: true);
 
                     // Use a real click since simulated clicks don't trigger this async behavior
-                    return () => jacket.getNode().click();
+                    return () => jacket.getNode()!.click();
                   },
                 );
               });
@@ -679,12 +679,12 @@ main() {
                     late TestJacket jacket;
                     jacket = mount((Test()
                       ..onClick = (_) {
-                        jacket.getDartInstance().setState({}, callUnmount);
+                        jacket.getDartInstance()!.setState({}, callUnmount);
                       }
                     )(), attachedToDocument: true);
 
                     // Use a real click since simulated clicks don't trigger this async behavior
-                    return () => jacket.getNode().click();
+                    return () => jacket.getNode()!.click();
                   },
                 );
               });
@@ -698,7 +698,7 @@ main() {
                       ..onComponentWillUpdate = callUnmount
                     )());
 
-                    return () => jacket.getDartInstance().redraw();
+                    return () => jacket.getDartInstance()!.redraw();
                   },
                 );
               });
@@ -712,7 +712,7 @@ main() {
                       ..onComponentDidUpdate = callUnmount
                     )());
 
-                    return () => jacket.getDartInstance().redraw();
+                    return () => jacket.getDartInstance()!.redraw();
                   },
                 );
               });

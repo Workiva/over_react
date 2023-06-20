@@ -705,7 +705,7 @@ main() {
           ),
         ));
 
-        var bigCounter = queryByTestId(jacket!.mountNode, 'big-counter');
+        var bigCounter = queryByTestId(jacket!.mountNode, 'big-counter')!;
         var dispatchButton = queryByTestId(bigCounter, 'button-increment');
         click(dispatchButton);
 

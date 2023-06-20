@@ -138,7 +138,7 @@ main() {
           (Dom.div()..addTestId('content'))('foo'),
         ));
 
-        expect(queryByTestId(jacket.mountNode, 'content').innerHtml,
+        expect(queryByTestId(jacket.mountNode, 'content')!.innerHtml,
             contains('foo'));
       });
     });

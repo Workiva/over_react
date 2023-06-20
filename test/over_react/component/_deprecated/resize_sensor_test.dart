@@ -134,7 +134,7 @@ void main() {
 
     group('should render with the correct styles', () {
       test('by default', () {
-        var renderedNode = renderAndGetDom(ResizeSensor()());
+        var renderedNode = renderAndGetDom(ResizeSensor()())!;
 
         expect(renderedNode.style.position, equals('relative'));
         expect(renderedNode.style.width, equals('100%'));
@@ -142,7 +142,7 @@ void main() {
       });
 
       test('when isFlexChild is true', () {
-        var renderedNode = renderAndGetDom((ResizeSensor()..isFlexChild = true)());
+        var renderedNode = renderAndGetDom((ResizeSensor()..isFlexChild = true)())!;
 
         expect(renderedNode.style.position, equals('relative'));
         expect(renderedNode.style.display, equals('block'));
@@ -159,7 +159,7 @@ void main() {
       });
 
       test('when isFlexContainer is true', () {
-        var renderedNode = renderAndGetDom((ResizeSensor()..isFlexContainer = true)());
+        var renderedNode = renderAndGetDom((ResizeSensor()..isFlexContainer = true)())!;
 
         expect(renderedNode.style.position, equals('relative'));
         expect(renderedNode.style.minHeight, '0px');
@@ -177,7 +177,7 @@ void main() {
       });
 
       test('when overridden by consumer', () {
-        var renderedNode = renderAndGetDom((ResizeSensor()..style = {'width':'auto','height':'auto'})());
+        var renderedNode = renderAndGetDom((ResizeSensor()..style = {'width':'auto','height':'auto'})())!;
 
         expect(renderedNode.style.position, equals('relative'));
         expect(renderedNode.style.width, equals('auto'));
@@ -189,7 +189,7 @@ void main() {
     // ensuring that scrollbars don't show up in Safari.
     group('should hide all of its descendants when isFlexChild is', () {
       test('true', () {
-        var renderedNode = renderAndGetDom((ResizeSensor()..isFlexChild = true)());
+        var renderedNode = renderAndGetDom((ResizeSensor()..isFlexChild = true)())!;
         var descendants = renderedNode.querySelectorAll('*');
 
         descendants.forEach((descendant) {
@@ -199,7 +199,7 @@ void main() {
       });
 
       test('false', () {
-        var renderedNode = renderAndGetDom((ResizeSensor()..isFlexChild = false)());
+        var renderedNode = renderAndGetDom((ResizeSensor()..isFlexChild = false)())!;
         var descendants = renderedNode.querySelectorAll('*');
 
         descendants.forEach((descendant) {
@@ -514,7 +514,7 @@ void main() {
       )());
       calls.clear();
 
-      jacket.getDartInstance().forceResetDetachedSensor();
+      jacket.getDartInstance()!.forceResetDetachedSensor();
 
       expect(calls, ['onDidReset']);
     });

@@ -573,10 +573,10 @@ main() {
           addTearDown(observer.disconnect);
 
           var jacket = mount<TransitionerComponent>(Transitioner()(), attachedToDocument: true);
-          observer.observe(jacket.getNode(), attributes: true, attributeOldValue: true);
+          observer.observe(jacket.getNode()!, attributes: true, attributeOldValue: true);
 
           var component = jacket.getDartInstance();
-          component.setState(component.newState()..transitionPhase = TransitionPhase.PRE_SHOWING);
+          component?.setState(component.newState()..transitionPhase = TransitionPhase.PRE_SHOWING);
 
           // Wait for MutationObserver callback to fire.
           await Future(() {});
@@ -592,7 +592,7 @@ main() {
           var jacket = mount<TransitionerComponent>(Transitioner()());
           var component = jacket.getDartInstance();
 
-          component.setState(component.newState()..transitionPhase = TransitionPhase.SHOWING);
+          component?.setState(component.newState()..transitionPhase = TransitionPhase.SHOWING);
 
           expect(jacket.getNode(), hasAttr(transitionPhaseTestAttr, 'showing'));
         });
@@ -607,7 +607,7 @@ main() {
           var jacket = mount<TransitionerComponent>(Transitioner()());
           var component = jacket.getDartInstance();
 
-          component.setState(component.newState()..transitionPhase = TransitionPhase.HIDING);
+          component?.setState(component.newState()..transitionPhase = TransitionPhase.HIDING);
 
           expect(jacket.getNode(), hasAttr(transitionPhaseTestAttr, 'hiding'));
         });
@@ -616,7 +616,7 @@ main() {
           var jacket = mount<TransitionerComponent>(Transitioner()());
           var component = jacket.getDartInstance();
 
-          component.setState(component.newState()..transitionPhase = TransitionPhase.HIDDEN);
+          component?.setState(component.newState()..transitionPhase = TransitionPhase.HIDDEN);
 
           expect(jacket.getNode(), hasAttr(transitionPhaseTestAttr, 'hidden'));
         });
@@ -628,7 +628,7 @@ main() {
 
         var jacket = mount<TransitionerComponent>(Transitioner()());
 
-        expect(jacket.getNode().attributes, isNot(contains(transitionPhaseTestAttr)));
+        expect(jacket.getNode()?.attributes, isNot(contains(transitionPhaseTestAttr)));
       });
     });
   });

@@ -264,9 +264,9 @@ main() {
         ));
 
         connectFluxCounter =
-            queryByTestId(jacket.mountNode, 'connect-flux-component');
-        reduxCounter = queryByTestId(jacket.mountNode, 'redux-component');
-        fluxCounter = queryByTestId(jacket.mountNode, 'flux-component');
+            queryByTestId(jacket.mountNode, 'connect-flux-component')!;
+        reduxCounter = queryByTestId(jacket.mountNode, 'redux-component')!;
+        fluxCounter = queryByTestId(jacket.mountNode, 'flux-component')!;
         containerList = [connectFluxCounter, fluxCounter, reduxCounter];
 
         verifyCount(containerList, 0);

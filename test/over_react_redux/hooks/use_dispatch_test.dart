@@ -47,7 +47,7 @@ main() {
         ), attachedToDocument: true);
 
       expectCountValue(jacket!, 0);
-      final incrementButton = queryByTestId(jacket!.mountNode, 'button-increment');
+      final incrementButton = queryByTestId(jacket!.mountNode, 'button-increment')!;
       incrementButton.click();
       await pumpEventQueue();
       expectCountValue(jacket!, 1);
@@ -65,7 +65,7 @@ main() {
           ), attachedToDocument: true);
 
       expectBigCountValue(jacket!, 9);
-      final incrementButton = queryByTestId(jacket!.mountNode, 'button-big-increment');
+      final incrementButton = queryByTestId(jacket!.mountNode, 'button-big-increment')!;
       incrementButton.click();
       await pumpEventQueue();
       expectBigCountValue(jacket!, 109);

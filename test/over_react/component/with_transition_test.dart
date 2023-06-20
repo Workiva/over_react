@@ -30,7 +30,7 @@ part 'with_transition_test.over_react.g.dart';
 main() {
   group('WithTransition', () {
     TestJacket<WithTransitionTesterComponent>? jacket;
-    Element getRootNode() => queryByTestId(jacket!.mountNode, 'or.WithTransition.node');
+    Element getRootNode() => queryByTestId(jacket!.mountNode, 'or.WithTransition.node')!;
     void expectNodeInTransitionPhase(TransitionPhase phase, {String? reason}) {
       expect(
         getRootNode(),
@@ -438,7 +438,7 @@ main() {
     test('preserves consumer refs on the child', () async {
       jacket = mount(WithTransitionTester()());
       await Future.microtask(() {});
-      expect(jacket!.getDartInstance().consumerChildNodeRef.current, isA<Element>());
+      expect(jacket!.getDartInstance()!.consumerChildNodeRef.current, isA<Element>());
     });
 
     group('throws', () {
