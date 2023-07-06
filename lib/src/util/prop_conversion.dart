@@ -1,15 +1,19 @@
 import 'package:js/js.dart';
 import 'package:js/js_util.dart';
 import 'package:meta/meta.dart';
-import 'package:over_react/over_react.dart' show Ref;
+import 'package:over_react/over_react.dart' show Context, Ref;
 import 'package:over_react/src/util/weak_map.dart';
 import 'package:react/react_client/js_backed_map.dart';
 import 'package:react/react_client/component_factory.dart';
-import 'package:react/react_client/react_interop.dart' show JsRef;
+import 'package:react/react_client/react_interop.dart' show JsRef, ReactContext;
 
 // Export JsMap since props that utilize jsifyMapProp/unjsifyMapProp
 // via custom getters/setters will need JsMap to avoid implicit cast errors.
 export 'package:react/react_client/js_backed_map.dart' show JsMap;
+
+// Export ReactContext since props that utilize jsifyContextProp/unjsifyContextProp
+// via custom getters/setters will need ReactContext to avoid implicit cast errors.
+export 'package:react/react_client/react_interop.dart' show ReactContext;
 
 /// Returns a JS-deep-converted version of [value] for storage in the props map, or null if [value] is null.
 ///
@@ -45,6 +49,16 @@ Map<K, V> unjsifyMapProp<K, V>(JsMap value) {
   if (value == null) return null;
   // Don't deep unconvert so that JS values don't get converted incorrectly to Maps. See jsifyMapProp for more information.
   return JsBackedMap.backedBy(value).cast();
+}
+
+/// Runs [jsifyMapProp] on every Dart Map in the [value].
+List<JsMap> jsifyMapListProp(List<Map> value) {
+  return value?.map(jsifyMapProp)?.toList();
+}
+
+/// Runs [unjsifyMapProp] on every JS Map in the [value].
+List<Map<K, V>> unjsifyMapListProp<K, V>(List<dynamic> value) {
+  return value?.map((e) => unjsifyMapProp<K, V>(e as JsMap))?.toList();
 }
 
 /// Returns [value] converted to its JS ref representation for storage in a props map, or null of the [value] is null.
@@ -88,7 +102,8 @@ dynamic jsifyRefProp(dynamic value) {
 ///
 /// Should be used alongside [unjsifyRefProp].
 ///
-/// Note that Dart refs currently lose their reified types when jsified/unjsified.
+/// Note that Dart refs currently lose their reified types when jsified/unjsified,
+/// if they have not been passed into [jsifyRefProp] before.
 dynamic unjsifyRefProp(dynamic value,
     {@visibleForTesting bool throwOnUnhandled = false}) {
   // Case 1: null
@@ -113,6 +128,41 @@ dynamic unjsifyRefProp(dynamic value,
   return value;
 }
 
+/// Returns [value] converted to its JS context representation for storage in a props map, or null of the [value] is null.
+///
+/// For use in JS component prop getters where the component expects a JS context, but accepting Dart contexts
+/// is more convenient to the consumer reading/writing the props.
+///
+/// Should be used alongside [unjsifyContextProp].
+ReactContext jsifyContextProp(Context value) {
+  if (value == null) return null;
+
+  // Store the original Dart context so we can retrieve it later in unjsifyContextProp.
+  // See _dartContextForJsContext comment for more info.
+  _dartContextForJsContext.set(value.jsThis, value);
+  return value.jsThis;
+}
+
+/// Returns [value] converted back into its Dart Context representation, or null if the [value] is null.
+///
+/// For use in JS component prop getters where the component expects a JS context, but accepting Dart contexts
+/// is more convenient to the consumer reading/writing the props.
+///
+/// Should be used alongside [unjsifyContextProp].
+///
+/// Note that Dart contexts currently lose their reified types when jsified/unjsified
+/// if they have not been passed into [jsifyContextProp] before.
+Context<T> unjsifyContextProp<T>(ReactContext value) {
+  if (value == null) return null;
+
+  // Return the original Dart context is there is one, otherwise return a new context.
+  // See _dartContextForJsContext comment for more info.
+  final originalContext = _dartContextForJsContext.get(value);
+  return originalContext != null
+      ? originalContext as Context<T>
+      : Context<T>.fromJsContext(value);
+}
+
 /// A weak mapping from JsRef objects to the original Dart Refs they back.
 ///
 /// Useful for
@@ -125,3 +175,16 @@ dynamic unjsifyRefProp(dynamic value,
 /// We also have to use a WeakMap instead of a JS property (or an Expando, whose DDC implementation uses JS properties),
 /// since those can't be used  with sealed JS objects (like React.createRef() objects in development builds, and potentially other cases).
 final _dartRefForJsRef = WeakMap();
+
+/// A weak mapping from ReactContext objects to the original Dart Contexts they back.
+///
+/// Useful for
+/// 1. Preserving the reified type of the Dart context when it gets jsified/unjsified
+/// 2. Telling whether the context was originally a Dart or JS context
+///
+/// We're using WeakMap here so that we don't have a global object strongly referencing and thus retaining contexts,
+/// and not because strong references from the JS contexts to the Dart contexts would be problematic.
+///
+/// We also have to use a WeakMap instead of a JS property (or an Expando, whose DDC implementation uses JS properties),
+/// since those can't be used with sealed JS objects (which may be the case for context objects).
+final _dartContextForJsContext = WeakMap();

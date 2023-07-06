@@ -16,7 +16,6 @@ final $RecoverableErrorBoundaryComponentFactory = registerComponent2(
   componentClass: RecoverableErrorBoundaryComponent,
   isWrapper: true,
   parentType: null,
-  displayName: 'RecoverableErrorBoundary',
   skipMethods: const [],
 );
 
@@ -259,6 +258,9 @@ class _$RecoverableErrorBoundaryComponent
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'RecoverableErrorBoundary';
 
   /// The default consumed props, taken from _$RecoverableErrorBoundaryProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.

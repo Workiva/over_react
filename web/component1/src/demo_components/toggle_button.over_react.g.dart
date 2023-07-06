@@ -15,9 +15,7 @@ final $ToggleButtonComponentFactory = registerComponent(
   builderFactory: _$ToggleButton,
   componentClass: ToggleButtonComponent,
   isWrapper: false,
-  parentType: $ButtonComponentFactory,
-  /* from `subtypeOf: ButtonComponent` */
-  displayName: 'ToggleButton',
+  parentType: $ButtonComponentFactory, /* from `subtypeOf: ButtonComponent` */
 );
 
 abstract class _$ToggleButtonPropsAccessorsMixin
@@ -299,6 +297,9 @@ class _$ToggleButtonComponent extends ToggleButtonComponent {
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'ToggleButton';
 
   /// The default consumed props, taken from _$ToggleButtonProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.

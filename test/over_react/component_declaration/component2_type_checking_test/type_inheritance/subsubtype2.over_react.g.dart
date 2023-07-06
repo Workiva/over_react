@@ -15,9 +15,8 @@ final $TestSubsubtype2ComponentFactory = registerComponent2(
   builderFactory: _$TestSubsubtype2,
   componentClass: TestSubsubtype2Component,
   isWrapper: false,
-  parentType: $TestSubtype2ComponentFactory,
-  /* from `subtypeOf: TestSubtype2Component` */
-  displayName: 'TestSubsubtype2',
+  parentType:
+      $TestSubtype2ComponentFactory, /* from `subtypeOf: TestSubtype2Component` */
 );
 
 abstract class _$TestSubsubtype2PropsAccessorsMixin
@@ -144,6 +143,9 @@ class _$TestSubsubtype2Component extends TestSubsubtype2Component {
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'TestSubsubtype2';
 
   /// The default consumed props, taken from _$TestSubsubtype2Props.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.

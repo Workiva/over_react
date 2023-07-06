@@ -3,7 +3,6 @@
 //@dart=2.9
 
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
-import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:test/test.dart';
 
 import '../test_bases/server_plugin_contributor_test_base.dart';
@@ -21,7 +20,7 @@ void main() {
       });
     }
 
-    Future<List<AnalysisError>> computeErrors({String sourceCode = boilerplateErrorSourceCode}) async {
+    Future<List<AnalysisError>> computeErrors({String sourceCode = rulesOfHooksErrorSourceCode}) async {
       final source = testBase.newSource('test.dart', sourceCode);
 
       final result = await testBase.testPlugin.getResolvedUnitResult(testBase.sourcePath(source));
@@ -98,8 +97,15 @@ class AnalysisOptionsConfigurationTest extends ServerPluginContributorTestBase {
   String get analysisOptionsYamlContents => _yamlContents;
 }
 
-const boilerplateErrorSourceCode = /*language=dart*/ '''
-part 'test.over_react.g.dart';
+const rulesOfHooksErrorSourceCode = /*language=dart*/ '''
+import 'package:over_react/over_react.dart';
+
+void useSomething(bool condition) {
+  if (condition) {
+    useEffect(() {});
+  }
+}
+
 ''';
 
 /// Code containing two bad keys. The first is bad because it is a bool. The second is bad because it is a hashcode.
@@ -120,7 +126,7 @@ const yamlError = /*language=yaml*/ '''analyzer:
 
 over_react:
   errors:
-    over_react_boilerplate_error: error''';
+    over_react_rules_of_hooks: error''';
 
 const yamlWarn = /*language=yaml*/ '''analyzer:
   plugins:
@@ -128,7 +134,7 @@ const yamlWarn = /*language=yaml*/ '''analyzer:
 
 over_react:
   errors:
-    over_react_boilerplate_error: warning''';
+    over_react_rules_of_hooks: warning''';
 
 const yamlInfo = /*language=yaml*/ '''analyzer:
   plugins:
@@ -136,7 +142,7 @@ const yamlInfo = /*language=yaml*/ '''analyzer:
 
 over_react:
   errors:
-    over_react_boilerplate_error: info''';
+    over_react_rules_of_hooks: info''';
 
 const yamlIgnore = /*language=yaml*/ '''analyzer:
   plugins:
@@ -144,7 +150,7 @@ const yamlIgnore = /*language=yaml*/ '''analyzer:
 
 over_react:
   errors:
-    over_react_boilerplate_error: ignore''';
+    over_react_rules_of_hooks: ignore''';
 
 const yamlNotConfigured = /*language=yaml*/ '''analyzer:
   plugins:

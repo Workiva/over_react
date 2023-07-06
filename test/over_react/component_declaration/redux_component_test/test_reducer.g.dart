@@ -7,7 +7,6 @@ part of over_react.component_declaration.redux_component.reducer;
 // **************************************************************************
 
 // ignore_for_file: avoid_classes_with_only_static_members
-// ignore_for_file: annotate_overrides
 // ignore_for_file: overridden_fields
 // ignore_for_file: type_annotate_public_apis
 
@@ -41,11 +40,11 @@ class _$BaseState extends BaseState {
   final int count2;
 
   factory _$BaseState([void Function(BaseStateBuilder) updates]) =>
-      (new BaseStateBuilder()..update(updates)).build();
+      (new BaseStateBuilder()..update(updates))._build();
 
   _$BaseState._({this.count1, this.count2}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(count1, 'BaseState', 'count1');
-    BuiltValueNullFieldError.checkNotNull(count2, 'BaseState', 'count2');
+    BuiltValueNullFieldError.checkNotNull(count1, r'BaseState', 'count1');
+    BuiltValueNullFieldError.checkNotNull(count2, r'BaseState', 'count2');
   }
 
   @override
@@ -70,7 +69,7 @@ class _$BaseState extends BaseState {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('BaseState')
+    return (newBuiltValueToStringHelper(r'BaseState')
           ..add('count1', count1)
           ..add('count2', count2))
         .toString();
@@ -112,16 +111,18 @@ class BaseStateBuilder implements Builder<BaseState, BaseStateBuilder> {
   }
 
   @override
-  _$BaseState build() {
+  BaseState build() => _build();
+
+  _$BaseState _build() {
     final _$result = _$v ??
         new _$BaseState._(
             count1: BuiltValueNullFieldError.checkNotNull(
-                count1, 'BaseState', 'count1'),
+                count1, r'BaseState', 'count1'),
             count2: BuiltValueNullFieldError.checkNotNull(
-                count2, 'BaseState', 'count2'));
+                count2, r'BaseState', 'count2'));
     replace(_$result);
     return _$result;
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas

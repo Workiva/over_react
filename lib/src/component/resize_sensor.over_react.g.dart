@@ -18,7 +18,6 @@ final $ResizeSensorComponentFactory = registerComponent2(
   componentClass: ResizeSensorComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'ResizeSensor',
 );
 
 _$$ResizeSensorProps _$ResizeSensor([Map backingProps]) => backingProps == null
@@ -139,6 +138,9 @@ class _$ResizeSensorComponent extends ResizeSensorComponent {
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'ResizeSensor';
 
   /// The default consumed props, comprising all props mixins used by ResizeSensorProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.

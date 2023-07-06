@@ -15,11 +15,10 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # Don't run on newer SDKs until we're able to get on analyzer 1.x,
-        # since our current analyzer version range results in build failures
-        # when analysis hits the `<<<` operator.
-        # sdk: [ 2.13.4, stable, dev ]
-        sdk: [ 2.13.4 ]
+        # Can't run on `dev` (Dart 3) until we're fully null-safe.
+        # We can't run on Dart >=2.19 until https://github.com/dart-lang/sdk/issues/51128
+        # is fixed, or we work around it, which requires upgrading to analyzer ^5.1.0.
+        sdk: [ 2.13.4, 2.18.7 ]
     steps:
       - uses: actions/checkout@v2
       - uses: dart-lang/setup-dart@v0.2
@@ -46,9 +45,8 @@ jobs:
         run: |
           # Analyze lib to ensure public APIs don't depend on build-to-cache files,
           # which could cause analysis issues for consumers who haven't run a build yet.
-          dartanalyzer lib
-          cd example/boilerplate_versions
-          dart analyze
+          dart analyze lib
+          dart analyze example/boilerplate_versions
         if: always() && steps.install.outcome == 'success'
 
       - id: build
@@ -56,11 +54,12 @@ jobs:
         name: Build generated files / precompile DDC assets
         run: |
           dart pub run build_runner build --delete-conflicting-outputs -o ddc_precompiled
-          if [ ${{ matrix.sdk }} = '2.7.2' ]; then
+          if [ ${{ matrix.sdk }} = '2.18.7' ]; then
             git diff --exit-code
           else
-            # Exclude built_redux generated files since they get generated differently in Dart 2.7 vs other versions
-            git diff --exit-code -- ":(exclude)test/over_react/component_declaration/redux_component_test/test_reducer.g.dart"
+            # Don't check these generated files for other SDKs, since they may generate differently
+            # due to different resolved dependencies.
+            git diff --exit-code -- ":(exclude)test/mockito.mocks.dart" ":(exclude)test/over_react/component_declaration/redux_component_test/test_reducer.g.dart"
           fi
         if: always() && steps.install.outcome == 'success'
 
@@ -70,7 +69,9 @@ jobs:
         if: always() && steps.install.outcome == 'success' && steps.build.outcome == 'success'
 
       - name: Run tests (VM)
-        run: dart pub run dart_dev test -P vm
+        # Can't use build_runner (which dart_dev uses if you depend on it) to run VM tests, since we get the error:
+        #    Unable to spawn isolate: /…/build_runner_testRU6M77/.packages: Error: Problem in packages configuration file: Unexpected character
+        run: dart test -P vm
         if: always() && steps.install.outcome == 'success' && steps.build.outcome == 'success'
 
       - name: Run tests (DDC)
@@ -86,18 +87,17 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        sdk: [ 2.13.4, stable ]
+        # Can't run on `dev` (Dart 3) until we're fully null-safe.
+        # We can't run on Dart >=2.19 until https://github.com/dart-lang/sdk/issues/51128
+        # is fixed, or we work around it, which requires upgrading to analyzer ^5.1.0.
+        sdk: [ 2.13.4, 2.18.7 ]
         analyzer:
-          - ^0.40.0
-          - ^0.41.0
-          # No ^0.42.0 since that line only contains 0.42.0-nullsafety.0, which is the 1.0.0 prerelease
           - ^1.0.0
-        # For stable, only validate analyzer ^1.0.0. Otherwise, validate all analyzer versions.
+          - ^2.0.0
+        # Don't validate analyzer ^2.0.0 in 2.13.4 since it can't resolve.
         exclude:
-          - sdk: stable
-        include:
-          - sdk: stable
-            analyzer: ^1.0.0
+          - sdk: 2.13.4
+            analyzer: ^2.0.0
     steps:
       - uses: actions/checkout@v2
       - uses: dart-lang/setup-dart@v0.2
@@ -132,7 +132,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        sdk: [ 2.13.4, stable, dev ]
+        # Can't run on `stable` (Dart 3) until we're fully null-safe.
+        sdk: [ 2.18.7, 2.19.6 ]
     steps:
       - uses: actions/checkout@v2
       - uses: dart-lang/setup-dart@v0.2

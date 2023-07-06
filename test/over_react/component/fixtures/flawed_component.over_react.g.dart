@@ -16,7 +16,6 @@ final $FlawedComponentFactory = registerComponent2(
   componentClass: FlawedComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'Flawed',
 );
 
 abstract class _$FlawedPropsAccessorsMixin implements _$FlawedProps {
@@ -277,6 +276,9 @@ class _$FlawedComponent extends FlawedComponent {
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'Flawed';
 
   /// The default consumed props, taken from _$FlawedProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.

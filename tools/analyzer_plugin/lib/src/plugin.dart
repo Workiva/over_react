@@ -33,6 +33,8 @@ import 'dart:async';
 
 import 'package:analyzer/dart/analysis/context_builder.dart';
 import 'package:analyzer/dart/analysis/context_locator.dart';
+import 'package:analyzer/dart/analysis/context_root.dart' as analyzer;
+import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/file_system/file_system.dart';
 // ignore: implementation_imports
 import 'package:analyzer/src/dart/analysis/context_builder.dart' show ContextBuilderImpl;
@@ -42,23 +44,29 @@ import 'package:analyzer_plugin/plugin/navigation_mixin.dart';
 import 'package:analyzer_plugin/plugin/plugin.dart';
 import 'package:analyzer_plugin/protocol/protocol_generated.dart' as plugin;
 import 'package:analyzer_plugin/utilities/navigation/navigation.dart';
+import 'package:over_react_analyzer_plugin/src/analysis_options/plugin_analysis_options.dart';
+import 'package:over_react_analyzer_plugin/src/analysis_options/reader.dart';
 import 'package:over_react_analyzer_plugin/src/assist/add_props.dart';
 import 'package:over_react_analyzer_plugin/src/assist/convert_class_or_function_component.dart';
 import 'package:over_react_analyzer_plugin/src/assist/extract_component.dart';
 import 'package:over_react_analyzer_plugin/src/assist/refs/add_create_ref_assist.dart';
-import 'package:over_react_analyzer_plugin/src/assist/toggle_stateful.dart';
+// Can't import this until it stops importing non-null-safe code, otherwise the plugin won't start.
+//import 'package:over_react_analyzer_plugin/src/assist/toggle_stateful.dart';
 import 'package:over_react_analyzer_plugin/src/async_plugin_apis/assist.dart';
 import 'package:over_react_analyzer_plugin/src/async_plugin_apis/diagnostic.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/arrow_function_prop.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/bad_key.dart';
-import 'package:over_react_analyzer_plugin/src/diagnostic/boilerplate_validator.dart';
+// Can't import this until it stops importing non-null-safe code, otherwise the plugin won't start.
+//import 'package:over_react_analyzer_plugin/src/diagnostic/boilerplate_validator.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/callback_ref.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/consumed_props_return_value.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/create_ref_usage.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/dom_prop_types.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/duplicate_prop_cascade.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/exhaustive_deps.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/forward_only_dom_props_to_dom_builders.dart';
-import 'package:over_react_analyzer_plugin/src/diagnostic/incorrect_doc_comment_location.dart';
+// Can't import this until it stops importing non-null-safe code, otherwise the plugin won't start.
+//import 'package:over_react_analyzer_plugin/src/diagnostic/incorrect_doc_comment_location.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/invalid_child.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/iterator_key.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/link_target_without_rel.dart';
@@ -73,6 +81,7 @@ import 'package:over_react_analyzer_plugin/src/diagnostic/style_value_diagnostic
 import 'package:over_react_analyzer_plugin/src/diagnostic/variadic_children.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/variadic_children_with_keys.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
+import 'package:over_react_analyzer_plugin/src/util/util.dart';
 
 abstract class OverReactAnalyzerPluginBase extends ServerPlugin
     with
@@ -83,6 +92,9 @@ abstract class OverReactAnalyzerPluginBase extends ServerPlugin
         AsyncAssistsMixin,
         AsyncDartAssistsMixin {
   OverReactAnalyzerPluginBase(ResourceProvider provider) : super(provider);
+
+  @override
+  final pluginOptionsReader = PluginOptionsReader();
 
   @override
   List<String> get fileGlobsToAnalyze => const ['*.dart'];
@@ -98,7 +110,8 @@ abstract class OverReactAnalyzerPluginBase extends ServerPlugin
         AddUseOrCreateRefAssistContributor(),
         ExtractComponentAssistContributor(),
         ExtractStatefulComponentAssistContributor(),
-        ToggleComponentStatefulness(),
+        // Can't import this until it stops importing non-null-safe code, otherwise the plugin won't start.
+        // ToggleComponentStatefulness(),
         ConvertClassOrFunctionComponentAssistContributor(),
         // TODO re-enable this when it's more polished
 //        WrapUnwrapAssistContributor(),
@@ -107,37 +120,63 @@ abstract class OverReactAnalyzerPluginBase extends ServerPlugin
   @override
   List<NavigationContributor> getNavigationContributors(String path) => [];
 
+  // TODO(greg) is there a better way to do this?
+  analyzer.ContextRoot? _analyzerContextRootForPath(String path) {
+    final driver = driverForPath(path);
+    if (driver == null) return null;
+
+    // TODO should this throw?
+    if (driver is! AnalysisDriver) return null;
+
+    return driver.analysisContext?.contextRoot;
+  }
+
+  PluginAnalysisOptions? optionsForPath(String path) {
+    // Do not use protocol.ContextRoot's optionsFile, since it's null at least in tests.
+    // We'll use te driver's context instead.
+    final contextRoot = _analyzerContextRootForPath(path);
+    if (contextRoot == null) return null;
+    return pluginOptionsReader.getOptionsForContextRoot(contextRoot);
+  }
+
   @override
-  List<DiagnosticContributor> getDiagnosticContributors(String path) => [
-        PropTypesReturnValueDiagnostic(),
-        DuplicatePropCascadeDiagnostic(),
-        LinkTargetUsageWithoutRelDiagnostic(),
-        BadKeyDiagnostic(),
-        VariadicChildrenDiagnostic(),
-        ArrowFunctionPropCascadeDiagnostic(),
-        RenderReturnValueDiagnostic(),
-        InvalidChildDiagnostic(),
-        StringRefDiagnostic(),
-        CallbackRefDiagnostic(),
-        MissingCascadeParensDiagnostic(),
-        // TODO: Re-enable this once consumers can disable lints via analysis_options.yaml
+  List<DiagnosticContributor> getDiagnosticContributors(String path) {
+    final options = optionsForPath(path);
+    return [
+      PropTypesReturnValueDiagnostic(),
+      DuplicatePropCascadeDiagnostic(),
+      LinkTargetUsageWithoutRelDiagnostic(),
+      BadKeyDiagnostic(),
+      VariadicChildrenDiagnostic(),
+      ArrowFunctionPropCascadeDiagnostic(),
+      RenderReturnValueDiagnostic(),
+      InvalidChildDiagnostic(),
+      StringRefDiagnostic(),
+      CallbackRefDiagnostic(),
+      MissingCascadeParensDiagnostic(),
+      // TODO: Re-enable this once consumers can disable lints via analysis_options.yaml
 //      MissingRequiredPropDiagnostic(),
-        PseudoStaticLifecycleDiagnostic(),
-        InvalidDomAttributeDiagnostic(),
-        // TODO: Re-enable this once consumers can disable lints via analysis_options.yaml
+      PseudoStaticLifecycleDiagnostic(),
+      InvalidDomAttributeDiagnostic(),
+      // TODO: Re-enable this once consumers can disable lints via analysis_options.yaml
 //        BoolPropNameReadabilityDiagnostic(),
-        StyleValueDiagnostic(),
-        BoilerplateValidatorDiagnostic(),
-        VariadicChildrenWithKeys(),
-        IncorrectDocCommentLocationDiagnostic(),
-        ConsumedPropsReturnValueDiagnostic(),
-        ForwardOnlyDomPropsToDomBuildersDiagnostic(),
-        IteratorKey(),
-        RulesOfHooks(),
-        // HooksExhaustiveDeps(),
-        NonDefaultedPropDiagnostic(),
-        CreateRefUsageDiagnostic(),
-      ];
+      StyleValueDiagnostic(),
+      // Can't import this until it stops importing non-null-safe code, otherwise the plugin won't start.
+      // BoilerplateValidatorDiagnostic(),
+      VariadicChildrenWithKeys(),
+      // Can't import this until it stops importing non-null-safe code, otherwise the plugin won't start.
+      // IncorrectDocCommentLocationDiagnostic(),
+      ConsumedPropsReturnValueDiagnostic(),
+      ForwardOnlyDomPropsToDomBuildersDiagnostic(),
+      IteratorKey(),
+      RulesOfHooks(),
+      ExhaustiveDeps(
+        additionalHooksPattern: options?.exhaustiveDepsAdditionalHooksPattern,
+      ),
+      NonDefaultedPropDiagnostic(),
+      CreateRefUsageDiagnostic(),
+    ];
+  }
 
   // @override
   // List<OutlineContributor> getOutlineContributors(String path) => [
@@ -179,7 +218,7 @@ class OverReactAnalyzerPlugin extends OverReactAnalyzerPluginBase {
               .toNotification());
     }
     runZonedGuarded(() {
-      driver.results.listen(processDiagnosticsForResult);
+      driver.results.whereType<ResolvedUnitResult>().listen(processDiagnosticsForResult);
     }, (e, stackTrace) {
       channel.sendNotification(plugin.PluginErrorParams(false, e.toString(), stackTrace.toString()).toNotification());
     });

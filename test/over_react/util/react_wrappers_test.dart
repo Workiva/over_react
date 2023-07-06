@@ -1063,19 +1063,25 @@ main() {
               expect(result2, same(result1), reason: 'should have returned the same object');
             }, tags: 'no-ddc');
 
-            test('unless the runtime is the DDC', () {
+            // A previous version of this test asserted that caching didn't take place, but that's
+            // no longer true in newer SDKs since Expando started using WeakMap in Dart 2.14.0: https://github.com/dart-lang/sdk/commit/460887d8149748d3feaad857f1b13721faadeffa,
+            // so we can't test that behavior having different tests for different SDKs.
+            // Once we raise our minimums, we can update the test above to run on DDC as well.
+            // Until then, just ensure the implementation isn't broken in DDC, as a regression test for older SDKs.
+            test('and works without throwing in DDC', () {
               final element = factory({
                 'dartProp': 'dart'
               }) as ReactElement;
 
-              var result1 = getProps(element);
-              var result2 = getProps(element);
-
-              expect(result1, containsPair('dartProp', 'dart'), reason: 'test setup sanity check');
-              expect(result2, isNot(same(result1)),
-                  reason: 'if this test fails, then it\'s possible that the bug was fixed in'
-                          ' a newer version of the Dart SDK, and this test can be removed!');
-            }, tags: 'ddc');
+              dynamic result1;
+              dynamic result2;
+              expect(() {
+                result1 = getProps(element);
+                result2 = getProps(element);
+              }, returnsNormally);
+              expect(result1, containsPair('dartProp', 'dart'));
+              expect(result2, containsPair('dartProp', 'dart'));
+            });
           });
         }
 

@@ -12,10 +12,11 @@ import '../test_bases/assist_test_base.dart';
 import 'boilerplate_assist_utils.dart';
 
 void main() {
-  defineReflectiveSuite(() {
-    defineReflectiveTests(AddStatefulnessAssist);
-    defineReflectiveTests(RemoveStatefulnessAssist);
-  });
+  // These tests can't run until this diagnostic is re-enabled in the plugin.
+  // defineReflectiveSuite(() {
+  //   defineReflectiveTests(AddStatefulnessAssist);
+  //   defineReflectiveTests(RemoveStatefulnessAssist);
+  // });
 }
 
 @reflectiveTest

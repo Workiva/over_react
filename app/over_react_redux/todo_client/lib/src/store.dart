@@ -22,7 +22,7 @@ DevToolsStore<AppState> getStore() => DevToolsStore<AppState>(
   appStateReducer,
   initialState: initializeState(),
   middleware: [
-    overReactReduxDevToolsMiddleware,
+    overReactReduxDevToolsMiddlewareFactory(name: 'Example Store'),
     localStorageMiddleware(),
   ],
 );

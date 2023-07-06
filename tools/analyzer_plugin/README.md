@@ -107,6 +107,21 @@ This script sets up a symlink to point to the original plugin directory (replaci
     * If you need to get the source for a replacement, use `sourceFile.getText(node.offset, node.end)`.
 
 ### Debugging the Plugin
+
+#### Showing Debug Info
+
+Via `AnalyzerDebugHelper`, it's possible for diagnostics to show debug information for specific locations in a file
+as infos, which can be helpful to develop/troubleshoot
+issues without having to attach a debugger.
+
+Some parts of the plugin show this debug info based on the presence of a comment anywhere in the file.
+Currently-available debug info:
+- `// debug: over_react_boilerplate`- shows how over_react boilerplate will be parsed/detected by the over_react
+  builder and analyzer functionality dealing with component declarations
+- `// debug: over_react_metrics` - shows performance data on how long diagnostics took to run
+- `// debug: over_react_exhaustive_deps` - shows info on how dependencies were detected/interpreted
+
+#### Attaching a Debugger
 The dev experience when working on this plugin isn't ideal (See the `analyzer_plugin` debugging docs [for more information](https://github.com/dart-lang/sdk/blob/master/pkg/analyzer_plugin/doc/tutorial/debugging.md)), but it's possible debug and see logs from the plugin.
 
 These instructions are currently for JetBrains IDEs (IntelliJ, WebStorm, etc.) only.

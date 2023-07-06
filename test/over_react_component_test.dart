@@ -29,7 +29,7 @@ import 'over_react/component/abstract_transition_test.dart'
 import 'over_react/component/with_transition_test.dart'
     as with_transition_test;
 import 'over_react/component/dom_components_test.dart' as dom_components_test;
-import 'over_react/component/error_boundary_test.dart' as error_boundary_test;
+import 'over_react/component/error_boundary/error_boundary_test.dart' as error_boundary_test;
 import 'over_react/component/_deprecated/error_boundary_mixin_test.dart'
     as deprecated_error_boundary_mixin_test;
 import 'over_react/component/_deprecated/error_boundary_test.dart'
@@ -48,6 +48,8 @@ import 'over_react/component/fragment_component_test.dart'
     as fragment_component_test;
 import 'over_react/component/strictmode_component_test.dart'
     as strictmode_component_test;
+import 'over_react/component/suspense_component_test.dart'
+    as suspense_component_test;
 import 'over_react/component/context_test.dart' as context_test;
 import 'over_react/component/typed_factory_test.dart' as typed_factory_test;
 
@@ -71,6 +73,7 @@ void main() {
   resize_sensor_test.main();
   fragment_component_test.main();
   strictmode_component_test.main();
+  suspense_component_test.main();
   context_test.main();
   typed_factory_test.main();
 }

@@ -5,7 +5,6 @@ import 'package:analyzer/source/line_info.dart';
 import 'package:analyzer/source/source_range.dart';
 import 'package:analyzer_plugin/utilities/change_builder/change_builder_dart.dart';
 import 'package:analyzer_plugin/utilities/pair.dart';
-import 'package:collection/collection.dart' show IterableExtension;
 import 'package:over_react_analyzer_plugin/src/component_usage.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/analyzer_debug_helper.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
@@ -63,7 +62,7 @@ void addUseOrCreateRef(
       refTypeToReplace = RefTypeToReplace.callback;
       createRefField = _getRefCallbackAssignedField(rhs);
       if (createRefField != null) {
-        createRefFieldName = createRefField.name!;
+        createRefFieldName = createRefField.name;
       }
     }
 
@@ -73,7 +72,7 @@ void addUseOrCreateRef(
     });
   } else {
     // An assist is being used to add a ref, so we have to add the ref prop as a cascaded setter
-    addProp(usage, builder, result.content!, lineInfo, name: 'ref', buildValueEdit: (builder) {
+    addProp(usage, builder, result.content, lineInfo, name: 'ref', buildValueEdit: (builder) {
       builder.addSimpleLinkedEdit(nameGroup, createRefFieldName);
     });
   }
@@ -87,6 +86,7 @@ void addUseOrCreateRef(
   }
 
   if (refTypeToReplace == RefTypeToReplace.callback) {
+    if (createRefField == null) return;
     // Its a callback ref - meaning there is an existing field we need to update.
     final declOfVarRefIsAssignedTo = lookUpVariable(createRefField, result.unit);
     if (declOfVarRefIsAssignedTo == null) return;
@@ -105,7 +105,7 @@ void addUseOrCreateRef(
     });
 
     // Append all usages of the field the return value of createRef() is assigned to with `.current`
-    allDescendantsOfType<Identifier>(result.unit!).where((identifier) {
+    allDescendantsOfType<Identifier>(result.unit).where((identifier) {
       // Don't replace the field declaration or existing usages in the ref, since we do that elsewhere.
       if (identifier.thisOrAncestorOfType<VariableDeclaration>()?.declaredElement == createRefField ||
           identifier.thisOrAncestorMatching((ancestor) => ancestor == callbackRefPropRhs) != null) {
@@ -129,7 +129,7 @@ void addUseOrCreateRef(
     final insertionParent = insertionLocation.last;
     final indent = insertionParent is CompilationUnit
         ? ''
-        : getIndent(result.content!, lineInfo, insertionParent.parent!.offset) + '  ';
+        : getIndent(result.content, lineInfo, insertionParent.parent!.offset) + '  ';
 
     builder.addInsertion(insertionOffset, (_builder) {
       _builder.write('$indent');
@@ -140,7 +140,7 @@ void addUseOrCreateRef(
 
     if (refProp != null) {
       // Replace all usages of ref('oldStringRef') with the new ref field
-      final stringRefReferences = allDescendantsOfType<Identifier>(result.unit!).where((identifier) {
+      final stringRefReferences = allDescendantsOfType<Identifier>(result.unit).where((identifier) {
         final parentFunctionInvocation = identifier.thisOrAncestorOfType<FunctionExpressionInvocation>();
         if (parentFunctionInvocation == null) return false;
 
