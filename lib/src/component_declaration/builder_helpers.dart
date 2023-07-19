@@ -134,24 +134,88 @@ abstract class UiProps extends component_base.UiProps with GeneratedClass {
   @toBeGenerated PropsMetaCollection get staticMeta => throw UngeneratedError(member: #meta);
 }
 
-extension UnusedProps<T extends UiProps> on T {
-  Map get unused => getUnused();
 
-  Map getUnused([Set<Type> usedPropMixins]) {
+/*
+UiComponent:
+..addProps(copyUnconsumedProps())
+
+UiComponent2:
+..modifyProps(addUnconsumedProps)
+
+UiFunction and UiComponent2:
+final consumedProps = props.staticMeta.forMixins({BarPropsMixin});
+...
+..addUnconsumedProps(props, consumedProps)
+
+
+Proposed:
+// By default the method not return props for the class it is being called on which makes it super easy and convenient.
+// eg. if `props` is of type `MyPropsMixin` then it would be equivalent to something like `props.getUnconsumed(consumed: {MyPropsMixin})`
+
+
+..addAll(props.getUnconsumed())
+
+..addAll(props.getUnconsumed({MyProps}));
+..addAll(props.getUnconsumed(consumed: {MyProps}));
+..addAll(props.getUnconsumedProps(consumedPropsMixins: {MyProps}))
+
+..addAll(props.getUnconsumed(exclude: {MyProps}))
+
+*/
+
+extension UnusedProps<T extends UiProps> on T {
+
+  /// Returns this instance's props map excluding the keys found in [consumedMixins].
+  ///
+  /// [consumedMixins] should be a `Set` of PropsMixin `Type`s.
+  /// If [consumedMixins] is not set it defaults to using the current instances Type.
+  ///
+  /// __Example:__
+  ///
+  /// ```dart
+  /// // within a functional component: `uiFunction<FooPropsMixin>`
+  /// // filter out the current components props when forwarding to Bar.
+  /// return (Bar()..addAll(props.getConsumed()))();
+  /// ```
+  /// OR
+  /// ```dart
+  /// // within a functional component that has multiple mixins on a Props class: `uiFunction<FooProps>`
+  /// // filter out the Components props when forwarding to Bar.
+  /// return (Bar()..addAll(props.getConsumed(consumedMixins:{FooPropsMixin}))();
+  /// ```
+  ///
+  /// To only add DOM props, use [addUnconsumedDomProps].
+  ///
+  /// Related: `UiComponent2`'s `addUnconsumedProps`
+  Map getPropsToForward({Set<Type> exclude, Set<Type> include, bool domOnly = false}) {
+    final useDefaultExclude = exclude == null && (include == null || (include is Set && include.isEmpty));
     try {
-      final unusedProps = {};
-      final usedProps = staticMeta.forMixins(usedPropMixins ?? {T});
-      final usedPropKeys = usedProps.map((consumedProps) => consumedProps.keys).toList();
-      forwardUnconsumedPropsV2(props, propsToUpdate: unusedProps, keySetsToOmit: usedPropKeys);
-      return unusedProps;
-    } catch(_) {
-      if (usedPropMixins == null) {
-        throw ArgumentError('Could not find props meta for type $T.'
-          ' If this is not a props mixin, you need to specify its mixins as the second argument.  For example:'
-          '\n  ..addAll(props.getUnused({${T}Mixin}, …)');
+      Iterable<PropsMeta> includedProps = [];
+      final unconsumedProps = {};
+      Iterable<PropsMeta> consumedProps;
+      List<List<String>> consumedPropKeys;
+      final excludedProps = staticMeta.forMixins(useDefaultExclude ? {T} : exclude ?? {});
+      final excludedPropKeys = excludedProps.map((consumeProps) => consumeProps.keys).toList();
+
+      if (include != null) {
+        includedProps = staticMeta.allExceptForMixins(include);
+        consumedProps = includedProps.toList()..removeWhere((element) => excludedPropKeys.any((ex) => element.keys.any((el) => !ex.contains(el))));
+        consumedPropKeys = consumedProps.map((consumedProps) => consumedProps.keys).toList();
+      } else {
+        consumedProps = excludedProps;
+        consumedPropKeys = consumedProps.map((consumedProps) => consumedProps.keys).toList();
       }
-      rethrow;
-    }
+
+      forwardUnconsumedPropsV2(props, propsToUpdate: unconsumedProps, keySetsToOmit: consumedPropKeys, onlyCopyDomProps: domOnly);
+      return unconsumedProps;
+      } catch(_) {
+        if (useDefaultExclude) {
+          throw ArgumentError('Could not find props meta for type $T.'
+            ' If this is not a props mixin, you need to specify the mixins to be excluded as the second argument to `getUnconsumed`.  For example:'
+            '\n  ..addAll(props.getUnconsumed({${T}Mixin}, …)');
+        }
+        rethrow;
+      }
   }
 }
 

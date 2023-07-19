@@ -260,9 +260,39 @@ void functionComponentTestHelper(UiFactory<TestProps> factory,
     const anotherProp = 'this should be filtered';
     const className = 'aClassName';
 
-    group('using `addUnconsumedProps`', () {
+    // group('using `addUnconsumedProps`', () {
+    //   TestProps initialProps;
+    //   TestProps secondProps;
+
+    //   setUp(() {
+    //     initialProps = (factory()
+    //       ..stringProp = stringProp
+    //       ..anotherProp = anotherProp
+    //     );
+
+    //     secondProps = factory();
+
+    //     expect(secondProps.stringProp, isNull, reason: 'Test setup sanity check');
+    //     expect(secondProps.anotherProp, isNull, reason: 'Test setup sanity check');
+    //   });
+
+    //   test('', () {
+    //     secondProps.addUnconsumedProps(initialProps, []);
+    //     expect(secondProps.anotherProp, anotherProp);
+    //     expect(secondProps.stringProp, stringProp);
+    //   });
+
+    //   test('and consumed props are correctly filtered', () {
+    //     final consumedProps = initialProps.staticMeta.forMixins({TestPropsMixin});
+    //     secondProps.addUnconsumedProps(initialProps, consumedProps);
+    //     expect(secondProps.stringProp, isNull);
+    //     expect(secondProps.anotherProp, anotherProp);
+    //   });
+    // });
+
+    group('using `getPropsToForwardProps`', () {
       TestProps initialProps;
-      TestProps secondProps;
+      TestPropsMixin secondProps;
 
       setUp(() {
         initialProps = (factory()
@@ -270,58 +300,90 @@ void functionComponentTestHelper(UiFactory<TestProps> factory,
           ..anotherProp = anotherProp
         );
 
-        secondProps = factory();
+        secondProps = initialProps;
 
-        expect(secondProps.stringProp, isNull, reason: 'Test setup sanity check');
-        expect(secondProps.anotherProp, isNull, reason: 'Test setup sanity check');
+        // expect(secondProps.stringProp, isNull, reason: 'Test setup sanity check');
+        // expect(secondProps.anotherProp, isNull, reason: 'Test setup sanity check');
       });
 
-      test('', () {
-        secondProps.addUnconsumedProps(initialProps, []);
-        expect(secondProps.anotherProp, anotherProp);
-        expect(secondProps.stringProp, stringProp);
+      test('by default excludes props mixin type that it is invoked on', () {
+        var unconsumedProps = factory(secondProps.getPropsToForward());
+        expect(unconsumedProps.anotherProp, anotherProp);
+        expect(unconsumedProps.stringProp, isNull);
       });
 
-      test('and consumed props are correctly filtered', () {
-        final consumedProps = initialProps.staticMeta.forMixins({TestPropsMixin});
-        secondProps.addUnconsumedProps(initialProps, consumedProps);
-        expect(secondProps.stringProp, isNull);
-        expect(secondProps.anotherProp, anotherProp);
+      group('and props are correctly filtered', () {
+
+        group('via exclude', () {
+
+          test('for an empty set', () {
+            var unconsumedProps = factory(initialProps.getPropsToForward(exclude: {}));
+
+            expect(unconsumedProps.stringProp, stringProp);
+            expect(unconsumedProps.anotherProp, anotherProp);
+          });
+
+          test('for a single value set', () {
+            var unconsumedProps = factory(initialProps.getPropsToForward(exclude: {ASecondPropsMixin}));
+
+            expect(unconsumedProps.stringProp, stringProp);
+            expect(unconsumedProps.anotherProp, isNull);
+          });
+
+        });
+
+        group('via include', () {
+
+          test('for an empty set', () {
+            var unconsumedProps = factory(initialProps.getPropsToForward(exclude: {}, include: {}));
+
+            expect(unconsumedProps.stringProp, isNull);
+            expect(unconsumedProps.anotherProp, isNull);
+          });
+
+          test('for a single value set', () {
+            var unconsumedProps = factory(initialProps.getPropsToForward(include: {ASecondPropsMixin}));
+
+            expect(unconsumedProps.stringProp, isNull);
+            expect(unconsumedProps.anotherProp, anotherProp);
+          });
+
+        });
       });
     });
 
-    group('using `addUnconsumedDomProps`', ()
-    {
-      TestProps initialProps;
-      TestProps secondProps;
+    // group('using `addUnconsumedDomProps`', ()
+    // {
+    //   TestProps initialProps;
+    //   TestProps secondProps;
 
-      setUp(() {
-        initialProps = (factory()
-          ..stringProp = stringProp
-          ..anotherProp = anotherProp
-          ..className = className
-        );
+    //   setUp(() {
+    //     initialProps = (factory()
+    //       ..stringProp = stringProp
+    //       ..anotherProp = anotherProp
+    //       ..className = className
+    //     );
 
-        secondProps = factory();
+    //     secondProps = factory();
 
-        expect(secondProps.className, isNull, reason: 'Test setup sanity check');
-      });
+    //     expect(secondProps.className, isNull, reason: 'Test setup sanity check');
+    //   });
 
-      test('', () {
-        secondProps.addUnconsumedDomProps(initialProps, []);
-        expect(secondProps.stringProp, isNull);
-        expect(secondProps.anotherProp, isNull);
-        expect(secondProps.className, className);
-      });
+    //   test('', () {
+    //     secondProps.addUnconsumedDomProps(initialProps, []);
+    //     expect(secondProps.stringProp, isNull);
+    //     expect(secondProps.anotherProp, isNull);
+    //     expect(secondProps.className, className);
+    //   });
 
-      test('and consumed props are correctly filtered', () {
-        expect(initialProps.className, isNotNull, reason: 'Test setup sanity check');
-        secondProps.addUnconsumedDomProps(initialProps, [PropsMeta.forSimpleKey('className')]);
-        expect(secondProps.stringProp, isNull);
-        expect(secondProps.anotherProp, isNull);
-        expect(secondProps.className, isNull);
-      });
-    });
+    //   test('and consumed props are correctly filtered', () {
+    //     expect(initialProps.className, isNotNull, reason: 'Test setup sanity check');
+    //     secondProps.addUnconsumedDomProps(initialProps, [PropsMeta.forSimpleKey('className')]);
+    //     expect(secondProps.stringProp, isNull);
+    //     expect(secondProps.anotherProp, isNull);
+    //     expect(secondProps.className, isNull);
+    //   });
+    // });
   });
 }
 

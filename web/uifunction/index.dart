@@ -20,17 +20,19 @@ import 'package:over_react/over_react.dart';
 import 'package:over_react/react_dom.dart' as react_dom;
 
 import 'src/foo.dart';
+import 'src/bar.dart';
 
 void main() {
   react_dom.render(
     StrictMode()(
-      (Foo()
-        ..dom.id = 'TopID'
+      (FooBar()
+
         ..foo = 'Foo!'
         ..bar = 'BAR!'
         ..somethingElse = 'forwarded this unused prop!'
-        ..['lol'] = true
-      )()
+        //..['lol'] = true
+      )(),
+      (Button()..id='ButtonID'..isActive = true..['fancy']="true")('HEyyyy')
     ),
     querySelector('#uifunction'),
   );
