@@ -165,57 +165,43 @@ Proposed:
 
 extension UnusedProps<T extends UiProps> on T {
 
-  /// Returns this instance's props map excluding the keys found in [consumedMixins].
+  /// Returns this instance's props map excluding the keys found in [exclude].
   ///
-  /// [consumedMixins] should be a `Set` of PropsMixin `Type`s.
-  /// If [consumedMixins] is not set it defaults to using the current instances Type.
+  /// [exclude] should be a `Set` of PropsMixin `Type`s.
+  /// If [exclude] is not set it defaults to using the current instances Type.
   ///
   /// __Example:__
   ///
   /// ```dart
   /// // within a functional component: `uiFunction<FooPropsMixin>`
   /// // filter out the current components props when forwarding to Bar.
-  /// return (Bar()..addAll(props.getConsumed()))();
+  /// return (Bar()..addAll(props.getPropsToForward()))();
   /// ```
   /// OR
   /// ```dart
   /// // within a functional component that has multiple mixins on a Props class: `uiFunction<FooProps>`
   /// // filter out the Components props when forwarding to Bar.
-  /// return (Bar()..addAll(props.getConsumed(consumedMixins:{FooPropsMixin}))();
+  /// return (Bar()..addAll(props.getPropsToForward(exclude: {FooPropsMixin}))();
   /// ```
   ///
   /// To only add DOM props, use [addUnconsumedDomProps].
   ///
   /// Related: `UiComponent2`'s `addUnconsumedProps`
-  Map getPropsToForward({Set<Type> exclude, Set<Type> include, bool domOnly = false}) {
-    final useDefaultExclude = exclude == null && (include == null || (include is Set && include.isEmpty));
+  Map getPropsToForward({Set<Type> exclude, bool domOnly = false}) {
     try {
-      Iterable<PropsMeta> includedProps = [];
       final unconsumedProps = {};
-      Iterable<PropsMeta> consumedProps;
-      List<List<String>> consumedPropKeys;
-      final excludedProps = staticMeta.forMixins(useDefaultExclude ? {T} : exclude ?? {});
-      final excludedPropKeys = excludedProps.map((consumeProps) => consumeProps.keys).toList();
-
-      if (include != null) {
-        includedProps = staticMeta.allExceptForMixins(include);
-        consumedProps = includedProps.toList()..removeWhere((element) => excludedPropKeys.any((ex) => element.keys.any((el) => !ex.contains(el))));
-        consumedPropKeys = consumedProps.map((consumedProps) => consumedProps.keys).toList();
-      } else {
-        consumedProps = excludedProps;
-        consumedPropKeys = consumedProps.map((consumedProps) => consumedProps.keys).toList();
-      }
-
-      forwardUnconsumedPropsV2(props, propsToUpdate: unconsumedProps, keySetsToOmit: consumedPropKeys, onlyCopyDomProps: domOnly);
+      final consumedProps = staticMeta.forMixins(exclude ?? {T});
+      final consumedPropKeys = consumedProps.map((consumedProps) => consumedProps.keys);
+      forwardUnconsumedPropsV2(props, propsToUpdate: unconsumedProps, keySetsToOmit: consumedPropKeys);
       return unconsumedProps;
-      } catch(_) {
-        if (useDefaultExclude) {
-          throw ArgumentError('Could not find props meta for type $T.'
-            ' If this is not a props mixin, you need to specify the mixins to be excluded as the second argument to `getUnconsumed`.  For example:'
-            '\n  ..addAll(props.getUnconsumed({${T}Mixin}, …)');
-        }
-        rethrow;
+    } catch(_) {
+      if (exclude == null) {
+        throw ArgumentError('Could not find props meta for type $T.'
+          ' If this is not a props mixin, you need to specify its mixins as the second argument.  For example:'
+          '\n  ..addAll(props.getPropsToForward(exclude: {${T}Mixin})');
       }
+      rethrow;
+    }
   }
 }
 

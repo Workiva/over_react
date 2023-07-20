@@ -293,11 +293,13 @@ void functionComponentTestHelper(UiFactory<TestProps> factory,
     group('using `getPropsToForwardProps`', () {
       TestProps initialProps;
       TestPropsMixin secondProps;
+      final testId = 'testId';
 
       setUp(() {
         initialProps = (factory()
           ..stringProp = stringProp
           ..anotherProp = anotherProp
+          ..id = testId
         );
 
         secondProps = initialProps;
@@ -323,32 +325,30 @@ void functionComponentTestHelper(UiFactory<TestProps> factory,
             expect(unconsumedProps.anotherProp, anotherProp);
           });
 
-          test('for a single value set', () {
+          test('for a single value in set', () {
             var unconsumedProps = factory(initialProps.getPropsToForward(exclude: {ASecondPropsMixin}));
 
             expect(unconsumedProps.stringProp, stringProp);
             expect(unconsumedProps.anotherProp, isNull);
           });
 
-        });
-
-        group('via include', () {
-
-          test('for an empty set', () {
-            var unconsumedProps = factory(initialProps.getPropsToForward(exclude: {}, include: {}));
+          test('for multiple values in set', () {
+            var unconsumedProps = factory(initialProps.getPropsToForward(exclude: {ASecondPropsMixin, TestPropsMixin}));
 
             expect(unconsumedProps.stringProp, isNull);
             expect(unconsumedProps.anotherProp, isNull);
           });
 
-          test('for a single value set', () {
-            var unconsumedProps = factory(initialProps.getPropsToForward(include: {ASecondPropsMixin}));
+          test('for dom only ', () {
+            var unconsumedProps = factory(initialProps.getPropsToForward(domOnly: true));
 
             expect(unconsumedProps.stringProp, isNull);
-            expect(unconsumedProps.anotherProp, anotherProp);
+            expect(unconsumedProps.anotherProp, isNull);
+            expect(unconsumedProps.id, testId);
           });
 
         });
+
       });
     });
 
