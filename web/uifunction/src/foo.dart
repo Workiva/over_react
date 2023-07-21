@@ -4,48 +4,35 @@ import 'dart:js_util';
 import 'package:over_react/over_react.dart';
 part 'foo.over_react.g.dart';
 
-mixin FooBarPropsMixin on UiProps {
-  String foobar;
-}
-
-class FooBarProps = UiProps
-  with BarPropsMixin,
-       FooPropsMixin,
-       SomethingElsePropsMixin;
-
-final FooBar = uiFunction<FooBarProps>((props) {
-  return Fragment()(
-    (Foo()
-      ..addAll(props.getPropsToForward(exclude: {FooPropsMixin}))
-    )(),
-    (Bar()
-      ..addAll(props.getPropsToForward(exclude: {BarPropsMixin}))
-    )(),
-    (SomethingElse()
-      ..addAll(props.getPropsToForward(exclude: {SomethingElsePropsMixin}))
-    )(),
-  );
-}, _$FooBarConfig);
-
 mixin FooPropsMixin on UiProps {
   dynamic foo;
 }
 
-final Foo = uiFunction<FooPropsMixin>((props) {
-  if (props.length > 1 ) {
-    window.console.log(props.props);
-  }
-  return props.foo != null ? 'FOO!!!' : 'NO FOO :(';
+class FooProps = UiProps
+  with BarPropsMixin,
+       FooPropsMixin,
+       SomethingElsePropsMixin;
+
+final Foo = uiFunction<FooProps>((props) {
+  return (Bar()
+    ..addAll(props.getPropsToForward(exclude: {FooPropsMixin}))
+  )();
 }, _$FooConfig);
 
 mixin BarPropsMixin on UiProps {
   String bar;
+
+  @Accessor(key:'data-lol', keyNamespace: '')
+  String lol;
 }
 
 final Bar = uiFunction<BarPropsMixin>((props) {
-  //var consumedProps = props.staticMeta.forMixins({FooPropsMixin});
-  //log('Bar', props.getPropsToForward(exclude: {FooPropsMixin}));
-  return props.bar != null ? 'BAR!!!' : 'NO BAR :(';
+  log('Bar', props.getPropsToForward());
+  return Fragment()(
+    (Dom.div()..modifyProps(props.addPropsToForward(exclude: {BarPropsMixin}, domOnly: true)))(),
+    (SomethingElse()
+    ..modifyProps(props.addPropsToForward())
+  )());
 }, _$BarConfig);
 
 

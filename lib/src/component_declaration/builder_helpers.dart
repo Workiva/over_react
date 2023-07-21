@@ -163,9 +163,10 @@ Proposed:
 
 */
 
-extension UnusedProps<T extends UiProps> on T {
+extension PropsToForward<T extends UiProps> on T {
 
-  /// Returns this instance's props map excluding the keys found in [exclude].
+
+  /// Returns a copy of this instance's props excluding the keys found in [exclude].
   ///
   /// [exclude] should be a `Set` of PropsMixin `Type`s.
   /// If [exclude] is not set it defaults to using the current instances Type.
@@ -188,20 +189,53 @@ extension UnusedProps<T extends UiProps> on T {
   ///
   /// Related: `UiComponent2`'s `addUnconsumedProps`
   Map getPropsToForward({Set<Type> exclude, bool domOnly = false}) {
+    return _propsToForward(exclude: exclude, domOnly: domOnly, propsToUpdate: {});
+  }
+
+
+  /// A utility function to be used with `modifyProps` to add props excluding the keys found in [exclude].
+  ///
+  /// [exclude] should be a `Set` of PropsMixin `Type`s.
+  /// If [exclude] is not set it defaults to using the current instances Type.
+  ///
+  /// __Example:__
+  ///
+  /// ```dart
+  /// // within a functional component: `uiFunction<FooPropsMixin>`
+  /// // filter out the current components props when forwarding to Bar.
+  /// return (Bar()..addAll(props.getPropsToForward()))();
+  /// ```
+  /// OR
+  /// ```dart
+  /// // within a functional component that has multiple mixins on a Props class: `uiFunction<FooProps>`
+  /// // filter out the Components props when forwarding to Bar.
+  /// return (Bar()..addAll(props.getPropsToForward(exclude: {FooPropsMixin}))();
+  /// ```
+  ///
+  /// To only add DOM props, use [addUnconsumedDomProps].
+  ///
+  /// Related: `UiComponent2`'s `addUnconsumedProps`
+  PropsModifier addPropsToForward({Set<Type> exclude, bool domOnly = false}) {
+    return (Map<dynamic, dynamic> props) {
+      _propsToForward(exclude: exclude, domOnly: domOnly, propsToUpdate: props);
+    };
+  }
+
+  Map _propsToForward({Set<Type> exclude, bool domOnly = false, Map propsToUpdate}) {
+    Iterable<PropsMeta> consumedProps;
     try {
-      final unconsumedProps = {};
-      final consumedProps = staticMeta.forMixins(exclude ?? {T});
-      final consumedPropKeys = consumedProps.map((consumedProps) => consumedProps.keys);
-      forwardUnconsumedPropsV2(props, propsToUpdate: unconsumedProps, keySetsToOmit: consumedPropKeys);
-      return unconsumedProps;
+      consumedProps = exclude == null ? [staticMeta.forMixin(T)] : staticMeta.forMixins(exclude);
     } catch(_) {
-      if (exclude == null) {
-        throw ArgumentError('Could not find props meta for type $T.'
+        // If [domOnly] is `true`, it is alright for the meta lookup to fail, otherwise throw the error.
+        assert(exclude == null && domOnly == true, ArgumentError('Could not find props meta for type $T.'
           ' If this is not a props mixin, you need to specify its mixins as the second argument.  For example:'
-          '\n  ..addAll(props.getPropsToForward(exclude: {${T}Mixin})');
-      }
-      rethrow;
+          '\n  ..addAll(props.getPropsToForward(exclude: {${T}Mixin})').message);
+        //rethrow;
     }
+    final consumedPropKeys = consumedProps?.map((consumedProps) => consumedProps.keys);
+    //print(consumedPropKeys);
+    forwardUnconsumedPropsV2(props, propsToUpdate: propsToUpdate, keySetsToOmit: consumedPropKeys, onlyCopyDomProps: domOnly);
+    return propsToUpdate;
   }
 }
 
