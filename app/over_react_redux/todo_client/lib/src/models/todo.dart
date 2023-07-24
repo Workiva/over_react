@@ -1,3 +1,4 @@
+// @dart=2.12
 import 'package:uuid/uuid.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -29,7 +30,7 @@ class Todo implements BaseModel {
 
   Todo({
     this.description = '',
-    String id,
+    String? id,
     this.isCompleted = false,
     this.isPublic = false,
     this.notes = '',

@@ -1,3 +1,4 @@
+// @dart=2.12
 import 'package:json_annotation/json_annotation.dart';
 
 import 'package:todo_client/src/models/todo.dart';
@@ -35,7 +36,7 @@ class LocalStorageStateLoadedAction extends _Action<AppState> {
 @JsonSerializable()
 class SaveLocalStorageStateAsAction {
   final String name;
-  final String previousName;
+  final String? previousName;
 
   SaveLocalStorageStateAsAction(this.name, {this.previousName});
 
