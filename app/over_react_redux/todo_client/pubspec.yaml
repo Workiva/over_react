@@ -5,8 +5,8 @@ environment:
   sdk: ">=2.11.0 <3.0.0"
 
 dependencies:
-  color: <4.0.0
-  memoize: '>=2.0.0 <4.0.0'
+  color: ^3.0.0
+  memoize: ^3.0.0
   meta: ^1.6.0
   over_react: ">=3.1.5 <5.0.0"
   json_annotation: ^3.0.0
