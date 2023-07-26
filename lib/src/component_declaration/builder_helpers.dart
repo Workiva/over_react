@@ -196,10 +196,10 @@ extension PropsToForward<T extends UiProps> on T {
     try {
       consumedProps = staticMeta.forMixins(exclude ?? {T}).toList();
     } catch(_) {
-        // If [domOnly] is `true`, it is alright for the meta lookup to fail, otherwise throw the error.
-        assert(exclude == null && domOnly == true, ArgumentError('Could not find props meta for type $T.'
-          ' If this is not a props mixin, you need to specify its mixins as the second argument.  For example:'
-          '\n  ..addAll(props.getPropsToForward(exclude: {${T}Mixin})').message);
+      // If [domOnly] is `true`, it is alright for the meta lookup to fail, otherwise throw the error.
+      assert(exclude == null && domOnly == true, ArgumentError('Could not find props meta for type $T.'
+        ' If this is not a props mixin, you need to specify its mixins as the second argument.  For example:'
+        '\n  ..addAll(props.getPropsToForward(exclude: {${T}Mixin})').message);
     }
     final consumedPropKeys = consumedProps?.map((consumedProps) => consumedProps.keys);
     forwardUnconsumedPropsV2(
