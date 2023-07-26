@@ -260,71 +260,71 @@ void functionComponentTestHelper(UiFactory<TestProps> factory,
     const anotherProp = 'this should be filtered';
     const className = 'aClassName';
 
-    // group('using `addUnconsumedProps`', () {
-    //   TestProps initialProps;
-    //   TestProps secondProps;
+    group('using `addUnconsumedProps`', () {
+      TestProps initialProps;
+      TestProps secondProps;
 
-    //   setUp(() {
-    //     initialProps = (factory()
-    //       ..stringProp = stringProp
-    //       ..anotherProp = anotherProp
-    //     );
+      setUp(() {
+        initialProps = (factory()
+          ..stringProp = stringProp
+          ..anotherProp = anotherProp
+        );
 
-    //     secondProps = factory();
+        secondProps = factory();
 
-    //     expect(secondProps.stringProp, isNull, reason: 'Test setup sanity check');
-    //     expect(secondProps.anotherProp, isNull, reason: 'Test setup sanity check');
-    //   });
+        expect(secondProps.stringProp, isNull, reason: 'Test setup sanity check');
+        expect(secondProps.anotherProp, isNull, reason: 'Test setup sanity check');
+      });
 
-    //   test('', () {
-    //     secondProps.addUnconsumedProps(initialProps, []);
-    //     expect(secondProps.anotherProp, anotherProp);
-    //     expect(secondProps.stringProp, stringProp);
-    //   });
+      test('', () {
+        secondProps.addUnconsumedProps(initialProps, []);
+        expect(secondProps.anotherProp, anotherProp);
+        expect(secondProps.stringProp, stringProp);
+      });
 
-    //   test('and consumed props are correctly filtered', () {
-    //     final consumedProps = initialProps.staticMeta.forMixins({TestPropsMixin});
-    //     secondProps.addUnconsumedProps(initialProps, consumedProps);
-    //     expect(secondProps.stringProp, isNull);
-    //     expect(secondProps.anotherProp, anotherProp);
-    //   });
-    // });
+      test('and consumed props are correctly filtered', () {
+        final consumedProps = initialProps.staticMeta.forMixins({TestPropsMixin});
+        secondProps.addUnconsumedProps(initialProps, consumedProps);
+        expect(secondProps.stringProp, isNull);
+        expect(secondProps.anotherProp, anotherProp);
+      });
+    });
 
     testPropsToForward(factory: factory, modifyProps: true);
     testPropsToForward(factory: factory, modifyProps: false);
 
-    // group('using `addUnconsumedDomProps`', ()
-    // {
-    //   TestProps initialProps;
-    //   TestProps secondProps;
+    group('using `addUnconsumedDomProps`', ()
+    {
+      TestProps initialProps;
+      TestProps secondProps;
 
-    //   setUp(() {
-    //     initialProps = (factory()
-    //       ..stringProp = stringProp
-    //       ..anotherProp = anotherProp
-    //       ..className = className
-    //     );
+      setUp(() {
+        initialProps = (factory()
+          ..stringProp = stringProp
+          ..anotherProp = anotherProp
+          ..className = className
+        );
 
-    //     secondProps = factory();
+        secondProps = factory();
 
-    //     expect(secondProps.className, isNull, reason: 'Test setup sanity check');
-    //   });
+        expect(secondProps.className, isNull, reason: 'Test setup sanity check');
+      });
 
-    //   test('', () {
-    //     secondProps.addUnconsumedDomProps(initialProps, []);
-    //     expect(secondProps.stringProp, isNull);
-    //     expect(secondProps.anotherProp, isNull);
-    //     expect(secondProps.className, className);
-    //   });
+      test('', () {
+        secondProps.addUnconsumedDomProps(initialProps, []);
+        expect(secondProps.stringProp, isNull);
+        expect(secondProps.anotherProp, isNull);
+        expect(secondProps.className, className);
+      });
 
-    //   test('and consumed props are correctly filtered', () {
-    //     expect(initialProps.className, isNotNull, reason: 'Test setup sanity check');
-    //     secondProps.addUnconsumedDomProps(initialProps, [PropsMeta.forSimpleKey('className')]);
-    //     expect(secondProps.stringProp, isNull);
-    //     expect(secondProps.anotherProp, isNull);
-    //     expect(secondProps.className, isNull);
-    //   });
-    // });
+      test('and consumed props are correctly filtered', () {
+        expect(initialProps.className, isNotNull, reason: 'Test setup sanity check');
+        secondProps.addUnconsumedDomProps(initialProps, [PropsMeta.forSimpleKey('className')]);
+        expect(secondProps.stringProp, isNull);
+        expect(secondProps.anotherProp, isNull);
+        expect(secondProps.className, isNull);
+      });
+    });
   });
 }
 
@@ -350,12 +350,17 @@ testPropsToForward({UiFactory<TestProps> factory, bool modifyProps = false}) {
         secondProps = initialProps;
       });
 
-      // TODO generics dont work :(
-      // test('by default excludes props mixin type that it is invoked on', () {
-      //   var unconsumedProps = _propsToForward<TestPropsMixin>(props: secondProps, factory: factory, modifyProps: modifyProps);
-      //   expect(unconsumedProps.anotherProp, anotherProp);
-      //   expect(unconsumedProps.stringProp, isNull);
-      // });
+      test('by default excludes props mixin type that it is invoked on', () {
+        TestProps unconsumedProps;
+         if (modifyProps == true) {
+          unconsumedProps = factory()..modifyProps(secondProps.addPropsToForward());
+        } else {
+          unconsumedProps = factory(secondProps.getPropsToForward());
+        }
+
+        expect(unconsumedProps.anotherProp, anotherProp);
+        expect(unconsumedProps.stringProp, isNull);
+      });
 
       group('and props are correctly filtered', () {
         test('for an empty set', () {
