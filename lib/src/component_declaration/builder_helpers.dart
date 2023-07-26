@@ -137,7 +137,6 @@ abstract class UiProps extends component_base.UiProps with GeneratedClass {
 /// Helper static extension methods to make forwarding props easier.
 extension PropsToForward<T extends UiProps> on T {
 
-
   /// Returns a copy of this instance's props excluding the keys found in [exclude].
   ///
   /// [exclude] should be a `Set` of PropsMixin `Type`s.
@@ -163,7 +162,6 @@ extension PropsToForward<T extends UiProps> on T {
   Map getPropsToForward({Set<Type> exclude, bool domOnly = false}) {
     return _propsToForward(exclude: exclude, domOnly: domOnly, propsToUpdate: {});
   }
-
 
   /// A utility function to be used with `modifyProps` to add props excluding the keys found in [exclude].
   ///
@@ -196,7 +194,7 @@ extension PropsToForward<T extends UiProps> on T {
   Map _propsToForward({Set<Type> exclude, bool domOnly = false, Map propsToUpdate}) {
     Iterable<PropsMeta> consumedProps;
     try {
-      consumedProps = exclude == null ? [staticMeta.forMixin(T)] : staticMeta.forMixins(exclude);
+      consumedProps = exclude == null ? [staticMeta.forMixin(T)] : staticMeta.forMixins(exclude).toList();
     } catch(_) {
         // If [domOnly] is `true`, it is alright for the meta lookup to fail, otherwise throw the error.
         assert(exclude == null && domOnly == true, ArgumentError('Could not find props meta for type $T.'
@@ -205,8 +203,12 @@ extension PropsToForward<T extends UiProps> on T {
         //rethrow;
     }
     final consumedPropKeys = consumedProps?.map((consumedProps) => consumedProps.keys);
-    //print(consumedPropKeys);
-    forwardUnconsumedPropsV2(props, propsToUpdate: propsToUpdate, keySetsToOmit: consumedPropKeys, onlyCopyDomProps: domOnly);
+    forwardUnconsumedPropsV2(
+      props,
+      propsToUpdate: propsToUpdate,
+      keySetsToOmit: consumedPropKeys,
+      onlyCopyDomProps: domOnly,
+    );
     return propsToUpdate;
   }
 }
