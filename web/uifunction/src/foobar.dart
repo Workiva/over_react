@@ -1,6 +1,3 @@
-import 'dart:html';
-import 'dart:js_util';
-
 import 'package:over_react/over_react.dart';
 
 import 'foo.dart';

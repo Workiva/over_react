@@ -20,7 +20,6 @@ import 'package:over_react/over_react.dart';
 import 'package:over_react/react_dom.dart' as react_dom;
 
 import 'src/foobar.dart';
-import 'src/foo.dart';
 import 'src/bar.dart';
 
 void main() {
