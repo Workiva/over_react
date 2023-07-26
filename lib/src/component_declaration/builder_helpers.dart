@@ -134,35 +134,7 @@ abstract class UiProps extends component_base.UiProps with GeneratedClass {
   @toBeGenerated PropsMetaCollection get staticMeta => throw UngeneratedError(member: #meta);
 }
 
-
-/*
-UiComponent:
-..addProps(copyUnconsumedProps())
-
-UiComponent2:
-..modifyProps(addUnconsumedProps)
-
-UiFunction and UiComponent2:
-final consumedProps = props.staticMeta.forMixins({BarPropsMixin});
-...
-..addUnconsumedProps(props, consumedProps)
-
-
-Proposed:
-// By default the method not return props for the class it is being called on which makes it super easy and convenient.
-// eg. if `props` is of type `MyPropsMixin` then it would be equivalent to something like `props.getUnconsumed(consumed: {MyPropsMixin})`
-
-
-..addAll(props.getUnconsumed())
-
-..addAll(props.getUnconsumed({MyProps}));
-..addAll(props.getUnconsumed(consumed: {MyProps}));
-..addAll(props.getUnconsumedProps(consumedPropsMixins: {MyProps}))
-
-..addAll(props.getUnconsumed(exclude: {MyProps}))
-
-*/
-
+/// Helper static extension methods to make forwarding props easier.
 extension PropsToForward<T extends UiProps> on T {
 
 
