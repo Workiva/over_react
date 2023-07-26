@@ -194,7 +194,7 @@ extension PropsToForward<T extends UiProps> on T {
   Map _propsToForward({Set<Type> exclude, bool domOnly = false, Map propsToUpdate}) {
     Iterable<PropsMeta> consumedProps;
     try {
-      consumedProps = exclude == null ? [staticMeta.forMixin(T)] : staticMeta.forMixins(exclude).toList();
+      consumedProps = staticMeta.forMixins(exclude ?? {T}).toList();
     } catch(_) {
         // If [domOnly] is `true`, it is alright for the meta lookup to fail, otherwise throw the error.
         assert(exclude == null && domOnly == true, ArgumentError('Could not find props meta for type $T.'
