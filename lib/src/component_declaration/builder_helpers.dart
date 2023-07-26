@@ -156,7 +156,7 @@ extension PropsToForward<T extends UiProps> on T {
   /// return (Bar()..addAll(props.getPropsToForward(exclude: {FooPropsMixin}))();
   /// ```
   ///
-  /// To only add DOM props, use [addUnconsumedDomProps].
+  /// To only add DOM props, use the [domOnly] named argument.
   ///
   /// Related: `UiComponent2`'s `addUnconsumedProps`
   Map getPropsToForward({Set<Type> exclude, bool domOnly = false}) {
@@ -173,16 +173,16 @@ extension PropsToForward<T extends UiProps> on T {
   /// ```dart
   /// // within a functional component: `uiFunction<FooPropsMixin>`
   /// // filter out the current components props when forwarding to Bar.
-  /// return (Bar()..addAll(props.getPropsToForward()))();
+  /// return (Bar()..modifyProps(props.addPropsToForward()))();
   /// ```
   /// OR
   /// ```dart
   /// // within a functional component that has multiple mixins on a Props class: `uiFunction<FooProps>`
   /// // filter out the Components props when forwarding to Bar.
-  /// return (Bar()..addAll(props.getPropsToForward(exclude: {FooPropsMixin}))();
+  /// return (Bar()..modifyProps(props.addPropsToForward(exclude: {FooPropsMixin}))();
   /// ```
   ///
-  /// To only add DOM props, use [addUnconsumedDomProps].
+  /// To only add DOM props, use the [domOnly] named argument.
   ///
   /// Related: `UiComponent2`'s `addUnconsumedProps`
   PropsModifier addPropsToForward({Set<Type> exclude, bool domOnly = false}) {
