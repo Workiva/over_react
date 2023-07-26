@@ -1,3 +1,4 @@
+// @dart=2.12
 import 'package:uuid/uuid.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -19,7 +20,7 @@ class User implements BaseModel {
 
   User({
     this.name = '?',
-    String id,
+    String? id,
     this.bio = '',
   }) : id = id ?? Uuid().v4();
 
