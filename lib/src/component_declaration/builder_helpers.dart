@@ -192,7 +192,7 @@ extension PropsToForward<T extends UiProps> on T {
   }
 
   Map _propsToForward({Set<Type> exclude, bool domOnly = false, Map propsToUpdate}) {
-    Iterable<PropsMeta> consumedProps;
+    Iterable<PropsMeta> consumedProps = [];
     try {
       consumedProps = staticMeta.forMixins(exclude ?? {T}).toList();
     } catch(_) {

@@ -20,18 +20,17 @@ import 'package:over_react/over_react.dart';
 import 'package:over_react/react_dom.dart' as react_dom;
 
 import 'src/foobar.dart';
-import 'src/bar.dart';
-
 void main() {
   react_dom.render(
     StrictMode()(
-      (FooBar()
-        ..foo = 'Foo!'
-        ..bar = 'BAR!'
-        ..somethingElse = 'forwarded this unused prop!'
-        ..lol = 'hello!!!'
+      (FooBarDemo()
+          ..foobar = 'FooBar'
+          ..foo = 'Foo'
+          ..bar = 'Bar'
+          ..baz = 'Baz'
+          ..isFancy = true
+          ..className = 'fancy'
       )(),
-      (Button()..id='ButtonID'..isActive = true..['fancy']="true")('HEyyyy')
     ),
     querySelector('#uifunction'),
   );

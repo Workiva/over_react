@@ -1,52 +1,30 @@
-import 'dart:html';
-import 'dart:js_util';
-
 import 'package:over_react/over_react.dart';
+
+import 'button.dart';
+import 'component_wrapper.dart';
+import 'utils.dart';
+
 part 'foo.over_react.g.dart';
+
+// This is what it would default too when you dont include an `exclude` argument.
+const excludeMixins = {FooPropsMixin};
+
+final FooDemo = createVisualComponent(Foo, excludedMixins: excludeMixins);
 
 mixin FooPropsMixin on UiProps {
   dynamic foo;
 }
 
-class FooProps = UiProps
-  with BarPropsMixin,
-       FooPropsMixin,
-       SomethingElsePropsMixin;
-
-final Foo = uiFunction<FooProps>((props) {
-  return (Bar()
-    ..addAll(props.getPropsToForward(exclude: {FooPropsMixin}))
-  )();
+final Foo = uiFunction<FooPropsMixin>((props) {
+  final randomState = useState(true);
+  return Dom.div()(
+    (Button()..onClick = (e) => randomState.set(!randomState.value))('UPDATE STATE'),
+    (DomDivDemo()
+    ..addAll(props.getPropsToForward(domOnly: true))
+  )());
 }, _$FooConfig);
 
-mixin BarPropsMixin on UiProps {
-  String bar;
-
-  @Accessor(key:'data-lol', keyNamespace: '')
-  String lol;
-}
-
-final Bar = uiFunction<BarPropsMixin>((props) {
-  log('Bar', props.getPropsToForward());
-  return Fragment()(
-    (Dom.div()..modifyProps(props.addPropsToForward(exclude: {BarPropsMixin}, domOnly: true)))(),
-    (SomethingElse()
-    ..modifyProps(props.addPropsToForward())
-  )());
-}, _$BarConfig);
 
 
-mixin SomethingElsePropsMixin on UiProps {
-  dynamic somethingElse;
-}
 
 
-final SomethingElse = uiFunction<SomethingElsePropsMixin>((props) {
-  log('SomethingElse', props.getPropsToForward());
-  return (Dom.div()
-    ..addAll(props.getPropsToForward())
-  )(props.somethingElse != null ? 'We received props.somethingElse! ${props.somethingElse}' : 'props.somethingElse was not forwarded.');
-}, _$SomethingElseConfig);
-
-
-log(dynamic name, dynamic x) => callMethod(getProperty(window,'console'), 'log', [name, jsify(x)]);
