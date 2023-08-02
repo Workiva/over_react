@@ -22,10 +22,15 @@ jobs:
         run: dart pub global activate dartdoc
       - name: Generate API docs
         run: dartdoc
-#      - name: Add pub token
-#        run: dart pub token add ${{ secrets.OSS_PUB_TOKEN }}
+      - name: Add pub token
+        run: dart pub token add ${{ secrets.OSS_PUB_TOKEN }}
       - name: Publish Package - Dry Run
-        run: dart pub publish --dry-run
+        run: |
+          # Prevent the analyzer plugin from the publish dry run
+          echo "tools/" > .pubignore
+          dart pub publish --dry-run
+          # Ensure that the artifact is cleaned up so that we can publish the analyzer.
+          rm .pubignore
       - name: Publish Package
         if: false
-        run: dart pub publish
+        run: dart pub publish -f
