@@ -1,3 +1,4 @@
+// @dart=2.12
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
 import 'package:over_react/over_react_redux.dart';
@@ -30,14 +31,14 @@ DevToolsStore<AppState> getStore() => DevToolsStore<AppState>(
 @JsonSerializable(explicitToJson: true)
 class AppState {
   String name;
-  List<Todo> todos;
-  List<User> users;
-  List<String> selectedTodoIds;
-  List<String> editableTodoIds;
-  List<String> highlightedTodoIds;
-  List<String> selectedUserIds;
-  List<String> editableUserIds;
-  List<String> highlightedUserIds;
+  List<Todo>? todos;
+  List<User>? users;
+  List<String>? selectedTodoIds;
+  List<String>? editableTodoIds;
+  List<String>? highlightedTodoIds;
+  List<String>? selectedUserIds;
+  List<String>? editableUserIds;
+  List<String>? highlightedUserIds;
 
   AppState(this.name, {
     this.todos,
@@ -79,7 +80,8 @@ Middleware<AppState> localStorageMiddleware() {
     next(action);
 
     if (action is LoadStateFromLocalStorageAction) {
-      final localStorageState = AppState.fromJson(localTodoAppStorage[action.value]);
+      Map<String, dynamic> json = localTodoAppStorage[action.value] as Map<String, dynamic>;
+      final localStorageState = AppState.fromJson(json);
       store.dispatch(LocalStorageStateLoadedAction(localStorageState));
     } else if (action is SaveLocalStorageStateAsAction) {
       if (action.previousName != null) {
@@ -105,7 +107,7 @@ final stateNameReducer = TypedReducer<String, SaveLocalStorageStateAsAction>((na
   return action.name;
 });
 
-final todosReducer = combineReducers<List<Todo>>([
+final todosReducer = combineReducers<List<Todo>?>([
   TypedReducer<List<Todo>, AddTodoAction>((todos, action) {
     return [action.value, ...todos];
   }),
@@ -123,7 +125,7 @@ final todosReducer = combineReducers<List<Todo>>([
   }),
 ]);
 
-final selectedTodosReducer = combineReducers<List<String>>([
+final selectedTodosReducer = combineReducers<List<String>?>([
   TypedReducer<List<String>, SelectTodoAction>((selectedTodoIds, action) {
     return [...selectedTodoIds, action.value];
   }),
@@ -132,7 +134,7 @@ final selectedTodosReducer = combineReducers<List<String>>([
   }),
 ]);
 
-final editableTodosReducer = combineReducers<List<String>>([
+final editableTodosReducer = combineReducers<List<String>?>([
   TypedReducer<List<String>, BeginEditTodoAction>((editableTodoIds, action) {
     return [...editableTodoIds, action.value];
   }),
@@ -141,7 +143,7 @@ final editableTodosReducer = combineReducers<List<String>>([
   }),
 ]);
 
-final highlightedTodosReducer = combineReducers<List<String>>([
+final highlightedTodosReducer = combineReducers<List<String>?>([
   TypedReducer<List<String>, HighlightTodosAction>((highlightedTodoIds, action) {
     return [...highlightedTodoIds, ...action.value];
   }),
@@ -152,7 +154,7 @@ final highlightedTodosReducer = combineReducers<List<String>>([
 
 // ------------ USER REDUCERS ------------------
 
-final usersReducer = combineReducers<List<User>>([
+final usersReducer = combineReducers<List<User>?>([
   TypedReducer<List<User>, AddUserAction>((users, action) {
     return [action.value, ...users];
   }),
@@ -188,7 +190,7 @@ Reducer<List<String>> editableUsersReducer = combineReducers<List<String>>([
   }),
 ]);
 
-final highlightedUsersReducer = combineReducers<List<String>>([
+final highlightedUsersReducer = combineReducers<List<String>?>([
   TypedReducer<List<String>, HighlightUsersAction>((highlightedUserIds, action) {
     return [...highlightedUserIds, ...action.value];
   }),
