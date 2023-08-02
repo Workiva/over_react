@@ -27,5 +27,5 @@ jobs:
       - name: Publish Package - Dry Run
         run: dart pub publish --dry-run
       - name: Publish Package
-        if: ${{ github.event_name != 'workflow_dispatch' }}
+        if: false
         run: dart pub publish
