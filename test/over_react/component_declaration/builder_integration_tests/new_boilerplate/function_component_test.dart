@@ -409,8 +409,8 @@ testPropsToForward({UiFactory<TestProps> factory, bool modifyProps = false}) {
         });
       });
 
-      test('throws an error when not providing an exclude argument and the props class is NOT a mixin', () {
-        expect(() => _propsToForward(domOnly: true, props: initialProps, factory: factory, modifyProps: modifyProps),
+      test('which throws an error when not providing an exclude argument and the props class is NOT a mixin and `domOnly` is NOT `true`', () {
+        expect(() => _propsToForward(props: initialProps, factory: factory, modifyProps: modifyProps),
             throwsArgumentError);
       });
     });
