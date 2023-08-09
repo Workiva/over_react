@@ -140,20 +140,39 @@ extension PropsToForward<T extends UiProps> on T {
   /// Returns a copy of this instance's props excluding the keys found in [exclude].
   ///
   /// [exclude] should be a `Set` of PropsMixin `Type`s.
-  /// If [exclude] is not set it defaults to using the current instances Type.
+  /// If [exclude] is not set, it defaults to using the current instance's Type.
   ///
   /// __Example:__
   ///
+  /// Component with a single props mixin:
   /// ```dart
-  /// // within a functional component: `uiFunction<FooPropsMixin>`
-  /// // filter out the current components props when forwarding to Bar.
-  /// return (Bar()..addAll(props.getPropsToForward()))();
+  /// mixin FooPropsMixin on UiProps {
+  ///   String foo;
+  /// }
+  ///
+  /// UiFactory<FooPropsMixin> Foo = uiFunction((props) {
+  ///   return (Bar()
+  ///     // Filter out props declared in FooPropsMixin
+  ///     // (used as the default for `exclude` since that's what `props` is statically typed as)
+  ///     // when forwarding to Bar.
+  ///     ..addAll(props.getPropsToForward())
+  ///   )();
+  /// });
   /// ```
-  /// OR
+  ///
+  /// Component with a more than one props mixin:
   /// ```dart
-  /// // within a functional component that has multiple mixins on a Props class: `uiFunction<FooProps>`
-  /// // filter out the Components props when forwarding to Bar.
-  /// return (Bar()..addAll(props.getPropsToForward(exclude: {FooPropsMixin}))();
+  /// mixin FooPropsMixin on UiProps {
+  ///   String foo;
+  /// }
+  /// class FooProps = UiProps with BarProps, FooPropsMixin;
+  ///
+  /// UiFactory<FooPropsMixin> Foo = uiFunction((props) {
+  ///   return (Bar()
+  ///     // Filter out props declared in FooPropsMixin when forwarding to Bar.
+  ///     ..addAll(props.getPropsToForward({FooPropsMixin}))
+  ///   )();
+  /// });
   /// ```
   ///
   /// To only add DOM props, use the [domOnly] named argument.
