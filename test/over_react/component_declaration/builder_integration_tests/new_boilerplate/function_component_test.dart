@@ -400,7 +400,7 @@ testPropsToForward({UiFactory<TestProps> factory, bool modifyProps = false}) {
         });
 
         test('for dom only ', () {
-          var unconsumedProps = _propsToForward(domOnly: true, props: initialProps, factory: factory, modifyProps: modifyProps);
+          var unconsumedProps = _propsToForward(exclude: {}, domOnly: true, props: initialProps, factory: factory, modifyProps: modifyProps);
 
           expect(unconsumedProps.stringProp, isNull);
           expect(unconsumedProps.anotherProp, isNull);

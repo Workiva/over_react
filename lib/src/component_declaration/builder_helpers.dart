@@ -216,7 +216,7 @@ extension PropsToForward<T extends UiProps> on T {
       consumedProps = staticMeta.forMixins(exclude ?? {T}).toList();
     } catch(_) {
       // If [domOnly] is `true`, it is alright for the meta lookup to fail, otherwise throw the error.
-      assert(exclude == null && domOnly == true, ArgumentError('Could not find props meta for type $T.'
+      assert(exclude != null, ArgumentError('Could not find props meta for type $T.'
         ' If this is not a props mixin, you need to specify its mixins as the second argument.  For example:'
         '\n  ..addAll(props.getPropsToForward(exclude: {${T}Mixin})').message);
       rethrow;
