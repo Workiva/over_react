@@ -219,9 +219,7 @@ extension PropsToForward<T extends UiProps> on T {
       assert(exclude == null && domOnly == true, ArgumentError('Could not find props meta for type $T.'
         ' If this is not a props mixin, you need to specify its mixins as the second argument.  For example:'
         '\n  ..addAll(props.getPropsToForward(exclude: {${T}Mixin})').message);
-        if (exclude == null && domOnly == false) {
-          rethrow;
-        }
+      rethrow;
     }
     final consumedPropKeys = consumedProps?.map((consumedProps) => consumedProps.keys);
     forwardUnconsumedPropsV2(
