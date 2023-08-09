@@ -360,6 +360,7 @@ testPropsToForward({UiFactory<TestProps> factory, bool modifyProps = false}) {
 
         expect(unconsumedProps.anotherProp, anotherProp);
         expect(unconsumedProps.stringProp, isNull);
+        expect(unconsumedProps.id, idAttributeValue);
       });
 
       group('and props are correctly filtered', () {
@@ -368,6 +369,7 @@ testPropsToForward({UiFactory<TestProps> factory, bool modifyProps = false}) {
 
           expect(unconsumedProps.stringProp, stringProp);
           expect(unconsumedProps.anotherProp, anotherProp);
+          expect(unconsumedProps.id, idAttributeValue);
         });
 
         test('for a single value in set', () {
@@ -375,6 +377,7 @@ testPropsToForward({UiFactory<TestProps> factory, bool modifyProps = false}) {
 
           expect(unconsumedProps.stringProp, stringProp);
           expect(unconsumedProps.anotherProp, isNull);
+          expect(unconsumedProps.id, idAttributeValue);
         });
 
         test('for multiple values in set', () {
@@ -382,6 +385,7 @@ testPropsToForward({UiFactory<TestProps> factory, bool modifyProps = false}) {
 
           expect(unconsumedProps.stringProp, isNull);
           expect(unconsumedProps.anotherProp, isNull);
+          expect(unconsumedProps.id, idAttributeValue);
         });
 
         test('excludes dom attributes that are part of a mixin with `@Accessor` annotations ', () {
@@ -391,6 +395,7 @@ testPropsToForward({UiFactory<TestProps> factory, bool modifyProps = false}) {
           expect(unconsumedProps.anotherProp, anotherProp);
           expect(unconsumedProps.aRandomDataAttribute, isNull);
           expect(unconsumedProps.anAriaLabelAlias, isNull);
+          expect(unconsumedProps.id, idAttributeValue);
         });
 
         test('for dom only ', () {
@@ -402,6 +407,11 @@ testPropsToForward({UiFactory<TestProps> factory, bool modifyProps = false}) {
           expect(unconsumedProps.anAriaLabelAlias, anAriaLabelPropValue);
           expect(unconsumedProps.id, idAttributeValue);
         });
+      });
+
+      test('throws an error when not providing an exclude argument and the props class is NOT a mixin', () {
+        expect(() => _propsToForward(domOnly: true, props: initialProps, factory: factory, modifyProps: modifyProps),
+            throwsArgumentError);
       });
     });
 }
