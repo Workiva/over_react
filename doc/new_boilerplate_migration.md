@@ -51,9 +51,9 @@ class _$FooProps extends BarProps {
 }
 
 // Generated in .over_react.g.dart
-class FooProps extends _$FooProps with _$FooPropsAccessorsMixin { 
+class FooProps extends _$FooProps with _$FooPropsAccessorsMixin {
   static const PropsMeta meta = ...;
-  ... 
+  ...
 }
 ```
 
@@ -81,9 +81,9 @@ class FooProps
     with
         // ignore: mixin_of_non_class, undefined_class
         _$FooPropsAccessorsMixin {
-  // ignore: const_initialized_with_non_constant_value, undefined_class, undefined_identifier  
+  // ignore: const_initialized_with_non_constant_value, undefined_class, undefined_identifier
   static const PropsMeta meta = _$metaForPanelTitleProps;
- }
+}
 ```
 
 This is overly verbose, confusing, and error-prone. Authoring components should be
@@ -907,7 +907,7 @@ UiFactory<UiProps> Foo = uiFunction(
 );
 ```
 
-#### With propTypes (Coming soon!)
+#### With propTypes (~Coming soon!~ lol no its not)
 
 ```dart
 UiFactory<FooProps> Foo = uiFunction(
