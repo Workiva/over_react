@@ -23,18 +23,18 @@ _Preview of new boilerplate:_
 
 ## Background
 
-While converting the boilerplate for OverReact component declaration from Dart 1
-transformers to Dart 2 builders, we encountered several constraints that made us
-choose between dropping backwards compatibility (mainly support for props class
+While converting the boilerplate for OverReact component declaration from Dart 1 
+transformers to Dart 2 builders, we encountered several constraints that made us 
+choose between dropping backwards compatibility (mainly support for props class 
 inheritance), and a less-than-optimal boilerplate.
 
-To make the Dart 2 transition as smooth as possible, we chose to keep the new
-boilerplate version as backwards-compatible as possible, while compromising the
-cleanliness of the boilerplate. In time, we found that this wasn't great from a
+To make the Dart 2 transition as smooth as possible, we chose to keep the new 
+boilerplate version as backwards-compatible as possible, while compromising the 
+cleanliness of the boilerplate. In time, we found that this wasn't great from a 
 user experience or from a tooling perspective.
 
-Knowing this, and having dropped support for Dart 1, we now have the opportunity
-to implement an improved version of OverReact boilerplate that fixes issues
+Knowing this, and having dropped support for Dart 1, we now have the opportunity 
+to implement an improved version of OverReact boilerplate that fixes issues 
 introduced in the latest version, as well as other miscellaneous ones.
 
 ### Problems with Previous Boilerplate
@@ -51,21 +51,21 @@ class _$FooProps extends BarProps {
 }
 
 // Generated in .over_react.g.dart
-class FooProps extends _$FooProps with _$FooPropsAccessorsMixin {
+class FooProps extends _$FooProps with _$FooPropsAccessorsMixin {   
   static const PropsMeta meta = ...;
-  ...
+  ... 
 }
 ```
 
-In using the build packages's `build_to: cache` to generate public APIs, command-line
-tools like `dartanalyzer` and `dartdoc` don't function properly for packages that do this.
+In using the build packages's `build_to: cache` to generate public APIs, command-line 
+tools like `dartanalyzer` and `dartdoc` don't function properly for packages that do this. 
 
-This pattern can also degrade the dev experience, by requiring a build before code is
-statically valid, and also requiring rebuilds in some cases to consume public API
+This pattern can also degrade the dev experience, by requiring a build before code is 
+statically valid, and also requiring rebuilds in some cases to consume public API 
 updates during their development (e.g., writing new component props classes).
 
-The transitional _(backwards-compatible with Dart 1)_ boilerplate, currently used in
-almost all repos, does not have these issues, as it requires users to stub in these
+The transitional _(backwards-compatible with Dart 1)_ boilerplate, currently used in 
+almost all repos, does not have these issues, as it requires users to stub in these 
 public classes:
 
 ```dart
@@ -81,20 +81,20 @@ class FooProps
     with
         // ignore: mixin_of_non_class, undefined_class
         _$FooPropsAccessorsMixin {
-  // ignore: const_initialized_with_non_constant_value, undefined_class, undefined_identifier
+  // ignore: const_initialized_with_non_constant_value, undefined_class, undefined_identifier    
   static const PropsMeta meta = _$metaForPanelTitleProps;
-}
+ }
 ```
 
-This is overly verbose, confusing, and error-prone. Authoring components should be
+This is overly verbose, confusing, and error-prone. Authoring components should be 
 simple and easy.
 
 #### Inheritance
 
-Props are declared as fields, and we generate the accessor (AKA getters/setters)
+Props are declared as fields, and we generate the accessor (AKA getters/setters) 
 implementations that are to be used when reading and writing props.
 
-If the consumer authors the public-facing class, we have to do this in new
+If the consumer authors the public-facing class, we have to do this in new 
 generated subclasses to be able to override the field implementation.
 
 ```dart
@@ -113,7 +113,7 @@ mixin $FooPropsAccessors on FooProps {
 class $FooProps = FooProps with $FooPropsAccessors;
 ```
 
-However, if consumers were to extend from the authored class, they wouldn't
+However, if consumers were to extend from the authored class, they wouldn't 
 inherit these generated fields.
 
 ```dart
@@ -133,91 +133,91 @@ test() {
 
 #### Technical Constraints:
 
-1. We cannot use resolved AST to generate components because it slows down
+1. We cannot use resolved AST to generate components because it slows down 
 the build too much.
 
-    In other words, we have access to the structure of the code within a
-    given file but not its full semantic meaning, and cannot resolve
+    In other words, we have access to the structure of the code within a 
+    given file but not its full semantic meaning, and cannot resolve 
     references it makes to code in other files.
-
-    For instance, we can look at a class and see the name of the class it
-    extends from and the methods it declares, but we won't be able to know
-    where the parent class comes from, what type(s) the parent implements,
+    
+    For instance, we can look at a class and see the name of the class it 
+    extends from and the methods it declares, but we won't be able to know 
+    where the parent class comes from, what type(s) the parent implements, 
     or which member(s) the parent declares.
 
 2. User-authored code must reference generated code somehow to "wire it up".
 
-    Since generated code can be output only to new files, component
+    Since generated code can be output only to new files, component 
     registration / wiring of generated code requires either:
-
-    1. a centralized, generated registry that maps components to generated
-    component code, and that must be generated for and consumed in that
+    
+    1. a centralized, generated registry that maps components to generated 
+    component code, and that must be generated for and consumed in that 
     main() method of all consuming apps' entrypoints.
-
-    2. a user-authored entrypoint (field initializer, method invocation,
-    constructor, etc.) that imports (or pulls in via a part) and references
+    
+    2. a user-authored entrypoint (field initializer, method invocation, 
+    constructor, etc.) that imports (or pulls in via a part) and references 
     generated code (what we have now).
 
 #### Self-Imposed Constraints:
 
 1. Keep component declarations as terse and user-friendly as possible.
 
-2. Use `build_to: cache` (for more information, see:
+2. Use `build_to: cache` (for more information, see: 
 [pkg:build docs](https://github.com/dart-lang/build/blob/master/docs/builder_author_faq.md#when-should-a-builder-build-to-cache-vs-source)).
-
-    `build_to:cache` should be used when generated code is dependent on the
-    library's underlying implementation. This may not be strictly the case
-    today, but if we commit to `build_to: cache`, we will have more
-    flexibility in the future to make improvements or fix bugs to OverReact
-    code generation without requiring a (very expensive) breaking change.
-
-    It would also result in improvements to the builder being propagated
-    immediately as soon as they're consumed by wdesk, as opposed to having
+    
+    `build_to:cache` should be used when generated code is dependent on the 
+    library's underlying implementation. This may not be strictly the case 
+    today, but if we commit to `build_to: cache`, we will have more 
+    flexibility in the future to make improvements or fix bugs to OverReact 
+    code generation without requiring a (very expensive) breaking change. 
+    
+    It would also result in improvements to the builder being propagated 
+    immediately as soon as they're consumed by wdesk, as opposed to having 
     to regenerate code and release within every consumer library.
 
 3. Make source code statically analyzable without running a build.
 
-    The build docs instruct not to use build_to: cache to generate public
-    APIs, and command-line tools like `dartanalyzer` and `dartdoc` don't
-    function properly for packages that do this.
-
-    Generating public APIs can also degrade the dev experience, by requiring
-    a build before code is statically valid, and also requiring rebuilds in
-    some cases to consume public API updates during their development (e.g.,
+    The build docs instruct not to use build_to: cache to generate public 
+    APIs, and command-line tools like `dartanalyzer` and `dartdoc` don't 
+    function properly for packages that do this. 
+    
+    Generating public APIs can also degrade the dev experience, by requiring 
+    a build before code is statically valid, and also requiring rebuilds in 
+    some cases to consume public API updates during their development (e.g., 
     writing new component props classes).
-
-4. Provide some means of sharing props/state declarations between
+    
+4. Provide some means of sharing props/state declarations between 
 components.
 
-    Being able to share props/state between multiple components is useful,
-    especially when composing them together. We also have many legacy
-    components that currently share props, and want to make it possible
+    Being able to share props/state between multiple components is useful, 
+    especially when composing them together. We also have many legacy 
+    components that currently share props, and want to make it possible 
     to upgrade them.
-
-5. Provide a simple migration path for _most_ components in our consumer
+    
+5. Provide a simple migration path for _most_ components in our consumer 
 ecosystems.
 
-    We can support new/old boilerplate at the same time, and slowly phase
-    out the old as we migrate over to it using
+    We can support new/old boilerplate at the same time, and slowly phase 
+    out the old as we migrate over to it using 
     [our `boilerplate_upgrade` codemod](#upgrading-existing-code).
-
-    For cases that don't migrate cleanly within the Workiva ecosystem,
-    we can use the Wdesk versioning policy to replace them with APIs that
+    
+    For cases that don't migrate cleanly within the Workiva ecosystem, 
+    we can use the Wdesk versioning policy to replace them with APIs that 
     use the new boilerplate in major versions or using versioned APIs.
-
+    
 6. Only support Component2 components.
 
-    The builder has different code paths for Component/Component2, and
-    supporting an additional boilerplate for both would increase code
-    complexity and effort needed to build/test it.
+    The builder has different code paths for Component/Component2, and 
+    supporting an additional boilerplate for both would increase code 
+    complexity and effort needed to build/test it. 
 
 ### Updates
 
 #### Add `castUiFactory` Utility
 
-A utility called `castUiFactory` has been added that prevent implicit cast errors
-(which are no longer ignorable as of Dart 2.9) on factory declarations. All that needs to be done is to wrap the generated
-factory with `castUiFactory`, so that it can infer the typing from the left hand side and cast the factory (considered
+A utility called `castUiFactory` has been added that prevent implicit cast errors 
+(which are no longer ignorable as of Dart 2.9) on factory declarations. All that needs to be done is to wrap the generated 
+factory with `castUiFactory`, so that it can infer the typing from the left hand side and cast the factory (considered 
 "dynamic" before code generation is run) to the correct type.
 
 ```diff
@@ -229,10 +229,10 @@ UiFactory<FooProps> Foo =
 
 #### Remove Annotations
 
-`@Factory()`, `@Props()` and `@Component()` annotations add additional
+`@Factory()`, `@Props()` and `@Component()` annotations add additional 
 visual clutter to the boilerplate, and are redundant since the factory/
-props/component declarations already have a consistent/restricted
-structure and naming scheme that makes it clear to the builder parsing
+props/component declarations already have a consistent/restricted 
+structure and naming scheme that makes it clear to the builder parsing 
 logic that a component is being defined, and what each part is.
 
 ```diff
@@ -263,7 +263,7 @@ class _$FooProps extends BarProps {
 
 #### Ignore Ungenerated Warnings Project-Wide
 
-Right now, we have to add `// ignore: uri_has_not_been_generated` to each
+Right now, we have to add `// ignore: uri_has_not_been_generated` to each 
 component library on the part/import that references generated code.
 
 Ignoring this hint globally within analysis_options.yaml:
@@ -271,10 +271,10 @@ Ignoring this hint globally within analysis_options.yaml:
 ```yaml
  analyzer:
    errors:
-     uri_has_not_been_generated: ignore
+     uri_has_not_been_generated: ignore 
 ```
 
-Allows individual ignores to be omitted, which will reduce clutter in
+Allows individual ignores to be omitted, which will reduce clutter in 
 the component boilerplate.
 
 ```diff
@@ -288,14 +288,14 @@ This warning is also ignored by default in [workiva_analysis_options](https://gi
 
 _Constraints_:
 
-* Props classes must directly subclass UiProps, only inheriting other props
+* Props classes must directly subclass UiProps, only inheriting other props 
 via mixins.
 
-    * This requires consumers to include every single mixin within their `with`
-    clause, allowing the builder to mix in the generated code corresponding
+    * This requires consumers to include every single mixin within their `with` 
+    clause, allowing the builder to mix in the generated code corresponding 
     to those mixins.
-
-* Props can only be declared in mixins.
+    
+* Props can only be declared in mixins. 
 
     * This ensures they can be inherited by other props classes (by mixing them in, since you can no longer inherit them via subclassing) and provides consistency around how props are declared.
 
@@ -362,7 +362,7 @@ import 'package:over_react/over_react.dart';
 
 part 'foo.over_react.g.dart';
 
-UiFactory<FooProps> Foo =
+UiFactory<FooProps> Foo = 
     castUiFactory(_$Foo); // ignore: undefined_identifier
 
 mixin FooProps on UiProps {
@@ -377,17 +377,17 @@ class FooComponent extends UiComponent2<FooProps> {
 
 ##### Props Meta Changes
 
-Props meta will be generated as an overridden getter on the component
-as opposed to the current static field, and will allow similar access
+Props meta will be generated as an overridden getter on the component 
+as opposed to the current static field, and will allow similar access 
 of prop keys as before.
 
-This eliminates the current `meta` portion of the boilerplate which has
+This eliminates the current `meta` portion of the boilerplate which has 
 to reference more generated code.
 
-Prop meta from all mixins can be accessed, allowing us to default
+Prop meta from all mixins can be accessed, allowing us to default 
 `consumedProps` to all props statically accessible from that component.
 
-Consumption:
+Consumption: 
 
 ```dart
 @Props()
@@ -454,7 +454,7 @@ class PropsMetaCollection implements PropsMeta {
   /// Returns the metadata for only the prop fields declared in [mixinType].
   PropsMeta forMixin(Type mixinType) {
     final meta = _metaByMixin[mixinType];
-    assert(meta != null,
+    assert(meta != null, 
         'No meta found for $mixinType;'
         'it likely isn\'t mixed in by the props class.')
     return meta ?? const PropsMeta(fields: [], keys: []);
@@ -463,11 +463,11 @@ class PropsMetaCollection implements PropsMeta {
   // PropsMeta overrides
 
   @override
-  List<String> get keys =>
+  List<String> get keys => 
         _metaByMixin.values.expand((meta) => meta.keys).toList();
 
   @override
-  List<PropDescriptor> get fields =>
+  List<PropDescriptor> get fields => 
         _metaByMixin.values.expand((meta) => meta.fields).toList();
 
   @override
@@ -477,12 +477,12 @@ class PropsMetaCollection implements PropsMeta {
 
 ##### Props MapViews
 
-Since props mixins can only be consumed by other generated code, the
-existing props map view consumption pattern, whereby props mixins are
+Since props mixins can only be consumed by other generated code, the 
+existing props map view consumption pattern, whereby props mixins are 
 consumed in user-authored MapView subclasses, cannot be supported.
 
-Instead, props map views will be declared similarly to a component,
-with a factory and props mixin/class, but no component.
+Instead, props map views will be declared similarly to a component, 
+with a factory and props mixin/class, but no component. 
 
 ```diff
 import 'package:over_react/over_react.dart';
@@ -522,19 +522,19 @@ class FooProps extends UiProps {
 class FooComponent extends UiComponent<FooProps> {
   render() {
     // {
-    //   FooProps.foo: 1,
-    //   FooProps.bar: 2,
+    //   FooProps.foo: 1, 
+    //   FooProps.bar: 2, 
     //   data-a-dom-prop: 3,
     //   onClick: 4,
     //   someArbitraryProp: 5,
     // }
     print(props);
-
+    
     // {
     //   data-a-dom-prop: 3,
     //   onClick: 4,
     //   someArbitraryProp: 5,
-    // }
+    // } 
     print(copyUnconsumedProps());
   }
 }
@@ -552,21 +552,21 @@ class FooProps extends OtherPropsMixin {
 class FooComponent extends UiComponent<FooProps> {
   render() {
     // {
-    //   FooProps.foo: 1,
-    //   FooProps.bar: 2,
+    //   FooProps.foo: 1, 
+    //   FooProps.bar: 2, 
     //   data-a-dom-prop: 3,
     //   onClick: 4,
     //   someArbitraryProp: 5,
-    //   OtherPropsMixin.other: 6,
+    //   OtherPropsMixin.other: 6, 
     // }
     print(props);
-
+    
     // {
     //   data-a-dom-prop: 3,
     //   onClick: 4,
     //   someArbitraryProp: 5,
     //   OtherPropsMixin.other: 6,
-    // }
+    // } 
     print(copyUnconsumedProps());
   }
 }
@@ -586,7 +586,7 @@ get consumedProps => [
 #### Updated default behavior in the mixin-based syntax
 
 With the new mixin-based syntax, props cannot be declared directly within props classes, so if we kept using the consumed
-props behavior from the legacy syntax, they wouldn't have any consumed props by default. (Unless we picked a mixin or something,
+props behavior from the legacy syntax, they wouldn't have any consumed props by default. (Unless we picked a mixin or something, 
 which could get confusing)
 
 This would mean that any props class that consumes the props of a single mixin would need to override consumedProps,
@@ -621,7 +621,7 @@ class FooComponent ... {
 }
 ```
 
-To help optimize this use-case, as well as to make whether props are consumed or not more consistent across different
+To help optimize this use-case, as well as to make whether props are consumed or not more consistent across different 
 forms of the new syntax, we decided to __consume props from all props mixins by default__, if consumedProps is not overridden.
 
 So, taking the above example again, the new behavior would be:
@@ -636,20 +636,20 @@ class FooProps = UiProps with FooPropsMixin, OtherPropsMixin;
 class FooComponent extends UiComponent<FooProps> {
   render() {
     // {
-    //   FooProps.foo: 1,
-    //   FooProps.bar: 2,
+    //   FooProps.foo: 1, 
+    //   FooProps.bar: 2, 
     //   data-a-dom-prop: 3,
     //   onClick: 4,
     //   someArbitraryProp: 5,
-    //   OtherPropsMixin.other: 6,
+    //   OtherPropsMixin.other: 6, 
     // }
     print(props);
-
+    
     // {
     //   data-a-dom-prop: 3,
     //   onClick: 4,
     //   someArbitraryProp: 5,
-    // }
+    // } 
     print(copyUnconsumedProps());
   }
 }
@@ -661,16 +661,16 @@ For example:
 
 - Consuming all props except for a few mixins:
 
-    Before:
+    Before:     
     ```dart
-    @Props()
-    class FooProps extends UiProps with
-        AProps,
-        BProps,
-        CProps,
-        NoConsumeProps { ... }
-
-    @Component()
+    @Props()  
+    class FooProps extends UiProps with 
+        AProps, 
+        BProps, 
+        CProps, 
+        NoConsumeProps { ... } 
+    
+    @Component()  
     class FooComponent extends UiComponent<FooProps> {
       @override
       consumedProps => [
@@ -679,36 +679,36 @@ For example:
             BProps.meta,
             CProps.meta,
           ];
-
+    
       ...
     }
     ```
     After:
     ```dart
     class FooProps = UiProps with
-        FooPropsMixin
-        AProps,
-        BProps,
-        CProps,
-        NoConsumeProps;
-
+        FooPropsMixin 
+        AProps, 
+        BProps, 
+        CProps, 
+        NoConsumeProps; 
+    
     class FooComponent extends UiComponent<FooProps> {
       @override
-      consumedProps =>
+      consumedProps => 
           propsMeta.allExceptForMixins({NoConsumeProps}),
-
+    
       ...
     }
     ```
 
 #### Why didn't we do this earlier?
 
-We couldn't "consume" props from other classes by default, since we didn't have full knowledge of all the
+We couldn't "consume" props from other classes by default, since we didn't have full knowledge of all the 
 props classes and mixins inherited by a given props class's superclass (due to not having a resolved AST in our builder,
 for performance reasons).
 
 However, in the new mixin-based syntax, props classes must explicitly mix in all props mixins they inherit from,
-so we're able to easily tell at build time what they all are, and thus don't have that same restriction.
+so we're able to easily tell at build time what they all are, and thus don't have that same restriction. 
 
 
 ### Examples
@@ -720,20 +720,20 @@ Most code within over_react has been updated to use this new boilerplate, includ
 
 ## Function Component Boilerplate
 
-### Function Component Constraints
+### Function Component Constraints 
 
-Includes all of [the constraints listed in the Boilerplate Updates section](#design-constraints),
+Includes all of [the constraints listed in the Boilerplate Updates section](#design-constraints), 
 ignoring parts about backwards-compatibility.
 
 * Should be as visually uncluttered as possible.
 
 * Should not wrap excessively for longer component names.
 
-* Should be easy to transition between having and not having default
+* Should be easy to transition between having and not having default 
 props, and boilerplate shouldn't change shape drastically when doing so.
 
-* Function calls using generated functions should be avoided since they
-don't allow generic type inference of the `props` arg in the function
+* Function calls using generated functions should be avoided since they 
+don't allow generic type inference of the `props` arg in the function 
 closure.
 
 ### Syntax
@@ -745,25 +745,25 @@ part 'foo.over_react.g.dart';
 
 UiFactory<FooProps> Foo = uiFunction(
   (props) {
-    return 'foo: ${props.foo}';
+    return 'foo: ${props.foo}'; 
   },
   _$FooConfig, // ignore: undefined_identifier
-);
+); 
 
 mixin FooProps on UiProps {
   String foo;
 }
 ```
 
-Here, `uiFunction` gets a generic parameter of `FooProps` inferred
+Here, `uiFunction` gets a generic parameter of `FooProps` inferred 
 from the LHS typing, allowing props to be statically typed as `FooProps`.
 
-The generated `$FooConfig` is passed in as an argument, and serves
-as the entrypoint to the generated code.
+The generated `$FooConfig` is passed in as an argument, and serves 
+as the entrypoint to the generated code. 
 
 #### With Default Props
 
-`defaultProps` on function components is
+`defaultProps` on function components is 
 [already deprecated](https://github.com/facebook/react/pull/16210).
 
 Instead, we use null-aware operators to default null values. This provides almost the
@@ -775,123 +775,48 @@ UiFactory<FooProps> Foo = uiFunction(
   (props) {
     final foo = props.foo ?? 'default foo value';
 
-    return 'foo: $foo';
+    return 'foo: $foo'; 
   },
   _$FooConfig, // ignore: undefined_identifier
-);
+); 
 ```
 
-#### With Prop Forwarding (fka Consumed Props)
+#### With Consumed Props
 
-Because functional components have no instance that track consumed props, the syntax for forwarding props
-changes within functional components.
+Because functional components have no instance that track consumed props, the syntax for passing unconsumed 
+props changes within functional components.
 
-`UiProps` exposes 2 APIs `getPropsToForward` & `addPropsToForward` that can be used to forward props
-that have not been used to a child component.
+`UiProps` exposes a field `staticMeta` that can be used to generate an iterable containing props meta for specific mixins. 
+This is similar to accessing `propsMeta` within a class based component. Using the iterable returned from `staticMeta`'s 
+APIs (such as `forMixins`), we can generate unconsumed props and pass them to a child component.
 
-##### getPropsToForward
-`getPropsToForward` will return a `Map` of props removing the props found in the `exclude` argument.
-`exclude` is optional and will default to a `Set` with the type that `props` is statically typed as,
-this only works with `mixin .. on UiProps` types. If your function component uses a Props `class` then
-you must include an `exclude` argument.
-
-Component with a single props mixin:
+This is done like so:
 ```dart
 mixin FooPropsMixin on UiProps {
-  String foo;
+  String passedProp;
 }
 
-UiFactory<FooPropsMixin> Foo = uiFunction((props) {
-  return (Bar()
-    // Filter out props declared in FooPropsMixin
-    // (used as the default for `exclude` since that's what `props` is statically typed as)
-    // when forwarding to Bar.
-    ..addAll(props.getPropsToForward())
-  )();
-});
-```
-
-Component with a more than one props mixin:
-```dart
-mixin FooPropsMixin on UiProps {
-  String foo;
+mixin BarPropsMixin on UiProps {
+  String nonPassedProp;
 }
 
-class FooProps = UiProps with BarProps, FooPropsMixin;
+class FooBarProps = UiProps with BarPropsMixin, FooPropsMixin;
 
-UiFactory<FooProps> Foo = uiFunction((props) {
-  return (Bar()
-    // Filter out props declared in FooPropsMixin when forwarding to Bar.
-    ..addAll(props.getPropsToForward(exclude: {FooPropsMixin}))
-  )();
-});
-```
+UiFactory<FooBarProps> FooBar = uiFunction(
+  (props) {
+    final consumedProps = props.staticMeta.forMixins({BarPropsMixin});
 
-`domOnly` - to forward DOM props only:
-```dart
-mixin FooPropsMixin on UiProps {
-  String foo;
-}
+    return (Foo()..addUnconsumedProps(props, consumedProps))();
+  },
+  _$FooBarConfig, // ignore: undefined_identifier
+); 
 
-UiFactory<FooPropsMixin> Foo = uiFunction((props) {
-  return (Dom.div()
-    // Forward only DOM based props & Filter out props declared in FooPropsMixin
-    // (used as the default for `exclude` since that's what `props` is statically typed as)
-    // when forwarding to Bar.
-    ..addAll(props.getPropsToForward(domOnly: true))
-  )();
-});
-```
-
-##### addPropsToForward
-`addPropsToForward` has the same function signature as `getPropsToForward` but is meant to be used with the `UiProps` method `modifyProps`.
-
-Component with a single props mixin:
-```dart
-mixin FooPropsMixin on UiProps {
-  String foo;
-}
-
-UiFactory<FooPropsMixin> Foo = uiFunction((props) {
-  return (Bar()
-    // Filter out props declared in FooPropsMixin
-    // (used as the default for `exclude` since that's what `props` is statically typed as)
-    // when forwarding to Bar.
-    ..modifyProps(props.addPropsToForward())
-  )();
-});
-```
-
-Component with a more than one props mixin:
-```dart
-mixin FooPropsMixin on UiProps {
-  String foo;
-}
-
-class FooProps = UiProps with BarProps, FooPropsMixin;
-
-UiFactory<FooProps> Foo = uiFunction((props) {
-  return (Bar()
-    // Filter out props declared in FooPropsMixin when forwarding to Bar.
-    ..modifyProps(props.addPropsToForward(exclude: {FooPropsMixin}))
-  )();
-});
-```
-
-`domOnly` - to forward DOM props only:
-```dart
-mixin FooPropsMixin on UiProps {
-  String foo;
-}
-
-UiFactory<FooPropsMixin> Foo = uiFunction((props) {
-  return (Dom.div()
-    // Forward only DOM based props & Filter out props declared in FooPropsMixin
-    // (used as the default for `exclude` since that's what `props` is statically typed as)
-    // when forwarding to Bar.
-    ..modifyProps(props.addPropsToForward(domOnly: true))
-  )();
-});
+UiFactory<FooPropsMixin> Foo = uiFunction(
+  (props) {
+    return 'foo: ${props.passedProp}'; 
+  },
+  _$FooConfig, // ignore: undefined_identifier
+); 
 ```
 
 #### With UiProps
@@ -899,21 +824,21 @@ UiFactory<FooPropsMixin> Foo = uiFunction((props) {
 ```dart
 UiFactory<UiProps> Foo = uiFunction(
   (props) {
-    return 'id: ${props.id}';
-  },
+    return 'id: ${props.id}'; 
+  }, 
   UiFactoryConfig(
     displayName: 'Foo',
   ),
 );
 ```
 
-#### With propTypes (~Coming soon!~ lol no its not)
+#### With propTypes (Coming soon!)
 
 ```dart
 UiFactory<FooProps> Foo = uiFunction(
   (props) {
-    return 'foo: ${props.foo}';
-  },
+    return 'foo: ${props.foo}'; 
+  }, 
   _$FooConfig, // ignore: undefined_identifier
   getPropTypes: (keyFor) => {
     keyFor((p) => p.foo): (props, info) {
@@ -925,7 +850,7 @@ UiFactory<FooProps> Foo = uiFunction(
 );
 ```
 
-`getPropTypes` provides a way to set up prop validation within the
+`getPropTypes` provides a way to set up prop validation within the 
 same variable initializer.
 
 #### Local function components using just a props mixin - no top-level Factory necessary (Coming soon!)
@@ -939,27 +864,27 @@ mixin FooProps on UiProps {
   String foo;
 }
 
-// Example function; this can look like anything and doesn't have to
-// be declared in this file.
-UiFactory<FooProps> createFooHoc(UiFactory otherFactory) {
-  Object closureVariable;
-  // ...
+// Example function; this can look like anything and doesn't have to 
+// be declared in this file. 
+UiFactory<FooProps> createFooHoc(UiFactory otherFactory) { 
+  Object closureVariable; 
+  // ... 
 
   UiFactory<FooProps> FooHoc = uiFunction(
-    (props) {
-      return otherFactory()(
-        Dom.div()('closureVariable: ${closureVariable}'),
-        Dom.div()('prop foo: ${props.foo}'),
-      );
+    (props) { 
+      return otherFactory()( 
+        Dom.div()('closureVariable: ${closureVariable}'), 
+        Dom.div()('prop foo: ${props.foo}'), 
+      );   
     },
     UiFactoryConfig(
         displayName: 'FooHoc',
         propsFactory: PropsFactory.fromUiFactory(Foo),
     ),
-  );
+  ); 
 
-  return FooHoc;
-}
+  return FooHoc; 
+} 
 ```
 
 #### With forwardRef
@@ -993,14 +918,14 @@ To update your repository to the new boilerplate, there are two steps:
 If you are already using the mixin based boilerplate, skip to [Upgrade to the New Factory Syntax](#upgrade-to-the-new-factory-syntax).
 
 ### Upgrade to the Mixin Based Boilerplate
-You can use [over_react_codemod](https://github.com/Workiva/over_react_codemod)'s
-`boilerplate_upgrade` executable to make this step easier. This codemod goes
-through the repository and updates the boilerplate as necessary. While
-the codemod will handle many basic updates, it will still need to be
-supplemented with some manual checks and refactoring.
+You can use [over_react_codemod](https://github.com/Workiva/over_react_codemod)'s 
+`boilerplate_upgrade` executable to make this step easier. This codemod goes 
+through the repository and updates the boilerplate as necessary. While 
+the codemod will handle many basic updates, it will still need to be 
+supplemented with some manual checks and refactoring. 
 
-If you are migrating a Workiva library, before running the codemod,
-run `semver_audit` inside your repository and save the report using the
+If you are migrating a Workiva library, before running the codemod, 
+run `semver_audit` inside your repository and save the report using the 
 following commands:
 
 1. `pub global activate semver_audit --hosted-url=https://pub.workiva.org`
@@ -1009,16 +934,16 @@ following commands:
 This will allow the codemod to check whether or not components are
 public API.
 
-If you are migrating a library outside of the Workiva ecosystem, run the command
+If you are migrating a library outside of the Workiva ecosystem, run the command 
 below with the `--treat-all-components-as-private` flag.
 
-Then, run the codemod by following the directions within
+Then, run the codemod by following the directions within 
 [the executable](https://github.com/Workiva/over_react_codemod/blob/master/lib/src/executables/boilerplate_upgrade.dart#L32)
 from the root of your local copy of the repository.
 
 #### Flags
 
-When running the command `pub global run over_react_codemod:boilerplate_upgrade`
+When running the command `pub global run over_react_codemod:boilerplate_upgrade` 
 to update your components, there are two flags that can be used:
 
 * `--treat-all-components-as-private`: assumes that all components are not
@@ -1031,11 +956,11 @@ superclasses to be upgraded to the new boilerplate. Without this flag, all class
 with external superclasses _will not_ be upgraded.
 
 ### Upgrade to the new factory syntax
-Similar to step number 1, there is a codemod to assist with this. After activating over_react_codemod, within your
+Similar to step number 1, there is a codemod to assist with this. After activating over_react_codemod, within your 
 project, run:
 ```bash
 pub global run over_react_codemod:dart2_9_upgrade
 ```
 
-This upgrade is considered very minor, and while manual intervention may be necessary, we are not
+This upgrade is considered very minor, and while manual intervention may be necessary, we are not 
 aware of any edge cases that will be notably difficult.
