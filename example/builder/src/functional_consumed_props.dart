@@ -28,14 +28,12 @@ mixin SharedPropsMixin on UiProps {
 class SomeParentProps = UiProps with ParentOnlyPropsMixin, SharedPropsMixin;
 
 UiFactory<SomeParentProps> SomeParent = uiFunction((props) {
-    final consumedProps = props.staticMeta.forMixins({ParentOnlyPropsMixin});
-
     return (
         Dom.div()(
           Dom.div()(
             'The parent prop is: ${props.aParentProp}',
           ),
-          (SomeChild()..addUnconsumedProps(props, consumedProps))(),
+          (SomeChild()..addAll(props.getPropsToForward(exclude: {ParentOnlyPropsMixin})))(),
         )
     );
   },
