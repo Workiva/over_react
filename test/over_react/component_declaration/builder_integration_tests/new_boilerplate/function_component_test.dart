@@ -14,7 +14,6 @@
 
 @TestOn('browser')
 
-import 'dart:developer';
 import 'dart:html';
 
 import 'package:over_react/over_react.dart';
@@ -411,7 +410,6 @@ testPropsToForward({UiFactory<TestProps> factory, bool modifyProps = false}) {
       });
 
       test('which throws an error when not providing an exclude argument and the props class is NOT a mixin and `domOnly` is NOT `true`', () {
-        debugger();
         expect(() => _propsToForward(exclude: null, props: initialProps, factory: factory, modifyProps: modifyProps),
             throwsA(isA<AssertionError>()));
       }, tags: 'ddc');
