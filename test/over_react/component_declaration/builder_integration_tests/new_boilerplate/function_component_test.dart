@@ -290,6 +290,9 @@ void functionComponentTestHelper(UiFactory<TestProps> factory,
       });
     });
 
+    testPropsToForward(factory: factory, modifyProps: true);
+    testPropsToForward(factory: factory, modifyProps: false);
+
     group('using `addUnconsumedDomProps`', ()
     {
       TestProps initialProps;
@@ -323,6 +326,109 @@ void functionComponentTestHelper(UiFactory<TestProps> factory,
       });
     });
   });
+}
+
+testPropsToForward({UiFactory<TestProps> factory, bool modifyProps = false}) {
+  group(modifyProps ? 'using `modifyProps(props.addPropsToForward)`' : 'using `getPropsToForwardProps`', () {
+      TestProps initialProps;
+      TestPropsMixin secondProps;
+      const stringProp = 'stringProp';
+      const anotherProp = 'anotherProp';
+      const idAttributeValue = 'idAttributeValue';
+      const aRandomDataAttributeValue = 'aRandomDataAttributeValue';
+      const anAriaLabelPropValue = 'anAriaLabelPropValue';
+
+      setUp(() {
+        initialProps = (factory()
+          ..stringProp = stringProp
+          ..anotherProp = anotherProp
+          ..aRandomDataAttribute = aRandomDataAttributeValue
+          ..anAriaLabelAlias = anAriaLabelPropValue
+          ..id = idAttributeValue
+        );
+
+        secondProps = initialProps;
+      });
+
+      test('by default excludes props mixin type that it is invoked on', () {
+        TestProps unconsumedProps;
+         if (modifyProps == true) {
+          unconsumedProps = factory()..modifyProps(secondProps.addPropsToForward());
+        } else {
+          unconsumedProps = factory(secondProps.getPropsToForward());
+        }
+
+        expect(unconsumedProps.anotherProp, anotherProp);
+        expect(unconsumedProps.stringProp, isNull);
+        expect(unconsumedProps.id, idAttributeValue);
+      });
+
+      group('and props are correctly filtered', () {
+        test('for an empty set', () {
+          var unconsumedProps = _propsToForward(exclude: {}, props: initialProps, factory: factory, modifyProps: modifyProps);
+
+          expect(unconsumedProps.stringProp, stringProp);
+          expect(unconsumedProps.anotherProp, anotherProp);
+          expect(unconsumedProps.id, idAttributeValue);
+        });
+
+        test('for a single value in set', () {
+          var unconsumedProps = _propsToForward(exclude: {ASecondPropsMixin}, props: initialProps, factory: factory, modifyProps: modifyProps);
+
+          expect(unconsumedProps.stringProp, stringProp);
+          expect(unconsumedProps.anotherProp, isNull);
+          expect(unconsumedProps.id, idAttributeValue);
+        });
+
+        test('for multiple values in set', () {
+          var unconsumedProps = _propsToForward(exclude: {ASecondPropsMixin, TestPropsMixin}, props: initialProps, factory: factory, modifyProps: modifyProps);
+
+          expect(unconsumedProps.stringProp, isNull);
+          expect(unconsumedProps.anotherProp, isNull);
+          expect(unconsumedProps.id, idAttributeValue);
+        });
+
+        test('excludes dom attributes that are part of a mixin with `@Accessor` annotations ', () {
+          var unconsumedProps = _propsToForward(exclude: {DomAccessorPropsMixin}, props: initialProps, factory: factory, modifyProps: modifyProps);
+
+          expect(unconsumedProps.stringProp, stringProp);
+          expect(unconsumedProps.anotherProp, anotherProp);
+          expect(unconsumedProps.aRandomDataAttribute, isNull);
+          expect(unconsumedProps.anAriaLabelAlias, isNull);
+          expect(unconsumedProps.id, idAttributeValue);
+        });
+
+        test('for dom only ', () {
+          var unconsumedProps = _propsToForward(exclude: {}, domOnly: true, props: initialProps, factory: factory, modifyProps: modifyProps);
+
+          expect(unconsumedProps.stringProp, isNull);
+          expect(unconsumedProps.anotherProp, isNull);
+          expect(unconsumedProps.aRandomDataAttribute, aRandomDataAttributeValue);
+          expect(unconsumedProps.anAriaLabelAlias, anAriaLabelPropValue);
+          expect(unconsumedProps.id, idAttributeValue);
+        });
+      });
+
+      test('which throws an error when not providing an exclude argument and the props class is NOT a mixin and `domOnly` is NOT `true`', () {
+        expect(() => _propsToForward(exclude: null, props: initialProps, factory: factory, modifyProps: modifyProps),
+            throwsA(
+              isA<AssertionError>()
+                .having(
+                  (e) => e.toString(),
+                  'toString value',
+                  contains('If this is not a props mixin, you need to specify its mixins as the second argument')
+                ),
+            ),
+          );
+      }, tags: 'ddc');
+    });
+}
+
+TestProps _propsToForward<T extends UiProps>({UiFactory<TestProps> factory, T props, bool modifyProps = false, Set<Type> exclude, bool domOnly = false }) {
+  if (modifyProps == true) {
+    return factory()..modifyProps(props.addPropsToForward(exclude: exclude, domOnly: domOnly));
+  }
+  return factory(props.getPropsToForward(exclude: exclude, domOnly: domOnly));
 }
 
 UiFactory<TestProps> BasicUiForwardRef = uiForwardRef(
@@ -491,4 +597,12 @@ mixin AThirdPropsMixin on UiProps {
   String aPropsFromAThirdMixin;
 }
 
-class TestProps = UiProps with TestPropsMixin, ASecondPropsMixin, AThirdPropsMixin;
+mixin DomAccessorPropsMixin on UiProps {
+  @Accessor(key: 'data-random', keyNamespace: '')
+  String aRandomDataAttribute;
+
+  @Accessor(key: 'aria-label', keyNamespace: '')
+  String anAriaLabelAlias;
+}
+
+class TestProps = UiProps with TestPropsMixin, ASecondPropsMixin, AThirdPropsMixin, DomAccessorPropsMixin;
