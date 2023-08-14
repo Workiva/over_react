@@ -1,10 +1,8 @@
 # OverReact Changelog
 
 ## [4.10.0](https://github.com/Workiva/over_react/compare/4.9.1...4.10.0)
-- [#829] Add improved prop forwarding method
-- [#809] Update json_annotation & serializable in example app
-- [#826] Allow test_html_builder 3
-- [#827] Raise minimums
+- [#829] Add improved prop forwarding methods (`UiProps.getPropsToForward`/`.addPropsToForward`)
+- [#809], [#826], [#827] Example app dependency updates
 
 
 ## [4.9.1](https://github.com/Workiva/over_react/compare/4.9.0...4.9.1)
