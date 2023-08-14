@@ -411,7 +411,15 @@ testPropsToForward({UiFactory<TestProps> factory, bool modifyProps = false}) {
 
       test('which throws an error when not providing an exclude argument and the props class is NOT a mixin and `domOnly` is NOT `true`', () {
         expect(() => _propsToForward(exclude: null, props: initialProps, factory: factory, modifyProps: modifyProps),
-            throwsA(isA<AssertionError>().having('toString value', (e) => e.toString(), contains('If this is not a props mixin, you need to specify its mixins as the second argument')));
+            throwsA(
+              isA<AssertionError>()
+                .having(
+                  (e) => e.toString(),
+                  'toString value',
+                  contains('If this is not a props mixin, you need to specify its mixins as the second argument')
+                ),
+            ),
+          );
       }, tags: 'ddc');
     });
 }
