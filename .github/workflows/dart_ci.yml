@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - 'master'
-      - 'test_consume_*'
+      - 'test_consume_**'
   pull_request:
     branches:
       - '**'
