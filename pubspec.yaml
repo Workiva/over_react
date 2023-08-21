@@ -5,6 +5,11 @@ homepage: https://github.com/Workiva/over_react/
 environment:
   sdk: ">=2.11.0 <3.0.0"
 
+dependency_overrides:
+  react:
+    git:
+      url: https://github.com/Workiva/react-dart.git
+      ref: lints-and-implicit-casts-take-2
 dependencies:
   collection: ^1.14.11
   analyzer: '>=1.7.2 <3.0.0'
