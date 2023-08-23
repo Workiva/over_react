@@ -56,14 +56,8 @@ class DiagnosticCode {
   /// * The message associated with the error will be created from the given [message] template.
   /// * The correction associated with the error will be created from the given [correction] template.
   /// * The documentation url with the error will be created from the given [url] template.
-  const DiagnosticCode(
-    this.name,
-    this.message,
-    this.errorSeverity,
-    this.type, {
-    this.correction,
-    String? url,
-  }) : url = url ?? '$analyzerPluginLintDocsUrl$name.html';
+  const DiagnosticCode(this.name, this.message, this.errorSeverity, this.type, {this.correction, String? url})
+    : url = url ?? '$analyzerPluginLintDocsUrl$name.html';
 
   /// The name of the error code.
   final String name;
@@ -108,7 +102,10 @@ abstract class DiagnosticContributor {
 abstract class ComponentUsageDiagnosticContributor extends DiagnosticContributor {
   // computeErrorsForUsage(result, collector, usage) async {
   Future<void> computeErrorsForUsage(
-      ResolvedUnitResult result, DiagnosticCollector collector, FluentComponentUsage usage);
+    ResolvedUnitResult result,
+    DiagnosticCollector collector,
+    FluentComponentUsage usage,
+  );
 
   @override
   Future<void> computeErrors(ResolvedUnitResult result, DiagnosticCollector collector) async {
@@ -118,7 +115,10 @@ abstract class ComponentUsageDiagnosticContributor extends DiagnosticContributor
   }
 
   Future<void> computeErrorsForUsages(
-      ResolvedUnitResult result, DiagnosticCollector collector, Iterable<FluentComponentUsage> usages) async {
+    ResolvedUnitResult result,
+    DiagnosticCollector collector,
+    Iterable<FluentComponentUsage> usages,
+  ) async {
     for (final usage in usages) {
       await computeErrorsForUsage(result, collector, usage);
     }
@@ -152,11 +152,14 @@ abstract class DiagnosticCollector {
   ///       return builder.sourceChange;
   ///     }
   ///
-  Future<void> addErrorWithFix(DiagnosticCode code, Location location,
-      {FixKind? fixKind,
-      FutureOr<SourceChange> Function()? computeFix,
-      List<Object> errorMessageArgs,
-      List<Object> fixMessageArgs});
+  Future<void> addErrorWithFix(
+    DiagnosticCode code,
+    Location location, {
+    FixKind? fixKind,
+    FutureOr<SourceChange> Function()? computeFix,
+    List<Object> errorMessageArgs,
+    List<Object> fixMessageArgs,
+  });
 }
 
 // ignore: subtype_of_sealed_class
@@ -177,12 +180,15 @@ class DiagnosticCollectorImpl implements DiagnosticCollector {
   }
 
   @override
-  void addError(DiagnosticCode code, Location location,
-      {bool hasFix = false,
-      FixKind? fixKind,
-      SourceChange? fixChange,
-      List<Object?> errorMessageArgs = const [],
-      List<Object> fixMessageArgs = const []}) {
+  void addError(
+    DiagnosticCode code,
+    Location location, {
+    bool hasFix = false,
+    FixKind? fixKind,
+    SourceChange? fixChange,
+    List<Object?> errorMessageArgs = const [],
+    List<Object> fixMessageArgs = const [],
+  }) {
     // TODO(nullsafety) better checks/errors when some args aren't provided
 
     PrioritizedSourceChange? fix;
@@ -211,11 +217,14 @@ class DiagnosticCollectorImpl implements DiagnosticCollector {
   }
 
   @override
-  Future<void> addErrorWithFix(DiagnosticCode code, Location location,
-      {FixKind? fixKind,
-      FutureOr<SourceChange> Function()? computeFix,
-      List<Object> errorMessageArgs = const [],
-      List<Object> fixMessageArgs = const []}) async {
+  Future<void> addErrorWithFix(
+    DiagnosticCode code,
+    Location location, {
+    FixKind? fixKind,
+    FutureOr<SourceChange> Function()? computeFix,
+    List<Object> errorMessageArgs = const [],
+    List<Object> fixMessageArgs = const [],
+  }) async {
     addError(
       code,
       location,

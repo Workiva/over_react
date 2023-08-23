@@ -80,10 +80,7 @@ class LinkTargetUsageWithoutRelDiagnostic extends ComponentUsageDiagnosticContri
       return;
     }
 
-    const requiredRelValues = {
-      'noopener',
-      'noreferrer',
-    };
+    const requiredRelValues = {'noopener', 'noreferrer'};
     var actualRelValues = <String>{};
     var offerQuickFix = relPropSection == null || (relPropSection.last.staticType?.isDartCoreNull ?? false);
     if (relPropSection != null && (relPropSection.last.staticType?.isDartCoreString ?? false)) {
@@ -105,13 +102,19 @@ class LinkTargetUsageWithoutRelDiagnostic extends ComponentUsageDiagnosticContri
           fixKind: fixKind,
           computeFix: () => buildFileEdit(result, (builder) {
             if (relPropSection == null) {
-              addProp(usage, builder, result.content, result.lineInfo,
-                  name: 'rel', value: "'${requiredRelValues.join(' ')}'");
-            } else {
-              builder.addSimpleReplacement(
-                SourceRange(relPropSection.last.offset, relPropSection.last.length),
-                "'${[...actualRelValues, ...missingRequiredRelValues].join(' ')}'",
+              addProp(
+                usage,
+                builder,
+                result.content,
+                result.lineInfo,
+                name: 'rel',
+                value: "'${requiredRelValues.join(' ')}'",
               );
+            } else {
+              builder.addSimpleReplacement(SourceRange(
+                relPropSection.last.offset,
+                relPropSection.last.length,
+              ), "'${[...actualRelValues, ...missingRequiredRelValues].join(' ')}'");
             }
           }),
         );

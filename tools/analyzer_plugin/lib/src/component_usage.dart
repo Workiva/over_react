@@ -170,9 +170,9 @@ class FluentComponentUsage {
   /// The method calls cascaded on this usage's builder.
   ///
   /// See also: other `cascaded`* methods in this class.
-  Iterable<BuilderMethodInvocation> get cascadedMethodInvocations => cascadeSections
-      .whereType<MethodInvocation>()
-      .map((methodInvocation) => BuilderMethodInvocation(methodInvocation));
+  Iterable<BuilderMethodInvocation> get cascadedMethodInvocations => cascadeSections.whereType<MethodInvocation>().map(
+    (methodInvocation) => BuilderMethodInvocation(methodInvocation),
+  );
 
   /// All the cascades on this usage's builder, each wrapped in one of the
   /// [BuilderMemberAccess] subtypes.
@@ -191,10 +191,7 @@ class FluentComponentUsage {
         .map((section) => OtherBuilderMemberAccess(section))
         .toList();
 
-    return [
-      ...allHandledMembers,
-      ...allUnhandledMembers,
-    ]
+    return [...allHandledMembers, ...allUnhandledMembers]
       // Order them in the order they appear by sorting based on the offset.
       ..sort((a, b) => a.node.offset.compareTo(b.node.offset));
   }
@@ -375,11 +372,7 @@ abstract class PropAssignment extends BuilderMemberAccess {
       return _PropertyAccessPropAssignment(node);
     }
 
-    throw ArgumentError.value(
-      node.leftHandSide,
-      'node.leftHandSide',
-      'Unhandled LHS node type',
-    );
+    throw ArgumentError.value(node.leftHandSide, 'node.leftHandSide', 'Unhandled LHS node type');
   }
 
   PropAssignment._();
@@ -437,9 +430,10 @@ class _PropertyAccessPropAssignment extends PropAssignment {
   @override
   final AssignmentExpression node;
 
-  _PropertyAccessPropAssignment(this.node)
-      : assert(node.leftHandSide is PropertyAccess),
-        super._();
+  _PropertyAccessPropAssignment(
+    this.node,
+  ) : assert(node.leftHandSide is PropertyAccess),
+      super._();
 
   /// The property access representing the left hand side of this assignment.
   @override
@@ -465,11 +459,7 @@ class IndexPropAssignment extends BuilderMemberAccess {
 
   IndexPropAssignment(this.node) {
     if (node.leftHandSide is! IndexExpression) {
-      throw ArgumentError.value(
-        node.leftHandSide,
-        'node.leftHandSide',
-        'Must be an IndexExpreesion',
-      );
+      throw ArgumentError.value(node.leftHandSide, 'node.leftHandSide', 'Must be an IndexExpreesion');
     }
   }
 

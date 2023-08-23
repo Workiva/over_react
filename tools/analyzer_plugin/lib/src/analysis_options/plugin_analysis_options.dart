@@ -3,15 +3,7 @@ class PluginAnalysisOptions {
   final Map<String, AnalysisOptionsSeverity> errors;
   final RegExp? exhaustiveDepsAdditionalHooksPattern;
 
-  PluginAnalysisOptions({
-    required this.errors,
-    this.exhaustiveDepsAdditionalHooksPattern,
-  });
+  PluginAnalysisOptions({required this.errors, this.exhaustiveDepsAdditionalHooksPattern});
 }
 
-enum AnalysisOptionsSeverity {
-  ignore,
-  info,
-  warning,
-  error,
-}
+enum AnalysisOptionsSeverity { ignore, info, warning, error }

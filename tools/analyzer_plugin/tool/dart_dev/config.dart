@@ -6,7 +6,5 @@ final config = {
   ...coreConfig,
   'format': FormatTool()
     ..formatterArgs = ['--line-length=120']
-    ..exclude = [
-      Glob('playground/**'),
-    ],
+    ..exclude = [Glob('playground/**')],
 };

@@ -11,12 +11,14 @@ void main() {
     const code4 = 'over_react_pseudo_static_lifecycle';
     const code5 = 'over_react_consumed_props_return_value';
 
-    final options = PluginAnalysisOptions(errors: {
-      code1: AnalysisOptionsSeverity.error,
-      code2: AnalysisOptionsSeverity.warning,
-      code3: AnalysisOptionsSeverity.info,
-      code4: AnalysisOptionsSeverity.ignore,
-    });
+    final options = PluginAnalysisOptions(
+      errors: {
+        code1: AnalysisOptionsSeverity.error,
+        code2: AnalysisOptionsSeverity.warning,
+        code3: AnalysisOptionsSeverity.info,
+        code4: AnalysisOptionsSeverity.ignore,
+      },
+    );
 
     final severityProvider = AnalysisOptionsErrorSeverityProvider(options);
 

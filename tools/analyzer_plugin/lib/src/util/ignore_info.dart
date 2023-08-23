@@ -66,12 +66,10 @@ class DiagnosticType implements IgnoredElement {
 
   final int length;
 
-  DiagnosticType(String type, this.offset, this.length)
-      : type = type.toLowerCase();
+  DiagnosticType(String type, this.offset, this.length) : type = type.toLowerCase();
 
   @override
-  bool matches(String errorCode) =>
-      type == errorCode.toLowerCase();
+  bool matches(String errorCode) => type == errorCode.toLowerCase();
 }
 
 abstract class IgnoredElement {
@@ -89,8 +87,7 @@ class IgnoreInfo {
   /// A regular expression for matching 'ignore_for_file' comments.
   ///
   /// Resulting codes may be in a list ('error_code_1,error_code2').
-  static final RegExp IGNORE_FOR_FILE_MATCHER =
-      RegExp(r'//[ ]*ignore_for_file:');
+  static final RegExp IGNORE_FOR_FILE_MATCHER = RegExp(r'//[ ]*ignore_for_file:');
 
   /// A table mapping line numbers to the elements (diagnostics and diagnostic
   /// types) that are ignored on that line.
@@ -110,15 +107,12 @@ class IgnoreInfo {
         var location = lineInfo.getLocation(comment.offset);
         var lineNumber = location.lineNumber;
         var offsetOfLine = lineInfo.getOffsetOfLine(lineNumber - 1);
-        var beforeMatch = content.substring(
-            offsetOfLine, offsetOfLine + location.columnNumber - 1);
+        var beforeMatch = content.substring(offsetOfLine, offsetOfLine + location.columnNumber - 1);
         if (beforeMatch.trim().isEmpty) {
           // The comment is on its own line, so it refers to the next line.
           lineNumber++;
         }
-        _ignoredOnLine
-            .putIfAbsent(lineNumber, () => [])
-            .addAll(comment.ignoredElements);
+        _ignoredOnLine.putIfAbsent(lineNumber, () => []).addAll(comment.ignoredElements);
       } else if (lexeme.contains('ignore_for_file:')) {
         _ignoredForFile.addAll(comment.ignoredElements);
       }
@@ -126,8 +120,7 @@ class IgnoreInfo {
   }
 
   /// Return `true` if there are any ignore comments in the file.
-  bool get hasIgnores =>
-      _ignoredOnLine.isNotEmpty || _ignoredForFile.isNotEmpty;
+  bool get hasIgnores => _ignoredOnLine.isNotEmpty || _ignoredForFile.isNotEmpty;
 
   /// Return a list containing all of the diagnostics that are ignored for the
   /// whole file.
@@ -189,8 +182,7 @@ extension on CommentToken {
   /// more restrictive in this test.
   static final _errorCodeNameRegExp = RegExp(r'^[a-zA-Z][_a-z0-9A-Z]*$');
 
-  static final _errorTypeRegExp =
-      RegExp(r'^type[ ]*=[ ]*lint', caseSensitive: false);
+  static final _errorTypeRegExp = RegExp(r'^type[ ]*=[ ]*lint', caseSensitive: false);
 
   /// Return the diagnostic names contained in this comment, assuming that it is
   /// a correctly formatted ignore comment.

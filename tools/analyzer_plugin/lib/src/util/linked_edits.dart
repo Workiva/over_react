@@ -105,7 +105,10 @@ void _addUiComponentBoilerplateComponent(
     ..writeln('');
 
   if (baseComponentClassName.contains('Stateful')) {
-    builder..writeln('  @override')..writeln('  get initialState => (newState());')..writeln('');
+    builder
+      ..writeln('  @override')
+      ..writeln('  get initialState => (newState());')
+      ..writeln('');
   }
 
   builder
@@ -125,10 +128,12 @@ void addUiComponentBoilerplateLinkedEdit(
 }) {
   _addUiComponentBoilerplateFactory(builder, groupName: groupName, componentFactoryName: componentFactoryName);
   _addUiComponentBoilerplateProps(builder, groupName: groupName, componentFactoryName: componentFactoryName);
-  _addUiComponentBoilerplateComponent(builder,
-      groupName: groupName,
-      componentFactoryName: componentFactoryName,
-      getComponentRenderReturnValueSrc: getComponentRenderReturnValueSrc);
+  _addUiComponentBoilerplateComponent(
+    builder,
+    groupName: groupName,
+    componentFactoryName: componentFactoryName,
+    getComponentRenderReturnValueSrc: getComponentRenderReturnValueSrc,
+  );
 }
 
 void addUiStatefulComponentBoilerplateLinkedEdit(
@@ -140,11 +145,13 @@ void addUiStatefulComponentBoilerplateLinkedEdit(
   _addUiComponentBoilerplateFactory(builder, groupName: groupName, componentFactoryName: componentFactoryName);
   _addUiComponentBoilerplateProps(builder, groupName: groupName, componentFactoryName: componentFactoryName);
   _addUiComponentBoilerplateState(builder, groupName: groupName, componentFactoryName: componentFactoryName);
-  _addUiComponentBoilerplateComponent(builder,
-      groupName: groupName,
-      baseComponentClassName: 'UiStatefulComponent2',
-      componentFactoryName: componentFactoryName,
-      getComponentRenderReturnValueSrc: getComponentRenderReturnValueSrc);
+  _addUiComponentBoilerplateComponent(
+    builder,
+    groupName: groupName,
+    baseComponentClassName: 'UiStatefulComponent2',
+    componentFactoryName: componentFactoryName,
+    getComponentRenderReturnValueSrc: getComponentRenderReturnValueSrc,
+  );
 }
 
 void addFluxUiComponentBoilerplateLinkedEdit(
@@ -155,11 +162,13 @@ void addFluxUiComponentBoilerplateLinkedEdit(
 }) {
   _addUiComponentBoilerplateFactory(builder, groupName: groupName, componentFactoryName: componentFactoryName);
   _addUiComponentBoilerplateFluxProps(builder, groupName: groupName, componentFactoryName: componentFactoryName);
-  _addUiComponentBoilerplateComponent(builder,
-      groupName: groupName,
-      baseComponentClassName: 'FluxUiComponent2',
-      componentFactoryName: componentFactoryName,
-      getComponentRenderReturnValueSrc: getComponentRenderReturnValueSrc);
+  _addUiComponentBoilerplateComponent(
+    builder,
+    groupName: groupName,
+    baseComponentClassName: 'FluxUiComponent2',
+    componentFactoryName: componentFactoryName,
+    getComponentRenderReturnValueSrc: getComponentRenderReturnValueSrc,
+  );
 }
 
 void addFluxUiStatefulComponentBoilerplateLinkedEdit(
@@ -171,9 +180,11 @@ void addFluxUiStatefulComponentBoilerplateLinkedEdit(
   _addUiComponentBoilerplateFactory(builder, groupName: groupName, componentFactoryName: componentFactoryName);
   _addUiComponentBoilerplateFluxProps(builder, groupName: groupName, componentFactoryName: componentFactoryName);
   _addUiComponentBoilerplateState(builder, groupName: groupName, componentFactoryName: componentFactoryName);
-  _addUiComponentBoilerplateComponent(builder,
-      groupName: groupName,
-      baseComponentClassName: 'FluxUiStatefulComponent2',
-      componentFactoryName: componentFactoryName,
-      getComponentRenderReturnValueSrc: getComponentRenderReturnValueSrc);
+  _addUiComponentBoilerplateComponent(
+    builder,
+    groupName: groupName,
+    baseComponentClassName: 'FluxUiStatefulComponent2',
+    componentFactoryName: componentFactoryName,
+    getComponentRenderReturnValueSrc: getComponentRenderReturnValueSrc,
+  );
 }

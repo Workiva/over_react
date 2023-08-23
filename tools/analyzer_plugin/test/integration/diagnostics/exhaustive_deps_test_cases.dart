@@ -511,7 +511,7 @@ final Map<String, List<Map<String, Object>>> tests = {
         }, null);
       ''',
       'options': [
-        {'additionalHooks': 'useCustomEffect'}
+        {'additionalHooks': 'useCustomEffect'},
       ],
     },
     {
@@ -523,7 +523,7 @@ final Map<String, List<Map<String, Object>>> tests = {
         }, null);
       ''',
       'options': [
-        {'additionalHooks': 'useCustomEffect'}
+        {'additionalHooks': 'useCustomEffect'},
       ],
     },
     {
@@ -535,7 +535,7 @@ final Map<String, List<Map<String, Object>>> tests = {
         }, null);
       ''',
       'options': [
-        {'additionalHooks': 'useAnotherEffect'}
+        {'additionalHooks': 'useAnotherEffect'},
       ],
     },
     {
@@ -1421,7 +1421,7 @@ final Map<String, List<Map<String, Object>>> tests = {
             return Dom.div()(_button);
           }, [_button]);
         }, null);
-      '''
+      ''',
     },
     {
       'name': 'Generic type parameter referenced inside callback from outer scope',
@@ -3479,7 +3479,7 @@ final Map<String, List<Map<String, Object>>> tests = {
         }, null);
       ''',
       'options': [
-        {'additionalHooks': 'useCustomEffect'}
+        {'additionalHooks': 'useCustomEffect'},
       ],
       'errors': [
         {
@@ -4665,10 +4665,10 @@ final Map<String, List<Map<String, Object>>> tests = {
           'message':
               'The ref value \'myRef.current\' will likely have changed by the time this effect cleanup function runs. If this ref points to a node rendered by React, copy \'myRef.current\' to a variable inside the effect, and use that variable in the cleanup function.',
           'suggestions': null,
-        }
+        },
       ],
       'options': [
-        {'additionalHooks': 'useLayoutEffect_SAFE_FOR_SSR'}
+        {'additionalHooks': 'useLayoutEffect_SAFE_FOR_SSR'},
       ],
     },
     {
@@ -5839,7 +5839,7 @@ final Map<String, List<Map<String, Object>>> tests = {
                 }, null);
               ''',
             },
-          ]
+          ],
         },
         {
           'message':
@@ -5866,7 +5866,7 @@ final Map<String, List<Map<String, Object>>> tests = {
                 }, null);
               ''',
             },
-          ]
+          ],
         },
       ],
     },
@@ -7886,7 +7886,7 @@ final Map<String, List<Map<String, Object>>> testsTypescript = {
               ''',
             },
           ],
-        }
+        },
       ],
     },
     {
@@ -7978,7 +7978,7 @@ final Map<String, List<Map<String, Object>>> testsTypescript = {
               ''',
             },
           ],
-        }
+        },
       ],
     },
     {
@@ -7996,7 +7996,7 @@ final Map<String, List<Map<String, Object>>> testsTypescript = {
           'message':
               'The \'count\' StateHook (from useState) makes the dependencies of React Hook useEffect change every render, and should not itself be a dependency.',
           'suggestions': null,
-        }
+        },
       ],
     },
     {
@@ -8017,7 +8017,7 @@ final Map<String, List<Map<String, Object>>> testsTypescript = {
               'The \'count\' StateHook (from useState) makes the dependencies of React Hook useEffect change every render, and should not itself be a dependency.'
                   ' Since \'count.value\' is being used, depend on it instead.',
           'suggestions': null,
-        }
+        },
       ],
     },
     {
@@ -8037,7 +8037,7 @@ final Map<String, List<Map<String, Object>>> testsTypescript = {
               'The \'count\' StateHook (from useState) makes the dependencies of React Hook useEffect change every render, and should not itself be a dependency.'
                   ' Since \'count.set\' is stable across renders, no dependencies are required to use it.',
           'suggestions': null,
-        }
+        },
       ],
     },
     {
@@ -8059,7 +8059,7 @@ final Map<String, List<Map<String, Object>>> testsTypescript = {
                   ' Since \'count.set\' is stable across renders, no dependencies are required to use it.'
                   ' Since \'count.value\' is being used, depend on it instead.',
           'suggestions': null,
-        }
+        },
       ],
     },
     {
@@ -8087,10 +8087,10 @@ final Map<String, List<Map<String, Object>>> testsTypescript = {
                     print(count);
                   }, [count]);
                 }, null);
-              '''
-            }
+              ''',
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -8120,10 +8120,10 @@ final Map<String, List<Map<String, Object>>> testsTypescript = {
                     print(count.value);
                   }, [count]);
                 }, null);
-              '''
-            }
+              ''',
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -8152,10 +8152,10 @@ final Map<String, List<Map<String, Object>>> testsTypescript = {
                     count.set(1);
                   }, [count]);
                 }, null);
-              '''
-            }
+              ''',
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -8187,10 +8187,10 @@ final Map<String, List<Map<String, Object>>> testsTypescript = {
                     count.set(1);
                   }, [count]);
                 }, null);
-              '''
-            }
+              ''',
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -8220,10 +8220,10 @@ final Map<String, List<Map<String, Object>>> testsTypescript = {
                     count.set(1);
                   }, [count.value]);
                 }, null);
-              '''
-            }
+              ''',
+            },
           ],
-        }
+        },
       ],
     },
     {
@@ -8241,7 +8241,7 @@ final Map<String, List<Map<String, Object>>> testsTypescript = {
           'message':
               'React Hook useEffect most likely has issues in its dependencies list, but the exact problems and recommended fixes could not be be computed since the dependency \'count\' is the target of a cascade. Try refactoring to not cascade on that dependency in the callback to get more helpful instructions and potentially a suggested fix.',
           'suggestions': null,
-        }
+        },
       ],
     },
     {
@@ -8266,11 +8266,11 @@ final Map<String, List<Map<String, Object>>> testsTypescript = {
                     final items = <T>[];
                   }, [T]);
                 }
-              '''
-            }
+              ''',
+            },
           ],
-        }
-      ]
+        },
+      ],
     },
   ],
 };

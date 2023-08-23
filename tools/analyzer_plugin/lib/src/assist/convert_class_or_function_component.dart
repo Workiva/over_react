@@ -104,9 +104,7 @@ class ConvertClassOrFunctionComponentAssistContributor extends AssistContributor
 
     await changeBuilder.addGenericFileEdit(request.result.path, (builder) {
       builder.addSimpleReplacement(range.node(closestClass), '');
-      builder.addSimpleReplacement(
-          range.node(factoryInitializer),
-          'uiFunction(\n'
+      builder.addSimpleReplacement(range.node(factoryInitializer), 'uiFunction(\n'
           '  (props) {$newRenderSource},\n'
           '  $generatedFactoryConfigName, // ignore:undefined_identifier\n'
           ')');
@@ -145,8 +143,10 @@ class ConvertClassOrFunctionComponentAssistContributor extends AssistContributor
     // todo check for hooks
     // todo migrate defaults?
 
-    final renderSource = request.result.content.substring(functionComponentBody.offset,
-        functionComponentBody.tryCast<ExpressionFunctionBody>()?.semicolon?.offset ?? functionComponentBody.end);
+    final renderSource = request.result.content.substring(
+      functionComponentBody.offset,
+      functionComponentBody.tryCast<ExpressionFunctionBody>()?.semicolon?.offset ?? functionComponentBody.end,
+    );
 
     final changeBuilder = ChangeBuilder(session: request.result.session);
 
@@ -166,11 +166,12 @@ class ConvertClassOrFunctionComponentAssistContributor extends AssistContributor
       final needsSemicolon = functionComponentBody is ExpressionFunctionBody;
 
       builder.addSimpleInsertion(
-          insertionLocation,
-          '\n\nclass $componentClassName extends UiComponent2<$propsClassName> {\n'
-          '  @override\n'
-          '  render() $renderSource${needsSemicolon ? ';' : ''}\n'
-          '}');
+        insertionLocation,
+        '\n\nclass $componentClassName extends UiComponent2<$propsClassName> {\n'
+        '  @override\n'
+        '  render() $renderSource${needsSemicolon ? ';' : ''}\n'
+        '}',
+      );
     });
 
     final sourceChange = changeBuilder.sourceChange

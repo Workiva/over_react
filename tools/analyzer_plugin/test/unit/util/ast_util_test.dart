@@ -49,9 +49,7 @@ void main() {
           expressionBody() => theExpression;
         ''');
 
-        expect(body.returnExpressions.map((e) => e.toSource()).toList(), [
-          'theExpression',
-        ]);
+        expect(body.returnExpressions.map((e) => e.toSource()).toList(), ['theExpression']);
       });
 
       test('EmptyFunctionBody', () {

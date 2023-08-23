@@ -32,22 +32,26 @@ void main(List<String> args) {
 
   // Same implementation as package:analysis_server/src/plugin/plugin_manager.dart
   final originalPluginFolder = resourceProvider.getFolder(packageRoot);
-  final pluginCopyFolder = pluginManagerStateFolder
-      .getChildAssumingFolder(_uniqueDirectoryName(originalPluginFolder.path))
-      .getChildAssumingFolder(originalPluginFolder.shortName);
+  final pluginCopyFolder = pluginManagerStateFolder.getChildAssumingFolder(
+    _uniqueDirectoryName(originalPluginFolder.path),
+  ).getChildAssumingFolder(originalPluginFolder.shortName);
 
   logger.info('Creating link to current plugin folder...');
   if (pluginCopyFolder.exists) {
-    logger.info(pluginCopyFolder.isLink()
-        ? 'Deleting existing link to plugin folder, likely created by this script, at ${pluginCopyFolder.formatPath()}'
-        : 'Deleting existing copy of plugin folder, created by analysis_server, at ${pluginCopyFolder.formatPath()}');
+    logger.info(
+      pluginCopyFolder.isLink()
+          ? 'Deleting existing link to plugin folder, likely created by this script, at ${pluginCopyFolder.formatPath()}'
+          : 'Deleting existing copy of plugin folder, created by analysis_server, at ${pluginCopyFolder.formatPath()}',
+    );
     pluginCopyFolder.delete();
   } else {
-    logger.warning("\nNo existing copy of of plugin folder found at ${pluginCopyFolder.formatPath()}."
-        "\n\nThis should only happen if:"
-        "\n  1. You've never run the plugin declared in this folder before"
-        "\n  2. You manually deleted ${pluginManagerStateFolder.formatPath()} or one of its ancestor directories at some point"
-        "\n\nIf these situations don't apply, there\'s likely an issue with this script. Please open an issue and tag greglittlefield-wf.\n");
+    logger.warning(
+      "\nNo existing copy of of plugin folder found at ${pluginCopyFolder.formatPath()}."
+      "\n\nThis should only happen if:"
+      "\n  1. You've never run the plugin declared in this folder before"
+      "\n  2. You manually deleted ${pluginManagerStateFolder.formatPath()} or one of its ancestor directories at some point"
+      "\n\nIf these situations don't apply, there\'s likely an issue with this script. Please open an issue and tag greglittlefield-wf.\n",
+    );
   }
 
   {
@@ -57,9 +61,11 @@ void main(List<String> args) {
     logger.info('Link created: ${linkLocation.formatPath()} -> ${linkTarget.formatPath()}\n');
   }
 
-  logger.info(ansi.green.wrap('Successfully linked!'
-      '\nChanges to plugin code will now be loaded upon analysis server restart'
-      ' without having to delete ${pluginManagerStateFolder.formatPath()} every time.'));
+  logger.info(ansi.green.wrap(
+    'Successfully linked!'
+    '\nChanges to plugin code will now be loaded upon analysis server restart'
+    ' without having to delete ${pluginManagerStateFolder.formatPath()} every time.',
+  ));
 }
 
 // From package:analysis_server/src/plugin/plugin_manager.dart

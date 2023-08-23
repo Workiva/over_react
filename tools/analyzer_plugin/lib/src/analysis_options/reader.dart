@@ -19,8 +19,9 @@ class PluginOptionsReader {
     return _getOptionsFromOptionsFile(file);
   }
 
-  PluginAnalysisOptions? getOptionsForResult(ResolvedUnitResult result) =>
-      getOptionsForContextRoot(result.session.analysisContext.contextRoot);
+  PluginAnalysisOptions? getOptionsForResult(ResolvedUnitResult result) => getOptionsForContextRoot(
+    result.session.analysisContext.contextRoot,
+  );
 
   PluginAnalysisOptions? _getOptionsFromOptionsFile(analyzer_fs.File file) {
     return _cachedOptions.putIfAbsent(file.path, () {

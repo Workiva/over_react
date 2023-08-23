@@ -214,8 +214,11 @@ class PropertyInvocation {
   factory PropertyInvocation.from(InvocationExpression node) {
     final detected = detect(node);
     if (detected == null) {
-      throw ArgumentError.value(node, 'node',
-          'Node does not represent a property invocation. Consider using PropertyInvocation.detect instead, which returns a nullable result.');
+      throw ArgumentError.value(
+        node,
+        'node',
+        'Node does not represent a property invocation. Consider using PropertyInvocation.detect instead, which returns a nullable result.',
+      );
     }
     return detected;
   }

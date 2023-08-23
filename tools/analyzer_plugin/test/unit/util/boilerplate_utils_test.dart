@@ -87,17 +87,11 @@ void main() {
 
       group('returns false when', () {
         test('part directive is not over_react', () async {
-          await checkPartValidity(
-            isPartOverReact: false,
-            shouldBeValid: false,
-          );
+          await checkPartValidity(isPartOverReact: false, shouldBeValid: false);
         });
 
         test('part directive does not match the file uri', () async {
-          await checkPartValidity(
-            path: 'different_file_path.dart',
-            shouldBeValid: false,
-          );
+          await checkPartValidity(path: 'different_file_path.dart', shouldBeValid: false);
         });
       });
     });
@@ -123,8 +117,9 @@ void main() {
           expect(editList, isNotNull);
           expect(editList.length, 1, reason: 'there should be one edit in the file');
 
-          final offset =
-              result.lineInfo.getOffsetOfLineAfter(nextLine(result.unit.directives.last.end, result.lineInfo));
+          final offset = result.lineInfo.getOffsetOfLineAfter(
+            nextLine(result.unit.directives.last.end, result.lineInfo),
+          );
           expect(editList.first.offset, offset, reason: 'should be new line between existing directives and new part');
           expect(editList.first.length, 0, reason: 'nothing is replaced');
           expect(editList.first.replacement, 'part \'foo.over_react.g.dart\';\n\n');
@@ -292,10 +287,8 @@ Future<void> checkPartValidity({
   bool isPartOverReact = true,
   String path = 'foo.dart',
 }) async {
-  final result = await parseAndGetResolvedUnit(
-    isPartOverReact ? sourceWithOverReactPart : sourceWithNonOverReactPart,
-    path: path,
-  );
+  final result =
+      await parseAndGetResolvedUnit(isPartOverReact ? sourceWithOverReactPart : sourceWithNonOverReactPart, path: path);
   final part = result.unit.directives.whereType<PartDirective>().firstOrNull;
   expect(part, isNotNull);
   expect(result.uri.toFilePath(), endsWith('/$path'));

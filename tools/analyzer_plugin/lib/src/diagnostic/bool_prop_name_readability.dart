@@ -131,13 +131,4 @@ class PropsVisitor extends SimpleAstVisitor<void> {
 const allowedPrefixesForBoolPropString = 'is, was, has, can, should, use, check, show, hide, allow';
 final allowedPrefixesForBoolProp = allowedPrefixesForBoolPropString.split(', ');
 
-const allowedContainsForBoolProp = [
-  'able',
-  'are',
-  'checked',
-  'suppress',
-  'open',
-  'close',
-  'renders',
-  'initially',
-];
+const allowedContainsForBoolProp = ['able', 'are', 'checked', 'suppress', 'open', 'close', 'renders', 'initially'];

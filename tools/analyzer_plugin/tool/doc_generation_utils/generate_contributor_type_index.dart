@@ -35,10 +35,7 @@ import 'shared_html.dart';
 abstract class ContributorIndexer {
   final String pageTitle;
   final String bodySubtitle;
-  ContributorIndexer({
-    required this.pageTitle,
-    required this.bodySubtitle,
-  });
+  ContributorIndexer({required this.pageTitle, required this.bodySubtitle});
 
   void generate(String? filePath) {
     var generated = _generate();

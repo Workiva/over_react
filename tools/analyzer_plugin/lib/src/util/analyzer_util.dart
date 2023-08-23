@@ -50,9 +50,7 @@ class NodeLocator extends UnifyingAstVisitor<void> {
   /// Initialize a newly created locator to locate an [AstNode] by locating the
   /// node within an AST structure that corresponds to the given range of
   /// characters (between the [startOffset] and [endOffset] in the source.
-  NodeLocator(int startOffset, [int? endOffset])
-      : _startOffset = startOffset,
-        _endOffset = endOffset ?? startOffset;
+  NodeLocator(int startOffset, [int? endOffset]) : _startOffset = startOffset, _endOffset = endOffset ?? startOffset;
 
   /// Return the node that was found that corresponds to the given source range
   /// or `null` if there is no such node.
@@ -133,9 +131,7 @@ class NodeLocator2 extends UnifyingAstVisitor<void> {
   ///
   /// If [endOffset] is not provided, then it is considered the same as the
   /// given [startOffset].
-  NodeLocator2(int startOffset, [int? endOffset])
-      : _startOffset = startOffset,
-        _endOffset = endOffset ?? startOffset;
+  NodeLocator2(int startOffset, [int? endOffset]) : _startOffset = startOffset, _endOffset = endOffset ?? startOffset;
 
   /// Search within the given AST [node] and return the node that was found,
   /// or `null` if no node was found.

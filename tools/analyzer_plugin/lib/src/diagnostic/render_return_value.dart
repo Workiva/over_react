@@ -133,24 +133,28 @@ class RenderReturnValueDiagnostic extends DiagnosticContributor {
         continue;
       }
 
-      await validateReactChildType(returnType, result.typeSystem, result.typeProvider,
-          onInvalidType: (invalidType) async {
-        const code = invalidTypeErrorCode;
-        final location = result.locationFor(returnExpression);
-        if (couldBeMissingBuilderInvocation(returnExpression)) {
-          await collector.addErrorWithFix(
-            code,
-            location,
-            errorMessageArgs: [returnType.getDisplayString(withNullability: false), missingBuilderMessageSuffix],
-            fixKind: addBuilderInvocationFix,
-            computeFix: () => buildFileEdit(result, (builder) {
-              buildMissingInvocationEdits(returnExpression, builder);
-            }),
-          );
-        } else {
-          collector.addError(code, location, errorMessageArgs: [returnType.getDisplayString(withNullability: false)]);
-        }
-      });
+      await validateReactChildType(
+        returnType,
+        result.typeSystem,
+        result.typeProvider,
+        onInvalidType: (invalidType) async {
+          const code = invalidTypeErrorCode;
+          final location = result.locationFor(returnExpression);
+          if (couldBeMissingBuilderInvocation(returnExpression)) {
+            await collector.addErrorWithFix(
+              code,
+              location,
+              errorMessageArgs: [returnType.getDisplayString(withNullability: false), missingBuilderMessageSuffix],
+              fixKind: addBuilderInvocationFix,
+              computeFix: () => buildFileEdit(result, (builder) {
+                buildMissingInvocationEdits(returnExpression, builder);
+              }),
+            );
+          } else {
+            collector.addError(code, location, errorMessageArgs: [returnType.getDisplayString(withNullability: false)]);
+          }
+        },
+      );
 
       if (returnType.isDartCoreBool && returnExpression is BooleanLiteral && returnExpression.value == false) {
         await collector.addErrorWithFix(

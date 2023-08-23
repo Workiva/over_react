@@ -26,8 +26,11 @@ mixin ${prefix}State on UiState {}
   String fluxComponentSuperclass({bool withState = false}) =>
       withState ? 'FluxUiStatefulComponent2<${prefix}Props, ${prefix}State>' : 'FluxUiComponent2<${prefix}Props>';
 
-  String simpleUiComponentSource(
-      {bool isStateful = false, bool shouldIncludeSelection = false, bool includeDefaultProps = true}) {
+  String simpleUiComponentSource({
+    bool isStateful = false,
+    bool shouldIncludeSelection = false,
+    bool includeDefaultProps = true,
+  }) {
     return '''
 import 'package:over_react/over_react.dart';
 part 'test.over_react.g.dart';
@@ -45,8 +48,11 @@ ${includeDefaultProps ? getDefaultProps : ''}${includeDefaultProps && isStateful
 ''';
   }
 
-  String fluxUiComponentSource(
-      {bool isStateful = false, bool shouldIncludeSelection = false, bool includeDefaultProps = true}) {
+  String fluxUiComponentSource({
+    bool isStateful = false,
+    bool shouldIncludeSelection = false,
+    bool includeDefaultProps = true,
+  }) {
     return '''
 import 'package:over_react/over_react.dart';
 part 'test.over_react.g.dart';

@@ -66,32 +66,44 @@ class InvalidChildDiagnostic extends ComponentUsageDiagnosticContributor {
   @override
   computeErrorsForUsage(result, collector, usage) async {
     for (final argument in usage.node.argumentList.arguments) {
-      await validateReactChildType(argument.staticType, result.typeSystem, result.typeProvider,
-          onInvalidType: (invalidType) async {
-        final location = result.locationFor(argument);
+      await validateReactChildType(
+        argument.staticType,
+        result.typeSystem,
+        result.typeProvider,
+        onInvalidType: (invalidType) async {
+          final location = result.locationFor(argument);
 
-        if (couldBeMissingBuilderInvocation(argument)) {
-          await collector.addErrorWithFix(
-            code,
-            location,
-            errorMessageArgs: [invalidType.getDisplayString(withNullability: false), missingBuilderMessageSuffix],
-            fixKind: addBuilderInvocationFix,
-            computeFix: () => buildFileEdit(result, (builder) {
-              buildMissingInvocationEdits(argument, builder);
-            }),
-          );
-        } else if (invalidType is FunctionType || invalidType.isDartCoreFunction) {
-          // Functions can be used as children
-        } else {
-          collector.addError(code, location, errorMessageArgs: [invalidType.getDisplayString(withNullability: false)]);
-        }
-      });
+          if (couldBeMissingBuilderInvocation(argument)) {
+            await collector.addErrorWithFix(
+              code,
+              location,
+              errorMessageArgs: [invalidType.getDisplayString(withNullability: false), missingBuilderMessageSuffix],
+              fixKind: addBuilderInvocationFix,
+              computeFix: () => buildFileEdit(result, (builder) {
+                buildMissingInvocationEdits(argument, builder);
+              }),
+            );
+          } else if (invalidType is FunctionType || invalidType.isDartCoreFunction) {
+            // Functions can be used as children
+          } else {
+            collector.addError(
+              code,
+              location,
+              errorMessageArgs: [invalidType.getDisplayString(withNullability: false)],
+            );
+          }
+        },
+      );
     }
   }
 }
 
-Future<void> validateReactChildType(DartType? type, TypeSystem typeSystem, TypeProvider typeProvider,
-    {required FutureOr<void> Function(DartType invalidType) onInvalidType}) async {
+Future<void> validateReactChildType(
+  DartType? type,
+  TypeSystem typeSystem,
+  TypeProvider typeProvider, {
+  required FutureOr<void> Function(DartType invalidType) onInvalidType,
+}) async {
   // Couldn't be resolved
   if (type == null) return;
   // Couldn't be resolved to anything more specific; `Object` might be

@@ -202,13 +202,15 @@ final UsesCallbackRef = uiFunction<UiProps>(
   Future<void> test_blockFnBodyRefAssignment() async {
     final source = newSource('test.dart', usageSourceWithinFnComponent);
     await expectSingleErrorAt(
-        createSelection(source, CallbackRefDiagnosticTest.selectionToFixBlockFnBodyRefAssignment));
+      createSelection(source, CallbackRefDiagnosticTest.selectionToFixBlockFnBodyRefAssignment),
+    );
   }
 
   Future<void> test_blockFnBodyRefAssignmentFix() async {
     var source = newSource('test.dart', usageSourceWithinFnComponent);
     final errorFix = await expectSingleErrorFix(
-        createSelection(source, CallbackRefDiagnosticTest.selectionToFixBlockFnBodyRefAssignment));
+      createSelection(source, CallbackRefDiagnosticTest.selectionToFixBlockFnBodyRefAssignment),
+    );
     expect(errorFix.fixes.single.change.selection, isNull);
     source = applyErrorFixes(errorFix, source);
     expect(source.contents.data, usageSourceWithinFnComponentFixedBlockFnBodyRefAssignment);
@@ -222,7 +224,8 @@ final UsesCallbackRef = uiFunction<UiProps>(
   Future<void> test_arrowFnRefAssignmentErrorFix() async {
     var source = newSource('test.dart', usageSourceWithinFnComponentFixedBlockFnBodyRefAssignment);
     final errorFix = await expectSingleErrorFix(
-        createSelection(source, CallbackRefDiagnosticTest.selectionToFixArrowFnRefAssignment));
+      createSelection(source, CallbackRefDiagnosticTest.selectionToFixArrowFnRefAssignment),
+    );
     expect(errorFix.fixes.single.change.selection, isNull);
     source = applyErrorFixes(errorFix, source);
     expect(source.contents.data, usageSourceWithinFnComponentFixedArrowFnRefAssignment);
@@ -318,13 +321,15 @@ class UsesCallbackRefComponent extends UiComponent2<UsesCallbackRefProps> {
   Future<void> test_blockFnBodyRefAssignment() async {
     final source = newSource('test.dart', usageSourceWithinClassComponent);
     await expectSingleErrorAt(
-        createSelection(source, CallbackRefDiagnosticTest.selectionToFixBlockFnBodyRefAssignment));
+      createSelection(source, CallbackRefDiagnosticTest.selectionToFixBlockFnBodyRefAssignment),
+    );
   }
 
   Future<void> test_blockFnBodyRefAssignmentFix() async {
     var source = newSource('test.dart', usageSourceWithinClassComponent);
     final errorFix = await expectSingleErrorFix(
-        createSelection(source, CallbackRefDiagnosticTest.selectionToFixBlockFnBodyRefAssignment));
+      createSelection(source, CallbackRefDiagnosticTest.selectionToFixBlockFnBodyRefAssignment),
+    );
     expect(errorFix.fixes.single.change.selection, isNull);
     source = applyErrorFixes(errorFix, source);
     expect(source.contents.data, usageSourceWithinClassComponentFixedBlockFnBodyRefAssignment);
@@ -338,7 +343,8 @@ class UsesCallbackRefComponent extends UiComponent2<UsesCallbackRefProps> {
   Future<void> test_arrowFnRefAssignmentErrorFix() async {
     var source = newSource('test.dart', usageSourceWithinClassComponentFixedBlockFnBodyRefAssignment);
     final errorFix = await expectSingleErrorFix(
-        createSelection(source, CallbackRefDiagnosticTest.selectionToFixArrowFnRefAssignment));
+      createSelection(source, CallbackRefDiagnosticTest.selectionToFixArrowFnRefAssignment),
+    );
     expect(errorFix.fixes.single.change.selection, isNull);
     source = applyErrorFixes(errorFix, source);
     expect(source.contents.data, usageSourceWithinClassComponentFixedArrowFnRefAssignment);

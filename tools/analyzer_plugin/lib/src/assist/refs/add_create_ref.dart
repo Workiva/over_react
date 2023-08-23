@@ -13,10 +13,7 @@ import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/function_components.dart';
 import 'package:over_react_analyzer_plugin/src/util/util.dart';
 
-enum RefTypeToReplace {
-  string,
-  callback,
-}
+enum RefTypeToReplace { string, callback }
 
 typedef CreateRefLinkedEditFn = void Function(
   DartFileEditBuilder builder,
@@ -41,8 +38,9 @@ void addUseOrCreateRef(
   final lineInfo = result.lineInfo;
   String? oldStringRefSource;
   final componentName = usage.domNodeName ?? usage.componentName;
-  final lowerCaseComponentName =
-      componentName == null ? 'component' : componentName.substring(0, 1).toLowerCase() + componentName.substring(1);
+  final lowerCaseComponentName = componentName == null
+      ? 'component'
+      : componentName.substring(0, 1).toLowerCase() + componentName.substring(1);
   var createRefFieldName = '_${lowerCaseComponentName}Ref';
   VariableElement? createRefField;
   RefTypeToReplace? refTypeToReplace;
@@ -72,9 +70,16 @@ void addUseOrCreateRef(
     });
   } else {
     // An assist is being used to add a ref, so we have to add the ref prop as a cascaded setter
-    addProp(usage, builder, result.content, lineInfo, name: 'ref', buildValueEdit: (builder) {
-      builder.addSimpleLinkedEdit(nameGroup, createRefFieldName);
-    });
+    addProp(
+      usage,
+      builder,
+      result.content,
+      lineInfo,
+      name: 'ref',
+      buildValueEdit: (builder) {
+        builder.addSimpleLinkedEdit(nameGroup, createRefFieldName);
+      },
+    );
   }
 
   void _addCreateRefFieldDeclaration(DartEditBuilder _builder) {
@@ -100,7 +105,8 @@ void addUseOrCreateRef(
       _addCreateRefFieldDeclaration(_builder);
       if (createRefField!.isPublic) {
         _builder.write(
-            '// FIXME: All usages of `$createRefFieldName` outside of this class must be changed to `$createRefFieldName.current` to finalize the conversion to createRef().');
+          '// FIXME: All usages of `$createRefFieldName` outside of this class must be changed to `$createRefFieldName.current` to finalize the conversion to createRef().',
+        );
       }
     });
 
@@ -149,10 +155,12 @@ void addUseOrCreateRef(
 
       for (final identifier in stringRefReferences) {
         final parentFunctionInvocation = identifier.thisOrAncestorOfType<FunctionExpressionInvocation>()!;
-        builder.addReplacement(SourceRange(parentFunctionInvocation.offset, parentFunctionInvocation.length),
-            (_builder) {
-          _builder.write(createRefFieldName);
-        });
+        builder.addReplacement(
+          SourceRange(parentFunctionInvocation.offset, parentFunctionInvocation.length),
+          (_builder) {
+            _builder.write(createRefFieldName);
+          },
+        );
       }
     }
   }
@@ -165,8 +173,9 @@ VariableElement? _getRefCallbackAssignedField(Expression refPropRhs) {
   final refCallbackArg = function.parameters?.parameters.firstOrNull;
   if (refCallbackArg == null) return null;
 
-  final referencesToArg = allDescendantsOfType<Identifier>(function.body)
-      .where((identifier) => identifier.staticElement == refCallbackArg.declaredElement);
+  final referencesToArg = allDescendantsOfType<Identifier>(function.body).where(
+    (identifier) => identifier.staticElement == refCallbackArg.declaredElement,
+  );
 
   for (final reference in referencesToArg) {
     final parent = reference.parent;

@@ -40,8 +40,11 @@ abstract class AssistTestBase extends ServerPluginContributorTestBase {
   /// [assistKindUnderTest] is produced.
   Future<SourceChange> expectAndGetSingleAssist(SourceSelection selection) async {
     final assists = await _getAllAssists(selection);
-    expect(assists, hasLength(1),
-        reason: 'Expected only a single assist at selection (selection: ${selection.target})');
+    expect(
+      assists,
+      hasLength(1),
+      reason: 'Expected only a single assist at selection (selection: ${selection.target})',
+    );
     final assist = assists.single;
     expect(assist, isAssist(assistKindUnderTest));
     return assist.change;
@@ -56,10 +59,12 @@ abstract class AssistTestBase extends ServerPluginContributorTestBase {
   /// Returns all assists produced at [selection].
   Future<List<PrioritizedSourceChange>> _getAllAssists(SourceSelection selection) async {
     final parameters = EditGetAssistsParams(
-        resourceProvider.convertPath(selection.source.uri.path), selection.offset, selection.length);
-    return (await testPlugin.handleEditGetAssists(parameters))
-        .assists
-        .where((psc) => psc.change.id == assistKindUnderTest.id)
-        .toList();
+      resourceProvider.convertPath(selection.source.uri.path),
+      selection.offset,
+      selection.length,
+    );
+    return (await testPlugin.handleEditGetAssists(parameters)).assists.where(
+      (psc) => psc.change.id == assistKindUnderTest.id,
+    ).toList();
   }
 }

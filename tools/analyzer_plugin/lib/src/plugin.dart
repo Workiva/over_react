@@ -106,16 +106,16 @@ abstract class OverReactAnalyzerPluginBase extends ServerPlugin
 
   @override
   List<AsyncAssistContributor> getAssistContributors(String path) => [
-        AddPropsAssistContributor(),
-        AddUseOrCreateRefAssistContributor(),
-        ExtractComponentAssistContributor(),
-        ExtractStatefulComponentAssistContributor(),
-        // Can't import this until it stops importing non-null-safe code, otherwise the plugin won't start.
-        // ToggleComponentStatefulness(),
-        ConvertClassOrFunctionComponentAssistContributor(),
-        // TODO re-enable this when it's more polished
+    AddPropsAssistContributor(),
+    AddUseOrCreateRefAssistContributor(),
+    ExtractComponentAssistContributor(),
+    ExtractStatefulComponentAssistContributor(),
+    // Can't import this until it stops importing non-null-safe code, otherwise the plugin won't start.
+    // ToggleComponentStatefulness(),
+    ConvertClassOrFunctionComponentAssistContributor(),
+    // TODO re-enable this when it's more polished
 //        WrapUnwrapAssistContributor(),
-      ];
+  ];
 
   @override
   List<NavigationContributor> getNavigationContributors(String path) => [];
@@ -170,9 +170,7 @@ abstract class OverReactAnalyzerPluginBase extends ServerPlugin
       ForwardOnlyDomPropsToDomBuildersDiagnostic(),
       IteratorKey(),
       RulesOfHooks(),
-      ExhaustiveDeps(
-        additionalHooksPattern: options?.exhaustiveDepsAdditionalHooksPattern,
-      ),
+      ExhaustiveDeps(additionalHooksPattern: options?.exhaustiveDepsAdditionalHooksPattern),
       NonDefaultedPropDiagnostic(),
       CreateRefUsageDiagnostic(),
     ];
@@ -214,14 +212,18 @@ class OverReactAnalyzerPlugin extends OverReactAnalyzerPluginBase {
       driver.currentSession.analysisContext;
     } catch (_) {
       channel.sendNotification(
-          plugin.PluginErrorParams(false, 'Error fetching analysis context; assists may be unavailable', '')
-              .toNotification());
+        plugin.PluginErrorParams(false, 'Error fetching analysis context; assists may be unavailable', '')
+            .toNotification(),
+      );
     }
-    runZonedGuarded(() {
-      driver.results.whereType<ResolvedUnitResult>().listen(processDiagnosticsForResult);
-    }, (e, stackTrace) {
-      channel.sendNotification(plugin.PluginErrorParams(false, e.toString(), stackTrace.toString()).toNotification());
-    });
+    runZonedGuarded(
+      () {
+        driver.results.whereType<ResolvedUnitResult>().listen(processDiagnosticsForResult);
+      },
+      (e, stackTrace) {
+        channel.sendNotification(plugin.PluginErrorParams(false, e.toString(), stackTrace.toString()).toNotification());
+      },
+    );
     return driver;
   }
 
@@ -232,7 +234,8 @@ class OverReactAnalyzerPlugin extends OverReactAnalyzerPluginBase {
 
   @override
   Future<plugin.AnalysisSetContextRootsResult> handleAnalysisSetContextRoots(
-      plugin.AnalysisSetContextRootsParams parameters) async {
+    plugin.AnalysisSetContextRootsParams parameters,
+  ) async {
     final result = await super.handleAnalysisSetContextRoots(parameters);
     // The super-call adds files to the driver, so we need to prioritize them so they get analyzed.
     _updatePriorityFiles();
@@ -243,7 +246,8 @@ class OverReactAnalyzerPlugin extends OverReactAnalyzerPluginBase {
 
   @override
   Future<plugin.AnalysisSetPriorityFilesResult> handleAnalysisSetPriorityFiles(
-      plugin.AnalysisSetPriorityFilesParams parameters) async {
+    plugin.AnalysisSetPriorityFilesParams parameters,
+  ) async {
     _filesFromSetPriorityFilesRequest = parameters.files;
     _updatePriorityFiles();
     return plugin.AnalysisSetPriorityFilesResult();

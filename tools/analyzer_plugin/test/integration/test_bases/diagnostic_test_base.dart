@@ -82,12 +82,17 @@ abstract class DiagnosticTestBase extends ServerPluginContributorTestBase {
   }
 
   /// Expects a single error at the given selection string, and returns that error.
-  Future<AnalysisError> expectSingleErrorAtSelection(Source source, String selection,
-          {bool exactSelectionMatch = true}) =>
-      expectSingleErrorAt(createSelection(source, selection), exactSelectionMatch: exactSelectionMatch);
+  Future<AnalysisError> expectSingleErrorAtSelection(
+    Source source,
+    String selection, {
+    bool exactSelectionMatch = true,
+  }) => expectSingleErrorAt(createSelection(source, selection), exactSelectionMatch: exactSelectionMatch);
 
-  Future<AnalysisError> expectSingleErrorAt(SourceSelection selection,
-      {bool exactSelectionMatch = true, bool? hasFix}) async {
+  Future<AnalysisError> expectSingleErrorAt(
+    SourceSelection selection, {
+    bool exactSelectionMatch = true,
+    bool? hasFix,
+  }) async {
     final errorsAtSelection = await _getAllErrorsAtSelection(selection);
 
     final reason = 'Expected a single error that matches `errorUnderTest` (selection: ${selection.target}.';
@@ -106,19 +111,26 @@ abstract class DiagnosticTestBase extends ServerPluginContributorTestBase {
 
   /// Returns the error fix for the single error produced at [selection] and
   /// fails the test if anything other than a single error fix is produced.
-  Future<AnalysisErrorFixes> expectSingleErrorFixAtSelection(Source source, String selection) =>
-      expectSingleErrorFix(createSelection(source, selection));
+  Future<AnalysisErrorFixes> expectSingleErrorFixAtSelection(Source source, String selection) => expectSingleErrorFix(
+    createSelection(source, selection),
+  );
 
   /// Returns the error fix for the single error produced at [selection] and
   /// fails the test if anything other than a single error fix is produced.
   Future<AnalysisErrorFixes> expectSingleErrorFix(SourceSelection selection) async {
     _throwIfNoFix();
     final allErrorFixes = await getAllErrorFixesAtSelection(selection);
-    expect(allErrorFixes, hasLength(1),
-        reason: 'Expected only a single error with fixes at selection (selection: ${selection.target})');
+    expect(
+      allErrorFixes,
+      hasLength(1),
+      reason: 'Expected only a single error with fixes at selection (selection: ${selection.target})',
+    );
     final errorFix = allErrorFixes.single;
-    expect(errorFix.error, isAnErrorUnderTest(),
-        reason: 'Expected error to match the `errorUnderTest` (selection: ${selection.target})');
+    expect(
+      errorFix.error,
+      isAnErrorUnderTest(),
+      reason: 'Expected error to match the `errorUnderTest` (selection: ${selection.target})',
+    );
 
     final reason = 'Expected a single fix that matches `fixKindUnderTest` (selection: ${selection.target}.';
     errorFix.fixes.length == 1
@@ -129,22 +141,34 @@ abstract class DiagnosticTestBase extends ServerPluginContributorTestBase {
 
   /// Fails the test if [selection] produces any errors.
   Future<void> expectNoErrorFix(SourceSelection selection) async {
-    expect(await getAllErrorFixesAtSelection(selection), isEmpty,
-        reason: 'Unexpected error at selection: ${selection.target}');
+    expect(
+      await getAllErrorFixesAtSelection(selection),
+      isEmpty,
+      reason: 'Unexpected error at selection: ${selection.target}',
+    );
   }
 
   /// Returns all errors produced over the entire [source] and fails the test if
   /// any of them do not match [isAnErrorUnderTest] or [isAFixUnderTest].
-  Future<DartAndPluginErrorsIterable> getAllErrors(Source source,
-      {bool includeOtherCodes = false, ErrorFilter errorFilter = defaultErrorFilter}) async {
+  Future<DartAndPluginErrorsIterable> getAllErrors(
+    Source source, {
+    bool includeOtherCodes = false,
+    ErrorFilter errorFilter = defaultErrorFilter,
+  }) async {
     final errors = await _getAllErrors(source, errorFilter: errorFilter);
     if (!includeOtherCodes) {
-      expect(errors.dartErrors, isEmpty,
-          reason: 'Expected there to be no errors coming from the analyzer and not the plugin.'
-              ' Ensure your test source is free of unintentional errors, such as syntax errors and missing imports.'
-              ' If errors are expected, set includeOtherErrorCodes:true.');
-      expect(errors.pluginErrors, everyElement(isAnErrorUnderTest()),
-          reason: 'Expected all errors to match the error & fix kinds under test.');
+      expect(
+        errors.dartErrors,
+        isEmpty,
+        reason: 'Expected there to be no errors coming from the analyzer and not the plugin.'
+            ' Ensure your test source is free of unintentional errors, such as syntax errors and missing imports.'
+            ' If errors are expected, set includeOtherErrorCodes:true.',
+      );
+      expect(
+        errors.pluginErrors,
+        everyElement(isAnErrorUnderTest()),
+        reason: 'Expected all errors to match the error & fix kinds under test.',
+      );
     }
     return errors;
   }
@@ -152,23 +176,34 @@ abstract class DiagnosticTestBase extends ServerPluginContributorTestBase {
   /// Fails the test if there are any errors in [source].
   Future<void> expectNoErrors(Source source, {ErrorFilter errorFilter = defaultErrorFilter}) async {
     final errors = await _getAllErrors(source, errorFilter: errorFilter);
-    expect(errors.dartErrors, isEmpty,
-        reason: 'Expected there to be no errors coming from the analyzer and not the plugin.'
-            ' Ensure your test source is free of unintentional errors, such as syntax errors and missing imports.'
-            ' If errors are expected, set includeOtherErrorCodes:true.');
+    expect(
+      errors.dartErrors,
+      isEmpty,
+      reason: 'Expected there to be no errors coming from the analyzer and not the plugin.'
+          ' Ensure your test source is free of unintentional errors, such as syntax errors and missing imports.'
+          ' If errors are expected, set includeOtherErrorCodes:true.',
+    );
     expect(errors.pluginErrors, isEmpty, reason: 'Expected there to be no plugin errors.');
   }
 
-  Future<DartAndPluginErrorsIterable> getAllErrorsAtSelection(SourceSelection selection,
-      {bool includeOtherCodes = false}) async {
+  Future<DartAndPluginErrorsIterable> getAllErrorsAtSelection(
+    SourceSelection selection, {
+    bool includeOtherCodes = false,
+  }) async {
     final errors = await _getAllErrorsAtSelection(selection);
     if (!includeOtherCodes) {
-      expect(errors.dartErrors, isEmpty,
-          reason: 'Expected there to be no errors coming from the analyzer and not the plugin.'
-              ' Ensure your test source is free of unintentional errors, such as syntax errors and missing imports.'
-              ' If errors are expected, set includeOtherErrorCodes:true.');
-      expect(errors.pluginErrors, everyElement(isAnErrorUnderTest()),
-          reason: 'Expected all errors to match the error & fix kinds under test.');
+      expect(
+        errors.dartErrors,
+        isEmpty,
+        reason: 'Expected there to be no errors coming from the analyzer and not the plugin.'
+            ' Ensure your test source is free of unintentional errors, such as syntax errors and missing imports.'
+            ' If errors are expected, set includeOtherErrorCodes:true.',
+      );
+      expect(
+        errors.pluginErrors,
+        everyElement(isAnErrorUnderTest()),
+        reason: 'Expected all errors to match the error & fix kinds under test.',
+      );
     }
     return errors;
   }
@@ -185,8 +220,10 @@ abstract class DiagnosticTestBase extends ServerPluginContributorTestBase {
     return errorsOverlappingSelection;
   }
 
-  Future<DartAndPluginErrorsIterable> _getAllErrors(Source source,
-      {ErrorFilter errorFilter = defaultErrorFilter}) async {
+  Future<DartAndPluginErrorsIterable> _getAllErrors(
+    Source source, {
+    ErrorFilter errorFilter = defaultErrorFilter,
+  }) async {
     final result = await testPlugin.getResolvedUnitResult(sourcePath(source));
     final dartErrors = AnalyzerConverter()
         .convertAnalysisErrors(
@@ -218,7 +255,7 @@ class DartAndPluginErrorsIterable extends CombinedIterableView<AnalysisError> {
   final List<AnalysisError> pluginErrors;
 
   DartAndPluginErrorsIterable({required this.dartErrors, required this.pluginErrors})
-      : super([dartErrors, pluginErrors]);
+    : super([dartErrors, pluginErrors]);
 }
 
 typedef ErrorFilter = bool Function(AnalysisError, {required bool isFromPlugin});
@@ -226,7 +263,4 @@ typedef ErrorFilter = bool Function(AnalysisError, {required bool isFromPlugin})
 bool defaultErrorFilter(AnalysisError error, {required bool isFromPlugin}) =>
     // Only filter out infos that don't come from the plugin.
     (isFromPlugin || error.severity != AnalysisErrorSeverity.INFO) &&
-    !(const {
-      'over_react_debug_analyzer_plugin_helper',
-      'uri_has_not_been_generated',
-    }.contains(error.code));
+    !(const {'over_react_debug_analyzer_plugin_helper', 'uri_has_not_been_generated'}.contains(error.code));

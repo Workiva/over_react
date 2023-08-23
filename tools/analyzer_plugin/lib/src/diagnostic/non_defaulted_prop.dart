@@ -81,9 +81,9 @@ class NonDefaultedPropDiagnostic extends DiagnosticContributor {
       final visitor = NonDefaultedPropVisitor();
       component.body.accept(visitor);
       visitor.defaultedPropVariablesByPropName.forEach((propName, variable) {
-        visitor.propAccessesByName[propName]
-            ?.where((access) => !variable.containsEntity(access))
-            .forEach((access) => notUsingDefaults.add(Tuple2(access, variable)));
+        visitor.propAccessesByName[propName]?.where((access) => !variable.containsEntity(access)).forEach(
+          (access) => notUsingDefaults.add(Tuple2(access, variable)),
+        );
       });
     }));
 

@@ -71,8 +71,9 @@ abstract class DocumentedContributorMetaBase implements IContributorMetaBase {
 
   /// Returns a `DocsMeta` instance constructed by parsing the AST of the provided annotated [element].
   static DocsMeta getDocsMetaFromAnnotation(FieldElement element) {
-    final annotation =
-        element.metadata.singleWhere((a) => a.element!.thisOrAncestorOfType<ClassElement>()!.name == 'DocsMeta');
+    final annotation = element.metadata.singleWhere(
+      (a) => a.element!.thisOrAncestorOfType<ClassElement>()!.name == 'DocsMeta',
+    );
     final annotationObj = annotation.computeConstantValue()!;
     final description = annotationObj.getField('description')!.toStringValue()!;
     final details = annotationObj.getField('details')!.toStringValue();
@@ -100,10 +101,13 @@ class DocumentedAssistContributorMeta extends DocumentedContributorMetaBase
   @override
   final Maturity maturity;
 
-  DocumentedAssistContributorMeta._(this.name, this.description,
-      {this.details,
-      this.since = IContributorMetaBase.defaultSince,
-      this.maturity = IContributorMetaBase.defaultMaturity});
+  DocumentedAssistContributorMeta._(
+    this.name,
+    this.description, {
+    this.details,
+    this.since = IContributorMetaBase.defaultSince,
+    this.maturity = IContributorMetaBase.defaultMaturity,
+  });
 
   /// Creates a new instance from the field [element] annotated with a [DocsMeta] annotation.
   factory DocumentedAssistContributorMeta.fromAnnotatedFieldAst(FieldElement element) {

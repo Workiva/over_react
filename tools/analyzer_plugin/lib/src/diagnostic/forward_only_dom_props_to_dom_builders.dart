@@ -67,9 +67,9 @@ class ForwardOnlyDomPropsToDomBuildersDiagnostic extends ComponentUsageDiagnosti
       // since you directly call `..addUnconsumedProps` instead of `..modifyProps(addUnconsumedProps)`.
       final propModifier = isFnComponent
           // ..#addUnconsumedProps#(props, consumedProps)
-          ? invocation.node.methodName
+            ? invocation.node.methodName
           // ..modifyProps(#addUnconsumedProps#)
-          : invocation.node.argumentList.arguments.whereType<SimpleIdentifier>().firstOrNull;
+            : invocation.node.argumentList.arguments.whereType<SimpleIdentifier>().firstOrNull;
       if (propModifier == null) continue;
 
       if (propModifier.name == 'addUnconsumedProps') {

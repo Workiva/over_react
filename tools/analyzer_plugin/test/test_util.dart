@@ -17,11 +17,7 @@ import 'package:path/path.dart' as p;
 
 /// Parses [dartSource] and returns the unresolved AST, throwing if there are any syntax errors.
 CompilationUnit parseAndGetUnit(String dartSource) {
-  final result = parseString(
-    content: dartSource,
-    throwIfDiagnostics: false,
-    path: 'dart source from string',
-  );
+  final result = parseString(content: dartSource, throwIfDiagnostics: false, path: 'dart source from string');
   // `throwIfDiagnostics: true` throws, but does not include the actual errors in the exception.
   // We'll handle throwing when there are errors.
   if (result.errors.isNotEmpty) {
@@ -119,8 +115,9 @@ Future<Map<String, ResolvedUnitResult>> parseAndGetResolvedUnits(Map<String, Str
     // Create a fake in memory package that opts out of null safety
     // TODO clean this up, perhaps use SharedAnalysisContextCollection from over_react_codemod
     const packageName = 'package_depending_on_over_react';
-    _sharedResourceProvider.setOverlay(transformPath('pubspec.yaml'),
-        content: '''
+    _sharedResourceProvider.setOverlay(
+      transformPath('pubspec.yaml'),
+      content: '''
   name: $packageName
   publish_to: none
   environment:
@@ -129,7 +126,8 @@ Future<Map<String, ResolvedUnitResult>> parseAndGetResolvedUnits(Map<String, Str
   dependencies:
     over_react: ^4.3.1
   ''',
-        modificationStamp: 0);
+      modificationStamp: 0,
+    );
     // Steal the packages file from this project, which depends on over_react
     final currentPackageConfig = File('.dart_tool/package_config.json').readAsStringSync();
     final updatedConfig = jsonDecode(currentPackageConfig) as Map;
@@ -144,10 +142,7 @@ Future<Map<String, ResolvedUnitResult>> parseAndGetResolvedUnits(Map<String, Str
         // fixme verify relative to pubspec.yaml
         rootUri = Uri.file(p.canonicalize(p.absolute('pubspec.yaml', rootUri))).toString();
       }
-      return <dynamic, dynamic>{
-        ...e,
-        'rootUri': rootUri,
-      };
+      return <dynamic, dynamic>{...e, 'rootUri': rootUri};
     }).toList()
       ..add(<String, String>{
         "name": packageName,
@@ -157,8 +152,11 @@ Future<Map<String, ResolvedUnitResult>> parseAndGetResolvedUnits(Map<String, Str
         "languageVersion": "2.7",
       });
     updatedConfig['packages'] = updatedPackages;
-    _sharedResourceProvider.setOverlay(transformPath('.dart_tool/package_config.json'),
-        content: jsonEncode(updatedConfig), modificationStamp: 0);
+    _sharedResourceProvider.setOverlay(
+      transformPath('.dart_tool/package_config.json'),
+      content: jsonEncode(updatedConfig),
+      modificationStamp: 0,
+    );
 
     _sharedCollection = AnalysisContextCollection(
       includedPaths: [pathPrefix],
@@ -179,11 +177,7 @@ Future<Map<String, ResolvedUnitResult>> parseAndGetResolvedUnits(Map<String, Str
 
   dartSourcesByAbsolutePath.forEach((absolutePath, source) {
     _dartSourcePathsAddedInPreviousCall.add(absolutePath);
-    _sharedResourceProvider.setOverlay(
-      absolutePath,
-      content: source,
-      modificationStamp: 0,
-    );
+    _sharedResourceProvider.setOverlay(absolutePath, content: source, modificationStamp: 0);
   });
 
   final results = <String, ResolvedUnitResult>{};
@@ -205,7 +199,6 @@ Future<Map<String, ResolvedUnitResult>> parseAndGetResolvedUnits(Map<String, Str
   return results;
 }
 
-
 /// Returns [expression] parsed as AST.
 ///
 /// This is accomplished it by including the [expression] as a statement within a wrapper function
@@ -215,11 +208,7 @@ Future<Map<String, ResolvedUnitResult>> parseAndGetResolvedUnits(Map<String, Str
 /// To return resolved AST, set [isResolved] to true.
 ///
 /// Returns null if [expression] is not an [InvocationExpression].
-Future<Expression> parseExpression(
-  String expression, {
-  String imports = '',
-  bool isResolved = false,
-}) async {
+Future<Expression> parseExpression(String expression, {String imports = '', bool isResolved = false}) async {
   late CompilationUnit unit;
   // Wrap the expression in parens to ensure this is interpreted as an expression
   // for ambiguous cases (e.g, a map literal that could be interpreted as an empty block).

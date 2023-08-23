@@ -76,13 +76,13 @@ var foo = (Dom.div()
   }
 
   Future<void> test_producesErrorForAllSelectionTypes() => expectAllSelectionsProduceAtLeastOneError(simpleSource, [
-        "##(_) => 'click'", // empty selection at beginning
-        "(_) => 'click'##", // empty selection at end
-        "(_) =>## 'click'", // empty selection within
-        "#(_) => 'click'#", // range starting at beginning
-        "#(_) => 'click'\n#", // range extending beyond end
-        "(_) #=> 'cl#ick'", // range within
-      ]);
+    "##(_) => 'click'", // empty selection at beginning
+    "(_) => 'click'##", // empty selection at end
+    "(_) =>## 'click'", // empty selection within
+    "#(_) => 'click'#", // range starting at beginning
+    "#(_) => 'click'\n#", // range extending beyond end
+    "(_) #=> 'cl#ick'", // range within
+  ]);
 
   Future<void> test_errorFix() async {
     var source = newSource('test.dart', simpleSource);

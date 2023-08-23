@@ -121,10 +121,7 @@ class ToggleComponentStatefulness extends AssistContributorBase with ComponentDe
   }
 
   String? _getNewBase(String oldBase) {
-    const baseMapping = {
-      'UiComponent2': 'UiStatefulComponent2',
-      'FluxUiComponent2': 'FluxUiStatefulComponent2',
-    };
+    const baseMapping = {'UiComponent2': 'UiStatefulComponent2', 'FluxUiComponent2': 'FluxUiStatefulComponent2'};
 
     return baseMapping[oldBase] ?? baseMapping.keys.firstWhereOrNull((key) => baseMapping[key] == oldBase);
   }

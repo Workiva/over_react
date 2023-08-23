@@ -54,17 +54,24 @@ class RulesIndexer extends ContributorIndexer {
 
   static final rules = List.of(DiagnosticMetaRegistry.diagnosticRegistry.meta, growable: false)..sort();
 
-  String get enumerateErrorRules =>
-      rules.where((r) => r.severity == AnalysisErrorSeverity.ERROR).map((r) => '${toDescription(r)}').join('\n\n');
+  String get enumerateErrorRules => rules
+      .where((r) => r.severity == AnalysisErrorSeverity.ERROR)
+      .map((r) => '${toDescription(r)}')
+      .join('\n\n');
 
-  String get enumerateWarningRules =>
-      rules.where((r) => r.severity == AnalysisErrorSeverity.WARNING).map((r) => '${toDescription(r)}').join('\n\n');
+  String get enumerateWarningRules => rules
+      .where((r) => r.severity == AnalysisErrorSeverity.WARNING)
+      .map((r) => '${toDescription(r)}')
+      .join('\n\n');
 
-  String get enumerateInfoRules =>
-      rules.where((r) => r.severity == AnalysisErrorSeverity.INFO).map((r) => '${toDescription(r)}').join('\n\n');
+  String get enumerateInfoRules => rules
+      .where((r) => r.severity == AnalysisErrorSeverity.INFO)
+      .map((r) => '${toDescription(r)}')
+      .join('\n\n');
 
-  String get enumerateSeverities =>
-      AnalysisErrorSeverity.VALUES.map((severity) => '<li><strong>${severity.name}</strong></li>').join('\n');
+  String get enumerateSeverities => AnalysisErrorSeverity.VALUES
+      .map((severity) => '<li><strong>${severity.name}</strong></li>')
+      .join('\n');
 
   @override
   String generateContributorsIndexBodySection() => '''

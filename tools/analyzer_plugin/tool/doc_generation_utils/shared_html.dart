@@ -72,4 +72,6 @@ String describeMaturity(DocumentedContributorMetaBase r) =>
     r.maturity == Maturity.stable ? '' : ' (${r.maturity.name})';
 
 String toDescription(DocumentedContributorMetaBase r) =>
-    '<!--suppress HtmlUnknownTarget --><strong><a href="${r.name}.html">${qualify(r)}</a></strong><br/> ${markdownToHtml(r.description)}';
+    '<!--suppress HtmlUnknownTarget --><strong><a href="${r.name}.html">${qualify(
+      r,
+    )}</a></strong><br/> ${markdownToHtml(r.description)}';

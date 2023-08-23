@@ -138,7 +138,7 @@ class _DiagnosticGenerator {
   /// Initialize a newly created errors generator to use the given
   /// [contributors].
   _DiagnosticGenerator(this.contributors, {required ErrorSeverityProvider errorSeverityProvider})
-      : _errorSeverityProvider = errorSeverityProvider;
+    : _errorSeverityProvider = errorSeverityProvider;
 
   final ErrorSeverityProvider _errorSeverityProvider;
 
@@ -182,10 +182,7 @@ class _DiagnosticGenerator {
       if (request.offset >= errorStart && request.offset <= errorEnd) {
         final fix = collector.fixes[i];
         if (fix != null) {
-          fixes.add(AnalysisErrorFixes(
-            error,
-            fixes: [fix],
-          ));
+          fixes.add(AnalysisErrorFixes(error, fixes: [fix]));
         }
       }
     }
@@ -194,7 +191,9 @@ class _DiagnosticGenerator {
   }
 
   Future<_GeneratorResult<List<AnalysisError>>> _generateErrors(
-      ResolvedUnitResult unitResult, DiagnosticCollectorImpl collector) async {
+    ResolvedUnitResult unitResult,
+    DiagnosticCollectorImpl collector,
+  ) async {
     final notifications = <Notification>[];
 
     // Reuse component usages so we don't have to recompute them for each ComponentUsageDiagnosticContributor.
@@ -213,9 +212,7 @@ class _DiagnosticGenerator {
 
     for (final contributor in contributors) {
       disabledCheckStopwatch.start();
-      final isEveryCodeDisabled = contributor.codes.every(
-        (e) => _errorSeverityProvider.isCodeDisabled(e.name),
-      );
+      final isEveryCodeDisabled = contributor.codes.every((e) => _errorSeverityProvider.isCodeDisabled(e.name));
       disabledCheckStopwatch.stop();
       if (isEveryCodeDisabled) {
         // Don't compute errors if all of the codes provided by the contributor are disabled
@@ -247,16 +244,24 @@ class _DiagnosticGenerator {
 
       final message = 'OverReact Analyzer Plugin diagnostic metrics (current file): ' +
           prettyPrint(<String, String>{
-            ...diagnosticMetrics.map((name, microseconds) =>
-                MapEntry(name, '${formatMicroseconds(microseconds)} (${asPercentageOfTotal(microseconds)})')),
+            ...diagnosticMetrics.map(
+              (name, microseconds) => MapEntry(
+                name,
+                '${formatMicroseconds(microseconds)} (${asPercentageOfTotal(microseconds)})',
+              ),
+            ),
             'Total': formatMicroseconds(totalStopwatch.elapsedMicroseconds),
             'Diagnostic code disabled checks': formatMicroseconds(disabledCheckStopwatch.elapsedMicroseconds),
-            'Loop overhead (Total - SUM(Diagnostics))': formatMicroseconds(totalStopwatch.elapsedMicroseconds -
-                disabledCheckStopwatch.elapsedMicroseconds -
-                diagnosticMetrics.values.fold(0, (a, b) => a + b)),
+            'Loop overhead (Total - SUM(Diagnostics))': formatMicroseconds(
+              totalStopwatch.elapsedMicroseconds -
+                  disabledCheckStopwatch.elapsedMicroseconds -
+                  diagnosticMetrics.values.fold(0, (a, b) => a + b),
+            ),
           });
       AnalyzerDebugHelper(unitResult, collector, enabled: true).logWithLocation(
-          message, unitResult.location(offset: metricsDebugFlagMatch.start, end: metricsDebugFlagMatch.end));
+        message,
+        unitResult.location(offset: metricsDebugFlagMatch.start, end: metricsDebugFlagMatch.end),
+      );
     }
 
     final filteredErrors = _configureErrorSeverities(

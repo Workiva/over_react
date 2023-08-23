@@ -85,14 +85,11 @@ class BadKeyDiagnosticTest_NoErrors extends BadKeyDiagnosticTest {
       ];
     ''');
 
-    expect(
-        await getAllErrors(source, includeOtherCodes: true),
-        unorderedEquals(<dynamic>[
-          isA<AnalysisError>().havingCode('missing_identifier'),
-          isA<AnalysisError>().havingCode('missing_identifier'),
-          isA<AnalysisError>().havingCode('use_of_void_result'),
-        ]),
-        reason: 'should only have the Dart analysis errors we expect');
+    expect(await getAllErrors(source, includeOtherCodes: true), unorderedEquals(<dynamic>[
+      isA<AnalysisError>().havingCode('missing_identifier'),
+      isA<AnalysisError>().havingCode('missing_identifier'),
+      isA<AnalysisError>().havingCode('use_of_void_result'),
+    ]), reason: 'should only have the Dart analysis errors we expect');
   }
 }
 

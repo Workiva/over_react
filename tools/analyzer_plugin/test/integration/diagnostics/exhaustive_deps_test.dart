@@ -111,10 +111,9 @@ class ObjectWithWritableField {
         !(error.code == 'undefined_identifier' && error.message.contains("Undefined name 'unresolved'."));
 
     Future<HooksExhaustiveDepsDiagnosticTest> setUpTestBase(TestCase testCase) async {
-      final additionalHooks = testCase.options
-          ?.where((option) => option.containsKey('additionalHooks'))
-          ?.map((option) => option['additionalHooks'] as String)
-          ?.firstOrNull;
+      final additionalHooks = testCase.options?.where((option) => option.containsKey('additionalHooks'))?.map(
+        (option) => option['additionalHooks'] as String,
+      )?.firstOrNull;
 
       String analysisYaml;
       if (additionalHooks != null) {
@@ -122,9 +121,7 @@ class ObjectWithWritableField {
         // Also, this way, we don't have to worry about escaping strings if we're constructing the yaml ourselves.
         analysisYaml = jsonEncode({
           'over_react': {
-            'exhaustive_deps': {
-              'additional_hooks': additionalHooks,
-            },
+            'exhaustive_deps': {'additional_hooks': additionalHooks},
           },
         });
       }
@@ -172,15 +169,18 @@ class ObjectWithWritableField {
 
               final source = testBase.newSource('test.dart', preamble + testCase.code);
               final errors = await testBase.getAllErrors(source, includeOtherCodes: true, errorFilter: errorFilter);
-              expect(errors.dartErrors, isEmpty,
-                  reason: 'Expected there to be no errors coming from the analyzer and not the plugin.'
-                      ' Ensure your test source is free of unintentional errors, such as syntax errors and missing imports.'
-                      ' If errors are expected, set includeOtherErrorCodes:true.');
               expect(
-                  errors.pluginErrors,
-                  everyElement(
-                      AnalysisErrorHavingUtils(isA<AnalysisError>()).havingCode(ExhaustiveDeps.code.name)),
-                  reason: 'Expected all errors to match the error & fix kinds under test.');
+                errors.dartErrors,
+                isEmpty,
+                reason: 'Expected there to be no errors coming from the analyzer and not the plugin.'
+                    ' Ensure your test source is free of unintentional errors, such as syntax errors and missing imports.'
+                    ' If errors are expected, set includeOtherErrorCodes:true.',
+              );
+              expect(
+                errors.pluginErrors,
+                everyElement(AnalysisErrorHavingUtils(isA<AnalysisError>()).havingCode(ExhaustiveDeps.code.name)),
+                reason: 'Expected all errors to match the error & fix kinds under test.',
+              );
 
               /// A mapping of the index of the actual error to the index of te expected error,
               /// so we can validate the appropriate fixes for each below.
@@ -206,9 +206,10 @@ class ObjectWithWritableField {
                   final actualIndex = actualMessages.indexOf(expectedMessage);
                   if (expectedErrorIndexByActualErrorIndex.containsKey(actualIndex)) {
                     throw StateError(
-                        'The same expected error message occurs twice, preventing us from mapping them unambiguously.'
-                        ' Please update the test case to not have two of the exact same error messages.'
-                        ' Duplicate message: "$expectedMessage"');
+                      'The same expected error message occurs twice, preventing us from mapping them unambiguously.'
+                      ' Please update the test case to not have two of the exact same error messages.'
+                      ' Duplicate message: "$expectedMessage"',
+                    );
                   }
                   expectedErrorIndexByActualErrorIndex[actualIndex] = expectedIndex;
                 });
@@ -247,7 +248,8 @@ class ObjectWithWritableField {
                 final expectedFixes = (expectedError['suggestions'] as List ?? <dynamic>[]).cast<Map>();
 
                 final actualFixesForError = (await testBase.getAllErrorFixesAtSelection(
-                        SourceSelection(source, actualError.location.offset, actualError.location.length)))
+                      SourceSelection(source, actualError.location.offset, actualError.location.length),
+                    ))
                     // Some cases have multiple errors on the same selection, each potentially having their own fix.
                     // Sometimes, the codes are the same, too, so we'll ise the message to disambiguate.
                     .where((f) => f.error.code == actualError.code && f.error.message == actualError.message)
@@ -259,14 +261,18 @@ class ObjectWithWritableField {
                   expect(actualError.hasFix, isFalse, reason: 'was not expecting the error to report it has a fix');
                 } else {
                   String prettyExpectedFixes() => JsonEncoder.withIndent('  ').convert(expectedFixes);
-                  expect(actualError.hasFix, isTrue,
-                      reason: 'error should report it has a fix. Expected fixes: ${prettyExpectedFixes()}');
-                  expect(actualFixesForError, isNotEmpty,
-                      reason: 'was expecting fixes but got none. Expected fixes: ${prettyExpectedFixes()}');
                   expect(
-                      actualFixesForError,
-                      everyElement(
-                          isA<AnalysisErrorFixes>().having((f) => f.fixes, 'fixes', [testBase.isAFixUnderTest()])));
+                    actualError.hasFix,
+                    isTrue,
+                    reason: 'error should report it has a fix. Expected fixes: ${prettyExpectedFixes()}',
+                  );
+                  expect(
+                    actualFixesForError,
+                    isNotEmpty,
+                    reason: 'was expecting fixes but got none. Expected fixes: ${prettyExpectedFixes()}',
+                  );
+                  expect(actualFixesForError, everyElement(isA<AnalysisErrorFixes>()
+                      .having((f) => f.fixes, 'fixes', [testBase.isAFixUnderTest()])));
 
                   if (expectedFixes.length > 1 || actualFixesForError.length > 1) {
                     throw UnimplementedError('Test does not currently support multiple suggestions/fixes');
@@ -275,14 +281,21 @@ class ObjectWithWritableField {
                   final expectedFix = expectedFixes.single;
                   final expectedFixMessage = expectedFix['desc'] as String;
                   final expectedOutput = expectedFix['output'] as String;
-                  expect(expectedFixMessage, isNotNull,
-                      reason: 'test setup check: test suggestion \'desc\' should not be null');
-                  expect(expectedOutput, isNotNull,
-                      reason: 'test setup check: test suggestion \'output\' should not be null');
+                  expect(
+                    expectedFixMessage,
+                    isNotNull,
+                    reason: 'test setup check: test suggestion \'desc\' should not be null',
+                  );
+                  expect(
+                    expectedOutput,
+                    isNotNull,
+                    reason: 'test setup check: test suggestion \'output\' should not be null',
+                  );
 
                   final actualFix = actualFixesForError.single;
-                  expect(actualFix.fixes.map((fix) => fix.change.message).toList(), [expectedFixMessage],
-                      reason: 'fix message should match');
+                  expect(actualFix.fixes.map((fix) => fix.change.message).toList(), [
+                    expectedFixMessage,
+                  ], reason: 'fix message should match');
 
                   final sourceBeforeFixes = source.contents.data;
                   try {
@@ -300,11 +313,16 @@ class ObjectWithWritableField {
                     }
 
                     final expectedOutputWithoutPreamble = tryFormat(expectedOutput, 'expected output');
-                    final actualOutputWithoutPreamble =
-                        tryFormat(fixedSource.contents.data.replaceFirst(preamble, ''), 'actual output');
+                    final actualOutputWithoutPreamble = tryFormat(
+                      fixedSource.contents.data.replaceFirst(preamble, ''),
+                      'actual output',
+                    );
 
-                    expect(actualOutputWithoutPreamble, expectedOutputWithoutPreamble,
-                        reason: 'applying fixes should match expected output');
+                    expect(
+                      actualOutputWithoutPreamble,
+                      expectedOutputWithoutPreamble,
+                      reason: 'applying fixes should match expected output',
+                    );
                   } finally {
                     // When fixes are applied, they get written to the source file.
                     // This means that later iterations in the loop will have unexpected changes, and also their
@@ -321,8 +339,7 @@ class ObjectWithWritableField {
     });
 
     group('internal utilities', () {
-      group(
-          'getReactiveHookCallbackIndex (and by extension, getNodeWithoutReactNamespace)'
+      group('getReactiveHookCallbackIndex (and by extension, getNodeWithoutReactNamespace)'
           ' works as expected when the hook being called uses', () {
         test('a non-namespaced over_react import', () async {
           final unit = (await parseAndGetResolvedUnit(r'''
@@ -335,9 +352,7 @@ class ObjectWithWritableField {
               allDescendantsOfType<ExpressionStatement>(unit).map((s) => s.expression as InvocationExpression).toList();
           expect(invocations, hasLength(1));
 
-          expect(invocations.map((i) => getReactiveHookCallbackIndex(i.function)).toList(), [
-            isNot(-1),
-          ]);
+          expect(invocations.map((i) => getReactiveHookCallbackIndex(i.function)).toList(), [isNot(-1)]);
         });
 
         test('a namespaced over_react import', () async {
@@ -353,10 +368,7 @@ class ObjectWithWritableField {
               allDescendantsOfType<ExpressionStatement>(unit).map((s) => s.expression as InvocationExpression).toList();
           expect(invocations, hasLength(2));
 
-          expect(invocations.map((i) => getReactiveHookCallbackIndex(i.function)).toList(), [
-            isNot(-1),
-            isNot(-1),
-          ]);
+          expect(invocations.map((i) => getReactiveHookCallbackIndex(i.function)).toList(), [isNot(-1), isNot(-1)]);
         });
 
         test('an unresolved namespaced import', () async {
@@ -373,10 +385,7 @@ class ObjectWithWritableField {
               allDescendantsOfType<ExpressionStatement>(unit).map((s) => s.expression as InvocationExpression).toList();
           expect(invocations, hasLength(2));
 
-          expect(invocations.map((i) => getReactiveHookCallbackIndex(i.function)).toList(), [
-            isNot(-1),
-            isNot(-1),
-          ]);
+          expect(invocations.map((i) => getReactiveHookCallbackIndex(i.function)).toList(), [isNot(-1), isNot(-1)]);
         });
       });
     });

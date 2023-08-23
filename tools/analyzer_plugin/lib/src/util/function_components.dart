@@ -54,8 +54,9 @@ FunctionComponent? getClosestFunctionComponent(AstNode node) {
   return body == null ? null : FunctionComponent(body);
 }
 
-FunctionBody? getClosestFunctionComponentBody(AstNode node) =>
-    node.ancestors.whereType<FunctionBody>().firstWhereOrNull(isFunctionComponent);
+FunctionBody? getClosestFunctionComponentBody(AstNode node) => node.ancestors
+    .whereType<FunctionBody>()
+    .firstWhereOrNull(isFunctionComponent);
 
 FunctionBody? getClosestFunctionComponentOrHookBody(AstNode node) => node.ancestors
     .whereType<FunctionBody>()

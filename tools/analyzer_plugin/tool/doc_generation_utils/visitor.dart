@@ -32,23 +32,30 @@ class ContributorVisitor extends RecursiveElementVisitor<void> {
   void visitClassElement(ClassElement element) {
     for (final config in _configs) {
       if (!element.isOrIsSubtypeOfElementFromPackage(
-          config.typeNameOfContributorClass, config.packageNameContainingContributorClass)) continue;
+        config.typeNameOfContributorClass,
+        config.packageNameContainingContributorClass,
+      )) continue;
 
-      final annotatedFields = element.fields
-          .where((f) => f.metadata.any((a) => a.element!.thisOrAncestorOfType<ClassElement>()?.name == 'DocsMeta'));
+      final annotatedFields = element.fields.where(
+        (f) => f.metadata.any((a) => a.element!.thisOrAncestorOfType<ClassElement>()?.name == 'DocsMeta'),
+      );
       for (final field in annotatedFields) {
         if (!field.isConst) {
           throw UnsupportedError(
-              'The DocsMeta() annotation should only be used to annotate constant values:\n    ${field.toString()}');
+            'The DocsMeta() annotation should only be used to annotate constant values:\n    ${field.toString()}',
+          );
         }
 
         if (field.type.element?.isOrIsSubtypeOfElementFromPackage(
-                config.typeNameOfAnnotatedField, config.packageNameContainingAnnotatedFieldType) ??
+              config.typeNameOfAnnotatedField,
+              config.packageNameContainingAnnotatedFieldType,
+            ) ??
             false) {
           config.registry.register(config.getMeta(field));
         } else {
           throw UnsupportedError(
-              'The DocsMeta() annotation was found on a field of an unsupported type:\n    ${field.type}');
+            'The DocsMeta() annotation was found on a field of an unsupported type:\n    ${field.type}',
+          );
         }
       }
     }

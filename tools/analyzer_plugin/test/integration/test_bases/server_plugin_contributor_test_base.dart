@@ -68,12 +68,14 @@ abstract class ServerPluginContributorTestBase extends AnalysisDriverTestBase {
   Source applySourceChange(SourceChange change, Source source) {
     final path = p.normalize(source.uri.toFilePath());
     final applicableFileEdits = change.edits.where((edit) => edit.file == path);
-    expect(applicableFileEdits.map((edit) => edit.file), contains(path),
-        reason: 'Expected SourceChange to include edits for "$path".');
-    final updated = SourceEdit.applySequence(
-      resourceProvider.getFile(path).readAsStringSync(),
-      [for (final fileEdit in applicableFileEdits) ...fileEdit.edits],
+    expect(
+      applicableFileEdits.map((edit) => edit.file),
+      contains(path),
+      reason: 'Expected SourceChange to include edits for "$path".',
     );
+    final updated = SourceEdit.applySequence(resourceProvider.getFile(path).readAsStringSync(), [
+      for (final fileEdit in applicableFileEdits) ...fileEdit.edits,
+    ]);
     final file = resourceProvider.updateFile(path, updated);
     return file.createSource();
   }
@@ -131,13 +133,17 @@ abstract class ServerPluginContributorTestBase extends AnalysisDriverTestBase {
   void expectNoPluginErrors() {
     if (_channel == null) {
       throw ArgumentError(
-          '_channel was unexpectedly null, meaning setUp may have thrown an error that wasn\'t handled yet. '
-          'Try returning early from this function instead of throwing this error to show the real error.');
+        '_channel was unexpectedly null, meaning setUp may have thrown an error that wasn\'t handled yet. '
+        'Try returning early from this function instead of throwing this error to show the real error.',
+      );
     }
 
     final pluginErrors = _channel!.sentNotifications.where((n) => n.event == 'plugin.error');
-    expect(pluginErrors, isEmpty,
-        reason: 'Unexpected plugin error(s):\n${pluginErrors.map((e) => e.toJson()).join('\n')}');
+    expect(
+      pluginErrors,
+      isEmpty,
+      reason: 'Unexpected plugin error(s):\n${pluginErrors.map((e) => e.toJson()).join('\n')}',
+    );
   }
 
   StubChannel? _channel;

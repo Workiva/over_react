@@ -76,11 +76,7 @@ class CallbackRefDiagnostic extends ComponentUsageDiagnosticContributor {
           if (prop.rightHandSide is SimpleIdentifier) {
             // Its a tearoff. The `addUseOrCreateRef` utility we use to build fixes is not
             // yet able to handle tearoff callback refs, so just add the error.
-            collector.addError(
-              code,
-              result.locationFor(prop.rightHandSide),
-              hasFix: false,
-            );
+            collector.addError(code, result.locationFor(prop.rightHandSide), hasFix: false);
           } else {
             await collector.addErrorWithFix(
               code,

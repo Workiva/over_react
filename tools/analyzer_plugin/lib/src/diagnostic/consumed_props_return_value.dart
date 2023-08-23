@@ -59,11 +59,7 @@ class ConsumedPropsReturnValueDiagnostic extends DiagnosticContributor {
   @override
   List<DiagnosticCode> get codes => [code];
 
-  static final fixKind = FixKind(
-    code.name,
-    200,
-    'Convert to propsMeta.forMixins(...) syntax.',
-  );
+  static final fixKind = FixKind(code.name, 200, 'Convert to propsMeta.forMixins(...) syntax.');
 
   @override
   computeErrors(result, collector) async {
@@ -77,10 +73,12 @@ class ConsumedPropsReturnValueDiagnostic extends DiagnosticContributor {
       final expression = consumedPropsDecl.body.returnExpressions.firstOrNull;
       if (expression is ListLiteral && expression.elements.isNotEmpty) {
         final elements = expression.elements;
-        final shouldAddError = elements.every((element) =>
-            element is MethodInvocation &&
-            element.methodName.name == 'forMixin' &&
-            element.realTarget.tryCast<Identifier>()?.name == 'propsMeta');
+        final shouldAddError = elements.every(
+          (element) =>
+              element is MethodInvocation &&
+              element.methodName.name == 'forMixin' &&
+              element.realTarget.tryCast<Identifier>()?.name == 'propsMeta',
+        );
         if (shouldAddError) {
           await collector.addErrorWithFix(
             code,

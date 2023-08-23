@@ -71,8 +71,7 @@ FixKind convertUsageListLiteralToVariadicChildrenFixKind(
   DiagnosticCode code, {
   int priority = 200,
   String message = 'Unwrap children from unnecessary list literal',
-}) =>
-    FixKind(code.name, priority, message);
+}) => FixKind(code.name, priority, message);
 
 /// Removes the left/right bracket from the provided [listLiteral], and removes the value of `props.key` from
 /// any child elements that have one set if [removeKeyFromChildren] is true.

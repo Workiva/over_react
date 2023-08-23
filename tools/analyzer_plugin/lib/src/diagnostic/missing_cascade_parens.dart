@@ -62,18 +62,15 @@ class MissingCascadeParensDiagnostic extends DiagnosticContributor {
   @override
   computeErrors(result, collector) async {
     for (final error in result.errors) {
-      final isBadFunction = const {
-        'INVOCATION_OF_NON_FUNCTION',
-        'INVOCATION_OF_NON_FUNCTION_EXPRESSION',
-      }.contains(error.errorCode.name);
+      final isBadFunction = const {'INVOCATION_OF_NON_FUNCTION', 'INVOCATION_OF_NON_FUNCTION_EXPRESSION'}.contains(
+        error.errorCode.name,
+      );
       final isBadArity = const {
         'NOT_ENOUGH_POSITIONAL_ARGUMENTS',
         'EXTRA_POSITIONAL_ARGUMENTS_COULD_BE_NAMED',
         'EXTRA_POSITIONAL_ARGUMENTS',
       }.contains(error.errorCode.name);
-      final isVoidUsage = const {
-        'USE_OF_VOID_RESULT',
-      }.contains(error.errorCode.name);
+      final isVoidUsage = const {'USE_OF_VOID_RESULT'}.contains(error.errorCode.name);
 
       if (isBadFunction || isBadArity || isVoidUsage) {
         final node = NodeLocator(error.offset, error.offset + error.length).searchWithin(result.unit)!;

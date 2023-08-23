@@ -195,7 +195,7 @@ const unitlessNumberStyles = {
   'strokeDashoffset',
   'strokeMiterlimit',
   'strokeOpacity',
-  'strokeWidth'
+  'strokeWidth',
 };
 
 /// Returns [content] escaped and optionally quoted for use as a string literal

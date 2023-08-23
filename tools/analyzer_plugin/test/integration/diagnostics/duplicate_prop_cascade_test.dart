@@ -139,14 +139,12 @@ final domComponentUsage = (Dom.div()
 )();
 ''');
     final allErrors = await getAllErrors(source);
-    expect(
-        allErrors,
-        unorderedEquals(<Matcher>[
-          isAnErrorUnderTest(locatedAt: createSelection(source, "#..id# = 'abc'"), hasFix: true),
-          isAnErrorUnderTest(locatedAt: createSelection(source, "#..dom.id# = 'foo'"), hasFix: true),
-          isAnErrorUnderTest(locatedAt: createSelection(source, "#..id# = 'def'"), hasFix: true),
-          isAnErrorUnderTest(locatedAt: createSelection(source, "#..dom.id# = 'bar'"), hasFix: true),
-        ]));
+    expect(allErrors, unorderedEquals(<Matcher>[
+      isAnErrorUnderTest(locatedAt: createSelection(source, "#..id# = 'abc'"), hasFix: true),
+      isAnErrorUnderTest(locatedAt: createSelection(source, "#..dom.id# = 'foo'"), hasFix: true),
+      isAnErrorUnderTest(locatedAt: createSelection(source, "#..id# = 'def'"), hasFix: true),
+      isAnErrorUnderTest(locatedAt: createSelection(source, "#..dom.id# = 'bar'"), hasFix: true),
+    ]));
   }
 
   Future<void> test_dupeDomPropWithMultiplePrefixedKeys() async {
@@ -166,16 +164,14 @@ final customComponentUsage = (Custom()
 )();
 ''');
     final allErrors = await getAllErrors(source);
-    expect(
-        allErrors,
-        unorderedEquals(<Matcher>[
-          isAnErrorUnderTest(locatedAt: createSelection(source, "#..id# = 'abc'"), hasFix: true),
-          isAnErrorUnderTest(locatedAt: createSelection(source, "#..dom.id# = 'foo'"), hasFix: true),
-          isAnErrorUnderTest(locatedAt: createSelection(source, "#..dom.id# = 'bar'"), hasFix: true),
-          isAnErrorUnderTest(locatedAt: createSelection(source, "#..id# = 'def'"), hasFix: true),
-          isAnErrorUnderTest(locatedAt: createSelection(source, "#..dom.id# = 'baz'"), hasFix: true),
-          isAnErrorUnderTest(locatedAt: createSelection(source, "#..dom.id# = 'biz'"), hasFix: true),
-        ]));
+    expect(allErrors, unorderedEquals(<Matcher>[
+      isAnErrorUnderTest(locatedAt: createSelection(source, "#..id# = 'abc'"), hasFix: true),
+      isAnErrorUnderTest(locatedAt: createSelection(source, "#..dom.id# = 'foo'"), hasFix: true),
+      isAnErrorUnderTest(locatedAt: createSelection(source, "#..dom.id# = 'bar'"), hasFix: true),
+      isAnErrorUnderTest(locatedAt: createSelection(source, "#..id# = 'def'"), hasFix: true),
+      isAnErrorUnderTest(locatedAt: createSelection(source, "#..dom.id# = 'baz'"), hasFix: true),
+      isAnErrorUnderTest(locatedAt: createSelection(source, "#..dom.id# = 'biz'"), hasFix: true),
+    ]));
   }
 
   Future<void> test_dupeDomPropWithAllPrefixedKeys() async {
@@ -195,16 +191,14 @@ final customComponentUsage = (Custom()
 )();
 ''');
     final allErrors = await getAllErrors(source);
-    expect(
-        allErrors,
-        unorderedEquals(<Matcher>[
-          isAnErrorUnderTest(locatedAt: createSelection(source, "#..dom.id# = 'abc'"), hasFix: true),
-          isAnErrorUnderTest(locatedAt: createSelection(source, "#..dom.id# = 'foo'"), hasFix: true),
-          isAnErrorUnderTest(locatedAt: createSelection(source, "#..dom.id# = 'bar'"), hasFix: true),
-          isAnErrorUnderTest(locatedAt: createSelection(source, "#..dom.id# = 'def'"), hasFix: true),
-          isAnErrorUnderTest(locatedAt: createSelection(source, "#..dom.id# = 'baz'"), hasFix: true),
-          isAnErrorUnderTest(locatedAt: createSelection(source, "#..dom.id# = 'biz'"), hasFix: true),
-        ]));
+    expect(allErrors, unorderedEquals(<Matcher>[
+      isAnErrorUnderTest(locatedAt: createSelection(source, "#..dom.id# = 'abc'"), hasFix: true),
+      isAnErrorUnderTest(locatedAt: createSelection(source, "#..dom.id# = 'foo'"), hasFix: true),
+      isAnErrorUnderTest(locatedAt: createSelection(source, "#..dom.id# = 'bar'"), hasFix: true),
+      isAnErrorUnderTest(locatedAt: createSelection(source, "#..dom.id# = 'def'"), hasFix: true),
+      isAnErrorUnderTest(locatedAt: createSelection(source, "#..dom.id# = 'baz'"), hasFix: true),
+      isAnErrorUnderTest(locatedAt: createSelection(source, "#..dom.id# = 'biz'"), hasFix: true),
+    ]));
   }
 
   Future<void> test_dupeDomPropWithNoPrefixedKeys() async {
@@ -224,16 +218,14 @@ final customComponentUsage = (Custom()
 )();
 ''');
     final allErrors = await getAllErrors(source);
-    expect(
-        allErrors,
-        unorderedEquals(<Matcher>[
-          isAnErrorUnderTest(locatedAt: createSelection(source, "#..id# = 'abc'"), hasFix: true),
-          isAnErrorUnderTest(locatedAt: createSelection(source, "#..id# = 'foo'"), hasFix: true),
-          isAnErrorUnderTest(locatedAt: createSelection(source, "#..id# = 'bar'"), hasFix: true),
-          isAnErrorUnderTest(locatedAt: createSelection(source, "#..id# = 'def'"), hasFix: true),
-          isAnErrorUnderTest(locatedAt: createSelection(source, "#..id# = 'baz'"), hasFix: true),
-          isAnErrorUnderTest(locatedAt: createSelection(source, "#..id# = 'biz'"), hasFix: true),
-        ]));
+    expect(allErrors, unorderedEquals(<Matcher>[
+      isAnErrorUnderTest(locatedAt: createSelection(source, "#..id# = 'abc'"), hasFix: true),
+      isAnErrorUnderTest(locatedAt: createSelection(source, "#..id# = 'foo'"), hasFix: true),
+      isAnErrorUnderTest(locatedAt: createSelection(source, "#..id# = 'bar'"), hasFix: true),
+      isAnErrorUnderTest(locatedAt: createSelection(source, "#..id# = 'def'"), hasFix: true),
+      isAnErrorUnderTest(locatedAt: createSelection(source, "#..id# = 'baz'"), hasFix: true),
+      isAnErrorUnderTest(locatedAt: createSelection(source, "#..id# = 'biz'"), hasFix: true),
+    ]));
   }
 
   // We currently don't support flagging dupes when a key is added using `..addProps(domProps()..key)`, but
@@ -284,14 +276,12 @@ final customComponentUsage = (Custom()
 )();
 ''');
     final allErrors = await getAllErrors(source);
-    expect(
-        allErrors,
-        unorderedEquals(<Matcher>[
-          isAnErrorUnderTest(locatedAt: createSelection(source, "#..aria.label# = 'oh'"), hasFix: true),
-          isAnErrorUnderTest(locatedAt: createSelection(source, "#..aria.label# = 'hai'"), hasFix: true),
-          isAnErrorUnderTest(locatedAt: createSelection(source, "#..aria.hidden# = true"), hasFix: true),
-          isAnErrorUnderTest(locatedAt: createSelection(source, "#..aria.hidden# = false"), hasFix: true),
-        ]));
+    expect(allErrors, unorderedEquals(<Matcher>[
+      isAnErrorUnderTest(locatedAt: createSelection(source, "#..aria.label# = 'oh'"), hasFix: true),
+      isAnErrorUnderTest(locatedAt: createSelection(source, "#..aria.label# = 'hai'"), hasFix: true),
+      isAnErrorUnderTest(locatedAt: createSelection(source, "#..aria.hidden# = true"), hasFix: true),
+      isAnErrorUnderTest(locatedAt: createSelection(source, "#..aria.hidden# = false"), hasFix: true),
+    ]));
   }
 
   // We currently don't support flagging dupes when a key is added using `..addProps(ariaProps()..key)`, but
@@ -333,14 +323,12 @@ final usage = (Custom()
 )();
 ''');
     final allErrors = await getAllErrors(source);
-    expect(
-        allErrors,
-        unorderedEquals(<Matcher>[
-          isAnErrorUnderTest(locatedAt: createSelection(source, "#..size# = 1"), hasFix: true),
-          isAnErrorUnderTest(locatedAt: createSelection(source, "#..size# = 2"), hasFix: true),
-          isAnErrorUnderTest(locatedAt: createSelection(source, "#..size# = 3"), hasFix: true),
-          isAnErrorUnderTest(locatedAt: createSelection(source, "#..hidden# = true"), hasFix: true),
-          isAnErrorUnderTest(locatedAt: createSelection(source, "#..hidden# = false"), hasFix: true),
-        ]));
+    expect(allErrors, unorderedEquals(<Matcher>[
+      isAnErrorUnderTest(locatedAt: createSelection(source, "#..size# = 1"), hasFix: true),
+      isAnErrorUnderTest(locatedAt: createSelection(source, "#..size# = 2"), hasFix: true),
+      isAnErrorUnderTest(locatedAt: createSelection(source, "#..size# = 3"), hasFix: true),
+      isAnErrorUnderTest(locatedAt: createSelection(source, "#..hidden# = true"), hasFix: true),
+      isAnErrorUnderTest(locatedAt: createSelection(source, "#..hidden# = false"), hasFix: true),
+    ]));
   }
 }

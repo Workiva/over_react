@@ -39,13 +39,13 @@ var foo = Dom.div()('hello');
   }
 
   Future<void> test_producesAssistForAllSelectionTypes() => expectAllSelectionsProduceSingleAssist(simpleSource, [
-        '##Dom.div', // empty selection at beginning
-        'Dom.div##', // empty selection at end
-        'Dom.##div', // empty selection within
-        '#Dom.div#', // range starting at beginning
-        '#Dom.div()#', // range extending beyond end
-        'Do#m.d#iv', // range within
-      ]);
+    '##Dom.div', // empty selection at beginning
+    'Dom.div##', // empty selection at end
+    'Dom.##div', // empty selection within
+    '#Dom.div#', // range starting at beginning
+    '#Dom.div()#', // range extending beyond end
+    'Do#m.d#iv', // range within
+  ]);
 
   Future<void> test_addsParensAndPropsCascade() async {
     var source = newSource('test.dart', simpleSource);

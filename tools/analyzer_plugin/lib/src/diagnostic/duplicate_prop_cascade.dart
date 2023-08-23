@@ -17,10 +17,11 @@ However - the presence of duplicate setters is most likely a typo.
 class DuplicatePropCascadeDiagnostic extends ComponentUsageDiagnosticContributor {
   @DocsMeta(_desc, details: _details)
   static const code = DiagnosticCode(
-      'over_react_duplicate_prop_cascade',
-      "Prop '{0}' is set more than once ({1} of {2}). This is most likely a typo.",
-      AnalysisErrorSeverity.WARNING,
-      AnalysisErrorType.STATIC_TYPE_WARNING);
+    'over_react_duplicate_prop_cascade',
+    "Prop '{0}' is set more than once ({1} of {2}). This is most likely a typo.",
+    AnalysisErrorSeverity.WARNING,
+    AnalysisErrorType.STATIC_TYPE_WARNING,
+  );
 
   @override
   List<DiagnosticCode> get codes => [code];

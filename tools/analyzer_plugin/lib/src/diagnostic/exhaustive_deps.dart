@@ -230,8 +230,9 @@ class ExhaustiveDeps extends DiagnosticContributor {
   DiagnosticCollector? _collector;
   AnalyzerDebugHelper? _debugHelper;
 
-  StateError _uninitializedError(String name) =>
-      StateError('$name is null. Check computeErrors to make sure it is initialized.');
+  StateError _uninitializedError(String name) => StateError(
+    '$name is null. Check computeErrors to make sure it is initialized.',
+  );
 
   ResolvedUnitResult get result => _result ?? (throw _uninitializedError('result'));
 
@@ -284,8 +285,11 @@ class ExhaustiveDeps extends DiagnosticContributor {
 
   String getSource(SyntacticEntity entity) => result.content.substring(entity.offset, entity.end);
 
-  void reportProblem({required AstNode node, required String message}) =>
-      collector.addError(ExhaustiveDeps.code, result.locationFor(node), errorMessageArgs: [message]);
+  void reportProblem({required AstNode node, required String message}) => collector.addError(
+    ExhaustiveDeps.code,
+    result.locationFor(node),
+    errorMessageArgs: [message],
+  );
 
   Future<void> _handleReactiveHookCallback(ReactiveHookCallbackInfo info) async {
     final callback = info.callback;
@@ -322,9 +326,7 @@ class ExhaustiveDeps extends DiagnosticContributor {
       // The function passed as a callback is not written inline.
       // But perhaps it's in the dependencies array?
       if (declaredDependenciesNode is ListLiteral &&
-          declaredDependenciesNode.elements.whereType<Identifier>().any(
-                (el) => el.name == callback.name,
-              )) {
+          declaredDependenciesNode.elements.whereType<Identifier>().any((el) => el.name == callback.name)) {
         // If it's already in the list of deps, we don't care because
         // this is valid regardless.
         return; // Handled
@@ -366,7 +368,7 @@ class ExhaustiveDeps extends DiagnosticContributor {
       errorMessageArgs: [
         // ignore: prefer_adjacent_string_concatenation
         "React Hook $reactiveHookName has a missing dependency: '$callbackName'. " +
-            "Either include it or remove the dependency list."
+            "Either include it or remove the dependency list.",
       ],
       fixKind: ExhaustiveDeps.fixKind,
       fixMessageArgs: ["Update the dependencies list to be: [$callbackName]"],
@@ -425,8 +427,10 @@ class ExhaustiveDeps extends DiagnosticContributor {
 
     final componentOrCustomHookFunctionElement = componentOrCustomHookFunction?.declaredElement;
 
-    debug(() => 'componentOrCustomHookFunctionElement: ${componentOrCustomHookFunctionElement?.debugString}',
-        componentOrCustomHookFunction?.offset ?? 0);
+    debug(
+      () => 'componentOrCustomHookFunctionElement: ${componentOrCustomHookFunctionElement?.debugString}',
+      componentOrCustomHookFunction?.offset ?? 0,
+    );
 
     bool isDeclaredInPureScope(Element element) =>
         // TODO(greg) is this function even valid when this is null?
@@ -589,8 +593,9 @@ class ExhaustiveDeps extends DiagnosticContributor {
       return true;
     }
 
-    final memoizedIsFunctionWithoutCapturedValues =
-        isFunctionWithoutCapturedValues.memoizeWithWeakMap(functionWithoutCapturedValueCache);
+    final memoizedIsFunctionWithoutCapturedValues = isFunctionWithoutCapturedValues.memoizeWithWeakMap(
+      functionWithoutCapturedValueCache,
+    );
 
     // These are usually mistaken. Collect them.
     final currentRefsInEffectCleanup = <String, _RefInEffectCleanup>{};
@@ -629,11 +634,7 @@ class ExhaustiveDeps extends DiagnosticContributor {
       // Then normalize the narrowed dependency.
       final dependencyNode = getDependency(reference);
       final isUsedAsCascadeTarget = dependencyNode.parent?.tryCast<CascadeExpression>()?.target == dependencyNode;
-      final dependency = analyzePropertyChain(
-        dependencyNode,
-        optionalChains,
-        isInvocationAllowedForNode: true,
-      );
+      final dependency = analyzePropertyChain(dependencyNode, optionalChains, isInvocationAllowedForNode: true);
       debug(() {
         return prettyPrint({
           'dependency': dependency,
@@ -673,39 +674,37 @@ class ExhaustiveDeps extends DiagnosticContributor {
     }
 
     // Warn about accessing .current in cleanup effects.
-    currentRefsInEffectCleanup.forEach(
-      (dependency, _entry) {
-        final reference = _entry.reference;
+    currentRefsInEffectCleanup.forEach((dependency, _entry) {
+      final reference = _entry.reference;
 
-        // Is React managing this ref or us?
-        // Let's see if we can find a .current assignment.
-        var foundCurrentAssignment = false;
-        // This only finds references in the same file, but that's okay for our purposes.
-        for (final reference in allResolvedReferencesTo(reference.staticElement!, reference.root)) {
-          final parent = reference.parent;
-          if (parent != null &&
-              // ref.current
-              getNonCascadedPropertyBeingAccessed(parent)?.name == 'current' &&
-              // ref.current = <something>
-              parent.parent?.tryCast<AssignmentExpression>()?.leftHandSide == parent) {
-            foundCurrentAssignment = true;
-            break;
-          }
+      // Is React managing this ref or us?
+      // Let's see if we can find a .current assignment.
+      var foundCurrentAssignment = false;
+      // This only finds references in the same file, but that's okay for our purposes.
+      for (final reference in allResolvedReferencesTo(reference.staticElement!, reference.root)) {
+        final parent = reference.parent;
+        if (parent != null &&
+            // ref.current
+            getNonCascadedPropertyBeingAccessed(parent)?.name == 'current' &&
+            // ref.current = <something>
+            parent.parent?.tryCast<AssignmentExpression>()?.leftHandSide == parent) {
+          foundCurrentAssignment = true;
+          break;
         }
-        // We only want to warn about React-managed refs.
-        if (foundCurrentAssignment) {
-          return;
-        }
-        reportProblem(
-          node: reference.parent!,
-          message: "The ref value '$dependency.current' will likely have "
-              "changed by the time this effect cleanup function runs. If "
-              "this ref points to a node rendered by React, copy "
-              "'$dependency.current' to a variable inside the effect, and "
-              "use that variable in the cleanup function.",
-        );
-      },
-    );
+      }
+      // We only want to warn about React-managed refs.
+      if (foundCurrentAssignment) {
+        return;
+      }
+      reportProblem(
+        node: reference.parent!,
+        message: "The ref value '$dependency.current' will likely have "
+            "changed by the time this effect cleanup function runs. If "
+            "this ref points to a node rendered by React, copy "
+            "'$dependency.current' to a variable inside the effect, and "
+            "use that variable in the cleanup function.",
+      );
+    });
 
     // Warn about assigning to variables in the outer scope.
     // Those are usually bugs.
@@ -968,8 +967,9 @@ class ExhaustiveDeps extends DiagnosticContributor {
           // For example: `stateHook.set.call`, `stateHook.value()`. So, use regexes with word boundaries.
 
           final dependencyPattern = RegExp(r'^' + RegExp.escape(declaredDepSource) + r'\b');
-          RegExp dependencyMemberPattern(String memberName) =>
-              RegExp(r'^' + RegExp.escape(declaredDepSource) + r'\.' + RegExp.escape(memberName) + r'\b');
+          RegExp dependencyMemberPattern(String memberName) => RegExp(
+            r'^' + RegExp.escape(declaredDepSource) + r'\.' + RegExp.escape(memberName) + r'\b',
+          );
           bool isDependencyUsage(String dependency) => dependencyPattern.hasMatch(dependency);
 
           final allDependenciesUsingHook = dependencies.keys.where(isDependencyUsage).toSet();
@@ -983,9 +983,9 @@ class ExhaustiveDeps extends DiagnosticContributor {
           // which may or may not the right thing to depend on. E.g., (`stateHook.object.getterThatReturnsNewInstanceEveryTime`).
           // Instead, recommend the unstable members themselves, and if the user wants to drill down further, they can
           // after applying the suggestion.
-          final knownUnstableMembersUsed = allKnownUnstableMembers
-              .where((member) => unstableDependenciesUsingHook.any(dependencyMemberPattern(member).hasMatch))
-              .toList();
+          final knownUnstableMembersUsed = allKnownUnstableMembers.where(
+            (member) => unstableDependenciesUsingHook.any(dependencyMemberPattern(member).hasMatch),
+          ).toList();
           final suggestedUnstableMemberDependencies =
               knownUnstableMembersUsed.map((m) => '$declaredDepSource.$m').toList();
 
@@ -1030,12 +1030,14 @@ class ExhaustiveDeps extends DiagnosticContributor {
                 if (suggestedUnstableMemberDependencies.isNotEmpty)
                   "Change the dependency to: ${suggestedUnstableMemberDependencies.join(', ')}"
                 else
-                  "Remove the dependency on '$declaredDepSource'."
+                  "Remove the dependency on '$declaredDepSource'.",
               ],
               computeFix: () => buildGenericFileEdit(result, (builder) {
                 if (suggestedUnstableMemberDependencies.isNotEmpty) {
                   builder.addSimpleReplacement(
-                      range.node(declaredDependencyNode), suggestedUnstableMemberDependencies.join(', '));
+                    range.node(declaredDependencyNode),
+                    suggestedUnstableMemberDependencies.join(', '),
+                  );
                 } else {
                   builder.addDeletion(range.nodeInList2(declaredDependencyNode));
                 }
@@ -1056,11 +1058,14 @@ class ExhaustiveDeps extends DiagnosticContributor {
             ? "To fix this, $defaultAdvice"
             : "Move it inside the $reactiveHookName callback. Alternatively, $defaultAdvice";
 
-        final causation =
-            depType == _DepType.conditional || depType == _DepType.binaryExpression ? 'could make' : 'makes';
+        final causation = depType == _DepType.conditional || depType == _DepType.binaryExpression
+            ? 'could make'
+            : 'makes';
 
         final message = "The '$constructionName' $depType $causation the dependencies of "
-            "$reactiveHookName Hook (at line ${result.lineInfo.getLocation(declaredDependenciesNode.offset).lineNumber}) "
+            "$reactiveHookName Hook (at line ${result.lineInfo.getLocation(
+              declaredDependenciesNode.offset,
+            ).lineNumber}) "
             "change on every render. $advice";
 
         // Note that, unlike the original JS implementation, we handle functions since they aren't hoisted in Dart.
@@ -1072,22 +1077,21 @@ class ExhaustiveDeps extends DiagnosticContributor {
               errorMessageArgs: [message],
               fixKind: ExhaustiveDeps.fixKind,
               fixMessageArgs: ["Wrap the $constructionType of '$constructionName' in its own useCallback() Hook."],
-              computeFix: () => buildGenericFileEdit(
-                result,
-                (builder) {
-                  // Replace the return type through the name:
-                  // `void something(arg) {…}` -> `final something = useCallback((arg) {…}, […]);`
-                  // This also preserves generic function expressions.
-                  // `void something<T generic>(T arg) {…}` -> `final something = useCallback(<T>(T arg) {…}, […]);`
-                  builder.addSimpleReplacement(range.startEnd(construction, construction.name),
-                      'final ${construction.name.name} = useCallback(');
-                  // TODO(ported): ideally we'd gather deps here but it would require
-                  //  restructuring the rule code. Note we're
-                  //  not adding [] because would that changes semantics.
-                  // Add a placeholder here so there isn't a static error about using useCallback with the wrong number of arguments.
-                  builder.addSimpleInsertion(construction.end, ', [/* FIXME add dependencies */]);');
-                },
-              ),
+              computeFix: () => buildGenericFileEdit(result, (builder) {
+                // Replace the return type through the name:
+                // `void something(arg) {…}` -> `final something = useCallback((arg) {…}, […]);`
+                // This also preserves generic function expressions.
+                // `void something<T generic>(T arg) {…}` -> `final something = useCallback(<T>(T arg) {…}, […]);`
+                builder.addSimpleReplacement(
+                  range.startEnd(construction, construction.name),
+                  'final ${construction.name.name} = useCallback(',
+                );
+                // TODO(ported): ideally we'd gather deps here but it would require
+                //  restructuring the rule code. Note we're
+                //  not adding [] because would that changes semantics.
+                // Add a placeholder here so there isn't a static error about using useCallback with the wrong number of arguments.
+                builder.addSimpleInsertion(construction.end, ', [/* FIXME add dependencies */]);');
+              }),
             );
             continue;
           }
@@ -1099,11 +1103,7 @@ class ExhaustiveDeps extends DiagnosticContributor {
             // and may change in the future..
             final constructionInitializer = construction.initializer;
             if (constructionInitializer == null) {
-              collector.addError(
-                ExhaustiveDeps.code,
-                result.locationFor(construction),
-                errorMessageArgs: [message],
-              );
+              collector.addError(ExhaustiveDeps.code, result.locationFor(construction), errorMessageArgs: [message]);
             } else {
               await collector.addErrorWithFix(
                 ExhaustiveDeps.code,
@@ -1111,22 +1111,19 @@ class ExhaustiveDeps extends DiagnosticContributor {
                 errorMessageArgs: [message],
                 fixKind: ExhaustiveDeps.fixKind,
                 fixMessageArgs: ["Wrap the $constructionType of '$constructionName' in its own $wrapperHook() Hook."],
-                computeFix: () => buildGenericFileEdit(
-                  result,
-                  (builder) {
-                    // TODO(ported): ideally we'd gather deps here but it would require
-                    //  restructuring the rule code. Note we're
-                    //  not adding [] because would that changes semantics.
-                    if (wrapperHook == 'useMemo') {
-                      builder.addSimpleInsertion(constructionInitializer.offset, '$wrapperHook(() => ');
-                      builder.addSimpleInsertion(constructionInitializer.end, ')');
-                    } else {
-                      builder.addSimpleInsertion(constructionInitializer.offset, '$wrapperHook(');
-                      // Add a placeholder here so there isn't a static error about using useCallback with the wrong number of arguments.
-                      builder.addSimpleInsertion(constructionInitializer.end, ', [/* FIXME add dependencies */])');
-                    }
-                  },
-                ),
+                computeFix: () => buildGenericFileEdit(result, (builder) {
+                  // TODO(ported): ideally we'd gather deps here but it would require
+                  //  restructuring the rule code. Note we're
+                  //  not adding [] because would that changes semantics.
+                  if (wrapperHook == 'useMemo') {
+                    builder.addSimpleInsertion(constructionInitializer.offset, '$wrapperHook(() => ');
+                    builder.addSimpleInsertion(constructionInitializer.end, ')');
+                  } else {
+                    builder.addSimpleInsertion(constructionInitializer.offset, '$wrapperHook(');
+                    // Add a placeholder here so there isn't a static error about using useCallback with the wrong number of arguments.
+                    builder.addSimpleInsertion(constructionInitializer.end, ', [/* FIXME add dependencies */])');
+                  }
+                }),
               );
             }
             continue;
@@ -1135,11 +1132,7 @@ class ExhaustiveDeps extends DiagnosticContributor {
 
         // TODO(ported): What if the function needs to change on every render anyway?
         //  Should we suggest removing effect deps as an appropriate fix too?
-        collector.addError(
-          ExhaustiveDeps.code,
-          result.locationFor(construction),
-          errorMessageArgs: [message],
-        );
+        collector.addError(ExhaustiveDeps.code, result.locationFor(construction), errorMessageArgs: [message]);
       }
       return;
     }
@@ -1158,17 +1151,20 @@ class ExhaustiveDeps extends DiagnosticContributor {
     //
     // Only do this when there are dependency problems, so that we don't block consumers from
     // cascading on declared dependencies.
-    final dependenciesUsedInCascade = [...missingDependencies, ...unnecessaryDependencies]
-        .where((d) => dependencies[d]?.isUsedSomewhereAsCascadeTarget ?? false)
-        .toSet();
+    final dependenciesUsedInCascade = [...missingDependencies, ...unnecessaryDependencies].where(
+      (d) => dependencies[d]?.isUsedSomewhereAsCascadeTarget ?? false,
+    ).toSet();
     if (dependenciesUsedInCascade.isNotEmpty) {
       final messageBuffer = StringBuffer()
-        ..write("React Hook ${getSource(reactiveHook)} most likely has issues in its dependencies list,"
-            " but the exact problems and recommended fixes could not be be computed"
-            " since the ${dependenciesUsedInCascade.length == 1 ? 'dependency' : 'dependencies'} ")
+        ..write(
+          "React Hook ${getSource(reactiveHook)} most likely has issues in its dependencies list,"
+          " but the exact problems and recommended fixes could not be be computed"
+          " since the ${dependenciesUsedInCascade.length == 1 ? 'dependency' : 'dependencies'} ",
+        )
         ..write(joinEnglish((dependenciesUsedInCascade.toList()..sort()).map((name) => "'$name'")))
         ..write(
-            dependenciesUsedInCascade.length == 1 ? " is the target of a cascade." : " are the targets of cascades.")
+          dependenciesUsedInCascade.length == 1 ? " is the target of a cascade." : " are the targets of cascades.",
+        )
         ..write(" Try refactoring to not cascade on ")
         ..write(dependenciesUsedInCascade.length == 1 ? 'that dependency' : 'those dependencies')
         ..write(" in the callback to get more helpful instructions and potentially a suggested fix.");
@@ -1429,7 +1425,8 @@ class ExhaustiveDeps extends DiagnosticContributor {
       final newDepsSource = StringBuffer()..write('[');
       if (useNewlines) newDepsSource.writeln();
       newDepsSource.write(
-          dependencies.map((dep) => useNewlines ? '$listElementIndent$dep' : dep).join(useNewlines ? ',\n' : ', '));
+        dependencies.map((dep) => useNewlines ? '$listElementIndent$dep' : dep).join(useNewlines ? ',\n' : ', '),
+      );
       if (useTrailingComma) newDepsSource.write(',');
       if (useNewlines) newDepsSource.write('\n${decreaseIndent(listElementIndent)}');
       newDepsSource.write(']');
@@ -1453,7 +1450,9 @@ class ExhaustiveDeps extends DiagnosticContributor {
       fixMessageArgs: ["Update the dependencies list to be: [${suggestedDeps.map(formatDependency).join(', ')}]"],
       computeFix: () => buildGenericFileEdit(result, (e) {
         e.addSimpleReplacement(
-            range.node(declaredDependenciesNode), prettyDependenciesList(suggestedDeps.map(formatDependency)));
+          range.node(declaredDependenciesNode),
+          prettyDependenciesList(suggestedDeps.map(formatDependency)),
+        );
       }),
     );
   }
@@ -1463,10 +1462,7 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
   final RegExp? additionalHooks;
   final void Function(ReactiveHookCallbackInfo) onReactiveHookCallback;
 
-  _ExhaustiveDepsVisitor({
-    this.additionalHooks,
-    required this.onReactiveHookCallback,
-  });
+  _ExhaustiveDepsVisitor({this.additionalHooks, required this.onReactiveHookCallback});
 
   @override
   void visitInvocationExpression(InvocationExpression node) {
@@ -1524,10 +1520,10 @@ class _Dependency {
 
   @override
   String toString() => prettyPrint({
-        'isStable': isStable,
-        'references': references,
-        'isUsedSomewhereAsCascadeTarget': isUsedSomewhereAsCascadeTarget,
-      });
+    'isStable': isStable,
+    'references': references,
+    'isUsedSomewhereAsCascadeTarget': isUsedSomewhereAsCascadeTarget,
+  });
 }
 
 class _RefInEffectCleanup {
@@ -1539,13 +1535,12 @@ class _RefInEffectCleanup {
   _RefInEffectCleanup({required this.reference, required this.referenceElement});
 
   @override
-  String toString() => prettyPrint({
-        'reference': reference,
-      });
+  String toString() => prettyPrint({'reference': reference});
 }
 
-Iterable<Identifier> resolvedReferencesWithin(AstNode node) =>
-    allDescendantsOfType<Identifier>(node).where((e) => e.staticElement != null);
+Iterable<Identifier> resolvedReferencesWithin(AstNode node) => allDescendantsOfType<Identifier>(node).where(
+  (e) => e.staticElement != null,
+);
 
 enum HookTypeWithStableMethods { stateHook, reducerHook, transitionHook }
 
@@ -1615,15 +1610,27 @@ StableHookMethodInfo? getStableHookMethodInfo(AstNode node) {
   // Check whether this reference is only used to access the stable hook property.
   if (staticType.isStateHook && HookConstants.stableStateMethods.contains(property.name)) {
     return StableHookMethodInfo(
-        node: node, target: target, property: property, hookType: HookTypeWithStableMethods.stateHook);
+      node: node,
+      target: target,
+      property: property,
+      hookType: HookTypeWithStableMethods.stateHook,
+    );
   }
   if (staticType.isReducerHook && HookConstants.stableReducerMethods.contains(property.name)) {
     return StableHookMethodInfo(
-        node: node, target: target, property: property, hookType: HookTypeWithStableMethods.reducerHook);
+      node: node,
+      target: target,
+      property: property,
+      hookType: HookTypeWithStableMethods.reducerHook,
+    );
   }
   if (staticType.isTransitionHook && HookConstants.stableTransitionMethods.contains(property.name)) {
     return StableHookMethodInfo(
-        node: node, target: target, property: property, hookType: HookTypeWithStableMethods.transitionHook);
+      node: node,
+      target: target,
+      property: property,
+      hookType: HookTypeWithStableMethods.transitionHook,
+    );
   }
 
   return null;
@@ -1689,11 +1696,7 @@ class _ChildLocalVariableOrFunctionDeclarationVisitor extends RecursiveAstVisito
   }
 }
 
-enum _SetStateRecommendationForm {
-  reducer,
-  inlineReducer,
-  updater,
-}
+enum _SetStateRecommendationForm { reducer, inlineReducer, updater }
 
 class _SetStateRecommendation {
   final String missingDep;
@@ -1730,11 +1733,12 @@ class _DepTree {
   // Nodes for properties
   final Map<String, _DepTree> children;
 
-  _DepTree(
-      {required this.isUsed,
-      required this.isSatisfiedRecursively,
-      required this.isSubtreeUsed,
-      required this.children});
+  _DepTree({
+    required this.isUsed,
+    required this.isSatisfiedRecursively,
+    required this.isSubtreeUsed,
+    required this.children,
+  });
 }
 
 class _DeclaredDependency {
@@ -1747,10 +1751,10 @@ class _DeclaredDependency {
 
   @override
   String toString() => prettyPrint({
-        'key': key,
-        'node': node,
-        'debugEnclosingElement': debugEnclosingElement?.debugString,
-      });
+    'key': key,
+    'node': node,
+    'debugEnclosingElement': debugEnclosingElement?.debugString,
+  });
 }
 
 extension on Element {
@@ -1839,7 +1843,11 @@ _Recommendations collectRecommendations({
   final missingDependencies = <String>{};
   final satisfyingDependencies = <String>{};
   void scanTreeRecursively(
-      _DepTree node, Set<String> missingPaths, Set<String> satisfyingPaths, String Function(String) keyToPath) {
+    _DepTree node,
+    Set<String> missingPaths,
+    Set<String> satisfyingPaths,
+    String Function(String) keyToPath,
+  ) {
     node.children.forEach((key, child) {
       final path = keyToPath(key);
       if (child.isSatisfiedRecursively) {
@@ -1859,21 +1867,11 @@ _Recommendations collectRecommendations({
         // No need to search further.
         return;
       }
-      scanTreeRecursively(
-        child,
-        missingPaths,
-        satisfyingPaths,
-        (childKey) => path + '.' + childKey,
-      );
+      scanTreeRecursively(child, missingPaths, satisfyingPaths, (childKey) => path + '.' + childKey);
     });
   }
 
-  scanTreeRecursively(
-    depTree,
-    missingDependencies,
-    satisfyingDependencies,
-    (key) => key,
-  );
+  scanTreeRecursively(depTree, missingDependencies, satisfyingDependencies, (key) => key);
 
   // Collect suggestions in the order they were originally specified.
   final suggestedDependencies = <String>[];
@@ -1987,53 +1985,48 @@ List<_Construction> scanForConstructions({
     return false;
   }
 
-  return declaredDependencies
-      .map<_Construction?>((dep) {
-        final declarationElement = dep.node.tryCast<Identifier>()?.staticElement;
-        if (declarationElement == null) return null;
+  return declaredDependencies.map<_Construction?>((dep) {
+    final declarationElement = dep.node.tryCast<Identifier>()?.staticElement;
+    if (declarationElement == null) return null;
 
-        final declaration = lookUpDeclaration(declarationElement, dep.node.root);
-        if (declaration == null) return null;
+    final declaration = lookUpDeclaration(declarationElement, dep.node.root);
+    if (declaration == null) return null;
 
-        // final handleChange = () {};
-        // final foo = {};
-        // final foo = [];
-        // etc.
-        if (declaration is VariableDeclaration) {
-          // Const variables never change
-          if (declaration.isConst) return null;
-          final initializer = declaration.initializer;
-          if (initializer != null) {
-            final constantExpressionType = getConstructionExpressionType(
-              initializer,
-            );
-            if (constantExpressionType != null) {
-              return _Construction(
-                declaredDependency: dep,
-                declaration: declaration,
-                declarationElement: declarationElement,
-                depType: constantExpressionType,
-                isUsedOutsideOfHook: isUsedOutsideOfHook(declaration, declarationElement),
-              );
-            }
-          }
-          return null;
-        }
-        // handleChange() {}
-        if (declaration is FunctionDeclaration) {
+    // final handleChange = () {};
+    // final foo = {};
+    // final foo = [];
+    // etc.
+    if (declaration is VariableDeclaration) {
+      // Const variables never change
+      if (declaration.isConst) return null;
+      final initializer = declaration.initializer;
+      if (initializer != null) {
+        final constantExpressionType = getConstructionExpressionType(initializer);
+        if (constantExpressionType != null) {
           return _Construction(
             declaredDependency: dep,
             declaration: declaration,
             declarationElement: declarationElement,
-            depType: _DepType.function,
+            depType: constantExpressionType,
             isUsedOutsideOfHook: isUsedOutsideOfHook(declaration, declarationElement),
           );
         }
+      }
+      return null;
+    }
+    // handleChange() {}
+    if (declaration is FunctionDeclaration) {
+      return _Construction(
+        declaredDependency: dep,
+        declaration: declaration,
+        declarationElement: declarationElement,
+        depType: _DepType.function,
+        isUsedOutsideOfHook: isUsedOutsideOfHook(declaration, declarationElement),
+      );
+    }
 
-        return null;
-      })
-      .whereNotNull()
-      .toList();
+    return null;
+  }).whereNotNull().toList();
 }
 
 class _Construction {
@@ -2055,11 +2048,11 @@ class _Construction {
 
   @override
   String toString() => prettyPrint({
-        'declaredDependency': declaredDependency,
-        'declaration': declaration,
-        'depType': depType,
-        'isUsedOutsideOfHook': isUsedOutsideOfHook,
-      });
+    'declaredDependency': declaredDependency,
+    'declaration': declaration,
+    'depType': depType,
+    'isUsedOutsideOfHook': isUsedOutsideOfHook,
+  });
 }
 
 abstract class _DepType {
@@ -2088,8 +2081,10 @@ bool isInvocationADiscreteDependency(PropertyInvocation invocation) {
   bool isProps(Expression e) => e is Identifier && e.name == 'props';
 
   final target = invocation.target;
-  assert(target != null,
-      'target should never be null; callers should check that first, since cascaded calls should not be treated as dependencies');
+  assert(
+    target != null,
+    'target should never be null; callers should check that first, since cascaded calls should not be treated as dependencies',
+  );
   if (target == null) return false;
 
   return isProps(target) || getStableHookMethodInfo(invocation.functionName.parent!) != null;
@@ -2167,8 +2162,11 @@ void markNode(AstNode node, Map<String, bool>? optionalChains, String result, {r
 ///
 /// If [isInvocationAllowedForNode] is true, then invocations will be handled (for certain cases,
 /// like function props and stable hook methods). Otherwise, this will throw.
-String analyzePropertyChain(AstNode node, Map<String, bool>? optionalChains,
-    {required bool isInvocationAllowedForNode}) {
+String analyzePropertyChain(
+  AstNode node,
+  Map<String, bool>? optionalChains, {
+  required bool isInvocationAllowedForNode,
+}) {
   late final propertyInvocation = PropertyInvocation.detect(node);
 
   if (node is SimpleIdentifier) {

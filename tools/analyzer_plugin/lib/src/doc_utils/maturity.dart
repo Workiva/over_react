@@ -57,9 +57,5 @@ class Maturity implements Comparable<Maturity> {
   String toString() => name;
 
   /// A list containing all of the enum values that are defined.
-  static const List<Maturity> VALUES = <Maturity>[
-    stable,
-    experimental,
-    deprecated,
-  ];
+  static const List<Maturity> VALUES = <Maturity>[stable, experimental, deprecated];
 }

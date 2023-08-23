@@ -21,9 +21,11 @@ void main() {
   final buffer = StringBuffer();
   buffer.writeln('const allowedHtmlElementsForAttribute = {');
   supportedElements.forEach((key, value) {
-    buffer.writeln('  \'$key\': ['
-        '${value.map((el) => '\'$el\'').join(', ')}'
-        '],');
+    buffer.writeln(
+      '  \'$key\': ['
+      '${value.map((el) => '\'$el\'').join(', ')}'
+      '],',
+    );
   });
   buffer.writeln('};');
 

@@ -11,8 +11,9 @@ import 'util.dart';
 final _hookNamePattern = RegExp(r'^[_$]*use[A-Z0-9].*$');
 bool isHookName(String s) => _hookNamePattern.hasMatch(s);
 
-FunctionBody? getClosestCustomHookFunction(AstNode node) =>
-    node.ancestors.whereType<FunctionBody>().firstWhereOrNull(isCustomHookFunction);
+FunctionBody? getClosestCustomHookFunction(AstNode node) => node.ancestors.whereType<FunctionBody>().firstWhereOrNull(
+  isCustomHookFunction,
+);
 
 bool isCustomHookFunction(FunctionBody body) {
   final declaration = body.parentDeclaration;

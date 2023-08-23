@@ -61,13 +61,10 @@ ${BoilerplateValidatorDiagnosticTest.boilerplateThatRequiresGeneratedPart}
   Future<void> test_error() async {
     final _source = newSource('test.dart', source);
     final allErrors = await getAllErrors(_source);
-    expect(
-      allErrors,
-      allOf(
-        everyElement(isAnErrorUnderTest(hasFix: true)),
-        contains(isAnErrorUnderTest(locatedAt: createSelection(_source, "UiFactory<FooProps> #Foo# ="), hasFix: true)),
-      ),
-    );
+    expect(allErrors, allOf(
+      everyElement(isAnErrorUnderTest(hasFix: true)),
+      contains(isAnErrorUnderTest(locatedAt: createSelection(_source, "UiFactory<FooProps> #Foo# ="), hasFix: true)),
+    ));
   }
 
   Future<void> test_errorFix() async {
@@ -103,15 +100,12 @@ part 'test.over_react.g.dart';
   Future<void> test_error() async {
     final _source = newSource('test.dart', source);
     final allErrors = await getAllErrors(_source);
-    expect(
-      allErrors,
-      allOf(
-        everyElement(isAnErrorUnderTest(hasFix: true)),
-        unorderedEquals(<Matcher>[
-          isAnErrorUnderTest(locatedAt: createSelection(_source, "#part 'test.over_react.g.dart';#"), hasFix: true),
-        ]),
-      ),
-    );
+    expect(allErrors, allOf(
+      everyElement(isAnErrorUnderTest(hasFix: true)),
+      unorderedEquals(<Matcher>[
+        isAnErrorUnderTest(locatedAt: createSelection(_source, "#part 'test.over_react.g.dart';#"), hasFix: true),
+      ]),
+    ));
   }
 
   Future<void> test_errorFix() async {
@@ -147,17 +141,13 @@ ${BoilerplateValidatorDiagnosticTest.boilerplateThatRequiresGeneratedPart}
   Future<void> test_error() async {
     final _source = newSource('test.dart', source);
     final allErrors = await getAllErrors(_source);
-    expect(
-      allErrors,
-      allOf(
-        everyElement(isAnErrorUnderTest(hasFix: true)),
-        contains(
-          isAnErrorUnderTest(
-              locatedAt: createSelection(_source, "#part 'invalid_generated_part_filename.over_react.g.dart';#"),
-              hasFix: true),
-        ),
-      ),
-    );
+    expect(allErrors, allOf(
+      everyElement(isAnErrorUnderTest(hasFix: true)),
+      contains(isAnErrorUnderTest(
+        locatedAt: createSelection(_source, "#part 'invalid_generated_part_filename.over_react.g.dart';#"),
+        hasFix: true,
+      )),
+    ));
   }
 
   Future<void> test_errorFix() async {

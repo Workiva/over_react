@@ -95,11 +95,7 @@ class IncorrectDocCommentLocationDiagnostic extends DiagnosticContributor {
   @override
   List<DiagnosticCode> get codes => [code];
 
-  static final fixKind = FixKind(
-    code.name,
-    200,
-    'Move comment above factory',
-  );
+  static final fixKind = FixKind(code.name, 200, 'Move comment above factory');
 
   @override
   computeErrors(result, collector) async {
@@ -128,10 +124,7 @@ class IncorrectDocCommentLocationDiagnostic extends DiagnosticContributor {
                 if (sourceFile.getText(end, end + 1) == '\n') {
                   end = end + 1;
                 }
-                builder.addDeletion(range.startOffsetEndOffset(
-                  docComment.offset,
-                  end,
-                ));
+                builder.addDeletion(range.startOffsetEndOffset(docComment.offset, end));
                 builder.addInsertion(factory.offset, (builder) {
                   for (final line in docComment.childEntities) {
                     builder.write('${line.toString()}\n');

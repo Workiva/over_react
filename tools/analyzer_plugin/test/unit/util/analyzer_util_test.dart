@@ -122,11 +122,7 @@ class B {}''');
     expect(node, isNull);
   }
 
-  AstNode _assertLocate(
-    CompilationUnit unit,
-    int start,
-    int end,
-  ) {
+  AstNode _assertLocate(CompilationUnit unit, int start, int end) {
     final locator = NodeLocator(start, end);
     final node = locator.searchWithin(unit)!;
     expect(locator.foundNode, same(node));

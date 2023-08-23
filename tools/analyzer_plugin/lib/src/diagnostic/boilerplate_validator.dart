@@ -42,16 +42,28 @@ const _debugDetails = r'''''';
 class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
   @DocsMeta(_errorDesc, details: _errorDetails)
   static const errorCode = DiagnosticCode(
-      'over_react_boilerplate_error', '{0}', AnalysisErrorSeverity.ERROR, AnalysisErrorType.COMPILE_TIME_ERROR);
+    'over_react_boilerplate_error',
+    '{0}',
+    AnalysisErrorSeverity.ERROR,
+    AnalysisErrorType.COMPILE_TIME_ERROR,
+  );
 
   // TODO should this be COMPILE_TIME_ERROR or STATIC_WARNING?
   @DocsMeta(_warningDesc, details: _warningDetails)
   static const warningCode = DiagnosticCode(
-      'over_react_boilerplate_warning', '{0}', AnalysisErrorSeverity.WARNING, AnalysisErrorType.COMPILE_TIME_ERROR);
+    'over_react_boilerplate_warning',
+    '{0}',
+    AnalysisErrorSeverity.WARNING,
+    AnalysisErrorType.COMPILE_TIME_ERROR,
+  );
 
   @DocsMeta(_debugDesc, details: _debugDetails, maturity: Maturity.experimental)
-  static const debugCode =
-      DiagnosticCode('over_react_boilerplate_debug', '{0}', AnalysisErrorSeverity.INFO, AnalysisErrorType.HINT);
+  static const debugCode = DiagnosticCode(
+    'over_react_boilerplate_debug',
+    '{0}',
+    AnalysisErrorSeverity.INFO,
+    AnalysisErrorType.HINT,
+  );
 
   @override
   List<DiagnosticCode> get codes => [errorCode, warningCode, debugCode];
@@ -71,18 +83,17 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
   ///
   /// Does not report any errors for the part file, as those are handled when the part file is analyzed
   bool _partHasDeclarations(CompilationUnit unit, ResolvedUnitResult parentResult) {
-    return orbp
-        .getBoilerplateDeclarations(
-            orbp.detectBoilerplateMembers(unit),
-            orbp.ErrorCollector.callback(
-              SourceFile.fromString(parentResult.content, url: parentResult.path),
-              // no-op for these.
-              // It is assumed this method will run for parent files, and the part file will get analyzed in its own context.
-              // Need types on the second args to avoid nullability errors, since they come from a non-null-safe library.
-              onError: (message, [SourceSpan? span]) {}, // ignore: avoid_types_on_closure_parameters
-              onWarning: (message, [SourceSpan? span]) {}, // ignore: avoid_types_on_closure_parameters
-            ))
-        .isNotEmpty;
+    return orbp.getBoilerplateDeclarations(
+      orbp.detectBoilerplateMembers(unit),
+      orbp.ErrorCollector.callback(
+        SourceFile.fromString(parentResult.content, url: parentResult.path),
+        // no-op for these.
+        // It is assumed this method will run for parent files, and the part file will get analyzed in its own context.
+        // Need types on the second args to avoid nullability errors, since they come from a non-null-safe library.
+        onError: (message, [SourceSpan? span]) {}, // ignore: avoid_types_on_closure_parameters
+        onWarning: (message, [SourceSpan? span]) {}, // ignore: avoid_types_on_closure_parameters
+      ),
+    ).isNotEmpty;
   }
 
   /// Computes errors for over_react boilerplate
@@ -93,8 +104,11 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
     final debugMatch = _debugCommentPattern.firstMatch(result.content);
     final debug = debugMatch != null;
     if (debug) {
-      collector.addError(debugCode, result.location(offset: debugMatch!.start, end: debugMatch.end),
-          errorMessageArgs: ['Boilerplate debugging hints enabled']);
+      collector.addError(
+        debugCode,
+        result.location(offset: debugMatch!.start, end: debugMatch.end),
+        errorMessageArgs: ['Boilerplate debugging hints enabled'],
+      );
     }
 
     final sourceFile = SourceFile.fromString(result.content, url: result.path);
@@ -148,13 +162,18 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
       declaration.validate(errorCollector);
 
       final declarationName =
-          'Declaration ${j + 1}/${declarations.length} - ${declaration.runtimeType}, ${declaration.version.toString().split('.').last}';
+          'Declaration ${j + 1}/${declarations.length} - ${declaration.runtimeType}, ${declaration.version.toString().split(
+            '.',
+          ).last}';
       final declMembers = declaration.members.toList();
       for (var i = 0; i < declMembers.length; i++) {
         final member = declMembers[i];
         if (debug) {
-          collector.addError(debugCode, result.locationFor(member.name),
-              errorMessageArgs: ['Member ${i + 1}/${declMembers.length} of $declarationName']);
+          collector.addError(
+            debugCode,
+            result.locationFor(member.name),
+            errorMessageArgs: ['Member ${i + 1}/${declMembers.length} of $declarationName'],
+          );
         }
       }
     }
@@ -162,7 +181,10 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
   }
 
   Future<void> _computePartDirectiveErrors(
-      ResolvedUnitResult result, DiagnosticCollector collector, bool hasDeclarations) async {
+    ResolvedUnitResult result,
+    DiagnosticCollector collector,
+    bool hasDeclarations,
+  ) async {
     if (!hasDeclarations && _overReactGeneratedPartDirective != null) {
       await collector.addErrorWithFix(
         errorCode,
@@ -171,7 +193,7 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
           // ignore: no_adjacent_strings_in_list
           'This part will not be generated because there are no valid OverReact component boilerplate '
               'declarations in this file. If you expect this file to contain OverReact component boilerplate declarations, '
-              'double check that they have no syntax errors / lints. Otherwise, the part can safely be removed.'
+              'double check that they have no syntax errors / lints. Otherwise, the part can safely be removed.',
         ],
         fixKind: unnecessaryGeneratedPartFixKind,
         computeFix: () => buildFileEdit(result, (builder) {
@@ -185,7 +207,7 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
         errorCode,
         result.locationFor(_overReactGeneratedPartDirective!),
         errorMessageArgs: [
-          'The generated part name must match the name of the file that contains it, but with `over_react.g.dart` for the file extension.'
+          'The generated part name must match the name of the file that contains it, but with `over_react.g.dart` for the file extension.',
         ],
         fixKind: invalidGeneratedPartFixKind,
         computeFix: () => buildFileEdit(result, (builder) {
@@ -232,10 +254,12 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
   }) {
     const memberMissingPartErrorMsg = 'A `.over_react.g.dart` part directive is required';
     const memberInvalidPartErrorMsg = 'A valid `.over_react.g.dart` part directive is required';
-    final memberPartDirectiveErrorMsg =
-        errorType == PartDirectiveErrorType.missing ? memberMissingPartErrorMsg : memberInvalidPartErrorMsg;
-    final memberPartDirectiveFixKind =
-        errorType == PartDirectiveErrorType.missing ? missingGeneratedPartFixKind : invalidGeneratedPartFixKind;
+    final memberPartDirectiveErrorMsg = errorType == PartDirectiveErrorType.missing
+        ? memberMissingPartErrorMsg
+        : memberInvalidPartErrorMsg;
+    final memberPartDirectiveFixKind = errorType == PartDirectiveErrorType.missing
+        ? missingGeneratedPartFixKind
+        : invalidGeneratedPartFixKind;
 
     return collector.addErrorWithFix(
       errorCode,
@@ -261,10 +285,11 @@ extension on SourceSpan {
 
 // TODO use the version from over_react instead after initial release
 Iterable<PartDirective> getNonGeneratedParts(CompilationUnit libraryUnit) {
-  return libraryUnit.directives.whereType<PartDirective>()
+  return libraryUnit.directives
+      .whereType<PartDirective>()
       // Ignore all generated `.g.dart` parts.
       .where((part) {
-    final stringValue = part.uri.stringValue;
-    return stringValue == null || !stringValue.endsWith('.g.dart');
-  });
+        final stringValue = part.uri.stringValue;
+        return stringValue == null || !stringValue.endsWith('.g.dart');
+      });
 }

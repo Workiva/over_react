@@ -78,8 +78,11 @@ class RulesOfHooks extends DiagnosticContributor {
       const mustBeCalledInMessage =
           "React Hooks must be called in a React function component or a custom React Hook function.";
 
-      void addErrorForHook(String message) =>
-          collector.addError(code, result.locationFor(hook.node), errorMessageArgs: [message]);
+      void addErrorForHook(String message) => collector.addError(
+        code,
+        result.locationFor(hook.node),
+        errorMessageArgs: [message],
+      );
 
       final body = hook.node.thisOrAncestorOfType<FunctionBody>();
       if (body == null) {
@@ -102,15 +105,19 @@ class RulesOfHooks extends DiagnosticContributor {
         }
       } else if (body.parentMethod != null) {
         // Custom message for hooks inside a class
-        addErrorForHook("React Hook '${hook.hookName}' cannot be called in a class or class component."
-            " $mustBeCalledInMessage");
+        addErrorForHook(
+          "React Hook '${hook.hookName}' cannot be called in a class or class component."
+          " $mustBeCalledInMessage",
+        );
       } else if (body.parentDeclaration != null) {
         // Custom message if we found an invalid function name.
-        addErrorForHook("React Hook '${hook.hookName}' is called in function '${body.functionNameOrDescription}'"
-            " that is neither a React function component nor a custom React Hook function."
-            " React function components must be declared using 'uiFunction' or 'uiForwardRef' in over_react,"
-            " or using 'registerFunctionComponent' or 'forwardRef2' in react-dart."
-            " React hook names must start with 'use'.");
+        addErrorForHook(
+          "React Hook '${hook.hookName}' is called in function '${body.functionNameOrDescription}'"
+          " that is neither a React function component nor a custom React Hook function."
+          " React function components must be declared using 'uiFunction' or 'uiForwardRef' in over_react,"
+          " or using 'registerFunctionComponent' or 'forwardRef2' in react-dart."
+          " React hook names must start with 'use'.",
+        );
       } else {
         // Assume in all other cases the user called a hook in some
         // random function callback. This should usually be true for
@@ -127,71 +134,72 @@ class RulesOfHooks extends DiagnosticContributor {
   }
 
   static bool _isWithinLoop(FunctionBody body, HookUsage hook) => // force dartfmt line wrap
-      ancestorsBetween(hook.node, body).any((ancestor) =>
-          ancestor is ForStatement || // force dartfmt line wrap
-          ancestor is WhileStatement ||
-          ancestor is DoStatement ||
-          ancestor is ForElement);
+  ancestorsBetween(hook.node, body).any(
+    (ancestor) =>
+        ancestor is ForStatement || // force dartfmt line wrap
+        ancestor is WhileStatement ||
+        ancestor is DoStatement ||
+        ancestor is ForElement,
+  );
 
   static bool _isWithinCondition(FunctionBody body, HookUsage hook) => // force dartfmt line wrap
-      ancestorsBetween(hook.node, body).any((ancestor) =>
-          ancestor is IfStatement || // force dartfmt line wrap
-          ancestor is SwitchStatement ||
-          ancestor is ConditionalExpression ||
-          ancestor is IfElement);
+  ancestorsBetween(hook.node, body).any(
+    (ancestor) =>
+        ancestor is IfStatement || // force dartfmt line wrap
+        ancestor is SwitchStatement ||
+        ancestor is ConditionalExpression ||
+        ancestor is IfElement,
+  );
 
-  static bool _isPotentiallyShortCircuited(FunctionBody body, HookUsage hook) =>
-      ancestorsBetween(hook.node, body).any((ancestor) {
-        // Short-circuiting binary expression
-        if (ancestor is BinaryExpression &&
-            const {
-              TokenType.QUESTION_QUESTION,
-              TokenType.BAR_BAR,
-              TokenType.AMPERSAND_AMPERSAND,
-            }.contains(ancestor.operator.type) &&
-            (ancestor.rightOperand.containsRangeOf(hook.node))) {
+  static bool _isPotentiallyShortCircuited(FunctionBody body, HookUsage hook) => ancestorsBetween(hook.node, body).any(
+    (ancestor) {
+      // Short-circuiting binary expression
+      if (ancestor is BinaryExpression &&
+          const {TokenType.QUESTION_QUESTION, TokenType.BAR_BAR, TokenType.AMPERSAND_AMPERSAND}.contains(
+            ancestor.operator.type,
+          ) &&
+          (ancestor.rightOperand.containsRangeOf(hook.node))) {
+        return true;
+      }
+
+      if (ancestor is AssignmentExpression) {
+        // Short-circuiting assignment expression
+        if (const {TokenType.QUESTION_QUESTION_EQ, TokenType.BAR_BAR_EQ, TokenType.AMPERSAND_AMPERSAND_EQ}.contains(
+              ancestor.operator.type,
+            ) &&
+            (ancestor.rightHandSide.containsRangeOf(hook.node))) {
           return true;
         }
-
-        if (ancestor is AssignmentExpression) {
-          // Short-circuiting assignment expression
-          if (const {
-                TokenType.QUESTION_QUESTION_EQ,
-                TokenType.BAR_BAR_EQ,
-                TokenType.AMPERSAND_AMPERSAND_EQ,
-              }.contains(ancestor.operator.type) &&
-              (ancestor.rightHandSide.containsRangeOf(hook.node))) {
-            return true;
-          }
-          // Null-aware assignment expression
-          if (ancestor.leftHandSide.tryCast<PropertyAccess>()?.isNullAware ?? false) {
-            return true;
-          }
-        }
-
-        // Null-awares (besides `??` and assignnments, handled above)
-        // TODO handle null-shorting in nnbd
-        if ((ancestor is CascadeExpression && ancestor.isNullAware) ||
-            (ancestor is IndexExpression && ancestor.isNullAware) ||
-            (ancestor is MethodInvocation && ancestor.isNullAware) ||
-            (ancestor is PropertyAccess && ancestor.isNullAware) ||
-            (ancestor is SpreadElement && ancestor.isNullAware)) {
+        // Null-aware assignment expression
+        if (ancestor.leftHandSide.tryCast<PropertyAccess>()?.isNullAware ?? false) {
           return true;
         }
+      }
 
-        // In these cases we have to traverse back down the AST:
-        //
-        // - `foo?.bar()` (should be a MethodInvocation?)
-        // - `foo.bar?.baz()`
-        // TODO check all of the LHS for null-shorting instead of just parts of it?
-        if (ancestor is FunctionExpressionInvocation) {
-          if (ancestor.function.tryCast<PropertyAccess>()?.isNullAware ?? false) {
-            return true;
-          }
+      // Null-awares (besides `??` and assignnments, handled above)
+      // TODO handle null-shorting in nnbd
+      if ((ancestor is CascadeExpression && ancestor.isNullAware) ||
+          (ancestor is IndexExpression && ancestor.isNullAware) ||
+          (ancestor is MethodInvocation && ancestor.isNullAware) ||
+          (ancestor is PropertyAccess && ancestor.isNullAware) ||
+          (ancestor is SpreadElement && ancestor.isNullAware)) {
+        return true;
+      }
+
+      // In these cases we have to traverse back down the AST:
+      //
+      // - `foo?.bar()` (should be a MethodInvocation?)
+      // - `foo.bar?.baz()`
+      // TODO check all of the LHS for null-shorting instead of just parts of it?
+      if (ancestor is FunctionExpressionInvocation) {
+        if (ancestor.function.tryCast<PropertyAccess>()?.isNullAware ?? false) {
+          return true;
         }
+      }
 
-        return false;
-      });
+      return false;
+    },
+  );
 
   static bool _isAfterConditionalReturn(FunctionBody body, HookUsage hook) =>
       body is BlockFunctionBody &&

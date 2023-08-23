@@ -35,7 +35,11 @@ import 'package:analyzer/source/line_info.dart';
 import 'package:analyzer_plugin/protocol/protocol_common.dart' as protocol;
 import 'package:over_react_analyzer_plugin/src/util/ignore_info.dart';
 
-List<protocol.AnalysisError> filterIgnoresForProtocolErrors(List<protocol.AnalysisError> errors, LineInfo lineInfo, IgnoreInfo Function() lazyIgnoreInfo) {
+List<protocol.AnalysisError> filterIgnoresForProtocolErrors(
+  List<protocol.AnalysisError> errors,
+  LineInfo lineInfo,
+  IgnoreInfo Function() lazyIgnoreInfo,
+) {
   if (errors.isEmpty) return errors;
 
   final ignoreInfo = lazyIgnoreInfo();
@@ -50,7 +54,11 @@ List<protocol.AnalysisError> filterIgnoresForProtocolErrors(List<protocol.Analys
   return errors.where((e) => !isIgnored(e)).toList();
 }
 
-List<analyzer.AnalysisError> filterIgnoresForErrors(List<analyzer.AnalysisError> errors, LineInfo lineInfo, IgnoreInfo Function() lazyIgnoreInfo) {
+List<analyzer.AnalysisError> filterIgnoresForErrors(
+  List<analyzer.AnalysisError> errors,
+  LineInfo lineInfo,
+  IgnoreInfo Function() lazyIgnoreInfo,
+) {
   if (errors.isEmpty) return errors;
 
   final ignoreInfo = lazyIgnoreInfo();

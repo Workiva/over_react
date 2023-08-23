@@ -49,13 +49,7 @@ abstract class _ExtractComponentAssistContributorBase extends AssistContributorB
           builder,
           groupName: linkedEditGroupName,
           getComponentRenderReturnValueSrc: ({indent}) {
-            return getNodeSource(
-              usage.node,
-              content,
-              request.result.lineInfo,
-              indent: indent,
-              firstLineIndent: 0,
-            );
+            return getNodeSource(usage.node, content, request.result.lineInfo, indent: indent, firstLineIndent: 0);
           },
         );
       });

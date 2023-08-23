@@ -75,12 +75,10 @@ List<String>? getAttributeMeta(String propName) {
 }
 
 String _camelToSpinalCase(String camel) {
-  return camel
-      .replaceAllMapped(
-        RegExp(r'([^A-Z])([A-Z])'),
-        (match) => '${match.group(1)}-${match.group(2)}',
-      )
-      .toLowerCase();
+  return camel.replaceAllMapped(
+    RegExp(r'([^A-Z])([A-Z])'),
+    (match) => '${match.group(1)}-${match.group(2)}',
+  ).toLowerCase();
 }
 
 /// A map keyed with HTML attributes and iterable values of the HTML element names they are allowed on.
@@ -104,7 +102,7 @@ const allowedHtmlElementsForAttribute = {
     'tfoot',
     'th',
     'thead',
-    'tr'
+    'tr',
   ],
   'allow': ['iframe'],
   'alt': ['applet', 'area', 'img', 'input'],
@@ -150,7 +148,7 @@ const allowedHtmlElementsForAttribute = {
     'output',
     'progress',
     'select',
-    'textarea'
+    'textarea',
   ],
   'formaction': ['input', 'button'],
   'headers': ['td', 'th'],
@@ -193,7 +191,7 @@ const allowedHtmlElementsForAttribute = {
     'textarea',
     'map',
     'meta',
-    'param'
+    'param',
   ],
   'novalidate': ['form'],
   'open': ['details'],

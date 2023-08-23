@@ -48,25 +48,41 @@ TypeMatcher<AnalysisError> isDiagnostic(DiagnosticCode diagnosticCode, {bool? ha
 extension AnalysisErrorHavingUtils on TypeMatcher<AnalysisError> {
   TypeMatcher<AnalysisError> havingCode(/*String|Matcher*/ dynamic code) => having((e) => e.code, 'code', code);
 
-  TypeMatcher<AnalysisError> havingCorrection(/*String?|Matcher*/ dynamic correction) =>
-      having((e) => e.correction, 'correction', correction);
+  TypeMatcher<AnalysisError> havingCorrection(/*String?|Matcher*/ dynamic correction) => having(
+    (e) => e.correction,
+    'correction',
+    correction,
+  );
 
-  TypeMatcher<AnalysisError> havingLocation(/*Matcher|Matcher*/ dynamic matcher) =>
-      having((e) => e.location, 'location', matcher);
+  TypeMatcher<AnalysisError> havingLocation(/*Matcher|Matcher*/ dynamic matcher) => having(
+    (e) => e.location,
+    'location',
+    matcher,
+  );
 
-  TypeMatcher<AnalysisError> havingSeverity(/*AnalysisErrorSeverity|Matcher*/ dynamic severity) =>
-      having((e) => e.severity, 'severity', severity);
+  TypeMatcher<AnalysisError> havingSeverity(/*AnalysisErrorSeverity|Matcher*/ dynamic severity) => having(
+    (e) => e.severity,
+    'severity',
+    severity,
+  );
 
-  TypeMatcher<AnalysisError> havingType(/*AnalysisErrorType|Matcher*/ dynamic type) =>
-      having((e) => e.type, 'type', type);
+  TypeMatcher<AnalysisError> havingType(/*AnalysisErrorType|Matcher*/ dynamic type) => having(
+    (e) => e.type,
+    'type',
+    type,
+  );
 
   TypeMatcher<AnalysisError> thatHasFix() => having((e) => e.hasFix, 'hasFix', isTrue);
 
   TypeMatcher<AnalysisError> thatHasNoFix() => having((e) => e.hasFix, 'hasFix', isFalse);
 }
 
-Matcher matchesSelectionLocation(SourceSelection selection) =>
-    _LocationMatcher(selection.source, selection.offset, selection.length, isFromSelection: true);
+Matcher matchesSelectionLocation(SourceSelection selection) => _LocationMatcher(
+  selection.source,
+  selection.offset,
+  selection.length,
+  isFromSelection: true,
+);
 
 Matcher matchesLocation(Source source, int offset, int length) => _LocationMatcher(source, offset, length);
 
@@ -117,10 +133,7 @@ class _LocationMatcher extends Matcher {
       length = item.length;
     }
 
-    matchState.addAll(<dynamic, dynamic>{
-      if (offset != null) 'offset': offset,
-      if (length != null) 'length': length,
-    });
+    matchState.addAll(<dynamic, dynamic>{if (offset != null) 'offset': offset, if (length != null) 'length': length});
 
     return offset == expectedOffset && length == expectedLength;
   }
