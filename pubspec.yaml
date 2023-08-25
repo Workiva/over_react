@@ -52,7 +52,7 @@ dependency_overrides:
   react:
     git:
       url: https://github.com/Workiva/react-dart
-      ref: null-safety-manual
+      ref: null-safety-manual-2
   react_testing_library:
     git:
       url: https://github.com/Workiva/react_testing_library

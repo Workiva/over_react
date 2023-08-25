@@ -60,7 +60,7 @@ void main() {
       });
 
       group('experimental calculateChangeBits argument functions correctly', () {
-        late Ref<ContextProviderWrapperComponent> providerRef;
+        late Ref<ContextProviderWrapperComponent?> providerRef;
         int? consumerEvenValue;
         int? consumerOddValue;
 

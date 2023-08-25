@@ -47,9 +47,7 @@ import 'package:over_react/component_base.dart';
 ///     }
 ///
 /// Learn more: <https://reactjs.org/docs/refs-and-the-dom.html#creating-refs>.
-Ref<T> createRef<T>() {
-  return react_interop.createRef<T>();
-}
+Ref<T?> createRef<T>() => react_interop.createRef();
 
 /// Creates a function component capable of forwarding its ref to
 /// a component it renders.

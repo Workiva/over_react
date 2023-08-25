@@ -32,8 +32,8 @@ void main() {
     const int defaultContainerHeight = 100;
 
     late Element domTarget;
-    Ref<ResizeSensorComponent>? resizeSensorRef;
-    Ref<Element>? containerRef;
+    Ref<ResizeSensorComponent?>? resizeSensorRef;
+    Ref<Element?>? containerRef;
 
     setUp(() {
       domTarget = document.createElement('div');

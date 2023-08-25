@@ -25,8 +25,8 @@ UiFactory<UseRefExampleProps> UseRefExample = uiFunction(
   (props) {
     final inputValue = useState('');
 
-    final inputRef = useRef<InputElement>();
-    final prevInputValueRef = useRef<String>();
+    final inputRef = useRef2<InputElement?>(null);
+    final prevInputValueRef = useRef2<String?>(null);
 
     useEffect(() {
       prevInputValueRef.current = inputValue.value;

@@ -233,7 +233,7 @@ dynamic preparePropsChangeset(ReactElement element, Map? newProps, [Iterable? ne
 
   // react.Component
   if (dartComponentVersion == ReactDartComponentVersion.component) { // ignore: invalid_use_of_protected_member
-    Map oldExtendedProps = _getInternal(element).props!;
+    Map oldExtendedProps = _getInternal(element).props;
 
     Map extendedProps = Map.from(oldExtendedProps);
     if (newProps != null) {

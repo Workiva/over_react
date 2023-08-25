@@ -415,6 +415,6 @@ mixin TestConnectPropsMixin on UiProps {
 ///
 /// The result of the first call is `1`.
 int useRenderCount() {
-  final count = useRef(0);
-  return (count.current = count.current! + 1);
+  final count = useRef2(0);
+  return (count.current = count.current + 1);
 }

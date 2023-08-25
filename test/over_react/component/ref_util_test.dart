@@ -151,7 +151,7 @@ void commonRefForwardingTests() {
       test('- while consuming the `DomProps` props class', () {
         UiFactory<DomProps> DivForwarded = getFactoryForDiv();
 
-        final Ref<DivElement> refObject = createRef();
+        final refObject = createRef<DivElement>();
 
         mount((DivForwarded()..ref = refObject)());
 
