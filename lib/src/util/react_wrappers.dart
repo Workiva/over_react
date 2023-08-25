@@ -54,7 +54,7 @@ ReactDartComponentInternal _getInternal(/* ReactElement|ReactComponent */ instan
 /// Returns the internal representation of a Dart component's props as maintained by react-dart.
 ///
 /// Similar to `ReactElement.props` in JS, but also includes `props.children`.
-Map? _getExtendedProps(/* ReactElement|ReactComponent */ instance) {
+Map _getExtendedProps(/* ReactElement|ReactComponent */ instance) {
   return _getInternal(instance).props;
 }
 
@@ -122,6 +122,12 @@ final Expando<Map>? _elementPropsCache = _canUseExpandoOnReactElement
 ///
 /// Throws if [instance] is not a valid [ReactElement] or composite [ReactComponent] .
 Map getProps(dynamic/* ReactElement|ReactComponent */ instance, {bool traverseWrappers = false}) {
+  // Use `is! Object` since it type-promotes `dynamic` to `Object`
+  // in the `else` case, while `!= null` does not.
+  if (instance is! Object) {
+    throw ArgumentError.notNull('instance');
+  }
+
   var isCompositeComponent = _isCompositeComponent(instance);
 
   if (isValidElement(instance) || isCompositeComponent) {
@@ -129,10 +135,10 @@ Map getProps(dynamic/* ReactElement|ReactComponent */ instance, {bool traverseWr
       ComponentTypeMeta instanceTypeMeta;
 
       if (isCompositeComponent && isDartComponent(instance)) {
-        final type = getProperty((getDartComponent(instance)!.jsThis as Object?)!, 'constructor') as ReactClass?;
+        final type = getProperty(getDartComponent(instance)!.jsThis as Object, 'constructor') as ReactClass?;
         instanceTypeMeta = getComponentTypeMeta(type!);
       } else if (isValidElement(instance)) {
-        instanceTypeMeta = getComponentTypeMeta(((instance as dynamic).type as Object?)!);
+        instanceTypeMeta = getComponentTypeMeta((instance as ReactElement).type as Object);
       } else {
         throw ArgumentError.value(instance, 'instance',
             'must either be a Dart component ReactComponent or ReactElement when traverseWrappers is true.');
@@ -149,26 +155,30 @@ Map getProps(dynamic/* ReactElement|ReactComponent */ instance, {bool traverseWr
       }
     }
 
-    if (_elementPropsCache != null && !isCompositeComponent) {
-      var cachedView = _elementPropsCache![instance as Object];
+    // Local variable for null type promotion.
+    final elementPropsCache = _elementPropsCache;
+    if (elementPropsCache != null && !isCompositeComponent) {
+      var cachedView = elementPropsCache[instance];
       if (cachedView != null) return cachedView;
     }
 
     Map rawPropsOrCopy;
 
-    final dartComponentVersion = _getDartComponentVersionFromInstance(instance as Object);
+    final dartComponentVersion = _getDartComponentVersionFromInstance(instance);
     if (dartComponentVersion == ReactDartComponentVersion.component) { // ignore: invalid_use_of_protected_member
-      rawPropsOrCopy = _getExtendedProps(instance)!;
+      rawPropsOrCopy = _getExtendedProps(instance);
     } else if (dartComponentVersion == ReactDartComponentVersion.component2) { // ignore: invalid_use_of_protected_member
       // TODO Since JS props are frozen don't wrap in UnmodifiableMapView once https://github.com/dart-lang/sdk/issues/15432 is fixed
-      rawPropsOrCopy = JsBackedMap.backedBy((instance as dynamic).props as JsMap);
+      rawPropsOrCopy = JsBackedMap.backedBy(isCompositeComponent
+          ? (instance as ReactComponent).props
+          : (instance as ReactElement).props);
     } else {
       rawPropsOrCopy = unconvertJsProps(instance);
     }
 
     final unmodifiableProps = UnmodifiableMapView(rawPropsOrCopy);
-    if (_elementPropsCache != null && !isCompositeComponent) {
-      _elementPropsCache![instance] = unmodifiableProps;
+    if (elementPropsCache != null && !isCompositeComponent) {
+      elementPropsCache[instance] = unmodifiableProps;
     }
 
     return unmodifiableProps;
