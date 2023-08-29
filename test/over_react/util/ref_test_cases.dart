@@ -45,6 +45,9 @@ class RefTestCaseCollection<T> {
     const name = untypedCallbackRefCaseName;
     final calls = [];
     return RefTestCase(
+      // Use a lambda instead of a tearoff since we want to explicitly verify
+      // a function with a certain argument type.
+      // ignore: unnecessary_lambdas
       ref: (value) => calls.add(value),
       verifyRefWasUpdated: (actualValue) =>
           expect(calls, [same(actualValue)], reason: _reasonMessage(name)),
@@ -59,7 +62,10 @@ class RefTestCaseCollection<T> {
     const name = typedCallbackRefCaseName;
     final calls = [];
     return RefTestCase(
-      ref: (T value) => calls.add(value),
+      // Use a lambda instead of a tearoff since we want to explicitly verify
+      // a function with a certain argument type.
+      // ignore: unnecessary_lambdas, avoid_types_on_closure_parameters
+      ref: (T? value) => calls.add(value),
       verifyRefWasUpdated: (actualValue) =>
           expect(calls, [same(actualValue)], reason: _reasonMessage(name)),
       getCurrent: () => calls.single,
@@ -101,6 +107,9 @@ class RefTestCaseCollection<T> {
     const name = jsCallbackRefCaseName;
     final calls = [];
     return RefTestCase(
+      // Use a lambda instead of a tearoff since we want to explicitly verify
+      // a function with a certain argument type.
+      // ignore: unnecessary_lambdas
       ref: allowInterop((value) => calls.add(value)),
       verifyRefWasUpdated: (actualValue) =>
           expect(calls, [same(actualValue)], reason: _reasonMessage(name)),

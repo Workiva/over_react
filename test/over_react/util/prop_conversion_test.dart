@@ -162,20 +162,20 @@ main() {
               unjsifyMapListProp<String, String>([
                 jsify({'foo': 'bar'}) as JsMap
               ]),
-              allOf(isA<List<Map<String, String>>>(), everyElement(isA<Map<String, String>>())),
+              allOf(isA<List<Map<String, String>?>>(), everyElement(isA<Map<String, String>>())),
             );
             expect(
               unjsifyMapListProp<String, int>([
                 jsify({'foo': 1}) as JsMap
               ]),
-              allOf(isA<List<Map<String, int>>>(), everyElement(isA<Map<String, int>>())),
+              allOf(isA<List<Map<String, int>?>>(), everyElement(isA<Map<String, int>>())),
             );
             expect(
               unjsifyMapListProp<String, dynamic>([
                 jsify({'foo': 1}) as JsMap,
                 jsify({'bar': true}) as JsMap
               ]),
-              allOf(isA<List<Map<String, dynamic>>>(), everyElement(isA<Map<String, dynamic>>())),
+              allOf(isA<List<Map<String, dynamic>?>>(), everyElement(isA<Map<String, dynamic>>())),
             );
           });
         });
@@ -299,7 +299,7 @@ main() {
           expect(jsifyAndUnjsify(dartRef),
               isA<Ref>().havingJsRef(same(dartRef.jsRef)),
               reason: 'should be backed by the same JS object');
-          expect(jsifyAndUnjsify(dartRef), isA<Ref<Element>>(),
+          expect(jsifyAndUnjsify(dartRef), isA<Ref<Element?>>(),
               reason: 'should have the same reified type');
         });
 
@@ -579,10 +579,10 @@ main() {
               });
 
               test('(typed)', () {
-                late ButtonElement buttonRef;
+                late ButtonElement? buttonRef;
                 final view = render((TestJs()
                   ..buttonProps = (domProps()
-                    ..ref = (ButtonElement ref) {
+                    ..ref = (ButtonElement? ref) {
                       buttonRef = ref;
                     }))());
                 expect(buttonRef, view.getByRole('button'));
@@ -621,12 +621,12 @@ main() {
                 ];
 
               final propKey = TestJs.getPropKey((p) => p.listOfProps);
-              expect(builder, {propKey: isA<List<JsMap>>()},
+              expect(builder, {propKey: isA<List<JsMap?>>()},
                   reason:
                       'test setup: should have converted to a List of JS objects for storage in props map'
                       ' (we want to ensure this happens before it gets to the ReactComponentFactoryProxy)');
-              expect(builder.listOfProps, isA<List<Map>>(),
-                  reason: 'should have unconverted List<JsMap> to a List<Map> in the typed getter');
+              expect(builder.listOfProps, isA<List<Map?>>(),
+                  reason: 'should have unconverted List<JsMap?> to a List<?Map> in the typed getter');
             });
 
             // This case is a little redundant with the (un)jsifyMapListProp tests above, but include it for completeness.
@@ -672,7 +672,7 @@ main() {
                 expect(builder.listOfProps, [{}]);
 
                 final propKey = TestJs.getPropKey((p) => p.listOfProps);
-                expect(builder, {propKey: isA<List<JsMap>>()},
+                expect(builder, {propKey: isA<List<JsMap?>>()},
                     reason:
                         'test setup: should have converted to a JS object for storage in props map');
 
@@ -696,7 +696,7 @@ main() {
                       ];
                     expect(
                         TestJs(builder.listOfProps![0]).listOfProps,
-                        allOf(isA<List<Map>>(), [
+                        allOf(isA<List<Map?>>(), [
                           {'foo': 'bar'}
                         ]));
                   });
@@ -729,7 +729,7 @@ main() {
                 expect(builder.listOfProps, [{}]);
 
                 final propKey = TestJs.getPropKey((p) => p.listOfProps);
-                expect(builder, {propKey: isA<List<JsMap>>()},
+                expect(builder, {propKey: isA<List<JsMap?>>()},
                     reason:
                         'test setup: should have converted to a JS object for storage in props map');
 
@@ -805,11 +805,11 @@ main() {
               });
 
               test('(typed)', () {
-                late LIElement listitemRef;
+                late LIElement? listitemRef;
                 final view = render((TestJs()
                   ..listOfProps = [
                     (domProps()
-                      ..ref = (LIElement ref) {
+                      ..ref = (LIElement? ref) {
                         listitemRef = ref;
                       })
                   ])());
@@ -858,9 +858,9 @@ main() {
             });
 
             test('(typed)', () {
-              late InputElement inputRef;
+              late InputElement? inputRef;
               final view = render((TestJs()
-                ..inputRef = (InputElement ref) {
+                ..inputRef = (InputElement? ref) {
                   inputRef = ref;
                 })());
               expect(inputRef, view.getByRole('textbox'));
@@ -1011,7 +1011,7 @@ main() {
           ));
 
           expect(() => capturedProps.listOfProps, returnsNormally);
-          expect(capturedProps.listOfProps, isA<List<Map>>());
+          expect(capturedProps.listOfProps, isA<List<Map?>>());
 
           final node = view.getByRole('listitem');
           expect(node, hasStyles({'color': 'blue'}));
