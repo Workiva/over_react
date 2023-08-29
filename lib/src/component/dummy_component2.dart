@@ -14,16 +14,31 @@
 
 import 'package:over_react/over_react.dart';
 
+part 'dummy_component2.over_react.g.dart';
+
+@Factory()
+// ignore: undefined_identifier, unused_element
+UiFactory<_Dummy2Props> _Dummy2 = _$_Dummy2;
+
+@Props()
+class _$_Dummy2Props extends UiProps {}
+
+@Component2()
+class _Dummy2Component extends UiComponent2<_Dummy2Props> {
+  @override
+  render() {
+    return null;
+  }
+}
+
 // UiComponent2Bridge and its jsifyPropTypes implementation require a UiComponent2,
 // and cannot simply be a react.Component2 class.
 //
+// They also assume it's a generated component, as non-generated components can throw
+// UngeneratedError when certain members, like `propTypes`, are accessed during registration.
+//
 // This is to publicly expose the generated component type for use with `registerAbstractComponent2`.
-class DummyComponent2 extends UiComponent2 {
+class DummyComponent2 extends _$_Dummy2Component {
   @override
   render() {}
-
-  // Make it so we can instantiate this class without runtime errors,
-  // and also make the builder ignore it.
-  @override
-  bool get $isClassGenerated => true;
 }
