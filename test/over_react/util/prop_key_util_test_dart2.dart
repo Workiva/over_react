@@ -22,27 +22,45 @@ part 'prop_key_util_test_dart2.over_react.g.dart';
 
 main() {
   group('getPropKey', () {
+    late final String expectedFooPropKey;
+
+    setUpAll(() {
+      expectedFooPropKey = (Test()..foo = 'baz').keys.single! as String;
+    });
+
     test('returns the expected key', () {
-      var testProps = Test()..foo = 'baz';
-      var fooPropKey = getPropKey((dynamic props) { (props as TestProps).foo; }, Test);   // ignore: avoid_as
-      expect(testProps, equals({fooPropKey: 'baz'}));
+      final fooPropKey = getPropKey<TestProps>((props) => props.foo, Test);
+      expect(fooPropKey, expectedFooPropKey);
     });
 
     test('throws if you don\'t access the prop', () {
-      expect(() => getPropKey((dynamic props) => false, Test), throwsStateError);
+      expect(() => getPropKey<TestProps>((props) {}, Test), throwsStateError);
     });
 
-    test('throws if you access the prop multiple times', () {
-      expect(() => getPropKey((dynamic props) {
-        (props as TestProps).foo; // ignore: avoid_as
-        props.foo; // ignore: avoid_as
-      }, Test), throwsStateError);
+    test('short-circuits once a prop key is accessed', () {
+      var codeAfterAccessWasRun = false;
+      getPropKey<TestProps>((props) {
+        props.foo;
+        codeAfterAccessWasRun = true;
+      }, Test);
+      expect(codeAfterAccessWasRun, isFalse);
     });
 
-    test('throws if you access multiple props', () {
-      expect(() => getPropKey((dynamic props) {
-        (props as TestProps).foo; // ignore: avoid_as
-        props.bar; // ignore: avoid_as
+    test('returns the prop key even if the internal exception is caught', () {
+      final fooPropKey = getPropKey<TestProps>((props) {
+        try {
+          props.foo;
+        } catch (_) {}
+      }, Test);
+      expect(fooPropKey, expectedFooPropKey);
+    });
+
+    test('throws if the map is accessed more than once (only possible if the internal exception is caught)', () {
+      expect(() => getPropKey<TestProps>((props) {
+        try {
+          props.foo;
+        } catch (_) {}
+        props.foo;
       }, Test), throwsStateError);
     });
   });
