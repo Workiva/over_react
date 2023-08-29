@@ -15,14 +15,13 @@ mixin $LazyLoadMePropsMixin on LazyLoadMePropsMixin {
   static const PropsMeta meta = _$metaForLazyLoadMePropsMixin;
   @override
   get initialCount =>
-      ((props[_$key__initialCount__LazyLoadMePropsMixin])!) as num;
+      (props[_$key__initialCount__LazyLoadMePropsMixin]) as num?;
   @override
   set initialCount(value) =>
       props[_$key__initialCount__LazyLoadMePropsMixin] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__initialCount__LazyLoadMePropsMixin =
-      PropDescriptor(_$key__initialCount__LazyLoadMePropsMixin,
-          isRequired: true, isNullable: true, errorMessage: '');
+      PropDescriptor(_$key__initialCount__LazyLoadMePropsMixin);
   static const String _$key__initialCount__LazyLoadMePropsMixin =
       'initialCount';
 
