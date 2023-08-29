@@ -27,13 +27,13 @@ class UpdateBlockTwoBackgroundColorAction {}
 class UpdateBlockThreeBackgroundColorAction {}
 
 class RandomColorActions {
-  final flux.Action<String> changeMainBackgroundColor = flux.Action();
+  final flux.ActionOptionalPayload<String> changeMainBackgroundColor = flux.ActionOptionalPayload();
 
-  final flux.Action<String> changeBlockOneBackgroundColor = flux.Action();
+  final flux.ActionOptionalPayload<String> changeBlockOneBackgroundColor = flux.ActionOptionalPayload();
 
-  final flux.Action<String> changeBlockTwoBackgroundColor = flux.Action();
+  final flux.ActionOptionalPayload<String> changeBlockTwoBackgroundColor = flux.ActionOptionalPayload();
 
-  final flux.Action<String> changeBlockThreeBackgroundColor = flux.Action();
+  final flux.ActionOptionalPayload<String> changeBlockThreeBackgroundColor = flux.ActionOptionalPayload();
 }
 
 class TopLevelReduxState {

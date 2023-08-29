@@ -23,10 +23,10 @@ int _resetCounterReducer(int currentCount, ResetAction action) {
 }
 
 class FluxActions {
-  final flux.Action<int> incrementAction = flux.Action();
-  final flux.Action<int> decrementAction = flux.Action();
-  final flux.Action resetAction = flux.Action();
-  final flux.Action mutateStoreDirectly = flux.Action();
+  final flux.ActionOptionalPayload<int> incrementAction = flux.ActionOptionalPayload();
+  final flux.ActionOptionalPayload<int> decrementAction = flux.ActionOptionalPayload();
+  final flux.ActionOptionalPayload resetAction = flux.ActionOptionalPayload();
+  final flux.ActionOptionalPayload mutateStoreDirectly = flux.ActionOptionalPayload();
 }
 
 class FluxStore extends flux.Store with InfluxStoreMixin<FluxCounterState> {
@@ -98,9 +98,9 @@ class FluxStore2 extends flux.Store with InfluxStoreMixin<BigCounterState> {
   FluxStore2(this._actions) {
     state = BigCounterState(bigCount: 0);
 
-    triggerOnActionV2<int>(_actions.incrementAction,
+    triggerOnActionV2<int?>(_actions.incrementAction,
         (count) => this.influxReducer(IncrementAction(count)));
-    triggerOnActionV2<int>(_actions.decrementAction,
+    triggerOnActionV2<int?>(_actions.decrementAction,
         (count) => this.influxReducer(DecrementAction(count)));
     triggerOnActionV2(
         _actions.resetAction, (dynamic _) => this.influxReducer(ResetAction()));
@@ -108,10 +108,10 @@ class FluxStore2 extends flux.Store with InfluxStoreMixin<BigCounterState> {
 }
 
 class BigCounterState {
-  final int? bigCount;
+  final int bigCount;
   final String name;
   BigCounterState({
-    this.bigCount,
+    required this.bigCount,
     this.name = 'BigCounter',
   });
 }
@@ -124,7 +124,7 @@ int _bigCounterIncrementReducer(int currentCount, IncrementAction action) {
   return currentCount + (action.value != null ? action.value! : 100);
 }
 
-Reducer<int?> bigCounterActionsReducer = combineReducers<int?>([
+Reducer<int> bigCounterActionsReducer = combineReducers<int>([
   TypedReducer<int, IncrementAction>(_bigCounterIncrementReducer),
   TypedReducer<int, DecrementAction>(_bigCounterDecrementReducer),
   TypedReducer<int, ResetAction>(_resetCounterReducer),
@@ -163,12 +163,12 @@ class TestConnectableFluxStore extends flux.Store {
     triggerOnActionV2(_actions.resetAction, _resetAction);
   }
 
-  void _incrementAction(int count) {
-    _count += count;
+  void _incrementAction(int? count) {
+    _count += count ?? 1;
   }
 
-  void _decrementAction(int count) {
-    _count -= count;
+  void _decrementAction(int? count) {
+    _count -= count ?? 1;
   }
 
   void _resetAction(_) {
