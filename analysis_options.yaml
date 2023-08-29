@@ -19,8 +19,10 @@ analyzer:
     # Workaround for https://github.com/dart-lang/sdk/issues/51087
     # TODO remove once we can run on Dart 2.19 (blocked by https://github.com/dart-lang/sdk/issues/51128 or working around it by upgrading to analyzer ^5.1.0)
     part_of_different_library: ignore
+    cast_nullable_to_non_nullable: warning
 linter:
   rules:
+    cast_nullable_to_non_nullable: true
     # -------------------
     # Pedantic
     # -------------------

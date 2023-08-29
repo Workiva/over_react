@@ -49,8 +49,8 @@ class Context<TValue> {
   Context(this.Provider, this.Consumer, this.reactDartContext);
 
   factory Context.fromReactDartContext(react.Context<TValue> reactDartContext) {
-    ProviderProps<TValue> Provider([Map? map]) => (ProviderProps<TValue>(map as JsBackedMap)..componentFactory = reactDartContext.Provider);
-    ConsumerProps<TValue> Consumer([Map? map]) => (ConsumerProps<TValue>(map as JsBackedMap)..componentFactory = reactDartContext.Consumer);
+    ProviderProps<TValue> Provider([Map? map]) => (ProviderProps<TValue>(map as JsBackedMap?)..componentFactory = reactDartContext.Provider);
+    ConsumerProps<TValue> Consumer([Map? map]) => (ConsumerProps<TValue>(map as JsBackedMap?)..componentFactory = reactDartContext.Consumer);
     return Context<TValue>(Provider, Consumer, reactDartContext);
   }
 

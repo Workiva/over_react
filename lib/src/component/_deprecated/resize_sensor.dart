@@ -184,8 +184,8 @@ class _$ResizeSensorProps extends UiProps with ResizeSensorPropsMixin {}
 class ResizeSensorComponent extends UiComponent2<ResizeSensorProps> with SafeAnimationFrameMixin {
   // Refs
 
-  Element? _expandSensorRef;
-  Element? _collapseSensorRef;
+  final _expandSensorRef = createRef<Element>();
+  final _collapseSensorRef = createRef<Element>();
 
   @override
   get defaultProps => (newProps()
@@ -239,7 +239,7 @@ class ResizeSensorComponent extends UiComponent2<ResizeSensorProps> with SafeAni
       ..className = 'resize-sensor-expand'
       ..onScroll = _handleSensorScroll
       ..style = props.shrink! ? shrinkBaseStyle : baseStyle
-      ..ref = (ref) { _expandSensorRef = ref as Element; }
+      ..ref = _expandSensorRef
     )(
       (Dom.div()..style = expandSensorChildStyle)()
     );
@@ -248,7 +248,7 @@ class ResizeSensorComponent extends UiComponent2<ResizeSensorProps> with SafeAni
       ..className = 'resize-sensor-collapse'
       ..onScroll = _handleSensorScroll
       ..style = props.shrink! ? shrinkBaseStyle : baseStyle
-      ..ref = (ref) { _collapseSensorRef = ref as Element; }
+      ..ref = _collapseSensorRef
     )(
       (Dom.div()..style = collapseSensorChildStyle)()
     );
@@ -320,11 +320,11 @@ class ResizeSensorComponent extends UiComponent2<ResizeSensorProps> with SafeAni
     // Scroll positions are clamped to their maxes; use this behavior to scroll to the end
     // as opposed to scrollWidth/scrollHeight, which trigger reflows immediately.
 
-    _expandSensorRef!
+    _expandSensorRef.current!
       ..scrollLeft = maxSensorSize
       ..scrollTop = maxSensorSize;
 
-    _collapseSensorRef!
+    _collapseSensorRef.current!
       ..scrollLeft = maxSensorSize
       ..scrollTop = maxSensorSize;
 

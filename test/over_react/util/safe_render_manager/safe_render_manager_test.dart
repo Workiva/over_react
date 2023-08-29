@@ -72,7 +72,7 @@ main() {
           test('by chaining any existing callback ref', () {
             WrapperComponent? existingWrapperRef;
 
-            renderManager!.render((Wrapper()..ref = ((ref) => existingWrapperRef = ref as WrapperComponent))());
+            renderManager!.render((Wrapper()..ref = ((ref) => existingWrapperRef = ref as WrapperComponent?))());
 
             expect(renderManager!.contentRef, isNotNull);
             expect(existingWrapperRef, same(renderManager!.contentRef));
@@ -97,9 +97,9 @@ main() {
           });
 
           test('by chaining any existing callback ref', () {
-            late ParagraphElement existingWrapperRef;
+            ParagraphElement? existingWrapperRef;
 
-            renderManager!.render((Dom.p()..ref = ((ref) => existingWrapperRef = ref as ParagraphElement))());
+            renderManager!.render((Dom.p()..ref = ((ref) => existingWrapperRef = ref as ParagraphElement?))());
 
             expect(renderManager!.contentRef, isNotNull);
             expect(existingWrapperRef, same(renderManager!.contentRef));
