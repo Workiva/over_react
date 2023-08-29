@@ -55,17 +55,22 @@ class CssValue implements Comparable<CssValue> {
     CssValue? handleError(Error error) => onError?.call(source, error);
 
     if (source == null) return handleError(ArgumentError.notNull('value'));
-    if (source is num) return CssValue(source, 'px');
 
-    var unitMatch = RegExp(r'(?:rem|em|ex|vh|vw|vmin|vmax|%|px|cm|mm|in|pt|pc|ch)?$').firstMatch(source.toString())!;
-    var unit = unitMatch.group(0)!;
-    if (unit == '') {
+    final num number;
+    final String unit;
+    if (source is num) {
+      number = source;
       unit = 'px';
-    }
+    } else {
+      var unitMatch = RegExp(r'(?:rem|em|ex|vh|vw|vmin|vmax|%|px|cm|mm|in|pt|pc|ch)?$').firstMatch(source.toString())!;
+      final parsedUnit = unitMatch.group(0)!;
+      unit = parsedUnit.isNotEmpty ? parsedUnit : 'px';
 
-    final number = double.tryParse(unitMatch.input.substring(0, unitMatch.start));
-    if (number == null) {
-      return handleError(ArgumentError.value(source, 'value', 'Invalid number/unit for CSS value'));
+      final parsedNumber = double.tryParse(unitMatch.input.substring(0, unitMatch.start));
+      if (parsedNumber == null) {
+        return handleError(ArgumentError.value(source, 'value', 'Invalid number/unit for CSS value'));
+      }
+      number = parsedNumber;
     }
     if (!number.isFinite) {
       // Rule out -Infinity, Infinity, and NaN.
