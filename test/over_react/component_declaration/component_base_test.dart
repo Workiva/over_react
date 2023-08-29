@@ -1519,7 +1519,7 @@ main() {
           });
 
           test('`factory`', () {
-            UiFactory factoryAlias = (([_]) => null);
+            UiFactory factoryAlias = (([_]) => DummyUiProps());
             var reactComponentFactory = registerComponent(dummyComponentFactory, builderFactory: factoryAlias);
 
             expect(getComponentTypeFromAlias(factoryAlias), equals(reactComponentFactory.type));
@@ -1786,6 +1786,11 @@ class TestUiPropsWithCustomComponentFactory extends UiProps {
   @override
   ReactComponentFactoryProxy? componentFactory;
 
+  @override
+  final Map props = {};
+}
+
+class DummyUiProps extends UiProps {
   @override
   final Map props = {};
 }

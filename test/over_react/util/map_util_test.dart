@@ -20,13 +20,12 @@ import 'package:test/test.dart';
 import 'package:over_react/src/component_declaration/component_base.dart' as component_base;
 
 typedef ForwardUnconsumedPropsFunction = void Function(Map props, {
-    bool? omitReactProps,
-    bool? onlyCopyDomProps,
-    Iterable? keysToOmit,
-    Iterable<Iterable>?
-    keySetsToOmit,
-    Map? propsToUpdate
-  });
+  bool omitReactProps,
+  bool onlyCopyDomProps,
+  Iterable? keysToOmit,
+  Iterable<Iterable>? keySetsToOmit,
+  required Map propsToUpdate,
+});
 
 /// Main entrypoint for map_util testing
 main() {

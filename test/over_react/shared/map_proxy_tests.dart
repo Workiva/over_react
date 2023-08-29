@@ -36,7 +36,7 @@ void mapProxyTests(Map Function(Map proxiedMap) mapProxyFactory) {
     });
 
     test('map', () {
-      callback(key, value) {}
+      callback(key, value) => MapEntry(null, null);
 
       proxy.map(callback);
       verify(backingMap.map(callback));
@@ -56,7 +56,7 @@ void mapProxyTests(Map Function(Map proxiedMap) mapProxyFactory) {
     });
 
     test('removeWhere', () {
-      callback(key, value) {}
+      callback(key, value) => false;
       proxy.removeWhere(callback);
       verify(backingMap.removeWhere(callback));
     });
