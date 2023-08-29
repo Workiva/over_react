@@ -1519,7 +1519,7 @@ main() {
           });
 
           test('`factory`', () {
-            UiFactory factoryAlias = (([_]) => null) as UiProps Function([Map<dynamic, dynamic>?]);
+            UiFactory factoryAlias = (([_]) => null);
             var reactComponentFactory = registerComponent(dummyComponentFactory, builderFactory: factoryAlias);
 
             expect(getComponentTypeFromAlias(factoryAlias), equals(reactComponentFactory.type));

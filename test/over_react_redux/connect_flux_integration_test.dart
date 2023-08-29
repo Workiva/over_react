@@ -105,8 +105,8 @@ main() {
             mapStateToProps: (state) =>
                 (ConnectFluxCounter()..currentCount = state.count),
             mapActionsToProps: (actions) => (ConnectFluxCounter()
-              ..increment = actions!.incrementAction as void Function()?
-              ..decrement = actions.decrementAction as void Function()?),
+              ..increment = actions!.incrementAction
+              ..decrement = actions.decrementAction),
           )(ConnectFluxCounter);
 
           final CounterProps Function([Map<dynamic, dynamic>]) ConnectedReduxComponent = connect<FluxStore, CounterProps>(
@@ -154,8 +154,8 @@ main() {
           mapStateToProps: (state) =>
               (ConnectFluxCounter()..currentCount = state.count),
           mapActionsToProps: (actions) => (ConnectFluxCounter()
-            ..increment = actions!.incrementAction as void Function()?
-            ..decrement = actions.decrementAction as void Function()?),
+            ..increment = actions!.incrementAction
+            ..decrement = actions.decrementAction),
         )(ConnectFluxCounter);
 
         final CounterProps Function([Map<dynamic, dynamic>]) ConnectedReduxComponent = connect<FluxStore, CounterProps>(
@@ -241,8 +241,8 @@ main() {
           mapStateToProps: (state) =>
               (ConnectFluxCounter()..currentCount = state.count),
           mapActionsToProps: (actions) => (ConnectFluxCounter()
-            ..increment = actions!.incrementAction as void Function()?
-            ..decrement = actions.decrementAction as void Function()?),
+            ..increment = actions!.incrementAction
+            ..decrement = actions.decrementAction),
         )(ConnectFluxCounter);
 
         ConnectedReduxComponent =

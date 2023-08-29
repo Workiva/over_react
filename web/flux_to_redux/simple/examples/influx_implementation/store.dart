@@ -76,4 +76,4 @@ class ReduxState {
 RandomColorActions randomColorActions = RandomColorActions();
 FluxStore randomColorStore = FluxStore(randomColorActions);
 FluxToReduxAdapterStore adaptedStore = randomColorStore.asReduxStore(randomColorActions,
-    middleware: [overReactReduxDevToolsMiddleware as dynamic Function(Store<dynamic>, dynamic, dynamic Function(dynamic))]);
+    middleware: [overReactReduxDevToolsMiddleware]);

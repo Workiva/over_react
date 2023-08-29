@@ -67,21 +67,21 @@ int _counterIncrementReducer(int currentCount, IncrementAction action) {
 }
 
 Reducer<int> counterActionsReducer = combineReducers<int>([
-  TypedReducer<int, IncrementAction>(_counterIncrementReducer) as int Function(int, dynamic),
-  TypedReducer<int, DecrementAction>(_counterDecrementReducer) as int Function(int, dynamic),
-  TypedReducer<int, ResetAction>(_resetCounterReducer) as int Function(int, dynamic),
+  TypedReducer<int, IncrementAction>(_counterIncrementReducer),
+  TypedReducer<int, DecrementAction>(_counterDecrementReducer),
+  TypedReducer<int, ResetAction>(_resetCounterReducer),
 ]);
 
 Reducer<DartModelCounter> modelCounterActionsReducer = combineReducers<DartModelCounter>([
   TypedReducer<DartModelCounter, ResetAction>((currentModel, action) {
     return DartModelCounter(count: 0);
-  }) as DartModelCounter Function(DartModelCounter, dynamic),
+  }),
   TypedReducer<DartModelCounter, IncrementModelCountAction>((currentModel, action) {
     return DartModelCounter(count: currentModel.count + (action.value as int? ?? 1));
-  }) as DartModelCounter Function(DartModelCounter, dynamic),
+  }),
   TypedReducer<DartModelCounter, DecrementModelCountAction>((currentModel, action) {
     return DartModelCounter(count: currentModel.count - (action.value as int? ?? 1));
-  }) as DartModelCounter Function(DartModelCounter, dynamic),
+  }),
 ]);
 
 CounterState counterStateReducer(CounterState state, action) => CounterState(
@@ -111,9 +111,9 @@ int _bigCounterIncrementReducer(int currentCount, IncrementAction action) {
 }
 
 Reducer<int> bigCounterActionsReducer = combineReducers<int>([
-  TypedReducer<int, IncrementAction>(_bigCounterIncrementReducer) as int Function(int, dynamic),
-  TypedReducer<int, DecrementAction>(_bigCounterDecrementReducer) as int Function(int, dynamic),
-  TypedReducer<int, ResetAction>(_resetCounterReducer) as int Function(int, dynamic),
+  TypedReducer<int, IncrementAction>(_bigCounterIncrementReducer),
+  TypedReducer<int, DecrementAction>(_bigCounterDecrementReducer),
+  TypedReducer<int, ResetAction>(_resetCounterReducer),
 ]);
 
 BigCounterState bigCounterStateReducer(BigCounterState state, action) => BigCounterState(

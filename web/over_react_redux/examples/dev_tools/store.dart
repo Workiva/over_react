@@ -30,5 +30,5 @@ export '../simple/store.dart' hide store;
 Store store = DevToolsStore<CounterState>(
   stateReducer,
   initialState: CounterState.defaultState(),
-  middleware: [overReactReduxDevToolsMiddleware as dynamic Function(Store<CounterState>, dynamic, dynamic Function(dynamic))],
+  middleware: [overReactReduxDevToolsMiddleware],
 );

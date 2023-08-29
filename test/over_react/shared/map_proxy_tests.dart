@@ -38,8 +38,8 @@ void mapProxyTests(Map Function(Map proxiedMap) mapProxyFactory) {
     test('map', () {
       callback(key, value) {}
 
-      proxy.map(callback as MapEntry Function(dynamic, dynamic));
-      verify(backingMap.map(callback as MapEntry Function(dynamic, dynamic)));
+      proxy.map(callback);
+      verify(backingMap.map(callback));
     });
 
     test('entries', () {
@@ -57,8 +57,8 @@ void mapProxyTests(Map Function(Map proxiedMap) mapProxyFactory) {
 
     test('removeWhere', () {
       callback(key, value) {}
-      proxy.removeWhere(callback as bool Function(dynamic, dynamic));
-      verify(backingMap.removeWhere(callback as bool Function(dynamic, dynamic)));
+      proxy.removeWhere(callback);
+      verify(backingMap.removeWhere(callback));
     });
 
     test('update', () {

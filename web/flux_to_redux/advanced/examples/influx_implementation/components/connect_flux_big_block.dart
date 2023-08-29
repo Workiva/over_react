@@ -42,8 +42,8 @@ UiFactory<ConnectFluxBigBlockProps> ConnectFluxBigBlock = composeHocs([
       ..blockOneBackgroundColor = state.blockOneBackgroundColor
     ),
     mapActionsToProps: (actions) => (ConnectFluxBigBlock()
-      ..changeMainBackgroundColor = actions!.changeMainBackgroundColor as void Function()?
-      ..changeBlockOneBackgroundColor = actions.changeBlockOneBackgroundColor as void Function()?
+      ..changeMainBackgroundColor = actions!.changeMainBackgroundColor
+      ..changeBlockOneBackgroundColor = actions.changeBlockOneBackgroundColor
     ),
   ),
   // [5]
@@ -52,7 +52,7 @@ UiFactory<ConnectFluxBigBlockProps> ConnectFluxBigBlock = composeHocs([
     // [7]
     mapStateToProps: (state) => (ConnectFluxBigBlock()..blockTwoBackgroundColor = state.backgroundColor),
     mapActionsToProps: (actions) =>
-        (ConnectFluxBigBlock()..changeBlockTwoBackgroundColor = actions!.changeBlockTwoBackgroundColor as void Function()?),
+        (ConnectFluxBigBlock()..changeBlockTwoBackgroundColor = actions!.changeBlockTwoBackgroundColor),
   ),
   // [5]
   connectFlux<AnotherColorStore, RandomColorActions, ConnectFluxBigBlockProps>(
@@ -60,7 +60,7 @@ UiFactory<ConnectFluxBigBlockProps> ConnectFluxBigBlock = composeHocs([
     // [7]
     mapStateToProps: (state) => (ConnectFluxBigBlock()..blockThreeBackgroundColor = state.backgroundColor),
     mapActionsToProps: (actions) =>
-        (ConnectFluxBigBlock()..changeBlockThreeBackgroundColor = actions!.changeBlockThreeBackgroundColor as void Function()?),
+        (ConnectFluxBigBlock()..changeBlockThreeBackgroundColor = actions!.changeBlockThreeBackgroundColor),
   ),
 ])(castUiFactory(_$ConnectFluxBigBlock)); // ignore: undefined_identifier
 

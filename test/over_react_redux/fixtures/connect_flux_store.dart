@@ -125,9 +125,9 @@ int _bigCounterIncrementReducer(int currentCount, IncrementAction action) {
 }
 
 Reducer<int?> bigCounterActionsReducer = combineReducers<int?>([
-  TypedReducer<int, IncrementAction>(_bigCounterIncrementReducer) as int? Function(int?, dynamic),
-  TypedReducer<int, DecrementAction>(_bigCounterDecrementReducer) as int? Function(int?, dynamic),
-  TypedReducer<int, ResetAction>(_resetCounterReducer) as int? Function(int?, dynamic),
+  TypedReducer<int, IncrementAction>(_bigCounterIncrementReducer),
+  TypedReducer<int, DecrementAction>(_bigCounterDecrementReducer),
+  TypedReducer<int, ResetAction>(_resetCounterReducer),
 ]);
 
 BigCounterState bigCounterStateReducer(BigCounterState state, action) =>

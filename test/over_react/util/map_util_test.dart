@@ -373,13 +373,13 @@ main() {
       });
     }
     group('forwardUnconsumedProps', () {
-      commonPropsForwardingUtilTests(forwardUnconsumedProps as void Function(Map<dynamic, dynamic>, {Iterable<Iterable<dynamic>>? keySetsToOmit, Iterable<dynamic>? keysToOmit, bool? omitReactProps, bool? onlyCopyDomProps, Map<dynamic, dynamic>? propsToUpdate}));
-      commonDomPropsFilteringTest(forwardUnconsumedProps as void Function(Map<dynamic, dynamic>, {Iterable<Iterable<dynamic>>? keySetsToOmit, Iterable<dynamic>? keysToOmit, bool? omitReactProps, bool? onlyCopyDomProps, Map<dynamic, dynamic>? propsToUpdate}), shouldFilter: false);
+      commonPropsForwardingUtilTests(forwardUnconsumedProps);
+      commonDomPropsFilteringTest(forwardUnconsumedProps, shouldFilter: false);
     });
 
     group('forwardUnconsumedPropsV2', () {
-      commonPropsForwardingUtilTests(forwardUnconsumedPropsV2 as void Function(Map<dynamic, dynamic>, {Iterable<Iterable<dynamic>>? keySetsToOmit, Iterable<dynamic>? keysToOmit, bool? omitReactProps, bool? onlyCopyDomProps, Map<dynamic, dynamic>? propsToUpdate}));
-      commonDomPropsFilteringTest(forwardUnconsumedPropsV2 as void Function(Map<dynamic, dynamic>, {Iterable<Iterable<dynamic>>? keySetsToOmit, Iterable<dynamic>? keysToOmit, bool? omitReactProps, bool? onlyCopyDomProps, Map<dynamic, dynamic>? propsToUpdate}));
+      commonPropsForwardingUtilTests(forwardUnconsumedPropsV2);
+      commonDomPropsFilteringTest(forwardUnconsumedPropsV2);
     });
 
     group('newStyleFromProps() returns', () {
