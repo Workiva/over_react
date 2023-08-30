@@ -32,7 +32,7 @@ class FancyInputApi {
 
 UiFactory<FancyInputProps> FancyInput = uiForwardRef(
   (props, ref) {
-    final inputRef = useRef2<InputElement?>(null);
+    final inputRef = useRef<InputElement>();
 
     useImperativeHandle(
       ref,
@@ -58,7 +58,7 @@ UiFactory<UseImperativeHandleExampleProps> UseImperativeHandleExample =
     uiFunction(
   (props) {
     final inputValue = useState('');
-    final fancyInputRef = useRef2<FancyInputApi?>(null);
+    final fancyInputRef = useRef<FancyInputApi>();
 
     return Fragment()(
       (FancyInput()

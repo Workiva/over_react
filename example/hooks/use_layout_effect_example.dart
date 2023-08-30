@@ -26,7 +26,7 @@ UiFactory<UseLayoutEffectProps> UseLayoutEffectExample = uiFunction(
     final width = useState(0);
     final height = useState(0);
 
-    final textareaRef = useRef2<TextAreaElement?>(null);
+    final textareaRef = useRef<TextAreaElement>();
 
     useLayoutEffect(() {
       width.set(textareaRef.current!.clientWidth);
