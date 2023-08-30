@@ -7,11 +7,11 @@ environment:
 
 dependencies:
   collection: ^1.14.11
-  analyzer: '>=1.7.2 <3.0.0'
+  analyzer: ^2.0.0
   build: '>=1.0.0 <3.0.0'
   built_redux: ^8.0.0
   built_value: ^8.0.0
-  dart_style: '>=1.2.5 <3.0.0'
+  dart_style: ^2.0.0
   js: ^0.6.1+1
   logging: ^1.0.0
   meta: ^1.6.0
@@ -20,7 +20,7 @@ dependencies:
   redux: '>=3.0.0 <6.0.0'
   source_span: ^1.4.1
   transformer_utils: ^0.2.6
-  w_common: '>=2.0.0 <4.0.0'
+  w_common: ^3.0.0
   w_flux: ^2.10.21
   platform_detect: '>=1.3.4 <3.0.0'
   quiver: ">=0.25.0 <4.0.0"
@@ -28,12 +28,12 @@ dependencies:
 
 dev_dependencies:
   build_resolvers: '>=1.0.5 <3.0.0'
-  build_runner: '>=1.7.1 <3.0.0'
-  build_test: ">=0.10.9 <3.0.0"
-  build_web_compilers: '>=2.12.0 <4.0.0'
+  build_runner: ^2.0.0
+  build_test: ^2.0.0
+  build_web_compilers: ^3.0.0
   built_value_generator: ^8.0.0
-  dart_dev: '>=3.6.4 <5.0.0'
-  dependency_validator: '>=2.0.0 <4.0.0'
+  dart_dev: ^4.0.0
+  dependency_validator: ^3.0.0
   glob: ^2.0.0
   io: '>=0.3.2+1 <2.0.0'
   # Pin mockito to work around https://github.com/dart-lang/mockito/issues/552

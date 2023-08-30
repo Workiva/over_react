@@ -23,7 +23,7 @@ dev_dependencies:
   build_test: ^2.0.0
   convert: ^3.0.0
   crypto: ^3.0.0
-  dart_dev: '>=3.8.5 <5.0.0'
+  dart_dev: ^4.0.0
   dart_style: ^2.0.0
   dependency_validator: ^3.0.0
   glob: ^2.0.0
