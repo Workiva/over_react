@@ -124,7 +124,7 @@ main() {
         test('$childrenCount', () {
           final expectedChildren = List.generate(childrenCount, (i) => i + 1);
           final arguments = <dynamic>[...expectedChildren];
-          final instance = Function.apply(builder as Function, arguments);
+          final instance = Function.apply(builder.call, arguments);
           expect(getJsChildren(instance), expectedChildren);
         });
       }

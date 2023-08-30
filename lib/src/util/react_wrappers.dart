@@ -66,7 +66,10 @@ dynamic getInstanceRef(ReactElement instance) => instance.ref;
 
 /// Returns whether an [instance] is a native Dart component (a react-dart [ReactElement] or [ReactComponent]).
 bool isDartComponent(Object?/* ReactElement|ReactComponent|Element */ instance) {
-  return instance != null && _getDartComponentVersionFromInstance(instance) != null;
+  if (instance == null) {
+    throw ArgumentError.notNull('instance');
+  }
+  return _getDartComponentVersionFromInstance(instance) != null;
 }
 
 /// Returns [ReactClass.dartComponentVersion] if [instance] is a Dart component

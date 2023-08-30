@@ -36,7 +36,8 @@ void mapProxyTests(Map Function(Map proxiedMap) mapProxyFactory) {
     });
 
     test('map', () {
-      callback(key, value) => MapEntry(null, null);
+      callback(key, value) => MapEntry('key', 'value');
+      when(backingMap.map(any)).thenReturn(<String, String>{});
 
       proxy.map(callback);
       verify(backingMap.map(callback));
