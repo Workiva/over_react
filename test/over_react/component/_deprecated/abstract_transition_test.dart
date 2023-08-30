@@ -35,7 +35,7 @@ main() {
         var renderedInstance = render(Transitioner()
           ..initiallyShown = true
         );
-        TransitionerComponent transitioner = getDartComponent(renderedInstance) as TransitionerComponent;
+        final transitioner = getDartComponent<TransitionerComponent>(renderedInstance)!;
 
         expect(transitioner.state.transitionPhase, equals(TransitionPhase.SHOWN));
       });
@@ -44,7 +44,7 @@ main() {
         var renderedInstance = render(Transitioner()
           ..initiallyShown = false
         );
-        TransitionerComponent transitioner = getDartComponent(renderedInstance) as TransitionerComponent;
+        final transitioner = getDartComponent<TransitionerComponent>(renderedInstance)!;
 
         expect(transitioner.state.transitionPhase, equals(TransitionPhase.HIDDEN));
       });
@@ -54,7 +54,7 @@ main() {
       group('hides the component correctly when it', () {
         test('transitions', () async {
           var renderedInstance = render(Transitioner());
-          TransitionerComponent transitioner = getDartComponent(renderedInstance) as TransitionerComponent;
+          final transitioner = getDartComponent<TransitionerComponent>(renderedInstance)!;
 
           expect(transitioner.state.transitionPhase, equals(TransitionPhase.SHOWN));
 
@@ -73,7 +73,7 @@ main() {
 
         test('does not transition', () {
           var renderedInstance = render(Transitioner()..hasTransition = false);
-          TransitionerComponent transitioner = getDartComponent(renderedInstance) as TransitionerComponent;
+          final transitioner = getDartComponent<TransitionerComponent>(renderedInstance)!;
 
           expect(transitioner.state.transitionPhase, equals(TransitionPhase.SHOWN));
 
@@ -86,7 +86,7 @@ main() {
       group('shows the component correctly when it', () {
         test('transitions', () async {
           var renderedInstance = render(Transitioner()..initiallyShown = false);
-          TransitionerComponent transitioner = getDartComponent(renderedInstance) as TransitionerComponent;
+          final transitioner = getDartComponent<TransitionerComponent>(renderedInstance)!;
 
           expect(transitioner.state.transitionPhase, equals(TransitionPhase.HIDDEN));
 
@@ -108,7 +108,7 @@ main() {
             ..initiallyShown = false
             ..hasTransition = false
           );
-          TransitionerComponent transitioner = getDartComponent(renderedInstance) as TransitionerComponent;
+          final transitioner = getDartComponent<TransitionerComponent>(renderedInstance)!;
 
           expect(transitioner.state.transitionPhase, equals(TransitionPhase.HIDDEN));
 
@@ -121,7 +121,7 @@ main() {
       group('toggles the component when it', () {
         test('transitions', () async {
           var renderedInstance = render(Transitioner());
-          TransitionerComponent transitioner = getDartComponent(renderedInstance) as TransitionerComponent;
+          final transitioner = getDartComponent<TransitionerComponent>(renderedInstance)!;
 
           expect(transitioner.state.transitionPhase, equals(TransitionPhase.SHOWN));
 
@@ -152,7 +152,7 @@ main() {
 
         test('does not transition', () {
           var renderedInstance = render(Transitioner()..hasTransition = false);
-          TransitionerComponent transitioner = getDartComponent(renderedInstance) as TransitionerComponent;
+          final transitioner = getDartComponent<TransitionerComponent>(renderedInstance)!;
 
           expect(transitioner.state.transitionPhase, equals(TransitionPhase.SHOWN));
 
@@ -169,7 +169,7 @@ main() {
       group('toggles the component while it is', () {
         test('hiding', () async {
           var renderedInstance = render(Transitioner());
-          TransitionerComponent transitioner = getDartComponent(renderedInstance) as TransitionerComponent;
+          final transitioner = getDartComponent<TransitionerComponent>(renderedInstance)!;
 
           expect(transitioner.state.transitionPhase, equals(TransitionPhase.SHOWN));
 
@@ -192,7 +192,7 @@ main() {
 
         test('showing', () async {
           var renderedInstance = render(Transitioner()..initiallyShown = false);
-          TransitionerComponent transitioner = getDartComponent(renderedInstance) as TransitionerComponent;
+          final transitioner = getDartComponent<TransitionerComponent>(renderedInstance)!;
 
           expect(transitioner.state.transitionPhase, equals(TransitionPhase.HIDDEN));
 
@@ -216,7 +216,7 @@ main() {
           if (expectedTransitionInCount < 0) throw ArgumentError.value(expectedTransitionInCount, 'expectedTransitionInCount', 'must be greater than 0');
           if (expectedTransitionOutCount < 0) throw ArgumentError.value(expectedTransitionOutCount, 'expectedTransitionOutCount', 'must be greater than 0');
 
-          TransitionerComponent transitioner = getDartComponent(renderedInstance) as TransitionerComponent;
+          final transitioner = getDartComponent<TransitionerComponent>(renderedInstance)!;
 
           expect(transitioner.state.transitionPhase, equals(TransitionPhase.HIDDEN));
 
@@ -388,7 +388,7 @@ main() {
           ..onWillHide = (() => calls.add('willHide'))
           ..onDidHide = (() => calls.add('didHide'))
         );
-        TransitionerComponent transitioner = getDartComponent(renderedInstance) as TransitionerComponent;
+        final transitioner = getDartComponent<TransitionerComponent>(renderedInstance)!;
 
         transitioner.hide();
 
@@ -403,7 +403,7 @@ main() {
           ..onWillShow = (() => calls.add('willShow'))
           ..onDidShow = (() => calls.add('didShow'))
         );
-        TransitionerComponent transitioner = getDartComponent(renderedInstance) as TransitionerComponent;
+        final transitioner = getDartComponent<TransitionerComponent>(renderedInstance)!;
 
         transitioner.show();
 
@@ -426,7 +426,7 @@ main() {
           ..onHandleHiding = (() => calls.add('handleHiding'))
           ..onHandleHidden = (() => calls.add('handleHidden'))
         );
-        TransitionerComponent transitioner = getDartComponent(renderedInstance) as TransitionerComponent;
+        final transitioner = getDartComponent<TransitionerComponent>(renderedInstance)!;
 
         transitioner.hide();
 
@@ -443,7 +443,7 @@ main() {
           ..onHandleShowing = (() => calls.add('handleShowing'))
           ..onHandleShown = (() => calls.add('handleShown'))
         );
-        TransitionerComponent transitioner = getDartComponent(renderedInstance) as TransitionerComponent;
+        final transitioner = getDartComponent<TransitionerComponent>(renderedInstance)!;
 
         transitioner.show();
 
@@ -456,7 +456,7 @@ main() {
     group('cancels default behavior when', () {
       test('willHide returns false', () {
         var renderedInstance = render(Transitioner()..onWillHide = (() => false));
-        TransitionerComponent transitioner = getDartComponent(renderedInstance) as TransitionerComponent;
+        final transitioner = getDartComponent<TransitionerComponent>(renderedInstance)!;
 
         expect(transitioner.state.transitionPhase, equals(TransitionPhase.SHOWN));
 
@@ -470,7 +470,7 @@ main() {
           ..initiallyShown = false
           ..onWillShow = (() => false)
         );
-        TransitionerComponent transitioner = getDartComponent(renderedInstance) as TransitionerComponent;
+        final transitioner = getDartComponent<TransitionerComponent>(renderedInstance)!;
 
         expect(transitioner.state.transitionPhase, equals(TransitionPhase.HIDDEN));
 
@@ -500,7 +500,7 @@ main() {
           ..transitionTimeout = const Duration(seconds: 0)
         );
 
-        TransitionerComponent transitioner = getDartComponent(renderedInstance) as TransitionerComponent;
+        final transitioner = getDartComponent<TransitionerComponent>(renderedInstance)!;
 
         expect(transitioner.state.transitionPhase, TransitionPhase.SHOWN);
 
@@ -520,7 +520,7 @@ main() {
       test('does not occur when shown and hidden rapidly', () async {
         var renderedInstance = render(Transitioner()..initiallyShown = false);
 
-        TransitionerComponent transitioner = getDartComponent(renderedInstance) as TransitionerComponent;
+        final transitioner = getDartComponent<TransitionerComponent>(renderedInstance)!;
 
         transitioner.show();
 
@@ -540,7 +540,7 @@ main() {
 
     test('does not set hidden state when not mounted', () async {
       var renderedInstance = render(Transitioner());
-      TransitionerComponent transitioner = getDartComponent(renderedInstance) as TransitionerComponent;
+      final transitioner = getDartComponent<TransitionerComponent>(renderedInstance)!;
       transitioner.setState(transitioner.newState()..transitionPhase = TransitionPhase.HIDING);
 
       transitioner.handleHiding();

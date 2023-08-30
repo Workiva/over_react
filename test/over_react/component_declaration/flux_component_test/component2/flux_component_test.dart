@@ -235,8 +235,8 @@ void main() {
         late FluxUiComponent2 component;
 
         setUp(() {
-          var jacket = mount((testComponents.basic())());
-          component = jacket.getDartInstance() as FluxUiComponent2;
+          var jacket = mount<FluxUiComponent2>((testComponents.basic())());
+          component = jacket.getDartInstance()!;
         });
 
         test('raises an assertion in DDC', () async {

@@ -628,7 +628,7 @@ main() {
       group('`ref`', () {
         test('should return a reference to the string ref', () {
           var renderedInstance = render(TestComponent()());
-          TestComponentComponent component = getDartComponent(renderedInstance) as TestComponentComponent;
+          final component = getDartComponent<TestComponentComponent>(renderedInstance)!;
 
           // ignore: deprecated_member_use
           expect(component.ref('foo'), isNotNull);
@@ -1415,7 +1415,7 @@ main() {
       });
 
       test('newState() returns a new UiState instance backed by a new Map', () {
-        statefulComponent = renderAndGetComponent(TestStatefulComponent2()()) as TestStatefulComponent2Component;
+        statefulComponent = renderAndGetComponent(TestStatefulComponent2()())! as TestStatefulComponent2Component;
         TestStatefulComponent2State newState1 = statefulComponent!.newState();
         TestStatefulComponent2State newState2 = statefulComponent!.newState();
         expect(newState1, isA<TestStatefulComponent2State>());
@@ -1427,7 +1427,7 @@ main() {
         setUp(() {
           statefulComponent = renderAndGetComponent((TestStatefulComponent2()
             ..id = 'test prop value'
-          )()) as TestStatefulComponent2Component;
+          )())! as TestStatefulComponent2Component;
           statefulComponent!.setState({'test state key': 'test state value'});
         });
 

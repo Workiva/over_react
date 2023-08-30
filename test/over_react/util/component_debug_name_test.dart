@@ -12,12 +12,12 @@ void main() {
   group('getDebugNameForDartComponent', () {
     group('returns the displayName it was registered with for a mounted', () {
       test('UiComponent component declared with standard boilerplate', () {
-        final component = mount(TestComponent()()).getDartInstance() as UiComponent;
+        final component = mount<UiComponent>(TestComponent()()).getDartInstance()!;
         expect(getDebugNameForDartComponent(component), 'TestComponent');
       });
 
       test('UiComponent2 component declared with standard boilerplate', () {
-        final component = mount(TestComponent2()()).getDartInstance() as UiComponent2;
+        final component = mount<UiComponent2>(TestComponent2()()).getDartInstance()!;
         expect(getDebugNameForDartComponent(component), 'TestComponent2');
       });
     });

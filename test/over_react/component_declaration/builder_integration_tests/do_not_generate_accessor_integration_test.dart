@@ -62,7 +62,7 @@ main() {
       late DoNotGenerateAccessorTestComponent component;
 
       setUp(() {
-        component = renderAndGetComponent(DoNotGenerateAccessorTest()()) as DoNotGenerateAccessorTestComponent;
+        component = renderAndGetComponent(DoNotGenerateAccessorTest()())! as DoNotGenerateAccessorTestComponent;
       });
 
       test('for state fields listed before the field annotated with doNotGenerate', () {
