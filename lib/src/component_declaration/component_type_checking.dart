@@ -321,10 +321,10 @@ Iterable<Object> getParentTypes(Object type) sync* {
   assert(isPotentiallyValidComponentType(type),
       '`type` should be a valid component type (and not null or a type alias).');
 
-  // FIXME null-safety what's the recommended way to write this kind of loop?
-  Object? currentType = type;
-  while ((currentType = getComponentTypeMeta(currentType as Object).parentType) != null) {
-    yield currentType!;
+  final parentType = getComponentTypeMeta(type).parentType;
+  if (parentType != null) {
+    yield parentType;
+    yield* getParentTypes(parentType);
   }
 }
 

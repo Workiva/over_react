@@ -665,10 +665,13 @@ abstract class UiProps extends MapBase
   /// An unmodifiable map view of the default props for this component brought
   /// in from the [componentFactory].
   // ignore: deprecated_member_use
-  Map get componentDefaultProps => componentFactory is ReactDartComponentFactoryProxy
-      // ignore: deprecated_member_use
-      ? (componentFactory as ReactDartComponentFactoryProxy).defaultProps
+  Map get componentDefaultProps {
+    final componentFactory = this.componentFactory;
+    // ignore: deprecated_member_use
+    return componentFactory is ReactDartComponentFactoryProxy
+      ? componentFactory.defaultProps
       : const {};
+  }
 
   @protected
   void validateRequiredProps() {}
