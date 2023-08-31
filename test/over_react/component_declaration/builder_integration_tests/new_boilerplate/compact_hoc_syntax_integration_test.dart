@@ -63,7 +63,7 @@ main() {
 
 UiFactory<Foo290Props> Foo290 = connect<Null, Foo290Props>(
   mapStateToPropsWithOwnProps: ((state, props) => Foo()),
-  mapDispatchToPropsWithOwnProps: (state, props) => Foo(),
+  mapDispatchToPropsWithOwnProps: (dispatch, props) => Foo(),
 )(castUiFactory(_$Foo290)); // ignore: undefined_identifier
 
 mixin Foo290Props on UiProps {
@@ -77,7 +77,7 @@ class FooComponent290 extends UiComponent2<Foo290Props> {
 
 UiFactory<FooProps> Foo = connect<Null, FooProps>(
   mapStateToPropsWithOwnProps: ((state, props) => Foo()),
-  mapDispatchToPropsWithOwnProps: (state, props) => Foo(),
+  mapDispatchToPropsWithOwnProps: (dispatch, props) => Foo(),
 )(_$Foo); // ignore: undefined_identifier, argument_type_not_assignable
 
 mixin FooProps on UiProps {
