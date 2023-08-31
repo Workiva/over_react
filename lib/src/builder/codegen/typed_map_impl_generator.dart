@@ -153,7 +153,9 @@ abstract class TypedMapImplGenerator extends BoilerplateDeclarationGenerator {
       classDeclaration.write('abstract ');
     }
 
-    classDeclaration..write(_generateImplClassHeader())..write(' {');
+    classDeclaration
+      ..write(_generateImplClassHeader())
+      ..write(' {');
 
     final propsOrState = isProps ? 'props' : 'state';
 
@@ -235,7 +237,9 @@ abstract class TypedMapImplGenerator extends BoilerplateDeclarationGenerator {
     // Component2-specific classes
     if (isComponent2) {
       // TODO need to remove this workaround once https://github.com/dart-lang/sdk/issues/36217 is fixed get nice dart2js output
-      buffer..writeln()..writeln('''
+      buffer
+        ..writeln()
+        ..writeln('''
 // Concrete $propsOrState implementation that can be backed by any [Map].
 ${internalGeneratedMemberDeprecationLine()}class ${names.plainMapImplName}$typeParamsOnClass extends ${names.implName}$typeParamsOnSuper {
   // This initializer of `_$propsOrState` to an empty map, as well as the reassignment
