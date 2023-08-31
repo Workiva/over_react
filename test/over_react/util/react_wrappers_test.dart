@@ -583,22 +583,21 @@ main() {
         expect(getDartComponent(renderedInstance), isNull);
       });
 
-      test('returns null for a ReactElement', () {
-        ReactElement instance = Wrapper()();
-        expect(getDartComponent(instance), isNull);
-      });
-
       group('', () {
         final messageMatcher = contains('react-dart 4.0 no longer supports retrieving Dart components');
 
-        test('warns when passed a ReactElement', () {
+        test('returns null and warns when passed a ReactElement', () {
           ReactElement instance = Wrapper()();
-          expect(() => getDartComponent(instance), prints(messageMatcher));
+          late dynamic result;
+          expect(() => result = getDartComponent(instance), prints(messageMatcher));
+          expect(result, isNull);
         }, tags: 'ddc');
 
-        test('does not when passed a ReactElement in JS', () {
+        test('returns null and does not when passed a ReactElement in JS', () {
           ReactElement instance = Wrapper()();
-          expect(() => getDartComponent(instance), isNot(prints(messageMatcher)));
+          late dynamic result;
+          expect(() => result = getDartComponent(instance), isNot(prints(messageMatcher)));
+          expect(result, isNull);
         }, tags: 'no-ddc');
 
         test('does not warn when passed a ReactComponent', () {

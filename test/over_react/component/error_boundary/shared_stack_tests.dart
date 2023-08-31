@@ -27,19 +27,23 @@ void sharedErrorBoundaryStackTests() {
     void expectRenderErrorWithComponentName(ReactElement element,
         {required String expectedComponentName}) {
       final capturedInfos = <ReactErrorInfo>[];
-      rtl.render(
-          (ErrorBoundary()
-            ..shouldLogErrors = false
-            ..onComponentDidCatch = (error, info) {
-              capturedInfos.add(info);
-            })(element));
+      expect(() {
+        rtl.render((ErrorBoundary()
+          ..shouldLogErrors = false
+          ..onComponentDidCatch = (error, info) {
+            capturedInfos.add(info);
+          })(element));
+        // Use prints as an easy way to swallow `print` calls and
+        // prevent RTL from forwarding console errors to the test output,
+        // since React error boundary logging is pretty noisy.
+        // TODO instead, disable logging in this rtl.render call once that option is available: FED-1641
+      }, prints(anything));
 
       expect(capturedInfos, hasLength(1),
           reason: 'test setup check; should have captured a single component error');
       expect(capturedInfos[0].componentStack,
           contains('at $expectedComponentName'));
     }
-
 
     test('Component components', () {
       expectRenderErrorWithComponentName(
@@ -71,6 +75,11 @@ void sharedErrorBoundaryStackTests() {
   });
 }
 
+class TestException implements Exception {
+  @override
+  String toString() => 'TestException';
+}
+
 @Factory()
 UiFactory<ThrowingComponentProps> ThrowingComponent = _$ThrowingComponent; // ignore: undefined_identifier, invalid_assignment
 
@@ -81,7 +90,7 @@ class _$ThrowingComponentProps extends UiProps {}
 class ThrowingComponentComponent extends UiComponent<ThrowingComponentProps> {
   @override
   render() {
-    throw Exception();
+    throw TestException();
   }
 }
 
@@ -92,14 +101,14 @@ UiFactory<ThrowingComponent2Props> ThrowingComponent2 = castUiFactory(_$Throwing
 class ThrowingComponent2Component extends UiComponent2<ThrowingComponent2Props> {
   @override
   render() {
-    throw Exception();
+    throw TestException();
   }
 }
 
 mixin ThrowingFunctionComponentProps on UiProps {}
 
 UiFactory<ThrowingFunctionComponentProps> ThrowingFunctionComponent = uiFunction((_) {
-  throw Exception();
+  throw TestException();
 },
   _$ThrowingFunctionComponentConfig, // ignore: undefined_identifier
 
@@ -108,7 +117,7 @@ UiFactory<ThrowingFunctionComponentProps> ThrowingFunctionComponent = uiFunction
 mixin ThrowingForwardRefComponentProps on UiProps {}
 
 UiFactory<ThrowingForwardRefComponentProps> ThrowingForwardRefComponent = uiForwardRef((_, __) {
-  throw Exception();
+  throw TestException();
 },
   _$ThrowingForwardRefComponentConfig, // ignore: undefined_identifier
 
