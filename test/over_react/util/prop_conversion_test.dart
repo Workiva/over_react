@@ -1057,16 +1057,22 @@ main() {
 
           // Use an ErrorBoundary to detect errors on render, since otherwise
           // React will just unmount the tree without throwing.
-          render((components.ErrorBoundary()
-            ..onComponentDidCatch = ((error, _) => renderErrors.add(error))
-            ..shouldLogErrors = false
-            ..fallbackUIRenderer =
-                ((_, __) => Dom.span()('An error occurred during render')))(
-            (TestJs()
-              ..component = ExpectsDartMapProp.elementType
-              ..addProps(ExpectsDartMapProp()..dartMapProp = {'foo': 'bar'})
-              ..addTestId('componentRoot'))(),
-          ));
+          expect(() {
+            render((components.ErrorBoundary()
+              ..onComponentDidCatch = ((error, _) => renderErrors.add(error))
+              ..shouldLogErrors = false
+              ..fallbackUIRenderer =
+                  ((_, __) => Dom.span()('An error occurred during render')))(
+              (TestJs()
+                ..component = ExpectsDartMapProp.elementType
+                ..addProps(ExpectsDartMapProp()..dartMapProp = {'foo': 'bar'})
+                ..addTestId('componentRoot'))(),
+            ));
+            // Use prints as an easy way to swallow `print` calls and
+            // prevent RTL from forwarding console errors to the test output,
+            // since React error boundary logging is pretty noisy.
+            // TODO instead, disable logging in this rtl.render call once that option is available: FED-1641
+          }, prints(anything));
 
           expect(renderErrors, [
             isA<Object>().havingToStringValue(anyOf(
