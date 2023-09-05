@@ -139,8 +139,8 @@ final UiFactoryConfig<_$$CounterFnProps> $CounterFnConfig = _$CounterFnConfig;
 abstract class _$$CounterFnProps extends UiProps
     with
         CounterFnProps,
-        $CounterFnProps // If this generated mixin is undefined, it's likely because CounterFnProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of CounterFnProps, and check that $CounterFnProps is exported/imported properly.
-{
+        // If this generated mixin is undefined, it's likely because CounterFnProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of CounterFnProps, and check that $CounterFnProps is exported/imported properly.
+        $CounterFnProps {
   _$$CounterFnProps._();
 
   factory _$$CounterFnProps(Map backingMap) {
@@ -225,9 +225,11 @@ final UiFactoryConfig<_$$ModelCounterFnProps> $ModelCounterFnConfig =
 abstract class _$$ModelCounterFnProps extends UiProps
     with
         CounterFnProps,
-        $CounterFnProps, // If this generated mixin is undefined, it's likely because CounterFnProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of CounterFnProps, and check that $CounterFnProps is exported/imported properly.
+        // If this generated mixin is undefined, it's likely because CounterFnProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of CounterFnProps, and check that $CounterFnProps is exported/imported properly.
+        $CounterFnProps,
         ModelCounterFnPropsMixin,
-        $ModelCounterFnPropsMixin // If this generated mixin is undefined, it's likely because ModelCounterFnPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ModelCounterFnPropsMixin, and check that $ModelCounterFnPropsMixin is exported/imported properly.
+        // If this generated mixin is undefined, it's likely because ModelCounterFnPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ModelCounterFnPropsMixin, and check that $ModelCounterFnPropsMixin is exported/imported properly.
+        $ModelCounterFnPropsMixin
     implements
         ModelCounterFnProps {
   _$$ModelCounterFnProps._();
@@ -317,9 +319,11 @@ final UiFactoryConfig<_$$CustomContextCounterFnProps>
 abstract class _$$CustomContextCounterFnProps extends UiProps
     with
         CounterFnProps,
-        $CounterFnProps, // If this generated mixin is undefined, it's likely because CounterFnProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of CounterFnProps, and check that $CounterFnProps is exported/imported properly.
+        // If this generated mixin is undefined, it's likely because CounterFnProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of CounterFnProps, and check that $CounterFnProps is exported/imported properly.
+        $CounterFnProps,
         CustomContextCounterFnPropsMixin,
-        $CustomContextCounterFnPropsMixin // If this generated mixin is undefined, it's likely because CustomContextCounterFnPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of CustomContextCounterFnPropsMixin, and check that $CustomContextCounterFnPropsMixin is exported/imported properly.
+        // If this generated mixin is undefined, it's likely because CustomContextCounterFnPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of CustomContextCounterFnPropsMixin, and check that $CustomContextCounterFnPropsMixin is exported/imported properly.
+        $CustomContextCounterFnPropsMixin
     implements
         CustomContextCounterFnProps {
   _$$CustomContextCounterFnProps._();

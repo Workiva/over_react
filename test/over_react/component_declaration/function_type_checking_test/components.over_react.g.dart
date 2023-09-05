@@ -39,8 +39,8 @@ abstract class _$$DoNotReferenceThisFactoryExceptForInASingleTestProps
     extends UiProps
     with
         DoNotReferenceThisFactoryExceptForInASingleTestProps,
-        $DoNotReferenceThisFactoryExceptForInASingleTestProps // If this generated mixin is undefined, it's likely because DoNotReferenceThisFactoryExceptForInASingleTestProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of DoNotReferenceThisFactoryExceptForInASingleTestProps, and check that $DoNotReferenceThisFactoryExceptForInASingleTestProps is exported/imported properly.
-{
+        // If this generated mixin is undefined, it's likely because DoNotReferenceThisFactoryExceptForInASingleTestProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of DoNotReferenceThisFactoryExceptForInASingleTestProps, and check that $DoNotReferenceThisFactoryExceptForInASingleTestProps is exported/imported properly.
+        $DoNotReferenceThisFactoryExceptForInASingleTestProps {
   _$$DoNotReferenceThisFactoryExceptForInASingleTestProps._();
 
   factory _$$DoNotReferenceThisFactoryExceptForInASingleTestProps(
@@ -390,8 +390,8 @@ final UiFactoryConfig<_$$TestAProps> $TestAConfig = _$TestAConfig;
 abstract class _$$TestAProps extends UiProps
     with
         TestAProps,
-        $TestAProps // If this generated mixin is undefined, it's likely because TestAProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestAProps, and check that $TestAProps is exported/imported properly.
-{
+        // If this generated mixin is undefined, it's likely because TestAProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestAProps, and check that $TestAProps is exported/imported properly.
+        $TestAProps {
   _$$TestAProps._();
 
   factory _$$TestAProps(Map backingMap) {
@@ -474,8 +474,8 @@ final UiFactoryConfig<_$$TestBProps> $TestBConfig = _$TestBConfig;
 abstract class _$$TestBProps extends UiProps
     with
         TestBProps,
-        $TestBProps // If this generated mixin is undefined, it's likely because TestBProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestBProps, and check that $TestBProps is exported/imported properly.
-{
+        // If this generated mixin is undefined, it's likely because TestBProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestBProps, and check that $TestBProps is exported/imported properly.
+        $TestBProps {
   _$$TestBProps._();
 
   factory _$$TestBProps(Map backingMap) {
@@ -559,8 +559,8 @@ final UiFactoryConfig<_$$TestParentProps> $TestParentConfig =
 abstract class _$$TestParentProps extends UiProps
     with
         TestParentProps,
-        $TestParentProps // If this generated mixin is undefined, it's likely because TestParentProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestParentProps, and check that $TestParentProps is exported/imported properly.
-{
+        // If this generated mixin is undefined, it's likely because TestParentProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestParentProps, and check that $TestParentProps is exported/imported properly.
+        $TestParentProps {
   _$$TestParentProps._();
 
   factory _$$TestParentProps(Map backingMap) {
@@ -645,8 +645,8 @@ final UiFactoryConfig<_$$TestSubtypeProps> $TestSubtypeConfig =
 abstract class _$$TestSubtypeProps extends UiProps
     with
         TestSubtypeProps,
-        $TestSubtypeProps // If this generated mixin is undefined, it's likely because TestSubtypeProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestSubtypeProps, and check that $TestSubtypeProps is exported/imported properly.
-{
+        // If this generated mixin is undefined, it's likely because TestSubtypeProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestSubtypeProps, and check that $TestSubtypeProps is exported/imported properly.
+        $TestSubtypeProps {
   _$$TestSubtypeProps._();
 
   factory _$$TestSubtypeProps(Map backingMap) {
@@ -731,8 +731,8 @@ final UiFactoryConfig<_$$TestSubsubtypeProps> $TestSubsubtypeConfig =
 abstract class _$$TestSubsubtypeProps extends UiProps
     with
         TestSubsubtypeProps,
-        $TestSubsubtypeProps // If this generated mixin is undefined, it's likely because TestSubsubtypeProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestSubsubtypeProps, and check that $TestSubsubtypeProps is exported/imported properly.
-{
+        // If this generated mixin is undefined, it's likely because TestSubsubtypeProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestSubsubtypeProps, and check that $TestSubsubtypeProps is exported/imported properly.
+        $TestSubsubtypeProps {
   _$$TestSubsubtypeProps._();
 
   factory _$$TestSubsubtypeProps(Map backingMap) {
@@ -817,8 +817,8 @@ final UiFactoryConfig<_$$TestExtendtypeProps> $TestExtendtypeConfig =
 abstract class _$$TestExtendtypeProps extends UiProps
     with
         TestExtendtypeProps,
-        $TestExtendtypeProps // If this generated mixin is undefined, it's likely because TestExtendtypeProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestExtendtypeProps, and check that $TestExtendtypeProps is exported/imported properly.
-{
+        // If this generated mixin is undefined, it's likely because TestExtendtypeProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestExtendtypeProps, and check that $TestExtendtypeProps is exported/imported properly.
+        $TestExtendtypeProps {
   _$$TestExtendtypeProps._();
 
   factory _$$TestExtendtypeProps(Map backingMap) {
@@ -903,8 +903,8 @@ final UiFactoryConfig<_$$OneLevelWrapperProps> $OneLevelWrapperConfig =
 abstract class _$$OneLevelWrapperProps extends UiProps
     with
         OneLevelWrapperProps,
-        $OneLevelWrapperProps // If this generated mixin is undefined, it's likely because OneLevelWrapperProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of OneLevelWrapperProps, and check that $OneLevelWrapperProps is exported/imported properly.
-{
+        // If this generated mixin is undefined, it's likely because OneLevelWrapperProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of OneLevelWrapperProps, and check that $OneLevelWrapperProps is exported/imported properly.
+        $OneLevelWrapperProps {
   _$$OneLevelWrapperProps._();
 
   factory _$$OneLevelWrapperProps(Map backingMap) {
@@ -989,8 +989,8 @@ final UiFactoryConfig<_$$TwoLevelWrapperProps> $TwoLevelWrapperConfig =
 abstract class _$$TwoLevelWrapperProps extends UiProps
     with
         TwoLevelWrapperProps,
-        $TwoLevelWrapperProps // If this generated mixin is undefined, it's likely because TwoLevelWrapperProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TwoLevelWrapperProps, and check that $TwoLevelWrapperProps is exported/imported properly.
-{
+        // If this generated mixin is undefined, it's likely because TwoLevelWrapperProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TwoLevelWrapperProps, and check that $TwoLevelWrapperProps is exported/imported properly.
+        $TwoLevelWrapperProps {
   _$$TwoLevelWrapperProps._();
 
   factory _$$TwoLevelWrapperProps(Map backingMap) {
@@ -1076,8 +1076,8 @@ final UiFactoryConfig<_$$TestUninitializedParentProps>
 abstract class _$$TestUninitializedParentProps extends UiProps
     with
         TestUninitializedParentProps,
-        $TestUninitializedParentProps // If this generated mixin is undefined, it's likely because TestUninitializedParentProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestUninitializedParentProps, and check that $TestUninitializedParentProps is exported/imported properly.
-{
+        // If this generated mixin is undefined, it's likely because TestUninitializedParentProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestUninitializedParentProps, and check that $TestUninitializedParentProps is exported/imported properly.
+        $TestUninitializedParentProps {
   _$$TestUninitializedParentProps._();
 
   factory _$$TestUninitializedParentProps(Map backingMap) {

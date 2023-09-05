@@ -33,8 +33,8 @@ _$$ClassComponentProps _$ClassComponent([Map backingProps]) =>
 abstract class _$$ClassComponentProps extends UiProps
     with
         ClassComponentProps,
-        $ClassComponentProps // If this generated mixin is undefined, it's likely because ClassComponentProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ClassComponentProps, and check that $ClassComponentProps is exported/imported properly.
-{
+        // If this generated mixin is undefined, it's likely because ClassComponentProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ClassComponentProps, and check that $ClassComponentProps is exported/imported properly.
+        $ClassComponentProps {
   _$$ClassComponentProps._();
 
   factory _$$ClassComponentProps(Map backingMap) {
@@ -426,8 +426,8 @@ final UiFactoryConfig<_$$ExpectsDartMapPropProps> $ExpectsDartMapPropConfig =
 abstract class _$$ExpectsDartMapPropProps extends UiProps
     with
         ExpectsDartMapPropProps,
-        $ExpectsDartMapPropProps // If this generated mixin is undefined, it's likely because ExpectsDartMapPropProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ExpectsDartMapPropProps, and check that $ExpectsDartMapPropProps is exported/imported properly.
-{
+        // If this generated mixin is undefined, it's likely because ExpectsDartMapPropProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ExpectsDartMapPropProps, and check that $ExpectsDartMapPropProps is exported/imported properly.
+        $ExpectsDartMapPropProps {
   _$$ExpectsDartMapPropProps._();
 
   factory _$$ExpectsDartMapPropProps(Map backingMap) {
@@ -512,8 +512,8 @@ final UiFactoryConfig<_$$ExpectsDartStylePropProps>
 abstract class _$$ExpectsDartStylePropProps extends UiProps
     with
         ExpectsDartStylePropProps,
-        $ExpectsDartStylePropProps // If this generated mixin is undefined, it's likely because ExpectsDartStylePropProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ExpectsDartStylePropProps, and check that $ExpectsDartStylePropProps is exported/imported properly.
-{
+        // If this generated mixin is undefined, it's likely because ExpectsDartStylePropProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ExpectsDartStylePropProps, and check that $ExpectsDartStylePropProps is exported/imported properly.
+        $ExpectsDartStylePropProps {
   _$$ExpectsDartStylePropProps._();
 
   factory _$$ExpectsDartStylePropProps(Map backingMap) {
@@ -600,8 +600,8 @@ final UiFactoryConfig<_$$ExpectsListChildrenPropProps>
 abstract class _$$ExpectsListChildrenPropProps extends UiProps
     with
         ExpectsListChildrenPropProps,
-        $ExpectsListChildrenPropProps // If this generated mixin is undefined, it's likely because ExpectsListChildrenPropProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ExpectsListChildrenPropProps, and check that $ExpectsListChildrenPropProps is exported/imported properly.
-{
+        // If this generated mixin is undefined, it's likely because ExpectsListChildrenPropProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ExpectsListChildrenPropProps, and check that $ExpectsListChildrenPropProps is exported/imported properly.
+        $ExpectsListChildrenPropProps {
   _$$ExpectsListChildrenPropProps._();
 
   factory _$$ExpectsListChildrenPropProps(Map backingMap) {
@@ -688,8 +688,8 @@ final UiFactoryConfig<_$$BasicForwardRefProps> $BasicForwardRefConfig =
 abstract class _$$BasicForwardRefProps extends UiProps
     with
         BasicForwardRefProps,
-        $BasicForwardRefProps // If this generated mixin is undefined, it's likely because BasicForwardRefProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of BasicForwardRefProps, and check that $BasicForwardRefProps is exported/imported properly.
-{
+        // If this generated mixin is undefined, it's likely because BasicForwardRefProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of BasicForwardRefProps, and check that $BasicForwardRefProps is exported/imported properly.
+        $BasicForwardRefProps {
   _$$BasicForwardRefProps._();
 
   factory _$$BasicForwardRefProps(Map backingMap) {
@@ -774,9 +774,11 @@ final UiFactoryConfig<_$$DartTestJsWrapperProps> $DartTestJsWrapperConfig =
 abstract class _$$DartTestJsWrapperProps extends UiProps
     with
         TestJsProps,
-        $TestJsProps, // If this generated mixin is undefined, it's likely because TestJsProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestJsProps, and check that $TestJsProps is exported/imported properly.
+        // If this generated mixin is undefined, it's likely because TestJsProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestJsProps, and check that $TestJsProps is exported/imported properly.
+        $TestJsProps,
         DartTestJsWrapperPropsMixin,
-        $DartTestJsWrapperPropsMixin // If this generated mixin is undefined, it's likely because DartTestJsWrapperPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of DartTestJsWrapperPropsMixin, and check that $DartTestJsWrapperPropsMixin is exported/imported properly.
+        // If this generated mixin is undefined, it's likely because DartTestJsWrapperPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of DartTestJsWrapperPropsMixin, and check that $DartTestJsWrapperPropsMixin is exported/imported properly.
+        $DartTestJsWrapperPropsMixin
     implements
         DartTestJsWrapperProps {
   _$$DartTestJsWrapperProps._();
@@ -863,8 +865,8 @@ final UiFactoryConfig<_$$TestJsProps> $TestJsConfig = _$TestJsConfig;
 abstract class _$$TestJsProps extends UiProps
     with
         TestJsProps,
-        $TestJsProps // If this generated mixin is undefined, it's likely because TestJsProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestJsProps, and check that $TestJsProps is exported/imported properly.
-{
+        // If this generated mixin is undefined, it's likely because TestJsProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestJsProps, and check that $TestJsProps is exported/imported properly.
+        $TestJsProps {
   _$$TestJsProps._();
 
   factory _$$TestJsProps(Map backingMap) {

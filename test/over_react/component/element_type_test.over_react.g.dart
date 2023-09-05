@@ -32,8 +32,8 @@ _$$CustomTestProps _$CustomTest([Map backingProps]) => backingProps == null
 abstract class _$$CustomTestProps extends UiProps
     with
         CustomTestProps,
-        $CustomTestProps // If this generated mixin is undefined, it's likely because CustomTestProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of CustomTestProps, and check that $CustomTestProps is exported/imported properly.
-{
+        // If this generated mixin is undefined, it's likely because CustomTestProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of CustomTestProps, and check that $CustomTestProps is exported/imported properly.
+        $CustomTestProps {
   _$$CustomTestProps._();
 
   factory _$$CustomTestProps(Map backingMap) {
@@ -214,8 +214,8 @@ final UiFactoryConfig<_$$CustomFnTestProps> $CustomFnTestConfig =
 abstract class _$$CustomFnTestProps extends UiProps
     with
         CustomFnTestProps,
-        $CustomFnTestProps // If this generated mixin is undefined, it's likely because CustomFnTestProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of CustomFnTestProps, and check that $CustomFnTestProps is exported/imported properly.
-{
+        // If this generated mixin is undefined, it's likely because CustomFnTestProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of CustomFnTestProps, and check that $CustomFnTestProps is exported/imported properly.
+        $CustomFnTestProps {
   _$$CustomFnTestProps._();
 
   factory _$$CustomFnTestProps(Map backingMap) {

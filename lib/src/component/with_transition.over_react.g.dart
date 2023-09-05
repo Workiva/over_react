@@ -33,9 +33,11 @@ _$$WithTransitionProps _$WithTransition([Map backingProps]) =>
 abstract class _$$WithTransitionProps extends UiProps
     with
         v2.TransitionPropsMixin,
-        v2.$TransitionPropsMixin, // If this generated mixin is undefined, it's likely because v2.TransitionPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of v2.TransitionPropsMixin, and check that v2.$TransitionPropsMixin is exported/imported properly.
+        // If this generated mixin is undefined, it's likely because v2.TransitionPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of v2.TransitionPropsMixin, and check that v2.$TransitionPropsMixin is exported/imported properly.
+        v2.$TransitionPropsMixin,
         WithTransitionPropsMixin,
-        $WithTransitionPropsMixin // If this generated mixin is undefined, it's likely because WithTransitionPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of WithTransitionPropsMixin, and check that $WithTransitionPropsMixin is exported/imported properly.
+        // If this generated mixin is undefined, it's likely because WithTransitionPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of WithTransitionPropsMixin, and check that $WithTransitionPropsMixin is exported/imported properly.
+        $WithTransitionPropsMixin
     implements
         WithTransitionProps {
   _$$WithTransitionProps._();
@@ -115,8 +117,8 @@ class _$$WithTransitionProps$JsMap extends _$$WithTransitionProps {
 abstract class _$$WithTransitionState extends UiState
     with
         WithTransitionState,
-        $WithTransitionState // If this generated mixin is undefined, it's likely because WithTransitionState is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not imported. Check the declaration of WithTransitionState, and check that $WithTransitionState is exported/imported properly.
-{
+        // If this generated mixin is undefined, it's likely because WithTransitionState is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not imported. Check the declaration of WithTransitionState, and check that $WithTransitionState is exported/imported properly.
+        $WithTransitionState {
   _$$WithTransitionState._();
 
   factory _$$WithTransitionState(Map backingMap) {

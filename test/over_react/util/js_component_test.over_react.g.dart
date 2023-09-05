@@ -165,9 +165,11 @@ final UiFactoryConfig<_$$TestProps> $_TestConfig = _$_TestConfig;
 abstract class _$$TestProps extends UiProps
     with
         TestPropsMixin,
-        $TestPropsMixin, // If this generated mixin is undefined, it's likely because TestPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestPropsMixin, and check that $TestPropsMixin is exported/imported properly.
+        // If this generated mixin is undefined, it's likely because TestPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestPropsMixin, and check that $TestPropsMixin is exported/imported properly.
+        $TestPropsMixin,
         ASecondPropsMixin,
-        $ASecondPropsMixin // If this generated mixin is undefined, it's likely because ASecondPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ASecondPropsMixin, and check that $ASecondPropsMixin is exported/imported properly.
+        // If this generated mixin is undefined, it's likely because ASecondPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ASecondPropsMixin, and check that $ASecondPropsMixin is exported/imported properly.
+        $ASecondPropsMixin
     implements
         TestProps {
   _$$TestProps._();

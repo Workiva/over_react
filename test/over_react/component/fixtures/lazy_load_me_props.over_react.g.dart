@@ -53,8 +53,8 @@ _$$LazyLoadMePropsMixin _$LazyLoadMePropsMapView([Map backingProps]) =>
 abstract class _$$LazyLoadMePropsMixin extends UiProps
     with
         LazyLoadMePropsMixin,
-        $LazyLoadMePropsMixin // If this generated mixin is undefined, it's likely because LazyLoadMePropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of LazyLoadMePropsMixin, and check that $LazyLoadMePropsMixin is exported/imported properly.
-{
+        // If this generated mixin is undefined, it's likely because LazyLoadMePropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of LazyLoadMePropsMixin, and check that $LazyLoadMePropsMixin is exported/imported properly.
+        $LazyLoadMePropsMixin {
   _$$LazyLoadMePropsMixin._();
 
   factory _$$LazyLoadMePropsMixin(Map backingMap) {
