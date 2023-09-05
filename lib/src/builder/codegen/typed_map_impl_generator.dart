@@ -438,8 +438,9 @@ class _TypedMapImplGenerator extends TypedMapImplGenerator {
       return 'class ${names.implName}$typeParamsOnClass'
           ' extends ${isProps ? 'UiProps' : 'UiState'}'
           ' with\n'
-          ' ${names.consumerName}$typeParamsOnSuper\n,'
-          ' ${names.generatedMixinName}$typeParamsOnSuper${generatedMixinWarningCommentLine(names, isProps: isProps)}';
+          ' ${names.consumerName}$typeParamsOnSuper,\n'
+          ' ${generatedMixinWarningCommentLine(names, isProps: isProps)}'
+          ' ${names.generatedMixinName}$typeParamsOnSuper';
     } else if (member is BoilerplatePropsOrState) {
       final header = StringBuffer()
         ..write('class ${names.implName}$typeParamsOnClass'
@@ -466,14 +467,14 @@ class _TypedMapImplGenerator extends TypedMapImplGenerator {
           final names = TypedMapNames(mixin.name.name);
           header.write('${names.consumerName}$typeArguments');
           header.write(',');
+          // Add a space at the beginning of the line so that dartfmt indents it
+          // with the following line, as opposed to "sticking" it to the beginning of the line.
+          header.write('\n ' + generatedMixinWarningCommentLine(names, isProps: isProps));
           header.write('${names.generatedMixinName}$typeArguments');
           // Don't write the comma if we're at the end of the list.
-          // Do this manually instead of using `.join` so that we can always have
-          // the warning comment be at the end of the line, regardless of whether the comma is there.
           if (i != mixins.length - 1) {
             header.write(',');
           }
-          header.write(generatedMixinWarningCommentLine(names, isProps: isProps));
         }
       }
 
