@@ -133,7 +133,7 @@ abstract class TypedMapImplGenerator extends BoilerplateDeclarationGenerator {
   String _generateConcretePropsOrStateImpl({
     String componentFactoryName,
     String propKeyNamespace,
-    List<Identifier> allPropsMixins,
+    List<String> allPropsMixins,
   }) {
     if (isProps) {
       if (componentFactoryName == null || propKeyNamespace == null) {
@@ -354,7 +354,7 @@ class _TypedMapImplGenerator extends TypedMapImplGenerator {
   @override
   final Version version;
 
-  final List<Identifier> allPropsMixins;
+  final List<String> allPropsMixins;
 
   _TypedMapImplGenerator.props(ClassComponentDeclaration declaration)
       : names = TypedMapNames(declaration.props.either.name.name),
