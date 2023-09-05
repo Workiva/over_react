@@ -16,9 +16,7 @@ jobs:
       fail-fast: false
       matrix:
         # Can't run on `dev` (Dart 3) until we're fully null-safe.
-        # We can't run on Dart >=2.19 until https://github.com/dart-lang/sdk/issues/51128
-        # is fixed, or we work around it, which requires upgrading to analyzer ^5.1.0.
-        sdk: [ 2.13.4, 2.18.7 ]
+        sdk: [ 2.18.7, 2.19.6 ]
     steps:
       - uses: actions/checkout@v2
       - uses: dart-lang/setup-dart@v0.2
@@ -88,16 +86,11 @@ jobs:
       fail-fast: false
       matrix:
         # Can't run on `dev` (Dart 3) until we're fully null-safe.
-        # We can't run on Dart >=2.19 until https://github.com/dart-lang/sdk/issues/51128
-        # is fixed, or we work around it, which requires upgrading to analyzer ^5.1.0.
-        sdk: [ 2.13.4, 2.18.7 ]
+        sdk: [ 2.18.7, 2.19.6 ]
         analyzer:
-          - ^1.0.0
-          - ^2.0.0
-        # Don't validate analyzer ^2.0.0 in 2.13.4 since it can't resolve.
-        exclude:
-          - sdk: 2.13.4
-            analyzer: ^2.0.0
+          # We only have one version currently, but we'll leave this CI step in place
+          # for the next time we need to support multiple analyzer versions.
+          - ^5.1.0
     steps:
       - uses: actions/checkout@v2
       - uses: dart-lang/setup-dart@v0.2
