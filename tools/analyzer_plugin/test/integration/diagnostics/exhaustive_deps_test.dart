@@ -108,6 +108,7 @@ class ObjectWithWritableField {
     bool errorFilter(AnalysisError error, {@required bool isFromPlugin}) =>
         defaultErrorFilter(error, isFromPlugin: isFromPlugin) &&
         // These are intentionally undefined references
+        !{'unused_local_variable'}.contains(error.code) &&
         !(error.code == 'undefined_identifier' && error.message.contains("Undefined name 'unresolved'."));
 
     Future<HooksExhaustiveDepsDiagnosticTest> setUpTestBase(TestCase testCase) async {
@@ -151,7 +152,7 @@ class ObjectWithWritableField {
               printOnFailure('Test case source (before adding preamble): ```\n${testCase.code}\n```');
 
               final testBase = await setUpTestBase(testCase);
-              final source = testBase.newSource('test.dart', preamble + testCase.code);
+              final source = testBase.newSource(null, preamble + testCase.code);
               await testBase.expectNoErrors(source, errorFilter: errorFilter);
             });
           });
@@ -170,7 +171,7 @@ class ObjectWithWritableField {
               final expectedErrors = testCase.errors;
               expect(expectedErrors, isNotEmpty);
 
-              final source = testBase.newSource('test.dart', preamble + testCase.code);
+              final source = testBase.newSource(null, preamble + testCase.code);
               final errors = await testBase.getAllErrors(source, includeOtherCodes: true, errorFilter: errorFilter);
               expect(errors.dartErrors, isEmpty,
                   reason: 'Expected there to be no errors coming from the analyzer and not the plugin.'

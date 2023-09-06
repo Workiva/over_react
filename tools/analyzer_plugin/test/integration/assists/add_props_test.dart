@@ -27,13 +27,13 @@ var foo = Dom.div()('hello');
 ''';
 
   Future<void> test_noAssist() async {
-    final source = newSource('test.dart', 'var foo = true;');
+    final source = newSource(null, 'var foo = true;');
     final selection = createSelection(source, '#var foo = true;#');
     await expectNoAssist(selection);
   }
 
   Future<void> test_noAssistForSelection() async {
-    final source = newSource('test.dart', simpleSource);
+    final source = newSource(null, simpleSource);
     final selection = createSelection(source, '#var foo#');
     await expectNoAssist(selection);
   }
@@ -48,7 +48,7 @@ var foo = Dom.div()('hello');
       ]);
 
   Future<void> test_addsParensAndPropsCascade() async {
-    var source = newSource('test.dart', simpleSource);
+    var source = newSource(null, simpleSource);
     var selection = createSelection(source, '#Dom.div#');
     final change = await expectAndGetSingleAssist(selection);
     source = applySourceChange(change, source);
@@ -62,7 +62,7 @@ var foo = (Dom.div()..)('hello');
   }
 
   Future<void> test_alreadyHasParens() async {
-    var source = newSource('test.dart', '''
+    var source = newSource(null, '''
 import 'package:over_react/over_react.dart';
 var foo = (Dom.div())('hello');
 ''');

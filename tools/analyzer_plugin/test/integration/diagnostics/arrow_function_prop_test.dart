@@ -32,12 +32,12 @@ var foo = (Dom.div()
 ''';
 
   Future<void> test_noError() async {
-    final source = newSource('test.dart', 'var foo = true;');
+    final source = newSource(null, 'var foo = true;');
     expect(await getAllErrors(source), isEmpty);
   }
 
   Future<void> test_noErrorLastInCascade() async {
-    final source = newSource('test.dart', /*language=dart*/ r'''
+    final source = newSource(null, /*language=dart*/ r'''
       import 'package:over_react/over_react.dart';
       
       var foo = (Dom.div()
@@ -48,7 +48,7 @@ var foo = (Dom.div()
   }
 
   Future<void> test_noErrorLastInCascadeWithDescendantCascade() async {
-    final source = newSource('test.dart', /*language=dart*/ r'''
+    final source = newSource(null, /*language=dart*/ r'''
       import 'package:over_react/over_react.dart';
 
       part 'test.over_react.g.dart';
@@ -70,7 +70,7 @@ var foo = (Dom.div()
   }
 
   Future<void> test_noErrorForSelection() async {
-    final source = newSource('test.dart', simpleSource);
+    final source = newSource(null, simpleSource);
     final selection = createSelection(source, '#var foo#');
     await expectNoErrorFix(selection);
   }
@@ -85,7 +85,7 @@ var foo = (Dom.div()
       ]);
 
   Future<void> test_errorFix() async {
-    var source = newSource('test.dart', simpleSource);
+    var source = newSource(null, simpleSource);
     final selection = createSelection(source, "#(_) => 'click'#");
     final errorFix = await expectSingleErrorFix(selection);
     expect(errorFix.fixes.single.change.selection, isNull);
@@ -100,7 +100,7 @@ var foo = (Dom.div()
   }
 
   Future<void> test_multipleErrors() async {
-    final source = newSource('test.dart', '''
+    final source = newSource(null, '''
 import 'package:over_react/over_react.dart';
 var foo = (Dom.div()..onClick = (_) => null..key = 'foo')('');
 var bar = (Dom.div()..onSubmit = (_) => null..key = 'bar')('');

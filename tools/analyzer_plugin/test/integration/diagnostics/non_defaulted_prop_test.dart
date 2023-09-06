@@ -24,7 +24,7 @@ class NonDefaultedPropDiagnosticTest extends DiagnosticTestBase {
   get fixKindUnderTest => NonDefaultedPropDiagnostic.fixKind;
 
   Future<void> test_noErrorDefaultUsed() async {
-    final source = newSource('test.dart', /*language=dart*/ r'''
+    final source = newSource(null, /*language=dart*/ r'''
 import 'package:over_react/over_react.dart';
 
 part 'test.over_react.g.dart';
@@ -49,7 +49,7 @@ final Foo = uiFunction<FooProps>(
   }
 
   Future<void> test_noErrorSameNameButNotDefault() async {
-    final source = newSource('test.dart', /*language=dart*/ r'''
+    final source = newSource(null, /*language=dart*/ r'''
 import 'package:over_react/over_react.dart';
 
 part 'test.over_react.g.dart';
@@ -92,7 +92,7 @@ final Foo = uiFunction<FooProps>(
   _\$FooConfig, // ignore: undefined_identifier
 );
 ''';
-    var source = newSource('test.dart', contents('props.content'));
+    var source = newSource(null, contents('props.content'));
     final selection = createSelection(source, "(#props.content#)");
 
     // Verify error.
@@ -124,7 +124,7 @@ final Foo = uiFunction<FooProps>(
   _\$FooConfig, // ignore: undefined_identifier
 );
 ''';
-    var source = newSource('test.dart', contents('props.content'));
+    var source = newSource(null, contents('props.content'));
     final selection = createSelection(source, "(#props.content#)");
 
     // Verify error.
@@ -138,7 +138,7 @@ final Foo = uiFunction<FooProps>(
   }
 
   Future<void> test_multipleErrorsAndFixes() async {
-    var source = newSource('test.dart', /*language=dart*/ r'''
+    var source = newSource(null, /*language=dart*/ r'''
 import 'package:over_react/over_react.dart';
 
 part 'test.over_react.g.dart';

@@ -40,9 +40,9 @@ bool _isPubGetNecessary(String packageRoot) {
 }
 
 /// Runs `pub get` in [packageRoot] unless running `pub get` would have no effect.
-Future<void> runPubGetIfNeeded(String packageRoot) async {
+void runPubGetIfNeeded(String packageRoot) {
   if (_isPubGetNecessary(packageRoot)) {
-    await runPubGet(packageRoot);
+    runPubGet(packageRoot);
   } else {
     _logger.info(
         'Skipping `pub get`, which has already been run, in `$packageRoot`');
@@ -54,23 +54,22 @@ Future<void> runPubGetIfNeeded(String packageRoot) async {
 ///
 /// For convenience, tries running with `pub get --offline` if `pub get` fails,
 /// for a better experience when not authenticated to private pub servers.
-Future<void> runPubGet(String workingDirectory) async {
+void runPubGet(String workingDirectory) {
   _logger.info('Running `pub get` in `$workingDirectory`...');
 
-  final process = await Process.start('pub', ['get'],
+  final result = Process.runSync('pub', ['get'],
       workingDirectory: workingDirectory,
-      runInShell: true,
-      mode: ProcessStartMode.inheritStdio);
-  final exitCode = await process.exitCode;
+      runInShell: true
+  );
+  final exitCode = result.exitCode;
 
   if (exitCode == 69) {
     _logger.info(
         'Re-running `pub get` but with `--offline`, to hopefully fix the above error.');
-    final process = await Process.start('pub', ['get', '--offline'],
+    final retryResult = Process.runSync('pub', ['get', '--offline'],
         workingDirectory: workingDirectory,
-        runInShell: true,
-        mode: ProcessStartMode.inheritStdio);
-    final exitCode = await process.exitCode;
+        runInShell: true);
+    final exitCode = retryResult.exitCode;
     if (exitCode != 0) {
       throw Exception('pub get failed with exit code: $exitCode');
     }

@@ -27,7 +27,7 @@ class AddStatefulnessAssist extends AssistTestBase with BoilerplateAssistTestStr
   AssistKind get assistKindUnderTest => ToggleComponentStatefulness.makeStateful;
 
   Future<void> test_noAssist() async {
-    final source = newSource('test.dart', 'var foo = true;');
+    final source = newSource(null, 'var foo = true;');
     final selection = createSelection(source, '#var foo = true;#');
     await expectNoAssist(selection);
   }
@@ -132,7 +132,7 @@ class RemoveStatefulnessAssist extends AssistTestBase with BoilerplateAssistTest
   AssistKind get assistKindUnderTest => ToggleComponentStatefulness.makeStateless;
 
   Future<void> test_noAssist() async {
-    final source = newSource('test.dart', 'var foo = true;');
+    final source = newSource(null, 'var foo = true;');
     final selection = createSelection(source, '#var foo = true;#');
     await expectNoAssist(selection);
   }

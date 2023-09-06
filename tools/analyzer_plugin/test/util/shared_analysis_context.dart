@@ -19,7 +19,6 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:async/async.dart';
 import 'package:analyzer/dart/analysis/analysis_context_collection.dart';
 import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/analysis/utilities.dart';
@@ -33,6 +32,7 @@ import 'package:source_span/source_span.dart';
 // just comment it and related code out.
 import 'package:test_api/src/backend/invoker.dart' show Invoker;
 import 'package:uuid/uuid.dart';
+import 'package:yaml/yaml.dart';
 
 import 'package_util.dart';
 import 'util.dart';
@@ -52,8 +52,8 @@ import 'util.dart';
 class SharedAnalysisContext {
   /// A context root located at `test/test_fixtures/over_react_project`
   /// that depends on the `over_react` package.
-  static final overReact = SharedAnalysisContext(p.join(
-      findPackageRootFor(p.current), 'test/test_fixtures/over_react_project'));
+  static final overReact =
+      SharedAnalysisContext(p.join(findPackageRootFor(p.current), 'test/test_fixtures/over_react_project'));
 
   /// The path to the package root in which test files will be created
   /// and resolved.
@@ -61,7 +61,7 @@ class SharedAnalysisContext {
 
   /// The analysis context collection for files within [_path], initialized
   /// lazily.
-  late final AnalysisContextCollection collection;
+  late final AnalysisContextCollection collection = _initCollection();
 
   /// A custom error message to display if `pub get` fails.
   final String? customPubGetErrorMessage;
@@ -82,33 +82,29 @@ class SharedAnalysisContext {
     }
   }
 
-  // This ensures the _initIfNeeded logic is only ever run once, and prevents
-  // race conditions if there are concurrent calls to it.
-  final _initMemo = AsyncMemoizer<void>();
+  AnalysisContextCollection _initCollection() {
+    // Note that if tests are run concurrently, then concurrent pub gets will be run.
+    // This is hard to avoid (trying to avoid it using a filesystem lock in
+    // macOS/Linux doesn't work due to advisory lock behavior), but intermittently
+    // causes issues, so message referencing exit code 66 and workaround below.
+    try {
+      runPubGetIfNeeded(_path);
+    } catch (e, st) {
+      var message = [
+        // ignore: no_adjacent_strings_in_list
+        'If the exit code is 66, the issue is likely concurrent `pub get`s on'
+            ' this directory from concurrent test entrypoints.'
+            ' Regardless of the exit code, if in CI, try running `pub get`'
+            ' in this directory before running any tests.',
+        if (customPubGetErrorMessage != null) customPubGetErrorMessage,
+      ].join(' ');
+      throw Exception('$message\nOriginal exception: $e$st');
+    }
 
-  Future<void> _initIfNeeded() => _initMemo.runOnce(() async {
-        // Note that if tests are run concurrently, then concurrent pub gets will be run.
-        // This is hard to avoid (trying to avoid it using a filesystem lock in
-        // macOS/Linux doesn't work due to advisory lock behavior), but intermittently
-        // causes issues, so message referencing exit code 66 and workaround below.
-        try {
-          await runPubGetIfNeeded(_path);
-        } catch (e, st) {
-          var message = [
-            // ignore: no_adjacent_strings_in_list
-            'If the exit code is 66, the issue is likely concurrent `pub get`s on'
-                ' this directory from concurrent test entrypoints.'
-                ' Regardless of the exit code, if in CI, try running `pub get`'
-                ' in this directory before running any tests.',
-            if (customPubGetErrorMessage != null) customPubGetErrorMessage,
-          ].join(' ');
-          throw Exception('$message\nOriginal exception: $e$st');
-        }
-
-        collection = AnalysisContextCollection(
-          includedPaths: [_path],
-        );
-      });
+    return AnalysisContextCollection(
+      includedPaths: [_path],
+    );
+  }
 
   /// Warms up the AnalysisContextCollection by running `pub get` (if needed) and
   /// initializing [collection] if that hasn't been done yet, and getting the
@@ -118,11 +114,11 @@ class SharedAnalysisContext {
   /// doesn't take abnormally long (e.g., if having consistent test times is
   /// important, or if the first test might have a short timeout).
   Future<void> warmUpAnalysis() async {
-    await _initIfNeeded();
     final path = p.join(_path, 'lib/analysis_warmup.dart');
     await collection.contextFor(path).currentSession.getResolvedLibrary(path);
     _shouldPrintFirstFileWarning = false;
   }
+
   //
   // /// A convenience method that creates a codemod [FileContext],
   // /// run [suggestor] on it, and returns the patches yielded.
@@ -174,8 +170,36 @@ class SharedAnalysisContext {
     bool throwOnAnalysisErrors = true,
     IsExpectedError? isExpectedError,
   }) async {
-    await _initIfNeeded();
+    final fileContext =
+        fileContextForTest(sourceText, filename: filename, includeTestDescription: includeTestDescription);
 
+    final context = collection.contexts.singleWhere((c) => c.contextRoot.root.path == _path);
+
+    if (throwOnAnalysisErrors && !preResolveLibrary) {
+      throw ArgumentError('If throwOnAnalysisErrors is true, preResolveFile must be false');
+    }
+    if (isExpectedError != null && !throwOnAnalysisErrors) {
+      throw ArgumentError('If isExpectedError is provided, throwOnAnalysisErrors must be true');
+    }
+    if (preResolveLibrary) {
+      final result = await _printAboutFirstFile(() => context.currentSession.getResolvedLibrary(fileContext.path));
+      if (throwOnAnalysisErrors) {
+        checkResolvedResultForErrors(result, isExpectedError: isExpectedError);
+      }
+    }
+
+    // Assert that this doesn't throw a StateError due to this file not
+    // existing in the context we've set up (which shouldn't ever happen).
+    collection.contextFor(fileContext.path);
+
+    return fileContext;
+  }
+
+  FileContext fileContextForTest(
+    String sourceText, {
+    String? filename,
+    bool includeTestDescription = true,
+  }) {
     filename ??= nextFilename();
 
     if (includeTestDescription) {
@@ -185,10 +209,7 @@ class SharedAnalysisContext {
       // - you can search for the test description to easily find the right file
       try {
         final testName = Invoker.current!.liveTest.test.name;
-        sourceText =
-            lineComment('Created within test with name:\n> $testName') +
-                '\n' +
-                sourceText;
+        sourceText = lineComment('Created within test with name:\n> $testName') + '\n' + sourceText;
       } catch (_) {}
     }
 
@@ -204,25 +225,6 @@ class SharedAnalysisContext {
     }
     file.parent.createSync(recursive: true);
     file.writeAsStringSync(sourceText);
-
-    final context = collection.contexts
-        .singleWhere((c) => c.contextRoot.root.path == _path);
-
-    if (throwOnAnalysisErrors && !preResolveLibrary) {
-      throw ArgumentError(
-          'If throwOnAnalysisErrors is true, preResolveFile must be false');
-    }
-    if (isExpectedError != null && !throwOnAnalysisErrors) {
-      throw ArgumentError(
-          'If isExpectedError is provided, throwOnAnalysisErrors must be true');
-    }
-    if (preResolveLibrary) {
-      final result = await _printAboutFirstFile(
-          () => context.currentSession.getResolvedLibrary(path));
-      if (throwOnAnalysisErrors) {
-        checkResolvedResultForErrors(result, isExpectedError: isExpectedError);
-      }
-    }
 
     // Assert that this doesn't throw a StateError due to this file not
     // existing in the context we've set up (which shouldn't ever happen).
@@ -287,10 +289,7 @@ void checkResolvedResultForErrors(
       ' to verify that only the expected errors are present.';
 
   if (result is! ResolvedLibraryResult) {
-    throw ArgumentError([
-      'Error resolving file; result was $result.',
-      sharedMessage
-    ].join(' '));
+    throw ArgumentError(['Error resolving file; result was $result.', sharedMessage].join(' '));
   }
 
   final unexpectedErrors = result.units
@@ -374,7 +373,6 @@ extension ParseHelpers on SharedAnalysisContext {
   }
 }
 
-
 /// A helper class for a file located at [path] that provides access to its
 /// contents and analyzed formats like [CompilationUnit] and [LibraryElement].
 class FileContext {
@@ -401,8 +399,7 @@ class FileContext {
 
   /// A representation of this file that makes it easy to reference spans of
   /// text, which is useful for the creation of [SourcePatch]es.
-  late final SourceFile sourceFile =
-      SourceFile.fromString(sourceText, url: Uri.file(path));
+  late final SourceFile sourceFile = SourceFile.fromString(sourceText, url: Uri.file(path));
 
   /// The contents of this file.
   late final String sourceText = File(path).readAsStringSync();
@@ -410,10 +407,7 @@ class FileContext {
   /// Uses the analyzer to resolve and return the library result for this file,
   /// which includes the [LibraryElement].
   Future<ResolvedLibraryResult?> getResolvedLibrary() async {
-    final result = await _analysisContextCollection
-        .contextFor(path)
-        .currentSession
-        .getResolvedLibrary(path);
+    final result = await _analysisContextCollection.contextFor(path).currentSession.getResolvedLibrary(path);
     return result is ResolvedLibraryResult ? result : null;
   }
 
@@ -423,18 +417,14 @@ class FileContext {
   /// If the fully resolved AST is not needed, use the much faster
   /// [getUnresolvedUnit].
   Future<SomeResolvedUnitResult> getResolvedUnit() async {
-    return _analysisContextCollection
-        .contextFor(path)
-        .currentSession
-        .getResolvedUnit(path);
+    return _analysisContextCollection.contextFor(path).currentSession.getResolvedUnit(path);
   }
 
   /// Returns the unresolved AST for this file.
   ///
   /// If the fully resolved AST is needed, use [getResolvedUnit].
   CompilationUnit getUnresolvedUnit() {
-    final result =
-        parseString(content: sourceText, path: path, throwIfDiagnostics: false);
+    final result = parseString(content: sourceText, path: path, throwIfDiagnostics: false);
     if (result.errors.isEmpty) return result.unit;
 
     // Errors thrown by parseString don't include the filename, and result in
@@ -447,7 +437,6 @@ class FileContext {
       buffer.writeln('  ${error.errorCode.name}: ${error.message} - '
           '${location.lineNumber}:${location.columnNumber}');
     }
-    throw ArgumentError(
-        'File "$relativePath" produced diagnostics when parsed:\n$buffer');
+    throw ArgumentError('File "$relativePath" produced diagnostics when parsed:\n$buffer');
   }
 }

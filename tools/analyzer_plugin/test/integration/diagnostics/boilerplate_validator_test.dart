@@ -39,7 +39,7 @@ abstract class LegacyAbstractComponent<T extends UiProps> extends UiComponent<T>
 ''';
 
   Future<void> test_noErrors() async {
-    final _source = newSource('test.dart', source);
+    final _source = newSource(null, source);
     expect(await getAllErrors(_source), isEmpty);
   }
 }
@@ -59,7 +59,7 @@ ${BoilerplateValidatorDiagnosticTest.boilerplateThatRequiresGeneratedPart}
 ''';
 
   Future<void> test_error() async {
-    final _source = newSource('test.dart', source);
+    final _source = newSource(null, source);
     final allErrors = await getAllErrors(_source);
     expect(
       allErrors,
@@ -71,7 +71,7 @@ ${BoilerplateValidatorDiagnosticTest.boilerplateThatRequiresGeneratedPart}
   }
 
   Future<void> test_errorFix() async {
-    var _source = newSource('test.dart', source);
+    var _source = newSource(null, source);
     final selection = createSelection(_source, "UiFactory<FooProps> #Foo# =");
     final errorFix = await expectSingleErrorFix(selection);
     expect(errorFix.fixes.single.change.selection, isNull);
@@ -101,7 +101,7 @@ part 'test.over_react.g.dart';
 ''';
 
   Future<void> test_error() async {
-    final _source = newSource('test.dart', source);
+    final _source = newSource(null, source);
     final allErrors = await getAllErrors(_source);
     expect(
       allErrors,
@@ -115,7 +115,7 @@ part 'test.over_react.g.dart';
   }
 
   Future<void> test_errorFix() async {
-    var _source = newSource('test.dart', source);
+    var _source = newSource(null, source);
     final selection = createSelection(_source, "#part 'test.over_react.g.dart';#");
     final errorFix = await expectSingleErrorFix(selection);
     expect(errorFix.fixes.single.change.selection, isNull);
@@ -145,7 +145,7 @@ ${BoilerplateValidatorDiagnosticTest.boilerplateThatRequiresGeneratedPart}
 ''';
 
   Future<void> test_error() async {
-    final _source = newSource('test.dart', source);
+    final _source = newSource(null, source);
     final allErrors = await getAllErrors(_source);
     expect(
       allErrors,
@@ -161,7 +161,7 @@ ${BoilerplateValidatorDiagnosticTest.boilerplateThatRequiresGeneratedPart}
   }
 
   Future<void> test_errorFix() async {
-    var _source = newSource('test.dart', source);
+    var _source = newSource(null, source);
     final selection = createSelection(_source, "#part 'invalid_generated_part_filename.over_react.g.dart';#");
     final errorFix = await expectSingleErrorFix(selection);
     expect(errorFix.fixes.single.change.selection, isNull);

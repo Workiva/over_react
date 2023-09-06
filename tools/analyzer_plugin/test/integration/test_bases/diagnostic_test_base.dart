@@ -74,7 +74,7 @@ abstract class DiagnosticTestBase extends ServerPluginContributorTestBase {
   /// Fails the test if any selection of [sourceContents] from
   /// [selectionTargets] does not produce a single assist.
   Future<void> expectAllSelectionsProduceAtLeastOneError(String sourceContents, List<String> selectionTargets) async {
-    final source = newSource('test.dart', sourceContents);
+    final source = newSource(null, sourceContents);
     for (final target in selectionTargets) {
       final selection = createSelection(source, target);
       await expectSingleErrorFix(selection);

@@ -43,12 +43,14 @@ import 'package:over_react_analyzer_plugin/src/assist/add_props.dart';
 import 'package:over_react_analyzer_plugin/src/assist/convert_class_or_function_component.dart';
 import 'package:over_react_analyzer_plugin/src/assist/extract_component.dart';
 import 'package:over_react_analyzer_plugin/src/assist/refs/add_create_ref_assist.dart';
+
 // Can't import this until it stops importing non-null-safe code, otherwise the plugin won't start.
 //import 'package:over_react_analyzer_plugin/src/assist/toggle_stateful.dart';
 import 'package:over_react_analyzer_plugin/src/async_plugin_apis/assist.dart';
 import 'package:over_react_analyzer_plugin/src/async_plugin_apis/diagnostic.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/arrow_function_prop.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/bad_key.dart';
+
 // Can't import this until it stops importing non-null-safe code, otherwise the plugin won't start.
 //import 'package:over_react_analyzer_plugin/src/diagnostic/boilerplate_validator.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/callback_ref.dart';
@@ -58,6 +60,7 @@ import 'package:over_react_analyzer_plugin/src/diagnostic/dom_prop_types.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/duplicate_prop_cascade.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/exhaustive_deps.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/forward_only_dom_props_to_dom_builders.dart';
+
 // Can't import this until it stops importing non-null-safe code, otherwise the plugin won't start.
 //import 'package:over_react_analyzer_plugin/src/diagnostic/incorrect_doc_comment_location.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/invalid_child.dart';
@@ -75,16 +78,15 @@ import 'package:over_react_analyzer_plugin/src/diagnostic/variadic_children.dart
 import 'package:over_react_analyzer_plugin/src/diagnostic/variadic_children_with_keys.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 
-abstract class OverReactAnalyzerPluginBase extends ServerPlugin
-    with
+mixin OverReactAnalyzerPluginBase
+    on
+        ServerPlugin,
 //    OutlineMixin, DartOutlineMixin,
         DiagnosticMixin,
         NavigationMixin,
         DartNavigationMixin,
         AsyncAssistsMixin,
         AsyncDartAssistsMixin {
-  OverReactAnalyzerPluginBase(ResourceProvider provider) : super(resourceProvider: provider);
-
   @override
   final pluginOptionsReader = PluginOptionsReader();
 
@@ -159,8 +161,6 @@ abstract class OverReactAnalyzerPluginBase extends ServerPlugin
   //       new ReactElementOutlineContributor(),
   //     ];
 
-
-
   @override
   Future<void> analyzeFile({required AnalysisContext analysisContext, required String path}) async {
     await runZonedGuarded(() async {
@@ -175,8 +175,15 @@ abstract class OverReactAnalyzerPluginBase extends ServerPlugin
 }
 
 /// Analyzer plugin for over_react.
-class OverReactAnalyzerPlugin extends OverReactAnalyzerPluginBase {
-  OverReactAnalyzerPlugin(ResourceProvider provider) : super(provider);
+class OverReactAnalyzerPlugin extends ServerPlugin
+    with
+        DiagnosticMixin,
+        NavigationMixin,
+        DartNavigationMixin,
+        AsyncAssistsMixin,
+        AsyncDartAssistsMixin,
+        OverReactAnalyzerPluginBase {
+  OverReactAnalyzerPlugin(ResourceProvider provider) : super(resourceProvider: provider);
 
   @override
   String get name => 'over_react';

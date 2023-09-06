@@ -200,13 +200,13 @@ final UsesCallbackRef = uiFunction<UiProps>(
 ''';
 
   Future<void> test_blockFnBodyRefAssignment() async {
-    final source = newSource('test.dart', usageSourceWithinFnComponent);
+    final source = newSource(null, usageSourceWithinFnComponent);
     await expectSingleErrorAt(
         createSelection(source, CallbackRefDiagnosticTest.selectionToFixBlockFnBodyRefAssignment));
   }
 
   Future<void> test_blockFnBodyRefAssignmentFix() async {
-    var source = newSource('test.dart', usageSourceWithinFnComponent);
+    var source = newSource(null, usageSourceWithinFnComponent);
     final errorFix = await expectSingleErrorFix(
         createSelection(source, CallbackRefDiagnosticTest.selectionToFixBlockFnBodyRefAssignment));
     expect(errorFix.fixes.single.change.selection, isNull);
@@ -215,12 +215,12 @@ final UsesCallbackRef = uiFunction<UiProps>(
   }
 
   Future<void> test_arrowFnRefAssignmentError() async {
-    final source = newSource('test.dart', usageSourceWithinFnComponentFixedBlockFnBodyRefAssignment);
+    final source = newSource(null, usageSourceWithinFnComponentFixedBlockFnBodyRefAssignment);
     await expectSingleErrorAt(createSelection(source, CallbackRefDiagnosticTest.selectionToFixArrowFnRefAssignment));
   }
 
   Future<void> test_arrowFnRefAssignmentErrorFix() async {
-    var source = newSource('test.dart', usageSourceWithinFnComponentFixedBlockFnBodyRefAssignment);
+    var source = newSource(null, usageSourceWithinFnComponentFixedBlockFnBodyRefAssignment);
     final errorFix = await expectSingleErrorFix(
         createSelection(source, CallbackRefDiagnosticTest.selectionToFixArrowFnRefAssignment));
     expect(errorFix.fixes.single.change.selection, isNull);
@@ -235,7 +235,7 @@ class CallbackRefDiagnosticFnComponentTestNoFix extends CallbackRefDiagnosticTes
   get fixKindUnderTest => null;
 
   Future<void> test_tearoffFnRefAssignment() async {
-    final source = newSource('test.dart', CallbackRefDiagnosticFnComponentTest.usageSourceWithinFnComponent);
+    final source = newSource(null, CallbackRefDiagnosticFnComponentTest.usageSourceWithinFnComponent);
     final selection = createSelection(source, CallbackRefDiagnosticTest.selectionForTearoffRefAssignmentError);
     await expectSingleErrorAt(selection);
     // We intentionally do not want the diagnostic to suggest a fix since
@@ -316,13 +316,13 @@ class UsesCallbackRefComponent extends UiComponent2<UsesCallbackRefProps> {
 ''';
 
   Future<void> test_blockFnBodyRefAssignment() async {
-    final source = newSource('test.dart', usageSourceWithinClassComponent);
+    final source = newSource(null, usageSourceWithinClassComponent);
     await expectSingleErrorAt(
         createSelection(source, CallbackRefDiagnosticTest.selectionToFixBlockFnBodyRefAssignment));
   }
 
   Future<void> test_blockFnBodyRefAssignmentFix() async {
-    var source = newSource('test.dart', usageSourceWithinClassComponent);
+    var source = newSource(null, usageSourceWithinClassComponent);
     final errorFix = await expectSingleErrorFix(
         createSelection(source, CallbackRefDiagnosticTest.selectionToFixBlockFnBodyRefAssignment));
     expect(errorFix.fixes.single.change.selection, isNull);
@@ -331,12 +331,12 @@ class UsesCallbackRefComponent extends UiComponent2<UsesCallbackRefProps> {
   }
 
   Future<void> test_arrowFnRefAssignmentError() async {
-    final source = newSource('test.dart', usageSourceWithinClassComponentFixedBlockFnBodyRefAssignment);
+    final source = newSource(null, usageSourceWithinClassComponentFixedBlockFnBodyRefAssignment);
     await expectSingleErrorAt(createSelection(source, CallbackRefDiagnosticTest.selectionToFixArrowFnRefAssignment));
   }
 
   Future<void> test_arrowFnRefAssignmentErrorFix() async {
-    var source = newSource('test.dart', usageSourceWithinClassComponentFixedBlockFnBodyRefAssignment);
+    var source = newSource(null, usageSourceWithinClassComponentFixedBlockFnBodyRefAssignment);
     final errorFix = await expectSingleErrorFix(
         createSelection(source, CallbackRefDiagnosticTest.selectionToFixArrowFnRefAssignment));
     expect(errorFix.fixes.single.change.selection, isNull);
@@ -351,7 +351,7 @@ class CallbackRefDiagnosticClassComponentTestNoFix extends CallbackRefDiagnostic
   get fixKindUnderTest => null;
 
   Future<void> test_tearoffFnRefAssignment() async {
-    final source = newSource('test.dart', CallbackRefDiagnosticClassComponentTest.usageSourceWithinClassComponent);
+    final source = newSource(null, CallbackRefDiagnosticClassComponentTest.usageSourceWithinClassComponent);
     final selection = createSelection(source, CallbackRefDiagnosticTest.selectionForTearoffRefAssignmentError);
     await expectSingleErrorAt(selection);
     // We intentionally do not want the diagnostic to suggest a fix since
