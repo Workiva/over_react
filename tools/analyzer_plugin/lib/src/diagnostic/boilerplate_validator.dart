@@ -67,15 +67,15 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
   PartDirective? _overReactGeneratedPartDirective;
   late bool _overReactGeneratedPartDirectiveIsValid;
 
-  /// Returns true if the [unit] representing a part file has declarations.
+  /// Returns true if the [unit] has over_react boilerplate declarations.
   ///
-  /// Does not report any errors for the part file, as those are handled when the part file is analyzed
-  bool _partHasDeclarations(CompilationUnit unit, ResolvedUnitResult parentResult) {
+  /// Does not report any errors for the unit, as those are handled when each unit is analyzed
+  bool _unitHasDeclarations(CompilationUnit unit, ParsedUnitResult unitResult) {
     return orbp
         .getBoilerplateDeclarations(
             orbp.detectBoilerplateMembers(unit),
             orbp.ErrorCollector.callback(
-              SourceFile.fromString(parentResult.content, url: parentResult.path),
+              SourceFile.fromString(unitResult.content, url: unitResult.path),
               // no-op for these.
               // It is assumed this method will run for parent files, and the part file will get analyzed in its own context.
               // Need types on the second args to avoid nullability errors, since they come from a non-null-safe library.
@@ -206,22 +206,15 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
       return;
     }
 
-    final parts = getNonGeneratedParts(result.unit);
-
-    // compute errors for parts files
-    var anyPartHasDeclarations = false;
-    for (final part in parts) {
-      final uri = part.uriSource?.uri;
-      // URI could not be resolved or source does not exist
-      if (uri == null) continue;
-      final partResult = result.session.getParsedUnit(result.session.uriConverter.uriToPath(uri)!);
-
-      if (partResult is ParsedUnitResult && _partHasDeclarations(partResult.unit, result)) {
-        anyPartHasDeclarations = true;
-      }
-    }
-
-    await _computePartDirectiveErrors(result, collector, hasDeclarations || anyPartHasDeclarations);
+    // Compute errors related to part directives.
+    final anyUnitHasDeclarations = hasDeclarations || result.libraryElement.units.any((unit) {
+      final path = result.session.uriConverter.uriToPath(unit.source.uri);
+      if (path == null) return false;
+      final unitResult = result.session.getParsedUnit(path);
+      if (unitResult is! ParsedUnitResult) return false;
+      return _unitHasDeclarations(unitResult.unit, unitResult);
+    });
+    await _computePartDirectiveErrors(result, collector, anyUnitHasDeclarations);
   }
 
   Future<void> _addPartDirectiveErrorForMember({
