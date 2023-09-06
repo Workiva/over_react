@@ -3,6 +3,7 @@ include: package:workiva_analysis_options/v1.recommended.yaml
 analyzer:
   exclude:
     - playground/**
+    - test/test_fixtures/**
   strong-mode:
     implicit-casts: false
     implicit-dynamic: false

@@ -15,6 +15,8 @@ import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/ignore_info.dart';
 import 'package:path/path.dart' as p;
 
+import 'util/shared_analysis_context.dart';
+
 /// Parses [dartSource] and returns the unresolved AST, throwing if there are any syntax errors.
 CompilationUnit parseAndGetUnit(String dartSource) {
   final result = parseString(
@@ -70,9 +72,9 @@ FluentComponentUsage parseAndGetComponentUsage(String dartSource) {
 }
 
 /// Parses [dartSource] and returns the resolved AST, throwing if there are any static analysis errors.
-Future<ResolvedUnitResult> parseAndGetResolvedUnit(String dartSource, {String path = 'dartSource.dart'}) async {
-  final results = await parseAndGetResolvedUnits({path: dartSource});
-  return results.values.single;
+Future<ResolvedUnitResult> parseAndGetResolvedUnit(String dartSource, {String? path}) async {
+  final context = await SharedAnalysisContext.overReact.resolvedFileContextForTest(dartSource, filename: path);
+  return await context.getResolvedUnit() as ResolvedUnitResult;
 }
 
 // Reuse an analysis context across multiple calls,

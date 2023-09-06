@@ -56,7 +56,7 @@ abstract class AssistTestBase extends ServerPluginContributorTestBase {
   /// Returns all assists produced at [selection].
   Future<List<PrioritizedSourceChange>> _getAllAssists(SourceSelection selection) async {
     final parameters = EditGetAssistsParams(
-        resourceProvider.convertPath(selection.source.uri.path), selection.offset, selection.length);
+        selection.source.uri.toFilePath(), selection.offset, selection.length);
     return (await testPlugin.handleEditGetAssists(parameters))
         .assists
         .where((psc) => psc.change.id == assistKindUnderTest.id)

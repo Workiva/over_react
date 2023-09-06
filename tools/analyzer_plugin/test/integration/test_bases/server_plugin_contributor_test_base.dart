@@ -74,7 +74,8 @@ abstract class ServerPluginContributorTestBase extends AnalysisDriverTestBase {
       resourceProvider.getFile(path).readAsStringSync(),
       [for (final fileEdit in applicableFileEdits) ...fileEdit.edits],
     );
-    final file = resourceProvider.updateFile(path, updated);
+    modifyFile(path, updated);
+    final file = resourceProvider.getFile(path);
     return file.createSource();
   }
 
@@ -149,7 +150,7 @@ abstract class ServerPluginContributorTestBase extends AnalysisDriverTestBase {
     await super.setUp();
 
     _channel = StubChannel();
-    _plugin = PluginForTest(analysisDriver, resourceProvider)..start(_channel!);
+    _plugin = PluginForTest(resourceProvider)..start(_channel!);
 
     // ignore: missing_required_param
     final contextRoot = ContextRoot(testPath, []);

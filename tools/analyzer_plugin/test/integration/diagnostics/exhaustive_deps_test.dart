@@ -310,7 +310,7 @@ class ObjectWithWritableField {
                     // This means that later iterations in the loop will have unexpected changes, and also their
                     // fixes won't always end up in the right places since their offsets are stale.
                     // Revert the changes to the file so that other iterations can test their fixes without interference.
-                    testBase.resourceProvider.updateFile(p.normalize(source.uri.toFilePath()), sourceBeforeFixes);
+                    testBase.modifyFile(p.normalize(source.uri.toFilePath()), sourceBeforeFixes);
                   }
                 }
               }
