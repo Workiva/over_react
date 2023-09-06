@@ -9,14 +9,17 @@ void main() {
   group('ast_util', () {
     test('allDescendants returns all descendants in breadth-first order', () {
       final unit = parseAndGetUnit(/*language=dart*/ r'''
-        class A {}
+        class A {
+          var field;
+        }
         class B {}
       ''');
       expect(allDescendants(unit), [
         isA<ClassDeclaration>(), // class A {}
         isA<ClassDeclaration>(), // class B {}
-        isA<Identifier>(), // A
-        isA<Identifier>(), // B
+        isA<FieldDeclaration>(), // var field;
+        isA<VariableDeclarationList>(), // field
+        isA<VariableDeclaration>(), // field
       ]);
     });
 

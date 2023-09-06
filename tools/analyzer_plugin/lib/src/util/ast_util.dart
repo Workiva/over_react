@@ -17,8 +17,8 @@ import 'util.dart';
 /// or null if the [element] doesn't correspond to a variable declaration, or if it can't be found in [root].
 VariableDeclaration? lookUpVariable(Element element, AstNode root) {
   final node = NodeLocator2(element.nameOffset).searchWithin(root);
-  if (node is Identifier && node.staticElement == element) {
-    return node.parent.tryCast<VariableDeclaration>();
+  if (node is VariableDeclaration && node.declaredElement == element) {
+    return node;
   }
 
   return null;
@@ -31,10 +31,11 @@ VariableDeclaration? lookUpVariable(Element element, AstNode root) {
 /// Returns null if the [element] doesn't correspond to one of these cases, or if it can't be found in [root].
 FunctionExpression? lookUpFunction(Element element, AstNode root) {
   final node = NodeLocator2(element.nameOffset).searchWithin(root);
-  if (node is Identifier && node.staticElement == element) {
-    final parent = node.parent;
-    return parent.tryCast<FunctionDeclaration>()?.functionExpression ??
-        parent.tryCast<VariableDeclaration>()?.initializer?.tryCast<FunctionExpression>();
+  if (node is FunctionDeclaration && node.declaredElement == element) {
+    return node.functionExpression;
+  }
+  if (node is VariableDeclaration && node.declaredElement == element) {
+    return node.initializer?.tryCast<FunctionExpression>();
   }
 
   return null;
