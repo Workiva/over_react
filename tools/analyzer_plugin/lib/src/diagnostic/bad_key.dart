@@ -186,9 +186,9 @@ class BadKeyDiagnostic extends ComponentUsageDiagnosticContributor {
 
   static bool inheritsToStringImplFromObject(Element element) =>
       element
-          .tryCast<ClassElement>()
+          .tryCast<InterfaceElement>()
           ?.lookUpConcreteMethod('toString', element.library!)
-          ?.thisOrAncestorOfType<ClassElement>()
+          ?.thisOrAncestorOfType<InterfaceElement>()
           ?.thisType
           .isDartCoreObject ??
       false;

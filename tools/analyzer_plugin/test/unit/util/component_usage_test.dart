@@ -423,7 +423,7 @@ void main() {
               expect(
                 componentUsage.propsClassElement,
                 builderSource.canBuilderResolve
-                    ? isA<ClassElement>().having((c) => c.name, 'name', builderSource.propsName)
+                    ? isA<InterfaceElement>().having((c) => c.name, 'name', builderSource.propsName)
                     : isNull,
               );
               expect(
