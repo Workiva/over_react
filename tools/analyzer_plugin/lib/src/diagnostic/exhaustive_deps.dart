@@ -1080,7 +1080,7 @@ class ExhaustiveDeps extends DiagnosticContributor {
                   // This also preserves generic function expressions.
                   // `void something<T generic>(T arg) {…}` -> `final something = useCallback(<T>(T arg) {…}, […]);`
                   builder.addSimpleReplacement(range.startEnd(construction, construction.name),
-                      'final ${construction.name.name} = useCallback(');
+                      'final ${construction.name.lexeme} = useCallback(');
                   // TODO(ported): ideally we'd gather deps here but it would require
                   //  restructuring the rule code. Note we're
                   //  not adding [] because would that changes semantics.
@@ -1335,7 +1335,7 @@ class ExhaustiveDeps extends DiagnosticContributor {
                   // This case is necessary for `stateVar.set` calls, since key for setStateCallSites is the `stateVar` identifier, not `set`.
                   setStateCallSites.getNullableKey(maybeCall.tryCast<MethodInvocation>()?.target.tryCast());
               if (correspondingStateVariable != null) {
-                if ('${correspondingStateVariable.name.name}.value' == missingDep) {
+                if ('${correspondingStateVariable.name.lexeme}.value' == missingDep) {
                   // setCount(count + 1)
                   setStateRecommendation = _SetStateRecommendation(
                     missingDep: missingDep,
@@ -1658,7 +1658,7 @@ bool _hasDeclarationWithName(FunctionBody body, String childName) {
   // Use a visitor so we properly handle declarations inside blocks.
   var hasMatch = false;
   body.visitChildren(_ChildLocalVariableOrFunctionDeclarationVisitor((_, name) {
-    if (name.name == childName) {
+    if (name.lexeme == childName) {
       hasMatch = true;
     }
   }));
@@ -1666,7 +1666,7 @@ bool _hasDeclarationWithName(FunctionBody body, String childName) {
 }
 
 class _ChildLocalVariableOrFunctionDeclarationVisitor extends RecursiveAstVisitor<void> {
-  final void Function(Declaration, SimpleIdentifier name) onChildLocalDeclaration;
+  final void Function(Declaration, Token name) onChildLocalDeclaration;
 
   _ChildLocalVariableOrFunctionDeclarationVisitor(this.onChildLocalDeclaration);
 
@@ -1922,7 +1922,7 @@ _Recommendations collectRecommendations({
 String? getConstructionExpressionType(Expression node) {
   if (node is InstanceCreationExpression) {
     if (node.isConst) return null;
-    return node.constructorName.type2.name.name;
+    return node.constructorName.type.name.name;
   } else if (node is ListLiteral) {
     return _DepType.list;
   } else if (node is SetOrMapLiteral) {

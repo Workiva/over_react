@@ -71,7 +71,7 @@ class FluentComponentUsage {
 
   /// The class element for the builder's props class (or, for parameterized types
   /// the bound of that type), or `null` if this usage is not fully resolved.
-  ClassElement? get propsClassElement => builderType?.typeOrBound.tryCast<InterfaceType>()?.element;
+  InterfaceElement? get propsClassElement => builderType?.typeOrBound.tryCast<InterfaceType>()?.element;
 
   /// The name of the builder's props class (or, for parameterized types
   /// the bound of that type), or `null` if this usage is not fully resolved.

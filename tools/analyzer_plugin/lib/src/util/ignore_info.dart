@@ -103,13 +103,12 @@ class IgnoreInfo {
   /// Initialize a newly created instance of this class to represent the ignore
   /// comments in the given compilation [unit].
   IgnoreInfo.forDart(CompilationUnit unit, String content) {
-    var lineInfo = unit.lineInfo!;
     for (final comment in unit.ignoreComments) {
       var lexeme = comment.lexeme;
       if (lexeme.contains('ignore:')) {
-        var location = lineInfo.getLocation(comment.offset);
+        var location = unit.lineInfo.getLocation(comment.offset);
         var lineNumber = location.lineNumber;
-        var offsetOfLine = lineInfo.getOffsetOfLine(lineNumber - 1);
+        var offsetOfLine = unit.lineInfo.getOffsetOfLine(lineNumber - 1);
         var beforeMatch = content.substring(
             offsetOfLine, offsetOfLine + location.columnNumber - 1);
         if (beforeMatch.trim().isEmpty) {

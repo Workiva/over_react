@@ -132,11 +132,6 @@ extension TypeOrBound on DartType {
   }
 }
 
-extension ClassOrMixinDeclarationUtils on ClassOrMixinDeclaration {
-  /// Similar to [getField], but returns the entire declaration instead.
-  FieldDeclaration? getFieldDeclaration(String name) => getField(name)?.thisOrAncestorOfType<FieldDeclaration>();
-}
-
 int prevLine(int offset, LineInfo lineInfo) {
   return lineInfo.getOffsetOfLine(lineInfo.getLocation(offset).lineNumber - 1);
 }
@@ -333,7 +328,7 @@ extension FunctionBodyUtils on FunctionBody {
   MethodDeclaration? get parentMethod => parent?.tryCast();
 
   String get functionNameOrDescription {
-    final name = parentExpression?.parentDeclaration?.name.name;
+    final name = parentExpression?.parentDeclaration?.name.lexeme;
     if (name != null) return name;
 
     // TODO come up with a better description in some cases
