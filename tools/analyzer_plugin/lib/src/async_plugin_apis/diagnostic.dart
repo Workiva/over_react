@@ -32,6 +32,7 @@
 
 import 'dart:async';
 
+import 'package:analyzer/dart/analysis/analysis_context.dart';
 import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer_plugin/channel/channel.dart';
 import 'package:analyzer_plugin/plugin/plugin.dart';
@@ -56,24 +57,20 @@ import 'package:over_react_analyzer_plugin/src/util/pretty_print.dart';
 mixin DiagnosticMixin on ServerPlugin {
   PluginOptionsReader get pluginOptionsReader;
 
-  List<DiagnosticContributor> getDiagnosticContributors(String path);
-
-  /// Computes errors based on an analysis result and notifies the analyzer.
-  Future<void> processDiagnosticsForResult(ResolvedUnitResult analysisResult) async {
-    await getAllErrors(analysisResult);
-  }
+  List<DiagnosticContributor> getDiagnosticContributors(AnalysisContext analysisContext, String path);
 
   /// Computes errors based on an analysis result, notifies the analyzer, and
   /// then returns the list of errors.
   Future<List<AnalysisError>> getAllErrors(ResolvedUnitResult analysisResult) async {
-    final analysisOptions = pluginOptionsReader.getOptionsForResult(analysisResult);
+    final analysisContext = analysisResult.session.analysisContext;
+    final analysisOptions = pluginOptionsReader.getOptionsForContextRoot(analysisContext.contextRoot);
 
     try {
       // If there is something to analyze, do so and notify the analyzer.
       // Note that notifying with an empty set of errors is important as
       // this clears errors if they were fixed.
       final generator = _DiagnosticGenerator(
-        getDiagnosticContributors(analysisResult.path),
+        getDiagnosticContributors(analysisContext, analysisResult.path),
         errorSeverityProvider: AnalysisOptionsErrorSeverityProvider(analysisOptions),
       );
       final result = await generator.generateErrors(analysisResult);
@@ -91,11 +88,12 @@ mixin DiagnosticMixin on ServerPlugin {
   Future<plugin.EditGetFixesResult> handleEditGetFixes(plugin.EditGetFixesParams parameters) async {
     // We want request errors to propagate if they throw
     final request = await _getFixesRequest(parameters);
-    final analysisOptions = pluginOptionsReader.getOptionsForResult(request.result);
+    final analysisContext = request.result.session.analysisContext;
+    final analysisOptions = pluginOptionsReader.getOptionsForContextRoot(analysisContext.contextRoot);
 
     try {
       final generator = _DiagnosticGenerator(
-        getDiagnosticContributors(parameters.file),
+        getDiagnosticContributors(analysisContext, parameters.file),
         errorSeverityProvider: AnalysisOptionsErrorSeverityProvider(analysisOptions),
       );
       final result = await generator.generateFixesResponse(request);
