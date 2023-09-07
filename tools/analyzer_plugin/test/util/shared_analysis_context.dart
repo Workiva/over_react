@@ -28,10 +28,6 @@ import 'package:analyzer/error/error.dart';
 import 'package:io/io.dart';
 import 'package:path/path.dart' as p;
 import 'package:source_span/source_span.dart';
-
-// This isn't strictly required for anything, so if the import becomes invalid,
-// just comment it and related code out.
-import 'package:test_api/src/backend/invoker.dart' show Invoker;
 import 'package:uuid/uuid.dart';
 
 import 'package_util.dart';
@@ -193,13 +189,11 @@ class SharedAnalysisContext {
   Future<FileContext> resolvedFileContextForTest(
     String sourceText, {
     String? filename,
-    bool includeTestDescription = true,
     bool preResolveLibrary = true,
     bool throwOnAnalysisErrors = true,
     IsExpectedError? isExpectedError,
   }) async {
-    final fileContext =
-        fileContextForTest(sourceText, filename: filename, includeTestDescription: includeTestDescription);
+    final fileContext = fileContextForTest(sourceText, filename: filename);
 
     final context = collection.contexts.singleWhere((c) => c.contextRoot.root.path == contextRootPath);
 
@@ -223,24 +217,8 @@ class SharedAnalysisContext {
     return fileContext;
   }
 
-  FileContext fileContextForTest(
-    String sourceText, {
-    String? filename,
-    bool includeTestDescription = true,
-  }) {
+  FileContext fileContextForTest(String sourceText, {String? filename}) {
     filename ??= nextFilename();
-
-    if (includeTestDescription) {
-      // For convenience, include the current test description in the file as
-      // a comment, so that:
-      // - you can tell you're looking at the right file for a given test
-      // - you can search for the test description to easily find the right file
-      try {
-        final testName = Invoker.current!.liveTest.test.name;
-        sourceText = lineComment('Created within test with name:\n> $testName') + '\n' + sourceText;
-      } catch (_) {}
-    }
-
     final path = p.join(contextRootPath, _testFileSubpath, filename);
     final file = File(path);
     if (file.existsSync()) {

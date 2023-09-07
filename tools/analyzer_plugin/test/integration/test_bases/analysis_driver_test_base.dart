@@ -35,9 +35,7 @@ abstract class AnalysisDriverTestBase {
     if (path != null && p.isAbsolute(path)) {
       throw ArgumentError.value(path, 'path', 'must be a relative path');
     }
-    final fileContext = sharedContext.fileContextForTest(contents, filename: path,
-        // TODO could we enable this in some cases?
-        includeTestDescription: false);
+    final fileContext = sharedContext.fileContextForTest(contents, filename: path);
     return resourceProvider.getFile(fileContext.path).createSource();
   }
 
