@@ -61,6 +61,7 @@ mixin FooProps on UiProps {
 
 final Foo = uiFunction<FooProps>(
   (props) {
+    // ignore: unused_local_variable
     final content = 'abc';
     
     return (Dom.div()
@@ -152,11 +153,14 @@ mixin FooProps on UiProps {
 
 final Foo = uiFunction<FooProps>(
   (props) {
+    // ignore: unused_local_variable
     final fooId = props.fooId ?? 'abc';
+    // ignore: unused_local_variable
     final name = props.name ?? 'Jane';
     
     // Some other logic
     void helperFunction() => print('hello');
+    // ignore: unused_local_variable
     const a = 25;
     // Some other logic
     
@@ -202,11 +206,14 @@ mixin FooProps on UiProps {
 
 final Foo = uiFunction<FooProps>(
   (props) {
+    // ignore: unused_local_variable
     final fooId = props.fooId ?? 'abc';
+    // ignore: unused_local_variable
     final name = props.name ?? 'Jane';
     
     // Some other logic
     void helperFunction() => print('hello');
+    // ignore: unused_local_variable
     const a = 25;
     // Some other logic
     
