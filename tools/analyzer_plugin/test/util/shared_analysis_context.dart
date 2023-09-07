@@ -25,6 +25,7 @@ import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/diagnostic/diagnostic.dart';
 import 'package:analyzer/error/error.dart';
+import 'package:io/io.dart';
 import 'package:path/path.dart' as p;
 import 'package:source_span/source_span.dart';
 
@@ -32,7 +33,6 @@ import 'package:source_span/source_span.dart';
 // just comment it and related code out.
 import 'package:test_api/src/backend/invoker.dart' show Invoker;
 import 'package:uuid/uuid.dart';
-import 'package:yaml/yaml.dart';
 
 import 'package_util.dart';
 import 'util.dart';
@@ -55,11 +55,39 @@ class SharedAnalysisContext {
   static final overReact =
       SharedAnalysisContext(p.join(findPackageRootFor(p.current), 'test/test_fixtures/over_react_project'));
 
+  static SharedAnalysisContext copy(SharedAnalysisContext other) {
+    final copyParentDir = Directory(p.join(findPackageRootFor(p.current), 'test/test_fixtures/copies/'));
+    copyParentDir.createSync(recursive: true);
+    final copyDir = copyParentDir.createTempSync().path;
+    // Adapted from package:io 1.0.4 `copyPathSync` FIXME attribute
+    for (final file in Directory(other.contextRootPath).listSync(recursive: false)) {
+      if (const {'pubspec.lock', '.dart_tool'}.contains(p.basename(file.path))) {
+        continue;
+      }
+
+      final copyTo = p.join(copyDir, p.relative(file.path, from: other.contextRootPath));
+      if (file is Directory) {
+        copyPathSync(file.path, copyTo);
+      } else if (file is File) {
+        File(file.path).copySync(copyTo);
+      } else if (file is Link) {
+        Link(copyTo).createSync(file.targetSync(), recursive: true);
+      }
+    }
+    final pubspec = File(p.join(copyDir, 'pubspec.yaml'));
+    // FIXME clean this up
+    // Update relative paths in dependencies.
+    pubspec.writeAsStringSync(pubspec
+        .readAsStringSync()
+        .replaceAllMapped(RegExp(r'(\bpath: )([^/])'), (match) => match[1]! + '../' + match[2]!));
+    return SharedAnalysisContext(copyDir);
+  }
+
   /// The path to the package root in which test files will be created
   /// and resolved.
-  final String _path;
+  final String contextRootPath;
 
-  /// The analysis context collection for files within [_path], initialized
+  /// The analysis context collection for files within [contextRootPath], initialized
   /// lazily.
   late final AnalysisContextCollection collection = _initCollection();
 
@@ -76,9 +104,9 @@ class SharedAnalysisContext {
   // analysis results (meaning faster test runs).
   final _testFileSubpath = 'lib/dynamic_test_files/${Uuid().v4()}';
 
-  SharedAnalysisContext(this._path, {this.customPubGetErrorMessage}) {
-    if (!p.isAbsolute(_path)) {
-      throw ArgumentError.value(_path, 'projectRoot', 'must be absolute');
+  SharedAnalysisContext(this.contextRootPath, {this.customPubGetErrorMessage}) {
+    if (!p.isAbsolute(contextRootPath)) {
+      throw ArgumentError.value(contextRootPath, 'projectRoot', 'must be absolute');
     }
   }
 
@@ -88,7 +116,7 @@ class SharedAnalysisContext {
     // macOS/Linux doesn't work due to advisory lock behavior), but intermittently
     // causes issues, so message referencing exit code 66 and workaround below.
     try {
-      runPubGetIfNeeded(_path);
+      runPubGetIfNeeded(contextRootPath);
     } catch (e, st) {
       var message = [
         // ignore: no_adjacent_strings_in_list
@@ -102,7 +130,7 @@ class SharedAnalysisContext {
     }
 
     return AnalysisContextCollection(
-      includedPaths: [_path],
+      includedPaths: [contextRootPath],
     );
   }
 
@@ -114,7 +142,7 @@ class SharedAnalysisContext {
   /// doesn't take abnormally long (e.g., if having consistent test times is
   /// important, or if the first test might have a short timeout).
   Future<void> warmUpAnalysis() async {
-    final path = p.join(_path, 'lib/analysis_warmup.dart');
+    final path = p.join(contextRootPath, 'lib/analysis_warmup.dart');
     await collection.contextFor(path).currentSession.getResolvedLibrary(path);
     _shouldPrintFirstFileWarning = false;
   }
@@ -173,7 +201,7 @@ class SharedAnalysisContext {
     final fileContext =
         fileContextForTest(sourceText, filename: filename, includeTestDescription: includeTestDescription);
 
-    final context = collection.contexts.singleWhere((c) => c.contextRoot.root.path == _path);
+    final context = collection.contexts.singleWhere((c) => c.contextRoot.root.path == contextRootPath);
 
     if (throwOnAnalysisErrors && !preResolveLibrary) {
       throw ArgumentError('If throwOnAnalysisErrors is true, preResolveFile must be false');
@@ -213,7 +241,7 @@ class SharedAnalysisContext {
       } catch (_) {}
     }
 
-    final path = p.join(_path, _testFileSubpath, filename);
+    final path = p.join(contextRootPath, _testFileSubpath, filename);
     final file = File(path);
     if (file.existsSync()) {
       throw StateError('File already exists: $filename.'
@@ -230,7 +258,7 @@ class SharedAnalysisContext {
     // existing in the context we've set up (which shouldn't ever happen).
     collection.contextFor(path);
 
-    return FileContext(path, collection, root: _path);
+    return FileContext(path, collection, root: contextRootPath);
   }
 
   int _fileNameCounter = 0;
@@ -252,7 +280,7 @@ class SharedAnalysisContext {
     }
 
     if (shouldPrint) {
-      final contextName = p.basename(_path);
+      final contextName = p.basename(contextRootPath);
       print('Resolving a file for the first time in context "$contextName";'
           ' this will take a few seconds...');
     }

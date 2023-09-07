@@ -57,7 +57,7 @@ void runPubGetIfNeeded(String packageRoot) {
 void runPubGet(String workingDirectory) {
   _logger.info('Running `pub get` in `$workingDirectory`...');
 
-  final result = Process.runSync('pub', ['get'],
+  final result = Process.runSync('dart', ['pub', 'get'],
       workingDirectory: workingDirectory,
       runInShell: true
   );
@@ -71,10 +71,10 @@ void runPubGet(String workingDirectory) {
         runInShell: true);
     final exitCode = retryResult.exitCode;
     if (exitCode != 0) {
-      throw Exception('pub get failed with exit code: $exitCode');
+      throw Exception('pub get failed with exit code $exitCode in $workingDirectory');
     }
   } else if (exitCode != 0) {
-    throw Exception('pub get failed with exit code: $exitCode');
+    throw Exception('pub get failed with exit code $exitCode in $workingDirectory');
   }
 }
 

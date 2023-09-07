@@ -1,4 +1,6 @@
-import 'package:analyzer/file_system/file_system.dart';
+import 'dart:io';
+
+import 'package:analyzer/file_system/file_system.dart' show ResourceProvider;
 import 'package:analyzer/src/generated/source.dart';
 import 'package:meta/meta.dart';
 import 'package:path/path.dart' as p;
@@ -46,14 +48,23 @@ abstract class AnalysisDriverTestBase {
   /// Returns the absolute path for [source].
   String sourcePath(Source source) => source.uri.toFilePath();
 
-  static const testPathBase = '/Users/greglittlefield/workspaces/over_react2/tools/analyzer_plugin/';
-
   SharedAnalysisContext? _sharedContext;
+
   SharedAnalysisContext get sharedContext => _sharedContext!;
 
   @mustCallSuper
   Future<void> setUp() async {
-    _sharedContext = SharedAnalysisContext.overReact;
+    // TODO once we're running tests optionally on null-safe code? Or maybe language version comments in source files instead?
+    // final defaultContext = isNullSafe ? SharedAnalysisContext.overReactNullSafe : SharedAnalysisContext.overReactNonNullSafe;
+    final defaultContext = SharedAnalysisContext.overReact;
+    if (analysisOptionsYamlContents == null) {
+      _sharedContext = defaultContext;
+    } else {
+      _sharedContext = SharedAnalysisContext.copy(defaultContext);
+      File(p.join(sharedContext.contextRootPath, 'analysis_options.yaml'))
+          .writeAsStringSync(analysisOptionsYamlContents!);
+    }
+
     await sharedContext.warmUpAnalysis();
     _resourceProvider = sharedContext.collection.contexts.single.currentSession.resourceProvider;
   }
@@ -61,5 +72,7 @@ abstract class AnalysisDriverTestBase {
   @mustCallSuper
   void tearDown() {
     _resourceProvider = null;
+    // FIXME delete copied context
+    _sharedContext = null;
   }
 }
