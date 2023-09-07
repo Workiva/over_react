@@ -30,7 +30,7 @@ abstract class AnalysisDriverTestBase {
   /// [contents].
   ///
   /// [path] must be relative; the returned source will be created within
-  /// [testPath].
+  /// [sharedContext].
   Source newSource(String? path, [String contents = '']) {
     if (path != null && p.isAbsolute(path)) {
       throw ArgumentError.value(path, 'path', 'must be a relative path');
