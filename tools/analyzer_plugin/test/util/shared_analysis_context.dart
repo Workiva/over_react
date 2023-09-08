@@ -48,7 +48,11 @@ class SharedAnalysisContext {
   static final overReact =
       SharedAnalysisContext(p.join(findPackageRootFor(p.current), 'test/test_fixtures/over_react_project'));
 
-  static SharedAnalysisContext copy(SharedAnalysisContext other) {
+  /// Creates a temporary copy of the files in this context.
+  ///
+  /// Useful when you want mostly the same setup as an existing context,
+  /// but need additional changes to pubspec.yaml or analysis_options.yaml.
+  static SharedAnalysisContext createTemporaryCopy(SharedAnalysisContext other) {
     final copyParentDir = Directory(p.join(findPackageRootFor(p.current), 'test/test_fixtures/copies/'));
     copyParentDir.createSync(recursive: true);
     final copyDir = copyParentDir.createTempSync().path;
@@ -73,12 +77,15 @@ class SharedAnalysisContext {
     pubspec.writeAsStringSync(pubspec
         .readAsStringSync()
         .replaceAllMapped(RegExp(r'(\bpath: )([^/])'), (match) => match[1]! + '../' + match[2]!));
-    return SharedAnalysisContext(copyDir);
+    return SharedAnalysisContext._temporaryCopy(copyDir, customPubGetErrorMessage: other.customPubGetErrorMessage);
   }
 
   /// The path to the package root in which test files will be created
   /// and resolved.
   final String contextRootPath;
+
+  /// Whether this is a temporary copy of another shared context that should be deleted after use.
+  final bool isTemporaryCopy;
 
   /// The analysis context collection for files within [contextRootPath], initialized
   /// lazily.
@@ -97,11 +104,26 @@ class SharedAnalysisContext {
   // analysis results (meaning faster test runs).
   final _testFileSubpath = 'lib/dynamic_test_files/${Uuid().v4()}';
 
-  SharedAnalysisContext(this.contextRootPath, {this.customPubGetErrorMessage}) {
+  SharedAnalysisContext._(
+      {required this.contextRootPath, required this.isTemporaryCopy, this.customPubGetErrorMessage}) {
     if (!p.isAbsolute(contextRootPath)) {
       throw ArgumentError.value(contextRootPath, 'projectRoot', 'must be absolute');
     }
   }
+
+  SharedAnalysisContext._temporaryCopy(String contextRootPath, {String? customPubGetErrorMessage})
+      : this._(
+          contextRootPath: contextRootPath,
+          customPubGetErrorMessage: customPubGetErrorMessage,
+          isTemporaryCopy: true,
+        );
+
+  SharedAnalysisContext(String contextRootPath, {String? customPubGetErrorMessage})
+      : this._(
+          contextRootPath: contextRootPath,
+          customPubGetErrorMessage: customPubGetErrorMessage,
+          isTemporaryCopy: false,
+        );
 
   AnalysisContextCollection _initCollection() {
     // Note that if tests are run concurrently, then concurrent pub gets will be run.

@@ -59,7 +59,7 @@ abstract class AnalysisDriverTestBase {
     if (analysisOptionsYamlContents == null) {
       _sharedContext = defaultContext;
     } else {
-      _sharedContext = SharedAnalysisContext.copy(defaultContext);
+      _sharedContext = SharedAnalysisContext.createTemporaryCopy(defaultContext);
       File(p.join(sharedContext.contextRootPath, 'analysis_options.yaml'))
           .writeAsStringSync(analysisOptionsYamlContents!);
     }
@@ -71,7 +71,9 @@ abstract class AnalysisDriverTestBase {
   @mustCallSuper
   void tearDown() {
     _resourceProvider = null;
-    // FIXME delete copied context
+    if (_sharedContext != null && sharedContext.isTemporaryCopy) {
+      Directory(sharedContext.contextRootPath).deleteSync(recursive: true);
+    }
     _sharedContext = null;
   }
 }
