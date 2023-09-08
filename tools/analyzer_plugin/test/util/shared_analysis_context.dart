@@ -56,7 +56,36 @@ class SharedAnalysisContext {
     final copyParentDir = Directory(p.join(findPackageRootFor(p.current), newParentDirectory));
     copyParentDir.createSync(recursive: true);
     final copyDir = copyParentDir.createTempSync().path;
-    // Adapted from package:io 1.0.4 `copyPathSync` FIXME attribute
+    // Adapted from package:io 1.0.4 `copyPathSync`.
+    // Permalink https://github.com/dart-lang/io/blob/0c6fa36867b64748639515d5ea37b99176772756/lib/src/copy_path.dart#L54
+    //
+    // Copyright 2017, the Dart project authors.
+    //
+    // Redistribution and use in source and binary forms, with or without
+    // modification, are permitted provided that the following conditions are
+    // met:
+    //
+    //     * Redistributions of source code must retain the above copyright
+    //       notice, this list of conditions and the following disclaimer.
+    //     * Redistributions in binary form must reproduce the above
+    //       copyright notice, this list of conditions and the following
+    //       disclaimer in the documentation and/or other materials provided
+    //       with the distribution.
+    //     * Neither the name of Google LLC nor the names of its
+    //       contributors may be used to endorse or promote products derived
+    //       from this software without specific prior written permission.
+    //
+    // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+    // "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+    // LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+    // A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+    // OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+    // SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+    // LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+    // DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+    // THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+    // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+    // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     for (final file in Directory(other.contextRootPath).listSync(recursive: false)) {
       if (const {'pubspec.lock', '.dart_tool'}.contains(p.basename(file.path))) {
         continue;
