@@ -25,7 +25,7 @@ import 'exhaustive_deps_test_cases.dart' as test_cases;
 void main() {
   group('ExhaustiveDeps', () {
     const preamble = r'''
-// ignore_for_file: unused_import
+// ignore_for_file: unused_import, unused_local_variable
     
 import 'dart:html';
 
@@ -108,7 +108,6 @@ class ObjectWithWritableField {
     bool errorFilter(AnalysisError error, {@required bool isFromPlugin}) =>
         defaultErrorFilter(error, isFromPlugin: isFromPlugin) &&
         // These are intentionally undefined references
-        !{'unused_local_variable'}.contains(error.code) &&
         !(error.code == 'undefined_identifier' && error.message.contains("Undefined name 'unresolved'."));
 
     Future<HooksExhaustiveDepsDiagnosticTest> setUpTestBase(TestCase testCase) async {
