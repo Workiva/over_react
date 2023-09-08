@@ -26,7 +26,7 @@ abstract class AssistTestBase extends ServerPluginContributorTestBase {
   /// [selectionTargets] does not produce a single assist matching
   /// [assistKindUnderTest].
   Future<void> expectAllSelectionsProduceSingleAssist(String sourceContents, List<String> selectionTargets) async {
-    final source = newSource(null, sourceContents);
+    final source = newSource(sourceContents);
     for (final target in selectionTargets) {
       final selection = createSelection(source, target);
       final assists = await _getAllAssists(selection);

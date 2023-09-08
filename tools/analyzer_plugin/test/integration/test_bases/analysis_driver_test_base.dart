@@ -27,12 +27,14 @@ abstract class AnalysisDriverTestBase {
   /// This is optional; if `null`, there will be no analysis_options.yaml file.
   String? get analysisOptionsYamlContents => null;
 
-  /// Creates and returns a new source file at [path] with optional file
-  /// [contents].
+  /// Creates and returns a new source file with the provided [contents]
+  /// within [sharedContext].
   ///
-  /// [path] must be relative; the returned source will be created within
-  /// [sharedContext].
-  Source newSource(String? path, [String contents = '']) {
+  /// Creates the file at [path] if it's non-null, and otherwise uses a new, unique path.
+  ///
+  /// If provided, [path] must be relative, and also must be unique so that it
+  /// doesn't conflict with paths created by other tests using the same [sharedContext]
+  Source newSource(String contents, {String? path}) {
     if (path != null && p.isAbsolute(path)) {
       throw ArgumentError.value(path, 'path', 'must be a relative path');
     }

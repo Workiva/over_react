@@ -152,7 +152,7 @@ class ObjectWithWritableField {
               printOnFailure('Test case source (before adding preamble): ```\n${testCase.code}\n```');
 
               final testBase = await setUpTestBase(testCase);
-              final source = testBase.newSource(null, preamble + testCase.code);
+              final source = testBase.newSource(preamble + testCase.code);
               await testBase.expectNoErrors(source, errorFilter: errorFilter);
             });
           });
@@ -171,7 +171,7 @@ class ObjectWithWritableField {
               final expectedErrors = testCase.errors;
               expect(expectedErrors, isNotEmpty);
 
-              final source = testBase.newSource(null, preamble + testCase.code);
+              final source = testBase.newSource(preamble + testCase.code);
               final errors = await testBase.getAllErrors(source, includeOtherCodes: true, errorFilter: errorFilter);
               expect(errors.dartErrors, isEmpty,
                   reason: 'Expected there to be no errors coming from the analyzer and not the plugin.'

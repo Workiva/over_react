@@ -23,7 +23,7 @@ abstract class BadKeyDiagnosticTest extends DiagnosticTestBase {
   @override
   get fixKindUnderTest => null;
 
-  Source newSourceWithPrefix(String sourceFragment) => newSource(null, sourcePrefix + sourceFragment);
+  Source newSourceWithPrefix(String sourceFragment) => newSource(sourcePrefix + sourceFragment);
 
   static const sourcePrefix = /*language=dart*/ r'''
 import 'package:over_react/over_react.dart';

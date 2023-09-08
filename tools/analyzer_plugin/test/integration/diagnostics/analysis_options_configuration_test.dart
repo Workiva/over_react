@@ -21,7 +21,7 @@ void main() {
     }
 
     Future<List<AnalysisError>> computeErrors({String sourceCode = rulesOfHooksErrorSourceCode}) async {
-      final source = testBase.newSource(null, sourceCode);
+      final source = testBase.newSource(sourceCode);
 
       final result = await testBase.testPlugin.getResolvedUnitResult(testBase.sourcePath(source));
       final errors = await testBase.testPlugin.getAllErrors(result);
