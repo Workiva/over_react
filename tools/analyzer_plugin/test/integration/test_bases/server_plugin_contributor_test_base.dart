@@ -1,6 +1,7 @@
 import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/file_system/overlay_file_system.dart';
-import 'package:analyzer/src/generated/source.dart';
+// ignore: implementation_imports
+import 'package:analyzer/src/generated/source.dart' show Source, SourceRange;
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:meta/meta.dart';
 import 'package:path/path.dart' as p;

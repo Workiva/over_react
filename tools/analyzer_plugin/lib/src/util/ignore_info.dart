@@ -29,7 +29,8 @@
 
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/token.dart';
-import 'package:analyzer/src/dart/ast/token.dart'; // ignore: implementation_imports
+// ignore: implementation_imports
+import 'package:analyzer/src/dart/ast/token.dart' show CommentToken;
 
 /// The name and location of a diagnostic name in an ignore comment.
 class DiagnosticName implements IgnoredElement {

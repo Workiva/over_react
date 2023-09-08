@@ -8,6 +8,7 @@ import 'package:test/test.dart';
 import '../matchers.dart';
 import 'server_plugin_contributor_test_base.dart';
 
+// ignore: implementation_imports
 export 'package:analyzer/src/generated/source.dart' show Source;
 
 /// Test base for integration tests that exercise a single diagnostic

@@ -1,7 +1,8 @@
 import 'dart:io';
 
 import 'package:analyzer/file_system/file_system.dart' show ResourceProvider;
-import 'package:analyzer/src/generated/source.dart';
+// ignore: implementation_imports
+import 'package:analyzer/src/generated/source.dart' show Source;
 import 'package:meta/meta.dart';
 import 'package:path/path.dart' as p;
 

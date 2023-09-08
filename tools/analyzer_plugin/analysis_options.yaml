@@ -15,6 +15,7 @@ analyzer:
     # Override workiva_analysis_options upgrade to warning
     unused_import: info
     import_of_legacy_library_into_null_safe: warning
+    implementation_imports: warning
 
     # ignores from v1.recommended
     prefer_interpolation_to_compose_strings: ignore
@@ -29,3 +30,4 @@ linter:
   rules:
     - avoid_returning_null_for_future
     - avoid_void_async
+    - implementation_imports
