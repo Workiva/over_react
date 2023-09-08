@@ -36,8 +36,8 @@ abstract class AnalysisDriverTestBase {
     if (path != null && p.isAbsolute(path)) {
       throw ArgumentError.value(path, 'path', 'must be a relative path');
     }
-    final fileContext = sharedContext.fileContextForTest(contents, filename: path);
-    return resourceProvider.getFile(fileContext.path).createSource();
+    final testFilePath = sharedContext.createTestFile(contents, filename: path);
+    return resourceProvider.getFile(testFilePath).createSource();
   }
 
   void modifyFile(String path, String contents) {

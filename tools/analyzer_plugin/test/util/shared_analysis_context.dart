@@ -21,19 +21,16 @@ import 'dart:io';
 
 import 'package:analyzer/dart/analysis/analysis_context_collection.dart';
 import 'package:analyzer/dart/analysis/results.dart';
-import 'package:analyzer/dart/analysis/utilities.dart';
-import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/diagnostic/diagnostic.dart';
 import 'package:analyzer/error/error.dart';
 import 'package:io/io.dart';
 import 'package:path/path.dart' as p;
-import 'package:source_span/source_span.dart';
 import 'package:uuid/uuid.dart';
 
 import 'package_util.dart';
 import 'util.dart';
 
-/// Provides a mechanism for getting resolved codemod [FileContext]s for test cases
+/// Provides a mechanism for getting resolved codemod [TestFile]s for test cases
 /// using a shared context root, allowing:
 ///
 /// - the resolution of package imports (provided they're depended on in the context root's pubspec.yaml)
@@ -140,30 +137,7 @@ class SharedAnalysisContext {
   Future<void> warmUpAnalysis() async {
     final path = p.join(contextRootPath, 'lib/analysis_warmup.dart');
     await collection.contextFor(path).currentSession.getResolvedLibrary(path);
-    _shouldPrintFirstFileWarning = false;
   }
-
-  //
-  // /// A convenience method that creates a codemod [FileContext],
-  // /// run [suggestor] on it, and returns the patches yielded.
-  // ///
-  // /// Most arguments are forwarded to [resolvedFileContextForTest];
-  // /// see that method for more details.
-  // Future<List<Patch>> getPatches(
-  //   Suggestor suggestor,
-  //   String sourceText, {
-  //   String? filename,
-  //   bool preResolveLibrary = true,
-  //   bool throwOnAnalysisErrors = true,
-  // }) async {
-  //   final context = await resolvedFileContextForTest(
-  //     sourceText,
-  //     preResolveLibrary: preResolveLibrary,
-  //     throwOnAnalysisErrors: throwOnAnalysisErrors,
-  //     filename: filename,
-  //   );
-  //   return await suggestor(context).toList();
-  // }
 
   /// Creates a new file within [_testFileSubpath] with the name [filename]
   /// (or a generated filename if not specified) and the given [sourceText]
@@ -177,47 +151,7 @@ class SharedAnalysisContext {
   /// call to this method, and not results containing the updated [sourceText].
   /// And, even if there were a way to update it, reusing file names would be prone
   /// to race conditions, so this restriction will likely never be removed.
-  ///
-  /// If [preResolveLibrary] is `true`, then the file will be resolved as a library
-  /// and checked for errors (if [throwOnAnalysisErrors] is `true`) to help
-  /// validate that there are no issues resolving the test file, which are likely
-  /// the result of a bad test file that could result in false positives or
-  /// confusing errors in your test.
-  ///
-  /// If you expect analysis errors in your test file, provide a [isExpectedError]
-  /// so that those errors can be ignored while others can be filtered out.
-  Future<FileContext> resolvedFileContextForTest(
-    String sourceText, {
-    String? filename,
-    bool preResolveLibrary = true,
-    bool throwOnAnalysisErrors = true,
-    IsExpectedError? isExpectedError,
-  }) async {
-    final fileContext = fileContextForTest(sourceText, filename: filename);
-
-    final context = collection.contexts.singleWhere((c) => c.contextRoot.root.path == contextRootPath);
-
-    if (throwOnAnalysisErrors && !preResolveLibrary) {
-      throw ArgumentError('If throwOnAnalysisErrors is true, preResolveFile must be false');
-    }
-    if (isExpectedError != null && !throwOnAnalysisErrors) {
-      throw ArgumentError('If isExpectedError is provided, throwOnAnalysisErrors must be true');
-    }
-    if (preResolveLibrary) {
-      final result = await _printAboutFirstFile(() => context.currentSession.getResolvedLibrary(fileContext.path));
-      if (throwOnAnalysisErrors) {
-        checkResolvedResultForErrors(result, isExpectedError: isExpectedError);
-      }
-    }
-
-    // Assert that this doesn't throw a StateError due to this file not
-    // existing in the context we've set up (which shouldn't ever happen).
-    collection.contextFor(fileContext.path);
-
-    return fileContext;
-  }
-
-  FileContext fileContextForTest(String sourceText, {String? filename}) {
+  String createTestFile(String sourceText, {String? filename}) {
     filename ??= nextFilename();
     final path = p.join(contextRootPath, _testFileSubpath, filename);
     final file = File(path);
@@ -236,38 +170,13 @@ class SharedAnalysisContext {
     // existing in the context we've set up (which shouldn't ever happen).
     collection.contextFor(path);
 
-    return FileContext(path, collection, root: contextRootPath);
+    return path;
   }
 
   int _fileNameCounter = 0;
 
   /// Returns a filename that hasn't been used before.
   String nextFilename() => 'test_${_fileNameCounter++}.dart';
-
-  bool _shouldPrintFirstFileWarning = true;
-
-  /// We can't intelligently warn only when this is taking too long since
-  /// getResolvedLibrary2 blocks the main thread for a long period of time,
-  /// making it so that timers don't fire until it's done.
-  /// So, we'll just always print this.
-  Future<T> _printAboutFirstFile<T>(Future<T> Function() callback) async {
-    var shouldPrint = false;
-    if (_shouldPrintFirstFileWarning) {
-      _shouldPrintFirstFileWarning = false;
-      shouldPrint = true;
-    }
-
-    if (shouldPrint) {
-      final contextName = p.basename(contextRootPath);
-      print('Resolving a file for the first time in context "$contextName";'
-          ' this will take a few seconds...');
-    }
-    final result = await callback();
-    if (shouldPrint) {
-      print('Done resolving.');
-    }
-    return result;
-  }
 }
 
 /// A function that returns whether an error is expected and thus should be ignored
@@ -332,117 +241,5 @@ extension FileSystemDeleteIfExistExtension on FileSystemEntity {
     if (existsSync()) {
       await delete(recursive: recursive);
     }
-  }
-}
-
-extension ParseHelpers on SharedAnalysisContext {
-  /// Returns [expression] parsed as AST.
-  ///
-  /// This is accomplished it by including the [expression] as a statement within a wrapper function
-  /// with any necessary [imports] at the top of the source. As a result, the offset of the
-  /// returned expression will not be 0.
-  ///
-  /// To return resolved AST, set [isResolved] to true.
-  Future<Expression> parseExpression(
-    String expression, {
-    String imports = '',
-    String otherSource = '',
-    bool isResolved = false,
-  }) async {
-    CompilationUnit unit;
-    // Wrap the expression in parens to ensure this is interpreted as an expression
-    // for ambiguous cases (e.g, a map literal that could be interpreted as an empty block).
-    final source = '''
-      $imports
-      void wrapperFunction() {
-        ($expression);
-      }
-      $otherSource
-    ''';
-    final fileContext = await resolvedFileContextForTest(source,
-        // We don't want to get the resolved unit if `isResolve = false`,
-        // since it may fail.
-        preResolveLibrary: false,
-        throwOnAnalysisErrors: false);
-    if (isResolved) {
-      final result = await fileContext.getResolvedUnit();
-      unit = (result as ResolvedUnitResult).unit;
-    } else {
-      unit = fileContext.getUnresolvedUnit();
-    }
-    final parsedFunction = unit.childEntities
-        .whereType<FunctionDeclaration>()
-        .singleWhere((function) => function.name.lexeme == 'wrapperFunction');
-    final body = parsedFunction.functionExpression.body as BlockFunctionBody;
-    final statement = body.block.statements.single as ExpressionStatement;
-    return (statement.expression as ParenthesizedExpression).expression;
-  }
-}
-
-/// A helper class for a file located at [path] that provides access to its
-/// contents and analyzed formats like [CompilationUnit] and [LibraryElement].
-class FileContext {
-  final AnalysisContextCollection _analysisContextCollection;
-
-  /// This file's absolute path.
-  final String path;
-
-  /// This file's path relative to [root].
-  final String relativePath;
-
-  /// The path to the working directory from which this file was discovered.
-  ///
-  /// Defaults to current working directory.
-  final String root;
-
-  FileContext(this.path, this._analysisContextCollection, {String? root})
-      : root = root ?? p.current,
-        relativePath = p.relative(path, from: root) {
-    if (!p.isAbsolute(path)) {
-      throw ArgumentError.value(path, 'path', 'must be absolute.');
-    }
-  }
-
-  /// A representation of this file that makes it easy to reference spans of
-  /// text, which is useful for the creation of [SourcePatch]es.
-  late final SourceFile sourceFile = SourceFile.fromString(sourceText, url: Uri.file(path));
-
-  /// The contents of this file.
-  late final String sourceText = File(path).readAsStringSync();
-
-  /// Uses the analyzer to resolve and return the library result for this file,
-  /// which includes the [LibraryElement].
-  Future<ResolvedLibraryResult?> getResolvedLibrary() async {
-    final result = await _analysisContextCollection.contextFor(path).currentSession.getResolvedLibrary(path);
-    return result is ResolvedLibraryResult ? result : null;
-  }
-
-  /// Uses the analyzer to resolve and return the AST result for this file,
-  /// which includes the [CompilationUnit].
-  ///
-  /// If the fully resolved AST is not needed, use the much faster
-  /// [getUnresolvedUnit].
-  Future<SomeResolvedUnitResult> getResolvedUnit() async {
-    return _analysisContextCollection.contextFor(path).currentSession.getResolvedUnit(path);
-  }
-
-  /// Returns the unresolved AST for this file.
-  ///
-  /// If the fully resolved AST is needed, use [getResolvedUnit].
-  CompilationUnit getUnresolvedUnit() {
-    final result = parseString(content: sourceText, path: path, throwIfDiagnostics: false);
-    if (result.errors.isEmpty) return result.unit;
-
-    // Errors thrown by parseString don't include the filename, and result in
-    // the codemod halting without indicating which file it failed on.
-    // To aid in debugging, we'll construct the error message the same way
-    // parseString does, but also include the path to the file.
-    var buffer = StringBuffer();
-    for (final error in result.errors) {
-      var location = result.lineInfo.getLocation(error.offset);
-      buffer.writeln('  ${error.errorCode.name}: ${error.message} - '
-          '${location.lineNumber}:${location.columnNumber}');
-    }
-    throw ArgumentError('File "$relativePath" produced diagnostics when parsed:\n$buffer');
   }
 }

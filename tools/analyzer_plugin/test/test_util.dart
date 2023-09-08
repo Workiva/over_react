@@ -1,8 +1,11 @@
 import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:analyzer/dart/ast/ast.dart';
+import 'package:analyzer/diagnostic/diagnostic.dart';
 import 'package:over_react_analyzer_plugin/src/component_usage.dart';
+import 'package:over_react_analyzer_plugin/src/error_filtering.dart';
 import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
+import 'package:over_react_analyzer_plugin/src/util/ignore_info.dart';
 
 import 'util/shared_analysis_context.dart';
 
@@ -62,8 +65,20 @@ FluentComponentUsage parseAndGetComponentUsage(String dartSource) {
 
 /// Parses [dartSource] and returns the resolved AST, throwing if there are any static analysis errors.
 Future<ResolvedUnitResult> parseAndGetResolvedUnit(String dartSource, {String? path}) async {
-  final context = await SharedAnalysisContext.overReact.resolvedFileContextForTest(dartSource, filename: path);
-  return await context.getResolvedUnit() as ResolvedUnitResult;
+  final sharedContext = SharedAnalysisContext.overReact;
+  final testFilePath = SharedAnalysisContext.overReact.createTestFile(dartSource, filename: path);
+  final result = await sharedContext.collection.contextFor(testFilePath).currentSession.getResolvedUnit(testFilePath)
+      as ResolvedUnitResult;
+
+  final lineInfo = result.lineInfo;
+  final filteredErrors =
+      filterIgnoresForErrors(result.errors, lineInfo, () => IgnoreInfo.forDart(result.unit, result.content))
+          // only fail for error severity errors.
+          .where((error) => error.severity == Severity.error);
+  if (filteredErrors.isNotEmpty) {
+    throw ArgumentError('Parse errors in source "$path":\n${filteredErrors.join('\n')}\nFull source:\n$dartSource');
+  }
+  return result;
 }
 
 /// Returns [expression] parsed as AST.
