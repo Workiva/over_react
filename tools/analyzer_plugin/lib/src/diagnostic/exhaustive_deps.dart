@@ -632,7 +632,8 @@ class ExhaustiveDeps extends DiagnosticContributor {
         continue;
       }
 
-      // Use if/else instead of Union.switchCase so we can ensure these variables are definitely assigned.
+      // Use `late` because we're using Union.switchCase, meaning the analyzer can't ensure these variables
+      // are definitely assigned.
       late String dependency;
       late bool isStable;
       late bool isUsedAsCascadeTarget;
