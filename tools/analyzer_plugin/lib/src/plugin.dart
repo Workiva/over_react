@@ -34,10 +34,8 @@ import 'dart:async';
 import 'package:analyzer/dart/analysis/analysis_context.dart';
 import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/file_system/file_system.dart';
-import 'package:analyzer_plugin/plugin/navigation_mixin.dart';
 import 'package:analyzer_plugin/plugin/plugin.dart';
 import 'package:analyzer_plugin/protocol/protocol_generated.dart' as plugin;
-import 'package:analyzer_plugin/utilities/navigation/navigation.dart';
 import 'package:over_react_analyzer_plugin/src/analysis_options/reader.dart';
 import 'package:over_react_analyzer_plugin/src/assist/add_props.dart';
 import 'package:over_react_analyzer_plugin/src/assist/convert_class_or_function_component.dart';
@@ -83,8 +81,6 @@ mixin OverReactAnalyzerPluginBase
         ServerPlugin,
 //    OutlineMixin, DartOutlineMixin,
         DiagnosticMixin,
-        NavigationMixin,
-        DartNavigationMixin,
         AsyncAssistsMixin,
         AsyncDartAssistsMixin {
   @override
@@ -110,9 +106,6 @@ mixin OverReactAnalyzerPluginBase
         // TODO re-enable this when it's more polished
 //        WrapUnwrapAssistContributor(),
       ];
-
-  @override
-  List<NavigationContributor> getNavigationContributors(String path) => [];
 
   @override
   List<DiagnosticContributor> getDiagnosticContributors(AnalysisContext analysisContext, String path) {
@@ -178,8 +171,6 @@ mixin OverReactAnalyzerPluginBase
 class OverReactAnalyzerPlugin extends ServerPlugin
     with
         DiagnosticMixin,
-        NavigationMixin,
-        DartNavigationMixin,
         AsyncAssistsMixin,
         AsyncDartAssistsMixin,
         OverReactAnalyzerPluginBase {
