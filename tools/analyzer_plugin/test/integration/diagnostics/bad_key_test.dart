@@ -47,6 +47,8 @@ class MyModelWithCustomToString {
   @override
   toString() => '$id';
 }
+
+enum AnEnum { foo }
 ''';
 }
 
@@ -59,6 +61,7 @@ class BadKeyDiagnosticTest_NoErrors extends BadKeyDiagnosticTest {
     final source = newSourceWithPrefix(/*language=dart*/ r'''
       test() => [
         (Dom.div()..key = 'a string')(),
+        (Dom.div()..key = AnEnum.foo)(),
         (Dom.div()..key = 122)(),
         (Dom.div()..key = modelVar.id)(),
         (Dom.div()..key = modelVarWithCustomToString)(),

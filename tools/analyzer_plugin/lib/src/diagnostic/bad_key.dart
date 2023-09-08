@@ -185,13 +185,15 @@ class BadKeyDiagnostic extends ComponentUsageDiagnosticContributor {
   }
 
   static bool inheritsToStringImplFromObject(Element element) =>
-      element
+      // Enums have toStrings that include their name.
+      element is! EnumElement &&
+      (element
           .tryCast<InterfaceElement>()
           ?.lookUpConcreteMethod('toString', element.library!)
           ?.thisOrAncestorOfType<InterfaceElement>()
           ?.thisType
           .isDartCoreObject ??
-      false;
+      false);
 }
 
 /// Recursively collects expressions that are used to effectively call `toString()`:
