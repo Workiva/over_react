@@ -2,7 +2,6 @@ import 'package:analyzer/dart/analysis/analysis_context.dart';
 import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/file_system/overlay_file_system.dart';
 import 'package:analyzer_plugin/channel/channel.dart';
-import 'package:analyzer_plugin/plugin/navigation_mixin.dart';
 import 'package:analyzer_plugin/plugin/plugin.dart';
 import 'package:analyzer_plugin/protocol/protocol.dart';
 import 'package:over_react_analyzer_plugin/src/async_plugin_apis/assist.dart';
@@ -164,8 +163,6 @@ class StubServerPlugin implements ServerPlugin {
 class PluginForTest extends StubServerPlugin
     with
         DiagnosticMixin,
-        NavigationMixin,
-        DartNavigationMixin,
         AsyncAssistsMixin,
         AsyncDartAssistsMixin,
         OverReactAnalyzerPluginBase {
