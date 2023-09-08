@@ -156,6 +156,8 @@ mixin OverReactAnalyzerPluginBase
 
   @override
   Future<void> analyzeFile({required AnalysisContext analysisContext, required String path}) async {
+    if (!path.endsWith('.dart')) return;
+
     await runZonedGuarded(() async {
       final result = await analysisContext.currentSession.getResolvedUnit(path);
       if (result is ResolvedUnitResult) {
