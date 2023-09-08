@@ -153,7 +153,7 @@ abstract class ServerPluginContributorTestBase extends AnalysisDriverTestBase {
 
     _channel = StubChannel();
     _plugin = PluginForTest()
-      ..start(_channel!)
+      ..channel = _channel!
       ..resourceProvider = OverlayResourceProvider(sharedContext.collection.contexts.single.currentSession.resourceProvider)
       ..handleGetResolvedUnitResult = (path) async {
         final result = await sharedContext.collection.contextFor(path).currentSession.getResolvedUnit(path);

@@ -23,6 +23,8 @@ class StubChannel implements PluginCommunicationChannel {
   dynamic noSuchMethod(Invocation invocation) {}
 }
 
+/// A stubbed ServerPlugin base class to use for testing, so that we can ensure its AnalysisContextCollection isn't
+/// being used instead of the one we've set up in tests.
 class StubServerPlugin implements ServerPlugin {
   @override
   get channel => throw UnimplementedError();
@@ -167,18 +169,17 @@ class PluginForTest extends StubServerPlugin
         AsyncAssistsMixin,
         AsyncDartAssistsMixin,
         OverReactAnalyzerPluginBase {
-  PluginCommunicationChannel? _channel;
-
   @override
-  PluginCommunicationChannel get channel => _channel!;
-
-  @override
-  void start(PluginCommunicationChannel channel) {
-    _channel = channel;
-  }
+  late PluginCommunicationChannel channel;
 
   @override
   late OverlayResourceProvider resourceProvider;
+
+  late Future<ResolvedUnitResult> Function(String path)? handleGetResolvedUnitResult;
+
+  @override
+  Future<ResolvedUnitResult> getResolvedUnitResult(String path) =>
+      handleGetResolvedUnitResult?.call(path) ?? (throw UnimplementedError());
 
   @override
   Future<void> analyzeFile({required AnalysisContext analysisContext, required String path}) =>
@@ -190,12 +191,6 @@ class PluginForTest extends StubServerPlugin
 
   @override
   Future<void> contentChanged(List<String> paths) => throw UnimplementedError();
-
-  @override
-  Future<ResolvedUnitResult> getResolvedUnitResult(String path) =>
-      handleGetResolvedUnitResult?.call(path) ?? (throw UnimplementedError());
-
-  Future<ResolvedUnitResult> Function(String path)? handleGetResolvedUnitResult;
 
   @override
   String get name => 'over_react (for test)';
