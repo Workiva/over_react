@@ -34,9 +34,6 @@ class StubServerPlugin implements ServerPlugin {
   PluginCommunicationChannel get channel => throw UnimplementedError();
 
   @override
-  set channel(PluginCommunicationChannel value) => throw UnimplementedError();
-
-  @override
   Set<String> get priorityPaths => throw UnimplementedError();
 
   @override
