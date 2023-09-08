@@ -30,7 +30,6 @@ dev_dependencies:
   io: ^1.0.0
   logging: ^1.0.1
   markdown: ^4.0.0
-  pub_semver: ^2.0.0
   test: ^1.14.0
   test_reflective_loader: ^0.2.0
   uuid: '>3.0.0 <5.0.0'
