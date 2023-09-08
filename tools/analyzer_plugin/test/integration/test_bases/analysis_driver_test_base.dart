@@ -59,7 +59,14 @@ abstract class AnalysisDriverTestBase {
     if (analysisOptionsYamlContents == null) {
       _sharedContext = defaultContext;
     } else {
-      _sharedContext = SharedAnalysisContext.createTemporaryCopy(defaultContext);
+      // Create a copy since modifying the original context would interfere with other test.
+      //
+      // Make sure the copy is on the same level as the original so that we don't have to mess with relative paths
+      // in the pubspec (e.g., to the over_react dependency).
+      // Original: test/test_fixtures/over_react_project/
+      // Copy: test/temporary_test_fixtures/<generated_name>/
+      final parentDir = p.canonicalize(p.join(defaultContext.contextRootPath, '../../temporary_test_fixtures'));
+      _sharedContext = SharedAnalysisContext.createTemporaryCopy(defaultContext, parentDir);
       File(p.join(sharedContext.contextRootPath, 'analysis_options.yaml'))
           .writeAsStringSync(analysisOptionsYamlContents!);
     }

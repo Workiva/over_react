@@ -47,4 +47,4 @@ pubspec.lock
 coverage/
 
 tools/analyzer_plugin/test/test_fixtures/**/lib/dynamic_test_files/
-tools/analyzer_plugin/test/test_fixtures/copies/**
+tools/analyzer_plugin/test/temporary_test_fixtures/**

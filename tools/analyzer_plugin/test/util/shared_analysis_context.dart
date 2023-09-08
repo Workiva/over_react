@@ -52,8 +52,8 @@ class SharedAnalysisContext {
   ///
   /// Useful when you want mostly the same setup as an existing context,
   /// but need additional changes to pubspec.yaml or analysis_options.yaml.
-  static SharedAnalysisContext createTemporaryCopy(SharedAnalysisContext other) {
-    final copyParentDir = Directory(p.join(findPackageRootFor(p.current), 'test/test_fixtures/copies/'));
+  static SharedAnalysisContext createTemporaryCopy(SharedAnalysisContext other, String newParentDirectory) {
+    final copyParentDir = Directory(p.join(findPackageRootFor(p.current), newParentDirectory));
     copyParentDir.createSync(recursive: true);
     final copyDir = copyParentDir.createTempSync().path;
     // Adapted from package:io 1.0.4 `copyPathSync` FIXME attribute
@@ -71,12 +71,6 @@ class SharedAnalysisContext {
         Link(copyTo).createSync(file.targetSync(), recursive: true);
       }
     }
-    final pubspec = File(p.join(copyDir, 'pubspec.yaml'));
-    // FIXME clean this up
-    // Update relative paths in dependencies.
-    pubspec.writeAsStringSync(pubspec
-        .readAsStringSync()
-        .replaceAllMapped(RegExp(r'(\bpath: )([^/])'), (match) => match[1]! + '../' + match[2]!));
     return SharedAnalysisContext._temporaryCopy(copyDir, customPubGetErrorMessage: other.customPubGetErrorMessage);
   }
 
