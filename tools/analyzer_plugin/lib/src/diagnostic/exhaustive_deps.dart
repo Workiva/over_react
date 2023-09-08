@@ -678,7 +678,7 @@ class ExhaustiveDeps extends DiagnosticContributor {
         // NamedType case. This is for references to generic type parameters
         // (references to other types will get filtered out by the isDeclaredInPureScope check above).
         (reference) {
-          dependency = reference.name2.lexeme;
+          dependency = reference.name.name;
           // These aren't possible for type annotations.
           isStable = false;
           isUsedAsCascadeTarget = false;
@@ -1601,6 +1601,12 @@ Iterable<Union<Identifier, NamedType>> resolvedReferencesWithin(AstNode node) sy
       }
     }
   }
+}
+
+extension on NamedType {
+  // NamedType.element is added in analyzer 5.11.0; we can't resolve to that version in Dart 2.18,
+  // so we'll add it here so we don't have to go back through and change it later.
+  Element? get element => name.staticElement;
 }
 
 enum HookTypeWithStableMethods { stateHook, reducerHook, transitionHook }
