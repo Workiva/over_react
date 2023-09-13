@@ -665,7 +665,7 @@ mixin UiStatefulMixin2<TProps extends UiProps, TState extends UiState> on UiComp
 
   @override
   void setStateWithUpdater(covariant Map? Function(TState prevState, TProps props) updater, [Function()? callback]) {
-    final bridge = Component2Bridge.forComponent(this) as UiComponent2BridgeImpl;
+    final bridge = Component2Bridge.forComponent(this)! as UiComponent2BridgeImpl;
     bridge.setStateWithTypedUpdater(this, updater, callback);
   }
 
