@@ -21,18 +21,6 @@ void main() {
         expect(getDebugNameForDartComponent(component), 'TestComponent2');
       });
     });
-
-    group('returns the .displayName getter for a non-mounted component', () {
-      test('UiComponent component declared with standard boilerplate', () {
-        final component = TestNonMountedComponentComponent();
-        expect(getDebugNameForDartComponent(component), component.displayName);
-      });
-
-      test('UiComponent2 component declared with standard boilerplate', () {
-        final component = TestNonMountedComponent2Component();
-        expect(getDebugNameForDartComponent(component), component.displayName);
-      });
-    });
   });
 }
 

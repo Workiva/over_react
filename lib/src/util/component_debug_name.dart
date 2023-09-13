@@ -12,24 +12,22 @@ import 'package:over_react/component_base.dart';
 ///
 /// Returns the displayName of the given [component].
 ///
-// Need to ignore this just for Dart 2.7.2
-// ignore: comment_references
 /// This is preferable to [UiComponent.displayName] since that doesn't include
 /// the generated displayName passed to [registerComponent]/
 String? getDebugNameForDartComponent(UiComponent component) {
   // We don't have a great way of looking up the display name the component was
   // registered with, so we'll resort to pulling it off the JS component.
 
-  // Don't assume the component is mounted.
-  final jsThis = component.jsThis;
-  if (jsThis != null) {
-    final jsPrototype = _getPrototypeOf(jsThis);
-    final jsComponentType =
-        jsPrototype == null ? null : getProperty<Object?>(jsPrototype, 'constructor');
-    if (jsComponentType != null) {
-      return getProperty<String?>(jsComponentType, 'displayName') ??
-          getProperty<String?>(jsComponentType, 'name');
-    }
+  // This should always be non-null for a mounted component,
+  // and will throw a LateInitializationError for Dart components
+  // that haven't been mounted yet.
+  final jsThis = component.jsThis! as Object;
+  final jsPrototype = _getPrototypeOf(jsThis);
+  final jsComponentType =
+      jsPrototype == null ? null : getProperty<Object?>(jsPrototype, 'constructor');
+  if (jsComponentType != null) {
+    return getProperty<String?>(jsComponentType, 'displayName') ??
+        getProperty<String?>(jsComponentType, 'name');
   }
 
   // Fall back to displayName, which only uses the runtimeType, but only when asserts are enabled in Component2.
@@ -37,4 +35,4 @@ String? getDebugNameForDartComponent(UiComponent component) {
 }
 
 @JS('Object.getPrototypeOf')
-external Object? _getPrototypeOf(dynamic object);
+external Object? _getPrototypeOf(Object object);
