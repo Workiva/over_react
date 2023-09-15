@@ -5,3 +5,4 @@
 #
 #     Bad state: Unable to find the context to …/tools/analyzer_plugin/playground/web/bad_keys.dart
 playground/
+test/test_fixtures/
