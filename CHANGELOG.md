@@ -1,6 +1,6 @@
 # OverReact Changelog
 
-## [4.10.1](https://github.com/Workiva/over_react/compare/4.10.0...4.10.1)
+## [4.10.2](https://github.com/Workiva/over_react/compare/4.10.0...4.10.2)
 - [#835] Upgrade dependencies, notably jumping to analyzer 5.x
      - analyzer: `^5.1.0` (was `>=1.7.2 <3.0.0`)
      - dart_style: `^2.0.0` (was `>=1.2.5 <3.0.0`)
