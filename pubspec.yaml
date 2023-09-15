@@ -54,3 +54,6 @@ dependency_validator:
     - tools/**
   ignore:
     - mockito
+
+dependency_overrides:
+  mockito: ^5.3.2
