@@ -100,6 +100,8 @@ class ComponentFactoryProxyGenerator extends BoilerplateDeclarationGenerator {
       outputContentsBuffer.writeln('    skipMethods: const [],');
     }
 
-    outputContentsBuffer..writeln(');')..writeln();
+    outputContentsBuffer
+      ..writeln(');')
+      ..writeln();
   }
 }

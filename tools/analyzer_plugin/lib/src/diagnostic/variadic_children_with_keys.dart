@@ -73,7 +73,7 @@ class VariadicChildrenWithKeys extends ComponentUsageDiagnosticContributor {
   @override
   computeErrorsForUsage(result, collector, usage) async {
     String? reasonWhyUnnecessary;
-    final parentMethodName = usage.node.thisOrAncestorOfType<MethodDeclaration>()?.name.name;
+    final parentMethodName = usage.node.thisOrAncestorOfType<MethodDeclaration>()?.name.lexeme;
 
     final parent = usage.node.parent;
 

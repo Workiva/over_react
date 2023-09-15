@@ -32,7 +32,7 @@ class BoilerplateComponent extends BoilerplateMember {
   final NamedCompilationUnitMember node;
 
   @override
-  SimpleIdentifier get name => nodeHelper.name;
+  Token get name => nodeHelper.name;
 
   /// A metadata class that lifts helpful fields out of [node] to a top level,
   /// in addition to providing additional getters relevant member parsing.
@@ -119,15 +119,16 @@ class BoilerplateComponent extends BoilerplateMember {
     });
 
     // Ensure that Component2 declarations do not use legacy lifecycle methods.
-    if (isComponent2(version) && node is ClassOrMixinDeclaration) {
+    if (isComponent2(version)) {
       Map<String, String> legacyLifecycleMethodsMap = {
         'componentWillReceiveProps': 'Use getDerivedStateFromProps instead.',
         'componentWillMount': 'Use componentDidMount instead.',
         'componentWillUpdate': 'Use getSnapshotBeforeUpdate and/or componentDidUpdate instead.',
       };
 
+      final methods = nodeHelper.members.whereType<MethodDeclaration>().toList();
       legacyLifecycleMethodsMap.forEach((methodName, helpMessage) {
-        final method = (node as ClassOrMixinDeclaration).getMethod(methodName);
+        final method = methods.firstWhereOrNull((m) => m.name.name == methodName);
         if (method != null) {
           errorCollector.addError(unindent('''
                When using Component2, a class cannot use ${method.name} because React 16 has removed ${method.name} 

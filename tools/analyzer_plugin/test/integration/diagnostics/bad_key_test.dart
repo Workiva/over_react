@@ -23,7 +23,7 @@ abstract class BadKeyDiagnosticTest extends DiagnosticTestBase {
   @override
   get fixKindUnderTest => null;
 
-  Source newSourceWithPrefix(String sourceFragment) => newSource('test.dart', sourcePrefix + sourceFragment);
+  Source newSourceWithPrefix(String sourceFragment) => newSource(sourcePrefix + sourceFragment);
 
   static const sourcePrefix = /*language=dart*/ r'''
 import 'package:over_react/over_react.dart';
@@ -47,6 +47,8 @@ class MyModelWithCustomToString {
   @override
   toString() => '$id';
 }
+
+enum AnEnum { foo }
 ''';
 }
 
@@ -59,6 +61,7 @@ class BadKeyDiagnosticTest_NoErrors extends BadKeyDiagnosticTest {
     final source = newSourceWithPrefix(/*language=dart*/ r'''
       test() => [
         (Dom.div()..key = 'a string')(),
+        (Dom.div()..key = AnEnum.foo)(),
         (Dom.div()..key = 122)(),
         (Dom.div()..key = modelVar.id)(),
         (Dom.div()..key = modelVarWithCustomToString)(),

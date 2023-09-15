@@ -26,7 +26,7 @@ dev_dependencies:
   test: ^1.15.7
   test_html_builder: ^3.0.0
   time: ^1.2.0
-  w_common: '>=2.0.0 <4.0.0'
+  w_common: ^3.0.0
   workiva_analysis_options: ^1.1.0
 
 dependency_overrides:

@@ -23,7 +23,7 @@ class BoilerplateFactory extends BoilerplateMember {
   final TopLevelVariableDeclaration node;
 
   @override
-  SimpleIdentifier get name => node.firstVariable.name;
+  Token get name => node.firstVariable.name;
 
   @override
   annotations.Factory get meta => const annotations.Factory();

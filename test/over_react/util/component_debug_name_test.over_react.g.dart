@@ -33,8 +33,8 @@ _$$TestComponent2Props _$TestComponent2([Map backingProps]) =>
 abstract class _$$TestComponent2Props extends UiProps
     with
         TestComponent2Props,
-        $TestComponent2Props // If this generated mixin is undefined, it's likely because TestComponent2Props is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestComponent2Props, and check that $TestComponent2Props is exported/imported properly.
-{
+        // If this generated mixin is undefined, it's likely because TestComponent2Props is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestComponent2Props, and check that $TestComponent2Props is exported/imported properly.
+        $TestComponent2Props {
   _$$TestComponent2Props._();
 
   factory _$$TestComponent2Props(Map backingMap) {

@@ -1,5 +1,5 @@
-// From analyzer 1.7.2 src/dart/ast/utilities.dart
-// Permalink: https://github.com/dart-lang/sdk/blob/d97bd979570c4aacde322d8b04256ce477aa9729/pkg/analyzer/lib/src/dart/ast/utilities.dart
+// Adapted from analyzer 5.13.0 src/dart/ast/utilities.dart
+// Permalink: https://github.com/dart-lang/sdk/blob/efe0ca193f1c1485efc5467fb8dc9dfca6085d39/pkg/analyzer/lib/src/dart/ast/utilities.dart#L1687
 //
 // Copyright 2013, the Dart project authors. All rights reserved.
 // Redistribution and use in source and binary forms, with or without
@@ -29,13 +29,16 @@
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import 'package:analyzer/dart/ast/ast.dart';
-import 'package:analyzer/dart/ast/token.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
 
 /// An object used to locate the [AstNode] associated with a source range, given
 /// the AST structure built from the source. More specifically, they will return
 /// the [AstNode] with the shortest length whose source range completely
-/// encompasses the specified range.
+/// encompasses the specified range with some exceptions:
+///
+/// - Offsets that fall between the name and type/formal parameter list of a
+///   declaration will return the declaration node and not the parameter list
+///   node.
 class NodeLocator extends UnifyingAstVisitor<void> {
   /// The start offset of the range used to identify the node.
   final int _startOffset;
@@ -70,7 +73,45 @@ class NodeLocator extends UnifyingAstVisitor<void> {
     } catch (_) {
       return null;
     }
+
     return _foundNode;
+  }
+
+  @override
+  void visitConstructorDeclaration(ConstructorDeclaration node) {
+    // Names do not have AstNodes but offsets at the end should be treated as
+    // part of the declaration (not parameter list).
+    if (_startOffset == _endOffset &&
+        _startOffset == (node.name ?? node.returnType).end) {
+      _foundNode = node;
+      return;
+    }
+
+    super.visitConstructorDeclaration(node);
+  }
+
+  @override
+  void visitFunctionDeclaration(FunctionDeclaration node) {
+    // Names do not have AstNodes but offsets at the end should be treated as
+    // part of the declaration (not parameter list).
+    if (_startOffset == _endOffset && _startOffset == node.name.end) {
+      _foundNode = node;
+      return;
+    }
+
+    super.visitFunctionDeclaration(node);
+  }
+
+  @override
+  void visitMethodDeclaration(MethodDeclaration node) {
+    // Names do not have AstNodes but offsets at the end should be treated as
+    // part of the declaration (not parameter list).
+    if (_startOffset == _endOffset && _startOffset == node.name.end) {
+      _foundNode = node;
+      return;
+    }
+
+    super.visitMethodDeclaration(node);
   }
 
   @override
@@ -87,7 +128,7 @@ class NodeLocator extends UnifyingAstVisitor<void> {
       // Fasta scanner reports unterminated string literal errors
       // and generates a synthetic string token with non-zero length.
       // Because of this, check for length > 0 rather than !isSynthetic.
-      if (endToken.type == TokenType.EOF || endToken.length > 0) {
+      if (endToken.isEof || endToken.length > 0) {
         break;
       }
       endToken = endToken.previous!;
@@ -117,7 +158,11 @@ class NodeLocator extends UnifyingAstVisitor<void> {
 
 /// An object used to locate the [AstNode] associated with a source range.
 /// More specifically, they will return the deepest [AstNode] which completely
-/// encompasses the specified range.
+/// encompasses the specified range with some exceptions:
+///
+/// - Offsets that fall between the name and type/formal parameter list of a
+///   declaration will return the declaration node and not the parameter list
+///   node.
 class NodeLocator2 extends UnifyingAstVisitor<void> {
   /// The inclusive start offset of the range used to identify the node.
   final int _startOffset;
@@ -152,6 +197,43 @@ class NodeLocator2 extends UnifyingAstVisitor<void> {
   }
 
   @override
+  void visitConstructorDeclaration(ConstructorDeclaration node) {
+    // Names do not have AstNodes but offsets at the end should be treated as
+    // part of the declaration (not parameter list).
+    if (_startOffset == _endOffset &&
+        _startOffset == (node.name ?? node.returnType).end) {
+      _foundNode = node;
+      return;
+    }
+
+    super.visitConstructorDeclaration(node);
+  }
+
+  @override
+  void visitFunctionDeclaration(FunctionDeclaration node) {
+    // Names do not have AstNodes but offsets at the end should be treated as
+    // part of the declaration (not parameter list).
+    if (_startOffset == _endOffset && _startOffset == node.name.end) {
+      _foundNode = node;
+      return;
+    }
+
+    super.visitFunctionDeclaration(node);
+  }
+
+  @override
+  void visitMethodDeclaration(MethodDeclaration node) {
+    // Names do not have AstNodes but offsets at the end should be treated as
+    // part of the declaration (not parameter list).
+    if (_startOffset == _endOffset && _startOffset == node.name.end) {
+      _foundNode = node;
+      return;
+    }
+
+    super.visitMethodDeclaration(node);
+  }
+
+  @override
   void visitNode(AstNode node) {
     // Don't visit a new tree if the result has been already found.
     if (_foundNode != null) {
@@ -165,7 +247,7 @@ class NodeLocator2 extends UnifyingAstVisitor<void> {
       // Fasta scanner reports unterminated string literal errors
       // and generates a synthetic string token with non-zero length.
       // Because of this, check for length > 0 rather than !isSynthetic.
-      if (endToken.type == TokenType.EOF || endToken.length > 0) {
+      if (endToken.isEof || endToken.length > 0) {
         break;
       }
       endToken = endToken.previous!;

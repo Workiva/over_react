@@ -188,43 +188,43 @@ main() {
 
     group('AbstractGetter', () {
       test('hasAbstractGetter', () {
-        expect(AbstractGetter(parseAndGetSingleWithType('''
+        expect(AbstractGetter(parseAndGetSingleClassish('''
           abstract class Foo {
             String get foo;
           }
         ''')).hasAbstractGetter('String', 'foo'), isTrue);
 
-        expect(AbstractGetter(parseAndGetSingleWithType('''
+        expect(AbstractGetter(parseAndGetSingleClassish('''
           abstract class Foo {
             Generic<String> get foo;
           }
         ''')).hasAbstractGetter('Generic<String>', 'foo'), isTrue);
 
-        expect(AbstractGetter(parseAndGetSingleWithType('''
+        expect(AbstractGetter(parseAndGetSingleClassish('''
           abstract class Foo {
             String get foo => 'impl';
           }
         ''')).hasAbstractGetter('String', 'foo'), isFalse);
 
-        expect(AbstractGetter(parseAndGetSingleWithType('''
+        expect(AbstractGetter(parseAndGetSingleClassish('''
           abstract class Foo {
             WrongType get foo;
           }
         ''')).hasAbstractGetter('String', 'foo'), isFalse);
 
-        expect(AbstractGetter(parseAndGetSingleWithType('''
+        expect(AbstractGetter(parseAndGetSingleClassish('''
           abstract class Foo {
             String get wrongName;
           }
         ''')).hasAbstractGetter('String', 'foo'), isFalse);
 
-        expect(AbstractGetter(parseAndGetSingleWithType('''
+        expect(AbstractGetter(parseAndGetSingleClassish('''
           abstract class Foo {
             String foo;
           }
         ''')).hasAbstractGetter('String', 'foo'), isFalse);
 
-        expect(AbstractGetter(parseAndGetSingleWithType('''
+        expect(AbstractGetter(parseAndGetSingleClassish('''
           abstract class Foo {
             set foo(String value);
           }

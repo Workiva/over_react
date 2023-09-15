@@ -91,7 +91,7 @@ class NonDefaultedPropDiagnostic extends DiagnosticContributor {
       final access = tuple.item1;
       final variable = tuple.item2;
 
-      final variableName = variable.name.name;
+      final variableName = variable.name.lexeme;
 
       await collector.addErrorWithFix(
         code,

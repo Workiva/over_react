@@ -8,6 +8,7 @@ import 'package:test/test.dart';
 import '../matchers.dart';
 import 'server_plugin_contributor_test_base.dart';
 
+// ignore: implementation_imports
 export 'package:analyzer/src/generated/source.dart' show Source;
 
 /// Test base for integration tests that exercise a single diagnostic
@@ -74,7 +75,7 @@ abstract class DiagnosticTestBase extends ServerPluginContributorTestBase {
   /// Fails the test if any selection of [sourceContents] from
   /// [selectionTargets] does not produce a single assist.
   Future<void> expectAllSelectionsProduceAtLeastOneError(String sourceContents, List<String> selectionTargets) async {
-    final source = newSource('test.dart', sourceContents);
+    final source = newSource(sourceContents);
     for (final target in selectionTargets) {
       final selection = createSelection(source, target);
       await expectSingleErrorFix(selection);

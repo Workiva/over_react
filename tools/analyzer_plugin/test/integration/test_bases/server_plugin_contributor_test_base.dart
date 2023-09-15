@@ -1,6 +1,8 @@
-import 'package:analyzer/src/generated/source.dart';
+import 'package:analyzer/dart/analysis/results.dart';
+import 'package:analyzer/file_system/overlay_file_system.dart';
+// ignore: implementation_imports
+import 'package:analyzer/src/generated/source.dart' show Source, SourceRange;
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
-import 'package:analyzer_plugin/protocol/protocol_generated.dart';
 import 'package:meta/meta.dart';
 import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
@@ -74,7 +76,8 @@ abstract class ServerPluginContributorTestBase extends AnalysisDriverTestBase {
       resourceProvider.getFile(path).readAsStringSync(),
       [for (final fileEdit in applicableFileEdits) ...fileEdit.edits],
     );
-    final file = resourceProvider.updateFile(path, updated);
+    modifyFile(path, updated);
+    final file = resourceProvider.getFile(path);
     return file.createSource();
   }
 
@@ -149,18 +152,21 @@ abstract class ServerPluginContributorTestBase extends AnalysisDriverTestBase {
     await super.setUp();
 
     _channel = StubChannel();
-    _plugin = PluginForTest(analysisDriver, resourceProvider)..start(_channel!);
+    _plugin = PluginForTest()
+      ..channel = _channel!
+      ..resourceProvider = OverlayResourceProvider(sharedContext.collection.contexts.single.currentSession.resourceProvider)
+      ..handleGetResolvedUnitResult = (path) async {
+        final result = await sharedContext.collection.contextFor(path).currentSession.getResolvedUnit(path);
+        if (result is ResolvedUnitResult) return result;
 
-    // ignore: missing_required_param
-    final contextRoot = ContextRoot(testPath, []);
-    await testPlugin.handleAnalysisSetContextRoots(AnalysisSetContextRootsParams([contextRoot]));
+        throw Exception('Could not resolve path $path: $result');
+      };
   }
 
   @override
   @mustCallSuper
   Future<void> tearDown() async {
     expectNoPluginErrors();
-    await _plugin?.handlePluginShutdown(PluginShutdownParams());
     _channel = null;
     _plugin = null;
     super.tearDown();

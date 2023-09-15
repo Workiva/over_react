@@ -69,7 +69,7 @@ bool referencesImplicitThis(SimpleIdentifier identifier) {
   }
   // not a class member
   final Element? enclosingElement = element.enclosingElement;
-  if (enclosingElement is! ClassElement) {
+  if (enclosingElement is! InterfaceOrAugmentationElement) {
     return false;
   }
   // comment

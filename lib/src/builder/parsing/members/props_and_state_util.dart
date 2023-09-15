@@ -68,7 +68,7 @@ annotations.TypedMap getPropsOrStateAnnotation(bool isProps, AnnotatedNode node)
 /// If a [ClassMember] exists in [node] with the name `meta`, this will
 /// throw an error if the member is not static and a warning if the member
 /// is static.
-void checkForMetaPresence(ClassOrMixinDeclaration node, ErrorCollector errorCollector) {
+void checkForMetaPresence(ClassishDeclaration node, ErrorCollector errorCollector) {
   final metaField = metaFieldOrNull(node);
   final metaMethod = metaMethodOrNull(node);
   final isNotNull = metaField != null || metaMethod != null;
