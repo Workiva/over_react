@@ -781,42 +781,117 @@ UiFactory<FooProps> Foo = uiFunction(
 ); 
 ```
 
-#### With Consumed Props
+#### With Prop Forwarding (fka Consumed Props)
 
-Because functional components have no instance that track consumed props, the syntax for passing unconsumed 
-props changes within functional components.
+Because functional components have no instance that track consumed props, the syntax for forwarding props
+changes within functional components.
 
-`UiProps` exposes a field `staticMeta` that can be used to generate an iterable containing props meta for specific mixins. 
-This is similar to accessing `propsMeta` within a class based component. Using the iterable returned from `staticMeta`'s 
-APIs (such as `forMixins`), we can generate unconsumed props and pass them to a child component.
+`UiProps` exposes 2 APIs `getPropsToForward` & `addPropsToForward` that can be used to forward props
+that have not been used to a child component.
 
-This is done like so:
+##### getPropsToForward
+`getPropsToForward` will return a `Map` of props removing the props found in the `exclude` argument.
+`exclude` is optional and will default to a `Set` with the type that `props` is statically typed as,
+this only works with `mixin .. on UiProps` types. If your function component uses a Props `class` then
+you must include an `exclude` argument.
+
+Component with a single props mixin:
 ```dart
 mixin FooPropsMixin on UiProps {
-  String passedProp;
+  String foo;
 }
 
-mixin BarPropsMixin on UiProps {
-  String nonPassedProp;
+UiFactory<FooPropsMixin> Foo = uiFunction((props) {
+  return (Bar()
+    // Filter out props declared in FooPropsMixin
+    // (used as the default for `exclude` since that's what `props` is statically typed as)
+    // when forwarding to Bar.
+    ..addAll(props.getPropsToForward())
+  )();
+});
+```
+
+Component with a more than one props mixin:
+```dart
+mixin FooPropsMixin on UiProps {
+  String foo;
 }
 
-class FooBarProps = UiProps with BarPropsMixin, FooPropsMixin;
+class FooProps = UiProps with BarProps, FooPropsMixin;
 
-UiFactory<FooBarProps> FooBar = uiFunction(
-  (props) {
-    final consumedProps = props.staticMeta.forMixins({BarPropsMixin});
+UiFactory<FooProps> Foo = uiFunction((props) {
+  return (Bar()
+    // Filter out props declared in FooPropsMixin when forwarding to Bar.
+    ..addAll(props.getPropsToForward(exclude: {FooPropsMixin}))
+  )();
+});
+```
 
-    return (Foo()..addUnconsumedProps(props, consumedProps))();
-  },
-  _$FooBarConfig, // ignore: undefined_identifier
-); 
+`domOnly` - to forward DOM props only:
+```dart
+mixin FooPropsMixin on UiProps {
+  String foo;
+}
 
-UiFactory<FooPropsMixin> Foo = uiFunction(
-  (props) {
-    return 'foo: ${props.passedProp}'; 
-  },
-  _$FooConfig, // ignore: undefined_identifier
-); 
+UiFactory<FooPropsMixin> Foo = uiFunction((props) {
+  return (Dom.div()
+    // Forward only DOM based props & Filter out props declared in FooPropsMixin
+    // (used as the default for `exclude` since that's what `props` is statically typed as)
+    // when forwarding to Bar.
+    ..addAll(props.getPropsToForward(domOnly: true))
+  )();
+});
+```
+
+##### addPropsToForward
+`addPropsToForward` has the same function signature as `getPropsToForward` but is meant to be used with the `UiProps` method `modifyProps`.
+
+Component with a single props mixin:
+```dart
+mixin FooPropsMixin on UiProps {
+  String foo;
+}
+
+UiFactory<FooPropsMixin> Foo = uiFunction((props) {
+  return (Bar()
+    // Filter out props declared in FooPropsMixin
+    // (used as the default for `exclude` since that's what `props` is statically typed as)
+    // when forwarding to Bar.
+    ..modifyProps(props.addPropsToForward())
+  )();
+});
+```
+
+Component with a more than one props mixin:
+```dart
+mixin FooPropsMixin on UiProps {
+  String foo;
+}
+
+class FooProps = UiProps with BarProps, FooPropsMixin;
+
+UiFactory<FooProps> Foo = uiFunction((props) {
+  return (Bar()
+    // Filter out props declared in FooPropsMixin when forwarding to Bar.
+    ..modifyProps(props.addPropsToForward(exclude: {FooPropsMixin}))
+  )();
+});
+```
+
+`domOnly` - to forward DOM props only:
+```dart
+mixin FooPropsMixin on UiProps {
+  String foo;
+}
+
+UiFactory<FooPropsMixin> Foo = uiFunction((props) {
+  return (Dom.div()
+    // Forward only DOM based props & Filter out props declared in FooPropsMixin
+    // (used as the default for `exclude` since that's what `props` is statically typed as)
+    // when forwarding to Bar.
+    ..modifyProps(props.addPropsToForward(domOnly: true))
+  )();
+});
 ```
 
 #### With UiProps
