@@ -23,7 +23,7 @@ dev_dependencies:
   json_serializable: ^6.0.0
   over_react_test: ^2.10.2
   pedantic: ^1.8.0
-  test: ^1.15.7
+  test: ^1.21.1
   test_html_builder: ^3.0.0
   time: ^1.2.0
   w_common: ^3.0.0
