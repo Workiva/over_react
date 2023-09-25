@@ -148,6 +148,9 @@ class ConnectFluxAdapterStore<S extends flux.Store> extends redux.Store<S> {
   @override
   Future teardown() async {
     _teardownCalled = true;
+    actionsForStore[store] = null;
+    _connectFluxAdapterFor[store] = null;
+    _storeAdapterFor[store] = null;
 
     await _storeListener.cancel();
     await super.teardown();
@@ -442,9 +445,12 @@ UiFactory<TProps> Function(UiFactory<TProps>)
       mergeProps,
   // Use default parameter values instead of ??= in the function body to allow consumers
   // to specify `null` and fall back to the JS default.
-  bool Function(TProps nextProps, TProps prevProps) areOwnPropsEqual = propsOrStateMapsEqual,
-  bool Function(TProps nextProps, TProps prevProps) areStatePropsEqual = propsOrStateMapsEqual,
-  bool Function(TProps nextProps, TProps prevProps) areMergedPropsEqual = propsOrStateMapsEqual,
+  bool Function(TProps nextProps, TProps prevProps) areOwnPropsEqual =
+      propsOrStateMapsEqual,
+  bool Function(TProps nextProps, TProps prevProps) areStatePropsEqual =
+      propsOrStateMapsEqual,
+  bool Function(TProps nextProps, TProps prevProps) areMergedPropsEqual =
+      propsOrStateMapsEqual,
   Context context,
   bool pure = true,
   bool forwardRef = false,
@@ -617,6 +623,7 @@ UiFactory<TProps> Function(UiFactory<TProps>)
 
         return propsOrStateMapsEqual(nextProps, prevProps);
       }
+
       areStatePropsEqual = areStatePropsEqualWrapper;
     }
 
@@ -665,7 +672,8 @@ extension FluxStoreExtension<S extends flux.Store> on S {
           '`asConnectFluxStore` should not be used when the store is implementing InfluxStoreMixin. Use `asReduxStore` instead');
     }
 
-    return _connectFluxAdapterFor.putIfAbsentCasted(this, () => ConnectFluxAdapterStore(this, actions, middleware: middleware));
+    return _connectFluxAdapterFor.putIfAbsentCasted(this,
+        () => ConnectFluxAdapterStore(this, actions, middleware: middleware));
   }
 }
 
