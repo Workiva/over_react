@@ -26,7 +26,6 @@ import 'package:react/react.dart' as react;
 import 'package:react/react_client.dart';
 import 'package:react/react_client/bridge.dart';
 import 'package:react/react_client/js_backed_map.dart';
-import 'package:react/react_client/react_interop.dart';
 
 import 'builder_helpers.dart';
 import 'component_type_checking.dart';
