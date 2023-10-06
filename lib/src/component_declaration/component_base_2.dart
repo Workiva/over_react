@@ -708,13 +708,13 @@ class UiComponent2BridgeImpl extends Component2BridgeImpl {
   JsMap jsifyPropTypes(
       covariant UiComponent2 component, covariant Map<String,
       /*PropValidator<UiProps>*/Function> propTypes) {
-    Error _getErrorFromConsumerValidator(
+    Error/*?*/ _getErrorFromConsumerValidator(
       /*PropValidator<UiProps>*/Function _validator,
-      JsBackedMap _props,
+      Map _props,
       react.PropValidatorInfo _info,
     ) {
-      var convertedProps = component.typedPropsFactoryJs(_props);
-      return _validator(convertedProps, _info) as Error;
+      final typedProps = component.typedPropsFactory(_props);
+      return _validator(typedProps, _info) as Error/*?*/;
     }
 
     // Add [PropValidator]s for props annotated as required.
@@ -723,18 +723,15 @@ class UiComponent2BridgeImpl extends Component2BridgeImpl {
       consumedProps.props.forEach((prop) {
         if (!prop.isRequired) return;
 
-        Error requiredPropValidator(
+        Error/*?*/ requiredPropValidator(
           Map _props,
           react.PropValidatorInfo _info,
         ) {
-          Error consumerError;
+          Error/*?*/ consumerError;
           // Check if the consumer has specified a propType for this key.
-          if (propTypes[prop.key] != null) {
-            consumerError = _getErrorFromConsumerValidator(
-              propTypes[prop.key],
-              JsBackedMap.from(_props),
-              _info,
-            );
+          final propType = propTypes[prop.key];
+          if (propType != null) {
+            consumerError = _getErrorFromConsumerValidator(propType, _props, _info);
           }
 
           if (consumerError != null) return consumerError;
@@ -753,29 +750,15 @@ class UiComponent2BridgeImpl extends Component2BridgeImpl {
       });
     });
 
-    // Wrap consumer-provided and required validators with ones that convert plain props maps into typed ones.
-    return JsBackedMap.from(newPropTypes.map((_propKey, _validator) {
-        // ignore: prefer_function_declarations_over_variables
-        JsPropValidator handlePropValidator = (
-          JsMap _props, // ignore: avoid_types_on_closure_parameters
-          String _propName, // ignore: avoid_types_on_closure_parameters
-          String _componentName, // ignore: avoid_types_on_closure_parameters
-          String _location, // ignore: avoid_types_on_closure_parameters
-          String _propFullName, // ignore: avoid_types_on_closure_parameters
-          // This is a required argument of PropTypes validators but is hidden from the JS consumer.
-          String secret, // ignore: avoid_types_on_closure_parameters
-        ) {
-          final error = _getErrorFromConsumerValidator(
-            _validator,
-            JsBackedMap.fromJs(_props),
-            react.PropValidatorInfo(
-                propName: _propName, componentName: _componentName, location: _location, propFullName: _propFullName),
-          );
-          return error == null ? null : JsError(error.toString());
-        };
-
-        return MapEntry(_propKey, allowInterop(handlePropValidator));
-      })).jsObject;
+    return super.jsifyPropTypes(component, newPropTypes.map((propKey, validator) {
+      // Use a LHS-typed function variable so we can easily ensure that the function is typed a
+      // specific way (especially since the typing can't be inferred due to the use of `Function`).
+      // ignore: prefer_function_declarations_over_variables
+      final react.PropValidator<Map> wrappedValidator = (props, info) {
+        return _getErrorFromConsumerValidator(validator, props, info);
+      };
+      return MapEntry(propKey, wrappedValidator);
+    }));
   }
 
   /// A version of [setStateWithTypedUpdater] whose updater is passed typed views
