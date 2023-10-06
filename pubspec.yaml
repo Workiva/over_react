@@ -54,3 +54,9 @@ dependency_validator:
     - tools/**
   ignore:
     - mockito
+
+dependency_overrides:
+  react:
+    git:
+      url: https://github.com/Workiva/react-dart.git
+      ref: null-safety-manual-2
