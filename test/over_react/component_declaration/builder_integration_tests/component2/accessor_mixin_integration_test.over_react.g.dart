@@ -15,7 +15,8 @@ abstract class TestPropsMixin implements _$TestPropsMixin {
 
   /// <!-- Generated from [_$TestPropsMixin.stringProp] -->
   @override
-  get stringProp => (props[_$key__stringProp___$TestPropsMixin]) as String?;
+  get stringProp =>
+      (props[_$key__stringProp___$TestPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$TestPropsMixin.stringProp] -->
   @override
@@ -23,7 +24,8 @@ abstract class TestPropsMixin implements _$TestPropsMixin {
 
   /// <!-- Generated from [_$TestPropsMixin.dynamicProp] -->
   @override
-  get dynamicProp => (props[_$key__dynamicProp___$TestPropsMixin]) as dynamic;
+  get dynamicProp =>
+      (props[_$key__dynamicProp___$TestPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$TestPropsMixin.dynamicProp] -->
   @override
@@ -31,7 +33,7 @@ abstract class TestPropsMixin implements _$TestPropsMixin {
 
   /// <!-- Generated from [_$TestPropsMixin.untypedProp] -->
   @override
-  get untypedProp => props[_$key__untypedProp___$TestPropsMixin];
+  get untypedProp => props[_$key__untypedProp___$TestPropsMixin] ?? null;
 
   /// <!-- Generated from [_$TestPropsMixin.untypedProp] -->
   @override
@@ -41,7 +43,7 @@ abstract class TestPropsMixin implements _$TestPropsMixin {
   @override
   @Accessor(key: 'custom key!')
   get customKeyProp =>
-      (props[_$key__customKeyProp___$TestPropsMixin]) as dynamic;
+      (props[_$key__customKeyProp___$TestPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$TestPropsMixin.customKeyProp] -->
   @override
@@ -53,7 +55,7 @@ abstract class TestPropsMixin implements _$TestPropsMixin {
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
   get customNamespaceProp =>
-      (props[_$key__customNamespaceProp___$TestPropsMixin]) as dynamic;
+      (props[_$key__customNamespaceProp___$TestPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$TestPropsMixin.customNamespaceProp] -->
   @override
@@ -65,7 +67,8 @@ abstract class TestPropsMixin implements _$TestPropsMixin {
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
   get customKeyAndNamespaceProp =>
-      (props[_$key__customKeyAndNamespaceProp___$TestPropsMixin]) as dynamic;
+      (props[_$key__customKeyAndNamespaceProp___$TestPropsMixin] ?? null)
+          as dynamic;
 
   /// <!-- Generated from [_$TestPropsMixin.customKeyAndNamespaceProp] -->
   @override
@@ -132,7 +135,8 @@ abstract class TestCustomNamespacePropsMixin
   /// <!-- Generated from [_$TestCustomNamespacePropsMixin.stringProp] -->
   @override
   get stringProp =>
-      (props[_$key__stringProp___$TestCustomNamespacePropsMixin]) as String?;
+      (props[_$key__stringProp___$TestCustomNamespacePropsMixin] ?? null)
+          as String?;
 
   /// <!-- Generated from [_$TestCustomNamespacePropsMixin.stringProp] -->
   @override
@@ -142,7 +146,8 @@ abstract class TestCustomNamespacePropsMixin
   /// <!-- Generated from [_$TestCustomNamespacePropsMixin.dynamicProp] -->
   @override
   get dynamicProp =>
-      (props[_$key__dynamicProp___$TestCustomNamespacePropsMixin]) as dynamic;
+      (props[_$key__dynamicProp___$TestCustomNamespacePropsMixin] ?? null)
+          as dynamic;
 
   /// <!-- Generated from [_$TestCustomNamespacePropsMixin.dynamicProp] -->
   @override
@@ -151,7 +156,8 @@ abstract class TestCustomNamespacePropsMixin
 
   /// <!-- Generated from [_$TestCustomNamespacePropsMixin.untypedProp] -->
   @override
-  get untypedProp => props[_$key__untypedProp___$TestCustomNamespacePropsMixin];
+  get untypedProp =>
+      props[_$key__untypedProp___$TestCustomNamespacePropsMixin] ?? null;
 
   /// <!-- Generated from [_$TestCustomNamespacePropsMixin.untypedProp] -->
   @override
@@ -162,7 +168,8 @@ abstract class TestCustomNamespacePropsMixin
   @override
   @Accessor(key: 'custom key!')
   get customKeyProp =>
-      (props[_$key__customKeyProp___$TestCustomNamespacePropsMixin]) as dynamic;
+      (props[_$key__customKeyProp___$TestCustomNamespacePropsMixin] ?? null)
+          as dynamic;
 
   /// <!-- Generated from [_$TestCustomNamespacePropsMixin.customKeyProp] -->
   @override
@@ -174,8 +181,8 @@ abstract class TestCustomNamespacePropsMixin
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
   get customNamespaceProp =>
-      (props[_$key__customNamespaceProp___$TestCustomNamespacePropsMixin])
-          as dynamic;
+      (props[_$key__customNamespaceProp___$TestCustomNamespacePropsMixin] ??
+          null) as dynamic;
 
   /// <!-- Generated from [_$TestCustomNamespacePropsMixin.customNamespaceProp] -->
   @override
@@ -187,9 +194,9 @@ abstract class TestCustomNamespacePropsMixin
   /// <!-- Generated from [_$TestCustomNamespacePropsMixin.customKeyAndNamespaceProp] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
-  get customKeyAndNamespaceProp =>
-      (props[_$key__customKeyAndNamespaceProp___$TestCustomNamespacePropsMixin])
-          as dynamic;
+  get customKeyAndNamespaceProp => (props[
+          _$key__customKeyAndNamespaceProp___$TestCustomNamespacePropsMixin] ??
+      null) as dynamic;
 
   /// <!-- Generated from [_$TestCustomNamespacePropsMixin.customKeyAndNamespaceProp] -->
   @override
@@ -264,7 +271,8 @@ abstract class TestStateMixin implements _$TestStateMixin {
 
   /// <!-- Generated from [_$TestStateMixin.stringState] -->
   @override
-  get stringState => (state[_$key__stringState___$TestStateMixin]) as String?;
+  get stringState =>
+      (state[_$key__stringState___$TestStateMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$TestStateMixin.stringState] -->
   @override
@@ -272,7 +280,8 @@ abstract class TestStateMixin implements _$TestStateMixin {
 
   /// <!-- Generated from [_$TestStateMixin.dynamicState] -->
   @override
-  get dynamicState => (state[_$key__dynamicState___$TestStateMixin]) as dynamic;
+  get dynamicState =>
+      (state[_$key__dynamicState___$TestStateMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$TestStateMixin.dynamicState] -->
   @override
@@ -281,7 +290,7 @@ abstract class TestStateMixin implements _$TestStateMixin {
 
   /// <!-- Generated from [_$TestStateMixin.untypedState] -->
   @override
-  get untypedState => state[_$key__untypedState___$TestStateMixin];
+  get untypedState => state[_$key__untypedState___$TestStateMixin] ?? null;
 
   /// <!-- Generated from [_$TestStateMixin.untypedState] -->
   @override
@@ -292,7 +301,7 @@ abstract class TestStateMixin implements _$TestStateMixin {
   @override
   @Accessor(key: 'custom key!')
   get customKeyState =>
-      (state[_$key__customKeyState___$TestStateMixin]) as dynamic;
+      (state[_$key__customKeyState___$TestStateMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$TestStateMixin.customKeyState] -->
   @override
@@ -304,7 +313,7 @@ abstract class TestStateMixin implements _$TestStateMixin {
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
   get customNamespaceState =>
-      (state[_$key__customNamespaceState___$TestStateMixin]) as dynamic;
+      (state[_$key__customNamespaceState___$TestStateMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$TestStateMixin.customNamespaceState] -->
   @override
@@ -316,7 +325,8 @@ abstract class TestStateMixin implements _$TestStateMixin {
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
   get customKeyAndNamespaceState =>
-      (state[_$key__customKeyAndNamespaceState___$TestStateMixin]) as dynamic;
+      (state[_$key__customKeyAndNamespaceState___$TestStateMixin] ?? null)
+          as dynamic;
 
   /// <!-- Generated from [_$TestStateMixin.customKeyAndNamespaceState] -->
   @override
@@ -383,7 +393,8 @@ abstract class TestCustomNamespaceStateMixin
   /// <!-- Generated from [_$TestCustomNamespaceStateMixin.stringState] -->
   @override
   get stringState =>
-      (state[_$key__stringState___$TestCustomNamespaceStateMixin]) as String?;
+      (state[_$key__stringState___$TestCustomNamespaceStateMixin] ?? null)
+          as String?;
 
   /// <!-- Generated from [_$TestCustomNamespaceStateMixin.stringState] -->
   @override
@@ -393,7 +404,8 @@ abstract class TestCustomNamespaceStateMixin
   /// <!-- Generated from [_$TestCustomNamespaceStateMixin.dynamicState] -->
   @override
   get dynamicState =>
-      (state[_$key__dynamicState___$TestCustomNamespaceStateMixin]) as dynamic;
+      (state[_$key__dynamicState___$TestCustomNamespaceStateMixin] ?? null)
+          as dynamic;
 
   /// <!-- Generated from [_$TestCustomNamespaceStateMixin.dynamicState] -->
   @override
@@ -403,7 +415,7 @@ abstract class TestCustomNamespaceStateMixin
   /// <!-- Generated from [_$TestCustomNamespaceStateMixin.untypedState] -->
   @override
   get untypedState =>
-      state[_$key__untypedState___$TestCustomNamespaceStateMixin];
+      state[_$key__untypedState___$TestCustomNamespaceStateMixin] ?? null;
 
   /// <!-- Generated from [_$TestCustomNamespaceStateMixin.untypedState] -->
   @override
@@ -414,7 +426,7 @@ abstract class TestCustomNamespaceStateMixin
   @override
   @Accessor(key: 'custom key!')
   get customKeyState =>
-      (state[_$key__customKeyState___$TestCustomNamespaceStateMixin])
+      (state[_$key__customKeyState___$TestCustomNamespaceStateMixin] ?? null)
           as dynamic;
 
   /// <!-- Generated from [_$TestCustomNamespaceStateMixin.customKeyState] -->
@@ -427,8 +439,8 @@ abstract class TestCustomNamespaceStateMixin
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
   get customNamespaceState =>
-      (state[_$key__customNamespaceState___$TestCustomNamespaceStateMixin])
-          as dynamic;
+      (state[_$key__customNamespaceState___$TestCustomNamespaceStateMixin] ??
+          null) as dynamic;
 
   /// <!-- Generated from [_$TestCustomNamespaceStateMixin.customNamespaceState] -->
   @override
@@ -441,8 +453,8 @@ abstract class TestCustomNamespaceStateMixin
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
   get customKeyAndNamespaceState => (state[
-          _$key__customKeyAndNamespaceState___$TestCustomNamespaceStateMixin])
-      as dynamic;
+          _$key__customKeyAndNamespaceState___$TestCustomNamespaceStateMixin] ??
+      null) as dynamic;
 
   /// <!-- Generated from [_$TestCustomNamespaceStateMixin.customKeyAndNamespaceState] -->
   @override

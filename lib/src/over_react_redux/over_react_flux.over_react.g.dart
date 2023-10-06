@@ -16,7 +16,8 @@ abstract class ConnectFluxPropsMixin<TActions>
 
   /// <!-- Generated from [_$ConnectFluxPropsMixin.actions] -->
   @override
-  get actions => (props[_$key__actions___$ConnectFluxPropsMixin]) as TActions?;
+  get actions =>
+      (props[_$key__actions___$ConnectFluxPropsMixin] ?? null) as TActions?;
 
   /// <!-- Generated from [_$ConnectFluxPropsMixin.actions] -->
   @override

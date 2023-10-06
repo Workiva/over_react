@@ -15,8 +15,8 @@ abstract class ConnectPropsMixin implements _$ConnectPropsMixin {
 
   /// <!-- Generated from [_$ConnectPropsMixin.dispatch] -->
   @override
-  get dispatch => (props[_$key__dispatch___$ConnectPropsMixin]) as dynamic
-      Function(dynamic action)?;
+  get dispatch => (props[_$key__dispatch___$ConnectPropsMixin] ?? null)
+      as dynamic Function(dynamic action)?;
 
   /// <!-- Generated from [_$ConnectPropsMixin.dispatch] -->
   @override
@@ -44,11 +44,12 @@ const PropsMeta _$metaForConnectPropsMixin = PropsMeta(
 mixin $ReduxProviderPropsMixin on ReduxProviderPropsMixin {
   static const PropsMeta meta = _$metaForReduxProviderPropsMixin;
   @override
-  get store => (props[_$key__store__ReduxProviderPropsMixin]) as Store?;
+  get store => (props[_$key__store__ReduxProviderPropsMixin] ?? null) as Store?;
   @override
   set store(value) => props[_$key__store__ReduxProviderPropsMixin] = value;
   @override
-  get context => (props[_$key__context__ReduxProviderPropsMixin]) as dynamic;
+  get context =>
+      (props[_$key__context__ReduxProviderPropsMixin] ?? null) as dynamic;
   @override
   set context(value) => props[_$key__context__ReduxProviderPropsMixin] = value;
   /* GENERATED CONSTANTS */

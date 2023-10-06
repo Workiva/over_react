@@ -30,7 +30,7 @@ abstract class _$TagPropsAccessorsMixin implements _$TagProps {
   ///
   /// <!-- Generated from [_$TagProps.skin] -->
   @override
-  get skin => (props[_$key__skin___$TagProps]) as TagSkin?;
+  get skin => (props[_$key__skin___$TagProps] ?? null) as TagSkin?;
 
   /// The skin / "context" for the [Tag].
   ///
@@ -51,7 +51,7 @@ abstract class _$TagPropsAccessorsMixin implements _$TagProps {
   ///
   /// <!-- Generated from [_$TagProps.isPill] -->
   @override
-  get isPill => (props[_$key__isPill___$TagProps]) as bool?;
+  get isPill => (props[_$key__isPill___$TagProps] ?? null) as bool?;
 
   /// Whether to render the [Tag] with rounded corners that make it look
   /// more like a "pill" (a.k.a Bootstrap v3 "badge")

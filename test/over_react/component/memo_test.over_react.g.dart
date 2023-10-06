@@ -25,7 +25,8 @@ abstract class _$BasicUiComponent2PropsAccessorsMixin
 
   /// <!-- Generated from [_$BasicUiComponent2Props.childId] -->
   @override
-  get childId => (props[_$key__childId___$BasicUiComponent2Props]) as String?;
+  get childId =>
+      (props[_$key__childId___$BasicUiComponent2Props] ?? null) as String?;
 
   /// <!-- Generated from [_$BasicUiComponent2Props.childId] -->
   @override
@@ -177,13 +178,15 @@ class _$BasicUiComponent2Component extends BasicUiComponent2Component {
 mixin $FunctionCustomPropsProps on FunctionCustomPropsProps {
   static const PropsMeta meta = _$metaForFunctionCustomPropsProps;
   @override
-  get testProp => (props[_$key__testProp__FunctionCustomPropsProps]) as int?;
+  get testProp =>
+      (props[_$key__testProp__FunctionCustomPropsProps] ?? null) as int?;
   @override
   set testProp(value) =>
       props[_$key__testProp__FunctionCustomPropsProps] = value;
   @override
   get testFuncProp =>
-      (props[_$key__testFuncProp__FunctionCustomPropsProps]) as Function()?;
+      (props[_$key__testFuncProp__FunctionCustomPropsProps] ?? null)
+          as Function()?;
   @override
   set testFuncProp(value) =>
       props[_$key__testFuncProp__FunctionCustomPropsProps] = value;

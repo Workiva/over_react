@@ -28,7 +28,8 @@ abstract class _$ComponentTestPropsAccessorsMixin
   @Accessor(
       isRequired: true,
       requiredErrorMessage: 'This Prop is Required for testing purposes.')
-  get required => (props[_$key__required___$ComponentTestProps]) as dynamic;
+  get required =>
+      (props[_$key__required___$ComponentTestProps] ?? null) as dynamic;
 
   /// <!-- Generated from [_$ComponentTestProps.required] -->
   @override
@@ -43,7 +44,8 @@ abstract class _$ComponentTestPropsAccessorsMixin
       isRequired: true,
       isNullable: true,
       requiredErrorMessage: 'This prop can be set to null!')
-  get nullable => (props[_$key__nullable___$ComponentTestProps]) as dynamic;
+  get nullable =>
+      (props[_$key__nullable___$ComponentTestProps] ?? null) as dynamic;
 
   /// <!-- Generated from [_$ComponentTestProps.nullable] -->
   @override
@@ -60,7 +62,8 @@ abstract class _$ComponentTestPropsAccessorsMixin
       isNullable: false,
       requiredErrorMessage: 'This Prop Array is Required for testing purposes.')
   get requiredAndLengthLimited =>
-      (props[_$key__requiredAndLengthLimited___$ComponentTestProps]) as List?;
+      (props[_$key__requiredAndLengthLimited___$ComponentTestProps] ?? null)
+          as List?;
 
   /// <!-- Generated from [_$ComponentTestProps.requiredAndLengthLimited] -->
   @override

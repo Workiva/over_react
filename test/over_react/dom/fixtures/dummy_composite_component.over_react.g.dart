@@ -26,7 +26,7 @@ abstract class _$TestCompositeComponentPropsAccessorsMixin
   /// <!-- Generated from [_$TestCompositeComponentProps.onComponentDidMount] -->
   @override
   get onComponentDidMount =>
-      (props[_$key__onComponentDidMount___$TestCompositeComponentProps])
+      (props[_$key__onComponentDidMount___$TestCompositeComponentProps] ?? null)
           as Function?;
 
   /// <!-- Generated from [_$TestCompositeComponentProps.onComponentDidMount] -->
@@ -37,8 +37,8 @@ abstract class _$TestCompositeComponentPropsAccessorsMixin
   /// <!-- Generated from [_$TestCompositeComponentProps.onComponentWillUnmount] -->
   @override
   get onComponentWillUnmount =>
-      (props[_$key__onComponentWillUnmount___$TestCompositeComponentProps])
-          as Function?;
+      (props[_$key__onComponentWillUnmount___$TestCompositeComponentProps] ??
+          null) as Function?;
 
   /// <!-- Generated from [_$TestCompositeComponentProps.onComponentWillUnmount] -->
   @override
@@ -49,8 +49,8 @@ abstract class _$TestCompositeComponentPropsAccessorsMixin
   /// <!-- Generated from [_$TestCompositeComponentProps.onComponentDidUpdate] -->
   @override
   get onComponentDidUpdate =>
-      (props[_$key__onComponentDidUpdate___$TestCompositeComponentProps])
-          as Function?;
+      (props[_$key__onComponentDidUpdate___$TestCompositeComponentProps] ??
+          null) as Function?;
 
   /// <!-- Generated from [_$TestCompositeComponentProps.onComponentDidUpdate] -->
   @override

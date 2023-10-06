@@ -15,40 +15,42 @@ mixin $TransitionPropsMixin on TransitionPropsMixin {
   static const PropsMeta meta = _$metaForTransitionPropsMixin;
   @override
   get transitionCount =>
-      (props[_$key__transitionCount__TransitionPropsMixin]) as int?;
+      (props[_$key__transitionCount__TransitionPropsMixin] ?? null) as int?;
   @override
   set transitionCount(value) =>
       props[_$key__transitionCount__TransitionPropsMixin] = value;
   @override
   get transitionInCount =>
-      (props[_$key__transitionInCount__TransitionPropsMixin]) as int?;
+      (props[_$key__transitionInCount__TransitionPropsMixin] ?? null) as int?;
   @override
   set transitionInCount(value) =>
       props[_$key__transitionInCount__TransitionPropsMixin] = value;
   @override
   get transitionOutCount =>
-      (props[_$key__transitionOutCount__TransitionPropsMixin]) as int?;
+      (props[_$key__transitionOutCount__TransitionPropsMixin] ?? null) as int?;
   @override
   set transitionOutCount(value) =>
       props[_$key__transitionOutCount__TransitionPropsMixin] = value;
   @override
   get onWillHide =>
-      (props[_$key__onWillHide__TransitionPropsMixin]) as Callback?;
+      (props[_$key__onWillHide__TransitionPropsMixin] ?? null) as Callback?;
   @override
   set onWillHide(value) =>
       props[_$key__onWillHide__TransitionPropsMixin] = value;
   @override
-  get onDidHide => (props[_$key__onDidHide__TransitionPropsMixin]) as Callback?;
+  get onDidHide =>
+      (props[_$key__onDidHide__TransitionPropsMixin] ?? null) as Callback?;
   @override
   set onDidHide(value) => props[_$key__onDidHide__TransitionPropsMixin] = value;
   @override
   get onWillShow =>
-      (props[_$key__onWillShow__TransitionPropsMixin]) as Callback?;
+      (props[_$key__onWillShow__TransitionPropsMixin] ?? null) as Callback?;
   @override
   set onWillShow(value) =>
       props[_$key__onWillShow__TransitionPropsMixin] = value;
   @override
-  get onDidShow => (props[_$key__onDidShow__TransitionPropsMixin]) as Callback?;
+  get onDidShow =>
+      (props[_$key__onDidShow__TransitionPropsMixin] ?? null) as Callback?;
   @override
   set onDidShow(value) => props[_$key__onDidShow__TransitionPropsMixin] = value;
   /* GENERATED CONSTANTS */

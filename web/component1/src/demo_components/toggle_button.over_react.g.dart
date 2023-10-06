@@ -32,7 +32,8 @@ abstract class _$ToggleButtonPropsAccessorsMixin
   /// <!-- Generated from [_$ToggleButtonProps.autoFocus] -->
   @override
   @Accessor(keyNamespace: '')
-  get autoFocus => (props[_$key__autoFocus___$ToggleButtonProps]) as bool?;
+  get autoFocus =>
+      (props[_$key__autoFocus___$ToggleButtonProps] ?? null) as bool?;
 
   /// Whether the `<input>` rendered by the [ToggleButton] should have focus upon mounting.
   ///
@@ -62,7 +63,7 @@ abstract class _$ToggleButtonPropsAccessorsMixin
   @override
   @Accessor(keyNamespace: '')
   get defaultChecked =>
-      (props[_$key__defaultChecked___$ToggleButtonProps]) as bool?;
+      (props[_$key__defaultChecked___$ToggleButtonProps] ?? null) as bool?;
 
   /// Whether the [ToggleButton] is checked by default.
   ///
@@ -98,7 +99,7 @@ abstract class _$ToggleButtonPropsAccessorsMixin
   /// <!-- Generated from [_$ToggleButtonProps.checked] -->
   @override
   @Accessor(keyNamespace: '')
-  get checked => (props[_$key__checked___$ToggleButtonProps]) as bool?;
+  get checked => (props[_$key__checked___$ToggleButtonProps] ?? null) as bool?;
 
   /// Whether the [ToggleButton] is checked.
   ///
@@ -196,7 +197,8 @@ abstract class _$ToggleButtonStateAccessorsMixin
   ///
   /// <!-- Generated from [_$ToggleButtonState.isFocused] -->
   @override
-  get isFocused => (state[_$key__isFocused___$ToggleButtonState]) as bool?;
+  get isFocused =>
+      (state[_$key__isFocused___$ToggleButtonState] ?? null) as bool?;
 
   /// Tracks if the [ToggleButton] is focused. Determines whether to render with the `js-focus` CSS
   /// class.
@@ -213,7 +215,8 @@ abstract class _$ToggleButtonStateAccessorsMixin
   ///
   /// <!-- Generated from [_$ToggleButtonState.isChecked] -->
   @override
-  get isChecked => (state[_$key__isChecked___$ToggleButtonState]) as bool?;
+  get isChecked =>
+      (state[_$key__isChecked___$ToggleButtonState] ?? null) as bool?;
 
   /// Tracks if the [ToggleButton] input is `checked`. Determines whether to render with the `active` CSS class.
   ///

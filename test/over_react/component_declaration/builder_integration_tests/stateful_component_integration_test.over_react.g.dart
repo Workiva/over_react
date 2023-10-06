@@ -81,7 +81,8 @@ abstract class _$StatefulComponentTestStateAccessorsMixin
   /// <!-- Generated from [_$StatefulComponentTestState.stringState] -->
   @override
   get stringState =>
-      (state[_$key__stringState___$StatefulComponentTestState]) as String?;
+      (state[_$key__stringState___$StatefulComponentTestState] ?? null)
+          as String?;
 
   /// <!-- Generated from [_$StatefulComponentTestState.stringState] -->
   @override
@@ -91,7 +92,8 @@ abstract class _$StatefulComponentTestStateAccessorsMixin
   /// <!-- Generated from [_$StatefulComponentTestState.dynamicState] -->
   @override
   get dynamicState =>
-      (state[_$key__dynamicState___$StatefulComponentTestState]) as dynamic;
+      (state[_$key__dynamicState___$StatefulComponentTestState] ?? null)
+          as dynamic;
 
   /// <!-- Generated from [_$StatefulComponentTestState.dynamicState] -->
   @override
@@ -100,7 +102,8 @@ abstract class _$StatefulComponentTestStateAccessorsMixin
 
   /// <!-- Generated from [_$StatefulComponentTestState.untypedState] -->
   @override
-  get untypedState => state[_$key__untypedState___$StatefulComponentTestState];
+  get untypedState =>
+      state[_$key__untypedState___$StatefulComponentTestState] ?? null;
 
   /// <!-- Generated from [_$StatefulComponentTestState.untypedState] -->
   @override
@@ -111,7 +114,8 @@ abstract class _$StatefulComponentTestStateAccessorsMixin
   @override
   @Accessor(key: 'custom key!')
   get customKeyState =>
-      (state[_$key__customKeyState___$StatefulComponentTestState]) as dynamic;
+      (state[_$key__customKeyState___$StatefulComponentTestState] ?? null)
+          as dynamic;
 
   /// <!-- Generated from [_$StatefulComponentTestState.customKeyState] -->
   @override
@@ -123,7 +127,7 @@ abstract class _$StatefulComponentTestStateAccessorsMixin
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
   get customNamespaceState =>
-      (state[_$key__customNamespaceState___$StatefulComponentTestState])
+      (state[_$key__customNamespaceState___$StatefulComponentTestState] ?? null)
           as dynamic;
 
   /// <!-- Generated from [_$StatefulComponentTestState.customNamespaceState] -->
@@ -136,8 +140,8 @@ abstract class _$StatefulComponentTestStateAccessorsMixin
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
   get customKeyAndNamespaceState =>
-      (state[_$key__customKeyAndNamespaceState___$StatefulComponentTestState])
-          as dynamic;
+      (state[_$key__customKeyAndNamespaceState___$StatefulComponentTestState] ??
+          null) as dynamic;
 
   /// <!-- Generated from [_$StatefulComponentTestState.customKeyAndNamespaceState] -->
   @override

@@ -26,7 +26,8 @@ abstract class _$TransitionerPropsAccessorsMixin
   /// <!-- Generated from [_$TransitionerProps.onHandlePreShowing] -->
   @override
   get onHandlePreShowing =>
-      (props[_$key__onHandlePreShowing___$TransitionerProps]) as Callback?;
+      (props[_$key__onHandlePreShowing___$TransitionerProps] ?? null)
+          as Callback?;
 
   /// <!-- Generated from [_$TransitionerProps.onHandlePreShowing] -->
   @override
@@ -36,7 +37,7 @@ abstract class _$TransitionerPropsAccessorsMixin
   /// <!-- Generated from [_$TransitionerProps.onHandleShowing] -->
   @override
   get onHandleShowing =>
-      (props[_$key__onHandleShowing___$TransitionerProps]) as Callback?;
+      (props[_$key__onHandleShowing___$TransitionerProps] ?? null) as Callback?;
 
   /// <!-- Generated from [_$TransitionerProps.onHandleShowing] -->
   @override
@@ -46,7 +47,7 @@ abstract class _$TransitionerPropsAccessorsMixin
   /// <!-- Generated from [_$TransitionerProps.onHandleShown] -->
   @override
   get onHandleShown =>
-      (props[_$key__onHandleShown___$TransitionerProps]) as Callback?;
+      (props[_$key__onHandleShown___$TransitionerProps] ?? null) as Callback?;
 
   /// <!-- Generated from [_$TransitionerProps.onHandleShown] -->
   @override
@@ -56,7 +57,7 @@ abstract class _$TransitionerPropsAccessorsMixin
   /// <!-- Generated from [_$TransitionerProps.onHandleHiding] -->
   @override
   get onHandleHiding =>
-      (props[_$key__onHandleHiding___$TransitionerProps]) as Callback?;
+      (props[_$key__onHandleHiding___$TransitionerProps] ?? null) as Callback?;
 
   /// <!-- Generated from [_$TransitionerProps.onHandleHiding] -->
   @override
@@ -66,7 +67,7 @@ abstract class _$TransitionerPropsAccessorsMixin
   /// <!-- Generated from [_$TransitionerProps.onHandleHidden] -->
   @override
   get onHandleHidden =>
-      (props[_$key__onHandleHidden___$TransitionerProps]) as Callback?;
+      (props[_$key__onHandleHidden___$TransitionerProps] ?? null) as Callback?;
 
   /// <!-- Generated from [_$TransitionerProps.onHandleHidden] -->
   @override
@@ -76,7 +77,7 @@ abstract class _$TransitionerPropsAccessorsMixin
   /// <!-- Generated from [_$TransitionerProps.onPrepareShow] -->
   @override
   get onPrepareShow =>
-      (props[_$key__onPrepareShow___$TransitionerProps]) as Callback?;
+      (props[_$key__onPrepareShow___$TransitionerProps] ?? null) as Callback?;
 
   /// <!-- Generated from [_$TransitionerProps.onPrepareShow] -->
   @override
@@ -86,7 +87,7 @@ abstract class _$TransitionerPropsAccessorsMixin
   /// <!-- Generated from [_$TransitionerProps.onPrepareHide] -->
   @override
   get onPrepareHide =>
-      (props[_$key__onPrepareHide___$TransitionerProps]) as Callback?;
+      (props[_$key__onPrepareHide___$TransitionerProps] ?? null) as Callback?;
 
   /// <!-- Generated from [_$TransitionerProps.onPrepareHide] -->
   @override
@@ -96,7 +97,7 @@ abstract class _$TransitionerPropsAccessorsMixin
   /// <!-- Generated from [_$TransitionerProps.hasTransition] -->
   @override
   get hasTransition =>
-      (props[_$key__hasTransition___$TransitionerProps]) as bool?;
+      (props[_$key__hasTransition___$TransitionerProps] ?? null) as bool?;
 
   /// <!-- Generated from [_$TransitionerProps.hasTransition] -->
   @override
@@ -106,7 +107,7 @@ abstract class _$TransitionerPropsAccessorsMixin
   /// <!-- Generated from [_$TransitionerProps.initiallyShown] -->
   @override
   get initiallyShown =>
-      (props[_$key__initiallyShown___$TransitionerProps]) as bool?;
+      (props[_$key__initiallyShown___$TransitionerProps] ?? null) as bool?;
 
   /// <!-- Generated from [_$TransitionerProps.initiallyShown] -->
   @override
@@ -116,7 +117,8 @@ abstract class _$TransitionerPropsAccessorsMixin
   /// <!-- Generated from [_$TransitionerProps.transitionTimeout] -->
   @override
   get transitionTimeout =>
-      (props[_$key__transitionTimeout___$TransitionerProps]) as Duration?;
+      (props[_$key__transitionTimeout___$TransitionerProps] ?? null)
+          as Duration?;
 
   /// <!-- Generated from [_$TransitionerProps.transitionTimeout] -->
   @override

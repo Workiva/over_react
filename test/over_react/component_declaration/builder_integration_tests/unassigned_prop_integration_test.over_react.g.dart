@@ -24,7 +24,7 @@ abstract class _$FooPropsAccessorsMixin implements _$FooProps {
 
   /// <!-- Generated from [_$FooProps.stringProp] -->
   @override
-  get stringProp => (props[_$key__stringProp___$FooProps]) as String?;
+  get stringProp => (props[_$key__stringProp___$FooProps] ?? null) as String?;
 
   /// <!-- Generated from [_$FooProps.stringProp] -->
   @override
@@ -32,7 +32,8 @@ abstract class _$FooPropsAccessorsMixin implements _$FooProps {
 
   /// <!-- Generated from [_$FooProps.unassignedProp] -->
   @override
-  get unassignedProp => (props[_$key__unassignedProp___$FooProps]) as String?;
+  get unassignedProp =>
+      (props[_$key__unassignedProp___$FooProps] ?? null) as String?;
 
   /// <!-- Generated from [_$FooProps.unassignedProp] -->
   @override

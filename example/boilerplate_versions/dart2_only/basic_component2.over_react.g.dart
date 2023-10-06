@@ -26,7 +26,7 @@ abstract class _$BasicPropsAccessorsMixin implements _$BasicProps {
   @override
   @Deprecated('This is deprecated')
   @requiredProp
-  get basicProp => (props[_$key__basicProp___$BasicProps]) as String?;
+  get basicProp => (props[_$key__basicProp___$BasicProps] ?? null) as String?;
 
   /// <!-- Generated from [_$BasicProps.basicProp] -->
   @override
@@ -36,7 +36,7 @@ abstract class _$BasicPropsAccessorsMixin implements _$BasicProps {
 
   /// <!-- Generated from [_$BasicProps.basic1] -->
   @override
-  get basic1 => (props[_$key__basic1___$BasicProps]) as String?;
+  get basic1 => (props[_$key__basic1___$BasicProps] ?? null) as String?;
 
   /// <!-- Generated from [_$BasicProps.basic1] -->
   @override
@@ -44,7 +44,7 @@ abstract class _$BasicPropsAccessorsMixin implements _$BasicProps {
 
   /// <!-- Generated from [_$BasicProps.basic2] -->
   @override
-  get basic2 => (props[_$key__basic2___$BasicProps]) as String?;
+  get basic2 => (props[_$key__basic2___$BasicProps] ?? null) as String?;
 
   /// <!-- Generated from [_$BasicProps.basic2] -->
   @override
@@ -52,7 +52,7 @@ abstract class _$BasicPropsAccessorsMixin implements _$BasicProps {
 
   /// <!-- Generated from [_$BasicProps.basic3] -->
   @override
-  get basic3 => (props[_$key__basic3___$BasicProps]) as String?;
+  get basic3 => (props[_$key__basic3___$BasicProps] ?? null) as String?;
 
   /// <!-- Generated from [_$BasicProps.basic3] -->
   @override
@@ -60,7 +60,7 @@ abstract class _$BasicPropsAccessorsMixin implements _$BasicProps {
 
   /// <!-- Generated from [_$BasicProps.basic4] -->
   @override
-  get basic4 => (props[_$key__basic4___$BasicProps]) as String?;
+  get basic4 => (props[_$key__basic4___$BasicProps] ?? null) as String?;
 
   /// <!-- Generated from [_$BasicProps.basic4] -->
   @override
@@ -68,7 +68,7 @@ abstract class _$BasicPropsAccessorsMixin implements _$BasicProps {
 
   /// <!-- Generated from [_$BasicProps.basic5] -->
   @override
-  get basic5 => (props[_$key__basic5___$BasicProps]) as String?;
+  get basic5 => (props[_$key__basic5___$BasicProps] ?? null) as String?;
 
   /// <!-- Generated from [_$BasicProps.basic5] -->
   @override

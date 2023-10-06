@@ -14,8 +14,8 @@ part of 'counter_fn.dart';
 mixin $CounterFnProps on CounterFnProps {
   static const PropsMeta meta = _$metaForCounterFnProps;
   @override
-  get countEqualityFn => (props[_$key__countEqualityFn__CounterFnProps]) as bool
-      Function(int? nextCount, int? prevCount)?;
+  get countEqualityFn => (props[_$key__countEqualityFn__CounterFnProps] ?? null)
+      as bool Function(int? nextCount, int? prevCount)?;
   @override
   set countEqualityFn(value) =>
       props[_$key__countEqualityFn__CounterFnProps] = value;
@@ -48,8 +48,9 @@ mixin $ModelCounterFnPropsMixin on ModelCounterFnPropsMixin {
   static const PropsMeta meta = _$metaForModelCounterFnPropsMixin;
   @override
   get modelCountEqualityFn =>
-      (props[_$key__modelCountEqualityFn__ModelCounterFnPropsMixin]) as bool
-          Function(DartModelCounter? nextCount, DartModelCounter? prevCount)?;
+      (props[_$key__modelCountEqualityFn__ModelCounterFnPropsMixin] ?? null)
+          as bool Function(
+              DartModelCounter? nextCount, DartModelCounter? prevCount)?;
   @override
   set modelCountEqualityFn(value) =>
       props[_$key__modelCountEqualityFn__ModelCounterFnPropsMixin] = value;
@@ -83,8 +84,8 @@ mixin $CustomContextCounterFnPropsMixin on CustomContextCounterFnPropsMixin {
   static const PropsMeta meta = _$metaForCustomContextCounterFnPropsMixin;
   @override
   get bigCountEqualityFn =>
-      (props[_$key__bigCountEqualityFn__CustomContextCounterFnPropsMixin])
-          as bool Function(int nextBigCount, int prevBigCount)?;
+      (props[_$key__bigCountEqualityFn__CustomContextCounterFnPropsMixin] ??
+          null) as bool Function(int nextBigCount, int prevBigCount)?;
   @override
   set bigCountEqualityFn(value) =>
       props[_$key__bigCountEqualityFn__CustomContextCounterFnPropsMixin] =

@@ -24,7 +24,8 @@ abstract class _$FooPropsAccessorsMixin implements _$FooProps {
 
   /// <!-- Generated from [_$FooProps._privateProp] -->
   @override
-  get _privateProp => (props[_$key___privateProp___$FooProps]) as String?;
+  get _privateProp =>
+      (props[_$key___privateProp___$FooProps] ?? null) as String?;
 
   /// <!-- Generated from [_$FooProps._privateProp] -->
   @override

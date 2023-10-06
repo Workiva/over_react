@@ -25,7 +25,7 @@ abstract class _$DummyPropsAccessorsMixin implements _$DummyProps {
   /// <!-- Generated from [_$DummyProps.onComponentDidMount] -->
   @override
   get onComponentDidMount =>
-      (props[_$key__onComponentDidMount___$DummyProps]) as Function?;
+      (props[_$key__onComponentDidMount___$DummyProps] ?? null) as Function?;
 
   /// <!-- Generated from [_$DummyProps.onComponentDidMount] -->
   @override

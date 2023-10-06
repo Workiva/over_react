@@ -34,7 +34,7 @@ abstract class _$ReduxMultiProviderPropsAccessorsMixin
   @override
   @requiredProp
   get storesByContext =>
-      (props[_$key__storesByContext___$ReduxMultiProviderProps])
+      (props[_$key__storesByContext___$ReduxMultiProviderProps] ?? null)
           as Map<Context, Store>?;
 
   /// A `Map` of contexts that connected components within the component tree

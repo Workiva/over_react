@@ -472,7 +472,7 @@ abstract class _$TestPropValidationPropsAccessorsMixin
   @override
   @requiredProp
   get required =>
-      (props[_$key__required___$TestPropValidationProps]) as String?;
+      (props[_$key__required___$TestPropValidationProps] ?? null) as String?;
 
   /// <!-- Generated from [_$TestPropValidationProps.required] -->
   @override
@@ -1697,7 +1697,8 @@ abstract class _$TestStatefulPropValidationPropsAccessorsMixin
   @override
   @requiredProp
   get required =>
-      (props[_$key__required___$TestStatefulPropValidationProps]) as String?;
+      (props[_$key__required___$TestStatefulPropValidationProps] ?? null)
+          as String?;
 
   /// <!-- Generated from [_$TestStatefulPropValidationProps.required] -->
   @override

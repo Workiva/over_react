@@ -26,7 +26,7 @@ abstract class _$ConnectFluxCounterPropsAccessorsMixin
   /// <!-- Generated from [_$ConnectFluxCounterProps.currentCount] -->
   @override
   get currentCount =>
-      (props[_$key__currentCount___$ConnectFluxCounterProps]) as int?;
+      (props[_$key__currentCount___$ConnectFluxCounterProps] ?? null) as int?;
 
   /// <!-- Generated from [_$ConnectFluxCounterProps.currentCount] -->
   @override
@@ -35,8 +35,9 @@ abstract class _$ConnectFluxCounterPropsAccessorsMixin
 
   /// <!-- Generated from [_$ConnectFluxCounterProps.wrapperStyles] -->
   @override
-  get wrapperStyles => (props[_$key__wrapperStyles___$ConnectFluxCounterProps])
-      as Map<String, dynamic>?;
+  get wrapperStyles =>
+      (props[_$key__wrapperStyles___$ConnectFluxCounterProps] ?? null)
+          as Map<String, dynamic>?;
 
   /// <!-- Generated from [_$ConnectFluxCounterProps.wrapperStyles] -->
   @override
@@ -46,7 +47,8 @@ abstract class _$ConnectFluxCounterPropsAccessorsMixin
   /// <!-- Generated from [_$ConnectFluxCounterProps.mutatedList] -->
   @override
   get mutatedList =>
-      (props[_$key__mutatedList___$ConnectFluxCounterProps]) as List<String>?;
+      (props[_$key__mutatedList___$ConnectFluxCounterProps] ?? null)
+          as List<String>?;
 
   /// <!-- Generated from [_$ConnectFluxCounterProps.mutatedList] -->
   @override
@@ -55,8 +57,8 @@ abstract class _$ConnectFluxCounterPropsAccessorsMixin
 
   /// <!-- Generated from [_$ConnectFluxCounterProps.increment] -->
   @override
-  get increment =>
-      (props[_$key__increment___$ConnectFluxCounterProps]) as void Function()?;
+  get increment => (props[_$key__increment___$ConnectFluxCounterProps] ?? null)
+      as void Function()?;
 
   /// <!-- Generated from [_$ConnectFluxCounterProps.increment] -->
   @override
@@ -65,8 +67,8 @@ abstract class _$ConnectFluxCounterPropsAccessorsMixin
 
   /// <!-- Generated from [_$ConnectFluxCounterProps.decrement] -->
   @override
-  get decrement =>
-      (props[_$key__decrement___$ConnectFluxCounterProps]) as void Function()?;
+  get decrement => (props[_$key__decrement___$ConnectFluxCounterProps] ?? null)
+      as void Function()?;
 
   /// <!-- Generated from [_$ConnectFluxCounterProps.decrement] -->
   @override
@@ -76,8 +78,8 @@ abstract class _$ConnectFluxCounterPropsAccessorsMixin
   /// <!-- Generated from [_$ConnectFluxCounterProps.mutateStoreDirectly] -->
   @override
   get mutateStoreDirectly =>
-      (props[_$key__mutateStoreDirectly___$ConnectFluxCounterProps]) as void
-          Function()?;
+      (props[_$key__mutateStoreDirectly___$ConnectFluxCounterProps] ?? null)
+          as void Function()?;
 
   /// <!-- Generated from [_$ConnectFluxCounterProps.mutateStoreDirectly] -->
   @override
@@ -86,8 +88,8 @@ abstract class _$ConnectFluxCounterPropsAccessorsMixin
 
   /// <!-- Generated from [_$ConnectFluxCounterProps.actions] -->
   @override
-  get actions =>
-      (props[_$key__actions___$ConnectFluxCounterProps]) as FluxActions?;
+  get actions => (props[_$key__actions___$ConnectFluxCounterProps] ?? null)
+      as FluxActions?;
 
   /// <!-- Generated from [_$ConnectFluxCounterProps.actions] -->
   @override

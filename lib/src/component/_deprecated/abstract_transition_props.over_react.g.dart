@@ -26,7 +26,7 @@ abstract class TransitionPropsMixin implements _$TransitionPropsMixin {
   /// <!-- Generated from [_$TransitionPropsMixin.transitionCount] -->
   @override
   get transitionCount =>
-      (props[_$key__transitionCount___$TransitionPropsMixin]) as int?;
+      (props[_$key__transitionCount___$TransitionPropsMixin] ?? null) as int?;
 
   /// The number of `transitionend` event that occur when the transition node is shown/hidden.
   ///
@@ -46,7 +46,7 @@ abstract class TransitionPropsMixin implements _$TransitionPropsMixin {
   /// <!-- Generated from [_$TransitionPropsMixin.transitionInCount] -->
   @override
   get transitionInCount =>
-      (props[_$key__transitionInCount___$TransitionPropsMixin]) as int?;
+      (props[_$key__transitionInCount___$TransitionPropsMixin] ?? null) as int?;
 
   /// The number of `transitionend` event that occur when the transition node is shown.
   ///
@@ -64,7 +64,8 @@ abstract class TransitionPropsMixin implements _$TransitionPropsMixin {
   /// <!-- Generated from [_$TransitionPropsMixin.transitionOutCount] -->
   @override
   get transitionOutCount =>
-      (props[_$key__transitionOutCount___$TransitionPropsMixin]) as int?;
+      (props[_$key__transitionOutCount___$TransitionPropsMixin] ?? null)
+          as int?;
 
   /// The number of `transitionend` event that occur when the transition node is hidden.
   ///
@@ -82,7 +83,7 @@ abstract class TransitionPropsMixin implements _$TransitionPropsMixin {
   /// <!-- Generated from [_$TransitionPropsMixin.onWillHide] -->
   @override
   get onWillHide =>
-      (props[_$key__onWillHide___$TransitionPropsMixin]) as Callback?;
+      (props[_$key__onWillHide___$TransitionPropsMixin] ?? null) as Callback?;
 
   /// Optional callback that fires before the [AbstractTransitionComponent] is hidden.
   ///
@@ -98,7 +99,7 @@ abstract class TransitionPropsMixin implements _$TransitionPropsMixin {
   /// <!-- Generated from [_$TransitionPropsMixin.onDidHide] -->
   @override
   get onDidHide =>
-      (props[_$key__onDidHide___$TransitionPropsMixin]) as Callback?;
+      (props[_$key__onDidHide___$TransitionPropsMixin] ?? null) as Callback?;
 
   /// Optional callback that fires after the [AbstractTransitionComponent] is hidden.
   ///
@@ -114,7 +115,7 @@ abstract class TransitionPropsMixin implements _$TransitionPropsMixin {
   /// <!-- Generated from [_$TransitionPropsMixin.onWillShow] -->
   @override
   get onWillShow =>
-      (props[_$key__onWillShow___$TransitionPropsMixin]) as Callback?;
+      (props[_$key__onWillShow___$TransitionPropsMixin] ?? null) as Callback?;
 
   /// Optional callback that fires before the [AbstractTransitionComponent] appears.
   ///
@@ -130,7 +131,7 @@ abstract class TransitionPropsMixin implements _$TransitionPropsMixin {
   /// <!-- Generated from [_$TransitionPropsMixin.onDidShow] -->
   @override
   get onDidShow =>
-      (props[_$key__onDidShow___$TransitionPropsMixin]) as Callback?;
+      (props[_$key__onDidShow___$TransitionPropsMixin] ?? null) as Callback?;
 
   /// Optional callback that fires after the [AbstractTransitionComponent] appears.
   ///

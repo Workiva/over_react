@@ -15,7 +15,7 @@ mixin $LazyLoadMePropsMixin on LazyLoadMePropsMixin {
   static const PropsMeta meta = _$metaForLazyLoadMePropsMixin;
   @override
   get initialCount =>
-      (props[_$key__initialCount__LazyLoadMePropsMixin]) as num?;
+      (props[_$key__initialCount__LazyLoadMePropsMixin] ?? null) as num?;
   @override
   set initialCount(value) =>
       props[_$key__initialCount__LazyLoadMePropsMixin] = value;

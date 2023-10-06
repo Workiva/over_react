@@ -15,7 +15,7 @@ mixin $AbstractTransitionState on AbstractTransitionState {
   static const StateMeta meta = _$metaForAbstractTransitionState;
   @override
   get transitionPhase =>
-      (state[_$key__transitionPhase__AbstractTransitionState])
+      (state[_$key__transitionPhase__AbstractTransitionState] ?? null)
           as TransitionPhase?;
   @override
   set transitionPhase(value) =>

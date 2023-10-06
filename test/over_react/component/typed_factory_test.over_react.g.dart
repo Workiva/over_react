@@ -25,7 +25,8 @@ abstract class _$TypedFactoryTesterPropsAccessorsMixin
 
   /// <!-- Generated from [_$TypedFactoryTesterProps.testProp] -->
   @override
-  get testProp => (props[_$key__testProp___$TypedFactoryTesterProps]) as bool?;
+  get testProp =>
+      (props[_$key__testProp___$TypedFactoryTesterProps] ?? null) as bool?;
 
   /// <!-- Generated from [_$TypedFactoryTesterProps.testProp] -->
   @override
@@ -131,7 +132,7 @@ abstract class _$TypedFactoryTesterStateAccessorsMixin
   /// <!-- Generated from [_$TypedFactoryTesterState.testState] -->
   @override
   get testState =>
-      (state[_$key__testState___$TypedFactoryTesterState]) as bool?;
+      (state[_$key__testState___$TypedFactoryTesterState] ?? null) as bool?;
 
   /// <!-- Generated from [_$TypedFactoryTesterState.testState] -->
   @override

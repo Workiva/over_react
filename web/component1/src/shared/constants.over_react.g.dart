@@ -24,7 +24,8 @@ abstract class AbstractInputPropsMixin implements _$AbstractInputPropsMixin {
   /// <!-- Generated from [_$AbstractInputPropsMixin.name] -->
   @override
   @Accessor(keyNamespace: '')
-  get name => (props[_$key__name___$AbstractInputPropsMixin]) as String?;
+  get name =>
+      (props[_$key__name___$AbstractInputPropsMixin] ?? null) as String?;
 
   /// The HTML `name` attribute to be applied to `<input>`.
   ///
@@ -47,7 +48,8 @@ abstract class AbstractInputPropsMixin implements _$AbstractInputPropsMixin {
   /// <!-- Generated from [_$AbstractInputPropsMixin.value] -->
   @override
   @Accessor(keyNamespace: '')
-  get value => (props[_$key__value___$AbstractInputPropsMixin]) as dynamic;
+  get value =>
+      (props[_$key__value___$AbstractInputPropsMixin] ?? null) as dynamic;
 
   /// The value of the input. Setting this will make the input's value _controlled_; it will not update automatically in
   /// response to user input, but instead will always render the value of this prop.
@@ -70,8 +72,9 @@ abstract class AbstractInputPropsMixin implements _$AbstractInputPropsMixin {
   ///
   /// <!-- Generated from [_$AbstractInputPropsMixin.toggleType] -->
   @override
-  get toggleType => (props[_$key__toggleType___$AbstractInputPropsMixin])
-      as ToggleBehaviorType?;
+  get toggleType =>
+      (props[_$key__toggleType___$AbstractInputPropsMixin] ?? null)
+          as ToggleBehaviorType?;
 
   /// The type of "toggle" behavior an HTML `<input>` should exhibit:
   ///
@@ -127,7 +130,7 @@ abstract class AbstractInputStateMixin implements _$AbstractInputStateMixin {
   ///
   /// <!-- Generated from [_$AbstractInputStateMixin.id] -->
   @override
-  get id => (state[_$key__id___$AbstractInputStateMixin]) as String?;
+  get id => (state[_$key__id___$AbstractInputStateMixin] ?? null) as String?;
 
   /// An auto-generated GUID, used as a fallback when the [AbstractInputPropsMixin.id] prop is unspecified,
   /// and saved on the state so it will persist across remounts.
@@ -147,7 +150,8 @@ abstract class AbstractInputStateMixin implements _$AbstractInputStateMixin {
   ///
   /// <!-- Generated from [_$AbstractInputStateMixin.name] -->
   @override
-  get name => (state[_$key__name___$AbstractInputStateMixin]) as String?;
+  get name =>
+      (state[_$key__name___$AbstractInputStateMixin] ?? null) as String?;
 
   /// An auto-generated GUID, used as a fallback when the [AbstractInputPropsMixin.name] is unspecified,
   /// and saved on the state so it will persist across remounts.

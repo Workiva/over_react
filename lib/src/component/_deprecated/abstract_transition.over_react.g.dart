@@ -46,7 +46,7 @@ abstract class _$AbstractTransitionStateAccessorsMixin
   /// <!-- Generated from [_$AbstractTransitionState.transitionPhase] -->
   @override
   get transitionPhase =>
-      (state[_$key__transitionPhase___$AbstractTransitionState])
+      (state[_$key__transitionPhase___$AbstractTransitionState] ?? null)
           as TransitionPhase?;
 
   /// The current phase of transition the [AbstractTransitionComponent] is in.

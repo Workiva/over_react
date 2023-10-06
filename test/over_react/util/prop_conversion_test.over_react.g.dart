@@ -163,7 +163,7 @@ mixin $ExpectsDartMapPropProps on ExpectsDartMapPropProps {
   static const PropsMeta meta = _$metaForExpectsDartMapPropProps;
   @override
   get dartMapProp =>
-      (props[_$key__dartMapProp__ExpectsDartMapPropProps]) as Map?;
+      (props[_$key__dartMapProp__ExpectsDartMapPropProps] ?? null) as Map?;
   @override
   set dartMapProp(value) =>
       props[_$key__dartMapProp__ExpectsDartMapPropProps] = value;
@@ -271,8 +271,8 @@ const PropsMeta _$metaForBasicForwardRefProps = PropsMeta(
 mixin $DartTestJsWrapperPropsMixin on DartTestJsWrapperPropsMixin {
   static const PropsMeta meta = _$metaForDartTestJsWrapperPropsMixin;
   @override
-  get onRender => (props[_$key__onRender__DartTestJsWrapperPropsMixin]) as void
-      Function(DartTestJsWrapperProps props)?;
+  get onRender => (props[_$key__onRender__DartTestJsWrapperPropsMixin] ?? null)
+      as void Function(DartTestJsWrapperProps props)?;
   @override
   set onRender(value) =>
       props[_$key__onRender__DartTestJsWrapperPropsMixin] = value;
@@ -306,7 +306,7 @@ mixin $TestJsProps on TestJsProps {
   @override
   @Accessor(key: 'buttonProps')
   get _$raw$buttonProps =>
-      (props[_$key___$raw$buttonProps__TestJsProps]) as JsMap?;
+      (props[_$key___$raw$buttonProps__TestJsProps] ?? null) as JsMap?;
   @override
   @Accessor(key: 'buttonProps')
   set _$raw$buttonProps(value) =>
@@ -314,14 +314,15 @@ mixin $TestJsProps on TestJsProps {
   @override
   @Accessor(key: 'listOfProps')
   get _$raw$listOfProps =>
-      (props[_$key___$raw$listOfProps__TestJsProps]) as List<dynamic>?;
+      (props[_$key___$raw$listOfProps__TestJsProps] ?? null) as List<dynamic>?;
   @override
   @Accessor(key: 'listOfProps')
   set _$raw$listOfProps(value) =>
       props[_$key___$raw$listOfProps__TestJsProps] = value;
   @override
   @Accessor(key: 'inputRef')
-  get _$raw$inputRef => (props[_$key___$raw$inputRef__TestJsProps]) as dynamic;
+  get _$raw$inputRef =>
+      (props[_$key___$raw$inputRef__TestJsProps] ?? null) as dynamic;
   @override
   @Accessor(key: 'inputRef')
   set _$raw$inputRef(value) =>
@@ -329,23 +330,25 @@ mixin $TestJsProps on TestJsProps {
   @override
   @Accessor(key: 'messageContext')
   get _$raw$messageContext =>
-      (props[_$key___$raw$messageContext__TestJsProps]) as ReactContext?;
+      (props[_$key___$raw$messageContext__TestJsProps] ?? null)
+          as ReactContext?;
   @override
   @Accessor(key: 'messageContext')
   set _$raw$messageContext(value) =>
       props[_$key___$raw$messageContext__TestJsProps] = value;
   @override
-  get component => (props[_$key__component__TestJsProps]) as dynamic;
+  get component => (props[_$key__component__TestJsProps] ?? null) as dynamic;
   @override
   set component(value) => props[_$key__component__TestJsProps] = value;
   @override
-  get inputComponent => (props[_$key__inputComponent__TestJsProps]) as dynamic;
+  get inputComponent =>
+      (props[_$key__inputComponent__TestJsProps] ?? null) as dynamic;
   @override
   set inputComponent(value) =>
       props[_$key__inputComponent__TestJsProps] = value;
   @override
   get buttonComponent =>
-      (props[_$key__buttonComponent__TestJsProps]) as dynamic;
+      (props[_$key__buttonComponent__TestJsProps] ?? null) as dynamic;
   @override
   set buttonComponent(value) =>
       props[_$key__buttonComponent__TestJsProps] = value;

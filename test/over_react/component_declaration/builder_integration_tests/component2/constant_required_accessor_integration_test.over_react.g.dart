@@ -26,7 +26,8 @@ abstract class _$ComponentTestPropsAccessorsMixin
   /// <!-- Generated from [_$ComponentTestProps.required] -->
   @override
   @requiredProp
-  get required => (props[_$key__required___$ComponentTestProps]) as dynamic;
+  get required =>
+      (props[_$key__required___$ComponentTestProps] ?? null) as dynamic;
 
   /// <!-- Generated from [_$ComponentTestProps.required] -->
   @override
@@ -36,7 +37,8 @@ abstract class _$ComponentTestPropsAccessorsMixin
   /// <!-- Generated from [_$ComponentTestProps.nullable] -->
   @override
   @nullableRequiredProp
-  get nullable => (props[_$key__nullable___$ComponentTestProps]) as dynamic;
+  get nullable =>
+      (props[_$key__nullable___$ComponentTestProps] ?? null) as dynamic;
 
   /// <!-- Generated from [_$ComponentTestProps.nullable] -->
   @override
@@ -47,7 +49,8 @@ abstract class _$ComponentTestPropsAccessorsMixin
   @override
   @requiredProp
   get requiredAndLengthLimited =>
-      (props[_$key__requiredAndLengthLimited___$ComponentTestProps]) as List?;
+      (props[_$key__requiredAndLengthLimited___$ComponentTestProps] ?? null)
+          as List?;
 
   /// <!-- Generated from [_$ComponentTestProps.requiredAndLengthLimited] -->
   @override

@@ -34,7 +34,8 @@ abstract class ReactPropsMixin implements _$ReactPropsMixin {
   @override
   @Accessor(key: 'children')
   get _raw$ReactProps$children =>
-      (props[_$key___raw$ReactProps$children___$ReactPropsMixin]) as dynamic;
+      (props[_$key___raw$ReactProps$children___$ReactPropsMixin] ?? null)
+          as dynamic;
 
   /// <!-- Generated from [_$ReactPropsMixin._raw$ReactProps$children] -->
   @override
@@ -49,7 +50,7 @@ abstract class ReactPropsMixin implements _$ReactPropsMixin {
   ///
   /// <!-- Generated from [_$ReactPropsMixin.ref] -->
   @override
-  get ref => (props[_$key__ref___$ReactPropsMixin]) as dynamic;
+  get ref => (props[_$key__ref___$ReactPropsMixin] ?? null) as dynamic;
 
   /// Either a String used to retrieve the element at a later time via [react.Component.ref],
   /// or a Function that gets called with the element when it is mounted.
@@ -97,7 +98,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.cols] -->
   @override
-  get cols => (props[_$key__cols___$DomPropsMixin]) as int?;
+  get cols => (props[_$key__cols___$DomPropsMixin] ?? null) as int?;
 
   /// <!-- Generated from [_$DomPropsMixin.cols] -->
   @override
@@ -105,7 +106,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.minLength] -->
   @override
-  get minLength => (props[_$key__minLength___$DomPropsMixin]) as int?;
+  get minLength => (props[_$key__minLength___$DomPropsMixin] ?? null) as int?;
 
   /// <!-- Generated from [_$DomPropsMixin.minLength] -->
   @override
@@ -113,7 +114,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.rows] -->
   @override
-  get rows => (props[_$key__rows___$DomPropsMixin]) as int?;
+  get rows => (props[_$key__rows___$DomPropsMixin] ?? null) as int?;
 
   /// <!-- Generated from [_$DomPropsMixin.rows] -->
   @override
@@ -121,7 +122,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.size] -->
   @override
-  get size => (props[_$key__size___$DomPropsMixin]) as int?;
+  get size => (props[_$key__size___$DomPropsMixin] ?? null) as int?;
 
   /// <!-- Generated from [_$DomPropsMixin.size] -->
   @override
@@ -129,7 +130,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.span] -->
   @override
-  get span => (props[_$key__span___$DomPropsMixin]) as int?;
+  get span => (props[_$key__span___$DomPropsMixin] ?? null) as int?;
 
   /// <!-- Generated from [_$DomPropsMixin.span] -->
   @override
@@ -137,7 +138,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.start] -->
   @override
-  get start => (props[_$key__start___$DomPropsMixin]) as int?;
+  get start => (props[_$key__start___$DomPropsMixin] ?? null) as int?;
 
   /// <!-- Generated from [_$DomPropsMixin.start] -->
   @override
@@ -145,7 +146,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.high] -->
   @override
-  get high => (props[_$key__high___$DomPropsMixin]) as num?;
+  get high => (props[_$key__high___$DomPropsMixin] ?? null) as num?;
 
   /// <!-- Generated from [_$DomPropsMixin.high] -->
   @override
@@ -153,7 +154,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.low] -->
   @override
-  get low => (props[_$key__low___$DomPropsMixin]) as num?;
+  get low => (props[_$key__low___$DomPropsMixin] ?? null) as num?;
 
   /// <!-- Generated from [_$DomPropsMixin.low] -->
   @override
@@ -161,7 +162,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.marginHeight] -->
   @override
-  get marginHeight => (props[_$key__marginHeight___$DomPropsMixin]) as num?;
+  get marginHeight =>
+      (props[_$key__marginHeight___$DomPropsMixin] ?? null) as num?;
 
   /// <!-- Generated from [_$DomPropsMixin.marginHeight] -->
   @override
@@ -170,7 +172,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.marginWidth] -->
   @override
-  get marginWidth => (props[_$key__marginWidth___$DomPropsMixin]) as num?;
+  get marginWidth =>
+      (props[_$key__marginWidth___$DomPropsMixin] ?? null) as num?;
 
   /// <!-- Generated from [_$DomPropsMixin.marginWidth] -->
   @override
@@ -178,7 +181,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.optimum] -->
   @override
-  get optimum => (props[_$key__optimum___$DomPropsMixin]) as num?;
+  get optimum => (props[_$key__optimum___$DomPropsMixin] ?? null) as num?;
 
   /// <!-- Generated from [_$DomPropsMixin.optimum] -->
   @override
@@ -187,7 +190,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.htmlDefault] -->
   @override
   @Accessor(key: 'default')
-  get htmlDefault => (props[_$key__htmlDefault___$DomPropsMixin]) as bool?;
+  get htmlDefault =>
+      (props[_$key__htmlDefault___$DomPropsMixin] ?? null) as bool?;
 
   /// <!-- Generated from [_$DomPropsMixin.htmlDefault] -->
   @override
@@ -197,7 +201,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.htmlIs] -->
   @override
   @Accessor(key: 'is')
-  get htmlIs => (props[_$key__htmlIs___$DomPropsMixin]) as String?;
+  get htmlIs => (props[_$key__htmlIs___$DomPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$DomPropsMixin.htmlIs] -->
   @override
@@ -207,7 +211,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.allowFullScreen] -->
   @override
   get allowFullScreen =>
-      (props[_$key__allowFullScreen___$DomPropsMixin]) as bool?;
+      (props[_$key__allowFullScreen___$DomPropsMixin] ?? null) as bool?;
 
   /// <!-- Generated from [_$DomPropsMixin.allowFullScreen] -->
   @override
@@ -216,7 +220,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.async] -->
   @override
-  get async => (props[_$key__async___$DomPropsMixin]) as bool?;
+  get async => (props[_$key__async___$DomPropsMixin] ?? null) as bool?;
 
   /// <!-- Generated from [_$DomPropsMixin.async] -->
   @override
@@ -224,7 +228,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.autoPlay] -->
   @override
-  get autoPlay => (props[_$key__autoPlay___$DomPropsMixin]) as bool?;
+  get autoPlay => (props[_$key__autoPlay___$DomPropsMixin] ?? null) as bool?;
 
   /// <!-- Generated from [_$DomPropsMixin.autoPlay] -->
   @override
@@ -232,7 +236,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.checked] -->
   @override
-  get checked => (props[_$key__checked___$DomPropsMixin]) as bool?;
+  get checked => (props[_$key__checked___$DomPropsMixin] ?? null) as bool?;
 
   /// <!-- Generated from [_$DomPropsMixin.checked] -->
   @override
@@ -240,7 +244,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.controls] -->
   @override
-  get controls => (props[_$key__controls___$DomPropsMixin]) as bool?;
+  get controls => (props[_$key__controls___$DomPropsMixin] ?? null) as bool?;
 
   /// <!-- Generated from [_$DomPropsMixin.controls] -->
   @override
@@ -248,7 +252,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.defer] -->
   @override
-  get defer => (props[_$key__defer___$DomPropsMixin]) as bool?;
+  get defer => (props[_$key__defer___$DomPropsMixin] ?? null) as bool?;
 
   /// <!-- Generated from [_$DomPropsMixin.defer] -->
   @override
@@ -256,7 +260,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.disabled] -->
   @override
-  get disabled => (props[_$key__disabled___$DomPropsMixin]) as bool?;
+  get disabled => (props[_$key__disabled___$DomPropsMixin] ?? null) as bool?;
 
   /// <!-- Generated from [_$DomPropsMixin.disabled] -->
   @override
@@ -265,7 +269,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.formNoValidate] -->
   @override
   get formNoValidate =>
-      (props[_$key__formNoValidate___$DomPropsMixin]) as bool?;
+      (props[_$key__formNoValidate___$DomPropsMixin] ?? null) as bool?;
 
   /// <!-- Generated from [_$DomPropsMixin.formNoValidate] -->
   @override
@@ -274,7 +278,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.hidden] -->
   @override
-  get hidden => (props[_$key__hidden___$DomPropsMixin]) as bool?;
+  get hidden => (props[_$key__hidden___$DomPropsMixin] ?? null) as bool?;
 
   /// <!-- Generated from [_$DomPropsMixin.hidden] -->
   @override
@@ -282,7 +286,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.loop] -->
   @override
-  get loop => (props[_$key__loop___$DomPropsMixin]) as bool?;
+  get loop => (props[_$key__loop___$DomPropsMixin] ?? null) as bool?;
 
   /// <!-- Generated from [_$DomPropsMixin.loop] -->
   @override
@@ -290,7 +294,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.multiple] -->
   @override
-  get multiple => (props[_$key__multiple___$DomPropsMixin]) as bool?;
+  get multiple => (props[_$key__multiple___$DomPropsMixin] ?? null) as bool?;
 
   /// <!-- Generated from [_$DomPropsMixin.multiple] -->
   @override
@@ -298,7 +302,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.muted] -->
   @override
-  get muted => (props[_$key__muted___$DomPropsMixin]) as bool?;
+  get muted => (props[_$key__muted___$DomPropsMixin] ?? null) as bool?;
 
   /// <!-- Generated from [_$DomPropsMixin.muted] -->
   @override
@@ -306,7 +310,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.noValidate] -->
   @override
-  get noValidate => (props[_$key__noValidate___$DomPropsMixin]) as bool?;
+  get noValidate =>
+      (props[_$key__noValidate___$DomPropsMixin] ?? null) as bool?;
 
   /// <!-- Generated from [_$DomPropsMixin.noValidate] -->
   @override
@@ -314,7 +319,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.open] -->
   @override
-  get open => (props[_$key__open___$DomPropsMixin]) as bool?;
+  get open => (props[_$key__open___$DomPropsMixin] ?? null) as bool?;
 
   /// <!-- Generated from [_$DomPropsMixin.open] -->
   @override
@@ -322,7 +327,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.readOnly] -->
   @override
-  get readOnly => (props[_$key__readOnly___$DomPropsMixin]) as bool?;
+  get readOnly => (props[_$key__readOnly___$DomPropsMixin] ?? null) as bool?;
 
   /// <!-- Generated from [_$DomPropsMixin.readOnly] -->
   @override
@@ -330,7 +335,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.required] -->
   @override
-  get required => (props[_$key__required___$DomPropsMixin]) as bool?;
+  get required => (props[_$key__required___$DomPropsMixin] ?? null) as bool?;
 
   /// <!-- Generated from [_$DomPropsMixin.required] -->
   @override
@@ -338,7 +343,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.reversed] -->
   @override
-  get reversed => (props[_$key__reversed___$DomPropsMixin]) as bool?;
+  get reversed => (props[_$key__reversed___$DomPropsMixin] ?? null) as bool?;
 
   /// <!-- Generated from [_$DomPropsMixin.reversed] -->
   @override
@@ -346,7 +351,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.scoped] -->
   @override
-  get scoped => (props[_$key__scoped___$DomPropsMixin]) as bool?;
+  get scoped => (props[_$key__scoped___$DomPropsMixin] ?? null) as bool?;
 
   /// <!-- Generated from [_$DomPropsMixin.scoped] -->
   @override
@@ -354,7 +359,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.seamless] -->
   @override
-  get seamless => (props[_$key__seamless___$DomPropsMixin]) as bool?;
+  get seamless => (props[_$key__seamless___$DomPropsMixin] ?? null) as bool?;
 
   /// <!-- Generated from [_$DomPropsMixin.seamless] -->
   @override
@@ -362,7 +367,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.selected] -->
   @override
-  get selected => (props[_$key__selected___$DomPropsMixin]) as bool?;
+  get selected => (props[_$key__selected___$DomPropsMixin] ?? null) as bool?;
 
   /// <!-- Generated from [_$DomPropsMixin.selected] -->
   @override
@@ -372,7 +377,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   @override
   @Accessor(key: 'style')
   get _raw$DomProps$style =>
-      (props[_$key___raw$DomProps$style___$DomPropsMixin]) as dynamic;
+      (props[_$key___raw$DomProps$style___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin._raw$DomProps$style] -->
   @override
@@ -382,7 +387,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.challenge] -->
   @override
-  get challenge => (props[_$key__challenge___$DomPropsMixin]) as String?;
+  get challenge =>
+      (props[_$key__challenge___$DomPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$DomPropsMixin.challenge] -->
   @override
@@ -390,7 +396,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.cite] -->
   @override
-  get cite => (props[_$key__cite___$DomPropsMixin]) as String?;
+  get cite => (props[_$key__cite___$DomPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$DomPropsMixin.cite] -->
   @override
@@ -398,7 +404,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.className] -->
   @override
-  get className => (props[_$key__className___$DomPropsMixin]) as String?;
+  get className =>
+      (props[_$key__className___$DomPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$DomPropsMixin.className] -->
   @override
@@ -406,7 +413,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.controlsList] -->
   @override
-  get controlsList => (props[_$key__controlsList___$DomPropsMixin]) as String?;
+  get controlsList =>
+      (props[_$key__controlsList___$DomPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$DomPropsMixin.controlsList] -->
   @override
@@ -415,7 +423,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.formAction] -->
   @override
-  get formAction => (props[_$key__formAction___$DomPropsMixin]) as String?;
+  get formAction =>
+      (props[_$key__formAction___$DomPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$DomPropsMixin.formAction] -->
   @override
@@ -423,7 +432,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.formEncType] -->
   @override
-  get formEncType => (props[_$key__formEncType___$DomPropsMixin]) as String?;
+  get formEncType =>
+      (props[_$key__formEncType___$DomPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$DomPropsMixin.formEncType] -->
   @override
@@ -431,7 +441,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.formMethod] -->
   @override
-  get formMethod => (props[_$key__formMethod___$DomPropsMixin]) as String?;
+  get formMethod =>
+      (props[_$key__formMethod___$DomPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$DomPropsMixin.formMethod] -->
   @override
@@ -439,7 +450,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.formTarget] -->
   @override
-  get formTarget => (props[_$key__formTarget___$DomPropsMixin]) as String?;
+  get formTarget =>
+      (props[_$key__formTarget___$DomPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$DomPropsMixin.formTarget] -->
   @override
@@ -447,7 +459,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.headers] -->
   @override
-  get headers => (props[_$key__headers___$DomPropsMixin]) as String?;
+  get headers => (props[_$key__headers___$DomPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$DomPropsMixin.headers] -->
   @override
@@ -455,7 +467,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.id] -->
   @override
-  get id => (props[_$key__id___$DomPropsMixin]) as String?;
+  get id => (props[_$key__id___$DomPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$DomPropsMixin.id] -->
   @override
@@ -463,7 +475,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.inputMode] -->
   @override
-  get inputMode => (props[_$key__inputMode___$DomPropsMixin]) as String?;
+  get inputMode =>
+      (props[_$key__inputMode___$DomPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$DomPropsMixin.inputMode] -->
   @override
@@ -471,7 +484,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.integrity] -->
   @override
-  get integrity => (props[_$key__integrity___$DomPropsMixin]) as String?;
+  get integrity =>
+      (props[_$key__integrity___$DomPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$DomPropsMixin.integrity] -->
   @override
@@ -479,7 +493,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.keyParams] -->
   @override
-  get keyParams => (props[_$key__keyParams___$DomPropsMixin]) as String?;
+  get keyParams =>
+      (props[_$key__keyParams___$DomPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$DomPropsMixin.keyParams] -->
   @override
@@ -487,7 +502,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.keyType] -->
   @override
-  get keyType => (props[_$key__keyType___$DomPropsMixin]) as String?;
+  get keyType => (props[_$key__keyType___$DomPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$DomPropsMixin.keyType] -->
   @override
@@ -495,7 +510,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.kind] -->
   @override
-  get kind => (props[_$key__kind___$DomPropsMixin]) as String?;
+  get kind => (props[_$key__kind___$DomPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$DomPropsMixin.kind] -->
   @override
@@ -503,7 +518,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.nonce] -->
   @override
-  get nonce => (props[_$key__nonce___$DomPropsMixin]) as String?;
+  get nonce => (props[_$key__nonce___$DomPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$DomPropsMixin.nonce] -->
   @override
@@ -511,7 +526,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.srcLang] -->
   @override
-  get srcLang => (props[_$key__srcLang___$DomPropsMixin]) as String?;
+  get srcLang => (props[_$key__srcLang___$DomPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$DomPropsMixin.srcLang] -->
   @override
@@ -519,7 +534,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.summary] -->
   @override
-  get summary => (props[_$key__summary___$DomPropsMixin]) as String?;
+  get summary => (props[_$key__summary___$DomPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$DomPropsMixin.summary] -->
   @override
@@ -527,7 +542,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.title] -->
   @override
-  get title => (props[_$key__title___$DomPropsMixin]) as String?;
+  get title => (props[_$key__title___$DomPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$DomPropsMixin.title] -->
   @override
@@ -535,7 +550,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.wrap] -->
   @override
-  get wrap => (props[_$key__wrap___$DomPropsMixin]) as String?;
+  get wrap => (props[_$key__wrap___$DomPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$DomPropsMixin.wrap] -->
   @override
@@ -543,7 +558,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.accept] -->
   @override
-  get accept => (props[_$key__accept___$DomPropsMixin]) as dynamic;
+  get accept => (props[_$key__accept___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.accept] -->
   @override
@@ -552,7 +567,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.acceptCharset] -->
   @override
   get acceptCharset =>
-      (props[_$key__acceptCharset___$DomPropsMixin]) as dynamic;
+      (props[_$key__acceptCharset___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.acceptCharset] -->
   @override
@@ -561,7 +576,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.accessKey] -->
   @override
-  get accessKey => (props[_$key__accessKey___$DomPropsMixin]) as dynamic;
+  get accessKey =>
+      (props[_$key__accessKey___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.accessKey] -->
   @override
@@ -569,7 +585,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.action] -->
   @override
-  get action => (props[_$key__action___$DomPropsMixin]) as dynamic;
+  get action => (props[_$key__action___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.action] -->
   @override
@@ -578,7 +594,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.allowTransparency] -->
   @override
   get allowTransparency =>
-      (props[_$key__allowTransparency___$DomPropsMixin]) as dynamic;
+      (props[_$key__allowTransparency___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.allowTransparency] -->
   @override
@@ -587,7 +603,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.alt] -->
   @override
-  get alt => (props[_$key__alt___$DomPropsMixin]) as dynamic;
+  get alt => (props[_$key__alt___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.alt] -->
   @override
@@ -595,7 +611,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.autoComplete] -->
   @override
-  get autoComplete => (props[_$key__autoComplete___$DomPropsMixin]) as dynamic;
+  get autoComplete =>
+      (props[_$key__autoComplete___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.autoComplete] -->
   @override
@@ -604,7 +621,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.capture] -->
   @override
-  get capture => (props[_$key__capture___$DomPropsMixin]) as dynamic;
+  get capture => (props[_$key__capture___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.capture] -->
   @override
@@ -612,7 +629,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.cellPadding] -->
   @override
-  get cellPadding => (props[_$key__cellPadding___$DomPropsMixin]) as dynamic;
+  get cellPadding =>
+      (props[_$key__cellPadding___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.cellPadding] -->
   @override
@@ -620,7 +638,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.cellSpacing] -->
   @override
-  get cellSpacing => (props[_$key__cellSpacing___$DomPropsMixin]) as dynamic;
+  get cellSpacing =>
+      (props[_$key__cellSpacing___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.cellSpacing] -->
   @override
@@ -628,7 +647,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.charSet] -->
   @override
-  get charSet => (props[_$key__charSet___$DomPropsMixin]) as dynamic;
+  get charSet => (props[_$key__charSet___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.charSet] -->
   @override
@@ -636,7 +655,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.classID] -->
   @override
-  get classID => (props[_$key__classID___$DomPropsMixin]) as dynamic;
+  get classID => (props[_$key__classID___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.classID] -->
   @override
@@ -644,7 +663,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.colSpan] -->
   @override
-  get colSpan => (props[_$key__colSpan___$DomPropsMixin]) as dynamic;
+  get colSpan => (props[_$key__colSpan___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.colSpan] -->
   @override
@@ -652,7 +671,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.content] -->
   @override
-  get content => (props[_$key__content___$DomPropsMixin]) as dynamic;
+  get content => (props[_$key__content___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.content] -->
   @override
@@ -661,7 +680,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.contentEditable] -->
   @override
   get contentEditable =>
-      (props[_$key__contentEditable___$DomPropsMixin]) as dynamic;
+      (props[_$key__contentEditable___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.contentEditable] -->
   @override
@@ -670,7 +689,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.contextMenu] -->
   @override
-  get contextMenu => (props[_$key__contextMenu___$DomPropsMixin]) as dynamic;
+  get contextMenu =>
+      (props[_$key__contextMenu___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.contextMenu] -->
   @override
@@ -678,7 +698,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.coords] -->
   @override
-  get coords => (props[_$key__coords___$DomPropsMixin]) as dynamic;
+  get coords => (props[_$key__coords___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.coords] -->
   @override
@@ -686,7 +706,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.crossOrigin] -->
   @override
-  get crossOrigin => (props[_$key__crossOrigin___$DomPropsMixin]) as dynamic;
+  get crossOrigin =>
+      (props[_$key__crossOrigin___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.crossOrigin] -->
   @override
@@ -694,7 +715,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.data] -->
   @override
-  get data => (props[_$key__data___$DomPropsMixin]) as dynamic;
+  get data => (props[_$key__data___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.data] -->
   @override
@@ -702,7 +723,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.dateTime] -->
   @override
-  get dateTime => (props[_$key__dateTime___$DomPropsMixin]) as dynamic;
+  get dateTime => (props[_$key__dateTime___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.dateTime] -->
   @override
@@ -710,7 +731,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.dir] -->
   @override
-  get dir => (props[_$key__dir___$DomPropsMixin]) as dynamic;
+  get dir => (props[_$key__dir___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.dir] -->
   @override
@@ -718,7 +739,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.download] -->
   @override
-  get download => (props[_$key__download___$DomPropsMixin]) as dynamic;
+  get download => (props[_$key__download___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.download] -->
   @override
@@ -726,7 +747,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.draggable] -->
   @override
-  get draggable => (props[_$key__draggable___$DomPropsMixin]) as dynamic;
+  get draggable =>
+      (props[_$key__draggable___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.draggable] -->
   @override
@@ -734,7 +756,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.encType] -->
   @override
-  get encType => (props[_$key__encType___$DomPropsMixin]) as dynamic;
+  get encType => (props[_$key__encType___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.encType] -->
   @override
@@ -742,7 +764,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.form] -->
   @override
-  get form => (props[_$key__form___$DomPropsMixin]) as dynamic;
+  get form => (props[_$key__form___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.form] -->
   @override
@@ -750,7 +772,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.frameBorder] -->
   @override
-  get frameBorder => (props[_$key__frameBorder___$DomPropsMixin]) as dynamic;
+  get frameBorder =>
+      (props[_$key__frameBorder___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.frameBorder] -->
   @override
@@ -758,7 +781,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.height] -->
   @override
-  get height => (props[_$key__height___$DomPropsMixin]) as dynamic;
+  get height => (props[_$key__height___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.height] -->
   @override
@@ -766,7 +789,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.href] -->
   @override
-  get href => (props[_$key__href___$DomPropsMixin]) as dynamic;
+  get href => (props[_$key__href___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.href] -->
   @override
@@ -774,7 +797,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.hrefLang] -->
   @override
-  get hrefLang => (props[_$key__hrefLang___$DomPropsMixin]) as dynamic;
+  get hrefLang => (props[_$key__hrefLang___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.hrefLang] -->
   @override
@@ -782,7 +805,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.htmlFor] -->
   @override
-  get htmlFor => (props[_$key__htmlFor___$DomPropsMixin]) as dynamic;
+  get htmlFor => (props[_$key__htmlFor___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.htmlFor] -->
   @override
@@ -790,7 +813,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.httpEquiv] -->
   @override
-  get httpEquiv => (props[_$key__httpEquiv___$DomPropsMixin]) as dynamic;
+  get httpEquiv =>
+      (props[_$key__httpEquiv___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.httpEquiv] -->
   @override
@@ -798,7 +822,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.icon] -->
   @override
-  get icon => (props[_$key__icon___$DomPropsMixin]) as dynamic;
+  get icon => (props[_$key__icon___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.icon] -->
   @override
@@ -806,7 +830,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.label] -->
   @override
-  get label => (props[_$key__label___$DomPropsMixin]) as dynamic;
+  get label => (props[_$key__label___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.label] -->
   @override
@@ -814,7 +838,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.lang] -->
   @override
-  get lang => (props[_$key__lang___$DomPropsMixin]) as dynamic;
+  get lang => (props[_$key__lang___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.lang] -->
   @override
@@ -822,7 +846,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.list] -->
   @override
-  get list => (props[_$key__list___$DomPropsMixin]) as dynamic;
+  get list => (props[_$key__list___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.list] -->
   @override
@@ -830,7 +854,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.manifest] -->
   @override
-  get manifest => (props[_$key__manifest___$DomPropsMixin]) as dynamic;
+  get manifest => (props[_$key__manifest___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.manifest] -->
   @override
@@ -838,7 +862,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.max] -->
   @override
-  get max => (props[_$key__max___$DomPropsMixin]) as dynamic;
+  get max => (props[_$key__max___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.max] -->
   @override
@@ -846,7 +870,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.maxLength] -->
   @override
-  get maxLength => (props[_$key__maxLength___$DomPropsMixin]) as dynamic;
+  get maxLength =>
+      (props[_$key__maxLength___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.maxLength] -->
   @override
@@ -854,7 +879,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.media] -->
   @override
-  get media => (props[_$key__media___$DomPropsMixin]) as dynamic;
+  get media => (props[_$key__media___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.media] -->
   @override
@@ -862,7 +887,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.mediaGroup] -->
   @override
-  get mediaGroup => (props[_$key__mediaGroup___$DomPropsMixin]) as dynamic;
+  get mediaGroup =>
+      (props[_$key__mediaGroup___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.mediaGroup] -->
   @override
@@ -870,7 +896,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.method] -->
   @override
-  get method => (props[_$key__method___$DomPropsMixin]) as dynamic;
+  get method => (props[_$key__method___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.method] -->
   @override
@@ -878,7 +904,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.min] -->
   @override
-  get min => (props[_$key__min___$DomPropsMixin]) as dynamic;
+  get min => (props[_$key__min___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.min] -->
   @override
@@ -886,7 +912,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.name] -->
   @override
-  get name => (props[_$key__name___$DomPropsMixin]) as dynamic;
+  get name => (props[_$key__name___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.name] -->
   @override
@@ -894,7 +920,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.pattern] -->
   @override
-  get pattern => (props[_$key__pattern___$DomPropsMixin]) as dynamic;
+  get pattern => (props[_$key__pattern___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.pattern] -->
   @override
@@ -902,7 +928,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.placeholder] -->
   @override
-  get placeholder => (props[_$key__placeholder___$DomPropsMixin]) as dynamic;
+  get placeholder =>
+      (props[_$key__placeholder___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.placeholder] -->
   @override
@@ -910,7 +937,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.poster] -->
   @override
-  get poster => (props[_$key__poster___$DomPropsMixin]) as dynamic;
+  get poster => (props[_$key__poster___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.poster] -->
   @override
@@ -918,7 +945,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.preload] -->
   @override
-  get preload => (props[_$key__preload___$DomPropsMixin]) as dynamic;
+  get preload => (props[_$key__preload___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.preload] -->
   @override
@@ -926,7 +953,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.radioGroup] -->
   @override
-  get radioGroup => (props[_$key__radioGroup___$DomPropsMixin]) as dynamic;
+  get radioGroup =>
+      (props[_$key__radioGroup___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.radioGroup] -->
   @override
@@ -934,7 +962,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.rel] -->
   @override
-  get rel => (props[_$key__rel___$DomPropsMixin]) as dynamic;
+  get rel => (props[_$key__rel___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.rel] -->
   @override
@@ -942,7 +970,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.role] -->
   @override
-  get role => (props[_$key__role___$DomPropsMixin]) as dynamic;
+  get role => (props[_$key__role___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.role] -->
   @override
@@ -950,7 +978,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.rowSpan] -->
   @override
-  get rowSpan => (props[_$key__rowSpan___$DomPropsMixin]) as dynamic;
+  get rowSpan => (props[_$key__rowSpan___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.rowSpan] -->
   @override
@@ -958,7 +986,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.sandbox] -->
   @override
-  get sandbox => (props[_$key__sandbox___$DomPropsMixin]) as dynamic;
+  get sandbox => (props[_$key__sandbox___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.sandbox] -->
   @override
@@ -966,7 +994,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.scope] -->
   @override
-  get scope => (props[_$key__scope___$DomPropsMixin]) as dynamic;
+  get scope => (props[_$key__scope___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.scope] -->
   @override
@@ -974,7 +1002,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.scrolling] -->
   @override
-  get scrolling => (props[_$key__scrolling___$DomPropsMixin]) as dynamic;
+  get scrolling =>
+      (props[_$key__scrolling___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.scrolling] -->
   @override
@@ -982,7 +1011,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.shape] -->
   @override
-  get shape => (props[_$key__shape___$DomPropsMixin]) as dynamic;
+  get shape => (props[_$key__shape___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.shape] -->
   @override
@@ -990,7 +1019,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.sizes] -->
   @override
-  get sizes => (props[_$key__sizes___$DomPropsMixin]) as dynamic;
+  get sizes => (props[_$key__sizes___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.sizes] -->
   @override
@@ -998,7 +1027,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.spellCheck] -->
   @override
-  get spellCheck => (props[_$key__spellCheck___$DomPropsMixin]) as dynamic;
+  get spellCheck =>
+      (props[_$key__spellCheck___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.spellCheck] -->
   @override
@@ -1006,7 +1036,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.src] -->
   @override
-  get src => (props[_$key__src___$DomPropsMixin]) as dynamic;
+  get src => (props[_$key__src___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.src] -->
   @override
@@ -1014,7 +1044,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.srcDoc] -->
   @override
-  get srcDoc => (props[_$key__srcDoc___$DomPropsMixin]) as dynamic;
+  get srcDoc => (props[_$key__srcDoc___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.srcDoc] -->
   @override
@@ -1022,7 +1052,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.srcSet] -->
   @override
-  get srcSet => (props[_$key__srcSet___$DomPropsMixin]) as dynamic;
+  get srcSet => (props[_$key__srcSet___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.srcSet] -->
   @override
@@ -1030,7 +1060,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.step] -->
   @override
-  get step => (props[_$key__step___$DomPropsMixin]) as dynamic;
+  get step => (props[_$key__step___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.step] -->
   @override
@@ -1038,7 +1068,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.tabIndex] -->
   @override
-  get tabIndex => (props[_$key__tabIndex___$DomPropsMixin]) as dynamic;
+  get tabIndex => (props[_$key__tabIndex___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.tabIndex] -->
   @override
@@ -1046,7 +1076,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.target] -->
   @override
-  get target => (props[_$key__target___$DomPropsMixin]) as dynamic;
+  get target => (props[_$key__target___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.target] -->
   @override
@@ -1054,7 +1084,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.type] -->
   @override
-  get type => (props[_$key__type___$DomPropsMixin]) as dynamic;
+  get type => (props[_$key__type___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.type] -->
   @override
@@ -1062,7 +1092,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.useMap] -->
   @override
-  get useMap => (props[_$key__useMap___$DomPropsMixin]) as dynamic;
+  get useMap => (props[_$key__useMap___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.useMap] -->
   @override
@@ -1070,7 +1100,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.value] -->
   @override
-  get value => (props[_$key__value___$DomPropsMixin]) as dynamic;
+  get value => (props[_$key__value___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.value] -->
   @override
@@ -1078,7 +1108,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.width] -->
   @override
-  get width => (props[_$key__width___$DomPropsMixin]) as dynamic;
+  get width => (props[_$key__width___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.width] -->
   @override
@@ -1086,7 +1116,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.wmode] -->
   @override
-  get wmode => (props[_$key__wmode___$DomPropsMixin]) as dynamic;
+  get wmode => (props[_$key__wmode___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.wmode] -->
   @override
@@ -1094,7 +1124,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.onAnimationEnd] -->
   @override
-  get onAnimationEnd => (props[_$key__onAnimationEnd___$DomPropsMixin])
+  get onAnimationEnd => (props[_$key__onAnimationEnd___$DomPropsMixin] ?? null)
       as AnimationEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onAnimationEnd] -->
@@ -1105,7 +1135,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onAnimationIteration] -->
   @override
   get onAnimationIteration =>
-      (props[_$key__onAnimationIteration___$DomPropsMixin])
+      (props[_$key__onAnimationIteration___$DomPropsMixin] ?? null)
           as AnimationEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onAnimationIteration] -->
@@ -1115,8 +1145,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.onAnimationStart] -->
   @override
-  get onAnimationStart => (props[_$key__onAnimationStart___$DomPropsMixin])
-      as AnimationEventCallback?;
+  get onAnimationStart =>
+      (props[_$key__onAnimationStart___$DomPropsMixin] ?? null)
+          as AnimationEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onAnimationStart] -->
   @override
@@ -1125,8 +1156,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.onCopy] -->
   @override
-  get onCopy =>
-      (props[_$key__onCopy___$DomPropsMixin]) as ClipboardEventCallback?;
+  get onCopy => (props[_$key__onCopy___$DomPropsMixin] ?? null)
+      as ClipboardEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onCopy] -->
   @override
@@ -1135,7 +1166,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onCut] -->
   @override
   get onCut =>
-      (props[_$key__onCut___$DomPropsMixin]) as ClipboardEventCallback?;
+      (props[_$key__onCut___$DomPropsMixin] ?? null) as ClipboardEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onCut] -->
   @override
@@ -1143,8 +1174,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.onPaste] -->
   @override
-  get onPaste =>
-      (props[_$key__onPaste___$DomPropsMixin]) as ClipboardEventCallback?;
+  get onPaste => (props[_$key__onPaste___$DomPropsMixin] ?? null)
+      as ClipboardEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onPaste] -->
   @override
@@ -1152,8 +1183,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.onKeyDown] -->
   @override
-  get onKeyDown =>
-      (props[_$key__onKeyDown___$DomPropsMixin]) as KeyboardEventCallback?;
+  get onKeyDown => (props[_$key__onKeyDown___$DomPropsMixin] ?? null)
+      as KeyboardEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onKeyDown] -->
   @override
@@ -1161,8 +1192,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.onKeyPress] -->
   @override
-  get onKeyPress =>
-      (props[_$key__onKeyPress___$DomPropsMixin]) as KeyboardEventCallback?;
+  get onKeyPress => (props[_$key__onKeyPress___$DomPropsMixin] ?? null)
+      as KeyboardEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onKeyPress] -->
   @override
@@ -1170,8 +1201,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.onKeyUp] -->
   @override
-  get onKeyUp =>
-      (props[_$key__onKeyUp___$DomPropsMixin]) as KeyboardEventCallback?;
+  get onKeyUp => (props[_$key__onKeyUp___$DomPropsMixin] ?? null)
+      as KeyboardEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onKeyUp] -->
   @override
@@ -1180,7 +1211,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onFocus] -->
   @override
   get onFocus =>
-      (props[_$key__onFocus___$DomPropsMixin]) as FocusEventCallback?;
+      (props[_$key__onFocus___$DomPropsMixin] ?? null) as FocusEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onFocus] -->
   @override
@@ -1188,7 +1219,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.onBlur] -->
   @override
-  get onBlur => (props[_$key__onBlur___$DomPropsMixin]) as FocusEventCallback?;
+  get onBlur =>
+      (props[_$key__onBlur___$DomPropsMixin] ?? null) as FocusEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onBlur] -->
   @override
@@ -1197,7 +1229,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onChange] -->
   @override
   get onChange =>
-      (props[_$key__onChange___$DomPropsMixin]) as FormEventCallback?;
+      (props[_$key__onChange___$DomPropsMixin] ?? null) as FormEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onChange] -->
   @override
@@ -1205,7 +1237,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.onInput] -->
   @override
-  get onInput => (props[_$key__onInput___$DomPropsMixin]) as FormEventCallback?;
+  get onInput =>
+      (props[_$key__onInput___$DomPropsMixin] ?? null) as FormEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onInput] -->
   @override
@@ -1214,7 +1247,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onSubmit] -->
   @override
   get onSubmit =>
-      (props[_$key__onSubmit___$DomPropsMixin]) as FormEventCallback?;
+      (props[_$key__onSubmit___$DomPropsMixin] ?? null) as FormEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onSubmit] -->
   @override
@@ -1222,7 +1255,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.onReset] -->
   @override
-  get onReset => (props[_$key__onReset___$DomPropsMixin]) as FormEventCallback?;
+  get onReset =>
+      (props[_$key__onReset___$DomPropsMixin] ?? null) as FormEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onReset] -->
   @override
@@ -1231,7 +1265,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onClick] -->
   @override
   get onClick =>
-      (props[_$key__onClick___$DomPropsMixin]) as MouseEventCallback?;
+      (props[_$key__onClick___$DomPropsMixin] ?? null) as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onClick] -->
   @override
@@ -1239,8 +1273,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.onContextMenu] -->
   @override
-  get onContextMenu =>
-      (props[_$key__onContextMenu___$DomPropsMixin]) as MouseEventCallback?;
+  get onContextMenu => (props[_$key__onContextMenu___$DomPropsMixin] ?? null)
+      as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onContextMenu] -->
   @override
@@ -1249,8 +1283,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.onDoubleClick] -->
   @override
-  get onDoubleClick =>
-      (props[_$key__onDoubleClick___$DomPropsMixin]) as MouseEventCallback?;
+  get onDoubleClick => (props[_$key__onDoubleClick___$DomPropsMixin] ?? null)
+      as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onDoubleClick] -->
   @override
@@ -1259,7 +1293,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.onDrag] -->
   @override
-  get onDrag => (props[_$key__onDrag___$DomPropsMixin]) as MouseEventCallback?;
+  get onDrag =>
+      (props[_$key__onDrag___$DomPropsMixin] ?? null) as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onDrag] -->
   @override
@@ -1268,7 +1303,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onDragEnd] -->
   @override
   get onDragEnd =>
-      (props[_$key__onDragEnd___$DomPropsMixin]) as MouseEventCallback?;
+      (props[_$key__onDragEnd___$DomPropsMixin] ?? null) as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onDragEnd] -->
   @override
@@ -1276,8 +1311,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.onDragEnter] -->
   @override
-  get onDragEnter =>
-      (props[_$key__onDragEnter___$DomPropsMixin]) as MouseEventCallback?;
+  get onDragEnter => (props[_$key__onDragEnter___$DomPropsMixin] ?? null)
+      as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onDragEnter] -->
   @override
@@ -1285,8 +1320,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.onDragExit] -->
   @override
-  get onDragExit =>
-      (props[_$key__onDragExit___$DomPropsMixin]) as MouseEventCallback?;
+  get onDragExit => (props[_$key__onDragExit___$DomPropsMixin] ?? null)
+      as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onDragExit] -->
   @override
@@ -1294,8 +1329,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.onDragLeave] -->
   @override
-  get onDragLeave =>
-      (props[_$key__onDragLeave___$DomPropsMixin]) as MouseEventCallback?;
+  get onDragLeave => (props[_$key__onDragLeave___$DomPropsMixin] ?? null)
+      as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onDragLeave] -->
   @override
@@ -1303,8 +1338,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.onDragOver] -->
   @override
-  get onDragOver =>
-      (props[_$key__onDragOver___$DomPropsMixin]) as MouseEventCallback?;
+  get onDragOver => (props[_$key__onDragOver___$DomPropsMixin] ?? null)
+      as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onDragOver] -->
   @override
@@ -1312,8 +1347,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.onDragStart] -->
   @override
-  get onDragStart =>
-      (props[_$key__onDragStart___$DomPropsMixin]) as MouseEventCallback?;
+  get onDragStart => (props[_$key__onDragStart___$DomPropsMixin] ?? null)
+      as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onDragStart] -->
   @override
@@ -1321,7 +1356,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.onDrop] -->
   @override
-  get onDrop => (props[_$key__onDrop___$DomPropsMixin]) as MouseEventCallback?;
+  get onDrop =>
+      (props[_$key__onDrop___$DomPropsMixin] ?? null) as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onDrop] -->
   @override
@@ -1329,8 +1365,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.onMouseDown] -->
   @override
-  get onMouseDown =>
-      (props[_$key__onMouseDown___$DomPropsMixin]) as MouseEventCallback?;
+  get onMouseDown => (props[_$key__onMouseDown___$DomPropsMixin] ?? null)
+      as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onMouseDown] -->
   @override
@@ -1338,8 +1374,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.onMouseEnter] -->
   @override
-  get onMouseEnter =>
-      (props[_$key__onMouseEnter___$DomPropsMixin]) as MouseEventCallback?;
+  get onMouseEnter => (props[_$key__onMouseEnter___$DomPropsMixin] ?? null)
+      as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onMouseEnter] -->
   @override
@@ -1348,8 +1384,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.onMouseLeave] -->
   @override
-  get onMouseLeave =>
-      (props[_$key__onMouseLeave___$DomPropsMixin]) as MouseEventCallback?;
+  get onMouseLeave => (props[_$key__onMouseLeave___$DomPropsMixin] ?? null)
+      as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onMouseLeave] -->
   @override
@@ -1358,8 +1394,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.onMouseMove] -->
   @override
-  get onMouseMove =>
-      (props[_$key__onMouseMove___$DomPropsMixin]) as MouseEventCallback?;
+  get onMouseMove => (props[_$key__onMouseMove___$DomPropsMixin] ?? null)
+      as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onMouseMove] -->
   @override
@@ -1367,8 +1403,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.onMouseOut] -->
   @override
-  get onMouseOut =>
-      (props[_$key__onMouseOut___$DomPropsMixin]) as MouseEventCallback?;
+  get onMouseOut => (props[_$key__onMouseOut___$DomPropsMixin] ?? null)
+      as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onMouseOut] -->
   @override
@@ -1376,8 +1412,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.onMouseOver] -->
   @override
-  get onMouseOver =>
-      (props[_$key__onMouseOver___$DomPropsMixin]) as MouseEventCallback?;
+  get onMouseOver => (props[_$key__onMouseOver___$DomPropsMixin] ?? null)
+      as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onMouseOver] -->
   @override
@@ -1386,7 +1422,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onMouseUp] -->
   @override
   get onMouseUp =>
-      (props[_$key__onMouseUp___$DomPropsMixin]) as MouseEventCallback?;
+      (props[_$key__onMouseUp___$DomPropsMixin] ?? null) as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onMouseUp] -->
   @override
@@ -1395,7 +1431,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onPointerCancel] -->
   @override
   get onPointerCancel =>
-      (props[_$key__onPointerCancel___$DomPropsMixin]) as PointerEventCallback?;
+      (props[_$key__onPointerCancel___$DomPropsMixin] ?? null)
+          as PointerEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onPointerCancel] -->
   @override
@@ -1404,8 +1441,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.onPointerDown] -->
   @override
-  get onPointerDown =>
-      (props[_$key__onPointerDown___$DomPropsMixin]) as PointerEventCallback?;
+  get onPointerDown => (props[_$key__onPointerDown___$DomPropsMixin] ?? null)
+      as PointerEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onPointerDown] -->
   @override
@@ -1414,8 +1451,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.onPointerEnter] -->
   @override
-  get onPointerEnter =>
-      (props[_$key__onPointerEnter___$DomPropsMixin]) as PointerEventCallback?;
+  get onPointerEnter => (props[_$key__onPointerEnter___$DomPropsMixin] ?? null)
+      as PointerEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onPointerEnter] -->
   @override
@@ -1424,8 +1461,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.onPointerLeave] -->
   @override
-  get onPointerLeave =>
-      (props[_$key__onPointerLeave___$DomPropsMixin]) as PointerEventCallback?;
+  get onPointerLeave => (props[_$key__onPointerLeave___$DomPropsMixin] ?? null)
+      as PointerEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onPointerLeave] -->
   @override
@@ -1434,8 +1471,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.onPointerMove] -->
   @override
-  get onPointerMove =>
-      (props[_$key__onPointerMove___$DomPropsMixin]) as PointerEventCallback?;
+  get onPointerMove => (props[_$key__onPointerMove___$DomPropsMixin] ?? null)
+      as PointerEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onPointerMove] -->
   @override
@@ -1444,8 +1481,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.onPointerOver] -->
   @override
-  get onPointerOver =>
-      (props[_$key__onPointerOver___$DomPropsMixin]) as PointerEventCallback?;
+  get onPointerOver => (props[_$key__onPointerOver___$DomPropsMixin] ?? null)
+      as PointerEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onPointerOver] -->
   @override
@@ -1454,8 +1491,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.onPointerOut] -->
   @override
-  get onPointerOut =>
-      (props[_$key__onPointerOut___$DomPropsMixin]) as PointerEventCallback?;
+  get onPointerOut => (props[_$key__onPointerOut___$DomPropsMixin] ?? null)
+      as PointerEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onPointerOut] -->
   @override
@@ -1464,8 +1501,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.onPointerUp] -->
   @override
-  get onPointerUp =>
-      (props[_$key__onPointerUp___$DomPropsMixin]) as PointerEventCallback?;
+  get onPointerUp => (props[_$key__onPointerUp___$DomPropsMixin] ?? null)
+      as PointerEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onPointerUp] -->
   @override
@@ -1473,8 +1510,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.onTouchCancel] -->
   @override
-  get onTouchCancel =>
-      (props[_$key__onTouchCancel___$DomPropsMixin]) as TouchEventCallback?;
+  get onTouchCancel => (props[_$key__onTouchCancel___$DomPropsMixin] ?? null)
+      as TouchEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onTouchCancel] -->
   @override
@@ -1483,8 +1520,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.onTouchEnd] -->
   @override
-  get onTouchEnd =>
-      (props[_$key__onTouchEnd___$DomPropsMixin]) as TouchEventCallback?;
+  get onTouchEnd => (props[_$key__onTouchEnd___$DomPropsMixin] ?? null)
+      as TouchEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onTouchEnd] -->
   @override
@@ -1492,8 +1529,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.onTouchMove] -->
   @override
-  get onTouchMove =>
-      (props[_$key__onTouchMove___$DomPropsMixin]) as TouchEventCallback?;
+  get onTouchMove => (props[_$key__onTouchMove___$DomPropsMixin] ?? null)
+      as TouchEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onTouchMove] -->
   @override
@@ -1501,8 +1538,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.onTouchStart] -->
   @override
-  get onTouchStart =>
-      (props[_$key__onTouchStart___$DomPropsMixin]) as TouchEventCallback?;
+  get onTouchStart => (props[_$key__onTouchStart___$DomPropsMixin] ?? null)
+      as TouchEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onTouchStart] -->
   @override
@@ -1511,8 +1548,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.onTransitionEnd] -->
   @override
-  get onTransitionEnd => (props[_$key__onTransitionEnd___$DomPropsMixin])
-      as TransitionEventCallback?;
+  get onTransitionEnd =>
+      (props[_$key__onTransitionEnd___$DomPropsMixin] ?? null)
+          as TransitionEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onTransitionEnd] -->
   @override
@@ -1521,7 +1559,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.onScroll] -->
   @override
-  get onScroll => (props[_$key__onScroll___$DomPropsMixin]) as UIEventCallback?;
+  get onScroll =>
+      (props[_$key__onScroll___$DomPropsMixin] ?? null) as UIEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onScroll] -->
   @override
@@ -1530,7 +1569,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onWheel] -->
   @override
   get onWheel =>
-      (props[_$key__onWheel___$DomPropsMixin]) as WheelEventCallback?;
+      (props[_$key__onWheel___$DomPropsMixin] ?? null) as WheelEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onWheel] -->
   @override
@@ -1538,8 +1577,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.onCopyCapture] -->
   @override
-  get onCopyCapture =>
-      (props[_$key__onCopyCapture___$DomPropsMixin]) as ClipboardEventCallback?;
+  get onCopyCapture => (props[_$key__onCopyCapture___$DomPropsMixin] ?? null)
+      as ClipboardEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onCopyCapture] -->
   @override
@@ -1548,8 +1587,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.onCutCapture] -->
   @override
-  get onCutCapture =>
-      (props[_$key__onCutCapture___$DomPropsMixin]) as ClipboardEventCallback?;
+  get onCutCapture => (props[_$key__onCutCapture___$DomPropsMixin] ?? null)
+      as ClipboardEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onCutCapture] -->
   @override
@@ -1558,7 +1597,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.onPasteCapture] -->
   @override
-  get onPasteCapture => (props[_$key__onPasteCapture___$DomPropsMixin])
+  get onPasteCapture => (props[_$key__onPasteCapture___$DomPropsMixin] ?? null)
       as ClipboardEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onPasteCapture] -->
@@ -1568,8 +1607,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.onKeyDownCapture] -->
   @override
-  get onKeyDownCapture => (props[_$key__onKeyDownCapture___$DomPropsMixin])
-      as KeyboardEventCallback?;
+  get onKeyDownCapture =>
+      (props[_$key__onKeyDownCapture___$DomPropsMixin] ?? null)
+          as KeyboardEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onKeyDownCapture] -->
   @override
@@ -1578,8 +1618,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.onKeyPressCapture] -->
   @override
-  get onKeyPressCapture => (props[_$key__onKeyPressCapture___$DomPropsMixin])
-      as KeyboardEventCallback?;
+  get onKeyPressCapture =>
+      (props[_$key__onKeyPressCapture___$DomPropsMixin] ?? null)
+          as KeyboardEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onKeyPressCapture] -->
   @override
@@ -1588,8 +1629,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.onKeyUpCapture] -->
   @override
-  get onKeyUpCapture =>
-      (props[_$key__onKeyUpCapture___$DomPropsMixin]) as KeyboardEventCallback?;
+  get onKeyUpCapture => (props[_$key__onKeyUpCapture___$DomPropsMixin] ?? null)
+      as KeyboardEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onKeyUpCapture] -->
   @override
@@ -1598,8 +1639,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.onFocusCapture] -->
   @override
-  get onFocusCapture =>
-      (props[_$key__onFocusCapture___$DomPropsMixin]) as FocusEventCallback?;
+  get onFocusCapture => (props[_$key__onFocusCapture___$DomPropsMixin] ?? null)
+      as FocusEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onFocusCapture] -->
   @override
@@ -1608,8 +1649,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.onBlurCapture] -->
   @override
-  get onBlurCapture =>
-      (props[_$key__onBlurCapture___$DomPropsMixin]) as FocusEventCallback?;
+  get onBlurCapture => (props[_$key__onBlurCapture___$DomPropsMixin] ?? null)
+      as FocusEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onBlurCapture] -->
   @override
@@ -1619,7 +1660,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onChangeCapture] -->
   @override
   get onChangeCapture =>
-      (props[_$key__onChangeCapture___$DomPropsMixin]) as FormEventCallback?;
+      (props[_$key__onChangeCapture___$DomPropsMixin] ?? null)
+          as FormEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onChangeCapture] -->
   @override
@@ -1628,8 +1670,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.onInputCapture] -->
   @override
-  get onInputCapture =>
-      (props[_$key__onInputCapture___$DomPropsMixin]) as FormEventCallback?;
+  get onInputCapture => (props[_$key__onInputCapture___$DomPropsMixin] ?? null)
+      as FormEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onInputCapture] -->
   @override
@@ -1639,7 +1681,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onSubmitCapture] -->
   @override
   get onSubmitCapture =>
-      (props[_$key__onSubmitCapture___$DomPropsMixin]) as FormEventCallback?;
+      (props[_$key__onSubmitCapture___$DomPropsMixin] ?? null)
+          as FormEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onSubmitCapture] -->
   @override
@@ -1648,8 +1691,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.onResetCapture] -->
   @override
-  get onResetCapture =>
-      (props[_$key__onResetCapture___$DomPropsMixin]) as FormEventCallback?;
+  get onResetCapture => (props[_$key__onResetCapture___$DomPropsMixin] ?? null)
+      as FormEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onResetCapture] -->
   @override
@@ -1658,8 +1701,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.onClickCapture] -->
   @override
-  get onClickCapture =>
-      (props[_$key__onClickCapture___$DomPropsMixin]) as MouseEventCallback?;
+  get onClickCapture => (props[_$key__onClickCapture___$DomPropsMixin] ?? null)
+      as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onClickCapture] -->
   @override
@@ -1669,7 +1712,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onContextMenuCapture] -->
   @override
   get onContextMenuCapture =>
-      (props[_$key__onContextMenuCapture___$DomPropsMixin])
+      (props[_$key__onContextMenuCapture___$DomPropsMixin] ?? null)
           as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onContextMenuCapture] -->
@@ -1680,7 +1723,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onDoubleClickCapture] -->
   @override
   get onDoubleClickCapture =>
-      (props[_$key__onDoubleClickCapture___$DomPropsMixin])
+      (props[_$key__onDoubleClickCapture___$DomPropsMixin] ?? null)
           as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onDoubleClickCapture] -->
@@ -1690,8 +1733,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.onDragCapture] -->
   @override
-  get onDragCapture =>
-      (props[_$key__onDragCapture___$DomPropsMixin]) as MouseEventCallback?;
+  get onDragCapture => (props[_$key__onDragCapture___$DomPropsMixin] ?? null)
+      as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onDragCapture] -->
   @override
@@ -1701,7 +1744,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onDragEndCapture] -->
   @override
   get onDragEndCapture =>
-      (props[_$key__onDragEndCapture___$DomPropsMixin]) as MouseEventCallback?;
+      (props[_$key__onDragEndCapture___$DomPropsMixin] ?? null)
+          as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onDragEndCapture] -->
   @override
@@ -1710,8 +1754,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.onDragEnterCapture] -->
   @override
-  get onDragEnterCapture => (props[_$key__onDragEnterCapture___$DomPropsMixin])
-      as MouseEventCallback?;
+  get onDragEnterCapture =>
+      (props[_$key__onDragEnterCapture___$DomPropsMixin] ?? null)
+          as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onDragEnterCapture] -->
   @override
@@ -1721,7 +1766,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onDragExitCapture] -->
   @override
   get onDragExitCapture =>
-      (props[_$key__onDragExitCapture___$DomPropsMixin]) as MouseEventCallback?;
+      (props[_$key__onDragExitCapture___$DomPropsMixin] ?? null)
+          as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onDragExitCapture] -->
   @override
@@ -1730,8 +1776,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.onDragLeaveCapture] -->
   @override
-  get onDragLeaveCapture => (props[_$key__onDragLeaveCapture___$DomPropsMixin])
-      as MouseEventCallback?;
+  get onDragLeaveCapture =>
+      (props[_$key__onDragLeaveCapture___$DomPropsMixin] ?? null)
+          as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onDragLeaveCapture] -->
   @override
@@ -1741,7 +1788,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onDragOverCapture] -->
   @override
   get onDragOverCapture =>
-      (props[_$key__onDragOverCapture___$DomPropsMixin]) as MouseEventCallback?;
+      (props[_$key__onDragOverCapture___$DomPropsMixin] ?? null)
+          as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onDragOverCapture] -->
   @override
@@ -1750,8 +1798,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.onDragStartCapture] -->
   @override
-  get onDragStartCapture => (props[_$key__onDragStartCapture___$DomPropsMixin])
-      as MouseEventCallback?;
+  get onDragStartCapture =>
+      (props[_$key__onDragStartCapture___$DomPropsMixin] ?? null)
+          as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onDragStartCapture] -->
   @override
@@ -1760,8 +1809,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.onDropCapture] -->
   @override
-  get onDropCapture =>
-      (props[_$key__onDropCapture___$DomPropsMixin]) as MouseEventCallback?;
+  get onDropCapture => (props[_$key__onDropCapture___$DomPropsMixin] ?? null)
+      as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onDropCapture] -->
   @override
@@ -1770,8 +1819,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.onMouseDownCapture] -->
   @override
-  get onMouseDownCapture => (props[_$key__onMouseDownCapture___$DomPropsMixin])
-      as MouseEventCallback?;
+  get onMouseDownCapture =>
+      (props[_$key__onMouseDownCapture___$DomPropsMixin] ?? null)
+          as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onMouseDownCapture] -->
   @override
@@ -1781,7 +1831,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onMouseEnterCapture] -->
   @override
   get onMouseEnterCapture =>
-      (props[_$key__onMouseEnterCapture___$DomPropsMixin])
+      (props[_$key__onMouseEnterCapture___$DomPropsMixin] ?? null)
           as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onMouseEnterCapture] -->
@@ -1792,7 +1842,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onMouseLeaveCapture] -->
   @override
   get onMouseLeaveCapture =>
-      (props[_$key__onMouseLeaveCapture___$DomPropsMixin])
+      (props[_$key__onMouseLeaveCapture___$DomPropsMixin] ?? null)
           as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onMouseLeaveCapture] -->
@@ -1802,8 +1852,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.onMouseMoveCapture] -->
   @override
-  get onMouseMoveCapture => (props[_$key__onMouseMoveCapture___$DomPropsMixin])
-      as MouseEventCallback?;
+  get onMouseMoveCapture =>
+      (props[_$key__onMouseMoveCapture___$DomPropsMixin] ?? null)
+          as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onMouseMoveCapture] -->
   @override
@@ -1813,7 +1864,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onMouseOutCapture] -->
   @override
   get onMouseOutCapture =>
-      (props[_$key__onMouseOutCapture___$DomPropsMixin]) as MouseEventCallback?;
+      (props[_$key__onMouseOutCapture___$DomPropsMixin] ?? null)
+          as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onMouseOutCapture] -->
   @override
@@ -1822,8 +1874,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.onMouseOverCapture] -->
   @override
-  get onMouseOverCapture => (props[_$key__onMouseOverCapture___$DomPropsMixin])
-      as MouseEventCallback?;
+  get onMouseOverCapture =>
+      (props[_$key__onMouseOverCapture___$DomPropsMixin] ?? null)
+          as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onMouseOverCapture] -->
   @override
@@ -1833,7 +1886,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onMouseUpCapture] -->
   @override
   get onMouseUpCapture =>
-      (props[_$key__onMouseUpCapture___$DomPropsMixin]) as MouseEventCallback?;
+      (props[_$key__onMouseUpCapture___$DomPropsMixin] ?? null)
+          as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onMouseUpCapture] -->
   @override
@@ -1843,7 +1897,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onGotPointerCapture] -->
   @override
   get onGotPointerCapture =>
-      (props[_$key__onGotPointerCapture___$DomPropsMixin])
+      (props[_$key__onGotPointerCapture___$DomPropsMixin] ?? null)
           as PointerEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onGotPointerCapture] -->
@@ -1854,7 +1908,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onLostPointerCapture] -->
   @override
   get onLostPointerCapture =>
-      (props[_$key__onLostPointerCapture___$DomPropsMixin])
+      (props[_$key__onLostPointerCapture___$DomPropsMixin] ?? null)
           as PointerEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onLostPointerCapture] -->
@@ -1865,7 +1919,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onTouchCancelCapture] -->
   @override
   get onTouchCancelCapture =>
-      (props[_$key__onTouchCancelCapture___$DomPropsMixin])
+      (props[_$key__onTouchCancelCapture___$DomPropsMixin] ?? null)
           as TouchEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onTouchCancelCapture] -->
@@ -1876,7 +1930,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onTouchEndCapture] -->
   @override
   get onTouchEndCapture =>
-      (props[_$key__onTouchEndCapture___$DomPropsMixin]) as TouchEventCallback?;
+      (props[_$key__onTouchEndCapture___$DomPropsMixin] ?? null)
+          as TouchEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onTouchEndCapture] -->
   @override
@@ -1885,8 +1940,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.onTouchMoveCapture] -->
   @override
-  get onTouchMoveCapture => (props[_$key__onTouchMoveCapture___$DomPropsMixin])
-      as TouchEventCallback?;
+  get onTouchMoveCapture =>
+      (props[_$key__onTouchMoveCapture___$DomPropsMixin] ?? null)
+          as TouchEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onTouchMoveCapture] -->
   @override
@@ -1896,7 +1952,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onTouchStartCapture] -->
   @override
   get onTouchStartCapture =>
-      (props[_$key__onTouchStartCapture___$DomPropsMixin])
+      (props[_$key__onTouchStartCapture___$DomPropsMixin] ?? null)
           as TouchEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onTouchStartCapture] -->
@@ -1907,7 +1963,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onScrollCapture] -->
   @override
   get onScrollCapture =>
-      (props[_$key__onScrollCapture___$DomPropsMixin]) as UIEventCallback?;
+      (props[_$key__onScrollCapture___$DomPropsMixin] ?? null)
+          as UIEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onScrollCapture] -->
   @override
@@ -1916,8 +1973,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.onWheelCapture] -->
   @override
-  get onWheelCapture =>
-      (props[_$key__onWheelCapture___$DomPropsMixin]) as WheelEventCallback?;
+  get onWheelCapture => (props[_$key__onWheelCapture___$DomPropsMixin] ?? null)
+      as WheelEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onWheelCapture] -->
   @override
@@ -1927,7 +1984,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.defaultChecked] -->
   @override
   get defaultChecked =>
-      (props[_$key__defaultChecked___$DomPropsMixin]) as bool?;
+      (props[_$key__defaultChecked___$DomPropsMixin] ?? null) as bool?;
 
   /// <!-- Generated from [_$DomPropsMixin.defaultChecked] -->
   @override
@@ -1936,7 +1993,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.defaultValue] -->
   @override
-  get defaultValue => (props[_$key__defaultValue___$DomPropsMixin]) as dynamic;
+  get defaultValue =>
+      (props[_$key__defaultValue___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.defaultValue] -->
   @override
@@ -1948,7 +2006,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   ///
   /// <!-- Generated from [_$DomPropsMixin.autoFocus] -->
   @override
-  get autoFocus => (props[_$key__autoFocus___$DomPropsMixin]) as bool?;
+  get autoFocus => (props[_$key__autoFocus___$DomPropsMixin] ?? null) as bool?;
 
   /// Polyfills/normalizes the `autofocus` attribute via AutoFocusMixin
   /// (mixed in by React DOM <input>, <textarea>, and <select>).
@@ -3066,7 +3124,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.htmlIn] -->
   @override
   @Accessor(key: 'in')
-  get htmlIn => (props[_$key__htmlIn___$SvgPropsMixin]) as String?;
+  get htmlIn => (props[_$key__htmlIn___$SvgPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$SvgPropsMixin.htmlIn] -->
   @override
@@ -3076,7 +3134,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.htmlValues] -->
   @override
   @Accessor(key: 'values')
-  get htmlValues => (props[_$key__htmlValues___$SvgPropsMixin]) as String?;
+  get htmlValues =>
+      (props[_$key__htmlValues___$SvgPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$SvgPropsMixin.htmlValues] -->
   @override
@@ -3085,7 +3144,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.accumulate] -->
   @override
-  get accumulate => (props[_$key__accumulate___$SvgPropsMixin]) as String?;
+  get accumulate =>
+      (props[_$key__accumulate___$SvgPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$SvgPropsMixin.accumulate] -->
   @override
@@ -3093,7 +3153,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.additive] -->
   @override
-  get additive => (props[_$key__additive___$SvgPropsMixin]) as String?;
+  get additive => (props[_$key__additive___$SvgPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$SvgPropsMixin.additive] -->
   @override
@@ -3102,7 +3162,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.alignmentBaseline] -->
   @override
   get alignmentBaseline =>
-      (props[_$key__alignmentBaseline___$SvgPropsMixin]) as String?;
+      (props[_$key__alignmentBaseline___$SvgPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$SvgPropsMixin.alignmentBaseline] -->
   @override
@@ -3111,7 +3171,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.allowReorder] -->
   @override
-  get allowReorder => (props[_$key__allowReorder___$SvgPropsMixin]) as String?;
+  get allowReorder =>
+      (props[_$key__allowReorder___$SvgPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$SvgPropsMixin.allowReorder] -->
   @override
@@ -3120,7 +3181,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.arabicForm] -->
   @override
-  get arabicForm => (props[_$key__arabicForm___$SvgPropsMixin]) as String?;
+  get arabicForm =>
+      (props[_$key__arabicForm___$SvgPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$SvgPropsMixin.arabicForm] -->
   @override
@@ -3129,7 +3191,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.attributeName] -->
   @override
   get attributeName =>
-      (props[_$key__attributeName___$SvgPropsMixin]) as String?;
+      (props[_$key__attributeName___$SvgPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$SvgPropsMixin.attributeName] -->
   @override
@@ -3139,7 +3201,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.attributeType] -->
   @override
   get attributeType =>
-      (props[_$key__attributeType___$SvgPropsMixin]) as String?;
+      (props[_$key__attributeType___$SvgPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$SvgPropsMixin.attributeType] -->
   @override
@@ -3149,7 +3211,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.colorInterpolationFilters] -->
   @override
   get colorInterpolationFilters =>
-      (props[_$key__colorInterpolationFilters___$SvgPropsMixin]) as String?;
+      (props[_$key__colorInterpolationFilters___$SvgPropsMixin] ?? null)
+          as String?;
 
   /// <!-- Generated from [_$SvgPropsMixin.colorInterpolationFilters] -->
   @override
@@ -3158,7 +3221,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.fillRule] -->
   @override
-  get fillRule => (props[_$key__fillRule___$SvgPropsMixin]) as String?;
+  get fillRule => (props[_$key__fillRule___$SvgPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$SvgPropsMixin.fillRule] -->
   @override
@@ -3166,7 +3229,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.filter] -->
   @override
-  get filter => (props[_$key__filter___$SvgPropsMixin]) as String?;
+  get filter => (props[_$key__filter___$SvgPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$SvgPropsMixin.filter] -->
   @override
@@ -3174,7 +3237,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.mask] -->
   @override
-  get mask => (props[_$key__mask___$SvgPropsMixin]) as String?;
+  get mask => (props[_$key__mask___$SvgPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$SvgPropsMixin.mask] -->
   @override
@@ -3182,7 +3245,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.result] -->
   @override
-  get result => (props[_$key__result___$SvgPropsMixin]) as String?;
+  get result => (props[_$key__result___$SvgPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$SvgPropsMixin.result] -->
   @override
@@ -3191,7 +3254,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.strokeLinejoin] -->
   @override
   get strokeLinejoin =>
-      (props[_$key__strokeLinejoin___$SvgPropsMixin]) as String?;
+      (props[_$key__strokeLinejoin___$SvgPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$SvgPropsMixin.strokeLinejoin] -->
   @override
@@ -3201,7 +3264,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.xChannelSelector] -->
   @override
   get xChannelSelector =>
-      (props[_$key__xChannelSelector___$SvgPropsMixin]) as String?;
+      (props[_$key__xChannelSelector___$SvgPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$SvgPropsMixin.xChannelSelector] -->
   @override
@@ -3210,7 +3273,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.xmlns] -->
   @override
-  get xmlns => (props[_$key__xmlns___$SvgPropsMixin]) as String?;
+  get xmlns => (props[_$key__xmlns___$SvgPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$SvgPropsMixin.xmlns] -->
   @override
@@ -3218,7 +3281,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.xmlnsXlink] -->
   @override
-  get xmlnsXlink => (props[_$key__xmlnsXlink___$SvgPropsMixin]) as String?;
+  get xmlnsXlink =>
+      (props[_$key__xmlnsXlink___$SvgPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$SvgPropsMixin.xmlnsXlink] -->
   @override
@@ -3227,7 +3291,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.yChannelSelector] -->
   @override
   get yChannelSelector =>
-      (props[_$key__yChannelSelector___$SvgPropsMixin]) as String?;
+      (props[_$key__yChannelSelector___$SvgPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$SvgPropsMixin.yChannelSelector] -->
   @override
@@ -3236,7 +3300,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.zoomAndPan] -->
   @override
-  get zoomAndPan => (props[_$key__zoomAndPan___$SvgPropsMixin]) as String?;
+  get zoomAndPan =>
+      (props[_$key__zoomAndPan___$SvgPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$SvgPropsMixin.zoomAndPan] -->
   @override
@@ -3244,7 +3309,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.accentHeight] -->
   @override
-  get accentHeight => (props[_$key__accentHeight___$SvgPropsMixin]) as dynamic;
+  get accentHeight =>
+      (props[_$key__accentHeight___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.accentHeight] -->
   @override
@@ -3253,7 +3319,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.alphabetic] -->
   @override
-  get alphabetic => (props[_$key__alphabetic___$SvgPropsMixin]) as dynamic;
+  get alphabetic =>
+      (props[_$key__alphabetic___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.alphabetic] -->
   @override
@@ -3261,7 +3328,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.amplitude] -->
   @override
-  get amplitude => (props[_$key__amplitude___$SvgPropsMixin]) as dynamic;
+  get amplitude =>
+      (props[_$key__amplitude___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.amplitude] -->
   @override
@@ -3269,7 +3337,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.ascent] -->
   @override
-  get ascent => (props[_$key__ascent___$SvgPropsMixin]) as dynamic;
+  get ascent => (props[_$key__ascent___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.ascent] -->
   @override
@@ -3277,7 +3345,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.autoReverse] -->
   @override
-  get autoReverse => (props[_$key__autoReverse___$SvgPropsMixin]) as dynamic;
+  get autoReverse =>
+      (props[_$key__autoReverse___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.autoReverse] -->
   @override
@@ -3285,7 +3354,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.azimuth] -->
   @override
-  get azimuth => (props[_$key__azimuth___$SvgPropsMixin]) as dynamic;
+  get azimuth => (props[_$key__azimuth___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.azimuth] -->
   @override
@@ -3294,7 +3363,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.baseFrequency] -->
   @override
   get baseFrequency =>
-      (props[_$key__baseFrequency___$SvgPropsMixin]) as dynamic;
+      (props[_$key__baseFrequency___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.baseFrequency] -->
   @override
@@ -3303,7 +3372,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.baseProfile] -->
   @override
-  get baseProfile => (props[_$key__baseProfile___$SvgPropsMixin]) as dynamic;
+  get baseProfile =>
+      (props[_$key__baseProfile___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.baseProfile] -->
   @override
@@ -3312,7 +3382,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.baselineShift] -->
   @override
   get baselineShift =>
-      (props[_$key__baselineShift___$SvgPropsMixin]) as dynamic;
+      (props[_$key__baselineShift___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.baselineShift] -->
   @override
@@ -3321,7 +3391,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.bbox] -->
   @override
-  get bbox => (props[_$key__bbox___$SvgPropsMixin]) as dynamic;
+  get bbox => (props[_$key__bbox___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.bbox] -->
   @override
@@ -3329,7 +3399,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.begin] -->
   @override
-  get begin => (props[_$key__begin___$SvgPropsMixin]) as dynamic;
+  get begin => (props[_$key__begin___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.begin] -->
   @override
@@ -3337,7 +3407,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.bias] -->
   @override
-  get bias => (props[_$key__bias___$SvgPropsMixin]) as dynamic;
+  get bias => (props[_$key__bias___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.bias] -->
   @override
@@ -3345,7 +3415,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.by] -->
   @override
-  get by => (props[_$key__by___$SvgPropsMixin]) as dynamic;
+  get by => (props[_$key__by___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.by] -->
   @override
@@ -3353,7 +3423,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.calcMode] -->
   @override
-  get calcMode => (props[_$key__calcMode___$SvgPropsMixin]) as dynamic;
+  get calcMode => (props[_$key__calcMode___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.calcMode] -->
   @override
@@ -3361,7 +3431,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.capHeight] -->
   @override
-  get capHeight => (props[_$key__capHeight___$SvgPropsMixin]) as dynamic;
+  get capHeight =>
+      (props[_$key__capHeight___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.capHeight] -->
   @override
@@ -3369,7 +3440,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.clip] -->
   @override
-  get clip => (props[_$key__clip___$SvgPropsMixin]) as dynamic;
+  get clip => (props[_$key__clip___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.clip] -->
   @override
@@ -3377,7 +3448,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.clipPath] -->
   @override
-  get clipPath => (props[_$key__clipPath___$SvgPropsMixin]) as dynamic;
+  get clipPath => (props[_$key__clipPath___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.clipPath] -->
   @override
@@ -3386,7 +3457,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.clipPathUnits] -->
   @override
   get clipPathUnits =>
-      (props[_$key__clipPathUnits___$SvgPropsMixin]) as dynamic;
+      (props[_$key__clipPathUnits___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.clipPathUnits] -->
   @override
@@ -3395,7 +3466,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.clipRule] -->
   @override
-  get clipRule => (props[_$key__clipRule___$SvgPropsMixin]) as dynamic;
+  get clipRule => (props[_$key__clipRule___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.clipRule] -->
   @override
@@ -3404,7 +3475,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.colorInterpolation] -->
   @override
   get colorInterpolation =>
-      (props[_$key__colorInterpolation___$SvgPropsMixin]) as dynamic;
+      (props[_$key__colorInterpolation___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.colorInterpolation] -->
   @override
@@ -3413,7 +3484,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.colorProfile] -->
   @override
-  get colorProfile => (props[_$key__colorProfile___$SvgPropsMixin]) as dynamic;
+  get colorProfile =>
+      (props[_$key__colorProfile___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.colorProfile] -->
   @override
@@ -3423,7 +3495,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.colorRendering] -->
   @override
   get colorRendering =>
-      (props[_$key__colorRendering___$SvgPropsMixin]) as dynamic;
+      (props[_$key__colorRendering___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.colorRendering] -->
   @override
@@ -3433,7 +3505,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.contentScriptType] -->
   @override
   get contentScriptType =>
-      (props[_$key__contentScriptType___$SvgPropsMixin]) as dynamic;
+      (props[_$key__contentScriptType___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.contentScriptType] -->
   @override
@@ -3443,7 +3515,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.contentStyleType] -->
   @override
   get contentStyleType =>
-      (props[_$key__contentStyleType___$SvgPropsMixin]) as dynamic;
+      (props[_$key__contentStyleType___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.contentStyleType] -->
   @override
@@ -3452,7 +3524,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.cursor] -->
   @override
-  get cursor => (props[_$key__cursor___$SvgPropsMixin]) as dynamic;
+  get cursor => (props[_$key__cursor___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.cursor] -->
   @override
@@ -3460,7 +3532,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.cx] -->
   @override
-  get cx => (props[_$key__cx___$SvgPropsMixin]) as dynamic;
+  get cx => (props[_$key__cx___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.cx] -->
   @override
@@ -3468,7 +3540,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.cy] -->
   @override
-  get cy => (props[_$key__cy___$SvgPropsMixin]) as dynamic;
+  get cy => (props[_$key__cy___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.cy] -->
   @override
@@ -3476,7 +3548,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.d] -->
   @override
-  get d => (props[_$key__d___$SvgPropsMixin]) as dynamic;
+  get d => (props[_$key__d___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.d] -->
   @override
@@ -3484,7 +3556,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.decelerate] -->
   @override
-  get decelerate => (props[_$key__decelerate___$SvgPropsMixin]) as dynamic;
+  get decelerate =>
+      (props[_$key__decelerate___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.decelerate] -->
   @override
@@ -3492,7 +3565,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.descent] -->
   @override
-  get descent => (props[_$key__descent___$SvgPropsMixin]) as dynamic;
+  get descent => (props[_$key__descent___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.descent] -->
   @override
@@ -3501,7 +3574,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.diffuseConstant] -->
   @override
   get diffuseConstant =>
-      (props[_$key__diffuseConstant___$SvgPropsMixin]) as dynamic;
+      (props[_$key__diffuseConstant___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.diffuseConstant] -->
   @override
@@ -3510,7 +3583,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.direction] -->
   @override
-  get direction => (props[_$key__direction___$SvgPropsMixin]) as dynamic;
+  get direction =>
+      (props[_$key__direction___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.direction] -->
   @override
@@ -3518,7 +3592,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.display] -->
   @override
-  get display => (props[_$key__display___$SvgPropsMixin]) as dynamic;
+  get display => (props[_$key__display___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.display] -->
   @override
@@ -3526,7 +3600,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.divisor] -->
   @override
-  get divisor => (props[_$key__divisor___$SvgPropsMixin]) as dynamic;
+  get divisor => (props[_$key__divisor___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.divisor] -->
   @override
@@ -3535,7 +3609,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.dominantBaseline] -->
   @override
   get dominantBaseline =>
-      (props[_$key__dominantBaseline___$SvgPropsMixin]) as dynamic;
+      (props[_$key__dominantBaseline___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.dominantBaseline] -->
   @override
@@ -3544,7 +3618,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.dur] -->
   @override
-  get dur => (props[_$key__dur___$SvgPropsMixin]) as dynamic;
+  get dur => (props[_$key__dur___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.dur] -->
   @override
@@ -3552,7 +3626,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.dx] -->
   @override
-  get dx => (props[_$key__dx___$SvgPropsMixin]) as dynamic;
+  get dx => (props[_$key__dx___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.dx] -->
   @override
@@ -3560,7 +3634,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.dy] -->
   @override
-  get dy => (props[_$key__dy___$SvgPropsMixin]) as dynamic;
+  get dy => (props[_$key__dy___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.dy] -->
   @override
@@ -3568,7 +3642,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.edgeMode] -->
   @override
-  get edgeMode => (props[_$key__edgeMode___$SvgPropsMixin]) as dynamic;
+  get edgeMode => (props[_$key__edgeMode___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.edgeMode] -->
   @override
@@ -3576,7 +3650,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.elevation] -->
   @override
-  get elevation => (props[_$key__elevation___$SvgPropsMixin]) as dynamic;
+  get elevation =>
+      (props[_$key__elevation___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.elevation] -->
   @override
@@ -3585,7 +3660,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.enableBackground] -->
   @override
   get enableBackground =>
-      (props[_$key__enableBackground___$SvgPropsMixin]) as dynamic;
+      (props[_$key__enableBackground___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.enableBackground] -->
   @override
@@ -3594,7 +3669,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.end] -->
   @override
-  get end => (props[_$key__end___$SvgPropsMixin]) as dynamic;
+  get end => (props[_$key__end___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.end] -->
   @override
@@ -3602,7 +3677,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.exponent] -->
   @override
-  get exponent => (props[_$key__exponent___$SvgPropsMixin]) as dynamic;
+  get exponent => (props[_$key__exponent___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.exponent] -->
   @override
@@ -3611,7 +3686,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.externalResourcesRequired] -->
   @override
   get externalResourcesRequired =>
-      (props[_$key__externalResourcesRequired___$SvgPropsMixin]) as dynamic;
+      (props[_$key__externalResourcesRequired___$SvgPropsMixin] ?? null)
+          as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.externalResourcesRequired] -->
   @override
@@ -3620,7 +3696,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.fill] -->
   @override
-  get fill => (props[_$key__fill___$SvgPropsMixin]) as dynamic;
+  get fill => (props[_$key__fill___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.fill] -->
   @override
@@ -3628,7 +3704,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.fillOpacity] -->
   @override
-  get fillOpacity => (props[_$key__fillOpacity___$SvgPropsMixin]) as dynamic;
+  get fillOpacity =>
+      (props[_$key__fillOpacity___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.fillOpacity] -->
   @override
@@ -3636,7 +3713,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.filterRes] -->
   @override
-  get filterRes => (props[_$key__filterRes___$SvgPropsMixin]) as dynamic;
+  get filterRes =>
+      (props[_$key__filterRes___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.filterRes] -->
   @override
@@ -3644,7 +3722,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.filterUnits] -->
   @override
-  get filterUnits => (props[_$key__filterUnits___$SvgPropsMixin]) as dynamic;
+  get filterUnits =>
+      (props[_$key__filterUnits___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.filterUnits] -->
   @override
@@ -3652,7 +3731,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.floodColor] -->
   @override
-  get floodColor => (props[_$key__floodColor___$SvgPropsMixin]) as dynamic;
+  get floodColor =>
+      (props[_$key__floodColor___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.floodColor] -->
   @override
@@ -3660,7 +3740,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.floodOpacity] -->
   @override
-  get floodOpacity => (props[_$key__floodOpacity___$SvgPropsMixin]) as dynamic;
+  get floodOpacity =>
+      (props[_$key__floodOpacity___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.floodOpacity] -->
   @override
@@ -3669,7 +3750,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.focusable] -->
   @override
-  get focusable => (props[_$key__focusable___$SvgPropsMixin]) as dynamic;
+  get focusable =>
+      (props[_$key__focusable___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.focusable] -->
   @override
@@ -3677,7 +3759,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.fontFamily] -->
   @override
-  get fontFamily => (props[_$key__fontFamily___$SvgPropsMixin]) as dynamic;
+  get fontFamily =>
+      (props[_$key__fontFamily___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.fontFamily] -->
   @override
@@ -3685,7 +3768,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.fontSize] -->
   @override
-  get fontSize => (props[_$key__fontSize___$SvgPropsMixin]) as dynamic;
+  get fontSize => (props[_$key__fontSize___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.fontSize] -->
   @override
@@ -3694,7 +3777,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.fontSizeAdjust] -->
   @override
   get fontSizeAdjust =>
-      (props[_$key__fontSizeAdjust___$SvgPropsMixin]) as dynamic;
+      (props[_$key__fontSizeAdjust___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.fontSizeAdjust] -->
   @override
@@ -3703,7 +3786,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.fontStretch] -->
   @override
-  get fontStretch => (props[_$key__fontStretch___$SvgPropsMixin]) as dynamic;
+  get fontStretch =>
+      (props[_$key__fontStretch___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.fontStretch] -->
   @override
@@ -3711,7 +3795,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.fontStyle] -->
   @override
-  get fontStyle => (props[_$key__fontStyle___$SvgPropsMixin]) as dynamic;
+  get fontStyle =>
+      (props[_$key__fontStyle___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.fontStyle] -->
   @override
@@ -3719,7 +3804,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.fontVariant] -->
   @override
-  get fontVariant => (props[_$key__fontVariant___$SvgPropsMixin]) as dynamic;
+  get fontVariant =>
+      (props[_$key__fontVariant___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.fontVariant] -->
   @override
@@ -3727,7 +3813,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.fontWeight] -->
   @override
-  get fontWeight => (props[_$key__fontWeight___$SvgPropsMixin]) as dynamic;
+  get fontWeight =>
+      (props[_$key__fontWeight___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.fontWeight] -->
   @override
@@ -3735,7 +3822,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.format] -->
   @override
-  get format => (props[_$key__format___$SvgPropsMixin]) as dynamic;
+  get format => (props[_$key__format___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.format] -->
   @override
@@ -3743,7 +3830,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.from] -->
   @override
-  get from => (props[_$key__from___$SvgPropsMixin]) as dynamic;
+  get from => (props[_$key__from___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.from] -->
   @override
@@ -3751,7 +3838,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.fx] -->
   @override
-  get fx => (props[_$key__fx___$SvgPropsMixin]) as dynamic;
+  get fx => (props[_$key__fx___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.fx] -->
   @override
@@ -3759,7 +3846,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.fy] -->
   @override
-  get fy => (props[_$key__fy___$SvgPropsMixin]) as dynamic;
+  get fy => (props[_$key__fy___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.fy] -->
   @override
@@ -3767,7 +3854,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.g1] -->
   @override
-  get g1 => (props[_$key__g1___$SvgPropsMixin]) as dynamic;
+  get g1 => (props[_$key__g1___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.g1] -->
   @override
@@ -3775,7 +3862,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.g2] -->
   @override
-  get g2 => (props[_$key__g2___$SvgPropsMixin]) as dynamic;
+  get g2 => (props[_$key__g2___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.g2] -->
   @override
@@ -3783,7 +3870,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.glyphName] -->
   @override
-  get glyphName => (props[_$key__glyphName___$SvgPropsMixin]) as dynamic;
+  get glyphName =>
+      (props[_$key__glyphName___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.glyphName] -->
   @override
@@ -3792,7 +3880,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.glyphOrientationHorizontal] -->
   @override
   get glyphOrientationHorizontal =>
-      (props[_$key__glyphOrientationHorizontal___$SvgPropsMixin]) as dynamic;
+      (props[_$key__glyphOrientationHorizontal___$SvgPropsMixin] ?? null)
+          as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.glyphOrientationHorizontal] -->
   @override
@@ -3802,7 +3891,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.glyphOrientationVertical] -->
   @override
   get glyphOrientationVertical =>
-      (props[_$key__glyphOrientationVertical___$SvgPropsMixin]) as dynamic;
+      (props[_$key__glyphOrientationVertical___$SvgPropsMixin] ?? null)
+          as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.glyphOrientationVertical] -->
   @override
@@ -3811,7 +3901,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.glyphRef] -->
   @override
-  get glyphRef => (props[_$key__glyphRef___$SvgPropsMixin]) as dynamic;
+  get glyphRef => (props[_$key__glyphRef___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.glyphRef] -->
   @override
@@ -3820,7 +3910,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.gradientTransform] -->
   @override
   get gradientTransform =>
-      (props[_$key__gradientTransform___$SvgPropsMixin]) as dynamic;
+      (props[_$key__gradientTransform___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.gradientTransform] -->
   @override
@@ -3830,7 +3920,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.gradientUnits] -->
   @override
   get gradientUnits =>
-      (props[_$key__gradientUnits___$SvgPropsMixin]) as dynamic;
+      (props[_$key__gradientUnits___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.gradientUnits] -->
   @override
@@ -3839,7 +3929,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.hanging] -->
   @override
-  get hanging => (props[_$key__hanging___$SvgPropsMixin]) as dynamic;
+  get hanging => (props[_$key__hanging___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.hanging] -->
   @override
@@ -3847,7 +3937,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.horizAdvX] -->
   @override
-  get horizAdvX => (props[_$key__horizAdvX___$SvgPropsMixin]) as dynamic;
+  get horizAdvX =>
+      (props[_$key__horizAdvX___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.horizAdvX] -->
   @override
@@ -3855,7 +3946,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.horizOriginX] -->
   @override
-  get horizOriginX => (props[_$key__horizOriginX___$SvgPropsMixin]) as dynamic;
+  get horizOriginX =>
+      (props[_$key__horizOriginX___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.horizOriginX] -->
   @override
@@ -3864,7 +3956,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.ideographic] -->
   @override
-  get ideographic => (props[_$key__ideographic___$SvgPropsMixin]) as dynamic;
+  get ideographic =>
+      (props[_$key__ideographic___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.ideographic] -->
   @override
@@ -3873,7 +3966,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.imageRendering] -->
   @override
   get imageRendering =>
-      (props[_$key__imageRendering___$SvgPropsMixin]) as dynamic;
+      (props[_$key__imageRendering___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.imageRendering] -->
   @override
@@ -3882,7 +3975,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.in2] -->
   @override
-  get in2 => (props[_$key__in2___$SvgPropsMixin]) as dynamic;
+  get in2 => (props[_$key__in2___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.in2] -->
   @override
@@ -3890,7 +3983,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.intercept] -->
   @override
-  get intercept => (props[_$key__intercept___$SvgPropsMixin]) as dynamic;
+  get intercept =>
+      (props[_$key__intercept___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.intercept] -->
   @override
@@ -3898,7 +3992,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.k] -->
   @override
-  get k => (props[_$key__k___$SvgPropsMixin]) as dynamic;
+  get k => (props[_$key__k___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.k] -->
   @override
@@ -3906,7 +4000,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.k1] -->
   @override
-  get k1 => (props[_$key__k1___$SvgPropsMixin]) as dynamic;
+  get k1 => (props[_$key__k1___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.k1] -->
   @override
@@ -3914,7 +4008,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.k2] -->
   @override
-  get k2 => (props[_$key__k2___$SvgPropsMixin]) as dynamic;
+  get k2 => (props[_$key__k2___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.k2] -->
   @override
@@ -3922,7 +4016,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.k3] -->
   @override
-  get k3 => (props[_$key__k3___$SvgPropsMixin]) as dynamic;
+  get k3 => (props[_$key__k3___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.k3] -->
   @override
@@ -3930,7 +4024,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.k4] -->
   @override
-  get k4 => (props[_$key__k4___$SvgPropsMixin]) as dynamic;
+  get k4 => (props[_$key__k4___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.k4] -->
   @override
@@ -3938,7 +4032,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.kernelMatrix] -->
   @override
-  get kernelMatrix => (props[_$key__kernelMatrix___$SvgPropsMixin]) as dynamic;
+  get kernelMatrix =>
+      (props[_$key__kernelMatrix___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.kernelMatrix] -->
   @override
@@ -3948,7 +4043,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.kernelUnitLength] -->
   @override
   get kernelUnitLength =>
-      (props[_$key__kernelUnitLength___$SvgPropsMixin]) as dynamic;
+      (props[_$key__kernelUnitLength___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.kernelUnitLength] -->
   @override
@@ -3957,7 +4052,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.kerning] -->
   @override
-  get kerning => (props[_$key__kerning___$SvgPropsMixin]) as dynamic;
+  get kerning => (props[_$key__kerning___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.kerning] -->
   @override
@@ -3965,7 +4060,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.keyPoints] -->
   @override
-  get keyPoints => (props[_$key__keyPoints___$SvgPropsMixin]) as dynamic;
+  get keyPoints =>
+      (props[_$key__keyPoints___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.keyPoints] -->
   @override
@@ -3973,7 +4069,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.keySplines] -->
   @override
-  get keySplines => (props[_$key__keySplines___$SvgPropsMixin]) as dynamic;
+  get keySplines =>
+      (props[_$key__keySplines___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.keySplines] -->
   @override
@@ -3981,7 +4078,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.keyTimes] -->
   @override
-  get keyTimes => (props[_$key__keyTimes___$SvgPropsMixin]) as dynamic;
+  get keyTimes => (props[_$key__keyTimes___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.keyTimes] -->
   @override
@@ -3989,7 +4086,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.lengthAdjust] -->
   @override
-  get lengthAdjust => (props[_$key__lengthAdjust___$SvgPropsMixin]) as dynamic;
+  get lengthAdjust =>
+      (props[_$key__lengthAdjust___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.lengthAdjust] -->
   @override
@@ -3999,7 +4097,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.letterSpacing] -->
   @override
   get letterSpacing =>
-      (props[_$key__letterSpacing___$SvgPropsMixin]) as dynamic;
+      (props[_$key__letterSpacing___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.letterSpacing] -->
   @override
@@ -4009,7 +4107,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.lightingColor] -->
   @override
   get lightingColor =>
-      (props[_$key__lightingColor___$SvgPropsMixin]) as dynamic;
+      (props[_$key__lightingColor___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.lightingColor] -->
   @override
@@ -4019,7 +4117,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.limitingConeAngle] -->
   @override
   get limitingConeAngle =>
-      (props[_$key__limitingConeAngle___$SvgPropsMixin]) as dynamic;
+      (props[_$key__limitingConeAngle___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.limitingConeAngle] -->
   @override
@@ -4028,7 +4126,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.local] -->
   @override
-  get local => (props[_$key__local___$SvgPropsMixin]) as dynamic;
+  get local => (props[_$key__local___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.local] -->
   @override
@@ -4036,7 +4134,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.markerEnd] -->
   @override
-  get markerEnd => (props[_$key__markerEnd___$SvgPropsMixin]) as dynamic;
+  get markerEnd =>
+      (props[_$key__markerEnd___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.markerEnd] -->
   @override
@@ -4044,7 +4143,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.markerHeight] -->
   @override
-  get markerHeight => (props[_$key__markerHeight___$SvgPropsMixin]) as dynamic;
+  get markerHeight =>
+      (props[_$key__markerHeight___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.markerHeight] -->
   @override
@@ -4053,7 +4153,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.markerMid] -->
   @override
-  get markerMid => (props[_$key__markerMid___$SvgPropsMixin]) as dynamic;
+  get markerMid =>
+      (props[_$key__markerMid___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.markerMid] -->
   @override
@@ -4061,7 +4162,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.markerStart] -->
   @override
-  get markerStart => (props[_$key__markerStart___$SvgPropsMixin]) as dynamic;
+  get markerStart =>
+      (props[_$key__markerStart___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.markerStart] -->
   @override
@@ -4069,7 +4171,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.markerUnits] -->
   @override
-  get markerUnits => (props[_$key__markerUnits___$SvgPropsMixin]) as dynamic;
+  get markerUnits =>
+      (props[_$key__markerUnits___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.markerUnits] -->
   @override
@@ -4077,7 +4180,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.markerWidth] -->
   @override
-  get markerWidth => (props[_$key__markerWidth___$SvgPropsMixin]) as dynamic;
+  get markerWidth =>
+      (props[_$key__markerWidth___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.markerWidth] -->
   @override
@@ -4086,7 +4190,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.maskContentUnits] -->
   @override
   get maskContentUnits =>
-      (props[_$key__maskContentUnits___$SvgPropsMixin]) as dynamic;
+      (props[_$key__maskContentUnits___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.maskContentUnits] -->
   @override
@@ -4095,7 +4199,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.maskUnits] -->
   @override
-  get maskUnits => (props[_$key__maskUnits___$SvgPropsMixin]) as dynamic;
+  get maskUnits =>
+      (props[_$key__maskUnits___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.maskUnits] -->
   @override
@@ -4103,7 +4208,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.mathematical] -->
   @override
-  get mathematical => (props[_$key__mathematical___$SvgPropsMixin]) as dynamic;
+  get mathematical =>
+      (props[_$key__mathematical___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.mathematical] -->
   @override
@@ -4112,7 +4218,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.mode] -->
   @override
-  get mode => (props[_$key__mode___$SvgPropsMixin]) as dynamic;
+  get mode => (props[_$key__mode___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.mode] -->
   @override
@@ -4120,7 +4226,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.numOctaves] -->
   @override
-  get numOctaves => (props[_$key__numOctaves___$SvgPropsMixin]) as dynamic;
+  get numOctaves =>
+      (props[_$key__numOctaves___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.numOctaves] -->
   @override
@@ -4128,7 +4235,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.offset] -->
   @override
-  get offset => (props[_$key__offset___$SvgPropsMixin]) as dynamic;
+  get offset => (props[_$key__offset___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.offset] -->
   @override
@@ -4136,7 +4243,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.opacity] -->
   @override
-  get opacity => (props[_$key__opacity___$SvgPropsMixin]) as dynamic;
+  get opacity => (props[_$key__opacity___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.opacity] -->
   @override
@@ -4144,7 +4251,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.operator] -->
   @override
-  get operator => (props[_$key__operator___$SvgPropsMixin]) as dynamic;
+  get operator => (props[_$key__operator___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.operator] -->
   @override
@@ -4152,7 +4259,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.order] -->
   @override
-  get order => (props[_$key__order___$SvgPropsMixin]) as dynamic;
+  get order => (props[_$key__order___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.order] -->
   @override
@@ -4160,7 +4267,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.orient] -->
   @override
-  get orient => (props[_$key__orient___$SvgPropsMixin]) as dynamic;
+  get orient => (props[_$key__orient___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.orient] -->
   @override
@@ -4168,7 +4275,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.orientation] -->
   @override
-  get orientation => (props[_$key__orientation___$SvgPropsMixin]) as dynamic;
+  get orientation =>
+      (props[_$key__orientation___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.orientation] -->
   @override
@@ -4176,7 +4284,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.origin] -->
   @override
-  get origin => (props[_$key__origin___$SvgPropsMixin]) as dynamic;
+  get origin => (props[_$key__origin___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.origin] -->
   @override
@@ -4184,7 +4292,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.overflow] -->
   @override
-  get overflow => (props[_$key__overflow___$SvgPropsMixin]) as dynamic;
+  get overflow => (props[_$key__overflow___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.overflow] -->
   @override
@@ -4193,7 +4301,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.overlinePosition] -->
   @override
   get overlinePosition =>
-      (props[_$key__overlinePosition___$SvgPropsMixin]) as dynamic;
+      (props[_$key__overlinePosition___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.overlinePosition] -->
   @override
@@ -4203,7 +4311,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.overlineThickness] -->
   @override
   get overlineThickness =>
-      (props[_$key__overlineThickness___$SvgPropsMixin]) as dynamic;
+      (props[_$key__overlineThickness___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.overlineThickness] -->
   @override
@@ -4212,7 +4320,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.paintOrder] -->
   @override
-  get paintOrder => (props[_$key__paintOrder___$SvgPropsMixin]) as dynamic;
+  get paintOrder =>
+      (props[_$key__paintOrder___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.paintOrder] -->
   @override
@@ -4220,7 +4329,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.panose1] -->
   @override
-  get panose1 => (props[_$key__panose1___$SvgPropsMixin]) as dynamic;
+  get panose1 => (props[_$key__panose1___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.panose1] -->
   @override
@@ -4228,7 +4337,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.pathLength] -->
   @override
-  get pathLength => (props[_$key__pathLength___$SvgPropsMixin]) as dynamic;
+  get pathLength =>
+      (props[_$key__pathLength___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.pathLength] -->
   @override
@@ -4237,7 +4347,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.patternContentUnits] -->
   @override
   get patternContentUnits =>
-      (props[_$key__patternContentUnits___$SvgPropsMixin]) as dynamic;
+      (props[_$key__patternContentUnits___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.patternContentUnits] -->
   @override
@@ -4247,7 +4357,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.patternTransform] -->
   @override
   get patternTransform =>
-      (props[_$key__patternTransform___$SvgPropsMixin]) as dynamic;
+      (props[_$key__patternTransform___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.patternTransform] -->
   @override
@@ -4256,7 +4366,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.patternUnits] -->
   @override
-  get patternUnits => (props[_$key__patternUnits___$SvgPropsMixin]) as dynamic;
+  get patternUnits =>
+      (props[_$key__patternUnits___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.patternUnits] -->
   @override
@@ -4266,7 +4377,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.pointerEvents] -->
   @override
   get pointerEvents =>
-      (props[_$key__pointerEvents___$SvgPropsMixin]) as dynamic;
+      (props[_$key__pointerEvents___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.pointerEvents] -->
   @override
@@ -4275,7 +4386,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.points] -->
   @override
-  get points => (props[_$key__points___$SvgPropsMixin]) as dynamic;
+  get points => (props[_$key__points___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.points] -->
   @override
@@ -4283,7 +4394,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.pointsAtX] -->
   @override
-  get pointsAtX => (props[_$key__pointsAtX___$SvgPropsMixin]) as dynamic;
+  get pointsAtX =>
+      (props[_$key__pointsAtX___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.pointsAtX] -->
   @override
@@ -4291,7 +4403,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.pointsAtY] -->
   @override
-  get pointsAtY => (props[_$key__pointsAtY___$SvgPropsMixin]) as dynamic;
+  get pointsAtY =>
+      (props[_$key__pointsAtY___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.pointsAtY] -->
   @override
@@ -4299,7 +4412,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.pointsAtZ] -->
   @override
-  get pointsAtZ => (props[_$key__pointsAtZ___$SvgPropsMixin]) as dynamic;
+  get pointsAtZ =>
+      (props[_$key__pointsAtZ___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.pointsAtZ] -->
   @override
@@ -4308,7 +4422,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.preserveAlpha] -->
   @override
   get preserveAlpha =>
-      (props[_$key__preserveAlpha___$SvgPropsMixin]) as dynamic;
+      (props[_$key__preserveAlpha___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.preserveAlpha] -->
   @override
@@ -4318,7 +4432,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.preserveAspectRatio] -->
   @override
   get preserveAspectRatio =>
-      (props[_$key__preserveAspectRatio___$SvgPropsMixin]) as dynamic;
+      (props[_$key__preserveAspectRatio___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.preserveAspectRatio] -->
   @override
@@ -4328,7 +4442,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.primitiveUnits] -->
   @override
   get primitiveUnits =>
-      (props[_$key__primitiveUnits___$SvgPropsMixin]) as dynamic;
+      (props[_$key__primitiveUnits___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.primitiveUnits] -->
   @override
@@ -4337,7 +4451,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.r] -->
   @override
-  get r => (props[_$key__r___$SvgPropsMixin]) as dynamic;
+  get r => (props[_$key__r___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.r] -->
   @override
@@ -4345,7 +4459,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.radius] -->
   @override
-  get radius => (props[_$key__radius___$SvgPropsMixin]) as dynamic;
+  get radius => (props[_$key__radius___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.radius] -->
   @override
@@ -4353,7 +4467,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.refX] -->
   @override
-  get refX => (props[_$key__refX___$SvgPropsMixin]) as dynamic;
+  get refX => (props[_$key__refX___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.refX] -->
   @override
@@ -4361,7 +4475,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.refY] -->
   @override
-  get refY => (props[_$key__refY___$SvgPropsMixin]) as dynamic;
+  get refY => (props[_$key__refY___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.refY] -->
   @override
@@ -4370,7 +4484,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.renderingIntent] -->
   @override
   get renderingIntent =>
-      (props[_$key__renderingIntent___$SvgPropsMixin]) as dynamic;
+      (props[_$key__renderingIntent___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.renderingIntent] -->
   @override
@@ -4379,7 +4493,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.repeatCount] -->
   @override
-  get repeatCount => (props[_$key__repeatCount___$SvgPropsMixin]) as dynamic;
+  get repeatCount =>
+      (props[_$key__repeatCount___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.repeatCount] -->
   @override
@@ -4387,7 +4502,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.repeatDur] -->
   @override
-  get repeatDur => (props[_$key__repeatDur___$SvgPropsMixin]) as dynamic;
+  get repeatDur =>
+      (props[_$key__repeatDur___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.repeatDur] -->
   @override
@@ -4396,7 +4512,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.requiredExtensions] -->
   @override
   get requiredExtensions =>
-      (props[_$key__requiredExtensions___$SvgPropsMixin]) as dynamic;
+      (props[_$key__requiredExtensions___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.requiredExtensions] -->
   @override
@@ -4406,7 +4522,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.requiredFeatures] -->
   @override
   get requiredFeatures =>
-      (props[_$key__requiredFeatures___$SvgPropsMixin]) as dynamic;
+      (props[_$key__requiredFeatures___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.requiredFeatures] -->
   @override
@@ -4415,7 +4531,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.restart] -->
   @override
-  get restart => (props[_$key__restart___$SvgPropsMixin]) as dynamic;
+  get restart => (props[_$key__restart___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.restart] -->
   @override
@@ -4423,7 +4539,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.rotate] -->
   @override
-  get rotate => (props[_$key__rotate___$SvgPropsMixin]) as dynamic;
+  get rotate => (props[_$key__rotate___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.rotate] -->
   @override
@@ -4431,7 +4547,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.rx] -->
   @override
-  get rx => (props[_$key__rx___$SvgPropsMixin]) as dynamic;
+  get rx => (props[_$key__rx___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.rx] -->
   @override
@@ -4439,7 +4555,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.ry] -->
   @override
-  get ry => (props[_$key__ry___$SvgPropsMixin]) as dynamic;
+  get ry => (props[_$key__ry___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.ry] -->
   @override
@@ -4447,7 +4563,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.scale] -->
   @override
-  get scale => (props[_$key__scale___$SvgPropsMixin]) as dynamic;
+  get scale => (props[_$key__scale___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.scale] -->
   @override
@@ -4455,7 +4571,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.seed] -->
   @override
-  get seed => (props[_$key__seed___$SvgPropsMixin]) as dynamic;
+  get seed => (props[_$key__seed___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.seed] -->
   @override
@@ -4464,7 +4580,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.shapeRendering] -->
   @override
   get shapeRendering =>
-      (props[_$key__shapeRendering___$SvgPropsMixin]) as dynamic;
+      (props[_$key__shapeRendering___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.shapeRendering] -->
   @override
@@ -4473,7 +4589,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.slope] -->
   @override
-  get slope => (props[_$key__slope___$SvgPropsMixin]) as dynamic;
+  get slope => (props[_$key__slope___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.slope] -->
   @override
@@ -4481,7 +4597,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.spacing] -->
   @override
-  get spacing => (props[_$key__spacing___$SvgPropsMixin]) as dynamic;
+  get spacing => (props[_$key__spacing___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.spacing] -->
   @override
@@ -4490,7 +4606,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.specularConstant] -->
   @override
   get specularConstant =>
-      (props[_$key__specularConstant___$SvgPropsMixin]) as dynamic;
+      (props[_$key__specularConstant___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.specularConstant] -->
   @override
@@ -4500,7 +4616,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.specularExponent] -->
   @override
   get specularExponent =>
-      (props[_$key__specularExponent___$SvgPropsMixin]) as dynamic;
+      (props[_$key__specularExponent___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.specularExponent] -->
   @override
@@ -4509,7 +4625,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.speed] -->
   @override
-  get speed => (props[_$key__speed___$SvgPropsMixin]) as dynamic;
+  get speed => (props[_$key__speed___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.speed] -->
   @override
@@ -4517,7 +4633,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.spreadMethod] -->
   @override
-  get spreadMethod => (props[_$key__spreadMethod___$SvgPropsMixin]) as dynamic;
+  get spreadMethod =>
+      (props[_$key__spreadMethod___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.spreadMethod] -->
   @override
@@ -4526,7 +4643,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.startOffset] -->
   @override
-  get startOffset => (props[_$key__startOffset___$SvgPropsMixin]) as dynamic;
+  get startOffset =>
+      (props[_$key__startOffset___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.startOffset] -->
   @override
@@ -4534,7 +4652,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.stdDeviation] -->
   @override
-  get stdDeviation => (props[_$key__stdDeviation___$SvgPropsMixin]) as dynamic;
+  get stdDeviation =>
+      (props[_$key__stdDeviation___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.stdDeviation] -->
   @override
@@ -4543,7 +4662,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.stemh] -->
   @override
-  get stemh => (props[_$key__stemh___$SvgPropsMixin]) as dynamic;
+  get stemh => (props[_$key__stemh___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.stemh] -->
   @override
@@ -4551,7 +4670,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.stemv] -->
   @override
-  get stemv => (props[_$key__stemv___$SvgPropsMixin]) as dynamic;
+  get stemv => (props[_$key__stemv___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.stemv] -->
   @override
@@ -4559,7 +4678,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.stitchTiles] -->
   @override
-  get stitchTiles => (props[_$key__stitchTiles___$SvgPropsMixin]) as dynamic;
+  get stitchTiles =>
+      (props[_$key__stitchTiles___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.stitchTiles] -->
   @override
@@ -4567,7 +4687,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.stopColor] -->
   @override
-  get stopColor => (props[_$key__stopColor___$SvgPropsMixin]) as dynamic;
+  get stopColor =>
+      (props[_$key__stopColor___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.stopColor] -->
   @override
@@ -4575,7 +4696,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.stopOpacity] -->
   @override
-  get stopOpacity => (props[_$key__stopOpacity___$SvgPropsMixin]) as dynamic;
+  get stopOpacity =>
+      (props[_$key__stopOpacity___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.stopOpacity] -->
   @override
@@ -4584,7 +4706,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.strikethroughPosition] -->
   @override
   get strikethroughPosition =>
-      (props[_$key__strikethroughPosition___$SvgPropsMixin]) as dynamic;
+      (props[_$key__strikethroughPosition___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.strikethroughPosition] -->
   @override
@@ -4594,7 +4716,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.strikethroughThickness] -->
   @override
   get strikethroughThickness =>
-      (props[_$key__strikethroughThickness___$SvgPropsMixin]) as dynamic;
+      (props[_$key__strikethroughThickness___$SvgPropsMixin] ?? null)
+          as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.strikethroughThickness] -->
   @override
@@ -4603,7 +4726,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.string] -->
   @override
-  get string => (props[_$key__string___$SvgPropsMixin]) as dynamic;
+  get string => (props[_$key__string___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.string] -->
   @override
@@ -4611,7 +4734,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.stroke] -->
   @override
-  get stroke => (props[_$key__stroke___$SvgPropsMixin]) as dynamic;
+  get stroke => (props[_$key__stroke___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.stroke] -->
   @override
@@ -4620,7 +4743,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.strokeDasharray] -->
   @override
   get strokeDasharray =>
-      (props[_$key__strokeDasharray___$SvgPropsMixin]) as dynamic;
+      (props[_$key__strokeDasharray___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.strokeDasharray] -->
   @override
@@ -4630,7 +4753,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.strokeDashoffset] -->
   @override
   get strokeDashoffset =>
-      (props[_$key__strokeDashoffset___$SvgPropsMixin]) as dynamic;
+      (props[_$key__strokeDashoffset___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.strokeDashoffset] -->
   @override
@@ -4640,7 +4763,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.strokeLinecap] -->
   @override
   get strokeLinecap =>
-      (props[_$key__strokeLinecap___$SvgPropsMixin]) as dynamic;
+      (props[_$key__strokeLinecap___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.strokeLinecap] -->
   @override
@@ -4650,7 +4773,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.strokeMiterlimit] -->
   @override
   get strokeMiterlimit =>
-      (props[_$key__strokeMiterlimit___$SvgPropsMixin]) as dynamic;
+      (props[_$key__strokeMiterlimit___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.strokeMiterlimit] -->
   @override
@@ -4660,7 +4783,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.strokeOpacity] -->
   @override
   get strokeOpacity =>
-      (props[_$key__strokeOpacity___$SvgPropsMixin]) as dynamic;
+      (props[_$key__strokeOpacity___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.strokeOpacity] -->
   @override
@@ -4669,7 +4792,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.strokeWidth] -->
   @override
-  get strokeWidth => (props[_$key__strokeWidth___$SvgPropsMixin]) as dynamic;
+  get strokeWidth =>
+      (props[_$key__strokeWidth___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.strokeWidth] -->
   @override
@@ -4677,7 +4801,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.surfaceScale] -->
   @override
-  get surfaceScale => (props[_$key__surfaceScale___$SvgPropsMixin]) as dynamic;
+  get surfaceScale =>
+      (props[_$key__surfaceScale___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.surfaceScale] -->
   @override
@@ -4687,7 +4812,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.systemLanguage] -->
   @override
   get systemLanguage =>
-      (props[_$key__systemLanguage___$SvgPropsMixin]) as dynamic;
+      (props[_$key__systemLanguage___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.systemLanguage] -->
   @override
@@ -4696,7 +4821,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.tableValues] -->
   @override
-  get tableValues => (props[_$key__tableValues___$SvgPropsMixin]) as dynamic;
+  get tableValues =>
+      (props[_$key__tableValues___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.tableValues] -->
   @override
@@ -4704,7 +4830,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.targetX] -->
   @override
-  get targetX => (props[_$key__targetX___$SvgPropsMixin]) as dynamic;
+  get targetX => (props[_$key__targetX___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.targetX] -->
   @override
@@ -4712,7 +4838,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.targetY] -->
   @override
-  get targetY => (props[_$key__targetY___$SvgPropsMixin]) as dynamic;
+  get targetY => (props[_$key__targetY___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.targetY] -->
   @override
@@ -4720,7 +4846,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.textAnchor] -->
   @override
-  get textAnchor => (props[_$key__textAnchor___$SvgPropsMixin]) as dynamic;
+  get textAnchor =>
+      (props[_$key__textAnchor___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.textAnchor] -->
   @override
@@ -4729,7 +4856,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.textDecoration] -->
   @override
   get textDecoration =>
-      (props[_$key__textDecoration___$SvgPropsMixin]) as dynamic;
+      (props[_$key__textDecoration___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.textDecoration] -->
   @override
@@ -4738,7 +4865,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.textLength] -->
   @override
-  get textLength => (props[_$key__textLength___$SvgPropsMixin]) as dynamic;
+  get textLength =>
+      (props[_$key__textLength___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.textLength] -->
   @override
@@ -4747,7 +4875,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.textRendering] -->
   @override
   get textRendering =>
-      (props[_$key__textRendering___$SvgPropsMixin]) as dynamic;
+      (props[_$key__textRendering___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.textRendering] -->
   @override
@@ -4756,7 +4884,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.to] -->
   @override
-  get to => (props[_$key__to___$SvgPropsMixin]) as dynamic;
+  get to => (props[_$key__to___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.to] -->
   @override
@@ -4764,7 +4892,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.transform] -->
   @override
-  get transform => (props[_$key__transform___$SvgPropsMixin]) as dynamic;
+  get transform =>
+      (props[_$key__transform___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.transform] -->
   @override
@@ -4772,7 +4901,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.u1] -->
   @override
-  get u1 => (props[_$key__u1___$SvgPropsMixin]) as dynamic;
+  get u1 => (props[_$key__u1___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.u1] -->
   @override
@@ -4780,7 +4909,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.u2] -->
   @override
-  get u2 => (props[_$key__u2___$SvgPropsMixin]) as dynamic;
+  get u2 => (props[_$key__u2___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.u2] -->
   @override
@@ -4789,7 +4918,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.underlinePosition] -->
   @override
   get underlinePosition =>
-      (props[_$key__underlinePosition___$SvgPropsMixin]) as dynamic;
+      (props[_$key__underlinePosition___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.underlinePosition] -->
   @override
@@ -4799,7 +4928,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.underlineThickness] -->
   @override
   get underlineThickness =>
-      (props[_$key__underlineThickness___$SvgPropsMixin]) as dynamic;
+      (props[_$key__underlineThickness___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.underlineThickness] -->
   @override
@@ -4808,7 +4937,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.unicode] -->
   @override
-  get unicode => (props[_$key__unicode___$SvgPropsMixin]) as dynamic;
+  get unicode => (props[_$key__unicode___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.unicode] -->
   @override
@@ -4816,7 +4945,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.unicodeBidi] -->
   @override
-  get unicodeBidi => (props[_$key__unicodeBidi___$SvgPropsMixin]) as dynamic;
+  get unicodeBidi =>
+      (props[_$key__unicodeBidi___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.unicodeBidi] -->
   @override
@@ -4824,7 +4954,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.unicodeRange] -->
   @override
-  get unicodeRange => (props[_$key__unicodeRange___$SvgPropsMixin]) as dynamic;
+  get unicodeRange =>
+      (props[_$key__unicodeRange___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.unicodeRange] -->
   @override
@@ -4833,7 +4964,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.unitsPerEm] -->
   @override
-  get unitsPerEm => (props[_$key__unitsPerEm___$SvgPropsMixin]) as dynamic;
+  get unitsPerEm =>
+      (props[_$key__unitsPerEm___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.unitsPerEm] -->
   @override
@@ -4841,7 +4973,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.vAlphabetic] -->
   @override
-  get vAlphabetic => (props[_$key__vAlphabetic___$SvgPropsMixin]) as dynamic;
+  get vAlphabetic =>
+      (props[_$key__vAlphabetic___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.vAlphabetic] -->
   @override
@@ -4849,7 +4982,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.vHanging] -->
   @override
-  get vHanging => (props[_$key__vHanging___$SvgPropsMixin]) as dynamic;
+  get vHanging => (props[_$key__vHanging___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.vHanging] -->
   @override
@@ -4857,7 +4990,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.vIdeographic] -->
   @override
-  get vIdeographic => (props[_$key__vIdeographic___$SvgPropsMixin]) as dynamic;
+  get vIdeographic =>
+      (props[_$key__vIdeographic___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.vIdeographic] -->
   @override
@@ -4867,7 +5001,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.vMathematical] -->
   @override
   get vMathematical =>
-      (props[_$key__vMathematical___$SvgPropsMixin]) as dynamic;
+      (props[_$key__vMathematical___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.vMathematical] -->
   @override
@@ -4876,7 +5010,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.vectorEffect] -->
   @override
-  get vectorEffect => (props[_$key__vectorEffect___$SvgPropsMixin]) as dynamic;
+  get vectorEffect =>
+      (props[_$key__vectorEffect___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.vectorEffect] -->
   @override
@@ -4885,7 +5020,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.version] -->
   @override
-  get version => (props[_$key__version___$SvgPropsMixin]) as dynamic;
+  get version => (props[_$key__version___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.version] -->
   @override
@@ -4893,7 +5028,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.vertAdvY] -->
   @override
-  get vertAdvY => (props[_$key__vertAdvY___$SvgPropsMixin]) as dynamic;
+  get vertAdvY => (props[_$key__vertAdvY___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.vertAdvY] -->
   @override
@@ -4901,7 +5036,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.vertOriginX] -->
   @override
-  get vertOriginX => (props[_$key__vertOriginX___$SvgPropsMixin]) as dynamic;
+  get vertOriginX =>
+      (props[_$key__vertOriginX___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.vertOriginX] -->
   @override
@@ -4909,7 +5045,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.vertOriginY] -->
   @override
-  get vertOriginY => (props[_$key__vertOriginY___$SvgPropsMixin]) as dynamic;
+  get vertOriginY =>
+      (props[_$key__vertOriginY___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.vertOriginY] -->
   @override
@@ -4917,7 +5054,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.viewBox] -->
   @override
-  get viewBox => (props[_$key__viewBox___$SvgPropsMixin]) as dynamic;
+  get viewBox => (props[_$key__viewBox___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.viewBox] -->
   @override
@@ -4925,7 +5062,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.viewTarget] -->
   @override
-  get viewTarget => (props[_$key__viewTarget___$SvgPropsMixin]) as dynamic;
+  get viewTarget =>
+      (props[_$key__viewTarget___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.viewTarget] -->
   @override
@@ -4933,7 +5071,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.visibility] -->
   @override
-  get visibility => (props[_$key__visibility___$SvgPropsMixin]) as dynamic;
+  get visibility =>
+      (props[_$key__visibility___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.visibility] -->
   @override
@@ -4941,7 +5080,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.widths] -->
   @override
-  get widths => (props[_$key__widths___$SvgPropsMixin]) as dynamic;
+  get widths => (props[_$key__widths___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.widths] -->
   @override
@@ -4949,7 +5088,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.wordSpacing] -->
   @override
-  get wordSpacing => (props[_$key__wordSpacing___$SvgPropsMixin]) as dynamic;
+  get wordSpacing =>
+      (props[_$key__wordSpacing___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.wordSpacing] -->
   @override
@@ -4957,7 +5097,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.writingMode] -->
   @override
-  get writingMode => (props[_$key__writingMode___$SvgPropsMixin]) as dynamic;
+  get writingMode =>
+      (props[_$key__writingMode___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.writingMode] -->
   @override
@@ -4965,7 +5106,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.x] -->
   @override
-  get x => (props[_$key__x___$SvgPropsMixin]) as dynamic;
+  get x => (props[_$key__x___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.x] -->
   @override
@@ -4973,7 +5114,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.x1] -->
   @override
-  get x1 => (props[_$key__x1___$SvgPropsMixin]) as dynamic;
+  get x1 => (props[_$key__x1___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.x1] -->
   @override
@@ -4981,7 +5122,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.x2] -->
   @override
-  get x2 => (props[_$key__x2___$SvgPropsMixin]) as dynamic;
+  get x2 => (props[_$key__x2___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.x2] -->
   @override
@@ -4989,7 +5130,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.xHeight] -->
   @override
-  get xHeight => (props[_$key__xHeight___$SvgPropsMixin]) as dynamic;
+  get xHeight => (props[_$key__xHeight___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.xHeight] -->
   @override
@@ -4997,7 +5138,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.xlinkActuate] -->
   @override
-  get xlinkActuate => (props[_$key__xlinkActuate___$SvgPropsMixin]) as dynamic;
+  get xlinkActuate =>
+      (props[_$key__xlinkActuate___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.xlinkActuate] -->
   @override
@@ -5006,7 +5148,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.xlinkArcrole] -->
   @override
-  get xlinkArcrole => (props[_$key__xlinkArcrole___$SvgPropsMixin]) as dynamic;
+  get xlinkArcrole =>
+      (props[_$key__xlinkArcrole___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.xlinkArcrole] -->
   @override
@@ -5015,7 +5158,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.xlinkHref] -->
   @override
-  get xlinkHref => (props[_$key__xlinkHref___$SvgPropsMixin]) as dynamic;
+  get xlinkHref =>
+      (props[_$key__xlinkHref___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.xlinkHref] -->
   @override
@@ -5023,7 +5167,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.xlinkRole] -->
   @override
-  get xlinkRole => (props[_$key__xlinkRole___$SvgPropsMixin]) as dynamic;
+  get xlinkRole =>
+      (props[_$key__xlinkRole___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.xlinkRole] -->
   @override
@@ -5031,7 +5176,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.xlinkShow] -->
   @override
-  get xlinkShow => (props[_$key__xlinkShow___$SvgPropsMixin]) as dynamic;
+  get xlinkShow =>
+      (props[_$key__xlinkShow___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.xlinkShow] -->
   @override
@@ -5039,7 +5185,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.xlinkTitle] -->
   @override
-  get xlinkTitle => (props[_$key__xlinkTitle___$SvgPropsMixin]) as dynamic;
+  get xlinkTitle =>
+      (props[_$key__xlinkTitle___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.xlinkTitle] -->
   @override
@@ -5047,7 +5194,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.xlinkType] -->
   @override
-  get xlinkType => (props[_$key__xlinkType___$SvgPropsMixin]) as dynamic;
+  get xlinkType =>
+      (props[_$key__xlinkType___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.xlinkType] -->
   @override
@@ -5055,7 +5203,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.xmlBase] -->
   @override
-  get xmlBase => (props[_$key__xmlBase___$SvgPropsMixin]) as dynamic;
+  get xmlBase => (props[_$key__xmlBase___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.xmlBase] -->
   @override
@@ -5063,7 +5211,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.xmlLang] -->
   @override
-  get xmlLang => (props[_$key__xmlLang___$SvgPropsMixin]) as dynamic;
+  get xmlLang => (props[_$key__xmlLang___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.xmlLang] -->
   @override
@@ -5071,7 +5219,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.xmlSpace] -->
   @override
-  get xmlSpace => (props[_$key__xmlSpace___$SvgPropsMixin]) as dynamic;
+  get xmlSpace => (props[_$key__xmlSpace___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.xmlSpace] -->
   @override
@@ -5079,7 +5227,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.y1] -->
   @override
-  get y1 => (props[_$key__y1___$SvgPropsMixin]) as dynamic;
+  get y1 => (props[_$key__y1___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.y1] -->
   @override
@@ -5087,7 +5235,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.y2] -->
   @override
-  get y2 => (props[_$key__y2___$SvgPropsMixin]) as dynamic;
+  get y2 => (props[_$key__y2___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.y2] -->
   @override
@@ -5095,7 +5243,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.y] -->
   @override
-  get y => (props[_$key__y___$SvgPropsMixin]) as dynamic;
+  get y => (props[_$key__y___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.y] -->
   @override
@@ -6375,7 +6523,7 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.tabIndex] -->
   @override
   get tabIndex =>
-      (props[_$key__tabIndex___$UbiquitousDomPropsMixin]) as dynamic;
+      (props[_$key__tabIndex___$UbiquitousDomPropsMixin] ?? null) as dynamic;
 
   /// Whether the element if focusable.
   /// Must be a valid integer or String of valid integer.
@@ -6390,7 +6538,7 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.id] -->
   @override
-  get id => (props[_$key__id___$UbiquitousDomPropsMixin]) as String?;
+  get id => (props[_$key__id___$UbiquitousDomPropsMixin] ?? null) as String?;
 
   /// Unique identifier.
   /// Must be unique amongst all the ids, and contain at least one character.
@@ -6403,7 +6551,8 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.title] -->
   @override
-  get title => (props[_$key__title___$UbiquitousDomPropsMixin]) as String?;
+  get title =>
+      (props[_$key__title___$UbiquitousDomPropsMixin] ?? null) as String?;
 
   /// Represents advisory information about the element.
   ///
@@ -6415,8 +6564,8 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   @override
   @Accessor(key: 'style')
   get _raw$UbiquitousDomProps$style =>
-      (props[_$key___raw$UbiquitousDomProps$style___$UbiquitousDomPropsMixin])
-          as dynamic;
+      (props[_$key___raw$UbiquitousDomProps$style___$UbiquitousDomPropsMixin] ??
+          null) as dynamic;
 
   /// <!-- Generated from [_$UbiquitousDomPropsMixin._raw$UbiquitousDomProps$style] -->
   @override
@@ -6432,7 +6581,7 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onAnimationEnd] -->
   @override
   get onAnimationEnd =>
-      (props[_$key__onAnimationEnd___$UbiquitousDomPropsMixin])
+      (props[_$key__onAnimationEnd___$UbiquitousDomPropsMixin] ?? null)
           as AnimationEventCallback?;
 
   /// Callback for when a CSS Animation has completed.
@@ -6451,7 +6600,7 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onAnimationIteration] -->
   @override
   get onAnimationIteration =>
-      (props[_$key__onAnimationIteration___$UbiquitousDomPropsMixin])
+      (props[_$key__onAnimationIteration___$UbiquitousDomPropsMixin] ?? null)
           as AnimationEventCallback?;
 
   /// Callback for when an iteration of a CSS Animation ends, and another one begins.
@@ -6470,7 +6619,7 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onAnimationStart] -->
   @override
   get onAnimationStart =>
-      (props[_$key__onAnimationStart___$UbiquitousDomPropsMixin])
+      (props[_$key__onAnimationStart___$UbiquitousDomPropsMixin] ?? null)
           as AnimationEventCallback?;
 
   /// Callback for when a CSS animation has started.
@@ -6486,7 +6635,7 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onCopy] -->
   @override
-  get onCopy => (props[_$key__onCopy___$UbiquitousDomPropsMixin])
+  get onCopy => (props[_$key__onCopy___$UbiquitousDomPropsMixin] ?? null)
       as ClipboardEventCallback?;
 
   /// Callback for when the user copies the content of an element
@@ -6499,7 +6648,7 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onCut] -->
   @override
-  get onCut => (props[_$key__onCut___$UbiquitousDomPropsMixin])
+  get onCut => (props[_$key__onCut___$UbiquitousDomPropsMixin] ?? null)
       as ClipboardEventCallback?;
 
   /// Callback for when the user cuts the content of an element
@@ -6512,7 +6661,7 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onPaste] -->
   @override
-  get onPaste => (props[_$key__onPaste___$UbiquitousDomPropsMixin])
+  get onPaste => (props[_$key__onPaste___$UbiquitousDomPropsMixin] ?? null)
       as ClipboardEventCallback?;
 
   /// Callback for when the user pastes some content in an element
@@ -6526,7 +6675,7 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onKeyDown] -->
   @override
-  get onKeyDown => (props[_$key__onKeyDown___$UbiquitousDomPropsMixin])
+  get onKeyDown => (props[_$key__onKeyDown___$UbiquitousDomPropsMixin] ?? null)
       as KeyboardEventCallback?;
 
   /// Callback for when the user is pressing a key
@@ -6540,8 +6689,9 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onKeyPress] -->
   @override
-  get onKeyPress => (props[_$key__onKeyPress___$UbiquitousDomPropsMixin])
-      as KeyboardEventCallback?;
+  get onKeyPress =>
+      (props[_$key__onKeyPress___$UbiquitousDomPropsMixin] ?? null)
+          as KeyboardEventCallback?;
 
   /// Callback for when the user presses a key
   ///
@@ -6554,7 +6704,7 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onKeyUp] -->
   @override
-  get onKeyUp => (props[_$key__onKeyUp___$UbiquitousDomPropsMixin])
+  get onKeyUp => (props[_$key__onKeyUp___$UbiquitousDomPropsMixin] ?? null)
       as KeyboardEventCallback?;
 
   /// Callback for when the user releases a key
@@ -6568,8 +6718,8 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onFocus] -->
   @override
-  get onFocus =>
-      (props[_$key__onFocus___$UbiquitousDomPropsMixin]) as FocusEventCallback?;
+  get onFocus => (props[_$key__onFocus___$UbiquitousDomPropsMixin] ?? null)
+      as FocusEventCallback?;
 
   /// Callback for when an element gets focus
   ///
@@ -6582,8 +6732,8 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onBlur] -->
   @override
-  get onBlur =>
-      (props[_$key__onBlur___$UbiquitousDomPropsMixin]) as FocusEventCallback?;
+  get onBlur => (props[_$key__onBlur___$UbiquitousDomPropsMixin] ?? null)
+      as FocusEventCallback?;
 
   /// Callback for when an element loses focus
   ///
@@ -6596,8 +6746,8 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onChange] -->
   @override
-  get onChange =>
-      (props[_$key__onChange___$UbiquitousDomPropsMixin]) as FormEventCallback?;
+  get onChange => (props[_$key__onChange___$UbiquitousDomPropsMixin] ?? null)
+      as FormEventCallback?;
 
   /// Callback for  when the content of a form element, the selection, or the checked state have changed (for <input>,
   /// <keygen>, <select>, and <textarea>)
@@ -6611,8 +6761,8 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onInput] -->
   @override
-  get onInput =>
-      (props[_$key__onInput___$UbiquitousDomPropsMixin]) as FormEventCallback?;
+  get onInput => (props[_$key__onInput___$UbiquitousDomPropsMixin] ?? null)
+      as FormEventCallback?;
 
   /// Callback for when an element gets user input
   ///
@@ -6625,8 +6775,8 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onSubmit] -->
   @override
-  get onSubmit =>
-      (props[_$key__onSubmit___$UbiquitousDomPropsMixin]) as FormEventCallback?;
+  get onSubmit => (props[_$key__onSubmit___$UbiquitousDomPropsMixin] ?? null)
+      as FormEventCallback?;
 
   /// Callback for when a form is submitted
   ///
@@ -6639,8 +6789,8 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onReset] -->
   @override
-  get onReset =>
-      (props[_$key__onReset___$UbiquitousDomPropsMixin]) as FormEventCallback?;
+  get onReset => (props[_$key__onReset___$UbiquitousDomPropsMixin] ?? null)
+      as FormEventCallback?;
 
   /// Callback for when a form is reset
   ///
@@ -6653,8 +6803,8 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onClick] -->
   @override
-  get onClick =>
-      (props[_$key__onClick___$UbiquitousDomPropsMixin]) as MouseEventCallback?;
+  get onClick => (props[_$key__onClick___$UbiquitousDomPropsMixin] ?? null)
+      as MouseEventCallback?;
 
   /// Callback for when the user clicks on an element
   ///
@@ -6667,8 +6817,9 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onContextMenu] -->
   @override
-  get onContextMenu => (props[_$key__onContextMenu___$UbiquitousDomPropsMixin])
-      as MouseEventCallback?;
+  get onContextMenu =>
+      (props[_$key__onContextMenu___$UbiquitousDomPropsMixin] ?? null)
+          as MouseEventCallback?;
 
   /// Callback for when the user right-clicks on an element to open a context menu
   ///
@@ -6681,8 +6832,9 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onDoubleClick] -->
   @override
-  get onDoubleClick => (props[_$key__onDoubleClick___$UbiquitousDomPropsMixin])
-      as MouseEventCallback?;
+  get onDoubleClick =>
+      (props[_$key__onDoubleClick___$UbiquitousDomPropsMixin] ?? null)
+          as MouseEventCallback?;
 
   /// Callback for when the user double-clicks on an element
   ///
@@ -6695,8 +6847,8 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onDrag] -->
   @override
-  get onDrag =>
-      (props[_$key__onDrag___$UbiquitousDomPropsMixin]) as MouseEventCallback?;
+  get onDrag => (props[_$key__onDrag___$UbiquitousDomPropsMixin] ?? null)
+      as MouseEventCallback?;
 
   /// Callback for when an element is being dragged
   ///
@@ -6708,7 +6860,7 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onDragEnd] -->
   @override
-  get onDragEnd => (props[_$key__onDragEnd___$UbiquitousDomPropsMixin])
+  get onDragEnd => (props[_$key__onDragEnd___$UbiquitousDomPropsMixin] ?? null)
       as MouseEventCallback?;
 
   /// Callback for when the user has finished dragging an element
@@ -6722,8 +6874,9 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onDragEnter] -->
   @override
-  get onDragEnter => (props[_$key__onDragEnter___$UbiquitousDomPropsMixin])
-      as MouseEventCallback?;
+  get onDragEnter =>
+      (props[_$key__onDragEnter___$UbiquitousDomPropsMixin] ?? null)
+          as MouseEventCallback?;
 
   /// Callback for when the dragged element enters the drop target
   ///
@@ -6736,8 +6889,9 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onDragExit] -->
   @override
-  get onDragExit => (props[_$key__onDragExit___$UbiquitousDomPropsMixin])
-      as MouseEventCallback?;
+  get onDragExit =>
+      (props[_$key__onDragExit___$UbiquitousDomPropsMixin] ?? null)
+          as MouseEventCallback?;
 
   /// Callback for when the dragged element exits the drop target
   ///
@@ -6750,8 +6904,9 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onDragLeave] -->
   @override
-  get onDragLeave => (props[_$key__onDragLeave___$UbiquitousDomPropsMixin])
-      as MouseEventCallback?;
+  get onDragLeave =>
+      (props[_$key__onDragLeave___$UbiquitousDomPropsMixin] ?? null)
+          as MouseEventCallback?;
 
   /// Callback for when the dragged element leaves the drop target
   ///
@@ -6764,8 +6919,9 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onDragOver] -->
   @override
-  get onDragOver => (props[_$key__onDragOver___$UbiquitousDomPropsMixin])
-      as MouseEventCallback?;
+  get onDragOver =>
+      (props[_$key__onDragOver___$UbiquitousDomPropsMixin] ?? null)
+          as MouseEventCallback?;
 
   /// Callback for when the dragged element is over the drop target
   ///
@@ -6778,8 +6934,9 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onDragStart] -->
   @override
-  get onDragStart => (props[_$key__onDragStart___$UbiquitousDomPropsMixin])
-      as MouseEventCallback?;
+  get onDragStart =>
+      (props[_$key__onDragStart___$UbiquitousDomPropsMixin] ?? null)
+          as MouseEventCallback?;
 
   /// Callback for when the user starts to drag an element
   ///
@@ -6792,8 +6949,8 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onDrop] -->
   @override
-  get onDrop =>
-      (props[_$key__onDrop___$UbiquitousDomPropsMixin]) as MouseEventCallback?;
+  get onDrop => (props[_$key__onDrop___$UbiquitousDomPropsMixin] ?? null)
+      as MouseEventCallback?;
 
   /// Callback for when the dragged element is dropped on the drop target
   ///
@@ -6805,8 +6962,9 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onMouseDown] -->
   @override
-  get onMouseDown => (props[_$key__onMouseDown___$UbiquitousDomPropsMixin])
-      as MouseEventCallback?;
+  get onMouseDown =>
+      (props[_$key__onMouseDown___$UbiquitousDomPropsMixin] ?? null)
+          as MouseEventCallback?;
 
   /// Callback for when the user presses a mouse button over an element
   ///
@@ -6819,8 +6977,9 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onMouseEnter] -->
   @override
-  get onMouseEnter => (props[_$key__onMouseEnter___$UbiquitousDomPropsMixin])
-      as MouseEventCallback?;
+  get onMouseEnter =>
+      (props[_$key__onMouseEnter___$UbiquitousDomPropsMixin] ?? null)
+          as MouseEventCallback?;
 
   /// Callback for when the pointer is moved onto an element
   ///
@@ -6833,8 +6992,9 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onMouseLeave] -->
   @override
-  get onMouseLeave => (props[_$key__onMouseLeave___$UbiquitousDomPropsMixin])
-      as MouseEventCallback?;
+  get onMouseLeave =>
+      (props[_$key__onMouseLeave___$UbiquitousDomPropsMixin] ?? null)
+          as MouseEventCallback?;
 
   /// Callback for when the pointer is moved out of an element
   ///
@@ -6847,8 +7007,9 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onMouseMove] -->
   @override
-  get onMouseMove => (props[_$key__onMouseMove___$UbiquitousDomPropsMixin])
-      as MouseEventCallback?;
+  get onMouseMove =>
+      (props[_$key__onMouseMove___$UbiquitousDomPropsMixin] ?? null)
+          as MouseEventCallback?;
 
   /// Callback for when the pointer is moving while it is over an element
   ///
@@ -6861,8 +7022,9 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onMouseOut] -->
   @override
-  get onMouseOut => (props[_$key__onMouseOut___$UbiquitousDomPropsMixin])
-      as MouseEventCallback?;
+  get onMouseOut =>
+      (props[_$key__onMouseOut___$UbiquitousDomPropsMixin] ?? null)
+          as MouseEventCallback?;
 
   /// Callback for when a user moves the mouse pointer out of an element, or out of one of its children
   ///
@@ -6875,8 +7037,9 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onMouseOver] -->
   @override
-  get onMouseOver => (props[_$key__onMouseOver___$UbiquitousDomPropsMixin])
-      as MouseEventCallback?;
+  get onMouseOver =>
+      (props[_$key__onMouseOver___$UbiquitousDomPropsMixin] ?? null)
+          as MouseEventCallback?;
 
   /// Callback for when the pointer is moved onto an element, or onto one of its children
   ///
@@ -6889,7 +7052,7 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onMouseUp] -->
   @override
-  get onMouseUp => (props[_$key__onMouseUp___$UbiquitousDomPropsMixin])
+  get onMouseUp => (props[_$key__onMouseUp___$UbiquitousDomPropsMixin] ?? null)
       as MouseEventCallback?;
 
   /// Callback for when a user releases a mouse button over an element
@@ -6904,7 +7067,7 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onPointerCancel] -->
   @override
   get onPointerCancel =>
-      (props[_$key__onPointerCancel___$UbiquitousDomPropsMixin])
+      (props[_$key__onPointerCancel___$UbiquitousDomPropsMixin] ?? null)
           as PointerEventCallback?;
 
   /// Callback for when the pointing device is interrupted
@@ -6918,8 +7081,9 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onPointerDown] -->
   @override
-  get onPointerDown => (props[_$key__onPointerDown___$UbiquitousDomPropsMixin])
-      as PointerEventCallback?;
+  get onPointerDown =>
+      (props[_$key__onPointerDown___$UbiquitousDomPropsMixin] ?? null)
+          as PointerEventCallback?;
 
   /// Callback for when the pointer becomes active over an element
   ///
@@ -6933,7 +7097,7 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onPointerEnter] -->
   @override
   get onPointerEnter =>
-      (props[_$key__onPointerEnter___$UbiquitousDomPropsMixin])
+      (props[_$key__onPointerEnter___$UbiquitousDomPropsMixin] ?? null)
           as PointerEventCallback?;
 
   /// Callback for when the pointer is moved onto an element
@@ -6948,7 +7112,7 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onPointerLeave] -->
   @override
   get onPointerLeave =>
-      (props[_$key__onPointerLeave___$UbiquitousDomPropsMixin])
+      (props[_$key__onPointerLeave___$UbiquitousDomPropsMixin] ?? null)
           as PointerEventCallback?;
 
   /// Callback for when the pointer is moved out of an element
@@ -6962,8 +7126,9 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onPointerMove] -->
   @override
-  get onPointerMove => (props[_$key__onPointerMove___$UbiquitousDomPropsMixin])
-      as PointerEventCallback?;
+  get onPointerMove =>
+      (props[_$key__onPointerMove___$UbiquitousDomPropsMixin] ?? null)
+          as PointerEventCallback?;
 
   /// Callback for when the pointer is moving while it is over an element
   ///
@@ -6976,8 +7141,9 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onPointerOver] -->
   @override
-  get onPointerOver => (props[_$key__onPointerOver___$UbiquitousDomPropsMixin])
-      as PointerEventCallback?;
+  get onPointerOver =>
+      (props[_$key__onPointerOver___$UbiquitousDomPropsMixin] ?? null)
+          as PointerEventCallback?;
 
   /// Callback for when the pointer is moved onto an element, or onto one of its children
   ///
@@ -6990,8 +7156,9 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onPointerOut] -->
   @override
-  get onPointerOut => (props[_$key__onPointerOut___$UbiquitousDomPropsMixin])
-      as PointerEventCallback?;
+  get onPointerOut =>
+      (props[_$key__onPointerOut___$UbiquitousDomPropsMixin] ?? null)
+          as PointerEventCallback?;
 
   /// Callback for when the pointer is moved out of an element, or out of one of its children
   ///
@@ -7004,8 +7171,9 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onPointerUp] -->
   @override
-  get onPointerUp => (props[_$key__onPointerUp___$UbiquitousDomPropsMixin])
-      as PointerEventCallback?;
+  get onPointerUp =>
+      (props[_$key__onPointerUp___$UbiquitousDomPropsMixin] ?? null)
+          as PointerEventCallback?;
 
   /// Callback for when the pointer becomes inactive over an element
   ///
@@ -7018,8 +7186,9 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onTouchCancel] -->
   @override
-  get onTouchCancel => (props[_$key__onTouchCancel___$UbiquitousDomPropsMixin])
-      as TouchEventCallback?;
+  get onTouchCancel =>
+      (props[_$key__onTouchCancel___$UbiquitousDomPropsMixin] ?? null)
+          as TouchEventCallback?;
 
   /// Callback for when the touch is interrupted
   ///
@@ -7032,8 +7201,9 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onTouchEnd] -->
   @override
-  get onTouchEnd => (props[_$key__onTouchEnd___$UbiquitousDomPropsMixin])
-      as TouchEventCallback?;
+  get onTouchEnd =>
+      (props[_$key__onTouchEnd___$UbiquitousDomPropsMixin] ?? null)
+          as TouchEventCallback?;
 
   /// Callback for when a finger is removed from a touch screen
   ///
@@ -7046,8 +7216,9 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onTouchMove] -->
   @override
-  get onTouchMove => (props[_$key__onTouchMove___$UbiquitousDomPropsMixin])
-      as TouchEventCallback?;
+  get onTouchMove =>
+      (props[_$key__onTouchMove___$UbiquitousDomPropsMixin] ?? null)
+          as TouchEventCallback?;
 
   /// Callback for when a finger is dragged across the screen
   ///
@@ -7060,8 +7231,9 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onTouchStart] -->
   @override
-  get onTouchStart => (props[_$key__onTouchStart___$UbiquitousDomPropsMixin])
-      as TouchEventCallback?;
+  get onTouchStart =>
+      (props[_$key__onTouchStart___$UbiquitousDomPropsMixin] ?? null)
+          as TouchEventCallback?;
 
   /// Callback for when a finger is placed on a touch screen
   ///
@@ -7077,7 +7249,7 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onTransitionEnd] -->
   @override
   get onTransitionEnd =>
-      (props[_$key__onTransitionEnd___$UbiquitousDomPropsMixin])
+      (props[_$key__onTransitionEnd___$UbiquitousDomPropsMixin] ?? null)
           as TransitionEventCallback?;
 
   /// Callback for when a CSS transition has completed.
@@ -7093,8 +7265,8 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onScroll] -->
   @override
-  get onScroll =>
-      (props[_$key__onScroll___$UbiquitousDomPropsMixin]) as UIEventCallback?;
+  get onScroll => (props[_$key__onScroll___$UbiquitousDomPropsMixin] ?? null)
+      as UIEventCallback?;
 
   /// Callback for when an element's scrollbar is being scrolled
   ///
@@ -7107,8 +7279,8 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onWheel] -->
   @override
-  get onWheel =>
-      (props[_$key__onWheel___$UbiquitousDomPropsMixin]) as WheelEventCallback?;
+  get onWheel => (props[_$key__onWheel___$UbiquitousDomPropsMixin] ?? null)
+      as WheelEventCallback?;
 
   /// Callback for when the mouse wheel rolls up or down over an element
   ///

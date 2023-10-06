@@ -30,7 +30,7 @@ abstract class _$ButtonPropsAccessorsMixin implements _$ButtonProps {
   ///
   /// <!-- Generated from [_$ButtonProps.skin] -->
   @override
-  get skin => (props[_$key__skin___$ButtonProps]) as ButtonSkin?;
+  get skin => (props[_$key__skin___$ButtonProps] ?? null) as ButtonSkin?;
 
   /// The skin / "context" for the [Button].
   ///
@@ -50,7 +50,7 @@ abstract class _$ButtonPropsAccessorsMixin implements _$ButtonProps {
   ///
   /// <!-- Generated from [_$ButtonProps.size] -->
   @override
-  get size => (props[_$key__size___$ButtonProps]) as ButtonSize?;
+  get size => (props[_$key__size___$ButtonProps] ?? null) as ButtonSize?;
 
   /// The size of the [Button].
   ///
@@ -70,7 +70,7 @@ abstract class _$ButtonPropsAccessorsMixin implements _$ButtonProps {
   ///
   /// <!-- Generated from [_$ButtonProps.isActive] -->
   @override
-  get isActive => (props[_$key__isActive___$ButtonProps]) as bool?;
+  get isActive => (props[_$key__isActive___$ButtonProps] ?? null) as bool?;
 
   /// Whether the [Button] should appear "active".
   ///
@@ -91,7 +91,7 @@ abstract class _$ButtonPropsAccessorsMixin implements _$ButtonProps {
   /// <!-- Generated from [_$ButtonProps.isDisabled] -->
   @override
   @Accessor(key: 'disabled', keyNamespace: '')
-  get isDisabled => (props[_$key__isDisabled___$ButtonProps]) as bool?;
+  get isDisabled => (props[_$key__isDisabled___$ButtonProps] ?? null) as bool?;
 
   /// Whether the [Button] is disabled.
   ///
@@ -111,7 +111,7 @@ abstract class _$ButtonPropsAccessorsMixin implements _$ButtonProps {
   ///
   /// <!-- Generated from [_$ButtonProps.isBlock] -->
   @override
-  get isBlock => (props[_$key__isBlock___$ButtonProps]) as bool?;
+  get isBlock => (props[_$key__isBlock___$ButtonProps] ?? null) as bool?;
 
   /// Whether the [Button] is a block level button -- that which spans the full
   /// width of its parent.
@@ -131,7 +131,7 @@ abstract class _$ButtonPropsAccessorsMixin implements _$ButtonProps {
   /// <!-- Generated from [_$ButtonProps.href] -->
   @override
   @Accessor(keyNamespace: '')
-  get href => (props[_$key__href___$ButtonProps]) as String?;
+  get href => (props[_$key__href___$ButtonProps] ?? null) as String?;
 
   /// The HTML `href` attribute value for the [Button].
   ///
@@ -153,7 +153,7 @@ abstract class _$ButtonPropsAccessorsMixin implements _$ButtonProps {
   /// <!-- Generated from [_$ButtonProps.target] -->
   @override
   @Accessor(keyNamespace: '')
-  get target => (props[_$key__target___$ButtonProps]) as String?;
+  get target => (props[_$key__target___$ButtonProps] ?? null) as String?;
 
   /// The HTML `target` attribute value for the [Button].
   ///
@@ -177,7 +177,7 @@ abstract class _$ButtonPropsAccessorsMixin implements _$ButtonProps {
   ///
   /// <!-- Generated from [_$ButtonProps.type] -->
   @override
-  get type => (props[_$key__type___$ButtonProps]) as ButtonType?;
+  get type => (props[_$key__type___$ButtonProps] ?? null) as ButtonType?;
 
   /// The HTML `type` attribute value for the [Button] when
   /// rendered via [Dom.button].

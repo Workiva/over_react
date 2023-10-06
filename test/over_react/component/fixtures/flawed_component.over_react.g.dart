@@ -25,7 +25,7 @@ abstract class _$FlawedPropsAccessorsMixin implements _$FlawedProps {
   /// <!-- Generated from [_$FlawedProps.buttonTestIdPrefix] -->
   @override
   get buttonTestIdPrefix =>
-      (props[_$key__buttonTestIdPrefix___$FlawedProps]) as String?;
+      (props[_$key__buttonTestIdPrefix___$FlawedProps] ?? null) as String?;
 
   /// <!-- Generated from [_$FlawedProps.buttonTestIdPrefix] -->
   @override
@@ -123,7 +123,7 @@ abstract class _$FlawedStateAccessorsMixin implements _$FlawedState {
 
   /// <!-- Generated from [_$FlawedState.errorCount] -->
   @override
-  get errorCount => (state[_$key__errorCount___$FlawedState]) as int?;
+  get errorCount => (state[_$key__errorCount___$FlawedState] ?? null) as int?;
 
   /// <!-- Generated from [_$FlawedState.errorCount] -->
   @override
@@ -132,7 +132,7 @@ abstract class _$FlawedStateAccessorsMixin implements _$FlawedState {
   /// <!-- Generated from [_$FlawedState.differentTypeOfErrorCount] -->
   @override
   get differentTypeOfErrorCount =>
-      (state[_$key__differentTypeOfErrorCount___$FlawedState]) as int?;
+      (state[_$key__differentTypeOfErrorCount___$FlawedState] ?? null) as int?;
 
   /// <!-- Generated from [_$FlawedState.differentTypeOfErrorCount] -->
   @override

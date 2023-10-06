@@ -14,13 +14,13 @@ part of 'store_bindings_tests.dart';
 mixin $TestSelectorProps on TestSelectorProps {
   static const PropsMeta meta = _$metaForTestSelectorProps;
   @override
-  get onRender => (props[_$key__onRender__TestSelectorProps]) as void Function(
-      Object? selectedValue)?;
+  get onRender => (props[_$key__onRender__TestSelectorProps] ?? null) as void
+      Function(Object? selectedValue)?;
   @override
   set onRender(value) => props[_$key__onRender__TestSelectorProps] = value;
   @override
-  get equality => (props[_$key__equality__TestSelectorProps]) as bool Function(
-      dynamic next, dynamic prev)?;
+  get equality => (props[_$key__equality__TestSelectorProps] ?? null) as bool
+      Function(dynamic next, dynamic prev)?;
   @override
   set equality(value) => props[_$key__equality__TestSelectorProps] = value;
   /* GENERATED CONSTANTS */
@@ -58,7 +58,8 @@ mixin $TestConnectPropsMixin on TestConnectPropsMixin {
   static const PropsMeta meta = _$metaForTestConnectPropsMixin;
   @override
   get interestingValue =>
-      (props[_$key__interestingValue__TestConnectPropsMixin]) as Object?;
+      (props[_$key__interestingValue__TestConnectPropsMixin] ?? null)
+          as Object?;
   @override
   set interestingValue(value) =>
       props[_$key__interestingValue__TestConnectPropsMixin] = value;

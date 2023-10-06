@@ -26,7 +26,7 @@ abstract class _$DoNotGenerateAccessorTestPropsAccessorsMixin
   /// <!-- Generated from [_$DoNotGenerateAccessorTestProps.generated1Prop] -->
   @override
   get generated1Prop =>
-      (props[_$key__generated1Prop___$DoNotGenerateAccessorTestProps])
+      (props[_$key__generated1Prop___$DoNotGenerateAccessorTestProps] ?? null)
           as dynamic;
 
   /// <!-- Generated from [_$DoNotGenerateAccessorTestProps.generated1Prop] -->
@@ -37,7 +37,7 @@ abstract class _$DoNotGenerateAccessorTestPropsAccessorsMixin
   /// <!-- Generated from [_$DoNotGenerateAccessorTestProps.generated2Prop] -->
   @override
   get generated2Prop =>
-      (props[_$key__generated2Prop___$DoNotGenerateAccessorTestProps])
+      (props[_$key__generated2Prop___$DoNotGenerateAccessorTestProps] ?? null)
           as dynamic;
 
   /// <!-- Generated from [_$DoNotGenerateAccessorTestProps.generated2Prop] -->
@@ -48,9 +48,9 @@ abstract class _$DoNotGenerateAccessorTestPropsAccessorsMixin
   /// <!-- Generated from [_$DoNotGenerateAccessorTestProps.explicitlyGeneratedProp] -->
   @override
   @Accessor(doNotGenerate: false)
-  get explicitlyGeneratedProp =>
-      (props[_$key__explicitlyGeneratedProp___$DoNotGenerateAccessorTestProps])
-          as dynamic;
+  get explicitlyGeneratedProp => (props[
+          _$key__explicitlyGeneratedProp___$DoNotGenerateAccessorTestProps] ??
+      null) as dynamic;
 
   /// <!-- Generated from [_$DoNotGenerateAccessorTestProps.explicitlyGeneratedProp] -->
   @override
@@ -142,7 +142,7 @@ abstract class _$DoNotGenerateAccessorTestStateAccessorsMixin
   /// <!-- Generated from [_$DoNotGenerateAccessorTestState.generated1State] -->
   @override
   get generated1State =>
-      (state[_$key__generated1State___$DoNotGenerateAccessorTestState])
+      (state[_$key__generated1State___$DoNotGenerateAccessorTestState] ?? null)
           as dynamic;
 
   /// <!-- Generated from [_$DoNotGenerateAccessorTestState.generated1State] -->
@@ -153,7 +153,7 @@ abstract class _$DoNotGenerateAccessorTestStateAccessorsMixin
   /// <!-- Generated from [_$DoNotGenerateAccessorTestState.generated2State] -->
   @override
   get generated2State =>
-      (state[_$key__generated2State___$DoNotGenerateAccessorTestState])
+      (state[_$key__generated2State___$DoNotGenerateAccessorTestState] ?? null)
           as dynamic;
 
   /// <!-- Generated from [_$DoNotGenerateAccessorTestState.generated2State] -->
@@ -164,9 +164,9 @@ abstract class _$DoNotGenerateAccessorTestStateAccessorsMixin
   /// <!-- Generated from [_$DoNotGenerateAccessorTestState.explicitlyGeneratedState] -->
   @override
   @Accessor(doNotGenerate: false)
-  get explicitlyGeneratedState =>
-      (state[_$key__explicitlyGeneratedState___$DoNotGenerateAccessorTestState])
-          as dynamic;
+  get explicitlyGeneratedState => (state[
+          _$key__explicitlyGeneratedState___$DoNotGenerateAccessorTestState] ??
+      null) as dynamic;
 
   /// <!-- Generated from [_$DoNotGenerateAccessorTestState.explicitlyGeneratedState] -->
   @override

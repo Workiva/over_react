@@ -30,7 +30,8 @@ abstract class _$ButtonGroupPropsAccessorsMixin implements _$ButtonGroupProps {
   ///
   /// <!-- Generated from [_$ButtonGroupProps.size] -->
   @override
-  get size => (props[_$key__size___$ButtonGroupProps]) as ButtonGroupSize?;
+  get size =>
+      (props[_$key__size___$ButtonGroupProps] ?? null) as ButtonGroupSize?;
 
   /// Apply a button size variation universally to every [Button] within the [ButtonGroup].
   ///
@@ -46,7 +47,7 @@ abstract class _$ButtonGroupPropsAccessorsMixin implements _$ButtonGroupProps {
   ///
   /// <!-- Generated from [_$ButtonGroupProps.skin] -->
   @override
-  get skin => (props[_$key__skin___$ButtonGroupProps]) as ButtonSkin?;
+  get skin => (props[_$key__skin___$ButtonGroupProps] ?? null) as ButtonSkin?;
 
   /// The [ButtonSkin] variation applied to every [Button] within the [ButtonGroup].
   ///
@@ -62,7 +63,8 @@ abstract class _$ButtonGroupPropsAccessorsMixin implements _$ButtonGroupProps {
   ///
   /// <!-- Generated from [_$ButtonGroupProps.isVertical] -->
   @override
-  get isVertical => (props[_$key__isVertical___$ButtonGroupProps]) as bool?;
+  get isVertical =>
+      (props[_$key__isVertical___$ButtonGroupProps] ?? null) as bool?;
 
   /// Make the [Button]s within a [ButtonGroup] stack vertically.
   ///

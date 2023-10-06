@@ -256,7 +256,7 @@ mixin $SafeRenderManagerHelperProps on SafeRenderManagerHelperProps {
   @override
   @requiredProp
   get getInitialContent =>
-      (props[_$key__getInitialContent__SafeRenderManagerHelperProps])
+      (props[_$key__getInitialContent__SafeRenderManagerHelperProps] ?? null)
           as ReactElement? Function()?;
   @override
   @requiredProp
@@ -264,7 +264,8 @@ mixin $SafeRenderManagerHelperProps on SafeRenderManagerHelperProps {
       props[_$key__getInitialContent__SafeRenderManagerHelperProps] = value;
   @override
   get contentRef =>
-      (props[_$key__contentRef__SafeRenderManagerHelperProps]) as dynamic;
+      (props[_$key__contentRef__SafeRenderManagerHelperProps] ?? null)
+          as dynamic;
   @override
   set contentRef(value) =>
       props[_$key__contentRef__SafeRenderManagerHelperProps] = value;
@@ -306,8 +307,8 @@ const PropsMeta _$metaForSafeRenderManagerHelperProps = PropsMeta(
 mixin $SafeRenderManagerHelperState on SafeRenderManagerHelperState {
   static const StateMeta meta = _$metaForSafeRenderManagerHelperState;
   @override
-  get content =>
-      (state[_$key__content__SafeRenderManagerHelperState]) as ReactElement?;
+  get content => (state[_$key__content__SafeRenderManagerHelperState] ?? null)
+      as ReactElement?;
   @override
   set content(value) =>
       state[_$key__content__SafeRenderManagerHelperState] = value;

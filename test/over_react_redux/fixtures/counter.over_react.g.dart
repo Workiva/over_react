@@ -24,7 +24,8 @@ abstract class _$CounterPropsAccessorsMixin implements _$CounterProps {
 
   /// <!-- Generated from [_$CounterProps.currentCount] -->
   @override
-  get currentCount => (props[_$key__currentCount___$CounterProps]) as int?;
+  get currentCount =>
+      (props[_$key__currentCount___$CounterProps] ?? null) as int?;
 
   /// <!-- Generated from [_$CounterProps.currentCount] -->
   @override
@@ -32,8 +33,8 @@ abstract class _$CounterPropsAccessorsMixin implements _$CounterProps {
 
   /// <!-- Generated from [_$CounterProps.wrapperStyles] -->
   @override
-  get wrapperStyles =>
-      (props[_$key__wrapperStyles___$CounterProps]) as Map<String, dynamic>?;
+  get wrapperStyles => (props[_$key__wrapperStyles___$CounterProps] ?? null)
+      as Map<String, dynamic>?;
 
   /// <!-- Generated from [_$CounterProps.wrapperStyles] -->
   @override
@@ -43,7 +44,7 @@ abstract class _$CounterPropsAccessorsMixin implements _$CounterProps {
   /// <!-- Generated from [_$CounterProps.increment] -->
   @override
   get increment =>
-      (props[_$key__increment___$CounterProps]) as void Function()?;
+      (props[_$key__increment___$CounterProps] ?? null) as void Function()?;
 
   /// <!-- Generated from [_$CounterProps.increment] -->
   @override
@@ -52,7 +53,7 @@ abstract class _$CounterPropsAccessorsMixin implements _$CounterProps {
   /// <!-- Generated from [_$CounterProps.decrement] -->
   @override
   get decrement =>
-      (props[_$key__decrement___$CounterProps]) as void Function()?;
+      (props[_$key__decrement___$CounterProps] ?? null) as void Function()?;
 
   /// <!-- Generated from [_$CounterProps.decrement] -->
   @override

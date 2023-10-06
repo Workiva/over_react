@@ -25,7 +25,8 @@ abstract class _$TestPropsAccessorsMixin implements _$TestProps {
   /// <!-- Generated from [_$TestProps.onComponentDidMount] -->
   @override
   get onComponentDidMount =>
-      (props[_$key__onComponentDidMount___$TestProps]) as LifecycleCallback?;
+      (props[_$key__onComponentDidMount___$TestProps] ?? null)
+          as LifecycleCallback?;
 
   /// <!-- Generated from [_$TestProps.onComponentDidMount] -->
   @override
@@ -35,7 +36,8 @@ abstract class _$TestPropsAccessorsMixin implements _$TestProps {
   /// <!-- Generated from [_$TestProps.onComponentWillUpdate] -->
   @override
   get onComponentWillUpdate =>
-      (props[_$key__onComponentWillUpdate___$TestProps]) as LifecycleCallback?;
+      (props[_$key__onComponentWillUpdate___$TestProps] ?? null)
+          as LifecycleCallback?;
 
   /// <!-- Generated from [_$TestProps.onComponentWillUpdate] -->
   @override
@@ -45,7 +47,7 @@ abstract class _$TestPropsAccessorsMixin implements _$TestProps {
   /// <!-- Generated from [_$TestProps.onComponentWillReceiveProps] -->
   @override
   get onComponentWillReceiveProps =>
-      (props[_$key__onComponentWillReceiveProps___$TestProps])
+      (props[_$key__onComponentWillReceiveProps___$TestProps] ?? null)
           as LifecycleCallback?;
 
   /// <!-- Generated from [_$TestProps.onComponentWillReceiveProps] -->
@@ -56,7 +58,8 @@ abstract class _$TestPropsAccessorsMixin implements _$TestProps {
   /// <!-- Generated from [_$TestProps.onComponentDidUpdate] -->
   @override
   get onComponentDidUpdate =>
-      (props[_$key__onComponentDidUpdate___$TestProps]) as LifecycleCallback?;
+      (props[_$key__onComponentDidUpdate___$TestProps] ?? null)
+          as LifecycleCallback?;
 
   /// <!-- Generated from [_$TestProps.onComponentDidUpdate] -->
   @override
@@ -66,7 +69,8 @@ abstract class _$TestPropsAccessorsMixin implements _$TestProps {
   /// <!-- Generated from [_$TestProps.onComponentWillUnmount] -->
   @override
   get onComponentWillUnmount =>
-      (props[_$key__onComponentWillUnmount___$TestProps]) as LifecycleCallback?;
+      (props[_$key__onComponentWillUnmount___$TestProps] ?? null)
+          as LifecycleCallback?;
 
   /// <!-- Generated from [_$TestProps.onComponentWillUnmount] -->
   @override
@@ -75,7 +79,8 @@ abstract class _$TestPropsAccessorsMixin implements _$TestProps {
 
   /// <!-- Generated from [_$TestProps.onRender] -->
   @override
-  get onRender => (props[_$key__onRender___$TestProps]) as LifecycleCallback?;
+  get onRender =>
+      (props[_$key__onRender___$TestProps] ?? null) as LifecycleCallback?;
 
   /// <!-- Generated from [_$TestProps.onRender] -->
   @override

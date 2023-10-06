@@ -402,13 +402,13 @@ mixin $PureTestPropsMixin on PureTestPropsMixin {
   static const PropsMeta meta = _$metaForPureTestPropsMixin;
   @override
   get childBoolProp =>
-      (props[_$key__childBoolProp__PureTestPropsMixin]) as bool?;
+      (props[_$key__childBoolProp__PureTestPropsMixin] ?? null) as bool?;
   @override
   set childBoolProp(value) =>
       props[_$key__childBoolProp__PureTestPropsMixin] = value;
   @override
-  get childFuncProp =>
-      (props[_$key__childFuncProp__PureTestPropsMixin]) as void Function()?;
+  get childFuncProp => (props[_$key__childFuncProp__PureTestPropsMixin] ?? null)
+      as void Function()?;
   @override
   set childFuncProp(value) =>
       props[_$key__childFuncProp__PureTestPropsMixin] = value;
@@ -447,13 +447,13 @@ mixin $SharedPureTestPropsMixin on SharedPureTestPropsMixin {
   static const PropsMeta meta = _$metaForSharedPureTestPropsMixin;
   @override
   get sharedBoolProp =>
-      (props[_$key__sharedBoolProp__SharedPureTestPropsMixin]) as bool?;
+      (props[_$key__sharedBoolProp__SharedPureTestPropsMixin] ?? null) as bool?;
   @override
   set sharedBoolProp(value) =>
       props[_$key__sharedBoolProp__SharedPureTestPropsMixin] = value;
   @override
-  get someVDomEl =>
-      (props[_$key__someVDomEl__SharedPureTestPropsMixin]) as ReactElement?;
+  get someVDomEl => (props[_$key__someVDomEl__SharedPureTestPropsMixin] ?? null)
+      as ReactElement?;
   @override
   set someVDomEl(value) =>
       props[_$key__someVDomEl__SharedPureTestPropsMixin] = value;
@@ -491,7 +491,8 @@ const PropsMeta _$metaForSharedPureTestPropsMixin = PropsMeta(
 mixin $PureTestState on PureTestState {
   static const StateMeta meta = _$metaForPureTestState;
   @override
-  get childBoolState => (state[_$key__childBoolState__PureTestState]) as bool?;
+  get childBoolState =>
+      (state[_$key__childBoolState__PureTestState] ?? null) as bool?;
   @override
   set childBoolState(value) =>
       state[_$key__childBoolState__PureTestState] = value;

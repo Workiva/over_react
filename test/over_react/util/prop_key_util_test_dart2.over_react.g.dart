@@ -24,7 +24,7 @@ abstract class _$TestPropsAccessorsMixin implements _$TestProps {
 
   /// <!-- Generated from [_$TestProps.foo] -->
   @override
-  get foo => (props[_$key__foo___$TestProps]) as String?;
+  get foo => (props[_$key__foo___$TestProps] ?? null) as String?;
 
   /// <!-- Generated from [_$TestProps.foo] -->
   @override
@@ -32,7 +32,7 @@ abstract class _$TestPropsAccessorsMixin implements _$TestProps {
 
   /// <!-- Generated from [_$TestProps.bar] -->
   @override
-  get bar => (props[_$key__bar___$TestProps]) as String?;
+  get bar => (props[_$key__bar___$TestProps] ?? null) as String?;
 
   /// <!-- Generated from [_$TestProps.bar] -->
   @override
