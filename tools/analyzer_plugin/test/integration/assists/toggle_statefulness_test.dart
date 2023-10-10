@@ -27,7 +27,7 @@ class AddStatefulnessAssist extends AssistTestBase with BoilerplateAssistTestStr
   AssistKind get assistKindUnderTest => ToggleComponentStatefulness.makeStateful;
 
   Future<void> test_noAssist() async {
-    final source = newSource('test.dart', 'var foo = true;');
+    final source = newSource('var foo = true;');
     final selection = createSelection(source, '#var foo = true;#');
     await expectNoAssist(selection);
   }
@@ -35,7 +35,7 @@ class AddStatefulnessAssist extends AssistTestBase with BoilerplateAssistTestStr
   Future<void> test_noAssistOnFactory() async {
     final generatedSource = simpleUiComponentSource();
 
-    var source = newSource(fileName, generatedSource);
+    var source = newSource(generatedSource, path: fileName);
     var selection = createSelection(source, r'UiFactory<FooProps> #Foo# = _$Foo;');
     await expectNoAssist(selection);
   }
@@ -43,7 +43,7 @@ class AddStatefulnessAssist extends AssistTestBase with BoilerplateAssistTestStr
   Future<void> test_noAssistOnProps() async {
     final generatedSource = simpleUiComponentSource();
 
-    var source = newSource(fileName, generatedSource);
+    var source = newSource(generatedSource, path: fileName);
     var selection = createSelection(source, 'mixin #FooProps# on UiProps {}');
     await expectNoAssist(selection);
   }
@@ -66,7 +66,7 @@ class TestComponent extends UiComponent<TestProps> {
 }
 ''';
 
-    var source = newSource(fileName, oldBoilerplate);
+    var source = newSource(oldBoilerplate, path: fileName);
     var selection = createSelection(source, 'class #TestComponent# extends');
     await expectNoAssist(selection);
   }
@@ -86,13 +86,13 @@ class TestComponent extends AbstractBazComponent<TestProps> {
 }
 ''';
 
-    var source = newSource(fileName, unknownBase);
+    var source = newSource(unknownBase, path: fileName);
     var selection = createSelection(source, 'class #TestComponent# extends');
     await expectNoAssist(selection);
   }
 
   Future<void> test_addsStatefulness() async {
-    var retrievedSource = newSource(fileName, simpleUiComponentSource());
+    var retrievedSource = newSource(simpleUiComponentSource(), path: fileName);
     var selection = createSelection(retrievedSource, componentNameSelector);
     final change = await expectAndGetSingleAssist(selection);
     retrievedSource = applySourceChange(change, retrievedSource);
@@ -100,7 +100,7 @@ class TestComponent extends AbstractBazComponent<TestProps> {
   }
 
   Future<void> test_addsStatefulnessWithoutDefaultProps() async {
-    var retrievedSource = newSource(fileName, simpleUiComponentSource(includeDefaultProps: false));
+    var retrievedSource = newSource(simpleUiComponentSource(includeDefaultProps: false), path: fileName);
     var selection = createSelection(retrievedSource, componentNameSelector);
     final change = await expectAndGetSingleAssist(selection);
     retrievedSource = applySourceChange(change, retrievedSource);
@@ -108,7 +108,7 @@ class TestComponent extends AbstractBazComponent<TestProps> {
   }
 
   Future<void> test_addsStatefulnessToFlux() async {
-    var retrievedSource = newSource(fileName, fluxUiComponentSource());
+    var retrievedSource = newSource(fluxUiComponentSource(), path: fileName);
     var selection = createSelection(retrievedSource, componentNameSelector);
     final change = await expectAndGetSingleAssist(selection);
     retrievedSource = applySourceChange(change, retrievedSource);
@@ -116,7 +116,7 @@ class TestComponent extends AbstractBazComponent<TestProps> {
   }
 
   Future<void> test_addsStatefulnessToFluxWithoutDefaultProps() async {
-    var retrievedSource = newSource(fileName, fluxUiComponentSource(includeDefaultProps: false));
+    var retrievedSource = newSource(fluxUiComponentSource(includeDefaultProps: false), path: fileName);
     var selection = createSelection(retrievedSource, componentNameSelector);
     final change = await expectAndGetSingleAssist(selection);
     retrievedSource = applySourceChange(change, retrievedSource);
@@ -132,7 +132,7 @@ class RemoveStatefulnessAssist extends AssistTestBase with BoilerplateAssistTest
   AssistKind get assistKindUnderTest => ToggleComponentStatefulness.makeStateless;
 
   Future<void> test_noAssist() async {
-    final source = newSource('test.dart', 'var foo = true;');
+    final source = newSource('var foo = true;');
     final selection = createSelection(source, '#var foo = true;#');
     await expectNoAssist(selection);
   }
@@ -140,7 +140,7 @@ class RemoveStatefulnessAssist extends AssistTestBase with BoilerplateAssistTest
   Future<void> test_noAssistOnFactory() async {
     final generatedSource = simpleUiComponentSource(isStateful: true);
 
-    var source = newSource(fileName, generatedSource);
+    var source = newSource(generatedSource, path: fileName);
     var selection = createSelection(source, r'UiFactory<FooProps> #Foo# = _$Foo;');
     await expectNoAssist(selection);
   }
@@ -148,7 +148,7 @@ class RemoveStatefulnessAssist extends AssistTestBase with BoilerplateAssistTest
   Future<void> test_noAssistOnProps() async {
     final generatedSource = simpleUiComponentSource(isStateful: true);
 
-    var source = newSource(fileName, generatedSource);
+    var source = newSource(generatedSource, path: fileName);
     var selection = createSelection(source, 'mixin #FooProps# on UiProps {}');
     await expectNoAssist(selection);
   }
@@ -174,13 +174,13 @@ class TestComponent extends UiStatefulComponent<TestProps, TestState> {
 }
 ''';
 
-    var source = newSource(fileName, oldBoilerplate);
+    var source = newSource(oldBoilerplate, path: fileName);
     var selection = createSelection(source, 'class #TestComponent# extends');
     await expectNoAssist(selection);
   }
 
   Future<void> test_removesStatefulness() async {
-    var retrievedSource = newSource(fileName, simpleUiComponentSource(isStateful: true));
+    var retrievedSource = newSource(simpleUiComponentSource(isStateful: true), path: fileName);
     var selection = createSelection(retrievedSource, componentNameSelector);
     final change = await expectAndGetSingleAssist(selection);
     retrievedSource = applySourceChange(change, retrievedSource);
@@ -208,7 +208,7 @@ class FooComponent extends UiStatefulComponent2<FooProps, FooState> {
 }
 ''';
 
-    var retrievedSource = newSource(fileName, statefulComponentWithNoInitialState);
+    var retrievedSource = newSource(statefulComponentWithNoInitialState, path: fileName);
     var selection = createSelection(retrievedSource, componentNameSelector);
     final change = await expectAndGetSingleAssist(selection);
     retrievedSource = applySourceChange(change, retrievedSource);
@@ -216,7 +216,7 @@ class FooComponent extends UiStatefulComponent2<FooProps, FooState> {
   }
 
   Future<void> test_removesStatefulnessToFlux() async {
-    var retrievedSource = newSource(fileName, fluxUiComponentSource(isStateful: true));
+    var retrievedSource = newSource(fluxUiComponentSource(isStateful: true), path: fileName);
     var selection = createSelection(retrievedSource, componentNameSelector);
     final change = await expectAndGetSingleAssist(selection);
     retrievedSource = applySourceChange(change, retrievedSource);

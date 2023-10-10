@@ -68,8 +68,8 @@ final UiFactoryConfig<_$$UseStoreCounterFnProps> $UseStoreCounterFnConfig =
 abstract class _$$UseStoreCounterFnProps extends UiProps
     with
         UseStoreCounterFnProps,
-        $UseStoreCounterFnProps // If this generated mixin is undefined, it's likely because UseStoreCounterFnProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of UseStoreCounterFnProps, and check that $UseStoreCounterFnProps is exported/imported properly.
-{
+        // If this generated mixin is undefined, it's likely because UseStoreCounterFnProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of UseStoreCounterFnProps, and check that $UseStoreCounterFnProps is exported/imported properly.
+        $UseStoreCounterFnProps {
   _$$UseStoreCounterFnProps._();
 
   factory _$$UseStoreCounterFnProps(Map? backingMap) {
@@ -156,8 +156,8 @@ final UiFactoryConfig<_$$CustomContextUseStoreCounterFnProps>
 abstract class _$$CustomContextUseStoreCounterFnProps extends UiProps
     with
         CustomContextUseStoreCounterFnProps,
-        $CustomContextUseStoreCounterFnProps // If this generated mixin is undefined, it's likely because CustomContextUseStoreCounterFnProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of CustomContextUseStoreCounterFnProps, and check that $CustomContextUseStoreCounterFnProps is exported/imported properly.
-{
+        // If this generated mixin is undefined, it's likely because CustomContextUseStoreCounterFnProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of CustomContextUseStoreCounterFnProps, and check that $CustomContextUseStoreCounterFnProps is exported/imported properly.
+        $CustomContextUseStoreCounterFnProps {
   _$$CustomContextUseStoreCounterFnProps._();
 
   factory _$$CustomContextUseStoreCounterFnProps(Map? backingMap) {

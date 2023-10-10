@@ -33,8 +33,8 @@ _$$ThrowingComponent2Props _$ThrowingComponent2([Map? backingProps]) =>
 abstract class _$$ThrowingComponent2Props extends UiProps
     with
         ThrowingComponent2Props,
-        $ThrowingComponent2Props // If this generated mixin is undefined, it's likely because ThrowingComponent2Props is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ThrowingComponent2Props, and check that $ThrowingComponent2Props is exported/imported properly.
-{
+        // If this generated mixin is undefined, it's likely because ThrowingComponent2Props is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ThrowingComponent2Props, and check that $ThrowingComponent2Props is exported/imported properly.
+        $ThrowingComponent2Props {
   _$$ThrowingComponent2Props._();
 
   factory _$$ThrowingComponent2Props(Map? backingMap) {
@@ -326,8 +326,8 @@ final UiFactoryConfig<_$$ThrowingFunctionComponentProps>
 abstract class _$$ThrowingFunctionComponentProps extends UiProps
     with
         ThrowingFunctionComponentProps,
-        $ThrowingFunctionComponentProps // If this generated mixin is undefined, it's likely because ThrowingFunctionComponentProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ThrowingFunctionComponentProps, and check that $ThrowingFunctionComponentProps is exported/imported properly.
-{
+        // If this generated mixin is undefined, it's likely because ThrowingFunctionComponentProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ThrowingFunctionComponentProps, and check that $ThrowingFunctionComponentProps is exported/imported properly.
+        $ThrowingFunctionComponentProps {
   _$$ThrowingFunctionComponentProps._();
 
   factory _$$ThrowingFunctionComponentProps(Map? backingMap) {
@@ -416,8 +416,8 @@ final UiFactoryConfig<_$$ThrowingForwardRefComponentProps>
 abstract class _$$ThrowingForwardRefComponentProps extends UiProps
     with
         ThrowingForwardRefComponentProps,
-        $ThrowingForwardRefComponentProps // If this generated mixin is undefined, it's likely because ThrowingForwardRefComponentProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ThrowingForwardRefComponentProps, and check that $ThrowingForwardRefComponentProps is exported/imported properly.
-{
+        // If this generated mixin is undefined, it's likely because ThrowingForwardRefComponentProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ThrowingForwardRefComponentProps, and check that $ThrowingForwardRefComponentProps is exported/imported properly.
+        $ThrowingForwardRefComponentProps {
   _$$ThrowingForwardRefComponentProps._();
 
   factory _$$ThrowingForwardRefComponentProps(Map? backingMap) {

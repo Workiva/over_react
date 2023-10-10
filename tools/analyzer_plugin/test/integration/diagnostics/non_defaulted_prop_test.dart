@@ -24,7 +24,7 @@ class NonDefaultedPropDiagnosticTest extends DiagnosticTestBase {
   get fixKindUnderTest => NonDefaultedPropDiagnostic.fixKind;
 
   Future<void> test_noErrorDefaultUsed() async {
-    final source = newSource('test.dart', /*language=dart*/ r'''
+    final source = newSource(/*language=dart*/ r'''
 import 'package:over_react/over_react.dart';
 
 part 'test.over_react.g.dart';
@@ -49,7 +49,7 @@ final Foo = uiFunction<FooProps>(
   }
 
   Future<void> test_noErrorSameNameButNotDefault() async {
-    final source = newSource('test.dart', /*language=dart*/ r'''
+    final source = newSource(/*language=dart*/ r'''
 import 'package:over_react/over_react.dart';
 
 part 'test.over_react.g.dart';
@@ -61,6 +61,7 @@ mixin FooProps on UiProps {
 
 final Foo = uiFunction<FooProps>(
   (props) {
+    // ignore: unused_local_variable
     final content = 'abc';
     
     return (Dom.div()
@@ -92,7 +93,7 @@ final Foo = uiFunction<FooProps>(
   _\$FooConfig, // ignore: undefined_identifier
 );
 ''';
-    var source = newSource('test.dart', contents('props.content'));
+    var source = newSource(contents('props.content'));
     final selection = createSelection(source, "(#props.content#)");
 
     // Verify error.
@@ -124,7 +125,7 @@ final Foo = uiFunction<FooProps>(
   _\$FooConfig, // ignore: undefined_identifier
 );
 ''';
-    var source = newSource('test.dart', contents('props.content'));
+    var source = newSource(contents('props.content'));
     final selection = createSelection(source, "(#props.content#)");
 
     // Verify error.
@@ -138,7 +139,7 @@ final Foo = uiFunction<FooProps>(
   }
 
   Future<void> test_multipleErrorsAndFixes() async {
-    var source = newSource('test.dart', /*language=dart*/ r'''
+    var source = newSource(/*language=dart*/ r'''
 import 'package:over_react/over_react.dart';
 
 part 'test.over_react.g.dart';
@@ -152,11 +153,14 @@ mixin FooProps on UiProps {
 
 final Foo = uiFunction<FooProps>(
   (props) {
+    // ignore: unused_local_variable
     final fooId = props.fooId ?? 'abc';
+    // ignore: unused_local_variable
     final name = props.name ?? 'Jane';
     
     // Some other logic
     void helperFunction() => print('hello');
+    // ignore: unused_local_variable
     const a = 25;
     // Some other logic
     
@@ -202,11 +206,14 @@ mixin FooProps on UiProps {
 
 final Foo = uiFunction<FooProps>(
   (props) {
+    // ignore: unused_local_variable
     final fooId = props.fooId ?? 'abc';
+    // ignore: unused_local_variable
     final name = props.name ?? 'Jane';
     
     // Some other logic
     void helperFunction() => print('hello');
+    // ignore: unused_local_variable
     const a = 25;
     // Some other logic
     

@@ -19,7 +19,8 @@ extension Classish on NamedCompilationUnitMember {
   ClassishDeclaration asClassish() => ClassishDeclaration(this);
 }
 
-/// Provides a common interface for [ClassOrMixinDeclaration] and [ClassTypeAlias].
+/// Provides a common interface for [ClassDeclaration], [MixinDeclaration],
+/// and [ClassTypeAlias].
 abstract class ClassishDeclaration {
   factory ClassishDeclaration(NamedCompilationUnitMember node) {
     if (node is ClassDeclaration) {
@@ -41,7 +42,7 @@ abstract class ClassishDeclaration {
   //
   // Shared
 
-  SimpleIdentifier get name => node.name;
+  Token get name => node.name;
   NodeList<Annotation> get metadata => node.metadata;
 
   TypeParameterList? get typeParameters;
@@ -49,9 +50,9 @@ abstract class ClassishDeclaration {
   Token get classOrMixinKeyword;
 
   /// All interfaces used by this class, including mixin superclass constraints.
-  List<TypeName> get interfaces;
+  List<NamedType> get interfaces;
 
-  List<TypeName?> get allSuperTypes => [
+  List<NamedType?> get allSuperTypes => [
         ...interfaces,
         ...mixins,
         if (superclass != null) superclass,
@@ -63,25 +64,12 @@ abstract class ClassishDeclaration {
   WithClause? get withClause;
   Token? get abstractKeyword;
   bool get hasAbstractKeyword => abstractKeyword != null;
-  TypeName? get superclass;
+  NamedType? get superclass;
 
-  List<TypeName> get mixins => withClause?.mixinTypes ?? const [];
+  List<NamedType> get mixins => withClause?.mixinTypes ?? const [];
 }
 
-abstract class _ClassishClassOrMixin extends ClassishDeclaration {
-  _ClassishClassOrMixin._() : super._();
-
-  @override
-  ClassOrMixinDeclaration get node;
-
-  @override
-  List<ClassMember> get members => node.members;
-
-  @override
-  TypeParameterList? get typeParameters => node.typeParameters;
-}
-
-class _ClassishClass extends _ClassishClassOrMixin {
+class _ClassishClass extends ClassishDeclaration {
   @override
   final ClassDeclaration node;
 
@@ -91,21 +79,27 @@ class _ClassishClass extends _ClassishClassOrMixin {
   Token? get abstractKeyword => node.abstractKeyword;
 
   @override
-  List<TypeName> get interfaces => [
+  List<NamedType> get interfaces => [
         ...?node.implementsClause?.interfaces,
       ];
 
   @override
-  TypeName? get superclass => node.extendsClause?.superclass;
+  NamedType? get superclass => node.extendsClause?.superclass;
 
   @override
   WithClause? get withClause => node.withClause;
 
   @override
   Token get classOrMixinKeyword => node.classKeyword;
+
+  @override
+  List<ClassMember> get members => node.members;
+
+  @override
+  TypeParameterList? get typeParameters => node.typeParameters;
 }
 
-class _ClasssishMixin extends _ClassishClassOrMixin {
+class _ClasssishMixin extends ClassishDeclaration {
   @override
   final MixinDeclaration node;
 
@@ -118,16 +112,22 @@ class _ClasssishMixin extends _ClassishClassOrMixin {
   Token get classOrMixinKeyword => node.mixinKeyword;
 
   @override
-  List<TypeName> get interfaces => [
+  List<NamedType> get interfaces => [
         ...?node.implementsClause?.interfaces,
         ...?node.onClause?.superclassConstraints,
       ];
 
   @override
-  TypeName? get superclass => null;
+  NamedType? get superclass => null;
 
   @override
   WithClause? get withClause => null;
+
+  @override
+  List<ClassMember> get members => node.members;
+
+  @override
+  TypeParameterList? get typeParameters => node.typeParameters;
 }
 
 class _ClassishClassTypeAlias extends ClassishDeclaration {
@@ -146,7 +146,7 @@ class _ClassishClassTypeAlias extends ClassishDeclaration {
   List<ClassMember> get members => const [];
 
   @override
-  TypeName? get superclass => node.superclass;
+  NamedType? get superclass => node.superclass;
 
   @override
   TypeParameterList? get typeParameters => node.typeParameters;
@@ -155,7 +155,7 @@ class _ClassishClassTypeAlias extends ClassishDeclaration {
   WithClause? get withClause => node.withClause;
 
   @override
-  List<TypeName> get interfaces => [
+  List<NamedType> get interfaces => [
         ...?node.implementsClause?.interfaces,
       ];
 }

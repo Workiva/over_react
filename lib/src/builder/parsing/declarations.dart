@@ -181,7 +181,7 @@ mixin _TypedMapMixinShorthandDeclaration {
     final mixin = propsOrState.b;
     if (mixin == null) return;
 
-    bool isBadConstraint(TypeName constraint) {
+    bool isBadConstraint(NamedType constraint) {
       final name = constraint.nameWithoutPrefix;
       return name != helpers.propsOrStateBaseClassString &&
           helpers.propsOrStateMixinNamePattern.hasMatch(name);
@@ -219,9 +219,9 @@ extension on Union<BoilerplateProps, BoilerplatePropsMixin> {
   ///
   /// This is the safest way to retrieve that information because it takes
   /// into account the nature of the [Union] typing of `props`.
-  List<Identifier> get allPropsMixins => this.switchCase(
-        (a) => a.nodeHelper.mixins.map((name) => name.name).toList(),
-        (b) => [b.name],
+  List<String> get allPropsMixins => this.switchCase(
+        (a) => a.nodeHelper.mixins.map((name) => name.name.name).toList(),
+        (b) => [b.name.name],
       );
 }
 
@@ -242,7 +242,7 @@ class ClassComponentDeclaration extends BoilerplateDeclaration
   @override
   get type => DeclarationType.classComponentDeclaration;
 
-  List<Identifier> get allPropsMixins => props.allPropsMixins;
+  List<String> get allPropsMixins => props.allPropsMixins;
 
   @override
   void validate(ErrorCollector errorCollector) {
@@ -278,7 +278,7 @@ class PropsMapViewOrFunctionComponentDeclaration extends BoilerplateDeclaration
   /// Can be either [BoilerplateProps] or [BoilerplatePropsMixin], but not both.
   final Union<BoilerplateProps, BoilerplatePropsMixin> props;
 
-  List<Identifier> get allPropsMixins => props.allPropsMixins;
+  List<String> get allPropsMixins => props.allPropsMixins;
 
   @override
   get _members => [...factories, props.either];

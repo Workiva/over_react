@@ -1099,7 +1099,7 @@ main() {
             final members = BoilerplateMemberHelper.parseAndReturnMembers(boilerplateString);
             final props = members.whereType<BoilerplatePropsMixin>().first;
 
-            checkForMetaPresence(props.node, collector!);
+            checkForMetaPresence(props.node.asClassish(), collector!);
             expect(errorList, []);
             expect(warnList, []);
           });
@@ -1130,7 +1130,7 @@ main() {
             final members = BoilerplateMemberHelper.parseAndReturnMembers(boilerplateString);
             final props = members.whereType<BoilerplatePropsMixin>().first;
 
-            checkForMetaPresence(props.node, collector!);
+            checkForMetaPresence(props.node.asClassish(), collector!);
             expect(errorList, []);
             expect(warnList, [
               stringContainsInOrder(['Static class member `meta` is declared in FooProps']),
@@ -1163,7 +1163,7 @@ main() {
             final members = BoilerplateMemberHelper.parseAndReturnMembers(boilerplateString);
             final props = members.whereType<BoilerplatePropsMixin>().first;
 
-            checkForMetaPresence(props.node, collector!);
+            checkForMetaPresence(props.node.asClassish(), collector!);
             expect(errorList, [
               stringContainsInOrder(['Non-static class member `meta` is declared in FooProps']),
             ]);

@@ -34,8 +34,8 @@ _$$ErrorBoundaryProps _$ErrorBoundary([Map? backingProps]) =>
 abstract class _$$ErrorBoundaryProps extends UiProps
     with
         ErrorBoundaryProps,
-        $ErrorBoundaryProps // If this generated mixin is undefined, it's likely because ErrorBoundaryProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ErrorBoundaryProps, and check that $ErrorBoundaryProps is exported/imported properly.
-{
+        // If this generated mixin is undefined, it's likely because ErrorBoundaryProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ErrorBoundaryProps, and check that $ErrorBoundaryProps is exported/imported properly.
+        $ErrorBoundaryProps {
   _$$ErrorBoundaryProps._();
 
   factory _$$ErrorBoundaryProps(Map? backingMap) {
@@ -111,8 +111,8 @@ class _$$ErrorBoundaryProps$JsMap extends _$$ErrorBoundaryProps {
 abstract class _$$ErrorBoundaryState extends UiState
     with
         ErrorBoundaryState,
-        $ErrorBoundaryState // If this generated mixin is undefined, it's likely because ErrorBoundaryState is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not imported. Check the declaration of ErrorBoundaryState, and check that $ErrorBoundaryState is exported/imported properly.
-{
+        // If this generated mixin is undefined, it's likely because ErrorBoundaryState is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not imported. Check the declaration of ErrorBoundaryState, and check that $ErrorBoundaryState is exported/imported properly.
+        $ErrorBoundaryState {
   _$$ErrorBoundaryState._();
 
   factory _$$ErrorBoundaryState(Map? backingMap) {

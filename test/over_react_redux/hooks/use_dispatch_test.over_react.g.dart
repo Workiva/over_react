@@ -68,8 +68,8 @@ final UiFactoryConfig<_$$UseDispatchCounterFnProps>
 abstract class _$$UseDispatchCounterFnProps extends UiProps
     with
         UseDispatchCounterFnProps,
-        $UseDispatchCounterFnProps // If this generated mixin is undefined, it's likely because UseDispatchCounterFnProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of UseDispatchCounterFnProps, and check that $UseDispatchCounterFnProps is exported/imported properly.
-{
+        // If this generated mixin is undefined, it's likely because UseDispatchCounterFnProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of UseDispatchCounterFnProps, and check that $UseDispatchCounterFnProps is exported/imported properly.
+        $UseDispatchCounterFnProps {
   _$$UseDispatchCounterFnProps._();
 
   factory _$$UseDispatchCounterFnProps(Map? backingMap) {
@@ -157,8 +157,8 @@ final UiFactoryConfig<_$$CustomContextUseDispatchCounterFnProps>
 abstract class _$$CustomContextUseDispatchCounterFnProps extends UiProps
     with
         CustomContextUseDispatchCounterFnProps,
-        $CustomContextUseDispatchCounterFnProps // If this generated mixin is undefined, it's likely because CustomContextUseDispatchCounterFnProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of CustomContextUseDispatchCounterFnProps, and check that $CustomContextUseDispatchCounterFnProps is exported/imported properly.
-{
+        // If this generated mixin is undefined, it's likely because CustomContextUseDispatchCounterFnProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of CustomContextUseDispatchCounterFnProps, and check that $CustomContextUseDispatchCounterFnProps is exported/imported properly.
+        $CustomContextUseDispatchCounterFnProps {
   _$$CustomContextUseDispatchCounterFnProps._();
 
   factory _$$CustomContextUseDispatchCounterFnProps(Map? backingMap) {

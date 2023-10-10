@@ -19,19 +19,19 @@ part of '../members.dart';
 /// See [BoilerplateMember] for more information.
 abstract class BoilerplatePropsOrStateMixin extends BoilerplateTypedMapMember
     with PropsStateStringHelpers {
-  BoilerplatePropsOrStateMixin(this.node, this.companion, VersionConfidences confidence)
+  BoilerplatePropsOrStateMixin(this.nodeHelper, this.companion, VersionConfidences confidence)
       : super(confidence) {
     meta = getPropsOrStateAnnotation(isProps, node);
   }
 
-  /// The [MixinDeclaration] backing the member
+  /// The node backing the member.
   @override
-  final ClassOrMixinDeclaration node;
+  NamedCompilationUnitMember get node => nodeHelper.node;
 
   /// A metadata class that lifts helpful fields out of [node] to a top level,
   /// in addition to providing additional getters relevant member parsing.
   @override
-  ClassishDeclaration get nodeHelper => node.asClassish();
+  final ClassishDeclaration nodeHelper;
 
   /// The companion class for the props or state mixins.
   ///
@@ -46,7 +46,7 @@ abstract class BoilerplatePropsOrStateMixin extends BoilerplateTypedMapMember
   late annotations.TypedMap meta;
 
   @override
-  SimpleIdentifier get name => node.name;
+  Token get name => nodeHelper.name;
 
   @override
   String get debugString => '${super.debugString}, companion: ${companion?.name}';
@@ -67,7 +67,7 @@ abstract class BoilerplatePropsOrStateMixin extends BoilerplateTypedMapMember
             errorCollector.spanFor(node.name));
       }
 
-      if (!node.hasAbstractGetter('Map', propsOrStateString)) {
+      if (!nodeHelper.hasAbstractGetter('Map', propsOrStateString)) {
         errorCollector.addError(
             '$propsOrStateMixinString classes must declare an abstract $propsOrStateString getter `Map get $propsOrStateString;` '
             'so that they can be statically analyzed properly.',
@@ -98,7 +98,7 @@ abstract class BoilerplatePropsOrStateMixin extends BoilerplateTypedMapMember
         break;
       case Version.v3_legacyDart2Only:
         _sharedLegacyValidation();
-        checkForMetaPresence(node, errorCollector);
+        checkForMetaPresence(node.asClassish(), errorCollector);
         break;
     }
   }
@@ -109,7 +109,7 @@ abstract class BoilerplatePropsOrStateMixin extends BoilerplateTypedMapMember
 /// See [BoilerplateMember] for more information.
 class BoilerplatePropsMixin extends BoilerplatePropsOrStateMixin {
   BoilerplatePropsMixin(
-      ClassOrMixinDeclaration node, ClassishDeclaration? companion, VersionConfidences confidence)
+      ClassishDeclaration node, ClassishDeclaration? companion, VersionConfidences confidence)
       : super(node, companion, confidence);
 
   @override
@@ -121,7 +121,7 @@ class BoilerplatePropsMixin extends BoilerplatePropsOrStateMixin {
 /// See [BoilerplateMember] for more information.
 class BoilerplateStateMixin extends BoilerplatePropsOrStateMixin {
   BoilerplateStateMixin(
-      ClassOrMixinDeclaration node, ClassishDeclaration? companion, VersionConfidences confidence)
+      ClassishDeclaration node, ClassishDeclaration? companion, VersionConfidences confidence)
       : super(node, companion, confidence);
 
   @override

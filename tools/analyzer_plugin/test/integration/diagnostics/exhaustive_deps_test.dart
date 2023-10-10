@@ -25,7 +25,7 @@ import 'exhaustive_deps_test_cases.dart' as test_cases;
 void main() {
   group('ExhaustiveDeps', () {
     const preamble = r'''
-// ignore_for_file: unused_import
+// ignore_for_file: unused_import, unused_local_variable
     
 import 'dart:html';
 
@@ -151,7 +151,7 @@ class ObjectWithWritableField {
               printOnFailure('Test case source (before adding preamble): ```\n${testCase.code}\n```');
 
               final testBase = await setUpTestBase(testCase);
-              final source = testBase.newSource('test.dart', preamble + testCase.code);
+              final source = testBase.newSource(preamble + testCase.code);
               await testBase.expectNoErrors(source, errorFilter: errorFilter);
             });
           });
@@ -170,7 +170,7 @@ class ObjectWithWritableField {
               final expectedErrors = testCase.errors;
               expect(expectedErrors, isNotEmpty);
 
-              final source = testBase.newSource('test.dart', preamble + testCase.code);
+              final source = testBase.newSource(preamble + testCase.code);
               final errors = await testBase.getAllErrors(source, includeOtherCodes: true, errorFilter: errorFilter);
               expect(errors.dartErrors, isEmpty,
                   reason: 'Expected there to be no errors coming from the analyzer and not the plugin.'
@@ -310,7 +310,7 @@ class ObjectWithWritableField {
                     // This means that later iterations in the loop will have unexpected changes, and also their
                     // fixes won't always end up in the right places since their offsets are stale.
                     // Revert the changes to the file so that other iterations can test their fixes without interference.
-                    testBase.resourceProvider.updateFile(p.normalize(source.uri.toFilePath()), sourceBeforeFixes);
+                    testBase.modifyFile(p.normalize(source.uri.toFilePath()), sourceBeforeFixes);
                   }
                 }
               }

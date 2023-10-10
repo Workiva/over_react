@@ -47,7 +47,7 @@ abstract class BoilerplatePropsOrState extends BoilerplateTypedMapMember
   late annotations.TypedMap meta;
 
   @override
-  SimpleIdentifier get name => nodeHelper.name;
+  Token get name => nodeHelper.name;
 
   @override
   String get debugString => '${super.debugString}, companion: ${companion?.name}';
@@ -110,15 +110,13 @@ abstract class BoilerplatePropsOrState extends BoilerplateTypedMapMember
         break;
       case Version.v3_legacyDart2Only:
         _sharedLegacyValidation(errorCollector);
-        if (node is ClassOrMixinDeclaration) {
-          checkForMetaPresence(node as ClassOrMixinDeclaration, errorCollector);
-        }
+        checkForMetaPresence(nodeHelper, errorCollector);
         break;
     }
   }
 
   void _sharedLegacyValidation(ErrorCollector errorCollector) {
-    if (node is! ClassOrMixinDeclaration) {
+    if (node is! ClassDeclaration && node is! MixinDeclaration) {
       errorCollector.addError(
           'Legacy boilerplate must use classes or mixins, and not shorthand class declaration',
           errorCollector.spanFor(node));

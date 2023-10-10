@@ -94,8 +94,8 @@ extension SuperclassConstraint on MixinDeclaration {
   }
 }
 
-/// Utilities for determining if a [ClassOrMixinDeclaration] has an abstract getter.
-extension AbstractGetter on ClassOrMixinDeclaration {
+/// Utilities for determining if a declaration has an abstract getter.
+extension AbstractGetter on ClassishDeclaration {
   /// Returns whether this class/mixin contains an abstract getter with the provided [name]
   /// and a return type exactly matching [type]
   bool hasAbstractGetter(String type, String name) =>
@@ -105,6 +105,15 @@ extension AbstractGetter on ClassOrMixinDeclaration {
           member.isAbstract &&
           member.name.name == name &&
           member.returnType?.toSource() == type);
+}
+
+/// An extension that supports APIs that changed from [Identifier] to [Token],
+/// in order to cut down on diffs in the analyzer 5 upgrade (and subsequent
+/// merge conflicts with the null-safety branch.
+///
+/// TODO remove this and inline the [name] member.
+extension NameIdentifierTokenCompat on Token {
+  String get name => lexeme;
 }
 
 /// Utilities that provide for easier access to [AnnotatedNode] metadata.

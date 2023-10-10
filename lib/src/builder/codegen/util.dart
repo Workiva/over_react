@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:analyzer/dart/ast/ast.dart';
 import 'package:logging/logging.dart';
 import 'package:meta/meta.dart';
 import 'package:over_react/src/component_declaration/annotations.dart' as annotations;
@@ -70,7 +69,7 @@ String generatedMixinWarningCommentLine(TypedMapNames mixinNames, {required bool
 
 void generatePropsMeta(
   StringBuffer buffer,
-  List<Identifier> mixins, {
+  List<String> mixins, {
   String classType = 'PropsMetaCollection',
   String fieldName = 'propsMeta',
 }) {
@@ -79,7 +78,7 @@ void generatePropsMeta(
     ..writeln('  @override')
     ..writeln('  $classType get $fieldName => const $classType({');
   for (final name in mixins) {
-    final names = TypedMapNames(name.name);
+    final names = TypedMapNames(name);
     buffer.write('    ${generatedMixinWarningCommentLine(names, isProps: true)}');
     buffer.writeln('    ${names.consumerName}: ${names.publicGeneratedMetaName},');
   }

@@ -56,7 +56,7 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
 
   String get accessorsMixinName;
 
-  ClassOrMixinDeclaration get node => member.node as ClassOrMixinDeclaration;
+  ClassishDeclaration get node => member.node.asClassish();
 
   TypeParameterList? get typeParameters => member.nodeHelper.typeParameters;
 
@@ -393,7 +393,9 @@ class _TypedMapMixinAccessorsGenerator extends TypedMapAccessorsGenerator {
 
   @override
   void generate() {
-    outputContentsBuffer!..write(_generateAccessorsMixin())..write(_generateMetaConstImpl());
+    outputContentsBuffer
+      !..write(_generateAccessorsMixin())
+      ..write(_generateMetaConstImpl());
   }
 }
 
@@ -455,9 +457,8 @@ class _LegacyTypedMapAccessorsGenerator extends TypedMapAccessorsGenerator {
       return '';
     }
 
-    final classishNode = node.asClassish();
-    final metadata = classishNode.metadata;
-    final typeParameters = classishNode.typeParameters;
+    final metadata = node.metadata;
+    final typeParameters = node.typeParameters;
     final typeParamsOnClass = typeParameters?.toSource() ?? '';
     final typeParamsOnSuper = removeBoundsFromTypeParameters(typeParameters);
     final accessorsMixinName = names.legacyAccessorsMixinName;
@@ -495,7 +496,7 @@ class TypedMapType {
   static const TypedMapType stateMixin = TypedMapType(false, false, true);
 }
 
-String _copyClassMembers(ClassOrMixinDeclaration node) {
+String _copyClassMembers(ClassishDeclaration node) {
   bool isValidForCopying(ClassMember member) {
     // Static members should be copied over as needed by [_copyStaticMembers].
     // Otherwise, fields which are not synthetic have concrete getters/setters
@@ -526,7 +527,7 @@ String _copyClassMembers(ClassOrMixinDeclaration node) {
   return buffer.toString();
 }
 
-String _copyStaticMembers(ClassOrMixinDeclaration node) {
+String _copyStaticMembers(ClassishDeclaration node) {
   final buffer = StringBuffer();
   node.members.where(isStaticMember).forEach((member) {
     // Don't copy over anything named `meta`, since the static meta field is already going to be generated.

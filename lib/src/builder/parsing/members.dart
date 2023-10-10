@@ -13,6 +13,8 @@
 // limitations under the License.
 
 import 'package:analyzer/dart/ast/ast.dart';
+import 'package:analyzer/dart/ast/token.dart';
+import 'package:collection/collection.dart';
 import 'package:collection/collection.dart' show IterableExtension;
 import 'package:meta/meta.dart';
 import 'package:over_react/src/builder/codegen/names.dart';
@@ -59,7 +61,7 @@ abstract class BoilerplateMember {
   /// given version.
   void validate(Version version, ErrorCollector errorCollector);
 
-  SimpleIdentifier get name;
+  Token get name;
 
   @override
   String toString() => '$runtimeType: ${name.name}';

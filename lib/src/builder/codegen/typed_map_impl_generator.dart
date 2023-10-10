@@ -133,7 +133,7 @@ abstract class TypedMapImplGenerator extends BoilerplateDeclarationGenerator {
   String _generateConcretePropsOrStateImpl({
     String? componentFactoryName,
     String? propKeyNamespace,
-    List<Identifier>? allPropsMixins,
+    List<String>? allPropsMixins,
   }) {
     if (isProps) {
       if (componentFactoryName == null || propKeyNamespace == null) {
@@ -153,7 +153,9 @@ abstract class TypedMapImplGenerator extends BoilerplateDeclarationGenerator {
       classDeclaration.write('abstract ');
     }
 
-    classDeclaration..write(_generateImplClassHeader())..write(' {');
+    classDeclaration
+      ..write(_generateImplClassHeader())
+      ..write(' {');
 
     final propsOrState = isProps ? 'props' : 'state';
 
@@ -235,7 +237,9 @@ abstract class TypedMapImplGenerator extends BoilerplateDeclarationGenerator {
     // Component2-specific classes
     if (isComponent2) {
       // TODO need to remove this workaround once https://github.com/dart-lang/sdk/issues/36217 is fixed get nice dart2js output
-      buffer..writeln()..writeln('''
+      buffer
+        ..writeln()
+        ..writeln('''
 // Concrete $propsOrState implementation that can be backed by any [Map].
 ${internalGeneratedMemberDeprecationLine()}class ${names.plainMapImplName}$typeParamsOnClass extends ${names.implName}$typeParamsOnSuper {
   // This initializer of `_$propsOrState` to an empty map, as well as the reassignment
@@ -353,7 +357,7 @@ class _TypedMapImplGenerator extends TypedMapImplGenerator {
   @override
   final Version version;
 
-  final List<Identifier>? allPropsMixins;
+  final List<String>? allPropsMixins;
 
   @override
   final bool nullSafety;
@@ -440,8 +444,9 @@ class _TypedMapImplGenerator extends TypedMapImplGenerator {
       return 'class ${names.implName}$typeParamsOnClass'
           ' extends ${isProps ? 'UiProps' : 'UiState'}'
           ' with\n'
-          ' ${names.consumerName}$typeParamsOnSuper\n,'
-          ' ${names.generatedMixinName}$typeParamsOnSuper${generatedMixinWarningCommentLine(names, isProps: isProps)}';
+          ' ${names.consumerName}$typeParamsOnSuper,\n'
+          ' ${generatedMixinWarningCommentLine(names, isProps: isProps)}'
+          ' ${names.generatedMixinName}$typeParamsOnSuper';
     } else if (member is BoilerplatePropsOrState) {
       final header = StringBuffer()
         ..write('class ${names.implName}$typeParamsOnClass'
@@ -468,14 +473,14 @@ class _TypedMapImplGenerator extends TypedMapImplGenerator {
           final names = TypedMapNames(mixin.name.name);
           header.write('${names.consumerName}$typeArguments');
           header.write(',');
+          // Add a space at the beginning of the line so that dartfmt indents it
+          // with the following line, as opposed to "sticking" it to the beginning of the line.
+          header.write('\n ' + generatedMixinWarningCommentLine(names, isProps: isProps));
           header.write('${names.generatedMixinName}$typeArguments');
           // Don't write the comma if we're at the end of the list.
-          // Do this manually instead of using `.join` so that we can always have
-          // the warning comment be at the end of the line, regardless of whether the comma is there.
           if (i != mixins.length - 1) {
             header.write(',');
           }
-          header.write(generatedMixinWarningCommentLine(names, isProps: isProps));
         }
       }
 

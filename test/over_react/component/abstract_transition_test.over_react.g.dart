@@ -32,9 +32,11 @@ _$$TransitionerProps _$Transitioner([Map? backingProps]) => backingProps == null
 abstract class _$$TransitionerProps extends UiProps
     with
         TransitionerPropsMixin,
-        $TransitionerPropsMixin, // If this generated mixin is undefined, it's likely because TransitionerPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TransitionerPropsMixin, and check that $TransitionerPropsMixin is exported/imported properly.
+        // If this generated mixin is undefined, it's likely because TransitionerPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TransitionerPropsMixin, and check that $TransitionerPropsMixin is exported/imported properly.
+        $TransitionerPropsMixin,
         TransitionPropsMixin,
-        $TransitionPropsMixin // If this generated mixin is undefined, it's likely because TransitionPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TransitionPropsMixin, and check that $TransitionPropsMixin is exported/imported properly.
+        // If this generated mixin is undefined, it's likely because TransitionPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TransitionPropsMixin, and check that $TransitionPropsMixin is exported/imported properly.
+        $TransitionPropsMixin
     implements
         TransitionerProps {
   _$$TransitionerProps._();
@@ -114,7 +116,8 @@ class _$$TransitionerProps$JsMap extends _$$TransitionerProps {
 abstract class _$$TransitionerState extends UiState
     with
         AbstractTransitionState,
-        $AbstractTransitionState // If this generated mixin is undefined, it's likely because AbstractTransitionState is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not imported. Check the declaration of AbstractTransitionState, and check that $AbstractTransitionState is exported/imported properly.
+        // If this generated mixin is undefined, it's likely because AbstractTransitionState is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not imported. Check the declaration of AbstractTransitionState, and check that $AbstractTransitionState is exported/imported properly.
+        $AbstractTransitionState
     implements
         TransitionerState {
   _$$TransitionerState._();

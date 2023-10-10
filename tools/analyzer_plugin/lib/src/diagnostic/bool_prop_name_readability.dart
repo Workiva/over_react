@@ -3,6 +3,8 @@ import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/util/react_types.dart';
 
+import '../util/util.dart';
+
 const _desc = r'Name boolean props in a way that makes them easy to read and infer their purpose.';
 // <editor-fold desc="Documentation Details">
 const _details = r'''
@@ -44,24 +46,22 @@ class BoolPropNameReadabilityDiagnostic extends DiagnosticContributor {
   @override
   computeErrors(result, collector) async {
     final typeProvider = result.libraryElement.typeProvider;
-    final visitor = PropsVisitor();
+    final visitor = PropFieldVisitor();
 
     result.unit.accept(visitor);
 
-    final returnMixins = visitor.returnMixins;
+    for (final tuple in visitor.propFields) {
+      final propsClass = tuple.item1;
+      final fields = tuple.item2;
+      for (final field in fields) {
+        for (final variable in field.fields.variables) {
+          final propName = variable.name.lexeme;
+          if (variable.declaredElement?.type != typeProvider.boolType) continue;
 
-    for (final propsClass in returnMixins) {
-      final mixinFields = propsClass.declaredElement!.fields;
-      for (final field in mixinFields) {
-        final propName = field.name;
-        if (field.type != typeProvider.boolType) continue;
-
-        final fieldDecl = propsClass.getField(propName);
-        if (fieldDecl == null) continue;
-
-        final readability = checkBoolPropReadability(propName);
-        if (!readability.isReadable) {
-          collector.addError(code, result.locationFor(fieldDecl), errorMessageArgs: [propsClass.name, propName]);
+          final readability = checkBoolPropReadability(propName);
+          if (!readability.isReadable) {
+            collector.addError(code, result.locationFor(variable), errorMessageArgs: [propsClass.name, propName]);
+          }
         }
       }
     }
@@ -106,24 +106,28 @@ bool hasBooleanContain(String propName) {
   return propName.toLowerCase().contains(RegExp('(${allowedContainsForBoolProp.join("|")})'));
 }
 
-class PropsVisitor extends SimpleAstVisitor<void> {
-  List<ClassOrMixinDeclaration> returnMixins = [];
+
+class PropFieldVisitor extends SimpleAstVisitor<void> {
+  List<Tuple2<NamedCompilationUnitMember, List<FieldDeclaration>>> propFields = [];
   @override
   void visitCompilationUnit(CompilationUnit node) {
     node.visitChildren(this);
   }
 
+  static List<FieldDeclaration> _getPropFields(Iterable<ClassMember> members) =>
+      members.whereType<FieldDeclaration>().where((f) => !f.isStatic).toList();
+
   @override
   void visitClassDeclaration(ClassDeclaration node) {
     if (node.declaredElement?.isPropsClass ?? false) {
-      returnMixins.add(node);
+      propFields.add(Tuple2(node, _getPropFields(node.members)));
     }
   }
 
   @override
   void visitMixinDeclaration(MixinDeclaration node) {
     if (node.declaredElement?.isPropsClass ?? false) {
-      returnMixins.add(node);
+      propFields.add(Tuple2(node, _getPropFields(node.members)));
     }
   }
 }

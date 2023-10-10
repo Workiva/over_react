@@ -45,3 +45,6 @@ pubspec.lock
 
 # Should not track the output of code coverage for now
 coverage/
+
+tools/analyzer_plugin/test/test_fixtures/**/lib/dynamic_test_files/
+tools/analyzer_plugin/test/temporary_test_fixtures/**

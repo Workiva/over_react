@@ -106,8 +106,8 @@ final UiFactoryConfig<_$$TestSelectorProps> $TestSelectorConfig =
 abstract class _$$TestSelectorProps extends UiProps
     with
         TestSelectorProps,
-        $TestSelectorProps // If this generated mixin is undefined, it's likely because TestSelectorProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestSelectorProps, and check that $TestSelectorProps is exported/imported properly.
-{
+        // If this generated mixin is undefined, it's likely because TestSelectorProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestSelectorProps, and check that $TestSelectorProps is exported/imported properly.
+        $TestSelectorProps {
   _$$TestSelectorProps._();
 
   factory _$$TestSelectorProps(Map? backingMap) {
@@ -192,9 +192,11 @@ final UiFactoryConfig<_$$TestConnectProps> $TestConnectMapViewConfig =
 abstract class _$$TestConnectProps extends UiProps
     with
         TestSelectorProps,
-        $TestSelectorProps, // If this generated mixin is undefined, it's likely because TestSelectorProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestSelectorProps, and check that $TestSelectorProps is exported/imported properly.
+        // If this generated mixin is undefined, it's likely because TestSelectorProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestSelectorProps, and check that $TestSelectorProps is exported/imported properly.
+        $TestSelectorProps,
         TestConnectPropsMixin,
-        $TestConnectPropsMixin // If this generated mixin is undefined, it's likely because TestConnectPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestConnectPropsMixin, and check that $TestConnectPropsMixin is exported/imported properly.
+        // If this generated mixin is undefined, it's likely because TestConnectPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestConnectPropsMixin, and check that $TestConnectPropsMixin is exported/imported properly.
+        $TestConnectPropsMixin
     implements
         TestConnectProps {
   _$$TestConnectProps._();
