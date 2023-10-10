@@ -59,7 +59,7 @@ extension InitializerHelperTopLevel on TopLevelVariableDeclaration {
 
 /// Extension built on both [TypeNameHelper] and [NameHelper] to allow
 /// for easy access to the `name` field of [Identifier]s.
-extension TypeAnnotationNameHelper on TypeAnnotation? {
+extension TypeAnnotationNameHelper on TypeAnnotation {
   /// The unprefixed name of the node if the node is a [NamedType], or `null`
   /// if this type is not named.
   String? get typeNameWithoutPrefix => tryCast<NamedType>()?.nameWithoutPrefix;

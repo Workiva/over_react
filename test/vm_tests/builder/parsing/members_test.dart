@@ -50,10 +50,10 @@ main() {
       group('propsGenericArg', () {
         test('returns the correct props class', () {
           expect(
-              legacyBackwardCompatComponent.propsGenericArg.typeNameWithoutPrefix, 'FirstFooProps');
-          expect(legacyComponent.propsGenericArg.typeNameWithoutPrefix, 'SecondFooProps');
-          expect(newBoilerplateComponent.propsGenericArg.typeNameWithoutPrefix, 'ThirdFooProps');
-          expect(dart290BoilerplateComponent.propsGenericArg.typeNameWithoutPrefix, 'FourthFooProps');
+              legacyBackwardCompatComponent.propsGenericArg?.typeNameWithoutPrefix, 'FirstFooProps');
+          expect(legacyComponent.propsGenericArg?.typeNameWithoutPrefix, 'SecondFooProps');
+          expect(newBoilerplateComponent.propsGenericArg?.typeNameWithoutPrefix, 'ThirdFooProps');
+          expect(dart290BoilerplateComponent.propsGenericArg?.typeNameWithoutPrefix, 'FourthFooProps');
         });
 
         test('returns null if there is no type arg', () {

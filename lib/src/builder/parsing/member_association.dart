@@ -119,7 +119,7 @@ Union<BoilerplateProps, BoilerplatePropsMixin>? getPropsForFunctionComponent(
     Iterable<BoilerplateProps> props,
     Iterable<BoilerplatePropsMixin> mixins,
     BoilerplateFactory factory) {
-  final name = factory.propsGenericArg.typeNameWithoutPrefix;
+  final name = factory.propsGenericArg?.typeNameWithoutPrefix;
   final a = props.firstWhereOrNull((member) => member.name.name == name);
   if (a != null) return Union.a(a);
 

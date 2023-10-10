@@ -52,11 +52,14 @@ abstract class ClassishDeclaration {
   /// All interfaces used by this class, including mixin superclass constraints.
   List<NamedType> get interfaces;
 
-  List<NamedType?> get allSuperTypes => [
-        ...interfaces,
-        ...mixins,
-        if (superclass != null) superclass,
-      ];
+  List<NamedType> get allSuperTypes {
+    final superclass = this.superclass;
+    return [
+      ...interfaces,
+      ...mixins,
+      if (superclass != null) superclass,
+    ];
+  }
 
   //
   // Applies only to some subtypes

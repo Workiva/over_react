@@ -386,7 +386,7 @@ List<FactoryGroup> _groupFactories(BoilerplateMembers members) {
   var factoriesByType = <String?, List<BoilerplateFactory>>{};
 
   for (final factory in members.factories) {
-    final typeString = factory.propsGenericArg.typeNameWithoutPrefix;
+    final typeString = factory.propsGenericArg?.typeNameWithoutPrefix;
     factoriesByType.putIfAbsent(typeString, () => []).add(factory);
   }
 
