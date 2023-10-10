@@ -99,7 +99,8 @@ final UiFactoryConfig<_$$ReduxProviderProps> $ReduxProviderConfig =
 abstract class _$$ReduxProviderProps extends UiProps
     with
         ReduxProviderPropsMixin,
-        $ReduxProviderPropsMixin // If this generated mixin is undefined, it's likely because ReduxProviderPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ReduxProviderPropsMixin, and check that $ReduxProviderPropsMixin is exported/imported properly.
+        // If this generated mixin is undefined, it's likely because ReduxProviderPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ReduxProviderPropsMixin, and check that $ReduxProviderPropsMixin is exported/imported properly.
+        $ReduxProviderPropsMixin
     implements
         ReduxProviderProps {
   _$$ReduxProviderProps._();

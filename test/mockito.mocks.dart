@@ -23,7 +23,15 @@ import 'mockito.dart' as _i6;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-class _FakeLevel_0 extends _i1.Fake implements _i2.Level {}
+class _FakeLevel_0 extends _i1.SmartFake implements _i2.Level {
+  _FakeLevel_0(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
 
 /// A class which mocks [Logger].
 ///
@@ -47,7 +55,10 @@ class MockLogger extends _i1.Mock implements _i3.Logger {
   @override
   _i2.Level get level => (super.noSuchMethod(
         Invocation.getter(#level),
-        returnValue: _FakeLevel_0(),
+        returnValue: _FakeLevel_0(
+          this,
+          Invocation.getter(#level),
+        ),
       ) as _i2.Level);
   @override
   set level(_i2.Level? value) => super.noSuchMethod(
@@ -60,7 +71,7 @@ class MockLogger extends _i1.Mock implements _i3.Logger {
   @override
   _i4.Stream<_i5.LogRecord> get onRecord => (super.noSuchMethod(
         Invocation.getter(#onRecord),
-        returnValue: Stream<_i5.LogRecord>.empty(),
+        returnValue: _i4.Stream<_i5.LogRecord>.empty(),
       ) as _i4.Stream<_i5.LogRecord>);
   @override
   void clearListeners() => super.noSuchMethod(
