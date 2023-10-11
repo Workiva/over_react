@@ -66,15 +66,15 @@ class ImplGenerator {
   /// and then uninjects them.
   void _generateUsing(BoilerplateDeclarationGenerator generator) {
     generator
-      ..sourceFile = sourceFile
-      ..outputContentsBuffer = outputContentsBuffer
-      ..logger = logger
+      ..setGenerationContext(
+        sourceFile: sourceFile,
+        outputContentsBuffer: outputContentsBuffer,
+        logger: logger,
+      )
       ..generate()
       // Clean these up so that `generator` can't use logger/outputContentsBuffer unexpectedly
       // outside of _generateUsing.
-      ..sourceFile = null
-      ..outputContentsBuffer = null
-      ..logger = null;
+      ..clearGenerationContext();
   }
 
   void _generateLegacyClassComponent(LegacyClassComponentDeclaration declaration) {

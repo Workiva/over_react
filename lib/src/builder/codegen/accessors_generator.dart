@@ -165,10 +165,10 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
 
       field.fields.variables.forEach((variable) {
         if (variable.initializer != null) {
-          logger!.severe(messageWithSpan(
+          logger.severe(messageWithSpan(
               'Fields are stubs for generated setters/getters and should not have initializers.\n'
               'Instead, initialize ${type.isProps ? 'prop values within defaultProps' : 'state values within initialState'}.',
-              span: getSpan(sourceFile!, variable)));
+              span: getSpan(sourceFile, variable)));
         }
 
         String accessorName = variable.name.name;
@@ -222,10 +222,10 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
         }
 
         if (annotationCount > 1) {
-          logger!.severe(messageWithSpan(
+          logger.severe(messageWithSpan(
               'late/@requiredProp/@nullableProp/@Accessor cannot be used together.\n'
               'You can use `@Accessor(isRequired: true)` or `isNullable: true` instead of the shorthand versions.',
-              span: getSpan(sourceFile!, field)));
+              span: getSpan(sourceFile, field)));
         }
 
         if (isRequired) {
@@ -264,7 +264,7 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
           if (variable.documentationComment == null) {
             docComment = '';
           } else {
-            final existingCommentSource = sourceFile!.getText(
+            final existingCommentSource = sourceFile.getText(
                 variable.documentationComment!.offset, variable.documentationComment!.end);
             docComment = '  $existingCommentSource\n'
                 '  ///\n';
@@ -313,10 +313,10 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
       if (version.isLegacy &&
           field.fields.variables.length > 1 &&
           (field.documentationComment != null || field.metadata.isNotEmpty)) {
-        logger!.warning(messageWithSpan(
+        logger.warning(messageWithSpan(
             'Note: accessors declared as comma-separated variables will not all be generated '
             'with the original doc comments and annotations; only the first variable will.',
-            span: getSpan(sourceFile!, field.fields)));
+            span: getSpan(sourceFile, field.fields)));
       }
     });
 
@@ -394,7 +394,7 @@ class _TypedMapMixinAccessorsGenerator extends TypedMapAccessorsGenerator {
   @override
   void generate() {
     outputContentsBuffer
-      !..write(_generateAccessorsMixin())
+      ..write(_generateAccessorsMixin())
       ..write(_generateMetaConstImpl());
   }
 }
@@ -446,7 +446,7 @@ class _LegacyTypedMapAccessorsGenerator extends TypedMapAccessorsGenerator {
 
   @override
   void generate() {
-    outputContentsBuffer!
+    outputContentsBuffer
       ..write(_generateAccessorsMixin())
       ..write(_generateMetaConstImpl())
       ..write(_generateConsumablePropsOrStateClass());
