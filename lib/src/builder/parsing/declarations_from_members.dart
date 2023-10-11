@@ -324,10 +324,10 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
   }
 
   for (final group in unusedMembersByName.values) {
-    final factory = group.firstWhereType<BoilerplateFactory>(orElse: () => null);
-    final propsClass = group.firstWhereType<BoilerplateProps>(orElse: () => null);
-    final stateClass = group.firstWhereType<BoilerplateState>(orElse: () => null);
-    final componentClass = group.firstWhereType<BoilerplateComponent>(orElse: () => null);
+    final factory = group.whereType<BoilerplateFactory>().firstOrNull;
+    final propsClass = group.whereType<BoilerplateProps>().firstOrNull;
+    final stateClass = group.whereType<BoilerplateState>().firstOrNull;
+    final componentClass = group.whereType<BoilerplateComponent>().firstOrNull;
 
     //
     // Special cases

@@ -90,22 +90,22 @@ main() {
       test('isComponent2 returns the correct value', () {
         expect(
             BoilerplateMemberHelper.getBoilerplateMembersForVersion(BoilerplateVersions.v2)
-                .firstWhereType<BoilerplateComponent>()!
+                .firstWhereType<BoilerplateComponent>()
                 .isComponent2(Version.v2_legacyBackwardsCompat),
             false);
         expect(
             BoilerplateMemberHelper.getBoilerplateMembersForVersion(BoilerplateVersions.v3)
-                .firstWhereType<BoilerplateComponent>()!
+                .firstWhereType<BoilerplateComponent>()
                 .isComponent2(Version.v3_legacyDart2Only),
             false);
         expect(
             BoilerplateMemberHelper.getBoilerplateMembersForVersion(BoilerplateVersions.v4)
-                .firstWhereType<BoilerplateComponent>()!
+                .firstWhereType<BoilerplateComponent>()
                 .isComponent2(Version.v4_mixinBased),
             true);
         expect(
             BoilerplateMemberHelper.getBoilerplateMembersForVersion(BoilerplateVersions.v10)
-                .firstWhereType<BoilerplateComponent>()!
+                .firstWhereType<BoilerplateComponent>()
                 .isComponent2(Version.v4_mixinBased),
             true);
       });

@@ -362,7 +362,7 @@ main() {
                   isA<StateMixinDeclaration>(),
                 ]));
 
-                final component = declarations!.firstWhereType<LegacyClassComponentDeclaration>()!;
+                final component = declarations!.firstWhereType<LegacyClassComponentDeclaration>();
                 expect(component.factory.name.name, 'Foo');
                 expect(component.props.name.name, endsWith('BarProps'));
                 expect(component.state, isNull);
@@ -834,7 +834,7 @@ main() {
               isA<PropsMixinDeclaration>(),
             ]));
 
-            final decl = declarations!.firstWhereType<ClassComponentDeclaration>()!;
+            final decl = declarations!.firstWhereType<ClassComponentDeclaration>();
             expect(decl.factory.name.name, '_FormActionInput');
           });
 
@@ -882,7 +882,7 @@ main() {
               isA<PropsMixinDeclaration>(),
             ]));
 
-            final componentDecl = declarations!.firstWhereType<ClassComponentDeclaration>()!;
+            final componentDecl = declarations!.firstWhereType<ClassComponentDeclaration>();
 
             expect(componentDecl.factory.name.name, '_Counter');
           });
@@ -915,7 +915,7 @@ main() {
                 }
               ''');
 
-              final declaration = declarations!.firstWhereType<LegacyClassComponentDeclaration>()!;
+              final declaration = declarations!.firstWhereType<LegacyClassComponentDeclaration>();
               expect(declaration, isNotNull, reason: 'Sanity check to make sure a component is detected');
 
               expect(declaration.state, isNotNull, reason: 'A state class should have been detected');
@@ -942,7 +942,7 @@ main() {
                 class FooComponent extends UiStatefulComponent2<SomeRandomProps, DifferentState> {}
               ''');
 
-              final declaration = declarations!.firstWhereType<LegacyClassComponentDeclaration>()!;
+              final declaration = declarations!.firstWhereType<LegacyClassComponentDeclaration>();
               expect(declaration, isNotNull, reason: 'Sanity check to make sure a component is detected');
 
               expect(declaration.state, isNotNull, reason: 'A state class should have been detected');
@@ -985,9 +985,9 @@ main() {
 
               test('that are the correct version', () {
                 final versionForMixin =
-                resolveVersion(declarations!.firstWhereType<ClassComponentDeclaration>()!.members);
+                resolveVersion(declarations!.firstWhereType<ClassComponentDeclaration>().members);
                 final versionForLegacy = resolveVersion(
-                    declarations!.firstWhereType<LegacyClassComponentDeclaration>()!.members);
+                    declarations!.firstWhereType<LegacyClassComponentDeclaration>().members);
 
                 expect(versionForMixin.version, Version.v4_mixinBased);
                 expect(
@@ -1094,9 +1094,9 @@ main() {
                 final versionForSecondMixin =
                     resolveVersion(componentDeclarations.firstWhereNameEquals('ThirdFoo')!.members);
                 final abstractProps = resolveVersion(
-                    declarations!.firstWhereType<LegacyAbstractPropsDeclaration>()!.members);
+                    declarations!.firstWhereType<LegacyAbstractPropsDeclaration>().members);
                 final abstractState = resolveVersion(
-                    declarations!.firstWhereType<LegacyAbstractStateDeclaration>()!.members);
+                    declarations!.firstWhereType<LegacyAbstractStateDeclaration>().members);
 
                 expect(versionForFirstMixin.version, Version.v2_legacyBackwardsCompat);
                 expect(versionForSecondMixin.version, Version.v3_legacyDart2Only);
@@ -1127,10 +1127,10 @@ main() {
                 isA<ClassComponentDeclaration>(),
               ]));
 
-              final propsMixinDecl = declarations!.firstWhereType<PropsMixinDeclaration>()!;
+              final propsMixinDecl = declarations!.firstWhereType<PropsMixinDeclaration>();
               expect(propsMixinDecl.mixin.name.name, 'FooProps');
 
-              final decl = declarations!.firstWhereType<ClassComponentDeclaration>()!;
+              final decl = declarations!.firstWhereType<ClassComponentDeclaration>();
 
               expect(decl.factory.name.name, 'Foo');
               expect(decl.props.b?.name.name, 'FooProps');
@@ -1162,10 +1162,10 @@ main() {
                 isA<ClassComponentDeclaration>(),
               ]));
 
-              final propsMixinDecl = declarations!.firstWhereType<PropsMixinDeclaration>()!;
+              final propsMixinDecl = declarations!.firstWhereType<PropsMixinDeclaration>();
               expect(propsMixinDecl.mixin.name.name, 'FooPropsMixin');
 
-              final decl = declarations!.firstWhereType<ClassComponentDeclaration>()!;
+              final decl = declarations!.firstWhereType<ClassComponentDeclaration>();
 
               expect(decl.factory.name.name, 'Foo');
               expect(decl.props.a?.name.name, 'FooProps');
@@ -1200,10 +1200,10 @@ main() {
                 isA<ClassComponentDeclaration>(),
               ]));
 
-              final propsMixinDecl = declarations!.firstWhereType<PropsMixinDeclaration>()!;
+              final propsMixinDecl = declarations!.firstWhereType<PropsMixinDeclaration>();
               expect(propsMixinDecl.mixin.name.name, 'FooPropsMixin');
 
-              final decl = declarations!.firstWhereType<ClassComponentDeclaration>()!;
+              final decl = declarations!.firstWhereType<ClassComponentDeclaration>();
 
               expect(decl.factory.name.name, 'Foo');
               expect(decl.props.a?.name.name, 'FooProps');
@@ -1238,13 +1238,13 @@ main() {
                 isA<ClassComponentDeclaration>(),
               ]));
 
-              final propsMixinDecl = declarations!.firstWhereType<PropsMixinDeclaration>()!;
+              final propsMixinDecl = declarations!.firstWhereType<PropsMixinDeclaration>();
               expect(propsMixinDecl.mixin.name.name, 'FooProps');
 
-              final stateMixinDecl = declarations!.firstWhereType<StateMixinDeclaration>()!;
+              final stateMixinDecl = declarations!.firstWhereType<StateMixinDeclaration>();
               expect(stateMixinDecl.mixin.name.name, 'FooState');
 
-              final decl = declarations!.firstWhereType<ClassComponentDeclaration>()!;
+              final decl = declarations!.firstWhereType<ClassComponentDeclaration>();
 
               expect(decl.factory.name.name, 'Foo');
               expect(decl.props.b?.name.name, 'FooProps');
@@ -1280,13 +1280,13 @@ main() {
                 isA<ClassComponentDeclaration>(),
               ]));
 
-              final propsMixinDecl = declarations!.firstWhereType<PropsMixinDeclaration>()!;
+              final propsMixinDecl = declarations!.firstWhereType<PropsMixinDeclaration>();
               expect(propsMixinDecl.mixin.name.name, 'FooPropsMixin');
 
-              final stateMixinDecl = declarations!.firstWhereType<StateMixinDeclaration>()!;
+              final stateMixinDecl = declarations!.firstWhereType<StateMixinDeclaration>();
               expect(stateMixinDecl.mixin.name.name, 'FooStateMixin');
 
-              final decl = declarations!.firstWhereType<ClassComponentDeclaration>()!;
+              final decl = declarations!.firstWhereType<ClassComponentDeclaration>();
 
               expect(decl.factory.name.name, 'Foo');
               expect(decl.props.b?.name.name, 'FooPropsMixin');
@@ -1326,13 +1326,13 @@ main() {
                 isA<ClassComponentDeclaration>(),
               ]));
 
-              final propsMixinDecl = declarations!.firstWhereType<PropsMixinDeclaration>()!;
+              final propsMixinDecl = declarations!.firstWhereType<PropsMixinDeclaration>();
               expect(propsMixinDecl.mixin.name.name, 'FooPropsMixin');
 
-              final stateMixinDecl = declarations!.firstWhereType<StateMixinDeclaration>()!;
+              final stateMixinDecl = declarations!.firstWhereType<StateMixinDeclaration>();
               expect(stateMixinDecl.mixin.name.name, 'FooStateMixin');
 
-              final decl = declarations!.firstWhereType<ClassComponentDeclaration>()!;
+              final decl = declarations!.firstWhereType<ClassComponentDeclaration>();
 
               expect(decl.factory.name.name, 'Foo');
               expect(decl.props.a?.name.name, 'FooProps');
@@ -1363,7 +1363,7 @@ main() {
                 isA<ClassComponentDeclaration>(),
               ]));
 
-              final component = declarations!.firstWhereType<ClassComponentDeclaration>()!;
+              final component = declarations!.firstWhereType<ClassComponentDeclaration>();
               expect(component.factory.name.name, 'Foo');
               expect(component.props.b?.name.name, endsWith('FooProps'));
               expect(component.state, isNull);
@@ -1380,7 +1380,7 @@ main() {
                     isA<ClassComponentDeclaration>(),
                   ]));
 
-                  final component = declarations!.firstWhereType<ClassComponentDeclaration>()!;
+                  final component = declarations!.firstWhereType<ClassComponentDeclaration>();
                   expect(component.factory.name.name, 'Foo');
                   expect(component.props.either.name.name, endsWith('FooProps'));
                   expect(component.state, isNull);
@@ -1468,7 +1468,7 @@ main() {
                 ''');
 
                 expect(declarations, contains(isA<ClassComponentDeclaration>()));
-                final decl = declarations!.firstWhereType<ClassComponentDeclaration>()!;
+                final decl = declarations!.firstWhereType<ClassComponentDeclaration>();
 
                 expect(decl.props.b!.meta.keyNamespace, 'bar');
                 expect(decl.state!.b!.meta.keyNamespace, 'baz');
@@ -1494,7 +1494,7 @@ main() {
                 ''');
 
                 expect(declarations, contains(isA<ClassComponentDeclaration>()));
-                final decl = declarations!.firstWhereType<ClassComponentDeclaration>()!;
+                final decl = declarations!.firstWhereType<ClassComponentDeclaration>();
 
                 expect(decl.props.b!.meta.keyNamespace, 'bar');
                 expect(decl.state!.b!.meta.keyNamespace, 'baz');
@@ -1538,7 +1538,7 @@ main() {
                   isA<PropsMixinDeclaration>(),
                   isA<PropsMapViewOrFunctionComponentDeclaration>(),
                 ]));
-                final decl = declarations!.firstWhereType<PropsMapViewOrFunctionComponentDeclaration>()!;
+                final decl = declarations!.firstWhereType<PropsMapViewOrFunctionComponentDeclaration>();
 
                 expect(decl.factories, hasLength(1));
                 expect(decl.factories.first.name.name, name);
@@ -1606,7 +1606,7 @@ main() {
                 isA<PropsMixinDeclaration>(),
                 isA<PropsMapViewOrFunctionComponentDeclaration>(),
               ]));
-              final decl = declarations!.firstWhereType<PropsMapViewOrFunctionComponentDeclaration>()!;
+              final decl = declarations!.firstWhereType<PropsMapViewOrFunctionComponentDeclaration>();
 
               expect(decl.factories, hasLength(2));
               expect(decl.factories.map((factory) => factory.name.name), unorderedEquals([
@@ -1633,7 +1633,7 @@ main() {
                 isA<PropsMixinDeclaration>(),
                 isA<PropsMapViewOrFunctionComponentDeclaration>(),
               ]));
-              final decl = declarations!.firstWhereType<PropsMapViewOrFunctionComponentDeclaration>()!;
+              final decl = declarations!.firstWhereType<PropsMapViewOrFunctionComponentDeclaration>();
 
               expect(decl.factories, hasLength(1));
               expect(decl.factories.first.name.name, 'Foo');
@@ -1670,7 +1670,7 @@ main() {
                 isA<PropsMixinDeclaration>(),
                 isA<PropsMapViewOrFunctionComponentDeclaration>(),
               ]));
-              final decl = declarations!.firstWhereType<PropsMapViewOrFunctionComponentDeclaration>()!;
+              final decl = declarations!.firstWhereType<PropsMapViewOrFunctionComponentDeclaration>();
 
               expect(decl.factories, hasLength(1));
               expect(decl.factories.first.name.name, equals('Foo'));
@@ -1717,7 +1717,7 @@ main() {
                 isA<PropsMixinDeclaration>(),
                 isA<PropsMapViewOrFunctionComponentDeclaration>(),
               ]));
-              final decl = declarations!.firstWhereType<PropsMapViewOrFunctionComponentDeclaration>()!;
+              final decl = declarations!.firstWhereType<PropsMapViewOrFunctionComponentDeclaration>();
 
               expect(decl.factories, hasLength(2));
               expect(decl.factories.map((factory) => factory.name.name), unorderedEquals([
@@ -1799,10 +1799,10 @@ main() {
               isA<ClassComponentDeclaration>(),
             ]));
 
-            final propsMixinDecl = declarations!.firstWhereType<PropsMixinDeclaration>()!;
+            final propsMixinDecl = declarations!.firstWhereType<PropsMixinDeclaration>();
             expect(propsMixinDecl.mixin.name.name, 'FooProps');
 
-            final decl = declarations!.firstWhereType<ClassComponentDeclaration>()!;
+            final decl = declarations!.firstWhereType<ClassComponentDeclaration>();
 
             expect(decl.factory.name.name, 'Foo');
             expect(decl.props.b?.name.name, 'FooProps');
