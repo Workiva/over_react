@@ -33,11 +33,6 @@ main() {
         expect(unionB.b, isA<int>());
       });
 
-      test('asserts that args are non-null', () {
-        expect(() => Union.a(null), throwsA(isA<AssertionError>()));
-        expect(() => Union.b(null), throwsA(isA<AssertionError>()));
-      });
-
       test('either will return the non-null field', () {
         expect(unionA.either, isA<String>());
         expect(unionA.either, 'test');
@@ -74,24 +69,20 @@ main() {
 
     group('IterableUtil', () {
       group('firstWhereType', () {
-        List<Object>? iterable = [0, true, false, 1, 'bye'];
-
-        tearDownAll(() {
-          iterable = null;
-        });
+        const iterable = [0, true, false, 1, 'bye'];
 
         test('returns the first of the given type', () {
-          expect(iterable!.firstWhereType<bool>(), true);
-          expect(iterable!.firstWhereType<String>(), 'bye');
-          expect(iterable!.firstWhereType<int>(), 0);
+          expect(iterable.firstWhereType<bool>(), true);
+          expect(iterable.firstWhereType<String>(), 'bye');
+          expect(iterable.firstWhereType<int>(), 0);
         });
 
         test('calls the provided callback if nothing is found', () {
-          expect(iterable!.firstWhereType<Union>(orElse: () => Union<String, dynamic>.a('Nothing there!')), isA<Union<String, dynamic>>());
+          expect(iterable.firstWhereType<Map>(orElse: () => {}), isA<Map>());
         });
 
         test('throws an error if no callback is specified and nothing is found', () {
-          expect(() => iterable!.firstWhereType<Union>(), throwsStateError);
+          expect(() => iterable.firstWhereType<Map>(), throwsStateError);
         });
       });
     });

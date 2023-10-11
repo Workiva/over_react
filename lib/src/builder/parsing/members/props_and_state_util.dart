@@ -71,26 +71,26 @@ annotations.TypedMap getPropsOrStateAnnotation(bool isProps, AnnotatedNode node)
 void checkForMetaPresence(ClassishDeclaration node, ErrorCollector errorCollector) {
   final metaField = metaFieldOrNull(node);
   final metaMethod = metaMethodOrNull(node);
-  final isNotNull = metaField != null || metaMethod != null;
   final isStatic = (metaField?.isStatic ?? false) || (metaMethod?.isStatic ?? false);
-  if (isNotNull) {
+  final metaFieldOrMethod = metaField ?? metaMethod;
+  if (metaFieldOrMethod != null) {
     // If a class declares a field or method with the name of `meta` which is
     // not static, then we should error, since the static `meta` const in the
     // generated implementation will have a naming collision.
-    if (!isStatic) {
+    if (isStatic) {
       errorCollector.addError(
           'Non-static class member `meta` is declared in ${node.name.name}. '
           '`meta` is a field declared by the over_react builder, and is therefore not '
           'valid for use as a class member in any class annotated with  @Props(), @State(), '
           '@AbstractProps(), @AbstractState(), @PropsMixin(), or @StateMixin()',
-          errorCollector.spanFor(metaField ?? metaMethod!));
+          errorCollector.spanFor(metaFieldOrMethod));
     } else {
       // warn that static `meta` definition will not be accessible by consumers.
       errorCollector.addWarning(messageWithSpan(
           'Static class member `meta` is declared in ${node.name.name}. '
           '`meta` is a field declared by the over_react builder, and therefore this '
           'class member will be unused and should be removed or renamed.',
-          span: errorCollector.spanFor(metaField ?? metaMethod!)));
+          span: errorCollector.spanFor(metaFieldOrMethod)));
     }
   }
 }

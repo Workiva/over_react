@@ -107,9 +107,10 @@ class LegacyClassComponentDeclaration extends BoilerplateDeclaration {
           errorCollector.spanFor(props.name));
     }
 
-    if (state != null && !state!.node.hasAnnotationWithNames({'State'})) {
+    final state = this.state;
+    if (state != null && !state.node.hasAnnotationWithNames({'State'})) {
       errorCollector.addError('Legacy boilerplate state classes must be annotated with `@State()`.',
-          errorCollector.spanFor(state!.name));
+          errorCollector.spanFor(state.name));
     }
   }
 }
@@ -194,8 +195,8 @@ mixin _TypedMapMixinShorthandDeclaration {
         .where(isBadConstraint)
         .toList();
 
-    if (badConstraints?.isNotEmpty ?? false) {
-      final badConstraintsString = badConstraints!.map((c) => c.name.name).join(', ');
+    if (badConstraints != null && badConstraints.isNotEmpty) {
+      final badConstraintsString = badConstraints.map((c) => c.name.name).join(', ');
 
       final suggestedImplName = mixin.name.name.endsWith('Mixin')
           ? mixin.name.name.replaceFirst(RegExp(r'Mixin$'), '')

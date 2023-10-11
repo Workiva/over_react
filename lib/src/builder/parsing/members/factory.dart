@@ -33,8 +33,8 @@ class BoilerplateFactory extends BoilerplateMember {
     final type = node.variables.type;
     if (type is NamedType && type.typeNameWithoutPrefix == 'UiFactory') {
       final typeArgs = type.typeArguments?.arguments;
-      if (typeArgs?.length == 1) {
-        return typeArgs![0];
+      if (typeArgs != null && typeArgs.length == 1) {
+        return typeArgs[0];
       }
     }
 

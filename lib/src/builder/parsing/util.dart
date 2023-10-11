@@ -51,30 +51,27 @@ extension IterableUtil<E> on Iterable<E> {
 /// type is not limited to a single class.
 ///
 /// Subset of package:union functionality
-class Union<A, B> {
+class Union<A extends Object, B extends Object> {
   final A? a;
   final B? b;
 
-  Union.a(this.a)
-      : b = null,
-        assert(a != null);
-  Union.b(this.b)
-      : a = null,
-        assert(b != null);
+  Union.a(A this.a)
+      : b = null;
+  Union.b(B this.b)
+      : a = null;
 
   /// Executes a callback based upon which field is set.
   T switchCase<T>(T Function(A) onA, T Function(B) onB) {
-    if (a != null) return onA(a!);
-    if (b != null) return onB(b!);
-    throw StateError('One of a or b should have been non-null');
+    final a = this.a;
+    return a != null ? onA(a) : onB(b!);
   }
 }
 
 /// Utilities that supplement that functionality of the [Union] class.
 ///
 /// C resolves statically to the closest common ancestor type of A and B.
-extension UnionHelper<C> on Union<C, C> {
+extension UnionHelper<C extends Object> on Union<C, C> {
   /// Access [a] or [b] while allowing the analyzer to provide type inference
   /// when possible.
-  C get either => a ?? b!;
+  C get either => (a ?? b)!;
 }

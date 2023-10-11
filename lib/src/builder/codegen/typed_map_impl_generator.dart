@@ -49,9 +49,9 @@ abstract class TypedMapImplGenerator extends BoilerplateDeclarationGenerator {
   bool get isProps;
   bool get nullSafety;
 
-  BoilerplateTypedMapMember? get member;
+  BoilerplateTypedMapMember get member;
 
-  TypeParameterList? get typeParameters => member!.nodeHelper.typeParameters;
+  TypeParameterList? get typeParameters => member.nodeHelper.typeParameters;
   String get typeParamsOnClass => typeParameters?.toSource() ?? '';
   String get typeParamsOnSuper => removeBoundsFromTypeParameters(typeParameters);
 
@@ -284,7 +284,7 @@ class _LegacyTypedMapImplGenerator extends TypedMapImplGenerator {
   final LegacyClassComponentDeclaration declaration;
 
   @override
-  final BoilerplatePropsOrState? member;
+  final BoilerplatePropsOrState member;
 
   @override
   final bool nullSafety;
@@ -298,7 +298,7 @@ class _LegacyTypedMapImplGenerator extends TypedMapImplGenerator {
   _LegacyTypedMapImplGenerator.state(this.declaration, {required this.nullSafety})
       : names = TypedMapNames(declaration.state!.name.name),
         factoryNames = [FactoryNames(declaration.factory.name.name)],
-        member = declaration.state,
+        member = declaration.state!,
         isProps = false;
 
   @override
@@ -311,7 +311,7 @@ class _LegacyTypedMapImplGenerator extends TypedMapImplGenerator {
   void _generatePropsImpl() {
     outputContentsBuffer!.write(_generateConcretePropsOrStateImpl(
       componentFactoryName: ComponentNames(declaration.component.name.name).componentFactoryName,
-      propKeyNamespace: getAccessorKeyNamespace(names, member!.meta),
+      propKeyNamespace: getAccessorKeyNamespace(names, member.meta),
     ));
   }
 

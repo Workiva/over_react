@@ -49,8 +49,9 @@ extension InitializerHelperTopLevel on TopLevelVariableDeclaration {
     final generatedPrivateConfigName = FactoryNames(firstVariable.name.name).privateConfigName;
     // ignore: deprecated_member_use_from_same_package
     final generatedPublicConfigName = FactoryNames(firstVariable.name.name).publicConfigName;
+    final firstInitializer = this.firstInitializer;
     return firstInitializer != null &&
-        anyDescendantIdentifiers(firstInitializer!, (identifier) {
+        anyDescendantIdentifiers(firstInitializer, (identifier) {
           return identifier.nameWithoutPrefix == generatedPrivateConfigName ||
               identifier.nameWithoutPrefix == generatedPublicConfigName;
         });

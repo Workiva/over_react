@@ -48,7 +48,7 @@ Iterable<PartDirective> getNonGeneratedParts(CompilationUnit libraryUnit) {
   return libraryUnit.directives
       .whereType<PartDirective>()
       // Ignore all generated `.g.dart` parts.
-      .where((part) => !part.uri.stringValue!.endsWith('.g.dart'));
+      .where((part) => !(part.uri.stringValue?.endsWith('.g.dart') ?? false));
 }
 /// Returns true if the given compilation unit is a part file.
 bool isPart(CompilationUnit unit) =>
