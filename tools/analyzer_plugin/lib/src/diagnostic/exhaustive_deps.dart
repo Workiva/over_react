@@ -546,7 +546,8 @@ class ExhaustiveDeps extends DiagnosticContributor {
       }
 
       // useRef() return value is stable.
-      if (init.tryCast<InvocationExpression>()?.function.tryCast<Identifier>()?.name == 'useRef') {
+      if (const {'useRef', 'useRefInit'}
+          .contains(init.tryCast<InvocationExpression>()?.function.tryCast<Identifier>()?.name)) {
         return true;
       }
 
