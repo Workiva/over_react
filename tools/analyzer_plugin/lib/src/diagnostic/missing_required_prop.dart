@@ -123,8 +123,8 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
   }
 }
 
-extension on ClassElement {
-  Iterable<ClassElement> get thisAndSupertypes sync* {
+extension on InterfaceElement {
+  Iterable<InterfaceElement> get thisAndSupertypes sync* {
     yield this;
     for (final s in allSupertypes) {
       yield s.element;
@@ -134,7 +134,7 @@ extension on ClassElement {
   Iterable<FieldElement> get allProps sync* {
     for (final c in thisAndSupertypes) {
       // FIXME handle legacy boilerplate prop mixins?
-      final isPropsMixin = c.isMixin && c.superclassConstraints.any((s) => s.element.name == 'UiProps');
+      final isPropsMixin = c is MixinElement && c.superclassConstraints.any((s) => s.element.name == 'UiProps');
       if (!isPropsMixin) continue;
       if (c.source.uri.path.endsWith('.over_react.g.dart')) continue;
       // if (c.name == 'UbiquitousDomPropsMixin' || c.isDartCoreObject || c.source.uri.path.endsWith('.over_react.g.dart')) {
