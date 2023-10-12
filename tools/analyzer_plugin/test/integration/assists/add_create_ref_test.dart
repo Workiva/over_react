@@ -1,10 +1,6 @@
-// Disable null-safety in the plugin entrypoint until all dependencies are null-safe,
-// otherwise tests won't be able to run. See: https://github.com/dart-lang/test#compiler-flags
-// @dart=2.9
 import 'dart:async';
 
 import 'package:analyzer_plugin/utilities/assist/assist.dart';
-import 'package:meta/meta.dart';
 import 'package:over_react_analyzer_plugin/src/assist/refs/add_create_ref_assist.dart';
 import 'package:test/test.dart';
 import 'package:test_reflective_loader/test_reflective_loader.dart';
@@ -22,7 +18,7 @@ class AddUseOrCreateRefAssistTest extends AssistTestBase {
   @override
   AssistKind get assistKindUnderTest => AddUseOrCreateRefAssistContributor.addRef;
 
-  String usageSourceWithinClassComponent({@required bool fixed}) => '''
+  String usageSourceWithinClassComponent({required bool fixed}) => '''
 import 'package:over_react/over_react.dart';
 
 part 'test.over_react.g.dart';
@@ -42,7 +38,7 @@ class HasNoRefsComponent extends UiComponent2<HasNoRefsProps> {
 }
 ''';
 
-  String usageSourceWithinFnComponent({@required bool fixed}) => '''
+  String usageSourceWithinFnComponent({required bool fixed}) => '''
 import 'package:over_react/over_react.dart';
 
 final HasNoRefs = uiFunction<UiProps>(
