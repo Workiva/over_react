@@ -42,15 +42,12 @@ import 'package:over_react_analyzer_plugin/src/assist/convert_class_or_function_
 import 'package:over_react_analyzer_plugin/src/assist/extract_component.dart';
 import 'package:over_react_analyzer_plugin/src/assist/refs/add_create_ref_assist.dart';
 
-// Can't import this until it stops importing non-null-safe code, otherwise the plugin won't start.
-//import 'package:over_react_analyzer_plugin/src/assist/toggle_stateful.dart';
+import 'package:over_react_analyzer_plugin/src/assist/toggle_stateful.dart';
 import 'package:over_react_analyzer_plugin/src/async_plugin_apis/assist.dart';
 import 'package:over_react_analyzer_plugin/src/async_plugin_apis/diagnostic.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/arrow_function_prop.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/bad_key.dart';
-
-// Can't import this until it stops importing non-null-safe code, otherwise the plugin won't start.
-//import 'package:over_react_analyzer_plugin/src/diagnostic/boilerplate_validator.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/boilerplate_validator.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/callback_ref.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/consumed_props_return_value.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/create_ref_usage.dart';
@@ -58,9 +55,7 @@ import 'package:over_react_analyzer_plugin/src/diagnostic/dom_prop_types.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/duplicate_prop_cascade.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/exhaustive_deps.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/forward_only_dom_props_to_dom_builders.dart';
-
-// Can't import this until it stops importing non-null-safe code, otherwise the plugin won't start.
-//import 'package:over_react_analyzer_plugin/src/diagnostic/incorrect_doc_comment_location.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/incorrect_doc_comment_location.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/invalid_child.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/iterator_key.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/link_target_without_rel.dart';
@@ -100,8 +95,7 @@ mixin OverReactAnalyzerPluginBase
         AddUseOrCreateRefAssistContributor(),
         ExtractComponentAssistContributor(),
         ExtractStatefulComponentAssistContributor(),
-        // Can't import this until it stops importing non-null-safe code, otherwise the plugin won't start.
-        // ToggleComponentStatefulness(),
+        ToggleComponentStatefulness(),
         ConvertClassOrFunctionComponentAssistContributor(),
         // TODO re-enable this when it's more polished
 //        WrapUnwrapAssistContributor(),
@@ -131,11 +125,9 @@ mixin OverReactAnalyzerPluginBase
       // TODO: Re-enable this once consumers can disable lints via analysis_options.yaml
 //        BoolPropNameReadabilityDiagnostic(),
       StyleValueDiagnostic(),
-      // Can't import this until it stops importing non-null-safe code, otherwise the plugin won't start.
-      // BoilerplateValidatorDiagnostic(),
+      BoilerplateValidatorDiagnostic(),
       VariadicChildrenWithKeys(),
-      // Can't import this until it stops importing non-null-safe code, otherwise the plugin won't start.
-      // IncorrectDocCommentLocationDiagnostic(),
+      IncorrectDocCommentLocationDiagnostic(),
       ConsumedPropsReturnValueDiagnostic(),
       ForwardOnlyDomPropsToDomBuildersDiagnostic(),
       IteratorKey(),
