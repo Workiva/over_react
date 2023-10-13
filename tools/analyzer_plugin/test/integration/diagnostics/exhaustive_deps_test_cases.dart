@@ -608,10 +608,32 @@ final Map<String, List<Map<String, Object>>> tests = {
       ''',
     },
     {
+      'name': 'Ref from useRefInit',
+      'code': r'''
+        final MyComponent = uiFunction<TestProps>((_) {
+          final ref = useRefInit(0);
+          useEffect(() {
+            print(ref.current);
+          }, []);
+        }, null);
+      ''',
+    },
+    {
       'name': 'Ref from useRef (namespaced)',
       'code': r'''
         final MyComponent = uiFunction<TestProps>((_) {
           final ref = over_react.useRef();
+          useEffect(() {
+            print(ref.current);
+          }, []);
+        }, null);
+      ''',
+    },
+    {
+      'name': 'Ref from useRefInit (namespaced)',
+      'code': r'''
+        final MyComponent = uiFunction<TestProps>((_) {
+          final ref = over_react.useRefInit(0);
           useEffect(() {
             print(ref.current);
           }, []);
