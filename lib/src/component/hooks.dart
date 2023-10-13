@@ -326,9 +326,11 @@ T useContext<T>(Context<T> context) => react_hooks.useContext(context.reactDartC
 ///
 /// Learn more: <https://reactjs.org/docs/hooks-reference.html#useref>.
 Ref<T?> useRef<T>([
-  @Deprecated('Use `useRefInit` instead to create a ref with an initial value, because unlike this function, '
-      'the generic parameter of the Ref returned by `useRefInit` can be non-nullable.')
-      T? initialValue,
+  // This will eventually be deprecated, but not just yet.
+  // @Deprecated('Use `useRefInit` instead to create refs with initial values.'
+  //     ' Since the argument to useRefInit is required, it can be used to create a Ref that holds a non-nullable type,'
+  //     ' whereas this function can only create Refs with nullable type arguments.')
+  T? initialValue,
 ]) =>
     // ignore: deprecated_member_use
     react_hooks.useRef(initialValue);
@@ -348,18 +350,21 @@ Ref<T?> useRef<T>([
 /// __Example__:
 ///
 /// ```dart
-/// UseRefTestComponent(Map props) {
-///   final countRef = useRefInit(1);
+/// UiFactory<UseRefExampleProps> UseRefExample = uiFunction(
+///   (props) {
+///     final countRef = useRefInit(0);
 ///
-///   handleClick([_]) {
-///     ref.current = ref.current + 1;
-///     window.alert('You clicked ${ref.current} times!');
-///   }
+///     handleClick([_]) {
+///       ref.current = ref.current + 1;
+///       window.alert('You clicked ${ref.current} times!');
+///     }
 ///
-///   return Fragment()(
-///     (Dom.button()..onClick = handleClick)('Click me!'),
-///   );
-/// }
+///     return Fragment()(
+///       (Dom.button()..onClick = handleClick)('Click me!'),
+///     );
+///   },
+///   _$UseRefExampleConfig, // ignore: undefined_identifier
+/// );
 /// ```
 ///
 /// Learn more: <https://reactjs.org/docs/hooks-reference.html#useref>.
