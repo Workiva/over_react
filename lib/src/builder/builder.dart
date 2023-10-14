@@ -20,6 +20,8 @@ import 'package:analyzer/dart/ast/ast.dart';
 import 'package:build/build.dart';
 import 'package:dart_style/dart_style.dart';
 import 'package:path/path.dart' as p;
+import 'package:pub_semver/pub_semver.dart' as semver;
+import 'package:yaml/yaml.dart' as yaml;
 import 'package:source_span/source_span.dart';
 
 import './util.dart';
@@ -57,6 +59,41 @@ class OverReactBuilder extends Builder {
     }
     if (isPart(libraryUnit)) {
       return;
+    }
+
+    String nullSafetyReason;
+    bool nullSafety;
+    {
+      final languageVersionToken = libraryUnit.languageVersionToken;
+      if (languageVersionToken != null) {
+        // If there's a language version comment, honor that.
+        nullSafety = languageVersionToken.major > 2 ||
+            (languageVersionToken.major == 2 && languageVersionToken.minor >= 12);
+        nullSafetyReason = 'because of language version comment in main library of '
+            '"${languageVersionToken.major}.${languageVersionToken.minor}"';
+      } else {
+        // Otherwise, attempt to read the pubspec to get the Dart language version.
+        //
+        // Normally, builders would do this via (await buildStep.inputLibrary).languageVersion,
+        // but that would trigger resolved analysis which we don't want to do for this builder,
+        // for performance reasons.
+        final pubspecAssetId = AssetId(buildStep.inputId.package, 'pubspec.yaml');
+        // TODO should we worry about the inefficiency of re-parsing this every time?
+        final pubspecSdkConstraint = await buildStep.canRead(pubspecAssetId)
+            ? _tryReadVersionConstraintFromPubspec(await buildStep.readAsString(pubspecAssetId))
+            : null;
+        if (pubspecSdkConstraint != null) {
+          nullSafety = _versionConstraintOptsIntoNullSafety(pubspecSdkConstraint);
+          nullSafetyReason =
+              'because of SDK constraint of "$pubspecSdkConstraint" in $pubspecAssetId.';
+        } else {
+          // If we don't have any information to go off of, opt into null safety.
+          // It should be pretty unlikely that we don't have access to a pubspec.yaml.
+          nullSafety = true;
+          nullSafetyReason =
+              'because null safety could not be inferred from language version comments or pubspec.yaml.';
+        }
+      }
     }
 
     final outputs = <String>[];
@@ -97,17 +134,6 @@ class OverReactBuilder extends Builder {
       //
       // Validate boilerplate declarations and generate if there aren't any errors.
       //
-
-      // FIXME parse from pubspec; figure out how to read that
-      bool nullSafety;
-      final languageVersionToken = unit.languageVersionToken;
-      if (languageVersionToken != null) {
-        nullSafety = languageVersionToken.major > 2 ||
-            (languageVersionToken.major == 2 && languageVersionToken.minor >= 12);
-      } else {
-        // During development, only enable null safety by default for over_react.
-        nullSafety = id.package == 'over_react';
-      }
 
       final generator = ImplGenerator(log, sourceFile, nullSafety: nullSafety);
 
@@ -171,10 +197,14 @@ class OverReactBuilder extends Builder {
         log.severe('Missing "part \'$expectedPart\';".');
       }
 
+      final nullSafetyCommentText = 'Using null safety: $nullSafety, $nullSafetyReason';
+
       // Generated part files must have matching language version comments, so copy them over if they exist.
       // TODO use CompilationUnit.languageVersionToken instead of parsing this manually once we're sure we can get on analyzer version 0.39.5 or greater
       final languageVersionCommentMatch = RegExp(r'//\s*@dart\s*=\s*.+').firstMatch(source);
-      await _writePart(buildStep, outputId, outputs, languageVersionComment: languageVersionCommentMatch?.group(0));
+      await _writePart(buildStep, outputId, outputs,
+          nullSafetyCommentText: nullSafetyCommentText,
+          languageVersionComment: languageVersionCommentMatch?.group(0));
     } else {
       if (hasOutputPartDirective()) {
         log.warning('An over_react part directive was found in ${buildStep.inputId.path}, '
@@ -201,7 +231,8 @@ class OverReactBuilder extends Builder {
     return null;
   }
 
-  static FutureOr<void> _writePart(BuildStep buildStep, AssetId outputId, Iterable<String> outputs, {String? languageVersionComment}) async {
+  static FutureOr<void> _writePart(BuildStep buildStep, AssetId outputId, Iterable<String> outputs,
+      {required String nullSafetyCommentText, String? languageVersionComment}) async {
     final partOf = "'${p.basename(buildStep.inputId.uri.toString())}'";
 
     final buffer = StringBuffer();
@@ -216,6 +247,8 @@ class OverReactBuilder extends Builder {
       ..writeln()
       ..writeln(_headerLine)
       ..writeln('// OverReactBuilder (package:over_react/src/builder.dart)')
+      ..writeln()
+      ..write(lineComment(nullSafetyCommentText))
       ..writeln(_headerLine);
 
     for (final item in outputs) {
@@ -234,3 +267,30 @@ class OverReactBuilder extends Builder {
     await buildStep.writeAsString(outputId, output);
   }
 }
+
+bool _versionConstraintOptsIntoNullSafety(semver.VersionConstraint constraint) =>
+    !constraint.allowsAny(semver.VersionRange(
+      max: semver.Version(2, 12, 0),
+      includeMax: false,
+      alwaysIncludeMaxPreRelease: false,
+    ));
+
+semver.VersionConstraint? _tryReadVersionConstraintFromPubspec(String pubspecContents) {
+  // Catch any errors/exceptions when parsing the yaml, reading the yaml data,
+  // or parsing the version constraint.
+  try {
+    final pubspec = yaml.loadYamlNode(pubspecContents) as yaml.YamlMap;
+    final environment = pubspec['environment'] as yaml.YamlMap?;
+    if (environment != null) {
+      final sdkConstraintString = environment['sdk'] as String?;
+      if (sdkConstraintString != null) {
+        return semver.VersionConstraint.parse(sdkConstraintString);
+      }
+    }
+  } catch (_) {
+    return null;
+  }
+
+  return null;
+}
+

@@ -112,3 +112,6 @@ MethodDeclaration? metaMethodOrNull(ClassishDeclaration node) {
   return node.members.whereType<MethodDeclaration>().firstWhereOrNull((member) =>
       member.name.name == 'meta');
 }
+
+String lineComment(String contents) =>
+    contents.split('\n').map((line) => '// $line\n').join('');

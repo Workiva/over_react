@@ -1,0 +1,13 @@
+name: over_react__test__null_safe
+publish_to: none
+environment:
+  # This test package specifically has an SDK constraint that enables null safety
+  sdk: ">=2.12.0 <3.0.0"
+dependencies:
+  over_react:
+    path: ../../../
+dev_dependencies:
+  build_runner: any
+
+workiva:
+  disable_core_checks: true
