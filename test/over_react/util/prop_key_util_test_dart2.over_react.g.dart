@@ -24,19 +24,19 @@ abstract class _$TestPropsAccessorsMixin implements _$TestProps {
 
   /// <!-- Generated from [_$TestProps.foo] -->
   @override
-  get foo => (props[_$key__foo___$TestProps] ?? null) as String?;
+  String? get foo => (props[_$key__foo___$TestProps] ?? null) as String?;
 
   /// <!-- Generated from [_$TestProps.foo] -->
   @override
-  set foo(value) => props[_$key__foo___$TestProps] = value;
+  set foo(String? value) => props[_$key__foo___$TestProps] = value;
 
   /// <!-- Generated from [_$TestProps.bar] -->
   @override
-  get bar => (props[_$key__bar___$TestProps] ?? null) as String?;
+  String? get bar => (props[_$key__bar___$TestProps] ?? null) as String?;
 
   /// <!-- Generated from [_$TestProps.bar] -->
   @override
-  set bar(value) => props[_$key__bar___$TestProps] = value;
+  set bar(String? value) => props[_$key__bar___$TestProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__foo___$TestProps =
       PropDescriptor(_$key__foo___$TestProps);

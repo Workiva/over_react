@@ -26,36 +26,38 @@ abstract class _$ComponentTestPropsAccessorsMixin
   /// <!-- Generated from [_$ComponentTestProps.required] -->
   @override
   @requiredProp
-  get required =>
+  dynamic get required =>
       (props[_$key__required___$ComponentTestProps] ?? null) as dynamic;
 
   /// <!-- Generated from [_$ComponentTestProps.required] -->
   @override
   @requiredProp
-  set required(value) => props[_$key__required___$ComponentTestProps] = value;
+  set required(dynamic value) =>
+      props[_$key__required___$ComponentTestProps] = value;
 
   /// <!-- Generated from [_$ComponentTestProps.nullable] -->
   @override
   @nullableRequiredProp
-  get nullable =>
+  dynamic get nullable =>
       (props[_$key__nullable___$ComponentTestProps] ?? null) as dynamic;
 
   /// <!-- Generated from [_$ComponentTestProps.nullable] -->
   @override
   @nullableRequiredProp
-  set nullable(value) => props[_$key__nullable___$ComponentTestProps] = value;
+  set nullable(dynamic value) =>
+      props[_$key__nullable___$ComponentTestProps] = value;
 
   /// <!-- Generated from [_$ComponentTestProps.requiredAndLengthLimited] -->
   @override
   @requiredProp
-  get requiredAndLengthLimited =>
+  List? get requiredAndLengthLimited =>
       (props[_$key__requiredAndLengthLimited___$ComponentTestProps] ?? null)
           as List?;
 
   /// <!-- Generated from [_$ComponentTestProps.requiredAndLengthLimited] -->
   @override
   @requiredProp
-  set requiredAndLengthLimited(value) =>
+  set requiredAndLengthLimited(List? value) =>
       props[_$key__requiredAndLengthLimited___$ComponentTestProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__required___$ComponentTestProps =

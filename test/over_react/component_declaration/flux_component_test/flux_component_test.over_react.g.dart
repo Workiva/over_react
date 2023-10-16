@@ -295,13 +295,13 @@ abstract class _$TestPropValidationPropsAccessorsMixin
   /// <!-- Generated from [_$TestPropValidationProps.required] -->
   @override
   @requiredProp
-  get required =>
+  String? get required =>
       (props[_$key__required___$TestPropValidationProps] ?? null) as String?;
 
   /// <!-- Generated from [_$TestPropValidationProps.required] -->
   @override
   @requiredProp
-  set required(value) =>
+  set required(String? value) =>
       props[_$key__required___$TestPropValidationProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__required___$TestPropValidationProps =
@@ -1009,7 +1009,7 @@ abstract class _$TestStatefulPropValidationPropsAccessorsMixin
   @override
   @override
   @requiredProp
-  get required =>
+  String? get required =>
       (props[_$key__required___$TestStatefulPropValidationProps] ?? null)
           as String?;
 
@@ -1017,7 +1017,7 @@ abstract class _$TestStatefulPropValidationPropsAccessorsMixin
   @override
   @override
   @requiredProp
-  set required(value) =>
+  set required(String? value) =>
       props[_$key__required___$TestStatefulPropValidationProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor

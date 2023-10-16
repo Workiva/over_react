@@ -162,10 +162,10 @@ class _$ClassComponentComponent extends ClassComponentComponent {
 mixin $ExpectsDartMapPropProps on ExpectsDartMapPropProps {
   static const PropsMeta meta = _$metaForExpectsDartMapPropProps;
   @override
-  get dartMapProp =>
+  Map? get dartMapProp =>
       (props[_$key__dartMapProp__ExpectsDartMapPropProps] ?? null) as Map?;
   @override
-  set dartMapProp(value) =>
+  set dartMapProp(Map? value) =>
       props[_$key__dartMapProp__ExpectsDartMapPropProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__dartMapProp__ExpectsDartMapPropProps =
@@ -271,10 +271,11 @@ const PropsMeta _$metaForBasicForwardRefProps = PropsMeta(
 mixin $DartTestJsWrapperPropsMixin on DartTestJsWrapperPropsMixin {
   static const PropsMeta meta = _$metaForDartTestJsWrapperPropsMixin;
   @override
-  get onRender => (props[_$key__onRender__DartTestJsWrapperPropsMixin] ?? null)
-      as void Function(DartTestJsWrapperProps props)?;
+  void Function(DartTestJsWrapperProps props)? get onRender =>
+      (props[_$key__onRender__DartTestJsWrapperPropsMixin] ?? null) as void
+          Function(DartTestJsWrapperProps props)?;
   @override
-  set onRender(value) =>
+  set onRender(void Function(DartTestJsWrapperProps props)? value) =>
       props[_$key__onRender__DartTestJsWrapperPropsMixin] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__onRender__DartTestJsWrapperPropsMixin =
@@ -305,52 +306,53 @@ mixin $TestJsProps on TestJsProps {
   static const PropsMeta meta = _$metaForTestJsProps;
   @override
   @Accessor(key: 'buttonProps')
-  get _$raw$buttonProps =>
+  JsMap? get _$raw$buttonProps =>
       (props[_$key___$raw$buttonProps__TestJsProps] ?? null) as JsMap?;
   @override
   @Accessor(key: 'buttonProps')
-  set _$raw$buttonProps(value) =>
+  set _$raw$buttonProps(JsMap? value) =>
       props[_$key___$raw$buttonProps__TestJsProps] = value;
   @override
   @Accessor(key: 'listOfProps')
-  get _$raw$listOfProps =>
+  List<dynamic>? get _$raw$listOfProps =>
       (props[_$key___$raw$listOfProps__TestJsProps] ?? null) as List<dynamic>?;
   @override
   @Accessor(key: 'listOfProps')
-  set _$raw$listOfProps(value) =>
+  set _$raw$listOfProps(List<dynamic>? value) =>
       props[_$key___$raw$listOfProps__TestJsProps] = value;
   @override
   @Accessor(key: 'inputRef')
-  get _$raw$inputRef =>
+  dynamic get _$raw$inputRef =>
       (props[_$key___$raw$inputRef__TestJsProps] ?? null) as dynamic;
   @override
   @Accessor(key: 'inputRef')
-  set _$raw$inputRef(value) =>
+  set _$raw$inputRef(dynamic value) =>
       props[_$key___$raw$inputRef__TestJsProps] = value;
   @override
   @Accessor(key: 'messageContext')
-  get _$raw$messageContext =>
+  ReactContext? get _$raw$messageContext =>
       (props[_$key___$raw$messageContext__TestJsProps] ?? null)
           as ReactContext?;
   @override
   @Accessor(key: 'messageContext')
-  set _$raw$messageContext(value) =>
+  set _$raw$messageContext(ReactContext? value) =>
       props[_$key___$raw$messageContext__TestJsProps] = value;
   @override
-  get component => (props[_$key__component__TestJsProps] ?? null) as dynamic;
+  dynamic get component =>
+      (props[_$key__component__TestJsProps] ?? null) as dynamic;
   @override
-  set component(value) => props[_$key__component__TestJsProps] = value;
+  set component(dynamic value) => props[_$key__component__TestJsProps] = value;
   @override
-  get inputComponent =>
+  dynamic get inputComponent =>
       (props[_$key__inputComponent__TestJsProps] ?? null) as dynamic;
   @override
-  set inputComponent(value) =>
+  set inputComponent(dynamic value) =>
       props[_$key__inputComponent__TestJsProps] = value;
   @override
-  get buttonComponent =>
+  dynamic get buttonComponent =>
       (props[_$key__buttonComponent__TestJsProps] ?? null) as dynamic;
   @override
-  set buttonComponent(value) =>
+  set buttonComponent(dynamic value) =>
       props[_$key__buttonComponent__TestJsProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop___$raw$buttonProps__TestJsProps =

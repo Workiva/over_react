@@ -160,9 +160,9 @@ class _$BasicComponent extends BasicComponent {
 mixin $BasicProps on BasicProps {
   static const PropsMeta meta = _$metaForBasicProps;
   @override
-  get childId => (props[_$key__childId__BasicProps] ?? null) as String?;
+  String? get childId => (props[_$key__childId__BasicProps] ?? null) as String?;
   @override
-  set childId(value) => props[_$key__childId__BasicProps] = value;
+  set childId(String? value) => props[_$key__childId__BasicProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__childId__BasicProps =
       PropDescriptor(_$key__childId__BasicProps);

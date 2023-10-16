@@ -161,51 +161,57 @@ class _$ResizeSensorComponent extends ResizeSensorComponent {
 mixin $ResizeSensorProps on ResizeSensorProps {
   static const PropsMeta meta = _$metaForResizeSensorProps;
   @override
-  get onInitialize => (props[_$key__onInitialize__ResizeSensorProps] ?? null)
-      as ResizeSensorHandler?;
+  ResizeSensorHandler? get onInitialize =>
+      (props[_$key__onInitialize__ResizeSensorProps] ?? null)
+          as ResizeSensorHandler?;
   @override
-  set onInitialize(value) =>
+  set onInitialize(ResizeSensorHandler? value) =>
       props[_$key__onInitialize__ResizeSensorProps] = value;
   @override
-  get onResize => (props[_$key__onResize__ResizeSensorProps] ?? null)
-      as ResizeSensorHandler?;
+  ResizeSensorHandler? get onResize =>
+      (props[_$key__onResize__ResizeSensorProps] ?? null)
+          as ResizeSensorHandler?;
   @override
-  set onResize(value) => props[_$key__onResize__ResizeSensorProps] = value;
+  set onResize(ResizeSensorHandler? value) =>
+      props[_$key__onResize__ResizeSensorProps] = value;
   @override
-  get isFlexChild =>
+  bool? get isFlexChild =>
       (props[_$key__isFlexChild__ResizeSensorProps] ?? null) as bool?;
   @override
-  set isFlexChild(value) =>
+  set isFlexChild(bool? value) =>
       props[_$key__isFlexChild__ResizeSensorProps] = value;
   @override
-  get isFlexContainer =>
+  bool? get isFlexContainer =>
       (props[_$key__isFlexContainer__ResizeSensorProps] ?? null) as bool?;
   @override
-  set isFlexContainer(value) =>
+  set isFlexContainer(bool? value) =>
       props[_$key__isFlexContainer__ResizeSensorProps] = value;
   @override
-  get shrink => (props[_$key__shrink__ResizeSensorProps] ?? null) as bool?;
+  bool? get shrink =>
+      (props[_$key__shrink__ResizeSensorProps] ?? null) as bool?;
   @override
-  set shrink(value) => props[_$key__shrink__ResizeSensorProps] = value;
+  set shrink(bool? value) => props[_$key__shrink__ResizeSensorProps] = value;
   @override
-  get quickMount =>
+  bool? get quickMount =>
       (props[_$key__quickMount__ResizeSensorProps] ?? null) as bool?;
   @override
-  set quickMount(value) => props[_$key__quickMount__ResizeSensorProps] = value;
+  set quickMount(bool? value) =>
+      props[_$key__quickMount__ResizeSensorProps] = value;
   @override
-  get onDetachedMountCheck =>
+  BoolCallback? get onDetachedMountCheck =>
       (props[_$key__onDetachedMountCheck__ResizeSensorProps] ?? null)
           as BoolCallback?;
   @override
-  set onDetachedMountCheck(value) =>
+  set onDetachedMountCheck(BoolCallback? value) =>
       props[_$key__onDetachedMountCheck__ResizeSensorProps] = value;
   @override
   @visibleForTesting
-  get onDidReset =>
+  Callback? get onDidReset =>
       (props[_$key__onDidReset__ResizeSensorProps] ?? null) as Callback?;
   @override
   @visibleForTesting
-  set onDidReset(value) => props[_$key__onDidReset__ResizeSensorProps] = value;
+  set onDidReset(Callback? value) =>
+      props[_$key__onDidReset__ResizeSensorProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__onInitialize__ResizeSensorProps =
       PropDescriptor(_$key__onInitialize__ResizeSensorProps);

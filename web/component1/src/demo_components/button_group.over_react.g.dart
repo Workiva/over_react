@@ -30,7 +30,7 @@ abstract class _$ButtonGroupPropsAccessorsMixin implements _$ButtonGroupProps {
   ///
   /// <!-- Generated from [_$ButtonGroupProps.size] -->
   @override
-  get size =>
+  ButtonGroupSize? get size =>
       (props[_$key__size___$ButtonGroupProps] ?? null) as ButtonGroupSize?;
 
   /// Apply a button size variation universally to every [Button] within the [ButtonGroup].
@@ -41,19 +41,21 @@ abstract class _$ButtonGroupPropsAccessorsMixin implements _$ButtonGroupProps {
   ///
   /// <!-- Generated from [_$ButtonGroupProps.size] -->
   @override
-  set size(value) => props[_$key__size___$ButtonGroupProps] = value;
+  set size(ButtonGroupSize? value) =>
+      props[_$key__size___$ButtonGroupProps] = value;
 
   /// The [ButtonSkin] variation applied to every [Button] within the [ButtonGroup].
   ///
   /// <!-- Generated from [_$ButtonGroupProps.skin] -->
   @override
-  get skin => (props[_$key__skin___$ButtonGroupProps] ?? null) as ButtonSkin?;
+  ButtonSkin? get skin =>
+      (props[_$key__skin___$ButtonGroupProps] ?? null) as ButtonSkin?;
 
   /// The [ButtonSkin] variation applied to every [Button] within the [ButtonGroup].
   ///
   /// <!-- Generated from [_$ButtonGroupProps.skin] -->
   @override
-  set skin(value) => props[_$key__skin___$ButtonGroupProps] = value;
+  set skin(ButtonSkin? value) => props[_$key__skin___$ButtonGroupProps] = value;
 
   /// Make the [Button]s within a [ButtonGroup] stack vertically.
   ///
@@ -63,7 +65,7 @@ abstract class _$ButtonGroupPropsAccessorsMixin implements _$ButtonGroupProps {
   ///
   /// <!-- Generated from [_$ButtonGroupProps.isVertical] -->
   @override
-  get isVertical =>
+  bool? get isVertical =>
       (props[_$key__isVertical___$ButtonGroupProps] ?? null) as bool?;
 
   /// Make the [Button]s within a [ButtonGroup] stack vertically.
@@ -74,7 +76,8 @@ abstract class _$ButtonGroupPropsAccessorsMixin implements _$ButtonGroupProps {
   ///
   /// <!-- Generated from [_$ButtonGroupProps.isVertical] -->
   @override
-  set isVertical(value) => props[_$key__isVertical___$ButtonGroupProps] = value;
+  set isVertical(bool? value) =>
+      props[_$key__isVertical___$ButtonGroupProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__size___$ButtonGroupProps =
       PropDescriptor(_$key__size___$ButtonGroupProps);

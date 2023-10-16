@@ -27,7 +27,7 @@ abstract class _$StatefulComponentTestPropsAccessorsMixin
   ///
   /// <!-- Generated from [_$StatefulComponentTestProps.setStateDirectly] -->
   @override
-  get setStateDirectly =>
+  bool? get setStateDirectly =>
       (props[_$key__setStateDirectly___$StatefulComponentTestProps] ?? null)
           as bool?;
 
@@ -35,7 +35,7 @@ abstract class _$StatefulComponentTestPropsAccessorsMixin
   ///
   /// <!-- Generated from [_$StatefulComponentTestProps.setStateDirectly] -->
   @override
-  set setStateDirectly(value) =>
+  set setStateDirectly(bool? value) =>
       props[_$key__setStateDirectly___$StatefulComponentTestProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor
@@ -140,24 +140,24 @@ abstract class _$StatefulComponentTestStateAccessorsMixin
 
   /// <!-- Generated from [_$StatefulComponentTestState.stringState] -->
   @override
-  get stringState =>
+  String? get stringState =>
       (state[_$key__stringState___$StatefulComponentTestState] ?? null)
           as String?;
 
   /// <!-- Generated from [_$StatefulComponentTestState.stringState] -->
   @override
-  set stringState(value) =>
+  set stringState(String? value) =>
       state[_$key__stringState___$StatefulComponentTestState] = value;
 
   /// <!-- Generated from [_$StatefulComponentTestState.dynamicState] -->
   @override
-  get dynamicState =>
+  dynamic get dynamicState =>
       (state[_$key__dynamicState___$StatefulComponentTestState] ?? null)
           as dynamic;
 
   /// <!-- Generated from [_$StatefulComponentTestState.dynamicState] -->
   @override
-  set dynamicState(value) =>
+  set dynamicState(dynamic value) =>
       state[_$key__dynamicState___$StatefulComponentTestState] = value;
 
   /// <!-- Generated from [_$StatefulComponentTestState.untypedState] -->
@@ -173,40 +173,40 @@ abstract class _$StatefulComponentTestStateAccessorsMixin
   /// <!-- Generated from [_$StatefulComponentTestState.customKeyState] -->
   @override
   @Accessor(key: 'custom key!')
-  get customKeyState =>
+  dynamic get customKeyState =>
       (state[_$key__customKeyState___$StatefulComponentTestState] ?? null)
           as dynamic;
 
   /// <!-- Generated from [_$StatefulComponentTestState.customKeyState] -->
   @override
   @Accessor(key: 'custom key!')
-  set customKeyState(value) =>
+  set customKeyState(dynamic value) =>
       state[_$key__customKeyState___$StatefulComponentTestState] = value;
 
   /// <!-- Generated from [_$StatefulComponentTestState.customNamespaceState] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
-  get customNamespaceState =>
+  dynamic get customNamespaceState =>
       (state[_$key__customNamespaceState___$StatefulComponentTestState] ?? null)
           as dynamic;
 
   /// <!-- Generated from [_$StatefulComponentTestState.customNamespaceState] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
-  set customNamespaceState(value) =>
+  set customNamespaceState(dynamic value) =>
       state[_$key__customNamespaceState___$StatefulComponentTestState] = value;
 
   /// <!-- Generated from [_$StatefulComponentTestState.customKeyAndNamespaceState] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
-  get customKeyAndNamespaceState =>
+  dynamic get customKeyAndNamespaceState =>
       (state[_$key__customKeyAndNamespaceState___$StatefulComponentTestState] ??
           null) as dynamic;
 
   /// <!-- Generated from [_$StatefulComponentTestState.customKeyAndNamespaceState] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
-  set customKeyAndNamespaceState(value) =>
+  set customKeyAndNamespaceState(dynamic value) =>
       state[_$key__customKeyAndNamespaceState___$StatefulComponentTestState] =
           value;
   /* GENERATED CONSTANTS */

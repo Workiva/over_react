@@ -16,16 +16,19 @@ mixin $FluxUiPropsMixin<ActionsT, StoresT>
   static const PropsMeta meta = _$metaForFluxUiPropsMixin;
   @override
   @override
-  get actions => (props[_$key__actions__FluxUiPropsMixin] ?? null) as ActionsT?;
+  ActionsT? get actions =>
+      (props[_$key__actions__FluxUiPropsMixin] ?? null) as ActionsT?;
   @override
   @override
-  set actions(value) => props[_$key__actions__FluxUiPropsMixin] = value;
+  set actions(ActionsT? value) =>
+      props[_$key__actions__FluxUiPropsMixin] = value;
   @override
   @override
-  get store => (props[_$key__store__FluxUiPropsMixin] ?? null) as StoresT?;
+  StoresT? get store =>
+      (props[_$key__store__FluxUiPropsMixin] ?? null) as StoresT?;
   @override
   @override
-  set store(value) => props[_$key__store__FluxUiPropsMixin] = value;
+  set store(StoresT? value) => props[_$key__store__FluxUiPropsMixin] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__actions__FluxUiPropsMixin =
       PropDescriptor(_$key__actions__FluxUiPropsMixin);

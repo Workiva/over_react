@@ -25,36 +25,36 @@ abstract class _$TestCompositeComponentPropsAccessorsMixin
 
   /// <!-- Generated from [_$TestCompositeComponentProps.onComponentDidMount] -->
   @override
-  get onComponentDidMount =>
+  Function? get onComponentDidMount =>
       (props[_$key__onComponentDidMount___$TestCompositeComponentProps] ?? null)
           as Function?;
 
   /// <!-- Generated from [_$TestCompositeComponentProps.onComponentDidMount] -->
   @override
-  set onComponentDidMount(value) =>
+  set onComponentDidMount(Function? value) =>
       props[_$key__onComponentDidMount___$TestCompositeComponentProps] = value;
 
   /// <!-- Generated from [_$TestCompositeComponentProps.onComponentWillUnmount] -->
   @override
-  get onComponentWillUnmount =>
+  Function? get onComponentWillUnmount =>
       (props[_$key__onComponentWillUnmount___$TestCompositeComponentProps] ??
           null) as Function?;
 
   /// <!-- Generated from [_$TestCompositeComponentProps.onComponentWillUnmount] -->
   @override
-  set onComponentWillUnmount(value) =>
+  set onComponentWillUnmount(Function? value) =>
       props[_$key__onComponentWillUnmount___$TestCompositeComponentProps] =
           value;
 
   /// <!-- Generated from [_$TestCompositeComponentProps.onComponentDidUpdate] -->
   @override
-  get onComponentDidUpdate =>
+  Function? get onComponentDidUpdate =>
       (props[_$key__onComponentDidUpdate___$TestCompositeComponentProps] ??
           null) as Function?;
 
   /// <!-- Generated from [_$TestCompositeComponentProps.onComponentDidUpdate] -->
   @override
-  set onComponentDidUpdate(value) =>
+  set onComponentDidUpdate(Function? value) =>
       props[_$key__onComponentDidUpdate___$TestCompositeComponentProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor

@@ -33,14 +33,14 @@ abstract class ReactPropsMixin implements _$ReactPropsMixin {
   /// <!-- Generated from [_$ReactPropsMixin._raw$ReactProps$children] -->
   @override
   @Accessor(key: 'children')
-  get _raw$ReactProps$children =>
+  dynamic get _raw$ReactProps$children =>
       (props[_$key___raw$ReactProps$children___$ReactPropsMixin] ?? null)
           as dynamic;
 
   /// <!-- Generated from [_$ReactPropsMixin._raw$ReactProps$children] -->
   @override
   @Accessor(key: 'children')
-  set _raw$ReactProps$children(value) =>
+  set _raw$ReactProps$children(dynamic value) =>
       props[_$key___raw$ReactProps$children___$ReactPropsMixin] = value;
 
   /// Either a String used to retrieve the element at a later time via [react.Component.ref],
@@ -50,7 +50,7 @@ abstract class ReactPropsMixin implements _$ReactPropsMixin {
   ///
   /// <!-- Generated from [_$ReactPropsMixin.ref] -->
   @override
-  get ref => (props[_$key__ref___$ReactPropsMixin] ?? null) as dynamic;
+  dynamic get ref => (props[_$key__ref___$ReactPropsMixin] ?? null) as dynamic;
 
   /// Either a String used to retrieve the element at a later time via [react.Component.ref],
   /// or a Function that gets called with the element when it is mounted.
@@ -59,7 +59,7 @@ abstract class ReactPropsMixin implements _$ReactPropsMixin {
   ///
   /// <!-- Generated from [_$ReactPropsMixin.ref] -->
   @override
-  set ref(value) => props[_$key__ref___$ReactPropsMixin] = value;
+  set ref(dynamic value) => props[_$key__ref___$ReactPropsMixin] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor
       _$prop___raw$ReactProps$children___$ReactPropsMixin =
@@ -98,1907 +98,2063 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.cols] -->
   @override
-  get cols => (props[_$key__cols___$DomPropsMixin] ?? null) as int?;
+  int? get cols => (props[_$key__cols___$DomPropsMixin] ?? null) as int?;
 
   /// <!-- Generated from [_$DomPropsMixin.cols] -->
   @override
-  set cols(value) => props[_$key__cols___$DomPropsMixin] = value;
+  set cols(int? value) => props[_$key__cols___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.minLength] -->
   @override
-  get minLength => (props[_$key__minLength___$DomPropsMixin] ?? null) as int?;
+  int? get minLength =>
+      (props[_$key__minLength___$DomPropsMixin] ?? null) as int?;
 
   /// <!-- Generated from [_$DomPropsMixin.minLength] -->
   @override
-  set minLength(value) => props[_$key__minLength___$DomPropsMixin] = value;
+  set minLength(int? value) => props[_$key__minLength___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.rows] -->
   @override
-  get rows => (props[_$key__rows___$DomPropsMixin] ?? null) as int?;
+  int? get rows => (props[_$key__rows___$DomPropsMixin] ?? null) as int?;
 
   /// <!-- Generated from [_$DomPropsMixin.rows] -->
   @override
-  set rows(value) => props[_$key__rows___$DomPropsMixin] = value;
+  set rows(int? value) => props[_$key__rows___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.size] -->
   @override
-  get size => (props[_$key__size___$DomPropsMixin] ?? null) as int?;
+  int? get size => (props[_$key__size___$DomPropsMixin] ?? null) as int?;
 
   /// <!-- Generated from [_$DomPropsMixin.size] -->
   @override
-  set size(value) => props[_$key__size___$DomPropsMixin] = value;
+  set size(int? value) => props[_$key__size___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.span] -->
   @override
-  get span => (props[_$key__span___$DomPropsMixin] ?? null) as int?;
+  int? get span => (props[_$key__span___$DomPropsMixin] ?? null) as int?;
 
   /// <!-- Generated from [_$DomPropsMixin.span] -->
   @override
-  set span(value) => props[_$key__span___$DomPropsMixin] = value;
+  set span(int? value) => props[_$key__span___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.start] -->
   @override
-  get start => (props[_$key__start___$DomPropsMixin] ?? null) as int?;
+  int? get start => (props[_$key__start___$DomPropsMixin] ?? null) as int?;
 
   /// <!-- Generated from [_$DomPropsMixin.start] -->
   @override
-  set start(value) => props[_$key__start___$DomPropsMixin] = value;
+  set start(int? value) => props[_$key__start___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.high] -->
   @override
-  get high => (props[_$key__high___$DomPropsMixin] ?? null) as num?;
+  num? get high => (props[_$key__high___$DomPropsMixin] ?? null) as num?;
 
   /// <!-- Generated from [_$DomPropsMixin.high] -->
   @override
-  set high(value) => props[_$key__high___$DomPropsMixin] = value;
+  set high(num? value) => props[_$key__high___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.low] -->
   @override
-  get low => (props[_$key__low___$DomPropsMixin] ?? null) as num?;
+  num? get low => (props[_$key__low___$DomPropsMixin] ?? null) as num?;
 
   /// <!-- Generated from [_$DomPropsMixin.low] -->
   @override
-  set low(value) => props[_$key__low___$DomPropsMixin] = value;
+  set low(num? value) => props[_$key__low___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.marginHeight] -->
   @override
-  get marginHeight =>
+  num? get marginHeight =>
       (props[_$key__marginHeight___$DomPropsMixin] ?? null) as num?;
 
   /// <!-- Generated from [_$DomPropsMixin.marginHeight] -->
   @override
-  set marginHeight(value) =>
+  set marginHeight(num? value) =>
       props[_$key__marginHeight___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.marginWidth] -->
   @override
-  get marginWidth =>
+  num? get marginWidth =>
       (props[_$key__marginWidth___$DomPropsMixin] ?? null) as num?;
 
   /// <!-- Generated from [_$DomPropsMixin.marginWidth] -->
   @override
-  set marginWidth(value) => props[_$key__marginWidth___$DomPropsMixin] = value;
+  set marginWidth(num? value) =>
+      props[_$key__marginWidth___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.optimum] -->
   @override
-  get optimum => (props[_$key__optimum___$DomPropsMixin] ?? null) as num?;
+  num? get optimum => (props[_$key__optimum___$DomPropsMixin] ?? null) as num?;
 
   /// <!-- Generated from [_$DomPropsMixin.optimum] -->
   @override
-  set optimum(value) => props[_$key__optimum___$DomPropsMixin] = value;
+  set optimum(num? value) => props[_$key__optimum___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.htmlDefault] -->
   @override
   @Accessor(key: 'default')
-  get htmlDefault =>
+  bool? get htmlDefault =>
       (props[_$key__htmlDefault___$DomPropsMixin] ?? null) as bool?;
 
   /// <!-- Generated from [_$DomPropsMixin.htmlDefault] -->
   @override
   @Accessor(key: 'default')
-  set htmlDefault(value) => props[_$key__htmlDefault___$DomPropsMixin] = value;
+  set htmlDefault(bool? value) =>
+      props[_$key__htmlDefault___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.htmlIs] -->
   @override
   @Accessor(key: 'is')
-  get htmlIs => (props[_$key__htmlIs___$DomPropsMixin] ?? null) as String?;
+  String? get htmlIs =>
+      (props[_$key__htmlIs___$DomPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$DomPropsMixin.htmlIs] -->
   @override
   @Accessor(key: 'is')
-  set htmlIs(value) => props[_$key__htmlIs___$DomPropsMixin] = value;
+  set htmlIs(String? value) => props[_$key__htmlIs___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.allowFullScreen] -->
   @override
-  get allowFullScreen =>
+  bool? get allowFullScreen =>
       (props[_$key__allowFullScreen___$DomPropsMixin] ?? null) as bool?;
 
   /// <!-- Generated from [_$DomPropsMixin.allowFullScreen] -->
   @override
-  set allowFullScreen(value) =>
+  set allowFullScreen(bool? value) =>
       props[_$key__allowFullScreen___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.async] -->
   @override
-  get async => (props[_$key__async___$DomPropsMixin] ?? null) as bool?;
+  bool? get async => (props[_$key__async___$DomPropsMixin] ?? null) as bool?;
 
   /// <!-- Generated from [_$DomPropsMixin.async] -->
   @override
-  set async(value) => props[_$key__async___$DomPropsMixin] = value;
+  set async(bool? value) => props[_$key__async___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.autoPlay] -->
   @override
-  get autoPlay => (props[_$key__autoPlay___$DomPropsMixin] ?? null) as bool?;
+  bool? get autoPlay =>
+      (props[_$key__autoPlay___$DomPropsMixin] ?? null) as bool?;
 
   /// <!-- Generated from [_$DomPropsMixin.autoPlay] -->
   @override
-  set autoPlay(value) => props[_$key__autoPlay___$DomPropsMixin] = value;
+  set autoPlay(bool? value) => props[_$key__autoPlay___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.checked] -->
   @override
-  get checked => (props[_$key__checked___$DomPropsMixin] ?? null) as bool?;
+  bool? get checked =>
+      (props[_$key__checked___$DomPropsMixin] ?? null) as bool?;
 
   /// <!-- Generated from [_$DomPropsMixin.checked] -->
   @override
-  set checked(value) => props[_$key__checked___$DomPropsMixin] = value;
+  set checked(bool? value) => props[_$key__checked___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.controls] -->
   @override
-  get controls => (props[_$key__controls___$DomPropsMixin] ?? null) as bool?;
+  bool? get controls =>
+      (props[_$key__controls___$DomPropsMixin] ?? null) as bool?;
 
   /// <!-- Generated from [_$DomPropsMixin.controls] -->
   @override
-  set controls(value) => props[_$key__controls___$DomPropsMixin] = value;
+  set controls(bool? value) => props[_$key__controls___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.defer] -->
   @override
-  get defer => (props[_$key__defer___$DomPropsMixin] ?? null) as bool?;
+  bool? get defer => (props[_$key__defer___$DomPropsMixin] ?? null) as bool?;
 
   /// <!-- Generated from [_$DomPropsMixin.defer] -->
   @override
-  set defer(value) => props[_$key__defer___$DomPropsMixin] = value;
+  set defer(bool? value) => props[_$key__defer___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.disabled] -->
   @override
-  get disabled => (props[_$key__disabled___$DomPropsMixin] ?? null) as bool?;
+  bool? get disabled =>
+      (props[_$key__disabled___$DomPropsMixin] ?? null) as bool?;
 
   /// <!-- Generated from [_$DomPropsMixin.disabled] -->
   @override
-  set disabled(value) => props[_$key__disabled___$DomPropsMixin] = value;
+  set disabled(bool? value) => props[_$key__disabled___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.formNoValidate] -->
   @override
-  get formNoValidate =>
+  bool? get formNoValidate =>
       (props[_$key__formNoValidate___$DomPropsMixin] ?? null) as bool?;
 
   /// <!-- Generated from [_$DomPropsMixin.formNoValidate] -->
   @override
-  set formNoValidate(value) =>
+  set formNoValidate(bool? value) =>
       props[_$key__formNoValidate___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.hidden] -->
   @override
-  get hidden => (props[_$key__hidden___$DomPropsMixin] ?? null) as bool?;
+  bool? get hidden => (props[_$key__hidden___$DomPropsMixin] ?? null) as bool?;
 
   /// <!-- Generated from [_$DomPropsMixin.hidden] -->
   @override
-  set hidden(value) => props[_$key__hidden___$DomPropsMixin] = value;
+  set hidden(bool? value) => props[_$key__hidden___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.loop] -->
   @override
-  get loop => (props[_$key__loop___$DomPropsMixin] ?? null) as bool?;
+  bool? get loop => (props[_$key__loop___$DomPropsMixin] ?? null) as bool?;
 
   /// <!-- Generated from [_$DomPropsMixin.loop] -->
   @override
-  set loop(value) => props[_$key__loop___$DomPropsMixin] = value;
+  set loop(bool? value) => props[_$key__loop___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.multiple] -->
   @override
-  get multiple => (props[_$key__multiple___$DomPropsMixin] ?? null) as bool?;
+  bool? get multiple =>
+      (props[_$key__multiple___$DomPropsMixin] ?? null) as bool?;
 
   /// <!-- Generated from [_$DomPropsMixin.multiple] -->
   @override
-  set multiple(value) => props[_$key__multiple___$DomPropsMixin] = value;
+  set multiple(bool? value) => props[_$key__multiple___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.muted] -->
   @override
-  get muted => (props[_$key__muted___$DomPropsMixin] ?? null) as bool?;
+  bool? get muted => (props[_$key__muted___$DomPropsMixin] ?? null) as bool?;
 
   /// <!-- Generated from [_$DomPropsMixin.muted] -->
   @override
-  set muted(value) => props[_$key__muted___$DomPropsMixin] = value;
+  set muted(bool? value) => props[_$key__muted___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.noValidate] -->
   @override
-  get noValidate =>
+  bool? get noValidate =>
       (props[_$key__noValidate___$DomPropsMixin] ?? null) as bool?;
 
   /// <!-- Generated from [_$DomPropsMixin.noValidate] -->
   @override
-  set noValidate(value) => props[_$key__noValidate___$DomPropsMixin] = value;
+  set noValidate(bool? value) =>
+      props[_$key__noValidate___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.open] -->
   @override
-  get open => (props[_$key__open___$DomPropsMixin] ?? null) as bool?;
+  bool? get open => (props[_$key__open___$DomPropsMixin] ?? null) as bool?;
 
   /// <!-- Generated from [_$DomPropsMixin.open] -->
   @override
-  set open(value) => props[_$key__open___$DomPropsMixin] = value;
+  set open(bool? value) => props[_$key__open___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.readOnly] -->
   @override
-  get readOnly => (props[_$key__readOnly___$DomPropsMixin] ?? null) as bool?;
+  bool? get readOnly =>
+      (props[_$key__readOnly___$DomPropsMixin] ?? null) as bool?;
 
   /// <!-- Generated from [_$DomPropsMixin.readOnly] -->
   @override
-  set readOnly(value) => props[_$key__readOnly___$DomPropsMixin] = value;
+  set readOnly(bool? value) => props[_$key__readOnly___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.required] -->
   @override
-  get required => (props[_$key__required___$DomPropsMixin] ?? null) as bool?;
+  bool? get required =>
+      (props[_$key__required___$DomPropsMixin] ?? null) as bool?;
 
   /// <!-- Generated from [_$DomPropsMixin.required] -->
   @override
-  set required(value) => props[_$key__required___$DomPropsMixin] = value;
+  set required(bool? value) => props[_$key__required___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.reversed] -->
   @override
-  get reversed => (props[_$key__reversed___$DomPropsMixin] ?? null) as bool?;
+  bool? get reversed =>
+      (props[_$key__reversed___$DomPropsMixin] ?? null) as bool?;
 
   /// <!-- Generated from [_$DomPropsMixin.reversed] -->
   @override
-  set reversed(value) => props[_$key__reversed___$DomPropsMixin] = value;
+  set reversed(bool? value) => props[_$key__reversed___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.scoped] -->
   @override
-  get scoped => (props[_$key__scoped___$DomPropsMixin] ?? null) as bool?;
+  bool? get scoped => (props[_$key__scoped___$DomPropsMixin] ?? null) as bool?;
 
   /// <!-- Generated from [_$DomPropsMixin.scoped] -->
   @override
-  set scoped(value) => props[_$key__scoped___$DomPropsMixin] = value;
+  set scoped(bool? value) => props[_$key__scoped___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.seamless] -->
   @override
-  get seamless => (props[_$key__seamless___$DomPropsMixin] ?? null) as bool?;
+  bool? get seamless =>
+      (props[_$key__seamless___$DomPropsMixin] ?? null) as bool?;
 
   /// <!-- Generated from [_$DomPropsMixin.seamless] -->
   @override
-  set seamless(value) => props[_$key__seamless___$DomPropsMixin] = value;
+  set seamless(bool? value) => props[_$key__seamless___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.selected] -->
   @override
-  get selected => (props[_$key__selected___$DomPropsMixin] ?? null) as bool?;
+  bool? get selected =>
+      (props[_$key__selected___$DomPropsMixin] ?? null) as bool?;
 
   /// <!-- Generated from [_$DomPropsMixin.selected] -->
   @override
-  set selected(value) => props[_$key__selected___$DomPropsMixin] = value;
+  set selected(bool? value) => props[_$key__selected___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin._raw$DomProps$style] -->
   @override
   @Accessor(key: 'style')
-  get _raw$DomProps$style =>
+  dynamic get _raw$DomProps$style =>
       (props[_$key___raw$DomProps$style___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin._raw$DomProps$style] -->
   @override
   @Accessor(key: 'style')
-  set _raw$DomProps$style(value) =>
+  set _raw$DomProps$style(dynamic value) =>
       props[_$key___raw$DomProps$style___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.challenge] -->
   @override
-  get challenge =>
+  String? get challenge =>
       (props[_$key__challenge___$DomPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$DomPropsMixin.challenge] -->
   @override
-  set challenge(value) => props[_$key__challenge___$DomPropsMixin] = value;
+  set challenge(String? value) =>
+      props[_$key__challenge___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.cite] -->
   @override
-  get cite => (props[_$key__cite___$DomPropsMixin] ?? null) as String?;
+  String? get cite => (props[_$key__cite___$DomPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$DomPropsMixin.cite] -->
   @override
-  set cite(value) => props[_$key__cite___$DomPropsMixin] = value;
+  set cite(String? value) => props[_$key__cite___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.className] -->
   @override
-  get className =>
+  String? get className =>
       (props[_$key__className___$DomPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$DomPropsMixin.className] -->
   @override
-  set className(value) => props[_$key__className___$DomPropsMixin] = value;
+  set className(String? value) =>
+      props[_$key__className___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.controlsList] -->
   @override
-  get controlsList =>
+  String? get controlsList =>
       (props[_$key__controlsList___$DomPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$DomPropsMixin.controlsList] -->
   @override
-  set controlsList(value) =>
+  set controlsList(String? value) =>
       props[_$key__controlsList___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.formAction] -->
   @override
-  get formAction =>
+  String? get formAction =>
       (props[_$key__formAction___$DomPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$DomPropsMixin.formAction] -->
   @override
-  set formAction(value) => props[_$key__formAction___$DomPropsMixin] = value;
+  set formAction(String? value) =>
+      props[_$key__formAction___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.formEncType] -->
   @override
-  get formEncType =>
+  String? get formEncType =>
       (props[_$key__formEncType___$DomPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$DomPropsMixin.formEncType] -->
   @override
-  set formEncType(value) => props[_$key__formEncType___$DomPropsMixin] = value;
+  set formEncType(String? value) =>
+      props[_$key__formEncType___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.formMethod] -->
   @override
-  get formMethod =>
+  String? get formMethod =>
       (props[_$key__formMethod___$DomPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$DomPropsMixin.formMethod] -->
   @override
-  set formMethod(value) => props[_$key__formMethod___$DomPropsMixin] = value;
+  set formMethod(String? value) =>
+      props[_$key__formMethod___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.formTarget] -->
   @override
-  get formTarget =>
+  String? get formTarget =>
       (props[_$key__formTarget___$DomPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$DomPropsMixin.formTarget] -->
   @override
-  set formTarget(value) => props[_$key__formTarget___$DomPropsMixin] = value;
+  set formTarget(String? value) =>
+      props[_$key__formTarget___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.headers] -->
   @override
-  get headers => (props[_$key__headers___$DomPropsMixin] ?? null) as String?;
+  String? get headers =>
+      (props[_$key__headers___$DomPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$DomPropsMixin.headers] -->
   @override
-  set headers(value) => props[_$key__headers___$DomPropsMixin] = value;
+  set headers(String? value) => props[_$key__headers___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.id] -->
   @override
-  get id => (props[_$key__id___$DomPropsMixin] ?? null) as String?;
+  String? get id => (props[_$key__id___$DomPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$DomPropsMixin.id] -->
   @override
-  set id(value) => props[_$key__id___$DomPropsMixin] = value;
+  set id(String? value) => props[_$key__id___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.inputMode] -->
   @override
-  get inputMode =>
+  String? get inputMode =>
       (props[_$key__inputMode___$DomPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$DomPropsMixin.inputMode] -->
   @override
-  set inputMode(value) => props[_$key__inputMode___$DomPropsMixin] = value;
+  set inputMode(String? value) =>
+      props[_$key__inputMode___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.integrity] -->
   @override
-  get integrity =>
+  String? get integrity =>
       (props[_$key__integrity___$DomPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$DomPropsMixin.integrity] -->
   @override
-  set integrity(value) => props[_$key__integrity___$DomPropsMixin] = value;
+  set integrity(String? value) =>
+      props[_$key__integrity___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.keyParams] -->
   @override
-  get keyParams =>
+  String? get keyParams =>
       (props[_$key__keyParams___$DomPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$DomPropsMixin.keyParams] -->
   @override
-  set keyParams(value) => props[_$key__keyParams___$DomPropsMixin] = value;
+  set keyParams(String? value) =>
+      props[_$key__keyParams___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.keyType] -->
   @override
-  get keyType => (props[_$key__keyType___$DomPropsMixin] ?? null) as String?;
+  String? get keyType =>
+      (props[_$key__keyType___$DomPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$DomPropsMixin.keyType] -->
   @override
-  set keyType(value) => props[_$key__keyType___$DomPropsMixin] = value;
+  set keyType(String? value) => props[_$key__keyType___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.kind] -->
   @override
-  get kind => (props[_$key__kind___$DomPropsMixin] ?? null) as String?;
+  String? get kind => (props[_$key__kind___$DomPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$DomPropsMixin.kind] -->
   @override
-  set kind(value) => props[_$key__kind___$DomPropsMixin] = value;
+  set kind(String? value) => props[_$key__kind___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.nonce] -->
   @override
-  get nonce => (props[_$key__nonce___$DomPropsMixin] ?? null) as String?;
+  String? get nonce =>
+      (props[_$key__nonce___$DomPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$DomPropsMixin.nonce] -->
   @override
-  set nonce(value) => props[_$key__nonce___$DomPropsMixin] = value;
+  set nonce(String? value) => props[_$key__nonce___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.srcLang] -->
   @override
-  get srcLang => (props[_$key__srcLang___$DomPropsMixin] ?? null) as String?;
+  String? get srcLang =>
+      (props[_$key__srcLang___$DomPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$DomPropsMixin.srcLang] -->
   @override
-  set srcLang(value) => props[_$key__srcLang___$DomPropsMixin] = value;
+  set srcLang(String? value) => props[_$key__srcLang___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.summary] -->
   @override
-  get summary => (props[_$key__summary___$DomPropsMixin] ?? null) as String?;
+  String? get summary =>
+      (props[_$key__summary___$DomPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$DomPropsMixin.summary] -->
   @override
-  set summary(value) => props[_$key__summary___$DomPropsMixin] = value;
+  set summary(String? value) => props[_$key__summary___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.title] -->
   @override
-  get title => (props[_$key__title___$DomPropsMixin] ?? null) as String?;
+  String? get title =>
+      (props[_$key__title___$DomPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$DomPropsMixin.title] -->
   @override
-  set title(value) => props[_$key__title___$DomPropsMixin] = value;
+  set title(String? value) => props[_$key__title___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.wrap] -->
   @override
-  get wrap => (props[_$key__wrap___$DomPropsMixin] ?? null) as String?;
+  String? get wrap => (props[_$key__wrap___$DomPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$DomPropsMixin.wrap] -->
   @override
-  set wrap(value) => props[_$key__wrap___$DomPropsMixin] = value;
+  set wrap(String? value) => props[_$key__wrap___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.accept] -->
   @override
-  get accept => (props[_$key__accept___$DomPropsMixin] ?? null) as dynamic;
+  dynamic get accept =>
+      (props[_$key__accept___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.accept] -->
   @override
-  set accept(value) => props[_$key__accept___$DomPropsMixin] = value;
+  set accept(dynamic value) => props[_$key__accept___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.acceptCharset] -->
   @override
-  get acceptCharset =>
+  dynamic get acceptCharset =>
       (props[_$key__acceptCharset___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.acceptCharset] -->
   @override
-  set acceptCharset(value) =>
+  set acceptCharset(dynamic value) =>
       props[_$key__acceptCharset___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.accessKey] -->
   @override
-  get accessKey =>
+  dynamic get accessKey =>
       (props[_$key__accessKey___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.accessKey] -->
   @override
-  set accessKey(value) => props[_$key__accessKey___$DomPropsMixin] = value;
+  set accessKey(dynamic value) =>
+      props[_$key__accessKey___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.action] -->
   @override
-  get action => (props[_$key__action___$DomPropsMixin] ?? null) as dynamic;
+  dynamic get action =>
+      (props[_$key__action___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.action] -->
   @override
-  set action(value) => props[_$key__action___$DomPropsMixin] = value;
+  set action(dynamic value) => props[_$key__action___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.allowTransparency] -->
   @override
-  get allowTransparency =>
+  dynamic get allowTransparency =>
       (props[_$key__allowTransparency___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.allowTransparency] -->
   @override
-  set allowTransparency(value) =>
+  set allowTransparency(dynamic value) =>
       props[_$key__allowTransparency___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.alt] -->
   @override
-  get alt => (props[_$key__alt___$DomPropsMixin] ?? null) as dynamic;
+  dynamic get alt => (props[_$key__alt___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.alt] -->
   @override
-  set alt(value) => props[_$key__alt___$DomPropsMixin] = value;
+  set alt(dynamic value) => props[_$key__alt___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.autoComplete] -->
   @override
-  get autoComplete =>
+  dynamic get autoComplete =>
       (props[_$key__autoComplete___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.autoComplete] -->
   @override
-  set autoComplete(value) =>
+  set autoComplete(dynamic value) =>
       props[_$key__autoComplete___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.capture] -->
   @override
-  get capture => (props[_$key__capture___$DomPropsMixin] ?? null) as dynamic;
+  dynamic get capture =>
+      (props[_$key__capture___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.capture] -->
   @override
-  set capture(value) => props[_$key__capture___$DomPropsMixin] = value;
+  set capture(dynamic value) => props[_$key__capture___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.cellPadding] -->
   @override
-  get cellPadding =>
+  dynamic get cellPadding =>
       (props[_$key__cellPadding___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.cellPadding] -->
   @override
-  set cellPadding(value) => props[_$key__cellPadding___$DomPropsMixin] = value;
+  set cellPadding(dynamic value) =>
+      props[_$key__cellPadding___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.cellSpacing] -->
   @override
-  get cellSpacing =>
+  dynamic get cellSpacing =>
       (props[_$key__cellSpacing___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.cellSpacing] -->
   @override
-  set cellSpacing(value) => props[_$key__cellSpacing___$DomPropsMixin] = value;
+  set cellSpacing(dynamic value) =>
+      props[_$key__cellSpacing___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.charSet] -->
   @override
-  get charSet => (props[_$key__charSet___$DomPropsMixin] ?? null) as dynamic;
+  dynamic get charSet =>
+      (props[_$key__charSet___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.charSet] -->
   @override
-  set charSet(value) => props[_$key__charSet___$DomPropsMixin] = value;
+  set charSet(dynamic value) => props[_$key__charSet___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.classID] -->
   @override
-  get classID => (props[_$key__classID___$DomPropsMixin] ?? null) as dynamic;
+  dynamic get classID =>
+      (props[_$key__classID___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.classID] -->
   @override
-  set classID(value) => props[_$key__classID___$DomPropsMixin] = value;
+  set classID(dynamic value) => props[_$key__classID___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.colSpan] -->
   @override
-  get colSpan => (props[_$key__colSpan___$DomPropsMixin] ?? null) as dynamic;
+  dynamic get colSpan =>
+      (props[_$key__colSpan___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.colSpan] -->
   @override
-  set colSpan(value) => props[_$key__colSpan___$DomPropsMixin] = value;
+  set colSpan(dynamic value) => props[_$key__colSpan___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.content] -->
   @override
-  get content => (props[_$key__content___$DomPropsMixin] ?? null) as dynamic;
+  dynamic get content =>
+      (props[_$key__content___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.content] -->
   @override
-  set content(value) => props[_$key__content___$DomPropsMixin] = value;
+  set content(dynamic value) => props[_$key__content___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.contentEditable] -->
   @override
-  get contentEditable =>
+  dynamic get contentEditable =>
       (props[_$key__contentEditable___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.contentEditable] -->
   @override
-  set contentEditable(value) =>
+  set contentEditable(dynamic value) =>
       props[_$key__contentEditable___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.contextMenu] -->
   @override
-  get contextMenu =>
+  dynamic get contextMenu =>
       (props[_$key__contextMenu___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.contextMenu] -->
   @override
-  set contextMenu(value) => props[_$key__contextMenu___$DomPropsMixin] = value;
+  set contextMenu(dynamic value) =>
+      props[_$key__contextMenu___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.coords] -->
   @override
-  get coords => (props[_$key__coords___$DomPropsMixin] ?? null) as dynamic;
+  dynamic get coords =>
+      (props[_$key__coords___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.coords] -->
   @override
-  set coords(value) => props[_$key__coords___$DomPropsMixin] = value;
+  set coords(dynamic value) => props[_$key__coords___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.crossOrigin] -->
   @override
-  get crossOrigin =>
+  dynamic get crossOrigin =>
       (props[_$key__crossOrigin___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.crossOrigin] -->
   @override
-  set crossOrigin(value) => props[_$key__crossOrigin___$DomPropsMixin] = value;
+  set crossOrigin(dynamic value) =>
+      props[_$key__crossOrigin___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.data] -->
   @override
-  get data => (props[_$key__data___$DomPropsMixin] ?? null) as dynamic;
+  dynamic get data => (props[_$key__data___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.data] -->
   @override
-  set data(value) => props[_$key__data___$DomPropsMixin] = value;
+  set data(dynamic value) => props[_$key__data___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.dateTime] -->
   @override
-  get dateTime => (props[_$key__dateTime___$DomPropsMixin] ?? null) as dynamic;
+  dynamic get dateTime =>
+      (props[_$key__dateTime___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.dateTime] -->
   @override
-  set dateTime(value) => props[_$key__dateTime___$DomPropsMixin] = value;
+  set dateTime(dynamic value) =>
+      props[_$key__dateTime___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.dir] -->
   @override
-  get dir => (props[_$key__dir___$DomPropsMixin] ?? null) as dynamic;
+  dynamic get dir => (props[_$key__dir___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.dir] -->
   @override
-  set dir(value) => props[_$key__dir___$DomPropsMixin] = value;
+  set dir(dynamic value) => props[_$key__dir___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.download] -->
   @override
-  get download => (props[_$key__download___$DomPropsMixin] ?? null) as dynamic;
+  dynamic get download =>
+      (props[_$key__download___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.download] -->
   @override
-  set download(value) => props[_$key__download___$DomPropsMixin] = value;
+  set download(dynamic value) =>
+      props[_$key__download___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.draggable] -->
   @override
-  get draggable =>
+  dynamic get draggable =>
       (props[_$key__draggable___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.draggable] -->
   @override
-  set draggable(value) => props[_$key__draggable___$DomPropsMixin] = value;
+  set draggable(dynamic value) =>
+      props[_$key__draggable___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.encType] -->
   @override
-  get encType => (props[_$key__encType___$DomPropsMixin] ?? null) as dynamic;
+  dynamic get encType =>
+      (props[_$key__encType___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.encType] -->
   @override
-  set encType(value) => props[_$key__encType___$DomPropsMixin] = value;
+  set encType(dynamic value) => props[_$key__encType___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.form] -->
   @override
-  get form => (props[_$key__form___$DomPropsMixin] ?? null) as dynamic;
+  dynamic get form => (props[_$key__form___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.form] -->
   @override
-  set form(value) => props[_$key__form___$DomPropsMixin] = value;
+  set form(dynamic value) => props[_$key__form___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.frameBorder] -->
   @override
-  get frameBorder =>
+  dynamic get frameBorder =>
       (props[_$key__frameBorder___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.frameBorder] -->
   @override
-  set frameBorder(value) => props[_$key__frameBorder___$DomPropsMixin] = value;
+  set frameBorder(dynamic value) =>
+      props[_$key__frameBorder___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.height] -->
   @override
-  get height => (props[_$key__height___$DomPropsMixin] ?? null) as dynamic;
+  dynamic get height =>
+      (props[_$key__height___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.height] -->
   @override
-  set height(value) => props[_$key__height___$DomPropsMixin] = value;
+  set height(dynamic value) => props[_$key__height___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.href] -->
   @override
-  get href => (props[_$key__href___$DomPropsMixin] ?? null) as dynamic;
+  dynamic get href => (props[_$key__href___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.href] -->
   @override
-  set href(value) => props[_$key__href___$DomPropsMixin] = value;
+  set href(dynamic value) => props[_$key__href___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.hrefLang] -->
   @override
-  get hrefLang => (props[_$key__hrefLang___$DomPropsMixin] ?? null) as dynamic;
+  dynamic get hrefLang =>
+      (props[_$key__hrefLang___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.hrefLang] -->
   @override
-  set hrefLang(value) => props[_$key__hrefLang___$DomPropsMixin] = value;
+  set hrefLang(dynamic value) =>
+      props[_$key__hrefLang___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.htmlFor] -->
   @override
-  get htmlFor => (props[_$key__htmlFor___$DomPropsMixin] ?? null) as dynamic;
+  dynamic get htmlFor =>
+      (props[_$key__htmlFor___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.htmlFor] -->
   @override
-  set htmlFor(value) => props[_$key__htmlFor___$DomPropsMixin] = value;
+  set htmlFor(dynamic value) => props[_$key__htmlFor___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.httpEquiv] -->
   @override
-  get httpEquiv =>
+  dynamic get httpEquiv =>
       (props[_$key__httpEquiv___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.httpEquiv] -->
   @override
-  set httpEquiv(value) => props[_$key__httpEquiv___$DomPropsMixin] = value;
+  set httpEquiv(dynamic value) =>
+      props[_$key__httpEquiv___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.icon] -->
   @override
-  get icon => (props[_$key__icon___$DomPropsMixin] ?? null) as dynamic;
+  dynamic get icon => (props[_$key__icon___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.icon] -->
   @override
-  set icon(value) => props[_$key__icon___$DomPropsMixin] = value;
+  set icon(dynamic value) => props[_$key__icon___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.label] -->
   @override
-  get label => (props[_$key__label___$DomPropsMixin] ?? null) as dynamic;
+  dynamic get label =>
+      (props[_$key__label___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.label] -->
   @override
-  set label(value) => props[_$key__label___$DomPropsMixin] = value;
+  set label(dynamic value) => props[_$key__label___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.lang] -->
   @override
-  get lang => (props[_$key__lang___$DomPropsMixin] ?? null) as dynamic;
+  dynamic get lang => (props[_$key__lang___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.lang] -->
   @override
-  set lang(value) => props[_$key__lang___$DomPropsMixin] = value;
+  set lang(dynamic value) => props[_$key__lang___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.list] -->
   @override
-  get list => (props[_$key__list___$DomPropsMixin] ?? null) as dynamic;
+  dynamic get list => (props[_$key__list___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.list] -->
   @override
-  set list(value) => props[_$key__list___$DomPropsMixin] = value;
+  set list(dynamic value) => props[_$key__list___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.manifest] -->
   @override
-  get manifest => (props[_$key__manifest___$DomPropsMixin] ?? null) as dynamic;
+  dynamic get manifest =>
+      (props[_$key__manifest___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.manifest] -->
   @override
-  set manifest(value) => props[_$key__manifest___$DomPropsMixin] = value;
+  set manifest(dynamic value) =>
+      props[_$key__manifest___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.max] -->
   @override
-  get max => (props[_$key__max___$DomPropsMixin] ?? null) as dynamic;
+  dynamic get max => (props[_$key__max___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.max] -->
   @override
-  set max(value) => props[_$key__max___$DomPropsMixin] = value;
+  set max(dynamic value) => props[_$key__max___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.maxLength] -->
   @override
-  get maxLength =>
+  dynamic get maxLength =>
       (props[_$key__maxLength___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.maxLength] -->
   @override
-  set maxLength(value) => props[_$key__maxLength___$DomPropsMixin] = value;
+  set maxLength(dynamic value) =>
+      props[_$key__maxLength___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.media] -->
   @override
-  get media => (props[_$key__media___$DomPropsMixin] ?? null) as dynamic;
+  dynamic get media =>
+      (props[_$key__media___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.media] -->
   @override
-  set media(value) => props[_$key__media___$DomPropsMixin] = value;
+  set media(dynamic value) => props[_$key__media___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.mediaGroup] -->
   @override
-  get mediaGroup =>
+  dynamic get mediaGroup =>
       (props[_$key__mediaGroup___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.mediaGroup] -->
   @override
-  set mediaGroup(value) => props[_$key__mediaGroup___$DomPropsMixin] = value;
+  set mediaGroup(dynamic value) =>
+      props[_$key__mediaGroup___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.method] -->
   @override
-  get method => (props[_$key__method___$DomPropsMixin] ?? null) as dynamic;
+  dynamic get method =>
+      (props[_$key__method___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.method] -->
   @override
-  set method(value) => props[_$key__method___$DomPropsMixin] = value;
+  set method(dynamic value) => props[_$key__method___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.min] -->
   @override
-  get min => (props[_$key__min___$DomPropsMixin] ?? null) as dynamic;
+  dynamic get min => (props[_$key__min___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.min] -->
   @override
-  set min(value) => props[_$key__min___$DomPropsMixin] = value;
+  set min(dynamic value) => props[_$key__min___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.name] -->
   @override
-  get name => (props[_$key__name___$DomPropsMixin] ?? null) as dynamic;
+  dynamic get name => (props[_$key__name___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.name] -->
   @override
-  set name(value) => props[_$key__name___$DomPropsMixin] = value;
+  set name(dynamic value) => props[_$key__name___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.pattern] -->
   @override
-  get pattern => (props[_$key__pattern___$DomPropsMixin] ?? null) as dynamic;
+  dynamic get pattern =>
+      (props[_$key__pattern___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.pattern] -->
   @override
-  set pattern(value) => props[_$key__pattern___$DomPropsMixin] = value;
+  set pattern(dynamic value) => props[_$key__pattern___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.placeholder] -->
   @override
-  get placeholder =>
+  dynamic get placeholder =>
       (props[_$key__placeholder___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.placeholder] -->
   @override
-  set placeholder(value) => props[_$key__placeholder___$DomPropsMixin] = value;
+  set placeholder(dynamic value) =>
+      props[_$key__placeholder___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.poster] -->
   @override
-  get poster => (props[_$key__poster___$DomPropsMixin] ?? null) as dynamic;
+  dynamic get poster =>
+      (props[_$key__poster___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.poster] -->
   @override
-  set poster(value) => props[_$key__poster___$DomPropsMixin] = value;
+  set poster(dynamic value) => props[_$key__poster___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.preload] -->
   @override
-  get preload => (props[_$key__preload___$DomPropsMixin] ?? null) as dynamic;
+  dynamic get preload =>
+      (props[_$key__preload___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.preload] -->
   @override
-  set preload(value) => props[_$key__preload___$DomPropsMixin] = value;
+  set preload(dynamic value) => props[_$key__preload___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.radioGroup] -->
   @override
-  get radioGroup =>
+  dynamic get radioGroup =>
       (props[_$key__radioGroup___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.radioGroup] -->
   @override
-  set radioGroup(value) => props[_$key__radioGroup___$DomPropsMixin] = value;
+  set radioGroup(dynamic value) =>
+      props[_$key__radioGroup___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.rel] -->
   @override
-  get rel => (props[_$key__rel___$DomPropsMixin] ?? null) as dynamic;
+  dynamic get rel => (props[_$key__rel___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.rel] -->
   @override
-  set rel(value) => props[_$key__rel___$DomPropsMixin] = value;
+  set rel(dynamic value) => props[_$key__rel___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.role] -->
   @override
-  get role => (props[_$key__role___$DomPropsMixin] ?? null) as dynamic;
+  dynamic get role => (props[_$key__role___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.role] -->
   @override
-  set role(value) => props[_$key__role___$DomPropsMixin] = value;
+  set role(dynamic value) => props[_$key__role___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.rowSpan] -->
   @override
-  get rowSpan => (props[_$key__rowSpan___$DomPropsMixin] ?? null) as dynamic;
+  dynamic get rowSpan =>
+      (props[_$key__rowSpan___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.rowSpan] -->
   @override
-  set rowSpan(value) => props[_$key__rowSpan___$DomPropsMixin] = value;
+  set rowSpan(dynamic value) => props[_$key__rowSpan___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.sandbox] -->
   @override
-  get sandbox => (props[_$key__sandbox___$DomPropsMixin] ?? null) as dynamic;
+  dynamic get sandbox =>
+      (props[_$key__sandbox___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.sandbox] -->
   @override
-  set sandbox(value) => props[_$key__sandbox___$DomPropsMixin] = value;
+  set sandbox(dynamic value) => props[_$key__sandbox___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.scope] -->
   @override
-  get scope => (props[_$key__scope___$DomPropsMixin] ?? null) as dynamic;
+  dynamic get scope =>
+      (props[_$key__scope___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.scope] -->
   @override
-  set scope(value) => props[_$key__scope___$DomPropsMixin] = value;
+  set scope(dynamic value) => props[_$key__scope___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.scrolling] -->
   @override
-  get scrolling =>
+  dynamic get scrolling =>
       (props[_$key__scrolling___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.scrolling] -->
   @override
-  set scrolling(value) => props[_$key__scrolling___$DomPropsMixin] = value;
+  set scrolling(dynamic value) =>
+      props[_$key__scrolling___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.shape] -->
   @override
-  get shape => (props[_$key__shape___$DomPropsMixin] ?? null) as dynamic;
+  dynamic get shape =>
+      (props[_$key__shape___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.shape] -->
   @override
-  set shape(value) => props[_$key__shape___$DomPropsMixin] = value;
+  set shape(dynamic value) => props[_$key__shape___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.sizes] -->
   @override
-  get sizes => (props[_$key__sizes___$DomPropsMixin] ?? null) as dynamic;
+  dynamic get sizes =>
+      (props[_$key__sizes___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.sizes] -->
   @override
-  set sizes(value) => props[_$key__sizes___$DomPropsMixin] = value;
+  set sizes(dynamic value) => props[_$key__sizes___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.spellCheck] -->
   @override
-  get spellCheck =>
+  dynamic get spellCheck =>
       (props[_$key__spellCheck___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.spellCheck] -->
   @override
-  set spellCheck(value) => props[_$key__spellCheck___$DomPropsMixin] = value;
+  set spellCheck(dynamic value) =>
+      props[_$key__spellCheck___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.src] -->
   @override
-  get src => (props[_$key__src___$DomPropsMixin] ?? null) as dynamic;
+  dynamic get src => (props[_$key__src___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.src] -->
   @override
-  set src(value) => props[_$key__src___$DomPropsMixin] = value;
+  set src(dynamic value) => props[_$key__src___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.srcDoc] -->
   @override
-  get srcDoc => (props[_$key__srcDoc___$DomPropsMixin] ?? null) as dynamic;
+  dynamic get srcDoc =>
+      (props[_$key__srcDoc___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.srcDoc] -->
   @override
-  set srcDoc(value) => props[_$key__srcDoc___$DomPropsMixin] = value;
+  set srcDoc(dynamic value) => props[_$key__srcDoc___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.srcSet] -->
   @override
-  get srcSet => (props[_$key__srcSet___$DomPropsMixin] ?? null) as dynamic;
+  dynamic get srcSet =>
+      (props[_$key__srcSet___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.srcSet] -->
   @override
-  set srcSet(value) => props[_$key__srcSet___$DomPropsMixin] = value;
+  set srcSet(dynamic value) => props[_$key__srcSet___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.step] -->
   @override
-  get step => (props[_$key__step___$DomPropsMixin] ?? null) as dynamic;
+  dynamic get step => (props[_$key__step___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.step] -->
   @override
-  set step(value) => props[_$key__step___$DomPropsMixin] = value;
+  set step(dynamic value) => props[_$key__step___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.tabIndex] -->
   @override
-  get tabIndex => (props[_$key__tabIndex___$DomPropsMixin] ?? null) as dynamic;
+  dynamic get tabIndex =>
+      (props[_$key__tabIndex___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.tabIndex] -->
   @override
-  set tabIndex(value) => props[_$key__tabIndex___$DomPropsMixin] = value;
+  set tabIndex(dynamic value) =>
+      props[_$key__tabIndex___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.target] -->
   @override
-  get target => (props[_$key__target___$DomPropsMixin] ?? null) as dynamic;
+  dynamic get target =>
+      (props[_$key__target___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.target] -->
   @override
-  set target(value) => props[_$key__target___$DomPropsMixin] = value;
+  set target(dynamic value) => props[_$key__target___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.type] -->
   @override
-  get type => (props[_$key__type___$DomPropsMixin] ?? null) as dynamic;
+  dynamic get type => (props[_$key__type___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.type] -->
   @override
-  set type(value) => props[_$key__type___$DomPropsMixin] = value;
+  set type(dynamic value) => props[_$key__type___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.useMap] -->
   @override
-  get useMap => (props[_$key__useMap___$DomPropsMixin] ?? null) as dynamic;
+  dynamic get useMap =>
+      (props[_$key__useMap___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.useMap] -->
   @override
-  set useMap(value) => props[_$key__useMap___$DomPropsMixin] = value;
+  set useMap(dynamic value) => props[_$key__useMap___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.value] -->
   @override
-  get value => (props[_$key__value___$DomPropsMixin] ?? null) as dynamic;
+  dynamic get value =>
+      (props[_$key__value___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.value] -->
   @override
-  set value(value) => props[_$key__value___$DomPropsMixin] = value;
+  set value(dynamic value) => props[_$key__value___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.width] -->
   @override
-  get width => (props[_$key__width___$DomPropsMixin] ?? null) as dynamic;
+  dynamic get width =>
+      (props[_$key__width___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.width] -->
   @override
-  set width(value) => props[_$key__width___$DomPropsMixin] = value;
+  set width(dynamic value) => props[_$key__width___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.wmode] -->
   @override
-  get wmode => (props[_$key__wmode___$DomPropsMixin] ?? null) as dynamic;
+  dynamic get wmode =>
+      (props[_$key__wmode___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.wmode] -->
   @override
-  set wmode(value) => props[_$key__wmode___$DomPropsMixin] = value;
+  set wmode(dynamic value) => props[_$key__wmode___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onAnimationEnd] -->
   @override
-  get onAnimationEnd => (props[_$key__onAnimationEnd___$DomPropsMixin] ?? null)
-      as AnimationEventCallback?;
+  AnimationEventCallback? get onAnimationEnd =>
+      (props[_$key__onAnimationEnd___$DomPropsMixin] ?? null)
+          as AnimationEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onAnimationEnd] -->
   @override
-  set onAnimationEnd(value) =>
+  set onAnimationEnd(AnimationEventCallback? value) =>
       props[_$key__onAnimationEnd___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onAnimationIteration] -->
   @override
-  get onAnimationIteration =>
+  AnimationEventCallback? get onAnimationIteration =>
       (props[_$key__onAnimationIteration___$DomPropsMixin] ?? null)
           as AnimationEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onAnimationIteration] -->
   @override
-  set onAnimationIteration(value) =>
+  set onAnimationIteration(AnimationEventCallback? value) =>
       props[_$key__onAnimationIteration___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onAnimationStart] -->
   @override
-  get onAnimationStart =>
+  AnimationEventCallback? get onAnimationStart =>
       (props[_$key__onAnimationStart___$DomPropsMixin] ?? null)
           as AnimationEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onAnimationStart] -->
   @override
-  set onAnimationStart(value) =>
+  set onAnimationStart(AnimationEventCallback? value) =>
       props[_$key__onAnimationStart___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onCopy] -->
   @override
-  get onCopy => (props[_$key__onCopy___$DomPropsMixin] ?? null)
-      as ClipboardEventCallback?;
+  ClipboardEventCallback? get onCopy =>
+      (props[_$key__onCopy___$DomPropsMixin] ?? null)
+          as ClipboardEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onCopy] -->
   @override
-  set onCopy(value) => props[_$key__onCopy___$DomPropsMixin] = value;
+  set onCopy(ClipboardEventCallback? value) =>
+      props[_$key__onCopy___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onCut] -->
   @override
-  get onCut =>
+  ClipboardEventCallback? get onCut =>
       (props[_$key__onCut___$DomPropsMixin] ?? null) as ClipboardEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onCut] -->
   @override
-  set onCut(value) => props[_$key__onCut___$DomPropsMixin] = value;
+  set onCut(ClipboardEventCallback? value) =>
+      props[_$key__onCut___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onPaste] -->
   @override
-  get onPaste => (props[_$key__onPaste___$DomPropsMixin] ?? null)
-      as ClipboardEventCallback?;
+  ClipboardEventCallback? get onPaste =>
+      (props[_$key__onPaste___$DomPropsMixin] ?? null)
+          as ClipboardEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onPaste] -->
   @override
-  set onPaste(value) => props[_$key__onPaste___$DomPropsMixin] = value;
+  set onPaste(ClipboardEventCallback? value) =>
+      props[_$key__onPaste___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onKeyDown] -->
   @override
-  get onKeyDown => (props[_$key__onKeyDown___$DomPropsMixin] ?? null)
-      as KeyboardEventCallback?;
+  KeyboardEventCallback? get onKeyDown =>
+      (props[_$key__onKeyDown___$DomPropsMixin] ?? null)
+          as KeyboardEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onKeyDown] -->
   @override
-  set onKeyDown(value) => props[_$key__onKeyDown___$DomPropsMixin] = value;
+  set onKeyDown(KeyboardEventCallback? value) =>
+      props[_$key__onKeyDown___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onKeyPress] -->
   @override
-  get onKeyPress => (props[_$key__onKeyPress___$DomPropsMixin] ?? null)
-      as KeyboardEventCallback?;
+  KeyboardEventCallback? get onKeyPress =>
+      (props[_$key__onKeyPress___$DomPropsMixin] ?? null)
+          as KeyboardEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onKeyPress] -->
   @override
-  set onKeyPress(value) => props[_$key__onKeyPress___$DomPropsMixin] = value;
+  set onKeyPress(KeyboardEventCallback? value) =>
+      props[_$key__onKeyPress___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onKeyUp] -->
   @override
-  get onKeyUp => (props[_$key__onKeyUp___$DomPropsMixin] ?? null)
-      as KeyboardEventCallback?;
+  KeyboardEventCallback? get onKeyUp =>
+      (props[_$key__onKeyUp___$DomPropsMixin] ?? null)
+          as KeyboardEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onKeyUp] -->
   @override
-  set onKeyUp(value) => props[_$key__onKeyUp___$DomPropsMixin] = value;
+  set onKeyUp(KeyboardEventCallback? value) =>
+      props[_$key__onKeyUp___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onFocus] -->
   @override
-  get onFocus =>
+  FocusEventCallback? get onFocus =>
       (props[_$key__onFocus___$DomPropsMixin] ?? null) as FocusEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onFocus] -->
   @override
-  set onFocus(value) => props[_$key__onFocus___$DomPropsMixin] = value;
+  set onFocus(FocusEventCallback? value) =>
+      props[_$key__onFocus___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onBlur] -->
   @override
-  get onBlur =>
+  FocusEventCallback? get onBlur =>
       (props[_$key__onBlur___$DomPropsMixin] ?? null) as FocusEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onBlur] -->
   @override
-  set onBlur(value) => props[_$key__onBlur___$DomPropsMixin] = value;
+  set onBlur(FocusEventCallback? value) =>
+      props[_$key__onBlur___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onChange] -->
   @override
-  get onChange =>
+  FormEventCallback? get onChange =>
       (props[_$key__onChange___$DomPropsMixin] ?? null) as FormEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onChange] -->
   @override
-  set onChange(value) => props[_$key__onChange___$DomPropsMixin] = value;
+  set onChange(FormEventCallback? value) =>
+      props[_$key__onChange___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onInput] -->
   @override
-  get onInput =>
+  FormEventCallback? get onInput =>
       (props[_$key__onInput___$DomPropsMixin] ?? null) as FormEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onInput] -->
   @override
-  set onInput(value) => props[_$key__onInput___$DomPropsMixin] = value;
+  set onInput(FormEventCallback? value) =>
+      props[_$key__onInput___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onSubmit] -->
   @override
-  get onSubmit =>
+  FormEventCallback? get onSubmit =>
       (props[_$key__onSubmit___$DomPropsMixin] ?? null) as FormEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onSubmit] -->
   @override
-  set onSubmit(value) => props[_$key__onSubmit___$DomPropsMixin] = value;
+  set onSubmit(FormEventCallback? value) =>
+      props[_$key__onSubmit___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onReset] -->
   @override
-  get onReset =>
+  FormEventCallback? get onReset =>
       (props[_$key__onReset___$DomPropsMixin] ?? null) as FormEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onReset] -->
   @override
-  set onReset(value) => props[_$key__onReset___$DomPropsMixin] = value;
+  set onReset(FormEventCallback? value) =>
+      props[_$key__onReset___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onClick] -->
   @override
-  get onClick =>
+  MouseEventCallback? get onClick =>
       (props[_$key__onClick___$DomPropsMixin] ?? null) as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onClick] -->
   @override
-  set onClick(value) => props[_$key__onClick___$DomPropsMixin] = value;
+  set onClick(MouseEventCallback? value) =>
+      props[_$key__onClick___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onContextMenu] -->
   @override
-  get onContextMenu => (props[_$key__onContextMenu___$DomPropsMixin] ?? null)
-      as MouseEventCallback?;
+  MouseEventCallback? get onContextMenu =>
+      (props[_$key__onContextMenu___$DomPropsMixin] ?? null)
+          as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onContextMenu] -->
   @override
-  set onContextMenu(value) =>
+  set onContextMenu(MouseEventCallback? value) =>
       props[_$key__onContextMenu___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onDoubleClick] -->
   @override
-  get onDoubleClick => (props[_$key__onDoubleClick___$DomPropsMixin] ?? null)
-      as MouseEventCallback?;
+  MouseEventCallback? get onDoubleClick =>
+      (props[_$key__onDoubleClick___$DomPropsMixin] ?? null)
+          as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onDoubleClick] -->
   @override
-  set onDoubleClick(value) =>
+  set onDoubleClick(MouseEventCallback? value) =>
       props[_$key__onDoubleClick___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onDrag] -->
   @override
-  get onDrag =>
+  MouseEventCallback? get onDrag =>
       (props[_$key__onDrag___$DomPropsMixin] ?? null) as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onDrag] -->
   @override
-  set onDrag(value) => props[_$key__onDrag___$DomPropsMixin] = value;
+  set onDrag(MouseEventCallback? value) =>
+      props[_$key__onDrag___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onDragEnd] -->
   @override
-  get onDragEnd =>
+  MouseEventCallback? get onDragEnd =>
       (props[_$key__onDragEnd___$DomPropsMixin] ?? null) as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onDragEnd] -->
   @override
-  set onDragEnd(value) => props[_$key__onDragEnd___$DomPropsMixin] = value;
+  set onDragEnd(MouseEventCallback? value) =>
+      props[_$key__onDragEnd___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onDragEnter] -->
   @override
-  get onDragEnter => (props[_$key__onDragEnter___$DomPropsMixin] ?? null)
-      as MouseEventCallback?;
+  MouseEventCallback? get onDragEnter =>
+      (props[_$key__onDragEnter___$DomPropsMixin] ?? null)
+          as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onDragEnter] -->
   @override
-  set onDragEnter(value) => props[_$key__onDragEnter___$DomPropsMixin] = value;
+  set onDragEnter(MouseEventCallback? value) =>
+      props[_$key__onDragEnter___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onDragExit] -->
   @override
-  get onDragExit => (props[_$key__onDragExit___$DomPropsMixin] ?? null)
-      as MouseEventCallback?;
+  MouseEventCallback? get onDragExit =>
+      (props[_$key__onDragExit___$DomPropsMixin] ?? null)
+          as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onDragExit] -->
   @override
-  set onDragExit(value) => props[_$key__onDragExit___$DomPropsMixin] = value;
+  set onDragExit(MouseEventCallback? value) =>
+      props[_$key__onDragExit___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onDragLeave] -->
   @override
-  get onDragLeave => (props[_$key__onDragLeave___$DomPropsMixin] ?? null)
-      as MouseEventCallback?;
+  MouseEventCallback? get onDragLeave =>
+      (props[_$key__onDragLeave___$DomPropsMixin] ?? null)
+          as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onDragLeave] -->
   @override
-  set onDragLeave(value) => props[_$key__onDragLeave___$DomPropsMixin] = value;
+  set onDragLeave(MouseEventCallback? value) =>
+      props[_$key__onDragLeave___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onDragOver] -->
   @override
-  get onDragOver => (props[_$key__onDragOver___$DomPropsMixin] ?? null)
-      as MouseEventCallback?;
+  MouseEventCallback? get onDragOver =>
+      (props[_$key__onDragOver___$DomPropsMixin] ?? null)
+          as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onDragOver] -->
   @override
-  set onDragOver(value) => props[_$key__onDragOver___$DomPropsMixin] = value;
+  set onDragOver(MouseEventCallback? value) =>
+      props[_$key__onDragOver___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onDragStart] -->
   @override
-  get onDragStart => (props[_$key__onDragStart___$DomPropsMixin] ?? null)
-      as MouseEventCallback?;
+  MouseEventCallback? get onDragStart =>
+      (props[_$key__onDragStart___$DomPropsMixin] ?? null)
+          as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onDragStart] -->
   @override
-  set onDragStart(value) => props[_$key__onDragStart___$DomPropsMixin] = value;
+  set onDragStart(MouseEventCallback? value) =>
+      props[_$key__onDragStart___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onDrop] -->
   @override
-  get onDrop =>
+  MouseEventCallback? get onDrop =>
       (props[_$key__onDrop___$DomPropsMixin] ?? null) as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onDrop] -->
   @override
-  set onDrop(value) => props[_$key__onDrop___$DomPropsMixin] = value;
+  set onDrop(MouseEventCallback? value) =>
+      props[_$key__onDrop___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onMouseDown] -->
   @override
-  get onMouseDown => (props[_$key__onMouseDown___$DomPropsMixin] ?? null)
-      as MouseEventCallback?;
+  MouseEventCallback? get onMouseDown =>
+      (props[_$key__onMouseDown___$DomPropsMixin] ?? null)
+          as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onMouseDown] -->
   @override
-  set onMouseDown(value) => props[_$key__onMouseDown___$DomPropsMixin] = value;
+  set onMouseDown(MouseEventCallback? value) =>
+      props[_$key__onMouseDown___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onMouseEnter] -->
   @override
-  get onMouseEnter => (props[_$key__onMouseEnter___$DomPropsMixin] ?? null)
-      as MouseEventCallback?;
+  MouseEventCallback? get onMouseEnter =>
+      (props[_$key__onMouseEnter___$DomPropsMixin] ?? null)
+          as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onMouseEnter] -->
   @override
-  set onMouseEnter(value) =>
+  set onMouseEnter(MouseEventCallback? value) =>
       props[_$key__onMouseEnter___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onMouseLeave] -->
   @override
-  get onMouseLeave => (props[_$key__onMouseLeave___$DomPropsMixin] ?? null)
-      as MouseEventCallback?;
+  MouseEventCallback? get onMouseLeave =>
+      (props[_$key__onMouseLeave___$DomPropsMixin] ?? null)
+          as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onMouseLeave] -->
   @override
-  set onMouseLeave(value) =>
+  set onMouseLeave(MouseEventCallback? value) =>
       props[_$key__onMouseLeave___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onMouseMove] -->
   @override
-  get onMouseMove => (props[_$key__onMouseMove___$DomPropsMixin] ?? null)
-      as MouseEventCallback?;
+  MouseEventCallback? get onMouseMove =>
+      (props[_$key__onMouseMove___$DomPropsMixin] ?? null)
+          as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onMouseMove] -->
   @override
-  set onMouseMove(value) => props[_$key__onMouseMove___$DomPropsMixin] = value;
+  set onMouseMove(MouseEventCallback? value) =>
+      props[_$key__onMouseMove___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onMouseOut] -->
   @override
-  get onMouseOut => (props[_$key__onMouseOut___$DomPropsMixin] ?? null)
-      as MouseEventCallback?;
+  MouseEventCallback? get onMouseOut =>
+      (props[_$key__onMouseOut___$DomPropsMixin] ?? null)
+          as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onMouseOut] -->
   @override
-  set onMouseOut(value) => props[_$key__onMouseOut___$DomPropsMixin] = value;
+  set onMouseOut(MouseEventCallback? value) =>
+      props[_$key__onMouseOut___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onMouseOver] -->
   @override
-  get onMouseOver => (props[_$key__onMouseOver___$DomPropsMixin] ?? null)
-      as MouseEventCallback?;
+  MouseEventCallback? get onMouseOver =>
+      (props[_$key__onMouseOver___$DomPropsMixin] ?? null)
+          as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onMouseOver] -->
   @override
-  set onMouseOver(value) => props[_$key__onMouseOver___$DomPropsMixin] = value;
+  set onMouseOver(MouseEventCallback? value) =>
+      props[_$key__onMouseOver___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onMouseUp] -->
   @override
-  get onMouseUp =>
+  MouseEventCallback? get onMouseUp =>
       (props[_$key__onMouseUp___$DomPropsMixin] ?? null) as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onMouseUp] -->
   @override
-  set onMouseUp(value) => props[_$key__onMouseUp___$DomPropsMixin] = value;
+  set onMouseUp(MouseEventCallback? value) =>
+      props[_$key__onMouseUp___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onPointerCancel] -->
   @override
-  get onPointerCancel =>
+  PointerEventCallback? get onPointerCancel =>
       (props[_$key__onPointerCancel___$DomPropsMixin] ?? null)
           as PointerEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onPointerCancel] -->
   @override
-  set onPointerCancel(value) =>
+  set onPointerCancel(PointerEventCallback? value) =>
       props[_$key__onPointerCancel___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onPointerDown] -->
   @override
-  get onPointerDown => (props[_$key__onPointerDown___$DomPropsMixin] ?? null)
-      as PointerEventCallback?;
+  PointerEventCallback? get onPointerDown =>
+      (props[_$key__onPointerDown___$DomPropsMixin] ?? null)
+          as PointerEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onPointerDown] -->
   @override
-  set onPointerDown(value) =>
+  set onPointerDown(PointerEventCallback? value) =>
       props[_$key__onPointerDown___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onPointerEnter] -->
   @override
-  get onPointerEnter => (props[_$key__onPointerEnter___$DomPropsMixin] ?? null)
-      as PointerEventCallback?;
+  PointerEventCallback? get onPointerEnter =>
+      (props[_$key__onPointerEnter___$DomPropsMixin] ?? null)
+          as PointerEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onPointerEnter] -->
   @override
-  set onPointerEnter(value) =>
+  set onPointerEnter(PointerEventCallback? value) =>
       props[_$key__onPointerEnter___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onPointerLeave] -->
   @override
-  get onPointerLeave => (props[_$key__onPointerLeave___$DomPropsMixin] ?? null)
-      as PointerEventCallback?;
+  PointerEventCallback? get onPointerLeave =>
+      (props[_$key__onPointerLeave___$DomPropsMixin] ?? null)
+          as PointerEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onPointerLeave] -->
   @override
-  set onPointerLeave(value) =>
+  set onPointerLeave(PointerEventCallback? value) =>
       props[_$key__onPointerLeave___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onPointerMove] -->
   @override
-  get onPointerMove => (props[_$key__onPointerMove___$DomPropsMixin] ?? null)
-      as PointerEventCallback?;
+  PointerEventCallback? get onPointerMove =>
+      (props[_$key__onPointerMove___$DomPropsMixin] ?? null)
+          as PointerEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onPointerMove] -->
   @override
-  set onPointerMove(value) =>
+  set onPointerMove(PointerEventCallback? value) =>
       props[_$key__onPointerMove___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onPointerOver] -->
   @override
-  get onPointerOver => (props[_$key__onPointerOver___$DomPropsMixin] ?? null)
-      as PointerEventCallback?;
+  PointerEventCallback? get onPointerOver =>
+      (props[_$key__onPointerOver___$DomPropsMixin] ?? null)
+          as PointerEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onPointerOver] -->
   @override
-  set onPointerOver(value) =>
+  set onPointerOver(PointerEventCallback? value) =>
       props[_$key__onPointerOver___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onPointerOut] -->
   @override
-  get onPointerOut => (props[_$key__onPointerOut___$DomPropsMixin] ?? null)
-      as PointerEventCallback?;
+  PointerEventCallback? get onPointerOut =>
+      (props[_$key__onPointerOut___$DomPropsMixin] ?? null)
+          as PointerEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onPointerOut] -->
   @override
-  set onPointerOut(value) =>
+  set onPointerOut(PointerEventCallback? value) =>
       props[_$key__onPointerOut___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onPointerUp] -->
   @override
-  get onPointerUp => (props[_$key__onPointerUp___$DomPropsMixin] ?? null)
-      as PointerEventCallback?;
+  PointerEventCallback? get onPointerUp =>
+      (props[_$key__onPointerUp___$DomPropsMixin] ?? null)
+          as PointerEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onPointerUp] -->
   @override
-  set onPointerUp(value) => props[_$key__onPointerUp___$DomPropsMixin] = value;
+  set onPointerUp(PointerEventCallback? value) =>
+      props[_$key__onPointerUp___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onTouchCancel] -->
   @override
-  get onTouchCancel => (props[_$key__onTouchCancel___$DomPropsMixin] ?? null)
-      as TouchEventCallback?;
+  TouchEventCallback? get onTouchCancel =>
+      (props[_$key__onTouchCancel___$DomPropsMixin] ?? null)
+          as TouchEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onTouchCancel] -->
   @override
-  set onTouchCancel(value) =>
+  set onTouchCancel(TouchEventCallback? value) =>
       props[_$key__onTouchCancel___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onTouchEnd] -->
   @override
-  get onTouchEnd => (props[_$key__onTouchEnd___$DomPropsMixin] ?? null)
-      as TouchEventCallback?;
+  TouchEventCallback? get onTouchEnd =>
+      (props[_$key__onTouchEnd___$DomPropsMixin] ?? null)
+          as TouchEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onTouchEnd] -->
   @override
-  set onTouchEnd(value) => props[_$key__onTouchEnd___$DomPropsMixin] = value;
+  set onTouchEnd(TouchEventCallback? value) =>
+      props[_$key__onTouchEnd___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onTouchMove] -->
   @override
-  get onTouchMove => (props[_$key__onTouchMove___$DomPropsMixin] ?? null)
-      as TouchEventCallback?;
+  TouchEventCallback? get onTouchMove =>
+      (props[_$key__onTouchMove___$DomPropsMixin] ?? null)
+          as TouchEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onTouchMove] -->
   @override
-  set onTouchMove(value) => props[_$key__onTouchMove___$DomPropsMixin] = value;
+  set onTouchMove(TouchEventCallback? value) =>
+      props[_$key__onTouchMove___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onTouchStart] -->
   @override
-  get onTouchStart => (props[_$key__onTouchStart___$DomPropsMixin] ?? null)
-      as TouchEventCallback?;
+  TouchEventCallback? get onTouchStart =>
+      (props[_$key__onTouchStart___$DomPropsMixin] ?? null)
+          as TouchEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onTouchStart] -->
   @override
-  set onTouchStart(value) =>
+  set onTouchStart(TouchEventCallback? value) =>
       props[_$key__onTouchStart___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onTransitionEnd] -->
   @override
-  get onTransitionEnd =>
+  TransitionEventCallback? get onTransitionEnd =>
       (props[_$key__onTransitionEnd___$DomPropsMixin] ?? null)
           as TransitionEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onTransitionEnd] -->
   @override
-  set onTransitionEnd(value) =>
+  set onTransitionEnd(TransitionEventCallback? value) =>
       props[_$key__onTransitionEnd___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onScroll] -->
   @override
-  get onScroll =>
+  UIEventCallback? get onScroll =>
       (props[_$key__onScroll___$DomPropsMixin] ?? null) as UIEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onScroll] -->
   @override
-  set onScroll(value) => props[_$key__onScroll___$DomPropsMixin] = value;
+  set onScroll(UIEventCallback? value) =>
+      props[_$key__onScroll___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onWheel] -->
   @override
-  get onWheel =>
+  WheelEventCallback? get onWheel =>
       (props[_$key__onWheel___$DomPropsMixin] ?? null) as WheelEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onWheel] -->
   @override
-  set onWheel(value) => props[_$key__onWheel___$DomPropsMixin] = value;
+  set onWheel(WheelEventCallback? value) =>
+      props[_$key__onWheel___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onCopyCapture] -->
   @override
-  get onCopyCapture => (props[_$key__onCopyCapture___$DomPropsMixin] ?? null)
-      as ClipboardEventCallback?;
+  ClipboardEventCallback? get onCopyCapture =>
+      (props[_$key__onCopyCapture___$DomPropsMixin] ?? null)
+          as ClipboardEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onCopyCapture] -->
   @override
-  set onCopyCapture(value) =>
+  set onCopyCapture(ClipboardEventCallback? value) =>
       props[_$key__onCopyCapture___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onCutCapture] -->
   @override
-  get onCutCapture => (props[_$key__onCutCapture___$DomPropsMixin] ?? null)
-      as ClipboardEventCallback?;
+  ClipboardEventCallback? get onCutCapture =>
+      (props[_$key__onCutCapture___$DomPropsMixin] ?? null)
+          as ClipboardEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onCutCapture] -->
   @override
-  set onCutCapture(value) =>
+  set onCutCapture(ClipboardEventCallback? value) =>
       props[_$key__onCutCapture___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onPasteCapture] -->
   @override
-  get onPasteCapture => (props[_$key__onPasteCapture___$DomPropsMixin] ?? null)
-      as ClipboardEventCallback?;
+  ClipboardEventCallback? get onPasteCapture =>
+      (props[_$key__onPasteCapture___$DomPropsMixin] ?? null)
+          as ClipboardEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onPasteCapture] -->
   @override
-  set onPasteCapture(value) =>
+  set onPasteCapture(ClipboardEventCallback? value) =>
       props[_$key__onPasteCapture___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onKeyDownCapture] -->
   @override
-  get onKeyDownCapture =>
+  KeyboardEventCallback? get onKeyDownCapture =>
       (props[_$key__onKeyDownCapture___$DomPropsMixin] ?? null)
           as KeyboardEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onKeyDownCapture] -->
   @override
-  set onKeyDownCapture(value) =>
+  set onKeyDownCapture(KeyboardEventCallback? value) =>
       props[_$key__onKeyDownCapture___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onKeyPressCapture] -->
   @override
-  get onKeyPressCapture =>
+  KeyboardEventCallback? get onKeyPressCapture =>
       (props[_$key__onKeyPressCapture___$DomPropsMixin] ?? null)
           as KeyboardEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onKeyPressCapture] -->
   @override
-  set onKeyPressCapture(value) =>
+  set onKeyPressCapture(KeyboardEventCallback? value) =>
       props[_$key__onKeyPressCapture___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onKeyUpCapture] -->
   @override
-  get onKeyUpCapture => (props[_$key__onKeyUpCapture___$DomPropsMixin] ?? null)
-      as KeyboardEventCallback?;
+  KeyboardEventCallback? get onKeyUpCapture =>
+      (props[_$key__onKeyUpCapture___$DomPropsMixin] ?? null)
+          as KeyboardEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onKeyUpCapture] -->
   @override
-  set onKeyUpCapture(value) =>
+  set onKeyUpCapture(KeyboardEventCallback? value) =>
       props[_$key__onKeyUpCapture___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onFocusCapture] -->
   @override
-  get onFocusCapture => (props[_$key__onFocusCapture___$DomPropsMixin] ?? null)
-      as FocusEventCallback?;
+  FocusEventCallback? get onFocusCapture =>
+      (props[_$key__onFocusCapture___$DomPropsMixin] ?? null)
+          as FocusEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onFocusCapture] -->
   @override
-  set onFocusCapture(value) =>
+  set onFocusCapture(FocusEventCallback? value) =>
       props[_$key__onFocusCapture___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onBlurCapture] -->
   @override
-  get onBlurCapture => (props[_$key__onBlurCapture___$DomPropsMixin] ?? null)
-      as FocusEventCallback?;
+  FocusEventCallback? get onBlurCapture =>
+      (props[_$key__onBlurCapture___$DomPropsMixin] ?? null)
+          as FocusEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onBlurCapture] -->
   @override
-  set onBlurCapture(value) =>
+  set onBlurCapture(FocusEventCallback? value) =>
       props[_$key__onBlurCapture___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onChangeCapture] -->
   @override
-  get onChangeCapture =>
+  FormEventCallback? get onChangeCapture =>
       (props[_$key__onChangeCapture___$DomPropsMixin] ?? null)
           as FormEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onChangeCapture] -->
   @override
-  set onChangeCapture(value) =>
+  set onChangeCapture(FormEventCallback? value) =>
       props[_$key__onChangeCapture___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onInputCapture] -->
   @override
-  get onInputCapture => (props[_$key__onInputCapture___$DomPropsMixin] ?? null)
-      as FormEventCallback?;
+  FormEventCallback? get onInputCapture =>
+      (props[_$key__onInputCapture___$DomPropsMixin] ?? null)
+          as FormEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onInputCapture] -->
   @override
-  set onInputCapture(value) =>
+  set onInputCapture(FormEventCallback? value) =>
       props[_$key__onInputCapture___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onSubmitCapture] -->
   @override
-  get onSubmitCapture =>
+  FormEventCallback? get onSubmitCapture =>
       (props[_$key__onSubmitCapture___$DomPropsMixin] ?? null)
           as FormEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onSubmitCapture] -->
   @override
-  set onSubmitCapture(value) =>
+  set onSubmitCapture(FormEventCallback? value) =>
       props[_$key__onSubmitCapture___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onResetCapture] -->
   @override
-  get onResetCapture => (props[_$key__onResetCapture___$DomPropsMixin] ?? null)
-      as FormEventCallback?;
+  FormEventCallback? get onResetCapture =>
+      (props[_$key__onResetCapture___$DomPropsMixin] ?? null)
+          as FormEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onResetCapture] -->
   @override
-  set onResetCapture(value) =>
+  set onResetCapture(FormEventCallback? value) =>
       props[_$key__onResetCapture___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onClickCapture] -->
   @override
-  get onClickCapture => (props[_$key__onClickCapture___$DomPropsMixin] ?? null)
-      as MouseEventCallback?;
+  MouseEventCallback? get onClickCapture =>
+      (props[_$key__onClickCapture___$DomPropsMixin] ?? null)
+          as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onClickCapture] -->
   @override
-  set onClickCapture(value) =>
+  set onClickCapture(MouseEventCallback? value) =>
       props[_$key__onClickCapture___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onContextMenuCapture] -->
   @override
-  get onContextMenuCapture =>
+  MouseEventCallback? get onContextMenuCapture =>
       (props[_$key__onContextMenuCapture___$DomPropsMixin] ?? null)
           as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onContextMenuCapture] -->
   @override
-  set onContextMenuCapture(value) =>
+  set onContextMenuCapture(MouseEventCallback? value) =>
       props[_$key__onContextMenuCapture___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onDoubleClickCapture] -->
   @override
-  get onDoubleClickCapture =>
+  MouseEventCallback? get onDoubleClickCapture =>
       (props[_$key__onDoubleClickCapture___$DomPropsMixin] ?? null)
           as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onDoubleClickCapture] -->
   @override
-  set onDoubleClickCapture(value) =>
+  set onDoubleClickCapture(MouseEventCallback? value) =>
       props[_$key__onDoubleClickCapture___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onDragCapture] -->
   @override
-  get onDragCapture => (props[_$key__onDragCapture___$DomPropsMixin] ?? null)
-      as MouseEventCallback?;
+  MouseEventCallback? get onDragCapture =>
+      (props[_$key__onDragCapture___$DomPropsMixin] ?? null)
+          as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onDragCapture] -->
   @override
-  set onDragCapture(value) =>
+  set onDragCapture(MouseEventCallback? value) =>
       props[_$key__onDragCapture___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onDragEndCapture] -->
   @override
-  get onDragEndCapture =>
+  MouseEventCallback? get onDragEndCapture =>
       (props[_$key__onDragEndCapture___$DomPropsMixin] ?? null)
           as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onDragEndCapture] -->
   @override
-  set onDragEndCapture(value) =>
+  set onDragEndCapture(MouseEventCallback? value) =>
       props[_$key__onDragEndCapture___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onDragEnterCapture] -->
   @override
-  get onDragEnterCapture =>
+  MouseEventCallback? get onDragEnterCapture =>
       (props[_$key__onDragEnterCapture___$DomPropsMixin] ?? null)
           as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onDragEnterCapture] -->
   @override
-  set onDragEnterCapture(value) =>
+  set onDragEnterCapture(MouseEventCallback? value) =>
       props[_$key__onDragEnterCapture___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onDragExitCapture] -->
   @override
-  get onDragExitCapture =>
+  MouseEventCallback? get onDragExitCapture =>
       (props[_$key__onDragExitCapture___$DomPropsMixin] ?? null)
           as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onDragExitCapture] -->
   @override
-  set onDragExitCapture(value) =>
+  set onDragExitCapture(MouseEventCallback? value) =>
       props[_$key__onDragExitCapture___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onDragLeaveCapture] -->
   @override
-  get onDragLeaveCapture =>
+  MouseEventCallback? get onDragLeaveCapture =>
       (props[_$key__onDragLeaveCapture___$DomPropsMixin] ?? null)
           as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onDragLeaveCapture] -->
   @override
-  set onDragLeaveCapture(value) =>
+  set onDragLeaveCapture(MouseEventCallback? value) =>
       props[_$key__onDragLeaveCapture___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onDragOverCapture] -->
   @override
-  get onDragOverCapture =>
+  MouseEventCallback? get onDragOverCapture =>
       (props[_$key__onDragOverCapture___$DomPropsMixin] ?? null)
           as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onDragOverCapture] -->
   @override
-  set onDragOverCapture(value) =>
+  set onDragOverCapture(MouseEventCallback? value) =>
       props[_$key__onDragOverCapture___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onDragStartCapture] -->
   @override
-  get onDragStartCapture =>
+  MouseEventCallback? get onDragStartCapture =>
       (props[_$key__onDragStartCapture___$DomPropsMixin] ?? null)
           as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onDragStartCapture] -->
   @override
-  set onDragStartCapture(value) =>
+  set onDragStartCapture(MouseEventCallback? value) =>
       props[_$key__onDragStartCapture___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onDropCapture] -->
   @override
-  get onDropCapture => (props[_$key__onDropCapture___$DomPropsMixin] ?? null)
-      as MouseEventCallback?;
+  MouseEventCallback? get onDropCapture =>
+      (props[_$key__onDropCapture___$DomPropsMixin] ?? null)
+          as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onDropCapture] -->
   @override
-  set onDropCapture(value) =>
+  set onDropCapture(MouseEventCallback? value) =>
       props[_$key__onDropCapture___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onMouseDownCapture] -->
   @override
-  get onMouseDownCapture =>
+  MouseEventCallback? get onMouseDownCapture =>
       (props[_$key__onMouseDownCapture___$DomPropsMixin] ?? null)
           as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onMouseDownCapture] -->
   @override
-  set onMouseDownCapture(value) =>
+  set onMouseDownCapture(MouseEventCallback? value) =>
       props[_$key__onMouseDownCapture___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onMouseEnterCapture] -->
   @override
-  get onMouseEnterCapture =>
+  MouseEventCallback? get onMouseEnterCapture =>
       (props[_$key__onMouseEnterCapture___$DomPropsMixin] ?? null)
           as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onMouseEnterCapture] -->
   @override
-  set onMouseEnterCapture(value) =>
+  set onMouseEnterCapture(MouseEventCallback? value) =>
       props[_$key__onMouseEnterCapture___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onMouseLeaveCapture] -->
   @override
-  get onMouseLeaveCapture =>
+  MouseEventCallback? get onMouseLeaveCapture =>
       (props[_$key__onMouseLeaveCapture___$DomPropsMixin] ?? null)
           as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onMouseLeaveCapture] -->
   @override
-  set onMouseLeaveCapture(value) =>
+  set onMouseLeaveCapture(MouseEventCallback? value) =>
       props[_$key__onMouseLeaveCapture___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onMouseMoveCapture] -->
   @override
-  get onMouseMoveCapture =>
+  MouseEventCallback? get onMouseMoveCapture =>
       (props[_$key__onMouseMoveCapture___$DomPropsMixin] ?? null)
           as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onMouseMoveCapture] -->
   @override
-  set onMouseMoveCapture(value) =>
+  set onMouseMoveCapture(MouseEventCallback? value) =>
       props[_$key__onMouseMoveCapture___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onMouseOutCapture] -->
   @override
-  get onMouseOutCapture =>
+  MouseEventCallback? get onMouseOutCapture =>
       (props[_$key__onMouseOutCapture___$DomPropsMixin] ?? null)
           as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onMouseOutCapture] -->
   @override
-  set onMouseOutCapture(value) =>
+  set onMouseOutCapture(MouseEventCallback? value) =>
       props[_$key__onMouseOutCapture___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onMouseOverCapture] -->
   @override
-  get onMouseOverCapture =>
+  MouseEventCallback? get onMouseOverCapture =>
       (props[_$key__onMouseOverCapture___$DomPropsMixin] ?? null)
           as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onMouseOverCapture] -->
   @override
-  set onMouseOverCapture(value) =>
+  set onMouseOverCapture(MouseEventCallback? value) =>
       props[_$key__onMouseOverCapture___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onMouseUpCapture] -->
   @override
-  get onMouseUpCapture =>
+  MouseEventCallback? get onMouseUpCapture =>
       (props[_$key__onMouseUpCapture___$DomPropsMixin] ?? null)
           as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onMouseUpCapture] -->
   @override
-  set onMouseUpCapture(value) =>
+  set onMouseUpCapture(MouseEventCallback? value) =>
       props[_$key__onMouseUpCapture___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onGotPointerCapture] -->
   @override
-  get onGotPointerCapture =>
+  PointerEventCallback? get onGotPointerCapture =>
       (props[_$key__onGotPointerCapture___$DomPropsMixin] ?? null)
           as PointerEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onGotPointerCapture] -->
   @override
-  set onGotPointerCapture(value) =>
+  set onGotPointerCapture(PointerEventCallback? value) =>
       props[_$key__onGotPointerCapture___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onLostPointerCapture] -->
   @override
-  get onLostPointerCapture =>
+  PointerEventCallback? get onLostPointerCapture =>
       (props[_$key__onLostPointerCapture___$DomPropsMixin] ?? null)
           as PointerEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onLostPointerCapture] -->
   @override
-  set onLostPointerCapture(value) =>
+  set onLostPointerCapture(PointerEventCallback? value) =>
       props[_$key__onLostPointerCapture___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onTouchCancelCapture] -->
   @override
-  get onTouchCancelCapture =>
+  TouchEventCallback? get onTouchCancelCapture =>
       (props[_$key__onTouchCancelCapture___$DomPropsMixin] ?? null)
           as TouchEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onTouchCancelCapture] -->
   @override
-  set onTouchCancelCapture(value) =>
+  set onTouchCancelCapture(TouchEventCallback? value) =>
       props[_$key__onTouchCancelCapture___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onTouchEndCapture] -->
   @override
-  get onTouchEndCapture =>
+  TouchEventCallback? get onTouchEndCapture =>
       (props[_$key__onTouchEndCapture___$DomPropsMixin] ?? null)
           as TouchEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onTouchEndCapture] -->
   @override
-  set onTouchEndCapture(value) =>
+  set onTouchEndCapture(TouchEventCallback? value) =>
       props[_$key__onTouchEndCapture___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onTouchMoveCapture] -->
   @override
-  get onTouchMoveCapture =>
+  TouchEventCallback? get onTouchMoveCapture =>
       (props[_$key__onTouchMoveCapture___$DomPropsMixin] ?? null)
           as TouchEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onTouchMoveCapture] -->
   @override
-  set onTouchMoveCapture(value) =>
+  set onTouchMoveCapture(TouchEventCallback? value) =>
       props[_$key__onTouchMoveCapture___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onTouchStartCapture] -->
   @override
-  get onTouchStartCapture =>
+  TouchEventCallback? get onTouchStartCapture =>
       (props[_$key__onTouchStartCapture___$DomPropsMixin] ?? null)
           as TouchEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onTouchStartCapture] -->
   @override
-  set onTouchStartCapture(value) =>
+  set onTouchStartCapture(TouchEventCallback? value) =>
       props[_$key__onTouchStartCapture___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onScrollCapture] -->
   @override
-  get onScrollCapture =>
+  UIEventCallback? get onScrollCapture =>
       (props[_$key__onScrollCapture___$DomPropsMixin] ?? null)
           as UIEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onScrollCapture] -->
   @override
-  set onScrollCapture(value) =>
+  set onScrollCapture(UIEventCallback? value) =>
       props[_$key__onScrollCapture___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onWheelCapture] -->
   @override
-  get onWheelCapture => (props[_$key__onWheelCapture___$DomPropsMixin] ?? null)
-      as WheelEventCallback?;
+  WheelEventCallback? get onWheelCapture =>
+      (props[_$key__onWheelCapture___$DomPropsMixin] ?? null)
+          as WheelEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onWheelCapture] -->
   @override
-  set onWheelCapture(value) =>
+  set onWheelCapture(WheelEventCallback? value) =>
       props[_$key__onWheelCapture___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.defaultChecked] -->
   @override
-  get defaultChecked =>
+  bool? get defaultChecked =>
       (props[_$key__defaultChecked___$DomPropsMixin] ?? null) as bool?;
 
   /// <!-- Generated from [_$DomPropsMixin.defaultChecked] -->
   @override
-  set defaultChecked(value) =>
+  set defaultChecked(bool? value) =>
       props[_$key__defaultChecked___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.defaultValue] -->
   @override
-  get defaultValue =>
+  dynamic get defaultValue =>
       (props[_$key__defaultValue___$DomPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$DomPropsMixin.defaultValue] -->
   @override
-  set defaultValue(value) =>
+  set defaultValue(dynamic value) =>
       props[_$key__defaultValue___$DomPropsMixin] = value;
 
   /// Polyfills/normalizes the `autofocus` attribute via AutoFocusMixin
@@ -2006,14 +2162,16 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   ///
   /// <!-- Generated from [_$DomPropsMixin.autoFocus] -->
   @override
-  get autoFocus => (props[_$key__autoFocus___$DomPropsMixin] ?? null) as bool?;
+  bool? get autoFocus =>
+      (props[_$key__autoFocus___$DomPropsMixin] ?? null) as bool?;
 
   /// Polyfills/normalizes the `autofocus` attribute via AutoFocusMixin
   /// (mixed in by React DOM <input>, <textarea>, and <select>).
   ///
   /// <!-- Generated from [_$DomPropsMixin.autoFocus] -->
   @override
-  set autoFocus(value) => props[_$key__autoFocus___$DomPropsMixin] = value;
+  set autoFocus(bool? value) =>
+      props[_$key__autoFocus___$DomPropsMixin] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__cols___$DomPropsMixin =
       PropDescriptor(_$key__cols___$DomPropsMixin);
@@ -3124,2130 +3282,2269 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.htmlIn] -->
   @override
   @Accessor(key: 'in')
-  get htmlIn => (props[_$key__htmlIn___$SvgPropsMixin] ?? null) as String?;
+  String? get htmlIn =>
+      (props[_$key__htmlIn___$SvgPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$SvgPropsMixin.htmlIn] -->
   @override
   @Accessor(key: 'in')
-  set htmlIn(value) => props[_$key__htmlIn___$SvgPropsMixin] = value;
+  set htmlIn(String? value) => props[_$key__htmlIn___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.htmlValues] -->
   @override
   @Accessor(key: 'values')
-  get htmlValues =>
+  String? get htmlValues =>
       (props[_$key__htmlValues___$SvgPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$SvgPropsMixin.htmlValues] -->
   @override
   @Accessor(key: 'values')
-  set htmlValues(value) => props[_$key__htmlValues___$SvgPropsMixin] = value;
+  set htmlValues(String? value) =>
+      props[_$key__htmlValues___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.accumulate] -->
   @override
-  get accumulate =>
+  String? get accumulate =>
       (props[_$key__accumulate___$SvgPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$SvgPropsMixin.accumulate] -->
   @override
-  set accumulate(value) => props[_$key__accumulate___$SvgPropsMixin] = value;
+  set accumulate(String? value) =>
+      props[_$key__accumulate___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.additive] -->
   @override
-  get additive => (props[_$key__additive___$SvgPropsMixin] ?? null) as String?;
+  String? get additive =>
+      (props[_$key__additive___$SvgPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$SvgPropsMixin.additive] -->
   @override
-  set additive(value) => props[_$key__additive___$SvgPropsMixin] = value;
+  set additive(String? value) =>
+      props[_$key__additive___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.alignmentBaseline] -->
   @override
-  get alignmentBaseline =>
+  String? get alignmentBaseline =>
       (props[_$key__alignmentBaseline___$SvgPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$SvgPropsMixin.alignmentBaseline] -->
   @override
-  set alignmentBaseline(value) =>
+  set alignmentBaseline(String? value) =>
       props[_$key__alignmentBaseline___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.allowReorder] -->
   @override
-  get allowReorder =>
+  String? get allowReorder =>
       (props[_$key__allowReorder___$SvgPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$SvgPropsMixin.allowReorder] -->
   @override
-  set allowReorder(value) =>
+  set allowReorder(String? value) =>
       props[_$key__allowReorder___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.arabicForm] -->
   @override
-  get arabicForm =>
+  String? get arabicForm =>
       (props[_$key__arabicForm___$SvgPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$SvgPropsMixin.arabicForm] -->
   @override
-  set arabicForm(value) => props[_$key__arabicForm___$SvgPropsMixin] = value;
+  set arabicForm(String? value) =>
+      props[_$key__arabicForm___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.attributeName] -->
   @override
-  get attributeName =>
+  String? get attributeName =>
       (props[_$key__attributeName___$SvgPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$SvgPropsMixin.attributeName] -->
   @override
-  set attributeName(value) =>
+  set attributeName(String? value) =>
       props[_$key__attributeName___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.attributeType] -->
   @override
-  get attributeType =>
+  String? get attributeType =>
       (props[_$key__attributeType___$SvgPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$SvgPropsMixin.attributeType] -->
   @override
-  set attributeType(value) =>
+  set attributeType(String? value) =>
       props[_$key__attributeType___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.colorInterpolationFilters] -->
   @override
-  get colorInterpolationFilters =>
+  String? get colorInterpolationFilters =>
       (props[_$key__colorInterpolationFilters___$SvgPropsMixin] ?? null)
           as String?;
 
   /// <!-- Generated from [_$SvgPropsMixin.colorInterpolationFilters] -->
   @override
-  set colorInterpolationFilters(value) =>
+  set colorInterpolationFilters(String? value) =>
       props[_$key__colorInterpolationFilters___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.fillRule] -->
   @override
-  get fillRule => (props[_$key__fillRule___$SvgPropsMixin] ?? null) as String?;
+  String? get fillRule =>
+      (props[_$key__fillRule___$SvgPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$SvgPropsMixin.fillRule] -->
   @override
-  set fillRule(value) => props[_$key__fillRule___$SvgPropsMixin] = value;
+  set fillRule(String? value) =>
+      props[_$key__fillRule___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.filter] -->
   @override
-  get filter => (props[_$key__filter___$SvgPropsMixin] ?? null) as String?;
+  String? get filter =>
+      (props[_$key__filter___$SvgPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$SvgPropsMixin.filter] -->
   @override
-  set filter(value) => props[_$key__filter___$SvgPropsMixin] = value;
+  set filter(String? value) => props[_$key__filter___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.mask] -->
   @override
-  get mask => (props[_$key__mask___$SvgPropsMixin] ?? null) as String?;
+  String? get mask => (props[_$key__mask___$SvgPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$SvgPropsMixin.mask] -->
   @override
-  set mask(value) => props[_$key__mask___$SvgPropsMixin] = value;
+  set mask(String? value) => props[_$key__mask___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.result] -->
   @override
-  get result => (props[_$key__result___$SvgPropsMixin] ?? null) as String?;
+  String? get result =>
+      (props[_$key__result___$SvgPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$SvgPropsMixin.result] -->
   @override
-  set result(value) => props[_$key__result___$SvgPropsMixin] = value;
+  set result(String? value) => props[_$key__result___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.strokeLinejoin] -->
   @override
-  get strokeLinejoin =>
+  String? get strokeLinejoin =>
       (props[_$key__strokeLinejoin___$SvgPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$SvgPropsMixin.strokeLinejoin] -->
   @override
-  set strokeLinejoin(value) =>
+  set strokeLinejoin(String? value) =>
       props[_$key__strokeLinejoin___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.xChannelSelector] -->
   @override
-  get xChannelSelector =>
+  String? get xChannelSelector =>
       (props[_$key__xChannelSelector___$SvgPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$SvgPropsMixin.xChannelSelector] -->
   @override
-  set xChannelSelector(value) =>
+  set xChannelSelector(String? value) =>
       props[_$key__xChannelSelector___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.xmlns] -->
   @override
-  get xmlns => (props[_$key__xmlns___$SvgPropsMixin] ?? null) as String?;
+  String? get xmlns =>
+      (props[_$key__xmlns___$SvgPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$SvgPropsMixin.xmlns] -->
   @override
-  set xmlns(value) => props[_$key__xmlns___$SvgPropsMixin] = value;
+  set xmlns(String? value) => props[_$key__xmlns___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.xmlnsXlink] -->
   @override
-  get xmlnsXlink =>
+  String? get xmlnsXlink =>
       (props[_$key__xmlnsXlink___$SvgPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$SvgPropsMixin.xmlnsXlink] -->
   @override
-  set xmlnsXlink(value) => props[_$key__xmlnsXlink___$SvgPropsMixin] = value;
+  set xmlnsXlink(String? value) =>
+      props[_$key__xmlnsXlink___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.yChannelSelector] -->
   @override
-  get yChannelSelector =>
+  String? get yChannelSelector =>
       (props[_$key__yChannelSelector___$SvgPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$SvgPropsMixin.yChannelSelector] -->
   @override
-  set yChannelSelector(value) =>
+  set yChannelSelector(String? value) =>
       props[_$key__yChannelSelector___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.zoomAndPan] -->
   @override
-  get zoomAndPan =>
+  String? get zoomAndPan =>
       (props[_$key__zoomAndPan___$SvgPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$SvgPropsMixin.zoomAndPan] -->
   @override
-  set zoomAndPan(value) => props[_$key__zoomAndPan___$SvgPropsMixin] = value;
+  set zoomAndPan(String? value) =>
+      props[_$key__zoomAndPan___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.accentHeight] -->
   @override
-  get accentHeight =>
+  dynamic get accentHeight =>
       (props[_$key__accentHeight___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.accentHeight] -->
   @override
-  set accentHeight(value) =>
+  set accentHeight(dynamic value) =>
       props[_$key__accentHeight___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.alphabetic] -->
   @override
-  get alphabetic =>
+  dynamic get alphabetic =>
       (props[_$key__alphabetic___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.alphabetic] -->
   @override
-  set alphabetic(value) => props[_$key__alphabetic___$SvgPropsMixin] = value;
+  set alphabetic(dynamic value) =>
+      props[_$key__alphabetic___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.amplitude] -->
   @override
-  get amplitude =>
+  dynamic get amplitude =>
       (props[_$key__amplitude___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.amplitude] -->
   @override
-  set amplitude(value) => props[_$key__amplitude___$SvgPropsMixin] = value;
+  set amplitude(dynamic value) =>
+      props[_$key__amplitude___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.ascent] -->
   @override
-  get ascent => (props[_$key__ascent___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get ascent =>
+      (props[_$key__ascent___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.ascent] -->
   @override
-  set ascent(value) => props[_$key__ascent___$SvgPropsMixin] = value;
+  set ascent(dynamic value) => props[_$key__ascent___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.autoReverse] -->
   @override
-  get autoReverse =>
+  dynamic get autoReverse =>
       (props[_$key__autoReverse___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.autoReverse] -->
   @override
-  set autoReverse(value) => props[_$key__autoReverse___$SvgPropsMixin] = value;
+  set autoReverse(dynamic value) =>
+      props[_$key__autoReverse___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.azimuth] -->
   @override
-  get azimuth => (props[_$key__azimuth___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get azimuth =>
+      (props[_$key__azimuth___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.azimuth] -->
   @override
-  set azimuth(value) => props[_$key__azimuth___$SvgPropsMixin] = value;
+  set azimuth(dynamic value) => props[_$key__azimuth___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.baseFrequency] -->
   @override
-  get baseFrequency =>
+  dynamic get baseFrequency =>
       (props[_$key__baseFrequency___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.baseFrequency] -->
   @override
-  set baseFrequency(value) =>
+  set baseFrequency(dynamic value) =>
       props[_$key__baseFrequency___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.baseProfile] -->
   @override
-  get baseProfile =>
+  dynamic get baseProfile =>
       (props[_$key__baseProfile___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.baseProfile] -->
   @override
-  set baseProfile(value) => props[_$key__baseProfile___$SvgPropsMixin] = value;
+  set baseProfile(dynamic value) =>
+      props[_$key__baseProfile___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.baselineShift] -->
   @override
-  get baselineShift =>
+  dynamic get baselineShift =>
       (props[_$key__baselineShift___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.baselineShift] -->
   @override
-  set baselineShift(value) =>
+  set baselineShift(dynamic value) =>
       props[_$key__baselineShift___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.bbox] -->
   @override
-  get bbox => (props[_$key__bbox___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get bbox => (props[_$key__bbox___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.bbox] -->
   @override
-  set bbox(value) => props[_$key__bbox___$SvgPropsMixin] = value;
+  set bbox(dynamic value) => props[_$key__bbox___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.begin] -->
   @override
-  get begin => (props[_$key__begin___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get begin =>
+      (props[_$key__begin___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.begin] -->
   @override
-  set begin(value) => props[_$key__begin___$SvgPropsMixin] = value;
+  set begin(dynamic value) => props[_$key__begin___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.bias] -->
   @override
-  get bias => (props[_$key__bias___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get bias => (props[_$key__bias___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.bias] -->
   @override
-  set bias(value) => props[_$key__bias___$SvgPropsMixin] = value;
+  set bias(dynamic value) => props[_$key__bias___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.by] -->
   @override
-  get by => (props[_$key__by___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get by => (props[_$key__by___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.by] -->
   @override
-  set by(value) => props[_$key__by___$SvgPropsMixin] = value;
+  set by(dynamic value) => props[_$key__by___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.calcMode] -->
   @override
-  get calcMode => (props[_$key__calcMode___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get calcMode =>
+      (props[_$key__calcMode___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.calcMode] -->
   @override
-  set calcMode(value) => props[_$key__calcMode___$SvgPropsMixin] = value;
+  set calcMode(dynamic value) =>
+      props[_$key__calcMode___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.capHeight] -->
   @override
-  get capHeight =>
+  dynamic get capHeight =>
       (props[_$key__capHeight___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.capHeight] -->
   @override
-  set capHeight(value) => props[_$key__capHeight___$SvgPropsMixin] = value;
+  set capHeight(dynamic value) =>
+      props[_$key__capHeight___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.clip] -->
   @override
-  get clip => (props[_$key__clip___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get clip => (props[_$key__clip___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.clip] -->
   @override
-  set clip(value) => props[_$key__clip___$SvgPropsMixin] = value;
+  set clip(dynamic value) => props[_$key__clip___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.clipPath] -->
   @override
-  get clipPath => (props[_$key__clipPath___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get clipPath =>
+      (props[_$key__clipPath___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.clipPath] -->
   @override
-  set clipPath(value) => props[_$key__clipPath___$SvgPropsMixin] = value;
+  set clipPath(dynamic value) =>
+      props[_$key__clipPath___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.clipPathUnits] -->
   @override
-  get clipPathUnits =>
+  dynamic get clipPathUnits =>
       (props[_$key__clipPathUnits___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.clipPathUnits] -->
   @override
-  set clipPathUnits(value) =>
+  set clipPathUnits(dynamic value) =>
       props[_$key__clipPathUnits___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.clipRule] -->
   @override
-  get clipRule => (props[_$key__clipRule___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get clipRule =>
+      (props[_$key__clipRule___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.clipRule] -->
   @override
-  set clipRule(value) => props[_$key__clipRule___$SvgPropsMixin] = value;
+  set clipRule(dynamic value) =>
+      props[_$key__clipRule___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.colorInterpolation] -->
   @override
-  get colorInterpolation =>
+  dynamic get colorInterpolation =>
       (props[_$key__colorInterpolation___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.colorInterpolation] -->
   @override
-  set colorInterpolation(value) =>
+  set colorInterpolation(dynamic value) =>
       props[_$key__colorInterpolation___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.colorProfile] -->
   @override
-  get colorProfile =>
+  dynamic get colorProfile =>
       (props[_$key__colorProfile___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.colorProfile] -->
   @override
-  set colorProfile(value) =>
+  set colorProfile(dynamic value) =>
       props[_$key__colorProfile___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.colorRendering] -->
   @override
-  get colorRendering =>
+  dynamic get colorRendering =>
       (props[_$key__colorRendering___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.colorRendering] -->
   @override
-  set colorRendering(value) =>
+  set colorRendering(dynamic value) =>
       props[_$key__colorRendering___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.contentScriptType] -->
   @override
-  get contentScriptType =>
+  dynamic get contentScriptType =>
       (props[_$key__contentScriptType___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.contentScriptType] -->
   @override
-  set contentScriptType(value) =>
+  set contentScriptType(dynamic value) =>
       props[_$key__contentScriptType___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.contentStyleType] -->
   @override
-  get contentStyleType =>
+  dynamic get contentStyleType =>
       (props[_$key__contentStyleType___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.contentStyleType] -->
   @override
-  set contentStyleType(value) =>
+  set contentStyleType(dynamic value) =>
       props[_$key__contentStyleType___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.cursor] -->
   @override
-  get cursor => (props[_$key__cursor___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get cursor =>
+      (props[_$key__cursor___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.cursor] -->
   @override
-  set cursor(value) => props[_$key__cursor___$SvgPropsMixin] = value;
+  set cursor(dynamic value) => props[_$key__cursor___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.cx] -->
   @override
-  get cx => (props[_$key__cx___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get cx => (props[_$key__cx___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.cx] -->
   @override
-  set cx(value) => props[_$key__cx___$SvgPropsMixin] = value;
+  set cx(dynamic value) => props[_$key__cx___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.cy] -->
   @override
-  get cy => (props[_$key__cy___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get cy => (props[_$key__cy___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.cy] -->
   @override
-  set cy(value) => props[_$key__cy___$SvgPropsMixin] = value;
+  set cy(dynamic value) => props[_$key__cy___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.d] -->
   @override
-  get d => (props[_$key__d___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get d => (props[_$key__d___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.d] -->
   @override
-  set d(value) => props[_$key__d___$SvgPropsMixin] = value;
+  set d(dynamic value) => props[_$key__d___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.decelerate] -->
   @override
-  get decelerate =>
+  dynamic get decelerate =>
       (props[_$key__decelerate___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.decelerate] -->
   @override
-  set decelerate(value) => props[_$key__decelerate___$SvgPropsMixin] = value;
+  set decelerate(dynamic value) =>
+      props[_$key__decelerate___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.descent] -->
   @override
-  get descent => (props[_$key__descent___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get descent =>
+      (props[_$key__descent___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.descent] -->
   @override
-  set descent(value) => props[_$key__descent___$SvgPropsMixin] = value;
+  set descent(dynamic value) => props[_$key__descent___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.diffuseConstant] -->
   @override
-  get diffuseConstant =>
+  dynamic get diffuseConstant =>
       (props[_$key__diffuseConstant___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.diffuseConstant] -->
   @override
-  set diffuseConstant(value) =>
+  set diffuseConstant(dynamic value) =>
       props[_$key__diffuseConstant___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.direction] -->
   @override
-  get direction =>
+  dynamic get direction =>
       (props[_$key__direction___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.direction] -->
   @override
-  set direction(value) => props[_$key__direction___$SvgPropsMixin] = value;
+  set direction(dynamic value) =>
+      props[_$key__direction___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.display] -->
   @override
-  get display => (props[_$key__display___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get display =>
+      (props[_$key__display___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.display] -->
   @override
-  set display(value) => props[_$key__display___$SvgPropsMixin] = value;
+  set display(dynamic value) => props[_$key__display___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.divisor] -->
   @override
-  get divisor => (props[_$key__divisor___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get divisor =>
+      (props[_$key__divisor___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.divisor] -->
   @override
-  set divisor(value) => props[_$key__divisor___$SvgPropsMixin] = value;
+  set divisor(dynamic value) => props[_$key__divisor___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.dominantBaseline] -->
   @override
-  get dominantBaseline =>
+  dynamic get dominantBaseline =>
       (props[_$key__dominantBaseline___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.dominantBaseline] -->
   @override
-  set dominantBaseline(value) =>
+  set dominantBaseline(dynamic value) =>
       props[_$key__dominantBaseline___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.dur] -->
   @override
-  get dur => (props[_$key__dur___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get dur => (props[_$key__dur___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.dur] -->
   @override
-  set dur(value) => props[_$key__dur___$SvgPropsMixin] = value;
+  set dur(dynamic value) => props[_$key__dur___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.dx] -->
   @override
-  get dx => (props[_$key__dx___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get dx => (props[_$key__dx___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.dx] -->
   @override
-  set dx(value) => props[_$key__dx___$SvgPropsMixin] = value;
+  set dx(dynamic value) => props[_$key__dx___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.dy] -->
   @override
-  get dy => (props[_$key__dy___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get dy => (props[_$key__dy___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.dy] -->
   @override
-  set dy(value) => props[_$key__dy___$SvgPropsMixin] = value;
+  set dy(dynamic value) => props[_$key__dy___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.edgeMode] -->
   @override
-  get edgeMode => (props[_$key__edgeMode___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get edgeMode =>
+      (props[_$key__edgeMode___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.edgeMode] -->
   @override
-  set edgeMode(value) => props[_$key__edgeMode___$SvgPropsMixin] = value;
+  set edgeMode(dynamic value) =>
+      props[_$key__edgeMode___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.elevation] -->
   @override
-  get elevation =>
+  dynamic get elevation =>
       (props[_$key__elevation___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.elevation] -->
   @override
-  set elevation(value) => props[_$key__elevation___$SvgPropsMixin] = value;
+  set elevation(dynamic value) =>
+      props[_$key__elevation___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.enableBackground] -->
   @override
-  get enableBackground =>
+  dynamic get enableBackground =>
       (props[_$key__enableBackground___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.enableBackground] -->
   @override
-  set enableBackground(value) =>
+  set enableBackground(dynamic value) =>
       props[_$key__enableBackground___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.end] -->
   @override
-  get end => (props[_$key__end___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get end => (props[_$key__end___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.end] -->
   @override
-  set end(value) => props[_$key__end___$SvgPropsMixin] = value;
+  set end(dynamic value) => props[_$key__end___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.exponent] -->
   @override
-  get exponent => (props[_$key__exponent___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get exponent =>
+      (props[_$key__exponent___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.exponent] -->
   @override
-  set exponent(value) => props[_$key__exponent___$SvgPropsMixin] = value;
+  set exponent(dynamic value) =>
+      props[_$key__exponent___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.externalResourcesRequired] -->
   @override
-  get externalResourcesRequired =>
+  dynamic get externalResourcesRequired =>
       (props[_$key__externalResourcesRequired___$SvgPropsMixin] ?? null)
           as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.externalResourcesRequired] -->
   @override
-  set externalResourcesRequired(value) =>
+  set externalResourcesRequired(dynamic value) =>
       props[_$key__externalResourcesRequired___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.fill] -->
   @override
-  get fill => (props[_$key__fill___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get fill => (props[_$key__fill___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.fill] -->
   @override
-  set fill(value) => props[_$key__fill___$SvgPropsMixin] = value;
+  set fill(dynamic value) => props[_$key__fill___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.fillOpacity] -->
   @override
-  get fillOpacity =>
+  dynamic get fillOpacity =>
       (props[_$key__fillOpacity___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.fillOpacity] -->
   @override
-  set fillOpacity(value) => props[_$key__fillOpacity___$SvgPropsMixin] = value;
+  set fillOpacity(dynamic value) =>
+      props[_$key__fillOpacity___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.filterRes] -->
   @override
-  get filterRes =>
+  dynamic get filterRes =>
       (props[_$key__filterRes___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.filterRes] -->
   @override
-  set filterRes(value) => props[_$key__filterRes___$SvgPropsMixin] = value;
+  set filterRes(dynamic value) =>
+      props[_$key__filterRes___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.filterUnits] -->
   @override
-  get filterUnits =>
+  dynamic get filterUnits =>
       (props[_$key__filterUnits___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.filterUnits] -->
   @override
-  set filterUnits(value) => props[_$key__filterUnits___$SvgPropsMixin] = value;
+  set filterUnits(dynamic value) =>
+      props[_$key__filterUnits___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.floodColor] -->
   @override
-  get floodColor =>
+  dynamic get floodColor =>
       (props[_$key__floodColor___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.floodColor] -->
   @override
-  set floodColor(value) => props[_$key__floodColor___$SvgPropsMixin] = value;
+  set floodColor(dynamic value) =>
+      props[_$key__floodColor___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.floodOpacity] -->
   @override
-  get floodOpacity =>
+  dynamic get floodOpacity =>
       (props[_$key__floodOpacity___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.floodOpacity] -->
   @override
-  set floodOpacity(value) =>
+  set floodOpacity(dynamic value) =>
       props[_$key__floodOpacity___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.focusable] -->
   @override
-  get focusable =>
+  dynamic get focusable =>
       (props[_$key__focusable___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.focusable] -->
   @override
-  set focusable(value) => props[_$key__focusable___$SvgPropsMixin] = value;
+  set focusable(dynamic value) =>
+      props[_$key__focusable___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.fontFamily] -->
   @override
-  get fontFamily =>
+  dynamic get fontFamily =>
       (props[_$key__fontFamily___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.fontFamily] -->
   @override
-  set fontFamily(value) => props[_$key__fontFamily___$SvgPropsMixin] = value;
+  set fontFamily(dynamic value) =>
+      props[_$key__fontFamily___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.fontSize] -->
   @override
-  get fontSize => (props[_$key__fontSize___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get fontSize =>
+      (props[_$key__fontSize___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.fontSize] -->
   @override
-  set fontSize(value) => props[_$key__fontSize___$SvgPropsMixin] = value;
+  set fontSize(dynamic value) =>
+      props[_$key__fontSize___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.fontSizeAdjust] -->
   @override
-  get fontSizeAdjust =>
+  dynamic get fontSizeAdjust =>
       (props[_$key__fontSizeAdjust___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.fontSizeAdjust] -->
   @override
-  set fontSizeAdjust(value) =>
+  set fontSizeAdjust(dynamic value) =>
       props[_$key__fontSizeAdjust___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.fontStretch] -->
   @override
-  get fontStretch =>
+  dynamic get fontStretch =>
       (props[_$key__fontStretch___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.fontStretch] -->
   @override
-  set fontStretch(value) => props[_$key__fontStretch___$SvgPropsMixin] = value;
+  set fontStretch(dynamic value) =>
+      props[_$key__fontStretch___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.fontStyle] -->
   @override
-  get fontStyle =>
+  dynamic get fontStyle =>
       (props[_$key__fontStyle___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.fontStyle] -->
   @override
-  set fontStyle(value) => props[_$key__fontStyle___$SvgPropsMixin] = value;
+  set fontStyle(dynamic value) =>
+      props[_$key__fontStyle___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.fontVariant] -->
   @override
-  get fontVariant =>
+  dynamic get fontVariant =>
       (props[_$key__fontVariant___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.fontVariant] -->
   @override
-  set fontVariant(value) => props[_$key__fontVariant___$SvgPropsMixin] = value;
+  set fontVariant(dynamic value) =>
+      props[_$key__fontVariant___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.fontWeight] -->
   @override
-  get fontWeight =>
+  dynamic get fontWeight =>
       (props[_$key__fontWeight___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.fontWeight] -->
   @override
-  set fontWeight(value) => props[_$key__fontWeight___$SvgPropsMixin] = value;
+  set fontWeight(dynamic value) =>
+      props[_$key__fontWeight___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.format] -->
   @override
-  get format => (props[_$key__format___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get format =>
+      (props[_$key__format___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.format] -->
   @override
-  set format(value) => props[_$key__format___$SvgPropsMixin] = value;
+  set format(dynamic value) => props[_$key__format___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.from] -->
   @override
-  get from => (props[_$key__from___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get from => (props[_$key__from___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.from] -->
   @override
-  set from(value) => props[_$key__from___$SvgPropsMixin] = value;
+  set from(dynamic value) => props[_$key__from___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.fx] -->
   @override
-  get fx => (props[_$key__fx___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get fx => (props[_$key__fx___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.fx] -->
   @override
-  set fx(value) => props[_$key__fx___$SvgPropsMixin] = value;
+  set fx(dynamic value) => props[_$key__fx___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.fy] -->
   @override
-  get fy => (props[_$key__fy___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get fy => (props[_$key__fy___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.fy] -->
   @override
-  set fy(value) => props[_$key__fy___$SvgPropsMixin] = value;
+  set fy(dynamic value) => props[_$key__fy___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.g1] -->
   @override
-  get g1 => (props[_$key__g1___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get g1 => (props[_$key__g1___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.g1] -->
   @override
-  set g1(value) => props[_$key__g1___$SvgPropsMixin] = value;
+  set g1(dynamic value) => props[_$key__g1___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.g2] -->
   @override
-  get g2 => (props[_$key__g2___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get g2 => (props[_$key__g2___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.g2] -->
   @override
-  set g2(value) => props[_$key__g2___$SvgPropsMixin] = value;
+  set g2(dynamic value) => props[_$key__g2___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.glyphName] -->
   @override
-  get glyphName =>
+  dynamic get glyphName =>
       (props[_$key__glyphName___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.glyphName] -->
   @override
-  set glyphName(value) => props[_$key__glyphName___$SvgPropsMixin] = value;
+  set glyphName(dynamic value) =>
+      props[_$key__glyphName___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.glyphOrientationHorizontal] -->
   @override
-  get glyphOrientationHorizontal =>
+  dynamic get glyphOrientationHorizontal =>
       (props[_$key__glyphOrientationHorizontal___$SvgPropsMixin] ?? null)
           as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.glyphOrientationHorizontal] -->
   @override
-  set glyphOrientationHorizontal(value) =>
+  set glyphOrientationHorizontal(dynamic value) =>
       props[_$key__glyphOrientationHorizontal___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.glyphOrientationVertical] -->
   @override
-  get glyphOrientationVertical =>
+  dynamic get glyphOrientationVertical =>
       (props[_$key__glyphOrientationVertical___$SvgPropsMixin] ?? null)
           as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.glyphOrientationVertical] -->
   @override
-  set glyphOrientationVertical(value) =>
+  set glyphOrientationVertical(dynamic value) =>
       props[_$key__glyphOrientationVertical___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.glyphRef] -->
   @override
-  get glyphRef => (props[_$key__glyphRef___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get glyphRef =>
+      (props[_$key__glyphRef___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.glyphRef] -->
   @override
-  set glyphRef(value) => props[_$key__glyphRef___$SvgPropsMixin] = value;
+  set glyphRef(dynamic value) =>
+      props[_$key__glyphRef___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.gradientTransform] -->
   @override
-  get gradientTransform =>
+  dynamic get gradientTransform =>
       (props[_$key__gradientTransform___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.gradientTransform] -->
   @override
-  set gradientTransform(value) =>
+  set gradientTransform(dynamic value) =>
       props[_$key__gradientTransform___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.gradientUnits] -->
   @override
-  get gradientUnits =>
+  dynamic get gradientUnits =>
       (props[_$key__gradientUnits___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.gradientUnits] -->
   @override
-  set gradientUnits(value) =>
+  set gradientUnits(dynamic value) =>
       props[_$key__gradientUnits___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.hanging] -->
   @override
-  get hanging => (props[_$key__hanging___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get hanging =>
+      (props[_$key__hanging___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.hanging] -->
   @override
-  set hanging(value) => props[_$key__hanging___$SvgPropsMixin] = value;
+  set hanging(dynamic value) => props[_$key__hanging___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.horizAdvX] -->
   @override
-  get horizAdvX =>
+  dynamic get horizAdvX =>
       (props[_$key__horizAdvX___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.horizAdvX] -->
   @override
-  set horizAdvX(value) => props[_$key__horizAdvX___$SvgPropsMixin] = value;
+  set horizAdvX(dynamic value) =>
+      props[_$key__horizAdvX___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.horizOriginX] -->
   @override
-  get horizOriginX =>
+  dynamic get horizOriginX =>
       (props[_$key__horizOriginX___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.horizOriginX] -->
   @override
-  set horizOriginX(value) =>
+  set horizOriginX(dynamic value) =>
       props[_$key__horizOriginX___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.ideographic] -->
   @override
-  get ideographic =>
+  dynamic get ideographic =>
       (props[_$key__ideographic___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.ideographic] -->
   @override
-  set ideographic(value) => props[_$key__ideographic___$SvgPropsMixin] = value;
+  set ideographic(dynamic value) =>
+      props[_$key__ideographic___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.imageRendering] -->
   @override
-  get imageRendering =>
+  dynamic get imageRendering =>
       (props[_$key__imageRendering___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.imageRendering] -->
   @override
-  set imageRendering(value) =>
+  set imageRendering(dynamic value) =>
       props[_$key__imageRendering___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.in2] -->
   @override
-  get in2 => (props[_$key__in2___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get in2 => (props[_$key__in2___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.in2] -->
   @override
-  set in2(value) => props[_$key__in2___$SvgPropsMixin] = value;
+  set in2(dynamic value) => props[_$key__in2___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.intercept] -->
   @override
-  get intercept =>
+  dynamic get intercept =>
       (props[_$key__intercept___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.intercept] -->
   @override
-  set intercept(value) => props[_$key__intercept___$SvgPropsMixin] = value;
+  set intercept(dynamic value) =>
+      props[_$key__intercept___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.k] -->
   @override
-  get k => (props[_$key__k___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get k => (props[_$key__k___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.k] -->
   @override
-  set k(value) => props[_$key__k___$SvgPropsMixin] = value;
+  set k(dynamic value) => props[_$key__k___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.k1] -->
   @override
-  get k1 => (props[_$key__k1___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get k1 => (props[_$key__k1___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.k1] -->
   @override
-  set k1(value) => props[_$key__k1___$SvgPropsMixin] = value;
+  set k1(dynamic value) => props[_$key__k1___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.k2] -->
   @override
-  get k2 => (props[_$key__k2___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get k2 => (props[_$key__k2___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.k2] -->
   @override
-  set k2(value) => props[_$key__k2___$SvgPropsMixin] = value;
+  set k2(dynamic value) => props[_$key__k2___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.k3] -->
   @override
-  get k3 => (props[_$key__k3___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get k3 => (props[_$key__k3___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.k3] -->
   @override
-  set k3(value) => props[_$key__k3___$SvgPropsMixin] = value;
+  set k3(dynamic value) => props[_$key__k3___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.k4] -->
   @override
-  get k4 => (props[_$key__k4___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get k4 => (props[_$key__k4___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.k4] -->
   @override
-  set k4(value) => props[_$key__k4___$SvgPropsMixin] = value;
+  set k4(dynamic value) => props[_$key__k4___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.kernelMatrix] -->
   @override
-  get kernelMatrix =>
+  dynamic get kernelMatrix =>
       (props[_$key__kernelMatrix___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.kernelMatrix] -->
   @override
-  set kernelMatrix(value) =>
+  set kernelMatrix(dynamic value) =>
       props[_$key__kernelMatrix___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.kernelUnitLength] -->
   @override
-  get kernelUnitLength =>
+  dynamic get kernelUnitLength =>
       (props[_$key__kernelUnitLength___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.kernelUnitLength] -->
   @override
-  set kernelUnitLength(value) =>
+  set kernelUnitLength(dynamic value) =>
       props[_$key__kernelUnitLength___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.kerning] -->
   @override
-  get kerning => (props[_$key__kerning___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get kerning =>
+      (props[_$key__kerning___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.kerning] -->
   @override
-  set kerning(value) => props[_$key__kerning___$SvgPropsMixin] = value;
+  set kerning(dynamic value) => props[_$key__kerning___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.keyPoints] -->
   @override
-  get keyPoints =>
+  dynamic get keyPoints =>
       (props[_$key__keyPoints___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.keyPoints] -->
   @override
-  set keyPoints(value) => props[_$key__keyPoints___$SvgPropsMixin] = value;
+  set keyPoints(dynamic value) =>
+      props[_$key__keyPoints___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.keySplines] -->
   @override
-  get keySplines =>
+  dynamic get keySplines =>
       (props[_$key__keySplines___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.keySplines] -->
   @override
-  set keySplines(value) => props[_$key__keySplines___$SvgPropsMixin] = value;
+  set keySplines(dynamic value) =>
+      props[_$key__keySplines___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.keyTimes] -->
   @override
-  get keyTimes => (props[_$key__keyTimes___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get keyTimes =>
+      (props[_$key__keyTimes___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.keyTimes] -->
   @override
-  set keyTimes(value) => props[_$key__keyTimes___$SvgPropsMixin] = value;
+  set keyTimes(dynamic value) =>
+      props[_$key__keyTimes___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.lengthAdjust] -->
   @override
-  get lengthAdjust =>
+  dynamic get lengthAdjust =>
       (props[_$key__lengthAdjust___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.lengthAdjust] -->
   @override
-  set lengthAdjust(value) =>
+  set lengthAdjust(dynamic value) =>
       props[_$key__lengthAdjust___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.letterSpacing] -->
   @override
-  get letterSpacing =>
+  dynamic get letterSpacing =>
       (props[_$key__letterSpacing___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.letterSpacing] -->
   @override
-  set letterSpacing(value) =>
+  set letterSpacing(dynamic value) =>
       props[_$key__letterSpacing___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.lightingColor] -->
   @override
-  get lightingColor =>
+  dynamic get lightingColor =>
       (props[_$key__lightingColor___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.lightingColor] -->
   @override
-  set lightingColor(value) =>
+  set lightingColor(dynamic value) =>
       props[_$key__lightingColor___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.limitingConeAngle] -->
   @override
-  get limitingConeAngle =>
+  dynamic get limitingConeAngle =>
       (props[_$key__limitingConeAngle___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.limitingConeAngle] -->
   @override
-  set limitingConeAngle(value) =>
+  set limitingConeAngle(dynamic value) =>
       props[_$key__limitingConeAngle___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.local] -->
   @override
-  get local => (props[_$key__local___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get local =>
+      (props[_$key__local___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.local] -->
   @override
-  set local(value) => props[_$key__local___$SvgPropsMixin] = value;
+  set local(dynamic value) => props[_$key__local___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.markerEnd] -->
   @override
-  get markerEnd =>
+  dynamic get markerEnd =>
       (props[_$key__markerEnd___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.markerEnd] -->
   @override
-  set markerEnd(value) => props[_$key__markerEnd___$SvgPropsMixin] = value;
+  set markerEnd(dynamic value) =>
+      props[_$key__markerEnd___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.markerHeight] -->
   @override
-  get markerHeight =>
+  dynamic get markerHeight =>
       (props[_$key__markerHeight___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.markerHeight] -->
   @override
-  set markerHeight(value) =>
+  set markerHeight(dynamic value) =>
       props[_$key__markerHeight___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.markerMid] -->
   @override
-  get markerMid =>
+  dynamic get markerMid =>
       (props[_$key__markerMid___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.markerMid] -->
   @override
-  set markerMid(value) => props[_$key__markerMid___$SvgPropsMixin] = value;
+  set markerMid(dynamic value) =>
+      props[_$key__markerMid___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.markerStart] -->
   @override
-  get markerStart =>
+  dynamic get markerStart =>
       (props[_$key__markerStart___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.markerStart] -->
   @override
-  set markerStart(value) => props[_$key__markerStart___$SvgPropsMixin] = value;
+  set markerStart(dynamic value) =>
+      props[_$key__markerStart___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.markerUnits] -->
   @override
-  get markerUnits =>
+  dynamic get markerUnits =>
       (props[_$key__markerUnits___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.markerUnits] -->
   @override
-  set markerUnits(value) => props[_$key__markerUnits___$SvgPropsMixin] = value;
+  set markerUnits(dynamic value) =>
+      props[_$key__markerUnits___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.markerWidth] -->
   @override
-  get markerWidth =>
+  dynamic get markerWidth =>
       (props[_$key__markerWidth___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.markerWidth] -->
   @override
-  set markerWidth(value) => props[_$key__markerWidth___$SvgPropsMixin] = value;
+  set markerWidth(dynamic value) =>
+      props[_$key__markerWidth___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.maskContentUnits] -->
   @override
-  get maskContentUnits =>
+  dynamic get maskContentUnits =>
       (props[_$key__maskContentUnits___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.maskContentUnits] -->
   @override
-  set maskContentUnits(value) =>
+  set maskContentUnits(dynamic value) =>
       props[_$key__maskContentUnits___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.maskUnits] -->
   @override
-  get maskUnits =>
+  dynamic get maskUnits =>
       (props[_$key__maskUnits___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.maskUnits] -->
   @override
-  set maskUnits(value) => props[_$key__maskUnits___$SvgPropsMixin] = value;
+  set maskUnits(dynamic value) =>
+      props[_$key__maskUnits___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.mathematical] -->
   @override
-  get mathematical =>
+  dynamic get mathematical =>
       (props[_$key__mathematical___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.mathematical] -->
   @override
-  set mathematical(value) =>
+  set mathematical(dynamic value) =>
       props[_$key__mathematical___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.mode] -->
   @override
-  get mode => (props[_$key__mode___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get mode => (props[_$key__mode___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.mode] -->
   @override
-  set mode(value) => props[_$key__mode___$SvgPropsMixin] = value;
+  set mode(dynamic value) => props[_$key__mode___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.numOctaves] -->
   @override
-  get numOctaves =>
+  dynamic get numOctaves =>
       (props[_$key__numOctaves___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.numOctaves] -->
   @override
-  set numOctaves(value) => props[_$key__numOctaves___$SvgPropsMixin] = value;
+  set numOctaves(dynamic value) =>
+      props[_$key__numOctaves___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.offset] -->
   @override
-  get offset => (props[_$key__offset___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get offset =>
+      (props[_$key__offset___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.offset] -->
   @override
-  set offset(value) => props[_$key__offset___$SvgPropsMixin] = value;
+  set offset(dynamic value) => props[_$key__offset___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.opacity] -->
   @override
-  get opacity => (props[_$key__opacity___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get opacity =>
+      (props[_$key__opacity___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.opacity] -->
   @override
-  set opacity(value) => props[_$key__opacity___$SvgPropsMixin] = value;
+  set opacity(dynamic value) => props[_$key__opacity___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.operator] -->
   @override
-  get operator => (props[_$key__operator___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get operator =>
+      (props[_$key__operator___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.operator] -->
   @override
-  set operator(value) => props[_$key__operator___$SvgPropsMixin] = value;
+  set operator(dynamic value) =>
+      props[_$key__operator___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.order] -->
   @override
-  get order => (props[_$key__order___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get order =>
+      (props[_$key__order___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.order] -->
   @override
-  set order(value) => props[_$key__order___$SvgPropsMixin] = value;
+  set order(dynamic value) => props[_$key__order___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.orient] -->
   @override
-  get orient => (props[_$key__orient___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get orient =>
+      (props[_$key__orient___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.orient] -->
   @override
-  set orient(value) => props[_$key__orient___$SvgPropsMixin] = value;
+  set orient(dynamic value) => props[_$key__orient___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.orientation] -->
   @override
-  get orientation =>
+  dynamic get orientation =>
       (props[_$key__orientation___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.orientation] -->
   @override
-  set orientation(value) => props[_$key__orientation___$SvgPropsMixin] = value;
+  set orientation(dynamic value) =>
+      props[_$key__orientation___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.origin] -->
   @override
-  get origin => (props[_$key__origin___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get origin =>
+      (props[_$key__origin___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.origin] -->
   @override
-  set origin(value) => props[_$key__origin___$SvgPropsMixin] = value;
+  set origin(dynamic value) => props[_$key__origin___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.overflow] -->
   @override
-  get overflow => (props[_$key__overflow___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get overflow =>
+      (props[_$key__overflow___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.overflow] -->
   @override
-  set overflow(value) => props[_$key__overflow___$SvgPropsMixin] = value;
+  set overflow(dynamic value) =>
+      props[_$key__overflow___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.overlinePosition] -->
   @override
-  get overlinePosition =>
+  dynamic get overlinePosition =>
       (props[_$key__overlinePosition___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.overlinePosition] -->
   @override
-  set overlinePosition(value) =>
+  set overlinePosition(dynamic value) =>
       props[_$key__overlinePosition___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.overlineThickness] -->
   @override
-  get overlineThickness =>
+  dynamic get overlineThickness =>
       (props[_$key__overlineThickness___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.overlineThickness] -->
   @override
-  set overlineThickness(value) =>
+  set overlineThickness(dynamic value) =>
       props[_$key__overlineThickness___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.paintOrder] -->
   @override
-  get paintOrder =>
+  dynamic get paintOrder =>
       (props[_$key__paintOrder___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.paintOrder] -->
   @override
-  set paintOrder(value) => props[_$key__paintOrder___$SvgPropsMixin] = value;
+  set paintOrder(dynamic value) =>
+      props[_$key__paintOrder___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.panose1] -->
   @override
-  get panose1 => (props[_$key__panose1___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get panose1 =>
+      (props[_$key__panose1___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.panose1] -->
   @override
-  set panose1(value) => props[_$key__panose1___$SvgPropsMixin] = value;
+  set panose1(dynamic value) => props[_$key__panose1___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.pathLength] -->
   @override
-  get pathLength =>
+  dynamic get pathLength =>
       (props[_$key__pathLength___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.pathLength] -->
   @override
-  set pathLength(value) => props[_$key__pathLength___$SvgPropsMixin] = value;
+  set pathLength(dynamic value) =>
+      props[_$key__pathLength___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.patternContentUnits] -->
   @override
-  get patternContentUnits =>
+  dynamic get patternContentUnits =>
       (props[_$key__patternContentUnits___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.patternContentUnits] -->
   @override
-  set patternContentUnits(value) =>
+  set patternContentUnits(dynamic value) =>
       props[_$key__patternContentUnits___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.patternTransform] -->
   @override
-  get patternTransform =>
+  dynamic get patternTransform =>
       (props[_$key__patternTransform___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.patternTransform] -->
   @override
-  set patternTransform(value) =>
+  set patternTransform(dynamic value) =>
       props[_$key__patternTransform___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.patternUnits] -->
   @override
-  get patternUnits =>
+  dynamic get patternUnits =>
       (props[_$key__patternUnits___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.patternUnits] -->
   @override
-  set patternUnits(value) =>
+  set patternUnits(dynamic value) =>
       props[_$key__patternUnits___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.pointerEvents] -->
   @override
-  get pointerEvents =>
+  dynamic get pointerEvents =>
       (props[_$key__pointerEvents___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.pointerEvents] -->
   @override
-  set pointerEvents(value) =>
+  set pointerEvents(dynamic value) =>
       props[_$key__pointerEvents___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.points] -->
   @override
-  get points => (props[_$key__points___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get points =>
+      (props[_$key__points___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.points] -->
   @override
-  set points(value) => props[_$key__points___$SvgPropsMixin] = value;
+  set points(dynamic value) => props[_$key__points___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.pointsAtX] -->
   @override
-  get pointsAtX =>
+  dynamic get pointsAtX =>
       (props[_$key__pointsAtX___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.pointsAtX] -->
   @override
-  set pointsAtX(value) => props[_$key__pointsAtX___$SvgPropsMixin] = value;
+  set pointsAtX(dynamic value) =>
+      props[_$key__pointsAtX___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.pointsAtY] -->
   @override
-  get pointsAtY =>
+  dynamic get pointsAtY =>
       (props[_$key__pointsAtY___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.pointsAtY] -->
   @override
-  set pointsAtY(value) => props[_$key__pointsAtY___$SvgPropsMixin] = value;
+  set pointsAtY(dynamic value) =>
+      props[_$key__pointsAtY___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.pointsAtZ] -->
   @override
-  get pointsAtZ =>
+  dynamic get pointsAtZ =>
       (props[_$key__pointsAtZ___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.pointsAtZ] -->
   @override
-  set pointsAtZ(value) => props[_$key__pointsAtZ___$SvgPropsMixin] = value;
+  set pointsAtZ(dynamic value) =>
+      props[_$key__pointsAtZ___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.preserveAlpha] -->
   @override
-  get preserveAlpha =>
+  dynamic get preserveAlpha =>
       (props[_$key__preserveAlpha___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.preserveAlpha] -->
   @override
-  set preserveAlpha(value) =>
+  set preserveAlpha(dynamic value) =>
       props[_$key__preserveAlpha___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.preserveAspectRatio] -->
   @override
-  get preserveAspectRatio =>
+  dynamic get preserveAspectRatio =>
       (props[_$key__preserveAspectRatio___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.preserveAspectRatio] -->
   @override
-  set preserveAspectRatio(value) =>
+  set preserveAspectRatio(dynamic value) =>
       props[_$key__preserveAspectRatio___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.primitiveUnits] -->
   @override
-  get primitiveUnits =>
+  dynamic get primitiveUnits =>
       (props[_$key__primitiveUnits___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.primitiveUnits] -->
   @override
-  set primitiveUnits(value) =>
+  set primitiveUnits(dynamic value) =>
       props[_$key__primitiveUnits___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.r] -->
   @override
-  get r => (props[_$key__r___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get r => (props[_$key__r___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.r] -->
   @override
-  set r(value) => props[_$key__r___$SvgPropsMixin] = value;
+  set r(dynamic value) => props[_$key__r___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.radius] -->
   @override
-  get radius => (props[_$key__radius___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get radius =>
+      (props[_$key__radius___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.radius] -->
   @override
-  set radius(value) => props[_$key__radius___$SvgPropsMixin] = value;
+  set radius(dynamic value) => props[_$key__radius___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.refX] -->
   @override
-  get refX => (props[_$key__refX___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get refX => (props[_$key__refX___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.refX] -->
   @override
-  set refX(value) => props[_$key__refX___$SvgPropsMixin] = value;
+  set refX(dynamic value) => props[_$key__refX___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.refY] -->
   @override
-  get refY => (props[_$key__refY___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get refY => (props[_$key__refY___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.refY] -->
   @override
-  set refY(value) => props[_$key__refY___$SvgPropsMixin] = value;
+  set refY(dynamic value) => props[_$key__refY___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.renderingIntent] -->
   @override
-  get renderingIntent =>
+  dynamic get renderingIntent =>
       (props[_$key__renderingIntent___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.renderingIntent] -->
   @override
-  set renderingIntent(value) =>
+  set renderingIntent(dynamic value) =>
       props[_$key__renderingIntent___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.repeatCount] -->
   @override
-  get repeatCount =>
+  dynamic get repeatCount =>
       (props[_$key__repeatCount___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.repeatCount] -->
   @override
-  set repeatCount(value) => props[_$key__repeatCount___$SvgPropsMixin] = value;
+  set repeatCount(dynamic value) =>
+      props[_$key__repeatCount___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.repeatDur] -->
   @override
-  get repeatDur =>
+  dynamic get repeatDur =>
       (props[_$key__repeatDur___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.repeatDur] -->
   @override
-  set repeatDur(value) => props[_$key__repeatDur___$SvgPropsMixin] = value;
+  set repeatDur(dynamic value) =>
+      props[_$key__repeatDur___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.requiredExtensions] -->
   @override
-  get requiredExtensions =>
+  dynamic get requiredExtensions =>
       (props[_$key__requiredExtensions___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.requiredExtensions] -->
   @override
-  set requiredExtensions(value) =>
+  set requiredExtensions(dynamic value) =>
       props[_$key__requiredExtensions___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.requiredFeatures] -->
   @override
-  get requiredFeatures =>
+  dynamic get requiredFeatures =>
       (props[_$key__requiredFeatures___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.requiredFeatures] -->
   @override
-  set requiredFeatures(value) =>
+  set requiredFeatures(dynamic value) =>
       props[_$key__requiredFeatures___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.restart] -->
   @override
-  get restart => (props[_$key__restart___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get restart =>
+      (props[_$key__restart___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.restart] -->
   @override
-  set restart(value) => props[_$key__restart___$SvgPropsMixin] = value;
+  set restart(dynamic value) => props[_$key__restart___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.rotate] -->
   @override
-  get rotate => (props[_$key__rotate___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get rotate =>
+      (props[_$key__rotate___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.rotate] -->
   @override
-  set rotate(value) => props[_$key__rotate___$SvgPropsMixin] = value;
+  set rotate(dynamic value) => props[_$key__rotate___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.rx] -->
   @override
-  get rx => (props[_$key__rx___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get rx => (props[_$key__rx___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.rx] -->
   @override
-  set rx(value) => props[_$key__rx___$SvgPropsMixin] = value;
+  set rx(dynamic value) => props[_$key__rx___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.ry] -->
   @override
-  get ry => (props[_$key__ry___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get ry => (props[_$key__ry___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.ry] -->
   @override
-  set ry(value) => props[_$key__ry___$SvgPropsMixin] = value;
+  set ry(dynamic value) => props[_$key__ry___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.scale] -->
   @override
-  get scale => (props[_$key__scale___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get scale =>
+      (props[_$key__scale___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.scale] -->
   @override
-  set scale(value) => props[_$key__scale___$SvgPropsMixin] = value;
+  set scale(dynamic value) => props[_$key__scale___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.seed] -->
   @override
-  get seed => (props[_$key__seed___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get seed => (props[_$key__seed___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.seed] -->
   @override
-  set seed(value) => props[_$key__seed___$SvgPropsMixin] = value;
+  set seed(dynamic value) => props[_$key__seed___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.shapeRendering] -->
   @override
-  get shapeRendering =>
+  dynamic get shapeRendering =>
       (props[_$key__shapeRendering___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.shapeRendering] -->
   @override
-  set shapeRendering(value) =>
+  set shapeRendering(dynamic value) =>
       props[_$key__shapeRendering___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.slope] -->
   @override
-  get slope => (props[_$key__slope___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get slope =>
+      (props[_$key__slope___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.slope] -->
   @override
-  set slope(value) => props[_$key__slope___$SvgPropsMixin] = value;
+  set slope(dynamic value) => props[_$key__slope___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.spacing] -->
   @override
-  get spacing => (props[_$key__spacing___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get spacing =>
+      (props[_$key__spacing___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.spacing] -->
   @override
-  set spacing(value) => props[_$key__spacing___$SvgPropsMixin] = value;
+  set spacing(dynamic value) => props[_$key__spacing___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.specularConstant] -->
   @override
-  get specularConstant =>
+  dynamic get specularConstant =>
       (props[_$key__specularConstant___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.specularConstant] -->
   @override
-  set specularConstant(value) =>
+  set specularConstant(dynamic value) =>
       props[_$key__specularConstant___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.specularExponent] -->
   @override
-  get specularExponent =>
+  dynamic get specularExponent =>
       (props[_$key__specularExponent___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.specularExponent] -->
   @override
-  set specularExponent(value) =>
+  set specularExponent(dynamic value) =>
       props[_$key__specularExponent___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.speed] -->
   @override
-  get speed => (props[_$key__speed___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get speed =>
+      (props[_$key__speed___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.speed] -->
   @override
-  set speed(value) => props[_$key__speed___$SvgPropsMixin] = value;
+  set speed(dynamic value) => props[_$key__speed___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.spreadMethod] -->
   @override
-  get spreadMethod =>
+  dynamic get spreadMethod =>
       (props[_$key__spreadMethod___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.spreadMethod] -->
   @override
-  set spreadMethod(value) =>
+  set spreadMethod(dynamic value) =>
       props[_$key__spreadMethod___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.startOffset] -->
   @override
-  get startOffset =>
+  dynamic get startOffset =>
       (props[_$key__startOffset___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.startOffset] -->
   @override
-  set startOffset(value) => props[_$key__startOffset___$SvgPropsMixin] = value;
+  set startOffset(dynamic value) =>
+      props[_$key__startOffset___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.stdDeviation] -->
   @override
-  get stdDeviation =>
+  dynamic get stdDeviation =>
       (props[_$key__stdDeviation___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.stdDeviation] -->
   @override
-  set stdDeviation(value) =>
+  set stdDeviation(dynamic value) =>
       props[_$key__stdDeviation___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.stemh] -->
   @override
-  get stemh => (props[_$key__stemh___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get stemh =>
+      (props[_$key__stemh___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.stemh] -->
   @override
-  set stemh(value) => props[_$key__stemh___$SvgPropsMixin] = value;
+  set stemh(dynamic value) => props[_$key__stemh___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.stemv] -->
   @override
-  get stemv => (props[_$key__stemv___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get stemv =>
+      (props[_$key__stemv___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.stemv] -->
   @override
-  set stemv(value) => props[_$key__stemv___$SvgPropsMixin] = value;
+  set stemv(dynamic value) => props[_$key__stemv___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.stitchTiles] -->
   @override
-  get stitchTiles =>
+  dynamic get stitchTiles =>
       (props[_$key__stitchTiles___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.stitchTiles] -->
   @override
-  set stitchTiles(value) => props[_$key__stitchTiles___$SvgPropsMixin] = value;
+  set stitchTiles(dynamic value) =>
+      props[_$key__stitchTiles___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.stopColor] -->
   @override
-  get stopColor =>
+  dynamic get stopColor =>
       (props[_$key__stopColor___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.stopColor] -->
   @override
-  set stopColor(value) => props[_$key__stopColor___$SvgPropsMixin] = value;
+  set stopColor(dynamic value) =>
+      props[_$key__stopColor___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.stopOpacity] -->
   @override
-  get stopOpacity =>
+  dynamic get stopOpacity =>
       (props[_$key__stopOpacity___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.stopOpacity] -->
   @override
-  set stopOpacity(value) => props[_$key__stopOpacity___$SvgPropsMixin] = value;
+  set stopOpacity(dynamic value) =>
+      props[_$key__stopOpacity___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.strikethroughPosition] -->
   @override
-  get strikethroughPosition =>
+  dynamic get strikethroughPosition =>
       (props[_$key__strikethroughPosition___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.strikethroughPosition] -->
   @override
-  set strikethroughPosition(value) =>
+  set strikethroughPosition(dynamic value) =>
       props[_$key__strikethroughPosition___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.strikethroughThickness] -->
   @override
-  get strikethroughThickness =>
+  dynamic get strikethroughThickness =>
       (props[_$key__strikethroughThickness___$SvgPropsMixin] ?? null)
           as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.strikethroughThickness] -->
   @override
-  set strikethroughThickness(value) =>
+  set strikethroughThickness(dynamic value) =>
       props[_$key__strikethroughThickness___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.string] -->
   @override
-  get string => (props[_$key__string___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get string =>
+      (props[_$key__string___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.string] -->
   @override
-  set string(value) => props[_$key__string___$SvgPropsMixin] = value;
+  set string(dynamic value) => props[_$key__string___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.stroke] -->
   @override
-  get stroke => (props[_$key__stroke___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get stroke =>
+      (props[_$key__stroke___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.stroke] -->
   @override
-  set stroke(value) => props[_$key__stroke___$SvgPropsMixin] = value;
+  set stroke(dynamic value) => props[_$key__stroke___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.strokeDasharray] -->
   @override
-  get strokeDasharray =>
+  dynamic get strokeDasharray =>
       (props[_$key__strokeDasharray___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.strokeDasharray] -->
   @override
-  set strokeDasharray(value) =>
+  set strokeDasharray(dynamic value) =>
       props[_$key__strokeDasharray___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.strokeDashoffset] -->
   @override
-  get strokeDashoffset =>
+  dynamic get strokeDashoffset =>
       (props[_$key__strokeDashoffset___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.strokeDashoffset] -->
   @override
-  set strokeDashoffset(value) =>
+  set strokeDashoffset(dynamic value) =>
       props[_$key__strokeDashoffset___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.strokeLinecap] -->
   @override
-  get strokeLinecap =>
+  dynamic get strokeLinecap =>
       (props[_$key__strokeLinecap___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.strokeLinecap] -->
   @override
-  set strokeLinecap(value) =>
+  set strokeLinecap(dynamic value) =>
       props[_$key__strokeLinecap___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.strokeMiterlimit] -->
   @override
-  get strokeMiterlimit =>
+  dynamic get strokeMiterlimit =>
       (props[_$key__strokeMiterlimit___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.strokeMiterlimit] -->
   @override
-  set strokeMiterlimit(value) =>
+  set strokeMiterlimit(dynamic value) =>
       props[_$key__strokeMiterlimit___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.strokeOpacity] -->
   @override
-  get strokeOpacity =>
+  dynamic get strokeOpacity =>
       (props[_$key__strokeOpacity___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.strokeOpacity] -->
   @override
-  set strokeOpacity(value) =>
+  set strokeOpacity(dynamic value) =>
       props[_$key__strokeOpacity___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.strokeWidth] -->
   @override
-  get strokeWidth =>
+  dynamic get strokeWidth =>
       (props[_$key__strokeWidth___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.strokeWidth] -->
   @override
-  set strokeWidth(value) => props[_$key__strokeWidth___$SvgPropsMixin] = value;
+  set strokeWidth(dynamic value) =>
+      props[_$key__strokeWidth___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.surfaceScale] -->
   @override
-  get surfaceScale =>
+  dynamic get surfaceScale =>
       (props[_$key__surfaceScale___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.surfaceScale] -->
   @override
-  set surfaceScale(value) =>
+  set surfaceScale(dynamic value) =>
       props[_$key__surfaceScale___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.systemLanguage] -->
   @override
-  get systemLanguage =>
+  dynamic get systemLanguage =>
       (props[_$key__systemLanguage___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.systemLanguage] -->
   @override
-  set systemLanguage(value) =>
+  set systemLanguage(dynamic value) =>
       props[_$key__systemLanguage___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.tableValues] -->
   @override
-  get tableValues =>
+  dynamic get tableValues =>
       (props[_$key__tableValues___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.tableValues] -->
   @override
-  set tableValues(value) => props[_$key__tableValues___$SvgPropsMixin] = value;
+  set tableValues(dynamic value) =>
+      props[_$key__tableValues___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.targetX] -->
   @override
-  get targetX => (props[_$key__targetX___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get targetX =>
+      (props[_$key__targetX___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.targetX] -->
   @override
-  set targetX(value) => props[_$key__targetX___$SvgPropsMixin] = value;
+  set targetX(dynamic value) => props[_$key__targetX___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.targetY] -->
   @override
-  get targetY => (props[_$key__targetY___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get targetY =>
+      (props[_$key__targetY___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.targetY] -->
   @override
-  set targetY(value) => props[_$key__targetY___$SvgPropsMixin] = value;
+  set targetY(dynamic value) => props[_$key__targetY___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.textAnchor] -->
   @override
-  get textAnchor =>
+  dynamic get textAnchor =>
       (props[_$key__textAnchor___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.textAnchor] -->
   @override
-  set textAnchor(value) => props[_$key__textAnchor___$SvgPropsMixin] = value;
+  set textAnchor(dynamic value) =>
+      props[_$key__textAnchor___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.textDecoration] -->
   @override
-  get textDecoration =>
+  dynamic get textDecoration =>
       (props[_$key__textDecoration___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.textDecoration] -->
   @override
-  set textDecoration(value) =>
+  set textDecoration(dynamic value) =>
       props[_$key__textDecoration___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.textLength] -->
   @override
-  get textLength =>
+  dynamic get textLength =>
       (props[_$key__textLength___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.textLength] -->
   @override
-  set textLength(value) => props[_$key__textLength___$SvgPropsMixin] = value;
+  set textLength(dynamic value) =>
+      props[_$key__textLength___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.textRendering] -->
   @override
-  get textRendering =>
+  dynamic get textRendering =>
       (props[_$key__textRendering___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.textRendering] -->
   @override
-  set textRendering(value) =>
+  set textRendering(dynamic value) =>
       props[_$key__textRendering___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.to] -->
   @override
-  get to => (props[_$key__to___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get to => (props[_$key__to___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.to] -->
   @override
-  set to(value) => props[_$key__to___$SvgPropsMixin] = value;
+  set to(dynamic value) => props[_$key__to___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.transform] -->
   @override
-  get transform =>
+  dynamic get transform =>
       (props[_$key__transform___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.transform] -->
   @override
-  set transform(value) => props[_$key__transform___$SvgPropsMixin] = value;
+  set transform(dynamic value) =>
+      props[_$key__transform___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.u1] -->
   @override
-  get u1 => (props[_$key__u1___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get u1 => (props[_$key__u1___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.u1] -->
   @override
-  set u1(value) => props[_$key__u1___$SvgPropsMixin] = value;
+  set u1(dynamic value) => props[_$key__u1___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.u2] -->
   @override
-  get u2 => (props[_$key__u2___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get u2 => (props[_$key__u2___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.u2] -->
   @override
-  set u2(value) => props[_$key__u2___$SvgPropsMixin] = value;
+  set u2(dynamic value) => props[_$key__u2___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.underlinePosition] -->
   @override
-  get underlinePosition =>
+  dynamic get underlinePosition =>
       (props[_$key__underlinePosition___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.underlinePosition] -->
   @override
-  set underlinePosition(value) =>
+  set underlinePosition(dynamic value) =>
       props[_$key__underlinePosition___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.underlineThickness] -->
   @override
-  get underlineThickness =>
+  dynamic get underlineThickness =>
       (props[_$key__underlineThickness___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.underlineThickness] -->
   @override
-  set underlineThickness(value) =>
+  set underlineThickness(dynamic value) =>
       props[_$key__underlineThickness___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.unicode] -->
   @override
-  get unicode => (props[_$key__unicode___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get unicode =>
+      (props[_$key__unicode___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.unicode] -->
   @override
-  set unicode(value) => props[_$key__unicode___$SvgPropsMixin] = value;
+  set unicode(dynamic value) => props[_$key__unicode___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.unicodeBidi] -->
   @override
-  get unicodeBidi =>
+  dynamic get unicodeBidi =>
       (props[_$key__unicodeBidi___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.unicodeBidi] -->
   @override
-  set unicodeBidi(value) => props[_$key__unicodeBidi___$SvgPropsMixin] = value;
+  set unicodeBidi(dynamic value) =>
+      props[_$key__unicodeBidi___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.unicodeRange] -->
   @override
-  get unicodeRange =>
+  dynamic get unicodeRange =>
       (props[_$key__unicodeRange___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.unicodeRange] -->
   @override
-  set unicodeRange(value) =>
+  set unicodeRange(dynamic value) =>
       props[_$key__unicodeRange___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.unitsPerEm] -->
   @override
-  get unitsPerEm =>
+  dynamic get unitsPerEm =>
       (props[_$key__unitsPerEm___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.unitsPerEm] -->
   @override
-  set unitsPerEm(value) => props[_$key__unitsPerEm___$SvgPropsMixin] = value;
+  set unitsPerEm(dynamic value) =>
+      props[_$key__unitsPerEm___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.vAlphabetic] -->
   @override
-  get vAlphabetic =>
+  dynamic get vAlphabetic =>
       (props[_$key__vAlphabetic___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.vAlphabetic] -->
   @override
-  set vAlphabetic(value) => props[_$key__vAlphabetic___$SvgPropsMixin] = value;
+  set vAlphabetic(dynamic value) =>
+      props[_$key__vAlphabetic___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.vHanging] -->
   @override
-  get vHanging => (props[_$key__vHanging___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get vHanging =>
+      (props[_$key__vHanging___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.vHanging] -->
   @override
-  set vHanging(value) => props[_$key__vHanging___$SvgPropsMixin] = value;
+  set vHanging(dynamic value) =>
+      props[_$key__vHanging___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.vIdeographic] -->
   @override
-  get vIdeographic =>
+  dynamic get vIdeographic =>
       (props[_$key__vIdeographic___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.vIdeographic] -->
   @override
-  set vIdeographic(value) =>
+  set vIdeographic(dynamic value) =>
       props[_$key__vIdeographic___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.vMathematical] -->
   @override
-  get vMathematical =>
+  dynamic get vMathematical =>
       (props[_$key__vMathematical___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.vMathematical] -->
   @override
-  set vMathematical(value) =>
+  set vMathematical(dynamic value) =>
       props[_$key__vMathematical___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.vectorEffect] -->
   @override
-  get vectorEffect =>
+  dynamic get vectorEffect =>
       (props[_$key__vectorEffect___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.vectorEffect] -->
   @override
-  set vectorEffect(value) =>
+  set vectorEffect(dynamic value) =>
       props[_$key__vectorEffect___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.version] -->
   @override
-  get version => (props[_$key__version___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get version =>
+      (props[_$key__version___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.version] -->
   @override
-  set version(value) => props[_$key__version___$SvgPropsMixin] = value;
+  set version(dynamic value) => props[_$key__version___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.vertAdvY] -->
   @override
-  get vertAdvY => (props[_$key__vertAdvY___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get vertAdvY =>
+      (props[_$key__vertAdvY___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.vertAdvY] -->
   @override
-  set vertAdvY(value) => props[_$key__vertAdvY___$SvgPropsMixin] = value;
+  set vertAdvY(dynamic value) =>
+      props[_$key__vertAdvY___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.vertOriginX] -->
   @override
-  get vertOriginX =>
+  dynamic get vertOriginX =>
       (props[_$key__vertOriginX___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.vertOriginX] -->
   @override
-  set vertOriginX(value) => props[_$key__vertOriginX___$SvgPropsMixin] = value;
+  set vertOriginX(dynamic value) =>
+      props[_$key__vertOriginX___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.vertOriginY] -->
   @override
-  get vertOriginY =>
+  dynamic get vertOriginY =>
       (props[_$key__vertOriginY___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.vertOriginY] -->
   @override
-  set vertOriginY(value) => props[_$key__vertOriginY___$SvgPropsMixin] = value;
+  set vertOriginY(dynamic value) =>
+      props[_$key__vertOriginY___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.viewBox] -->
   @override
-  get viewBox => (props[_$key__viewBox___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get viewBox =>
+      (props[_$key__viewBox___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.viewBox] -->
   @override
-  set viewBox(value) => props[_$key__viewBox___$SvgPropsMixin] = value;
+  set viewBox(dynamic value) => props[_$key__viewBox___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.viewTarget] -->
   @override
-  get viewTarget =>
+  dynamic get viewTarget =>
       (props[_$key__viewTarget___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.viewTarget] -->
   @override
-  set viewTarget(value) => props[_$key__viewTarget___$SvgPropsMixin] = value;
+  set viewTarget(dynamic value) =>
+      props[_$key__viewTarget___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.visibility] -->
   @override
-  get visibility =>
+  dynamic get visibility =>
       (props[_$key__visibility___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.visibility] -->
   @override
-  set visibility(value) => props[_$key__visibility___$SvgPropsMixin] = value;
+  set visibility(dynamic value) =>
+      props[_$key__visibility___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.widths] -->
   @override
-  get widths => (props[_$key__widths___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get widths =>
+      (props[_$key__widths___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.widths] -->
   @override
-  set widths(value) => props[_$key__widths___$SvgPropsMixin] = value;
+  set widths(dynamic value) => props[_$key__widths___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.wordSpacing] -->
   @override
-  get wordSpacing =>
+  dynamic get wordSpacing =>
       (props[_$key__wordSpacing___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.wordSpacing] -->
   @override
-  set wordSpacing(value) => props[_$key__wordSpacing___$SvgPropsMixin] = value;
+  set wordSpacing(dynamic value) =>
+      props[_$key__wordSpacing___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.writingMode] -->
   @override
-  get writingMode =>
+  dynamic get writingMode =>
       (props[_$key__writingMode___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.writingMode] -->
   @override
-  set writingMode(value) => props[_$key__writingMode___$SvgPropsMixin] = value;
+  set writingMode(dynamic value) =>
+      props[_$key__writingMode___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.x] -->
   @override
-  get x => (props[_$key__x___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get x => (props[_$key__x___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.x] -->
   @override
-  set x(value) => props[_$key__x___$SvgPropsMixin] = value;
+  set x(dynamic value) => props[_$key__x___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.x1] -->
   @override
-  get x1 => (props[_$key__x1___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get x1 => (props[_$key__x1___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.x1] -->
   @override
-  set x1(value) => props[_$key__x1___$SvgPropsMixin] = value;
+  set x1(dynamic value) => props[_$key__x1___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.x2] -->
   @override
-  get x2 => (props[_$key__x2___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get x2 => (props[_$key__x2___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.x2] -->
   @override
-  set x2(value) => props[_$key__x2___$SvgPropsMixin] = value;
+  set x2(dynamic value) => props[_$key__x2___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.xHeight] -->
   @override
-  get xHeight => (props[_$key__xHeight___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get xHeight =>
+      (props[_$key__xHeight___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.xHeight] -->
   @override
-  set xHeight(value) => props[_$key__xHeight___$SvgPropsMixin] = value;
+  set xHeight(dynamic value) => props[_$key__xHeight___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.xlinkActuate] -->
   @override
-  get xlinkActuate =>
+  dynamic get xlinkActuate =>
       (props[_$key__xlinkActuate___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.xlinkActuate] -->
   @override
-  set xlinkActuate(value) =>
+  set xlinkActuate(dynamic value) =>
       props[_$key__xlinkActuate___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.xlinkArcrole] -->
   @override
-  get xlinkArcrole =>
+  dynamic get xlinkArcrole =>
       (props[_$key__xlinkArcrole___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.xlinkArcrole] -->
   @override
-  set xlinkArcrole(value) =>
+  set xlinkArcrole(dynamic value) =>
       props[_$key__xlinkArcrole___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.xlinkHref] -->
   @override
-  get xlinkHref =>
+  dynamic get xlinkHref =>
       (props[_$key__xlinkHref___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.xlinkHref] -->
   @override
-  set xlinkHref(value) => props[_$key__xlinkHref___$SvgPropsMixin] = value;
+  set xlinkHref(dynamic value) =>
+      props[_$key__xlinkHref___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.xlinkRole] -->
   @override
-  get xlinkRole =>
+  dynamic get xlinkRole =>
       (props[_$key__xlinkRole___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.xlinkRole] -->
   @override
-  set xlinkRole(value) => props[_$key__xlinkRole___$SvgPropsMixin] = value;
+  set xlinkRole(dynamic value) =>
+      props[_$key__xlinkRole___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.xlinkShow] -->
   @override
-  get xlinkShow =>
+  dynamic get xlinkShow =>
       (props[_$key__xlinkShow___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.xlinkShow] -->
   @override
-  set xlinkShow(value) => props[_$key__xlinkShow___$SvgPropsMixin] = value;
+  set xlinkShow(dynamic value) =>
+      props[_$key__xlinkShow___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.xlinkTitle] -->
   @override
-  get xlinkTitle =>
+  dynamic get xlinkTitle =>
       (props[_$key__xlinkTitle___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.xlinkTitle] -->
   @override
-  set xlinkTitle(value) => props[_$key__xlinkTitle___$SvgPropsMixin] = value;
+  set xlinkTitle(dynamic value) =>
+      props[_$key__xlinkTitle___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.xlinkType] -->
   @override
-  get xlinkType =>
+  dynamic get xlinkType =>
       (props[_$key__xlinkType___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.xlinkType] -->
   @override
-  set xlinkType(value) => props[_$key__xlinkType___$SvgPropsMixin] = value;
+  set xlinkType(dynamic value) =>
+      props[_$key__xlinkType___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.xmlBase] -->
   @override
-  get xmlBase => (props[_$key__xmlBase___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get xmlBase =>
+      (props[_$key__xmlBase___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.xmlBase] -->
   @override
-  set xmlBase(value) => props[_$key__xmlBase___$SvgPropsMixin] = value;
+  set xmlBase(dynamic value) => props[_$key__xmlBase___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.xmlLang] -->
   @override
-  get xmlLang => (props[_$key__xmlLang___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get xmlLang =>
+      (props[_$key__xmlLang___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.xmlLang] -->
   @override
-  set xmlLang(value) => props[_$key__xmlLang___$SvgPropsMixin] = value;
+  set xmlLang(dynamic value) => props[_$key__xmlLang___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.xmlSpace] -->
   @override
-  get xmlSpace => (props[_$key__xmlSpace___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get xmlSpace =>
+      (props[_$key__xmlSpace___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.xmlSpace] -->
   @override
-  set xmlSpace(value) => props[_$key__xmlSpace___$SvgPropsMixin] = value;
+  set xmlSpace(dynamic value) =>
+      props[_$key__xmlSpace___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.y1] -->
   @override
-  get y1 => (props[_$key__y1___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get y1 => (props[_$key__y1___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.y1] -->
   @override
-  set y1(value) => props[_$key__y1___$SvgPropsMixin] = value;
+  set y1(dynamic value) => props[_$key__y1___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.y2] -->
   @override
-  get y2 => (props[_$key__y2___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get y2 => (props[_$key__y2___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.y2] -->
   @override
-  set y2(value) => props[_$key__y2___$SvgPropsMixin] = value;
+  set y2(dynamic value) => props[_$key__y2___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.y] -->
   @override
-  get y => (props[_$key__y___$SvgPropsMixin] ?? null) as dynamic;
+  dynamic get y => (props[_$key__y___$SvgPropsMixin] ?? null) as dynamic;
 
   /// <!-- Generated from [_$SvgPropsMixin.y] -->
   @override
-  set y(value) => props[_$key__y___$SvgPropsMixin] = value;
+  set y(dynamic value) => props[_$key__y___$SvgPropsMixin] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__htmlIn___$SvgPropsMixin =
       PropDescriptor(_$key__htmlIn___$SvgPropsMixin);
@@ -6522,7 +6819,7 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.tabIndex] -->
   @override
-  get tabIndex =>
+  dynamic get tabIndex =>
       (props[_$key__tabIndex___$UbiquitousDomPropsMixin] ?? null) as dynamic;
 
   /// Whether the element if focusable.
@@ -6530,7 +6827,7 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.tabIndex] -->
   @override
-  set tabIndex(value) =>
+  set tabIndex(dynamic value) =>
       props[_$key__tabIndex___$UbiquitousDomPropsMixin] = value;
 
   /// Unique identifier.
@@ -6538,39 +6835,41 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.id] -->
   @override
-  get id => (props[_$key__id___$UbiquitousDomPropsMixin] ?? null) as String?;
+  String? get id =>
+      (props[_$key__id___$UbiquitousDomPropsMixin] ?? null) as String?;
 
   /// Unique identifier.
   /// Must be unique amongst all the ids, and contain at least one character.
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.id] -->
   @override
-  set id(value) => props[_$key__id___$UbiquitousDomPropsMixin] = value;
+  set id(String? value) => props[_$key__id___$UbiquitousDomPropsMixin] = value;
 
   /// Represents advisory information about the element.
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.title] -->
   @override
-  get title =>
+  String? get title =>
       (props[_$key__title___$UbiquitousDomPropsMixin] ?? null) as String?;
 
   /// Represents advisory information about the element.
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.title] -->
   @override
-  set title(value) => props[_$key__title___$UbiquitousDomPropsMixin] = value;
+  set title(String? value) =>
+      props[_$key__title___$UbiquitousDomPropsMixin] = value;
 
   /// <!-- Generated from [_$UbiquitousDomPropsMixin._raw$UbiquitousDomProps$style] -->
   @override
   @Accessor(key: 'style')
-  get _raw$UbiquitousDomProps$style =>
+  dynamic get _raw$UbiquitousDomProps$style =>
       (props[_$key___raw$UbiquitousDomProps$style___$UbiquitousDomPropsMixin] ??
           null) as dynamic;
 
   /// <!-- Generated from [_$UbiquitousDomPropsMixin._raw$UbiquitousDomProps$style] -->
   @override
   @Accessor(key: 'style')
-  set _raw$UbiquitousDomProps$style(value) =>
+  set _raw$UbiquitousDomProps$style(dynamic value) =>
       props[_$key___raw$UbiquitousDomProps$style___$UbiquitousDomPropsMixin] =
           value;
 
@@ -6580,7 +6879,7 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onAnimationEnd] -->
   @override
-  get onAnimationEnd =>
+  AnimationEventCallback? get onAnimationEnd =>
       (props[_$key__onAnimationEnd___$UbiquitousDomPropsMixin] ?? null)
           as AnimationEventCallback?;
 
@@ -6590,7 +6889,7 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onAnimationEnd] -->
   @override
-  set onAnimationEnd(value) =>
+  set onAnimationEnd(AnimationEventCallback? value) =>
       props[_$key__onAnimationEnd___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when an iteration of a CSS Animation ends, and another one begins.
@@ -6599,7 +6898,7 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onAnimationIteration] -->
   @override
-  get onAnimationIteration =>
+  AnimationEventCallback? get onAnimationIteration =>
       (props[_$key__onAnimationIteration___$UbiquitousDomPropsMixin] ?? null)
           as AnimationEventCallback?;
 
@@ -6609,7 +6908,7 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onAnimationIteration] -->
   @override
-  set onAnimationIteration(value) =>
+  set onAnimationIteration(AnimationEventCallback? value) =>
       props[_$key__onAnimationIteration___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when a CSS animation has started.
@@ -6618,7 +6917,7 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onAnimationStart] -->
   @override
-  get onAnimationStart =>
+  AnimationEventCallback? get onAnimationStart =>
       (props[_$key__onAnimationStart___$UbiquitousDomPropsMixin] ?? null)
           as AnimationEventCallback?;
 
@@ -6628,68 +6927,74 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onAnimationStart] -->
   @override
-  set onAnimationStart(value) =>
+  set onAnimationStart(AnimationEventCallback? value) =>
       props[_$key__onAnimationStart___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when the user copies the content of an element
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onCopy] -->
   @override
-  get onCopy => (props[_$key__onCopy___$UbiquitousDomPropsMixin] ?? null)
-      as ClipboardEventCallback?;
+  ClipboardEventCallback? get onCopy =>
+      (props[_$key__onCopy___$UbiquitousDomPropsMixin] ?? null)
+          as ClipboardEventCallback?;
 
   /// Callback for when the user copies the content of an element
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onCopy] -->
   @override
-  set onCopy(value) => props[_$key__onCopy___$UbiquitousDomPropsMixin] = value;
+  set onCopy(ClipboardEventCallback? value) =>
+      props[_$key__onCopy___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when the user cuts the content of an element
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onCut] -->
   @override
-  get onCut => (props[_$key__onCut___$UbiquitousDomPropsMixin] ?? null)
-      as ClipboardEventCallback?;
+  ClipboardEventCallback? get onCut =>
+      (props[_$key__onCut___$UbiquitousDomPropsMixin] ?? null)
+          as ClipboardEventCallback?;
 
   /// Callback for when the user cuts the content of an element
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onCut] -->
   @override
-  set onCut(value) => props[_$key__onCut___$UbiquitousDomPropsMixin] = value;
+  set onCut(ClipboardEventCallback? value) =>
+      props[_$key__onCut___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when the user pastes some content in an element
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onPaste] -->
   @override
-  get onPaste => (props[_$key__onPaste___$UbiquitousDomPropsMixin] ?? null)
-      as ClipboardEventCallback?;
+  ClipboardEventCallback? get onPaste =>
+      (props[_$key__onPaste___$UbiquitousDomPropsMixin] ?? null)
+          as ClipboardEventCallback?;
 
   /// Callback for when the user pastes some content in an element
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onPaste] -->
   @override
-  set onPaste(value) =>
+  set onPaste(ClipboardEventCallback? value) =>
       props[_$key__onPaste___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when the user is pressing a key
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onKeyDown] -->
   @override
-  get onKeyDown => (props[_$key__onKeyDown___$UbiquitousDomPropsMixin] ?? null)
-      as KeyboardEventCallback?;
+  KeyboardEventCallback? get onKeyDown =>
+      (props[_$key__onKeyDown___$UbiquitousDomPropsMixin] ?? null)
+          as KeyboardEventCallback?;
 
   /// Callback for when the user is pressing a key
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onKeyDown] -->
   @override
-  set onKeyDown(value) =>
+  set onKeyDown(KeyboardEventCallback? value) =>
       props[_$key__onKeyDown___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when the user presses a key
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onKeyPress] -->
   @override
-  get onKeyPress =>
+  KeyboardEventCallback? get onKeyPress =>
       (props[_$key__onKeyPress___$UbiquitousDomPropsMixin] ?? null)
           as KeyboardEventCallback?;
 
@@ -6697,127 +7002,136 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onKeyPress] -->
   @override
-  set onKeyPress(value) =>
+  set onKeyPress(KeyboardEventCallback? value) =>
       props[_$key__onKeyPress___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when the user releases a key
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onKeyUp] -->
   @override
-  get onKeyUp => (props[_$key__onKeyUp___$UbiquitousDomPropsMixin] ?? null)
-      as KeyboardEventCallback?;
+  KeyboardEventCallback? get onKeyUp =>
+      (props[_$key__onKeyUp___$UbiquitousDomPropsMixin] ?? null)
+          as KeyboardEventCallback?;
 
   /// Callback for when the user releases a key
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onKeyUp] -->
   @override
-  set onKeyUp(value) =>
+  set onKeyUp(KeyboardEventCallback? value) =>
       props[_$key__onKeyUp___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when an element gets focus
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onFocus] -->
   @override
-  get onFocus => (props[_$key__onFocus___$UbiquitousDomPropsMixin] ?? null)
-      as FocusEventCallback?;
+  FocusEventCallback? get onFocus =>
+      (props[_$key__onFocus___$UbiquitousDomPropsMixin] ?? null)
+          as FocusEventCallback?;
 
   /// Callback for when an element gets focus
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onFocus] -->
   @override
-  set onFocus(value) =>
+  set onFocus(FocusEventCallback? value) =>
       props[_$key__onFocus___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when an element loses focus
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onBlur] -->
   @override
-  get onBlur => (props[_$key__onBlur___$UbiquitousDomPropsMixin] ?? null)
-      as FocusEventCallback?;
+  FocusEventCallback? get onBlur =>
+      (props[_$key__onBlur___$UbiquitousDomPropsMixin] ?? null)
+          as FocusEventCallback?;
 
   /// Callback for when an element loses focus
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onBlur] -->
   @override
-  set onBlur(value) => props[_$key__onBlur___$UbiquitousDomPropsMixin] = value;
+  set onBlur(FocusEventCallback? value) =>
+      props[_$key__onBlur___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for  when the content of a form element, the selection, or the checked state have changed (for <input>,
   /// <keygen>, <select>, and <textarea>)
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onChange] -->
   @override
-  get onChange => (props[_$key__onChange___$UbiquitousDomPropsMixin] ?? null)
-      as FormEventCallback?;
+  FormEventCallback? get onChange =>
+      (props[_$key__onChange___$UbiquitousDomPropsMixin] ?? null)
+          as FormEventCallback?;
 
   /// Callback for  when the content of a form element, the selection, or the checked state have changed (for <input>,
   /// <keygen>, <select>, and <textarea>)
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onChange] -->
   @override
-  set onChange(value) =>
+  set onChange(FormEventCallback? value) =>
       props[_$key__onChange___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when an element gets user input
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onInput] -->
   @override
-  get onInput => (props[_$key__onInput___$UbiquitousDomPropsMixin] ?? null)
-      as FormEventCallback?;
+  FormEventCallback? get onInput =>
+      (props[_$key__onInput___$UbiquitousDomPropsMixin] ?? null)
+          as FormEventCallback?;
 
   /// Callback for when an element gets user input
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onInput] -->
   @override
-  set onInput(value) =>
+  set onInput(FormEventCallback? value) =>
       props[_$key__onInput___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when a form is submitted
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onSubmit] -->
   @override
-  get onSubmit => (props[_$key__onSubmit___$UbiquitousDomPropsMixin] ?? null)
-      as FormEventCallback?;
+  FormEventCallback? get onSubmit =>
+      (props[_$key__onSubmit___$UbiquitousDomPropsMixin] ?? null)
+          as FormEventCallback?;
 
   /// Callback for when a form is submitted
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onSubmit] -->
   @override
-  set onSubmit(value) =>
+  set onSubmit(FormEventCallback? value) =>
       props[_$key__onSubmit___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when a form is reset
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onReset] -->
   @override
-  get onReset => (props[_$key__onReset___$UbiquitousDomPropsMixin] ?? null)
-      as FormEventCallback?;
+  FormEventCallback? get onReset =>
+      (props[_$key__onReset___$UbiquitousDomPropsMixin] ?? null)
+          as FormEventCallback?;
 
   /// Callback for when a form is reset
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onReset] -->
   @override
-  set onReset(value) =>
+  set onReset(FormEventCallback? value) =>
       props[_$key__onReset___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when the user clicks on an element
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onClick] -->
   @override
-  get onClick => (props[_$key__onClick___$UbiquitousDomPropsMixin] ?? null)
-      as MouseEventCallback?;
+  MouseEventCallback? get onClick =>
+      (props[_$key__onClick___$UbiquitousDomPropsMixin] ?? null)
+          as MouseEventCallback?;
 
   /// Callback for when the user clicks on an element
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onClick] -->
   @override
-  set onClick(value) =>
+  set onClick(MouseEventCallback? value) =>
       props[_$key__onClick___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when the user right-clicks on an element to open a context menu
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onContextMenu] -->
   @override
-  get onContextMenu =>
+  MouseEventCallback? get onContextMenu =>
       (props[_$key__onContextMenu___$UbiquitousDomPropsMixin] ?? null)
           as MouseEventCallback?;
 
@@ -6825,14 +7139,14 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onContextMenu] -->
   @override
-  set onContextMenu(value) =>
+  set onContextMenu(MouseEventCallback? value) =>
       props[_$key__onContextMenu___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when the user double-clicks on an element
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onDoubleClick] -->
   @override
-  get onDoubleClick =>
+  MouseEventCallback? get onDoubleClick =>
       (props[_$key__onDoubleClick___$UbiquitousDomPropsMixin] ?? null)
           as MouseEventCallback?;
 
@@ -6840,41 +7154,44 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onDoubleClick] -->
   @override
-  set onDoubleClick(value) =>
+  set onDoubleClick(MouseEventCallback? value) =>
       props[_$key__onDoubleClick___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when an element is being dragged
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onDrag] -->
   @override
-  get onDrag => (props[_$key__onDrag___$UbiquitousDomPropsMixin] ?? null)
-      as MouseEventCallback?;
+  MouseEventCallback? get onDrag =>
+      (props[_$key__onDrag___$UbiquitousDomPropsMixin] ?? null)
+          as MouseEventCallback?;
 
   /// Callback for when an element is being dragged
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onDrag] -->
   @override
-  set onDrag(value) => props[_$key__onDrag___$UbiquitousDomPropsMixin] = value;
+  set onDrag(MouseEventCallback? value) =>
+      props[_$key__onDrag___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when the user has finished dragging an element
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onDragEnd] -->
   @override
-  get onDragEnd => (props[_$key__onDragEnd___$UbiquitousDomPropsMixin] ?? null)
-      as MouseEventCallback?;
+  MouseEventCallback? get onDragEnd =>
+      (props[_$key__onDragEnd___$UbiquitousDomPropsMixin] ?? null)
+          as MouseEventCallback?;
 
   /// Callback for when the user has finished dragging an element
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onDragEnd] -->
   @override
-  set onDragEnd(value) =>
+  set onDragEnd(MouseEventCallback? value) =>
       props[_$key__onDragEnd___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when the dragged element enters the drop target
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onDragEnter] -->
   @override
-  get onDragEnter =>
+  MouseEventCallback? get onDragEnter =>
       (props[_$key__onDragEnter___$UbiquitousDomPropsMixin] ?? null)
           as MouseEventCallback?;
 
@@ -6882,14 +7199,14 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onDragEnter] -->
   @override
-  set onDragEnter(value) =>
+  set onDragEnter(MouseEventCallback? value) =>
       props[_$key__onDragEnter___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when the dragged element exits the drop target
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onDragExit] -->
   @override
-  get onDragExit =>
+  MouseEventCallback? get onDragExit =>
       (props[_$key__onDragExit___$UbiquitousDomPropsMixin] ?? null)
           as MouseEventCallback?;
 
@@ -6897,14 +7214,14 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onDragExit] -->
   @override
-  set onDragExit(value) =>
+  set onDragExit(MouseEventCallback? value) =>
       props[_$key__onDragExit___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when the dragged element leaves the drop target
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onDragLeave] -->
   @override
-  get onDragLeave =>
+  MouseEventCallback? get onDragLeave =>
       (props[_$key__onDragLeave___$UbiquitousDomPropsMixin] ?? null)
           as MouseEventCallback?;
 
@@ -6912,14 +7229,14 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onDragLeave] -->
   @override
-  set onDragLeave(value) =>
+  set onDragLeave(MouseEventCallback? value) =>
       props[_$key__onDragLeave___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when the dragged element is over the drop target
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onDragOver] -->
   @override
-  get onDragOver =>
+  MouseEventCallback? get onDragOver =>
       (props[_$key__onDragOver___$UbiquitousDomPropsMixin] ?? null)
           as MouseEventCallback?;
 
@@ -6927,14 +7244,14 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onDragOver] -->
   @override
-  set onDragOver(value) =>
+  set onDragOver(MouseEventCallback? value) =>
       props[_$key__onDragOver___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when the user starts to drag an element
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onDragStart] -->
   @override
-  get onDragStart =>
+  MouseEventCallback? get onDragStart =>
       (props[_$key__onDragStart___$UbiquitousDomPropsMixin] ?? null)
           as MouseEventCallback?;
 
@@ -6942,27 +7259,29 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onDragStart] -->
   @override
-  set onDragStart(value) =>
+  set onDragStart(MouseEventCallback? value) =>
       props[_$key__onDragStart___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when the dragged element is dropped on the drop target
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onDrop] -->
   @override
-  get onDrop => (props[_$key__onDrop___$UbiquitousDomPropsMixin] ?? null)
-      as MouseEventCallback?;
+  MouseEventCallback? get onDrop =>
+      (props[_$key__onDrop___$UbiquitousDomPropsMixin] ?? null)
+          as MouseEventCallback?;
 
   /// Callback for when the dragged element is dropped on the drop target
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onDrop] -->
   @override
-  set onDrop(value) => props[_$key__onDrop___$UbiquitousDomPropsMixin] = value;
+  set onDrop(MouseEventCallback? value) =>
+      props[_$key__onDrop___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when the user presses a mouse button over an element
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onMouseDown] -->
   @override
-  get onMouseDown =>
+  MouseEventCallback? get onMouseDown =>
       (props[_$key__onMouseDown___$UbiquitousDomPropsMixin] ?? null)
           as MouseEventCallback?;
 
@@ -6970,14 +7289,14 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onMouseDown] -->
   @override
-  set onMouseDown(value) =>
+  set onMouseDown(MouseEventCallback? value) =>
       props[_$key__onMouseDown___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when the pointer is moved onto an element
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onMouseEnter] -->
   @override
-  get onMouseEnter =>
+  MouseEventCallback? get onMouseEnter =>
       (props[_$key__onMouseEnter___$UbiquitousDomPropsMixin] ?? null)
           as MouseEventCallback?;
 
@@ -6985,14 +7304,14 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onMouseEnter] -->
   @override
-  set onMouseEnter(value) =>
+  set onMouseEnter(MouseEventCallback? value) =>
       props[_$key__onMouseEnter___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when the pointer is moved out of an element
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onMouseLeave] -->
   @override
-  get onMouseLeave =>
+  MouseEventCallback? get onMouseLeave =>
       (props[_$key__onMouseLeave___$UbiquitousDomPropsMixin] ?? null)
           as MouseEventCallback?;
 
@@ -7000,14 +7319,14 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onMouseLeave] -->
   @override
-  set onMouseLeave(value) =>
+  set onMouseLeave(MouseEventCallback? value) =>
       props[_$key__onMouseLeave___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when the pointer is moving while it is over an element
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onMouseMove] -->
   @override
-  get onMouseMove =>
+  MouseEventCallback? get onMouseMove =>
       (props[_$key__onMouseMove___$UbiquitousDomPropsMixin] ?? null)
           as MouseEventCallback?;
 
@@ -7015,14 +7334,14 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onMouseMove] -->
   @override
-  set onMouseMove(value) =>
+  set onMouseMove(MouseEventCallback? value) =>
       props[_$key__onMouseMove___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when a user moves the mouse pointer out of an element, or out of one of its children
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onMouseOut] -->
   @override
-  get onMouseOut =>
+  MouseEventCallback? get onMouseOut =>
       (props[_$key__onMouseOut___$UbiquitousDomPropsMixin] ?? null)
           as MouseEventCallback?;
 
@@ -7030,14 +7349,14 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onMouseOut] -->
   @override
-  set onMouseOut(value) =>
+  set onMouseOut(MouseEventCallback? value) =>
       props[_$key__onMouseOut___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when the pointer is moved onto an element, or onto one of its children
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onMouseOver] -->
   @override
-  get onMouseOver =>
+  MouseEventCallback? get onMouseOver =>
       (props[_$key__onMouseOver___$UbiquitousDomPropsMixin] ?? null)
           as MouseEventCallback?;
 
@@ -7045,28 +7364,29 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onMouseOver] -->
   @override
-  set onMouseOver(value) =>
+  set onMouseOver(MouseEventCallback? value) =>
       props[_$key__onMouseOver___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when a user releases a mouse button over an element
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onMouseUp] -->
   @override
-  get onMouseUp => (props[_$key__onMouseUp___$UbiquitousDomPropsMixin] ?? null)
-      as MouseEventCallback?;
+  MouseEventCallback? get onMouseUp =>
+      (props[_$key__onMouseUp___$UbiquitousDomPropsMixin] ?? null)
+          as MouseEventCallback?;
 
   /// Callback for when a user releases a mouse button over an element
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onMouseUp] -->
   @override
-  set onMouseUp(value) =>
+  set onMouseUp(MouseEventCallback? value) =>
       props[_$key__onMouseUp___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when the pointing device is interrupted
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onPointerCancel] -->
   @override
-  get onPointerCancel =>
+  PointerEventCallback? get onPointerCancel =>
       (props[_$key__onPointerCancel___$UbiquitousDomPropsMixin] ?? null)
           as PointerEventCallback?;
 
@@ -7074,14 +7394,14 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onPointerCancel] -->
   @override
-  set onPointerCancel(value) =>
+  set onPointerCancel(PointerEventCallback? value) =>
       props[_$key__onPointerCancel___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when the pointer becomes active over an element
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onPointerDown] -->
   @override
-  get onPointerDown =>
+  PointerEventCallback? get onPointerDown =>
       (props[_$key__onPointerDown___$UbiquitousDomPropsMixin] ?? null)
           as PointerEventCallback?;
 
@@ -7089,14 +7409,14 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onPointerDown] -->
   @override
-  set onPointerDown(value) =>
+  set onPointerDown(PointerEventCallback? value) =>
       props[_$key__onPointerDown___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when the pointer is moved onto an element
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onPointerEnter] -->
   @override
-  get onPointerEnter =>
+  PointerEventCallback? get onPointerEnter =>
       (props[_$key__onPointerEnter___$UbiquitousDomPropsMixin] ?? null)
           as PointerEventCallback?;
 
@@ -7104,14 +7424,14 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onPointerEnter] -->
   @override
-  set onPointerEnter(value) =>
+  set onPointerEnter(PointerEventCallback? value) =>
       props[_$key__onPointerEnter___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when the pointer is moved out of an element
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onPointerLeave] -->
   @override
-  get onPointerLeave =>
+  PointerEventCallback? get onPointerLeave =>
       (props[_$key__onPointerLeave___$UbiquitousDomPropsMixin] ?? null)
           as PointerEventCallback?;
 
@@ -7119,14 +7439,14 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onPointerLeave] -->
   @override
-  set onPointerLeave(value) =>
+  set onPointerLeave(PointerEventCallback? value) =>
       props[_$key__onPointerLeave___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when the pointer is moving while it is over an element
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onPointerMove] -->
   @override
-  get onPointerMove =>
+  PointerEventCallback? get onPointerMove =>
       (props[_$key__onPointerMove___$UbiquitousDomPropsMixin] ?? null)
           as PointerEventCallback?;
 
@@ -7134,14 +7454,14 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onPointerMove] -->
   @override
-  set onPointerMove(value) =>
+  set onPointerMove(PointerEventCallback? value) =>
       props[_$key__onPointerMove___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when the pointer is moved onto an element, or onto one of its children
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onPointerOver] -->
   @override
-  get onPointerOver =>
+  PointerEventCallback? get onPointerOver =>
       (props[_$key__onPointerOver___$UbiquitousDomPropsMixin] ?? null)
           as PointerEventCallback?;
 
@@ -7149,14 +7469,14 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onPointerOver] -->
   @override
-  set onPointerOver(value) =>
+  set onPointerOver(PointerEventCallback? value) =>
       props[_$key__onPointerOver___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when the pointer is moved out of an element, or out of one of its children
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onPointerOut] -->
   @override
-  get onPointerOut =>
+  PointerEventCallback? get onPointerOut =>
       (props[_$key__onPointerOut___$UbiquitousDomPropsMixin] ?? null)
           as PointerEventCallback?;
 
@@ -7164,14 +7484,14 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onPointerOut] -->
   @override
-  set onPointerOut(value) =>
+  set onPointerOut(PointerEventCallback? value) =>
       props[_$key__onPointerOut___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when the pointer becomes inactive over an element
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onPointerUp] -->
   @override
-  get onPointerUp =>
+  PointerEventCallback? get onPointerUp =>
       (props[_$key__onPointerUp___$UbiquitousDomPropsMixin] ?? null)
           as PointerEventCallback?;
 
@@ -7179,14 +7499,14 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onPointerUp] -->
   @override
-  set onPointerUp(value) =>
+  set onPointerUp(PointerEventCallback? value) =>
       props[_$key__onPointerUp___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when the touch is interrupted
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onTouchCancel] -->
   @override
-  get onTouchCancel =>
+  TouchEventCallback? get onTouchCancel =>
       (props[_$key__onTouchCancel___$UbiquitousDomPropsMixin] ?? null)
           as TouchEventCallback?;
 
@@ -7194,14 +7514,14 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onTouchCancel] -->
   @override
-  set onTouchCancel(value) =>
+  set onTouchCancel(TouchEventCallback? value) =>
       props[_$key__onTouchCancel___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when a finger is removed from a touch screen
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onTouchEnd] -->
   @override
-  get onTouchEnd =>
+  TouchEventCallback? get onTouchEnd =>
       (props[_$key__onTouchEnd___$UbiquitousDomPropsMixin] ?? null)
           as TouchEventCallback?;
 
@@ -7209,14 +7529,14 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onTouchEnd] -->
   @override
-  set onTouchEnd(value) =>
+  set onTouchEnd(TouchEventCallback? value) =>
       props[_$key__onTouchEnd___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when a finger is dragged across the screen
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onTouchMove] -->
   @override
-  get onTouchMove =>
+  TouchEventCallback? get onTouchMove =>
       (props[_$key__onTouchMove___$UbiquitousDomPropsMixin] ?? null)
           as TouchEventCallback?;
 
@@ -7224,14 +7544,14 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onTouchMove] -->
   @override
-  set onTouchMove(value) =>
+  set onTouchMove(TouchEventCallback? value) =>
       props[_$key__onTouchMove___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when a finger is placed on a touch screen
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onTouchStart] -->
   @override
-  get onTouchStart =>
+  TouchEventCallback? get onTouchStart =>
       (props[_$key__onTouchStart___$UbiquitousDomPropsMixin] ?? null)
           as TouchEventCallback?;
 
@@ -7239,7 +7559,7 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onTouchStart] -->
   @override
-  set onTouchStart(value) =>
+  set onTouchStart(TouchEventCallback? value) =>
       props[_$key__onTouchStart___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when a CSS transition has completed.
@@ -7248,7 +7568,7 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onTransitionEnd] -->
   @override
-  get onTransitionEnd =>
+  TransitionEventCallback? get onTransitionEnd =>
       (props[_$key__onTransitionEnd___$UbiquitousDomPropsMixin] ?? null)
           as TransitionEventCallback?;
 
@@ -7258,35 +7578,37 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onTransitionEnd] -->
   @override
-  set onTransitionEnd(value) =>
+  set onTransitionEnd(TransitionEventCallback? value) =>
       props[_$key__onTransitionEnd___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when an element's scrollbar is being scrolled
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onScroll] -->
   @override
-  get onScroll => (props[_$key__onScroll___$UbiquitousDomPropsMixin] ?? null)
-      as UIEventCallback?;
+  UIEventCallback? get onScroll =>
+      (props[_$key__onScroll___$UbiquitousDomPropsMixin] ?? null)
+          as UIEventCallback?;
 
   /// Callback for when an element's scrollbar is being scrolled
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onScroll] -->
   @override
-  set onScroll(value) =>
+  set onScroll(UIEventCallback? value) =>
       props[_$key__onScroll___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when the mouse wheel rolls up or down over an element
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onWheel] -->
   @override
-  get onWheel => (props[_$key__onWheel___$UbiquitousDomPropsMixin] ?? null)
-      as WheelEventCallback?;
+  WheelEventCallback? get onWheel =>
+      (props[_$key__onWheel___$UbiquitousDomPropsMixin] ?? null)
+          as WheelEventCallback?;
 
   /// Callback for when the mouse wheel rolls up or down over an element
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onWheel] -->
   @override
-  set onWheel(value) =>
+  set onWheel(WheelEventCallback? value) =>
       props[_$key__onWheel___$UbiquitousDomPropsMixin] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__tabIndex___$UbiquitousDomPropsMixin =

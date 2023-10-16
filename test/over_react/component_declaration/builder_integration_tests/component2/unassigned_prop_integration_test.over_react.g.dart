@@ -24,20 +24,22 @@ abstract class _$FooPropsAccessorsMixin implements _$FooProps {
 
   /// <!-- Generated from [_$FooProps.stringProp] -->
   @override
-  get stringProp => (props[_$key__stringProp___$FooProps] ?? null) as String?;
+  String? get stringProp =>
+      (props[_$key__stringProp___$FooProps] ?? null) as String?;
 
   /// <!-- Generated from [_$FooProps.stringProp] -->
   @override
-  set stringProp(value) => props[_$key__stringProp___$FooProps] = value;
+  set stringProp(String? value) => props[_$key__stringProp___$FooProps] = value;
 
   /// <!-- Generated from [_$FooProps.unassignedProp] -->
   @override
-  get unassignedProp =>
+  String? get unassignedProp =>
       (props[_$key__unassignedProp___$FooProps] ?? null) as String?;
 
   /// <!-- Generated from [_$FooProps.unassignedProp] -->
   @override
-  set unassignedProp(value) => props[_$key__unassignedProp___$FooProps] = value;
+  set unassignedProp(String? value) =>
+      props[_$key__unassignedProp___$FooProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__stringProp___$FooProps =
       PropDescriptor(_$key__stringProp___$FooProps);

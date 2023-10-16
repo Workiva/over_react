@@ -24,7 +24,7 @@ abstract class AbstractInputPropsMixin implements _$AbstractInputPropsMixin {
   /// <!-- Generated from [_$AbstractInputPropsMixin.name] -->
   @override
   @Accessor(keyNamespace: '')
-  get name =>
+  String? get name =>
       (props[_$key__name___$AbstractInputPropsMixin] ?? null) as String?;
 
   /// The HTML `name` attribute to be applied to `<input>`.
@@ -36,7 +36,8 @@ abstract class AbstractInputPropsMixin implements _$AbstractInputPropsMixin {
   /// <!-- Generated from [_$AbstractInputPropsMixin.name] -->
   @override
   @Accessor(keyNamespace: '')
-  set name(value) => props[_$key__name___$AbstractInputPropsMixin] = value;
+  set name(String? value) =>
+      props[_$key__name___$AbstractInputPropsMixin] = value;
 
   /// The value of the input. Setting this will make the input's value _controlled_; it will not update automatically in
   /// response to user input, but instead will always render the value of this prop.
@@ -48,7 +49,7 @@ abstract class AbstractInputPropsMixin implements _$AbstractInputPropsMixin {
   /// <!-- Generated from [_$AbstractInputPropsMixin.value] -->
   @override
   @Accessor(keyNamespace: '')
-  get value =>
+  dynamic get value =>
       (props[_$key__value___$AbstractInputPropsMixin] ?? null) as dynamic;
 
   /// The value of the input. Setting this will make the input's value _controlled_; it will not update automatically in
@@ -61,7 +62,8 @@ abstract class AbstractInputPropsMixin implements _$AbstractInputPropsMixin {
   /// <!-- Generated from [_$AbstractInputPropsMixin.value] -->
   @override
   @Accessor(keyNamespace: '')
-  set value(value) => props[_$key__value___$AbstractInputPropsMixin] = value;
+  set value(dynamic value) =>
+      props[_$key__value___$AbstractInputPropsMixin] = value;
 
   /// The type of "toggle" behavior an HTML `<input>` should exhibit:
   ///
@@ -72,7 +74,7 @@ abstract class AbstractInputPropsMixin implements _$AbstractInputPropsMixin {
   ///
   /// <!-- Generated from [_$AbstractInputPropsMixin.toggleType] -->
   @override
-  get toggleType =>
+  ToggleBehaviorType? get toggleType =>
       (props[_$key__toggleType___$AbstractInputPropsMixin] ?? null)
           as ToggleBehaviorType?;
 
@@ -85,7 +87,7 @@ abstract class AbstractInputPropsMixin implements _$AbstractInputPropsMixin {
   ///
   /// <!-- Generated from [_$AbstractInputPropsMixin.toggleType] -->
   @override
-  set toggleType(value) =>
+  set toggleType(ToggleBehaviorType? value) =>
       props[_$key__toggleType___$AbstractInputPropsMixin] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__name___$AbstractInputPropsMixin =
@@ -130,7 +132,8 @@ abstract class AbstractInputStateMixin implements _$AbstractInputStateMixin {
   ///
   /// <!-- Generated from [_$AbstractInputStateMixin.id] -->
   @override
-  get id => (state[_$key__id___$AbstractInputStateMixin] ?? null) as String?;
+  String? get id =>
+      (state[_$key__id___$AbstractInputStateMixin] ?? null) as String?;
 
   /// An auto-generated GUID, used as a fallback when the [AbstractInputPropsMixin.id] prop is unspecified,
   /// and saved on the state so it will persist across remounts.
@@ -140,7 +143,7 @@ abstract class AbstractInputStateMixin implements _$AbstractInputStateMixin {
   ///
   /// <!-- Generated from [_$AbstractInputStateMixin.id] -->
   @override
-  set id(value) => state[_$key__id___$AbstractInputStateMixin] = value;
+  set id(String? value) => state[_$key__id___$AbstractInputStateMixin] = value;
 
   /// An auto-generated GUID, used as a fallback when the [AbstractInputPropsMixin.name] is unspecified,
   /// and saved on the state so it will persist across remounts.
@@ -150,7 +153,7 @@ abstract class AbstractInputStateMixin implements _$AbstractInputStateMixin {
   ///
   /// <!-- Generated from [_$AbstractInputStateMixin.name] -->
   @override
-  get name =>
+  String? get name =>
       (state[_$key__name___$AbstractInputStateMixin] ?? null) as String?;
 
   /// An auto-generated GUID, used as a fallback when the [AbstractInputPropsMixin.name] is unspecified,
@@ -161,7 +164,8 @@ abstract class AbstractInputStateMixin implements _$AbstractInputStateMixin {
   ///
   /// <!-- Generated from [_$AbstractInputStateMixin.name] -->
   @override
-  set name(value) => state[_$key__name___$AbstractInputStateMixin] = value;
+  set name(String? value) =>
+      state[_$key__name___$AbstractInputStateMixin] = value;
   /* GENERATED CONSTANTS */
   static const StateDescriptor _$prop__id___$AbstractInputStateMixin =
       StateDescriptor(_$key__id___$AbstractInputStateMixin);

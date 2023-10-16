@@ -14,10 +14,10 @@ part of 'lazy_load_me_props.dart';
 mixin $LazyLoadMePropsMixin on LazyLoadMePropsMixin {
   static const PropsMeta meta = _$metaForLazyLoadMePropsMixin;
   @override
-  get initialCount =>
+  num? get initialCount =>
       (props[_$key__initialCount__LazyLoadMePropsMixin] ?? null) as num?;
   @override
-  set initialCount(value) =>
+  set initialCount(num? value) =>
       props[_$key__initialCount__LazyLoadMePropsMixin] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__initialCount__LazyLoadMePropsMixin =
