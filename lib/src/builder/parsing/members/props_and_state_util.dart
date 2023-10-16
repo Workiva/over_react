@@ -77,7 +77,7 @@ void checkForMetaPresence(ClassishDeclaration node, ErrorCollector errorCollecto
     // If a class declares a field or method with the name of `meta` which is
     // not static, then we should error, since the static `meta` const in the
     // generated implementation will have a naming collision.
-    if (isStatic) {
+    if (!isStatic) {
       errorCollector.addError(
           'Non-static class member `meta` is declared in ${node.name.name}. '
           '`meta` is a field declared by the over_react builder, and is therefore not '
