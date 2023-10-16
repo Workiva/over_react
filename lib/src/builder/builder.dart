@@ -13,7 +13,6 @@
 // limitations under the License.
 
 import 'dart:async';
-import 'dart:convert';
 import 'dart:isolate';
 
 import 'package:analyzer/dart/analysis/utilities.dart';
@@ -23,8 +22,6 @@ import 'package:build/build.dart';
 import 'package:dart_style/dart_style.dart';
 import 'package:path/path.dart' as p;
 import 'package:package_config/package_config.dart' as pc;
-import 'package:pub_semver/pub_semver.dart' as semver;
-import 'package:yaml/yaml.dart' as yaml;
 import 'package:source_span/source_span.dart';
 
 import './util.dart';
@@ -67,45 +64,37 @@ class OverReactBuilder extends Builder {
     String nullSafetyReason;
     bool nullSafety;
     {
-      final packageName = buildStep.inputId.package;
-
       final languageVersionToken = libraryUnit.languageVersionToken;
       if (languageVersionToken != null) {
         // If there's a language version comment, honor that.
         nullSafety = languageVersionToken.supportsNullSafety;
         nullSafetyReason = 'because of language version comment in main library of '
-            '"${languageVersionToken.major}.${languageVersionToken.minor}"';
+            "'${languageVersionToken.major}.${languageVersionToken.minor}'";
       } else {
-        // Otherwise, attempt to read the pubspec to get the Dart language version.
+        // Otherwise, read the language version from the package config.
         //
         // Normally, builders would do this via (await buildStep.inputLibrary).languageVersion,
         // but that would trigger resolved analysis which we don't want to do for this builder,
         // for performance reasons.
-        final pubspecAssetId = AssetId(buildStep.inputId.package, 'pubspec.yaml');
-        // TODO should we worry about the inefficiency of re-parsing this every time?
+        final packageName = buildStep.inputId.package;
 
+        // Catch any errors coming from our implementation of `$packageConfig`.
+        // We can remove this once we switch to build 2.4.0's `packageConfig`
+        // (see `$packageConfig` doc comment for more info).
         pc.LanguageVersion? packageConfigLanguageVersion;
         try {
-          packageConfigLanguageVersion = (await buildStep.packageConfig)
+          packageConfigLanguageVersion = (await buildStep.$packageConfig)
               .packages
               .firstWhereOrNull((p) => p.name == packageName)
               ?.languageVersion;
-        } catch (e) {}
+        } catch (e, st) {
+          log.warning('Error reading package config', e, st);
+        }
 
         if (packageConfigLanguageVersion != null) {
           nullSafety = packageConfigLanguageVersion.supportsNullSafety;
-            nullSafetyReason =
-                'because of language version "$packageConfigLanguageVersion" in package config for $packageName.';
-        } else if (await buildStep.canRead(pubspecAssetId)) {
-          try {
-            final pubspecSdkConstraint = _readVersionConstraintFromPubspec(await buildStep.readAsString(pubspecAssetId));
-            nullSafety = _versionConstraintOptsIntoNullSafety(pubspecSdkConstraint);
-            nullSafetyReason =
-                'because of SDK constraint of "$pubspecSdkConstraint" in $pubspecAssetId.';
-          } on PubspecVersionConstraintParseException catch (e) {
-            nullSafety = true;
-            nullSafetyReason = 'because an error was encountered reading the version constraint from $pubspecAssetId. ${e.message}';
-          }
+          nullSafetyReason =
+              "because of $packageName\'s language version of '$packageConfigLanguageVersion'.";
         } else {
           // If we don't have any information to go off of, opt into null safety.
           // It should be pretty unlikely that we don't have access to a pubspec.yaml.
@@ -304,62 +293,19 @@ extension on pc.LanguageVersion {
   bool get supportsNullSafety => languageVersionSupportsNullSafety(major, minor);
 }
 
-bool _versionConstraintOptsIntoNullSafety(semver.VersionConstraint constraint) =>
-    !constraint.allowsAny(semver.VersionRange(
-      max: semver.Version(2, 12, 0),
-      includeMax: false,
-      alwaysIncludeMaxPreRelease: false,
-    ));
-
-
 extension on BuildStep {
+  // Cache the result so we don't read and parse the package config for every file.
+  //
+  // This value should be safe to reuse globally within an isolate.
   static pc.PackageConfig? _cachedPackageConfig;
-  // Polyfill for build 2.4.0's BuildStep.packageConfig, which only seems to be resolvable in Dart 3.
-  // From: https://github.com/dart-lang/build/issues/3492#issuecomment-1533455176
-  Future<pc.PackageConfig> get packageConfig async {
+
+  /// Polyfill for build 2.4.0's BuildStep.packageConfig, which only seems to be resolvable in Dart 3.
+  /// From: https://github.com/dart-lang/build/issues/3492#issuecomment-1533455176
+  ///
+  /// We could name this `packageConfig` and have it get shadowed by the real implementation from
+  /// `BuildStep` when 2.4.0 is resolved to, but that feels unnecessarily risky, and we can just
+  /// follow up later to remove this extension and use the real implementation instead.
+  Future<pc.PackageConfig> get $packageConfig async {
     return _cachedPackageConfig ??= await pc.loadPackageConfigUri((await Isolate.packageConfig)!);
   }
 }
-
-class PubspecVersionConstraintParseException implements Exception {
-  final String message;
-  final Object? originalException;
-
-  PubspecVersionConstraintParseException(this.message, [this.originalException]);
-}
-
-semver.VersionConstraint _readVersionConstraintFromPubspec(String pubspecContents) {
-  yaml.YamlMap pubspec;
-  try {
-    pubspec = yaml.loadYamlNode(pubspecContents) as yaml.YamlMap;
-  } catch (e) {
-    throw PubspecVersionConstraintParseException('Error parsing pubspec.yaml.', e);
-  }
-
-  yaml.YamlMap? environment;
-  try {
-    environment = pubspec['environment'] as yaml.YamlMap?;
-  } catch (e) {
-    throw PubspecVersionConstraintParseException('Error reading environment from pubspec.yaml.', e);
-  }
-  if (environment == null) {
-    throw PubspecVersionConstraintParseException('environment not found in pubspec.yaml');
-  }
-
-  String? sdkConstraintString;
-  try {
-    sdkConstraintString = environment['sdk'] as String?;
-  } catch (e) {
-    throw PubspecVersionConstraintParseException('Error reading environment from pubspec.yaml.', e);
-  }
-  if (sdkConstraintString == null) {
-    throw PubspecVersionConstraintParseException('sdkConstraint not found in pubspec.yaml');
-  }
-
-  try {
-    return semver.VersionConstraint.parse(sdkConstraintString);
-  } catch (e) {
-    throw PubspecVersionConstraintParseException('Error parsing sdkConstraint string: ${jsonEncode(sdkConstraintString)}', e);
-  }
-}
-
