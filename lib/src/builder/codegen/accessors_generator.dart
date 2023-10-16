@@ -248,7 +248,7 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
           metadataSrc.writeln('  ${annotation.toSource()}');
         }
 
-        const omitTypesInOverrides = true;
+        const omitTypesInOverrides = false;
 
         final getterTypeString = omitTypesInOverrides ? '' : typeString;
         final setterTypeString =
