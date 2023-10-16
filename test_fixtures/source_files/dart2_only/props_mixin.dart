@@ -1,3 +1,4 @@
+//@dart=2.11
 import 'package:over_react/over_react.dart';
 
 part 'props_mixin.over_react.g.dart';
