@@ -246,10 +246,16 @@ class OverReactBuilder extends Builder {
       ..writeln('part of $partOf;')
       ..writeln()
       ..writeln(_headerLine)
-      ..writeln('// OverReactBuilder (package:over_react/src/builder.dart)')
-      ..writeln()
-      ..write(lineComment(nullSafetyCommentText))
-      ..writeln(_headerLine);
+      ..writeln('// OverReactBuilder (package:over_react/src/builder.dart)');
+    // Omit this for now for filed from over_react so it doesn't show up as a diff in golds and
+    // checked in files in the conditional null safety generation PR.
+    // TODO re-enable after that merges.
+    if (outputId.package != 'over_react') {
+      buffer
+        ..writeln('//')
+        ..write(lineComment(nullSafetyCommentText));
+    }
+    buffer.writeln(_headerLine);
 
     for (final item in outputs) {
       buffer
