@@ -45,7 +45,7 @@ abstract class _$AbstractTransitionStateAccessorsMixin
   ///
   /// <!-- Generated from [_$AbstractTransitionState.transitionPhase] -->
   @override
-  get transitionPhase =>
+  TransitionPhase? get transitionPhase =>
       (state[_$key__transitionPhase___$AbstractTransitionState] ?? null)
           as TransitionPhase?;
 
@@ -55,7 +55,7 @@ abstract class _$AbstractTransitionStateAccessorsMixin
   ///
   /// <!-- Generated from [_$AbstractTransitionState.transitionPhase] -->
   @override
-  set transitionPhase(value) =>
+  set transitionPhase(TransitionPhase? value) =>
       state[_$key__transitionPhase___$AbstractTransitionState] = value;
   /* GENERATED CONSTANTS */
   static const StateDescriptor

@@ -26,31 +26,32 @@ abstract class _$ComponentTestPropsAccessorsMixin
   /// <!-- Generated from [_$ComponentTestProps.required] -->
   @override
   @requiredProp
-  get required =>
+  dynamic get required =>
       (props[_$key__required___$ComponentTestProps] ?? null) as dynamic;
 
   /// <!-- Generated from [_$ComponentTestProps.required] -->
   @override
   @requiredProp
-  set required(value) => props[_$key__required___$ComponentTestProps] = value;
+  set required(dynamic value) =>
+      props[_$key__required___$ComponentTestProps] = value;
 
   /// <!-- Generated from [_$ComponentTestProps.nullable] -->
   @override
   @nullableRequiredProp
-  get nullable =>
+  dynamic get nullable =>
       (props[_$key__nullable___$ComponentTestProps] ?? null) as dynamic;
 
   /// <!-- Generated from [_$ComponentTestProps.nullable] -->
   @override
   @nullableRequiredProp
-  set nullable(value) => props[_$key__nullable___$ComponentTestProps] = value;
+  set nullable(dynamic value) =>
+      props[_$key__nullable___$ComponentTestProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__required___$ComponentTestProps =
-      PropDescriptor(_$key__required___$ComponentTestProps,
-          isRequired: true, isNullable: false, errorMessage: '');
+      PropDescriptor(_$key__required___$ComponentTestProps, isRequired: true);
   static const PropDescriptor _$prop__nullable___$ComponentTestProps =
       PropDescriptor(_$key__nullable___$ComponentTestProps,
-          isRequired: true, isNullable: true, errorMessage: '');
+          isRequired: true, isNullable: true);
   static const String _$key__required___$ComponentTestProps =
       'ComponentTestProps.required';
   static const String _$key__nullable___$ComponentTestProps =

@@ -14,23 +14,27 @@ part of 'js_component_test.dart';
 mixin $TestPropsMixin on TestPropsMixin {
   static const PropsMeta meta = _$metaForTestPropsMixin;
   @override
-  get size => (props[_$key__size__TestPropsMixin] ?? null) as String?;
+  String? get size => (props[_$key__size__TestPropsMixin] ?? null) as String?;
   @override
-  set size(value) => props[_$key__size__TestPropsMixin] = value;
+  set size(String? value) => props[_$key__size__TestPropsMixin] = value;
   @override
-  get component => (props[_$key__component__TestPropsMixin] ?? null) as dynamic;
+  dynamic get component =>
+      (props[_$key__component__TestPropsMixin] ?? null) as dynamic;
   @override
-  set component(value) => props[_$key__component__TestPropsMixin] = value;
+  set component(dynamic value) =>
+      props[_$key__component__TestPropsMixin] = value;
   @override
-  get stringProp =>
+  String? get stringProp =>
       (props[_$key__stringProp__TestPropsMixin] ?? null) as String?;
   @override
-  set stringProp(value) => props[_$key__stringProp__TestPropsMixin] = value;
+  set stringProp(String? value) =>
+      props[_$key__stringProp__TestPropsMixin] = value;
   @override
-  get dynamicProp =>
+  dynamic get dynamicProp =>
       (props[_$key__dynamicProp__TestPropsMixin] ?? null) as dynamic;
   @override
-  set dynamicProp(value) => props[_$key__dynamicProp__TestPropsMixin] = value;
+  set dynamicProp(dynamic value) =>
+      props[_$key__dynamicProp__TestPropsMixin] = value;
   @override
   get untypedProp => props[_$key__untypedProp__TestPropsMixin] ?? null;
   @override
@@ -82,14 +86,16 @@ const PropsMeta _$metaForTestPropsMixin = PropsMeta(
 mixin $ASecondPropsMixin on ASecondPropsMixin {
   static const PropsMeta meta = _$metaForASecondPropsMixin;
   @override
-  get disabled => (props[_$key__disabled__ASecondPropsMixin] ?? null) as bool?;
+  bool? get disabled =>
+      (props[_$key__disabled__ASecondPropsMixin] ?? null) as bool?;
   @override
-  set disabled(value) => props[_$key__disabled__ASecondPropsMixin] = value;
+  set disabled(bool? value) =>
+      props[_$key__disabled__ASecondPropsMixin] = value;
   @override
-  get anotherProp =>
+  String? get anotherProp =>
       (props[_$key__anotherProp__ASecondPropsMixin] ?? null) as String?;
   @override
-  set anotherProp(value) =>
+  set anotherProp(String? value) =>
       props[_$key__anotherProp__ASecondPropsMixin] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__disabled__ASecondPropsMixin =

@@ -256,72 +256,72 @@ class _$TransitionerComponent extends TransitionerComponent {
 mixin $TransitionerPropsMixin on TransitionerPropsMixin {
   static const PropsMeta meta = _$metaForTransitionerPropsMixin;
   @override
-  get onHandlePreShowing =>
+  Callback? get onHandlePreShowing =>
       (props[_$key__onHandlePreShowing__TransitionerPropsMixin] ?? null)
           as Callback?;
   @override
-  set onHandlePreShowing(value) =>
+  set onHandlePreShowing(Callback? value) =>
       props[_$key__onHandlePreShowing__TransitionerPropsMixin] = value;
   @override
-  get onHandleShowing =>
+  Callback? get onHandleShowing =>
       (props[_$key__onHandleShowing__TransitionerPropsMixin] ?? null)
           as Callback?;
   @override
-  set onHandleShowing(value) =>
+  set onHandleShowing(Callback? value) =>
       props[_$key__onHandleShowing__TransitionerPropsMixin] = value;
   @override
-  get onHandleShown =>
+  Callback? get onHandleShown =>
       (props[_$key__onHandleShown__TransitionerPropsMixin] ?? null)
           as Callback?;
   @override
-  set onHandleShown(value) =>
+  set onHandleShown(Callback? value) =>
       props[_$key__onHandleShown__TransitionerPropsMixin] = value;
   @override
-  get onHandleHiding =>
+  Callback? get onHandleHiding =>
       (props[_$key__onHandleHiding__TransitionerPropsMixin] ?? null)
           as Callback?;
   @override
-  set onHandleHiding(value) =>
+  set onHandleHiding(Callback? value) =>
       props[_$key__onHandleHiding__TransitionerPropsMixin] = value;
   @override
-  get onHandleHidden =>
+  Callback? get onHandleHidden =>
       (props[_$key__onHandleHidden__TransitionerPropsMixin] ?? null)
           as Callback?;
   @override
-  set onHandleHidden(value) =>
+  set onHandleHidden(Callback? value) =>
       props[_$key__onHandleHidden__TransitionerPropsMixin] = value;
   @override
-  get onPrepareShow =>
+  Callback? get onPrepareShow =>
       (props[_$key__onPrepareShow__TransitionerPropsMixin] ?? null)
           as Callback?;
   @override
-  set onPrepareShow(value) =>
+  set onPrepareShow(Callback? value) =>
       props[_$key__onPrepareShow__TransitionerPropsMixin] = value;
   @override
-  get onPrepareHide =>
+  Callback? get onPrepareHide =>
       (props[_$key__onPrepareHide__TransitionerPropsMixin] ?? null)
           as Callback?;
   @override
-  set onPrepareHide(value) =>
+  set onPrepareHide(Callback? value) =>
       props[_$key__onPrepareHide__TransitionerPropsMixin] = value;
   @override
-  get hasTransition =>
+  bool? get hasTransition =>
       (props[_$key__hasTransition__TransitionerPropsMixin] ?? null) as bool?;
   @override
-  set hasTransition(value) =>
+  set hasTransition(bool? value) =>
       props[_$key__hasTransition__TransitionerPropsMixin] = value;
   @override
-  get initiallyShown =>
+  bool? get initiallyShown =>
       (props[_$key__initiallyShown__TransitionerPropsMixin] ?? null) as bool?;
   @override
-  set initiallyShown(value) =>
+  set initiallyShown(bool? value) =>
       props[_$key__initiallyShown__TransitionerPropsMixin] = value;
   @override
-  get transitionTimeout =>
+  Duration? get transitionTimeout =>
       (props[_$key__transitionTimeout__TransitionerPropsMixin] ?? null)
           as Duration?;
   @override
-  set transitionTimeout(value) =>
+  set transitionTimeout(Duration? value) =>
       props[_$key__transitionTimeout__TransitionerPropsMixin] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor

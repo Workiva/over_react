@@ -28,7 +28,7 @@ abstract class _$ComponentTestPropsAccessorsMixin
   @Accessor(
       isRequired: true,
       requiredErrorMessage: 'This Prop is Required for testing purposes.')
-  get required =>
+  dynamic get required =>
       (props[_$key__required___$ComponentTestProps] ?? null) as dynamic;
 
   /// <!-- Generated from [_$ComponentTestProps.required] -->
@@ -36,7 +36,8 @@ abstract class _$ComponentTestPropsAccessorsMixin
   @Accessor(
       isRequired: true,
       requiredErrorMessage: 'This Prop is Required for testing purposes.')
-  set required(value) => props[_$key__required___$ComponentTestProps] = value;
+  set required(dynamic value) =>
+      props[_$key__required___$ComponentTestProps] = value;
 
   /// <!-- Generated from [_$ComponentTestProps.nullable] -->
   @override
@@ -44,7 +45,7 @@ abstract class _$ComponentTestPropsAccessorsMixin
       isRequired: true,
       isNullable: true,
       requiredErrorMessage: 'This prop can be set to null!')
-  get nullable =>
+  dynamic get nullable =>
       (props[_$key__nullable___$ComponentTestProps] ?? null) as dynamic;
 
   /// <!-- Generated from [_$ComponentTestProps.nullable] -->
@@ -53,7 +54,8 @@ abstract class _$ComponentTestPropsAccessorsMixin
       isRequired: true,
       isNullable: true,
       requiredErrorMessage: 'This prop can be set to null!')
-  set nullable(value) => props[_$key__nullable___$ComponentTestProps] = value;
+  set nullable(dynamic value) =>
+      props[_$key__nullable___$ComponentTestProps] = value;
 
   /// <!-- Generated from [_$ComponentTestProps.requiredAndLengthLimited] -->
   @override
@@ -61,7 +63,7 @@ abstract class _$ComponentTestPropsAccessorsMixin
       isRequired: true,
       isNullable: false,
       requiredErrorMessage: 'This Prop Array is Required for testing purposes.')
-  get requiredAndLengthLimited =>
+  List? get requiredAndLengthLimited =>
       (props[_$key__requiredAndLengthLimited___$ComponentTestProps] ?? null)
           as List?;
 
@@ -71,13 +73,12 @@ abstract class _$ComponentTestPropsAccessorsMixin
       isRequired: true,
       isNullable: false,
       requiredErrorMessage: 'This Prop Array is Required for testing purposes.')
-  set requiredAndLengthLimited(value) =>
+  set requiredAndLengthLimited(List? value) =>
       props[_$key__requiredAndLengthLimited___$ComponentTestProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__required___$ComponentTestProps =
       PropDescriptor(_$key__required___$ComponentTestProps,
           isRequired: true,
-          isNullable: false,
           errorMessage: 'This Prop is Required for testing purposes.');
   static const PropDescriptor _$prop__nullable___$ComponentTestProps =
       PropDescriptor(_$key__nullable___$ComponentTestProps,
@@ -88,7 +89,6 @@ abstract class _$ComponentTestPropsAccessorsMixin
       _$prop__requiredAndLengthLimited___$ComponentTestProps = PropDescriptor(
           _$key__requiredAndLengthLimited___$ComponentTestProps,
           isRequired: true,
-          isNullable: false,
           errorMessage: 'This Prop Array is Required for testing purposes.');
   static const String _$key__required___$ComponentTestProps =
       'ComponentTestProps.required';

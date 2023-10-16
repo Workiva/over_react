@@ -179,7 +179,7 @@ abstract class ResizeSensorPropsMixin implements _$ResizeSensorPropsMixin {
   ///
   /// <!-- Generated from [_$ResizeSensorPropsMixin.onInitialize] -->
   @override
-  get onInitialize =>
+  ResizeSensorHandler? get onInitialize =>
       (props[_$key__onInitialize___$ResizeSensorPropsMixin] ?? null)
           as ResizeSensorHandler?;
 
@@ -191,7 +191,7 @@ abstract class ResizeSensorPropsMixin implements _$ResizeSensorPropsMixin {
   ///
   /// <!-- Generated from [_$ResizeSensorPropsMixin.onInitialize] -->
   @override
-  set onInitialize(value) =>
+  set onInitialize(ResizeSensorHandler? value) =>
       props[_$key__onInitialize___$ResizeSensorPropsMixin] = value;
 
   /// A function invoked with a `ResizeSensorEvent` argument when the [ResizeSensor]
@@ -204,8 +204,9 @@ abstract class ResizeSensorPropsMixin implements _$ResizeSensorPropsMixin {
   ///
   /// <!-- Generated from [_$ResizeSensorPropsMixin.onResize] -->
   @override
-  get onResize => (props[_$key__onResize___$ResizeSensorPropsMixin] ?? null)
-      as ResizeSensorHandler?;
+  ResizeSensorHandler? get onResize =>
+      (props[_$key__onResize___$ResizeSensorPropsMixin] ?? null)
+          as ResizeSensorHandler?;
 
   /// A function invoked with a `ResizeSensorEvent` argument when the [ResizeSensor]
   /// resizes, either due to its parent or children resizing.
@@ -217,7 +218,7 @@ abstract class ResizeSensorPropsMixin implements _$ResizeSensorPropsMixin {
   ///
   /// <!-- Generated from [_$ResizeSensorPropsMixin.onResize] -->
   @override
-  set onResize(value) =>
+  set onResize(ResizeSensorHandler? value) =>
       props[_$key__onResize___$ResizeSensorPropsMixin] = value;
 
   /// Whether the [ResizeSensor] is a child of a flex item. Necessary to apply the correct styling.
@@ -228,7 +229,7 @@ abstract class ResizeSensorPropsMixin implements _$ResizeSensorPropsMixin {
   ///
   /// <!-- Generated from [_$ResizeSensorPropsMixin.isFlexChild] -->
   @override
-  get isFlexChild =>
+  bool? get isFlexChild =>
       (props[_$key__isFlexChild___$ResizeSensorPropsMixin] ?? null) as bool?;
 
   /// Whether the [ResizeSensor] is a child of a flex item. Necessary to apply the correct styling.
@@ -239,7 +240,7 @@ abstract class ResizeSensorPropsMixin implements _$ResizeSensorPropsMixin {
   ///
   /// <!-- Generated from [_$ResizeSensorPropsMixin.isFlexChild] -->
   @override
-  set isFlexChild(value) =>
+  set isFlexChild(bool? value) =>
       props[_$key__isFlexChild___$ResizeSensorPropsMixin] = value;
 
   /// Whether the [ResizeSensor] is a flex container. Necessary to apply the correct styling.
@@ -248,7 +249,7 @@ abstract class ResizeSensorPropsMixin implements _$ResizeSensorPropsMixin {
   ///
   /// <!-- Generated from [_$ResizeSensorPropsMixin.isFlexContainer] -->
   @override
-  get isFlexContainer =>
+  bool? get isFlexContainer =>
       (props[_$key__isFlexContainer___$ResizeSensorPropsMixin] ?? null)
           as bool?;
 
@@ -258,7 +259,7 @@ abstract class ResizeSensorPropsMixin implements _$ResizeSensorPropsMixin {
   ///
   /// <!-- Generated from [_$ResizeSensorPropsMixin.isFlexContainer] -->
   @override
-  set isFlexContainer(value) =>
+  set isFlexContainer(bool? value) =>
       props[_$key__isFlexContainer___$ResizeSensorPropsMixin] = value;
 
   /// Whether the [ResizeSensor] should shrink to the size of its child.
@@ -270,7 +271,7 @@ abstract class ResizeSensorPropsMixin implements _$ResizeSensorPropsMixin {
   ///
   /// <!-- Generated from [_$ResizeSensorPropsMixin.shrink] -->
   @override
-  get shrink =>
+  bool? get shrink =>
       (props[_$key__shrink___$ResizeSensorPropsMixin] ?? null) as bool?;
 
   /// Whether the [ResizeSensor] should shrink to the size of its child.
@@ -282,7 +283,8 @@ abstract class ResizeSensorPropsMixin implements _$ResizeSensorPropsMixin {
   ///
   /// <!-- Generated from [_$ResizeSensorPropsMixin.shrink] -->
   @override
-  set shrink(value) => props[_$key__shrink___$ResizeSensorPropsMixin] = value;
+  set shrink(bool? value) =>
+      props[_$key__shrink___$ResizeSensorPropsMixin] = value;
 
   /// Whether quick-mount mode is enabled, which minimizes layouts caused by accessing element dimensions
   /// during initialization, allowing the component to mount faster.
@@ -301,7 +303,7 @@ abstract class ResizeSensorPropsMixin implements _$ResizeSensorPropsMixin {
   ///
   /// <!-- Generated from [_$ResizeSensorPropsMixin.quickMount] -->
   @override
-  get quickMount =>
+  bool? get quickMount =>
       (props[_$key__quickMount___$ResizeSensorPropsMixin] ?? null) as bool?;
 
   /// Whether quick-mount mode is enabled, which minimizes layouts caused by accessing element dimensions
@@ -321,7 +323,7 @@ abstract class ResizeSensorPropsMixin implements _$ResizeSensorPropsMixin {
   ///
   /// <!-- Generated from [_$ResizeSensorPropsMixin.quickMount] -->
   @override
-  set quickMount(value) =>
+  set quickMount(bool? value) =>
       props[_$key__quickMount___$ResizeSensorPropsMixin] = value;
 
   /// A callback that returns a `bool` that indicates whether the [ResizeSensor] was detached from the DOM
@@ -351,7 +353,7 @@ abstract class ResizeSensorPropsMixin implements _$ResizeSensorPropsMixin {
   ///
   /// <!-- Generated from [_$ResizeSensorPropsMixin.onDetachedMountCheck] -->
   @override
-  get onDetachedMountCheck =>
+  BoolCallback? get onDetachedMountCheck =>
       (props[_$key__onDetachedMountCheck___$ResizeSensorPropsMixin] ?? null)
           as BoolCallback?;
 
@@ -382,7 +384,7 @@ abstract class ResizeSensorPropsMixin implements _$ResizeSensorPropsMixin {
   ///
   /// <!-- Generated from [_$ResizeSensorPropsMixin.onDetachedMountCheck] -->
   @override
-  set onDetachedMountCheck(value) =>
+  set onDetachedMountCheck(BoolCallback? value) =>
       props[_$key__onDetachedMountCheck___$ResizeSensorPropsMixin] = value;
 
   /// A callback intended for use only within internal unit tests that is called when [ResizeSensorComponent._reset]
@@ -391,7 +393,7 @@ abstract class ResizeSensorPropsMixin implements _$ResizeSensorPropsMixin {
   /// <!-- Generated from [_$ResizeSensorPropsMixin.onDidReset] -->
   @override
   @visibleForTesting
-  get onDidReset =>
+  Callback? get onDidReset =>
       (props[_$key__onDidReset___$ResizeSensorPropsMixin] ?? null) as Callback?;
 
   /// A callback intended for use only within internal unit tests that is called when [ResizeSensorComponent._reset]
@@ -400,7 +402,7 @@ abstract class ResizeSensorPropsMixin implements _$ResizeSensorPropsMixin {
   /// <!-- Generated from [_$ResizeSensorPropsMixin.onDidReset] -->
   @override
   @visibleForTesting
-  set onDidReset(value) =>
+  set onDidReset(Callback? value) =>
       props[_$key__onDidReset___$ResizeSensorPropsMixin] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__onInitialize___$ResizeSensorPropsMixin =

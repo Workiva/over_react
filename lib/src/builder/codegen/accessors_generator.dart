@@ -217,6 +217,7 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
         }
 
         if (nullableRequiredProp != null) {
+          annotationCount++;
           isRequired = true;
           isPotentiallyNullable = true;
         }
@@ -230,8 +231,12 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
 
         if (isRequired) {
           constantValue += ', isRequired: $isRequired';
-          constantValue += ', isNullable: $isPotentiallyNullable';
-          constantValue += ', errorMessage: ${stringLiteral(requiredErrorMessage)}';
+          if (isPotentiallyNullable) {
+            constantValue += ', isNullable: $isPotentiallyNullable';
+          }
+          if (requiredErrorMessage.isNotEmpty) {
+            constantValue += ', errorMessage: ${stringLiteral(requiredErrorMessage)}';
+          }
         }
         constantValue += ')';
 
@@ -248,7 +253,7 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
           metadataSrc.writeln('  ${annotation.toSource()}');
         }
 
-        const omitTypesInOverrides = true;
+        const omitTypesInOverrides = false;
 
         final getterTypeString = omitTypesInOverrides ? '' : typeString;
         final setterTypeString =

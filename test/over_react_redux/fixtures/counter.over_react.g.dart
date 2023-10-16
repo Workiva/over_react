@@ -24,40 +24,44 @@ abstract class _$CounterPropsAccessorsMixin implements _$CounterProps {
 
   /// <!-- Generated from [_$CounterProps.currentCount] -->
   @override
-  get currentCount =>
+  int? get currentCount =>
       (props[_$key__currentCount___$CounterProps] ?? null) as int?;
 
   /// <!-- Generated from [_$CounterProps.currentCount] -->
   @override
-  set currentCount(value) => props[_$key__currentCount___$CounterProps] = value;
+  set currentCount(int? value) =>
+      props[_$key__currentCount___$CounterProps] = value;
 
   /// <!-- Generated from [_$CounterProps.wrapperStyles] -->
   @override
-  get wrapperStyles => (props[_$key__wrapperStyles___$CounterProps] ?? null)
-      as Map<String, dynamic>?;
+  Map<String, dynamic>? get wrapperStyles =>
+      (props[_$key__wrapperStyles___$CounterProps] ?? null)
+          as Map<String, dynamic>?;
 
   /// <!-- Generated from [_$CounterProps.wrapperStyles] -->
   @override
-  set wrapperStyles(value) =>
+  set wrapperStyles(Map<String, dynamic>? value) =>
       props[_$key__wrapperStyles___$CounterProps] = value;
 
   /// <!-- Generated from [_$CounterProps.increment] -->
   @override
-  get increment =>
+  void Function()? get increment =>
       (props[_$key__increment___$CounterProps] ?? null) as void Function()?;
 
   /// <!-- Generated from [_$CounterProps.increment] -->
   @override
-  set increment(value) => props[_$key__increment___$CounterProps] = value;
+  set increment(void Function()? value) =>
+      props[_$key__increment___$CounterProps] = value;
 
   /// <!-- Generated from [_$CounterProps.decrement] -->
   @override
-  get decrement =>
+  void Function()? get decrement =>
       (props[_$key__decrement___$CounterProps] ?? null) as void Function()?;
 
   /// <!-- Generated from [_$CounterProps.decrement] -->
   @override
-  set decrement(value) => props[_$key__decrement___$CounterProps] = value;
+  set decrement(void Function()? value) =>
+      props[_$key__decrement___$CounterProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__currentCount___$CounterProps =
       PropDescriptor(_$key__currentCount___$CounterProps);

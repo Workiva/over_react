@@ -24,12 +24,12 @@ abstract class _$FlawedPropsAccessorsMixin implements _$FlawedProps {
 
   /// <!-- Generated from [_$FlawedProps.buttonTestIdPrefix] -->
   @override
-  get buttonTestIdPrefix =>
+  String? get buttonTestIdPrefix =>
       (props[_$key__buttonTestIdPrefix___$FlawedProps] ?? null) as String?;
 
   /// <!-- Generated from [_$FlawedProps.buttonTestIdPrefix] -->
   @override
-  set buttonTestIdPrefix(value) =>
+  set buttonTestIdPrefix(String? value) =>
       props[_$key__buttonTestIdPrefix___$FlawedProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__buttonTestIdPrefix___$FlawedProps =
@@ -123,20 +123,21 @@ abstract class _$FlawedStateAccessorsMixin implements _$FlawedState {
 
   /// <!-- Generated from [_$FlawedState.errorCount] -->
   @override
-  get errorCount => (state[_$key__errorCount___$FlawedState] ?? null) as int?;
+  int? get errorCount =>
+      (state[_$key__errorCount___$FlawedState] ?? null) as int?;
 
   /// <!-- Generated from [_$FlawedState.errorCount] -->
   @override
-  set errorCount(value) => state[_$key__errorCount___$FlawedState] = value;
+  set errorCount(int? value) => state[_$key__errorCount___$FlawedState] = value;
 
   /// <!-- Generated from [_$FlawedState.differentTypeOfErrorCount] -->
   @override
-  get differentTypeOfErrorCount =>
+  int? get differentTypeOfErrorCount =>
       (state[_$key__differentTypeOfErrorCount___$FlawedState] ?? null) as int?;
 
   /// <!-- Generated from [_$FlawedState.differentTypeOfErrorCount] -->
   @override
-  set differentTypeOfErrorCount(value) =>
+  set differentTypeOfErrorCount(int? value) =>
       state[_$key__differentTypeOfErrorCount___$FlawedState] = value;
   /* GENERATED CONSTANTS */
   static const StateDescriptor _$prop__errorCount___$FlawedState =

@@ -25,12 +25,12 @@ abstract class _$TypedFactoryTesterPropsAccessorsMixin
 
   /// <!-- Generated from [_$TypedFactoryTesterProps.testProp] -->
   @override
-  get testProp =>
+  bool? get testProp =>
       (props[_$key__testProp___$TypedFactoryTesterProps] ?? null) as bool?;
 
   /// <!-- Generated from [_$TypedFactoryTesterProps.testProp] -->
   @override
-  set testProp(value) =>
+  set testProp(bool? value) =>
       props[_$key__testProp___$TypedFactoryTesterProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__testProp___$TypedFactoryTesterProps =
@@ -131,12 +131,12 @@ abstract class _$TypedFactoryTesterStateAccessorsMixin
 
   /// <!-- Generated from [_$TypedFactoryTesterState.testState] -->
   @override
-  get testState =>
+  bool? get testState =>
       (state[_$key__testState___$TypedFactoryTesterState] ?? null) as bool?;
 
   /// <!-- Generated from [_$TypedFactoryTesterState.testState] -->
   @override
-  set testState(value) =>
+  set testState(bool? value) =>
       state[_$key__testState___$TypedFactoryTesterState] = value;
   /* GENERATED CONSTANTS */
   static const StateDescriptor _$prop__testState___$TypedFactoryTesterState =

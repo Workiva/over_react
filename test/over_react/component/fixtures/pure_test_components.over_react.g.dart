@@ -404,16 +404,17 @@ class _$PureTestComponent extends PureTestComponent {
 mixin $PureTestPropsMixin on PureTestPropsMixin {
   static const PropsMeta meta = _$metaForPureTestPropsMixin;
   @override
-  get childBoolProp =>
+  bool? get childBoolProp =>
       (props[_$key__childBoolProp__PureTestPropsMixin] ?? null) as bool?;
   @override
-  set childBoolProp(value) =>
+  set childBoolProp(bool? value) =>
       props[_$key__childBoolProp__PureTestPropsMixin] = value;
   @override
-  get childFuncProp => (props[_$key__childFuncProp__PureTestPropsMixin] ?? null)
-      as void Function()?;
+  void Function()? get childFuncProp =>
+      (props[_$key__childFuncProp__PureTestPropsMixin] ?? null) as void
+          Function()?;
   @override
-  set childFuncProp(value) =>
+  set childFuncProp(void Function()? value) =>
       props[_$key__childFuncProp__PureTestPropsMixin] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__childBoolProp__PureTestPropsMixin =
@@ -449,16 +450,17 @@ const PropsMeta _$metaForPureTestPropsMixin = PropsMeta(
 mixin $SharedPureTestPropsMixin on SharedPureTestPropsMixin {
   static const PropsMeta meta = _$metaForSharedPureTestPropsMixin;
   @override
-  get sharedBoolProp =>
+  bool? get sharedBoolProp =>
       (props[_$key__sharedBoolProp__SharedPureTestPropsMixin] ?? null) as bool?;
   @override
-  set sharedBoolProp(value) =>
+  set sharedBoolProp(bool? value) =>
       props[_$key__sharedBoolProp__SharedPureTestPropsMixin] = value;
   @override
-  get someVDomEl => (props[_$key__someVDomEl__SharedPureTestPropsMixin] ?? null)
-      as ReactElement?;
+  ReactElement? get someVDomEl =>
+      (props[_$key__someVDomEl__SharedPureTestPropsMixin] ?? null)
+          as ReactElement?;
   @override
-  set someVDomEl(value) =>
+  set someVDomEl(ReactElement? value) =>
       props[_$key__someVDomEl__SharedPureTestPropsMixin] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__sharedBoolProp__SharedPureTestPropsMixin =
@@ -494,10 +496,10 @@ const PropsMeta _$metaForSharedPureTestPropsMixin = PropsMeta(
 mixin $PureTestState on PureTestState {
   static const StateMeta meta = _$metaForPureTestState;
   @override
-  get childBoolState =>
+  bool? get childBoolState =>
       (state[_$key__childBoolState__PureTestState] ?? null) as bool?;
   @override
-  set childBoolState(value) =>
+  set childBoolState(bool? value) =>
       state[_$key__childBoolState__PureTestState] = value;
   /* GENERATED CONSTANTS */
   static const StateDescriptor _$prop__childBoolState__PureTestState =

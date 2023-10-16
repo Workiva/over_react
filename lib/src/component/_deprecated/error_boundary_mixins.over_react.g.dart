@@ -37,7 +37,7 @@ abstract class ErrorBoundaryPropsMixin implements _$ErrorBoundaryPropsMixin {
   ///
   /// <!-- Generated from [_$ErrorBoundaryPropsMixin.onComponentDidCatch] -->
   @override
-  get onComponentDidCatch =>
+  Function(dynamic error, ReactErrorInfo info)? get onComponentDidCatch =>
       (props[_$key__onComponentDidCatch___$ErrorBoundaryPropsMixin] ?? null)
           as Function(dynamic error, ReactErrorInfo info)?;
 
@@ -62,7 +62,8 @@ abstract class ErrorBoundaryPropsMixin implements _$ErrorBoundaryPropsMixin {
   ///
   /// <!-- Generated from [_$ErrorBoundaryPropsMixin.onComponentDidCatch] -->
   @override
-  set onComponentDidCatch(value) =>
+  set onComponentDidCatch(
+          Function(dynamic error, ReactErrorInfo info)? value) =>
       props[_$key__onComponentDidCatch___$ErrorBoundaryPropsMixin] = value;
 
   /// An optional callback that will be called _(when [fallbackUIRenderer] is not set)_
@@ -91,8 +92,9 @@ abstract class ErrorBoundaryPropsMixin implements _$ErrorBoundaryPropsMixin {
   ///
   /// <!-- Generated from [_$ErrorBoundaryPropsMixin.onComponentIsUnrecoverable] -->
   @override
-  get onComponentIsUnrecoverable =>
-      (props[_$key__onComponentIsUnrecoverable___$ErrorBoundaryPropsMixin] ??
+  Function(dynamic error, ReactErrorInfo? info)?
+      get onComponentIsUnrecoverable => (props[
+              _$key__onComponentIsUnrecoverable___$ErrorBoundaryPropsMixin] ??
           null) as Function(dynamic error, ReactErrorInfo? info)?;
 
   /// An optional callback that will be called _(when [fallbackUIRenderer] is not set)_
@@ -121,7 +123,8 @@ abstract class ErrorBoundaryPropsMixin implements _$ErrorBoundaryPropsMixin {
   ///
   /// <!-- Generated from [_$ErrorBoundaryPropsMixin.onComponentIsUnrecoverable] -->
   @override
-  set onComponentIsUnrecoverable(value) =>
+  set onComponentIsUnrecoverable(
+          Function(dynamic error, ReactErrorInfo? info)? value) =>
       props[_$key__onComponentIsUnrecoverable___$ErrorBoundaryPropsMixin] =
           value;
 
@@ -132,9 +135,10 @@ abstract class ErrorBoundaryPropsMixin implements _$ErrorBoundaryPropsMixin {
   ///
   /// <!-- Generated from [_$ErrorBoundaryPropsMixin.fallbackUIRenderer] -->
   @override
-  get fallbackUIRenderer =>
-      (props[_$key__fallbackUIRenderer___$ErrorBoundaryPropsMixin] ?? null)
-          as ReactElement Function(dynamic error, ReactErrorInfo? info)?;
+  ReactElement Function(dynamic error, ReactErrorInfo? info)?
+      get fallbackUIRenderer =>
+          (props[_$key__fallbackUIRenderer___$ErrorBoundaryPropsMixin] ?? null)
+              as ReactElement Function(dynamic error, ReactErrorInfo? info)?;
 
   /// A renderer that will be used to render "fallback" UI instead of the child
   /// component tree that crashed.
@@ -143,7 +147,8 @@ abstract class ErrorBoundaryPropsMixin implements _$ErrorBoundaryPropsMixin {
   ///
   /// <!-- Generated from [_$ErrorBoundaryPropsMixin.fallbackUIRenderer] -->
   @override
-  set fallbackUIRenderer(value) =>
+  set fallbackUIRenderer(
+          ReactElement Function(dynamic error, ReactErrorInfo? info)? value) =>
       props[_$key__fallbackUIRenderer___$ErrorBoundaryPropsMixin] = value;
 
   /// The amount of time that is "acceptable" between consecutive identical errors thrown from a component
@@ -166,7 +171,7 @@ abstract class ErrorBoundaryPropsMixin implements _$ErrorBoundaryPropsMixin {
   ///
   /// <!-- Generated from [_$ErrorBoundaryPropsMixin.identicalErrorFrequencyTolerance] -->
   @override
-  get identicalErrorFrequencyTolerance => (props[
+  Duration? get identicalErrorFrequencyTolerance => (props[
           _$key__identicalErrorFrequencyTolerance___$ErrorBoundaryPropsMixin] ??
       null) as Duration?;
 
@@ -190,7 +195,7 @@ abstract class ErrorBoundaryPropsMixin implements _$ErrorBoundaryPropsMixin {
   ///
   /// <!-- Generated from [_$ErrorBoundaryPropsMixin.identicalErrorFrequencyTolerance] -->
   @override
-  set identicalErrorFrequencyTolerance(value) => props[
+  set identicalErrorFrequencyTolerance(Duration? value) => props[
           _$key__identicalErrorFrequencyTolerance___$ErrorBoundaryPropsMixin] =
       value;
 
@@ -202,7 +207,7 @@ abstract class ErrorBoundaryPropsMixin implements _$ErrorBoundaryPropsMixin {
   ///
   /// <!-- Generated from [_$ErrorBoundaryPropsMixin.loggerName] -->
   @override
-  get loggerName =>
+  String? get loggerName =>
       (props[_$key__loggerName___$ErrorBoundaryPropsMixin] ?? null) as String?;
 
   /// The name to use when the component's logger logs an error via [ErrorBoundaryComponent.componentDidCatch].
@@ -213,7 +218,7 @@ abstract class ErrorBoundaryPropsMixin implements _$ErrorBoundaryPropsMixin {
   ///
   /// <!-- Generated from [_$ErrorBoundaryPropsMixin.loggerName] -->
   @override
-  set loggerName(value) =>
+  set loggerName(String? value) =>
       props[_$key__loggerName___$ErrorBoundaryPropsMixin] = value;
 
   /// Whether errors caught by this [ErrorBoundary] should be logged using a [Logger].
@@ -222,7 +227,7 @@ abstract class ErrorBoundaryPropsMixin implements _$ErrorBoundaryPropsMixin {
   ///
   /// <!-- Generated from [_$ErrorBoundaryPropsMixin.shouldLogErrors] -->
   @override
-  get shouldLogErrors =>
+  bool? get shouldLogErrors =>
       (props[_$key__shouldLogErrors___$ErrorBoundaryPropsMixin] ?? null)
           as bool?;
 
@@ -232,7 +237,7 @@ abstract class ErrorBoundaryPropsMixin implements _$ErrorBoundaryPropsMixin {
   ///
   /// <!-- Generated from [_$ErrorBoundaryPropsMixin.shouldLogErrors] -->
   @override
-  set shouldLogErrors(value) =>
+  set shouldLogErrors(bool? value) =>
       props[_$key__shouldLogErrors___$ErrorBoundaryPropsMixin] = value;
 
   /// An optional custom logger instance that will be used to log errors caught by
@@ -240,7 +245,7 @@ abstract class ErrorBoundaryPropsMixin implements _$ErrorBoundaryPropsMixin {
   ///
   /// <!-- Generated from [_$ErrorBoundaryPropsMixin.logger] -->
   @override
-  get logger =>
+  Logger? get logger =>
       (props[_$key__logger___$ErrorBoundaryPropsMixin] ?? null) as Logger?;
 
   /// An optional custom logger instance that will be used to log errors caught by
@@ -248,7 +253,8 @@ abstract class ErrorBoundaryPropsMixin implements _$ErrorBoundaryPropsMixin {
   ///
   /// <!-- Generated from [_$ErrorBoundaryPropsMixin.logger] -->
   @override
-  set logger(value) => props[_$key__logger___$ErrorBoundaryPropsMixin] = value;
+  set logger(Logger? value) =>
+      props[_$key__logger___$ErrorBoundaryPropsMixin] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor
       _$prop__onComponentDidCatch___$ErrorBoundaryPropsMixin =
@@ -336,7 +342,7 @@ abstract class ErrorBoundaryStateMixin implements _$ErrorBoundaryStateMixin {
   ///
   /// <!-- Generated from [_$ErrorBoundaryStateMixin.hasError] -->
   @override
-  get hasError =>
+  bool? get hasError =>
       (state[_$key__hasError___$ErrorBoundaryStateMixin] ?? null) as bool?;
 
   /// Whether a component within the tree that the [ErrorBoundary] is wrapping around threw an error.
@@ -353,7 +359,7 @@ abstract class ErrorBoundaryStateMixin implements _$ErrorBoundaryStateMixin {
   ///
   /// <!-- Generated from [_$ErrorBoundaryStateMixin.hasError] -->
   @override
-  set hasError(value) =>
+  set hasError(bool? value) =>
       state[_$key__hasError___$ErrorBoundaryStateMixin] = value;
 
   /// Whether to show "fallback" UI when [hasError] is true.
@@ -362,7 +368,7 @@ abstract class ErrorBoundaryStateMixin implements _$ErrorBoundaryStateMixin {
   ///
   /// <!-- Generated from [_$ErrorBoundaryStateMixin.showFallbackUIOnError] -->
   @override
-  get showFallbackUIOnError =>
+  bool? get showFallbackUIOnError =>
       (state[_$key__showFallbackUIOnError___$ErrorBoundaryStateMixin] ?? null)
           as bool?;
 
@@ -372,7 +378,7 @@ abstract class ErrorBoundaryStateMixin implements _$ErrorBoundaryStateMixin {
   ///
   /// <!-- Generated from [_$ErrorBoundaryStateMixin.showFallbackUIOnError] -->
   @override
-  set showFallbackUIOnError(value) =>
+  set showFallbackUIOnError(bool? value) =>
       state[_$key__showFallbackUIOnError___$ErrorBoundaryStateMixin] = value;
   /* GENERATED CONSTANTS */
   static const StateDescriptor _$prop__hasError___$ErrorBoundaryStateMixin =
