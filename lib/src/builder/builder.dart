@@ -97,10 +97,10 @@ class OverReactBuilder extends Builder {
               "because of $packageName\'s language version of '$packageConfigLanguageVersion'.";
         } else {
           // If we don't have any information to go off of, opt into null safety.
-          // It should be pretty unlikely that we don't have access to a pubspec.yaml.
+          // It should be pretty unlikely that we don't have access to the package config.
           nullSafety = true;
           nullSafetyReason =
-              'because null safety could not be inferred from language version comments or pubspec.yaml.';
+              'because null safety could not be inferred from language version comments or package config.';
         }
       }
     }
