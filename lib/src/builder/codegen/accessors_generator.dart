@@ -217,6 +217,7 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
         }
 
         if (nullableRequiredProp != null) {
+          annotationCount++;
           isRequired = true;
           isPotentiallyNullable = true;
         }
