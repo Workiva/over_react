@@ -273,9 +273,7 @@ mixin $SafeRenderManagerHelperProps on SafeRenderManagerHelperProps {
   static const PropDescriptor
       _$prop__getInitialContent__SafeRenderManagerHelperProps = PropDescriptor(
           _$key__getInitialContent__SafeRenderManagerHelperProps,
-          isRequired: true,
-          isNullable: false,
-          errorMessage: '');
+          isRequired: true);
   static const PropDescriptor _$prop__contentRef__SafeRenderManagerHelperProps =
       PropDescriptor(_$key__contentRef__SafeRenderManagerHelperProps);
   static const String _$key__getInitialContent__SafeRenderManagerHelperProps =

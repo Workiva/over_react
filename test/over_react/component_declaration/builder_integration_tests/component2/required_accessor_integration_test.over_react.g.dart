@@ -77,7 +77,6 @@ abstract class _$ComponentTestPropsAccessorsMixin
   static const PropDescriptor _$prop__required___$ComponentTestProps =
       PropDescriptor(_$key__required___$ComponentTestProps,
           isRequired: true,
-          isNullable: false,
           errorMessage: 'This Prop is Required for testing purposes.');
   static const PropDescriptor _$prop__nullable___$ComponentTestProps =
       PropDescriptor(_$key__nullable___$ComponentTestProps,
@@ -88,7 +87,6 @@ abstract class _$ComponentTestPropsAccessorsMixin
       _$prop__requiredAndLengthLimited___$ComponentTestProps = PropDescriptor(
           _$key__requiredAndLengthLimited___$ComponentTestProps,
           isRequired: true,
-          isNullable: false,
           errorMessage: 'This Prop Array is Required for testing purposes.');
   static const String _$key__required___$ComponentTestProps =
       'ComponentTestProps.required';

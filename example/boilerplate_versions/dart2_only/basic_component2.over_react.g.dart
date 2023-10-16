@@ -74,11 +74,8 @@ abstract class _$BasicPropsAccessorsMixin implements _$BasicProps {
   @override
   set basic5(value) => props[_$key__basic5___$BasicProps] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__basicProp___$BasicProps = PropDescriptor(
-      _$key__basicProp___$BasicProps,
-      isRequired: true,
-      isNullable: false,
-      errorMessage: '');
+  static const PropDescriptor _$prop__basicProp___$BasicProps =
+      PropDescriptor(_$key__basicProp___$BasicProps, isRequired: true);
   static const PropDescriptor _$prop__basic1___$BasicProps =
       PropDescriptor(_$key__basic1___$BasicProps);
   static const PropDescriptor _$prop__basic2___$BasicProps =

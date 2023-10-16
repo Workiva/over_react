@@ -59,17 +59,14 @@ abstract class _$ComponentTestPropsAccessorsMixin
       props[_$key__requiredAndLengthLimited___$ComponentTestProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__required___$ComponentTestProps =
-      PropDescriptor(_$key__required___$ComponentTestProps,
-          isRequired: true, isNullable: false, errorMessage: '');
+      PropDescriptor(_$key__required___$ComponentTestProps, isRequired: true);
   static const PropDescriptor _$prop__nullable___$ComponentTestProps =
       PropDescriptor(_$key__nullable___$ComponentTestProps,
-          isRequired: true, isNullable: true, errorMessage: '');
+          isRequired: true, isNullable: true);
   static const PropDescriptor
       _$prop__requiredAndLengthLimited___$ComponentTestProps = PropDescriptor(
           _$key__requiredAndLengthLimited___$ComponentTestProps,
-          isRequired: true,
-          isNullable: false,
-          errorMessage: '');
+          isRequired: true);
   static const String _$key__required___$ComponentTestProps =
       'ComponentTestProps.required';
   static const String _$key__nullable___$ComponentTestProps =

@@ -58,7 +58,6 @@ abstract class _$ComponentTestPropsAccessorsMixin
   static const PropDescriptor _$prop__required___$ComponentTestProps =
       PropDescriptor(_$key__required___$ComponentTestProps,
           isRequired: true,
-          isNullable: false,
           errorMessage: 'This Prop is Required for testing purposes.');
   static const PropDescriptor _$prop__nullable___$ComponentTestProps =
       PropDescriptor(_$key__nullable___$ComponentTestProps,

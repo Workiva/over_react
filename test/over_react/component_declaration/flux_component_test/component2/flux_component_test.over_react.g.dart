@@ -482,7 +482,7 @@ abstract class _$TestPropValidationPropsAccessorsMixin
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__required___$TestPropValidationProps =
       PropDescriptor(_$key__required___$TestPropValidationProps,
-          isRequired: true, isNullable: false, errorMessage: '');
+          isRequired: true);
   static const String _$key__required___$TestPropValidationProps =
       'TestPropValidationProps.required';
 
@@ -1710,9 +1710,7 @@ abstract class _$TestStatefulPropValidationPropsAccessorsMixin
   static const PropDescriptor
       _$prop__required___$TestStatefulPropValidationProps = PropDescriptor(
           _$key__required___$TestStatefulPropValidationProps,
-          isRequired: true,
-          isNullable: false,
-          errorMessage: '');
+          isRequired: true);
   static const String _$key__required___$TestStatefulPropValidationProps =
       'TestStatefulPropValidationProps.required';
 
