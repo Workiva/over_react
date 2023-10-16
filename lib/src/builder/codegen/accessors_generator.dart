@@ -230,8 +230,12 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
 
         if (isRequired) {
           constantValue += ', isRequired: $isRequired';
-          constantValue += ', isNullable: $isPotentiallyNullable';
-          constantValue += ', errorMessage: ${stringLiteral(requiredErrorMessage)}';
+          if (isPotentiallyNullable) {
+            constantValue += ', isNullable: $isPotentiallyNullable';
+          }
+          if (requiredErrorMessage.isNotEmpty) {
+            constantValue += ', errorMessage: ${stringLiteral(requiredErrorMessage)}';
+          }
         }
         constantValue += ')';
 
