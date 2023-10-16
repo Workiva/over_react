@@ -13,6 +13,7 @@
 // limitations under the License.
 
 import 'dart:async';
+import 'dart:io';
 import 'dart:isolate';
 
 import 'package:analyzer/dart/analysis/utilities.dart';
@@ -96,11 +97,18 @@ class OverReactBuilder extends Builder {
           nullSafetyReason =
               "because of $packageName\'s language version of '$packageConfigLanguageVersion'.";
         } else {
-          // If we don't have any information to go off of, opt into null safety.
-          // It should be pretty unlikely that we don't have access to the package config.
-          nullSafety = true;
+          // If we don't have any information to go off of, opt out of null safety in 2.x,
+          // and opt in for newer versions (Dart 3+).
+          // It should be pretty unlikely that we don't have access to the package config,
+          // or that the file being generated doesn't have an associated package.
+          final platformOnlySupportsNullSafety = !Platform.version.startsWith('2.');
+          nullSafety = platformOnlySupportsNullSafety;
           nullSafetyReason =
-              'because null safety could not be inferred from language version comments or package config.';
+              'because null safety could not be inferred from language version comments'
+                      ' or package config, and the current Dart SDK version ' +
+                  (platformOnlySupportsNullSafety
+                      ? 'only supports null safety'
+                      : 'does not support null safety by default');
         }
       }
     }
