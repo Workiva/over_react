@@ -65,12 +65,14 @@ class OverReactBuilder extends Builder {
     String nullSafetyReason;
     bool nullSafety;
     {
-      final languageVersionToken = libraryUnit.languageVersionToken;
-      if (languageVersionToken != null) {
+      final versionToken = libraryUnit.languageVersionToken;
+      if (versionToken != null) {
         // If there's a language version comment, honor that.
-        nullSafety = languageVersionToken.supportsNullSafety;
-        nullSafetyReason = 'because of language version comment in main library of '
-            "'${languageVersionToken.major}.${languageVersionToken.minor}'";
+        nullSafety = versionToken.supportsNullSafety;
+        nullSafetyReason = {
+          'languageVersion': '${versionToken.major}.${versionToken.minor}',
+          'source': 'libraryVersionComment',
+        }.toString();
       } else {
         // Otherwise, read the language version from the package config.
         //
@@ -94,8 +96,11 @@ class OverReactBuilder extends Builder {
 
         if (packageConfigLanguageVersion != null) {
           nullSafety = packageConfigLanguageVersion.supportsNullSafety;
-          nullSafetyReason =
-              "because package config has language version '$packageConfigLanguageVersion' for $packageName.";
+          nullSafetyReason = {
+            'languageVersion': packageConfigLanguageVersion,
+            'source': 'packageConfig',
+            'package': packageName,
+          }.toString();
         } else {
           // If we don't have any information to go off of, opt out of null safety in 2.x,
           // and opt in for newer versions (Dart 3+).
@@ -103,12 +108,10 @@ class OverReactBuilder extends Builder {
           // or that the file being generated doesn't have an associated package.
           final platformOnlySupportsNullSafety = !Platform.version.startsWith('2.');
           nullSafety = platformOnlySupportsNullSafety;
-          nullSafetyReason =
-              'because null safety could not be inferred from language version comments'
-                      ' or package config, and the current Dart SDK version ' +
-                  (platformOnlySupportsNullSafety
-                      ? 'only supports null safety'
-                      : 'does not support null safety by default');
+          nullSafetyReason = {
+            'languageVersion': 'unknown (no package config or package config entry)',
+            'defaultNullSafetyForCurrentSdk': platformOnlySupportsNullSafety,
+          }.toString();
         }
       }
     }
@@ -214,7 +217,9 @@ class OverReactBuilder extends Builder {
         log.severe('Missing "part \'$expectedPart\';".');
       }
 
-      final nullSafetyCommentText = 'Using nullSafety=$nullSafety, $nullSafetyReason';
+      // Add an extra space, since `false` is one character longer than `true`, so that the next
+      // sentence lines up when grepped across multiple files.
+      final nullSafetyCommentText = 'Using nullSafety: $nullSafety.${nullSafety ? ' ' : ''} $nullSafetyReason';
 
       // Generated part files must have matching language version comments, so copy them over if they exist.
       // TODO use CompilationUnit.languageVersionToken instead of parsing this manually once we're sure we can get on analyzer version 0.39.5 or greater
