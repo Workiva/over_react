@@ -18,7 +18,6 @@ import 'dart:isolate';
 
 import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:analyzer/dart/ast/ast.dart';
-import 'package:analyzer/dart/ast/token.dart';
 import 'package:build/build.dart';
 import 'package:dart_style/dart_style.dart';
 import 'package:path/path.dart' as p;
@@ -27,6 +26,7 @@ import 'package:source_span/source_span.dart';
 
 import './util.dart';
 import 'codegen.dart';
+import 'codegen/language_version_util.dart';
 import 'parsing.dart';
 
 Builder overReactBuilder(BuilderOptions? options) => OverReactBuilder();
@@ -294,16 +294,6 @@ class OverReactBuilder extends Builder {
     }
     await buildStep.writeAsString(outputId, output);
   }
-}
-
-bool languageVersionSupportsNullSafety(int major, int minor) => major > 2 || (major == 2 && minor >= 12);
-
-extension on LanguageVersionToken {
-  bool get supportsNullSafety => languageVersionSupportsNullSafety(major, minor);
-}
-
-extension on pc.LanguageVersion {
-  bool get supportsNullSafety => languageVersionSupportsNullSafety(major, minor);
 }
 
 extension on BuildStep {
