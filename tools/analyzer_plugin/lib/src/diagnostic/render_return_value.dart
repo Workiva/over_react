@@ -183,7 +183,7 @@ class ClassComponentRenderVisitor extends SimpleAstVisitor<void> {
 
   @override
   void visitMethodDeclaration(MethodDeclaration node) {
-    if (node.name.name == 'render') {
+    if (node.name.lexeme == 'render') {
       renderReturnExpressions.addAll(node.body.returnExpressions);
     }
   }

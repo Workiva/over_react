@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - 'master'
-      - 'test_consume_*'
+      - 'test_consume_**'
   pull_request:
     branches:
       - '**'
@@ -16,9 +16,7 @@ jobs:
       fail-fast: false
       matrix:
         # Can't run on `dev` (Dart 3) until we're fully null-safe.
-        # We can't run on Dart >=2.19 until https://github.com/dart-lang/sdk/issues/51128
-        # is fixed, or we work around it, which requires upgrading to analyzer ^5.1.0.
-        sdk: [ 2.13.4, 2.18.7 ]
+        sdk: [ 2.18.7, 2.19.6 ]
     steps:
       - uses: actions/checkout@v2
       - uses: dart-lang/setup-dart@v0.2
@@ -53,7 +51,7 @@ jobs:
         timeout-minutes: 6
         name: Build generated files / precompile DDC assets
         run: |
-          dart pub run build_runner build --delete-conflicting-outputs -o ddc_precompiled
+          dart run build_runner build --delete-conflicting-outputs -o ddc_precompiled
           if [ ${{ matrix.sdk }} = '2.18.7' ]; then
             git diff --exit-code
           else
@@ -79,7 +77,7 @@ jobs:
         if: always() && steps.install.outcome == 'success' && steps.build.outcome == 'success'
 
       - name: Run tests (dart2js)
-        run: dart pub run dart_dev test --build-args="-r" -P dart2js
+        run: dart run dart_dev test --build-args="-r" -P dart2js
         if: always() && steps.install.outcome == 'success' && steps.build.outcome == 'success'
 
   validate_analyzer:
@@ -88,16 +86,11 @@ jobs:
       fail-fast: false
       matrix:
         # Can't run on `dev` (Dart 3) until we're fully null-safe.
-        # We can't run on Dart >=2.19 until https://github.com/dart-lang/sdk/issues/51128
-        # is fixed, or we work around it, which requires upgrading to analyzer ^5.1.0.
-        sdk: [ 2.13.4, 2.18.7 ]
+        sdk: [ 2.18.7, 2.19.6 ]
         analyzer:
-          - ^1.0.0
-          - ^2.0.0
-        # Don't validate analyzer ^2.0.0 in 2.13.4 since it can't resolve.
-        exclude:
-          - sdk: 2.13.4
-            analyzer: ^2.0.0
+          # We only have one version currently, but we'll leave this CI step in place
+          # for the next time we need to support multiple analyzer versions.
+          - ^5.1.0
     steps:
       - uses: actions/checkout@v2
       - uses: dart-lang/setup-dart@v0.2
@@ -107,7 +100,7 @@ jobs:
       - name: Print Dart SDK version
         run: dart --version
 
-      - name: Update analyzer constraint to ${{ matrix.analyzer }} and validate `pub get` can resolve
+      - name: Update analyzer constraint to ${{ matrix.analyzer }} and validate `dart pub get` can resolve
         id: resolve
         run: |
           dart tool/set_analyzer_constraint.dart "${{ matrix.analyzer }}"
@@ -122,7 +115,7 @@ jobs:
         run: dart run build_runner build --build-filter='**.dart' --delete-conflicting-outputs
 
       - name: Run builder tests
-        run: dart run test -p vm -- test/vm_tests/builder
+        run: dart test -p vm -- test/vm_tests/builder
 
   analyzer_plugin:
     runs-on: ubuntu-latest
@@ -157,9 +150,9 @@ jobs:
         if: always() && steps.install.outcome == 'success'
 
       - name: Verify formatting
-        run: dart pub run dart_dev format --check
+        run: dart run dart_dev format --check
         if: always() && matrix.sdk == '2.7.2' && steps.install.outcome == 'success'
 
       - name: Run tests
-        run: dart pub run dart_dev test
+        run: dart run dart_dev test
         if: always() && steps.install.outcome == 'success'

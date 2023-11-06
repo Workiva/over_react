@@ -134,6 +134,122 @@ abstract class UiProps extends component_base.UiProps with GeneratedClass {
   @toBeGenerated PropsMetaCollection get staticMeta => throw UngeneratedError(member: #meta);
 }
 
+/// Helper static extension methods to make forwarding props easier.
+extension PropsToForward<T extends UiProps> on T {
+
+  /// Returns a copy of this instance's props excluding the keys found in [exclude].
+  ///
+  /// [exclude] should be a `Set` of PropsMixin `Type`s.
+  /// If [exclude] is not set, it defaults to using the current instance's Type.
+  ///
+  /// __Example:__
+  ///
+  /// Component with a single props mixin:
+  /// ```dart
+  /// mixin FooPropsMixin on UiProps {
+  ///   String foo;
+  /// }
+  ///
+  /// UiFactory<FooPropsMixin> Foo = uiFunction((props) {
+  ///   return (Bar()
+  ///     // Filter out props declared in FooPropsMixin
+  ///     // (used as the default for `exclude` since that's what `props` is statically typed as)
+  ///     // when forwarding to Bar.
+  ///     ..addAll(props.getPropsToForward())
+  ///   )();
+  /// });
+  /// ```
+  ///
+  /// Component with a more than one props mixin:
+  /// ```dart
+  /// mixin FooPropsMixin on UiProps {
+  ///   String foo;
+  /// }
+  /// class FooProps = UiProps with BarProps, FooPropsMixin;
+  ///
+  /// UiFactory<FooProps> Foo = uiFunction((props) {
+  ///   return (Bar()
+  ///     // Filter out props declared in FooPropsMixin when forwarding to Bar.
+  ///     ..addAll(props.getPropsToForward(exclude: {FooPropsMixin}))
+  ///   )();
+  /// });
+  /// ```
+  ///
+  /// To only add DOM props, use the [domOnly] named argument.
+  ///
+  /// Related: `UiComponent2`'s `addUnconsumedProps`
+  Map getPropsToForward({Set<Type> exclude, bool domOnly = false}) {
+    return _propsToForward(exclude: exclude, domOnly: domOnly, propsToUpdate: {});
+  }
+
+  /// A utility function to be used with `modifyProps` to add props excluding the keys found in [exclude].
+  ///
+  /// [exclude] should be a `Set` of PropsMixin `Type`s.
+  /// If [exclude] is not set, it defaults to using the current instance's Type.
+  ///
+  /// __Example:__
+  ///
+  /// Component with a single props mixin:
+  /// ```dart
+  /// mixin FooPropsMixin on UiProps {
+  ///   String foo;
+  /// }
+  ///
+  /// UiFactory<FooPropsMixin> Foo = uiFunction((props) {
+  ///   return (Bar()
+  ///     // Filter out props declared in FooPropsMixin
+  ///     // (used as the default for `exclude` since that's what `props` is statically typed as)
+  ///     // when forwarding to Bar.
+  ///     ..modifyProps(props.addPropsToForward())
+  ///   )();
+  /// });
+  /// ```
+  ///
+  /// Component with a more than one props mixin:
+  /// ```dart
+  /// mixin FooPropsMixin on UiProps {
+  ///   String foo;
+  /// }
+  /// class FooProps = UiProps with BarProps, FooPropsMixin;
+  ///
+  /// UiFactory<FooProp> Foo = uiFunction((props) {
+  ///   return (Bar()
+  ///     // Filter out props declared in FooPropsMixin when forwarding to Bar.
+  ///     ..modifyProps(props.addPropsToForward(exclude: {FooPropsMixin}))
+  ///   )();
+  /// });
+  /// ```
+  ///
+  /// To only add DOM props, use the [domOnly] named argument.
+  ///
+  /// Related: `UiComponent2`'s `addUnconsumedProps`
+  PropsModifier addPropsToForward({Set<Type> exclude, bool domOnly = false}) {
+    return (Map<dynamic, dynamic> props) {
+      _propsToForward(exclude: exclude, domOnly: domOnly, propsToUpdate: props);
+    };
+  }
+
+  Map _propsToForward({Set<Type> exclude, bool domOnly = false, Map propsToUpdate}) {
+    Iterable<PropsMeta> consumedProps = [];
+    try {
+      consumedProps = staticMeta.forMixins(exclude ?? {T}).toList();
+    } catch(_) {
+      assert(exclude != null, ArgumentError('Could not find props meta for type $T.'
+        ' If this is not a props mixin, you need to specify its mixins as the second argument.  For example:'
+        '\n  ..addAll(props.getPropsToForward(exclude: {${T}Mixin})').message);
+      rethrow;
+    }
+    final consumedPropKeys = consumedProps?.map((consumedProps) => consumedProps.keys);
+    forwardUnconsumedPropsV2(
+      props,
+      propsToUpdate: propsToUpdate,
+      keySetsToOmit: consumedPropKeys,
+      onlyCopyDomProps: domOnly,
+    );
+    return propsToUpdate;
+  }
+}
+
 /// A [dart.collection.MapView]-like class with strongly-typed getters/setters for React state.
 ///
 /// To be used with the over_react builder to generate concrete state implementations

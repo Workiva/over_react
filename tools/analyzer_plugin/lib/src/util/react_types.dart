@@ -23,7 +23,7 @@ extension ReactTypes$Element on Element {
 
   bool isOrIsSubtypeOfElementFromPackage(String typeName, String packageName) {
     final element = this;
-    return element is ClassElement &&
+    return element is InterfaceElement &&
         (element.isElementFromPackage(typeName, packageName) ||
             element.allSupertypes.any((type) => type.element.isElementFromPackage(typeName, packageName)));
   }

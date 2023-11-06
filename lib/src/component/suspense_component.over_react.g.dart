@@ -57,7 +57,8 @@ final UiFactoryConfig<_$$SuspenseProps> $SuspenseConfig = _$SuspenseConfig;
 abstract class _$$SuspenseProps extends UiProps
     with
         SuspensePropsMixin,
-        $SuspensePropsMixin // If this generated mixin is undefined, it's likely because SuspensePropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of SuspensePropsMixin, and check that $SuspensePropsMixin is exported/imported properly.
+        // If this generated mixin is undefined, it's likely because SuspensePropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of SuspensePropsMixin, and check that $SuspensePropsMixin is exported/imported properly.
+        $SuspensePropsMixin
     implements
         SuspenseProps {
   _$$SuspenseProps._();

@@ -209,7 +209,7 @@ Pair<int, AstNode> _getRefInsertionLocation(AstNode node, LineInfo lineInfo) {
         child.tryCast<TopLevelVariableDeclaration>()?.variables ??
         child.tryCast<VariableDeclarationStatement>()?.variables;
     if (variables != null &&
-        variables.variables.any((decl) => decl.name.name != 'Ref' && decl.name.name.endsWith('Ref'))) {
+        variables.variables.any((decl) => decl.name.lexeme != 'Ref' && decl.name.lexeme.endsWith('Ref'))) {
       offset = nextLine(child.end, lineInfo);
       break;
     }

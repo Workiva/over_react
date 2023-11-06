@@ -97,7 +97,7 @@ main() {
           test('when the unit is a SyntacticEntity', () {
             final localFileParseResult = parseString(content: boilerplateString);
             final propsNameToken = localFileParseResult.unit.childEntities
-                .whereType<ClassOrMixinDeclaration>()
+                .whereType<ClassDeclaration>()
                 .first
                 .name;
 

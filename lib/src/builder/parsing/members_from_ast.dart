@@ -236,7 +236,7 @@ class _BoilerplateMemberDetector {
           // Special-case: `@Props()` is allowed on the new boilerplate mixins
           if (node is MixinDeclaration) {
             onPropsMixin(BoilerplatePropsMixin(
-                node,
+                classish,
                 companion,
                 _annotatedPropsOrStateMixinConfidence(classish, companion,
                     disableAnnotationAssert: true)));
@@ -253,7 +253,7 @@ class _BoilerplateMemberDetector {
           // Special-case: `@State()` is allowed on the new boilerplate mixins
           if (node is MixinDeclaration) {
             onStateMixin(BoilerplateStateMixin(
-                node,
+                classish,
                 companion,
                 _annotatedPropsOrStateMixinConfidence(classish, companion,
                     disableAnnotationAssert: true)));
@@ -264,12 +264,12 @@ class _BoilerplateMemberDetector {
           return true;
 
         case 'PropsMixin':
-          onPropsMixin(BoilerplatePropsMixin(node as ClassOrMixinDeclaration, companion,
+          onPropsMixin(BoilerplatePropsMixin(classish, companion,
               _annotatedPropsOrStateMixinConfidence(classish, companion)));
           return true;
 
         case 'StateMixin':
-          onStateMixin(BoilerplateStateMixin(node as ClassOrMixinDeclaration, companion,
+          onStateMixin(BoilerplateStateMixin(classish, companion,
               _annotatedPropsOrStateMixinConfidence(classish, companion)));
           return true;
 
@@ -409,11 +409,11 @@ class _BoilerplateMemberDetector {
 
     if (node is MixinDeclaration) {
       if (propsMixinNamePattern.hasMatch(name) && node.hasSuperclassConstraint('UiProps')) {
-        onPropsMixin(BoilerplatePropsMixin(node, companion, getConfidence()));
+        onPropsMixin(BoilerplatePropsMixin(classish, companion, getConfidence()));
         return true;
       }
       if (stateMixinNamePattern.hasMatch(name) && node.hasSuperclassConstraint('UiState')) {
-        onStateMixin(BoilerplateStateMixin(node, companion, getConfidence()));
+        onStateMixin(BoilerplateStateMixin(classish, companion, getConfidence()));
         return true;
       }
     } else {

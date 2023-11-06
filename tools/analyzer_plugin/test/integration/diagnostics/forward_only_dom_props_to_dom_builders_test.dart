@@ -59,7 +59,7 @@ final DomWrapperFn = uiFunction<UiProps>(
 ''';
 
   Future<void> test_classComponentUsageErrorAndFix() async {
-    var source = newSource('test.dart', usageSourceWithinClassComponent(fixed: false));
+    var source = newSource(usageSourceWithinClassComponent(fixed: false));
     final errorFix = await expectSingleErrorFix(createSelection(source, "..modifyProps(#addUnconsumedProps#)"));
     expect(errorFix.fixes.single.change.selection, isNull);
     source = applyErrorFixes(errorFix, source);
@@ -67,7 +67,7 @@ final DomWrapperFn = uiFunction<UiProps>(
   }
 
   Future<void> test_fnComponentUsageErrorAndFix() async {
-    var source = newSource('test.dart', usageSourceWithinFnComponent(fixed: false));
+    var source = newSource(usageSourceWithinFnComponent(fixed: false));
     final errorFix = await expectSingleErrorFix(createSelection(source, "..#addUnconsumedProps#(props, const [])"));
     expect(errorFix.fixes.single.change.selection, isNull);
     source = applyErrorFixes(errorFix, source);

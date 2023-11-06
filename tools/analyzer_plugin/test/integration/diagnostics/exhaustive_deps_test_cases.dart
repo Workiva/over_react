@@ -608,6 +608,17 @@ final Map<String, List<Map<String, Object>>> tests = {
       ''',
     },
     {
+      'name': 'Ref from useRefInit',
+      'code': r'''
+        final MyComponent = uiFunction<TestProps>((_) {
+          final ref = useRefInit(0);
+          useEffect(() {
+            print(ref.current);
+          }, []);
+        }, null);
+      ''',
+    },
+    {
       'name': 'Ref from useRef (namespaced)',
       'code': r'''
         final MyComponent = uiFunction<TestProps>((_) {
@@ -619,9 +630,20 @@ final Map<String, List<Map<String, Object>>> tests = {
       ''',
     },
     {
+      'name': 'Ref from useRefInit (namespaced)',
       'code': r'''
-        StateHook<T> useFunnyState<T>(T initialState) {}
-        ReducerHook<T, dynamic, dynamic> useFunnyReducer<T>(dynamic reducer, T initialState) {}
+        final MyComponent = uiFunction<TestProps>((_) {
+          final ref = over_react.useRefInit(0);
+          useEffect(() {
+            print(ref.current);
+          }, []);
+        }, null);
+      ''',
+    },
+    {
+      'code': r'''
+        StateHook<T> useFunnyState<T>(T initialState) => useState(initialState);
+        ReducerHook<T, dynamic, dynamic> useFunnyReducer<T>(dynamic reducer, T initialState) => useReducer(reducer, initialState);
         dynamic useSomeOtherRefyThing() => null;
         final MyComponent = uiFunction<TestProps>((props) {
           var maybeRef2 = props.maybeRef2;
@@ -687,8 +709,8 @@ final Map<String, List<Map<String, Object>>> tests = {
     },
     {
       'code': r'''
-        StateHook<T> useFunnyState<T>(T initialState) {}
-        ReducerHook<T, dynamic, dynamic> useFunnyReducer<T>(dynamic reducer, T initialState) {}
+        StateHook<T> useFunnyState<T>(T initialState) => useState(initialState);
+        ReducerHook<T, dynamic, dynamic> useFunnyReducer<T>(dynamic reducer, T initialState) => useReducer(reducer, initialState);
         dynamic useSomeOtherRefyThing() => null;
         final MyComponent = uiFunction<TestProps>((props) {
           var maybeRef2 = props.maybeRef2;
@@ -1382,8 +1404,8 @@ final Map<String, List<Map<String, Object>>> tests = {
     },
     {
       'code': r'''
-        final MyComponent = uiFunction<TestProps>((_) {
-          final foo = true ? "fine" : "also fine";
+        final MyComponent = uiFunction<TestProps>((props) {
+          final foo = props.isEditMode ? "fine" : "also fine";
           return useMemo(() => foo, [foo]);
         }, null);
       ''',
@@ -2351,7 +2373,7 @@ final Map<String, List<Map<String, Object>>> tests = {
           final local = someFunc();
           useEffect(() {
             print(local);
-            // ignore: undefined_identifier
+            // ignore: undefined_identifier, not_iterable_spread
           }, [local, ...dependencies]);
         }, null);
       ''',
@@ -5737,6 +5759,7 @@ final Map<String, List<Map<String, Object>>> tests = {
     },
     {
       'code': r'''
+        // ignore_for_file: dead_code
         final MyComponent = uiFunction<TestProps>((props) {
           final handleNext1 = () {
             print('hello');
@@ -5762,11 +5785,12 @@ final Map<String, List<Map<String, Object>>> tests = {
       'errors': [
         {
           'message':
-              'The \'handleNext1\' function makes the dependencies of useEffect Hook (at line 11) change on every render. To fix this, wrap the definition of \'handleNext1\' in its own useCallback() Hook.',
+              'The \'handleNext1\' function makes the dependencies of useEffect Hook (at line 12) change on every render. To fix this, wrap the definition of \'handleNext1\' in its own useCallback() Hook.',
           'suggestions': [
             {
               'desc': 'Wrap the definition of \'handleNext1\' in its own useCallback() Hook.',
               'output': r'''
+                // ignore_for_file: dead_code
                 final MyComponent = uiFunction<TestProps>((props) {
                   final handleNext1 = useCallback(() {
                     print('hello');
@@ -5789,11 +5813,12 @@ final Map<String, List<Map<String, Object>>> tests = {
         },
         {
           'message':
-              'The \'handleNext1\' function makes the dependencies of useEffect Hook (at line 15) change on every render. To fix this, wrap the definition of \'handleNext1\' in its own useCallback() Hook.',
+              'The \'handleNext1\' function makes the dependencies of useEffect Hook (at line 16) change on every render. To fix this, wrap the definition of \'handleNext1\' in its own useCallback() Hook.',
           'suggestions': [
             {
               'desc': 'Wrap the definition of \'handleNext1\' in its own useCallback() Hook.',
               'output': r'''
+                // ignore_for_file: dead_code
                 final MyComponent = uiFunction<TestProps>((props) {
                   final handleNext1 = useCallback(() {
                     print('hello');
@@ -5816,11 +5841,12 @@ final Map<String, List<Map<String, Object>>> tests = {
         },
         {
           'message':
-              'The \'handleNext2\' function makes the dependencies of useEffect Hook (at line 11) change on every render. To fix this, wrap the definition of \'handleNext2\' in its own useCallback() Hook.',
+              'The \'handleNext2\' function makes the dependencies of useEffect Hook (at line 12) change on every render. To fix this, wrap the definition of \'handleNext2\' in its own useCallback() Hook.',
           'suggestions': [
             {
               'desc': 'Wrap the definition of \'handleNext2\' in its own useCallback() Hook.',
               'output': r'''
+                // ignore_for_file: dead_code
                 final MyComponent = uiFunction<TestProps>((props) {
                   final handleNext1 = () {
                     print('hello');
@@ -5843,11 +5869,12 @@ final Map<String, List<Map<String, Object>>> tests = {
         },
         {
           'message':
-              'The \'handleNext2\' function makes the dependencies of useEffect Hook (at line 15) change on every render. To fix this, wrap the definition of \'handleNext2\' in its own useCallback() Hook.',
+              'The \'handleNext2\' function makes the dependencies of useEffect Hook (at line 16) change on every render. To fix this, wrap the definition of \'handleNext2\' in its own useCallback() Hook.',
           'suggestions': [
             {
               'desc': 'Wrap the definition of \'handleNext2\' in its own useCallback() Hook.',
               'output': r'''
+                // ignore_for_file: dead_code
                 final MyComponent = uiFunction<TestProps>((props) {
                   final handleNext1 = () {
                     print('hello');
@@ -7030,8 +7057,8 @@ final Map<String, List<Map<String, Object>>> tests = {
     /* (1 case previously here involving class expressions was removed, since there is no equivalent in Dart) */
     {
       'code': r'''
-        final Component = uiFunction<TestProps>((_) {
-          final foo = true ? {} : "fine";
+        final Component = uiFunction<TestProps>((props) {
+          final foo = props.isEditMode ? {} : "fine";
           useMemo(() => foo, [foo]);
         }, null);
       ''',

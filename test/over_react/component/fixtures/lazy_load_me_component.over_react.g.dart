@@ -28,7 +28,8 @@ final UiFactoryConfig<_$$LazyLoadMeProps> $LazyLoadMeConfig =
 abstract class _$$LazyLoadMeProps extends UiProps
     with
         LazyLoadMePropsMixin,
-        $LazyLoadMePropsMixin // If this generated mixin is undefined, it's likely because LazyLoadMePropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of LazyLoadMePropsMixin, and check that $LazyLoadMePropsMixin is exported/imported properly.
+        // If this generated mixin is undefined, it's likely because LazyLoadMePropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of LazyLoadMePropsMixin, and check that $LazyLoadMePropsMixin is exported/imported properly.
+        $LazyLoadMePropsMixin
     implements
         LazyLoadMeProps {
   _$$LazyLoadMeProps._();

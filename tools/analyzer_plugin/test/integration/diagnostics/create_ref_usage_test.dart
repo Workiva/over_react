@@ -24,7 +24,7 @@ class CreateRefUsageDiagnosticTest extends DiagnosticTestBase {
   get fixKindUnderTest => CreateRefUsageDiagnostic.fixKind;
 
   Future<void> test_noErrorFunction() async {
-    final source = newSource('test.dart', /*language=dart*/ r'''
+    final source = newSource(/*language=dart*/ r'''
 import 'package:over_react/over_react.dart';
 
 ReactElement someFunction(Map props) {
@@ -37,7 +37,7 @@ ReactElement someFunction(Map props) {
   }
 
   Future<void> test_noErrorClassComponent() async {
-    final source = newSource('test.dart', /*language=dart*/ r'''
+    final source = newSource(/*language=dart*/ r'''
 import 'package:over_react/over_react.dart';
 
 part 'test.over_react.g.dart';
@@ -61,7 +61,7 @@ class FooComponent extends UiComponent2<FooProps> {
   }
 
   Future<void> test_noErrorUseRef() async {
-    final source = newSource('test.dart', /*language=dart*/ r'''
+    final source = newSource(/*language=dart*/ r'''
 import 'package:over_react/over_react.dart' hide createRef;
 
 part 'test.over_react.g.dart';
@@ -81,7 +81,7 @@ final Foo = uiFunction<FooProps>(
   }
 
   Future<void> test_noErrorNotFromOverReact() async {
-    final source = newSource('test.dart', /*language=dart*/ r'''
+    final source = newSource(/*language=dart*/ r'''
 import 'package:over_react/over_react.dart' hide createRef;
 
 part 'test.over_react.g.dart';
@@ -103,7 +103,7 @@ final Foo = uiFunction<FooProps>(
   /// Helper function to expect that the `createRef` usage error exists and verify that
   /// the fix will replace it with `useRef`.
   Future<void> _expectErrorAndFix(String input, String expectedOutput) async {
-    var source = newSource('test.dart', input);
+    var source = newSource(input);
     final selection = createSelection(source, "#createRef#");
 
     // Verify error.

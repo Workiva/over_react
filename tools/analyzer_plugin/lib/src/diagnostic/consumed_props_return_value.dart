@@ -129,7 +129,7 @@ class ConsumedPropsVisitor extends SimpleAstVisitor<void> {
 
   @override
   void visitMethodDeclaration(MethodDeclaration node) {
-    if (node.name.name == 'consumedProps') {
+    if (node.name.lexeme == 'consumedProps') {
       consumedPropsDeclarations.add(node);
     }
   }

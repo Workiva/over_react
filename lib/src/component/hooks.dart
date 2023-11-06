@@ -321,7 +321,49 @@ T useContext<T>(Context<T> context) => react_hooks.useContext(context.reactDartC
 /// ```
 ///
 /// Learn more: <https://reactjs.org/docs/hooks-reference.html#useref>.
-Ref<T> useRef<T>([T initialValue]) => react_hooks.useRef(initialValue);
+Ref<T> useRef<T>([
+  // This will eventually be deprecated, but not just yet.
+  // @Deprecated('Use `useRefInit` instead to create refs with initial values.'
+  //     ' Since the argument to useRefInit is required, it can be used to create a Ref that holds a non-nullable type,'
+  //     ' whereas this function can only create Refs with nullable type arguments.')
+  T initialValue,
+]) =>
+    react_hooks.useRef(initialValue);
+
+/// Returns a mutable [Ref] object with [Ref.current] property initialized to [initialValue].
+///
+/// Changes to the [Ref.current] property do not cause the containing [uiFunction] to re-render.
+///
+/// The returned [Ref] object will persist for the full lifetime of the [uiFunction].
+/// Compare to [createRef] which returns a new [Ref] object on each render.
+///
+/// > __Note:__ there are two [rules for using Hooks](https://reactjs.org/docs/hooks-rules.html):
+/// >
+/// > * Only call Hooks at the top level.
+/// > * Only call Hooks from inside a [uiFunction].
+///
+/// __Example__:
+///
+/// ```dart
+/// UiFactory<UseRefExampleProps> UseRefExample = uiFunction(
+///   (props) {
+///     final countRef = useRefInit(0);
+///
+///     handleClick([_]) {
+///       ref.current = ref.current + 1;
+///       window.alert('You clicked ${ref.current} times!');
+///     }
+///
+///     return Fragment()(
+///       (Dom.button()..onClick = handleClick)('Click me!'),
+///     );
+///   },
+///   _$UseRefExampleConfig, // ignore: undefined_identifier
+/// );
+/// ```
+///
+/// Learn more: <https://reactjs.org/docs/hooks-reference.html#useref>.
+Ref<T> useRefInit<T>(T initialValue) => react_hooks.useRefInit(initialValue);
 
 /// Returns a memoized version of the return value of [createFunction].
 ///

@@ -1,4 +1,5 @@
 import 'package:analyzer/dart/ast/ast.dart';
+import 'package:analyzer/dart/ast/token.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:over_react_analyzer_plugin/src/util/hooks.dart';
 
@@ -46,7 +47,7 @@ class FunctionComponent {
   /// The name of this function component's factory, if it exists and could be found.
   ///
   /// See [factoryVariable] for more info on when this may be null.
-  SimpleIdentifier? get factoryName => factoryVariable?.name;
+  Token? get factoryName => factoryVariable?.name;
 }
 
 FunctionComponent? getClosestFunctionComponent(AstNode node) {

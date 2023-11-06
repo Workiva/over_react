@@ -16,6 +16,7 @@ import 'dart:mirrors';
 
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:build/build.dart' show AssetId;
+import 'package:over_react/src/builder/parsing.dart';
 import 'package:path/path.dart' as p;
 import 'package:source_span/source_span.dart';
 
@@ -87,7 +88,7 @@ String messageWithSpan(String message, {SourceSpan span}) {
 
 /// Returns any [FieldDeclaration]s on [node] which have the name `meta`,
 /// otherwise `null`.
-FieldDeclaration metaFieldOrNull(ClassOrMixinDeclaration node) {
+FieldDeclaration metaFieldOrNull(ClassishDeclaration node) {
   return node.members.whereType<FieldDeclaration>().firstWhere(fieldDeclarationHasMeta,
       orElse: () => null);
 }
@@ -107,7 +108,7 @@ bool fieldDeclarationHasName(FieldDeclaration field, String name) {
 
 /// Returns any [MethodDeclaration]s on [node] which have the name `meta`,
 /// otherwise `null`.
-MethodDeclaration metaMethodOrNull(ClassOrMixinDeclaration node) {
+MethodDeclaration metaMethodOrNull(ClassishDeclaration node) {
   return node.members.whereType<MethodDeclaration>().firstWhere((member) =>
       member.name.name == 'meta',
       orElse: () => null);

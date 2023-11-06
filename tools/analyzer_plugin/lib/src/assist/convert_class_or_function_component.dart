@@ -45,9 +45,9 @@ class ConvertClassOrFunctionComponentAssistContributor extends AssistContributor
   Future<void> _tryConvertClassComponent(ClassDeclaration closestClass) async {
     // todo use over_react builders' boilerplate parsing to get the associated factory and config instead of this logic
 
-    if (!closestClass.name.name.endsWith('Component')) return;
+    if (!closestClass.name.lexeme.endsWith('Component')) return;
 
-    final name = closestClass.name.name.substring(0, closestClass.name.name.length - 'Component'.length);
+    final name = closestClass.name.lexeme.substring(0, closestClass.name.lexeme.length - 'Component'.length);
     final generatedFactoryConfigName = '_\$${name}Config';
 
     final factory = node
@@ -55,7 +55,7 @@ class ConvertClassOrFunctionComponentAssistContributor extends AssistContributor
         ?.declarations
         .whereType<TopLevelVariableDeclaration>()
         .expand((element) => element.variables.variables)
-        .firstWhere((element) => element.name.name == name);
+        .firstWhere((element) => element.name.lexeme == name);
     if (factory == null) return;
 
     final factoryDecl = factory.thisOrAncestorOfType<TopLevelVariableDeclaration>()!;
@@ -65,7 +65,7 @@ class ConvertClassOrFunctionComponentAssistContributor extends AssistContributor
 
     // todo migrate defaults?
 
-    final render = closestClass.members.whereType<MethodDeclaration>().firstWhereOrNull((m) => m.name.name == 'render');
+    final render = closestClass.members.whereType<MethodDeclaration>().firstWhereOrNull((m) => m.name.lexeme == 'render');
     if (render == null) return;
 
     final renderBody = render.body;
@@ -137,7 +137,7 @@ class ConvertClassOrFunctionComponentAssistContributor extends AssistContributor
 
     // todo use over_react builders' boilerplate parsing to get the associated factory and name of assiciated props class instead of this logic
 
-    final name = factory.name.name;
+    final name = factory.name.lexeme;
     final componentClassName = '${name}Component';
     final generatedFactoryName = '_\$$name';
     final propsClassName = '${name}Props';
@@ -159,7 +159,7 @@ class ConvertClassOrFunctionComponentAssistContributor extends AssistContributor
                   .thisOrAncestorOfType<CompilationUnit>()
                   ?.declarations
                   .whereType<NamedCompilationUnitMember>()
-                  .firstWhereOrNull((element) => element.name.name == propsClassName) ??
+                  .firstWhereOrNull((element) => element.name.lexeme == propsClassName) ??
               factoryInitializer.thisOrAncestorOfType<CompilationUnitMember>()!)
           .end;
 

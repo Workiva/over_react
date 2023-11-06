@@ -1,5 +1,22 @@
 # OverReact Changelog
 
+## [4.10.3](https://github.com/Workiva/over_react/compare/4.10.2...4.10.3)
+- [#846] Update internals to prepare for react-dart 7.0.0
+
+## [4.10.2](https://github.com/Workiva/over_react/compare/4.10.0...4.10.2)
+- [#835] Upgrade dependencies, notably jumping to analyzer 5.x
+     - analyzer: `^5.1.0` (was `>=1.7.2 <3.0.0`)
+     - dart_style: `^2.0.0` (was `>=1.2.5 <3.0.0`)
+     - w_common: `^3.0.0` (was `>=2.0.0 <4.0.0`)
+
+## [4.10.0](https://github.com/Workiva/over_react/compare/4.9.1...4.10.0)
+- [#829] Add improved prop forwarding methods (`UiProps.getPropsToForward`/`.addPropsToForward`)
+- [#809], [#826], [#827] Example app dependency updates
+
+
+## [4.9.1](https://github.com/Workiva/over_react/compare/4.9.0...4.9.1)
+- [#824] Update 3rd party dependencies
+
 ## [4.9.0](https://github.com/Workiva/over_react/compare/4.8.5...4.9.0)
 - [#820] Add Suspense Component
 - [#819] More dependency updates
@@ -30,9 +47,9 @@
 
 ## [4.6.0](https://github.com/Workiva/over_react/compare/4.5.0...4.6.0)
 #### Analyzer Plugin
-- [#788] Add new `over_react_hooks_exhaustive_deps` diagnostic that validates the dependency lists of React hooks such as `useEffect`, `useMemo`, and `useCallback`. 
-  
-  Ported/forked from the JS eslint-plugin-react-hooks `react-hooks/exhaustive-deps` rule 
+- [#788] Add new `over_react_hooks_exhaustive_deps` diagnostic that validates the dependency lists of React hooks such as `useEffect`, `useMemo`, and `useCallback`.
+
+  Ported/forked from the JS eslint-plugin-react-hooks `react-hooks/exhaustive-deps` rule
 ([info from the React docs](https://reactjs.org/docs/hooks-effect.html#:~:text=If%20you%20use%20this%20optimization%2C%20make%20sure%20the%20array%20includes),
  [package](https://www.npmjs.com/package/eslint-plugin-react-hooks),
  [source](https://github.com/facebook/react/blob/main@%7B2020-10-16%7D/packages/eslint-plugin-react-hooks/src/ExhaustiveDeps.js)),

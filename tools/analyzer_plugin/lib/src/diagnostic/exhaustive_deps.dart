@@ -546,7 +546,8 @@ class ExhaustiveDeps extends DiagnosticContributor {
       }
 
       // useRef() return value is stable.
-      if (init.tryCast<InvocationExpression>()?.function.tryCast<Identifier>()?.name == 'useRef') {
+      if (const {'useRef', 'useRefInit'}
+          .contains(init.tryCast<InvocationExpression>()?.function.tryCast<Identifier>()?.name)) {
         return true;
       }
 
@@ -576,11 +577,15 @@ class ExhaustiveDeps extends DiagnosticContributor {
       // Does this function capture any values
       // that are in pure scopes (aka render)?
       final referencedElements = resolvedReferencesWithin(fnNode.body);
-      for (final ref in referencedElements) {
-        if (isDeclaredInPureScope(ref.staticElement!) &&
-            // Stable values are fine though,
-            // although we won't check functions deeper.
-            !memoizedIsStableKnownHookValue(ref)) {
+      for (final referenceUnion in referencedElements) {
+        if (referenceUnion.switchCase(
+          (identifier) =>
+              isDeclaredInPureScope(identifier.staticElement!) &&
+              // Stable values are fine though,
+              // although we won't check functions deeper.
+              !memoizedIsStableKnownHookValue(identifier),
+          (_) => false,
+        )) {
           return false;
         }
       }
@@ -607,7 +612,7 @@ class ExhaustiveDeps extends DiagnosticContributor {
 
     // The original implementation needs to recurse to process references in child scopes,
     // but we can process all descendant references regardless of scope in one go.
-    for (final reference in resolvedReferencesWithin(callbackFunction)) {
+    for (final referenceUnion in resolvedReferencesWithin(callbackFunction)) {
       // debug(
       //     'reference.staticElement.ancestors: \n${prettyPrint(reference.staticElement.ancestors.map(elementDebugString).toList())}',
       //     reference);
@@ -618,57 +623,87 @@ class ExhaustiveDeps extends DiagnosticContributor {
       // Note that with the implementation of `resolvedReferencesWithin`,
       // this is also necessary to filter out references to properties on object.
 
-      final referenceElement = reference.staticElement;
+      final referenceElement = referenceUnion.switchCase(
+        (identifier) => identifier.staticElement,
+        (namedType) => namedType.element,
+      );
       if (referenceElement == null) continue;
 
       if (!isDeclaredInPureScope(referenceElement)) {
         continue;
       }
 
-      // Narrow the scope of a dependency if it is, say, a member expression.
-      // Then normalize the narrowed dependency.
-      final dependencyNode = getDependency(reference);
-      final isUsedAsCascadeTarget = dependencyNode.parent?.tryCast<CascadeExpression>()?.target == dependencyNode;
-      final dependency = analyzePropertyChain(
-        dependencyNode,
-        optionalChains,
-        isInvocationAllowedForNode: true,
-      );
-      debug(() {
-        return prettyPrint({
-          'dependency': dependency,
-          'dependencyNode': '${dependencyNode.runtimeType} $dependencyNode',
-          'reference': '${reference.runtimeType} $reference',
-          'isUsedAsCascadeTarget': isUsedAsCascadeTarget,
-        });
-      }, dependencyNode);
+      // Use `late` because we're using Union.switchCase, meaning the analyzer can't ensure these variables
+      // are definitely assigned.
+      late String dependency;
+      late bool isStable;
+      late bool isUsedAsCascadeTarget;
+      referenceUnion.switchCase(
+        // Identifier case. This will be most refernces.
+        (reference) {
+          // Narrow the scope of a dependency if it is, say, a member expression.
+          // Then normalize the narrowed dependency.
+          final dependencyNode = getDependency(reference);
+          isUsedAsCascadeTarget = dependencyNode.parent?.tryCast<CascadeExpression>()?.target == dependencyNode;
+          dependency = analyzePropertyChain(
+            dependencyNode,
+            optionalChains,
+            isInvocationAllowedForNode: true,
+          );
+          isStable =
+              memoizedIsStableKnownHookValue(reference) || memoizedIsFunctionWithoutCapturedValues(referenceElement);
 
-      // Accessing ref.current inside effect cleanup is bad.
-      if (
-          // We're in an effect...
-          isEffect &&
-              // ... and this look like accessing .current...
-              dependencyNode is Identifier &&
-              getNonCascadedPropertyBeingAccessed(dependencyNode.parent)?.name == 'current' &&
-              // ...in a cleanup function or below...
-              isInsideEffectCleanup(reference)) {
-        currentRefsInEffectCleanup[dependency] = _RefInEffectCleanup(
-          reference: reference,
-          referenceElement: referenceElement,
-        );
-      }
+          debug(() {
+            return prettyPrint({
+              'dependency': dependency,
+              'dependencyNode': '${dependencyNode.runtimeType} $dependencyNode',
+              'reference': '${reference.runtimeType} $reference',
+              'isUsedAsCascadeTarget': isUsedAsCascadeTarget,
+            });
+          }, dependencyNode);
+
+          // Accessing ref.current inside effect cleanup is bad.
+          if (
+              // We're in an effect...
+              isEffect &&
+                  // ... and this look like accessing .current...
+                  dependencyNode is Identifier &&
+                  getNonCascadedPropertyBeingAccessed(dependencyNode.parent)?.name == 'current' &&
+                  // ...in a cleanup function or below...
+                  isInsideEffectCleanup(reference)) {
+            currentRefsInEffectCleanup[dependency] = _RefInEffectCleanup(
+              reference: reference,
+              referenceElement: referenceElement,
+            );
+          }
+        },
+        // NamedType case. This is for references to generic type parameters
+        // (references to other types will get filtered out by the isDeclaredInPureScope check above).
+        (reference) {
+          dependency = reference.name.name;
+          // These aren't possible for type annotations.
+          isStable = false;
+          isUsedAsCascadeTarget = false;
+
+          debug(() {
+            return prettyPrint({
+              'dependency': dependency,
+              'reference': '${reference.runtimeType} $reference',
+            });
+          }, reference);
+        },
+      );
 
       // Add the dependency to a map so we can make sure it is referenced
       // again in our dependencies array. Remember whether it's stable.
       dependencies.putIfAbsent(dependency, () {
         return _Dependency(
-          isStable:
-              memoizedIsStableKnownHookValue(reference) || memoizedIsFunctionWithoutCapturedValues(referenceElement),
+          isStable: isStable,
           references: [],
         );
       })
         // Note that for the the `state.set` case, the reference is still `state`.
-        ..references.add(reference)
+        ..references.add(referenceUnion)
         ..isUsedSomewhereAsCascadeTarget |= isUsedAsCascadeTarget;
     }
 
@@ -732,10 +767,10 @@ class ExhaustiveDeps extends DiagnosticContributor {
       if (dep.isStable) {
         stableDependencies.add(key);
       }
-      for (final reference in dep.references) {
-        final parent = reference.parent;
+      for (final referenceUnion in dep.references) {
+        final parent = referenceUnion.either.parent;
         // TODO(greg) make a utility to check for assignments
-        if (parent is AssignmentExpression && parent.leftHandSide == reference) {
+        if (parent is AssignmentExpression && parent.leftHandSide == referenceUnion.either) {
           reportStaleAssignment(parent, key);
         }
       }
@@ -755,17 +790,18 @@ class ExhaustiveDeps extends DiagnosticContributor {
         if (setStateInsideEffectWithoutDeps != null) {
           return;
         }
-        for (final reference in references) {
+        for (final referenceUnion in references) {
           if (setStateInsideEffectWithoutDeps != null) {
             continue;
           }
 
-          final isSetState = setStateCallSites.has(reference);
+          final isSetState = referenceUnion.switchCase(setStateCallSites.has, (_) => false);
           if (!isSetState) {
             continue;
           }
 
-          final isDirectlyInsideEffect = reference.thisOrAncestorOfType<FunctionBody>() == callbackFunction.body;
+          final isDirectlyInsideEffect =
+              referenceUnion.either.thisOrAncestorOfType<FunctionBody>() == callbackFunction.body;
           if (isDirectlyInsideEffect) {
             // TODO(ported): we could potentially ignore early returns.
             setStateInsideEffectWithoutDeps = key;
@@ -1080,7 +1116,7 @@ class ExhaustiveDeps extends DiagnosticContributor {
                   // This also preserves generic function expressions.
                   // `void something<T generic>(T arg) {…}` -> `final something = useCallback(<T>(T arg) {…}, […]);`
                   builder.addSimpleReplacement(range.startEnd(construction, construction.name),
-                      'final ${construction.name.name} = useCallback(');
+                      'final ${construction.name.lexeme} = useCallback(');
                   // TODO(ported): ideally we'd gather deps here but it would require
                   //  restructuring the rule code. Note we're
                   //  not adding [] because would that changes semantics.
@@ -1267,38 +1303,44 @@ class ExhaustiveDeps extends DiagnosticContributor {
         final usedDep = dependencies[missingDep];
         if (usedDep == null) return false;
 
-        return usedDep.references.any((ref) {
-          final element = ref.staticElement;
-          if (element != null && isPropVariable(element)) {
-            // foo()
-            if (ref.parent.tryCast<InvocationExpression>()?.function == ref) {
-              return true;
-            }
-            // foo.call()
-            final inv = PropertyInvocation.detectClosest(ref);
-            if (inv != null) {
-              return inv.target == ref && inv.functionName.name == 'call';
-            }
-          }
-
-          if (element != null && isProps(element)) {
-            final inv = PropertyInvocation.detectClosest(ref);
-            if (inv != null) {
-              final target = inv.target;
-              // props.foo()
-              if (target == ref) {
-                return true;
+        return usedDep.references.any((union) {
+          return union.switchCase(
+            (ref) {
+              final element = ref.staticElement;
+              if (element != null && isPropVariable(element)) {
+                // foo()
+                if (ref.parent.tryCast<InvocationExpression>()?.function == ref) {
+                  return true;
+                }
+                // foo.call()
+                final inv = PropertyInvocation.detectClosest(ref);
+                if (inv != null) {
+                  return inv.target == ref && inv.functionName.name == 'call';
+                }
               }
-              // props.foo.call()
-              if (inv.functionName.name == 'call' &&
-                  target != null &&
-                  getSimpleTargetAndPropertyName(target, allowMethodInvocation: false)?.item1 == ref) {
-                return true;
-              }
-            }
-          }
 
-          return false;
+              if (element != null && isProps(element)) {
+                final inv = PropertyInvocation.detectClosest(ref);
+                if (inv != null) {
+                  final target = inv.target;
+                  // props.foo()
+                  if (target == ref) {
+                    return true;
+                  }
+                  // props.foo.call()
+                  if (inv.functionName.name == 'call' &&
+                      target != null &&
+                      getSimpleTargetAndPropertyName(target, allowMethodInvocation: false)?.item1 == ref) {
+                    return true;
+                  }
+                }
+              }
+
+              return false;
+            },
+            // This check isn't relevant for NamedType references.
+            (_) => false,
+          );
         });
       }).toList();
       if (missingCallbackDeps.isNotEmpty) {
@@ -1319,7 +1361,12 @@ class ExhaustiveDeps extends DiagnosticContributor {
           break;
         }
         final usedDep = dependencies[missingDep]!;
-        for (final reference in usedDep.references) {
+        for (final referenceUnion in usedDep.references) {
+          // Filter out NamedType (generic type parameters) since this check isn't relevant to them.
+          // Use a LHS type to ensure we're picking the correct type from the union.
+          // ignore: omit_local_variable_types
+          final Identifier? reference = referenceUnion.a;
+          if (reference == null) continue;
           // Try to see if we have setState(someExpr(missingDep)).
           for (var maybeCall = reference.parent;
               maybeCall != null && maybeCall != componentOrCustomHookFunction?.body;
@@ -1335,7 +1382,7 @@ class ExhaustiveDeps extends DiagnosticContributor {
                   // This case is necessary for `stateVar.set` calls, since key for setStateCallSites is the `stateVar` identifier, not `set`.
                   setStateCallSites.getNullableKey(maybeCall.tryCast<MethodInvocation>()?.target.tryCast());
               if (correspondingStateVariable != null) {
-                if ('${correspondingStateVariable.name.name}.value' == missingDep) {
+                if ('${correspondingStateVariable.name.lexeme}.value' == missingDep) {
                   // setCount(count + 1)
                   setStateRecommendation = _SetStateRecommendation(
                     missingDep: missingDep,
@@ -1516,7 +1563,7 @@ class ReactiveHookCallbackInfo {
 class _Dependency {
   final bool isStable;
 
-  final List<Identifier> references;
+  final List<Union<Identifier, NamedType>> references;
 
   bool isUsedSomewhereAsCascadeTarget = false;
 
@@ -1525,7 +1572,7 @@ class _Dependency {
   @override
   String toString() => prettyPrint({
         'isStable': isStable,
-        'references': references,
+        'references': references.map((r) => r.either).toList(),
         'isUsedSomewhereAsCascadeTarget': isUsedSomewhereAsCascadeTarget,
       });
 }
@@ -1544,8 +1591,25 @@ class _RefInEffectCleanup {
       });
 }
 
-Iterable<Identifier> resolvedReferencesWithin(AstNode node) =>
-    allDescendantsOfType<Identifier>(node).where((e) => e.staticElement != null);
+Iterable<Union<Identifier, NamedType>> resolvedReferencesWithin(AstNode node) sync* {
+  for (final descendant in allDescendants(node)) {
+    if (descendant is Identifier) {
+      if (descendant.staticElement != null) {
+        yield Union.a(descendant);
+      }
+    } else if (descendant is NamedType) {
+      if (descendant.element != null) {
+        yield Union.b(descendant);
+      }
+    }
+  }
+}
+
+extension on NamedType {
+  // NamedType.element is added in analyzer 5.11.0; we can't resolve to that version in Dart 2.18,
+  // so we'll add it here so we don't have to go back through and change it later.
+  Element? get element => name.staticElement;
+}
 
 enum HookTypeWithStableMethods { stateHook, reducerHook, transitionHook }
 
@@ -1658,7 +1722,7 @@ bool _hasDeclarationWithName(FunctionBody body, String childName) {
   // Use a visitor so we properly handle declarations inside blocks.
   var hasMatch = false;
   body.visitChildren(_ChildLocalVariableOrFunctionDeclarationVisitor((_, name) {
-    if (name.name == childName) {
+    if (name.lexeme == childName) {
       hasMatch = true;
     }
   }));
@@ -1666,7 +1730,7 @@ bool _hasDeclarationWithName(FunctionBody body, String childName) {
 }
 
 class _ChildLocalVariableOrFunctionDeclarationVisitor extends RecursiveAstVisitor<void> {
-  final void Function(Declaration, SimpleIdentifier name) onChildLocalDeclaration;
+  final void Function(Declaration, Token name) onChildLocalDeclaration;
 
   _ChildLocalVariableOrFunctionDeclarationVisitor(this.onChildLocalDeclaration);
 
@@ -1922,7 +1986,7 @@ _Recommendations collectRecommendations({
 String? getConstructionExpressionType(Expression node) {
   if (node is InstanceCreationExpression) {
     if (node.isConst) return null;
-    return node.constructorName.type2.name.name;
+    return node.constructorName.type.name.name;
   } else if (node is ListLiteral) {
     return _DepType.list;
   } else if (node is SetOrMapLiteral) {

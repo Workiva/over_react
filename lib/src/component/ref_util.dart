@@ -22,6 +22,8 @@ import 'package:react/react_client/react_interop.dart' as react_interop;
 import 'package:react/react_client.dart';
 import 'package:over_react/component_base.dart';
 
+import './react_dart_deprecated_forward_ref.dart' as react_dart_old_forward_ref;
+
 /// Creates a [Ref] object that can be attached to a [ReactElement] via the ref prop.
 ///
 /// __Example__:
@@ -224,7 +226,7 @@ UiFactory<TProps> Function(UiFactory<TProps>) forwardRef<TProps extends UiProps>
       return wrapperFunction(factory(props), ref);
     }
 
-    ReactComponentFactoryProxy hoc = react_interop.forwardRef(wrapProps, displayName: displayName);
+    final hoc = react_dart_old_forward_ref.forwardRef(wrapProps, displayName: displayName);
     setComponentTypeMeta(hoc.type, isHoc: true, parentType: factory().componentFactory.type);
 
     TProps forwardedFactory([Map props]) {

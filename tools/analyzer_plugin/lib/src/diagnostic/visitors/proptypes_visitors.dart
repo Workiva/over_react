@@ -20,7 +20,7 @@ class PropTypesVisitor extends SimpleAstVisitor<void> {
 
   @override
   void visitMethodDeclaration(MethodDeclaration node) {
-    if (node.name.name == 'propTypes') {
+    if (node.name.lexeme == 'propTypes') {
       node.body.accept(mapVisitor);
     }
   }
