@@ -16,11 +16,11 @@ dependency_overrides:
 
   react:
     git:
-      url: ssh://git@github.com/Workiva/react-dart.git
+      url: https://github.com/Workiva/react-dart.git
       ref: v7_wip
   w_flux:
     git:
-      url: ssh://git@github.com/Workiva/w_flux.git
+      url: https://github.com/Workiva/w_flux.git
       ref: null-safety-3
 workiva:
   core_checks:
