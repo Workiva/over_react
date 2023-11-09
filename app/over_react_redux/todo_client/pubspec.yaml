@@ -8,7 +8,7 @@ dependencies:
   color: ^3.0.0
   memoize: ^3.0.0
   meta: ^1.6.0
-  over_react: ^4.8.4
+  over_react: ^4.10.3
   json_annotation: ^4.6.0
   redux: '>=3.0.0 <6.0.0'
   redux_dev_tools: '>=0.4.0 <0.8.0'
@@ -21,7 +21,7 @@ dev_dependencies:
   dart_dev: ^4.0.0
   glob: ^2.0.0
   json_serializable: ^6.0.0
-  over_react_test: ^2.10.2
+  over_react_test: ^2.11.6
   pedantic: ^1.8.0
   test: ^1.15.7
   test_html_builder: ^3.0.0
