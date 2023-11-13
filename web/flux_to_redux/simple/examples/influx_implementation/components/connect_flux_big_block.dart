@@ -33,7 +33,7 @@ UiFactory<ConnectFluxBigBlockProps> ConnectFluxBigBlock =
   // [5]
   mapStateToProps: (state) => (ConnectFluxBigBlock()..backgroundColor = state.backgroundColor),
   mapActionsToProps: (actions) =>
-      (ConnectFluxBigBlock()..changeBackgroundColor = actions!.changeBackgroundColor),
+      (ConnectFluxBigBlock()..changeBackgroundColor = actions.changeBackgroundColor),
 )(castUiFactory(_$ConnectFluxBigBlock)); // ignore: undefined_identifier
 
 mixin ConnectFluxBigBlockPropsMixin on UiProps {

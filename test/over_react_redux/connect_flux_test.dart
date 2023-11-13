@@ -87,7 +87,7 @@ main() {
           ConnectedCounter = connectFlux<FluxStore, FluxActions, ConnectFluxCounterProps>(
             mapStateToProps: (state) => (ConnectFluxCounter()..currentCount = state.count),
             mapActionsToProps: (actions) => (ConnectFluxCounter()
-              ..increment = actions!.incrementAction
+              ..increment = actions.incrementAction
               ..decrement = actions.decrementAction),
           )(ConnectFluxCounter);
 
@@ -143,7 +143,7 @@ main() {
           ConnectedCounter = connectFlux<FluxStore, FluxActions, ConnectFluxCounterProps>(
               mapStateToProps: (state) => (ConnectFluxCounter()..currentCount = state.count),
               mapActionsToProps: (actions) => (ConnectFluxCounter()
-                ..increment = actions!.incrementAction
+                ..increment = actions.incrementAction
                 ..decrement = actions.decrementAction),
               forwardRef: true)(ConnectFluxCounter);
 
@@ -189,7 +189,7 @@ main() {
             mapStateToPropsWithOwnProps: (state, ownProps) =>
                 (ConnectFluxCounter()..currentCount = state.count),
             mapActionsToProps: (actions) => (ConnectFluxCounter()
-              ..increment = actions!.incrementAction
+              ..increment = actions.incrementAction
               ..decrement = actions.decrementAction),
             forwardRef: true,
           )(ConnectFluxCounter);
@@ -223,7 +223,7 @@ main() {
               return ConnectFluxCounter()..currentCount = state.count;
             },
             mapActionsToProps: (actions) => (ConnectFluxCounter()
-              ..increment = actions!.incrementAction
+              ..increment = actions.incrementAction
               ..decrement = actions.decrementAction),
             forwardRef: true,
           )(ConnectFluxCounter);
@@ -261,7 +261,7 @@ main() {
               return ConnectFluxCounter()..currentCount = state.count;
             },
             mapActionsToProps: (actions) => (ConnectFluxCounter()
-              ..increment = actions!.incrementAction
+              ..increment = actions.incrementAction
               ..decrement = actions.decrementAction),
             forwardRef: true,
           )(ConnectFluxCounter);
@@ -296,7 +296,7 @@ main() {
           ConnectedCounter = connectFlux<FluxStore, FluxActions, ConnectFluxCounterProps>(
             mapStateToProps: (state) => (ConnectFluxCounter()..currentCount = state.count),
             mapActionsToProps: (actions) {
-              return ConnectFluxCounter()..decrement = actions!.decrementAction;
+              return ConnectFluxCounter()..decrement = actions.decrementAction;
             },
             mergeProps: (stateProps, dispatchProps, ownProps) {
               propsReferences.addAll([stateProps, dispatchProps, ownProps]);
@@ -387,7 +387,7 @@ main() {
                 return ConnectFluxCounter()..currentCount = state.count;
               },
               mapActionsToProps: (actions) =>
-                  (ConnectFluxCounter()..increment = actions!.incrementAction),
+                  (ConnectFluxCounter()..increment = actions.incrementAction),
               areStatePropsEqual: (next, prev) {
                 methodsCalled.add({
                   'called': 'areStatePropsEqual',
@@ -553,7 +553,7 @@ main() {
             mapStateToProps: (state) => (ConnectFluxCounter()..currentCount = state.count),
             mapActionsToProps: (actions) {
               return ConnectFluxCounter()
-                ..increment = actions!.incrementAction
+                ..increment = actions.incrementAction
                 ..decrement = actions.decrementAction;
             },
             forwardRef: true,
@@ -561,7 +561,7 @@ main() {
           ConnectFluxCounterProps Function([Map<dynamic, dynamic>]) ConnectedBigCounter = connectFlux<FluxStore2, FluxActions, ConnectFluxCounterProps>(
             mapStateToProps: (state) => (ConnectFluxCounter()..currentCount = state.count),
             mapActionsToProps: (actions) => (ConnectFluxCounter()
-              ..increment = actions!.incrementAction
+              ..increment = actions.incrementAction
               ..decrement = actions.decrementAction),
             context: bigCounterContext,
             forwardRef: true,
@@ -593,7 +593,7 @@ main() {
           ConnectedCounter = connectFlux<FluxStore, FluxActions, ConnectFluxCounterProps>(
             mapStateToProps: (state) => (ConnectFluxCounter()..currentCount = state.count),
             mapActionsToProps: (actions) => (ConnectFluxCounter()
-              ..increment = actions!.incrementAction
+              ..increment = actions.incrementAction
               ..decrement = actions.decrementAction),
             forwardRef: true,
           )(ConnectFluxCounter);
@@ -601,7 +601,7 @@ main() {
           ConnectFluxCounterProps Function([Map<dynamic, dynamic>]) ConnectedBigCounter = connectFlux<FluxStore2, FluxActions, ConnectFluxCounterProps>(
             mapStateToProps: (state) => (ConnectFluxCounter()..currentCount = state.count),
             mapActionsToProps: (actions) => (ConnectFluxCounter()
-              ..increment = actions!.incrementAction
+              ..increment = actions.incrementAction
               ..decrement = actions.decrementAction),
             context: bigCounterContext,
             forwardRef: true,
@@ -734,7 +734,7 @@ main() {
         mapStateToProps: (state) =>
             (ConnectFluxCounter()..mutatedList = state.listYouDefShouldntMutate),
         mapActionsToProps: (actions) =>
-            (ConnectFluxCounter()..mutateStoreDirectly = actions!.mutateStoreDirectly),
+            (ConnectFluxCounter()..mutateStoreDirectly = actions.mutateStoreDirectly),
       )(ConnectFluxCounter);
 
       final jacket = mount((ReduxProvider()..store = store1)(

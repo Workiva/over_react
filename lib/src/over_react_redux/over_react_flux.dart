@@ -436,8 +436,8 @@ UiFactory<TProps> Function(UiFactory<TProps>)
     connectFlux<TStore extends flux.Store, TActions, TProps extends UiProps>({
   Map Function(TStore state)? mapStateToProps,
   Map Function(TStore state, TProps ownProps)? mapStateToPropsWithOwnProps,
-  Map Function(TActions? actions)? mapActionsToProps,
-  Map Function(TActions? actions, TProps ownProps)? mapActionsToPropsWithOwnProps,
+  Map Function(TActions actions)? mapActionsToProps,
+  Map Function(TActions actions, TProps ownProps)? mapActionsToPropsWithOwnProps,
   Map Function(TProps stateProps, TProps dispatchProps, TProps ownProps)?
       mergeProps,
   // Use default parameter values instead of ??= in the function body to allow consumers
@@ -519,7 +519,7 @@ UiFactory<TProps> Function(UiFactory<TProps>)
       Map wrappedMapStateToProps(TStore state) {
         return {
           ...originalMapStateToProps!(state),
-          ...mapActionsToProps!(actionsForStore[state] as TActions?),
+          ...mapActionsToProps!(actionsForStore[state] as TActions),
         };
       }
 
@@ -530,7 +530,7 @@ UiFactory<TProps> Function(UiFactory<TProps>)
     if (case4) {
       mapStateToProps = (state) {
         return {
-          ...mapActionsToProps!(actionsForStore[state] as TActions?),
+          ...mapActionsToProps!(actionsForStore[state] as TActions),
         };
       };
     }
@@ -542,7 +542,7 @@ UiFactory<TProps> Function(UiFactory<TProps>)
         return {
           ...originalMapStateWithOwnProps!(state, ownProps),
           ...mapActionsToPropsWithOwnProps!(
-              actionsForStore[state] as TActions?, ownProps),
+              actionsForStore[state] as TActions, ownProps),
         };
       }
 
@@ -554,7 +554,7 @@ UiFactory<TProps> Function(UiFactory<TProps>)
       mapStateToPropsWithOwnProps = (state, ownProps) {
         return {
           ...mapActionsToPropsWithOwnProps!(
-              actionsForStore[state] as TActions?, ownProps),
+              actionsForStore[state] as TActions, ownProps),
         };
       };
     }
@@ -568,7 +568,7 @@ UiFactory<TProps> Function(UiFactory<TProps>)
         return {
           ...newMapStateToProps!(state),
           ...mapActionsToPropsWithOwnProps!(
-              actionsForStore[state] as TActions?, ownProps),
+              actionsForStore[state] as TActions, ownProps),
         };
       };
 
@@ -583,7 +583,7 @@ UiFactory<TProps> Function(UiFactory<TProps>)
       Map wrappedMapStateToPropsWithOwnProps(TStore state, TProps ownProps) {
         return {
           ...originalMapStateWithOwnProps!(state, ownProps),
-          ...mapActionsToProps!(actionsForStore[state] as TActions?),
+          ...mapActionsToProps!(actionsForStore[state] as TActions),
         };
       }
 
