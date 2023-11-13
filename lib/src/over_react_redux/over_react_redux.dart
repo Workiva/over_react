@@ -423,7 +423,7 @@ class JsReactRedux {
 @Props(keyNamespace: '')
 mixin ReduxProviderPropsMixin on UiProps {
   /// The __single__ Redux store in your application.
-  Store? store;
+  late Store store;
 
   /// You may provide a context instance. If you do so, you will need to provide the same context
   /// instance to all of your connected components as well.
