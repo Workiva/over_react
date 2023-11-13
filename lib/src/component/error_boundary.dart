@@ -123,12 +123,12 @@ mixin ErrorBoundaryState on UiState {
   ///   more frequently than [ErrorBoundaryProps.identicalErrorFrequencyTolerance], a static copy of
   ///   the render tree's HTML that was captured at the time of the error will be rendered.
   ///   See: [ErrorBoundaryProps.onComponentIsUnrecoverable] for more information about this scenario.
-  bool? hasError;
+  late bool hasError;
 
   /// Whether to show "fallback" UI when [hasError] is true.
   ///
   /// This value will always be true if [ErrorBoundaryProps.fallbackUIRenderer] is non-null.
-  bool? showFallbackUIOnError;
+  late bool showFallbackUIOnError;
 }
 
 @Component2(isWrapper: true, isErrorBoundary: true)
@@ -208,7 +208,7 @@ class ErrorBoundaryComponent
 
   @override
   render() {
-    if (state.hasError!) { // [2]
+    if (state.hasError) { // [2]
       return (Dom.div()
         ..key = 'ohnoes'
         ..addTestId('ErrorBoundary.unrecoverableErrorInnerHtmlContainerNode')
@@ -224,7 +224,7 @@ class ErrorBoundaryComponent
   void componentDidUpdate(Map prevProps, Map prevState, [dynamic snapshot]) {
     // If the child is different, and the error boundary is currently in an error state,
     // give the children a chance to mount.
-    if (state.hasError!) {
+    if (state.hasError) {
       final childThatCausedError = typedPropsFactory(prevProps).children!.single;
       if (childThatCausedError != props.children!.single) {
         reset();
