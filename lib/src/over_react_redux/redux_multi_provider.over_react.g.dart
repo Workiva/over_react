@@ -32,10 +32,9 @@ abstract class _$ReduxMultiProviderPropsAccessorsMixin
   ///
   /// <!-- Generated from [_$ReduxMultiProviderProps.storesByContext] -->
   @override
-  @requiredProp
-  Map<Context, Store>? get storesByContext =>
+  Map<Context, Store> get storesByContext =>
       (props[_$key__storesByContext___$ReduxMultiProviderProps] ?? null)
-          as Map<Context, Store>?;
+          as Map<Context, Store>;
 
   /// A `Map` of contexts that connected components within the component tree
   /// can use to receive updates from specific stores.
@@ -46,14 +45,14 @@ abstract class _$ReduxMultiProviderPropsAccessorsMixin
   ///
   /// <!-- Generated from [_$ReduxMultiProviderProps.storesByContext] -->
   @override
-  @requiredProp
-  set storesByContext(Map<Context, Store>? value) =>
+  set storesByContext(Map<Context, Store> value) =>
       props[_$key__storesByContext___$ReduxMultiProviderProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor
       _$prop__storesByContext___$ReduxMultiProviderProps = PropDescriptor(
           _$key__storesByContext___$ReduxMultiProviderProps,
-          isRequired: true);
+          isRequired: true,
+          isNullable: true);
   static const String _$key__storesByContext___$ReduxMultiProviderProps =
       'ReduxMultiProviderProps.storesByContext';
 
