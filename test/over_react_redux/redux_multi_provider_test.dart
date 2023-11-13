@@ -50,7 +50,7 @@ main() {
         mapStateToProps: (state) =>
             (ConnectFluxCounter()..currentCount = state.count),
         mapActionsToProps: (actions) =>
-            (ConnectFluxCounter()..increment = actions!.incrementAction),
+            (ConnectFluxCounter()..increment = actions.incrementAction),
         context: context1,
       )(ConnectFluxCounter);
 
@@ -59,7 +59,7 @@ main() {
         mapStateToProps: (state) =>
             (ConnectFluxCounter()..currentCount = state.count),
         mapActionsToProps: (actions) =>
-            (ConnectFluxCounter()..increment = actions!.incrementAction),
+            (ConnectFluxCounter()..increment = actions.incrementAction),
         context: context2,
       )(ConnectFluxCounter);
 
@@ -68,7 +68,7 @@ main() {
         mapStateToProps: (state) =>
             (ConnectFluxCounter()..currentCount = state.count),
         mapActionsToProps: (actions) =>
-            (ConnectFluxCounter()..increment = actions!.incrementAction),
+            (ConnectFluxCounter()..increment = actions.incrementAction),
         context: context3,
       )(ConnectFluxCounter);
 

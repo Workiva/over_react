@@ -36,7 +36,7 @@ class _$ConnectFluxCounterProps extends UiProps {
 
   void Function()? mutateStoreDirectly;
 
-  FluxActions? actions;
+  late FluxActions actions;
 }
 
 @Component2()
