@@ -14,7 +14,7 @@ dependencies:
   logging: '>=0.11.3+2 <2.0.0'
   meta: ^1.6.0
   path: ^1.5.1
-  react: ^6.3.0
+  react: ^7.0.0
   redux: ">=5.0.0 <6.0.0"
   source_span: ^1.4.1
   transformer_utils: ^0.2.6
@@ -42,10 +42,8 @@ dev_dependencies:
   yaml: ^3.1.0
 
 dependency_overrides:
-  react:
-    git:
-      url: https://github.com/Workiva/react-dart
-      ref: v7_wip
+  # Needed to pull in our current over_react_test branch, w_flux
+  react: ^7.0.0
   react_testing_library:
     git:
       url: https://github.com/Workiva/react_testing_library
@@ -54,6 +52,7 @@ dependency_overrides:
     git:
       url: https://github.com/Workiva/over_react_test
       ref: null-safety
+  # FIXME remove this, use released null save w_flux
   w_flux:
     git:
       url: https://github.com/Workiva/w_flux
