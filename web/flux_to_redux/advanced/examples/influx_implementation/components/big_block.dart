@@ -23,9 +23,9 @@ UiFactory<BigBlockProps> BigBlock = castUiFactory(_$BigBlock); // ignore: undefi
 
 @Props()
 mixin BigBlockPropsMixin on UiProps {
-  LowLevelStore? lowLevelStore;
+  late LowLevelStore lowLevelStore;
 
-  AnotherColorStore? secondStore;
+  late AnotherColorStore secondStore;
 }
 
 class BigBlockProps = UiProps
@@ -34,9 +34,9 @@ class BigBlockProps = UiProps
 class BigBlockComponent extends FluxUiComponent2<BigBlockProps> {
   @override
   redrawOn() => [
-        props.store!,
-        props.lowLevelStore!,
-        props.secondStore!,
+        props.store,
+        props.lowLevelStore,
+        props.secondStore,
       ];
 
   @override
@@ -45,7 +45,7 @@ class BigBlockComponent extends FluxUiComponent2<BigBlockProps> {
       (Dom.div()
         ..style = {
           'padding': '50px',
-          'backgroundColor': props.store!.state.mainBackgroundColor,
+          'backgroundColor': props.store.state.mainBackgroundColor,
           'color': 'white',
           'display': 'flex',
           'alignItems': 'center',
@@ -61,25 +61,25 @@ class BigBlockComponent extends FluxUiComponent2<BigBlockProps> {
         )(
           (Dom.button()
             ..onClick = (_) {
-              props.actions!.changeMainBackgroundColor(props.store!.blockOneBackgroundColor);
+              props.actions.changeMainBackgroundColor(props.store.blockOneBackgroundColor);
             }
             ..style = {'padding': '10px', 'margin': '10px'}
           )('Change Main Background Color'),
           (Dom.button()
             ..onClick = (_) {
-              props.actions!.changeBlockOneBackgroundColor(props.store!.mainBackgroundColor);
+              props.actions.changeBlockOneBackgroundColor(props.store.mainBackgroundColor);
             }
             ..style = {'padding': '10px', 'margin': '10px'}
           )('Change Block 1 Background Color'),
           (Dom.button()
             ..onClick = (_) {
-              props.actions!.changeBlockTwoBackgroundColor(props.store!.mainBackgroundColor);
+              props.actions.changeBlockTwoBackgroundColor(props.store.mainBackgroundColor);
             }
             ..style = {'padding': '10px', 'margin': '10px'}
           )('Change Block 2 Background Color'),
           (Dom.button()
             ..onClick = (_) {
-              props.actions!.changeBlockThreeBackgroundColor(props.secondStore!.backgroundColor);
+              props.actions.changeBlockThreeBackgroundColor(props.secondStore.backgroundColor);
             }
             ..style = {'padding': '10px', 'margin': '10px'}
           )('Change Block 3 Background Color'),
@@ -87,18 +87,18 @@ class BigBlockComponent extends FluxUiComponent2<BigBlockProps> {
         (Dom.div()..style = {'display': 'flex', 'flexDirection': 'column'})(
           (LittleBlock()
             ..blockTitle = 'Block 1'
-            ..backgroundColor = props.store!.state.blockOneBackgroundColor
-            ..colorString = props.store!.state.blockOneBackgroundColor
+            ..backgroundColor = props.store.state.blockOneBackgroundColor
+            ..colorString = props.store.state.blockOneBackgroundColor
           )(),
           (LittleBlock()
             ..blockTitle = 'Block 2'
-            ..backgroundColor = props.lowLevelStore!.state.backgroundColor
-            ..colorString = props.lowLevelStore!.state.backgroundColor
+            ..backgroundColor = props.lowLevelStore.state.backgroundColor
+            ..colorString = props.lowLevelStore.state.backgroundColor
           )(),
           (LittleBlock()
             ..blockTitle = 'Block 3'
-            ..backgroundColor = props.secondStore!.state.backgroundColor
-            ..colorString = props.secondStore!.state.backgroundColor
+            ..backgroundColor = props.secondStore.state.backgroundColor
+            ..colorString = props.secondStore.state.backgroundColor
           )(),
         ),
       ),

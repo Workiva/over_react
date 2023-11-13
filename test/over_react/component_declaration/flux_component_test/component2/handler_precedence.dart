@@ -31,10 +31,10 @@ class TestHandlerPrecedenceComponent extends FluxUiComponent2<TestHandlerPrecede
   render() => Dom.div()();
 
   @override
-  redrawOn() => [props.store!.store1, props.store!.store2];
+  redrawOn() => [props.store.store1, props.store.store2];
 
   @override
-  getStoreHandlers() => {props.store!.store1: increment};
+  getStoreHandlers() => {props.store.store1: increment};
 
   increment(Store store) {
     numberOfHandlerCalls += 1;

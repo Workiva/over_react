@@ -32,17 +32,17 @@ class FluxCounterComponent extends FluxUiComponent2<FluxCounterProps> {
   @override
   render() {
     return (Dom.div()..modifyProps(addUnconsumedProps))(
-      Dom.div()('Count: ${props.store!.count}'),
+      Dom.div()('Count: ${props.store.count}'),
       (Dom.button()
         ..addTestId('button-increment')
         ..onClick = (_) {
-          props.actions!.incrementAction(1);
+          props.actions.incrementAction(1);
         }
       )('+'),
       (Dom.button()
         ..addTestId('button-decrement')
         ..onClick = (_) {
-          props.actions!.decrementAction(1);
+          props.actions.decrementAction(1);
         }
       )('-'),
       props.children,
