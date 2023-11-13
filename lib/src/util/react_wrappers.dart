@@ -294,8 +294,8 @@ external ReactElement _cloneElement(element, [props, children]);
 /// > Unlike React.addons.cloneWithProps, key and ref from the original element will be preserved.
 /// > There is no special behavior for merging any props (unlike cloneWithProps).
 /// > See the [v0.13 RC2 blog post](https://facebook.github.io/react/blog/2015/03/03/react-v0.13-rc2.html) for additional details.
-ReactElement cloneElement(ReactElement? element, [Map? props, Iterable? children]) {
-  if (element == null) throw ArgumentError.notNull('element');
+ReactElement cloneElement(ReactElement element, [Map? props, Iterable? children]) {
+  ArgumentError.checkNotNull(element, 'element');
 
   var propsChangeset = preparePropsChangeset(element, props, children);
 

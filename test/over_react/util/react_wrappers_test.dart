@@ -435,12 +435,6 @@ main() {
         expect(flag, isTrue);
         expect(runtimeType, TestComponent);
       });
-
-      test('throws an argument error if element is null', (){
-        expect(() => cloneElement(null), throwsArgumentError,
-            reason: 'To ensure a consumer friendly error message, the '
-                'function should short circuit and provide the Argument Error.');
-      });
     });
 
     group('isValidElement()', () {

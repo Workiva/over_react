@@ -308,7 +308,7 @@ main() {
 
     group('calls the appropriate callback(s) when it is', () {
       late List calls;
-      ReactElement? elementWithCallbacks;
+      late ReactElement elementWithCallbacks;
 
       setUp(() {
         calls = [];
@@ -318,10 +318,6 @@ main() {
           ..onWillShow = (() => calls.add('onWillShow'))
           ..onDidShow = (() => calls.add('onDidShow'))
         )();
-      });
-
-      tearDown(() {
-        elementWithCallbacks = null;
       });
 
       test('hiding', () async {
