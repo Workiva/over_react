@@ -170,7 +170,7 @@ mixin WithTransitionState on UiState {
   ///
   /// Do not set directly.
   @protected
-  TransitionPhase? $transitionPhase;
+  late TransitionPhase $transitionPhase;
 }
 
 class WithTransitionComponent extends UiStatefulComponent2<WithTransitionProps, WithTransitionState> {
@@ -224,7 +224,7 @@ class WithTransitionComponent extends UiStatefulComponent2<WithTransitionProps, 
       _cancelTransitionEventListener();
     }
 
-    switch (state.$transitionPhase!) {
+    switch (state.$transitionPhase) {
       case TransitionPhase.PRE_SHOWING:
         _handlePreShowing();
         break;
@@ -266,7 +266,7 @@ class WithTransitionComponent extends UiStatefulComponent2<WithTransitionProps, 
 
     final childElement = props.children!.single as ReactElement;
     final childProps = domProps(getProps(childElement));
-    final phaseProps = props.childPropsByPhase![state.$transitionPhase!] ?? const {};
+    final phaseProps = props.childPropsByPhase![state.$transitionPhase] ?? const {};
     final phaseClasses = ClassNameBuilder.fromProps(childProps)
       ..addFromProps(phaseProps);
 

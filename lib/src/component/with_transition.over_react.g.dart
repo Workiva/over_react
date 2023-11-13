@@ -317,16 +317,17 @@ mixin $WithTransitionState on WithTransitionState {
   static const StateMeta meta = _$metaForWithTransitionState;
   @override
   @protected
-  TransitionPhase? get $transitionPhase =>
+  TransitionPhase get $transitionPhase =>
       (state[_$key__$transitionPhase__WithTransitionState] ?? null)
-          as TransitionPhase?;
+          as TransitionPhase;
   @override
   @protected
-  set $transitionPhase(TransitionPhase? value) =>
+  set $transitionPhase(TransitionPhase value) =>
       state[_$key__$transitionPhase__WithTransitionState] = value;
   /* GENERATED CONSTANTS */
   static const StateDescriptor _$prop__$transitionPhase__WithTransitionState =
-      StateDescriptor(_$key__$transitionPhase__WithTransitionState);
+      StateDescriptor(_$key__$transitionPhase__WithTransitionState,
+          isRequired: true, isNullable: true);
   static const String _$key__$transitionPhase__WithTransitionState =
       'WithTransitionState.\$transitionPhase';
 
