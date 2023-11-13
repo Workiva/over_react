@@ -310,7 +310,7 @@ ReactElement cloneElement(ReactElement? element, [Map? props, Iterable? children
 ///
 /// Returns `null` if the [instance] is not Dart-based _(an [Element] or a JS composite component)_.
 // ignore: deprecated_member_use
-T? getDartComponent<T extends react.Component?>(dynamic /* ReactElement|ReactComponent|Element */ instance) {
+T? getDartComponent<T extends react.Component>(dynamic /* ReactElement|ReactComponent|Element */ instance) {
   if (instance is Element) {
     return null;
   }
