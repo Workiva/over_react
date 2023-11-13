@@ -31,18 +31,18 @@ class DecrementAction extends Action<int> {
   DecrementAction([int? value]) : super(type: 'DECREMENT', value: value);
 }
 
-class IncrementModelCountAction extends Action {
-  IncrementModelCountAction([value]) : super(type: 'INCREMENT_MODEL_COUNT', value: value);
+class IncrementModelCountAction extends Action<int> {
+  IncrementModelCountAction([int? value]) : super(type: 'INCREMENT_MODEL_COUNT', value: value);
 }
 
-class DecrementModelCountAction extends Action {
-  DecrementModelCountAction([value]) : super(type: 'DECREMENT_MODEL_COUNT', value: value);
+class DecrementModelCountAction extends Action<int> {
+  DecrementModelCountAction([int? value]) : super(type: 'DECREMENT_MODEL_COUNT', value: value);
 }
 
-class ResetAction extends Action {
+class ResetAction extends Action<Null> {
   ResetAction() : super(type: 'RESET');
 }
 
-class MutateStoreDirectlyAction extends Action {
+class MutateStoreDirectlyAction extends Action<Null> {
   MutateStoreDirectlyAction() : super(type: 'RESET_STORE_DIRECTLY');
 }
