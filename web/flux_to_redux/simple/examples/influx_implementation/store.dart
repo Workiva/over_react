@@ -43,7 +43,7 @@ class FluxStore extends flux.Store with /*[1]*/ InfluxStoreMixin< /*[2]*/ ReduxS
 }
 
 class RandomColorActions {
-  final flux.ActionOptionalPayload<String> changeBackgroundColor = flux.ActionOptionalPayload();
+  final flux.Action<String> changeBackgroundColor = flux.Action();
 }
 
 class UpdateBackgroundColorAction {
