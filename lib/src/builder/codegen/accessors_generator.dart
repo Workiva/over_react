@@ -245,8 +245,7 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
 
         final fieldType = field.fields.type;
         final typeSource = fieldType?.toSource();
-        // FIXME this is ambiguous for :typedefs of nullable types; how should we handle that?
-        final looksNonNullable = variable.isLate && fieldType?.question == null;
+        // FIXME(null-safety) finish this implementation FED-1717
         final typeString = typeSource == null ? '' : '$typeSource ';
         final metadataSrc = StringBuffer();
         for (final annotation in field.metadata) {
@@ -285,15 +284,9 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
           docComment = '';
         }
 
-        String castAndNullCheckValueIfNecessary(String expression) {
-          var value = expression;
-          if (nullSafety && looksNonNullable) {
-            // add non-null assertion so that null values throw in the getter, as opposed to later on in consumption.
-            // Casting to a non-null value doesn't seem to guarantee a null-check, so we do this explicitly.
-            value = '($value)!';
-          }
-          if (typeSource != null) value = '($value) as $typeSource';
-          return value;
+        String castGetterMapValueIfNecessary(String expression) {
+          if (typeSource == null) return expression;
+          return '($expression) as $typeSource';
         }
 
         String generatedAccessor = '$docComment'
@@ -305,7 +298,7 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
             // Add ` ?? null` to work around DDC bug: <https://github.com/dart-lang/sdk/issues/36052
             // Apply this workaround ASAP, before the cast, to limit where undefined can leak into
             // and potentially cause issues (for instance, DDC cast internals).
-            '  ${getterTypeString}get $accessorName => ${castAndNullCheckValueIfNecessary('$proxiedMapName[$keyConstantName] ?? null')};\n'
+            '  ${getterTypeString}get $accessorName => ${castGetterMapValueIfNecessary('$proxiedMapName[$keyConstantName] ?? null')};\n'
             '$docComment'
             // '  @tryInline\n'
             '  @override\n'

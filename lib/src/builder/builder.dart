@@ -13,7 +13,6 @@
 // limitations under the License.
 
 import 'dart:async';
-// import 'dart:io' show Platform;
 
 import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:analyzer/dart/ast/ast.dart';
@@ -98,7 +97,7 @@ class OverReactBuilder extends Builder {
       // Validate boilerplate declarations and generate if there aren't any errors.
       //
 
-      // FIXME parse from pubspec; figure out how to read that
+      // FIXME(null-safety) detect null safety for other packages (FED-1720)
       bool nullSafety;
       final languageVersionToken = unit.languageVersionToken;
       if (languageVersionToken != null) {
