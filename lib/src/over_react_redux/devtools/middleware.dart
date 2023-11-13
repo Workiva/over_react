@@ -54,8 +54,7 @@ class _OverReactReduxDevToolsMiddleware extends MiddlewareClass {
       }
     });
     try {
-      devToolsExt = reduxExtConnect(jsify(options));
-      devToolsExt!.subscribe(allowInterop(handleEventFromRemote));
+      devToolsExt = reduxExtConnect(jsify(options))..subscribe(allowInterop(handleEventFromRemote));
     } catch (e) {
       log.warning(e);
       log.warning(
@@ -64,6 +63,13 @@ class _OverReactReduxDevToolsMiddleware extends MiddlewareClass {
         'Chrome: https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd?hl=en\n'
         'Firefox: https://addons.mozilla.org/en-US/firefox/addon/reduxdevtools/'
       );
+    }
+  }
+
+  void _initStoreIfNecessary(Store v) {
+    if (_store == null) {
+      _store = v;
+      devToolsExt?.init(_encodeForTransit(v.state));
     }
   }
 
@@ -98,6 +104,9 @@ class _OverReactReduxDevToolsMiddleware extends MiddlewareClass {
   }
 
   void _relay(String type, [Object? state, dynamic action, String? nextActionId]) {
+    final devToolsExt = this.devToolsExt;
+    if (devToolsExt == null) return;
+
     final message = JsBackedMap();
     message['type'] = type;
 
@@ -117,9 +126,9 @@ class _OverReactReduxDevToolsMiddleware extends MiddlewareClass {
     }
 
     if (message.containsKey('action')) {
-      devToolsExt!.send(message['action'], message['payload']);
+      devToolsExt.send(message['action'], message['payload']);
     } else {
-      devToolsExt!.send(message.jsObject);
+      devToolsExt.send(message.jsObject);
     }
   }
 
@@ -142,6 +151,7 @@ class _OverReactReduxDevToolsMiddleware extends MiddlewareClass {
   }
 
   void _handleDispatch(dynamic action) {
+    final _store = this._store;
     if (_store == null) {
       log.warning('No store reference set, cannot dispatch remote action');
       return;
@@ -149,7 +159,7 @@ class _OverReactReduxDevToolsMiddleware extends MiddlewareClass {
     switch (action['type'] as String?) {
       case 'JUMP_TO_ACTION':
       case 'JUMP_TO_STATE':
-        _store!.dispatch(DevToolsAction.jumpToState(action['actionId'] as int));
+        _store.dispatch(DevToolsAction.jumpToState(action['actionId'] as int));
         break;
       default:
         log.warning("Unknown command: ${action['type']}. Ignoring");
@@ -157,24 +167,19 @@ class _OverReactReduxDevToolsMiddleware extends MiddlewareClass {
   }
 
   void _handleRemoteAction(String action) {
+    final _store = this._store;
     if (_store == null) {
       log.warning('No store reference set, cannot dispatch remote action');
       return;
     }
-    _store!.dispatch(DevToolsAction.perform(jsonDecode(action)));
+    _store.dispatch(DevToolsAction.perform(jsonDecode(action)));
   }
 
   /// Middleware function called by redux, dispatches actions to devtools
   @override
   call(Store storeArg, dynamic action, NextDispatcher next) {
     next(action);
-    if (devToolsExt == null) return;
-
-    if (_store == null) {
-      _store = storeArg;
-      devToolsExt!.init(_encodeForTransit(_store!.state));
-    }
-
+    _initStoreIfNecessary(storeArg);
     if (action is! DevToolsAction) {
       _relay('ACTION', _store!.state, action);
     }
