@@ -30,7 +30,7 @@ mixin AbstractTransitionState on UiState {
   /// The current phase of transition the [AbstractTransitionComponent] is in.
   ///
   /// Default:  [AbstractTransitionComponent.initiallyShown] ? [TransitionPhase.SHOWN] : [TransitionPhase.HIDDEN]
-  TransitionPhase? transitionPhase;
+  late TransitionPhase transitionPhase;
 }
 
 /// How to use [AbstractTransitionComponent]:
@@ -101,14 +101,14 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps,
 
   @override
   get initialState => (newState()
-    ..transitionPhase = this.initiallyShown! ? TransitionPhase.SHOWN : TransitionPhase.HIDDEN
+    ..transitionPhase = this.initiallyShown ? TransitionPhase.SHOWN : TransitionPhase.HIDDEN
   );
 
   /// Stream for listening to `transitionend` events on the [AbstractTransitionComponent].
   StreamSubscription? _endTransitionSubscription;
 
   /// Whether the [AbstractTransitionComponent] should be visible initially when mounted.
-  bool? get initiallyShown;
+  bool get initiallyShown;
 
   /// Returns the DOM node that will transition.
   Element? getTransitionDomNode();
@@ -274,7 +274,7 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps,
         _cancelTransitionEventListener();
       }
 
-      switch (state.transitionPhase!) {
+      switch (state.transitionPhase) {
         case TransitionPhase.PRE_SHOWING:
           handlePreShowing();
           break;
@@ -393,7 +393,7 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps,
     };
 
     return {
-      transitionPhaseTestAttr: enumToAttrValue[state.transitionPhase!],
+      transitionPhaseTestAttr: enumToAttrValue[state.transitionPhase],
     };
   }
 

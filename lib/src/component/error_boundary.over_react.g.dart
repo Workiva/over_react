@@ -366,14 +366,13 @@ mixin $ErrorBoundaryState on ErrorBoundaryState {
   static const StateMeta meta = _$metaForErrorBoundaryState;
   @override
   bool get hasError =>
-      ((state[_$key__hasError__ErrorBoundaryState] ?? null)!) as bool;
+      (state[_$key__hasError__ErrorBoundaryState] ?? null) as bool;
   @override
   set hasError(bool value) =>
       state[_$key__hasError__ErrorBoundaryState] = value;
   @override
   bool get showFallbackUIOnError =>
-      ((state[_$key__showFallbackUIOnError__ErrorBoundaryState] ?? null)!)
-          as bool;
+      (state[_$key__showFallbackUIOnError__ErrorBoundaryState] ?? null) as bool;
   @override
   set showFallbackUIOnError(bool value) =>
       state[_$key__showFallbackUIOnError__ErrorBoundaryState] = value;

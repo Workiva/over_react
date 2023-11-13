@@ -668,7 +668,7 @@ class TransitionerComponent extends AbstractTransitionComponent<TransitionerProp
   Element? getTransitionDomNode() => findDomNode(this);
 
   @override
-  bool? get initiallyShown => props.initiallyShown;
+  bool get initiallyShown => props.initiallyShown!;
 
   @override
   bool? get hasTransition => props.hasTransition;
