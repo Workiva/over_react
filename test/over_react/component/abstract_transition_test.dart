@@ -671,10 +671,10 @@ class TransitionerComponent extends AbstractTransitionComponent<TransitionerProp
   bool get initiallyShown => props.initiallyShown!;
 
   @override
-  bool? get hasTransition => props.hasTransition;
+  bool get hasTransition => props.hasTransition!;
 
   @override
-  Duration? get transitionTimeout => props.transitionTimeout;
+  Duration get transitionTimeout => props.transitionTimeout!;
 
   @override
   render() {

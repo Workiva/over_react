@@ -114,13 +114,13 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps,
   Element? getTransitionDomNode();
 
   /// Whether transitions are enabled for this component.
-  bool? get hasTransition => true;
+  bool get hasTransition => true;
 
   /// Whether the Element returned by [getTransitionDomNode] will have a transition event when showing.
-  bool get hasTransitionIn => hasTransition! && transitionInCount > 0;
+  bool get hasTransitionIn => hasTransition && transitionInCount > 0;
 
   /// Whether the Element returned by [getTransitionDomNode] will have a transition event when hiding.
-  bool get hasTransitionOut => hasTransition! && transitionOutCount > 0;
+  bool get hasTransitionOut => hasTransition && transitionOutCount > 0;
 
   /// The number of `transitionend` events that occur when the transition node is shown.
   ///
@@ -133,7 +133,7 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps,
   int get transitionOutCount => props.transitionOutCount ?? props.transitionCount ?? 1;
 
   /// The duration that can elapse before a transition timeout occurs.
-  Duration? get transitionTimeout => const Duration(seconds: 1);
+  Duration get transitionTimeout => const Duration(seconds: 1);
 
   /// Timer used to determine if a transition timeout has occurred.
   Timer? _transitionEndTimer;
@@ -191,7 +191,7 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps,
     _cancelTransitionEventListener();
     _cancelTransitionEndTimer();
 
-    _transitionEndTimer = Timer(transitionTimeout!, () {
+    _transitionEndTimer = Timer(transitionTimeout, () {
       assert(ValidationUtil.warn(
           'The number of transitions expected to complete have not completed. Something is most likely wrong.',
           this
