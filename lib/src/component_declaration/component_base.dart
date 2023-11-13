@@ -985,11 +985,3 @@ class PropsMetaCollection extends _AccessorMetaCollection<PropDescriptor, PropsM
   List<PropDescriptor> get props => fields;
 
 }
-
-@internal
-extension CachedRequiredProps$PropsMeta on PropsMeta {
-  static final _cachedRequiredProps = Expando<List<PropDescriptor>>();
-  List<PropDescriptor> get cachedRequiredProps => _cachedRequiredProps[this] ??= _requiredProps;
-
-  List<PropDescriptor> get _requiredProps => props.where((p) => p.isRequired).toList(growable: false);
-}

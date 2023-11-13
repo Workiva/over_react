@@ -20,8 +20,7 @@ import './component_base.dart' as component_base;
 import './annotations.dart' as annotations;
 
 export './annotations.dart';
-export './component_base.dart'
-    hide UiComponent, UiStatefulComponent, UiProps, UiState, CachedRequiredProps$PropsMeta;
+export './component_base.dart' hide UiComponent, UiStatefulComponent, UiProps, UiState;
 
 // ----------------------------------------------------------------------
 //   Base classes to be used by pre-generated code that stub out
@@ -134,32 +133,33 @@ abstract class UiProps extends component_base.UiProps with GeneratedClass {
   @toBeGenerated PropsMetaCollection get staticMeta => throw UngeneratedError(member: #meta);
 
   @override
-  @protected
-  @nonVirtual
+  @visibleForOverriding
+  @mustCallSuper
   void validateRequiredProps() {
     // This fails when staticMeta isn't generated, so comment it out for now so tests don't fail.
-    // FIXME generate a static implementation of this instead in FEDX-107
+    // FIXME(null-safety) generate a static implementation of this instead in FEDX-107
     return;
 
     // ignore: dead_code
     List<PropDescriptor>? missingRequiredProps;
     List<PropDescriptor>? nullNonNullableRequiredProps;
 
-    // for (final meta in staticMeta.all) {
-    //   for (final prop in meta.props) {
-    //     if (prop.isRequired) {
-    for (final prop in staticMeta.cachedRequiredProps) {
-      if (prop.isNullable) {
-        if (!props.containsKey(prop.key)) {
-          (missingRequiredProps ??= []).add(prop);
-        }
-      } else {
-        // Avoid looking up the key twice.
-        if (props[prop.key] == null) {
-          if (props.containsKey(prop.key)) {
-            (nullNonNullableRequiredProps ??= []).add(prop);
+    for (final meta in staticMeta.all) {
+      for (final prop in meta.props) {
+        if (prop.isRequired) {
+          if (prop.isNullable) {
+            if (!props.containsKey(prop.key)) {
+              (missingRequiredProps ??= []).add(prop);
+            }
           } else {
-            (missingRequiredProps ??= []).add(prop);
+            // Avoid looking up the key twice.
+            if (props[prop.key] == null) {
+              if (props.containsKey(prop.key)) {
+                (nullNonNullableRequiredProps ??= []).add(prop);
+              } else {
+                (missingRequiredProps ??= []).add(prop);
+              }
+            }
           }
         }
       }

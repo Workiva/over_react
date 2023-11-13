@@ -14,4 +14,4 @@
 
 library over_react.component_base;
 
-export 'src/component_declaration/component_base.dart' hide CachedRequiredProps$PropsMeta;
+export 'src/component_declaration/component_base.dart';
