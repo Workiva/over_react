@@ -205,8 +205,7 @@ class ResizeSensorComponent extends UiComponent2<ResizeSensorProps> with SafeAni
 
   @override
   render() {
-    // FIXME null-safety why was this changed from `var` to `ReactElement?`?
-    ReactElement? expandSensor = (Dom.div()
+    final expandSensor = (Dom.div()
       ..className = 'resize-sensor-expand'
       ..onScroll = _handleSensorScroll
       ..style = props.shrink! ? shrinkBaseStyle : baseStyle
@@ -215,7 +214,7 @@ class ResizeSensorComponent extends UiComponent2<ResizeSensorProps> with SafeAni
       (Dom.div()..style = expandSensorChildStyle)()
     );
 
-    ReactElement? collapseSensor = (Dom.div()
+    final collapseSensor = (Dom.div()
       ..className = 'resize-sensor-collapse'
       ..onScroll = _handleSensorScroll
       ..style = props.shrink! ? shrinkBaseStyle : baseStyle
@@ -224,7 +223,7 @@ class ResizeSensorComponent extends UiComponent2<ResizeSensorProps> with SafeAni
       (Dom.div()..style = collapseSensorChildStyle)()
     );
 
-    ReactElement? resizeSensor = (Dom.div()
+    final resizeSensor = (Dom.div()
       ..className = 'resize-sensor'
       ..style = props.shrink! ? shrinkBaseStyle : baseStyle
       ..key = 'resizeSensor'
