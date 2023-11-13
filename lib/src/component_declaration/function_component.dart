@@ -132,15 +132,18 @@ UiFactory<TProps> uiFunction<TProps extends UiProps>(
             ([backingMap]) => GenericUiProps(factory, backingMap))
         as PropsFactory<TProps>;
   }
+  // Work around propsFactory not getting promoted to non-nullable in _uiFactory: https://github.com/dart-lang/language/issues/1536
+  final nonNullablePropsFactory = propsFactory;
 
   TProps _uiFactory([Map? backingMap]) {
     TProps builder;
     if (backingMap == null) {
-      builder = propsFactory!.jsMap(JsBackedMap());
+      // propsFactory should get promoted to non-nullable here, but it does not some reason propsF
+      builder = nonNullablePropsFactory.jsMap(JsBackedMap());
     } else if (backingMap is JsBackedMap) {
-      builder = propsFactory!.jsMap(backingMap);
+      builder = nonNullablePropsFactory.jsMap(backingMap);
     } else {
-      builder = propsFactory!.map(backingMap);
+      builder = nonNullablePropsFactory.map(backingMap);
     }
 
     return builder..componentFactory = factory;

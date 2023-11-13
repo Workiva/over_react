@@ -97,6 +97,7 @@ abstract class BoilerplatePropsOrState extends BoilerplateTypedMapMember
             node.hasAnnotationWithNames(
                 {propsOrStateAnnotationName, propsOrStateAbstractAnnotationName})) {
           _sharedLegacyValidation(errorCollector);
+          final companion = this.companion;
           if (companion == null) {
             // Don't emit this and the prefix error.
             if (node.name.name.startsWith(privateSourcePrefix)) {
@@ -104,7 +105,7 @@ abstract class BoilerplatePropsOrState extends BoilerplateTypedMapMember
                   'Should have companion class', errorCollector.spanFor(node.name));
             }
           } else {
-            validateMetaField(companion!, propsOrStateMetaStructName, errorCollector);
+            validateMetaField(companion, propsOrStateMetaStructName, errorCollector);
           }
         }
         break;

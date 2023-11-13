@@ -238,7 +238,15 @@ class ClassComponentDeclaration extends BoilerplateDeclaration
   final Union<BoilerplateState, BoilerplateStateMixin>? state;
 
   @override
-  get _members => [factory, component, props.either, if (state != null) state!.either];
+  get _members {
+    final state = this.state;
+    return [
+      factory,
+      component,
+      props.either,
+      if (state != null) state.either,
+    ];
+  }
 
   @override
   get type => DeclarationType.classComponentDeclaration;
