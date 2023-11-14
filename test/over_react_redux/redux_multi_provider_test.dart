@@ -45,7 +45,7 @@ main() {
       final anotherFluxStore = FluxStore(anotherFluxActionsInstance);
       final store3 = FluxToReduxAdapterStore(anotherFluxStore, anotherFluxActionsInstance);
 
-      final ConnectFluxCounterProps Function([Map<dynamic, dynamic>]) Context1ConnectedFluxComponent =
+      final Context1ConnectedFluxComponent =
           connectFlux<FluxStore, FluxActions, ConnectFluxCounterProps>(
         mapStateToProps: (state) =>
             (ConnectFluxCounter()..currentCount = state.count),
@@ -54,7 +54,7 @@ main() {
         context: context1,
       )(ConnectFluxCounter);
 
-      final ConnectFluxCounterProps Function([Map<dynamic, dynamic>]) Context2ConnectedFluxComponent =
+      final Context2ConnectedFluxComponent =
           connectFlux<FluxStore2, FluxActions, ConnectFluxCounterProps>(
         mapStateToProps: (state) =>
             (ConnectFluxCounter()..currentCount = state.count),
@@ -63,7 +63,7 @@ main() {
         context: context2,
       )(ConnectFluxCounter);
 
-      final ConnectFluxCounterProps Function([Map<dynamic, dynamic>]) Context3ConnectedFluxComponent =
+      final Context3ConnectedFluxComponent =
           connectFlux<FluxStore, FluxActions, ConnectFluxCounterProps>(
         mapStateToProps: (state) =>
             (ConnectFluxCounter()..currentCount = state.count),

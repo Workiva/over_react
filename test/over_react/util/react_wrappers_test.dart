@@ -928,8 +928,8 @@ main() {
           {
             void sharedGetPropsWrapperTests({required bool isComponent2, required bool isRendered}) {
               final testComponentFactory = isComponent2 ? TestComponentFactory : TestComponent2Factory;
-              final UiProps Function([Map<dynamic, dynamic>]) oneLevelWrapperFactory = isComponent2 ? OneLevelWrapper : OneLevelWrapper2;
-              final UiProps Function([Map<dynamic, dynamic>]) twoLevelWrapperFactory = isComponent2 ? TwoLevelWrapper : TwoLevelWrapper2;
+              final oneLevelWrapperFactory = isComponent2 ? OneLevelWrapper : OneLevelWrapper2;
+              final twoLevelWrapperFactory = isComponent2 ? TwoLevelWrapper : TwoLevelWrapper2;
 
               group('Dart ${isComponent2 ? 'Component2' : 'Component'} ${isRendered ? 'ReactComponent' : 'ReactElement'}', () {
                 test('', () {

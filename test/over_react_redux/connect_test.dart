@@ -685,7 +685,7 @@ main() {
           },
           forwardRef: true,
         )(Counter);
-        CounterProps Function([Map<dynamic, dynamic>]) ConnectedBigCounter = connect<BigCounterState, CounterProps>(
+        var ConnectedBigCounter = connect<BigCounterState, CounterProps>(
           mapStateToProps: (state) {
             return Counter()..currentCount = state.bigCount;
           },
@@ -722,7 +722,7 @@ main() {
           },
           forwardRef: true,
         )(Counter);
-        CounterProps Function([Map<dynamic, dynamic>]) ConnectedBigCounter = connect<BigCounterState, CounterProps>(
+        var ConnectedBigCounter = connect<BigCounterState, CounterProps>(
           mapStateToProps: (state) {
             return Counter()..currentCount = state.bigCount;
           },

@@ -99,7 +99,7 @@ mixin AnotherPropsMixin on UiProps {
 
 class Foo2Props = UiProps with AnotherPropsMixin, FooProps;
 
-final Foo2Props Function([Map<dynamic, dynamic>]) Foo2 = uiForwardRef<Foo2Props>(
+final Foo2 = uiForwardRef<Foo2Props>(
   (props, ref) {
     print(props.anExampleAdditionalProp);
     return (_Foo()

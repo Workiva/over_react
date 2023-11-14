@@ -30,7 +30,7 @@ main() {
     });
 
     test('will render a nested component', () {
-      CounterProps Function() components = composeHocs([
+      var components = composeHocs([
         connect<CounterState, CounterProps>(),
         connect<CounterState, CounterProps>(),
       ])(Counter);
@@ -53,7 +53,7 @@ main() {
       const data0 = '0';
       const data1 = '1';
 
-      CounterProps Function() composeHocComponent = composeHocs([
+      var composeHocComponent = composeHocs([
         connect<CounterState, CounterProps>(
           mapStateToProps: (_) => {
             'data-0': data0,
@@ -68,7 +68,7 @@ main() {
         )
       ])(Counter);
 
-      CounterProps Function() verboseHoc = connect<CounterState, CounterProps>(
+      var verboseHoc = connect<CounterState, CounterProps>(
         mapStateToProps: (_) => {
           'data-0': data0,
           'data-both': data0,
