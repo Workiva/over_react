@@ -64,7 +64,7 @@ UiFactory<FooProps> Foo = uiFunction(
   _$FooConfig, // ignore: undefined_identifier
 );
 
-ReactElement? functionComponentContent() {
+ReactElement functionComponentContent() {
   GenericFactory(props) {
     return Dom.div()('prop id: ${props.id}');
   }

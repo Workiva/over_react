@@ -62,7 +62,7 @@ class ButtonGroupComponent<T extends ButtonGroupProps, S extends ButtonGroupStat
     return renderButtonGroup(renderButtons());
   }
 
-  ReactElement? renderButtonGroup(List children) {
+  ReactElement renderButtonGroup(List children) {
     var componentBuilder = Dom.div();
 
     if (children.length > 1) {

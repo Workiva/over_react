@@ -129,7 +129,7 @@ void commonRefForwardingTests() {
   UiFactory<DomProps> getFactoryForDiv({
     String? displayName,
   }) {
-    ReactElement? div(dynamic ref, dynamic children) => (Dom.div()..ref = ref)(children);
+    ReactElement div(dynamic ref, dynamic children) => (Dom.div()..ref = ref)(children);
 
     if (displayName == null) {
       return uiForwardRef<DomProps>((props, ref) {

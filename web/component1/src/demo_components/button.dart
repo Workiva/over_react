@@ -112,7 +112,7 @@ class ButtonComponent<T extends ButtonProps, S extends ButtonState> extends UiSt
     return renderButton(props.children);
   }
 
-  ReactElement? renderButton(dynamic children) {
+  ReactElement renderButton(dynamic children) {
     BuilderOnlyUiFactory<DomProps> factory = buttonDomNodeFactory;
 
     return (factory()
