@@ -985,5 +985,4 @@ class PropsMetaCollection extends _AccessorMetaCollection<PropDescriptor, PropsM
 
   @override
   List<PropDescriptor> get props => fields;
-
 }
