@@ -55,7 +55,7 @@ UiFactory<ModelCounterFnProps> ModelCounterFn = uiFunction(
 
     final dispatch = useDispatch();
 
-    final Iterable<PropsMeta> consumedProps = props.staticMeta.allExceptForMixins({ModelCounterFnPropsMixin});
+    final consumedProps = props.staticMeta.allExceptForMixins({ModelCounterFnPropsMixin});
 
     return (CounterFn()
       ..addUnconsumedDomProps(props, consumedProps)
@@ -94,7 +94,7 @@ UiFactory<CustomContextCounterFnProps> CustomContextCounterFn = uiFunction(
   (props) {
     final bigCount = useBigCountSelector((state) => state.bigCount, props.bigCountEqualityFn);
 
-    final Iterable<PropsMeta> consumedProps = props.staticMeta.allExceptForMixins({CustomContextCounterFnPropsMixin});
+    final consumedProps = props.staticMeta.allExceptForMixins({CustomContextCounterFnPropsMixin});
 
     return (CounterFn()
       ..addUnconsumedDomProps(props, consumedProps)
