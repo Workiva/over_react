@@ -136,8 +136,9 @@ abstract class UiProps extends component_base.UiProps with GeneratedClass {
   @visibleForOverriding
   @mustCallSuper
   void validateRequiredProps() {
+    super.validateRequiredProps();
     // This fails when staticMeta isn't generated, so comment it out for now so tests don't fail.
-    // FIXME(null-safety) generate a static implementation of this instead in FEDX-107
+    // FIXME(null-safety) generate a static implementation of this instead in FEDX-107, and remove this
     return;
 
     // ignore: dead_code

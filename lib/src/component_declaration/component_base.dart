@@ -673,7 +673,9 @@ abstract class UiProps extends MapBase
       : const {};
   }
 
-  @protected
+  // FIXME(null-safety) document and generate overrides in FEDX-107
+  @visibleForOverriding
+  @mustCallSuper
   void validateRequiredProps() {}
 }
 
