@@ -90,32 +90,32 @@ abstract class ComponentGenerator extends BoilerplateDeclarationGenerator {
           '  ${propsNames.implName} typedPropsFactory(Map${nullSafety ? '?' : ''} backingMap) => ${propsNames.implName}(backingMap);')
       ..writeln();
 
-    if (isComponent2 && hasState) {
-      outputContentsBuffer
-        ..writeln('  ${nullSafety ? 'late ' : ''}${stateNames!.jsMapImplName} _cachedTypedState;')
-        ..writeln('  @override')
-        ..writeln('  ${stateNames!.jsMapImplName} get state => _cachedTypedState;')
-        ..writeln()
-        ..writeln('  @override')
-        ..writeln('  set state(Map value) {')
-        ..writeln('    assert(value is JsBackedMap, ')
-        ..writeln('      \'Component2.state should only be set via \'')
-        ..writeln('      \'initialState or setState.\');')
-        ..writeln('    super.state = value;')
-        ..writeln('    _cachedTypedState = typedStateFactoryJs(value as JsBackedMap);')
-        ..writeln('  }')
-        ..writeln()
-        ..writeln('  @override ')
-        ..writeln('  ${stateNames!.jsMapImplName} typedStateFactoryJs(JsBackedMap${nullSafety ? '?' : ''} backingMap)'
-            ' => ${stateNames!.jsMapImplName}(backingMap);')
-        ..writeln();
-    }
-
     if (hasState) {
+      final stateNames = this.stateNames!;
+      if (isComponent2) {
+        outputContentsBuffer
+          ..writeln('  ${nullSafety ? 'late ' : ''}${stateNames.jsMapImplName} _cachedTypedState;')
+          ..writeln('  @override')
+          ..writeln('  ${stateNames.jsMapImplName} get state => _cachedTypedState;')
+          ..writeln()
+          ..writeln('  @override')
+          ..writeln('  set state(Map value) {')
+          ..writeln('    assert(value is JsBackedMap, ')
+          ..writeln('      \'Component2.state should only be set via \'')
+          ..writeln('      \'initialState or setState.\');')
+          ..writeln('    super.state = value;')
+          ..writeln('    _cachedTypedState = typedStateFactoryJs(value as JsBackedMap);')
+          ..writeln('  }')
+          ..writeln()
+          ..writeln('  @override ')
+          ..writeln('  ${stateNames.jsMapImplName} typedStateFactoryJs(JsBackedMap${nullSafety ? '?' : ''} backingMap)'
+              ' => ${stateNames.jsMapImplName}(backingMap);')
+          ..writeln();
+      }
       outputContentsBuffer
         ..writeln('  @override')
-        ..writeln('  ${stateNames!.implName} typedStateFactory(Map${nullSafety ? '?' : ''} backingMap)'
-            ' => ${stateNames!.implName}(backingMap);')
+        ..writeln('  ${stateNames.implName} typedStateFactory(Map${nullSafety ? '?' : ''} backingMap)'
+            ' => ${stateNames.implName}(backingMap);')
         ..writeln();
     }
 
