@@ -2534,7 +2534,9 @@ main() {
                 @$componentAnnotationName(subtypeOf: const [])
                 class FooComponent {}
               ''');
-            }, throwsA(startsWith('`subtypeOf` must be an identifier')));
+            },
+                throwsA(isA<Object>()
+                    .havingToStringValue(contains('`subtypeOf` must be an identifier'))));
           }
 
           test('within a @Component() annotation (deprecated)', () {
@@ -2558,4 +2560,9 @@ extension on Iterable<ClassComponentDeclaration> {
 extension on Iterable<LegacyClassComponentDeclaration> {
   LegacyClassComponentDeclaration? firstWhereNameEquals(String baseName) =>
       firstWhereOrNull((declaration) => normalizeNameAndRemoveSuffix(declaration.component) == baseName);
+}
+
+extension on TypeMatcher<Object> {
+  Matcher havingToStringValue(dynamic matcher) =>
+      having((o) => o.toString(), 'toString() value', matcher);
 }
