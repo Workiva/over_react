@@ -171,12 +171,12 @@ abstract class _$ErrorBoundaryStateMixin implements UiState {
   ///   more frequently than [ErrorBoundaryPropsMixin.identicalErrorFrequencyTolerance], a static copy of
   ///   the render tree's HTML that was captured at the time of the error will be rendered.
   ///   See: [ErrorBoundaryPropsMixin.onComponentIsUnrecoverable] for more information about this scenario.
-  bool? hasError;
+  late bool hasError;
 
   /// Whether to show "fallback" UI when [hasError] is true.
   ///
   /// This value will always be true if [ErrorBoundaryPropsMixin.fallbackUIRenderer] is non-null.
-  bool? showFallbackUIOnError;
+  late bool showFallbackUIOnError;
 }
 
 /// A component mixin you can use to implement / extend from the behaviors of an [ErrorBoundary]
@@ -243,7 +243,7 @@ mixin ErrorBoundaryMixin<T extends ErrorBoundaryPropsMixin, S extends ErrorBound
   void componentDidUpdate(Map prevProps, Map prevState, [dynamic snapshot]) {
     // If the child is different, and the error boundary is currently in an error state,
     // give the child a chance to remount itself and "recover" from the previous error.
-    if (state.hasError!) {
+    if (state.hasError) {
       final childThatCausedError = typedPropsFactory(prevProps).children!.single;
       if (childThatCausedError != props.children!.single) {
         reset();
@@ -253,7 +253,7 @@ mixin ErrorBoundaryMixin<T extends ErrorBoundaryPropsMixin, S extends ErrorBound
 
   @override
   render() {
-    if (state.hasError! && state.showFallbackUIOnError!) {
+    if (state.hasError && state.showFallbackUIOnError) {
       return (props.fallbackUIRenderer ?? _renderStringDomAfterUnrecoverableErrors)(
           _errorLog.isNotEmpty ? _errorLog.last : null,
           _callStackLog.isNotEmpty ? _callStackLog.last : null,

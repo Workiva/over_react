@@ -119,7 +119,7 @@ class ErrorBoundaryComponent<T extends ErrorBoundaryProps, S extends ErrorBounda
 
   @override
   render() {
-    if (state.hasError!) { // [2]
+    if (state.hasError) { // [2]
       return (Dom.div()
         ..key = 'ohnoes'
         ..addTestId('ErrorBoundary.unrecoverableErrorInnerHtmlContainerNode')
@@ -135,7 +135,7 @@ class ErrorBoundaryComponent<T extends ErrorBoundaryProps, S extends ErrorBounda
   void componentDidUpdate(Map prevProps, Map prevState, [dynamic snapshot]) {
     // If the child is different, and the error boundary is currently in an error state,
     // give the children a chance to mount.
-    if (state.hasError!) {
+    if (state.hasError) {
       final childThatCausedError = typedPropsFactory(prevProps).children!.single;
       if (childThatCausedError != props.children!.single) {
         reset();
