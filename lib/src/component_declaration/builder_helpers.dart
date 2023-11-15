@@ -190,7 +190,7 @@ abstract class UiProps extends component_base.UiProps with GeneratedClass {
   }
 }
 
-class MissingRequiredPropsError {
+class MissingRequiredPropsError extends Error {
   final String _message;
 
   MissingRequiredPropsError(this._message);

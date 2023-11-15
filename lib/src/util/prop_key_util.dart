@@ -77,7 +77,7 @@ class _SingleKeyAccessMapSpy extends MapBase {
 }
 
 // FIXME document, add test cases (especially for non-nullable props).
-class KeyAccessedException {
+class KeyAccessedException implements Exception {
   final Object? key;
 
   KeyAccessedException(this.key);

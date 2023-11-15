@@ -161,5 +161,8 @@ String? getRelatedName(BoilerplateMember member) {
 }
 
 extension<T> on T? {
-  S? mapIfNotNull<S>(S? Function(T) callback) => this == null ? null : callback(this!);
+  S? mapIfNotNull<S>(S? Function(T) callback) {
+    final self = this;
+    return self == null ? null : callback(self);
+  }
 }

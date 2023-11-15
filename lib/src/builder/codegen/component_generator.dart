@@ -28,10 +28,10 @@ abstract class ComponentGenerator extends BoilerplateDeclarationGenerator {
   factory ComponentGenerator.legacy(LegacyClassComponentDeclaration declaration, {required bool nullSafety}) =
       _LegacyComponentGenerator;
 
-  late TypedMapNames propsNames;
-  TypedMapNames? stateNames;
-  late ComponentNames componentNames;
-  late FactoryNames factoryNames;
+  TypedMapNames get propsNames;
+  TypedMapNames? get stateNames;
+  ComponentNames get componentNames;
+  FactoryNames get factoryNames;
 
   BoilerplateComponent get component;
   bool get hasState;

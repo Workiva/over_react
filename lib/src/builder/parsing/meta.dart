@@ -122,7 +122,7 @@ class InstantiatedComponentMeta<TMeta> extends InstantiatedMeta<TMeta> {
         subtypeOfValue = expression;
         instantiated.unsupportedArguments.remove(subtypeOfParam);
       } else {
-        throw '`$_subtypeOfParamName` must be an identifier: $subtypeOfParam';
+        throw Exception('`$_subtypeOfParamName` must be an identifier: $subtypeOfParam');
       }
     }
 
