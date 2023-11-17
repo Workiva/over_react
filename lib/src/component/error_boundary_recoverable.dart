@@ -60,9 +60,7 @@ class RecoverableErrorBoundaryComponent<T extends RecoverableErrorBoundaryProps,
   @mustCallSuper
   @override
   void componentDidCatch(/*Error||Exception*/dynamic error, ReactErrorInfo info) {
-    if (props.onComponentDidCatch != null) {
-      props.onComponentDidCatch!(error, info);
-    }
+    props.onComponentDidCatch?.call(error, info);
 
     _handleErrorInComponentTree(error, info);
   }

@@ -32,25 +32,19 @@ class _$TestCompositeComponentProps extends UiProps {
 class TestCompositeComponentComponent extends UiComponent<TestCompositeComponentProps> {
   @override
   void componentDidMount() {
-    if (props.onComponentDidMount != null) {
-      props.onComponentDidMount!();
-    }
+    props.onComponentDidMount?.call();
   }
 
   @override
   void componentDidUpdate(_, __) {
-    if (props.onComponentDidUpdate != null) {
-      props.onComponentDidUpdate!();
-    }
+    props.onComponentDidUpdate?.call();
   }
 
   @override
   void componentWillUnmount() {
     super.componentWillUnmount();
 
-    if (props.onComponentWillUnmount != null) {
-      props.onComponentWillUnmount!();
-    }
+    props.onComponentWillUnmount?.call();
   }
 
   @override

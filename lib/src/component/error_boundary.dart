@@ -195,15 +195,9 @@ class ErrorBoundaryComponent
 
   @override
   void componentDidCatch(error, ReactErrorInfo info) {
-    if (props.onComponentDidCatch != null) {
-      props.onComponentDidCatch!(error, info);
-    }
-
+    props.onComponentDidCatch?.call(error, info);
     _logErrorCaughtByErrorBoundary(error, info);
-
-    if (props.onComponentIsUnrecoverable != null) {
-      props.onComponentIsUnrecoverable!(error, info);
-    }
+    props.onComponentIsUnrecoverable?.call(error, info);
   }
 
   @override
