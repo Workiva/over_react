@@ -56,13 +56,13 @@ void main() {
         Map? resizeSensorProps
     }) {
       // Create component hierarchy.
-      ReactElement? sensor = (ResizeSensor()
+      var sensor = (ResizeSensor()
         ..addProps(resizeSensorProps)
         ..onInitialize = onInitialize
         ..onResize = onResize
         ..ref = resizeSensorRef
       )();
-      ReactElement? container = (Dom.div()
+      var container = (Dom.div()
         ..className =  'container'
         ..style = {
           'position': 'absolute',
