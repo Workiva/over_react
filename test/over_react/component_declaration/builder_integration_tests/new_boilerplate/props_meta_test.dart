@@ -63,7 +63,7 @@ main() {
         final keys = [];
 
         [TestPropsMixin, FooPropsMixin, BazPropsMixin].forEach((mixinType) {
-          final PropsMeta metaForMixin = propsMeta.forMixin(mixinType);
+          final metaForMixin = propsMeta.forMixin(mixinType);
 
           expect(metaForMixin.keys.length, 1);
           keys.add(metaForMixin.keys.first);
@@ -83,7 +83,7 @@ main() {
         }, tags: 'ddc');
 
         test('and returns an empty meta in dart2js', () {
-          final PropsMeta value = propsMeta.forMixin(WoopsMixin);
+          final value = propsMeta.forMixin(WoopsMixin);
           expect(value.keys, isEmpty);
           expect(value.fields, isEmpty);
         }, tags: 'no-ddc');
@@ -113,7 +113,7 @@ main() {
           }, tags: 'ddc');
 
           test('and ignores those values in dart2js', () {
-            final Iterable<PropsMeta> value = propsMeta.forMixins({WoopsMixin, TestPropsMixin});
+            final value = propsMeta.forMixins({WoopsMixin, TestPropsMixin});
             expect(value, unorderedEquals([emptyPropsMeta, propsMeta.forMixin(TestPropsMixin)]));
           }, tags: 'no-ddc');
         });
@@ -140,7 +140,7 @@ main() {
           }, tags: 'ddc');
 
           test('and ignores those values in dart2js', () {
-            final Iterable<PropsMeta> value = propsMeta.allExceptForMixins({WoopsMixin, TestPropsMixin});
+            final value = propsMeta.allExceptForMixins({WoopsMixin, TestPropsMixin});
             expect(value, unorderedEquals([FooPropsMixin, BazPropsMixin].map(propsMeta.forMixin)));
           }, tags: 'no-ddc');
         });
