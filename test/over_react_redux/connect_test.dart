@@ -196,7 +196,7 @@ main() {
           ),
         );
 
-        final CounterProps actualProps = counterRef.current!.props;
+        final actualProps = counterRef.current!.props;
         final expectedProps = {
           'functionPropSetInsideHoc': same(testFunction),
           'mapPropSetInsideHoc': same(testMap),

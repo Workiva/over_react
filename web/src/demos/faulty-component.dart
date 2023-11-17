@@ -33,7 +33,7 @@ class FaultyComponent extends UiStatefulComponent2<FaultyProps, FaultyState> {
 
   @override
   getSnapshotBeforeUpdate(Map prevProps, Map prevState) {
-    final FaultyState tPrevState = typedStateFactory(prevState);
+    final tPrevState = typedStateFactory(prevState);
     if (state.hasErrored! && !tPrevState.hasErrored!) {
       throw Error();
     }

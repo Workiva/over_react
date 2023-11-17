@@ -57,7 +57,7 @@ class FlawedComponent extends UiStatefulComponent2<FlawedProps, FlawedState> {
 
   @override
   getSnapshotBeforeUpdate(Map prevProps, Map prevState) {
-    final FlawedState tPrevState = typedStateFactory(prevState);
+    final tPrevState = typedStateFactory(prevState);
     if (state.errorCount! > tPrevState.errorCount!) {
       throw FlawedComponentException();
     }

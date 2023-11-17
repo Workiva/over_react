@@ -203,8 +203,8 @@ class WithTransitionComponent extends UiStatefulComponent2<WithTransitionProps, 
 
   @override
   getDerivedStateFromProps(Map nextProps, Map prevState) {
-    final WithTransitionProps tNextProps = typedPropsFactory(nextProps);
-    final WithTransitionState tPrevState = typedStateFactory(prevState);
+    final tNextProps = typedPropsFactory(nextProps);
+    final tPrevState = typedStateFactory(prevState);
     if (tNextProps.isShown! && _isOrWillBeHidden(tPrevState.$transitionPhase)) {
       return _stateToBeginShowing(tNextProps, tPrevState.$transitionPhase);
     } else if (!tNextProps.isShown! && _isOrWillBeShown(tPrevState.$transitionPhase)) {
