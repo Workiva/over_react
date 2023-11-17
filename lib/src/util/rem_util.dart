@@ -104,7 +104,7 @@ Future<Null> initRemChangeSensor() {
       (v2.ResizeSensor()..onResize = (_) {
         recomputeRootFontSize();
       })()
-    ), _changeSensorMountNode);
+    ), _changeSensorMountNode!);
   });
 }
 
@@ -139,7 +139,7 @@ Future<Null> destroyRemChangeSensor() {
     _shouldStillMountRemChangeSensor = false;
 
     if (_changeSensor != null) {
-      react_dom.unmountComponentAtNode(_changeSensorMountNode);
+      react_dom.unmountComponentAtNode(_changeSensorMountNode!);
       _changeSensorMountNode!.remove();
       _changeSensorMountNode = null;
       _changeSensor = null;
