@@ -41,7 +41,7 @@ main() {
 
       group('using the factory\'s `asForwardRefConfig` syntax', () {
         test('- sets displayName on the rendered component as expected', () {
-          final BasicUiFunctionProps Function([Map<dynamic, dynamic>]) BasicForwarded = uiForwardRef<BasicUiFunctionProps>((props, ref) {
+          final BasicForwarded = uiForwardRef<BasicUiFunctionProps>((props, ref) {
             return (BasicUiFunction()..ref = ref)();
           }, BasicUiFunction.asForwardRefConfig());
 
@@ -52,7 +52,7 @@ main() {
         });
 
         test('when displayName argument is passed to the config constructor', () {
-          final BasicUiFunctionProps Function([Map<dynamic, dynamic>]) BasicForwarded = uiForwardRef<BasicUiFunctionProps>((props, ref) {
+          final BasicForwarded = uiForwardRef<BasicUiFunctionProps>((props, ref) {
             return (BasicUiFunction()..ref = ref)();
           }, BasicUiFunction.asForwardRefConfig(displayName: displayName));
 
@@ -64,7 +64,7 @@ main() {
 
         group('returns normally when passed children', () {
           test('that are in a List literal', () {
-            final BasicUiFunctionProps Function([Map<dynamic, dynamic>]) BasicForwarded = uiForwardRef<BasicUiFunctionProps>((props, ref) {
+            final BasicForwarded = uiForwardRef<BasicUiFunctionProps>((props, ref) {
               return (BasicUiFunction()..ref = ref)();
             }, BasicUiFunction.asForwardRefConfig());
 
@@ -72,7 +72,7 @@ main() {
           });
 
           test('that are not in a List literal', () {
-            final BasicUiFunctionProps Function([Map<dynamic, dynamic>]) BasicForwarded = uiForwardRef<BasicUiFunctionProps>((props, ref) {
+            final BasicForwarded = uiForwardRef<BasicUiFunctionProps>((props, ref) {
               return (BasicUiFunction()..ref = ref)();
             }, BasicUiFunction.asForwardRefConfig());
 
@@ -129,7 +129,7 @@ void commonRefForwardingTests() {
   UiFactory<DomProps> getFactoryForDiv({
     String? displayName,
   }) {
-    ReactElement? div(dynamic ref, dynamic children) => (Dom.div()..ref = ref)(children);
+    ReactElement div(dynamic ref, dynamic children) => (Dom.div()..ref = ref)(children);
 
     if (displayName == null) {
       return uiForwardRef<DomProps>((props, ref) {
@@ -197,7 +197,7 @@ void commonRefForwardingTests() {
 
       group('- sets displayName on the rendered component as expected', () {
         test('when displayName argument is not passed to forwardRef', () {
-          final BasicProps Function([Map<dynamic, dynamic>]) BasicForwarded = getFactoryForBasic();
+          final BasicForwarded = getFactoryForBasic();
 
           final Ref refObject = createRef();
           final vDomElement = (BasicForwarded()..ref = refObject)();
@@ -206,7 +206,7 @@ void commonRefForwardingTests() {
         });
 
         test('when displayName argument is passed to the config constructor', () {
-          final BasicProps Function([Map<dynamic, dynamic>]) BasicForwarded = getFactoryForBasic(displayName: displayName);
+          final BasicForwarded = getFactoryForBasic(displayName: displayName);
 
           final Ref refObject = createRef();
           final vDomElement = (BasicForwarded()..ref = refObject)();
@@ -233,7 +233,7 @@ const displayName = 'AVerySpecificDisplayName';
 void testForwardRefWith(dynamic factory,
     {void Function(dynamic refValue)? verifyRefValue}) {
   test('- passes a ref through the parent to its child', () {
-    final BasicProps Function([Map<dynamic, dynamic>]) BasicForwarded = uiForwardRef<BasicProps>((props, ref) {
+    final BasicForwarded = uiForwardRef<BasicProps>((props, ref) {
       return (factory()
         ..ref = ref
         ..id = props.childId)();

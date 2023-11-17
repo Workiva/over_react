@@ -23,10 +23,10 @@ int _resetCounterReducer(int currentCount, ResetAction action) {
 }
 
 class FluxActions {
-  final flux.ActionOptionalPayload<int> incrementAction = flux.ActionOptionalPayload();
-  final flux.ActionOptionalPayload<int> decrementAction = flux.ActionOptionalPayload();
-  final flux.ActionOptionalPayload resetAction = flux.ActionOptionalPayload();
-  final flux.ActionOptionalPayload mutateStoreDirectly = flux.ActionOptionalPayload();
+  final flux.Action<int> incrementAction = flux.Action();
+  final flux.Action<int> decrementAction = flux.Action();
+  final flux.Action resetAction = flux.Action();
+  final flux.Action mutateStoreDirectly = flux.Action();
 }
 
 class FluxStore extends flux.Store with InfluxStoreMixin<FluxCounterState> {

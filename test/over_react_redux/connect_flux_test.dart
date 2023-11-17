@@ -447,7 +447,7 @@ main() {
               () async {
             final localReduxRef = createRef<CounterComponent>();
 
-            final CounterProps Function([Map<dynamic, dynamic>]) ReduxConnectedCounter = connect<redux_store.ImpureCounterState, CounterProps>(
+            final ReduxConnectedCounter = connect<redux_store.ImpureCounterState, CounterProps>(
               mapStateToProps: (state) {
                 methodsCalled.add({
                   'called': 'mapStateToProps',
@@ -558,7 +558,7 @@ main() {
             },
             forwardRef: true,
           )(ConnectFluxCounter);
-          ConnectFluxCounterProps Function([Map<dynamic, dynamic>]) ConnectedBigCounter = connectFlux<FluxStore2, FluxActions, ConnectFluxCounterProps>(
+          var ConnectedBigCounter = connectFlux<FluxStore2, FluxActions, ConnectFluxCounterProps>(
             mapStateToProps: (state) => (ConnectFluxCounter()..currentCount = state.count),
             mapActionsToProps: (actions) => (ConnectFluxCounter()
               ..increment = actions.incrementAction
@@ -598,7 +598,7 @@ main() {
             forwardRef: true,
           )(ConnectFluxCounter);
 
-          ConnectFluxCounterProps Function([Map<dynamic, dynamic>]) ConnectedBigCounter = connectFlux<FluxStore2, FluxActions, ConnectFluxCounterProps>(
+          var ConnectedBigCounter = connectFlux<FluxStore2, FluxActions, ConnectFluxCounterProps>(
             mapStateToProps: (state) => (ConnectFluxCounter()..currentCount = state.count),
             mapActionsToProps: (actions) => (ConnectFluxCounter()
               ..increment = actions.incrementAction
@@ -690,7 +690,7 @@ main() {
             parameterCase.mapStateToPropsWithOwnProps != null;
 
         test(parameterCase.name, () async {
-          final ConnectFluxCounterProps Function([Map<dynamic, dynamic>]) ConnectedFluxComponent =
+          final ConnectedFluxComponent =
               connectFlux<FluxStore, FluxActions, ConnectFluxCounterProps>(
             mapStateToProps: parameterCase.mapStateToProps,
             mapActionsToProps: parameterCase.mapActionsToProps,
@@ -730,7 +730,7 @@ main() {
     });
 
     test('prints a warning when state is mutated directly', () async {
-      final ConnectFluxCounterProps Function([Map<dynamic, dynamic>]) ConnectedFluxComponent = connectFlux<FluxStore, FluxActions, ConnectFluxCounterProps>(
+      final ConnectedFluxComponent = connectFlux<FluxStore, FluxActions, ConnectFluxCounterProps>(
         mapStateToProps: (state) =>
             (ConnectFluxCounter()..mutatedList = state.listYouDefShouldntMutate),
         mapActionsToProps: (actions) =>

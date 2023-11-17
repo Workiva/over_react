@@ -53,7 +53,7 @@ main() {
     group('FluxToReduxAdapterStore', () {
       group('can receive both Flux and Redux updates', () {
         test('with the counter component using the `dispatch` prop', () async {
-          final ConnectFluxCounterProps Function([Map<dynamic, dynamic>]) ConnectedFluxComponent =
+          final ConnectedFluxComponent =
               connectFlux<FluxStore, FluxActions, ConnectFluxCounterProps>(
             mapStateToProps: (state) =>
                 (ConnectFluxCounter()..currentCount = state.count),
@@ -61,7 +61,7 @@ main() {
                 (ConnectFluxCounter()..actions = actions),
           )(ConnectFluxCounter);
 
-          final CounterProps Function([Map<dynamic, dynamic>]) ConnectedReduxComponent = connect<FluxStore, CounterProps>(
+          final ConnectedReduxComponent = connect<FluxStore, CounterProps>(
             mapStateToProps: (state) => (Counter()..currentCount = state.count),
             pure: false,
           )(Counter);
@@ -100,7 +100,7 @@ main() {
         test(
             'with the components using `mapDispatchToProps` and `mapActionsToProps`',
             () async {
-          final ConnectFluxCounterProps Function([Map<dynamic, dynamic>]) ConnectedFluxComponent =
+          final ConnectedFluxComponent =
               connectFlux<FluxStore, FluxActions, ConnectFluxCounterProps>(
             mapStateToProps: (state) =>
                 (ConnectFluxCounter()..currentCount = state.count),
@@ -109,7 +109,7 @@ main() {
               ..decrement = actions.decrementAction),
           )(ConnectFluxCounter);
 
-          final CounterProps Function([Map<dynamic, dynamic>]) ConnectedReduxComponent = connect<FluxStore, CounterProps>(
+          final ConnectedReduxComponent = connect<FluxStore, CounterProps>(
             mapStateToProps: (state) => (Counter()..currentCount = state.count),
             mapDispatchToProps: (dispatch) =>
                 (Counter()..increment = () => dispatch(IncrementAction())),
@@ -149,7 +149,7 @@ main() {
       });
 
       test('will not update Redux unless the component is impure', () async {
-        final ConnectFluxCounterProps Function([Map<dynamic, dynamic>]) ConnectedFluxComponent =
+        final ConnectedFluxComponent =
             connectFlux<FluxStore, FluxActions, ConnectFluxCounterProps>(
           mapStateToProps: (state) =>
               (ConnectFluxCounter()..currentCount = state.count),
@@ -158,7 +158,7 @@ main() {
             ..decrement = actions.decrementAction),
         )(ConnectFluxCounter);
 
-        final CounterProps Function([Map<dynamic, dynamic>]) ConnectedReduxComponent = connect<FluxStore, CounterProps>(
+        final ConnectedReduxComponent = connect<FluxStore, CounterProps>(
           mapStateToProps: (state) => (Counter()..currentCount = state.count),
           mapDispatchToProps: (dispatch) =>
               (Counter()..increment = () => dispatch(IncrementAction())),

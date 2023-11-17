@@ -38,7 +38,4 @@ class _Dummy2Component extends UiComponent2<_Dummy2Props> {
 // UngeneratedError when certain members, like `propTypes`, are accessed during registration.
 //
 // This is to publicly expose the generated component type for use with `registerAbstractComponent2`.
-class DummyComponent2 extends _$_Dummy2Component {
-  @override
-  render() {}
-}
+class DummyComponent2 extends _$_Dummy2Component {}

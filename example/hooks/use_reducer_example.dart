@@ -17,7 +17,7 @@ import 'package:over_react/over_react.dart';
 // ignore_for_file: uri_has_not_been_generated
 part 'use_reducer_example.over_react.g.dart';
 
-Map initializeCount(int? initialValue) {
+Map initializeCount(int initialValue) {
   return {'count': initialValue};
 }
 
@@ -28,7 +28,7 @@ Map reducer(Map state, Map action) {
     case 'decrement':
       return {...state, 'count': state['count'] - 1};
     case 'reset':
-      return initializeCount(action['payload'] as int?);
+      return initializeCount(action['payload'] as int);
     default:
       return state;
   }
@@ -40,8 +40,10 @@ mixin UseReducerExampleProps on UiProps {
 
 UiFactory<UseReducerExampleProps> UseReducerExample = uiFunction(
   (props) {
-    final state = useReducerLazy<Map, Map, int?>(
-        reducer, props.initialCount, initializeCount);
+    final initialCount = props.initialCount ?? 0;
+
+    final state = useReducerLazy<Map, Map, int>(
+        reducer, initialCount, initializeCount);
 
     return Fragment()(
       state.state['count'],

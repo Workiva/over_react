@@ -219,7 +219,7 @@ main() {
           test('errors', () {
             var expectedOutput = '';
 
-            final void Function(String, [SourceSpan]) callbackTest = ErrorCollector.stringCallback((generatedString) {
+            final callbackTest = ErrorCollector.stringCallback((generatedString) {
               expectedOutput = generatedString;
             });
 
@@ -234,7 +234,7 @@ main() {
           test('warnings', () {
             var expectedOutput = '';
 
-            final void Function(String, [SourceSpan]) callbackTest = ErrorCollector.stringCallback((generatedString) {
+            final callbackTest = ErrorCollector.stringCallback((generatedString) {
               expectedOutput = generatedString;
             });
 
@@ -272,7 +272,7 @@ main() {
           test('errors', () {
             var expectedOutput = '';
 
-            final void Function(String, [SourceSpan]) callbackTest = ErrorCollector.stringCallback((generatedString) {
+            final callbackTest = ErrorCollector.stringCallback((generatedString) {
               expectedOutput = generatedString;
             });
 
@@ -289,7 +289,7 @@ main() {
           test('warnings', () {
             var expectedOutput = '';
 
-            final void Function(String, [SourceSpan]) callbackTest = ErrorCollector.stringCallback((generatedString) {
+            final callbackTest = ErrorCollector.stringCallback((generatedString) {
               expectedOutput = generatedString;
             });
 

@@ -56,7 +56,7 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
   @DocsMeta(_desc, details: _details, maturity: Maturity.experimental)
   static const code = DiagnosticCode(
     'over_react_required_prop',
-    "{0}",
+    "Missing required prop '{0}'.",
     AnalysisErrorSeverity.WARNING,
     AnalysisErrorType.STATIC_WARNING,
   );
@@ -64,7 +64,7 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
   @override
   List<DiagnosticCode> get codes => [code];
 
-  static final fixKind = FixKind(code.name, 200, "{0}");
+  static final fixKind = FixKind(code.name, 200, "Add required prop '{0}'");
 
   static final _debugCommentPattern = getDebugCommentPattern('over_react_required_props');
 
@@ -103,21 +103,19 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
     final missingRequiredFieldNames = requiredFieldsByName.keys.toSet()
       ..removeAll(usage.cascadedProps.where((prop) => !prop.isPrefixed).map((prop) => prop.name.name));
 
-    if (missingRequiredFieldNames.isNotEmpty) {
-      final isMultiple = missingRequiredFieldNames.length > 1;
 
-      // FIXME go back to one at a time
-      collector.addError(
+    for (final name in missingRequiredFieldNames) {
+      await collector.addErrorWithFix(
         code,
         result.locationFor(usage.builder),
-        // fixKind: fixKind,
-        // fixMessageArgs: ['Add required ${isMultiple ? 'props' : 'prop'}: ${missingRequiredFieldNames.map((f) => "'$f'").join(', ')}.'],
-        errorMessageArgs: ['Missing required ${isMultiple ? 'props' : 'prop'}: ${missingRequiredFieldNames.map((f) => "'$f'").join(', ')}.'],
-        // computeFix:  () => buildFileEdit(result, (builder) {
-        //   addProp(usage, builder, result.content, result.lineInfo, name: name, buildValueEdit: (builder) {
-        //     builder.selectHere();
-        //   });
-        // }),
+        errorMessageArgs: [name],
+        fixKind: fixKind,
+        fixMessageArgs: [name],
+        computeFix: () => buildFileEdit(result, (builder) {
+          addProp(usage, builder, result.content, result.lineInfo, name: name, buildValueEdit: (builder) {
+            builder.selectHere();
+          });
+        }),
       );
     }
   }

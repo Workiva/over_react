@@ -85,9 +85,8 @@ class CallbackUtil0Arg extends CallbackUtil {
   Callback0Arg get noop => _noop;
 
   @override
-  Callback0Arg? chain(Callback0Arg? a, Callback0Arg? b) {
-    if (a == null && b == null) return noop;
-    if (a == null) return b;
+  Callback0Arg chain(Callback0Arg? a, Callback0Arg? b) {
+    if (a == null) return b ?? noop;
     if (b == null) return a;
 
     dynamic chained() {
@@ -115,9 +114,8 @@ class CallbackUtil1Arg<T> extends CallbackUtil {
   Callback1Arg<T> get noop => _noop;
 
   @override
-  Callback1Arg<T>? chain(Callback1Arg<T>? a, Callback1Arg<T>? b) {
-    if (a == null && b == null) return noop;
-    if (a == null) return b;
+  Callback1Arg<T> chain(Callback1Arg<T>? a, Callback1Arg<T>? b) {
+    if (a == null) return b ?? noop;
     if (b == null) return a;
 
     dynamic chained(T arg1) {
@@ -145,9 +143,8 @@ class CallbackUtil2Arg<T1, T2> extends CallbackUtil {
   Callback2Arg<T1, T2> get noop => _noop;
 
   @override
-  Callback2Arg<T1, T2>? chain(Callback2Arg<T1, T2>? a, Callback2Arg<T1, T2>? b) {
-    if (a == null && b == null) return noop;
-    if (a == null) return b;
+  Callback2Arg<T1, T2> chain(Callback2Arg<T1, T2>? a, Callback2Arg<T1, T2>? b) {
+    if (a == null) return b ?? noop;
     if (b == null) return a;
 
     dynamic chained(T1 arg1, T2 arg2) {
@@ -175,9 +172,8 @@ class CallbackUtil3Arg<T1, T2, T3> extends CallbackUtil {
   Callback3Arg<T1, T2, T3> get noop => _noop;
 
   @override
-  Callback3Arg<T1, T2, T3>? chain(Callback3Arg<T1, T2, T3>? a, Callback3Arg<T1, T2, T3>? b) {
-    if (a == null && b == null) return noop;
-    if (a == null) return b;
+  Callback3Arg<T1, T2, T3> chain(Callback3Arg<T1, T2, T3>? a, Callback3Arg<T1, T2, T3>? b) {
+    if (a == null) return b ?? noop;
     if (b == null) return a;
 
     dynamic chained(T1 arg1, T2 arg2, T3 arg3) {
@@ -205,9 +201,8 @@ class CallbackUtil4Arg<T1, T2, T3, T4> extends CallbackUtil {
   Callback4Arg<T1, T2, T3, T4> get noop => _noop;
 
   @override
-  Callback4Arg<T1, T2, T3, T4>? chain(Callback4Arg<T1, T2, T3, T4>? a, Callback4Arg<T1, T2, T3, T4>? b) {
-    if (a == null && b == null) return noop;
-    if (a == null) return b;
+  Callback4Arg<T1, T2, T3, T4> chain(Callback4Arg<T1, T2, T3, T4>? a, Callback4Arg<T1, T2, T3, T4>? b) {
+    if (a == null) return b ?? noop;
     if (b == null) return a;
 
     dynamic chained(T1 arg1, T2 arg2, T3 arg3, T4 arg4) {
@@ -235,7 +230,7 @@ abstract class CallbackUtil<_> {
   /// Returns `false` if one or more of the provided callbacks returns `false`.
   ///
   /// Gracefully handles when [a] and/or [b] are null, always returning a callable function.
-  Function? chain(covariant Function? a, covariant Function? b);
+  Function chain(covariant Function? a, covariant Function? b);
 
   /// Returns a strongly-typed chained callback that calls through to the list of provided [callbacks] in order.
   /// Useful for executing multiple callbacks where only a single callback is accepted.

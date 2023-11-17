@@ -267,15 +267,6 @@ abstract class $UbiquitousDomPropsMixin {
 abstract class _$UbiquitousDomPropsMixin {
   Map get props;
 
-  // FIXME null-safety make these `late`?
-  /// A cache for the MapView used for [aria].
-  @Accessor(doNotGenerate: true)
-  AriaPropsMapView? _aria;
-
-  /// A cache for the MapView used for [dom].
-  @Accessor(doNotGenerate: true)
-  DomProps? _dom;
-
   /// A view into this map that can be used to access `aria-` props, for convenience.
   ///
   /// Example:
@@ -283,9 +274,8 @@ abstract class _$UbiquitousDomPropsMixin {
   ///     (Button()
   ///       ..aria.controls = 'my_popover'
   ///     )('Open popover')
-  AriaPropsMixin get aria {
-    return _aria ??= AriaPropsMapView(props);
-  }
+  @Accessor(doNotGenerate: true)
+  late final AriaPropsMixin aria = AriaPropsMapView(props);
 
   /// A view into this map that can be used to access DOM props, for convenience.
   ///
@@ -294,9 +284,8 @@ abstract class _$UbiquitousDomPropsMixin {
   ///     (Tab()
   ///       ..dom.draggable = true
   ///     )('Untitled Document')
-  DomPropsMixin get dom {
-    return _dom ??= DomProps(null, props);
-  }
+  @Accessor(doNotGenerate: true)
+  late final DomPropsMixin dom = DomProps(null, props);
 
   /// Whether the element if focusable.
   /// Must be a valid integer or String of valid integer.

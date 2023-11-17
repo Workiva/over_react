@@ -77,7 +77,15 @@ class LegacyClassComponentDeclaration extends BoilerplateDeclaration {
   bool get isComponent2 => component.isComponent2(version);
 
   @override
-  get _members => [factory, component, props, if (state != null) state!];
+  get _members {
+    final state = this.state;
+    return [
+      factory,
+      component,
+      props,
+      if (state != null) state,
+    ];
+  }
 
   @override
   get type => DeclarationType.legacyClassComponentDeclaration;
@@ -238,7 +246,15 @@ class ClassComponentDeclaration extends BoilerplateDeclaration
   final Union<BoilerplateState, BoilerplateStateMixin>? state;
 
   @override
-  get _members => [factory, component, props.either, if (state != null) state!.either];
+  get _members {
+    final state = this.state;
+    return [
+      factory,
+      component,
+      props.either,
+      if (state != null) state.either,
+    ];
+  }
 
   @override
   get type => DeclarationType.classComponentDeclaration;

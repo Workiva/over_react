@@ -121,7 +121,7 @@ class ProgressComponent extends UiStatefulComponent2<ProgressProps, ProgressStat
     );
   }
 
-  ReactElement? renderProgressNode() {
+  ReactElement renderProgressNode() {
     return (Dom.progress()
       ..modifyProps(addUnconsumedDomProps)
       ..addProps(ariaProps()
@@ -134,7 +134,7 @@ class ProgressComponent extends UiStatefulComponent2<ProgressProps, ProgressStat
     )();
   }
 
-  ReactElement? renderCaptionNode() {
+  ReactElement renderCaptionNode() {
     var captionClasses = ClassNameBuilder.fromProps(props.captionProps)
       ..add('sr-only', !props.showCaption!);
 

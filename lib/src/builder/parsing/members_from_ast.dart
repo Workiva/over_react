@@ -446,10 +446,11 @@ class _BoilerplateMemberDetector {
               .map((t) => t.typeNameWithoutPrefix)
               .whereNotNull()
               .any(_componentBaseClassPattern.hasMatch) ||
-          [...?classish.superclass?.typeArguments?.arguments]
-              .map((t) => t.typeNameWithoutPrefix)
-              .whereNotNull()
-              .any(propsOrMixinNamePattern.hasMatch)) {
+          (classish.superclass?.typeArguments?.arguments
+                  .map((t) => t.typeNameWithoutPrefix)
+                  .whereNotNull()
+                  .any(propsOrMixinNamePattern.hasMatch) ??
+              false)) {
         const mixinBoilerplateBaseClasses = {
           'UiComponent2',
           'UiStatefulComponent2',

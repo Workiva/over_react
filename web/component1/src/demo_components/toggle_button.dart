@@ -140,7 +140,7 @@ class ToggleButtonComponent extends ButtonComponent<ToggleButtonProps, ToggleBut
     );
   }
 
-  ReactElement? renderInput() {
+  ReactElement renderInput() {
     var builder = Dom.input()
       ..type = props.toggleType!.typeName
       ..id = id

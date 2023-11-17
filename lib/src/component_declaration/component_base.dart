@@ -673,7 +673,9 @@ abstract class UiProps extends MapBase
       : const {};
   }
 
-  @protected
+  // FIXME(null-safety) document and generate overrides in FEDX-107
+  @visibleForOverriding
+  @mustCallSuper
   void validateRequiredProps() {}
 }
 
@@ -730,7 +732,7 @@ abstract class MapViewMixin<K, V> implements _OverReactMapViewBase<K, V>, Map<K,
   @override V update(K key, V Function(V value) update, {V Function()? ifAbsent}) => _map.update(key, update, ifAbsent: ifAbsent);
   @override void updateAll(V Function(K key, V value) update) => _map.updateAll(update);
   @override Map<RK, RV> cast<RK, RV>() => _map.cast<RK, RV>();
-  @override V? operator [](Object? key) => _map[key as K];
+  @override V? operator [](Object? key) => _map[key];
   @override void operator []=(K key, V value) { _map[key] = value; }
   @override void addAll(Map<K, V> other) { _map.addAll(other); }
   @override void clear() { _map.clear(); }
@@ -983,13 +985,4 @@ class PropsMetaCollection extends _AccessorMetaCollection<PropDescriptor, PropsM
 
   @override
   List<PropDescriptor> get props => fields;
-
-}
-
-@internal
-extension CachedRequiredProps$PropsMeta on PropsMeta {
-  static final _cachedRequiredProps = Expando<List<PropDescriptor>>();
-  List<PropDescriptor> get cachedRequiredProps => _cachedRequiredProps[this] ??= _requiredProps;
-
-  List<PropDescriptor> get _requiredProps => props.where((p) => p.isRequired).toList(growable: false);
 }

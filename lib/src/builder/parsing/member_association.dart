@@ -89,7 +89,7 @@ BoilerplateComponent? getComponentFor(
   // If there's no match by name, use the props generic parameter
   return components.firstWhereOrNull((comp) {
     final propsGenericArgName = comp.nodeHelper.superclass?.typeArguments?.arguments
-        .firstWhereOrNull((arg) => arg.typeNameWithoutPrefix!.contains('Props'))
+        .firstWhereOrNull((arg) => arg.typeNameWithoutPrefix?.contains('Props') ?? false)
         ?.typeNameWithoutPrefix;
     if (propsGenericArgName != null) {
       if (_normalizeBoilerplatePropsOrPropsMixinName(propsGenericArgName) ==
@@ -161,5 +161,8 @@ String? getRelatedName(BoilerplateMember member) {
 }
 
 extension<T> on T? {
-  S? mapIfNotNull<S>(S? Function(T) callback) => this == null ? null : callback(this!);
+  S? mapIfNotNull<S>(S? Function(T) callback) {
+    final self = this;
+    return self == null ? null : callback(self);
+  }
 }
