@@ -78,7 +78,7 @@ main() {
       });
 
       test('except for the field annotated with doNotGenerate', () {
-        DoNotGenerateAccessorTestState instance = component.newState()..notGeneratedState = 'test';
+        var instance = component.newState()..notGeneratedState = 'test';
         expect(instance.notGeneratedState, 'test', reason: 'non-generated field should work as expected');
         expect(instance, isEmpty, reason: 'accessor should not be backed by a key-value pair');
       });

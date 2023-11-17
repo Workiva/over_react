@@ -109,7 +109,7 @@ class ToggleButtonComponent extends ButtonComponent<ToggleButtonProps, ToggleBut
 
   @override
   Map? getDerivedStateFromProps(Map nextProps, Map prevState) {
-    ToggleButtonProps tNewProps = typedPropsFactory(nextProps);
+    var tNewProps = typedPropsFactory(nextProps);
 
     _validateProps(tNewProps);
 

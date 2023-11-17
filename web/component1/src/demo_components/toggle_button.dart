@@ -121,7 +121,7 @@ class ToggleButtonComponent extends ButtonComponent<ToggleButtonProps, ToggleBut
   @override
   void componentWillReceiveProps(Map newProps) {
     super.componentWillReceiveProps(newProps);
-    ToggleButtonProps tNewProps = typedPropsFactory(newProps);
+    var tNewProps = typedPropsFactory(newProps);
 
     _validateProps(tNewProps);
 

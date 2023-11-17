@@ -83,7 +83,7 @@ class ToggleButtonGroupComponent extends ButtonGroupComponent<ToggleButtonGroupP
   ToggleButtonProps buttonPropsToAdd(ReactElement child, int index) {
     var childProps = childFactory(getProps(child));
 
-    ButtonProps superPropsToAdd = super.buttonPropsToAdd(child, index);
+    var superPropsToAdd = super.buttonPropsToAdd(child, index);
 
     return childFactory()
       ..addProps(superPropsToAdd)
