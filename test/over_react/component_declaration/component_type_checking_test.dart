@@ -119,7 +119,7 @@ main() {
     // where auto-detecting the subtypeOf arg resulted in the UiFactory itself
     // being treated as the subtype, causing type checking to fail.
     test('works when subtyping a component whose factory hasn\'t been initialized yet', () {
-      final react_interop.ReactElement? element = function.TestUninitializedParent()();
+      final element = function.TestUninitializedParent()();
       expect(isComponentOfType(element, function.DoNotReferenceThisFactoryExceptForInASingleTest), isTrue);
       expect(isComponentOfType(element, TestAbstract2Component), isTrue);
     });

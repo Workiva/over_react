@@ -444,8 +444,8 @@ main() {
         });
 
         test('more than one child', () {
-          final ReactElement? child1 = Dom.div()('one');
-          final ReactElement? child2 = Dom.div()('two');
+          final child1 = Dom.div()('one');
+          final child2 = Dom.div()('two');
           expect(() => mount(WithTransition()(
             child1,
             child2,
