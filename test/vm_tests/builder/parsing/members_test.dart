@@ -106,8 +106,6 @@ main() {
       });
 
       group('validate', () {
-        ErrorCollector? collector;
-        SourceFile? file;
         var validateResults = <String>[];
 
         void validateCallback(String message, [SourceSpan? span]) {
@@ -116,8 +114,6 @@ main() {
 
         tearDown(() {
           validateResults = <String>[];
-          file = null;
-          collector = null;
         });
 
         group('does not throw when', () {
@@ -127,11 +123,11 @@ main() {
                 final members = BoilerplateMemberHelper.getBoilerplateMembersForVersion(version);
                 final component = members.whereType<BoilerplateComponent>().first;
                 final componentVersion = resolveVersion(members).version;
-                file = SourceFile.fromString(getBoilerplateString(version: version));
-                collector = ErrorCollector.callback(file!,
+                final file = SourceFile.fromString(getBoilerplateString(version: version));
+                final collector = ErrorCollector.callback(file,
                     onError: validateCallback, onWarning: validateCallback);
 
-                component.validate(componentVersion, collector!);
+                component.validate(componentVersion, collector);
                 expect(validateResults, []);
               });
             }
@@ -140,7 +136,7 @@ main() {
 
         group('throws when the component is mixin based but', () {
           test('does not extend Component2', () {
-            file = SourceFile.fromString(r'''
+            final file = SourceFile.fromString(r'''
             UiFactory<FooProps> Foo = _$Foo;
 
             mixin FooProps on UiProps {}
@@ -149,21 +145,21 @@ main() {
   
             class FooComponent extends UiStatefulComponent<FooProps, FooState>{}
             ''');
-            collector = ErrorCollector.callback(file!,
+            final collector = ErrorCollector.callback(file,
                 onError: validateCallback, onWarning: validateCallback);
 
-            final members = BoilerplateMemberHelper.parseAndReturnMembers(file!.getText(0));
+            final members = BoilerplateMemberHelper.parseAndReturnMembers(file.getText(0));
 
             final component = members.whereType<BoilerplateComponent>().first;
             final componentVersion = resolveVersion(members).version;
             expect(componentVersion, Version.v4_mixinBased, reason: 'test setup check');
 
-            component.validate(componentVersion, collector!);
+            component.validate(componentVersion, collector);
             expect(validateResults, [contains('Must extend UiComponent2, not UiComponent.')]);
           });
 
           test('has a `@Component()` annotation', () {
-            file = SourceFile.fromString(r'''
+            final file = SourceFile.fromString(r'''
             UiFactory<FooProps> Foo = _$Foo;
 
             mixin FooProps on UiProps {}
@@ -173,16 +169,16 @@ main() {
             @Component()
             class FooComponent extends UiComponent2<FooProps, FooState>{}
             ''');
-            collector = ErrorCollector.callback(file!,
+            final collector = ErrorCollector.callback(file,
                 onError: validateCallback, onWarning: validateCallback);
 
-            final members = BoilerplateMemberHelper.parseAndReturnMembers(file!.getText(0));
+            final members = BoilerplateMemberHelper.parseAndReturnMembers(file.getText(0));
 
             final component = members.whereType<BoilerplateComponent>().first;
             final componentVersion = resolveVersion(members).version;
             expect(componentVersion, Version.v4_mixinBased, reason: 'test setup check');
 
-            component.validate(componentVersion, collector!);
+            component.validate(componentVersion, collector);
             expect(validateResults, [contains('Only @Component2() is supported for this syntax.')]);
           });
         });
@@ -209,10 +205,10 @@ main() {
                           BoilerplateMemberHelper.parseAndReturnMembers(componentString);
                       final component = members.whereType<BoilerplateComponent>().first;
                       final componentVersion = resolveVersion(members).version;
-                      file = SourceFile.fromString(componentString);
-                      collector = ErrorCollector.callback(file!, onError: validateCallback);
+                      final file = SourceFile.fromString(componentString);
+                      final collector = ErrorCollector.callback(file, onError: validateCallback);
 
-                      component.validate(componentVersion, collector!);
+                      component.validate(componentVersion, collector);
 
                       // Warnings should only be logged if the component is a Component2
                       if (component.isComponent2(componentVersion)) {
@@ -356,8 +352,6 @@ main() {
       });
 
       group('validate', () {
-        ErrorCollector? collector;
-        SourceFile? file;
         var validateResults = <String>[];
 
         void validateCallback(String message, [SourceSpan? span]) {
@@ -366,8 +360,6 @@ main() {
 
         tearDown(() {
           validateResults = <String>[];
-          file = null;
-          collector = null;
         });
 
         group('does not throw for', () {
@@ -376,10 +368,10 @@ main() {
               final componentString = getBoilerplateString(version: version);
               final members = BoilerplateMemberHelper.parseAndReturnMembers(componentString);
               final factory = members.whereType<BoilerplateFactory>().first;
-              file = SourceFile.fromString(componentString);
-              collector = ErrorCollector.callback(file!, onError: validateCallback);
+              final file = SourceFile.fromString(componentString);
+              final collector = ErrorCollector.callback(file, onError: validateCallback);
 
-              factory.validate(resolveVersion(members).version, collector!);
+              factory.validate(resolveVersion(members).version, collector);
 
               expect(validateResults, []);
             });
@@ -402,13 +394,13 @@ main() {
               class _$FooState {}
             ''';
 
-              file = SourceFile.fromString(boilerplateString);
-              collector = ErrorCollector.callback(file!, onError: validateCallback);
+              final file = SourceFile.fromString(boilerplateString);
+              final collector = ErrorCollector.callback(file, onError: validateCallback);
 
               final members = BoilerplateMemberHelper.parseAndReturnMembers(boilerplateString);
               final factory = members.whereType<BoilerplateFactory>().first;
 
-              factory.validate(resolveVersion(members).version, collector!);
+              factory.validate(resolveVersion(members).version, collector);
               expect(validateResults, [
                 contains('Legacy boilerplate factories must be annotated with `@Factory()`'),
               ]);
@@ -429,13 +421,13 @@ main() {
               class _$FooState {}
             ''';
 
-              file = SourceFile.fromString(boilerplateString);
-              collector = ErrorCollector.callback(file!, onError: validateCallback);
+              final file = SourceFile.fromString(boilerplateString);
+              final collector = ErrorCollector.callback(file, onError: validateCallback);
 
               final members = BoilerplateMemberHelper.parseAndReturnMembers(boilerplateString);
               final factory = members.whereType<BoilerplateFactory>().first;
 
-              factory.validate(resolveVersion(members).version, collector!);
+              factory.validate(resolveVersion(members).version, collector);
               expect(validateResults, [
                 contains('Factory declarations must be a single variable.'),
               ]);
@@ -456,13 +448,13 @@ main() {
               class _$FooState {}
             ''';
 
-              file = SourceFile.fromString(boilerplateString);
-              collector = ErrorCollector.callback(file!, onError: validateCallback);
+              final file = SourceFile.fromString(boilerplateString);
+              final collector = ErrorCollector.callback(file, onError: validateCallback);
 
               final members = BoilerplateMemberHelper.parseAndReturnMembers(boilerplateString);
               final factory = members.whereType<BoilerplateFactory>().first;
 
-              factory.validate(resolveVersion(members).version, collector!);
+              factory.validate(resolveVersion(members).version, collector);
               expect(validateResults, [
                 contains('Factory variables are stubs for generated code, and must'
                     ' be initialized with an expression containing either'
@@ -487,13 +479,13 @@ main() {
               class _$FooState {}
             ''';
 
-              file = SourceFile.fromString(boilerplateString);
-              collector = ErrorCollector.callback(file!, onError: validateCallback);
+              final file = SourceFile.fromString(boilerplateString);
+              final collector = ErrorCollector.callback(file, onError: validateCallback);
 
               final members = BoilerplateMemberHelper.parseAndReturnMembers(boilerplateString);
               final factory = members.whereType<BoilerplateFactory>().first;
 
-              factory.validate(resolveVersion(members).version, collector!);
+              factory.validate(resolveVersion(members).version, collector);
               expect(validateResults, [
                 contains('Legacy boilerplate factories must be annotated with `@Factory()`'),
               ]);
@@ -514,13 +506,13 @@ main() {
               class _$FooState {}
             ''';
 
-              file = SourceFile.fromString(boilerplateString);
-              collector = ErrorCollector.callback(file!, onError: validateCallback);
+              final file = SourceFile.fromString(boilerplateString);
+              final collector = ErrorCollector.callback(file, onError: validateCallback);
 
               final members = BoilerplateMemberHelper.parseAndReturnMembers(boilerplateString);
               final factory = members.whereType<BoilerplateFactory>().first;
 
-              factory.validate(resolveVersion(members).version, collector!);
+              factory.validate(resolveVersion(members).version, collector);
               expect(validateResults, [
                 contains('Factory variables are stubs for generated code, and must'
                     ' be initialized with an expression containing either'
