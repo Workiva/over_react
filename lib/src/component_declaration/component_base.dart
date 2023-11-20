@@ -621,7 +621,7 @@ abstract class UiProps extends MapBase
 
     assert(_validateChildren(childArguments.length == 1 ? childArguments.single : childArguments));
 
-    // FIXME not sure if validation should happen here or at render. Also need to add escape-hatch to opt out
+    // FIXME(null-safety) finalize this implementation and add escape-hatch to opt out in FED-1886
     assert(() {
       validateRequiredProps();
       return true;
@@ -671,7 +671,7 @@ abstract class UiProps extends MapBase
       : const {};
   }
 
-  // FIXME(null-safety) document and generate overrides in FEDX-107
+  // FIXME(null-safety) document and generate overrides in FED-1886
   @visibleForOverriding
   @mustCallSuper
   void validateRequiredProps() {}
