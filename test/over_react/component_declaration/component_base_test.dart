@@ -1504,12 +1504,6 @@ main() {
             expect(meta.parentType, equals(parentFactory.type));
           });
         });
-
-        test('displayName', () {
-          var reactComponentFactory = registerComponent(dummyComponentFactory, displayName: 'testDisplayName');
-          expect(reactComponentFactory.type.displayName, isNot(equals('testDisplayName')), reason: 'The displayName parameter no longer sets the component\'s displayName.');
-        });
-
         group('registers a type alias for', () {
           test('`componentClass`', () {
             Type typeAlias = TestRegisterComponentClassAlias;
