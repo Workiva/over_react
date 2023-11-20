@@ -58,8 +58,6 @@ ReactDartComponentFactoryProxy registerComponent(react.Component Function() dart
     ReactDartComponentFactoryProxy? parentType,
     UiFactory? builderFactory,
     Type? componentClass,
-    @Deprecated('The display name is now set automatically and setting this does nothing')
-    String? displayName,
 }) {
   // ignore: deprecated_member_use
   final reactComponentFactory = react.registerComponent(dartComponentFactory) as ReactDartComponentFactoryProxy;
