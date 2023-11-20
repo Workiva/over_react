@@ -69,6 +69,7 @@ main() {
       bigFluxActions = FluxActions();
       bigFluxCounter = FluxStore2(bigFluxActions);
       store2 = FluxToReduxAdapterStore(bigFluxCounter, bigFluxActions);
+      connectOptions = null;
     });
 
     group('behaves like redux with', () {
@@ -217,6 +218,7 @@ main() {
 
           final ConnectedCounter = connectFlux<FluxStore, FluxActions, ConnectFluxCounterProps>(
             mapStateToProps: (state) {
+              stateReferences.add(state);
               return ConnectFluxCounter()..currentCount = state.count;
             },
             mapActionsToProps: (actions) => (ConnectFluxCounter()
@@ -245,7 +247,7 @@ main() {
 
           expect(counterRef.current!.props.currentCount, -1);
           expect(jacket.mountNode.innerHtml, contains('Count: -1'));
-          stateReferences.forEach((store) => expect(store, isA<FluxStore>()));
+          expect(stateReferences, allOf(isNotEmpty, everyElement(isA<FluxStore>())));
         });
       });
 
@@ -283,7 +285,7 @@ main() {
 
           expect(counterRef.current!.props.currentCount, -1);
           expect(jacket.mountNode.innerHtml, contains('Count: -1'));
-          stateReferences.forEach((store) => expect(store, isA<FluxStore>()));
+          expect(stateReferences, allOf(isNotEmpty, everyElement(isA<FluxStore>())));
         });
       });
 
@@ -334,7 +336,7 @@ main() {
 
           expect(counterRef.current!.props.currentCount, 1);
           expect(jacket.mountNode.innerHtml, contains('Count: 1'));
-          propsReferences.forEach((store) => expect(store, isA<ConnectFluxCounterProps>()));
+          expect(propsReferences, allOf(isNotEmpty, everyElement(isA<ConnectFluxCounterProps>())));
         });
       });
 
@@ -342,7 +344,8 @@ main() {
         group('areOwnPropsEqual', () {
           test('', () {
             final propsReferences = <ConnectFluxCounterProps>[];
-            final ConnectedCounter = connectFlux<FluxStore, FluxActions, ConnectFluxCounterProps>(
+            // This component isn't used; we're just calling this to get `connectOptions`.
+            connectFlux<FluxStore, FluxActions, ConnectFluxCounterProps>(
               areOwnPropsEqual: expectAsync2((next, prev) {
                 propsReferences.addAll([prev, next]);
                 expect(next.id, 'test');
@@ -356,7 +359,7 @@ main() {
                 JsBackedMap.from({'id': 'test2'}).jsObject);
 
             expect(whatever, isTrue);
-            propsReferences.forEach((store) => expect(store, isA<ConnectFluxCounterProps>()));
+            expect(propsReferences, allOf(isNotEmpty, everyElement(isA<ConnectFluxCounterProps>())));
           });
         });
 
@@ -524,10 +527,13 @@ main() {
           test('', () {
             final propsReferences = <ConnectFluxCounterProps>[];
 
-            final ConnectedCounter = connectFlux<FluxStore, FluxActions, ConnectFluxCounterProps>(
+            // This component isn't used; we're just calling this to get `connectOptions`.
+            connectFlux<FluxStore, FluxActions, ConnectFluxCounterProps>(
               areMergedPropsEqual: expectAsync2((next, prev) {
                 expect(next.id, 'test');
                 expect(prev.id, 'test2');
+                propsReferences.add(next);
+                propsReferences.add(prev);
                 return true;
               }),
               pure: false,
@@ -538,7 +544,7 @@ main() {
                 JsBackedMap.from({'id': 'test2'}).jsObject);
 
             expect(whatever, isTrue);
-            propsReferences.forEach((store) => expect(store, isA<ConnectFluxCounterProps>()));
+            expect(propsReferences, allOf(isNotEmpty, everyElement(isA<ConnectFluxCounterProps>())));
           });
         });
       });
