@@ -38,15 +38,12 @@ void main() {
     setUp(() {
       domTarget = document.createElement('div');
       document.body!.append(domTarget);
+      addTearDown(domTarget.remove);
       resizeSensorRef = createRef();
       containerRef = createRef();
       // Perform setup needed for using 'zonedExpect'.
       storeZone();
     });
-
-    // tearDown(() {
-    //   domTarget.remove();
-    // });
 
     void renderSensorIntoContainer({
         ResizeSensorHandler? onInitialize,
@@ -440,14 +437,10 @@ void main() {
     group('should indicate that the sensor needs to be reset', () {
       Element? validTarget;
       Element? detachedTarget;
-      Map<String, bool>? calls;
+      late Map<String, bool> calls;
 
       setUp(() {
         calls = <String, bool>{};
-      });
-
-      tearDown(() {
-        calls = null;
       });
 
       group('when mounted into a node that is not attached to the DOM', () {
@@ -458,7 +451,7 @@ void main() {
           detachedTarget!.style.width = '200px';
           detachedTarget!.style.height = '200px';
           mount((ResizeSensor()
-            ..onDetachedMountCheck = (needsReset) { calls!['onDetachedMountCheck'] = needsReset; }
+            ..onDetachedMountCheck = (needsReset) { calls['onDetachedMountCheck'] = needsReset; }
           )(), attachedToDocument: false, mountNode: detachedTarget!);
         });
 
@@ -468,7 +461,7 @@ void main() {
         });
 
         test('by providing a `true` argument value to the `props.onDetachedMountCheck` callback', () {
-          expect(calls!['onDetachedMountCheck'], isTrue);
+          expect(calls['onDetachedMountCheck'], isTrue);
         });
 
         test('and does not emit a validation warning about not needing to set the `onDetachedMountCheck` callback.', () {
@@ -485,7 +478,7 @@ void main() {
           validTarget!.style.height = '200px';
           document.body!.append(validTarget!);
           mount((ResizeSensor()
-            ..onDetachedMountCheck = (needsReset) { calls!['onDetachedMountCheck'] = needsReset; }
+            ..onDetachedMountCheck = (needsReset) { calls['onDetachedMountCheck'] = needsReset; }
           )(), attachedToDocument: true, mountNode: validTarget!);
         });
 
@@ -496,7 +489,7 @@ void main() {
         });
 
         test('- providing a `false` argument value to the `props.onDetachedMountCheck` callback', () {
-          expect(calls!['onDetachedMountCheck'], isFalse);
+          expect(calls['onDetachedMountCheck'], isFalse);
         });
 
         test('and emits a validation warning about not needing to set the `onDetachedMountCheck` callback.', () {
