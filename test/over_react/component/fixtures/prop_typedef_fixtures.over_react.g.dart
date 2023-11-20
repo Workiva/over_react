@@ -14,13 +14,13 @@ abstract class _$TestAbstractCustomRendererComponentPropsAccessorsMixin
 
   /// <!-- Generated from [_$TestAbstractCustomRendererComponentProps.customRenderer] -->
   @override
-  CustomRenderFunction? get customRenderer => (props[
+  CustomRenderFunction get customRenderer => (props[
           _$key__customRenderer___$TestAbstractCustomRendererComponentProps] ??
-      null) as CustomRenderFunction?;
+      null) as CustomRenderFunction;
 
   /// <!-- Generated from [_$TestAbstractCustomRendererComponentProps.customRenderer] -->
   @override
-  set customRenderer(CustomRenderFunction? value) =>
+  set customRenderer(CustomRenderFunction value) =>
       props[_$key__customRenderer___$TestAbstractCustomRendererComponentProps] =
           value;
 
@@ -29,14 +29,14 @@ abstract class _$TestAbstractCustomRendererComponentPropsAccessorsMixin
   CustomRenderFunction<
           TestAbstractCustomRendererComponentProps,
           TestAbstractCustomRendererComponentState,
-          TestAbstractCustomRendererComponentComponent>?
+          TestAbstractCustomRendererComponentComponent>
       get parameterizedCustomRenderer =>
           (props[_$key__parameterizedCustomRenderer___$TestAbstractCustomRendererComponentProps] ??
                   null)
               as CustomRenderFunction<
                   TestAbstractCustomRendererComponentProps,
                   TestAbstractCustomRendererComponentState,
-                  TestAbstractCustomRendererComponentComponent>?;
+                  TestAbstractCustomRendererComponentComponent>;
 
   /// <!-- Generated from [_$TestAbstractCustomRendererComponentProps.parameterizedCustomRenderer] -->
   @override
@@ -44,7 +44,7 @@ abstract class _$TestAbstractCustomRendererComponentPropsAccessorsMixin
           CustomRenderFunction<
                   TestAbstractCustomRendererComponentProps,
                   TestAbstractCustomRendererComponentState,
-                  TestAbstractCustomRendererComponentComponent>?
+                  TestAbstractCustomRendererComponentComponent>
               value) =>
       props[_$key__parameterizedCustomRenderer___$TestAbstractCustomRendererComponentProps] =
           value;
@@ -64,11 +64,15 @@ abstract class _$TestAbstractCustomRendererComponentPropsAccessorsMixin
   static const PropDescriptor
       _$prop__customRenderer___$TestAbstractCustomRendererComponentProps =
       PropDescriptor(
-          _$key__customRenderer___$TestAbstractCustomRendererComponentProps);
+          _$key__customRenderer___$TestAbstractCustomRendererComponentProps,
+          isRequired: true,
+          isNullable: true);
   static const PropDescriptor
       _$prop__parameterizedCustomRenderer___$TestAbstractCustomRendererComponentProps =
       PropDescriptor(
-          _$key__parameterizedCustomRenderer___$TestAbstractCustomRendererComponentProps);
+          _$key__parameterizedCustomRenderer___$TestAbstractCustomRendererComponentProps,
+          isRequired: true,
+          isNullable: true);
   static const PropDescriptor
       _$prop__somePropKey___$TestAbstractCustomRendererComponentProps =
       PropDescriptor(
@@ -881,13 +885,13 @@ abstract class _$TestCustomRendererComponentPropsAccessorsMixin
 
   /// <!-- Generated from [_$TestCustomRendererComponentProps.customRenderer] -->
   @override
-  CustomRenderFunction? get customRenderer =>
+  CustomRenderFunction get customRenderer =>
       (props[_$key__customRenderer___$TestCustomRendererComponentProps] ?? null)
-          as CustomRenderFunction?;
+          as CustomRenderFunction;
 
   /// <!-- Generated from [_$TestCustomRendererComponentProps.customRenderer] -->
   @override
-  set customRenderer(CustomRenderFunction? value) =>
+  set customRenderer(CustomRenderFunction value) =>
       props[_$key__customRenderer___$TestCustomRendererComponentProps] = value;
 
   /// <!-- Generated from [_$TestCustomRendererComponentProps.parameterizedCustomRenderer] -->
@@ -895,14 +899,14 @@ abstract class _$TestCustomRendererComponentPropsAccessorsMixin
   CustomRenderFunction<
           TestCustomRendererComponentProps,
           TestCustomRendererComponentState,
-          TestCustomRendererComponentComponent>?
+          TestCustomRendererComponentComponent>
       get parameterizedCustomRenderer =>
           (props[_$key__parameterizedCustomRenderer___$TestCustomRendererComponentProps] ??
                   null)
               as CustomRenderFunction<
                   TestCustomRendererComponentProps,
                   TestCustomRendererComponentState,
-                  TestCustomRendererComponentComponent>?;
+                  TestCustomRendererComponentComponent>;
 
   /// <!-- Generated from [_$TestCustomRendererComponentProps.parameterizedCustomRenderer] -->
   @override
@@ -910,7 +914,7 @@ abstract class _$TestCustomRendererComponentPropsAccessorsMixin
           CustomRenderFunction<
                   TestCustomRendererComponentProps,
                   TestCustomRendererComponentState,
-                  TestCustomRendererComponentComponent>?
+                  TestCustomRendererComponentComponent>
               value) =>
       props[_$key__parameterizedCustomRenderer___$TestCustomRendererComponentProps] =
           value;
@@ -940,11 +944,14 @@ abstract class _$TestCustomRendererComponentPropsAccessorsMixin
   /* GENERATED CONSTANTS */
   static const PropDescriptor
       _$prop__customRenderer___$TestCustomRendererComponentProps =
-      PropDescriptor(_$key__customRenderer___$TestCustomRendererComponentProps);
+      PropDescriptor(_$key__customRenderer___$TestCustomRendererComponentProps,
+          isRequired: true, isNullable: true);
   static const PropDescriptor
       _$prop__parameterizedCustomRenderer___$TestCustomRendererComponentProps =
       PropDescriptor(
-          _$key__parameterizedCustomRenderer___$TestCustomRendererComponentProps);
+          _$key__parameterizedCustomRenderer___$TestCustomRendererComponentProps,
+          isRequired: true,
+          isNullable: true);
   static const PropDescriptor
       _$prop__somePropKey___$TestCustomRendererComponentProps =
       PropDescriptor(_$key__somePropKey___$TestCustomRendererComponentProps);

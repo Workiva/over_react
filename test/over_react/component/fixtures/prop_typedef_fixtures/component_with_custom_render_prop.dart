@@ -20,10 +20,10 @@ UiFactory<TestCustomRendererComponentProps> TestCustomRendererComponent = _$Test
 
 @Props()
 class _$TestCustomRendererComponentProps extends UiProps {
-  CustomRenderFunction? customRenderer;
-  CustomRenderFunction<TestCustomRendererComponentProps,
+  late CustomRenderFunction customRenderer;
+  late CustomRenderFunction<TestCustomRendererComponentProps,
                        TestCustomRendererComponentState,
-                       TestCustomRendererComponentComponent>? parameterizedCustomRenderer;
+                       TestCustomRendererComponentComponent> parameterizedCustomRenderer;
   String? somePropKey;
   String? someInitialStateKeyValue;
 }
@@ -42,8 +42,8 @@ class TestCustomRendererComponentComponent
   @override
   render() {
     return Dom.div()(
-      props.customRenderer!(props, state, this),
-      props.parameterizedCustomRenderer!(props, state, this),
+      props.customRenderer(props, state, this),
+      props.parameterizedCustomRenderer(props, state, this),
     );
   }
 }
