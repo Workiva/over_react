@@ -971,22 +971,14 @@ main() {
       });
 
       group('getPropsOrStateAnnotation', () {
-        Iterable<BoilerplateMember>? members;
-        String? source;
-
-        tearDown(() {
-          members = null;
-          source = null;
-        });
-
-        setUpAndTestMeta(
+        BoilerplateMembers setUpAndTestMeta(
             {required bool isProps,
             required bool isAbstract,
-            required String? source,
+            required String source,
             bool isMixin = false}) {
-          members = BoilerplateMemberHelper.getBoilerplateMembersFromString(source).allMembers;
+          final members = BoilerplateMemberHelper.getBoilerplateMembersFromString(source);
 
-          BoilerplateMember memberClass = members!.firstWhere((member) {
+          final memberClass = members.allMembers.firstWhere((member) {
             if (isMixin) {
               return member is BoilerplatePropsOrStateMixin && member.isProps == isProps;
             } else {
@@ -1013,9 +1005,13 @@ main() {
           }
 
           expect(memberClass.meta.runtimeType, annotation.runtimeType);
+
+          return members;
         }
 
         group('and the node is a props or state class -', () {
+          late String source;
+
           setUp(() {
             source = OverReactSrc.state().source;
           });
@@ -1042,6 +1038,8 @@ main() {
         });
 
         group('and the node is a props or state mixin', () {
+          late String source;
+
           setUp(() {
             source = OverReactSrc.mixinBasedBoilerplateState(shouldIncludeAnnotations: true).source;
           });

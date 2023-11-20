@@ -286,8 +286,8 @@ class BoilerplateMemberHelper {
       stateMixins = members.stateMixins,
       propsMixins = members.propsMixins;
 
-  static BoilerplateMembers getBoilerplateMembersFromString([String? content]) {
-    final unit = parseString(content: content ?? mockComponentDeclarations).unit;
+  static BoilerplateMembers getBoilerplateMembersFromString(String content) {
+    final unit = parseString(content: content).unit;
     return detectBoilerplateMembers(unit);
   }
 
