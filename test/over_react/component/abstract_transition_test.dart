@@ -685,61 +685,47 @@ class TransitionerComponent extends AbstractTransitionComponent<TransitionerProp
 
   @override
   void prepareShow() {
-    if (props.onPrepareShow != null) {
-      props.onPrepareShow!();
-    }
+    props.onPrepareShow?.call();
   }
 
   @override
   void prepareHide() {
-    if (props.onPrepareHide != null) {
-      props.onPrepareHide!();
-    }
+    props.onPrepareHide?.call();
   }
 
   @override
   void handlePreShowing() {
     super.handlePreShowing();
 
-    if (props.onHandlePreShowing != null) {
-      props.onHandlePreShowing!();
-    }
+    props.onHandlePreShowing?.call();
   }
 
   @override
   void handleShowing() {
     super.handleShowing();
 
-    if (props.onHandleShowing != null) {
-      props.onHandleShowing!();
-    }
+    props.onHandleShowing?.call();
   }
 
   @override
   void handleShown() {
     super.handleShown();
 
-    if (props.onHandleShown != null) {
-      props.onHandleShown!();
-    }
+    props.onHandleShown?.call();
   }
 
   @override
   void handleHiding() {
     super.handleHiding();
 
-    if (props.onHandleHiding != null) {
-      props.onHandleHiding!();
-    }
+    props.onHandleHiding?.call();
   }
 
   @override
   void handleHidden() {
     super.handleHidden();
 
-    if (props.onHandleHidden != null) {
-      props.onHandleHidden!();
-    }
+    props.onHandleHidden?.call();
   }
 
   List<TransitionPhase?> transitionPhasesSet = [];
