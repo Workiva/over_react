@@ -38,7 +38,7 @@ class FluxStore extends flux.Store with /*[1]*/ InfluxStoreMixin< /*[2]*/ ReduxS
     // [5]
     state = ReduxState('gray');
     // [6]
-    triggerOnActionV2(_actions.changeBackgroundColor, (dynamic _) => this.influxReducer(UpdateBackgroundColorAction()));
+    triggerOnActionV2(_actions.changeBackgroundColor, (_) => this.influxReducer(UpdateBackgroundColorAction()));
   }
 }
 

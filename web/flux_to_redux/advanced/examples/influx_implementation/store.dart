@@ -63,9 +63,9 @@ class RandomColorStore extends flux.Store with InfluxStoreMixin<TopLevelReduxSta
 
   RandomColorStore(this._actions) {
     state = TopLevelReduxState.defaultState();
-    triggerOnActionV2(_actions.changeMainBackgroundColor, (dynamic _) => this.influxReducer(UpdateBackgroundColorAction()));
+    triggerOnActionV2(_actions.changeMainBackgroundColor, (_) => this.influxReducer(UpdateBackgroundColorAction()));
     triggerOnActionV2(
-        _actions.changeBlockOneBackgroundColor, (dynamic _) => this.influxReducer(UpdateBlockOneBackgroundColorAction()));
+        _actions.changeBlockOneBackgroundColor, (_) => this.influxReducer(UpdateBlockOneBackgroundColorAction()));
   }
 }
 
@@ -90,7 +90,7 @@ class LowLevelStore extends flux.Store with InfluxStoreMixin<LowLevelReduxState>
   LowLevelStore(this._actions) {
     state = LowLevelReduxState.defaultState();
     triggerOnActionV2(
-        _actions.changeBlockTwoBackgroundColor, (dynamic _) => this.influxReducer(UpdateBlockTwoBackgroundColorAction()));
+        _actions.changeBlockTwoBackgroundColor, (_) => this.influxReducer(UpdateBlockTwoBackgroundColorAction()));
   }
 }
 
@@ -115,7 +115,7 @@ class AnotherColorStore extends flux.Store with InfluxStoreMixin<AnotherReduxSta
   AnotherColorStore(this._actions) {
     state = AnotherReduxState.defaultState();
     triggerOnActionV2(
-        _actions.changeBlockThreeBackgroundColor, (dynamic _) => this.influxReducer(UpdateBlockThreeBackgroundColorAction()));
+        _actions.changeBlockThreeBackgroundColor, (_) => this.influxReducer(UpdateBlockThreeBackgroundColorAction()));
   }
 }
 
