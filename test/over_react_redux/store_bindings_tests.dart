@@ -108,14 +108,14 @@ void sharedSelectorHookAndConnectTests<T extends Object?>(
       store = Store((state, action) {
         if (action is UpdateInterestingAction) {
           if (state.interestingValue == initialValue) {
-            return state.update(interestingValue: updatedValue1);
+            return state.update(interestingValue: () => updatedValue1);
           } else if (state.interestingValue == updatedValue1) {
-            return state.update(interestingValue: updatedValue2);
+            return state.update(interestingValue: () => updatedValue2);
           } else {
             throw StateError('Only expected at most two updates');
           }
         } else if (action is UpdateOtherAction) {
-          return state.update(otherValue: state.otherValue + 1);
+          return state.update(otherValue: () => state.otherValue + 1);
         } else {
           throw ArgumentError('Unexpected action');
         }
@@ -368,13 +368,15 @@ class TestState<T extends Object?> {
   });
 
   TestState<T> update({
-    // FIXME this doesn't allow updating to null
-    T? interestingValue,
-    int? otherValue,
+    // These are typed as functions, because typing them as nullable and defaulting to null
+    // wouldn't allow us to tell the difference between no value specified and
+    // `null` explicitly specified.
+    T Function()? interestingValue,
+    int Function()? otherValue,
   }) =>
       TestState(
-        interestingValue: interestingValue ?? this.interestingValue,
-        otherValue: otherValue ?? this.otherValue,
+        interestingValue: interestingValue != null ? interestingValue() : this.interestingValue,
+        otherValue: otherValue != null ? otherValue() : this.otherValue,
       );
 }
 
