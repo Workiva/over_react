@@ -30,7 +30,7 @@ import 'fixtures/store.dart' as redux_store;
 
 main() {
   group('connectFlux', () {
-    final counterRef = createRef<ConnectFluxCounterComponent>();
+    late Ref<ConnectFluxCounterComponent?> counterRef;
 
     late FluxActions fluxActions;
     late FluxStore fluxStore;
@@ -60,6 +60,8 @@ main() {
     });
 
     setUp(() {
+      counterRef = createRef();
+
       fluxActions = FluxActions();
       fluxStore = FluxStore(fluxActions);
       store1 = FluxToReduxAdapterStore(fluxStore, fluxActions);
