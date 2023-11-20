@@ -658,6 +658,11 @@ abstract class UiProps extends MapBase
     return true;
   }
 
+  /// The react-dart factory associated with this props class's component,
+  /// used to create a [ReactElement] with these props within [build]/[call].
+  ///
+  /// This will only be null for props that can't be invoked, such as props map views, or props for
+  /// abstract components.
   ReactComponentFactoryProxy? componentFactory;
 
   /// An unmodifiable map view of the default props for this component brought
