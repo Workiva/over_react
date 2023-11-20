@@ -24,12 +24,6 @@ import 'parsing_helpers.dart';
 
 main() {
   group('members -', () {
-    late BoilerplateMemberHelper mockDeclarationHelper;
-
-    setUp(() {
-      mockDeclarationHelper = BoilerplateMemberHelper.withMockDeclarations();
-    });
-
     group('component', () {
       late BoilerplateComponent legacyBackwardCompatComponent;
       late BoilerplateComponent legacyComponent;
@@ -37,13 +31,14 @@ main() {
       late BoilerplateComponent dart290BoilerplateComponent;
 
       setUp(() {
-        legacyBackwardCompatComponent = mockDeclarationHelper.components!
+        final mockDeclarationHelper = BoilerplateMemberHelper.withMockDeclarations();
+        legacyBackwardCompatComponent = mockDeclarationHelper.components
             .firstWhere((component) => component.name.name == 'FirstFooComponent');
-        legacyComponent = mockDeclarationHelper.components!
+        legacyComponent = mockDeclarationHelper.components
             .firstWhere((component) => component.name.name == 'SecondFooComponent');
-        newBoilerplateComponent = mockDeclarationHelper.components!
+        newBoilerplateComponent = mockDeclarationHelper.components
             .firstWhere((component) => component.name.name == 'ThirdFooComponent');
-        dart290BoilerplateComponent = mockDeclarationHelper.components!
+        dart290BoilerplateComponent = mockDeclarationHelper.components
             .firstWhere((component) => component.name.name == 'FourthFooComponent');
       });
 

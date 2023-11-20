@@ -20,12 +20,6 @@ import 'parsing_helpers.dart';
 
 main() {
   group('Version (Parsing)', () {
-    Iterable<BoilerplateMember>? members;
-
-    tearDown(() {
-      members = null;
-    });
-
     group('`Confidence` constants', () {
       const none = Confidence.none;
       const unlikely = Confidence.unlikely;
@@ -72,24 +66,24 @@ main() {
     group('resolveVersion', () {
       group('returns the correct version -', () {
         test('v2_legacyBackwordsCompat', () {
-          members = BoilerplateMemberHelper.getBoilerplateMembersForVersion(BoilerplateVersions.v2);
-          expect(resolveVersion(members!).version, Version.v2_legacyBackwardsCompat);
+          final members = BoilerplateMemberHelper.getBoilerplateMembersForVersion(BoilerplateVersions.v2);
+          expect(resolveVersion(members).version, Version.v2_legacyBackwardsCompat);
         });
 
         test('v3_legacyDart2Only', () {
-          members = BoilerplateMemberHelper.getBoilerplateMembersForVersion(BoilerplateVersions.v3);
+          final members = BoilerplateMemberHelper.getBoilerplateMembersForVersion(BoilerplateVersions.v3);
 
-          expect(resolveVersion(members!).version, Version.v3_legacyDart2Only);
+          expect(resolveVersion(members).version, Version.v3_legacyDart2Only);
         });
 
         test('v4_mixinBased (Dart <2.9.0 syntax)', () {
-          members = BoilerplateMemberHelper.getBoilerplateMembersForVersion(BoilerplateVersions.v4);
-          expect(resolveVersion(members!).version, Version.v4_mixinBased);
+          final members = BoilerplateMemberHelper.getBoilerplateMembersForVersion(BoilerplateVersions.v4);
+          expect(resolveVersion(members).version, Version.v4_mixinBased);
         });
 
         test('v4_mixinBased', () {
-          members = BoilerplateMemberHelper.getBoilerplateMembersForVersion(BoilerplateVersions.v10);
-          expect(resolveVersion(members!).version, Version.v4_mixinBased);
+          final members = BoilerplateMemberHelper.getBoilerplateMembersForVersion(BoilerplateVersions.v10);
+          expect(resolveVersion(members).version, Version.v4_mixinBased);
         });
       });
     });
