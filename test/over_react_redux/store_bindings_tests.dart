@@ -191,6 +191,20 @@ void sharedSelectorHookAndConnectTests<T extends Object?>(
                   'prev': same(initialValue),
                 })),
                 reason: 'should have been called with the next and previous values, properly unwrapped');
+            expect(calls, everyElement(anyOf([
+              equals({
+                'next': same(updatedValue1),
+                'prev': same(initialValue),
+              }),
+              equals({
+                'next': same(initialValue),
+                'prev': same(initialValue),
+              }),
+              equals({
+                'next': same(updatedValue1),
+                'prev': same(updatedValue1),
+              }),
+            ])), reason: 'should only have been called with expected next/prev value pairings');
           });
 
           test('unless a custom equalityFn returns true', () async {

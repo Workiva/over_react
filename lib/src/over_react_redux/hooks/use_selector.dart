@@ -129,7 +129,7 @@ import 'package:react/react_client/react_interop.dart' show ReactContext;
 /// > Related: [useDispatch]
 TValue useSelector<TReduxState, TValue>(
   TValue Function(TReduxState state) selector, [
-  bool Function(TValue? tNextValue, TValue? tPrevValue)? equalityFn,
+  bool Function(TValue tNextValue, TValue tPrevValue)? equalityFn,
 ]) {
   Object? /*[1]*/ jsSelector(Object? /*[1]*/ jsState) =>
       DartValueWrapper.wrapIfNeeded(selector(DartValueWrapper.unwrapIfNeeded(jsState)));
