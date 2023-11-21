@@ -132,6 +132,14 @@ abstract class UiProps extends component_base.UiProps with GeneratedClass {
   /// and [addUnconsumedDomProps].
   @toBeGenerated PropsMetaCollection get staticMeta => throw UngeneratedError(member: #meta);
 
+  /// The base implementation for [UiPropsSelfFactory.getPropKey],
+  /// which wraps this with better generic typing, since we can't generically express
+  /// the type of the current class in this declaration.
+  @visibleForOverriding
+  @toBeGenerated
+  @visibleForOverriding
+  String $getPropKey(void Function(Map m) accessMap) => throw UngeneratedError(member: #$getPropKey);
+
   @override
   @visibleForOverriding
   @mustCallSuper
@@ -189,6 +197,28 @@ abstract class UiProps extends component_base.UiProps with GeneratedClass {
     throw MissingRequiredPropsError(messageSegments.join(' '));
   }
 }
+
+extension UiPropsSelfFactory<T extends UiProps> on T {
+  /// Returns the key used to store a prop, accessed by [accessMap].
+  ///
+  /// For example:
+  /// ```dart
+  /// class FooProps = UiProps with FooPropsMixin, BarPropsMixin;
+  /// mixin FooPropsMixin on UiProps {
+  ///   String? foo;
+  /// }
+  /// mixin BarPropsMixin on UiProps {
+  ///   String? bar;
+  /// }
+  ///
+  /// void example(FooProps props) {
+  ///   props.getPropKey((p) => p.foo);     // 'FooPropsMixin.foo'
+  ///   props.getPropKey((p) => p.bar);     // 'BarPropsMixin.bar'
+  ///   props.getPropKey((p) => p.onClick); // 'onClick'
+  /// }
+  String getPropKey(void Function(T) accessMap) => $getPropKey((map) => accessMap(map as T));
+}
+
 
 class MissingRequiredPropsError extends Error {
   final String _message;
