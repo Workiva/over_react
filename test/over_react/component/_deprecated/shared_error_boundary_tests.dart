@@ -17,7 +17,6 @@ import 'dart:html';
 
 import 'package:logging/logging.dart';
 import 'package:over_react/over_react.dart';
-import 'package:over_react/src/component/error_boundary_api.dart' hide ErrorBoundaryApi;
 import 'package:over_react/src/component/_deprecated/error_boundary_mixins.dart';
 import 'package:over_react_test/over_react_test.dart';
 import 'package:test/test.dart';
@@ -30,6 +29,8 @@ import '../fixtures/flawed_component_that_renders_nothing.dart';
 /// [isWrapper] identifies an ErrorBoundary that wraps another Error Boundary in order to handle
 /// render cycle "unrecoverable" errors.
 void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> builder, { bool isWrapper = false }) {
+  final ErrorBoundaryPropsMapView = ErrorBoundary;
+
   TestJacket<LegacyErrorBoundaryApi>? jacket;
   ReactElement? dummyChild;
 

@@ -419,10 +419,3 @@ mixin ErrorBoundaryMixin<T extends ErrorBoundaryPropsMixin, S extends ErrorBound
     (props.logger ?? Logger(_loggerName)).severe(message, error, info.dartStackTrace);
   }
 }
-
-/// A MapView with the typed getters/setters for [ErrorBoundaryPropsMixin].
-class ErrorBoundaryPropsMapView extends UiPropsMapView
-    with ErrorBoundaryPropsMixin {
-  /// Create a new instance backed by the specified map.
-  ErrorBoundaryPropsMapView(Map map) : super(map);
-}
