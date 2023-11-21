@@ -167,6 +167,7 @@ abstract class TypedMapImplGenerator extends BoilerplateDeclarationGenerator {
           '// Implements constructor and backing map${isProps ? ', and links up to generated component factory' : ''}.')
       ..write(internalGeneratedMemberDeprecationLine())
       ..writeln(classDeclaration);
+
     // Constructors
     if (isComponent2) {
       buffer
