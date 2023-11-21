@@ -153,16 +153,17 @@ class ButtonGroupSize extends ClassNameConstant {
 /// Mapping from [ButtonSize] values to their analogous [ButtonGroupSize] values.
 ///
 /// __Example:__
+/// ```
+/// @Props()
+/// class MyProps extends UiProps {
+///   ButtonSize size;
+/// }
 ///
-///     @Props()
-///     class MyProps extends UiProps {
-///       ButtonSize size;
-///     }
-///
-///     @Component()
-///     class MyComponent extends UiComponent2<MyProps> {
-///       ButtonGroupSize matchingButtonGroupSize = buttonToButtonGroupSize[props.size];
-///     }
+/// @Component()
+/// class MyComponent extends UiComponent2<MyProps> {
+///   ButtonGroupSize matchingButtonGroupSize = buttonToButtonGroupSize[props.size];
+/// }
+/// ```
 const buttonToButtonGroupSize = {
   ButtonSize.SMALL:   ButtonGroupSize.SMALL,
   ButtonSize.DEFAULT: ButtonGroupSize.DEFAULT,

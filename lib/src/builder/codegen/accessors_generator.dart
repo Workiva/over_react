@@ -82,8 +82,8 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
       final implementsClause = 'implements ${names.consumerName}$typeParamsOnSuper';
       generatedClass
         ..write(generatedCodeUseOnlyDeprecation)
-        ..writeln('abstract class $accessorsMixinName$typeParamsOnClass $implementsClause {\n' +
-            '  @override' +
+        ..writeln('abstract class $accessorsMixinName$typeParamsOnClass $implementsClause {\n'
+            '  @override'
             '  Map get ${type.isProps ? 'props' : 'state'};\n');
       if (type.isMixin) {
         generatedClass.writeln(_generateStaticMetaDecl(names.publicName, type.isProps));
