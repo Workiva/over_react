@@ -18,6 +18,7 @@ analyzer:
 
     # Affects generated code
     unnecessary_this: ignore
+    unused_field: ignore
 
     # Lints that have too many exceptions and provide limited value
     avoid_private_typedef_functions: ignore
