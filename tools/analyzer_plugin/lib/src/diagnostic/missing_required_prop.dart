@@ -74,7 +74,7 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
   computeErrorsForUsage(result, collector, usage) async {
     final requiredFieldsByName = <String, FieldElement>{};
 
-    // FIXME this almost definitely needs optimization/caching
+    // FIXME(null-safety) FED-1720 this probably needs optimization, and may benefit from caching by props element
 
     var builderType = usage.builder.staticType;
     // Handle generic factories (todo might not be needed)
@@ -131,13 +131,13 @@ extension on InterfaceElement {
 
   Iterable<FieldElement> get allProps sync* {
     for (final c in thisAndSupertypes) {
-      // FIXME handle legacy boilerplate prop mixins?
+      // FIXME(null-safety) FED-1720 handle legacy boilerplate prop mixins if it's not too much effort to implement.
+      //   If so, we'll probably need something different than the `isPropsMixin` check below,
+      //   and may need to more aggressively filter out supertypes up front to avoid performance issues and false positives,
+      //   like UiProps and its supertypes (Map, MapBase, MapViewMixin, PropsMapViewMixin, ReactPropsMixin, UbiquitousDomPropsMixin, CssClassPropsMixin)
       final isPropsMixin = c is MixinElement && c.superclassConstraints.any((s) => s.element.name == 'UiProps');
       if (!isPropsMixin) continue;
       if (c.source.uri.path.endsWith('.over_react.g.dart')) continue;
-      // if (c.name == 'UbiquitousDomPropsMixin' || c.isDartCoreObject || c.source.uri.path.endsWith('.over_react.g.dart')) {
-      //   continue;
-      // }
       yield* c.fields.where((f) => !f.isStatic);
     }
   }
