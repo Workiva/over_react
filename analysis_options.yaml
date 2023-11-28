@@ -10,6 +10,10 @@ analyzer:
     - tools/analyzer_plugin/**
     - ddc_precompiled/**
   errors:
+    # Workaround for https://github.com/dart-lang/sdk/issues/51087
+    # TODO remove once we're no longer running CI on Dart 2.18
+    part_of_different_library: ignore
+
     # Too noisy for over_react code / boilerplate
     always_declare_return_types: ignore
     avoid_types_on_closure_parameters: ignore
