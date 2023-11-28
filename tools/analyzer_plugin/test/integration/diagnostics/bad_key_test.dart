@@ -81,6 +81,7 @@ class BadKeyDiagnosticTest_NoErrors extends BadKeyDiagnosticTest {
         (Dom.div()..key = 'greg')(),
         // Missing RHS
         (Dom.div()..key = )(),
+        (Dom.div()..key = undefinedVariable)(),
         // Missing interpolated expression
         (Dom.div()..key = '${}')(),
         // Weird type 
@@ -93,6 +94,7 @@ class BadKeyDiagnosticTest_NoErrors extends BadKeyDiagnosticTest {
         unorderedEquals(<dynamic>[
           isA<AnalysisError>().havingCode('missing_identifier'),
           isA<AnalysisError>().havingCode('missing_identifier'),
+          isA<AnalysisError>().havingCode('undefined_identifier'),
           isA<AnalysisError>().havingCode('use_of_void_result'),
         ]),
         reason: 'should only have the Dart analysis errors we expect');
