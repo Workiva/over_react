@@ -147,7 +147,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
 
         expect(getByTestId(jacket!.getInstance(), 'dummyChild'), isNull,
             reason: 'The child component tree should have been removed from the dom');
-        expect(jacket!.getNode(), hasAttr(defaultTestIdKey, 'ErrorBoundary.unrecoverableErrorInnerHtmlContainerNode'));
+        expect(jacket!.getNode()!, hasAttr(defaultTestIdKey, 'ErrorBoundary.unrecoverableErrorInnerHtmlContainerNode'));
       });
     } else {
       test('its child when `state.error` is true and `state.showFallbackUIOnError` is false', () {
@@ -174,7 +174,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
 
         expect(getByTestId(jacket!.getInstance(), 'dummyChild'), isNull,
             reason: 'The child component tree should have been removed from the dom');
-        expect(jacket!.getNode(), hasAttr(defaultTestIdKey, 'ErrorBoundary.unrecoverableErrorInnerHtmlContainerNode'));
+        expect(jacket!.getNode()!, hasAttr(defaultTestIdKey, 'ErrorBoundary.unrecoverableErrorInnerHtmlContainerNode'));
       });
 
       if (!isWrapper) {
@@ -187,7 +187,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
           final component = jacket!.getDartInstance()!;
           component.setState(component.newState()..hasError = true);
 
-          expect(jacket!.getNode(), hasNodeName('H4'), reason: '${ErrorBoundaryPropsMapView(jacket!.getProps()).fallbackUIRenderer}');
+          expect(jacket!.getNode()!, hasNodeName('H4'), reason: '${ErrorBoundaryPropsMapView(jacket!.getProps()).fallbackUIRenderer}');
           expect(jacket!.getNode()?.text, 'Something super not awesome just happened.');
         });
       }
@@ -222,7 +222,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
 
         group('when a new child is passed in', () {
           test('', () {
-            final ReactElement? newDummyChild = (Dom.div()..addTestId('newDummyChild'))('hi there');
+            final newDummyChild = (Dom.div()..addTestId('newDummyChild'))('hi there');
             jacket!.rerender((builder()
               ..addProps(ErrorBoundaryPropsMapView({})
                 ..fallbackUIRenderer = (_, __) => (Dom.div()..addTestId('fallbackNode'))('Something went wrong')
@@ -366,7 +366,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
                   reason: 'The flawed component should have been unmounted');
               expect(jacket!.getDartInstance()!.state.showFallbackUIOnError, isTrue,
                   reason: 'Fallback UI should be rendered instead of the flawed component tree');
-              expect(jacket!.getNode(),
+              expect(jacket!.getNode()!,
                   hasAttr(defaultTestIdKey, 'ErrorBoundary.unrecoverableErrorInnerHtmlContainerNode'));
               calls!.clear();
             });
@@ -402,7 +402,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
                   reason: 'The flawed component should have been unmounted');
               expect(jacket!.getDartInstance()!.state.showFallbackUIOnError, isTrue,
                   reason: 'Fallback UI should be rendered instead of the flawed component tree');
-              expect(jacket!.getNode(),
+              expect(jacket!.getNode()!,
                   hasAttr(defaultTestIdKey, 'fallbackUIRenderer'));
               calls!.clear();
             });
@@ -434,7 +434,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
             setUp(() async {
               sharedSetup();
 
-              expect(jacket!.getNode(),
+              expect(jacket!.getNode()!,
                   isNot(hasAttr(defaultTestIdKey, 'ErrorBoundary.unrecoverableErrorInnerHtmlContainerNode')),
                   reason: 'test setup sanity check');
               errorBoundaryInnerHtmlBeforeUnrecoverableError = jacket!.getNode()!.innerHtml;
@@ -446,7 +446,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
                   reason: 'The flawed component should have been unmounted');
               expect(jacket!.getDartInstance()!.state.showFallbackUIOnError, isTrue,
                   reason: 'Fallback UI should be rendered instead of the flawed component tree');
-              expect(jacket!.getNode(),
+              expect(jacket!.getNode()!,
                   hasAttr(defaultTestIdKey, 'ErrorBoundary.unrecoverableErrorInnerHtmlContainerNode'));
               expect(jacket!.getNode()!.innerHtml, errorBoundaryInnerHtmlBeforeUnrecoverableError);
             });
@@ -477,7 +477,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
               test('the fallback UI node is rendered by the boundary', () {
                 expect(jacket!.getDartInstance()!.state.showFallbackUIOnError, isTrue,
                     reason: 'Fallback UI should be rendered instead of the flawed component tree');
-                expect(jacket!.getNode(),
+                expect(jacket!.getNode()!,
                     hasAttr(defaultTestIdKey, 'ErrorBoundary.unrecoverableErrorInnerHtmlContainerNode'));
               });
 
@@ -517,7 +517,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
               test('the fallback UI node is rendered by the boundary', () {
                 expect(jacket!.getDartInstance()!.state.showFallbackUIOnError, isTrue,
                     reason: 'Fallback UI should be rendered instead of the flawed component tree');
-                expect(jacket!.getNode(),
+                expect(jacket!.getNode()!,
                     hasAttr(defaultTestIdKey, 'ErrorBoundary.unrecoverableErrorInnerHtmlContainerNode'));
               });
 
@@ -627,7 +627,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
           setUp(() async {
             sharedSetup();
 
-            expect(jacket!.getNode(),
+            expect(jacket!.getNode()!,
                 isNot(hasAttr(defaultTestIdKey, 'ErrorBoundary.unrecoverableErrorInnerHtmlContainerNode')),
                 reason: 'test setup sanity check');
             errorBoundaryInnerHtmlBeforeUnrecoverableError = jacket!.getNode()!.innerHtml;
@@ -639,7 +639,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
                 reason: 'The flawed component should have been unmounted');
             expect(jacket!.getDartInstance()!.state.showFallbackUIOnError, isTrue,
                 reason: 'Fallback UI should be rendered instead of the flawed component tree');
-            expect(jacket!.getNode(),
+            expect(jacket!.getNode()!,
                 hasAttr(defaultTestIdKey, 'ErrorBoundary.unrecoverableErrorInnerHtmlContainerNode'));
             expect(jacket!.getNode()!.innerHtml, errorBoundaryInnerHtmlBeforeUnrecoverableError);
           });

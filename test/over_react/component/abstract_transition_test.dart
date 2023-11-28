@@ -704,9 +704,7 @@ class TransitionerComponent extends AbstractTransitionComponent<TransitionerProp
   void handleShowing() {
     super.handleShowing();
 
-    if (props.onHandleShowing != null) {
-      props.onHandleShowing!();
-    }
+    props.onHandleShowing?.call();
   }
 
   @override

@@ -58,8 +58,6 @@ ReactDartComponentFactoryProxy2 registerComponent2(react.Component2 Function() d
     ReactDartComponentFactoryProxy? parentType,
     UiFactory? builderFactory,
     Type? componentClass,
-    @Deprecated('The display name is now set automatically and setting this does nothing')
-    String? displayName,
     Iterable<String> skipMethods = const ['getDerivedStateFromError', 'componentDidCatch'],
 }) {
   final reactComponentFactory = react.registerComponent2(

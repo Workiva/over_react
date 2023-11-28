@@ -29,32 +29,29 @@ part 'use_dispatch_test.over_react.g.dart';
 
 main() {
   group('useDispatch hook', () {
-    TestJacket? jacket;
     late Store<CounterState> counterStore;
     late Store<BigCounterState> bigCounterStore;
 
     setUp(() {
-      jacket = null;
-
       counterStore = Store(counterStateReducer, initialState: CounterState());
       bigCounterStore = Store(bigCounterStateReducer, initialState: BigCounterState(bigCount: 9));
     });
 
     test('dispatches an action', () async {
-      jacket = mount(
+      final jacket = mount(
         (ReduxProvider()..store = counterStore)(
           UseDispatchCounterFn()(),
         ), attachedToDocument: true);
 
-      expectCountValue(jacket!, 0);
-      final incrementButton = queryByTestId(jacket!.mountNode, 'button-increment')!;
+      expectCountValue(jacket, 0);
+      final incrementButton = queryByTestId(jacket.mountNode, 'button-increment')!;
       incrementButton.click();
       await pumpEventQueue();
-      expectCountValue(jacket!, 1);
+      expectCountValue(jacket, 1);
     });
 
     test('dispatches an action within a custom context when createDispatchHook is used', () async {
-      jacket = mount(
+      final jacket = mount(
           (ReduxProvider()..store = counterStore)(
             (ReduxProvider()
               ..store = bigCounterStore
@@ -64,11 +61,11 @@ main() {
             ),
           ), attachedToDocument: true);
 
-      expectBigCountValue(jacket!, 9);
-      final incrementButton = queryByTestId(jacket!.mountNode, 'button-big-increment')!;
+      expectBigCountValue(jacket, 9);
+      final incrementButton = queryByTestId(jacket.mountNode, 'button-big-increment')!;
       incrementButton.click();
       await pumpEventQueue();
-      expectBigCountValue(jacket!, 109);
+      expectBigCountValue(jacket, 109);
     });
   });
 }

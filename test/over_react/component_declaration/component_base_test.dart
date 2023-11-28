@@ -647,15 +647,15 @@ main() {
           });
 
           test('caches the UiProps object for the same map', () {
-            TestComponentProps props1 = component.props;
-            TestComponentProps props2 = component.props;
+            var props1 = component.props;
+            var props2 = component.props;
             expect(props1, same(props2));
           });
 
           test('creates a new UiProps object when the props map changes', () {
-            TestComponentProps propsBeforeChange = component.props;
+            var propsBeforeChange = component.props;
             component.unwrappedProps = {};
-            TestComponentProps propsAfterChange = component.props;
+            var propsAfterChange = component.props;
 
             expect(propsBeforeChange, isNot(same(propsAfterChange)));
           });
@@ -671,8 +671,8 @@ main() {
       });
 
       test('newProps() returns a new UiProps instance backed by a new Map', () {
-        TestComponentProps newProps1 = component.newProps();
-        TestComponentProps newProps2 = component.newProps();
+        var newProps1 = component.newProps();
+        var newProps2 = component.newProps();
         expect(newProps1, isA<TestComponentProps>());
         expect(newProps2, isA<TestComponentProps>());
         expect(newProps1, isNot(same(newProps2)));
@@ -971,8 +971,8 @@ main() {
 
       test('newProps() returns a new UiProps instance backed by a new Map', () {
         component2 = TestComponent2Component();
-        TestComponent2Props newProps1 = component2.newProps();
-        TestComponent2Props newProps2 = component2.newProps();
+        var newProps1 = component2.newProps();
+        var newProps2 = component2.newProps();
         expect(newProps1, isA<TestComponent2Props>());
         expect(newProps2, isA<TestComponent2Props>());
         expect(newProps1, isNot(same(newProps2)));
@@ -1327,15 +1327,15 @@ main() {
           });
 
           test('caches the UiState object for the same map', () {
-            TestStatefulComponentState state1 = statefulComponent.state;
-            TestStatefulComponentState state2 = statefulComponent.state;
+            var state1 = statefulComponent.state;
+            var state2 = statefulComponent.state;
             expect(state1, same(state2));
           });
 
           test('creates a new UiState object when the state map changes', () {
-            TestStatefulComponentState stateBeforeChange = statefulComponent.state;
+            var stateBeforeChange = statefulComponent.state;
             statefulComponent.unwrappedState = {};
-            TestStatefulComponentState stateAfterChange = statefulComponent.state;
+            var stateAfterChange = statefulComponent.state;
 
             expect(stateBeforeChange, isNot(same(stateAfterChange)));
           });
@@ -1359,8 +1359,8 @@ main() {
       });
 
       test('newState() returns a new UiProps instance backed by a Map', () {
-        TestStatefulComponentState newState1 = statefulComponent.newState();
-        TestStatefulComponentState newState2 = statefulComponent.newState();
+        var newState1 = statefulComponent.newState();
+        var newState2 = statefulComponent.newState();
         expect(newState1, isA<TestStatefulComponentState>());
         expect(newState2, isA<TestStatefulComponentState>());
         expect(newState1, isNot(same(newState2)));
@@ -1416,8 +1416,8 @@ main() {
 
       test('newState() returns a new UiState instance backed by a new Map', () {
         statefulComponent = renderAndGetComponent(TestStatefulComponent2()())! as TestStatefulComponent2Component;
-        TestStatefulComponent2State newState1 = statefulComponent!.newState();
-        TestStatefulComponent2State newState2 = statefulComponent!.newState();
+        var newState1 = statefulComponent!.newState();
+        var newState2 = statefulComponent!.newState();
         expect(newState1, isA<TestStatefulComponent2State>());
         expect(newState2, isA<TestStatefulComponent2State>());
         expect(newState1, isNot(same(newState2)));
@@ -1504,12 +1504,6 @@ main() {
             expect(meta.parentType, equals(parentFactory.type));
           });
         });
-
-        test('displayName', () {
-          var reactComponentFactory = registerComponent(dummyComponentFactory, displayName: 'testDisplayName');
-          expect(reactComponentFactory.type.displayName, isNot(equals('testDisplayName')), reason: 'The displayName parameter no longer sets the component\'s displayName.');
-        });
-
         group('registers a type alias for', () {
           test('`componentClass`', () {
             Type typeAlias = TestRegisterComponentClassAlias;

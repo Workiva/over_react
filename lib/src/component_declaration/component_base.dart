@@ -58,8 +58,6 @@ ReactDartComponentFactoryProxy registerComponent(react.Component Function() dart
     ReactDartComponentFactoryProxy? parentType,
     UiFactory? builderFactory,
     Type? componentClass,
-    @Deprecated('The display name is now set automatically and setting this does nothing')
-    String? displayName,
 }) {
   // ignore: deprecated_member_use
   final reactComponentFactory = react.registerComponent(dartComponentFactory) as ReactDartComponentFactoryProxy;
@@ -623,7 +621,7 @@ abstract class UiProps extends MapBase
 
     assert(_validateChildren(childArguments.length == 1 ? childArguments.single : childArguments));
 
-    // FIXME not sure if validation should happen here or at render. Also need to add escape-hatch to opt out
+    // FIXME(null-safety) finalize this implementation and add escape-hatch to opt out in FED-1886
     assert(() {
       validateRequiredProps();
       return true;
@@ -660,6 +658,11 @@ abstract class UiProps extends MapBase
     return true;
   }
 
+  /// The react-dart factory associated with this props class's component,
+  /// used to create a [ReactElement] with these props within [build]/[call].
+  ///
+  /// This will only be null for props that can't be invoked, such as props map views, or props for
+  /// abstract components.
   ReactComponentFactoryProxy? componentFactory;
 
   /// An unmodifiable map view of the default props for this component brought
@@ -673,7 +676,7 @@ abstract class UiProps extends MapBase
       : const {};
   }
 
-  // FIXME(null-safety) document and generate overrides in FEDX-107
+  // FIXME(null-safety) document and generate overrides in FED-1886
   @visibleForOverriding
   @mustCallSuper
   void validateRequiredProps() {}

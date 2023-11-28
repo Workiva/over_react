@@ -36,13 +36,13 @@ class FluxCounterComponent extends FluxUiComponent2<FluxCounterProps> {
       (Dom.button()
         ..addTestId('button-increment')
         ..onClick = (_) {
-          props.actions.incrementAction(1);
+          props.actions.incrementAction();
         }
       )('+'),
       (Dom.button()
         ..addTestId('button-decrement')
         ..onClick = (_) {
-          props.actions.decrementAction(1);
+          props.actions.decrementAction();
         }
       )('-'),
       props.children,

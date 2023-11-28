@@ -59,7 +59,7 @@ void sharedTypeTests(
       test('', () {
         const stringValue = 'test';
         const boolValue = false;
-        const dynamic nullValue = null;
+        const nullValue = null;
 
         testTypeValue(stringValue);
         testTypeValue(boolValue);

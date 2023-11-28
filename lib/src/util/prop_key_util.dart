@@ -76,7 +76,7 @@ class _SingleKeyAccessMapSpy extends MapBase {
   remove(Object? key) => throw _unsupportedReadError();
 }
 
-// FIXME document, add test cases (especially for non-nullable props).
+// FIXME(null-safety) document, add test cases (especially for non-nullable props) in FED-1717
 class KeyAccessedException implements Exception {
   final Object? key;
 

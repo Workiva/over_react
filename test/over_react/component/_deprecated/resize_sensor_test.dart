@@ -32,22 +32,17 @@ void main() {
     const int defaultContainerHeight = 100;
 
     late Element domTarget;
-    Ref<ResizeSensorComponent?>? resizeSensorRef;
-    Ref<Element?>? containerRef;
+    late Ref<ResizeSensorComponent?> resizeSensorRef;
+    late Ref<Element?> containerRef;
 
     setUp(() {
       domTarget = document.createElement('div');
       document.body!.append(domTarget);
+      addTearDown(domTarget.remove);
       resizeSensorRef = createRef();
       containerRef = createRef();
       // Perform setup needed for using 'zonedExpect'.
       storeZone();
-    });
-
-    tearDown(() {
-      domTarget.remove();
-      resizeSensorRef = null;
-      containerRef = null;
     });
 
     void renderSensorIntoContainer({
@@ -58,13 +53,13 @@ void main() {
         Map? resizeSensorProps
     }) {
       // Create component hierarchy.
-      ReactElement? sensor = (ResizeSensor()
+      var sensor = (ResizeSensor()
         ..addProps(resizeSensorProps)
         ..onInitialize = onInitialize
         ..onResize = onResize
         ..ref = resizeSensorRef
       )();
-      ReactElement? container = (Dom.div()
+      var container = (Dom.div()
         ..className =  'container'
         ..style = {
           'position': 'absolute',
@@ -103,7 +98,7 @@ void main() {
         resizes.add(event);
       }, width: width, height: height, onInitialize: onInitialize, resizeSensorProps: resizeSensorProps);
 
-      if (resizeSensorRef!.current!.props.quickMount!) {
+      if (resizeSensorRef.current!.props.quickMount!) {
         // Quick-mount ResizeSensors can't detect changes until one animation frame and two scroll events
         // after mounting. Give them some time to settle.
         await window.animationFrame;
@@ -230,14 +225,14 @@ void main() {
           testResizeAmounts.forEach((description, amount) {
             test('by a $description amount (${amount}px)', () async {
               await expectResizeAfter(() {
-                containerRef!.current!.style.width = '${defaultContainerWidth + amount}px';
+                containerRef.current!.style.width = '${defaultContainerWidth + amount}px';
               }, resizeSensorProps: props);
             });
           });
 
           test('even when the bounding rect is very small', () async {
             await expectResizeAfter(() {
-              containerRef!.current!.style.width = '4px';
+              containerRef.current!.style.width = '4px';
             }, width: 2, height: 2, resizeSensorProps: props);
           });
 
@@ -245,7 +240,7 @@ void main() {
             props.shrink = true;
 
             await expectResizeAfter(() {
-              containerRef!.current!.style.width = '${defaultContainerWidth * 2}px';
+              containerRef.current!.style.width = '${defaultContainerWidth * 2}px';
             }, resizeSensorProps: props);
           });
         });
@@ -254,14 +249,14 @@ void main() {
           testResizeAmounts.forEach((description, amount) {
             test('by a $description amount (${amount}px)', () async{
               await expectResizeAfter(() {
-                containerRef!.current!.style.height = '${defaultContainerHeight + amount}px';
+                containerRef.current!.style.height = '${defaultContainerHeight + amount}px';
               }, resizeSensorProps: props);
             });
           });
 
           test('even when the bounding rect is very small', () async {
             await expectResizeAfter(() {
-              containerRef!.current!.style.height = '4px';
+              containerRef.current!.style.height = '4px';
             }, width: 2, height: 2, resizeSensorProps: props);
           });
 
@@ -269,7 +264,7 @@ void main() {
             props.shrink = true;
 
             await expectResizeAfter(() {
-              containerRef!.current!.style.height = '${defaultContainerHeight * 2}px';
+              containerRef.current!.style.height = '${defaultContainerHeight * 2}px';
             }, resizeSensorProps: props);
           });
         });
@@ -278,14 +273,14 @@ void main() {
           testResizeAmounts.forEach((description, amount) {
             test('by a $description amount (${amount}px)', () async{
               await expectResizeAfter(() {
-                containerRef!.current!.style.width = '${defaultContainerWidth}px';
+                containerRef.current!.style.width = '${defaultContainerWidth}px';
               }, width: defaultContainerWidth + amount, resizeSensorProps: props);
             });
           });
 
           test('even when the bounding rect is very small', () async {
             await expectResizeAfter(() {
-              containerRef!.current!.style.width = '1px';
+              containerRef.current!.style.width = '1px';
             }, width: 2, height: 2, resizeSensorProps: props);
           });
 
@@ -293,7 +288,7 @@ void main() {
             props.shrink = true;
 
             await expectResizeAfter(() {
-              containerRef!.current!.style.width = '${defaultContainerWidth / 2}px';
+              containerRef.current!.style.width = '${defaultContainerWidth / 2}px';
             }, resizeSensorProps: props);
           });
         });
@@ -302,14 +297,14 @@ void main() {
           testResizeAmounts.forEach((description, amount) {
             test('by a $description amount (${amount}px)', () async{
               await expectResizeAfter(() {
-                containerRef!.current!.style.height = '${defaultContainerHeight}px';
+                containerRef.current!.style.height = '${defaultContainerHeight}px';
               }, height: defaultContainerHeight + amount, resizeSensorProps: props);
             });
           });
 
           test('even when the bounding rect is very small', () async {
             await expectResizeAfter(() {
-              containerRef!.current!.style.height = '1px';
+              containerRef.current!.style.height = '1px';
             }, width: 2, height: 2, resizeSensorProps: props);
           });
 
@@ -317,7 +312,7 @@ void main() {
             props.shrink = true;
 
             await expectResizeAfter(() {
-              containerRef!.current!.style.height = '${defaultContainerHeight / 2}px';
+              containerRef.current!.style.height = '${defaultContainerHeight / 2}px';
             }, resizeSensorProps: props);
           });
         });
@@ -331,8 +326,8 @@ void main() {
       group('false:', () {
         test('passes the correct event args on resize', () async {
           await expectResizeAfter(() {
-            containerRef!.current!.style.width = '${defaultContainerWidth * 2}px';
-            containerRef!.current!.style.height = '${defaultContainerHeight * 2}px';
+            containerRef.current!.style.width = '${defaultContainerWidth * 2}px';
+            containerRef.current!.style.height = '${defaultContainerHeight * 2}px';
           }, onResize: (event) {
             zonedExpect(event.newWidth, equals(defaultContainerWidth * 2));
             zonedExpect(event.newHeight, equals(defaultContainerHeight * 2));
@@ -388,8 +383,8 @@ void main() {
           bool onInitializeCalled = false;
 
           await expectResizeAfter(() {
-            containerRef!.current!.style.width = '${defaultContainerWidth * 2}px';
-            containerRef!.current!.style.height = '${defaultContainerHeight * 2}px';
+            containerRef.current!.style.width = '${defaultContainerWidth * 2}px';
+            containerRef.current!.style.height = '${defaultContainerHeight * 2}px';
           }, onInitialize: (_) {
             onInitializeCalled = true;
           }, resizeSensorProps: props);
@@ -400,8 +395,8 @@ void main() {
 
         test('does not warn about props.onInitialize when it is not set', () async {
           await expectResizeAfter(() {
-            containerRef!.current!.style.width = '${defaultContainerWidth * 2}px';
-            containerRef!.current!.style.height = '${defaultContainerHeight * 2}px';
+            containerRef.current!.style.width = '${defaultContainerWidth * 2}px';
+            containerRef.current!.style.height = '${defaultContainerHeight * 2}px';
           }, resizeSensorProps: props);
 
           rejectValidationWarning(contains('onInitialize'));
@@ -411,14 +406,14 @@ void main() {
           var resizeEvents = <ResizeSensorEvent>[];
 
           await expectResizeAfter(() async {
-            containerRef!.current!.style.width = '${defaultContainerWidth + 10}px';
-            containerRef!.current!.style.height = '${defaultContainerHeight + 10}px';
+            containerRef.current!.style.width = '${defaultContainerWidth + 10}px';
+            containerRef.current!.style.height = '${defaultContainerHeight + 10}px';
 
             await window.animationFrame;
             await window.animationFrame;
 
-            containerRef!.current!.style.width = '${defaultContainerWidth + 20}px';
-            containerRef!.current!.style.height = '${defaultContainerHeight + 20}px';
+            containerRef.current!.style.width = '${defaultContainerWidth + 20}px';
+            containerRef.current!.style.height = '${defaultContainerHeight + 20}px';
           }, onResize: resizeEvents.add, resizeEventCount: 2, resizeSensorProps: props);
 
           expect(resizeEvents, hasLength(2));
@@ -440,37 +435,30 @@ void main() {
     });
 
     group('should indicate that the sensor needs to be reset', () {
-      Element? validTarget;
-      Element? detachedTarget;
-      Map<String, bool>? calls;
+      late Map<String, bool> calls;
 
       setUp(() {
         calls = <String, bool>{};
       });
 
-      tearDown(() {
-        calls = null;
-      });
-
       group('when mounted into a node that is not attached to the DOM', () {
+        late Element detachedTarget;
+
         setUp(() {
           ValidationUtil.WARNINGS_ENABLED = true;
           startRecordingValidationWarnings();
           detachedTarget = DivElement();
-          detachedTarget!.style.width = '200px';
-          detachedTarget!.style.height = '200px';
+          detachedTarget.style.width = '200px';
+          detachedTarget.style.height = '200px';
           mount((ResizeSensor()
-            ..onDetachedMountCheck = (needsReset) { calls!['onDetachedMountCheck'] = needsReset; }
-          )(), attachedToDocument: false, mountNode: detachedTarget!);
+            ..onDetachedMountCheck = (needsReset) { calls['onDetachedMountCheck'] = needsReset; }
+          )(), attachedToDocument: false, mountNode: detachedTarget);
         });
 
-        tearDown(() {
-          stopRecordingValidationWarnings();
-          detachedTarget = null;
-        });
+        tearDown(stopRecordingValidationWarnings);
 
         test('by providing a `true` argument value to the `props.onDetachedMountCheck` callback', () {
-          expect(calls!['onDetachedMountCheck'], isTrue);
+          expect(calls['onDetachedMountCheck'], isTrue);
         });
 
         test('and does not emit a validation warning about not needing to set the `onDetachedMountCheck` callback.', () {
@@ -479,26 +467,27 @@ void main() {
       });
 
       group('unless mounted into a node that is attached to the DOM', () {
+        late Element validTarget;
+
         setUp(() {
           ValidationUtil.WARNINGS_ENABLED = true;
           startRecordingValidationWarnings();
           validTarget = DivElement();
-          validTarget!.style.width = '200px';
-          validTarget!.style.height = '200px';
-          document.body!.append(validTarget!);
+          validTarget.style.width = '200px';
+          validTarget.style.height = '200px';
+          document.body!.append(validTarget);
           mount((ResizeSensor()
-            ..onDetachedMountCheck = (needsReset) { calls!['onDetachedMountCheck'] = needsReset; }
-          )(), attachedToDocument: true, mountNode: validTarget!);
+            ..onDetachedMountCheck = (needsReset) { calls['onDetachedMountCheck'] = needsReset; }
+          )(), attachedToDocument: true, mountNode: validTarget);
         });
 
         tearDown(() {
           stopRecordingValidationWarnings();
-          validTarget!.remove();
-          validTarget = null;
+          validTarget.remove();
         });
 
         test('- providing a `false` argument value to the `props.onDetachedMountCheck` callback', () {
-          expect(calls!['onDetachedMountCheck'], isFalse);
+          expect(calls['onDetachedMountCheck'], isFalse);
         });
 
         test('and emits a validation warning about not needing to set the `onDetachedMountCheck` callback.', () {

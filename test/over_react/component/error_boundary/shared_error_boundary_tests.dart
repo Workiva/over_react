@@ -218,7 +218,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<v2.ErrorBoundaryProps> builde
 
         group('when a new child is passed in', () {
           test('', () {
-            final ReactElement? newDummyChild = (Dom.div()..addTestId('newDummyChild'))('hi there');
+            final newDummyChild = (Dom.div()..addTestId('newDummyChild'))('hi there');
             jacket!.rerender((builder()
               ..fallbackUIRenderer = (_, __) => (Dom.div()..addTestId('fallbackNode'))('Something went wrong')
             )(newDummyChild));

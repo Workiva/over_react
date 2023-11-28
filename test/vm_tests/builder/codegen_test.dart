@@ -50,14 +50,14 @@ main() {
       final errorCollector = ErrorCollector.log(sourceFile, logger);
 
       declarations = parseAndValidateDeclarations(unit, errorCollector);
-      // FIXME add tests for both cases
+      // FIXME(null-safety) add tests for both cases FED-1720
       implGenerator = ImplGenerator(logger, sourceFile, nullSafety: false);
     }
 
     void setUpAndGenerate(String source) {
       setUpAndParse(source);
 
-      // FIXME add tests for both cases
+      // FIXME(null-safety) add tests for both cases FED-1720
       implGenerator = ImplGenerator(logger, sourceFile, nullSafety: false);
       declarations.forEach(implGenerator!.generate);
     }

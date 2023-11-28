@@ -185,6 +185,9 @@ UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extend
   }
 
   UiFactory<TProps> wrapWithConnect(UiFactory<TProps> factory) {
+    // `.componentFactory` will only be null for factories that can't be invoked, such as
+    // props map views or props for abstract components.
+    // Attempting to render one of those would fail, so we'll fail here as well if it gets wrapped.
     final dartComponentFactory = factory().componentFactory!;
     final dartComponentClass = dartComponentFactory.type;
     enforceMinimumComponentVersionFor(dartComponentFactory);

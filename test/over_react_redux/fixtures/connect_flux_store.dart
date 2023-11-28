@@ -44,13 +44,13 @@ class FluxStore extends flux.Store with InfluxStoreMixin<FluxCounterState> {
     state = FluxCounterState(count: 0);
 
     triggerOnActionV2(
-        _actions.incrementAction, (dynamic _) => this.influxReducer(IncrementAction()));
+        _actions.incrementAction, (_) => this.influxReducer(IncrementAction()));
     triggerOnActionV2(
-        _actions.decrementAction, (dynamic _) => this.influxReducer(DecrementAction()));
+        _actions.decrementAction, (_) => this.influxReducer(DecrementAction()));
     triggerOnActionV2(
-        _actions.resetAction, (dynamic _) => this.influxReducer(ResetAction()));
+        _actions.resetAction, (_) => this.influxReducer(ResetAction()));
     triggerOnActionV2(_actions.mutateStoreDirectly,
-        (dynamic _) => this.influxReducer(MutateStoreDirectlyAction()));
+        (_) => this.influxReducer(MutateStoreDirectlyAction()));
   }
 }
 
@@ -103,7 +103,7 @@ class FluxStore2 extends flux.Store with InfluxStoreMixin<BigCounterState> {
     triggerOnActionV2<int?>(_actions.decrementAction,
         (count) => this.influxReducer(DecrementAction(count)));
     triggerOnActionV2(
-        _actions.resetAction, (dynamic _) => this.influxReducer(ResetAction()));
+        _actions.resetAction, (_) => this.influxReducer(ResetAction()));
   }
 }
 

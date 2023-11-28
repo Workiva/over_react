@@ -26,17 +26,13 @@ import 'fixtures/dummy_composite_component.dart';
 main() {
   group('`react_dom.render`', () {
     dynamic renderedInstance;
-    Element? mountNode;
+    late Element mountNode;
 
     setUp(() {
-      mountNode = DivElement();
-      document.body!.append(mountNode!);
-    });
-
-    tearDown(() {
-      mountNode!.remove();
-      mountNode = null;
       renderedInstance = null;
+      mountNode = DivElement();
+      document.body!.append(mountNode);
+      addTearDown(mountNode.remove);
     });
 
     group('mounts and renders', () {
@@ -63,7 +59,7 @@ main() {
         });
 
         test('within the provided `mountNode`', () {
-          expect(findDomNode(renderedInstance), mountNode!.children.single);
+          expect(findDomNode(renderedInstance), mountNode.children.single);
         });
 
         test('and re-renders it when `react_dom.render` is called again for the same mountNode', () {
@@ -87,14 +83,8 @@ main() {
         });
 
         test('within the provided `mountNode`', () {
-          expect(renderedInstance, mountNode!.children.single);
+          expect(renderedInstance, mountNode.children.single);
         });
-      });
-    });
-
-    group('throws', () {
-      test('when `mountNode` is `null`', () {
-        expect(() => react_dom.render(Dom.div()('oh hai'), null), throwsA(anything));
       });
     });
   });

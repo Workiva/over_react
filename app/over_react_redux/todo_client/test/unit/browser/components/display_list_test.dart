@@ -29,7 +29,7 @@ main() {
       expect(emptyListInstance, isNotNull);
       expect(getDartComponent(emptyListInstance), isA<EmptyViewComponent>());
 
-      EmptyViewProps emptyViewProps = getDartComponent(emptyListInstance).props;
+      var emptyViewProps = getDartComponent(emptyListInstance).props;
       expect(emptyViewProps.type, EmptyViewType.VBLOCK);
       expect(emptyViewProps.header, 'No ${jacket.getDartInstance().props.listItemTypeDescription} to show');
       expect(emptyViewProps.glyph, isNotNull);

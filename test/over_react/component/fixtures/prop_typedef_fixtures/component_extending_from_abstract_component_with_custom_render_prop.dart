@@ -36,8 +36,8 @@ class TestCustomRendererFromAbstractComponentComponent
   @override
   render() {
     return Dom.div()(
-      props.customRenderer!(props, state, this),
-      props.parameterizedCustomRenderer!(props, state, this),
+      props.customRenderer(props, state, this),
+      props.parameterizedCustomRenderer(props, state, this),
     );
   }
 }
