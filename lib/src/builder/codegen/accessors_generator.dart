@@ -99,6 +99,10 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
     }
 
     generatedClass.write(_generateAccessors());
+
+    // todo add validate required props here
+    generatedClass.write('\n// sydney\n');
+
     generatedClass.writeln('}');
     generatedClass.writeln();
     return generatedClass.toString();
@@ -148,6 +152,8 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
     Map constants = {};
 
     StringBuffer output = StringBuffer();
+
+        final requiredPropKeys = [];
 
     node.members.whereType<FieldDeclaration>().where((field) => !field.isStatic).forEach((field) {
       T? getConstantAnnotation<T>(AnnotatedNode member, String name, T value) {
@@ -237,6 +243,11 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
           if (requiredErrorMessage.isNotEmpty) {
             constantValue += ', errorMessage: ${stringLiteral(requiredErrorMessage)}';
           }
+
+          // todo sydney add key namespace test
+          requiredPropKeys.add('  if(!props.containsKey($keyValue)) {\n'
+              '  throw MissingRequiredPropsError(\'Required prop `$accessorName` is missing.\');\n'
+              '}\n');
         }
         constantValue += ')';
 
@@ -350,7 +361,22 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
     String staticVariablesImpl =
         '  /* GENERATED CONSTANTS */\n$constantsImpl$keyConstantsImpl\n$listImpl$keyListImpl';
 
+    // todo add it here - collect late props from above
     output.write(staticVariablesImpl);
+
+
+    if(requiredPropKeys.isNotEmpty) {
+      // todo sydney only include late props
+      final validateRequiredPropsMethod = '  @override\n'
+          '  @mustCallSuper\n'
+          '  void validateRequiredProps() {\n'
+          // todo sydney why is this failing?
+          //     '    super.validateRequiredProps();\n'
+          //     '    debugger();\n'
+          '    ${requiredPropKeys.join('\n')}\n'
+          '  }\n';
+      output.write(validateRequiredPropsMethod);
+    }
 
     return output.toString();
   }
