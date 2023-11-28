@@ -86,8 +86,7 @@ void main() {
         isPartOverReact ? sourceWithOverReactPart : sourceWithNonOverReactPart,
         path: path,
       );
-      final part = result.unit.directives.whereType<PartDirective>().firstOrNull!;
-      expect(part, isNotNull);
+      final part = result.unit.directives.whereType<PartDirective>().single;
       expect(result.uri.path, endsWith('/$path'));
       expect(overReactGeneratedPartDirectiveIsValid(part, result.uri), shouldBeValid);
     }
@@ -95,9 +94,9 @@ void main() {
     group('getOverReactGeneratedPartDirective', () {
       test('returns correct over_react part directive', () {
         final unit = parseAndGetUnit(sourceWithOverReactPart);
-        final result = getOverReactGeneratedPartDirective(unit)!;
-        expect(result, isA<PartDirective>());
-        expect(result.uri.stringValue, '$testName.over_react.g.dart');
+        final result = getOverReactGeneratedPartDirective(unit);
+        expect(result, isNotNull);
+        expect(result!.uri.stringValue, '$testName.over_react.g.dart');
       });
 
       group('returns null when', () {
