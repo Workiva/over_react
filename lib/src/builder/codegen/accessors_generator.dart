@@ -100,9 +100,6 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
 
     generatedClass.write(_generateAccessors());
 
-    // todo add validate required props here
-    generatedClass.write('\n// sydney\n');
-
     generatedClass.writeln('}');
     generatedClass.writeln();
     return generatedClass.toString();
@@ -204,6 +201,11 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
           annotationCount++;
           isRequired = true;
           isPotentiallyNullable = true;
+
+          // todo sydney add key namespace test
+          requiredPropKeys.add('  if(!props.containsKey($keyValue)) {\n'
+              '  throw MissingRequiredPropsError(\'Required prop `$accessorName` is missing.\');\n'
+              '}\n');
         }
 
         if (accessorMeta != null) {
@@ -243,11 +245,6 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
           if (requiredErrorMessage.isNotEmpty) {
             constantValue += ', errorMessage: ${stringLiteral(requiredErrorMessage)}';
           }
-
-          // todo sydney add key namespace test
-          requiredPropKeys.add('  if(!props.containsKey($keyValue)) {\n'
-              '  throw MissingRequiredPropsError(\'Required prop `$accessorName` is missing.\');\n'
-              '}\n');
         }
         constantValue += ')';
 
@@ -366,8 +363,7 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
 
 
     if(requiredPropKeys.isNotEmpty) {
-      // todo sydney only include late props
-      final validateRequiredPropsMethod = '  @override\n'
+      final validateRequiredPropsMethod = '\n  @override\n'
           '  @mustCallSuper\n'
           '  void validateRequiredProps() {\n'
           // todo sydney why is this failing?
