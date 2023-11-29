@@ -20,11 +20,11 @@
   - BuiltReduxUiComponent
   - forwardRef (not to be confused with `uiForwardRef`)
   - registerComponent and registerComponent2 `displayName` argument
-  - ErrorBoundaryPropsMapView
 - The following props classes can no longer be extended or instantiated directly (like most components). To instantiate them, use the factory instead.
     - FragmentProps
     - StrictModeProps
     - ReduxProviderProps (for extension, mix in ReduxProviderPropsMixin instead)
+- UiPropsMapView (deprecated) is now abstract and requires subclasses to override `selfFactory`
 - `PropsMeta`/`StateMeta` constructor arguments `fields` and `keys` are now required
  
 ## [4.10.3](https://github.com/Workiva/over_react/compare/4.10.2...4.10.3)
