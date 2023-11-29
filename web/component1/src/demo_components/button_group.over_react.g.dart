@@ -144,7 +144,17 @@ class _$$ButtonGroupProps extends _$ButtonGroupProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'ButtonGroupProps.';
+
+  /// The default namespace for the prop getters/setters generated for this class.
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$ButtonGroupProps(
+          accessMap, (map) => _$$ButtonGroupProps(map));
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$ButtonGroupProps = getPropKey;
 
 abstract class _$ButtonGroupStateAccessorsMixin implements _$ButtonGroupState {
   @override

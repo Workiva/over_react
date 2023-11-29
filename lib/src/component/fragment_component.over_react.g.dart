@@ -45,7 +45,16 @@ abstract class _$$FragmentProps extends UiProps implements FragmentProps {
 
   @override
   PropsMetaCollection get staticMeta => const PropsMetaCollection({});
+
+  /// The default namespace for the prop getters/setters generated for this class.
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$FragmentProps(accessMap, (map) => _$$FragmentProps(map));
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$FragmentProps = getPropKey;
 
 // Concrete props implementation that can be backed by any [Map].
 @Deprecated('This API is for use only within generated code.'

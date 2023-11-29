@@ -93,7 +93,17 @@ abstract class _$$UseDispatchCounterFnProps extends UiProps
         // If this generated mixin is undefined, it's likely because UseDispatchCounterFnProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of UseDispatchCounterFnProps, and check that $UseDispatchCounterFnProps is exported/imported properly.
         UseDispatchCounterFnProps: $UseDispatchCounterFnProps.meta,
       });
+
+  /// The default namespace for the prop getters/setters generated for this class.
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$UseDispatchCounterFnProps(
+          accessMap, (map) => _$$UseDispatchCounterFnProps(map));
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$UseDispatchCounterFnProps = getPropKey;
 
 // Concrete props implementation that can be backed by any [Map].
 @Deprecated('This API is for use only within generated code.'
@@ -184,7 +194,17 @@ abstract class _$$CustomContextUseDispatchCounterFnProps extends UiProps
         CustomContextUseDispatchCounterFnProps:
             $CustomContextUseDispatchCounterFnProps.meta,
       });
+
+  /// The default namespace for the prop getters/setters generated for this class.
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$CustomContextUseDispatchCounterFnProps(
+          accessMap, (map) => _$$CustomContextUseDispatchCounterFnProps(map));
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$CustomContextUseDispatchCounterFnProps = getPropKey;
 
 // Concrete props implementation that can be backed by any [Map].
 @Deprecated('This API is for use only within generated code.'

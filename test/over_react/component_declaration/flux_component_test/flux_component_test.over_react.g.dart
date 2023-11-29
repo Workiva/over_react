@@ -70,7 +70,17 @@ class _$$TestBasicProps extends _$TestBasicProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'TestBasicProps.';
+
+  /// The default namespace for the prop getters/setters generated for this class.
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$TestBasicProps(
+          accessMap, (map) => _$$TestBasicProps(map));
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$TestBasicProps = getPropKey;
 
 // Concrete component implementation mixin.
 //
@@ -160,7 +170,17 @@ class _$$TestHandlerLifecycleProps extends _$TestHandlerLifecycleProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'TestHandlerLifecycleProps.';
+
+  /// The default namespace for the prop getters/setters generated for this class.
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$TestHandlerLifecycleProps(
+          accessMap, (map) => _$$TestHandlerLifecycleProps(map));
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$TestHandlerLifecycleProps = getPropKey;
 
 // Concrete component implementation mixin.
 //
@@ -250,7 +270,17 @@ class _$$TestHandlerPrecedenceProps extends _$TestHandlerPrecedenceProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'TestHandlerPrecedenceProps.';
+
+  /// The default namespace for the prop getters/setters generated for this class.
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$TestHandlerPrecedenceProps(
+          accessMap, (map) => _$$TestHandlerPrecedenceProps(map));
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$TestHandlerPrecedenceProps = getPropKey;
 
 // Concrete component implementation mixin.
 //
@@ -360,7 +390,17 @@ class _$$TestPropValidationProps extends _$TestPropValidationProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'TestPropValidationProps.';
+
+  /// The default namespace for the prop getters/setters generated for this class.
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$TestPropValidationProps(
+          accessMap, (map) => _$$TestPropValidationProps(map));
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$TestPropValidationProps = getPropKey;
 
 // Concrete component implementation mixin.
 //
@@ -450,7 +490,17 @@ class _$$TestRedrawOnProps extends _$TestRedrawOnProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'TestRedrawOnProps.';
+
+  /// The default namespace for the prop getters/setters generated for this class.
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$TestRedrawOnProps(
+          accessMap, (map) => _$$TestRedrawOnProps(map));
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$TestRedrawOnProps = getPropKey;
 
 // Concrete component implementation mixin.
 //
@@ -540,7 +590,17 @@ class _$$TestStoreHandlersProps extends _$TestStoreHandlersProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'TestStoreHandlersProps.';
+
+  /// The default namespace for the prop getters/setters generated for this class.
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$TestStoreHandlersProps(
+          accessMap, (map) => _$$TestStoreHandlersProps(map));
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$TestStoreHandlersProps = getPropKey;
 
 // Concrete component implementation mixin.
 //
@@ -630,7 +690,17 @@ class _$$TestStatefulBasicProps extends _$TestStatefulBasicProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'TestStatefulBasicProps.';
+
+  /// The default namespace for the prop getters/setters generated for this class.
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$TestStatefulBasicProps(
+          accessMap, (map) => _$$TestStatefulBasicProps(map));
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$TestStatefulBasicProps = getPropKey;
 
 abstract class _$TestStatefulBasicStateAccessorsMixin
     implements _$TestStatefulBasicState {
@@ -770,7 +840,17 @@ class _$$TestStatefulHandlerLifecycleProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'TestStatefulHandlerLifecycleProps.';
+
+  /// The default namespace for the prop getters/setters generated for this class.
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$TestStatefulHandlerLifecycleProps(
+          accessMap, (map) => _$$TestStatefulHandlerLifecycleProps(map));
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$TestStatefulHandlerLifecycleProps = getPropKey;
 
 abstract class _$TestStatefulHandlerLifecycleStateAccessorsMixin
     implements _$TestStatefulHandlerLifecycleState {
@@ -913,7 +993,17 @@ class _$$TestStatefulHandlerPrecedenceProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'TestStatefulHandlerPrecedenceProps.';
+
+  /// The default namespace for the prop getters/setters generated for this class.
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$TestStatefulHandlerPrecedenceProps(
+          accessMap, (map) => _$$TestStatefulHandlerPrecedenceProps(map));
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$TestStatefulHandlerPrecedenceProps = getPropKey;
 
 abstract class _$TestStatefulHandlerPrecedenceStateAccessorsMixin
     implements _$TestStatefulHandlerPrecedenceState {
@@ -1079,7 +1169,17 @@ class _$$TestStatefulPropValidationProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'TestStatefulPropValidationProps.';
+
+  /// The default namespace for the prop getters/setters generated for this class.
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$TestStatefulPropValidationProps(
+          accessMap, (map) => _$$TestStatefulPropValidationProps(map));
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$TestStatefulPropValidationProps = getPropKey;
 
 abstract class _$TestStatefulPropValidationStateAccessorsMixin
     implements _$TestStatefulPropValidationState {
@@ -1218,7 +1318,17 @@ class _$$TestStatefulRedrawOnProps extends _$TestStatefulRedrawOnProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'TestStatefulRedrawOnProps.';
+
+  /// The default namespace for the prop getters/setters generated for this class.
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$TestStatefulRedrawOnProps(
+          accessMap, (map) => _$$TestStatefulRedrawOnProps(map));
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$TestStatefulRedrawOnProps = getPropKey;
 
 abstract class _$TestStatefulRedrawOnStateAccessorsMixin
     implements _$TestStatefulRedrawOnState {
@@ -1356,7 +1466,17 @@ class _$$TestStatefulStoreHandlersProps extends _$TestStatefulStoreHandlersProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'TestStatefulStoreHandlersProps.';
+
+  /// The default namespace for the prop getters/setters generated for this class.
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$TestStatefulStoreHandlersProps(
+          accessMap, (map) => _$$TestStatefulStoreHandlersProps(map));
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$TestStatefulStoreHandlersProps = getPropKey;
 
 abstract class _$TestStatefulStoreHandlersStateAccessorsMixin
     implements _$TestStatefulStoreHandlersState {

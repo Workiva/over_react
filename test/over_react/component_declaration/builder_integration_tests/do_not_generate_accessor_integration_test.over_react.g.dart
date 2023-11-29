@@ -132,7 +132,17 @@ class _$$DoNotGenerateAccessorTestProps extends _$DoNotGenerateAccessorTestProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'DoNotGenerateAccessorTestProps.';
+
+  /// The default namespace for the prop getters/setters generated for this class.
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$DoNotGenerateAccessorTestProps(
+          accessMap, (map) => _$$DoNotGenerateAccessorTestProps(map));
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$DoNotGenerateAccessorTestProps = getPropKey;
 
 abstract class _$DoNotGenerateAccessorTestStateAccessorsMixin
     implements _$DoNotGenerateAccessorTestState {

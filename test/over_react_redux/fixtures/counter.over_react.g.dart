@@ -135,7 +135,16 @@ abstract class _$$CounterProps extends _$CounterProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'CounterProps.';
+
+  /// The default namespace for the prop getters/setters generated for this class.
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$CounterProps(accessMap, (map) => _$$CounterProps(map));
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$CounterProps = getPropKey;
 
 // Concrete props implementation that can be backed by any [Map].
 class _$$CounterProps$PlainMap extends _$$CounterProps {

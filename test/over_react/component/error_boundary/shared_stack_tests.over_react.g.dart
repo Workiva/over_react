@@ -63,7 +63,17 @@ abstract class _$$ThrowingComponent2Props extends UiProps
         // If this generated mixin is undefined, it's likely because ThrowingComponent2Props is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ThrowingComponent2Props, and check that $ThrowingComponent2Props is exported/imported properly.
         ThrowingComponent2Props: $ThrowingComponent2Props.meta,
       });
+
+  /// The default namespace for the prop getters/setters generated for this class.
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$ThrowingComponent2Props(
+          accessMap, (map) => _$$ThrowingComponent2Props(map));
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$ThrowingComponent2Props = getPropKey;
 
 // Concrete props implementation that can be backed by any [Map].
 @Deprecated('This API is for use only within generated code.'
@@ -220,7 +230,17 @@ class _$$ThrowingComponentProps extends _$ThrowingComponentProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'ThrowingComponentProps.';
+
+  /// The default namespace for the prop getters/setters generated for this class.
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$ThrowingComponentProps(
+          accessMap, (map) => _$$ThrowingComponentProps(map));
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$ThrowingComponentProps = getPropKey;
 
 // Concrete component implementation mixin.
 //
@@ -352,7 +372,17 @@ abstract class _$$ThrowingFunctionComponentProps extends UiProps
         // If this generated mixin is undefined, it's likely because ThrowingFunctionComponentProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ThrowingFunctionComponentProps, and check that $ThrowingFunctionComponentProps is exported/imported properly.
         ThrowingFunctionComponentProps: $ThrowingFunctionComponentProps.meta,
       });
+
+  /// The default namespace for the prop getters/setters generated for this class.
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$ThrowingFunctionComponentProps(
+          accessMap, (map) => _$$ThrowingFunctionComponentProps(map));
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$ThrowingFunctionComponentProps = getPropKey;
 
 // Concrete props implementation that can be backed by any [Map].
 @Deprecated('This API is for use only within generated code.'
@@ -443,7 +473,17 @@ abstract class _$$ThrowingForwardRefComponentProps extends UiProps
         ThrowingForwardRefComponentProps:
             $ThrowingForwardRefComponentProps.meta,
       });
+
+  /// The default namespace for the prop getters/setters generated for this class.
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$ThrowingForwardRefComponentProps(
+          accessMap, (map) => _$$ThrowingForwardRefComponentProps(map));
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$ThrowingForwardRefComponentProps = getPropKey;
 
 // Concrete props implementation that can be backed by any [Map].
 @Deprecated('This API is for use only within generated code.'

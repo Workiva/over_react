@@ -74,7 +74,17 @@ class _$$AnnotationErrorDefaultPropsProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'AnnotationErrorDefaultPropsProps.';
+
+  /// The default namespace for the prop getters/setters generated for this class.
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$AnnotationErrorDefaultPropsProps(
+          accessMap, (map) => _$$AnnotationErrorDefaultPropsProps(map));
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$AnnotationErrorDefaultPropsProps = getPropKey;
 
 // Concrete component implementation mixin.
 //
@@ -165,7 +175,17 @@ class _$$AnnotationErrorProps extends _$AnnotationErrorProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'AnnotationErrorProps.';
+
+  /// The default namespace for the prop getters/setters generated for this class.
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$AnnotationErrorProps(
+          accessMap, (map) => _$$AnnotationErrorProps(map));
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$AnnotationErrorProps = getPropKey;
 
 // Concrete component implementation mixin.
 //
@@ -256,7 +276,17 @@ class _$$AnnotationErrorStatefulProps extends _$AnnotationErrorStatefulProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'AnnotationErrorStatefulProps.';
+
+  /// The default namespace for the prop getters/setters generated for this class.
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$AnnotationErrorStatefulProps(
+          accessMap, (map) => _$$AnnotationErrorStatefulProps(map));
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$AnnotationErrorStatefulProps = getPropKey;
 
 abstract class _$AnnotationErrorStatefulStateAccessorsMixin
     implements _$AnnotationErrorStatefulState {
@@ -400,7 +430,17 @@ class _$$AnnotationErrorStatefulDefaultPropsProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'AnnotationErrorStatefulDefaultPropsProps.';
+
+  /// The default namespace for the prop getters/setters generated for this class.
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$AnnotationErrorStatefulDefaultPropsProps(
+          accessMap, (map) => _$$AnnotationErrorStatefulDefaultPropsProps(map));
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$AnnotationErrorStatefulDefaultPropsProps = getPropKey;
 
 abstract class _$AnnotationErrorStatefulDefaultPropsStateAccessorsMixin
     implements _$AnnotationErrorStatefulDefaultPropsState {

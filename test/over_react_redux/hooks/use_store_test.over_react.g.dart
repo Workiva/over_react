@@ -93,7 +93,17 @@ abstract class _$$UseStoreCounterFnProps extends UiProps
         // If this generated mixin is undefined, it's likely because UseStoreCounterFnProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of UseStoreCounterFnProps, and check that $UseStoreCounterFnProps is exported/imported properly.
         UseStoreCounterFnProps: $UseStoreCounterFnProps.meta,
       });
+
+  /// The default namespace for the prop getters/setters generated for this class.
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$UseStoreCounterFnProps(
+          accessMap, (map) => _$$UseStoreCounterFnProps(map));
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$UseStoreCounterFnProps = getPropKey;
 
 // Concrete props implementation that can be backed by any [Map].
 @Deprecated('This API is for use only within generated code.'
@@ -183,7 +193,17 @@ abstract class _$$CustomContextUseStoreCounterFnProps extends UiProps
         CustomContextUseStoreCounterFnProps:
             $CustomContextUseStoreCounterFnProps.meta,
       });
+
+  /// The default namespace for the prop getters/setters generated for this class.
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$CustomContextUseStoreCounterFnProps(
+          accessMap, (map) => _$$CustomContextUseStoreCounterFnProps(map));
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$CustomContextUseStoreCounterFnProps = getPropKey;
 
 // Concrete props implementation that can be backed by any [Map].
 @Deprecated('This API is for use only within generated code.'
