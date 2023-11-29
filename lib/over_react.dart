@@ -109,7 +109,6 @@ export 'src/util/react_util.dart';
 export 'src/util/react_wrappers.dart';
 export 'src/util/rem_util.dart';
 export 'src/util/string_util.dart';
-export 'src/util/safe_required_prop_access.dart';
 export 'src/util/safe_render_manager/safe_render_manager.dart';
 export 'src/util/test_mode.dart';
 export 'src/util/typed_default_props_for.dart';
