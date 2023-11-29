@@ -236,8 +236,7 @@ abstract class TypedMapImplGenerator extends BoilerplateDeclarationGenerator {
       }
 
       buffer
-        ..writeln(
-            '  /// The default namespace for the prop getters/setters generated for this class.')
+        ..writeln()
         ..writeln('  @override')
         ..writeln('  String \$getPropKey(void Function(Map m) accessMap) => $topLevelGetPropKeyAliasName(accessMap, (map) => ${names.implName}(map));');
     }
