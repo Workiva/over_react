@@ -15,12 +15,16 @@
 library over_react.component_declaration.builder_helpers;
 
 import 'package:meta/meta.dart';
-import '../../over_react.dart';
+
+import '../util/map_util.dart';
 import './component_base.dart' as component_base;
+import './component_base.dart' show PropsMetaCollection, PropDescriptor, PropsModifier, PropsMeta;
 import './annotations.dart' as annotations;
+import './ui_props_self_typed_extension.dart';
 
 export './annotations.dart';
 export './component_base.dart' hide UiComponent, UiStatefulComponent, UiProps, UiState;
+export './ui_props_self_typed_extension.dart';
 
 // ----------------------------------------------------------------------
 //   Base classes to be used by pre-generated code that stub out
@@ -126,13 +130,13 @@ abstract class UiProps extends component_base.UiProps with GeneratedClass {
   /// A collection of metadata for the prop fields in all prop mixins used by
   /// this props instance's generated props class.
   ///
-  /// Synonymous with [UiComponent2]'s `propsMeta`.
+  /// Synonymous with [component_base.UiComponent2.propsMeta].
   ///
   /// This can be used to derive consumed props by usage in conjunction with [addUnconsumedProps]
   /// and [addUnconsumedDomProps].
   @toBeGenerated PropsMetaCollection get staticMeta => throw UngeneratedError(member: #meta);
 
-  /// The base implementation for [UiPropsSelfFactory.getPropKey],
+  /// The base implementation for [UiPropsSelfTypedExtension.getPropKey],
   /// which wraps this with better generic typing, since we can't generically express
   /// the type of the current class in this declaration.
   @toBeGenerated
@@ -195,27 +199,6 @@ abstract class UiProps extends component_base.UiProps with GeneratedClass {
     }
     throw MissingRequiredPropsError(messageSegments.join(' '));
   }
-}
-
-extension UiPropsSelfFactory<T extends UiProps> on T {
-  /// Returns the key used to store a prop, accessed by [accessMap].
-  ///
-  /// For example:
-  /// ```dart
-  /// class FooProps = UiProps with FooPropsMixin, BarPropsMixin;
-  /// mixin FooPropsMixin on UiProps {
-  ///   String? foo;
-  /// }
-  /// mixin BarPropsMixin on UiProps {
-  ///   String? bar;
-  /// }
-  ///
-  /// void example(FooProps props) {
-  ///   props.getPropKey((p) => p.foo);     // 'FooPropsMixin.foo'
-  ///   props.getPropKey((p) => p.bar);     // 'BarPropsMixin.bar'
-  ///   props.getPropKey((p) => p.onClick); // 'onClick'
-  /// }
-  String getPropKey(void Function(T) accessMap) => $getPropKey((map) => accessMap(map as T));
 }
 
 class MissingRequiredPropsError extends Error {
