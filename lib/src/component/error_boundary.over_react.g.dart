@@ -65,7 +65,6 @@ abstract class _$$ErrorBoundaryProps extends UiProps
         ErrorBoundaryProps: $ErrorBoundaryProps.meta,
       });
 
-  /// The default namespace for the prop getters/setters generated for this class.
   @override
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$ErrorBoundaryProps(

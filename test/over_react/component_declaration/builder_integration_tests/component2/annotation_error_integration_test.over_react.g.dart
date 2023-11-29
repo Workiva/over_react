@@ -75,7 +75,6 @@ class _$$AnnotationErrorDefaultPropsProps
   @override
   String get propKeyNamespace => 'AnnotationErrorDefaultPropsProps.';
 
-  /// The default namespace for the prop getters/setters generated for this class.
   @override
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$AnnotationErrorDefaultPropsProps(
@@ -176,7 +175,6 @@ class _$$AnnotationErrorProps extends _$AnnotationErrorProps
   @override
   String get propKeyNamespace => 'AnnotationErrorProps.';
 
-  /// The default namespace for the prop getters/setters generated for this class.
   @override
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$AnnotationErrorProps(
@@ -277,7 +275,6 @@ class _$$AnnotationErrorStatefulProps extends _$AnnotationErrorStatefulProps
   @override
   String get propKeyNamespace => 'AnnotationErrorStatefulProps.';
 
-  /// The default namespace for the prop getters/setters generated for this class.
   @override
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$AnnotationErrorStatefulProps(
@@ -431,7 +428,6 @@ class _$$AnnotationErrorStatefulDefaultPropsProps
   @override
   String get propKeyNamespace => 'AnnotationErrorStatefulDefaultPropsProps.';
 
-  /// The default namespace for the prop getters/setters generated for this class.
   @override
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$AnnotationErrorStatefulDefaultPropsProps(

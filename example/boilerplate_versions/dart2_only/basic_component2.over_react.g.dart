@@ -154,7 +154,6 @@ abstract class _$$BasicProps extends _$BasicProps
   @override
   String get propKeyNamespace => 'BasicProps.';
 
-  /// The default namespace for the prop getters/setters generated for this class.
   @override
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$BasicProps(accessMap, (map) => _$$BasicProps(map));

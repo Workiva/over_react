@@ -331,7 +331,6 @@ class _$$ProgressProps extends _$ProgressProps
   @override
   String get propKeyNamespace => 'ProgressProps.';
 
-  /// The default namespace for the prop getters/setters generated for this class.
   @override
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$ProgressProps(accessMap, (map) => _$$ProgressProps(map));

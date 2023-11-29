@@ -71,7 +71,6 @@ abstract class _$$FluxCounterProps extends _$FluxCounterProps
   @override
   String get propKeyNamespace => 'FluxCounterProps.';
 
-  /// The default namespace for the prop getters/setters generated for this class.
   @override
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$FluxCounterProps(

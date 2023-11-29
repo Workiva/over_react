@@ -64,7 +64,6 @@ abstract class _$$ClassComponentProps extends UiProps
         ClassComponentProps: $ClassComponentProps.meta,
       });
 
-  /// The default namespace for the prop getters/setters generated for this class.
   @override
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$ClassComponentProps(
@@ -463,7 +462,6 @@ abstract class _$$ExpectsDartMapPropProps extends UiProps
         ExpectsDartMapPropProps: $ExpectsDartMapPropProps.meta,
       });
 
-  /// The default namespace for the prop getters/setters generated for this class.
   @override
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$ExpectsDartMapPropProps(
@@ -559,7 +557,6 @@ abstract class _$$ExpectsDartStylePropProps extends UiProps
         ExpectsDartStylePropProps: $ExpectsDartStylePropProps.meta,
       });
 
-  /// The default namespace for the prop getters/setters generated for this class.
   @override
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$ExpectsDartStylePropProps(
@@ -657,7 +654,6 @@ abstract class _$$ExpectsListChildrenPropProps extends UiProps
         ExpectsListChildrenPropProps: $ExpectsListChildrenPropProps.meta,
       });
 
-  /// The default namespace for the prop getters/setters generated for this class.
   @override
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$ExpectsListChildrenPropProps(
@@ -755,7 +751,6 @@ abstract class _$$BasicForwardRefProps extends UiProps
         BasicForwardRefProps: $BasicForwardRefProps.meta,
       });
 
-  /// The default namespace for the prop getters/setters generated for this class.
   @override
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$BasicForwardRefProps(
@@ -858,7 +853,6 @@ abstract class _$$DartTestJsWrapperProps extends UiProps
         DartTestJsWrapperPropsMixin: $DartTestJsWrapperPropsMixin.meta,
       });
 
-  /// The default namespace for the prop getters/setters generated for this class.
   @override
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$DartTestJsWrapperProps(
@@ -952,7 +946,6 @@ abstract class _$$TestJsProps extends UiProps
         TestJsProps: $TestJsProps.meta,
       });
 
-  /// The default namespace for the prop getters/setters generated for this class.
   @override
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$TestJsProps(accessMap, (map) => _$$TestJsProps(map));

@@ -71,7 +71,6 @@ abstract class _$$TestParent2Props extends _$TestParent2Props
   @override
   String get propKeyNamespace => 'TestParent2Props.';
 
-  /// The default namespace for the prop getters/setters generated for this class.
   @override
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$TestParent2Props(

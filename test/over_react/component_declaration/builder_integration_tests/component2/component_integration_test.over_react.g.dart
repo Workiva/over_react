@@ -213,7 +213,6 @@ abstract class _$$ComponentTestProps extends _$ComponentTestProps
   @override
   String get propKeyNamespace => 'ComponentTestProps.';
 
-  /// The default namespace for the prop getters/setters generated for this class.
   @override
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$ComponentTestProps(
@@ -371,7 +370,6 @@ abstract class _$$IsErrorBoundaryProps extends _$IsErrorBoundaryProps
   @override
   String get propKeyNamespace => 'IsErrorBoundaryProps.';
 
-  /// The default namespace for the prop getters/setters generated for this class.
   @override
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$IsErrorBoundaryProps(
@@ -528,7 +526,6 @@ abstract class _$$IsNotErrorBoundaryProps extends _$IsNotErrorBoundaryProps
   @override
   String get propKeyNamespace => 'IsNotErrorBoundaryProps.';
 
-  /// The default namespace for the prop getters/setters generated for this class.
   @override
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$IsNotErrorBoundaryProps(

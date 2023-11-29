@@ -97,7 +97,6 @@ class _$$ListGroupProps extends _$ListGroupProps
   @override
   String get propKeyNamespace => 'ListGroupProps.';
 
-  /// The default namespace for the prop getters/setters generated for this class.
   @override
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$ListGroupProps(

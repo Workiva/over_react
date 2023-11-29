@@ -71,7 +71,6 @@ abstract class _$$ContextTypeProps extends _$ContextTypeProps
   @override
   String get propKeyNamespace => 'ContextTypeProps.';
 
-  /// The default namespace for the prop getters/setters generated for this class.
   @override
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$ContextTypeProps(

@@ -90,7 +90,6 @@ abstract class _$$BasicUiComponent2Props extends _$BasicUiComponent2Props
   @override
   String get propKeyNamespace => 'BasicUiComponent2Props.';
 
-  /// The default namespace for the prop getters/setters generated for this class.
   @override
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$BasicUiComponent2Props(
@@ -276,7 +275,6 @@ abstract class _$$FunctionCustomPropsProps extends UiProps
         FunctionCustomPropsProps: $FunctionCustomPropsProps.meta,
       });
 
-  /// The default namespace for the prop getters/setters generated for this class.
   @override
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$FunctionCustomPropsProps(

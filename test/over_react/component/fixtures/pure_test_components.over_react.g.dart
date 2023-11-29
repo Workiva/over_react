@@ -66,7 +66,6 @@ abstract class _$$PureTestWrapperProps extends UiProps
         SharedPureTestPropsMixin: $SharedPureTestPropsMixin.meta,
       });
 
-  /// The default namespace for the prop getters/setters generated for this class.
   @override
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$PureTestWrapperProps(
@@ -230,7 +229,6 @@ abstract class _$$PureTestProps extends UiProps
         PureTestPropsMixin: $PureTestPropsMixin.meta,
       });
 
-  /// The default namespace for the prop getters/setters generated for this class.
   @override
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$PureTestProps(accessMap, (map) => _$$PureTestProps(map));

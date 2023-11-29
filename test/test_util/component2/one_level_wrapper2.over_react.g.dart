@@ -73,7 +73,6 @@ abstract class _$$OneLevelWrapper2Props extends _$OneLevelWrapper2Props
   @override
   String get propKeyNamespace => 'OneLevelWrapper2Props.';
 
-  /// The default namespace for the prop getters/setters generated for this class.
   @override
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$OneLevelWrapper2Props(

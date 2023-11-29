@@ -280,7 +280,6 @@ abstract class _$$TestConsumingAbstractCustomRendererComponentProps
   String get propKeyNamespace =>
       'TestConsumingAbstractCustomRendererComponentProps.';
 
-  /// The default namespace for the prop getters/setters generated for this class.
   @override
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$TestConsumingAbstractCustomRendererComponentProps(
@@ -498,7 +497,6 @@ abstract class _$$TestConsumingCustomRendererComponentProps
   @override
   String get propKeyNamespace => 'TestConsumingCustomRendererComponentProps.';
 
-  /// The default namespace for the prop getters/setters generated for this class.
   @override
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$TestConsumingCustomRendererComponentProps(accessMap,
@@ -694,7 +692,6 @@ abstract class _$$TestCustomRendererFromAbstractComponentProps
   String get propKeyNamespace =>
       'TestCustomRendererFromAbstractComponentProps.';
 
-  /// The default namespace for the prop getters/setters generated for this class.
   @override
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$TestCustomRendererFromAbstractComponentProps(accessMap,
@@ -1065,7 +1062,6 @@ abstract class _$$TestCustomRendererComponentProps
   @override
   String get propKeyNamespace => 'TestCustomRendererComponentProps.';
 
-  /// The default namespace for the prop getters/setters generated for this class.
   @override
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$TestCustomRendererComponentProps(

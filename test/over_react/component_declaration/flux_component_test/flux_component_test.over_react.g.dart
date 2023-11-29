@@ -71,7 +71,6 @@ class _$$TestBasicProps extends _$TestBasicProps
   @override
   String get propKeyNamespace => 'TestBasicProps.';
 
-  /// The default namespace for the prop getters/setters generated for this class.
   @override
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$TestBasicProps(
@@ -171,7 +170,6 @@ class _$$TestHandlerLifecycleProps extends _$TestHandlerLifecycleProps
   @override
   String get propKeyNamespace => 'TestHandlerLifecycleProps.';
 
-  /// The default namespace for the prop getters/setters generated for this class.
   @override
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$TestHandlerLifecycleProps(
@@ -271,7 +269,6 @@ class _$$TestHandlerPrecedenceProps extends _$TestHandlerPrecedenceProps
   @override
   String get propKeyNamespace => 'TestHandlerPrecedenceProps.';
 
-  /// The default namespace for the prop getters/setters generated for this class.
   @override
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$TestHandlerPrecedenceProps(
@@ -391,7 +388,6 @@ class _$$TestPropValidationProps extends _$TestPropValidationProps
   @override
   String get propKeyNamespace => 'TestPropValidationProps.';
 
-  /// The default namespace for the prop getters/setters generated for this class.
   @override
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$TestPropValidationProps(
@@ -491,7 +487,6 @@ class _$$TestRedrawOnProps extends _$TestRedrawOnProps
   @override
   String get propKeyNamespace => 'TestRedrawOnProps.';
 
-  /// The default namespace for the prop getters/setters generated for this class.
   @override
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$TestRedrawOnProps(
@@ -591,7 +586,6 @@ class _$$TestStoreHandlersProps extends _$TestStoreHandlersProps
   @override
   String get propKeyNamespace => 'TestStoreHandlersProps.';
 
-  /// The default namespace for the prop getters/setters generated for this class.
   @override
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$TestStoreHandlersProps(
@@ -691,7 +685,6 @@ class _$$TestStatefulBasicProps extends _$TestStatefulBasicProps
   @override
   String get propKeyNamespace => 'TestStatefulBasicProps.';
 
-  /// The default namespace for the prop getters/setters generated for this class.
   @override
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$TestStatefulBasicProps(
@@ -841,7 +834,6 @@ class _$$TestStatefulHandlerLifecycleProps
   @override
   String get propKeyNamespace => 'TestStatefulHandlerLifecycleProps.';
 
-  /// The default namespace for the prop getters/setters generated for this class.
   @override
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$TestStatefulHandlerLifecycleProps(
@@ -994,7 +986,6 @@ class _$$TestStatefulHandlerPrecedenceProps
   @override
   String get propKeyNamespace => 'TestStatefulHandlerPrecedenceProps.';
 
-  /// The default namespace for the prop getters/setters generated for this class.
   @override
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$TestStatefulHandlerPrecedenceProps(
@@ -1170,7 +1161,6 @@ class _$$TestStatefulPropValidationProps
   @override
   String get propKeyNamespace => 'TestStatefulPropValidationProps.';
 
-  /// The default namespace for the prop getters/setters generated for this class.
   @override
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$TestStatefulPropValidationProps(
@@ -1319,7 +1309,6 @@ class _$$TestStatefulRedrawOnProps extends _$TestStatefulRedrawOnProps
   @override
   String get propKeyNamespace => 'TestStatefulRedrawOnProps.';
 
-  /// The default namespace for the prop getters/setters generated for this class.
   @override
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$TestStatefulRedrawOnProps(
@@ -1467,7 +1456,6 @@ class _$$TestStatefulStoreHandlersProps extends _$TestStatefulStoreHandlersProps
   @override
   String get propKeyNamespace => 'TestStatefulStoreHandlersProps.';
 
-  /// The default namespace for the prop getters/setters generated for this class.
   @override
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$TestStatefulStoreHandlersProps(

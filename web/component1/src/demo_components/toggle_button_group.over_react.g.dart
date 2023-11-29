@@ -73,7 +73,6 @@ class _$$ToggleButtonGroupProps extends _$ToggleButtonGroupProps
   @override
   String get propKeyNamespace => 'ToggleButtonGroupProps.';
 
-  /// The default namespace for the prop getters/setters generated for this class.
   @override
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$ToggleButtonGroupProps(

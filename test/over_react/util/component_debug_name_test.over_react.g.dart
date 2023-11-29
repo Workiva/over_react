@@ -64,7 +64,6 @@ abstract class _$$TestComponent2Props extends UiProps
         TestComponent2Props: $TestComponent2Props.meta,
       });
 
-  /// The default namespace for the prop getters/setters generated for this class.
   @override
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$TestComponent2Props(
@@ -225,7 +224,6 @@ class _$$TestComponentProps extends _$TestComponentProps
   @override
   String get propKeyNamespace => 'TestComponentProps.';
 
-  /// The default namespace for the prop getters/setters generated for this class.
   @override
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$TestComponentProps(

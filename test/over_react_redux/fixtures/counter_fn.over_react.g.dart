@@ -165,7 +165,6 @@ abstract class _$$CounterFnProps extends UiProps
         CounterFnProps: $CounterFnProps.meta,
       });
 
-  /// The default namespace for the prop getters/setters generated for this class.
   @override
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$CounterFnProps(
@@ -268,7 +267,6 @@ abstract class _$$ModelCounterFnProps extends UiProps
         ModelCounterFnPropsMixin: $ModelCounterFnPropsMixin.meta,
       });
 
-  /// The default namespace for the prop getters/setters generated for this class.
   @override
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$ModelCounterFnProps(
@@ -373,7 +371,6 @@ abstract class _$$CustomContextCounterFnProps extends UiProps
             $CustomContextCounterFnPropsMixin.meta,
       });
 
-  /// The default namespace for the prop getters/setters generated for this class.
   @override
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$CustomContextCounterFnProps(

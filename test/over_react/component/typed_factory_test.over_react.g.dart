@@ -90,7 +90,6 @@ abstract class _$$TypedFactoryTesterProps extends _$TypedFactoryTesterProps
   @override
   String get propKeyNamespace => 'TypedFactoryTesterProps.';
 
-  /// The default namespace for the prop getters/setters generated for this class.
   @override
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$TypedFactoryTesterProps(

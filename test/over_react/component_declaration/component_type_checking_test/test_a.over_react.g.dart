@@ -69,7 +69,6 @@ class _$$TestAProps extends _$TestAProps
   @override
   String get propKeyNamespace => 'TestAProps.';
 
-  /// The default namespace for the prop getters/setters generated for this class.
   @override
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$TestAProps(accessMap, (map) => _$$TestAProps(map));

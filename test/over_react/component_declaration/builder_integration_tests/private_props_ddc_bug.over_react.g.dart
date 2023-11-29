@@ -81,7 +81,6 @@ class _$$FooProps extends _$FooProps
   @override
   String get propKeyNamespace => 'FooProps.';
 
-  /// The default namespace for the prop getters/setters generated for this class.
   @override
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$FooProps(accessMap, (map) => _$$FooProps(map));

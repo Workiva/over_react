@@ -94,7 +94,6 @@ abstract class _$$UseDispatchCounterFnProps extends UiProps
         UseDispatchCounterFnProps: $UseDispatchCounterFnProps.meta,
       });
 
-  /// The default namespace for the prop getters/setters generated for this class.
   @override
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$UseDispatchCounterFnProps(
@@ -195,7 +194,6 @@ abstract class _$$CustomContextUseDispatchCounterFnProps extends UiProps
             $CustomContextUseDispatchCounterFnProps.meta,
       });
 
-  /// The default namespace for the prop getters/setters generated for this class.
   @override
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$CustomContextUseDispatchCounterFnProps(

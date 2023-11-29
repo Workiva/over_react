@@ -74,7 +74,6 @@ abstract class _$$TestExtendtype2Props extends _$TestExtendtype2Props
   @override
   String get propKeyNamespace => 'TestExtendtype2Props.';
 
-  /// The default namespace for the prop getters/setters generated for this class.
   @override
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$TestExtendtype2Props(

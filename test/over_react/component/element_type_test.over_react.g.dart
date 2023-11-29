@@ -63,7 +63,6 @@ abstract class _$$CustomTestProps extends UiProps
         CustomTestProps: $CustomTestProps.meta,
       });
 
-  /// The default namespace for the prop getters/setters generated for this class.
   @override
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$CustomTestProps(
@@ -250,7 +249,6 @@ abstract class _$$CustomFnTestProps extends UiProps
         CustomFnTestProps: $CustomFnTestProps.meta,
       });
 
-  /// The default namespace for the prop getters/setters generated for this class.
   @override
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$CustomFnTestProps(

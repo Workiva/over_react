@@ -83,7 +83,6 @@ abstract class _$$FlawedProps extends _$FlawedProps
   @override
   String get propKeyNamespace => 'FlawedProps.';
 
-  /// The default namespace for the prop getters/setters generated for this class.
   @override
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$FlawedProps(accessMap, (map) => _$$FlawedProps(map));

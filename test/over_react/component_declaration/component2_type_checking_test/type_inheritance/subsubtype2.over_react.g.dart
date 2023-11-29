@@ -74,7 +74,6 @@ abstract class _$$TestSubsubtype2Props extends _$TestSubsubtype2Props
   @override
   String get propKeyNamespace => 'TestSubsubtype2Props.';
 
-  /// The default namespace for the prop getters/setters generated for this class.
   @override
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$TestSubsubtype2Props(

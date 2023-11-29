@@ -133,7 +133,6 @@ abstract class _$$ReduxProviderProps extends UiProps
         ReduxProviderPropsMixin: $ReduxProviderPropsMixin.meta,
       });
 
-  /// The default namespace for the prop getters/setters generated for this class.
   @override
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$ReduxProviderProps(

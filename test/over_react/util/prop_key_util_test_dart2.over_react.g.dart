@@ -97,7 +97,6 @@ abstract class _$$TestProps extends _$TestProps
   @override
   String get propKeyNamespace => 'TestProps.';
 
-  /// The default namespace for the prop getters/setters generated for this class.
   @override
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$TestProps(accessMap, (map) => _$$TestProps(map));

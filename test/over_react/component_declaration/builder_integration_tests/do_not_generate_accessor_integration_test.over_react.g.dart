@@ -133,7 +133,6 @@ class _$$DoNotGenerateAccessorTestProps extends _$DoNotGenerateAccessorTestProps
   @override
   String get propKeyNamespace => 'DoNotGenerateAccessorTestProps.';
 
-  /// The default namespace for the prop getters/setters generated for this class.
   @override
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$DoNotGenerateAccessorTestProps(

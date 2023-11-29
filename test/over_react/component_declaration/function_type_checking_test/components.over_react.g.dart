@@ -75,7 +75,6 @@ abstract class _$$DoNotReferenceThisFactoryExceptForInASingleTestProps
             $DoNotReferenceThisFactoryExceptForInASingleTestProps.meta,
       });
 
-  /// The default namespace for the prop getters/setters generated for this class.
   @override
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$DoNotReferenceThisFactoryExceptForInASingleTestProps(
@@ -429,7 +428,6 @@ abstract class _$$TestAProps extends UiProps
         TestAProps: $TestAProps.meta,
       });
 
-  /// The default namespace for the prop getters/setters generated for this class.
   @override
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$TestAProps(accessMap, (map) => _$$TestAProps(map));
@@ -522,7 +520,6 @@ abstract class _$$TestBProps extends UiProps
         TestBProps: $TestBProps.meta,
       });
 
-  /// The default namespace for the prop getters/setters generated for this class.
   @override
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$TestBProps(accessMap, (map) => _$$TestBProps(map));
@@ -616,7 +613,6 @@ abstract class _$$TestParentProps extends UiProps
         TestParentProps: $TestParentProps.meta,
       });
 
-  /// The default namespace for the prop getters/setters generated for this class.
   @override
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$TestParentProps(
@@ -712,7 +708,6 @@ abstract class _$$TestSubtypeProps extends UiProps
         TestSubtypeProps: $TestSubtypeProps.meta,
       });
 
-  /// The default namespace for the prop getters/setters generated for this class.
   @override
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$TestSubtypeProps(
@@ -808,7 +803,6 @@ abstract class _$$TestSubsubtypeProps extends UiProps
         TestSubsubtypeProps: $TestSubsubtypeProps.meta,
       });
 
-  /// The default namespace for the prop getters/setters generated for this class.
   @override
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$TestSubsubtypeProps(
@@ -904,7 +898,6 @@ abstract class _$$TestExtendtypeProps extends UiProps
         TestExtendtypeProps: $TestExtendtypeProps.meta,
       });
 
-  /// The default namespace for the prop getters/setters generated for this class.
   @override
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$TestExtendtypeProps(
@@ -1000,7 +993,6 @@ abstract class _$$OneLevelWrapperProps extends UiProps
         OneLevelWrapperProps: $OneLevelWrapperProps.meta,
       });
 
-  /// The default namespace for the prop getters/setters generated for this class.
   @override
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$OneLevelWrapperProps(
@@ -1096,7 +1088,6 @@ abstract class _$$TwoLevelWrapperProps extends UiProps
         TwoLevelWrapperProps: $TwoLevelWrapperProps.meta,
       });
 
-  /// The default namespace for the prop getters/setters generated for this class.
   @override
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$TwoLevelWrapperProps(
@@ -1193,7 +1184,6 @@ abstract class _$$TestUninitializedParentProps extends UiProps
         TestUninitializedParentProps: $TestUninitializedParentProps.meta,
       });
 
-  /// The default namespace for the prop getters/setters generated for this class.
   @override
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$TestUninitializedParentProps(

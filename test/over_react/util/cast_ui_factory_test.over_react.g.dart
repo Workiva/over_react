@@ -63,7 +63,6 @@ abstract class _$$BasicProps extends UiProps
         BasicProps: $BasicProps.meta,
       });
 
-  /// The default namespace for the prop getters/setters generated for this class.
   @override
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$BasicProps(accessMap, (map) => _$$BasicProps(map));

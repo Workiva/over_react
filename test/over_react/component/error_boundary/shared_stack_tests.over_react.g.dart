@@ -64,7 +64,6 @@ abstract class _$$ThrowingComponent2Props extends UiProps
         ThrowingComponent2Props: $ThrowingComponent2Props.meta,
       });
 
-  /// The default namespace for the prop getters/setters generated for this class.
   @override
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$ThrowingComponent2Props(
@@ -231,7 +230,6 @@ class _$$ThrowingComponentProps extends _$ThrowingComponentProps
   @override
   String get propKeyNamespace => 'ThrowingComponentProps.';
 
-  /// The default namespace for the prop getters/setters generated for this class.
   @override
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$ThrowingComponentProps(
@@ -373,7 +371,6 @@ abstract class _$$ThrowingFunctionComponentProps extends UiProps
         ThrowingFunctionComponentProps: $ThrowingFunctionComponentProps.meta,
       });
 
-  /// The default namespace for the prop getters/setters generated for this class.
   @override
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$ThrowingFunctionComponentProps(
@@ -474,7 +471,6 @@ abstract class _$$ThrowingForwardRefComponentProps extends UiProps
             $ThrowingForwardRefComponentProps.meta,
       });
 
-  /// The default namespace for the prop getters/setters generated for this class.
   @override
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$ThrowingForwardRefComponentProps(
