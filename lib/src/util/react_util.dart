@@ -14,10 +14,11 @@
 
 import 'dart:collection';
 
-import 'package:over_react/component_base.dart' as component_base show UiProps;
+import 'package:meta/meta.dart';
 import 'package:over_react/over_react.dart';
 import 'package:over_react/src/component_declaration/util.dart';
-import 'package:react/react_client.dart';
+
+const _getPropKey = getPropKey;
 
 /// A `MapView` helper that stubs in unimplemented pieces of [UiProps].
 ///
@@ -26,13 +27,13 @@ import 'package:react/react_client.dart';
 /// DEPRECATED: Use new boilerplate mixin pattern instead (see the New Boilerplate Migration
 /// Guide for more information).
 @Deprecated('This pattern is deprecated in favor of the mixin props mixin pattern. See the New Boilerplate Migration guide for more information.')
-class UiPropsMapView extends MapView
+abstract class UiPropsMapView extends MapView
     with
         ReactPropsMixin,
         UbiquitousDomPropsMixin,
         CssClassPropsMixin
     implements
-        component_base.UiProps {
+        UiProps {
   /// Create a new instance backed by the specified map.
   UiPropsMapView(Map map) : super(map);
 
@@ -41,13 +42,41 @@ class UiPropsMapView extends MapView
   @override
   Map get props => this;
 
+  /// Returns a new instance of the current class backed by the given [props].
+  ///
+  /// This exists to implement [$getPropKey], and must be overridden by consumers.
+  ///
+  /// Example override:
+  /// ```dart
+  /// class OverlayPropsMixinMapView extends UiPropsMapView
+  ///     with
+  ///         OverlayPropsMixin,
+  ///         // ignore: mixin_of_non_class, undefined_class
+  ///         $OverlayPropsMixin {
+  ///   OverlayPropsMixinMapView(Map map) : super(map);
+  ///
+  ///   @override
+  ///   OverlayPropsMixinMapView selfFactory(Map map) => OverlayPropsMixinMapView(this);
+  /// }
+  /// ```
+  @visibleForOverriding
+  UiProps selfFactory(Map props);
+
+  // ----- builder_helpers.UiProps ----- //
+
+  @override
   bool get $isClassGenerated =>
       throw UnimplementedError('@PropsMixin instances do not implement \$isClassGenerated');
 
+  @override
   PropsMetaCollection get staticMeta => throw UnimplementedError('@PropsMixin instances do not implement instance meta');
 
+  @override
   String get propKeyNamespace =>
       throw UnimplementedError('@PropsMixin instances do not implement propKeyNamespace');
+
+  @override
+  String $getPropKey(void Function(Map m) accessMap) => _getPropKey(accessMap, selfFactory);
 
   // ----- component_base.UiProps ----- //
 
