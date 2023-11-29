@@ -20,6 +20,7 @@
   - BuiltReduxUiComponent
   - forwardRef (not to be confused with `uiForwardRef`)
   - registerComponent and registerComponent2 `displayName` argument
+  - ErrorBoundaryPropsMapView
 - The following props classes can no longer be extended or instantiated directly (like most components). To instantiate them, use the factory instead.
     - FragmentProps
     - StrictModeProps
