@@ -18,192 +18,119 @@ import 'package:over_react/over_react.dart';
 import 'package:react_testing_library/react_testing_library.dart' as rtl;
 import 'package:test/test.dart';
 
-import '../../../../test_util/test_util.dart' hide mount;
-
 part 'null_safety_validate_required_props_test.over_react.g.dart';
 
 void main() {
   group('(New boilerplate) validates required props:', () {
-    group('non-nullable required prop - throws when a prop is required and not set', () {
-      test('on mount', () {
-        expect(() {
-          rtl.render(
-            (ComponentTest()
+    group('non-nullable required prop', () {
+      group('throws when a prop is required and not set', () {
+        test('on mount', () {
+          expect(() {
+            rtl.render((ComponentTest()
               ..requiredDynamic = true
               ..requiredNullable = true
+            )());
+          },
+              throwsA(isA<MissingRequiredPropsError>().having(
+                  (e) => e.toString(),
+                  'toString value',
+                  contains(
+                      'Required prop `requiredNonNullable` is missing.'))));
+        });
 
-                // ..requiredAndLengthLimited = [1,2]
-            )(),
-          );
-        }, throwsA(isA<MissingRequiredPropsError>().having((e) => e.toString(), 'toString value',
-            contains('Required prop `requiredNonNullable` is missing.'))));
+        test('on re-render', () {
+          late rtl.RenderResult view;
+
+          expect(() {
+            view = rtl.render((ComponentTest()
+              ..requiredNonNullable = true
+              ..requiredDynamic = true
+              ..requiredNullable = true
+            )());
+          }, returnsNormally);
+
+          expect(() {
+            view.rerender((ComponentTest()
+              ..requiredDynamic = true
+              ..requiredNullable = true
+            )());
+          },
+              throwsA(isA<MissingRequiredPropsError>().having(
+                  (e) => e.toString(),
+                  'toString value',
+                  contains(
+                      'Required prop `requiredNonNullable` is missing.'))));
+        });
       });
 
-      test('on re-render', () {
-        late rtl.RenderResult view;
-
+      test('does not throw when the prop is set', () {
         expect(() {
-          view = rtl.render(
-              (ComponentTest()
-                ..required = true
-                ..nullable = true
-                  // ..requiredAndLengthLimited = [1,2]
-              )());
-        }, logsNoPropTypeWarnings);
-
-        expect(() {
-          view.rerender((ComponentTest()
-            ..required = true
-              // ..requiredAndLengthLimited = [1,2]
+          rtl.render((ComponentTest()
+            ..requiredNonNullable = true
+            ..requiredDynamic = true
+            ..requiredNullable = true
           )());
-        }, logsPropRequiredError('ComponentTestProps.nullable'));
+        }, returnsNormally);
       });
     });
 
-    group('throwing when a prop is required and set to null', () {
-      test('on mount', () {
+    group('nullable required prop', () {
+      group('throws when a prop is required and not set', () {
+        test('on mount', () {
+          expect(() {
+            rtl.render((ComponentTest()
+              ..requiredDynamic = true
+              ..requiredNonNullable = true
+            )());
+          },
+              throwsA(isA<MissingRequiredPropsError>().having(
+                  (e) => e.toString(),
+                  'toString value',
+                  contains('Required prop `requiredNullable` is missing.'))));
+        });
+
+        test('on re-render', () {
+          late rtl.RenderResult view;
+
+          expect(() {
+            view = rtl.render((ComponentTest()
+              ..requiredNonNullable = true
+              ..requiredDynamic = true
+              ..requiredNullable = true
+            )());
+          }, returnsNormally);
+
+          expect(() {
+            view.rerender((ComponentTest()
+              ..requiredDynamic = true
+              ..requiredNonNullable = true
+            )());
+          },
+              throwsA(isA<MissingRequiredPropsError>().having(
+                  (e) => e.toString(),
+                  'toString value',
+                  contains('Required prop `requiredNullable` is missing.'))));
+        });
+      });
+
+      test('does not throw when the prop is set to null', () {
         expect(() {
           rtl.render((ComponentTest()
-            // ..required = null
-            ..nullable = true
-            // ..requiredAndLengthLimited = [1,2]
+            ..requiredNonNullable = true
+            ..requiredDynamic = true
+            ..requiredNullable = null
           )());
-        }, logsPropRequiredError('ComponentTestProps.required'));
+        }, returnsNormally);
       });
 
-      test('on re-render', () {
-        late rtl.RenderResult view;
-
-        expect(() {
-          view = rtl.render(
-              (ComponentTest()
-                ..required = true
-                ..nullable = true
-                // ..requiredAndLengthLimited = [1,2]
-              )());
-        }, logsNoPropTypeWarnings);
-
-        expect(() {
-          view.rerender((ComponentTest()
-            // ..required = null
-            ..nullable = true
-            // ..requiredAndLengthLimited = [1,2]
-          )());
-        }, logsPropRequiredError('ComponentTestProps.required'));
-      });
-    });
-
-    group('throwing when a prop is nullable and not set', () {
-      test('on mount', () {
+      test('does not throw when the prop is set', () {
         expect(() {
           rtl.render((ComponentTest()
-            ..required = true
-            // ..requiredAndLengthLimited = [1,2]
+            ..requiredNonNullable = true
+            ..requiredDynamic = true
+            ..requiredNullable = true
           )());
-        }, logsPropRequiredError('ComponentTestProps.nullable'));
-      });
-
-      test('on re-render', () {
-        late rtl.RenderResult view;
-
-        expect(() {
-          view = rtl.render(
-              (ComponentTest()
-                ..required = true
-                ..nullable = true
-                // ..requiredAndLengthLimited = [1,2]
-              )());
-        }, logsNoPropTypeWarnings);
-
-        expect(() {
-          view.rerender((ComponentTest()
-            ..required = true
-            // ..requiredAndLengthLimited = [1,2]
-          )());
-        }, logsPropRequiredError('ComponentTestProps.nullable'));
-      });
-    });
-
-    group('not throwing when a prop is required and set', () {
-      test('on mount', () {
-        expect(() {
-          rtl.render((ComponentTest()
-            ..nullable = true
-            ..required = true
-            // ..requiredAndLengthLimited = [1,2]
-          )());
-        }, logsNoPropTypeWarnings);
-      });
-
-      test('on re-render', () {
-        var view = rtl.render((ComponentTest()
-            ..required = true
-            ..nullable = true
-            // ..requiredAndLengthLimited = [1,2]
-          )()
-        );
-
-        expect(() {
-          view.rerender((ComponentTest()
-            ..required = true
-            ..nullable = true
-            // ..requiredAndLengthLimited = [1,2]
-          )());
-        }, logsNoPropTypeWarnings);
-      });
-    });
-
-    group('not throwing when a prop is nullable and set to null', () {
-      test('on mount', () {
-        expect(() {
-          rtl.render((ComponentTest()
-            ..nullable = null
-            // ..requiredAndLengthLimited = [1,2]
-            ..required = true
-          )());
-        }, logsNoPropTypeWarnings);
-      });
-
-      test('on re-render', () {
-        late rtl.RenderResult view;
-
-        expect(() {
-          view = rtl.render(
-              (ComponentTest()
-                ..required = true
-                ..nullable = true
-                // ..requiredAndLengthLimited = [1,2]
-              )());
-        }, logsNoPropTypeWarnings);
-
-        expect(() {
-          view.rerender((ComponentTest()
-            ..required = true
-            ..nullable = null
-            // ..requiredAndLengthLimited = [1,2]
-          )());
-        }, logsNoPropTypeWarnings);
-      });
-    });
-
-    group('when a consumer propType function is also provided', () {
-      test('required fires', () {
-        expect(() {
-          rtl.render((ComponentTest()
-            ..nullable = null
-            ..required = true
-          )());
-        }, logsPropValueError('null', 'ComponentTestProps.requiredAndLengthLimited'));
-      });
-
-      test('consumer check fires', () {
-        expect(() {
-          rtl.render((ComponentTest()
-            ..required = true
-            ..nullable = true
-            // ..requiredAndLengthLimited = [1]
-          )());
-        }, logsPropValueError('1', 'ComponentTestProps.requiredAndLengthLimited'));
+        }, returnsNormally);
       });
     });
   });
@@ -213,10 +140,11 @@ void main() {
 UiFactory<ComponentTestProps> ComponentTest = _$ComponentTest;
 
 mixin ComponentTestProps on UiProps {
-  late bool required;
+  late bool requiredNonNullable;
 
   late bool? requiredNullable;
 
+  // todo is this necessary?
   late dynamic requiredDynamic;
 
   bool? nullable;
