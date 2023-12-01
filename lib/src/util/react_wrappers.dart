@@ -96,7 +96,7 @@ String? _getDartComponentVersionFromInstance(Object/* ReactElement|ReactComponen
 /// - `false` for DDC
 final bool _canUseExpandoOnReactElement = (() {
   var expando = Expando<bool>('_canUseExpandoOnReactElement test');
-  var reactElement = react.div({}) as ReactElement;
+  var reactElement = react.div({});
 
   try {
     expando[reactElement] = true;

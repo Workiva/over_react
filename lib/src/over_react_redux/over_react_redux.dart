@@ -436,8 +436,8 @@ mixin ReduxProviderPropsMixin on UiProps {
 /// [ReduxProviderProps] is a typed props class for [ReduxProvider].
 ///
 /// Props:
-/// [store] (Redux Store) The single Redux store in your application.
-/// [context] You may provide a context instance. If you do so, you will need to provide the same context instance to all of your connected components as well.
+/// - `store` - (Redux Store) The single Redux store in your application.
+/// - `context` - You may provide a context instance. If you do so, you will need to provide the same context instance to all of your connected components as well.
 ///
 /// See: <https://react-redux.js.org/api/provider>
 class ReduxProviderProps = builder_helpers.UiProps with ReduxProviderPropsMixin;

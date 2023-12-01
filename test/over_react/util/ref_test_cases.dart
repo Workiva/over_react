@@ -13,7 +13,7 @@ class RefTestCase {
   /// The ref to be passed into a component.
   final dynamic ref;
 
-  /// Verifies (usually via `expect`) that the ref was updated exactly once with [actualValue].
+  /// Verifies (usually via `expect`) that the ref was updated exactly once with the `actualValue` provided argument.
   final Function(dynamic actualValue) verifyRefWasUpdated;
 
   /// Returns the current value of the ref.

@@ -158,14 +158,15 @@ class ButtonGroupSize extends ClassNameConstant {
 /// Mapping from [ButtonSize] values to their analogous [ButtonGroupSize] values.
 ///
 /// __Example:__
+/// ```dart
+/// mixin MyProps on UiProps {
+///   ButtonSize size;
+/// }
 ///
-///     mixin MyProps on UiProps {
-///       ButtonSize size;
-///     }
-///
-///     class MyComponent extends UiComponent<MyProps> {
-///       ButtonGroupSize matchingButtonGroupSize = buttonToButtonGroupSize[props.size];
-///     }
+/// class MyComponent extends UiComponent<MyProps> {
+///   ButtonGroupSize matchingButtonGroupSize = buttonToButtonGroupSize[props.size];
+/// }
+/// ```
 const Map<ButtonSize, ButtonGroupSize> buttonToButtonGroupSize = {
   ButtonSize.SMALL:   ButtonGroupSize.SMALL,
   ButtonSize.DEFAULT: ButtonGroupSize.DEFAULT,

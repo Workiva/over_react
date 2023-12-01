@@ -1218,8 +1218,8 @@ main() {
             });
 
             void forEachTestCase(
-                void callback(String testCaseName, bool isDartCallbackCase,
-                    bool isDartRefObjectCase, bool isTyped)) {
+                void Function(String testCaseName, bool isDartCallbackCase,
+                    bool isDartRefObjectCase, bool isTyped) callback) {
               for (final testCaseName in testCaseCollection.allTestCaseNames) {
                 final meta =
                     testCaseCollection.testCaseMetaByName(testCaseName);

@@ -24,7 +24,7 @@ main() {
     group('CssValue', () {
       group('returns the parsed value for', () {
         test('each and every valid unit', () {
-          double value = 34.0;
+          double value = 34;
           var units = ['em', 'ex', 'rem', 'vh', 'vw', 'vmin', 'vmax', '%', 'px', 'cm', 'mm', 'in', 'pt', 'pc', 'ch'];
           for (String unit in units) {
             expect(CssValue.parse('$value$unit')!.number, equals(value));

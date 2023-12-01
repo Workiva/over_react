@@ -32,7 +32,7 @@ main() {
 
         test('returns the correct value for a map', () {
           final map = {'a': 1, 'b': '2'};
-          final domProps = DomProps(react.a as ReactComponentFactoryProxy?);
+          final domProps = DomProps(react.a);
           expect(hasher.hash(map), 2);
           expect(hasher.hash(domProps.props), 0);
 
@@ -103,7 +103,7 @@ void sharedHashTests(InstanceHasher Function() getHasher) {
     });
 
     test('true if the object is a map or iterable', () {
-      final props = DomProps(react.a as ReactComponentFactoryProxy?);
+      final props = DomProps(react.a);
 
       expect(hasher.canHash({'e', 'a', 'b'}), isTrue);
       expect(hasher.canHash([]), isTrue);
@@ -130,7 +130,7 @@ void sharedHashTests(InstanceHasher Function() getHasher) {
       });
 
       test('the object has not been checked before', () {
-        final props = DomProps(react.a as ReactComponentFactoryProxy?);
+        final props = DomProps(react.a);
         expect(hasher.hasHashChanged(props), isFalse);
       });
 
