@@ -53,45 +53,6 @@ abstract class _$ComponentTestPropsAccessorsMixin
   set requiredDynamic(dynamic value) =>
       props[_$key__requiredDynamic___$ComponentTestProps] = value;
 
-  /// <!-- Generated from [_$ComponentTestProps.disabledRequiredProp] -->
-  @override
-  @disableRequiredPropValidation
-  bool get disabledRequiredProp =>
-      (props[_$key__disabledRequiredProp___$ComponentTestProps] ?? null)
-          as bool;
-
-  /// <!-- Generated from [_$ComponentTestProps.disabledRequiredProp] -->
-  @override
-  @disableRequiredPropValidation
-  set disabledRequiredProp(bool value) =>
-      props[_$key__disabledRequiredProp___$ComponentTestProps] = value;
-
-  /// <!-- Generated from [_$ComponentTestProps.disabledNullableRequiredProp] -->
-  @override
-  @disableRequiredPropValidation
-  bool? get disabledNullableRequiredProp =>
-      (props[_$key__disabledNullableRequiredProp___$ComponentTestProps] ?? null)
-          as bool?;
-
-  /// <!-- Generated from [_$ComponentTestProps.disabledNullableRequiredProp] -->
-  @override
-  @disableRequiredPropValidation
-  set disabledNullableRequiredProp(bool? value) =>
-      props[_$key__disabledNullableRequiredProp___$ComponentTestProps] = value;
-
-  /// <!-- Generated from [_$ComponentTestProps.ref] -->
-  @override
-  @disableRequiredPropValidation
-  @override
-  dynamic get ref =>
-      (props[_$key__ref___$ComponentTestProps] ?? null) as dynamic;
-
-  /// <!-- Generated from [_$ComponentTestProps.ref] -->
-  @override
-  @disableRequiredPropValidation
-  @override
-  set ref(dynamic value) => props[_$key__ref___$ComponentTestProps] = value;
-
   /// <!-- Generated from [_$ComponentTestProps.nullable] -->
   @override
   bool? get nullable =>
@@ -113,18 +74,6 @@ abstract class _$ComponentTestPropsAccessorsMixin
   static const PropDescriptor _$prop__requiredDynamic___$ComponentTestProps =
       PropDescriptor(_$key__requiredDynamic___$ComponentTestProps,
           isRequired: true, isNullable: true);
-  static const PropDescriptor
-      _$prop__disabledRequiredProp___$ComponentTestProps = PropDescriptor(
-          _$key__disabledRequiredProp___$ComponentTestProps,
-          isRequired: true,
-          isNullable: true);
-  static const PropDescriptor
-      _$prop__disabledNullableRequiredProp___$ComponentTestProps =
-      PropDescriptor(_$key__disabledNullableRequiredProp___$ComponentTestProps,
-          isRequired: true, isNullable: true);
-  static const PropDescriptor _$prop__ref___$ComponentTestProps =
-      PropDescriptor(_$key__ref___$ComponentTestProps,
-          isRequired: true, isNullable: true);
   static const PropDescriptor _$prop__nullable___$ComponentTestProps =
       PropDescriptor(_$key__nullable___$ComponentTestProps);
   static const String _$key__requiredNonNullable___$ComponentTestProps =
@@ -133,13 +82,6 @@ abstract class _$ComponentTestPropsAccessorsMixin
       'ComponentTestProps.requiredNullable';
   static const String _$key__requiredDynamic___$ComponentTestProps =
       'ComponentTestProps.requiredDynamic';
-  static const String _$key__disabledRequiredProp___$ComponentTestProps =
-      'ComponentTestProps.disabledRequiredProp';
-  static const String
-      _$key__disabledNullableRequiredProp___$ComponentTestProps =
-      'ComponentTestProps.disabledNullableRequiredProp';
-  static const String _$key__ref___$ComponentTestProps =
-      'ComponentTestProps.ref';
   static const String _$key__nullable___$ComponentTestProps =
       'ComponentTestProps.nullable';
 
@@ -147,18 +89,12 @@ abstract class _$ComponentTestPropsAccessorsMixin
     _$prop__requiredNonNullable___$ComponentTestProps,
     _$prop__requiredNullable___$ComponentTestProps,
     _$prop__requiredDynamic___$ComponentTestProps,
-    _$prop__disabledRequiredProp___$ComponentTestProps,
-    _$prop__disabledNullableRequiredProp___$ComponentTestProps,
-    _$prop__ref___$ComponentTestProps,
     _$prop__nullable___$ComponentTestProps
   ];
   static const List<String> $propKeys = [
     _$key__requiredNonNullable___$ComponentTestProps,
     _$key__requiredNullable___$ComponentTestProps,
     _$key__requiredDynamic___$ComponentTestProps,
-    _$key__disabledRequiredProp___$ComponentTestProps,
-    _$key__disabledNullableRequiredProp___$ComponentTestProps,
-    _$key__ref___$ComponentTestProps,
     _$key__nullable___$ComponentTestProps
   ];
 

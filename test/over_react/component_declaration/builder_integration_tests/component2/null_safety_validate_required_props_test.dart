@@ -21,7 +21,7 @@ import '../../../../test_util/test_util.dart';
 part 'null_safety_validate_required_props_test.over_react.g.dart';
 
 void main() {
-  group('(New boilerplate) validates required props:', () {
+  group('(Component2) validates required props:', () {
     group('non-nullable required prop', () {
       group('throws when a prop is required and not set', () {
         test('on mount', () {
