@@ -342,8 +342,8 @@ abstract class ErrorBoundaryStateMixin implements _$ErrorBoundaryStateMixin {
   ///
   /// <!-- Generated from [_$ErrorBoundaryStateMixin.hasError] -->
   @override
-  bool? get hasError =>
-      (state[_$key__hasError___$ErrorBoundaryStateMixin] ?? null) as bool?;
+  bool get hasError =>
+      (state[_$key__hasError___$ErrorBoundaryStateMixin] ?? null) as bool;
 
   /// Whether a component within the tree that the [ErrorBoundary] is wrapping around threw an error.
   ///
@@ -359,7 +359,7 @@ abstract class ErrorBoundaryStateMixin implements _$ErrorBoundaryStateMixin {
   ///
   /// <!-- Generated from [_$ErrorBoundaryStateMixin.hasError] -->
   @override
-  set hasError(bool? value) =>
+  set hasError(bool value) =>
       state[_$key__hasError___$ErrorBoundaryStateMixin] = value;
 
   /// Whether to show "fallback" UI when [hasError] is true.
@@ -368,9 +368,9 @@ abstract class ErrorBoundaryStateMixin implements _$ErrorBoundaryStateMixin {
   ///
   /// <!-- Generated from [_$ErrorBoundaryStateMixin.showFallbackUIOnError] -->
   @override
-  bool? get showFallbackUIOnError =>
+  bool get showFallbackUIOnError =>
       (state[_$key__showFallbackUIOnError___$ErrorBoundaryStateMixin] ?? null)
-          as bool?;
+          as bool;
 
   /// Whether to show "fallback" UI when [hasError] is true.
   ///
@@ -378,14 +378,16 @@ abstract class ErrorBoundaryStateMixin implements _$ErrorBoundaryStateMixin {
   ///
   /// <!-- Generated from [_$ErrorBoundaryStateMixin.showFallbackUIOnError] -->
   @override
-  set showFallbackUIOnError(bool? value) =>
+  set showFallbackUIOnError(bool value) =>
       state[_$key__showFallbackUIOnError___$ErrorBoundaryStateMixin] = value;
   /* GENERATED CONSTANTS */
   static const StateDescriptor _$prop__hasError___$ErrorBoundaryStateMixin =
-      StateDescriptor(_$key__hasError___$ErrorBoundaryStateMixin);
+      StateDescriptor(_$key__hasError___$ErrorBoundaryStateMixin,
+          isRequired: true, isNullable: true);
   static const StateDescriptor
       _$prop__showFallbackUIOnError___$ErrorBoundaryStateMixin =
-      StateDescriptor(_$key__showFallbackUIOnError___$ErrorBoundaryStateMixin);
+      StateDescriptor(_$key__showFallbackUIOnError___$ErrorBoundaryStateMixin,
+          isRequired: true, isNullable: true);
   static const String _$key__hasError___$ErrorBoundaryStateMixin =
       'ErrorBoundaryStateMixin.hasError';
   static const String _$key__showFallbackUIOnError___$ErrorBoundaryStateMixin =

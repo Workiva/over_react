@@ -57,8 +57,7 @@ class _$ReduxMultiProviderProps extends UiProps {
   /// Each context and store instance should be unique. Referencing the context
   /// in a connected component is exactly the same as it would with a standard
   /// [ReduxProvider].
-  @requiredProp
-  Map<Context, Store>? storesByContext;
+  late Map<Context, Store> storesByContext;
 }
 
 @Component2()
@@ -68,7 +67,7 @@ class ReduxMultiProviderComponent
   get propTypes => {
         keyForProp((p) => p.storesByContext): (props, info) {
           final storesByContext = props.storesByContext;
-          if (storesByContext != null && storesByContext.isEmpty) {
+          if (storesByContext.isEmpty) {
             return PropError.value(
                 storesByContext, info.propName, 'It must not be empty');
           }
@@ -79,7 +78,7 @@ class ReduxMultiProviderComponent
   @override
   render() {
     dynamic content = props.children;
-    props.storesByContext!.forEach((context, store) {
+    props.storesByContext.forEach((context, store) {
       content = (ReduxProvider()
         ..store = store
         ..context = context

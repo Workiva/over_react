@@ -30,7 +30,7 @@ class TestRedrawOnComponent extends FluxUiComponent2<TestRedrawOnProps> {
   render() => Dom.div()();
 
   @override
-  redrawOn() => [props.store!.store1, props.store!.store2];
+  redrawOn() => [props.store.store1, props.store.store2];
 
   @override
   void setState(Map? _, [Function()? callback]) {

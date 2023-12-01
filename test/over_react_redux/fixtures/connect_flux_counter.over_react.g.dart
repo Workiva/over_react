@@ -90,13 +90,12 @@ abstract class _$ConnectFluxCounterPropsAccessorsMixin
 
   /// <!-- Generated from [_$ConnectFluxCounterProps.actions] -->
   @override
-  FluxActions? get actions =>
-      (props[_$key__actions___$ConnectFluxCounterProps] ?? null)
-          as FluxActions?;
+  FluxActions get actions =>
+      (props[_$key__actions___$ConnectFluxCounterProps] ?? null) as FluxActions;
 
   /// <!-- Generated from [_$ConnectFluxCounterProps.actions] -->
   @override
-  set actions(FluxActions? value) =>
+  set actions(FluxActions value) =>
       props[_$key__actions___$ConnectFluxCounterProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__currentCount___$ConnectFluxCounterProps =
@@ -113,7 +112,8 @@ abstract class _$ConnectFluxCounterPropsAccessorsMixin
       _$prop__mutateStoreDirectly___$ConnectFluxCounterProps =
       PropDescriptor(_$key__mutateStoreDirectly___$ConnectFluxCounterProps);
   static const PropDescriptor _$prop__actions___$ConnectFluxCounterProps =
-      PropDescriptor(_$key__actions___$ConnectFluxCounterProps);
+      PropDescriptor(_$key__actions___$ConnectFluxCounterProps,
+          isRequired: true, isNullable: true);
   static const String _$key__currentCount___$ConnectFluxCounterProps =
       'ConnectFluxCounterProps.currentCount';
   static const String _$key__wrapperStyles___$ConnectFluxCounterProps =

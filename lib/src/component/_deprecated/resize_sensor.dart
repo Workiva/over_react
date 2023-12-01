@@ -328,9 +328,7 @@ class ResizeSensorComponent extends UiComponent2<ResizeSensorProps> with SafeAni
       ..scrollLeft = maxSensorSize
       ..scrollTop = maxSensorSize;
 
-    if (props.onDidReset != null) {
-      props.onDidReset!();
-    }
+    props.onDidReset?.call();
   }
 
   /// Call to repair / re-initialize a [ResizeSensor] that was detached from the DOM when it mounted.

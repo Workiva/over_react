@@ -382,17 +382,13 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps,
 
   /// Method that will be called when [AbstractTransitionComponent]  first enters the `hidden` state.
   void handleHidden() {
-    if (props.onDidHide != null) {
-      props.onDidHide!();
-    }
+    props.onDidHide?.call();
   }
 
 
   /// Method that will be called when [AbstractTransitionComponent]  first enters the `shown` state.
   void handleShown() {
-    if (props.onDidShow != null) {
-      props.onDidShow!();
-    }
+    props.onDidShow?.call();
   }
 
   /// Returns attributes only available during testing that indicate the state of the transition.

@@ -117,30 +117,20 @@ main() {
       expect(findDomNode(context3Counter)!.innerHtml, contains('Count: 3'));
     });
 
-    group('works as expected when storesByContext is', () {
-      test('null', () {
-        expect(
-            () => mount(ReduxMultiProvider()(
-                  (Dom.div()..addTestId('content'))('foo'),
-                )),
-            logsPropRequiredError('ReduxMultiProviderProps.storesByContext'));
-      });
+    test('works as expected when storesByContext is empty', () {
+      expect(
+              () => mount((ReduxMultiProvider()..storesByContext = {})(
+            (Dom.div()..addTestId('content'))('foo'),
+          )),
+          logsPropValueError('{}', 'ReduxMultiProviderProps.storesByContext',
+              'It must not be empty'));
 
-      test('empty', () {
-        expect(
-            () => mount((ReduxMultiProvider()..storesByContext = {})(
-                  (Dom.div()..addTestId('content'))('foo'),
-                )),
-            logsPropValueError('{}', 'ReduxMultiProviderProps.storesByContext',
-                'It must not be empty'));
+      final jacket = mount((ReduxMultiProvider()..storesByContext = {})(
+        (Dom.div()..addTestId('content'))('foo'),
+      ));
 
-        final jacket = mount((ReduxMultiProvider()..storesByContext = {})(
-          (Dom.div()..addTestId('content'))('foo'),
-        ));
-
-        expect(queryByTestId(jacket.mountNode, 'content')!.innerHtml,
-            contains('foo'));
-      });
+      expect(queryByTestId(jacket.mountNode, 'content')!.innerHtml,
+          contains('foo'));
     });
   });
 }
