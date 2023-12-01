@@ -622,10 +622,12 @@ abstract class UiProps extends MapBase
     assert(_validateChildren(childArguments.length == 1 ? childArguments.single : childArguments));
 
     // FIXME(null-safety) finalize this implementation and add escape-hatch to opt out in FED-1886
-    assert(() {
-      validateRequiredProps();
-      return true;
-    }());
+    if(_shouldValidateRequiredProps) {
+      assert(() {
+        validateRequiredProps();
+        return true;
+      }());
+    }
 
     // Use `build` instead of using emulated function behavior to work around DDC issue
     // https://github.com/dart-lang/sdk/issues/29904
@@ -677,9 +679,23 @@ abstract class UiProps extends MapBase
   }
 
   // FIXME(null-safety) document and generate overrides in FED-1886
+  // todo add doc comment
   @visibleForOverriding
   @mustCallSuper
   void validateRequiredProps() {}
+
+  // todo doc comment
+  var _shouldValidateRequiredProps = true;
+
+  /// Prevents [validateRequiredProps] from being called.
+  ///
+  /// Allows for an element to have multiple test IDs to prevent overwriting when cloning elements or components.
+  ///
+  /// > For use in a testing environment (when [testMode] is true).
+  void disableRequiredPropValidation() {
+    // todo should this also override proptype warnings??
+    _shouldValidateRequiredProps = false;
+  }
 }
 
 /// A class that declares the `_map` getter shared by [PropsMapViewMixin]/[StateMapViewMixin] and [MapViewMixin].

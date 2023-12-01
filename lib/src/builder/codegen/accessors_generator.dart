@@ -150,7 +150,7 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
 
     StringBuffer output = StringBuffer();
 
-        final requiredPropKeys = [];
+    final requiredPropKeys = [];
 
     node.members.whereType<FieldDeclaration>().where((field) => !field.isStatic).forEach((field) {
       T? getConstantAnnotation<T>(AnnotatedNode member, String name, T value) {
@@ -161,6 +161,8 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
       final requiredProp = getConstantAnnotation(field, 'requiredProp', annotations.requiredProp);
       final nullableRequiredProp =
           getConstantAnnotation(field, 'nullableRequiredProp', annotations.nullableRequiredProp);
+      final disableRequiredPropValidation = getConstantAnnotation(
+          field, 'disableRequiredPropValidation', annotations.disableRequiredPropValidation);
 
       if (accessorMeta?.doNotGenerate == true) {
         return;
@@ -203,9 +205,11 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
           isPotentiallyNullable = true;
 
           // todo sydney add key namespace test
-          requiredPropKeys.add('  if(!props.containsKey($keyValue)) {\n'
-              '  throw MissingRequiredPropsError(\'Required prop `$accessorName` is missing.\');\n'
-              '}\n');
+          if (disableRequiredPropValidation == null) {
+            requiredPropKeys.add('  if(!props.containsKey($keyValue)) {\n'
+                '  throw MissingRequiredPropsError(\'Required prop `$accessorName` is missing.\');\n'
+                '}\n');
+          }
         }
 
         if (accessorMeta != null) {
@@ -361,8 +365,7 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
     // todo add it here - collect late props from above
     output.write(staticVariablesImpl);
 
-
-    if(requiredPropKeys.isNotEmpty) {
+    if (requiredPropKeys.isNotEmpty) {
       final validateRequiredPropsMethod = '\n  @override\n'
           '  @mustCallSuper\n'
           '  void validateRequiredProps() {\n'

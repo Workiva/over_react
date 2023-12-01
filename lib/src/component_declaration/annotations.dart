@@ -383,3 +383,10 @@ class Accessor {
 abstract class TypedMap {
   String? get keyNamespace;
 }
+
+// todo add doc comment
+const _DisableRequiredPropValidation disableRequiredPropValidation = _DisableRequiredPropValidation();
+
+class _DisableRequiredPropValidation {
+  const _DisableRequiredPropValidation();
+}

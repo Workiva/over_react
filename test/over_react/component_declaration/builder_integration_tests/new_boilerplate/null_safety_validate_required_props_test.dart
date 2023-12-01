@@ -12,11 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'dart:developer';
-
 import 'package:over_react/over_react.dart';
 import 'package:react_testing_library/react_testing_library.dart' as rtl;
 import 'package:test/test.dart';
+
+import '../../../../test_util/test_util.dart';
 
 part 'null_safety_validate_required_props_test.over_react.g.dart';
 
@@ -133,6 +133,35 @@ void main() {
         }, returnsNormally);
       });
     });
+
+    test('@disableRequiredPropValidation annotation turns off validation for specific props', () {
+      expect(() {
+        rtl.render((ComponentTest()
+          ..requiredNonNullable = true
+          ..requiredDynamic = true
+          ..requiredNullable = true
+        )());
+      }, allOf(returnsNormally,
+        logsPropRequiredError('ComponentTestProps.disabledRequiredProp'),
+        logsPropRequiredError('ComponentTestProps.disabledNullableRequiredProp'),
+        logsPropRequiredError('ComponentTestProps.ref'),
+      ));
+    });
+
+    test('disableRequiredPropValidation method turns off validation for component usage', () {
+      expect(() {
+        rtl.render((ComponentTest()
+          ..disableRequiredPropValidation()
+        )());
+      }, allOf(returnsNormally,
+        logsPropRequiredError('ComponentTestProps.disabledRequiredProp'),
+        logsPropRequiredError('ComponentTestProps.disabledNullableRequiredProp'),
+        logsPropRequiredError('ComponentTestProps.ref'),
+        logsPropRequiredError('ComponentTestProps.requiredNonNullable'),
+        logsPropRequiredError('ComponentTestProps.requiredNullable'),
+        logsPropRequiredError('ComponentTestProps.requiredDynamic'),
+      ));
+    });
   });
 }
 
@@ -146,6 +175,16 @@ mixin ComponentTestProps on UiProps {
 
   // todo is this necessary?
   late dynamic requiredDynamic;
+
+  @disableRequiredPropValidation
+  late bool disabledRequiredProp;
+
+  @disableRequiredPropValidation
+  late bool? disabledNullableRequiredProp;
+
+  @disableRequiredPropValidation
+  @override
+  late dynamic ref;
 
   bool? nullable;
 }
