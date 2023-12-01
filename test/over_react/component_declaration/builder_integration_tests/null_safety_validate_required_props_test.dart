@@ -16,8 +16,6 @@ import 'package:over_react/over_react.dart';
 import 'package:react_testing_library/react_testing_library.dart' as rtl;
 import 'package:test/test.dart';
 
-import '../../../test_util/test_util.dart';
-
 part 'null_safety_validate_required_props_test.over_react.g.dart';
 
 void main() {

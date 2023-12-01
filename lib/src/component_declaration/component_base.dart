@@ -622,6 +622,7 @@ abstract class UiProps extends MapBase
     assert(_validateChildren(childArguments.length == 1 ? childArguments.single : childArguments));
 
     // FIXME(null-safety) finalize this implementation and add escape-hatch to opt out in FED-1886
+    // todo find out about assert vs devMode
     if(_shouldValidateRequiredProps) {
       assert(() {
         validateRequiredProps();
@@ -684,16 +685,13 @@ abstract class UiProps extends MapBase
   @mustCallSuper
   void validateRequiredProps() {}
 
-  // todo doc comment
+  /// Whether [validateRequiredProps] should be run.
   var _shouldValidateRequiredProps = true;
 
   /// Prevents [validateRequiredProps] from being called.
   ///
-  /// Allows for an element to have multiple test IDs to prevent overwriting when cloning elements or components.
-  ///
-  /// > For use in a testing environment (when [testMode] is true).
+  /// Allows validation to be skipped to support cases where required props are cloned onto an element.
   void disableRequiredPropValidation() {
-    // todo should this also override proptype warnings??
     _shouldValidateRequiredProps = false;
   }
 }
