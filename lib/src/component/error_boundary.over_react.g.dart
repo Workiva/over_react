@@ -365,24 +365,26 @@ const PropsMeta _$metaForErrorBoundaryProps = PropsMeta(
 mixin $ErrorBoundaryState on ErrorBoundaryState {
   static const StateMeta meta = _$metaForErrorBoundaryState;
   @override
-  bool? get hasError =>
-      (state[_$key__hasError__ErrorBoundaryState] ?? null) as bool?;
+  bool get hasError =>
+      (state[_$key__hasError__ErrorBoundaryState] ?? null) as bool;
   @override
-  set hasError(bool? value) =>
+  set hasError(bool value) =>
       state[_$key__hasError__ErrorBoundaryState] = value;
   @override
-  bool? get showFallbackUIOnError =>
-      (state[_$key__showFallbackUIOnError__ErrorBoundaryState] ?? null)
-          as bool?;
+  bool get showFallbackUIOnError =>
+      (state[_$key__showFallbackUIOnError__ErrorBoundaryState] ?? null) as bool;
   @override
-  set showFallbackUIOnError(bool? value) =>
+  set showFallbackUIOnError(bool value) =>
       state[_$key__showFallbackUIOnError__ErrorBoundaryState] = value;
   /* GENERATED CONSTANTS */
   static const StateDescriptor _$prop__hasError__ErrorBoundaryState =
-      StateDescriptor(_$key__hasError__ErrorBoundaryState);
+      StateDescriptor(_$key__hasError__ErrorBoundaryState,
+          isRequired: true, isNullable: true);
   static const StateDescriptor
-      _$prop__showFallbackUIOnError__ErrorBoundaryState =
-      StateDescriptor(_$key__showFallbackUIOnError__ErrorBoundaryState);
+      _$prop__showFallbackUIOnError__ErrorBoundaryState = StateDescriptor(
+          _$key__showFallbackUIOnError__ErrorBoundaryState,
+          isRequired: true,
+          isNullable: true);
   static const String _$key__hasError__ErrorBoundaryState =
       'ErrorBoundaryState.hasError';
   static const String _$key__showFallbackUIOnError__ErrorBoundaryState =

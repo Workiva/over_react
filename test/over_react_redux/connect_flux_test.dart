@@ -762,18 +762,18 @@ main() {
 }
 
 typedef MapStateToPropsCallback = Map Function(FluxStore);
-typedef MapActionsToPropsCallback = Map Function(FluxActions?);
+typedef MapActionsToPropsCallback = Map Function(FluxActions);
 typedef MapStateToPropsWithOwnPropsCallback = Map Function(FluxStore, ConnectFluxCounterProps);
-typedef MapActionsToPropsWithOwnPropsCallback = Map Function(FluxActions?, ConnectFluxCounterProps);
+typedef MapActionsToPropsWithOwnPropsCallback = Map Function(FluxActions, ConnectFluxCounterProps);
 
 MapStateToPropsCallback get testMapStateToProps =>
     (state) => (ConnectFluxCounter()..currentCount = state.count);
 MapActionsToPropsCallback get testMapActionsToProps =>
-    (actions) => (ConnectFluxCounter()..increment = actions!.incrementAction);
+    (actions) => (ConnectFluxCounter()..increment = actions.incrementAction);
 MapStateToPropsWithOwnPropsCallback get testMapStateToPropsWithOwnProps =>
     (state, ownProps) => (ConnectFluxCounter()..currentCount = state.count);
 MapActionsToPropsWithOwnPropsCallback get testMapActionsToPropsWithOwnProps =>
-    (actions, ownProps) => (ConnectFluxCounter()..increment = actions!.incrementAction);
+    (actions, ownProps) => (ConnectFluxCounter()..increment = actions.incrementAction);
 
 class ParameterTestCase {
   final String name;

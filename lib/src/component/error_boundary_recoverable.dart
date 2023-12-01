@@ -60,9 +60,7 @@ class RecoverableErrorBoundaryComponent<T extends RecoverableErrorBoundaryProps,
   @mustCallSuper
   @override
   void componentDidCatch(/*Error||Exception*/dynamic error, ReactErrorInfo info) {
-    if (props.onComponentDidCatch != null) {
-      props.onComponentDidCatch!(error, info);
-    }
+    props.onComponentDidCatch?.call(error, info);
 
     _handleErrorInComponentTree(error, info);
   }
@@ -72,7 +70,7 @@ class RecoverableErrorBoundaryComponent<T extends RecoverableErrorBoundaryProps,
   void componentDidUpdate(Map prevProps, Map prevState, [dynamic snapshot]) {
     // If the child is different, and the error boundary is currently in an error state,
     // give the child a chance to remount itself and "recover" from the previous error.
-    if (state.hasError!) {
+    if (state.hasError) {
       final childThatCausedError = typedPropsFactory(prevProps).children!.single;
       if (childThatCausedError != props.children!.single) {
         reset();
@@ -82,7 +80,7 @@ class RecoverableErrorBoundaryComponent<T extends RecoverableErrorBoundaryProps,
 
   @override
   render() {
-    if (state.hasError! && state.showFallbackUIOnError!) {
+    if (state.hasError && state.showFallbackUIOnError) {
       return (props.fallbackUIRenderer ?? _renderStringDomAfterUnrecoverableErrors)(
           _errorLog.isNotEmpty ? _errorLog.last : null,
           _callStackLog.isNotEmpty ? _callStackLog.last : null,
@@ -91,8 +89,6 @@ class RecoverableErrorBoundaryComponent<T extends RecoverableErrorBoundaryProps,
 
     return props.children;
   }
-
-  // TODO: Add PropTypes
 
   /// Resets the [v2.ErrorBoundary] to a non-error state.
   ///

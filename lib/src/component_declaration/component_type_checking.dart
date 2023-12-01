@@ -313,10 +313,11 @@ bool isPotentiallyValidComponentType(dynamic type) {
 /// Returns an [Iterable] of all component types that are ancestors of [type].
 ///
 /// For example, given components A, B, and C, where B subtypes A and C subtypes B:
-///
-///     getParentTypes(getComponentTypeFromAlias(A)); // []
-///     getParentTypes(getComponentTypeFromAlias(B)); // [A].map(getTypeFromAlias)
-///     getParentTypes(getComponentTypeFromAlias(C)); // [B, A].map(getTypeFromAlias)
+/// ```dart
+/// getParentTypes(getComponentTypeFromAlias(A)); // []
+/// getParentTypes(getComponentTypeFromAlias(B)); // [A].map(getTypeFromAlias)
+/// getParentTypes(getComponentTypeFromAlias(C)); // [B, A].map(getTypeFromAlias)
+/// ```
 Iterable<Object> getParentTypes(Object type) sync* {
   assert(isPotentiallyValidComponentType(type),
       '`type` should be a valid component type (and not null or a type alias).');

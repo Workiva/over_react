@@ -12,7 +12,7 @@ import 'package:over_react/component_base.dart';
 ///
 /// Returns the displayName of the given [component].
 ///
-/// This is preferable to [UiComponent.displayName] since that doesn't include
+/// This is preferable to `UiComponent.displayName` since that doesn't include
 /// the generated displayName passed to [registerComponent]/
 String? getDebugNameForDartComponent(UiComponent component) {
   // We don't have a great way of looking up the display name the component was

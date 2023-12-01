@@ -46,10 +46,10 @@ const PropsMeta _$metaForConnectPropsMixin = PropsMeta(
 mixin $ReduxProviderPropsMixin on ReduxProviderPropsMixin {
   static const PropsMeta meta = _$metaForReduxProviderPropsMixin;
   @override
-  Store? get store =>
-      (props[_$key__store__ReduxProviderPropsMixin] ?? null) as Store?;
+  Store get store =>
+      (props[_$key__store__ReduxProviderPropsMixin] ?? null) as Store;
   @override
-  set store(Store? value) =>
+  set store(Store value) =>
       props[_$key__store__ReduxProviderPropsMixin] = value;
   @override
   dynamic get context =>
@@ -59,7 +59,8 @@ mixin $ReduxProviderPropsMixin on ReduxProviderPropsMixin {
       props[_$key__context__ReduxProviderPropsMixin] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__store__ReduxProviderPropsMixin =
-      PropDescriptor(_$key__store__ReduxProviderPropsMixin);
+      PropDescriptor(_$key__store__ReduxProviderPropsMixin,
+          isRequired: true, isNullable: true);
   static const PropDescriptor _$prop__context__ReduxProviderPropsMixin =
       PropDescriptor(_$key__context__ReduxProviderPropsMixin);
   static const String _$key__store__ReduxProviderPropsMixin = 'store';

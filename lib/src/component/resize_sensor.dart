@@ -205,7 +205,7 @@ class ResizeSensorComponent extends UiComponent2<ResizeSensorProps> with SafeAni
 
   @override
   render() {
-    var expandSensor = (Dom.div()
+    final expandSensor = (Dom.div()
       ..className = 'resize-sensor-expand'
       ..onScroll = _handleSensorScroll
       ..style = props.shrink! ? shrinkBaseStyle : baseStyle
@@ -214,7 +214,7 @@ class ResizeSensorComponent extends UiComponent2<ResizeSensorProps> with SafeAni
       (Dom.div()..style = expandSensorChildStyle)()
     );
 
-    var collapseSensor = (Dom.div()
+    final collapseSensor = (Dom.div()
       ..className = 'resize-sensor-collapse'
       ..onScroll = _handleSensorScroll
       ..style = props.shrink! ? shrinkBaseStyle : baseStyle
@@ -223,28 +223,26 @@ class ResizeSensorComponent extends UiComponent2<ResizeSensorProps> with SafeAni
       (Dom.div()..style = collapseSensorChildStyle)()
     );
 
-    var resizeSensor = (Dom.div()
+    final resizeSensor = (Dom.div()
       ..className = 'resize-sensor'
       ..style = props.shrink! ? shrinkBaseStyle : baseStyle
       ..key = 'resizeSensor'
     )(expandSensor, collapseSensor);
 
-    Map<String, dynamic> wrapperStyles;
+    var wrapperStyles = defaultWrapperStyles;
     if (props.isFlexChild!) {
       wrapperStyles = wrapperStylesFlexChild;
     } else if (props.isFlexContainer!) {
       wrapperStyles = wrapperStylesFlexContainer;
-    } else {
-      wrapperStyles = defaultWrapperStyles;
     }
-
-    var mergedStyle = newStyleFromProps(props);
-    mergedStyle = {}..addAll(wrapperStyles)..addAll(mergedStyle);
 
     return (Dom.div()
       ..modifyProps(addUnconsumedDomProps)
       ..className = forwardingClassNameBuilder().toClassName()
-      ..style = mergedStyle
+      ..style = {
+        ...wrapperStyles,
+        ...newStyleFromProps(props)
+      }
     )(
       props.children,
       resizeSensor
@@ -298,9 +296,7 @@ class ResizeSensorComponent extends UiComponent2<ResizeSensorProps> with SafeAni
       ..scrollLeft = maxSensorSize
       ..scrollTop = maxSensorSize;
 
-    if (props.onDidReset != null) {
-      props.onDidReset!();
-    }
+    props.onDidReset?.call();
   }
 
   /// Call to repair / re-initialize a [ResizeSensor] that was detached from the DOM when it mounted.

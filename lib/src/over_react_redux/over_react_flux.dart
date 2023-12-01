@@ -43,7 +43,7 @@ abstract class _$ConnectFluxPropsMixin<TActions> implements UiProps {
   @override
   Map get props;
 
-  TActions? actions;
+  late TActions actions;
 }
 
 /// The actions that are associated with a given [InfluxStoreMixin] store

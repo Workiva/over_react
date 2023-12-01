@@ -33,7 +33,7 @@ class TestStatefulRedrawOnComponent extends FluxUiStatefulComponent<TestStateful
   render() => Dom.div()();
 
   @override
-  redrawOn() => [props.store!.store1, props.store!.store2];
+  redrawOn() => [props.store.store1, props.store.store2];
 
   @override
   void setState(_, [Function()? callback]) {
