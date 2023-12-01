@@ -93,7 +93,6 @@ class TestComponent extends AbstractBazComponent<TestProps> {
     final fileName = uniqueSourceFileName();
     var retrievedSource = newSource(simpleUiComponentSource(filename: fileName), path: fileName);
     var selection = createSelection(retrievedSource, componentNameSelector);
-    print('selection: $selection');
     final change = await expectAndGetSingleAssist(selection);
     retrievedSource = applySourceChange(change, retrievedSource);
     expect(retrievedSource.contents.data, simpleUiComponentSource(filename: fileName, isStateful: true));
