@@ -62,8 +62,8 @@ String _normalizeBoilerplateStateName(String name) => //
 String _normalizeBoilerplateStateMixinName(String name) => //
     name.replaceFirst(RegExp(r'State(?:Mixin)?$'), '');
 
-T? _getNameMatch<T extends BoilerplateMember>(Iterable<T> members, String name) => members
-    .firstWhereOrNull((member) => normalizeNameAndRemoveSuffix(member) == name);
+T? _getNameMatch<T extends BoilerplateMember>(Iterable<T> members, String name) =>
+    members.firstWhereOrNull((member) => normalizeNameAndRemoveSuffix(member) == name);
 
 Union<A, B>? _getNameMatchUnion<A extends BoilerplateMember, B extends BoilerplateMember>(
     Iterable<A> membersA, Iterable<B> membersB, String name) {

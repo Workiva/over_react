@@ -27,6 +27,7 @@ import 'package:test/test.dart';
 import '../../mockito.mocks.dart';
 import './util.dart';
 
+// todo add tests here as well for generated code??
 main() {
   group('ImplGenerator', () {
     ImplGenerator? implGenerator;

@@ -44,6 +44,15 @@ abstract class _$DummyPropsAccessorsMixin implements _$DummyProps {
   static const List<String> $propKeys = [
     _$key__onComponentDidMount___$DummyProps
   ];
+
+  @override
+  @mustCallSuper
+  void validateRequiredProps() {
+    if (!props.containsKey('DummyProps.onComponentDidMount')) {
+      throw MissingRequiredPropsError(
+          'Required prop `onComponentDidMount` is missing.');
+    }
+  }
 }
 
 const PropsMeta _$metaForDummyProps = PropsMeta(

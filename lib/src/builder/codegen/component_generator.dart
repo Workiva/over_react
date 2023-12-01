@@ -23,10 +23,11 @@ abstract class ComponentGenerator extends BoilerplateDeclarationGenerator {
   // Provide factory constructors since they make invocations easier to read and tell apart
   // than all of the different subclasses.
 
-  factory ComponentGenerator(ClassComponentDeclaration declaration, {required bool nullSafety}) = _ComponentGenerator;
+  factory ComponentGenerator(ClassComponentDeclaration declaration, {required bool nullSafety}) =
+      _ComponentGenerator;
 
-  factory ComponentGenerator.legacy(LegacyClassComponentDeclaration declaration, {required bool nullSafety}) =
-      _LegacyComponentGenerator;
+  factory ComponentGenerator.legacy(LegacyClassComponentDeclaration declaration,
+      {required bool nullSafety}) = _LegacyComponentGenerator;
 
   TypedMapNames get propsNames;
   TypedMapNames? get stateNames;
@@ -79,7 +80,8 @@ abstract class ComponentGenerator extends BoilerplateDeclarationGenerator {
         ..writeln('  }')
         ..writeln()
         ..writeln('  @override ')
-        ..writeln('  ${propsNames.jsMapImplName} typedPropsFactoryJs(JsBackedMap${nullSafety ? '?' : ''} backingMap)'
+        ..writeln(
+            '  ${propsNames.jsMapImplName} typedPropsFactoryJs(JsBackedMap${nullSafety ? '?' : ''} backingMap)'
             ' => ${propsNames.jsMapImplName}(backingMap);')
         ..writeln();
     }
@@ -108,13 +110,15 @@ abstract class ComponentGenerator extends BoilerplateDeclarationGenerator {
           ..writeln('  }')
           ..writeln()
           ..writeln('  @override ')
-          ..writeln('  ${stateNames.jsMapImplName} typedStateFactoryJs(JsBackedMap${nullSafety ? '?' : ''} backingMap)'
+          ..writeln(
+              '  ${stateNames.jsMapImplName} typedStateFactoryJs(JsBackedMap${nullSafety ? '?' : ''} backingMap)'
               ' => ${stateNames.jsMapImplName}(backingMap);')
           ..writeln();
       }
       outputContentsBuffer
         ..writeln('  @override')
-        ..writeln('  ${stateNames.implName} typedStateFactory(Map${nullSafety ? '?' : ''} backingMap)'
+        ..writeln(
+            '  ${stateNames.implName} typedStateFactory(Map${nullSafety ? '?' : ''} backingMap)'
             ' => ${stateNames.implName}(backingMap);')
         ..writeln();
     }
