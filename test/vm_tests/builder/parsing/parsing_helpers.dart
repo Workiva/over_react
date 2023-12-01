@@ -13,7 +13,6 @@
 // limitations under the License.
 
 import 'package:analyzer/dart/analysis/utilities.dart';
-import 'package:meta/meta.dart';
 import 'package:over_react/src/builder/parsing.dart';
 
 import '../util.dart';
@@ -55,7 +54,7 @@ const versionDescriptions = {
 ///
 /// Meant to be used in conjunction with [BoilerplateVersions] and [versionDescriptions]
 /// to allow for tests to iterate over component versions, generating the appropriate boilerplate.
-String getBoilerplateString({@required BoilerplateVersions version, String deprecatedLifecycleMethod, String componentBaseName}) {
+String getBoilerplateString({required BoilerplateVersions version, String? deprecatedLifecycleMethod, String? componentBaseName}) {
   var deprecatedMethod = '';
 
   componentBaseName ??= 'Foo';
@@ -263,51 +262,40 @@ const mockComponentDeclarations = r'''
 
 /// Utility class that holds boilerplate members that can be accessed during testing.
 class BoilerplateMemberHelper {
-  BoilerplateMembers members;
+  final BoilerplateMembers members;
 
-  List<BoilerplateFactory> factories;
-  List<BoilerplateComponent> components;
-  List<BoilerplateProps> props;
-  List<BoilerplateState> states;
-  List<BoilerplateStateMixin> stateMixins;
-  List<BoilerplatePropsMixin> propsMixins;
+  final List<BoilerplateFactory> factories;
+  final List<BoilerplateComponent> components;
+  final List<BoilerplateProps> props;
+  final List<BoilerplateState> states;
+  final List<BoilerplateStateMixin> stateMixins;
+  final List<BoilerplatePropsMixin> propsMixins;
 
-  BoilerplateMemberHelper(String boilerplateString) {
-    final unit = parseString(content: boilerplateString).unit;
-
-     members = detectBoilerplateMembers(unit);
-
-     _initializeMembers(members);
-  }
+  factory BoilerplateMemberHelper(String boilerplateString) =>
+      BoilerplateMemberHelper._fromMembers(getBoilerplateMembersFromString(boilerplateString));
 
   /// Constructs the object with all the components from [mockComponentDeclarations]
-  BoilerplateMemberHelper.withMockDeclarations() {
-    final unit = parseString(content: mockComponentDeclarations).unit;
+  factory BoilerplateMemberHelper.withMockDeclarations() =>
+      BoilerplateMemberHelper(mockComponentDeclarations);
 
-    members ??= detectBoilerplateMembers(unit);
-    _initializeMembers(members);
-  }
+  BoilerplateMemberHelper._fromMembers(this.members) :
+      factories = members.factories,
+      components = members.components,
+      props = members.props,
+      states = members.states,
+      stateMixins = members.stateMixins,
+      propsMixins = members.propsMixins;
 
-  static BoilerplateMembers getBoilerplateMembersFromString([String content]) {
-    final unit = parseString(content: content ?? mockComponentDeclarations).unit;
-
+  static BoilerplateMembers getBoilerplateMembersFromString(String content) {
+    final unit = parseString(content: content).unit;
     return detectBoilerplateMembers(unit);
   }
 
-  static Iterable<BoilerplateMember> getBoilerplateMembersForVersion(BoilerplateVersions version, {String componentBaseName}) {
-    final unit = parseString(content: getBoilerplateString(version: version, componentBaseName: componentBaseName)).unit;
-
-    return detectBoilerplateMembers(unit).allMembers;
+  static Iterable<BoilerplateMember> getBoilerplateMembersForVersion(BoilerplateVersions version, {String? componentBaseName}) {
+    final source = getBoilerplateString(version: version, componentBaseName: componentBaseName);
+    return getBoilerplateMembersFromString(source).allMembers;
   }
 
-  static Iterable<BoilerplateMember> parseAndReturnMembers(String content) => getBoilerplateMembersFromString(content).allMembers;
-
-  void _initializeMembers(BoilerplateMembers members) {
-    factories = members.factories;
-    components = members.components;
-    props = members.props;
-    states = members.states;
-    stateMixins = members.stateMixins;
-    propsMixins = members.propsMixins;
-  }
+  static Iterable<BoilerplateMember> parseAndReturnMembers(String content) =>
+      getBoilerplateMembersFromString(content).allMembers;
 }

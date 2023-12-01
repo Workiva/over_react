@@ -28,11 +28,11 @@ part 'use_store_test.over_react.g.dart';
 main() {
   group('useStore hook', () {
     void expectStoreCountValue(TestJacket jacket, int expectedValue) {
-      expect(queryByTestId(jacket.mountNode, 'count-from-store').text, 'Store Count: $expectedValue');
+      expect(queryByTestId(jacket.mountNode, 'count-from-store')!.text, 'Store Count: $expectedValue');
     }
 
     void expectStoreBigCountValue(TestJacket jacket, int expectedValue) {
-      expect(queryByTestId(jacket.mountNode, 'big-count-from-store').text, 'Big Store Count: $expectedValue');
+      expect(queryByTestId(jacket.mountNode, 'big-count-from-store')!.text, 'Big Store Count: $expectedValue');
     }
 
     test('provides access to the correct store', () {

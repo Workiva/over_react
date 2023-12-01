@@ -22,7 +22,7 @@ import 'package:test/test.dart';
 main() {
   group('HandlerChainUtil', () {
     group('generic chaining:', () {
-      Function createTestChainFunction({returnValue, Function(List args) onCall}) {
+      Function createTestChainFunction({Object? returnValue, void Function(List args)? onCall}) {
         testChainFunction([
             arg1 = unspecified,
             arg2 = unspecified,
@@ -201,7 +201,7 @@ main() {
             test('null functions', () {
               var calls = [];
 
-              var functions = List<S>.generate(5, (index) {
+              var functions = List<S?>.generate(5, (index) {
                 return createTestChainFunction(onCall: (args) {
                   calls.add(['function_$index', args]);
                 }) as S;

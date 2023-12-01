@@ -25,7 +25,7 @@ export 'package:react/react_client/react_interop.dart' show ReactContext;
 /// For more information on why this conversion is done in the getter/setter,
 /// see documentation around Dart wrapper component prop conversion issues.
 /// FIXME CPLAT-15060 add reference/link to documentation
-JsMap jsifyMapProp(Map value) {
+JsMap? jsifyMapProp(Map? value) {
   if (value == null) return null;
   // Use generateJsProps so that, in addition to deeply converting props, we also properly convert the `ref` prop.
   // Dart props get deep converted (just like they would when invoking the ReactJsComponentFactoryProxy anyways),
@@ -45,20 +45,20 @@ JsMap jsifyMapProp(Map value) {
 /// For more information on why this conversion is done in the getter/setter,
 /// see documentation around Dart wrapper component prop conversion issues.
 /// FIXME CPLAT-15060 add reference/link to documentation
-Map<K, V> unjsifyMapProp<K, V>(JsMap value) {
+Map<K, V>? unjsifyMapProp<K, V>(JsMap? value) {
   if (value == null) return null;
   // Don't deep unconvert so that JS values don't get converted incorrectly to Maps. See jsifyMapProp for more information.
   return JsBackedMap.backedBy(value).cast();
 }
 
 /// Runs [jsifyMapProp] on every Dart Map in the [value].
-List<JsMap> jsifyMapListProp(List<Map> value) {
-  return value?.map(jsifyMapProp)?.toList();
+List<JsMap?>? jsifyMapListProp(List<Map?>? value) {
+  return value?.map(jsifyMapProp).toList();
 }
 
 /// Runs [unjsifyMapProp] on every JS Map in the [value].
-List<Map<K, V>> unjsifyMapListProp<K, V>(List<dynamic> value) {
-  return value?.map((e) => unjsifyMapProp<K, V>(e as JsMap))?.toList();
+List<Map<K, V>?>? unjsifyMapListProp<K, V>(List<dynamic>? value) {
+  return value?.map((e) => unjsifyMapProp<K, V>(e as JsMap?)).toList();
 }
 
 /// Returns [value] converted to its JS ref representation for storage in a props map, or null of the [value] is null.
@@ -134,7 +134,7 @@ dynamic unjsifyRefProp(dynamic value,
 /// is more convenient to the consumer reading/writing the props.
 ///
 /// Should be used alongside [unjsifyContextProp].
-ReactContext jsifyContextProp(Context value) {
+ReactContext? jsifyContextProp(Context? value) {
   if (value == null) return null;
 
   // Store the original Dart context so we can retrieve it later in unjsifyContextProp.
@@ -152,7 +152,7 @@ ReactContext jsifyContextProp(Context value) {
 ///
 /// Note that Dart contexts currently lose their reified types when jsified/unjsified
 /// if they have not been passed into [jsifyContextProp] before.
-Context<T> unjsifyContextProp<T>(ReactContext value) {
+Context<T>? unjsifyContextProp<T>(ReactContext? value) {
   if (value == null) return null;
 
   // Return the original Dart context is there is one, otherwise return a new context.

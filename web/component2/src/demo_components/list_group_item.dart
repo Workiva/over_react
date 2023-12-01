@@ -31,7 +31,7 @@ mixin ListGroupItemProps on UiProps {
   /// Will only be used if [href] and [onClick] are both `null`.
   ///
   /// Default: [ListGroupItemElementType.SPAN]
-  ListGroupItemElementType elementType;
+  ListGroupItemElementType? elementType;
 
   /// Optional header text to display within the [ListGroupItem] above
   /// the value of [children].
@@ -42,24 +42,24 @@ mixin ListGroupItemProps on UiProps {
   /// The size of the [header] text you desire.
   ///
   /// Default: [ListGroupItemHeaderElementSize.H5]
-  ListGroupItemHeaderElementSize headerSize;
+  ListGroupItemHeaderElementSize? headerSize;
 
   /// Additional props to be added to the [header] element _(if specified)_.
-  Map headerProps;
+  Map? headerProps;
 
   /// The skin / "context" for the [ListGroupItem].
   ///
   /// See: <http://v4-alpha.getbootstrap.com/components/list-group/#contextual-classes>.
   ///
   /// Default: [ListGroupItemSkin.DEFAULT]
-  ListGroupItemSkin skin;
+  ListGroupItemSkin? skin;
 
   /// Whether the [ListGroupItem] should appear "active".
   ///
   /// See: <http://v4-alpha.getbootstrap.com/components/list-group/#anchors-and-buttons>
   ///
   /// Default: false
-  bool isActive;
+  bool? isActive;
 
   /// Whether the [ListGroupItem] is disabled.
   ///
@@ -67,7 +67,7 @@ mixin ListGroupItemProps on UiProps {
   ///
   /// Default: false
   @Accessor(key: 'disabled', keyNamespace: '')
-  bool isDisabled;
+  bool? isDisabled;
 
   /// The HTML `href` attribute value for the [ListGroupItem].
   ///
@@ -75,7 +75,7 @@ mixin ListGroupItemProps on UiProps {
   ///
   /// _Proxies [DomPropsMixin.href]_
   @Accessor(keyNamespace: '')
-  String href;
+  String? href;
 
   /// The HTML `target` attribute value for the [ListGroupItem].
   ///
@@ -83,7 +83,7 @@ mixin ListGroupItemProps on UiProps {
   ///
   /// _Proxies [DomPropsMixin.target]_
   @Accessor(keyNamespace: '')
-  String target;
+  String? target;
 
   /// The HTML `type` attribute value for the [ListGroupItem] when
   /// rendered via [Dom.button].
@@ -93,7 +93,7 @@ mixin ListGroupItemProps on UiProps {
   /// _Proxies [DomPropsMixin.type]_
   ///
   /// Default: [ButtonType.BUTTON]
-  ButtonType type;
+  ButtonType? type;
 }
 
 class ListGroupItemComponent extends UiComponent2<ListGroupItemProps> {
@@ -128,7 +128,7 @@ class ListGroupItemComponent extends UiComponent2<ListGroupItemProps> {
       ..className = _getItemClasses().toClassName()
       ..href = props.href
       ..target = props.target
-      ..type = _isActionItem && !_isAnchorLink ? props.type.typeName : null
+      ..type = _isActionItem && !_isAnchorLink ? props.type!.typeName : null
       ..disabled = _useDisabledAttr ? props.isDisabled : null
       ..addProps(ariaProps()
         ..disabled = !_useDisabledAttr ? props.isDisabled : null
@@ -136,13 +136,13 @@ class ListGroupItemComponent extends UiComponent2<ListGroupItemProps> {
     )(children);
   }
 
-  ReactElement renderItemHeader() {
+  ReactElement? renderItemHeader() {
     if (props.header == null) return null;
 
     var headerClasses = ClassNameBuilder.fromProps(props.headerProps)
       ..add('list-group-item-heading');
 
-    return (props.headerSize.componentBuilderFactory()
+    return (props.headerSize!.componentBuilderFactory()
       ..addProps(props.headerProps)
       ..className = headerClasses.toClassName()
       ..key = 'item-header'
@@ -157,7 +157,7 @@ class ListGroupItemComponent extends UiComponent2<ListGroupItemProps> {
     } else if (props.onClick != null) {
       factory = Dom.button;
     } else {
-      factory = props.elementType.componentBuilderFactory;
+      factory = props.elementType!.componentBuilderFactory;
     }
 
     return factory;
@@ -167,9 +167,9 @@ class ListGroupItemComponent extends UiComponent2<ListGroupItemProps> {
     return forwardingClassNameBuilder()
       ..add('list-group-item')
       ..add('list-group-item-action', _isActionItem)
-      ..add('active', props.isActive)
-      ..add('disabled', props.isDisabled)
-      ..add(props.skin.className);
+      ..add('active', props.isActive!)
+      ..add('disabled', props.isDisabled!)
+      ..add(props.skin!.className);
   }
 
   bool get _useDisabledAttr => _getItemDomNodeFactory() == Dom.button;
@@ -181,7 +181,7 @@ class ListGroupItemComponent extends UiComponent2<ListGroupItemProps> {
 
 /// Contextual skin options for a [ListGroupItem] component.
 class ListGroupItemSkin extends ClassNameConstant {
-  const ListGroupItemSkin._(String name, String className) : super(name, className);
+  const ListGroupItemSkin._(String name, String? className) : super(name, className);
 
   /// [className] value: null
   static const ListGroupItemSkin DEFAULT =

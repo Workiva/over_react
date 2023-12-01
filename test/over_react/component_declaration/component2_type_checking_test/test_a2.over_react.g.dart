@@ -37,7 +37,7 @@ class TestA2Props extends _$TestA2Props with _$TestA2PropsAccessorsMixin {
   static const PropsMeta meta = _$metaForTestA2Props;
 }
 
-_$$TestA2Props _$TestA2([Map backingProps]) => backingProps == null
+_$$TestA2Props _$TestA2([Map? backingProps]) => backingProps == null
     ? _$$TestA2Props$JsMap(JsBackedMap())
     : _$$TestA2Props(backingProps);
 
@@ -49,9 +49,9 @@ abstract class _$$TestA2Props extends _$TestA2Props
     implements TestA2Props {
   _$$TestA2Props._();
 
-  factory _$$TestA2Props(Map backingMap) {
+  factory _$$TestA2Props(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestA2Props$JsMap(backingMap as JsBackedMap);
+      return _$$TestA2Props$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$TestA2Props$PlainMap(backingMap);
     }
@@ -75,7 +75,7 @@ abstract class _$$TestA2Props extends _$TestA2Props
 class _$$TestA2Props$PlainMap extends _$$TestA2Props {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestA2Props$PlainMap(Map backingMap)
+  _$$TestA2Props$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -92,7 +92,7 @@ class _$$TestA2Props$PlainMap extends _$$TestA2Props {
 class _$$TestA2Props$JsMap extends _$$TestA2Props {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestA2Props$JsMap(JsBackedMap backingMap)
+  _$$TestA2Props$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -109,7 +109,7 @@ class _$$TestA2Props$JsMap extends _$$TestA2Props {
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$TestA2Component extends TestA2Component {
-  _$$TestA2Props$JsMap _cachedTypedProps;
+  late _$$TestA2Props$JsMap _cachedTypedProps;
 
   @override
   _$$TestA2Props$JsMap get props => _cachedTypedProps;
@@ -129,11 +129,11 @@ class _$TestA2Component extends TestA2Component {
   }
 
   @override
-  _$$TestA2Props$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
+  _$$TestA2Props$JsMap typedPropsFactoryJs(JsBackedMap? backingMap) =>
       _$$TestA2Props$JsMap(backingMap);
 
   @override
-  _$$TestA2Props typedPropsFactory(Map backingMap) =>
+  _$$TestA2Props typedPropsFactory(Map? backingMap) =>
       _$$TestA2Props(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.

@@ -20,7 +20,8 @@ final $SafeRenderManagerHelperComponentFactory = registerComponent2(
   parentType: null,
 );
 
-_$$SafeRenderManagerHelperProps _$SafeRenderManagerHelper([Map backingProps]) =>
+_$$SafeRenderManagerHelperProps _$SafeRenderManagerHelper(
+        [Map? backingProps]) =>
     backingProps == null
         ? _$$SafeRenderManagerHelperProps$JsMap(JsBackedMap())
         : _$$SafeRenderManagerHelperProps(backingProps);
@@ -37,9 +38,9 @@ abstract class _$$SafeRenderManagerHelperProps extends UiProps
         $SafeRenderManagerHelperProps {
   _$$SafeRenderManagerHelperProps._();
 
-  factory _$$SafeRenderManagerHelperProps(Map backingMap) {
+  factory _$$SafeRenderManagerHelperProps(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$SafeRenderManagerHelperProps$JsMap(backingMap as JsBackedMap);
+      return _$$SafeRenderManagerHelperProps$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$SafeRenderManagerHelperProps$PlainMap(backingMap);
     }
@@ -72,7 +73,7 @@ class _$$SafeRenderManagerHelperProps$PlainMap
     extends _$$SafeRenderManagerHelperProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$SafeRenderManagerHelperProps$PlainMap(Map backingMap)
+  _$$SafeRenderManagerHelperProps$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -92,7 +93,7 @@ class _$$SafeRenderManagerHelperProps$JsMap
     extends _$$SafeRenderManagerHelperProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$SafeRenderManagerHelperProps$JsMap(JsBackedMap backingMap)
+  _$$SafeRenderManagerHelperProps$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -116,9 +117,9 @@ abstract class _$$SafeRenderManagerHelperState extends UiState
         $SafeRenderManagerHelperState {
   _$$SafeRenderManagerHelperState._();
 
-  factory _$$SafeRenderManagerHelperState(Map backingMap) {
+  factory _$$SafeRenderManagerHelperState(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$SafeRenderManagerHelperState$JsMap(backingMap as JsBackedMap);
+      return _$$SafeRenderManagerHelperState$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$SafeRenderManagerHelperState$PlainMap(backingMap);
     }
@@ -136,7 +137,7 @@ class _$$SafeRenderManagerHelperState$PlainMap
     extends _$$SafeRenderManagerHelperState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$SafeRenderManagerHelperState$PlainMap(Map backingMap)
+  _$$SafeRenderManagerHelperState$PlainMap(Map? backingMap)
       : this._state = {},
         super._() {
     this._state = backingMap ?? {};
@@ -156,7 +157,7 @@ class _$$SafeRenderManagerHelperState$JsMap
     extends _$$SafeRenderManagerHelperState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$SafeRenderManagerHelperState$JsMap(JsBackedMap backingMap)
+  _$$SafeRenderManagerHelperState$JsMap(JsBackedMap? backingMap)
       : this._state = JsBackedMap(),
         super._() {
     this._state = backingMap ?? JsBackedMap();
@@ -176,7 +177,7 @@ class _$$SafeRenderManagerHelperState$JsMap
     ' Do not reference it in your code, as it may change at any time.')
 class _$SafeRenderManagerHelperComponent
     extends SafeRenderManagerHelperComponent {
-  _$$SafeRenderManagerHelperProps$JsMap _cachedTypedProps;
+  late _$$SafeRenderManagerHelperProps$JsMap _cachedTypedProps;
 
   @override
   _$$SafeRenderManagerHelperProps$JsMap get props => _cachedTypedProps;
@@ -197,14 +198,14 @@ class _$SafeRenderManagerHelperComponent
 
   @override
   _$$SafeRenderManagerHelperProps$JsMap typedPropsFactoryJs(
-          JsBackedMap backingMap) =>
+          JsBackedMap? backingMap) =>
       _$$SafeRenderManagerHelperProps$JsMap(backingMap);
 
   @override
-  _$$SafeRenderManagerHelperProps typedPropsFactory(Map backingMap) =>
+  _$$SafeRenderManagerHelperProps typedPropsFactory(Map? backingMap) =>
       _$$SafeRenderManagerHelperProps(backingMap);
 
-  _$$SafeRenderManagerHelperState$JsMap _cachedTypedState;
+  late _$$SafeRenderManagerHelperState$JsMap _cachedTypedState;
   @override
   _$$SafeRenderManagerHelperState$JsMap get state => _cachedTypedState;
 
@@ -220,11 +221,11 @@ class _$SafeRenderManagerHelperComponent
 
   @override
   _$$SafeRenderManagerHelperState$JsMap typedStateFactoryJs(
-          JsBackedMap backingMap) =>
+          JsBackedMap? backingMap) =>
       _$$SafeRenderManagerHelperState$JsMap(backingMap);
 
   @override
-  _$$SafeRenderManagerHelperState typedStateFactory(Map backingMap) =>
+  _$$SafeRenderManagerHelperState typedStateFactory(Map? backingMap) =>
       _$$SafeRenderManagerHelperState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
@@ -254,12 +255,12 @@ mixin $SafeRenderManagerHelperProps on SafeRenderManagerHelperProps {
   static const PropsMeta meta = _$metaForSafeRenderManagerHelperProps;
   @override
   @requiredProp
-  ReactElement Function() get getInitialContent =>
+  ReactElement? Function()? get getInitialContent =>
       (props[_$key__getInitialContent__SafeRenderManagerHelperProps] ?? null)
-          as ReactElement Function();
+          as ReactElement? Function()?;
   @override
   @requiredProp
-  set getInitialContent(ReactElement Function() value) =>
+  set getInitialContent(ReactElement? Function()? value) =>
       props[_$key__getInitialContent__SafeRenderManagerHelperProps] = value;
   @override
   dynamic get contentRef =>
@@ -304,11 +305,11 @@ const PropsMeta _$metaForSafeRenderManagerHelperProps = PropsMeta(
 mixin $SafeRenderManagerHelperState on SafeRenderManagerHelperState {
   static const StateMeta meta = _$metaForSafeRenderManagerHelperState;
   @override
-  ReactElement get content =>
+  ReactElement? get content =>
       (state[_$key__content__SafeRenderManagerHelperState] ?? null)
-          as ReactElement;
+          as ReactElement?;
   @override
-  set content(ReactElement value) =>
+  set content(ReactElement? value) =>
       state[_$key__content__SafeRenderManagerHelperState] = value;
   /* GENERATED CONSTANTS */
   static const StateDescriptor _$prop__content__SafeRenderManagerHelperState =

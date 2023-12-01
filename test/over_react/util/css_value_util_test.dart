@@ -27,12 +27,12 @@ main() {
           double value = 34.0;
           var units = ['em', 'ex', 'rem', 'vh', 'vw', 'vmin', 'vmax', '%', 'px', 'cm', 'mm', 'in', 'pt', 'pc', 'ch'];
           for (String unit in units) {
-            expect(CssValue.parse('$value$unit').number, equals(value));
+            expect(CssValue.parse('$value$unit')!.number, equals(value));
           }
         });
 
         test('numbers without units, defaulting to `px`', () {
-          var cssValue = CssValue.parse('123');
+          var cssValue = CssValue.parse('123')!;
           expect(cssValue.number, equals(double.parse('123')));
           expect(cssValue.unit, equals('px'));
         });
@@ -145,7 +145,6 @@ main() {
 
             test('when the other object is not a CssValue', () {
               var val1 = CssValue(123);
-              expect(val1 == null, isFalse);
               expect(val1 == Object(), isFalse);
             });
           });
@@ -174,23 +173,23 @@ main() {
         group('for values of non-matching units,', () {
           group('for values of non-matching units, throws an error for', () {
             test('the "less than" operator', () {
-              expect(() => (CssValue.parse('10px') < CssValue.parse('10%')), throwsArgumentError);
+              expect(() => (CssValue.parse('10px')! < CssValue.parse('10%')!), throwsArgumentError);
             });
 
             test('the "less than or equal" operator', () {
-              expect(() => (CssValue.parse('10px') <= CssValue.parse('10%')), throwsArgumentError);
+              expect(() => (CssValue.parse('10px')! <= CssValue.parse('10%')!), throwsArgumentError);
             });
 
             test('the "greater than" operator', () {
-              expect(() => (CssValue.parse('10px') > CssValue.parse('10%')), throwsArgumentError);
+              expect(() => (CssValue.parse('10px')! > CssValue.parse('10%')!), throwsArgumentError);
             });
 
             test('the "greater than or equal" operator', () {
-              expect(() => (CssValue.parse('10px') >= CssValue.parse('10%')), throwsArgumentError);
+              expect(() => (CssValue.parse('10px')! >= CssValue.parse('10%')!), throwsArgumentError);
             });
 
             test('the compare() function', () {
-              expect(() => Comparable.compare(CssValue.parse('10px'), CssValue.parse('10%')), throwsArgumentError);
+              expect(() => Comparable.compare(CssValue.parse('10px')!, CssValue.parse('10%')!), throwsArgumentError);
             });
           });
 

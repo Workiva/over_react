@@ -15,6 +15,7 @@
 import 'dart:mirrors' as mirrors;
 
 import 'package:analyzer/dart/ast/ast.dart';
+import 'package:collection/collection.dart' show IterableExtension;
 import 'package:transformer_utils/transformer_utils.dart';
 
 import 'ast_util.dart';
@@ -23,14 +24,14 @@ import 'ast_util.dart';
 /// [T], or null if no matching annotations are found.
 ///
 /// > See [instantiateAnnotation] for more information.
-T instantiateAnnotationTyped<T>(AnnotatedNode member,
-    {dynamic Function(Expression argument) onUnsupportedArgument}) {
-  return instantiateAnnotation(member, T, onUnsupportedArgument: onUnsupportedArgument) as T;
+T? instantiateAnnotationTyped<T>(AnnotatedNode member,
+    {dynamic Function(Expression argument)? onUnsupportedArgument}) {
+  return instantiateAnnotation(member, T, onUnsupportedArgument: onUnsupportedArgument) as T?;
 }
 
 /// Returns the first annotation AST node on [member] of type [annotationType],
 /// or null if no matching annotations are found.
-Annotation _getMatchingAnnotation(AnnotatedNode member, Type annotationType) {
+Annotation? _getMatchingAnnotation(AnnotatedNode member, Type annotationType) {
   // Be sure to use `originalDeclaration` so that generic parameters work.
   final classMirror = mirrors.reflectClass(annotationType).originalDeclaration;
   final className = mirrors.MirrorSystem.getName(classMirror.simpleName);
@@ -43,7 +44,7 @@ Annotation _getMatchingAnnotation(AnnotatedNode member, Type annotationType) {
 /// Based off of [NodeWithMeta].
 class InstantiatedMeta<TMeta> {
   /// The node of the [TMeta] annotation, if it exists.
-  final Annotation metaNode;
+  final Annotation? metaNode;
 
   /// A reflectively-instantiated version of [metaNode], if it exists.
   final TMeta _value;
@@ -55,16 +56,16 @@ class InstantiatedMeta<TMeta> {
 
   InstantiatedMeta._(this.metaNode, this._value, this.unsupportedArguments);
 
-  /// Returns an instance representing the first annotation of type [TMeta]
+  /// Returns an instance representing the first annotation of type [T]
   /// on [node], or null if there is no matching annotation.
   /// The original node will be available via [node].
   ///
   /// The instantiated annotation will be available via [value].
-  factory InstantiatedMeta(AnnotatedNode node) {
-    final metaNode = _getMatchingAnnotation(node, TMeta);
+  static InstantiatedMeta<T>? fromNode<T>(AnnotatedNode node) {
+    final metaNode = _getMatchingAnnotation(node, T);
     final unsupportedArguments = <Expression>[];
     final value =
-        instantiateAnnotationTyped<TMeta>(node, onUnsupportedArgument: unsupportedArguments.add);
+        instantiateAnnotationTyped<T>(node, onUnsupportedArgument: unsupportedArguments.add);
 
     if (value == null) return null;
 
@@ -98,23 +99,22 @@ class InstantiatedMeta<TMeta> {
 class InstantiatedComponentMeta<TMeta> extends InstantiatedMeta<TMeta> {
   static const String _subtypeOfParamName = 'subtypeOf';
 
-  final Identifier subtypeOfValue;
+  final Identifier? subtypeOfValue;
 
   InstantiatedComponentMeta._(
-      Annotation metaNode, TMeta meta, List<Expression> unsupportedArguments, this.subtypeOfValue)
+      Annotation? metaNode, TMeta meta, List<Expression> unsupportedArguments, this.subtypeOfValue)
       : super._(metaNode, meta, unsupportedArguments);
 
-  factory InstantiatedComponentMeta(AnnotatedNode node) {
-    final instantiated = InstantiatedMeta<TMeta>(node);
+  static InstantiatedComponentMeta<T>? fromNode<T>(AnnotatedNode node) {
+    final instantiated = InstantiatedMeta.fromNode<T>(node);
 
     if (instantiated == null) return null;
 
-    Identifier subtypeOfValue;
+    Identifier? subtypeOfValue;
 
-    NamedExpression subtypeOfParam = instantiated.unsupportedArguments
+    NamedExpression? subtypeOfParam = instantiated.unsupportedArguments
         .whereType<NamedExpression>()
-        .firstWhere((expression) => expression.name.label.name == _subtypeOfParamName,
-            orElse: () => null);
+        .firstWhereOrNull((expression) => expression.name.label.name == _subtypeOfParamName);
 
     if (subtypeOfParam != null) {
       final expression = subtypeOfParam.expression;
@@ -122,7 +122,7 @@ class InstantiatedComponentMeta<TMeta> extends InstantiatedMeta<TMeta> {
         subtypeOfValue = expression;
         instantiated.unsupportedArguments.remove(subtypeOfParam);
       } else {
-        throw '`$_subtypeOfParamName` must be an identifier: $subtypeOfParam';
+        throw Exception('`$_subtypeOfParamName` must be an identifier: $subtypeOfParam');
       }
     }
 

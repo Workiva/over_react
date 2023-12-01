@@ -24,19 +24,19 @@ abstract class _$TestPropsAccessorsMixin implements _$TestProps {
 
   /// <!-- Generated from [_$TestProps.foo] -->
   @override
-  String get foo => (props[_$key__foo___$TestProps] ?? null) as String;
+  String? get foo => (props[_$key__foo___$TestProps] ?? null) as String?;
 
   /// <!-- Generated from [_$TestProps.foo] -->
   @override
-  set foo(String value) => props[_$key__foo___$TestProps] = value;
+  set foo(String? value) => props[_$key__foo___$TestProps] = value;
 
   /// <!-- Generated from [_$TestProps.bar] -->
   @override
-  String get bar => (props[_$key__bar___$TestProps] ?? null) as String;
+  String? get bar => (props[_$key__bar___$TestProps] ?? null) as String?;
 
   /// <!-- Generated from [_$TestProps.bar] -->
   @override
-  set bar(String value) => props[_$key__bar___$TestProps] = value;
+  set bar(String? value) => props[_$key__bar___$TestProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__foo___$TestProps =
       PropDescriptor(_$key__foo___$TestProps);
@@ -64,7 +64,7 @@ class TestProps extends _$TestProps with _$TestPropsAccessorsMixin {
   static const PropsMeta meta = _$metaForTestProps;
 }
 
-_$$TestProps _$Test([Map backingProps]) => backingProps == null
+_$$TestProps _$Test([Map? backingProps]) => backingProps == null
     ? _$$TestProps$JsMap(JsBackedMap())
     : _$$TestProps(backingProps);
 
@@ -76,9 +76,9 @@ abstract class _$$TestProps extends _$TestProps
     implements TestProps {
   _$$TestProps._();
 
-  factory _$$TestProps(Map backingMap) {
+  factory _$$TestProps(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestProps$JsMap(backingMap as JsBackedMap);
+      return _$$TestProps$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$TestProps$PlainMap(backingMap);
     }
@@ -102,7 +102,7 @@ abstract class _$$TestProps extends _$TestProps
 class _$$TestProps$PlainMap extends _$$TestProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestProps$PlainMap(Map backingMap)
+  _$$TestProps$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -119,7 +119,7 @@ class _$$TestProps$PlainMap extends _$$TestProps {
 class _$$TestProps$JsMap extends _$$TestProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestProps$JsMap(JsBackedMap backingMap)
+  _$$TestProps$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -136,7 +136,7 @@ class _$$TestProps$JsMap extends _$$TestProps {
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$TestComponent extends TestComponent {
-  _$$TestProps$JsMap _cachedTypedProps;
+  late _$$TestProps$JsMap _cachedTypedProps;
 
   @override
   _$$TestProps$JsMap get props => _cachedTypedProps;
@@ -156,11 +156,11 @@ class _$TestComponent extends TestComponent {
   }
 
   @override
-  _$$TestProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
+  _$$TestProps$JsMap typedPropsFactoryJs(JsBackedMap? backingMap) =>
       _$$TestProps$JsMap(backingMap);
 
   @override
-  _$$TestProps typedPropsFactory(Map backingMap) => _$$TestProps(backingMap);
+  _$$TestProps typedPropsFactory(Map? backingMap) => _$$TestProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override

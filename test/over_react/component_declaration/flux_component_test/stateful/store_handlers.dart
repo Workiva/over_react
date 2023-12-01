@@ -33,7 +33,7 @@ class TestStatefulStoreHandlersComponent extends FluxUiStatefulComponent<TestSta
   render() => Dom.div()();
 
   @override
-  getStoreHandlers() => {props.store: increment};
+  getStoreHandlers() => {props.store!: increment};
 
   increment(Store store) {
     numberOfHandlerCalls += 1;

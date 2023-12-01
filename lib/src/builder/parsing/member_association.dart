@@ -14,6 +14,7 @@
 
 import 'ast_util.dart';
 import 'members.dart';
+import 'package:collection/collection.dart' show IterableExtension;
 import 'util.dart';
 
 /// Removes the generated prefix from anywhere inside of [name].
@@ -61,10 +62,10 @@ String _normalizeBoilerplateStateName(String name) => //
 String _normalizeBoilerplateStateMixinName(String name) => //
     name.replaceFirst(RegExp(r'State(?:Mixin)?$'), '');
 
-T _getNameMatch<T extends BoilerplateMember>(Iterable<T> members, String name) => members
-    .firstWhere((member) => normalizeNameAndRemoveSuffix(member) == name, orElse: () => null);
+T? _getNameMatch<T extends BoilerplateMember>(Iterable<T> members, String name) => members
+    .firstWhereOrNull((member) => normalizeNameAndRemoveSuffix(member) == name);
 
-Union<A, B> _getNameMatchUnion<A extends BoilerplateMember, B extends BoilerplateMember>(
+Union<A, B>? _getNameMatchUnion<A extends BoilerplateMember, B extends BoilerplateMember>(
     Iterable<A> membersA, Iterable<B> membersB, String name) {
   final a = _getNameMatch(membersA, name);
   if (a != null) return Union.a(a);
@@ -79,16 +80,16 @@ Union<A, B> _getNameMatchUnion<A extends BoilerplateMember, B extends Boilerplat
 ///
 /// This first tries to normalize the names of the entities to find a matching name,
 /// and if that fails it tries to look at the props class name to get a match.
-BoilerplateComponent getComponentFor(
+BoilerplateComponent? getComponentFor(
     BoilerplateMember member, List<BoilerplateComponent> components) {
   final match = _getNameMatch(components, normalizeNameAndRemoveSuffix(member)) ??
       getRelatedName(member).mapIfNotNull((name) => _getNameMatch(components, name));
   if (match != null) return match;
 
   // If there's no match by name, use the props generic parameter
-  return components.firstWhere((comp) {
+  return components.firstWhereOrNull((comp) {
     final propsGenericArgName = comp.nodeHelper.superclass?.typeArguments?.arguments
-        ?.firstWhere((arg) => arg.typeNameWithoutPrefix.contains('Props'), orElse: () => null)
+        .firstWhereOrNull((arg) => arg.typeNameWithoutPrefix?.contains('Props') ?? false)
         ?.typeNameWithoutPrefix;
     if (propsGenericArgName != null) {
       if (_normalizeBoilerplatePropsOrPropsMixinName(propsGenericArgName) ==
@@ -98,14 +99,14 @@ BoilerplateComponent getComponentFor(
     }
 
     return false;
-  }, orElse: () => null);
+  });
 }
 
 /// Retrieves the props for a given [member] if it is found in [props] or [propsMixins].
 ///
 /// This is done purely off of matching the name of the member class against the props
 /// classes.
-Union<BoilerplateProps, BoilerplatePropsMixin> getPropsFor(
+Union<BoilerplateProps, BoilerplatePropsMixin>? getPropsFor(
   BoilerplateMember member,
   Iterable<BoilerplateProps> props,
   Iterable<BoilerplatePropsMixin> propsMixins,
@@ -114,15 +115,15 @@ Union<BoilerplateProps, BoilerplatePropsMixin> getPropsFor(
       getRelatedName(member).mapIfNotNull((name) => _getNameMatchUnion(props, propsMixins, name));
 }
 
-Union<BoilerplateProps, BoilerplatePropsMixin> getPropsForFunctionComponent(
+Union<BoilerplateProps, BoilerplatePropsMixin>? getPropsForFunctionComponent(
     Iterable<BoilerplateProps> props,
     Iterable<BoilerplatePropsMixin> mixins,
     BoilerplateFactory factory) {
-  final name = factory.propsGenericArg.typeNameWithoutPrefix;
-  final a = props.firstWhere((member) => member.name.name == name, orElse: () => null);
+  final name = factory.propsGenericArg?.typeNameWithoutPrefix;
+  final a = props.firstWhereOrNull((member) => member.name.name == name);
   if (a != null) return Union.a(a);
 
-  final b = mixins.firstWhere((member) => member.name.name == name, orElse: () => null);
+  final b = mixins.firstWhereOrNull((member) => member.name.name == name);
   if (b != null) return Union.b(b);
 
   return null;
@@ -132,7 +133,7 @@ Union<BoilerplateProps, BoilerplatePropsMixin> getPropsForFunctionComponent(
 ///
 /// This is done purely off of matching the name of the member class against the props
 /// classes.
-Union<BoilerplateState, BoilerplateStateMixin> getStateFor(
+Union<BoilerplateState, BoilerplateStateMixin>? getStateFor(
   BoilerplateMember member,
   Iterable<BoilerplateState> states,
   Iterable<BoilerplateStateMixin> stateMixins,
@@ -145,7 +146,7 @@ Union<BoilerplateState, BoilerplateStateMixin> getStateFor(
 ///
 /// Currently, related names are only returned for factories/components
 /// based on their props generic parameter; in the future this could be expanded.
-String getRelatedName(BoilerplateMember member) {
+String? getRelatedName(BoilerplateMember member) {
   if (member is BoilerplateFactory) {
     return member.propsGenericArg?.typeNameWithoutPrefix
         ?.mapIfNotNull(_normalizeBoilerplatePropsOrPropsMixinName);
@@ -159,6 +160,9 @@ String getRelatedName(BoilerplateMember member) {
   return null;
 }
 
-extension<T> on T {
-  S mapIfNotNull<S>(S Function(T) callback) => this == null ? null : callback(this);
+extension<T> on T? {
+  S? mapIfNotNull<S>(S? Function(T) callback) {
+    final self = this;
+    return self == null ? null : callback(self);
+  }
 }

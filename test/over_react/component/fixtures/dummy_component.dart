@@ -22,7 +22,7 @@ UiFactory<DummyProps> Dummy = _$Dummy;
 
 @Props()
 class _$DummyProps extends UiProps {
-  Function onComponentDidMount;
+  late Function onComponentDidMount;
 }
 
 // AF-3369 This will be removed once the transition to Dart 2 is complete.

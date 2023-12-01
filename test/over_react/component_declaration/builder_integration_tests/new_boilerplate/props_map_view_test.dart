@@ -89,7 +89,7 @@ main() {
 UiFactory<TestProps> Test = _$Test; // ignore: undefined_identifier, invalid_assignment
 
 mixin TestProps on UiProps {
-  String stringProp;
+  String? stringProp;
   dynamic dynamicProp;
   var untypedProp; // ignore: prefer_typing_uninitialized_variables
 

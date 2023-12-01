@@ -63,9 +63,9 @@ abstract class _$$SuspenseProps extends UiProps
         SuspenseProps {
   _$$SuspenseProps._();
 
-  factory _$$SuspenseProps(Map backingMap) {
+  factory _$$SuspenseProps(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$SuspenseProps$JsMap(backingMap as JsBackedMap);
+      return _$$SuspenseProps$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$SuspenseProps$PlainMap(backingMap);
     }
@@ -92,7 +92,7 @@ abstract class _$$SuspenseProps extends UiProps
 class _$$SuspenseProps$PlainMap extends _$$SuspenseProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$SuspenseProps$PlainMap(Map backingMap)
+  _$$SuspenseProps$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -111,7 +111,7 @@ class _$$SuspenseProps$PlainMap extends _$$SuspenseProps {
 class _$$SuspenseProps$JsMap extends _$$SuspenseProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$SuspenseProps$JsMap(JsBackedMap backingMap)
+  _$$SuspenseProps$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();

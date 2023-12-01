@@ -32,8 +32,8 @@ abstract class _$ToggleButtonPropsAccessorsMixin
   /// <!-- Generated from [_$ToggleButtonProps.autoFocus] -->
   @override
   @Accessor(keyNamespace: '')
-  bool get autoFocus =>
-      (props[_$key__autoFocus___$ToggleButtonProps] ?? null) as bool;
+  bool? get autoFocus =>
+      (props[_$key__autoFocus___$ToggleButtonProps] ?? null) as bool?;
 
   /// Whether the `<input>` rendered by the [ToggleButton] should have focus upon mounting.
   ///
@@ -44,7 +44,7 @@ abstract class _$ToggleButtonPropsAccessorsMixin
   /// <!-- Generated from [_$ToggleButtonProps.autoFocus] -->
   @override
   @Accessor(keyNamespace: '')
-  set autoFocus(bool value) =>
+  set autoFocus(bool? value) =>
       props[_$key__autoFocus___$ToggleButtonProps] = value;
 
   /// Whether the [ToggleButton] is checked by default.
@@ -63,8 +63,8 @@ abstract class _$ToggleButtonPropsAccessorsMixin
   /// <!-- Generated from [_$ToggleButtonProps.defaultChecked] -->
   @override
   @Accessor(keyNamespace: '')
-  bool get defaultChecked =>
-      (props[_$key__defaultChecked___$ToggleButtonProps] ?? null) as bool;
+  bool? get defaultChecked =>
+      (props[_$key__defaultChecked___$ToggleButtonProps] ?? null) as bool?;
 
   /// Whether the [ToggleButton] is checked by default.
   ///
@@ -82,7 +82,7 @@ abstract class _$ToggleButtonPropsAccessorsMixin
   /// <!-- Generated from [_$ToggleButtonProps.defaultChecked] -->
   @override
   @Accessor(keyNamespace: '')
-  set defaultChecked(bool value) =>
+  set defaultChecked(bool? value) =>
       props[_$key__defaultChecked___$ToggleButtonProps] = value;
 
   /// Whether the [ToggleButton] is checked.
@@ -100,8 +100,8 @@ abstract class _$ToggleButtonPropsAccessorsMixin
   /// <!-- Generated from [_$ToggleButtonProps.checked] -->
   @override
   @Accessor(keyNamespace: '')
-  bool get checked =>
-      (props[_$key__checked___$ToggleButtonProps] ?? null) as bool;
+  bool? get checked =>
+      (props[_$key__checked___$ToggleButtonProps] ?? null) as bool?;
 
   /// Whether the [ToggleButton] is checked.
   ///
@@ -118,7 +118,8 @@ abstract class _$ToggleButtonPropsAccessorsMixin
   /// <!-- Generated from [_$ToggleButtonProps.checked] -->
   @override
   @Accessor(keyNamespace: '')
-  set checked(bool value) => props[_$key__checked___$ToggleButtonProps] = value;
+  set checked(bool? value) =>
+      props[_$key__checked___$ToggleButtonProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__autoFocus___$ToggleButtonProps =
       PropDescriptor(_$key__autoFocus___$ToggleButtonProps);
@@ -153,7 +154,7 @@ class ToggleButtonProps extends _$ToggleButtonProps
   static const PropsMeta meta = _$metaForToggleButtonProps;
 }
 
-_$$ToggleButtonProps _$ToggleButton([Map backingProps]) =>
+_$$ToggleButtonProps _$ToggleButton([Map? backingProps]) =>
     _$$ToggleButtonProps(backingProps);
 
 // Concrete props implementation.
@@ -164,7 +165,7 @@ class _$$ToggleButtonProps extends _$ToggleButtonProps
     implements ToggleButtonProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ToggleButtonProps(Map backingMap) : this._props = {} {
+  _$$ToggleButtonProps(Map? backingMap) : this._props = {} {
     this._props = backingMap ?? {};
   }
 
@@ -199,8 +200,8 @@ abstract class _$ToggleButtonStateAccessorsMixin
   ///
   /// <!-- Generated from [_$ToggleButtonState.isFocused] -->
   @override
-  bool get isFocused =>
-      (state[_$key__isFocused___$ToggleButtonState] ?? null) as bool;
+  bool? get isFocused =>
+      (state[_$key__isFocused___$ToggleButtonState] ?? null) as bool?;
 
   /// Tracks if the [ToggleButton] is focused. Determines whether to render with the `js-focus` CSS
   /// class.
@@ -209,7 +210,7 @@ abstract class _$ToggleButtonStateAccessorsMixin
   ///
   /// <!-- Generated from [_$ToggleButtonState.isFocused] -->
   @override
-  set isFocused(bool value) =>
+  set isFocused(bool? value) =>
       state[_$key__isFocused___$ToggleButtonState] = value;
 
   /// Tracks if the [ToggleButton] input is `checked`. Determines whether to render with the `active` CSS class.
@@ -218,8 +219,8 @@ abstract class _$ToggleButtonStateAccessorsMixin
   ///
   /// <!-- Generated from [_$ToggleButtonState.isChecked] -->
   @override
-  bool get isChecked =>
-      (state[_$key__isChecked___$ToggleButtonState] ?? null) as bool;
+  bool? get isChecked =>
+      (state[_$key__isChecked___$ToggleButtonState] ?? null) as bool?;
 
   /// Tracks if the [ToggleButton] input is `checked`. Determines whether to render with the `active` CSS class.
   ///
@@ -227,7 +228,7 @@ abstract class _$ToggleButtonStateAccessorsMixin
   ///
   /// <!-- Generated from [_$ToggleButtonState.isChecked] -->
   @override
-  set isChecked(bool value) =>
+  set isChecked(bool? value) =>
       state[_$key__isChecked___$ToggleButtonState] = value;
   /* GENERATED CONSTANTS */
   static const StateDescriptor _$prop__isFocused___$ToggleButtonState =
@@ -267,7 +268,7 @@ class _$$ToggleButtonState extends _$ToggleButtonState
     implements ToggleButtonState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ToggleButtonState(Map backingMap) : this._state = {} {
+  _$$ToggleButtonState(Map? backingMap) : this._state = {} {
     this._state = backingMap ?? {};
   }
 
@@ -287,11 +288,11 @@ class _$$ToggleButtonState extends _$ToggleButtonState
 // generated for the associated props class.
 class _$ToggleButtonComponent extends ToggleButtonComponent {
   @override
-  _$$ToggleButtonProps typedPropsFactory(Map backingMap) =>
+  _$$ToggleButtonProps typedPropsFactory(Map? backingMap) =>
       _$$ToggleButtonProps(backingMap);
 
   @override
-  _$$ToggleButtonState typedStateFactory(Map backingMap) =>
+  _$$ToggleButtonState typedStateFactory(Map? backingMap) =>
       _$$ToggleButtonState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.

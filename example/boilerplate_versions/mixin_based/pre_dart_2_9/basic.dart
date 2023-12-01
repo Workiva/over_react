@@ -21,13 +21,13 @@ UiFactory<BasicProps> Basic = _$Basic; // ignore: undefined_identifier, invalid_
 mixin BasicProps on UiProps {
   @Deprecated('This is deprecated')
   @requiredProp
-  String basicProp;
+  String? basicProp;
 
-  String basic1;
-  String basic2;
-  String basic3;
-  String basic4;
-  String basic5;
+  String? basic1;
+  String? basic2;
+  String? basic3;
+  String? basic4;
+  String? basic5;
 }
 
 class BasicComponent extends UiComponent2<BasicProps> {

@@ -24,12 +24,12 @@ abstract class _$FooPropsAccessorsMixin implements _$FooProps {
 
   /// <!-- Generated from [_$FooProps._privateProp] -->
   @override
-  String get _privateProp =>
-      (props[_$key___privateProp___$FooProps] ?? null) as String;
+  String? get _privateProp =>
+      (props[_$key___privateProp___$FooProps] ?? null) as String?;
 
   /// <!-- Generated from [_$FooProps._privateProp] -->
   @override
-  set _privateProp(String value) =>
+  set _privateProp(String? value) =>
       props[_$key___privateProp___$FooProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop___privateProp___$FooProps =
@@ -49,7 +49,7 @@ class FooProps extends _$FooProps with _$FooPropsAccessorsMixin {
   static const PropsMeta meta = _$metaForFooProps;
 }
 
-_$$FooProps _$Foo([Map backingProps]) => backingProps == null
+_$$FooProps _$Foo([Map? backingProps]) => backingProps == null
     ? _$$FooProps$JsMap(JsBackedMap())
     : _$$FooProps(backingProps);
 
@@ -61,9 +61,9 @@ abstract class _$$FooProps extends _$FooProps
     implements FooProps {
   _$$FooProps._();
 
-  factory _$$FooProps(Map backingMap) {
+  factory _$$FooProps(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$FooProps$JsMap(backingMap as JsBackedMap);
+      return _$$FooProps$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$FooProps$PlainMap(backingMap);
     }
@@ -87,7 +87,7 @@ abstract class _$$FooProps extends _$FooProps
 class _$$FooProps$PlainMap extends _$$FooProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$FooProps$PlainMap(Map backingMap)
+  _$$FooProps$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -104,7 +104,7 @@ class _$$FooProps$PlainMap extends _$$FooProps {
 class _$$FooProps$JsMap extends _$$FooProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$FooProps$JsMap(JsBackedMap backingMap)
+  _$$FooProps$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -121,7 +121,7 @@ class _$$FooProps$JsMap extends _$$FooProps {
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$FooComponent extends FooComponent {
-  _$$FooProps$JsMap _cachedTypedProps;
+  late _$$FooProps$JsMap _cachedTypedProps;
 
   @override
   _$$FooProps$JsMap get props => _cachedTypedProps;
@@ -141,11 +141,11 @@ class _$FooComponent extends FooComponent {
   }
 
   @override
-  _$$FooProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
+  _$$FooProps$JsMap typedPropsFactoryJs(JsBackedMap? backingMap) =>
       _$$FooProps$JsMap(backingMap);
 
   @override
-  _$$FooProps typedPropsFactory(Map backingMap) => _$$FooProps(backingMap);
+  _$$FooProps typedPropsFactory(Map? backingMap) => _$$FooProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override

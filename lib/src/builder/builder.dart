@@ -25,7 +25,7 @@ import './util.dart';
 import 'codegen.dart';
 import 'parsing.dart';
 
-Builder overReactBuilder(BuilderOptions options) => OverReactBuilder();
+Builder overReactBuilder(BuilderOptions? options) => OverReactBuilder();
 
 class OverReactBuilder extends Builder {
   @override
@@ -97,7 +97,18 @@ class OverReactBuilder extends Builder {
       // Validate boilerplate declarations and generate if there aren't any errors.
       //
 
-      final generator = ImplGenerator(log, sourceFile);
+      // FIXME(null-safety) detect null safety for other packages (FED-1720)
+      bool nullSafety;
+      final languageVersionToken = unit.languageVersionToken;
+      if (languageVersionToken != null) {
+        nullSafety = languageVersionToken.major > 2 ||
+            (languageVersionToken.major == 2 && languageVersionToken.minor >= 12);
+      } else {
+        // During development, only enable null safety by default for over_react.
+        nullSafety = id.package == 'over_react';
+      }
+
+      final generator = ImplGenerator(log, sourceFile, nullSafety: nullSafety);
 
       for (final declaration in declarations) {
         hadErrors = false;
@@ -139,8 +150,8 @@ class OverReactBuilder extends Builder {
 
     // Generate over_react code for each part file of the input library.
     for (final part in parts) {
-      final partId = resolveAssetId(
-        part.uri.stringValue,
+      final partId = AssetId.resolve(
+        Uri.parse(part.uri.stringValue!),
         from: buildStep.inputId);
       if (!await buildStep.canRead(partId)) {
         continue;
@@ -176,7 +187,7 @@ class OverReactBuilder extends Builder {
 
   static final _formatter = DartFormatter();
 
-  static CompilationUnit _tryParseCompilationUnit(String source, AssetId id) {
+  static CompilationUnit? _tryParseCompilationUnit(String source, AssetId id) {
     final result = parseString(content: source, path: id.path, throwIfDiagnostics: false);
 
     if (result.errors.isEmpty) return result.unit;
@@ -189,7 +200,7 @@ class OverReactBuilder extends Builder {
     return null;
   }
 
-  static FutureOr<void> _writePart(BuildStep buildStep, AssetId outputId, Iterable<String> outputs, {String languageVersionComment}) async {
+  static FutureOr<void> _writePart(BuildStep buildStep, AssetId outputId, Iterable<String> outputs, {String? languageVersionComment}) async {
     final partOf = "'${p.basename(buildStep.inputId.uri.toString())}'";
 
     final buffer = StringBuffer();
@@ -220,26 +231,5 @@ class OverReactBuilder extends Builder {
       log.severe('Error formatting generated code', e, st);
     }
     await buildStep.writeAsString(outputId, output);
-  }
-}
-
-/// A compatibility layer for [AssetId.resolve],
-/// which in build <2.0.0 accepts a String for the first argument and
-/// and in build >=2.0.0 accepts a Uri for the first argument.
-///
-/// This function allows us to support build 1.x and 2.x
-///
-// TODO remove once we're off of build 1.x
-AssetId resolveAssetId(String uri, {AssetId from}) {
-  try {
-    // `as dynamic` is necessary to prevent compile errors.
-    // This ignore is to prevent analysis implicit cast errors.
-    // ignore: argument_type_not_assignable
-    return AssetId.resolve(uri as dynamic, from: from);
-  } catch (_) {
-    // `as dynamic` is necessary to prevent compile errors.
-    // This ignore is to prevent analysis implicit cast errors.
-    // ignore: argument_type_not_assignable
-    return AssetId.resolve(Uri.parse(uri) as dynamic, from: from);
   }
 }

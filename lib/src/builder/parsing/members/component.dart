@@ -19,9 +19,9 @@ class BoilerplateComponent extends BoilerplateMember {
   BoilerplateComponent(this.nodeHelper, VersionConfidences confidence)
       : node = nodeHelper.node,
         super(confidence) {
-    final meta = InstantiatedComponentMeta<annotations.Component2>(node) ??
+    final meta = InstantiatedComponentMeta.fromNode<annotations.Component2>(node) ??
         // ignore: deprecated_member_use_from_same_package
-        InstantiatedComponentMeta<annotations.Component>(node);
+        InstantiatedComponentMeta.fromNode<annotations.Component>(node);
 
     this.meta = meta?.value ?? annotations.Component2();
     configSubtypeOf = meta?.subtypeOfValue;
@@ -42,16 +42,15 @@ class BoilerplateComponent extends BoilerplateMember {
   /// or [annotations.Component2].
   @override
   // ignore: deprecated_member_use_from_same_package
-  annotations.Component meta;
+  late annotations.Component meta;
 
   // The superclass that can be noted in the `@Component()` or `@Component2()` annotation.
-  Identifier configSubtypeOf;
+  Identifier? configSubtypeOf;
 
   /// The [TypeAnnotation] for the component's prop class.
-  TypeAnnotation get propsGenericArg {
-    return nodeHelper.superclass.typeArguments?.arguments?.firstWhere(
-        (type) => propsOrMixinNamePattern.hasMatch(type.typeNameWithoutPrefix),
-        orElse: () => null);
+  TypeAnnotation? get propsGenericArg {
+    return nodeHelper.superclass!.typeArguments?.arguments.firstWhereOrNull(
+        (type) => propsOrMixinNamePattern.hasMatch(type.typeNameWithoutPrefix!));
   }
 
   /// Whether or not the component has any annotation, ignoring component version
@@ -84,8 +83,9 @@ class BoilerplateComponent extends BoilerplateMember {
     switch (version) {
       case Version.v4_mixinBased:
         final superclass = nodeHelper.superclass;
-        if (const ['UiComponent', 'UiStatefulComponent', 'FluxUiComponent', 'BuiltReduxUiComponent']
-            .contains(superclass?.nameWithoutPrefix)) {
+        if (superclass != null &&
+            const {'UiComponent', 'UiStatefulComponent', 'FluxUiComponent', 'BuiltReduxUiComponent'}
+                .contains(superclass.nameWithoutPrefix)) {
           errorCollector.addError(
               'Must extend UiComponent2, not UiComponent.', errorCollector.spanFor(superclass));
         }

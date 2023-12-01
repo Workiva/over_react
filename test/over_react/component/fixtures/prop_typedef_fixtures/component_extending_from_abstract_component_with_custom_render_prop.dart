@@ -20,7 +20,7 @@ UiFactory<TestCustomRendererFromAbstractComponentProps> TestCustomRendererFromAb
 
 @Props()
 class _$TestCustomRendererFromAbstractComponentProps extends TestAbstractCustomRendererComponentProps {
-  String someInitialStateKeyValue;
+  String? someInitialStateKeyValue;
 }
 
 @State()

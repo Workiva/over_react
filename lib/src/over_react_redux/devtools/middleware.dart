@@ -37,12 +37,12 @@ class _ReduxDevToolsExtensionConnection {
 external _ReduxDevToolsExtensionConnection reduxExtConnect([dynamic options]);
 
 class _OverReactReduxDevToolsMiddleware extends MiddlewareClass {
-  Store _store;
-  _ReduxDevToolsExtensionConnection devToolsExt;
+  Store? _store;
+  _ReduxDevToolsExtensionConnection? devToolsExt;
   final Logger log = Logger('OverReactReduxDevToolsMiddleware');
 
   _OverReactReduxDevToolsMiddleware([Map<String, dynamic> options = const {}]) {
-    var windowConsole = getProperty(window, 'console');
+    var windowConsole = getProperty(window, 'console') as Object;
     log.onRecord.listen((rec) {
       // This return is to safeguard against this listener acting like
       // `Logger.root.onRecord` when `hierarchicalLoggingEnabled` is false.
@@ -54,8 +54,7 @@ class _OverReactReduxDevToolsMiddleware extends MiddlewareClass {
       }
     });
     try {
-      devToolsExt = reduxExtConnect(jsify(options));
-      devToolsExt.subscribe(allowInterop(handleEventFromRemote));
+      devToolsExt = reduxExtConnect(jsify(options))..subscribe(allowInterop(handleEventFromRemote));
     } catch (e) {
       log.warning(e);
       log.warning(
@@ -67,16 +66,16 @@ class _OverReactReduxDevToolsMiddleware extends MiddlewareClass {
     }
   }
 
-  set store(Store v) {
-    _store = v;
-    devToolsExt.init(_encodeForTransit(v.state));
+  void _initStoreIfNecessary(Store v) {
+    if (_store == null) {
+      _store = v;
+      devToolsExt?.init(_encodeForTransit(v.state));
+    }
   }
 
-  Store get store => _store;
-
-  dynamic _encodeForTransit(dynamic content, {bool shouldRethrow = false}) {
+  JsMap? _encodeForTransit(Object? content, {bool shouldRethrow = false}) {
     try {
-      return jsify(jsonDecode(jsonEncode(content)));
+      return jsify(jsonDecode(jsonEncode(content)) as Object) as JsMap;
     } catch (e) {
       log.warning(e);
       log.warning(
@@ -84,10 +83,11 @@ class _OverReactReduxDevToolsMiddleware extends MiddlewareClass {
         'If you are not sure what is causing this issue in DevTools, you can use "pause on caught exceptions" to pinpoint which part of your state/action is not able to be converted to json.'
       );
       if (shouldRethrow) rethrow;
+      return null;
     }
   }
 
-  dynamic _encodeActionForTransit(dynamic action) {
+  JsMap? _encodeActionForTransit(dynamic action) {
     try {
       return _encodeForTransit({'type': _getActionType(action), 'payload': action}, shouldRethrow: true);
     } catch (_) {
@@ -103,7 +103,10 @@ class _OverReactReduxDevToolsMiddleware extends MiddlewareClass {
     return actionString;
   }
 
-  void _relay(String type, [Object state, dynamic action, String nextActionId]) {
+  void _relay(String type, [Object? state, dynamic action, String? nextActionId]) {
+    final devToolsExt = this.devToolsExt;
+    if (devToolsExt == null) return;
+
     final message = JsBackedMap();
     message['type'] = type;
 
@@ -131,7 +134,7 @@ class _OverReactReduxDevToolsMiddleware extends MiddlewareClass {
 
   void handleEventFromRemote(JsMap jsData) {
     JsBackedMap data = JsBackedMap.fromJs(jsData);
-    switch (data['type'] as String) {
+    switch (data['type'] as String?) {
       case 'DISPATCH':
         _handleDispatch(JsBackedMap.fromJs(data['payload'] as JsMap));
         break;
@@ -148,14 +151,15 @@ class _OverReactReduxDevToolsMiddleware extends MiddlewareClass {
   }
 
   void _handleDispatch(dynamic action) {
-    if (store == null) {
+    final _store = this._store;
+    if (_store == null) {
       log.warning('No store reference set, cannot dispatch remote action');
       return;
     }
-    switch (action['type'] as String) {
+    switch (action['type'] as String?) {
       case 'JUMP_TO_ACTION':
       case 'JUMP_TO_STATE':
-        store.dispatch(DevToolsAction.jumpToState(action['actionId'] as int));
+        _store.dispatch(DevToolsAction.jumpToState(action['actionId'] as int));
         break;
       default:
         log.warning("Unknown command: ${action['type']}. Ignoring");
@@ -163,21 +167,21 @@ class _OverReactReduxDevToolsMiddleware extends MiddlewareClass {
   }
 
   void _handleRemoteAction(String action) {
-    if (store == null) {
+    final _store = this._store;
+    if (_store == null) {
       log.warning('No store reference set, cannot dispatch remote action');
       return;
     }
-    store.dispatch(DevToolsAction.perform(jsonDecode(action)));
+    _store.dispatch(DevToolsAction.perform(jsonDecode(action)));
   }
 
   /// Middleware function called by redux, dispatches actions to devtools
   @override
   call(Store storeArg, dynamic action, NextDispatcher next) {
     next(action);
-    if (devToolsExt == null) return;
-    store ??= storeArg;
-    if (!(action is DevToolsAction)) {
-      _relay('ACTION', store.state, action);
+    _initStoreIfNecessary(storeArg);
+    if (action is! DevToolsAction) {
+      _relay('ACTION', _store!.state, action);
     }
   }
 }
@@ -196,10 +200,10 @@ final MiddlewareClass overReactReduxDevToolsMiddleware = _OverReactReduxDevTools
 
 /// A Middleware that can be added to a [DevToolsStore] in order to utilize the Redux DevTools browser extension.
 /// Similar to [overReactReduxDevToolsMiddleware], but allows passing of options to initialize dev tools with.
-/// 
+///
 /// Arguments:
-/// - [name] - the instance name to be shown on the monitor page. Default value is `document.title`. 
-///   If not specified and there's no document title, it will consist of tabId and instanceId. 
+/// - [name] - the instance name to be shown on the monitor page. Default value is `document.title`.
+///   If not specified and there's no document title, it will consist of tabId and instanceId.
 ///   Use this if your page has multiple stores.
 ///
 /// Example:
@@ -211,7 +215,7 @@ final MiddlewareClass overReactReduxDevToolsMiddleware = _OverReactReduxDevTools
 /// );
 /// ```
 MiddlewareClass overReactReduxDevToolsMiddlewareFactory({
-  String name,
+  String? name,
 }) => _OverReactReduxDevToolsMiddleware({
   if (name != null) 'name': name,
 });

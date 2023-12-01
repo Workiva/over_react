@@ -38,7 +38,7 @@ class FluxCounterProps extends _$FluxCounterProps
   static const PropsMeta meta = _$metaForFluxCounterProps;
 }
 
-_$$FluxCounterProps _$FluxCounter([Map backingProps]) => backingProps == null
+_$$FluxCounterProps _$FluxCounter([Map? backingProps]) => backingProps == null
     ? _$$FluxCounterProps$JsMap(JsBackedMap())
     : _$$FluxCounterProps(backingProps);
 
@@ -50,9 +50,9 @@ abstract class _$$FluxCounterProps extends _$FluxCounterProps
     implements FluxCounterProps {
   _$$FluxCounterProps._();
 
-  factory _$$FluxCounterProps(Map backingMap) {
+  factory _$$FluxCounterProps(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$FluxCounterProps$JsMap(backingMap as JsBackedMap);
+      return _$$FluxCounterProps$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$FluxCounterProps$PlainMap(backingMap);
     }
@@ -76,7 +76,7 @@ abstract class _$$FluxCounterProps extends _$FluxCounterProps
 class _$$FluxCounterProps$PlainMap extends _$$FluxCounterProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$FluxCounterProps$PlainMap(Map backingMap)
+  _$$FluxCounterProps$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -93,7 +93,7 @@ class _$$FluxCounterProps$PlainMap extends _$$FluxCounterProps {
 class _$$FluxCounterProps$JsMap extends _$$FluxCounterProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$FluxCounterProps$JsMap(JsBackedMap backingMap)
+  _$$FluxCounterProps$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -110,7 +110,7 @@ class _$$FluxCounterProps$JsMap extends _$$FluxCounterProps {
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$FluxCounterComponent extends FluxCounterComponent {
-  _$$FluxCounterProps$JsMap _cachedTypedProps;
+  late _$$FluxCounterProps$JsMap _cachedTypedProps;
 
   @override
   _$$FluxCounterProps$JsMap get props => _cachedTypedProps;
@@ -130,11 +130,11 @@ class _$FluxCounterComponent extends FluxCounterComponent {
   }
 
   @override
-  _$$FluxCounterProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
+  _$$FluxCounterProps$JsMap typedPropsFactoryJs(JsBackedMap? backingMap) =>
       _$$FluxCounterProps$JsMap(backingMap);
 
   @override
-  _$$FluxCounterProps typedPropsFactory(Map backingMap) =>
+  _$$FluxCounterProps typedPropsFactory(Map? backingMap) =>
       _$$FluxCounterProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.

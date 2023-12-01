@@ -73,8 +73,6 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
   /// Indicate that [member] has been grouped into a declaration,
   /// so that it is not grouped into another declaration.
   void consume(BoilerplateMember member) {
-    if (member == null) throw ArgumentError.notNull('member');
-
     final wasAdded = _consumedMembers.add(member);
 
     if (!wasAdded) throw StateError('Member should not have been consumed already: $member');
@@ -82,8 +80,6 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
 
   /// Returns whether [member] has already been grouped into a declaration.
   bool hasBeenConsumed(BoilerplateMember member) {
-    if (member == null) throw ArgumentError.notNull('member');
-
     return _consumedMembers.contains(member);
   }
 
@@ -217,7 +213,7 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
       continue;
     }
     if (hasBeenConsumed(propsClassOrMixin.either) ||
-        (stateClassOrMixin != null && hasBeenConsumed(stateClassOrMixin?.either))) {
+        (stateClassOrMixin != null && hasBeenConsumed(stateClassOrMixin.either))) {
       // Don't try to group if the matching class has already been consumed.
       // We do this instead of trying to get the next best match, since that can result in
       // unexpected behavior when a class has both a props class and props mixin with multiple
@@ -250,7 +246,7 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
           getPropsForFunctionComponent(members.props, members.propsMixins, factory);
       if (generatedFactories.isNotEmpty &&
           associatedProps?.either != null &&
-          !hasBeenConsumed(associatedProps.either)) {
+          !hasBeenConsumed(associatedProps!.either)) {
         consume(associatedProps.either);
         factories.factories.forEach(consume);
         yield PropsMapViewOrFunctionComponentDeclaration(
@@ -281,7 +277,7 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
                 version: version.version,
                 factory: factory,
                 component: component,
-                props: propsClassOrMixin.a,
+                props: propsClassOrMixin.a!,
                 state: stateClassOrMixin?.a);
             break;
           case Version.v4_mixinBased:
@@ -328,10 +324,10 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
   }
 
   for (final group in unusedMembersByName.values) {
-    final factory = group.firstWhereType<BoilerplateFactory>(orElse: () => null);
-    final propsClass = group.firstWhereType<BoilerplateProps>(orElse: () => null);
-    final stateClass = group.firstWhereType<BoilerplateState>(orElse: () => null);
-    final componentClass = group.firstWhereType<BoilerplateComponent>(orElse: () => null);
+    final factory = group.whereType<BoilerplateFactory>().firstOrNull;
+    final propsClass = group.whereType<BoilerplateProps>().firstOrNull;
+    final stateClass = group.whereType<BoilerplateState>().firstOrNull;
+    final componentClass = group.whereType<BoilerplateComponent>().firstOrNull;
 
     //
     // Special cases
@@ -340,7 +336,7 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
         [factory, propsClass, componentClass].whereNotNull().toList();
     if (nonNullFactoryPropsOrComponents.isEmpty) {
       assert(stateClass != null);
-      if (resolveVersion([stateClass]).shouldGenerate) {
+      if (resolveVersion([stateClass!]).shouldGenerate) {
         errorCollector.addError(errorStateOnly, errorCollector.spanFor(stateClass.name));
       }
       continue;
@@ -360,7 +356,7 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
         }
         continue;
       case 2:
-        final span = errorCollector.spanFor((factory ?? propsClass).name);
+        final span = errorCollector.spanFor((factory ?? propsClass)!.name);
         if (factory == null) {
           errorCollector.addError(errorNoFactory, span);
         } else if (propsClass == null) {
@@ -385,19 +381,19 @@ const _ensureMatchingNames = 'If all the correct boilerplate members seem to be 
 
 /// Group [BoilerplateMembers.factories] by type.
 List<FactoryGroup> _groupFactories(BoilerplateMembers members) {
-  var factoriesByType = <String, List<BoilerplateFactory>>{};
+  var factoriesByType = <String?, List<BoilerplateFactory>>{};
 
   for (final factory in members.factories) {
-    final typeString = factory.propsGenericArg.typeNameWithoutPrefix;
+    final typeString = factory.propsGenericArg?.typeNameWithoutPrefix;
     factoriesByType.putIfAbsent(typeString, () => []).add(factory);
   }
 
   final groups = <FactoryGroup>[];
   factoriesByType.forEach((key, value) {
     if (key == null) {
-      groups.addAll(value.map((factory) => FactoryGroup(factories: [factory])));
+      groups.addAll(value.map((factory) => FactoryGroup([factory])));
     } else {
-      groups.add(FactoryGroup(factories: value));
+      groups.add(FactoryGroup(value));
     }
   });
   return groups;

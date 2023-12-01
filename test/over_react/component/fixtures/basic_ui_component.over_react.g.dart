@@ -39,7 +39,7 @@ class BasicUiComponentProps extends _$BasicUiComponentProps
   static const PropsMeta meta = _$metaForBasicUiComponentProps;
 }
 
-_$$BasicUiComponentProps _$BasicUiComponent([Map backingProps]) =>
+_$$BasicUiComponentProps _$BasicUiComponent([Map? backingProps]) =>
     _$$BasicUiComponentProps(backingProps);
 
 // Concrete props implementation.
@@ -50,7 +50,7 @@ class _$$BasicUiComponentProps extends _$BasicUiComponentProps
     implements BasicUiComponentProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$BasicUiComponentProps(Map backingMap) : this._props = {} {
+  _$$BasicUiComponentProps(Map? backingMap) : this._props = {} {
     this._props = backingMap ?? {};
   }
 
@@ -79,7 +79,7 @@ class _$$BasicUiComponentProps extends _$BasicUiComponentProps
 // generated for the associated props class.
 class _$BasicUiComponentComponent extends BasicUiComponentComponent {
   @override
-  _$$BasicUiComponentProps typedPropsFactory(Map backingMap) =>
+  _$$BasicUiComponentProps typedPropsFactory(Map? backingMap) =>
       _$$BasicUiComponentProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.

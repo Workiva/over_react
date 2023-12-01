@@ -55,11 +55,9 @@ export 'component_type_checking.dart' show isComponentOfType, isValidElementOfTy
 ReactDartComponentFactoryProxy registerComponent(react.Component Function() dartComponentFactory, {
     bool isWrapper = false,
     // ignore: deprecated_member_use
-    ReactDartComponentFactoryProxy parentType,
-    UiFactory builderFactory,
-    Type componentClass,
-    @Deprecated('The display name is now set automatically and setting this does nothing')
-    String displayName,
+    ReactDartComponentFactoryProxy? parentType,
+    UiFactory? builderFactory,
+    Type? componentClass,
 }) {
   // ignore: deprecated_member_use
   final reactComponentFactory = react.registerComponent(dartComponentFactory) as ReactDartComponentFactoryProxy;
@@ -81,28 +79,28 @@ ReactDartComponentFactoryProxy registerComponent(react.Component Function() dart
 ///
 /// __Deprecated.__ Use `registerAbstractComponent2` instead. Will be removed in the `4.0.0` release.
 @Deprecated('4.0.0')
-ReactDartComponentFactoryProxy registerAbstractComponent(Type abstractComponentClass, {ReactDartComponentFactoryProxy parentType}) =>
+ReactDartComponentFactoryProxy registerAbstractComponent(Type abstractComponentClass, {ReactDartComponentFactoryProxy? parentType}) =>
     registerComponent(() => DummyComponent(), componentClass: abstractComponentClass, parentType: parentType);
 
 /// A function that returns a new [TProps] instance, optionally backed by the specified [backingProps].
 ///
 /// For use in wrapping existing Maps in typed getters and setters, and for creating React components
 /// via a fluent-style builder interface.
-typedef TProps UiFactory<TProps extends UiProps>([Map backingProps]);
+typedef TProps UiFactory<TProps extends UiProps>([Map? backingProps]);
 
 extension UiFactoryHelpers<TProps extends bh.UiProps> on UiFactory<TProps> {
   /// Generates the configuration necessary to construct a UiFactory while invoking
   /// `uiForwardRef` with a props class that has already been consumed.
   ///
   /// See `uiForwardRef` for examples and context.
-  UiFactoryConfig<TProps> asForwardRefConfig({String displayName}) => UiFactoryConfig(propsFactory: PropsFactory.fromUiFactory(this), displayName: displayName);
+  UiFactoryConfig<TProps> asForwardRefConfig({String? displayName}) => UiFactoryConfig(propsFactory: PropsFactory.fromUiFactory(this), displayName: displayName);
 
   /// The type of the element created by this factory.
   ///
   /// For DOM components, this will be a [String] tagName (e.g., `'div'`, `'a'`).
   ///
   /// For composite components (react-dart or pure JS), this will be a [ReactClass].
-  dynamic get elementType => this().componentFactory.type;
+  dynamic get elementType => this().componentFactory!.type;
 }
 
 /// A utility variation on [UiFactory], __without__ a `backingProps` parameter.
@@ -160,7 +158,7 @@ typedef TProps BuilderOnlyUiFactory<TProps extends UiProps>();
 @Deprecated('4.0.0')
 abstract class UiComponent<TProps extends UiProps> extends react.Component with DisposableManagerProxy {
   /// The props for the non-forwarding props defined in this component.
-  Iterable<ConsumedProps> get consumedProps => null;
+  Iterable<ConsumedProps>? get consumedProps => null;
 
   /// Returns a copy of this component's props with keys found in [consumedProps] omitted.
   ///
@@ -186,7 +184,7 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component with 
 
   /// Returns a copy of this component's props with React props optionally omitted, and
   /// with the specified [keysToOmit] and [keySetsToOmit] omitted.
-  Map copyProps({bool omitReservedReactProps = true, bool onlyCopyDomProps = false, Iterable keysToOmit, Iterable<Iterable> keySetsToOmit}) {
+  Map copyProps({bool omitReservedReactProps = true, bool onlyCopyDomProps = false, Iterable? keysToOmit, Iterable<Iterable>? keySetsToOmit}) {
     return getPropsToForward(this.props,
         omitReactProps: omitReservedReactProps,
         onlyCopyDomProps: onlyCopyDomProps,
@@ -377,29 +375,23 @@ class _WarnOnModify<K, V> extends MapView<K, V> {
   //Used to customize warning based on whether the data is props or state
   bool isProps;
 
-  String message;
-
   _WarnOnModify(Map<K, V> componentData, this.isProps) : super(componentData);
 
   @override
   operator []=(K key, V value) {
-    if (isProps) {
-      message =
-        '''
+    final message = isProps
+        ? '''
           props["$key"] was updated incorrectly. Never mutate this.props directly, as it can cause unexpected behavior;
           props must be updated only by passing in new values when re-rendering this component.
 
           This will throw in UiComponentV2 (to be released as part of the React 16 upgrade).
-        ''';
-    } else {
-      message =
         '''
+        : '''
           state["$key"] was updated incorrectly. Never mutate this.state directly, as it can cause unexpected behavior;
           state must be updated only via setState.
 
           This will throw in UiComponentV2 (to be released as part of the React 16 upgrade).
         ''';
-    }
     super[key] = value;
     ValidationUtil.warn(unindent(message));
   }
@@ -451,7 +443,7 @@ abstract class UiProps extends MapBase
   /// Is a noop if [shouldAdd] is `false` or [propMap] is `null`.
   ///
   /// > Related: [addProp], [modifyProps]
-  void addProps(Map propMap, [bool shouldAdd = true]) {
+  void addProps(Map? propMap, [bool shouldAdd = true]) {
     if (!shouldAdd || propMap == null) return;
 
     this.addAll(propMap);
@@ -462,7 +454,7 @@ abstract class UiProps extends MapBase
   /// Is a noop if [shouldModify] is `false` or [modifier] is `null`.
   ///
   /// > Related: [addProps]
-  void modifyProps(PropsModifier modifier, [bool shouldModify = true]) {
+  void modifyProps(PropsModifier? modifier, [bool shouldModify = true]) {
     if (!shouldModify || modifier == null) return;
 
     modifier(this);
@@ -539,32 +531,32 @@ abstract class UiProps extends MapBase
   /// Allows for an element to have multiple test IDs to prevent overwriting when cloning elements or components.
   ///
   /// > For use in a testing environment (when [testMode] is true).
-  void addTestId(String value, {String key = defaultTestIdKey}) {
+  void addTestId(String? value, {String key = defaultTestIdKey}) {
     if (!_inTestMode || value == null) {
       return;
     }
 
-    String testId = getTestId(key: key);
+    String? testId = getTestId(key: key);
 
     if (testId == null) {
       props[key] = value;
     } else {
-      props[key] = getTestId(key: key) + ' $value';
+      props[key] = getTestId(key: key)! + ' $value';
     }
   }
 
   /// Gets the [defaultTestIdKey] prop value, or one testId from the prop _(or custom [key] prop value)_.
   ///
   /// > For use in a testing environment (when [testMode] is true).
-  String getTestId({String key = defaultTestIdKey}) {
-    return props[key] as String;
+  String? getTestId({String key = defaultTestIdKey}) {
+    return props[key] as String?;
   }
 
   /// Gets the `data-test-id` prop key for use in a testing environment.
   ///
   /// DEPRECATED. Use [getTestId] instead.
   @Deprecated('2.0.0')
-  String get testId {
+  String? get testId {
     return getTestId();
   }
 
@@ -588,7 +580,7 @@ abstract class UiProps extends MapBase
     assert(_validateChildren(children));
 
     _assertComponentFactoryIsNotNull();
-    return componentFactory(props, children) as ReactElement;
+    return componentFactory!(props, children);
   }
 
   /// Creates a new component with this builder's props and the specified [children].
@@ -629,11 +621,17 @@ abstract class UiProps extends MapBase
 
     assert(_validateChildren(childArguments.length == 1 ? childArguments.single : childArguments));
 
+    // FIXME(null-safety) finalize this implementation and add escape-hatch to opt out in FED-1886
+    assert(() {
+      validateRequiredProps();
+      return true;
+    }());
+
     // Use `build` instead of using emulated function behavior to work around DDC issue
     // https://github.com/dart-lang/sdk/issues/29904
     // Should have the benefit of better performance;
     _assertComponentFactoryIsNotNull();
-    return componentFactory.build(props, childArguments) as ReactElement;
+    return componentFactory!.build(props, childArguments);
   }
 
   /// Validates that no [children] are instances of [UiProps], and prints a helpful message for a better debugging
@@ -660,15 +658,28 @@ abstract class UiProps extends MapBase
     return true;
   }
 
-  ReactComponentFactoryProxy componentFactory;
+  /// The react-dart factory associated with this props class's component,
+  /// used to create a [ReactElement] with these props within [build]/[call].
+  ///
+  /// This will only be null for props that can't be invoked, such as props map views, or props for
+  /// abstract components.
+  ReactComponentFactoryProxy? componentFactory;
 
   /// An unmodifiable map view of the default props for this component brought
   /// in from the [componentFactory].
   // ignore: deprecated_member_use
-  Map get componentDefaultProps => componentFactory is ReactDartComponentFactoryProxy
-      // ignore: deprecated_member_use
-      ? (componentFactory as ReactDartComponentFactoryProxy).defaultProps
+  Map get componentDefaultProps {
+    final componentFactory = this.componentFactory;
+    // ignore: deprecated_member_use
+    return componentFactory is ReactDartComponentFactoryProxy
+      ? componentFactory.defaultProps
       : const {};
+  }
+
+  // FIXME(null-safety) document and generate overrides in FED-1886
+  @visibleForOverriding
+  @mustCallSuper
+  void validateRequiredProps() {}
 }
 
 /// A class that declares the `_map` getter shared by [PropsMapViewMixin]/[StateMapViewMixin] and [MapViewMixin].
@@ -721,22 +732,22 @@ abstract class MapViewMixin<K, V> implements _OverReactMapViewBase<K, V>, Map<K,
   @override Iterable<MapEntry<K, V>> get entries => _map.entries;
   @override void addEntries(Iterable<MapEntry<K, V>> newEntries) => _map.addEntries(newEntries);
   @override void removeWhere(bool Function(K key, V value) predicate) => _map.removeWhere(predicate);
-  @override V update(K key, V Function(V value) update, {V Function() ifAbsent}) => _map.update(key, update, ifAbsent: ifAbsent);
+  @override V update(K key, V Function(V value) update, {V Function()? ifAbsent}) => _map.update(key, update, ifAbsent: ifAbsent);
   @override void updateAll(V Function(K key, V value) update) => _map.updateAll(update);
   @override Map<RK, RV> cast<RK, RV>() => _map.cast<RK, RV>();
-  @override V operator [](Object key) => _map[key];
+  @override V? operator [](Object? key) => _map[key];
   @override void operator []=(K key, V value) { _map[key] = value; }
   @override void addAll(Map<K, V> other) { _map.addAll(other); }
   @override void clear() { _map.clear(); }
   @override V putIfAbsent(K key, V Function() ifAbsent) => _map.putIfAbsent(key, ifAbsent);
-  @override bool containsKey(Object key) => _map.containsKey(key);
-  @override bool containsValue(Object value) => _map.containsValue(value);
+  @override bool containsKey(Object? key) => _map.containsKey(key);
+  @override bool containsValue(Object? value) => _map.containsValue(value);
   @override void forEach(void Function(K key, V value) action) { _map.forEach(action); }
   @override bool get isEmpty => _map.isEmpty;
   @override bool get isNotEmpty => _map.isNotEmpty;
   @override int get length => _map.length;
   @override Iterable<K> get keys => _map.keys;
-  @override V remove(Object key) => _map.remove(key);
+  @override V? remove(Object? key) => _map.remove(key);
   @override Iterable<V> get values => _map.values;
 }
 
@@ -785,7 +796,7 @@ class StateDescriptor implements _Descriptor {
   /// The message included in the thrown error if the `state` is not set.
   ///
   /// __Currently not used.__
-  final String errorMessage;
+  final String? errorMessage;
 
   const StateDescriptor(this.key, {this.isRequired = false, this.isNullable = false, this.errorMessage});
 }
@@ -847,7 +858,7 @@ class PropsMeta implements ConsumedProps, AccessorMeta<PropDescriptor> {
   @override
   final List<String> keys;
 
-  const PropsMeta({this.fields, this.keys});
+  const PropsMeta({required this.fields, required this.keys});
 
   /// A convenience constructor to make a metadata object for a single key.
   ///
@@ -907,7 +918,7 @@ class StateMeta implements AccessorMeta<StateDescriptor> {
   @override
   final List<String> keys;
 
-  const StateMeta({this.fields, this.keys});
+  const StateMeta({required this.fields, required this.keys});
 }
 
 abstract class _AccessorMetaCollection<T extends _Descriptor, U extends AccessorMeta<T>> implements AccessorMeta<T> {

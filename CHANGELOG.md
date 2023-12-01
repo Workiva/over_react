@@ -1,5 +1,31 @@
 # OverReact Changelog
 
+## 5.0.0 (unreleased, work in progress)
+- Migrate to null safety
+- Support generating code for null-safe libraries (while retaining support for non-null-safe libraries)
+- Add ability to declare required, optionally-non-nullable props and state fields via `late`
+
+#### Analyzer plugin
+- Add new lint, `over_react_required_prop`
+  - Warns for missing `late` required props
+  - Hints for missing `@requiredProp` required props (these are deprecated in favor of `late`)
+- Reinstate functionality disabled in over_react 4.8.3. Since newer Dart SDKs require sound null safety in analyzer plugins, this code couldn't be run since it depended on over_react code, which was not itself null safe.
+  - Diagnostics (AKA lints)
+    - `over_react_boilerplate_error`, `over_react_boilerplate_warning`
+    - `over_react_incorrect_doc_comment_location`
+  - Assist for toggling class component statefulness
+
+### Breaking changes
+- API removals:
+  - BuiltReduxUiComponent
+  - forwardRef (not to be confused with `uiForwardRef`)
+  - registerComponent and registerComponent2 `displayName` argument
+- The following props classes can no longer be extended or instantiated directly (like most components). To instantiate them, use the factory instead.
+    - FragmentProps
+    - StrictModeProps
+    - ReduxProviderProps (for extension, mix in ReduxProviderPropsMixin instead)
+- `PropsMeta`/`StateMeta` constructor arguments `fields` and `keys` are now required
+ 
 ## [4.10.3](https://github.com/Workiva/over_react/compare/4.10.2...4.10.3)
 - [#846] Update internals to prepare for react-dart 7.0.0
 

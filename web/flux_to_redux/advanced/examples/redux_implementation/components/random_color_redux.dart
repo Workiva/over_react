@@ -42,21 +42,21 @@ UiFactory<RandomColorReduxProps> RandomColorRedux = connect<ReduxState, RandomCo
 )(castUiFactory(_$RandomColorRedux)); // ignore: undefined_identifier
 
 mixin RandomColorReduxPropsMixin on UiProps {
-  String backgroundColor;
+  String? backgroundColor;
 
-  String blockTwoBackgroundColor;
+  String? blockTwoBackgroundColor;
 
-  String blockThreeBackgroundColor;
+  String? blockThreeBackgroundColor;
 
-  String blockOneBackgroundColor;
+  String? blockOneBackgroundColor;
 
-  void Function() changeMainBackgroundColor;
+  void Function()? changeMainBackgroundColor;
 
-  void Function() changeBlockOneBackgroundColor;
+  void Function()? changeBlockOneBackgroundColor;
 
-  void Function() changeBlockTwoBackgroundColor;
+  void Function()? changeBlockTwoBackgroundColor;
 
-  void Function() changeBlockThreeBackgroundColor;
+  void Function()? changeBlockThreeBackgroundColor;
 }
 
 class RandomColorReduxProps = UiProps with RandomColorReduxPropsMixin, ConnectPropsMixin;
@@ -84,25 +84,25 @@ class RandomColorReduxComponent extends UiComponent2<RandomColorReduxProps> {
         )(
           (Dom.button()
             ..onClick = (_) {
-              props.changeMainBackgroundColor();
+              props.changeMainBackgroundColor!();
             }
             ..style = {'padding': '10px', 'margin': '10px'}
           )('Change Main Background Color'),
           (Dom.button()
             ..onClick = (_) {
-              props.changeBlockOneBackgroundColor();
+              props.changeBlockOneBackgroundColor!();
             }
             ..style = {'padding': '10px', 'margin': '10px'}
           )('Change Block 1 Background Color'),
           (Dom.button()
             ..onClick = (_) {
-              props.changeBlockTwoBackgroundColor();
+              props.changeBlockTwoBackgroundColor!();
             }
             ..style = {'padding': '10px', 'margin': '10px'}
           )('Change Block 2 Background Color'),
           (Dom.button()
             ..onClick = (_) {
-              props.changeBlockThreeBackgroundColor();
+              props.changeBlockThreeBackgroundColor!();
             }
             ..style = {'padding': '10px', 'margin': '10px'}
           )('Change Block 3 Background Color'),

@@ -22,7 +22,7 @@ UiFactory<TestPropValidationProps> TestPropValidation = _$TestPropValidation;
 @Props()
 class _$TestPropValidationProps extends FluxUiProps {
   @requiredProp
-  String required;
+  String? required;
 }
 
 @Component2()

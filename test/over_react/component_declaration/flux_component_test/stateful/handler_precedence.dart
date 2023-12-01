@@ -34,17 +34,17 @@ class TestStatefulHandlerPrecedenceComponent extends FluxUiStatefulComponent<Tes
   render() => Dom.div()();
 
   @override
-  redrawOn() => [props.store.store1, props.store.store2];
+  redrawOn() => [props.store!.store1, props.store!.store2];
 
   @override
-  getStoreHandlers() => {props.store.store1: increment};
+  getStoreHandlers() => {props.store!.store1: increment};
 
   increment(Store store) {
     numberOfHandlerCalls += 1;
   }
 
   @override
-  void setState(_, [Function() callback]) {
+  void setState(_, [Function()? callback]) {
     numberOfRedraws++;
     if (callback != null) callback();
   }

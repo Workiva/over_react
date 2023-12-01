@@ -1,9 +1,5 @@
-// Disable null-safety in the plugin entrypoint until all dependencies are null-safe,
-// otherwise tests won't be able to run. See: https://github.com/dart-lang/test#compiler-flags
-// @dart=2.9
 import 'dart:async';
 
-import 'package:meta/meta.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/forward_only_dom_props_to_dom_builders.dart';
 import 'package:test/test.dart';
 import 'package:test_reflective_loader/test_reflective_loader.dart';
@@ -24,7 +20,7 @@ class ForwardOnlyDomPropsToDomBuildersDiagnosticTest extends DiagnosticTestBase 
   @override
   get fixKindUnderTest => ForwardOnlyDomPropsToDomBuildersDiagnostic.fixKind;
 
-  String usageSourceWithinClassComponent({@required bool fixed}) => '''
+  String usageSourceWithinClassComponent({required bool fixed}) => '''
 import 'package:over_react/over_react.dart';
 
 part 'test.over_react.g.dart';
@@ -44,7 +40,7 @@ class DomWrapperComponent extends UiComponent2<DomWrapperProps> {
 }
 ''';
 
-  String usageSourceWithinFnComponent({@required bool fixed}) => '''
+  String usageSourceWithinFnComponent({required bool fixed}) => '''
 import 'package:over_react/over_react.dart';
 
 final DomWrapperFn = uiFunction<UiProps>(

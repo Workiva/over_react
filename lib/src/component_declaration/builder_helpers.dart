@@ -14,14 +14,13 @@
 
 library over_react.component_declaration.builder_helpers;
 
-import '../../component_base.dart';
+import 'package:meta/meta.dart';
 import '../../over_react.dart';
 import './component_base.dart' as component_base;
 import './annotations.dart' as annotations;
 
 export './annotations.dart';
-export './component_base.dart'
-    hide UiComponent, UiStatefulComponent, UiProps, UiState;
+export './component_base.dart' hide UiComponent, UiStatefulComponent, UiProps, UiState;
 
 // ----------------------------------------------------------------------
 //   Base classes to be used by pre-generated code that stub out
@@ -56,7 +55,7 @@ mixin _GeneratedUiComponentStubs<TProps extends UiProps>
   ///
   /// For generated components, this defaults to the keys generated in the associated @[annotations.Props] class
   /// if this getter is not overridden.
-  Iterable<component_base.ConsumedProps> get consumedProps => $defaultConsumedProps;
+  Iterable<component_base.ConsumedProps>? get consumedProps => $defaultConsumedProps;
 
   /// Returns a typed props object backed by the specified [propsMap].
   /// Required to properly instantiate the generic [TProps] class.
@@ -99,7 +98,7 @@ abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiStat
 
   @override
   @toBeGenerated
-  TState typedStateFactory(Map stateMap) => throw UngeneratedError(member: #typedStateFactory,
+  TState typedStateFactory(Map? stateMap) => throw UngeneratedError(member: #typedStateFactory,
       message: GeneratedErrorMessages.typedStateFactory);
 }
 
@@ -120,7 +119,7 @@ abstract class UiProps extends component_base.UiProps with GeneratedClass {
   @Deprecated(
       'Use `UiComponent2.propsMeta` (only available for new mixin-based-boilerplate) instead.'
       ' Will be removed in 4.0.0.')
-  @toBeGenerated String get propKeyNamespace => throw UngeneratedError(member: #propKeyNamespace);
+  @toBeGenerated String? get propKeyNamespace => throw UngeneratedError(member: #propKeyNamespace);
 
   @override @toBeGenerated Map get props => throw UngeneratedError(member: #props);
 
@@ -132,6 +131,72 @@ abstract class UiProps extends component_base.UiProps with GeneratedClass {
   /// This can be used to derive consumed props by usage in conjunction with [addUnconsumedProps]
   /// and [addUnconsumedDomProps].
   @toBeGenerated PropsMetaCollection get staticMeta => throw UngeneratedError(member: #meta);
+
+  @override
+  @visibleForOverriding
+  @mustCallSuper
+  void validateRequiredProps() {
+    super.validateRequiredProps();
+    // This fails when staticMeta isn't generated, so return early for now so tests don't fail.
+    // FIXME(null-safety) generate a static implementation of this instead in FED-1886, and remove this
+    return;
+
+    // ignore: dead_code
+    List<PropDescriptor>? missingRequiredProps;
+    List<PropDescriptor>? nullNonNullableRequiredProps;
+
+    for (final meta in staticMeta.all) {
+      for (final prop in meta.props) {
+        if (prop.isRequired) {
+          if (prop.isNullable) {
+            if (!props.containsKey(prop.key)) {
+              (missingRequiredProps ??= []).add(prop);
+            }
+          } else {
+            // Avoid looking up the key twice.
+            if (props[prop.key] == null) {
+              if (props.containsKey(prop.key)) {
+                (nullNonNullableRequiredProps ??= []).add(prop);
+              } else {
+                (missingRequiredProps ??= []).add(prop);
+              }
+            }
+          }
+        }
+      }
+    }
+
+    if (missingRequiredProps == null && nullNonNullableRequiredProps == null) {
+      return;
+    }
+
+    String formatPropKey(String propKey) => '`$propKey`';
+
+    final messageSegments = <String>[];
+    if (missingRequiredProps != null) {
+      messageSegments.add('Required props are missing: ${missingRequiredProps.map((prop) {
+        var propMessage = formatPropKey(prop.key);
+        if (prop.isNullable) propMessage += ' (can be null, but must be specified)';
+        return propMessage;
+      }).join(' ,')}.');
+    }
+    if (nullNonNullableRequiredProps != null) {
+      messageSegments
+          .add('Required non-nullable props are null: ${nullNonNullableRequiredProps.map((prop) {
+        return formatPropKey(prop.key);
+      }).join(' ,')}.');
+    }
+    throw MissingRequiredPropsError(messageSegments.join(' '));
+  }
+}
+
+class MissingRequiredPropsError extends Error {
+  final String _message;
+
+  MissingRequiredPropsError(this._message);
+
+  @override
+  String toString() => 'RequiredPropsError: $_message';
 }
 
 /// Helper static extension methods to make forwarding props easier.
@@ -178,7 +243,7 @@ extension PropsToForward<T extends UiProps> on T {
   /// To only add DOM props, use the [domOnly] named argument.
   ///
   /// Related: `UiComponent2`'s `addUnconsumedProps`
-  Map getPropsToForward({Set<Type> exclude, bool domOnly = false}) {
+  Map getPropsToForward({Set<Type>? exclude, bool domOnly = false}) {
     return _propsToForward(exclude: exclude, domOnly: domOnly, propsToUpdate: {});
   }
 
@@ -223,13 +288,13 @@ extension PropsToForward<T extends UiProps> on T {
   /// To only add DOM props, use the [domOnly] named argument.
   ///
   /// Related: `UiComponent2`'s `addUnconsumedProps`
-  PropsModifier addPropsToForward({Set<Type> exclude, bool domOnly = false}) {
+  PropsModifier addPropsToForward({Set<Type>? exclude, bool domOnly = false}) {
     return (Map<dynamic, dynamic> props) {
       _propsToForward(exclude: exclude, domOnly: domOnly, propsToUpdate: props);
     };
   }
 
-  Map _propsToForward({Set<Type> exclude, bool domOnly = false, Map propsToUpdate}) {
+  Map _propsToForward({Set<Type>? exclude, bool domOnly = false, required Map propsToUpdate}) {
     Iterable<PropsMeta> consumedProps = [];
     try {
       consumedProps = staticMeta.forMixins(exclude ?? {T}).toList();
@@ -239,7 +304,7 @@ extension PropsToForward<T extends UiProps> on T {
         '\n  ..addAll(props.getPropsToForward(exclude: {${T}Mixin})').message);
       rethrow;
     }
-    final consumedPropKeys = consumedProps?.map((consumedProps) => consumedProps.keys);
+    final consumedPropKeys = consumedProps.map((consumedProps) => consumedProps.keys);
     forwardUnconsumedPropsV2(
       props,
       propsToUpdate: propsToUpdate,
@@ -283,7 +348,7 @@ class _ToBeGenerated {
 class UngeneratedError extends Error implements UnimplementedError {
   @override
   final String message;
-  UngeneratedError({String message, Symbol member}) :
+  UngeneratedError({String? message, Symbol? member}) :
       this.message = '${member != null ? '' : '`$member` should be implemented by code generation.\n\n'}$message';
 
   @override
@@ -295,7 +360,7 @@ class UngeneratedError extends Error implements UnimplementedError {
 /// Thrown when a class is directly instantiated when it should not be.
 class IllegalInstantiationError extends Error {
   final String message;
-  IllegalInstantiationError({String message, Type runtimeType}) :
+  IllegalInstantiationError({String? message, Type? runtimeType}) :
       this.message = message ?? '`$runtimeType` cannot be instantated directly, but only indirectly via the UiFactory';
 
 

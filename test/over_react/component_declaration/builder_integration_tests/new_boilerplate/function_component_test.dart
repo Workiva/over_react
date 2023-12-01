@@ -261,8 +261,8 @@ void functionComponentTestHelper(UiFactory<TestProps> factory,
     const className = 'aClassName';
 
     group('using `addUnconsumedProps`', () {
-      TestProps initialProps;
-      TestProps secondProps;
+      late TestProps initialProps;
+      late TestProps secondProps;
 
       setUp(() {
         initialProps = (factory()
@@ -295,8 +295,8 @@ void functionComponentTestHelper(UiFactory<TestProps> factory,
 
     group('using `addUnconsumedDomProps`', ()
     {
-      TestProps initialProps;
-      TestProps secondProps;
+      late TestProps initialProps;
+      late TestProps secondProps;
 
       setUp(() {
         initialProps = (factory()
@@ -328,10 +328,10 @@ void functionComponentTestHelper(UiFactory<TestProps> factory,
   });
 }
 
-testPropsToForward({UiFactory<TestProps> factory, bool modifyProps = false}) {
+testPropsToForward({required UiFactory<TestProps> factory, bool modifyProps = false}) {
   group(modifyProps ? 'using `modifyProps(props.addPropsToForward)`' : 'using `getPropsToForwardProps`', () {
-      TestProps initialProps;
-      TestPropsMixin secondProps;
+      late TestProps initialProps;
+      late TestPropsMixin secondProps;
       const stringProp = 'stringProp';
       const anotherProp = 'anotherProp';
       const idAttributeValue = 'idAttributeValue';
@@ -424,7 +424,13 @@ testPropsToForward({UiFactory<TestProps> factory, bool modifyProps = false}) {
     });
 }
 
-TestProps _propsToForward<T extends UiProps>({UiFactory<TestProps> factory, T props, bool modifyProps = false, Set<Type> exclude, bool domOnly = false }) {
+TestProps _propsToForward<T extends UiProps>({
+  required UiFactory<TestProps> factory,
+  required T props,
+  bool modifyProps = false,
+  Set<Type>? exclude,
+  bool domOnly = false,
+}) {
   if (modifyProps == true) {
     return factory()..modifyProps(props.addPropsToForward(exclude: exclude, domOnly: domOnly));
   }
@@ -575,7 +581,7 @@ final _Test = uiFunction<TestProps>(
 );
 
 mixin TestPropsMixin on UiProps {
-  String stringProp;
+  String? stringProp;
   dynamic dynamicProp;
   var untypedProp; // ignore: prefer_typing_uninitialized_variables
 
@@ -590,19 +596,19 @@ mixin TestPropsMixin on UiProps {
 }
 
 mixin ASecondPropsMixin on UiProps {
-  String anotherProp;
+  String? anotherProp;
 }
 
 mixin AThirdPropsMixin on UiProps {
-  String aPropsFromAThirdMixin;
+  String? aPropsFromAThirdMixin;
 }
 
 mixin DomAccessorPropsMixin on UiProps {
   @Accessor(key: 'data-random', keyNamespace: '')
-  String aRandomDataAttribute;
+  String? aRandomDataAttribute;
 
   @Accessor(key: 'aria-label', keyNamespace: '')
-  String anAriaLabelAlias;
+  String? anAriaLabelAlias;
 }
 
 class TestProps = UiProps with TestPropsMixin, ASecondPropsMixin, AThirdPropsMixin, DomAccessorPropsMixin;

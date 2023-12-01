@@ -14,10 +14,10 @@ part of 'lazy_load_me_props.dart';
 mixin $LazyLoadMePropsMixin on LazyLoadMePropsMixin {
   static const PropsMeta meta = _$metaForLazyLoadMePropsMixin;
   @override
-  num get initialCount =>
-      (props[_$key__initialCount__LazyLoadMePropsMixin] ?? null) as num;
+  num? get initialCount =>
+      (props[_$key__initialCount__LazyLoadMePropsMixin] ?? null) as num?;
   @override
-  set initialCount(num value) =>
+  set initialCount(num? value) =>
       props[_$key__initialCount__LazyLoadMePropsMixin] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__initialCount__LazyLoadMePropsMixin =
@@ -40,7 +40,7 @@ const PropsMeta _$metaForLazyLoadMePropsMixin = PropsMeta(
   keys: $LazyLoadMePropsMixin.$propKeys,
 );
 
-_$$LazyLoadMePropsMixin _$LazyLoadMePropsMapView([Map backingProps]) =>
+_$$LazyLoadMePropsMixin _$LazyLoadMePropsMapView([Map? backingProps]) =>
     backingProps == null
         ? _$$LazyLoadMePropsMixin$JsMap(JsBackedMap())
         : _$$LazyLoadMePropsMixin(backingProps);
@@ -57,9 +57,9 @@ abstract class _$$LazyLoadMePropsMixin extends UiProps
         $LazyLoadMePropsMixin {
   _$$LazyLoadMePropsMixin._();
 
-  factory _$$LazyLoadMePropsMixin(Map backingMap) {
+  factory _$$LazyLoadMePropsMixin(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$LazyLoadMePropsMixin$JsMap(backingMap as JsBackedMap);
+      return _$$LazyLoadMePropsMixin$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$LazyLoadMePropsMixin$PlainMap(backingMap);
     }
@@ -86,7 +86,7 @@ abstract class _$$LazyLoadMePropsMixin extends UiProps
 class _$$LazyLoadMePropsMixin$PlainMap extends _$$LazyLoadMePropsMixin {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$LazyLoadMePropsMixin$PlainMap(Map backingMap)
+  _$$LazyLoadMePropsMixin$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -105,7 +105,7 @@ class _$$LazyLoadMePropsMixin$PlainMap extends _$$LazyLoadMePropsMixin {
 class _$$LazyLoadMePropsMixin$JsMap extends _$$LazyLoadMePropsMixin {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$LazyLoadMePropsMixin$JsMap(JsBackedMap backingMap)
+  _$$LazyLoadMePropsMixin$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();

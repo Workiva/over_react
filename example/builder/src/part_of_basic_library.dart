@@ -20,16 +20,16 @@ class BasicPartOfLibProps = UiProps with ExamplePropsMixin, BasicPartOfLibPropsM
 class BasicPartOfLibState = UiState with ExampleStateMixin, BasicPartOfLibStateMixin;
 
 mixin BasicPartOfLibPropsMixin on UiProps, ExamplePropsMixin {
-  String basicProp;
-  String basic1;
-  String basic2;
-  String basic3;
-  String basic4;
-  String basic5;
+  String? basicProp;
+  String? basic1;
+  String? basic2;
+  String? basic3;
+  String? basic4;
+  String? basic5;
 }
 
 mixin BasicPartOfLibStateMixin on UiState, ExampleStateMixin {
-  String basicState;
+  String? basicState;
 }
 
 class BasicPartOfLibComponent extends UiStatefulComponent2<BasicPartOfLibProps, BasicPartOfLibState> {

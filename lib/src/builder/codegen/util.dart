@@ -20,11 +20,7 @@ import 'package:source_span/source_span.dart';
 import '../parsing.dart';
 import 'names.dart';
 
-abstract class BoilerplateDeclarationGenerator {
-  SourceFile sourceFile;
-  StringBuffer outputContentsBuffer;
-  Logger logger;
-
+abstract class BoilerplateDeclarationGenerator with TemporaryGenerationContext {
   @protected
   Version get version;
 
@@ -46,16 +42,54 @@ abstract class BoilerplateDeclarationGenerator {
   void generate();
 }
 
+/// Encapsulates context needed for generation which are temporarily stored via class fields
+/// as opposed to being passing around.
+///
+/// TODO after the null safety migration, look into just passing these around to simplify this code.
+///
+/// Since these variables can't be non-nullable, expose non-nullable getters so that we don't have
+/// to use `!` everywhere, and so that we get better error messages if they're ever null.
+mixin TemporaryGenerationContext {
+  SourceFile? _sourceFile;
+  StringBuffer? _outputContentsBuffer;
+  Logger? _logger;
+
+  StateError _uninitializedError(String name) =>
+      StateError('$name is null. setGenerationContext must be called first to initialize it.');
+
+  SourceFile get sourceFile => _sourceFile ?? (throw _uninitializedError('sourceFile'));
+  StringBuffer get outputContentsBuffer => _outputContentsBuffer ?? (throw _uninitializedError('outputContentsBuffer'));
+  Logger get logger => _logger ?? (throw _uninitializedError('logger'));
+
+  /// Populates fields needed temporarily for generation.
+  void setGenerationContext({
+    required SourceFile sourceFile,
+    required StringBuffer outputContentsBuffer,
+    required Logger logger,
+  }) {
+    _sourceFile = sourceFile;
+    _outputContentsBuffer = outputContentsBuffer;
+    _logger = logger;
+  }
+
+  /// Clears fields set in [setGenerationContext].
+  void clearGenerationContext() {
+    _sourceFile = null;
+    _outputContentsBuffer = null;
+    _logger = null;
+  }
+}
+
 String getAccessorKeyNamespace(TypedMapNames names, annotations.TypedMap meta) {
   // Default to the name of the class followed by a period.
   final defaultNamespace = '${names.publicName}.';
   // Allow the consumer to specify a custom namespace that trumps the default.
-  final specifiedKeyNamespace = meta?.keyNamespace;
+  final specifiedKeyNamespace = meta.keyNamespace;
 
   return specifiedKeyNamespace ?? defaultNamespace;
 }
 
-String generatedMixinWarningCommentLine(TypedMapNames mixinNames, {@required bool isProps}) {
+String generatedMixinWarningCommentLine(TypedMapNames mixinNames, {required bool isProps}) {
   final value = '// If this generated mixin is undefined, it\'s likely because'
       ' ${mixinNames.consumerName} is not a valid `mixin`-based ${isProps ? 'props' : 'state'} mixin,'
       ' or because it is but the generated mixin was not imported.'

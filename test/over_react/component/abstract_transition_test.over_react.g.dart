@@ -20,7 +20,7 @@ final $TransitionerComponentFactory = registerComponent2(
   parentType: null,
 );
 
-_$$TransitionerProps _$Transitioner([Map backingProps]) => backingProps == null
+_$$TransitionerProps _$Transitioner([Map? backingProps]) => backingProps == null
     ? _$$TransitionerProps$JsMap(JsBackedMap())
     : _$$TransitionerProps(backingProps);
 
@@ -41,9 +41,9 @@ abstract class _$$TransitionerProps extends UiProps
         TransitionerProps {
   _$$TransitionerProps._();
 
-  factory _$$TransitionerProps(Map backingMap) {
+  factory _$$TransitionerProps(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TransitionerProps$JsMap(backingMap as JsBackedMap);
+      return _$$TransitionerProps$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$TransitionerProps$PlainMap(backingMap);
     }
@@ -77,7 +77,7 @@ abstract class _$$TransitionerProps extends UiProps
 class _$$TransitionerProps$PlainMap extends _$$TransitionerProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TransitionerProps$PlainMap(Map backingMap)
+  _$$TransitionerProps$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -96,7 +96,7 @@ class _$$TransitionerProps$PlainMap extends _$$TransitionerProps {
 class _$$TransitionerProps$JsMap extends _$$TransitionerProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TransitionerProps$JsMap(JsBackedMap backingMap)
+  _$$TransitionerProps$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -122,9 +122,9 @@ abstract class _$$TransitionerState extends UiState
         TransitionerState {
   _$$TransitionerState._();
 
-  factory _$$TransitionerState(Map backingMap) {
+  factory _$$TransitionerState(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TransitionerState$JsMap(backingMap as JsBackedMap);
+      return _$$TransitionerState$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$TransitionerState$PlainMap(backingMap);
     }
@@ -141,7 +141,7 @@ abstract class _$$TransitionerState extends UiState
 class _$$TransitionerState$PlainMap extends _$$TransitionerState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TransitionerState$PlainMap(Map backingMap)
+  _$$TransitionerState$PlainMap(Map? backingMap)
       : this._state = {},
         super._() {
     this._state = backingMap ?? {};
@@ -160,7 +160,7 @@ class _$$TransitionerState$PlainMap extends _$$TransitionerState {
 class _$$TransitionerState$JsMap extends _$$TransitionerState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TransitionerState$JsMap(JsBackedMap backingMap)
+  _$$TransitionerState$JsMap(JsBackedMap? backingMap)
       : this._state = JsBackedMap(),
         super._() {
     this._state = backingMap ?? JsBackedMap();
@@ -179,7 +179,7 @@ class _$$TransitionerState$JsMap extends _$$TransitionerState {
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
 class _$TransitionerComponent extends TransitionerComponent {
-  _$$TransitionerProps$JsMap _cachedTypedProps;
+  late _$$TransitionerProps$JsMap _cachedTypedProps;
 
   @override
   _$$TransitionerProps$JsMap get props => _cachedTypedProps;
@@ -199,14 +199,14 @@ class _$TransitionerComponent extends TransitionerComponent {
   }
 
   @override
-  _$$TransitionerProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
+  _$$TransitionerProps$JsMap typedPropsFactoryJs(JsBackedMap? backingMap) =>
       _$$TransitionerProps$JsMap(backingMap);
 
   @override
-  _$$TransitionerProps typedPropsFactory(Map backingMap) =>
+  _$$TransitionerProps typedPropsFactory(Map? backingMap) =>
       _$$TransitionerProps(backingMap);
 
-  _$$TransitionerState$JsMap _cachedTypedState;
+  late _$$TransitionerState$JsMap _cachedTypedState;
   @override
   _$$TransitionerState$JsMap get state => _cachedTypedState;
 
@@ -221,11 +221,11 @@ class _$TransitionerComponent extends TransitionerComponent {
   }
 
   @override
-  _$$TransitionerState$JsMap typedStateFactoryJs(JsBackedMap backingMap) =>
+  _$$TransitionerState$JsMap typedStateFactoryJs(JsBackedMap? backingMap) =>
       _$$TransitionerState$JsMap(backingMap);
 
   @override
-  _$$TransitionerState typedStateFactory(Map backingMap) =>
+  _$$TransitionerState typedStateFactory(Map? backingMap) =>
       _$$TransitionerState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
@@ -256,69 +256,72 @@ class _$TransitionerComponent extends TransitionerComponent {
 mixin $TransitionerPropsMixin on TransitionerPropsMixin {
   static const PropsMeta meta = _$metaForTransitionerPropsMixin;
   @override
-  Callback get onHandlePreShowing =>
+  Callback? get onHandlePreShowing =>
       (props[_$key__onHandlePreShowing__TransitionerPropsMixin] ?? null)
-          as Callback;
+          as Callback?;
   @override
-  set onHandlePreShowing(Callback value) =>
+  set onHandlePreShowing(Callback? value) =>
       props[_$key__onHandlePreShowing__TransitionerPropsMixin] = value;
   @override
-  Callback get onHandleShowing =>
+  Callback? get onHandleShowing =>
       (props[_$key__onHandleShowing__TransitionerPropsMixin] ?? null)
-          as Callback;
+          as Callback?;
   @override
-  set onHandleShowing(Callback value) =>
+  set onHandleShowing(Callback? value) =>
       props[_$key__onHandleShowing__TransitionerPropsMixin] = value;
   @override
-  Callback get onHandleShown =>
-      (props[_$key__onHandleShown__TransitionerPropsMixin] ?? null) as Callback;
+  Callback? get onHandleShown =>
+      (props[_$key__onHandleShown__TransitionerPropsMixin] ?? null)
+          as Callback?;
   @override
-  set onHandleShown(Callback value) =>
+  set onHandleShown(Callback? value) =>
       props[_$key__onHandleShown__TransitionerPropsMixin] = value;
   @override
-  Callback get onHandleHiding =>
+  Callback? get onHandleHiding =>
       (props[_$key__onHandleHiding__TransitionerPropsMixin] ?? null)
-          as Callback;
+          as Callback?;
   @override
-  set onHandleHiding(Callback value) =>
+  set onHandleHiding(Callback? value) =>
       props[_$key__onHandleHiding__TransitionerPropsMixin] = value;
   @override
-  Callback get onHandleHidden =>
+  Callback? get onHandleHidden =>
       (props[_$key__onHandleHidden__TransitionerPropsMixin] ?? null)
-          as Callback;
+          as Callback?;
   @override
-  set onHandleHidden(Callback value) =>
+  set onHandleHidden(Callback? value) =>
       props[_$key__onHandleHidden__TransitionerPropsMixin] = value;
   @override
-  Callback get onPrepareShow =>
-      (props[_$key__onPrepareShow__TransitionerPropsMixin] ?? null) as Callback;
+  Callback? get onPrepareShow =>
+      (props[_$key__onPrepareShow__TransitionerPropsMixin] ?? null)
+          as Callback?;
   @override
-  set onPrepareShow(Callback value) =>
+  set onPrepareShow(Callback? value) =>
       props[_$key__onPrepareShow__TransitionerPropsMixin] = value;
   @override
-  Callback get onPrepareHide =>
-      (props[_$key__onPrepareHide__TransitionerPropsMixin] ?? null) as Callback;
+  Callback? get onPrepareHide =>
+      (props[_$key__onPrepareHide__TransitionerPropsMixin] ?? null)
+          as Callback?;
   @override
-  set onPrepareHide(Callback value) =>
+  set onPrepareHide(Callback? value) =>
       props[_$key__onPrepareHide__TransitionerPropsMixin] = value;
   @override
-  bool get hasTransition =>
-      (props[_$key__hasTransition__TransitionerPropsMixin] ?? null) as bool;
+  bool? get hasTransition =>
+      (props[_$key__hasTransition__TransitionerPropsMixin] ?? null) as bool?;
   @override
-  set hasTransition(bool value) =>
+  set hasTransition(bool? value) =>
       props[_$key__hasTransition__TransitionerPropsMixin] = value;
   @override
-  bool get initiallyShown =>
-      (props[_$key__initiallyShown__TransitionerPropsMixin] ?? null) as bool;
+  bool? get initiallyShown =>
+      (props[_$key__initiallyShown__TransitionerPropsMixin] ?? null) as bool?;
   @override
-  set initiallyShown(bool value) =>
+  set initiallyShown(bool? value) =>
       props[_$key__initiallyShown__TransitionerPropsMixin] = value;
   @override
-  Duration get transitionTimeout =>
+  Duration? get transitionTimeout =>
       (props[_$key__transitionTimeout__TransitionerPropsMixin] ?? null)
-          as Duration;
+          as Duration?;
   @override
-  set transitionTimeout(Duration value) =>
+  set transitionTimeout(Duration? value) =>
       props[_$key__transitionTimeout__TransitionerPropsMixin] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor

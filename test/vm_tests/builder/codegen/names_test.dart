@@ -19,7 +19,7 @@ import 'package:test/test.dart';
 main() {
   group('boilerplate name utilities -', () {
     group('FactoryNames -', () {
-      FactoryNames names;
+      late FactoryNames names;
 
       group('unprefixed -', () {
         setUp(() {
@@ -47,7 +47,7 @@ main() {
     });
 
     group('ComponentNames -', () {
-      ComponentNames names;
+      late ComponentNames names;
 
       group('unprefixed -', () {
         setUp(() {
@@ -71,7 +71,7 @@ main() {
     });
 
     group('TypedMapNames -', () {
-      TypedMapNames names;
+      late TypedMapNames names;
 
       group('unprefixed,', () {
         group('legacy boilerplate -', () {

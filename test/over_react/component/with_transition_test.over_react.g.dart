@@ -20,7 +20,7 @@ final $WithTransitionTesterComponentFactory = registerComponent2(
   parentType: null,
 );
 
-_$$WithTransitionTesterProps _$WithTransitionTester([Map backingProps]) =>
+_$$WithTransitionTesterProps _$WithTransitionTester([Map? backingProps]) =>
     backingProps == null
         ? _$$WithTransitionTesterProps$JsMap(JsBackedMap())
         : _$$WithTransitionTesterProps(backingProps);
@@ -42,9 +42,9 @@ abstract class _$$WithTransitionTesterProps extends UiProps
         WithTransitionTesterProps {
   _$$WithTransitionTesterProps._();
 
-  factory _$$WithTransitionTesterProps(Map backingMap) {
+  factory _$$WithTransitionTesterProps(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$WithTransitionTesterProps$JsMap(backingMap as JsBackedMap);
+      return _$$WithTransitionTesterProps$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$WithTransitionTesterProps$PlainMap(backingMap);
     }
@@ -79,7 +79,7 @@ class _$$WithTransitionTesterProps$PlainMap
     extends _$$WithTransitionTesterProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$WithTransitionTesterProps$PlainMap(Map backingMap)
+  _$$WithTransitionTesterProps$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -98,7 +98,7 @@ class _$$WithTransitionTesterProps$PlainMap
 class _$$WithTransitionTesterProps$JsMap extends _$$WithTransitionTesterProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$WithTransitionTesterProps$JsMap(JsBackedMap backingMap)
+  _$$WithTransitionTesterProps$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -117,7 +117,7 @@ class _$$WithTransitionTesterProps$JsMap extends _$$WithTransitionTesterProps {
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
 class _$WithTransitionTesterComponent extends WithTransitionTesterComponent {
-  _$$WithTransitionTesterProps$JsMap _cachedTypedProps;
+  late _$$WithTransitionTesterProps$JsMap _cachedTypedProps;
 
   @override
   _$$WithTransitionTesterProps$JsMap get props => _cachedTypedProps;
@@ -138,11 +138,11 @@ class _$WithTransitionTesterComponent extends WithTransitionTesterComponent {
 
   @override
   _$$WithTransitionTesterProps$JsMap typedPropsFactoryJs(
-          JsBackedMap backingMap) =>
+          JsBackedMap? backingMap) =>
       _$$WithTransitionTesterProps$JsMap(backingMap);
 
   @override
-  _$$WithTransitionTesterProps typedPropsFactory(Map backingMap) =>
+  _$$WithTransitionTesterProps typedPropsFactory(Map? backingMap) =>
       _$$WithTransitionTesterProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.

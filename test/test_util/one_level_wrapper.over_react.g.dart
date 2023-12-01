@@ -39,7 +39,7 @@ class OneLevelWrapperProps extends _$OneLevelWrapperProps
   static const PropsMeta meta = _$metaForOneLevelWrapperProps;
 }
 
-_$$OneLevelWrapperProps _$OneLevelWrapper([Map backingProps]) =>
+_$$OneLevelWrapperProps _$OneLevelWrapper([Map? backingProps]) =>
     _$$OneLevelWrapperProps(backingProps);
 
 // Concrete props implementation.
@@ -50,7 +50,7 @@ class _$$OneLevelWrapperProps extends _$OneLevelWrapperProps
     implements OneLevelWrapperProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$OneLevelWrapperProps(Map backingMap) : this._props = {} {
+  _$$OneLevelWrapperProps(Map? backingMap) : this._props = {} {
     this._props = backingMap ?? {};
   }
 
@@ -79,7 +79,7 @@ class _$$OneLevelWrapperProps extends _$OneLevelWrapperProps
 // generated for the associated props class.
 class _$OneLevelWrapperComponent extends OneLevelWrapperComponent {
   @override
-  _$$OneLevelWrapperProps typedPropsFactory(Map backingMap) =>
+  _$$OneLevelWrapperProps typedPropsFactory(Map? backingMap) =>
       _$$OneLevelWrapperProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.

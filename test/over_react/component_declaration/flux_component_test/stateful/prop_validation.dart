@@ -23,7 +23,7 @@ UiFactory<TestStatefulPropValidationProps> TestStatefulPropValidation = _$TestSt
 class _$TestStatefulPropValidationProps extends FluxUiProps implements TestPropValidationProps {
   @override
   @requiredProp
-  String required;
+  String? required;
 }
 
 @State()

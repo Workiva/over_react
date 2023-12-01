@@ -34,3 +34,15 @@ presets:
 
   travis:
     reporter: expanded
+
+tags:
+  # Tests that should only run in DDC (Dart Dev Compiler, AKA dartdevc).
+  ddc: {}
+  # Tests that should only run in dart2js.
+  no-ddc: {}
+  # Tests that can pass in DDC even if something goes wrong;
+  # these tests must be run in dart2js in order to properly validate behavior.
+  ddc-false-positive: {}
+  # Tests that represent a case of undesirable JS interop behavior that's
+  # either unavoidable or exists as a tradeoff for improved behavior in other cases.
+  js-interop-tradeoff: {}

@@ -54,7 +54,7 @@ mixin FluxUiPropsMixin<ActionsT, StoresT> on UiProps implements FluxUiProps<Acti
   /// structure, there may be [Action]s available directly on this object, or
   /// this object may represent a hierarchy of actions.
   @override
-  ActionsT actions;
+  ActionsT? actions;
 
   /// The flux [Store] instance(s) to be used by a [FluxUiComponent2] instance, or a reference to one.
   ///
@@ -71,7 +71,7 @@ mixin FluxUiPropsMixin<ActionsT, StoresT> on UiProps implements FluxUiProps<Acti
   /// Then, you can explicitly select the [Store] instances that should be
   /// listened to by overriding [_FluxComponentMixin.redrawOn].
   @override
-  StoresT store;
+  StoresT? store;
 
   @override
   String get _actionsPropKey {
@@ -106,8 +106,8 @@ abstract class FluxUiProps<ActionsT, StoresT> extends UiProps {
   /// There is no strict rule on the [ActionsT] type. Depending on application
   /// structure, there may be [Action]s available directly on this object, or
   /// this object may represent a hierarchy of actions.
-  ActionsT get actions => props[_actionsPropKey] as ActionsT;
-  set actions(ActionsT value) => props[_actionsPropKey] = value;
+  ActionsT? get actions => props[_actionsPropKey] as ActionsT?;
+  set actions(ActionsT? value) => props[_actionsPropKey] = value;
 
   /// The prop defined by [StoresT].
   ///
@@ -125,8 +125,8 @@ abstract class FluxUiProps<ActionsT, StoresT> extends UiProps {
   /// [StoresT] should be a class that provides access to these multiple stores.
   /// Then, you can explicitly select the [Store] instances that should be
   /// listened to by overriding [_FluxComponentMixin.redrawOn].
-  StoresT get store => props[_storePropKey] as StoresT;
-  set store(StoresT value) => props[_storePropKey] = value;
+  StoresT? get store => props[_storePropKey] as StoresT?;
+  set store(StoresT? value) => props[_storePropKey] = value;
 }
 
 /// Builds on top of [UiComponent], adding w_flux integration, much like the [FluxComponent] in w_flux.
@@ -237,7 +237,7 @@ mixin _FluxComponentMixin<TProps extends FluxUiProps> on component_base.UiCompon
   void _validateStoreDisposalState(Store store) {
     // We need a null-aware here since there are many mocked store classes
     // in the wild that return null for isOrWillBeDisposed.
-    if (store.isOrWillBeDisposed ?? false) {
+    if (store.isOrWillBeDisposed) {
       final componentName = getDebugNameForDartComponent(this);
 
       // Include the component name in the logger name so that:
@@ -321,11 +321,9 @@ mixin _FluxComponentMixin<TProps extends FluxUiProps> on component_base.UiCompon
     shouldBatchRedraw = false;
 
     // Cancel all store subscriptions.
-    _subscriptions.forEach((subscription) {
-      if (subscription != null) {
-        subscription.cancel();
-      }
-    });
+    _subscriptions
+      ..forEach((subscription) => subscription.cancel())
+      ..clear();
   }
 
   /// Define the list of [Store] instances that this component should listen to.

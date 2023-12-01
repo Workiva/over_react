@@ -14,7 +14,7 @@
 
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/token.dart';
-import 'package:collection/collection.dart';
+import 'package:collection/collection.dart' show IterableExtension;
 import 'package:meta/meta.dart';
 import 'package:over_react/src/builder/codegen/names.dart';
 import 'package:over_react/src/component_declaration/annotations.dart' as annotations;
@@ -116,12 +116,12 @@ class BoilerplateMembers {
 
   @protected
   BoilerplateMembers({
-    this.factories,
-    this.props,
-    this.propsMixins,
-    this.components,
-    this.states,
-    this.stateMixins,
+    required this.factories,
+    required this.props,
+    required this.propsMixins,
+    required this.components,
+    required this.states,
+    required this.stateMixins,
   });
 
   @override

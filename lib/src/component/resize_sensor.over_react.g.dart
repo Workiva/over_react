@@ -20,7 +20,7 @@ final $ResizeSensorComponentFactory = registerComponent2(
   parentType: null,
 );
 
-_$$ResizeSensorProps _$ResizeSensor([Map backingProps]) => backingProps == null
+_$$ResizeSensorProps _$ResizeSensor([Map? backingProps]) => backingProps == null
     ? _$$ResizeSensorProps$JsMap(JsBackedMap())
     : _$$ResizeSensorProps(backingProps);
 
@@ -36,9 +36,9 @@ abstract class _$$ResizeSensorProps extends UiProps
         $ResizeSensorProps {
   _$$ResizeSensorProps._();
 
-  factory _$$ResizeSensorProps(Map backingMap) {
+  factory _$$ResizeSensorProps(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$ResizeSensorProps$JsMap(backingMap as JsBackedMap);
+      return _$$ResizeSensorProps$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$ResizeSensorProps$PlainMap(backingMap);
     }
@@ -70,7 +70,7 @@ abstract class _$$ResizeSensorProps extends UiProps
 class _$$ResizeSensorProps$PlainMap extends _$$ResizeSensorProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ResizeSensorProps$PlainMap(Map backingMap)
+  _$$ResizeSensorProps$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -89,7 +89,7 @@ class _$$ResizeSensorProps$PlainMap extends _$$ResizeSensorProps {
 class _$$ResizeSensorProps$JsMap extends _$$ResizeSensorProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ResizeSensorProps$JsMap(JsBackedMap backingMap)
+  _$$ResizeSensorProps$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -108,7 +108,7 @@ class _$$ResizeSensorProps$JsMap extends _$$ResizeSensorProps {
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
 class _$ResizeSensorComponent extends ResizeSensorComponent {
-  _$$ResizeSensorProps$JsMap _cachedTypedProps;
+  late _$$ResizeSensorProps$JsMap _cachedTypedProps;
 
   @override
   _$$ResizeSensorProps$JsMap get props => _cachedTypedProps;
@@ -128,11 +128,11 @@ class _$ResizeSensorComponent extends ResizeSensorComponent {
   }
 
   @override
-  _$$ResizeSensorProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
+  _$$ResizeSensorProps$JsMap typedPropsFactoryJs(JsBackedMap? backingMap) =>
       _$$ResizeSensorProps$JsMap(backingMap);
 
   @override
-  _$$ResizeSensorProps typedPropsFactory(Map backingMap) =>
+  _$$ResizeSensorProps typedPropsFactory(Map? backingMap) =>
       _$$ResizeSensorProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
@@ -161,55 +161,56 @@ class _$ResizeSensorComponent extends ResizeSensorComponent {
 mixin $ResizeSensorProps on ResizeSensorProps {
   static const PropsMeta meta = _$metaForResizeSensorProps;
   @override
-  ResizeSensorHandler get onInitialize =>
+  ResizeSensorHandler? get onInitialize =>
       (props[_$key__onInitialize__ResizeSensorProps] ?? null)
-          as ResizeSensorHandler;
+          as ResizeSensorHandler?;
   @override
-  set onInitialize(ResizeSensorHandler value) =>
+  set onInitialize(ResizeSensorHandler? value) =>
       props[_$key__onInitialize__ResizeSensorProps] = value;
   @override
-  ResizeSensorHandler get onResize =>
+  ResizeSensorHandler? get onResize =>
       (props[_$key__onResize__ResizeSensorProps] ?? null)
-          as ResizeSensorHandler;
+          as ResizeSensorHandler?;
   @override
-  set onResize(ResizeSensorHandler value) =>
+  set onResize(ResizeSensorHandler? value) =>
       props[_$key__onResize__ResizeSensorProps] = value;
   @override
-  bool get isFlexChild =>
-      (props[_$key__isFlexChild__ResizeSensorProps] ?? null) as bool;
+  bool? get isFlexChild =>
+      (props[_$key__isFlexChild__ResizeSensorProps] ?? null) as bool?;
   @override
-  set isFlexChild(bool value) =>
+  set isFlexChild(bool? value) =>
       props[_$key__isFlexChild__ResizeSensorProps] = value;
   @override
-  bool get isFlexContainer =>
-      (props[_$key__isFlexContainer__ResizeSensorProps] ?? null) as bool;
+  bool? get isFlexContainer =>
+      (props[_$key__isFlexContainer__ResizeSensorProps] ?? null) as bool?;
   @override
-  set isFlexContainer(bool value) =>
+  set isFlexContainer(bool? value) =>
       props[_$key__isFlexContainer__ResizeSensorProps] = value;
   @override
-  bool get shrink => (props[_$key__shrink__ResizeSensorProps] ?? null) as bool;
+  bool? get shrink =>
+      (props[_$key__shrink__ResizeSensorProps] ?? null) as bool?;
   @override
-  set shrink(bool value) => props[_$key__shrink__ResizeSensorProps] = value;
+  set shrink(bool? value) => props[_$key__shrink__ResizeSensorProps] = value;
   @override
-  bool get quickMount =>
-      (props[_$key__quickMount__ResizeSensorProps] ?? null) as bool;
+  bool? get quickMount =>
+      (props[_$key__quickMount__ResizeSensorProps] ?? null) as bool?;
   @override
-  set quickMount(bool value) =>
+  set quickMount(bool? value) =>
       props[_$key__quickMount__ResizeSensorProps] = value;
   @override
-  BoolCallback get onDetachedMountCheck =>
+  BoolCallback? get onDetachedMountCheck =>
       (props[_$key__onDetachedMountCheck__ResizeSensorProps] ?? null)
-          as BoolCallback;
+          as BoolCallback?;
   @override
-  set onDetachedMountCheck(BoolCallback value) =>
+  set onDetachedMountCheck(BoolCallback? value) =>
       props[_$key__onDetachedMountCheck__ResizeSensorProps] = value;
   @override
   @visibleForTesting
-  Callback get onDidReset =>
-      (props[_$key__onDidReset__ResizeSensorProps] ?? null) as Callback;
+  Callback? get onDidReset =>
+      (props[_$key__onDidReset__ResizeSensorProps] ?? null) as Callback?;
   @override
   @visibleForTesting
-  set onDidReset(Callback value) =>
+  set onDidReset(Callback? value) =>
       props[_$key__onDidReset__ResizeSensorProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__onInitialize__ResizeSensorProps =

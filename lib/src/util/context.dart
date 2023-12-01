@@ -49,8 +49,8 @@ class Context<TValue> {
   Context(this.Provider, this.Consumer, this.reactDartContext);
 
   factory Context.fromReactDartContext(react.Context<TValue> reactDartContext) {
-    ProviderProps<TValue> Provider([Map map]) => (ProviderProps<TValue>(map as JsBackedMap)..componentFactory = reactDartContext.Provider);
-    ConsumerProps<TValue> Consumer([Map map]) => (ConsumerProps<TValue>(map as JsBackedMap)..componentFactory = reactDartContext.Consumer);
+    ProviderProps<TValue> Provider([Map? map]) => (ProviderProps<TValue>(map as JsBackedMap?)..componentFactory = reactDartContext.Provider);
+    ConsumerProps<TValue> Consumer([Map? map]) => (ConsumerProps<TValue>(map as JsBackedMap?)..componentFactory = reactDartContext.Consumer);
     return Context<TValue>(Provider, Consumer, reactDartContext);
   }
 
@@ -135,11 +135,12 @@ class Context<TValue> {
 ///
 /// See: <https://reactjs.org/docs/context.html#contextprovider>
 class ProviderProps<TValue> extends builder_helpers.UiProps {
-  ProviderProps(JsBackedMap backingMap)
+  ProviderProps(JsBackedMap? backingMap)
       : this._props = JsBackedMap() {
     this._props = backingMap ?? JsBackedMap();
   }
 
+  // FIXME 3.0.0 change this type to Map so the factory works as a MapView
   @override
   JsBackedMap get props => _props;
   JsBackedMap _props;
@@ -150,8 +151,8 @@ class ProviderProps<TValue> extends builder_helpers.UiProps {
   @override
   bool get $isClassGenerated => true;
 
-  TValue get value => props['value'] as TValue;
-  set value(TValue v) => props['value'] = v;
+  TValue? get value => props['value'] as TValue?;
+  set value(TValue? v) => props['value'] = v;
 }
 
 /// [ConsumerProps] is a typed props class for the [Context.Consumer] from a [Context] object created with [createContext].
@@ -161,7 +162,7 @@ class ConsumerProps<TValue> extends builder_helpers.UiProps {
   // Initialize to a JsBackedMap so that copying can be optimized
   // when converting props during ReactElement creation.
   // TODO 3.0.0-wip generate JsBackedMap-based implementation used when no backing map is provided, like we do for Component2
-  ConsumerProps([Map props]) : this.props = props ?? JsBackedMap();
+  ConsumerProps([Map? props]) : this.props = props ?? JsBackedMap();
 
   @override
   final Map props;
@@ -196,8 +197,8 @@ class ConsumerProps<TValue> extends builder_helpers.UiProps {
   /// <https://github.com/dart-lang/sdk/pull/26032> is released.
   @override
   // ignore: invalid_override_different_default_values_positional
-  ReactElement call([covariant dynamic Function(TValue value) c1, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c2 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c3 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c4 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c5 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c6 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c7 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c8 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c9 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c10 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c11 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c12 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c13 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c14 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c15 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c16 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c17 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c18 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c19 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c20 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c21 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c22 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c23 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c24 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c25 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c26 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c27 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c28 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c29 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c30 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c31 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c32 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c33 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c34 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c35 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c36 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c37 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c38 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c39 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c40 = _nope]) {
-    return componentFactory.build(props, c1 != null ? [c1] : []) as ReactElement;
+  ReactElement call([covariant dynamic Function(TValue value)? c1, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c2 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c3 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c4 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c5 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c6 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c7 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c8 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c9 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c10 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c11 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c12 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c13 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c14 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c15 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c16 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c17 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c18 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c19 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c20 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c21 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c22 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c23 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c24 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c25 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c26 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c27 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c28 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c29 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c30 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c31 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c32 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c33 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c34 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c35 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c36 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c37 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c38 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c39 = _nope, covariant _DO_NOT_USE_OR_YOU_WILL_BE_FIRED c40 = _nope]) {
+    return componentFactory!.build(props, c1 != null ? [c1] : []);
   }
 }
 
@@ -250,7 +251,7 @@ class _DO_NOT_USE_OR_YOU_WILL_BE_FIRED {
 ///     }
 ///
 /// Learn more: <https://reactjs.org/docs/context.html#reactcreatecontext>
-Context<TValue> createContext<TValue>([TValue defaultValue, int Function(TValue, TValue) calculateChangedBits]) {
+Context<TValue> createContext<TValue>([TValue? defaultValue, int Function(TValue?, TValue?)? calculateChangedBits]) {
   final reactDartContext = react.createContext<TValue>(defaultValue, calculateChangedBits != null ? (dynamic arg1, dynamic arg2) => calculateChangedBits(arg1 as TValue, arg2 as TValue) : null);
   return Context<TValue>.fromReactDartContext(reactDartContext);
 }

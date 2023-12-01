@@ -30,7 +30,7 @@ class TestBasicComponent extends FluxUiComponent2<TestBasicProps> {
   render() => Dom.div()();
 
   @override
-  void setState(Map _, [Function() callback]) {
+  void setState(Map? _, [Function()? callback]) {
     numberOfRedraws++;
     if (callback != null) callback();
   }

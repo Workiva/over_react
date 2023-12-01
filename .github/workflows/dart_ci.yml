@@ -52,6 +52,10 @@ jobs:
         name: Build generated files / precompile DDC assets
         run: |
           dart run build_runner build --delete-conflicting-outputs -o ddc_precompiled
+        if: always() && steps.install.outcome == 'success'
+
+      - name: Verify that generated files are up-to-date
+        run: |
           if [ ${{ matrix.sdk }} = '2.18.7' ]; then
             git diff --exit-code
           else
@@ -59,7 +63,7 @@ jobs:
             # due to different resolved dependencies.
             git diff --exit-code -- ":(exclude)test/mockito.mocks.dart" ":(exclude)test/over_react/component_declaration/redux_component_test/test_reducer.g.dart"
           fi
-        if: always() && steps.install.outcome == 'success'
+        if: always() && steps.install.outcome == 'success' && steps.install.build == 'success'
 
       # Analyze again after generated files are created to verify that those generated classes don't cause analysis errors
       - name: Analyze project source (post-build)

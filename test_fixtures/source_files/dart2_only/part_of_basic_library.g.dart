@@ -1,3 +1,4 @@
+//@dart=2.11
 // This file should be ignored because of the .g.dart extension.
 
 part of basic.library;

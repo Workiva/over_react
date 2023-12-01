@@ -40,7 +40,7 @@ class TestSubtype2Props extends _$TestSubtype2Props
   static const PropsMeta meta = _$metaForTestSubtype2Props;
 }
 
-_$$TestSubtype2Props _$TestSubtype2([Map backingProps]) => backingProps == null
+_$$TestSubtype2Props _$TestSubtype2([Map? backingProps]) => backingProps == null
     ? _$$TestSubtype2Props$JsMap(JsBackedMap())
     : _$$TestSubtype2Props(backingProps);
 
@@ -52,9 +52,9 @@ abstract class _$$TestSubtype2Props extends _$TestSubtype2Props
     implements TestSubtype2Props {
   _$$TestSubtype2Props._();
 
-  factory _$$TestSubtype2Props(Map backingMap) {
+  factory _$$TestSubtype2Props(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestSubtype2Props$JsMap(backingMap as JsBackedMap);
+      return _$$TestSubtype2Props$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$TestSubtype2Props$PlainMap(backingMap);
     }
@@ -78,7 +78,7 @@ abstract class _$$TestSubtype2Props extends _$TestSubtype2Props
 class _$$TestSubtype2Props$PlainMap extends _$$TestSubtype2Props {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestSubtype2Props$PlainMap(Map backingMap)
+  _$$TestSubtype2Props$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -95,7 +95,7 @@ class _$$TestSubtype2Props$PlainMap extends _$$TestSubtype2Props {
 class _$$TestSubtype2Props$JsMap extends _$$TestSubtype2Props {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestSubtype2Props$JsMap(JsBackedMap backingMap)
+  _$$TestSubtype2Props$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -112,7 +112,7 @@ class _$$TestSubtype2Props$JsMap extends _$$TestSubtype2Props {
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$TestSubtype2Component extends TestSubtype2Component {
-  _$$TestSubtype2Props$JsMap _cachedTypedProps;
+  late _$$TestSubtype2Props$JsMap _cachedTypedProps;
 
   @override
   _$$TestSubtype2Props$JsMap get props => _cachedTypedProps;
@@ -132,11 +132,11 @@ class _$TestSubtype2Component extends TestSubtype2Component {
   }
 
   @override
-  _$$TestSubtype2Props$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
+  _$$TestSubtype2Props$JsMap typedPropsFactoryJs(JsBackedMap? backingMap) =>
       _$$TestSubtype2Props$JsMap(backingMap);
 
   @override
-  _$$TestSubtype2Props typedPropsFactory(Map backingMap) =>
+  _$$TestSubtype2Props typedPropsFactory(Map? backingMap) =>
       _$$TestSubtype2Props(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.

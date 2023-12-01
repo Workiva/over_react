@@ -37,7 +37,7 @@ class _Dummy2Props extends _$_Dummy2Props with _$_Dummy2PropsAccessorsMixin {
   static const PropsMeta meta = _$metaFor_Dummy2Props;
 }
 
-_$$_Dummy2Props _$_Dummy2([Map backingProps]) => backingProps == null
+_$$_Dummy2Props _$_Dummy2([Map? backingProps]) => backingProps == null
     ? _$$_Dummy2Props$JsMap(JsBackedMap())
     : _$$_Dummy2Props(backingProps);
 
@@ -49,9 +49,9 @@ abstract class _$$_Dummy2Props extends _$_Dummy2Props
     implements _Dummy2Props {
   _$$_Dummy2Props._();
 
-  factory _$$_Dummy2Props(Map backingMap) {
+  factory _$$_Dummy2Props(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$_Dummy2Props$JsMap(backingMap as JsBackedMap);
+      return _$$_Dummy2Props$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$_Dummy2Props$PlainMap(backingMap);
     }
@@ -75,7 +75,7 @@ abstract class _$$_Dummy2Props extends _$_Dummy2Props
 class _$$_Dummy2Props$PlainMap extends _$$_Dummy2Props {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$_Dummy2Props$PlainMap(Map backingMap)
+  _$$_Dummy2Props$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -92,7 +92,7 @@ class _$$_Dummy2Props$PlainMap extends _$$_Dummy2Props {
 class _$$_Dummy2Props$JsMap extends _$$_Dummy2Props {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$_Dummy2Props$JsMap(JsBackedMap backingMap)
+  _$$_Dummy2Props$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -109,7 +109,7 @@ class _$$_Dummy2Props$JsMap extends _$$_Dummy2Props {
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$_Dummy2Component extends _Dummy2Component {
-  _$$_Dummy2Props$JsMap _cachedTypedProps;
+  late _$$_Dummy2Props$JsMap _cachedTypedProps;
 
   @override
   _$$_Dummy2Props$JsMap get props => _cachedTypedProps;
@@ -129,11 +129,11 @@ class _$_Dummy2Component extends _Dummy2Component {
   }
 
   @override
-  _$$_Dummy2Props$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
+  _$$_Dummy2Props$JsMap typedPropsFactoryJs(JsBackedMap? backingMap) =>
       _$$_Dummy2Props$JsMap(backingMap);
 
   @override
-  _$$_Dummy2Props typedPropsFactory(Map backingMap) =>
+  _$$_Dummy2Props typedPropsFactory(Map? backingMap) =>
       _$$_Dummy2Props(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
