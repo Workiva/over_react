@@ -48,7 +48,7 @@ var foo = (Dom.div()
     final source = newSource(/*language=dart*/ r'''
       import 'package:over_react/over_react.dart';
 
-      part 'test.over_react.g.dart';
+      part '{{FILE_BASENAME_WITHOUT_EXTENSION}}.over_react.g.dart';
       
       mixin FooState on UiState {
         var foo;
