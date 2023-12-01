@@ -29,8 +29,6 @@ import '../fixtures/flawed_component_that_renders_nothing.dart';
 /// [isWrapper] identifies an ErrorBoundary that wraps another Error Boundary in order to handle
 /// render cycle "unrecoverable" errors.
 void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> builder, { bool isWrapper = false }) {
-  final ErrorBoundaryPropsMapView = ErrorBoundary;
-
   TestJacket<LegacyErrorBoundaryApi>? jacket;
   ReactElement? dummyChild;
 
