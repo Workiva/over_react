@@ -14,7 +14,6 @@
 
 library over_react.component_declaration.builder_helpers;
 
-import 'package:meta/meta.dart';
 import '../../over_react.dart';
 import './component_base.dart' as component_base;
 import './annotations.dart' as annotations;

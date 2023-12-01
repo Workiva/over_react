@@ -89,13 +89,11 @@ class ImplGenerator {
   }
 
   void _generateLegacyAbstractProps(LegacyAbstractPropsDeclaration declaration) {
-    _generateUsing(
-        TypedMapAccessorsGenerator.legacyAbstractProps(declaration, nullSafety: nullSafety));
+    _generateUsing(TypedMapAccessorsGenerator.legacyAbstractProps(declaration, nullSafety: nullSafety));
   }
 
   void _generateLegacyAbstractState(LegacyAbstractStateDeclaration declaration) {
-    _generateUsing(
-        TypedMapAccessorsGenerator.legacyAbstractState(declaration, nullSafety: nullSafety));
+    _generateUsing(TypedMapAccessorsGenerator.legacyAbstractState(declaration, nullSafety: nullSafety));
   }
 
   void _generatePropsMixin(PropsMixinDeclaration declaration) {
@@ -117,7 +115,6 @@ class ImplGenerator {
 
   void _generatePropsMapViewOrFunctionComponent(
       PropsMapViewOrFunctionComponentDeclaration declaration) {
-    _generateUsing(
-        TypedMapImplGenerator.propsMapViewOrFunctionComponent(declaration, nullSafety: nullSafety));
+    _generateUsing(TypedMapImplGenerator.propsMapViewOrFunctionComponent(declaration, nullSafety: nullSafety));
   }
 }
