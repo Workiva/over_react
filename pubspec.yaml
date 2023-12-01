@@ -16,7 +16,7 @@ dependencies:
   logging: ^1.0.0
   meta: ^1.6.0
   path: ^1.5.1
-  react: ^7.0.0
+  react: ^7.0.1
   redux: '>=3.0.0 <6.0.0'
   source_span: ^1.4.1
   transformer_utils: ^0.2.6
