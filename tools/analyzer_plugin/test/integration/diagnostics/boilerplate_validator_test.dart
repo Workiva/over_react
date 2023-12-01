@@ -96,6 +96,8 @@ class BoilerplateValidatorDiagnosticTestUnnecessaryGeneratedPart extends Boilerp
 import 'package:over_react/over_react.dart';
 
 part '{{FILE_BASENAME_WITHOUT_EXTENSION}}.over_react.g.dart';
+
+codeThatDoesNotRequireBoilerplate() => Dom.div()();
 ''';
 
   Future<void> test_error() async {
@@ -126,6 +128,8 @@ part '{{FILE_BASENAME_WITHOUT_EXTENSION}}.over_react.g.dart';
 import 'package:over_react/over_react.dart';
 
 
+
+codeThatDoesNotRequireBoilerplate() => Dom.div()();
 ''');
   }
 }
