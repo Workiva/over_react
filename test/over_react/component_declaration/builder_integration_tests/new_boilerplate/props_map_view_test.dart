@@ -68,10 +68,16 @@ main() {
         expect(Test()..customKeyAndNamespaceProp = 'test',
             containsPair('custom namespace~~custom key!', 'test'));
       });
+    });
 
-      test('returns an empty map for componentDefaultProps', () {
-        expect(Test().componentDefaultProps, equals({}));
-      });
+    test('generates a functional getPropKey implementation', () {
+      expect(Test().getPropKey((p) => p.stringProp), 'TestProps.stringProp');
+      expect(
+          Test().getPropKey((p) => p.customKeyAndNamespaceProp), 'custom namespace~~custom key!');
+    });
+
+    test('generates componentDefaultProps that returns an empty map', () {
+      expect(Test().componentDefaultProps, equals({}));
     });
 
     test('raises an assertion when invoked via call/build, since it has no componentFactory', () {
