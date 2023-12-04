@@ -255,6 +255,12 @@ void functionComponentTestHelper(UiFactory<TestProps> factory,
     });
   });
 
+  test('generates a functional getPropKey implementation', () {
+    expect(factory().getPropKey((p) => p.stringProp), 'TestPropsMixin.stringProp');
+    expect(factory().getPropKey((p) => p.customKeyAndNamespaceProp),
+        'custom namespace~~custom key!');
+  });
+
   group('can pass along unconsumed props', () {
     const stringProp = 'a string';
     const anotherProp = 'this should be filtered';
