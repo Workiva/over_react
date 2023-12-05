@@ -119,28 +119,28 @@ main() {
         await checkBuildForFile(
             'over_react|test_fixtures/source_files/dart2_only/basic.dart',
             'over_react|test_fixtures/source_files/dart2_only/basic.over_react.g.dart',
-            '${p.absolute(p.current)}/test_fixtures/gold_output_files/basic.over_react.g.dart.goldFile');
+            '${p.absolute(p.current)}/test_fixtures/gold_output_files/dart2_only/basic.over_react.g.dart.goldFile');
       });
 
       test('builds from basic multi-part library', () async {
         await checkBuildForFile(
             'over_react|test_fixtures/source_files/dart2_only/basic_library.dart',
             'over_react|test_fixtures/source_files/dart2_only/basic_library.over_react.g.dart',
-            '${p.absolute(p.current)}/test_fixtures/gold_output_files/basic_library.over_react.g.dart.goldFile');
+            '${p.absolute(p.current)}/test_fixtures/gold_output_files/dart2_only/basic_library.over_react.g.dart.goldFile');
       });
 
       test('builds for props mixins', () async {
         await checkBuildForFile(
             'over_react|test_fixtures/source_files/dart2_only/props_mixin.dart',
             'over_react|test_fixtures/source_files/dart2_only/props_mixin.over_react.g.dart',
-            '${p.absolute(p.current)}/test_fixtures/gold_output_files/props_mixin.over_react.g.dart.goldFile');
+            '${p.absolute(p.current)}/test_fixtures/gold_output_files/dart2_only/props_mixin.over_react.g.dart.goldFile');
       });
 
       test('builds for state mixins', () async {
         await checkBuildForFile(
             'over_react|test_fixtures/source_files/dart2_only/state_mixin.dart',
             'over_react|test_fixtures/source_files/dart2_only/state_mixin.over_react.g.dart',
-            '${p.absolute(p.current)}/test_fixtures/gold_output_files/state_mixin.over_react.g.dart.goldFile');
+            '${p.absolute(p.current)}/test_fixtures/gold_output_files/dart2_only/state_mixin.over_react.g.dart.goldFile');
       });
 
       test('does not produce a build output for just a part file', () async {
@@ -167,14 +167,14 @@ main() {
           await checkBuildForFile(
               'over_react|test_fixtures/source_files/dart2_only/component2/basic.dart',
               'over_react|test_fixtures/source_files/dart2_only/component2/basic.over_react.g.dart',
-              '${p.absolute(p.current)}/test_fixtures/gold_output_files/component2/basic.over_react.g.dart.goldFile');
+              '${p.absolute(p.current)}/test_fixtures/gold_output_files/dart2_only/component2/basic.over_react.g.dart.goldFile');
         });
 
         test('builds from basic multi-part library', () async {
           await checkBuildForFile(
               'over_react|test_fixtures/source_files/dart2_only/component2/basic_library.dart',
               'over_react|test_fixtures/source_files/dart2_only/component2/basic_library.over_react.g.dart',
-              '${p.absolute(p.current)}/test_fixtures/gold_output_files/component2/basic_library.over_react.g.dart.goldFile');
+              '${p.absolute(p.current)}/test_fixtures/gold_output_files/dart2_only/component2/basic_library.over_react.g.dart.goldFile');
         });
       });
     });
