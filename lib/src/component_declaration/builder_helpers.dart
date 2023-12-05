@@ -139,6 +139,10 @@ abstract class UiProps extends component_base.UiProps with GeneratedClass {
   /// The base implementation for [UiPropsSelfTypedExtension.getPropKey],
   /// which wraps this with better generic typing, since we can't generically express
   /// the type of the current class in this declaration.
+  ///
+  /// [UiPropsSelfTypedExtension.getPropKey] and thus this method are necessary to be able to
+  /// implement utility methods for safely accessing props, such as
+  /// [UiPropsSelfTypedExtension.getRequiredProp].
   @toBeGenerated
   @visibleForOverriding
   String $getPropKey(void Function(Map m) accessMap) => throw UngeneratedError(member: #$getPropKey);
