@@ -65,6 +65,7 @@ import 'package:over_react_analyzer_plugin/src/diagnostic/invalid_child.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/iterator_key.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/link_target_without_rel.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/missing_cascade_parens.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/nested_components.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/non_defaulted_prop.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/proptypes_return_value.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/pseudo_static_lifecycle.dart';
@@ -145,6 +146,7 @@ mixin OverReactAnalyzerPluginBase
       ),
       NonDefaultedPropDiagnostic(),
       CreateRefUsageDiagnostic(),
+      NestedComponentDiagnostic(),
     ];
   }
 
