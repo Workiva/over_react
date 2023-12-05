@@ -12,10 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// ignore_for_file: deprecated_member_use_from_same_package
-
 @TestOn('browser')
-library over_react.test.null_safe_accessor_integration_test;
+library over_react.test.component2.null_safe_accessor_integration_test;
 
 import 'package:over_react/over_react.dart';
 import 'package:test/test.dart';
@@ -206,8 +204,8 @@ class _$NullSafeTestProps extends UiProps {
   NullableTypedef nullableTypedefWithoutQuestion;
 }
 
-@Component()
-class NullSafeTestComponent extends UiComponent<NullSafeTestProps> {
+@Component2()
+class NullSafeTestComponent extends UiComponent2<NullSafeTestProps> {
   @override
   render() => null;
 }

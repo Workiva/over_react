@@ -12,10 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// ignore_for_file: deprecated_member_use_from_same_package
-
 @TestOn('browser')
-library over_react.test.null_safe_accessor_integration_test;
+library over_react.test.new_boilerplate.null_safe_accessor_integration_test;
 
 import 'package:over_react/over_react.dart';
 import 'package:test/test.dart';
@@ -186,12 +184,9 @@ void main() {
 typedef NullableTypedef = Object?;
 typedef NonNullableTypedef = Object;
 
-@Factory()
-UiFactory<NullSafeTestProps> NullSafeTest =
-    _$NullSafeTest; // ignore: undefined_identifier, invalid_assignment
+UiFactory<NullSafeTestProps> NullSafeTest = uiFunction((props) {}, _$NullSafeTestConfig);
 
-@Props()
-class _$NullSafeTestProps extends UiProps {
+mixin NullSafeTestProps on UiProps {
   late String requiredNonNullable;
   late NonNullableTypedef requiredNonNullableTypedef;
   late String? requiredNullable;
@@ -204,12 +199,6 @@ class _$NullSafeTestProps extends UiProps {
   // ignore: unnecessary_question_mark
   dynamic? nullableDynamicWithQuestion;
   NullableTypedef nullableTypedefWithoutQuestion;
-}
-
-@Component()
-class NullSafeTestComponent extends UiComponent<NullSafeTestProps> {
-  @override
-  render() => null;
 }
 
 extension on TypeMatcher<Object> {

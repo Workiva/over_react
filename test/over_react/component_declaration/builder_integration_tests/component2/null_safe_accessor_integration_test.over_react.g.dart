@@ -10,7 +10,7 @@ part of 'null_safe_accessor_integration_test.dart';
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
-final $NullSafeTestComponentFactory = registerComponent(
+final $NullSafeTestComponentFactory = registerComponent2(
   () => _$NullSafeTestComponent(),
   builderFactory: _$NullSafeTest,
   componentClass: NullSafeTestComponent,
@@ -205,25 +205,25 @@ class NullSafeTestProps extends _$NullSafeTestProps
   static const PropsMeta meta = _$metaForNullSafeTestProps;
 }
 
-_$$NullSafeTestProps _$NullSafeTest([Map? backingProps]) =>
-    _$$NullSafeTestProps(backingProps);
+_$$NullSafeTestProps _$NullSafeTest([Map? backingProps]) => backingProps == null
+    ? _$$NullSafeTestProps$JsMap(JsBackedMap())
+    : _$$NullSafeTestProps(backingProps);
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-class _$$NullSafeTestProps extends _$NullSafeTestProps
+abstract class _$$NullSafeTestProps extends _$NullSafeTestProps
     with _$NullSafeTestPropsAccessorsMixin
     implements NullSafeTestProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$NullSafeTestProps(Map? backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
-  }
+  _$$NullSafeTestProps._();
 
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
+  factory _$$NullSafeTestProps(Map? backingMap) {
+    if (backingMap == null || backingMap is JsBackedMap) {
+      return _$$NullSafeTestProps$JsMap(backingMap as JsBackedMap?);
+    } else {
+      return _$$NullSafeTestProps$PlainMap(backingMap);
+    }
+  }
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -248,11 +248,67 @@ class _$$NullSafeTestProps extends _$NullSafeTestProps
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$NullSafeTestProps = getPropKey;
 
+// Concrete props implementation that can be backed by any [Map].
+class _$$NullSafeTestProps$PlainMap extends _$$NullSafeTestProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$NullSafeTestProps$PlainMap(Map? backingMap)
+      : this._props = {},
+        super._() {
+    this._props = backingMap ?? {};
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
+}
+
+// Concrete props implementation that can only be backed by [JsMap],
+// allowing dart2js to compile more optimal code for key-value pair reads/writes.
+class _$$NullSafeTestProps$JsMap extends _$$NullSafeTestProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$NullSafeTestProps$JsMap(JsBackedMap? backingMap)
+      : this._props = JsBackedMap(),
+        super._() {
+    this._props = backingMap ?? JsBackedMap();
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  JsBackedMap get props => _props;
+  JsBackedMap _props;
+}
+
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$NullSafeTestComponent extends NullSafeTestComponent {
+  late _$$NullSafeTestProps$JsMap _cachedTypedProps;
+
+  @override
+  _$$NullSafeTestProps$JsMap get props => _cachedTypedProps;
+
+  @override
+  set props(Map value) {
+    assert(
+        getBackingMap(value) is JsBackedMap,
+        'Component2.props should never be set directly in '
+        'production. If this is required for testing, the '
+        'component should be rendered within the test. If '
+        'that does not have the necessary result, the last '
+        'resort is to use typedPropsFactoryJs.');
+    super.props = value;
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
+  }
+
+  @override
+  _$$NullSafeTestProps$JsMap typedPropsFactoryJs(JsBackedMap? backingMap) =>
+      _$$NullSafeTestProps$JsMap(backingMap);
+
   @override
   _$$NullSafeTestProps typedPropsFactory(Map? backingMap) =>
       _$$NullSafeTestProps(backingMap);
