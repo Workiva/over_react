@@ -17,6 +17,7 @@ library over_react.test.backwards_compatible.null_safe_accessor_integration_test
 
 import 'package:over_react/over_react.dart';
 import 'package:test/test.dart';
+import 'package:react_testing_library/react_testing_library.dart' as rtl;
 
 part 'null_safe_accessor_integration_test.over_react.g.dart';
 
@@ -179,6 +180,179 @@ void main() {
       });
     });
   });
+
+  group('null-safe state:', () {
+    late NullSafeTestState Function(Map map) typedStateFactory;
+
+    setUpAll(() {
+      final ref = createRef<NullSafeTestComponent>();
+      rtl.render((NullSafeTest()
+        ..ref = ref
+        ..requiredNonNullable = ''
+        ..requiredNonNullableTypedef = ''
+        ..requiredNullable = ''
+        ..requiredNullableTypedefWithoutQuestion = ''
+        ..requiredDynamic = '')());
+      typedStateFactory = ref.current!.typedStateFactory;
+    });
+
+    group('properly reads and writes specified state of different nullabilities and requiredness:',
+        () {
+      void testStateWriteAndRead<T>({
+        required T Function(NullSafeTestState state) readState,
+        required void Function(NullSafeTestState state, T value) writeState,
+        required T testValue,
+      }) {
+        final state = typedStateFactory({});
+
+        expect(() => writeState(state, testValue), returnsNormally,
+            reason: 'should assign the state without error');
+        final stateKey = getPropKey(readState, typedStateFactory);
+        expect(state, {stateKey: testValue}, reason: 'assigning the state should write to the map');
+
+        late final T readResult;
+        expect(() => readResult = readState(state), returnsNormally,
+            reason: 'should read the state without error');
+        expect(readResult, testValue, reason: 'should read the test value from the map');
+      }
+
+      group('required late', () {
+        test('non-nullable', () {
+          testStateWriteAndRead<String>(
+            readState: (p) => p.requiredNonNullable,
+            writeState: (p, value) => p.requiredNonNullable = value,
+            testValue: 'test value',
+          );
+        });
+        test('non-nullable typedef', () {
+          testStateWriteAndRead<NonNullableTypedef>(
+            readState: (p) => p.requiredNonNullableTypedef,
+            writeState: (p, value) => p.requiredNonNullableTypedef = value,
+            testValue: 'test value',
+          );
+        });
+        test('nullable', () {
+          testStateWriteAndRead<String?>(
+            readState: (p) => p.requiredNullable,
+            writeState: (p, value) => p.requiredNullable = value,
+            testValue: 'test value',
+          );
+        });
+        test('nullable typedef, without ? syntax', () {
+          testStateWriteAndRead<NullableTypedef>(
+            readState: (p) => p.requiredNullableTypedefWithoutQuestion,
+            writeState: (p, value) => p.requiredNullableTypedefWithoutQuestion = value,
+            testValue: 'test value',
+          );
+        });
+        test('dynamic', () {
+          testStateWriteAndRead<NullableTypedef>(
+            readState: (p) => p.requiredDynamic,
+            writeState: (p, value) => p.requiredDynamic = value,
+            testValue: 'test value',
+          );
+        });
+      });
+
+      group('optional', () {
+        test('nullable', () {
+          testStateWriteAndRead<String?>(
+            readState: (p) => p.nullable,
+            writeState: (p, value) => p.nullable = value,
+            testValue: 'test value',
+          );
+        });
+        test('nullable dynamic', () {
+          testStateWriteAndRead<dynamic>(
+            readState: (p) => p.nullableDynamic,
+            writeState: (p, value) => p.nullableDynamic = value,
+            testValue: 'test value',
+          );
+        });
+        test('nullable dynamic with extraneous ? syntax', () {
+          testStateWriteAndRead<dynamic>(
+            readState: (p) => p.nullableDynamicWithQuestion,
+            writeState: (p, value) => p.nullableDynamicWithQuestion = value,
+            testValue: 'test value',
+          );
+        });
+        test('nullable typedef, without ? syntax', () {
+          testStateWriteAndRead<NullableTypedef>(
+            readState: (p) => p.nullableTypedefWithoutQuestion,
+            writeState: (p, value) => p.nullableTypedefWithoutQuestion = value,
+            testValue: 'test value',
+          );
+        });
+      });
+    });
+
+    group('results in expected behavior when reading state that are not specified:', () {
+      void expectReadStateThrows<T extends Object>(T Function(NullSafeTestState state) readState) {
+        // We probably don't need to be this specific, but it is nice to verify that
+        // we're getting a null error and not some other unexpected error.
+        //
+        // Since this error message is implemented by the Dart SDK, is different in different compilers,
+        // (DDC: Expected a value of type '$T', but got one of type 'Null')
+        // (dart2js: type 'JSNull' is not a subtype of type '$T')
+        // and may change across SDK versions, let's simulate the expected error instead of hard-coding it.
+        late String expectedErrorMessage;
+        try {
+          (null as dynamic) as T;
+        } catch (e) {
+          expectedErrorMessage = e.toString();
+        }
+        expect(expectedErrorMessage, contains('Null'), reason: 'test setup check');
+
+        final state = typedStateFactory({});
+        expect(() => readState(state),
+            throwsA(isA<TypeError>().havingToStringValue(expectedErrorMessage)));
+      }
+
+      void expectReadStateReturnsNull<T>(T Function(NullSafeTestState state) readState) {
+        final state = typedStateFactory({});
+        expect(() => readState(state), returnsNormally);
+        expect(readState(state), isNull);
+      }
+
+      group('required state:', () {
+        group('throws when reading non-nullable state:', () {
+          test('non-nullable', () {
+            expectReadStateThrows((state) => state.requiredNonNullable);
+          });
+          test('non-nullable typedef', () {
+            expectReadStateThrows((state) => state.requiredNonNullableTypedef);
+          });
+        });
+
+        group('does not throw and just returns null when reading nullable state:', () {
+          test('nullable', () {
+            expectReadStateReturnsNull((state) => state.requiredNullable);
+          });
+          test('nullable typedef, without ? syntax', () {
+            expectReadStateReturnsNull((state) => state.requiredNullableTypedefWithoutQuestion);
+          });
+          test('dynamic', () {
+            expectReadStateReturnsNull((state) => state.requiredDynamic);
+          });
+        });
+      });
+
+      group('optional state: returns null:', () {
+        test('nullable', () {
+          expectReadStateReturnsNull((state) => state.nullable);
+        });
+        test('nullable dynamic', () {
+          expectReadStateReturnsNull((state) => state.nullableDynamic);
+        });
+        test('nullable dynamic with extraneous ? syntax', () {
+          expectReadStateReturnsNull((state) => state.nullableDynamicWithQuestion);
+        });
+        test('nullable typedef, without ? syntax', () {
+          expectReadStateReturnsNull((state) => state.nullableTypedefWithoutQuestion);
+        });
+      });
+    });
+  });
 }
 
 typedef NullableTypedef = Object?;
@@ -204,8 +378,24 @@ class _$NullSafeTestProps extends UiProps {
   NullableTypedef nullableTypedefWithoutQuestion;
 }
 
+@State()
+class _$NullSafeTestState extends UiState {
+  late String requiredNonNullable;
+  late NonNullableTypedef requiredNonNullableTypedef;
+  late String? requiredNullable;
+  late NullableTypedef requiredNullableTypedefWithoutQuestion;
+  late dynamic requiredDynamic;
+
+  String? nullable;
+  dynamic nullableDynamic;
+
+  // ignore: unnecessary_question_mark
+  dynamic? nullableDynamicWithQuestion;
+  NullableTypedef nullableTypedefWithoutQuestion;
+}
+
 @Component2()
-class NullSafeTestComponent extends UiComponent2<NullSafeTestProps> {
+class NullSafeTestComponent extends UiStatefulComponent2<NullSafeTestProps, NullSafeTestState> {
   @override
   render() => null;
 }
@@ -217,6 +407,11 @@ class NullSafeTestProps extends _$NullSafeTestProps
   // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value, invalid_assignment
   static const PropsMeta meta = _$metaForNullSafeTestProps;
 }
+
+class NullSafeTestState extends _$NullSafeTestState
+    with
+        // ignore: undefined_class, mixin_of_non_class
+        _$NullSafeTestStateAccessorsMixin {}
 
 extension on TypeMatcher<Object> {
   Matcher havingToStringValue(dynamic matcher) =>

@@ -281,6 +281,249 @@ class _$$NullSafeTestProps$JsMap extends _$$NullSafeTestProps {
   JsBackedMap _props;
 }
 
+abstract class _$NullSafeTestStateAccessorsMixin
+    implements _$NullSafeTestState {
+  @override
+  Map get state;
+
+  /// <!-- Generated from [_$NullSafeTestState.requiredNonNullable] -->
+  @override
+  String get requiredNonNullable =>
+      (state[_$key__requiredNonNullable___$NullSafeTestState] ?? null)
+          as String;
+
+  /// <!-- Generated from [_$NullSafeTestState.requiredNonNullable] -->
+  @override
+  set requiredNonNullable(String value) =>
+      state[_$key__requiredNonNullable___$NullSafeTestState] = value;
+
+  /// <!-- Generated from [_$NullSafeTestState.requiredNonNullableTypedef] -->
+  @override
+  NonNullableTypedef get requiredNonNullableTypedef =>
+      (state[_$key__requiredNonNullableTypedef___$NullSafeTestState] ?? null)
+          as NonNullableTypedef;
+
+  /// <!-- Generated from [_$NullSafeTestState.requiredNonNullableTypedef] -->
+  @override
+  set requiredNonNullableTypedef(NonNullableTypedef value) =>
+      state[_$key__requiredNonNullableTypedef___$NullSafeTestState] = value;
+
+  /// <!-- Generated from [_$NullSafeTestState.requiredNullable] -->
+  @override
+  String? get requiredNullable =>
+      (state[_$key__requiredNullable___$NullSafeTestState] ?? null) as String?;
+
+  /// <!-- Generated from [_$NullSafeTestState.requiredNullable] -->
+  @override
+  set requiredNullable(String? value) =>
+      state[_$key__requiredNullable___$NullSafeTestState] = value;
+
+  /// <!-- Generated from [_$NullSafeTestState.requiredNullableTypedefWithoutQuestion] -->
+  @override
+  NullableTypedef get requiredNullableTypedefWithoutQuestion => (state[
+          _$key__requiredNullableTypedefWithoutQuestion___$NullSafeTestState] ??
+      null) as NullableTypedef;
+
+  /// <!-- Generated from [_$NullSafeTestState.requiredNullableTypedefWithoutQuestion] -->
+  @override
+  set requiredNullableTypedefWithoutQuestion(NullableTypedef value) => state[
+          _$key__requiredNullableTypedefWithoutQuestion___$NullSafeTestState] =
+      value;
+
+  /// <!-- Generated from [_$NullSafeTestState.requiredDynamic] -->
+  @override
+  dynamic get requiredDynamic =>
+      (state[_$key__requiredDynamic___$NullSafeTestState] ?? null) as dynamic;
+
+  /// <!-- Generated from [_$NullSafeTestState.requiredDynamic] -->
+  @override
+  set requiredDynamic(dynamic value) =>
+      state[_$key__requiredDynamic___$NullSafeTestState] = value;
+
+  /// <!-- Generated from [_$NullSafeTestState.nullable] -->
+  @override
+  String? get nullable =>
+      (state[_$key__nullable___$NullSafeTestState] ?? null) as String?;
+
+  /// <!-- Generated from [_$NullSafeTestState.nullable] -->
+  @override
+  set nullable(String? value) =>
+      state[_$key__nullable___$NullSafeTestState] = value;
+
+  /// <!-- Generated from [_$NullSafeTestState.nullableDynamic] -->
+  @override
+  dynamic get nullableDynamic =>
+      (state[_$key__nullableDynamic___$NullSafeTestState] ?? null) as dynamic;
+
+  /// <!-- Generated from [_$NullSafeTestState.nullableDynamic] -->
+  @override
+  set nullableDynamic(dynamic value) =>
+      state[_$key__nullableDynamic___$NullSafeTestState] = value;
+
+  /// <!-- Generated from [_$NullSafeTestState.nullableDynamicWithQuestion] -->
+  @override
+  dynamic? get nullableDynamicWithQuestion =>
+      (state[_$key__nullableDynamicWithQuestion___$NullSafeTestState] ?? null)
+          as dynamic?;
+
+  /// <!-- Generated from [_$NullSafeTestState.nullableDynamicWithQuestion] -->
+  @override
+  set nullableDynamicWithQuestion(dynamic? value) =>
+      state[_$key__nullableDynamicWithQuestion___$NullSafeTestState] = value;
+
+  /// <!-- Generated from [_$NullSafeTestState.nullableTypedefWithoutQuestion] -->
+  @override
+  NullableTypedef get nullableTypedefWithoutQuestion =>
+      (state[_$key__nullableTypedefWithoutQuestion___$NullSafeTestState] ??
+          null) as NullableTypedef;
+
+  /// <!-- Generated from [_$NullSafeTestState.nullableTypedefWithoutQuestion] -->
+  @override
+  set nullableTypedefWithoutQuestion(NullableTypedef value) =>
+      state[_$key__nullableTypedefWithoutQuestion___$NullSafeTestState] = value;
+  /* GENERATED CONSTANTS */
+  static const StateDescriptor
+      _$prop__requiredNonNullable___$NullSafeTestState = StateDescriptor(
+          _$key__requiredNonNullable___$NullSafeTestState,
+          isRequired: true,
+          isNullable: true);
+  static const StateDescriptor
+      _$prop__requiredNonNullableTypedef___$NullSafeTestState = StateDescriptor(
+          _$key__requiredNonNullableTypedef___$NullSafeTestState,
+          isRequired: true,
+          isNullable: true);
+  static const StateDescriptor _$prop__requiredNullable___$NullSafeTestState =
+      StateDescriptor(_$key__requiredNullable___$NullSafeTestState,
+          isRequired: true, isNullable: true);
+  static const StateDescriptor
+      _$prop__requiredNullableTypedefWithoutQuestion___$NullSafeTestState =
+      StateDescriptor(
+          _$key__requiredNullableTypedefWithoutQuestion___$NullSafeTestState,
+          isRequired: true,
+          isNullable: true);
+  static const StateDescriptor _$prop__requiredDynamic___$NullSafeTestState =
+      StateDescriptor(_$key__requiredDynamic___$NullSafeTestState,
+          isRequired: true, isNullable: true);
+  static const StateDescriptor _$prop__nullable___$NullSafeTestState =
+      StateDescriptor(_$key__nullable___$NullSafeTestState);
+  static const StateDescriptor _$prop__nullableDynamic___$NullSafeTestState =
+      StateDescriptor(_$key__nullableDynamic___$NullSafeTestState);
+  static const StateDescriptor
+      _$prop__nullableDynamicWithQuestion___$NullSafeTestState =
+      StateDescriptor(_$key__nullableDynamicWithQuestion___$NullSafeTestState);
+  static const StateDescriptor
+      _$prop__nullableTypedefWithoutQuestion___$NullSafeTestState =
+      StateDescriptor(
+          _$key__nullableTypedefWithoutQuestion___$NullSafeTestState);
+  static const String _$key__requiredNonNullable___$NullSafeTestState =
+      'NullSafeTestState.requiredNonNullable';
+  static const String _$key__requiredNonNullableTypedef___$NullSafeTestState =
+      'NullSafeTestState.requiredNonNullableTypedef';
+  static const String _$key__requiredNullable___$NullSafeTestState =
+      'NullSafeTestState.requiredNullable';
+  static const String
+      _$key__requiredNullableTypedefWithoutQuestion___$NullSafeTestState =
+      'NullSafeTestState.requiredNullableTypedefWithoutQuestion';
+  static const String _$key__requiredDynamic___$NullSafeTestState =
+      'NullSafeTestState.requiredDynamic';
+  static const String _$key__nullable___$NullSafeTestState =
+      'NullSafeTestState.nullable';
+  static const String _$key__nullableDynamic___$NullSafeTestState =
+      'NullSafeTestState.nullableDynamic';
+  static const String _$key__nullableDynamicWithQuestion___$NullSafeTestState =
+      'NullSafeTestState.nullableDynamicWithQuestion';
+  static const String
+      _$key__nullableTypedefWithoutQuestion___$NullSafeTestState =
+      'NullSafeTestState.nullableTypedefWithoutQuestion';
+
+  static const List<StateDescriptor> $state = [
+    _$prop__requiredNonNullable___$NullSafeTestState,
+    _$prop__requiredNonNullableTypedef___$NullSafeTestState,
+    _$prop__requiredNullable___$NullSafeTestState,
+    _$prop__requiredNullableTypedefWithoutQuestion___$NullSafeTestState,
+    _$prop__requiredDynamic___$NullSafeTestState,
+    _$prop__nullable___$NullSafeTestState,
+    _$prop__nullableDynamic___$NullSafeTestState,
+    _$prop__nullableDynamicWithQuestion___$NullSafeTestState,
+    _$prop__nullableTypedefWithoutQuestion___$NullSafeTestState
+  ];
+  static const List<String> $stateKeys = [
+    _$key__requiredNonNullable___$NullSafeTestState,
+    _$key__requiredNonNullableTypedef___$NullSafeTestState,
+    _$key__requiredNullable___$NullSafeTestState,
+    _$key__requiredNullableTypedefWithoutQuestion___$NullSafeTestState,
+    _$key__requiredDynamic___$NullSafeTestState,
+    _$key__nullable___$NullSafeTestState,
+    _$key__nullableDynamic___$NullSafeTestState,
+    _$key__nullableDynamicWithQuestion___$NullSafeTestState,
+    _$key__nullableTypedefWithoutQuestion___$NullSafeTestState
+  ];
+}
+
+const StateMeta _$metaForNullSafeTestState = StateMeta(
+  fields: _$NullSafeTestStateAccessorsMixin.$state,
+  keys: _$NullSafeTestStateAccessorsMixin.$stateKeys,
+);
+
+class NullSafeTestState extends _$NullSafeTestState
+    with _$NullSafeTestStateAccessorsMixin {
+  static const StateMeta meta = _$metaForNullSafeTestState;
+}
+
+// Concrete state implementation.
+//
+// Implements constructor and backing map.
+abstract class _$$NullSafeTestState extends _$NullSafeTestState
+    with _$NullSafeTestStateAccessorsMixin
+    implements NullSafeTestState {
+  _$$NullSafeTestState._();
+
+  factory _$$NullSafeTestState(Map? backingMap) {
+    if (backingMap == null || backingMap is JsBackedMap) {
+      return _$$NullSafeTestState$JsMap(backingMap as JsBackedMap?);
+    } else {
+      return _$$NullSafeTestState$PlainMap(backingMap);
+    }
+  }
+
+  /// Let `UiState` internals know that this class has been generated.
+  @override
+  bool get $isClassGenerated => true;
+}
+
+// Concrete state implementation that can be backed by any [Map].
+class _$$NullSafeTestState$PlainMap extends _$$NullSafeTestState {
+  // This initializer of `_state` to an empty map, as well as the reassignment
+  // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$NullSafeTestState$PlainMap(Map? backingMap)
+      : this._state = {},
+        super._() {
+    this._state = backingMap ?? {};
+  }
+
+  /// The backing state map proxied by this class.
+  @override
+  Map get state => _state;
+  Map _state;
+}
+
+// Concrete state implementation that can only be backed by [JsMap],
+// allowing dart2js to compile more optimal code for key-value pair reads/writes.
+class _$$NullSafeTestState$JsMap extends _$$NullSafeTestState {
+  // This initializer of `_state` to an empty map, as well as the reassignment
+  // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$NullSafeTestState$JsMap(JsBackedMap? backingMap)
+      : this._state = JsBackedMap(),
+        super._() {
+    this._state = backingMap ?? JsBackedMap();
+  }
+
+  /// The backing state map proxied by this class.
+  @override
+  JsBackedMap get state => _state;
+  JsBackedMap _state;
+}
+
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
@@ -312,6 +555,28 @@ class _$NullSafeTestComponent extends NullSafeTestComponent {
   @override
   _$$NullSafeTestProps typedPropsFactory(Map? backingMap) =>
       _$$NullSafeTestProps(backingMap);
+
+  late _$$NullSafeTestState$JsMap _cachedTypedState;
+  @override
+  _$$NullSafeTestState$JsMap get state => _cachedTypedState;
+
+  @override
+  set state(Map value) {
+    assert(
+        value is JsBackedMap,
+        'Component2.state should only be set via '
+        'initialState or setState.');
+    super.state = value;
+    _cachedTypedState = typedStateFactoryJs(value as JsBackedMap);
+  }
+
+  @override
+  _$$NullSafeTestState$JsMap typedStateFactoryJs(JsBackedMap? backingMap) =>
+      _$$NullSafeTestState$JsMap(backingMap);
+
+  @override
+  _$$NullSafeTestState typedStateFactory(Map? backingMap) =>
+      _$$NullSafeTestState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
