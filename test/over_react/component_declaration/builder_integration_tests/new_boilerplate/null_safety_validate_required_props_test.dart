@@ -27,7 +27,7 @@ void main() {
         test('on mount', () {
           expect(() {
             rtl.render((ComponentTest()
-              ..requiredDynamic = true
+
               ..requiredNullable = true
             )());
           },
@@ -44,14 +44,13 @@ void main() {
           expect(() {
             view = rtl.render((ComponentTest()
               ..requiredNonNullable = true
-              ..requiredDynamic = true
               ..requiredNullable = true
             )());
           }, returnsNormally);
 
           expect(() {
             view.rerender((ComponentTest()
-              ..requiredDynamic = true
+
               ..requiredNullable = true
             )());
           },
@@ -67,7 +66,6 @@ void main() {
         expect(() {
           rtl.render((ComponentTest()
             ..requiredNonNullable = true
-            ..requiredDynamic = true
             ..requiredNullable = true
           )());
         }, returnsNormally);
@@ -79,7 +77,7 @@ void main() {
         test('on mount', () {
           expect(() {
             rtl.render((ComponentTest()
-              ..requiredDynamic = true
+
               ..requiredNonNullable = true
             )());
           },
@@ -95,14 +93,13 @@ void main() {
           expect(() {
             view = rtl.render((ComponentTest()
               ..requiredNonNullable = true
-              ..requiredDynamic = true
               ..requiredNullable = true
             )());
           }, returnsNormally);
 
           expect(() {
             view.rerender((ComponentTest()
-              ..requiredDynamic = true
+
               ..requiredNonNullable = true
             )());
           },
@@ -117,7 +114,6 @@ void main() {
         expect(() {
           rtl.render((ComponentTest()
             ..requiredNonNullable = true
-            ..requiredDynamic = true
             ..requiredNullable = null
           )());
         }, returnsNormally);
@@ -127,7 +123,6 @@ void main() {
         expect(() {
           rtl.render((ComponentTest()
             ..requiredNonNullable = true
-            ..requiredDynamic = true
             ..requiredNullable = true
           )());
         }, returnsNormally);
@@ -138,7 +133,6 @@ void main() {
       expect(() {
         rtl.render((ComponentTest()
           ..requiredNonNullable = true
-          ..requiredDynamic = true
           ..requiredNullable = true
         )());
       }, allOf(returnsNormally,
@@ -173,9 +167,6 @@ mixin ComponentTestProps on UiProps {
 
   late bool? requiredNullable;
 
-  // todo is this necessary?
-  late dynamic requiredDynamic;
-
   @disableRequiredPropValidation
   late bool disabledRequiredProp;
 
@@ -190,8 +181,6 @@ mixin ComponentTestProps on UiProps {
 }
 
 class ComponentTestComponent extends UiComponent2<ComponentTestProps> {
-  // todo test default props
-  // todo test other boilerplates
   @override
   render() => Dom.div()();
 }

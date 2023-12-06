@@ -43,16 +43,6 @@ abstract class _$ComponentTestPropsAccessorsMixin
   set requiredNullable(bool? value) =>
       props[_$key__requiredNullable___$ComponentTestProps] = value;
 
-  /// <!-- Generated from [_$ComponentTestProps.requiredDynamic] -->
-  @override
-  dynamic get requiredDynamic =>
-      (props[_$key__requiredDynamic___$ComponentTestProps] ?? null) as dynamic;
-
-  /// <!-- Generated from [_$ComponentTestProps.requiredDynamic] -->
-  @override
-  set requiredDynamic(dynamic value) =>
-      props[_$key__requiredDynamic___$ComponentTestProps] = value;
-
   /// <!-- Generated from [_$ComponentTestProps.disabledRequiredProp] -->
   @override
   @disableRequiredPropValidation
@@ -110,9 +100,6 @@ abstract class _$ComponentTestPropsAccessorsMixin
   static const PropDescriptor _$prop__requiredNullable___$ComponentTestProps =
       PropDescriptor(_$key__requiredNullable___$ComponentTestProps,
           isRequired: true, isNullable: true);
-  static const PropDescriptor _$prop__requiredDynamic___$ComponentTestProps =
-      PropDescriptor(_$key__requiredDynamic___$ComponentTestProps,
-          isRequired: true, isNullable: true);
   static const PropDescriptor
       _$prop__disabledRequiredProp___$ComponentTestProps = PropDescriptor(
           _$key__disabledRequiredProp___$ComponentTestProps,
@@ -131,8 +118,6 @@ abstract class _$ComponentTestPropsAccessorsMixin
       'ComponentTestProps.requiredNonNullable';
   static const String _$key__requiredNullable___$ComponentTestProps =
       'ComponentTestProps.requiredNullable';
-  static const String _$key__requiredDynamic___$ComponentTestProps =
-      'ComponentTestProps.requiredDynamic';
   static const String _$key__disabledRequiredProp___$ComponentTestProps =
       'ComponentTestProps.disabledRequiredProp';
   static const String
@@ -146,7 +131,6 @@ abstract class _$ComponentTestPropsAccessorsMixin
   static const List<PropDescriptor> $props = [
     _$prop__requiredNonNullable___$ComponentTestProps,
     _$prop__requiredNullable___$ComponentTestProps,
-    _$prop__requiredDynamic___$ComponentTestProps,
     _$prop__disabledRequiredProp___$ComponentTestProps,
     _$prop__disabledNullableRequiredProp___$ComponentTestProps,
     _$prop__ref___$ComponentTestProps,
@@ -155,7 +139,6 @@ abstract class _$ComponentTestPropsAccessorsMixin
   static const List<String> $propKeys = [
     _$key__requiredNonNullable___$ComponentTestProps,
     _$key__requiredNullable___$ComponentTestProps,
-    _$key__requiredDynamic___$ComponentTestProps,
     _$key__disabledRequiredProp___$ComponentTestProps,
     _$key__disabledNullableRequiredProp___$ComponentTestProps,
     _$key__ref___$ComponentTestProps,
@@ -173,11 +156,6 @@ abstract class _$ComponentTestPropsAccessorsMixin
     if (!props.containsKey('ComponentTestProps.requiredNullable')) {
       throw MissingRequiredPropsError(
           'Required prop `requiredNullable` is missing.');
-    }
-
-    if (!props.containsKey('ComponentTestProps.requiredDynamic')) {
-      throw MissingRequiredPropsError(
-          'Required prop `requiredDynamic` is missing.');
     }
   }
 }

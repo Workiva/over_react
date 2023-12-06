@@ -25,7 +25,6 @@ void main() {
         test('on mount', () {
           expect(() {
             rtl.render((ComponentTest()
-              ..requiredDynamic = true
               ..requiredNullable = true
             )());
           },
@@ -42,14 +41,12 @@ void main() {
           expect(() {
             view = rtl.render((ComponentTest()
               ..requiredNonNullable = true
-              ..requiredDynamic = true
               ..requiredNullable = true
             )());
           }, returnsNormally);
 
           expect(() {
             view.rerender((ComponentTest()
-              ..requiredDynamic = true
               ..requiredNullable = true
             )());
           },
@@ -65,7 +62,6 @@ void main() {
         expect(() {
           rtl.render((ComponentTest()
             ..requiredNonNullable = true
-            ..requiredDynamic = true
             ..requiredNullable = true
           )());
         }, returnsNormally);
@@ -77,7 +73,6 @@ void main() {
         test('on mount', () {
           expect(() {
             rtl.render((ComponentTest()
-              ..requiredDynamic = true
               ..requiredNonNullable = true
             )());
           },
@@ -93,14 +88,12 @@ void main() {
           expect(() {
             view = rtl.render((ComponentTest()
               ..requiredNonNullable = true
-              ..requiredDynamic = true
               ..requiredNullable = true
             )());
           }, returnsNormally);
 
           expect(() {
             view.rerender((ComponentTest()
-              ..requiredDynamic = true
               ..requiredNonNullable = true
             )());
           },
@@ -115,7 +108,6 @@ void main() {
         expect(() {
           rtl.render((ComponentTest()
             ..requiredNonNullable = true
-            ..requiredDynamic = true
             ..requiredNullable = null
           )());
         }, returnsNormally);
@@ -125,7 +117,6 @@ void main() {
         expect(() {
           rtl.render((ComponentTest()
             ..requiredNonNullable = true
-            ..requiredDynamic = true
             ..requiredNullable = true
           )());
         }, returnsNormally);
@@ -145,9 +136,6 @@ class _$ComponentTestProps extends UiProps {
   late bool requiredNonNullable;
 
   late bool? requiredNullable;
-
-  // todo is this necessary?
-  late dynamic requiredDynamic;
 
   bool? nullable;
 }

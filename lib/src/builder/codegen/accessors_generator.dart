@@ -204,7 +204,6 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
           isRequired = true;
           isPotentiallyNullable = true;
 
-          // todo sydney add key namespace test
           if (type.isProps && disableRequiredPropValidation == null) {
             requiredPropChecks.add('  if(!props.containsKey($keyValue)) {\n'
                 '  throw MissingRequiredPropsError(\'Required prop `$accessorName` is missing.\');\n'
