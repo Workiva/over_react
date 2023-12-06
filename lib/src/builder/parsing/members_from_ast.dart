@@ -264,13 +264,13 @@ class _BoilerplateMemberDetector {
           return true;
 
         case 'PropsMixin':
-          onPropsMixin(BoilerplatePropsMixin(classish, companion,
-              _annotatedPropsOrStateMixinConfidence(classish, companion)));
+          onPropsMixin(BoilerplatePropsMixin(
+              classish, companion, _annotatedPropsOrStateMixinConfidence(classish, companion)));
           return true;
 
         case 'StateMixin':
-          onStateMixin(BoilerplateStateMixin(classish, companion,
-              _annotatedPropsOrStateMixinConfidence(classish, companion)));
+          onStateMixin(BoilerplateStateMixin(
+              classish, companion, _annotatedPropsOrStateMixinConfidence(classish, companion)));
           return true;
 
         case 'Component':
