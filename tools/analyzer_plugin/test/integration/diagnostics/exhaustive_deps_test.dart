@@ -20,7 +20,7 @@ import 'exhaustive_deps_test_cases.dart' as test_cases;
 
 void main() {
   group('ExhaustiveDeps', () {
-    const preamble = r'''
+    String getPreamble([String fileName = 'test.dart']) => '''
 // ignore_for_file: unused_import, unused_local_variable
     
 import 'dart:html';
@@ -28,7 +28,7 @@ import 'dart:html';
 import 'package:over_react/over_react.dart';
 import 'package:over_react/over_react.dart' as over_react;
 
-part 'test.over_react.g.dart';
+part '${fileName.replaceFirst('.dart', '.over_react.g.dart')}';
 
 // Implement APIs not defined in MockSdk
 dynamic window;
@@ -147,7 +147,9 @@ class ObjectWithWritableField {
               printOnFailure('Test case source (before adding preamble): ```\n${testCase.code}\n```');
 
               final testBase = await setUpTestBase(testCase);
-              final source = testBase.newSource(preamble + testCase.code);
+
+              final fileName = testBase.uniqueSourceFileName();
+              final source = testBase.newSource(getPreamble(fileName) + testCase.code, path: fileName);
               await testBase.expectNoErrors(source, errorFilter: errorFilter);
             });
           });
@@ -166,7 +168,10 @@ class ObjectWithWritableField {
               final expectedErrors = testCase.errors;
               expect(expectedErrors, isNotEmpty);
 
-              final source = testBase.newSource(preamble + testCase.code);
+
+              final fileName = testBase.uniqueSourceFileName();
+              final preamble = getPreamble(fileName);
+              final source = testBase.newSource(preamble + testCase.code, path: fileName);
               final errors = await testBase.getAllErrors(source, includeOtherCodes: true, errorFilter: errorFilter);
               expect(errors.dartErrors, isEmpty,
                   reason: 'Expected there to be no errors coming from the analyzer and not the plugin.'

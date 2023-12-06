@@ -33,14 +33,29 @@ abstract class AnalysisDriverTestBase {
   /// Creates the file at [path] if it's non-null, and otherwise uses a new, unique path.
   ///
   /// If provided, [path] must be relative, and also must be unique so that it
-  /// doesn't conflict with paths created by other tests using the same [sharedContext]
+  /// doesn't conflict with paths created by other tests using the same [sharedContext].
+  ///
+  /// For convenience [substituteSource] will be applied to [contents] first.
   Source newSource(String contents, {String? path}) {
     if (path != null && p.isAbsolute(path)) {
       throw ArgumentError.value(path, 'path', 'must be a relative path');
     }
+    path ??= uniqueSourceFileName();
+    contents = substituteSource(contents, path: path);
     final testFilePath = sharedContext.createTestFile(contents, filename: path);
     return resourceProvider.getFile(testFilePath).createSource();
   }
+
+  /// Returns [contents] with the following mustache-like templates substituted:
+  ///
+  /// - `{{FILE_BASENAME_WITHOUT_EXTENSION}}` - the filename without any extension.
+  ///   Useful for creating sources that reference generated parts that are based on auto-generated unique filenames.
+  String substituteSource(String contents, {required String path}) {
+    return contents.replaceAll(RegExp(r'{{\s*FILE_BASENAME_WITHOUT_EXTENSION\s*}}'), p.basenameWithoutExtension(path));
+  }
+
+  /// Returns a new unique filename that can be used as a path in [newSource].
+  String uniqueSourceFileName() => sharedContext.nextFilename();
 
   void modifyFile(String path, String contents) {
     resourceProvider.getFile(path).writeAsStringSync(contents);
