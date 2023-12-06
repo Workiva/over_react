@@ -1,4 +1,5 @@
 import 'package:over_react/src/component_declaration/builder_helpers.dart';
+import 'package:over_react/src/util/prop_key_util.dart' as prop_key_util;
 
 /// Extension with methods whose typings rely on the current type [T].
 extension UiPropsSelfTypedExtension<T extends UiProps> on T {
@@ -19,6 +20,19 @@ extension UiPropsSelfTypedExtension<T extends UiProps> on T {
   ///   props.getPropKey((p) => p.bar);     // 'BarPropsMixin.bar'
   ///   props.getPropKey((p) => p.onClick); // 'onClick'
   /// }
+  /// ```
+  ///
+  /// Similar to the top-level [prop_key_util.getPropKey] utility, but can be done on an existing
+  /// props object as opposed to needing to pass in the factory, and has better generic inference
+  /// before 2.18.
+  ///
+  /// ```dart
+  /// // Top-level method
+  /// getPropKey<FooProps>((p) => p.foo, Foo);
+  ///
+  /// // This utility:
+  /// props.getPropKey((p) => p.foo);
+  /// ```
   String getPropKey(void Function(T) accessProp) =>
       // ignore: invalid_use_of_visible_for_overriding_member
       $getPropKey((map) => accessProp(map as T));
@@ -59,8 +73,29 @@ extension UiPropsSelfTypedExtension<T extends UiProps> on T {
   ///       props.getRequiredProp((p) => p.requiredProp, () => 'default value');
   /// }
   /// ```
-  V getRequiredProp<V>(V Function(T spiedView) accessProp, {required V Function() orElse}) =>
-      containsProp(accessProp) ? accessProp(this) : orElse();
+  V getRequiredProp<V>(V Function(T spiedView) accessProp, {required V Function() orElse}) {
+    if (!containsProp(accessProp)) return orElse();
+
+    // Provide a more helpful error when a non-nullable prop is specified with `null` somehow.
+    assert(() {
+      try {
+        accessProp(this);
+      } on TypeError catch (_) {
+        final key = getPropKey(accessProp);
+        final value = this[key];
+        if (value == null && value is! V) {
+          throw AssertionError(
+              'Expected value to be non-nullable type `$V`, but got `null`'
+              ' due to props map containing explicit `null` value:'
+              ' `"$key": null`');
+        }
+        rethrow;
+      }
+      return true;
+    }());
+
+    return accessProp(this);
+  }
 
   /// Returns the value of the prop read within [accessProp] if it's specified, or null otherwise.
   ///
