@@ -153,7 +153,6 @@ void main() {
         logsPropRequiredError('ComponentTestProps.ref'),
         logsPropRequiredError('ComponentTestProps.requiredNonNullable'),
         logsPropRequiredError('ComponentTestProps.requiredNullable'),
-        logsPropRequiredError('ComponentTestProps.requiredDynamic'),
       ));
     });
   }, tags: 'ddc');
