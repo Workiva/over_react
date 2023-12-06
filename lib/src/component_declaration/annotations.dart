@@ -384,7 +384,7 @@ abstract class TypedMap {
   String? get keyNamespace;
 }
 
-// todo add doc comment
+/// Prevents required prop validation from being performed on a prop.
 const _DisableRequiredPropValidation disableRequiredPropValidation = _DisableRequiredPropValidation();
 
 class _DisableRequiredPropValidation {

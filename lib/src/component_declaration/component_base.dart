@@ -621,12 +621,10 @@ abstract class UiProps extends MapBase
 
     assert(_validateChildren(childArguments.length == 1 ? childArguments.single : childArguments));
 
-    // FIXME(null-safety) finalize this implementation and add escape-hatch to opt out in FED-1886
-    // todo find out about assert vs devMode
       assert(() {
-    if(_shouldValidateRequiredProps) {
-        validateRequiredProps();
-    }
+        if(_shouldValidateRequiredProps) {
+            validateRequiredProps();
+        }
         return true;
       }());
 
@@ -679,8 +677,9 @@ abstract class UiProps extends MapBase
       : const {};
   }
 
-  // FIXME(null-safety) document and generate overrides in FED-1886
-  // todo add doc comment
+  /// Validate at run-time that all required props are set.
+  ///
+  /// This method is overridden in generated files.
   @visibleForOverriding
   @mustCallSuper
   void validateRequiredProps() {}
