@@ -133,7 +133,7 @@ void main() {
     });
 
     // Do not test the validation escape hatches because this boilerplate version has existing error throwing for required props.
-  });
+  }, tags: 'ddc');
 }
 
 @Factory()

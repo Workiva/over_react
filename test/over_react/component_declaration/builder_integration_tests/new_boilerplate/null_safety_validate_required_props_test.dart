@@ -162,7 +162,7 @@ void main() {
         logsPropRequiredError('ComponentTestProps.requiredDynamic'),
       ));
     });
-  });
+  }, tags: 'ddc');
 }
 
 // ignore: undefined_identifier, invalid_assignment
