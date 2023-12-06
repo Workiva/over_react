@@ -80,14 +80,12 @@ extension UiPropsSelfTypedExtension<T extends UiProps> on T {
     assert(() {
       try {
         accessProp(this);
-      } on TypeError catch (_) {
+      } on TypeError catch (e, st) {
         final key = getPropKey(accessProp);
         final value = this[key];
-        if (value == null && value is! V) {
-          throw AssertionError(
-              'Expected value to be non-nullable type `$V`, but got `null`'
-              ' due to props map containing explicit `null` value:'
-              ' `"$key": null`');
+        if (value == null) {
+          throw AssertionError('Error reading typed prop, likely due to props map containing explicit `null` value:'
+              ' `"$key": null`.\nOriginal error: $e\n$st');
         }
         rethrow;
       }

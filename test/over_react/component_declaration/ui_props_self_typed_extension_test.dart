@@ -120,7 +120,7 @@ main() {
       });
     });
 
-    group('getRequiredProp', () {
+    group('getRequiredProp, getRequiredPropOrNull', () {
       group('returns a prop if it is specified', () {
         void sharedTest<T>({
           required T Function(TestProps props) readProp,
@@ -133,6 +133,7 @@ main() {
               specified.getRequiredProp(readProp,
                   orElse: () => fail('orElse should not be called for this test')),
               testValue);
+          expect(specified.getRequiredPropOrNull(readProp), testValue);
         }
 
         group('for optional props', () {
@@ -166,9 +167,8 @@ main() {
               () {
             void sharedThrowsTest({required bool expectHelpfulError}) {
               final errorMatcher = expectHelpfulError
-                  ? isA<AssertionError>().havingToStringValue(
-                      contains('Expected value to be non-nullable type `String`,'
-                          ' but got `null` due to props map containing explicit `null` value'))
+                  ? isA<AssertionError>().havingToStringValue(contains(
+                      'Error reading typed prop, likely due to props map containing explicit `null` value'))
                   : isA<TypeError>();
 
               readProp(TestProps p) => p.requiredProp;
@@ -177,6 +177,7 @@ main() {
               specified[propKey] = null;
               expect(() => specified.getRequiredProp(readProp, orElse: () => 'or else value'),
                   throwsA(errorMatcher));
+              expect(() => specified.getRequiredPropOrNull(readProp), throwsA(errorMatcher));
             }
 
             test('throws a helpful error when asserts are enabled', () {
@@ -208,13 +209,14 @@ main() {
         });
       });
 
-      group('returns orElse otherwise', () {
+      group('returns orElse (getRequiredProp) or null (getRequiredPropOrNull) otherwise', () {
         void sharedTest<T>({
           required T Function(TestProps props) readProp,
           required T orElseValue,
         }) {
           final notSpecified = Test();
           expect(notSpecified.getRequiredProp(readProp, orElse: () => orElseValue), orElseValue);
+          expect(notSpecified.getRequiredPropOrNull(readProp), isNull);
         }
 
         test('for optional props', () {
