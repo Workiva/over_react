@@ -30,23 +30,23 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
   // Provide factory constructors since they make invocations easier to read and tell apart
   // than all of the different subclasses.
 
-  factory TypedMapAccessorsGenerator.propsMixin(PropsMixinDeclaration decl, {required bool nullSafety}) =
-      _TypedMapMixinAccessorsGenerator.props;
+  factory TypedMapAccessorsGenerator.propsMixin(PropsMixinDeclaration decl,
+      {required bool nullSafety}) = _TypedMapMixinAccessorsGenerator.props;
 
-  factory TypedMapAccessorsGenerator.stateMixin(StateMixinDeclaration decl, {required bool nullSafety}) =
-      _TypedMapMixinAccessorsGenerator.state;
+  factory TypedMapAccessorsGenerator.stateMixin(StateMixinDeclaration decl,
+      {required bool nullSafety}) = _TypedMapMixinAccessorsGenerator.state;
 
-  factory TypedMapAccessorsGenerator.legacyProps(LegacyClassComponentDeclaration decl, {required bool nullSafety}) =
-      _LegacyTypedMapAccessorsGenerator.props;
+  factory TypedMapAccessorsGenerator.legacyProps(LegacyClassComponentDeclaration decl,
+      {required bool nullSafety}) = _LegacyTypedMapAccessorsGenerator.props;
 
-  factory TypedMapAccessorsGenerator.legacyState(LegacyClassComponentDeclaration decl, {required bool nullSafety}) =
-      _LegacyTypedMapAccessorsGenerator.state;
+  factory TypedMapAccessorsGenerator.legacyState(LegacyClassComponentDeclaration decl,
+      {required bool nullSafety}) = _LegacyTypedMapAccessorsGenerator.state;
 
-  factory TypedMapAccessorsGenerator.legacyAbstractProps(LegacyAbstractPropsDeclaration decl, {required bool nullSafety}) =
-      _LegacyTypedMapAccessorsGenerator.abstractProps;
+  factory TypedMapAccessorsGenerator.legacyAbstractProps(LegacyAbstractPropsDeclaration decl,
+      {required bool nullSafety}) = _LegacyTypedMapAccessorsGenerator.abstractProps;
 
-  factory TypedMapAccessorsGenerator.legacyAbstractState(LegacyAbstractStateDeclaration decl, {required bool nullSafety}) =
-      _LegacyTypedMapAccessorsGenerator.abstractState;
+  factory TypedMapAccessorsGenerator.legacyAbstractState(LegacyAbstractStateDeclaration decl,
+      {required bool nullSafety}) = _LegacyTypedMapAccessorsGenerator.abstractState;
 
   TypedMapType get type;
 
@@ -415,25 +415,29 @@ class _LegacyTypedMapAccessorsGenerator extends TypedMapAccessorsGenerator {
   @override
   final bool nullSafety;
 
-  _LegacyTypedMapAccessorsGenerator.props(LegacyClassComponentDeclaration decl, {required this.nullSafety})
+  _LegacyTypedMapAccessorsGenerator.props(LegacyClassComponentDeclaration decl,
+      {required this.nullSafety})
       : member = decl.props,
         names = TypedMapNames(decl.props.name.name),
         version = decl.version,
         type = TypedMapType.props;
 
-  _LegacyTypedMapAccessorsGenerator.state(LegacyClassComponentDeclaration decl, {required this.nullSafety})
+  _LegacyTypedMapAccessorsGenerator.state(LegacyClassComponentDeclaration decl,
+      {required this.nullSafety})
       : member = decl.state!,
         names = TypedMapNames(decl.state!.name.name),
         version = decl.version,
         type = TypedMapType.state;
 
-  _LegacyTypedMapAccessorsGenerator.abstractProps(LegacyAbstractPropsDeclaration decl, {required this.nullSafety})
+  _LegacyTypedMapAccessorsGenerator.abstractProps(LegacyAbstractPropsDeclaration decl,
+      {required this.nullSafety})
       : member = decl.props,
         names = TypedMapNames(decl.props.name.name),
         version = decl.version,
         type = TypedMapType.abstractProps;
 
-  _LegacyTypedMapAccessorsGenerator.abstractState(LegacyAbstractStateDeclaration decl, {required this.nullSafety})
+  _LegacyTypedMapAccessorsGenerator.abstractState(LegacyAbstractStateDeclaration decl,
+      {required this.nullSafety})
       : member = decl.state,
         names = TypedMapNames(decl.state.name.name),
         version = decl.version,

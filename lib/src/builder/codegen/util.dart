@@ -58,7 +58,8 @@ mixin TemporaryGenerationContext {
       StateError('$name is null. setGenerationContext must be called first to initialize it.');
 
   SourceFile get sourceFile => _sourceFile ?? (throw _uninitializedError('sourceFile'));
-  StringBuffer get outputContentsBuffer => _outputContentsBuffer ?? (throw _uninitializedError('outputContentsBuffer'));
+  StringBuffer get outputContentsBuffer =>
+      _outputContentsBuffer ?? (throw _uninitializedError('outputContentsBuffer'));
   Logger get logger => _logger ?? (throw _uninitializedError('logger'));
 
   /// Populates fields needed temporarily for generation.
