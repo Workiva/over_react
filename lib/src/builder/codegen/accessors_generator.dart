@@ -150,7 +150,7 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
 
     StringBuffer output = StringBuffer();
 
-    final requiredPropKeys = [];
+    final requiredPropChecks = [];
 
     node.members.whereType<FieldDeclaration>().where((field) => !field.isStatic).forEach((field) {
       T? getConstantAnnotation<T>(AnnotatedNode member, String name, T value) {
@@ -205,8 +205,8 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
           isPotentiallyNullable = true;
 
           // todo sydney add key namespace test
-          if (disableRequiredPropValidation == null) {
-            requiredPropKeys.add('  if(!props.containsKey($keyValue)) {\n'
+          if (type.isProps && disableRequiredPropValidation == null) {
+            requiredPropChecks.add('  if(!props.containsKey($keyValue)) {\n'
                 '  throw MissingRequiredPropsError(\'Required prop `$accessorName` is missing.\');\n'
                 '}\n');
           }
@@ -362,17 +362,13 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
     String staticVariablesImpl =
         '  /* GENERATED CONSTANTS */\n$constantsImpl$keyConstantsImpl\n$listImpl$keyListImpl';
 
-    // todo add it here - collect late props from above
     output.write(staticVariablesImpl);
 
-    if (requiredPropKeys.isNotEmpty) {
+    if (requiredPropChecks.isNotEmpty) {
       final validateRequiredPropsMethod = '\n  @override\n'
           '  @mustCallSuper\n'
           '  void validateRequiredProps() {\n'
-          // todo sydney why is this failing?
-          //     '    super.validateRequiredProps();\n'
-          //     '    debugger();\n'
-          '    ${requiredPropKeys.join('\n')}\n'
+          '    ${requiredPropChecks.join('\n')}\n'
           '  }\n';
       output.write(validateRequiredPropsMethod);
     }
