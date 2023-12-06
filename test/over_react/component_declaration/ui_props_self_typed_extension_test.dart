@@ -240,9 +240,53 @@ main() {
           );
         });
       });
+
+      group('rethrows other errors that occur when reading the prop', () {
+        test('casts in generated prop', () {
+          readProp(TestProps p) => p.requiredProp;
+          final propKey = Test().getPropKey(readProp);
+          final withBadValueType = Test();
+          // Intentionally set to a type that does not match the getter.
+          withBadValueType[propKey] = Object();
+
+          // Since this error message is implemented by the Dart SDK, is different in different compilers,
+          // (DDC: Expected a value of type 'String', but got one of type 'Object')
+          // (dart2js: Instance of 'Object': type 'Object' is not a subtype of type 'String')
+          // and may change across SDK versions, let's simulate the expected error instead of hard-coding it.
+          late String expectedErrorMessage;
+          try {
+            readProp(withBadValueType);
+          } catch (e) {
+            expectedErrorMessage = e.toString();
+          }
+          expect(expectedErrorMessage, allOf(contains('Object'), contains('String')),
+              reason: 'test setup check');
+
+          final throwsMatcher = throwsA(isA<Object>().havingToStringValue(expectedErrorMessage));
+          expect(
+              () => withBadValueType.getRequiredProp(readProp,
+                  orElse: () => fail('orElse should not be called for this test')),
+              throwsMatcher);
+          expect(() => withBadValueType.getRequiredPropOrNull(readProp), throwsMatcher);
+        });
+
+        test('arbitrary errors that occur in the callback (such as prop unconversion in the prop getter)', () {
+          final props = Test();
+          readProp(TestProps p) => throw TestArbitraryException();
+
+          final throwsMatcher = throwsA(isA<TestArbitraryException>());
+          expect(
+              () => props.getRequiredProp(readProp,
+                  orElse: () => fail('orElse should not be called for this test')),
+              throwsMatcher);
+          expect(() => props.getRequiredPropOrNull(readProp), throwsMatcher);
+        });
+      });
     });
   });
 }
+
+class TestArbitraryException implements Exception {}
 
 UiFactory<TestProps> Test = castUiFactory(_$Test);
 
