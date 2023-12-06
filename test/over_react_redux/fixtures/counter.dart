@@ -50,7 +50,7 @@ class CounterComponent extends UiComponent2<CounterProps> {
           if (props.increment != null) {
             props.increment!();
           } else if (props.dispatch != null) {
-            props.dispatch!(IncrementAction());
+            props.dispatch(IncrementAction());
           }
         }
       )('+'),
@@ -59,25 +59,21 @@ class CounterComponent extends UiComponent2<CounterProps> {
         ..onClick = (_) {
           if (props.decrement != null) {
             props.decrement!();
-          } else if (props.dispatch != null) {
-            props.dispatch!(DecrementAction());
+          } else {
+            props.dispatch(DecrementAction());
           }
         }
       )('-'),
       (Dom.button()
         ..addTestId('button-model-increment')
         ..onClick = (_) {
-          if (props.dispatch != null) {
-            props.dispatch!(IncrementModelCountAction());
-          }
+          props.dispatch(IncrementModelCountAction());
         }
       )('+'),
       (Dom.button()
         ..addTestId('button-model-decrement')
         ..onClick = (_) {
-          if (props.dispatch != null) {
-            props.dispatch!(DecrementModelCountAction());
-          }
+          props.dispatch(DecrementModelCountAction());
         }
       )('-'),
       props.children,

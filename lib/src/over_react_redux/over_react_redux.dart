@@ -21,6 +21,7 @@ import 'package:meta/meta.dart';
 import 'package:over_react/component_base.dart';
 import 'package:over_react/src/component_declaration/annotations.dart';
 import 'package:over_react/src/component_declaration/builder_helpers.dart' as builder_helpers;
+import 'package:over_react/src/component_declaration/builder_helpers.dart' show MissingRequiredPropsError;
 import 'package:over_react/src/component_declaration/component_type_checking.dart';
 import 'package:over_react/src/component_declaration/function_component.dart';
 import 'package:over_react/src/util/context.dart';
@@ -51,7 +52,8 @@ abstract class _$ConnectPropsMixin implements UiProps {
   @override
   Map get props;
 
-  dynamic Function(dynamic action)? dispatch;
+  @disableRequiredPropValidation
+  late dynamic Function(dynamic action) dispatch;
 }
 
 // ignore: prefer_generic_function_type_aliases

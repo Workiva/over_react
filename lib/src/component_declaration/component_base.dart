@@ -623,12 +623,12 @@ abstract class UiProps extends MapBase
 
     // FIXME(null-safety) finalize this implementation and add escape-hatch to opt out in FED-1886
     // todo find out about assert vs devMode
-    if(_shouldValidateRequiredProps) {
       assert(() {
+    if(_shouldValidateRequiredProps) {
         validateRequiredProps();
+    }
         return true;
       }());
-    }
 
     // Use `build` instead of using emulated function behavior to work around DDC issue
     // https://github.com/dart-lang/sdk/issues/29904

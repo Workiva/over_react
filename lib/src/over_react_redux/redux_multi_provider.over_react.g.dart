@@ -62,6 +62,15 @@ abstract class _$ReduxMultiProviderPropsAccessorsMixin
   static const List<String> $propKeys = [
     _$key__storesByContext___$ReduxMultiProviderProps
   ];
+
+  @override
+  @mustCallSuper
+  void validateRequiredProps() {
+    if (!props.containsKey('ReduxMultiProviderProps.storesByContext')) {
+      throw MissingRequiredPropsError(
+          'Required prop `storesByContext` is missing.');
+    }
+  }
 }
 
 const PropsMeta _$metaForReduxMultiProviderProps = PropsMeta(
