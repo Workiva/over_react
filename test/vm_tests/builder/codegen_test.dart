@@ -1036,31 +1036,57 @@ main() {
       });
 
       group('accessors have', () {
-        const expectedAccessorErrorMessage = '@requiredProp/@nullableProp/@Accessor cannot be used together.\n'
+        const expectedMultiAnnotationErrorMessage = '@requiredProp/@nullableProp/@Accessor(isRequired: true) cannot be used together.\n'
             'You can use `@Accessor(isRequired: true)` or `isNullable: true` instead of the shorthand versions.';
 
-        test('the Accessor and requiredProp annotation', () {
-          var body = '''@Accessor()
+        const expectedLateAndAnnotationErrorMessage = 'Props declared using `late` are already considered required,'
+            ' and cannot also have required prop annotations: @requiredProp/@nullableProp/@Accessor(isRequired: true).'
+                '\nPlease remove these annotations.';
+
+        test('@Accessor(isRequired: true) @requiredProp', () {
+          var body = '''@Accessor(isRequired: true)
               @requiredProp
               var bar;''';
           setUpAndGenerate(OverReactSrc.abstractProps(backwardsCompatible: false, body: body).source);
-          verify(logger.severe(contains(expectedAccessorErrorMessage)));
+          verify(logger.severe(contains(expectedMultiAnnotationErrorMessage)));
         });
 
-        test('the Accessor and nullableRequiredProp annotation', () {
-          var body = '''@Accessor()
+        test('@Accessor(isRequired: true) @nullableRequiredProp', () {
+          var body = '''@Accessor(isRequired: true)
               @nullableRequiredProp
               var bar;''';
           setUpAndGenerate(OverReactSrc.abstractProps(backwardsCompatible: false, body: body).source);
-          verify(logger.severe(contains(expectedAccessorErrorMessage)));
+          verify(logger.severe(contains(expectedMultiAnnotationErrorMessage)));
         });
 
-        test('the requiredProp and nullableRequiredProp annotation', () {
+        test('@requiredProp and @nullableRequiredProp', () {
           var body = '''@requiredProp
               @nullableRequiredProp
               var bar;''';
           setUpAndGenerate(OverReactSrc.abstractProps(backwardsCompatible: false, body: body).source);
-          verify(logger.severe(contains(expectedAccessorErrorMessage)));
+          verify(logger.severe(contains(expectedMultiAnnotationErrorMessage)));
+        });
+
+        test('the late keyword and the @Accessor(isRequired: true)', () {
+          var body = '''@Accessor(isRequired: true)
+              late var bar;''';
+          setUpAndGenerate(OverReactSrc.abstractProps(backwardsCompatible: false, body: body).source);
+          verify(logger.severe(contains(expectedLateAndAnnotationErrorMessage)));
+        });
+
+        test('the late keyword and the requiredProp annotation', () {
+          var body = '''@requiredProp
+              late var bar;''';
+          setUpAndGenerate(OverReactSrc.abstractProps(backwardsCompatible: false, body: body).source);
+          verify(logger.severe(contains(expectedLateAndAnnotationErrorMessage)));
+        });
+
+        test('the late keyword and the nullableRequiredProp annotation', () {
+          var body = '''
+              @nullableRequiredProp
+              late var bar;''';
+          setUpAndGenerate(OverReactSrc.abstractProps(backwardsCompatible: false, body: body).source);
+          verify(logger.severe(contains(expectedLateAndAnnotationErrorMessage)));
         });
       });
     });
