@@ -181,6 +181,25 @@ void main() {
         });
       });
     });
+
+    test('late props work with @Accessor annotation', () {
+      final props = NullSafeTest()..requiredWithAccessorAndCustomKey = 'test value';
+      expect(props, {'NullSafeTestProps.customKey': 'test value'});
+    });
+
+    test('late props are considered required in props metadata', () {
+      final props = NullSafeTest();
+      expect(
+          NullSafeTestProps.meta.fields.where((f) => f.isRequired).map((f) => f.key).toList(),
+          unorderedEquals([
+            props.getPropKey((p) => p.requiredNonNullable),
+            props.getPropKey((p) => p.requiredNonNullableTypedef),
+            props.getPropKey((p) => p.requiredNullable),
+            props.getPropKey((p) => p.requiredNullableTypedefWithoutQuestion),
+            props.getPropKey((p) => p.requiredDynamic),
+            props.getPropKey((p) => p.requiredWithAccessorAndCustomKey),
+          ]));
+    });
   });
 
   group('null-safe state:', () {
@@ -195,6 +214,7 @@ void main() {
         ..requiredNullable = ''
         ..requiredNullableTypedefWithoutQuestion = ''
         ..requiredDynamic = ''
+        ..requiredWithAccessorAndCustomKey = ''
       )());
       typedStateFactory = ref.current!.typedStateFactory;
     });
@@ -372,6 +392,8 @@ class _$NullSafeTestProps extends UiProps {
   late String? requiredNullable;
   late NullableTypedef requiredNullableTypedefWithoutQuestion;
   late dynamic requiredDynamic;
+  @Accessor(key: 'customKey')
+  late String requiredWithAccessorAndCustomKey;
 
   String? nullable;
   dynamic nullableDynamic;

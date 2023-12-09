@@ -77,6 +77,20 @@ abstract class _$NullSafeTestPropsAccessorsMixin
   set requiredDynamic(dynamic value) =>
       props[_$key__requiredDynamic___$NullSafeTestProps] = value;
 
+  /// <!-- Generated from [_$NullSafeTestProps.requiredWithAccessorAndCustomKey] -->
+  @override
+  @Accessor(key: 'customKey')
+  String get requiredWithAccessorAndCustomKey =>
+      (props[_$key__requiredWithAccessorAndCustomKey___$NullSafeTestProps] ??
+          null) as String;
+
+  /// <!-- Generated from [_$NullSafeTestProps.requiredWithAccessorAndCustomKey] -->
+  @override
+  @Accessor(key: 'customKey')
+  set requiredWithAccessorAndCustomKey(String value) =>
+      props[_$key__requiredWithAccessorAndCustomKey___$NullSafeTestProps] =
+          value;
+
   /// <!-- Generated from [_$NullSafeTestProps.nullable] -->
   @override
   String? get nullable =>
@@ -139,6 +153,12 @@ abstract class _$NullSafeTestPropsAccessorsMixin
   static const PropDescriptor _$prop__requiredDynamic___$NullSafeTestProps =
       PropDescriptor(_$key__requiredDynamic___$NullSafeTestProps,
           isRequired: true, isNullable: true);
+  static const PropDescriptor
+      _$prop__requiredWithAccessorAndCustomKey___$NullSafeTestProps =
+      PropDescriptor(
+          _$key__requiredWithAccessorAndCustomKey___$NullSafeTestProps,
+          isRequired: true,
+          isNullable: true);
   static const PropDescriptor _$prop__nullable___$NullSafeTestProps =
       PropDescriptor(_$key__nullable___$NullSafeTestProps);
   static const PropDescriptor _$prop__nullableDynamic___$NullSafeTestProps =
@@ -161,6 +181,9 @@ abstract class _$NullSafeTestPropsAccessorsMixin
       'NullSafeTestProps.requiredNullableTypedefWithoutQuestion';
   static const String _$key__requiredDynamic___$NullSafeTestProps =
       'NullSafeTestProps.requiredDynamic';
+  static const String
+      _$key__requiredWithAccessorAndCustomKey___$NullSafeTestProps =
+      'NullSafeTestProps.customKey';
   static const String _$key__nullable___$NullSafeTestProps =
       'NullSafeTestProps.nullable';
   static const String _$key__nullableDynamic___$NullSafeTestProps =
@@ -177,6 +200,7 @@ abstract class _$NullSafeTestPropsAccessorsMixin
     _$prop__requiredNullable___$NullSafeTestProps,
     _$prop__requiredNullableTypedefWithoutQuestion___$NullSafeTestProps,
     _$prop__requiredDynamic___$NullSafeTestProps,
+    _$prop__requiredWithAccessorAndCustomKey___$NullSafeTestProps,
     _$prop__nullable___$NullSafeTestProps,
     _$prop__nullableDynamic___$NullSafeTestProps,
     _$prop__nullableDynamicWithQuestion___$NullSafeTestProps,
@@ -188,6 +212,7 @@ abstract class _$NullSafeTestPropsAccessorsMixin
     _$key__requiredNullable___$NullSafeTestProps,
     _$key__requiredNullableTypedefWithoutQuestion___$NullSafeTestProps,
     _$key__requiredDynamic___$NullSafeTestProps,
+    _$key__requiredWithAccessorAndCustomKey___$NullSafeTestProps,
     _$key__nullable___$NullSafeTestProps,
     _$key__nullableDynamic___$NullSafeTestProps,
     _$key__nullableDynamicWithQuestion___$NullSafeTestProps,
