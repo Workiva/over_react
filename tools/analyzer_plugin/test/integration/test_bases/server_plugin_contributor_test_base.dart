@@ -5,6 +5,7 @@ import 'package:analyzer/src/generated/source.dart' show Source, SourceRange;
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:meta/meta.dart';
 import 'package:path/path.dart' as p;
+import 'package:source_span/source_span.dart';
 import 'package:test/test.dart';
 
 import '../stubs.dart';
@@ -28,6 +29,15 @@ class SourceSelection {
   final String? target;
 
   SourceSelection(this.source, this.offset, this.length, {this.target});
+
+  @override
+  String toString() {
+    return 'SourceSelection ${{
+      'target': target,
+      'offset': offset,
+      'length': length,
+    }}. Preview:\n' + SourceFile.fromString(source.contents.data, url: source.uri).span(offset, offset + length).highlight();
+  }
 }
 
 extension AsRange$SourceRange on SourceSelection {

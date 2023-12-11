@@ -62,14 +62,17 @@ mixin ComponentDeclarationAssistApi on AssistContributorBase {
   orbp.Union<orbp.BoilerplateState, orbp.BoilerplateStateMixin>? get state => componentDeclaration!.state;
 
   bool _validateAndDetectBoilerplate() {
-    if (node is! SimpleIdentifier || node.parent is! ClassDeclaration) return false;
-    final parent = node.parent as ClassDeclaration?;
+    // In newer analyzer versions, the class's name within a class declaration is no longer a SimpleIdentifier,
+    // and the node returned from the class name token is the ClassDeclaration itself.
+    final classNode =
+        node.tryCast<SimpleIdentifier>()?.parent.tryCast<ClassDeclaration>() ?? node.tryCast<ClassDeclaration>();
+    if (classNode == null) return false;
 
     final members = orbp.detectBoilerplateMembers(node.thisOrAncestorOfType<CompilationUnit>()!);
     final declarations = orbp.getBoilerplateDeclarations(members, errorCollector).toList();
 
     componentDeclaration = declarations.whereType<orbp.ClassComponentDeclaration>().firstWhereOrNull((c) {
-      return c.component.node == parent;
+      return c.component.node == classNode;
     });
 
     _isAValidComponentDeclaration =

@@ -23,7 +23,7 @@ class DuplicatePropCascadeDiagnosticTest extends DiagnosticTestBase {
   static const customComponentDefinition = /*language=dart*/ r'''
 import 'package:over_react/over_react.dart';
 
-part 'test.over_react.g.dart';
+part '{{FILE_BASENAME_WITHOUT_EXTENSION}}.over_react.g.dart';
 
 mixin CustomProps on UiProps {
   int size;
@@ -107,14 +107,14 @@ final componentUsage = (Custom()
     final errorFix = await expectSingleErrorFix(selection);
     expect(errorFix.fixes.single.change.selection, isNull);
     source = applyErrorFixes(errorFix, source);
-    expect(source.contents.data, /*language=dart*/ '''
+    expect(source.contents.data, substituteSource(/*language=dart*/ '''
 $customComponentDefinition
 
 final componentUsage = (Custom()
   ..hidden = true
   ..dom.hidden = false
 )();
-''');
+''', path: source.uri.path));
   }
 
   // ********************************************************

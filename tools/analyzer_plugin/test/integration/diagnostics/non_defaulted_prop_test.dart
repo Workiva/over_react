@@ -24,7 +24,7 @@ class NonDefaultedPropDiagnosticTest extends DiagnosticTestBase {
     final source = newSource(/*language=dart*/ r'''
 import 'package:over_react/over_react.dart';
 
-part 'test.over_react.g.dart';
+part '{{FILE_BASENAME_WITHOUT_EXTENSION}}.over_react.g.dart';
 
 mixin FooProps on UiProps {
   String content;
@@ -49,7 +49,7 @@ final Foo = uiFunction<FooProps>(
     final source = newSource(/*language=dart*/ r'''
 import 'package:over_react/over_react.dart';
 
-part 'test.over_react.g.dart';
+part '{{FILE_BASENAME_WITHOUT_EXTENSION}}.over_react.g.dart';
 
 mixin FooProps on UiProps {
   String content;
@@ -75,7 +75,7 @@ final Foo = uiFunction<FooProps>(
     String contents(String propUsage) => '''
 import 'package:over_react/over_react.dart';
 
-part 'test.over_react.g.dart';
+part '{{FILE_BASENAME_WITHOUT_EXTENSION}}.over_react.g.dart';
 
 mixin FooProps on UiProps {
   String content;
@@ -100,14 +100,14 @@ final Foo = uiFunction<FooProps>(
     final errorFix = await expectSingleErrorFix(selection);
     expect(errorFix.fixes.single.change.selection, isNull);
     source = applyErrorFixes(errorFix, source);
-    expect(source.contents.data, contents('content'));
+    expect(source.contents.data, substituteSource(contents('content'), path: source.uri.path));
   }
 
   Future<void> test_errorFixWithDifferentName() async {
     String contents(String propUsage) => '''
 import 'package:over_react/over_react.dart';
 
-part 'test.over_react.g.dart';
+part '{{FILE_BASENAME_WITHOUT_EXTENSION}}.over_react.g.dart';
 
 mixin FooProps on UiProps {
   String content;
@@ -132,14 +132,14 @@ final Foo = uiFunction<FooProps>(
     final errorFix = await expectSingleErrorFix(selection);
     expect(errorFix.fixes.single.change.selection, isNull);
     source = applyErrorFixes(errorFix, source);
-    expect(source.contents.data, contents('defaultContent'));
+    expect(source.contents.data, substituteSource(contents('defaultContent'), path: source.uri.path));
   }
 
   Future<void> test_multipleErrorsAndFixes() async {
     var source = newSource(/*language=dart*/ r'''
 import 'package:over_react/over_react.dart';
 
-part 'test.over_react.g.dart';
+part '{{FILE_BASENAME_WITHOUT_EXTENSION}}.over_react.g.dart';
 
 mixin FooProps on UiProps {
   String fooId;
@@ -189,10 +189,10 @@ final Foo = uiFunction<FooProps>(
       source = applyErrorFixes(errorFix, source);
     }
 
-    expect(source.contents.data, /*language=dart*/ r'''
+    expect(source.contents.data, substituteSource(/*language=dart*/ r'''
 import 'package:over_react/over_react.dart';
 
-part 'test.over_react.g.dart';
+part '{{FILE_BASENAME_WITHOUT_EXTENSION}}.over_react.g.dart';
 
 mixin FooProps on UiProps {
   String fooId;
@@ -225,6 +225,6 @@ final Foo = uiFunction<FooProps>(
   },
   _$FooConfig, // ignore: undefined_identifier
 );
-''');
+''', path: source.uri.path));
   }
 }

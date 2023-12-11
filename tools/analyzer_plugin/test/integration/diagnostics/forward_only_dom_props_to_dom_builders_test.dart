@@ -23,7 +23,7 @@ class ForwardOnlyDomPropsToDomBuildersDiagnosticTest extends DiagnosticTestBase 
   String usageSourceWithinClassComponent({required bool fixed}) => '''
 import 'package:over_react/over_react.dart';
 
-part 'test.over_react.g.dart';
+part '{{FILE_BASENAME_WITHOUT_EXTENSION}}.over_react.g.dart';
 
 UiFactory<DomWrapperProps> DomWrapper = castUiFactory(_\$DomWrapper); // ignore: undefined_identifier
 
@@ -59,7 +59,7 @@ final DomWrapperFn = uiFunction<UiProps>(
     final errorFix = await expectSingleErrorFix(createSelection(source, "..modifyProps(#addUnconsumedProps#)"));
     expect(errorFix.fixes.single.change.selection, isNull);
     source = applyErrorFixes(errorFix, source);
-    expect(source.contents.data, usageSourceWithinClassComponent(fixed: true));
+    expect(source.contents.data, substituteSource(usageSourceWithinClassComponent(fixed: true), path: source.uri.path));
   }
 
   Future<void> test_fnComponentUsageErrorAndFix() async {
@@ -67,6 +67,6 @@ final DomWrapperFn = uiFunction<UiProps>(
     final errorFix = await expectSingleErrorFix(createSelection(source, "..#addUnconsumedProps#(props, const [])"));
     expect(errorFix.fixes.single.change.selection, isNull);
     source = applyErrorFixes(errorFix, source);
-    expect(source.contents.data, usageSourceWithinFnComponent(fixed: true));
+    expect(source.contents.data, substituteSource(usageSourceWithinFnComponent(fixed: true), path: source.uri.path));
   }
 }

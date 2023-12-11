@@ -1,6 +1,6 @@
-mixin BoilerplateAssistTestStrings {
-  String fileName = 'test.dart';
+import 'package:path/path.dart' as p;
 
+mixin BoilerplateAssistTestStrings {
   static const prefix = 'Foo';
 
   static const stateMixin = '''
@@ -27,10 +27,10 @@ mixin ${prefix}State on UiState {}
       withState ? 'FluxUiStatefulComponent2<${prefix}Props, ${prefix}State>' : 'FluxUiComponent2<${prefix}Props>';
 
   String simpleUiComponentSource(
-      {bool isStateful = false, bool shouldIncludeSelection = false, bool includeDefaultProps = true}) {
+      {required String filename, bool isStateful = false, bool shouldIncludeSelection = false, bool includeDefaultProps = true}) {
     return '''
 import 'package:over_react/over_react.dart';
-part 'test.over_react.g.dart';
+part '${p.basenameWithoutExtension(filename)}.over_react.g.dart';
 
 UiFactory<${prefix}Props> $prefix = _\$$prefix; // ignore: undefined_identifier
 
@@ -46,10 +46,10 @@ ${includeDefaultProps ? getDefaultProps : ''}${includeDefaultProps && isStateful
   }
 
   String fluxUiComponentSource(
-      {bool isStateful = false, bool shouldIncludeSelection = false, bool includeDefaultProps = true}) {
+      {required String filename, bool isStateful = false, bool shouldIncludeSelection = false, bool includeDefaultProps = true}) {
     return '''
 import 'package:over_react/over_react.dart';
-part 'test.over_react.g.dart';
+part '${p.basenameWithoutExtension(filename)}.over_react.g.dart';
 
 UiFactory<${prefix}Props> $prefix = _\$$prefix; // ignore: undefined_identifier
 
