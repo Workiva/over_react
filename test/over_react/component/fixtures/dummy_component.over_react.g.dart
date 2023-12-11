@@ -48,6 +48,7 @@ abstract class _$DummyPropsAccessorsMixin implements _$DummyProps {
   @override
   @mustCallSuper
   void validateRequiredProps() {
+    super.validateRequiredProps();
     if (!props.containsKey('DummyProps.onComponentDidMount')) {
       throw MissingRequiredPropsError(
           'Required prop `onComponentDidMount` is missing.');

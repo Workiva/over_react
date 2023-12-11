@@ -144,20 +144,6 @@ abstract class _$ComponentTestPropsAccessorsMixin
     _$key__ref___$ComponentTestProps,
     _$key__nullable___$ComponentTestProps
   ];
-
-  @override
-  @mustCallSuper
-  void validateRequiredProps() {
-    if (!props.containsKey('ComponentTestProps.requiredNonNullable')) {
-      throw MissingRequiredPropsError(
-          'Required prop `requiredNonNullable` is missing.');
-    }
-
-    if (!props.containsKey('ComponentTestProps.requiredNullable')) {
-      throw MissingRequiredPropsError(
-          'Required prop `requiredNullable` is missing.');
-    }
-  }
 }
 
 const PropsMeta _$metaForComponentTestProps = PropsMeta(

@@ -170,6 +170,12 @@ mixin $BasicProps on BasicProps {
 
   static const List<PropDescriptor> $props = [_$prop__childId__BasicProps];
   static const List<String> $propKeys = [_$key__childId__BasicProps];
+
+  @override
+  @mustCallSuper
+  void validateRequiredProps() {
+    super.validateRequiredProps();
+  }
 }
 
 @Deprecated('This API is for use only within generated code.'
@@ -189,6 +195,12 @@ mixin $BasicUiFunctionProps on BasicUiFunctionProps {
 
   static const List<PropDescriptor> $props = [];
   static const List<String> $propKeys = [];
+
+  @override
+  @mustCallSuper
+  void validateRequiredProps() {
+    super.validateRequiredProps();
+  }
 }
 
 @Deprecated('This API is for use only within generated code.'

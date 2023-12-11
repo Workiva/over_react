@@ -175,6 +175,12 @@ abstract class _$TestComponentPropsAccessorsMixin
 
   static const List<PropDescriptor> $props = [];
   static const List<String> $propKeys = [];
+
+  @override
+  @mustCallSuper
+  void validateRequiredProps() {
+    super.validateRequiredProps();
+  }
 }
 
 const PropsMeta _$metaForTestComponentProps = PropsMeta(
@@ -250,6 +256,12 @@ mixin $TestComponent2Props on TestComponent2Props {
 
   static const List<PropDescriptor> $props = [];
   static const List<String> $propKeys = [];
+
+  @override
+  @mustCallSuper
+  void validateRequiredProps() {
+    super.validateRequiredProps();
+  }
 }
 
 @Deprecated('This API is for use only within generated code.'

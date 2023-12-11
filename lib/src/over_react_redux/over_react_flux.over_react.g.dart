@@ -35,14 +35,6 @@ abstract class ConnectFluxPropsMixin<TActions>
   static const List<String> $propKeys = [
     _$key__actions___$ConnectFluxPropsMixin
   ];
-
-  @override
-  @mustCallSuper
-  void validateRequiredProps() {
-    if (!props.containsKey('actions')) {
-      throw MissingRequiredPropsError('Required prop `actions` is missing.');
-    }
-  }
 }
 
 const PropsMeta _$metaForConnectFluxPropsMixin = PropsMeta(

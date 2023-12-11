@@ -209,6 +209,12 @@ mixin $FunctionCustomPropsProps on FunctionCustomPropsProps {
     _$key__testProp__FunctionCustomPropsProps,
     _$key__testFuncProp__FunctionCustomPropsProps
   ];
+
+  @override
+  @mustCallSuper
+  void validateRequiredProps() {
+    super.validateRequiredProps();
+  }
 }
 
 @Deprecated('This API is for use only within generated code.'

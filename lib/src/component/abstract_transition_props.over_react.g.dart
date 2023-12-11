@@ -103,6 +103,12 @@ mixin $TransitionPropsMixin on TransitionPropsMixin {
     _$key__onWillShow__TransitionPropsMixin,
     _$key__onDidShow__TransitionPropsMixin
   ];
+
+  @override
+  @mustCallSuper
+  void validateRequiredProps() {
+    super.validateRequiredProps();
+  }
 }
 
 @Deprecated('This API is for use only within generated code.'

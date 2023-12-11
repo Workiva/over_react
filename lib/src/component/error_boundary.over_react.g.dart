@@ -349,6 +349,12 @@ mixin $ErrorBoundaryProps on ErrorBoundaryProps {
     _$key__shouldLogErrors__ErrorBoundaryProps,
     _$key__logger__ErrorBoundaryProps
   ];
+
+  @override
+  @mustCallSuper
+  void validateRequiredProps() {
+    super.validateRequiredProps();
+  }
 }
 
 @Deprecated('This API is for use only within generated code.'

@@ -150,7 +150,7 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
 
     StringBuffer output = StringBuffer();
 
-    final requiredPropChecks = [];
+    final requiredPropChecks = <String>[];
 
     node.members.whereType<FieldDeclaration>().where((field) => !field.isStatic).forEach((field) {
       T? getConstantAnnotation<T>(AnnotatedNode member, String name, T value) {
@@ -363,10 +363,11 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
 
     output.write(staticVariablesImpl);
 
-    if (requiredPropChecks.isNotEmpty) {
+    if (type.isProps && version != Version.v3_legacyDart2Only) {
       final validateRequiredPropsMethod = '\n  @override\n'
           '  @mustCallSuper\n'
           '  void validateRequiredProps() {\n'
+          '    super.validateRequiredProps();\n'
           '    ${requiredPropChecks.join('\n')}\n'
           '  }\n';
       output.write(validateRequiredPropsMethod);

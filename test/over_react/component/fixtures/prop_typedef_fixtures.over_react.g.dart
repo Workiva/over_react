@@ -97,22 +97,6 @@ abstract class _$TestAbstractCustomRendererComponentPropsAccessorsMixin
     _$key__parameterizedCustomRenderer___$TestAbstractCustomRendererComponentProps,
     _$key__somePropKey___$TestAbstractCustomRendererComponentProps
   ];
-
-  @override
-  @mustCallSuper
-  void validateRequiredProps() {
-    if (!props.containsKey(
-        'TestAbstractCustomRendererComponentProps.customRenderer')) {
-      throw MissingRequiredPropsError(
-          'Required prop `customRenderer` is missing.');
-    }
-
-    if (!props.containsKey(
-        'TestAbstractCustomRendererComponentProps.parameterizedCustomRenderer')) {
-      throw MissingRequiredPropsError(
-          'Required prop `parameterizedCustomRenderer` is missing.');
-    }
-  }
 }
 
 const PropsMeta _$metaForTestAbstractCustomRendererComponentProps = PropsMeta(
@@ -999,21 +983,6 @@ abstract class _$TestCustomRendererComponentPropsAccessorsMixin
     _$key__somePropKey___$TestCustomRendererComponentProps,
     _$key__someInitialStateKeyValue___$TestCustomRendererComponentProps
   ];
-
-  @override
-  @mustCallSuper
-  void validateRequiredProps() {
-    if (!props.containsKey('TestCustomRendererComponentProps.customRenderer')) {
-      throw MissingRequiredPropsError(
-          'Required prop `customRenderer` is missing.');
-    }
-
-    if (!props.containsKey(
-        'TestCustomRendererComponentProps.parameterizedCustomRenderer')) {
-      throw MissingRequiredPropsError(
-          'Required prop `parameterizedCustomRenderer` is missing.');
-    }
-  }
 }
 
 const PropsMeta _$metaForTestCustomRendererComponentProps = PropsMeta(
