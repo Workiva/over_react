@@ -28,7 +28,8 @@ Future<void> main() async {
   // Wait for build to complete.
   final buildExitCode = await buildProcess.exitCode;
   if (buildExitCode != 0) {
-    stderr.writeln('^ Build failures are expected for "missing_over_react_g_part" files, and can be ignored.');
+    stderr.writeln(
+        '^ Build failures are expected for "missing_over_react_g_part" files, and can be ignored.');
   }
 
   print('Copying built files to golds directory ${goldsDir.path}');
