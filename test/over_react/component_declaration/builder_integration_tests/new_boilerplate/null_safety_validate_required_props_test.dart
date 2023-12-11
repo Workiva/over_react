@@ -27,7 +27,6 @@ void main() {
         test('on mount', () {
           expect(() {
             rtl.render((ComponentTest()
-
               ..requiredNullable = true
             )());
           },
@@ -50,7 +49,6 @@ void main() {
 
           expect(() {
             view.rerender((ComponentTest()
-
               ..requiredNullable = true
             )());
           },
@@ -77,7 +75,6 @@ void main() {
         test('on mount', () {
           expect(() {
             rtl.render((ComponentTest()
-
               ..requiredNonNullable = true
             )());
           },
@@ -99,7 +96,6 @@ void main() {
 
           expect(() {
             view.rerender((ComponentTest()
-
               ..requiredNonNullable = true
             )());
           },
@@ -155,6 +151,47 @@ void main() {
         logsPropRequiredError('ComponentTestProps.requiredNullable'),
       ));
     });
+
+    group('required props in multiple mixins', () {
+      test('throw an error when a prop in the first mixin is missing', () {
+        expect(() {
+          rtl.render((MultipleMixinsTest()
+            ..requiredNullable = true
+            ..secondRequiredProp = true
+          )());
+        },
+            throwsA(isA<MissingRequiredPropsError>().having(
+                    (e) => e.toString(),
+                'toString value',
+                contains(
+                    'Required prop `requiredNonNullable` is missing.'))));
+      });
+
+      test('throw an error when a prop in the second mixin is missing', () {
+        expect(() {
+          rtl.render((MultipleMixinsTest()
+            ..requiredNullable = true
+            ..requiredNonNullable = true
+          )());
+        },
+            throwsA(isA<MissingRequiredPropsError>().having(
+                    (e) => e.toString(),
+                'toString value',
+                contains(
+                    'Required prop `secondRequiredProp` is missing.'))));
+      });
+
+      test('does not throw when all required props are set', () {
+        expect(() {
+          rtl.render((MultipleMixinsTest()
+            ..requiredNullable = true
+            ..requiredNonNullable = true
+            ..secondRequiredProp = true
+          )());
+        },
+          returnsNormally);
+      });
+    });
   }, tags: 'ddc');
 }
 
@@ -183,3 +220,14 @@ class ComponentTestComponent extends UiComponent2<ComponentTestProps> {
   @override
   render() => Dom.div()();
 }
+
+UiFactory<MultipleMixinsTestProps> MultipleMixinsTest = uiFunction(
+  (props) {},
+  _$MultipleMixinsTestConfig, // ignore: undefined_identifier
+);
+
+mixin MultipleMixinsTestPropsMixin on UiProps {
+  late bool secondRequiredProp;
+}
+
+class MultipleMixinsTestProps = UiProps with MultipleMixinsTestPropsMixin, ComponentTestProps;
