@@ -43,12 +43,6 @@ abstract class _$FlawedPropsAccessorsMixin implements _$FlawedProps {
   static const List<String> $propKeys = [
     _$key__buttonTestIdPrefix___$FlawedProps
   ];
-
-  @override
-  @mustCallSuper
-  void validateRequiredProps() {
-    super.validateRequiredProps();
-  }
 }
 
 const PropsMeta _$metaForFlawedProps = PropsMeta(

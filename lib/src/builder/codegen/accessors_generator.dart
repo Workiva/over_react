@@ -363,7 +363,9 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
 
     output.write(staticVariablesImpl);
 
-    if (type.isProps && version != Version.v3_legacyDart2Only) {
+    if (type.isProps &&
+        version != Version.v3_legacyDart2Only &&
+        version != Version.v2_legacyBackwardsCompat) {
       final validateRequiredPropsMethod = '\n  @override\n'
           '  @mustCallSuper\n'
           '  void validateRequiredProps() {\n'

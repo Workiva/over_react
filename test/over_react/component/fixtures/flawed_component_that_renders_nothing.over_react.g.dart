@@ -27,12 +27,6 @@ abstract class _$FlawedWithNoChildPropsAccessorsMixin
 
   static const List<PropDescriptor> $props = [];
   static const List<String> $propKeys = [];
-
-  @override
-  @mustCallSuper
-  void validateRequiredProps() {
-    super.validateRequiredProps();
-  }
 }
 
 const PropsMeta _$metaForFlawedWithNoChildProps = PropsMeta(
