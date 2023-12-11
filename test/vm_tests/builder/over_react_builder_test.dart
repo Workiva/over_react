@@ -112,6 +112,28 @@ main() {
             'over_react|test_fixtures/source_files/backwards_compatible/basic_library.over_react.g.dart',
             '${p.absolute(p.current)}/test_fixtures/gold_output_files/backwards_compatible/basic_library.over_react.g.dart.goldFile');
       });
+
+      test('builds for props mixins', () async {
+        await checkBuildForFile(
+            'over_react|test_fixtures/source_files/backwards_compatible/props_mixin.dart',
+            'over_react|test_fixtures/source_files/backwards_compatible/props_mixin.over_react.g.dart',
+            '${p.absolute(p.current)}/test_fixtures/gold_output_files/backwards_compatible/props_mixin.over_react.g.dart.goldFile');
+      });
+
+      test('builds for state mixins', () async {
+        await checkBuildForFile(
+            'over_react|test_fixtures/source_files/backwards_compatible/state_mixin.dart',
+            'over_react|test_fixtures/source_files/backwards_compatible/state_mixin.over_react.g.dart',
+            '${p.absolute(p.current)}/test_fixtures/gold_output_files/backwards_compatible/state_mixin.over_react.g.dart.goldFile');
+      });
+
+      test('does not produce a build output for just a part file', () async {
+        var basicAsset = makeAssetId('over_react|test_fixtures/source_files/backwards_compatible/part_of_basic_library.dart');
+        await runBuilder(builder, [basicAsset], reader, writerSpy, AnalyzerResolvers(), logger: logger);
+
+        expect(writerSpy.assetsWritten, isEmpty);
+        verifyNoErrorLogs();
+      });
     });
 
     group('for Dart 2 only compatible boilerplate:', () {
@@ -160,7 +182,6 @@ main() {
         expect(expectedLog, isNotNull,
             reason: 'Expected a SEVERE log for the missing over_react part.');
       });
-
 
       group('for Component2:', () {
         test('builds from basic component file', () async {
