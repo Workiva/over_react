@@ -225,6 +225,12 @@ mixin $BasicProps on BasicProps {
     _$key__basic4__BasicProps,
     _$key__basic5__BasicProps
   ];
+
+  @override
+  @mustCallSuper
+  void validateRequiredProps() {
+    super.validateRequiredProps();
+  }
 }
 
 @Deprecated('This API is for use only within generated code.'
