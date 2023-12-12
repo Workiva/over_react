@@ -21,7 +21,7 @@ class AddUseOrCreateRefAssistTest extends AssistTestBase {
   String usageSourceWithinClassComponent({required bool fixed}) => '''
 import 'package:over_react/over_react.dart';
 
-part 'test.over_react.g.dart';
+part '{{FILE_BASENAME_WITHOUT_EXTENSION}}.over_react.g.dart';
 
 UiFactory<HasNoRefsProps> HasNoRefs = castUiFactory(_\$HasNoRefs); // ignore: undefined_identifier
 
@@ -84,7 +84,7 @@ final HasRefs = uiFunction<UiProps>(
     final source = newSource('''
 import 'package:over_react/over_react.dart';
 
-part 'test.over_react.g.dart';
+part '{{FILE_BASENAME_WITHOUT_EXTENSION}}.over_react.g.dart';
 
 UiFactory<HasRefsProps> HasRefs = castUiFactory(_\$HasRefs); // ignore: undefined_identifier
 
@@ -114,7 +114,7 @@ class HasRefsComponent extends UiComponent2<HasRefsProps> {
     var selection = createSelection(source, 'return (#Child#()');
     final change = await expectAndGetSingleAssist(selection);
     source = applySourceChange(change, source);
-    expect(source.contents.data, usageSourceWithinClassComponent(fixed: true));
+    expect(source.contents.data, substituteSource(usageSourceWithinClassComponent(fixed: true), path: source.uri.path));
   }
 
   Future<void> test_classComponentAssist_zeroWidthSelection() async {
@@ -122,7 +122,7 @@ class HasRefsComponent extends UiComponent2<HasRefsProps> {
     var selection = createSelection(source, 'return (##Child()');
     final change = await expectAndGetSingleAssist(selection);
     source = applySourceChange(change, source);
-    expect(source.contents.data, usageSourceWithinClassComponent(fixed: true));
+    expect(source.contents.data, substituteSource(usageSourceWithinClassComponent(fixed: true), path: source.uri.path));
   }
 
   Future<void> test_classComponentAssist_propCascadeSelection() async {
@@ -130,7 +130,7 @@ class HasRefsComponent extends UiComponent2<HasRefsProps> {
     var selection = createSelection(source, '..id ##= \'foo\'');
     final change = await expectAndGetSingleAssist(selection);
     source = applySourceChange(change, source);
-    expect(source.contents.data, usageSourceWithinClassComponent(fixed: true));
+    expect(source.contents.data, substituteSource(usageSourceWithinClassComponent(fixed: true), path: source.uri.path));
   }
 
   Future<void> test_fnComponentAssist_componentNameSelection() async {
@@ -138,7 +138,7 @@ class HasRefsComponent extends UiComponent2<HasRefsProps> {
     var selection = createSelection(source, 'return (#Child#()');
     final change = await expectAndGetSingleAssist(selection);
     source = applySourceChange(change, source);
-    expect(source.contents.data, usageSourceWithinFnComponent(fixed: true));
+    expect(source.contents.data, substituteSource(usageSourceWithinFnComponent(fixed: true), path: source.uri.path));
   }
 
   Future<void> test_fnComponentAssist_zeroWidthSelection() async {
@@ -146,7 +146,7 @@ class HasRefsComponent extends UiComponent2<HasRefsProps> {
     var selection = createSelection(source, 'return (##Child()');
     final change = await expectAndGetSingleAssist(selection);
     source = applySourceChange(change, source);
-    expect(source.contents.data, usageSourceWithinFnComponent(fixed: true));
+    expect(source.contents.data, substituteSource(usageSourceWithinFnComponent(fixed: true), path: source.uri.path));
   }
 
   Future<void> test_fnComponentAssist_propCascadeSelection() async {
@@ -154,6 +154,6 @@ class HasRefsComponent extends UiComponent2<HasRefsProps> {
     var selection = createSelection(source, '..id ##= \'foo\'');
     final change = await expectAndGetSingleAssist(selection);
     source = applySourceChange(change, source);
-    expect(source.contents.data, usageSourceWithinFnComponent(fixed: true));
+    expect(source.contents.data, substituteSource(usageSourceWithinFnComponent(fixed: true), path: source.uri.path));
   }
 }

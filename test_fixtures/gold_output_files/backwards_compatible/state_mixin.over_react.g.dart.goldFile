@@ -1,0 +1,43 @@
+//@dart=2.11
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
+part of 'state_mixin.dart';
+
+// **************************************************************************
+// OverReactBuilder (package:over_react/src/builder.dart)
+// **************************************************************************
+
+abstract class $ExampleStateMixinClass implements ExampleStateMixinClass {
+  @override
+  Map get state;
+
+  static const StateMeta meta = _$metaForExampleStateMixinClass;
+
+  /// <!-- Generated from [ExampleStateMixinClass.stateMixin1] -->
+  @override
+  String get stateMixin1 =>
+      (state[_$key__stateMixin1__ExampleStateMixinClass] ?? null) as String;
+
+  /// <!-- Generated from [ExampleStateMixinClass.stateMixin1] -->
+  @override
+  set stateMixin1(String value) =>
+      state[_$key__stateMixin1__ExampleStateMixinClass] = value;
+  /* GENERATED CONSTANTS */
+  static const StateDescriptor _$prop__stateMixin1__ExampleStateMixinClass =
+      StateDescriptor(_$key__stateMixin1__ExampleStateMixinClass);
+  static const String _$key__stateMixin1__ExampleStateMixinClass =
+      'ExampleStateMixinClass.stateMixin1';
+
+  static const List<StateDescriptor> $state = [
+    _$prop__stateMixin1__ExampleStateMixinClass
+  ];
+  static const List<String> $stateKeys = [
+    _$key__stateMixin1__ExampleStateMixinClass
+  ];
+}
+
+const StateMeta _$metaForExampleStateMixinClass = StateMeta(
+  fields: $ExampleStateMixinClass.$state,
+  keys: $ExampleStateMixinClass.$stateKeys,
+);

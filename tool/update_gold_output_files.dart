@@ -28,7 +28,8 @@ Future<void> main() async {
   // Wait for build to complete.
   final buildExitCode = await buildProcess.exitCode;
   if (buildExitCode != 0) {
-    stderr.writeln('Build failed; this is expected for "missing_over_react_g_part" files.');
+    stderr.writeln(
+        '^ Build failures are expected for "missing_over_react_g_part" files, and can be ignored.');
   }
 
   print('Copying built files to golds directory ${goldsDir.path}');
@@ -49,4 +50,9 @@ Future<void> main() async {
   tmpSourceDir.deleteSync(recursive: true);
 
   print('Done!');
+
+  print('\nIf non-gold generated files throughout this package got deleted'
+      ' (which usually only happens after it prompts you about conflicting outputs),'
+      ' you can restore them by running a build:\n\n'
+      '    dart run build_runner build');
 }

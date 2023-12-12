@@ -246,7 +246,7 @@ class CallbackRefDiagnosticClassComponentTest extends CallbackRefDiagnosticWithF
   static const usageSourceWithinClassComponent = '''
 import 'package:over_react/over_react.dart';
 
-part 'test.over_react.g.dart';
+part '{{FILE_BASENAME_WITHOUT_EXTENSION}}.over_react.g.dart';
 
 UiFactory<UsesCallbackRefProps> UsesCallbackRef = castUiFactory(_\$UsesCallbackRef); // ignore: undefined_identifier
 
@@ -269,7 +269,7 @@ class UsesCallbackRefComponent extends UiComponent2<UsesCallbackRefProps> {
   static const usageSourceWithinClassComponentFixedBlockFnBodyRefAssignment = '''
 import 'package:over_react/over_react.dart';
 
-part 'test.over_react.g.dart';
+part '{{FILE_BASENAME_WITHOUT_EXTENSION}}.over_react.g.dart';
 
 UiFactory<UsesCallbackRefProps> UsesCallbackRef = castUiFactory(_\$UsesCallbackRef); // ignore: undefined_identifier
 
@@ -292,7 +292,7 @@ class UsesCallbackRefComponent extends UiComponent2<UsesCallbackRefProps> {
   static const usageSourceWithinClassComponentFixedArrowFnRefAssignment = '''
 import 'package:over_react/over_react.dart';
 
-part 'test.over_react.g.dart';
+part '{{FILE_BASENAME_WITHOUT_EXTENSION}}.over_react.g.dart';
 
 UiFactory<UsesCallbackRefProps> UsesCallbackRef = castUiFactory(_\$UsesCallbackRef); // ignore: undefined_identifier
 
@@ -324,7 +324,8 @@ class UsesCallbackRefComponent extends UiComponent2<UsesCallbackRefProps> {
         createSelection(source, CallbackRefDiagnosticTest.selectionToFixBlockFnBodyRefAssignment));
     expect(errorFix.fixes.single.change.selection, isNull);
     source = applyErrorFixes(errorFix, source);
-    expect(source.contents.data, usageSourceWithinClassComponentFixedBlockFnBodyRefAssignment);
+    expect(source.contents.data,
+        substituteSource(usageSourceWithinClassComponentFixedBlockFnBodyRefAssignment, path: source.uri.path));
   }
 
   Future<void> test_arrowFnRefAssignmentError() async {
@@ -338,7 +339,8 @@ class UsesCallbackRefComponent extends UiComponent2<UsesCallbackRefProps> {
         createSelection(source, CallbackRefDiagnosticTest.selectionToFixArrowFnRefAssignment));
     expect(errorFix.fixes.single.change.selection, isNull);
     source = applyErrorFixes(errorFix, source);
-    expect(source.contents.data, usageSourceWithinClassComponentFixedArrowFnRefAssignment);
+    expect(source.contents.data,
+        substituteSource(usageSourceWithinClassComponentFixedArrowFnRefAssignment, path: source.uri.path));
   }
 }
 

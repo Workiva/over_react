@@ -55,10 +55,8 @@ class Union<A extends Object, B extends Object> {
   final A? a;
   final B? b;
 
-  Union.a(A this.a)
-      : b = null;
-  Union.b(B this.b)
-      : a = null;
+  Union.a(A this.a) : b = null;
+  Union.b(B this.b) : a = null;
 
   /// Executes a callback based upon which field is set.
   T switchCase<T>(T Function(A) onA, T Function(B) onB) {

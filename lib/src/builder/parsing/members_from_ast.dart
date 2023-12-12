@@ -133,7 +133,8 @@ class _BoilerplateMemberDetector {
   //
 
   /// For `FooProps`, returns `_$FooProps`
-  NamedCompilationUnitMember? _getSourceClassForPotentialCompanion(NamedCompilationUnitMember node) {
+  NamedCompilationUnitMember? _getSourceClassForPotentialCompanion(
+      NamedCompilationUnitMember node) {
     final name = node.name.name;
     if (name.startsWith(privateSourcePrefix)) {
       return null;
@@ -225,7 +226,8 @@ class _BoilerplateMemberDetector {
   // _processClassishDeclaration helpers
   //
 
-  bool _detectClassBasedOnAnnotations(ClassishDeclaration classish, ClassishDeclaration? companion) {
+  bool _detectClassBasedOnAnnotations(
+      ClassishDeclaration classish, ClassishDeclaration? companion) {
     final node = classish.node;
     for (final annotation in classish.metadata) {
       switch (annotation.name.nameWithoutPrefix) {
@@ -264,13 +266,13 @@ class _BoilerplateMemberDetector {
           return true;
 
         case 'PropsMixin':
-          onPropsMixin(BoilerplatePropsMixin(classish, companion,
-              _annotatedPropsOrStateMixinConfidence(classish, companion)));
+          onPropsMixin(BoilerplatePropsMixin(
+              classish, companion, _annotatedPropsOrStateMixinConfidence(classish, companion)));
           return true;
 
         case 'StateMixin':
-          onStateMixin(BoilerplateStateMixin(classish, companion,
-              _annotatedPropsOrStateMixinConfidence(classish, companion)));
+          onStateMixin(BoilerplateStateMixin(
+              classish, companion, _annotatedPropsOrStateMixinConfidence(classish, companion)));
           return true;
 
         case 'Component':

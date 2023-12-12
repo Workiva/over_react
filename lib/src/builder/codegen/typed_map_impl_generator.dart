@@ -27,21 +27,21 @@ abstract class TypedMapImplGenerator extends BoilerplateDeclarationGenerator {
   // Provide factory constructors since they make invocations easier to read and tell apart
   // than all of the different subclasses.
 
-  factory TypedMapImplGenerator.legacyProps(LegacyClassComponentDeclaration declaration, {required bool nullSafety}) =
-      _LegacyTypedMapImplGenerator.props;
+  factory TypedMapImplGenerator.legacyProps(LegacyClassComponentDeclaration declaration,
+      {required bool nullSafety}) = _LegacyTypedMapImplGenerator.props;
 
-  factory TypedMapImplGenerator.legacyState(LegacyClassComponentDeclaration declaration, {required bool nullSafety}) =
-      _LegacyTypedMapImplGenerator.state;
+  factory TypedMapImplGenerator.legacyState(LegacyClassComponentDeclaration declaration,
+      {required bool nullSafety}) = _LegacyTypedMapImplGenerator.state;
 
-  factory TypedMapImplGenerator.props(ClassComponentDeclaration declaration, {required bool nullSafety}) =
-      _TypedMapImplGenerator.props;
+  factory TypedMapImplGenerator.props(ClassComponentDeclaration declaration,
+      {required bool nullSafety}) = _TypedMapImplGenerator.props;
 
-  factory TypedMapImplGenerator.state(ClassComponentDeclaration declaration, {required bool nullSafety}) =
-      _TypedMapImplGenerator.state;
+  factory TypedMapImplGenerator.state(ClassComponentDeclaration declaration,
+      {required bool nullSafety}) = _TypedMapImplGenerator.state;
 
   factory TypedMapImplGenerator.propsMapViewOrFunctionComponent(
-          PropsMapViewOrFunctionComponentDeclaration declaration, {required bool nullSafety}) =
-      _TypedMapImplGenerator.propsMapViewOrFunctionComponent;
+      PropsMapViewOrFunctionComponentDeclaration declaration,
+      {required bool nullSafety}) = _TypedMapImplGenerator.propsMapViewOrFunctionComponent;
 
   TypedMapNames get names;
   bool get isComponent2;
@@ -72,8 +72,8 @@ abstract class TypedMapImplGenerator extends BoilerplateDeclarationGenerator {
   void _generateFactory() {
     assert(factoryNames.length == 1, 'factoryNames must have a length of 1');
 
-    outputContentsBuffer
-        .write('${names.implName} ${factoryNames.first.implName}([Map${nullSafety ? '?' : ''} backingProps]) => ');
+    outputContentsBuffer.write(
+        '${names.implName} ${factoryNames.first.implName}([Map${nullSafety ? '?' : ''} backingProps]) => ');
 
     if (!isComponent2) {
       /// _$$FooProps _$Foo([Map backingProps]) => _$$FooProps(backingProps);
@@ -175,7 +175,8 @@ abstract class TypedMapImplGenerator extends BoilerplateDeclarationGenerator {
         ..writeln()
         ..writeln('  factory ${names.implName}(Map${nullSafety ? '?' : ''} backingMap) {')
         ..writeln('    if (backingMap == null || backingMap is JsBackedMap) {')
-        ..writeln('      return ${names.jsMapImplName}(backingMap as JsBackedMap${nullSafety ? '?' : ''});')
+        ..writeln(
+            '      return ${names.jsMapImplName}(backingMap as JsBackedMap${nullSafety ? '?' : ''});')
         ..writeln('    } else {')
         ..writeln('      return ${names.plainMapImplName}(backingMap);')
         ..writeln('    }')
@@ -187,7 +188,8 @@ abstract class TypedMapImplGenerator extends BoilerplateDeclarationGenerator {
         ..writeln(
             '  // of `_$propsOrState` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217')
         // TODO need to remove this workaround once https://github.com/dart-lang/sdk/issues/36217 is fixed get nice dart2js output
-        ..writeln('  ${names.implName}(Map${nullSafety ? '?' : ''} backingMap) : this._$propsOrState = {} {')
+        ..writeln(
+            '  ${names.implName}(Map${nullSafety ? '?' : ''} backingMap) : this._$propsOrState = {} {')
         ..writeln('     this._$propsOrState = backingMap ?? {};')
         ..writeln('  }');
     }
@@ -399,7 +401,8 @@ class _TypedMapImplGenerator extends TypedMapImplGenerator {
         version = declaration.version;
 
   _TypedMapImplGenerator.propsMapViewOrFunctionComponent(
-      PropsMapViewOrFunctionComponentDeclaration declaration, {required this.nullSafety})
+      PropsMapViewOrFunctionComponentDeclaration declaration,
+      {required this.nullSafety})
       : names = TypedMapNames(declaration.props.either.name.name),
         factoryNames =
             declaration.factories.map((factory) => FactoryNames(factory.name.name)).toList(),
