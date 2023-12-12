@@ -1,3 +1,4 @@
+// @dart=2.11
 import 'package:over_react/over_react.dart';
 
 part 'pseudo_static_lifecycle.over_react.g.dart';
@@ -12,14 +13,17 @@ mixin HammerTimeProps on UiProps {
 
 mixin HammerTimeState on UiState {}
 
-class HammerTimeComponent extends UiStatefulComponent2<HammerTimeProps, HammerTimeState> {
+class HammerTimeComponent
+    extends UiStatefulComponent2<HammerTimeProps, HammerTimeState> {
   final mcHammer = 'cant touch this';
 
   @override
   get defaultProps {
     return newProps() // This newProps() call should not lint
-      ..addProps(super.defaultProps) // This super.defaultProps access should not lint
-      ..somethingThatCanBeTouched = mcHammer; // This mcHammer access SHOULD lint
+      ..addProps(
+          super.defaultProps) // This super.defaultProps access should not lint
+      ..somethingThatCanBeTouched =
+          mcHammer; // This mcHammer access SHOULD lint
   }
 
   @override

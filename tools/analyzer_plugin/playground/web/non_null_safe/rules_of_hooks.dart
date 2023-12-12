@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -69,9 +70,7 @@ UiFactory<FooProps> Foo = uiFunction(
     props?.callback(useState(0));
     props.callback?.call(useState(0)); // ignore: can_be_null_after_null_aware
     domProps()?.tabIndex = useState(0);
-    [
-      ...?(useState([]).value)
-    ];
+    [...?(useState([]).value)];
 
     //
     // Bad hooks: inside loops
@@ -125,7 +124,6 @@ UiFactory<BarProps> Bar = uiForwardRef(
   $BarConfig, // ignore: undefined_identifier
 );
 
-
 // Good hooks; used directly within function component (react-dart)
 final reactDart1 = react.registerFunctionComponent((props) {
   useState(0);
@@ -177,6 +175,7 @@ class SomeClass {
 
 // Bad hooks: used outside of a function body
 var value = useState(0);
+
 class SomeClass2 {
   var value = useState(0);
 }

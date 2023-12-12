@@ -26,20 +26,23 @@ class BarComponent extends UiStatefulComponent2<BarProps, BarState> {
 }
 
 /// This doc comment is on the factory.
-UiFactory<AnotherBarPropsMixin> AnotherBar = castUiFactory(_$AnotherBar); // ignore: undefined_identifier
+UiFactory<AnotherBarPropsMixin> AnotherBar =
+    castUiFactory(_$AnotherBar); // ignore: undefined_identifier
 
 /// This doc comment is okay because the factory already has a doc comment.
 mixin AnotherBarPropsMixin on UiProps {}
 
 mixin AnotherBarStateMixin on UiState {}
 
-class AnotherBarComponent extends AbstractBarComponent<AnotherBarPropsMixin, AnotherBarStateMixin> {
+class AnotherBarComponent
+    extends AbstractBarComponent<AnotherBarPropsMixin, AnotherBarStateMixin> {
   @override
   render() {}
 }
 
 /// This doc comment is okay.
-abstract class AbstractBarComponent<P extends UiProps, S extends UiState> extends UiStatefulComponent2<P, S> {}
+abstract class AbstractBarComponent<P extends UiProps, S extends UiState>
+    extends UiStatefulComponent2<P, S> {}
 
 /// This doc comment is okay.
 class RandomClass {}

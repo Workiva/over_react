@@ -1,3 +1,4 @@
+// @dart=2.11
 import 'package:over_react/over_react.dart';
 
 import 'refs.dart';
@@ -37,7 +38,8 @@ final UsesCallbackRef = uiFunction<UiProps>(
       (Child()
         ..ref = (ref) {
           _someCustomRefName = ref;
-        })(props.children),
+        }
+      )(props.children),
       (Child()
         ..id = 'bar'
         ..ref = ((ref) => _anotherCustomRefName = ref)

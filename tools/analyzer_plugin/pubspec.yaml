@@ -4,7 +4,7 @@ publish_to: none
 description: Dart analyzer plugin for OverReact
 repository: https://github.com/Workiva/over_react/tree/master/tools/analyzer_plugin
 environment:
-  sdk: '>=2.12.0 <3.0.0'
+  sdk: '>=2.13.0 <3.0.0'
 dependencies:
   analyzer: ^5.1.0
   analyzer_plugin: ^0.11.0
@@ -49,7 +49,7 @@ workiva:
 # point to the local copy of over_react. This must be an absolute path.
 #
 # In CI, this should also be the path to the over_react checkout
-#
-# dependency_overrides:
-#   over_react:
-#     path: /Users/me/workspaces/over_react
+
+dependency_overrides:
+  over_react:
+    path: /Users/sydneyjodon/Documents/GitHub/over_react
