@@ -17,6 +17,7 @@
 import 'dart:html';
 
 import 'package:over_react/over_react.dart';
+import 'package:over_react/src/component_declaration/function_component.dart' show GenericUiProps;
 import 'package:test/test.dart';
 
 import '../../../../test_util/test_util.dart';
@@ -131,6 +132,36 @@ main() {
               'foo',
             ),
             throwsArgumentError);
+      });
+    });
+  });
+
+  group('GenericUiProps', () {
+    late GenericUiProps props;
+
+    setUp(() {
+      final genericFactory = uiFunction<UiProps>((_) {}, UiFactoryConfig());
+      final factoryProps = genericFactory();
+      expect(factoryProps, isA<GenericUiProps>(), reason: 'test setup check');
+      props = factoryProps as GenericUiProps;
+    });
+
+    group('has functional overrides to members that are typically generated', () {
+      // staticMeta currently isn't implemented; not sure if/when we want to support that.
+
+      test('propKeyNamespace', () {
+        expect(props.propKeyNamespace, '');
+      });
+
+      test('\$getPropKey (used by getPropKey)', () {
+        expect(props.getPropKey((p) => p.id), 'id');
+
+        late final GenericUiProps getPropKeyArg;
+        props.getPropKey((p) {
+          getPropKeyArg = p;
+          p.id; // Access a prop so that this doesn't throw
+        });
+        expect(getPropKeyArg, isA<GenericUiProps>());
       });
     });
   });

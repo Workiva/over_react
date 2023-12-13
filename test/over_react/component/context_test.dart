@@ -108,5 +108,59 @@ void main() {
         });
       });
     });
+
+    group('ProviderProps', () {
+      late ProviderProps props;
+
+      setUp(() {
+        props = createContext().Provider();
+      });
+
+      group('has functional overrides to members that are typically generated', () {
+        // staticMeta currently isn't implemented; not sure if/when we want to support that.
+
+        test('propKeyNamespace', () {
+          expect(props.propKeyNamespace, '');
+        });
+
+        test('\$getPropKey (used by getPropKey)', () {
+          expect(props.getPropKey((p) => p.value), 'value');
+
+          late final ProviderProps getPropKeyArg;
+          props.getPropKey((p) {
+            getPropKeyArg = p;
+            p.id; // Access a prop so that this doesn't throw
+          });
+          expect(getPropKeyArg, isA<ProviderProps>());
+        });
+      });
+    });
+
+    group('ConsumerProps', () {
+      late ConsumerProps props;
+
+      setUp(() {
+        props = createContext().Consumer();
+      });
+
+      group('has functional overrides to members that are typically generated', () {
+        // staticMeta currently isn't implemented; not sure if/when we want to support that.
+
+        test('propKeyNamespace', () {
+          expect(props.propKeyNamespace, '');
+        });
+
+        test('\$getPropKey (used by getPropKey)', () {
+          expect(props.getPropKey((p) => p.unstable_observedBits), 'unstable_observedBits');
+
+          late final ConsumerProps getPropKeyArg;
+          props.getPropKey((p) {
+            getPropKeyArg = p;
+            p.id; // Access a prop so that this doesn't throw
+          });
+          expect(getPropKeyArg, isA<ConsumerProps>());
+        });
+      });
+    });
   });
 }
