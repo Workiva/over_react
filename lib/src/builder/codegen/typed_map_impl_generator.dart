@@ -240,14 +240,16 @@ abstract class TypedMapImplGenerator extends BoilerplateDeclarationGenerator {
       buffer
         ..writeln()
         ..writeln('  @override')
-        ..writeln('  String \$getPropKey(void Function(Map m) accessMap) => $topLevelGetPropKeyAliasName(accessMap, (map) => ${names.implName}(map));');
+        ..writeln(
+            '  String \$getPropKey(void Function(Map m) accessMap) => $topLevelGetPropKeyAliasName(accessMap, (map) => ${names.implName}(map));');
     }
 
     // End of class body
     buffer.writeln('}');
     if (isProps) {
       buffer
-        ..writeln('/// An alias for [getPropKey] so it can be referenced within the props class impl')
+        ..writeln(
+            '/// An alias for [getPropKey] so it can be referenced within the props class impl')
         ..writeln('/// without being shadowed by the `getPropKey` instance extension member.')
         ..writeln('const $topLevelGetPropKeyAliasName = getPropKey;');
     }

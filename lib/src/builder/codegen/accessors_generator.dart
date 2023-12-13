@@ -231,12 +231,10 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
                 '\nPlease remove these annotations.';
           } else {
             message = '$requiredPropAnnotations cannot be used together.\n'
-              'You can use `@Accessor(isRequired: true)` or `isNullable: true` instead of the shorthand versions.';
+                'You can use `@Accessor(isRequired: true)` or `isNullable: true` instead of the shorthand versions.';
           }
 
-          logger.severe(messageWithSpan(
-              message,
-              span: getSpan(sourceFile, field)));
+          logger.severe(messageWithSpan(message, span: getSpan(sourceFile, field)));
         }
 
         if (isRequired) {
