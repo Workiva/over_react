@@ -18,6 +18,7 @@ library over_react.dom_components;
 import 'package:over_react/src/component/prop_mixins.dart';
 import 'package:over_react/src/component_declaration/builder_helpers.dart'
     as builder_helpers;
+import 'package:over_react/src/util/prop_key_util.dart';
 import 'package:react/react.dart' as react;
 import 'package:react/react_client.dart';
 import 'package:react/react_client/js_backed_map.dart';
@@ -38,6 +39,8 @@ DomProps domProps([Map? backingMap]) => DomProps(null, backingMap);
 // ignore: prefer_generic_function_type_aliases
 typedef DomProps DomPropsFactory();
 
+const _getPropKey = getPropKey;
+
 // Include pieces from builder_helpers so that consumers can type these instances
 // as the `UiProps` exposed in `over_react.dart` and not have to pull in `component_base`.
 class DomProps extends builder_helpers.UiProps with DomPropsMixin {
@@ -57,6 +60,9 @@ class DomProps extends builder_helpers.UiProps with DomPropsMixin {
 
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String $getPropKey(accessMap) => _getPropKey(accessMap, (backingMap) => DomProps(null, backingMap));
 }
 
 // Include pieces from builder_helpers so that consumers can type these instances
@@ -78,6 +84,9 @@ class SvgProps extends builder_helpers.UiProps with DomPropsMixin, SvgPropsMixin
 
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String $getPropKey(accessMap) => _getPropKey(accessMap, (backingMap) => SvgProps(null, backingMap));
 }
 
 /// A class that provides namespacing for static DOM component factory methods, much like `React.DOM` in React JS.
