@@ -74,6 +74,13 @@ main() {
       expect(Test().getPropKey((p) => p.stringProp), 'TestProps.stringProp');
       expect(
           Test().getPropKey((p) => p.customKeyAndNamespaceProp), 'custom namespace~~custom key!');
+
+      late final TestProps getPropKeyArg;
+      Test().getPropKey((p) {
+        getPropKeyArg = p;
+        p.id; // Access a prop so that this doesn't throw
+      });
+      expect(getPropKeyArg, isA<TestProps>());
     });
 
     test('generates componentDefaultProps that returns an empty map', () {

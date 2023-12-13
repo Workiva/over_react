@@ -259,6 +259,13 @@ void functionComponentTestHelper(UiFactory<TestProps> factory,
     expect(factory().getPropKey((p) => p.stringProp), 'TestPropsMixin.stringProp');
     expect(factory().getPropKey((p) => p.customKeyAndNamespaceProp),
         'custom namespace~~custom key!');
+
+    late final TestProps getPropKeyArg;
+    factory().getPropKey((p) {
+      getPropKeyArg = p;
+      p.id; // Access a prop so that this doesn't throw
+    });
+    expect(getPropKeyArg, isA<TestProps>());
   });
 
   group('can pass along unconsumed props', () {

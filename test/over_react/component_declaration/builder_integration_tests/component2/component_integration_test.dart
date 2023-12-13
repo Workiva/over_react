@@ -134,6 +134,13 @@ main() {
         expect(ComponentTest().getPropKey((p) => p.stringProp), 'ComponentTestProps.stringProp');
         expect(ComponentTest().getPropKey((p) => p.customKeyAndNamespaceProp),
             'custom namespace~~custom key!');
+
+        late final ComponentTestProps getPropKeyArg;
+        ComponentTest().getPropKey((p) {
+          getPropKeyArg = p;
+          p.id; // Access a prop so that this doesn't throw
+        });
+        expect(getPropKeyArg, isA<ComponentTestProps>());
       });
 
       group('generates componentDefaultProps with', () {
