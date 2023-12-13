@@ -6,6 +6,8 @@ import 'package:test_reflective_loader/test_reflective_loader.dart';
 
 import '../test_bases/diagnostic_test_base.dart';
 
+// todo add null safe tests
+
 void main() {
   defineReflectiveSuite(() {
     defineReflectiveTests(NonDefaultedPropDiagnosticTest);
@@ -27,8 +29,8 @@ import 'package:over_react/over_react.dart';
 part '{{FILE_BASENAME_WITHOUT_EXTENSION}}.over_react.g.dart';
 
 mixin FooProps on UiProps {
-  String content;
-  bool hidden;
+  String? content;
+  bool? hidden;
 }
 
 final Foo = uiFunction<FooProps>(
@@ -52,8 +54,8 @@ import 'package:over_react/over_react.dart';
 part '{{FILE_BASENAME_WITHOUT_EXTENSION}}.over_react.g.dart';
 
 mixin FooProps on UiProps {
-  String content;
-  bool hidden;
+  String? content;
+  bool? hidden;
 }
 
 final Foo = uiFunction<FooProps>(
@@ -78,7 +80,7 @@ import 'package:over_react/over_react.dart';
 part '{{FILE_BASENAME_WITHOUT_EXTENSION}}.over_react.g.dart';
 
 mixin FooProps on UiProps {
-  String content;
+  String? content;
 }
 
 final Foo = uiFunction<FooProps>(
@@ -110,7 +112,7 @@ import 'package:over_react/over_react.dart';
 part '{{FILE_BASENAME_WITHOUT_EXTENSION}}.over_react.g.dart';
 
 mixin FooProps on UiProps {
-  String content;
+  String? content;
 }
 
 final Foo = uiFunction<FooProps>(
@@ -142,10 +144,10 @@ import 'package:over_react/over_react.dart';
 part '{{FILE_BASENAME_WITHOUT_EXTENSION}}.over_react.g.dart';
 
 mixin FooProps on UiProps {
-  String fooId;
-  bool hidden;
-  String moreContent;
-  String name;
+  String? fooId;
+  bool? hidden;
+  String? moreContent;
+  String? name;
 }
 
 final Foo = uiFunction<FooProps>(
@@ -195,10 +197,10 @@ import 'package:over_react/over_react.dart';
 part '{{FILE_BASENAME_WITHOUT_EXTENSION}}.over_react.g.dart';
 
 mixin FooProps on UiProps {
-  String fooId;
-  bool hidden;
-  String moreContent;
-  String name;
+  String? fooId;
+  bool? hidden;
+  String? moreContent;
+  String? name;
 }
 
 final Foo = uiFunction<FooProps>(

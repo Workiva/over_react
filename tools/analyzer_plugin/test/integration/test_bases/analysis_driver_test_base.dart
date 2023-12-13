@@ -70,8 +70,6 @@ abstract class AnalysisDriverTestBase {
 
   @mustCallSuper
   Future<void> setUp() async {
-    // TODO once we're running tests optionally on null-safe code? Or maybe language version comments in source files instead?
-    // final defaultContext = isNullSafe ? SharedAnalysisContext.overReactNullSafe : SharedAnalysisContext.overReactNonNullSafe;
     final defaultContext = SharedAnalysisContext.overReact;
     if (analysisOptionsYamlContents == null) {
       _sharedContext = defaultContext;

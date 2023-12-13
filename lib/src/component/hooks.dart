@@ -112,7 +112,7 @@ StateHook<T> useStateLazy<T>(T Function() init) => react_hooks.useStateLazy<T>(i
 /// ```
 ///
 /// See: <https://reactjs.org/docs/hooks-effect.html#tip-optimizing-performance-by-skipping-effects>.
-void useEffect(dynamic Function() sideEffect, [List<Object>? dependencies]) => react_hooks.useEffect(sideEffect, dependencies);
+void useEffect(dynamic Function() sideEffect, [List<Object?>? dependencies]) => react_hooks.useEffect(sideEffect, dependencies);
 
 /// Initializes state of a [uiFunction] component to [initialState] and creates [ReducerHook.dispatch] method.
 ///
@@ -446,7 +446,7 @@ T useMemo<T>(T Function() createFunction, [List<dynamic>? dependencies]) =>
 /// ```
 ///
 /// Learn more: <https://reactjs.org/docs/hooks-reference.html#uselayouteffect>.
-void useLayoutEffect(dynamic Function() sideEffect, [List<Object>? dependencies]) => react_hooks.useLayoutEffect(sideEffect, dependencies);
+void useLayoutEffect(dynamic Function() sideEffect, [List<Object?>? dependencies]) => react_hooks.useLayoutEffect(sideEffect, dependencies);
 
 /// Customizes the [ref] value that is exposed to parent components when using [uiForwardRef] by setting [Ref.current]
 /// to the return value of [createHandle].

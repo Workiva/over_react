@@ -43,57 +43,57 @@ mixin TestProps on UiProps {
   var baz;
   var history;
   var innerRef;
-  List items;
-  num delay;
-  Function myEffect;
-  num upperViewHeight;
+  late List items;
+  late num delay;
+  late dynamic Function() myEffect;
+  late int upperViewHeight;
   var local;
   var activeTab;
   var maybeRef2;
   var prop;
-  Function fn1;
-  Function fn2;
+  late dynamic Function() fn1;
+  late Function fn2;
   var hello;
   var attribute;
-  Function function;
-  Ref<dynamic> someOtherRefs;
+  late Function function;
+  late Ref<dynamic> someOtherRefs;
   var color;
   var initY;
-  Function onPlay;
-  Function onPause;
-  bool isEditMode;
-  Function toggleEditMode;
-  Function fetchPodcasts;
-  Function fetchPodcasts2;
+  late Function onPlay;
+  late Function onPause;
+  late bool isEditMode;
+  late Function toggleEditMode;
+  late Function fetchPodcasts;
+  late Function fetchPodcasts2;
   var country;
   var prop1;
   var prop2;
   var section_components;
-  int step;
+  late int step;
   var increment;
-  UiFactory Component;
+  late UiFactory Component;
 }
 
 // Globals used by multiple test cases
-int setInterval(Function callback, [int duration]) => 0;
+int setInterval(Function callback, [int? duration]) => 0;
 void clearInterval(int id) {}
-int setTimeout(Function callback, [int duration]) => 0;
+int setTimeout(Function callback, [int? duration]) => 0;
 void clearTimeout(int id) {}
-Function fetch;
-void useCustomEffect(Function callback, [List dependencies]) {}
-Function debounce(Function callback, num delay) => null;
+Function? fetch;
+void useCustomEffect(Function callback, [List? dependencies]) {}
+dynamic Function() debounce(Function callback, num? delay) => (() => null);
 var global;
 dynamic someFunc() => null;
 
 // Classes used by multiple test cases
 abstract class Store {
-  static Function subscribe(Function listener) => null;
+  static Function? subscribe(Function listener) => null;
 }
 abstract class MutableStore {
   static dynamic get hello => null;
 }
 class SomeObject {
-  final int id;
+  final int? id;
   SomeObject({this.id});
 }
 class ObjectWithWritableField {

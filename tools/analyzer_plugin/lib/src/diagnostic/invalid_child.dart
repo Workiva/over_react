@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:analyzer/dart/analysis/features.dart';
 import 'package:analyzer/dart/element/type.dart';
 import 'package:analyzer/dart/element/type_provider.dart';
 import 'package:analyzer/dart/element/type_system.dart';
@@ -69,12 +70,13 @@ class InvalidChildDiagnostic extends ComponentUsageDiagnosticContributor {
       await validateReactChildType(argument.staticType, result.typeSystem, result.typeProvider,
           onInvalidType: (invalidType) async {
         final location = result.locationFor(argument);
+        final withNullability = result.unit.declaredElement?.library.featureSet.isEnabled(Feature.non_nullable) ?? false;
 
         if (couldBeMissingBuilderInvocation(argument)) {
           await collector.addErrorWithFix(
             code,
             location,
-            errorMessageArgs: [invalidType.getDisplayString(withNullability: false), missingBuilderMessageSuffix],
+            errorMessageArgs: [invalidType.getDisplayString(withNullability: withNullability), missingBuilderMessageSuffix],
             fixKind: addBuilderInvocationFix,
             computeFix: () => buildFileEdit(result, (builder) {
               buildMissingInvocationEdits(argument, builder);
@@ -83,33 +85,35 @@ class InvalidChildDiagnostic extends ComponentUsageDiagnosticContributor {
         } else if (invalidType is FunctionType || invalidType.isDartCoreFunction) {
           // Functions can be used as children
         } else {
-          collector.addError(code, location, errorMessageArgs: [invalidType.getDisplayString(withNullability: false)]);
+          collector.addError(code, location, errorMessageArgs: [invalidType.getDisplayString(withNullability: withNullability)]);
         }
       });
     }
   }
 }
 
+// todo write tests for this
 Future<void> validateReactChildType(DartType? type, TypeSystem typeSystem, TypeProvider typeProvider,
     {required FutureOr<void> Function(DartType invalidType) onInvalidType}) async {
   // Couldn't be resolved
   if (type == null) return;
+  final nonNullType = typeSystem.promoteToNonNull(type);
   // Couldn't be resolved to anything more specific; `Object` might be
   // problematic in some cases, but would have too many false positives.
-  if (type.isDynamic || type.isDartCoreObject) return;
-  if (type.isReactElement) return;
-  if (type.isDartCoreString) return;
+  if (nonNullType.isDynamic || nonNullType.isDartCoreObject) return;
+  if (nonNullType.isReactElement) return;
+  if (nonNullType.isDartCoreString) return;
   // isSubtypeOf to handle num, int, and double
-  if (typeSystem.isSubtypeOf(type, typeProvider.numType)) return;
-  if (type.isDartCoreNull) return;
-  if (type.isDartCoreBool) return;
+  if (typeSystem.isSubtypeOf(nonNullType, typeProvider.numType)) return;
+  if (nonNullType.isDartCoreNull) return;
+  if (nonNullType.isDartCoreBool) return;
   // If the children are in an iterable, validate its type argument.
   // To check for an iterable, type-check against `iterableDynamicType` and not
   // `iterableType` since the latter has an uninstantiated type argument of `E`.
-  if (typeSystem.isSubtypeOf(type, typeProvider.iterableDynamicType)) {
+  if (typeSystem.isSubtypeOf(nonNullType, typeProvider.iterableDynamicType)) {
     // Use the least-upper-bound to get the an instance of the Iterable type with matching type arguments.
     // e.g., leastUpperBound(`List<String>`, `Iterable<bottom>`) should yield `Iterable<String>`
-    final lub = typeSystem.leastUpperBound(type, typeProvider.iterableType(typeProvider.bottomType));
+    final lub = typeSystem.leastUpperBound(nonNullType, typeProvider.iterableType(typeProvider.bottomType));
     final iterableTypeArg = lub.isDartCoreIterable ? lub.tryCast<ParameterizedType>()?.typeArguments.firstOrNull : null;
     if (iterableTypeArg != null) {
       await validateReactChildType(iterableTypeArg, typeSystem, typeProvider, onInvalidType: onInvalidType);
@@ -117,5 +121,5 @@ Future<void> validateReactChildType(DartType? type, TypeSystem typeSystem, TypeP
     return;
   }
 
-  await onInvalidType(type);
+  await onInvalidType(nonNullType);
 }
