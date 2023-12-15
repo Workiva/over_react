@@ -75,6 +75,16 @@ abstract class _$ComponentTestPropsAccessorsMixin
       requiredErrorMessage: 'This Prop Array is Required for testing purposes.')
   set requiredAndLengthLimited(List? value) =>
       props[_$key__requiredAndLengthLimited___$ComponentTestProps] = value;
+
+  /// <!-- Generated from [_$ComponentTestProps.lateProp] -->
+  @override
+  bool get lateProp =>
+      (props[_$key__lateProp___$ComponentTestProps] ?? null) as bool;
+
+  /// <!-- Generated from [_$ComponentTestProps.lateProp] -->
+  @override
+  set lateProp(bool value) =>
+      props[_$key__lateProp___$ComponentTestProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__required___$ComponentTestProps =
       PropDescriptor(_$key__required___$ComponentTestProps,
@@ -90,22 +100,29 @@ abstract class _$ComponentTestPropsAccessorsMixin
           _$key__requiredAndLengthLimited___$ComponentTestProps,
           isRequired: true,
           errorMessage: 'This Prop Array is Required for testing purposes.');
+  static const PropDescriptor _$prop__lateProp___$ComponentTestProps =
+      PropDescriptor(_$key__lateProp___$ComponentTestProps,
+          isRequired: true, isNullable: true);
   static const String _$key__required___$ComponentTestProps =
       'ComponentTestProps.required';
   static const String _$key__nullable___$ComponentTestProps =
       'ComponentTestProps.nullable';
   static const String _$key__requiredAndLengthLimited___$ComponentTestProps =
       'ComponentTestProps.requiredAndLengthLimited';
+  static const String _$key__lateProp___$ComponentTestProps =
+      'ComponentTestProps.lateProp';
 
   static const List<PropDescriptor> $props = [
     _$prop__required___$ComponentTestProps,
     _$prop__nullable___$ComponentTestProps,
-    _$prop__requiredAndLengthLimited___$ComponentTestProps
+    _$prop__requiredAndLengthLimited___$ComponentTestProps,
+    _$prop__lateProp___$ComponentTestProps
   ];
   static const List<String> $propKeys = [
     _$key__required___$ComponentTestProps,
     _$key__nullable___$ComponentTestProps,
-    _$key__requiredAndLengthLimited___$ComponentTestProps
+    _$key__requiredAndLengthLimited___$ComponentTestProps,
+    _$key__lateProp___$ComponentTestProps
   ];
 }
 

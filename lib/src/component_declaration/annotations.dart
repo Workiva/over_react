@@ -15,6 +15,7 @@
 // Dummy annotations that would be used by Pub code generator
 library over_react.component_declaration.annotations;
 
+// Exported for use in generated code.
 export 'package:meta/meta.dart' show mustCallSuper;
 
 /// Annotation used with the `over_react` builder to declare a `UiFactory` for a component.

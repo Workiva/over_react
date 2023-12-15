@@ -52,6 +52,7 @@ abstract class _$ConnectPropsMixin implements UiProps {
   @override
   Map get props;
 
+  // Disable validation since this prop is set by the `connect` HOC, and does not need to be set by consumers.
   @disableRequiredPropValidation
   late dynamic Function(dynamic action) dispatch;
 }

@@ -24,6 +24,19 @@ void main() {
   group('(New boilerplate) validates required props:', () {
     group('non-nullable required prop', () {
       group('throws when a prop is required and not set', () {
+        test('on invocation', () {
+          expect(() {
+            (ComponentTest()
+              ..requiredNullable = true
+            )();
+          },
+              throwsA(isA<MissingRequiredPropsError>().having(
+                  (e) => e.toString(),
+                  'toString value',
+                  contains(
+                      'Required prop `requiredNonNullable` is missing.'))));
+        });
+
         test('on mount', () {
           expect(() {
             rtl.render((ComponentTest()
@@ -72,6 +85,18 @@ void main() {
 
     group('nullable required prop', () {
       group('throws when a prop is required and not set', () {
+        test('on invocation', () {
+          expect(() {
+            (ComponentTest()
+              ..requiredNonNullable = true
+            )();
+          },
+              throwsA(isA<MissingRequiredPropsError>().having(
+                  (e) => e.toString(),
+                  'toString value',
+                  contains('Required prop `requiredNullable` is missing.'))));
+        });
+
         test('on mount', () {
           expect(() {
             rtl.render((ComponentTest()
@@ -155,10 +180,10 @@ void main() {
     group('required props in multiple mixins', () {
       test('throw an error when a prop in the first mixin is missing', () {
         expect(() {
-          rtl.render((MultipleMixinsTest()
+          (MultipleMixinsTest()
             ..requiredNullable = true
             ..secondRequiredProp = true
-          )());
+          )();
         },
             throwsA(isA<MissingRequiredPropsError>().having(
                     (e) => e.toString(),
@@ -169,10 +194,10 @@ void main() {
 
       test('throw an error when a prop in the second mixin is missing', () {
         expect(() {
-          rtl.render((MultipleMixinsTest()
+          (MultipleMixinsTest()
             ..requiredNullable = true
             ..requiredNonNullable = true
-          )());
+          )();
         },
             throwsA(isA<MissingRequiredPropsError>().having(
                     (e) => e.toString(),
@@ -183,16 +208,23 @@ void main() {
 
       test('does not throw when all required props are set', () {
         expect(() {
-          rtl.render((MultipleMixinsTest()
+          (MultipleMixinsTest()
             ..requiredNullable = true
             ..requiredNonNullable = true
             ..secondRequiredProp = true
-          )());
+          )();
         },
           returnsNormally);
       });
     });
   }, tags: 'ddc');
+
+  test('(New boilerplate) validates required props: does not throw in dart2js', () {
+    expect(() {
+      rtl.render((ComponentTest())());
+    },
+    returnsNormally);
+  }, tags: 'no-ddc');
 }
 
 // ignore: undefined_identifier, invalid_assignment

@@ -137,7 +137,5 @@ main() {
   new_boilerplate_required_accessor_integration_test.main();
   new_boilerplate_stateful_component_integration_test.main();
   new_boilerplate_unassigned_prop_integration_test.main();
-
-  // FIXME: Move these tests to only be run opted in to null safety.
   new_boilerplate_null_safety_validate_required_props_test.main();
 }
