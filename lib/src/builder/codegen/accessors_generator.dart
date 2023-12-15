@@ -206,7 +206,7 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
 
           if (type.isProps && disableRequiredPropValidation == null) {
             requiredPropChecks.add('  if(!props.containsKey($keyValue)) {\n'
-                '  throw MissingRequiredPropsError(\'Required prop `$accessorName` is missing.\');\n'
+                '  throw MissingRequiredPropsError(${stringLiteral('Required prop `$accessorName` is missing.')});\n'
                 '}\n');
           }
         }
