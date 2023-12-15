@@ -621,12 +621,12 @@ abstract class UiProps extends MapBase
 
     assert(_validateChildren(childArguments.length == 1 ? childArguments.single : childArguments));
 
-      assert(() {
-        if(_shouldValidateRequiredProps) {
-            validateRequiredProps();
-        }
-        return true;
-      }());
+    assert(() {
+      if (_shouldValidateRequiredProps) {
+        validateRequiredProps();
+      }
+      return true;
+    }());
 
     // Use `build` instead of using emulated function behavior to work around DDC issue
     // https://github.com/dart-lang/sdk/issues/29904
