@@ -55,6 +55,32 @@ main() {
             contains(
                 'Using nullSafety: true.  {languageVersion: 2.13, source: libraryVersionComment}'));
       });
+
+      group('for null safe dependency', () {
+        test('', () {
+          final expectedGeneratedFile = File(
+              'test_fixtures/test_packages/non_null_safe/.dart_tool/build/generated/over_react__test__null_safe/lib/test.over_react.g.dart');
+          expect(expectedGeneratedFile.existsSync(), isTrue,
+              reason:
+              'File should have been generated: ${expectedGeneratedFile.path}');
+          expect(
+              expectedGeneratedFile.readAsStringSync(),
+              contains(
+                  'Using nullSafety: true.  {languageVersion: 2.12, source: packageConfig, package: over_react__test__null_safe}'));
+        });
+
+        test('but has a non-null safe language version comment', () {
+          final expectedGeneratedFile = File(
+              'test_fixtures/test_packages/non_null_safe/.dart_tool/build/generated/over_react__test__null_safe/lib/test_language_version_comment.over_react.g.dart');
+          expect(expectedGeneratedFile.existsSync(), isTrue,
+              reason:
+              'File should have been generated: ${expectedGeneratedFile.path}');
+          expect(
+              expectedGeneratedFile.readAsStringSync(),
+              contains(
+                  'Using nullSafety: false. {languageVersion: 2.11, source: libraryVersionComment}'));
+        });
+      });
     });
 
     group('on package-level Dart version that is null safe', () {
