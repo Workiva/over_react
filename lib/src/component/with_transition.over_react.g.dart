@@ -300,6 +300,12 @@ mixin $WithTransitionPropsMixin on WithTransitionPropsMixin {
     _$key__childPropsByPhase__WithTransitionPropsMixin,
     _$key__transitionTimeout__WithTransitionPropsMixin
   ];
+
+  @override
+  @mustCallSuper
+  void validateRequiredProps() {
+    super.validateRequiredProps();
+  }
 }
 
 @Deprecated('This API is for use only within generated code.'

@@ -99,6 +99,7 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
     }
 
     generatedClass.write(_generateAccessors());
+
     generatedClass.writeln('}');
     generatedClass.writeln();
     return generatedClass.toString();
@@ -149,6 +150,8 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
 
     StringBuffer output = StringBuffer();
 
+    final requiredPropChecks = <String>[];
+
     node.members.whereType<FieldDeclaration>().where((field) => !field.isStatic).forEach((field) {
       T? getConstantAnnotation<T>(AnnotatedNode member, String name, T value) {
         return member.metadata.any((annotation) => annotation.name.name == name) ? value : null;
@@ -158,6 +161,8 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
       final requiredProp = getConstantAnnotation(field, 'requiredProp', annotations.requiredProp);
       final nullableRequiredProp =
           getConstantAnnotation(field, 'nullableRequiredProp', annotations.nullableRequiredProp);
+      final disableRequiredPropValidation = getConstantAnnotation(
+          field, 'disableRequiredPropValidation', annotations.disableRequiredPropValidation);
 
       if (accessorMeta?.doNotGenerate == true) {
         return;
@@ -198,6 +203,12 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
           annotationCount++;
           isRequired = true;
           isPotentiallyNullable = true;
+
+          if (type.isProps && disableRequiredPropValidation == null) {
+            requiredPropChecks.add('  if(!props.containsKey($keyValue)) {\n'
+                '  throw MissingRequiredPropsError(${stringLiteral('Required prop `$accessorName` is missing.')});\n'
+                '}\n');
+          }
         }
 
         if (accessorMeta != null) {
@@ -351,6 +362,18 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
         '  /* GENERATED CONSTANTS */\n$constantsImpl$keyConstantsImpl\n$listImpl$keyListImpl';
 
     output.write(staticVariablesImpl);
+
+    if (type.isProps &&
+        version != Version.v3_legacyDart2Only &&
+        version != Version.v2_legacyBackwardsCompat) {
+      final validateRequiredPropsMethod = '\n  @override\n'
+          '  @mustCallSuper\n'
+          '  void validateRequiredProps() {\n'
+          '    super.validateRequiredProps();\n'
+          '    ${requiredPropChecks.join('\n')}\n'
+          '  }\n';
+      output.write(validateRequiredPropsMethod);
+    }
 
     return output.toString();
   }

@@ -18,6 +18,12 @@ mixin $NoneProps on NoneProps {
 
   static const List<PropDescriptor> $props = [];
   static const List<String> $propKeys = [];
+
+  @override
+  @mustCallSuper
+  void validateRequiredProps() {
+    super.validateRequiredProps();
+  }
 }
 
 @Deprecated('This API is for use only within generated code.'
@@ -44,6 +50,12 @@ mixin $SingleProps<T> on SingleProps<T> {
 
   static const List<PropDescriptor> $props = [_$prop__single__SingleProps];
   static const List<String> $propKeys = [_$key__single__SingleProps];
+
+  @override
+  @mustCallSuper
+  void validateRequiredProps() {
+    super.validateRequiredProps();
+  }
 }
 
 @Deprecated('This API is for use only within generated code.'
@@ -82,6 +94,12 @@ mixin $SingleThatWontBeSpecifiedProps<T> on SingleThatWontBeSpecifiedProps<T> {
   static const List<String> $propKeys = [
     _$key__singleThatWontBeSpecified__SingleThatWontBeSpecifiedProps
   ];
+
+  @override
+  @mustCallSuper
+  void validateRequiredProps() {
+    super.validateRequiredProps();
+  }
 }
 
 @Deprecated('This API is for use only within generated code.'
@@ -115,6 +133,12 @@ mixin $SingleWithBoundProps<S extends Pattern> on SingleWithBoundProps<S> {
   static const List<String> $propKeys = [
     _$key__singleWithBound__SingleWithBoundProps
   ];
+
+  @override
+  @mustCallSuper
+  void validateRequiredProps() {
+    super.validateRequiredProps();
+  }
 }
 
 @Deprecated('This API is for use only within generated code.'
@@ -154,6 +178,12 @@ mixin $DoubleProps<A, B> on DoubleProps<A, B> {
     _$key__doubleA__DoubleProps,
     _$key__doubleB__DoubleProps
   ];
+
+  @override
+  @mustCallSuper
+  void validateRequiredProps() {
+    super.validateRequiredProps();
+  }
 }
 
 @Deprecated('This API is for use only within generated code.'

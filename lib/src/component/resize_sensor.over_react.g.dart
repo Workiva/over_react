@@ -266,6 +266,12 @@ mixin $ResizeSensorProps on ResizeSensorProps {
     _$key__onDetachedMountCheck__ResizeSensorProps,
     _$key__onDidReset__ResizeSensorProps
   ];
+
+  @override
+  @mustCallSuper
+  void validateRequiredProps() {
+    super.validateRequiredProps();
+  }
 }
 
 @Deprecated('This API is for use only within generated code.'

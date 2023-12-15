@@ -28,6 +28,12 @@ mixin $SuspensePropsMixin on SuspensePropsMixin {
     _$prop__fallback__SuspensePropsMixin
   ];
   static const List<String> $propKeys = [_$key__fallback__SuspensePropsMixin];
+
+  @override
+  @mustCallSuper
+  void validateRequiredProps() {
+    super.validateRequiredProps();
+  }
 }
 
 @Deprecated('This API is for use only within generated code.'

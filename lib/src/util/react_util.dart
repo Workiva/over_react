@@ -101,4 +101,8 @@ class UiPropsMapView extends MapView
 
   @override
   void validateRequiredProps() => throw UnimplementedError('@PropsMixin instances do not implement validateRequiredProps');
+
+  @override
+  void disableRequiredPropValidation() =>
+      throw UnimplementedError('@PropsMixin instances do not implement disableRequiredPropValidation');
 }

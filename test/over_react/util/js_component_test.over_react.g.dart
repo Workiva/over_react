@@ -70,6 +70,12 @@ mixin $TestPropsMixin on TestPropsMixin {
     _$key__dynamicProp__TestPropsMixin,
     _$key__untypedProp__TestPropsMixin
   ];
+
+  @override
+  @mustCallSuper
+  void validateRequiredProps() {
+    super.validateRequiredProps();
+  }
 }
 
 @Deprecated('This API is for use only within generated code.'
@@ -113,6 +119,12 @@ mixin $ASecondPropsMixin on ASecondPropsMixin {
     _$key__disabled__ASecondPropsMixin,
     _$key__anotherProp__ASecondPropsMixin
   ];
+
+  @override
+  @mustCallSuper
+  void validateRequiredProps() {
+    super.validateRequiredProps();
+  }
 }
 
 @Deprecated('This API is for use only within generated code.'
