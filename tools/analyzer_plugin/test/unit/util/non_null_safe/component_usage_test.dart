@@ -21,7 +21,7 @@ import 'package:over_react_analyzer_plugin/src/component_usage.dart';
 import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
 import 'package:test/test.dart';
 
-import '../../test_util.dart';
+import '../../../test_util.dart';
 
 void main() {
   group('component_usage', () {
@@ -588,10 +588,10 @@ void main() {
                     for (final item in items) renderChild(item),
                   ])
               ''', imports: '''$fooComponents
-                  bool condition = false;
+                  bool condition;
                   var someChild;
-                  Iterable someChildren = [];
-                  Iterable items = [];
+                  Iterable someChildren;
+                  Iterable items;
                   renderChild(child) {}
               ''', isResolved: isResolved))!;
               expect(usage.children, [
@@ -845,6 +845,7 @@ class BuilderTestCase {
 }
 
 const fooComponents = /*language=dart*/ r'''
+// @dart=2.11
 import 'package:over_react/over_react.dart';
 UiFactory<FooProps> Foo = _$Foo; // ignore: undefined_identifier, invalid_assignment
 mixin FooProps on UiProps {
@@ -910,7 +911,7 @@ const buildersToTest = {
   ),
   'DOM factory w/ namespaced import': BuilderTestCase(
     source: 'foo_bar.Dom.h1()',
-    imports: 'import \'package:over_react/over_react.dart\' as foo_bar;$fooComponents',
+    imports: '// @dart=2.11\nimport \'package:over_react/over_react.dart\' as foo_bar;$fooComponents',
     componentName: 'Dom.h1',
     unresolvedComponentName: 'foo_bar.Dom.h1',
     factoryName: 'h1',
@@ -931,6 +932,7 @@ const buildersToTest = {
   'unresolved component factory': BuilderTestCase(
     source: 'Unresolved()',
     imports: '''
+      // @dart=2.11
       import 'package:over_react/over_react.dart';
       // Suppress warnings for the invalid invocation of this factory;
       // we want to make sure it gets picked up even when using a resolved AST.
@@ -947,8 +949,9 @@ const buildersToTest = {
   'generic UiFactory component factory': BuilderTestCase(
     source: 'Generic()',
     imports: '''
+      // @dart=2.11
       import 'package:over_react/over_react.dart';
-      late UiFactory Generic;
+      UiFactory Generic;
     ''',
     componentName: 'Generic',
     unresolvedComponentName: 'Generic',
@@ -959,7 +962,7 @@ const buildersToTest = {
   ),
   'component factory w/ namespaced import': BuilderTestCase(
     source: 'foo_bar.ErrorBoundary()',
-    imports: 'import \'package:over_react/components.dart\' as foo_bar;$fooComponents',
+    imports: '// @dart=2.11\nimport \'package:over_react/components.dart\' as foo_bar;$fooComponents',
     componentName: 'ErrorBoundary',
     unresolvedComponentName: 'foo_bar.ErrorBoundary',
     factoryName: 'foo_bar.ErrorBoundary',

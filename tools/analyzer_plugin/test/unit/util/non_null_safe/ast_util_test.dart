@@ -3,12 +3,13 @@ import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/util.dart';
 import 'package:test/test.dart';
 
-import '../../test_util.dart';
+import '../../../test_util.dart';
 
 void main() {
   group('ast_util', () {
     test('allDescendants returns all descendants in breadth-first order', () {
       final unit = parseAndGetUnit(/*language=dart*/ r'''
+        // @dart=2.11
         class A {
           var field;
         }
@@ -26,6 +27,7 @@ void main() {
     group('FunctionBody.returnExpressions', () {
       test('BlockFunctionBody', () {
         final body = parseAndGetNode<BlockFunctionBody>(/*language=dart*/ r'''
+          // @dart=2.11
           blockBody() {
             if (condition1) return fromIfStatement;
             if (condition2) {
@@ -49,6 +51,7 @@ void main() {
 
       test('ExpressionFunctionBody', () {
         final body = parseAndGetNode<ExpressionFunctionBody>(/*language=dart*/ r'''
+          // @dart=2.11
           expressionBody() => theExpression;
         ''');
 
@@ -59,6 +62,7 @@ void main() {
 
       test('EmptyFunctionBody', () {
         final body = parseAndGetNode<EmptyFunctionBody>(/*language=dart*/ r'''
+          // @dart=2.11
           abstract class Foo {
             emptyFunctionBody();
           }
@@ -76,6 +80,7 @@ void main() {
       group('lookUpVariable', () {
         test('looks up a variable', () async {
           final unit = (await parseAndGetResolvedUnit(/*language=dart*/ r'''
+            // @dart=2.11
             someFunction() {
               var foo = 0;
               print(foo);
@@ -90,6 +95,7 @@ void main() {
         group('returns null when', () {
           test('the element does not correspond to a variable', () async {
             final unit = (await parseAndGetResolvedUnit(/*language=dart*/ r'''
+              // @dart=2.11
               someFunction() {
                 foo() {}
                 print(foo);
@@ -103,6 +109,7 @@ void main() {
 
           test('the element does not exist within a given node', () async {
             final unit = (await parseAndGetResolvedUnit(/*language=dart*/ r'''
+              // @dart=2.11
               someFunction() {
                 var foo = 0;
                 print(foo);
@@ -119,6 +126,7 @@ void main() {
       group('lookUpFunction', () {
         test('looks up a function declaration', () async {
           final unit = (await parseAndGetResolvedUnit(/*language=dart*/ r'''
+            // @dart=2.11
             someFunction() {
               foo() => 'I am the body';
               print(foo);
@@ -132,6 +140,7 @@ void main() {
 
         test('looks up a variable initialize to a function', () async {
           final unit = (await parseAndGetResolvedUnit(/*language=dart*/ r'''
+            // @dart=2.11
             someFunction() {
               var foo = () => 'I am the body';
               print(foo);
@@ -146,6 +155,7 @@ void main() {
         group('returns null when', () {
           test('the element does not correspond to a function', () async {
             final unit = (await parseAndGetResolvedUnit(/*language=dart*/ r'''
+              // @dart=2.11
               someFunction() {
                 var foo = 1;
                 print(foo);
@@ -159,6 +169,7 @@ void main() {
 
           test('the element does not exist within a given node', () async {
             final unit = (await parseAndGetResolvedUnit(/*language=dart*/ r'''
+              // @dart=2.11
               someFunction() {
                 foo() => 'I am the body';
                 print(foo);
@@ -175,6 +186,7 @@ void main() {
       group('lookUpDeclaration', () {
         test('looks up a function', () async {
           final unit = (await parseAndGetResolvedUnit(/*language=dart*/ r'''
+            // @dart=2.11
             someFunction() {
               foo() {}
               print(foo);
@@ -188,6 +200,7 @@ void main() {
 
         test('looks up a variable', () async {
           final unit = (await parseAndGetResolvedUnit(/*language=dart*/ r'''
+            // @dart=2.11
             someFunction() {
               var foo = 1;
               print(foo);
@@ -201,6 +214,7 @@ void main() {
 
         test('looks up a class', () async {
           final unit = (await parseAndGetResolvedUnit(/*language=dart*/ r'''
+            // @dart=2.11
             class Foo {}
           
             someFunction() {
@@ -216,6 +230,7 @@ void main() {
         group('returns null when', () {
           test('the element does not correspond to a declaration', () async {
             final unit = (await parseAndGetResolvedUnit(/*language=dart*/ r'''
+              // @dart=2.11
               import 'dart:html';
             ''')).unit;
             final usage = allDescendantsOfType<ImportDirective>(unit).single;
@@ -225,6 +240,7 @@ void main() {
 
           test('the element does not exist within a given node', () async {
             final unit = (await parseAndGetResolvedUnit(/*language=dart*/ r'''
+              // @dart=2.11
               someFunction() {
                 foo() {};
                 print(foo);
@@ -241,6 +257,7 @@ void main() {
       group('lookUpParameter', () {
         test('looks up a required parameter', () async {
           final unit = (await parseAndGetResolvedUnit(/*language=dart*/ r'''
+            // @dart=2.11
             someFunction(int foo) {
               print(foo);
             }
@@ -253,7 +270,8 @@ void main() {
 
         test('looks up a named parameter', () async {
           final unit = (await parseAndGetResolvedUnit(/*language=dart*/ r'''
-            someFunction({int? foo}) {
+            // @dart=2.11
+            someFunction({int foo}) {
               print(foo);
             }
           ''')).unit;
@@ -266,6 +284,7 @@ void main() {
         group('returns null when', () {
           test('the element does not correspond to a parameter', () async {
             final unit = (await parseAndGetResolvedUnit(/*language=dart*/ r'''
+              // @dart=2.11
               someFunction() {
                 foo() {}
                 print(foo);
@@ -279,6 +298,7 @@ void main() {
 
           test('the element does not exist within a given node', () async {
             final unit = (await parseAndGetResolvedUnit(/*language=dart*/ r'''
+              // @dart=2.11
               someFunction(int foo) {
                 print(foo);
               }
