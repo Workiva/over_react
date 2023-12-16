@@ -49,7 +49,7 @@ workiva:
 # point to the local copy of over_react. This must be an absolute path.
 #
 # In CI, this should also be the path to the over_react checkout
-
-dependency_overrides:
-  over_react:
-    path: /Users/sydneyjodon/Documents/GitHub/over_react
+#
+# dependency_overrides:
+#   over_react:
+#     path: /Users/me/workspaces/over_react
