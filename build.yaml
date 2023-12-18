@@ -35,6 +35,8 @@ targets:
             # These tests analyze cleanly without a build so the generated files do not need to be checked in.
             - "test/over_react/component_declaration/builder_integration_tests/backwards_compatible/**"
             - "test/over_react/component_declaration/builder_integration_tests/new_boilerplate/**"
+            - "test/over_react/component_declaration/non_null_safe_builder_integration_tests/backwards_compatible/**"
+            - "test/over_react/component_declaration/non_null_safe_builder_integration_tests/new_boilerplate/**"
             # These test un-built base class behavior, and contain code that might look like declarations
             # and should definitely not be built
             - "test/over_react/component_declaration/builder_helpers_test.dart"
@@ -49,6 +51,8 @@ targets:
             # These tests analyze cleanly without a build so the generated files do not need to be checked in.
             - "test/over_react/component_declaration/builder_integration_tests/backwards_compatible/**"
             - "test/over_react/component_declaration/builder_integration_tests/new_boilerplate/**"
+            - "test/over_react/component_declaration/non_null_safe_builder_integration_tests/backwards_compatible/**"
+            - "test/over_react/component_declaration/non_null_safe_builder_integration_tests/new_boilerplate/**"
           exclude:
             - "web/component1/**"
             # The Dart 2 only boilerplate does not analyze cleanly without a build so the generated files need to be

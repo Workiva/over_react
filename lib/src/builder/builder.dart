@@ -13,16 +13,20 @@
 // limitations under the License.
 
 import 'dart:async';
+import 'dart:io';
+import 'dart:isolate';
 
 import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:build/build.dart';
 import 'package:dart_style/dart_style.dart';
 import 'package:path/path.dart' as p;
+import 'package:package_config/package_config.dart' as pc;
 import 'package:source_span/source_span.dart';
 
 import './util.dart';
 import 'codegen.dart';
+import 'codegen/language_version_util.dart';
 import 'parsing.dart';
 
 Builder overReactBuilder(BuilderOptions? options) => OverReactBuilder();
@@ -56,6 +60,60 @@ class OverReactBuilder extends Builder {
     }
     if (isPart(libraryUnit)) {
       return;
+    }
+
+    String nullSafetyReason;
+    bool nullSafety;
+    {
+      final versionToken = libraryUnit.languageVersionToken;
+      if (versionToken != null) {
+        // If there's a language version comment, honor that.
+        nullSafety = versionToken.supportsNullSafety;
+        nullSafetyReason = {
+          'languageVersion': '${versionToken.major}.${versionToken.minor}',
+          'source': 'libraryVersionComment',
+        }.toString();
+      } else {
+        // Otherwise, read the language version from the package config.
+        //
+        // Normally, builders would do this via (await buildStep.inputLibrary).languageVersion,
+        // but that would trigger resolved analysis which we don't want to do for this builder,
+        // for performance reasons.
+        final packageName = buildStep.inputId.package;
+
+        // Catch any errors coming from our implementation of `$packageConfig`.
+        // We can remove this once we switch to build 2.4.0's `packageConfig`
+        // (see `$packageConfig` doc comment for more info).
+        pc.LanguageVersion? packageConfigLanguageVersion;
+        try {
+          packageConfigLanguageVersion = (await buildStep.$packageConfig)
+              .packages
+              .firstWhereOrNull((p) => p.name == packageName)
+              ?.languageVersion;
+        } catch (e, st) {
+          log.warning('Error reading package config', e, st);
+        }
+
+        if (packageConfigLanguageVersion != null) {
+          nullSafety = packageConfigLanguageVersion.supportsNullSafety;
+          nullSafetyReason = {
+            'languageVersion': packageConfigLanguageVersion,
+            'source': 'packageConfig',
+            'package': packageName,
+          }.toString();
+        } else {
+          // If we don't have any information to go off of, opt out of null safety in 2.x,
+          // and opt in for newer versions (Dart 3+).
+          // It should be pretty unlikely that we don't have access to the package config,
+          // or that the file being generated doesn't have an associated package.
+          final platformOnlySupportsNullSafety = !Platform.version.startsWith('2.');
+          nullSafety = platformOnlySupportsNullSafety;
+          nullSafetyReason = {
+            'languageVersion': 'unknown (no package config or package config entry)',
+            'defaultNullSafetyForCurrentSdk': platformOnlySupportsNullSafety,
+          }.toString();
+        }
+      }
     }
 
     final outputs = <String>[];
@@ -96,17 +154,6 @@ class OverReactBuilder extends Builder {
       //
       // Validate boilerplate declarations and generate if there aren't any errors.
       //
-
-      // FIXME(null-safety) detect null safety for other packages (FED-1720)
-      bool nullSafety;
-      final languageVersionToken = unit.languageVersionToken;
-      if (languageVersionToken != null) {
-        nullSafety = languageVersionToken.major > 2 ||
-            (languageVersionToken.major == 2 && languageVersionToken.minor >= 12);
-      } else {
-        // During development, only enable null safety by default for over_react.
-        nullSafety = id.package == 'over_react';
-      }
 
       final generator = ImplGenerator(log, sourceFile, nullSafety: nullSafety);
 
@@ -170,10 +217,16 @@ class OverReactBuilder extends Builder {
         log.severe('Missing "part \'$expectedPart\';".');
       }
 
+      // Add an extra space, since `false` is one character longer than `true`, so that the next
+      // sentence lines up when grepped across multiple files.
+      final nullSafetyCommentText = 'Using nullSafety: $nullSafety.${nullSafety ? ' ' : ''} $nullSafetyReason';
+
       // Generated part files must have matching language version comments, so copy them over if they exist.
       // TODO use CompilationUnit.languageVersionToken instead of parsing this manually once we're sure we can get on analyzer version 0.39.5 or greater
       final languageVersionCommentMatch = RegExp(r'//\s*@dart\s*=\s*.+').firstMatch(source);
-      await _writePart(buildStep, outputId, outputs, languageVersionComment: languageVersionCommentMatch?.group(0));
+      await _writePart(buildStep, outputId, outputs,
+          nullSafetyCommentText: nullSafetyCommentText,
+          languageVersionComment: languageVersionCommentMatch?.group(0));
     } else {
       if (hasOutputPartDirective()) {
         log.warning('An over_react part directive was found in ${buildStep.inputId.path}, '
@@ -200,7 +253,8 @@ class OverReactBuilder extends Builder {
     return null;
   }
 
-  static FutureOr<void> _writePart(BuildStep buildStep, AssetId outputId, Iterable<String> outputs, {String? languageVersionComment}) async {
+  static FutureOr<void> _writePart(BuildStep buildStep, AssetId outputId, Iterable<String> outputs,
+      {required String nullSafetyCommentText, String? languageVersionComment}) async {
     final partOf = "'${p.basename(buildStep.inputId.uri.toString())}'";
 
     final buffer = StringBuffer();
@@ -214,8 +268,16 @@ class OverReactBuilder extends Builder {
       ..writeln('part of $partOf;')
       ..writeln()
       ..writeln(_headerLine)
-      ..writeln('// OverReactBuilder (package:over_react/src/builder.dart)')
-      ..writeln(_headerLine);
+      ..writeln('// OverReactBuilder (package:over_react/src/builder.dart)');
+    // Omit this for now for filed from over_react so it doesn't show up as a diff in golds and
+    // checked in files in the conditional null safety generation PR.
+    // TODO re-enable after that merges.
+    if (outputId.package != 'over_react') {
+      buffer
+        ..writeln('//')
+        ..write(lineComment(nullSafetyCommentText));
+    }
+    buffer.writeln(_headerLine);
 
     for (final item in outputs) {
       buffer
@@ -231,5 +293,22 @@ class OverReactBuilder extends Builder {
       log.severe('Error formatting generated code', e, st);
     }
     await buildStep.writeAsString(outputId, output);
+  }
+}
+
+extension on BuildStep {
+  // Cache the result so we don't read and parse the package config for every file.
+  //
+  // This value should be safe to reuse globally within an isolate.
+  static pc.PackageConfig? _cachedPackageConfig;
+
+  /// Polyfill for build 2.4.0's BuildStep.packageConfig, which only seems to be resolvable in Dart 3.
+  /// From: https://github.com/dart-lang/build/issues/3492#issuecomment-1533455176
+  ///
+  /// We could name this `packageConfig` and have it get shadowed by the real implementation from
+  /// `BuildStep` when 2.4.0 is resolved to, but that feels unnecessarily risky, and we can just
+  /// follow up later to remove this extension and use the real implementation instead.
+  Future<pc.PackageConfig> get $packageConfig async {
+    return _cachedPackageConfig ??= await pc.loadPackageConfigUri((await Isolate.packageConfig)!);
   }
 }
