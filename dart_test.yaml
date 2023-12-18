@@ -16,6 +16,7 @@ presets:
     exclude_tags: no-ddc
     paths:
       - test/over_react_component_declaration_test.dart
+      - test/over_react_component_declaration_non_null_safe_test.dart
       - test/over_react_component_test.dart
       - test/over_react_dom_test.dart
       - test/over_react_prod_test.dart
@@ -26,6 +27,7 @@ presets:
     exclude_tags: ddc
     paths:
       - test/over_react_component_declaration_test.dart
+      - test/over_react_component_declaration_non_null_safe_test.dart
       - test/over_react_component_test.dart
       - test/over_react_dom_test.dart
       - test/over_react_prod_test.dart

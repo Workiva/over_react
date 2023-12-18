@@ -298,6 +298,12 @@ mixin $SafeRenderManagerHelperProps on SafeRenderManagerHelperProps {
     _$key__getInitialContent__SafeRenderManagerHelperProps,
     _$key__contentRef__SafeRenderManagerHelperProps
   ];
+
+  @override
+  @mustCallSuper
+  void validateRequiredProps() {
+    super.validateRequiredProps();
+  }
 }
 
 @Deprecated('This API is for use only within generated code.'

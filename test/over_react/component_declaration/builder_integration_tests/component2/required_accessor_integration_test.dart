@@ -26,7 +26,11 @@ void main() {
       test('on mount', () {
         expect(() {
           mount(
-            (ComponentTest()..nullable = true..requiredAndLengthLimited = [1,2])(),
+            (ComponentTest()
+              ..nullable = true
+              ..requiredAndLengthLimited = [1,2]
+              ..lateProp = true
+            )(),
             attachedToDocument: true,
           );
         }, logsPropRequiredError('ComponentTestProps.required', 'This Prop is Required for testing purposes.'));
@@ -41,6 +45,7 @@ void main() {
                 ..required = true
                 ..nullable = true
                 ..requiredAndLengthLimited = [1,2]
+                ..lateProp = true
               )(),
               attachedToDocument: true
           );
@@ -50,6 +55,7 @@ void main() {
           jacket.rerender((ComponentTest()
               ..nullable = true
               ..requiredAndLengthLimited = [1,2]
+              ..lateProp = true
             )()
           );
         }, logsPropRequiredError('ComponentTestProps.required', 'This Prop is Required for testing purposes.'));
@@ -64,6 +70,7 @@ void main() {
             ..required = null
             ..nullable = true
             ..requiredAndLengthLimited = [1,2]
+            ..lateProp = true
           )());
         }, logsPropRequiredError('ComponentTestProps.required', 'This Prop is Required for testing purposes.'));
       });
@@ -77,6 +84,7 @@ void main() {
                 ..required = true
                 ..nullable = true
                 ..requiredAndLengthLimited = [1,2]
+                ..lateProp = true
               )(),
               attachedToDocument: true);
         }, logsNoPropTypeWarnings);
@@ -86,6 +94,7 @@ void main() {
             ..required = null
             ..nullable = true
             ..requiredAndLengthLimited = [1,2]
+            ..lateProp = true
           )());
         }, logsPropRequiredError('ComponentTestProps.required', 'This Prop is Required for testing purposes.'));
       });
@@ -97,6 +106,7 @@ void main() {
           render((ComponentTest()
             ..required = true
             ..requiredAndLengthLimited = [1,2]
+            ..lateProp = true
           )());
         }, logsPropRequiredError('ComponentTestProps.nullable', 'This prop can be set to null!'));
       });
@@ -110,6 +120,7 @@ void main() {
                 ..required = true
                 ..nullable = true
                 ..requiredAndLengthLimited = [1,2]
+                ..lateProp = true
               )(),
               attachedToDocument: true);
         }, logsNoPropTypeWarnings);
@@ -118,6 +129,7 @@ void main() {
           jacket.rerender((ComponentTest()
             ..required = true
             ..requiredAndLengthLimited = [1,2]
+            ..lateProp = true
           )());
         }, logsPropRequiredError('ComponentTestProps.nullable', 'This prop can be set to null!'));
       });
@@ -130,6 +142,7 @@ void main() {
             ..nullable = true
             ..required = true
             ..requiredAndLengthLimited = [1,2]
+            ..lateProp = true
           )());
         }, logsNoPropTypeWarnings);
       });
@@ -139,6 +152,7 @@ void main() {
             ..required = true
             ..nullable = true
             ..requiredAndLengthLimited = [1,2]
+            ..lateProp = true
           )(),
           attachedToDocument: true,
         );
@@ -148,6 +162,7 @@ void main() {
             ..required = true
             ..nullable = true
             ..requiredAndLengthLimited = [1,2]
+            ..lateProp = true
           )());
         }, logsNoPropTypeWarnings);
       });
@@ -160,6 +175,7 @@ void main() {
             ..nullable = null
             ..requiredAndLengthLimited = [1,2]
             ..required = true
+            ..lateProp = true
           )());
         }, logsNoPropTypeWarnings);
       });
@@ -173,6 +189,7 @@ void main() {
                 ..required = true
                 ..nullable = true
                 ..requiredAndLengthLimited = [1,2]
+                ..lateProp = true
               )(),
               attachedToDocument: true);
         }, logsNoPropTypeWarnings);
@@ -182,6 +199,7 @@ void main() {
             ..required = true
             ..nullable = null
             ..requiredAndLengthLimited = [1,2]
+            ..lateProp = true
           )());
         }, logsNoPropTypeWarnings);
       });
@@ -193,6 +211,7 @@ void main() {
           mount((ComponentTest()
             ..nullable = null
             ..required = true
+            ..lateProp = true
           )());
         }, logsPropValueError('null', 'ComponentTestProps.requiredAndLengthLimited'));
       });
@@ -203,8 +222,30 @@ void main() {
             ..required = true
             ..nullable = true
             ..requiredAndLengthLimited = [1]
+            ..lateProp = true
           )());
         }, logsPropValueError('1', 'ComponentTestProps.requiredAndLengthLimited'));
+      });
+    });
+
+    group('for late props', () {
+      test('does not throw on invocation', () {
+        expect(() {
+          (ComponentTest()
+            ..required = true
+            ..nullable = true
+            ..requiredAndLengthLimited = [1,2]
+          )();
+        },
+            returnsNormally);
+      });
+
+      test('on mount', () {
+        expect(() => render(ComponentTest()
+          ..nullable = null
+          ..required = true
+          ..requiredAndLengthLimited = [1,2]
+        ), logsPropRequiredError('ComponentTestProps.lateProp'));
       });
     });
   });
@@ -225,6 +266,7 @@ class _$ComponentTestProps extends UiProps {
   @Accessor(isRequired: true, isNullable: false, requiredErrorMessage: 'This Prop Array is Required for testing purposes.')
   List? requiredAndLengthLimited;
 
+  late bool lateProp;
 }
 
 @Component2()

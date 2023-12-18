@@ -347,6 +347,12 @@ mixin $BasicPartOfLibPropsMixin on BasicPartOfLibPropsMixin {
     _$key__basic4__BasicPartOfLibPropsMixin,
     _$key__basic5__BasicPartOfLibPropsMixin
   ];
+
+  @override
+  @mustCallSuper
+  void validateRequiredProps() {
+    super.validateRequiredProps();
+  }
 }
 
 @Deprecated('This API is for use only within generated code.'
@@ -578,6 +584,12 @@ mixin $SuperPartOfLibPropsMixin on SuperPartOfLibPropsMixin {
   static const List<String> $propKeys = [
     _$key__superProp__SuperPartOfLibPropsMixin
   ];
+
+  @override
+  @mustCallSuper
+  void validateRequiredProps() {
+    super.validateRequiredProps();
+  }
 }
 
 @Deprecated('This API is for use only within generated code.'
@@ -611,6 +623,12 @@ mixin $SubPartOfLibPropsMixin on SubPartOfLibPropsMixin {
   static const List<String> $propKeys = [
     _$key__subProp__SubPartOfLibPropsMixin
   ];
+
+  @override
+  @mustCallSuper
+  void validateRequiredProps() {
+    super.validateRequiredProps();
+  }
 }
 
 @Deprecated('This API is for use only within generated code.'

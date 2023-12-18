@@ -15,6 +15,9 @@
 // Dummy annotations that would be used by Pub code generator
 library over_react.component_declaration.annotations;
 
+// Exported for use in generated code.
+export 'package:meta/meta.dart' show mustCallSuper;
+
 /// Annotation used with the `over_react` builder to declare a `UiFactory` for a component.
 ///
 ///     @Factory()
@@ -274,7 +277,7 @@ class AbstractComponent2 implements AbstractComponent { // ignore: deprecated_me
 ///
 /// Classes using this annotation must include the abstract `props` getter.
 ///
-/// __Deprecated.__ Use the `@Props()` annotation instead if you need to make use of an annotation argument. 
+/// __Deprecated.__ Use the `@Props()` annotation instead if you need to make use of an annotation argument.
 /// Otherwise, this can be removed completely. Will be removed in the 4.0.0 release of over_react.
 @Deprecated('Use the @Props() annotation if you need to make use of an annotation argument. Otherwise, this can be removed completely. Will be removed in the 4.0.0 release of over_react.')
 class PropsMixin implements TypedMap {
@@ -298,7 +301,7 @@ class PropsMixin implements TypedMap {
 ///
 /// Classes using this annotation must include the abstract `state` getter.
 ///
-/// __Deprecated.__ Use the `@State()` annotation instead if you need to make use of an annotation argument. 
+/// __Deprecated.__ Use the `@State()` annotation instead if you need to make use of an annotation argument.
 /// Otherwise, this can be removed completely. Will be removed in the 4.0.0 release of over_react.
 @Deprecated('Use the @State() annotation if you need to make use of an annotation argument. Otherwise, this can be removed completely. Will be removed in the 4.0.0 release of over_react.')
 class StateMixin implements TypedMap {
@@ -380,4 +383,11 @@ class Accessor {
 
 abstract class TypedMap {
   String? get keyNamespace;
+}
+
+/// Prevents required prop validation from being performed on a prop.
+const _DisableRequiredPropValidation disableRequiredPropValidation = _DisableRequiredPropValidation();
+
+class _DisableRequiredPropValidation {
+  const _DisableRequiredPropValidation();
 }

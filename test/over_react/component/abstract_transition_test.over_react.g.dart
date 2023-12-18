@@ -400,6 +400,12 @@ mixin $TransitionerPropsMixin on TransitionerPropsMixin {
     _$key__initiallyShown__TransitionerPropsMixin,
     _$key__transitionTimeout__TransitionerPropsMixin
   ];
+
+  @override
+  @mustCallSuper
+  void validateRequiredProps() {
+    super.validateRequiredProps();
+  }
 }
 
 @Deprecated('This API is for use only within generated code.'

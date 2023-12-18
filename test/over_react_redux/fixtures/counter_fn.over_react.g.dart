@@ -32,6 +32,12 @@ mixin $CounterFnProps on CounterFnProps {
   static const List<String> $propKeys = [
     _$key__countEqualityFn__CounterFnProps
   ];
+
+  @override
+  @mustCallSuper
+  void validateRequiredProps() {
+    super.validateRequiredProps();
+  }
 }
 
 @Deprecated('This API is for use only within generated code.'
@@ -71,6 +77,12 @@ mixin $ModelCounterFnPropsMixin on ModelCounterFnPropsMixin {
   static const List<String> $propKeys = [
     _$key__modelCountEqualityFn__ModelCounterFnPropsMixin
   ];
+
+  @override
+  @mustCallSuper
+  void validateRequiredProps() {
+    super.validateRequiredProps();
+  }
 }
 
 @Deprecated('This API is for use only within generated code.'
@@ -110,6 +122,12 @@ mixin $CustomContextCounterFnPropsMixin on CustomContextCounterFnPropsMixin {
   static const List<String> $propKeys = [
     _$key__bigCountEqualityFn__CustomContextCounterFnPropsMixin
   ];
+
+  @override
+  @mustCallSuper
+  void validateRequiredProps() {
+    super.validateRequiredProps();
+  }
 }
 
 @Deprecated('This API is for use only within generated code.'

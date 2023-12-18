@@ -18,7 +18,7 @@ import 'package:meta/meta.dart';
 
 import '../util/map_util.dart';
 import './component_base.dart' as component_base;
-import './component_base.dart' show PropsMetaCollection, PropDescriptor, PropsModifier, PropsMeta;
+import './component_base.dart' show PropsMetaCollection, PropsModifier, PropsMeta;
 import './annotations.dart' as annotations;
 import './ui_props_self_typed_extension.dart';
 
@@ -146,63 +146,6 @@ abstract class UiProps extends component_base.UiProps with GeneratedClass {
   @toBeGenerated
   @visibleForOverriding
   String $getPropKey(void Function(Map m) accessMap) => throw UngeneratedError(member: #$getPropKey);
-
-  @override
-  @visibleForOverriding
-  @mustCallSuper
-  void validateRequiredProps() {
-    super.validateRequiredProps();
-    // This fails when staticMeta isn't generated, so return early for now so tests don't fail.
-    // FIXME(null-safety) generate a static implementation of this instead in FED-1886, and remove this
-    return;
-
-    // ignore: dead_code
-    List<PropDescriptor>? missingRequiredProps;
-    List<PropDescriptor>? nullNonNullableRequiredProps;
-
-    for (final meta in staticMeta.all) {
-      for (final prop in meta.props) {
-        if (prop.isRequired) {
-          if (prop.isNullable) {
-            if (!props.containsKey(prop.key)) {
-              (missingRequiredProps ??= []).add(prop);
-            }
-          } else {
-            // Avoid looking up the key twice.
-            if (props[prop.key] == null) {
-              if (props.containsKey(prop.key)) {
-                (nullNonNullableRequiredProps ??= []).add(prop);
-              } else {
-                (missingRequiredProps ??= []).add(prop);
-              }
-            }
-          }
-        }
-      }
-    }
-
-    if (missingRequiredProps == null && nullNonNullableRequiredProps == null) {
-      return;
-    }
-
-    String formatPropKey(String propKey) => '`$propKey`';
-
-    final messageSegments = <String>[];
-    if (missingRequiredProps != null) {
-      messageSegments.add('Required props are missing: ${missingRequiredProps.map((prop) {
-        var propMessage = formatPropKey(prop.key);
-        if (prop.isNullable) propMessage += ' (can be null, but must be specified)';
-        return propMessage;
-      }).join(' ,')}.');
-    }
-    if (nullNonNullableRequiredProps != null) {
-      messageSegments
-          .add('Required non-nullable props are null: ${nullNonNullableRequiredProps.map((prop) {
-        return formatPropKey(prop.key);
-      }).join(' ,')}.');
-    }
-    throw MissingRequiredPropsError(messageSegments.join(' '));
-  }
 }
 
 class MissingRequiredPropsError extends Error {

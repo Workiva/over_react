@@ -31,6 +31,12 @@ mixin $LazyLoadMePropsMixin on LazyLoadMePropsMixin {
   static const List<String> $propKeys = [
     _$key__initialCount__LazyLoadMePropsMixin
   ];
+
+  @override
+  @mustCallSuper
+  void validateRequiredProps() {
+    super.validateRequiredProps();
+  }
 }
 
 @Deprecated('This API is for use only within generated code.'

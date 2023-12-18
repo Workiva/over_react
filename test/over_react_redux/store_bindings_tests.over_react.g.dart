@@ -45,6 +45,12 @@ mixin $TestSelectorProps on TestSelectorProps {
     _$key__onRender__TestSelectorProps,
     _$key__equality__TestSelectorProps
   ];
+
+  @override
+  @mustCallSuper
+  void validateRequiredProps() {
+    super.validateRequiredProps();
+  }
 }
 
 @Deprecated('This API is for use only within generated code.'
@@ -79,6 +85,12 @@ mixin $TestConnectPropsMixin on TestConnectPropsMixin {
   static const List<String> $propKeys = [
     _$key__interestingValue__TestConnectPropsMixin
   ];
+
+  @override
+  @mustCallSuper
+  void validateRequiredProps() {
+    super.validateRequiredProps();
+  }
 }
 
 @Deprecated('This API is for use only within generated code.'

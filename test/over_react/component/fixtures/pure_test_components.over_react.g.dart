@@ -451,6 +451,12 @@ mixin $PureTestPropsMixin on PureTestPropsMixin {
     _$key__childBoolProp__PureTestPropsMixin,
     _$key__childFuncProp__PureTestPropsMixin
   ];
+
+  @override
+  @mustCallSuper
+  void validateRequiredProps() {
+    super.validateRequiredProps();
+  }
 }
 
 @Deprecated('This API is for use only within generated code.'
@@ -497,6 +503,12 @@ mixin $SharedPureTestPropsMixin on SharedPureTestPropsMixin {
     _$key__sharedBoolProp__SharedPureTestPropsMixin,
     _$key__someVDomEl__SharedPureTestPropsMixin
   ];
+
+  @override
+  @mustCallSuper
+  void validateRequiredProps() {
+    super.validateRequiredProps();
+  }
 }
 
 @Deprecated('This API is for use only within generated code.'

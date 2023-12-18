@@ -188,6 +188,12 @@ mixin $ExpectsDartMapPropProps on ExpectsDartMapPropProps {
   static const List<String> $propKeys = [
     _$key__dartMapProp__ExpectsDartMapPropProps
   ];
+
+  @override
+  @mustCallSuper
+  void validateRequiredProps() {
+    super.validateRequiredProps();
+  }
 }
 
 @Deprecated('This API is for use only within generated code.'
@@ -207,6 +213,12 @@ mixin $ExpectsDartStylePropProps on ExpectsDartStylePropProps {
 
   static const List<PropDescriptor> $props = [];
   static const List<String> $propKeys = [];
+
+  @override
+  @mustCallSuper
+  void validateRequiredProps() {
+    super.validateRequiredProps();
+  }
 }
 
 @Deprecated('This API is for use only within generated code.'
@@ -226,6 +238,12 @@ mixin $ExpectsListChildrenPropProps on ExpectsListChildrenPropProps {
 
   static const List<PropDescriptor> $props = [];
   static const List<String> $propKeys = [];
+
+  @override
+  @mustCallSuper
+  void validateRequiredProps() {
+    super.validateRequiredProps();
+  }
 }
 
 @Deprecated('This API is for use only within generated code.'
@@ -245,6 +263,12 @@ mixin $ClassComponentProps on ClassComponentProps {
 
   static const List<PropDescriptor> $props = [];
   static const List<String> $propKeys = [];
+
+  @override
+  @mustCallSuper
+  void validateRequiredProps() {
+    super.validateRequiredProps();
+  }
 }
 
 @Deprecated('This API is for use only within generated code.'
@@ -264,6 +288,12 @@ mixin $BasicForwardRefProps on BasicForwardRefProps {
 
   static const List<PropDescriptor> $props = [];
   static const List<String> $propKeys = [];
+
+  @override
+  @mustCallSuper
+  void validateRequiredProps() {
+    super.validateRequiredProps();
+  }
 }
 
 @Deprecated('This API is for use only within generated code.'
@@ -298,6 +328,12 @@ mixin $DartTestJsWrapperPropsMixin on DartTestJsWrapperPropsMixin {
   static const List<String> $propKeys = [
     _$key__onRender__DartTestJsWrapperPropsMixin
   ];
+
+  @override
+  @mustCallSuper
+  void validateRequiredProps() {
+    super.validateRequiredProps();
+  }
 }
 
 @Deprecated('This API is for use only within generated code.'
@@ -405,6 +441,12 @@ mixin $TestJsProps on TestJsProps {
     _$key__inputComponent__TestJsProps,
     _$key__buttonComponent__TestJsProps
   ];
+
+  @override
+  @mustCallSuper
+  void validateRequiredProps() {
+    super.validateRequiredProps();
+  }
 }
 
 @Deprecated('This API is for use only within generated code.'
