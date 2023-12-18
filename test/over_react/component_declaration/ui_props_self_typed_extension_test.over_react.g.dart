@@ -56,6 +56,21 @@ mixin $TestProps on TestProps {
     _$key__requiredNullableProp__TestProps,
     _$key__optionalProp__TestProps
   ];
+
+  @override
+  @mustCallSuper
+  void validateRequiredProps() {
+    super.validateRequiredProps();
+    if (!props.containsKey('TestProps.requiredProp')) {
+      throw MissingRequiredPropsError(
+          'Required prop `requiredProp` is missing.');
+    }
+
+    if (!props.containsKey('TestProps.requiredNullableProp')) {
+      throw MissingRequiredPropsError(
+          'Required prop `requiredNullableProp` is missing.');
+    }
+  }
 }
 
 @Deprecated('This API is for use only within generated code.'
