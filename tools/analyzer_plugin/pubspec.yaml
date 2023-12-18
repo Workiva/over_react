@@ -56,5 +56,5 @@ workiva:
 dependency_overrides:
   over_react:
     git:
-      url: git@github.com:Workiva/over_react.git
+      url: https://github.com/Workiva/over_react.git
       ref: analyzer_plugin_null_safety
