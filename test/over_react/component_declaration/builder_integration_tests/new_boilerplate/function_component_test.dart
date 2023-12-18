@@ -147,7 +147,7 @@ main() {
     });
 
     group('has functional overrides to members that are typically generated', () {
-      // staticMeta currently isn't implemented; not sure if/when we want to support that.
+      // TODO(FED-1994) implement staticMeta for this props class and add tests here
 
       test('propKeyNamespace', () {
         expect(props.propKeyNamespace, '');
