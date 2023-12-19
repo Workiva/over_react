@@ -1,9 +1,12 @@
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/type.dart';
+import 'package:collection/collection.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/analyzer_debug_helper.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/doc_utils/maturity.dart';
 import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
+import 'package:over_react_analyzer_plugin/src/util/pretty_print.dart';
+import 'package:over_react_analyzer_plugin/src/util/required_props.dart';
 
 import '../fluent_interface_util.dart';
 
@@ -54,26 +57,33 @@ render() {
 
 class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor {
   @DocsMeta(_desc, details: _details, maturity: Maturity.experimental)
-  static const code = DiagnosticCode(
-    'over_react_required_prop',
-    "Missing required prop '{0}'.",
+  static const lateRequiredCode = DiagnosticCode(
+    'over_react_late_required_prop',
+    "Missing required late prop '{0}'.",
     AnalysisErrorSeverity.WARNING,
     AnalysisErrorType.STATIC_WARNING,
   );
 
-  @override
-  List<DiagnosticCode> get codes => [code];
+  @DocsMeta(_desc, details: _details, maturity: Maturity.experimental)
+  static const annotationRequiredCode = DiagnosticCode(
+    'over_react_annotation_required_prop',
+    "Missing required prop '{0}'.",
+    AnalysisErrorSeverity.INFO,
+    AnalysisErrorType.STATIC_WARNING,
+  );
 
-  static final fixKind = FixKind(code.name, 200, "Add required prop '{0}'");
+  @override
+  List<DiagnosticCode> get codes => [
+        lateRequiredCode,
+        annotationRequiredCode,
+      ];
+
+  static final fixKind = FixKind('add_required_prop', 200, "Add required prop '{0}'");
 
   static final _debugCommentPattern = getDebugCommentPattern('over_react_required_props');
 
-  // final debugHelper = AnalyzerDebugHelper(result, collector, enabled: _debugCommentPattern.hasMatch(result.content));
-
   @override
   computeErrorsForUsage(result, collector, usage) async {
-    final requiredFieldsByName = <String, FieldElement>{};
-
     // FIXME(null-safety) FED-1720 this probably needs optimization, and may benefit from caching by props element
 
     var builderType = usage.builder.staticType;
@@ -82,7 +92,8 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
       builderType = builderType.typeOrBound;
     }
 
-    // todo check if factory invocation
+    final requiredFieldsByName = <String, FieldElement>{};
+    final propRequirednessByName = <String, PropRequiredness>{};
     if (builderType is InterfaceType && builderType.element.name != 'UiProps') {
       for (final propField in builderType.element.allProps) {
         if (requiredFieldsByName.containsKey(propField.name)) {
@@ -92,19 +103,38 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
           continue;
         }
 
-        if (isRequiredProp(propField)) {
+        final requiredness = getPropRequiredness(propField);
+        propRequirednessByName[propField.name] = requiredness;
+        if (requiredness.isRequired) {
           requiredFieldsByName[propField.name] = propField;
         }
       }
     }
+
+    // FIXME we're running this pattern for every usage; can we make this more efficient?
     final debugHelper = AnalyzerDebugHelper(result, collector, enabled: _debugCommentPattern.hasMatch(result.content));
-    debugHelper.logWithLocation('Required props: $requiredFieldsByName', result.locationFor(usage.builder));
+    debugHelper.log2(() {
+      final propNamesByRequiredness = propRequirednessByName.keys.groupSetsBy((name) => propRequirednessByName[name]);
+      final prettyMap = propNamesByRequiredness.map((key, value) => MapEntry(key!.name, value));
+      return 'Prop requiredness: ${prettyPrint(prettyMap)}';
+    }, () => result.locationFor(usage.builder));
 
     final missingRequiredFieldNames = requiredFieldsByName.keys.toSet()
       ..removeAll(usage.cascadedProps.where((prop) => !prop.isPrefixed).map((prop) => prop.name.name));
 
-
     for (final name in missingRequiredFieldNames) {
+      final field = requiredFieldsByName[name]!;
+      if (isRequiredPropValidationDisabled(field)) {
+        continue;
+      }
+
+      const codesByRequiredness = {
+        PropRequiredness.annotation: annotationRequiredCode,
+        PropRequiredness.late: lateRequiredCode,
+      };
+      final requiredness = propRequirednessByName[name]!;
+      final code = codesByRequiredness[requiredness]!;
+
       await collector.addErrorWithFix(
         code,
         result.locationFor(usage.builder),
@@ -138,33 +168,7 @@ extension on InterfaceElement {
       final isPropsMixin = c is MixinElement && c.superclassConstraints.any((s) => s.element.name == 'UiProps');
       if (!isPropsMixin) continue;
       if (c.source.uri.path.endsWith('.over_react.g.dart')) continue;
-      yield* c.fields.where((f) => !f.isStatic);
+      yield* c.fields.where((f) => !f.isStatic && !f.isSynthetic);
     }
   }
-}
-
-enum PropRequiredness {
-  none,
-  late,
-  annotation
-}
-
-bool isRequiredProp(FieldElement field) {
-  if (field.isLate) return true;
-
-  if (field.metadata.any((annotation) {
-    // Common case, might be good to short circuit here for perf
-    if (annotation.isOverride) return false;
-    if (annotation.element?.library?.name != 'over_react.component_declaration.annotations') {
-      return false;
-    }
-    // It's almost always going to be `requiredProp` or `Accessor`;
-    // skip more checks an just try to pull `isRequired` prop off of them.
-    // If it fails, it's not the annotation we're interested in anyways.
-    return annotation.computeConstantValue()?.getField('isRequired')?.toBoolValue() ?? false;
-  })) {
-    return true;
-  }
-
-  return false;
 }
