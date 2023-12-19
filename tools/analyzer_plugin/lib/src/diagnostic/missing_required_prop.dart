@@ -5,6 +5,7 @@ import 'package:over_react_analyzer_plugin/src/diagnostic/analyzer_debug_helper.
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/doc_utils/maturity.dart';
 import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
+import 'package:over_react_analyzer_plugin/src/util/get_all_props.dart';
 import 'package:over_react_analyzer_plugin/src/util/pretty_print.dart';
 import 'package:over_react_analyzer_plugin/src/util/required_props.dart';
 
@@ -95,7 +96,7 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
     final requiredFieldsByName = <String, FieldElement>{};
     final propRequirednessByName = <String, PropRequiredness>{};
     if (builderType is InterfaceType && builderType.element.name != 'UiProps') {
-      for (final propField in builderType.element.allProps) {
+      for (final propField in getAllProps(builderType.element)) {
         if (requiredFieldsByName.containsKey(propField.name)) {
           // Short-circuit if we've already identified this field as required.
           // There might be duplicates if props are overridden, and there will
@@ -147,28 +148,6 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
           });
         }),
       );
-    }
-  }
-}
-
-extension on InterfaceElement {
-  Iterable<InterfaceElement> get thisAndSupertypes sync* {
-    yield this;
-    for (final s in allSupertypes) {
-      yield s.element;
-    }
-  }
-
-  Iterable<FieldElement> get allProps sync* {
-    for (final c in thisAndSupertypes) {
-      // FIXME(null-safety) FED-1720 handle legacy boilerplate prop mixins if it's not too much effort to implement.
-      //   If so, we'll probably need something different than the `isPropsMixin` check below,
-      //   and may need to more aggressively filter out supertypes up front to avoid performance issues and false positives,
-      //   like UiProps and its supertypes (Map, MapBase, MapViewMixin, PropsMapViewMixin, ReactPropsMixin, UbiquitousDomPropsMixin, CssClassPropsMixin)
-      final isPropsMixin = c is MixinElement && c.superclassConstraints.any((s) => s.element.name == 'UiProps');
-      if (!isPropsMixin) continue;
-      if (c.source.uri.path.endsWith('.over_react.g.dart')) continue;
-      yield* c.fields.where((f) => !f.isStatic && !f.isSynthetic);
     }
   }
 }
