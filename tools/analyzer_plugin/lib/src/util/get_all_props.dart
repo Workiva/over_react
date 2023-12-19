@@ -3,14 +3,36 @@ import 'package:over_react_analyzer_plugin/src/util/react_types.dart';
 import 'package:over_react_analyzer_plugin/src/util/util.dart';
 
 Iterable<FieldElement> getAllProps(InterfaceElement element) sync* {
-  for (final c in element.thisAndSupertypes) {
-    // FIXME(null-safety) FED-1720 handle legacy boilerplate prop mixins if it's not too much effort to implement.
-    //   If so, we'll probably need something different than the `isPropsMixin` check below,
-    //   and may need to more aggressively filter out supertypes up front to avoid performance issues and false positives,
-    //   like UiProps and its supertypes (Map, MapBase, MapViewMixin, PropsMapViewMixin, ReactPropsMixin, UbiquitousDomPropsMixin, CssClassPropsMixin)
-    final isPropsMixin = c is MixinElement && c.superclassConstraints.any((s) => s.element.name == 'UiProps');
-    if (!isPropsMixin) continue;
-    if (c.source.uri.path.endsWith('.over_react.g.dart')) continue;
+  final allInterfaces = element.thisAndSupertypes.toList();
+
+  final uiPropsElement = allInterfaces.singleWhereOrNull(
+      (i) => i.name == 'UiProps' && i.library.name == 'over_react.component_declaration.component_base');
+  if (uiPropsElement == null) return;
+
+  final uiPropsInterfaces = uiPropsElement.thisAndSupertypes.toSet();
+  for (final c in allInterfaces) {
+    // Don't process UiProps or its supertypes (Object, Map, MapBase, MapViewMixin, PropsMapViewMixin, ReactPropsMixin, UbiquitousDomPropsMixin, CssClassPropsMixin, ...)
+    if (uiPropsInterfaces.contains(c)) continue;
+
+    // Filter out:
+    // - generated accessors mixins for legacy concrete props classes
+    // - generated mixins for mixin-based code
+    // - FIXME Dart2-only mixins?
+    late final isInGeneratedFile = c.source.uri.path.endsWith('.over_react.g.dart');
+    if (c.name.endsWith('AccessorsMixin') && isInGeneratedFile) {
+      continue;
+    }
+
+    late final isMixinBasedPropsMixin =
+        c is MixinElement && c.superclassConstraints.any((s) => s.element.name == 'UiProps');
+    late final isLegacyPropsOrPropsMixin = c.metadata.any((e) {
+      final element = e.element;
+      return element != null &&
+          element.library?.name == 'over_react.component_declaration.annotations' &&
+          const {'Props', 'PropsMixin'}.contains(element.tryCast<ConstructorElement>()?.enclosingElement.name);
+    });
+
+    if (!isMixinBasedPropsMixin && !isLegacyPropsOrPropsMixin) continue;
 
     for (final field in c.fields) {
       if (field.isStatic) continue;
