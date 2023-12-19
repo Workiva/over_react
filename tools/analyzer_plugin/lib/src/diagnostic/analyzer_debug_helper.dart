@@ -22,16 +22,26 @@ class AnalyzerDebugHelper {
   /// Usage:
   ///     final debug = AnalyzerDebugHelper(result, collector);
   ///     debug.log('message');
-  void log(String message) {
-    if (!enabled) return;
-    collector.addError(code, Location(result.path, 0, 0, 1, 1), errorMessageArgs: [message]);
-  }
+  @Deprecated('Use log2')
+  void log(String message) => log2(() => message);
 
   /// Usage:
   ///     final debug = AnalyzerDebugHelper(result, collector);
-  ///     debug.log('message', result.locationFor(node));
-  void logWithLocation(String message, Location location) {
+  ///     debug.logWithLocation('message', result.locationFor(node));
+  @Deprecated('Use log2')
+  void logWithLocation(String message, Location location) => log2(() => message, () => location);
+
+  /// Usage:
+  ///     final debug = AnalyzerDebugHelper(result, collector);
+  ///     debug.log2(() => 'message', () => result.locationFor(node));
+  ///
+  /// Prefer this over [log]/[logWithLocation] to avoid the overhead of computing the message/location when
+  /// [enabled] is false.
+  void log2(String Function() computeMessage, [Location Function()? computeLocation]) {
     if (!enabled) return;
+
+    final message = computeMessage();
+    final location = computeLocation != null ? computeLocation() : Location(result.path, 0, 0, 1, 1);
     collector.addError(code, location, errorMessageArgs: [message]);
   }
 }
