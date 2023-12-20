@@ -53,6 +53,7 @@ import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/error_filtering.dart';
 import 'package:over_react_analyzer_plugin/src/util/ignore_info.dart';
 import 'package:over_react_analyzer_plugin/src/util/pretty_print.dart';
+import 'package:over_react_analyzer_plugin/src/util/util.dart';
 
 mixin DiagnosticMixin on ServerPlugin {
   PluginOptionsReader get pluginOptionsReader;
@@ -243,10 +244,24 @@ class _DiagnosticGenerator {
       String asPercentageOfTotal(int microseconds) =>
           '${(microseconds / totalStopwatch.elapsedMicroseconds * 100).toStringAsFixed(1)}%';
 
+      final metricsSortedByTimeDescending =
+          diagnosticMetrics.keys.sortedByCompare<int>((key) => diagnosticMetrics[key]!, (a, b) => b.compareTo(a));
+
       final message = 'OverReact Analyzer Plugin diagnostic metrics (current file): ' +
           prettyPrint(<String, String>{
-            ...diagnosticMetrics.map((name, microseconds) =>
-                MapEntry(name, '${formatMicroseconds(microseconds)} (${asPercentageOfTotal(microseconds)})')),
+            ...diagnosticMetrics.map((name, microseconds) {
+              // Star the slowest `starredSlowestCount` diagnostics:
+              //   ** 2ndLongest
+              //   *** 1stLongest
+              //   4thLongest
+              //   * 3rdLongest
+              // Do this instead of sorting the display values, so that they don't jump around in the list.
+              const starredSlowestCount = 3;
+              final index = metricsSortedByTimeDescending.indexOf(name);
+              final prefix = index < starredSlowestCount ? '*' * (starredSlowestCount - index) + ' ' : '';
+
+              return MapEntry('$prefix$name', '${formatMicroseconds(microseconds)} (${asPercentageOfTotal(microseconds)})');
+            }),
             'Total': formatMicroseconds(totalStopwatch.elapsedMicroseconds),
             'Diagnostic code disabled checks': formatMicroseconds(disabledCheckStopwatch.elapsedMicroseconds),
             'Loop overhead (Total - SUM(Diagnostics))': formatMicroseconds(totalStopwatch.elapsedMicroseconds -
