@@ -1,5 +1,4 @@
 import 'package:analyzer/dart/element/element.dart';
-import 'package:analyzer/dart/element/type.dart';
 import 'package:collection/collection.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/analyzer_debug_helper.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
@@ -83,48 +82,43 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
 
   static final _debugCommentPattern = getDebugCommentPattern('over_react_required_props');
 
+  static final _requiredPropsInfoCache = Expando<_RequiredPropInfo>();
+
+  /// A wrapper around [_getRequiredPropInfo] that caches results per [element],
+  /// which greatly improves performance when a component is used more than once.
+  ///
+  /// This cache is static so it can be shared across multiple files.
+  static _RequiredPropInfo _cachedGetRequiredPropInfo(InterfaceElement element) {
+    return _requiredPropsInfoCache[element] ??= _getRequiredPropInfo(element);
+  }
+
   @override
   computeErrorsForUsage(result, collector, usage) async {
-    // FIXME(null-safety) FED-1720 this probably needs optimization, and may benefit from caching by props element
-
     var builderType = usage.builder.staticType;
-    // Handle generic factories (todo might not be needed)
-    if (builderType is TypeParameterType) {
-      builderType = builderType.typeOrBound;
-    }
+    if (builderType == null) return;
 
-    final requiredFieldsByName = <String, FieldElement>{};
-    final propRequirednessByName = <String, PropRequiredness>{};
-    if (builderType is InterfaceType && builderType.element.name != 'UiProps') {
-      for (final propField in getAllProps(builderType.element)) {
-        if (requiredFieldsByName.containsKey(propField.name)) {
-          // Short-circuit if we've already identified this field as required.
-          // There might be duplicates if props are overridden, and there will
-          // definitely be duplicates in the builder-generated code.
-          continue;
-        }
+    // Handle generic factories with typeOrBound (todo might not be needed)
+    final propsClassElement = builderType.typeOrBound.element;
+    if (propsClassElement is! InterfaceElement) return;
 
-        final requiredness = getPropRequiredness(propField);
-        propRequirednessByName[propField.name] = requiredness;
-        if (requiredness.isRequired) {
-          requiredFieldsByName[propField.name] = propField;
-        }
-      }
-    }
+    final requiredPropInfo = _cachedGetRequiredPropInfo(propsClassElement);
 
     // FIXME we're running this pattern for every usage; can we make this more efficient?
     final debugHelper = AnalyzerDebugHelper(result, collector, enabled: _debugCommentPattern.hasMatch(result.content));
     debugHelper.log2(() {
-      final propNamesByRequiredness = propRequirednessByName.keys.groupSetsBy((name) => propRequirednessByName[name]);
-      final prettyMap = propNamesByRequiredness.map((key, value) => MapEntry(key!.name, value));
+      final propNamesByRequiredness = requiredPropInfo.propRequirednessByName.keys
+          .groupSetsBy((name) => requiredPropInfo.propRequirednessByName[name]!);
+      final prettyMap = propNamesByRequiredness.map((key, value) => MapEntry(key.name, value));
       return 'Prop requiredness: ${prettyPrint(prettyMap)}';
     }, () => result.locationFor(usage.builder));
 
-    final missingRequiredFieldNames = requiredFieldsByName.keys.toSet()
-      ..removeAll(usage.cascadedProps.where((prop) => !prop.isPrefixed).map((prop) => prop.name.name));
+    final presentPropNames =
+        usage.cascadedProps.where((prop) => !prop.isPrefixed).map((prop) => prop.name.name).toSet();
 
-    for (final name in missingRequiredFieldNames) {
-      final field = requiredFieldsByName[name]!;
+    for (final name in requiredPropInfo.requiredPropNames) {
+      if (presentPropNames.contains(name)) continue;
+
+      final field = requiredPropInfo.requiredFieldsByName[name]!;
       if (isRequiredPropValidationDisabled(field)) {
         continue;
       }
@@ -133,7 +127,7 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
         PropRequiredness.annotation: annotationRequiredCode,
         PropRequiredness.late: lateRequiredCode,
       };
-      final requiredness = propRequirednessByName[name]!;
+      final requiredness = requiredPropInfo.propRequirednessByName[name]!;
       final code = codesByRequiredness[requiredness]!;
 
       await collector.addErrorWithFix(
@@ -150,4 +144,35 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
       );
     }
   }
+}
+
+class _RequiredPropInfo {
+  final Map<String, FieldElement> requiredFieldsByName;
+  final Map<String, PropRequiredness> propRequirednessByName;
+
+  _RequiredPropInfo(this.requiredFieldsByName, this.propRequirednessByName);
+
+  Iterable<String> get requiredPropNames => requiredFieldsByName.keys;
+}
+
+_RequiredPropInfo _getRequiredPropInfo(InterfaceElement element) {
+  final requiredFieldsByName = <String, FieldElement>{};
+  final propRequirednessByName = <String, PropRequiredness>{};
+  if (element.name != 'UiProps') {
+    for (final propField in getAllProps(element)) {
+      if (requiredFieldsByName.containsKey(propField.name)) {
+        // Short-circuit if we've already identified this field as required.
+        // There might be duplicates if props are overridden, and there will
+        // definitely be duplicates in the builder-generated code.
+        continue;
+      }
+
+      final requiredness = getPropRequiredness(propField);
+      propRequirednessByName[propField.name] = requiredness;
+      if (requiredness.isRequired) {
+        requiredFieldsByName[propField.name] = propField;
+      }
+    }
+  }
+  return _RequiredPropInfo(requiredFieldsByName, propRequirednessByName);
 }
