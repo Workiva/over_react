@@ -197,10 +197,14 @@ class _DiagnosticGenerator {
     final notifications = <Notification>[];
 
     // Reuse component usages so we don't have to recompute them for each ComponentUsageDiagnosticContributor.
-    List<FluentComponentUsage>? _usages;
     // Lazily compute the usage so any errors get handled as part of each diagnostic's try/catch.
-    // TODO: collect data how long this takes.
-    List<FluentComponentUsage> getUsages() => _usages ??= getAllComponentUsages(unitResult.unit);
+    final sharedUsagesStopwatch = Stopwatch();
+    late final sharedUsages = () {
+      sharedUsagesStopwatch.start();
+      final result = getAllComponentUsages(unitResult.unit);
+      sharedUsagesStopwatch.stop();
+      return result;
+    }();
 
     /// A mapping of diagnostic names to their durations, in microseconds.
     final diagnosticMetrics = <String, int>{};
@@ -221,11 +225,15 @@ class _DiagnosticGenerator {
         continue;
       }
 
-      final contributorStopwatch = Stopwatch()..start();
+      final contributorStopwatch = Stopwatch();
       try {
         if (contributor is ComponentUsageDiagnosticContributor) {
-          await contributor.computeErrorsForUsages(unitResult, collector, getUsages());
+          // Don't count time needed to lazily instantiate sharedUsages.
+          final usages = sharedUsages;
+          contributorStopwatch.start();
+          await contributor.computeErrorsForUsages(unitResult, collector, usages);
         } else {
+          contributorStopwatch.start();
           await contributor.computeErrors(unitResult, collector);
         }
       } catch (exception, stackTrace) {
@@ -260,12 +268,15 @@ class _DiagnosticGenerator {
               final index = metricsSortedByTimeDescending.indexOf(name);
               final prefix = index < starredSlowestCount ? '*' * (starredSlowestCount - index) + ' ' : '';
 
-              return MapEntry('$prefix$name', '${formatMicroseconds(microseconds)} (${asPercentageOfTotal(microseconds)})');
+              return MapEntry(
+                  '$prefix$name', '${formatMicroseconds(microseconds)} (${asPercentageOfTotal(microseconds)})');
             }),
             'Total': formatMicroseconds(totalStopwatch.elapsedMicroseconds),
+            'Shared getAllComponentUsages call': formatMicroseconds(sharedUsagesStopwatch.elapsedMicroseconds),
             'Diagnostic code disabled checks': formatMicroseconds(disabledCheckStopwatch.elapsedMicroseconds),
             'Loop overhead (Total - SUM(Diagnostics))': formatMicroseconds(totalStopwatch.elapsedMicroseconds -
                 disabledCheckStopwatch.elapsedMicroseconds -
+                sharedUsagesStopwatch.elapsedMicroseconds -
                 diagnosticMetrics.values.fold(0, (a, b) => a + b)),
           });
       AnalyzerDebugHelper(unitResult, collector, enabled: true).logWithLocation(
