@@ -6599,7 +6599,7 @@ final Map<String, List<Map<String, Object>>> tests = {
         final Hello = uiFunction<TestProps>((_) {
           var data = useState(0);
           useEffect(() {
-            fetchDataFuture?.then((v) => data.set(v));
+            fetchDataFuture?.then(data.set  as dynamic Function(dynamic));
           });
         }, null);
       ''',
@@ -6611,11 +6611,11 @@ final Map<String, List<Map<String, Object>>> tests = {
             {
               'desc': 'Add dependencies list: []',
               'output': r'''
-                Future<dynamic> fetchDataFuture;
+                Future<dynamic>? fetchDataFuture;
                 final Hello = uiFunction<TestProps>((_) {
                   var data = useState(0);
                   useEffect(() {
-                    fetchDataFuture.then((v) => data.set(v));
+                    fetchDataFuture?.then(data.set as dynamic Function(dynamic));
                   }, []);
                 }, null);
               ''',
