@@ -5,6 +5,7 @@ import 'package:analyzer/dart/element/type.dart';
 import 'package:analyzer/dart/element/type_provider.dart';
 import 'package:analyzer/dart/element/type_system.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
+import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/constants.dart';
 import 'package:over_react_analyzer_plugin/src/util/react_types.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
@@ -111,10 +112,7 @@ Future<void> validateReactChildType(DartType? type, TypeSystem typeSystem, TypeP
   // To check for an iterable, type-check against `iterableDynamicType` and not
   // `iterableType` since the latter has an uninstantiated type argument of `E`.
   if (typeSystem.isSubtypeOf(nonNullType, typeProvider.iterableDynamicType)) {
-    // Use the least-upper-bound to get the an instance of the Iterable type with matching type arguments.
-    // e.g., leastUpperBound(`List<String>`, `Iterable<bottom>`) should yield `Iterable<String>`
-    final lub = typeSystem.leastUpperBound(nonNullType, typeProvider.iterableType(typeProvider.bottomType));
-    final iterableTypeArg = lub.isDartCoreIterable ? lub.tryCast<ParameterizedType>()?.typeArguments.firstOrNull : null;
+    final iterableTypeArg = type.typeOrBound.asInstanceOf(typeProvider.iterableElement)?.typeArguments.firstOrNull;
     if (iterableTypeArg != null) {
       await validateReactChildType(iterableTypeArg, typeSystem, typeProvider, onInvalidType: onInvalidType);
     }
