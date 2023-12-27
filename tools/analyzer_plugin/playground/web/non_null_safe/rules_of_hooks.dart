@@ -130,12 +130,6 @@ final reactDart1 = react.registerFunctionComponent((props) {
 });
 
 // Good hooks; used directly within function component (react-dart forwardRef)
-// ignore: deprecated_member_use
-final reactDart2 = react.forwardRef((props, ref) {
-  useState(0);
-});
-
-// Good hooks; used directly within function component (react-dart forwardRef)
 final reactDart3 = react.forwardRef2((props, ref) {
   useState(0);
 });

@@ -93,7 +93,6 @@ class InvalidChildDiagnostic extends ComponentUsageDiagnosticContributor {
   }
 }
 
-// todo write tests for this
 Future<void> validateReactChildType(DartType? type, TypeSystem typeSystem, TypeProvider typeProvider,
     {required FutureOr<void> Function(DartType invalidType) onInvalidType}) async {
   // Couldn't be resolved

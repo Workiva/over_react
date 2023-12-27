@@ -33,7 +33,7 @@ final relWithNonConstValue = (Dom.a()
   ..rel = myRelTarget3
 )();
 
-ReactElement relWithLocalConstValue() {
+ReactElement? relWithLocalConstValue() {
   const invalidLocalRel = 'nofollow';
   const validLocalRel = myRelTarget2;
 

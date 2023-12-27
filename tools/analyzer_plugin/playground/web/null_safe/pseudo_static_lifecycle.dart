@@ -7,7 +7,7 @@ UiFactory<HammerTimeProps> HammerTime =
     castUiFactory(_$HammerTime);
 
 mixin HammerTimeProps on UiProps {
-  String somethingThatCanBeTouched;
+  String? somethingThatCanBeTouched;
 }
 
 mixin HammerTimeState on UiState {}
@@ -28,9 +28,9 @@ class HammerTimeComponent
   @override
   getDerivedStateFromProps(Map nextProps, Map prevState) {
     final tNextProps = typedPropsFactory(nextProps);
-    final tNextPropsJs = typedPropsFactoryJs(nextProps);
+    final tNextPropsJs = typedPropsFactoryJs(JsBackedMap());
     final tPrevState = typedStateFactory(prevState);
-    final tPrevStateJs = typedStateFactoryJs(prevState);
+    final tPrevStateJs = typedStateFactoryJs(JsBackedMap());
 
     if (props.somethingThatCanBeTouched == mcHammer) {
       return newState();

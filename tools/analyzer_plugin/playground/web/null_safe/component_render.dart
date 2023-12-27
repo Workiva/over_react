@@ -14,7 +14,7 @@ class BadRenderComponent extends UiComponent2<BadRenderProps> {
       return 'Not a ReactElement';
     }
 
-    if (props.children.isEmpty) {
+    if (props.children == null) {
       // Uninvoked builder: has quick-fix
       return Dom.div();
     }
@@ -32,7 +32,7 @@ final BadRenderFnComponent = uiFunction<UiProps>(
       return false;
     }
 
-    if (props.children.isEmpty) {
+    if (props.children == null) {
       // Uninvoked builder: has quick-fix
       return Dom.div();
     }

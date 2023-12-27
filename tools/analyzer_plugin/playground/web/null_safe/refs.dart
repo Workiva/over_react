@@ -34,8 +34,8 @@ UiFactory<UsesCallbackRefProps> UsesCallbackRef =
 mixin UsesCallbackRefProps on UiProps {}
 
 class UsesCallbackRefComponent extends UiComponent2<UsesCallbackRefProps> {
-  ChildComponent _someCustomRefName;
-  ChildComponent _anotherCustomRefName;
+  ChildComponent? _someCustomRefName;
+  ChildComponent? _anotherCustomRefName;
 
   @override
   render() {
@@ -53,13 +53,13 @@ class UsesCallbackRefComponent extends UiComponent2<UsesCallbackRefProps> {
   }
 
   void foo() {
-    _someCustomRefName.someMethodName();
+    _someCustomRefName?.someMethodName();
     _someCustomRefName?.anotherMethodName();
-    final bar = _someCustomRefName.someGetter;
+    final bar = _someCustomRefName?.someGetter;
 
-    _anotherCustomRefName.someMethodName();
+    _anotherCustomRefName?.someMethodName();
     _anotherCustomRefName?.anotherMethodName();
-    final baz = _anotherCustomRefName.someGetter;
+    final baz = _anotherCustomRefName?.someGetter;
   }
 }
 

@@ -18,7 +18,7 @@ shouldNotLint() {
 }
 
 class MyObject {
-  String id;
+  String? id;
 }
 
 dynamic functionThatReturnsDynamic() {}

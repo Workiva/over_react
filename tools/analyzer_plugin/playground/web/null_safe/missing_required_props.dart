@@ -12,10 +12,10 @@ UiFactory<BarProps> Bar = castUiFactory(_$Bar); // ignore: undefined_identifier
 
 mixin BarProps on UiProps {
   @requiredProp
-  String barRequired;
+  String? barRequired;
 
   /// yo yo
-  String bar;
+  String? bar;
 }
 
 class BarComponent extends UiComponent2<BarProps> {

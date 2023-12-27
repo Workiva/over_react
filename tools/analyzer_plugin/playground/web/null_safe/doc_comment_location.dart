@@ -49,7 +49,7 @@ class RandomClass {}
 
 /// This doc comment is okay.
 mixin FooPropsMixin on UiProps {
-  bool isBar;
+  bool? isBar;
 }
 
 UiFactory<FooPropsMixin> FooPropsMixinMapView =

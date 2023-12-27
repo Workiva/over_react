@@ -51,8 +51,8 @@ duplicatePropCascadeWithMoreThanOneDupe() {
 }
 
 mixin CustomProps on UiProps {
-  int size;
-  bool hidden;
+  int? size;
+  bool? hidden;
 }
 
 final Custom = uiFunction<CustomProps>(

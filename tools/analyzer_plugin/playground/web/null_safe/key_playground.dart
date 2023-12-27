@@ -1,6 +1,6 @@
 import 'package:over_react/over_react.dart';
 
-part 'single_child_key.over_react.g.dart';
+part 'key_playground.over_react.g.dart';
 
 UiFactory<TestProps> Test =
     castUiFactory(_$Test); // ignore: undefined_identifier

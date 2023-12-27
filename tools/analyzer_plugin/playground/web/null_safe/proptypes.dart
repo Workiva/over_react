@@ -5,15 +5,15 @@ part 'proptypes.over_react.g.dart';
 UiFactory<FooProps> Foo = castUiFactory(_$Foo); // ignore: undefined_identifier
 
 mixin FooProps on UiProps {
-  int prop1;
-  int prop2;
+  int? prop1;
+  int? prop2;
 }
 
 class FooComponent extends UiComponent2<FooProps> {
-  String get someGetter => null;
+  String? get someGetter => null;
 
   void someMethod() {}
-  String _someField;
+  String? _someField;
 
   @override
   get propTypes => {
@@ -27,10 +27,10 @@ class FooComponent extends UiComponent2<FooProps> {
 
           if (props.prop1 == null) {
             throw PropError.required(info.propName);
-          } else if (props.prop1 > 0) {
+          } else if (props.prop1! > 0) {
             throw PropError.value(props.prop1, info.propName);
-          } else if (props.prop1 > 100) {
-            return super.propTypes[keyForProp((p) => p.prop1)](
+          } else if (props.prop1! > 100) {
+            return super.propTypes[keyForProp((p) => p.prop1)]?.call(
                 props, info); // Should not lint
           }
           return null;
@@ -45,7 +45,7 @@ class FooComponent extends UiComponent2<FooProps> {
           contextType;
           if (props.prop2 == null) {
             throw PropError.required(info.propName);
-          } else if (props.prop2 > 0) {
+          } else if (props.prop2! > 0) {
             throw PropError.value(props.prop1, info.propName);
           }
           return null;
