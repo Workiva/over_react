@@ -1,3 +1,4 @@
+// This file is a non-null safe copy of util tests.
 // Copyright 2021 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");

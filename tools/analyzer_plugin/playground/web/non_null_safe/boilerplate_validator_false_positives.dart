@@ -1,4 +1,5 @@
 // @dart=2.11
+// This file is a non-null safe copy of playground examples to enable QAing backwards compatibility.
 import 'package:over_react/over_react.dart';
 
 // This should not be linted as "an .over_react.g.dart" part is required.

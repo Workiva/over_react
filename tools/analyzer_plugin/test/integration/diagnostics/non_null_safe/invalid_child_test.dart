@@ -1,3 +1,4 @@
+// This file is a non-null safe copy of diagnostics tests.
 // ignore_for_file: camel_case_types
 import 'dart:async';
 

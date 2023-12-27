@@ -1,3 +1,4 @@
+// This file is a non-null safe copy of util tests.
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/util.dart';

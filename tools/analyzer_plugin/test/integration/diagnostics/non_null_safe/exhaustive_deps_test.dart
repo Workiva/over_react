@@ -1,4 +1,4 @@
-
+// This file is a non-null safe copy of diagnostics tests.
 import 'dart:convert';
 
 import 'package:analyzer/dart/ast/ast.dart';

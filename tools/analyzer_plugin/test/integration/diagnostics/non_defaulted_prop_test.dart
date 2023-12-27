@@ -6,8 +6,6 @@ import 'package:test_reflective_loader/test_reflective_loader.dart';
 
 import '../test_bases/diagnostic_test_base.dart';
 
-// todo add null safe tests
-
 void main() {
   defineReflectiveSuite(() {
     defineReflectiveTests(NonDefaultedPropDiagnosticTest);
@@ -31,15 +29,17 @@ part '{{FILE_BASENAME_WITHOUT_EXTENSION}}.over_react.g.dart';
 mixin FooProps on UiProps {
   String? content;
   bool? hidden;
+  late bool? requiredNullable;
 }
 
 final Foo = uiFunction<FooProps>(
   (props) {
     final content = props.content ?? 10;
+    final requiredNullable = props.requiredNullable ?? false;
     
     return (Dom.div()
       ..hidden = props.hidden
-    )(content);
+    )(content, requiredNullable);
   },
   _$FooConfig, // ignore: undefined_identifier
 );
@@ -56,16 +56,19 @@ part '{{FILE_BASENAME_WITHOUT_EXTENSION}}.over_react.g.dart';
 mixin FooProps on UiProps {
   String? content;
   bool? hidden;
+  late bool? requiredNullable;
 }
 
 final Foo = uiFunction<FooProps>(
   (props) {
     // ignore: unused_local_variable
     final content = 'abc';
+    // ignore: unused_local_variable
+    final requiredNullable = true;
     
     return (Dom.div()
       ..hidden = props.hidden
-    )(props.content);
+    )(props.content, props.requiredNullable);
   },
   _$FooConfig, // ignore: undefined_identifier
 );
@@ -147,7 +150,7 @@ mixin FooProps on UiProps {
   String? fooId;
   bool? hidden;
   String? moreContent;
-  String? name;
+  late String? name;
 }
 
 final Foo = uiFunction<FooProps>(
@@ -200,7 +203,7 @@ mixin FooProps on UiProps {
   String? fooId;
   bool? hidden;
   String? moreContent;
-  String? name;
+  late String? name;
 }
 
 final Foo = uiFunction<FooProps>(

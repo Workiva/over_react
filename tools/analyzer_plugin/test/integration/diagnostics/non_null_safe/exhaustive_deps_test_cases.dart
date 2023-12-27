@@ -1,3 +1,4 @@
+// This file is a non-null safe copy of diagnostics tests.
 // Adapted from https://github.com/facebook/react/blob/cae635054e17a6f107a39d328649137b83f25972/packages/eslint-plugin-react-hooks/__tests__/ESLintRuleExhaustiveDeps-test.js
 //
 // MIT License

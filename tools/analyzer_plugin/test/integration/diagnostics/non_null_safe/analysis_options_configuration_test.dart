@@ -1,4 +1,4 @@
-
+// This file is a non-null safe copy of diagnostics tests.
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:test/test.dart';
 

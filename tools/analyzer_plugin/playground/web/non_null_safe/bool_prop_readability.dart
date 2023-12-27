@@ -1,6 +1,7 @@
 // @dart=2.11
+// This file is a non-null safe copy of playground examples to enable QAing backwards compatibility.
 import 'package:over_react/over_react.dart';
-// todo fix this one it's broken
+// FIXME this diagnostic no longer works
 part 'bool_prop_readability.over_react.g.dart';
 
 UiFactory<BarProps> Bar = castUiFactory(_$Bar); // ignore: undefined_identifier

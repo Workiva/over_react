@@ -1,3 +1,4 @@
+// This file is a non-null safe copy of assist tests.
 import 'dart:async';
 
 import 'package:analyzer_plugin/utilities/assist/assist.dart';

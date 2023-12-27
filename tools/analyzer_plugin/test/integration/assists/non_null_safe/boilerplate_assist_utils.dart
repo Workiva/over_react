@@ -1,3 +1,4 @@
+// This file is a non-null safe copy of assist tests.
 import 'package:path/path.dart' as p;
 
 mixin BoilerplateAssistTestStrings {

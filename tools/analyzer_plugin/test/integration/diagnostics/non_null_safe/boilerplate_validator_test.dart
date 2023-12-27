@@ -1,3 +1,4 @@
+// This file is a non-null safe copy of diagnostics tests.
 import 'dart:async';
 
 import 'package:over_react_analyzer_plugin/src/diagnostic/boilerplate_validator.dart';

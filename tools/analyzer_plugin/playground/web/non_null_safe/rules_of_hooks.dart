@@ -1,4 +1,5 @@
 // @dart=2.11
+// This file is a non-null safe copy of playground examples to enable QAing backwards compatibility.
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
