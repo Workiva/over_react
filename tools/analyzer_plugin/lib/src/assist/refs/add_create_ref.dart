@@ -1,3 +1,4 @@
+import 'package:analyzer/dart/analysis/features.dart';
 import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/element/element.dart';
@@ -48,7 +49,8 @@ void addUseOrCreateRef(
   RefTypeToReplace? refTypeToReplace;
   Expression? callbackRefPropRhs;
 
-  final refTypeName = usage.isDom ? 'Element' : 'dynamic';
+  final withNullability = result.unit.declaredElement?.library.featureSet.isEnabled(Feature.non_nullable) ?? false;
+  final refTypeName = usage.isDom ? 'Element${withNullability ? '?' : ''}' : 'dynamic';
 
   final refProp = usage.cascadedProps.firstWhereOrNull((prop) => prop.name.name == 'ref');
   if (refProp != null) {

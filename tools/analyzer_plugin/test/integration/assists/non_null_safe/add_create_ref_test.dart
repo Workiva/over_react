@@ -19,8 +19,13 @@ class AddUseOrCreateRefAssistTest extends AssistTestBase {
   @override
   AssistKind get assistKindUnderTest => AddUseOrCreateRefAssistContributor.addRef;
 
-  String usageSourceWithinClassComponent({required bool fixed}) => '''
+  String usageSourceWithinClassComponent({required bool fixed, bool dom = false}) {
+    final factory = dom ? 'Dom.div' : 'Child';
+    final refName = dom ? '_divRef' : '_childRef';
+    return '''
 // @dart=2.11
+import 'dart:html';
+
 import 'package:over_react/over_react.dart';
 
 part '{{FILE_BASENAME_WITHOUT_EXTENSION}}.over_react.g.dart';
@@ -30,30 +35,37 @@ UiFactory<HasNoRefsProps> HasNoRefs = castUiFactory(_\$HasNoRefs); // ignore: un
 mixin HasNoRefsProps on UiProps {}
 
 class HasNoRefsComponent extends UiComponent2<HasNoRefsProps> {
-  ${fixed ? 'final _childRef = createRef<dynamic>();\n\n  ' : ''}
+  ${fixed ? 'final $refName = createRef<${dom ? 'Element' : 'dynamic'}>();\n\n  ' : ''}
   @override
   render() {
-    return ${fixed ? '''(Child()
+    return ${fixed ? '''($factory()
       ..id = 'foo'
-      ..ref = _childRef)''' : '''(Child()..id = 'foo')'''}(props.children);
+      ..ref = $refName)''' : '''($factory()..id = 'foo')'''}(props.children);
   }
 }
 ''';
+  }
 
-  String usageSourceWithinFnComponent({required bool fixed}) => '''
+  String usageSourceWithinFnComponent({required bool fixed, bool dom = false}) {
+    final factory = dom ? 'Dom.div' : 'Child';
+    final refName = dom ? '_divRef' : '_childRef';
+    return '''
 // @dart=2.11
+import 'dart:html';
+
 import 'package:over_react/over_react.dart';
 
 final HasNoRefs = uiFunction<UiProps>(
   (props) {
-    ${fixed ? 'final _childRef = useRef<dynamic>();\n\n    ' : ''}
-    return ${fixed ? '''(Child()
+    ${fixed ? 'final $refName = useRef<${dom ? 'Element' : 'dynamic'}>();\n\n    ' : ''}
+    return ${fixed ? '''($factory()
       ..id = 'foo'
-      ..ref = _childRef)''' : '''(Child()..id = 'foo')'''}(props.children);
+      ..ref = $refName)''' : '''($factory()..id = 'foo')'''}(props.children);
   },
   UiFactoryConfig(displayName: 'HasNoRefs'),
 );
 ''';
+  }
 
   Future<void> test_noAssist() async {
     final source = newSource('var foo = true;');
@@ -138,6 +150,14 @@ class HasRefsComponent extends UiComponent2<HasRefsProps> {
     expect(source.contents.data, substituteSource(usageSourceWithinClassComponent(fixed: true), path: source.uri.path));
   }
 
+  Future<void> test_classComponentAssist_domElement() async {
+    var source = newSource(usageSourceWithinClassComponent(fixed: false, dom: true));
+    var selection = createSelection(source, 'return (#Dom.div#()');
+    final change = await expectAndGetSingleAssist(selection);
+    source = applySourceChange(change, source);
+    expect(source.contents.data, substituteSource(usageSourceWithinClassComponent(fixed: true, dom: true), path: source.uri.path));
+  }
+
   Future<void> test_fnComponentAssist_componentNameSelection() async {
     var source = newSource(usageSourceWithinFnComponent(fixed: false));
     var selection = createSelection(source, 'return (#Child#()');
@@ -160,5 +180,13 @@ class HasRefsComponent extends UiComponent2<HasRefsProps> {
     final change = await expectAndGetSingleAssist(selection);
     source = applySourceChange(change, source);
     expect(source.contents.data, substituteSource(usageSourceWithinFnComponent(fixed: true), path: source.uri.path));
+  }
+
+  Future<void> test_fnComponentAssist_domElement() async {
+    var source = newSource(usageSourceWithinFnComponent(fixed: false, dom: true));
+    var selection = createSelection(source, 'return (#Dom.div#()');
+    final change = await expectAndGetSingleAssist(selection);
+    source = applySourceChange(change, source);
+    expect(source.contents.data, substituteSource(usageSourceWithinFnComponent(fixed: true, dom: true), path: source.uri.path));
   }
 }

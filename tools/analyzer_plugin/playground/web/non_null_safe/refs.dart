@@ -1,5 +1,7 @@
 // @dart=2.11
 // This file is a non-null safe copy of playground examples to enable QAing backwards compatibility.
+import 'dart:html';
+
 import 'package:over_react/over_react.dart';
 
 part 'refs.over_react.g.dart';
@@ -38,6 +40,7 @@ mixin UsesCallbackRefProps on UiProps {}
 class UsesCallbackRefComponent extends UiComponent2<UsesCallbackRefProps> {
   ChildComponent _someCustomRefName;
   ChildComponent _anotherCustomRefName;
+  Element _aDomRef;
 
   @override
   render() {
@@ -51,6 +54,9 @@ class UsesCallbackRefComponent extends UiComponent2<UsesCallbackRefProps> {
         ..id = 'bar'
         ..ref = ((ref) => _anotherCustomRefName = ref)
       )('hi'),
+      (Dom.div()..ref = (ref) {
+        _aDomRef = ref;
+      })(),
     );
   }
 
@@ -61,7 +67,10 @@ class UsesCallbackRefComponent extends UiComponent2<UsesCallbackRefProps> {
 
     _anotherCustomRefName.someMethodName();
     _anotherCustomRefName?.anotherMethodName();
-    final baz = _anotherCustomRefName.someGetter;
+    final baz = _anotherCustomRefName?.someGetter;
+
+    _aDomRef?.detached();
+    final abc = _aDomRef?.offset;
   }
 }
 
