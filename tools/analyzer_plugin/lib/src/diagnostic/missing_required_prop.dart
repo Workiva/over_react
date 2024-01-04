@@ -59,7 +59,7 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
   @DocsMeta(_desc, details: _details, maturity: Maturity.experimental)
   static const lateRequiredCode = DiagnosticCode(
     'over_react_late_required_prop',
-    "Missing required late prop '{0}'.",
+    "Missing required late prop {0}.",
     AnalysisErrorSeverity.WARNING,
     AnalysisErrorType.STATIC_WARNING,
   );
@@ -67,7 +67,7 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
   @DocsMeta(_desc, details: _details, maturity: Maturity.experimental)
   static const annotationRequiredCode = DiagnosticCode(
     'over_react_annotation_required_prop',
-    "Missing required prop '{0}'.",
+    "Missing @requiredProp {0}.",
     AnalysisErrorSeverity.INFO,
     AnalysisErrorType.STATIC_WARNING,
   );
@@ -133,7 +133,7 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
       await collector.addErrorWithFix(
         code,
         result.locationFor(usage.builder),
-        errorMessageArgs: [name],
+        errorMessageArgs: ["'$name' from '${field.enclosingElement.name}'"],
         fixKind: fixKind,
         fixMessageArgs: [name],
         computeFix: () => buildFileEdit(result, (builder) {
