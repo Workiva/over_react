@@ -22,9 +22,11 @@ mixin ParentOnlyPropsMixin on UiProps {
 }
 
 mixin SharedPropsMixin on UiProps {
+  late String requiredProp;
   String? aPropToBePassed;
 }
 
+@Props(ignoreRequiredPropsFrom: {SharedPropsMixin})
 class SomeParentProps = UiProps with ParentOnlyPropsMixin, SharedPropsMixin;
 
 UiFactory<SomeParentProps> SomeParent = uiFunction((props) {

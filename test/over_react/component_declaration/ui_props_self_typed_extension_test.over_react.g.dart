@@ -61,6 +61,10 @@ mixin $TestProps on TestProps {
   @mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
+    if (requiredPropClassesToSkipValidation.contains(TestProps)) {
+      return;
+    }
+
     if (!props.containsKey('TestProps.requiredProp')) {
       throw MissingRequiredPropsError(
           'Required prop `requiredProp` is missing.');

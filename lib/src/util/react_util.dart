@@ -134,4 +134,10 @@ abstract class UiPropsMapView extends MapView
   @override
   void disableRequiredPropValidation() =>
       throw UnimplementedError('@PropsMixin instances do not implement disableRequiredPropValidation');
+
+  @override
+  Set<Type> get requiredPropClassesToSkipValidation => throw UnimplementedError('@PropsMixin instances do not implement requiredPropClassesToSkipValidation');
+
+  @override
+  Set<String> get requiredPropNamesToSkipValidation => throw UnimplementedError('@PropsMixin instances do not implement requiredPropNamesToSkipValidation');
 }
