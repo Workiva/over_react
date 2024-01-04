@@ -7,6 +7,7 @@ import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/get_all_props.dart';
 import 'package:over_react_analyzer_plugin/src/util/pretty_print.dart';
 import 'package:over_react_analyzer_plugin/src/util/required_props.dart';
+import 'package:over_react_analyzer_plugin/src/util/util.dart';
 
 import '../fluent_interface_util.dart';
 
@@ -158,6 +159,9 @@ class _RequiredPropInfo {
 _RequiredPropInfo _getRequiredPropInfo(InterfaceElement element) {
   final requiredFieldsByName = <String, FieldElement>{};
   final propRequirednessByName = <String, PropRequiredness>{};
+
+  final ignoreRequiredPropsFrom = _getIgnoredRequiredProps(element) ?? const {};
+
   if (element.name != 'UiProps') {
     for (final propField in getAllProps(element)) {
       if (requiredFieldsByName.containsKey(propField.name)) {
@@ -174,5 +178,27 @@ _RequiredPropInfo _getRequiredPropInfo(InterfaceElement element) {
       }
     }
   }
+
+  // Do this after so it doesn't get re-added (see note about short-circuiting above).
+  // FIXME what about case where prop is overridden and required in two places?
+  for (final entry in requiredFieldsByName.entries.toList()) {
+    final name = entry.key;
+    final field = entry.value;
+    if (ignoreRequiredPropsFrom.contains(field.enclosingElement)) {
+      requiredFieldsByName.remove(name);
+      propRequirednessByName.remove(name);
+    }
+  }
+
   return _RequiredPropInfo(requiredFieldsByName, propRequirednessByName);
+}
+
+Set<InterfaceElement>? _getIgnoredRequiredProps(InterfaceElement element) {
+  final propsAnnotation = element.metadata
+      .firstWhereOrNull((m) => m.element.tryCast<ConstructorElement>()?.enclosingElement.name == 'Props');
+
+  // FIXME implement ignoreRequiredProps field, too
+  final ignoredSetValue = propsAnnotation?.computeConstantValue()?.getField('ignoreRequiredPropsFrom')?.toSetValue();
+
+  return ignoredSetValue?.map((v) => v.toTypeValue()?.element).whereType<InterfaceElement>().toSet();
 }
