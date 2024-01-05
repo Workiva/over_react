@@ -28,6 +28,7 @@ import 'package:over_react/src/util/context.dart';
 import 'package:over_react/src/util/dart_value_wrapper.dart';
 import 'package:over_react/src/util/equality.dart';
 import 'package:over_react/src/util/js_component.dart';
+import 'package:over_react/src/util/prop_key_util.dart';
 import 'package:react/react_client.dart';
 import 'package:react/react_client/js_backed_map.dart';
 import 'package:react/react_client/react_interop.dart';

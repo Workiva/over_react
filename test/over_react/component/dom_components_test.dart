@@ -89,8 +89,15 @@ main() {
     });
 
     group('typing:', () {
-      final DomProps dom = Dom.div();
-      final SvgProps svg = Dom.circle();
+      late DomProps dom;
+      late SvgProps svg;
+
+      setUp(() {
+        dom = Dom.div();
+        expect(dom, isNot(isA<SvgProps>()),
+            reason: 'test setup check that we didn\'t accidentally pick an SVG member on Dom');
+        svg = Dom.circle();
+      });
 
       test('DomProps is a subtype of `UiProps` exported by over_react.dart', () {
         expect(dom, isA<UiProps>());
@@ -102,6 +109,62 @@ main() {
 
       test('SvgProps is a subtype of `DomProps`', () {
         expect(svg, isA<DomProps>());
+      });
+    });
+
+    group('SvgProps', () {
+      late SvgProps svg;
+
+      setUp(() {
+        svg = Dom.circle();
+      });
+
+      group('has functional overrides to members that are typically generated', () {
+        // TODO(FED-1994) implement staticMeta for this props class and add tests here
+
+        test('propKeyNamespace', () {
+          expect(svg.propKeyNamespace, '');
+        });
+
+        test('\$getPropKey (used by getPropKey)', () {
+          expect(svg.getPropKey((p) => p.fill), 'fill');
+
+          late final SvgProps getPropKeyArg;
+          svg.getPropKey((p) {
+            getPropKeyArg = p;
+            p.id; // Access a prop so that this doesn't throw
+          });
+          expect(getPropKeyArg, isA<SvgProps>());
+        });
+      });
+    });
+
+    group('DomProps', () {
+      late DomProps dom;
+
+      setUp(() {
+        dom = Dom.div();
+        expect(dom, isNot(isA<SvgProps>()),
+            reason: 'test setup check that we didn\'t accidentally pick an SVG member on Dom');
+      });
+
+      group('has functional overrides to members that are typically generated', () {
+        // TODO(FED-1994) implement staticMeta for this props class and add tests here
+
+        test('propKeyNamespace', () {
+          expect(dom.propKeyNamespace, '');
+        });
+
+        test('\$getPropKey (used by getPropKey)', () {
+          expect(dom.getPropKey((p) => p.id), 'id');
+
+          late final DomProps getPropKeyArg;
+          dom.getPropKey((p) {
+            getPropKeyArg = p;
+            p.id; // Access a prop so that this doesn't throw
+          });
+          expect(getPropKeyArg, isA<DomProps>());
+        });
       });
     });
   });

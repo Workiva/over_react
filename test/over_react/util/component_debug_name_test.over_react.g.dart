@@ -63,7 +63,16 @@ abstract class _$$TestComponent2Props extends UiProps
         // If this generated mixin is undefined, it's likely because TestComponent2Props is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestComponent2Props, and check that $TestComponent2Props is exported/imported properly.
         TestComponent2Props: $TestComponent2Props.meta,
       });
+
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$TestComponent2Props(
+          accessMap, (map) => _$$TestComponent2Props(map));
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$TestComponent2Props = getPropKey;
 
 // Concrete props implementation that can be backed by any [Map].
 @Deprecated('This API is for use only within generated code.'
@@ -214,7 +223,16 @@ class _$$TestComponentProps extends _$TestComponentProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'TestComponentProps.';
+
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$TestComponentProps(
+          accessMap, (map) => _$$TestComponentProps(map));
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$TestComponentProps = getPropKey;
 
 // Concrete component implementation mixin.
 //

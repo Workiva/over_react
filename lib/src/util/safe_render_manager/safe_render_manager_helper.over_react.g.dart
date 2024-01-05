@@ -64,7 +64,16 @@ abstract class _$$SafeRenderManagerHelperProps extends UiProps
         // If this generated mixin is undefined, it's likely because SafeRenderManagerHelperProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of SafeRenderManagerHelperProps, and check that $SafeRenderManagerHelperProps is exported/imported properly.
         SafeRenderManagerHelperProps: $SafeRenderManagerHelperProps.meta,
       });
+
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$SafeRenderManagerHelperProps(
+          accessMap, (map) => _$$SafeRenderManagerHelperProps(map));
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$SafeRenderManagerHelperProps = getPropKey;
 
 // Concrete props implementation that can be backed by any [Map].
 @Deprecated('This API is for use only within generated code.'

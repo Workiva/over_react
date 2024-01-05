@@ -182,7 +182,16 @@ abstract class _$$CounterFnProps extends UiProps
         // If this generated mixin is undefined, it's likely because CounterFnProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of CounterFnProps, and check that $CounterFnProps is exported/imported properly.
         CounterFnProps: $CounterFnProps.meta,
       });
+
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$CounterFnProps(
+          accessMap, (map) => _$$CounterFnProps(map));
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$CounterFnProps = getPropKey;
 
 // Concrete props implementation that can be backed by any [Map].
 @Deprecated('This API is for use only within generated code.'
@@ -275,7 +284,16 @@ abstract class _$$ModelCounterFnProps extends UiProps
         // If this generated mixin is undefined, it's likely because ModelCounterFnPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ModelCounterFnPropsMixin, and check that $ModelCounterFnPropsMixin is exported/imported properly.
         ModelCounterFnPropsMixin: $ModelCounterFnPropsMixin.meta,
       });
+
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$ModelCounterFnProps(
+          accessMap, (map) => _$$ModelCounterFnProps(map));
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$ModelCounterFnProps = getPropKey;
 
 // Concrete props implementation that can be backed by any [Map].
 @Deprecated('This API is for use only within generated code.'
@@ -370,7 +388,16 @@ abstract class _$$CustomContextCounterFnProps extends UiProps
         CustomContextCounterFnPropsMixin:
             $CustomContextCounterFnPropsMixin.meta,
       });
+
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$CustomContextCounterFnProps(
+          accessMap, (map) => _$$CustomContextCounterFnProps(map));
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$CustomContextCounterFnProps = getPropKey;
 
 // Concrete props implementation that can be backed by any [Map].
 @Deprecated('This API is for use only within generated code.'

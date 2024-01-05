@@ -193,14 +193,14 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
         String constantName = '${privateSourcePrefix}prop__${accessorName}__$staticConstNamespace';
         String constantValue = '$constConstructorName($keyConstantName';
 
-        var annotationCount = 0;
+        var requiredReasonCount = 0;
 
         var isRequired = false;
         var isPotentiallyNullable = true;
         var requiredErrorMessage = '';
 
         if (variable.isLate) {
-          annotationCount++;
+          requiredReasonCount++;
           isRequired = true;
           isPotentiallyNullable = true;
 
@@ -212,9 +212,8 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
         }
 
         if (accessorMeta != null) {
-          annotationCount++;
-
           if (accessorMeta.isRequired) {
+            requiredReasonCount++;
             isRequired = true;
             isPotentiallyNullable = accessorMeta.isNullable;
             requiredErrorMessage = accessorMeta.requiredErrorMessage ?? '';
@@ -222,22 +221,31 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
         }
 
         if (requiredProp != null) {
-          annotationCount++;
+          requiredReasonCount++;
           isRequired = true;
           isPotentiallyNullable = false;
         }
 
         if (nullableRequiredProp != null) {
-          annotationCount++;
+          requiredReasonCount++;
           isRequired = true;
           isPotentiallyNullable = true;
         }
 
-        if (annotationCount > 1) {
-          logger.severe(messageWithSpan(
-              'late/@requiredProp/@nullableProp/@Accessor cannot be used together.\n'
-              'You can use `@Accessor(isRequired: true)` or `isNullable: true` instead of the shorthand versions.',
-              span: getSpan(sourceFile, field)));
+        if (requiredReasonCount > 1) {
+          const requiredPropAnnotations = '@requiredProp/@nullableProp/@Accessor(isRequired: true)';
+
+          String message;
+          if (variable.isLate) {
+            message = 'Props declared using `late` are already considered required,'
+                ' and cannot also have required prop annotations: $requiredPropAnnotations.'
+                '\nPlease remove these annotations.';
+          } else {
+            message = '$requiredPropAnnotations cannot be used together.\n'
+                'You can use `@Accessor(isRequired: true)` or `isNullable: true` instead of the shorthand versions.';
+          }
+
+          logger.severe(messageWithSpan(message, span: getSpan(sourceFile, field)));
         }
 
         if (isRequired) {

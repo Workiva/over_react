@@ -96,7 +96,16 @@ class _$$ListGroupProps extends _$ListGroupProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'ListGroupProps.';
+
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$ListGroupProps(
+          accessMap, (map) => _$$ListGroupProps(map));
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$ListGroupProps = getPropKey;
 
 // Concrete component implementation mixin.
 //

@@ -279,7 +279,18 @@ abstract class _$$TestConsumingAbstractCustomRendererComponentProps
   @override
   String get propKeyNamespace =>
       'TestConsumingAbstractCustomRendererComponentProps.';
+
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$TestConsumingAbstractCustomRendererComponentProps(
+          accessMap,
+          (map) => _$$TestConsumingAbstractCustomRendererComponentProps(map));
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$TestConsumingAbstractCustomRendererComponentProps =
+    getPropKey;
 
 // Concrete props implementation that can be backed by any [Map].
 class _$$TestConsumingAbstractCustomRendererComponentProps$PlainMap
@@ -485,7 +496,16 @@ abstract class _$$TestConsumingCustomRendererComponentProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'TestConsumingCustomRendererComponentProps.';
+
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$TestConsumingCustomRendererComponentProps(accessMap,
+          (map) => _$$TestConsumingCustomRendererComponentProps(map));
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$TestConsumingCustomRendererComponentProps = getPropKey;
 
 // Concrete props implementation that can be backed by any [Map].
 class _$$TestConsumingCustomRendererComponentProps$PlainMap
@@ -671,7 +691,16 @@ abstract class _$$TestCustomRendererFromAbstractComponentProps
   @override
   String get propKeyNamespace =>
       'TestCustomRendererFromAbstractComponentProps.';
+
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$TestCustomRendererFromAbstractComponentProps(accessMap,
+          (map) => _$$TestCustomRendererFromAbstractComponentProps(map));
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$TestCustomRendererFromAbstractComponentProps = getPropKey;
 
 // Concrete props implementation that can be backed by any [Map].
 class _$$TestCustomRendererFromAbstractComponentProps$PlainMap
@@ -1032,7 +1061,16 @@ abstract class _$$TestCustomRendererComponentProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'TestCustomRendererComponentProps.';
+
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$TestCustomRendererComponentProps(
+          accessMap, (map) => _$$TestCustomRendererComponentProps(map));
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$TestCustomRendererComponentProps = getPropKey;
 
 // Concrete props implementation that can be backed by any [Map].
 class _$$TestCustomRendererComponentProps$PlainMap

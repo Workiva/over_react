@@ -28,6 +28,7 @@ import './src/function_component.dart' as function;
 import 'src/functional_consumed_props.dart';
 import 'src/new_class_consumed_props.dart';
 import 'src/nullability.dart';
+import 'src/partial.dart' as partial;
 
 class ExampleState {
   final String testValue;
@@ -85,6 +86,7 @@ main() {
       )
       ), querySelector('#content')
   );
+  partial.partialExample();
 }
 
 final componentConstructorsByName = <String, Map Function()>{
