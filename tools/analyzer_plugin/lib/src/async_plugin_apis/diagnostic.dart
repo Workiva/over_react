@@ -34,6 +34,7 @@ import 'dart:async';
 
 import 'package:analyzer/dart/analysis/analysis_context.dart';
 import 'package:analyzer/dart/analysis/results.dart';
+import 'package:analyzer/dart/analysis/session.dart';
 import 'package:analyzer_plugin/channel/channel.dart';
 import 'package:analyzer_plugin/plugin/plugin.dart';
 import 'package:analyzer_plugin/protocol/protocol.dart';
@@ -43,6 +44,7 @@ import 'package:analyzer_plugin/protocol/protocol_generated.dart';
 
 // ignore: implementation_imports
 import 'package:analyzer_plugin/src/utilities/fixes/fixes.dart' show DartFixesRequestImpl;
+import 'package:analyzer_plugin/utilities/completion/completion_core.dart';
 import 'package:analyzer_plugin/utilities/fixes/fixes.dart';
 import 'package:meta/meta.dart';
 import 'package:over_react_analyzer_plugin/src/async_plugin_apis/error_severity_provider.dart';
@@ -148,52 +150,60 @@ class _DiagnosticGenerator {
   /// by the given [unitResult]. If any of the contributors throws an exception,
   /// also create a non-fatal 'plugin.error' notification.
   Future<_GeneratorResult<List<AnalysisError>>> generateErrors(ResolvedUnitResult unitResult) async {
-    return _generateErrors(unitResult, DiagnosticCollectorImpl(shouldComputeFixes: false));
+    return _generateErrors(unitResult, DiagnosticCollectorImpl(shouldComputeFixes: false),
+        catchInconsistentAnalysisException: true);
   }
 
   /// Creates an 'edit.getFixes' response for the location in the file specified
   /// by the given [request]. If any of the contributors throws an exception,
   /// also create a non-fatal 'plugin.error' notification.
   Future<_GeneratorResult<EditGetFixesResult>> generateFixesResponse(DartFixesRequest request) async {
-    // Recompute the errors and then emit the matching fixes
-
-    final collector = DiagnosticCollectorImpl(shouldComputeFixes: true);
-    final errorsResult = await _generateErrors(request.result, collector);
-    final notifications = [...errorsResult.notifications];
-
-    // Return any fixes that contain the given offset.
-    // TODO use request.errorsToFix instead?
+    final notifications = <Notification>[];
     final fixes = <AnalysisErrorFixes>[];
-    for (var i = 0; i < collector.errors.length; i++) {
-      final error = collector.errors[i];
-      final errorStart = error.location.offset;
-      final errorEnd = errorStart + error.location.length;
 
-      if (_errorSeverityProvider.isCodeDisabled(error.code)) {
-        // This error has been disabled by configuration; skip it.
-        continue;
-      }
+    try {
+      // Recompute the errors and then emit the matching fixes
+      final collector = DiagnosticCollectorImpl(shouldComputeFixes: true);
+      final errorsResult = await _generateErrors(request.result, collector, catchInconsistentAnalysisException: false);
+      notifications.addAll(errorsResult.notifications);
 
-      _configureErrorSeverity(error);
+      // Return any fixes that contain the given offset.
+      // TODO use request.errorsToFix instead?
+      for (var i = 0; i < collector.errors.length; i++) {
+        final error = collector.errors[i];
+        final errorStart = error.location.offset;
+        final errorEnd = errorStart + error.location.length;
 
-      // `<=` because we do want the end to be inclusive (you should get
-      // the fix when your cursor is on the tail end of the error).
-      if (request.offset >= errorStart && request.offset <= errorEnd) {
-        final fix = collector.fixes[i];
-        if (fix != null) {
-          fixes.add(AnalysisErrorFixes(
-            error,
-            fixes: [fix],
-          ));
+        if (_errorSeverityProvider.isCodeDisabled(error.code)) {
+          // This error has been disabled by configuration; skip it.
+          continue;
+        }
+
+        _configureErrorSeverity(error);
+
+        // `<=` because we do want the end to be inclusive (you should get
+        // the fix when your cursor is on the tail end of the error).
+        if (request.offset >= errorStart && request.offset <= errorEnd) {
+          final fix = collector.fixes[i];
+          if (fix != null) {
+            fixes.add(AnalysisErrorFixes(
+              error,
+              fixes: [fix],
+            ));
+          }
         }
       }
+    } on InconsistentAnalysisException {
+      // Do nothing and return empty results; analysis became out of date, likely due to the user typing.
+      // We'll provided updated results on a subsequent call.
+      // This is similar to the workaround applied in https://dart-review.googlesource.com/c/sdk/+/88222
     }
-
     return _GeneratorResult(EditGetFixesResult(fixes), notifications);
   }
 
   Future<_GeneratorResult<List<AnalysisError>>> _generateErrors(
-      ResolvedUnitResult unitResult, DiagnosticCollectorImpl collector) async {
+      ResolvedUnitResult unitResult, DiagnosticCollectorImpl collector,
+      {required bool catchInconsistentAnalysisException}) async {
     final notifications = <Notification>[];
 
     // Reuse component usages so we don't have to recompute them for each ComponentUsageDiagnosticContributor.
@@ -237,6 +247,9 @@ class _DiagnosticGenerator {
           await contributor.computeErrors(unitResult, collector);
         }
       } catch (exception, stackTrace) {
+        if (!catchInconsistentAnalysisException && exception is InconsistentAnalysisException) {
+          rethrow;
+        }
         notifications.add(PluginErrorParams(false, exception.toString(), stackTrace.toString()).toNotification());
       }
       contributorStopwatch.stop();
