@@ -70,6 +70,7 @@ import 'package:over_react_analyzer_plugin/src/diagnostic/render_return_value.da
 import 'package:over_react_analyzer_plugin/src/diagnostic/rules_of_hooks.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/string_ref.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/style_value_diagnostic.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/unsafe_required_prop_access.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/variadic_children.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/variadic_children_with_keys.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
@@ -149,6 +150,7 @@ mixin OverReactAnalyzerPluginBase
       ),
       NonDefaultedPropDiagnostic(),
       CreateRefUsageDiagnostic(),
+      UnsafeRequiredPropAccessDiagnostic(),
     ];
   }
 
