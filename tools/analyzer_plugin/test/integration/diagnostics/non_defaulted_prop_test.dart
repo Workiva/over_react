@@ -27,17 +27,19 @@ import 'package:over_react/over_react.dart';
 part '{{FILE_BASENAME_WITHOUT_EXTENSION}}.over_react.g.dart';
 
 mixin FooProps on UiProps {
-  String content;
-  bool hidden;
+  String? content;
+  bool? hidden;
+  late bool? requiredNullable;
 }
 
 final Foo = uiFunction<FooProps>(
   (props) {
     final content = props.content ?? 10;
+    final requiredNullable = props.requiredNullable ?? false;
     
     return (Dom.div()
       ..hidden = props.hidden
-    )(content);
+    )(content, requiredNullable);
   },
   _$FooConfig, // ignore: undefined_identifier
 );
@@ -52,18 +54,21 @@ import 'package:over_react/over_react.dart';
 part '{{FILE_BASENAME_WITHOUT_EXTENSION}}.over_react.g.dart';
 
 mixin FooProps on UiProps {
-  String content;
-  bool hidden;
+  String? content;
+  bool? hidden;
+  late bool? requiredNullable;
 }
 
 final Foo = uiFunction<FooProps>(
   (props) {
     // ignore: unused_local_variable
     final content = 'abc';
+    // ignore: unused_local_variable
+    final requiredNullable = true;
     
     return (Dom.div()
       ..hidden = props.hidden
-    )(props.content);
+    )(props.content, props.requiredNullable);
   },
   _$FooConfig, // ignore: undefined_identifier
 );
@@ -78,7 +83,7 @@ import 'package:over_react/over_react.dart';
 part '{{FILE_BASENAME_WITHOUT_EXTENSION}}.over_react.g.dart';
 
 mixin FooProps on UiProps {
-  String content;
+  String? content;
 }
 
 final Foo = uiFunction<FooProps>(
@@ -110,7 +115,7 @@ import 'package:over_react/over_react.dart';
 part '{{FILE_BASENAME_WITHOUT_EXTENSION}}.over_react.g.dart';
 
 mixin FooProps on UiProps {
-  String content;
+  String? content;
 }
 
 final Foo = uiFunction<FooProps>(
@@ -142,10 +147,10 @@ import 'package:over_react/over_react.dart';
 part '{{FILE_BASENAME_WITHOUT_EXTENSION}}.over_react.g.dart';
 
 mixin FooProps on UiProps {
-  String fooId;
-  bool hidden;
-  String moreContent;
-  String name;
+  String? fooId;
+  bool? hidden;
+  String? moreContent;
+  late String? name;
 }
 
 final Foo = uiFunction<FooProps>(
@@ -195,10 +200,10 @@ import 'package:over_react/over_react.dart';
 part '{{FILE_BASENAME_WITHOUT_EXTENSION}}.over_react.g.dart';
 
 mixin FooProps on UiProps {
-  String fooId;
-  bool hidden;
-  String moreContent;
-  String name;
+  String? fooId;
+  bool? hidden;
+  String? moreContent;
+  late String? name;
 }
 
 final Foo = uiFunction<FooProps>(

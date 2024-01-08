@@ -253,7 +253,7 @@ void main() {
 
         test('looks up a named parameter', () async {
           final unit = (await parseAndGetResolvedUnit(/*language=dart*/ r'''
-            someFunction({int foo}) {
+            someFunction({int? foo}) {
               print(foo);
             }
           ''')).unit;

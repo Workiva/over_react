@@ -2,7 +2,8 @@ import 'package:over_react/over_react.dart';
 
 part 'component_render.over_react.g.dart';
 
-UiFactory<BadRenderProps> BadRender = castUiFactory(_$BadRender); // ignore: undefined_identifier
+UiFactory<BadRenderProps> BadRender =
+    castUiFactory(_$BadRender); // ignore: undefined_identifier
 
 mixin BadRenderProps on UiProps {}
 
@@ -13,7 +14,7 @@ class BadRenderComponent extends UiComponent2<BadRenderProps> {
       return 'Not a ReactElement';
     }
 
-    if (props.children.isEmpty) {
+    if (props.children == null) {
       // Uninvoked builder: has quick-fix
       return Dom.div();
     }
@@ -31,7 +32,7 @@ final BadRenderFnComponent = uiFunction<UiProps>(
       return false;
     }
 
-    if (props.children.isEmpty) {
+    if (props.children == null) {
       // Uninvoked builder: has quick-fix
       return Dom.div();
     }

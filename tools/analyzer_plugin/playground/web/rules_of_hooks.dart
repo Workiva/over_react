@@ -19,10 +19,11 @@ import 'package:over_react/over_react.dart';
 part 'rules_of_hooks.over_react.g.dart';
 
 mixin FooProps on UiProps {
-  bool condition;
-  List items;
-  String type;
-  Function(dynamic) callback;
+  late bool condition;
+  late List items;
+  late String type;
+  late Function(dynamic) callback;
+  Function(dynamic)? nullableCallback;
 }
 
 UiFactory<FooProps> Foo = uiFunction(
@@ -52,7 +53,7 @@ UiFactory<FooProps> Foo = uiFunction(
     // Bad hooks: inside short-circuiting expressions
     //
 
-    useState(0).value ?? useState(1).value;
+    useState<int?>(0).value ?? useState(1).value;
     useState(true).value || useState(false).value;
     useState(true).value && useState(false).value;
 
@@ -65,13 +66,11 @@ UiFactory<FooProps> Foo = uiFunction(
     // props.style?['foo']?.call(useState(0));
     // not supported, only valid with nnbd null-shorting
     //props?.callback.call(useState(0)); // ignore: can_be_null_after_null_aware
-    props.callback?.call(useState(0));
-    props?.callback(useState(0));
-    props.callback?.call(useState(0)); // ignore: can_be_null_after_null_aware
-    domProps()?.tabIndex = useState(0);
-    [
-      ...?(useState([]).value)
-    ];
+    props.nullableCallback?.call(useState(0));
+    props?.callback(useState(0)); // ignore: invalid_null_aware_operator
+    props.nullableCallback?.call(useState(0)); // ignore: can_be_null_after_null_aware
+    domProps()?.tabIndex = useState(0); // ignore: invalid_null_aware_operator
+    [...?(useState<List?>([]).value)];
 
     //
     // Bad hooks: inside loops
@@ -125,15 +124,8 @@ UiFactory<BarProps> Bar = uiForwardRef(
   $BarConfig, // ignore: undefined_identifier
 );
 
-
 // Good hooks; used directly within function component (react-dart)
 final reactDart1 = react.registerFunctionComponent((props) {
-  useState(0);
-});
-
-// Good hooks; used directly within function component (react-dart forwardRef)
-// ignore: deprecated_member_use
-final reactDart2 = react.forwardRef((props, ref) {
   useState(0);
 });
 
@@ -177,6 +169,7 @@ class SomeClass {
 
 // Bad hooks: used outside of a function body
 var value = useState(0);
+
 class SomeClass2 {
   var value = useState(0);
 }

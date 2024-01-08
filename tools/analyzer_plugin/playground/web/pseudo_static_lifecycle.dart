@@ -7,27 +7,30 @@ UiFactory<HammerTimeProps> HammerTime =
     castUiFactory(_$HammerTime);
 
 mixin HammerTimeProps on UiProps {
-  String somethingThatCanBeTouched;
+  String? somethingThatCanBeTouched;
 }
 
 mixin HammerTimeState on UiState {}
 
-class HammerTimeComponent extends UiStatefulComponent2<HammerTimeProps, HammerTimeState> {
+class HammerTimeComponent
+    extends UiStatefulComponent2<HammerTimeProps, HammerTimeState> {
   final mcHammer = 'cant touch this';
 
   @override
   get defaultProps {
     return newProps() // This newProps() call should not lint
-      ..addProps(super.defaultProps) // This super.defaultProps access should not lint
-      ..somethingThatCanBeTouched = mcHammer; // This mcHammer access SHOULD lint
+      ..addProps(
+          super.defaultProps) // This super.defaultProps access should not lint
+      ..somethingThatCanBeTouched =
+          mcHammer; // This mcHammer access SHOULD lint
   }
 
   @override
   getDerivedStateFromProps(Map nextProps, Map prevState) {
     final tNextProps = typedPropsFactory(nextProps);
-    final tNextPropsJs = typedPropsFactoryJs(nextProps);
+    final tNextPropsJs = typedPropsFactoryJs(JsBackedMap());
     final tPrevState = typedStateFactory(prevState);
-    final tPrevStateJs = typedStateFactoryJs(prevState);
+    final tPrevStateJs = typedStateFactoryJs(JsBackedMap());
 
     if (props.somethingThatCanBeTouched == mcHammer) {
       return newState();
