@@ -46,7 +46,10 @@ mixin WithLateRequiredProps on UiProps {
 
 
 UiFactory<InheritsLateRequiredProps> InheritsLateRequired = uiFunction((_) {}, _$InheritsLateRequiredConfig);
-class InheritsLateRequiredProps = UiProps with WithLateRequiredProps;
+mixin InheritsLateRequiredPropsMixin on UiProps {
+  late String requiredInSubclass;
+}
+class InheritsLateRequiredProps = UiProps with WithLateRequiredProps, InheritsLateRequiredPropsMixin;
 
 
 UiFactory<WithAnnotationRequiredProps> WithAnnotationRequired = uiFunction((_) {}, _$WithAnnotationRequiredConfig);
@@ -156,6 +159,22 @@ class MissingRequiredPropTest_MissingLateRequired extends MissingRequiredPropTes
     expect(
         allErrors,
         unorderedEquals(<dynamic>[
+          isAnErrorUnderTest(locatedAt: selection).havingMessage(contains("'required1' from 'WithLateRequiredProps'")),
+          isAnErrorUnderTest(locatedAt: selection).havingMessage(contains("'required2' from 'WithLateRequiredProps'")),
+        ]));
+  }
+
+  Future<void> test_missingFromParentClass() async {
+    final source = newSourceWithPrefix(/*language=dart*/ r'''
+        test() => (InheritsLateRequired()..optional1 = '1')();
+    ''');
+    final selection = createSelection(source, '#InheritsLateRequired()#');
+    final allErrors = await getAllErrors(source);
+    expect(
+        allErrors,
+        unorderedEquals(<dynamic>[
+          isAnErrorUnderTest(locatedAt: selection)
+              .havingMessage(contains("'requiredInSubclass' from 'InheritsLateRequiredPropsMixin'")),
           isAnErrorUnderTest(locatedAt: selection).havingMessage(contains("'required1' from 'WithLateRequiredProps'")),
           isAnErrorUnderTest(locatedAt: selection).havingMessage(contains("'required2' from 'WithLateRequiredProps'")),
         ]));
