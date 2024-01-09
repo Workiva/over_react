@@ -206,6 +206,15 @@ class ExtendsV4Component extends UiComponent2<ExtendsV4Props> {
   render() {}
 }
 
+mixin DisableRequiredPropValidationProps on UiProps {
+  late String lateRequired;
+  
+  @disableRequiredPropValidation
+  late String lateRequiredWithValidationDisabled;
+}
+
+class ExtendsDisableRequiredPropValidationProps = UiProps with DisableRequiredPropValidationProps; 
+
 ''';
 
 const partSource = /*language=dart*/ r'''
