@@ -83,12 +83,12 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
 
   static final _requiredPropsInfoCache = Expando<RequiredPropInfo>();
 
-  /// A wrapper around [getRequiredPropInfo] that caches results per [element],
+  /// A wrapper around [getAllRequiredProps] that caches results per [element],
   /// which greatly improves performance when a component is used more than once.
   ///
   /// This cache is static so it can be shared across multiple files.
-  static RequiredPropInfo _cachedGetRequiredPropInfo(InterfaceElement element) {
-    return _requiredPropsInfoCache[element] ??= getRequiredPropInfo(element);
+  static RequiredPropInfo _cachedGetAllRequiredProps(InterfaceElement element) {
+    return _requiredPropsInfoCache[element] ??= getAllRequiredProps(element);
   }
 
   @override
@@ -109,7 +109,7 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
     // short-circuit here for performance.
     if (const {'DomProps', 'SvgProps'}.contains(propsClassElement.name)) return; // [1]
 
-    final requiredPropInfo = _cachedGetRequiredPropInfo(propsClassElement);
+    final requiredPropInfo = _cachedGetAllRequiredProps(propsClassElement);
 
     // FIXME we're running this pattern for every usage; can we make this more efficient?
     final debugHelper = AnalyzerDebugHelper(result, collector, enabled: _debugCommentPattern.hasMatch(result.content));
