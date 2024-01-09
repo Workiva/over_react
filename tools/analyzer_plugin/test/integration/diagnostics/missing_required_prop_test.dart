@@ -12,6 +12,7 @@ void main() {
   defineReflectiveSuite(() {
     defineReflectiveTests(MissingRequiredPropTest_NoErrors);
     defineReflectiveTests(MissingRequiredPropTest_MissingLateRequired);
+    defineReflectiveTests(MissingRequiredPropTest_MissingAnnotationRequired);
   });
 }
 
@@ -157,6 +158,53 @@ class MissingRequiredPropTest_MissingLateRequired extends MissingRequiredPropTes
         unorderedEquals(<dynamic>[
           isAnErrorUnderTest(locatedAt: selection).havingMessage(contains("'required1' from 'WithLateRequiredProps'")),
           isAnErrorUnderTest(locatedAt: selection).havingMessage(contains("'required2' from 'WithLateRequiredProps'")),
+        ]));
+  }
+}
+
+@reflectiveTest
+class MissingRequiredPropTest_MissingAnnotationRequired extends MissingRequiredPropTest {
+  @override
+  get errorUnderTest => MissingRequiredPropDiagnostic.annotationRequiredCode;
+
+  @override
+  get fixKindUnderTest => MissingRequiredPropDiagnostic.fixKind;
+
+  Future<void> test_singleMissingAndFix() async {
+    final source = newSourceWithPrefix(/*language=dart*/ r'''
+        test() => (WithAnnotationRequired()
+          ..optional1 = '1'
+          ..required1 = '1'
+        )();
+    ''');
+    final selection = createSelection(source, '#WithAnnotationRequired()#');
+    final error = await expectSingleErrorAt(selection, hasFix: true);
+    expect(error.message, "Missing @requiredProp 'required2' from 'WithAnnotationRequiredProps'.");
+
+    final errorFix = await expectSingleErrorFix(selection);
+    final fixedSource = applyErrorFixes(errorFix, source);
+    expect(fixedSource.contents.data, contains(/*language=dart*/ r'''
+        test() => (WithAnnotationRequired()
+          ..optional1 = '1'
+          ..required1 = '1'
+          ..required2 = 
+        )();
+    '''));
+  }
+
+  Future<void> test_multipleMissing() async {
+    final source = newSourceWithPrefix(/*language=dart*/ r'''
+        test() => (WithAnnotationRequired()..optional1 = '1')();
+    ''');
+    final selection = createSelection(source, '#WithAnnotationRequired()#');
+    final allErrors = await getAllErrors(source);
+    expect(
+        allErrors,
+        unorderedEquals(<dynamic>[
+          isAnErrorUnderTest(locatedAt: selection)
+              .havingMessage(contains("'required1' from 'WithAnnotationRequiredProps'")),
+          isAnErrorUnderTest(locatedAt: selection)
+              .havingMessage(contains("'required2' from 'WithAnnotationRequiredProps'")),
         ]));
   }
 }
