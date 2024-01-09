@@ -7,20 +7,18 @@ import 'get_all_props.dart';
 RequiredPropInfo getRequiredPropInfo(InterfaceElement element) {
   final requiredFieldsByName = <String, FieldElement>{};
   final propRequirednessByName = <String, PropRequiredness>{};
-  if (element.name != 'UiProps') {
-    for (final propField in getAllProps(element)) {
-      if (requiredFieldsByName.containsKey(propField.name)) {
-        // Short-circuit if we've already identified this field as required.
-        // There might be duplicates if props are overridden, and there will
-        // definitely be duplicates in the builder-generated code.
-        continue;
-      }
+  for (final propField in getAllProps(element)) {
+    if (requiredFieldsByName.containsKey(propField.name)) {
+      // Short-circuit if we've already identified this field as required.
+      // There might be duplicates if props are overridden, and there will
+      // definitely be duplicates in the builder-generated code.
+      continue;
+    }
 
-      final requiredness = getPropRequiredness(propField);
-      propRequirednessByName[propField.name] = requiredness;
-      if (requiredness.isRequired) {
-        requiredFieldsByName[propField.name] = propField;
-      }
+    final requiredness = _getPropRequiredness(propField);
+    propRequirednessByName[propField.name] = requiredness;
+    if (requiredness.isRequired) {
+      requiredFieldsByName[propField.name] = propField;
     }
   }
   return RequiredPropInfo._(requiredFieldsByName, propRequirednessByName);
@@ -42,7 +40,7 @@ class RequiredPropInfo {
 }
 
 /// Returns the requiredness for a given prop field declared by [propField].
-PropRequiredness getPropRequiredness(FieldElement propField) {
+PropRequiredness _getPropRequiredness(FieldElement propField) {
   if (propField.isLate) {
     return PropRequiredness.late;
   }
@@ -71,28 +69,20 @@ enum PropRequiredness {
   /// When missing, will either throw, warn, or do nothing at component render, depending on the component boilerplate.
   ///
   /// Deprecated in favor of [late].
-  annotation,
+  annotation(isRequired: true),
 
   /// Represents a prop required via late keyword (only available in null-safe language versions).
   ///
   /// When missing, throws upon UiProps invocation when asserts are enabled when invoking a builder (new boilerplate only).
-  late,
+  late(isRequired: true),
 
   /// Represents a prop that is not required.
-  none,
-}
+  none(isRequired: false);
 
-extension PropRequirednessExtension on PropRequiredness {
+  const PropRequiredness({required this.isRequired});
+
   /// Whether this value is considered at all required.
-  bool get isRequired {
-    switch (this) {
-      case PropRequiredness.annotation:
-      case PropRequiredness.late:
-        return true;
-      case PropRequiredness.none:
-        return false;
-    }
-  }
+  final bool isRequired;
 }
 
 /// Returns whether required prop validation is disabled for a given prop declared via [propField],
