@@ -17,11 +17,11 @@ import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/diagnostic/diagnostic.dart';
 import 'package:analyzer/error/error.dart';
 import 'package:collection/collection.dart';
-import 'package:over_react_analyzer_plugin/src/util/get_all_props.dart';
+import 'package:over_react_analyzer_plugin/src/util/prop_declarations/get_all_props.dart';
 import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
 
-import '../../util/shared_analysis_context.dart';
+import '../../../util/shared_analysis_context.dart';
 
 void main() {
   group('get_all_props', () {

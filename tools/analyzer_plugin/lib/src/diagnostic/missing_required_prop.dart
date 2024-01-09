@@ -4,11 +4,10 @@ import 'package:over_react_analyzer_plugin/src/diagnostic/analyzer_debug_helper.
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/doc_utils/maturity.dart';
 import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
-import 'package:over_react_analyzer_plugin/src/util/get_all_props.dart';
 import 'package:over_react_analyzer_plugin/src/util/pretty_print.dart';
-import 'package:over_react_analyzer_plugin/src/util/required_props.dart';
 
 import '../fluent_interface_util.dart';
+import '../util/prop_declarations/required_props.dart';
 
 const _desc = r'Avoid omitting props that are required.';
 // <editor-fold desc="Documentation Details">
@@ -82,14 +81,14 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
 
   static final _debugCommentPattern = getDebugCommentPattern('over_react_required_props');
 
-  static final _requiredPropsInfoCache = Expando<_RequiredPropInfo>();
+  static final _requiredPropsInfoCache = Expando<RequiredPropInfo>();
 
-  /// A wrapper around [_getRequiredPropInfo] that caches results per [element],
+  /// A wrapper around [getRequiredPropInfo] that caches results per [element],
   /// which greatly improves performance when a component is used more than once.
   ///
   /// This cache is static so it can be shared across multiple files.
-  static _RequiredPropInfo _cachedGetRequiredPropInfo(InterfaceElement element) {
-    return _requiredPropsInfoCache[element] ??= _getRequiredPropInfo(element);
+  static RequiredPropInfo _cachedGetRequiredPropInfo(InterfaceElement element) {
+    return _requiredPropsInfoCache[element] ??= getRequiredPropInfo(element);
   }
 
   @override
@@ -153,35 +152,4 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
       );
     }
   }
-}
-
-class _RequiredPropInfo {
-  final Map<String, FieldElement> requiredFieldsByName;
-  final Map<String, PropRequiredness> propRequirednessByName;
-
-  _RequiredPropInfo(this.requiredFieldsByName, this.propRequirednessByName);
-
-  Iterable<String> get requiredPropNames => requiredFieldsByName.keys;
-}
-
-_RequiredPropInfo _getRequiredPropInfo(InterfaceElement element) {
-  final requiredFieldsByName = <String, FieldElement>{};
-  final propRequirednessByName = <String, PropRequiredness>{};
-  if (element.name != 'UiProps') {
-    for (final propField in getAllProps(element)) {
-      if (requiredFieldsByName.containsKey(propField.name)) {
-        // Short-circuit if we've already identified this field as required.
-        // There might be duplicates if props are overridden, and there will
-        // definitely be duplicates in the builder-generated code.
-        continue;
-      }
-
-      final requiredness = getPropRequiredness(propField);
-      propRequirednessByName[propField.name] = requiredness;
-      if (requiredness.isRequired) {
-        requiredFieldsByName[propField.name] = propField;
-      }
-    }
-  }
-  return _RequiredPropInfo(requiredFieldsByName, propRequirednessByName);
 }
