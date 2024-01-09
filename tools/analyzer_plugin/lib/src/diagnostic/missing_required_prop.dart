@@ -96,6 +96,10 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
   computeErrorsForUsage(result, collector, usage) async {
     // [1] Don't use `ComponentUsage` APIs to get this value since builderType has extra, inefficient steps.
 
+    // Only lint for full inline invocations, and not cases where a builder is
+    // saved off to a variable and invoked later.
+    if (usage.factory == null) return;
+
     var builderType = usage.builder.staticType; // [1]
     if (builderType == null) return;
 

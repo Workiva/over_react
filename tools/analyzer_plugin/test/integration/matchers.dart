@@ -60,6 +60,9 @@ extension AnalysisErrorHavingUtils on TypeMatcher<AnalysisError> {
   TypeMatcher<AnalysisError> havingType(/*AnalysisErrorType|Matcher*/ dynamic type) =>
       having((e) => e.type, 'type', type);
 
+  TypeMatcher<AnalysisError> havingMessage(/*AnalysisErrorType|Matcher*/ dynamic message) =>
+      having((e) => e.message, 'message', message);
+
   TypeMatcher<AnalysisError> thatHasFix() => having((e) => e.hasFix, 'hasFix', isTrue);
 
   TypeMatcher<AnalysisError> thatHasNoFix() => having((e) => e.hasFix, 'hasFix', isFalse);
