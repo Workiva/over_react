@@ -92,6 +92,50 @@ void main() {
                 'v4_annotationRequiredProp',
               ]));
         });
+
+        group('props classes that extend from other props classes, including props from supertypes', () {
+          test('a v2 concrete props class', () {
+            final v4Props = getInterfaceElement('ExtendsV2Props');
+            expect(
+                getAllProps(v4Props).map((e) => e.name).toList(),
+                unorderedEquals(<String>[
+                  // From extending type
+                  'v2_optionalProp_inSubclass',
+                  // From supertype
+                  'v2_lateRequiredProp',
+                  'v2_optionalProp',
+                  'v2_annotationRequiredProp',
+                ]));
+          });
+
+          test('a v3 concrete props class', () {
+            final v4Props = getInterfaceElement('ExtendsV3Props');
+            expect(
+                getAllProps(v4Props).map((e) => e.name).toList(),
+                unorderedEquals(<String>[
+                  // From extending type
+                  'v3_optionalProp_inSubclass',
+                  // From supertype
+                  'v3_lateRequiredProp',
+                  'v3_optionalProp',
+                  'v3_annotationRequiredProp',
+                ]));
+          });
+
+          test('a v4 props mixin', () {
+            final v4Props = getInterfaceElement('ExtendsV4Props');
+            expect(
+                getAllProps(v4Props).map((e) => e.name).toList(),
+                unorderedEquals(<String>[
+                  // From extending type
+                  'v4_optionalProp_inSubclass',
+                  // From supertype
+                  'v4_lateRequiredProp',
+                  'v4_optionalProp',
+                  'v4_annotationRequiredProp',
+                ]));
+          });
+        });
       });
     });
   });
@@ -114,6 +158,7 @@ const source = r'''
 import 'package:over_react/over_react.dart';
 
 part '{{PART_PATH}}';
+
 
 @Factory()
 // ignore: undefined_identifier, invalid_assignment
@@ -249,6 +294,63 @@ class V4Component extends UiComponent2<V4Props> {
   render() {}
 }
 
+
+//
+// Extending props classes
+//
+
+
+@Factory()
+// ignore: undefined_identifier, invalid_assignment
+UiFactory<ExtendsV2Props> ExtendsV2 = _$ExtendsV2;
+
+// ignore: undefined_class, mixin_of_non_class
+class ExtendsV2Props extends _$ExtendsV2Props with _$ExtendsV2PropsAccessorsMixin {
+  // ignore: undefined_identifier, const_initialized_with_non_constant_value, invalid_assignment
+  static const PropsMeta meta = _$metaForExtendsV2Props;
+}
+
+@Props()
+//// ignore: mixin_of_non_class,undefined_class
+class _$ExtendsV2Props extends V2Props {
+  String? v2_optionalProp_inSubclass;
+}
+
+@Component()
+class ExtendsV2Component extends UiComponent2<ExtendsV2Props> {
+  @override
+  render() {}
+}
+
+
+@Factory()
+UiFactory<ExtendsV3Props> ExtendsV3 = _$ExtendsV3; // ignore: undefined_identifier, invalid_assignment
+
+@Deprecated('This is deprecated')
+@Props()
+//// ignore: mixin_of_non_class,undefined_class
+class _$ExtendsV3Props extends V3Props {
+  String? v3_optionalProp_inSubclass;
+}
+
+@Component()
+class ExtendsV3Component extends UiComponent2<ExtendsV3Props> {
+  @override
+  render() {}
+}
+
+
+UiFactory<ExtendsV4Props> ExtendsV4 = castUiFactory(_$ExtendsV4);
+
+mixin ExtendsV4PropsMixin on UiProps {
+  String? v4_optionalProp_inSubclass;
+}
+
+class ExtendsV4Props = UiProps with V4Props, ExtendsV4PropsMixin;
+class ExtendsV4Component extends UiComponent2<ExtendsV4Props> {
+  @override
+  render() {}
+}
 
 ''';
 
@@ -412,6 +514,171 @@ class _$V4Component extends V4Component {
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
         // If this generated mixin is undefined, it's likely because V4Props is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of V4Props, and check that $V4Props is exported/imported properly.
         V4Props: $V4Props.meta,
+      });
+}
+
+// React component factory implementation.
+//
+// Registers component implementation and links type meta to builder factory.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+final $ExtendsV4ComponentFactory = registerComponent2(
+  () => _$ExtendsV4Component(),
+  builderFactory: _$ExtendsV4,
+  componentClass: ExtendsV4Component,
+  isWrapper: false,
+  parentType: null,
+);
+
+_$$ExtendsV4Props _$ExtendsV4([Map? backingProps]) => backingProps == null
+    ? _$$ExtendsV4Props$JsMap(JsBackedMap())
+    : _$$ExtendsV4Props(backingProps);
+
+// Concrete props implementation.
+//
+// Implements constructor and backing map, and links up to generated component factory.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+abstract class _$$ExtendsV4Props extends UiProps
+    with
+        V4Props,
+        // If this generated mixin is undefined, it's likely because V4Props is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of V4Props, and check that $V4Props is exported/imported properly.
+        $V4Props,
+        ExtendsV4PropsMixin,
+        // If this generated mixin is undefined, it's likely because ExtendsV4PropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ExtendsV4PropsMixin, and check that $ExtendsV4PropsMixin is exported/imported properly.
+        $ExtendsV4PropsMixin
+    implements
+        ExtendsV4Props {
+  _$$ExtendsV4Props._();
+
+  factory _$$ExtendsV4Props(Map? backingMap) {
+    if (backingMap == null || backingMap is JsBackedMap) {
+      return _$$ExtendsV4Props$JsMap(backingMap as JsBackedMap?);
+    } else {
+      return _$$ExtendsV4Props$PlainMap(backingMap);
+    }
+  }
+
+  /// Let `UiProps` internals know that this class has been generated.
+  @override
+  bool get $isClassGenerated => true;
+
+  /// The `ReactComponentFactory` associated with the component built by this class.
+  @override
+  ReactComponentFactoryProxy get componentFactory =>
+      super.componentFactory ?? $ExtendsV4ComponentFactory;
+
+  /// The default namespace for the prop getters/setters generated for this class.
+  @override
+  String get propKeyNamespace => '';
+
+  @override
+  PropsMetaCollection get staticMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because V4Props is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of V4Props, and check that $V4Props is exported/imported properly.
+        V4Props: $V4Props.meta,
+        // If this generated mixin is undefined, it's likely because ExtendsV4PropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ExtendsV4PropsMixin, and check that $ExtendsV4PropsMixin is exported/imported properly.
+        ExtendsV4PropsMixin: $ExtendsV4PropsMixin.meta,
+      });
+
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$ExtendsV4Props(
+          accessMap, (map) => _$$ExtendsV4Props(map));
+}
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$ExtendsV4Props = getPropKey;
+
+// Concrete props implementation that can be backed by any [Map].
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+class _$$ExtendsV4Props$PlainMap extends _$$ExtendsV4Props {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$ExtendsV4Props$PlainMap(Map? backingMap)
+      : this._props = {},
+        super._() {
+    this._props = backingMap ?? {};
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
+}
+
+// Concrete props implementation that can only be backed by [JsMap],
+// allowing dart2js to compile more optimal code for key-value pair reads/writes.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+class _$$ExtendsV4Props$JsMap extends _$$ExtendsV4Props {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$ExtendsV4Props$JsMap(JsBackedMap? backingMap)
+      : this._props = JsBackedMap(),
+        super._() {
+    this._props = backingMap ?? JsBackedMap();
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  JsBackedMap get props => _props;
+  JsBackedMap _props;
+}
+
+// Concrete component implementation mixin.
+//
+// Implements typed props/state factories, defaults `consumedPropKeys` to the keys
+// generated for the associated props class.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+class _$ExtendsV4Component extends ExtendsV4Component {
+  late _$$ExtendsV4Props$JsMap _cachedTypedProps;
+
+  @override
+  _$$ExtendsV4Props$JsMap get props => _cachedTypedProps;
+
+  @override
+  set props(Map value) {
+    assert(
+        getBackingMap(value) is JsBackedMap,
+        'Component2.props should never be set directly in '
+        'production. If this is required for testing, the '
+        'component should be rendered within the test. If '
+        'that does not have the necessary result, the last '
+        'resort is to use typedPropsFactoryJs.');
+    super.props = value;
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
+  }
+
+  @override
+  _$$ExtendsV4Props$JsMap typedPropsFactoryJs(JsBackedMap? backingMap) =>
+      _$$ExtendsV4Props$JsMap(backingMap);
+
+  @override
+  _$$ExtendsV4Props typedPropsFactory(Map? backingMap) =>
+      _$$ExtendsV4Props(backingMap);
+
+  /// Let `UiComponent` internals know that this class has been generated.
+  @override
+  bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'ExtendsV4';
+
+  /// The default consumed props, comprising all props mixins used by ExtendsV4Props.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
+  @override
+  get $defaultConsumedProps => propsMeta.all;
+
+  @override
+  PropsMetaCollection get propsMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because V4Props is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of V4Props, and check that $V4Props is exported/imported properly.
+        V4Props: $V4Props.meta,
+        // If this generated mixin is undefined, it's likely because ExtendsV4PropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ExtendsV4PropsMixin, and check that $ExtendsV4PropsMixin is exported/imported properly.
+        ExtendsV4PropsMixin: $ExtendsV4PropsMixin.meta,
       });
 }
 
@@ -708,6 +975,237 @@ class _$V3Component extends V3Component {
   final List<ConsumedProps> $defaultConsumedProps = const [_$metaForV3Props];
 }
 
+// React component factory implementation.
+//
+// Registers component implementation and links type meta to builder factory.
+final $ExtendsV2ComponentFactory = registerComponent(
+  () => _$ExtendsV2Component(),
+  builderFactory: _$ExtendsV2,
+  componentClass: ExtendsV2Component,
+  isWrapper: false,
+  parentType: null,
+);
+
+abstract class _$ExtendsV2PropsAccessorsMixin implements _$ExtendsV2Props {
+  @override
+  Map get props;
+
+  /// <!-- Generated from [_$ExtendsV2Props.v2_optionalProp_inSubclass] -->
+  @override
+  String? get v2_optionalProp_inSubclass =>
+      (props[_$key__v2_optionalProp_inSubclass___$ExtendsV2Props] ?? null)
+          as String?;
+
+  /// <!-- Generated from [_$ExtendsV2Props.v2_optionalProp_inSubclass] -->
+  @override
+  set v2_optionalProp_inSubclass(String? value) =>
+      props[_$key__v2_optionalProp_inSubclass___$ExtendsV2Props] = value;
+  /* GENERATED CONSTANTS */
+  static const PropDescriptor
+      _$prop__v2_optionalProp_inSubclass___$ExtendsV2Props =
+      PropDescriptor(_$key__v2_optionalProp_inSubclass___$ExtendsV2Props);
+  static const String _$key__v2_optionalProp_inSubclass___$ExtendsV2Props =
+      'ExtendsV2Props.v2_optionalProp_inSubclass';
+
+  static const List<PropDescriptor> $props = [
+    _$prop__v2_optionalProp_inSubclass___$ExtendsV2Props
+  ];
+  static const List<String> $propKeys = [
+    _$key__v2_optionalProp_inSubclass___$ExtendsV2Props
+  ];
+}
+
+const PropsMeta _$metaForExtendsV2Props = PropsMeta(
+  fields: _$ExtendsV2PropsAccessorsMixin.$props,
+  keys: _$ExtendsV2PropsAccessorsMixin.$propKeys,
+);
+
+_$$ExtendsV2Props _$ExtendsV2([Map? backingProps]) =>
+    _$$ExtendsV2Props(backingProps);
+
+// Concrete props implementation.
+//
+// Implements constructor and backing map, and links up to generated component factory.
+class _$$ExtendsV2Props extends _$ExtendsV2Props
+    with _$ExtendsV2PropsAccessorsMixin
+    implements ExtendsV2Props {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$ExtendsV2Props(Map? backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
+
+  /// Let `UiProps` internals know that this class has been generated.
+  @override
+  bool get $isClassGenerated => true;
+
+  /// The `ReactComponentFactory` associated with the component built by this class.
+  @override
+  ReactComponentFactoryProxy get componentFactory =>
+      super.componentFactory ?? $ExtendsV2ComponentFactory;
+
+  /// The default namespace for the prop getters/setters generated for this class.
+  @override
+  String get propKeyNamespace => 'ExtendsV2Props.';
+
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$ExtendsV2Props(
+          accessMap, (map) => _$$ExtendsV2Props(map));
+}
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$ExtendsV2Props = getPropKey;
+
+// Concrete component implementation mixin.
+//
+// Implements typed props/state factories, defaults `consumedPropKeys` to the keys
+// generated for the associated props class.
+class _$ExtendsV2Component extends ExtendsV2Component {
+  @override
+  _$$ExtendsV2Props typedPropsFactory(Map? backingMap) =>
+      _$$ExtendsV2Props(backingMap);
+
+  /// Let `UiComponent` internals know that this class has been generated.
+  @override
+  bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'ExtendsV2';
+
+  /// The default consumed props, taken from _$ExtendsV2Props.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
+  @override
+  final List<ConsumedProps> $defaultConsumedProps = const [
+    _$metaForExtendsV2Props
+  ];
+}
+
+// React component factory implementation.
+//
+// Registers component implementation and links type meta to builder factory.
+final $ExtendsV3ComponentFactory = registerComponent(
+  () => _$ExtendsV3Component(),
+  builderFactory: _$ExtendsV3,
+  componentClass: ExtendsV3Component,
+  isWrapper: false,
+  parentType: null,
+);
+
+@Deprecated('This is deprecated')
+abstract class _$ExtendsV3PropsAccessorsMixin implements _$ExtendsV3Props {
+  @override
+  Map get props;
+
+  /// <!-- Generated from [_$ExtendsV3Props.v3_optionalProp_inSubclass] -->
+  @override
+  String? get v3_optionalProp_inSubclass =>
+      (props[_$key__v3_optionalProp_inSubclass___$ExtendsV3Props] ?? null)
+          as String?;
+
+  /// <!-- Generated from [_$ExtendsV3Props.v3_optionalProp_inSubclass] -->
+  @override
+  set v3_optionalProp_inSubclass(String? value) =>
+      props[_$key__v3_optionalProp_inSubclass___$ExtendsV3Props] = value;
+  /* GENERATED CONSTANTS */
+  static const PropDescriptor
+      _$prop__v3_optionalProp_inSubclass___$ExtendsV3Props =
+      PropDescriptor(_$key__v3_optionalProp_inSubclass___$ExtendsV3Props);
+  static const String _$key__v3_optionalProp_inSubclass___$ExtendsV3Props =
+      'ExtendsV3Props.v3_optionalProp_inSubclass';
+
+  static const List<PropDescriptor> $props = [
+    _$prop__v3_optionalProp_inSubclass___$ExtendsV3Props
+  ];
+  static const List<String> $propKeys = [
+    _$key__v3_optionalProp_inSubclass___$ExtendsV3Props
+  ];
+}
+
+const PropsMeta _$metaForExtendsV3Props = PropsMeta(
+  fields: _$ExtendsV3PropsAccessorsMixin.$props,
+  keys: _$ExtendsV3PropsAccessorsMixin.$propKeys,
+);
+
+@Deprecated('This is deprecated')
+class ExtendsV3Props extends _$ExtendsV3Props
+    with _$ExtendsV3PropsAccessorsMixin {
+  static const PropsMeta meta = _$metaForExtendsV3Props;
+}
+
+_$$ExtendsV3Props _$ExtendsV3([Map? backingProps]) =>
+    _$$ExtendsV3Props(backingProps);
+
+// Concrete props implementation.
+//
+// Implements constructor and backing map, and links up to generated component factory.
+class _$$ExtendsV3Props extends _$ExtendsV3Props
+    with _$ExtendsV3PropsAccessorsMixin
+    implements ExtendsV3Props {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$ExtendsV3Props(Map? backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
+
+  /// Let `UiProps` internals know that this class has been generated.
+  @override
+  bool get $isClassGenerated => true;
+
+  /// The `ReactComponentFactory` associated with the component built by this class.
+  @override
+  ReactComponentFactoryProxy get componentFactory =>
+      super.componentFactory ?? $ExtendsV3ComponentFactory;
+
+  /// The default namespace for the prop getters/setters generated for this class.
+  @override
+  String get propKeyNamespace => 'ExtendsV3Props.';
+
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$ExtendsV3Props(
+          accessMap, (map) => _$$ExtendsV3Props(map));
+}
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$ExtendsV3Props = getPropKey;
+
+// Concrete component implementation mixin.
+//
+// Implements typed props/state factories, defaults `consumedPropKeys` to the keys
+// generated for the associated props class.
+class _$ExtendsV3Component extends ExtendsV3Component {
+  @override
+  _$$ExtendsV3Props typedPropsFactory(Map? backingMap) =>
+      _$$ExtendsV3Props(backingMap);
+
+  /// Let `UiComponent` internals know that this class has been generated.
+  @override
+  bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'ExtendsV3';
+
+  /// The default consumed props, taken from _$ExtendsV3Props.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
+  @override
+  final List<ConsumedProps> $defaultConsumedProps = const [
+    _$metaForExtendsV3Props
+  ];
+}
+
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.'
     ' EXCEPTION: this may be used in legacy boilerplate until'
@@ -777,6 +1275,47 @@ mixin $V4Props on V4Props {
 const PropsMeta _$metaForV4Props = PropsMeta(
   fields: $V4Props.$props,
   keys: $V4Props.$propKeys,
+);
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
+mixin $ExtendsV4PropsMixin on ExtendsV4PropsMixin {
+  static const PropsMeta meta = _$metaForExtendsV4PropsMixin;
+  @override
+  String? get v4_optionalProp_inSubclass =>
+      (props[_$key__v4_optionalProp_inSubclass__ExtendsV4PropsMixin] ?? null)
+          as String?;
+  @override
+  set v4_optionalProp_inSubclass(String? value) =>
+      props[_$key__v4_optionalProp_inSubclass__ExtendsV4PropsMixin] = value;
+  /* GENERATED CONSTANTS */
+  static const PropDescriptor
+      _$prop__v4_optionalProp_inSubclass__ExtendsV4PropsMixin =
+      PropDescriptor(_$key__v4_optionalProp_inSubclass__ExtendsV4PropsMixin);
+  static const String _$key__v4_optionalProp_inSubclass__ExtendsV4PropsMixin =
+      'ExtendsV4PropsMixin.v4_optionalProp_inSubclass';
+
+  static const List<PropDescriptor> $props = [
+    _$prop__v4_optionalProp_inSubclass__ExtendsV4PropsMixin
+  ];
+  static const List<String> $propKeys = [
+    _$key__v4_optionalProp_inSubclass__ExtendsV4PropsMixin
+  ];
+
+  @override
+  @mustCallSuper
+  void validateRequiredProps() {
+    super.validateRequiredProps();
+  }
+}
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+const PropsMeta _$metaForExtendsV4PropsMixin = PropsMeta(
+  fields: $ExtendsV4PropsMixin.$props,
+  keys: $ExtendsV4PropsMixin.$propKeys,
 );
 
     ''';
