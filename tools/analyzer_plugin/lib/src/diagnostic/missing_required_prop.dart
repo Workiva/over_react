@@ -94,12 +94,17 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
 
   @override
   computeErrorsForUsage(result, collector, usage) async {
-    var builderType = usage.builder.staticType;
+    // [1] Don't use `ComponentUsage` APIs to get this value since builderType has extra, inefficient steps.
+
+    var builderType = usage.builder.staticType; // [1]
     if (builderType == null) return;
 
-    // Handle generic factories with typeOrBound (todo might not be needed)
-    final propsClassElement = builderType.typeOrBound.element;
+    final propsClassElement = builderType.typeOrBound.element;  // [1]
     if (propsClassElement is! InterfaceElement) return;
+
+    // DOM and SVG components are common and have a large number of props, none of which are required;
+    // short-circuit here for performance.
+    if (const {'DomProps', 'SvgProps'}.contains(propsClassElement.name)) return; // [1]
 
     final requiredPropInfo = _cachedGetRequiredPropInfo(propsClassElement);
 
