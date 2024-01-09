@@ -2,6 +2,7 @@ import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/diagnostic/diagnostic.dart';
 import 'package:analyzer/error/error.dart';
+import 'package:collection/collection.dart';
 import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
 
@@ -46,7 +47,12 @@ extension on String {
 InterfaceElement getInterfaceElement(ResolvedUnitResult result, String name) =>
     result.libraryElement.topLevelElements.whereType<InterfaceElement>().singleWhere((e) => e.name == name);
 
+InterfaceElement getImportedInterfaceElement(ResolvedUnitResult result, String name) =>
+    result.libraryElement.importedLibraries.map((l) => l.exportNamespace.get(name)).whereNotNull().single
+        as InterfaceElement;
+
 extension FieldElementMatchers on TypeMatcher<FieldElement> {
   TypeMatcher<FieldElement> havingName(dynamic matcher) => having((f) => f.name, 'name', matcher);
+
   TypeMatcher<FieldElement> havingIsSynthetic(dynamic matcher) => having((f) => f.isSynthetic, 'isSynthetic', matcher);
 }

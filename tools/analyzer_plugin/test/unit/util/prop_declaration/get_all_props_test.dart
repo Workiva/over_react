@@ -14,7 +14,6 @@
 
 import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/element/element.dart';
-import 'package:collection/collection.dart';
 import 'package:over_react_analyzer_plugin/src/util/prop_declarations/get_all_props.dart';
 import 'package:test/test.dart';
 
@@ -75,11 +74,7 @@ void main() {
         });
 
         test('DomProps', () {
-          // Grab DomProps from the over_react import
-          final propsElement = result.libraryElement.importedLibraries
-              .map((l) => l.exportNamespace.get('DomProps'))
-              .whereNotNull()
-              .single as InterfaceElement;
+          final propsElement = getImportedInterfaceElement(result, 'DomProps');
           final allProps = getAllProps(propsElement);
           expect(
               allProps.map((e) => e.name).toList(),
@@ -145,6 +140,21 @@ void main() {
                 ]));
             expect(allProps, everyElement(isA<FieldElement>().havingIsSynthetic(false)));
           });
+        });
+      });
+
+      group('returns an empty list for UiProps', () {
+        test('(the one from builder_helpers.dart)', () {
+          final builderHelpersUiProps = getImportedInterfaceElement(result, 'UiProps');
+          expect(getAllProps(builderHelpersUiProps), isEmpty);
+        });
+
+        test('(the one from component_base.dart)', () {
+          final builderHelpersUiProps = getImportedInterfaceElement(result, 'UiProps');
+          final componentBaseUiProps =
+              builderHelpersUiProps.allSupertypes.map((type) => type.element).singleWhere((e) => e.name == 'UiProps');
+          expect(componentBaseUiProps, isNot(builderHelpersUiProps), reason: 'test setup check');
+          expect(getAllProps(componentBaseUiProps), isEmpty);
         });
       });
 

@@ -14,7 +14,6 @@
 
 import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/element/element.dart';
-import 'package:collection/collection.dart';
 import 'package:over_react_analyzer_plugin/src/util/prop_declarations/required_props.dart';
 import 'package:test/test.dart';
 
@@ -73,11 +72,7 @@ void main() {
         });
 
         test('DomProps', () {
-          // Grab DomProps from the over_react import
-          final propsElement = result.libraryElement.importedLibraries
-              .map((l) => l.exportNamespace.get('DomProps'))
-              .whereNotNull()
-              .single as InterfaceElement;
+          final propsElement = getImportedInterfaceElement(result, 'DomProps');
           final info = getAllRequiredProps(propsElement);
           expect(info.requiredPropNames, isEmpty);
           expect(info.propRequirednessByName, containsPair('disabled', PropRequiredness.none));
@@ -122,6 +117,21 @@ void main() {
               'v4_annotationRequiredProp': PropRequiredness.annotation,
             });
           });
+        });
+      });
+
+      group('returns an empty list for UiProps', () {
+        test('(the one from builder_helpers.dart)', () {
+          final builderHelpersUiProps = getImportedInterfaceElement(result, 'UiProps');
+          verifyRequiredProps(getAllRequiredProps(builderHelpersUiProps), expected: {});
+        });
+
+        test('(the one from component_base.dart)', () {
+          final builderHelpersUiProps = getImportedInterfaceElement(result, 'UiProps');
+          final componentBaseUiProps =
+              builderHelpersUiProps.allSupertypes.map((type) => type.element).singleWhere((e) => e.name == 'UiProps');
+          expect(componentBaseUiProps, isNot(builderHelpersUiProps), reason: 'test setup check');
+          verifyRequiredProps(getAllRequiredProps(componentBaseUiProps), expected: {});
         });
       });
 
