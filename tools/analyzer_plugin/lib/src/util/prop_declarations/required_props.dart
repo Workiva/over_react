@@ -3,7 +3,9 @@ import 'package:over_react_analyzer_plugin/src/util/react_types.dart';
 
 import 'get_all_props.dart';
 
-/// Computes all required props declared in a given props class [element] and its supertypes.
+/// Returns info about the requiredness of all props declared in a given props class [element] and its supertypes.
+///
+/// Like [getAllProps], but with aggregated info about required props.
 RequiredPropInfo getAllRequiredProps(InterfaceElement element) {
   final requiredFieldsByName = <String, FieldElement>{};
   final propRequirednessByName = <String, PropRequiredness>{};
@@ -24,13 +26,15 @@ RequiredPropInfo getAllRequiredProps(InterfaceElement element) {
   return RequiredPropInfo._(requiredFieldsByName, propRequirednessByName);
 }
 
-/// A collection of information about all required props declared in a given props class and its supertypes,
-/// returned by [getAllRequiredProps].
+/// A collection of all props declared in a given props class and its supertypes,
+/// and whether each prop is required.
+///
+/// Returned by [getAllRequiredProps].
 class RequiredPropInfo {
   /// A mapping of prop field names to the fields that declare them, containing only required props.
   final Map<String, FieldElement> requiredFieldsByName;
 
-  /// A mapping of prop field names to their requiredness, containing only required props.
+  /// A mapping of all prop field names to their requiredness.
   final Map<String, PropRequiredness> propRequirednessByName;
 
   RequiredPropInfo._(this.requiredFieldsByName, this.propRequirednessByName);
