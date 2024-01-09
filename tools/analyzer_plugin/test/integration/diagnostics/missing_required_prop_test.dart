@@ -148,6 +148,7 @@ class MissingRequiredPropTest_MissingLateRequired extends MissingRequiredPropTes
     expect(error.message, "Missing required late prop 'required2' from 'WithLateRequiredProps'.");
 
     final errorFix = await expectSingleErrorFix(selection);
+    expect(errorFix.fixes.single.change.message, "Add required prop 'required2'");
     final fixedSource = applyErrorFixes(errorFix, source);
     expect(fixedSource.contents.data, contains(/*language=dart*/ r'''
         test() => (WithLateRequired()
