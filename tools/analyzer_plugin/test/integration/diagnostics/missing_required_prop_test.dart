@@ -29,6 +29,8 @@ part '{{FILE_BASENAME_WITHOUT_EXTENSION}}.over_react.g.dart';
 
 // ignore_for_file: unused_local_variable
 
+UiFactory<UiProps> GenericFactory = uiFunction((_) {}, UiFactoryConfig());
+
 UiFactory<NoRequiredProps> NoRequired = uiFunction((_) {}, _$NoRequiredConfig);
 mixin NoRequiredProps on UiProps {
   String? optional1;
@@ -101,6 +103,17 @@ class MissingRequiredPropTest_NoErrors extends MissingRequiredPropTest {
         // SvgProps
         Dom.ellipse()(),
         (Dom.ellipse()..id = 'svg')(),
+      );
+    ''');
+
+    expect(await getAllErrors(source, includeOtherCodes: true), isEmpty);
+  }
+
+  Future<void> test_noErrorsForGenericUiProps() async {
+    final source = newSourceWithPrefix(/*language=dart*/ r'''
+      test() => Fragment()(
+        GenericFactory()(),
+        (GenericFactory()..id = 'dom')(),
       );
     ''');
 
