@@ -52,6 +52,14 @@ mixin InheritsLateRequiredPropsMixin on UiProps {
 class InheritsLateRequiredProps = UiProps with WithLateRequiredProps, InheritsLateRequiredPropsMixin;
 
 
+UiFactory<RequiredWithSameNameAsPrefixedProps> RequiredWithSameNameAsPrefixed = uiFunction((_) {}, _$RequiredWithSameNameAsPrefixedConfig);
+mixin RequiredWithSameNameAsPrefixedProps on UiProps {
+  late bool hidden;
+}
+
+
+
+
 UiFactory<WithAnnotationRequiredProps> WithAnnotationRequired = uiFunction((_) {}, _$WithAnnotationRequiredConfig);
 mixin WithAnnotationRequiredProps on UiProps {
   @requiredProp String? required1;
@@ -177,6 +185,20 @@ class MissingRequiredPropTest_MissingLateRequired extends MissingRequiredPropTes
               .havingMessage(contains("'requiredInSubclass' from 'InheritsLateRequiredPropsMixin'")),
           isAnErrorUnderTest(locatedAt: selection).havingMessage(contains("'required1' from 'WithLateRequiredProps'")),
           isAnErrorUnderTest(locatedAt: selection).havingMessage(contains("'required2' from 'WithLateRequiredProps'")),
+        ]));
+  }
+
+  Future<void> test_missingWithSameNameAsPrefixed() async {
+    final source = newSourceWithPrefix(/*language=dart*/ r'''
+        test() => (RequiredWithSameNameAsPrefixed()..dom.hidden = true)();
+    ''');
+    final selection = createSelection(source, '#RequiredWithSameNameAsPrefixed()#');
+    final allErrors = await getAllErrors(source);
+    expect(
+        allErrors,
+        unorderedEquals(<dynamic>[
+          isAnErrorUnderTest(locatedAt: selection)
+              .havingMessage(contains("'hidden' from 'RequiredWithSameNameAsPrefixedProps'")),
         ]));
   }
 }

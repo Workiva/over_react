@@ -21,6 +21,14 @@ mixin InheritsLateRequiredPropsMixin on UiProps {
   late String requiredInSubclass;
 }
 
+
+UiFactory<RequiredWithSameNameAsPrefixedProps> RequiredWithSameNameAsPrefixed = uiFunction((_) {},
+    _$RequiredWithSameNameAsPrefixedConfig);
+mixin RequiredWithSameNameAsPrefixedProps on UiProps {
+  late bool hidden;
+}
+
+
 class InheritsLateRequiredProps = UiProps with WithLateRequiredProps, InheritsLateRequiredPropsMixin;
 
 UiFactory<WithAnnotationRequiredProps> WithAnnotationRequired = uiFunction((_) {}, _$WithAnnotationRequiredConfig);
@@ -47,4 +55,7 @@ main() {
   InheritsLateRequired()();
 
   WithAnnotationRequired()();
+
+  // Make sure prefixed props aren't mistaken for the missing required prop.
+  (RequiredWithSameNameAsPrefixed()..dom.hidden = true)();
 }
