@@ -16,6 +16,7 @@ import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/diagnostic/diagnostic.dart';
 import 'package:analyzer/error/error.dart';
+import 'package:collection/collection.dart';
 import 'package:over_react_analyzer_plugin/src/util/get_all_props.dart';
 import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
@@ -93,6 +94,24 @@ void main() {
               ]));
         });
 
+        test('DomProps', () {
+          // Grab DomProps from the over_react import
+          final domProps = result.libraryElement.importedLibraries
+              .map((l) => l.exportNamespace.get('DomProps'))
+              .whereNotNull()
+              .single as InterfaceElement;
+          expect(
+              getAllProps(domProps).map((e) => e.name).toList(),
+              allOf([
+                contains('disabled'),
+                // Also declared in UbiquitousDomPropsMixin
+                contains('onClick'),
+                contains('id'),
+                // Also declared in ClassNamePropsMixin
+                contains('className'),
+              ]));
+        });
+
         group('props classes that extend from other props classes, including props from supertypes', () {
           test('a v2 concrete props class', () {
             final v4Props = getInterfaceElement('ExtendsV2Props');
@@ -136,6 +155,12 @@ void main() {
                 ]));
           });
         });
+
+      });
+
+      test('returns an empty list for a class that is not a props class', () {
+        final notAPropsClass = getInterfaceElement('NotAPropsClass');
+        expect(getAllProps(notAPropsClass), isEmpty);
       });
     });
   });
@@ -159,6 +184,10 @@ import 'package:over_react/over_react.dart';
 
 part '{{PART_PATH}}';
 
+// Give it some supertypes
+abstract class NotAPropsClass implements Map {
+  String? fieldThatWouldBeAPropInAPropsClass;
+}
 
 @Factory()
 // ignore: undefined_identifier, invalid_assignment
