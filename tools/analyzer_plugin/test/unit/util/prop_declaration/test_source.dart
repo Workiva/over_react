@@ -206,6 +206,30 @@ class ExtendsV4Component extends UiComponent2<ExtendsV4Props> {
   render() {}
 }
 
+
+mixin OverriddenTestBaseProps on UiProps{
+   late String? v4_lateRequiredProp_optionalInOtherType;
+   String? v4_optionalProp_requiredInOtherType;
+}
+
+mixin OverriddenTestSubtypeProps on UiProps, OverriddenTestBaseProps {
+   // Invert requiredness compared to base class
+   @override
+   String? v4_lateRequiredProp_optionalInOtherType;
+   @override
+   late String? v4_optionalProp_requiredInOtherType;
+}
+
+mixin OverriddenTestUnrelatedClassPropsMixin on UiProps {
+   // Invert requiredness compared to base class
+   String? v4_lateRequiredProp_optionalInOtherType;
+   late String? v4_optionalProp_requiredInOtherType;
+}
+
+// Fields in `OverriddenTestUnrelatedClassPropsMixin` "override" fields in `OverriddenTestBaseProps` when mixed in.
+class OverriddenTestUnrelatedClassProps = UiProps with OverriddenTestBaseProps, OverriddenTestUnrelatedClassPropsMixin;
+
+
 mixin DisableRequiredPropValidationProps on UiProps {
   late String lateRequired;
   

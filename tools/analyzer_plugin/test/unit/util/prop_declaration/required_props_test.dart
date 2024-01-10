@@ -153,6 +153,37 @@ void main() {
               });
             });
           });
+
+          group('props classes where requiredness changes in overrides - uses required if present anywhere', () {
+            setUpAll(() {
+              // Verify our base class used by other tests
+              final propsElement = getInterfaceElement(result, 'OverriddenTestBaseProps');
+              verifyRequiredProps(getAllRequiredProps(propsElement), expected: {
+                'v4_lateRequiredProp_optionalInOtherType': PropRequiredness.late,
+                'v4_optionalProp_requiredInOtherType': PropRequiredness.none,
+              });
+            });
+
+            test('when requiredness changes in overrides', () {
+              final propsElement = getInterfaceElement(result, 'OverriddenTestSubtypeProps');
+              verifyRequiredProps(getAllRequiredProps(propsElement), expected: {
+                // Since it's required in base class (OverriddenTestBaseProps), it should be considered required.
+                'v4_lateRequiredProp_optionalInOtherType': PropRequiredness.late,
+                // Since it's required in subclass (OverriddenTestSubtypeProps), it should be considered required.
+                'v4_optionalProp_requiredInOtherType': PropRequiredness.late,
+              });
+            });
+
+            test('when requiredness changes in "overrides" from mixing in unrelated types', () {
+              final propsElement = getInterfaceElement(result, 'OverriddenTestUnrelatedClassProps');
+              verifyRequiredProps(getAllRequiredProps(propsElement), expected: {
+                // Since it's required in OverriddenTestBaseProps, it should be considered required.
+                'v4_lateRequiredProp_optionalInOtherType': PropRequiredness.late,
+                // Since it's required in OverriddenTestUnrelatedClassPropsMixin, it should be considered required.
+                'v4_optionalProp_requiredInOtherType': PropRequiredness.late,
+              });
+            });
+          });
         });
 
         group('returns an empty list for UiProps', () {
