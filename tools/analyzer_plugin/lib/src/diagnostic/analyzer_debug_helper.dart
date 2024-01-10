@@ -19,25 +19,15 @@ class AnalyzerDebugHelper {
     AnalysisErrorType.STATIC_WARNING,
   );
 
-  /// Usage:
-  ///     final debug = AnalyzerDebugHelper(result, collector);
-  ///     debug.log('message');
-  @Deprecated('Use log2')
-  void log(String message) => log2(() => message);
-
-  /// Usage:
-  ///     final debug = AnalyzerDebugHelper(result, collector);
-  ///     debug.logWithLocation('message', result.locationFor(node));
-  @Deprecated('Use log2')
-  void logWithLocation(String message, Location location) => log2(() => message, () => location);
-
+  /// Logs a debug message at a given location.
+  ///
+  /// [computeMessage] and [computeLocation] are only called when [enabled],
+  /// allowing potentially expensive computations to be easily skipped when they're not needed.
+  ///
   /// Usage:
   ///     final debug = AnalyzerDebugHelper(result, collector);
   ///     debug.log2(() => 'message', () => result.locationFor(node));
-  ///
-  /// Prefer this over [log]/[logWithLocation] to avoid the overhead of computing the message/location when
-  /// [enabled] is false.
-  void log2(String Function() computeMessage, [Location Function()? computeLocation]) {
+  void log(String Function() computeMessage, [Location Function()? computeLocation]) {
     if (!enabled) return;
 
     final message = computeMessage();

@@ -116,7 +116,7 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
     final debugHelper = AnalyzerDebugHelper(result, collector, enabled: _cachedIsDebugHelperEnabled(result));
 
     // Include debug info for each invocation ahout all the props and their requirednesses.
-    debugHelper.log2(
+    debugHelper.log(
       () => _requiredPropsDebugMessage(requiredPropInfo),
       () => result.locationFor(usage.builder),
     );

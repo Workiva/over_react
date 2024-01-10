@@ -292,8 +292,10 @@ class _DiagnosticGenerator {
                 sharedUsagesStopwatch.elapsedMicroseconds -
                 diagnosticMetrics.values.fold(0, (a, b) => a + b)),
           });
-      AnalyzerDebugHelper(unitResult, collector, enabled: true).logWithLocation(
-          message, unitResult.location(offset: metricsDebugFlagMatch.start, end: metricsDebugFlagMatch.end));
+      AnalyzerDebugHelper(unitResult, collector, enabled: true).log(
+        () => message,
+        () => unitResult.location(offset: metricsDebugFlagMatch.start, end: metricsDebugFlagMatch.end),
+      );
     }
 
     final filteredErrors = _configureErrorSeverities(
