@@ -6,14 +6,14 @@ import 'package:over_react/over_react.dart';
 
 part '{{PART_PATH}}';
 
+
 // Give it some supertypes
 abstract class NotAPropsClass implements Map {
   String? fieldThatWouldBeAPropInAPropsClass;
 }
 
 @Factory()
-// ignore: undefined_identifier, invalid_assignment
-UiFactory<V2Props> V2 = _$V2;
+UiFactory<V2Props> V2 = castUiFactory(_$V2);
 
 // ignore: undefined_class, mixin_of_non_class
 class V2Props extends _$V2Props with _$V2PropsAccessorsMixin {
@@ -62,7 +62,7 @@ class V2Component extends UiComponent2<V2Props> {
 }
 
 @Factory()
-UiFactory<V3Props> V3 = _$V3; // ignore: undefined_identifier, invalid_assignment
+UiFactory<V3Props> V3 = castUiFactory(_$V3);
 
 @Deprecated('This is deprecated')
 @Props()
@@ -108,7 +108,7 @@ class V3Component extends UiComponent2<V3Props> {
 
 UiFactory<V4Props> V4 = castUiFactory(_$V4);
 
-mixin V4Props on UiProps {
+mixin V4PropsMixin on UiProps {
   late String v4_lateRequiredProp;
   String? v4_optionalProp;
   @requiredProp
@@ -140,10 +140,94 @@ mixin V4Props on UiProps {
   static set v4_static_getterAndSetter(String _) {}
 }
 
+class V4Props = UiProps with V4PropsMixin;
+
 class V4Component extends UiComponent2<V4Props> {
   @override
   render() {}
 }
+
+//
+// Props mixins
+//
+
+
+@PropsMixin()
+abstract class V2PropsMixin {
+  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
+  static const PropsMeta meta = _$metaForV2PropsMixin;
+
+  Map get props;
+
+  late String v2_lateRequiredProp_inMixin;
+  String? v2_optionalProp_inMixin;
+  @requiredProp
+  String? v2_annotationRequiredProp_inMixin;
+
+  //
+  // Non-props: edge-cases
+  //
+  @Accessor(doNotGenerate: true)
+  String? v2_doNotGenerate_inMixin;
+
+  //
+  // Non-props: instance members
+  //
+  String get v2_getter_inMixin => '';
+  // ignore: avoid_setters_without_getters
+  set v2_setter_inMixin(_) => '';
+  String get v2_getterAndSetter_inMixin => '';
+  set v2_getterAndSetter_inMixin(String _) {}
+
+  //
+  // Non-props: static members
+  //
+  static String v2_static_field_inMixin = '';
+  static String get v2_static_getter_inMixin => '';
+  // ignore: avoid_setters_without_getters
+  static set v2_static_setter_inMixin(_) => '';
+  static String get v2_static_getterAndSetter_inMixin => '';
+  static set v2_static_getterAndSetter_inMixin(String _) {}
+}
+
+@deprecated
+@PropsMixin()
+abstract class _$V3PropsMixin implements UiProps {
+  @override
+  Map get props;
+
+  late String v3_lateRequiredProp_inMixin;
+  String? v3_optionalProp_inMixin;
+  @requiredProp
+  String? v3_annotationRequiredProp_inMixin;
+
+  //
+  // Non-props: edge-cases
+  //
+  @Accessor(doNotGenerate: true)
+  String? v3_doNotGenerate_inMixin;
+
+  //
+  // Non-props: instance members
+  //
+  String get v3_getter_inMixin => '';
+  // ignore: avoid_setters_without_getters
+  set v3_setter_inMixin(_) => '';
+  String get v3_getterAndSetter_inMixin => '';
+  set v3_getterAndSetter_inMixin(String _) {}
+
+  //
+  // Non-props: static members
+  //
+  static String v3_static_field_inMixin = '';
+  static String get v3_static_getter_inMixin => '';
+  // ignore: avoid_setters_without_getters
+  static set v3_static_setter_inMixin(_) => '';
+  static String get v3_static_getterAndSetter_inMixin => '';
+  static set v3_static_getterAndSetter_inMixin(String _) {}
+}
+
+// V4 props can only be declared in mixins; this case is covered by other V4 cases
 
 
 //
@@ -153,7 +237,7 @@ class V4Component extends UiComponent2<V4Props> {
 
 @Factory()
 // ignore: undefined_identifier, invalid_assignment
-UiFactory<ExtendsV2Props> ExtendsV2 = _$ExtendsV2;
+UiFactory<ExtendsV2Props> ExtendsV2 = castUiFactory(_$ExtendsV2);
 
 // ignore: undefined_class, mixin_of_non_class
 class ExtendsV2Props extends _$ExtendsV2Props with _$ExtendsV2PropsAccessorsMixin {
@@ -163,7 +247,10 @@ class ExtendsV2Props extends _$ExtendsV2Props with _$ExtendsV2PropsAccessorsMixi
 
 @Props()
 //// ignore: mixin_of_non_class,undefined_class
-class _$ExtendsV2Props extends V2Props {
+class _$ExtendsV2Props extends V2Props with
+    V2PropsMixin,
+    // ignore: mixin_of_non_class, undefined_class
+    $V2PropsMixin {
   late String v2_lateRequiredProp_inSubclass;
   String? v2_optionalProp_inSubclass;
 }
@@ -176,12 +263,12 @@ class ExtendsV2Component extends UiComponent2<ExtendsV2Props> {
 
 
 @Factory()
-UiFactory<ExtendsV3Props> ExtendsV3 = _$ExtendsV3; // ignore: undefined_identifier, invalid_assignment
+UiFactory<ExtendsV3Props> ExtendsV3 = castUiFactory(_$ExtendsV3);
 
 @Deprecated('This is deprecated')
 @Props()
 //// ignore: mixin_of_non_class,undefined_class
-class _$ExtendsV3Props extends V3Props {
+class _$ExtendsV3Props extends V3Props with V3PropsMixin {
   late String v3_lateRequiredProp_inSubclass;
   String? v3_optionalProp_inSubclass;
 }
@@ -200,7 +287,7 @@ mixin ExtendsV4PropsMixin on UiProps {
   String? v4_optionalProp_inSubclass;
 }
 
-class ExtendsV4Props = UiProps with V4Props, ExtendsV4PropsMixin;
+class ExtendsV4Props = UiProps with V4PropsMixin, ExtendsV4PropsMixin;
 class ExtendsV4Component extends UiComponent2<ExtendsV4Props> {
   @override
   render() {}
@@ -226,7 +313,9 @@ mixin OverriddenTestUnrelatedClassPropsMixin on UiProps {
    late String? v4_optionalProp_requiredInOtherType;
 }
 
+
 // Fields in `OverriddenTestUnrelatedClassPropsMixin` "override" fields in `OverriddenTestBaseProps` when mixed in.
+UiFactory<OverriddenTestUnrelatedClassProps> OverriddenTestUnrelatedClass = castUiFactory(_$OverriddenTestUnrelatedClass);
 class OverriddenTestUnrelatedClassProps = UiProps with OverriddenTestBaseProps, OverriddenTestUnrelatedClassPropsMixin;
 
 
@@ -237,7 +326,8 @@ mixin DisableRequiredPropValidationProps on UiProps {
   late String lateRequiredWithValidationDisabled;
 }
 
-class ExtendsDisableRequiredPropValidationProps = UiProps with DisableRequiredPropValidationProps; 
+UiFactory<ExtendsDisableRequiredPropValidationProps> ExtendsDisableRequiredPropValidation = castUiFactory(_$ExtendsDisableRequiredPropValidation);
+class ExtendsDisableRequiredPropValidationProps = UiProps with DisableRequiredPropValidationProps;
 
 ''';
 
@@ -246,9 +336,7 @@ const partSource = /*language=dart*/ r'''
 
 part of '{{PART_OF_PATH}}';
 
-// **************************************************************************
-// OverReactBuilder (package:over_react/src/builder.dart)
-// **************************************************************************
+
 
 // React component factory implementation.
 //
@@ -274,9 +362,11 @@ _$$V4Props _$V4([Map? backingProps]) => backingProps == null
     ' Do not reference it in your code, as it may change at any time.')
 abstract class _$$V4Props extends UiProps
     with
-        V4Props,
-        // If this generated mixin is undefined, it's likely because V4Props is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of V4Props, and check that $V4Props is exported/imported properly.
-        $V4Props {
+        V4PropsMixin,
+        // If this generated mixin is undefined, it's likely because V4PropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of V4PropsMixin, and check that $V4PropsMixin is exported/imported properly.
+        $V4PropsMixin
+    implements
+        V4Props {
   _$$V4Props._();
 
   factory _$$V4Props(Map? backingMap) {
@@ -302,8 +392,8 @@ abstract class _$$V4Props extends UiProps
 
   @override
   PropsMetaCollection get staticMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because V4Props is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of V4Props, and check that $V4Props is exported/imported properly.
-        V4Props: $V4Props.meta,
+        // If this generated mixin is undefined, it's likely because V4PropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of V4PropsMixin, and check that $V4PropsMixin is exported/imported properly.
+        V4PropsMixin: $V4PropsMixin.meta,
       });
 
   @override
@@ -399,8 +489,8 @@ class _$V4Component extends V4Component {
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because V4Props is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of V4Props, and check that $V4Props is exported/imported properly.
-        V4Props: $V4Props.meta,
+        // If this generated mixin is undefined, it's likely because V4PropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of V4PropsMixin, and check that $V4PropsMixin is exported/imported properly.
+        V4PropsMixin: $V4PropsMixin.meta,
       });
 }
 
@@ -428,9 +518,9 @@ _$$ExtendsV4Props _$ExtendsV4([Map? backingProps]) => backingProps == null
     ' Do not reference it in your code, as it may change at any time.')
 abstract class _$$ExtendsV4Props extends UiProps
     with
-        V4Props,
-        // If this generated mixin is undefined, it's likely because V4Props is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of V4Props, and check that $V4Props is exported/imported properly.
-        $V4Props,
+        V4PropsMixin,
+        // If this generated mixin is undefined, it's likely because V4PropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of V4PropsMixin, and check that $V4PropsMixin is exported/imported properly.
+        $V4PropsMixin,
         ExtendsV4PropsMixin,
         // If this generated mixin is undefined, it's likely because ExtendsV4PropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ExtendsV4PropsMixin, and check that $ExtendsV4PropsMixin is exported/imported properly.
         $ExtendsV4PropsMixin
@@ -461,8 +551,8 @@ abstract class _$$ExtendsV4Props extends UiProps
 
   @override
   PropsMetaCollection get staticMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because V4Props is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of V4Props, and check that $V4Props is exported/imported properly.
-        V4Props: $V4Props.meta,
+        // If this generated mixin is undefined, it's likely because V4PropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of V4PropsMixin, and check that $V4PropsMixin is exported/imported properly.
+        V4PropsMixin: $V4PropsMixin.meta,
         // If this generated mixin is undefined, it's likely because ExtendsV4PropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ExtendsV4PropsMixin, and check that $ExtendsV4PropsMixin is exported/imported properly.
         ExtendsV4PropsMixin: $ExtendsV4PropsMixin.meta,
       });
@@ -562,8 +652,8 @@ class _$ExtendsV4Component extends ExtendsV4Component {
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because V4Props is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of V4Props, and check that $V4Props is exported/imported properly.
-        V4Props: $V4Props.meta,
+        // If this generated mixin is undefined, it's likely because V4PropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of V4PropsMixin, and check that $V4PropsMixin is exported/imported properly.
+        V4PropsMixin: $V4PropsMixin.meta,
         // If this generated mixin is undefined, it's likely because ExtendsV4PropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ExtendsV4PropsMixin, and check that $ExtendsV4PropsMixin is exported/imported properly.
         ExtendsV4PropsMixin: $ExtendsV4PropsMixin.meta,
       });
@@ -1137,60 +1227,61 @@ class _$ExtendsV3Component extends ExtendsV3Component {
     ' Do not reference it in your code, as it may change at any time.'
     ' EXCEPTION: this may be used in legacy boilerplate until'
     ' it is transitioned to the new mixin-based boilerplate.')
-mixin $V4Props on V4Props {
-  static const PropsMeta meta = _$metaForV4Props;
+mixin $V4PropsMixin on V4PropsMixin {
+  static const PropsMeta meta = _$metaForV4PropsMixin;
   @override
   String get v4_lateRequiredProp =>
-      (props[_$key__v4_lateRequiredProp__V4Props] ?? null) as String;
+      (props[_$key__v4_lateRequiredProp__V4PropsMixin] ?? null) as String;
   @override
   set v4_lateRequiredProp(String value) =>
-      props[_$key__v4_lateRequiredProp__V4Props] = value;
+      props[_$key__v4_lateRequiredProp__V4PropsMixin] = value;
   @override
   String? get v4_optionalProp =>
-      (props[_$key__v4_optionalProp__V4Props] ?? null) as String?;
+      (props[_$key__v4_optionalProp__V4PropsMixin] ?? null) as String?;
   @override
   set v4_optionalProp(String? value) =>
-      props[_$key__v4_optionalProp__V4Props] = value;
+      props[_$key__v4_optionalProp__V4PropsMixin] = value;
   @override
   @requiredProp
   String? get v4_annotationRequiredProp =>
-      (props[_$key__v4_annotationRequiredProp__V4Props] ?? null) as String?;
+      (props[_$key__v4_annotationRequiredProp__V4PropsMixin] ?? null)
+          as String?;
   @override
   @requiredProp
   set v4_annotationRequiredProp(String? value) =>
-      props[_$key__v4_annotationRequiredProp__V4Props] = value;
+      props[_$key__v4_annotationRequiredProp__V4PropsMixin] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__v4_lateRequiredProp__V4Props =
-      PropDescriptor(_$key__v4_lateRequiredProp__V4Props,
+  static const PropDescriptor _$prop__v4_lateRequiredProp__V4PropsMixin =
+      PropDescriptor(_$key__v4_lateRequiredProp__V4PropsMixin,
           isRequired: true, isNullable: true);
-  static const PropDescriptor _$prop__v4_optionalProp__V4Props =
-      PropDescriptor(_$key__v4_optionalProp__V4Props);
-  static const PropDescriptor _$prop__v4_annotationRequiredProp__V4Props =
-      PropDescriptor(_$key__v4_annotationRequiredProp__V4Props,
+  static const PropDescriptor _$prop__v4_optionalProp__V4PropsMixin =
+      PropDescriptor(_$key__v4_optionalProp__V4PropsMixin);
+  static const PropDescriptor _$prop__v4_annotationRequiredProp__V4PropsMixin =
+      PropDescriptor(_$key__v4_annotationRequiredProp__V4PropsMixin,
           isRequired: true);
-  static const String _$key__v4_lateRequiredProp__V4Props =
-      'V4Props.v4_lateRequiredProp';
-  static const String _$key__v4_optionalProp__V4Props =
-      'V4Props.v4_optionalProp';
-  static const String _$key__v4_annotationRequiredProp__V4Props =
-      'V4Props.v4_annotationRequiredProp';
+  static const String _$key__v4_lateRequiredProp__V4PropsMixin =
+      'V4PropsMixin.v4_lateRequiredProp';
+  static const String _$key__v4_optionalProp__V4PropsMixin =
+      'V4PropsMixin.v4_optionalProp';
+  static const String _$key__v4_annotationRequiredProp__V4PropsMixin =
+      'V4PropsMixin.v4_annotationRequiredProp';
 
   static const List<PropDescriptor> $props = [
-    _$prop__v4_lateRequiredProp__V4Props,
-    _$prop__v4_optionalProp__V4Props,
-    _$prop__v4_annotationRequiredProp__V4Props
+    _$prop__v4_lateRequiredProp__V4PropsMixin,
+    _$prop__v4_optionalProp__V4PropsMixin,
+    _$prop__v4_annotationRequiredProp__V4PropsMixin
   ];
   static const List<String> $propKeys = [
-    _$key__v4_lateRequiredProp__V4Props,
-    _$key__v4_optionalProp__V4Props,
-    _$key__v4_annotationRequiredProp__V4Props
+    _$key__v4_lateRequiredProp__V4PropsMixin,
+    _$key__v4_optionalProp__V4PropsMixin,
+    _$key__v4_annotationRequiredProp__V4PropsMixin
   ];
 
   @override
   @mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
-    if (!props.containsKey('V4Props.v4_lateRequiredProp')) {
+    if (!props.containsKey('V4PropsMixin.v4_lateRequiredProp')) {
       throw MissingRequiredPropsError(
           'Required prop `v4_lateRequiredProp` is missing.');
     }
@@ -1199,9 +1290,193 @@ mixin $V4Props on V4Props {
 
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-const PropsMeta _$metaForV4Props = PropsMeta(
-  fields: $V4Props.$props,
-  keys: $V4Props.$propKeys,
+const PropsMeta _$metaForV4PropsMixin = PropsMeta(
+  fields: $V4PropsMixin.$props,
+  keys: $V4PropsMixin.$propKeys,
+);
+
+abstract class $V2PropsMixin implements V2PropsMixin {
+  @override
+  Map get props;
+
+  static const PropsMeta meta = _$metaForV2PropsMixin;
+  static String v2_static_field_inMixin = '';
+  static String get v2_static_getter_inMixin => '';
+  static set v2_static_setter_inMixin(_) => '';
+  static String get v2_static_getterAndSetter_inMixin => '';
+  static set v2_static_getterAndSetter_inMixin(String _) {}
+  @override
+  @Accessor(doNotGenerate: true)
+  String? v2_doNotGenerate_inMixin;
+  @override
+  String get v2_getter_inMixin => '';
+  @override
+  set v2_setter_inMixin(_) => '';
+  @override
+  String get v2_getterAndSetter_inMixin => '';
+  @override
+  set v2_getterAndSetter_inMixin(String _) {}
+
+  /// <!-- Generated from [V2PropsMixin.v2_lateRequiredProp_inMixin] -->
+  @override
+  String get v2_lateRequiredProp_inMixin =>
+      (props[_$key__v2_lateRequiredProp_inMixin__V2PropsMixin] ?? null)
+          as String;
+
+  /// <!-- Generated from [V2PropsMixin.v2_lateRequiredProp_inMixin] -->
+  @override
+  set v2_lateRequiredProp_inMixin(String value) =>
+      props[_$key__v2_lateRequiredProp_inMixin__V2PropsMixin] = value;
+
+  /// <!-- Generated from [V2PropsMixin.v2_optionalProp_inMixin] -->
+  @override
+  String? get v2_optionalProp_inMixin =>
+      (props[_$key__v2_optionalProp_inMixin__V2PropsMixin] ?? null) as String?;
+
+  /// <!-- Generated from [V2PropsMixin.v2_optionalProp_inMixin] -->
+  @override
+  set v2_optionalProp_inMixin(String? value) =>
+      props[_$key__v2_optionalProp_inMixin__V2PropsMixin] = value;
+
+  /// <!-- Generated from [V2PropsMixin.v2_annotationRequiredProp_inMixin] -->
+  @override
+  @requiredProp
+  String? get v2_annotationRequiredProp_inMixin =>
+      (props[_$key__v2_annotationRequiredProp_inMixin__V2PropsMixin] ?? null)
+          as String?;
+
+  /// <!-- Generated from [V2PropsMixin.v2_annotationRequiredProp_inMixin] -->
+  @override
+  @requiredProp
+  set v2_annotationRequiredProp_inMixin(String? value) =>
+      props[_$key__v2_annotationRequiredProp_inMixin__V2PropsMixin] = value;
+  /* GENERATED CONSTANTS */
+  static const PropDescriptor
+      _$prop__v2_lateRequiredProp_inMixin__V2PropsMixin = PropDescriptor(
+          _$key__v2_lateRequiredProp_inMixin__V2PropsMixin,
+          isRequired: true,
+          isNullable: true);
+  static const PropDescriptor _$prop__v2_optionalProp_inMixin__V2PropsMixin =
+      PropDescriptor(_$key__v2_optionalProp_inMixin__V2PropsMixin);
+  static const PropDescriptor
+      _$prop__v2_annotationRequiredProp_inMixin__V2PropsMixin = PropDescriptor(
+          _$key__v2_annotationRequiredProp_inMixin__V2PropsMixin,
+          isRequired: true);
+  static const String _$key__v2_lateRequiredProp_inMixin__V2PropsMixin =
+      'V2PropsMixin.v2_lateRequiredProp_inMixin';
+  static const String _$key__v2_optionalProp_inMixin__V2PropsMixin =
+      'V2PropsMixin.v2_optionalProp_inMixin';
+  static const String _$key__v2_annotationRequiredProp_inMixin__V2PropsMixin =
+      'V2PropsMixin.v2_annotationRequiredProp_inMixin';
+
+  static const List<PropDescriptor> $props = [
+    _$prop__v2_lateRequiredProp_inMixin__V2PropsMixin,
+    _$prop__v2_optionalProp_inMixin__V2PropsMixin,
+    _$prop__v2_annotationRequiredProp_inMixin__V2PropsMixin
+  ];
+  static const List<String> $propKeys = [
+    _$key__v2_lateRequiredProp_inMixin__V2PropsMixin,
+    _$key__v2_optionalProp_inMixin__V2PropsMixin,
+    _$key__v2_annotationRequiredProp_inMixin__V2PropsMixin
+  ];
+}
+
+const PropsMeta _$metaForV2PropsMixin = PropsMeta(
+  fields: $V2PropsMixin.$props,
+  keys: $V2PropsMixin.$propKeys,
+);
+
+@deprecated
+abstract class V3PropsMixin implements _$V3PropsMixin {
+  @override
+  Map get props;
+
+  static const PropsMeta meta = _$metaForV3PropsMixin;
+  static String v3_static_field_inMixin = '';
+  static String get v3_static_getter_inMixin => '';
+  static set v3_static_setter_inMixin(_) => '';
+  static String get v3_static_getterAndSetter_inMixin => '';
+  static set v3_static_getterAndSetter_inMixin(String _) {}
+  @override
+  @Accessor(doNotGenerate: true)
+  String? v3_doNotGenerate_inMixin;
+  @override
+  String get v3_getter_inMixin => '';
+  @override
+  set v3_setter_inMixin(_) => '';
+  @override
+  String get v3_getterAndSetter_inMixin => '';
+  @override
+  set v3_getterAndSetter_inMixin(String _) {}
+
+  /// <!-- Generated from [_$V3PropsMixin.v3_lateRequiredProp_inMixin] -->
+  @override
+  String get v3_lateRequiredProp_inMixin =>
+      (props[_$key__v3_lateRequiredProp_inMixin___$V3PropsMixin] ?? null)
+          as String;
+
+  /// <!-- Generated from [_$V3PropsMixin.v3_lateRequiredProp_inMixin] -->
+  @override
+  set v3_lateRequiredProp_inMixin(String value) =>
+      props[_$key__v3_lateRequiredProp_inMixin___$V3PropsMixin] = value;
+
+  /// <!-- Generated from [_$V3PropsMixin.v3_optionalProp_inMixin] -->
+  @override
+  String? get v3_optionalProp_inMixin =>
+      (props[_$key__v3_optionalProp_inMixin___$V3PropsMixin] ?? null)
+          as String?;
+
+  /// <!-- Generated from [_$V3PropsMixin.v3_optionalProp_inMixin] -->
+  @override
+  set v3_optionalProp_inMixin(String? value) =>
+      props[_$key__v3_optionalProp_inMixin___$V3PropsMixin] = value;
+
+  /// <!-- Generated from [_$V3PropsMixin.v3_annotationRequiredProp_inMixin] -->
+  @override
+  @requiredProp
+  String? get v3_annotationRequiredProp_inMixin =>
+      (props[_$key__v3_annotationRequiredProp_inMixin___$V3PropsMixin] ?? null)
+          as String?;
+
+  /// <!-- Generated from [_$V3PropsMixin.v3_annotationRequiredProp_inMixin] -->
+  @override
+  @requiredProp
+  set v3_annotationRequiredProp_inMixin(String? value) =>
+      props[_$key__v3_annotationRequiredProp_inMixin___$V3PropsMixin] = value;
+  /* GENERATED CONSTANTS */
+  static const PropDescriptor
+      _$prop__v3_lateRequiredProp_inMixin___$V3PropsMixin = PropDescriptor(
+          _$key__v3_lateRequiredProp_inMixin___$V3PropsMixin,
+          isRequired: true,
+          isNullable: true);
+  static const PropDescriptor _$prop__v3_optionalProp_inMixin___$V3PropsMixin =
+      PropDescriptor(_$key__v3_optionalProp_inMixin___$V3PropsMixin);
+  static const PropDescriptor
+      _$prop__v3_annotationRequiredProp_inMixin___$V3PropsMixin =
+      PropDescriptor(_$key__v3_annotationRequiredProp_inMixin___$V3PropsMixin,
+          isRequired: true);
+  static const String _$key__v3_lateRequiredProp_inMixin___$V3PropsMixin =
+      'V3PropsMixin.v3_lateRequiredProp_inMixin';
+  static const String _$key__v3_optionalProp_inMixin___$V3PropsMixin =
+      'V3PropsMixin.v3_optionalProp_inMixin';
+  static const String _$key__v3_annotationRequiredProp_inMixin___$V3PropsMixin =
+      'V3PropsMixin.v3_annotationRequiredProp_inMixin';
+
+  static const List<PropDescriptor> $props = [
+    _$prop__v3_lateRequiredProp_inMixin___$V3PropsMixin,
+    _$prop__v3_optionalProp_inMixin___$V3PropsMixin,
+    _$prop__v3_annotationRequiredProp_inMixin___$V3PropsMixin
+  ];
+  static const List<String> $propKeys = [
+    _$key__v3_lateRequiredProp_inMixin___$V3PropsMixin,
+    _$key__v3_optionalProp_inMixin___$V3PropsMixin,
+    _$key__v3_annotationRequiredProp_inMixin___$V3PropsMixin
+  ];
+}
+
+const PropsMeta _$metaForV3PropsMixin = PropsMeta(
+  fields: V3PropsMixin.$props,
+  keys: V3PropsMixin.$propKeys,
 );
 
 @Deprecated('This API is for use only within generated code.'
@@ -1265,5 +1540,474 @@ const PropsMeta _$metaForExtendsV4PropsMixin = PropsMeta(
   fields: $ExtendsV4PropsMixin.$props,
   keys: $ExtendsV4PropsMixin.$propKeys,
 );
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
+mixin $OverriddenTestBaseProps on OverriddenTestBaseProps {
+  static const PropsMeta meta = _$metaForOverriddenTestBaseProps;
+  @override
+  String? get v4_lateRequiredProp_optionalInOtherType => (props[
+          _$key__v4_lateRequiredProp_optionalInOtherType__OverriddenTestBaseProps] ??
+      null) as String?;
+  @override
+  set v4_lateRequiredProp_optionalInOtherType(String? value) => props[
+          _$key__v4_lateRequiredProp_optionalInOtherType__OverriddenTestBaseProps] =
+      value;
+  @override
+  String? get v4_optionalProp_requiredInOtherType => (props[
+          _$key__v4_optionalProp_requiredInOtherType__OverriddenTestBaseProps] ??
+      null) as String?;
+  @override
+  set v4_optionalProp_requiredInOtherType(String? value) => props[
+          _$key__v4_optionalProp_requiredInOtherType__OverriddenTestBaseProps] =
+      value;
+  /* GENERATED CONSTANTS */
+  static const PropDescriptor
+      _$prop__v4_lateRequiredProp_optionalInOtherType__OverriddenTestBaseProps =
+      PropDescriptor(
+          _$key__v4_lateRequiredProp_optionalInOtherType__OverriddenTestBaseProps,
+          isRequired: true,
+          isNullable: true);
+  static const PropDescriptor
+      _$prop__v4_optionalProp_requiredInOtherType__OverriddenTestBaseProps =
+      PropDescriptor(
+          _$key__v4_optionalProp_requiredInOtherType__OverriddenTestBaseProps);
+  static const String
+      _$key__v4_lateRequiredProp_optionalInOtherType__OverriddenTestBaseProps =
+      'OverriddenTestBaseProps.v4_lateRequiredProp_optionalInOtherType';
+  static const String
+      _$key__v4_optionalProp_requiredInOtherType__OverriddenTestBaseProps =
+      'OverriddenTestBaseProps.v4_optionalProp_requiredInOtherType';
+
+  static const List<PropDescriptor> $props = [
+    _$prop__v4_lateRequiredProp_optionalInOtherType__OverriddenTestBaseProps,
+    _$prop__v4_optionalProp_requiredInOtherType__OverriddenTestBaseProps
+  ];
+  static const List<String> $propKeys = [
+    _$key__v4_lateRequiredProp_optionalInOtherType__OverriddenTestBaseProps,
+    _$key__v4_optionalProp_requiredInOtherType__OverriddenTestBaseProps
+  ];
+
+  @override
+  @mustCallSuper
+  void validateRequiredProps() {
+    super.validateRequiredProps();
+    if (!props.containsKey(
+        'OverriddenTestBaseProps.v4_lateRequiredProp_optionalInOtherType')) {
+      throw MissingRequiredPropsError(
+          'Required prop `v4_lateRequiredProp_optionalInOtherType` is missing.');
+    }
+  }
+}
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+const PropsMeta _$metaForOverriddenTestBaseProps = PropsMeta(
+  fields: $OverriddenTestBaseProps.$props,
+  keys: $OverriddenTestBaseProps.$propKeys,
+);
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
+mixin $OverriddenTestSubtypeProps on OverriddenTestSubtypeProps {
+  static const PropsMeta meta = _$metaForOverriddenTestSubtypeProps;
+  @override
+  @override
+  String? get v4_lateRequiredProp_optionalInOtherType => (props[
+          _$key__v4_lateRequiredProp_optionalInOtherType__OverriddenTestSubtypeProps] ??
+      null) as String?;
+  @override
+  @override
+  set v4_lateRequiredProp_optionalInOtherType(String? value) => props[
+          _$key__v4_lateRequiredProp_optionalInOtherType__OverriddenTestSubtypeProps] =
+      value;
+  @override
+  @override
+  String? get v4_optionalProp_requiredInOtherType => (props[
+          _$key__v4_optionalProp_requiredInOtherType__OverriddenTestSubtypeProps] ??
+      null) as String?;
+  @override
+  @override
+  set v4_optionalProp_requiredInOtherType(String? value) => props[
+          _$key__v4_optionalProp_requiredInOtherType__OverriddenTestSubtypeProps] =
+      value;
+  /* GENERATED CONSTANTS */
+  static const PropDescriptor
+      _$prop__v4_lateRequiredProp_optionalInOtherType__OverriddenTestSubtypeProps =
+      PropDescriptor(
+          _$key__v4_lateRequiredProp_optionalInOtherType__OverriddenTestSubtypeProps);
+  static const PropDescriptor
+      _$prop__v4_optionalProp_requiredInOtherType__OverriddenTestSubtypeProps =
+      PropDescriptor(
+          _$key__v4_optionalProp_requiredInOtherType__OverriddenTestSubtypeProps,
+          isRequired: true,
+          isNullable: true);
+  static const String
+      _$key__v4_lateRequiredProp_optionalInOtherType__OverriddenTestSubtypeProps =
+      'OverriddenTestSubtypeProps.v4_lateRequiredProp_optionalInOtherType';
+  static const String
+      _$key__v4_optionalProp_requiredInOtherType__OverriddenTestSubtypeProps =
+      'OverriddenTestSubtypeProps.v4_optionalProp_requiredInOtherType';
+
+  static const List<PropDescriptor> $props = [
+    _$prop__v4_lateRequiredProp_optionalInOtherType__OverriddenTestSubtypeProps,
+    _$prop__v4_optionalProp_requiredInOtherType__OverriddenTestSubtypeProps
+  ];
+  static const List<String> $propKeys = [
+    _$key__v4_lateRequiredProp_optionalInOtherType__OverriddenTestSubtypeProps,
+    _$key__v4_optionalProp_requiredInOtherType__OverriddenTestSubtypeProps
+  ];
+
+  @override
+  @mustCallSuper
+  void validateRequiredProps() {
+    super.validateRequiredProps();
+    if (!props.containsKey(
+        'OverriddenTestSubtypeProps.v4_optionalProp_requiredInOtherType')) {
+      throw MissingRequiredPropsError(
+          'Required prop `v4_optionalProp_requiredInOtherType` is missing.');
+    }
+  }
+}
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+const PropsMeta _$metaForOverriddenTestSubtypeProps = PropsMeta(
+  fields: $OverriddenTestSubtypeProps.$props,
+  keys: $OverriddenTestSubtypeProps.$propKeys,
+);
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
+mixin $OverriddenTestUnrelatedClassPropsMixin
+    on OverriddenTestUnrelatedClassPropsMixin {
+  static const PropsMeta meta = _$metaForOverriddenTestUnrelatedClassPropsMixin;
+  @override
+  String? get v4_lateRequiredProp_optionalInOtherType => (props[
+          _$key__v4_lateRequiredProp_optionalInOtherType__OverriddenTestUnrelatedClassPropsMixin] ??
+      null) as String?;
+  @override
+  set v4_lateRequiredProp_optionalInOtherType(String? value) => props[
+          _$key__v4_lateRequiredProp_optionalInOtherType__OverriddenTestUnrelatedClassPropsMixin] =
+      value;
+  @override
+  String? get v4_optionalProp_requiredInOtherType => (props[
+          _$key__v4_optionalProp_requiredInOtherType__OverriddenTestUnrelatedClassPropsMixin] ??
+      null) as String?;
+  @override
+  set v4_optionalProp_requiredInOtherType(String? value) => props[
+          _$key__v4_optionalProp_requiredInOtherType__OverriddenTestUnrelatedClassPropsMixin] =
+      value;
+  /* GENERATED CONSTANTS */
+  static const PropDescriptor
+      _$prop__v4_lateRequiredProp_optionalInOtherType__OverriddenTestUnrelatedClassPropsMixin =
+      PropDescriptor(
+          _$key__v4_lateRequiredProp_optionalInOtherType__OverriddenTestUnrelatedClassPropsMixin);
+  static const PropDescriptor
+      _$prop__v4_optionalProp_requiredInOtherType__OverriddenTestUnrelatedClassPropsMixin =
+      PropDescriptor(
+          _$key__v4_optionalProp_requiredInOtherType__OverriddenTestUnrelatedClassPropsMixin,
+          isRequired: true,
+          isNullable: true);
+  static const String
+      _$key__v4_lateRequiredProp_optionalInOtherType__OverriddenTestUnrelatedClassPropsMixin =
+      'OverriddenTestUnrelatedClassPropsMixin.v4_lateRequiredProp_optionalInOtherType';
+  static const String
+      _$key__v4_optionalProp_requiredInOtherType__OverriddenTestUnrelatedClassPropsMixin =
+      'OverriddenTestUnrelatedClassPropsMixin.v4_optionalProp_requiredInOtherType';
+
+  static const List<PropDescriptor> $props = [
+    _$prop__v4_lateRequiredProp_optionalInOtherType__OverriddenTestUnrelatedClassPropsMixin,
+    _$prop__v4_optionalProp_requiredInOtherType__OverriddenTestUnrelatedClassPropsMixin
+  ];
+  static const List<String> $propKeys = [
+    _$key__v4_lateRequiredProp_optionalInOtherType__OverriddenTestUnrelatedClassPropsMixin,
+    _$key__v4_optionalProp_requiredInOtherType__OverriddenTestUnrelatedClassPropsMixin
+  ];
+
+  @override
+  @mustCallSuper
+  void validateRequiredProps() {
+    super.validateRequiredProps();
+    if (!props.containsKey(
+        'OverriddenTestUnrelatedClassPropsMixin.v4_optionalProp_requiredInOtherType')) {
+      throw MissingRequiredPropsError(
+          'Required prop `v4_optionalProp_requiredInOtherType` is missing.');
+    }
+  }
+}
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+const PropsMeta _$metaForOverriddenTestUnrelatedClassPropsMixin = PropsMeta(
+  fields: $OverriddenTestUnrelatedClassPropsMixin.$props,
+  keys: $OverriddenTestUnrelatedClassPropsMixin.$propKeys,
+);
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
+mixin $DisableRequiredPropValidationProps
+    on DisableRequiredPropValidationProps {
+  static const PropsMeta meta = _$metaForDisableRequiredPropValidationProps;
+  @override
+  String get lateRequired =>
+      (props[_$key__lateRequired__DisableRequiredPropValidationProps] ?? null)
+          as String;
+  @override
+  set lateRequired(String value) =>
+      props[_$key__lateRequired__DisableRequiredPropValidationProps] = value;
+  @override
+  @disableRequiredPropValidation
+  String get lateRequiredWithValidationDisabled => (props[
+          _$key__lateRequiredWithValidationDisabled__DisableRequiredPropValidationProps] ??
+      null) as String;
+  @override
+  @disableRequiredPropValidation
+  set lateRequiredWithValidationDisabled(String value) => props[
+          _$key__lateRequiredWithValidationDisabled__DisableRequiredPropValidationProps] =
+      value;
+  /* GENERATED CONSTANTS */
+  static const PropDescriptor
+      _$prop__lateRequired__DisableRequiredPropValidationProps = PropDescriptor(
+          _$key__lateRequired__DisableRequiredPropValidationProps,
+          isRequired: true,
+          isNullable: true);
+  static const PropDescriptor
+      _$prop__lateRequiredWithValidationDisabled__DisableRequiredPropValidationProps =
+      PropDescriptor(
+          _$key__lateRequiredWithValidationDisabled__DisableRequiredPropValidationProps,
+          isRequired: true,
+          isNullable: true);
+  static const String _$key__lateRequired__DisableRequiredPropValidationProps =
+      'DisableRequiredPropValidationProps.lateRequired';
+  static const String
+      _$key__lateRequiredWithValidationDisabled__DisableRequiredPropValidationProps =
+      'DisableRequiredPropValidationProps.lateRequiredWithValidationDisabled';
+
+  static const List<PropDescriptor> $props = [
+    _$prop__lateRequired__DisableRequiredPropValidationProps,
+    _$prop__lateRequiredWithValidationDisabled__DisableRequiredPropValidationProps
+  ];
+  static const List<String> $propKeys = [
+    _$key__lateRequired__DisableRequiredPropValidationProps,
+    _$key__lateRequiredWithValidationDisabled__DisableRequiredPropValidationProps
+  ];
+
+  @override
+  @mustCallSuper
+  void validateRequiredProps() {
+    super.validateRequiredProps();
+    if (!props.containsKey('DisableRequiredPropValidationProps.lateRequired')) {
+      throw MissingRequiredPropsError(
+          'Required prop `lateRequired` is missing.');
+    }
+  }
+}
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+const PropsMeta _$metaForDisableRequiredPropValidationProps = PropsMeta(
+  fields: $DisableRequiredPropValidationProps.$props,
+  keys: $DisableRequiredPropValidationProps.$propKeys,
+);
+
+_$$OverriddenTestUnrelatedClassProps _$OverriddenTestUnrelatedClass(
+        [Map? backingProps]) =>
+    backingProps == null
+        ? _$$OverriddenTestUnrelatedClassProps$JsMap(JsBackedMap())
+        : _$$OverriddenTestUnrelatedClassProps(backingProps);
+
+// Concrete props implementation.
+//
+// Implements constructor and backing map, and links up to generated component factory.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+abstract class _$$OverriddenTestUnrelatedClassProps extends UiProps
+    with
+        OverriddenTestBaseProps,
+        // If this generated mixin is undefined, it's likely because OverriddenTestBaseProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of OverriddenTestBaseProps, and check that $OverriddenTestBaseProps is exported/imported properly.
+        $OverriddenTestBaseProps,
+        OverriddenTestUnrelatedClassPropsMixin,
+        // If this generated mixin is undefined, it's likely because OverriddenTestUnrelatedClassPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of OverriddenTestUnrelatedClassPropsMixin, and check that $OverriddenTestUnrelatedClassPropsMixin is exported/imported properly.
+        $OverriddenTestUnrelatedClassPropsMixin
+    implements
+        OverriddenTestUnrelatedClassProps {
+  _$$OverriddenTestUnrelatedClassProps._();
+
+  factory _$$OverriddenTestUnrelatedClassProps(Map? backingMap) {
+    if (backingMap == null || backingMap is JsBackedMap) {
+      return _$$OverriddenTestUnrelatedClassProps$JsMap(
+          backingMap as JsBackedMap?);
+    } else {
+      return _$$OverriddenTestUnrelatedClassProps$PlainMap(backingMap);
+    }
+  }
+
+  /// Let `UiProps` internals know that this class has been generated.
+  @override
+  bool get $isClassGenerated => true;
+
+  /// The default namespace for the prop getters/setters generated for this class.
+  @override
+  String get propKeyNamespace => '';
+
+  @override
+  PropsMetaCollection get staticMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because OverriddenTestBaseProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of OverriddenTestBaseProps, and check that $OverriddenTestBaseProps is exported/imported properly.
+        OverriddenTestBaseProps: $OverriddenTestBaseProps.meta,
+        // If this generated mixin is undefined, it's likely because OverriddenTestUnrelatedClassPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of OverriddenTestUnrelatedClassPropsMixin, and check that $OverriddenTestUnrelatedClassPropsMixin is exported/imported properly.
+        OverriddenTestUnrelatedClassPropsMixin:
+            $OverriddenTestUnrelatedClassPropsMixin.meta,
+      });
+
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$OverriddenTestUnrelatedClassProps(
+          accessMap, (map) => _$$OverriddenTestUnrelatedClassProps(map));
+}
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$OverriddenTestUnrelatedClassProps = getPropKey;
+
+// Concrete props implementation that can be backed by any [Map].
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+class _$$OverriddenTestUnrelatedClassProps$PlainMap
+    extends _$$OverriddenTestUnrelatedClassProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$OverriddenTestUnrelatedClassProps$PlainMap(Map? backingMap)
+      : this._props = {},
+        super._() {
+    this._props = backingMap ?? {};
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
+}
+
+// Concrete props implementation that can only be backed by [JsMap],
+// allowing dart2js to compile more optimal code for key-value pair reads/writes.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+class _$$OverriddenTestUnrelatedClassProps$JsMap
+    extends _$$OverriddenTestUnrelatedClassProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$OverriddenTestUnrelatedClassProps$JsMap(JsBackedMap? backingMap)
+      : this._props = JsBackedMap(),
+        super._() {
+    this._props = backingMap ?? JsBackedMap();
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  JsBackedMap get props => _props;
+  JsBackedMap _props;
+}
+
+_$$ExtendsDisableRequiredPropValidationProps
+    _$ExtendsDisableRequiredPropValidation([Map? backingProps]) =>
+        backingProps == null
+            ? _$$ExtendsDisableRequiredPropValidationProps$JsMap(JsBackedMap())
+            : _$$ExtendsDisableRequiredPropValidationProps(backingProps);
+
+// Concrete props implementation.
+//
+// Implements constructor and backing map, and links up to generated component factory.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+abstract class _$$ExtendsDisableRequiredPropValidationProps extends UiProps
+    with
+        DisableRequiredPropValidationProps,
+        // If this generated mixin is undefined, it's likely because DisableRequiredPropValidationProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of DisableRequiredPropValidationProps, and check that $DisableRequiredPropValidationProps is exported/imported properly.
+        $DisableRequiredPropValidationProps
+    implements
+        ExtendsDisableRequiredPropValidationProps {
+  _$$ExtendsDisableRequiredPropValidationProps._();
+
+  factory _$$ExtendsDisableRequiredPropValidationProps(Map? backingMap) {
+    if (backingMap == null || backingMap is JsBackedMap) {
+      return _$$ExtendsDisableRequiredPropValidationProps$JsMap(
+          backingMap as JsBackedMap?);
+    } else {
+      return _$$ExtendsDisableRequiredPropValidationProps$PlainMap(backingMap);
+    }
+  }
+
+  /// Let `UiProps` internals know that this class has been generated.
+  @override
+  bool get $isClassGenerated => true;
+
+  /// The default namespace for the prop getters/setters generated for this class.
+  @override
+  String get propKeyNamespace => '';
+
+  @override
+  PropsMetaCollection get staticMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because DisableRequiredPropValidationProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of DisableRequiredPropValidationProps, and check that $DisableRequiredPropValidationProps is exported/imported properly.
+        DisableRequiredPropValidationProps:
+            $DisableRequiredPropValidationProps.meta,
+      });
+
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$ExtendsDisableRequiredPropValidationProps(accessMap,
+          (map) => _$$ExtendsDisableRequiredPropValidationProps(map));
+}
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$ExtendsDisableRequiredPropValidationProps = getPropKey;
+
+// Concrete props implementation that can be backed by any [Map].
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+class _$$ExtendsDisableRequiredPropValidationProps$PlainMap
+    extends _$$ExtendsDisableRequiredPropValidationProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$ExtendsDisableRequiredPropValidationProps$PlainMap(Map? backingMap)
+      : this._props = {},
+        super._() {
+    this._props = backingMap ?? {};
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
+}
+
+// Concrete props implementation that can only be backed by [JsMap],
+// allowing dart2js to compile more optimal code for key-value pair reads/writes.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+class _$$ExtendsDisableRequiredPropValidationProps$JsMap
+    extends _$$ExtendsDisableRequiredPropValidationProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$ExtendsDisableRequiredPropValidationProps$JsMap(JsBackedMap? backingMap)
+      : this._props = JsBackedMap(),
+        super._() {
+    this._props = backingMap ?? JsBackedMap();
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  JsBackedMap get props => _props;
+  JsBackedMap _props;
+}
 
     ''';

@@ -99,30 +99,65 @@ void main() {
         });
 
         group('returns required props for', () {
-          test('a v2 concrete props class', () {
-            final propsElement = getInterfaceElement(result, 'V2Props');
-            verifyRequiredProps(getAllRequiredProps(propsElement), expected: {
-              'v2_lateRequiredProp': PropRequiredness.late,
-              'v2_optionalProp': PropRequiredness.none,
-              'v2_annotationRequiredProp': PropRequiredness.annotation,
+          group('a v2 boilerplate', () {
+            test('concrete props class', () {
+              final propsElement = getInterfaceElement(result, 'V2Props');
+              verifyRequiredProps(getAllRequiredProps(propsElement), expected: {
+                'v2_lateRequiredProp': PropRequiredness.late,
+                'v2_optionalProp': PropRequiredness.none,
+                'v2_annotationRequiredProp': PropRequiredness.annotation,
+              });
+            });
+
+            test('props mixin', () {
+              final propsElement = getInterfaceElement(result, 'V2PropsMixin');
+              verifyRequiredProps(getAllRequiredProps(propsElement), expected: {
+                'v2_lateRequiredProp_inMixin': PropRequiredness.late,
+                'v2_optionalProp_inMixin': PropRequiredness.none,
+                'v2_annotationRequiredProp_inMixin': PropRequiredness.annotation,
+              });
             });
           });
 
-          test('a v3 concrete props class', () {
-            final propsElement = getInterfaceElement(result, 'V3Props');
-            verifyRequiredProps(getAllRequiredProps(propsElement), expected: {
-              'v3_lateRequiredProp': PropRequiredness.late,
-              'v3_optionalProp': PropRequiredness.none,
-              'v3_annotationRequiredProp': PropRequiredness.annotation,
+          group('a v3 boilerplate', () {
+            test('concrete props class', () {
+              final propsElement = getInterfaceElement(result, 'V3Props');
+              verifyRequiredProps(getAllRequiredProps(propsElement), expected: {
+                'v3_lateRequiredProp': PropRequiredness.late,
+                'v3_optionalProp': PropRequiredness.none,
+                'v3_annotationRequiredProp': PropRequiredness.annotation,
+              });
+            });
+
+            test('props mixin', () {
+              final propsElement = getInterfaceElement(result, 'V3PropsMixin');
+              verifyRequiredProps(getAllRequiredProps(propsElement), expected: {
+                'v3_lateRequiredProp_inMixin': PropRequiredness.late,
+                'v3_optionalProp_inMixin': PropRequiredness.none,
+                'v3_annotationRequiredProp_inMixin': PropRequiredness.annotation,
+              });
             });
           });
 
-          test('a v4 props mixin', () {
-            final propsElement = getInterfaceElement(result, 'V4Props');
-            verifyRequiredProps(getAllRequiredProps(propsElement), expected: {
-              'v4_lateRequiredProp': PropRequiredness.late,
-              'v4_optionalProp': PropRequiredness.none,
-              'v4_annotationRequiredProp': PropRequiredness.annotation,
+          group('a v4 boilerplate', () {
+            // These props technically come from the mixin (since in V4 props can only be declared in mixins),
+            // so this test case is slightly redundant with the extension test in the group below.
+            test('concrete props class', () {
+              final propsElement = getInterfaceElement(result, 'V4Props');
+              verifyRequiredProps(getAllRequiredProps(propsElement), expected: {
+                'v4_lateRequiredProp': PropRequiredness.late,
+                'v4_optionalProp': PropRequiredness.none,
+                'v4_annotationRequiredProp': PropRequiredness.annotation,
+              });
+            });
+
+            test('props mixin', () {
+              final propsElement = getInterfaceElement(result, 'V4PropsMixin');
+              verifyRequiredProps(getAllRequiredProps(propsElement), expected: {
+                'v4_lateRequiredProp': PropRequiredness.late,
+                'v4_optionalProp': PropRequiredness.none,
+                'v4_annotationRequiredProp': PropRequiredness.annotation,
+              });
             });
           });
 
@@ -144,6 +179,10 @@ void main() {
                 'v2_lateRequiredProp': PropRequiredness.late,
                 'v2_optionalProp': PropRequiredness.none,
                 'v2_annotationRequiredProp': PropRequiredness.annotation,
+                // From mixin
+                'v2_lateRequiredProp_inMixin': PropRequiredness.late,
+                'v2_optionalProp_inMixin': PropRequiredness.none,
+                'v2_annotationRequiredProp_inMixin': PropRequiredness.annotation,
               });
             });
 
@@ -157,10 +196,14 @@ void main() {
                 'v3_lateRequiredProp': PropRequiredness.late,
                 'v3_optionalProp': PropRequiredness.none,
                 'v3_annotationRequiredProp': PropRequiredness.annotation,
+                // From mixin
+                'v3_lateRequiredProp_inMixin': PropRequiredness.late,
+                'v3_optionalProp_inMixin': PropRequiredness.none,
+                'v3_annotationRequiredProp_inMixin': PropRequiredness.annotation,
               });
             });
 
-            test('a v4 props mixin', () {
+            test('a v4 concrete props class', () {
               final propsElement = getInterfaceElement(result, 'ExtendsV4Props');
               verifyRequiredProps(getAllRequiredProps(propsElement), expected: {
                 // From extending type

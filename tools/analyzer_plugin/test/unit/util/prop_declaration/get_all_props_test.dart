@@ -33,44 +33,72 @@ void main() {
         result = await setUpResult(sharedContext);
       });
 
+      void verifyAllProps(List<FieldElement> actualAllProps, {required List<String> expectedNames}) {
+        expect(actualAllProps.map((e) => e.name).toList(), unorderedEquals(expectedNames));
+        expect(actualAllProps, everyElement(isA<FieldElement>().havingIsSynthetic(false)));
+      }
+
       group('returns only the expected props from', () {
-        test('a v2 concrete props class', () {
-          final propsElement = getInterfaceElement(result, 'V2Props');
-          final allProps = getAllProps(propsElement);
-          expect(
-              allProps.map((e) => e.name).toList(),
-              unorderedEquals(<String>[
-                'v2_lateRequiredProp',
-                'v2_optionalProp',
-                'v2_annotationRequiredProp',
-              ]));
-          expect(allProps, everyElement(isA<FieldElement>().havingIsSynthetic(false)));
+        group('a v2 boilerplate', () {
+          test('concrete props class', () {
+            final propsElement = getInterfaceElement(result, 'V2Props');
+            verifyAllProps(getAllProps(propsElement), expectedNames: [
+              'v2_lateRequiredProp',
+              'v2_optionalProp',
+              'v2_annotationRequiredProp',
+            ]);
+          });
+
+          test('props mixin', () {
+            final propsElement = getInterfaceElement(result, 'V2PropsMixin');
+            verifyAllProps(getAllProps(propsElement), expectedNames: [
+              'v2_lateRequiredProp_inMixin',
+              'v2_optionalProp_inMixin',
+              'v2_annotationRequiredProp_inMixin',
+            ]);
+          });
         });
 
-        test('a v3 concrete props class', () {
-          final propsElement = getInterfaceElement(result, 'V3Props');
-          final allProps = getAllProps(propsElement);
-          expect(
-              allProps.map((e) => e.name).toList(),
-              unorderedEquals(<String>[
-                'v3_lateRequiredProp',
-                'v3_optionalProp',
-                'v3_annotationRequiredProp',
-              ]));
-          expect(allProps, everyElement(isA<FieldElement>().havingIsSynthetic(false)));
+        group('a v3 boilerplate', () {
+          test('concrete props class', () {
+            final propsElement = getInterfaceElement(result, 'V3Props');
+            verifyAllProps(getAllProps(propsElement), expectedNames: [
+              'v3_lateRequiredProp',
+              'v3_optionalProp',
+              'v3_annotationRequiredProp',
+            ]);
+          });
+
+          test('props mixin', () {
+            final propsElement = getInterfaceElement(result, 'V3PropsMixin');
+            verifyAllProps(getAllProps(propsElement), expectedNames: [
+              'v3_lateRequiredProp_inMixin',
+              'v3_optionalProp_inMixin',
+              'v3_annotationRequiredProp_inMixin',
+            ]);
+          });
         });
 
-        test('a v4 props mixin', () {
-          final propsElement = getInterfaceElement(result, 'V4Props');
-          final allProps = getAllProps(propsElement);
-          expect(
-              allProps.map((e) => e.name).toList(),
-              unorderedEquals(<String>[
-                'v4_lateRequiredProp',
-                'v4_optionalProp',
-                'v4_annotationRequiredProp',
-              ]));
-          expect(allProps, everyElement(isA<FieldElement>().havingIsSynthetic(false)));
+        group('a v4 boilerplate', () {
+          // These props technically come from the mixin (since in V4 props can only be declared in mixins),
+          // so this test case is slightly redundant with the extension test in the group below.
+          test('concrete props class', () {
+            final propsElement = getInterfaceElement(result, 'V4Props');
+            verifyAllProps(getAllProps(propsElement), expectedNames: [
+              'v4_lateRequiredProp',
+              'v4_optionalProp',
+              'v4_annotationRequiredProp',
+            ]);
+          });
+
+          test('props mixin', () {
+            final propsElement = getInterfaceElement(result, 'V4PropsMixin');
+            verifyAllProps(getAllProps(propsElement), expectedNames: [
+              'v4_lateRequiredProp',
+              'v4_optionalProp',
+              'v4_annotationRequiredProp',
+            ]);
+          });
         });
 
         test('DomProps', () {
@@ -92,53 +120,49 @@ void main() {
         group('props classes that extend from other props classes, including props from supertypes', () {
           test('a v2 concrete props class', () {
             final propsElement = getInterfaceElement(result, 'ExtendsV2Props');
-            final allProps = getAllProps(propsElement);
-            expect(
-                allProps.map((e) => e.name).toList(),
-                unorderedEquals(<String>[
-                  // From extending type
-                  'v2_lateRequiredProp_inSubclass',
-                  'v2_optionalProp_inSubclass',
-                  // From supertype
-                  'v2_lateRequiredProp',
-                  'v2_optionalProp',
-                  'v2_annotationRequiredProp',
-                ]));
-            expect(allProps, everyElement(isA<FieldElement>().havingIsSynthetic(false)));
+            verifyAllProps(getAllProps(propsElement), expectedNames: [
+              // From extending type
+              'v2_lateRequiredProp_inSubclass',
+              'v2_optionalProp_inSubclass',
+              // From supertype
+              'v2_lateRequiredProp',
+              'v2_optionalProp',
+              'v2_annotationRequiredProp',
+              // From mixin
+              'v2_lateRequiredProp_inMixin',
+              'v2_optionalProp_inMixin',
+              'v2_annotationRequiredProp_inMixin',
+            ]);
           });
 
           test('a v3 concrete props class', () {
             final propsElement = getInterfaceElement(result, 'ExtendsV3Props');
-            final allProps = getAllProps(propsElement);
-            expect(
-                allProps.map((e) => e.name).toList(),
-                unorderedEquals(<String>[
-                  // From extending type
-                  'v3_lateRequiredProp_inSubclass',
-                  'v3_optionalProp_inSubclass',
-                  // From supertype
-                  'v3_lateRequiredProp',
-                  'v3_optionalProp',
-                  'v3_annotationRequiredProp',
-                ]));
-            expect(allProps, everyElement(isA<FieldElement>().havingIsSynthetic(false)));
+            verifyAllProps(getAllProps(propsElement), expectedNames: [
+              // From extending type
+              'v3_lateRequiredProp_inSubclass',
+              'v3_optionalProp_inSubclass',
+              // From supertype
+              'v3_lateRequiredProp',
+              'v3_optionalProp',
+              'v3_annotationRequiredProp',
+              // From mixin
+              'v3_lateRequiredProp_inMixin',
+              'v3_optionalProp_inMixin',
+              'v3_annotationRequiredProp_inMixin',
+            ]);
           });
 
-          test('a v4 props mixin', () {
+          test('a v4 concrete props class', () {
             final propsElement = getInterfaceElement(result, 'ExtendsV4Props');
-            final allProps = getAllProps(propsElement);
-            expect(
-                allProps.map((e) => e.name).toList(),
-                unorderedEquals(<String>[
-                  // From extending type
-                  'v4_lateRequiredProp_inSubclass',
-                  'v4_optionalProp_inSubclass',
-                  // From supertype
-                  'v4_lateRequiredProp',
-                  'v4_optionalProp',
-                  'v4_annotationRequiredProp',
-                ]));
-            expect(allProps, everyElement(isA<FieldElement>().havingIsSynthetic(false)));
+            verifyAllProps(getAllProps(propsElement), expectedNames: [
+              // From extending type
+              'v4_lateRequiredProp_inSubclass',
+              'v4_optionalProp_inSubclass',
+              // From supertype
+              'v4_lateRequiredProp',
+              'v4_optionalProp',
+              'v4_annotationRequiredProp',
+            ]);
           });
         });
       });
