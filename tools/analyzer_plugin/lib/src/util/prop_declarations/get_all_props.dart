@@ -1,7 +1,15 @@
 import 'package:analyzer/dart/element/element.dart';
 import 'package:over_react_analyzer_plugin/src/util/util.dart';
 
-/// Returns all props defined in a props class/mixin [element] as well as all of its supertypes,
+// Performance optimization notes:
+// [1] Building a list here is slightly more optimal than using a generator.
+//
+// [2] Ideally we'd check the library and package here,
+//     but for some reason accessing `.library` is pretty inefficient.
+//     Possibly due to the `LibraryElementImpl? get library => thisOrAncestorOfType();` impl,
+//     and an inefficient `thisOrAncestorOfType` impl: https://github.com/dart-lang/sdk/issues/53255
+
+/// Returns all props defined in a props class/mixin [propsElement] as well as all of its supertypes,
 /// except for those shared by all UiProps instances by default (e.g., ReactPropsMixin, UbiquitousDomPropsMixin,
 /// and CssClassPropsMixin's key, ref, children, className, id, onClick, etc.).
 ///
@@ -9,32 +17,24 @@ import 'package:over_react_analyzer_plugin/src/util/util.dart';
 /// from generated over_react parts.
 ///
 /// Excludes any fields annotated with `@doNotGenerate`.
-List<FieldElement> getAllProps(InterfaceElement element) {
-  // Performance optimization notes:
-  // [1] Building a list here is slightly more optimal than using a generator.
-  //
-  // [2] Ideally we'd check the library and package here,
-  //     but for some reason accessing `.library` is pretty inefficient.
-  //     Possibly due to the `LibraryElementImpl? get library => thisOrAncestorOfType();` impl,
-  //     and an inefficient `thisOrAncestorOfType` impl: https://github.com/dart-lang/sdk/issues/53255
-
+List<FieldElement> getAllProps(InterfaceElement propsElement) {
   final allProps = <FieldElement>[]; // [1]
 
-  final allInterfaces = element.thisAndSupertypesList;
+  final propsAndSupertypeElements = propsElement.thisAndSupertypesList;
 
   // There are two UiProps; one in component_base, and one in builder_helpers that extends from it.
   // Use the component_base one, since there are some edge-cases of props that don't extend from the
   // builder_helpers version.
-  final uiPropsElement = allInterfaces.firstWhereOrNull(
+  final uiPropsElement = propsAndSupertypeElements.firstWhereOrNull(
       (i) => i.name == 'UiProps' && i.library.name == 'over_react.component_declaration.component_base');
-  // `element` does not inherit from from UiProps.
+  // propsElement does not inherit from from UiProps; bail out.
   if (uiPropsElement == null) return allProps;
 
-  final uiPropsInterfaces = uiPropsElement.thisAndSupertypesSet;
-  for (final interface in allInterfaces) {
+  final uiPropsAndSupertypeElements = uiPropsElement.thisAndSupertypesSet;
+  for (final interface in propsAndSupertypeElements) {
     // Don't process UiProps or its supertypes
     // (Object, Map, MapBase, MapViewMixin, PropsMapViewMixin, ReactPropsMixin, UbiquitousDomPropsMixin, CssClassPropsMixin, ...)
-    if (uiPropsInterfaces.contains(interface)) continue;
+    if (uiPropsAndSupertypeElements.contains(interface)) continue;
 
     // Filter out:
     // - generated accessors mixins for legacy concrete props classes
@@ -73,14 +73,7 @@ List<FieldElement> getAllProps(InterfaceElement element) {
 bool _isPropsOrPropsMixinAnnotation(ElementAnnotation e) {
   // [2]
   final element = e.element;
-  if (element is ConstructorElement) {
-    switch (element.enclosingElement.name) {
-      case 'Props':
-      case 'PropsMixin':
-        return true;
-    }
-  }
-  return false;
+  return element is ConstructorElement && const {'Props', 'PropsMixin'}.contains(element.enclosingElement.name);
 }
 
 ElementAnnotation? _getAccessorAnnotation(List<ElementAnnotation> metadata) {
