@@ -78,6 +78,26 @@ void main() {
           expect(info.requiredPropNames, unorderedEquals(expectedRequiredPropNames));
         }
 
+        group('returns an empty list for UiProps', () {
+          test('(the one from builder_helpers.dart)', () {
+            final builderHelpersUiProps = getImportedInterfaceElement(result, 'UiProps');
+            verifyRequiredProps(getAllRequiredProps(builderHelpersUiProps), expected: {});
+          });
+
+          test('(the one from component_base.dart)', () {
+            final builderHelpersUiProps = getImportedInterfaceElement(result, 'UiProps');
+            final componentBaseUiProps =
+                builderHelpersUiProps.allSupertypes.map((type) => type.element).singleWhere((e) => e.name == 'UiProps');
+            expect(componentBaseUiProps, isNot(builderHelpersUiProps), reason: 'test setup check');
+            verifyRequiredProps(getAllRequiredProps(componentBaseUiProps), expected: {});
+          });
+        });
+
+        test('returns an empty result for a type that is not a props class', () {
+          final notAPropsClass = getInterfaceElement(result, 'NotAPropsClass');
+          verifyRequiredProps(getAllRequiredProps(notAPropsClass), expected: {});
+        });
+
         group('returns required props for', () {
           test('a v2 concrete props class', () {
             final propsElement = getInterfaceElement(result, 'V2Props');
@@ -184,26 +204,6 @@ void main() {
               });
             });
           });
-        });
-
-        group('returns an empty list for UiProps', () {
-          test('(the one from builder_helpers.dart)', () {
-            final builderHelpersUiProps = getImportedInterfaceElement(result, 'UiProps');
-            verifyRequiredProps(getAllRequiredProps(builderHelpersUiProps), expected: {});
-          });
-
-          test('(the one from component_base.dart)', () {
-            final builderHelpersUiProps = getImportedInterfaceElement(result, 'UiProps');
-            final componentBaseUiProps =
-                builderHelpersUiProps.allSupertypes.map((type) => type.element).singleWhere((e) => e.name == 'UiProps');
-            expect(componentBaseUiProps, isNot(builderHelpersUiProps), reason: 'test setup check');
-            verifyRequiredProps(getAllRequiredProps(componentBaseUiProps), expected: {});
-          });
-        });
-
-        test('returns an empty result for a type that is not a props class', () {
-          final notAPropsClass = getInterfaceElement(result, 'NotAPropsClass');
-          verifyRequiredProps(getAllRequiredProps(notAPropsClass), expected: {});
         });
       });
     });
