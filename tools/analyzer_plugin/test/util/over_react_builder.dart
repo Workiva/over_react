@@ -6,7 +6,11 @@ import 'package:logging/logging.dart';
 import 'package:over_react/builder.dart';
 import 'package:path/path.dart' as p;
 
-/// Uses the over_react builder to generate a part for a library with path [libraryPath] and contents [librarySource].
+/// Returns source for an `over_react.g.dart` part, generated in-memory by the over_react builder,
+/// for a library with contents [librarySource] and path [libraryPath] .
+///
+/// [libraryPath] is only needed so the `part of` directive can point back to the right file, and
+/// does not need to actually exist in the filesystem.
 Future<String> generateOverReactPart({required String librarySource, required String libraryPath}) async {
   const packageName = 'fake_package';
   final inputAsset = AssetId(packageName, libraryPath);
