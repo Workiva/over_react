@@ -8,26 +8,26 @@ import 'package:over_react_analyzer_plugin/src/util/pretty_print.dart';
 import '../fluent_interface_util.dart';
 import '../util/prop_declarations/required_props.dart';
 
-const _desc = r'Avoid omitting props that are required.';
+const _desc = r'Always provide required props.';
 // <editor-fold desc="Documentation Details">
 const _details = r'''
 
-**PREFER** to always provide a value for props that are annotated a `@requiredProp`s.
+**ALWAYS** provide a value for `late` required props.
 
 If a component has a props interface like this:
 
-```
+```dart
 mixin NavItemProps on UiProps {
-  bool isActive;
-  @requiredProp
-  void Function() onDidActivate;
+  bool? isActive;
+
+  late void Function() onDidActivate;
 }
 ```
 
-then the prop that is marked as "required" should always be set by the consumer:
+Then the late required prop must always be set by the consumer:
 
 **GOOD:**
-```
+```dart
 @override
 render() {
   return (NavItem()
@@ -41,7 +41,7 @@ render() {
 ```
 
 **BAD:**
-```
+```dart
 @override
 render() {
   return NavItem()(
@@ -54,7 +54,7 @@ render() {
 // </editor-fold>
 
 class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor {
-  @DocsMeta(_desc, details: _details, maturity: Maturity.experimental)
+  @DocsMeta(_desc, details: _details)
   static const lateRequiredCode = DiagnosticCode(
     'over_react_late_required_prop',
     "Missing required late prop {0}.",
@@ -62,7 +62,7 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
     AnalysisErrorType.STATIC_WARNING,
   );
 
-  @DocsMeta(_desc, details: _details, maturity: Maturity.experimental)
+  @DocsMeta(_desc, details: _details)
   static const annotationRequiredCode = DiagnosticCode(
     'over_react_annotation_required_prop',
     "Missing @requiredProp {0}.",
