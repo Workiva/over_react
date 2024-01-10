@@ -6,29 +6,43 @@ import 'package:collection/collection.dart';
 import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
 
+import '../../../util/over_react_builder.dart';
 import '../../../util/shared_analysis_context.dart';
 import 'test_source.dart';
 
 Future<ResolvedUnitResult> setUpResult(SharedAnalysisContext sharedContext) async {
   final libraryFilename = sharedContext.nextFilename();
   final partFilename = p.setExtension(libraryFilename, '.over_react.g.dart');
-  final libraryPath =
-      sharedContext.createTestFile(source.replaceSingle('{{PART_PATH}}', partFilename), filename: libraryFilename);
-  final partPath = sharedContext.createTestFile(partSource.replaceSingle('{{PART_OF_PATH}}', libraryFilename),
-      filename: partFilename);
 
-  final libraryResult = await sharedContext.collection
-      .contextFor(libraryPath)
-      .currentSession
-      .getResolvedUnit(libraryPath) as ResolvedUnitResult;
+  final librarySource = sourceTemplate.replaceSingle('{{PART_PATH}}', partFilename);
+  // Generate the part so we don't have to keep updating it whenever the source file changes.
+  // Doing this here seemed easier than attempting to generate it within the test harness package within tests
+  // (and avoid issues with concurrent tests running builds at the same time),
+  // or generating it and checking it in.
+  final partSource = await generateOverReactPart(libraryPath: libraryFilename, librarySource: librarySource);
+
+  final libraryFullPath = sharedContext.createTestFile(librarySource, filename: libraryFilename);
+  final partFullPath = sharedContext.createTestFile(partSource, filename: partFilename);
+
+  Future<ResolvedUnitResult> getResolvedUnit(String path) async {
+    final result = await sharedContext.collection.contextFor(path).currentSession.getResolvedUnit(path);
+    if (result is! ResolvedUnitResult) {
+      throw Exception('Failed to resolve path $path: $result');
+    }
+    if (!result.exists) {
+      throw Exception('Failed to resolve resolve path $path because it did not exist: ${result.uri}');
+    }
+    return result;
+  }
 
   List<AnalysisError> filterErrors(List<AnalysisError> errors) => errors
       .where((e) => e.severity != Severity.info && !e.errorCode.name.toLowerCase().startsWith('unused_'))
       .toList();
+
+  final libraryResult = await getResolvedUnit(libraryFullPath);
   expect(filterErrors(libraryResult.errors), isEmpty);
 
-  final partResult = await sharedContext.collection.contextFor(partPath).currentSession.getResolvedUnit(partPath)
-      as ResolvedUnitResult;
+  final partResult = await getResolvedUnit(partFullPath);
   expect(filterErrors(partResult.errors), isEmpty);
 
   return libraryResult;
