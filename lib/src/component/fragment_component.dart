@@ -14,6 +14,7 @@
 
 
 import 'package:over_react/src/util/js_component.dart';
+import 'package:over_react/src/util/prop_key_util.dart';
 import 'package:react/react.dart' as react;
 import 'package:react/react_client/js_backed_map.dart';
 

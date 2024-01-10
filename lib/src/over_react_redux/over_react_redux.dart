@@ -21,12 +21,14 @@ import 'package:meta/meta.dart';
 import 'package:over_react/component_base.dart';
 import 'package:over_react/src/component_declaration/annotations.dart';
 import 'package:over_react/src/component_declaration/builder_helpers.dart' as builder_helpers;
+import 'package:over_react/src/component_declaration/builder_helpers.dart' show MissingRequiredPropsError;
 import 'package:over_react/src/component_declaration/component_type_checking.dart';
 import 'package:over_react/src/component_declaration/function_component.dart';
 import 'package:over_react/src/util/context.dart';
 import 'package:over_react/src/util/dart_value_wrapper.dart';
 import 'package:over_react/src/util/equality.dart';
 import 'package:over_react/src/util/js_component.dart';
+import 'package:over_react/src/util/prop_key_util.dart';
 import 'package:react/react_client.dart';
 import 'package:react/react_client/js_backed_map.dart';
 import 'package:react/react_client/react_interop.dart';
@@ -51,7 +53,9 @@ abstract class _$ConnectPropsMixin implements UiProps {
   @override
   Map get props;
 
-  dynamic Function(dynamic action)? dispatch;
+  // Disable validation since this prop is set by the `connect` HOC, and does not need to be set by consumers.
+  @disableRequiredPropValidation
+  late dynamic Function(dynamic action) dispatch;
 }
 
 // ignore: prefer_generic_function_type_aliases

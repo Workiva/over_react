@@ -30,6 +30,12 @@ mixin $ExamplePropsMixin on ExamplePropsMixin {
     _$prop__propMixin1__ExamplePropsMixin
   ];
   static const List<String> $propKeys = [_$key__propMixin1__ExamplePropsMixin];
+
+  @override
+  @mustCallSuper
+  void validateRequiredProps() {
+    super.validateRequiredProps();
+  }
 }
 
 @Deprecated('This API is for use only within generated code.'
@@ -66,6 +72,12 @@ mixin $RequiresOtherMixinPropsMixin<T extends Iterable, U>
   static const List<String> $propKeys = [
     _$key__otherPropMixin__RequiresOtherMixinPropsMixin
   ];
+
+  @override
+  @mustCallSuper
+  void validateRequiredProps() {
+    super.validateRequiredProps();
+  }
 }
 
 @Deprecated('This API is for use only within generated code.'

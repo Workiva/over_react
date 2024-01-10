@@ -425,4 +425,7 @@ class ErrorBoundaryPropsMapView extends UiPropsMapView
     with ErrorBoundaryPropsMixin {
   /// Create a new instance backed by the specified map.
   ErrorBoundaryPropsMapView(Map map) : super(map);
+
+  @override
+  ErrorBoundaryPropsMapView selfFactory(Map map) => ErrorBoundaryPropsMapView(map);
 }

@@ -24,15 +24,15 @@ import 'dart:collection';
 String getPropKey<T extends Map>(void Function(T keySpy) accessProp, T Function(Map props) factory) {
   return _getKey((keySpy) {
     return accessProp(factory(keySpy));
-  }) as String;
+  })! as String;
 }
 
-dynamic _getKey(void Function(Map keySpy) accessKey) {
+Object? _getKey(void Function(Map keySpy) accessKey) {
   final keySpy = _SingleKeyAccessMapSpy();
-  // When they access a key, _SingleKeyAccessMapSpy will throw a KeyAccessedException.
+  // When they access a key, _SingleKeyAccessMapSpy will throw a _InterceptedKeyAccessException.
   try {
     accessKey(keySpy);
-  } on KeyAccessedException catch (e) {
+  } on _InterceptedKeyAccessException catch (e) {
     return e.key;
   }
   // Edge-case: they caught our exception; attempt to still return the caught key.
@@ -58,7 +58,7 @@ class _SingleKeyAccessMapSpy extends MapBase {
 
     // Throw an exception to ourselves, so that we don't trigger any type errors caused by
     // returning null here.
-    throw KeyAccessedException(key);
+    throw _InterceptedKeyAccessException(key);
   }
 
   static UnsupportedError _unsupportedReadError() => UnsupportedError('Mutating this map is not supported; only read from it.');
@@ -76,9 +76,11 @@ class _SingleKeyAccessMapSpy extends MapBase {
   remove(Object? key) => throw _unsupportedReadError();
 }
 
-// FIXME(null-safety) document, add test cases (especially for non-nullable props) in FED-1717
-class KeyAccessedException implements Exception {
+/// An exception thrown as part of [_SingleKeyAccessMapSpy]'s operation, in order to short-circuit
+/// any logic that comes after intercepting the key access.
+class _InterceptedKeyAccessException implements Exception {
+  // The key being accessed.
   final Object? key;
 
-  KeyAccessedException(this.key);
+  _InterceptedKeyAccessException(this.key);
 }

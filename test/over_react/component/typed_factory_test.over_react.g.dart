@@ -89,7 +89,16 @@ abstract class _$$TypedFactoryTesterProps extends _$TypedFactoryTesterProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'TypedFactoryTesterProps.';
+
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$TypedFactoryTesterProps(
+          accessMap, (map) => _$$TypedFactoryTesterProps(map));
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$TypedFactoryTesterProps = getPropKey;
 
 // Concrete props implementation that can be backed by any [Map].
 class _$$TypedFactoryTesterProps$PlainMap extends _$$TypedFactoryTesterProps {

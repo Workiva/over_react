@@ -15,12 +15,16 @@
 library over_react.component_declaration.builder_helpers;
 
 import 'package:meta/meta.dart';
-import '../../over_react.dart';
+
+import '../util/map_util.dart';
 import './component_base.dart' as component_base;
+import './component_base.dart' show PropsMetaCollection, PropsModifier, PropsMeta;
 import './annotations.dart' as annotations;
+import './ui_props_self_typed_extension.dart';
 
 export './annotations.dart';
 export './component_base.dart' hide UiComponent, UiStatefulComponent, UiProps, UiState;
+export './ui_props_self_typed_extension.dart';
 
 // ----------------------------------------------------------------------
 //   Base classes to be used by pre-generated code that stub out
@@ -126,68 +130,22 @@ abstract class UiProps extends component_base.UiProps with GeneratedClass {
   /// A collection of metadata for the prop fields in all prop mixins used by
   /// this props instance's generated props class.
   ///
-  /// Synonymous with [UiComponent2]'s `propsMeta`.
+  /// Synonymous with [component_base.UiComponent2.propsMeta].
   ///
   /// This can be used to derive consumed props by usage in conjunction with [addUnconsumedProps]
   /// and [addUnconsumedDomProps].
   @toBeGenerated PropsMetaCollection get staticMeta => throw UngeneratedError(member: #meta);
 
-  @override
+  /// The base implementation for [UiPropsSelfTypedExtension.getPropKey],
+  /// which wraps this with better generic typing, since we can't generically express
+  /// the type of the current class in this declaration.
+  ///
+  /// [UiPropsSelfTypedExtension.getPropKey] and thus this method are necessary to be able to
+  /// implement utility methods for safely accessing props, such as
+  /// [UiPropsSelfTypedExtension.getRequiredProp].
+  @toBeGenerated
   @visibleForOverriding
-  @mustCallSuper
-  void validateRequiredProps() {
-    super.validateRequiredProps();
-    // This fails when staticMeta isn't generated, so return early for now so tests don't fail.
-    // FIXME(null-safety) generate a static implementation of this instead in FED-1886, and remove this
-    return;
-
-    // ignore: dead_code
-    List<PropDescriptor>? missingRequiredProps;
-    List<PropDescriptor>? nullNonNullableRequiredProps;
-
-    for (final meta in staticMeta.all) {
-      for (final prop in meta.props) {
-        if (prop.isRequired) {
-          if (prop.isNullable) {
-            if (!props.containsKey(prop.key)) {
-              (missingRequiredProps ??= []).add(prop);
-            }
-          } else {
-            // Avoid looking up the key twice.
-            if (props[prop.key] == null) {
-              if (props.containsKey(prop.key)) {
-                (nullNonNullableRequiredProps ??= []).add(prop);
-              } else {
-                (missingRequiredProps ??= []).add(prop);
-              }
-            }
-          }
-        }
-      }
-    }
-
-    if (missingRequiredProps == null && nullNonNullableRequiredProps == null) {
-      return;
-    }
-
-    String formatPropKey(String propKey) => '`$propKey`';
-
-    final messageSegments = <String>[];
-    if (missingRequiredProps != null) {
-      messageSegments.add('Required props are missing: ${missingRequiredProps.map((prop) {
-        var propMessage = formatPropKey(prop.key);
-        if (prop.isNullable) propMessage += ' (can be null, but must be specified)';
-        return propMessage;
-      }).join(' ,')}.');
-    }
-    if (nullNonNullableRequiredProps != null) {
-      messageSegments
-          .add('Required non-nullable props are null: ${nullNonNullableRequiredProps.map((prop) {
-        return formatPropKey(prop.key);
-      }).join(' ,')}.');
-    }
-    throw MissingRequiredPropsError(messageSegments.join(' '));
-  }
+  String $getPropKey(void Function(Map m) accessMap) => throw UngeneratedError(member: #$getPropKey);
 }
 
 class MissingRequiredPropsError extends Error {

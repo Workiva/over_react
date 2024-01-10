@@ -69,7 +69,15 @@ abstract class _$$_Dummy2Props extends _$_Dummy2Props
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => '_Dummy2Props.';
+
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$_Dummy2Props(accessMap, (map) => _$$_Dummy2Props(map));
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$_Dummy2Props = getPropKey;
 
 // Concrete props implementation that can be backed by any [Map].
 class _$$_Dummy2Props$PlainMap extends _$$_Dummy2Props {

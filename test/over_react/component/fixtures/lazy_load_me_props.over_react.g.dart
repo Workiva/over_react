@@ -31,6 +31,12 @@ mixin $LazyLoadMePropsMixin on LazyLoadMePropsMixin {
   static const List<String> $propKeys = [
     _$key__initialCount__LazyLoadMePropsMixin
   ];
+
+  @override
+  @mustCallSuper
+  void validateRequiredProps() {
+    super.validateRequiredProps();
+  }
 }
 
 @Deprecated('This API is for use only within generated code.'
@@ -78,7 +84,16 @@ abstract class _$$LazyLoadMePropsMixin extends UiProps
         // If this generated mixin is undefined, it's likely because LazyLoadMePropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of LazyLoadMePropsMixin, and check that $LazyLoadMePropsMixin is exported/imported properly.
         LazyLoadMePropsMixin: $LazyLoadMePropsMixin.meta,
       });
+
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$LazyLoadMePropsMixin(
+          accessMap, (map) => _$$LazyLoadMePropsMixin(map));
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$LazyLoadMePropsMixin = getPropKey;
 
 // Concrete props implementation that can be backed by any [Map].
 @Deprecated('This API is for use only within generated code.'

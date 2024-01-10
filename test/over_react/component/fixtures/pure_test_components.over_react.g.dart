@@ -65,7 +65,16 @@ abstract class _$$PureTestWrapperProps extends UiProps
         // If this generated mixin is undefined, it's likely because SharedPureTestPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of SharedPureTestPropsMixin, and check that $SharedPureTestPropsMixin is exported/imported properly.
         SharedPureTestPropsMixin: $SharedPureTestPropsMixin.meta,
       });
+
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$PureTestWrapperProps(
+          accessMap, (map) => _$$PureTestWrapperProps(map));
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$PureTestWrapperProps = getPropKey;
 
 // Concrete props implementation that can be backed by any [Map].
 @Deprecated('This API is for use only within generated code.'
@@ -219,7 +228,15 @@ abstract class _$$PureTestProps extends UiProps
         // If this generated mixin is undefined, it's likely because PureTestPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of PureTestPropsMixin, and check that $PureTestPropsMixin is exported/imported properly.
         PureTestPropsMixin: $PureTestPropsMixin.meta,
       });
+
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$PureTestProps(accessMap, (map) => _$$PureTestProps(map));
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$PureTestProps = getPropKey;
 
 // Concrete props implementation that can be backed by any [Map].
 @Deprecated('This API is for use only within generated code.'
@@ -434,6 +451,12 @@ mixin $PureTestPropsMixin on PureTestPropsMixin {
     _$key__childBoolProp__PureTestPropsMixin,
     _$key__childFuncProp__PureTestPropsMixin
   ];
+
+  @override
+  @mustCallSuper
+  void validateRequiredProps() {
+    super.validateRequiredProps();
+  }
 }
 
 @Deprecated('This API is for use only within generated code.'
@@ -480,6 +503,12 @@ mixin $SharedPureTestPropsMixin on SharedPureTestPropsMixin {
     _$key__sharedBoolProp__SharedPureTestPropsMixin,
     _$key__someVDomEl__SharedPureTestPropsMixin
   ];
+
+  @override
+  @mustCallSuper
+  void validateRequiredProps() {
+    super.validateRequiredProps();
+  }
 }
 
 @Deprecated('This API is for use only within generated code.'

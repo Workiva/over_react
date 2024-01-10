@@ -13,8 +13,10 @@
 // limitations under the License.
 
 import 'package:meta/meta.dart';
+import 'package:over_react/component_base.dart' show UiFactory;
 import 'package:over_react/src/component_declaration/builder_helpers.dart' as builder_helpers;
-import 'package:over_react/over_react.dart';
+import 'package:over_react/src/util/prop_key_util.dart';
+
 import 'package:react/react_client/component_factory.dart';
 import 'package:react/react_client/react_interop.dart';
 import 'package:react/react_client/js_backed_map.dart';
@@ -135,15 +137,10 @@ class Context<TValue> {
 ///
 /// See: <https://reactjs.org/docs/context.html#contextprovider>
 class ProviderProps<TValue> extends builder_helpers.UiProps {
-  ProviderProps(JsBackedMap? backingMap)
-      : this._props = JsBackedMap() {
-    this._props = backingMap ?? JsBackedMap();
-  }
+  ProviderProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
-  // FIXME 3.0.0 change this type to Map so the factory works as a MapView
   @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
+  final Map props;
 
   @override
   String get propKeyNamespace => '';
@@ -151,9 +148,14 @@ class ProviderProps<TValue> extends builder_helpers.UiProps {
   @override
   bool get $isClassGenerated => true;
 
+  @override
+  String $getPropKey(accessMap) => _getPropKey(accessMap, (backingMap) => ProviderProps(backingMap));
+
   TValue? get value => props['value'] as TValue?;
   set value(TValue? v) => props['value'] = v;
 }
+
+const _getPropKey = getPropKey;
 
 /// [ConsumerProps] is a typed props class for the [Context.Consumer] from a [Context] object created with [createContext].
 ///
@@ -162,7 +164,7 @@ class ConsumerProps<TValue> extends builder_helpers.UiProps {
   // Initialize to a JsBackedMap so that copying can be optimized
   // when converting props during ReactElement creation.
   // TODO 3.0.0-wip generate JsBackedMap-based implementation used when no backing map is provided, like we do for Component2
-  ConsumerProps([Map? props]) : this.props = props ?? JsBackedMap();
+  ConsumerProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   @override
   final Map props;
@@ -186,6 +188,9 @@ class ConsumerProps<TValue> extends builder_helpers.UiProps {
 
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String $getPropKey(accessMap) => _getPropKey(accessMap, (backingMap) => ConsumerProps(backingMap));
 
   /// Creates a new component with this builder's props and the specified [children].
   ///

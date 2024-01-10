@@ -21,64 +21,87 @@ import 'package:test/test.dart';
 
 main() {
   group('UiPropsMapView', () {
-    UiPropsMapView? mapView;
+    late UiPropsMapView mapView;
 
     setUp(() {
-      mapView = UiPropsMapView({});
+      mapView = TestUiPropsMapView({
+        'id': 'test-id',
+      });
     });
 
-    tearDown(() {
-      mapView = null;
+    test('reads from and writes to the backing map as expected', () {
+      expect(mapView.id, 'test-id');
+      mapView.id = 'something else';
+      mapView['foo'] = 'bar';
+      expect({...mapView}, {'id': 'something else', 'foo': 'bar'});
+    });
+
+    test('getPropKey works as expected and uses selfFactory to construct a new instance', () {
+      final getPropKeyCalls = [];
+      final result = mapView.getPropKey((p) {
+        getPropKeyCalls.add(p);
+        p.id;
+      });
+      expect(result, 'id');
+      expect(getPropKeyCalls, [isA<TestUiPropsMapView>()]);
+      expect(getPropKeyCalls.single, isNot(same(mapView)));
     });
 
     group('throws an `UnimplementedError` when unimplemented fields/methods are accessed/called:', () {
       test('`\$isClassGenerated`', () {
-        expect(() => mapView!.$isClassGenerated, throwsUnimplementedError);
+        expect(() => mapView.$isClassGenerated, throwsUnimplementedError);
       });
 
       test('`propKeyNamespace`', () {
-        expect(() => mapView!.propKeyNamespace, throwsUnimplementedError);
+        expect(() => mapView.propKeyNamespace, throwsUnimplementedError);
       });
 
       test('`componentFactory`', () {
-        expect(() => mapView!.componentFactory, throwsUnimplementedError);
+        expect(() => mapView.componentFactory, throwsUnimplementedError);
       });
 
       test('`testId`', () {
-        expect(() => mapView!.testId, throwsUnimplementedError);
+        expect(() => mapView.testId, throwsUnimplementedError);
       });
 
       test('`defaultProps`', () {
-        expect(() => mapView!.componentDefaultProps, throwsUnimplementedError);
+        expect(() => mapView.componentDefaultProps, throwsUnimplementedError);
       });
 
       test('`getTestId()`', () {
-        expect(() => mapView!.getTestId(), throwsUnimplementedError);
+        expect(() => mapView.getTestId(), throwsUnimplementedError);
       });
 
       test('`addTestId()`', () {
-        expect(() => mapView!.addTestId('foo'), throwsUnimplementedError);
+        expect(() => mapView.addTestId('foo'), throwsUnimplementedError);
       });
 
       test('`addProp()`', () {
-        expect(() => mapView!.addProp('data-foo', 'bar'), throwsUnimplementedError);
+        expect(() => mapView.addProp('data-foo', 'bar'), throwsUnimplementedError);
       });
 
       test('`addProps()`', () {
-        expect(() => mapView!.addProps({'data-foo': 'bar'}), throwsUnimplementedError);
+        expect(() => mapView.addProps({'data-foo': 'bar'}), throwsUnimplementedError);
       });
 
       test('`modifyProps()`', () {
-        expect(() => mapView!.modifyProps((_) => {'data-foo': 'bar'}), throwsUnimplementedError);
+        expect(() => mapView.modifyProps((_) => {'data-foo': 'bar'}), throwsUnimplementedError);
       });
 
       test('`build()`', () {
-        expect(() => mapView!.build(), throwsUnimplementedError);
+        expect(() => mapView.build(), throwsUnimplementedError);
       });
 
       test('`call()`', () {
-        expect(() => mapView!.call(), throwsUnimplementedError);
+        expect(() => mapView.call(), throwsUnimplementedError);
       });
     });
   });
+}
+
+class TestUiPropsMapView extends UiPropsMapView {
+  TestUiPropsMapView(Map map): super(map);
+
+  @override
+  TestUiPropsMapView selfFactory(Map props) => TestUiPropsMapView(props);
 }

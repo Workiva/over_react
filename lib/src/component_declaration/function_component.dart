@@ -158,11 +158,17 @@ String? getFunctionName(Function function) {
   return getProperty(function, 'name') as String? ?? getProperty(function, '\$static_name') as String?;
 }
 
+const _getPropKey = getPropKey;
+
+@sealed
 class GenericUiProps extends UiProps {
   @override
   final Map props;
 
   GenericUiProps(ReactComponentFactoryProxy componentFactory, [Map? props])
+      : this._nullableFactory(componentFactory, props);
+
+  GenericUiProps._nullableFactory(ReactComponentFactoryProxy? componentFactory, [Map? props])
       : this.props = props ?? JsBackedMap() {
     this.componentFactory = componentFactory;
   }
@@ -172,6 +178,10 @@ class GenericUiProps extends UiProps {
 
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String $getPropKey(accessMap) =>
+      _getPropKey(accessMap, (backingMap) => GenericUiProps._nullableFactory(null, backingMap));
 }
 
 /// Helper class used to keep track of generated information for [uiFunction].

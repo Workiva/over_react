@@ -212,7 +212,16 @@ abstract class _$$ComponentTestProps extends _$ComponentTestProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'ComponentTestProps.';
+
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$ComponentTestProps(
+          accessMap, (map) => _$$ComponentTestProps(map));
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$ComponentTestProps = getPropKey;
 
 // Concrete props implementation that can be backed by any [Map].
 class _$$ComponentTestProps$PlainMap extends _$$ComponentTestProps {
@@ -360,7 +369,16 @@ abstract class _$$IsErrorBoundaryProps extends _$IsErrorBoundaryProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'IsErrorBoundaryProps.';
+
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$IsErrorBoundaryProps(
+          accessMap, (map) => _$$IsErrorBoundaryProps(map));
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$IsErrorBoundaryProps = getPropKey;
 
 // Concrete props implementation that can be backed by any [Map].
 class _$$IsErrorBoundaryProps$PlainMap extends _$$IsErrorBoundaryProps {
@@ -507,7 +525,16 @@ abstract class _$$IsNotErrorBoundaryProps extends _$IsNotErrorBoundaryProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'IsNotErrorBoundaryProps.';
+
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$IsNotErrorBoundaryProps(
+          accessMap, (map) => _$$IsNotErrorBoundaryProps(map));
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$IsNotErrorBoundaryProps = getPropKey;
 
 // Concrete props implementation that can be backed by any [Map].
 class _$$IsNotErrorBoundaryProps$PlainMap extends _$$IsNotErrorBoundaryProps {

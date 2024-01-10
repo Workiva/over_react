@@ -70,7 +70,16 @@ abstract class _$$BasicChildProps extends _$BasicChildProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'BasicChildProps.';
+
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$BasicChildProps(
+          accessMap, (map) => _$$BasicChildProps(map));
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$BasicChildProps = getPropKey;
 
 // Concrete props implementation that can be backed by any [Map].
 class _$$BasicChildProps$PlainMap extends _$$BasicChildProps {

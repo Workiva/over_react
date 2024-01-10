@@ -49,6 +49,19 @@ mixin $FluxUiPropsMixin<ActionsT, StoresT>
     _$key__actions__FluxUiPropsMixin,
     _$key__store__FluxUiPropsMixin
   ];
+
+  @override
+  @mustCallSuper
+  void validateRequiredProps() {
+    super.validateRequiredProps();
+    if (!props.containsKey('FluxUiPropsMixin.actions')) {
+      throw MissingRequiredPropsError('Required prop `actions` is missing.');
+    }
+
+    if (!props.containsKey('FluxUiPropsMixin.store')) {
+      throw MissingRequiredPropsError('Required prop `store` is missing.');
+    }
+  }
 }
 
 @Deprecated('This API is for use only within generated code.'

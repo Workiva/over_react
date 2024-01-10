@@ -99,6 +99,7 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
     }
 
     generatedClass.write(_generateAccessors());
+
     generatedClass.writeln('}');
     generatedClass.writeln();
     return generatedClass.toString();
@@ -149,6 +150,8 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
 
     StringBuffer output = StringBuffer();
 
+    final requiredPropChecks = <String>[];
+
     node.members.whereType<FieldDeclaration>().where((field) => !field.isStatic).forEach((field) {
       T? getConstantAnnotation<T>(AnnotatedNode member, String name, T value) {
         return member.metadata.any((annotation) => annotation.name.name == name) ? value : null;
@@ -158,6 +161,8 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
       final requiredProp = getConstantAnnotation(field, 'requiredProp', annotations.requiredProp);
       final nullableRequiredProp =
           getConstantAnnotation(field, 'nullableRequiredProp', annotations.nullableRequiredProp);
+      final disableRequiredPropValidation = getConstantAnnotation(
+          field, 'disableRequiredPropValidation', annotations.disableRequiredPropValidation);
 
       if (accessorMeta?.doNotGenerate == true) {
         return;
@@ -188,22 +193,27 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
         String constantName = '${privateSourcePrefix}prop__${accessorName}__$staticConstNamespace';
         String constantValue = '$constConstructorName($keyConstantName';
 
-        var annotationCount = 0;
+        var requiredReasonCount = 0;
 
         var isRequired = false;
         var isPotentiallyNullable = true;
         var requiredErrorMessage = '';
 
         if (variable.isLate) {
-          annotationCount++;
+          requiredReasonCount++;
           isRequired = true;
           isPotentiallyNullable = true;
+
+          if (type.isProps && disableRequiredPropValidation == null) {
+            requiredPropChecks.add('  if(!props.containsKey($keyValue)) {\n'
+                '  throw MissingRequiredPropsError(${stringLiteral('Required prop `$accessorName` is missing.')});\n'
+                '}\n');
+          }
         }
 
         if (accessorMeta != null) {
-          annotationCount++;
-
           if (accessorMeta.isRequired) {
+            requiredReasonCount++;
             isRequired = true;
             isPotentiallyNullable = accessorMeta.isNullable;
             requiredErrorMessage = accessorMeta.requiredErrorMessage ?? '';
@@ -211,22 +221,31 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
         }
 
         if (requiredProp != null) {
-          annotationCount++;
+          requiredReasonCount++;
           isRequired = true;
           isPotentiallyNullable = false;
         }
 
         if (nullableRequiredProp != null) {
-          annotationCount++;
+          requiredReasonCount++;
           isRequired = true;
           isPotentiallyNullable = true;
         }
 
-        if (annotationCount > 1) {
-          logger.severe(messageWithSpan(
-              'late/@requiredProp/@nullableProp/@Accessor cannot be used together.\n'
-              'You can use `@Accessor(isRequired: true)` or `isNullable: true` instead of the shorthand versions.',
-              span: getSpan(sourceFile, field)));
+        if (requiredReasonCount > 1) {
+          const requiredPropAnnotations = '@requiredProp/@nullableProp/@Accessor(isRequired: true)';
+
+          String message;
+          if (variable.isLate) {
+            message = 'Props declared using `late` are already considered required,'
+                ' and cannot also have required prop annotations: $requiredPropAnnotations.'
+                '\nPlease remove these annotations.';
+          } else {
+            message = '$requiredPropAnnotations cannot be used together.\n'
+                'You can use `@Accessor(isRequired: true)` or `isNullable: true` instead of the shorthand versions.';
+          }
+
+          logger.severe(messageWithSpan(message, span: getSpan(sourceFile, field)));
         }
 
         if (isRequired) {
@@ -351,6 +370,18 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
         '  /* GENERATED CONSTANTS */\n$constantsImpl$keyConstantsImpl\n$listImpl$keyListImpl';
 
     output.write(staticVariablesImpl);
+
+    if (type.isProps &&
+        version != Version.v3_legacyDart2Only &&
+        version != Version.v2_legacyBackwardsCompat) {
+      final validateRequiredPropsMethod = '\n  @override\n'
+          '  @mustCallSuper\n'
+          '  void validateRequiredProps() {\n'
+          '    super.validateRequiredProps();\n'
+          '    ${requiredPropChecks.join('\n')}\n'
+          '  }\n';
+      output.write(validateRequiredPropsMethod);
+    }
 
     return output.toString();
   }

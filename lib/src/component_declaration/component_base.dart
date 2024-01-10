@@ -621,9 +621,10 @@ abstract class UiProps extends MapBase
 
     assert(_validateChildren(childArguments.length == 1 ? childArguments.single : childArguments));
 
-    // FIXME(null-safety) finalize this implementation and add escape-hatch to opt out in FED-1886
     assert(() {
-      validateRequiredProps();
+      if (_shouldValidateRequiredProps) {
+        validateRequiredProps();
+      }
       return true;
     }());
 
@@ -676,10 +677,22 @@ abstract class UiProps extends MapBase
       : const {};
   }
 
-  // FIXME(null-safety) document and generate overrides in FED-1886
+  /// Validate at run-time that all required props are set.
+  ///
+  /// This method is overridden in generated files.
   @visibleForOverriding
   @mustCallSuper
   void validateRequiredProps() {}
+
+  /// Whether [validateRequiredProps] should be run.
+  var _shouldValidateRequiredProps = true;
+
+  /// Prevents [validateRequiredProps] from being called.
+  ///
+  /// Allows validation to be skipped to support cases where required props are cloned onto an element.
+  void disableRequiredPropValidation() {
+    _shouldValidateRequiredProps = false;
+  }
 }
 
 /// A class that declares the `_map` getter shared by [PropsMapViewMixin]/[StateMapViewMixin] and [MapViewMixin].
