@@ -10,12 +10,9 @@ RequiredPropInfo getAllRequiredProps(InterfaceElement element) {
   final requiredFieldsByName = <String, FieldElement>{};
   final propRequirednessByName = <String, PropRequiredness>{};
   for (final propField in getAllProps(element)) {
-    if (requiredFieldsByName.containsKey(propField.name)) {
-      // Short-circuit if we've already identified this field as required.
-      // There might be duplicates if props are overridden, and there will
-      // definitely be duplicates in the builder-generated code.
-      continue;
-    }
+    // Short-circuit if we've already identified this field as required.
+    // There will be duplicates if props are overridden.
+    if (requiredFieldsByName.containsKey(propField.name)) continue;
 
     final requiredness = _getPropRequiredness(propField);
     propRequirednessByName[propField.name] = requiredness;
@@ -50,13 +47,11 @@ PropRequiredness _getPropRequiredness(FieldElement propField) {
   }
 
   if (propField.metadata.any((annotation) {
-    // Common case, might be good to short circuit here for perf
-    if (annotation.isOverride) return false;
     if (annotation.element?.library?.name != 'over_react.component_declaration.annotations') {
       return false;
     }
     // It's almost always going to be `requiredProp` or `Accessor`;
-    // skip more checks an just try to pull `isRequired` prop off of them.
+    // skip more checks and just try to pull the bool field `isRequired` off of the constant value.
     // If it fails, it's not the annotation we're interested in anyways.
     return annotation.computeConstantValue()?.getField('isRequired')?.toBoolValue() ?? false;
   })) {
