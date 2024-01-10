@@ -1,8 +1,7 @@
+import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/element/element.dart';
-import 'package:collection/collection.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/analyzer_debug_helper.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
-import 'package:over_react_analyzer_plugin/src/doc_utils/maturity.dart';
 import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/pretty_print.dart';
 
@@ -81,15 +80,18 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
 
   static final _debugCommentPattern = getDebugCommentPattern('over_react_required_props');
 
-  static final _requiredPropsInfoCache = Expando<RequiredPropInfo>();
+  /// Returns whether the debug helper should be enabled, caching results per result
+  /// so we don't have to run it in in every [computeErrorsForUsage].
+  ///
+  /// TODO Add shared debug flag computation in DiagnosticContributor/DiagnosticCollector
+  final _cachedIsDebugHelperEnabled =
+      _memoizeWithExpando<ResolvedUnitResult, bool>((result) => _debugCommentPattern.hasMatch(result.content));
 
-  /// A wrapper around [getAllRequiredProps] that caches results per [element],
+  /// A wrapper around [getAllRequiredProps] that caches results per element,
   /// which greatly improves performance when a component is used more than once.
   ///
   /// This cache is static so it can be shared across multiple files.
-  static RequiredPropInfo _cachedGetAllRequiredProps(InterfaceElement element) {
-    return _requiredPropsInfoCache[element] ??= getAllRequiredProps(element);
-  }
+  static final _cachedGetAllRequiredProps = _memoizeWithExpando(getAllRequiredProps);
 
   @override
   computeErrorsForUsage(result, collector, usage) async {
@@ -102,7 +104,7 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
     var builderType = usage.builder.staticType; // [1]
     if (builderType == null) return;
 
-    final propsClassElement = builderType.typeOrBound.element;  // [1]
+    final propsClassElement = builderType.typeOrBound.element; // [1]
     if (propsClassElement is! InterfaceElement) return;
 
     // DOM and SVG components are common and have a large number of props, none of which are required;
@@ -111,14 +113,13 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
 
     final requiredPropInfo = _cachedGetAllRequiredProps(propsClassElement);
 
-    // FIXME we're running this pattern for every usage; can we make this more efficient?
-    final debugHelper = AnalyzerDebugHelper(result, collector, enabled: _debugCommentPattern.hasMatch(result.content));
-    debugHelper.log2(() {
-      final propNamesByRequiredness = requiredPropInfo.propRequirednessByName.keys
-          .groupSetsBy((name) => requiredPropInfo.propRequirednessByName[name]!);
-      final prettyMap = propNamesByRequiredness.map((key, value) => MapEntry(key.name, value));
-      return 'Prop requiredness: ${prettyPrint(prettyMap)}';
-    }, () => result.locationFor(usage.builder));
+    final debugHelper = AnalyzerDebugHelper(result, collector, enabled: _cachedIsDebugHelperEnabled(result));
+
+    // Include debug info for each invocation ahout all the props and their requirednesses.
+    debugHelper.log2(
+      () => _requiredPropsDebugMessage(requiredPropInfo),
+      () => result.locationFor(usage.builder),
+    );
 
     final presentPropNames =
         usage.cascadedProps.where((prop) => !prop.isPrefixed).map((prop) => prop.name.name).toSet();
@@ -152,4 +153,26 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
       );
     }
   }
+
+  String _requiredPropsDebugMessage(RequiredPropInfo requiredPropInfo) {
+    final propNamesByRequirednessName = <String, Set<String>>{};
+    final withDisabledRequiredValidation = <String>{};
+    requiredPropInfo.propRequirednessByName.forEach((name, requiredness) {
+      propNamesByRequirednessName.putIfAbsent(requiredness.name, () => {}).add(name);
+      if (requiredness.isRequired) {
+        final propField = requiredPropInfo.requiredFieldsByName[name]!;
+        if (isRequiredPropValidationDisabled(propField)) {
+          withDisabledRequiredValidation.add(name);
+        }
+      }
+    });
+    return 'Prop requiredness: ${prettyPrint(propNamesByRequirednessName)}'
+        '\nProps with `@requiredPropValidationDisabled`: $withDisabledRequiredValidation';
+  }
+}
+
+V Function(K) _memoizeWithExpando<K extends Object, V extends Object>(V Function(K) computeValue,
+    [Expando<V>? existingExpando]) {
+  final expando = existingExpando ?? Expando();
+  return (key) => expando[key] ??= computeValue(key);
 }
