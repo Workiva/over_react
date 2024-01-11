@@ -78,7 +78,7 @@ class MissingRequiredPropTest_NoErrors extends MissingRequiredPropTest {
   get errorUnderTest => null;
 
   Future<void> test_noErrorsWhenNoRequiredProps() async {
-    final source = newSourceWithPrefix(/*language=dart*/ r'''
+    await expectNoErrors(newSourceWithPrefix(/*language=dart*/ r'''
       test() => Fragment()(
         NoRequired()(),
         (NoRequired())(),
@@ -89,13 +89,11 @@ class MissingRequiredPropTest_NoErrors extends MissingRequiredPropTest {
         )(),
         (NoRequired()..id = 'id')(),
       );
-    ''');
-
-    expect(await getAllErrors(source, includeOtherCodes: true), isEmpty);
+    '''));
   }
 
   Future<void> test_noErrorsForDomComponents() async {
-    final source = newSourceWithPrefix(/*language=dart*/ r'''
+    await expectNoErrors(newSourceWithPrefix(/*language=dart*/ r'''
       test() => Fragment()(
         // DomProps
         Dom.div()(),
@@ -104,24 +102,20 @@ class MissingRequiredPropTest_NoErrors extends MissingRequiredPropTest {
         Dom.ellipse()(),
         (Dom.ellipse()..id = 'svg')(),
       );
-    ''');
-
-    expect(await getAllErrors(source, includeOtherCodes: true), isEmpty);
+    '''));
   }
 
   Future<void> test_noErrorsForGenericUiProps() async {
-    final source = newSourceWithPrefix(/*language=dart*/ r'''
+    await expectNoErrors(newSourceWithPrefix(/*language=dart*/ r'''
       test() => Fragment()(
         GenericFactory()(),
         (GenericFactory()..id = 'dom')(),
       );
-    ''');
-
-    expect(await getAllErrors(source, includeOtherCodes: true), isEmpty);
+    '''));
   }
 
   Future<void> test_noErrorsWhenIncompleteBuilder() async {
-    final source = newSourceWithPrefix(/*language=dart*/ r'''
+    await expectNoErrors(newSourceWithPrefix(/*language=dart*/ r'''
       testLate() {
         final incompleteBuilder = WithLateRequired()..optional1 = '1';
         
@@ -135,9 +129,7 @@ class MissingRequiredPropTest_NoErrors extends MissingRequiredPropTest {
         final incompleteBuilderInvokedLater = WithAnnotationRequired()..optional1 = '1';
         incompleteBuilderInvokedLater();
       }
-    ''');
-
-    expect(await getAllErrors(source, includeOtherCodes: true), isEmpty);
+    '''));
   }
 
   Future<void> test_noErrorsAnnotationRequiredByDefault() async {
