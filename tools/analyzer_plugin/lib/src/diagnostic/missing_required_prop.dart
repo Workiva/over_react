@@ -62,6 +62,7 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
     AnalysisErrorType.STATIC_WARNING,
   );
 
+  // Note: this code is disabled by default in getDiagnosticContributors
   @DocsMeta(_desc, details: _details)
   static const annotationRequiredCode = DiagnosticCode(
     'over_react_annotation_required_prop',
@@ -69,6 +70,17 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
     AnalysisErrorSeverity.INFO,
     AnalysisErrorType.STATIC_WARNING,
   );
+
+  static DiagnosticCode _codeForRequiredness(PropRequiredness requiredness) {
+    switch (requiredness) {
+      case PropRequiredness.annotation:
+        return annotationRequiredCode;
+      case PropRequiredness.late:
+        return lateRequiredCode;
+      case PropRequiredness.none:
+        throw ArgumentError('Only values considered required can be passed; got PropRequiredness.none', 'requiredness');
+    }
+  }
 
   @override
   List<DiagnosticCode> get codes => [
@@ -92,6 +104,11 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
   ///
   /// This cache is static so it can be shared across multiple files.
   static final _cachedGetAllRequiredProps = _memoizeWithExpando(getAllRequiredProps);
+
+  /// Whether to include diagnostics for props marked required for annotations.
+  final bool lintForAnnotationRequiredProps;
+
+  MissingRequiredPropDiagnostic({required this.lintForAnnotationRequiredProps});
 
   @override
   computeErrorsForUsage(result, collector, usage) async {
@@ -132,15 +149,15 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
         continue;
       }
 
-      const codesByRequiredness = {
-        PropRequiredness.annotation: annotationRequiredCode,
-        PropRequiredness.late: lateRequiredCode,
-      };
       final requiredness = requiredPropInfo.propRequirednessByName[name]!;
-      final code = codesByRequiredness[requiredness]!;
+      if (!lintForAnnotationRequiredProps && requiredness == PropRequiredness.annotation) {
+        continue;
+      }
+
+      // TODO(FED-2034) don't warn when we know required props are being forwarded
 
       await collector.addErrorWithFix(
-        code,
+        _codeForRequiredness(requiredness),
         result.locationFor(usage.builder),
         errorMessageArgs: ["'$name' from '${field.enclosingElement.name}'"],
         fixKind: fixKind,
@@ -154,7 +171,7 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
     }
   }
 
-  String _requiredPropsDebugMessage(RequiredPropInfo requiredPropInfo) {
+  static String _requiredPropsDebugMessage(RequiredPropInfo requiredPropInfo) {
     final propNamesByRequirednessName = <String, Set<String>>{};
     final withDisabledRequiredValidation = <String>{};
     requiredPropInfo.propRequirednessByName.forEach((name, requiredness) {

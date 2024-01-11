@@ -139,6 +139,12 @@ class MissingRequiredPropTest_NoErrors extends MissingRequiredPropTest {
 
     expect(await getAllErrors(source, includeOtherCodes: true), isEmpty);
   }
+
+  Future<void> test_noErrorsAnnotationRequiredByDefault() async {
+    await expectNoErrors(newSourceWithPrefix(/*language=dart*/ r'''
+      test() => WithAnnotationRequired()();
+    '''));
+  }
 }
 
 @reflectiveTest
@@ -224,6 +230,18 @@ class MissingRequiredPropTest_MissingAnnotationRequired extends MissingRequiredP
 
   @override
   get fixKindUnderTest => MissingRequiredPropDiagnostic.fixKind;
+
+  // This lint is disabled by default, so we have to opt into it.
+  @override
+  String get analysisOptionsYamlContents => r'''
+analyzer:
+  plugins:
+    over_react
+
+over_react:
+  errors:
+    over_react_annotation_required_prop: info
+  ''';
 
   Future<void> test_singleMissingAndFix() async {
     final source = newSourceWithPrefix(/*language=dart*/ r'''
