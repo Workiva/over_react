@@ -14,7 +14,7 @@ class BadRenderComponent extends UiComponent2<BadRenderProps> {
       return 'Not a ReactElement';
     }
 
-    if (props.children == null) {
+    if (props.children?.isEmpty ?? true) {
       // Uninvoked builder: has quick-fix
       return Dom.div();
     }
