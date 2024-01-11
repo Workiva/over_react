@@ -1,4 +1,3 @@
-import 'package:analyzer/dart/analysis/features.dart';
 import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/element/element.dart';
@@ -12,6 +11,7 @@ import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 import 'package:over_react_analyzer_plugin/src/indent_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/function_components.dart';
+import 'package:over_react_analyzer_plugin/src/util/null_safety_utils.dart' as utils;
 import 'package:over_react_analyzer_plugin/src/util/util.dart';
 
 enum RefTypeToReplace {
@@ -49,7 +49,7 @@ void addUseOrCreateRef(
   RefTypeToReplace? refTypeToReplace;
   Expression? callbackRefPropRhs;
 
-  final withNullability = result.unit.declaredElement?.library.featureSet.isEnabled(Feature.non_nullable) ?? false;
+  final withNullability = utils.withNullability(result);
   final refTypeName = usage.isDom ? 'Element${withNullability ? '?' : ''}' : 'dynamic';
 
   final refProp = usage.cascadedProps.firstWhereOrNull((prop) => prop.name.name == 'ref');

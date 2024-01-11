@@ -353,7 +353,6 @@ class CallbackRefDiagnosticFnComponentTestNoFix extends CallbackRefDiagnosticTes
 @reflectiveTest
 class CallbackRefDiagnosticClassComponentTest extends CallbackRefDiagnosticWithFixTest {
   static const usageSourceWithinClassComponent = '''
-// @dart=2.11
 import 'package:over_react/over_react.dart';
 
 part '{{FILE_BASENAME_WITHOUT_EXTENSION}}.over_react.g.dart';
@@ -377,7 +376,6 @@ class UsesCallbackRefComponent extends UiComponent2<UsesCallbackRefProps> {
 ''';
 
   static const usageSourceWithinClassComponentFixedBlockFnBodyRefAssignment = '''
-// @dart=2.11
 import 'package:over_react/over_react.dart';
 
 part '{{FILE_BASENAME_WITHOUT_EXTENSION}}.over_react.g.dart';
@@ -401,7 +399,6 @@ class UsesCallbackRefComponent extends UiComponent2<UsesCallbackRefProps> {
 ''';
 
   static const usageSourceWithinClassComponentFixedArrowFnRefAssignment = '''
-// @dart=2.11
 import 'package:over_react/over_react.dart';
 
 part '{{FILE_BASENAME_WITHOUT_EXTENSION}}.over_react.g.dart';
