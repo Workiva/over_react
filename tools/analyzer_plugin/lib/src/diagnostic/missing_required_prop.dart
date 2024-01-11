@@ -100,7 +100,8 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
       _memoizeWithExpando<ResolvedUnitResult, bool>((result) => _debugCommentPattern.hasMatch(result.content));
 
   /// A wrapper around [getAllRequiredProps] that caches results per props type [InterfaceElement],
-  /// which greatly improves performance of this diagnostic when a component is used more than once.
+  /// which greatly improves performance of this diagnostic when a component is used more than once
+  /// (with the `getAllProps` call within `getAllRequiredProps` being the main bottleneck).
   ///
   /// This cache is static so it can be shared across multiple files (each of which gets a new diagnostic instance).
   ///
