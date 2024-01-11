@@ -99,10 +99,18 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
   final _cachedIsDebugHelperEnabled =
       _memoizeWithExpando<ResolvedUnitResult, bool>((result) => _debugCommentPattern.hasMatch(result.content));
 
-  /// A wrapper around [getAllRequiredProps] that caches results per element,
-  /// which greatly improves performance when a component is used more than once.
+  /// A wrapper around [getAllRequiredProps] that caches results per props type [InterfaceElement],
+  /// which greatly improves performance of this diagnostic when a component is used more than once.
   ///
-  /// This cache is static so it can be shared across multiple files.
+  /// This cache is static so it can be shared across multiple files (each of which gets a new diagnostic instance).
+  ///
+  /// By using an expando, the returned [RequiredPropInfo] will be held in as long as the input element is held, and
+  /// released when the element is released. This is perfect for our use-case, since we want to optimize subsequent calls,
+  /// and get new results if the inputs change (in which case, the analyzer will create new, updated elements).
+  ///
+  /// The returned RequiredPropInfo doesn't take up much memory, and shouldn't retain anything not already
+  /// retained by the element (e.g., prop FieldElements), so this caching mechanism should not cause a significant
+  /// increase in memory usage.
   static final _cachedGetAllRequiredProps = _memoizeWithExpando(getAllRequiredProps);
 
   /// Whether to include diagnostics for props marked required for annotations.
