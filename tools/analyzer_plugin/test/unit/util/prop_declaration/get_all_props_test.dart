@@ -18,7 +18,7 @@ import 'package:over_react_analyzer_plugin/src/util/prop_declarations/get_all_pr
 import 'package:test/test.dart';
 
 import '../../../util/shared_analysis_context.dart';
-import 'shared.dart';
+import 'shared_util.dart';
 
 void main() {
   group('get_all_props', () {
@@ -33,9 +33,15 @@ void main() {
         result = await setUpResult(sharedContext);
       });
 
+      TypeMatcher<FieldElement> isNonSyntheticFieldDeclaredInMainLibrary() => isA<FieldElement>()
+          .havingIsSynthetic(false)
+          .having((f) => f.source?.uri, 'source.uri', result.libraryElement.source.uri);
+
       void verifyAllProps(List<FieldElement> actualAllProps, {required List<String> expectedNames}) {
         expect(actualAllProps.map((e) => e.name).toList(), unorderedEquals(expectedNames));
-        expect(actualAllProps, everyElement(isA<FieldElement>().havingIsSynthetic(false)));
+        expect(actualAllProps, everyElement(isNonSyntheticFieldDeclaredInMainLibrary()),
+            reason:
+                'should be original, consumer-authored prop fields declared in main library and not generated part');
       }
 
       group('returns only the expected props from', () {

@@ -8,7 +8,7 @@ import 'package:test/test.dart';
 
 import '../../../util/over_react_builder.dart';
 import '../../../util/shared_analysis_context.dart';
-import 'test_source.dart';
+import 'shared_test_source.dart';
 
 Future<ResolvedUnitResult> setUpResult(SharedAnalysisContext sharedContext) async {
   final libraryFilename = sharedContext.nextFilename();
@@ -42,8 +42,14 @@ Future<ResolvedUnitResult> setUpResult(SharedAnalysisContext sharedContext) asyn
   final libraryResult = await getResolvedUnit(libraryFullPath);
   expect(filterErrors(libraryResult.errors), isEmpty);
 
+  // Make sure the generated part is resolved and present during analysis; for these tests, we want to make sure that
+  // utilities like `getAllProps` and `getRequiredProps` only deal with user-authored props, and not generated prop
+  // overrides.
   final partResult = await getResolvedUnit(partFullPath);
   expect(filterErrors(partResult.errors), isEmpty);
+  // Check whether part declarations show up in the main library as a way of verifying they're wired up correctly
+  expect(libraryResult.libraryElement.topLevelElements, contains(partResult.unit.declaredElement!.classes.first),
+      reason: 'generated part should be wired up to parent library');
 
   return libraryResult;
 }
@@ -69,4 +75,6 @@ extension FieldElementMatchers on TypeMatcher<FieldElement> {
   TypeMatcher<FieldElement> havingName(dynamic matcher) => having((f) => f.name, 'name', matcher);
 
   TypeMatcher<FieldElement> havingIsSynthetic(dynamic matcher) => having((f) => f.isSynthetic, 'isSynthetic', matcher);
+
+  TypeMatcher<FieldElement> havingSourceUri(dynamic matcher) => having((f) => f.source?.uri, 'source.uri', matcher);
 }
