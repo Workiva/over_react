@@ -1432,7 +1432,8 @@ final Map<String, List<Map<String, Object>>> tests = {
           useEffect(() {
             props
               ..onClick?.call(createSyntheticMouseEvent())
-              ..onChange?.call(createSyntheticFormEvent());
+              ..myEffect()
+              ..onChange!(createSyntheticFormEvent());
           }, [props]);
         }, null);
       ''',
@@ -4140,22 +4141,24 @@ final Map<String, List<Map<String, Object>>> tests = {
       'code': r'''
         final MyComponent = uiFunction<TestProps>((props) {
           useEffect(() {
-            props.onChange?.call(createSyntheticFormEvent());
+            // ignore: invalid_null_aware_operator
+            props?.onChange?.call(createSyntheticFormEvent());
           }, []);
         }, null);
       ''',
       'errors': [
         {
           'message':
-              'React Hook useEffect has a missing dependency: \'props.onChange\'. Either include it or remove the dependency list. If \'props.onChange\' changes too often, find the parent component that defines it and wrap that definition in useCallback.',
+              'React Hook useEffect has a missing dependency: \'props?.onChange\'. Either include it or remove the dependency list. If \'props?.onChange\' changes too often, find the parent component that defines it and wrap that definition in useCallback.',
           'suggestions': [
             {
-              'desc': 'Update the dependencies list to be: [props.onChange]',
+              'desc': 'Update the dependencies list to be: [props?.onChange]',
               'output': r'''
                 final MyComponent = uiFunction<TestProps>((props) {
                   useEffect(() {
-                    props.onChange?.call(createSyntheticFormEvent());
-                  }, [props.onChange]);
+                    // ignore: invalid_null_aware_operator
+                    props?.onChange?.call(createSyntheticFormEvent());
+                  }, [props?.onChange]);
                 }, null);
               ''',
             },
@@ -4192,7 +4195,7 @@ final Map<String, List<Map<String, Object>>> tests = {
       ],
     },
     {
-      'name': 'Calling function props in a cascade',
+      'name': 'Calling nullable function props in a cascade',
       'code': r'''
         final MyComponent = uiFunction<TestProps>((props) {
           useEffect(() {
@@ -4206,6 +4209,44 @@ final Map<String, List<Map<String, Object>>> tests = {
         {
           'message':
               'React Hook useEffect most likely has issues in its dependencies list, but the exact problems and recommended fixes could not be be computed since the dependency \'props\' is the target of a cascade. Try refactoring to not cascade on that dependency in the callback to get more helpful instructions and potentially a suggested fix.',
+          'suggestions': null,
+        },
+      ],
+    },
+    {
+      'name': 'Calling non-nullable function props in a cascade',
+      'code': r'''
+        final MyComponent = uiFunction<TestProps>((props) {
+          useEffect(() {
+            props
+              ..myEffect()
+              ..fn1();
+          }, []);
+        }, null);
+      ''',
+      'errors': [
+        {
+          'message':
+          'React Hook useEffect most likely has issues in its dependencies list, but the exact problems and recommended fixes could not be be computed since the dependency \'props\' is the target of a cascade. Try refactoring to not cascade on that dependency in the callback to get more helpful instructions and potentially a suggested fix.',
+          'suggestions': null,
+        },
+      ],
+    },
+    {
+      'name': 'Calling function props with non-null assertion operator in a cascade',
+      'code': r'''
+        final MyComponent = uiFunction<TestProps>((props) {
+          useEffect(() {
+            props
+              ..onClick!(createSyntheticMouseEvent())
+              ..onChange!(createSyntheticFormEvent());
+          }, []);
+        }, null);
+      ''',
+      'errors': [
+        {
+          'message':
+          'React Hook useEffect most likely has issues in its dependencies list, but the exact problems and recommended fixes could not be be computed since the dependency \'props\' is the target of a cascade. Try refactoring to not cascade on that dependency in the callback to get more helpful instructions and potentially a suggested fix.',
           'suggestions': null,
         },
       ],

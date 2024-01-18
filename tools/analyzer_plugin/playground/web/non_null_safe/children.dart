@@ -54,6 +54,7 @@ invalidChildren() {
     (Foo()),
     (Foo()..id = 'hi'),
     Foo()..id = 'hi',
+    null,
   );
 }
 

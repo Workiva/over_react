@@ -33,7 +33,6 @@ MyModelWithCustomToString modelVarWithCustomToString = MyModelWithCustomToString
 Object? objectVar;
 dynamic dynamicVar;
 
-// ignore: missing_return
 String deriveKeyFrom(Object object) => '';
 
 class MyModel {

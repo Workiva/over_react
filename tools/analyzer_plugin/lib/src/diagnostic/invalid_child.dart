@@ -1,12 +1,12 @@
 import 'dart:async';
 
-import 'package:analyzer/dart/analysis/features.dart';
 import 'package:analyzer/dart/element/type.dart';
 import 'package:analyzer/dart/element/type_provider.dart';
 import 'package:analyzer/dart/element/type_system.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/constants.dart';
+import 'package:over_react_analyzer_plugin/src/util/null_safety_utils.dart' as utils;
 import 'package:over_react_analyzer_plugin/src/util/react_types.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/util.dart';
@@ -71,7 +71,7 @@ class InvalidChildDiagnostic extends ComponentUsageDiagnosticContributor {
       await validateReactChildType(argument.staticType, result.typeSystem, result.typeProvider,
           onInvalidType: (invalidType) async {
         final location = result.locationFor(argument);
-        final withNullability = result.unit.declaredElement?.library.featureSet.isEnabled(Feature.non_nullable) ?? false;
+        final withNullability = utils.withNullability(result);
 
         if (couldBeMissingBuilderInvocation(argument)) {
           await collector.addErrorWithFix(
@@ -97,6 +97,7 @@ Future<void> validateReactChildType(DartType? type, TypeSystem typeSystem, TypeP
     {required FutureOr<void> Function(DartType invalidType) onInvalidType}) async {
   // Couldn't be resolved
   if (type == null) return;
+  if (type.isDartCoreNull) return;
   final nonNullType = typeSystem.promoteToNonNull(type);
   // Couldn't be resolved to anything more specific; `Object` might be
   // problematic in some cases, but would have too many false positives.
@@ -105,7 +106,6 @@ Future<void> validateReactChildType(DartType? type, TypeSystem typeSystem, TypeP
   if (nonNullType.isDartCoreString) return;
   // isSubtypeOf to handle num, int, and double
   if (typeSystem.isSubtypeOf(nonNullType, typeProvider.numType)) return;
-  if (nonNullType.isDartCoreNull) return;
   if (nonNullType.isDartCoreBool) return;
   // If the children are in an iterable, validate its type argument.
   // To check for an iterable, type-check against `iterableDynamicType` and not
