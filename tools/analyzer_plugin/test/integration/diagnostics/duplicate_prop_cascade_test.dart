@@ -26,8 +26,8 @@ import 'package:over_react/over_react.dart';
 part '{{FILE_BASENAME_WITHOUT_EXTENSION}}.over_react.g.dart';
 
 mixin CustomProps on UiProps {
-  int size;
-  bool hidden;
+  int? size;
+  bool? hidden;
 }
 
 final Custom = uiFunction<CustomProps>(

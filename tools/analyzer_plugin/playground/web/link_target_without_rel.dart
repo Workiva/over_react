@@ -33,7 +33,7 @@ final relWithNonConstValue = (Dom.a()
   ..rel = myRelTarget3
 )();
 
-ReactElement relWithLocalConstValue() {
+ReactElement? relWithLocalConstValue() {
   const invalidLocalRel = 'nofollow';
   const validLocalRel = myRelTarget2;
 
@@ -56,23 +56,23 @@ final relIsNull = (Dom.a()
   ..rel = null
 )();
 
-final shouldNotLint = (Dom.a()
-  ..target = '_blank'
-)('I have no href, so the target value is not a security vulnerability yet');
+final shouldNotLint = (Dom.a()..target = '_blank')(
+    'I have no href, so the target value is not a security vulnerability yet');
 
 final shouldNotLint2 = (Dom.a()
-  ..href = null
-  ..target = '_blank'
-)('I have no href, so the target value is not a security vulnerability yet');
+      ..href = null
+      ..target = '_blank'
+    )(
+    'I have no href, so the target value is not a security vulnerability yet');
 
-final shouldNotLint3 = (Dom.a()
-  ..href = 'https://www.workiva.com'
-)('I have no target, so the link is not a security vulnerability yet');
+final shouldNotLint3 = (Dom.a()..href = 'https://www.workiva.com')(
+    'I have no target, so the link is not a security vulnerability yet');
 
 final shouldNotLint4 = (Dom.a()
-  ..href = 'https://www.workiva.com'
-  ..target = null
-)('I have no target, so the link is not a security vulnerability yet');
+      ..href = 'https://www.workiva.com'
+      ..target = null
+    )(
+    'I have no target, so the link is not a security vulnerability yet');
 
 final shouldNotLint5 = (Dom.a()
   ..href = 'https://www.workiva.com'

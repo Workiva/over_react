@@ -12,7 +12,7 @@ final Foo1 = uiFunction<FooProps>((props) {
 
   final callback = useCallback(() {
     print('Count for $id: ${count.value}');
-    props.onChange(null);
+    props.onChange?.call(createSyntheticFormEvent());
   }, []);
 }, null);
 

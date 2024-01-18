@@ -11,6 +11,7 @@ import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 import 'package:over_react_analyzer_plugin/src/indent_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/function_components.dart';
+import 'package:over_react_analyzer_plugin/src/util/null_safety_utils.dart' as utils;
 import 'package:over_react_analyzer_plugin/src/util/util.dart';
 
 enum RefTypeToReplace {
@@ -48,7 +49,8 @@ void addUseOrCreateRef(
   RefTypeToReplace? refTypeToReplace;
   Expression? callbackRefPropRhs;
 
-  final refTypeName = usage.isDom ? 'Element' : 'dynamic';
+  final withNullability = utils.withNullability(result);
+  final refTypeName = usage.isDom ? 'Element${withNullability ? '?' : ''}' : 'dynamic';
 
   final refProp = usage.cascadedProps.firstWhereOrNull((prop) => prop.name.name == 'ref');
   if (refProp != null) {

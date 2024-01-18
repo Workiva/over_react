@@ -27,21 +27,20 @@ abstract class BadKeyDiagnosticTest extends DiagnosticTestBase {
   static const sourcePrefix = /*language=dart*/ r'''
 import 'package:over_react/over_react.dart';
 
-MyModel modelVar;
-MyModelWithCustomToString modelVarWithCustomToString;
+MyModel modelVar = MyModel();
+MyModelWithCustomToString modelVarWithCustomToString = MyModelWithCustomToString();
 
-Object objectVar;
+Object? objectVar;
 dynamic dynamicVar;
 
-// ignore: missing_return
-String deriveKeyFrom(Object object) {}
+String deriveKeyFrom(Object object) => '';
 
 class MyModel {
-  int id;
+  int? id;
 }
 
 class MyModelWithCustomToString {
-  int id;
+  int? id;
 
   @override
   toString() => '$id';

@@ -1,6 +1,6 @@
 name: over_react_project
 environment:
-  sdk: '>=2.11.0 <3.0.0'
+  sdk: '>=2.13.0 <3.0.0'
 dependencies:
   over_react:
     path: ../../../../..
