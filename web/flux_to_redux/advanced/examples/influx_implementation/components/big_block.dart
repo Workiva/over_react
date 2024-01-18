@@ -61,25 +61,25 @@ class BigBlockComponent extends FluxUiComponent2<BigBlockProps> {
         )(
           (Dom.button()
             ..onClick = (_) {
-              props.actions.changeMainBackgroundColor();
+              props.actions.changeMainBackgroundColor(null);
             }
             ..style = {'padding': '10px', 'margin': '10px'}
           )('Change Main Background Color'),
           (Dom.button()
             ..onClick = (_) {
-              props.actions.changeBlockOneBackgroundColor();
+              props.actions.changeBlockOneBackgroundColor(null);
             }
             ..style = {'padding': '10px', 'margin': '10px'}
           )('Change Block 1 Background Color'),
           (Dom.button()
             ..onClick = (_) {
-              props.actions.changeBlockTwoBackgroundColor();
+              props.actions.changeBlockTwoBackgroundColor(null);
             }
             ..style = {'padding': '10px', 'margin': '10px'}
           )('Change Block 2 Background Color'),
           (Dom.button()
             ..onClick = (_) {
-              props.actions.changeBlockThreeBackgroundColor();
+              props.actions.changeBlockThreeBackgroundColor(null);
             }
             ..style = {'padding': '10px', 'margin': '10px'}
           )('Change Block 3 Background Color'),

@@ -23,10 +23,10 @@ int _resetCounterReducer(int currentCount, ResetAction action) {
 }
 
 class FluxActions {
-  final flux.Action<int> incrementAction = flux.Action();
-  final flux.Action<int> decrementAction = flux.Action();
-  final flux.Action resetAction = flux.Action();
-  final flux.Action mutateStoreDirectly = flux.Action();
+  final flux.ActionV2<int> incrementAction = flux.ActionV2();
+  final flux.ActionV2<int> decrementAction = flux.ActionV2();
+  final flux.ActionV2 resetAction = flux.ActionV2();
+  final flux.ActionV2 mutateStoreDirectly = flux.ActionV2();
 }
 
 class FluxStore extends flux.Store with InfluxStoreMixin<FluxCounterState> {

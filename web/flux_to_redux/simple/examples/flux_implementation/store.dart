@@ -33,7 +33,7 @@ class RandomColorStore extends flux.Store {
 }
 
 class RandomColorActions {
-  final flux.Action<String> changeBackgroundColor = flux.Action();
+  final flux.ActionV2<String> changeBackgroundColor = flux.ActionV2();
 }
 
 RandomColorActions randomColorActions = RandomColorActions();

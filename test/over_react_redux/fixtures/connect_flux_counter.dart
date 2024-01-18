@@ -57,7 +57,7 @@ class ConnectFluxCounterComponent
           } else if (props.increment != null) {
             props.increment();
           } else {
-            props.actions.incrementAction();
+            props.actions.incrementAction(null);
           }
         }
       )('+'),

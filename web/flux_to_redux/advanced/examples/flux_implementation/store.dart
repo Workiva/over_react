@@ -17,13 +17,13 @@ import 'dart:math';
 import 'package:w_flux/w_flux.dart' as flux;
 
 class RandomColorActions {
-  final flux.Action<String> changeMainBackgroundColor = flux.Action();
+  final flux.ActionV2<String> changeMainBackgroundColor = flux.ActionV2();
 
-  final flux.Action<String> changeBlockOneBackgroundColor = flux.Action();
+  final flux.ActionV2<String> changeBlockOneBackgroundColor = flux.ActionV2();
 
-  final flux.Action<String> changeBlockTwoBackgroundColor = flux.Action();
+  final flux.ActionV2<String> changeBlockTwoBackgroundColor = flux.ActionV2();
 
-  final flux.Action<String> changeBlockThreeBackgroundColor = flux.Action();
+  final flux.ActionV2<String> changeBlockThreeBackgroundColor = flux.ActionV2();
 }
 
 class RandomColorStore extends flux.Store {
