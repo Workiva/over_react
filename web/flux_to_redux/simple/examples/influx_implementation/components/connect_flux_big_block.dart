@@ -31,9 +31,10 @@ part 'connect_flux_big_block.over_react.g.dart';
 UiFactory<ConnectFluxBigBlockProps> ConnectFluxBigBlock =
     connectFlux<FluxStore, RandomColorActions, ConnectFluxBigBlockProps>(
   // [5]
-  mapStateToProps: (state) => (ConnectFluxBigBlock()..backgroundColor = state?.backgroundColor),
-  mapActionsToProps: (actions) =>
-      (ConnectFluxBigBlock()..changeBackgroundColor = actions.changeBackgroundColor),
+  mapStateToProps: (state) =>
+      (ConnectFluxBigBlock()..backgroundColor = state?.backgroundColor),
+  mapActionsToProps: (actions) => (ConnectFluxBigBlock()
+    ..changeBackgroundColor = (() => actions.changeBackgroundColor)),
 )(castUiFactory(_$ConnectFluxBigBlock)); // ignore: undefined_identifier
 
 mixin ConnectFluxBigBlockPropsMixin on UiProps {
@@ -42,23 +43,28 @@ mixin ConnectFluxBigBlockPropsMixin on UiProps {
   void Function() changeBackgroundColor; // [2]
 }
 
-class ConnectFluxBigBlockProps = UiProps with ConnectFluxBigBlockPropsMixin, ConnectPropsMixin;
+class ConnectFluxBigBlockProps = UiProps
+    with ConnectFluxBigBlockPropsMixin, ConnectPropsMixin;
 
-class ConnectFluxBigBlockComponent extends UiComponent2<ConnectFluxBigBlockProps> {
+class ConnectFluxBigBlockComponent
+    extends UiComponent2<ConnectFluxBigBlockProps> {
   @override
   render() {
-    return (Dom.div()..style = {
-      'padding': '50px',
-      'backgroundColor': props.backgroundColor, // [3]
-      'color': 'white'
-    })(
+    return (Dom.div()
+      ..style = {
+        'padding': '50px',
+        'backgroundColor': props.backgroundColor, // [3]
+        'color': 'white'
+      })(
       'This module uses a connect flux pattern to change its background color.',
       (Dom.button()
         ..onClick = (_) {
           props.changeBackgroundColor(); // [3]
         }
-        ..style = {'padding': '10px', 'margin': '10px'}
-      )('Change Background Color'),
+        ..style = {
+          'padding': '10px',
+          'margin': '10px'
+        })('Change Background Color'),
     );
   }
 }

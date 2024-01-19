@@ -46,8 +46,8 @@ main() {
       connectableFluxStore = TestConnectableFluxStore(connectableStoreActions);
       anotherConnectableFluxStore =
           TestConnectableFluxStore(connectableStoreActions);
-      connectableFluxAdaptedStore =
-          ConnectFluxAdapterStore(connectableFluxStore, connectableStoreActions);
+      connectableFluxAdaptedStore = ConnectFluxAdapterStore(
+          connectableFluxStore, connectableStoreActions);
     });
 
     group('FluxToReduxAdapterStore', () {
@@ -105,8 +105,8 @@ main() {
             mapStateToProps: (state) =>
                 (ConnectFluxCounter()..currentCount = state.count),
             mapActionsToProps: (actions) => (ConnectFluxCounter()
-              ..increment = actions.incrementAction
-              ..decrement = actions.decrementAction),
+              ..increment = (() => actions.incrementAction)
+              ..decrement = (() => actions.decrementAction)),
           )(ConnectFluxCounter);
 
           final ConnectedReduxComponent = connect<FluxStore, CounterProps>(
@@ -154,8 +154,8 @@ main() {
           mapStateToProps: (state) =>
               (ConnectFluxCounter()..currentCount = state.count),
           mapActionsToProps: (actions) => (ConnectFluxCounter()
-            ..increment = actions.incrementAction
-            ..decrement = actions.decrementAction),
+            ..increment = (() => actions.incrementAction)
+            ..decrement = (() => actions.decrementAction)),
         )(ConnectFluxCounter);
 
         final ConnectedReduxComponent = connect<FluxStore, CounterProps>(
@@ -241,8 +241,8 @@ main() {
           mapStateToProps: (state) =>
               (ConnectFluxCounter()..currentCount = state.count),
           mapActionsToProps: (actions) => (ConnectFluxCounter()
-            ..increment = actions.incrementAction
-            ..decrement = actions.decrementAction),
+            ..increment = (() => actions.incrementAction)
+            ..decrement = (() => actions.decrementAction)),
         )(ConnectFluxCounter);
 
         ConnectedReduxComponent =
@@ -259,8 +259,7 @@ main() {
           (FluxCounter()
             ..store = connectableFluxStore
             ..actions = connectableStoreActions
-            ..addTestId('flux-component')
-          )(),
+            ..addTestId('flux-component'))(),
         ));
 
         connectFluxCounter =

@@ -39,28 +39,31 @@ UiFactory<ConnectFluxBigBlockProps> ConnectFluxBigBlock = composeHocs([
     // [7]
     mapStateToProps: (state) => (ConnectFluxBigBlock()
       ..backgroundColor = state.mainBackgroundColor
-      ..blockOneBackgroundColor = state.blockOneBackgroundColor
-    ),
+      ..blockOneBackgroundColor = state.blockOneBackgroundColor),
     mapActionsToProps: (actions) => (ConnectFluxBigBlock()
-      ..changeMainBackgroundColor = actions.changeMainBackgroundColor
-      ..changeBlockOneBackgroundColor = actions.changeBlockOneBackgroundColor
-    ),
+      ..changeMainBackgroundColor = (() => actions.changeMainBackgroundColor)
+      ..changeBlockOneBackgroundColor =
+          (() => actions.changeBlockOneBackgroundColor)),
   ),
   // [5]
   connectFlux<LowLevelStore, RandomColorActions, ConnectFluxBigBlockProps>(
     context: lowLevelStoreContext, // [6]
     // [7]
-    mapStateToProps: (state) => (ConnectFluxBigBlock()..blockTwoBackgroundColor = state.backgroundColor),
-    mapActionsToProps: (actions) =>
-        (ConnectFluxBigBlock()..changeBlockTwoBackgroundColor = actions.changeBlockTwoBackgroundColor),
+    mapStateToProps: (state) => (ConnectFluxBigBlock()
+      ..blockTwoBackgroundColor = state.backgroundColor),
+    mapActionsToProps: (actions) => (ConnectFluxBigBlock()
+      ..changeBlockTwoBackgroundColor =
+          (() => actions.changeBlockTwoBackgroundColor)),
   ),
   // [5]
   connectFlux<AnotherColorStore, RandomColorActions, ConnectFluxBigBlockProps>(
     context: anotherColorStoreContext, // [6]
     // [7]
-    mapStateToProps: (state) => (ConnectFluxBigBlock()..blockThreeBackgroundColor = state.backgroundColor),
-    mapActionsToProps: (actions) =>
-        (ConnectFluxBigBlock()..changeBlockThreeBackgroundColor = actions.changeBlockThreeBackgroundColor),
+    mapStateToProps: (state) => (ConnectFluxBigBlock()
+      ..blockThreeBackgroundColor = state.backgroundColor),
+    mapActionsToProps: (actions) => (ConnectFluxBigBlock()
+      ..changeBlockThreeBackgroundColor =
+          (() => actions.changeBlockThreeBackgroundColor)),
   ),
 ])(castUiFactory(_$ConnectFluxBigBlock)); // ignore: undefined_identifier
 
@@ -76,9 +79,11 @@ mixin ConnectFluxBigBlockPropsMixin on UiProps {
   void Function() changeBlockThreeBackgroundColor; // [2]
 }
 
-class ConnectFluxBigBlockProps = UiProps with ConnectFluxBigBlockPropsMixin, ConnectPropsMixin;
+class ConnectFluxBigBlockProps = UiProps
+    with ConnectFluxBigBlockPropsMixin, ConnectPropsMixin;
 
-class ConnectFluxBigBlockComponent extends UiComponent2<ConnectFluxBigBlockProps> {
+class ConnectFluxBigBlockComponent
+    extends UiComponent2<ConnectFluxBigBlockProps> {
   @override
   render() {
     return (Fragment()(
@@ -90,56 +95,63 @@ class ConnectFluxBigBlockComponent extends UiComponent2<ConnectFluxBigBlockProps
           'display': 'flex',
           'alignItems': 'center',
           'justifyContent': 'space-evenly'
-        }
-      )(
-        Dom.div()('This module uses a ConnectedFlux pattern to change its background color.'),
+        })(
+        Dom.div()(
+            'This module uses a ConnectedFlux pattern to change its background color.'),
         (Dom.div()
           ..style = {
             'display': 'flex',
             'flexDirection': 'column',
-          }
-        )(
+          })(
           (Dom.button()
             ..onClick = (_) {
               props.changeMainBackgroundColor(); // [3]
             }
-            ..style = {'padding': '10px', 'margin': '10px'}
-          )('Change Main Background Color'),
+            ..style = {
+              'padding': '10px',
+              'margin': '10px'
+            })('Change Main Background Color'),
           (Dom.button()
             ..onClick = (_) {
               props.changeBlockOneBackgroundColor(); // [3]
             }
-            ..style = {'padding': '10px', 'margin': '10px'}
-          )('Change Block 1 Background Color'),
+            ..style = {
+              'padding': '10px',
+              'margin': '10px'
+            })('Change Block 1 Background Color'),
           (Dom.button()
             ..onClick = (_) {
               props.changeBlockTwoBackgroundColor(); // [3]
             }
-            ..style = {'padding': '10px', 'margin': '10px'}
-          )('Change Block 2 Background Color'),
+            ..style = {
+              'padding': '10px',
+              'margin': '10px'
+            })('Change Block 2 Background Color'),
           (Dom.button()
             ..onClick = (_) {
               props.changeBlockThreeBackgroundColor(); // [3]
             }
-            ..style = {'padding': '10px', 'margin': '10px'}
-          )('Change Block 3 Background Color'),
+            ..style = {
+              'padding': '10px',
+              'margin': '10px'
+            })('Change Block 3 Background Color'),
         ),
         (Dom.div()..style = {'display': 'flex', 'flexDirection': 'column'})(
           (LittleBlock()
-            ..blockTitle = 'Block 1'
-            ..backgroundColor = props.blockOneBackgroundColor // [3]
-            ..colorString = props.blockOneBackgroundColor // [3]
-          )(),
+                ..blockTitle = 'Block 1'
+                ..backgroundColor = props.blockOneBackgroundColor // [3]
+                ..colorString = props.blockOneBackgroundColor // [3]
+              )(),
           (LittleBlock()
-            ..blockTitle = 'Block 2'
-            ..backgroundColor = props.blockTwoBackgroundColor // [3]
-            ..colorString = props.blockTwoBackgroundColor // [3]
-          )(),
+                ..blockTitle = 'Block 2'
+                ..backgroundColor = props.blockTwoBackgroundColor // [3]
+                ..colorString = props.blockTwoBackgroundColor // [3]
+              )(),
           (LittleBlock()
-            ..blockTitle = 'Block 3'
-            ..backgroundColor = props.blockThreeBackgroundColor // [3]
-            ..colorString = props.blockThreeBackgroundColor // [3]
-          )(),
+                ..blockTitle = 'Block 3'
+                ..backgroundColor = props.blockThreeBackgroundColor // [3]
+                ..colorString = props.blockThreeBackgroundColor // [3]
+              )(),
         ),
       ),
     ));

@@ -43,14 +43,15 @@ main() {
 
       final anotherFluxActionsInstance = FluxActions();
       final anotherFluxStore = FluxStore(anotherFluxActionsInstance);
-      final store3 = FluxToReduxAdapterStore(anotherFluxStore, anotherFluxActionsInstance);
+      final store3 =
+          FluxToReduxAdapterStore(anotherFluxStore, anotherFluxActionsInstance);
 
       final Context1ConnectedFluxComponent =
           connectFlux<FluxStore, FluxActions, ConnectFluxCounterProps>(
         mapStateToProps: (state) =>
             (ConnectFluxCounter()..currentCount = state.count),
         mapActionsToProps: (actions) =>
-            (ConnectFluxCounter()..increment = actions.incrementAction),
+            (ConnectFluxCounter()..increment = (() => actions.incrementAction)),
         context: context1,
       )(ConnectFluxCounter);
 
@@ -59,7 +60,7 @@ main() {
         mapStateToProps: (state) =>
             (ConnectFluxCounter()..currentCount = state.count),
         mapActionsToProps: (actions) =>
-            (ConnectFluxCounter()..increment = actions.incrementAction),
+            (ConnectFluxCounter()..increment = (() => actions.incrementAction)),
         context: context2,
       )(ConnectFluxCounter);
 
@@ -68,7 +69,7 @@ main() {
         mapStateToProps: (state) =>
             (ConnectFluxCounter()..currentCount = state.count),
         mapActionsToProps: (actions) =>
-            (ConnectFluxCounter()..increment = actions.incrementAction),
+            (ConnectFluxCounter()..increment = (() => actions.incrementAction)),
         context: context3,
       )(ConnectFluxCounter);
 
@@ -79,8 +80,7 @@ main() {
                 context1: store1,
                 context2: store2,
                 context3: store3,
-              }
-            )(
+              })(
               (Context1ConnectedFluxComponent()..addTestId('context1'))(),
               (Context2ConnectedFluxComponent()..addTestId('context2'))(),
               (Context3ConnectedFluxComponent()..addTestId('context3'))(),
