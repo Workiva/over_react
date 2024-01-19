@@ -87,7 +87,8 @@ mixin $ReduxProviderPropsMixin on ReduxProviderPropsMixin {
     }
 
     if (!props.containsKey('store')) {
-      throw MissingRequiredPropsError('Required prop `store` is missing.');
+      throw MissingRequiredPropsError(
+          requiredPropClassesToSkipValidation.length.toString());
     }
   }
 }
@@ -153,6 +154,10 @@ abstract class _$$ReduxProviderProps extends UiProps
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$ReduxProviderProps(
           accessMap, (map) => _$$ReduxProviderProps(map));
+
+  @override
+  Set<Type> get requiredPropClassesToSkipValidation =>
+      const {ReduxProviderPropsMixin};
 }
 
 /// An alias for [getPropKey] so it can be referenced within the props class impl

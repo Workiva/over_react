@@ -444,6 +444,7 @@ mixin ReduxProviderPropsMixin on UiProps {
 /// - `context` - You may provide a context instance. If you do so, you will need to provide the same context instance to all of your connected components as well.
 ///
 /// See: <https://react-redux.js.org/api/provider>
+@Props(ignoreRequiredPropsFrom: {ReduxProviderPropsMixin})
 class ReduxProviderProps = builder_helpers.UiProps with ReduxProviderPropsMixin;
 
 /// [ReduxProvider] makes the store available to any nested components that have been wrapped in the `connect()` function.

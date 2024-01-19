@@ -59,11 +59,13 @@ mixin $FluxUiPropsMixin<ActionsT, StoresT>
     }
 
     if (!props.containsKey('FluxUiPropsMixin.actions')) {
-      throw MissingRequiredPropsError('Required prop `actions` is missing.');
+      throw MissingRequiredPropsError(
+          requiredPropClassesToSkipValidation.length.toString());
     }
 
     if (!props.containsKey('FluxUiPropsMixin.store')) {
-      throw MissingRequiredPropsError('Required prop `store` is missing.');
+      throw MissingRequiredPropsError(
+          requiredPropClassesToSkipValidation.length.toString());
     }
   }
 }
