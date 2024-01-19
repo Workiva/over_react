@@ -26,8 +26,40 @@ void main() {
     group('PropRequiredness enum', () {
       test('has correct isRequiredness for each value', () {
         expect(PropRequiredness.none.isRequired, isFalse);
+        expect(PropRequiredness.ignoredByConsumingClass.isRequired, isFalse);
         expect(PropRequiredness.late.isRequired, isTrue);
         expect(PropRequiredness.annotation.isRequired, isTrue);
+      });
+
+      test('maxRequiredness works as expected for all permutations', () {
+        const late = PropRequiredness.late;
+        const annotation = PropRequiredness.annotation;
+        const ignoredByConsumingClass = PropRequiredness.ignoredByConsumingClass;
+        const none = PropRequiredness.none;
+
+        expect(maxRequiredness(late, late), late);
+        expect(maxRequiredness(late, annotation), late);
+        expect(maxRequiredness(late, ignoredByConsumingClass), late);
+        expect(maxRequiredness(late, none), late);
+        expect(maxRequiredness(late, null), late);
+
+        expect(maxRequiredness(annotation, late), late);
+        expect(maxRequiredness(annotation, annotation), annotation);
+        expect(maxRequiredness(annotation, ignoredByConsumingClass), annotation);
+        expect(maxRequiredness(annotation, none), annotation);
+        expect(maxRequiredness(annotation, null), annotation);
+
+        expect(maxRequiredness(ignoredByConsumingClass, late), late);
+        expect(maxRequiredness(ignoredByConsumingClass, annotation), annotation);
+        expect(maxRequiredness(ignoredByConsumingClass, ignoredByConsumingClass), ignoredByConsumingClass);
+        expect(maxRequiredness(ignoredByConsumingClass, none), ignoredByConsumingClass);
+        expect(maxRequiredness(ignoredByConsumingClass, null), ignoredByConsumingClass);
+
+        expect(maxRequiredness(none, late), late);
+        expect(maxRequiredness(none, annotation), annotation);
+        expect(maxRequiredness(none, ignoredByConsumingClass), ignoredByConsumingClass);
+        expect(maxRequiredness(none, none), none);
+        expect(maxRequiredness(none, null), none);
       });
     });
 

@@ -73,10 +73,11 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
 
   static DiagnosticCode _codeForRequiredness(PropRequiredness requiredness) {
     switch (requiredness) {
-      case PropRequiredness.annotation:
-        return annotationRequiredCode;
       case PropRequiredness.late:
         return lateRequiredCode;
+      case PropRequiredness.annotation:
+        return annotationRequiredCode;
+      case PropRequiredness.ignoredByConsumingClass:
       case PropRequiredness.none:
         throw ArgumentError('Only values considered required can be passed; got PropRequiredness.none', 'requiredness');
     }
