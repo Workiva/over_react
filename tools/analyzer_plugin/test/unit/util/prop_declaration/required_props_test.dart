@@ -217,33 +217,45 @@ void main() {
             });
           });
 
-          group('props classes where requiredness changes in overrides - uses required if present anywhere', () {
+          group('props classes where requiredness changes in overrides - uses greatest requiredness', () {
             setUpAll(() {
               // Verify our base class used by other tests
               final propsElement = getInterfaceElement(result, 'OverriddenTestBaseProps');
               verifyRequiredProps(getAllRequiredProps(propsElement), expected: {
                 'v4_lateRequiredProp_optionalInOtherType': PropRequiredness.late,
-                'v4_optionalProp_requiredInOtherType': PropRequiredness.none,
+                'v4_lateRequiredProp_annotationRequiredInOtherType': PropRequiredness.late,
+                'v4_annotationRequiredProp_optionalInOtherType': PropRequiredness.annotation,
+                'v4_annotationRequiredProp_lateRequiredInOtherType': PropRequiredness.annotation,
+                'v4_optionalProp_annotationRequiredInOtherType': PropRequiredness.none,
+                'v4_optionalProp_lateRequiredInOtherType': PropRequiredness.none,
               });
             });
 
             test('when requiredness changes in overrides', () {
               final propsElement = getInterfaceElement(result, 'OverriddenTestSubtypeProps');
               verifyRequiredProps(getAllRequiredProps(propsElement), expected: {
-                // Since it's required in base class (OverriddenTestBaseProps), it should be considered required.
+                // Requiredness from base class (OverriddenTestBaseProps) wins:
                 'v4_lateRequiredProp_optionalInOtherType': PropRequiredness.late,
-                // Since it's required in subclass (OverriddenTestSubtypeProps), it should be considered required.
-                'v4_optionalProp_requiredInOtherType': PropRequiredness.late,
+                'v4_lateRequiredProp_annotationRequiredInOtherType': PropRequiredness.late,
+                'v4_annotationRequiredProp_optionalInOtherType': PropRequiredness.annotation,
+                // Requiredness from subclass (OverriddenTestSubtypeProps) wins:
+                'v4_annotationRequiredProp_lateRequiredInOtherType': PropRequiredness.late,
+                'v4_optionalProp_annotationRequiredInOtherType': PropRequiredness.annotation,
+                'v4_optionalProp_lateRequiredInOtherType': PropRequiredness.late,
               });
             });
 
             test('when requiredness changes in "overrides" from mixing in unrelated types', () {
               final propsElement = getInterfaceElement(result, 'OverriddenTestUnrelatedClassProps');
               verifyRequiredProps(getAllRequiredProps(propsElement), expected: {
-                // Since it's required in OverriddenTestBaseProps, it should be considered required.
+                // Requiredness from OverriddenTestBaseProps wins:
                 'v4_lateRequiredProp_optionalInOtherType': PropRequiredness.late,
-                // Since it's required in OverriddenTestUnrelatedClassPropsMixin, it should be considered required.
-                'v4_optionalProp_requiredInOtherType': PropRequiredness.late,
+                'v4_lateRequiredProp_annotationRequiredInOtherType': PropRequiredness.late,
+                'v4_annotationRequiredProp_optionalInOtherType': PropRequiredness.annotation,
+                // Requiredness from OverriddenTestBaseProps wins:
+                'v4_annotationRequiredProp_lateRequiredInOtherType': PropRequiredness.late,
+                'v4_optionalProp_annotationRequiredInOtherType': PropRequiredness.annotation,
+                'v4_optionalProp_lateRequiredInOtherType': PropRequiredness.late,
               });
             });
           });

@@ -294,23 +294,37 @@ class ExtendsV4Component extends UiComponent2<ExtendsV4Props> {
 }
 
 
-mixin OverriddenTestBaseProps on UiProps{
+mixin OverriddenTestBaseProps on UiProps {
    late String? v4_lateRequiredProp_optionalInOtherType;
-   String? v4_optionalProp_requiredInOtherType;
+   late String? v4_lateRequiredProp_annotationRequiredInOtherType;
+   
+   @requiredProp String? v4_annotationRequiredProp_optionalInOtherType;
+   @requiredProp String? v4_annotationRequiredProp_lateRequiredInOtherType;
+   
+   String? v4_optionalProp_annotationRequiredInOtherType;
+   String? v4_optionalProp_lateRequiredInOtherType;   
 }
 
 mixin OverriddenTestSubtypeProps on UiProps, OverriddenTestBaseProps {
-   // Invert requiredness compared to base class
-   @override
-   String? v4_lateRequiredProp_optionalInOtherType;
-   @override
-   late String? v4_optionalProp_requiredInOtherType;
+   @override String? v4_lateRequiredProp_optionalInOtherType;
+   @override @requiredProp String? v4_lateRequiredProp_annotationRequiredInOtherType;
+   
+   @override String? v4_annotationRequiredProp_optionalInOtherType;
+   @override late String? v4_annotationRequiredProp_lateRequiredInOtherType;
+   
+   @override @requiredProp String? v4_optionalProp_annotationRequiredInOtherType;
+   @override late String? v4_optionalProp_lateRequiredInOtherType;
 }
 
 mixin OverriddenTestUnrelatedClassPropsMixin on UiProps {
-   // Invert requiredness compared to base class
    String? v4_lateRequiredProp_optionalInOtherType;
-   late String? v4_optionalProp_requiredInOtherType;
+   @requiredProp String? v4_lateRequiredProp_annotationRequiredInOtherType;
+   
+   String? v4_annotationRequiredProp_optionalInOtherType;
+   late String? v4_annotationRequiredProp_lateRequiredInOtherType;
+   
+   @requiredProp String? v4_optionalProp_annotationRequiredInOtherType;
+   late String? v4_optionalProp_lateRequiredInOtherType;
 }
 
 
