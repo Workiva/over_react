@@ -60,6 +60,11 @@ mixin RequiredWithSameNameAsPrefixedProps on UiProps {
 }
 
 
+UiFactory<DisableValidationProps> DisableValidation = uiFunction((_) {}, _$DisableValidationConfig);
+mixin DisableValidationProps on UiProps {
+  @disableRequiredPropValidation
+  late String requiredPropWithDisabledValidation;
+}
 
 
 UiFactory<WithAnnotationRequiredProps> WithAnnotationRequired = uiFunction((_) {}, _$WithAnnotationRequiredConfig);
@@ -213,6 +218,28 @@ class MissingRequiredPropTest_MissingLateRequired extends MissingRequiredPropTes
               .havingMessage(contains("'hidden' from 'RequiredWithSameNameAsPrefixedProps'")),
         ]));
   }
+
+  Future<void> test_noErrorsAllRequiredPropsSpecified() async {
+    await expectNoErrors(newSourceWithPrefix(/*language=dart*/ r'''
+        test() => Fragment()(
+          (WithLateRequired()
+            ..required1 = ''
+            ..required2 = ''
+          )(),
+          (InheritsLateRequired()
+            ..required1 = ''
+            ..required2 = ''
+            ..requiredInSubclass = ''
+          )(),
+        );
+    '''));
+  }
+
+  Future<void> test_noErrorsForPropsWithDisabledValidation() async {
+    await expectNoErrors(newSourceWithPrefix(/*language=dart*/ r'''
+      test() => DisableValidation()();
+    '''));
+  }
 }
 
 @reflectiveTest
@@ -271,5 +298,14 @@ over_react:
           isAnErrorUnderTest(locatedAt: selection)
               .havingMessage(contains("'required2' from 'WithAnnotationRequiredProps'")),
         ]));
+  }
+
+  Future<void> test_noErrorsAllRequiredPropsSpecified() async {
+    await expectNoErrors(newSourceWithPrefix(/*language=dart*/ r'''
+        test() => (WithAnnotationRequired()
+          ..required1 = ''
+          ..required2 = ''
+        )();
+    '''));
   }
 }
