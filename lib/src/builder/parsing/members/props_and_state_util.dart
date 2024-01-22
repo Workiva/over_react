@@ -51,6 +51,7 @@ class _PropsStateStringHelpersImpl extends Object with PropsStateStringHelpers {
 }
 
 final Expando<String> props_ignoreRequiredPropsFrom_source = Expando();
+final Expando<String> props_ignoreRequiredProps_source = Expando();
 
 /// Uses [InstantiatedMeta] to analyze [node] and determine the proper annotation.
 annotations.TypedMap getPropsOrStateAnnotation(bool isProps, AnnotatedNode node) {
@@ -71,6 +72,10 @@ annotations.TypedMap getPropsOrStateAnnotation(bool isProps, AnnotatedNode node)
       final arg = meta.unsupportedArguments[0];
       if (arg is NamedExpression && arg.name.label.name == 'ignoreRequiredPropsFrom') {
         props_ignoreRequiredPropsFrom_source[meta.potentiallyIncompleteValue] =
+            arg.expression.toSource();
+        return meta.potentiallyIncompleteValue;
+      } else if (arg is NamedExpression && arg.name.label.name == 'ignoreRequiredProps') {
+        props_ignoreRequiredProps_source[meta.potentiallyIncompleteValue] =
             arg.expression.toSource();
         return meta.potentiallyIncompleteValue;
       }

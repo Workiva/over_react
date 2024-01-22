@@ -26,7 +26,7 @@ mixin SharedPropsMixin on UiProps {
   String? aPropToBePassed;
 }
 
-@Props(ignoreRequiredPropsFrom: {SharedPropsMixin})
+@Props(ignoreRequiredProps: {'SharedPropsMixin.requiredProp'})
 class SomeParentProps = UiProps with ParentOnlyPropsMixin, SharedPropsMixin;
 
 UiFactory<SomeParentProps> SomeParent = uiFunction((props) {
@@ -42,6 +42,7 @@ UiFactory<SomeParentProps> SomeParent = uiFunction((props) {
   _$SomeParentConfig, // ignore: undefined_identifier
 );
 
+@Props(ignoreRequiredProps: {'SharedPropsMixin.requiredProp'})
 class SomeChildProps = UiProps with SharedPropsMixin;
 
 UiFactory<SomeChildProps> SomeChild = uiFunction((props) {

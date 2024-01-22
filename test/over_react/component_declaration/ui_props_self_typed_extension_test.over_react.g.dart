@@ -65,14 +65,17 @@ mixin $TestProps on TestProps {
       return;
     }
 
-    if (!props.containsKey('TestProps.requiredProp')) {
+    if (!props.containsKey('TestProps.requiredProp') &&
+        !requiredPropNamesToSkipValidation.contains('TestProps.requiredProp')) {
       throw MissingRequiredPropsError(
-          'Required prop `requiredProp` is missing.');
+          requiredPropNamesToSkipValidation.join(','));
     }
 
-    if (!props.containsKey('TestProps.requiredNullableProp')) {
+    if (!props.containsKey('TestProps.requiredNullableProp') &&
+        !requiredPropNamesToSkipValidation
+            .contains('TestProps.requiredNullableProp')) {
       throw MissingRequiredPropsError(
-          'Required prop `requiredNullableProp` is missing.');
+          requiredPropNamesToSkipValidation.join(','));
     }
   }
 }

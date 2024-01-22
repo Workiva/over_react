@@ -86,8 +86,10 @@ mixin $ReduxProviderPropsMixin on ReduxProviderPropsMixin {
       return;
     }
 
-    if (!props.containsKey('store')) {
-      throw MissingRequiredPropsError('Required prop `store` is missing.');
+    if (!props.containsKey('store') &&
+        !requiredPropNamesToSkipValidation.contains('store')) {
+      throw MissingRequiredPropsError(
+          requiredPropNamesToSkipValidation.join(','));
     }
   }
 }

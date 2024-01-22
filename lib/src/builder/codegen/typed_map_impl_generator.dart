@@ -135,9 +135,10 @@ abstract class TypedMapImplGenerator extends BoilerplateDeclarationGenerator {
     String? componentFactoryName,
     String? propKeyNamespace,
     List<String>? allPropsMixins,
-    required Set<String>? requiredPropNamesToSkipValidation,
+    required String? requiredPropNamesToSkipValidation,
     required String? requiredPropClassesToSkipValidationSetSource,
   }) {
+    // throw ArgumentError(requiredPropNamesToSkipValidation);
     if (isProps) {
       if (componentFactoryName == null || propKeyNamespace == null) {
         throw ArgumentError('componentFactoryName/propKeyNamespace must be specified for props');
@@ -251,7 +252,7 @@ abstract class TypedMapImplGenerator extends BoilerplateDeclarationGenerator {
         ..writeln()
         ..writeln('  @override')
         ..writeln(
-            '  Set<String> get requiredPropNamesToSkipValidation => const {${requiredPropNamesToSkipValidation.map(stringLiteral).join(', ')}};');
+            '  Set<String> get requiredPropNamesToSkipValidation => const $requiredPropNamesToSkipValidation;');
     }
     if (requiredPropClassesToSkipValidationSetSource != null) {
       buffer
@@ -350,7 +351,8 @@ class _LegacyTypedMapImplGenerator extends TypedMapImplGenerator {
       componentFactoryName: ComponentNames(declaration.component.name.name).componentFactoryName,
       propKeyNamespace: getAccessorKeyNamespace(names, member.meta),
       requiredPropClassesToSkipValidationSetSource: props_ignoreRequiredPropsFrom_source[member.meta],
-      requiredPropNamesToSkipValidation: member.meta.tryCast<annotations.Props>()?.ignoreRequiredProps,
+      requiredPropNamesToSkipValidation: props_ignoreRequiredProps_source[member.meta],
+      // requiredPropNamesToSkipValidation: member.meta.tryCast<annotations.Props>()?.ignoreRequiredProps,
     ));
   }
 
@@ -474,7 +476,8 @@ class _TypedMapImplGenerator extends TypedMapImplGenerator {
       propKeyNamespace: '',
       allPropsMixins: allPropsMixins,
       requiredPropClassesToSkipValidationSetSource: props_ignoreRequiredPropsFrom_source[member.meta],
-      requiredPropNamesToSkipValidation: member.meta.tryCast<annotations.Props>()?.ignoreRequiredProps,
+      requiredPropNamesToSkipValidation: props_ignoreRequiredProps_source[member.meta],
+      // requiredPropNamesToSkipValidation: member.meta.tryCast<annotations.Props>()?.ignoreRequiredProps,
     ));
   }
 
