@@ -253,6 +253,17 @@ class OverReactBuilder extends Builder {
     return null;
   }
 
+  static const _ignoreForFileCodes = {
+    // Needed when the component itself or some of its props are deprecated,
+    // or if deprecated types are referenced within the boilerplate.
+    'deprecated_member_use_from_same_package',
+    // These two are needed for the `?? null` workaround in prop accessors.
+    'unnecessary_null_in_if_null_operators',
+    'prefer_null_aware_operators',
+    // Needed to ignore the `requiredPropNamesToSkipValidation` checks.
+    'invalid_use_of_visible_for_overriding_member',
+  };
+
   static FutureOr<void> _writePart(BuildStep buildStep, AssetId outputId, Iterable<String> outputs,
       {required String nullSafetyCommentText, String? languageVersionComment}) async {
     final partOf = "'${p.basename(buildStep.inputId.uri.toString())}'";
@@ -264,7 +275,7 @@ class OverReactBuilder extends Builder {
     buffer
       ..writeln('// GENERATED CODE - DO NOT MODIFY BY HAND')
       ..writeln()
-      ..writeln('// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators')
+      ..writeln('// ignore_for_file: ${_ignoreForFileCodes.join(', ')}')
       ..writeln('part of $partOf;')
       ..writeln()
       ..writeln(_headerLine)
