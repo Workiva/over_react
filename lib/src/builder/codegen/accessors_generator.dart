@@ -205,8 +205,8 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
           isPotentiallyNullable = true;
 
           if (type.isProps && disableRequiredPropValidation == null) {
-            requiredPropChecks.add('  if(!props.containsKey($keyValue)) {\n'
-                '  throw MissingRequiredPropsError(${stringLiteral('Required prop `$accessorName` is missing.')});\n'
+            requiredPropChecks.add('  if(!props.containsKey($keyValue) && !requiredPropNamesToSkipValidation.contains($keyValue)) {\n'
+                '  throw MissingRequiredPropsError(requiredPropNamesToSkipValidation.join(\',\'));\n'
                 '}\n');
           }
         }
@@ -374,11 +374,23 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
     if (type.isProps &&
         version != Version.v3_legacyDart2Only &&
         version != Version.v2_legacyBackwardsCompat) {
+      List<String> implLines;
+      if (requiredPropChecks.isEmpty) {
+        implLines = [];
+      } else {
+        implLines = [
+          '  if (requiredPropClassesToSkipValidation.contains(${names.publicName})) {',
+          '    return;',
+          '  }',
+          '',
+          ...requiredPropChecks,
+        ];
+      }
       final validateRequiredPropsMethod = '\n  @override\n'
           '  @mustCallSuper\n'
           '  void validateRequiredProps() {\n'
           '    super.validateRequiredProps();\n'
-          '    ${requiredPropChecks.join('\n')}\n'
+          '${implLines.map((line) => '  $line\n').join()}'
           '  }\n';
       output.write(validateRequiredPropsMethod);
     }
@@ -518,6 +530,7 @@ class TypedMapType {
   final bool isProps;
   final bool isAbstract;
   final bool isMixin;
+
   // ignore: avoid_positional_boolean_parameters
   const TypedMapType(this.isProps, this.isAbstract, this.isMixin);
 

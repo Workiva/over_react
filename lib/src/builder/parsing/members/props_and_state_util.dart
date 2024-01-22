@@ -50,6 +50,9 @@ class _PropsStateStringHelpersImpl extends Object with PropsStateStringHelpers {
   _PropsStateStringHelpersImpl({required this.isProps});
 }
 
+final Expando<String> props_ignoreRequiredPropsFrom_source = Expando();
+final Expando<String> props_ignoreRequiredProps_source = Expando();
+
 /// Uses [InstantiatedMeta] to analyze [node] and determine the proper annotation.
 annotations.TypedMap getPropsOrStateAnnotation(bool isProps, AnnotatedNode node) {
   final meta = isProps
@@ -61,6 +64,23 @@ annotations.TypedMap getPropsOrStateAnnotation(bool isProps, AnnotatedNode node)
           InstantiatedMeta.fromNode<annotations.AbstractState>(node) ??
           // ignore: deprecated_member_use_from_same_package
           InstantiatedMeta.fromNode<annotations.StateMixin>(node));
+
+  if (meta != null && meta.potentiallyIncompleteValue is annotations.Props) {
+    // print('unsupportedArguments ${meta.unsupportedArguments} ${meta.unsupportedArguments.map((e) => e.runtimeType)}');
+    // fixme error when this case isn't well formed
+    if (meta.unsupportedArguments.length == 1) {
+      final arg = meta.unsupportedArguments[0];
+      if (arg is NamedExpression && arg.name.label.name == 'ignoreRequiredPropsFrom') {
+        props_ignoreRequiredPropsFrom_source[meta.potentiallyIncompleteValue] =
+            arg.expression.toSource();
+        return meta.potentiallyIncompleteValue;
+      } else if (arg is NamedExpression && arg.name.label.name == 'ignoreRequiredProps') {
+        props_ignoreRequiredProps_source[meta.potentiallyIncompleteValue] =
+            arg.expression.toSource();
+        return meta.potentiallyIncompleteValue;
+      }
+    }
+  }
 
   return meta?.value ?? (isProps ? annotations.Props() : annotations.State());
 }
