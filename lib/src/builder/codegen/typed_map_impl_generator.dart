@@ -19,7 +19,6 @@ import '../parsing.dart';
 import '../util.dart';
 import 'names.dart';
 import 'util.dart';
-import 'package:over_react/src/component_declaration/annotations.dart' as annotations;
 
 /// Base class for generating concrete factory and props/state class implementations.
 abstract class TypedMapImplGenerator extends BoilerplateDeclarationGenerator {
@@ -136,9 +135,7 @@ abstract class TypedMapImplGenerator extends BoilerplateDeclarationGenerator {
     String? propKeyNamespace,
     List<String>? allPropsMixins,
     required String? requiredPropNamesToSkipValidation,
-    required String? requiredPropClassesToSkipValidationSetSource,
   }) {
-    // throw ArgumentError(requiredPropNamesToSkipValidation);
     if (isProps) {
       if (componentFactoryName == null || propKeyNamespace == null) {
         throw ArgumentError('componentFactoryName/propKeyNamespace must be specified for props');
@@ -254,13 +251,6 @@ abstract class TypedMapImplGenerator extends BoilerplateDeclarationGenerator {
         ..writeln(
             '  Set<String> get requiredPropNamesToSkipValidation => const $requiredPropNamesToSkipValidation;');
     }
-    if (requiredPropClassesToSkipValidationSetSource != null) {
-      buffer
-        ..writeln()
-        ..writeln('  @override')
-        ..writeln(
-            '  Set<Type> get requiredPropClassesToSkipValidation => const $requiredPropClassesToSkipValidationSetSource;');
-    }
 
     // End of class body
     buffer.writeln('}');
@@ -350,7 +340,6 @@ class _LegacyTypedMapImplGenerator extends TypedMapImplGenerator {
     outputContentsBuffer.write(_generateConcretePropsOrStateImpl(
       componentFactoryName: ComponentNames(declaration.component.name.name).componentFactoryName,
       propKeyNamespace: getAccessorKeyNamespace(names, member.meta),
-      requiredPropClassesToSkipValidationSetSource: props_ignoreRequiredPropsFrom_source[member.meta],
       requiredPropNamesToSkipValidation: props_ignoreRequiredProps_source[member.meta],
       // requiredPropNamesToSkipValidation: member.meta.tryCast<annotations.Props>()?.ignoreRequiredProps,
     ));
@@ -359,7 +348,6 @@ class _LegacyTypedMapImplGenerator extends TypedMapImplGenerator {
   @override
   void _generateStateImpl() {
     outputContentsBuffer.write(_generateConcretePropsOrStateImpl(
-      requiredPropClassesToSkipValidationSetSource: null,
       requiredPropNamesToSkipValidation: null,
     ));
   }
@@ -475,7 +463,6 @@ class _TypedMapImplGenerator extends TypedMapImplGenerator {
       // This doesn't really apply to the new boilerplate
       propKeyNamespace: '',
       allPropsMixins: allPropsMixins,
-      requiredPropClassesToSkipValidationSetSource: props_ignoreRequiredPropsFrom_source[member.meta],
       requiredPropNamesToSkipValidation: props_ignoreRequiredProps_source[member.meta],
       // requiredPropNamesToSkipValidation: member.meta.tryCast<annotations.Props>()?.ignoreRequiredProps,
     ));
@@ -484,7 +471,6 @@ class _TypedMapImplGenerator extends TypedMapImplGenerator {
   @override
   void _generateStateImpl() {
     outputContentsBuffer.write(_generateConcretePropsOrStateImpl(
-      requiredPropClassesToSkipValidationSetSource: null,
       requiredPropNamesToSkipValidation: null,
     ));
   }

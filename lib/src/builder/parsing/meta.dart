@@ -61,8 +61,7 @@ class InstantiatedMeta<TMeta> {
   /// The original node will be available via [node].
   ///
   /// The instantiated annotation will be available via [value].
-  static InstantiatedMeta<T>? fromNode<T>(AnnotatedNode node,
-      {dynamic Function(Expression argument)? onUnsupportedArgument}) {
+  static InstantiatedMeta<T>? fromNode<T>(AnnotatedNode node) {
     final metaNode = _getMatchingAnnotation(node, T);
     final unsupportedArguments = <Expression>[];
     final value =
