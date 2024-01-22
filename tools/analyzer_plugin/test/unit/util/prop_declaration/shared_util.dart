@@ -46,7 +46,8 @@ Future<ResolvedUnitResult> setUpResult(SharedAnalysisContext sharedContext) asyn
   // utilities like `getAllProps` and `getRequiredProps` only deal with user-authored props, and not generated prop
   // overrides.
   final partResult = await getResolvedUnit(partFullPath);
-  expect(filterErrors(partResult.errors), isEmpty);
+  expect(filterErrors(partResult.errors), isEmpty,
+      reason: 'generated file should be free of analysis errors. Full generated source:\n$partSource');
   // Check whether part declarations show up in the main library as a way of verifying they're wired up correctly
   expect(libraryResult.libraryElement.topLevelElements, contains(partResult.unit.declaredElement!.classes.first),
       reason: 'generated part should be wired up to parent library');
