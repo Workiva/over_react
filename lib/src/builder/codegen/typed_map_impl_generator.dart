@@ -341,7 +341,6 @@ class _LegacyTypedMapImplGenerator extends TypedMapImplGenerator {
       componentFactoryName: ComponentNames(declaration.component.name.name).componentFactoryName,
       propKeyNamespace: getAccessorKeyNamespace(names, member.meta),
       requiredPropNamesToSkipValidation: props_ignoreRequiredProps_source[member.meta],
-      // requiredPropNamesToSkipValidation: member.meta.tryCast<annotations.Props>()?.ignoreRequiredProps,
     ));
   }
 
@@ -464,7 +463,6 @@ class _TypedMapImplGenerator extends TypedMapImplGenerator {
       propKeyNamespace: '',
       allPropsMixins: allPropsMixins,
       requiredPropNamesToSkipValidation: props_ignoreRequiredProps_source[member.meta],
-      // requiredPropNamesToSkipValidation: member.meta.tryCast<annotations.Props>()?.ignoreRequiredProps,
     ));
   }
 

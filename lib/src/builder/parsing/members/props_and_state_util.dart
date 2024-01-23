@@ -65,7 +65,6 @@ annotations.TypedMap getPropsOrStateAnnotation(bool isProps, AnnotatedNode node)
           InstantiatedMeta.fromNode<annotations.StateMixin>(node));
 
   if (meta != null && meta.potentiallyIncompleteValue is annotations.Props) {
-    // print('unsupportedArguments ${meta.unsupportedArguments} ${meta.unsupportedArguments.map((e) => e.runtimeType)}');
     // fixme error when this case isn't well formed
     if (meta.unsupportedArguments.length == 1) {
       final arg = meta.unsupportedArguments[0];
