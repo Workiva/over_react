@@ -53,38 +53,7 @@ class Props implements TypedMap {
   @override
   final String? keyNamespace;
 
-  /// Mixins to ignore required prop validation for, both statically in the analyzer plugin
-  /// and at runtime when invoking the builder (only with asserts enabled) .
-  ///
-  /// Useful when you have a wrapper component that sets required prop manually.
-  ///
-  /// For example:
-  ///
-  /// ```dart
-  /// mixin FooProps on UiProps {
-  ///   late String requiredPropAlwaysSetInWrapper1;
-  ///   late String requiredPropAlwaysSetInWrapper2;
-  /// }
-  ///
-  /// UiFactory<FooProps> Foo = uiFunction((props) {
-  ///   // ...
-  /// }, _$FooConfig);
-  ///
-  /// @Props(ignoreRequiredPropsFrom: {FooProps})
-  /// class WrapperProps = UiProps with FooProps, WrapperPropsMixin;
-  ///
-  /// UiFactory<WrapperProps> Wrapper = uiForwardRef((props, ref) {
-  ///   return (Foo()
-  ///     ..requiredPropAlwaysSetInWrapper1 = 'foo'
-  ///     ..requiredPropAlwaysSetInWrapper2 = 'bar'
-  ///     ..addProps(props.getPropsToForward(exclude: {WrapperPropsMixin}))
-  ///     ..ref = ref
-  ///   )();
-  /// }, _$WrapperConfig);
-  ///```
-  final Set<Type>? ignoreRequiredPropsFrom;
-
-  /// Names of props to required prop validation for, both statically in the analyzer plugin
+  /// Names of props to opt out of required prop validation for, both statically in the analyzer plugin
   /// and at runtime when invoking the builder (only with asserts enabled).
   ///
   /// Useful when you have a wrapper component that sets required prop manually.
@@ -114,7 +83,7 @@ class Props implements TypedMap {
   ///```
   final Set<String>? ignoreRequiredProps;
 
-  const Props({this.keyNamespace, this.ignoreRequiredPropsFrom, this.ignoreRequiredProps});
+  const Props({this.keyNamespace, this.ignoreRequiredProps});
 }
 
 /// Annotation used with the `over_react` builder to declare a `UiState` mixin for a component.

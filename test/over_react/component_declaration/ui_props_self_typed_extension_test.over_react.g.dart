@@ -61,21 +61,16 @@ mixin $TestProps on TestProps {
   @mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
-    if (requiredPropClassesToSkipValidation.contains(TestProps)) {
-      return;
-    }
-
     if (!props.containsKey('TestProps.requiredProp') &&
-        !requiredPropNamesToSkipValidation.contains('TestProps.requiredProp')) {
+        !requiredPropNamesToSkipValidation.contains('requiredProp')) {
       throw MissingRequiredPropsError(
-          requiredPropNamesToSkipValidation.join(','));
+          'Required prop `requiredProp` is missing.');
     }
 
     if (!props.containsKey('TestProps.requiredNullableProp') &&
-        !requiredPropNamesToSkipValidation
-            .contains('TestProps.requiredNullableProp')) {
+        !requiredPropNamesToSkipValidation.contains('requiredNullableProp')) {
       throw MissingRequiredPropsError(
-          requiredPropNamesToSkipValidation.join(','));
+          'Required prop `requiredNullableProp` is missing.');
     }
   }
 }

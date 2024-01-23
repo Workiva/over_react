@@ -82,14 +82,9 @@ mixin $ReduxProviderPropsMixin on ReduxProviderPropsMixin {
   @mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
-    if (requiredPropClassesToSkipValidation.contains(ReduxProviderPropsMixin)) {
-      return;
-    }
-
     if (!props.containsKey('store') &&
         !requiredPropNamesToSkipValidation.contains('store')) {
-      throw MissingRequiredPropsError(
-          requiredPropNamesToSkipValidation.join(','));
+      throw MissingRequiredPropsError('Required prop `store` is missing.');
     }
   }
 }

@@ -18,7 +18,7 @@ part 'props_mixin.over_react.g.dart';
 
 mixin ExamplePropsMixin on UiProps {
   String? propMixin1;
-  String? requiredProp;
+  late String requiredProp;
 }
 
 mixin RequiresOtherMixinPropsMixin<T extends Iterable, U>
