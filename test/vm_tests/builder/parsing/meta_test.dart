@@ -27,8 +27,7 @@ void main() {
       ''');
       final meta = InstantiatedMeta.fromNode<TestAnnotation>(member)!;
 
-      expect(meta.metaNode, isNotNull);
-      expect(meta.metaNode!.name.name, 'TestAnnotation');
+      expect(meta.metaNode.name.name, 'TestAnnotation');
       expect(meta.value, isNotNull);
       expect(meta.value.positional, 'hello');
     });
@@ -40,8 +39,7 @@ void main() {
       ''');
       final meta = InstantiatedMeta.fromNode<TestAnnotation>(member)!;
 
-      expect(meta.metaNode, isNotNull);
-      expect(meta.metaNode!.name.name, 'TestAnnotation');
+      expect(meta.metaNode.name.name, 'TestAnnotation');
 
       expect(meta.isIncomplete, isTrue);
       expect(meta.unsupportedArguments, hasLength(1));
