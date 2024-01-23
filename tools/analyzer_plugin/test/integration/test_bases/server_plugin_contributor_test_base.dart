@@ -141,7 +141,7 @@ abstract class ServerPluginContributorTestBase extends AnalysisDriverTestBase {
 
   /// Will fail the test if any unexpected plugin errors were sent on the plugin
   /// communication channel.
-  void expectNoPluginErrors() {
+  void expectNoPluginErrorNotifications() {
     if (_channel == null) {
       throw ArgumentError(
           '_channel was unexpectedly null, meaning setUp may have thrown an error that wasn\'t handled yet. '
@@ -176,7 +176,7 @@ abstract class ServerPluginContributorTestBase extends AnalysisDriverTestBase {
   @override
   @mustCallSuper
   Future<void> tearDown() async {
-    expectNoPluginErrors();
+    expectNoPluginErrorNotifications();
     _channel = null;
     _plugin = null;
     super.tearDown();
