@@ -65,7 +65,6 @@ annotations.TypedMap getPropsOrStateAnnotation(bool isProps, AnnotatedNode node)
           InstantiatedMeta.fromNode<annotations.StateMixin>(node));
 
   if (meta != null && meta.potentiallyIncompleteValue is annotations.Props) {
-    // fixme error when this case isn't well formed
     if (meta.unsupportedArguments.length == 1) {
       final arg = meta.unsupportedArguments[0];
       if (arg is NamedExpression && arg.name.label.name == 'ignoreRequiredProps') {
