@@ -206,7 +206,7 @@ void main() {
                     'Required prop `secondRequiredProp` is missing.'))));
       });
 
-      test('does not throw when all required props are set', () {
+      test('does not throw when all required props are set or ignored via @Props(ignoreRequiredProps: ...)', () {
         expect(() {
           (MultipleMixinsTest()
             ..requiredNullable = true

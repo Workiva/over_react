@@ -695,6 +695,8 @@ abstract class UiProps extends MapBase
   }
 
   /// Names of props to opt out of required prop validation for.
+  ///
+  /// Overridden in generated code, based on the value of `@Props(ignoreRequiredProps: ...)`.
   @visibleForOverriding
   Set<String> get requiredPropNamesToSkipValidation => const {};
 }
