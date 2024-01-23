@@ -53,7 +53,7 @@ class Props implements TypedMap {
   @override
   final String? keyNamespace;
 
-  /// Names of props to required prop validation for, both statically in the analyzer plugin
+  /// Names of props to opt out of required prop validation for, both statically in the analyzer plugin
   /// and at runtime when invoking the builder (only with asserts enabled).
   ///
   /// Useful when you have a wrapper component that sets required prop manually.
