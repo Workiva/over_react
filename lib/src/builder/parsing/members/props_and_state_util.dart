@@ -50,8 +50,6 @@ class _PropsStateStringHelpersImpl extends Object with PropsStateStringHelpers {
   _PropsStateStringHelpersImpl({required this.isProps});
 }
 
-final Expando<String> props_ignoreRequiredProps_source = Expando();
-
 /// Uses [InstantiatedMeta] to analyze [node] and determine the proper annotation.
 annotations.TypedMap getPropsOrStateAnnotation(bool isProps, AnnotatedNode node) {
   final meta = isProps
@@ -68,9 +66,19 @@ annotations.TypedMap getPropsOrStateAnnotation(bool isProps, AnnotatedNode node)
     if (meta.unsupportedArguments.length == 1) {
       final arg = meta.unsupportedArguments[0];
       if (arg is NamedExpression && arg.name.label.name == 'ignoreRequiredProps') {
-        props_ignoreRequiredProps_source[meta.potentiallyIncompleteValue] =
-            arg.expression.toSource();
-        return meta.potentiallyIncompleteValue;
+        // Attempt to parse the value, and fall through if something goes wrong,
+        // and let `meta?.value` below throw.
+        final expression = arg.expression;
+        if (expression is SetOrMapLiteral) {
+          final simpleStringElements =
+              expression.elements.whereType<SimpleStringLiteral>().toList();
+          if (simpleStringElements.length == expression.elements.length) {
+            return annotations.Props(
+              keyNamespace: meta.potentiallyIncompleteValue.keyNamespace,
+              ignoreRequiredProps: simpleStringElements.map((e) => e.value).toSet(),
+            );
+          }
+        }
       }
     }
   }
