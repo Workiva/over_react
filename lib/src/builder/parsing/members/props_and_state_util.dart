@@ -62,6 +62,27 @@ annotations.TypedMap getPropsOrStateAnnotation(bool isProps, AnnotatedNode node)
           // ignore: deprecated_member_use_from_same_package
           InstantiatedMeta.fromNode<annotations.StateMixin>(node));
 
+  if (meta != null && meta.potentiallyIncompleteValue is annotations.Props) {
+    if (meta.unsupportedArguments.length == 1) {
+      final arg = meta.unsupportedArguments[0];
+      if (arg is NamedExpression && arg.name.label.name == 'ignoreRequiredProps') {
+        // Attempt to parse the value, and fall through if something goes wrong,
+        // and let `meta?.value` below throw.
+        final expression = arg.expression;
+        if (expression is SetOrMapLiteral) {
+          final simpleStringElements =
+              expression.elements.whereType<SimpleStringLiteral>().toList();
+          if (simpleStringElements.length == expression.elements.length) {
+            return annotations.Props(
+              keyNamespace: meta.potentiallyIncompleteValue.keyNamespace,
+              ignoreRequiredProps: simpleStringElements.map((e) => e.value).toSet(),
+            );
+          }
+        }
+      }
+    }
+  }
+
   return meta?.value ?? (isProps ? annotations.Props() : annotations.State());
 }
 
