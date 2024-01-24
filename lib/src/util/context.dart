@@ -13,14 +13,15 @@
 // limitations under the License.
 
 import 'package:meta/meta.dart';
-import 'package:over_react/component_base.dart' show UiFactory;
-import 'package:over_react/src/component_declaration/builder_helpers.dart' as builder_helpers;
+import 'package:over_react/src/component_declaration/builder_helpers.dart';
 import 'package:over_react/src/util/prop_key_util.dart';
 
 import 'package:react/react_client/component_factory.dart';
 import 'package:react/react_client/react_interop.dart';
 import 'package:react/react_client/js_backed_map.dart';
 import 'package:react/react.dart' as react;
+
+part 'context.over_react.g.dart';
 
 /// The return type of [createContext], Wraps [ReactContext] for use in Dart.
 /// Allows access to [Provider] and [Consumer] Components.
@@ -51,8 +52,8 @@ class Context<TValue> {
   Context(this.Provider, this.Consumer, this.reactDartContext);
 
   factory Context.fromReactDartContext(react.Context<TValue> reactDartContext) {
-    ProviderProps<TValue> Provider([Map? map]) => (ProviderProps<TValue>(map as JsBackedMap?)..componentFactory = reactDartContext.Provider);
-    ConsumerProps<TValue> Consumer([Map? map]) => (ConsumerProps<TValue>(map as JsBackedMap?)..componentFactory = reactDartContext.Consumer);
+    ProviderProps<TValue> Provider([Map? map]) => (_ProviderPropsImpl<TValue>(map)..componentFactory = reactDartContext.Provider);
+    ConsumerProps<TValue> Consumer([Map? map]) => (_ConsumerPropsImpl<TValue>(map)..componentFactory = reactDartContext.Consumer);
     return Context<TValue>(Provider, Consumer, reactDartContext);
   }
 
@@ -129,68 +130,62 @@ class Context<TValue> {
   final UiFactory<ConsumerProps<TValue>> Consumer;
 }
 
-/// [ProviderProps] is a typed props class for the [Context.Provider] from a [Context] object created with [createContext].
+// Trigger generation of concrete props classes we can use below in _ProviderPropsImpl/ _ConsumerPropsImpl.
+UiFactory<ProviderProps> _Provider = _$_Provider; // ignore: unused_element
+UiFactory<ConsumerProps> _Consumer = _$_Consumer; // ignore: unused_element
+
+/// A concrete implementation of [ProviderProps], which, unlike a [UiFactory],
+/// can be used to instantiate it with a generic parameter.
+///
+/// We rely on this behavior within [Context].
+///
+/// Uses the generated concrete props class so we don't have to manually implement generated members
+/// and apply generated `$`-prefixed props mixin class.
+// ignore: deprecated_member_use_from_same_package
+typedef _ProviderPropsImpl<TValue> = _$$ProviderProps<TValue>;
+
+/// A concrete implementation of [ConsumerProps], which, unlike a [UiFactory],
+///
+/// We rely on this behavior within [Context].
+///
+/// Uses the generated concrete props class so we don't have to manually implement generated members
+/// and apply generated `$`-prefixed props mixin class.
+// ignore: deprecated_member_use_from_same_package
+typedef _ConsumerPropsImpl<TValue> = _$$ConsumerProps<TValue>;
+
+/// A typed props class for the [Context.Provider] from a [Context] object created with [createContext].
 ///
 /// Props:
 ///
-/// * [value] The value that you want to provide to all consumers.
+/// * [_ProviderPropsMixin.value] The value that you want to provide to all consumers.
 ///
 /// See: <https://react.dev/reference/react/createContext#provider>
-class ProviderProps<TValue> extends builder_helpers.UiProps {
-  ProviderProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
+class ProviderProps<TValue> = UiProps with _ProviderPropsMixin;
 
-  @override
-  final Map props;
-
-  @override
-  String get propKeyNamespace => '';
-
-  @override
-  bool get $isClassGenerated => true;
-
-  @override
-  String $getPropKey(accessMap) => _getPropKey(accessMap, (backingMap) => ProviderProps(backingMap));
-
-  TValue? get value => props['value'] as TValue?;
-  set value(TValue? v) => props['value'] = v;
+// Private to mirror `ConsumerPropsMixin` being private.
+@Props(keyNamespace: '')
+mixin _ProviderPropsMixin<TValue> on UiProps {
+  late TValue value;
 }
 
-const _getPropKey = getPropKey;
-
-/// [ConsumerProps] is a typed props class for the [Context.Consumer] from a [Context] object created with [createContext].
+/// A typed props class for the [Context.Consumer] from a [Context] object created with [createContext].
 ///
 /// See: <https://react.dev/reference/react/createContext#consumer>
-class ConsumerProps<TValue> extends builder_helpers.UiProps {
-  // Initialize to a JsBackedMap so that copying can be optimized
-  // when converting props during ReactElement creation.
-  // TODO 3.0.0-wip generate JsBackedMap-based implementation used when no backing map is provided, like we do for Component2
-  ConsumerProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
+class ConsumerProps<TValue> = UiProps with _ConsumerPropsMixin<TValue>;
 
-  @override
-  final Map props;
-
+// Private so we don't have to export this props mixin with its weird [call] override, which could mess with consumer code.
+// Consumers shouldn't ever need to mix in these props, anyways.
+@Props(keyNamespace: '')
+mixin _ConsumerPropsMixin<TValue> on UiProps {
   /// __Use at your own risk.__
   ///
   /// This is an _experimental_ api that ReactJS is currently testing.
   /// It is not final and should be expected to change.
   @experimental
-  dynamic get unstable_observedBits => props['unstable_observedBits'];
+  dynamic unstable_observedBits;
 
-  /// __Use at your own risk.__
-  ///
-  /// This is an _experimental_ api that ReactJS is currently testing.
-  /// It is not final and should be expected to change.
-  @experimental
-  set unstable_observedBits(dynamic value) => props['unstable_observedBits'] = value;
-
-  @override
-  String get propKeyNamespace => '';
-
-  @override
-  bool get $isClassGenerated => true;
-
-  @override
-  String $getPropKey(accessMap) => _getPropKey(accessMap, (backingMap) => ConsumerProps(backingMap));
+  // We can't override call in the concrete props class, because the generated class only
+  // `implements` it and doesn't extend it, so we'll have to override it here, in the mixin.
 
   /// Creates a new component with this builder's props and the specified [children].
   ///
