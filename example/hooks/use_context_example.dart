@@ -17,7 +17,7 @@ import 'package:over_react/over_react.dart';
 // ignore_for_file: uri_has_not_been_generated
 part 'use_context_example.over_react.g.dart';
 
-final TestNewContext = createContext<Map>({'renderCount': 0});
+final TestNewContext = createContextInit<Map>({'renderCount': 0});
 
 mixin UseContextExampleProps on UiProps {}
 

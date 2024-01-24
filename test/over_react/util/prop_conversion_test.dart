@@ -323,7 +323,7 @@ main() {
           expect(jsifyAndUnjsify(object), same(object));
         });
       });
-      
+
       group('jsifyContextProp', () {
         test('passes through null', () {
           expect(jsifyContextProp(null), null);
@@ -1544,8 +1544,8 @@ mixin TestJsProps on UiProps {
   @Accessor(key: 'messageContext')
   ReactContext? _$raw$messageContext;
 
-  Context<String>? get messageContext => unjsifyContextProp(_$raw$messageContext);
-  set messageContext(Context<String>? value) => _$raw$messageContext = jsifyContextProp(value);
+  Context<String?>? get messageContext => unjsifyContextProp(_$raw$messageContext);
+  set messageContext(Context<String?>? value) => _$raw$messageContext = jsifyContextProp(value);
 
   dynamic /*ElementType*/ component;
   dynamic /*ElementType*/ inputComponent;
