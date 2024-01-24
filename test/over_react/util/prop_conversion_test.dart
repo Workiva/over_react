@@ -370,7 +370,9 @@ main() {
 
         group('Dart context objects (with same reified generic type)', () {
           test('when the type parameter is dynamic', () {
-            final dartContext = createContext<Element>();
+            final dartContext = createContextInit<Element>(DivElement());
+            expect(dartContext, isA<Context<Element>>(), reason: 'test setup check');
+
             // Specify dynamic here so the static type parameter to this method
             // doesn't influence the reified type.
             expect(jsifyAndUnjsify<dynamic>(dartContext), same(dartContext));
@@ -385,7 +387,9 @@ main() {
           });
 
           test('when the type parameter is specified/inferred', () {
-            final dartContext = createContext<Element>();
+            final dartContext = createContextInit<Element>(DivElement());
+            expect(dartContext, isA<Context<Element>>(), reason: 'test setup check');
+
             // Specify dynamic here so the static type parameter to this method
             // doesn't influence the reified type.
             expect(jsifyAndUnjsify(dartContext), same(dartContext));
