@@ -45,7 +45,7 @@ import 'package:react/react.dart' as react;
 ///       }
 ///     }
 ///
-/// Learn more at: https://reactjs.org/docs/context.html
+/// Learn more at: hhttps://react.dev/learn/passing-data-deeply-with-context
 class Context<TValue> {
   // ignore: avoid_types_as_parameter_names
   Context(this.Provider, this.Consumer, this.reactDartContext);
@@ -97,7 +97,7 @@ class Context<TValue> {
   ///       }
   ///     }
   ///
-  /// Learn More: <https://reactjs.org/docs/context.html#contextprovider>
+  /// Learn More: <https://react.dev/reference/react/createContext#provider>
   final UiFactory<ProviderProps<TValue>> Provider;
 
   /// A React component that subscribes to context changes.
@@ -125,7 +125,7 @@ class Context<TValue> {
   ///       }
   ///     }
   ///
-  /// Learn more: <https://reactjs.org/docs/context.html#contextconsumer>
+  /// Learn more: <https://react.dev/reference/react/createContext#consumer>
   final UiFactory<ConsumerProps<TValue>> Consumer;
 }
 
@@ -135,7 +135,7 @@ class Context<TValue> {
 ///
 /// * [value] The value that you want to provide to all consumers.
 ///
-/// See: <https://reactjs.org/docs/context.html#contextprovider>
+/// See: <https://react.dev/reference/react/createContext#provider>
 class ProviderProps<TValue> extends builder_helpers.UiProps {
   ProviderProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
@@ -159,7 +159,7 @@ const _getPropKey = getPropKey;
 
 /// [ConsumerProps] is a typed props class for the [Context.Consumer] from a [Context] object created with [createContext].
 ///
-/// See: <https://reactjs.org/docs/context.html#contextconsumer>
+/// See: <https://react.dev/reference/react/createContext#consumer>
 class ConsumerProps<TValue> extends builder_helpers.UiProps {
   // Initialize to a JsBackedMap so that copying can be optimized
   // when converting props during ReactElement creation.
