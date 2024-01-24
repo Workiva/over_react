@@ -206,7 +206,7 @@ void main() {
                     'Required prop `secondRequiredProp` is missing.'))));
       });
 
-      test('does not throw when all required props are set', () {
+      test('does not throw when all required props are set or ignored via @Props(ignoreRequiredProps: ...)', () {
         expect(() {
           (MultipleMixinsTest()
             ..requiredNullable = true
@@ -216,6 +216,12 @@ void main() {
         },
           returnsNormally);
       });
+    });
+
+    test('@Props(ignoreRequiredProps) turns off validation for specific props', () {
+      expect(() {
+        rtl.render(WrapperTest()());
+      }, returnsNormally);
     });
   }, tags: 'ddc');
 
@@ -230,6 +236,7 @@ void main() {
 // ignore: undefined_identifier, invalid_assignment
 UiFactory<ComponentTestProps> ComponentTest = _$ComponentTest;
 
+@Props(ignoreRequiredProps: {'testIgnoreOnMixin'})
 mixin ComponentTestProps on UiProps {
   late bool requiredNonNullable;
 
@@ -246,6 +253,8 @@ mixin ComponentTestProps on UiProps {
   late dynamic ref;
 
   bool? nullable;
+
+  late bool testIgnoreOnMixin;
 }
 
 class ComponentTestComponent extends UiComponent2<ComponentTestProps> {
@@ -262,4 +271,17 @@ mixin MultipleMixinsTestPropsMixin on UiProps {
   late bool secondRequiredProp;
 }
 
+@Props(ignoreRequiredProps: {'testIgnoreOnMixin'})
 class MultipleMixinsTestProps = UiProps with MultipleMixinsTestPropsMixin, ComponentTestProps;
+
+UiFactory<WrapperTestProps> WrapperTest = uiFunction(
+      (props) {},
+  _$WrapperTestConfig, // ignore: undefined_identifier
+);
+
+mixin WrapperTestPropsMixin on UiProps {
+  late bool thirdRequiredProp;
+}
+
+@Props(ignoreRequiredProps: {'thirdRequiredProp', 'secondRequiredProp', 'requiredNonNullable', 'requiredNullable', 'testIgnoreOnMixin'})
+class WrapperTestProps = UiProps with WrapperTestPropsMixin, MultipleMixinsTestPropsMixin, ComponentTestProps;

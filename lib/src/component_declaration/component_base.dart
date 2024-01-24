@@ -693,6 +693,12 @@ abstract class UiProps extends MapBase
   void disableRequiredPropValidation() {
     _shouldValidateRequiredProps = false;
   }
+
+  /// Names of props to opt out of required prop validation for.
+  ///
+  /// Overridden in generated code, based on the value of `@Props(ignoreRequiredProps: ...)`.
+  @visibleForOverriding
+  Set<String> get requiredPropNamesToSkipValidation => const {};
 }
 
 /// A class that declares the `_map` getter shared by [PropsMapViewMixin]/[StateMapViewMixin] and [MapViewMixin].

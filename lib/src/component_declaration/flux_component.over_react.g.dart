@@ -54,11 +54,13 @@ mixin $FluxUiPropsMixin<ActionsT, StoresT>
   @mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
-    if (!props.containsKey('FluxUiPropsMixin.actions')) {
+    if (!props.containsKey('FluxUiPropsMixin.actions') &&
+        !requiredPropNamesToSkipValidation.contains('actions')) {
       throw MissingRequiredPropsError('Required prop `actions` is missing.');
     }
 
-    if (!props.containsKey('FluxUiPropsMixin.store')) {
+    if (!props.containsKey('FluxUiPropsMixin.store') &&
+        !requiredPropNamesToSkipValidation.contains('store')) {
       throw MissingRequiredPropsError('Required prop `store` is missing.');
     }
   }

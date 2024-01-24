@@ -52,7 +52,38 @@ class Props implements TypedMap {
   /// overriding the default of `'${propsClassName}.'`.
   @override
   final String? keyNamespace;
-  const Props({this.keyNamespace});
+
+  /// Names of props to opt out of required prop validation for, both statically in the analyzer plugin
+  /// and at runtime when invoking the builder (only with asserts enabled).
+  ///
+  /// Useful when you have a wrapper component that sets required prop manually.
+  ///
+  /// For example:
+  ///
+  /// ```dart
+  /// mixin FooProps on UiProps {
+  ///   late String requiredPropAlwaysSetInWrapper;
+  ///   late String requiredPropNotSetInWrapper;
+  /// }
+  ///
+  /// UiFactory<FooProps> Foo = uiFunction((props) {
+  ///   // ...
+  /// }, _$FooConfig);
+  ///
+  /// @Props(ignoreRequiredProps: {'requiredPropAlwaysSetInWrapper'})
+  /// class WrapperProps = UiProps with FooProps, WrapperPropsMixin;
+  ///
+  /// UiFactory<WrapperProps> Wrapper = uiForwardRef((props, ref) {
+  ///   return (Foo()
+  ///     ..requiredPropAlwaysSetInWrapper = 'foo'
+  ///     ..addProps(props.getPropsToForward(exclude: {WrapperPropsMixin}))
+  ///     ..ref = ref
+  ///   )();
+  /// }, _$WrapperConfig);
+  ///```
+  final Set<String>? ignoreRequiredProps;
+
+  const Props({this.keyNamespace, this.ignoreRequiredProps});
 }
 
 /// Annotation used with the `over_react` builder to declare a `UiState` mixin for a component.
