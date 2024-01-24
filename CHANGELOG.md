@@ -24,6 +24,8 @@
     - FragmentProps
     - StrictModeProps
     - ReduxProviderProps (for extension, mix in ReduxProviderPropsMixin instead)
+    - ProviderProps (factory: `Context.Provider`)
+    - ConsumerProps (factory: `Context.Cosnumer`)
 - UiPropsMapView (deprecated) is now abstract and requires subclasses to override `selfFactory`
 - `PropsMeta`/`StateMeta` constructor arguments `fields` and `keys` are now required
 - `ProviderProps.props` type has been widened from `JsMap` to `Map` (now matches `ConsumerProps` and other props classes)
