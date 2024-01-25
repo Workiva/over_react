@@ -2,23 +2,82 @@ import 'package:over_react/over_react.dart';
 
 part 'missing_required_props.over_react.g.dart';
 
+UiFactory<UiProps> GenericFactory = uiFunction((_) {}, UiFactoryConfig());
+
+UiFactory<NoRequiredProps> NoRequired = uiFunction((_) {}, _$NoRequiredConfig);
+mixin NoRequiredProps on UiProps {
+  String? optional1;
+  String? optional2;
+}
+
+
+UiFactory<WithLateRequiredProps> WithLateRequired = uiFunction((_) {}, _$WithLateRequiredConfig);
+mixin WithLateRequiredProps on UiProps {
+  late String required1;
+  late String? required2;
+  String? optional1;
+  String? optional2;
+}
+
+
+UiFactory<InheritsLateRequiredProps> InheritsLateRequired = uiFunction((_) {}, _$InheritsLateRequiredConfig);
+mixin InheritsLateRequiredPropsMixin on UiProps {
+  late String requiredInSubclass;
+}
+class InheritsLateRequiredProps = UiProps with WithLateRequiredProps, InheritsLateRequiredPropsMixin;
+
+
+UiFactory<RequiredWithSameNameAsPrefixedProps> RequiredWithSameNameAsPrefixed = uiFunction((_) {}, _$RequiredWithSameNameAsPrefixedConfig);
+mixin RequiredWithSameNameAsPrefixedProps on UiProps {
+  late bool hidden;
+}
+
+
+UiFactory<DisableValidationProps> DisableValidation = uiFunction((_) {}, _$DisableValidationConfig);
+mixin DisableValidationProps on UiProps {
+  @disableRequiredPropValidation
+  late String requiredPropWithDisabledValidation;
+}
+
+
+UiFactory<IgnoresSomeRequiredProps> IgnoresSomeRequired = uiFunction((_) {}, _$IgnoresSomeRequiredConfig);
+mixin IgnoresSomeRequiredPropsMixin on UiProps {
+  late String requiredInSubclass1;
+  late String requiredInSubclass2;
+}
+@Props(ignoreRequiredProps: {'required1', 'requiredInSubclass1'})
+class IgnoresSomeRequiredProps = UiProps with WithLateRequiredProps, IgnoresSomeRequiredPropsMixin;
+
+
+UiFactory<WithAnnotationRequiredProps> WithAnnotationRequired = uiFunction((_) {}, _$WithAnnotationRequiredConfig);
+mixin WithAnnotationRequiredProps on UiProps {
+  @requiredProp String? required1;
+  @requiredProp String? required2;
+  String? optional1;
+  String? optional2;
+}
+
 main() {
-  final content = (Bar()..bar = ''
-//    ..barRequired = ''
-  )();
-}
+  NoRequired()();
 
-UiFactory<BarProps> Bar = castUiFactory(_$Bar); // ignore: undefined_identifier
+  Dom.div()();
 
-mixin BarProps on UiProps {
-  @requiredProp
-  String? barRequired;
+  // Also should not lint
+  final incompleteBuilder = WithLateRequired();
+  incompleteBuilder();
 
-  /// yo yo
-  String? bar;
-}
+  (WithLateRequired()..disableRequiredPropValidation())();
 
-class BarComponent extends UiComponent2<BarProps> {
-  @override
-  render() => Dom.div()();
+  WithLateRequired()();
+
+  InheritsLateRequired()();
+
+  WithAnnotationRequired()();
+
+  DisableValidation()();
+
+  IgnoresSomeRequired()();
+
+  // Make sure prefixed props aren't mistaken for the missing required prop.
+  (RequiredWithSameNameAsPrefixed()..dom.hidden = true)();
 }

@@ -1,4 +1,4 @@
-import 'package:analyzer_plugin/protocol/protocol_common.dart';
+ import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:analyzer_plugin/protocol/protocol_generated.dart';
 import 'package:analyzer_plugin/utilities/analyzer_converter.dart';
 import 'package:collection/collection.dart';
@@ -49,7 +49,7 @@ abstract class DiagnosticTestBase extends ServerPluginContributorTestBase {
   /// Returns a matcher that matches [errorUnderTest].
   ///
   /// See [isDiagnostic] for more details.
-  Matcher isAnErrorUnderTest({bool? hasFix, SourceSelection? locatedAt}) {
+  TypeMatcher<AnalysisError> isAnErrorUnderTest({bool? hasFix, SourceSelection? locatedAt}) {
     hasFix ??= fixKindUnderTest != null;
     return isDiagnostic(errorUnderTest!, hasFix: hasFix, locatedAt: locatedAt);
   }
@@ -57,7 +57,7 @@ abstract class DiagnosticTestBase extends ServerPluginContributorTestBase {
   /// Returns a matcher that matches [fixKindUnderTest].
   ///
   /// See [isFix] for more details.
-  Matcher isAFixUnderTest() {
+  TypeMatcher<PrioritizedSourceChange> isAFixUnderTest() {
     return isFix(fixKindUnderTest!);
   }
 

@@ -79,7 +79,7 @@ class MissingCascadeParensDiagnostic extends DiagnosticContributor {
         final node = NodeLocator(error.offset, error.offset + error.length).searchWithin(result.unit)!;
 
         final debug = AnalyzerDebugHelper(result, collector, enabled: false);
-        debug.log('node.type: ${node.runtimeType}');
+        debug.log(() => 'node.type: ${node.runtimeType}', () => result.locationFor(node));
 
         InvocationExpression invocation;
         final parent = node.parent;
@@ -93,7 +93,7 @@ class MissingCascadeParensDiagnostic extends DiagnosticContributor {
         } else {
           return;
         }
-        debug.log('invocation : ${invocation.toSource()}');
+        debug.log(() => 'invocation : ${invocation.toSource()}', () => result.locationFor(node));
 
         final cascade = invocation.parent?.tryCast<AssignmentExpression>()?.parent?.tryCast<CascadeExpression>();
         if (cascade != null) {
@@ -111,14 +111,16 @@ class MissingCascadeParensDiagnostic extends DiagnosticContributor {
           continue;
         }
 
-        debug.log('${invocation.function.staticType?.getDisplayString(withNullability: false)}');
+        debug.log(() => '${invocation.function.staticType?.getDisplayString(withNullability: false)}',
+            () => result.locationFor(node));
 
         if (isBadFunction && (invocation.function.staticType?.isReactElement ?? false)) {
           final expr = invocation.function.tryCast<InvocationExpression>() ??
               invocation.function.tryCast<ParenthesizedExpression>()?.unParenthesized.tryCast<InvocationExpression>();
 
-          debug.log('expr: ${expr?.runtimeType} ${expr?.toSource()}');
-          debug.log('expr.parent: ${expr?.parent?.runtimeType} ${expr?.parent?.toSource()}');
+          debug.log(() => 'expr: ${expr?.runtimeType} ${expr?.toSource()}', () => result.locationFor(node));
+          debug.log(() => 'expr.parent: ${expr?.parent?.runtimeType} ${expr?.parent?.toSource()}',
+              () => result.locationFor(node));
 
           if (expr != null && (expr.argumentList.arguments.firstOrNull?.staticType?.isPropsClass ?? false)) {
             await collector.addErrorWithFix(

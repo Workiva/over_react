@@ -4,7 +4,7 @@ publish_to: none
 description: Dart analyzer plugin for OverReact
 repository: https://github.com/Workiva/over_react/tree/master/tools/analyzer_plugin
 environment:
-  sdk: '>=2.13.0 <3.0.0'
+  sdk: '>=2.17.0 <3.0.0'
 dependencies:
   analyzer: ^5.1.0
   analyzer_plugin: ^0.11.0
@@ -19,6 +19,7 @@ dependencies:
   yaml: ^3.0.0
 dev_dependencies:
   args: ^2.0.0
+  build: ^2.0.0
   build_test: ^2.0.0
   convert: ^3.0.0
   crypto: ^3.0.0

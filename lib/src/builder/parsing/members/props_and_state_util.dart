@@ -52,38 +52,52 @@ class _PropsStateStringHelpersImpl extends Object with PropsStateStringHelpers {
 
 /// Uses [InstantiatedMeta] to analyze [node] and determine the proper annotation.
 annotations.TypedMap getPropsOrStateAnnotation(bool isProps, AnnotatedNode node) {
-  final meta = isProps
-      ? (InstantiatedMeta.fromNode<annotations.Props>(node) ??
-          InstantiatedMeta.fromNode<annotations.AbstractProps>(node) ??
-          // ignore: deprecated_member_use_from_same_package
-          InstantiatedMeta.fromNode<annotations.PropsMixin>(node))
-      : (InstantiatedMeta.fromNode<annotations.State>(node) ??
-          InstantiatedMeta.fromNode<annotations.AbstractState>(node) ??
-          // ignore: deprecated_member_use_from_same_package
-          InstantiatedMeta.fromNode<annotations.StateMixin>(node));
+  late final defaultValue = isProps ? annotations.Props() : annotations.State();
 
-  if (meta != null && meta.potentiallyIncompleteValue is annotations.Props) {
-    if (meta.unsupportedArguments.length == 1) {
-      final arg = meta.unsupportedArguments[0];
-      if (arg is NamedExpression && arg.name.label.name == 'ignoreRequiredProps') {
-        // Attempt to parse the value, and fall through if something goes wrong,
-        // and let `meta?.value` below throw.
-        final expression = arg.expression;
-        if (expression is SetOrMapLiteral) {
-          final simpleStringElements =
-              expression.elements.whereType<SimpleStringLiteral>().toList();
-          if (simpleStringElements.length == expression.elements.length) {
-            return annotations.Props(
-              keyNamespace: meta.potentiallyIncompleteValue.keyNamespace,
-              ignoreRequiredProps: simpleStringElements.map((e) => e.value).toSet(),
-            );
+  InstantiatedMeta<annotations.TypedMap>? meta;
+  try {
+    meta = isProps
+        ? (InstantiatedMeta.fromNode<annotations.Props>(node) ??
+            InstantiatedMeta.fromNode<annotations.AbstractProps>(node) ??
+            // ignore: deprecated_member_use_from_same_package
+            InstantiatedMeta.fromNode<annotations.PropsMixin>(node))
+        : (InstantiatedMeta.fromNode<annotations.State>(node) ??
+            InstantiatedMeta.fromNode<annotations.AbstractState>(node) ??
+            // ignore: deprecated_member_use_from_same_package
+            InstantiatedMeta.fromNode<annotations.StateMixin>(node));
+
+    if (meta == null) return defaultValue;
+
+    if (meta.potentiallyIncompleteValue is annotations.Props) {
+      if (meta.unsupportedArguments.length == 1) {
+        final arg = meta.unsupportedArguments[0];
+        if (arg is NamedExpression && arg.name.label.name == 'ignoreRequiredProps') {
+          // Attempt to parse the value, and fall through if something goes wrong,
+          // and let `meta?.value` below throw.
+          final expression = arg.expression;
+          if (expression is SetOrMapLiteral) {
+            final simpleStringElements =
+                expression.elements.whereType<SimpleStringLiteral>().toList();
+            if (simpleStringElements.length == expression.elements.length) {
+              return annotations.Props(
+                keyNamespace: meta.potentiallyIncompleteValue.keyNamespace,
+                ignoreRequiredProps: simpleStringElements.map((e) => e.value).toSet(),
+              );
+            }
           }
         }
       }
     }
-  }
 
-  return meta?.value ?? (isProps ? annotations.Props() : annotations.State());
+    return meta.value;
+  } catch (e, st) {
+    // Log a severe error instead of throwing, so that the error doesn't propagate when we're doing parsing within
+    // the analyzer plugin.
+    // This severe error will fail the build and be presented to the consumer.
+    log.severe(
+        'Error reading annotation${meta == null ? '' : ': ${meta.metaNode.toSource()}'}', e, st);
+    return defaultValue;
+  }
 }
 
 /// If a [ClassMember] exists in [node] with the name `meta`, this will
