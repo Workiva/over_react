@@ -49,6 +49,7 @@ abstract class TypedMapImplGenerator extends BoilerplateDeclarationGenerator {
   List<FactoryNames> get factoryNames;
   bool get isProps;
   bool get nullSafety;
+  Set<String>? get defaultedPropNames;
 
   BoilerplateTypedMapMember get member;
 
@@ -245,7 +246,7 @@ abstract class TypedMapImplGenerator extends BoilerplateDeclarationGenerator {
         ..writeln(
             '  String \$getPropKey(void Function(Map m) accessMap) => $topLevelGetPropKeyAliasName(accessMap, (map) => ${names.implName}(map));');
     }
-    if (requiredPropNamesToSkipValidation != null) {
+    if (requiredPropNamesToSkipValidation != null && requiredPropNamesToSkipValidation.isNotEmpty) {
       buffer
         ..writeln()
         ..writeln('  @override')
@@ -318,16 +319,21 @@ class _LegacyTypedMapImplGenerator extends TypedMapImplGenerator {
   @override
   final bool nullSafety;
 
+  @override
+  final Set<String>? defaultedPropNames;
+
   _LegacyTypedMapImplGenerator.props(this.declaration, {required this.nullSafety})
       : names = TypedMapNames(declaration.props.name.name),
         factoryNames = [FactoryNames(declaration.factory.name.name)],
         member = declaration.props,
+        defaultedPropNames = declaration.component.defaultedPropNames,
         isProps = true;
 
   _LegacyTypedMapImplGenerator.state(this.declaration, {required this.nullSafety})
       : names = TypedMapNames(declaration.state!.name.name),
         factoryNames = [FactoryNames(declaration.factory.name.name)],
         member = declaration.state!,
+        defaultedPropNames = null,
         isProps = false;
 
   @override
@@ -341,8 +347,10 @@ class _LegacyTypedMapImplGenerator extends TypedMapImplGenerator {
     outputContentsBuffer.write(_generateConcretePropsOrStateImpl(
       componentFactoryName: ComponentNames(declaration.component.name.name).componentFactoryName,
       propKeyNamespace: getAccessorKeyNamespace(names, member.meta),
-      requiredPropNamesToSkipValidation:
-          member.meta.tryCast<annotations.Props>()?.disableRequiredPropValidation,
+      requiredPropNamesToSkipValidation: {
+        ...?defaultedPropNames,
+        ...?member.meta.tryCast<annotations.Props>()?.disableRequiredPropValidation,
+      },
     ));
   }
 
@@ -393,6 +401,9 @@ class _TypedMapImplGenerator extends TypedMapImplGenerator {
   final List<String>? allPropsMixins;
 
   @override
+  final Set<String>? defaultedPropNames;
+
+  @override
   final bool nullSafety;
 
   _TypedMapImplGenerator.props(ClassComponentDeclaration declaration, {required this.nullSafety})
@@ -400,6 +411,7 @@ class _TypedMapImplGenerator extends TypedMapImplGenerator {
         factoryNames = [FactoryNames(declaration.factory.name.name)],
         member = declaration.props.either,
         allPropsMixins = declaration.allPropsMixins,
+        defaultedPropNames = declaration.component.defaultedPropNames,
         isProps = true,
         componentFactoryName = ComponentNames(declaration.component.name.name).componentFactoryName,
         isFunctionComponentDeclaration = false,
@@ -410,6 +422,7 @@ class _TypedMapImplGenerator extends TypedMapImplGenerator {
         factoryNames = [FactoryNames(declaration.factory.name.name)],
         member = declaration.state!.either,
         allPropsMixins = null,
+        defaultedPropNames = null,
         isProps = false,
         componentFactoryName = ComponentNames(declaration.component.name.name).componentFactoryName,
         isFunctionComponentDeclaration = false,
@@ -423,6 +436,7 @@ class _TypedMapImplGenerator extends TypedMapImplGenerator {
             declaration.factories.map((factory) => FactoryNames(factory.name.name)).toList(),
         member = declaration.props.either,
         allPropsMixins = declaration.allPropsMixins,
+        defaultedPropNames = {},
         isProps = true,
         componentFactoryName = 'null',
         isFunctionComponentDeclaration = declaration.factories.first.shouldGenerateConfig,
@@ -464,8 +478,10 @@ class _TypedMapImplGenerator extends TypedMapImplGenerator {
       // This doesn't really apply to the new boilerplate
       propKeyNamespace: '',
       allPropsMixins: allPropsMixins,
-      requiredPropNamesToSkipValidation:
-          member.meta.tryCast<annotations.Props>()?.disableRequiredPropValidation,
+      requiredPropNamesToSkipValidation: {
+        ...?defaultedPropNames,
+        ...?member.meta.tryCast<annotations.Props>()?.disableRequiredPropValidation,
+      },
     ));
   }
 

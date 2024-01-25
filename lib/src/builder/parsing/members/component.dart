@@ -72,6 +72,32 @@ class BoilerplateComponent extends BoilerplateMember {
   bool isComponent2(Version version) =>
       version == Version.v4_mixinBased || hasComponent2OrAbstractAnnotation;
 
+  Set<String> get defaultedPropNames {
+    final defaultPropsImpl = nodeHelper.members.whereType<MethodDeclaration>().firstWhereOrNull(
+        (m) => !m.isStatic && const {'defaultProps', 'getDefaultProps'}.contains(m.name.name));
+    if (defaultPropsImpl == null) return {};
+
+    final body = defaultPropsImpl.body;
+    final returnValue = (body is BlockFunctionBody
+            ? body.block.statements.whereType<ReturnStatement>().firstOrNull?.expression
+            : body is ExpressionFunctionBody
+                ? body.expression
+                : null)
+        ?.unParenthesized;
+    if (returnValue == null) return {};
+
+    if (returnValue is! CascadeExpression) return {};
+    final target = returnValue.target;
+    if (target is! MethodInvocation || target.methodName.name != 'newProps') return {};
+
+    return returnValue.cascadeSections
+        .whereType<AssignmentExpression>()
+        .map((a) => a.leftHandSide)
+        .whereType<PropertyAccess>()
+        .map((i) => i.propertyName.name)
+        .toSet();
+  }
+
   /// Verifies the correct implementation of every boilerplate component version.
   ///
   /// Major checks included are:

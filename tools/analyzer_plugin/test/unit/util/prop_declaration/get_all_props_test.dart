@@ -94,6 +94,7 @@ void main() {
               'v4_lateRequiredProp',
               'v4_optionalProp',
               'v4_annotationRequiredProp',
+              'v4_lateRequiredDefaultedProp',
             ]);
           });
 
@@ -103,6 +104,7 @@ void main() {
               'v4_lateRequiredProp',
               'v4_optionalProp',
               'v4_annotationRequiredProp',
+              'v4_lateRequiredDefaultedProp',
             ]);
           });
         });
@@ -168,6 +170,7 @@ void main() {
               'v4_lateRequiredProp',
               'v4_optionalProp',
               'v4_annotationRequiredProp',
+              'v4_lateRequiredDefaultedProp',
             ]);
           });
         });

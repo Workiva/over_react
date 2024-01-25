@@ -113,6 +113,7 @@ mixin V4PropsMixin on UiProps {
   String? v4_optionalProp;
   @requiredProp
   String? v4_annotationRequiredProp;
+  late String v4_lateRequiredDefaultedProp;
 
   //
   // Non-props: edge-cases
@@ -143,6 +144,8 @@ mixin V4PropsMixin on UiProps {
 class V4Props = UiProps with V4PropsMixin;
 
 class V4Component extends UiComponent2<V4Props> {
+  get defaultProps => (newProps()..v4_lateRequiredDefaultedProp = 'default');
+
   @override
   render() {}
 }

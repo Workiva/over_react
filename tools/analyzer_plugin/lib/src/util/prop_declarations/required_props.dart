@@ -1,14 +1,53 @@
+import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/element/element.dart';
+import 'package:over_react_analyzer_plugin/src/over_react_builder_parsing.dart' as orbp hide TryCast;
 import 'package:over_react_analyzer_plugin/src/util/react_types.dart';
 import 'package:over_react_analyzer_plugin/src/util/util.dart';
+import 'package:source_span/source_span.dart';
 
 import 'get_all_props.dart';
+
+Set<String>? getDefaultedPropsForPropsClass(InterfaceElement propsClassElement) {
+  final propsClassNameOffset = propsClassElement.nameOffset;
+  if (propsClassNameOffset == -1) return null;
+
+  final unitElement = propsClassElement.thisOrAncestorOfType<CompilationUnitElement>();
+  if (unitElement == null) return null;
+
+  final source = unitElement.source;
+  // FIXME look into performance/reliability of this
+  // FIXME is there a better way to get this path?
+  final result = propsClassElement.library.session.getParsedUnit(source.fullName);
+  if (result is! ParsedUnitResult) return null;
+
+  final unit = result.unit;
+  // FIXME should we use a more efficient way of getting the component?
+  final declarations =
+      orbp.parseDeclarations(unit, orbp.ErrorCollector.noop(SourceFile.fromString(source.contents.data)));
+
+  orbp.BoilerplateComponent? component;
+  for (final d in declarations) {
+    if (d is orbp.ClassComponentDeclaration && d.props.either.node.name.offset == propsClassNameOffset) {
+      component = d.component;
+      break;
+    }
+    if (d is orbp.LegacyClassComponentDeclaration && d.props.node.name.offset == propsClassNameOffset) {
+      component = d.component;
+      break;
+    }
+  }
+  if (component == null) return null;
+
+  return component.defaultedPropNames;
+}
 
 /// Returns info about the requiredness of all props declared in a given props class [element] and its supertypes.
 ///
 /// Like [getAllProps], but with aggregated info about required props.
 RequiredPropInfo getAllRequiredProps(InterfaceElement element) {
   final ignoredRequiredPropNames = getIgnoredRequiredPropNames(element);
+
+  final defaultedPropNames = getDefaultedPropsForPropsClass(element);
 
   final requiredFieldsByName = <String, FieldElement>{};
   final propRequirednessByName = <String, PropRequiredness>{};
@@ -18,6 +57,13 @@ RequiredPropInfo getAllRequiredProps(InterfaceElement element) {
     if (ignoredRequiredPropNames?.contains(name) ?? false) {
       // Even if this prop is declared as required, the consuming class wants to ignore it.
       propRequirednessByName[name] = PropRequiredness.ignoredByConsumingClass;
+      continue;
+    }
+
+    // FIXME also allow consumers to opt out
+    if (defaultedPropNames?.contains(name) ?? false) {
+      // Even if this prop is declared as required, the consuming class wants to ignore it.
+      propRequirednessByName[name] = PropRequiredness.ignoredViaDefault;
       continue;
     }
 
@@ -77,14 +123,18 @@ enum PropRequiredness {
   /// Represents a prop required via late keyword (only available in null-safe language versions).
   ///
   /// When missing, throws upon UiProps invocation when asserts are enabled when invoking a builder (new boilerplate only).
-  late(isRequired: true, requirednessLevel: 3),
+  late(isRequired: true, requirednessLevel: 4),
 
   /// Represents a prop required via annotations: `@requiredProp`, `@requiredNullableProp`, or `@Accessor(isRequired: true)`.
   ///
   /// When missing, will either throw, warn, or do nothing at component render, depending on the component boilerplate.
   ///
   /// Deprecated in favor of [late].
-  annotation(isRequired: true, requirednessLevel: 2),
+  annotation(isRequired: true, requirednessLevel: 3),
+
+  /// Represents a prop that was considered required in its declaration,
+  /// but is automatically ignored because the class component provides a default for it.
+  ignoredViaDefault(isRequired: false, requirednessLevel: 2),
 
   /// Represents a prop that was considered required in its declaration,
   /// but is ignored by the consuming class via `@Props(disableRequiredPropValidation: {…})`.
