@@ -244,6 +244,12 @@ class MissingRequiredPropTest_MissingLateRequired extends MissingRequiredPropTes
     '''));
   }
 
+  Future<void> test_noErrorsForBuildersWithDisabledValidation() async {
+    await expectNoErrors(newSourceWithPrefix(/*language=dart*/ r'''
+      test() => (WithLateRequired()..disableRequiredPropValidation())();
+    '''));
+  }
+
   Future<void> test_noErrorsForPropsWithDisabledValidation() async {
     await expectNoErrors(newSourceWithPrefix(/*language=dart*/ r'''
       test() => DisableValidation()();

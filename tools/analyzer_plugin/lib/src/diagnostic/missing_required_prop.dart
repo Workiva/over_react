@@ -138,6 +138,12 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
     // short-circuit here for performance.
     if (const {'DomProps', 'SvgProps'}.contains(propsClassElement.name)) return; // [1]
 
+    // Calling `disableRequiredPropValidation` disables runtime validation,
+    // so we'll also disable static validation.
+    final validationDisabledForUsage = usage.cascadedMethodInvocations
+        .any((invocation) => invocation.methodName.name == 'disableRequiredPropValidation');
+    if (validationDisabledForUsage) return;
+
     final requiredPropInfo = _cachedGetAllRequiredProps(propsClassElement);
 
     final debugHelper = AnalyzerDebugHelper(result, collector, enabled: _cachedIsDebugHelperEnabled(result));

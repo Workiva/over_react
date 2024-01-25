@@ -20,6 +20,7 @@ import 'dart:collection';
 import 'package:meta/meta.dart';
 import 'package:over_react/src/component/dummy_component.dart';
 import 'package:over_react/src/component/prop_mixins.dart';
+import 'package:over_react/src/component_declaration/annotations.dart' as annotations;
 import 'package:over_react/src/component_declaration/builder_helpers.dart' as bh;
 import 'package:over_react/src/component_declaration/function_component.dart';
 import 'package:over_react/src/util/class_names.dart';
@@ -687,14 +688,20 @@ abstract class UiProps extends MapBase
   /// Whether [validateRequiredProps] should be run.
   var _shouldValidateRequiredProps = true;
 
-  /// Prevents [validateRequiredProps] from being called.
+  /// Disables all prop validation for this builder, both at runtime (skipping [validateRequiredProps])
+  /// and within the OverReact analyzer plugin's required props lint.
   ///
   /// Allows validation to be skipped to support cases where required props are cloned onto an element.
+  ///
+  /// Prop validation for specific props can also be disabled via [annotations.disableRequiredPropValidation]
+  /// or [annotations.Props.ignoreRequiredProps].
   void disableRequiredPropValidation() {
     _shouldValidateRequiredProps = false;
   }
 
   /// Names of props to opt out of required prop validation for.
+  ///
+  /// Overridden in generated code, based on the value of `@Props(ignoreRequiredProps: ...)`.
   @visibleForOverriding
   Set<String> get requiredPropNamesToSkipValidation => const {};
 }

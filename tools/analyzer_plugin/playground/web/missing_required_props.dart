@@ -66,6 +66,8 @@ main() {
   final incompleteBuilder = WithLateRequired();
   incompleteBuilder();
 
+  (WithLateRequired()..disableRequiredPropValidation())();
+
   WithLateRequired()();
 
   InheritsLateRequired()();

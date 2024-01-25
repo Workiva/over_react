@@ -18,8 +18,6 @@ import 'package:over_react_analyzer_plugin/src/util/util.dart';
 ///
 /// Excludes any fields annotated with `@doNotGenerate`.
 List<FieldElement> getAllProps(InterfaceElement propsElement) {
-  final allProps = <FieldElement>[]; // [1]
-
   final propsAndSupertypeElements = propsElement.thisAndSupertypesList;
 
   // There are two UiProps; one in component_base, and one in builder_helpers that extends from it.
@@ -34,10 +32,12 @@ List<FieldElement> getAllProps(InterfaceElement propsElement) {
   final inheritsFromUiProps = uiPropsElement != null;
   late final isPropsMixin = propsElement.metadata.any(_isPropsMixinAnnotation);
   if (!inheritsFromUiProps && !isPropsMixin) {
-    return allProps;
+    return [];
   }
 
   final uiPropsAndSupertypeElements = uiPropsElement?.thisAndSupertypesSet;
+
+  final allProps = <FieldElement>[]; // [1]
   for (final interface in propsAndSupertypeElements) {
     // Don't process UiProps or its supertypes
     // (Object, Map, MapBase, MapViewMixin, PropsMapViewMixin, ReactPropsMixin, UbiquitousDomPropsMixin, CssClassPropsMixin, ...)

@@ -37,6 +37,8 @@ Future<ResolvedUnitResult> setUpResult(SharedAnalysisContext sharedContext) asyn
 
   List<AnalysisError> filterErrors(List<AnalysisError> errors) => errors
       .where((e) => e.severity != Severity.info && !e.errorCode.name.toLowerCase().startsWith('unused_'))
+      // FIXME(FED-2015) remove once these are properly ignored in generated code
+      .where((e) => e.errorCode.name.toLowerCase() != 'invalid_use_of_visible_for_overriding_member')
       .toList();
 
   final libraryResult = await getResolvedUnit(libraryFullPath);
