@@ -45,7 +45,7 @@ mixin IgnoresSomeRequiredPropsMixin on UiProps {
   late String requiredInSubclass1;
   late String requiredInSubclass2;
 }
-@Props(ignoreRequiredProps: {'required1', 'requiredInSubclass1'})
+@Props(disableRequiredPropValidation: {'required1', 'requiredInSubclass1'})
 class IgnoresSomeRequiredProps = UiProps with WithLateRequiredProps, IgnoresSomeRequiredPropsMixin;
 
 

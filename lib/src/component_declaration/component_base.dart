@@ -694,14 +694,14 @@ abstract class UiProps extends MapBase
   /// Allows validation to be skipped to support cases where required props are cloned onto an element.
   ///
   /// Prop validation for specific props can also be disabled via [annotations.disableRequiredPropValidation]
-  /// or [annotations.Props.ignoreRequiredProps].
+  /// or [annotations.Props.disableRequiredPropValidation].
   void disableRequiredPropValidation() {
     _shouldValidateRequiredProps = false;
   }
 
   /// Names of props to opt out of required prop validation for.
   ///
-  /// Overridden in generated code, based on the value of `@Props(ignoreRequiredProps: ...)`.
+  /// Overridden in generated code, based on the value of `@Props(disableRequiredPropValidation: ...)`.
   @visibleForOverriding
   Set<String> get requiredPropNamesToSkipValidation => const {};
 }

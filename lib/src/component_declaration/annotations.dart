@@ -70,7 +70,7 @@ class Props implements TypedMap {
   ///   // ...
   /// }, _$FooConfig);
   ///
-  /// @Props(ignoreRequiredProps: {'requiredPropAlwaysSetInWrapper'})
+  /// @Props(disableRequiredPropValidation: {'requiredPropAlwaysSetInWrapper'})
   /// class WrapperProps = UiProps with FooProps, WrapperPropsMixin;
   ///
   /// UiFactory<WrapperProps> Wrapper = uiForwardRef((props, ref) {
@@ -81,9 +81,9 @@ class Props implements TypedMap {
   ///   )();
   /// }, _$WrapperConfig);
   ///```
-  final Set<String>? ignoreRequiredProps;
+  final Set<String>? disableRequiredPropValidation;
 
-  const Props({this.keyNamespace, this.ignoreRequiredProps});
+  const Props({this.keyNamespace, this.disableRequiredPropValidation});
 }
 
 /// Annotation used with the `over_react` builder to declare a `UiState` mixin for a component.

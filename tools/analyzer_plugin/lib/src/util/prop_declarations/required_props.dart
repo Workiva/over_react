@@ -87,7 +87,7 @@ enum PropRequiredness {
   annotation(isRequired: true, requirednessLevel: 2),
 
   /// Represents a prop that was considered required in its declaration,
-  /// but is ignored by the consuming class via `@Props(ignoreRequiredProps: {…})`.
+  /// but is ignored by the consuming class via `@Props(disableRequiredPropValidation: {…})`.
   ignoredByConsumingClass(isRequired: false, requirednessLevel: 1),
 
   /// Represents a prop that is not required.
@@ -131,11 +131,11 @@ bool isRequiredPropValidationDisabled(FieldElement propField) {
 }
 
 /// Returns the prop names that should not be considered required for a given concrete props class,
-/// from the `@Props(ignoreRequiredProps: {…})` annotation.
+/// from the `@Props(disableRequiredPropValidation: {…})` annotation.
 Set<String>? getIgnoredRequiredPropNames(InterfaceElement element) {
   final propsAnnotation = element.metadata
       .firstWhereOrNull((m) => m.element.tryCast<ConstructorElement>()?.enclosingElement.name == 'Props');
 
-  final ignoredNamesValue = propsAnnotation?.computeConstantValue()?.getField('ignoreRequiredProps')?.toSetValue();
+  final ignoredNamesValue = propsAnnotation?.computeConstantValue()?.getField('disableRequiredPropValidation')?.toSetValue();
   return ignoredNamesValue?.map((v) => v.toStringValue()).whereNotNull().toSet();
 }
