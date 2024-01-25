@@ -366,7 +366,7 @@ mixin Ignore2PropsMixin on UiProps, Ignore1PropsMixin {
   @override String? lateRequired_1_optionalInOtherType_notIgnored;
 }
 
-@Props(ignoreRequiredProps: {
+@Props(disableRequiredPropValidation: {
   'lateRequired_1_ignored',
   'optional_1_lateRequiredInOtherType_ignored',
   'lateRequired_1_optionalInOtherType_ignored',
@@ -375,7 +375,7 @@ mixin Ignore2PropsMixin on UiProps, Ignore1PropsMixin {
 class IgnoreInConcreteClassProps = UiProps with Ignore1PropsMixin, Ignore2PropsMixin;
 UiFactory<IgnoreInConcreteClassProps> IgnoreInConcreteClass = castUiFactory(_$IgnoreInConcreteClass);
 
-@Props(ignoreRequiredProps: {'foo', 'bar'})
+@Props(disableRequiredPropValidation: {'foo', 'bar'})
 class IgnoreRequiredPropsAnnotationTest_WithIgnoresProps extends UiProps {}
 UiFactory<IgnoreRequiredPropsAnnotationTest_WithIgnoresProps> IgnoreRequiredPropsAnnotationTest_WithIgnores = castUiFactory(_$IgnoreRequiredPropsAnnotationTest_WithIgnores);
 

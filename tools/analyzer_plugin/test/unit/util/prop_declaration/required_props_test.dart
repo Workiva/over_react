@@ -104,7 +104,7 @@ void main() {
           expect(getIgnoredRequiredPropNames(propsElement), unorderedEquals(<String>{'foo', 'bar'}));
         });
 
-        test('returns null when @Props annotation does not have ignoreRequiredProps argument', () {
+        test('returns null when @Props annotation does not have disableRequiredPropValidation argument', () {
           final propsElement = getInterfaceElement(result, 'IgnoreRequiredPropsAnnotationTest_WithoutIgnoresProps');
           expect(getIgnoredRequiredPropNames(propsElement), isNull);
         });

@@ -71,7 +71,7 @@ annotations.TypedMap getPropsOrStateAnnotation(bool isProps, AnnotatedNode node)
     if (meta.potentiallyIncompleteValue is annotations.Props) {
       if (meta.unsupportedArguments.length == 1) {
         final arg = meta.unsupportedArguments[0];
-        if (arg is NamedExpression && arg.name.label.name == 'ignoreRequiredProps') {
+        if (arg is NamedExpression && arg.name.label.name == 'disableRequiredPropValidation') {
           // Attempt to parse the value, and fall through if something goes wrong,
           // and let `meta?.value` below throw.
           final expression = arg.expression;
@@ -81,7 +81,7 @@ annotations.TypedMap getPropsOrStateAnnotation(bool isProps, AnnotatedNode node)
             if (simpleStringElements.length == expression.elements.length) {
               return annotations.Props(
                 keyNamespace: meta.potentiallyIncompleteValue.keyNamespace,
-                ignoreRequiredProps: simpleStringElements.map((e) => e.value).toSet(),
+                disableRequiredPropValidation: simpleStringElements.map((e) => e.value).toSet(),
               );
             }
           }
