@@ -49,8 +49,6 @@ abstract class ErrorCollector {
     );
   }
 
-  factory ErrorCollector.noop(SourceFile sourceFile) = _NoopErrorCollector;
-
   /// Constructor that allows for the customization via the usage of a [Logger]
   /// instance.
   factory ErrorCollector.log(SourceFile sourceFile, Logger logger) {
@@ -94,16 +92,4 @@ class _CallbackErrorCollector extends ErrorCollector {
   /// Triggers the callback that is implemented to respond to errors.
   @override
   void addWarning(String message, [SourceSpan? span]) => onWarning?.call(message, span);
-}
-
-class _NoopErrorCollector extends ErrorCollector {
-  @override
-  final SourceFile _sourceFile;
-
-  _NoopErrorCollector(this._sourceFile);
-
-  @override
-  void addError(String message, [SourceSpan? span]) {}
-  @override
-  void addWarning(String message, [SourceSpan? span]) {}
 }

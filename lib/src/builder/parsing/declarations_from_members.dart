@@ -65,7 +65,7 @@ bool mightContainDeclarations(String source) {
 ///   1. [LegacyClassComponentDeclaration] (special case for when there is only 1 of each entity in the file)
 ///   1. Any of: [LegacyClassComponentDeclaration], [ClassComponentDeclaration], [PropsMapViewOrFunctionComponentDeclaration]
 Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
-    BoilerplateMembers members, ErrorCollector errorCollector) sync* {
+    BoilerplateMembers members, ErrorCollector? errorCollector) sync* {
   if (members.isEmpty) return;
 
   final _consumedMembers = <BoilerplateMember>{};
@@ -337,7 +337,7 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
     if (nonNullFactoryPropsOrComponents.isEmpty) {
       assert(stateClass != null);
       if (resolveVersion([stateClass!]).shouldGenerate) {
-        errorCollector.addError(errorStateOnly, errorCollector.spanFor(stateClass.name));
+        errorCollector?.addError(errorStateOnly, errorCollector.spanFor(stateClass.name));
       }
       continue;
     }
@@ -346,23 +346,23 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
     switch (nonNullFactoryPropsOrComponents.length) {
       case 1:
         final single = nonNullFactoryPropsOrComponents.single;
-        final span = errorCollector.spanFor(single.name);
+        final span = errorCollector?.spanFor(single.name);
         if (single == factory) {
-          errorCollector.addError(errorFactoryOnly, span);
+          errorCollector?.addError(errorFactoryOnly, span);
         } else if (single == propsClass) {
-          errorCollector.addError(errorPropsClassOnly, span);
+          errorCollector?.addError(errorPropsClassOnly, span);
         } else if (single == componentClass) {
-          errorCollector.addError(errorComponentClassOnly, span);
+          errorCollector?.addError(errorComponentClassOnly, span);
         }
         continue;
       case 2:
-        final span = errorCollector.spanFor((factory ?? propsClass)!.name);
+        final span = errorCollector?.spanFor((factory ?? propsClass)!.name);
         if (factory == null) {
-          errorCollector.addError(errorNoFactory, span);
+          errorCollector?.addError(errorNoFactory, span);
         } else if (propsClass == null) {
-          errorCollector.addError(errorNoProps, span);
+          errorCollector?.addError(errorNoProps, span);
         } else if (componentClass == null) {
-          errorCollector.addError(errorNoComponent, span);
+          errorCollector?.addError(errorNoComponent, span);
         }
         continue;
     }
@@ -370,7 +370,7 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
     //
     // General case (should be rare if not impossible)
     for (final member in group) {
-      errorCollector.addError(
+      errorCollector?.addError(
           'Mismatched boilerplate member found', errorCollector.spanFor(member.name));
     }
   }

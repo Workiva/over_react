@@ -22,8 +22,7 @@ Set<String>? getDefaultedPropsForPropsClass(InterfaceElement propsClassElement) 
 
   final unit = result.unit;
   // FIXME should we use a more efficient way of getting the component?
-  final declarations =
-      orbp.parseDeclarations(unit, orbp.ErrorCollector.noop(SourceFile.fromString(source.contents.data)));
+  final declarations = orbp.parseDeclarations(unit, null);
 
   orbp.BoilerplateComponent? component;
   for (final d in declarations) {
