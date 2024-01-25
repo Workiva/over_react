@@ -15,6 +15,9 @@
 // Dummy annotations that would be used by Pub code generator
 library over_react.component_declaration.annotations;
 
+// Exported for use in generated code.
+export 'package:meta/meta.dart' show mustCallSuper;
+
 /// Annotation used with the `over_react` builder to declare a `UiFactory` for a component.
 ///
 ///     @Factory()
@@ -49,7 +52,46 @@ class Props implements TypedMap {
   /// overriding the default of `'${propsClassName}.'`.
   @override
   final String keyNamespace;
-  const Props({this.keyNamespace});
+
+  /// NOTE: This annotation arg currently does nothing in over_react v4, but exists
+  /// in order to prepare for the migration to over_react v5 in which missing required
+  /// props will throw runtime errors.
+  ///
+  /// ---
+  ///
+  /// The following is what this arg will do on over_react v5:
+  ///
+  /// Names of props to opt out of required prop validation for, both statically in the analyzer plugin
+  /// and at runtime when invoking the builder (only with asserts enabled).
+  ///
+  /// Useful when you have a wrapper component that sets required prop manually.
+  ///
+  /// For example:
+  ///
+  /// ```dart
+  /// mixin FooProps on UiProps {
+  ///   late String requiredPropAlwaysSetInWrapper;
+  ///   late String requiredPropNotSetInWrapper;
+  /// }
+  ///
+  /// UiFactory<FooProps> Foo = uiFunction((props) {
+  ///   // ...
+  /// }, _$FooConfig);
+  ///
+  /// @Props(disableRequiredPropValidation: {'requiredPropAlwaysSetInWrapper'})
+  /// class WrapperProps = UiProps with FooProps, WrapperPropsMixin;
+  ///
+  /// UiFactory<WrapperProps> Wrapper = uiForwardRef((props, ref) {
+  ///   return (Foo()
+  ///     ..requiredPropAlwaysSetInWrapper = 'foo'
+  ///     ..addProps(props.getPropsToForward(exclude: {WrapperPropsMixin}))
+  ///     ..ref = ref
+  ///   )();
+  /// }, _$WrapperConfig);
+  ///```
+  final Set<String> disableRequiredPropValidation;
+
+  const Props({this.keyNamespace, this.disableRequiredPropValidation});
 }
 
 /// Annotation used with the `over_react` builder to declare a `UiState` mixin for a component.
@@ -274,7 +316,7 @@ class AbstractComponent2 implements AbstractComponent { // ignore: deprecated_me
 ///
 /// Classes using this annotation must include the abstract `props` getter.
 ///
-/// __Deprecated.__ Use the `@Props()` annotation instead if you need to make use of an annotation argument. 
+/// __Deprecated.__ Use the `@Props()` annotation instead if you need to make use of an annotation argument.
 /// Otherwise, this can be removed completely. Will be removed in the 4.0.0 release of over_react.
 @Deprecated('Use the @Props() annotation if you need to make use of an annotation argument. Otherwise, this can be removed completely. Will be removed in the 4.0.0 release of over_react.')
 class PropsMixin implements TypedMap {
@@ -298,7 +340,7 @@ class PropsMixin implements TypedMap {
 ///
 /// Classes using this annotation must include the abstract `state` getter.
 ///
-/// __Deprecated.__ Use the `@State()` annotation instead if you need to make use of an annotation argument. 
+/// __Deprecated.__ Use the `@State()` annotation instead if you need to make use of an annotation argument.
 /// Otherwise, this can be removed completely. Will be removed in the 4.0.0 release of over_react.
 @Deprecated('Use the @State() annotation if you need to make use of an annotation argument. Otherwise, this can be removed completely. Will be removed in the 4.0.0 release of over_react.')
 class StateMixin implements TypedMap {
