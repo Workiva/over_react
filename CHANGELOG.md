@@ -26,6 +26,11 @@
     - ReduxProviderProps (for extension, mix in ReduxProviderPropsMixin instead)
     - ProviderProps (factory: `Context.Provider`)
     - ConsumerProps (factory: `Context.Consumer`)
+- The following props are now required:
+    - `FluxUiPropsMixin.actions`, `FluxUiPropsMixin.store`
+    - `ProviderProps.value` (`ProviderProps` is the return type of `Context.Provider`)
+    - `ReduxMultiProviderProps.storesByContext`
+    - `ReduxProviderProps.store`
 - UiPropsMapView (deprecated) is now abstract and requires subclasses to override `selfFactory`
 - `PropsMeta`/`StateMeta` constructor arguments `fields` and `keys` are now required
 - `ProviderProps.props` type has been widened from `JsMap` to `Map` (now matches `ConsumerProps` and other props classes)
