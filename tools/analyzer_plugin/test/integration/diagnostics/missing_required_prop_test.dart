@@ -67,6 +67,15 @@ mixin DisableValidationProps on UiProps {
 }
 
 
+UiFactory<IgnoresSomeRequiredProps> IgnoresSomeRequired = uiFunction((_) {}, _$IgnoresSomeRequiredConfig);
+mixin IgnoresSomeRequiredPropsMixin on UiProps {
+  late String requiredInSubclass1;
+  late String requiredInSubclass2;
+}
+@Props(ignoreRequiredProps: {'required1', 'requiredInSubclass1'})
+class IgnoresSomeRequiredProps = UiProps with WithLateRequiredProps, IgnoresSomeRequiredPropsMixin;
+
+
 UiFactory<WithAnnotationRequiredProps> WithAnnotationRequired = uiFunction((_) {}, _$WithAnnotationRequiredConfig);
 mixin WithAnnotationRequiredProps on UiProps {
   @requiredProp String? required1;
@@ -244,6 +253,16 @@ class MissingRequiredPropTest_MissingLateRequired extends MissingRequiredPropTes
   Future<void> test_noErrorsForPropsWithDisabledValidation() async {
     await expectNoErrors(newSourceWithPrefix(/*language=dart*/ r'''
       test() => DisableValidation()();
+    '''));
+  }
+
+  Future<void> test_noErrorsForIgnoredProps() async {
+    // All props except for required2 and requiredInSubclass2 should be ignored
+    await expectNoErrors(newSourceWithPrefix(/*language=dart*/ r'''
+      test() => (IgnoresSomeRequired()
+        ..required2 = ''
+        ..requiredInSubclass2 = ''
+      )();
     '''));
   }
 }

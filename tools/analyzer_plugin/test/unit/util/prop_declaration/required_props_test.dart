@@ -98,6 +98,23 @@ void main() {
         });
       });
 
+      group('getIgnoredRequiredPropNames', () {
+        test('returns the set of props specified in the @Props() annotation', () {
+          final propsElement = getInterfaceElement(result, 'IgnoreRequiredPropsAnnotationTest_WithIgnoresProps');
+          expect(getIgnoredRequiredPropNames(propsElement), unorderedEquals(<String>{'foo', 'bar'}));
+        });
+
+        test('returns null when @Props annotation does not have ignoreRequiredProps argument', () {
+          final propsElement = getInterfaceElement(result, 'IgnoreRequiredPropsAnnotationTest_WithoutIgnoresProps');
+          expect(getIgnoredRequiredPropNames(propsElement), isNull);
+        });
+
+        test('returns null when no @Props annotation is present', () {
+          final propsElement = getInterfaceElement(result, 'IgnoreRequiredPropsAnnotationTest_WithoutAnnotationProps');
+          expect(getIgnoredRequiredPropNames(propsElement), isNull);
+        });
+      });
+
       group('getAllRequiredProps', () {
         void verifyRequiredProps(RequiredPropInfo info, {required Map<String, PropRequiredness> expected}) {
           expect(info.propRequirednessByName, expected);
@@ -288,6 +305,37 @@ void main() {
                 'v4_annotationRequiredProp_lateRequiredInOtherType': PropRequiredness.late,
                 'v4_optionalProp_annotationRequiredInOtherType': PropRequiredness.annotation,
                 'v4_optionalProp_lateRequiredInOtherType': PropRequiredness.late,
+              });
+            });
+          });
+
+          group('props classes where requiredness is ignored', () {
+            setUpAll(() {
+              // Verify without ignores present
+              final propsElement = getInterfaceElement(result, 'Ignore2PropsMixin');
+              verifyRequiredProps(getAllRequiredProps(propsElement), expected: {
+                'lateRequired_1_ignored': PropRequiredness.late,
+                'lateRequired_1_notIgnored': PropRequiredness.late,
+                'optional_1_lateRequiredInOtherType_ignored': PropRequiredness.late,
+                'optional_1_lateRequiredInOtherType_notIgnored': PropRequiredness.late,
+                'lateRequired_1_optionalInOtherType_ignored': PropRequiredness.late,
+                'lateRequired_1_optionalInOtherType_notIgnored': PropRequiredness.late,
+                'lateRequired_2_ignored': PropRequiredness.late,
+                'lateRequired_2_notIgnored': PropRequiredness.late,
+              });
+            });
+
+            test('in concrete type', () {
+              final propsElement = getInterfaceElement(result, 'IgnoreInConcreteClassProps');
+              verifyRequiredProps(getAllRequiredProps(propsElement), expected: {
+                'lateRequired_1_ignored': PropRequiredness.ignoredByConsumingClass,
+                'lateRequired_1_notIgnored': PropRequiredness.late,
+                'optional_1_lateRequiredInOtherType_ignored': PropRequiredness.ignoredByConsumingClass,
+                'optional_1_lateRequiredInOtherType_notIgnored': PropRequiredness.late,
+                'lateRequired_1_optionalInOtherType_ignored': PropRequiredness.ignoredByConsumingClass,
+                'lateRequired_1_optionalInOtherType_notIgnored': PropRequiredness.late,
+                'lateRequired_2_ignored': PropRequiredness.ignoredByConsumingClass,
+                'lateRequired_2_notIgnored': PropRequiredness.late,
               });
             });
           });

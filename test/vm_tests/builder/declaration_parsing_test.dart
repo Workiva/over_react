@@ -19,7 +19,9 @@ library declaration_parsing_test;
 
 import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:analyzer/dart/ast/ast.dart';
+import 'package:build_test/build_test.dart' show recordLogs;
 import 'package:collection/collection.dart' show IterableExtension;
+import 'package:logging/logging.dart';
 import 'package:meta/meta.dart';
 import 'package:mockito/mockito.dart';
 import 'package:over_react/src/builder/parsing.dart';
@@ -2520,10 +2522,11 @@ main() {
         });
       });
 
-      group('and throws an error when', () {
+      group('logs a severe builder error when', () {
         group('`subtypeOf` is an unsupported expression that is not an identifier', () {
           void sharedUnsupportedExpressionTest(String componentAnnotationName) {
-            expect(() {
+            // Record logs from package:builder's `log` logger.
+            final logs = recordLogs(() {
               setUpAndParse('''
                 @Factory()
                 UiFactory<FooProps> Foo = _\$Foo;
@@ -2534,9 +2537,16 @@ main() {
                 @$componentAnnotationName(subtypeOf: const [])
                 class FooComponent {}
               ''');
-            },
-                throwsA(isA<Object>()
-                    .havingToStringValue(contains('`subtypeOf` must be an identifier'))));
+            });
+            expect(
+                logs,
+                emitsInOrder([
+                  isA<LogRecord>()
+                      .havingLevel(Level.SEVERE)
+                      .havingMessage(contains('Error reading component annotation'))
+                      .havingError(isA<Object>()
+                          .havingToStringValue(contains('`subtypeOf` must be an identifier'))),
+                ]));
           }
 
           test('within a @Component() annotation (deprecated)', () {
@@ -2565,4 +2575,13 @@ extension on Iterable<LegacyClassComponentDeclaration> {
 extension on TypeMatcher<Object> {
   Matcher havingToStringValue(dynamic matcher) =>
       having((o) => o.toString(), 'toString() value', matcher);
+}
+
+extension on TypeMatcher<LogRecord> {
+  TypeMatcher<LogRecord> havingLevel(dynamic matcher) => having((r) => r.level, 'level', matcher);
+
+  TypeMatcher<LogRecord> havingMessage(dynamic matcher) =>
+      having((r) => r.message, 'message', matcher);
+
+  TypeMatcher<LogRecord> havingError(dynamic matcher) => having((r) => r.error, 'error', matcher);
 }

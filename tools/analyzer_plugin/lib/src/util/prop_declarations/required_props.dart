@@ -1,5 +1,6 @@
 import 'package:analyzer/dart/element/element.dart';
 import 'package:over_react_analyzer_plugin/src/util/react_types.dart';
+import 'package:over_react_analyzer_plugin/src/util/util.dart';
 
 import 'get_all_props.dart';
 
@@ -7,10 +8,18 @@ import 'get_all_props.dart';
 ///
 /// Like [getAllProps], but with aggregated info about required props.
 RequiredPropInfo getAllRequiredProps(InterfaceElement element) {
+  final ignoredRequiredPropNames = getIgnoredRequiredPropNames(element);
+
   final requiredFieldsByName = <String, FieldElement>{};
   final propRequirednessByName = <String, PropRequiredness>{};
   for (final propField in getAllProps(element)) {
     final name = propField.name;
+
+    if (ignoredRequiredPropNames?.contains(name) ?? false) {
+      // Even if this prop is declared as required, the consuming class wants to ignore it.
+      propRequirednessByName[name] = PropRequiredness.ignoredByConsumingClass;
+      continue;
+    }
 
     // If there's an existing entry, we're dealing with a redeclared prop in a different mixin
     // (either an explicit override or not) that we processed in a previous iteration.
@@ -78,7 +87,7 @@ enum PropRequiredness {
   annotation(isRequired: true, requirednessLevel: 2),
 
   /// Represents a prop that was considered required in its declaration,
-  /// but is ignored by the consuming class.
+  /// but is ignored by the consuming class via `@Props(ignoreRequiredProps: {…})`.
   ignoredByConsumingClass(isRequired: false, requirednessLevel: 1),
 
   /// Represents a prop that is not required.
@@ -119,4 +128,14 @@ bool isRequiredPropValidationDisabled(FieldElement propField) {
             ?.isElementFromPackage('_DisableRequiredPropValidation', 'over_react') ??
         false;
   });
+}
+
+/// Returns the prop names that should not be considered required for a given concrete props class,
+/// from the `@Props(ignoreRequiredProps: {…})` annotation.
+Set<String>? getIgnoredRequiredPropNames(InterfaceElement element) {
+  final propsAnnotation = element.metadata
+      .firstWhereOrNull((m) => m.element.tryCast<ConstructorElement>()?.enclosingElement.name == 'Props');
+
+  final ignoredNamesValue = propsAnnotation?.computeConstantValue()?.getField('ignoreRequiredProps')?.toSetValue();
+  return ignoredNamesValue?.map((v) => v.toStringValue()).whereNotNull().toSet();
 }

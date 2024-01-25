@@ -342,4 +342,48 @@ mixin DisableRequiredPropValidationProps on UiProps {
 
 UiFactory<ExtendsDisableRequiredPropValidationProps> ExtendsDisableRequiredPropValidation = castUiFactory(_$ExtendsDisableRequiredPropValidation);
 class ExtendsDisableRequiredPropValidationProps = UiProps with DisableRequiredPropValidationProps;
+
+
+mixin Ignore1PropsMixin on UiProps {
+  late String lateRequired_1_ignored;
+  late String lateRequired_1_notIgnored;
+  
+  String? optional_1_lateRequiredInOtherType_ignored;
+  String? optional_1_lateRequiredInOtherType_notIgnored;
+  
+  late String? lateRequired_1_optionalInOtherType_ignored;
+  late String? lateRequired_1_optionalInOtherType_notIgnored;
+}
+
+mixin Ignore2PropsMixin on UiProps, Ignore1PropsMixin {
+  late String lateRequired_2_ignored;
+  late String lateRequired_2_notIgnored;
+  
+  @override late String? optional_1_lateRequiredInOtherType_ignored;
+  @override late String? optional_1_lateRequiredInOtherType_notIgnored;
+  
+  @override String? lateRequired_1_optionalInOtherType_ignored;
+  @override String? lateRequired_1_optionalInOtherType_notIgnored;
+}
+
+@Props(ignoreRequiredProps: {
+  'lateRequired_1_ignored',
+  'optional_1_lateRequiredInOtherType_ignored',
+  'lateRequired_1_optionalInOtherType_ignored',
+  'lateRequired_2_ignored',
+})
+class IgnoreInConcreteClassProps = UiProps with Ignore1PropsMixin, Ignore2PropsMixin;
+UiFactory<IgnoreInConcreteClassProps> IgnoreInConcreteClass = castUiFactory(_$IgnoreInConcreteClass);
+
+@Props(ignoreRequiredProps: {'foo', 'bar'})
+class IgnoreRequiredPropsAnnotationTest_WithIgnoresProps extends UiProps {}
+UiFactory<IgnoreRequiredPropsAnnotationTest_WithIgnoresProps> IgnoreRequiredPropsAnnotationTest_WithIgnores = castUiFactory(_$IgnoreRequiredPropsAnnotationTest_WithIgnores);
+
+@Props(keyNamespace: 'foo')
+class IgnoreRequiredPropsAnnotationTest_WithoutIgnoresProps extends UiProps {}
+UiFactory<IgnoreRequiredPropsAnnotationTest_WithoutIgnoresProps> IgnoreRequiredPropsAnnotationTest_WithoutIgnores = castUiFactory(_$IgnoreRequiredPropsAnnotationTest_WithoutIgnores);
+
+class IgnoreRequiredPropsAnnotationTest_WithoutAnnotationProps extends UiProps {}
+UiFactory<IgnoreRequiredPropsAnnotationTest_WithoutAnnotationProps> IgnoreRequiredPropsAnnotationTest_WithoutAnnotation = castUiFactory(_$IgnoreRequiredPropsAnnotationTest_WithoutAnnotation);
+
 ''';
