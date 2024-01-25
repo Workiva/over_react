@@ -7,7 +7,7 @@ import 'package:analyzer_plugin/utilities/change_builder/change_builder_dart.dar
 
 Future<SourceChange> buildFileEdit(
   ResolvedUnitResult result,
-  FutureOr<void> Function(DartFileEditBuilder builder) buildFileEdit,
+  void Function(DartFileEditBuilder builder) buildFileEdit,
 ) async {
   final builder = ChangeBuilder(session: result.session);
   await builder.addDartFileEdit(result.path, buildFileEdit);

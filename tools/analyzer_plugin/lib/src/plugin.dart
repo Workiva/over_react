@@ -36,6 +36,8 @@ import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/file_system/file_system.dart';
 import 'package:analyzer_plugin/plugin/plugin.dart';
 import 'package:analyzer_plugin/protocol/protocol_generated.dart' as plugin;
+import 'package:over_react_analyzer_plugin/src/analysis_options/error_severity_provider.dart';
+import 'package:over_react_analyzer_plugin/src/analysis_options/plugin_analysis_options.dart';
 import 'package:over_react_analyzer_plugin/src/analysis_options/reader.dart';
 import 'package:over_react_analyzer_plugin/src/assist/add_props.dart';
 import 'package:over_react_analyzer_plugin/src/assist/convert_class_or_function_component.dart';
@@ -60,6 +62,7 @@ import 'package:over_react_analyzer_plugin/src/diagnostic/invalid_child.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/iterator_key.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/link_target_without_rel.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/missing_cascade_parens.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/missing_required_prop.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/non_defaulted_prop.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/proptypes_return_value.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/pseudo_static_lifecycle.dart';
@@ -106,6 +109,8 @@ mixin OverReactAnalyzerPluginBase
     // Do not use protocol.ContextRoot's optionsFile, since it's null at least in tests;
     // get it from analysisContext instead.
     final options = pluginOptionsReader.getOptionsForContextRoot(analysisContext.contextRoot);
+    final severityProvider = AnalysisOptionsErrorSeverityProvider(options);
+
     return [
       PropTypesReturnValueDiagnostic(),
       DuplicatePropCascadeDiagnostic(),
@@ -118,8 +123,15 @@ mixin OverReactAnalyzerPluginBase
       StringRefDiagnostic(),
       CallbackRefDiagnostic(),
       MissingCascadeParensDiagnostic(),
-      // TODO: Re-enable this once consumers can disable lints via analysis_options.yaml
-//      MissingRequiredPropDiagnostic(),
+      MissingRequiredPropDiagnostic(
+        // Disable validation of annotation required props by default.
+        // Enabling this would be too noisy for existing code due to forwarded prop logic (FED-2034) not being
+        // implemented yet, and due to these annotations never being validated up until this Diagnostic was enabled.
+        lintForAnnotationRequiredProps:
+            (severityProvider.severityForCode(MissingRequiredPropDiagnostic.annotationRequiredCode.name) ??
+                    AnalysisOptionsSeverity.ignore) !=
+                AnalysisOptionsSeverity.ignore,
+      ),
       PseudoStaticLifecycleDiagnostic(),
       InvalidDomAttributeDiagnostic(),
       // TODO: Re-enable this once consumers can disable lints via analysis_options.yaml

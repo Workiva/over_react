@@ -120,6 +120,7 @@ Currently-available debug info:
   builder and analyzer functionality dealing with component declarations
 - `// debug: over_react_metrics` - shows performance data on how long diagnostics took to run
 - `// debug: over_react_exhaustive_deps` - shows info on how dependencies were detected/interpreted
+- `// debug: over_react_required_props` - shows requiredness info for all props for each builder
 
 #### Attaching a Debugger
 The dev experience when working on this plugin isn't ideal (See the `analyzer_plugin` debugging docs [for more information](https://github.com/dart-lang/sdk/blob/master/pkg/analyzer_plugin/doc/tutorial/debugging.md)), but it's possible debug and see logs from the plugin.

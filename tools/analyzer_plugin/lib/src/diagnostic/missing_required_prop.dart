@@ -1,32 +1,33 @@
+import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/element/element.dart';
-import 'package:analyzer/dart/element/type.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/analyzer_debug_helper.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
-import 'package:over_react_analyzer_plugin/src/doc_utils/maturity.dart';
 import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
+import 'package:over_react_analyzer_plugin/src/util/pretty_print.dart';
 
 import '../fluent_interface_util.dart';
+import '../util/prop_declarations/required_props.dart';
 
-const _desc = r'Avoid omitting props that are required.';
+const _desc = r'Always provide required props.';
 // <editor-fold desc="Documentation Details">
 const _details = r'''
 
-**PREFER** to always provide a value for props that are annotated a `@requiredProp`s.
+**ALWAYS** provide a value for `late` required props.
 
 If a component has a props interface like this:
 
-```
+```dart
 mixin NavItemProps on UiProps {
-  bool isActive;
-  @requiredProp
-  void Function() onDidActivate;
+  bool? isActive;
+
+  late void Function() onDidActivate;
 }
 ```
 
-then the prop that is marked as "required" should always be set by the consumer:
+Then the late required prop must always be set by the consumer:
 
 **GOOD:**
-```
+```dart
 @override
 render() {
   return (NavItem()
@@ -40,7 +41,7 @@ render() {
 ```
 
 **BAD:**
-```
+```dart
 @override
 render() {
   return NavItem()(
@@ -53,62 +54,128 @@ render() {
 // </editor-fold>
 
 class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor {
-  @DocsMeta(_desc, details: _details, maturity: Maturity.experimental)
-  static const code = DiagnosticCode(
-    'over_react_required_prop',
-    "Missing required prop '{0}'.",
+  @DocsMeta(_desc, details: _details)
+  static const lateRequiredCode = DiagnosticCode(
+    'over_react_late_required_prop',
+    "Missing required late prop {0}.",
     AnalysisErrorSeverity.WARNING,
     AnalysisErrorType.STATIC_WARNING,
   );
 
-  @override
-  List<DiagnosticCode> get codes => [code];
+  // Note: this code is disabled by default in getDiagnosticContributors
+  @DocsMeta(_desc, details: _details)
+  static const annotationRequiredCode = DiagnosticCode(
+    'over_react_annotation_required_prop',
+    "Missing @requiredProp {0}.",
+    AnalysisErrorSeverity.INFO,
+    AnalysisErrorType.STATIC_WARNING,
+  );
 
-  static final fixKind = FixKind(code.name, 200, "Add required prop '{0}'");
+  static DiagnosticCode _codeForRequiredness(PropRequiredness requiredness) {
+    switch (requiredness) {
+      case PropRequiredness.late:
+        return lateRequiredCode;
+      case PropRequiredness.annotation:
+        return annotationRequiredCode;
+      case PropRequiredness.ignoredByConsumingClass:
+      case PropRequiredness.none:
+        throw ArgumentError('Only values considered required can be passed; got PropRequiredness.none', 'requiredness');
+    }
+  }
+
+  @override
+  List<DiagnosticCode> get codes => [
+        lateRequiredCode,
+        annotationRequiredCode,
+      ];
+
+  static final fixKind = FixKind('add_required_prop', 200, "Add required prop '{0}'");
 
   static final _debugCommentPattern = getDebugCommentPattern('over_react_required_props');
 
-  // final debugHelper = AnalyzerDebugHelper(result, collector, enabled: _debugCommentPattern.hasMatch(result.content));
+  /// Returns whether the debug helper should be enabled, caching results per result
+  /// so we don't have to run it in in every [computeErrorsForUsage].
+  ///
+  /// TODO Add shared debug flag computation in DiagnosticContributor/DiagnosticCollector
+  final _cachedIsDebugHelperEnabled =
+      _memoizeWithExpando<ResolvedUnitResult, bool>((result) => _debugCommentPattern.hasMatch(result.content));
+
+  /// A wrapper around [getAllRequiredProps] that caches results per props type [InterfaceElement],
+  /// which greatly improves performance of this diagnostic when a component is used more than once
+  /// (with the `getAllProps` call within `getAllRequiredProps` being the main bottleneck).
+  ///
+  /// This cache is static so it can be shared across multiple files (each of which gets a new diagnostic instance).
+  ///
+  /// By using an expando, the returned [RequiredPropInfo] will be held in as long as the input element is held, and
+  /// released when the element is released. This is perfect for our use-case, since we want to optimize subsequent calls,
+  /// and get new results if the inputs change (in which case, the analyzer will create new, updated elements).
+  ///
+  /// The returned RequiredPropInfo doesn't take up much memory, and shouldn't retain anything not already
+  /// retained by the element (e.g., prop FieldElements), so this caching mechanism should not cause a significant
+  /// increase in memory usage.
+  static final _cachedGetAllRequiredProps = _memoizeWithExpando(getAllRequiredProps);
+
+  /// Whether to include diagnostics for props marked required for annotations.
+  final bool lintForAnnotationRequiredProps;
+
+  MissingRequiredPropDiagnostic({required this.lintForAnnotationRequiredProps});
 
   @override
   computeErrorsForUsage(result, collector, usage) async {
-    final requiredFieldsByName = <String, FieldElement>{};
+    // [1] Don't use `ComponentUsage` APIs to get this value since builderType has extra, inefficient steps.
 
-    // FIXME(null-safety) FED-1720 this probably needs optimization, and may benefit from caching by props element
+    // Only lint for full inline invocations, and not cases where a builder is
+    // saved off to a variable and invoked later.
+    if (usage.factory == null) return;
 
-    var builderType = usage.builder.staticType;
-    // Handle generic factories (todo might not be needed)
-    if (builderType is TypeParameterType) {
-      builderType = builderType.typeOrBound;
-    }
+    var builderType = usage.builder.staticType; // [1]
+    if (builderType == null) return;
 
-    // todo check if factory invocation
-    if (builderType is InterfaceType && builderType.element.name != 'UiProps') {
-      for (final propField in builderType.element.allProps) {
-        if (requiredFieldsByName.containsKey(propField.name)) {
-          // Short-circuit if we've already identified this field as required.
-          // There might be duplicates if props are overridden, and there will
-          // definitely be duplicates in the builder-generated code.
-          continue;
-        }
+    final propsClassElement = builderType.typeOrBound.element; // [1]
+    if (propsClassElement is! InterfaceElement) return;
 
-        if (isRequiredProp(propField)) {
-          requiredFieldsByName[propField.name] = propField;
-        }
+    // DOM and SVG components are common and have a large number of props, none of which are required;
+    // short-circuit here for performance.
+    if (const {'DomProps', 'SvgProps'}.contains(propsClassElement.name)) return; // [1]
+
+    // Calling `disableRequiredPropValidation` disables runtime validation,
+    // so we'll also disable static validation.
+    final validationDisabledForUsage = usage.cascadedMethodInvocations
+        .any((invocation) => invocation.methodName.name == 'disableRequiredPropValidation');
+    if (validationDisabledForUsage) return;
+
+    final requiredPropInfo = _cachedGetAllRequiredProps(propsClassElement);
+
+    final debugHelper = AnalyzerDebugHelper(result, collector, enabled: _cachedIsDebugHelperEnabled(result));
+
+    // Include debug info for each invocation ahout all the props and their requirednesses.
+    debugHelper.log(
+      () => _requiredPropsDebugMessage(requiredPropInfo),
+      () => result.locationFor(usage.builder),
+    );
+
+    final presentPropNames =
+        usage.cascadedProps.where((prop) => !prop.isPrefixed).map((prop) => prop.name.name).toSet();
+
+    for (final name in requiredPropInfo.requiredPropNames) {
+      if (presentPropNames.contains(name)) continue;
+
+      final field = requiredPropInfo.requiredFieldsByName[name]!;
+      if (isRequiredPropValidationDisabled(field)) {
+        continue;
       }
-    }
-    final debugHelper = AnalyzerDebugHelper(result, collector, enabled: _debugCommentPattern.hasMatch(result.content));
-    debugHelper.logWithLocation('Required props: $requiredFieldsByName', result.locationFor(usage.builder));
 
-    final missingRequiredFieldNames = requiredFieldsByName.keys.toSet()
-      ..removeAll(usage.cascadedProps.where((prop) => !prop.isPrefixed).map((prop) => prop.name.name));
+      final requiredness = requiredPropInfo.propRequirednessByName[name]!;
+      if (!lintForAnnotationRequiredProps && requiredness == PropRequiredness.annotation) {
+        continue;
+      }
 
+      // TODO(FED-2034) don't warn when we know required props are being forwarded
 
-    for (final name in missingRequiredFieldNames) {
       await collector.addErrorWithFix(
-        code,
+        _codeForRequiredness(requiredness),
         result.locationFor(usage.builder),
-        errorMessageArgs: [name],
+        errorMessageArgs: ["'$name' from '${field.enclosingElement.name}'"],
         fixKind: fixKind,
         fixMessageArgs: [name],
         computeFix: () => buildFileEdit(result, (builder) {
@@ -119,52 +186,26 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
       );
     }
   }
-}
 
-extension on InterfaceElement {
-  Iterable<InterfaceElement> get thisAndSupertypes sync* {
-    yield this;
-    for (final s in allSupertypes) {
-      yield s.element;
-    }
-  }
-
-  Iterable<FieldElement> get allProps sync* {
-    for (final c in thisAndSupertypes) {
-      // FIXME(null-safety) FED-1720 handle legacy boilerplate prop mixins if it's not too much effort to implement.
-      //   If so, we'll probably need something different than the `isPropsMixin` check below,
-      //   and may need to more aggressively filter out supertypes up front to avoid performance issues and false positives,
-      //   like UiProps and its supertypes (Map, MapBase, MapViewMixin, PropsMapViewMixin, ReactPropsMixin, UbiquitousDomPropsMixin, CssClassPropsMixin)
-      final isPropsMixin = c is MixinElement && c.superclassConstraints.any((s) => s.element.name == 'UiProps');
-      if (!isPropsMixin) continue;
-      if (c.source.uri.path.endsWith('.over_react.g.dart')) continue;
-      yield* c.fields.where((f) => !f.isStatic);
-    }
+  static String _requiredPropsDebugMessage(RequiredPropInfo requiredPropInfo) {
+    final propNamesByRequirednessName = <String, Set<String>>{};
+    final withDisabledRequiredValidation = <String>{};
+    requiredPropInfo.propRequirednessByName.forEach((name, requiredness) {
+      propNamesByRequirednessName.putIfAbsent(requiredness.name, () => {}).add(name);
+      if (requiredness.isRequired) {
+        final propField = requiredPropInfo.requiredFieldsByName[name]!;
+        if (isRequiredPropValidationDisabled(propField)) {
+          withDisabledRequiredValidation.add(name);
+        }
+      }
+    });
+    return 'Prop requiredness: ${prettyPrint(propNamesByRequirednessName)}'
+        '\nProps with `@requiredPropValidationDisabled`: $withDisabledRequiredValidation';
   }
 }
 
-enum PropRequiredness {
-  none,
-  late,
-  annotation
-}
-
-bool isRequiredProp(FieldElement field) {
-  if (field.isLate) return true;
-
-  if (field.metadata.any((annotation) {
-    // Common case, might be good to short circuit here for perf
-    if (annotation.isOverride) return false;
-    if (annotation.element?.library?.name != 'over_react.component_declaration.annotations') {
-      return false;
-    }
-    // It's almost always going to be `requiredProp` or `Accessor`;
-    // skip more checks an just try to pull `isRequired` prop off of them.
-    // If it fails, it's not the annotation we're interested in anyways.
-    return annotation.computeConstantValue()?.getField('isRequired')?.toBoolValue() ?? false;
-  })) {
-    return true;
-  }
-
-  return false;
+V Function(K) _memoizeWithExpando<K extends Object, V extends Object>(V Function(K) computeValue,
+    [Expando<V>? existingExpando]) {
+  final expando = existingExpando ?? Expando();
+  return (key) => expando[key] ??= computeValue(key);
 }

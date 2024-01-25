@@ -34,6 +34,7 @@ import 'dart:async';
 
 import 'package:analyzer/dart/analysis/analysis_context.dart';
 import 'package:analyzer/dart/analysis/results.dart';
+import 'package:analyzer/dart/analysis/session.dart';
 import 'package:analyzer_plugin/channel/channel.dart';
 import 'package:analyzer_plugin/plugin/plugin.dart';
 import 'package:analyzer_plugin/protocol/protocol.dart';
@@ -43,6 +44,7 @@ import 'package:analyzer_plugin/protocol/protocol_generated.dart';
 
 // ignore: implementation_imports
 import 'package:analyzer_plugin/src/utilities/fixes/fixes.dart' show DartFixesRequestImpl;
+import 'package:analyzer_plugin/utilities/completion/completion_core.dart';
 import 'package:analyzer_plugin/utilities/fixes/fixes.dart';
 import 'package:meta/meta.dart';
 import 'package:over_react_analyzer_plugin/src/async_plugin_apis/error_severity_provider.dart';
@@ -53,6 +55,7 @@ import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/error_filtering.dart';
 import 'package:over_react_analyzer_plugin/src/util/ignore_info.dart';
 import 'package:over_react_analyzer_plugin/src/util/pretty_print.dart';
+import 'package:over_react_analyzer_plugin/src/util/util.dart';
 
 mixin DiagnosticMixin on ServerPlugin {
   PluginOptionsReader get pluginOptionsReader;
@@ -147,59 +150,71 @@ class _DiagnosticGenerator {
   /// by the given [unitResult]. If any of the contributors throws an exception,
   /// also create a non-fatal 'plugin.error' notification.
   Future<_GeneratorResult<List<AnalysisError>>> generateErrors(ResolvedUnitResult unitResult) async {
-    return _generateErrors(unitResult, DiagnosticCollectorImpl(shouldComputeFixes: false));
+    return _generateErrors(unitResult, DiagnosticCollectorImpl(shouldComputeFixes: false),
+        catchInconsistentAnalysisException: true);
   }
 
   /// Creates an 'edit.getFixes' response for the location in the file specified
   /// by the given [request]. If any of the contributors throws an exception,
   /// also create a non-fatal 'plugin.error' notification.
   Future<_GeneratorResult<EditGetFixesResult>> generateFixesResponse(DartFixesRequest request) async {
-    // Recompute the errors and then emit the matching fixes
-
-    final collector = DiagnosticCollectorImpl(shouldComputeFixes: true);
-    final errorsResult = await _generateErrors(request.result, collector);
-    final notifications = [...errorsResult.notifications];
-
-    // Return any fixes that contain the given offset.
-    // TODO use request.errorsToFix instead?
+    final notifications = <Notification>[];
     final fixes = <AnalysisErrorFixes>[];
-    for (var i = 0; i < collector.errors.length; i++) {
-      final error = collector.errors[i];
-      final errorStart = error.location.offset;
-      final errorEnd = errorStart + error.location.length;
 
-      if (_errorSeverityProvider.isCodeDisabled(error.code)) {
-        // This error has been disabled by configuration; skip it.
-        continue;
-      }
+    try {
+      // Recompute the errors and then emit the matching fixes
+      final collector = DiagnosticCollectorImpl(shouldComputeFixes: true);
+      final errorsResult = await _generateErrors(request.result, collector, catchInconsistentAnalysisException: false);
+      notifications.addAll(errorsResult.notifications);
 
-      _configureErrorSeverity(error);
+      // Return any fixes that contain the given offset.
+      // TODO use request.errorsToFix instead?
+      for (var i = 0; i < collector.errors.length; i++) {
+        final error = collector.errors[i];
+        final errorStart = error.location.offset;
+        final errorEnd = errorStart + error.location.length;
 
-      // `<=` because we do want the end to be inclusive (you should get
-      // the fix when your cursor is on the tail end of the error).
-      if (request.offset >= errorStart && request.offset <= errorEnd) {
-        final fix = collector.fixes[i];
-        if (fix != null) {
-          fixes.add(AnalysisErrorFixes(
-            error,
-            fixes: [fix],
-          ));
+        if (_errorSeverityProvider.isCodeDisabled(error.code)) {
+          // This error has been disabled by configuration; skip it.
+          continue;
+        }
+
+        _configureErrorSeverity(error);
+
+        // `<=` because we do want the end to be inclusive (you should get
+        // the fix when your cursor is on the tail end of the error).
+        if (request.offset >= errorStart && request.offset <= errorEnd) {
+          final fix = collector.fixes[i];
+          if (fix != null) {
+            fixes.add(AnalysisErrorFixes(
+              error,
+              fixes: [fix],
+            ));
+          }
         }
       }
+    } on InconsistentAnalysisException {
+      // Do nothing and return empty results; analysis became out of date, likely due to the user typing.
+      // We'll provided updated results on a subsequent call.
+      // This is similar to the workaround applied in https://dart-review.googlesource.com/c/sdk/+/88222
     }
-
     return _GeneratorResult(EditGetFixesResult(fixes), notifications);
   }
 
   Future<_GeneratorResult<List<AnalysisError>>> _generateErrors(
-      ResolvedUnitResult unitResult, DiagnosticCollectorImpl collector) async {
+      ResolvedUnitResult unitResult, DiagnosticCollectorImpl collector,
+      {required bool catchInconsistentAnalysisException}) async {
     final notifications = <Notification>[];
 
     // Reuse component usages so we don't have to recompute them for each ComponentUsageDiagnosticContributor.
-    List<FluentComponentUsage>? _usages;
     // Lazily compute the usage so any errors get handled as part of each diagnostic's try/catch.
-    // TODO: collect data how long this takes.
-    List<FluentComponentUsage> getUsages() => _usages ??= getAllComponentUsages(unitResult.unit);
+    final sharedUsagesStopwatch = Stopwatch();
+    late final sharedUsages = () {
+      sharedUsagesStopwatch.start();
+      final result = getAllComponentUsages(unitResult.unit);
+      sharedUsagesStopwatch.stop();
+      return result;
+    }();
 
     /// A mapping of diagnostic names to their durations, in microseconds.
     final diagnosticMetrics = <String, int>{};
@@ -220,14 +235,21 @@ class _DiagnosticGenerator {
         continue;
       }
 
-      final contributorStopwatch = Stopwatch()..start();
+      final contributorStopwatch = Stopwatch();
       try {
         if (contributor is ComponentUsageDiagnosticContributor) {
-          await contributor.computeErrorsForUsages(unitResult, collector, getUsages());
+          // Don't count time needed to lazily instantiate sharedUsages.
+          final usages = sharedUsages;
+          contributorStopwatch.start();
+          await contributor.computeErrorsForUsages(unitResult, collector, usages);
         } else {
+          contributorStopwatch.start();
           await contributor.computeErrors(unitResult, collector);
         }
       } catch (exception, stackTrace) {
+        if (!catchInconsistentAnalysisException && exception is InconsistentAnalysisException) {
+          rethrow;
+        }
         notifications.add(PluginErrorParams(false, exception.toString(), stackTrace.toString()).toNotification());
       }
       contributorStopwatch.stop();
@@ -243,18 +265,37 @@ class _DiagnosticGenerator {
       String asPercentageOfTotal(int microseconds) =>
           '${(microseconds / totalStopwatch.elapsedMicroseconds * 100).toStringAsFixed(1)}%';
 
+      final metricsSortedByTimeDescending =
+          diagnosticMetrics.keys.sortedByCompare<int>((key) => diagnosticMetrics[key]!, (a, b) => b.compareTo(a));
+
       final message = 'OverReact Analyzer Plugin diagnostic metrics (current file): ' +
           prettyPrint(<String, String>{
-            ...diagnosticMetrics.map((name, microseconds) =>
-                MapEntry(name, '${formatMicroseconds(microseconds)} (${asPercentageOfTotal(microseconds)})')),
+            ...diagnosticMetrics.map((name, microseconds) {
+              // Star the slowest `starredSlowestCount` diagnostics:
+              //   ** 2ndLongest
+              //   *** 1stLongest
+              //   4thLongest
+              //   * 3rdLongest
+              // Do this instead of sorting the display values, so that they don't jump around in the list.
+              const starredSlowestCount = 3;
+              final index = metricsSortedByTimeDescending.indexOf(name);
+              final prefix = index < starredSlowestCount ? '*' * (starredSlowestCount - index) + ' ' : '';
+
+              return MapEntry(
+                  '$prefix$name', '${formatMicroseconds(microseconds)} (${asPercentageOfTotal(microseconds)})');
+            }),
             'Total': formatMicroseconds(totalStopwatch.elapsedMicroseconds),
+            'Shared getAllComponentUsages call': formatMicroseconds(sharedUsagesStopwatch.elapsedMicroseconds),
             'Diagnostic code disabled checks': formatMicroseconds(disabledCheckStopwatch.elapsedMicroseconds),
             'Loop overhead (Total - SUM(Diagnostics))': formatMicroseconds(totalStopwatch.elapsedMicroseconds -
                 disabledCheckStopwatch.elapsedMicroseconds -
+                sharedUsagesStopwatch.elapsedMicroseconds -
                 diagnosticMetrics.values.fold(0, (a, b) => a + b)),
           });
-      AnalyzerDebugHelper(unitResult, collector, enabled: true).logWithLocation(
-          message, unitResult.location(offset: metricsDebugFlagMatch.start, end: metricsDebugFlagMatch.end));
+      AnalyzerDebugHelper(unitResult, collector, enabled: true).log(
+        () => message,
+        () => unitResult.location(offset: metricsDebugFlagMatch.start, end: metricsDebugFlagMatch.end),
+      );
     }
 
     final filteredErrors = _configureErrorSeverities(
