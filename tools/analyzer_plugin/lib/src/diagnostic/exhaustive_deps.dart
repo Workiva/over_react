@@ -279,7 +279,7 @@ class ExhaustiveDeps extends DiagnosticContributor {
     } else {
       throw ArgumentError.value(location, 'location');
     }
-    debugHelper.logWithLocation(computeString(), _location);
+    debugHelper.log(computeString, () => _location);
   }
 
   String getSource(SyntacticEntity entity) => result.content.substring(entity.offset, entity.end);

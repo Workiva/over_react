@@ -15,6 +15,7 @@
 import 'dart:mirrors' as mirrors;
 
 import 'package:analyzer/dart/ast/ast.dart';
+import 'package:build/build.dart' show log;
 import 'package:collection/collection.dart' show IterableExtension;
 import 'package:transformer_utils/transformer_utils.dart';
 
@@ -44,7 +45,7 @@ Annotation? _getMatchingAnnotation(AnnotatedNode member, Type annotationType) {
 /// Based off of [NodeWithMeta].
 class InstantiatedMeta<TMeta> {
   /// The node of the [TMeta] annotation, if it exists.
-  final Annotation? metaNode;
+  final Annotation metaNode;
 
   /// A reflectively-instantiated version of [metaNode], if it exists.
   final TMeta _value;
@@ -63,6 +64,8 @@ class InstantiatedMeta<TMeta> {
   /// The instantiated annotation will be available via [value].
   static InstantiatedMeta<T>? fromNode<T>(AnnotatedNode node) {
     final metaNode = _getMatchingAnnotation(node, T);
+    if (metaNode == null) return null;
+
     final unsupportedArguments = <Expression>[];
     final value =
         instantiateAnnotationTyped<T>(node, onUnsupportedArgument: unsupportedArguments.add);
@@ -102,31 +105,38 @@ class InstantiatedComponentMeta<TMeta> extends InstantiatedMeta<TMeta> {
   final Identifier? subtypeOfValue;
 
   InstantiatedComponentMeta._(
-      Annotation? metaNode, TMeta meta, List<Expression> unsupportedArguments, this.subtypeOfValue)
+      Annotation metaNode, TMeta meta, List<Expression> unsupportedArguments, this.subtypeOfValue)
       : super._(metaNode, meta, unsupportedArguments);
 
   static InstantiatedComponentMeta<T>? fromNode<T>(AnnotatedNode node) {
-    final instantiated = InstantiatedMeta.fromNode<T>(node);
+    try {
+      final instantiated = InstantiatedMeta.fromNode<T>(node);
+      if (instantiated == null) return null;
 
-    if (instantiated == null) return null;
+      Identifier? subtypeOfValue;
 
-    Identifier? subtypeOfValue;
+      NamedExpression? subtypeOfParam = instantiated.unsupportedArguments
+          .whereType<NamedExpression>()
+          .firstWhereOrNull((expression) => expression.name.label.name == _subtypeOfParamName);
 
-    NamedExpression? subtypeOfParam = instantiated.unsupportedArguments
-        .whereType<NamedExpression>()
-        .firstWhereOrNull((expression) => expression.name.label.name == _subtypeOfParamName);
-
-    if (subtypeOfParam != null) {
-      final expression = subtypeOfParam.expression;
-      if (expression is Identifier) {
-        subtypeOfValue = expression;
-        instantiated.unsupportedArguments.remove(subtypeOfParam);
-      } else {
-        throw Exception('`$_subtypeOfParamName` must be an identifier: $subtypeOfParam');
+      if (subtypeOfParam != null) {
+        final expression = subtypeOfParam.expression;
+        if (expression is Identifier) {
+          subtypeOfValue = expression;
+          instantiated.unsupportedArguments.remove(subtypeOfParam);
+        } else {
+          throw Exception('`$_subtypeOfParamName` must be an identifier: $subtypeOfParam');
+        }
       }
-    }
 
-    return InstantiatedComponentMeta._(instantiated.metaNode, instantiated.value,
-        instantiated.unsupportedArguments, subtypeOfValue);
+      return InstantiatedComponentMeta._(instantiated.metaNode, instantiated.value,
+          instantiated.unsupportedArguments, subtypeOfValue);
+    } catch (e, st) {
+      // Log a severe error instead of throwing, so that the error doesn't propagate when we're doing parsing within
+      // the analyzer plugin.
+      // This severe error will fail the build and be presented to the consumer.
+      log.severe('Error reading component annotation', e, st);
+      return null;
+    }
   }
 }

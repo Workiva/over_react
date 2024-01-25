@@ -1,10 +1,14 @@
 import 'dart:async';
 
+import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/boilerplate_validator.dart';
 import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
 import 'package:test_reflective_loader/test_reflective_loader.dart';
 
+import '../matchers.dart';
+import '../matchers.dart';
+import '../matchers.dart';
 import '../test_bases/diagnostic_test_base.dart';
 
 void main() {
@@ -13,6 +17,7 @@ void main() {
     defineReflectiveTests(BoilerplateValidatorDiagnosticTestMissingGeneratedPart);
     defineReflectiveTests(BoilerplateValidatorDiagnosticTestUnnecessaryGeneratedPart);
     defineReflectiveTests(BoilerplateValidatorDiagnosticTestInvalidGeneratedPartName);
+    defineReflectiveTests(BoilerplateValidatorDiagnosticTestTypingAnnotation);
   });
 }
 
@@ -180,6 +185,43 @@ part '$basenameWithoutExtension.over_react.g.dart';
 
 ${BoilerplateValidatorDiagnosticTest.boilerplateThatRequiresGeneratedPart}
 ''');
+  }
+}
+@reflectiveTest
+class BoilerplateValidatorDiagnosticTestTypingAnnotation extends BoilerplateValidatorDiagnosticTest {
+  @override
+  get errorUnderTest => null;
+
+  static const source = /*language=dart*/ r'''
+import 'package:over_react/over_react.dart';
+
+part '{{FILE_BASENAME_WITHOUT_EXTENSION}}.over_react.g.dart';
+
+UiFactory<FooProps> Foo = uiFunction((_) {}, _$FooConfig);
+
+mixin FooPropsMixin on UiProps {}
+
+// Incomplete annotation as the user is typing it
+@Props(ignoreRequiredP/*imagine the user cursor here, typing*/)
+class FooProps = UiProps with FooPropsMixin;
+''';
+
+  // Regression test to make sure there are no plugin errors that bubble to the IDE
+  // as a user is typing an annotation.
+  Future<void> test_regressionTestIncompleteAnnotation() async {
+    final _source = newSource(source);
+
+    // Call getAllErrors to trigger analysis so we can call expectNoPluginErrors below.
+    final errors = await getAllErrors(_source, includeOtherCodes: true);
+    // While we have the errors, verify the test is set up correctly.
+    expect(errors.dartErrors, unorderedEquals(<dynamic>[
+      isA<AnalysisError>().havingCode('undefined_identifier'),
+      isA<AnalysisError>().havingCode('extra_positional_arguments_could_be_named'),
+      isA<AnalysisError>().havingCode('const_with_non_constant_argument'),
+    ]), reason: 'should have expected Dart SDK errors from incomplete annotation');
+
+    // Verify that there are no plugin error notifications.
+    expectNoPluginErrorNotifications();
   }
 }
 
