@@ -1,44 +1,10 @@
-import 'package:analyzer/dart/analysis/results.dart';
+import 'package:analyzer/dart/constant/value.dart';
 import 'package:analyzer/dart/element/element.dart';
-import 'package:over_react_analyzer_plugin/src/over_react_builder_parsing.dart' as orbp hide TryCast;
 import 'package:over_react_analyzer_plugin/src/util/react_types.dart';
 import 'package:over_react_analyzer_plugin/src/util/util.dart';
-import 'package:source_span/source_span.dart';
 
+import 'defaulted_props.dart';
 import 'get_all_props.dart';
-
-Set<String>? getDefaultedPropsForPropsClass(InterfaceElement propsClassElement) {
-  final propsClassNameOffset = propsClassElement.nameOffset;
-  if (propsClassNameOffset == -1) return null;
-
-  final unitElement = propsClassElement.thisOrAncestorOfType<CompilationUnitElement>();
-  if (unitElement == null) return null;
-
-  final source = unitElement.source;
-  // FIXME look into performance/reliability of this
-  // FIXME is there a better way to get this path?
-  final result = propsClassElement.library.session.getParsedUnit(source.fullName);
-  if (result is! ParsedUnitResult) return null;
-
-  final unit = result.unit;
-  // FIXME should we use a more efficient way of getting the component?
-  final declarations = orbp.parseDeclarations(unit, null);
-
-  orbp.BoilerplateComponent? component;
-  for (final d in declarations) {
-    if (d is orbp.ClassComponentDeclaration && d.props.either.node.name.offset == propsClassNameOffset) {
-      component = d.component;
-      break;
-    }
-    if (d is orbp.LegacyClassComponentDeclaration && d.props.node.name.offset == propsClassNameOffset) {
-      component = d.component;
-      break;
-    }
-  }
-  if (component == null) return null;
-
-  return component.defaultedPropNames;
-}
 
 /// Returns info about the requiredness of all props declared in a given props class [element] and its supertypes.
 ///
@@ -46,7 +12,9 @@ Set<String>? getDefaultedPropsForPropsClass(InterfaceElement propsClassElement) 
 RequiredPropInfo getAllRequiredProps(InterfaceElement element) {
   final ignoredRequiredPropNames = getIgnoredRequiredPropNames(element);
 
-  final defaultedPropNames = getDefaultedPropsForPropsClass(element);
+  final shouldIgnoreDefaultPropNames = getDisableValidationForDefaultedProps(element);
+  final ignoredDefaultPropNames =
+      shouldIgnoreDefaultPropNames ? getDefaultedPropsForComponentWithPropsClass(element) : null;
 
   final requiredFieldsByName = <String, FieldElement>{};
   final propRequirednessByName = <String, PropRequiredness>{};
@@ -59,8 +27,7 @@ RequiredPropInfo getAllRequiredProps(InterfaceElement element) {
       continue;
     }
 
-    // FIXME also allow consumers to opt out
-    if (defaultedPropNames?.contains(name) ?? false) {
+    if (ignoredDefaultPropNames?.contains(name) ?? false) {
       // Even if this prop is declared as required, the consuming class wants to ignore it.
       propRequirednessByName[name] = PropRequiredness.ignoredViaDefault;
       continue;
@@ -180,11 +147,17 @@ bool isRequiredPropValidationDisabled(FieldElement propField) {
 }
 
 /// Returns the prop names that should not be considered required for a given concrete props class,
+/// from the `@Props(ignoreRequiredProps: {…})` annotation.
+bool getDisableValidationForDefaultedProps(InterfaceElement element) =>
+    _getPropsAnnotation(element)?.getField('disableValidationForDefaultedProps')?.toBoolValue() ?? false;
+
+/// Returns the prop names that should not be considered required for a given concrete props class,
 /// from the `@Props(disableRequiredPropValidation: {…})` annotation.
 Set<String>? getIgnoredRequiredPropNames(InterfaceElement element) {
-  final propsAnnotation = element.metadata
-      .firstWhereOrNull((m) => m.element.tryCast<ConstructorElement>()?.enclosingElement.name == 'Props');
-
-  final ignoredNamesValue = propsAnnotation?.computeConstantValue()?.getField('disableRequiredPropValidation')?.toSetValue();
+  final ignoredNamesValue = _getPropsAnnotation(element)?.getField('disableRequiredPropValidation')?.toSetValue();
   return ignoredNamesValue?.map((v) => v.toStringValue()).whereNotNull().toSet();
 }
+
+DartObject? _getPropsAnnotation(InterfaceElement element) => element.metadata
+    .firstWhereOrNull((m) => m.element.tryCast<ConstructorElement>()?.enclosingElement.name == 'Props')
+    ?.computeConstantValue();

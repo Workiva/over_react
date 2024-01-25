@@ -83,7 +83,17 @@ class Props implements TypedMap {
   ///```
   final Set<String>? disableRequiredPropValidation;
 
-  const Props({this.keyNamespace, this.disableRequiredPropValidation});
+  /// Whether to disable validation for all props defaulted in the class component associated
+  /// with this props class.
+  ///
+  /// FIXME elaborate, add example
+  final bool disableValidationForClassDefaultProps;
+
+  const Props({
+    this.keyNamespace,
+    this.disableRequiredPropValidation,
+    this.disableValidationForClassDefaultProps = true,
+  });
 }
 
 /// Annotation used with the `over_react` builder to declare a `UiState` mixin for a component.
