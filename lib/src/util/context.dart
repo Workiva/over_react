@@ -160,7 +160,7 @@ typedef _ConsumerPropsImpl<TValue> = _$$ConsumerProps<TValue>;
 /// * [_ProviderPropsMixin.value] The value that you want to provide to all consumers.
 ///
 /// See: <https://react.dev/reference/react/createContext#provider>
-class ProviderProps<TValue> = UiProps with _ProviderPropsMixin;
+class ProviderProps<TValue> = UiProps with _ProviderPropsMixin<TValue>;
 
 // Private to mirror `ConsumerPropsMixin` being private.
 @Props(keyNamespace: '')
