@@ -1,5 +1,11 @@
 # OverReact Changelog
 
+## [4.11.0](https://github.com/Workiva/over_react/compare/4.10.4...4.11.0)
+- [#879] Backpatch @Props(disableRequiredPropValidation) annotation arg
+
+## [4.10.4](https://github.com/Workiva/over_react/compare/4.10.3...4.10.4)
+- [#853] Allow react 7 and w_flux 3
+
 ## [4.10.3](https://github.com/Workiva/over_react/compare/4.10.2...4.10.3)
 - [#846] Update internals to prepare for react-dart 7.0.0
 
