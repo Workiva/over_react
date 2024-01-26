@@ -25,32 +25,61 @@ void main() {
   group('required props utilities -', () {
     group('PropRequiredness enum', () {
       test('has correct isRequiredness for each value', () {
-        expect(PropRequiredness.none.isRequired, isFalse);
-        expect(PropRequiredness.ignoredByConsumingClass.isRequired, isFalse);
-        expect(PropRequiredness.late.isRequired, isTrue);
-        expect(PropRequiredness.annotation.isRequired, isTrue);
+        // Instead of manually testing each value, use a switch statement,
+        // which will statically enforce there are cases for each value,
+        // ensuring that we aren't missing tests for any value.
+        for (final value in PropRequiredness.values) {
+          switch (value) {
+            case PropRequiredness.late:
+              expect(value.isRequired, isTrue);
+              break;
+            case PropRequiredness.annotation:
+              expect(value.isRequired, isTrue);
+              break;
+            case PropRequiredness.ignoredViaDefault:
+              expect(value.isRequired, isFalse);
+              break;
+            case PropRequiredness.ignoredByConsumingClass:
+              expect(value.isRequired, isFalse);
+              break;
+            case PropRequiredness.none:
+              expect(value.isRequired, isFalse);
+              break;
+          }
+        }
       });
 
       test('maxRequiredness works as expected for all permutations', () {
         const late = PropRequiredness.late;
         const annotation = PropRequiredness.annotation;
+        const ignoredViaDefault = PropRequiredness.ignoredViaDefault;
         const ignoredByConsumingClass = PropRequiredness.ignoredByConsumingClass;
         const none = PropRequiredness.none;
 
         expect(maxRequiredness(late, late), late);
         expect(maxRequiredness(late, annotation), late);
+        expect(maxRequiredness(late, ignoredViaDefault), late);
         expect(maxRequiredness(late, ignoredByConsumingClass), late);
         expect(maxRequiredness(late, none), late);
         expect(maxRequiredness(late, null), late);
 
         expect(maxRequiredness(annotation, late), late);
         expect(maxRequiredness(annotation, annotation), annotation);
+        expect(maxRequiredness(annotation, ignoredViaDefault), annotation);
         expect(maxRequiredness(annotation, ignoredByConsumingClass), annotation);
         expect(maxRequiredness(annotation, none), annotation);
         expect(maxRequiredness(annotation, null), annotation);
 
+        expect(maxRequiredness(ignoredViaDefault, late), late);
+        expect(maxRequiredness(ignoredViaDefault, annotation), annotation);
+        expect(maxRequiredness(ignoredViaDefault, ignoredViaDefault), ignoredViaDefault);
+        expect(maxRequiredness(ignoredViaDefault, ignoredByConsumingClass), ignoredViaDefault);
+        expect(maxRequiredness(ignoredViaDefault, none), ignoredViaDefault);
+        expect(maxRequiredness(ignoredViaDefault, null), ignoredViaDefault);
+
         expect(maxRequiredness(ignoredByConsumingClass, late), late);
         expect(maxRequiredness(ignoredByConsumingClass, annotation), annotation);
+        expect(maxRequiredness(ignoredByConsumingClass, ignoredViaDefault), ignoredViaDefault);
         expect(maxRequiredness(ignoredByConsumingClass, ignoredByConsumingClass), ignoredByConsumingClass);
         expect(maxRequiredness(ignoredByConsumingClass, none), ignoredByConsumingClass);
         expect(maxRequiredness(ignoredByConsumingClass, null), ignoredByConsumingClass);
@@ -58,6 +87,7 @@ void main() {
         expect(maxRequiredness(none, late), late);
         expect(maxRequiredness(none, annotation), annotation);
         expect(maxRequiredness(none, ignoredByConsumingClass), ignoredByConsumingClass);
+        expect(maxRequiredness(none, ignoredViaDefault), ignoredViaDefault);
         expect(maxRequiredness(none, none), none);
         expect(maxRequiredness(none, null), none);
       });

@@ -89,40 +89,41 @@ enum PropRequiredness {
   /// Represents a prop required via late keyword (only available in null-safe language versions).
   ///
   /// When missing, throws upon UiProps invocation when asserts are enabled when invoking a builder (new boilerplate only).
-  late(isRequired: true, requirednessLevel: 4),
+  late(isRequired: true),
 
   /// Represents a prop required via annotations: `@requiredProp`, `@requiredNullableProp`, or `@Accessor(isRequired: true)`.
   ///
   /// When missing, will either throw, warn, or do nothing at component render, depending on the component boilerplate.
   ///
   /// Deprecated in favor of [late].
-  annotation(isRequired: true, requirednessLevel: 3),
+  annotation(isRequired: true),
 
   /// Represents a prop that was considered required in its declaration,
   /// but is automatically ignored because the class component provides a default for it.
-  ignoredViaDefault(isRequired: false, requirednessLevel: 2),
+  ignoredViaDefault(isRequired: false),
 
   /// Represents a prop that was considered required in its declaration,
   /// but is ignored by the consuming class via `@Props(disableRequiredPropValidation: {…})`.
-  ignoredByConsumingClass(isRequired: false, requirednessLevel: 1),
+  ignoredByConsumingClass(isRequired: false),
 
   /// Represents a prop that is not required.
-  none(isRequired: false, requirednessLevel: 0);
+  none(isRequired: false);
 
-  const PropRequiredness({
-    required this.isRequired,
-    int requirednessLevel = 0,
-  }) : _requirednessLevel = requirednessLevel;
+  const PropRequiredness({required this.isRequired});
 
   /// Whether this value is considered at all required.
   final bool isRequired;
 
-  /// A value used to determine the relative requiredness of two values.
+  /// An ordered list of values from "most" to "least" required.
   ///
-  /// Larger values means "more" required.
-  ///
-  /// See: [maxRequiredness]
-  final int _requirednessLevel;
+  /// Used by [maxRequiredness] to determine the relative requiredness of values.
+  static const _mostToLeastRequired = [
+    PropRequiredness.late,
+    PropRequiredness.annotation,
+    PropRequiredness.ignoredViaDefault,
+    PropRequiredness.ignoredByConsumingClass,
+    PropRequiredness.none,
+  ];
 }
 
 /// Returns the most required value between [a] and [b].
@@ -130,7 +131,14 @@ enum PropRequiredness {
 /// For convenience, returns [a] when [b] is null.
 PropRequiredness maxRequiredness(PropRequiredness a, PropRequiredness? b) {
   if (b == null) return a;
-  return a._requirednessLevel > b._requirednessLevel ? a : b;
+
+  final aIndex = PropRequiredness._mostToLeastRequired.indexOf(a);
+  final bIndex = PropRequiredness._mostToLeastRequired.indexOf(b);
+
+  assert(aIndex != -1);
+  assert(bIndex != -1);
+
+  return aIndex < bIndex ? a : b;
 }
 
 /// Returns whether required prop validation is disabled for a given prop declared via [propField],
