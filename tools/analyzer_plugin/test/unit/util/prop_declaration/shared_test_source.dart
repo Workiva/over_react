@@ -105,10 +105,11 @@ class V3Component extends UiComponent2<V3Props> {
   render() {}
 }
 
+// "Shorthand" syntax where props is a props mixin.
 
-UiFactory<V4Props> V4 = castUiFactory(_$V4);
+UiFactory<V4ShorthandProps> V4Shorthand = castUiFactory(_$V4Shorthand);
 
-mixin V4PropsMixin on UiProps {
+mixin V4ShorthandPropsMixin on UiProps {
   late String v4_lateRequiredProp;
   String? v4_optionalProp;
   @requiredProp
@@ -141,14 +142,29 @@ mixin V4PropsMixin on UiProps {
   static set v4_static_getterAndSetter(String _) {}
 }
 
-class V4Props = UiProps with V4PropsMixin;
+class V4ShorthandProps = UiProps with V4ShorthandPropsMixin;
 
-class V4Component extends UiComponent2<V4Props> {
+class V4ShorthandComponent extends UiComponent2<V4ShorthandProps> {
   get defaultProps => (newProps()..v4_lateRequiredDefaultedProp = 'default');
 
   @override
   render() {}
 }
+
+
+// "Concrete" syntax where props is a concrete props class.
+
+UiFactory<V4ConcreteProps> V4Concrete = castUiFactory(_$V4Concrete);
+
+class V4ConcreteProps = UiProps with V4PropsMixin;
+
+class V4ConcreteComponent extends UiComponent2<V4ConcreteProps> {
+  get defaultProps => (newProps()..v4_lateRequiredDefaultedProp = 'default');
+
+  @override
+  render() {}
+}
+
 
 //
 // Props mixins
@@ -230,7 +246,42 @@ abstract class _$V3PropsMixin implements UiProps {
   static set v3_static_getterAndSetter_inMixin(String _) {}
 }
 
-// V4 props can only be declared in mixins; this case is covered by other V4 cases
+// V4 props can only be declared in mixins; this case is partially redundant 
+// with other V4 cases, but we'll test this as a standalone mixin.
+
+mixin V4PropsMixin on UiProps {
+  late String v4_lateRequiredProp;
+  String? v4_optionalProp;
+  @requiredProp
+  String? v4_annotationRequiredProp;
+  late String v4_lateRequiredDefaultedProp;
+
+  //
+  // Non-props: edge-cases
+  //
+  @Accessor(doNotGenerate: true)
+  String? v4_doNotGenerate;
+
+  //
+  // Non-props: instance members
+  //
+  String get v4_getter => '';
+  // ignore: avoid_setters_without_getters
+  set v4_setter(_) => '';
+  String get v4_getterAndSetter => '';
+  set v4_getterAndSetter(String _) {}
+
+  //
+  // Non-props: static members
+  //
+  static String v4_static_field = '';
+  static String get v4_static_getter => '';
+  // ignore: avoid_setters_without_getters
+  static set v4_static_setter(_) => '';
+  static String get v4_static_getterAndSetter => '';
+  static set v4_static_getterAndSetter(String _) {}
+}
+
 
 
 //

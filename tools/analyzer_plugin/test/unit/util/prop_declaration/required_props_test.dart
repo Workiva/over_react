@@ -220,14 +220,29 @@ void main() {
 
           group('a v4 boilerplate', () {
             // These props technically come from the mixin (since in V4 props can only be declared in mixins),
-            // so this test case is slightly redundant with the extension test in the group below.
-            test('concrete props class', () {
-              final propsElement = getInterfaceElement(result, 'V4Props');
-              verifyRequiredProps(getAllRequiredProps(propsElement), expected: {
-                'v4_lateRequiredProp': PropRequiredness.late,
-                'v4_optionalProp': PropRequiredness.none,
-                'v4_annotationRequiredProp': PropRequiredness.annotation,
-                'v4_lateRequiredDefaultedProp': PropRequiredness.ignoredViaDefault,
+            // so these test cases are slightly redundant with the extension test in the group below.
+            //
+            // However, there are things like `PropRequiredness.ignoredViaDefault` behavior we want to make sure
+            // we test here.
+            group('props element associated with a component:', () {
+              test('concrete props class', () {
+                final propsElement = getInterfaceElement(result, 'V4ConcreteProps');
+                verifyRequiredProps(getAllRequiredProps(propsElement), expected: {
+                  'v4_lateRequiredProp': PropRequiredness.late,
+                  'v4_optionalProp': PropRequiredness.none,
+                  'v4_annotationRequiredProp': PropRequiredness.annotation,
+                  'v4_lateRequiredDefaultedProp': PropRequiredness.ignoredViaDefault,
+                });
+              });
+
+              test('props mixin (shorthand syntax)', () {
+                final propsElement = getInterfaceElement(result, 'V4ShorthandProps');
+                verifyRequiredProps(getAllRequiredProps(propsElement), expected: {
+                  'v4_lateRequiredProp': PropRequiredness.late,
+                  'v4_optionalProp': PropRequiredness.none,
+                  'v4_annotationRequiredProp': PropRequiredness.annotation,
+                  'v4_lateRequiredDefaultedProp': PropRequiredness.ignoredViaDefault,
+                });
               });
             });
 
@@ -237,7 +252,6 @@ void main() {
                 'v4_lateRequiredProp': PropRequiredness.late,
                 'v4_optionalProp': PropRequiredness.none,
                 'v4_annotationRequiredProp': PropRequiredness.annotation,
-                // FIXME add test case for defaulted prop declared with shorthand syntax (mixin-only, no concrete props class)
                 'v4_lateRequiredDefaultedProp': PropRequiredness.late,
               });
             });

@@ -89,7 +89,7 @@ void main() {
           // These props technically come from the mixin (since in V4 props can only be declared in mixins),
           // so this test case is slightly redundant with the extension test in the group below.
           test('concrete props class', () {
-            final propsElement = getInterfaceElement(result, 'V4Props');
+            final propsElement = getInterfaceElement(result, 'V4ConcreteProps');
             verifyAllProps(getAllProps(propsElement), expectedNames: [
               'v4_lateRequiredProp',
               'v4_optionalProp',
