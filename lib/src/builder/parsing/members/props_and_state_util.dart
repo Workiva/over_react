@@ -63,10 +63,11 @@ annotations.TypedMap getPropsOrStateAnnotation(bool isProps, AnnotatedNode node)
           // ignore: deprecated_member_use_from_same_package
           InstantiatedMeta<annotations.StateMixin>(node));
 
-    if (meta == null) return defaultValue;
+  if (meta == null) return defaultValue;
 
   // Make the `disableRequiredPropValidation` arg a noop until it is implemented in v5.
-  if (meta.potentiallyIncompleteValue is annotations.Props && meta.unsupportedArguments.length == 1) {
+  if (meta.potentiallyIncompleteValue is annotations.Props &&
+      meta.unsupportedArguments.length == 1) {
     final arg = meta.unsupportedArguments[0];
     if (arg is NamedExpression && arg.name.label.name == 'disableRequiredPropValidation') {
       return annotations.Props(
@@ -75,7 +76,7 @@ annotations.TypedMap getPropsOrStateAnnotation(bool isProps, AnnotatedNode node)
     }
   }
 
-    return meta.value ?? defaultValue;
+  return meta.value ?? defaultValue;
 }
 
 /// If a [ClassMember] exists in [node] with the name `meta`, this will
