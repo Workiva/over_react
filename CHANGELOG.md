@@ -1,5 +1,8 @@
 # OverReact Changelog
 
+## [4.11.1](https://github.com/Workiva/over_react/compare/4.11.0...4.11.1)
+- [#881] Fix disableRequiredPropValidation annotation and add test
+
 ## [4.11.0](https://github.com/Workiva/over_react/compare/4.10.4...4.11.0)
 - [#879] Backpatch @Props(disableRequiredPropValidation) annotation arg
 
