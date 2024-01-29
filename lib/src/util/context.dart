@@ -45,7 +45,7 @@ import 'package:react/react.dart' as react;
 ///       }
 ///     }
 ///
-/// Learn more at: hhttps://react.dev/learn/passing-data-deeply-with-context
+/// Learn more at: https://react.dev/learn/passing-data-deeply-with-context
 class Context<TValue> {
   // ignore: avoid_types_as_parameter_names
   Context(this.Provider, this.Consumer, this.reactDartContext);
@@ -219,7 +219,8 @@ class _DO_NOT_USE_OR_YOU_WILL_BE_FIRED {
 /// When React renders a component that subscribes to this [Context]
 /// object it will read the current context value from the closest matching Provider above it in the tree.
 ///
-/// To create a non-nullable context with a default value, use [createContextInit] instead.
+/// To create a context with a non-nullable generic type, use [createContextInit] instead
+/// (caveat: requires a default value).
 ///
 /// __Example__:
 ///
@@ -276,9 +277,11 @@ Context<TValue?> createContext<TValue>([
 /// When React renders a component that subscribes to this [Context]
 /// object it will read the current context value from the closest matching Provider above it in the tree.
 ///
-/// The [defaultValue] argument is only used when a component does not have a matching [Context.Provider]
-/// above it in the tree. This can be helpful for testing components in isolation without wrapping them.
-/// To create a non-nullable context with a default value, use [createContextInit] instead.
+/// [defaultValue] must be provided in order to create a context with a non-nullable generic type,
+/// and is only used when a component does not have a matching [Context.Provider] above it in the tree.
+/// This can be helpful for testing components in isolation without wrapping them.
+///
+/// To create a context without a default value, use [createContext] (caveat: the generic type has to be nullable).
 ///
 /// __Example__:
 ///
