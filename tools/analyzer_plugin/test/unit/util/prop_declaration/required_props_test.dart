@@ -128,6 +128,34 @@ void main() {
         });
       });
 
+      group('getDisableValidationForClassDefaultProps', () {
+        group('returns the value set in the @Props() annotation', () {
+          test('true', () {
+            final propsElement = getInterfaceElement(result, 'GetDisableValidationForClassDefaultProps_TrueProps');
+            expect(getDisableValidationForClassDefaultProps(propsElement), isTrue);
+          });
+
+          test('false', () {
+            final propsElement = getInterfaceElement(result, 'GetDisableValidationForClassDefaultProps_FalseProps');
+            expect(getDisableValidationForClassDefaultProps(propsElement), isFalse);
+          });
+        });
+
+        group('returns the default value (true) when', () {
+          test('the @Props annotation does not have disableValidationForClassDefaultProps argument', () {
+            final propsElement =
+                getInterfaceElement(result, 'GetDisableValidationForClassDefaultProps_UnspecifiedProps');
+            expect(getDisableValidationForClassDefaultProps(propsElement), isTrue);
+          });
+
+          test('there is no @Props annotation present', () {
+            final propsElement =
+                getInterfaceElement(result, 'GetDisableValidationForClassDefaultProps_WithoutAnnotationProps');
+            expect(getDisableValidationForClassDefaultProps(propsElement), isTrue);
+          });
+        });
+      });
+
       group('getIgnoredRequiredPropNames', () {
         test('returns the set of props specified in the @Props() annotation', () {
           final propsElement = getInterfaceElement(result, 'IgnoreRequiredPropsAnnotationTest_WithIgnoresProps');

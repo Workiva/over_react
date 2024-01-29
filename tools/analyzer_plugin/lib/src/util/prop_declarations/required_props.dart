@@ -12,7 +12,7 @@ import 'get_all_props.dart';
 RequiredPropInfo getAllRequiredProps(InterfaceElement element) {
   final ignoredRequiredPropNames = getIgnoredRequiredPropNames(element);
 
-  final shouldIgnoreDefaultPropNames = getDisableValidationForDefaultedProps(element);
+  final shouldIgnoreDefaultPropNames = getDisableValidationForClassDefaultProps(element);
   final ignoredDefaultPropNames =
       shouldIgnoreDefaultPropNames ? getDefaultedPropsForComponentWithPropsClass(element) : null;
 
@@ -154,9 +154,9 @@ bool isRequiredPropValidationDisabled(FieldElement propField) {
   });
 }
 
-/// Returns the prop names that should not be considered required for a given concrete props class,
-/// from the `@Props(ignoreRequiredProps: {…})` annotation.
-bool getDisableValidationForDefaultedProps(InterfaceElement element) =>
+/// Returns whether validation should be automatically disabled for defaulted class component props,
+/// from the `@Props(disableValidationForClassDefaultProps: …)` annotation if present.
+bool getDisableValidationForClassDefaultProps(InterfaceElement element) =>
     _getPropsAnnotation(element)?.getField('disableValidationForClassDefaultProps')?.toBoolValue() ?? true;
 
 /// Returns the prop names that should not be considered required for a given concrete props class,

@@ -440,4 +440,16 @@ UiFactory<IgnoreRequiredPropsAnnotationTest_WithoutIgnoresProps> IgnoreRequiredP
 class IgnoreRequiredPropsAnnotationTest_WithoutAnnotationProps extends UiProps {}
 UiFactory<IgnoreRequiredPropsAnnotationTest_WithoutAnnotationProps> IgnoreRequiredPropsAnnotationTest_WithoutAnnotation = castUiFactory(_$IgnoreRequiredPropsAnnotationTest_WithoutAnnotation);
 
+
+@Props(disableValidationForClassDefaultProps: true)
+mixin GetDisableValidationForClassDefaultProps_TrueProps on UiProps {}
+
+@Props(disableValidationForClassDefaultProps: false)
+mixin GetDisableValidationForClassDefaultProps_FalseProps on UiProps {}
+
+@Props(keyNamespace: 'foo')
+mixin GetDisableValidationForClassDefaultProps_UnspecifiedProps on UiProps {}
+
+mixin GetDisableValidationForClassDefaultProps_WithoutAnnotationProps on UiProps {}
+
 ''';
