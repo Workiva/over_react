@@ -157,7 +157,7 @@ bool isRequiredPropValidationDisabled(FieldElement propField) {
 /// Returns the prop names that should not be considered required for a given concrete props class,
 /// from the `@Props(ignoreRequiredProps: {…})` annotation.
 bool getDisableValidationForDefaultedProps(InterfaceElement element) =>
-    _getPropsAnnotation(element)?.getField('disableValidationForDefaultedProps')?.toBoolValue() ?? false;
+    _getPropsAnnotation(element)?.getField('disableValidationForClassDefaultProps')?.toBoolValue() ?? true;
 
 /// Returns the prop names that should not be considered required for a given concrete props class,
 /// from the `@Props(disableRequiredPropValidation: {…})` annotation.
