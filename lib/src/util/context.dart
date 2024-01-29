@@ -155,16 +155,19 @@ typedef _ConsumerPropsImpl<TValue> = _$$ConsumerProps<TValue>;
 
 /// A typed props class for the [Context.Provider] from a [Context] object created with [createContext].
 ///
-/// Props:
-///
-/// * [_ProviderPropsMixin.value] The value that you want to provide to all consumers.
-///
 /// See: <https://react.dev/reference/react/createContext#provider>
 class ProviderProps<TValue> = UiProps with _ProviderPropsMixin<TValue>;
 
 // Private to mirror `ConsumerPropsMixin` being private.
 @Props(keyNamespace: '')
 mixin _ProviderPropsMixin<TValue> on UiProps {
+  /// The value that you want to pass to all the components reading this context inside this provider,
+  /// no matter how deep.
+  ///
+  /// The context value can be of any type.
+  ///
+  /// A component calling `useContext(SomeContext)` inside of the provider receives the value of
+  /// the innermost corresponding context provider above it.
   late TValue value;
 }
 
