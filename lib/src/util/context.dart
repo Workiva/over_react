@@ -45,7 +45,7 @@ import 'package:react/react.dart' as react;
 ///       }
 ///     }
 ///
-/// Learn more at: https://reactjs.org/docs/context.html
+/// Learn more at: https://react.dev/learn/passing-data-deeply-with-context
 class Context<TValue> {
   // ignore: avoid_types_as_parameter_names
   Context(this.Provider, this.Consumer, this.reactDartContext);
@@ -97,7 +97,7 @@ class Context<TValue> {
   ///       }
   ///     }
   ///
-  /// Learn More: <https://reactjs.org/docs/context.html#contextprovider>
+  /// Learn More: <https://react.dev/reference/react/createContext#provider>
   final UiFactory<ProviderProps<TValue>> Provider;
 
   /// A React component that subscribes to context changes.
@@ -125,7 +125,7 @@ class Context<TValue> {
   ///       }
   ///     }
   ///
-  /// Learn more: <https://reactjs.org/docs/context.html#contextconsumer>
+  /// Learn more: <https://react.dev/reference/react/createContext#consumer>
   final UiFactory<ConsumerProps<TValue>> Consumer;
 }
 
@@ -135,7 +135,7 @@ class Context<TValue> {
 ///
 /// * [value] The value that you want to provide to all consumers.
 ///
-/// See: <https://reactjs.org/docs/context.html#contextprovider>
+/// See: <https://react.dev/reference/react/createContext#provider>
 class ProviderProps<TValue> extends builder_helpers.UiProps {
   ProviderProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
@@ -159,7 +159,7 @@ const _getPropKey = getPropKey;
 
 /// [ConsumerProps] is a typed props class for the [Context.Consumer] from a [Context] object created with [createContext].
 ///
-/// See: <https://reactjs.org/docs/context.html#contextconsumer>
+/// See: <https://react.dev/reference/react/createContext#consumer>
 class ConsumerProps<TValue> extends builder_helpers.UiProps {
   // Initialize to a JsBackedMap so that copying can be optimized
   // when converting props during ReactElement creation.
@@ -219,44 +219,112 @@ class _DO_NOT_USE_OR_YOU_WILL_BE_FIRED {
 /// When React renders a component that subscribes to this [Context]
 /// object it will read the current context value from the closest matching Provider above it in the tree.
 ///
-/// The `defaultValue` argument is only used when a component does not have a matching [Context.Provider]
-/// above it in the tree. This can be helpful for testing components in isolation without wrapping them.
+/// To create a context with a non-nullable generic type, use [createContextInit] instead
+/// (caveat: requires a default value).
 ///
 /// __Example__:
 ///
-///     Context MyContext = createContext();
-///     ...
-///     class MyComponent extends UiComponent2<...> {
-///       render() {
-///         return (MyContext.Provider()..value = 'new context value')(
-///           MyContext.Consumer()(
-///             (value) {
-///               return Dom.span()(
-///                 '$value', // Outputs: 'new context value'
-///               );
-///             }
-///           );
-///         );
-///       }
-///     }
+/// ```dart
+/// final MyContext = createContext<String?>();
 ///
-/// ___ OR ___
+/// example() {
+///   return Fragment()(
+///     (MyContext.Provider()..value = 'new context value')(
+///       // Consume using either a function component, class component, or Context.Consumer utility.
+///       // Each of the following children renders a span with 'new context value'.
+///       ExampleFunctionConsumer()(),
+///       ExampleClassConsumer()(),
+///       MyContext.Consumer()(
+///         (value) => Dom.span()(value),
+///       ),
+///     ),
 ///
-///     Context MyContext = createContext('test');
-///     ...
-///     class MyContextTypeComponent extends UiComponent2<...> {
-///       @override
-///       get contextType => MyContext.reactDartContext;
+///     // When not nested in a matching Provider, the default value (null) is used.
+///     // To provide a default value, use createContextInit instead of createContext.
+///     ExampleFunctionConsumer()(), // Renders an empty span.
+///   );
+/// }
 ///
-///       render() {
-///         return Dom.span()(
-///           '${this.context}', // Outputs: 'test'
-///         );
-///       }
-///     }
+/// mixin ExampleFunctionConsumerProps on UiProps {}
+/// UiFactory<ExampleFunctionConsumerProps> ExampleFunctionConsumer = uiFunction((props) {
+///   final contextValue = useContext(MyContext);
+///   return Dom.span()(contextValue);
+/// }, _$ExampleFunctionConsumerConfig);
 ///
-/// Learn more: <https://reactjs.org/docs/context.html#reactcreatecontext>
-Context<TValue> createContext<TValue>([TValue? defaultValue, int Function(TValue?, TValue?)? calculateChangedBits]) {
+/// UiFactory<ExampleClassConsumerProps> ExampleClassConsumer = castUiFactory(_$ExampleClassConsumer);
+/// mixin ExampleClassConsumerProps on UiProps {}
+/// class ExampleClassConsumerComponent extends UiComponent2<ExampleClassConsumerProps> {
+///   @override
+///   get contextType => MyContext.reactDartContext;
+///
+///   render() {
+///     return Dom.span()(this.context);
+///   }
+/// ```
+///
+/// Learn more: <https://react.dev/reference/react/createContext>
+Context<TValue?> createContext<TValue>([
+  // TODO(FED-2136) uncomment this deprecation
+  // @Deprecated('Use `createContextInit` instead to create contexts with initial values.'
+  //      ' Since the argument to createContextInit is required, it can be used to create a context that holds a non-nullable type,'
+  //      ' whereas this function can only create contexts with nullable type arguments.')
+  TValue? defaultValue,
+  int Function(TValue?, TValue?)? calculateChangedBits,
+]) => createContextInit(defaultValue, calculateChangedBits);
+
+/// Creates a [Context] object.
+///
+/// When React renders a component that subscribes to this [Context]
+/// object it will read the current context value from the closest matching Provider above it in the tree.
+///
+/// [defaultValue] must be provided in order to create a context with a non-nullable generic type,
+/// and is only used when a component does not have a matching [Context.Provider] above it in the tree.
+/// This can be helpful for testing components in isolation without wrapping them.
+///
+/// To create a context without a default value, use [createContext] (caveat: the generic type has to be nullable).
+///
+/// __Example__:
+///
+/// ```dart
+/// final MyContext = createContext<String>('default value');
+///
+/// example() {
+///   return Fragment()(
+///     (MyContext.Provider()..value = 'new context value')(
+///       // Consume using either a function component, class component, or Context.Consumer utility.
+///       // Each of the following children renders a span with 'new context value'.
+///       ExampleFunctionConsumer()(),
+///       ExampleClassConsumer()(),
+///       MyContext.Consumer()(
+///         (value) => Dom.span()(value),
+///       ),
+///     ),
+///
+///     // When not nested in a matching Provider, the default value is used.
+///     ExampleFunctionConsumer()(), // Renders a span with 'default value'.
+///   );
+/// }
+///
+/// mixin ExampleFunctionConsumerProps on UiProps {}
+/// UiFactory<ExampleFunctionConsumerProps> ExampleFunctionConsumer = uiFunction((props) {
+///   final contextValue = useContext(MyContext);
+///   return Dom.span()(contextValue);
+/// }, _$ExampleFunctionConsumerConfig);
+///
+/// UiFactory<ExampleClassConsumerProps> ExampleClassConsumer = castUiFactory(_$ExampleClassConsumer);
+/// mixin ExampleClassConsumerProps on UiProps {}
+/// class ExampleClassConsumerComponent extends UiComponent2<ExampleClassConsumerProps> {
+///   @override
+///   get contextType => MyContext.reactDartContext;
+///
+///   render() {
+///     return Dom.span()(this.context);
+///   }
+/// }
+/// ```
+///
+/// Learn more: <https://react.dev/reference/react/createContext>
+Context<TValue> createContextInit<TValue>(TValue defaultValue, [int Function(TValue, TValue)? calculateChangedBits]) {
   final reactDartContext = react.createContext<TValue>(defaultValue, calculateChangedBits != null ? (dynamic arg1, dynamic arg2) => calculateChangedBits(arg1 as TValue, arg2 as TValue) : null);
   return Context<TValue>.fromReactDartContext(reactDartContext);
 }
