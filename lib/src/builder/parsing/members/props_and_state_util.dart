@@ -52,6 +52,7 @@ class _PropsStateStringHelpersImpl extends Object with PropsStateStringHelpers {
 
 /// Uses [InstantiatedMeta] to analyze [node] and determine the proper annotation.
 annotations.TypedMap getPropsOrStateAnnotation(bool isProps, AnnotatedNode node) {
+  final defaultValue = isProps ? annotations.Props() : annotations.State();
   final meta = isProps
       ? (InstantiatedMeta<annotations.Props>(node) ??
           InstantiatedMeta<annotations.AbstractProps>(node) ??
@@ -62,7 +63,20 @@ annotations.TypedMap getPropsOrStateAnnotation(bool isProps, AnnotatedNode node)
           // ignore: deprecated_member_use_from_same_package
           InstantiatedMeta<annotations.StateMixin>(node));
 
-  return meta?.value ?? (isProps ? annotations.Props() : annotations.State());
+  if (meta == null) return defaultValue;
+
+  // Make the `disableRequiredPropValidation` arg a noop until it is implemented in v5.
+  if (meta.potentiallyIncompleteValue is annotations.Props &&
+      meta.unsupportedArguments.length == 1) {
+    final arg = meta.unsupportedArguments[0];
+    if (arg is NamedExpression && arg.name.label.name == 'disableRequiredPropValidation') {
+      return annotations.Props(
+        keyNamespace: meta.potentiallyIncompleteValue.keyNamespace,
+      );
+    }
+  }
+
+  return meta.value ?? defaultValue;
 }
 
 /// If a [ClassMember] exists in [node] with the name `meta`, this will
