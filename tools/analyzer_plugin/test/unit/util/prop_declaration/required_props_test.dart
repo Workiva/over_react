@@ -49,47 +49,44 @@ void main() {
         }
       });
 
-      test('maxRequiredness works as expected for all permutations', () {
-        const late = PropRequiredness.late;
-        const annotation = PropRequiredness.annotation;
-        const ignoredViaDefault = PropRequiredness.ignoredViaDefault;
-        const ignoredByConsumingClass = PropRequiredness.ignoredByConsumingClass;
-        const none = PropRequiredness.none;
+      group('maxRequiredness works as expected for all permutations', () {
+        const expectedMostToLeastRequired = [
+          PropRequiredness.late,
+          PropRequiredness.annotation,
+          PropRequiredness.ignoredViaDefault,
+          PropRequiredness.ignoredByConsumingClass,
+          PropRequiredness.none,
+        ];
 
-        expect(maxRequiredness(late, late), late);
-        expect(maxRequiredness(late, annotation), late);
-        expect(maxRequiredness(late, ignoredViaDefault), late);
-        expect(maxRequiredness(late, ignoredByConsumingClass), late);
-        expect(maxRequiredness(late, none), late);
-        expect(maxRequiredness(late, null), late);
+        setUpAll(() {
+          expect(PropRequiredness.values.map(expectedMostToLeastRequired.indexOf), everyElement(isNot(-1)),
+              reason: 'test setup check; all values should be present in expectedMostToLeastRequired');
+        });
 
-        expect(maxRequiredness(annotation, late), late);
-        expect(maxRequiredness(annotation, annotation), annotation);
-        expect(maxRequiredness(annotation, ignoredViaDefault), annotation);
-        expect(maxRequiredness(annotation, ignoredByConsumingClass), annotation);
-        expect(maxRequiredness(annotation, none), annotation);
-        expect(maxRequiredness(annotation, null), annotation);
+        test('(hard-coded test to ensure order isn\'t accidentally flipped', () {
+          expect(maxRequiredness(PropRequiredness.late, PropRequiredness.none), PropRequiredness.late);
+        });
 
-        expect(maxRequiredness(ignoredViaDefault, late), late);
-        expect(maxRequiredness(ignoredViaDefault, annotation), annotation);
-        expect(maxRequiredness(ignoredViaDefault, ignoredViaDefault), ignoredViaDefault);
-        expect(maxRequiredness(ignoredViaDefault, ignoredByConsumingClass), ignoredViaDefault);
-        expect(maxRequiredness(ignoredViaDefault, none), ignoredViaDefault);
-        expect(maxRequiredness(ignoredViaDefault, null), ignoredViaDefault);
-
-        expect(maxRequiredness(ignoredByConsumingClass, late), late);
-        expect(maxRequiredness(ignoredByConsumingClass, annotation), annotation);
-        expect(maxRequiredness(ignoredByConsumingClass, ignoredViaDefault), ignoredViaDefault);
-        expect(maxRequiredness(ignoredByConsumingClass, ignoredByConsumingClass), ignoredByConsumingClass);
-        expect(maxRequiredness(ignoredByConsumingClass, none), ignoredByConsumingClass);
-        expect(maxRequiredness(ignoredByConsumingClass, null), ignoredByConsumingClass);
-
-        expect(maxRequiredness(none, late), late);
-        expect(maxRequiredness(none, annotation), annotation);
-        expect(maxRequiredness(none, ignoredByConsumingClass), ignoredByConsumingClass);
-        expect(maxRequiredness(none, ignoredViaDefault), ignoredViaDefault);
-        expect(maxRequiredness(none, none), none);
-        expect(maxRequiredness(none, null), none);
+        for (final value1 in PropRequiredness.values) {
+          for (final value2 in PropRequiredness.values) {
+            test('maxRequiredness(${value1.name}, ${value2.name})', () {
+              final index1 = expectedMostToLeastRequired.indexOf(value1);
+              final index2 = expectedMostToLeastRequired.indexOf(value2);
+              // Separate expects so it's clear in failure stacks which case we're dealing with.
+              if (index1 == index2) {
+                expect(value1, value2, reason: 'test setup check; should be the same value');
+                expect(maxRequiredness(value1, value2), value1,
+                    reason: 'should return the same value passed in for both arguments');
+              } else if (index1 < index2) {
+                expect(maxRequiredness(value1, value2), value1,
+                    reason: '$value1 comes before $value2 in expectedMostToLeastRequired');
+              } else {
+                expect(maxRequiredness(value1, value2), value2,
+                    reason: '$value1 comes after $value2 in expectedMostToLeastRequired');
+              }
+            });
+          }
+        }
       });
     });
 
