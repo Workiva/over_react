@@ -47,10 +47,18 @@ main() {
       stopRecordingValidationWarnings();
     });
 
-    test('when a single non-invoked builder child is passed in', () {
-      expect(() => builder(Dom.div()), throwsArgumentError);
-      verifyValidationWarning(contains(
-          'It looks like you are trying to use a non-invoked builder as a child.'));
+    group('when a single non-invoked builder child is passed into', () {
+      test('call()', () {
+        expect(() => builder(Dom.div()), throwsArgumentError);
+        verifyValidationWarning(contains(
+            'It looks like you are trying to use a non-invoked builder as a child.'));
+      });
+
+      test('build()', () {
+        expect(() => builder.build(Dom.div()), throwsArgumentError);
+        verifyValidationWarning(contains(
+            'It looks like you are trying to use a non-invoked builder as a child.'));
+      });
     });
 
     test('when a list with a non-invoked builder child passed in', () {

@@ -24,17 +24,32 @@ void main() {
   group('(New boilerplate) validates required props:', () {
     group('non-nullable required prop', () {
       group('throws when a prop is required and not set', () {
-        test('on invocation', () {
-          expect(() {
-            (ComponentTest()
-              ..requiredNullable = true
-            )();
-          },
-              throwsA(isA<MissingRequiredPropsError>().having(
-                  (e) => e.toString(),
-                  'toString value',
-                  contains(
-                      'Required prop `requiredNonNullable` is missing.'))));
+        group('on invocation', () {
+          test('via call()', () {
+            expect(() {
+              (ComponentTest()
+                ..requiredNullable = true
+              )();
+            },
+                throwsA(isA<MissingRequiredPropsError>().having(
+                    (e) => e.toString(),
+                    'toString value',
+                    contains(
+                        'Required prop `requiredNonNullable` is missing.'))));
+          });
+
+          test('via build()', () {
+            expect(() {
+              (ComponentTest()
+                ..requiredNullable = true
+              ).build();
+            },
+                throwsA(isA<MissingRequiredPropsError>().having(
+                    (e) => e.toString(),
+                    'toString value',
+                    contains(
+                        'Required prop `requiredNonNullable` is missing.'))));
+          });
         });
 
         test('on mount', () {
@@ -85,16 +100,30 @@ void main() {
 
     group('nullable required prop', () {
       group('throws when a prop is required and not set', () {
-        test('on invocation', () {
-          expect(() {
-            (ComponentTest()
-              ..requiredNonNullable = true
-            )();
-          },
-              throwsA(isA<MissingRequiredPropsError>().having(
-                  (e) => e.toString(),
-                  'toString value',
-                  contains('Required prop `requiredNullable` is missing.'))));
+        group('on invocation', () {
+          test('via call()', () {
+            expect(() {
+              (ComponentTest()
+                ..requiredNonNullable = true
+              )();
+            },
+                throwsA(isA<MissingRequiredPropsError>().having(
+                    (e) => e.toString(),
+                    'toString value',
+                    contains('Required prop `requiredNullable` is missing.'))));
+          });
+
+          test('via build()', () {
+            expect(() {
+              (ComponentTest()
+                ..requiredNonNullable = true
+              ).build();
+            },
+                throwsA(isA<MissingRequiredPropsError>().having(
+                    (e) => e.toString(),
+                    'toString value',
+                    contains('Required prop `requiredNullable` is missing.'))));
+          });
         });
 
         test('on mount', () {
@@ -227,7 +256,8 @@ void main() {
 
   test('(New boilerplate) validates required props: does not throw in dart2js', () {
     expect(() {
-      rtl.render((ComponentTest())());
+      rtl.render(ComponentTest()());
+      rtl.render(ComponentTest().build());
     },
     returnsNormally);
   }, tags: 'no-ddc');

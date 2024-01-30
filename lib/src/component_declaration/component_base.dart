@@ -561,7 +561,15 @@ abstract class UiProps extends MapBase
     return getTestId();
   }
 
-  void _assertComponentFactoryIsNotNull() {
+  /// Shared `assert` statements for use in [call] and [build].
+  void _sharedAsserts() {
+    assert(() {
+      if (_shouldValidateRequiredProps) {
+        validateRequiredProps();
+      }
+      return true;
+    }());
+
     // This is an assert since we're in a performance-sensitive area of the code, and only need
     // to provide this error message during development; in prod, a null exception will be triggered
     // down the line instead.
@@ -579,8 +587,8 @@ abstract class UiProps extends MapBase
   /// Returns a new component with this builder's [props] and the specified [children].
   ReactElement build([dynamic children]) {
     assert(_validateChildren(children));
+    _sharedAsserts();
 
-    _assertComponentFactoryIsNotNull();
     return componentFactory!(props, children);
   }
 
@@ -620,19 +628,14 @@ abstract class UiProps extends MapBase
         .toList();
     }
 
+    // Ideally we'd put this assert into _sharedAsserts, but we want to make sure this conditional child logic
+    // gets compiled out by directly nesting it within an `assert`.
     assert(_validateChildren(childArguments.length == 1 ? childArguments.single : childArguments));
-
-    assert(() {
-      if (_shouldValidateRequiredProps) {
-        validateRequiredProps();
-      }
-      return true;
-    }());
+    _sharedAsserts();
 
     // Use `build` instead of using emulated function behavior to work around DDC issue
     // https://github.com/dart-lang/sdk/issues/29904
     // Should have the benefit of better performance;
-    _assertComponentFactoryIsNotNull();
     return componentFactory!.build(props, childArguments);
   }
 
