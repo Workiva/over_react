@@ -50,8 +50,8 @@ main() {
           connectFlux<FluxStore, FluxActions, ConnectFluxCounterProps>(
         mapStateToProps: (state) =>
             (ConnectFluxCounter()..currentCount = state.count),
-        mapActionsToProps: (actions) =>
-            (ConnectFluxCounter()..increment = (() => actions.incrementAction)),
+        mapActionsToProps: (actions) => (ConnectFluxCounter()
+          ..increment = (() => actions.incrementAction(null))),
         context: context1,
       )(ConnectFluxCounter);
 
@@ -59,8 +59,8 @@ main() {
           connectFlux<FluxStore2, FluxActions, ConnectFluxCounterProps>(
         mapStateToProps: (state) =>
             (ConnectFluxCounter()..currentCount = state.count),
-        mapActionsToProps: (actions) =>
-            (ConnectFluxCounter()..increment = (() => actions.incrementAction)),
+        mapActionsToProps: (actions) => (ConnectFluxCounter()
+          ..increment = (() => actions.incrementAction(null))),
         context: context2,
       )(ConnectFluxCounter);
 
@@ -68,8 +68,8 @@ main() {
           connectFlux<FluxStore, FluxActions, ConnectFluxCounterProps>(
         mapStateToProps: (state) =>
             (ConnectFluxCounter()..currentCount = state.count),
-        mapActionsToProps: (actions) =>
-            (ConnectFluxCounter()..increment = (() => actions.incrementAction)),
+        mapActionsToProps: (actions) => (ConnectFluxCounter()
+          ..increment = (() => actions.incrementAction(null))),
         context: context3,
       )(ConnectFluxCounter);
 

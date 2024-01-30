@@ -90,8 +90,8 @@ main() {
             mapStateToProps: (state) =>
                 (ConnectFluxCounter()..currentCount = state.count),
             mapActionsToProps: (actions) => (ConnectFluxCounter()
-              ..increment = (() => actions.incrementAction)
-              ..decrement = (() => actions.decrementAction)),
+              ..increment = (() => actions.incrementAction(null))
+              ..decrement = (() => actions.decrementAction(null))),
           )(ConnectFluxCounter);
 
           expect(() => render(ConnectedCounter()('test')), throwsA(anything));
@@ -153,8 +153,8 @@ main() {
                   mapStateToProps: (state) =>
                       (ConnectFluxCounter()..currentCount = state.count),
                   mapActionsToProps: (actions) => (ConnectFluxCounter()
-                    ..increment = (() => actions.incrementAction)
-                    ..decrement = (() => actions.decrementAction)),
+                    ..increment = (() => actions.incrementAction(null))
+                    ..decrement = (() => actions.decrementAction(null))),
                   forwardRef: true)(ConnectFluxCounter);
 
           jacket = mount(
@@ -204,8 +204,8 @@ main() {
             mapStateToPropsWithOwnProps: (state, ownProps) =>
                 (ConnectFluxCounter()..currentCount = state.count),
             mapActionsToProps: (actions) => (ConnectFluxCounter()
-              ..increment = (() => actions.incrementAction)
-              ..decrement = (() => actions.decrementAction)),
+              ..increment = (() => actions.incrementAction(null))
+              ..decrement = (() => actions.decrementAction(null))),
             forwardRef: true,
           )(ConnectFluxCounter);
 
@@ -240,8 +240,8 @@ main() {
               return ConnectFluxCounter()..currentCount = state.count;
             },
             mapActionsToProps: (actions) => (ConnectFluxCounter()
-              ..increment = (() => actions.incrementAction)
-              ..decrement = (() => actions.decrementAction)),
+              ..increment = (() => actions.incrementAction(null))
+              ..decrement = (() => actions.decrementAction(null))),
             forwardRef: true,
           )(ConnectFluxCounter);
 
@@ -280,8 +280,8 @@ main() {
               return ConnectFluxCounter()..currentCount = state.count;
             },
             mapActionsToProps: (actions) => (ConnectFluxCounter()
-              ..increment = (() => actions.incrementAction)
-              ..decrement = (() => actions.decrementAction)),
+              ..increment = (() => actions.incrementAction(null))
+              ..decrement = (() => actions.decrementAction(null))),
             forwardRef: true,
           )(ConnectFluxCounter);
 
@@ -319,7 +319,7 @@ main() {
                 (ConnectFluxCounter()..currentCount = state.count),
             mapActionsToProps: (actions) {
               return ConnectFluxCounter()
-                ..decrement = (() => actions.decrementAction);
+                ..decrement = (() => actions.decrementAction(null));
             },
             mergeProps: (stateProps, dispatchProps, ownProps) {
               propsReferences.addAll([stateProps, dispatchProps, ownProps]);
@@ -417,7 +417,7 @@ main() {
                 return ConnectFluxCounter()..currentCount = state.count;
               },
               mapActionsToProps: (actions) => (ConnectFluxCounter()
-                ..increment = (() => actions.incrementAction)),
+                ..increment = (() => actions.incrementAction(null))),
               areStatePropsEqual: (next, prev) {
                 methodsCalled.add({
                   'called': 'areStatePropsEqual',
@@ -593,8 +593,8 @@ main() {
                 (ConnectFluxCounter()..currentCount = state.count),
             mapActionsToProps: (actions) {
               return ConnectFluxCounter()
-                ..increment = (() => actions.incrementAction)
-                ..decrement = (() => actions.decrementAction);
+                ..increment = (() => actions.incrementAction(null))
+                ..decrement = (() => actions.decrementAction(null));
             },
             forwardRef: true,
           )(ConnectFluxCounter);
@@ -603,8 +603,8 @@ main() {
             mapStateToProps: (state) =>
                 (ConnectFluxCounter()..currentCount = state.count),
             mapActionsToProps: (actions) => (ConnectFluxCounter()
-              ..increment = (() => actions.incrementAction)
-              ..decrement = (() => actions.decrementAction)),
+              ..increment = (() => actions.incrementAction(null))
+              ..decrement = (() => actions.decrementAction(null))),
             context: bigCounterContext,
             forwardRef: true,
           )(ConnectFluxCounter);
@@ -637,8 +637,8 @@ main() {
             mapStateToProps: (state) =>
                 (ConnectFluxCounter()..currentCount = state.count),
             mapActionsToProps: (actions) => (ConnectFluxCounter()
-              ..increment = (() => actions.incrementAction)
-              ..decrement = (() => actions.decrementAction)),
+              ..increment = (() => actions.incrementAction(null))
+              ..decrement = (() => actions.decrementAction(null))),
             forwardRef: true,
           )(ConnectFluxCounter);
 
@@ -647,8 +647,8 @@ main() {
             mapStateToProps: (state) =>
                 (ConnectFluxCounter()..currentCount = state.count),
             mapActionsToProps: (actions) => (ConnectFluxCounter()
-              ..increment = (() => actions.incrementAction)
-              ..decrement = (() => actions.decrementAction)),
+              ..increment = (() => actions.incrementAction(null))
+              ..decrement = (() => actions.decrementAction(null))),
             context: bigCounterContext,
             forwardRef: true,
           )(ConnectFluxCounter);
@@ -822,12 +822,12 @@ typedef MapActionsToPropsWithOwnPropsCallback = Map Function(
 MapStateToPropsCallback get testMapStateToProps =>
     (state) => (ConnectFluxCounter()..currentCount = state.count);
 MapActionsToPropsCallback get testMapActionsToProps => (actions) =>
-    (ConnectFluxCounter()..increment = (() => actions.incrementAction));
+    (ConnectFluxCounter()..increment = (() => actions.incrementAction(null)));
 MapStateToPropsWithOwnPropsCallback get testMapStateToPropsWithOwnProps =>
     (state, ownProps) => (ConnectFluxCounter()..currentCount = state.count);
 MapActionsToPropsWithOwnPropsCallback get testMapActionsToPropsWithOwnProps =>
-    (actions, ownProps) =>
-        (ConnectFluxCounter()..increment = (() => actions.incrementAction));
+    (actions, ownProps) => (ConnectFluxCounter()
+      ..increment = (() => actions.incrementAction(null)));
 
 class ParameterTestCase {
   final String name;
