@@ -41,9 +41,10 @@ UiFactory<ConnectFluxBigBlockProps> ConnectFluxBigBlock = composeHocs([
       ..backgroundColor = state.mainBackgroundColor
       ..blockOneBackgroundColor = state.blockOneBackgroundColor),
     mapActionsToProps: (actions) => (ConnectFluxBigBlock()
-      ..changeMainBackgroundColor = (() => actions.changeMainBackgroundColor)
+      ..changeMainBackgroundColor =
+          (() => actions.changeMainBackgroundColor(null))
       ..changeBlockOneBackgroundColor =
-          (() => actions.changeBlockOneBackgroundColor)),
+          (() => actions.changeBlockOneBackgroundColor(null))),
   ),
   // [5]
   connectFlux<LowLevelStore, RandomColorActions, ConnectFluxBigBlockProps>(
@@ -53,7 +54,7 @@ UiFactory<ConnectFluxBigBlockProps> ConnectFluxBigBlock = composeHocs([
       ..blockTwoBackgroundColor = state.backgroundColor),
     mapActionsToProps: (actions) => (ConnectFluxBigBlock()
       ..changeBlockTwoBackgroundColor =
-          (() => actions.changeBlockTwoBackgroundColor)),
+          (() => actions.changeBlockTwoBackgroundColor(null))),
   ),
   // [5]
   connectFlux<AnotherColorStore, RandomColorActions, ConnectFluxBigBlockProps>(
@@ -63,7 +64,7 @@ UiFactory<ConnectFluxBigBlockProps> ConnectFluxBigBlock = composeHocs([
       ..blockThreeBackgroundColor = state.backgroundColor),
     mapActionsToProps: (actions) => (ConnectFluxBigBlock()
       ..changeBlockThreeBackgroundColor =
-          (() => actions.changeBlockThreeBackgroundColor)),
+          (() => actions.changeBlockThreeBackgroundColor(null))),
   ),
 ])(castUiFactory(_$ConnectFluxBigBlock)); // ignore: undefined_identifier
 

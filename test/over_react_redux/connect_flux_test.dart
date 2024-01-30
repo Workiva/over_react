@@ -787,7 +787,7 @@ main() {
         mapStateToProps: (state) => (ConnectFluxCounter()
           ..mutatedList = state.listYouDefShouldntMutate),
         mapActionsToProps: (actions) => (ConnectFluxCounter()
-          ..mutateStoreDirectly = (() => actions.mutateStoreDirectly)),
+          ..mutateStoreDirectly = (() => actions.mutateStoreDirectly(null))),
       )(ConnectFluxCounter);
 
       final jacket = mount((ReduxProvider()..store = store1)(
