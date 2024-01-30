@@ -114,7 +114,6 @@ mixin V4ShorthandPropsMixin on UiProps {
   String? v4_optionalProp;
   @requiredProp
   String? v4_annotationRequiredProp;
-  late String v4_lateRequiredDefaultedProp;
 
   //
   // Non-props: edge-cases
@@ -145,8 +144,6 @@ mixin V4ShorthandPropsMixin on UiProps {
 class V4ShorthandProps = UiProps with V4ShorthandPropsMixin;
 
 class V4ShorthandComponent extends UiComponent2<V4ShorthandProps> {
-  get defaultProps => (newProps()..v4_lateRequiredDefaultedProp = 'default');
-
   @override
   render() {}
 }
@@ -159,8 +156,6 @@ UiFactory<V4ConcreteProps> V4Concrete = castUiFactory(_$V4Concrete);
 class V4ConcreteProps = UiProps with V4PropsMixin;
 
 class V4ConcreteComponent extends UiComponent2<V4ConcreteProps> {
-  get defaultProps => (newProps()..v4_lateRequiredDefaultedProp = 'default');
-
   @override
   render() {}
 }
@@ -254,7 +249,6 @@ mixin V4PropsMixin on UiProps {
   String? v4_optionalProp;
   @requiredProp
   String? v4_annotationRequiredProp;
-  late String v4_lateRequiredDefaultedProp;
 
   //
   // Non-props: edge-cases

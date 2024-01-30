@@ -256,7 +256,6 @@ void main() {
                   'v4_lateRequiredProp': PropRequiredness.late,
                   'v4_optionalProp': PropRequiredness.none,
                   'v4_annotationRequiredProp': PropRequiredness.annotation,
-                  'v4_lateRequiredDefaultedProp': PropRequiredness.ignoredViaDefault,
                 });
               });
 
@@ -266,7 +265,6 @@ void main() {
                   'v4_lateRequiredProp': PropRequiredness.late,
                   'v4_optionalProp': PropRequiredness.none,
                   'v4_annotationRequiredProp': PropRequiredness.annotation,
-                  'v4_lateRequiredDefaultedProp': PropRequiredness.ignoredViaDefault,
                 });
               });
             });
@@ -277,7 +275,6 @@ void main() {
                 'v4_lateRequiredProp': PropRequiredness.late,
                 'v4_optionalProp': PropRequiredness.none,
                 'v4_annotationRequiredProp': PropRequiredness.annotation,
-                'v4_lateRequiredDefaultedProp': PropRequiredness.late,
               });
             });
           });
@@ -334,7 +331,6 @@ void main() {
                 'v4_lateRequiredProp': PropRequiredness.late,
                 'v4_optionalProp': PropRequiredness.none,
                 'v4_annotationRequiredProp': PropRequiredness.annotation,
-                'v4_lateRequiredDefaultedProp': PropRequiredness.late,
               });
             });
           });
