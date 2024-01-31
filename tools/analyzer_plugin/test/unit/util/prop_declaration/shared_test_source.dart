@@ -1,4 +1,4 @@
-const sourceTemplate = /*language=dart*/ r'''
+const sourceTemplate = /*language=dart*/ '''
 //@dart=2.12
 // ignore_for_file: deprecated_member_use_from_same_package
 
@@ -6,7 +6,13 @@ import 'package:over_react/over_react.dart';
 
 part '{{PART_PATH}}';
 
+$_allPropsTestCases
+$_requirednessOverridesTestCases
+$_disableRequiredPropValidationTestCases
+$_defaultedRequiredPropsTestCases
+''';
 
+const _allPropsTestCases = /*language=dart*/ r'''
 // Give it some supertypes
 abstract class NotAPropsClass implements Map {
   String? fieldThatWouldBeAPropInAPropsClass;
@@ -22,7 +28,7 @@ class V2Props extends _$V2Props with _$V2PropsAccessorsMixin {
 }
 
 @Props()
-//// ignore: mixin_of_non_class,undefined_class
+// ignore: mixin_of_non_class,undefined_class
 class _$V2Props extends UiProps {
   late String v2_lateRequiredProp;
   String? v2_optionalProp;
@@ -64,9 +70,8 @@ class V2Component extends UiComponent2<V2Props> {
 @Factory()
 UiFactory<V3Props> V3 = castUiFactory(_$V3);
 
-@Deprecated('This is deprecated')
 @Props()
-//// ignore: mixin_of_non_class,undefined_class
+// ignore: mixin_of_non_class,undefined_class
 class _$V3Props extends UiProps {
   late String v3_lateRequiredProp;
   String? v3_optionalProp;
@@ -294,7 +299,7 @@ class ExtendsV2Props extends _$ExtendsV2Props with _$ExtendsV2PropsAccessorsMixi
 }
 
 @Props()
-//// ignore: mixin_of_non_class,undefined_class
+// ignore: mixin_of_non_class,undefined_class
 class _$ExtendsV2Props extends V2Props with
     V2PropsMixin,
     // ignore: mixin_of_non_class, undefined_class
@@ -313,9 +318,8 @@ class ExtendsV2Component extends UiComponent2<ExtendsV2Props> {
 @Factory()
 UiFactory<ExtendsV3Props> ExtendsV3 = castUiFactory(_$ExtendsV3);
 
-@Deprecated('This is deprecated')
 @Props()
-//// ignore: mixin_of_non_class,undefined_class
+// ignore: mixin_of_non_class,undefined_class
 class _$ExtendsV3Props extends V3Props with V3PropsMixin {
   late String v3_lateRequiredProp_inSubclass;
   String? v3_optionalProp_inSubclass;
@@ -340,8 +344,9 @@ class ExtendsV4Component extends UiComponent2<ExtendsV4Props> {
   @override
   render() {}
 }
+''';
 
-
+const _requirednessOverridesTestCases = /*language=dart*/ r'''
 mixin OverriddenTestBaseProps on UiProps {
    late String? v4_lateRequiredProp_optionalInOtherType;
    late String? v4_lateRequiredProp_annotationRequiredInOtherType;
@@ -379,8 +384,9 @@ mixin OverriddenTestUnrelatedClassPropsMixin on UiProps {
 // Fields in `OverriddenTestUnrelatedClassPropsMixin` "override" fields in `OverriddenTestBaseProps` when mixed in.
 UiFactory<OverriddenTestUnrelatedClassProps> OverriddenTestUnrelatedClass = castUiFactory(_$OverriddenTestUnrelatedClass);
 class OverriddenTestUnrelatedClassProps = UiProps with OverriddenTestBaseProps, OverriddenTestUnrelatedClassPropsMixin;
+''';
 
-
+const _disableRequiredPropValidationTestCases = /*language=dart*/ r'''
 mixin DisableRequiredPropValidationProps on UiProps {
   late String lateRequired;
   
@@ -446,4 +452,108 @@ mixin GetDisableValidationForClassDefaultProps_UnspecifiedProps on UiProps {}
 
 mixin GetDisableValidationForClassDefaultProps_WithoutAnnotationProps on UiProps {}
 
+''';
+
+const _defaultedRequiredPropsTestCases = /*language=dart*/ r'''
+// We just need to test Component1 here; it doesn't matter if it's v2 or v3; use v3 since it's less boilerplate.
+@Factory()
+UiFactory<Component1WithDefaultsProps> Component1WithDefaults = castUiFactory(_$Component1WithDefaults);
+
+@Props()
+// ignore: mixin_of_non_class,undefined_class
+class _$Component1WithDefaultsProps extends UiProps {
+  late String v3_lateRequiredProp;
+  late String v3_lateRequiredProp_defaulted;
+}
+
+@Component()
+class Component1WithDefaultsComponent extends UiComponent<Component1WithDefaultsProps> {
+  @override
+  getDefaultProps() => (newProps()..v3_lateRequiredProp_defaulted = 'default value');
+  
+  @override
+  render() {}
+}
+
+@Factory()
+UiFactory<V2WithDefaultsProps> V2WithDefaults = castUiFactory(_$V2WithDefaults);
+
+// ignore: undefined_class, mixin_of_non_class
+class V2WithDefaultsProps extends _$V2WithDefaultsProps with _$V2WithDefaultsPropsAccessorsMixin {
+  // ignore: undefined_identifier, const_initialized_with_non_constant_value, invalid_assignment
+  static const PropsMeta meta = _$metaForV2WithDefaultsProps;
+}
+
+@Props()
+// ignore: mixin_of_non_class,undefined_class
+class _$V2WithDefaultsProps extends UiProps {
+  late String v2_lateRequiredProp;
+  late String v2_lateRequiredProp_defaulted;
+}
+
+@Component()
+class V2WithDefaultsComponent extends UiComponent2<V2WithDefaultsProps> {
+  @override
+  get defaultProps => (newProps()..v2_lateRequiredProp_defaulted = 'default value');
+
+  @override
+  render() {}
+}
+
+@Factory()
+UiFactory<V3WithDefaultsProps> V3WithDefaults = castUiFactory(_$V3WithDefaults);
+
+@Props()
+// ignore: mixin_of_non_class,undefined_class
+class _$V3WithDefaultsProps extends UiProps {
+  late String v3_lateRequiredProp;
+  late String v3_lateRequiredProp_defaulted;
+}
+
+@Component()
+class V3WithDefaultsComponent extends UiComponent2<V3WithDefaultsProps> {
+  @override
+  get defaultProps => (newProps()..v3_lateRequiredProp_defaulted = 'default value');
+  
+  @override
+  render() {}
+}
+
+// "Shorthand" syntax where props is a props mixin.
+
+UiFactory<V4ShorthandWithDefaultsProps> V4ShorthandWithDefaults = castUiFactory(_$V4ShorthandWithDefaults);
+
+mixin V4ShorthandWithDefaultsPropsMixin on UiProps {
+  late String v4_lateRequiredProp;
+  late String v4_lateRequiredProp_defaulted;
+}
+
+class V4ShorthandWithDefaultsProps = UiProps with V4ShorthandWithDefaultsPropsMixin;
+
+class V4ShorthandWithDefaultsComponent extends UiComponent2<V4ShorthandWithDefaultsProps> {
+  @override
+  get defaultProps => (newProps()..v4_lateRequiredProp_defaulted = 'default value');
+  
+  @override
+  render() {}
+}
+
+// "Concrete" syntax where props is a concrete props class.
+
+UiFactory<V4ConcreteWithDefaultsProps> V4ConcreteWithDefaults = castUiFactory(_$V4ConcreteWithDefaults);
+
+mixin V4ConcreteWithDefaultsPropsMixin on UiProps {
+  late String v4_lateRequiredProp;
+  late String v4_lateRequiredProp_defaulted;
+}
+
+class V4ConcreteWithDefaultsProps = UiProps with V4ConcreteWithDefaultsPropsMixin;
+
+class V4ConcreteWithDefaultsComponent extends UiComponent2<V4ConcreteWithDefaultsProps> {
+  @override
+  get defaultProps => (newProps()..v4_lateRequiredProp_defaulted = 'default value');
+  
+  @override
+  render() {}
+}
 ''';
