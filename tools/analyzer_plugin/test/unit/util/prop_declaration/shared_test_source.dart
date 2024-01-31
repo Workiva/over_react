@@ -455,9 +455,14 @@ mixin GetDisableValidationForClassDefaultProps_WithoutAnnotationProps on UiProps
 ''';
 
 const _defaultedRequiredPropsTestCases = /*language=dart*/ r'''
-// We just need to test Component1 here; it doesn't matter if it's v2 or v3; use v3 since it's less boilerplate.
 @Factory()
 UiFactory<Component1WithDefaultsProps> Component1WithDefaults = castUiFactory(_$Component1WithDefaults);
+
+// ignore: undefined_class, mixin_of_non_class
+class Component1WithDefaultsProps extends _$Component1WithDefaultsProps with _$Component1WithDefaultsPropsAccessorsMixin {
+  // ignore: undefined_identifier, const_initialized_with_non_constant_value, invalid_assignment
+  static const PropsMeta meta = _$metaForComponent1WithDefaultsProps;
+}
 
 @Props()
 // ignore: mixin_of_non_class,undefined_class

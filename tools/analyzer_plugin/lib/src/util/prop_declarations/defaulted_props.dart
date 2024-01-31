@@ -8,8 +8,10 @@ import 'package:over_react_analyzer_plugin/src/over_react_builder_parsing.dart' 
 /// The implementation uses only includes simple prop assignments in that class's `defaultProps`/`getDefaultProps`.
 /// See [orbp.BoilerplateComponent.defaultedPropNames] for more information.
 ///
-/// Returns null if [propsClassElement] is not associated with a class component, or if there was a problem looking up
-/// the AST that declares the props class.
+/// Returns null when either:
+/// - [propsClassElement] is not associated with a class component
+/// - [propsClassElement] is declared using v3_legacyDart2Only boilerplate (where the public props class gets generated)
+/// - there was a problem looking up the AST that declares the props class
 ///
 /// Note that this only works for concrete props classes or shorthand-syntax props mixins
 /// (a props class declared with just a props mixin instead of a concrete props class).
@@ -50,18 +52,30 @@ Set<String>? getDefaultedPropsForComponentWithPropsClass(InterfaceElement propsC
 
   // Get the AST for the file that declares propsClassElement.
   final propsClassFileSource = propsClassElement.source;
+
+  // tl;dr: Don't try to handle v3_legacyDart2Only boilerplate
+  //
+  // If the element is declared in a generated part, we're almost certainly dealing with v3_legacyDart2Only boilerplate.
+  // To get the original props class, we'd have to look up the unit with the original consumer declaration to get the
+  // class component props. Since virtually all legacy components outside over_react are v2 and not v3,
+  // we won't go through the trouble of handling this case.
+  if (propsClassFileSource.fullName.endsWith('.over_react.g.dart')) return null;
+
   // We don't need resolved AST, so get unresolved AST with getParsedUnit since it's faster and synchronous.
   final result = propsClassElement.library.session.getParsedUnit(propsClassFileSource.fullName);
   if (result is! ParsedUnitResult) return null;
 
   // Find the class component declaration that uses this props class, and return those defaulted props.
-  final declarations = orbp.parseDeclarations(result.unit, null);
-  for (final d in declarations) {
-    if (d is orbp.ClassComponentDeclaration && d.props.either.node.name.offset == propsClassNameOffset) {
-      return d.component.defaultedPropNames;
-    }
-    if (d is orbp.LegacyClassComponentDeclaration && d.props.node.name.offset == propsClassNameOffset) {
-      return d.component.defaultedPropNames;
+  for (final declaration in orbp.parseDeclarations(result.unit, null)) {
+    if (declaration is orbp.ClassComponentDeclaration) {
+      if (declaration.props.either.node.name.offset == propsClassNameOffset) {
+        return declaration.component.defaultedPropNames;
+      }
+    } else if (declaration is orbp.LegacyClassComponentDeclaration) {
+      // For legacy boilerplate, the public props class used in all the typing is the companion node.
+      if (declaration.props.companion?.node.name.offset == propsClassNameOffset) {
+        return declaration.component.defaultedPropNames;
+      }
     }
   }
 

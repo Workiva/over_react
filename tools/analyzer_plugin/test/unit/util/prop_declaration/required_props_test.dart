@@ -426,28 +426,28 @@ void main() {
               });
             });
 
-            test('a v3 boilerplate UiComponent2', () {
+            test('a v3 boilerplate UiComponent2 - does not include default props', () {
               final propsElement = getInterfaceElement(result, 'V3WithDefaultsProps');
               verifyRequiredProps(getAllRequiredProps(propsElement), expected: {
                 'v3_lateRequiredProp': PropRequiredness.late,
-                'v3_lateRequiredProp_defaulted': PropRequiredness.ignoredViaDefault,
+                'v3_lateRequiredProp_defaulted': PropRequiredness.late,
+              });
+            });
+
+            group('a v4 boilerplate UiComponent2 declared with a', () {
+              test('concrete props class', () {
+                final propsElement = getInterfaceElement(result, 'V4ConcreteWithDefaultsProps');
+                verifyRequiredProps(getAllRequiredProps(propsElement), expected: {
+                  'v4_lateRequiredProp': PropRequiredness.late,
+                  'v4_lateRequiredProp_defaulted': PropRequiredness.ignoredViaDefault,
+                });
               });
 
-              group('a v4 boilerplate UiComponent2 declared with a', () {
-                test('concrete props class', () {
-                  final propsElement = getInterfaceElement(result, 'V4WithDefaultsConcreteProps');
-                  verifyRequiredProps(getAllRequiredProps(propsElement), expected: {
-                    'v4_lateRequiredProp': PropRequiredness.late,
-                    'v4_lateRequiredProp_defaulted': PropRequiredness.ignoredViaDefault,
-                  });
-                });
-
-                test('props mixin (shorthand syntax)', () {
-                  final propsElement = getInterfaceElement(result, 'V4WithDefaultsShorthandProps');
-                  verifyRequiredProps(getAllRequiredProps(propsElement), expected: {
-                    'v4_lateRequiredProp': PropRequiredness.late,
-                    'v4_lateRequiredProp_defaulted': PropRequiredness.ignoredViaDefault,
-                  });
+              test('props mixin (shorthand syntax)', () {
+                final propsElement = getInterfaceElement(result, 'V4ShorthandWithDefaultsProps');
+                verifyRequiredProps(getAllRequiredProps(propsElement), expected: {
+                  'v4_lateRequiredProp': PropRequiredness.late,
+                  'v4_lateRequiredProp_defaulted': PropRequiredness.ignoredViaDefault,
                 });
               });
             });
