@@ -61,7 +61,9 @@ Set<String>? getDefaultedPropsForComponentWithPropsClass(InterfaceElement propsC
   // we won't go through the trouble of handling this case.
   if (propsClassFileSource.fullName.endsWith('.over_react.g.dart')) return null;
 
-  // We don't need resolved AST, so get unresolved AST with getParsedUnit since it's faster and synchronous.
+  // We don't need resolved AST, so get unresolved AST with getParsedUnit since it's synchronous.
+  // Unfortunately it looks like there's no caching in the current implementation, so this will parse the file from
+  // scratch. This isn't ideal, but shouldn't be too bad from a performance perspective.
   final result = propsClassElement.library.session.getParsedUnit(propsClassFileSource.fullName);
   if (result is! ParsedUnitResult) return null;
 

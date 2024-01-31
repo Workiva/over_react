@@ -6,6 +6,8 @@ import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/pretty_print.dart';
 
 import '../fluent_interface_util.dart';
+import '../util/prop_declarations/defaulted_props.dart';
+import '../util/prop_declarations/get_all_props.dart';
 import '../util/prop_declarations/required_props.dart';
 
 const _desc = r'Always provide required props.';
@@ -102,8 +104,10 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
       _memoizeWithExpando<ResolvedUnitResult, bool>((result) => _debugCommentPattern.hasMatch(result.content));
 
   /// A wrapper around [getAllRequiredProps] that caches results per props type [InterfaceElement],
-  /// which greatly improves performance of this diagnostic when a component is used more than once
-  /// (with the `getAllProps` call within `getAllRequiredProps` being the main bottleneck).
+  /// which greatly improves performance of this diagnostic when a component is used more than once.
+  ///
+  /// The main performance bottlenecks being optimized here are the [getDefaultedPropsForComponentWithPropsClass]
+  /// and [getAllProps] calls within [getAllRequiredProps].
   ///
   /// This cache is static so it can be shared across multiple files (each of which gets a new diagnostic instance).
   ///
