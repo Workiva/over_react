@@ -50,7 +50,10 @@ Set<String>? getDefaultedPropsForComponentWithPropsClass(InterfaceElement propsC
   final propsClassNameOffset = propsClassElement.nameOffset;
   if (propsClassNameOffset == -1) return null;
 
+  //
   // Get the AST for the file that declares propsClassElement.
+  //
+
   final propsClassFileSource = propsClassElement.source;
 
   // tl;dr: Don't try to handle v3_legacyDart2Only boilerplate
@@ -61,13 +64,26 @@ Set<String>? getDefaultedPropsForComponentWithPropsClass(InterfaceElement propsC
   // we won't go through the trouble of handling this case.
   if (propsClassFileSource.fullName.endsWith('.over_react.g.dart')) return null;
 
+  // Before we parse the AST, try to short-circuit if possible if there's definitely no default props in the file.
+  // This optimizes for files with only function components.
+  final libraryMightContainClassComponentWithDefaults = propsClassElement.enclosingElement.classes
+      // We could use `clazz.isClassComponent` here, but that may be slower than not filtering classes due to
+      // `ClassElement.allSupertypes` being computed.
+      .any((clazz) =>
+          clazz != propsClassElement &&
+          (clazz.accessors.any((m) => m.name == 'defaultProps') ||
+              clazz.methods.any((m) => m.name == 'getDefaultProps')));
+  if (!libraryMightContainClassComponentWithDefaults) return null;
+
   // We don't need resolved AST, so get unresolved AST with getParsedUnit since it's synchronous.
   // Unfortunately it looks like there's no caching in the current implementation, so this will parse the file from
   // scratch. This isn't ideal, but shouldn't be too bad from a performance perspective.
   final result = propsClassElement.library.session.getParsedUnit(propsClassFileSource.fullName);
   if (result is! ParsedUnitResult) return null;
 
+  //
   // Find the class component declaration that uses this props class, and return those defaulted props.
+  //
   for (final declaration in orbp.parseDeclarations(result.unit, null)) {
     if (declaration is orbp.ClassComponentDeclaration) {
       if (declaration.props.either.node.name.offset == propsClassNameOffset) {
