@@ -290,6 +290,10 @@ class _$$ButtonProps extends _$ButtonProps
   @override
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$ButtonProps(accessMap, (map) => _$$ButtonProps(map));
+
+  @override
+  Set<String> get requiredPropNamesToSkipValidation =>
+      const {'skin', 'size', 'isActive', 'isDisabled', 'isBlock', 'type'};
 }
 
 /// An alias for [getPropKey] so it can be referenced within the props class impl

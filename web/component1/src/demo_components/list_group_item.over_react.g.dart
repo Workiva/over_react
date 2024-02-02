@@ -355,6 +355,16 @@ class _$$ListGroupItemProps extends _$ListGroupItemProps
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$ListGroupItemProps(
           accessMap, (map) => _$$ListGroupItemProps(map));
+
+  @override
+  Set<String> get requiredPropNamesToSkipValidation => const {
+        'elementType',
+        'skin',
+        'isActive',
+        'isDisabled',
+        'type',
+        'headerSize'
+      };
 }
 
 /// An alias for [getPropKey] so it can be referenced within the props class impl

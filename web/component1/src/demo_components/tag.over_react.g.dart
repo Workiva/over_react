@@ -125,6 +125,9 @@ class _$$TagProps extends _$TagProps
   @override
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$TagProps(accessMap, (map) => _$$TagProps(map));
+
+  @override
+  Set<String> get requiredPropNamesToSkipValidation => const {'skin', 'isPill'};
 }
 
 /// An alias for [getPropKey] so it can be referenced within the props class impl

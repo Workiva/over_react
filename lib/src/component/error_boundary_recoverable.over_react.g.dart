@@ -72,6 +72,13 @@ abstract class _$$RecoverableErrorBoundaryProps extends UiProps
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$RecoverableErrorBoundaryProps(
           accessMap, (map) => _$$RecoverableErrorBoundaryProps(map));
+
+  @override
+  Set<String> get requiredPropNamesToSkipValidation => const {
+        'identicalErrorFrequencyTolerance',
+        'loggerName',
+        'shouldLogErrors'
+      };
 }
 
 /// An alias for [getPropKey] so it can be referenced within the props class impl

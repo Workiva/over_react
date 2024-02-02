@@ -79,6 +79,9 @@ class _$$AnnotationErrorDefaultPropsProps
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$AnnotationErrorDefaultPropsProps(
           accessMap, (map) => _$$AnnotationErrorDefaultPropsProps(map));
+
+  @override
+  Set<String> get requiredPropNamesToSkipValidation => const {'id'};
 }
 
 /// An alias for [getPropKey] so it can be referenced within the props class impl
@@ -432,6 +435,9 @@ class _$$AnnotationErrorStatefulDefaultPropsProps
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$AnnotationErrorStatefulDefaultPropsProps(
           accessMap, (map) => _$$AnnotationErrorStatefulDefaultPropsProps(map));
+
+  @override
+  Set<String> get requiredPropNamesToSkipValidation => const {'id'};
 }
 
 /// An alias for [getPropKey] so it can be referenced within the props class impl

@@ -101,6 +101,9 @@ class _$$ListGroupProps extends _$ListGroupProps
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$ListGroupProps(
           accessMap, (map) => _$$ListGroupProps(map));
+
+  @override
+  Set<String> get requiredPropNamesToSkipValidation => const {'elementType'};
 }
 
 /// An alias for [getPropKey] so it can be referenced within the props class impl

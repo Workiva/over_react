@@ -334,6 +334,18 @@ class _$$ProgressProps extends _$ProgressProps
   @override
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$ProgressProps(accessMap, (map) => _$$ProgressProps(map));
+
+  @override
+  Set<String> get requiredPropNamesToSkipValidation => const {
+        'value',
+        'min',
+        'max',
+        'skin',
+        'isStriped',
+        'isAnimated',
+        'showCaption',
+        'showPercentComplete'
+      };
 }
 
 /// An alias for [getPropKey] so it can be referenced within the props class impl

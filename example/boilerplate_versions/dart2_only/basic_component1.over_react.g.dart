@@ -158,6 +158,10 @@ class _$$BasicProps extends _$BasicProps
   @override
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$BasicProps(accessMap, (map) => _$$BasicProps(map));
+
+  @override
+  Set<String> get requiredPropNamesToSkipValidation =>
+      const {'id', 'basicProp'};
 }
 
 /// An alias for [getPropKey] so it can be referenced within the props class impl

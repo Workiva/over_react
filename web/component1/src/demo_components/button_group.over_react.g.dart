@@ -149,6 +149,10 @@ class _$$ButtonGroupProps extends _$ButtonGroupProps
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$ButtonGroupProps(
           accessMap, (map) => _$$ButtonGroupProps(map));
+
+  @override
+  Set<String> get requiredPropNamesToSkipValidation =>
+      const {'size', 'isVertical'};
 }
 
 /// An alias for [getPropKey] so it can be referenced within the props class impl
