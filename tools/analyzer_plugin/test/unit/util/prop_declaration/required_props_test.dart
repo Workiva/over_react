@@ -410,6 +410,8 @@ void main() {
             });
           });
 
+          // There's some overlap between this test and defaulted_props_test.dart, but we want to make sure
+          // that requiredness is applied updated as a result of props getting defaulted.
           group('props classes with disabled validation via class default props in', () {
             test('UiComponent (not UiComponent2) component', () {
               final propsElement = getInterfaceElement(result, 'Component1WithDefaultsProps');

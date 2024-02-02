@@ -561,4 +561,8 @@ class V4ConcreteWithDefaultsComponent extends UiComponent2<V4ConcreteWithDefault
   @override
   render() {}
 }
+
+UiFactory<V4FunctionProps> V4Function = uiFunction((props) {}, _$V4FunctionConfig);
+
+mixin V4FunctionProps on UiProps {}
 ''';
