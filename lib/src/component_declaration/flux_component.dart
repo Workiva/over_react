@@ -250,8 +250,11 @@ mixin _FluxComponentMixin<TProps extends FluxUiProps> on component_base.UiCompon
   static T? _castAsNullable<T>(T? value) => value as T?; // ignore: unnecessary_cast
 
   void _validateStoreDisposalState(Store store) {
-    // We need a null-aware here since there are many mocked store classes
-    // in the wild that return null for isOrWillBeDisposed in unsound null safety.
+    // This can be null in unsound null safety when consumers are using mocked stores
+    // and haven't stubbed isOrWillBeDisposed.
+    //
+    // For sound null safety, we can't work around these errors, and consumers will need to stub
+    // in `isOrWillBeDisposed`. Mocktail example: `when(() => mockStore.isOrWillBeDisposed).thenReturn(false)`.
     if (_castAsNullable(store.isOrWillBeDisposed) ?? false) {
       final componentName = getDebugNameForDartComponent(this);
 
@@ -338,6 +341,10 @@ mixin _FluxComponentMixin<TProps extends FluxUiProps> on component_base.UiCompon
     // Cancel all store subscriptions.
     _subscriptions
       // This can be null in unsound null safety when consumers are using mocked stores.
+      // and haven't stubbed `listen`.
+      //
+      // For sound null safety, we can't work around these errors, and consumers will need to stub
+      // `listen` on the mock.
       ..forEach((subscription) => _castAsNullable(subscription)?.cancel())
       ..clear();
   }
