@@ -243,9 +243,11 @@ mixin _FluxComponentMixin<TProps extends FluxUiProps> on component_base.UiCompon
   ///
   /// This allows us to easily perform null-awares on values that should be null without getting the
   /// noisy compiler warnings that are emitted when ignoring `dead_null_aware_expression` and
-  // `invalid_null_aware_operator`.
-  // ignore: unnecessary_cast
-  static T? _castAsNullable<T>(T value) => value as T?;
+  /// `invalid_null_aware_operator`.
+  ///
+  /// Make the argument `T?` instead of `T` to help prevent any null errors if that argument gets
+  /// type-checked.
+  static T? _castAsNullable<T>(T? value) => value as T?; // ignore: unnecessary_cast
 
   void _validateStoreDisposalState(Store store) {
     // We need a null-aware here since there are many mocked store classes
