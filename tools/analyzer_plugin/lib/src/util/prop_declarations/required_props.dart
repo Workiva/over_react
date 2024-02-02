@@ -135,8 +135,8 @@ PropRequiredness maxRequiredness(PropRequiredness a, PropRequiredness? b) {
   final aIndex = PropRequiredness._mostToLeastRequired.indexOf(a);
   final bIndex = PropRequiredness._mostToLeastRequired.indexOf(b);
 
-  assert(aIndex != -1);
-  assert(bIndex != -1);
+  assert(aIndex != -1, '$a must be present in _mostToLeastRequired');
+  assert(bIndex != -1, '$b must be present in _mostToLeastRequired');
 
   return aIndex < bIndex ? a : b;
 }
