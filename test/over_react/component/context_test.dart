@@ -33,7 +33,9 @@ void main() {
       expect(context, isA<Context>());
       expect(context, isA<Context<int?>>(), reason: 'should have a nullable generic type');
       expect(context.Consumer(), isA<ConsumerProps>());
+      expect(context.Consumer(), isA<ConsumerProps<int?>>(), reason: 'should have the correct generic type');
       expect(context.Provider(), isA<ProviderProps>());
+      expect(context.Provider(), isA<ProviderProps<int?>>(), reason: 'should have the correct generic type');
       expect(context.jsThis, isA<JsMap>());
       expect(context.reactDartContext, isA<react.Context>());
     });
@@ -43,7 +45,9 @@ void main() {
       expect(context, isA<Context>());
       expect(context, isA<Context<int>>(), reason: 'should have a non-nullable generic type');
       expect(context.Consumer(), isA<ConsumerProps>());
+      expect(context.Consumer(), isA<ConsumerProps<int>>(), reason: 'should have the correct generic type');
       expect(context.Provider(), isA<ProviderProps>());
+      expect(context.Provider(), isA<ProviderProps<int>>(), reason: 'should have the correct generic type');
       expect(context.jsThis, isA<JsMap>());
       expect(context.reactDartContext, isA<react.Context>());
     });
@@ -253,14 +257,24 @@ void main() {
     });
 
     group('ProviderProps', () {
-      late ProviderProps props;
-
-      setUp(() {
-        props = createContext().Provider();
+      test('functions as a map view when constructed from its factory', () {
+        final wrappedProps = {'foo': 'bar'};
+        final props = createContext().Provider(wrappedProps);
+        expect(props, containsPair('foo', 'bar'));
+        props['newEntry'] = 'value';
+        expect(wrappedProps, containsPair('newEntry', 'value'));
       });
 
       group('has functional overrides to members that are typically generated', () {
-        // TODO(FED-1994) implement staticMeta for this props class and add tests here
+        late ProviderProps props;
+
+        setUp(() {
+          props = createContext().Provider();
+        });
+
+        test('staticMeta', () {
+          expect(props.staticMeta.keys, contains('value'));
+        });
 
         test('propKeyNamespace', () {
           expect(props.propKeyNamespace, '');
@@ -280,14 +294,24 @@ void main() {
     });
 
     group('ConsumerProps', () {
-      late ConsumerProps props;
-
-      setUp(() {
-        props = createContext().Consumer();
+      test('functions as a map view when constructed from its factory', () {
+        final wrappedProps = {'foo': 'bar'};
+        final props = createContext().Consumer(wrappedProps);
+        expect(props, containsPair('foo', 'bar'));
+        props['newEntry'] = 'value';
+        expect(wrappedProps, containsPair('newEntry', 'value'));
       });
 
       group('has functional overrides to members that are typically generated', () {
-        // TODO(FED-1994) implement staticMeta for this props class and add tests here
+        late ConsumerProps props;
+
+        setUp(() {
+          props = createContext().Consumer();
+        });
+
+        test('staticMeta', () {
+          expect(props.staticMeta.keys, contains('unstable_observedBits'));
+        });
 
         test('propKeyNamespace', () {
           expect(props.propKeyNamespace, '');

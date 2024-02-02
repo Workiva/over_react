@@ -126,18 +126,19 @@ abstract class _$ContextProviderWrapperStateAccessorsMixin
 
   /// <!-- Generated from [_$ContextProviderWrapperState.latestValue] -->
   @override
-  int? get latestValue =>
-      (state[_$key__latestValue___$ContextProviderWrapperState] ?? null)
-          as int?;
+  int get latestValue =>
+      (state[_$key__latestValue___$ContextProviderWrapperState] ?? null) as int;
 
   /// <!-- Generated from [_$ContextProviderWrapperState.latestValue] -->
   @override
-  set latestValue(int? value) =>
+  set latestValue(int value) =>
       state[_$key__latestValue___$ContextProviderWrapperState] = value;
   /* GENERATED CONSTANTS */
   static const StateDescriptor
-      _$prop__latestValue___$ContextProviderWrapperState =
-      StateDescriptor(_$key__latestValue___$ContextProviderWrapperState);
+      _$prop__latestValue___$ContextProviderWrapperState = StateDescriptor(
+          _$key__latestValue___$ContextProviderWrapperState,
+          isRequired: true,
+          isNullable: true);
   static const String _$key__latestValue___$ContextProviderWrapperState =
       'ContextProviderWrapperState.latestValue';
 
