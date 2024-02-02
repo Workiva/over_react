@@ -563,4 +563,20 @@ class V4ConcreteWithDefaultsComponent extends UiComponent2<V4ConcreteWithDefault
 UiFactory<V4FunctionProps> V4Function = uiFunction((props) {}, _$V4FunctionConfig);
 
 mixin V4FunctionProps on UiProps {}
+
+UiFactory<V4WithDefaultsOptedOutProps> V4WithDefaultsOptedOut = castUiFactory(_$V4WithDefaultsOptedOut);
+
+@Props(disableValidationForClassDefaultProps: false)
+mixin V4WithDefaultsOptedOutProps on UiProps {
+  late String v4_lateRequiredProp;
+  late String v4_lateRequiredProp_defaulted;
+}
+
+class V4WithDefaultsOptedOutComponent extends UiComponent2<V4WithDefaultsOptedOutProps> {
+  @override
+  get defaultProps => (newProps()..v4_lateRequiredProp_defaulted = 'default value');
+  
+  @override
+  render() {}
+}
 ''';

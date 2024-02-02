@@ -14,6 +14,7 @@
 
 import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/element/element.dart';
+import 'package:over_react_analyzer_plugin/src/util/prop_declarations/defaulted_props.dart';
 import 'package:over_react_analyzer_plugin/src/util/prop_declarations/get_all_props.dart';
 import 'package:over_react_analyzer_plugin/src/util/prop_declarations/required_props.dart';
 import 'package:test/test.dart';
@@ -412,46 +413,60 @@ void main() {
 
           // There's some overlap between this test and defaulted_props_test.dart, but we want to make sure
           // that requiredness is applied updated as a result of props getting defaulted.
-          group('props classes with disabled validation via class default props in', () {
-            test('UiComponent (not UiComponent2) component', () {
-              final propsElement = getInterfaceElement(result, 'Component1WithDefaultsProps');
-              verifyRequiredProps(getAllRequiredProps(propsElement), expected: {
-                'v3_lateRequiredProp': PropRequiredness.late,
-                'v3_lateRequiredProp_defaulted': PropRequiredness.ignoredViaDefault,
-              });
-            });
-
-            test('a v2 boilerplate UiComponent2', () {
-              final propsElement = getInterfaceElement(result, 'V2WithDefaultsProps');
-              verifyRequiredProps(getAllRequiredProps(propsElement), expected: {
-                'v2_lateRequiredProp': PropRequiredness.late,
-                'v2_lateRequiredProp_defaulted': PropRequiredness.ignoredViaDefault,
-              });
-            });
-
-            test('a v3 boilerplate UiComponent2 - does not include default props', () {
-              final propsElement = getInterfaceElement(result, 'V3WithDefaultsProps');
-              verifyRequiredProps(getAllRequiredProps(propsElement), expected: {
-                'v3_lateRequiredProp': PropRequiredness.late,
-                'v3_lateRequiredProp_defaulted': PropRequiredness.late,
-              });
-            });
-
-            group('a v4 boilerplate UiComponent2 declared with a', () {
-              test('concrete props class', () {
-                final propsElement = getInterfaceElement(result, 'V4ConcreteWithDefaultsProps');
+          group('props classes with disabled validation via class default props', () {
+            group('in a', () {
+              test('UiComponent (not UiComponent2) component', () {
+                final propsElement = getInterfaceElement(result, 'Component1WithDefaultsProps');
                 verifyRequiredProps(getAllRequiredProps(propsElement), expected: {
-                  'v4_lateRequiredProp': PropRequiredness.late,
-                  'v4_lateRequiredProp_defaulted': PropRequiredness.ignoredViaDefault,
+                  'v3_lateRequiredProp': PropRequiredness.late,
+                  'v3_lateRequiredProp_defaulted': PropRequiredness.ignoredViaDefault,
                 });
               });
 
-              test('props mixin (shorthand syntax)', () {
-                final propsElement = getInterfaceElement(result, 'V4ShorthandWithDefaultsProps');
+              test('v2 boilerplate UiComponent2', () {
+                final propsElement = getInterfaceElement(result, 'V2WithDefaultsProps');
                 verifyRequiredProps(getAllRequiredProps(propsElement), expected: {
-                  'v4_lateRequiredProp': PropRequiredness.late,
-                  'v4_lateRequiredProp_defaulted': PropRequiredness.ignoredViaDefault,
+                  'v2_lateRequiredProp': PropRequiredness.late,
+                  'v2_lateRequiredProp_defaulted': PropRequiredness.ignoredViaDefault,
                 });
+              });
+
+              test('v3 boilerplate UiComponent2 - does not include default props', () {
+                final propsElement = getInterfaceElement(result, 'V3WithDefaultsProps');
+                verifyRequiredProps(getAllRequiredProps(propsElement), expected: {
+                  'v3_lateRequiredProp': PropRequiredness.late,
+                  'v3_lateRequiredProp_defaulted': PropRequiredness.late,
+                });
+              });
+
+              group('v4 boilerplate UiComponent2 declared with a', () {
+                test('concrete props class', () {
+                  final propsElement = getInterfaceElement(result, 'V4ConcreteWithDefaultsProps');
+                  verifyRequiredProps(getAllRequiredProps(propsElement), expected: {
+                    'v4_lateRequiredProp': PropRequiredness.late,
+                    'v4_lateRequiredProp_defaulted': PropRequiredness.ignoredViaDefault,
+                  });
+                });
+
+                test('props mixin (shorthand syntax)', () {
+                  final propsElement = getInterfaceElement(result, 'V4ShorthandWithDefaultsProps');
+                  verifyRequiredProps(getAllRequiredProps(propsElement), expected: {
+                    'v4_lateRequiredProp': PropRequiredness.late,
+                    'v4_lateRequiredProp_defaulted': PropRequiredness.ignoredViaDefault,
+                  });
+                });
+              });
+            });
+
+            test('unless the props class has opted out using @Props(disableValidationForClassDefaultProps: false)', () {
+              final propsElement = getInterfaceElement(result, 'V4WithDefaultsOptedOutProps');
+              final propsWithDefaults = getDefaultedPropsForComponentWithPropsClass(propsElement);
+              expect(propsWithDefaults, isNotEmpty,
+                  reason: 'test setup check; this test case should have defaults'
+                      ' that do not affect the required props');
+              verifyRequiredProps(getAllRequiredProps(propsElement), expected: {
+                'v4_lateRequiredProp': PropRequiredness.late,
+                'v4_lateRequiredProp_defaulted': PropRequiredness.late,
               });
             });
           });
