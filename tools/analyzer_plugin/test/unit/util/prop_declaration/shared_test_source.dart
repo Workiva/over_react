@@ -1,4 +1,4 @@
-const sourceTemplate = /*language=dart*/ '''
+const sharedSourceTemplate = /*language=dart*/ '''
 //@dart=2.12
 // ignore_for_file: deprecated_member_use_from_same_package
 

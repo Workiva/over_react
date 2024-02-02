@@ -18,7 +18,8 @@ import 'package:over_react_analyzer_plugin/src/util/prop_declarations/get_all_pr
 import 'package:test/test.dart';
 
 import '../../../util/shared_analysis_context.dart';
-import 'shared_util.dart';
+import 'shared_test_source.dart';
+import 'util.dart';
 
 void main() {
   group('get_all_props', () {
@@ -30,7 +31,7 @@ void main() {
       late ResolvedUnitResult result;
 
       setUpAll(() async {
-        result = await setUpResult(sharedContext);
+        result = await resolveFileAndGeneratedPart(sharedContext, sharedSourceTemplate);
       });
 
       TypeMatcher<FieldElement> isNonSyntheticFieldDeclaredInMainLibrary() => isA<FieldElement>()

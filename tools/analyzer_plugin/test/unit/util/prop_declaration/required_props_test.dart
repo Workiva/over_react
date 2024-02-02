@@ -19,7 +19,8 @@ import 'package:over_react_analyzer_plugin/src/util/prop_declarations/required_p
 import 'package:test/test.dart';
 
 import '../../../util/shared_analysis_context.dart';
-import 'shared_util.dart';
+import 'shared_test_source.dart';
+import 'util.dart';
 
 void main() {
   group('required props utilities -', () {
@@ -97,7 +98,7 @@ void main() {
 
       setUpAll(() async {
         await sharedContext.warmUpAnalysis();
-        result = await setUpResult(sharedContext);
+        result = await resolveFileAndGeneratedPart(sharedContext, sharedSourceTemplate);
       });
 
       group('isRequiredPropValidationDisabled', () {
