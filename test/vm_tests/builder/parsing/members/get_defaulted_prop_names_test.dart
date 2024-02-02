@@ -50,6 +50,31 @@ void main() {
       });
     });
 
+    group('returns an empty set for', () {
+      test('components without a default props override', () {
+        final component = parseAndGetSingleClassish(/*language=dart*/ r'''
+          class FooComponent extends UiComponent2 {}
+        ''');
+        expect(getDefaultedPropNames(component), isEmpty);
+      });
+
+      test('components with a default props override with no assignments', () {
+        final component = parseAndGetSingleClassish(/*language=dart*/ r'''
+          class FooComponent extends UiComponent2 {
+            get defaultProps => newProps();
+          }
+        ''');
+        expect(getDefaultedPropNames(component), isEmpty);
+      });
+
+      test('non-component classes', () {
+        final nonComponent = parseAndGetSingleClassish(/*language=dart*/ r'''
+          class Foo {}
+        ''');
+        expect(getDefaultedPropNames(nonComponent), isEmpty);
+      });
+    });
+
     group('does not include', () {
       test('prefixed props (like `dom.`)', () {
         final component = parseAndGetSingleClassish(/*language=dart*/ r'''
