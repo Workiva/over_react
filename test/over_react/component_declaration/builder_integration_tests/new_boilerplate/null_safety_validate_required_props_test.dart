@@ -218,10 +218,20 @@ void main() {
       });
     });
 
-    test('@Props(disableRequiredPropValidation) turns off validation for specific props', () {
-      expect(() {
-        rtl.render(WrapperTest()());
-      }, returnsNormally);
+    group('@Props(disableRequiredPropValidation) turns off validation for specific props', () {
+      // Test both class and function components to ensure so we have test coverage that the builder wires up
+      // disableRequiredPropValidation correctly for each.
+      test('for function components', () {
+        expect(() {
+          rtl.render(FunctionWrapperTest()());
+        }, returnsNormally);
+      });
+
+      test('for class components', () {
+        expect(() {
+          rtl.render(ClassWrapperTest()());
+        }, returnsNormally);
+      });
     });
   }, tags: 'ddc');
 
@@ -274,14 +284,31 @@ mixin MultipleMixinsTestPropsMixin on UiProps {
 @Props(disableRequiredPropValidation: {'testIgnoreOnMixin'})
 class MultipleMixinsTestProps = UiProps with MultipleMixinsTestPropsMixin, ComponentTestProps;
 
-UiFactory<WrapperTestProps> WrapperTest = uiFunction(
-      (props) {},
-  _$WrapperTestConfig, // ignore: undefined_identifier
-);
 
 mixin WrapperTestPropsMixin on UiProps {
   late bool thirdRequiredProp;
 }
 
+UiFactory<FunctionWrapperTestProps> FunctionWrapperTest = uiFunction(
+      (props) {},
+  _$FunctionWrapperTestConfig, // ignore: undefined_identifier
+);
+
+
 @Props(disableRequiredPropValidation: {'thirdRequiredProp', 'secondRequiredProp', 'requiredNonNullable', 'requiredNullable', 'testIgnoreOnMixin'})
-class WrapperTestProps = UiProps with WrapperTestPropsMixin, MultipleMixinsTestPropsMixin, ComponentTestProps;
+class FunctionWrapperTestProps = UiProps with WrapperTestPropsMixin, MultipleMixinsTestPropsMixin, ComponentTestProps;
+
+
+UiFactory<ClassWrapperTestProps> ClassWrapperTest = castUiFactory(_$ClassWrapperTest); // ignore: undefined_identifier
+
+mixin ClassWrapperTestPropsMixin on UiProps {
+  late bool thirdRequiredProp;
+}
+
+@Props(disableRequiredPropValidation: {'thirdRequiredProp', 'secondRequiredProp', 'requiredNonNullable', 'requiredNullable', 'testIgnoreOnMixin'})
+class ClassWrapperTestProps = UiProps with WrapperTestPropsMixin, MultipleMixinsTestPropsMixin, ComponentTestProps;
+
+class ClassWrapperTestComponent extends UiComponent2<ClassWrapperTestProps> {
+  @override
+  render() {}
+}
