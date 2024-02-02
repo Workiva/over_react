@@ -101,6 +101,73 @@ void main() {
           expect(getDefaultedPropsForComponentWithPropsClass(propsElement), isNull);
         });
       });
+
+      // Test that the `libraryMightContainClassComponentWithDefaults` short-circuit isn't misbehaving.
+      group('does not short circuit incorrectly when there is a single component in the file with default props', () {
+        test('declared via getDefaultProps', () async {
+          // Name things "non-shared" to make sure we're not getting `result` parsed from `sharedSourceTemplate`.
+          final nonSharedResult = await resolveFileAndGeneratedPart(sharedContext, r'''
+            // @dart=2.12
+            // ignore_for_file: deprecated_member_use_from_same_package
+            import 'package:over_react/over_react.dart';
+            part '{{PART_PATH}}';
+
+            @Factory()
+            UiFactory<NonSharedComponent1WithDefaultsProps> NonSharedComponent1WithDefaults = castUiFactory(_$NonSharedComponent1WithDefaults);
+            
+            // ignore: undefined_class, mixin_of_non_class
+            class NonSharedComponent1WithDefaultsProps extends _$NonSharedComponent1WithDefaultsProps with _$NonSharedComponent1WithDefaultsPropsAccessorsMixin {
+              // ignore: undefined_identifier, const_initialized_with_non_constant_value, invalid_assignment
+              static const PropsMeta meta = _$metaForNonSharedComponent1WithDefaultsProps;
+            }
+            
+            @Props()
+            // ignore: mixin_of_non_class,undefined_class
+            class _$NonSharedComponent1WithDefaultsProps extends UiProps {
+              late String v3_lateRequiredProp;
+              late String v3_lateRequiredProp_defaulted;
+            }
+            
+            @Component()
+            class NonSharedComponent1WithDefaultsComponent extends UiComponent<NonSharedComponent1WithDefaultsProps> {
+              @override
+              getDefaultProps() => (newProps()..v3_lateRequiredProp_defaulted = 'default value');
+              
+              @override
+              render() {}
+            }
+          ''');
+          final propsElement = getInterfaceElement(nonSharedResult, 'NonSharedComponent1WithDefaultsProps');
+          expect(getDefaultedPropsForComponentWithPropsClass(propsElement), isNotEmpty);
+        });
+
+        test('declared via defaultProps', () async {
+          // Name things "non-shared" to make sure we're not getting `result` parsed from `sharedSourceTemplate`.
+          final nonSharedResult = await resolveFileAndGeneratedPart(sharedContext, r'''
+            // @dart=2.12
+            // ignore_for_file: deprecated_member_use_from_same_package
+            import 'package:over_react/over_react.dart';
+            part '{{PART_PATH}}';
+            
+            UiFactory<NonSharedV4ShorthandWithDefaultsProps> NonSharedV4ShorthandWithDefaults = castUiFactory(_$NonSharedV4ShorthandWithDefaults);
+            
+            mixin NonSharedV4ShorthandWithDefaultsProps on UiProps {
+              late String v4_lateRequiredProp;
+              late String v4_lateRequiredProp_defaulted;
+            }
+            
+            class NonSharedV4ShorthandWithDefaultsComponent extends UiComponent2<NonSharedV4ShorthandWithDefaultsProps> {
+              @override
+              get defaultProps => (newProps()..v4_lateRequiredProp_defaulted = 'default value');
+              
+              @override
+              render() {}
+            }
+          ''');
+          final propsElement = getInterfaceElement(nonSharedResult, 'NonSharedV4ShorthandWithDefaultsProps');
+          expect(getDefaultedPropsForComponentWithPropsClass(propsElement), isNotEmpty);
+        });
+      });
     });
   });
 }
