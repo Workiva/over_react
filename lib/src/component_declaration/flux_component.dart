@@ -35,7 +35,7 @@ part 'flux_component.over_react.g.dart';
 /// __Example:__
 ///
 /// ```dart
-/// class YourComponentProps = UiProps 
+/// class YourComponentProps = UiProps
 ///     with FluxUiPropsMixin<YourFluxActionsClass, YourFluxStoreClass>;
 /// ```
 ///
@@ -327,7 +327,9 @@ mixin _FluxComponentMixin<TProps extends FluxUiProps> on component_base.UiCompon
 
     // Cancel all store subscriptions.
     _subscriptions
-      ..forEach((subscription) => subscription.cancel())
+      // This can be null in unsound null safety when consumers are using mocked stores.
+      // ignore: invalid_null_aware_operator
+      ..forEach((subscription) => subscription?.cancel())
       ..clear();
   }
 
