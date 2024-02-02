@@ -528,12 +528,10 @@ class V3WithDefaultsComponent extends UiComponent2<V3WithDefaultsProps> {
 
 UiFactory<V4ShorthandWithDefaultsProps> V4ShorthandWithDefaults = castUiFactory(_$V4ShorthandWithDefaults);
 
-mixin V4ShorthandWithDefaultsPropsMixin on UiProps {
+mixin V4ShorthandWithDefaultsProps on UiProps {
   late String v4_lateRequiredProp;
   late String v4_lateRequiredProp_defaulted;
 }
-
-class V4ShorthandWithDefaultsProps = UiProps with V4ShorthandWithDefaultsPropsMixin;
 
 class V4ShorthandWithDefaultsComponent extends UiComponent2<V4ShorthandWithDefaultsProps> {
   @override
