@@ -56,16 +56,16 @@ abstract class TypedMapImplGenerator extends BoilerplateDeclarationGenerator {
 
   Set<String>? get requiredPropNamesToSkipValidation;
 
-  static Set<String>? _getRequiredPropNamesToSkipValidation({
+  static Set<String> _getRequiredPropNamesToSkipValidation({
     required annotations.TypedMap propsMeta,
-    required BoilerplateComponent component,
+    required BoilerplateComponent? component,
   }) {
     // In addition to @Props, this could also be @PropsMixin or @AbstractProps.
     // The options we're interested in are only available in @Props,
     // so just use those defaults if propsMeta is a different type.
     final props = propsMeta.tryCast<annotations.Props>() ?? annotations.Props();
     return {
-      if (props.disableValidationForClassDefaultProps) ...component.defaultedPropNames,
+      if (props.disableValidationForClassDefaultProps) ...?component?.defaultedPropNames,
       ...?props.disableRequiredPropValidation,
     };
   }
@@ -459,7 +459,11 @@ class _TypedMapImplGenerator extends TypedMapImplGenerator {
             declaration.factories.map((factory) => FactoryNames(factory.name.name)).toList(),
         member = declaration.props.either,
         allPropsMixins = declaration.allPropsMixins,
-        requiredPropNamesToSkipValidation = null,
+        requiredPropNamesToSkipValidation =
+            TypedMapImplGenerator._getRequiredPropNamesToSkipValidation(
+          propsMeta: declaration.props.either.meta,
+          component: null,
+        ),
         isProps = true,
         componentFactoryName = 'null',
         isFunctionComponentDeclaration = declaration.factories.first.shouldGenerateConfig,
