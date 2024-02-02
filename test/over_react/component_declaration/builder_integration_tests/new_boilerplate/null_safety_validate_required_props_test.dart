@@ -259,7 +259,10 @@ void main() {
         expect(() => rtl.render(factory()()), throwsA(isA<MissingRequiredPropsError>()),
             reason: 'test setup check: test component throws when missing other required props');
         expect(
-            () => rtl.render((factory()..required = true)()),
+            () => rtl.render((factory()
+              ..required = true
+              ..requiredDefaulted = true
+            )()),
             allOf(
                 returnsNormally,
                 logsPropRequiredError(
