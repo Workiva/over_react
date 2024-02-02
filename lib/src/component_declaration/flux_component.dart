@@ -238,11 +238,19 @@ mixin _FluxComponentMixin<TProps extends FluxUiProps> on component_base.UiCompon
   /// These subscriptions are canceled when the component is unmounted.
   List<StreamSubscription> _subscriptions = [];
 
+  /// A utility method to cast a non-nullable value, that might be null in unsound null safety,
+  /// to a nullable value.
+  ///
+  /// This allows us to easily perform null-awares on values that should be null without getting the
+  /// noisy compiler warnings that are emitted when ignoring `dead_null_aware_expression` and
+  // `invalid_null_aware_operator`.
+  // ignore: unnecessary_cast
+  static T? _castAsNullable<T>(T value) => value as T?;
+
   void _validateStoreDisposalState(Store store) {
     // We need a null-aware here since there are many mocked store classes
     // in the wild that return null for isOrWillBeDisposed in unsound null safety.
-    // ignore: dead_null_aware_expression
-    if (store.isOrWillBeDisposed ?? false) {
+    if (_castAsNullable(store.isOrWillBeDisposed) ?? false) {
       final componentName = getDebugNameForDartComponent(this);
 
       // Include the component name in the logger name so that:
@@ -328,8 +336,7 @@ mixin _FluxComponentMixin<TProps extends FluxUiProps> on component_base.UiCompon
     // Cancel all store subscriptions.
     _subscriptions
       // This can be null in unsound null safety when consumers are using mocked stores.
-      // ignore: invalid_null_aware_operator
-      ..forEach((subscription) => subscription?.cancel())
+      ..forEach((subscription) => _castAsNullable(subscription)?.cancel())
       ..clear();
   }
 
