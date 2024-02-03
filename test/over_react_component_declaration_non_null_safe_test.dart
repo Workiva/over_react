@@ -25,6 +25,9 @@ library over_react_test;
 import 'package:over_react/over_react.dart';
 import 'package:test/test.dart';
 
+import 'over_react/component_declaration/flux_component_test/unsound_flux_component_test.dart' as unsound_flux_component_test;
+import 'over_react/component_declaration/flux_component_test/component2/unsound_flux_component_test.dart' as unsound_component2_flux_component_test;
+
 import 'over_react/component_declaration/non_null_safe_builder_integration_tests/abstract_accessor_integration_test.dart' as abstract_accessor_integration_test;
 import 'over_react/component_declaration/non_null_safe_builder_integration_tests/accessor_mixin_integration_test.dart' as accessor_mixin_integration_test;
 import 'over_react/component_declaration/non_null_safe_builder_integration_tests/component_integration_test.dart' as component_integration_test;
@@ -74,6 +77,9 @@ import 'over_react/component_declaration/non_null_safe_builder_integration_tests
 
 main() {
   enableTestMode();
+
+  unsound_flux_component_test.main();
+  unsound_component2_flux_component_test.main();
 
   abstract_accessor_integration_test.main();
   accessor_mixin_integration_test.main();

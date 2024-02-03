@@ -35,7 +35,7 @@ part 'flux_component.over_react.g.dart';
 /// __Example:__
 ///
 /// ```dart
-/// class YourComponentProps = UiProps 
+/// class YourComponentProps = UiProps
 ///     with FluxUiPropsMixin<YourFluxActionsClass, YourFluxStoreClass>;
 /// ```
 ///
@@ -238,10 +238,24 @@ mixin _FluxComponentMixin<TProps extends FluxUiProps> on component_base.UiCompon
   /// These subscriptions are canceled when the component is unmounted.
   List<StreamSubscription> _subscriptions = [];
 
+  /// A utility method to cast a non-nullable value, that might be null in unsound null safety,
+  /// to a nullable value.
+  ///
+  /// This allows us to easily perform null-awares on values that should be null without getting the
+  /// noisy compiler warnings that are emitted when ignoring `dead_null_aware_expression` and
+  /// `invalid_null_aware_operator`.
+  ///
+  /// Make the argument `T?` instead of `T` to help prevent any null errors if that argument gets
+  /// type-checked.
+  static T? _castAsNullable<T>(T? value) => value as T?; // ignore: unnecessary_cast
+
   void _validateStoreDisposalState(Store store) {
-    // We need a null-aware here since there are many mocked store classes
-    // in the wild that return null for isOrWillBeDisposed.
-    if (store.isOrWillBeDisposed) {
+    // This can be null in unsound null safety when consumers are using mocked stores
+    // and haven't stubbed isOrWillBeDisposed.
+    //
+    // For sound null safety, we can't work around these errors, and consumers will need to stub
+    // in `isOrWillBeDisposed`. Mocktail example: `when(() => mockStore.isOrWillBeDisposed).thenReturn(false)`.
+    if (_castAsNullable(store.isOrWillBeDisposed) ?? false) {
       final componentName = getDebugNameForDartComponent(this);
 
       // Include the component name in the logger name so that:
@@ -326,7 +340,12 @@ mixin _FluxComponentMixin<TProps extends FluxUiProps> on component_base.UiCompon
 
     // Cancel all store subscriptions.
     _subscriptions
-      ..forEach((subscription) => subscription.cancel())
+      // This can be null in unsound null safety when consumers are using mocked stores.
+      // and haven't stubbed `listen`.
+      //
+      // For sound null safety, we can't work around these errors, and consumers will need to stub
+      // `listen` on the mock.
+      ..forEach((subscription) => _castAsNullable(subscription)?.cancel())
       ..clear();
   }
 
