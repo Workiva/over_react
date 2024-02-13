@@ -33,9 +33,7 @@ extension UiPropsSelfTypedExtension<T extends UiProps> on T {
   /// // This utility:
   /// props.getPropKey((p) => p.foo);
   /// ```
-  String getPropKey(void Function(T) accessProp) =>
-      // ignore: invalid_use_of_visible_for_overriding_member
-      $getPropKey((map) => accessProp(map as T));
+  String getPropKey(void Function(T) accessProp) => '';
 
   /// Returns whether the prop read within [accessProp] is specified.
   ///

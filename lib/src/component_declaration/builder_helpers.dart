@@ -14,13 +14,10 @@
 
 library over_react.component_declaration.builder_helpers;
 
-import 'package:meta/meta.dart';
-
 import '../util/map_util.dart';
 import './component_base.dart' as component_base;
 import './component_base.dart' show PropsMetaCollection, PropsModifier, PropsMeta;
 import './annotations.dart' as annotations;
-import './ui_props_self_typed_extension.dart';
 
 export './annotations.dart';
 export './component_base.dart' hide UiComponent, UiStatefulComponent, UiProps, UiState;
@@ -135,17 +132,6 @@ abstract class UiProps extends component_base.UiProps with GeneratedClass {
   /// This can be used to derive consumed props by usage in conjunction with [addUnconsumedProps]
   /// and [addUnconsumedDomProps].
   @toBeGenerated PropsMetaCollection get staticMeta => throw UngeneratedError(member: #meta);
-
-  /// The base implementation for [UiPropsSelfTypedExtension.getPropKey],
-  /// which wraps this with better generic typing, since we can't generically express
-  /// the type of the current class in this declaration.
-  ///
-  /// [UiPropsSelfTypedExtension.getPropKey] and thus this method are necessary to be able to
-  /// implement utility methods for safely accessing props, such as
-  /// [UiPropsSelfTypedExtension.getRequiredProp].
-  @toBeGenerated
-  @visibleForOverriding
-  String $getPropKey(void Function(Map m) accessMap) => throw UngeneratedError(member: #$getPropKey);
 }
 
 class MissingRequiredPropsError extends Error {

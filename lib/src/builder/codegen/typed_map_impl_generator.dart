@@ -196,11 +196,6 @@ abstract class TypedMapImplGenerator extends BoilerplateDeclarationGenerator {
         ..writeln('  }');
     }
 
-    // This needs to be a top-level member and not a static member, and it needs to be unique
-    // to avoid collisions across typed map impls within the library, potentially in multiple parts.
-    // So, we'll just namespace it by the impl name.
-    final topLevelGetPropKeyAliasName = '_\$getPropKey\$${names.implName}';
-
     // Members
     if (!isComponent2) {
       buffer
@@ -238,12 +233,6 @@ abstract class TypedMapImplGenerator extends BoilerplateDeclarationGenerator {
         generatePropsMeta(buffer, allPropsMixins,
             classType: 'PropsMetaCollection', fieldName: r'staticMeta');
       }
-
-      buffer
-        ..writeln()
-        ..writeln('  @override')
-        ..writeln(
-            '  String \$getPropKey(void Function(Map m) accessMap) => $topLevelGetPropKeyAliasName(accessMap, (map) => ${names.implName}(map));');
     }
     if (requiredPropNamesToSkipValidation != null) {
       buffer
@@ -255,13 +244,6 @@ abstract class TypedMapImplGenerator extends BoilerplateDeclarationGenerator {
 
     // End of class body
     buffer.writeln('}');
-    if (isProps) {
-      buffer
-        ..writeln(
-            '/// An alias for [getPropKey] so it can be referenced within the props class impl')
-        ..writeln('/// without being shadowed by the `getPropKey` instance extension member.')
-        ..writeln('const $topLevelGetPropKeyAliasName = getPropKey;');
-    }
 
     // Component2-specific classes
     if (isComponent2) {
