@@ -21,16 +21,14 @@ final $WithTransitionTesterComponentFactory = registerComponent2(
 );
 
 _$$WithTransitionTesterProps _$WithTransitionTester([Map? backingProps]) =>
-    backingProps == null
-        ? _$$WithTransitionTesterProps$JsMap(JsBackedMap())
-        : _$$WithTransitionTesterProps(backingProps);
+    _$$WithTransitionTesterProps(backingProps);
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$WithTransitionTesterProps extends UiProps
+class _$$WithTransitionTesterProps extends UiProps
     with
         WithTransitionPropsMixin,
         // If this generated mixin is undefined, it's likely because WithTransitionPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of WithTransitionPropsMixin, and check that $WithTransitionPropsMixin is exported/imported properly.
@@ -40,15 +38,16 @@ abstract class _$$WithTransitionTesterProps extends UiProps
         $TransitionPropsMixin
     implements
         WithTransitionTesterProps {
-  _$$WithTransitionTesterProps._();
-
-  factory _$$WithTransitionTesterProps(Map? backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$WithTransitionTesterProps$JsMap(backingMap as JsBackedMap?);
-    } else {
-      return _$$WithTransitionTesterProps$PlainMap(backingMap);
-    }
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$WithTransitionTesterProps(Map? backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
   }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -72,44 +71,6 @@ abstract class _$$WithTransitionTesterProps extends UiProps
       });
 }
 
-// Concrete props implementation that can be backed by any [Map].
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$WithTransitionTesterProps$PlainMap
-    extends _$$WithTransitionTesterProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$WithTransitionTesterProps$PlainMap(Map? backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
-}
-
-// Concrete props implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$WithTransitionTesterProps$JsMap extends _$$WithTransitionTesterProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$WithTransitionTesterProps$JsMap(JsBackedMap? backingMap)
-      : this._props = JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
-}
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
@@ -117,10 +78,10 @@ class _$$WithTransitionTesterProps$JsMap extends _$$WithTransitionTesterProps {
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
 class _$WithTransitionTesterComponent extends WithTransitionTesterComponent {
-  late _$$WithTransitionTesterProps$JsMap _cachedTypedProps;
+  late _$$WithTransitionTesterProps _cachedTypedProps;
 
   @override
-  _$$WithTransitionTesterProps$JsMap get props => _cachedTypedProps;
+  _$$WithTransitionTesterProps get props => _cachedTypedProps;
 
   @override
   set props(Map value) {
@@ -137,9 +98,8 @@ class _$WithTransitionTesterComponent extends WithTransitionTesterComponent {
   }
 
   @override
-  _$$WithTransitionTesterProps$JsMap typedPropsFactoryJs(
-          JsBackedMap? backingMap) =>
-      _$$WithTransitionTesterProps$JsMap(backingMap);
+  _$$WithTransitionTesterProps typedPropsFactoryJs(JsBackedMap? backingMap) =>
+      _$$WithTransitionTesterProps(backingMap);
 
   @override
   _$$WithTransitionTesterProps typedPropsFactory(Map? backingMap) =>

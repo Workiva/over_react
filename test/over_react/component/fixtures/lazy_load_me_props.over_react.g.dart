@@ -47,29 +47,28 @@ const PropsMeta _$metaForLazyLoadMePropsMixin = PropsMeta(
 );
 
 _$$LazyLoadMePropsMixin _$LazyLoadMePropsMapView([Map? backingProps]) =>
-    backingProps == null
-        ? _$$LazyLoadMePropsMixin$JsMap(JsBackedMap())
-        : _$$LazyLoadMePropsMixin(backingProps);
+    _$$LazyLoadMePropsMixin(backingProps);
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$LazyLoadMePropsMixin extends UiProps
+class _$$LazyLoadMePropsMixin extends UiProps
     with
         LazyLoadMePropsMixin,
         // If this generated mixin is undefined, it's likely because LazyLoadMePropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of LazyLoadMePropsMixin, and check that $LazyLoadMePropsMixin is exported/imported properly.
         $LazyLoadMePropsMixin {
-  _$$LazyLoadMePropsMixin._();
-
-  factory _$$LazyLoadMePropsMixin(Map? backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$LazyLoadMePropsMixin$JsMap(backingMap as JsBackedMap?);
-    } else {
-      return _$$LazyLoadMePropsMixin$PlainMap(backingMap);
-    }
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$LazyLoadMePropsMixin(Map? backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
   }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -84,41 +83,4 @@ abstract class _$$LazyLoadMePropsMixin extends UiProps
         // If this generated mixin is undefined, it's likely because LazyLoadMePropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of LazyLoadMePropsMixin, and check that $LazyLoadMePropsMixin is exported/imported properly.
         LazyLoadMePropsMixin: $LazyLoadMePropsMixin.meta,
       });
-}
-
-// Concrete props implementation that can be backed by any [Map].
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$LazyLoadMePropsMixin$PlainMap extends _$$LazyLoadMePropsMixin {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$LazyLoadMePropsMixin$PlainMap(Map? backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
-}
-
-// Concrete props implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$LazyLoadMePropsMixin$JsMap extends _$$LazyLoadMePropsMixin {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$LazyLoadMePropsMixin$JsMap(JsBackedMap? backingMap)
-      : this._props = JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
 }

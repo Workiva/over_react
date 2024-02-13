@@ -10,7 +10,7 @@ part of 'fragment_component.dart';
 final UiFactoryConfig<_$$FragmentProps> _$FragmentConfig = UiFactoryConfig(
     propsFactory: PropsFactory(
       map: (map) => _$$FragmentProps(map),
-      jsMap: (map) => _$$FragmentProps$JsMap(map),
+      jsMap: (map) => _$$FragmentProps(map),
     ),
     displayName: 'Fragment');
 
@@ -24,16 +24,17 @@ final UiFactoryConfig<_$$FragmentProps> $FragmentConfig = _$FragmentConfig;
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$FragmentProps extends UiProps implements FragmentProps {
-  _$$FragmentProps._();
-
-  factory _$$FragmentProps(Map? backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$FragmentProps$JsMap(backingMap as JsBackedMap?);
-    } else {
-      return _$$FragmentProps$PlainMap(backingMap);
-    }
+class _$$FragmentProps extends UiProps implements FragmentProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$FragmentProps(Map? backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
   }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -45,41 +46,4 @@ abstract class _$$FragmentProps extends UiProps implements FragmentProps {
 
   @override
   PropsMetaCollection get staticMeta => const PropsMetaCollection({});
-}
-
-// Concrete props implementation that can be backed by any [Map].
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$FragmentProps$PlainMap extends _$$FragmentProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$FragmentProps$PlainMap(Map? backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
-}
-
-// Concrete props implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$FragmentProps$JsMap extends _$$FragmentProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$FragmentProps$JsMap(JsBackedMap? backingMap)
-      : this._props = JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
 }

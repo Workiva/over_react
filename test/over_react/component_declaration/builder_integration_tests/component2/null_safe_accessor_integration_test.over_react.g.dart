@@ -230,25 +230,25 @@ class NullSafeTestProps extends _$NullSafeTestProps
   static const PropsMeta meta = _$metaForNullSafeTestProps;
 }
 
-_$$NullSafeTestProps _$NullSafeTest([Map? backingProps]) => backingProps == null
-    ? _$$NullSafeTestProps$JsMap(JsBackedMap())
-    : _$$NullSafeTestProps(backingProps);
+_$$NullSafeTestProps _$NullSafeTest([Map? backingProps]) =>
+    _$$NullSafeTestProps(backingProps);
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-abstract class _$$NullSafeTestProps extends _$NullSafeTestProps
+class _$$NullSafeTestProps extends _$NullSafeTestProps
     with _$NullSafeTestPropsAccessorsMixin
     implements NullSafeTestProps {
-  _$$NullSafeTestProps._();
-
-  factory _$$NullSafeTestProps(Map? backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$NullSafeTestProps$JsMap(backingMap as JsBackedMap?);
-    } else {
-      return _$$NullSafeTestProps$PlainMap(backingMap);
-    }
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$NullSafeTestProps(Map? backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
   }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -262,39 +262,6 @@ abstract class _$$NullSafeTestProps extends _$NullSafeTestProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'NullSafeTestProps.';
-}
-
-// Concrete props implementation that can be backed by any [Map].
-class _$$NullSafeTestProps$PlainMap extends _$$NullSafeTestProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$NullSafeTestProps$PlainMap(Map? backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
-}
-
-// Concrete props implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-class _$$NullSafeTestProps$JsMap extends _$$NullSafeTestProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$NullSafeTestProps$JsMap(JsBackedMap? backingMap)
-      : this._props = JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
 }
 
 abstract class _$NullSafeTestStateAccessorsMixin
@@ -489,31 +456,12 @@ class NullSafeTestState extends _$NullSafeTestState
 // Concrete state implementation.
 //
 // Implements constructor and backing map.
-abstract class _$$NullSafeTestState extends _$NullSafeTestState
+class _$$NullSafeTestState extends _$NullSafeTestState
     with _$NullSafeTestStateAccessorsMixin
     implements NullSafeTestState {
-  _$$NullSafeTestState._();
-
-  factory _$$NullSafeTestState(Map? backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$NullSafeTestState$JsMap(backingMap as JsBackedMap?);
-    } else {
-      return _$$NullSafeTestState$PlainMap(backingMap);
-    }
-  }
-
-  /// Let `UiState` internals know that this class has been generated.
-  @override
-  bool get $isClassGenerated => true;
-}
-
-// Concrete state implementation that can be backed by any [Map].
-class _$$NullSafeTestState$PlainMap extends _$$NullSafeTestState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$NullSafeTestState$PlainMap(Map? backingMap)
-      : this._state = {},
-        super._() {
+  _$$NullSafeTestState(Map? backingMap) : this._state = {} {
     this._state = backingMap ?? {};
   }
 
@@ -521,23 +469,10 @@ class _$$NullSafeTestState$PlainMap extends _$$NullSafeTestState {
   @override
   Map get state => _state;
   Map _state;
-}
 
-// Concrete state implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-class _$$NullSafeTestState$JsMap extends _$$NullSafeTestState {
-  // This initializer of `_state` to an empty map, as well as the reassignment
-  // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$NullSafeTestState$JsMap(JsBackedMap? backingMap)
-      : this._state = JsBackedMap(),
-        super._() {
-    this._state = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing state map proxied by this class.
+  /// Let `UiState` internals know that this class has been generated.
   @override
-  JsBackedMap get state => _state;
-  JsBackedMap _state;
+  bool get $isClassGenerated => true;
 }
 
 // Concrete component implementation mixin.
@@ -545,10 +480,10 @@ class _$$NullSafeTestState$JsMap extends _$$NullSafeTestState {
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$NullSafeTestComponent extends NullSafeTestComponent {
-  late _$$NullSafeTestProps$JsMap _cachedTypedProps;
+  late _$$NullSafeTestProps _cachedTypedProps;
 
   @override
-  _$$NullSafeTestProps$JsMap get props => _cachedTypedProps;
+  _$$NullSafeTestProps get props => _cachedTypedProps;
 
   @override
   set props(Map value) {
@@ -565,16 +500,16 @@ class _$NullSafeTestComponent extends NullSafeTestComponent {
   }
 
   @override
-  _$$NullSafeTestProps$JsMap typedPropsFactoryJs(JsBackedMap? backingMap) =>
-      _$$NullSafeTestProps$JsMap(backingMap);
+  _$$NullSafeTestProps typedPropsFactoryJs(JsBackedMap? backingMap) =>
+      _$$NullSafeTestProps(backingMap);
 
   @override
   _$$NullSafeTestProps typedPropsFactory(Map? backingMap) =>
       _$$NullSafeTestProps(backingMap);
 
-  late _$$NullSafeTestState$JsMap _cachedTypedState;
+  late _$$NullSafeTestState _cachedTypedState;
   @override
-  _$$NullSafeTestState$JsMap get state => _cachedTypedState;
+  _$$NullSafeTestState get state => _cachedTypedState;
 
   @override
   set state(Map value) {
@@ -587,8 +522,8 @@ class _$NullSafeTestComponent extends NullSafeTestComponent {
   }
 
   @override
-  _$$NullSafeTestState$JsMap typedStateFactoryJs(JsBackedMap? backingMap) =>
-      _$$NullSafeTestState$JsMap(backingMap);
+  _$$NullSafeTestState typedStateFactoryJs(JsBackedMap? backingMap) =>
+      _$$NullSafeTestState(backingMap);
 
   @override
   _$$NullSafeTestState typedStateFactory(Map? backingMap) =>

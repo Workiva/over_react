@@ -20,29 +20,28 @@ final $BasicComponentFactory = registerComponent2(
   parentType: null,
 );
 
-_$$BasicProps _$Basic([Map? backingProps]) => backingProps == null
-    ? _$$BasicProps$JsMap(JsBackedMap())
-    : _$$BasicProps(backingProps);
+_$$BasicProps _$Basic([Map? backingProps]) => _$$BasicProps(backingProps);
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$BasicProps extends UiProps
+class _$$BasicProps extends UiProps
     with
         BasicProps,
         // If this generated mixin is undefined, it's likely because BasicProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of BasicProps, and check that $BasicProps is exported/imported properly.
         $BasicProps {
-  _$$BasicProps._();
-
-  factory _$$BasicProps(Map? backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$BasicProps$JsMap(backingMap as JsBackedMap?);
-    } else {
-      return _$$BasicProps$PlainMap(backingMap);
-    }
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$BasicProps(Map? backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
   }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -64,43 +63,6 @@ abstract class _$$BasicProps extends UiProps
       });
 }
 
-// Concrete props implementation that can be backed by any [Map].
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$BasicProps$PlainMap extends _$$BasicProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$BasicProps$PlainMap(Map? backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
-}
-
-// Concrete props implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$BasicProps$JsMap extends _$$BasicProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$BasicProps$JsMap(JsBackedMap? backingMap)
-      : this._props = JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
-}
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
@@ -108,10 +70,10 @@ class _$$BasicProps$JsMap extends _$$BasicProps {
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
 class _$BasicComponent extends BasicComponent {
-  late _$$BasicProps$JsMap _cachedTypedProps;
+  late _$$BasicProps _cachedTypedProps;
 
   @override
-  _$$BasicProps$JsMap get props => _cachedTypedProps;
+  _$$BasicProps get props => _cachedTypedProps;
 
   @override
   set props(Map value) {
@@ -128,8 +90,8 @@ class _$BasicComponent extends BasicComponent {
   }
 
   @override
-  _$$BasicProps$JsMap typedPropsFactoryJs(JsBackedMap? backingMap) =>
-      _$$BasicProps$JsMap(backingMap);
+  _$$BasicProps typedPropsFactoryJs(JsBackedMap? backingMap) =>
+      _$$BasicProps(backingMap);
 
   @override
   _$$BasicProps typedPropsFactory(Map? backingMap) => _$$BasicProps(backingMap);
@@ -214,7 +176,7 @@ final UiFactoryConfig<_$$BasicUiFunctionProps> _$BasicUiFunctionConfig =
     UiFactoryConfig(
         propsFactory: PropsFactory(
           map: (map) => _$$BasicUiFunctionProps(map),
-          jsMap: (map) => _$$BasicUiFunctionProps$JsMap(map),
+          jsMap: (map) => _$$BasicUiFunctionProps(map),
         ),
         displayName: 'BasicUiFunction');
 
@@ -229,20 +191,21 @@ final UiFactoryConfig<_$$BasicUiFunctionProps> $BasicUiFunctionConfig =
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$BasicUiFunctionProps extends UiProps
+class _$$BasicUiFunctionProps extends UiProps
     with
         BasicUiFunctionProps,
         // If this generated mixin is undefined, it's likely because BasicUiFunctionProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of BasicUiFunctionProps, and check that $BasicUiFunctionProps is exported/imported properly.
         $BasicUiFunctionProps {
-  _$$BasicUiFunctionProps._();
-
-  factory _$$BasicUiFunctionProps(Map? backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$BasicUiFunctionProps$JsMap(backingMap as JsBackedMap?);
-    } else {
-      return _$$BasicUiFunctionProps$PlainMap(backingMap);
-    }
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$BasicUiFunctionProps(Map? backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
   }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -259,48 +222,11 @@ abstract class _$$BasicUiFunctionProps extends UiProps
       });
 }
 
-// Concrete props implementation that can be backed by any [Map].
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$BasicUiFunctionProps$PlainMap extends _$$BasicUiFunctionProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$BasicUiFunctionProps$PlainMap(Map? backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
-}
-
-// Concrete props implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$BasicUiFunctionProps$JsMap extends _$$BasicUiFunctionProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$BasicUiFunctionProps$JsMap(JsBackedMap? backingMap)
-      : this._props = JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
-}
-
 final UiFactoryConfig<_$$SecondaryBasicUiFunctionProps>
     _$TopLevelForwardUiRefFunctionConfig = UiFactoryConfig(
         propsFactory: PropsFactory(
           map: (map) => _$$SecondaryBasicUiFunctionProps(map),
-          jsMap: (map) => _$$SecondaryBasicUiFunctionProps$JsMap(map),
+          jsMap: (map) => _$$SecondaryBasicUiFunctionProps(map),
         ),
         displayName: 'TopLevelForwardUiRefFunction');
 
@@ -316,22 +242,23 @@ final UiFactoryConfig<_$$SecondaryBasicUiFunctionProps>
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$SecondaryBasicUiFunctionProps extends UiProps
+class _$$SecondaryBasicUiFunctionProps extends UiProps
     with
         BasicUiFunctionProps,
         // If this generated mixin is undefined, it's likely because BasicUiFunctionProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of BasicUiFunctionProps, and check that $BasicUiFunctionProps is exported/imported properly.
         $BasicUiFunctionProps
     implements
         SecondaryBasicUiFunctionProps {
-  _$$SecondaryBasicUiFunctionProps._();
-
-  factory _$$SecondaryBasicUiFunctionProps(Map? backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$SecondaryBasicUiFunctionProps$JsMap(backingMap as JsBackedMap?);
-    } else {
-      return _$$SecondaryBasicUiFunctionProps$PlainMap(backingMap);
-    }
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$SecondaryBasicUiFunctionProps(Map? backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
   }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -346,43 +273,4 @@ abstract class _$$SecondaryBasicUiFunctionProps extends UiProps
         // If this generated mixin is undefined, it's likely because BasicUiFunctionProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of BasicUiFunctionProps, and check that $BasicUiFunctionProps is exported/imported properly.
         BasicUiFunctionProps: $BasicUiFunctionProps.meta,
       });
-}
-
-// Concrete props implementation that can be backed by any [Map].
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$SecondaryBasicUiFunctionProps$PlainMap
-    extends _$$SecondaryBasicUiFunctionProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$SecondaryBasicUiFunctionProps$PlainMap(Map? backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
-}
-
-// Concrete props implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$SecondaryBasicUiFunctionProps$JsMap
-    extends _$$SecondaryBasicUiFunctionProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$SecondaryBasicUiFunctionProps$JsMap(JsBackedMap? backingMap)
-      : this._props = JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
 }
