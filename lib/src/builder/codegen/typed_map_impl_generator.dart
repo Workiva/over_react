@@ -76,15 +76,8 @@ abstract class TypedMapImplGenerator extends BoilerplateDeclarationGenerator {
     outputContentsBuffer.write(
         '${names.implName} ${factoryNames.first.implName}([Map${nullSafety ? '?' : ''} backingProps]) => ');
 
-    if (!isComponent2) {
-      /// _$$FooProps _$Foo([Map backingProps]) => _$$FooProps(backingProps);
-      outputContentsBuffer.writeln('${names.implName}(backingProps);');
-    } else {
-      /// _$$FooProps _$Foo([Map backingProps]) => backingProps == null ? $jsMapImplName(JsBackedMap()) : _$$FooProps(backingProps);
-      // Optimize this case for when backingProps is null to promote inlining of `jsMapImplName` typing
-      outputContentsBuffer.writeln(
-          'backingProps == null ? ${names.jsMapImplName}(JsBackedMap()) : ${names.implName}(backingProps);');
-    }
+    /// _$$FooProps _$Foo([Map backingProps]) => _$$FooProps(backingProps);
+    outputContentsBuffer.writeln('${names.implName}(backingProps);');
   }
 
   String _generateImplClassHeader();
@@ -149,11 +142,6 @@ abstract class TypedMapImplGenerator extends BoilerplateDeclarationGenerator {
     }
 
     final classDeclaration = StringBuffer();
-    if (isComponent2) {
-      // This class will only have a factory constructor that instantiates one
-      // of two subclasses.
-      classDeclaration.write('abstract ');
-    }
 
     classDeclaration
       ..write(_generateImplClassHeader())
@@ -171,40 +159,24 @@ abstract class TypedMapImplGenerator extends BoilerplateDeclarationGenerator {
       ..writeln(classDeclaration);
 
     // Constructors
-    if (isComponent2) {
-      buffer
-        ..writeln('  ${names.implName}._();')
-        ..writeln()
-        ..writeln('  factory ${names.implName}(Map${nullSafety ? '?' : ''} backingMap) {')
-        ..writeln('    if (backingMap == null || backingMap is JsBackedMap) {')
-        ..writeln(
-            '      return ${names.jsMapImplName}(backingMap as JsBackedMap${nullSafety ? '?' : ''});')
-        ..writeln('    } else {')
-        ..writeln('      return ${names.plainMapImplName}(backingMap);')
-        ..writeln('    }')
-        ..writeln('  }');
-    } else {
-      buffer
-        ..writeln(
-            '  // This initializer of `_$propsOrState` to an empty map, as well as the reassignment')
-        ..writeln(
-            '  // of `_$propsOrState` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217')
-        // TODO need to remove this workaround once https://github.com/dart-lang/sdk/issues/36217 is fixed get nice dart2js output
-        ..writeln(
-            '  ${names.implName}(Map${nullSafety ? '?' : ''} backingMap) : this._$propsOrState = {} {')
-        ..writeln('     this._$propsOrState = backingMap ?? {};')
-        ..writeln('  }');
-    }
+    buffer
+      ..writeln(
+          '  // This initializer of `_$propsOrState` to an empty map, as well as the reassignment')
+      ..writeln(
+          '  // of `_$propsOrState` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217')
+      // TODO need to remove this workaround once https://github.com/dart-lang/sdk/issues/36217 is fixed get nice dart2js output
+      ..writeln(
+          '  ${names.implName}(Map${nullSafety ? '?' : ''} backingMap) : this._$propsOrState = {} {')
+      ..writeln('     this._$propsOrState = backingMap ?? {};')
+      ..writeln('  }');
 
     // Members
-    if (!isComponent2) {
-      buffer
-        ..writeln()
-        ..writeln('  /// The backing $propsOrState map proxied by this class.')
-        ..writeln('  @override')
-        ..writeln('  Map get $propsOrState => _$propsOrState;')
-        ..writeln('  Map _$propsOrState;');
-    }
+    buffer
+      ..writeln()
+      ..writeln('  /// The backing $propsOrState map proxied by this class.')
+      ..writeln('  @override')
+      ..writeln('  Map get $propsOrState => _$propsOrState;')
+      ..writeln('  Map _$propsOrState;');
     buffer
       ..writeln()
       ..writeln(
@@ -245,38 +217,6 @@ abstract class TypedMapImplGenerator extends BoilerplateDeclarationGenerator {
     // End of class body
     buffer.writeln('}');
 
-    // Component2-specific classes
-    if (isComponent2) {
-      // TODO need to remove this workaround once https://github.com/dart-lang/sdk/issues/36217 is fixed get nice dart2js output
-      buffer
-        ..writeln()
-        ..writeln('''
-// Concrete $propsOrState implementation that can be backed by any [Map].
-${internalGeneratedMemberDeprecationLine()}class ${names.plainMapImplName}$typeParamsOnClass extends ${names.implName}$typeParamsOnSuper {
-  // This initializer of `_$propsOrState` to an empty map, as well as the reassignment
-  // of `_$propsOrState` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  ${names.plainMapImplName}(Map${nullSafety ? '?' : ''} backingMap) : this._$propsOrState = {}, super._() {
-     this._$propsOrState = backingMap ?? {};
-  }
-  /// The backing $propsOrState map proxied by this class.
-  @override
-  Map get $propsOrState => _$propsOrState;
-  Map _$propsOrState;
-}
-// Concrete $propsOrState implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-${internalGeneratedMemberDeprecationLine()}class ${names.jsMapImplName}$typeParamsOnClass extends ${names.implName}$typeParamsOnSuper {
-  // This initializer of `_$propsOrState` to an empty map, as well as the reassignment
-  // of `_$propsOrState` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  ${names.jsMapImplName}(JsBackedMap${nullSafety ? '?' : ''} backingMap) : this._$propsOrState = JsBackedMap(), super._() {
-     this._$propsOrState = backingMap ?? JsBackedMap();
-  }
-  /// The backing $propsOrState map proxied by this class.
-  @override
-  JsBackedMap get $propsOrState => _$propsOrState;
-  JsBackedMap _$propsOrState;
-}''');
-    }
     return buffer.toString();
   }
 }
@@ -418,7 +358,7 @@ class _TypedMapImplGenerator extends TypedMapImplGenerator {
         '${factoryName.privateConfigName} = UiFactoryConfig(\n'
         'propsFactory: PropsFactory(\n'
         'map: (map) => ${names.implName}(map),\n'
-        'jsMap: (map) => ${names.jsMapImplName}(map),),\n'
+        'jsMap: (map) => ${names.implName}(map),),\n'
         'displayName: \'${factoryName.consumerName}\');\n\n'
         '@Deprecated(r\'Use the private variable, ${factoryName.privateConfigName}, instead \'\n'
         '\'and update the `over_react` lower bound to version 4.1.0. \'\n'
