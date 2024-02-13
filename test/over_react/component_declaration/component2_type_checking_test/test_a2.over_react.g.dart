@@ -69,15 +69,7 @@ abstract class _$$TestA2Props extends _$TestA2Props
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'TestA2Props.';
-
-  @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$TestA2Props(accessMap, (map) => _$$TestA2Props(map));
 }
-
-/// An alias for [getPropKey] so it can be referenced within the props class impl
-/// without being shadowed by the `getPropKey` instance extension member.
-const _$getPropKey$_$$TestA2Props = getPropKey;
 
 // Concrete props implementation that can be backed by any [Map].
 class _$$TestA2Props$PlainMap extends _$$TestA2Props {

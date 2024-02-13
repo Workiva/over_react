@@ -74,19 +74,7 @@ abstract class _$$DoNotReferenceThisFactoryExceptForInASingleTestProps
         DoNotReferenceThisFactoryExceptForInASingleTestProps:
             $DoNotReferenceThisFactoryExceptForInASingleTestProps.meta,
       });
-
-  @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$DoNotReferenceThisFactoryExceptForInASingleTestProps(
-          accessMap,
-          (map) =>
-              _$$DoNotReferenceThisFactoryExceptForInASingleTestProps(map));
 }
-
-/// An alias for [getPropKey] so it can be referenced within the props class impl
-/// without being shadowed by the `getPropKey` instance extension member.
-const _$getPropKey$_$$DoNotReferenceThisFactoryExceptForInASingleTestProps =
-    getPropKey;
 
 // Concrete props implementation that can be backed by any [Map].
 @Deprecated('This API is for use only within generated code.'
@@ -487,15 +475,7 @@ abstract class _$$TestAProps extends UiProps
         // If this generated mixin is undefined, it's likely because TestAProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestAProps, and check that $TestAProps is exported/imported properly.
         TestAProps: $TestAProps.meta,
       });
-
-  @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$TestAProps(accessMap, (map) => _$$TestAProps(map));
 }
-
-/// An alias for [getPropKey] so it can be referenced within the props class impl
-/// without being shadowed by the `getPropKey` instance extension member.
-const _$getPropKey$_$$TestAProps = getPropKey;
 
 // Concrete props implementation that can be backed by any [Map].
 @Deprecated('This API is for use only within generated code.'
@@ -579,15 +559,7 @@ abstract class _$$TestBProps extends UiProps
         // If this generated mixin is undefined, it's likely because TestBProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestBProps, and check that $TestBProps is exported/imported properly.
         TestBProps: $TestBProps.meta,
       });
-
-  @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$TestBProps(accessMap, (map) => _$$TestBProps(map));
 }
-
-/// An alias for [getPropKey] so it can be referenced within the props class impl
-/// without being shadowed by the `getPropKey` instance extension member.
-const _$getPropKey$_$$TestBProps = getPropKey;
 
 // Concrete props implementation that can be backed by any [Map].
 @Deprecated('This API is for use only within generated code.'
@@ -672,16 +644,7 @@ abstract class _$$TestParentProps extends UiProps
         // If this generated mixin is undefined, it's likely because TestParentProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestParentProps, and check that $TestParentProps is exported/imported properly.
         TestParentProps: $TestParentProps.meta,
       });
-
-  @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$TestParentProps(
-          accessMap, (map) => _$$TestParentProps(map));
 }
-
-/// An alias for [getPropKey] so it can be referenced within the props class impl
-/// without being shadowed by the `getPropKey` instance extension member.
-const _$getPropKey$_$$TestParentProps = getPropKey;
 
 // Concrete props implementation that can be backed by any [Map].
 @Deprecated('This API is for use only within generated code.'
@@ -767,16 +730,7 @@ abstract class _$$TestSubtypeProps extends UiProps
         // If this generated mixin is undefined, it's likely because TestSubtypeProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestSubtypeProps, and check that $TestSubtypeProps is exported/imported properly.
         TestSubtypeProps: $TestSubtypeProps.meta,
       });
-
-  @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$TestSubtypeProps(
-          accessMap, (map) => _$$TestSubtypeProps(map));
 }
-
-/// An alias for [getPropKey] so it can be referenced within the props class impl
-/// without being shadowed by the `getPropKey` instance extension member.
-const _$getPropKey$_$$TestSubtypeProps = getPropKey;
 
 // Concrete props implementation that can be backed by any [Map].
 @Deprecated('This API is for use only within generated code.'
@@ -862,16 +816,7 @@ abstract class _$$TestSubsubtypeProps extends UiProps
         // If this generated mixin is undefined, it's likely because TestSubsubtypeProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestSubsubtypeProps, and check that $TestSubsubtypeProps is exported/imported properly.
         TestSubsubtypeProps: $TestSubsubtypeProps.meta,
       });
-
-  @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$TestSubsubtypeProps(
-          accessMap, (map) => _$$TestSubsubtypeProps(map));
 }
-
-/// An alias for [getPropKey] so it can be referenced within the props class impl
-/// without being shadowed by the `getPropKey` instance extension member.
-const _$getPropKey$_$$TestSubsubtypeProps = getPropKey;
 
 // Concrete props implementation that can be backed by any [Map].
 @Deprecated('This API is for use only within generated code.'
@@ -957,16 +902,7 @@ abstract class _$$TestExtendtypeProps extends UiProps
         // If this generated mixin is undefined, it's likely because TestExtendtypeProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestExtendtypeProps, and check that $TestExtendtypeProps is exported/imported properly.
         TestExtendtypeProps: $TestExtendtypeProps.meta,
       });
-
-  @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$TestExtendtypeProps(
-          accessMap, (map) => _$$TestExtendtypeProps(map));
 }
-
-/// An alias for [getPropKey] so it can be referenced within the props class impl
-/// without being shadowed by the `getPropKey` instance extension member.
-const _$getPropKey$_$$TestExtendtypeProps = getPropKey;
 
 // Concrete props implementation that can be backed by any [Map].
 @Deprecated('This API is for use only within generated code.'
@@ -1052,16 +988,7 @@ abstract class _$$OneLevelWrapperProps extends UiProps
         // If this generated mixin is undefined, it's likely because OneLevelWrapperProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of OneLevelWrapperProps, and check that $OneLevelWrapperProps is exported/imported properly.
         OneLevelWrapperProps: $OneLevelWrapperProps.meta,
       });
-
-  @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$OneLevelWrapperProps(
-          accessMap, (map) => _$$OneLevelWrapperProps(map));
 }
-
-/// An alias for [getPropKey] so it can be referenced within the props class impl
-/// without being shadowed by the `getPropKey` instance extension member.
-const _$getPropKey$_$$OneLevelWrapperProps = getPropKey;
 
 // Concrete props implementation that can be backed by any [Map].
 @Deprecated('This API is for use only within generated code.'
@@ -1147,16 +1074,7 @@ abstract class _$$TwoLevelWrapperProps extends UiProps
         // If this generated mixin is undefined, it's likely because TwoLevelWrapperProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TwoLevelWrapperProps, and check that $TwoLevelWrapperProps is exported/imported properly.
         TwoLevelWrapperProps: $TwoLevelWrapperProps.meta,
       });
-
-  @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$TwoLevelWrapperProps(
-          accessMap, (map) => _$$TwoLevelWrapperProps(map));
 }
-
-/// An alias for [getPropKey] so it can be referenced within the props class impl
-/// without being shadowed by the `getPropKey` instance extension member.
-const _$getPropKey$_$$TwoLevelWrapperProps = getPropKey;
 
 // Concrete props implementation that can be backed by any [Map].
 @Deprecated('This API is for use only within generated code.'
@@ -1243,16 +1161,7 @@ abstract class _$$TestUninitializedParentProps extends UiProps
         // If this generated mixin is undefined, it's likely because TestUninitializedParentProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestUninitializedParentProps, and check that $TestUninitializedParentProps is exported/imported properly.
         TestUninitializedParentProps: $TestUninitializedParentProps.meta,
       });
-
-  @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$TestUninitializedParentProps(
-          accessMap, (map) => _$$TestUninitializedParentProps(map));
 }
-
-/// An alias for [getPropKey] so it can be referenced within the props class impl
-/// without being shadowed by the `getPropKey` instance extension member.
-const _$getPropKey$_$$TestUninitializedParentProps = getPropKey;
 
 // Concrete props implementation that can be backed by any [Map].
 @Deprecated('This API is for use only within generated code.'

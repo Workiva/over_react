@@ -169,15 +169,7 @@ class _$$TestProps extends _$TestProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'TestProps.';
-
-  @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$TestProps(accessMap, (map) => _$$TestProps(map));
 }
-
-/// An alias for [getPropKey] so it can be referenced within the props class impl
-/// without being shadowed by the `getPropKey` instance extension member.
-const _$getPropKey$_$$TestProps = getPropKey;
 
 // Concrete component implementation mixin.
 //

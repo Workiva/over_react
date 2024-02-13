@@ -191,16 +191,7 @@ abstract class _$$NamespacedAccessorTestProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'custom props class namespace**';
-
-  @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$NamespacedAccessorTestProps(
-          accessMap, (map) => _$$NamespacedAccessorTestProps(map));
 }
-
-/// An alias for [getPropKey] so it can be referenced within the props class impl
-/// without being shadowed by the `getPropKey` instance extension member.
-const _$getPropKey$_$$NamespacedAccessorTestProps = getPropKey;
 
 // Concrete props implementation that can be backed by any [Map].
 class _$$NamespacedAccessorTestProps$PlainMap

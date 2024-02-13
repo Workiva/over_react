@@ -100,15 +100,7 @@ abstract class _$$FooProps extends _$FooProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'FooProps.';
-
-  @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$FooProps(accessMap, (map) => _$$FooProps(map));
 }
-
-/// An alias for [getPropKey] so it can be referenced within the props class impl
-/// without being shadowed by the `getPropKey` instance extension member.
-const _$getPropKey$_$$FooProps = getPropKey;
 
 // Concrete props implementation that can be backed by any [Map].
 class _$$FooProps$PlainMap extends _$$FooProps {

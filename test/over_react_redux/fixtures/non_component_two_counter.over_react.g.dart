@@ -71,16 +71,7 @@ class _$$NonComponentTwoCounterProps extends _$NonComponentTwoCounterProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'NonComponentTwoCounterProps.';
-
-  @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$NonComponentTwoCounterProps(
-          accessMap, (map) => _$$NonComponentTwoCounterProps(map));
 }
-
-/// An alias for [getPropKey] so it can be referenced within the props class impl
-/// without being shadowed by the `getPropKey` instance extension member.
-const _$getPropKey$_$$NonComponentTwoCounterProps = getPropKey;
 
 // Concrete component implementation mixin.
 //

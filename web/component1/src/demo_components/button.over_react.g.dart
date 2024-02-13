@@ -286,15 +286,7 @@ class _$$ButtonProps extends _$ButtonProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'ButtonProps.';
-
-  @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$ButtonProps(accessMap, (map) => _$$ButtonProps(map));
 }
-
-/// An alias for [getPropKey] so it can be referenced within the props class impl
-/// without being shadowed by the `getPropKey` instance extension member.
-const _$getPropKey$_$$ButtonProps = getPropKey;
 
 abstract class _$ButtonStateAccessorsMixin implements _$ButtonState {
   @override

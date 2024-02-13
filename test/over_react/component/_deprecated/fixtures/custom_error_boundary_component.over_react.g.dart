@@ -73,16 +73,7 @@ abstract class _$$CustomErrorBoundaryProps extends _$CustomErrorBoundaryProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'CustomErrorBoundaryProps.';
-
-  @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$CustomErrorBoundaryProps(
-          accessMap, (map) => _$$CustomErrorBoundaryProps(map));
 }
-
-/// An alias for [getPropKey] so it can be referenced within the props class impl
-/// without being shadowed by the `getPropKey` instance extension member.
-const _$getPropKey$_$$CustomErrorBoundaryProps = getPropKey;
 
 // Concrete props implementation that can be backed by any [Map].
 class _$$CustomErrorBoundaryProps$PlainMap extends _$$CustomErrorBoundaryProps {

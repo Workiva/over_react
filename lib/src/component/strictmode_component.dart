@@ -18,7 +18,6 @@ import 'package:react/react.dart' as react;
 import 'package:react/react_client/js_backed_map.dart';
 
 import '../component_declaration/builder_helpers.dart';
-import '../util/prop_key_util.dart';
 
 part 'strictmode_component.over_react.g.dart';
 

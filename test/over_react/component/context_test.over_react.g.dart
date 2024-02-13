@@ -63,16 +63,7 @@ abstract class _$$ContextTypeDynamicProps extends UiProps
         // If this generated mixin is undefined, it's likely because ContextTypeDynamicProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ContextTypeDynamicProps, and check that $ContextTypeDynamicProps is exported/imported properly.
         ContextTypeDynamicProps: $ContextTypeDynamicProps.meta,
       });
-
-  @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$ContextTypeDynamicProps(
-          accessMap, (map) => _$$ContextTypeDynamicProps(map));
 }
-
-/// An alias for [getPropKey] so it can be referenced within the props class impl
-/// without being shadowed by the `getPropKey` instance extension member.
-const _$getPropKey$_$$ContextTypeDynamicProps = getPropKey;
 
 // Concrete props implementation that can be backed by any [Map].
 @Deprecated('This API is for use only within generated code.'
@@ -223,16 +214,7 @@ abstract class _$$ContextTypeWithoutDefaultProps extends UiProps
         // If this generated mixin is undefined, it's likely because ContextTypeWithoutDefaultProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ContextTypeWithoutDefaultProps, and check that $ContextTypeWithoutDefaultProps is exported/imported properly.
         ContextTypeWithoutDefaultProps: $ContextTypeWithoutDefaultProps.meta,
       });
-
-  @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$ContextTypeWithoutDefaultProps(
-          accessMap, (map) => _$$ContextTypeWithoutDefaultProps(map));
 }
-
-/// An alias for [getPropKey] so it can be referenced within the props class impl
-/// without being shadowed by the `getPropKey` instance extension member.
-const _$getPropKey$_$$ContextTypeWithoutDefaultProps = getPropKey;
 
 // Concrete props implementation that can be backed by any [Map].
 @Deprecated('This API is for use only within generated code.'
@@ -384,16 +366,7 @@ abstract class _$$ContextTypeWithDefaultProps extends UiProps
         // If this generated mixin is undefined, it's likely because ContextTypeWithDefaultProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ContextTypeWithDefaultProps, and check that $ContextTypeWithDefaultProps is exported/imported properly.
         ContextTypeWithDefaultProps: $ContextTypeWithDefaultProps.meta,
       });
-
-  @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$ContextTypeWithDefaultProps(
-          accessMap, (map) => _$$ContextTypeWithDefaultProps(map));
 }
-
-/// An alias for [getPropKey] so it can be referenced within the props class impl
-/// without being shadowed by the `getPropKey` instance extension member.
-const _$getPropKey$_$$ContextTypeWithDefaultProps = getPropKey;
 
 // Concrete props implementation that can be backed by any [Map].
 @Deprecated('This API is for use only within generated code.'

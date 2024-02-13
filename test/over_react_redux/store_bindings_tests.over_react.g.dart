@@ -147,16 +147,7 @@ abstract class _$$TestSelectorProps extends UiProps
         // If this generated mixin is undefined, it's likely because TestSelectorProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestSelectorProps, and check that $TestSelectorProps is exported/imported properly.
         TestSelectorProps: $TestSelectorProps.meta,
       });
-
-  @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$TestSelectorProps(
-          accessMap, (map) => _$$TestSelectorProps(map));
 }
-
-/// An alias for [getPropKey] so it can be referenced within the props class impl
-/// without being shadowed by the `getPropKey` instance extension member.
-const _$getPropKey$_$$TestSelectorProps = getPropKey;
 
 // Concrete props implementation that can be backed by any [Map].
 @Deprecated('This API is for use only within generated code.'
@@ -249,16 +240,7 @@ abstract class _$$TestConnectProps extends UiProps
         // If this generated mixin is undefined, it's likely because TestConnectPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestConnectPropsMixin, and check that $TestConnectPropsMixin is exported/imported properly.
         TestConnectPropsMixin: $TestConnectPropsMixin.meta,
       });
-
-  @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$TestConnectProps(
-          accessMap, (map) => _$$TestConnectProps(map));
 }
-
-/// An alias for [getPropKey] so it can be referenced within the props class impl
-/// without being shadowed by the `getPropKey` instance extension member.
-const _$getPropKey$_$$TestConnectProps = getPropKey;
 
 // Concrete props implementation that can be backed by any [Map].
 @Deprecated('This API is for use only within generated code.'

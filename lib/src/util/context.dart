@@ -14,7 +14,6 @@
 
 import 'package:meta/meta.dart';
 import 'package:over_react/src/component_declaration/builder_helpers.dart';
-import 'package:over_react/src/util/prop_key_util.dart';
 
 import 'package:react/react_client/component_factory.dart';
 import 'package:react/react_client/react_interop.dart';

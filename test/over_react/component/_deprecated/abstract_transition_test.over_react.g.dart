@@ -234,16 +234,7 @@ class _$$TransitionerProps extends _$TransitionerProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'TransitionerProps.';
-
-  @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$TransitionerProps(
-          accessMap, (map) => _$$TransitionerProps(map));
 }
-
-/// An alias for [getPropKey] so it can be referenced within the props class impl
-/// without being shadowed by the `getPropKey` instance extension member.
-const _$getPropKey$_$$TransitionerProps = getPropKey;
 
 abstract class _$TransitionerStateAccessorsMixin
     implements _$TransitionerState {
