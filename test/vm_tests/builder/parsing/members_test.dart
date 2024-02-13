@@ -13,6 +13,8 @@
 // limitations under the License.
 
 @TestOn('vm')
+import 'dart:mirrors';
+
 import 'package:over_react/src/builder/parsing.dart';
 import 'package:over_react/src/component_declaration/annotations.dart';
 import 'package:source_span/source_span.dart';
@@ -1043,6 +1045,111 @@ main() {
 
             test('state', () {
               setUpAndTestMeta(isProps: false, isAbstract: false, isMixin: true, source: source);
+            });
+          });
+        });
+
+        group('parses disableRequiredPropValidation in @Props annotations', () {
+          test('', () {
+            final annotation = getPropsOrStateAnnotation(true, parseAndGetSingleMember(r'''
+              @Props(disableRequiredPropValidation: {'foo', 'bar'})
+              mixin FooProps on UiProps {}
+            ''')) as Props;
+            expect(annotation.disableRequiredPropValidation, unorderedEquals({'foo', 'bar'}));
+          });
+
+          group('and preserves other fields in the annotation when that argument is present:', () {
+            final otherFieldGroupsByName = {
+              'keyNamespace': () {
+                test('when not specified (uses default value)', () {
+                  final annotation = getPropsOrStateAnnotation(true, parseAndGetSingleMember(r'''
+                  @Props(
+                    disableRequiredPropValidation: {'foo', 'bar'},
+                  )
+                  mixin FooProps on UiProps {}
+                ''')) as Props;
+                  expect(annotation.disableRequiredPropValidation, unorderedEquals({'foo', 'bar'}),
+                      reason: 'test setup check');
+                  expect(annotation.keyNamespace, isNull);
+                });
+
+                test('when specified', () {
+                  final annotation = getPropsOrStateAnnotation(true, parseAndGetSingleMember(r'''
+                  @Props(
+                    disableRequiredPropValidation: {'foo', 'bar'},
+                    keyNamespace: 'test namespace'
+                  )
+                  mixin FooProps on UiProps {}
+                ''')) as Props;
+                  expect(annotation.disableRequiredPropValidation, unorderedEquals({'foo', 'bar'}),
+                      reason: 'test setup check');
+                  expect(annotation.keyNamespace, 'test namespace');
+                });
+              },
+              'disableValidationForClassDefaultProps': () {
+                test('when not specified (uses default value)', () {
+                  final annotation = getPropsOrStateAnnotation(true, parseAndGetSingleMember(r'''
+                  @Props(
+                    disableRequiredPropValidation: {'foo', 'bar'},
+                  )
+                  mixin FooProps on UiProps {}
+                ''')) as Props;
+                  expect(annotation.disableRequiredPropValidation, unorderedEquals({'foo', 'bar'}),
+                      reason: 'test setup check');
+                  expect(annotation.disableValidationForClassDefaultProps, isTrue);
+                });
+
+                group('when specified as', () {
+                  // Test both true and false so we have full test coverage even if the default changes.
+                  test('true', () {
+                    final annotation = getPropsOrStateAnnotation(true, parseAndGetSingleMember(r'''
+                    @Props(
+                      disableRequiredPropValidation: {'foo', 'bar'},
+                      disableValidationForClassDefaultProps: true,
+                    )
+                    mixin FooProps on UiProps {}
+                  ''')) as Props;
+                    expect(
+                        annotation.disableRequiredPropValidation, unorderedEquals({'foo', 'bar'}));
+                    expect(annotation.disableValidationForClassDefaultProps, isTrue);
+                  });
+
+                  test('false', () {
+                    final annotation = getPropsOrStateAnnotation(true, parseAndGetSingleMember(r'''
+                    @Props(
+                      disableRequiredPropValidation: {'foo', 'bar'},
+                      disableValidationForClassDefaultProps: false,
+                    )
+                    mixin FooProps on UiProps {}
+                  ''')) as Props;
+                    expect(
+                        annotation.disableRequiredPropValidation, unorderedEquals({'foo', 'bar'}));
+                    expect(annotation.disableValidationForClassDefaultProps, isFalse);
+                  });
+                });
+              },
+            };
+
+            setUpAll(() {
+              // Use reflection to get all the current named parameters to @Props constructor
+              // and ensure we have tests for them declared here.
+              // If we ever want to get off of dart:mirrors for this, we could also use the analyzer
+              // to parse the declaration of `Props`.
+              final classMirror = reflectClass(Props);
+              final constructorMirror =
+                  classMirror.declarations[classMirror.simpleName]! as MethodMirror;
+              final propsConstructorParameterNames = constructorMirror.parameters
+                  .map((p) => p.simpleName)
+                  .map(MirrorSystem.getName)
+                  .toSet();
+              final expectedTestNames = {...propsConstructorParameterNames}
+                ..remove('disableRequiredPropValidation');
+              expect(otherFieldGroupsByName.keys, expectedTestNames,
+                  reason: 'there should be tests for each named parameter in Props');
+            });
+
+            otherFieldGroupsByName.forEach((name, groupBody) {
+              group(name, groupBody);
             });
           });
         });

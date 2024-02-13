@@ -182,6 +182,9 @@ class _$$ComponentTestProps extends _$ComponentTestProps
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$ComponentTestProps(
           accessMap, (map) => _$$ComponentTestProps(map));
+
+  @override
+  Set<String> get requiredPropNamesToSkipValidation => const {'id'};
 }
 
 /// An alias for [getPropKey] so it can be referenced within the props class impl

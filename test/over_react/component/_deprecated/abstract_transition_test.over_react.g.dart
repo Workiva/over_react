@@ -239,6 +239,10 @@ class _$$TransitionerProps extends _$TransitionerProps
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$TransitionerProps(
           accessMap, (map) => _$$TransitionerProps(map));
+
+  @override
+  Set<String> get requiredPropNamesToSkipValidation =>
+      const {'hasTransition', 'initiallyShown', 'transitionTimeout'};
 }
 
 /// An alias for [getPropKey] so it can be referenced within the props class impl

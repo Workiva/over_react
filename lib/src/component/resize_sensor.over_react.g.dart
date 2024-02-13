@@ -67,6 +67,10 @@ abstract class _$$ResizeSensorProps extends UiProps
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$ResizeSensorProps(
           accessMap, (map) => _$$ResizeSensorProps(map));
+
+  @override
+  Set<String> get requiredPropNamesToSkipValidation =>
+      const {'isFlexChild', 'isFlexContainer', 'shrink', 'quickMount'};
 }
 
 /// An alias for [getPropKey] so it can be referenced within the props class impl

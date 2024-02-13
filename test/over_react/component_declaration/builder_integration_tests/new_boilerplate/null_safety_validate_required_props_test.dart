@@ -247,10 +247,56 @@ void main() {
       });
     });
 
-    test('@Props(disableRequiredPropValidation) turns off validation for specific props', () {
-      expect(() {
-        rtl.render(WrapperTest()());
-      }, returnsNormally);
+    group('@Props(disableRequiredPropValidation) turns off validation for specific props', () {
+      // Test both class and function components to ensure so we have test coverage that the builder wires up
+      // disableRequiredPropValidation correctly for each.
+      test('for function components', () {
+        expect(() {
+          rtl.render(FunctionWrapperTest()());
+        }, returnsNormally);
+      });
+
+      test('for class components', () {
+        expect(() {
+          rtl.render(ClassWrapperTest()());
+        }, returnsNormally);
+      });
+    });
+
+    group('validation is disabled for defaulted class component props', () {
+      test('by default', () {
+        final factory = DefaultedInClassTest;
+        expect(() => rtl.render(factory()()), throwsA(isA<MissingRequiredPropsError>()),
+            reason: 'test setup check: test component throws when missing other required props');
+        // `requiredDefaulted` and should is defaulted, it's not required
+        expect(() => rtl.render((factory()..required = true)()),
+            allOf(returnsNormally, logsNoPropTypeWarnings));
+      });
+
+      test('unless consumers opt out via @Props(disableValidationForClassDefaultProps: false)', () {
+        final factory = DefaultedInClassOptedOutTest;
+        expect(() => rtl.render(factory()()), throwsA(isA<MissingRequiredPropsError>()),
+            reason: 'test setup check: test component throws when missing other required props');
+        expect(
+            () => rtl.render((factory()..required = true)()),
+            throwsA(isA<MissingRequiredPropsError>().having((e) => e.toString(), 'toString value',
+                contains('Required prop `requiredDefaulted` is missing.'))));
+      });
+
+      test('and does not interfere with ignores in annotation ', () {
+        final factory = DefaultedInClassOptedOutWithIgnoresTest;
+        expect(() => rtl.render(factory()()), throwsA(isA<MissingRequiredPropsError>()),
+            reason: 'test setup check: test component throws when missing other required props');
+        expect(
+            () => rtl.render((factory()
+              ..required = true
+              ..requiredDefaulted = true
+            )()),
+            allOf(
+                returnsNormally,
+                logsPropRequiredError(
+                    'DefaultedInClassOptedOutWithIgnoresTestProps.requiredDisabledByName')));
+      });
     });
   }, tags: 'ddc');
 
@@ -304,14 +350,82 @@ mixin MultipleMixinsTestPropsMixin on UiProps {
 @Props(disableRequiredPropValidation: {'testIgnoreOnMixin'})
 class MultipleMixinsTestProps = UiProps with MultipleMixinsTestPropsMixin, ComponentTestProps;
 
-UiFactory<WrapperTestProps> WrapperTest = uiFunction(
-      (props) {},
-  _$WrapperTestConfig, // ignore: undefined_identifier
-);
 
 mixin WrapperTestPropsMixin on UiProps {
   late bool thirdRequiredProp;
 }
 
+UiFactory<FunctionWrapperTestProps> FunctionWrapperTest = uiFunction(
+      (props) {},
+  _$FunctionWrapperTestConfig, // ignore: undefined_identifier
+);
+
+
 @Props(disableRequiredPropValidation: {'thirdRequiredProp', 'secondRequiredProp', 'requiredNonNullable', 'requiredNullable', 'testIgnoreOnMixin'})
-class WrapperTestProps = UiProps with WrapperTestPropsMixin, MultipleMixinsTestPropsMixin, ComponentTestProps;
+class FunctionWrapperTestProps = UiProps with WrapperTestPropsMixin, MultipleMixinsTestPropsMixin, ComponentTestProps;
+
+
+UiFactory<ClassWrapperTestProps> ClassWrapperTest = castUiFactory(_$ClassWrapperTest); // ignore: undefined_identifier
+
+mixin ClassWrapperTestPropsMixin on UiProps {
+  late bool thirdRequiredProp;
+}
+
+@Props(disableRequiredPropValidation: {'thirdRequiredProp', 'secondRequiredProp', 'requiredNonNullable', 'requiredNullable', 'testIgnoreOnMixin'})
+class ClassWrapperTestProps = UiProps with WrapperTestPropsMixin, MultipleMixinsTestPropsMixin, ComponentTestProps;
+
+class ClassWrapperTestComponent extends UiComponent2<ClassWrapperTestProps> {
+  @override
+  render() {}
+}
+
+UiFactory<DefaultedInClassTestProps> DefaultedInClassTest = castUiFactory(_$DefaultedInClassTest); // ignore: undefined_identifier
+
+mixin DefaultedInClassTestProps on UiProps {
+  late bool required;
+  late bool requiredDefaulted;
+}
+
+class DefaultedInClassTestPropsComponent extends UiComponent2<DefaultedInClassTestProps> {
+  @override
+  get defaultProps => (newProps()..requiredDefaulted = true);
+
+  @override
+  render() => Dom.div()();
+}
+
+UiFactory<DefaultedInClassOptedOutTestProps> DefaultedInClassOptedOutTest = castUiFactory(_$DefaultedInClassOptedOutTest); // ignore: undefined_identifier
+
+@Props(disableValidationForClassDefaultProps: false)
+mixin DefaultedInClassOptedOutTestProps on UiProps {
+  late bool required;
+  late bool requiredDefaulted;
+}
+
+class DefaultedInClassOptedOutTestPropsComponent extends UiComponent2<DefaultedInClassOptedOutTestProps> {
+  @override
+  get defaultProps => (newProps()..requiredDefaulted = true);
+
+  @override
+  render() => Dom.div()();
+}
+
+UiFactory<DefaultedInClassOptedOutWithIgnoresTestProps> DefaultedInClassOptedOutWithIgnoresTest = castUiFactory(_$DefaultedInClassOptedOutWithIgnoresTest); // ignore: undefined_identifier
+
+@Props(
+  disableValidationForClassDefaultProps: false,
+  disableRequiredPropValidation: {'requiredDisabledByName'},
+)
+mixin DefaultedInClassOptedOutWithIgnoresTestProps on UiProps {
+  late bool required;
+  late bool requiredDefaulted;
+  late bool requiredDisabledByName;
+}
+
+class DefaultedInClassOptedOutWithIgnoresTestPropsComponent extends UiComponent2<DefaultedInClassOptedOutWithIgnoresTestProps> {
+  @override
+  get defaultProps => (newProps()..requiredDefaulted = true);
+
+  @override
+  render() => Dom.div()();
+}

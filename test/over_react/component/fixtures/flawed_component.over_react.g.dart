@@ -86,6 +86,10 @@ abstract class _$$FlawedProps extends _$FlawedProps
   @override
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$FlawedProps(accessMap, (map) => _$$FlawedProps(map));
+
+  @override
+  Set<String> get requiredPropNamesToSkipValidation =>
+      const {'buttonTestIdPrefix'};
 }
 
 /// An alias for [getPropKey] so it can be referenced within the props class impl

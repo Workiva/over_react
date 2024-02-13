@@ -82,6 +82,13 @@ abstract class _$$ErrorBoundaryProps extends _$ErrorBoundaryProps
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$ErrorBoundaryProps(
           accessMap, (map) => _$$ErrorBoundaryProps(map));
+
+  @override
+  Set<String> get requiredPropNamesToSkipValidation => const {
+        'identicalErrorFrequencyTolerance',
+        'loggerName',
+        'shouldLogErrors'
+      };
 }
 
 /// An alias for [getPropKey] so it can be referenced within the props class impl

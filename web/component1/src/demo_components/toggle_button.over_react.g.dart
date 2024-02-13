@@ -191,6 +191,9 @@ class _$$ToggleButtonProps extends _$ToggleButtonProps
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$ToggleButtonProps(
           accessMap, (map) => _$$ToggleButtonProps(map));
+
+  @override
+  Set<String> get requiredPropNamesToSkipValidation => const {'toggleType'};
 }
 
 /// An alias for [getPropKey] so it can be referenced within the props class impl

@@ -57,6 +57,24 @@ mixin WithAnnotationRequiredProps on UiProps {
   String? optional2;
 }
 
+UiFactory<WithDefaultsProps> WithDefaults = castUiFactory(_$WithDefaults);
+
+mixin WithDefaultsProps on UiProps {
+  late String required;
+  late String defaulted;
+}
+
+class WithDefaultsComponent extends UiComponent2<WithDefaultsProps> {
+  @override
+  get defaultProps => (newProps()
+    ..defaulted = ''
+  );
+
+  @override
+  render() {}
+}
+
+
 main() {
   NoRequired()();
 
@@ -73,6 +91,10 @@ main() {
   InheritsLateRequired()();
 
   WithAnnotationRequired()();
+
+  // Props defaulted in props class
+  WithDefaults()();
+  (WithDefaults()..required = '')();
 
   DisableValidation()();
 

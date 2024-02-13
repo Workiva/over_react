@@ -232,6 +232,9 @@ abstract class _$$PureTestProps extends UiProps
   @override
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$PureTestProps(accessMap, (map) => _$$PureTestProps(map));
+
+  @override
+  Set<String> get requiredPropNamesToSkipValidation => const {'childBoolProp'};
 }
 
 /// An alias for [getPropKey] so it can be referenced within the props class impl

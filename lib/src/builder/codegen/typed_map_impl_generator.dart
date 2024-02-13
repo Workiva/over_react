@@ -45,15 +45,37 @@ abstract class TypedMapImplGenerator extends BoilerplateDeclarationGenerator {
       {required bool nullSafety}) = _TypedMapImplGenerator.propsMapViewOrFunctionComponent;
 
   TypedMapNames get names;
+
   bool get isComponent2;
+
   List<FactoryNames> get factoryNames;
+
   bool get isProps;
+
   bool get nullSafety;
+
+  Set<String>? get requiredPropNamesToSkipValidation;
+
+  static Set<String> _getRequiredPropNamesToSkipValidation({
+    required annotations.TypedMap propsMeta,
+    required BoilerplateComponent? component,
+  }) {
+    // In addition to @Props, this could also be @PropsMixin or @AbstractProps.
+    // The options we're interested in are only available in @Props,
+    // so just use those defaults if propsMeta is a different type.
+    final props = propsMeta.tryCast<annotations.Props>() ?? annotations.Props();
+    return {
+      if (props.disableValidationForClassDefaultProps) ...?component?.defaultedPropNames,
+      ...?props.disableRequiredPropValidation,
+    };
+  }
 
   BoilerplateTypedMapMember get member;
 
   TypeParameterList? get typeParameters => member.nodeHelper.typeParameters;
+
   String get typeParamsOnClass => typeParameters?.toSource() ?? '';
+
   String get typeParamsOnSuper => removeBoundsFromTypeParameters(typeParameters);
 
   @override
@@ -135,7 +157,6 @@ abstract class TypedMapImplGenerator extends BoilerplateDeclarationGenerator {
     String? componentFactoryName,
     String? propKeyNamespace,
     List<String>? allPropsMixins,
-    required Set<String>? requiredPropNamesToSkipValidation,
   }) {
     if (isProps) {
       if (componentFactoryName == null || propKeyNamespace == null) {
@@ -245,7 +266,8 @@ abstract class TypedMapImplGenerator extends BoilerplateDeclarationGenerator {
         ..writeln(
             '  String \$getPropKey(void Function(Map m) accessMap) => $topLevelGetPropKeyAliasName(accessMap, (map) => ${names.implName}(map));');
     }
-    if (requiredPropNamesToSkipValidation != null) {
+    final requiredPropNamesToSkipValidation = this.requiredPropNamesToSkipValidation;
+    if (requiredPropNamesToSkipValidation != null && requiredPropNamesToSkipValidation.isNotEmpty) {
       buffer
         ..writeln()
         ..writeln('  @override')
@@ -318,16 +340,25 @@ class _LegacyTypedMapImplGenerator extends TypedMapImplGenerator {
   @override
   final bool nullSafety;
 
+  @override
+  final Set<String>? requiredPropNamesToSkipValidation;
+
   _LegacyTypedMapImplGenerator.props(this.declaration, {required this.nullSafety})
       : names = TypedMapNames(declaration.props.name.name),
         factoryNames = [FactoryNames(declaration.factory.name.name)],
         member = declaration.props,
+        requiredPropNamesToSkipValidation =
+            TypedMapImplGenerator._getRequiredPropNamesToSkipValidation(
+          propsMeta: declaration.props.meta,
+          component: declaration.component,
+        ),
         isProps = true;
 
   _LegacyTypedMapImplGenerator.state(this.declaration, {required this.nullSafety})
       : names = TypedMapNames(declaration.state!.name.name),
         factoryNames = [FactoryNames(declaration.factory.name.name)],
         member = declaration.state!,
+        requiredPropNamesToSkipValidation = null,
         isProps = false;
 
   @override
@@ -341,16 +372,12 @@ class _LegacyTypedMapImplGenerator extends TypedMapImplGenerator {
     outputContentsBuffer.write(_generateConcretePropsOrStateImpl(
       componentFactoryName: ComponentNames(declaration.component.name.name).componentFactoryName,
       propKeyNamespace: getAccessorKeyNamespace(names, member.meta),
-      requiredPropNamesToSkipValidation:
-          member.meta.tryCast<annotations.Props>()?.disableRequiredPropValidation,
     ));
   }
 
   @override
   void _generateStateImpl() {
-    outputContentsBuffer.write(_generateConcretePropsOrStateImpl(
-      requiredPropNamesToSkipValidation: null,
-    ));
+    outputContentsBuffer.write(_generateConcretePropsOrStateImpl());
   }
 
   @override
@@ -393,6 +420,9 @@ class _TypedMapImplGenerator extends TypedMapImplGenerator {
   final List<String>? allPropsMixins;
 
   @override
+  final Set<String>? requiredPropNamesToSkipValidation;
+
+  @override
   final bool nullSafety;
 
   _TypedMapImplGenerator.props(ClassComponentDeclaration declaration, {required this.nullSafety})
@@ -400,6 +430,11 @@ class _TypedMapImplGenerator extends TypedMapImplGenerator {
         factoryNames = [FactoryNames(declaration.factory.name.name)],
         member = declaration.props.either,
         allPropsMixins = declaration.allPropsMixins,
+        requiredPropNamesToSkipValidation =
+            TypedMapImplGenerator._getRequiredPropNamesToSkipValidation(
+          propsMeta: declaration.props.either.meta,
+          component: declaration.component,
+        ),
         isProps = true,
         componentFactoryName = ComponentNames(declaration.component.name.name).componentFactoryName,
         isFunctionComponentDeclaration = false,
@@ -410,6 +445,7 @@ class _TypedMapImplGenerator extends TypedMapImplGenerator {
         factoryNames = [FactoryNames(declaration.factory.name.name)],
         member = declaration.state!.either,
         allPropsMixins = null,
+        requiredPropNamesToSkipValidation = null,
         isProps = false,
         componentFactoryName = ComponentNames(declaration.component.name.name).componentFactoryName,
         isFunctionComponentDeclaration = false,
@@ -423,6 +459,11 @@ class _TypedMapImplGenerator extends TypedMapImplGenerator {
             declaration.factories.map((factory) => FactoryNames(factory.name.name)).toList(),
         member = declaration.props.either,
         allPropsMixins = declaration.allPropsMixins,
+        requiredPropNamesToSkipValidation =
+            TypedMapImplGenerator._getRequiredPropNamesToSkipValidation(
+          propsMeta: declaration.props.either.meta,
+          component: null,
+        ),
         isProps = true,
         componentFactoryName = 'null',
         isFunctionComponentDeclaration = declaration.factories.first.shouldGenerateConfig,
@@ -464,16 +505,12 @@ class _TypedMapImplGenerator extends TypedMapImplGenerator {
       // This doesn't really apply to the new boilerplate
       propKeyNamespace: '',
       allPropsMixins: allPropsMixins,
-      requiredPropNamesToSkipValidation:
-          member.meta.tryCast<annotations.Props>()?.disableRequiredPropValidation,
     ));
   }
 
   @override
   void _generateStateImpl() {
-    outputContentsBuffer.write(_generateConcretePropsOrStateImpl(
-      requiredPropNamesToSkipValidation: null,
-    ));
+    outputContentsBuffer.write(_generateConcretePropsOrStateImpl());
   }
 
   @override

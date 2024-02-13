@@ -128,11 +128,17 @@ extension MetadataHelper on AnnotatedNode {
     }
 
     final segments = fullName.split('.');
-    return segments.lastWhere((segment) {
-      final withoutSpecialPrefixes = segment.replaceFirst(RegExp(r'^[_$]+'), '');
-      if (withoutSpecialPrefixes.isEmpty) return false;
-      return withoutSpecialPrefixes[0] == withoutSpecialPrefixes[0].toUpperCase();
-    }, orElse: () => segments.last);
+    return segments.lastWhere(_looksLikeAClassName, orElse: () => segments.last);
+  }
+
+  /// Returns whether the first character of [name] that isn't a `$` or `_` is capitalized.
+  static bool _looksLikeAClassName(String name) {
+    for (var i = 0; i < name.length; i++) {
+      final character = name[i];
+      if (character == r'$' || character == '_') continue;
+      return character == character.toUpperCase();
+    }
+    return false;
   }
 
   /// Returns the first annotation on this node whose class or variable name is [name].

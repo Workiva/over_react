@@ -178,6 +178,9 @@ class _$$BasicPartOfLibProps extends _$BasicPartOfLibProps
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$BasicPartOfLibProps(
           accessMap, (map) => _$$BasicPartOfLibProps(map));
+
+  @override
+  Set<String> get requiredPropNamesToSkipValidation => const {'id'};
 }
 
 /// An alias for [getPropKey] so it can be referenced within the props class impl
@@ -356,6 +359,9 @@ class _$$SubPartOfLibProps extends _$SubPartOfLibProps
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$SubPartOfLibProps(
           accessMap, (map) => _$$SubPartOfLibProps(map));
+
+  @override
+  Set<String> get requiredPropNamesToSkipValidation => const {'id'};
 }
 
 /// An alias for [getPropKey] so it can be referenced within the props class impl

@@ -68,7 +68,8 @@ annotations.TypedMap getPropsOrStateAnnotation(bool isProps, AnnotatedNode node)
 
     if (meta == null) return defaultValue;
 
-    if (meta.potentiallyIncompleteValue is annotations.Props) {
+    final potentiallyIncompleteValue = meta.potentiallyIncompleteValue;
+    if (potentiallyIncompleteValue is annotations.Props) {
       if (meta.unsupportedArguments.length == 1) {
         final arg = meta.unsupportedArguments[0];
         if (arg is NamedExpression && arg.name.label.name == 'disableRequiredPropValidation') {
@@ -80,7 +81,9 @@ annotations.TypedMap getPropsOrStateAnnotation(bool isProps, AnnotatedNode node)
                 expression.elements.whereType<SimpleStringLiteral>().toList();
             if (simpleStringElements.length == expression.elements.length) {
               return annotations.Props(
-                keyNamespace: meta.potentiallyIncompleteValue.keyNamespace,
+                keyNamespace: potentiallyIncompleteValue.keyNamespace,
+                disableValidationForClassDefaultProps:
+                    potentiallyIncompleteValue.disableValidationForClassDefaultProps,
                 disableRequiredPropValidation: simpleStringElements.map((e) => e.value).toSet(),
               );
             }

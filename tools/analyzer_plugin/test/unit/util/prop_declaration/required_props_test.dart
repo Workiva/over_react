@@ -14,52 +14,81 @@
 
 import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/element/element.dart';
+import 'package:over_react_analyzer_plugin/src/util/prop_declarations/defaulted_props.dart';
 import 'package:over_react_analyzer_plugin/src/util/prop_declarations/get_all_props.dart';
 import 'package:over_react_analyzer_plugin/src/util/prop_declarations/required_props.dart';
 import 'package:test/test.dart';
 
 import '../../../util/shared_analysis_context.dart';
-import 'shared_util.dart';
+import 'shared_test_source.dart';
+import 'util.dart';
 
 void main() {
   group('required props utilities -', () {
     group('PropRequiredness enum', () {
       test('has correct isRequiredness for each value', () {
-        expect(PropRequiredness.none.isRequired, isFalse);
-        expect(PropRequiredness.ignoredByConsumingClass.isRequired, isFalse);
-        expect(PropRequiredness.late.isRequired, isTrue);
-        expect(PropRequiredness.annotation.isRequired, isTrue);
+        // Instead of manually testing each value, use a switch statement,
+        // which will statically enforce there are cases for each value,
+        // ensuring that we aren't missing tests for any value.
+        for (final value in PropRequiredness.values) {
+          switch (value) {
+            case PropRequiredness.late:
+              expect(value.isRequired, isTrue);
+              break;
+            case PropRequiredness.annotation:
+              expect(value.isRequired, isTrue);
+              break;
+            case PropRequiredness.ignoredViaDefault:
+              expect(value.isRequired, isFalse);
+              break;
+            case PropRequiredness.ignoredByConsumingClass:
+              expect(value.isRequired, isFalse);
+              break;
+            case PropRequiredness.none:
+              expect(value.isRequired, isFalse);
+              break;
+          }
+        }
       });
 
-      test('maxRequiredness works as expected for all permutations', () {
-        const late = PropRequiredness.late;
-        const annotation = PropRequiredness.annotation;
-        const ignoredByConsumingClass = PropRequiredness.ignoredByConsumingClass;
-        const none = PropRequiredness.none;
+      group('maxRequiredness works as expected for all permutations', () {
+        const expectedMostToLeastRequired = [
+          PropRequiredness.late,
+          PropRequiredness.annotation,
+          PropRequiredness.ignoredViaDefault,
+          PropRequiredness.ignoredByConsumingClass,
+          PropRequiredness.none,
+        ];
 
-        expect(maxRequiredness(late, late), late);
-        expect(maxRequiredness(late, annotation), late);
-        expect(maxRequiredness(late, ignoredByConsumingClass), late);
-        expect(maxRequiredness(late, none), late);
-        expect(maxRequiredness(late, null), late);
+        setUpAll(() {
+          expect(PropRequiredness.values.map(expectedMostToLeastRequired.indexOf), everyElement(isNot(-1)),
+              reason: 'test setup check; all values should be present in expectedMostToLeastRequired');
+        });
 
-        expect(maxRequiredness(annotation, late), late);
-        expect(maxRequiredness(annotation, annotation), annotation);
-        expect(maxRequiredness(annotation, ignoredByConsumingClass), annotation);
-        expect(maxRequiredness(annotation, none), annotation);
-        expect(maxRequiredness(annotation, null), annotation);
+        test('(hard-coded test to ensure order isn\'t accidentally flipped', () {
+          expect(maxRequiredness(PropRequiredness.late, PropRequiredness.none), PropRequiredness.late);
+        });
 
-        expect(maxRequiredness(ignoredByConsumingClass, late), late);
-        expect(maxRequiredness(ignoredByConsumingClass, annotation), annotation);
-        expect(maxRequiredness(ignoredByConsumingClass, ignoredByConsumingClass), ignoredByConsumingClass);
-        expect(maxRequiredness(ignoredByConsumingClass, none), ignoredByConsumingClass);
-        expect(maxRequiredness(ignoredByConsumingClass, null), ignoredByConsumingClass);
-
-        expect(maxRequiredness(none, late), late);
-        expect(maxRequiredness(none, annotation), annotation);
-        expect(maxRequiredness(none, ignoredByConsumingClass), ignoredByConsumingClass);
-        expect(maxRequiredness(none, none), none);
-        expect(maxRequiredness(none, null), none);
+        for (final value1 in PropRequiredness.values) {
+          for (final value2 in PropRequiredness.values) {
+            test('maxRequiredness(${value1.name}, ${value2.name})', () {
+              final index1 = expectedMostToLeastRequired.indexOf(value1);
+              final index2 = expectedMostToLeastRequired.indexOf(value2);
+              // Separate expects so it's clear in failure stacks which case we're dealing with.
+              if (index1 == index2) {
+                expect(value1, value2, reason: 'test setup check; should be the same value');
+                expect(maxRequiredness(value1, value2), value1,
+                    reason: 'should return the same value passed in for both arguments');
+              } else if (index1 < index2) {
+                expect(maxRequiredness(value1, value2), value1,
+                    reason: '$value1 comes before $value2 in expectedMostToLeastRequired');
+              } else {
+                expect(maxRequiredness(value1, value2), value2,
+                    reason: '$value1 comes after $value2 in expectedMostToLeastRequired');
+              }
+            });
+          }
+        }
       });
     });
 
@@ -70,7 +99,7 @@ void main() {
 
       setUpAll(() async {
         await sharedContext.warmUpAnalysis();
-        result = await setUpResult(sharedContext);
+        result = await resolveFileAndGeneratedPart(sharedContext, sharedSourceTemplate);
       });
 
       group('isRequiredPropValidationDisabled', () {
@@ -95,6 +124,34 @@ void main() {
         test('returns false for props not annotated with @disableRequiredPropValidation', () {
           final propField = getPropField('DisableRequiredPropValidationProps', 'lateRequired');
           expect(isRequiredPropValidationDisabled(propField), isFalse);
+        });
+      });
+
+      group('getDisableValidationForClassDefaultProps', () {
+        group('returns the value set in the @Props() annotation', () {
+          test('true', () {
+            final propsElement = getInterfaceElement(result, 'GetDisableValidationForClassDefaultProps_TrueProps');
+            expect(getDisableValidationForClassDefaultProps(propsElement), isTrue);
+          });
+
+          test('false', () {
+            final propsElement = getInterfaceElement(result, 'GetDisableValidationForClassDefaultProps_FalseProps');
+            expect(getDisableValidationForClassDefaultProps(propsElement), isFalse);
+          });
+        });
+
+        group('returns the default value (true) when', () {
+          test('the @Props annotation does not have disableValidationForClassDefaultProps argument', () {
+            final propsElement =
+                getInterfaceElement(result, 'GetDisableValidationForClassDefaultProps_UnspecifiedProps');
+            expect(getDisableValidationForClassDefaultProps(propsElement), isTrue);
+          });
+
+          test('there is no @Props annotation present', () {
+            final propsElement =
+                getInterfaceElement(result, 'GetDisableValidationForClassDefaultProps_WithoutAnnotationProps');
+            expect(getDisableValidationForClassDefaultProps(propsElement), isTrue);
+          });
         });
       });
 
@@ -190,13 +247,27 @@ void main() {
 
           group('a v4 boilerplate', () {
             // These props technically come from the mixin (since in V4 props can only be declared in mixins),
-            // so this test case is slightly redundant with the extension test in the group below.
-            test('concrete props class', () {
-              final propsElement = getInterfaceElement(result, 'V4Props');
-              verifyRequiredProps(getAllRequiredProps(propsElement), expected: {
-                'v4_lateRequiredProp': PropRequiredness.late,
-                'v4_optionalProp': PropRequiredness.none,
-                'v4_annotationRequiredProp': PropRequiredness.annotation,
+            // so these test cases are slightly redundant with the extension test in the group below.
+            //
+            // However, there are things like `PropRequiredness.ignoredViaDefault` behavior we want to make sure
+            // we test here.
+            group('props element associated with a component:', () {
+              test('concrete props class', () {
+                final propsElement = getInterfaceElement(result, 'V4ConcreteProps');
+                verifyRequiredProps(getAllRequiredProps(propsElement), expected: {
+                  'v4_lateRequiredProp': PropRequiredness.late,
+                  'v4_optionalProp': PropRequiredness.none,
+                  'v4_annotationRequiredProp': PropRequiredness.annotation,
+                });
+              });
+
+              test('props mixin (shorthand syntax)', () {
+                final propsElement = getInterfaceElement(result, 'V4ShorthandProps');
+                verifyRequiredProps(getAllRequiredProps(propsElement), expected: {
+                  'v4_lateRequiredProp': PropRequiredness.late,
+                  'v4_optionalProp': PropRequiredness.none,
+                  'v4_annotationRequiredProp': PropRequiredness.annotation,
+                });
               });
             });
 
@@ -336,6 +407,66 @@ void main() {
                 'lateRequired_1_optionalInOtherType_notIgnored': PropRequiredness.late,
                 'lateRequired_2_ignored': PropRequiredness.ignoredByConsumingClass,
                 'lateRequired_2_notIgnored': PropRequiredness.late,
+              });
+            });
+          });
+
+          // There's some overlap between this test and defaulted_props_test.dart, but we want to make sure
+          // that requiredness is applied updated as a result of props getting defaulted.
+          group('props classes with disabled validation via class default props', () {
+            group('in a', () {
+              test('UiComponent (not UiComponent2) component', () {
+                final propsElement = getInterfaceElement(result, 'Component1WithDefaultsProps');
+                verifyRequiredProps(getAllRequiredProps(propsElement), expected: {
+                  'v3_lateRequiredProp': PropRequiredness.late,
+                  'v3_lateRequiredProp_defaulted': PropRequiredness.ignoredViaDefault,
+                });
+              });
+
+              test('v2 boilerplate UiComponent2', () {
+                final propsElement = getInterfaceElement(result, 'V2WithDefaultsProps');
+                verifyRequiredProps(getAllRequiredProps(propsElement), expected: {
+                  'v2_lateRequiredProp': PropRequiredness.late,
+                  'v2_lateRequiredProp_defaulted': PropRequiredness.ignoredViaDefault,
+                });
+              });
+
+              test('v3 boilerplate UiComponent2 - does not include default props', () {
+                final propsElement = getInterfaceElement(result, 'V3WithDefaultsProps');
+                verifyRequiredProps(getAllRequiredProps(propsElement), expected: {
+                  'v3_lateRequiredProp': PropRequiredness.late,
+                  'v3_lateRequiredProp_defaulted': PropRequiredness.late,
+                });
+              });
+
+              group('v4 boilerplate UiComponent2 declared with a', () {
+                test('concrete props class', () {
+                  final propsElement = getInterfaceElement(result, 'V4ConcreteWithDefaultsProps');
+                  verifyRequiredProps(getAllRequiredProps(propsElement), expected: {
+                    'v4_lateRequiredProp': PropRequiredness.late,
+                    'v4_lateRequiredProp_defaulted': PropRequiredness.ignoredViaDefault,
+                  });
+                });
+
+                test('props mixin (shorthand syntax)', () {
+                  final propsElement = getInterfaceElement(result, 'V4ShorthandWithDefaultsProps');
+                  verifyRequiredProps(getAllRequiredProps(propsElement), expected: {
+                    'v4_lateRequiredProp': PropRequiredness.late,
+                    'v4_lateRequiredProp_defaulted': PropRequiredness.ignoredViaDefault,
+                  });
+                });
+              });
+            });
+
+            test('unless the props class has opted out using @Props(disableValidationForClassDefaultProps: false)', () {
+              final propsElement = getInterfaceElement(result, 'V4WithDefaultsOptedOutProps');
+              final propsWithDefaults = getDefaultedPropsForComponentWithPropsClass(propsElement);
+              expect(propsWithDefaults, isNotEmpty,
+                  reason: 'test setup check; this test case should have defaults'
+                      ' that do not affect the required props');
+              verifyRequiredProps(getAllRequiredProps(propsElement), expected: {
+                'v4_lateRequiredProp': PropRequiredness.late,
+                'v4_lateRequiredProp_defaulted': PropRequiredness.late,
               });
             });
           });

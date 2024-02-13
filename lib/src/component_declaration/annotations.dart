@@ -83,7 +83,43 @@ class Props implements TypedMap {
   ///```
   final Set<String>? disableRequiredPropValidation;
 
-  const Props({this.keyNamespace, this.disableRequiredPropValidation});
+  /// Whether to disable validation for props defaulted in the class component associated
+  /// with these props (defaults to `true`).
+  ///
+  /// This allows the declaration of non-nullable props with defaults that aren't considered
+  /// required by runtime validation or the analyzer plugin.
+  ///
+  /// This only includes props defaulted directly in `defaultProps` or `getDefaultProps`,
+  /// and does not include any props added in other ways, such as super-calls or `addProps`/`addAll`.
+  ///
+  /// For example, given the following component:
+  /// ```dart
+  /// UiFactory<FooProps> Foo = castUiFactory(_$Foo);
+  ///
+  /// mixin FooProps on UiProps {
+  ///   late bool defaultedProp;
+  ///   late String requiredProp;
+  /// }
+  ///
+  /// class FooComponent extends UiComponent2<FooProps> {
+  ///   get defaultProps => (newProps()..defaultedProp = true);
+  ///
+  ///   render() {}
+  /// }
+  /// ```
+  ///
+  /// The prop `defaultedProp` is not considered required because it has a default:
+  /// ```dart
+  /// Foo()(); // Has static and runtime errors about missing `requiredProp`
+  /// (Foo()..requiredProp = true)(); // Has no errors.
+  /// ```
+  final bool disableValidationForClassDefaultProps;
+
+  const Props({
+    this.keyNamespace,
+    this.disableRequiredPropValidation,
+    this.disableValidationForClassDefaultProps = true,
+  });
 }
 
 /// Annotation used with the `over_react` builder to declare a `UiState` mixin for a component.

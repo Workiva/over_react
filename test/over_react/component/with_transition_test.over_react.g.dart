@@ -75,6 +75,10 @@ abstract class _$$WithTransitionTesterProps extends UiProps
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$WithTransitionTesterProps(
           accessMap, (map) => _$$WithTransitionTesterProps(map));
+
+  @override
+  Set<String> get requiredPropNamesToSkipValidation =>
+      const {'isShown', 'transitionTimeout'};
 }
 
 /// An alias for [getPropKey] so it can be referenced within the props class impl

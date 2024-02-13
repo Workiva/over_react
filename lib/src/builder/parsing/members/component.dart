@@ -72,6 +72,11 @@ class BoilerplateComponent extends BoilerplateMember {
   bool isComponent2(Version version) =>
       version == Version.v4_mixinBased || hasComponent2OrAbstractAnnotation;
 
+  /// The names of the props that are definitely defaulted in this class component.
+  ///
+  /// See [getDefaultedPropNames] for more details.
+  Set<String> get defaultedPropNames => getDefaultedPropNames(nodeHelper);
+
   /// Verifies the correct implementation of every boilerplate component version.
   ///
   /// Major checks included are:
@@ -142,4 +147,52 @@ class BoilerplateComponent extends BoilerplateMember {
       });
     }
   }
+}
+
+/// Returns the names of the props that are definitely defaulted in class component [classComponent].
+///
+/// This only includes simple assignments in `defaultProps` or `getDefaultProps`, and does not include
+/// any props added in other ways, such as super-calls or `addProps`/`addAll`.
+///
+/// For example, this function would return `{'foo', 'bar'}` for the following component:
+/// ```dart
+/// class FooComponent extends UiComponent2<FooProps> {
+///   @override
+///   get defaultProps => (newProps()
+///     ..foo = 1
+///     ..bar = 2
+///   );
+/// }
+/// ```
+Set<String> getDefaultedPropNames(ClassishDeclaration classComponent) {
+  final defaultPropsImpl = classComponent.members.whereType<MethodDeclaration>().firstWhereOrNull(
+      (m) => !m.isStatic && const {'defaultProps', 'getDefaultProps'}.contains(m.name.name));
+  if (defaultPropsImpl == null) return {};
+
+  final body = defaultPropsImpl.body;
+  Expression? returnValue;
+  if (body is BlockFunctionBody) {
+    // Don't worry about handling multiple return statements, ånd just use the first one.
+    returnValue = body.block.statements.whereType<ReturnStatement>().firstOrNull?.expression;
+  } else if (body is ExpressionFunctionBody) {
+    returnValue = body.expression;
+  }
+  if (returnValue == null) return {};
+
+  returnValue = returnValue.unParenthesized;
+  if (returnValue is! CascadeExpression) return {};
+
+  final target = returnValue.target;
+  if (target is! MethodInvocation || target.methodName.name != 'newProps') return {};
+
+  return returnValue.cascadeSections
+      .whereType<AssignmentExpression>()
+      .map((a) => a.leftHandSide)
+      .whereType<PropertyAccess>()
+      // Filter out prefixed accesses.
+      // In `..dom.id = 'value'`, `p.target` is `dom`.
+      // In `..foo = 'value'`, `p.target` is null.
+      .where((p) => p.target == null)
+      .map((p) => p.propertyName.name)
+      .toSet();
 }

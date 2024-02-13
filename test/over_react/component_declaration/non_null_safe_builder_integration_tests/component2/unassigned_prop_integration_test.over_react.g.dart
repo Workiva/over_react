@@ -105,6 +105,9 @@ abstract class _$$FooProps extends _$FooProps
   @override
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$FooProps(accessMap, (map) => _$$FooProps(map));
+
+  @override
+  Set<String> get requiredPropNamesToSkipValidation => const {'id'};
 }
 
 /// An alias for [getPropKey] so it can be referenced within the props class impl

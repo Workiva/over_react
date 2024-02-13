@@ -18,7 +18,8 @@ import 'package:over_react_analyzer_plugin/src/util/prop_declarations/get_all_pr
 import 'package:test/test.dart';
 
 import '../../../util/shared_analysis_context.dart';
-import 'shared_util.dart';
+import 'shared_test_source.dart';
+import 'util.dart';
 
 void main() {
   group('get_all_props', () {
@@ -30,7 +31,7 @@ void main() {
       late ResolvedUnitResult result;
 
       setUpAll(() async {
-        result = await setUpResult(sharedContext);
+        result = await resolveFileAndGeneratedPart(sharedContext, sharedSourceTemplate);
       });
 
       TypeMatcher<FieldElement> isNonSyntheticFieldDeclaredInMainLibrary() => isA<FieldElement>()
@@ -89,7 +90,7 @@ void main() {
           // These props technically come from the mixin (since in V4 props can only be declared in mixins),
           // so this test case is slightly redundant with the extension test in the group below.
           test('concrete props class', () {
-            final propsElement = getInterfaceElement(result, 'V4Props');
+            final propsElement = getInterfaceElement(result, 'V4ConcreteProps');
             verifyAllProps(getAllProps(propsElement), expectedNames: [
               'v4_lateRequiredProp',
               'v4_optionalProp',

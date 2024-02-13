@@ -101,6 +101,10 @@ abstract class _$$StatefulComponentTestProps
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$StatefulComponentTestProps(
           accessMap, (map) => _$$StatefulComponentTestProps(map));
+
+  @override
+  Set<String> get requiredPropNamesToSkipValidation =>
+      const {'setStateDirectly'};
 }
 
 /// An alias for [getPropKey] so it can be referenced within the props class impl

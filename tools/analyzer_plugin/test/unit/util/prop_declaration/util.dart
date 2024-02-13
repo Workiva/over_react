@@ -8,9 +8,12 @@ import 'package:test/test.dart';
 
 import '../../../util/over_react_builder.dart';
 import '../../../util/shared_analysis_context.dart';
-import 'shared_test_source.dart';
 
-Future<ResolvedUnitResult> setUpResult(SharedAnalysisContext sharedContext) async {
+/// Generates an over_react part for a library with source [sourceTemplate] and returns the resolved library,
+/// validating that the generated part was also resolved.
+///
+/// The source should include `part '{{PART_PATH}}';` to point to the generated part.
+Future<ResolvedUnitResult> resolveFileAndGeneratedPart(SharedAnalysisContext sharedContext, String sourceTemplate) async {
   final libraryFilename = sharedContext.nextFilename();
   final partFilename = p.setExtension(libraryFilename, '.over_react.g.dart');
 
