@@ -7,8 +7,6 @@ import 'package:test/test.dart';
 import 'package:test_reflective_loader/test_reflective_loader.dart';
 
 import '../matchers.dart';
-import '../matchers.dart';
-import '../matchers.dart';
 import '../test_bases/diagnostic_test_base.dart';
 
 void main() {
