@@ -282,9 +282,9 @@ void main() {
                 isResolved: true,
               );
 
-              expect(expressionNode.argumentList.arguments.firstOrNull, isNotNull);
-              expect(expressionNode.argumentList.arguments.firstOrNull, isA<InvocationExpression>());
-              childExpression = expressionNode.argumentList.arguments.firstOrNull as InvocationExpression;
+              expect(expressionNode.argumentList.arguments, isNotEmpty);
+              expect(expressionNode.argumentList.arguments.first, isA<InvocationExpression>());
+              childExpression = expressionNode.argumentList.arguments.first as InvocationExpression;
               expect(childExpression.toSource(), childSource);
             });
 

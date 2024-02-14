@@ -183,7 +183,7 @@ void main() {
           final usage = getAllPrintedExpressions(unit).single as Identifier;
           expect(usage.name, 'foo', reason: 'test setup check');
           expect(usage.staticElement, isNotNull, reason: 'test setup check');
-          expect((lookUpDeclaration(usage.staticElement!, unit) as FunctionDeclaration).name.lexeme, 'foo');
+          expect((lookUpDeclaration(usage.staticElement!, unit)! as FunctionDeclaration).name.lexeme, 'foo');
         });
 
         test('looks up a variable', () async {
@@ -196,7 +196,7 @@ void main() {
           final usage = getAllPrintedExpressions(unit).single as Identifier;
           expect(usage.name, 'foo', reason: 'test setup check');
           expect(usage.staticElement, isNotNull, reason: 'test setup check');
-          expect((lookUpDeclaration(usage.staticElement!, unit) as VariableDeclaration).name.lexeme, 'foo');
+          expect((lookUpDeclaration(usage.staticElement!, unit)! as VariableDeclaration).name.lexeme, 'foo');
         });
 
         test('looks up a class', () async {
@@ -210,7 +210,7 @@ void main() {
           final usage = getAllPrintedExpressions(unit).single as Identifier;
           expect(usage.name, 'Foo', reason: 'test setup check');
           expect(usage.staticElement, isNotNull, reason: 'test setup check');
-          expect((lookUpDeclaration(usage.staticElement!, unit) as ClassDeclaration).name.lexeme, 'Foo');
+          expect((lookUpDeclaration(usage.staticElement!, unit)! as ClassDeclaration).name.lexeme, 'Foo');
         });
 
         group('returns null when', () {

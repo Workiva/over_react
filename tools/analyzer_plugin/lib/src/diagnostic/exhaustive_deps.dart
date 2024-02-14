@@ -926,7 +926,7 @@ class ExhaustiveDeps extends DiagnosticContributor {
         }
 
         Expression? maybeID = declaredDependencyNode;
-        while (maybeID is PropertyAccess || maybeID is PrefixedIdentifier) {
+        while (maybeID != null && (maybeID is PropertyAccess || maybeID is PrefixedIdentifier)) {
           if (maybeID is PropertyAccess) {
             maybeID = maybeID.target;
           } else {

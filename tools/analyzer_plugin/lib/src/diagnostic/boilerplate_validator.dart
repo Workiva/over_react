@@ -80,7 +80,7 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
     final debugMatch = _debugCommentPattern.firstMatch(result.content);
     final debug = debugMatch != null;
     if (debug) {
-      collector.addError(debugCode, result.location(offset: debugMatch!.start, end: debugMatch.end),
+      collector.addError(debugCode, result.location(offset: debugMatch.start, end: debugMatch.end),
           errorMessageArgs: ['Boilerplate debugging hints enabled']);
     }
 
