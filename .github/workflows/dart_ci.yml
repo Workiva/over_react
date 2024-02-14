@@ -154,6 +154,10 @@ jobs:
         run: dart run dependency_validator
         if: always() && steps.install.outcome == 'success'
 
+      - name: Analyze
+        run: dart run dart_dev analyze
+        if: always() && steps.install.outcome == 'success'
+
       - name: Verify formatting
         run: dart run dart_dev format --check
         if: always() && matrix.sdk == '2.7.2' && steps.install.outcome == 'success'
