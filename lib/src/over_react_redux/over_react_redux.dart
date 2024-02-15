@@ -18,10 +18,8 @@ library over_react_redux;
 
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
-import 'package:over_react/component_base.dart';
-import 'package:over_react/src/component_declaration/annotations.dart';
-import 'package:over_react/src/component_declaration/builder_helpers.dart' as builder_helpers;
-import 'package:over_react/src/component_declaration/builder_helpers.dart' show MissingRequiredPropsError;
+import 'package:over_react/src/component_declaration/builder_helpers.dart';
+import 'package:over_react/src/component_declaration/component_base.dart' as component_base;
 import 'package:over_react/src/component_declaration/component_type_checking.dart';
 import 'package:over_react/src/component_declaration/function_component.dart';
 import 'package:over_react/src/util/context.dart';
@@ -157,7 +155,7 @@ typedef dynamic Dispatcher(dynamic action);
 /// - [forwardRef] if `true`, the `ref` prop provided to the connected component will be return the wrapped component.
 ///
 /// For more info see: https://react-redux.js.org/api/connect#connect
-UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extends UiProps>({
+UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extends component_base.UiProps>({
   Map Function(TReduxState state)? mapStateToProps,
   Map Function(TReduxState state, TProps ownProps)? mapStateToPropsWithOwnProps,
   Map Function(TReduxState state) Function(TReduxState initialState, TProps initialOwnProps)? makeMapStateToProps,
@@ -196,7 +194,7 @@ UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extend
     final dartComponentClass = dartComponentFactory.type;
     enforceMinimumComponentVersionFor(dartComponentFactory);
 
-    JsMap jsMapFromProps(Map props) => jsBackingMapOrJsCopy(props is UiProps ? props.props : props);
+    JsMap jsMapFromProps(Map props) => jsBackingMapOrJsCopy(props is component_base.UiProps ? props.props : props);
 
     TProps jsPropsToTProps(JsMap jsProps) => factory(JsBackedMap.backedBy(jsProps));
 
@@ -444,7 +442,7 @@ mixin ReduxProviderPropsMixin on UiProps {
 /// - `context` - You may provide a context instance. If you do so, you will need to provide the same context instance to all of your connected components as well.
 ///
 /// See: <https://react-redux.js.org/api/provider>
-class ReduxProviderProps = builder_helpers.UiProps with ReduxProviderPropsMixin;
+class ReduxProviderProps = UiProps with ReduxProviderPropsMixin;
 
 /// [ReduxProvider] makes the store available to any nested components that have been wrapped in the `connect()` function.
 ///
