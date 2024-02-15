@@ -32,8 +32,10 @@
     - `ReduxMultiProviderProps.storesByContext`
     - `ReduxProviderProps.store`
 - UiPropsMapView (deprecated) is now abstract and requires subclasses to override `selfFactory`
-- `PropsMeta`/`StateMeta` constructor arguments `fields` and `keys` are now required
-- `ProviderProps.props` type has been widened from `JsMap` to `Map` (now matches `ConsumerProps` and other props classes)
+- Other changes that we don't expect to affect consumers:
+  - `PropsMeta`/`StateMeta` constructor arguments `fields` and `keys` are now required
+  - `ProviderProps.props` type has been widened from `JsMap` to `Map` (now matches `ConsumerProps` and other props classes)
+  - `ConnectPropsMixin` now `implements UiProps` (the one exported from `package:over_react/over_react.dart`) instead of `UiProps`'s superclass of the name, `component_base.UiProps`.
  
 ## [4.10.3](https://github.com/Workiva/over_react/compare/4.10.2...4.10.3)
 - [#846] Update internals to prepare for react-dart 7.0.0
