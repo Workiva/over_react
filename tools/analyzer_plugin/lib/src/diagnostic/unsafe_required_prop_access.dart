@@ -1,4 +1,5 @@
 import 'package:analyzer/dart/ast/ast.dart';
+import 'package:analyzer/dart/ast/token.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
@@ -22,6 +23,7 @@ class UnsafeRequiredPropAccessDiagnostic extends DiagnosticContributor {
       "Accessing required prop '{0}' on a potentially incomplete props map can throw.",
       AnalysisErrorSeverity.WARNING,
       AnalysisErrorType.STATIC_WARNING,
+      // FIXME talk about simple containsProp check, potentially add quick fix
       correction:
           "Use safe utility methods to access the prop: 'getRequiredProp', 'getRequiredPropOrNull', or 'containsProp'.");
 
@@ -49,8 +51,9 @@ class UnsafeRequiredPropAccessDiagnostic extends DiagnosticContributor {
     }
 
     for (final requiredPropRead in requiredPropReads) {
-      if (cachedIsComponentProps(requiredPropRead.target)) continue;
-      if (isPropsSafeUtilityMethodArg(requiredPropRead.target)) continue;
+      if (cachedIsComponentProps(requiredPropRead.realTarget)) continue;
+      if (isPropsSafeUtilityMethodArg(requiredPropRead.realTarget)) continue;
+      if (isGatedByContainsPropCheck(requiredPropRead)) continue;
 
       final prop = requiredPropRead.prop;
 
@@ -100,15 +103,74 @@ bool isPropsSafeUtilityMethodArg(Expression target) {
   }.contains(methodCallReceivingFunction.methodName.name);
 }
 
+bool isGatedByContainsPropCheck(LateRequiredPropRead propRead) {
+  for (final ancestor in propRead.node.ancestors) {
+    // If we encounter a function body, we're either inside a callback
+    // or are not going to find our if-statement. Bail out.
+    if (ancestor is FunctionBody) return false;
+    // Handle the first if-statement we run across, and don't try to handle ancestors.
+    if (ancestor is IfStatement) {
+      // Only handle then-statements, not else-statements, reads within the condition, or if-cases.
+      if (!ancestor.thenStatement.containsRangeOf(propRead.node) || ancestor.caseClause != null) {
+        return false;
+      }
+
+      return conditionEnsuresContainsProp(ancestor.expression, propRead);
+    }
+  }
+  return false;
+}
+
+bool conditionEnsuresContainsProp(Expression condition, LateRequiredPropRead propRead) {
+  // Handle simple && case.
+  if (condition is BinaryExpression && condition.operator.type == TokenType.AMPERSAND_AMPERSAND) {
+    return conditionEnsuresContainsProp(condition.leftOperand, propRead) ||
+        conditionEnsuresContainsProp(condition.rightOperand, propRead);
+  }
+
+  if (condition is MethodInvocation && !condition.isCascaded && condition.methodName.name == 'containsProp') {
+    final containsPropCall = condition;
+    // Check that `.containsProp` is heing called on the same object the prop read occurred on.
+    return hasSameNonNullStaticElement(containsPropCall.realTarget, propRead.realTarget) &&
+        // Check that the prop being tested in `containsProp` is the same prop we're reading.
+        hasSameNonNullStaticElement(propRead.prop, getPropBeingCheckedInContainsProp(containsPropCall));
+  } else {
+    return false;
+  }
+}
+
+bool hasSameNonNullStaticElement(Expression? a, Expression? b) =>
+    a != null &&
+    b != null &&
+    isSameNonNullElement(
+      a.tryCast<Identifier>()?.staticElement,
+      b.tryCast<Identifier>()?.staticElement,
+    );
+
+bool isSameNonNullElement(Element? a, Element? b) => a != null && b != null && a == b;
+
+SimpleIdentifier? getPropBeingCheckedInContainsProp(MethodInvocation containsPropCall) {
+  final propAccess = containsPropCall.argumentList.arguments.firstOrNull
+      .tryCast<FunctionExpression>()
+      ?.body
+      .returnExpressions
+      .singleOrNull;
+  if (propAccess == null) return null;
+
+  return getSimpleTargetAndPropertyName(propAccess, allowMethodInvocation: false)?.item2;
+}
+
 class LateRequiredPropRead {
-  final Expression target;
+  final Expression node;
+  final Expression realTarget;
   final SimpleIdentifier prop;
   final AssignmentExpression? compoundAssignment;
 
   bool get isCompoundAssignment => compoundAssignment != null;
 
   LateRequiredPropRead({
-    required this.target,
+    required this.node,
+    required this.realTarget,
     required this.prop,
     required this.compoundAssignment,
   });
@@ -181,7 +243,7 @@ class LateRequiredPropReadVisitor extends RecursiveAstVisitor<void> {
   }
 
   void _handlePrefixedOrPropertyAccess({
-    required AstNode node,
+    required Expression node,
     required Expression target,
     required SimpleIdentifier property,
     required Element propertyElement,
@@ -198,12 +260,12 @@ class LateRequiredPropReadVisitor extends RecursiveAstVisitor<void> {
       /// E.g., `builder.fooProp ??= 'foo'`
       final isCompoundAssignment = parent.readElement != null;
       if (isCompoundAssignment) {
-        onRead(LateRequiredPropRead(target: target, prop: property, compoundAssignment: parent));
+        onRead(LateRequiredPropRead(node: node, realTarget: target, prop: property, compoundAssignment: parent));
       } else {
         // Do nothing for non-compound assignments, since they don't involve reading the prop.
       }
     } else {
-      onRead(LateRequiredPropRead(target: target, prop: property, compoundAssignment: null));
+      onRead(LateRequiredPropRead(node: node, realTarget: target, prop: property, compoundAssignment: null));
     }
   }
 }

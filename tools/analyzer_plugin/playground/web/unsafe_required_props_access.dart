@@ -40,6 +40,22 @@ foo(BarProps props, BarComponent component) {
 
   otherCallback((p) => p.barRequired);
 
+  // Unrelated conditional reads
+  if (props.containsProp((p) => p.barRequiredInt)) {
+    print(props.barRequired);
+  }
+  final otherProps = Bar();
+  if (otherProps.containsProp((p) => p.barRequired)) {
+    print(props.barRequired);
+  }
+
+  // Unsafe complex contains prop nesting
+  if (props.containsProp((p) => p.barRequired)) {
+    Future(() {
+      print(props.barRequired);
+    });
+  }
+
   // Safe
 
   // Safe write
@@ -55,6 +71,10 @@ foo(BarProps props, BarComponent component) {
   print(props.getRequiredProp((p) => p.barRequired, orElse: () => 'foo'));
   print(props.getPropKey((p) => p.barRequired));
   print(props.containsProp((p) => p.barRequired));
+  // Safe conditional read.
+  if (props.containsProp((p) => p.barRequired)) {
+    print(props.barRequired);
+  }
 }
 
 otherCallback(Function(BarProps) callback) {}
