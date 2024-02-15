@@ -4,7 +4,7 @@ import 'package:analyzer/dart/element/element.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/doc_utils/maturity.dart';
 import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
-import 'package:over_react_analyzer_plugin/src/util/is_component_props.dart';
+import 'package:over_react_analyzer_plugin/src/util/is_props_from_render.dart';
 import 'package:over_react_analyzer_plugin/src/util/react_types.dart';
 import 'package:over_react_analyzer_plugin/src/util/util.dart';
 
@@ -44,8 +44,8 @@ class UnsafeRequiredPropAccessDiagnostic extends DiagnosticContributor {
     bool cachedIsComponentProps(Expression target) {
       final element = target.tryCast<Identifier>()?.staticElement;
       return element != null
-          ? _cacheByElement.putIfAbsent(element, () => isComponentProps(target))
-          : isComponentProps(target);
+          ? _cacheByElement.putIfAbsent(element, () => isPropsFromRender(target))
+          : isPropsFromRender(target);
     }
 
     for (final requiredPropRead in requiredPropReads) {
@@ -209,7 +209,17 @@ class LateRequiredPropReadVisitor extends RecursiveAstVisitor<void> {
 }
 
 bool _isLateRequiredProp(FieldElement propertyElement) {
-  return propertyElement.isLate &&
-      !propertyElement.isStatic &&
-      (propertyElement.enclosingElement.tryCast<InterfaceElement>()?.isPropsClass ?? false);
+  if (!propertyElement.isLate || propertyElement.isStatic) return false;
+
+  final enclosingClass = propertyElement.enclosingElement.tryCast<InterfaceElement>();
+  if (enclosingClass == null) return false;
+
+  // Short-circuit earlier using the name so we can avoid unnecessarily computing allSuperTypes in `.isPropsClass`.
+  // v4 boilerplate props mixins must end with either "Props" or "PropsMixin",
+  // and most legacy classes also match this convention.
+  if (!enclosingClass.name.contains('Props') || !enclosingClass.isPropsClass) {
+    return false;
+  }
+
+  return true;
 }
