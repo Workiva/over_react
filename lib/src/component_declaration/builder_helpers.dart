@@ -146,6 +146,11 @@ abstract class UiProps extends component_base.UiProps with GeneratedClass {
   @toBeGenerated
   @visibleForOverriding
   String $getPropKey(void Function(Map m) accessMap) => throw UngeneratedError(member: #$getPropKey);
+
+  /// An alias to [mustCallSuper] so that generated code can reference it without us having
+  /// to re-export it from `package:over_react/over_react.dart`.
+  @protected
+  static const $mustCallSuper = mustCallSuper;
 }
 
 class MissingRequiredPropsError extends Error {
