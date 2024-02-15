@@ -58,7 +58,7 @@ mixin $TestProps on TestProps {
   ];
 
   @override
-  @mustCallSuper
+  @UiProps.$mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
     if (!props.containsKey('TestProps.requiredProp') &&

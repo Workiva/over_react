@@ -19,7 +19,7 @@ mixin $UseDispatchCounterFnProps on UseDispatchCounterFnProps {
   static const List<String> $propKeys = [];
 
   @override
-  @mustCallSuper
+  @UiProps.$mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
   }
@@ -45,7 +45,7 @@ mixin $CustomContextUseDispatchCounterFnProps
   static const List<String> $propKeys = [];
 
   @override
-  @mustCallSuper
+  @UiProps.$mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
   }

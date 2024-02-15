@@ -47,7 +47,7 @@ mixin $TestSelectorProps on TestSelectorProps {
   ];
 
   @override
-  @mustCallSuper
+  @UiProps.$mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
   }
@@ -87,7 +87,7 @@ mixin $TestConnectPropsMixin on TestConnectPropsMixin {
   ];
 
   @override
-  @mustCallSuper
+  @UiProps.$mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
   }

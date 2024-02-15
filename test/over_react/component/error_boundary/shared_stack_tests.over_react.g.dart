@@ -276,7 +276,7 @@ mixin $ThrowingComponent2Props on ThrowingComponent2Props {
   static const List<String> $propKeys = [];
 
   @override
-  @mustCallSuper
+  @UiProps.$mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
   }
@@ -301,7 +301,7 @@ mixin $ThrowingFunctionComponentProps on ThrowingFunctionComponentProps {
   static const List<String> $propKeys = [];
 
   @override
-  @mustCallSuper
+  @UiProps.$mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
   }
@@ -326,7 +326,7 @@ mixin $ThrowingForwardRefComponentProps on ThrowingForwardRefComponentProps {
   static const List<String> $propKeys = [];
 
   @override
-  @mustCallSuper
+  @UiProps.$mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
   }

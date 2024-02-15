@@ -367,7 +367,7 @@ mixin $ErrorBoundaryProps on ErrorBoundaryProps {
   ];
 
   @override
-  @mustCallSuper
+  @UiProps.$mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
   }
