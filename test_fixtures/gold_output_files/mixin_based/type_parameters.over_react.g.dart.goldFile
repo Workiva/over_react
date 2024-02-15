@@ -20,7 +20,7 @@ mixin $NoneProps on NoneProps {
   static const List<String> $propKeys = [];
 
   @override
-  @mustCallSuper
+  @UiProps.$mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
   }
@@ -52,7 +52,7 @@ mixin $SingleProps<T> on SingleProps<T> {
   static const List<String> $propKeys = [_$key__single__SingleProps];
 
   @override
-  @mustCallSuper
+  @UiProps.$mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
   }
@@ -96,7 +96,7 @@ mixin $SingleThatWontBeSpecifiedProps<T> on SingleThatWontBeSpecifiedProps<T> {
   ];
 
   @override
-  @mustCallSuper
+  @UiProps.$mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
   }
@@ -135,7 +135,7 @@ mixin $SingleWithBoundProps<S extends Pattern> on SingleWithBoundProps<S> {
   ];
 
   @override
-  @mustCallSuper
+  @UiProps.$mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
   }
@@ -180,7 +180,7 @@ mixin $DoubleProps<A, B> on DoubleProps<A, B> {
   ];
 
   @override
-  @mustCallSuper
+  @UiProps.$mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
   }

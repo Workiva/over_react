@@ -352,7 +352,7 @@ mixin $BasicPartOfLibPropsMixin on BasicPartOfLibPropsMixin {
   ];
 
   @override
-  @mustCallSuper
+  @UiProps.$mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
   }
@@ -592,7 +592,7 @@ mixin $SuperPartOfLibPropsMixin on SuperPartOfLibPropsMixin {
   ];
 
   @override
-  @mustCallSuper
+  @UiProps.$mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
   }
@@ -631,7 +631,7 @@ mixin $SubPartOfLibPropsMixin on SubPartOfLibPropsMixin {
   ];
 
   @override
-  @mustCallSuper
+  @UiProps.$mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
   }
