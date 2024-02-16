@@ -456,7 +456,7 @@ mixin $PureTestPropsMixin on PureTestPropsMixin {
   ];
 
   @override
-  @mustCallSuper
+  @UiProps.$mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
   }
@@ -508,7 +508,7 @@ mixin $SharedPureTestPropsMixin on SharedPureTestPropsMixin {
   ];
 
   @override
-  @mustCallSuper
+  @UiProps.$mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
   }

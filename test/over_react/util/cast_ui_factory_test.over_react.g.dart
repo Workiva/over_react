@@ -173,7 +173,7 @@ mixin $BasicProps on BasicProps {
   static const List<String> $propKeys = [];
 
   @override
-  @mustCallSuper
+  @UiProps.$mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
   }

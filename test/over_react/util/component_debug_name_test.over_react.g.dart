@@ -270,7 +270,7 @@ mixin $TestComponent2Props on TestComponent2Props {
   static const List<String> $propKeys = [];
 
   @override
-  @mustCallSuper
+  @UiProps.$mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
   }

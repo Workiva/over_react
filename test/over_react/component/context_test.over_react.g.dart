@@ -501,7 +501,7 @@ mixin $ContextTypeDynamicProps on ContextTypeDynamicProps {
   static const List<String> $propKeys = [];
 
   @override
-  @mustCallSuper
+  @UiProps.$mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
   }
@@ -526,7 +526,7 @@ mixin $ContextTypeWithoutDefaultProps on ContextTypeWithoutDefaultProps {
   static const List<String> $propKeys = [];
 
   @override
-  @mustCallSuper
+  @UiProps.$mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
   }
@@ -551,7 +551,7 @@ mixin $ContextTypeWithDefaultProps on ContextTypeWithDefaultProps {
   static const List<String> $propKeys = [];
 
   @override
-  @mustCallSuper
+  @UiProps.$mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
   }

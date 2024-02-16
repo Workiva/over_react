@@ -189,7 +189,7 @@ mixin $BasicPartOfLibProps on BasicPartOfLibProps {
   static const List<String> $propKeys = [_$key__basicProp__BasicPartOfLibProps];
 
   @override
-  @mustCallSuper
+  @UiProps.$mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
   }

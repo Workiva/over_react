@@ -300,7 +300,7 @@ mixin $SafeRenderManagerHelperProps on SafeRenderManagerHelperProps {
   ];
 
   @override
-  @mustCallSuper
+  @UiProps.$mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
   }

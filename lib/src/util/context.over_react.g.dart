@@ -30,7 +30,7 @@ mixin $_ProviderPropsMixin<TValue> on _ProviderPropsMixin<TValue> {
   static const List<String> $propKeys = [_$key__value___ProviderPropsMixin];
 
   @override
-  @mustCallSuper
+  @UiProps.$mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
     if (!props.containsKey('value') &&
@@ -77,7 +77,7 @@ mixin $_ConsumerPropsMixin<TValue> on _ConsumerPropsMixin<TValue> {
   ];
 
   @override
-  @mustCallSuper
+  @UiProps.$mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
   }

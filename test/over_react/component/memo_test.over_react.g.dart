@@ -220,7 +220,7 @@ mixin $FunctionCustomPropsProps on FunctionCustomPropsProps {
   ];
 
   @override
-  @mustCallSuper
+  @UiProps.$mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
   }

@@ -30,7 +30,7 @@ mixin $SuspensePropsMixin on SuspensePropsMixin {
   static const List<String> $propKeys = [_$key__fallback__SuspensePropsMixin];
 
   @override
-  @mustCallSuper
+  @UiProps.$mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
   }

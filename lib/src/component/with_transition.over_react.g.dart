@@ -315,7 +315,7 @@ mixin $WithTransitionPropsMixin on WithTransitionPropsMixin {
   ];
 
   @override
-  @mustCallSuper
+  @UiProps.$mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
   }

@@ -79,7 +79,7 @@ mixin $ReduxProviderPropsMixin on ReduxProviderPropsMixin {
   ];
 
   @override
-  @mustCallSuper
+  @UiProps.$mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
     if (!props.containsKey('store') &&

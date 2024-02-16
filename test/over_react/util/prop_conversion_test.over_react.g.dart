@@ -190,7 +190,7 @@ mixin $ExpectsDartMapPropProps on ExpectsDartMapPropProps {
   ];
 
   @override
-  @mustCallSuper
+  @UiProps.$mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
   }
@@ -215,7 +215,7 @@ mixin $ExpectsDartStylePropProps on ExpectsDartStylePropProps {
   static const List<String> $propKeys = [];
 
   @override
-  @mustCallSuper
+  @UiProps.$mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
   }
@@ -240,7 +240,7 @@ mixin $ExpectsListChildrenPropProps on ExpectsListChildrenPropProps {
   static const List<String> $propKeys = [];
 
   @override
-  @mustCallSuper
+  @UiProps.$mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
   }
@@ -265,7 +265,7 @@ mixin $ClassComponentProps on ClassComponentProps {
   static const List<String> $propKeys = [];
 
   @override
-  @mustCallSuper
+  @UiProps.$mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
   }
@@ -290,7 +290,7 @@ mixin $BasicForwardRefProps on BasicForwardRefProps {
   static const List<String> $propKeys = [];
 
   @override
-  @mustCallSuper
+  @UiProps.$mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
   }
@@ -330,7 +330,7 @@ mixin $DartTestJsWrapperPropsMixin on DartTestJsWrapperPropsMixin {
   ];
 
   @override
-  @mustCallSuper
+  @UiProps.$mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
   }
@@ -443,7 +443,7 @@ mixin $TestJsProps on TestJsProps {
   ];
 
   @override
-  @mustCallSuper
+  @UiProps.$mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
   }

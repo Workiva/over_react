@@ -19,7 +19,7 @@ mixin $UseStoreCounterFnProps on UseStoreCounterFnProps {
   static const List<String> $propKeys = [];
 
   @override
-  @mustCallSuper
+  @UiProps.$mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
   }
@@ -45,7 +45,7 @@ mixin $CustomContextUseStoreCounterFnProps
   static const List<String> $propKeys = [];
 
   @override
-  @mustCallSuper
+  @UiProps.$mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
   }

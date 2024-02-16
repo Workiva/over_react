@@ -34,7 +34,7 @@ mixin $CounterFnProps on CounterFnProps {
   ];
 
   @override
-  @mustCallSuper
+  @UiProps.$mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
   }
@@ -79,7 +79,7 @@ mixin $ModelCounterFnPropsMixin on ModelCounterFnPropsMixin {
   ];
 
   @override
-  @mustCallSuper
+  @UiProps.$mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
   }
@@ -124,7 +124,7 @@ mixin $CustomContextCounterFnPropsMixin on CustomContextCounterFnPropsMixin {
   ];
 
   @override
-  @mustCallSuper
+  @UiProps.$mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
   }

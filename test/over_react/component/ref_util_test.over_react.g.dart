@@ -180,7 +180,7 @@ mixin $BasicProps on BasicProps {
   static const List<String> $propKeys = [_$key__childId__BasicProps];
 
   @override
-  @mustCallSuper
+  @UiProps.$mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
   }
@@ -205,7 +205,7 @@ mixin $BasicUiFunctionProps on BasicUiFunctionProps {
   static const List<String> $propKeys = [];
 
   @override
-  @mustCallSuper
+  @UiProps.$mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
   }

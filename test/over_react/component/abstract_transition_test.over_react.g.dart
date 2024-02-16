@@ -406,7 +406,7 @@ mixin $TransitionerPropsMixin on TransitionerPropsMixin {
   ];
 
   @override
-  @mustCallSuper
+  @UiProps.$mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
   }

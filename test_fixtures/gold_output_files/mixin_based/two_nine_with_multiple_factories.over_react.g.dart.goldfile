@@ -184,7 +184,7 @@ mixin $CounterPropsMixin on CounterPropsMixin {
   static const List<String> $propKeys = [];
 
   @override
-  @mustCallSuper
+  @UiProps.$mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
   }

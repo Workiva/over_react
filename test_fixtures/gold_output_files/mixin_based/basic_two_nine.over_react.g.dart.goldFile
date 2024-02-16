@@ -239,7 +239,7 @@ mixin $BasicProps on BasicProps {
   ];
 
   @override
-  @mustCallSuper
+  @UiProps.$mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
   }

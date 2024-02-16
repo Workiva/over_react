@@ -33,7 +33,7 @@ mixin $LazyLoadMePropsMixin on LazyLoadMePropsMixin {
   ];
 
   @override
-  @mustCallSuper
+  @UiProps.$mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
   }

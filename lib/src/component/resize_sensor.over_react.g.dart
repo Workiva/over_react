@@ -281,7 +281,7 @@ mixin $ResizeSensorProps on ResizeSensorProps {
   ];
 
   @override
-  @mustCallSuper
+  @UiProps.$mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
   }
