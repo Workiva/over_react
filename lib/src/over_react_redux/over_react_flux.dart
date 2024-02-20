@@ -140,7 +140,8 @@ class ConnectFluxAdapterStore<S extends flux.Store> extends redux.Store<S> {
     // should have also been unmounted, leaving nothing to retain it.
     //
     // Use a null-aware to accommodate mock stores in unit tests that return null for `didDispose`.
-    store.didDispose.whenComplete(teardown);
+    // ignore: unnecessary_cast
+    (store.didDispose as Future<Null>?)?.whenComplete(teardown);
   }
 
   bool _teardownCalled = false;

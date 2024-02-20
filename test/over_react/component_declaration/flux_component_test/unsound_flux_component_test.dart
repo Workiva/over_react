@@ -19,6 +19,7 @@
 library over_react.component_declaration.unsound_flux_component_test;
 
 import 'package:mockito/mockito.dart';
+import 'package:over_react/over_react_flux.dart';
 import 'package:test/test.dart';
 
 import '../../../test_util/test_util.dart';
@@ -74,6 +75,16 @@ void main() {
         // This triggers `.cancel()` and verifies works with the null return value of `.listen`.
         jacket.unmount();
       });
+    });
+
+    test(
+        'mounts properly when using ConnectFluxAdapterStore with a mock store that returns null for members like didDispose (called in constructor)', () async {
+      final mockStore = ConnectFluxAdapterStore(MockTestStore(), null);
+      final jacket = mount((testComponents.basic()..store = mockStore)());
+      await pumpEventQueue();
+      jacket.rerender((testComponents.basic()..store = mockStore)());
+      await pumpEventQueue();
+      jacket.unmount();
     });
   }
 
