@@ -37,6 +37,7 @@ class _ReduxDevToolsExtensionConnection {
 external _ReduxDevToolsExtensionConnection reduxExtConnect([dynamic options]);
 
 final Logger log = Logger('OverReactReduxDevToolsMiddleware')
+  // This listener gets set up when `log` is lazy-initialized, the first time it's accessed.
   ..onRecord.listen((rec) {
     // This return is to safeguard against this listener acting like
     // `Logger.root.onRecord` when `hierarchicalLoggingEnabled` is false.
