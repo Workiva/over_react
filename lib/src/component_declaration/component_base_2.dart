@@ -711,14 +711,13 @@ class UiComponent2BridgeImpl extends Component2BridgeImpl {
     }
 
     // ignore: invalid_use_of_visible_for_overriding_member
-    final requiredPropNamesToSkipValidation = component.newProps().requiredPropNamesToSkipValidation;
+    late final requiredPropNamesToSkipValidation = component.newProps().requiredPropNamesToSkipValidation;
 
     // Add [PropValidator]s for props annotated as required.
     final newPropTypes = Map.of(propTypes);
     component.consumedProps?.forEach((consumedProps) {
       consumedProps.props.forEach((prop) {
         if (!prop.isRequired) return;
-        if (requiredPropNamesToSkipValidation.contains(prop.key.split('.').last)) return;
 
         Error? requiredPropValidator(
           Map _props,
@@ -732,6 +731,8 @@ class UiComponent2BridgeImpl extends Component2BridgeImpl {
           }
 
           if (consumerError != null) return consumerError;
+
+          if (requiredPropNamesToSkipValidation.contains(prop.key.split('.').last)) return null;
 
           if (prop.isNullable && _props.containsKey(prop.key)) return null;
           if (!prop.isNullable && _props[prop.key] != null) return null;
