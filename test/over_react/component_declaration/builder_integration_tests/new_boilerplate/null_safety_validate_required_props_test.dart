@@ -235,7 +235,7 @@ void main() {
                     'Required prop `secondRequiredProp` is missing.'))));
       });
 
-      test('does not throw when all required props are set or ignored via @Props(disableRequiredPropValidation: ...)', () {
+      test('does not throw or warn when all required props are set or ignored via @Props(disableRequiredPropValidation: ...)', () {
         expect(() {
           (MultipleMixinsTest()
             ..requiredNullable = true
@@ -243,23 +243,45 @@ void main() {
             ..secondRequiredProp = true
           )();
         },
-          returnsNormally);
+          allOf(returnsNormally, logsNoPropTypeWarnings));
       });
     });
 
-    group('@Props(disableRequiredPropValidation) turns off validation for specific props', () {
+    group('@Props(disableRequiredPropValidation) turns off validation and prop type warnings for specific props', () {
       // Test both class and function components to ensure so we have test coverage that the builder wires up
       // disableRequiredPropValidation correctly for each.
       test('for function components', () {
         expect(() {
           rtl.render(FunctionWrapperTest()());
-        }, returnsNormally);
+        }, allOf(returnsNormally, logsNoPropTypeWarnings));
       });
 
-      test('for class components', () {
+      test('for class components - UiComponent', () {
         expect(() {
           rtl.render(ClassWrapperTest()());
-        }, returnsNormally);
+        }, allOf(returnsNormally,
+          isNot(logsPropRequiredError('ClassWrapperTestProps.thirdRequiredProp')),
+        ), reason: 'Does not log prop type warnings for ignored props in meta.');
+      });
+
+      test('for class components - UiComponent2', () {
+        expect(() {
+          rtl.render(ClassWrapperTest2()());
+        }, allOf(returnsNormally,
+          isNot(logsPropRequiredError('ClassWrapperTest2PropsMixin.thirdRequiredProp')),
+          isNot(logsPropRequiredError('MultipleMixinsTestPropsMixin.secondRequiredProp')),
+          isNot(logsPropRequiredError('ComponentTestProps.requiredNonNullable')),
+          isNot(logsPropRequiredError('ComponentTestProps.requiredNullable')),
+          isNot(logsPropRequiredError('ComponentTestProps.testIgnoreOnMixin')),
+        ), reason: 'Does not log prop type warnings for ignored props in meta.');
+
+        expect(() {
+          rtl.render(ClassWrapperTest2()());
+        }, allOf(returnsNormally,
+          logsPropRequiredError('ComponentTestProps.disabledRequiredProp'),
+          logsPropRequiredError('ComponentTestProps.disabledNullableRequiredProp'),
+          logsPropRequiredError('ComponentTestProps.ref'),
+        ), reason: 'Does log prop type warnings for other required props.');
       });
     });
 
@@ -294,8 +316,7 @@ void main() {
             )()),
             allOf(
                 returnsNormally,
-                logsPropRequiredError(
-                    'DefaultedInClassOptedOutWithIgnoresTestProps.requiredDisabledByName')));
+                logsNoPropTypeWarnings));
       });
     });
   }, tags: 'ddc');
@@ -364,17 +385,42 @@ UiFactory<FunctionWrapperTestProps> FunctionWrapperTest = uiFunction(
 @Props(disableRequiredPropValidation: {'thirdRequiredProp', 'secondRequiredProp', 'requiredNonNullable', 'requiredNullable', 'testIgnoreOnMixin'})
 class FunctionWrapperTestProps = UiProps with WrapperTestPropsMixin, MultipleMixinsTestPropsMixin, ComponentTestProps;
 
+@Factory()
+// ignore: undefined_identifier, invalid_assignment
+UiFactory<ClassWrapperTestProps> ClassWrapperTest = _$ClassWrapperTest;
 
-UiFactory<ClassWrapperTestProps> ClassWrapperTest = castUiFactory(_$ClassWrapperTest); // ignore: undefined_identifier
+// ignore: undefined_class, mixin_of_non_class
+class ClassWrapperTestProps extends _$ClassWrapperTestProps with _$ClassWrapperTestPropsAccessorsMixin {
+  // ignore: undefined_identifier, const_initialized_with_non_constant_value, invalid_assignment
+  static const PropsMeta meta = _$metaForClassWrapperTestProps;
+}
 
-mixin ClassWrapperTestPropsMixin on UiProps {
+@Props(disableRequiredPropValidation: {'thirdRequiredProp'})
+//// ignore: mixin_of_non_class,undefined_class
+class _$ClassWrapperTestProps extends UiProps {
+  late bool thirdRequiredProp;
+}
+
+// ignore: deprecated_member_use_from_same_package
+@Component()
+// ignore: deprecated_member_use_from_same_package
+class ClassWrapperTestComponent extends UiComponent<ClassWrapperTestProps> {
+  @override
+  render() {
+    return Dom.div()();
+  }
+}
+
+UiFactory<ClassWrapperTest2Props> ClassWrapperTest2 = castUiFactory(_$ClassWrapperTest2); // ignore: undefined_identifier
+
+mixin ClassWrapperTest2PropsMixin on UiProps {
   late bool thirdRequiredProp;
 }
 
 @Props(disableRequiredPropValidation: {'thirdRequiredProp', 'secondRequiredProp', 'requiredNonNullable', 'requiredNullable', 'testIgnoreOnMixin'})
-class ClassWrapperTestProps = UiProps with WrapperTestPropsMixin, MultipleMixinsTestPropsMixin, ComponentTestProps;
+class ClassWrapperTest2Props = UiProps with ClassWrapperTest2PropsMixin, MultipleMixinsTestPropsMixin, ComponentTestProps;
 
-class ClassWrapperTestComponent extends UiComponent2<ClassWrapperTestProps> {
+class ClassWrapperTest2Component extends UiComponent2<ClassWrapperTest2Props> {
   @override
   render() {}
 }
