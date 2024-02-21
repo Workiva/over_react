@@ -36,23 +36,26 @@ class _ReduxDevToolsExtensionConnection {
 @JS('__REDUX_DEVTOOLS_EXTENSION__.connect')
 external _ReduxDevToolsExtensionConnection reduxExtConnect([dynamic options]);
 
+final Logger log = Logger('OverReactReduxDevToolsMiddleware')
+  // This listener gets set up when `log` is lazy-initialized, the first time it's accessed.
+  ..onRecord.listen((rec) {
+    // This return is to safeguard against this listener acting like
+    // `Logger.root.onRecord` when `hierarchicalLoggingEnabled` is false.
+    if (rec.loggerName != log.name) return;
+
+    final windowConsole = getProperty(window, 'console') as Object;
+    final consoleMethodName = rec.level >= Level.WARNING ? 'warn' : 'log';
+    callMethod(windowConsole, consoleMethodName, [
+      '${log.name} [${rec.level.name}]: ${rec.message}',
+      if (rec.error != null) rec.error,
+    ]);
+  });
+
 class _OverReactReduxDevToolsMiddleware extends MiddlewareClass {
   Store? _store;
   _ReduxDevToolsExtensionConnection? devToolsExt;
-  final Logger log = Logger('OverReactReduxDevToolsMiddleware');
 
   _OverReactReduxDevToolsMiddleware([Map<String, dynamic> options = const {}]) {
-    var windowConsole = getProperty(window, 'console') as Object;
-    log.onRecord.listen((rec) {
-      // This return is to safeguard against this listener acting like
-      // `Logger.root.onRecord` when `hierarchicalLoggingEnabled` is false.
-      if (rec.loggerName != log.name) return;
-      if (rec.level == Level.WARNING) {
-        callMethod(windowConsole, 'warn', ['${log.name} [${rec.level.name}]: ${rec.message}', if (rec.error != null) rec.error]);
-      } else {
-        callMethod(windowConsole, 'log', ['${log.name} [${rec.level.name}]: ${rec.message}', if (rec.error != null) rec.error]);
-      }
-    });
     try {
       devToolsExt = reduxExtConnect(jsify(options))..subscribe(allowInterop(handleEventFromRemote));
     } catch (e) {
