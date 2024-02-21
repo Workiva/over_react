@@ -216,9 +216,11 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component with 
 
   /// Validates that props with the `@requiredProp` annotation are present.
   void validateRequiredProps(Map appliedProps) {
+    final requiredPropNamesToSkipValidation = newProps().requiredPropNamesToSkipValidation;
     consumedProps?.forEach((consumedProps) {
       consumedProps.props.forEach((prop) {
         if (!prop.isRequired) return;
+        if (requiredPropNamesToSkipValidation.contains(prop.key.split('.').last)) return;
         if (prop.isNullable && appliedProps.containsKey(prop.key)) return;
         if (!prop.isNullable && appliedProps[prop.key] != null) return;
 
