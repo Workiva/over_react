@@ -50,7 +50,7 @@ const defaultTestIdKey = 'data-test-id';
 ///
 /// > Note: Implements [MapViewMixin] instead of extending it so that the abstract `Props` declarations
 /// don't need a constructor. The generated implementations can mix that functionality in.
-abstract class UiProps extends MapBase
+abstract class UiProps extends Object
     with
         MapViewMixin,
         PropsMapViewMixin,
