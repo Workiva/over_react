@@ -21,7 +21,7 @@ import 'package:react/react_client/react_interop.dart' as react_interop;
 
 import 'package:over_react/src/component_declaration/props_and_state_base.dart';
 
-import '../component_declaration/ui_factory.dart';
+import 'package:over_react/src/component_declaration/ui_factory.dart';
 
 /// Creates a [Ref] object that can be attached to a [ReactElement] via the ref prop.
 ///

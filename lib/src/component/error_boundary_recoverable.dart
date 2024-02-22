@@ -21,7 +21,7 @@ import 'package:over_react/src/component/error_boundary.dart' as v2;
 import 'package:over_react/src/component/error_boundary_api.dart';
 import 'package:over_react/src/util/react_wrappers.dart';
 
-import '../component_declaration/component_declaration.dart';
+import 'package:over_react/src/component_declaration/component_declaration.dart';
 
 part 'error_boundary_recoverable.over_react.g.dart';
 

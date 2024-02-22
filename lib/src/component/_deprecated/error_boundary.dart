@@ -18,7 +18,7 @@ import 'package:over_react/src/component/_deprecated/error_boundary_recoverable.
 import 'package:over_react/src/component/dom_components.dart';
 import 'package:over_react/src/component/error_boundary_api.dart';
 
-import '../../component_declaration/component_declaration.dart';
+import 'package:over_react/src/component_declaration/component_declaration.dart';
 
 part 'error_boundary.over_react.g.dart';
 

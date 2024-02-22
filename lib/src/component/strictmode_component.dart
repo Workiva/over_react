@@ -15,7 +15,7 @@
 import 'package:over_react/src/util/js_component.dart';
 import 'package:react/react.dart' as react;
 
-import '../component_declaration/component_declaration.dart';
+import 'package:over_react/src/component_declaration/component_declaration.dart';
 
 part 'strictmode_component.over_react.g.dart';
 

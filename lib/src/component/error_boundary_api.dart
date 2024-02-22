@@ -15,7 +15,7 @@
 import 'package:meta/meta.dart';
 import 'package:over_react/src/component/error_boundary.dart' as v2;
 
-import '../component_declaration/component_declaration.dart';
+import 'package:over_react/src/component_declaration/component_declaration.dart';
 
 @visibleForTesting
 const String defaultErrorBoundaryLoggerName = 'over_react.ErrorBoundary';

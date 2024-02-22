@@ -17,7 +17,7 @@ import 'package:over_react/src/util/context.dart';
 import 'package:over_react/src/util/prop_errors.dart';
 import 'package:redux/redux.dart';
 
-import '../component_declaration/component_declaration.dart';
+import 'package:over_react/src/component_declaration/component_declaration.dart';
 
 part 'redux_multi_provider.over_react.g.dart';
 

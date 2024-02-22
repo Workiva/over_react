@@ -22,7 +22,7 @@ import 'package:over_react/src/component/error_boundary_api.dart';
 import 'package:over_react/src/util/react_util.dart';
 import 'package:over_react/src/util/react_wrappers.dart';
 
-import '../../component_declaration/component_declaration.dart';
+import 'package:over_react/src/component_declaration/component_declaration.dart';
 
 part 'error_boundary_mixins.over_react.g.dart';
 

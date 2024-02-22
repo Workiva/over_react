@@ -18,7 +18,7 @@ import 'dart:collection';
 
 import 'package:over_react/src/component_declaration/annotations.dart';
 
-import '../component_declaration/accessor_meta.dart';
+import 'package:over_react/src/component_declaration/accessor_meta.dart';
 
 part 'aria_mixin.over_react.g.dart';
 

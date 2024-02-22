@@ -14,7 +14,7 @@
 
 import 'package:over_react/src/component/_deprecated/error_boundary_mixins.dart';
 
-import '../../component_declaration/component_declaration.dart';
+import 'package:over_react/src/component_declaration/component_declaration.dart';
 
 part 'error_boundary_recoverable.over_react.g.dart';
 

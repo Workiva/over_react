@@ -22,7 +22,7 @@ import 'package:over_react/src/util/equality.dart';
 import 'package:redux/redux.dart' as redux;
 import 'package:w_flux/w_flux.dart' as flux;
 
-import '../component_declaration/component_declaration.dart';
+import 'package:over_react/src/component_declaration/component_declaration.dart';
 import 'value_mutation_checker.dart';
 
 part 'over_react_flux.over_react.g.dart';

@@ -29,7 +29,7 @@ import 'package:over_react/src/util/string_util.dart';
 import 'package:over_react/src/util/validation_util.dart';
 import 'package:react/react.dart' show SyntheticEvent;
 
-import '../component_declaration/component_declaration.dart';
+import 'package:over_react/src/component_declaration/component_declaration.dart';
 
 part 'resize_sensor.over_react.g.dart';
 

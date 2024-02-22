@@ -14,8 +14,8 @@
 
 import 'package:over_react/src/component_declaration/component_declaration.dart';
 
-import '../component_declaration/builder_helpers.dart';
-import '../component_declaration/component_base_2.dart';
+import 'package:over_react/src/component_declaration/builder_helpers.dart';
+import 'package:over_react/src/component_declaration/component_base_2.dart';
 
 part 'dummy_component2.over_react.g.dart';
 

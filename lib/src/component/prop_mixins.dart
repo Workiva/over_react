@@ -22,8 +22,8 @@ import 'package:over_react/src/component/callback_typedefs.dart';
 import 'package:over_react/src/component/dom_components.dart';
 import 'package:react/react_client/js_backed_map.dart';
 
-import '../component_declaration/accessor_meta.dart';
-import '../component_declaration/annotations.dart';
+import 'package:over_react/src/component_declaration/accessor_meta.dart';
+import 'package:over_react/src/component_declaration/annotations.dart';
 
 part 'prop_mixins.over_react.g.dart';
 

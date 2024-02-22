@@ -14,7 +14,7 @@
 
 import 'package:over_react/src/component_declaration/props_and_state_base.dart';
 
-import '../component_declaration/ui_factory.dart';
+import 'package:over_react/src/component_declaration/ui_factory.dart';
 
 /// Returns a typed view into the unmodifiable default props map for the
 /// component associated with [factory].

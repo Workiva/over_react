@@ -17,7 +17,7 @@ library over_react.abstract_transition_props;
 
 import 'package:over_react/src/component/callback_typedefs.dart';
 
-import '../component_declaration/component_declaration.dart';
+import 'package:over_react/src/component_declaration/component_declaration.dart';
 
 part 'abstract_transition_props.over_react.g.dart';
 

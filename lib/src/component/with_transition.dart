@@ -28,7 +28,7 @@ import 'package:over_react/src/util/prop_errors.dart';
 import 'package:over_react/src/util/react_wrappers.dart';
 import 'package:over_react/src/util/validation_util.dart';
 
-import '../component_declaration/component_declaration.dart';
+import 'package:over_react/src/component_declaration/component_declaration.dart';
 
 part 'with_transition.over_react.g.dart';
 

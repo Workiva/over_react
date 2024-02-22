@@ -15,7 +15,7 @@
 
 import 'package:over_react/src/util/equality.dart';
 
-import '../component_declaration/component_declaration.dart';
+import 'package:over_react/src/component_declaration/component_declaration.dart';
 
 /// A mixin to make a `Component2` instance behave
 /// like a [ReactJS `PureComponent`](https://reactjs.org/docs/react-api.html#reactpurecomponent).
