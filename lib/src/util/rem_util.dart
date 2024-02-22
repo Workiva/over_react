@@ -22,7 +22,6 @@ import 'dart:html';
 import 'package:meta/meta.dart';
 import 'package:over_react/over_react.dart';
 import 'package:over_react/components.dart' as v2;
-import 'package:over_react/src/component_declaration/component_base.dart' as component_base;
 import 'package:over_react/src/util/css_value_util.dart';
 import 'package:over_react/react_dom.dart' as react_dom;
 import 'package:platform_detect/platform_detect.dart';
@@ -178,7 +177,7 @@ CssValue? toRem(dynamic value, {bool treatNumAsRem = false, bool passThroughUnsu
   // a "clean" / empty `document.body`.
   //
   // See: https://jira.atl.workiva.net/browse/AF-1048 / https://bugs.chromium.org/p/chromium/issues/detail?id=429140
-  if (browser.isChrome && !component_base.UiProps.testMode) {
+  if (browser.isChrome && !UiProps.testMode) {
     // TODO: Why does Zone.ROOT.run not work in unit tests?  Passing in Zone.current from the call to toRem() within the test also does not work.
 //    Zone.ROOT.run(_initRemChangeSensor);
     initRemChangeSensor();

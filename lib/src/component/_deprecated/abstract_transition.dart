@@ -20,7 +20,6 @@ import 'dart:html';
 
 import 'package:meta/meta.dart';
 import 'package:over_react/over_react.dart';
-import 'package:over_react/component_base.dart' as component_base;
 
 import '../abstract_transition.dart' show TransitionPhase;
 export '../abstract_transition.dart' show TransitionPhase;
@@ -393,7 +392,7 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps,
 
   /// Returns attributes only available during testing that indicate the state of the transition.
   Map<String, String?> getTransitionTestAttributes() {
-    if (!component_base.UiProps.testMode) return const {};
+    if (!UiProps.testMode) return const {};
 
     const enumToAttrValue = <TransitionPhase, String>{
       TransitionPhase.SHOWN: 'shown',
