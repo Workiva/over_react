@@ -182,10 +182,10 @@ Set<String> getDefaultedPropNames(ClassishDeclaration classComponent) {
   returnValue = returnValue.unParenthesized;
   if (returnValue is! CascadeExpression) return {};
 
-  final target = returnValue.target;
-  if (target is! MethodInvocation || target.methodName.name != 'newProps') return {};
+  final target = (returnValue as CascadeExpression).target;
+  if (!(target is MethodInvocation && target.methodName.name != 'newProps')) return {};
 
-  return returnValue.cascadeSections
+  return (returnValue as CascadeExpression).cascadeSections
       .whereType<AssignmentExpression>()
       .map((a) => a.leftHandSide)
       .whereType<PropertyAccess>()
