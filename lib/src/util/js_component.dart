@@ -29,7 +29,7 @@ UiFactory<TProps> uiJsComponent<TProps extends UiProps>(
   }
 
   // ignore: invalid_use_of_protected_member
-  final propsFactory = _config.propsFactory;
+  final propsFactory = (_config as UiFactoryConfig<TProps>).propsFactory;
   ArgumentError.checkNotNull(propsFactory, '_config.propsFactory');
   propsFactory!;
 

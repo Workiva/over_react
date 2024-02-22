@@ -221,7 +221,7 @@ UiFactory<TProps> uiForwardRef<TProps extends bh.UiProps>(
         'declaring your config correctly.');
   }
 
-  final config = _config;
+  final config = _config as UiFactoryConfig<TProps>;
 
   // ignore: invalid_use_of_protected_member
   var propsFactory = config.propsFactory;
