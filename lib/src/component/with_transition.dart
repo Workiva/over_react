@@ -27,7 +27,6 @@ import 'package:over_react/src/util/class_names.dart';
 import 'package:over_react/src/util/prop_errors.dart';
 import 'package:over_react/src/util/react_wrappers.dart';
 import 'package:over_react/src/util/validation_util.dart';
-import 'package:react/react_client.dart';
 
 import '../component_declaration/component_declaration.dart';
 

@@ -18,9 +18,8 @@ import 'dart:html';
 import 'dart:js_util';
 
 import 'package:meta/meta.dart';
-import 'package:test/test.dart';
 import 'package:over_react/over_react.dart';
-import 'package:over_react/src/component/dom_components.dart';
+import 'package:test/test.dart';
 
 import '../../test_util/test_util.dart';
 import '../component/fixtures/basic_child_component.dart';

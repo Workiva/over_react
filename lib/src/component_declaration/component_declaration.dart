@@ -13,13 +13,21 @@ export 'package:over_react/src/component_declaration/component_base_2.dart'
         UiStatefulMixin2;
 export 'package:over_react/src/component_declaration/component_type_checking.dart'
     show isComponentOfType, isValidElementOfType, UiFactoryTypeMeta;
-export 'package:over_react/src/component_declaration/function_component.dart';
+export 'package:over_react/src/component_declaration/function_component.dart'  hide getFunctionName, GenericUiProps;
 export 'package:over_react/src/component_declaration/typedefs.dart';
 export 'package:over_react/src/component_declaration/ui_factory.dart';
 export 'package:over_react/src/component_declaration/ui_props_self_typed_extension.dart';
 export 'package:over_react/src/util/cast_ui_factory.dart';
 export 'package:over_react/src/util/map_util.dart';
 export 'package:over_react/src/util/prop_key_util.dart';
-export 'package:react/react_client.dart' show ReactComponentFactoryProxy;
+export 'package:react/react_client.dart'
+    // ignore: deprecated_member_use
+    show
+        // ignore: deprecated_member_use
+        setClientConfiguration,
+        chainRefs,
+        ReactElement,
+        ReactComponentFactoryProxy;
 export 'package:react/react_client/js_backed_map.dart' show JsBackedMap;
-export 'package:react/react_client/react_interop.dart' show ReactErrorInfo;
+export 'package:react/react_client/react_interop.dart' show ReactErrorInfo, Ref;
+

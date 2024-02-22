@@ -1,7 +1,6 @@
 import 'package:react/react_client/component_factory.dart';
 
 import '../component_declaration/component_declaration.dart';
-import '../component_declaration/function_component.dart';
 
 /// Creates a Dart component factory that wraps a ReactJS [factoryProxy].
 ///

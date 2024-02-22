@@ -14,9 +14,8 @@
 // ignore_for_file: deprecated_member_use_from_same_package
 library element_type_test;
 
-import 'package:test/test.dart';
 import 'package:over_react/over_react.dart';
-import 'package:over_react/src/component/dom_components.dart';
+import 'package:test/test.dart';
 
 part 'element_type_test.over_react.g.dart'; // ignore: uri_has_not_been_generated
 

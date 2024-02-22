@@ -14,7 +14,6 @@
 
 import 'package:over_react/src/component/dom_components.dart';
 import 'package:over_react/src/util/react_wrappers.dart';
-import 'package:react/react_client.dart';
 
 import '../../component_declaration/component_declaration.dart';
 

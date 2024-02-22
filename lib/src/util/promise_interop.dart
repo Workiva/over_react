@@ -1,7 +1,5 @@
 @JS()
 library over_react.promise_interop;
-import 'dart:js';
-
 import 'package:js/js.dart';
 
 /// Creates JS `Promise` which is resolved when [future] completes.

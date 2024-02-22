@@ -18,7 +18,6 @@ import 'dart:html';
 import 'package:logging/logging.dart';
 import 'package:over_react/over_react.dart';
 import 'package:over_react/src/component/_deprecated/error_boundary_mixins.dart';
-import 'package:over_react/src/component_declaration/props_and_state_base.dart' show defaultTestIdKey;
 import 'package:over_react_test/over_react_test.dart';
 import 'package:test/test.dart';
 
