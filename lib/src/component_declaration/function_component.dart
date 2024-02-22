@@ -107,7 +107,7 @@ UiFactory<TProps> uiFunction<TProps extends UiProps>(
     'declaring your config correctly.');
   }
 
-  final config = _config;
+  final config = _config as UiFactoryConfig<TProps>;
 
   var propsFactory = config.propsFactory;
 
