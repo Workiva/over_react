@@ -12,7 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:over_react/src/component_declaration/builder_helpers.dart';
+
+import '../component_declaration/builder_helpers.dart';
+import '../component_declaration/ui_factory.dart';
 
 /// Casts [value] to `UiFactory<T>`, which can be inferred from the surrounding context,
 /// allowing you to perform casts of dynamic values without having to repeat the type

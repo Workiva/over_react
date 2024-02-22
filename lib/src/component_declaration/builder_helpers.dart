@@ -24,12 +24,6 @@ import './props_and_state_base.dart' as component_base;
 import './annotations.dart' as annotations;
 import './ui_props_self_typed_extension.dart';
 
-export './annotations.dart';
-export './component_base.dart' hide UiComponent, UiStatefulComponent;
-export './accessor_meta.dart';
-export './typedefs.dart';
-export './ui_props_self_typed_extension.dart';
-
 // ----------------------------------------------------------------------
 //   Base classes to be used by pre-generated code that stub out
 //   to-be-generated members.

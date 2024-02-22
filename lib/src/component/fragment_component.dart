@@ -14,12 +14,9 @@
 
 
 import 'package:over_react/src/util/js_component.dart';
-import 'package:over_react/src/util/prop_key_util.dart';
 import 'package:react/react.dart' as react;
-import 'package:react/react_client/js_backed_map.dart';
 
-import '../component_declaration/builder_helpers.dart';
-import '../component_declaration/function_component.dart';
+import '../component_declaration/component_declaration.dart';
 
 part 'fragment_component.over_react.g.dart';
 

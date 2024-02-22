@@ -21,6 +21,8 @@ import 'package:react/react_client.dart';
 
 import 'package:over_react/src/component_declaration/props_and_state_base.dart';
 
+import '../component_declaration/ui_factory.dart';
+
 /// Creates a [Ref] object that can be attached to a [ReactElement] via the ref prop.
 ///
 /// __Example__:
@@ -212,7 +214,7 @@ Ref<T?> createRef<T>() => react_interop.createRef();
 ///   },
 ///   _$Foo2Config, // ignore: undefined_identifier
 /// );
-bh.UiFactory<TProps> uiForwardRef<TProps extends bh.UiProps>(
+UiFactory<TProps> uiForwardRef<TProps extends bh.UiProps>(
     dynamic Function(TProps props, dynamic ref) functionComponent, dynamic _config) {
   ArgumentError.checkNotNull(_config, '_config');
 

@@ -26,7 +26,8 @@ import 'package:over_react/src/util/css_value_util.dart';
 import 'package:over_react/react_dom.dart' as react_dom;
 import 'package:platform_detect/platform_detect.dart';
 
-import '../component_declaration/builder_helpers.dart';
+import '../component_declaration/props_and_state_base.dart';
+
 
 // The computed font size of the HTML node isn't reliable in Chrome when the page is refreshed while zoomed.
 // Instead, measure a container to determine how big 1rem is.

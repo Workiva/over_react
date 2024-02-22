@@ -13,13 +13,11 @@
 // limitations under the License.
 
 import 'package:meta/meta.dart';
-import 'package:over_react/src/component_declaration/builder_helpers.dart';
-import 'package:over_react/src/util/prop_key_util.dart';
-
+import 'package:react/react.dart' as react;
 import 'package:react/react_client/component_factory.dart';
 import 'package:react/react_client/react_interop.dart';
-import 'package:react/react_client/js_backed_map.dart';
-import 'package:react/react.dart' as react;
+
+import '../component_declaration/component_declaration.dart';
 
 part 'context.over_react.g.dart';
 

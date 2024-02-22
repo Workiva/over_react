@@ -18,19 +18,18 @@ library over_react_redux;
 
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
-import 'package:over_react/src/component_declaration/builder_helpers.dart';
-import 'package:over_react/src/component_declaration/props_and_state_base.dart' as component_base;
 import 'package:over_react/src/component_declaration/component_type_checking.dart';
-import 'package:over_react/src/component_declaration/function_component.dart';
+import 'package:over_react/src/component_declaration/props_and_state_base.dart' as component_base;
 import 'package:over_react/src/util/context.dart';
 import 'package:over_react/src/util/dart_value_wrapper.dart';
 import 'package:over_react/src/util/equality.dart';
 import 'package:over_react/src/util/js_component.dart';
-import 'package:over_react/src/util/prop_key_util.dart';
 import 'package:react/react_client.dart';
 import 'package:react/react_client/js_backed_map.dart';
 import 'package:react/react_client/react_interop.dart';
 import 'package:redux/redux.dart';
+
+import '../component_declaration/component_declaration.dart';
 
 part 'over_react_redux.over_react.g.dart';
 

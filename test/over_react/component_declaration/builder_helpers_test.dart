@@ -15,7 +15,7 @@
 // ignore_for_file: deprecated_member_use_from_same_package
 library over_react.builder_generation.helpers_test;
 
-import 'package:over_react/src/component_declaration/builder_helpers.dart';
+import 'package:over_react/src/component_declaration/component_declaration.dart';
 import 'package:test/test.dart';
 
 final Matcher throwsUngeneratedError          = throwsA(isA<UngeneratedError>());

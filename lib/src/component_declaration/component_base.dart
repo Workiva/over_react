@@ -20,9 +20,8 @@ import 'dart:collection';
 import 'package:meta/meta.dart';
 import 'package:over_react/src/component/dummy_component.dart';
 import 'package:over_react/src/component_declaration/accessor_meta.dart';
-import 'package:over_react/src/component_declaration/builder_helpers.dart' as bh;
-import 'package:over_react/src/component_declaration/function_component.dart';
 import 'package:over_react/src/component_declaration/props_and_state_base.dart';
+import 'package:over_react/src/component_declaration/ui_factory.dart';
 import 'package:over_react/src/util/class_names.dart';
 import 'package:over_react/src/util/map_util.dart';
 import 'package:over_react/src/util/prop_errors.dart';
@@ -30,12 +29,9 @@ import 'package:over_react/src/util/string_util.dart';
 import 'package:over_react/src/util/validation_util.dart';
 import 'package:react/react.dart' as react;
 import 'package:react/react_client.dart';
-import 'package:react/react_client/react_interop.dart';
 
 import 'component_type_checking.dart';
 import 'disposable_manager_proxy.dart';
-
-export 'component_type_checking.dart' show isComponentOfType, isValidElementOfType, UiFactoryTypeMeta;
 
 /// Helper function that wraps react.registerComponent, and allows attachment of additional
 /// component factory metadata.
@@ -80,26 +76,6 @@ ReactDartComponentFactoryProxy registerComponent(react.Component Function() dart
 ReactDartComponentFactoryProxy registerAbstractComponent(Type abstractComponentClass, {ReactDartComponentFactoryProxy? parentType}) =>
     registerComponent(() => DummyComponent(), componentClass: abstractComponentClass, parentType: parentType);
 
-/// A function that returns a new [TProps] instance, optionally backed by the specified [backingProps].
-///
-/// For use in wrapping existing Maps in typed getters and setters, and for creating React components
-/// via a fluent-style builder interface.
-typedef TProps UiFactory<TProps extends UiProps>([Map? backingProps]);
-
-extension UiFactoryHelpers<TProps extends bh.UiProps> on UiFactory<TProps> {
-  /// Generates the configuration necessary to construct a UiFactory while invoking
-  /// `uiForwardRef` with a props class that has already been consumed.
-  ///
-  /// See `uiForwardRef` for examples and context.
-  UiFactoryConfig<TProps> asForwardRefConfig({String? displayName}) => UiFactoryConfig(propsFactory: PropsFactory.fromUiFactory(this), displayName: displayName);
-
-  /// The type of the element created by this factory.
-  ///
-  /// For DOM components, this will be a [String] tagName (e.g., `'div'`, `'a'`).
-  ///
-  /// For composite components (react-dart or pure JS), this will be a [ReactClass].
-  dynamic get elementType => this().componentFactory!.type;
-}
 
 /// A utility variation on [UiFactory], __without__ a `backingProps` parameter.
 ///

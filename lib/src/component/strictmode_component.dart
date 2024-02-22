@@ -12,13 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:over_react/src/component_declaration/function_component.dart';
 import 'package:over_react/src/util/js_component.dart';
 import 'package:react/react.dart' as react;
-import 'package:react/react_client/js_backed_map.dart';
 
-import '../component_declaration/builder_helpers.dart';
-import '../util/prop_key_util.dart';
+import '../component_declaration/component_declaration.dart';
 
 part 'strictmode_component.over_react.g.dart';
 
