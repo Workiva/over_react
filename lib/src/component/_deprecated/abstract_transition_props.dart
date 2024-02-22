@@ -16,7 +16,9 @@ library over_react.deprecated.abstract_transition_props;
 
 import 'dart:collection';
 
-import 'package:over_react/over_react.dart';
+import 'package:over_react/src/component/callback_typedefs.dart';
+
+import '../../component_declaration/component_declaration.dart';
 
 part 'abstract_transition_props.over_react.g.dart';
 

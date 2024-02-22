@@ -4,7 +4,7 @@ library over_react.src.component_debug_name;
 
 import 'package:js/js.dart';
 import 'package:js/js_util.dart';
-import 'package:over_react/component_base.dart';
+import 'package:over_react/src/component_declaration/component_base.dart';
 
 /// __For use in debugging contexts only; not suitable for other use.__
 /// If there's another use-case for getting a component name from its mounted

@@ -17,7 +17,6 @@ library over_react.callback_typedefs;
 
 import 'dart:html';
 
-import 'package:over_react/over_react.dart' show ResizeSensorEvent;
 import 'package:react/react.dart' as react;
 
 // Callbacks for React's DOM event system
@@ -42,6 +41,3 @@ typedef BoolCallback(bool value);
 
 /// Callback for DOM elements
 typedef Element ElementCallback();
-
-/// Callback for [ResizeSensorEvent]s
-typedef void ResizeSensorHandler(ResizeSensorEvent event);

@@ -19,8 +19,10 @@ import 'dart:async';
 import 'dart:html';
 
 import 'package:meta/meta.dart';
-import 'package:over_react/over_react.dart';
+import 'package:over_react/src/component/_deprecated/abstract_transition_props.dart';
+import 'package:over_react/src/util/validation_util.dart';
 
+import '../../component_declaration/component_declaration.dart';
 import '../abstract_transition.dart' show TransitionPhase;
 export '../abstract_transition.dart' show TransitionPhase;
 

@@ -18,8 +18,18 @@ import 'dart:async';
 import 'dart:html';
 
 import 'package:meta/meta.dart';
-import 'package:over_react/over_react.dart';
-import 'package:over_react/components.dart' as v2;
+import 'package:over_react/src/component/abstract_transition.dart' as v2;
+import 'package:over_react/src/component/abstract_transition_props.dart' as v2;
+import 'package:over_react/src/component/_deprecated/abstract_transition.dart';
+import 'package:over_react/src/component/dom_components.dart';
+import 'package:over_react/src/component/ref_util.dart';
+import 'package:over_react/src/util/class_names.dart';
+import 'package:over_react/src/util/prop_errors.dart';
+import 'package:over_react/src/util/react_wrappers.dart';
+import 'package:over_react/src/util/validation_util.dart';
+import 'package:react/react_client.dart';
+
+import '../component_declaration/component_declaration.dart';
 
 part 'with_transition.over_react.g.dart';
 

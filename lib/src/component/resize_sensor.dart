@@ -19,8 +19,17 @@ library over_react.resize_sensor;
 import 'dart:html';
 
 import 'package:meta/meta.dart';
-import 'package:over_react/over_react.dart' hide ResizeSensor, ResizeSensorComponent, ResizeSensorProps;
+import 'package:over_react/src/component/callback_typedefs.dart';
+import 'package:over_react/src/component/dom_components.dart';
+import 'package:over_react/src/component/ref_util.dart';
 import 'package:over_react/src/component/resize_sensor_constants.dart';
+import 'package:over_react/src/util/handler_chain_util.dart';
+import 'package:over_react/src/util/react_wrappers.dart';
+import 'package:over_react/src/util/string_util.dart';
+import 'package:over_react/src/util/validation_util.dart';
+import 'package:react/react.dart' show SyntheticEvent;
+
+import '../component_declaration/component_declaration.dart';
 
 part 'resize_sensor.over_react.g.dart';
 
@@ -379,6 +388,12 @@ class ResizeSensorEvent {
 
   ResizeSensorEvent(this.newWidth, this.newHeight, this.prevWidth, this.prevHeight);
 }
+
+/// Callback for [ResizeSensorEvent]s
+typedef void ResizeSensorHandler(ResizeSensorEvent event);
+
+/// Provides chaining utilities for [ResizeSensorHandler].
+const resizeEventCallbacks = CallbackUtil1Arg<ResizeSensorEvent>();
 
 /// A mixin that makes it easier to manage animation frames within a React component lifecycle.
 class SafeAnimationFrameMixin {

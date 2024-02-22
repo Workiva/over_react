@@ -15,9 +15,12 @@
 import 'dart:collection';
 
 import 'package:meta/meta.dart';
-import 'package:over_react/over_react.dart';
+import 'package:over_react/src/component/prop_mixins.dart';
+import 'package:over_react/src/component_declaration/component_declaration.dart';
 import 'package:over_react/src/component_declaration/props_and_state_base.dart' show defaultTestIdKey;
 import 'package:over_react/src/component_declaration/util.dart';
+import 'package:over_react/src/util/class_names.dart';
+import 'package:react/react_client.dart';
 
 const _getPropKey = getPropKey;
 

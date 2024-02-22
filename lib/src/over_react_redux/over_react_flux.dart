@@ -16,12 +16,13 @@ import 'dart:async';
 import 'dart:html';
 
 import 'package:meta/meta.dart';
-import 'package:over_react/over_react.dart';
-import 'package:over_react/over_react_redux.dart';
+import 'package:over_react/src/over_react_redux/over_react_redux.dart';
+import 'package:over_react/src/util/context.dart';
 import 'package:over_react/src/util/equality.dart';
 import 'package:redux/redux.dart' as redux;
 import 'package:w_flux/w_flux.dart' as flux;
 
+import '../component_declaration/component_declaration.dart';
 import 'value_mutation_checker.dart';
 
 part 'over_react_flux.over_react.g.dart';

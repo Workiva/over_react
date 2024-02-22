@@ -18,12 +18,7 @@ library over_react.class_names;
 // ignore_for_file: deprecated_member_use_from_same_package
 import 'dart:collection';
 
-import 'package:over_react/over_react.dart' show
-    // Must import these consts because they are used in the transformed code.
-    // ignore: unused_shown_name
-    PropDescriptor, ConsumedProps,
-    // ignore: unused_shown_name
-    PropsMeta, UiComponent, UiProps;
+import 'package:over_react/src/component_declaration/accessor_meta.dart';
 import 'package:over_react/src/component_declaration/annotations.dart';
 
 part 'class_names.over_react.g.dart';

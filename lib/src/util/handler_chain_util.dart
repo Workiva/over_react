@@ -14,7 +14,6 @@
 
 library over_react.handler_chain_util;
 
-import 'package:over_react/over_react.dart' show ResizeSensorEvent;
 import 'package:react/react.dart' show
     SyntheticEvent,
     SyntheticAnimationEvent,
@@ -65,9 +64,6 @@ const wheelEventCallbacks = CallbackUtil1Arg<SyntheticWheelEvent>();
 
 /// Provides chaining utilities for [Callback].
 const callbacks = CallbackUtil0Arg();
-
-/// Provides chaining utilities for [ResizeSensorHandler].
-const resizeEventCallbacks = CallbackUtil1Arg<ResizeSensorEvent>();
 
 typedef Callback0Arg                 = dynamic Function();
 typedef Callback1Arg<T1>             = dynamic Function(T1 arg1);

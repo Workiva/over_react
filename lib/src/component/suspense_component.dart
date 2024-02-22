@@ -16,7 +16,8 @@
 library over_react.component.suspense_component;
 
 import 'package:js/js.dart';
-import 'package:over_react/over_react.dart';
+import 'package:over_react/src/component_declaration/component_declaration.dart';
+import 'package:over_react/src/component_declaration/function_component.dart';
 import 'package:react/react.dart' as react;
 import 'package:over_react/src/util/js_component.dart';
 
