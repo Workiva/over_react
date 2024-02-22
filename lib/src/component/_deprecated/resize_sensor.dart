@@ -26,7 +26,6 @@ import 'package:over_react/src/component/ref_util.dart';
 import 'package:over_react/src/component/resize_sensor.dart' show ResizeSensorEvent, ResizeSensorHandler, SafeAnimationFrameMixin;
 import 'package:over_react/src/component/resize_sensor_constants.dart';
 import 'package:over_react/src/component_declaration/component_declaration.dart';
-import 'package:over_react/src/util/map_util.dart';
 import 'package:over_react/src/util/react_wrappers.dart';
 import 'package:over_react/src/util/string_util.dart';
 import 'package:over_react/src/util/validation_util.dart';
