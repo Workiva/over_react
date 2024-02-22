@@ -6793,10 +6793,10 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   static const PropsMeta meta = _$metaForUbiquitousDomPropsMixin;
   @override
   @Accessor(doNotGenerate: true)
-  late final AriaPropsMixin aria = AriaPropsMapView(props);
+  AriaPropsMixin get aria => AriaPropsMapView(props);
   @override
   @Accessor(doNotGenerate: true)
-  late final DomPropsMixin dom = DomProps(null, props);
+  DomPropsMixin get dom => DomProps(null, props);
   @override
   Map<String, dynamic>? get style =>
       _conditionallyUnconvertStyle(_raw$UbiquitousDomProps$style);
