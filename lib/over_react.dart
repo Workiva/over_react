@@ -39,7 +39,7 @@ export 'src/component/pure_component_mixin.dart';
 export 'src/component/_deprecated/resize_sensor.dart';
 export 'src/component/resize_sensor.dart' show ResizeSensorHandler, resizeEventCallbacks;
 export 'src/component_declaration/component_declaration.dart';
-export 'src/component_declaration/props_and_state_base.dart' show defaultTestIdKey;
+export 'src/component_declaration/props_and_state_base.dart' show defaultTestIdKey, MapViewMixin, PropsMapViewMixin, StateMapViewMixin;
 export 'src/component_declaration/flux_component.dart';
 export 'src/util/character_constants.dart';
 export 'src/util/class_names.dart';

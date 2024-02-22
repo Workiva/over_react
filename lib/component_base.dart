@@ -14,4 +14,6 @@
 
 library over_react.component_base;
 
+export 'src/component_declaration/ui_factory.dart';
 export 'src/component_declaration/component_base.dart';
+export 'src/component_declaration/props_and_state_base.dart';
