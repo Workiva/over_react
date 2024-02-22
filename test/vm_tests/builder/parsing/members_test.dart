@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -27,10 +28,10 @@ import 'parsing_helpers.dart';
 main() {
   group('members -', () {
     group('component', () {
-      late BoilerplateComponent legacyBackwardCompatComponent;
-      late BoilerplateComponent legacyComponent;
-      late BoilerplateComponent newBoilerplateComponent;
-      late BoilerplateComponent dart290BoilerplateComponent;
+       BoilerplateComponent legacyBackwardCompatComponent;
+       BoilerplateComponent legacyComponent;
+       BoilerplateComponent newBoilerplateComponent;
+       BoilerplateComponent dart290BoilerplateComponent;
 
       setUp(() {
         final mockDeclarationHelper = BoilerplateMemberHelper.withMockDeclarations();
@@ -110,7 +111,7 @@ main() {
       group('validate', () {
         var validateResults = <String>[];
 
-        void validateCallback(String message, [SourceSpan? span]) {
+        void validateCallback(String message, [SourceSpan span]) {
           validateResults.add(message);
         }
 
@@ -356,7 +357,7 @@ main() {
       group('validate', () {
         var validateResults = <String>[];
 
-        void validateCallback(String message, [SourceSpan? span]) {
+        void validateCallback(String message, [SourceSpan span]) {
           validateResults.add(message);
         }
 
@@ -530,7 +531,7 @@ main() {
     group('BoilerplatePropsOrState', () {
       var validateResults = <String>[];
 
-      void validateCallback(String message, [SourceSpan? span]) {
+      void validateCallback(String message, [SourceSpan span]) {
         validateResults.add(message);
       }
 
@@ -812,7 +813,7 @@ main() {
     group('BoilerplatePropsOrStateMixin', () {
       var validateResults = <String>[];
 
-      void validateCallback(String message, [SourceSpan? span]) {
+      void validateCallback(String message, [SourceSpan span]) {
         validateResults.add(message);
       }
 
@@ -939,11 +940,11 @@ main() {
       var errorList = <String>[];
       var warnList = <String>[];
 
-      void onErrorCallback(String message, [SourceSpan? span]) {
+      void onErrorCallback(String message, [SourceSpan span]) {
         errorList.add(message);
       }
 
-      void onWarnCallback(String message, [SourceSpan? span]) {
+      void onWarnCallback(String message, [SourceSpan span]) {
         warnList.add(message);
       }
 
@@ -954,9 +955,9 @@ main() {
 
       group('getPropsOrStateAnnotation', () {
         BoilerplateMembers setUpAndTestMeta(
-            {required bool isProps,
-            required bool isAbstract,
-            required String source,
+            { bool isProps,
+             bool isAbstract,
+             String source,
             bool isMixin = false}) {
           final members = BoilerplateMemberHelper.getBoilerplateMembersFromString(source);
 
@@ -992,7 +993,7 @@ main() {
         }
 
         group('and the node is a props or state class -', () {
-          late String source;
+           String source;
 
           setUp(() {
             source = OverReactSrc.state().source;
@@ -1020,7 +1021,7 @@ main() {
         });
 
         group('and the node is a props or state mixin', () {
-          late String source;
+           String source;
 
           setUp(() {
             source = OverReactSrc.mixinBasedBoilerplateState(shouldIncludeAnnotations: true).source;
@@ -1137,7 +1138,7 @@ main() {
               // to parse the declaration of `Props`.
               final classMirror = reflectClass(Props);
               final constructorMirror =
-                  classMirror.declarations[classMirror.simpleName]! as MethodMirror;
+                  classMirror.declarations[classMirror.simpleName] as MethodMirror;
               final propsConstructorParameterNames = constructorMirror.parameters
                   .map((p) => p.simpleName)
                   .map(MirrorSystem.getName)
@@ -1287,14 +1288,14 @@ main() {
             final props = members.whereType<BoilerplateProps>().first;
             final state = members.whereType<BoilerplateState>().first;
 
-            validateMetaField(props.companion!, 'PropsMeta', collector);
+            validateMetaField(props.companion, 'PropsMeta', collector);
             expect(errorList, [
               stringContainsInOrder(
                   ['Static meta field in accessor class must be of type `PropsMeta`']),
             ]);
 
             errorList = <String>[];
-            validateMetaField(state.companion!, 'StateMeta', collector);
+            validateMetaField(state.companion, 'StateMeta', collector);
             expect(errorList, [
               stringContainsInOrder(
                   ['Static meta field in accessor class must be of type `StateMeta`']),
@@ -1334,7 +1335,7 @@ main() {
             final props = members.whereType<BoilerplateProps>().first;
             final state = members.whereType<BoilerplateState>().first;
 
-            validateMetaField(props.companion!, 'PropsMeta', collector);
+            validateMetaField(props.companion, 'PropsMeta', collector);
             expect(errorList, [
               stringContainsInOrder([
                 'Static PropsMeta field in accessor class must be initialized to:`_\$metaForFooProps`'
@@ -1342,7 +1343,7 @@ main() {
             ]);
 
             errorList = <String>[];
-            validateMetaField(state.companion!, 'StateMeta', collector);
+            validateMetaField(state.companion, 'StateMeta', collector);
             expect(errorList, [
               stringContainsInOrder([
                 'Static StateMeta field in accessor class must be initialized to:`_\$metaForFooState`'

@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2021 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -25,18 +26,18 @@ void main() {
     group('returns the expected value when used on a', () {
       test('Dom component', () {
         const factory = Dom.div;
-        expect(factory.elementType, same(factory().componentFactory!.type));
+        expect(factory.elementType, same(factory().componentFactory.type));
         expect(factory.elementType, 'div');
       });
 
       test('custom composite component', () {
         final factory = CustomTest;
-        expect(factory.elementType, same(factory().componentFactory!.type));
+        expect(factory.elementType, same(factory().componentFactory.type));
       });
 
       test('custom function component', () {
         final factory = CustomFnTest;
-        expect(factory.elementType, same(factory().componentFactory!.type));
+        expect(factory.elementType, same(factory().componentFactory.type));
       });
     });
   });

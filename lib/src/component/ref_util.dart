@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2019 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -47,7 +48,7 @@ import 'package:over_react/component_base.dart';
 ///     }
 ///
 /// Learn more: <https://reactjs.org/docs/refs-and-the-dom.html#creating-refs>.
-Ref<T?> createRef<T>() => react_interop.createRef();
+Ref<T> createRef<T>() => react_interop.createRef();
 
 /// Creates a function component capable of forwarding its ref to
 /// a component it renders.
@@ -232,7 +233,7 @@ UiFactory<TProps> uiForwardRef<TProps extends bh.UiProps>(
   final displayName = config.displayName ?? getFunctionName(functionComponent);
 
   dynamic _uiFunctionWrapper(JsBackedMap props, dynamic ref) {
-    return functionComponent(propsFactory!.jsMap(props), ref);
+    return functionComponent(propsFactory.jsMap(props), ref);
   }
 
   // Always pass displayName, even if it's empty,
@@ -248,14 +249,14 @@ UiFactory<TProps> uiForwardRef<TProps extends bh.UiProps>(
         as PropsFactory<TProps>;
   }
 
-  TProps _uiFactory([Map? backingMap]) {
+  TProps _uiFactory([Map backingMap]) {
     TProps builder;
     if (backingMap == null) {
-      builder = propsFactory!.jsMap(JsBackedMap());
+      builder = propsFactory.jsMap(JsBackedMap());
     } else if (backingMap is JsBackedMap) {
-      builder = propsFactory!.jsMap(backingMap);
+      builder = propsFactory.jsMap(backingMap);
     } else {
-      builder = propsFactory!.map(backingMap);
+      builder = propsFactory.map(backingMap);
     }
 
     return builder..componentFactory = factory;

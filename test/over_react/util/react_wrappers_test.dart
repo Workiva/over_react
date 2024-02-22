@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2016 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -81,8 +82,8 @@ main() {
           final clonePropsInternal = cloneProps['internal'] as ReactDartComponentInternal ; // ignore: deprecated_member_use
           expect(originalInternal.props, clonePropsInternal.props);
 
-          var dartRendered = getDartComponent(render(original))!;
-          var dartRenderedClone = getDartComponent(render(clone))!;
+          var dartRendered = getDartComponent(render(original));
+          var dartRenderedClone = getDartComponent(render(clone));
 
           expect(dartRenderedClone, isNot(same(dartRendered)));
           expect(dartRenderedClone.props, dartRendered.props);
@@ -103,8 +104,8 @@ main() {
           Map clonePropsShallowProps = Map.from(cloneProps);
           expect(originalShallowProps, clonePropsShallowProps);
 
-          var dartRendered = getDartComponent(render(original))!;
-          var dartRenderedClone = getDartComponent(render(clone))!;
+          var dartRendered = getDartComponent(render(original));
+          var dartRenderedClone = getDartComponent(render(clone));
 
           expect(dartRenderedClone, isNot(same(dartRendered)));
           expect(dartRenderedClone.props, dartRendered.props);
@@ -142,7 +143,7 @@ main() {
           var renderedClone = render(clone);
 
           // Verify all props are equal.
-          Map cloneDartProps = getDartComponent(renderedClone)!.props;
+          Map cloneDartProps = getDartComponent(renderedClone).props;
           expect(cloneDartProps, expectedPropsMerge);
         });
 
@@ -153,7 +154,7 @@ main() {
           var renderedClone = render(clone);
 
           // Verify all props are equal.
-          Map cloneDartProps = getDartComponent(renderedClone)!.props;
+          Map cloneDartProps = getDartComponent(renderedClone).props;
           expect(cloneDartProps, expectedPropsMerge);
         });
       });
@@ -169,7 +170,7 @@ main() {
             var clone = cloneElement(original, testPropsToAdd);
 
             var renderedClone = react_test_utils.renderIntoDocument(clone);
-            var renderedCloneNode = findDomNode(renderedClone)!;
+            var renderedCloneNode = findDomNode(renderedClone);
 
             expect(renderedCloneNode.style.width, '100rem');
           });
@@ -191,7 +192,7 @@ main() {
               var clone = cloneElement(original, testPropsToAdd);
 
               var renderedClone = react_test_utils.renderIntoDocument(clone);
-              Map cloneProps = getDartComponent(renderedClone)!.props;
+              Map cloneProps = getDartComponent(renderedClone).props;
 
               var style = cloneProps['style'];
               expect(style, same(testPropsToAdd['style']), reason: 'style should be the same object passed in, unaltered');
@@ -202,7 +203,7 @@ main() {
               var clone = cloneElement(original, testPropsToAdd);
 
               var renderedClone = react_test_utils.renderIntoDocument(clone);
-              Map cloneProps = getDartComponent(renderedClone)!.props;
+              Map cloneProps = getDartComponent(renderedClone).props;
 
               var style = cloneProps['style'];
               expect(style, same(testPropsToAdd['style']), reason: 'style should be the same object passed in, unaltered');
@@ -211,8 +212,8 @@ main() {
         });
 
         group('event callbacks', () {
-          late Map testPropsToAdd;
-          late bool onClickWasCalled;
+           Map testPropsToAdd;
+           bool onClickWasCalled;
 
           setUp(() {
             onClickWasCalled = false;
@@ -258,7 +259,7 @@ main() {
               var clone = cloneElement(original, testPropsToAdd);
 
               var renderedClone = react_test_utils.renderIntoDocument(clone);
-              Map cloneProps = getDartComponent(renderedClone)!.props;
+              Map cloneProps = getDartComponent(renderedClone).props;
 
               expect(() {
                 // Retrieve the callback passed to the component.
@@ -275,7 +276,7 @@ main() {
               var clone = cloneElement(original, testPropsToAdd);
 
               var renderedClone = react_test_utils.renderIntoDocument(clone);
-              Map cloneProps = getDartComponent(renderedClone)!.props;
+              Map cloneProps = getDartComponent(renderedClone).props;
 
               expect(() {
                 // Retrieve the callback passed to the component.
@@ -318,12 +319,12 @@ main() {
         });
 
         test('for a Dart Component', () {
-          late ReactElement original;
-          late ReactElement clone;
+           ReactElement original;
+           ReactElement clone;
 
           // The 'ref' property can only be used from within a render() method, so use RenderingContainerComponent
           // to clone and render the test component.
-          var holder = RenderingContainerComponentFactory!({
+          var holder = RenderingContainerComponentFactory({
             'renderer': () {
               original = TestComponentFactory(originalKeyRefProps, testChildren);
               clone = cloneElement(original, overrideKeyRefProps);
@@ -340,18 +341,18 @@ main() {
 
           var renderedClone = react_test_utils.findRenderedComponentWithTypeV2(renderedHolder, TestComponentFactory);
 
-          Map cloneDartProps = getDartComponent(renderedClone)!.props;
+          Map cloneDartProps = getDartComponent(renderedClone).props;
           expect(cloneDartProps, isNot(anyOf(contains('key'), contains('ref'))),
               reason: '"key" and "ref" should not be visible to the rendered cloned component');
         });
 
         test('for a Dart Component2', () {
-          late ReactElement original;
-          late ReactElement clone;
+           ReactElement original;
+           ReactElement clone;
 
           // The 'ref' property can only be used from within a render() method, so use RenderingContainerComponent
           // to clone and render the test component.
-          var holder = RenderingContainerComponentFactory!({
+          var holder = RenderingContainerComponentFactory({
             'renderer': () {
               original = TestComponent2Factory(originalKeyRefProps, testChildren);
               clone = cloneElement(original, overrideKeyRefProps);
@@ -391,7 +392,7 @@ main() {
           expect(clonePropsChildren, testOverrideChildren);
 
           // Verify that children are overridden according to the Dart component.
-          Map cloneDartProps = getDartComponent(renderedClone)!.props;
+          Map cloneDartProps = getDartComponent(renderedClone).props;
           expect(cloneDartProps['children'], testOverrideChildren);
         });
 
@@ -406,7 +407,7 @@ main() {
           expect(clonePropsChildren, testOverrideChildren);
 
           // Verify that children are overridden according to the Dart component.
-          Map cloneDartProps = getDartComponent(renderedClone)!.props;
+          Map cloneDartProps = getDartComponent(renderedClone).props;
           expect(cloneDartProps['children'], testOverrideChildren);
         });
       });
@@ -421,7 +422,7 @@ main() {
 
         // The 'ref' property can only be used from within a render() method, so use RenderingContainerComponent
         // to clone and render the test component.
-        var holder = RenderingContainerComponentFactory!({
+        var holder = RenderingContainerComponentFactory({
           'renderer': () {
             var original = TestComponentFactory({'ref': callbackRef}, testChildren);
             var clone = cloneElement(original, {});
@@ -582,14 +583,14 @@ main() {
 
         test('returns null and warns when passed a ReactElement', () {
           var instance = Wrapper()();
-          late dynamic result;
+           dynamic result;
           expect(() => result = getDartComponent(instance), prints(messageMatcher));
           expect(result, isNull);
         }, tags: 'ddc');
 
         test('returns null and does not when passed a ReactElement in JS', () {
           var instance = Wrapper()();
-          late dynamic result;
+           dynamic result;
           expect(() => result = getDartComponent(instance), isNot(prints(messageMatcher)));
           expect(result, isNull);
         }, tags: 'no-ddc');
@@ -675,7 +676,7 @@ main() {
       });
 
       {
-        void sharedGetPropsTests({required bool isComponent2}) {
+        void sharedGetPropsTests({ bool isComponent2}) {
           final factory = isComponent2 ? TestComponent2Factory : TestComponentFactory;
 
           group('returns props for a Dart ${isComponent2 ? 'Component2' : 'Component'}', () {
@@ -926,7 +927,7 @@ main() {
           });
 
           {
-            void sharedGetPropsWrapperTests({required bool isComponent2, required bool isRendered}) {
+            void sharedGetPropsWrapperTests({ bool isComponent2,  bool isRendered}) {
               final testComponentFactory = isComponent2 ? TestComponentFactory : TestComponent2Factory;
               final oneLevelWrapperFactory = isComponent2 ? OneLevelWrapper : OneLevelWrapper2;
               final twoLevelWrapperFactory = isComponent2 ? TwoLevelWrapper : TwoLevelWrapper2;
@@ -1121,9 +1122,9 @@ main() {
 
     group('chainRef', () {
       group('returns a ref that chains with the existing ref', () {
-        late List calls;
+         List calls;
         dynamic ref;
-        TestJacket? jacket;
+        TestJacket jacket;
         dynamic expectedRefValue;
 
         setUp(() {
@@ -1141,7 +1142,7 @@ main() {
           // so that component isn't unmounted by the time the expectations are called.
 
           group('and the provided instance is', () {
-            late void Function() runExpectations;
+             void Function() runExpectations;
 
             setUp(() {
               runExpectations = expectAsync0(() {
@@ -1157,7 +1158,7 @@ main() {
               });
 
               jacket = mount(cloneElement(instanceWithRef, {'ref': chainedRef}));
-              expectedRefValue = jacket!.getDartInstance();
+              expectedRefValue = jacket.getDartInstance();
               // ignore: deprecated_member_use
               expect(expectedRefValue, isA<react.Component>(), reason: 'test setup sanity check');
 
@@ -1171,7 +1172,7 @@ main() {
               });
 
               jacket = mount(cloneElement(instanceWithRef, {'ref': chainedRef}));
-              expectedRefValue = jacket!.getDartInstance();
+              expectedRefValue = jacket.getDartInstance();
               expect(expectedRefValue, isA<react.Component2>(), reason: 'test setup sanity check');
 
               runExpectations();
@@ -1184,7 +1185,7 @@ main() {
               });
 
               jacket = mount(cloneElement(instanceWithRef, {'ref': chainedRef}));
-              expectedRefValue = jacket!.getInstance();
+              expectedRefValue = jacket.getInstance();
 
               runExpectations();
             });
@@ -1196,7 +1197,7 @@ main() {
               });
 
               jacket = mount(cloneElement(instanceWithRef, domProps()..ref = chainedRef));
-              expectedRefValue = jacket!.getNode();
+              expectedRefValue = jacket.getNode();
 
               runExpectations();
             });
@@ -1312,7 +1313,7 @@ class PlainObjectStyleMap {
 }
 
 /// Helper component that renders whatever you tell it to. Necessary for rendering components with the 'ref' prop.
-final RenderingContainerComponentFactory = react.registerComponent(() => RenderingContainerComponent()) as ReactDartComponentFactoryProxy?; // ignore: deprecated_member_use
+final RenderingContainerComponentFactory = react.registerComponent(() => RenderingContainerComponent()) as ReactDartComponentFactoryProxy; // ignore: deprecated_member_use
 
 // ignore: deprecated_member_use
 class RenderingContainerComponent extends react.Component {

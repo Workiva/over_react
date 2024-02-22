@@ -1,3 +1,4 @@
+// @dart=2.11
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 // ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators, invalid_use_of_visible_for_overriding_member
@@ -38,7 +39,7 @@ class TestParentProps extends _$TestParentProps
   static const PropsMeta meta = _$metaForTestParentProps;
 }
 
-_$$TestParentProps _$TestParent([Map? backingProps]) =>
+_$$TestParentProps _$TestParent([Map backingProps]) =>
     _$$TestParentProps(backingProps);
 
 // Concrete props implementation.
@@ -49,7 +50,7 @@ class _$$TestParentProps extends _$TestParentProps
     implements TestParentProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestParentProps(Map? backingMap) : this._props = {} {
+  _$$TestParentProps(Map backingMap) : this._props = {} {
     this._props = backingMap ?? {};
   }
 
@@ -87,7 +88,7 @@ const _$getPropKey$_$$TestParentProps = getPropKey;
 // generated for the associated props class.
 class _$TestParentComponent extends TestParentComponent {
   @override
-  _$$TestParentProps typedPropsFactory(Map? backingMap) =>
+  _$$TestParentProps typedPropsFactory(Map backingMap) =>
       _$$TestParentProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.

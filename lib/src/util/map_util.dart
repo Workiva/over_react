@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2016 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -33,8 +34,8 @@ import '../component_declaration/builder_helpers.dart';
 Map getPropsToForward(Map props, {
     bool omitReactProps = true,
     bool onlyCopyDomProps = false,
-    Iterable? keysToOmit,
-    Iterable<Iterable>? keySetsToOmit
+    Iterable keysToOmit,
+    Iterable<Iterable> keySetsToOmit
 }) {
   Map propsToForward = JsBackedMap.from(props);
 
@@ -82,9 +83,9 @@ Map getPropsToForward(Map props, {
 void forwardUnconsumedProps(Map props, {
   bool omitReactProps = true,
   bool onlyCopyDomProps = false,
-  Iterable? keysToOmit,
-  Iterable<Iterable>? keySetsToOmit,
-  required Map propsToUpdate,
+  Iterable keysToOmit,
+  Iterable<Iterable> keySetsToOmit,
+   Map propsToUpdate,
 }) {
   if (onlyCopyDomProps) {
     for (final key in props.keys) {
@@ -138,9 +139,9 @@ void forwardUnconsumedProps(Map props, {
 void forwardUnconsumedPropsV2(Map props, {
   bool omitReactProps = true,
   bool onlyCopyDomProps = false,
-  Iterable? keysToOmit,
-  Iterable<Iterable>? keySetsToOmit,
-  required Map propsToUpdate,
+  Iterable keysToOmit,
+  Iterable<Iterable> keySetsToOmit,
+   Map propsToUpdate,
 }) {
     for (final key in props.keys) {
       if (keysToOmit != null && keysToOmit.contains(key)) continue;
@@ -182,7 +183,7 @@ void forwardUnconsumedPropsV2(Map props, {
 /// Returns a copy of the [DomPropsMixin.style] map found in [props].
 ///
 /// Returns an empty map if [props] or its style map are `null`.
-Map<String, dynamic> newStyleFromProps(Map? props) {
+Map<String, dynamic> newStyleFromProps(Map props) {
   if (props == null) return <String, dynamic>{};
 
   var existingStyle = domProps(props).style;

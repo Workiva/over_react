@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,16 +20,16 @@ part 'basic_with_state.over_react.g.dart';
 UiFactory<BasicProps> Basic = castUiFactory(_$Basic); // ignore: undefined_identifier
 
 mixin BasicProps on UiProps {
-  String? basicProp;
-  String? basic1;
-  String? basic2;
-  String? basic3;
-  String? basic4;
-  String? basic5;
+  String basicProp;
+  String basic1;
+  String basic2;
+  String basic3;
+  String basic4;
+  String basic5;
 }
 
 mixin BasicState on UiState {
-  String? basicState;
+  String basicState;
 }
 
 class BasicComponent extends UiStatefulComponent2<BasicProps, BasicState> {

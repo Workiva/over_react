@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -37,7 +38,7 @@ class _$ToggleButtonProps extends ButtonProps with
   ///
   /// Default: `false`
   @Accessor(keyNamespace: '')
-  bool? autoFocus;
+  bool autoFocus;
 
   /// Whether the [ToggleButton] is checked by default.
   ///
@@ -52,7 +53,7 @@ class _$ToggleButtonProps extends ButtonProps with
   ///
   /// See: <https://facebook.github.io/react/docs/forms.html#uncontrolled-components>.
   @Accessor(keyNamespace: '')
-  bool? defaultChecked;
+  bool defaultChecked;
 
   /// Whether the [ToggleButton] is checked.
   ///
@@ -66,7 +67,7 @@ class _$ToggleButtonProps extends ButtonProps with
   ///
   /// See: <https://facebook.github.io/react/docs/forms.html#controlled-components>.
   @Accessor(keyNamespace: '')
-  bool? checked;
+  bool checked;
 }
 
 @State()
@@ -76,12 +77,12 @@ class _$ToggleButtonState extends ButtonState with
   /// class.
   ///
   /// Initial: `ToggleButtonProps.autoFocus`
-  bool? isFocused;
+  bool isFocused;
 
   /// Tracks if the [ToggleButton] input is `checked`. Determines whether to render with the `active` CSS class.
   ///
   /// Initial: `ToggleButtonProps.checked ?? ToggleButtonProps.defaultChecked ?? false`
-  bool? isChecked;
+  bool isChecked;
 }
 
 @Component(subtypeOf: ButtonComponent)
@@ -142,7 +143,7 @@ class ToggleButtonComponent extends ButtonComponent<ToggleButtonProps, ToggleBut
 
   ReactElement renderInput() {
     var builder = Dom.input()
-      ..type = props.toggleType!.typeName
+      ..type = props.toggleType.typeName
       ..id = id
       ..name = props.name
       ..tabIndex = props.tabIndex
@@ -202,7 +203,7 @@ class ToggleButtonComponent extends ButtonComponent<ToggleButtonProps, ToggleBut
   /// Does not refresh the state if `ToggleButtonProps.checked` is not null
   /// (the component is a "controlled" component).
   void refreshState() {
-    if (!_isControlled) setState(newState()..isChecked = inputRef.current!.checked);
+    if (!_isControlled) setState(newState()..isChecked = inputRef.current.checked);
   }
 
   void _validateProps(ToggleButtonProps props) {
@@ -216,10 +217,10 @@ class ToggleButtonComponent extends ButtonComponent<ToggleButtonProps, ToggleBut
   bool get _isControlled => props.checked != null;
 
   @override
-  bool? get isActive => state.isChecked;
+  bool get isActive => state.isChecked;
 
   @override
-  String? get type => null;
+  String get type => null;
 
   @override
   BuilderOnlyUiFactory<DomProps> get buttonDomNodeFactory => Dom.label;
@@ -228,6 +229,6 @@ class ToggleButtonComponent extends ButtonComponent<ToggleButtonProps, ToggleBut
   ///
   /// Attempts to use [AbstractInputPropsMixin.id] _(specified by the consumer)_, falling back to
   /// [AbstractInputStateMixin.id] _(auto-generated)_.
-  String get id => props.id ?? state.id!;
+  String get id => props.id ?? state.id;
 }
 

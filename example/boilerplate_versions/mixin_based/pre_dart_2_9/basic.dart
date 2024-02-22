@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2021 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,13 +22,13 @@ UiFactory<BasicProps> Basic = _$Basic; // ignore: undefined_identifier, invalid_
 mixin BasicProps on UiProps {
   @Deprecated('This is deprecated')
   @requiredProp
-  String? basicProp;
+  String basicProp;
 
-  String? basic1;
-  String? basic2;
-  String? basic3;
-  String? basic4;
-  String? basic5;
+  String basic1;
+  String basic2;
+  String basic3;
+  String basic4;
+  String basic5;
 }
 
 class BasicComponent extends UiComponent2<BasicProps> {

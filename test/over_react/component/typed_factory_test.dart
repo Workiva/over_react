@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -44,12 +45,12 @@ UiFactory<TypedFactoryTesterProps> TypedFactoryTester = _$TypedFactoryTester;
 
 @Props()
 class _$TypedFactoryTesterProps extends UiProps {
-  bool? testProp;
+  bool testProp;
 }
 
 @State()
 class _$TypedFactoryTesterState extends UiState {
-  bool? testState;
+  bool testState;
 }
 
 @Component2()

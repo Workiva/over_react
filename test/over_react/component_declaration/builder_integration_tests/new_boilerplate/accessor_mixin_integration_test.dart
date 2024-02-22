@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -157,7 +158,7 @@ class TestUiStateBaseClass extends UiState {
 UiFactory<TestPropsMixin> Test = _$Test; // ignore: undefined_identifier, invalid_assignment
 
 mixin TestPropsMixin on UiProps {
-  String? stringProp;
+  String stringProp;
   dynamic dynamicProp;
   var untypedProp; // ignore: prefer_typing_uninitialized_variables
 
@@ -178,7 +179,7 @@ UiFactory<TestCustomNamespaceProps> TestCustomNamespace =
 
 @PropsMixin(keyNamespace: 'custom mixin namespace**')
 mixin TestCustomNamespacePropsMixin on UiProps {
-  String? stringProp;
+  String stringProp;
   dynamic dynamicProp;
   var untypedProp; // ignore: prefer_typing_uninitialized_variables
 
@@ -194,7 +195,7 @@ mixin TestCustomNamespacePropsMixin on UiProps {
 
 @Props(keyNamespace: 'custom mixin namespace from @Props**')
 mixin TestCustomNamespaceWithPropsAnnotationPropsMixin on UiProps {
-  String? propsAnnotationProp;
+  String propsAnnotationProp;
 }
 
 class TestCustomNamespaceProps = UiProps
@@ -203,7 +204,7 @@ class TestCustomNamespaceProps = UiProps
 // ---
 
 mixin TestStateMixin on UiState {
-  String? stringState;
+  String stringState;
   dynamic dynamicState;
   var untypedState; // ignore: prefer_typing_uninitialized_variables
 
@@ -224,7 +225,7 @@ class TestState = TestUiStateBaseClass with TestStateMixin, $TestStateMixin;
 
 @StateMixin(keyNamespace: 'custom mixin namespace**')
 mixin TestCustomNamespaceStateMixin on UiState {
-  String? stringState;
+  String stringState;
   dynamic dynamicState;
   var untypedState; // ignore: prefer_typing_uninitialized_variables
 
@@ -240,7 +241,7 @@ mixin TestCustomNamespaceStateMixin on UiState {
 
 @State(keyNamespace: 'custom mixin namespace from @State**')
 mixin TestCustomNamespaceWithStateAnnotationStateMixin on UiState {
-  String? stateAnnotationState;
+  String stateAnnotationState;
 }
 
 class TestCustomNamespaceState = TestUiStateBaseClass

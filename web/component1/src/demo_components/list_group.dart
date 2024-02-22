@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -34,7 +35,7 @@ class _$ListGroupProps extends UiProps {
   /// DOM representation when rendered.
   ///
   /// Default: [ListGroupElementType.DIV]
-  ListGroupElementType? elementType;
+  ListGroupElementType elementType;
 }
 
 @Component()
@@ -49,7 +50,7 @@ class ListGroupComponent extends UiComponent<ListGroupProps> {
     var classes = forwardingClassNameBuilder()
       ..add('list-group');
 
-    return (props.elementType!.componentBuilderFactory()
+    return (props.elementType.componentBuilderFactory()
       ..addProps(copyUnconsumedDomProps())
       ..className = classes.toClassName()
     )(props.children);

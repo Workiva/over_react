@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,7 +23,7 @@ part 'big_block.over_react.g.dart';
 UiFactory<BigBlockProps> BigBlock = castUiFactory(_$BigBlock); // ignore: undefined_identifier
 
 mixin BigBlockPropsMixin on UiProps {
-  late AnotherColorStore store2;
+   AnotherColorStore store2;
 }
 
 class BigBlockProps = UiProps

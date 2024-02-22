@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -112,8 +113,8 @@ main() {
     });
 
     group('VersionConfidence', () {
-      late VersionConfidences versionConfidence;
-      late VersionConfidences otherVersionConfidence;
+       VersionConfidences versionConfidence;
+       VersionConfidences otherVersionConfidence;
 
       setUp(() {
         versionConfidence = VersionConfidences(

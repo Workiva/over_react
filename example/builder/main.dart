@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -72,7 +73,7 @@ main() {
         componentConstructorsByName.keys.map((name) => Dom.div()(
           'new $name()',
           ' - ',
-          componentConstructorsByName[name]!().toString(),
+          componentConstructorsByName[name]().toString(),
         )).toList(),
         (SomeParent()
           ..aParentProp = 'parent'

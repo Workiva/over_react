@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,8 +22,8 @@ UiFactory<NullabilityProps> Nullability = castUiFactory(_$Nullability); // ignor
 
 mixin NullabilityPropsMixin on UiProps {
   dynamic dynamicProp;
-  String? nullable;
-  late String nonNullable;
+  String nullable;
+   String nonNullable;
 }
 
 class NullabilityProps = UiProps with NullabilityPropsMixin;

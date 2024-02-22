@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -56,7 +57,7 @@ class ComponentFactoryProxyGenerator extends BoilerplateDeclarationGenerator {
     String parentTypeParam;
     String parentTypeParamComment = '';
 
-    Identifier? parentType = component.configSubtypeOf;
+    Identifier parentType = component.configSubtypeOf;
     if (parentType != null) {
       parentTypeParamComment = ' /* from `subtypeOf: ${getSpan(sourceFile, parentType).text}` */';
 

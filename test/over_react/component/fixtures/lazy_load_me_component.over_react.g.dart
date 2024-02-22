@@ -1,3 +1,4 @@
+// @dart=2.11
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 // ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators, invalid_use_of_visible_for_overriding_member
@@ -34,9 +35,9 @@ abstract class _$$LazyLoadMeProps extends UiProps
         LazyLoadMeProps {
   _$$LazyLoadMeProps._();
 
-  factory _$$LazyLoadMeProps(Map? backingMap) {
+  factory _$$LazyLoadMeProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$LazyLoadMeProps$JsMap(backingMap as JsBackedMap?);
+      return _$$LazyLoadMeProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$LazyLoadMeProps$PlainMap(backingMap);
     }
@@ -72,7 +73,7 @@ const _$getPropKey$_$$LazyLoadMeProps = getPropKey;
 class _$$LazyLoadMeProps$PlainMap extends _$$LazyLoadMeProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$LazyLoadMeProps$PlainMap(Map? backingMap)
+  _$$LazyLoadMeProps$PlainMap(Map backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -91,7 +92,7 @@ class _$$LazyLoadMeProps$PlainMap extends _$$LazyLoadMeProps {
 class _$$LazyLoadMeProps$JsMap extends _$$LazyLoadMeProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$LazyLoadMeProps$JsMap(JsBackedMap? backingMap)
+  _$$LazyLoadMeProps$JsMap(JsBackedMap backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();

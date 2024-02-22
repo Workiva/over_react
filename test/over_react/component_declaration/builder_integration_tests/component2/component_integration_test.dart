@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2016 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -35,7 +36,7 @@ main() {
       )());
       expect(instance, isNotNull);
 
-      var node = findDomNode(instance)!;
+      var node = findDomNode(instance);
       expect(node.text, 'rendered content');
       expect(node.dataset, containsPair('prop-string-prop', '1'));
       expect(node.dataset, containsPair('prop-dynamic-prop', '2'));
@@ -51,7 +52,7 @@ main() {
           (IsErrorBoundary())(Flawed()()),
           attachedToDocument: true,
         );
-        queryByTestId(jacket.getInstance(), 'flawedComponent_flawedButton')!.click();
+        queryByTestId(jacket.getInstance(), 'flawedComponent_flawedButton').click();
         expect(IsErrorBoundaryComponent.calls, unorderedEquals(['getDerivedStateFromError','componentDidCatch']));
       });
 
@@ -60,7 +61,7 @@ main() {
           (IsNotErrorBoundary())(Flawed()()),
           attachedToDocument: true,
         );
-        queryByTestId(jacket.getInstance(), 'flawedComponent_flawedButton')!.click();
+        queryByTestId(jacket.getInstance(), 'flawedComponent_flawedButton').click();
         expect(IsNotErrorBoundaryComponent.calls, []);
       });
     });
@@ -135,7 +136,7 @@ main() {
         expect(ComponentTest().getPropKey((p) => p.customKeyAndNamespaceProp),
             'custom namespace~~custom key!');
 
-        late final ComponentTestProps getPropKeyArg;
+          ComponentTestProps getPropKeyArg;
         ComponentTest().getPropKey((p) {
           getPropKeyArg = p;
           p.id; // Access a prop so that this doesn't throw
@@ -173,9 +174,9 @@ main() {
         )());
 
         var shallowProps = getProps(shallowInstance);
-        Iterable<String?> shallowPropKeys = shallowProps.keys.map((key) => key as String?); // ignore: avoid_as
+        Iterable<String> shallowPropKeys = shallowProps.keys.map((key) => key as String); // ignore: avoid_as
 
-        expect(shallowPropKeys.where((key) => !key!.startsWith('data-prop-')), unorderedEquals(['id', 'extraneous', 'children']));
+        expect(shallowPropKeys.where((key) => !key.startsWith('data-prop-')), unorderedEquals(['id', 'extraneous', 'children']));
       });
     });
   });
@@ -186,9 +187,9 @@ UiFactory<ComponentTestProps> ComponentTest = _$ComponentTest; // ignore: undefi
 
 @Props()
 class _$ComponentTestProps extends UiProps {
-  String? stringProp;
-  bool? shouldSetPropsDirectly;
-  bool? shouldUseJsFactory;
+  String stringProp;
+  bool shouldSetPropsDirectly;
+  bool shouldUseJsFactory;
   dynamic dynamicProp;
   var untypedProp; // ignore: prefer_typing_uninitialized_variables
 
@@ -223,8 +224,8 @@ class ComponentTestComponent extends UiComponent2<ComponentTestProps> {
 
   @override
   void componentDidMount() {
-    if (props.shouldSetPropsDirectly!) {
-      if (props.shouldUseJsFactory!) {
+    if (props.shouldSetPropsDirectly) {
+      if (props.shouldUseJsFactory) {
         this.props = typedPropsFactoryJs(JsBackedMap());
       } else {
         this.props = {'shouldSetPropsDirectly': false};

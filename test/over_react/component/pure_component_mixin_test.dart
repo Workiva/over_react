@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -25,15 +26,15 @@ main() {
   group('PureComponentMixin', () {
     const initialChildren = ['initial'];
     const nextChildren = ['next'];
-    late TestJacket<PureTestWrapperComponent> jacket;
+     TestJacket<PureTestWrapperComponent> jacket;
 
-    PureTestComponent? getChildPureComponent() => jacket.getDartInstance()!.pureComponentRef.current;
+    PureTestComponent getChildPureComponent() => jacket.getDartInstance().pureComponentRef.current;
 
     void doInitialRender({bool supportsPropChildren = true, bool addVDomElToProps = false}) {
       jacket = mount(PureTestWrapper()(
         initialChildren,
       ));
-      final pureDartComponent = getChildPureComponent()!;
+      final pureDartComponent = getChildPureComponent();
 
       expect(pureDartComponent, isNotNull, reason: 'test setup sanity check');
       expect(pureDartComponent.props.children, initialChildren, reason: 'test setup sanity check');
@@ -42,28 +43,28 @@ main() {
             'so we can assert that functions that are not anonymous closures do not cause '
             'redraws every time `shouldComponentUpdate` is called.');
       expect(pureDartComponent.redrawCount, 0, reason: 'test setup sanity check');
-      expect(jacket.getDartInstance()!.redrawCount, 0, reason: 'test setup sanity check');
+      expect(jacket.getDartInstance().redrawCount, 0, reason: 'test setup sanity check');
     }
 
     group('prevents component updates', () {
       group('when a parent component redraws', () {
         test('', () {
           doInitialRender();
-          jacket.getDartInstance()!.forceUpdate();
+          jacket.getDartInstance().forceUpdate();
 
-          expect(jacket.getDartInstance()!.redrawCount, 1);
-          expect(getChildPureComponent()!.redrawCount, 0);
+          expect(jacket.getDartInstance().redrawCount, 1);
+          expect(getChildPureComponent().redrawCount, 0);
         });
 
         test('unless the redraw results in new props being received', () {
           doInitialRender();
-          final currentSharedBoolPropValue = jacket.getDartInstance()!.props.sharedBoolProp!;
+          final currentSharedBoolPropValue = jacket.getDartInstance().props.sharedBoolProp;
           jacket.rerender((PureTestWrapper()..sharedBoolProp = !currentSharedBoolPropValue)(
             initialChildren,
           ));
 
-          expect(jacket.getDartInstance()!.redrawCount, 1);
-          expect(getChildPureComponent()!.redrawCount, 1);
+          expect(jacket.getDartInstance().redrawCount, 1);
+          expect(getChildPureComponent().redrawCount, 1);
         });
 
         test('unless the redraw results in a new prop with a ReactElement value being received', () {
@@ -72,8 +73,8 @@ main() {
             initialChildren,
           ));
 
-          expect(jacket.getDartInstance()!.redrawCount, 1);
-          expect(getChildPureComponent()!.redrawCount, 1);
+          expect(jacket.getDartInstance().redrawCount, 1);
+          expect(getChildPureComponent().redrawCount, 1);
         });
 
         test('unless the redraw results in new children being received', () {
@@ -82,8 +83,8 @@ main() {
             nextChildren,
           ));
 
-          expect(jacket.getDartInstance()!.redrawCount, 1);
-          expect(getChildPureComponent()!.redrawCount, 1);
+          expect(jacket.getDartInstance().redrawCount, 1);
+          expect(getChildPureComponent().redrawCount, 1);
         });
       });
     });
@@ -92,7 +93,7 @@ main() {
       setUp(doInitialRender);
 
       test('when forceUpdate() is called', () {
-        final pureComponent = getChildPureComponent()!;
+        final pureComponent = getChildPureComponent();
         pureComponent.forceUpdate();
 
         expect(pureComponent.redrawCount, 1);
@@ -100,21 +101,21 @@ main() {
 
       group('when setState() is called', () {
         test('with an updated internal state value', () {
-          final pureComponent = getChildPureComponent()!;
-          pureComponent.setState(pureComponent.newState()..childBoolState = !pureComponent.state.childBoolState!);
+          final pureComponent = getChildPureComponent();
+          pureComponent.setState(pureComponent.newState()..childBoolState = !pureComponent.state.childBoolState);
 
           expect(pureComponent.redrawCount, 1);
         });
 
         test('unless it is called with a null value', () {
-          final pureComponent = getChildPureComponent()!;
+          final pureComponent = getChildPureComponent();
           pureComponent.setState(null);
 
           expect(pureComponent.redrawCount, 0);
         });
 
         test('unless it is called with an empty map', () {
-          final pureComponent = getChildPureComponent()!;
+          final pureComponent = getChildPureComponent();
           pureComponent.setState(pureComponent.newState());
 
           expect(pureComponent.redrawCount, 0);

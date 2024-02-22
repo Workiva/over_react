@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,12 +18,12 @@ import 'package:over_react/over_react.dart';
 part 'props_mixin.over_react.g.dart';
 
 mixin ExamplePropsMixin on UiProps {
-  String? propMixin1;
-  late String requiredProp;
+  String propMixin1;
+   String requiredProp;
 }
 
 mixin RequiresOtherMixinPropsMixin<T extends Iterable, U>
     on UiProps, ExamplePropsMixin {
-  String? otherPropMixin;
+  String otherPropMixin;
 }
 

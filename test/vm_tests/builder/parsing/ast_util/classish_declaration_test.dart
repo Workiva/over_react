@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -105,7 +106,7 @@ main() {
 
             expect(parseAndGetSingleClassish('''
               class Foo extends Bar {}
-            ''').superclass?.name.name, 'Bar');
+            ''').superclass?.name?.name, 'Bar');
           });
 
           test('mixins', () {
@@ -180,7 +181,7 @@ main() {
           test('superclass', () {
             expect(parseAndGetSingleClassish('''
               class Foo = Bar with Baz;
-            ''').superclass?.name.name, 'Bar');
+            ''').superclass?.name?.name, 'Bar');
           });
 
           test('mixins', () {

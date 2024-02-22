@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -31,7 +32,7 @@ export 'parsing/util.dart';
 export 'parsing/version.dart';
 
 Iterable<BoilerplateDeclaration> parseDeclarations(
-    CompilationUnit unit, ErrorCollector? errorCollector) {
+    CompilationUnit unit, ErrorCollector errorCollector) {
   final members = detectBoilerplateMembers(unit);
   return getBoilerplateDeclarations(members, errorCollector);
 }

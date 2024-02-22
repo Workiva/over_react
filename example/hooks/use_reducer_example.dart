@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,7 +23,7 @@ Map initializeCount(int initialValue) {
 }
 
 Map reducer(Map state, Map action) {
-  switch (action['type'] as String?) {
+  switch (action['type'] as String) {
     case 'increment':
       return {...state, 'count': state['count'] + 1};
     case 'decrement':
@@ -35,7 +36,7 @@ Map reducer(Map state, Map action) {
 }
 
 mixin UseReducerExampleProps on UiProps {
-  int? initialCount;
+  int initialCount;
 }
 
 UiFactory<UseReducerExampleProps> UseReducerExample = uiFunction(

@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2016 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -67,7 +68,7 @@ class ValidationUtil {
   ///         // console warning when asserts are enabled.
   ///         tags: 'ddc');
   ///     );
-  static bool warn(String message, [Object? data]) {
+  static bool warn(String message, [Object data]) {
     WARNING_COUNT += 1;
 
     onWarning?.call(message);
@@ -102,12 +103,12 @@ class ValidationUtil {
   /// Useful for verifying warnings in unit tests.
   ///
   /// > See: `startRecordingValidationWarnings`
-  static ValidationUtilWarningCallback? onWarning;
+  static ValidationUtilWarningCallback onWarning;
 }
 
 class ValidationWarning extends Error {
   /// Message describing the problem.
-  final String? message;
+  final String message;
 
   ValidationWarning([this.message]);
 }

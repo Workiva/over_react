@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,11 +20,11 @@ part 'little_block.over_react.g.dart';
 UiFactory<LittleBlockProps> LittleBlock = castUiFactory(_$LittleBlock); // ignore: undefined_identifier
 
 mixin LittleBlockProps on UiProps {
-  String? backgroundColor;
+  String backgroundColor;
 
-  String? colorString;
+  String colorString;
 
-  String? blockTitle;
+  String blockTitle;
 }
 
 class LittleBlockComponent extends UiComponent2<LittleBlockProps> {

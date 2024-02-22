@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2019 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,7 +21,7 @@ UiFactory<TestCustomRendererFromAbstractComponentProps> TestCustomRendererFromAb
 
 @Props()
 class _$TestCustomRendererFromAbstractComponentProps extends TestAbstractCustomRendererComponentProps {
-  String? someInitialStateKeyValue;
+  String someInitialStateKeyValue;
 }
 
 @State()

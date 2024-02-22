@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2021 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -32,7 +33,7 @@ class CounterState {
   CounterState({
     this.count = 0,
     this.name = 'Counter',
-    DartModelCounter? modelCount,
+    DartModelCounter modelCount,
   }) : this.modelCount = modelCount ?? DartModelCounter(count: count);
 
   @override

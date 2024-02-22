@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,7 +24,7 @@ import '../../test_util/test_util.dart';
 
 main() {
   group('composeHocs', () {
-    late Store<CounterState> store1;
+     Store<CounterState> store1;
 
     setUp(() {
       store1 = Store(counterStateReducer, initialState: CounterState());
@@ -91,8 +92,8 @@ main() {
       );
 
       final composeHocNodeAttributes =
-          queryByTestId(jacket.getNode(), 'compose-hoc')!.attributes;
-      final verboseHocNode = queryByTestId(jacket.getNode(), 'verbose-hoc')!;
+          queryByTestId(jacket.getNode(), 'compose-hoc').attributes;
+      final verboseHocNode = queryByTestId(jacket.getNode(), 'verbose-hoc');
 
       expect(composeHocNodeAttributes, containsPair('data-0', data0));
       expect(composeHocNodeAttributes, containsPair('data-1', data1));

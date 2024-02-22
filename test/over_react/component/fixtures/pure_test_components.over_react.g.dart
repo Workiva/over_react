@@ -1,3 +1,4 @@
+// @dart=2.11
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 // ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators, invalid_use_of_visible_for_overriding_member
@@ -20,7 +21,7 @@ final $PureTestWrapperComponentFactory = registerComponent2(
   parentType: null,
 );
 
-_$$PureTestWrapperProps _$PureTestWrapper([Map? backingProps]) =>
+_$$PureTestWrapperProps _$PureTestWrapper([Map backingProps]) =>
     backingProps == null
         ? _$$PureTestWrapperProps$JsMap(JsBackedMap())
         : _$$PureTestWrapperProps(backingProps);
@@ -39,9 +40,9 @@ abstract class _$$PureTestWrapperProps extends UiProps
         PureTestWrapperProps {
   _$$PureTestWrapperProps._();
 
-  factory _$$PureTestWrapperProps(Map? backingMap) {
+  factory _$$PureTestWrapperProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$PureTestWrapperProps$JsMap(backingMap as JsBackedMap?);
+      return _$$PureTestWrapperProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$PureTestWrapperProps$PlainMap(backingMap);
     }
@@ -82,7 +83,7 @@ const _$getPropKey$_$$PureTestWrapperProps = getPropKey;
 class _$$PureTestWrapperProps$PlainMap extends _$$PureTestWrapperProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$PureTestWrapperProps$PlainMap(Map? backingMap)
+  _$$PureTestWrapperProps$PlainMap(Map backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -101,7 +102,7 @@ class _$$PureTestWrapperProps$PlainMap extends _$$PureTestWrapperProps {
 class _$$PureTestWrapperProps$JsMap extends _$$PureTestWrapperProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$PureTestWrapperProps$JsMap(JsBackedMap? backingMap)
+  _$$PureTestWrapperProps$JsMap(JsBackedMap backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -120,7 +121,7 @@ class _$$PureTestWrapperProps$JsMap extends _$$PureTestWrapperProps {
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
 class _$PureTestWrapperComponent extends PureTestWrapperComponent {
-  late _$$PureTestWrapperProps$JsMap _cachedTypedProps;
+   _$$PureTestWrapperProps$JsMap _cachedTypedProps;
 
   @override
   _$$PureTestWrapperProps$JsMap get props => _cachedTypedProps;
@@ -140,11 +141,11 @@ class _$PureTestWrapperComponent extends PureTestWrapperComponent {
   }
 
   @override
-  _$$PureTestWrapperProps$JsMap typedPropsFactoryJs(JsBackedMap? backingMap) =>
+  _$$PureTestWrapperProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
       _$$PureTestWrapperProps$JsMap(backingMap);
 
   @override
-  _$$PureTestWrapperProps typedPropsFactory(Map? backingMap) =>
+  _$$PureTestWrapperProps typedPropsFactory(Map backingMap) =>
       _$$PureTestWrapperProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
@@ -179,7 +180,7 @@ final $PureTestComponentFactory = registerComponent2(
   parentType: null,
 );
 
-_$$PureTestProps _$PureTest([Map? backingProps]) => backingProps == null
+_$$PureTestProps _$PureTest([Map backingProps]) => backingProps == null
     ? _$$PureTestProps$JsMap(JsBackedMap())
     : _$$PureTestProps(backingProps);
 
@@ -200,9 +201,9 @@ abstract class _$$PureTestProps extends UiProps
         PureTestProps {
   _$$PureTestProps._();
 
-  factory _$$PureTestProps(Map? backingMap) {
+  factory _$$PureTestProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$PureTestProps$JsMap(backingMap as JsBackedMap?);
+      return _$$PureTestProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$PureTestProps$PlainMap(backingMap);
     }
@@ -247,7 +248,7 @@ const _$getPropKey$_$$PureTestProps = getPropKey;
 class _$$PureTestProps$PlainMap extends _$$PureTestProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$PureTestProps$PlainMap(Map? backingMap)
+  _$$PureTestProps$PlainMap(Map backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -266,7 +267,7 @@ class _$$PureTestProps$PlainMap extends _$$PureTestProps {
 class _$$PureTestProps$JsMap extends _$$PureTestProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$PureTestProps$JsMap(JsBackedMap? backingMap)
+  _$$PureTestProps$JsMap(JsBackedMap backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -290,9 +291,9 @@ abstract class _$$PureTestState extends UiState
         $PureTestState {
   _$$PureTestState._();
 
-  factory _$$PureTestState(Map? backingMap) {
+  factory _$$PureTestState(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$PureTestState$JsMap(backingMap as JsBackedMap?);
+      return _$$PureTestState$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$PureTestState$PlainMap(backingMap);
     }
@@ -309,7 +310,7 @@ abstract class _$$PureTestState extends UiState
 class _$$PureTestState$PlainMap extends _$$PureTestState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$PureTestState$PlainMap(Map? backingMap)
+  _$$PureTestState$PlainMap(Map backingMap)
       : this._state = {},
         super._() {
     this._state = backingMap ?? {};
@@ -328,7 +329,7 @@ class _$$PureTestState$PlainMap extends _$$PureTestState {
 class _$$PureTestState$JsMap extends _$$PureTestState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$PureTestState$JsMap(JsBackedMap? backingMap)
+  _$$PureTestState$JsMap(JsBackedMap backingMap)
       : this._state = JsBackedMap(),
         super._() {
     this._state = backingMap ?? JsBackedMap();
@@ -347,7 +348,7 @@ class _$$PureTestState$JsMap extends _$$PureTestState {
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
 class _$PureTestComponent extends PureTestComponent {
-  late _$$PureTestProps$JsMap _cachedTypedProps;
+   _$$PureTestProps$JsMap _cachedTypedProps;
 
   @override
   _$$PureTestProps$JsMap get props => _cachedTypedProps;
@@ -367,14 +368,14 @@ class _$PureTestComponent extends PureTestComponent {
   }
 
   @override
-  _$$PureTestProps$JsMap typedPropsFactoryJs(JsBackedMap? backingMap) =>
+  _$$PureTestProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
       _$$PureTestProps$JsMap(backingMap);
 
   @override
-  _$$PureTestProps typedPropsFactory(Map? backingMap) =>
+  _$$PureTestProps typedPropsFactory(Map backingMap) =>
       _$$PureTestProps(backingMap);
 
-  late _$$PureTestState$JsMap _cachedTypedState;
+   _$$PureTestState$JsMap _cachedTypedState;
   @override
   _$$PureTestState$JsMap get state => _cachedTypedState;
 
@@ -389,11 +390,11 @@ class _$PureTestComponent extends PureTestComponent {
   }
 
   @override
-  _$$PureTestState$JsMap typedStateFactoryJs(JsBackedMap? backingMap) =>
+  _$$PureTestState$JsMap typedStateFactoryJs(JsBackedMap backingMap) =>
       _$$PureTestState$JsMap(backingMap);
 
   @override
-  _$$PureTestState typedStateFactory(Map? backingMap) =>
+  _$$PureTestState typedStateFactory(Map backingMap) =>
       _$$PureTestState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
@@ -424,17 +425,17 @@ class _$PureTestComponent extends PureTestComponent {
 mixin $PureTestPropsMixin on PureTestPropsMixin {
   static const PropsMeta meta = _$metaForPureTestPropsMixin;
   @override
-  bool? get childBoolProp =>
-      (props[_$key__childBoolProp__PureTestPropsMixin] ?? null) as bool?;
+  bool get childBoolProp =>
+      (props[_$key__childBoolProp__PureTestPropsMixin] ?? null) as bool;
   @override
-  set childBoolProp(bool? value) =>
+  set childBoolProp(bool value) =>
       props[_$key__childBoolProp__PureTestPropsMixin] = value;
   @override
-  void Function()? get childFuncProp =>
+  void Function() get childFuncProp =>
       (props[_$key__childFuncProp__PureTestPropsMixin] ?? null) as void
-          Function()?;
+          Function();
   @override
-  set childFuncProp(void Function()? value) =>
+  set childFuncProp(void Function() value) =>
       props[_$key__childFuncProp__PureTestPropsMixin] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__childBoolProp__PureTestPropsMixin =
@@ -476,17 +477,17 @@ const PropsMeta _$metaForPureTestPropsMixin = PropsMeta(
 mixin $SharedPureTestPropsMixin on SharedPureTestPropsMixin {
   static const PropsMeta meta = _$metaForSharedPureTestPropsMixin;
   @override
-  bool? get sharedBoolProp =>
-      (props[_$key__sharedBoolProp__SharedPureTestPropsMixin] ?? null) as bool?;
+  bool get sharedBoolProp =>
+      (props[_$key__sharedBoolProp__SharedPureTestPropsMixin] ?? null) as bool;
   @override
-  set sharedBoolProp(bool? value) =>
+  set sharedBoolProp(bool value) =>
       props[_$key__sharedBoolProp__SharedPureTestPropsMixin] = value;
   @override
-  ReactElement? get someVDomEl =>
+  ReactElement get someVDomEl =>
       (props[_$key__someVDomEl__SharedPureTestPropsMixin] ?? null)
-          as ReactElement?;
+          as ReactElement;
   @override
-  set someVDomEl(ReactElement? value) =>
+  set someVDomEl(ReactElement value) =>
       props[_$key__someVDomEl__SharedPureTestPropsMixin] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__sharedBoolProp__SharedPureTestPropsMixin =
@@ -528,10 +529,10 @@ const PropsMeta _$metaForSharedPureTestPropsMixin = PropsMeta(
 mixin $PureTestState on PureTestState {
   static const StateMeta meta = _$metaForPureTestState;
   @override
-  bool? get childBoolState =>
-      (state[_$key__childBoolState__PureTestState] ?? null) as bool?;
+  bool get childBoolState =>
+      (state[_$key__childBoolState__PureTestState] ?? null) as bool;
   @override
-  set childBoolState(bool? value) =>
+  set childBoolState(bool value) =>
       state[_$key__childBoolState__PureTestState] = value;
   /* GENERATED CONSTANTS */
   static const StateDescriptor _$prop__childBoolState__PureTestState =

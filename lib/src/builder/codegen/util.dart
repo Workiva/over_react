@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -50,9 +51,9 @@ abstract class BoilerplateDeclarationGenerator with TemporaryGenerationContext {
 /// Since these variables can't be non-nullable, expose non-nullable getters so that we don't have
 /// to use `!` everywhere, and so that we get better error messages if they're ever null.
 mixin TemporaryGenerationContext {
-  SourceFile? _sourceFile;
-  StringBuffer? _outputContentsBuffer;
-  Logger? _logger;
+  SourceFile _sourceFile;
+  StringBuffer _outputContentsBuffer;
+  Logger _logger;
 
   StateError _uninitializedError(String name) =>
       StateError('$name is null. setGenerationContext must be called first to initialize it.');
@@ -64,9 +65,9 @@ mixin TemporaryGenerationContext {
 
   /// Populates fields needed temporarily for generation.
   void setGenerationContext({
-    required SourceFile sourceFile,
-    required StringBuffer outputContentsBuffer,
-    required Logger logger,
+     SourceFile sourceFile,
+     StringBuffer outputContentsBuffer,
+     Logger logger,
   }) {
     _sourceFile = sourceFile;
     _outputContentsBuffer = outputContentsBuffer;
@@ -90,7 +91,7 @@ String getAccessorKeyNamespace(TypedMapNames names, annotations.TypedMap meta) {
   return specifiedKeyNamespace ?? defaultNamespace;
 }
 
-String generatedMixinWarningCommentLine(TypedMapNames mixinNames, {required bool isProps}) {
+String generatedMixinWarningCommentLine(TypedMapNames mixinNames, { bool isProps}) {
   final value = '// If this generated mixin is undefined, it\'s likely because'
       ' ${mixinNames.consumerName} is not a valid `mixin`-based ${isProps ? 'props' : 'state'} mixin,'
       ' or because it is but the generated mixin was not imported.'

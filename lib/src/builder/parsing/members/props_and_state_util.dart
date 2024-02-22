@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -47,14 +48,15 @@ class _PropsStateStringHelpersImpl extends Object with PropsStateStringHelpers {
   @override
   final bool isProps;
 
-  _PropsStateStringHelpersImpl({required this.isProps});
+  _PropsStateStringHelpersImpl({ this.isProps});
 }
 
 /// Uses [InstantiatedMeta] to analyze [node] and determine the proper annotation.
 annotations.TypedMap getPropsOrStateAnnotation(bool isProps, AnnotatedNode node) {
-  late final defaultValue = isProps ? annotations.Props() : annotations.State();
+   // FIXME(nnbd_unmigrate) previously-late variable with initializer
+ final defaultValue = isProps ? annotations.Props() : annotations.State();
 
-  InstantiatedMeta<annotations.TypedMap>? meta;
+  InstantiatedMeta<annotations.TypedMap> meta;
   try {
     meta = isProps
         ? (InstantiatedMeta.fromNode<annotations.Props>(node) ??

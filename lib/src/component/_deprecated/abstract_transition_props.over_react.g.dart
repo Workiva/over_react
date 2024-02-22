@@ -1,3 +1,4 @@
+// @dart=2.11
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 // ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators, invalid_use_of_visible_for_overriding_member
@@ -25,8 +26,8 @@ abstract class TransitionPropsMixin implements _$TransitionPropsMixin {
   ///
   /// <!-- Generated from [_$TransitionPropsMixin.transitionCount] -->
   @override
-  int? get transitionCount =>
-      (props[_$key__transitionCount___$TransitionPropsMixin] ?? null) as int?;
+  int get transitionCount =>
+      (props[_$key__transitionCount___$TransitionPropsMixin] ?? null) as int;
 
   /// The number of `transitionend` event that occur when the transition node is shown/hidden.
   ///
@@ -36,7 +37,7 @@ abstract class TransitionPropsMixin implements _$TransitionPropsMixin {
   ///
   /// <!-- Generated from [_$TransitionPropsMixin.transitionCount] -->
   @override
-  set transitionCount(int? value) =>
+  set transitionCount(int value) =>
       props[_$key__transitionCount___$TransitionPropsMixin] = value;
 
   /// The number of `transitionend` event that occur when the transition node is shown.
@@ -45,8 +46,8 @@ abstract class TransitionPropsMixin implements _$TransitionPropsMixin {
   ///
   /// <!-- Generated from [_$TransitionPropsMixin.transitionInCount] -->
   @override
-  int? get transitionInCount =>
-      (props[_$key__transitionInCount___$TransitionPropsMixin] ?? null) as int?;
+  int get transitionInCount =>
+      (props[_$key__transitionInCount___$TransitionPropsMixin] ?? null) as int;
 
   /// The number of `transitionend` event that occur when the transition node is shown.
   ///
@@ -54,7 +55,7 @@ abstract class TransitionPropsMixin implements _$TransitionPropsMixin {
   ///
   /// <!-- Generated from [_$TransitionPropsMixin.transitionInCount] -->
   @override
-  set transitionInCount(int? value) =>
+  set transitionInCount(int value) =>
       props[_$key__transitionInCount___$TransitionPropsMixin] = value;
 
   /// The number of `transitionend` event that occur when the transition node is hidden.
@@ -63,9 +64,9 @@ abstract class TransitionPropsMixin implements _$TransitionPropsMixin {
   ///
   /// <!-- Generated from [_$TransitionPropsMixin.transitionOutCount] -->
   @override
-  int? get transitionOutCount =>
+  int get transitionOutCount =>
       (props[_$key__transitionOutCount___$TransitionPropsMixin] ?? null)
-          as int?;
+          as int;
 
   /// The number of `transitionend` event that occur when the transition node is hidden.
   ///
@@ -73,7 +74,7 @@ abstract class TransitionPropsMixin implements _$TransitionPropsMixin {
   ///
   /// <!-- Generated from [_$TransitionPropsMixin.transitionOutCount] -->
   @override
-  set transitionOutCount(int? value) =>
+  set transitionOutCount(int value) =>
       props[_$key__transitionOutCount___$TransitionPropsMixin] = value;
 
   /// Optional callback that fires before the [AbstractTransitionComponent] is hidden.
@@ -82,8 +83,8 @@ abstract class TransitionPropsMixin implements _$TransitionPropsMixin {
   ///
   /// <!-- Generated from [_$TransitionPropsMixin.onWillHide] -->
   @override
-  Callback? get onWillHide =>
-      (props[_$key__onWillHide___$TransitionPropsMixin] ?? null) as Callback?;
+  Callback get onWillHide =>
+      (props[_$key__onWillHide___$TransitionPropsMixin] ?? null) as Callback;
 
   /// Optional callback that fires before the [AbstractTransitionComponent] is hidden.
   ///
@@ -91,21 +92,21 @@ abstract class TransitionPropsMixin implements _$TransitionPropsMixin {
   ///
   /// <!-- Generated from [_$TransitionPropsMixin.onWillHide] -->
   @override
-  set onWillHide(Callback? value) =>
+  set onWillHide(Callback value) =>
       props[_$key__onWillHide___$TransitionPropsMixin] = value;
 
   /// Optional callback that fires after the [AbstractTransitionComponent] is hidden.
   ///
   /// <!-- Generated from [_$TransitionPropsMixin.onDidHide] -->
   @override
-  Callback? get onDidHide =>
-      (props[_$key__onDidHide___$TransitionPropsMixin] ?? null) as Callback?;
+  Callback get onDidHide =>
+      (props[_$key__onDidHide___$TransitionPropsMixin] ?? null) as Callback;
 
   /// Optional callback that fires after the [AbstractTransitionComponent] is hidden.
   ///
   /// <!-- Generated from [_$TransitionPropsMixin.onDidHide] -->
   @override
-  set onDidHide(Callback? value) =>
+  set onDidHide(Callback value) =>
       props[_$key__onDidHide___$TransitionPropsMixin] = value;
 
   /// Optional callback that fires before the [AbstractTransitionComponent] appears.
@@ -114,8 +115,8 @@ abstract class TransitionPropsMixin implements _$TransitionPropsMixin {
   ///
   /// <!-- Generated from [_$TransitionPropsMixin.onWillShow] -->
   @override
-  Callback? get onWillShow =>
-      (props[_$key__onWillShow___$TransitionPropsMixin] ?? null) as Callback?;
+  Callback get onWillShow =>
+      (props[_$key__onWillShow___$TransitionPropsMixin] ?? null) as Callback;
 
   /// Optional callback that fires before the [AbstractTransitionComponent] appears.
   ///
@@ -123,21 +124,21 @@ abstract class TransitionPropsMixin implements _$TransitionPropsMixin {
   ///
   /// <!-- Generated from [_$TransitionPropsMixin.onWillShow] -->
   @override
-  set onWillShow(Callback? value) =>
+  set onWillShow(Callback value) =>
       props[_$key__onWillShow___$TransitionPropsMixin] = value;
 
   /// Optional callback that fires after the [AbstractTransitionComponent] appears.
   ///
   /// <!-- Generated from [_$TransitionPropsMixin.onDidShow] -->
   @override
-  Callback? get onDidShow =>
-      (props[_$key__onDidShow___$TransitionPropsMixin] ?? null) as Callback?;
+  Callback get onDidShow =>
+      (props[_$key__onDidShow___$TransitionPropsMixin] ?? null) as Callback;
 
   /// Optional callback that fires after the [AbstractTransitionComponent] appears.
   ///
   /// <!-- Generated from [_$TransitionPropsMixin.onDidShow] -->
   @override
-  set onDidShow(Callback? value) =>
+  set onDidShow(Callback value) =>
       props[_$key__onDidShow___$TransitionPropsMixin] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__transitionCount___$TransitionPropsMixin =

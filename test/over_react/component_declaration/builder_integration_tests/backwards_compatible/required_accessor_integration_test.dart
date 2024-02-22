@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2016 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -185,7 +186,7 @@ class _$ComponentTestProps extends UiProps {
   @Accessor(isRequired: true, isNullable: true, requiredErrorMessage: 'This prop can be set to null!')
   dynamic nullable;
 
-  late bool lateProp;
+   bool lateProp;
 }
 
 @Component()

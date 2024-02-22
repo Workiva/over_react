@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2022 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -25,7 +26,7 @@ void sharedErrorBoundaryStackTests() {
   group(
       'includes the Dart component displayName in error boundary errors for', () {
     void expectRenderErrorWithComponentName(ReactElement element,
-        {required String expectedComponentName}) {
+        { String expectedComponentName}) {
       final capturedInfos = <ReactErrorInfo>[];
       expect(() {
         rtl.render((ErrorBoundary()

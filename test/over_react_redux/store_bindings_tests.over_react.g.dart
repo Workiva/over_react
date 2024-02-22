@@ -1,3 +1,4 @@
+// @dart=2.11
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 // ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators, invalid_use_of_visible_for_overriding_member
@@ -14,18 +15,18 @@ part of 'store_bindings_tests.dart';
 mixin $TestSelectorProps on TestSelectorProps {
   static const PropsMeta meta = _$metaForTestSelectorProps;
   @override
-  void Function(Object? selectedValue)? get onRender =>
+  void Function(Object selectedValue) get onRender =>
       (props[_$key__onRender__TestSelectorProps] ?? null) as void Function(
-          Object? selectedValue)?;
+          Object selectedValue);
   @override
-  set onRender(void Function(Object? selectedValue)? value) =>
+  set onRender(void Function(Object selectedValue) value) =>
       props[_$key__onRender__TestSelectorProps] = value;
   @override
-  bool Function(dynamic next, dynamic prev)? get equality =>
+  bool Function(dynamic next, dynamic prev) get equality =>
       (props[_$key__equality__TestSelectorProps] ?? null) as bool Function(
-          dynamic next, dynamic prev)?;
+          dynamic next, dynamic prev);
   @override
-  set equality(bool Function(dynamic next, dynamic prev)? value) =>
+  set equality(bool Function(dynamic next, dynamic prev) value) =>
       props[_$key__equality__TestSelectorProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__onRender__TestSelectorProps =
@@ -67,11 +68,11 @@ const PropsMeta _$metaForTestSelectorProps = PropsMeta(
 mixin $TestConnectPropsMixin on TestConnectPropsMixin {
   static const PropsMeta meta = _$metaForTestConnectPropsMixin;
   @override
-  Object? get interestingValue =>
+  Object get interestingValue =>
       (props[_$key__interestingValue__TestConnectPropsMixin] ?? null)
-          as Object?;
+          as Object;
   @override
-  set interestingValue(Object? value) =>
+  set interestingValue(Object value) =>
       props[_$key__interestingValue__TestConnectPropsMixin] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__interestingValue__TestConnectPropsMixin =
@@ -126,9 +127,9 @@ abstract class _$$TestSelectorProps extends UiProps
         $TestSelectorProps {
   _$$TestSelectorProps._();
 
-  factory _$$TestSelectorProps(Map? backingMap) {
+  factory _$$TestSelectorProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestSelectorProps$JsMap(backingMap as JsBackedMap?);
+      return _$$TestSelectorProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$TestSelectorProps$PlainMap(backingMap);
     }
@@ -164,7 +165,7 @@ const _$getPropKey$_$$TestSelectorProps = getPropKey;
 class _$$TestSelectorProps$PlainMap extends _$$TestSelectorProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestSelectorProps$PlainMap(Map? backingMap)
+  _$$TestSelectorProps$PlainMap(Map backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -183,7 +184,7 @@ class _$$TestSelectorProps$PlainMap extends _$$TestSelectorProps {
 class _$$TestSelectorProps$JsMap extends _$$TestSelectorProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestSelectorProps$JsMap(JsBackedMap? backingMap)
+  _$$TestSelectorProps$JsMap(JsBackedMap backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -226,9 +227,9 @@ abstract class _$$TestConnectProps extends UiProps
         TestConnectProps {
   _$$TestConnectProps._();
 
-  factory _$$TestConnectProps(Map? backingMap) {
+  factory _$$TestConnectProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestConnectProps$JsMap(backingMap as JsBackedMap?);
+      return _$$TestConnectProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$TestConnectProps$PlainMap(backingMap);
     }
@@ -266,7 +267,7 @@ const _$getPropKey$_$$TestConnectProps = getPropKey;
 class _$$TestConnectProps$PlainMap extends _$$TestConnectProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestConnectProps$PlainMap(Map? backingMap)
+  _$$TestConnectProps$PlainMap(Map backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -285,7 +286,7 @@ class _$$TestConnectProps$PlainMap extends _$$TestConnectProps {
 class _$$TestConnectProps$JsMap extends _$$TestConnectProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestConnectProps$JsMap(JsBackedMap? backingMap)
+  _$$TestConnectProps$JsMap(JsBackedMap backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();

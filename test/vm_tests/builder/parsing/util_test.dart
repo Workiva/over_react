@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,8 +20,8 @@ import 'package:test/test.dart';
 main() {
   group('parsing utils - ', () {
     group('Union', () {
-      late Union<String, int> unionA;
-      late Union<String, int> unionB;
+       Union<String, int> unionA;
+       Union<String, int> unionB;
 
       setUp(() {
         unionA = Union.a('test');

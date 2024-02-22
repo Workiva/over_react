@@ -1,3 +1,4 @@
+// @dart=2.11
 import 'package:over_react/over_react.dart';
 import 'package:react/react_client/component_factory.dart';
 
@@ -31,9 +32,9 @@ UiFactory<TProps> uiJsComponent<TProps extends UiProps>(
   // ignore: invalid_use_of_protected_member
   final propsFactory = (_config as UiFactoryConfig<TProps>).propsFactory;
   ArgumentError.checkNotNull(propsFactory, '_config.propsFactory');
-  propsFactory!;
+  propsFactory;
 
-  TProps _uiFactory([Map? backingMap]) {
+  TProps _uiFactory([Map backingMap]) {
     TProps builder;
     if (backingMap == null) {
       builder = propsFactory.jsMap(JsBackedMap());

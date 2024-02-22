@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -54,7 +55,7 @@ const versionDescriptions = {
 ///
 /// Meant to be used in conjunction with [BoilerplateVersions] and [versionDescriptions]
 /// to allow for tests to iterate over component versions, generating the appropriate boilerplate.
-String getBoilerplateString({required BoilerplateVersions version, String? deprecatedLifecycleMethod, String? componentBaseName}) {
+String getBoilerplateString({ BoilerplateVersions version, String deprecatedLifecycleMethod, String componentBaseName}) {
   var deprecatedMethod = '';
 
   componentBaseName ??= 'Foo';
@@ -291,7 +292,7 @@ class BoilerplateMemberHelper {
     return detectBoilerplateMembers(unit);
   }
 
-  static Iterable<BoilerplateMember> getBoilerplateMembersForVersion(BoilerplateVersions version, {String? componentBaseName}) {
+  static Iterable<BoilerplateMember> getBoilerplateMembersForVersion(BoilerplateVersions version, {String componentBaseName}) {
     final source = getBoilerplateString(version: version, componentBaseName: componentBaseName);
     return getBoilerplateMembersFromString(source).allMembers;
   }

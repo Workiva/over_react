@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2016 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -36,7 +37,7 @@ void main() {
       });
 
       test('on re-render', () {
-        late TestJacket jacket;
+         TestJacket jacket;
 
         expect(() {
           jacket = mount(
@@ -70,7 +71,7 @@ void main() {
       });
 
       test('on re-render', () {
-        late TestJacket jacket;
+         TestJacket jacket;
 
         expect(() {
           jacket = mount(
@@ -103,7 +104,7 @@ void main() {
       });
 
       test('on re-render', () {
-        late TestJacket jacket;
+         TestJacket jacket;
 
         expect(() {
           jacket = mount(
@@ -166,7 +167,7 @@ void main() {
       });
 
       test('on re-render', () {
-        late TestJacket jacket;
+         TestJacket jacket;
 
         expect(() {
           jacket = mount(
@@ -224,7 +225,7 @@ class _$ComponentTestProps extends UiProps {
   dynamic nullable;
 
   @requiredProp
-  List? requiredAndLengthLimited;
+  List requiredAndLengthLimited;
 }
 
 @Component2()

@@ -1,3 +1,4 @@
+// @dart=2.11
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 // ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators, invalid_use_of_visible_for_overriding_member
@@ -20,16 +21,16 @@ mixin $TestProps on TestProps {
   set requiredProp(String value) =>
       props[_$key__requiredProp__TestProps] = value;
   @override
-  String? get requiredNullableProp =>
-      (props[_$key__requiredNullableProp__TestProps] ?? null) as String?;
+  String get requiredNullableProp =>
+      (props[_$key__requiredNullableProp__TestProps] ?? null) as String;
   @override
-  set requiredNullableProp(String? value) =>
+  set requiredNullableProp(String value) =>
       props[_$key__requiredNullableProp__TestProps] = value;
   @override
-  String? get optionalProp =>
-      (props[_$key__optionalProp__TestProps] ?? null) as String?;
+  String get optionalProp =>
+      (props[_$key__optionalProp__TestProps] ?? null) as String;
   @override
-  set optionalProp(String? value) =>
+  set optionalProp(String value) =>
       props[_$key__optionalProp__TestProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__requiredProp__TestProps = PropDescriptor(
@@ -82,7 +83,7 @@ const PropsMeta _$metaForTestProps = PropsMeta(
   keys: $TestProps.$propKeys,
 );
 
-_$$TestProps _$Test([Map? backingProps]) => backingProps == null
+_$$TestProps _$Test([Map backingProps]) => backingProps == null
     ? _$$TestProps$JsMap(JsBackedMap())
     : _$$TestProps(backingProps);
 
@@ -98,9 +99,9 @@ abstract class _$$TestProps extends UiProps
         $TestProps {
   _$$TestProps._();
 
-  factory _$$TestProps(Map? backingMap) {
+  factory _$$TestProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestProps$JsMap(backingMap as JsBackedMap?);
+      return _$$TestProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$TestProps$PlainMap(backingMap);
     }
@@ -135,7 +136,7 @@ const _$getPropKey$_$$TestProps = getPropKey;
 class _$$TestProps$PlainMap extends _$$TestProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestProps$PlainMap(Map? backingMap)
+  _$$TestProps$PlainMap(Map backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -154,7 +155,7 @@ class _$$TestProps$PlainMap extends _$$TestProps {
 class _$$TestProps$JsMap extends _$$TestProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestProps$JsMap(JsBackedMap? backingMap)
+  _$$TestProps$JsMap(JsBackedMap backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();

@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -32,7 +33,7 @@ extension TryCast<T> on T {
   ///     // With tryCast
   ///     final block = node.body?.tryCast<BlockFunctionBody>()?.block;
   ///
-  S? tryCast<S extends T>() {
+  S tryCast<S extends T>() {
     final value = this;
     return value is S ? value : null;
   }
@@ -43,7 +44,7 @@ extension IterableUtil<E> on Iterable<E> {
   /// if no such element is found.
   ///
   /// Throws a [StateError] if there is no matching element and [orElse] is omitted.
-  T firstWhereType<T>({T Function()? orElse}) =>
+  T firstWhereType<T>({T Function() orElse}) =>
       whereType<T>().firstWhere((_) => true, orElse: orElse);
 }
 
@@ -52,8 +53,8 @@ extension IterableUtil<E> on Iterable<E> {
 ///
 /// Subset of package:union functionality
 class Union<A extends Object, B extends Object> {
-  final A? a;
-  final B? b;
+  final A a;
+  final B b;
 
   Union.a(A this.a) : b = null;
   Union.b(B this.b) : a = null;
@@ -61,7 +62,7 @@ class Union<A extends Object, B extends Object> {
   /// Executes a callback based upon which field is set.
   T switchCase<T>(T Function(A) onA, T Function(B) onB) {
     final a = this.a;
-    return a != null ? onA(a) : onB(b!);
+    return a != null ? onA(a) : onB(b);
   }
 }
 
@@ -71,5 +72,5 @@ class Union<A extends Object, B extends Object> {
 extension UnionHelper<C extends Object> on Union<C, C> {
   /// Access [a] or [b] while allowing the analyzer to provide type inference
   /// when possible.
-  C get either => (a ?? b)!;
+  C get either => (a ?? b);
 }

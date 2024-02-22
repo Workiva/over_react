@@ -1,3 +1,4 @@
+// @dart=2.11
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 // ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators, invalid_use_of_visible_for_overriding_member
@@ -37,7 +38,7 @@ class DomTestProps extends _$DomTestProps with _$DomTestPropsAccessorsMixin {
   static const PropsMeta meta = _$metaForDomTestProps;
 }
 
-_$$DomTestProps _$DomTest([Map? backingProps]) => backingProps == null
+_$$DomTestProps _$DomTest([Map backingProps]) => backingProps == null
     ? _$$DomTestProps$JsMap(JsBackedMap())
     : _$$DomTestProps(backingProps);
 
@@ -49,9 +50,9 @@ abstract class _$$DomTestProps extends _$DomTestProps
     implements DomTestProps {
   _$$DomTestProps._();
 
-  factory _$$DomTestProps(Map? backingMap) {
+  factory _$$DomTestProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$DomTestProps$JsMap(backingMap as JsBackedMap?);
+      return _$$DomTestProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$DomTestProps$PlainMap(backingMap);
     }
@@ -83,7 +84,7 @@ const _$getPropKey$_$$DomTestProps = getPropKey;
 class _$$DomTestProps$PlainMap extends _$$DomTestProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$DomTestProps$PlainMap(Map? backingMap)
+  _$$DomTestProps$PlainMap(Map backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -100,7 +101,7 @@ class _$$DomTestProps$PlainMap extends _$$DomTestProps {
 class _$$DomTestProps$JsMap extends _$$DomTestProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$DomTestProps$JsMap(JsBackedMap? backingMap)
+  _$$DomTestProps$JsMap(JsBackedMap backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -117,7 +118,7 @@ class _$$DomTestProps$JsMap extends _$$DomTestProps {
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$DomTestComponent extends DomTestComponent {
-  late _$$DomTestProps$JsMap _cachedTypedProps;
+   _$$DomTestProps$JsMap _cachedTypedProps;
 
   @override
   _$$DomTestProps$JsMap get props => _cachedTypedProps;
@@ -137,11 +138,11 @@ class _$DomTestComponent extends DomTestComponent {
   }
 
   @override
-  _$$DomTestProps$JsMap typedPropsFactoryJs(JsBackedMap? backingMap) =>
+  _$$DomTestProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
       _$$DomTestProps$JsMap(backingMap);
 
   @override
-  _$$DomTestProps typedPropsFactory(Map? backingMap) =>
+  _$$DomTestProps typedPropsFactory(Map backingMap) =>
       _$$DomTestProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.

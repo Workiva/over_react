@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2019 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,7 +23,7 @@ import './fixtures/prop_typedef_fixtures.dart';
 main() {
   // Regression tests for https://github.com/dart-lang/sdk/issues/38880
   group('CustomRenderFunction typedef', () {
-    TestJacket? jacket;
+    TestJacket jacket;
 
     tearDown(() {
       jacket = null;
@@ -30,10 +31,10 @@ main() {
 
     void sharedTest() {
       final customRendererContainerNode =
-          queryByTestId(jacket!.getInstance(), 'customRendererContainer')!;
+          queryByTestId(jacket.getInstance(), 'customRendererContainer');
       expect(customRendererContainerNode, isNotNull, reason: 'test setup sanity check');
       final parameterizedCustomRendererContainerNode =
-          queryByTestId(jacket!.getInstance(), 'parameterizedCustomRendererContainer')!;
+          queryByTestId(jacket.getInstance(), 'parameterizedCustomRendererContainer');
       expect(parameterizedCustomRendererContainerNode, isNotNull, reason: 'test setup sanity check');
 
       expect(customRendererContainerNode.text, 'props.somePropKey: foo \nprops.someStateKey: bar');

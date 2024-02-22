@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -32,17 +33,17 @@ class _$ButtonGroupProps extends UiProps {
   /// See: <http://v4-alpha.getbootstrap.com/components/button-group/#sizing>.
   ///
   /// Default: [ButtonGroupSize.DEFAULT]
-  ButtonGroupSize? size;
+  ButtonGroupSize size;
 
   /// The [ButtonSkin] variation applied to every [Button] within the [ButtonGroup].
-  ButtonSkin? skin;
+  ButtonSkin skin;
 
   /// Make the [Button]s within a [ButtonGroup] stack vertically.
   ///
   /// See: <http://v4-alpha.getbootstrap.com/components/button-group/#vertical-variation>.
   ///
   /// Default: false
-  bool? isVertical;
+  bool isVertical;
 }
 
 @State()
@@ -76,17 +77,17 @@ class ButtonGroupComponent<T extends ButtonGroupProps, S extends ButtonGroupStat
 
   ClassNameBuilder getButtonGroupClasses() {
     return forwardingClassNameBuilder()
-      ..add('btn-group', !props.isVertical!)
-      ..add('btn-group-vertical', props.isVertical!)
-      ..add(props.size!.className);
+      ..add('btn-group', !props.isVertical)
+      ..add('btn-group-vertical', props.isVertical)
+      ..add(props.size.className);
   }
 
   /// Renders a list of [Button]s using [renderButton].
   List<dynamic> renderButtons() {
     final buttons = [];
 
-    for (int index = 0; index < props.children!.length; index++) {
-      buttons.add(renderButton(props.children![index], index));
+    for (int index = 0; index < props.children.length; index++) {
+      buttons.add(renderButton(props.children[index], index));
     }
 
     return buttons;

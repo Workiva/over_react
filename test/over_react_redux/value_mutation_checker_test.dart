@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,7 +25,7 @@ main() {
       sharedHashTests(() => CollectionLengthHasher());
 
       group('hash', () {
-        late CollectionLengthHasher hasher;
+         CollectionLengthHasher hasher;
 
         setUp(() {
           hasher = CollectionLengthHasher();
@@ -60,7 +61,7 @@ main() {
       sharedHashTests(() => CollectionShallowHasher());
 
       group('hash', () {
-        late CollectionShallowHasher hasher;
+         CollectionShallowHasher hasher;
 
         setUp(() {
           hasher = CollectionShallowHasher();
@@ -89,7 +90,7 @@ main() {
 }
 
 void sharedHashTests(InstanceHasher Function() getHasher) {
-  late InstanceHasher hasher;
+   InstanceHasher hasher;
 
   setUp(() {
     hasher = getHasher();

@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -29,20 +30,20 @@ abstract class TypedMapImplGenerator extends BoilerplateDeclarationGenerator {
   // than all of the different subclasses.
 
   factory TypedMapImplGenerator.legacyProps(LegacyClassComponentDeclaration declaration,
-      {required bool nullSafety}) = _LegacyTypedMapImplGenerator.props;
+      { bool nullSafety}) = _LegacyTypedMapImplGenerator.props;
 
   factory TypedMapImplGenerator.legacyState(LegacyClassComponentDeclaration declaration,
-      {required bool nullSafety}) = _LegacyTypedMapImplGenerator.state;
+      { bool nullSafety}) = _LegacyTypedMapImplGenerator.state;
 
   factory TypedMapImplGenerator.props(ClassComponentDeclaration declaration,
-      {required bool nullSafety}) = _TypedMapImplGenerator.props;
+      { bool nullSafety}) = _TypedMapImplGenerator.props;
 
   factory TypedMapImplGenerator.state(ClassComponentDeclaration declaration,
-      {required bool nullSafety}) = _TypedMapImplGenerator.state;
+      { bool nullSafety}) = _TypedMapImplGenerator.state;
 
   factory TypedMapImplGenerator.propsMapViewOrFunctionComponent(
       PropsMapViewOrFunctionComponentDeclaration declaration,
-      {required bool nullSafety}) = _TypedMapImplGenerator.propsMapViewOrFunctionComponent;
+      { bool nullSafety}) = _TypedMapImplGenerator.propsMapViewOrFunctionComponent;
 
   TypedMapNames get names;
 
@@ -54,11 +55,11 @@ abstract class TypedMapImplGenerator extends BoilerplateDeclarationGenerator {
 
   bool get nullSafety;
 
-  Set<String>? get requiredPropNamesToSkipValidation;
+  Set<String> get requiredPropNamesToSkipValidation;
 
   static Set<String> _getRequiredPropNamesToSkipValidation({
-    required annotations.TypedMap propsMeta,
-    required BoilerplateComponent? component,
+     annotations.TypedMap propsMeta,
+     BoilerplateComponent component,
   }) {
     // In addition to @Props, this could also be @PropsMixin or @AbstractProps.
     // The options we're interested in are only available in @Props,
@@ -72,7 +73,7 @@ abstract class TypedMapImplGenerator extends BoilerplateDeclarationGenerator {
 
   BoilerplateTypedMapMember get member;
 
-  TypeParameterList? get typeParameters => member.nodeHelper.typeParameters;
+  TypeParameterList get typeParameters => member.nodeHelper.typeParameters;
 
   String get typeParamsOnClass => typeParameters?.toSource() ?? '';
 
@@ -154,9 +155,9 @@ abstract class TypedMapImplGenerator extends BoilerplateDeclarationGenerator {
   ///     this.foo.bar.baz.qux.isOpen;
   ///
   String _generateConcretePropsOrStateImpl({
-    String? componentFactoryName,
-    String? propKeyNamespace,
-    List<String>? allPropsMixins,
+    String componentFactoryName,
+    String propKeyNamespace,
+    List<String> allPropsMixins,
   }) {
     if (isProps) {
       if (componentFactoryName == null || propKeyNamespace == null) {
@@ -341,9 +342,9 @@ class _LegacyTypedMapImplGenerator extends TypedMapImplGenerator {
   final bool nullSafety;
 
   @override
-  final Set<String>? requiredPropNamesToSkipValidation;
+  final Set<String> requiredPropNamesToSkipValidation;
 
-  _LegacyTypedMapImplGenerator.props(this.declaration, {required this.nullSafety})
+  _LegacyTypedMapImplGenerator.props(this.declaration, { this.nullSafety})
       : names = TypedMapNames(declaration.props.name.name),
         factoryNames = [FactoryNames(declaration.factory.name.name)],
         member = declaration.props,
@@ -354,10 +355,10 @@ class _LegacyTypedMapImplGenerator extends TypedMapImplGenerator {
         ),
         isProps = true;
 
-  _LegacyTypedMapImplGenerator.state(this.declaration, {required this.nullSafety})
-      : names = TypedMapNames(declaration.state!.name.name),
+  _LegacyTypedMapImplGenerator.state(this.declaration, { this.nullSafety})
+      : names = TypedMapNames(declaration.state.name.name),
         factoryNames = [FactoryNames(declaration.factory.name.name)],
-        member = declaration.state!,
+        member = declaration.state,
         requiredPropNamesToSkipValidation = null,
         isProps = false;
 
@@ -417,15 +418,15 @@ class _TypedMapImplGenerator extends TypedMapImplGenerator {
   @override
   final Version version;
 
-  final List<String>? allPropsMixins;
+  final List<String> allPropsMixins;
 
   @override
-  final Set<String>? requiredPropNamesToSkipValidation;
+  final Set<String> requiredPropNamesToSkipValidation;
 
   @override
   final bool nullSafety;
 
-  _TypedMapImplGenerator.props(ClassComponentDeclaration declaration, {required this.nullSafety})
+  _TypedMapImplGenerator.props(ClassComponentDeclaration declaration, { this.nullSafety})
       : names = TypedMapNames(declaration.props.either.name.name),
         factoryNames = [FactoryNames(declaration.factory.name.name)],
         member = declaration.props.either,
@@ -440,10 +441,10 @@ class _TypedMapImplGenerator extends TypedMapImplGenerator {
         isFunctionComponentDeclaration = false,
         version = declaration.version;
 
-  _TypedMapImplGenerator.state(ClassComponentDeclaration declaration, {required this.nullSafety})
-      : names = TypedMapNames(declaration.state!.either.name.name),
+  _TypedMapImplGenerator.state(ClassComponentDeclaration declaration, { this.nullSafety})
+      : names = TypedMapNames(declaration.state.either.name.name),
         factoryNames = [FactoryNames(declaration.factory.name.name)],
-        member = declaration.state!.either,
+        member = declaration.state.either,
         allPropsMixins = null,
         requiredPropNamesToSkipValidation = null,
         isProps = false,
@@ -453,7 +454,7 @@ class _TypedMapImplGenerator extends TypedMapImplGenerator {
 
   _TypedMapImplGenerator.propsMapViewOrFunctionComponent(
       PropsMapViewOrFunctionComponentDeclaration declaration,
-      {required this.nullSafety})
+      { this.nullSafety})
       : names = TypedMapNames(declaration.props.either.name.name),
         factoryNames =
             declaration.factories.map((factory) => FactoryNames(factory.name.name)).toList(),

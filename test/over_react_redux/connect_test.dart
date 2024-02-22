@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2016 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -31,18 +32,18 @@ import 'fixtures/store.dart';
 main() {
   group('connect', () {
     final counterRef = createRef<CounterComponent>();
-    late Store<CounterState> store1;
-    late Store<BigCounterState> store2;
+     Store<CounterState> store1;
+     Store<BigCounterState> store2;
 
-    JsConnectOptions? connectOptions;
+    JsConnectOptions connectOptions;
     final originalConnect = mockableJsConnect;
 
     setUpAll(() {
       mockableJsConnect = ([
-        Function? mapStateToProps,
+        Function mapStateToProps,
         dynamic mapDispatchToProps,
-        Function? mergeProps,
-        JsConnectOptions? options,
+        Function mergeProps,
+        JsConnectOptions options,
       ]) {
         connectOptions = options;
         return originalConnect(
@@ -132,7 +133,7 @@ main() {
           ),
         );
 
-        expect(counterRef.current!.props.currentCount, 0);
+        expect(counterRef.current.props.currentCount, 0);
         expect(jacket.mountNode.innerHtml, contains('Count: 0'));
       });
 
@@ -149,7 +150,7 @@ main() {
           ),
         );
 
-        expect(counterRef.current!.props.currentCount, 0);
+        expect(counterRef.current.props.currentCount, 0);
         expect(jacket.mountNode.innerHtml, contains('Count: 0'));
 
         var dispatchButton =
@@ -159,7 +160,7 @@ main() {
         // wait for the next tick for the async dispatch to propagate
         await Future(() {});
 
-        expect(counterRef.current!.props.currentCount, 1);
+        expect(counterRef.current.props.currentCount, 1);
         expect(jacket.mountNode.innerHtml, contains('Count: 1'));
       });
 
@@ -192,7 +193,7 @@ main() {
           ),
         );
 
-        final actualProps = counterRef.current!.props;
+        final actualProps = counterRef.current.props;
         final expectedProps = {
           'functionPropSetInsideHoc': same(testFunction),
           'mapPropSetInsideHoc': same(testMap),
@@ -227,7 +228,7 @@ main() {
           ),
         );
 
-        expect(counterRef.current!.props.currentCount, 0);
+        expect(counterRef.current.props.currentCount, 0);
         expect(jacket.mountNode.innerHtml, contains('Count: 0'));
       });
 
@@ -244,7 +245,7 @@ main() {
           ),
         );
 
-        expect(counterRef.current!.props.currentCount, 0);
+        expect(counterRef.current.props.currentCount, 0);
         expect(jacket.mountNode.innerHtml, contains('Count: 0'));
 
         var dispatchButton =
@@ -254,7 +255,7 @@ main() {
         // wait for the next tick for the async dispatch to propagate
         await Future(() {});
 
-        expect(counterRef.current!.props.currentCount, 1);
+        expect(counterRef.current.props.currentCount, 1);
         expect(jacket.mountNode.innerHtml, contains('Count: 1'));
       });
     });
@@ -273,7 +274,7 @@ main() {
             (ConnectedCounter()..ref = counterRef)('test'),
           ));
 
-        expect(counterRef.current!.props.currentCount, 0);
+        expect(counterRef.current.props.currentCount, 0);
 
         var dispatchButton = queryByTestId(jacket.mountNode, 'button-increment');
         // causes a state change that calls the makeMapStateToProps returned "real" mapStateToProps function.
@@ -282,7 +283,7 @@ main() {
         // wait for the next tick for the async dispatch to propagate
         await Future(() {});
 
-        expect(counterRef.current!.props.currentCount, 1);
+        expect(counterRef.current.props.currentCount, 1);
       });
     });
 
@@ -300,7 +301,7 @@ main() {
             (ConnectedCounter()..ref = counterRef)('test'),
           ));
 
-        expect(counterRef.current!.props.currentCount, 0);
+        expect(counterRef.current.props.currentCount, 0);
 
         var dispatchButton = queryByTestId(jacket.mountNode, 'button-increment');
         // causes a state change that calls the makeMapStateToPropsWithOwnProps returned "real" mapStateToProps function.
@@ -309,7 +310,7 @@ main() {
         // wait for the next tick for the async dispatch to propagate
         await Future(() {});
 
-        expect(counterRef.current!.props.currentCount, 1);
+        expect(counterRef.current.props.currentCount, 1);
       });
     });
 
@@ -328,7 +329,7 @@ main() {
             (ConnectedCounter()..ref = counterRef)('test'),
           ));
 
-        expect(counterRef.current!.props.currentCount, 0);
+        expect(counterRef.current.props.currentCount, 0);
 
         var dispatchButton = queryByTestId(jacket.mountNode, 'button-decrement');
         // causes a state change that calls the makeMapDispatchToProps returned "real" mapDispatchToProps function.
@@ -337,7 +338,7 @@ main() {
         // wait for the next tick for the async dispatch to propagate
         await Future(() {});
 
-        expect(counterRef.current!.props.currentCount, -1);
+        expect(counterRef.current.props.currentCount, -1);
       });
     });
 
@@ -356,7 +357,7 @@ main() {
             (ConnectedCounter()..ref = counterRef)('test'),
           ));
 
-        expect(counterRef.current!.props.currentCount, 0);
+        expect(counterRef.current.props.currentCount, 0);
 
         var dispatchButton = queryByTestId(jacket.mountNode, 'button-decrement');
         // causes a state change that calls the makeMapDispatchToPropsWithOwnProps returned "real" mapDispatchToProps function.
@@ -365,7 +366,7 @@ main() {
         // wait for the next tick for the async dispatch to propagate
         await Future(() {});
 
-        expect(counterRef.current!.props.currentCount, -1);
+        expect(counterRef.current.props.currentCount, -1);
       });
     });
 
@@ -385,9 +386,9 @@ main() {
           ),
         );
 
-        expect(counterRef.current!.props.decrement, isA<Function>());
+        expect(counterRef.current.props.decrement, isA<Function>());
 
-        expect(counterRef.current!.props.currentCount, 0);
+        expect(counterRef.current.props.currentCount, 0);
         expect(jacket.mountNode.innerHtml, contains('Count: 0'));
 
         // Click button mapped to trigger `propFromDispatch` prop.
@@ -398,7 +399,7 @@ main() {
         // wait for the next tick for the async dispatch to propagate
         await Future(() {});
 
-        expect(counterRef.current!.props.currentCount, -1);
+        expect(counterRef.current.props.currentCount, -1);
         expect(jacket.mountNode.innerHtml, contains('Count: -1'));
       });
     });
@@ -419,9 +420,9 @@ main() {
           ),
         );
 
-        expect(counterRef.current!.props.decrement, isA<Function>());
+        expect(counterRef.current.props.decrement, isA<Function>());
 
-        expect(counterRef.current!.props.currentCount, 0);
+        expect(counterRef.current.props.currentCount, 0);
         expect(jacket.mountNode.innerHtml, contains('Count: 0'));
 
         // Click button mapped to trigger `propFromDispatch` prop.
@@ -432,7 +433,7 @@ main() {
         // wait for the next tick for the async dispatch to propagate
         await Future(() {});
 
-        expect(counterRef.current!.props.currentCount, -1);
+        expect(counterRef.current.props.currentCount, -1);
         expect(jacket.mountNode.innerHtml, contains('Count: -1'));
       });
     });
@@ -449,7 +450,7 @@ main() {
           mergeProps: (stateProps, dispatchProps, ownProps) {
             return Counter()
               // Return whatever value is passed through ownProps until the state count is over 1
-              ..currentCount = stateProps.currentCount! < 1
+              ..currentCount = stateProps.currentCount < 1
                   ? ownProps.currentCount
                   : stateProps.currentCount
               ..decrement = ownProps.decrement;
@@ -473,10 +474,10 @@ main() {
         var dispatchButton =
             queryByTestId(jacket.mountNode, 'button-decrement');
 
-        expect(counterRef.current!.props.decrement, isA<Function>());
+        expect(counterRef.current.props.decrement, isA<Function>());
 
         // state.count is at 0
-        expect(counterRef.current!.props.currentCount, 900);
+        expect(counterRef.current.props.currentCount, 900);
         expect(jacket.mountNode.innerHtml, contains('Count: 900'));
 
         // Click button mapped to trigger `propFromDispatch` prop.
@@ -485,7 +486,7 @@ main() {
         // wait for the next tick for the async dispatch to propagate
         await Future(() {});
 
-        expect(counterRef.current!.props.currentCount, 1);
+        expect(counterRef.current.props.currentCount, 1);
         expect(jacket.mountNode.innerHtml, contains('Count: 1'));
       });
     });
@@ -504,7 +505,7 @@ main() {
             }),
           )(Counter);
 
-          var whatever = connectOptions!.areOwnPropsEqual!(
+          var whatever = connectOptions.areOwnPropsEqual(
               JsBackedMap.from({'id': 'test'}).jsObject,
               JsBackedMap.from({'id': 'test2'}).jsObject);
 
@@ -576,7 +577,7 @@ main() {
             pure: false,
           )(Counter);
 
-          var whatever = connectOptions!.areMergedPropsEqual!(
+          var whatever = connectOptions.areMergedPropsEqual(
               JsBackedMap.from({'id': 'test'}).jsObject,
               JsBackedMap.from({'id': 'test2'}).jsObject);
 
@@ -703,7 +704,7 @@ main() {
           ),
         ));
 
-        var bigCounter = queryByTestId(jacket.mountNode, 'big-counter')!;
+        var bigCounter = queryByTestId(jacket.mountNode, 'big-counter');
         var dispatchButton = queryByTestId(bigCounter, 'button-increment');
         click(dispatchButton);
 
@@ -757,14 +758,14 @@ main() {
         await Future(() {});
 
         // Big counter updated to 100
-        expect(findDomNode(bigCounter)!.innerHtml, contains('Count: 100'),
+        expect(findDomNode(bigCounter).innerHtml, contains('Count: 100'),
             reason: 'Should have a count of 100');
 
         // Normal counter incremented only 1 at both instances
         expect(
-            findDomNode(queryByTestId(jacket.mountNode, 'outside'))!.innerHtml,
+            findDomNode(queryByTestId(jacket.mountNode, 'outside')).innerHtml,
             contains('Count: 1</div>'));
-        expect(findDomNode(bigCounter)!.innerHtml, contains('Count: 1</div>'));
+        expect(findDomNode(bigCounter).innerHtml, contains('Count: 1</div>'));
       });
     });
   });

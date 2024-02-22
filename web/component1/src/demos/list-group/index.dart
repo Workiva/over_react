@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,17 +21,17 @@ import '../../demos.dart';
 
 main() {
   react_dom.render(listGroupBasicDemo(),
-      querySelector('$demoMountNodeSelectorPrefix--list-group-basic')!);
+      querySelector('$demoMountNodeSelectorPrefix--list-group-basic'));
 
   react_dom.render(listGroupTagsDemo(),
-      querySelector('$demoMountNodeSelectorPrefix--list-group-tags')!);
+      querySelector('$demoMountNodeSelectorPrefix--list-group-tags'));
 
   react_dom.render(listGroupAnchorsAndButtonsDemo(),
-      querySelector('$demoMountNodeSelectorPrefix--list-group-anchors-and-buttons')!);
+      querySelector('$demoMountNodeSelectorPrefix--list-group-anchors-and-buttons'));
 
   react_dom.render(listGroupContextualSkinDemo(),
-      querySelector('$demoMountNodeSelectorPrefix--list-group-contextual')!);
+      querySelector('$demoMountNodeSelectorPrefix--list-group-contextual'));
 
   react_dom.render(listGroupHeaderDemo(),
-      querySelector('$demoMountNodeSelectorPrefix--list-group-header')!);
+      querySelector('$demoMountNodeSelectorPrefix--list-group-header'));
 }

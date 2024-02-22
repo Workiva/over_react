@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -130,8 +131,8 @@ class ErrorBoundaryComponent<T extends ErrorBoundaryProps, S extends ErrorBounda
     // If the child is different, and the error boundary is currently in an error state,
     // give the children a chance to mount.
     if (state.hasError) {
-      final childThatCausedError = typedPropsFactory(prevProps).children!.single;
-      if (childThatCausedError != props.children!.single) {
+      final childThatCausedError = typedPropsFactory(prevProps).children.single;
+      if (childThatCausedError != props.children.single) {
         reset();
       }
     }
@@ -147,7 +148,7 @@ class ErrorBoundaryComponent<T extends ErrorBoundaryProps, S extends ErrorBounda
   }
 
   String get _loggerName {
-    if (props.logger != null) return props.logger!.name;
+    if (props.logger != null) return props.logger.name;
 
     // ignore: invalid_use_of_visible_for_testing_member
     return props.loggerName ?? defaultErrorBoundaryLoggerName;
@@ -157,7 +158,7 @@ class ErrorBoundaryComponent<T extends ErrorBoundaryProps, S extends ErrorBounda
     /*Error|Exception*/ dynamic error,
     ReactErrorInfo info,
   ) {
-    if (!props.shouldLogErrors!) return;
+    if (!props.shouldLogErrors) return;
 
     final message = 'An unrecoverable error was caught by an ErrorBoundary (attempting to remount it was unsuccessful): \nInfo: ${info.componentStack}';
 

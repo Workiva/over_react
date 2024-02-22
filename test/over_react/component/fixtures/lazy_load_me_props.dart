@@ -1,3 +1,4 @@
+// @dart=2.11
 import 'package:over_react/over_react.dart';
 
 part 'lazy_load_me_props.over_react.g.dart';
@@ -6,7 +7,7 @@ part 'lazy_load_me_props.over_react.g.dart';
 // I, keal jones, am not a fan.
 @Props(keyNamespace: '')
 mixin LazyLoadMePropsMixin on UiProps {
-  num? initialCount;
+  num initialCount;
 }
 
 UiFactory<LazyLoadMePropsMixin> LazyLoadMePropsMapView = castUiFactory(_$LazyLoadMePropsMapView);

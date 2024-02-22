@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -72,7 +73,7 @@ BoilerplateMembers detectBoilerplateMembers(CompilationUnit unit) {
 ///
 /// See: [VersionConfidences], [BoilerplateMember].
 class _BoilerplateMemberDetector {
-  Map<String, NamedCompilationUnitMember>? _classishDeclarationsByName;
+  Map<String, NamedCompilationUnitMember> _classishDeclarationsByName;
 
   // Callbacks that will be triggered when the detector finds the correlating entity.
   final void Function(BoilerplateFactory) onFactory;
@@ -83,12 +84,12 @@ class _BoilerplateMemberDetector {
   final void Function(BoilerplateComponent) onComponent;
 
   _BoilerplateMemberDetector({
-    required this.onFactory,
-    required this.onProps,
-    required this.onState,
-    required this.onPropsMixin,
-    required this.onStateMixin,
-    required this.onComponent,
+     this.onFactory,
+     this.onProps,
+     this.onState,
+     this.onPropsMixin,
+     this.onStateMixin,
+     this.onComponent,
   });
 
   /// Process [unit] looking for boilerplate members, calling the appropriate 'on'
@@ -99,13 +100,13 @@ class _BoilerplateMemberDetector {
   void detect(CompilationUnit unit) {
     _classishDeclarationsByName = {};
     final visitor = _BoilerplateMemberDetectorVisitor(
-      onClassishDeclaration: (node) => _classishDeclarationsByName![node.name.name] = node,
+      onClassishDeclaration: (node) => _classishDeclarationsByName[node.name.name] = node,
       onTopLevelVariableDeclaration: _processTopLevelVariableDeclaration,
     );
 
     unit.accept(visitor);
 
-    _classishDeclarationsByName!.values.forEach(_processClassishDeclaration);
+    _classishDeclarationsByName.values.forEach(_processClassishDeclaration);
     _classishDeclarationsByName = null;
   }
 
@@ -133,30 +134,30 @@ class _BoilerplateMemberDetector {
   //
 
   /// For `FooProps`, returns `_$FooProps`
-  NamedCompilationUnitMember? _getSourceClassForPotentialCompanion(
+  NamedCompilationUnitMember _getSourceClassForPotentialCompanion(
       NamedCompilationUnitMember node) {
     final name = node.name.name;
     if (name.startsWith(privateSourcePrefix)) {
       return null;
     }
     final sourceName = '$privateSourcePrefix$name';
-    return _classishDeclarationsByName![sourceName];
+    return _classishDeclarationsByName[sourceName];
   }
 
   /// For `_$FooProps`, returns `FooProps`
-  NamedCompilationUnitMember? _getCompanionClass(NamedCompilationUnitMember node) {
+  NamedCompilationUnitMember _getCompanionClass(NamedCompilationUnitMember node) {
     final name = node.name.name;
     if (!name.startsWith(privateSourcePrefix)) {
       return null;
     }
     final sourceName = name.replaceFirst(privateSourcePrefix, '');
-    return _classishDeclarationsByName![sourceName];
+    return _classishDeclarationsByName[sourceName];
   }
 
   /// Returns whether it's the `$FooPropsMixin` to a `_$FooPropsMixin`
   bool _isMixinStub(NamedCompilationUnitMember node) {
     final name = node.name.name;
-    return name.startsWith(r'$') && _classishDeclarationsByName!.containsKey('_$name');
+    return name.startsWith(r'$') && _classishDeclarationsByName.containsKey('_$name');
   }
 
   //
@@ -227,7 +228,7 @@ class _BoilerplateMemberDetector {
   //
 
   bool _detectClassBasedOnAnnotations(
-      ClassishDeclaration classish, ClassishDeclaration? companion) {
+      ClassishDeclaration classish, ClassishDeclaration companion) {
     final node = classish.node;
     for (final annotation in classish.metadata) {
       switch (annotation.name.nameWithoutPrefix) {
@@ -304,7 +305,7 @@ class _BoilerplateMemberDetector {
   }
 
   VersionConfidences _annotatedPropsOrStateConfidence(
-      ClassishDeclaration classish, ClassishDeclaration? companion) {
+      ClassishDeclaration classish, ClassishDeclaration companion) {
     final node = classish.node;
     assert(node.hasAnnotationWithNames(const {'Props', 'State'}),
         'this function assumes that all nodes passed to this function are annotated');
@@ -337,7 +338,7 @@ class _BoilerplateMemberDetector {
   }
 
   VersionConfidences _annotatedAbstractPropsOrStateConfidence(
-      ClassishDeclaration classish, ClassishDeclaration? companion) {
+      ClassishDeclaration classish, ClassishDeclaration companion) {
     final node = classish.node;
     assert(node.hasAnnotationWithNames(const {'AbstractProps', 'AbstractState'}),
         'this function assumes that all nodes passed to this function are annotated');
@@ -362,7 +363,7 @@ class _BoilerplateMemberDetector {
   }
 
   VersionConfidences _annotatedPropsOrStateMixinConfidence(
-      ClassishDeclaration classish, ClassishDeclaration? companion,
+      ClassishDeclaration classish, ClassishDeclaration companion,
       {bool disableAnnotationAssert = false}) {
     final node = classish.node;
     assert(
@@ -384,7 +385,7 @@ class _BoilerplateMemberDetector {
   }
 
   bool _detectNonLegacyPropsStateOrMixin(
-      ClassishDeclaration classish, ClassishDeclaration? companion) {
+      ClassishDeclaration classish, ClassishDeclaration companion) {
     final name = classish.name.name;
     final node = classish.node;
 
@@ -449,9 +450,9 @@ class _BoilerplateMemberDetector {
               .whereNotNull()
               .any(_componentBaseClassPattern.hasMatch) ||
           (classish.superclass?.typeArguments?.arguments
-                  .map((t) => t.typeNameWithoutPrefix)
-                  .whereNotNull()
-                  .any(propsOrMixinNamePattern.hasMatch) ??
+                  ?.map((t) => t.typeNameWithoutPrefix)
+                  ?.whereNotNull()
+                  ?.any(propsOrMixinNamePattern.hasMatch) ??
               false)) {
         const mixinBoilerplateBaseClasses = {
           'UiComponent2',
@@ -493,8 +494,8 @@ class _BoilerplateMemberDetectorVisitor extends SimpleAstVisitor<void> {
   final void Function(TopLevelVariableDeclaration) onTopLevelVariableDeclaration;
 
   _BoilerplateMemberDetectorVisitor({
-    required this.onClassishDeclaration,
-    required this.onTopLevelVariableDeclaration,
+     this.onClassishDeclaration,
+     this.onTopLevelVariableDeclaration,
   });
 
   @override

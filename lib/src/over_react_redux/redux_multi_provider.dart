@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -57,7 +58,7 @@ class _$ReduxMultiProviderProps extends UiProps {
   /// Each context and store instance should be unique. Referencing the context
   /// in a connected component is exactly the same as it would with a standard
   /// [ReduxProvider].
-  late Map<Context, Store> storesByContext;
+   Map<Context, Store> storesByContext;
 }
 
 @Component2()

@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2016 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -38,8 +39,8 @@ double _computeRootFontSize() {
     ..height = '0'
     ..position = 'absolute'
     ..zIndex = '-1';
-  document.body!.append(remMeasurer);
-  final rem = CssValue.parse(remMeasurer.getComputedStyle().width)!.number.toDouble();
+  document.body.append(remMeasurer);
+  final rem = CssValue.parse(remMeasurer.getComputedStyle().width).number.toDouble();
   remMeasurer.remove();
   return rem;
 }
@@ -51,9 +52,9 @@ dynamic _changeSensor;
 dynamic get changeSensor => _changeSensor;
 
 bool _shouldStillMountRemChangeSensor = false;
-Element? _changeSensorMountNode;
+Element _changeSensorMountNode;
 @visibleForTesting
-Element? get changeSensorMountNode => _changeSensorMountNode;
+Element get changeSensorMountNode => _changeSensorMountNode;
 
 @visibleForTesting
 Future<Null> initRemChangeSensor() {
@@ -82,14 +83,14 @@ Future<Null> initRemChangeSensor() {
       ..id = 'rem_change_sensor';
 
     // Ensure the sensor doesn't interfere with the rest of the page.
-    _changeSensorMountNode!.style
+    _changeSensorMountNode.style
       ..width = '0'
       ..height = '0'
       ..overflow = 'hidden'
       ..position = 'absolute'
       ..zIndex = '-1';
 
-    document.body!.append(_changeSensorMountNode!);
+    document.body.append(_changeSensorMountNode);
 
     _changeSensor = react_dom.render((Dom.div()
       ..style = const {
@@ -104,7 +105,7 @@ Future<Null> initRemChangeSensor() {
       (v2.ResizeSensor()..onResize = (_) {
         recomputeRootFontSize();
       })()
-    ), _changeSensorMountNode!);
+    ), _changeSensorMountNode);
   });
 }
 
@@ -139,8 +140,8 @@ Future<Null> destroyRemChangeSensor() {
     _shouldStillMountRemChangeSensor = false;
 
     if (_changeSensor != null) {
-      react_dom.unmountComponentAtNode(_changeSensorMountNode!);
-      _changeSensorMountNode!.remove();
+      react_dom.unmountComponentAtNode(_changeSensorMountNode);
+      _changeSensorMountNode.remove();
       _changeSensorMountNode = null;
       _changeSensor = null;
     }
@@ -167,7 +168,7 @@ Future<Null> destroyRemChangeSensor() {
 ///     new CssValue(1.5, 'rem');
 ///
 /// > Related: [toPx]
-CssValue? toRem(dynamic value, {bool treatNumAsRem = false, bool passThroughUnsupportedUnits = false}) {
+CssValue toRem(dynamic value, {bool treatNumAsRem = false, bool passThroughUnsupportedUnits = false}) {
   // Because Chrome changes the value of its root font size when zoomed out lower than 90%, we need
   // to automatically wire up the rem change sensor so that any calls to `toRem` when the viewport is
   // zoomed return an accurate value.
@@ -194,9 +195,9 @@ CssValue? toRem(dynamic value, {bool treatNumAsRem = false, bool passThroughUnsu
     var parsedValue = value is CssValue ? value : CssValue.parse(value);
 
     if (parsedValue?.unit == 'rem') {
-      remValueNum = parsedValue!.number;
+      remValueNum = parsedValue.number;
     } else if (parsedValue?.unit == 'px') {
-      remValueNum = parsedValue!.number / rootFontSize;
+      remValueNum = parsedValue.number / rootFontSize;
     } else {
       if (passThroughUnsupportedUnits) return parsedValue;
 
@@ -227,7 +228,7 @@ CssValue? toRem(dynamic value, {bool treatNumAsRem = false, bool passThroughUnsu
 ///     toPx(new CssValue(15, 'px'));
 ///
 /// > Related: [toRem]
-CssValue? toPx(dynamic value, {bool treatNumAsPx = false, bool passThroughUnsupportedUnits = false}) {
+CssValue toPx(dynamic value, {bool treatNumAsPx = false, bool passThroughUnsupportedUnits = false}) {
   if (value == null) return null;
 
   num pxValueNum;
@@ -238,9 +239,9 @@ CssValue? toPx(dynamic value, {bool treatNumAsPx = false, bool passThroughUnsupp
     var parsedValue = value is CssValue ? value : CssValue.parse(value);
 
     if (parsedValue?.unit == 'px') {
-      pxValueNum = parsedValue!.number;
+      pxValueNum = parsedValue.number;
     } else if (parsedValue?.unit == 'rem') {
-      pxValueNum = parsedValue!.number * rootFontSize;
+      pxValueNum = parsedValue.number * rootFontSize;
     } else {
       if (passThroughUnsupportedUnits) return parsedValue;
 

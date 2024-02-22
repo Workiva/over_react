@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -27,7 +28,7 @@ class _$ContextProviderWrapperProps extends UiProps {}
 
 @State()
 class _$ContextProviderWrapperState extends UiState {
-  late int latestValue;
+   int latestValue;
 }
 
 @Component2()

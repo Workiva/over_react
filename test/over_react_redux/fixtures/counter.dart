@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -25,13 +26,13 @@ UiFactory<CounterProps> Counter = _$Counter;
 
 @Props()
 class _$CounterProps extends UiProps with ConnectPropsMixin {
-  int? currentCount;
+  int currentCount;
 
-  Map<String, dynamic>? wrapperStyles;
+  Map<String, dynamic> wrapperStyles;
 
-  void Function()? increment;
+  void Function() increment;
 
-  void Function()? decrement;
+  void Function() decrement;
 }
 
 @Component2()
@@ -48,7 +49,7 @@ class CounterComponent extends UiComponent2<CounterProps> {
         ..addTestId('button-increment')
         ..onClick = (_) {
           if (props.increment != null) {
-            props.increment!();
+            props.increment();
           } else if (props.dispatch != null) {
             props.dispatch(IncrementAction());
           }
@@ -58,7 +59,7 @@ class CounterComponent extends UiComponent2<CounterProps> {
         ..addTestId('button-decrement')
         ..onClick = (_) {
           if (props.decrement != null) {
-            props.decrement!();
+            props.decrement();
           } else {
             props.dispatch(DecrementAction());
           }

@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,7 +24,7 @@ class RandomColorState {
 
   RandomColorState.defaultState() : this.backgroundColor = 'gray';
 
-  RandomColorState.update(RandomColorState oldState, {String? backgroundColor})
+  RandomColorState.update(RandomColorState oldState, {String backgroundColor})
       : this.backgroundColor = backgroundColor ?? oldState.backgroundColor;
 }
 

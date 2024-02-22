@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2016 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the 'License');
@@ -62,7 +63,7 @@ abstract class _$AriaPropsMixin {
   ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-activedescendant>
   @Accessor(key: 'aria-activedescendant')
-  String? activedescendant;
+  String activedescendant;
 
   /// Indicates whether assistive technologies will present all, or only parts of, the changed region
   /// based on the change notifications defined by the aria-relevant attribute. See related aria-relevant.
@@ -85,7 +86,7 @@ abstract class _$AriaPropsMixin {
   ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-atomic>
   @Accessor(key: 'aria-atomic')
-  bool? atomic;
+  bool atomic;
 
   /// Indicates whether user input completion suggestions are provided.
   ///
@@ -106,14 +107,14 @@ abstract class _$AriaPropsMixin {
   ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-braillelabel>
   @Accessor(key: 'aria-braillelabel')
-  String? braillelabel;
+  String braillelabel;
 
   /// Defines a human-readable, author-localized abbreviated description for the role of an element intended to
   /// be converted into Braille
   ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-brailleroledescription>
   @Accessor(key: 'aria-brailleroledescription')
-  String? brailleroledescription;
+  String brailleroledescription;
 
   /// Indicates whether an element, and its subtree, are currently being updated.
   ///
@@ -127,7 +128,7 @@ abstract class _$AriaPropsMixin {
   ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-busy>
   @Accessor(key: 'aria-busy')
-  bool? busy;
+  bool busy;
 
   /// Indicates the current 'checked' state of checkboxes, radio buttons, and other widgets. See
   /// related aria-pressed and aria-selected.
@@ -153,26 +154,26 @@ abstract class _$AriaPropsMixin {
   ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-colcount>
   @Accessor(key: 'aria-colcount')
-  int? colcount;
+  int colcount;
 
   /// Defines an element's column index or position with respect to the total number of columns within a
   /// table, grid, or treegrid
   ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-colindex>
   @Accessor(key: 'aria-colindex')
-  int? colindex;
+  int colindex;
 
   /// Defines a text alternative of the numeric aria-colindex
   ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-colindextext>
   @Accessor(key: 'aria-colindextext')
-  String? colindextext;
+  String colindextext;
 
   ///  Defines the number of columns spanned by a cell or gridcell within a table, grid, or treegrid
   ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-colspan>
   @Accessor(key: 'aria-colspan')
-  int? colspan;
+  int colspan;
 
   /// Identifies the element (or elements) whose contents or presence are controlled by the current
   /// element. See related aria-owns.
@@ -217,7 +218,7 @@ abstract class _$AriaPropsMixin {
   ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-description>
   @Accessor(key: 'aria-description')
-  String? description;
+  String description;
 
   /// Identifies the element (or elements) that provide additional information related to the object
   /// or complex descriptions to an object
@@ -240,7 +241,7 @@ abstract class _$AriaPropsMixin {
   ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-disabled>
   @Accessor(key: 'aria-disabled')
-  bool? disabled;
+  bool disabled;
 
   /// Indicates what functions can be performed when the dragged object is released on the drop
   /// target. This allows assistive technologies to convey the possible drag options available to
@@ -267,7 +268,7 @@ abstract class _$AriaPropsMixin {
   ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-errormessage>
   @Accessor(key: 'aria-errormessage')
-  String? errormessage;
+  String errormessage;
 
   /// Indicates whether the element, or another grouping element it controls, is currently expanded
   /// or collapsed.
@@ -329,7 +330,7 @@ abstract class _$AriaPropsMixin {
   ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-haspopup>
   @Accessor(key: 'aria-haspopup')
-  bool? haspopup;
+  bool haspopup;
 
   /// Indicates that the element and all of its descendants are not visible or perceivable to any
   /// user as implemented by the author. See related aria-disabled.
@@ -376,7 +377,7 @@ abstract class _$AriaPropsMixin {
   ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-hidden>
   @Accessor(key: 'aria-hidden')
-  bool? hidden;
+  bool hidden;
 
   /// Indicates the entered value does not conform to the format expected by the application.
   ///
@@ -428,7 +429,7 @@ abstract class _$AriaPropsMixin {
   ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-label>
   @Accessor(key: 'aria-label')
-  String? label;
+  String label;
 
   /// Identifies the element (or elements) that labels the current element. See related aria-label
   /// and aria-describedby.
@@ -488,7 +489,7 @@ abstract class _$AriaPropsMixin {
   ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-level>
   @Accessor(key: 'aria-level')
-  int? level;
+  int level;
 
   /// Indicates that an element will be updated, and describes the types of updates the user agents,
   /// assistive technologies, and user can expect from the live region.
@@ -536,7 +537,7 @@ abstract class _$AriaPropsMixin {
   ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-multiline>
   @Accessor(key: 'aria-multiline')
-  bool? multiline;
+  bool multiline;
 
   /// Indicates that the user may select more than one item from the current selectable descendants.
   ///
@@ -549,7 +550,7 @@ abstract class _$AriaPropsMixin {
   ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-multiselectable>
   @Accessor(key: 'aria-multiselectable')
-  bool? multiselectable;
+  bool multiselectable;
 
   /// Indicates whether the element and orientation is horizontal or vertical.
   ///
@@ -580,7 +581,7 @@ abstract class _$AriaPropsMixin {
   ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-placeholder>
   @Accessor(key: 'aria-placeholder')
-  String? placeholder;
+  String placeholder;
 
   /// Defines an element's number or position in the current set of listitems or treeitems. Not
   /// required if all elements in the set are present in the DOM. See related aria-setsize.
@@ -596,7 +597,7 @@ abstract class _$AriaPropsMixin {
   ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-posinset>
   @Accessor(key: 'aria-posinset')
-  int? posinset;
+  int posinset;
 
   /// Indicates the current 'pressed' state of toggle buttons. See related aria-checked and aria-selected.
   ///
@@ -628,7 +629,7 @@ abstract class _$AriaPropsMixin {
   ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-readonly>
   @Accessor(key: 'aria-readonly')
-  bool? readonly;
+  bool readonly;
 
   /// Indicates what user agent change notifications (additions, removals, etc.) assistive technologies
   /// will receive within a live region. See related aria-atomic.
@@ -691,13 +692,13 @@ abstract class _$AriaPropsMixin {
   ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-required>
   @Accessor(key: 'aria-required')
-  bool? required;
+  bool required;
 
   /// Specifies the the type defining a user interface element. Enriches the semantics of markup and
   /// gives assistive technologies information about how to handle each element.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/usage#usage_intro>
-  String? role;
+  String role;
 
   /// Defines an author-localized description for the role of an element
   ///
@@ -706,32 +707,32 @@ abstract class _$AriaPropsMixin {
   ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-roledescription>
   @Accessor(key: 'aria-roledescription')
-  String? roledescription;
+  String roledescription;
 
   /// Defines the total number of rows in a table, grid, or treegrid
   ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-rowcount>
   @Accessor(key: 'aria-rowcount')
-  int? rowcount;
+  int rowcount;
 
   /// Defines an element's position with respect to the total number of rows within a table, grid, or treegrid
   ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-rowindex>
   @Accessor(key: 'aria-rowindex')
-  int? rowindex;
+  int rowindex;
 
   /// Defines a text alternative of aria-rowindex
   ///
   /// The aria-rowindextext should only be included in addition to, not as a replacement of, the aria-rowindex
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-rowindextext>
   @Accessor(key: 'aria-rowindextext')
-  String? rowindextext;
+  String rowindextext;
 
   /// Defines the number of rows spanned by a cell or gridcell within a table, grid, or treegrid
   ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-rowspan>
   @Accessor(key: 'aria-rowspan')
-  int? rowspan;
+  int rowspan;
 
   /// Indicates the current 'selected' state of various widgets. See related aria-checked and aria-pressed.
   ///
@@ -770,7 +771,7 @@ abstract class _$AriaPropsMixin {
   ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-setsize>
   @Accessor(key: 'aria-setsize')
-  int? setsize;
+  int setsize;
 
   /// Indicates if items in a table or grid are sorted in ascending or descending order.
   ///
@@ -795,7 +796,7 @@ abstract class _$AriaPropsMixin {
   ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-valuemax>
   @Accessor(key: 'aria-valuemax')
-  num? valuemax;
+  num valuemax;
 
   /// Defines the minimum allowed value for a range widget.
   ///
@@ -811,7 +812,7 @@ abstract class _$AriaPropsMixin {
   ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-valuemin>
   @Accessor(key: 'aria-valuemin')
-  num? valuemin;
+  num valuemin;
 
   /// Defines the current value for a range widget. See related aria-valuetext.
   ///
@@ -844,7 +845,7 @@ abstract class _$AriaPropsMixin {
   ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-valuenow>
   @Accessor(key: 'aria-valuenow')
-  num? valuenow;
+  num valuenow;
 
   /// Defines the human readable text alternative of aria-valuenow for a range widget.
   ///
@@ -865,7 +866,7 @@ abstract class _$AriaPropsMixin {
   ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-valuetext>
   @Accessor(key: 'aria-valuetext')
-  String? valuetext;
+  String valuetext;
 }
 
 /// Options for WAI-ARIA role values.
@@ -2145,5 +2146,5 @@ class AriaPropsMapView extends MapView with AriaPropsMixin {
 /// <!>  )
 /// </pre>
 /// <!-- use pre tags and HTML markup until WebStorm fully supports Dart doc comment markdown -->
-AriaPropsMapView ariaProps([Map? backingMap]) =>
+AriaPropsMapView ariaProps([Map backingMap]) =>
     AriaPropsMapView(backingMap ?? {});

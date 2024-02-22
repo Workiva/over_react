@@ -1,3 +1,4 @@
+// @dart=2.11
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 // ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators, invalid_use_of_visible_for_overriding_member
@@ -25,13 +26,13 @@ abstract class _$NamespacedAccessorTestPropsAccessorsMixin
 
   /// <!-- Generated from [_$NamespacedAccessorTestProps.stringProp] -->
   @override
-  String? get stringProp =>
+  String get stringProp =>
       (props[_$key__stringProp___$NamespacedAccessorTestProps] ?? null)
-          as String?;
+          as String;
 
   /// <!-- Generated from [_$NamespacedAccessorTestProps.stringProp] -->
   @override
-  set stringProp(String? value) =>
+  set stringProp(String value) =>
       props[_$key__stringProp___$NamespacedAccessorTestProps] = value;
 
   /// <!-- Generated from [_$NamespacedAccessorTestProps.dynamicProp] -->
@@ -157,7 +158,7 @@ class NamespacedAccessorTestProps extends _$NamespacedAccessorTestProps
   static const PropsMeta meta = _$metaForNamespacedAccessorTestProps;
 }
 
-_$$NamespacedAccessorTestProps _$NamespacedAccessorTest([Map? backingProps]) =>
+_$$NamespacedAccessorTestProps _$NamespacedAccessorTest([Map backingProps]) =>
     _$$NamespacedAccessorTestProps(backingProps);
 
 // Concrete props implementation.
@@ -168,7 +169,7 @@ class _$$NamespacedAccessorTestProps extends _$NamespacedAccessorTestProps
     implements NamespacedAccessorTestProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$NamespacedAccessorTestProps(Map? backingMap) : this._props = {} {
+  _$$NamespacedAccessorTestProps(Map backingMap) : this._props = {} {
     this._props = backingMap ?? {};
   }
 
@@ -207,13 +208,13 @@ abstract class _$NamespacedAccessorTestStateAccessorsMixin
 
   /// <!-- Generated from [_$NamespacedAccessorTestState.stringState] -->
   @override
-  String? get stringState =>
+  String get stringState =>
       (state[_$key__stringState___$NamespacedAccessorTestState] ?? null)
-          as String?;
+          as String;
 
   /// <!-- Generated from [_$NamespacedAccessorTestState.stringState] -->
   @override
-  set stringState(String? value) =>
+  set stringState(String value) =>
       state[_$key__stringState___$NamespacedAccessorTestState] = value;
 
   /// <!-- Generated from [_$NamespacedAccessorTestState.dynamicState] -->
@@ -348,7 +349,7 @@ class _$$NamespacedAccessorTestState extends _$NamespacedAccessorTestState
     implements NamespacedAccessorTestState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$NamespacedAccessorTestState(Map? backingMap) : this._state = {} {
+  _$$NamespacedAccessorTestState(Map backingMap) : this._state = {} {
     this._state = backingMap ?? {};
   }
 
@@ -369,11 +370,11 @@ class _$$NamespacedAccessorTestState extends _$NamespacedAccessorTestState
 class _$NamespacedAccessorTestComponent
     extends NamespacedAccessorTestComponent {
   @override
-  _$$NamespacedAccessorTestProps typedPropsFactory(Map? backingMap) =>
+  _$$NamespacedAccessorTestProps typedPropsFactory(Map backingMap) =>
       _$$NamespacedAccessorTestProps(backingMap);
 
   @override
-  _$$NamespacedAccessorTestState typedStateFactory(Map? backingMap) =>
+  _$$NamespacedAccessorTestState typedStateFactory(Map backingMap) =>
       _$$NamespacedAccessorTestState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.

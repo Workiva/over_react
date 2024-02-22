@@ -1,3 +1,4 @@
+// @dart=2.11
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 // ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators, invalid_use_of_visible_for_overriding_member
@@ -27,9 +28,9 @@ final UiFactoryConfig<_$$FragmentProps> $FragmentConfig = _$FragmentConfig;
 abstract class _$$FragmentProps extends UiProps implements FragmentProps {
   _$$FragmentProps._();
 
-  factory _$$FragmentProps(Map? backingMap) {
+  factory _$$FragmentProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$FragmentProps$JsMap(backingMap as JsBackedMap?);
+      return _$$FragmentProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$FragmentProps$PlainMap(backingMap);
     }
@@ -61,7 +62,7 @@ const _$getPropKey$_$$FragmentProps = getPropKey;
 class _$$FragmentProps$PlainMap extends _$$FragmentProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$FragmentProps$PlainMap(Map? backingMap)
+  _$$FragmentProps$PlainMap(Map backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -80,7 +81,7 @@ class _$$FragmentProps$PlainMap extends _$$FragmentProps {
 class _$$FragmentProps$JsMap extends _$$FragmentProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$FragmentProps$JsMap(JsBackedMap? backingMap)
+  _$$FragmentProps$JsMap(JsBackedMap backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();

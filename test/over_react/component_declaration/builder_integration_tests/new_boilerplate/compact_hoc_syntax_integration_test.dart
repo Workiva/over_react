@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -28,7 +29,7 @@ main() {
       });
 
       test('component renders normally, and reading/writing props works', () {
-        late TestJacket<FooComponent> jacket;
+         TestJacket<FooComponent> jacket;
         expect(() {
           jacket = mount(
             (ReduxProvider()..store = Store((_, __) => null, initialState: null))(
@@ -47,7 +48,7 @@ main() {
       });
 
       test('component renders normally, and reading/writing props works', () {
-        late TestJacket<FooComponent290> jacket;
+         TestJacket<FooComponent290> jacket;
         expect(() {
           jacket = mount(
             (ReduxProvider()..store = Store((_, __) => null, initialState: null))(
@@ -67,7 +68,7 @@ UiFactory<Foo290Props> Foo290 = connect<Null, Foo290Props>(
 )(castUiFactory(_$Foo290)); // ignore: undefined_identifier
 
 mixin Foo290Props on UiProps {
-  String? foo;
+  String foo;
 }
 
 class FooComponent290 extends UiComponent2<Foo290Props> {
@@ -81,7 +82,7 @@ UiFactory<FooProps> Foo = connect<Null, FooProps>(
 )(_$Foo); // ignore: undefined_identifier, argument_type_not_assignable
 
 mixin FooProps on UiProps {
-  String? foo;
+  String foo;
 }
 
 class FooComponent extends UiComponent2<FooProps> {

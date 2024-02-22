@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,7 +25,7 @@ UiFactory<PropTypesWrapProps> PropTypesWrap = castUiFactory(_$PropTypesWrap); //
 mixin PropTypesWrapProps on UiProps {}
 
 mixin PropTypesWrapState on UiState {
-  List? twoObjects;
+  List twoObjects;
 }
 
 class PropTypesWrapComponent extends UiStatefulComponent2<PropTypesWrapProps, PropTypesWrapState> {

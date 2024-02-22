@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2021 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,7 +23,7 @@ import 'store.dart';
 part 'counter_fn.over_react.g.dart';
 
 mixin CounterFnPropsMixin on UiProps {
-  bool Function(int? nextCount, int? prevCount)? countEqualityFn;
+  bool Function(int nextCount, int prevCount) countEqualityFn;
 }
 
 class CounterFnProps = UiProps with CounterFnPropsMixin;
@@ -62,7 +63,7 @@ UiFactory<CounterFnProps> CounterFn = memo(uiFunction(
 ));
 
 mixin ModelCounterFnPropsMixin on UiProps {
-  bool Function(DartModelCounter? nextCount, DartModelCounter? prevCount)? modelCountEqualityFn;
+  bool Function(DartModelCounter nextCount, DartModelCounter prevCount) modelCountEqualityFn;
 }
 
 class ModelCounterFnProps = UiProps with CounterFnPropsMixin, ModelCounterFnPropsMixin;
@@ -107,7 +108,7 @@ final useBigCountSelector = createSelectorHook<BigCounterState>(bigCounterContex
 final useBigCountDispatch = createDispatchHook(bigCounterContext);
 
 mixin CustomContextCounterFnPropsMixin on UiProps {
-  bool Function(int nextBigCount, int prevBigCount)? bigCountEqualityFn;
+  bool Function(int nextBigCount, int prevBigCount) bigCountEqualityFn;
 }
 
 class CustomContextCounterFnProps = UiProps with CounterFnPropsMixin, CustomContextCounterFnPropsMixin;

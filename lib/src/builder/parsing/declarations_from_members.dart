@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -65,7 +66,7 @@ bool mightContainDeclarations(String source) {
 ///   1. [LegacyClassComponentDeclaration] (special case for when there is only 1 of each entity in the file)
 ///   1. Any of: [LegacyClassComponentDeclaration], [ClassComponentDeclaration], [PropsMapViewOrFunctionComponentDeclaration]
 Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
-    BoilerplateMembers members, ErrorCollector? errorCollector) sync* {
+    BoilerplateMembers members, ErrorCollector errorCollector) sync* {
   if (members.isEmpty) return;
 
   final _consumedMembers = <BoilerplateMember>{};
@@ -246,7 +247,7 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
           getPropsForFunctionComponent(members.props, members.propsMixins, factory);
       if (generatedFactories.isNotEmpty &&
           associatedProps?.either != null &&
-          !hasBeenConsumed(associatedProps!.either)) {
+          !hasBeenConsumed(associatedProps.either)) {
         consume(associatedProps.either);
         factories.factories.forEach(consume);
         yield PropsMapViewOrFunctionComponentDeclaration(
@@ -277,7 +278,7 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
                 version: version.version,
                 factory: factory,
                 component: component,
-                props: propsClassOrMixin.a!,
+                props: propsClassOrMixin.a,
                 state: stateClassOrMixin?.a);
             break;
           case Version.v4_mixinBased:
@@ -336,7 +337,7 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
         [factory, propsClass, componentClass].whereNotNull().toList();
     if (nonNullFactoryPropsOrComponents.isEmpty) {
       assert(stateClass != null);
-      if (resolveVersion([stateClass!]).shouldGenerate) {
+      if (resolveVersion([stateClass]).shouldGenerate) {
         errorCollector?.addError(errorStateOnly, errorCollector.spanFor(stateClass.name));
       }
       continue;
@@ -356,7 +357,7 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
         }
         continue;
       case 2:
-        final span = errorCollector?.spanFor((factory ?? propsClass)!.name);
+        final span = errorCollector?.spanFor((factory ?? propsClass).name);
         if (factory == null) {
           errorCollector?.addError(errorNoFactory, span);
         } else if (propsClass == null) {
@@ -381,7 +382,7 @@ const _ensureMatchingNames = 'If all the correct boilerplate members seem to be 
 
 /// Group [BoilerplateMembers.factories] by type.
 List<FactoryGroup> _groupFactories(BoilerplateMembers members) {
-  var factoriesByType = <String?, List<BoilerplateFactory>>{};
+  var factoriesByType = <String, List<BoilerplateFactory>>{};
 
   for (final factory in members.factories) {
     final typeString = factory.propsGenericArg?.typeNameWithoutPrefix;

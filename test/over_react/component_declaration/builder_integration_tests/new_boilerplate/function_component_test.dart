@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -137,7 +138,7 @@ main() {
   });
 
   group('GenericUiProps', () {
-    late GenericUiProps props;
+     GenericUiProps props;
 
     setUp(() {
       final genericFactory = uiFunction<UiProps>((_) {}, UiFactoryConfig());
@@ -156,7 +157,7 @@ main() {
       test('\$getPropKey (used by getPropKey)', () {
         expect(props.getPropKey((p) => p.id), 'id');
 
-        late final GenericUiProps getPropKeyArg;
+          GenericUiProps getPropKeyArg;
         props.getPropKey((p) {
           getPropKeyArg = p;
           p.id; // Access a prop so that this doesn't throw
@@ -291,7 +292,7 @@ void functionComponentTestHelper(UiFactory<TestProps> factory,
     expect(factory().getPropKey((p) => p.customKeyAndNamespaceProp),
         'custom namespace~~custom key!');
 
-    late final TestProps getPropKeyArg;
+      TestProps getPropKeyArg;
     factory().getPropKey((p) {
       getPropKeyArg = p;
       p.id; // Access a prop so that this doesn't throw
@@ -305,8 +306,8 @@ void functionComponentTestHelper(UiFactory<TestProps> factory,
     const className = 'aClassName';
 
     group('using `addUnconsumedProps`', () {
-      late TestProps initialProps;
-      late TestProps secondProps;
+       TestProps initialProps;
+       TestProps secondProps;
 
       setUp(() {
         initialProps = (factory()
@@ -339,8 +340,8 @@ void functionComponentTestHelper(UiFactory<TestProps> factory,
 
     group('using `addUnconsumedDomProps`', ()
     {
-      late TestProps initialProps;
-      late TestProps secondProps;
+       TestProps initialProps;
+       TestProps secondProps;
 
       setUp(() {
         initialProps = (factory()
@@ -372,10 +373,10 @@ void functionComponentTestHelper(UiFactory<TestProps> factory,
   });
 }
 
-testPropsToForward({required UiFactory<TestProps> factory, bool modifyProps = false}) {
+testPropsToForward({ UiFactory<TestProps> factory, bool modifyProps = false}) {
   group(modifyProps ? 'using `modifyProps(props.addPropsToForward)`' : 'using `getPropsToForwardProps`', () {
-      late TestProps initialProps;
-      late TestPropsMixin secondProps;
+       TestProps initialProps;
+       TestPropsMixin secondProps;
       const stringProp = 'stringProp';
       const anotherProp = 'anotherProp';
       const idAttributeValue = 'idAttributeValue';
@@ -469,10 +470,10 @@ testPropsToForward({required UiFactory<TestProps> factory, bool modifyProps = fa
 }
 
 TestProps _propsToForward<T extends UiProps>({
-  required UiFactory<TestProps> factory,
-  required T props,
+   UiFactory<TestProps> factory,
+   T props,
   bool modifyProps = false,
-  Set<Type>? exclude,
+  Set<Type> exclude,
   bool domOnly = false,
 }) {
   if (modifyProps == true) {
@@ -625,7 +626,7 @@ final _Test = uiFunction<TestProps>(
 );
 
 mixin TestPropsMixin on UiProps {
-  String? stringProp;
+  String stringProp;
   dynamic dynamicProp;
   var untypedProp; // ignore: prefer_typing_uninitialized_variables
 
@@ -640,19 +641,19 @@ mixin TestPropsMixin on UiProps {
 }
 
 mixin ASecondPropsMixin on UiProps {
-  String? anotherProp;
+  String anotherProp;
 }
 
 mixin AThirdPropsMixin on UiProps {
-  String? aPropsFromAThirdMixin;
+  String aPropsFromAThirdMixin;
 }
 
 mixin DomAccessorPropsMixin on UiProps {
   @Accessor(key: 'data-random', keyNamespace: '')
-  String? aRandomDataAttribute;
+  String aRandomDataAttribute;
 
   @Accessor(key: 'aria-label', keyNamespace: '')
-  String? anAriaLabelAlias;
+  String anAriaLabelAlias;
 }
 
 class TestProps = UiProps with TestPropsMixin, ASecondPropsMixin, AThirdPropsMixin, DomAccessorPropsMixin;

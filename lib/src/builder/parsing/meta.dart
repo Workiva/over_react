@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -25,14 +26,14 @@ import 'ast_util.dart';
 /// [T], or null if no matching annotations are found.
 ///
 /// > See [instantiateAnnotation] for more information.
-T? instantiateAnnotationTyped<T>(AnnotatedNode member,
-    {dynamic Function(Expression argument)? onUnsupportedArgument}) {
-  return instantiateAnnotation(member, T, onUnsupportedArgument: onUnsupportedArgument) as T?;
+T instantiateAnnotationTyped<T>(AnnotatedNode member,
+    {dynamic Function(Expression argument) onUnsupportedArgument}) {
+  return instantiateAnnotation(member, T, onUnsupportedArgument: onUnsupportedArgument) as T;
 }
 
 /// Returns the first annotation AST node on [member] of type [annotationType],
 /// or null if no matching annotations are found.
-Annotation? _getMatchingAnnotation(AnnotatedNode member, Type annotationType) {
+Annotation _getMatchingAnnotation(AnnotatedNode member, Type annotationType) {
   // Be sure to use `originalDeclaration` so that generic parameters work.
   final classMirror = mirrors.reflectClass(annotationType).originalDeclaration;
   final className = mirrors.MirrorSystem.getName(classMirror.simpleName);
@@ -62,7 +63,7 @@ class InstantiatedMeta<TMeta> {
   /// The original node will be available via [node].
   ///
   /// The instantiated annotation will be available via [value].
-  static InstantiatedMeta<T>? fromNode<T>(AnnotatedNode node) {
+  static InstantiatedMeta<T> fromNode<T>(AnnotatedNode node) {
     final metaNode = _getMatchingAnnotation(node, T);
     if (metaNode == null) return null;
 
@@ -102,20 +103,20 @@ class InstantiatedMeta<TMeta> {
 class InstantiatedComponentMeta<TMeta> extends InstantiatedMeta<TMeta> {
   static const String _subtypeOfParamName = 'subtypeOf';
 
-  final Identifier? subtypeOfValue;
+  final Identifier subtypeOfValue;
 
   InstantiatedComponentMeta._(
       Annotation metaNode, TMeta meta, List<Expression> unsupportedArguments, this.subtypeOfValue)
       : super._(metaNode, meta, unsupportedArguments);
 
-  static InstantiatedComponentMeta<T>? fromNode<T>(AnnotatedNode node) {
+  static InstantiatedComponentMeta<T> fromNode<T>(AnnotatedNode node) {
     try {
       final instantiated = InstantiatedMeta.fromNode<T>(node);
       if (instantiated == null) return null;
 
-      Identifier? subtypeOfValue;
+      Identifier subtypeOfValue;
 
-      NamedExpression? subtypeOfParam = instantiated.unsupportedArguments
+      NamedExpression subtypeOfParam = instantiated.unsupportedArguments
           .whereType<NamedExpression>()
           .firstWhereOrNull((expression) => expression.name.label.name == _subtypeOfParamName);
 

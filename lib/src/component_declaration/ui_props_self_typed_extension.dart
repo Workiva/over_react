@@ -1,3 +1,4 @@
+// @dart=2.11
 import 'package:over_react/src/component_declaration/builder_helpers.dart';
 import 'package:over_react/src/util/prop_key_util.dart' as prop_key_util;
 
@@ -73,7 +74,7 @@ extension UiPropsSelfTypedExtension<T extends UiProps> on T {
   ///       props.getRequiredProp((p) => p.requiredProp, () => 'default value');
   /// }
   /// ```
-  V getRequiredProp<V>(V Function(T spiedView) accessProp, {required V Function() orElse}) {
+  V getRequiredProp<V>(V Function(T spiedView) accessProp, { V Function() orElse}) {
     if (!containsProp(accessProp)) return orElse();
 
     // Provide a more helpful error when a non-nullable prop is specified with `null` somehow.
@@ -115,6 +116,6 @@ extension UiPropsSelfTypedExtension<T extends UiProps> on T {
   ///       props.getRequiredPropOrNull((p) => p.requiredProp);
   /// }
   /// ```
-  V? getRequiredPropOrNull<V>(V Function(T spiedView) accessProp) =>
+  V getRequiredPropOrNull<V>(V Function(T spiedView) accessProp) =>
       getRequiredProp(accessProp, orElse: () => null);
 }

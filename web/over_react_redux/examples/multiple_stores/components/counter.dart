@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -30,13 +31,13 @@ UiFactory<CounterProps> CounterWithDifferentContext = connect<CounterState, Coun
 UiFactory<CounterProps> _Counter = castUiFactory(_$_Counter); // ignore: undefined_identifier
 
 mixin CounterPropsMixin on UiProps {
-  int? currentCount;
+  int currentCount;
 
-  Map<String, dynamic>? wrapperStyles;
+  Map<String, dynamic> wrapperStyles;
 
-  void Function()? increment;
+  void Function() increment;
 
-  void Function()? decrement;
+  void Function() decrement;
 }
 
 class CounterProps = UiProps with CounterPropsMixin, ConnectPropsMixin;
@@ -48,14 +49,14 @@ class CounterComponent extends UiComponent2<CounterProps> {
         Dom.div()('Count: ${props.currentCount}'),
         (Dom.button()..onClick = (_) {
           if (props.increment != null) {
-            props.increment!();
+            props.increment();
           } else  {
             props.dispatch(IncrementAction());
           }
         })('+'),
         (Dom.button()..onClick = (_) {
           if (props.decrement != null) {
-            props.decrement!();
+            props.decrement();
           } else  {
             props.dispatch(DecrementAction());
           }

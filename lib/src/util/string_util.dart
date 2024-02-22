@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2016 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -38,7 +39,7 @@ library over_react.string_util;
 ///       ))
 ///     )()
 String unindent(String multilineString) {
-  var indent = RegExp(r'^( *)').firstMatch(multilineString)![1]!;
+  var indent = RegExp(r'^( *)').firstMatch(multilineString)[1];
   assert(indent.isNotEmpty);
   return multilineString.trim().replaceAll('\n$indent', '\n');
 }

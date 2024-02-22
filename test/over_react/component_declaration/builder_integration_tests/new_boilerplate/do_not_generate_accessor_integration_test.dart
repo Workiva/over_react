@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2017 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -57,10 +58,10 @@ main() {
     });
 
     group('generates state getters/setters properly', () {
-      late DoNotGenerateAccessorTestComponent component;
+       DoNotGenerateAccessorTestComponent component;
 
       setUp(() {
-        component = renderAndGetComponent(DoNotGenerateAccessorTest()())! as DoNotGenerateAccessorTestComponent;
+        component = renderAndGetComponent(DoNotGenerateAccessorTest()()) as DoNotGenerateAccessorTestComponent;
       });
 
       test('for state fields listed before the field annotated with doNotGenerate', () {

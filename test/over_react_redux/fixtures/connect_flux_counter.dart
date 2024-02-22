@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,19 +25,19 @@ UiFactory<ConnectFluxCounterProps> ConnectFluxCounter = _$ConnectFluxCounter;
 
 @Props()
 class _$ConnectFluxCounterProps extends UiProps {
-  int? currentCount;
+  int currentCount;
 
-  Map<String, dynamic>? wrapperStyles;
+  Map<String, dynamic> wrapperStyles;
 
-  List<String>? mutatedList;
+  List<String> mutatedList;
 
-  void Function()? increment;
+  void Function() increment;
 
-  void Function()? decrement;
+  void Function() decrement;
 
-  void Function()? mutateStoreDirectly;
+  void Function() mutateStoreDirectly;
 
-  FluxActions? actions;
+  FluxActions actions;
 }
 
 @Component2()
@@ -53,9 +54,9 @@ class ConnectFluxCounterComponent
         ..addTestId('button-increment')
         ..onClick = (_) {
           if (props.mutateStoreDirectly != null) {
-            props.mutateStoreDirectly!();
+            props.mutateStoreDirectly();
           } else if (props.increment != null) {
-            props.increment!();
+            props.increment();
           } else {
             props.actions?.incrementAction();
           }
@@ -64,7 +65,7 @@ class ConnectFluxCounterComponent
       (Dom.button()
         ..addTestId('button-decrement')
         ..onClick = (_) {
-          props.decrement!();
+          props.decrement();
         }
       )('-'),
       props.children,

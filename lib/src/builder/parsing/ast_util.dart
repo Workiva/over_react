@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -29,7 +30,7 @@ export 'ast_util/classish.dart';
 /// Utils that allow for easier access into VariableDeclarationList
 extension InitializerHelper on VariableDeclarationList {
   /// The initializer for the first variable in this list.
-  Expression? get firstInitializer => variables.first.initializer;
+  Expression get firstInitializer => variables.first.initializer;
 
   /// The first variable in this list.
   VariableDeclaration get firstVariable => variables.first;
@@ -39,7 +40,7 @@ extension InitializerHelper on VariableDeclarationList {
 /// the variables within a [VariableDeclarationList].
 extension InitializerHelperTopLevel on TopLevelVariableDeclaration {
   /// The initializer for the first variable in this list.
-  Expression? get firstInitializer => variables.firstInitializer;
+  Expression get firstInitializer => variables.firstInitializer;
 
   /// The first variable in this list.
   VariableDeclaration get firstVariable => variables.firstVariable;
@@ -63,7 +64,7 @@ extension InitializerHelperTopLevel on TopLevelVariableDeclaration {
 extension TypeAnnotationNameHelper on TypeAnnotation {
   /// The unprefixed name of the node if the node is a [NamedType], or `null`
   /// if this type is not named.
-  String? get typeNameWithoutPrefix => tryCast<NamedType>()?.nameWithoutPrefix;
+  String get typeNameWithoutPrefix => tryCast<NamedType>()?.nameWithoutPrefix;
 }
 
 /// Extension built on [NameHelper] to allow for easy access to the `name`
@@ -90,7 +91,7 @@ extension SuperclassConstraint on MixinDeclaration {
   ///
   /// Any identifier prefixes in the `on` clause are removed before comparison.
   bool hasSuperclassConstraint(String superclassName) {
-    return onClause?.superclassConstraints.any((s) => s.typeNameWithoutPrefix == superclassName) ??
+    return onClause?.superclassConstraints?.any((s) => s.typeNameWithoutPrefix == superclassName) ??
         false;
   }
 }
@@ -124,7 +125,7 @@ extension MetadataHelper on AnnotatedNode {
   static String _getAnnotationClassOrTopLevelVariableName(Annotation annotation) {
     var fullName = annotation.name.name;
     if (annotation.constructorName != null) {
-      fullName = '$fullName.${annotation.constructorName!.name}';
+      fullName = '$fullName.${annotation.constructorName.name}';
     }
 
     final segments = fullName.split('.');
@@ -142,7 +143,7 @@ extension MetadataHelper on AnnotatedNode {
   }
 
   /// Returns the first annotation on this node whose class or variable name is [name].
-  Annotation? getAnnotationWithName(String name) {
+  Annotation getAnnotationWithName(String name) {
     assert(!name.contains('.'), 'must be a class or variable name, unprefixed');
 
     return metadata.firstWhereOrNull(
@@ -150,7 +151,7 @@ extension MetadataHelper on AnnotatedNode {
   }
 
   /// Returns the first annotation on this node whose class or variable name is included in [names].
-  Annotation? getAnnotationWithNames(Set<String> names) {
+  Annotation getAnnotationWithNames(Set<String> names) {
     assert(
         !names.any((name) => name.contains('.')), 'must be a class or variable name, unprefixed');
 
@@ -205,7 +206,7 @@ bool anyDescendantIdentifiers(Expression expression, bool Function(Identifier) t
 }
 
 /// Returns the [Identifier] within [expression] matches the predicate [test].
-SimpleIdentifier? getDescendantIdentifier(Expression expression, bool Function(Identifier) test) {
+SimpleIdentifier getDescendantIdentifier(Expression expression, bool Function(Identifier) test) {
   final visitor = _AnyDescendantIdentifiersVisitor(test);
   expression.accept(visitor);
   return visitor.match;
@@ -215,7 +216,7 @@ class _AnyDescendantIdentifiersVisitor extends UnifyingAstVisitor<void> {
   final bool Function(Identifier) _test;
 
   bool hasMatch = false;
-  SimpleIdentifier? match;
+  SimpleIdentifier match;
 
   _AnyDescendantIdentifiersVisitor(this._test);
 

@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,5 +18,5 @@ import 'package:over_react/over_react.dart';
 part 'state_mixin.over_react.g.dart';
 
 mixin ExampleStateMixin on UiState {
-  String? stateMixin1;
+  String stateMixin1;
 }

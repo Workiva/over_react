@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -25,7 +26,7 @@ main() {
 
     expect(instance, isNotNull); // sanity check
 
-    var node = findDomNode(instance)!;
+    var node = findDomNode(instance);
 
     expect(node.text, contains('some private value'));
   });
@@ -35,7 +36,7 @@ main() {
 UiFactory<FooProps> Foo = _$Foo;
 
 mixin FooProps on UiProps {
-  String? _privateProp;
+  String _privateProp;
 }
 
 class FooComponent extends UiComponent2<FooProps> {

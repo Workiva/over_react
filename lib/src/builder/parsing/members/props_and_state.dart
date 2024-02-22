@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -37,14 +38,14 @@ abstract class BoilerplatePropsOrState extends BoilerplateTypedMapMember
   /// The companion class for the props or state.
   ///
   /// This will only be present for [Version.v2_legacyBackwardsCompat] classes.
-  final ClassishDeclaration? companion;
+  final ClassishDeclaration companion;
 
   /// The corresponding annotation.
   ///
   /// This is determined at runtime by detecting the type of class (props, state, abstract)
   /// based upon what annotation is present upon [node].
   @override
-  late annotations.TypedMap meta;
+   annotations.TypedMap meta;
 
   @override
   Token get name => nodeHelper.name;
@@ -86,7 +87,7 @@ abstract class BoilerplatePropsOrState extends BoilerplateTypedMapMember
           if (nodeHelper.hasAbstractKeyword) {
             errorCollector.addError(
                 '$propsOrStateClassString implementations must not be abstract, as they cannot be extended.',
-                errorCollector.spanFor(nodeHelper.abstractKeyword!));
+                errorCollector.spanFor(nodeHelper.abstractKeyword));
           }
         }
         break;
@@ -138,7 +139,7 @@ abstract class BoilerplatePropsOrState extends BoilerplateTypedMapMember
 /// See [BoilerplateMember] for more information.
 class BoilerplateProps extends BoilerplatePropsOrState {
   BoilerplateProps(
-      ClassishDeclaration nodeHelper, ClassishDeclaration? companion, VersionConfidences confidence)
+      ClassishDeclaration nodeHelper, ClassishDeclaration companion, VersionConfidences confidence)
       : super(nodeHelper, companion, confidence);
 
   @override
@@ -150,7 +151,7 @@ class BoilerplateProps extends BoilerplatePropsOrState {
 /// See [BoilerplateMember] for more information.
 class BoilerplateState extends BoilerplatePropsOrState {
   BoilerplateState(
-      ClassishDeclaration nodeHelper, ClassishDeclaration? companion, VersionConfidences confidence)
+      ClassishDeclaration nodeHelper, ClassishDeclaration companion, VersionConfidences confidence)
       : super(nodeHelper, companion, confidence);
 
   @override

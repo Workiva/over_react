@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,7 +20,7 @@ import 'package:test/test.dart';
 main() {
   group('boilerplate name utilities -', () {
     group('FactoryNames -', () {
-      late FactoryNames names;
+       FactoryNames names;
 
       group('unprefixed -', () {
         setUp(() {
@@ -47,7 +48,7 @@ main() {
     });
 
     group('ComponentNames -', () {
-      late ComponentNames names;
+       ComponentNames names;
 
       group('unprefixed -', () {
         setUp(() {
@@ -71,7 +72,7 @@ main() {
     });
 
     group('TypedMapNames -', () {
-      late TypedMapNames names;
+       TypedMapNames names;
 
       group('unprefixed,', () {
         group('legacy boilerplate -', () {

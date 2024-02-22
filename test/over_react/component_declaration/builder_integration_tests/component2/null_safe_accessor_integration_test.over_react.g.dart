@@ -1,3 +1,4 @@
+// @dart=2.11
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 // ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators, invalid_use_of_visible_for_overriding_member
@@ -47,23 +48,23 @@ abstract class _$NullSafeTestPropsAccessorsMixin
 
   /// <!-- Generated from [_$NullSafeTestProps.requiredNullable] -->
   @override
-  String? get requiredNullable =>
-      (props[_$key__requiredNullable___$NullSafeTestProps] ?? null) as String?;
+  String get requiredNullable =>
+      (props[_$key__requiredNullable___$NullSafeTestProps] ?? null) as String;
 
   /// <!-- Generated from [_$NullSafeTestProps.requiredNullable] -->
   @override
-  set requiredNullable(String? value) =>
+  set requiredNullable(String value) =>
       props[_$key__requiredNullable___$NullSafeTestProps] = value;
 
   /// <!-- Generated from [_$NullSafeTestProps.requiredNullableTypedefWithoutQuestion] -->
   @override
-  Object? get requiredNullableTypedefWithoutQuestion => (props[
+  Object get requiredNullableTypedefWithoutQuestion => (props[
           _$key__requiredNullableTypedefWithoutQuestion___$NullSafeTestProps] ??
-      null) as Object?;
+      null) as Object;
 
   /// <!-- Generated from [_$NullSafeTestProps.requiredNullableTypedefWithoutQuestion] -->
   @override
-  set requiredNullableTypedefWithoutQuestion(Object? value) => props[
+  set requiredNullableTypedefWithoutQuestion(Object value) => props[
           _$key__requiredNullableTypedefWithoutQuestion___$NullSafeTestProps] =
       value;
 
@@ -93,12 +94,12 @@ abstract class _$NullSafeTestPropsAccessorsMixin
 
   /// <!-- Generated from [_$NullSafeTestProps.nullable] -->
   @override
-  String? get nullable =>
-      (props[_$key__nullable___$NullSafeTestProps] ?? null) as String?;
+  String get nullable =>
+      (props[_$key__nullable___$NullSafeTestProps] ?? null) as String;
 
   /// <!-- Generated from [_$NullSafeTestProps.nullable] -->
   @override
-  set nullable(String? value) =>
+  set nullable(String value) =>
       props[_$key__nullable___$NullSafeTestProps] = value;
 
   /// <!-- Generated from [_$NullSafeTestProps.nullableDynamic] -->
@@ -113,24 +114,24 @@ abstract class _$NullSafeTestPropsAccessorsMixin
 
   /// <!-- Generated from [_$NullSafeTestProps.nullableDynamicWithQuestion] -->
   @override
-  dynamic? get nullableDynamicWithQuestion =>
+  dynamic get nullableDynamicWithQuestion =>
       (props[_$key__nullableDynamicWithQuestion___$NullSafeTestProps] ?? null)
-          as dynamic?;
+          as dynamic;
 
   /// <!-- Generated from [_$NullSafeTestProps.nullableDynamicWithQuestion] -->
   @override
-  set nullableDynamicWithQuestion(dynamic? value) =>
+  set nullableDynamicWithQuestion(dynamic value) =>
       props[_$key__nullableDynamicWithQuestion___$NullSafeTestProps] = value;
 
   /// <!-- Generated from [_$NullSafeTestProps.nullableTypedefWithoutQuestion] -->
   @override
-  Object? get nullableTypedefWithoutQuestion =>
+  Object get nullableTypedefWithoutQuestion =>
       (props[_$key__nullableTypedefWithoutQuestion___$NullSafeTestProps] ??
-          null) as Object?;
+          null) as Object;
 
   /// <!-- Generated from [_$NullSafeTestProps.nullableTypedefWithoutQuestion] -->
   @override
-  set nullableTypedefWithoutQuestion(Object? value) =>
+  set nullableTypedefWithoutQuestion(Object value) =>
       props[_$key__nullableTypedefWithoutQuestion___$NullSafeTestProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__requiredNonNullable___$NullSafeTestProps =
@@ -230,7 +231,7 @@ class NullSafeTestProps extends _$NullSafeTestProps
   static const PropsMeta meta = _$metaForNullSafeTestProps;
 }
 
-_$$NullSafeTestProps _$NullSafeTest([Map? backingProps]) => backingProps == null
+_$$NullSafeTestProps _$NullSafeTest([Map backingProps]) => backingProps == null
     ? _$$NullSafeTestProps$JsMap(JsBackedMap())
     : _$$NullSafeTestProps(backingProps);
 
@@ -242,9 +243,9 @@ abstract class _$$NullSafeTestProps extends _$NullSafeTestProps
     implements NullSafeTestProps {
   _$$NullSafeTestProps._();
 
-  factory _$$NullSafeTestProps(Map? backingMap) {
+  factory _$$NullSafeTestProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$NullSafeTestProps$JsMap(backingMap as JsBackedMap?);
+      return _$$NullSafeTestProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$NullSafeTestProps$PlainMap(backingMap);
     }
@@ -277,7 +278,7 @@ const _$getPropKey$_$$NullSafeTestProps = getPropKey;
 class _$$NullSafeTestProps$PlainMap extends _$$NullSafeTestProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$NullSafeTestProps$PlainMap(Map? backingMap)
+  _$$NullSafeTestProps$PlainMap(Map backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -294,7 +295,7 @@ class _$$NullSafeTestProps$PlainMap extends _$$NullSafeTestProps {
 class _$$NullSafeTestProps$JsMap extends _$$NullSafeTestProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$NullSafeTestProps$JsMap(JsBackedMap? backingMap)
+  _$$NullSafeTestProps$JsMap(JsBackedMap backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -335,23 +336,23 @@ abstract class _$NullSafeTestStateAccessorsMixin
 
   /// <!-- Generated from [_$NullSafeTestState.requiredNullable] -->
   @override
-  String? get requiredNullable =>
-      (state[_$key__requiredNullable___$NullSafeTestState] ?? null) as String?;
+  String get requiredNullable =>
+      (state[_$key__requiredNullable___$NullSafeTestState] ?? null) as String;
 
   /// <!-- Generated from [_$NullSafeTestState.requiredNullable] -->
   @override
-  set requiredNullable(String? value) =>
+  set requiredNullable(String value) =>
       state[_$key__requiredNullable___$NullSafeTestState] = value;
 
   /// <!-- Generated from [_$NullSafeTestState.requiredNullableTypedefWithoutQuestion] -->
   @override
-  Object? get requiredNullableTypedefWithoutQuestion => (state[
+  Object get requiredNullableTypedefWithoutQuestion => (state[
           _$key__requiredNullableTypedefWithoutQuestion___$NullSafeTestState] ??
-      null) as Object?;
+      null) as Object;
 
   /// <!-- Generated from [_$NullSafeTestState.requiredNullableTypedefWithoutQuestion] -->
   @override
-  set requiredNullableTypedefWithoutQuestion(Object? value) => state[
+  set requiredNullableTypedefWithoutQuestion(Object value) => state[
           _$key__requiredNullableTypedefWithoutQuestion___$NullSafeTestState] =
       value;
 
@@ -367,12 +368,12 @@ abstract class _$NullSafeTestStateAccessorsMixin
 
   /// <!-- Generated from [_$NullSafeTestState.nullable] -->
   @override
-  String? get nullable =>
-      (state[_$key__nullable___$NullSafeTestState] ?? null) as String?;
+  String get nullable =>
+      (state[_$key__nullable___$NullSafeTestState] ?? null) as String;
 
   /// <!-- Generated from [_$NullSafeTestState.nullable] -->
   @override
-  set nullable(String? value) =>
+  set nullable(String value) =>
       state[_$key__nullable___$NullSafeTestState] = value;
 
   /// <!-- Generated from [_$NullSafeTestState.nullableDynamic] -->
@@ -387,24 +388,24 @@ abstract class _$NullSafeTestStateAccessorsMixin
 
   /// <!-- Generated from [_$NullSafeTestState.nullableDynamicWithQuestion] -->
   @override
-  dynamic? get nullableDynamicWithQuestion =>
+  dynamic get nullableDynamicWithQuestion =>
       (state[_$key__nullableDynamicWithQuestion___$NullSafeTestState] ?? null)
-          as dynamic?;
+          as dynamic;
 
   /// <!-- Generated from [_$NullSafeTestState.nullableDynamicWithQuestion] -->
   @override
-  set nullableDynamicWithQuestion(dynamic? value) =>
+  set nullableDynamicWithQuestion(dynamic value) =>
       state[_$key__nullableDynamicWithQuestion___$NullSafeTestState] = value;
 
   /// <!-- Generated from [_$NullSafeTestState.nullableTypedefWithoutQuestion] -->
   @override
-  Object? get nullableTypedefWithoutQuestion =>
+  Object get nullableTypedefWithoutQuestion =>
       (state[_$key__nullableTypedefWithoutQuestion___$NullSafeTestState] ??
-          null) as Object?;
+          null) as Object;
 
   /// <!-- Generated from [_$NullSafeTestState.nullableTypedefWithoutQuestion] -->
   @override
-  set nullableTypedefWithoutQuestion(Object? value) =>
+  set nullableTypedefWithoutQuestion(Object value) =>
       state[_$key__nullableTypedefWithoutQuestion___$NullSafeTestState] = value;
   /* GENERATED CONSTANTS */
   static const StateDescriptor
@@ -503,9 +504,9 @@ abstract class _$$NullSafeTestState extends _$NullSafeTestState
     implements NullSafeTestState {
   _$$NullSafeTestState._();
 
-  factory _$$NullSafeTestState(Map? backingMap) {
+  factory _$$NullSafeTestState(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$NullSafeTestState$JsMap(backingMap as JsBackedMap?);
+      return _$$NullSafeTestState$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$NullSafeTestState$PlainMap(backingMap);
     }
@@ -520,7 +521,7 @@ abstract class _$$NullSafeTestState extends _$NullSafeTestState
 class _$$NullSafeTestState$PlainMap extends _$$NullSafeTestState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$NullSafeTestState$PlainMap(Map? backingMap)
+  _$$NullSafeTestState$PlainMap(Map backingMap)
       : this._state = {},
         super._() {
     this._state = backingMap ?? {};
@@ -537,7 +538,7 @@ class _$$NullSafeTestState$PlainMap extends _$$NullSafeTestState {
 class _$$NullSafeTestState$JsMap extends _$$NullSafeTestState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$NullSafeTestState$JsMap(JsBackedMap? backingMap)
+  _$$NullSafeTestState$JsMap(JsBackedMap backingMap)
       : this._state = JsBackedMap(),
         super._() {
     this._state = backingMap ?? JsBackedMap();
@@ -554,7 +555,7 @@ class _$$NullSafeTestState$JsMap extends _$$NullSafeTestState {
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$NullSafeTestComponent extends NullSafeTestComponent {
-  late _$$NullSafeTestProps$JsMap _cachedTypedProps;
+   _$$NullSafeTestProps$JsMap _cachedTypedProps;
 
   @override
   _$$NullSafeTestProps$JsMap get props => _cachedTypedProps;
@@ -574,14 +575,14 @@ class _$NullSafeTestComponent extends NullSafeTestComponent {
   }
 
   @override
-  _$$NullSafeTestProps$JsMap typedPropsFactoryJs(JsBackedMap? backingMap) =>
+  _$$NullSafeTestProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
       _$$NullSafeTestProps$JsMap(backingMap);
 
   @override
-  _$$NullSafeTestProps typedPropsFactory(Map? backingMap) =>
+  _$$NullSafeTestProps typedPropsFactory(Map backingMap) =>
       _$$NullSafeTestProps(backingMap);
 
-  late _$$NullSafeTestState$JsMap _cachedTypedState;
+   _$$NullSafeTestState$JsMap _cachedTypedState;
   @override
   _$$NullSafeTestState$JsMap get state => _cachedTypedState;
 
@@ -596,11 +597,11 @@ class _$NullSafeTestComponent extends NullSafeTestComponent {
   }
 
   @override
-  _$$NullSafeTestState$JsMap typedStateFactoryJs(JsBackedMap? backingMap) =>
+  _$$NullSafeTestState$JsMap typedStateFactoryJs(JsBackedMap backingMap) =>
       _$$NullSafeTestState$JsMap(backingMap);
 
   @override
-  _$$NullSafeTestState typedStateFactory(Map? backingMap) =>
+  _$$NullSafeTestState typedStateFactory(Map backingMap) =>
       _$$NullSafeTestState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.

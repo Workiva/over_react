@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2016 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,10 +25,10 @@ import 'dart:collection';
 String getPropKey<T extends Map>(void Function(T keySpy) accessProp, T Function(Map props) factory) {
   return _getKey((keySpy) {
     return accessProp(factory(keySpy));
-  })! as String;
+  }) as String;
 }
 
-Object? _getKey(void Function(Map keySpy) accessKey) {
+Object _getKey(void Function(Map keySpy) accessKey) {
   final keySpy = _SingleKeyAccessMapSpy();
   // When they access a key, _SingleKeyAccessMapSpy will throw a _InterceptedKeyAccessException.
   try {
@@ -42,7 +43,7 @@ Object? _getKey(void Function(Map keySpy) accessKey) {
 /// Helper class that stores the key accessed while getting a value within a Map.
 class _SingleKeyAccessMapSpy extends MapBase {
   bool _hasBeenAccessed = false;
-  Object? _key;
+  Object _key;
 
   dynamic get key {
     if (!_hasBeenAccessed) throw StateError('Key has not been accessed.');
@@ -73,14 +74,14 @@ class _SingleKeyAccessMapSpy extends MapBase {
   Iterable get keys => const [];
 
   @override
-  remove(Object? key) => throw _unsupportedReadError();
+  remove(Object key) => throw _unsupportedReadError();
 }
 
 /// An exception thrown as part of [_SingleKeyAccessMapSpy]'s operation, in order to short-circuit
 /// any logic that comes after intercepting the key access.
 class _InterceptedKeyAccessException implements Exception {
   // The key being accessed.
-  final Object? key;
+  final Object key;
 
   _InterceptedKeyAccessException(this.key);
 }

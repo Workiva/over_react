@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,12 +19,12 @@ import 'package:over_react/over_react.dart';
 part 'function_component.over_react.g.dart';
 
 mixin BasicProps on UiProps {
-  Ref? forwardedRef;
-  String? basicProp;
-  String? basic1;
-  String? basic2;
-  String? basic3;
-  String? basic4;
+  Ref forwardedRef;
+  String basicProp;
+  String basic1;
+  String basic2;
+  String basic3;
+  String basic4;
 }
 
 UiFactory<BasicProps> Basic = uiForwardRef(
@@ -56,7 +57,7 @@ UiFactory<BasicProps> Simple = uiFunction(
 );
 
 mixin FooProps on UiProps {
-  String? content;
+  String content;
 }
 
 UiFactory<FooProps> Foo = uiFunction(

@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,12 +19,12 @@ import 'package:over_react/over_react.dart';
 part 'functional_consumed_props.over_react.g.dart';
 
 mixin ParentOnlyPropsMixin on UiProps {
-  String? aParentProp;
+  String aParentProp;
 }
 
 mixin SharedPropsMixin on UiProps {
-  late String requiredProp;
-  String? aPropToBePassed;
+   String requiredProp;
+  String aPropToBePassed;
 }
 
 @Props(disableRequiredPropValidation: {'requiredProp'})

@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2019 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -40,7 +41,7 @@ void main() {
         ),
       );
 
-      expect(wrappingDivRef.current!.children, hasLength(4));
+      expect(wrappingDivRef.current.children, hasLength(4));
     });
 
     test('passes the key properly onto the fragment', () {

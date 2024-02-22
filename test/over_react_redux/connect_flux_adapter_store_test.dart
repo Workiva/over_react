@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2021 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -53,7 +54,7 @@ main() {
       });
 
       group('can be called multiple times without throwing', () {
-        late ConnectFluxAdapterStore adapterStore;
+         ConnectFluxAdapterStore adapterStore;
 
         setUp(() {
           adapterStore = SimpleStore().asConnectFluxStore(null);
@@ -74,8 +75,8 @@ main() {
     });
 
     group('calls teardown when the flux store is disposed', () {
-      late flux.Store store;
-      late ConnectFluxAdapterStore adapterStore;
+       flux.Store store;
+       ConnectFluxAdapterStore adapterStore;
 
       setUp(() {
         store = SimpleStore();
@@ -121,8 +122,8 @@ class SpyStore extends flux.Store {
   final spiedSubscriptions = <StreamSubscription>[];
 
   @override
-  listen(void Function(flux.Store)? onData,
-      {Function? onError, void Function()? onDone, bool? cancelOnError}) {
+  listen(void Function(flux.Store) onData,
+      {Function onError, void Function() onDone, bool cancelOnError}) {
     final sub =
         super.listen(onData, onError: onError, onDone: onDone, cancelOnError: cancelOnError);
     spiedSubscriptions.add(sub);

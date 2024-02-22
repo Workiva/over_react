@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2016 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,8 +23,8 @@ import '../../mockito.mocks.dart';
 
 void mapProxyTests(Map Function(Map proxiedMap) mapProxyFactory) {
   group('proxies the Map member:', () {
-    late Map proxy;
-    late MockMap backingMap;
+     Map proxy;
+     MockMap backingMap;
 
     setUp(() {
       backingMap = MockMap();

@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -61,7 +62,7 @@ bool isPart(CompilationUnit unit) =>
 ///     '<T extends Iterable, U>' //TypeParameterList.toSource()
 ///   Output:
 ///     '<T, U>'
-String removeBoundsFromTypeParameters(TypeParameterList? typeParameters) {
+String removeBoundsFromTypeParameters(TypeParameterList typeParameters) {
   return typeParameters != null ? (StringBuffer()
     ..write('${typeParameters.leftBracket}')..write(
         typeParameters.typeParameters.map((t) => t.name.name).join(
@@ -72,7 +73,7 @@ String removeBoundsFromTypeParameters(TypeParameterList? typeParameters) {
 
 /// Returns a [FieldDeclaration] for the meta field on a [ClassDeclaration] if
 /// it exists, otherwise returns null.
-FieldDeclaration? getMetaField(Iterable<ClassMember> members) {
+FieldDeclaration getMetaField(Iterable<ClassMember> members) {
   bool isPropsOrStateMeta(FieldDeclaration fd) {
     if (!fd.isStatic) return false;
     if (fd.fields.variables.length > 1) return false;
@@ -82,14 +83,14 @@ FieldDeclaration? getMetaField(Iterable<ClassMember> members) {
   return members.whereType<FieldDeclaration>().firstWhereOrNull(isPropsOrStateMeta);
 }
 
-String messageWithSpan(String message, {SourceSpan? span}) {
+String messageWithSpan(String message, {SourceSpan span}) {
   final spanMsg = span != null ? '\nSource: ${span.highlight()}' : '';
   return '$message$spanMsg';
 }
 
 /// Returns any [FieldDeclaration]s on [node] which have the name `meta`,
 /// otherwise `null`.
-FieldDeclaration? metaFieldOrNull(ClassishDeclaration node) {
+FieldDeclaration metaFieldOrNull(ClassishDeclaration node) {
   return node.members.whereType<FieldDeclaration>().firstWhereOrNull(fieldDeclarationHasMeta);
 }
 
@@ -108,7 +109,7 @@ bool fieldDeclarationHasName(FieldDeclaration field, String name) {
 
 /// Returns any [MethodDeclaration]s on [node] which have the name `meta`,
 /// otherwise `null`.
-MethodDeclaration? metaMethodOrNull(ClassishDeclaration node) {
+MethodDeclaration metaMethodOrNull(ClassishDeclaration node) {
   return node.members.whereType<MethodDeclaration>().firstWhereOrNull((member) =>
       member.name.name == 'meta');
 }

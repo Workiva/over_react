@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -37,9 +38,9 @@ UiFactory<ConnectFluxBigBlockProps> ConnectFluxBigBlock =
 )(castUiFactory(_$ConnectFluxBigBlock)); // ignore: undefined_identifier
 
 mixin ConnectFluxBigBlockPropsMixin on UiProps {
-  String? backgroundColor; // [1]
+  String backgroundColor; // [1]
 
-  void Function()? changeBackgroundColor; // [2]
+  void Function() changeBackgroundColor; // [2]
 }
 
 class ConnectFluxBigBlockProps = UiProps with ConnectFluxBigBlockPropsMixin, ConnectPropsMixin;
@@ -55,7 +56,7 @@ class ConnectFluxBigBlockComponent extends UiComponent2<ConnectFluxBigBlockProps
       'This module uses a connect flux pattern to change its background color.',
       (Dom.button()
         ..onClick = (_) {
-          props.changeBackgroundColor!(); // [3]
+          props.changeBackgroundColor(); // [3]
         }
         ..style = {'padding': '10px', 'margin': '10px'}
       )('Change Background Color'),

@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -29,7 +30,7 @@ class BoilerplateFactory extends BoilerplateMember {
   annotations.Factory get meta => const annotations.Factory();
 
   /// The [TypeAnnotation] for the component's factory.
-  TypeAnnotation? get propsGenericArg {
+  TypeAnnotation get propsGenericArg {
     final type = node.variables.type;
     if (type is NamedType && type.typeNameWithoutPrefix == 'UiFactory') {
       final typeArgs = type.typeArguments?.arguments;
@@ -40,9 +41,9 @@ class BoilerplateFactory extends BoilerplateMember {
 
     if (shouldGenerateConfig) {
       final uiFunctionInvocation = getDescendantIdentifier(
-          node.variables.firstInitializer!, (identifier) => identifier.isFunctionType)!;
+          node.variables.firstInitializer, (identifier) => identifier.isFunctionType);
       final methodInvocation = uiFunctionInvocation.thisOrAncestorOfType<MethodInvocation>();
-      final typeArgs = methodInvocation?.typeArguments?.arguments.first;
+      final typeArgs = methodInvocation?.typeArguments?.arguments?.first;
       return typeArgs;
     }
 

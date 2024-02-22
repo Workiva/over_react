@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -36,7 +37,7 @@ class TestStatefulRedrawOnComponent extends FluxUiStatefulComponent<TestStateful
   redrawOn() => [props.store.store1, props.store.store2];
 
   @override
-  void setState(_, [Function()? callback]) {
+  void setState(_, [Function() callback]) {
     numberOfRedraws++;
     if (callback != null) callback();
   }

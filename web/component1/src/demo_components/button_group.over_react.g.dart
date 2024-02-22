@@ -1,3 +1,4 @@
+// @dart=2.11
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 // ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators, invalid_use_of_visible_for_overriding_member
@@ -30,8 +31,8 @@ abstract class _$ButtonGroupPropsAccessorsMixin implements _$ButtonGroupProps {
   ///
   /// <!-- Generated from [_$ButtonGroupProps.size] -->
   @override
-  ButtonGroupSize? get size =>
-      (props[_$key__size___$ButtonGroupProps] ?? null) as ButtonGroupSize?;
+  ButtonGroupSize get size =>
+      (props[_$key__size___$ButtonGroupProps] ?? null) as ButtonGroupSize;
 
   /// Apply a button size variation universally to every [Button] within the [ButtonGroup].
   ///
@@ -41,21 +42,21 @@ abstract class _$ButtonGroupPropsAccessorsMixin implements _$ButtonGroupProps {
   ///
   /// <!-- Generated from [_$ButtonGroupProps.size] -->
   @override
-  set size(ButtonGroupSize? value) =>
+  set size(ButtonGroupSize value) =>
       props[_$key__size___$ButtonGroupProps] = value;
 
   /// The [ButtonSkin] variation applied to every [Button] within the [ButtonGroup].
   ///
   /// <!-- Generated from [_$ButtonGroupProps.skin] -->
   @override
-  ButtonSkin? get skin =>
-      (props[_$key__skin___$ButtonGroupProps] ?? null) as ButtonSkin?;
+  ButtonSkin get skin =>
+      (props[_$key__skin___$ButtonGroupProps] ?? null) as ButtonSkin;
 
   /// The [ButtonSkin] variation applied to every [Button] within the [ButtonGroup].
   ///
   /// <!-- Generated from [_$ButtonGroupProps.skin] -->
   @override
-  set skin(ButtonSkin? value) => props[_$key__skin___$ButtonGroupProps] = value;
+  set skin(ButtonSkin value) => props[_$key__skin___$ButtonGroupProps] = value;
 
   /// Make the [Button]s within a [ButtonGroup] stack vertically.
   ///
@@ -65,8 +66,8 @@ abstract class _$ButtonGroupPropsAccessorsMixin implements _$ButtonGroupProps {
   ///
   /// <!-- Generated from [_$ButtonGroupProps.isVertical] -->
   @override
-  bool? get isVertical =>
-      (props[_$key__isVertical___$ButtonGroupProps] ?? null) as bool?;
+  bool get isVertical =>
+      (props[_$key__isVertical___$ButtonGroupProps] ?? null) as bool;
 
   /// Make the [Button]s within a [ButtonGroup] stack vertically.
   ///
@@ -76,7 +77,7 @@ abstract class _$ButtonGroupPropsAccessorsMixin implements _$ButtonGroupProps {
   ///
   /// <!-- Generated from [_$ButtonGroupProps.isVertical] -->
   @override
-  set isVertical(bool? value) =>
+  set isVertical(bool value) =>
       props[_$key__isVertical___$ButtonGroupProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__size___$ButtonGroupProps =
@@ -112,7 +113,7 @@ class ButtonGroupProps extends _$ButtonGroupProps
   static const PropsMeta meta = _$metaForButtonGroupProps;
 }
 
-_$$ButtonGroupProps _$ButtonGroup([Map? backingProps]) =>
+_$$ButtonGroupProps _$ButtonGroup([Map backingProps]) =>
     _$$ButtonGroupProps(backingProps);
 
 // Concrete props implementation.
@@ -123,7 +124,7 @@ class _$$ButtonGroupProps extends _$ButtonGroupProps
     implements ButtonGroupProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ButtonGroupProps(Map? backingMap) : this._props = {} {
+  _$$ButtonGroupProps(Map backingMap) : this._props = {} {
     this._props = backingMap ?? {};
   }
 
@@ -187,7 +188,7 @@ class _$$ButtonGroupState extends _$ButtonGroupState
     implements ButtonGroupState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ButtonGroupState(Map? backingMap) : this._state = {} {
+  _$$ButtonGroupState(Map backingMap) : this._state = {} {
     this._state = backingMap ?? {};
   }
 
@@ -207,11 +208,11 @@ class _$$ButtonGroupState extends _$ButtonGroupState
 // generated for the associated props class.
 class _$ButtonGroupComponent extends ButtonGroupComponent {
   @override
-  _$$ButtonGroupProps typedPropsFactory(Map? backingMap) =>
+  _$$ButtonGroupProps typedPropsFactory(Map backingMap) =>
       _$$ButtonGroupProps(backingMap);
 
   @override
-  _$$ButtonGroupState typedStateFactory(Map? backingMap) =>
+  _$$ButtonGroupState typedStateFactory(Map backingMap) =>
       _$$ButtonGroupState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.

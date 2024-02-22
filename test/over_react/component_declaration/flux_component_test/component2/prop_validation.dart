@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,7 +23,7 @@ UiFactory<TestPropValidationProps> TestPropValidation = _$TestPropValidation;
 @Props()
 class _$TestPropValidationProps extends FluxUiProps {
   @requiredProp
-  String? required;
+  String required;
 }
 
 @Component2()

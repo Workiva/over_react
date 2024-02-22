@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2016 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -51,19 +52,19 @@ class CssValue implements Comparable<CssValue> {
   ///     20
   ///     '1.25em'
   ///     '-15%'
-  static CssValue? parse(dynamic source, {CssValue? Function(dynamic value, dynamic error)? onError}) {
-    CssValue? handleError(Error error) => onError?.call(source, error);
+  static CssValue parse(dynamic source, {CssValue Function(dynamic value, dynamic error) onError}) {
+    CssValue handleError(Error error) => onError?.call(source, error);
 
     if (source == null) return handleError(ArgumentError.notNull('value'));
 
-    final num number;
-    final String unit;
+     num number;
+     String unit;
     if (source is num) {
       number = source;
       unit = 'px';
     } else {
-      var unitMatch = RegExp(r'(?:rem|em|ex|vh|vw|vmin|vmax|%|px|cm|mm|in|pt|pc|ch)?$').firstMatch(source.toString())!;
-      final parsedUnit = unitMatch.group(0)!;
+      var unitMatch = RegExp(r'(?:rem|em|ex|vh|vw|vmin|vmax|%|px|cm|mm|in|pt|pc|ch)?$').firstMatch(source.toString());
+      final parsedUnit = unitMatch.group(0);
       unit = parsedUnit.isNotEmpty ? parsedUnit : 'px';
 
       final parsedNumber = double.tryParse(unitMatch.input.substring(0, unitMatch.start));

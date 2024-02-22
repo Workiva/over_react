@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -34,8 +35,8 @@ main() {
   enableTestMode();
 
   group('SafeRenderManager', () {
-    late Element mountNode;
-    late SafeRenderManager renderManager;
+     Element mountNode;
+     SafeRenderManager renderManager;
 
     setUp(() {
       mountNode = DivElement();
@@ -70,9 +71,9 @@ main() {
           });
 
           test('by chaining any existing callback ref', () {
-            WrapperComponent? existingWrapperRef;
+            WrapperComponent existingWrapperRef;
 
-            renderManager.render((Wrapper()..ref = ((ref) => existingWrapperRef = ref as WrapperComponent?))());
+            renderManager.render((Wrapper()..ref = ((ref) => existingWrapperRef = ref as WrapperComponent))());
 
             expect(renderManager.contentRef, isNotNull);
             expect(existingWrapperRef, same(renderManager.contentRef));
@@ -97,9 +98,9 @@ main() {
           });
 
           test('by chaining any existing callback ref', () {
-            ParagraphElement? existingWrapperRef;
+            ParagraphElement existingWrapperRef;
 
-            renderManager.render((Dom.p()..ref = ((ref) => existingWrapperRef = ref as ParagraphElement?))());
+            renderManager.render((Dom.p()..ref = ((ref) => existingWrapperRef = ref as ParagraphElement))());
 
             expect(renderManager.contentRef, isNotNull);
             expect(existingWrapperRef, same(renderManager.contentRef));
@@ -186,7 +187,7 @@ main() {
         expect(renderManager.mountNode.parent, isNull);
 
         // Attach the node manually
-        document.body!.append(renderManager.mountNode);
+        document.body.append(renderManager.mountNode);
         addTearDown(renderManager.mountNode.remove);
 
         renderManager.tryUnmount();
@@ -248,7 +249,7 @@ main() {
 
     group('edge-cases:', () {
       group('rerenders content correctly when when initial and second render happen synchronously and', () {
-        LifecycleCallback? onRender;
+        LifecycleCallback onRender;
 
         setUp(() {
           onRender = null;
@@ -256,12 +257,12 @@ main() {
 
         // ---------------------------------------------------------------------
         // Begin unmount sharedTests
-        void sharedRerenderTests({required bool isThrowingTest}) {
+        void sharedRerenderTests({ bool isThrowingTest}) {
           group('calls come from', () {
             const render1Text = 'render1';
             const render2Text = 'render2';
 
-            late bool onMaybeUnmountedCalled;
+             bool onMaybeUnmountedCalled;
 
             setUp(() {
               onMaybeUnmountedCalled = false;
@@ -280,9 +281,9 @@ main() {
             });
 
             // ignore: use_function_type_syntax_for_parameters
-            Future<Null> sharedTest({required void Function() setUpAndReturnTriggerRender(void doRenders()),
-              required bool verifyImmediateRender,
-              required bool verifyDeferredRender,
+            Future<Null> sharedTest({ void Function() setUpAndReturnTriggerRender(void doRenders()),
+               bool verifyImmediateRender,
+               bool verifyDeferredRender,
             }) async {
               if (verifyImmediateRender && verifyDeferredRender) {
                 throw ArgumentError('verifyImmediateRender and verifyDeferredRender '
@@ -346,7 +347,7 @@ main() {
                   verifyImmediateRender: false,
                   verifyDeferredRender: true,
                   setUpAndReturnTriggerRender: (doRenders) {
-                    document.body!.append(renderManager.mountNode);
+                    document.body.append(renderManager.mountNode);
                     renderManager.render((Wrapper()
                       ..onClick = (_) {
                         doRenders();
@@ -354,7 +355,7 @@ main() {
                     )('setup render'));
 
                     // Use a real click since simulated clicks don't trigger this async behavior
-                    return () => findDomNode(renderManager.contentRef)!.click();
+                    return () => findDomNode(renderManager.contentRef).click();
                   },
                 );
               });
@@ -364,7 +365,7 @@ main() {
                   verifyImmediateRender: false,
                   verifyDeferredRender: true,
                   setUpAndReturnTriggerRender: (doRenders) {
-                    document.body!.append(renderManager.mountNode);
+                    document.body.append(renderManager.mountNode);
                     renderManager.render((Wrapper()
                       ..onClick = (_) {
                         (renderManager.contentRef as react.Component).setState({}, doRenders);
@@ -372,7 +373,7 @@ main() {
                     )('setup render'));
 
                     // Use a real click since simulated clicks don't trigger this async behavior
-                    return () => findDomNode(renderManager.contentRef)!.click();
+                    return () => findDomNode(renderManager.contentRef).click();
                   },
                 );
               });
@@ -419,7 +420,7 @@ main() {
                     )(), attachedToDocument: true);
 
                     // Use a real click since simulated clicks don't trigger this async behavior
-                    return () => jacket.getNode()!.click();
+                    return () => jacket.getNode().click();
                   },
                 );
               });
@@ -429,15 +430,15 @@ main() {
                   verifyImmediateRender: false,
                   verifyDeferredRender: true,
                   setUpAndReturnTriggerRender: (doRenders) {
-                    late TestJacket jacket;
+                     TestJacket jacket;
                     jacket = mount((Wrapper()
                       ..onClick = (_) {
-                        jacket.getDartInstance()!.setState({}, doRenders);
+                        jacket.getDartInstance().setState({}, doRenders);
                       }
                     )(), attachedToDocument: true);
 
                     // Use a real click since simulated clicks don't trigger this async behavior
-                    return () => jacket.getNode()!.click();
+                    return () => jacket.getNode().click();
                   },
                 );
               });
@@ -451,7 +452,7 @@ main() {
                       ..onComponentWillUpdate = doRenders
                     )());
 
-                    return () => jacket.getDartInstance()!.redraw();
+                    return () => jacket.getDartInstance().redraw();
                   },
                 );
               });
@@ -465,7 +466,7 @@ main() {
                       ..onComponentDidUpdate = doRenders
                     )());
 
-                    return () => jacket.getDartInstance()!.redraw();
+                    return () => jacket.getDartInstance().redraw();
                   },
                 );
               });
@@ -491,7 +492,7 @@ main() {
       });
 
       group('unmounts content safely when', () {
-        LifecycleCallback? onComponentWillUnmount;
+        LifecycleCallback onComponentWillUnmount;
 
         setUp(() {
           onComponentWillUnmount = null;
@@ -511,18 +512,18 @@ main() {
 
         // ---------------------------------------------------------------------
         // Begin unmount sharedTests
-        void sharedUnmountTests({required bool isThrowingTest}) {
+        void sharedUnmountTests({ bool isThrowingTest}) {
           group('unmount calls come from', () {
-            late bool onMaybeUnmountedCalled;
+             bool onMaybeUnmountedCalled;
 
             setUp(() {
               onMaybeUnmountedCalled = false;
             });
 
             // ignore: use_function_type_syntax_for_parameters
-            Future<Null> sharedTest({required void Function() setUpAndReturnUnmounter(void doUnmount()),
-              required bool verifyImmediateUnmount,
-              required bool verifyDeferredUnmount,
+            Future<Null> sharedTest({ void Function() setUpAndReturnUnmounter(void doUnmount()),
+               bool verifyImmediateUnmount,
+               bool verifyDeferredUnmount,
             }) async {
               if (verifyImmediateUnmount && verifyDeferredUnmount) {
                 throw ArgumentError('verifyImmediateUnmount and verifyDeferredUnmount '
@@ -581,7 +582,7 @@ main() {
                   verifyImmediateUnmount: false,
                   verifyDeferredUnmount: true,
                   setUpAndReturnUnmounter: (callUnmount) {
-                    document.body!.append(renderManager.mountNode);
+                    document.body.append(renderManager.mountNode);
                     renderManager.render((Test()
                       ..onClick = (_) {
                         callUnmount();
@@ -590,7 +591,7 @@ main() {
                     )('1'));
 
                     // Use a real click since simulated clicks don't trigger this async behavior
-                    return () => findDomNode(renderManager.contentRef)!.click();
+                    return () => findDomNode(renderManager.contentRef).click();
                   },
                 );
               });
@@ -600,7 +601,7 @@ main() {
                   verifyImmediateUnmount: false,
                   verifyDeferredUnmount: true,
                   setUpAndReturnUnmounter: (callUnmount) {
-                    document.body!.append(renderManager.mountNode);
+                    document.body.append(renderManager.mountNode);
                     renderManager.render((Test()
                       ..onClick = (_) {
                         (renderManager.contentRef as react.Component).setState({}, callUnmount);
@@ -609,7 +610,7 @@ main() {
                     )('1'));
 
                     // Use a real click since simulated clicks don't trigger this async behavior
-                    return () => findDomNode(renderManager.contentRef)!.click();
+                    return () => findDomNode(renderManager.contentRef).click();
                   },
                 );
               });
@@ -665,7 +666,7 @@ main() {
                     )(), attachedToDocument: true);
 
                     // Use a real click since simulated clicks don't trigger this async behavior
-                    return () => jacket.getNode()!.click();
+                    return () => jacket.getNode().click();
                   },
                 );
               });
@@ -675,15 +676,15 @@ main() {
                   verifyImmediateUnmount: false,
                   verifyDeferredUnmount: true,
                   setUpAndReturnUnmounter: (callUnmount) {
-                    late TestJacket jacket;
+                     TestJacket jacket;
                     jacket = mount((Test()
                       ..onClick = (_) {
-                        jacket.getDartInstance()!.setState({}, callUnmount);
+                        jacket.getDartInstance().setState({}, callUnmount);
                       }
                     )(), attachedToDocument: true);
 
                     // Use a real click since simulated clicks don't trigger this async behavior
-                    return () => jacket.getNode()!.click();
+                    return () => jacket.getNode().click();
                   },
                 );
               });
@@ -697,7 +698,7 @@ main() {
                       ..onComponentWillUpdate = callUnmount
                     )());
 
-                    return () => jacket.getDartInstance()!.redraw();
+                    return () => jacket.getDartInstance().redraw();
                   },
                 );
               });
@@ -711,7 +712,7 @@ main() {
                       ..onComponentDidUpdate = callUnmount
                     )());
 
-                    return () => jacket.getDartInstance()!.redraw();
+                    return () => jacket.getDartInstance().redraw();
                   },
                 );
               });

@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -27,7 +28,7 @@ class ChatAPI {
 }
 
 // Custom Hook
-StateHook<bool?> useFriendStatus(int friendID) {
+StateHook<bool> useFriendStatus(int friendID) {
   final isOnline = useState(false);
 
   void handleStatusChange(Map status) {
@@ -49,15 +50,15 @@ StateHook<bool?> useFriendStatus(int friendID) {
 }
 
 mixin FriendListItemProps on UiProps {
-  Map<String, dynamic>? friend;
+  Map<String, dynamic> friend;
 }
 
 UiFactory<FriendListItemProps> FriendListItem = uiFunction(
   (props) {
-    final isOnline = useFriendStatus(props.friend!['id'] as int);
+    final isOnline = useFriendStatus(props.friend['id'] as int);
 
-    return (Dom.li()..style = {'color': isOnline.value! ? 'green' : 'black'})(
-      props.friend!['name'],
+    return (Dom.li()..style = {'color': isOnline.value ? 'green' : 'black'})(
+      props.friend['name'],
     );
   },
   _$FriendListItemConfig, // ignore: undefined_identifier

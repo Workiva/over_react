@@ -1,3 +1,4 @@
+// @dart=2.11
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 // ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators, invalid_use_of_visible_for_overriding_member
@@ -20,7 +21,7 @@ final $BasicComponentFactory = registerComponent2(
   parentType: null,
 );
 
-_$$BasicProps _$Basic([Map? backingProps]) => backingProps == null
+_$$BasicProps _$Basic([Map backingProps]) => backingProps == null
     ? _$$BasicProps$JsMap(JsBackedMap())
     : _$$BasicProps(backingProps);
 
@@ -36,9 +37,9 @@ abstract class _$$BasicProps extends UiProps
         $BasicProps {
   _$$BasicProps._();
 
-  factory _$$BasicProps(Map? backingMap) {
+  factory _$$BasicProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$BasicProps$JsMap(backingMap as JsBackedMap?);
+      return _$$BasicProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$BasicProps$PlainMap(backingMap);
     }
@@ -78,7 +79,7 @@ const _$getPropKey$_$$BasicProps = getPropKey;
 class _$$BasicProps$PlainMap extends _$$BasicProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$BasicProps$PlainMap(Map? backingMap)
+  _$$BasicProps$PlainMap(Map backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -97,7 +98,7 @@ class _$$BasicProps$PlainMap extends _$$BasicProps {
 class _$$BasicProps$JsMap extends _$$BasicProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$BasicProps$JsMap(JsBackedMap? backingMap)
+  _$$BasicProps$JsMap(JsBackedMap backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -116,7 +117,7 @@ class _$$BasicProps$JsMap extends _$$BasicProps {
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
 class _$BasicComponent extends BasicComponent {
-  late _$$BasicProps$JsMap _cachedTypedProps;
+   _$$BasicProps$JsMap _cachedTypedProps;
 
   @override
   _$$BasicProps$JsMap get props => _cachedTypedProps;
@@ -136,11 +137,11 @@ class _$BasicComponent extends BasicComponent {
   }
 
   @override
-  _$$BasicProps$JsMap typedPropsFactoryJs(JsBackedMap? backingMap) =>
+  _$$BasicProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
       _$$BasicProps$JsMap(backingMap);
 
   @override
-  _$$BasicProps typedPropsFactory(Map? backingMap) => _$$BasicProps(backingMap);
+  _$$BasicProps typedPropsFactory(Map backingMap) => _$$BasicProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -168,9 +169,9 @@ class _$BasicComponent extends BasicComponent {
 mixin $BasicProps on BasicProps {
   static const PropsMeta meta = _$metaForBasicProps;
   @override
-  String? get childId => (props[_$key__childId__BasicProps] ?? null) as String?;
+  String get childId => (props[_$key__childId__BasicProps] ?? null) as String;
   @override
-  set childId(String? value) => props[_$key__childId__BasicProps] = value;
+  set childId(String value) => props[_$key__childId__BasicProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__childId__BasicProps =
       PropDescriptor(_$key__childId__BasicProps);
@@ -244,9 +245,9 @@ abstract class _$$BasicUiFunctionProps extends UiProps
         $BasicUiFunctionProps {
   _$$BasicUiFunctionProps._();
 
-  factory _$$BasicUiFunctionProps(Map? backingMap) {
+  factory _$$BasicUiFunctionProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$BasicUiFunctionProps$JsMap(backingMap as JsBackedMap?);
+      return _$$BasicUiFunctionProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$BasicUiFunctionProps$PlainMap(backingMap);
     }
@@ -282,7 +283,7 @@ const _$getPropKey$_$$BasicUiFunctionProps = getPropKey;
 class _$$BasicUiFunctionProps$PlainMap extends _$$BasicUiFunctionProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$BasicUiFunctionProps$PlainMap(Map? backingMap)
+  _$$BasicUiFunctionProps$PlainMap(Map backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -301,7 +302,7 @@ class _$$BasicUiFunctionProps$PlainMap extends _$$BasicUiFunctionProps {
 class _$$BasicUiFunctionProps$JsMap extends _$$BasicUiFunctionProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$BasicUiFunctionProps$JsMap(JsBackedMap? backingMap)
+  _$$BasicUiFunctionProps$JsMap(JsBackedMap backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -342,9 +343,9 @@ abstract class _$$SecondaryBasicUiFunctionProps extends UiProps
         SecondaryBasicUiFunctionProps {
   _$$SecondaryBasicUiFunctionProps._();
 
-  factory _$$SecondaryBasicUiFunctionProps(Map? backingMap) {
+  factory _$$SecondaryBasicUiFunctionProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$SecondaryBasicUiFunctionProps$JsMap(backingMap as JsBackedMap?);
+      return _$$SecondaryBasicUiFunctionProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$SecondaryBasicUiFunctionProps$PlainMap(backingMap);
     }
@@ -381,7 +382,7 @@ class _$$SecondaryBasicUiFunctionProps$PlainMap
     extends _$$SecondaryBasicUiFunctionProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$SecondaryBasicUiFunctionProps$PlainMap(Map? backingMap)
+  _$$SecondaryBasicUiFunctionProps$PlainMap(Map backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -401,7 +402,7 @@ class _$$SecondaryBasicUiFunctionProps$JsMap
     extends _$$SecondaryBasicUiFunctionProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$SecondaryBasicUiFunctionProps$JsMap(JsBackedMap? backingMap)
+  _$$SecondaryBasicUiFunctionProps$JsMap(JsBackedMap backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();

@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2016 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,9 +23,9 @@ import 'package:over_react/src/component_declaration/component_base.dart' as com
 typedef ForwardUnconsumedPropsFunction = void Function(Map props, {
   bool omitReactProps,
   bool onlyCopyDomProps,
-  Iterable? keysToOmit,
-  Iterable<Iterable>? keySetsToOmit,
-  required Map propsToUpdate,
+  Iterable keysToOmit,
+  Iterable<Iterable> keySetsToOmit,
+   Map propsToUpdate,
 });
 
 /// Main entrypoint for map_util testing
@@ -424,23 +425,23 @@ main() {
 
 void sharedGetBackingMapTests({
   String groupDescriptionString = '',
-  Map? startingMap,
+  Map startingMap,
   bool shouldTestProps = false,
   bool shouldTestState = false
 }) {
   group(groupDescriptionString, () {
-    late Map finalMap;
+     Map finalMap;
 
     setUp(() {
       // This function should only test one at a time.
       assert(!(shouldTestProps && shouldTestState));
 
       if (shouldTestProps) {
-        finalMap = getBackingMap(TestProps(startingMap as JsBackedMap?));
+        finalMap = getBackingMap(TestProps(startingMap as JsBackedMap));
       } else if (shouldTestState) {
         finalMap = getBackingMap(TestState(startingMap));
       } else {
-        finalMap = getBackingMap(startingMap!);
+        finalMap = getBackingMap(startingMap);
       }
     });
 
@@ -455,7 +456,7 @@ void sharedGetBackingMapTests({
 }
 
 class TestProps extends component_base.UiProps {
-  TestProps(JsBackedMap? backingMap) : this._props = JsBackedMap() {
+  TestProps(JsBackedMap backingMap) : this._props = JsBackedMap() {
     this._props = backingMap ?? JsBackedMap();
   }
 
@@ -468,5 +469,5 @@ class TestState extends component_base.UiState {
   @override
   final Map state;
 
-  TestState([Map? state]) : this.state = state ?? ({});
+  TestState([Map state]) : this.state = state ?? ({});
 }

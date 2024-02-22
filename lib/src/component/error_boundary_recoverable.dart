@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -71,8 +72,8 @@ class RecoverableErrorBoundaryComponent<T extends RecoverableErrorBoundaryProps,
     // If the child is different, and the error boundary is currently in an error state,
     // give the child a chance to remount itself and "recover" from the previous error.
     if (state.hasError) {
-      final childThatCausedError = typedPropsFactory(prevProps).children!.single;
-      if (childThatCausedError != props.children!.single) {
+      final childThatCausedError = typedPropsFactory(prevProps).children.single;
+      if (childThatCausedError != props.children.single) {
         reset();
       }
     }
@@ -137,10 +138,10 @@ class RecoverableErrorBoundaryComponent<T extends RecoverableErrorBoundaryProps,
   // [3] Log the caught error using a logger if `props.shouldLogErrors` is true.
   // ---------------------------------------------- /\ ----------------------------------------------
 
-  String? _domAtTimeOfError;
+  String _domAtTimeOfError;
   List<String> _errorLog = [];
   List<ReactErrorInfo> _callStackLog = [];
-  Timer? _identicalErrorTimer;
+  Timer _identicalErrorTimer;
 
   /// Called by [componentDidCatch].
   void _handleErrorInComponentTree(/*Error||Exception*/dynamic error, ReactErrorInfo info) {
@@ -169,7 +170,7 @@ class RecoverableErrorBoundaryComponent<T extends RecoverableErrorBoundaryProps,
         } catch (_) {}
 
         if (props.onComponentIsUnrecoverable != null) { // [2.2.1]
-          props.onComponentIsUnrecoverable!(error, info);
+          props.onComponentIsUnrecoverable(error, info);
         }
 
         _logErrorCaughtByErrorBoundary(error, info, isRecoverable: false); // [3]
@@ -189,7 +190,7 @@ class RecoverableErrorBoundaryComponent<T extends RecoverableErrorBoundaryProps,
   }
 
   // [2.2]
-  ReactElement? _renderStringDomAfterUnrecoverableErrors(_, __) {
+  ReactElement _renderStringDomAfterUnrecoverableErrors(_, __) {
     return (Dom.div()
       ..key = 'ohnoes'
       ..addTestId('ErrorBoundary.unrecoverableErrorInnerHtmlContainerNode')
@@ -211,7 +212,7 @@ class RecoverableErrorBoundaryComponent<T extends RecoverableErrorBoundaryProps,
   void _startIdenticalErrorTimer() {
     if (_identicalErrorTimer != null) return;
 
-    _identicalErrorTimer = getManagedTimer(props.identicalErrorFrequencyTolerance!, _resetInternalErrorTracking);
+    _identicalErrorTimer = getManagedTimer(props.identicalErrorFrequencyTolerance, _resetInternalErrorTracking);
   }
 
   /// Resets all the internal fields used by [_handleErrorInComponentTree], and cancels
@@ -226,7 +227,7 @@ class RecoverableErrorBoundaryComponent<T extends RecoverableErrorBoundaryProps,
   }
 
   String get _loggerName {
-    if (props.logger != null) return props.logger!.name;
+    if (props.logger != null) return props.logger.name;
 
     // ignore: invalid_use_of_visible_for_testing_member
     return props.loggerName ?? defaultErrorBoundaryLoggerName;
@@ -238,7 +239,7 @@ class RecoverableErrorBoundaryComponent<T extends RecoverableErrorBoundaryProps,
     ReactErrorInfo info, {
     bool isRecoverable = true,
   }) {
-    if (!props.shouldLogErrors!) return;
+    if (!props.shouldLogErrors) return;
 
     String message = isRecoverable
         ? 'An error was caught by an ErrorBoundary: \nInfo: ${info.componentStack}'

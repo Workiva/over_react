@@ -1,3 +1,4 @@
+// @dart=2.11
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 // ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators, invalid_use_of_visible_for_overriding_member
@@ -20,7 +21,7 @@ final $ContextTypeDynamicComponentFactory = registerComponent2(
   parentType: null,
 );
 
-_$$ContextTypeDynamicProps _$ContextTypeDynamic([Map? backingProps]) =>
+_$$ContextTypeDynamicProps _$ContextTypeDynamic([Map backingProps]) =>
     backingProps == null
         ? _$$ContextTypeDynamicProps$JsMap(JsBackedMap())
         : _$$ContextTypeDynamicProps(backingProps);
@@ -37,9 +38,9 @@ abstract class _$$ContextTypeDynamicProps extends UiProps
         $ContextTypeDynamicProps {
   _$$ContextTypeDynamicProps._();
 
-  factory _$$ContextTypeDynamicProps(Map? backingMap) {
+  factory _$$ContextTypeDynamicProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$ContextTypeDynamicProps$JsMap(backingMap as JsBackedMap?);
+      return _$$ContextTypeDynamicProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$ContextTypeDynamicProps$PlainMap(backingMap);
     }
@@ -80,7 +81,7 @@ const _$getPropKey$_$$ContextTypeDynamicProps = getPropKey;
 class _$$ContextTypeDynamicProps$PlainMap extends _$$ContextTypeDynamicProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ContextTypeDynamicProps$PlainMap(Map? backingMap)
+  _$$ContextTypeDynamicProps$PlainMap(Map backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -99,7 +100,7 @@ class _$$ContextTypeDynamicProps$PlainMap extends _$$ContextTypeDynamicProps {
 class _$$ContextTypeDynamicProps$JsMap extends _$$ContextTypeDynamicProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ContextTypeDynamicProps$JsMap(JsBackedMap? backingMap)
+  _$$ContextTypeDynamicProps$JsMap(JsBackedMap backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -118,7 +119,7 @@ class _$$ContextTypeDynamicProps$JsMap extends _$$ContextTypeDynamicProps {
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
 class _$ContextTypeDynamicComponent extends ContextTypeDynamicComponent {
-  late _$$ContextTypeDynamicProps$JsMap _cachedTypedProps;
+   _$$ContextTypeDynamicProps$JsMap _cachedTypedProps;
 
   @override
   _$$ContextTypeDynamicProps$JsMap get props => _cachedTypedProps;
@@ -139,11 +140,11 @@ class _$ContextTypeDynamicComponent extends ContextTypeDynamicComponent {
 
   @override
   _$$ContextTypeDynamicProps$JsMap typedPropsFactoryJs(
-          JsBackedMap? backingMap) =>
+          JsBackedMap backingMap) =>
       _$$ContextTypeDynamicProps$JsMap(backingMap);
 
   @override
-  _$$ContextTypeDynamicProps typedPropsFactory(Map? backingMap) =>
+  _$$ContextTypeDynamicProps typedPropsFactory(Map backingMap) =>
       _$$ContextTypeDynamicProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
@@ -179,7 +180,7 @@ final $ContextTypeWithoutDefaultComponentFactory = registerComponent2(
 );
 
 _$$ContextTypeWithoutDefaultProps _$ContextTypeWithoutDefault(
-        [Map? backingProps]) =>
+        [Map backingProps]) =>
     backingProps == null
         ? _$$ContextTypeWithoutDefaultProps$JsMap(JsBackedMap())
         : _$$ContextTypeWithoutDefaultProps(backingProps);
@@ -196,10 +197,10 @@ abstract class _$$ContextTypeWithoutDefaultProps extends UiProps
         $ContextTypeWithoutDefaultProps {
   _$$ContextTypeWithoutDefaultProps._();
 
-  factory _$$ContextTypeWithoutDefaultProps(Map? backingMap) {
+  factory _$$ContextTypeWithoutDefaultProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
       return _$$ContextTypeWithoutDefaultProps$JsMap(
-          backingMap as JsBackedMap?);
+          backingMap as JsBackedMap);
     } else {
       return _$$ContextTypeWithoutDefaultProps$PlainMap(backingMap);
     }
@@ -241,7 +242,7 @@ class _$$ContextTypeWithoutDefaultProps$PlainMap
     extends _$$ContextTypeWithoutDefaultProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ContextTypeWithoutDefaultProps$PlainMap(Map? backingMap)
+  _$$ContextTypeWithoutDefaultProps$PlainMap(Map backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -261,7 +262,7 @@ class _$$ContextTypeWithoutDefaultProps$JsMap
     extends _$$ContextTypeWithoutDefaultProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ContextTypeWithoutDefaultProps$JsMap(JsBackedMap? backingMap)
+  _$$ContextTypeWithoutDefaultProps$JsMap(JsBackedMap backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -281,7 +282,7 @@ class _$$ContextTypeWithoutDefaultProps$JsMap
     ' Do not reference it in your code, as it may change at any time.')
 class _$ContextTypeWithoutDefaultComponent
     extends ContextTypeWithoutDefaultComponent {
-  late _$$ContextTypeWithoutDefaultProps$JsMap _cachedTypedProps;
+   _$$ContextTypeWithoutDefaultProps$JsMap _cachedTypedProps;
 
   @override
   _$$ContextTypeWithoutDefaultProps$JsMap get props => _cachedTypedProps;
@@ -302,11 +303,11 @@ class _$ContextTypeWithoutDefaultComponent
 
   @override
   _$$ContextTypeWithoutDefaultProps$JsMap typedPropsFactoryJs(
-          JsBackedMap? backingMap) =>
+          JsBackedMap backingMap) =>
       _$$ContextTypeWithoutDefaultProps$JsMap(backingMap);
 
   @override
-  _$$ContextTypeWithoutDefaultProps typedPropsFactory(Map? backingMap) =>
+  _$$ContextTypeWithoutDefaultProps typedPropsFactory(Map backingMap) =>
       _$$ContextTypeWithoutDefaultProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
@@ -341,7 +342,7 @@ final $ContextTypeWithDefaultComponentFactory = registerComponent2(
   parentType: null,
 );
 
-_$$ContextTypeWithDefaultProps _$ContextTypeWithDefault([Map? backingProps]) =>
+_$$ContextTypeWithDefaultProps _$ContextTypeWithDefault([Map backingProps]) =>
     backingProps == null
         ? _$$ContextTypeWithDefaultProps$JsMap(JsBackedMap())
         : _$$ContextTypeWithDefaultProps(backingProps);
@@ -358,9 +359,9 @@ abstract class _$$ContextTypeWithDefaultProps extends UiProps
         $ContextTypeWithDefaultProps {
   _$$ContextTypeWithDefaultProps._();
 
-  factory _$$ContextTypeWithDefaultProps(Map? backingMap) {
+  factory _$$ContextTypeWithDefaultProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$ContextTypeWithDefaultProps$JsMap(backingMap as JsBackedMap?);
+      return _$$ContextTypeWithDefaultProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$ContextTypeWithDefaultProps$PlainMap(backingMap);
     }
@@ -402,7 +403,7 @@ class _$$ContextTypeWithDefaultProps$PlainMap
     extends _$$ContextTypeWithDefaultProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ContextTypeWithDefaultProps$PlainMap(Map? backingMap)
+  _$$ContextTypeWithDefaultProps$PlainMap(Map backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -422,7 +423,7 @@ class _$$ContextTypeWithDefaultProps$JsMap
     extends _$$ContextTypeWithDefaultProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ContextTypeWithDefaultProps$JsMap(JsBackedMap? backingMap)
+  _$$ContextTypeWithDefaultProps$JsMap(JsBackedMap backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -442,7 +443,7 @@ class _$$ContextTypeWithDefaultProps$JsMap
     ' Do not reference it in your code, as it may change at any time.')
 class _$ContextTypeWithDefaultComponent
     extends ContextTypeWithDefaultComponent {
-  late _$$ContextTypeWithDefaultProps$JsMap _cachedTypedProps;
+   _$$ContextTypeWithDefaultProps$JsMap _cachedTypedProps;
 
   @override
   _$$ContextTypeWithDefaultProps$JsMap get props => _cachedTypedProps;
@@ -463,11 +464,11 @@ class _$ContextTypeWithDefaultComponent
 
   @override
   _$$ContextTypeWithDefaultProps$JsMap typedPropsFactoryJs(
-          JsBackedMap? backingMap) =>
+          JsBackedMap backingMap) =>
       _$$ContextTypeWithDefaultProps$JsMap(backingMap);
 
   @override
-  _$$ContextTypeWithDefaultProps typedPropsFactory(Map? backingMap) =>
+  _$$ContextTypeWithDefaultProps typedPropsFactory(Map backingMap) =>
       _$$ContextTypeWithDefaultProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.

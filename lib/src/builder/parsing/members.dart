@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -117,12 +118,12 @@ class BoilerplateMembers {
 
   @protected
   BoilerplateMembers({
-    required this.factories,
-    required this.props,
-    required this.propsMixins,
-    required this.components,
-    required this.states,
-    required this.stateMixins,
+     this.factories,
+     this.props,
+     this.propsMixins,
+     this.components,
+     this.states,
+     this.stateMixins,
   });
 
   @override

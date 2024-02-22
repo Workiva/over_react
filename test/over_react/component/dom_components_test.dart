@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2016 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -89,8 +90,8 @@ main() {
     });
 
     group('typing:', () {
-      late DomProps dom;
-      late SvgProps svg;
+       DomProps dom;
+       SvgProps svg;
 
       setUp(() {
         dom = Dom.div();
@@ -113,7 +114,7 @@ main() {
     });
 
     group('SvgProps', () {
-      late SvgProps svg;
+       SvgProps svg;
 
       setUp(() {
         svg = Dom.circle();
@@ -129,7 +130,7 @@ main() {
         test('\$getPropKey (used by getPropKey)', () {
           expect(svg.getPropKey((p) => p.fill), 'fill');
 
-          late final SvgProps getPropKeyArg;
+            SvgProps getPropKeyArg;
           svg.getPropKey((p) {
             getPropKeyArg = p;
             p.id; // Access a prop so that this doesn't throw
@@ -140,7 +141,7 @@ main() {
     });
 
     group('DomProps', () {
-      late DomProps dom;
+       DomProps dom;
 
       setUp(() {
         dom = Dom.div();
@@ -158,7 +159,7 @@ main() {
         test('\$getPropKey (used by getPropKey)', () {
           expect(dom.getPropKey((p) => p.id), 'id');
 
-          late final DomProps getPropKeyArg;
+            DomProps getPropKeyArg;
           dom.getPropKey((p) {
             getPropKeyArg = p;
             p.id; // Access a prop so that this doesn't throw

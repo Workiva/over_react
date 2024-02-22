@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2016 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -56,7 +57,7 @@ mixin FluxUiPropsMixin<ActionsT, StoresT> on UiProps implements FluxUiProps<Acti
   /// structure, there may be [Action]s available directly on this object, or
   /// this object may represent a hierarchy of actions.
   @override
-  late ActionsT actions;
+   ActionsT actions;
 
   /// The flux [Store] instance(s) to be used by a [FluxUiComponent2] instance, or a reference to one.
   ///
@@ -75,7 +76,7 @@ mixin FluxUiPropsMixin<ActionsT, StoresT> on UiProps implements FluxUiProps<Acti
   /// Then, you can explicitly select the [Store] instances that should be
   /// listened to by overriding [_FluxComponentMixin.redrawOn].
   @override
-  late StoresT store;
+   StoresT store;
 
   @override
   String get _actionsPropKey {
@@ -247,7 +248,7 @@ mixin _FluxComponentMixin<TProps extends FluxUiProps> on component_base.UiCompon
   ///
   /// Make the argument `T?` instead of `T` to help prevent any null errors if that argument gets
   /// type-checked.
-  static T? _castAsNullable<T>(T? value) => value as T?; // ignore: unnecessary_cast
+  static T _castAsNullable<T>(T value) => value as T; // ignore: unnecessary_cast
 
   void _validateStoreDisposalState(Store store) {
     // This can be null in unsound null safety when consumers are using mocked stores

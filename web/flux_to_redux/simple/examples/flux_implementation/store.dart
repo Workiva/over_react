@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -27,7 +28,7 @@ class RandomColorStore extends flux.Store {
     triggerOnActionV2(_actions.changeBackgroundColor, _changeBackgroundColor);
   }
 
-  _changeBackgroundColor(String? _) {
+  _changeBackgroundColor(String _) {
     _backgroundColor = '#' + (Random().nextDouble() * 16777215).floor().toRadixString(16);
   }
 }

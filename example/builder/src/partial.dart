@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2023 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,7 +20,7 @@ part 'partial.over_react.g.dart';
 UiFactory<RequiredTestProps> RequiredTest = castUiFactory(_$RequiredTest);
 
 mixin RequiredTestProps on UiProps {
-  late String testRequiredProp;
+   String testRequiredProp;
 }
 
 void partialExample() {

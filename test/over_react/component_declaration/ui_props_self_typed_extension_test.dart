@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2023 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -51,9 +52,9 @@ main() {
 
     group('containsProp returns whether a prop is specified', () {
       void sharedTest<T>({
-        required T Function(TestProps props) readProp,
-        required void Function(TestProps props, T value) writeProp,
-        required T testValue,
+         T Function(TestProps props) readProp,
+         void Function(TestProps props, T value) writeProp,
+         T testValue,
       }) {
         final unspecified = Test();
         expect(unspecified.containsProp(readProp), isFalse);
@@ -65,7 +66,7 @@ main() {
 
       group('for optional props', () {
         test('with non-null values', () {
-          sharedTest<String?>(
+          sharedTest<String>(
             readProp: (p) => p.optionalProp,
             writeProp: (p, value) => p.optionalProp = value,
             testValue: 'test value',
@@ -73,7 +74,7 @@ main() {
         });
 
         test('with null values', () {
-          sharedTest<String?>(
+          sharedTest<String>(
             readProp: (p) => p.optionalProp,
             writeProp: (p, value) => p.optionalProp = value,
             testValue: null,
@@ -93,7 +94,7 @@ main() {
         test('with null values (even though this should be possible when using typed setters)', () {
           readProp(TestProps p) => p.requiredProp;
           final propKey = Test().getPropKey(readProp);
-          sharedTest<String?>(
+          sharedTest<String>(
             readProp: readProp,
             writeProp: (p, value) => p[propKey] = value,
             testValue: null,
@@ -103,7 +104,7 @@ main() {
 
       group('for required nullable props', () {
         test('with non-null values', () {
-          sharedTest<String?>(
+          sharedTest<String>(
             readProp: (p) => p.requiredNullableProp,
             writeProp: (p, value) => p.requiredNullableProp = value,
             testValue: 'test value',
@@ -111,7 +112,7 @@ main() {
         });
 
         test('with null values', () {
-          sharedTest<String?>(
+          sharedTest<String>(
             readProp: (p) => p.requiredNullableProp,
             writeProp: (p, value) => p.requiredNullableProp = value,
             testValue: null,
@@ -123,9 +124,9 @@ main() {
     group('getRequiredProp, getRequiredPropOrNull', () {
       group('returns a prop if it is specified', () {
         void sharedTest<T>({
-          required T Function(TestProps props) readProp,
-          required void Function(TestProps props, T value) writeProp,
-          required T testValue,
+           T Function(TestProps props) readProp,
+           void Function(TestProps props, T value) writeProp,
+           T testValue,
         }) {
           final specified = Test();
           writeProp(specified, testValue);
@@ -138,7 +139,7 @@ main() {
 
         group('for optional props', () {
           test('with non-null values', () {
-            sharedTest<String?>(
+            sharedTest<String>(
               readProp: (p) => p.optionalProp,
               writeProp: (p, value) => p.optionalProp = value,
               testValue: 'test value',
@@ -146,7 +147,7 @@ main() {
           });
 
           test('with null values', () {
-            sharedTest<String?>(
+            sharedTest<String>(
               readProp: (p) => p.optionalProp,
               writeProp: (p, value) => p.optionalProp = value,
               testValue: null,
@@ -165,7 +166,7 @@ main() {
 
           group('with null values (even though this should be possible when using typed setters),',
               () {
-            void sharedThrowsTest({required bool expectHelpfulError}) {
+            void sharedThrowsTest({ bool expectHelpfulError}) {
               final errorMatcher = expectHelpfulError
                   ? isA<AssertionError>().havingToStringValue(contains(
                       'Error reading typed prop, likely due to props map containing explicit `null` value'))
@@ -192,7 +193,7 @@ main() {
 
         group('for required nullable props', () {
           test('with non-null values', () {
-            sharedTest<String?>(
+            sharedTest<String>(
               readProp: (p) => p.requiredNullableProp,
               writeProp: (p, value) => p.requiredNullableProp = value,
               testValue: 'test value',
@@ -200,7 +201,7 @@ main() {
           });
 
           test('with null values', () {
-            sharedTest<String?>(
+            sharedTest<String>(
               readProp: (p) => p.requiredNullableProp,
               writeProp: (p, value) => p.requiredNullableProp = value,
               testValue: null,
@@ -211,8 +212,8 @@ main() {
 
       group('returns orElse (getRequiredProp) or null (getRequiredPropOrNull) otherwise', () {
         void sharedTest<T>({
-          required T Function(TestProps props) readProp,
-          required T orElseValue,
+           T Function(TestProps props) readProp,
+           T orElseValue,
         }) {
           final notSpecified = Test();
           expect(notSpecified.getRequiredProp(readProp, orElse: () => orElseValue), orElseValue);
@@ -220,7 +221,7 @@ main() {
         }
 
         test('for optional props', () {
-          sharedTest<String?>(
+          sharedTest<String>(
             readProp: (p) => p.optionalProp,
             orElseValue: 'or else value',
           );
@@ -234,7 +235,7 @@ main() {
         });
 
         test('for required nullable props', () {
-          sharedTest<String?>(
+          sharedTest<String>(
             readProp: (p) => p.requiredNullableProp,
             orElseValue: 'or else value',
           );
@@ -253,7 +254,7 @@ main() {
           // (DDC: Expected a value of type 'String', but got one of type 'Object')
           // (dart2js: Instance of 'Object': type 'Object' is not a subtype of type 'String')
           // and may change across SDK versions, let's simulate the expected error instead of hard-coding it.
-          late String expectedErrorMessage;
+           String expectedErrorMessage;
           try {
             readProp(withBadValueType);
           } catch (e) {
@@ -291,9 +292,9 @@ class TestArbitraryException implements Exception {}
 UiFactory<TestProps> Test = castUiFactory(_$Test);
 
 mixin TestProps on UiProps {
-  late String requiredProp;
-  late String? requiredNullableProp;
-  String? optionalProp;
+   String requiredProp;
+   String requiredNullableProp;
+  String optionalProp;
 }
 
 extension on TypeMatcher<Object> {

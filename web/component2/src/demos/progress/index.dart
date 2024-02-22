@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,14 +21,14 @@ import '../../demos.dart';
 
 main() {
   react_dom.render(progressBasicDemo(),
-      querySelector('$demoMountNodeSelectorPrefix--progress-basic')!);
+      querySelector('$demoMountNodeSelectorPrefix--progress-basic'));
 
   react_dom.render(progressContextualDemo(),
-      querySelector('$demoMountNodeSelectorPrefix--progress-contextual')!);
+      querySelector('$demoMountNodeSelectorPrefix--progress-contextual'));
 
   react_dom.render(progressStripedDemo(),
-      querySelector('$demoMountNodeSelectorPrefix--progress-striped')!);
+      querySelector('$demoMountNodeSelectorPrefix--progress-striped'));
 
   react_dom.render(progressAnimatedStripesDemo(),
-      querySelector('$demoMountNodeSelectorPrefix--progress-animated-stripes')!);
+      querySelector('$demoMountNodeSelectorPrefix--progress-animated-stripes'));
 }

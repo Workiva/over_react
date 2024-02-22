@@ -1,3 +1,4 @@
+// @dart=2.11
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 // ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators, invalid_use_of_visible_for_overriding_member
@@ -20,7 +21,7 @@ final $CustomTestComponentFactory = registerComponent2(
   parentType: null,
 );
 
-_$$CustomTestProps _$CustomTest([Map? backingProps]) => backingProps == null
+_$$CustomTestProps _$CustomTest([Map backingProps]) => backingProps == null
     ? _$$CustomTestProps$JsMap(JsBackedMap())
     : _$$CustomTestProps(backingProps);
 
@@ -36,9 +37,9 @@ abstract class _$$CustomTestProps extends UiProps
         $CustomTestProps {
   _$$CustomTestProps._();
 
-  factory _$$CustomTestProps(Map? backingMap) {
+  factory _$$CustomTestProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$CustomTestProps$JsMap(backingMap as JsBackedMap?);
+      return _$$CustomTestProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$CustomTestProps$PlainMap(backingMap);
     }
@@ -79,7 +80,7 @@ const _$getPropKey$_$$CustomTestProps = getPropKey;
 class _$$CustomTestProps$PlainMap extends _$$CustomTestProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$CustomTestProps$PlainMap(Map? backingMap)
+  _$$CustomTestProps$PlainMap(Map backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -98,7 +99,7 @@ class _$$CustomTestProps$PlainMap extends _$$CustomTestProps {
 class _$$CustomTestProps$JsMap extends _$$CustomTestProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$CustomTestProps$JsMap(JsBackedMap? backingMap)
+  _$$CustomTestProps$JsMap(JsBackedMap backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -117,7 +118,7 @@ class _$$CustomTestProps$JsMap extends _$$CustomTestProps {
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
 class _$CustomTestComponent extends CustomTestComponent {
-  late _$$CustomTestProps$JsMap _cachedTypedProps;
+   _$$CustomTestProps$JsMap _cachedTypedProps;
 
   @override
   _$$CustomTestProps$JsMap get props => _cachedTypedProps;
@@ -137,11 +138,11 @@ class _$CustomTestComponent extends CustomTestComponent {
   }
 
   @override
-  _$$CustomTestProps$JsMap typedPropsFactoryJs(JsBackedMap? backingMap) =>
+  _$$CustomTestProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
       _$$CustomTestProps$JsMap(backingMap);
 
   @override
-  _$$CustomTestProps typedPropsFactory(Map? backingMap) =>
+  _$$CustomTestProps typedPropsFactory(Map backingMap) =>
       _$$CustomTestProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
@@ -239,9 +240,9 @@ abstract class _$$CustomFnTestProps extends UiProps
         $CustomFnTestProps {
   _$$CustomFnTestProps._();
 
-  factory _$$CustomFnTestProps(Map? backingMap) {
+  factory _$$CustomFnTestProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$CustomFnTestProps$JsMap(backingMap as JsBackedMap?);
+      return _$$CustomFnTestProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$CustomFnTestProps$PlainMap(backingMap);
     }
@@ -277,7 +278,7 @@ const _$getPropKey$_$$CustomFnTestProps = getPropKey;
 class _$$CustomFnTestProps$PlainMap extends _$$CustomFnTestProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$CustomFnTestProps$PlainMap(Map? backingMap)
+  _$$CustomFnTestProps$PlainMap(Map backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -296,7 +297,7 @@ class _$$CustomFnTestProps$PlainMap extends _$$CustomFnTestProps {
 class _$$CustomFnTestProps$JsMap extends _$$CustomFnTestProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$CustomFnTestProps$JsMap(JsBackedMap? backingMap)
+  _$$CustomFnTestProps$JsMap(JsBackedMap backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();

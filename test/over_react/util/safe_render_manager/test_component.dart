@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,12 +23,12 @@ UiFactory<TestProps> Test = _$Test; // ignore: undefined_identifier, invalid_ass
 
 @Props()
 class _$TestProps extends UiProps {
-  LifecycleCallback? onComponentDidMount;
-  LifecycleCallback? onComponentWillUpdate;
-  LifecycleCallback? onComponentWillReceiveProps;
-  LifecycleCallback? onComponentDidUpdate;
-  LifecycleCallback? onComponentWillUnmount;
-  LifecycleCallback? onRender;
+  LifecycleCallback onComponentDidMount;
+  LifecycleCallback onComponentWillUpdate;
+  LifecycleCallback onComponentWillReceiveProps;
+  LifecycleCallback onComponentDidUpdate;
+  LifecycleCallback onComponentWillUnmount;
+  LifecycleCallback onRender;
 }
 
 @Component(isWrapper: true)

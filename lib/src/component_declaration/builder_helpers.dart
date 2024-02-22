@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2016 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -59,7 +60,7 @@ mixin _GeneratedUiComponentStubs<TProps extends UiProps>
   ///
   /// For generated components, this defaults to the keys generated in the associated @[annotations.Props] class
   /// if this getter is not overridden.
-  Iterable<component_base.ConsumedProps>? get consumedProps => $defaultConsumedProps;
+  Iterable<component_base.ConsumedProps> get consumedProps => $defaultConsumedProps;
 
   /// Returns a typed props object backed by the specified [propsMap].
   /// Required to properly instantiate the generic [TProps] class.
@@ -102,7 +103,7 @@ abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiStat
 
   @override
   @toBeGenerated
-  TState typedStateFactory(Map? stateMap) => throw UngeneratedError(member: #typedStateFactory,
+  TState typedStateFactory(Map stateMap) => throw UngeneratedError(member: #typedStateFactory,
       message: GeneratedErrorMessages.typedStateFactory);
 }
 
@@ -123,7 +124,7 @@ abstract class UiProps extends component_base.UiProps with GeneratedClass {
   @Deprecated(
       'Use `UiComponent2.propsMeta` (only available for new mixin-based-boilerplate) instead.'
       ' Will be removed in 4.0.0.')
-  @toBeGenerated String? get propKeyNamespace => throw UngeneratedError(member: #propKeyNamespace);
+  @toBeGenerated String get propKeyNamespace => throw UngeneratedError(member: #propKeyNamespace);
 
   @override @toBeGenerated Map get props => throw UngeneratedError(member: #props);
 
@@ -206,7 +207,7 @@ extension PropsToForward<T extends UiProps> on T {
   /// To only add DOM props, use the [domOnly] named argument.
   ///
   /// Related: `UiComponent2`'s `addUnconsumedProps`
-  Map getPropsToForward({Set<Type>? exclude, bool domOnly = false}) {
+  Map getPropsToForward({Set<Type> exclude, bool domOnly = false}) {
     return _propsToForward(exclude: exclude, domOnly: domOnly, propsToUpdate: {});
   }
 
@@ -251,13 +252,13 @@ extension PropsToForward<T extends UiProps> on T {
   /// To only add DOM props, use the [domOnly] named argument.
   ///
   /// Related: `UiComponent2`'s `addUnconsumedProps`
-  PropsModifier addPropsToForward({Set<Type>? exclude, bool domOnly = false}) {
+  PropsModifier addPropsToForward({Set<Type> exclude, bool domOnly = false}) {
     return (Map<dynamic, dynamic> props) {
       _propsToForward(exclude: exclude, domOnly: domOnly, propsToUpdate: props);
     };
   }
 
-  Map _propsToForward({Set<Type>? exclude, bool domOnly = false, required Map propsToUpdate}) {
+  Map _propsToForward({Set<Type> exclude, bool domOnly = false,  Map propsToUpdate}) {
     Iterable<PropsMeta> consumedProps = [];
     try {
       consumedProps = staticMeta.forMixins(exclude ?? {T}).toList();
@@ -311,7 +312,7 @@ class _ToBeGenerated {
 class UngeneratedError extends Error implements UnimplementedError {
   @override
   final String message;
-  UngeneratedError({String? message, Symbol? member}) :
+  UngeneratedError({String message, Symbol member}) :
       this.message = '${member != null ? '' : '`$member` should be implemented by code generation.\n\n'}$message';
 
   @override
@@ -323,7 +324,7 @@ class UngeneratedError extends Error implements UnimplementedError {
 /// Thrown when a class is directly instantiated when it should not be.
 class IllegalInstantiationError extends Error {
   final String message;
-  IllegalInstantiationError({String? message, Type? runtimeType}) :
+  IllegalInstantiationError({String message, Type runtimeType}) :
       this.message = message ?? '`$runtimeType` cannot be instantated directly, but only indirectly via the UiFactory';
 
 

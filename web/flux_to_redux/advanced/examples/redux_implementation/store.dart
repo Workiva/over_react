@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -37,10 +38,10 @@ class ReduxState {
         this.blockThreeBackgroundColor = 'blue';
 
   ReduxState.update(ReduxState oldState, {
-        String? mainBackgroundColor,
-        String? blockOneBackgroundColor,
-        String? blockTwoBackgroundColor,
-        String? blockThreeBackgroundColor,
+        String mainBackgroundColor,
+        String blockOneBackgroundColor,
+        String blockTwoBackgroundColor,
+        String blockThreeBackgroundColor,
       })
       : this.mainBackgroundColor = mainBackgroundColor ?? oldState.mainBackgroundColor,
         this.blockOneBackgroundColor = blockOneBackgroundColor ?? oldState.blockOneBackgroundColor,

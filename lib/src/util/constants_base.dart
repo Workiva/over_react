@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2016 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,7 +23,7 @@ abstract class DebugFriendlyConstant {
   const DebugFriendlyConstant(this._name);
 
   /// A helpful description of this constant, used in [toString].
-  String? get debugDescription;
+  String get debugDescription;
 
   @override
   String toString() {
@@ -41,7 +42,7 @@ abstract class DebugFriendlyConstant {
 /// that contains a CSS class name value.
 abstract class ClassNameConstant extends DebugFriendlyConstant {
   /// The CSS class name value associated with this constant.
-  final String? className;
+  final String className;
 
   const ClassNameConstant(String name, this.className) : super(name);
 

@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,22 +23,22 @@ import 'src/demos.dart';
 
 void main() {
   react_dom.render(
-    buttonExamplesDemo(), querySelector('$demoMountNodeSelectorPrefix--button')!);
+    buttonExamplesDemo(), querySelector('$demoMountNodeSelectorPrefix--button'));
 
   react_dom.render(
-    listGroupBasicDemo(), querySelector('$demoMountNodeSelectorPrefix--list-group')!);
+    listGroupBasicDemo(), querySelector('$demoMountNodeSelectorPrefix--list-group'));
 
   react_dom.render(
-    progressBasicDemo(), querySelector('$demoMountNodeSelectorPrefix--progress')!);
+    progressBasicDemo(), querySelector('$demoMountNodeSelectorPrefix--progress'));
 
   react_dom.render(
-    tagBasicDemo(), querySelector('$demoMountNodeSelectorPrefix--tag')!);
+    tagBasicDemo(), querySelector('$demoMountNodeSelectorPrefix--tag'));
 
   react_dom.render(
-    checkboxToggleButtonDemo(), querySelector('$demoMountNodeSelectorPrefix--checkbox-toggle')!);
+    checkboxToggleButtonDemo(), querySelector('$demoMountNodeSelectorPrefix--checkbox-toggle'));
 
   react_dom.render(
-    radioToggleButtonDemo(), querySelector('$demoMountNodeSelectorPrefix--radio-toggle')!);
+    radioToggleButtonDemo(), querySelector('$demoMountNodeSelectorPrefix--radio-toggle'));
 
   react_dom.render(
     (v2.ErrorBoundary()
@@ -45,7 +46,7 @@ void main() {
         print('Consumer props.onComponentDidCatch($error, $info)');
       }
     )(Faulty()()),
-    querySelector('$demoMountNodeSelectorPrefix--faulty-component')!,
+    querySelector('$demoMountNodeSelectorPrefix--faulty-component'),
   );
 
   react_dom.render(
@@ -54,7 +55,7 @@ void main() {
         print('Consumer props.onComponentDidCatch($error, $info)');
       }
     )(FaultyOnMount()()),
-    querySelector('$demoMountNodeSelectorPrefix--faulty-on-mount-component')!,
+    querySelector('$demoMountNodeSelectorPrefix--faulty-on-mount-component'),
   );
 
   react_dom.render(
@@ -66,7 +67,7 @@ void main() {
         return (Dom.div()..id = 'FallbackUi')('I am a fallback.');
       }
     )(FaultyOnMount()()),
-    querySelector('$demoMountNodeSelectorPrefix--faulty-on-mount-fallback-component')!,
+    querySelector('$demoMountNodeSelectorPrefix--faulty-on-mount-fallback-component'),
   );
 
   react_dom.render(
@@ -75,16 +76,16 @@ void main() {
         print('Consumer props.onComponentDidCatch($error, $info)');
       }
     )(Faulty()()),
-    querySelector('$demoMountNodeSelectorPrefix--faulty-component-with-custom-error-boundary')!,
+    querySelector('$demoMountNodeSelectorPrefix--faulty-component-with-custom-error-boundary'),
   );
 
   react_dom.render(
-    Faulty()(), querySelector('$demoMountNodeSelectorPrefix--faulty-component-without-error-boundary')!);
+    Faulty()(), querySelector('$demoMountNodeSelectorPrefix--faulty-component-without-error-boundary'));
 
-  react_dom.render(PropTypesWrap()(), querySelector('$demoMountNodeSelectorPrefix--proptypes-component')!);
+  react_dom.render(PropTypesWrap()(), querySelector('$demoMountNodeSelectorPrefix--proptypes-component'));
 
-  react_dom.render(FragmentExample()(), querySelector('$demoMountNodeSelectorPrefix--fragment-component')!);
-  react_dom.render(ListExample()(), querySelector('$demoMountNodeSelectorPrefix--list-component')!);
-  react_dom.render(NumExample()(), querySelector('$demoMountNodeSelectorPrefix--num-component')!);
-  react_dom.render(StringExample()(), querySelector('$demoMountNodeSelectorPrefix--string-component')!);
+  react_dom.render(FragmentExample()(), querySelector('$demoMountNodeSelectorPrefix--fragment-component'));
+  react_dom.render(ListExample()(), querySelector('$demoMountNodeSelectorPrefix--list-component'));
+  react_dom.render(NumExample()(), querySelector('$demoMountNodeSelectorPrefix--num-component'));
+  react_dom.render(StringExample()(), querySelector('$demoMountNodeSelectorPrefix--string-component'));
 }

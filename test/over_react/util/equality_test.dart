@@ -1,3 +1,4 @@
+// @dart=2.11
 @TestOn('browser || vm')
 import 'package:over_react/src/util/equality.dart';
 import 'package:test/test.dart';

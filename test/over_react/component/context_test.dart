@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2019 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -31,11 +32,11 @@ void main() {
     test('createContext() returns a correctly typed object', () {
       final context = createContext<int>();
       expect(context, isA<Context>());
-      expect(context, isA<Context<int?>>(), reason: 'should have a nullable generic type');
+      expect(context, isA<Context<int>>(), reason: 'should have a nullable generic type');
       expect(context.Consumer(), isA<ConsumerProps>());
-      expect(context.Consumer(), isA<ConsumerProps<int?>>(), reason: 'should have the correct generic type');
+      expect(context.Consumer(), isA<ConsumerProps<int>>(), reason: 'should have the correct generic type');
       expect(context.Provider(), isA<ProviderProps>());
-      expect(context.Provider(), isA<ProviderProps<int?>>(), reason: 'should have the correct generic type');
+      expect(context.Provider(), isA<ProviderProps<int>>(), reason: 'should have the correct generic type');
       expect(context.jsThis, isA<JsMap>());
       expect(context.reactDartContext, isA<react.Context>());
     });
@@ -89,19 +90,20 @@ void main() {
 
             expect(consumerValues, [same(typeToTest)]);
             expect(functionComponentValues, [same(typeToTest)]);
-            expect(contextTypeRef.current!.context, same(typeToTest));
+            expect(contextTypeRef.current.context, same(typeToTest));
           }
 
           sharedTypeTests(testTypeValue);
         });
 
         group('for contexts without a default value', () {
-          late final context = testContextWithoutDefault;
+           // FIXME(nnbd_unmigrate) previously-late variable with initializer
+ final context = testContextWithoutDefault;
 
-          late UiFactory TestFunction;
-          late Ref<ContextTypeWithoutDefaultComponent?> contextTypeRef;
-          late List<dynamic> consumerValues;
-          late List<dynamic> functionComponentValues;
+           UiFactory TestFunction;
+           Ref<ContextTypeWithoutDefaultComponent> contextTypeRef;
+           List<dynamic> consumerValues;
+           List<dynamic> functionComponentValues;
 
           setUp(() {
             contextTypeRef = createRef();
@@ -129,7 +131,7 @@ void main() {
 
             expect(consumerValues, [same(testValue)]);
             expect(functionComponentValues, [same(testValue)]);
-            expect(contextTypeRef.current!.context, same(testValue));
+            expect(contextTypeRef.current.context, same(testValue));
           });
 
           test('when there is not a provider', () {
@@ -145,17 +147,18 @@ void main() {
 
             expect(consumerValues, [isNull]);
             expect(functionComponentValues, [isNull]);
-            expect(contextTypeRef.current!.context, isNull);
+            expect(contextTypeRef.current.context, isNull);
           });
         });
 
         group('for contexts with a default value', () {
-          late final context = testContextWithDefault;
+           // FIXME(nnbd_unmigrate) previously-late variable with initializer
+ final context = testContextWithDefault;
 
-          late UiFactory TestFunction;
-          late Ref<ContextTypeWithDefaultComponent?> contextTypeRef;
-          late List<dynamic> consumerValues;
-          late List<dynamic> functionComponentValues;
+           UiFactory TestFunction;
+           Ref<ContextTypeWithDefaultComponent> contextTypeRef;
+           List<dynamic> consumerValues;
+           List<dynamic> functionComponentValues;
 
           setUp(() {
             contextTypeRef = createRef();
@@ -183,7 +186,7 @@ void main() {
 
             expect(consumerValues, [testValue]);
             expect(functionComponentValues, [testValue]);
-            expect(contextTypeRef.current!.context, testValue);
+            expect(contextTypeRef.current.context, testValue);
           });
 
           test('when there is not a provider', () {
@@ -201,15 +204,15 @@ void main() {
 
             expect(consumerValues, [same(defaultValue)]);
             expect(functionComponentValues, [same(defaultValue)]);
-            expect(contextTypeRef.current!.context, same(defaultValue));
+            expect(contextTypeRef.current.context, same(defaultValue));
           });
         });
       });
 
       group('experimental calculateChangeBits argument functions correctly', () {
-        late Ref<ContextProviderWrapperComponent?> providerRef;
-        int? consumerEvenValue;
-        int? consumerOddValue;
+         Ref<ContextProviderWrapperComponent> providerRef;
+        int consumerEvenValue;
+        int consumerOddValue;
 
         setUp(() {
           providerRef = createRef();
@@ -243,13 +246,13 @@ void main() {
         });
 
         test('on value updates', () {
-          providerRef.current!.increment();
+          providerRef.current.increment();
           expect(consumerEvenValue, 2);
           expect(consumerOddValue, 1);
-          providerRef.current!.increment();
+          providerRef.current.increment();
           expect(consumerEvenValue, 2);
           expect(consumerOddValue, 3);
-          providerRef.current!.increment();
+          providerRef.current.increment();
           expect(consumerEvenValue, 4);
           expect(consumerOddValue, 3);
         });
@@ -266,7 +269,7 @@ void main() {
       });
 
       group('has functional overrides to members that are typically generated', () {
-        late ProviderProps props;
+         ProviderProps props;
 
         setUp(() {
           props = createContext().Provider();
@@ -283,7 +286,7 @@ void main() {
         test('\$getPropKey (used by getPropKey)', () {
           expect(props.getPropKey((p) => p.value), 'value');
 
-          late final ProviderProps getPropKeyArg;
+            ProviderProps getPropKeyArg;
           props.getPropKey((p) {
             getPropKeyArg = p;
             p.id; // Access a prop so that this doesn't throw
@@ -303,7 +306,7 @@ void main() {
       });
 
       group('has functional overrides to members that are typically generated', () {
-        late ConsumerProps props;
+         ConsumerProps props;
 
         setUp(() {
           props = createContext().Consumer();
@@ -320,7 +323,7 @@ void main() {
         test('\$getPropKey (used by getPropKey)', () {
           expect(props.getPropKey((p) => p.unstable_observedBits), 'unstable_observedBits');
 
-          late final ConsumerProps getPropKeyArg;
+            ConsumerProps getPropKeyArg;
           props.getPropKey((p) {
             getPropKeyArg = p;
             p.id; // Access a prop so that this doesn't throw

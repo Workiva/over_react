@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,16 +21,16 @@ class BasicPartOfLibProps = UiProps with ExamplePropsMixin, BasicPartOfLibPropsM
 class BasicPartOfLibState = UiState with ExampleStateMixin, BasicPartOfLibStateMixin;
 
 mixin BasicPartOfLibPropsMixin on UiProps, ExamplePropsMixin {
-  String? basicProp;
-  String? basic1;
-  String? basic2;
-  String? basic3;
-  String? basic4;
-  String? basic5;
+  String basicProp;
+  String basic1;
+  String basic2;
+  String basic3;
+  String basic4;
+  String basic5;
 }
 
 mixin BasicPartOfLibStateMixin on UiState, ExampleStateMixin {
-  String? basicState;
+  String basicState;
 }
 
 class BasicPartOfLibComponent extends UiStatefulComponent2<BasicPartOfLibProps, BasicPartOfLibState> {

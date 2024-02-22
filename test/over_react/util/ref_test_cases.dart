@@ -1,3 +1,4 @@
+// @dart=2.11
 import 'package:js/js.dart';
 import 'package:react/react_client/react_interop.dart';
 import 'package:test/test.dart';
@@ -22,10 +23,10 @@ class RefTestCase {
   final RefTestCaseMeta meta;
 
   RefTestCase({
-    required this.ref,
-    required this.verifyRefWasUpdated,
-    required this.getCurrent,
-    required this.meta,
+     this.ref,
+     this.verifyRefWasUpdated,
+     this.getCurrent,
+     this.meta,
   });
 }
 
@@ -65,7 +66,7 @@ class RefTestCaseCollection<T> {
       // Use a lambda instead of a tearoff since we want to explicitly verify
       // a function with a certain argument type.
       // ignore: unnecessary_lambdas, avoid_types_on_closure_parameters
-      ref: (T? value) => calls.add(value),
+      ref: (T value) => calls.add(value),
       verifyRefWasUpdated: (actualValue) =>
           expect(calls, [same(actualValue)], reason: _reasonMessage(name)),
       getCurrent: () => calls.single,

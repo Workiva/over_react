@@ -1,3 +1,4 @@
+// @dart=2.11
 @JS()
 library over_react.promise_interop;
 import 'dart:js';

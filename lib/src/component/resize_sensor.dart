@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2016 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -69,7 +70,7 @@ mixin ResizeSensorProps on UiProps {
   /// > Will never be called if [quickMount] is `true`.
   ///
   /// Related: [onResize]
-  ResizeSensorHandler? onInitialize;
+  ResizeSensorHandler onInitialize;
 
   /// A function invoked with a `ResizeSensorEvent` argument when the [ResizeSensor]
   /// resizes, either due to its parent or children resizing.
@@ -78,19 +79,19 @@ mixin ResizeSensorProps on UiProps {
   ///   check out [onDetachedMountCheck] for a possible workaround.
   ///
   /// Related: [onInitialize]
-  ResizeSensorHandler? onResize;
+  ResizeSensorHandler onResize;
 
   /// Whether the [ResizeSensor] is a child of a flex item. Necessary to apply the correct styling.
   ///
   /// See this issue for details: <https://code.google.com/p/chromium/issues/detail?id=346275>
   ///
   /// Default: false
-  bool? isFlexChild;
+  bool isFlexChild;
 
   /// Whether the [ResizeSensor] is a flex container. Necessary to apply the correct styling.
   ///
   /// Default: false
-  bool? isFlexContainer;
+  bool isFlexContainer;
 
   /// Whether the [ResizeSensor] should shrink to the size of its child.
   ///
@@ -98,7 +99,7 @@ mixin ResizeSensorProps on UiProps {
   /// small.
   ///
   /// Default: false
-  bool? shrink;
+  bool shrink;
 
   /// Whether quick-mount mode is enabled, which minimizes layouts caused by accessing element dimensions
   /// during initialization, allowing the component to mount faster.
@@ -114,7 +115,7 @@ mixin ResizeSensorProps on UiProps {
   ///   helping to break up resulting layouts.
   ///
   /// Default: false
-  bool? quickMount;
+  bool quickMount;
 
   /// A callback that returns a `bool` that indicates whether the [ResizeSensor] was detached from the DOM
   /// when it first mounted.
@@ -140,12 +141,12 @@ mixin ResizeSensorProps on UiProps {
   ///   > __NOTE:__ If this happens - you most likely do not need to set this callback. If for some reason the callback
   ///     sometimes returns `true`, and sometimes returns `false` _(unexpected)_,
   ///     you may have other underlying issues in your implementation that should be addressed separately.
-  BoolCallback? onDetachedMountCheck;
+  BoolCallback onDetachedMountCheck;
 
   /// A callback intended for use only within internal unit tests that is called when [ResizeSensorComponent._reset]
   /// is called.
   @visibleForTesting
-  Callback? onDidReset;
+  Callback onDidReset;
 }
 
 class ResizeSensorComponent extends UiComponent2<ResizeSensorProps> with SafeAnimationFrameMixin {
@@ -175,7 +176,7 @@ class ResizeSensorComponent extends UiComponent2<ResizeSensorProps> with SafeAni
   void componentDidMount() {
     _checkForDetachedMount();
 
-    if (props.quickMount!) {
+    if (props.quickMount) {
       assert(props.onInitialize == null || ValidationUtil.warn(
           'props.onInitialize will not be called when props.quickMount is true.',
           this
@@ -198,7 +199,7 @@ class ResizeSensorComponent extends UiComponent2<ResizeSensorProps> with SafeAni
 
       if (props.onInitialize != null) {
         var event = ResizeSensorEvent(_lastWidth, _lastHeight, 0, 0);
-        props.onInitialize!(event);
+        props.onInitialize(event);
       }
     }
   }
@@ -208,7 +209,7 @@ class ResizeSensorComponent extends UiComponent2<ResizeSensorProps> with SafeAni
     final expandSensor = (Dom.div()
       ..className = 'resize-sensor-expand'
       ..onScroll = _handleSensorScroll
-      ..style = props.shrink! ? shrinkBaseStyle : baseStyle
+      ..style = props.shrink ? shrinkBaseStyle : baseStyle
       ..ref = _expandSensorRef
     )(
       (Dom.div()..style = expandSensorChildStyle)()
@@ -217,7 +218,7 @@ class ResizeSensorComponent extends UiComponent2<ResizeSensorProps> with SafeAni
     final collapseSensor = (Dom.div()
       ..className = 'resize-sensor-collapse'
       ..onScroll = _handleSensorScroll
-      ..style = props.shrink! ? shrinkBaseStyle : baseStyle
+      ..style = props.shrink ? shrinkBaseStyle : baseStyle
       ..ref = _collapseSensorRef
     )(
       (Dom.div()..style = collapseSensorChildStyle)()
@@ -225,14 +226,14 @@ class ResizeSensorComponent extends UiComponent2<ResizeSensorProps> with SafeAni
 
     final resizeSensor = (Dom.div()
       ..className = 'resize-sensor'
-      ..style = props.shrink! ? shrinkBaseStyle : baseStyle
+      ..style = props.shrink ? shrinkBaseStyle : baseStyle
       ..key = 'resizeSensor'
     )(expandSensor, collapseSensor);
 
     var wrapperStyles = defaultWrapperStyles;
-    if (props.isFlexChild!) {
+    if (props.isFlexChild) {
       wrapperStyles = wrapperStylesFlexChild;
-    } else if (props.isFlexContainer!) {
+    } else if (props.isFlexContainer) {
       wrapperStyles = wrapperStylesFlexContainer;
     }
 
@@ -257,7 +258,7 @@ class ResizeSensorComponent extends UiComponent2<ResizeSensorProps> with SafeAni
       return;
     }
 
-    var sensor = findDomNode(this)!;
+    var sensor = findDomNode(this);
 
     var newWidth = sensor.offsetWidth;
     var newHeight = sensor.offsetHeight;
@@ -265,7 +266,7 @@ class ResizeSensorComponent extends UiComponent2<ResizeSensorProps> with SafeAni
     if (newWidth != _lastWidth || newHeight != _lastHeight) {
       if (props.onResize != null) {
         var event = ResizeSensorEvent(newWidth, newHeight, _lastWidth, _lastHeight);
-        props.onResize!(event);
+        props.onResize(event);
       }
 
       _reset();
@@ -280,7 +281,7 @@ class ResizeSensorComponent extends UiComponent2<ResizeSensorProps> with SafeAni
   /// > Related: [forceResetDetachedSensor]
   void _reset({bool updateLastDimensions = true}) {
     if (updateLastDimensions) {
-      var sensor = findDomNode(this)!;
+      var sensor = findDomNode(this);
       _lastWidth = sensor.offsetWidth;
       _lastHeight = sensor.offsetHeight;
     }
@@ -288,11 +289,11 @@ class ResizeSensorComponent extends UiComponent2<ResizeSensorProps> with SafeAni
     // Scroll positions are clamped to their maxes; use this behavior to scroll to the end
     // as opposed to scrollWidth/scrollHeight, which trigger reflows immediately.
 
-    _expandSensorRef.current!
+    _expandSensorRef.current
       ..scrollLeft = maxSensorSize
       ..scrollTop = maxSensorSize;
 
-    _collapseSensorRef.current!
+    _collapseSensorRef.current
       ..scrollLeft = maxSensorSize
       ..scrollTop = maxSensorSize;
 
@@ -319,7 +320,7 @@ class ResizeSensorComponent extends UiComponent2<ResizeSensorProps> with SafeAni
   ///
   /// > __See: [ResizeSensorProps.onDetachedMountCheck] for more information.__
   bool _isAttachedToDocument() {
-    Node? current = findDomNode(this);
+    Node current = findDomNode(this);
     while (current != null) {
       if (current == document.body) return true;
       current = current.parentNode;
@@ -344,7 +345,7 @@ class ResizeSensorComponent extends UiComponent2<ResizeSensorProps> with SafeAni
         '''
     )));
 
-    props.onDetachedMountCheck!(wasMountedDetachedFromDom);
+    props.onDetachedMountCheck(wasMountedDetachedFromDom);
   }
 
   /// The number of future scroll events to ignore.
@@ -388,7 +389,7 @@ class SafeAnimationFrameMixin {
   /// Calls [Window.requestAnimationFrame] with the specified [callback], and keeps track of the
   /// request ID so that it can be cancelled in [cancelAnimationFrames].
   void requestAnimationFrame(Function() callback) {
-    int? queuedId;
+    int queuedId;
     queuedId = window.requestAnimationFrame((_) {
       callback();
       _animationFrameIds.remove(queuedId);

@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2019 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,8 +23,8 @@ UiFactory<TestConsumingCustomRendererComponentProps> TestConsumingCustomRenderer
 
 @Props()
 class _$TestConsumingCustomRendererComponentProps extends UiProps {
-  String? propKeyValueToTest;
-  String? stateKeyValueToTest;
+  String propKeyValueToTest;
+  String stateKeyValueToTest;
 }
 
 @Component2()

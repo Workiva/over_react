@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -29,7 +30,7 @@ import 'codegen.dart';
 import 'codegen/language_version_util.dart';
 import 'parsing.dart';
 
-Builder overReactBuilder(BuilderOptions? options) => OverReactBuilder();
+Builder overReactBuilder(BuilderOptions options) => OverReactBuilder();
 
 class OverReactBuilder extends Builder {
   @override
@@ -84,7 +85,7 @@ class OverReactBuilder extends Builder {
         // Catch any errors coming from our implementation of `$packageConfig`.
         // We can remove this once we switch to build 2.4.0's `packageConfig`
         // (see `$packageConfig` doc comment for more info).
-        pc.LanguageVersion? packageConfigLanguageVersion;
+        pc.LanguageVersion packageConfigLanguageVersion;
         try {
           packageConfigLanguageVersion = (await buildStep.$packageConfig)
               .packages
@@ -198,7 +199,7 @@ class OverReactBuilder extends Builder {
     // Generate over_react code for each part file of the input library.
     for (final part in parts) {
       final partId = AssetId.resolve(
-        Uri.parse(part.uri.stringValue!),
+        Uri.parse(part.uri.stringValue),
         from: buildStep.inputId);
       if (!await buildStep.canRead(partId)) {
         continue;
@@ -240,7 +241,7 @@ class OverReactBuilder extends Builder {
 
   static final _formatter = DartFormatter();
 
-  static CompilationUnit? _tryParseCompilationUnit(String source, AssetId id) {
+  static CompilationUnit _tryParseCompilationUnit(String source, AssetId id) {
     final result = parseString(content: source, path: id.path, throwIfDiagnostics: false);
 
     if (result.errors.isEmpty) return result.unit;
@@ -265,7 +266,7 @@ class OverReactBuilder extends Builder {
   };
 
   static FutureOr<void> _writePart(BuildStep buildStep, AssetId outputId, Iterable<String> outputs,
-      {required String nullSafetyCommentText, String? languageVersionComment}) async {
+      { String nullSafetyCommentText, String languageVersionComment}) async {
     final partOf = "'${p.basename(buildStep.inputId.uri.toString())}'";
 
     final buffer = StringBuffer();
@@ -311,7 +312,7 @@ extension on BuildStep {
   // Cache the result so we don't read and parse the package config for every file.
   //
   // This value should be safe to reuse globally within an isolate.
-  static pc.PackageConfig? _cachedPackageConfig;
+  static pc.PackageConfig _cachedPackageConfig;
 
   /// Polyfill for build 2.4.0's BuildStep.packageConfig, which only seems to be resolvable in Dart 3.
   /// From: https://github.com/dart-lang/build/issues/3492#issuecomment-1533455176
@@ -320,6 +321,6 @@ extension on BuildStep {
   /// `BuildStep` when 2.4.0 is resolved to, but that feels unnecessarily risky, and we can just
   /// follow up later to remove this extension and use the real implementation instead.
   Future<pc.PackageConfig> get $packageConfig async {
-    return _cachedPackageConfig ??= await pc.loadPackageConfigUri((await Isolate.packageConfig)!);
+    return _cachedPackageConfig ??= await pc.loadPackageConfigUri((await Isolate.packageConfig));
   }
 }

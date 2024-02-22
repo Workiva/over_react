@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -71,7 +72,7 @@ class LegacyClassComponentDeclaration extends BoilerplateDeclaration {
   final BoilerplateFactory factory;
   final BoilerplateComponent component;
   final BoilerplateProps props;
-  final BoilerplateState? state;
+  final BoilerplateState state;
 
   /// Whether this is Component2 based.
   bool get isComponent2 => component.isComponent2(version);
@@ -91,10 +92,10 @@ class LegacyClassComponentDeclaration extends BoilerplateDeclaration {
   get type => DeclarationType.legacyClassComponentDeclaration;
 
   LegacyClassComponentDeclaration({
-    required Version version,
-    required this.factory,
-    required this.component,
-    required this.props,
+     Version version,
+     this.factory,
+     this.component,
+     this.props,
     this.state,
   })  : assert(version != Version.v4_mixinBased),
         super(version);
@@ -136,8 +137,8 @@ class LegacyAbstractPropsDeclaration extends BoilerplateDeclaration {
   get type => DeclarationType.legacyAbstractPropsDeclaration;
 
   LegacyAbstractPropsDeclaration({
-    required Version version,
-    required this.props,
+     Version version,
+     this.props,
   })  : assert(version != Version.v4_mixinBased),
         super(version);
 
@@ -164,8 +165,8 @@ class LegacyAbstractStateDeclaration extends BoilerplateDeclaration {
   get type => DeclarationType.legacyAbstractStateDeclaration;
 
   LegacyAbstractStateDeclaration({
-    required Version version,
-    required this.state,
+     Version version,
+     this.state,
   })  : assert(version != Version.v4_mixinBased),
         super(version);
 
@@ -184,8 +185,8 @@ mixin _TypedMapMixinShorthandDeclaration {
   void _validateShorthand(
     ErrorCollector errorCollector,
     PropsStateStringHelpers helpers, {
-    required Union<BoilerplatePropsOrState, BoilerplatePropsOrStateMixin> propsOrState,
-    required AstNode shorthandUsage,
+     Union<BoilerplatePropsOrState, BoilerplatePropsOrStateMixin> propsOrState,
+     AstNode shorthandUsage,
   }) {
     final mixin = propsOrState.b;
     if (mixin == null) return;
@@ -200,8 +201,8 @@ mixin _TypedMapMixinShorthandDeclaration {
         .tryCast<MixinDeclaration>()
         ?.onClause
         ?.superclassConstraints
-        .where(isBadConstraint)
-        .toList();
+        ?.where(isBadConstraint)
+        ?.toList();
 
     if (badConstraints != null && badConstraints.isNotEmpty) {
       final badConstraintsString = badConstraints.map((c) => c.name.name).join(', ');
@@ -243,7 +244,7 @@ class ClassComponentDeclaration extends BoilerplateDeclaration
   final BoilerplateFactory factory;
   final BoilerplateComponent component;
   final Union<BoilerplateProps, BoilerplatePropsMixin> props;
-  final Union<BoilerplateState, BoilerplateStateMixin>? state;
+  final Union<BoilerplateState, BoilerplateStateMixin> state;
 
   @override
   get _members {
@@ -269,14 +270,14 @@ class ClassComponentDeclaration extends BoilerplateDeclaration
         propsOrState: props, shorthandUsage: factory.propsGenericArg ?? factory.node);
     if (state != null) {
       _validateShorthand(errorCollector, PropsStateStringHelpers.state(),
-          propsOrState: state!, shorthandUsage: component.node);
+          propsOrState: state, shorthandUsage: component.node);
     }
   }
 
   ClassComponentDeclaration({
-    required this.factory,
-    required this.component,
-    required this.props,
+     this.factory,
+     this.component,
+     this.props,
     this.state,
   }) : super(Version.v4_mixinBased);
 }
@@ -314,8 +315,8 @@ class PropsMapViewOrFunctionComponentDeclaration extends BoilerplateDeclaration
   }
 
   PropsMapViewOrFunctionComponentDeclaration({
-    required this.factories,
-    required this.props,
+     this.factories,
+     this.props,
   }) : super(Version.v4_mixinBased);
 }
 
@@ -342,8 +343,8 @@ class PropsMixinDeclaration extends BoilerplateDeclaration with PropsOrStateMixi
   get type => DeclarationType.propsMixinDeclaration;
 
   PropsMixinDeclaration({
-    required Version version,
-    required this.mixin,
+     Version version,
+     this.mixin,
   }) : super(version);
 }
 
@@ -358,8 +359,8 @@ class StateMixinDeclaration extends BoilerplateDeclaration with PropsOrStateMixi
   get type => DeclarationType.stateMixinDeclaration;
 
   StateMixinDeclaration({
-    required Version version,
-    required this.mixin,
+     Version version,
+     this.mixin,
   }) : super(version);
 }
 

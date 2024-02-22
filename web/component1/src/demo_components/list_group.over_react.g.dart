@@ -1,3 +1,4 @@
+// @dart=2.11
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 // ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators, invalid_use_of_visible_for_overriding_member
@@ -29,9 +30,9 @@ abstract class _$ListGroupPropsAccessorsMixin implements _$ListGroupProps {
   ///
   /// <!-- Generated from [_$ListGroupProps.elementType] -->
   @override
-  ListGroupElementType? get elementType =>
+  ListGroupElementType get elementType =>
       (props[_$key__elementType___$ListGroupProps] ?? null)
-          as ListGroupElementType?;
+          as ListGroupElementType;
 
   /// The HTML element type for the [ListGroup], specifying its
   /// DOM representation when rendered.
@@ -40,7 +41,7 @@ abstract class _$ListGroupPropsAccessorsMixin implements _$ListGroupProps {
   ///
   /// <!-- Generated from [_$ListGroupProps.elementType] -->
   @override
-  set elementType(ListGroupElementType? value) =>
+  set elementType(ListGroupElementType value) =>
       props[_$key__elementType___$ListGroupProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__elementType___$ListGroupProps =
@@ -64,7 +65,7 @@ class ListGroupProps extends _$ListGroupProps
   static const PropsMeta meta = _$metaForListGroupProps;
 }
 
-_$$ListGroupProps _$ListGroup([Map? backingProps]) =>
+_$$ListGroupProps _$ListGroup([Map backingProps]) =>
     _$$ListGroupProps(backingProps);
 
 // Concrete props implementation.
@@ -75,7 +76,7 @@ class _$$ListGroupProps extends _$ListGroupProps
     implements ListGroupProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ListGroupProps(Map? backingMap) : this._props = {} {
+  _$$ListGroupProps(Map backingMap) : this._props = {} {
     this._props = backingMap ?? {};
   }
 
@@ -116,7 +117,7 @@ const _$getPropKey$_$$ListGroupProps = getPropKey;
 // generated for the associated props class.
 class _$ListGroupComponent extends ListGroupComponent {
   @override
-  _$$ListGroupProps typedPropsFactory(Map? backingMap) =>
+  _$$ListGroupProps typedPropsFactory(Map backingMap) =>
       _$$ListGroupProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.

@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2022 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,7 +25,7 @@ class DartValueWrapper {
 
   static final _functionWrapperCache = Expando<DartValueWrapper>('_functionWrapperCache');
 
-  static Object? wrapIfNeeded(Object? value) {
+  static Object wrapIfNeeded(Object value) {
     // This case should be fairly uncommon, since functions usually aren't used as
     // a Redux store's state or the result of a connect or selector hook selector.
     if (value is Function && !identical(allowInterop(value), value)) {
@@ -34,7 +35,7 @@ class DartValueWrapper {
     return value;
   }
 
-  static T unwrapIfNeeded<T>(Object? value) {
+  static T unwrapIfNeeded<T>(Object value) {
     if (value is DartValueWrapper) {
       return value.value as T;
     }

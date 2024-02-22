@@ -1,3 +1,4 @@
+// @dart=2.11
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 // ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators, invalid_use_of_visible_for_overriding_member
@@ -24,43 +25,43 @@ abstract class _$CounterPropsAccessorsMixin implements _$CounterProps {
 
   /// <!-- Generated from [_$CounterProps.currentCount] -->
   @override
-  int? get currentCount =>
-      (props[_$key__currentCount___$CounterProps] ?? null) as int?;
+  int get currentCount =>
+      (props[_$key__currentCount___$CounterProps] ?? null) as int;
 
   /// <!-- Generated from [_$CounterProps.currentCount] -->
   @override
-  set currentCount(int? value) =>
+  set currentCount(int value) =>
       props[_$key__currentCount___$CounterProps] = value;
 
   /// <!-- Generated from [_$CounterProps.wrapperStyles] -->
   @override
-  Map<String, dynamic>? get wrapperStyles =>
+  Map<String, dynamic> get wrapperStyles =>
       (props[_$key__wrapperStyles___$CounterProps] ?? null)
-          as Map<String, dynamic>?;
+          as Map<String, dynamic>;
 
   /// <!-- Generated from [_$CounterProps.wrapperStyles] -->
   @override
-  set wrapperStyles(Map<String, dynamic>? value) =>
+  set wrapperStyles(Map<String, dynamic> value) =>
       props[_$key__wrapperStyles___$CounterProps] = value;
 
   /// <!-- Generated from [_$CounterProps.increment] -->
   @override
-  void Function()? get increment =>
-      (props[_$key__increment___$CounterProps] ?? null) as void Function()?;
+  void Function() get increment =>
+      (props[_$key__increment___$CounterProps] ?? null) as void Function();
 
   /// <!-- Generated from [_$CounterProps.increment] -->
   @override
-  set increment(void Function()? value) =>
+  set increment(void Function() value) =>
       props[_$key__increment___$CounterProps] = value;
 
   /// <!-- Generated from [_$CounterProps.decrement] -->
   @override
-  void Function()? get decrement =>
-      (props[_$key__decrement___$CounterProps] ?? null) as void Function()?;
+  void Function() get decrement =>
+      (props[_$key__decrement___$CounterProps] ?? null) as void Function();
 
   /// <!-- Generated from [_$CounterProps.decrement] -->
   @override
-  set decrement(void Function()? value) =>
+  set decrement(void Function() value) =>
       props[_$key__decrement___$CounterProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__currentCount___$CounterProps =
@@ -103,7 +104,7 @@ class CounterProps extends _$CounterProps with _$CounterPropsAccessorsMixin {
   static const PropsMeta meta = _$metaForCounterProps;
 }
 
-_$$CounterProps _$Counter([Map? backingProps]) => backingProps == null
+_$$CounterProps _$Counter([Map backingProps]) => backingProps == null
     ? _$$CounterProps$JsMap(JsBackedMap())
     : _$$CounterProps(backingProps);
 
@@ -115,9 +116,9 @@ abstract class _$$CounterProps extends _$CounterProps
     implements CounterProps {
   _$$CounterProps._();
 
-  factory _$$CounterProps(Map? backingMap) {
+  factory _$$CounterProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$CounterProps$JsMap(backingMap as JsBackedMap?);
+      return _$$CounterProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$CounterProps$PlainMap(backingMap);
     }
@@ -149,7 +150,7 @@ const _$getPropKey$_$$CounterProps = getPropKey;
 class _$$CounterProps$PlainMap extends _$$CounterProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$CounterProps$PlainMap(Map? backingMap)
+  _$$CounterProps$PlainMap(Map backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -166,7 +167,7 @@ class _$$CounterProps$PlainMap extends _$$CounterProps {
 class _$$CounterProps$JsMap extends _$$CounterProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$CounterProps$JsMap(JsBackedMap? backingMap)
+  _$$CounterProps$JsMap(JsBackedMap backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -183,7 +184,7 @@ class _$$CounterProps$JsMap extends _$$CounterProps {
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$CounterComponent extends CounterComponent {
-  late _$$CounterProps$JsMap _cachedTypedProps;
+   _$$CounterProps$JsMap _cachedTypedProps;
 
   @override
   _$$CounterProps$JsMap get props => _cachedTypedProps;
@@ -203,11 +204,11 @@ class _$CounterComponent extends CounterComponent {
   }
 
   @override
-  _$$CounterProps$JsMap typedPropsFactoryJs(JsBackedMap? backingMap) =>
+  _$$CounterProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
       _$$CounterProps$JsMap(backingMap);
 
   @override
-  _$$CounterProps typedPropsFactory(Map? backingMap) =>
+  _$$CounterProps typedPropsFactory(Map backingMap) =>
       _$$CounterProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.

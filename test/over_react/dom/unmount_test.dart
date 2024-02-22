@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2018 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,18 +25,18 @@ import 'fixtures/dummy_composite_component.dart';
 
 main() {
   group('`react_dom.unmountComponentAtNode`', () {
-    late Element mountNode;
-    bool? unmountComponentAtNodeReturnValue;
+     Element mountNode;
+    bool unmountComponentAtNodeReturnValue;
 
     setUp(() {
       mountNode = DivElement();
-      document.body!.append(mountNode);
+      document.body.append(mountNode);
       addTearDown(mountNode.remove);
     });
 
     group('when called on a mountNode that has a mounted component:', () {
       int componentDidMountCount;
-      late bool componentWillUnmount;
+       bool componentWillUnmount;
 
       setUp(() {
         componentDidMountCount = 0;

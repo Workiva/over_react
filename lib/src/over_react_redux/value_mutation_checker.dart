@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -25,7 +26,7 @@ abstract class InstanceHasher {
   ///
   /// Returns false if hashing [instance] isn't supported,
   /// as determined by [canHash].
-  bool hasHashChanged(Object? instance) {
+  bool hasHashChanged(Object instance) {
     if (instance != null && canHash(instance)) {
       final last = _hashForInstance[instance];
       final current = _hashForInstance[instance] = hash(instance);

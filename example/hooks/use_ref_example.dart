@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -39,7 +40,7 @@ UiFactory<UseRefExampleProps> UseRefExample = uiFunction(
       ),
       (Dom.input()..ref = inputRef)(),
       (Dom.button()
-        ..onClick = (_) => inputValue.set(inputRef.current!.value!)
+        ..onClick = (_) => inputValue.set(inputRef.current.value)
       )('Update'),
     );
   },

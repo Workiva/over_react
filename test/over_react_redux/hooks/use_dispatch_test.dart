@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2021 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -29,8 +30,8 @@ part 'use_dispatch_test.over_react.g.dart';
 
 main() {
   group('useDispatch hook', () {
-    late Store<CounterState> counterStore;
-    late Store<BigCounterState> bigCounterStore;
+     Store<CounterState> counterStore;
+     Store<BigCounterState> bigCounterStore;
 
     setUp(() {
       counterStore = Store(counterStateReducer, initialState: CounterState());
@@ -44,7 +45,7 @@ main() {
         ), attachedToDocument: true);
 
       expectCountValue(jacket, 0);
-      final incrementButton = queryByTestId(jacket.mountNode, 'button-increment')!;
+      final incrementButton = queryByTestId(jacket.mountNode, 'button-increment');
       incrementButton.click();
       await pumpEventQueue();
       expectCountValue(jacket, 1);
@@ -62,7 +63,7 @@ main() {
           ), attachedToDocument: true);
 
       expectBigCountValue(jacket, 9);
-      final incrementButton = queryByTestId(jacket.mountNode, 'button-big-increment')!;
+      final incrementButton = queryByTestId(jacket.mountNode, 'button-big-increment');
       incrementButton.click();
       await pumpEventQueue();
       expectBigCountValue(jacket, 109);

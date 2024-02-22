@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2021 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -25,7 +26,7 @@ UiFactory<HocProps> Hoc = connect<ExampleState, HocProps>(
 )(_$Hoc); // ignore: undefined_identifier, argument_type_not_assignable
 
 mixin HocProps on UiProps {
-  String? foo;
+  String foo;
 }
 
 class HocComponent extends UiComponent2<HocProps> {
@@ -43,7 +44,7 @@ UiFactory<HocWithTwoFactoriesProps> ConnectedHocWithTwoFactories =
 )(HocWithTwoFactories);
 
 mixin HocWithTwoFactoriesProps on UiProps {
-  String? foo;
+  String foo;
 }
 
 class HocWithTwoFactoriesComponent extends UiComponent2<HocWithTwoFactoriesProps> {

@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2016 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -30,7 +31,7 @@ mixin AbstractTransitionState on UiState {
   /// The current phase of transition the [AbstractTransitionComponent] is in.
   ///
   /// Default:  [AbstractTransitionComponent.initiallyShown] ? [TransitionPhase.SHOWN] : [TransitionPhase.HIDDEN]
-  late TransitionPhase transitionPhase;
+   TransitionPhase transitionPhase;
 }
 
 /// How to use [AbstractTransitionComponent]:
@@ -105,13 +106,13 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps,
   );
 
   /// Stream for listening to `transitionend` events on the [AbstractTransitionComponent].
-  StreamSubscription? _endTransitionSubscription;
+  StreamSubscription _endTransitionSubscription;
 
   /// Whether the [AbstractTransitionComponent] should be visible initially when mounted.
   bool get initiallyShown;
 
   /// Returns the DOM node that will transition.
-  Element? getTransitionDomNode();
+  Element getTransitionDomNode();
 
   /// Whether transitions are enabled for this component.
   bool get hasTransition => true;
@@ -136,7 +137,7 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps,
   Duration get transitionTimeout => const Duration(seconds: 1);
 
   /// Timer used to determine if a transition timeout has occurred.
-  Timer? _transitionEndTimer;
+  Timer _transitionEndTimer;
 
   // --------------------------------------------------------------------------
   // Private Utility Methods
@@ -150,7 +151,7 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps,
       return;
     }
 
-    if (props.onWillShow != null && props.onWillShow!() == false) {
+    if (props.onWillShow != null && props.onWillShow() == false) {
       // Short-circuit default behavior if the callback cancelled this action by returning 'false'.
       return;
     }
@@ -170,7 +171,7 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps,
       return;
     }
 
-    if (props.onWillHide != null && props.onWillHide!() == false) {
+    if (props.onWillHide != null && props.onWillHide() == false) {
       // Short-circuit default behavior if the callback cancelled this action by returning 'false'.
       return;
     }
@@ -202,7 +203,7 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps,
       complete();
     });
 
-    _endTransitionSubscription = getTransitionDomNode()?.onTransitionEnd.skip(transitionCount - 1).take(1).listen((_) {
+    _endTransitionSubscription = getTransitionDomNode()?.onTransitionEnd?.skip(transitionCount - 1)?.take(1)?.listen((_) {
       _cancelTransitionEndTimer();
 
       complete();
@@ -377,7 +378,7 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps,
   }
 
   /// Returns attributes only available during testing that indicate the state of the transition.
-  Map<String, String?> getTransitionTestAttributes() {
+  Map<String, String> getTransitionTestAttributes() {
     if (!component_base.UiProps.testMode) return const {};
 
     const enumToAttrValue = <TransitionPhase, String>{

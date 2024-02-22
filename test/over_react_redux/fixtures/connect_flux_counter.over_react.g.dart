@@ -1,3 +1,4 @@
+// @dart=2.11
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 // ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators, invalid_use_of_visible_for_overriding_member
@@ -25,78 +26,78 @@ abstract class _$ConnectFluxCounterPropsAccessorsMixin
 
   /// <!-- Generated from [_$ConnectFluxCounterProps.currentCount] -->
   @override
-  int? get currentCount =>
-      (props[_$key__currentCount___$ConnectFluxCounterProps] ?? null) as int?;
+  int get currentCount =>
+      (props[_$key__currentCount___$ConnectFluxCounterProps] ?? null) as int;
 
   /// <!-- Generated from [_$ConnectFluxCounterProps.currentCount] -->
   @override
-  set currentCount(int? value) =>
+  set currentCount(int value) =>
       props[_$key__currentCount___$ConnectFluxCounterProps] = value;
 
   /// <!-- Generated from [_$ConnectFluxCounterProps.wrapperStyles] -->
   @override
-  Map<String, dynamic>? get wrapperStyles =>
+  Map<String, dynamic> get wrapperStyles =>
       (props[_$key__wrapperStyles___$ConnectFluxCounterProps] ?? null)
-          as Map<String, dynamic>?;
+          as Map<String, dynamic>;
 
   /// <!-- Generated from [_$ConnectFluxCounterProps.wrapperStyles] -->
   @override
-  set wrapperStyles(Map<String, dynamic>? value) =>
+  set wrapperStyles(Map<String, dynamic> value) =>
       props[_$key__wrapperStyles___$ConnectFluxCounterProps] = value;
 
   /// <!-- Generated from [_$ConnectFluxCounterProps.mutatedList] -->
   @override
-  List<String>? get mutatedList =>
+  List<String> get mutatedList =>
       (props[_$key__mutatedList___$ConnectFluxCounterProps] ?? null)
-          as List<String>?;
+          as List<String>;
 
   /// <!-- Generated from [_$ConnectFluxCounterProps.mutatedList] -->
   @override
-  set mutatedList(List<String>? value) =>
+  set mutatedList(List<String> value) =>
       props[_$key__mutatedList___$ConnectFluxCounterProps] = value;
 
   /// <!-- Generated from [_$ConnectFluxCounterProps.increment] -->
   @override
-  void Function()? get increment =>
+  void Function() get increment =>
       (props[_$key__increment___$ConnectFluxCounterProps] ?? null) as void
-          Function()?;
+          Function();
 
   /// <!-- Generated from [_$ConnectFluxCounterProps.increment] -->
   @override
-  set increment(void Function()? value) =>
+  set increment(void Function() value) =>
       props[_$key__increment___$ConnectFluxCounterProps] = value;
 
   /// <!-- Generated from [_$ConnectFluxCounterProps.decrement] -->
   @override
-  void Function()? get decrement =>
+  void Function() get decrement =>
       (props[_$key__decrement___$ConnectFluxCounterProps] ?? null) as void
-          Function()?;
+          Function();
 
   /// <!-- Generated from [_$ConnectFluxCounterProps.decrement] -->
   @override
-  set decrement(void Function()? value) =>
+  set decrement(void Function() value) =>
       props[_$key__decrement___$ConnectFluxCounterProps] = value;
 
   /// <!-- Generated from [_$ConnectFluxCounterProps.mutateStoreDirectly] -->
   @override
-  void Function()? get mutateStoreDirectly =>
+  void Function() get mutateStoreDirectly =>
       (props[_$key__mutateStoreDirectly___$ConnectFluxCounterProps] ?? null)
-          as void Function()?;
+          as void Function();
 
   /// <!-- Generated from [_$ConnectFluxCounterProps.mutateStoreDirectly] -->
   @override
-  set mutateStoreDirectly(void Function()? value) =>
+  set mutateStoreDirectly(void Function() value) =>
       props[_$key__mutateStoreDirectly___$ConnectFluxCounterProps] = value;
 
   /// <!-- Generated from [_$ConnectFluxCounterProps.actions] -->
   @override
-  FluxActions? get actions =>
+  FluxActions get actions =>
       (props[_$key__actions___$ConnectFluxCounterProps] ?? null)
-          as FluxActions?;
+          as FluxActions;
 
   /// <!-- Generated from [_$ConnectFluxCounterProps.actions] -->
   @override
-  set actions(FluxActions? value) =>
+  set actions(FluxActions value) =>
       props[_$key__actions___$ConnectFluxCounterProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__currentCount___$ConnectFluxCounterProps =
@@ -159,7 +160,7 @@ class ConnectFluxCounterProps extends _$ConnectFluxCounterProps
   static const PropsMeta meta = _$metaForConnectFluxCounterProps;
 }
 
-_$$ConnectFluxCounterProps _$ConnectFluxCounter([Map? backingProps]) =>
+_$$ConnectFluxCounterProps _$ConnectFluxCounter([Map backingProps]) =>
     backingProps == null
         ? _$$ConnectFluxCounterProps$JsMap(JsBackedMap())
         : _$$ConnectFluxCounterProps(backingProps);
@@ -172,9 +173,9 @@ abstract class _$$ConnectFluxCounterProps extends _$ConnectFluxCounterProps
     implements ConnectFluxCounterProps {
   _$$ConnectFluxCounterProps._();
 
-  factory _$$ConnectFluxCounterProps(Map? backingMap) {
+  factory _$$ConnectFluxCounterProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$ConnectFluxCounterProps$JsMap(backingMap as JsBackedMap?);
+      return _$$ConnectFluxCounterProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$ConnectFluxCounterProps$PlainMap(backingMap);
     }
@@ -207,7 +208,7 @@ const _$getPropKey$_$$ConnectFluxCounterProps = getPropKey;
 class _$$ConnectFluxCounterProps$PlainMap extends _$$ConnectFluxCounterProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ConnectFluxCounterProps$PlainMap(Map? backingMap)
+  _$$ConnectFluxCounterProps$PlainMap(Map backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -224,7 +225,7 @@ class _$$ConnectFluxCounterProps$PlainMap extends _$$ConnectFluxCounterProps {
 class _$$ConnectFluxCounterProps$JsMap extends _$$ConnectFluxCounterProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ConnectFluxCounterProps$JsMap(JsBackedMap? backingMap)
+  _$$ConnectFluxCounterProps$JsMap(JsBackedMap backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -241,7 +242,7 @@ class _$$ConnectFluxCounterProps$JsMap extends _$$ConnectFluxCounterProps {
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$ConnectFluxCounterComponent extends ConnectFluxCounterComponent {
-  late _$$ConnectFluxCounterProps$JsMap _cachedTypedProps;
+   _$$ConnectFluxCounterProps$JsMap _cachedTypedProps;
 
   @override
   _$$ConnectFluxCounterProps$JsMap get props => _cachedTypedProps;
@@ -262,11 +263,11 @@ class _$ConnectFluxCounterComponent extends ConnectFluxCounterComponent {
 
   @override
   _$$ConnectFluxCounterProps$JsMap typedPropsFactoryJs(
-          JsBackedMap? backingMap) =>
+          JsBackedMap backingMap) =>
       _$$ConnectFluxCounterProps$JsMap(backingMap);
 
   @override
-  _$$ConnectFluxCounterProps typedPropsFactory(Map? backingMap) =>
+  _$$ConnectFluxCounterProps typedPropsFactory(Map backingMap) =>
       _$$ConnectFluxCounterProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.

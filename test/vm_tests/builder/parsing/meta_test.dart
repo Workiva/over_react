@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -25,7 +26,7 @@ void main() {
         @TestAnnotation("hello")
         var a;
       ''');
-      final meta = InstantiatedMeta.fromNode<TestAnnotation>(member)!;
+      final meta = InstantiatedMeta.fromNode<TestAnnotation>(member);
 
       expect(meta.metaNode.name.name, 'TestAnnotation');
       expect(meta.value, isNotNull);
@@ -37,7 +38,7 @@ void main() {
         @TestAnnotation(someIdentifier, named: "hello")
         var a;
       ''');
-      final meta = InstantiatedMeta.fromNode<TestAnnotation>(member)!;
+      final meta = InstantiatedMeta.fromNode<TestAnnotation>(member);
 
       expect(meta.metaNode.name.name, 'TestAnnotation');
 
@@ -65,9 +66,9 @@ void main() {
 }
 
 class TestAnnotation {
-  final Object? positional;
-  final Object? named;
-  final Object? namedConstructorOnly;
+  final Object positional;
+  final Object named;
+  final Object namedConstructorOnly;
 
   const TestAnnotation(this.positional, {this.named}) : namedConstructorOnly = null;
 

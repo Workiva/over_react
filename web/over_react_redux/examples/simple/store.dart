@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,9 +20,9 @@ import 'package:redux/redux.dart';
 /// While it can make life easier, this practice is optional as all as the
 /// reducer receives a valid type and value parameter.
 class Action<T> {
-  Action({this.type, required this.value});
+  Action({this.type,  this.value});
 
-  final String? type;
+  final String type;
   final T value;
 
   /// Used to encode the data structure for the Redux DevTools.
@@ -67,9 +68,9 @@ class CounterState {
   final String name;
 
   CounterState({
-    required this.smallCount,
-    required this.bigCount,
-    required this.name,
+     this.smallCount,
+     this.bigCount,
+     this.name,
   });
 
   /// A default state constructor.
@@ -83,7 +84,7 @@ class CounterState {
   /// Because Redux is pure and does not allow direct state mutations, a constructor
   /// that defaults to setting properties to the old state allows for DRYer code
   /// in the reducers.
-  CounterState.updateState(CounterState oldState, {int? smallCount, int? bigCount, String? name})
+  CounterState.updateState(CounterState oldState, {int smallCount, int bigCount, String name})
       : this.smallCount = smallCount ?? oldState.smallCount,
         this.bigCount = bigCount ?? oldState.bigCount,
         this.name = name ?? oldState.name;
@@ -103,23 +104,23 @@ class CounterState {
 /// with a simple if / switch that returns the object explicitly,
 /// [combineReducers], or as done below. See the multiple_stores example to see
 /// the implementation of the other two options.
-int? smallCountReducer(CounterState? oldState, dynamic action) {
+int smallCountReducer(CounterState oldState, dynamic action) {
   if (action is SmallDecrementAction) {
-    return oldState!.smallCount - action.value;
+    return oldState.smallCount - action.value;
   } else if (action is SmallIncrementAction) {
-    return oldState!.smallCount + action.value;
+    return oldState.smallCount + action.value;
   } else {
-    return oldState!.smallCount;
+    return oldState.smallCount;
   }
 }
 
-int? bigCountReducer(CounterState? oldState, dynamic action) {
+int bigCountReducer(CounterState oldState, dynamic action) {
   if (action is BigDecrementAction) {
-    return oldState!.bigCount - action.value;
+    return oldState.bigCount - action.value;
   } else if (action is BigIncrementAction) {
-    return oldState!.bigCount + action.value;
+    return oldState.bigCount + action.value;
   } else {
-    return oldState!.bigCount;
+    return oldState.bigCount;
   }
 }
 

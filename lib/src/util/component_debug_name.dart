@@ -1,3 +1,4 @@
+// @dart=2.11
 // ignore_for_file: deprecated_member_use_from_same_package
 @JS()
 library over_react.src.component_debug_name;
@@ -14,20 +15,20 @@ import 'package:over_react/component_base.dart';
 ///
 /// This is preferable to `UiComponent.displayName` since that doesn't include
 /// the generated displayName passed to [registerComponent]/
-String? getDebugNameForDartComponent(UiComponent component) {
+String getDebugNameForDartComponent(UiComponent component) {
   // We don't have a great way of looking up the display name the component was
   // registered with, so we'll resort to pulling it off the JS component.
 
   // This should always be non-null for a mounted component,
   // and will throw a LateInitializationError for Dart components
   // that haven't been mounted yet.
-  final jsThis = component.jsThis! as Object;
+  final jsThis = component.jsThis as Object;
   final jsPrototype = _getPrototypeOf(jsThis);
   final jsComponentType =
-      jsPrototype == null ? null : getProperty<Object?>(jsPrototype, 'constructor');
+      jsPrototype == null ? null : getProperty<Object>(jsPrototype, 'constructor');
   if (jsComponentType != null) {
-    return getProperty<String?>(jsComponentType, 'displayName') ??
-        getProperty<String?>(jsComponentType, 'name');
+    return getProperty<String>(jsComponentType, 'displayName') ??
+        getProperty<String>(jsComponentType, 'name');
   }
 
   // Fall back to displayName, which only uses the runtimeType, but only when asserts are enabled in Component2.
@@ -35,4 +36,4 @@ String? getDebugNameForDartComponent(UiComponent component) {
 }
 
 @JS('Object.getPrototypeOf')
-external Object? _getPrototypeOf(Object object);
+external Object _getPrototypeOf(Object object);

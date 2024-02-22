@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,25 +25,25 @@ UiFactory<SafeRenderManagerHelperProps> SafeRenderManagerHelper =
 
 mixin SafeRenderManagerHelperProps on UiProps {
   @requiredProp
-  ReactElement? Function()? getInitialContent;
+  ReactElement Function() getInitialContent;
 
   dynamic contentRef;
 }
 
 mixin SafeRenderManagerHelperState on UiState {
-  ReactElement? content;
+  ReactElement content;
 }
 
 @Component2()
 class SafeRenderManagerHelperComponent extends UiStatefulComponent2<SafeRenderManagerHelperProps, SafeRenderManagerHelperState> {
   @override
-  get initialState => (newState()..content = props.getInitialContent!());
+  get initialState => (newState()..content = props.getInitialContent());
 
-  void renderContent(ReactElement? content) {
+  void renderContent(ReactElement content) {
     setState(newState()..content = content);
   }
 
-  void tryUnmountContent({void Function(bool isUnmounted)? onMaybeUnmounted}) {
+  void tryUnmountContent({void Function(bool isUnmounted) onMaybeUnmounted}) {
     setState(newState()..content = null, () {
       onMaybeUnmounted?.call(state.content == null);
     });

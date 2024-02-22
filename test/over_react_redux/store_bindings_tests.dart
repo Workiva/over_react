@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2022 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -81,14 +82,14 @@ void main() {
 Matcher hasAttrs(Map<String, dynamic> attrs) =>
     allOf(attrs.entries.map((e) => hasAttr(e.key, e.value)).toList());
 
-String _defaultRenderValue(Object? value) => value.toString();
+String _defaultRenderValue(Object value) => value.toString();
 
 @isTestGroup
-void sharedSelectorHookAndConnectTests<T extends Object?>(
+void sharedSelectorHookAndConnectTests<T extends Object>(
   String name, {
-  required T initialValue,
-  required T updatedValue1,
-  required T updatedValue2,
+   T initialValue,
+   T updatedValue1,
+   T updatedValue2,
   String Function(T) renderValue = _defaultRenderValue,
 }) {
   group(name, () {
@@ -102,7 +103,7 @@ void sharedSelectorHookAndConnectTests<T extends Object?>(
       }
     });
 
-    late Store<TestState<T>> store;
+     Store<TestState<T>> store;
 
     setUp(() {
       store = Store((state, action) {
@@ -124,7 +125,7 @@ void sharedSelectorHookAndConnectTests<T extends Object?>(
 
     void sharedTests(
       UiFactory<TestSelectorProps> factory, {
-      Context? context,
+      Context context,
       bool supportsEqualityFunction = true,
     }) {
       test('properly selects the value without converting it whatsoever', () {
@@ -372,21 +373,21 @@ void sharedSelectorHookAndConnectTests<T extends Object?>(
   });
 }
 
-class TestState<T extends Object?> {
+class TestState<T extends Object> {
   final T interestingValue;
   final int otherValue;
 
   TestState({
-    required this.interestingValue,
-    required this.otherValue,
+     this.interestingValue,
+     this.otherValue,
   });
 
   TestState<T> update({
     // These are typed as functions, because typing them as nullable and defaulting to null
     // wouldn't allow us to tell the difference between no value specified and
     // `null` explicitly specified.
-    T Function()? interestingValue,
-    int Function()? otherValue,
+    T Function() interestingValue,
+    int Function() otherValue,
   }) =>
       TestState(
         interestingValue: interestingValue != null ? interestingValue() : this.interestingValue,
@@ -413,8 +414,8 @@ class MyDartObject {
 UiFactory<TestSelectorProps> TestSelector = uiFunction((_) {}, _$TestSelectorConfig); // ignore: undefined_identifier
 
 mixin TestSelectorProps on UiProps {
-  void Function(Object? selectedValue)? onRender;
-  bool Function(dynamic next, dynamic prev)? equality;
+  void Function(Object selectedValue) onRender;
+  bool Function(dynamic next, dynamic prev) equality;
 }
 
 // We also need this to generate _$TestConnectConfig for use in non-top-level components.
@@ -424,7 +425,7 @@ UiFactory<TestConnectProps> TestConnectMapView =
 class TestConnectProps = UiProps with TestSelectorProps, TestConnectPropsMixin;
 
 mixin TestConnectPropsMixin on UiProps {
-  Object? interestingValue;
+  Object interestingValue;
 }
 
 /// A hook that returns a count of calls to a function component's render, specific to that instance.

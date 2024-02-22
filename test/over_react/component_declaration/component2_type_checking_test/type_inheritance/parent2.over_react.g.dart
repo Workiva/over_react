@@ -1,3 +1,4 @@
+// @dart=2.11
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 // ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators, invalid_use_of_visible_for_overriding_member
@@ -38,7 +39,7 @@ class TestParent2Props extends _$TestParent2Props
   static const PropsMeta meta = _$metaForTestParent2Props;
 }
 
-_$$TestParent2Props _$TestParent2([Map? backingProps]) => backingProps == null
+_$$TestParent2Props _$TestParent2([Map backingProps]) => backingProps == null
     ? _$$TestParent2Props$JsMap(JsBackedMap())
     : _$$TestParent2Props(backingProps);
 
@@ -50,9 +51,9 @@ abstract class _$$TestParent2Props extends _$TestParent2Props
     implements TestParent2Props {
   _$$TestParent2Props._();
 
-  factory _$$TestParent2Props(Map? backingMap) {
+  factory _$$TestParent2Props(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestParent2Props$JsMap(backingMap as JsBackedMap?);
+      return _$$TestParent2Props$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$TestParent2Props$PlainMap(backingMap);
     }
@@ -85,7 +86,7 @@ const _$getPropKey$_$$TestParent2Props = getPropKey;
 class _$$TestParent2Props$PlainMap extends _$$TestParent2Props {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestParent2Props$PlainMap(Map? backingMap)
+  _$$TestParent2Props$PlainMap(Map backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -102,7 +103,7 @@ class _$$TestParent2Props$PlainMap extends _$$TestParent2Props {
 class _$$TestParent2Props$JsMap extends _$$TestParent2Props {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestParent2Props$JsMap(JsBackedMap? backingMap)
+  _$$TestParent2Props$JsMap(JsBackedMap backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -119,7 +120,7 @@ class _$$TestParent2Props$JsMap extends _$$TestParent2Props {
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$TestParent2Component extends TestParent2Component {
-  late _$$TestParent2Props$JsMap _cachedTypedProps;
+   _$$TestParent2Props$JsMap _cachedTypedProps;
 
   @override
   _$$TestParent2Props$JsMap get props => _cachedTypedProps;
@@ -139,11 +140,11 @@ class _$TestParent2Component extends TestParent2Component {
   }
 
   @override
-  _$$TestParent2Props$JsMap typedPropsFactoryJs(JsBackedMap? backingMap) =>
+  _$$TestParent2Props$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
       _$$TestParent2Props$JsMap(backingMap);
 
   @override
-  _$$TestParent2Props typedPropsFactory(Map? backingMap) =>
+  _$$TestParent2Props typedPropsFactory(Map backingMap) =>
       _$$TestParent2Props(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.

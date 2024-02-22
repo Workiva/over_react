@@ -1,3 +1,4 @@
+// @dart=2.11
 import 'package:analyzer/dart/ast/token.dart' show LanguageVersionToken;
 import 'package:package_config/package_config.dart' show LanguageVersion;
 

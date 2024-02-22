@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,10 +23,10 @@ part 'prop_key_util_test_dart2.over_react.g.dart';
 
 main() {
   group('getPropKey', () {
-    late final String expectedFooPropKey;
+      String expectedFooPropKey;
 
     setUpAll(() {
-      expectedFooPropKey = (Test()..foo = 'baz').keys.single! as String;
+      expectedFooPropKey = (Test()..foo = 'baz').keys.single as String;
     });
 
     test('returns the expected key', () {
@@ -71,9 +72,9 @@ UiFactory<TestProps> Test = _$Test; // ignore: undefined_identifier, invalid_ass
 
 @Props()
 class _$TestProps extends UiProps {
-  String? foo;
+  String foo;
 
-  String? bar;
+  String bar;
 }
 
 @Component2()

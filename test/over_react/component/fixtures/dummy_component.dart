@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2019 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,7 +23,7 @@ UiFactory<DummyProps> Dummy = _$Dummy;
 
 @Props()
 class _$DummyProps extends UiProps {
-  late Function onComponentDidMount;
+   Function onComponentDidMount;
 }
 
 // AF-3369 This will be removed once the transition to Dart 2 is complete.

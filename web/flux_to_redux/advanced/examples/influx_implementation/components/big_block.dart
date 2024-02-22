@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,9 +24,9 @@ UiFactory<BigBlockProps> BigBlock = castUiFactory(_$BigBlock); // ignore: undefi
 
 @Props()
 mixin BigBlockPropsMixin on UiProps {
-  late LowLevelStore lowLevelStore;
+   LowLevelStore lowLevelStore;
 
-  late AnotherColorStore secondStore;
+   AnotherColorStore secondStore;
 }
 
 class BigBlockProps = UiProps

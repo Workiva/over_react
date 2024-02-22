@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -25,9 +26,9 @@ UiFactory<BigBlockProps> BigBlock = connect<RandomColorState, BigBlockProps>(
 )(castUiFactory(_$BigBlock)); // ignore: undefined_identifier
 
 mixin BigBlockProps on UiProps {
-  String? backgroundColor;
+  String backgroundColor;
 
-  void Function()? changeBackgroundColor;
+  void Function() changeBackgroundColor;
 }
 
 class BigBlockComponent extends UiComponent2<BigBlockProps> {
@@ -37,7 +38,7 @@ class BigBlockComponent extends UiComponent2<BigBlockProps> {
       'This module uses a redux pattern to change its background color.',
       (Dom.button()
         ..onClick = (_) {
-          props.changeBackgroundColor!();
+          props.changeBackgroundColor();
         }
         ..style = {'padding': '10px', 'margin': '10px'}
       )('Change Background Color'),

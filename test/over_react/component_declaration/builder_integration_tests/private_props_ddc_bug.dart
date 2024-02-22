@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2019 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -28,7 +29,7 @@ main() {
 
     expect(instance, isNotNull); // sanity check
 
-    var node = findDomNode(instance)!;
+    var node = findDomNode(instance);
 
     expect(node.text, contains('some private value'));
   });
@@ -41,7 +42,7 @@ UiFactory<FooProps> Foo = _$Foo; // ignore: undefined_identifier, invalid_assign
 @Props()
 class _$FooProps extends UiProps {
   // ignore: unused_field
-  String? _privateProp;
+  String _privateProp;
 }
 
 @Component()

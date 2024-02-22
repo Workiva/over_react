@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2018 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,9 +24,9 @@ UiFactory<TestCompositeComponentProps> TestCompositeComponent = _$TestCompositeC
 
 @Props()
 class _$TestCompositeComponentProps extends UiProps {
-  Function? onComponentDidMount;
-  Function? onComponentWillUnmount;
-  Function? onComponentDidUpdate;
+  Function onComponentDidMount;
+  Function onComponentWillUnmount;
+  Function onComponentDidUpdate;
 }
 
 @Component()

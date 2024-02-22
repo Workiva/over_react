@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -32,7 +33,7 @@ class CounterState {
   CounterState({
     this.count = 0,
     this.name = 'Counter',
-    DartModelCounter? modelCount,
+    DartModelCounter modelCount,
   }) : this.modelCount = modelCount ?? DartModelCounter(count: count);
 
   @override
@@ -100,11 +101,11 @@ class BigCounterState {
 }
 
 int _bigCounterDecrementReducer(int currentCount, DecrementAction action) {
-  return currentCount - (action.value != null ? action.value! : 100);
+  return currentCount - (action.value != null ? action.value : 100);
 }
 
 int _bigCounterIncrementReducer(int currentCount, IncrementAction action) {
-  return currentCount + (action.value != null ? action.value! : 100);
+  return currentCount + (action.value != null ? action.value : 100);
 }
 
 Reducer<int> bigCounterActionsReducer = combineReducers<int>([

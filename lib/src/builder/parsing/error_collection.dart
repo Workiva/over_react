@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -36,8 +37,8 @@ abstract class ErrorCollector {
   /// but provides the opportunity to implement custom logic.
   factory ErrorCollector.callback(
     SourceFile sourceFile, {
-    ErrorCollectorCallback? onError,
-    ErrorCollectorCallback? onWarning,
+    ErrorCollectorCallback onError,
+    ErrorCollectorCallback onWarning,
   }) = _CallbackErrorCollector;
 
   /// Constructor to simply log all messages and spans to the console.
@@ -62,22 +63,22 @@ abstract class ErrorCollector {
   SourceFile get _sourceFile;
 
   /// Triggers the callback that is implemented to respond to errors.
-  void addError(String message, [SourceSpan? span]);
+  void addError(String message, [SourceSpan span]);
 
   /// Triggers the callback that is implemented to respond to errors.
-  void addWarning(String message, [SourceSpan? span]);
+  void addWarning(String message, [SourceSpan span]);
 
   FileSpan spanFor(SyntacticEntity nodeOrToken) => _sourceFile.spanFor(nodeOrToken);
-  FileSpan span(int start, [int? end]) => _sourceFile.span(start, end);
+  FileSpan span(int start, [int end]) => _sourceFile.span(start, end);
 }
 
-typedef ErrorCollectorCallback = void Function(String message, [SourceSpan? span]);
+typedef ErrorCollectorCallback = void Function(String message, [SourceSpan span]);
 
 class _CallbackErrorCollector extends ErrorCollector {
   @override
   final SourceFile _sourceFile;
-  final ErrorCollectorCallback? onError;
-  final ErrorCollectorCallback? onWarning;
+  final ErrorCollectorCallback onError;
+  final ErrorCollectorCallback onWarning;
 
   _CallbackErrorCollector(
     this._sourceFile, {
@@ -87,9 +88,9 @@ class _CallbackErrorCollector extends ErrorCollector {
 
   /// Triggers the callback that is implemented to respond to errors.
   @override
-  void addError(String message, [SourceSpan? span]) => onError?.call(message, span);
+  void addError(String message, [SourceSpan span]) => onError?.call(message, span);
 
   /// Triggers the callback that is implemented to respond to errors.
   @override
-  void addWarning(String message, [SourceSpan? span]) => onWarning?.call(message, span);
+  void addWarning(String message, [SourceSpan span]) => onWarning?.call(message, span);
 }

@@ -1,3 +1,4 @@
+// @dart=2.11
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 // ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators, invalid_use_of_visible_for_overriding_member
@@ -41,7 +42,7 @@ class TestSubtypeOfComponent1Props extends _$TestSubtypeOfComponent1Props
 }
 
 _$$TestSubtypeOfComponent1Props _$TestSubtypeOfComponent1(
-        [Map? backingProps]) =>
+        [Map backingProps]) =>
     backingProps == null
         ? _$$TestSubtypeOfComponent1Props$JsMap(JsBackedMap())
         : _$$TestSubtypeOfComponent1Props(backingProps);
@@ -55,9 +56,9 @@ abstract class _$$TestSubtypeOfComponent1Props
     implements TestSubtypeOfComponent1Props {
   _$$TestSubtypeOfComponent1Props._();
 
-  factory _$$TestSubtypeOfComponent1Props(Map? backingMap) {
+  factory _$$TestSubtypeOfComponent1Props(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestSubtypeOfComponent1Props$JsMap(backingMap as JsBackedMap?);
+      return _$$TestSubtypeOfComponent1Props$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$TestSubtypeOfComponent1Props$PlainMap(backingMap);
     }
@@ -91,7 +92,7 @@ class _$$TestSubtypeOfComponent1Props$PlainMap
     extends _$$TestSubtypeOfComponent1Props {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestSubtypeOfComponent1Props$PlainMap(Map? backingMap)
+  _$$TestSubtypeOfComponent1Props$PlainMap(Map backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -109,7 +110,7 @@ class _$$TestSubtypeOfComponent1Props$JsMap
     extends _$$TestSubtypeOfComponent1Props {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestSubtypeOfComponent1Props$JsMap(JsBackedMap? backingMap)
+  _$$TestSubtypeOfComponent1Props$JsMap(JsBackedMap backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -127,7 +128,7 @@ class _$$TestSubtypeOfComponent1Props$JsMap
 // generated for the associated props class.
 class _$TestSubtypeOfComponent1Component
     extends TestSubtypeOfComponent1Component {
-  late _$$TestSubtypeOfComponent1Props$JsMap _cachedTypedProps;
+   _$$TestSubtypeOfComponent1Props$JsMap _cachedTypedProps;
 
   @override
   _$$TestSubtypeOfComponent1Props$JsMap get props => _cachedTypedProps;
@@ -148,11 +149,11 @@ class _$TestSubtypeOfComponent1Component
 
   @override
   _$$TestSubtypeOfComponent1Props$JsMap typedPropsFactoryJs(
-          JsBackedMap? backingMap) =>
+          JsBackedMap backingMap) =>
       _$$TestSubtypeOfComponent1Props$JsMap(backingMap);
 
   @override
-  _$$TestSubtypeOfComponent1Props typedPropsFactory(Map? backingMap) =>
+  _$$TestSubtypeOfComponent1Props typedPropsFactory(Map backingMap) =>
       _$$TestSubtypeOfComponent1Props(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.

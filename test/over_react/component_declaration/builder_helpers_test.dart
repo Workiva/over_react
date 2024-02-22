@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2016 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -25,7 +26,7 @@ main() {
   group('transformation generation helpers:', () {
     void testStubbedMapMembers(Map Function() mapFactory) {
       group('Map members:', () {
-        late Map map;
+         Map map;
 
         setUp(() {
           map = mapFactory();
@@ -56,7 +57,7 @@ main() {
       });
 
       group('throws errors when stubbed members are called that have not been generated:', () {
-        late UiProps unimplemented;
+         UiProps unimplemented;
 
         setUp(() {
           unimplemented = UnimplementedUiProps();
@@ -77,7 +78,7 @@ main() {
       });
 
       group('throws errors when stubbed members are called that have not been generated:', () {
-        late UiComponent unimplemented;
+         UiComponent unimplemented;
 
         setUp(() {
           unimplemented = UnimplementedUiComponent();
@@ -94,7 +95,7 @@ main() {
       });
 
       group('throws errors when stubbed members are called that have not been generated:', () {
-        late UiState unimplemented;
+         UiState unimplemented;
 
         setUp(() {
           unimplemented = UnimplementedUiState();
@@ -114,7 +115,7 @@ main() {
       });
 
       group('throws errors when stubbed members are called that have not been generated:', () {
-        late UiStatefulComponent unimplemented;
+         UiStatefulComponent unimplemented;
 
         setUp(() {
           unimplemented = UnimplementedUiStatefulComponent();

@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2019 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,17 +17,17 @@ part of prop_tyepdef_test_fixtures;
 
 @AbstractProps()
 abstract class _$TestAbstractCustomRendererComponentProps extends UiProps {
-  late CustomRenderFunction customRenderer;
-  late CustomRenderFunction<TestAbstractCustomRendererComponentProps,
+   CustomRenderFunction customRenderer;
+   CustomRenderFunction<TestAbstractCustomRendererComponentProps,
                        TestAbstractCustomRendererComponentState,
                        TestAbstractCustomRendererComponentComponent> parameterizedCustomRenderer;
 
-  String? somePropKey;
+  String somePropKey;
 }
 
 @AbstractState()
 abstract class _$TestAbstractCustomRendererComponentState extends UiState {
-  String? someStateKey;
+  String someStateKey;
 }
 
 @AbstractComponent2()

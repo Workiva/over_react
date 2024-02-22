@@ -1,3 +1,4 @@
+// @dart=2.11
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 // ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators, invalid_use_of_visible_for_overriding_member
@@ -40,7 +41,7 @@ class TestSubsubtype2Props extends _$TestSubsubtype2Props
   static const PropsMeta meta = _$metaForTestSubsubtype2Props;
 }
 
-_$$TestSubsubtype2Props _$TestSubsubtype2([Map? backingProps]) =>
+_$$TestSubsubtype2Props _$TestSubsubtype2([Map backingProps]) =>
     backingProps == null
         ? _$$TestSubsubtype2Props$JsMap(JsBackedMap())
         : _$$TestSubsubtype2Props(backingProps);
@@ -53,9 +54,9 @@ abstract class _$$TestSubsubtype2Props extends _$TestSubsubtype2Props
     implements TestSubsubtype2Props {
   _$$TestSubsubtype2Props._();
 
-  factory _$$TestSubsubtype2Props(Map? backingMap) {
+  factory _$$TestSubsubtype2Props(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestSubsubtype2Props$JsMap(backingMap as JsBackedMap?);
+      return _$$TestSubsubtype2Props$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$TestSubsubtype2Props$PlainMap(backingMap);
     }
@@ -88,7 +89,7 @@ const _$getPropKey$_$$TestSubsubtype2Props = getPropKey;
 class _$$TestSubsubtype2Props$PlainMap extends _$$TestSubsubtype2Props {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestSubsubtype2Props$PlainMap(Map? backingMap)
+  _$$TestSubsubtype2Props$PlainMap(Map backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -105,7 +106,7 @@ class _$$TestSubsubtype2Props$PlainMap extends _$$TestSubsubtype2Props {
 class _$$TestSubsubtype2Props$JsMap extends _$$TestSubsubtype2Props {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestSubsubtype2Props$JsMap(JsBackedMap? backingMap)
+  _$$TestSubsubtype2Props$JsMap(JsBackedMap backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -122,7 +123,7 @@ class _$$TestSubsubtype2Props$JsMap extends _$$TestSubsubtype2Props {
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$TestSubsubtype2Component extends TestSubsubtype2Component {
-  late _$$TestSubsubtype2Props$JsMap _cachedTypedProps;
+   _$$TestSubsubtype2Props$JsMap _cachedTypedProps;
 
   @override
   _$$TestSubsubtype2Props$JsMap get props => _cachedTypedProps;
@@ -142,11 +143,11 @@ class _$TestSubsubtype2Component extends TestSubsubtype2Component {
   }
 
   @override
-  _$$TestSubsubtype2Props$JsMap typedPropsFactoryJs(JsBackedMap? backingMap) =>
+  _$$TestSubsubtype2Props$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
       _$$TestSubsubtype2Props$JsMap(backingMap);
 
   @override
-  _$$TestSubsubtype2Props typedPropsFactory(Map? backingMap) =>
+  _$$TestSubsubtype2Props typedPropsFactory(Map backingMap) =>
       _$$TestSubsubtype2Props(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.

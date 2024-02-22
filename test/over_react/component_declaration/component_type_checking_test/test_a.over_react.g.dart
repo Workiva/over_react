@@ -1,3 +1,4 @@
+// @dart=2.11
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 // ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators, invalid_use_of_visible_for_overriding_member
@@ -37,7 +38,7 @@ class TestAProps extends _$TestAProps with _$TestAPropsAccessorsMixin {
   static const PropsMeta meta = _$metaForTestAProps;
 }
 
-_$$TestAProps _$TestA([Map? backingProps]) => _$$TestAProps(backingProps);
+_$$TestAProps _$TestA([Map backingProps]) => _$$TestAProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -47,7 +48,7 @@ class _$$TestAProps extends _$TestAProps
     implements TestAProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestAProps(Map? backingMap) : this._props = {} {
+  _$$TestAProps(Map backingMap) : this._props = {} {
     this._props = backingMap ?? {};
   }
 
@@ -84,7 +85,7 @@ const _$getPropKey$_$$TestAProps = getPropKey;
 // generated for the associated props class.
 class _$TestAComponent extends TestAComponent {
   @override
-  _$$TestAProps typedPropsFactory(Map? backingMap) => _$$TestAProps(backingMap);
+  _$$TestAProps typedPropsFactory(Map backingMap) => _$$TestAProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override

@@ -1,3 +1,4 @@
+// @dart=2.11
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 // ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators, invalid_use_of_visible_for_overriding_member
@@ -90,7 +91,7 @@ const PropsMeta _$metaFor_ConsumerPropsMixin = PropsMeta(
   keys: $_ConsumerPropsMixin.$propKeys,
 );
 
-_$$ProviderProps _$_Provider([Map? backingProps]) => backingProps == null
+_$$ProviderProps _$_Provider([Map backingProps]) => backingProps == null
     ? _$$ProviderProps$JsMap(JsBackedMap())
     : _$$ProviderProps(backingProps);
 
@@ -108,9 +109,9 @@ abstract class _$$ProviderProps<TValue> extends UiProps
         ProviderProps<TValue> {
   _$$ProviderProps._();
 
-  factory _$$ProviderProps(Map? backingMap) {
+  factory _$$ProviderProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$ProviderProps$JsMap(backingMap as JsBackedMap?);
+      return _$$ProviderProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$ProviderProps$PlainMap(backingMap);
     }
@@ -145,7 +146,7 @@ const _$getPropKey$_$$ProviderProps = getPropKey;
 class _$$ProviderProps$PlainMap<TValue> extends _$$ProviderProps<TValue> {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ProviderProps$PlainMap(Map? backingMap)
+  _$$ProviderProps$PlainMap(Map backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -164,7 +165,7 @@ class _$$ProviderProps$PlainMap<TValue> extends _$$ProviderProps<TValue> {
 class _$$ProviderProps$JsMap<TValue> extends _$$ProviderProps<TValue> {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ProviderProps$JsMap(JsBackedMap? backingMap)
+  _$$ProviderProps$JsMap(JsBackedMap backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -176,7 +177,7 @@ class _$$ProviderProps$JsMap<TValue> extends _$$ProviderProps<TValue> {
   JsBackedMap _props;
 }
 
-_$$ConsumerProps _$_Consumer([Map? backingProps]) => backingProps == null
+_$$ConsumerProps _$_Consumer([Map backingProps]) => backingProps == null
     ? _$$ConsumerProps$JsMap(JsBackedMap())
     : _$$ConsumerProps(backingProps);
 
@@ -194,9 +195,9 @@ abstract class _$$ConsumerProps<TValue> extends UiProps
         ConsumerProps<TValue> {
   _$$ConsumerProps._();
 
-  factory _$$ConsumerProps(Map? backingMap) {
+  factory _$$ConsumerProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$ConsumerProps$JsMap(backingMap as JsBackedMap?);
+      return _$$ConsumerProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$ConsumerProps$PlainMap(backingMap);
     }
@@ -231,7 +232,7 @@ const _$getPropKey$_$$ConsumerProps = getPropKey;
 class _$$ConsumerProps$PlainMap<TValue> extends _$$ConsumerProps<TValue> {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ConsumerProps$PlainMap(Map? backingMap)
+  _$$ConsumerProps$PlainMap(Map backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -250,7 +251,7 @@ class _$$ConsumerProps$PlainMap<TValue> extends _$$ConsumerProps<TValue> {
 class _$$ConsumerProps$JsMap<TValue> extends _$$ConsumerProps<TValue> {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ConsumerProps$JsMap(JsBackedMap? backingMap)
+  _$$ConsumerProps$JsMap(JsBackedMap backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();

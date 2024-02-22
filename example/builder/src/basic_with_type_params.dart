@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,8 +20,8 @@ part 'basic_with_type_params.over_react.g.dart';
 UiFactory<BasicPropsMixin> Basic = castUiFactory(_$Basic); // ignore: undefined_identifier
 
 mixin BasicPropsMixin<T, U extends UiProps> on UiProps {
-  List<T>? someGenericListProp;
-  U? somePropsClass;
+  List<T> someGenericListProp;
+  U somePropsClass;
 }
 
 class BasicProps<T, U extends UiProps> = UiProps with BasicPropsMixin<T, U>;

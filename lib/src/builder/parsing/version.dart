@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -174,9 +175,9 @@ class VersionConfidences {
   VersionConfidencePair get maxConfidence => _sortedVersions.first;
 
   VersionConfidences({
-    required this.v2_legacyBackwardsCompat,
-    required this.v3_legacyDart2Only,
-    required this.v4_mixinBased,
+     this.v2_legacyBackwardsCompat,
+     this.v3_legacyDart2Only,
+     this.v4_mixinBased,
   });
 
   /// Constructor to set all confidence values to the same thing

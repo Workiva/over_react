@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2016 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -142,7 +143,7 @@ main() {
   group('getActiveElement returns the correct value when the active element is', () {
     test('a valid element other than document.body', () async {
       var activeElement = DivElement()..tabIndex = 1;
-      document.body!.children.add(activeElement);
+      document.body.children.add(activeElement);
 
       await triggerFocus(activeElement);
 
@@ -151,7 +152,7 @@ main() {
     });
 
     test('document.body', () {
-      document.body!.focus();
+      document.body.focus();
 
       expect(getActiveElement(), isNull);
     });
@@ -183,8 +184,8 @@ main() {
 
     group('correctly calls setSelectionRange', () {
       dynamic renderedInstance;
-      InputElement? inputElement;
-      TextAreaElement? textareaElement;
+      InputElement inputElement;
+      TextAreaElement textareaElement;
       const String testValue = 'foo';
 
       tearDown(() {
@@ -200,15 +201,15 @@ main() {
             ..defaultValue = testValue
             ..type = type
           )());
-          inputElement = findDomNode(renderedInstance) as InputElement?;
+          inputElement = findDomNode(renderedInstance) as InputElement;
           setSelectionRange(inputElement, testValue.length, testValue.length);
 
           // setSelectionRange on number inputs shouldn't throw in other browsers,
           // but it also doesn't always work.
           // Don't expect that the selection actually changed.
           if (type != 'number') {
-            expect(inputElement!.selectionStart, equals(testValue.length));
-            expect(inputElement!.selectionEnd, equals(testValue.length));
+            expect(inputElement.selectionStart, equals(testValue.length));
+            expect(inputElement.selectionEnd, equals(testValue.length));
           }
         }
 
@@ -232,11 +233,11 @@ main() {
         renderedInstance = renderAttachedToDocument((Dom.textarea()
           ..defaultValue = testValue
         )());
-        textareaElement = findDomNode(renderedInstance) as TextAreaElement?;
+        textareaElement = findDomNode(renderedInstance) as TextAreaElement;
         setSelectionRange(textareaElement, testValue.length, testValue.length);
 
-        expect(textareaElement!.selectionStart, equals(testValue.length));
-        expect(textareaElement!.selectionEnd, equals(testValue.length));
+        expect(textareaElement.selectionStart, equals(testValue.length));
+        expect(textareaElement.selectionEnd, equals(testValue.length));
       });
 
       // See: https://bugs.chromium.org/p/chromium/issues/detail?id=324360
@@ -257,7 +258,7 @@ main() {
             ..defaultValue = testValue
             ..type = 'email'
           )());
-          inputElement = findDomNode(renderedInstance) as InputElement?;
+          inputElement = findDomNode(renderedInstance) as InputElement;
           verifyLackOfException();
         });
 
@@ -266,7 +267,7 @@ main() {
             ..defaultValue = testValue
             ..type = 'number'
           )());
-          inputElement = findDomNode(renderedInstance) as InputElement?;
+          inputElement = findDomNode(renderedInstance) as InputElement;
           verifyLackOfException();
         });
       }, testOn: 'blink || firefox');
@@ -292,8 +293,8 @@ main() {
 
     group('correctly accesses selectionStart', () {
       dynamic renderedInstance;
-      InputElement? inputElement;
-      TextAreaElement? textareaElement;
+      InputElement inputElement;
+      TextAreaElement textareaElement;
       const String testValue = 'foo';
 
       tearDown(() {
@@ -309,7 +310,7 @@ main() {
             ..defaultValue = testValue
             ..type = type
           )());
-          inputElement = findDomNode(renderedInstance) as InputElement?;
+          inputElement = findDomNode(renderedInstance) as InputElement;
           setSelectionRange(inputElement, testValue.length, testValue.length);
 
           var selectionStart = getSelectionStart(inputElement);
@@ -341,7 +342,7 @@ main() {
         renderedInstance = renderAttachedToDocument((Dom.textarea()
           ..defaultValue = testValue
         )());
-        textareaElement = findDomNode(renderedInstance) as TextAreaElement?;
+        textareaElement = findDomNode(renderedInstance) as TextAreaElement;
         setSelectionRange(textareaElement, testValue.length, testValue.length);
 
         var selectionStart = getSelectionStart(textareaElement);
@@ -367,7 +368,7 @@ main() {
             ..defaultValue = testValue
             ..type = 'email'
           )());
-          inputElement = findDomNode(renderedInstance) as InputElement?;
+          inputElement = findDomNode(renderedInstance) as InputElement;
           verifyReturnsNullWithoutException();
         });
 
@@ -376,7 +377,7 @@ main() {
             ..defaultValue = testValue
             ..type = 'number'
           )());
-          inputElement = findDomNode(renderedInstance) as InputElement?;
+          inputElement = findDomNode(renderedInstance) as InputElement;
           verifyReturnsNullWithoutException();
         });
       }, testOn: 'blink || firefox');

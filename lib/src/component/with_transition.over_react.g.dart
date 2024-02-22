@@ -1,3 +1,4 @@
+// @dart=2.11
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 // ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators, invalid_use_of_visible_for_overriding_member
@@ -20,7 +21,7 @@ final $WithTransitionComponentFactory = registerComponent2(
   parentType: null,
 );
 
-_$$WithTransitionProps _$WithTransition([Map? backingProps]) =>
+_$$WithTransitionProps _$WithTransition([Map backingProps]) =>
     backingProps == null
         ? _$$WithTransitionProps$JsMap(JsBackedMap())
         : _$$WithTransitionProps(backingProps);
@@ -42,9 +43,9 @@ abstract class _$$WithTransitionProps extends UiProps
         WithTransitionProps {
   _$$WithTransitionProps._();
 
-  factory _$$WithTransitionProps(Map? backingMap) {
+  factory _$$WithTransitionProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$WithTransitionProps$JsMap(backingMap as JsBackedMap?);
+      return _$$WithTransitionProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$WithTransitionProps$PlainMap(backingMap);
     }
@@ -91,7 +92,7 @@ const _$getPropKey$_$$WithTransitionProps = getPropKey;
 class _$$WithTransitionProps$PlainMap extends _$$WithTransitionProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$WithTransitionProps$PlainMap(Map? backingMap)
+  _$$WithTransitionProps$PlainMap(Map backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -110,7 +111,7 @@ class _$$WithTransitionProps$PlainMap extends _$$WithTransitionProps {
 class _$$WithTransitionProps$JsMap extends _$$WithTransitionProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$WithTransitionProps$JsMap(JsBackedMap? backingMap)
+  _$$WithTransitionProps$JsMap(JsBackedMap backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -134,9 +135,9 @@ abstract class _$$WithTransitionState extends UiState
         $WithTransitionState {
   _$$WithTransitionState._();
 
-  factory _$$WithTransitionState(Map? backingMap) {
+  factory _$$WithTransitionState(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$WithTransitionState$JsMap(backingMap as JsBackedMap?);
+      return _$$WithTransitionState$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$WithTransitionState$PlainMap(backingMap);
     }
@@ -153,7 +154,7 @@ abstract class _$$WithTransitionState extends UiState
 class _$$WithTransitionState$PlainMap extends _$$WithTransitionState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$WithTransitionState$PlainMap(Map? backingMap)
+  _$$WithTransitionState$PlainMap(Map backingMap)
       : this._state = {},
         super._() {
     this._state = backingMap ?? {};
@@ -172,7 +173,7 @@ class _$$WithTransitionState$PlainMap extends _$$WithTransitionState {
 class _$$WithTransitionState$JsMap extends _$$WithTransitionState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$WithTransitionState$JsMap(JsBackedMap? backingMap)
+  _$$WithTransitionState$JsMap(JsBackedMap backingMap)
       : this._state = JsBackedMap(),
         super._() {
     this._state = backingMap ?? JsBackedMap();
@@ -191,7 +192,7 @@ class _$$WithTransitionState$JsMap extends _$$WithTransitionState {
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
 class _$WithTransitionComponent extends WithTransitionComponent {
-  late _$$WithTransitionProps$JsMap _cachedTypedProps;
+   _$$WithTransitionProps$JsMap _cachedTypedProps;
 
   @override
   _$$WithTransitionProps$JsMap get props => _cachedTypedProps;
@@ -211,14 +212,14 @@ class _$WithTransitionComponent extends WithTransitionComponent {
   }
 
   @override
-  _$$WithTransitionProps$JsMap typedPropsFactoryJs(JsBackedMap? backingMap) =>
+  _$$WithTransitionProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
       _$$WithTransitionProps$JsMap(backingMap);
 
   @override
-  _$$WithTransitionProps typedPropsFactory(Map? backingMap) =>
+  _$$WithTransitionProps typedPropsFactory(Map backingMap) =>
       _$$WithTransitionProps(backingMap);
 
-  late _$$WithTransitionState$JsMap _cachedTypedState;
+   _$$WithTransitionState$JsMap _cachedTypedState;
   @override
   _$$WithTransitionState$JsMap get state => _cachedTypedState;
 
@@ -233,11 +234,11 @@ class _$WithTransitionComponent extends WithTransitionComponent {
   }
 
   @override
-  _$$WithTransitionState$JsMap typedStateFactoryJs(JsBackedMap? backingMap) =>
+  _$$WithTransitionState$JsMap typedStateFactoryJs(JsBackedMap backingMap) =>
       _$$WithTransitionState$JsMap(backingMap);
 
   @override
-  _$$WithTransitionState typedStateFactory(Map? backingMap) =>
+  _$$WithTransitionState typedStateFactory(Map backingMap) =>
       _$$WithTransitionState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
@@ -268,24 +269,24 @@ class _$WithTransitionComponent extends WithTransitionComponent {
 mixin $WithTransitionPropsMixin on WithTransitionPropsMixin {
   static const PropsMeta meta = _$metaForWithTransitionPropsMixin;
   @override
-  bool? get isShown =>
-      (props[_$key__isShown__WithTransitionPropsMixin] ?? null) as bool?;
+  bool get isShown =>
+      (props[_$key__isShown__WithTransitionPropsMixin] ?? null) as bool;
   @override
-  set isShown(bool? value) =>
+  set isShown(bool value) =>
       props[_$key__isShown__WithTransitionPropsMixin] = value;
   @override
-  Map<TransitionPhase, Map?>? get childPropsByPhase =>
+  Map<TransitionPhase, Map> get childPropsByPhase =>
       (props[_$key__childPropsByPhase__WithTransitionPropsMixin] ?? null)
-          as Map<TransitionPhase, Map?>?;
+          as Map<TransitionPhase, Map>;
   @override
-  set childPropsByPhase(Map<TransitionPhase, Map?>? value) =>
+  set childPropsByPhase(Map<TransitionPhase, Map> value) =>
       props[_$key__childPropsByPhase__WithTransitionPropsMixin] = value;
   @override
-  Duration? get transitionTimeout =>
+  Duration get transitionTimeout =>
       (props[_$key__transitionTimeout__WithTransitionPropsMixin] ?? null)
-          as Duration?;
+          as Duration;
   @override
-  set transitionTimeout(Duration? value) =>
+  set transitionTimeout(Duration value) =>
       props[_$key__transitionTimeout__WithTransitionPropsMixin] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__isShown__WithTransitionPropsMixin =

@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -52,8 +53,8 @@ final Logger log = Logger('OverReactReduxDevToolsMiddleware')
   });
 
 class _OverReactReduxDevToolsMiddleware extends MiddlewareClass {
-  Store? _store;
-  _ReduxDevToolsExtensionConnection? devToolsExt;
+  Store _store;
+  _ReduxDevToolsExtensionConnection devToolsExt;
 
   _OverReactReduxDevToolsMiddleware([Map<String, dynamic> options = const {}]) {
     try {
@@ -76,7 +77,7 @@ class _OverReactReduxDevToolsMiddleware extends MiddlewareClass {
     }
   }
 
-  JsMap? _encodeForTransit(Object? content, {bool shouldRethrow = false}) {
+  JsMap _encodeForTransit(Object content, {bool shouldRethrow = false}) {
     try {
       return jsify(jsonDecode(jsonEncode(content)) as Object) as JsMap;
     } catch (e) {
@@ -90,7 +91,7 @@ class _OverReactReduxDevToolsMiddleware extends MiddlewareClass {
     }
   }
 
-  JsMap? _encodeActionForTransit(dynamic action) {
+  JsMap _encodeActionForTransit(dynamic action) {
     try {
       return _encodeForTransit({'type': _getActionType(action), 'payload': action}, shouldRethrow: true);
     } catch (_) {
@@ -106,7 +107,7 @@ class _OverReactReduxDevToolsMiddleware extends MiddlewareClass {
     return actionString;
   }
 
-  void _relay(String type, [Object? state, dynamic action, String? nextActionId]) {
+  void _relay(String type, [Object state, dynamic action, String nextActionId]) {
     final devToolsExt = this.devToolsExt;
     if (devToolsExt == null) return;
 
@@ -137,7 +138,7 @@ class _OverReactReduxDevToolsMiddleware extends MiddlewareClass {
 
   void handleEventFromRemote(JsMap jsData) {
     JsBackedMap data = JsBackedMap.fromJs(jsData);
-    switch (data['type'] as String?) {
+    switch (data['type'] as String) {
       case 'DISPATCH':
         _handleDispatch(JsBackedMap.fromJs(data['payload'] as JsMap));
         break;
@@ -159,7 +160,7 @@ class _OverReactReduxDevToolsMiddleware extends MiddlewareClass {
       log.warning('No store reference set, cannot dispatch remote action');
       return;
     }
-    switch (action['type'] as String?) {
+    switch (action['type'] as String) {
       case 'JUMP_TO_ACTION':
       case 'JUMP_TO_STATE':
         _store.dispatch(DevToolsAction.jumpToState(action['actionId'] as int));
@@ -184,7 +185,7 @@ class _OverReactReduxDevToolsMiddleware extends MiddlewareClass {
     next(action);
     _initStoreIfNecessary(storeArg);
     if (action is! DevToolsAction) {
-      _relay('ACTION', _store!.state, action);
+      _relay('ACTION', _store.state, action);
     }
   }
 }
@@ -218,7 +219,7 @@ final MiddlewareClass overReactReduxDevToolsMiddleware = _OverReactReduxDevTools
 /// );
 /// ```
 MiddlewareClass overReactReduxDevToolsMiddlewareFactory({
-  String? name,
+  String name,
 }) => _OverReactReduxDevToolsMiddleware({
   if (name != null) 'name': name,
 });

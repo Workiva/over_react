@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2018 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -26,19 +27,19 @@ import 'fixtures/dummy_composite_component.dart';
 main() {
   group('`react_dom.render`', () {
     dynamic renderedInstance;
-    late Element mountNode;
+     Element mountNode;
 
     setUp(() {
       renderedInstance = null;
       mountNode = DivElement();
-      document.body!.append(mountNode);
+      document.body.append(mountNode);
       addTearDown(mountNode.remove);
     });
 
     group('mounts and renders', () {
       group('a composite component into the DOM', () {
-        late int componentDidMountCount;
-        late int componentDidUpdateCount;
+         int componentDidMountCount;
+         int componentDidUpdateCount;
 
         setUp(() {
           componentDidMountCount = 0;

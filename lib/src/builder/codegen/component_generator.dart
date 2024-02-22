@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,14 +24,14 @@ abstract class ComponentGenerator extends BoilerplateDeclarationGenerator {
   // Provide factory constructors since they make invocations easier to read and tell apart
   // than all of the different subclasses.
 
-  factory ComponentGenerator(ClassComponentDeclaration declaration, {required bool nullSafety}) =
+  factory ComponentGenerator(ClassComponentDeclaration declaration, { bool nullSafety}) =
       _ComponentGenerator;
 
   factory ComponentGenerator.legacy(LegacyClassComponentDeclaration declaration,
-      {required bool nullSafety}) = _LegacyComponentGenerator;
+      { bool nullSafety}) = _LegacyComponentGenerator;
 
   TypedMapNames get propsNames;
-  TypedMapNames? get stateNames;
+  TypedMapNames get stateNames;
   ComponentNames get componentNames;
   FactoryNames get factoryNames;
 
@@ -93,7 +94,7 @@ abstract class ComponentGenerator extends BoilerplateDeclarationGenerator {
       ..writeln();
 
     if (hasState) {
-      final stateNames = this.stateNames!;
+      final stateNames = this.stateNames;
       if (isComponent2) {
         outputContentsBuffer
           ..writeln('  ${nullSafety ? 'late ' : ''}${stateNames.jsMapImplName} _cachedTypedState;')
@@ -149,7 +150,7 @@ class _ComponentGenerator extends ComponentGenerator {
   final TypedMapNames propsNames;
 
   @override
-  final TypedMapNames? stateNames;
+  final TypedMapNames stateNames;
 
   @override
   final ComponentNames componentNames;
@@ -160,10 +161,10 @@ class _ComponentGenerator extends ComponentGenerator {
   @override
   final bool nullSafety;
 
-  _ComponentGenerator(this.declaration, {required this.nullSafety})
+  _ComponentGenerator(this.declaration, { this.nullSafety})
       : this.propsNames = TypedMapNames(declaration.props.either.name.name),
         this.stateNames =
-            declaration.state == null ? null : TypedMapNames(declaration.state!.either.name.name),
+            declaration.state == null ? null : TypedMapNames(declaration.state.either.name.name),
         this.componentNames = ComponentNames(declaration.component.name.name),
         this.factoryNames = FactoryNames(declaration.factory.name.name),
         super._();
@@ -201,7 +202,7 @@ class _LegacyComponentGenerator extends ComponentGenerator {
   final TypedMapNames propsNames;
 
   @override
-  final TypedMapNames? stateNames;
+  final TypedMapNames stateNames;
 
   @override
   final ComponentNames componentNames;
@@ -212,10 +213,10 @@ class _LegacyComponentGenerator extends ComponentGenerator {
   @override
   final bool nullSafety;
 
-  _LegacyComponentGenerator(this.declaration, {required this.nullSafety})
+  _LegacyComponentGenerator(this.declaration, { this.nullSafety})
       : this.propsNames = TypedMapNames(declaration.props.name.name),
         this.stateNames =
-            declaration.state == null ? null : TypedMapNames(declaration.state!.name.name),
+            declaration.state == null ? null : TypedMapNames(declaration.state.name.name),
         this.componentNames = ComponentNames(declaration.component.name.name),
         this.factoryNames = FactoryNames(declaration.factory.name.name),
         super._();

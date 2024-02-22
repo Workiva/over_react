@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2016 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -26,7 +27,7 @@ class PropError extends Error {
   final String _messagePrefix;
   final dynamic invalidValue;
   final String propName;
-  final String? prop2Name;
+  final String prop2Name;
   final String message;
 
   /// Create a new [PropError], with the given [propName] and optional [message].

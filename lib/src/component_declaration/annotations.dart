@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -48,7 +49,7 @@ class Props implements TypedMap {
   /// A custom namespace for the keys of props defined in the annotated class,
   /// overriding the default of `'${propsClassName}.'`.
   @override
-  final String? keyNamespace;
+  final String keyNamespace;
 
   /// Names of props to opt out of required prop validation for, both statically in the analyzer plugin
   /// and at runtime when invoking the builder (only with asserts enabled).
@@ -78,7 +79,7 @@ class Props implements TypedMap {
   ///   )();
   /// }, _$WrapperConfig);
   ///```
-  final Set<String>? disableRequiredPropValidation;
+  final Set<String> disableRequiredPropValidation;
 
   /// Whether to disable validation for props defaulted in the class component associated
   /// with these props (defaults to `true`).
@@ -138,7 +139,7 @@ class State implements TypedMap {
   /// A custom namespace for the keys of state properties defined in the annotated class,
   /// overriding the default of `'${stateClassName}.'`.
   @override
-  final String? keyNamespace;
+  final String keyNamespace;
   const State({this.keyNamespace});
 }
 
@@ -180,7 +181,7 @@ class Component {
   ///
   ///     isComponentOfType(Bar()(), Bar); // true (due to normal type-checking)
   ///     isComponentOfType(Bar()(), Foo); // true (due to parent type-checking)
-  final Type? subtypeOf;
+  final Type subtypeOf;
 
   const Component({
       this.isWrapper = false,
@@ -257,7 +258,7 @@ class Component2 implements Component { // ignore: deprecated_member_use_from_sa
   ///     isComponentOfType(Bar()(), Bar); // true (due to normal type-checking)
   ///     isComponentOfType(Bar()(), Foo); // true (due to parent type-checking)
   @override
-  final Type? subtypeOf;
+  final Type subtypeOf;
 
   const Component2({
       this.isWrapper = false,
@@ -282,7 +283,7 @@ class AbstractProps implements TypedMap {
   /// A custom namespace for the keys of props defined in the annotated class,
   /// overriding the default of `'${propsClassName}.'`.
   @override
-  final String? keyNamespace;
+  final String keyNamespace;
   const AbstractProps({this.keyNamespace});
 }
 
@@ -301,7 +302,7 @@ class AbstractState implements TypedMap {
   /// A custom namespace for the keys of state properties defined in the annotated class,
   /// overriding the default of `'${stateClassName}.'`.
   @override
-  final String? keyNamespace;
+  final String keyNamespace;
   const AbstractState({this.keyNamespace});
 }
 
@@ -348,7 +349,7 @@ class PropsMixin implements TypedMap {
   /// A custom namespace for the keys of props defined in the annotated class,
   /// overriding the default of `'${propsClassName}.'`.
   @override
-  final String? keyNamespace;
+  final String keyNamespace;
   const PropsMixin({this.keyNamespace});
 }
 
@@ -372,7 +373,7 @@ class StateMixin implements TypedMap {
   /// A custom namespace for the keys of state properties defined in the annotated class,
   /// overriding the default of `'${stateClassName}.'`.
   @override
-  final String? keyNamespace;
+  final String keyNamespace;
   const StateMixin({this.keyNamespace});
 }
 
@@ -417,11 +418,11 @@ const Accessor nullableRequiredProp = Accessor(isRequired: true, isNullable: tru
 /// Related: [requiredProp], [nullableRequiredProp].
 class Accessor {
   /// A key for the annotated accessor, overriding the default of the accessor's name.
-  final String? key;
+  final String key;
 
   /// A custom namespace for the key namespace of the annotated accessor,
   /// overriding the default of `'${enclosingClassName}.'`.
-  final String? keyNamespace;
+  final String keyNamespace;
 
   /// Whether the accessor is required to be set.
   final bool isRequired;
@@ -430,7 +431,7 @@ class Accessor {
   final bool isNullable;
 
   /// The error message displayed when the accessor is not set.
-  final String? requiredErrorMessage;
+  final String requiredErrorMessage;
 
   /// Whether to skip generating an accessor for this field.
   final bool doNotGenerate;
@@ -446,7 +447,7 @@ class Accessor {
 }
 
 abstract class TypedMap {
-  String? get keyNamespace;
+  String get keyNamespace;
 }
 
 /// Prevents required prop validation from being performed on a prop.

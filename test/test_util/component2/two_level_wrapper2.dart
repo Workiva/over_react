@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2016 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -26,6 +27,6 @@ class _$TwoLevelWrapper2Props extends UiProps {}
 @Component2(isWrapper: true)
 class TwoLevelWrapper2Component extends UiComponent2<TwoLevelWrapper2Props> {
   @override
-  render() => Dom.div()(props.children!.single);
+  render() => Dom.div()(props.children.single);
 }
 

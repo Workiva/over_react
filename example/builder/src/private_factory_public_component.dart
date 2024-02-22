@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -27,7 +28,7 @@ UiFactory<FormActionInputProps> FormResetInput = ([backingMap]) =>
     _FormActionInput(backingMap);
 
 mixin FormActionInputProps on UiProps {
-  String? prop1;
+  String prop1;
 }
 
 class FormActionInputComponent extends UiComponent2<FormActionInputProps> {

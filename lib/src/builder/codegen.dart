@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -31,7 +32,7 @@ class ImplGenerator {
   final SourceFile sourceFile;
   final bool nullSafety;
 
-  ImplGenerator(this.logger, this.sourceFile, {required this.nullSafety});
+  ImplGenerator(this.logger, this.sourceFile, { this.nullSafety});
 
   void generate(BoilerplateDeclaration declaration) {
     switch (declaration.type) {

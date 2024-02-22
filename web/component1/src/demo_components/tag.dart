@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -31,7 +32,7 @@ class _$TagProps extends UiProps {
   /// See: <http://v4-alpha.getbootstrap.com/components/tag/#contextual-variations>.
   ///
   /// Default: [TagSkin.DEFAULT]
-  TagSkin? skin;
+  TagSkin skin;
 
   /// Whether to render the [Tag] with rounded corners that make it look
   /// more like a "pill" (a.k.a Bootstrap v3 "badge")
@@ -39,7 +40,7 @@ class _$TagProps extends UiProps {
   /// See: <http://v4-alpha.getbootstrap.com/components/tag/#pill-tags>.
   ///
   /// Default: false
-  bool? isPill;
+  bool isPill;
 }
 
 @Component()
@@ -54,8 +55,8 @@ class TagComponent extends UiComponent<TagProps> {
   render() {
     var classes = forwardingClassNameBuilder()
       ..add('tag')
-      ..add('tag-pill', props.isPill!)
-      ..add(props.skin!.className);
+      ..add('tag-pill', props.isPill)
+      ..add(props.skin.className);
 
     return (Dom.span()
       ..addProps(copyUnconsumedDomProps())

@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2021 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -59,7 +60,7 @@ external JsReactReduxStore _jsUseStore();
 /// See the [react-redux JS documentation](https://react-redux.js.org/api/hooks#custom-context) for more details.
 ///
 /// See the [createSelectorHook] documentation for an example of creating / using custom context.
-Store<TReduxState> Function() createStoreHook<TReduxState>([Context? context]) {
+Store<TReduxState> Function() createStoreHook<TReduxState>([Context context]) {
   final jsHook = _jsCreateStoreHook(context?.jsThis ?? JsReactRedux.ReactReduxContext);
   Store<TReduxState> dartHook() => jsHook().dartStore as Store<TReduxState>;
 

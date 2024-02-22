@@ -1,3 +1,4 @@
+// @dart=2.11
 @TestOn('browser')
 @JS()
 library rmui.test.unit.util.prop_conversion_test;
@@ -162,20 +163,20 @@ main() {
               unjsifyMapListProp<String, String>([
                 jsify({'foo': 'bar'}) as JsMap
               ]),
-              allOf(isA<List<Map<String, String>?>>(), everyElement(isA<Map<String, String>>())),
+              allOf(isA<List<Map<String, String>>>(), everyElement(isA<Map<String, String>>())),
             );
             expect(
               unjsifyMapListProp<String, int>([
                 jsify({'foo': 1}) as JsMap
               ]),
-              allOf(isA<List<Map<String, int>?>>(), everyElement(isA<Map<String, int>>())),
+              allOf(isA<List<Map<String, int>>>(), everyElement(isA<Map<String, int>>())),
             );
             expect(
               unjsifyMapListProp<String, dynamic>([
                 jsify({'foo': 1}) as JsMap,
                 jsify({'bar': true}) as JsMap
               ]),
-              allOf(isA<List<Map<String, dynamic>?>>(), everyElement(isA<Map<String, dynamic>>())),
+              allOf(isA<List<Map<String, dynamic>>>(), everyElement(isA<Map<String, dynamic>>())),
             );
           });
         });
@@ -299,7 +300,7 @@ main() {
           expect(jsifyAndUnjsify(dartRef),
               isA<Ref>().havingJsRef(same(dartRef.jsRef)),
               reason: 'should be backed by the same JS object');
-          expect(jsifyAndUnjsify(dartRef), isA<Ref<Element?>>(),
+          expect(jsifyAndUnjsify(dartRef), isA<Ref<Element>>(),
               reason: 'should have the same reified type');
         });
 
@@ -343,20 +344,20 @@ main() {
         test('converts JS context objects to Dart context objects (dynamic generic type)', () {
           final jsContext = react.createContext().jsThis;
           expect(unjsifyContextProp<dynamic>(jsContext), isA<Context>());
-          expect(unjsifyContextProp<dynamic>(jsContext)!.jsThis, same(jsContext));
+          expect(unjsifyContextProp<dynamic>(jsContext).jsThis, same(jsContext));
         });
 
         test('converts JS context objects to Dart context objects (with generic type)', () {
           final jsContext = react.createContext().jsThis;
           expect(unjsifyContextProp<String>(jsContext), isA<Context<String>>());
-          expect(unjsifyContextProp<String>(jsContext)!.jsThis, same(jsContext));
+          expect(unjsifyContextProp<String>(jsContext).jsThis, same(jsContext));
         });
       });
 
       group(
           'unjsifyContextProp(jsifyContextProp(object)) returns a value equivalent to `object` when passed',
           () {
-        Context<T>? jsifyAndUnjsify<T>(Context<T>? value) =>
+        Context<T> jsifyAndUnjsify<T>(Context<T> value) =>
             unjsifyContextProp(jsifyContextProp(value));
 
         test('null', () {
@@ -365,7 +366,7 @@ main() {
 
         test('Dart context object', () {
           final context = createContext();
-          expect(jsifyAndUnjsify(context)!.jsThis, same(context.jsThis));
+          expect(jsifyAndUnjsify(context).jsThis, same(context.jsThis));
         });
 
         group('Dart context objects (with same reified generic type)', () {
@@ -453,7 +454,7 @@ main() {
 
                 // For this test, it's important to mutate the the value returned from the `builder.buttonProps` getter,
                 // and not the original Map passed into `builder.buttonProps`.
-                builder.buttonProps!['data-foo'] = 'bar';
+                builder.buttonProps['data-foo'] = 'bar';
                 expect(builder.buttonProps, {'data-foo': 'bar'});
               });
 
@@ -583,10 +584,10 @@ main() {
               });
 
               test('(typed)', () {
-                late ButtonElement? buttonRef;
+                 ButtonElement buttonRef;
                 final view = render((TestJs()
                   ..buttonProps = (domProps()
-                    ..ref = (ButtonElement? ref) {
+                    ..ref = (ButtonElement ref) {
                       buttonRef = ref;
                     }))());
                 expect(buttonRef, view.getByRole('button'));
@@ -625,11 +626,11 @@ main() {
                 ];
 
               final propKey = TestJs.getPropKey((p) => p.listOfProps);
-              expect(builder, {propKey: isA<List<JsMap?>>()},
+              expect(builder, {propKey: isA<List<JsMap>>()},
                   reason:
                       'test setup: should have converted to a List of JS objects for storage in props map'
                       ' (we want to ensure this happens before it gets to the ReactComponentFactoryProxy)');
-              expect(builder.listOfProps, isA<List<Map?>>(),
+              expect(builder.listOfProps, isA<List<Map>>(),
                   reason: 'should have unconverted List<JsMap?> to a List<?Map> in the typed getter');
             });
 
@@ -676,13 +677,13 @@ main() {
                 expect(builder.listOfProps, [{}]);
 
                 final propKey = TestJs.getPropKey((p) => p.listOfProps);
-                expect(builder, {propKey: isA<List<JsMap?>>()},
+                expect(builder, {propKey: isA<List<JsMap>>()},
                     reason:
                         'test setup: should have converted to a JS object for storage in props map');
 
                 // For this test, it's important to mutate the the value returned from the `builder.listOfProps` getter,
                 // and not the original Map passed into `builder.listOfProps`.
-                builder.listOfProps![0]!['data-foo'] = 'bar';
+                builder.listOfProps[0]['data-foo'] = 'bar';
                 expect(builder.listOfProps, [
                   {'data-foo': 'bar'}
                 ]);
@@ -699,8 +700,8 @@ main() {
                           ])
                       ];
                     expect(
-                        TestJs(builder.listOfProps![0]).listOfProps,
-                        allOf(isA<List<Map?>>(), [
+                        TestJs(builder.listOfProps[0]).listOfProps,
+                        allOf(isA<List<Map>>(), [
                           {'foo': 'bar'}
                         ]));
                   });
@@ -733,7 +734,7 @@ main() {
                 expect(builder.listOfProps, [{}]);
 
                 final propKey = TestJs.getPropKey((p) => p.listOfProps);
-                expect(builder, {propKey: isA<List<JsMap?>>()},
+                expect(builder, {propKey: isA<List<JsMap>>()},
                     reason:
                         'test setup: should have converted to a JS object for storage in props map');
 
@@ -809,11 +810,11 @@ main() {
               });
 
               test('(typed)', () {
-                late LIElement? listitemRef;
+                 LIElement listitemRef;
                 final view = render((TestJs()
                   ..listOfProps = [
                     (domProps()
-                      ..ref = (LIElement? ref) {
+                      ..ref = (LIElement ref) {
                         listitemRef = ref;
                       })
                   ])());
@@ -862,9 +863,9 @@ main() {
             });
 
             test('(typed)', () {
-              late InputElement? inputRef;
+               InputElement inputRef;
               final view = render((TestJs()
-                ..inputRef = (InputElement? ref) {
+                ..inputRef = (InputElement ref) {
                   inputRef = ref;
                 })());
               expect(inputRef, view.getByRole('textbox'));
@@ -974,7 +975,7 @@ main() {
             () {
           final propKey = TestJs.getPropKey((p) => p.buttonProps);
 
-          late DartTestJsWrapperProps capturedProps;
+           DartTestJsWrapperProps capturedProps;
           final view = render(React.cloneElement(
             (DartTestJsWrapper()
               ..onRender = expectAsync1((props) {
@@ -999,7 +1000,7 @@ main() {
             ' and the Dart component receives those JS props and attempts to read them', () {
           final propKey = TestJs.getPropKey((p) => p.listOfProps);
 
-          late DartTestJsWrapperProps capturedProps;
+           DartTestJsWrapperProps capturedProps;
           final view = render(React.cloneElement(
             (DartTestJsWrapper()
               ..onRender = expectAsync1((props) {
@@ -1015,7 +1016,7 @@ main() {
           ));
 
           expect(() => capturedProps.listOfProps, returnsNormally);
-          expect(capturedProps.listOfProps, isA<List<Map?>>());
+          expect(capturedProps.listOfProps, isA<List<Map>>());
 
           final node = view.getByRole('listitem');
           expect(node, hasStyles({'color': 'blue'}));
@@ -1391,7 +1392,7 @@ extension on TypeMatcher<ReactComponent> {
 ///
 /// Even though [object] typed as [T], we'll verify it explicitly in case
 /// the type-check at the function call site gets compiled out.
-void verifyType<T>(T? object) {
+void verifyType<T>(T object) {
   if (T == Object || T == dynamic || T == Null) {
     throw ArgumentError.value(T, 'T', 'must be more specific');
   }
@@ -1425,7 +1426,7 @@ class UnexpectedSuccessfulCastError extends Error {
 //
 
 mixin ExpectsDartMapPropProps on UiProps {
-  Map? dartMapProp;
+  Map dartMapProp;
 }
 
 UiFactory<ExpectsDartMapPropProps> ExpectsDartMapProp = uiForwardRef(
@@ -1451,7 +1452,7 @@ UiFactory<ExpectsDartStylePropProps> ExpectsDartStyleProp = uiForwardRef(
       ..addProps(props)
       ..style = {
         // Use the prop in a way that would fail if it wasn't the correct type
-        ...props.style!,
+        ...props.style,
       })(props.children);
   },
   _$ExpectsDartStylePropConfig, // ignore: undefined_identifier
@@ -1465,7 +1466,7 @@ UiFactory<ExpectsListChildrenPropProps> ExpectsListChildrenProp = uiForwardRef(
 
     return (Dom.div()..addProps(props))(
       // Use the prop in a way that would fail if it wasn't the correct type
-      props.children!.map((child) => child),
+      props.children.map((child) => child),
     );
   },
   _$ExpectsListChildrenPropConfig, // ignore: undefined_identifier
@@ -1501,7 +1502,7 @@ UiFactory<BasicForwardRefProps> BasicForwardRef = uiForwardRef(
 );
 
 mixin DartTestJsWrapperPropsMixin on UiProps {
-  void Function(DartTestJsWrapperProps props)? onRender;
+  void Function(DartTestJsWrapperProps props) onRender;
 }
 
 class DartTestJsWrapperProps = UiProps
@@ -1528,16 +1529,16 @@ UiFactory<DartTestJsWrapperProps> DartTestJsWrapper = uiForwardRef(
 @Props(keyNamespace: '')
 mixin TestJsProps on UiProps {
   @Accessor(key: 'buttonProps')
-  JsMap? _$raw$buttonProps;
+  JsMap _$raw$buttonProps;
 
-  Map? get buttonProps => unjsifyMapProp(_$raw$buttonProps);
-  set buttonProps(Map? value) => _$raw$buttonProps = jsifyMapProp(value);
+  Map get buttonProps => unjsifyMapProp(_$raw$buttonProps);
+  set buttonProps(Map value) => _$raw$buttonProps = jsifyMapProp(value);
 
   @Accessor(key: 'listOfProps')
-  List<dynamic>? _$raw$listOfProps;
+  List<dynamic> _$raw$listOfProps;
 
-  List<Map?>? get listOfProps => unjsifyMapListProp(_$raw$listOfProps);
-  set listOfProps(List<Map?>? value) => _$raw$listOfProps = jsifyMapListProp(value);
+  List<Map> get listOfProps => unjsifyMapListProp(_$raw$listOfProps);
+  set listOfProps(List<Map> value) => _$raw$listOfProps = jsifyMapListProp(value);
 
   @Accessor(key: 'inputRef')
   dynamic _$raw$inputRef;
@@ -1546,10 +1547,10 @@ mixin TestJsProps on UiProps {
   set inputRef(dynamic value) => _$raw$inputRef = jsifyRefProp(value);
 
   @Accessor(key: 'messageContext')
-  ReactContext? _$raw$messageContext;
+  ReactContext _$raw$messageContext;
 
-  Context<String?>? get messageContext => unjsifyContextProp(_$raw$messageContext);
-  set messageContext(Context<String?>? value) => _$raw$messageContext = jsifyContextProp(value);
+  Context<String> get messageContext => unjsifyContextProp(_$raw$messageContext);
+  set messageContext(Context<String> value) => _$raw$messageContext = jsifyContextProp(value);
 
   dynamic /*ElementType*/ component;
   dynamic /*ElementType*/ inputComponent;

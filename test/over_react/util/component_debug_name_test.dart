@@ -1,3 +1,4 @@
+// @dart=2.11
 // ignore_for_file: deprecated_member_use_from_same_package
 
 import 'package:over_react/over_react.dart';
@@ -12,12 +13,12 @@ void main() {
   group('getDebugNameForDartComponent', () {
     group('returns the displayName it was registered with for a mounted', () {
       test('UiComponent component declared with standard boilerplate', () {
-        final component = mount<UiComponent>(TestComponent()()).getDartInstance()!;
+        final component = mount<UiComponent>(TestComponent()()).getDartInstance();
         expect(getDebugNameForDartComponent(component), 'TestComponent');
       });
 
       test('UiComponent2 component declared with standard boilerplate', () {
-        final component = mount<UiComponent2>(TestComponent2()()).getDartInstance()!;
+        final component = mount<UiComponent2>(TestComponent2()()).getDartInstance();
         expect(getDebugNameForDartComponent(component), 'TestComponent2');
       });
     });

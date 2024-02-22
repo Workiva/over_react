@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -71,7 +72,7 @@ abstract class _$ErrorBoundaryPropsMixin implements UiProps {
   /// > See: <https://reactjs.org/docs/react-component.html#componentdidcatch>
   ///
   /// > Related: [onComponentIsUnrecoverable]
-  Function(/*Error||Exception*/dynamic error, ReactErrorInfo info)? onComponentDidCatch;
+  Function(/*Error||Exception*/dynamic error, ReactErrorInfo info) onComponentDidCatch;
 
   /// An optional callback that will be called _(when [fallbackUIRenderer] is not set)_
   /// with an [Error] _(or [Exception])_ and `errorInfo` containing information about which component in
@@ -96,13 +97,13 @@ abstract class _$ErrorBoundaryPropsMixin implements UiProps {
   /// > Will never be called when [fallbackUIRenderer] is set.
   ///
   /// > Related: [identicalErrorFrequencyTolerance]
-  Function(/*Error||Exception*/dynamic error, ReactErrorInfo? info)? onComponentIsUnrecoverable;
+  Function(/*Error||Exception*/dynamic error, ReactErrorInfo info) onComponentIsUnrecoverable;
 
   /// A renderer that will be used to render "fallback" UI instead of the child
   /// component tree that crashed.
   ///
   /// > Related: [onComponentIsUnrecoverable], [onComponentDidCatch]
-  ReactElement Function(/*Error||Exception*/dynamic error, ReactErrorInfo? info)? fallbackUIRenderer;
+  ReactElement Function(/*Error||Exception*/dynamic error, ReactErrorInfo info) fallbackUIRenderer;
 
   /// The amount of time that is "acceptable" between consecutive identical errors thrown from a component
   /// within the tree wrapped by this [ErrorBoundary].
@@ -121,23 +122,23 @@ abstract class _$ErrorBoundaryPropsMixin implements UiProps {
   /// __DO NOT MODIFY THIS VALUE UNLESS YOU KNOW WHAT YOU ARE DOING.__
   ///
   /// > Default: `const Duration(seconds: 5)`
-  Duration? identicalErrorFrequencyTolerance;
+  Duration identicalErrorFrequencyTolerance;
 
   /// The name to use when the component's logger logs an error via [ErrorBoundaryComponent.componentDidCatch].
   ///
   /// Not used if a custom [logger] is specified.
   ///
   /// > Default: 'over_react.ErrorBoundary'
-  String? loggerName;
+  String loggerName;
 
   /// Whether errors caught by this [ErrorBoundary] should be logged using a [Logger].
   ///
   /// > Default: `true`
-  bool? shouldLogErrors;
+  bool shouldLogErrors;
 
   /// An optional custom logger instance that will be used to log errors caught by
   /// this [ErrorBoundary] when [shouldLogErrors] is true.
-  Logger? logger;
+  Logger logger;
 }
 
 /// This class is present:
@@ -171,12 +172,12 @@ abstract class _$ErrorBoundaryStateMixin implements UiState {
   ///   more frequently than [ErrorBoundaryPropsMixin.identicalErrorFrequencyTolerance], a static copy of
   ///   the render tree's HTML that was captured at the time of the error will be rendered.
   ///   See: [ErrorBoundaryPropsMixin.onComponentIsUnrecoverable] for more information about this scenario.
-  late bool hasError;
+   bool hasError;
 
   /// Whether to show "fallback" UI when [hasError] is true.
   ///
   /// This value will always be true if [ErrorBoundaryPropsMixin.fallbackUIRenderer] is non-null.
-  late bool showFallbackUIOnError;
+   bool showFallbackUIOnError;
 }
 
 /// A component mixin you can use to implement / extend from the behaviors of an [ErrorBoundary]
@@ -242,8 +243,8 @@ mixin ErrorBoundaryMixin<T extends ErrorBoundaryPropsMixin, S extends ErrorBound
     // If the child is different, and the error boundary is currently in an error state,
     // give the child a chance to remount itself and "recover" from the previous error.
     if (state.hasError) {
-      final childThatCausedError = typedPropsFactory(prevProps).children!.single;
-      if (childThatCausedError != props.children!.single) {
+      final childThatCausedError = typedPropsFactory(prevProps).children.single;
+      if (childThatCausedError != props.children.single) {
         reset();
       }
     }
@@ -309,10 +310,10 @@ mixin ErrorBoundaryMixin<T extends ErrorBoundaryPropsMixin, S extends ErrorBound
   // [3] Log the caught error using a logger if `props.shouldLogErrors` is true.
   // ---------------------------------------------- /\ ----------------------------------------------
 
-  String? _domAtTimeOfError;
+  String _domAtTimeOfError;
   List<String> _errorLog = [];
   List<ReactErrorInfo> _callStackLog = [];
-  Timer? _identicalErrorTimer;
+  Timer _identicalErrorTimer;
 
   /// Called by [componentDidCatch].
   void _handleErrorInComponentTree(/*Error||Exception*/dynamic error, ReactErrorInfo info) {
@@ -341,7 +342,7 @@ mixin ErrorBoundaryMixin<T extends ErrorBoundaryPropsMixin, S extends ErrorBound
         } catch (_) {}
 
         if (props.onComponentIsUnrecoverable != null) { // [2.2.1]
-          props.onComponentIsUnrecoverable!(error, info);
+          props.onComponentIsUnrecoverable(error, info);
         }
 
         _logErrorCaughtByErrorBoundary(error, info, isRecoverable: false); // [3]
@@ -361,7 +362,7 @@ mixin ErrorBoundaryMixin<T extends ErrorBoundaryPropsMixin, S extends ErrorBound
   }
 
   // [2.2]
-  ReactElement? _renderStringDomAfterUnrecoverableErrors(_, __) {
+  ReactElement _renderStringDomAfterUnrecoverableErrors(_, __) {
     return (Dom.div()
       ..key = 'ohnoes'
       ..addTestId('ErrorBoundary.unrecoverableErrorInnerHtmlContainerNode')
@@ -383,7 +384,7 @@ mixin ErrorBoundaryMixin<T extends ErrorBoundaryPropsMixin, S extends ErrorBound
   void _startIdenticalErrorTimer() {
     if (_identicalErrorTimer != null) return;
 
-    _identicalErrorTimer = getManagedTimer(props.identicalErrorFrequencyTolerance!, _resetInternalErrorTracking);
+    _identicalErrorTimer = getManagedTimer(props.identicalErrorFrequencyTolerance, _resetInternalErrorTracking);
   }
 
   /// Resets all the internal fields used by [_handleErrorInComponentTree], and cancels
@@ -398,7 +399,7 @@ mixin ErrorBoundaryMixin<T extends ErrorBoundaryPropsMixin, S extends ErrorBound
   }
 
   String get _loggerName {
-    if (props.logger != null) return props.logger!.name;
+    if (props.logger != null) return props.logger.name;
 
     // ignore: invalid_use_of_visible_for_testing_member
     return props.loggerName ?? defaultErrorBoundaryLoggerName;
@@ -410,7 +411,7 @@ mixin ErrorBoundaryMixin<T extends ErrorBoundaryPropsMixin, S extends ErrorBound
     ReactErrorInfo info, {
     bool isRecoverable = true,
   }) {
-    if (!props.shouldLogErrors!) return;
+    if (!props.shouldLogErrors) return;
 
     String message = isRecoverable
         ? 'An error was caught by an ErrorBoundary: \nInfo: ${info.componentStack}'

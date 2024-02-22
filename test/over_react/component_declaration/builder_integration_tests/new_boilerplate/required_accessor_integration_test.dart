@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2016 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -33,7 +34,7 @@ void main() {
       });
 
       test('on re-render', () {
-        late TestJacket jacket;
+         TestJacket jacket;
 
         expect(() {
           jacket = mount(
@@ -69,7 +70,7 @@ void main() {
       });
 
       test('on re-render', () {
-        late TestJacket jacket;
+         TestJacket jacket;
 
         expect(() {
           jacket = mount(
@@ -102,7 +103,7 @@ void main() {
       });
 
       test('on re-render', () {
-        late TestJacket jacket;
+         TestJacket jacket;
 
         expect(() {
           jacket = mount(
@@ -165,7 +166,7 @@ void main() {
       });
 
       test('on re-render', () {
-        late TestJacket jacket;
+         TestJacket jacket;
 
         expect(() {
           jacket = mount(
@@ -221,7 +222,7 @@ mixin ComponentTestProps on UiProps {
   dynamic nullable;
 
   @Accessor(isRequired: true, isNullable: false, requiredErrorMessage: 'This Prop Array is Required for testing purposes.')
-  List? requiredAndLengthLimited;
+  List requiredAndLengthLimited;
 }
 
 class ComponentTestComponent extends UiComponent2<ComponentTestProps> {

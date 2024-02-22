@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2019 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,17 +21,17 @@ UiFactory<TestCustomRendererComponentProps> TestCustomRendererComponent = _$Test
 
 @Props()
 class _$TestCustomRendererComponentProps extends UiProps {
-  late CustomRenderFunction customRenderer;
-  late CustomRenderFunction<TestCustomRendererComponentProps,
+   CustomRenderFunction customRenderer;
+   CustomRenderFunction<TestCustomRendererComponentProps,
                        TestCustomRendererComponentState,
                        TestCustomRendererComponentComponent> parameterizedCustomRenderer;
-  String? somePropKey;
-  String? someInitialStateKeyValue;
+  String somePropKey;
+  String someInitialStateKeyValue;
 }
 
 @State()
 class _$TestCustomRendererComponentState extends UiState {
-  String? someStateKey;
+  String someStateKey;
 }
 
 @Component2()

@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2016 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -260,7 +261,7 @@ main() {
       });
     }
 
-    void sharedBadTypeTests(void Function(Object? badType) testBody) {
+    void sharedBadTypeTests(void Function(Object badType) testBody) {
       group('a bad type, when the argument is', () {
         test('null', () => testBody(null));
         test('a primitive', () => testBody(1));
@@ -322,17 +323,17 @@ main() {
 
 testComponentTypeChecking({
   bool isComponent2 = false,
-  required UiFactory TestParent,
-  required UiFactory TestSubtype,
-  required UiFactory TestSubsubtype,
-  required UiFactory TestExtendtype,
-  required Type TestAbstractComponent,
-  required UiFactory TestA,
-  required Type? TestAComponent,
-  required UiFactory TestB,
-  required Type? TestBComponent,
-  required UiFactory OneLevelWrapper,
-  required UiFactory TwoLevelWrapper,
+   UiFactory TestParent,
+   UiFactory TestSubtype,
+   UiFactory TestSubsubtype,
+   UiFactory TestExtendtype,
+   Type TestAbstractComponent,
+   UiFactory TestA,
+   Type TestAComponent,
+   UiFactory TestB,
+   Type TestBComponent,
+   UiFactory OneLevelWrapper,
+   UiFactory TwoLevelWrapper,
 }) {
   group('type checking:', () {
     group('getParentTypes', () {
@@ -348,12 +349,12 @@ testComponentTypeChecking({
           });
 
           test('that is empty for a component without parent types', () {
-            expect(getParentTypes(getComponentTypeFromAlias(TestParent)!), isEmpty);
+            expect(getParentTypes(getComponentTypeFromAlias(TestParent)), isEmpty);
           });
 
           test('that contains a component\'s parent type', () {
             expect(
-                getParentTypes(getComponentTypeFromAlias(TestSubtype)!),
+                getParentTypes(getComponentTypeFromAlias(TestSubtype)),
                 orderedEquals([
                   getComponentTypeFromAlias(TestParent),
                 ]));
@@ -361,7 +362,7 @@ testComponentTypeChecking({
 
           test('that contains all of a component\'s parent types', () {
             expect(
-                getParentTypes(getComponentTypeFromAlias(TestSubsubtype)!),
+                getParentTypes(getComponentTypeFromAlias(TestSubsubtype)),
                 orderedEquals([
                   getComponentTypeFromAlias(TestSubtype),
                   getComponentTypeFromAlias(TestParent),
@@ -370,7 +371,7 @@ testComponentTypeChecking({
 
           test('that contains all of a component\'s parent abstract types', () {
             expect(
-                getParentTypes(getComponentTypeFromAlias(TestExtendtype)!),
+                getParentTypes(getComponentTypeFromAlias(TestExtendtype)),
                 orderedEquals([
                   getComponentTypeFromAlias(TestAbstractComponent),
                 ]));
@@ -568,7 +569,7 @@ testComponentTypeChecking({
         });
 
         group('a higher-order component created by', () {
-          if (TestA().componentFactory!.type.dartComponentVersion == '1') {
+          if (TestA().componentFactory.type.dartComponentVersion == '1') {
             test('connect', () {
               expect(() => connect(mapStateToProps: (dynamic state) => {})(TestA), throwsArgumentError);
             });
@@ -617,7 +618,7 @@ class _UiPropsWithNullComponentFactory extends UiProps {
   @override
   final Map props;
 
-  _UiPropsWithNullComponentFactory([Map? props]) : this.props = props ?? JsBackedMap();
+  _UiPropsWithNullComponentFactory([Map props]) : this.props = props ?? JsBackedMap();
 
   @override
   String get propKeyNamespace => '';

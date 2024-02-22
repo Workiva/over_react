@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2023 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -66,7 +67,7 @@ void main() {
         });
 
         test('on re-render', () {
-          late rtl.RenderResult view;
+           rtl.RenderResult view;
 
           expect(() {
             view = rtl.render((ComponentTest()
@@ -139,7 +140,7 @@ void main() {
         });
 
         test('on re-render', () {
-          late rtl.RenderResult view;
+           rtl.RenderResult view;
 
           expect(() {
             view = rtl.render((ComponentTest()
@@ -314,23 +315,23 @@ UiFactory<ComponentTestProps> ComponentTest = _$ComponentTest;
 
 @Props(disableRequiredPropValidation: {'testIgnoreOnMixin'})
 mixin ComponentTestProps on UiProps {
-  late bool requiredNonNullable;
+   bool requiredNonNullable;
 
-  late bool? requiredNullable;
-
-  @disableRequiredPropValidation
-  late bool disabledRequiredProp;
+   bool requiredNullable;
 
   @disableRequiredPropValidation
-  late bool? disabledNullableRequiredProp;
+   bool disabledRequiredProp;
+
+  @disableRequiredPropValidation
+   bool disabledNullableRequiredProp;
 
   @disableRequiredPropValidation
   @override
-  late dynamic ref;
+   dynamic ref;
 
-  bool? nullable;
+  bool nullable;
 
-  late bool testIgnoreOnMixin;
+   bool testIgnoreOnMixin;
 }
 
 class ComponentTestComponent extends UiComponent2<ComponentTestProps> {
@@ -344,7 +345,7 @@ UiFactory<MultipleMixinsTestProps> MultipleMixinsTest = uiFunction(
 );
 
 mixin MultipleMixinsTestPropsMixin on UiProps {
-  late bool secondRequiredProp;
+   bool secondRequiredProp;
 }
 
 @Props(disableRequiredPropValidation: {'testIgnoreOnMixin'})
@@ -352,7 +353,7 @@ class MultipleMixinsTestProps = UiProps with MultipleMixinsTestPropsMixin, Compo
 
 
 mixin WrapperTestPropsMixin on UiProps {
-  late bool thirdRequiredProp;
+   bool thirdRequiredProp;
 }
 
 UiFactory<FunctionWrapperTestProps> FunctionWrapperTest = uiFunction(
@@ -368,7 +369,7 @@ class FunctionWrapperTestProps = UiProps with WrapperTestPropsMixin, MultipleMix
 UiFactory<ClassWrapperTestProps> ClassWrapperTest = castUiFactory(_$ClassWrapperTest); // ignore: undefined_identifier
 
 mixin ClassWrapperTestPropsMixin on UiProps {
-  late bool thirdRequiredProp;
+   bool thirdRequiredProp;
 }
 
 @Props(disableRequiredPropValidation: {'thirdRequiredProp', 'secondRequiredProp', 'requiredNonNullable', 'requiredNullable', 'testIgnoreOnMixin'})
@@ -382,8 +383,8 @@ class ClassWrapperTestComponent extends UiComponent2<ClassWrapperTestProps> {
 UiFactory<DefaultedInClassTestProps> DefaultedInClassTest = castUiFactory(_$DefaultedInClassTest); // ignore: undefined_identifier
 
 mixin DefaultedInClassTestProps on UiProps {
-  late bool required;
-  late bool requiredDefaulted;
+   bool required;
+   bool requiredDefaulted;
 }
 
 class DefaultedInClassTestPropsComponent extends UiComponent2<DefaultedInClassTestProps> {
@@ -398,8 +399,8 @@ UiFactory<DefaultedInClassOptedOutTestProps> DefaultedInClassOptedOutTest = cast
 
 @Props(disableValidationForClassDefaultProps: false)
 mixin DefaultedInClassOptedOutTestProps on UiProps {
-  late bool required;
-  late bool requiredDefaulted;
+   bool required;
+   bool requiredDefaulted;
 }
 
 class DefaultedInClassOptedOutTestPropsComponent extends UiComponent2<DefaultedInClassOptedOutTestProps> {
@@ -417,9 +418,9 @@ UiFactory<DefaultedInClassOptedOutWithIgnoresTestProps> DefaultedInClassOptedOut
   disableRequiredPropValidation: {'requiredDisabledByName'},
 )
 mixin DefaultedInClassOptedOutWithIgnoresTestProps on UiProps {
-  late bool required;
-  late bool requiredDefaulted;
-  late bool requiredDisabledByName;
+   bool required;
+   bool requiredDefaulted;
+   bool requiredDisabledByName;
 }
 
 class DefaultedInClassOptedOutWithIgnoresTestPropsComponent extends UiComponent2<DefaultedInClassOptedOutWithIgnoresTestProps> {

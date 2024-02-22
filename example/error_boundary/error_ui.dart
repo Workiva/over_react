@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2022 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,8 +24,8 @@ UiFactory<ErrorUiProps> ErrorUi =
 mixin ErrorUiProps on UiProps {}
 
 mixin ErrorUiState on UiState {
-  bool? triggerError;
-  String? stack;
+  bool triggerError;
+  String stack;
 }
 
 class ErrorUiComponent
@@ -34,7 +35,7 @@ class ErrorUiComponent
 
   @override
   render() {
-    final triggerError = state.triggerError!;
+    final triggerError = state.triggerError;
     final stack = state.stack;
 
     return (Dom.div()

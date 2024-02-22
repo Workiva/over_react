@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -29,9 +30,9 @@ part 'with_transition_test.over_react.g.dart';
 /// Main entry point for WithTransition testing
 main() {
   group('WithTransition', () {
-    TestJacket<WithTransitionTesterComponent>? jacket;
-    Element getRootNode() => queryByTestId(jacket!.mountNode, 'or.WithTransition.node')!;
-    void expectNodeInTransitionPhase(TransitionPhase phase, {String? reason}) {
+    TestJacket<WithTransitionTesterComponent> jacket;
+    Element getRootNode() => queryByTestId(jacket.mountNode, 'or.WithTransition.node');
+    void expectNodeInTransitionPhase(TransitionPhase phase, {String reason}) {
       expect(
         getRootNode(),
         hasAttr(WithTransitionTesterComponent.attrName, WithTransitionTesterComponent.testAttrByPhase[phase]),
@@ -61,7 +62,7 @@ main() {
           jacket = mount((WithTransitionTester()..isShown = true)());
           expectNodeInTransitionPhase(TransitionPhase.SHOWN, reason: 'test setup sanity check');
 
-          jacket!.rerender((WithTransitionTester()..isShown = false)());
+          jacket.rerender((WithTransitionTester()..isShown = false)());
           expectNodeInTransitionPhase(TransitionPhase.HIDING);
 
           await Future.delayed(Duration.zero);
@@ -80,7 +81,7 @@ main() {
           )());
           expectNodeInTransitionPhase(TransitionPhase.SHOWN, reason: 'test setup sanity check');
 
-          jacket!.rerender((WithTransitionTester()
+          jacket.rerender((WithTransitionTester()
             ..transitionCount = 0
             ..isShown = false
           )());
@@ -93,7 +94,7 @@ main() {
           jacket = mount((WithTransitionTester()..isShown = false)());
           expectNodeInTransitionPhase(TransitionPhase.HIDDEN, reason: 'test setup sanity check');
 
-          jacket!.rerender((WithTransitionTester()..isShown = true)());
+          jacket.rerender((WithTransitionTester()..isShown = true)());
           expectNodeInTransitionPhase(TransitionPhase.SHOWING);
 
           await Future.delayed(Duration.zero);
@@ -112,7 +113,7 @@ main() {
           )());
           expectNodeInTransitionPhase(TransitionPhase.HIDDEN, reason: 'test setup sanity check');
 
-          jacket!.rerender((WithTransitionTester()
+          jacket.rerender((WithTransitionTester()
             ..transitionCount = 0
             ..isShown = true
           )());
@@ -125,10 +126,10 @@ main() {
           jacket = mount((WithTransitionTester()..isShown = true)());
           expectNodeInTransitionPhase(TransitionPhase.SHOWN, reason: 'test setup sanity check');
 
-          jacket!.rerender((WithTransitionTester()..isShown = false)());
+          jacket.rerender((WithTransitionTester()..isShown = false)());
           expectNodeInTransitionPhase(TransitionPhase.HIDING);
 
-          jacket!.rerender((WithTransitionTester()..isShown = true)());
+          jacket.rerender((WithTransitionTester()..isShown = true)());
           expectNodeInTransitionPhase(TransitionPhase.SHOWING);
 
           await Future.delayed(Duration.zero);
@@ -143,10 +144,10 @@ main() {
           jacket = mount((WithTransitionTester()..isShown = false)());
           expectNodeInTransitionPhase(TransitionPhase.HIDDEN, reason: 'test setup sanity check');
 
-          jacket!.rerender((WithTransitionTester()..isShown = true)());
+          jacket.rerender((WithTransitionTester()..isShown = true)());
           expectNodeInTransitionPhase(TransitionPhase.SHOWING);
 
-          jacket!.rerender((WithTransitionTester()..isShown = false)());
+          jacket.rerender((WithTransitionTester()..isShown = false)());
           expectNodeInTransitionPhase(TransitionPhase.HIDING);
 
           await Future.delayed(Duration.zero);
@@ -160,8 +161,8 @@ main() {
 
       group('toggles the visibility of the component properly, waiting for correct number of `onTransitionEnd` when the number of transitions', () {
         Future<Null> sharedTests(ReactElement renderedElement, {
-          required int expectedTransitionInCount,
-          required int expectedTransitionOutCount,
+           int expectedTransitionInCount,
+           int expectedTransitionOutCount,
         }) async {
           if (expectedTransitionInCount < 0) throw ArgumentError.value(expectedTransitionInCount, 'expectedTransitionInCount', 'must be greater than 0');
           if (expectedTransitionOutCount < 0) throw ArgumentError.value(expectedTransitionOutCount, 'expectedTransitionOutCount', 'must be greater than 0');
@@ -170,7 +171,7 @@ main() {
 
           expectNodeInTransitionPhase(TransitionPhase.HIDDEN, reason: 'test setup sanity check');
 
-          jacket!.rerender(cloneElement(renderedElement, WithTransitionTester()..isShown = true));
+          jacket.rerender(cloneElement(renderedElement, WithTransitionTester()..isShown = true));
 
           if (expectedTransitionInCount != 0) {
             expectNodeInTransitionPhase(TransitionPhase.SHOWING);
@@ -186,7 +187,7 @@ main() {
 
           expectNodeInTransitionPhase(TransitionPhase.SHOWN);
 
-          jacket!.rerender(cloneElement(renderedElement, WithTransitionTester()..isShown = false));
+          jacket.rerender(cloneElement(renderedElement, WithTransitionTester()..isShown = false));
 
           if (expectedTransitionOutCount != 0) {
             expectNodeInTransitionPhase(TransitionPhase.HIDING);
@@ -307,8 +308,8 @@ main() {
     });
 
     group('calls the appropriate callback(s) when it is', () {
-      late List calls;
-      late ReactElement elementWithCallbacks;
+       List calls;
+       ReactElement elementWithCallbacks;
 
       setUp(() {
         calls = [];
@@ -324,7 +325,7 @@ main() {
         jacket = mount(cloneElement(elementWithCallbacks, WithTransitionTester()..isShown = true));
         expect(calls, isEmpty, reason: 'test setup sanity check');
 
-        jacket!.rerender(cloneElement(elementWithCallbacks, WithTransitionTester()..isShown = false));
+        jacket.rerender(cloneElement(elementWithCallbacks, WithTransitionTester()..isShown = false));
         await triggerTransitionEnd(getRootNode());
 
         expect(calls, orderedEquals(['onWillHide', 'onDidHide']));
@@ -334,7 +335,7 @@ main() {
         jacket = mount(cloneElement(elementWithCallbacks, WithTransitionTester()..isShown = false));
         expect(calls, isEmpty, reason: 'test setup sanity check');
 
-        jacket!.rerender(cloneElement(elementWithCallbacks, WithTransitionTester()..isShown = true));
+        jacket.rerender(cloneElement(elementWithCallbacks, WithTransitionTester()..isShown = true));
         await triggerTransitionEnd(getRootNode());
 
         expect(calls, orderedEquals(['onWillShow', 'onDidShow']));
@@ -342,7 +343,7 @@ main() {
     });
 
     group('transition timeout', () {
-      late bool warningsWereEnabled;
+       bool warningsWereEnabled;
 
       setUp(() {
         warningsWereEnabled = ValidationUtil.WARNINGS_ENABLED;
@@ -364,7 +365,7 @@ main() {
         jacket = mount(renderedElement);
         expectNodeInTransitionPhase(TransitionPhase.SHOWN, reason: 'test setup sanity check');
 
-        jacket!.rerender(cloneElement(renderedElement, WithTransitionTester()..isShown = false));
+        jacket.rerender(cloneElement(renderedElement, WithTransitionTester()..isShown = false));
 
         expectNodeInTransitionPhase(TransitionPhase.HIDING);
 
@@ -380,11 +381,11 @@ main() {
       test('does not occur when shown and hidden rapidly', () async {
         final renderedElement = (WithTransitionTester()..isShown = false)();
         jacket = mount(renderedElement);
-        jacket!.rerender(cloneElement(renderedElement, WithTransitionTester()..isShown = true));
+        jacket.rerender(cloneElement(renderedElement, WithTransitionTester()..isShown = true));
 
         expectNodeInTransitionPhase(TransitionPhase.SHOWING);
 
-        jacket!.rerender(cloneElement(renderedElement, WithTransitionTester()..isShown = false));
+        jacket.rerender(cloneElement(renderedElement, WithTransitionTester()..isShown = false));
 
         expectNodeInTransitionPhase(TransitionPhase.HIDING);
 
@@ -423,7 +424,7 @@ main() {
           reason: 'Test setup sanity check: the "shown" phase should not have a key set within props.childPropsByPhase',
         );
 
-        expect(() => jacket!.rerender(cloneElement(renderedElement, WithTransitionTester()..isShown = false)),
+        expect(() => jacket.rerender(cloneElement(renderedElement, WithTransitionTester()..isShown = false)),
             returnsNormally);
 
         await triggerTransitionEnd(getRootNode());
@@ -434,7 +435,7 @@ main() {
     test('preserves consumer refs on the child', () async {
       jacket = mount(WithTransitionTester()());
       await Future.microtask(() {});
-      expect(jacket!.getDartInstance()!.consumerChildNodeRef.current, isA<Element>());
+      expect(jacket.getDartInstance().consumerChildNodeRef.current, isA<Element>());
     });
 
     group('throws', () {

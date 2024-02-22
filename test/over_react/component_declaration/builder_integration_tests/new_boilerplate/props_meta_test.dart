@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -167,19 +168,19 @@ main() {
 UiFactory<TestProps> Test = _$Test; // ignore: undefined_identifier, invalid_assignment
 
 mixin TestPropsMixin on UiProps {
-  String? test;
+  String test;
 }
 
 mixin FooPropsMixin on UiProps {
-  bool? foo;
+  bool foo;
 }
 
 mixin BazPropsMixin on UiProps {
-  bool? baz;
+  bool baz;
 }
 
 mixin WoopsMixin on UiProps {
-  String? isNotIncluded;
+  String isNotIncluded;
 }
 
 class TestProps = UiProps with TestPropsMixin, FooPropsMixin, BazPropsMixin;

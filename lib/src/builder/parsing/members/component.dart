@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -42,15 +43,15 @@ class BoilerplateComponent extends BoilerplateMember {
   /// or [annotations.Component2].
   @override
   // ignore: deprecated_member_use_from_same_package
-  late annotations.Component meta;
+   annotations.Component meta;
 
   // The superclass that can be noted in the `@Component()` or `@Component2()` annotation.
-  Identifier? configSubtypeOf;
+  Identifier configSubtypeOf;
 
   /// The [TypeAnnotation] for the component's prop class.
-  TypeAnnotation? get propsGenericArg {
-    return nodeHelper.superclass!.typeArguments?.arguments
-        .firstWhereOrNull((type) => propsOrMixinNamePattern.hasMatch(type.typeNameWithoutPrefix!));
+  TypeAnnotation get propsGenericArg {
+    return nodeHelper.superclass.typeArguments?.arguments
+        ?.firstWhereOrNull((type) => propsOrMixinNamePattern.hasMatch(type.typeNameWithoutPrefix));
   }
 
   /// Whether or not the component has any annotation, ignoring component version
@@ -170,7 +171,7 @@ Set<String> getDefaultedPropNames(ClassishDeclaration classComponent) {
   if (defaultPropsImpl == null) return {};
 
   final body = defaultPropsImpl.body;
-  Expression? returnValue;
+  Expression returnValue;
   if (body is BlockFunctionBody) {
     // Don't worry about handling multiple return statements, ånd just use the first one.
     returnValue = body.block.statements.whereType<ReturnStatement>().firstOrNull?.expression;

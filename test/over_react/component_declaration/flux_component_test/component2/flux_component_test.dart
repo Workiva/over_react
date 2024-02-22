@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -232,11 +233,11 @@ void main() {
       group('when attempting to listen to a disposed store', () {
         const commonMessageString = 'Cannot listen to a disposed/disposing Store.';
 
-        late FluxUiComponent2 component;
+         FluxUiComponent2 component;
 
         setUp(() {
           var jacket = mount<FluxUiComponent2>((testComponents.basic())());
-          component = jacket.getDartInstance()!;
+          component = jacket.getDartInstance();
         });
 
         test('raises an assertion in DDC', () async {

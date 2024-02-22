@@ -1,3 +1,4 @@
+// @dart=2.11
 import 'package:over_react/over_react.dart';
 
 // ignore: uri_has_not_been_generated
@@ -94,7 +95,7 @@ UiFactory<FooProps> Foo = uiForwardRef(
 
 // Option 2: Create a new props class.
 mixin AnotherPropsMixin on UiProps {
-  String? anExampleAdditionalProp;
+  String anExampleAdditionalProp;
 }
 
 class Foo2Props = UiProps with AnotherPropsMixin, FooProps;

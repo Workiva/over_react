@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -30,10 +31,10 @@ main() {
     final builder = overReactBuilder(null);
     final logger = Logger('overReactBuilderTestLogger');
 
-    late AssetReader reader;
-    late InMemoryAssetWriter writer;
-    late AssetWriterSpy writerSpy;
-    late List<LogRecord> logs;
+     AssetReader reader;
+     InMemoryAssetWriter writer;
+     AssetWriterSpy writerSpy;
+     List<LogRecord> logs;
 
     setUp(() async {
       reader = await PackageAssetReader.currentIsolate(

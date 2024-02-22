@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,11 +21,11 @@ part 'generic_inheritance_sub.over_react.g.dart';
 UiFactory<GenericSubProps> GenericSub = castUiFactory(_$GenericSub); // ignore: undefined_identifier
 
 mixin GenericSubPropsMixin on UiProps, GenericSuperPropsMixin {
-  String? subProp;
+  String subProp;
 }
 
 mixin GenericSubStateMixin on UiState, GenericSuperStateMixin {
-  String? subState;
+  String subState;
 }
 
 class GenericSubProps = UiProps with GenericSuperPropsMixin, GenericSubPropsMixin;

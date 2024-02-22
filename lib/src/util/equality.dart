@@ -1,3 +1,4 @@
+// @dart=2.11
 /// Returns whether maps [a] and [b] have [identical] sets of values for the same keys.
 ///
 /// Identity is not used for `Function`s found within the maps since tear-offs are not canonicalized.

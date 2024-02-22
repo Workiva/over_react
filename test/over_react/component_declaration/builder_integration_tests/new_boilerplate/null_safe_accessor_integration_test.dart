@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2023 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -26,9 +27,9 @@ void main() {
     group('properly reads and writes specified props of different nullabilities and requiredness:',
         () {
       void testPropWriteAndRead<T>({
-        required T Function(NullSafeTestProps props) readProp,
-        required void Function(NullSafeTestProps props, T value) writeProp,
-        required T testValue,
+         T Function(NullSafeTestProps props) readProp,
+         void Function(NullSafeTestProps props, T value) writeProp,
+         T testValue,
       }) {
         final props = NullSafeTest();
 
@@ -37,7 +38,7 @@ void main() {
         expect(props, {props.getPropKey(readProp): testValue},
             reason: 'assigning the prop should write to the map');
 
-        late final T readResult;
+          T readResult;
         expect(() => readResult = readProp(props), returnsNormally,
             reason: 'should read the prop without error');
         expect(readResult, testValue, reason: 'should read the test value from the map');
@@ -59,21 +60,21 @@ void main() {
           );
         });
         test('nullable', () {
-          testPropWriteAndRead<String?>(
+          testPropWriteAndRead<String>(
             readProp: (p) => p.requiredNullable,
             writeProp: (p, value) => p.requiredNullable = value,
             testValue: 'test value',
           );
         });
         test('nullable typedef, without ? syntax', () {
-          testPropWriteAndRead<Object?>(
+          testPropWriteAndRead<Object>(
             readProp: (p) => p.requiredNullableTypedefWithoutQuestion,
             writeProp: (p, value) => p.requiredNullableTypedefWithoutQuestion = value,
             testValue: 'test value',
           );
         });
         test('dynamic', () {
-          testPropWriteAndRead<Object?>(
+          testPropWriteAndRead<Object>(
             readProp: (p) => p.requiredDynamic,
             writeProp: (p, value) => p.requiredDynamic = value,
             testValue: 'test value',
@@ -83,7 +84,7 @@ void main() {
 
       group('optional', () {
         test('nullable', () {
-          testPropWriteAndRead<String?>(
+          testPropWriteAndRead<String>(
             readProp: (p) => p.nullable,
             writeProp: (p, value) => p.nullable = value,
             testValue: 'test value',
@@ -104,7 +105,7 @@ void main() {
           );
         });
         test('nullable typedef, without ? syntax', () {
-          testPropWriteAndRead<Object?>(
+          testPropWriteAndRead<Object>(
             readProp: (p) => p.nullableTypedefWithoutQuestion,
             writeProp: (p, value) => p.nullableTypedefWithoutQuestion = value,
             testValue: 'test value',
@@ -122,7 +123,7 @@ void main() {
         // (DDC: Expected a value of type '$T', but got one of type 'Null')
         // (dart2js: type 'JSNull' is not a subtype of type '$T')
         // and may change across SDK versions, let's simulate the expected error instead of hard-coding it.
-        late String expectedErrorMessage;
+         String expectedErrorMessage;
         try {
           (null as dynamic) as T;
         } catch (e) {
@@ -201,7 +202,7 @@ void main() {
   });
 
   group('null-safe state:', () {
-    late NullSafeTestState Function(Map map) typedStateFactory;
+     NullSafeTestState Function(Map map) typedStateFactory;
 
     setUpAll(() {
       final ref = createRef<NullSafeTestComponent>();
@@ -214,15 +215,15 @@ void main() {
         ..requiredDynamic = ''
         ..requiredWithAccessorAndCustomKey = ''
       )());
-      typedStateFactory = ref.current!.typedStateFactory;
+      typedStateFactory = ref.current.typedStateFactory;
     });
 
     group('properly reads and writes specified state of different nullabilities and requiredness:',
         () {
       void testStateWriteAndRead<T>({
-        required T Function(NullSafeTestState state) readState,
-        required void Function(NullSafeTestState state, T value) writeState,
-        required T testValue,
+         T Function(NullSafeTestState state) readState,
+         void Function(NullSafeTestState state, T value) writeState,
+         T testValue,
       }) {
         final state = typedStateFactory({});
 
@@ -231,7 +232,7 @@ void main() {
         final stateKey = getPropKey(readState, typedStateFactory);
         expect(state, {stateKey: testValue}, reason: 'assigning the state should write to the map');
 
-        late final T readResult;
+          T readResult;
         expect(() => readResult = readState(state), returnsNormally,
             reason: 'should read the state without error');
         expect(readResult, testValue, reason: 'should read the test value from the map');
@@ -253,21 +254,21 @@ void main() {
           );
         });
         test('nullable', () {
-          testStateWriteAndRead<String?>(
+          testStateWriteAndRead<String>(
             readState: (p) => p.requiredNullable,
             writeState: (p, value) => p.requiredNullable = value,
             testValue: 'test value',
           );
         });
         test('nullable typedef, without ? syntax', () {
-          testStateWriteAndRead<Object?>(
+          testStateWriteAndRead<Object>(
             readState: (p) => p.requiredNullableTypedefWithoutQuestion,
             writeState: (p, value) => p.requiredNullableTypedefWithoutQuestion = value,
             testValue: 'test value',
           );
         });
         test('dynamic', () {
-          testStateWriteAndRead<Object?>(
+          testStateWriteAndRead<Object>(
             readState: (p) => p.requiredDynamic,
             writeState: (p, value) => p.requiredDynamic = value,
             testValue: 'test value',
@@ -277,7 +278,7 @@ void main() {
 
       group('optional', () {
         test('nullable', () {
-          testStateWriteAndRead<String?>(
+          testStateWriteAndRead<String>(
             readState: (p) => p.nullable,
             writeState: (p, value) => p.nullable = value,
             testValue: 'test value',
@@ -298,7 +299,7 @@ void main() {
           );
         });
         test('nullable typedef, without ? syntax', () {
-          testStateWriteAndRead<Object?>(
+          testStateWriteAndRead<Object>(
             readState: (p) => p.nullableTypedefWithoutQuestion,
             writeState: (p, value) => p.nullableTypedefWithoutQuestion = value,
             testValue: 'test value',
@@ -316,7 +317,7 @@ void main() {
         // (DDC: Expected a value of type '$T', but got one of type 'Null')
         // (dart2js: type 'JSNull' is not a subtype of type '$T')
         // and may change across SDK versions, let's simulate the expected error instead of hard-coding it.
-        late String expectedErrorMessage;
+         String expectedErrorMessage;
         try {
           (null as dynamic) as T;
         } catch (e) {
@@ -380,35 +381,35 @@ void main() {
 UiFactory<NullSafeTestProps> NullSafeTest = castUiFactory(_$NullSafeTest);
 
 mixin NullSafeTestProps on UiProps {
-  late String requiredNonNullable;
-  late Object requiredNonNullableTypedef;
-  late String? requiredNullable;
-  late Object? requiredNullableTypedefWithoutQuestion;
-  late dynamic requiredDynamic;
+   String requiredNonNullable;
+   Object requiredNonNullableTypedef;
+   String requiredNullable;
+   Object requiredNullableTypedefWithoutQuestion;
+   dynamic requiredDynamic;
   @Accessor(key: 'customKey')
-  late String requiredWithAccessorAndCustomKey;
+   String requiredWithAccessorAndCustomKey;
 
-  String? nullable;
+  String nullable;
   dynamic nullableDynamic;
 
   // ignore: unnecessary_question_mark
-  dynamic? nullableDynamicWithQuestion;
-  Object? nullableTypedefWithoutQuestion;
+  dynamic nullableDynamicWithQuestion;
+  Object nullableTypedefWithoutQuestion;
 }
 
 mixin NullSafeTestState on UiState {
-  late String requiredNonNullable;
-  late Object requiredNonNullableTypedef;
-  late String? requiredNullable;
-  late Object? requiredNullableTypedefWithoutQuestion;
-  late dynamic requiredDynamic;
+   String requiredNonNullable;
+   Object requiredNonNullableTypedef;
+   String requiredNullable;
+   Object requiredNullableTypedefWithoutQuestion;
+   dynamic requiredDynamic;
 
-  String? nullable;
+  String nullable;
   dynamic nullableDynamic;
 
   // ignore: unnecessary_question_mark
-  dynamic? nullableDynamicWithQuestion;
-  Object? nullableTypedefWithoutQuestion;
+  dynamic nullableDynamicWithQuestion;
+  Object nullableTypedefWithoutQuestion;
 }
 
 class NullSafeTestComponent extends UiStatefulComponent2<NullSafeTestProps, NullSafeTestState> {

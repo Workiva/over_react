@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,23 +21,23 @@ import '../../demos.dart';
 
 main() {
   react_dom.render(buttonExamplesDemo(),
-      querySelector('$demoMountNodeSelectorPrefix--button-examples')!);
+      querySelector('$demoMountNodeSelectorPrefix--button-examples'));
 
   react_dom.render(buttonTypesDemo(),
-      querySelector('$demoMountNodeSelectorPrefix--button-types')!);
+      querySelector('$demoMountNodeSelectorPrefix--button-types'));
 
   react_dom.render(buttonOutlineDemo(),
-      querySelector('$demoMountNodeSelectorPrefix--button-outline')!);
+      querySelector('$demoMountNodeSelectorPrefix--button-outline'));
 
   react_dom.render(buttonSizesDemo(),
-      querySelector('$demoMountNodeSelectorPrefix--button-sizes')!);
+      querySelector('$demoMountNodeSelectorPrefix--button-sizes'));
 
   react_dom.render(buttonBlockDemo(),
-      querySelector('$demoMountNodeSelectorPrefix--button-block')!);
+      querySelector('$demoMountNodeSelectorPrefix--button-block'));
 
   react_dom.render(buttonActiveDemo(),
-      querySelector('$demoMountNodeSelectorPrefix--button-active')!);
+      querySelector('$demoMountNodeSelectorPrefix--button-active'));
 
   react_dom.render(buttonDisabledDemo(),
-      querySelector('$demoMountNodeSelectorPrefix--button-disabled')!);
+      querySelector('$demoMountNodeSelectorPrefix--button-disabled'));
 }

@@ -1,3 +1,4 @@
+// @dart=2.11
 // Copyright 2016 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -158,7 +159,7 @@ abstract class TestPropsMixin {
 
   Map get props;
 
-  String? stringProp;
+  String stringProp;
   dynamic dynamicProp;
   var untypedProp; // ignore: prefer_typing_uninitialized_variables
 
@@ -189,7 +190,7 @@ abstract class TestCustomNamespacePropsMixin {
 
   Map get props;
 
-  String? stringProp;
+  String stringProp;
   dynamic dynamicProp;
   var untypedProp; // ignore: prefer_typing_uninitialized_variables
 
@@ -220,7 +221,7 @@ abstract class TestStateMixin {
 
   Map get state;
 
-  String? stringState;
+  String stringState;
   dynamic dynamicState;
   var untypedState; // ignore: prefer_typing_uninitialized_variables
 
@@ -251,7 +252,7 @@ abstract class TestCustomNamespaceStateMixin {
 
   Map get state;
 
-  String? stringState;
+  String stringState;
   dynamic dynamicState;
   var untypedState; // ignore: prefer_typing_uninitialized_variables
 
