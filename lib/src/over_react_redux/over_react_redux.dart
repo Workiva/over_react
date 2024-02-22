@@ -204,7 +204,7 @@ UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extend
       return interopFunction;
     }
 
-    JsMap handleMapStateToProps(_JsStateValue jsState) {
+    JsMap handleMapStateToProps(Object? jsState) {
       return jsMapFromProps(
         mapStateToProps!(
           DartValueWrapper.unwrapIfNeeded(jsState),
@@ -212,7 +212,7 @@ UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extend
       );
     }
 
-    JsMap handleMapStateToPropsWithOwnProps(_JsStateValue jsState, JsMap jsOwnProps) {
+    JsMap handleMapStateToPropsWithOwnProps(Object? jsState, JsMap jsOwnProps) {
       return jsMapFromProps(
         mapStateToPropsWithOwnProps!(
           DartValueWrapper.unwrapIfNeeded(jsState),
@@ -221,12 +221,12 @@ UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extend
       );
     }
 
-    JsMap Function(_JsStateValue jsState) handleMakeMapStateToProps(_JsStateValue initialJsState, JsMap initialJsOwnProps) {
+    JsMap Function(Object? jsState) handleMakeMapStateToProps(Object? initialJsState, JsMap initialJsOwnProps) {
       var mapToFactory = makeMapStateToProps!(
         DartValueWrapper.unwrapIfNeeded(initialJsState),
         jsPropsToTProps(initialJsOwnProps)
       );
-      JsMap handleMakeMapStateToPropsFactory(_JsStateValue jsState) {
+      JsMap handleMakeMapStateToPropsFactory(Object? jsState) {
         return jsMapFromProps(
           mapToFactory(
             DartValueWrapper.unwrapIfNeeded(jsState),
@@ -236,12 +236,12 @@ UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extend
       return allowInteropWithArgCount(handleMakeMapStateToPropsFactory, 1);
     }
 
-    JsMap Function(_JsStateValue jsState, JsMap jsOwnProps) handleMakeMapStateToPropsWithOwnProps(_JsStateValue initialJsState, JsMap initialJsOwnProps) {
+    JsMap Function(Object? jsState, JsMap jsOwnProps) handleMakeMapStateToPropsWithOwnProps(Object? initialJsState, JsMap initialJsOwnProps) {
       var mapToFactory = makeMapStateToPropsWithOwnProps!(
         DartValueWrapper.unwrapIfNeeded(initialJsState),
         jsPropsToTProps(initialJsOwnProps)
       );
-      JsMap handleMakeMapStateToPropsWithOwnPropsFactory(_JsStateValue jsState, JsMap jsOwnProps) {
+      JsMap handleMakeMapStateToPropsWithOwnPropsFactory(Object? jsState, JsMap jsOwnProps) {
         return jsMapFromProps(
           mapToFactory(
             DartValueWrapper.unwrapIfNeeded(jsState),
@@ -308,7 +308,7 @@ UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extend
       );
     }
 
-    bool handleAreStatesEqual(_JsStateValue jsNext, _JsStateValue jsPrev) =>
+    bool handleAreStatesEqual(Object? jsNext, Object? jsPrev) =>
         areStatesEqual!(DartValueWrapper.unwrapIfNeeded(jsNext), DartValueWrapper.unwrapIfNeeded(jsPrev));
 
     bool handleAreOwnPropsEqual(JsMap jsNext, JsMap jsPrev) =>
@@ -499,10 +499,6 @@ JsReactReduxStore _reduxifyStore(Store store) {
   );
 }
 
-/// The JS representation of a state value, which is either
-/// a raw value or a value wrapped in DartValueWrapper.
-typedef _JsStateValue = Object?;
-
 @JS()
 @anonymous
 class JsReactReduxStore {
@@ -514,7 +510,7 @@ class JsReactReduxStore {
   external Store get dartStore;
 
   external factory JsReactReduxStore({
-    required _JsStateValue Function() getState,
+    required Object? Function() getState,
     required Dispatcher dispatch,
     required Function Function(Function) subscribe,
     required Store dartStore,
@@ -525,14 +521,14 @@ class JsReactReduxStore {
 @JS()
 @anonymous
 class JsConnectOptions {
-    external set areStatesEqual(bool Function(_JsStateValue, _JsStateValue)? value);
+    external set areStatesEqual(bool Function(Object?, Object?)? value);
     external set areOwnPropsEqual(bool Function(JsMap, JsMap)? value);
     external set areStatePropsEqual(bool Function(JsMap, JsMap)? value);
     external set areMergedPropsEqual(bool Function(JsMap, JsMap)? value);
     external set forwardRef(bool? value);
     external set pure(bool? value);
     external set context(ReactContext? value);
-    external bool Function(_JsStateValue, _JsStateValue)? get areStatesEqual;
+    external bool Function(Object?, Object?)? get areStatesEqual;
     external bool Function(JsMap, JsMap)? get areOwnPropsEqual;
     external bool Function(JsMap, JsMap)? get areStatePropsEqual;
     external bool Function(JsMap, JsMap)? get areMergedPropsEqual;
@@ -540,7 +536,7 @@ class JsConnectOptions {
     external bool? get pure;
     external ReactContext? get context;
   external factory JsConnectOptions({
-    bool Function(_JsStateValue, _JsStateValue)? areStatesEqual,
+    bool Function(Object?, Object?)? areStatesEqual,
     bool Function(JsMap, JsMap)? areOwnPropsEqual,
     bool Function(JsMap, JsMap)? areStatePropsEqual,
     bool Function(JsMap, JsMap)? areMergedPropsEqual,

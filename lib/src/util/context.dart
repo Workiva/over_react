@@ -52,8 +52,8 @@ class Context<TValue> {
   Context(this.Provider, this.Consumer, this.reactDartContext);
 
   factory Context.fromReactDartContext(react.Context<TValue> reactDartContext) {
-    ProviderProps<TValue> Provider([Map? map]) => (_ProviderPropsImpl<TValue>(map)..componentFactory = reactDartContext.Provider);
-    ConsumerProps<TValue> Consumer([Map? map]) => (_ConsumerPropsImpl<TValue>(map)..componentFactory = reactDartContext.Consumer);
+    ProviderProps<TValue> Provider([Map? map]) => (_$$ProviderProps<TValue>(map)..componentFactory = reactDartContext.Provider);
+    ConsumerProps<TValue> Consumer([Map? map]) => (_$$ConsumerProps<TValue>(map)..componentFactory = reactDartContext.Consumer);
     return Context<TValue>(Provider, Consumer, reactDartContext);
   }
 
@@ -133,25 +133,6 @@ class Context<TValue> {
 // Trigger generation of concrete props classes we can use below in _ProviderPropsImpl/ _ConsumerPropsImpl.
 UiFactory<ProviderProps> _Provider = _$_Provider; // ignore: unused_element
 UiFactory<ConsumerProps> _Consumer = _$_Consumer; // ignore: unused_element
-
-/// A concrete implementation of [ProviderProps], which, unlike a [UiFactory],
-/// can be used to instantiate it with a generic parameter.
-///
-/// We rely on this behavior within [Context].
-///
-/// Uses the generated concrete props class so we don't have to manually implement generated members
-/// and apply generated `$`-prefixed props mixin class.
-// ignore: deprecated_member_use_from_same_package
-typedef _ProviderPropsImpl<TValue> = _$$ProviderProps<TValue>;
-
-/// A concrete implementation of [ConsumerProps], which, unlike a [UiFactory],
-///
-/// We rely on this behavior within [Context].
-///
-/// Uses the generated concrete props class so we don't have to manually implement generated members
-/// and apply generated `$`-prefixed props mixin class.
-// ignore: deprecated_member_use_from_same_package
-typedef _ConsumerPropsImpl<TValue> = _$$ConsumerProps<TValue>;
 
 /// A typed props class for the [Context.Provider] from a [Context] object created with [createContext].
 ///
