@@ -95,7 +95,7 @@ class ButtonGroupComponent<T extends ButtonGroupProps, S extends ButtonGroupStat
   /// Clones the provided [child] with the props specified in [buttonPropsToAdd].
   dynamic renderButton(dynamic child, int index) {
     if (isValidButtonChild(child)) {
-      return cloneElement(child as ReactElement, buttonPropsToAdd(child, index));
+      return cloneElement(child as ReactElement, buttonPropsToAdd(child as ReactElement, index));
     }
 
     print('invalid child');
