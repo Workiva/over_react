@@ -1,3 +1,4 @@
+// @dart=2.11
 import 'dart:io';
 
 import 'package:analyzer/dart/analysis/analysis_context_collection.dart';
@@ -18,8 +19,8 @@ class ParseDeclarationsBenchmark extends BenchmarkBase {
     ParseDeclarationsBenchmark().report();
   }
 
-  late List<ErrorCollector> errorCollectors;
-  late List<CompilationUnit> units;
+   List<ErrorCollector> errorCollectors;
+   List<CompilationUnit> units;
 
   // The benchmark code.
   @override
@@ -52,10 +53,7 @@ class ParseDeclarationsBenchmark extends BenchmarkBase {
     units = [];
     errorCollectors = [];
     for (final filePath in filePaths) {
-      final result = contextCollection.contextFor(filePath).currentSession.getParsedUnit(filePath);
-      if (result is! ParsedUnitResult) {
-        throw Exception('Error parsing file $filePath: $result');
-      }
+      final result = contextCollection.contextFor(filePath).currentSession.getParsedUnit(filePath) as ParsedUnitResult;
       units.add(result.unit);
       errorCollectors
           .add(ErrorCollector.callback(SourceFile.fromString(result.content, url: result.uri)));
