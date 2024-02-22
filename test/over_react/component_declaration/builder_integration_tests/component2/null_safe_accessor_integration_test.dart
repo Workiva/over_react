@@ -52,7 +52,7 @@ void main() {
           );
         });
         test('non-nullable typedef', () {
-          testPropWriteAndRead<NonNullableTypedef>(
+          testPropWriteAndRead<Object>(
             readProp: (p) => p.requiredNonNullableTypedef,
             writeProp: (p, value) => p.requiredNonNullableTypedef = value,
             testValue: 'test value',
@@ -66,14 +66,14 @@ void main() {
           );
         });
         test('nullable typedef, without ? syntax', () {
-          testPropWriteAndRead<NullableTypedef>(
+          testPropWriteAndRead<Object?>(
             readProp: (p) => p.requiredNullableTypedefWithoutQuestion,
             writeProp: (p, value) => p.requiredNullableTypedefWithoutQuestion = value,
             testValue: 'test value',
           );
         });
         test('dynamic', () {
-          testPropWriteAndRead<NullableTypedef>(
+          testPropWriteAndRead<Object?>(
             readProp: (p) => p.requiredDynamic,
             writeProp: (p, value) => p.requiredDynamic = value,
             testValue: 'test value',
@@ -104,7 +104,7 @@ void main() {
           );
         });
         test('nullable typedef, without ? syntax', () {
-          testPropWriteAndRead<NullableTypedef>(
+          testPropWriteAndRead<Object?>(
             readProp: (p) => p.nullableTypedefWithoutQuestion,
             writeProp: (p, value) => p.nullableTypedefWithoutQuestion = value,
             testValue: 'test value',
@@ -246,7 +246,7 @@ void main() {
           );
         });
         test('non-nullable typedef', () {
-          testStateWriteAndRead<NonNullableTypedef>(
+          testStateWriteAndRead<Object>(
             readState: (p) => p.requiredNonNullableTypedef,
             writeState: (p, value) => p.requiredNonNullableTypedef = value,
             testValue: 'test value',
@@ -260,14 +260,14 @@ void main() {
           );
         });
         test('nullable typedef, without ? syntax', () {
-          testStateWriteAndRead<NullableTypedef>(
+          testStateWriteAndRead<Object?>(
             readState: (p) => p.requiredNullableTypedefWithoutQuestion,
             writeState: (p, value) => p.requiredNullableTypedefWithoutQuestion = value,
             testValue: 'test value',
           );
         });
         test('dynamic', () {
-          testStateWriteAndRead<NullableTypedef>(
+          testStateWriteAndRead<Object?>(
             readState: (p) => p.requiredDynamic,
             writeState: (p, value) => p.requiredDynamic = value,
             testValue: 'test value',
@@ -298,7 +298,7 @@ void main() {
           );
         });
         test('nullable typedef, without ? syntax', () {
-          testStateWriteAndRead<NullableTypedef>(
+          testStateWriteAndRead<Object?>(
             readState: (p) => p.nullableTypedefWithoutQuestion,
             writeState: (p, value) => p.nullableTypedefWithoutQuestion = value,
             testValue: 'test value',
@@ -376,8 +376,6 @@ void main() {
   });
 }
 
-typedef NullableTypedef = Object?;
-typedef NonNullableTypedef = Object;
 
 @Factory()
 UiFactory<NullSafeTestProps> NullSafeTest =
@@ -386,9 +384,9 @@ UiFactory<NullSafeTestProps> NullSafeTest =
 @Props()
 class _$NullSafeTestProps extends UiProps {
   late String requiredNonNullable;
-  late NonNullableTypedef requiredNonNullableTypedef;
+  late Object requiredNonNullableTypedef;
   late String? requiredNullable;
-  late NullableTypedef requiredNullableTypedefWithoutQuestion;
+  late Object? requiredNullableTypedefWithoutQuestion;
   late dynamic requiredDynamic;
   @Accessor(key: 'customKey')
   late String requiredWithAccessorAndCustomKey;
@@ -398,15 +396,15 @@ class _$NullSafeTestProps extends UiProps {
 
   // ignore: unnecessary_question_mark
   dynamic? nullableDynamicWithQuestion;
-  NullableTypedef nullableTypedefWithoutQuestion;
+  Object? nullableTypedefWithoutQuestion;
 }
 
 @State()
 class _$NullSafeTestState extends UiState {
   late String requiredNonNullable;
-  late NonNullableTypedef requiredNonNullableTypedef;
+  late Object requiredNonNullableTypedef;
   late String? requiredNullable;
-  late NullableTypedef requiredNullableTypedefWithoutQuestion;
+  late Object? requiredNullableTypedefWithoutQuestion;
   late dynamic requiredDynamic;
 
   String? nullable;
@@ -414,7 +412,7 @@ class _$NullSafeTestState extends UiState {
 
   // ignore: unnecessary_question_mark
   dynamic? nullableDynamicWithQuestion;
-  NullableTypedef nullableTypedefWithoutQuestion;
+  Object? nullableTypedefWithoutQuestion;
 }
 
 @Component2()

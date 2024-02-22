@@ -36,13 +36,13 @@ abstract class _$NullSafeTestPropsAccessorsMixin
 
   /// <!-- Generated from [_$NullSafeTestProps.requiredNonNullableTypedef] -->
   @override
-  NonNullableTypedef get requiredNonNullableTypedef =>
+  Object get requiredNonNullableTypedef =>
       (props[_$key__requiredNonNullableTypedef___$NullSafeTestProps] ?? null)
-          as NonNullableTypedef;
+          as Object;
 
   /// <!-- Generated from [_$NullSafeTestProps.requiredNonNullableTypedef] -->
   @override
-  set requiredNonNullableTypedef(NonNullableTypedef value) =>
+  set requiredNonNullableTypedef(Object value) =>
       props[_$key__requiredNonNullableTypedef___$NullSafeTestProps] = value;
 
   /// <!-- Generated from [_$NullSafeTestProps.requiredNullable] -->
@@ -57,13 +57,13 @@ abstract class _$NullSafeTestPropsAccessorsMixin
 
   /// <!-- Generated from [_$NullSafeTestProps.requiredNullableTypedefWithoutQuestion] -->
   @override
-  NullableTypedef get requiredNullableTypedefWithoutQuestion => (props[
+  Object? get requiredNullableTypedefWithoutQuestion => (props[
           _$key__requiredNullableTypedefWithoutQuestion___$NullSafeTestProps] ??
-      null) as NullableTypedef;
+      null) as Object?;
 
   /// <!-- Generated from [_$NullSafeTestProps.requiredNullableTypedefWithoutQuestion] -->
   @override
-  set requiredNullableTypedefWithoutQuestion(NullableTypedef value) => props[
+  set requiredNullableTypedefWithoutQuestion(Object? value) => props[
           _$key__requiredNullableTypedefWithoutQuestion___$NullSafeTestProps] =
       value;
 
@@ -124,13 +124,13 @@ abstract class _$NullSafeTestPropsAccessorsMixin
 
   /// <!-- Generated from [_$NullSafeTestProps.nullableTypedefWithoutQuestion] -->
   @override
-  NullableTypedef get nullableTypedefWithoutQuestion =>
+  Object? get nullableTypedefWithoutQuestion =>
       (props[_$key__nullableTypedefWithoutQuestion___$NullSafeTestProps] ??
-          null) as NullableTypedef;
+          null) as Object?;
 
   /// <!-- Generated from [_$NullSafeTestProps.nullableTypedefWithoutQuestion] -->
   @override
-  set nullableTypedefWithoutQuestion(NullableTypedef value) =>
+  set nullableTypedefWithoutQuestion(Object? value) =>
       props[_$key__nullableTypedefWithoutQuestion___$NullSafeTestProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__requiredNonNullable___$NullSafeTestProps =
@@ -291,13 +291,13 @@ abstract class _$NullSafeTestStateAccessorsMixin
 
   /// <!-- Generated from [_$NullSafeTestState.requiredNonNullableTypedef] -->
   @override
-  NonNullableTypedef get requiredNonNullableTypedef =>
+  Object get requiredNonNullableTypedef =>
       (state[_$key__requiredNonNullableTypedef___$NullSafeTestState] ?? null)
-          as NonNullableTypedef;
+          as Object;
 
   /// <!-- Generated from [_$NullSafeTestState.requiredNonNullableTypedef] -->
   @override
-  set requiredNonNullableTypedef(NonNullableTypedef value) =>
+  set requiredNonNullableTypedef(Object value) =>
       state[_$key__requiredNonNullableTypedef___$NullSafeTestState] = value;
 
   /// <!-- Generated from [_$NullSafeTestState.requiredNullable] -->
@@ -312,13 +312,13 @@ abstract class _$NullSafeTestStateAccessorsMixin
 
   /// <!-- Generated from [_$NullSafeTestState.requiredNullableTypedefWithoutQuestion] -->
   @override
-  NullableTypedef get requiredNullableTypedefWithoutQuestion => (state[
+  Object? get requiredNullableTypedefWithoutQuestion => (state[
           _$key__requiredNullableTypedefWithoutQuestion___$NullSafeTestState] ??
-      null) as NullableTypedef;
+      null) as Object?;
 
   /// <!-- Generated from [_$NullSafeTestState.requiredNullableTypedefWithoutQuestion] -->
   @override
-  set requiredNullableTypedefWithoutQuestion(NullableTypedef value) => state[
+  set requiredNullableTypedefWithoutQuestion(Object? value) => state[
           _$key__requiredNullableTypedefWithoutQuestion___$NullSafeTestState] =
       value;
 
@@ -365,13 +365,13 @@ abstract class _$NullSafeTestStateAccessorsMixin
 
   /// <!-- Generated from [_$NullSafeTestState.nullableTypedefWithoutQuestion] -->
   @override
-  NullableTypedef get nullableTypedefWithoutQuestion =>
+  Object? get nullableTypedefWithoutQuestion =>
       (state[_$key__nullableTypedefWithoutQuestion___$NullSafeTestState] ??
-          null) as NullableTypedef;
+          null) as Object?;
 
   /// <!-- Generated from [_$NullSafeTestState.nullableTypedefWithoutQuestion] -->
   @override
-  set nullableTypedefWithoutQuestion(NullableTypedef value) =>
+  set nullableTypedefWithoutQuestion(Object? value) =>
       state[_$key__nullableTypedefWithoutQuestion___$NullSafeTestState] = value;
   /* GENERATED CONSTANTS */
   static const StateDescriptor
