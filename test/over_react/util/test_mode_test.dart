@@ -15,7 +15,7 @@
 @TestOn('browser')
 library test_mode_test;
 
-import 'package:over_react/src/component_declaration/component_base.dart' as component_base;
+import 'package:over_react/src/component_declaration/props_and_state_base.dart' as component_base;
 import 'package:over_react/src/util/test_mode.dart';
 import 'package:test/test.dart';
 

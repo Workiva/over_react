@@ -20,7 +20,7 @@ import 'dart:js_util';
 import 'package:meta/meta.dart';
 import 'package:over_react/src/component_declaration/component_base.dart'
     show UiFactory;
-import 'package:over_react/src/component_declaration/component_base.dart' as component_base;
+import 'package:over_react/src/component_declaration/props_and_state_base.dart' as component_base;
 import 'package:over_react/src/component_declaration/annotations.dart'
     as annotations show Component2;
 import 'package:over_react/src/util/react_wrappers.dart';

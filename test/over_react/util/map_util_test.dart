@@ -17,7 +17,7 @@ library map_util_test;
 
 import 'package:over_react/over_react.dart';
 import 'package:test/test.dart';
-import 'package:over_react/src/component_declaration/component_base.dart' as component_base;
+import 'package:over_react/src/component_declaration/props_and_state_base.dart' as component_base;
 
 typedef ForwardUnconsumedPropsFunction = void Function(Map props, {
   bool omitReactProps,

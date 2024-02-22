@@ -18,7 +18,8 @@ import 'package:over_react/src/component_declaration/component_type_checking.dar
 import 'package:over_react/src/util/equality.dart';
 import 'package:react/react_client/react_interop.dart' as react_interop;
 import 'package:react/react_client.dart';
-import 'package:over_react/component_base.dart';
+import 'package:over_react/src/component_declaration/props_and_state_base.dart';
+import 'package:over_react/src/component_declaration/builder_helpers.dart' show UiFactory;
 
 /// A [higher order component](https://reactjs.org/docs/higher-order-components.html) for function components
 /// that behaves similar to the way [`React.PureComponent`](https://reactjs.org/docs/react-api.html#reactpurecomponent)

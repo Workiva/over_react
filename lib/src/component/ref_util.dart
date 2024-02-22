@@ -18,7 +18,8 @@ import 'package:over_react/src/component_declaration/builder_helpers.dart' as bh
 import 'package:react/react_client/js_backed_map.dart';
 import 'package:react/react_client/react_interop.dart' as react_interop;
 import 'package:react/react_client.dart';
-import 'package:over_react/component_base.dart';
+
+import 'package:over_react/src/component_declaration/props_and_state_base.dart';
 
 /// Creates a [Ref] object that can be attached to a [ReactElement] via the ref prop.
 ///
@@ -211,7 +212,7 @@ Ref<T?> createRef<T>() => react_interop.createRef();
 ///   },
 ///   _$Foo2Config, // ignore: undefined_identifier
 /// );
-UiFactory<TProps> uiForwardRef<TProps extends bh.UiProps>(
+bh.UiFactory<TProps> uiForwardRef<TProps extends bh.UiProps>(
     dynamic Function(TProps props, dynamic ref) functionComponent, dynamic _config) {
   ArgumentError.checkNotNull(_config, '_config');
 

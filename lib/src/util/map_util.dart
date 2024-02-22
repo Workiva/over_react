@@ -18,7 +18,7 @@ library over_react.map_util;
 import 'dart:collection';
 
 import 'package:over_react/src/component/dom_components.dart';
-import 'package:over_react/src/component_declaration/component_base.dart' as component_base;
+import 'package:over_react/src/component_declaration/props_and_state_base.dart' as component_base;
 import 'package:over_react/src/component/prop_mixins.dart';
 import 'package:react/react_client/js_backed_map.dart';
 

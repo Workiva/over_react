@@ -14,7 +14,7 @@
 
 library over_react.test_mode;
 
-import 'package:over_react/src/component_declaration/component_base.dart' as component_base;
+import 'package:over_react/src/component_declaration/props_and_state_base.dart' as component_base;
 
 /// Enables test mode.
 ///

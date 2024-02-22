@@ -19,7 +19,7 @@ library over_react_redux;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 import 'package:over_react/src/component_declaration/builder_helpers.dart';
-import 'package:over_react/src/component_declaration/component_base.dart' as component_base;
+import 'package:over_react/src/component_declaration/props_and_state_base.dart' as component_base;
 import 'package:over_react/src/component_declaration/component_type_checking.dart';
 import 'package:over_react/src/component_declaration/function_component.dart';
 import 'package:over_react/src/util/context.dart';

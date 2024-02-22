@@ -22,6 +22,8 @@ import 'dart:html';
 import 'package:js/js_util.dart';
 import 'package:over_react/over_react.dart' show Dom, DummyComponent, DummyComponent2, JsBackedMap, UiComponent2, UiStatefulComponent2, ValidationUtil, domProps, registerComponent2;
 import 'package:over_react/over_react.dart' as over_react;
+import 'package:over_react/src/component_declaration/accessor_meta.dart';
+import 'package:over_react/src/component_declaration/props_and_state_base.dart';
 import 'package:over_react_test/over_react_test.dart';
 import 'package:over_react/src/component_declaration/component_base.dart';
 import 'package:over_react/src/component_declaration/component_type_checking.dart';

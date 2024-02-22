@@ -15,15 +15,19 @@
 library over_react.component_declaration.builder_helpers;
 
 import 'package:meta/meta.dart';
+import 'package:over_react/src/component_declaration/accessor_meta.dart';
+import 'package:over_react/src/component_declaration/typedefs.dart';
 
 import '../util/map_util.dart';
 import './component_base.dart' as component_base;
-import './component_base.dart' show PropsMetaCollection, PropsModifier, PropsMeta;
+import './props_and_state_base.dart' as component_base;
 import './annotations.dart' as annotations;
 import './ui_props_self_typed_extension.dart';
 
 export './annotations.dart';
-export './component_base.dart' hide UiComponent, UiStatefulComponent, UiProps, UiState;
+export './component_base.dart' hide UiComponent, UiStatefulComponent;
+export './accessor_meta.dart';
+export './typedefs.dart';
 export './ui_props_self_typed_extension.dart';
 
 // ----------------------------------------------------------------------
@@ -53,13 +57,13 @@ mixin _GeneratedUiComponentStubs<TProps extends UiProps>
     implements GeneratedClass {
   /// The default consumed props, taken from the keys generated in the associated @[annotations.Props] class.
   @toBeGenerated
-  Iterable<component_base.ConsumedProps> get $defaultConsumedProps => throw UngeneratedError(member: #$defaultConsumedProps);
+  Iterable<ConsumedProps> get $defaultConsumedProps => throw UngeneratedError(member: #$defaultConsumedProps);
 
   /// The keys for the non-forwarding props defined in this component.
   ///
   /// For generated components, this defaults to the keys generated in the associated @[annotations.Props] class
   /// if this getter is not overridden.
-  Iterable<component_base.ConsumedProps>? get consumedProps => $defaultConsumedProps;
+  Iterable<ConsumedProps>? get consumedProps => $defaultConsumedProps;
 
   /// Returns a typed props object backed by the specified [propsMap].
   /// Required to properly instantiate the generic [TProps] class.

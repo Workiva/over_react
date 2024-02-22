@@ -18,6 +18,7 @@ import 'dart:js';
 
 import 'package:meta/meta.dart';
 import 'package:over_react/src/component/dummy_component2.dart';
+import 'package:over_react/src/component_declaration/accessor_meta.dart';
 import 'package:over_react/src/util/class_names.dart';
 import 'package:over_react/src/util/map_util.dart';
 import 'package:over_react/src/util/prop_errors.dart';

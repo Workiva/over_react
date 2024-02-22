@@ -12,7 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:over_react/src/component_declaration/component_base.dart';
+import 'package:over_react/src/component_declaration/props_and_state_base.dart';
+import 'package:over_react/src/component_declaration/builder_helpers.dart' show UiFactory;
 
 /// Returns a typed view into the unmodifiable default props map for the
 /// component associated with [factory].
