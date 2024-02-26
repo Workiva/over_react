@@ -420,14 +420,13 @@ typedef PropsModifier(Map props);
 ///
 /// > Note: Implements [MapViewMixin] instead of extending it so that the abstract `Props` declarations
 /// don't need a constructor. The generated implementations can mix that functionality in.
-abstract class UiProps extends MapBase
+abstract class UiProps extends Object
     with
         MapViewMixin,
         PropsMapViewMixin,
         ReactPropsMixin,
         UbiquitousDomPropsMixin,
-        CssClassPropsMixin
-    implements Map {
+        CssClassPropsMixin {
   /// Adds an arbitrary [propKey]/[value] pair if [shouldAdd] is `true`.
   ///
   /// Is a noop if [shouldAdd] is `false`.
