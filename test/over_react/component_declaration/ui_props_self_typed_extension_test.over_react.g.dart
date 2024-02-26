@@ -35,10 +35,11 @@ mixin $TestProps on TestProps {
   static const PropDescriptor _$prop__requiredProp__TestProps = PropDescriptor(
       _$key__requiredProp__TestProps,
       isRequired: true,
-      isNullable: true);
+      isNullable: true,
+      isLate: true);
   static const PropDescriptor _$prop__requiredNullableProp__TestProps =
       PropDescriptor(_$key__requiredNullableProp__TestProps,
-          isRequired: true, isNullable: true);
+          isRequired: true, isNullable: true, isLate: true);
   static const PropDescriptor _$prop__optionalProp__TestProps =
       PropDescriptor(_$key__optionalProp__TestProps);
   static const String _$key__requiredProp__TestProps = 'TestProps.requiredProp';

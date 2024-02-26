@@ -163,11 +163,11 @@ void main() {
           returnsNormally);
       });
 
-      test('on mount', () {
+      test('does not throw on mount', () {
         expect(() => render(ComponentTest()
           ..nullable = null
           ..required = true
-        ), throwsPropError_Required('ComponentTestProps.lateProp'));
+        ), returnsNormally);
       });
     });
   });

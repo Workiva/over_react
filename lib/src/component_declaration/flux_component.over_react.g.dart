@@ -32,11 +32,12 @@ mixin $FluxUiPropsMixin<ActionsT, StoresT>
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__actions__FluxUiPropsMixin =
       PropDescriptor(_$key__actions__FluxUiPropsMixin,
-          isRequired: true, isNullable: true);
+          isRequired: true, isNullable: true, isLate: true);
   static const PropDescriptor _$prop__store__FluxUiPropsMixin = PropDescriptor(
       _$key__store__FluxUiPropsMixin,
       isRequired: true,
-      isNullable: true);
+      isNullable: true,
+      isLate: true);
   static const String _$key__actions__FluxUiPropsMixin =
       'FluxUiPropsMixin.actions';
   static const String _$key__store__FluxUiPropsMixin = 'FluxUiPropsMixin.store';

@@ -383,11 +383,11 @@ abstract class ErrorBoundaryStateMixin implements _$ErrorBoundaryStateMixin {
   /* GENERATED CONSTANTS */
   static const StateDescriptor _$prop__hasError___$ErrorBoundaryStateMixin =
       StateDescriptor(_$key__hasError___$ErrorBoundaryStateMixin,
-          isRequired: true, isNullable: true);
+          isRequired: true, isNullable: true, isLate: true);
   static const StateDescriptor
       _$prop__showFallbackUIOnError___$ErrorBoundaryStateMixin =
       StateDescriptor(_$key__showFallbackUIOnError___$ErrorBoundaryStateMixin,
-          isRequired: true, isNullable: true);
+          isRequired: true, isNullable: true, isLate: true);
   static const String _$key__hasError___$ErrorBoundaryStateMixin =
       'ErrorBoundaryStateMixin.hasError';
   static const String _$key__showFallbackUIOnError___$ErrorBoundaryStateMixin =

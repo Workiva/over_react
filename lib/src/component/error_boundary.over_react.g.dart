@@ -401,12 +401,13 @@ mixin $ErrorBoundaryState on ErrorBoundaryState {
   /* GENERATED CONSTANTS */
   static const StateDescriptor _$prop__hasError__ErrorBoundaryState =
       StateDescriptor(_$key__hasError__ErrorBoundaryState,
-          isRequired: true, isNullable: true);
+          isRequired: true, isNullable: true, isLate: true);
   static const StateDescriptor
       _$prop__showFallbackUIOnError__ErrorBoundaryState = StateDescriptor(
           _$key__showFallbackUIOnError__ErrorBoundaryState,
           isRequired: true,
-          isNullable: true);
+          isNullable: true,
+          isLate: true);
   static const String _$key__hasError__ErrorBoundaryState =
       'ErrorBoundaryState.hasError';
   static const String _$key__showFallbackUIOnError__ErrorBoundaryState =

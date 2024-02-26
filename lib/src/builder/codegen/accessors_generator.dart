@@ -196,12 +196,14 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
         var requiredReasonCount = 0;
 
         var isRequired = false;
+        var isLate = false;
         var isPotentiallyNullable = true;
         var requiredErrorMessage = '';
 
         if (variable.isLate) {
           requiredReasonCount++;
           isRequired = true;
+          isLate = true;
           isPotentiallyNullable = true;
 
           if (type.isProps && disableRequiredPropValidation == null) {
@@ -253,6 +255,9 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
           constantValue += ', isRequired: $isRequired';
           if (isPotentiallyNullable) {
             constantValue += ', isNullable: $isPotentiallyNullable';
+          }
+          if (isLate) {
+            constantValue += ', isLate: $isLate';
           }
           if (requiredErrorMessage.isNotEmpty) {
             constantValue += ', errorMessage: ${stringLiteral(requiredErrorMessage)}';

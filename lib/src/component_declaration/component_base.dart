@@ -216,11 +216,11 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component with 
 
   /// Validates that props with the `@requiredProp` annotation are present.
   void validateRequiredProps(Map appliedProps) {
-    final requiredPropNamesToSkipValidation = newProps().requiredPropNamesToSkipValidation;
     consumedProps?.forEach((consumedProps) {
       consumedProps.props.forEach((prop) {
         if (!prop.isRequired) return;
-        if (requiredPropNamesToSkipValidation.contains(prop.key.split('.').last)) return;
+        // Skip late prop validation here because it will be handled in .build() / .call().
+        if (prop.isLate) return;
         if (prop.isNullable && appliedProps.containsKey(prop.key)) return;
         if (!prop.isNullable && appliedProps[prop.key] != null) return;
 
@@ -801,7 +801,10 @@ class PropDescriptor implements _Descriptor {
   /// The message included in the thrown [PropError] if the `prop` is not set.
   final String errorMessage;
 
-  const PropDescriptor(this.key, {this.isRequired = false, this.isNullable = false, this.errorMessage = ''});
+  /// Whether the prop has the `late` keyword.
+  final bool isLate;
+
+  const PropDescriptor(this.key, {this.isRequired = false, this.isNullable = false, this.errorMessage = '', this.isLate = false});
 }
 
 /// Provides a representation of a single `state` declared within a [UiState] subclass or state mixin.
@@ -827,7 +830,12 @@ class StateDescriptor implements _Descriptor {
   /// __Currently not used.__
   final String? errorMessage;
 
-  const StateDescriptor(this.key, {this.isRequired = false, this.isNullable = false, this.errorMessage});
+  /// Whether the prop has the `late` keyword.
+  ///
+  /// __Currently not used.__
+  final bool isLate;
+
+  const StateDescriptor(this.key, {this.isRequired = false, this.isNullable = false, this.errorMessage, this.isLate = false});
 }
 
 /// Provides a list of [PropDescriptor]s and a top-level list of their keys, for easy access.

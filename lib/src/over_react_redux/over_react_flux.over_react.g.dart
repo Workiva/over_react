@@ -26,7 +26,7 @@ abstract class ConnectFluxPropsMixin<TActions>
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__actions___$ConnectFluxPropsMixin =
       PropDescriptor(_$key__actions___$ConnectFluxPropsMixin,
-          isRequired: true, isNullable: true);
+          isRequired: true, isNullable: true, isLate: true);
   static const String _$key__actions___$ConnectFluxPropsMixin = 'actions';
 
   static const List<PropDescriptor> $props = [

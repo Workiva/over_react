@@ -185,11 +185,7 @@ void main() {
           ..requiredNonNullable = true
           ..requiredNullable = true
         )());
-      }, allOf(returnsNormally,
-        logsPropRequiredError('ComponentTestProps.disabledRequiredProp'),
-        logsPropRequiredError('ComponentTestProps.disabledNullableRequiredProp'),
-        logsPropRequiredError('ComponentTestProps.ref'),
-      ));
+      }, allOf(returnsNormally, logsNoPropTypeWarnings));
     });
 
     test('disableRequiredPropValidation method turns off validation for component usage', () {
@@ -197,13 +193,7 @@ void main() {
         rtl.render((ComponentTest()
           ..disableRequiredPropValidation()
         )());
-      }, allOf(returnsNormally,
-        logsPropRequiredError('ComponentTestProps.disabledRequiredProp'),
-        logsPropRequiredError('ComponentTestProps.disabledNullableRequiredProp'),
-        logsPropRequiredError('ComponentTestProps.ref'),
-        logsPropRequiredError('ComponentTestProps.requiredNonNullable'),
-        logsPropRequiredError('ComponentTestProps.requiredNullable'),
-      ));
+      }, allOf(returnsNormally, logsNoPropTypeWarnings));
     });
 
     group('required props in multiple mixins', () {
@@ -259,29 +249,17 @@ void main() {
       test('for class components - UiComponent', () {
         expect(() {
           rtl.render(ClassWrapperTest()());
-        }, allOf(returnsNormally,
-          isNot(logsPropRequiredError('ClassWrapperTestProps.thirdRequiredProp')),
-        ), reason: 'Does not log prop type warnings for ignored props in meta.');
+        }, allOf(returnsNormally, logsNoPropTypeWarnings));
       });
 
       test('for class components - UiComponent2', () {
         expect(() {
           rtl.render(ClassWrapperTest2()());
-        }, allOf(returnsNormally,
-          isNot(logsPropRequiredError('ClassWrapperTest2PropsMixin.thirdRequiredProp')),
-          isNot(logsPropRequiredError('MultipleMixinsTestPropsMixin.secondRequiredProp')),
-          isNot(logsPropRequiredError('ComponentTestProps.requiredNonNullable')),
-          isNot(logsPropRequiredError('ComponentTestProps.requiredNullable')),
-          isNot(logsPropRequiredError('ComponentTestProps.testIgnoreOnMixin')),
-        ), reason: 'Does not log prop type warnings for ignored props in meta.');
+        }, allOf(returnsNormally, logsNoPropTypeWarnings));
 
         expect(() {
           rtl.render(ClassWrapperTest2()());
-        }, allOf(returnsNormally,
-          logsPropRequiredError('ComponentTestProps.disabledRequiredProp'),
-          logsPropRequiredError('ComponentTestProps.disabledNullableRequiredProp'),
-          logsPropRequiredError('ComponentTestProps.ref'),
-        ), reason: 'Does log prop type warnings for other required props.');
+        }, allOf(returnsNormally, logsNoPropTypeWarnings));
       });
     });
 
