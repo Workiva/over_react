@@ -729,7 +729,7 @@ abstract class PropsMapViewMixin implements _OverReactMapViewBase {
   Map get _map => this.props;
 
   @override
-  String toString() => '$runtimeType: ${prettyPrintMap(_map)}';
+  String toString() => '(UiProps subclass): ${prettyPrintMap(_map)}';
 }
 
 /// Works in conjunction with [MapViewMixin] to provide `dart.collection.MapView`-like
@@ -743,7 +743,7 @@ abstract class StateMapViewMixin implements _OverReactMapViewBase {
   Map get _map => this.state;
 
   @override
-  String toString() => '$runtimeType: ${prettyPrintMap(_map)}';
+  String toString() => '(UiState subclass): ${prettyPrintMap(_map)}';
 }
 
 /// Provides `dart.collection.MapView`-like behavior by proxying an internal map.

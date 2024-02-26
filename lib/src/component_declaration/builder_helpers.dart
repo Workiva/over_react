@@ -42,7 +42,7 @@ class GeneratedClass {
 
   void _throwIfNotGenerated() {
     if (!this.$isClassGenerated) {
-      throw IllegalInstantiationError(runtimeType: this.runtimeType);
+      throw IllegalInstantiationError();
     }
   }
 }
@@ -323,8 +323,8 @@ class UngeneratedError extends Error implements UnimplementedError {
 /// Thrown when a class is directly instantiated when it should not be.
 class IllegalInstantiationError extends Error {
   final String message;
-  IllegalInstantiationError({String? message, Type? runtimeType}) :
-      this.message = message ?? '`$runtimeType` cannot be instantated directly, but only indirectly via the UiFactory';
+  IllegalInstantiationError({String? message}) :
+      this.message = message ?? 'This class cannot be instantiated directly, but only indirectly via the UiFactory';
 
 
   @override
