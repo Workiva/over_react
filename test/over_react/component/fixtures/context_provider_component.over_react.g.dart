@@ -138,7 +138,8 @@ abstract class _$ContextProviderWrapperStateAccessorsMixin
       _$prop__latestValue___$ContextProviderWrapperState = StateDescriptor(
           _$key__latestValue___$ContextProviderWrapperState,
           isRequired: true,
-          isNullable: true);
+          isNullable: true,
+          isLate: true);
   static const String _$key__latestValue___$ContextProviderWrapperState =
       'ContextProviderWrapperState.latestValue';
 

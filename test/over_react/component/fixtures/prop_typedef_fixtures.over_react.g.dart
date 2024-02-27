@@ -66,13 +66,15 @@ abstract class _$TestAbstractCustomRendererComponentPropsAccessorsMixin
       PropDescriptor(
           _$key__customRenderer___$TestAbstractCustomRendererComponentProps,
           isRequired: true,
-          isNullable: true);
+          isNullable: true,
+          isLate: true);
   static const PropDescriptor
       _$prop__parameterizedCustomRenderer___$TestAbstractCustomRendererComponentProps =
       PropDescriptor(
           _$key__parameterizedCustomRenderer___$TestAbstractCustomRendererComponentProps,
           isRequired: true,
-          isNullable: true);
+          isNullable: true,
+          isLate: true);
   static const PropDescriptor
       _$prop__somePropKey___$TestAbstractCustomRendererComponentProps =
       PropDescriptor(
@@ -974,13 +976,14 @@ abstract class _$TestCustomRendererComponentPropsAccessorsMixin
   static const PropDescriptor
       _$prop__customRenderer___$TestCustomRendererComponentProps =
       PropDescriptor(_$key__customRenderer___$TestCustomRendererComponentProps,
-          isRequired: true, isNullable: true);
+          isRequired: true, isNullable: true, isLate: true);
   static const PropDescriptor
       _$prop__parameterizedCustomRenderer___$TestCustomRendererComponentProps =
       PropDescriptor(
           _$key__parameterizedCustomRenderer___$TestCustomRendererComponentProps,
           isRequired: true,
-          isNullable: true);
+          isNullable: true,
+          isLate: true);
   static const PropDescriptor
       _$prop__somePropKey___$TestCustomRendererComponentProps =
       PropDescriptor(_$key__somePropKey___$TestCustomRendererComponentProps);

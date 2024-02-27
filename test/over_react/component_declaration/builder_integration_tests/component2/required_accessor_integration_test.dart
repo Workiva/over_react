@@ -240,12 +240,12 @@ void main() {
             returnsNormally);
       });
 
-      test('on mount', () {
+      test('does not throw on mount', () {
         expect(() => render(ComponentTest()
           ..nullable = null
           ..required = true
           ..requiredAndLengthLimited = [1,2]
-        ), logsPropRequiredError('ComponentTestProps.lateProp'));
+        ), returnsNormally);
       });
     });
   });

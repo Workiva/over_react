@@ -25,7 +25,8 @@ mixin $AbstractTransitionState on AbstractTransitionState {
       _$prop__transitionPhase__AbstractTransitionState = StateDescriptor(
           _$key__transitionPhase__AbstractTransitionState,
           isRequired: true,
-          isNullable: true);
+          isNullable: true,
+          isLate: true);
   static const String _$key__transitionPhase__AbstractTransitionState =
       'AbstractTransitionState.transitionPhase';
 

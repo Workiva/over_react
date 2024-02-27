@@ -21,7 +21,7 @@ mixin $_ProviderPropsMixin<TValue> on _ProviderPropsMixin<TValue> {
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__value___ProviderPropsMixin =
       PropDescriptor(_$key__value___ProviderPropsMixin,
-          isRequired: true, isNullable: true);
+          isRequired: true, isNullable: true, isLate: true);
   static const String _$key__value___ProviderPropsMixin = 'value';
 
   static const List<PropDescriptor> $props = [

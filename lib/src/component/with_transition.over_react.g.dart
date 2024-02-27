@@ -346,7 +346,7 @@ mixin $WithTransitionState on WithTransitionState {
   /* GENERATED CONSTANTS */
   static const StateDescriptor _$prop__$transitionPhase__WithTransitionState =
       StateDescriptor(_$key__$transitionPhase__WithTransitionState,
-          isRequired: true, isNullable: true);
+          isRequired: true, isNullable: true, isLate: true);
   static const String _$key__$transitionPhase__WithTransitionState =
       'WithTransitionState.\$transitionPhase';
 

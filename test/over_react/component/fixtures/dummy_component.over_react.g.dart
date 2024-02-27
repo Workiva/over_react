@@ -34,7 +34,7 @@ abstract class _$DummyPropsAccessorsMixin implements _$DummyProps {
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__onComponentDidMount___$DummyProps =
       PropDescriptor(_$key__onComponentDidMount___$DummyProps,
-          isRequired: true, isNullable: true);
+          isRequired: true, isNullable: true, isLate: true);
   static const String _$key__onComponentDidMount___$DummyProps =
       'DummyProps.onComponentDidMount';
 

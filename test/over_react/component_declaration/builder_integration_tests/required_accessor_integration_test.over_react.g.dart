@@ -78,7 +78,7 @@ abstract class _$ComponentTestPropsAccessorsMixin
           errorMessage: 'This prop can be set to null!');
   static const PropDescriptor _$prop__lateProp___$ComponentTestProps =
       PropDescriptor(_$key__lateProp___$ComponentTestProps,
-          isRequired: true, isNullable: true);
+          isRequired: true, isNullable: true, isLate: true);
   static const String _$key__required___$ComponentTestProps =
       'ComponentTestProps.required';
   static const String _$key__nullable___$ComponentTestProps =

@@ -715,6 +715,8 @@ class UiComponent2BridgeImpl extends Component2BridgeImpl {
     component.consumedProps?.forEach((consumedProps) {
       consumedProps.props.forEach((prop) {
         if (!prop.isRequired) return;
+        // Skip late prop validation here because it will be handled in .build() / .call().
+        if (prop.isLate) return;
 
         Error? requiredPropValidator(
           Map _props,

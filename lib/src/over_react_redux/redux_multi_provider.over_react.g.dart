@@ -52,7 +52,8 @@ abstract class _$ReduxMultiProviderPropsAccessorsMixin
       _$prop__storesByContext___$ReduxMultiProviderProps = PropDescriptor(
           _$key__storesByContext___$ReduxMultiProviderProps,
           isRequired: true,
-          isNullable: true);
+          isNullable: true,
+          isLate: true);
   static const String _$key__storesByContext___$ReduxMultiProviderProps =
       'ReduxMultiProviderProps.storesByContext';
 

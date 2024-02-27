@@ -135,30 +135,33 @@ abstract class _$NullSafeTestPropsAccessorsMixin
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__requiredNonNullable___$NullSafeTestProps =
       PropDescriptor(_$key__requiredNonNullable___$NullSafeTestProps,
-          isRequired: true, isNullable: true);
+          isRequired: true, isNullable: true, isLate: true);
   static const PropDescriptor
       _$prop__requiredNonNullableTypedef___$NullSafeTestProps = PropDescriptor(
           _$key__requiredNonNullableTypedef___$NullSafeTestProps,
           isRequired: true,
-          isNullable: true);
+          isNullable: true,
+          isLate: true);
   static const PropDescriptor _$prop__requiredNullable___$NullSafeTestProps =
       PropDescriptor(_$key__requiredNullable___$NullSafeTestProps,
-          isRequired: true, isNullable: true);
+          isRequired: true, isNullable: true, isLate: true);
   static const PropDescriptor
       _$prop__requiredNullableTypedefWithoutQuestion___$NullSafeTestProps =
       PropDescriptor(
           _$key__requiredNullableTypedefWithoutQuestion___$NullSafeTestProps,
           isRequired: true,
-          isNullable: true);
+          isNullable: true,
+          isLate: true);
   static const PropDescriptor _$prop__requiredDynamic___$NullSafeTestProps =
       PropDescriptor(_$key__requiredDynamic___$NullSafeTestProps,
-          isRequired: true, isNullable: true);
+          isRequired: true, isNullable: true, isLate: true);
   static const PropDescriptor
       _$prop__requiredWithAccessorAndCustomKey___$NullSafeTestProps =
       PropDescriptor(
           _$key__requiredWithAccessorAndCustomKey___$NullSafeTestProps,
           isRequired: true,
-          isNullable: true);
+          isNullable: true,
+          isLate: true);
   static const PropDescriptor _$prop__nullable___$NullSafeTestProps =
       PropDescriptor(_$key__nullable___$NullSafeTestProps);
   static const PropDescriptor _$prop__nullableDynamic___$NullSafeTestProps =
@@ -378,24 +381,27 @@ abstract class _$NullSafeTestStateAccessorsMixin
       _$prop__requiredNonNullable___$NullSafeTestState = StateDescriptor(
           _$key__requiredNonNullable___$NullSafeTestState,
           isRequired: true,
-          isNullable: true);
+          isNullable: true,
+          isLate: true);
   static const StateDescriptor
       _$prop__requiredNonNullableTypedef___$NullSafeTestState = StateDescriptor(
           _$key__requiredNonNullableTypedef___$NullSafeTestState,
           isRequired: true,
-          isNullable: true);
+          isNullable: true,
+          isLate: true);
   static const StateDescriptor _$prop__requiredNullable___$NullSafeTestState =
       StateDescriptor(_$key__requiredNullable___$NullSafeTestState,
-          isRequired: true, isNullable: true);
+          isRequired: true, isNullable: true, isLate: true);
   static const StateDescriptor
       _$prop__requiredNullableTypedefWithoutQuestion___$NullSafeTestState =
       StateDescriptor(
           _$key__requiredNullableTypedefWithoutQuestion___$NullSafeTestState,
           isRequired: true,
-          isNullable: true);
+          isNullable: true,
+          isLate: true);
   static const StateDescriptor _$prop__requiredDynamic___$NullSafeTestState =
       StateDescriptor(_$key__requiredDynamic___$NullSafeTestState,
-          isRequired: true, isNullable: true);
+          isRequired: true, isNullable: true, isLate: true);
   static const StateDescriptor _$prop__nullable___$NullSafeTestState =
       StateDescriptor(_$key__nullable___$NullSafeTestState);
   static const StateDescriptor _$prop__nullableDynamic___$NullSafeTestState =
