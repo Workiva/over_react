@@ -21,12 +21,14 @@ import 'package:test/test.dart';
 
 main() {
   group('UiPropsMapView', () {
+    late Map backingMap;
     late UiPropsMapView mapView;
 
     setUp(() {
-      mapView = TestUiPropsMapView({
+      backingMap = {
         'id': 'test-id',
-      });
+      };
+      mapView = TestUiPropsMapView(backingMap);
     });
 
     test('reads from and writes to the backing map as expected', () {
@@ -34,6 +36,7 @@ main() {
       mapView.id = 'something else';
       mapView['foo'] = 'bar';
       expect({...mapView}, {'id': 'something else', 'foo': 'bar'});
+      expect({...mapView}, backingMap);
     });
 
     test('getPropKey works as expected and uses selfFactory to construct a new instance', () {
