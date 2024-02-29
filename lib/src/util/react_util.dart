@@ -29,8 +29,7 @@ abstract class UiPropsMapView extends UiProps {
   /// Create a new instance backed by the specified map.
   UiPropsMapView(this.props);
 
-  /// The props to be manipulated via the getters/setters.
-  /// In this case, it's the current MapView object.
+  /// The backing props map proxied by this class.
   @override
   final Map props;
 
