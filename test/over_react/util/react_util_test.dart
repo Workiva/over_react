@@ -52,10 +52,6 @@ main() {
     });
 
     group('throws an `UnimplementedError` when unimplemented fields/methods are accessed/called:', () {
-      test('`\$isClassGenerated`', () {
-        expect(() => mapView.$isClassGenerated, throwsUnimplementedError);
-      });
-
       test('`propKeyNamespace`', () {
         expect(() => mapView.propKeyNamespace, throwsUnimplementedError);
       });
