@@ -31,7 +31,9 @@
     - `ProviderProps.value` (`ProviderProps` is the return type of `Context.Provider`)
     - `ReduxMultiProviderProps.storesByContext`
     - `ReduxProviderProps.store`
-- UiPropsMapView (deprecated) is now abstract and requires subclasses to override `selfFactory`
+- UiPropsMapView (deprecated) 
+    - is now abstract and requires subclasses to override `selfFactory`
+    - no longer implements `MapView` (it still implements `Map`)
 - Other changes that we don't expect to affect consumers:
   - `PropsMeta`/`StateMeta` constructor arguments `fields` and `keys` are now required
   - `ProviderProps.props` type has been widened from `JsMap` to `Map` (now matches `ConsumerProps` and other props classes)
