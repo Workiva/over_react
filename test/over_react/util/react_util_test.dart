@@ -36,7 +36,8 @@ main() {
       mapView.id = 'something else';
       mapView['foo'] = 'bar';
       expect({...mapView}, {'id': 'something else', 'foo': 'bar'});
-      expect({...mapView}, backingMap);
+      expect(backingMap, {...mapView},
+          reason: 'backing map should reflect all changes in the map view');
     });
 
     test('getPropKey works as expected and uses selfFactory to construct a new instance', () {
