@@ -143,7 +143,7 @@ main() {
     GenericUiProps props;
 
     setUp(() {
-      final genericFactory = uiFunction<UiProps>((_) {}, UiFactoryConfig());
+      final genericFactory = uiFunction<UiProps>((_) { return null; }, UiFactoryConfig());
       final factoryProps = genericFactory();
       expect(factoryProps, isA<GenericUiProps>(), reason: 'test setup check');
       props = factoryProps as GenericUiProps;

@@ -13,7 +13,7 @@ abstract class ReactPropsMixin implements _$ReactPropsMixin {
 
   static const PropsMeta meta = _$metaForReactPropsMixin;
   @override
-  List<dynamic>? get children {
+  List<ReactNode>? get children {
     final value = _raw$ReactProps$children;
     if (value is List) return value;
     if (value == null) {
@@ -23,7 +23,7 @@ abstract class ReactPropsMixin implements _$ReactPropsMixin {
   }
 
   @override
-  set children(List<dynamic>? value) => _raw$ReactProps$children = value;
+  set children(List<ReactNode>? value) => _raw$ReactProps$children = value;
   @override
   String? get key => props['key'] as String?;
   @override
@@ -33,14 +33,14 @@ abstract class ReactPropsMixin implements _$ReactPropsMixin {
   /// <!-- Generated from [_$ReactPropsMixin._raw$ReactProps$children] -->
   @override
   @Accessor(key: 'children')
-  dynamic get _raw$ReactProps$children =>
+  ReactNode get _raw$ReactProps$children =>
       (props[_$key___raw$ReactProps$children___$ReactPropsMixin] ?? null)
-          as dynamic;
+          as ReactNode;
 
   /// <!-- Generated from [_$ReactPropsMixin._raw$ReactProps$children] -->
   @override
   @Accessor(key: 'children')
-  set _raw$ReactProps$children(dynamic value) =>
+  set _raw$ReactProps$children(ReactNode value) =>
       props[_$key___raw$ReactProps$children___$ReactPropsMixin] = value;
 
   /// Either a String used to retrieve the element at a later time via [react.Component.ref],

@@ -264,6 +264,8 @@ class WithTransitionComponent extends UiStatefulComponent2<WithTransitionProps, 
   render() {
     assert(_hasSingleValidChild(props));
 
+    // ok to ignore because of the above assert
+    // ignore: cast_nullable_to_non_nullable
     final childElement = props.children!.single as ReactElement;
     final childProps = domProps(getProps(childElement));
     final phaseProps = props.childPropsByPhase![state.$transitionPhase] ?? const {};

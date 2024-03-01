@@ -96,7 +96,7 @@ export 'component_type_checking.dart'
 /// Learn more: <https://reactjs.org/docs/components-and-props.html#function-and-class-components>.
 // TODO: right now only top level factory declarations will generate props configs.
 UiFactory<TProps> uiFunction<TProps extends UiProps>(
-  dynamic Function(TProps props) functionComponent,
+  ReactNode Function(TProps props) functionComponent,
   dynamic _config,
 ) {
   ArgumentError.checkNotNull(_config, '_config');

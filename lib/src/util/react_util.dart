@@ -105,7 +105,7 @@ abstract class UiPropsMapView extends UiProps {
   Map get componentDefaultProps => throw UnimplementedError('@PropsMixin instances do not implement defaultProps');
 
   @override
-  ReactElement build([dynamic children]) =>
+  ReactElement build([ReactNode children]) =>
       throw UnimplementedError('@PropsMixin instances do not implement build');
 
   @override

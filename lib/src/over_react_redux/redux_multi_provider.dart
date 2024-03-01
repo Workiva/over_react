@@ -77,7 +77,7 @@ class ReduxMultiProviderComponent
 
   @override
   render() {
-    dynamic content = props.children;
+    ReactNode content = props.children;
     props.storesByContext.forEach((context, store) {
       content = (ReduxProvider()
         ..store = store
