@@ -54,6 +54,8 @@ class UnsafeRequiredPropAccessDiagnostic extends DiagnosticContributor {
       if (cachedIsComponentProps(requiredPropRead.realTarget)) continue;
       if (isPropsSafeUtilityMethodArg(requiredPropRead.realTarget)) continue;
       if (isGatedByContainsPropCheck(requiredPropRead)) continue;
+      if (isWithinLifecycleMethodWithPropsArg(requiredPropRead)) continue;
+      if (isWithinMemoAreEqualFunction(requiredPropRead)) continue;
 
       final prop = requiredPropRead.prop;
 
@@ -73,6 +75,47 @@ class UnsafeRequiredPropAccessDiagnostic extends DiagnosticContributor {
       }
     }
   }
+}
+
+bool isWithinLifecycleMethodWithPropsArg(LateRequiredPropRead read) {
+  final lifecycleMethod = read.node.thisOrAncestorOfType<MethodDeclaration>();
+  if (lifecycleMethod == null) return false;
+
+  return const {
+    'propTypes',
+    'componentDidUpdate',
+    'componentWillReceiveProps',
+    'componentWillReceivePropsWithContext',
+    'componentWillUpdate',
+    'getDerivedStateFromProps',
+    'getSnapshotBeforeUpdate',
+    'shouldComponentUpdate',
+    'shouldComponentUpdateWithContext',
+  }.contains(lifecycleMethod.name.lexeme);
+}
+
+bool isWithinMemoAreEqualFunction(LateRequiredPropRead read) {
+  final functionExpression = read.node.thisOrAncestorOfType<FunctionExpression>();
+  if (functionExpression == null) return false;
+
+  final functionParent = functionExpression.parent;
+
+  if (functionParent is NamedExpression) {
+    return functionParent.name.label.name == 'areEqual' &&
+        functionParent.parent.tryCast<ArgumentList>()?.parent?.tryCast<MethodInvocation>()?.methodName.name == 'memo';
+  }
+
+  String? functionName;
+  if (functionParent is FunctionDeclaration) {
+    functionName = functionParent.name.lexeme;
+  } else if (functionParent is VariableDeclaration && functionParent.initializer == functionExpression) {
+    functionName = functionParent.name.lexeme;
+  }
+  if (functionName != null) {
+    return functionName.contains(/*a|A*/ 'reEqual');
+  }
+
+  return false;
 }
 
 bool isPropsSafeUtilityMethodArg(Expression target) {
