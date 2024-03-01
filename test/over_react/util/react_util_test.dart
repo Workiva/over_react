@@ -21,12 +21,14 @@ import 'package:test/test.dart';
 
 main() {
   group('UiPropsMapView', () {
+    late Map backingMap;
     late UiPropsMapView mapView;
 
     setUp(() {
-      mapView = TestUiPropsMapView({
+      backingMap = {
         'id': 'test-id',
-      });
+      };
+      mapView = TestUiPropsMapView(backingMap);
     });
 
     test('reads from and writes to the backing map as expected', () {
@@ -34,6 +36,8 @@ main() {
       mapView.id = 'something else';
       mapView['foo'] = 'bar';
       expect({...mapView}, {'id': 'something else', 'foo': 'bar'});
+      expect(backingMap, {...mapView},
+          reason: 'backing map should reflect all changes in the map view');
     });
 
     test('getPropKey works as expected and uses selfFactory to construct a new instance', () {
@@ -48,10 +52,6 @@ main() {
     });
 
     group('throws an `UnimplementedError` when unimplemented fields/methods are accessed/called:', () {
-      test('`\$isClassGenerated`', () {
-        expect(() => mapView.$isClassGenerated, throwsUnimplementedError);
-      });
-
       test('`propKeyNamespace`', () {
         expect(() => mapView.propKeyNamespace, throwsUnimplementedError);
       });
