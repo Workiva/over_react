@@ -15,7 +15,7 @@ dependencies:
   meta: ^1.6.0
   package_config: ^2.1.0
   path: ^1.5.1
-  react: ^7.0.0
+  react: ^7.1.0
   redux: '>=5.0.0 <6.0.0'
   source_span: ^1.4.1
   transformer_utils: ^0.2.6
@@ -49,10 +49,6 @@ dependency_overrides:
     git:
       url: https://github.com/Workiva/over_react_test
       ref: null-safety
-  react:
-    git:
-      url: https://github.com/Workiva/react-dart.git
-      ref: FED-2298_ReactNode_typedef
 
 workiva:
   core_checks:
