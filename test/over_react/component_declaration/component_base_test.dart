@@ -499,7 +499,7 @@ main() {
               });
 
               test('null: returns an empty list', () {
-                expect(getTypedView({childrenKey: null}).children, same(const []));
+                expect(getTypedView({childrenKey: null}).children, same(const <ReactNode>[]));
               });
 
               test('a single child: wraps in a list', () {
