@@ -51,7 +51,7 @@ dependency_overrides:
       ref: null-safety
   react:
     git:
-      url: git@github.com:Workiva/react-dart.git
+      url: https://github.com/Workiva/react-dart.git
       ref: FED-2298_ReactNode_typedef
 
 workiva:
