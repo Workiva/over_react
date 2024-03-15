@@ -102,6 +102,38 @@ void main() {
       });
     });
 
+    group('warns based on the top-level directory,', () {
+      Future<void> sharedTest({
+        required String topLevelDirectory,
+        required bool expectError,
+      }) async {
+        final source = testBase.newSourceWithPrefix(/*language=dart*/ r'''
+          test(HasRequiredProps props) {
+            print(props.requiredProp);
+          }
+        ''', topLevelDirectory: topLevelDirectory);
+
+        if (expectError) {
+          expect(await testBase.getAllErrors(source, includeOtherCodes: true), [
+            testBase.isAnErrorUnderTest(locatedAt: testBase.createSelection(source, 'props.#requiredProp#')),
+          ]);
+        } else {
+          await testBase.expectNoErrors(source);
+        }
+      }
+
+      group('warning for', () {
+        test('lib', () => sharedTest(topLevelDirectory: 'lib', expectError: true));
+        test('example', () => sharedTest(topLevelDirectory: 'example', expectError: true));
+        test('web', () => sharedTest(topLevelDirectory: 'web', expectError: true));
+        test('other directories', () => sharedTest(topLevelDirectory: 'other_directory', expectError: true));
+      });
+
+      group('not warning for', () {
+        test('test', () => sharedTest(topLevelDirectory: 'test', expectError: false));
+      });
+    });
+
     group('does not warn for non-prop accesses:', () {
       test('fields on non-prop classes', () async {
         await testBase.expectNoErrors(testBase.newSource(/*language=Dart*/ r'''
@@ -248,7 +280,8 @@ class UnsafeRequiredPropAccessTest extends DiagnosticTestBase {
   @override
   get fixKindUnderTest => UnsafeRequiredPropAccessDiagnostic.fixKind;
 
-  Source newSourceWithPrefix(String sourceFragment) => newSource(sourcePrefix + sourceFragment);
+  Source newSourceWithPrefix(String sourceFragment, {String topLevelDirectory = 'lib'}) =>
+      newSource(sourcePrefix + sourceFragment, topLevelDirectory: topLevelDirectory);
 }
 
 const sourcePrefix = /*language=dart*/ r'''
