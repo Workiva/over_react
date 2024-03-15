@@ -37,7 +37,59 @@ mixin FooProps on UiProps {
 }
 ''';
 
-  Future<void> test_noErrorsForPropsWithDisabledValidation() async {
+  Future<void> test_noErrors_withinUtilityMethods() async {
+    await expectNoErrors(newSourceWithPrefix(/*language=dart*/ r'''
+      test1(FooProps props) {
+        // UiProps methods
+        print(props.getPropKey((p) => p.requiredProp));
+        print(props.containsProp((p) => p.requiredProp));
+        print(props.getRequiredProp((p) => p.requiredProp, orElse: () => ''));
+        print(props.getRequiredPropOrNull((p) => p.requiredProp));
+      }
+      
+      testTopLevel(FooProps props) {
+        // Top-level functions  
+        print(getPropKey<FooProps>((p) => p.requiredProp, Foo));
+      }
+      
+      abstract class OtherComponent extends UiComponent2<FooProps> {
+        render() {
+          // UiComponent methods
+          print(keyForProp((p) => p.requiredProp));
+          // `this.` is necessary to avoid top-level getPropKey taking precedence.
+          print(this.getPropKey((p) => p.requiredProp)); // ignore: deprecated_member_use
+        }
+      }
+    '''));
+  }
+
+  // FIXME clarify that even unsafe accesses aren't linted
+  Future<void> test_noErrors_withinSpecificLifecycleMethods() async {
+    await expectNoErrors(newSourceWithPrefix(/*language=dart*/ r'''
+      abstract class OtherComponent extends UiComponent2<FooProps> {
+        get propTypes => {
+          keyForProp((p) => p.requiredProp): (props, _) {
+            print(typedPropsFactory(props).requiredProp);
+            return null;
+          },
+        };
+        @override componentDidUpdate(prevProps, _, [__]) { print(typedPropsFactory(prevProps).requiredProp); }  
+        @override getDerivedStateFromProps(nextProps, _) { print(typedPropsFactory(nextProps).requiredProp); return {}; }  
+        @override getSnapshotBeforeUpdate(prevProps, _)  { print(typedPropsFactory(prevProps).requiredProp); return null; }  
+        @override shouldComponentUpdate(nextProps, _)    { print(typedPropsFactory(nextProps).requiredProp); return true; }
+      }
+      
+      abstract class OtherComponent1 extends UiComponent<FooProps> {
+        // Just test UiComponent-specific methods
+        @override componentWillReceiveProps(nextProps)               { print(typedPropsFactory(nextProps).requiredProp); super.componentWillReceiveProps(nextProps); }  
+        @override componentWillReceivePropsWithContext(nextProps, _) { print(typedPropsFactory(nextProps).requiredProp); }  
+        @override componentWillUpdate(prevProps, _, [__])            { print(typedPropsFactory(prevProps).requiredProp); }  
+        @override shouldComponentUpdateWithContext(nextProps, _, __) { print(typedPropsFactory(nextProps).requiredProp); return true; }
+      }
+    '''));
+  }
+
+  Future<void> test_noErrorsWithContainsPropCheck() async {
     await expectNoErrors(newSourceWithPrefix(/*language=dart*/ r'''
       test(FooProps props) {
         if (props.containsProp((p) => p.requiredProp)) {
