@@ -29,13 +29,46 @@ part '{{FILE_BASENAME_WITHOUT_EXTENSION}}.over_react.g.dart';
 
 // ignore_for_file: unused_local_variable
 
-UiFactory<FooProps> Foo = castUiFactory(_$Foo); // ignore: undefined_identifier
+UiFactory<FooProps> Foo = castUiFactory(_$Foo);
 
 mixin FooProps on UiProps {
   late String requiredProp;
   String? optionalProp;
 }
 ''';
+
+  Future<void> test_noErrors_withinFunctionComponent() async {
+    await expectNoErrors(newSourceWithPrefix(/*language=dart*/ r'''    
+      class TestUiFunctionProps = UiProps with FooProps;
+      class TestUiForwardRefProps = UiProps with FooProps;
+    
+      UiFactory<TestUiFunctionProps> TestUiFunction = uiFunction((props) {
+        print(props.requiredProp);
+        print(props.optionalProp);
+      }, _$TestUiFunctionConfig);
+      
+      UiFactory<TestUiForwardRefProps> TestUiForwardRef = uiForwardRef((props, ref) {
+        print(props.requiredProp);
+        print(props.optionalProp);
+      }, _$TestUiForwardRefConfig);
+    '''));
+  }
+
+  Future<void> test_noErrors_withinClassComponent() async {
+    await expectNoErrors(newSourceWithPrefix(/*language=dart*/ r'''    
+      class FooComponent extends UiComponent2<FooProps> {
+        render() {
+          print(props.requiredProp);
+          print(props.optionalProp);
+          _renderHelper();
+        }
+        _renderHelper() {
+          print(props.requiredProp);
+          print(props.optionalProp);
+        }
+      }
+    '''));
+  }
 
   Future<void> test_noErrors_withinUtilityMethods() async {
     await expectNoErrors(newSourceWithPrefix(/*language=dart*/ r'''
@@ -66,7 +99,7 @@ mixin FooProps on UiProps {
   // FIXME clarify that even unsafe accesses aren't linted
   Future<void> test_noErrors_withinSpecificLifecycleMethods() async {
     await expectNoErrors(newSourceWithPrefix(/*language=dart*/ r'''
-      abstract class OtherComponent extends UiComponent2<FooProps> {
+      abstract class FooComponent extends UiComponent2<FooProps> {
         get propTypes => {
           keyForProp((p) => p.requiredProp): (props, _) {
             print(typedPropsFactory(props).requiredProp);
