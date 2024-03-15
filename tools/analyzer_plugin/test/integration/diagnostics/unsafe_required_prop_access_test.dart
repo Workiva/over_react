@@ -2,6 +2,7 @@
 import 'dart:async';
 
 import 'package:over_react_analyzer_plugin/src/diagnostic/unsafe_required_prop_access.dart';
+import 'package:test/test.dart';
 import 'package:test_reflective_loader/test_reflective_loader.dart';
 
 import '../test_bases/diagnostic_test_base.dart';
@@ -21,6 +22,84 @@ class UnsafeRequiredPropAccessTest extends DiagnosticTestBase {
   get fixKindUnderTest => UnsafeRequiredPropAccessDiagnostic.fixKind;
 
   Source newSourceWithPrefix(String sourceFragment) => newSource(sourcePrefix + sourceFragment);
+
+  Future<void> test_arbitraryProps() async {
+    final source = newSourceWithPrefix(/*language=dart*/ r'''
+      test(HasRequiredProps props) {
+        print(props.requiredProp);
+        print(props.optionalProp);
+      }
+    ''');
+
+    expect(await getAllErrors(source, includeOtherCodes: true), [
+      isAnErrorUnderTest(locatedAt: createSelection(source, 'props.#requiredProp#')),
+    ]);
+  }
+
+  Future<void> test_arbitraryPropsAccessVariations() async {
+    final source = newSourceWithPrefix(/*language=dart*/ r'''
+      test(HasRequiredProps props) {
+        // Nested in property access
+        props.requiredProp.hashCode;
+        (props.requiredProp).hashCode;
+        
+        // Nested in method call
+        props.requiredProp.toString(); 
+        (props.requiredProp).toString();
+        
+        // Target is an arbitrary expression
+        (props).requiredProp;
+        
+        // Nested in cascade
+        props..requiredProp;  
+        props..requiredProp.hashCode;  
+        props..requiredProp.toString();
+        
+        // Compound assignment
+        props.requiredProp += "";
+      }
+    ''');
+
+    expect(await getAllErrors(source, includeOtherCodes: true), [
+      isAnErrorUnderTest(locatedAt: createSelection(source, 'props.#requiredProp#.hashCode;')),
+      isAnErrorUnderTest(locatedAt: createSelection(source, '(props.#requiredProp#).hashCode;')),
+      isAnErrorUnderTest(locatedAt: createSelection(source, 'props.#requiredProp#.toString();')),
+      isAnErrorUnderTest(locatedAt: createSelection(source, '(props.#requiredProp#).toString();')),
+      isAnErrorUnderTest(locatedAt: createSelection(source, '(props).#requiredProp#;')),
+      isAnErrorUnderTest(locatedAt: createSelection(source, 'props..#requiredProp#;')),
+      isAnErrorUnderTest(locatedAt: createSelection(source, 'props..#requiredProp#.hashCode;')),
+      isAnErrorUnderTest(locatedAt: createSelection(source, 'props..#requiredProp#.toString();')),
+      isAnErrorUnderTest(locatedAt: createSelection(source, 'props.#requiredProp# += "";'), hasFix: false),
+    ]);
+  }
+
+  Future<void> test_arbitraryPropsInComponent() async {
+    final source = newSourceWithPrefix(componentSource(ComponentType.uiFunction, componentBody: r'''
+      test(HasRequiredProps otherProps) {
+        print(otherProps.requiredProp);
+      }
+    '''));
+
+    expect(await getAllErrors(source, includeOtherCodes: true), [
+      isAnErrorUnderTest(locatedAt: createSelection(source, 'otherProps.#requiredProp#')),
+    ]);
+  }
+
+  Future<void> test_arbitraryPropsInComponentShadowed() async {
+    final source = newSourceWithPrefix(componentSource(ComponentType.uiFunction, componentBody: r'''
+      // Statically access props so we know it's being shadowed in this test setup.
+      // If it's not, we'll get a built-in analysis error that will fail the test.
+      print(props.requiredProp);
+      
+      // Shadow `props` with another variable of the same name.
+      test(HasRequiredProps props) {
+        print(props.requiredProp + "");
+      }
+    '''));
+    expect(await getAllErrors(source, includeOtherCodes: true), [
+      isAnErrorUnderTest(locatedAt: createSelection(source, 'props.#requiredProp# + ""')),
+    ]);
+  }
 
   Future<void> test_noErrors_withinFunctionComponent() async {
     await expectNoErrors(newSourceWithPrefix(componentSource(ComponentType.uiFunction, componentBody: r'''
