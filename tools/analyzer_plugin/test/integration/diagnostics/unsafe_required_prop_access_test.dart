@@ -22,57 +22,34 @@ class UnsafeRequiredPropAccessTest extends DiagnosticTestBase {
 
   Source newSourceWithPrefix(String sourceFragment) => newSource(sourcePrefix + sourceFragment);
 
-  static const sourcePrefix = /*language=dart*/ r'''
-import 'package:over_react/over_react.dart';
-
-part '{{FILE_BASENAME_WITHOUT_EXTENSION}}.over_react.g.dart';
-
-// ignore_for_file: unused_local_variable
-
-UiFactory<FooProps> Foo = castUiFactory(_$Foo);
-
-mixin FooProps on UiProps {
-  late String requiredProp;
-  String? optionalProp;
-}
-''';
-
   Future<void> test_noErrors_withinFunctionComponent() async {
-    await expectNoErrors(newSourceWithPrefix(/*language=dart*/ r'''    
-      class TestUiFunctionProps = UiProps with FooProps;
-      class TestUiForwardRefProps = UiProps with FooProps;
-    
-      UiFactory<TestUiFunctionProps> TestUiFunction = uiFunction((props) {
-        print(props.requiredProp);
-        print(props.optionalProp);
-      }, _$TestUiFunctionConfig);
-      
-      UiFactory<TestUiForwardRefProps> TestUiForwardRef = uiForwardRef((props, ref) {
-        print(props.requiredProp);
-        print(props.optionalProp);
-      }, _$TestUiForwardRefConfig);
-    '''));
+    await expectNoErrors(newSourceWithPrefix(componentSource(ComponentType.uiFunction, componentBody: r'''
+      print(props.requiredProp);
+      print(props.optionalProp);
+    ''')));
+    await expectNoErrors(newSourceWithPrefix(componentSource(ComponentType.uiForwardRef, componentBody: r'''
+      print(props.requiredProp);
+      print(props.optionalProp);
+    ''')));
   }
 
   Future<void> test_noErrors_withinClassComponent() async {
-    await expectNoErrors(newSourceWithPrefix(/*language=dart*/ r'''    
-      class FooComponent extends UiComponent2<FooProps> {
-        render() {
-          print(props.requiredProp);
-          print(props.optionalProp);
-          _renderHelper();
-        }
-        _renderHelper() {
-          print(props.requiredProp);
-          print(props.optionalProp);
-        }
+    await expectNoErrors(newSourceWithPrefix(componentSource(ComponentType.component2, componentBody: r'''
+      render() {
+        print(props.requiredProp);
+        print(props.optionalProp);
+        _renderHelper();
       }
-    '''));
+      _renderHelper() {
+        print(props.requiredProp);
+        print(props.optionalProp);
+      }
+    ''')));
   }
 
   Future<void> test_noErrors_withinUtilityMethods() async {
-    await expectNoErrors(newSourceWithPrefix(/*language=dart*/ r'''
-      test1(FooProps props) {
+    await expectNoErrors(newSourceWithPrefix(/*language=dart*/ '''
+      test1(HasRequiredProps props) {
         // UiProps methods
         print(props.getPropKey((p) => p.requiredProp));
         print(props.containsProp((p) => p.requiredProp));
@@ -80,26 +57,26 @@ mixin FooProps on UiProps {
         print(props.getRequiredPropOrNull((p) => p.requiredProp));
       }
       
-      testTopLevel(FooProps props) {
+      testTopLevel(HasRequiredProps props) {
         // Top-level functions  
-        print(getPropKey<FooProps>((p) => p.requiredProp, Foo));
+        print(getPropKey<HasRequiredProps>((p) => p.requiredProp, HasRequired));
       }
       
-      abstract class OtherComponent extends UiComponent2<FooProps> {
+      ${componentSource(ComponentType.component2, componentBody: r'''
         render() {
           // UiComponent methods
           print(keyForProp((p) => p.requiredProp));
           // `this.` is necessary to avoid top-level getPropKey taking precedence.
           print(this.getPropKey((p) => p.requiredProp)); // ignore: deprecated_member_use
         }
-      }
+      ''')}
     '''));
   }
 
   // FIXME clarify that even unsafe accesses aren't linted
   Future<void> test_noErrors_withinSpecificLifecycleMethods() async {
     await expectNoErrors(newSourceWithPrefix(/*language=dart*/ r'''
-      abstract class FooComponent extends UiComponent2<FooProps> {
+      abstract class TestComponent2 extends UiComponent2<HasRequiredProps> {
         get propTypes => {
           keyForProp((p) => p.requiredProp): (props, _) {
             print(typedPropsFactory(props).requiredProp);
@@ -112,7 +89,7 @@ mixin FooProps on UiProps {
         @override shouldComponentUpdate(nextProps, _)    { print(typedPropsFactory(nextProps).requiredProp); return true; }
       }
       
-      abstract class OtherComponent1 extends UiComponent<FooProps> {
+      abstract class TestComponent1 extends UiComponent<HasRequiredProps> {
         // Just test UiComponent-specific methods
         @override componentWillReceiveProps(nextProps)               { print(typedPropsFactory(nextProps).requiredProp); super.componentWillReceiveProps(nextProps); }  
         @override componentWillReceivePropsWithContext(nextProps, _) { print(typedPropsFactory(nextProps).requiredProp); }  
@@ -124,11 +101,57 @@ mixin FooProps on UiProps {
 
   Future<void> test_noErrorsWithContainsPropCheck() async {
     await expectNoErrors(newSourceWithPrefix(/*language=dart*/ r'''
-      test(FooProps props) {
+      test(HasRequiredProps props) {
         if (props.containsProp((p) => p.requiredProp)) {
           print(props.requiredProp);
         }
       }
     '''));
   }
+}
+
+const sourcePrefix = /*language=dart*/ r'''
+import 'package:over_react/over_react.dart';
+
+part '{{FILE_BASENAME_WITHOUT_EXTENSION}}.over_react.g.dart';
+
+// ignore_for_file: unused_local_variable
+
+UiFactory<HasRequiredProps> HasRequired = castUiFactory(_$HasRequired);
+
+mixin HasRequiredProps on UiProps {
+  late String requiredProp;
+  String? optionalProp;
+}
+''';
+
+String componentSource(ComponentType componentType, {required String componentBody, String componentName = 'Test'}) {
+  final propsName = '${componentName}Props';
+
+  final buffer = StringBuffer()..writeln('class $propsName = UiProps with HasRequiredProps;');
+  switch (componentType) {
+    case ComponentType.component2:
+      buffer.writeln('UiFactory<$propsName> $componentName = castUiFactory(_\$$componentName);');
+      buffer.writeln('class ${componentName}Component extends UiComponent2<$propsName> {');
+      buffer.writeln(componentBody);
+      buffer.writeln('}');
+      break;
+    case ComponentType.uiFunction:
+      buffer.writeln('UiFactory<$propsName> $componentName = uiFunction((props) {');
+      buffer.writeln(componentBody);
+      buffer.writeln('}, _\$${componentName}Config);');
+      break;
+    case ComponentType.uiForwardRef:
+      buffer.writeln('UiFactory<$propsName> $componentName = uiForwardRef((props, ref) {');
+      buffer.writeln(componentBody);
+      buffer.writeln('}, _\$${componentName}Config);');
+      break;
+  }
+  return buffer.toString();
+}
+
+enum ComponentType {
+  component2,
+  uiFunction,
+  uiForwardRef,
 }
