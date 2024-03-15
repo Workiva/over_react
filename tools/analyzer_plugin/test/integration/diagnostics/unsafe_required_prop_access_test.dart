@@ -101,6 +101,38 @@ class UnsafeRequiredPropAccessTest extends DiagnosticTestBase {
     ]);
   }
 
+  Future<void> test_noErrors_NonPropAccesses() async {
+    await expectNoErrors(newSource(/*language=Dart*/r'''
+      // End with "Props" because we short-circuit on types that end with props.
+      class NotProps {
+        String? someField;
+        // This declaration is identical to that of a required prop,
+        // but it isn't one.
+        late String lateField;
+      }
+      
+      test(NotProps notProps) {
+        notProps.lateField;
+        notProps.someField;
+        notProps.hashCode;
+      }
+    '''));
+  }
+
+  Future<void> test_noErrors_staticAccesses() async {
+    await expectNoErrors(newSourceWithPrefix(/*language=Dart*/r'''
+      mixin HasStaticMembersProps {
+        static late String lateStaticField;
+        static String staticField = '';
+      }
+      
+      test() {
+        HasStaticMembersProps.lateStaticField;
+        HasStaticMembersProps.staticField;
+      }
+    '''));
+  }
+
   Future<void> test_noErrors_withinFunctionComponent() async {
     await expectNoErrors(newSourceWithPrefix(componentSource(ComponentType.uiFunction, componentBody: r'''
       print(props.requiredProp);
