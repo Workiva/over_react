@@ -228,8 +228,8 @@ void main() {
         '''));
       });
 
-      group('when gated by a containsProp check', () {
-        test('', () async {
+      group('when gated by a containsProp check -', () {
+        test('simple if-check', () async {
           await testBase.expectNoErrors(testBase.newSourceWithPrefix(/*language=dart*/ r'''
             test(HasRequiredProps props) {
               if (props.containsProp((p) => p.requiredProp)) {
@@ -239,7 +239,81 @@ void main() {
           '''));
         });
 
-        // FIXME add tests for negative cases
+        test('simple else-if-check', () async {
+          await testBase.expectNoErrors(testBase.newSourceWithPrefix(/*language=dart*/ r'''
+            test(HasRequiredProps props, bool otherCondition) {
+              if (otherCondition) {
+                print('other condition');
+              } else if (props.containsProp((p) => p.requiredProp)) {
+                print(props.requiredProp);
+              }
+            }
+          '''));
+        });
+
+        test('simple if-check `&&` another condition', () async {
+          await testBase.expectNoErrors(testBase.newSourceWithPrefix(/*language=dart*/ r'''
+            test(HasRequiredProps props, bool otherCondition) {
+              if (props.containsProp((p) => p.requiredProp) && otherCondition) {
+                print(props.requiredProp);
+              }
+            }
+          '''));
+        });
+
+        group('except when the containsProp check', () {
+          test('is for a different prop', () async {
+            final source = testBase.newSourceWithPrefix(/*language=dart*/ r'''
+              test(HasRequiredProps props) {
+                if (props.containsProp((p) => p.optionalProp)) {
+                  print(props.requiredProp);
+                }
+              }
+            ''');
+            expect(await testBase.getAllErrors(source, includeOtherCodes: true), [
+              testBase.isAnErrorUnderTest(locatedAt: testBase.createSelection(source, 'props.#requiredProp#')),
+            ]);
+          });
+
+          test('is on a different object', () async {
+            final source = testBase.newSourceWithPrefix(/*language=dart*/ r'''
+              test(HasRequiredProps props1, HasRequiredProps props2) {
+                if (props1.containsProp((p) => p.requiredProp)) {
+                  print(props2.requiredProp);
+                }
+              }
+            ''');
+            expect(await testBase.getAllErrors(source, includeOtherCodes: true), [
+              testBase.isAnErrorUnderTest(locatedAt: testBase.createSelection(source, 'props2.#requiredProp#')),
+            ]);
+          });
+
+          test('is not definitely true', () async {
+            final source = testBase.newSourceWithPrefix(/*language=dart*/ r'''
+              test(HasRequiredProps props, bool otherCondition) {
+                if (props.containsProp((p) => p.requiredProp) || otherCondition) {
+                  print(props.requiredProp);
+                }
+              }
+            ''');
+            expect(await testBase.getAllErrors(source, includeOtherCodes: true), [
+              testBase.isAnErrorUnderTest(locatedAt: testBase.createSelection(source, 'props.#requiredProp#')),
+            ]);
+          });
+
+          test('is negated', () async {
+            final source = testBase.newSourceWithPrefix(/*language=dart*/ r'''
+              test(HasRequiredProps props) {
+                if (!props.containsProp((p) => p.requiredProp)) {
+                  print(props.requiredProp);
+                }
+              }
+            ''');
+            expect(await testBase.getAllErrors(source, includeOtherCodes: true), [
+              testBase.isAnErrorUnderTest(locatedAt: testBase.createSelection(source, 'props.#requiredProp#')),
+            ]);
+          });
+        });
       });
 
       // FIXME add tests for other lifecycle methods here or above
