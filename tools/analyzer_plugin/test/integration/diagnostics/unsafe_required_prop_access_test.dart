@@ -16,7 +16,56 @@ void main() {
       await testBase.tearDown();
     });
 
-    group('warns for unsafe prop accesses', () {
+    group('does not warn for optional props', () {
+      test('declared in a custom props mixin', () async {
+        await testBase.expectNoErrors(testBase.newSourceWithPrefix(/*language=Dart*/ r'''
+          test(HasRequiredProps props) {
+            props.optionalProp;
+            props.optionalDynamicProp;
+          }
+        '''));
+      });
+
+      test('declared in UbiquitousDomPropsMixin', () async {
+        await testBase.expectNoErrors(testBase.newSourceWithPrefix(/*language=Dart*/ r'''
+          test(HasRequiredProps props) {
+            props.id;
+            props.children;
+            props.onClick;
+          }
+        '''));
+      });
+
+      test('in different parent nodes and syntaxes', () async {
+        // Keep this in sync with the similar 'in different parent nodes and syntaxes' test
+        // within the `warns for unsafe prop accesses` group below.
+        await testBase.expectNoErrors(testBase.newSourceWithPrefix(/*language=dart*/ r'''
+          test(HasRequiredProps props) {
+            // Nested in property access
+            props.optionalProp.hashCode;
+            (props.optionalProp).hashCode;
+            
+            // Nested in method call
+            props.optionalProp.toString(); 
+            (props.optionalProp).toString();
+            
+            // Target is an arbitrary expression
+            (props).optionalProp;
+            HasRequired().optionalProp;
+            
+            // Nested in cascade
+            props..optionalProp;  
+            props..optionalProp.hashCode;  
+            props..optionalProp.toString();
+            
+            // Compound assignment
+            props.optionalProp ??= "";
+          }
+        '''));
+      });
+    });
+
+    group('warns for unsafe late required prop accesses', () {
       group('on arbitrary props objects:', () {
         test('basic cases', () async {
           final source = testBase.newSourceWithPrefix(/*language=dart*/ r'''
@@ -32,6 +81,8 @@ void main() {
         });
 
         test('in different parent nodes and syntaxes', () async {
+          // Keep this in sync with the similar 'in different parent nodes and syntaxes' test
+          // within the `does not warn for optional props` group above.
           final source = testBase.newSourceWithPrefix(/*language=dart*/ r'''
             test(HasRequiredProps props) {
               // Nested in property access
@@ -44,6 +95,7 @@ void main() {
               
               // Target is an arbitrary expression
               (props).requiredProp;
+              HasRequired().requiredProp;
               
               // Nested in cascade
               props..requiredProp;  
@@ -63,6 +115,7 @@ void main() {
             isAnErrorUnderTest(locatedAt: createSelection(source, 'props.#requiredProp#.toString();')),
             isAnErrorUnderTest(locatedAt: createSelection(source, '(props.#requiredProp#).toString();')),
             isAnErrorUnderTest(locatedAt: createSelection(source, '(props).#requiredProp#;')),
+            isAnErrorUnderTest(locatedAt: createSelection(source, 'HasRequired().#requiredProp#;')),
             isAnErrorUnderTest(locatedAt: createSelection(source, 'props..#requiredProp#;')),
             isAnErrorUnderTest(locatedAt: createSelection(source, 'props..#requiredProp#.hashCode;')),
             isAnErrorUnderTest(locatedAt: createSelection(source, 'props..#requiredProp#.toString();')),
@@ -168,7 +221,7 @@ void main() {
       });
     });
 
-    group('does not warn for safe prop accesses:', () {
+    group('does not warn for safe accesses of late required props:', () {
       group('a component\'s own props', () {
         test('within a uiFunction', () async {
           await testBase
@@ -370,6 +423,7 @@ UiFactory<HasRequiredProps> HasRequired = castUiFactory(_$HasRequired);
 mixin HasRequiredProps on UiProps {
   late String requiredProp;
   String? optionalProp;
+  dynamic optionalDynamicProp;
 }
 ''';
 
