@@ -76,7 +76,9 @@ void main() {
           ''');
 
           expect(await testBase.getAllErrors(source, includeOtherCodes: true), [
-            testBase.isAnErrorUnderTest(locatedAt: testBase.createSelection(source, 'props.#requiredProp#')),
+            testBase
+                .isAnErrorUnderTest(locatedAt: testBase.createSelection(source, 'props.#requiredProp#'))
+                .havingMessage(contains("Accessing required prop 'requiredProp' on a potentially incomplete")),
           ]);
         });
 
@@ -152,6 +154,22 @@ void main() {
             testBase.isAnErrorUnderTest(locatedAt: testBase.createSelection(source, 'props.#requiredProp# + ""')),
           ]);
         });
+      });
+
+      test('and suggests a fix to use getRequiredPropOrNull', () async {
+        final source = testBase.newSourceWithPrefix(/*language=dart*/ r'''
+          test(HasRequiredProps props) {
+            print(props.requiredProp);
+          }
+        ''');
+        final fix = await testBase.expectSingleErrorFix(testBase.createSelection(source, 'props.#requiredProp#'));
+        expect(fix.fixes.single.change.message, "Use 'getRequiredPropOrNull' to safely access the prop.");
+        final fixedSource = testBase.applyErrorFixes(fix, source);
+        expect(fixedSource.contents.data, contains(/*language=dart*/ r'''
+          test(HasRequiredProps props) {
+            print(props.getRequiredPropOrNull((p) => p.requiredProp));
+          }
+        '''));
       });
     });
 
