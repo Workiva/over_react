@@ -1,6 +1,7 @@
 import 'package:over_react_analyzer_plugin/src/diagnostic/unsafe_required_prop_access.dart';
 import 'package:test/test.dart';
 
+import '../matchers.dart';
 import '../test_bases/diagnostic_test_base.dart';
 
 void main() {
