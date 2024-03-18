@@ -125,6 +125,43 @@ void main() {
             isAnErrorUnderTest(locatedAt: createSelection(source, 'props.#requiredProp# += "";'), hasFix: false),
           ]);
         });
+
+        group('when the props object is typed as', () {
+          test('the props mixin that defines the required prop', () async {
+            final source = testBase.newSourceWithPrefix(/*language=dart*/ r'''
+              test(HasRequiredProps props) {
+                print(props.requiredProp);
+              }
+            ''');
+            expect(await testBase.getAllErrors(source, includeOtherCodes: true), [
+              testBase.isAnErrorUnderTest(locatedAt: testBase.createSelection(source, 'props.#requiredProp#')),
+            ]);
+          });
+
+          test('a subclass', () async {
+            final source = testBase.newSourceWithPrefix(/*language=dart*/ r'''
+              UiFactory<SubclassProps> Subclass = castUiFactory(_$Subclass);
+              class SubclassProps = UiProps with HasRequiredProps;
+              test(SubclassProps props) {
+                print(props.requiredProp);
+              }
+            ''');
+            expect(await testBase.getAllErrors(source, includeOtherCodes: true), [
+              testBase.isAnErrorUnderTest(locatedAt: testBase.createSelection(source, 'props.#requiredProp#')),
+            ]);
+          });
+
+          test('a bounded generic', () async {
+            final source = testBase.newSourceWithPrefix(/*language=dart*/ r'''
+              test<T extends HasRequiredProps>(T props) {
+                print(props.requiredProp);
+              }
+            ''');
+            expect(await testBase.getAllErrors(source, includeOtherCodes: true), [
+              testBase.isAnErrorUnderTest(locatedAt: testBase.createSelection(source, 'props.#requiredProp#')),
+            ]);
+          });
+        });
       });
 
       group('inside a component', () {
