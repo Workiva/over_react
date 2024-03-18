@@ -219,6 +219,13 @@ void main() {
           }
         '''));
       });
+
+      test('required prop references in doc comments', () async {
+        await testBase.expectNoErrors(testBase.newSourceWithPrefix(/*language=Dart*/ r'''
+          /// Test doc comment with reference to: [HasRequiredProps.requiredProp]
+          test(HasRequiredProps props) {}
+        '''));
+      });
     });
 
     group('does not warn for safe accesses of late required props:', () {
@@ -304,14 +311,36 @@ void main() {
           '''));
         });
 
-        test('simple if-check `&&` another condition', () async {
-          await testBase.expectNoErrors(testBase.newSourceWithPrefix(/*language=dart*/ r'''
-            test(HasRequiredProps props, bool otherCondition) {
-              if (props.containsProp((p) => p.requiredProp) && otherCondition) {
-                print(props.requiredProp);
+        group('simple if-check `&&` another condition:', () {
+          test('left-hand condition', () async {
+            await testBase.expectNoErrors(testBase.newSourceWithPrefix(/*language=dart*/ r'''
+              test(HasRequiredProps props, bool otherCondition) {
+                if (props.containsProp((p) => p.requiredProp) && otherCondition) {
+                  print(props.requiredProp);
+                }
               }
-            }
-          '''));
+            '''));
+          });
+
+          test('right-hand condition', () async {
+            await testBase.expectNoErrors(testBase.newSourceWithPrefix(/*language=dart*/ r'''
+              test(HasRequiredProps props, bool otherCondition) {
+                if (otherCondition && props.containsProp((p) => p.requiredProp)) {
+                  print(props.requiredProp);
+                }
+              }
+            '''));
+          });
+
+          test('more than two `&&`s', () async {
+            await testBase.expectNoErrors(testBase.newSourceWithPrefix(/*language=dart*/ r'''
+              test(HasRequiredProps props, bool otherCondition) {
+                if (otherCondition && props.containsProp((p) => p.requiredProp) && otherCondition) {
+                  print(props.requiredProp);
+                }
+              }
+            '''));
+          });
         });
 
         group('except when the containsProp check', () {
