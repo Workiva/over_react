@@ -400,6 +400,24 @@ void main() {
         });
 
         group('except when the containsProp check', () {
+          test('is outside of a function containing the prop read', () async {
+            // We can't ensure containsProp will still be true by the time the function is called.
+            final source = testBase.newSourceWithPrefix(/*language=dart*/ r'''
+              test(HasRequiredProps props) {
+                if (props.containsProp((p) => p.requiredProp)) {
+                  someFunctionDeclaration() => props.requiredProp;
+                  var someFunctionVariable = () => props.requiredProp;
+                }
+              }
+            ''');
+            expect(await testBase.getAllErrors(source, includeOtherCodes: true), [
+              testBase.isAnErrorUnderTest(
+                  locatedAt: testBase.createSelection(source, 'someFunctionDeclaration() => props.#requiredProp#')),
+              testBase.isAnErrorUnderTest(
+                  locatedAt: testBase.createSelection(source, 'var someFunctionVariable = () => props.#requiredProp#')),
+            ]);
+          });
+
           test('is for a different prop', () async {
             final source = testBase.newSourceWithPrefix(/*language=dart*/ r'''
               test(HasRequiredProps props) {
