@@ -55,7 +55,7 @@ class UnsafeRequiredPropAccessDiagnostic extends DiagnosticContributor {
       if (isPropsSafeUtilityMethodArg(requiredPropRead.realTarget)) continue;
       if (isGatedByContainsPropCheck(requiredPropRead)) continue;
       if (isWithinLifecycleMethodWithPropsArg(requiredPropRead)) continue;
-      if (isWithinMemoAreEqualFunction(requiredPropRead)) continue;
+      if (isProbablyWithinMemoAreEqualFunction(requiredPropRead)) continue;
 
       final prop = requiredPropRead.prop;
 
@@ -94,7 +94,9 @@ bool isWithinLifecycleMethodWithPropsArg(LateRequiredPropRead read) {
   }.contains(lifecycleMethod.name.lexeme);
 }
 
-bool isWithinMemoAreEqualFunction(LateRequiredPropRead read) {
+final _memoAreEqualNamePattern = RegExp(r'[aA]reEqual');
+
+bool isProbablyWithinMemoAreEqualFunction(LateRequiredPropRead read) {
   final functionExpression = read.node.thisOrAncestorOfType<FunctionExpression>();
   if (functionExpression == null) return false;
 
@@ -105,6 +107,9 @@ bool isWithinMemoAreEqualFunction(LateRequiredPropRead read) {
         functionParent.parent.tryCast<ArgumentList>()?.parent?.tryCast<MethodInvocation>()?.methodName.name == 'memo';
   }
 
+  // Consumers commonly split out the areEqual function.
+  // Instead of looking up whether the functions are used in memo calls,
+  // just assume functions named /[aA]reEqual/ are safe.
   String? functionName;
   if (functionParent is FunctionDeclaration) {
     functionName = functionParent.name.lexeme;
@@ -112,7 +117,7 @@ bool isWithinMemoAreEqualFunction(LateRequiredPropRead read) {
     functionName = functionParent.name.lexeme;
   }
   if (functionName != null) {
-    return functionName.contains(/*a|A*/ 'reEqual');
+    return _memoAreEqualNamePattern.hasMatch(functionName);
   }
 
   return false;

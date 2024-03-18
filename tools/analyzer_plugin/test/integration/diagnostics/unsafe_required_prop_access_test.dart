@@ -444,6 +444,61 @@ void main() {
           }
         '''));
       });
+
+      group('within memo areEqual callbacks', () {
+        test('', () async {
+          await testBase.expectNoErrors(testBase.newSourceWithPrefix(/*language=dart*/ r'''
+            class TestMemoProps = UiProps with HasRequiredProps;
+            UiFactory<TestMemoProps> TestMemo = memo(
+              uiFunction((_) {}, _$TestMemoConfig),
+              areEqual: (prevProps, nextProps) {
+                prevProps.requiredProp;
+                nextProps.requiredProp;
+                return false;
+              },
+            );
+          '''));
+        });
+
+        test('but still warns within memoized components', () async {
+          final source = testBase.newSourceWithPrefix(/*language=dart*/ r'''
+            class TestMemoProps = UiProps with HasRequiredProps;
+            UiFactory<TestMemoProps> TestMemo = memo(
+              uiFunction((_) {
+                test(HasRequiredProps otherProps) {
+                  otherProps.requiredProp;
+                }
+              }, _$TestMemoConfig),
+            );
+          ''');
+
+          expect(await testBase.getAllErrors(source, includeOtherCodes: true), [
+            testBase.isAnErrorUnderTest(locatedAt: testBase.createSelection(source, 'otherProps.#requiredProp#')),
+          ]);
+        });
+
+        test('or function declarations that are named like memo areEqual callbacks', () async {
+          await testBase.expectNoErrors(testBase.newSourceWithPrefix(/*language=dart*/ r'''
+            _areEqual(HasRequiredProps props) {
+              props.requiredProp;
+            }
+            _somePrefixAreEqual(HasRequiredProps props) {
+              props.requiredProp;
+            }
+          '''));
+        });
+
+        test('or function variables that are named like memo areEqual callbacks', () async {
+          await testBase.expectNoErrors(testBase.newSourceWithPrefix(/*language=dart*/ r'''
+            final _areEqual = (HasRequiredProps props) {
+              props.requiredProp;
+            };
+            final _somePrefixAreEqual = (HasRequiredProps props) {
+              props.requiredProp;
+            };
+          '''));
+        });
+      });
     });
   });
 }
