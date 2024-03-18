@@ -33,14 +33,12 @@ class UnsafeRequiredPropAccessDiagnostic extends DiagnosticContributor {
   static final fixKind =
       FixKind('use_get_required_prop_or_null', 200, "Use 'getRequiredPropOrNull' to safely access the prop.");
 
-  // static final fixKind = FixKind('use_or_null', 200, "Add required prop '{0}'");
-
   @override
   computeErrors(result, collector) async {
     final requiredPropReads = <LateRequiredPropRead>[];
     result.unit.accept(LateRequiredPropReadVisitor(requiredPropReads.add));
 
-    // The overhead of isComponentProps is non-negligible; cache by the element to optimize
+    // The overhead of isPropsFromRender is non-negligible; cache by the element to optimize
     // the very common case of `props.` being accessed multiple times within a component.
     final _cacheByElement = <Element, bool>{};
     bool cachedIsComponentProps(Expression target) {
@@ -53,9 +51,9 @@ class UnsafeRequiredPropAccessDiagnostic extends DiagnosticContributor {
     for (final requiredPropRead in requiredPropReads) {
       if (cachedIsComponentProps(requiredPropRead.realTarget)) continue;
       if (isPropsSafeUtilityMethodArg(requiredPropRead.realTarget)) continue;
-      if (isGatedByContainsPropCheck(requiredPropRead)) continue;
-      if (isWithinLifecycleMethodWithPropsArg(requiredPropRead)) continue;
-      if (isProbablyWithinMemoAreEqualFunction(requiredPropRead)) continue;
+      if (_isSafeDueToContainsPropCheck(requiredPropRead)) continue;
+      if (_isWithinLifecycleMethodWithPropsArg(requiredPropRead)) continue;
+      if (_isProbablyWithinMemoAreEqualFunction(requiredPropRead)) continue;
 
       final prop = requiredPropRead.prop;
 
@@ -77,7 +75,12 @@ class UnsafeRequiredPropAccessDiagnostic extends DiagnosticContributor {
   }
 }
 
-bool isWithinLifecycleMethodWithPropsArg(LateRequiredPropRead read) {
+/// Returns whether [read] is within a class component lifecycle method that receives a props map
+/// as an argument.
+///
+/// In these cases, consumers will commonly use `typedPropsFactory` to get a view on a complete props map,
+/// so we'll opt out of validation within this method.
+bool _isWithinLifecycleMethodWithPropsArg(LateRequiredPropRead read) {
   final lifecycleMethod = read.node.thisOrAncestorOfType<MethodDeclaration>();
   if (lifecycleMethod == null) return false;
 
@@ -94,9 +97,8 @@ bool isWithinLifecycleMethodWithPropsArg(LateRequiredPropRead read) {
   }.contains(lifecycleMethod.name.lexeme);
 }
 
-final _memoAreEqualNamePattern = RegExp(r'[aA]reEqual');
-
-bool isProbablyWithinMemoAreEqualFunction(LateRequiredPropRead read) {
+//
+bool _isProbablyWithinMemoAreEqualFunction(LateRequiredPropRead read) {
   final functionExpression = read.node.thisOrAncestorOfType<FunctionExpression>();
   if (functionExpression == null) return false;
 
@@ -123,6 +125,12 @@ bool isProbablyWithinMemoAreEqualFunction(LateRequiredPropRead read) {
   return false;
 }
 
+final _memoAreEqualNamePattern = RegExp(r'[aA]reEqual');
+
+/// Returns whether [target] is an identifier referencing an argument to safe utility methods.
+///
+/// For example, in `props.containsProp((p) => p.requiredProp)`,
+/// returns `true` for the `p` that's followed by `.requiredProp`.
 bool isPropsSafeUtilityMethodArg(Expression target) {
   if (target is! Identifier) return false;
 
@@ -151,7 +159,8 @@ bool isPropsSafeUtilityMethodArg(Expression target) {
   }.contains(methodCallReceivingFunction.methodName.name);
 }
 
-bool isGatedByContainsPropCheck(LateRequiredPropRead propRead) {
+/// Returns whether [propRead] is safe due to a corresponding containsProp check in an ancestor if-statement.
+bool _isSafeDueToContainsPropCheck(LateRequiredPropRead propRead) {
   for (final ancestor in propRead.node.ancestors) {
     // If we encounter a function body, we're either inside a callback
     // or are not going to find our if-statement. Bail out.
@@ -163,41 +172,43 @@ bool isGatedByContainsPropCheck(LateRequiredPropRead propRead) {
         return false;
       }
 
-      return conditionEnsuresContainsProp(ancestor.expression, propRead);
+      return _conditionGuaranteesContainsProp(ancestor.expression, propRead);
     }
   }
   return false;
 }
 
-bool conditionEnsuresContainsProp(Expression condition, LateRequiredPropRead propRead) {
+/// Returns whether a `containsProp` check for the prop read in [propRead] is always `true`
+/// when the boolean expression [condition] is `true`.
+bool _conditionGuaranteesContainsProp(Expression condition, LateRequiredPropRead propRead) {
   // Handle simple && case.
   if (condition is BinaryExpression && condition.operator.type == TokenType.AMPERSAND_AMPERSAND) {
-    return conditionEnsuresContainsProp(condition.leftOperand, propRead) ||
-        conditionEnsuresContainsProp(condition.rightOperand, propRead);
+    return _conditionGuaranteesContainsProp(condition.leftOperand, propRead) ||
+        _conditionGuaranteesContainsProp(condition.rightOperand, propRead);
   }
 
   if (condition is MethodInvocation && !condition.isCascaded && condition.methodName.name == 'containsProp') {
     final containsPropCall = condition;
     // Check that `.containsProp` is heing called on the same object the prop read occurred on.
-    return hasSameNonNullStaticElement(containsPropCall.realTarget, propRead.realTarget) &&
+    return _hasSameNonNullStaticElement(containsPropCall.realTarget, propRead.realTarget) &&
         // Check that the prop being tested in `containsProp` is the same prop we're reading.
-        hasSameNonNullStaticElement(propRead.prop, getPropBeingCheckedInContainsProp(containsPropCall));
+        _hasSameNonNullStaticElement(propRead.prop, _getPropBeingCheckedInContainsProp(containsPropCall));
   } else {
     return false;
   }
 }
 
-bool hasSameNonNullStaticElement(Expression? a, Expression? b) =>
-    a != null &&
-    b != null &&
-    isSameNonNullElement(
-      a.tryCast<Identifier>()?.staticElement,
-      b.tryCast<Identifier>()?.staticElement,
-    );
+/// Returns whether [a] and [b] are both identifiers that have the same non-null [Identifier.staticElement].
+bool _hasSameNonNullStaticElement(Expression? a, Expression? b) {
+  final elementA = a.tryCast<Identifier>()?.staticElement;
+  final elementB = b.tryCast<Identifier>()?.staticElement;
+  return elementA != null && elementB != null && elementA == elementB;
+}
 
-bool isSameNonNullElement(Element? a, Element? b) => a != null && b != null && a == b;
-
-SimpleIdentifier? getPropBeingCheckedInContainsProp(MethodInvocation containsPropCall) {
+/// Returns the identifier of the prop being checked in a `containsProp` call.
+///
+/// For example, returns `foo` for `props.containsProp((p) => p.foo)`.
+SimpleIdentifier? _getPropBeingCheckedInContainsProp(MethodInvocation containsPropCall) {
   final propAccess = containsPropCall.argumentList.arguments.firstOrNull
       .tryCast<FunctionExpression>()
       ?.body
@@ -208,6 +219,7 @@ SimpleIdentifier? getPropBeingCheckedInContainsProp(MethodInvocation containsPro
   return getSimpleTargetAndPropertyName(propAccess, allowMethodInvocation: false)?.item2;
 }
 
+/// A read of a late required prop.
 class LateRequiredPropRead {
   final Expression node;
   final Expression realTarget;
@@ -318,6 +330,7 @@ class LateRequiredPropReadVisitor extends RecursiveAstVisitor<void> {
   }
 }
 
+/// Whether [propertyElement] is the declaration of a late required prop.
 bool _isLateRequiredProp(FieldElement propertyElement) {
   if (!propertyElement.isLate || propertyElement.isStatic) return false;
 
@@ -327,6 +340,7 @@ bool _isLateRequiredProp(FieldElement propertyElement) {
   // Short-circuit earlier using the name so we can avoid unnecessarily computing allSuperTypes in `.isPropsClass`.
   // v4 boilerplate props mixins must end with either "Props" or "PropsMixin",
   // and most legacy classes also match this convention.
+  // TODO cache this for enclosing elements?
   if (!enclosingClass.name.contains('Props') || !enclosingClass.isPropsClass) {
     return false;
   }
