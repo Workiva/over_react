@@ -318,6 +318,27 @@ void main() {
         });
       });
 
+      group('props on a class component instance:', () {
+        const testComponentName = 'Test';
+        const testComponentClassName = '${testComponentName}Component';
+        late final testComponentSource =
+            componentSource(ComponentType.component2, componentBody: 'render() {}', componentName: testComponentName);
+
+        test('single level of property access', () async {
+          await testBase.expectNoErrors(testBase.newSourceWithPrefix('''
+            $testComponentSource
+            test($testComponentClassName component) => component.props.requiredProp;
+          '''));
+        });
+
+        test('multiple levels of property access', () async {
+          await testBase.expectNoErrors(testBase.newSourceWithPrefix('''
+            $testComponentSource
+            test(Ref<$testComponentClassName?> ref) => ref.current?.props.requiredProp;
+          '''));
+        });
+      });
+
       test('within utility method callbacks', () async {
         await testBase.expectNoErrors(testBase.newSourceWithPrefix(/*language=dart*/ '''
           test1(HasRequiredProps props) {
