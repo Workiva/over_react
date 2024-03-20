@@ -23,9 +23,8 @@ class UnsafeRequiredPropAccessDiagnostic extends DiagnosticContributor {
       "Accessing required prop '{0}' on a potentially incomplete props map can throw.",
       AnalysisErrorSeverity.WARNING,
       AnalysisErrorType.STATIC_WARNING,
-      // FIXME talk about simple containsProp check, potentially add quick fix
-      correction:
-          "Use safe utility methods to access the prop: 'getRequiredProp', 'getRequiredPropOrNull', or 'containsProp'.");
+      correction: "Use 'getRequiredProp' or 'getRequiredPropOrNull' to safely access the prop,"
+          " or wrap this read in a 'containsProp' check.");
 
   @override
   get codes => const [code];
@@ -165,14 +164,11 @@ bool _isSafeDueToContainsPropCheck(LateRequiredPropRead propRead) {
     // If we encounter a function body, we're either inside a callback
     // or are not going to find our if-statement. Bail out.
     if (ancestor is FunctionBody) return false;
-    // Handle the first if-statement we run across, and don't try to handle ancestors.
     if (ancestor is IfStatement) {
       // Only handle then-statements, not else-statements, reads within the condition, or if-cases.
-      if (!ancestor.thenStatement.containsRangeOf(propRead.node) || ancestor.caseClause != null) {
-        return false;
+      if (ancestor.thenStatement.containsRangeOf(propRead.node) && ancestor.caseClause == null) {
+        if (_conditionGuaranteesContainsProp(ancestor.expression, propRead)) return true;
       }
-
-      return _conditionGuaranteesContainsProp(ancestor.expression, propRead);
     }
   }
   return false;

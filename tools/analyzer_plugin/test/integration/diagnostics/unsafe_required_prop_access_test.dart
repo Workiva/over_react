@@ -355,6 +355,18 @@ void main() {
           '''));
         });
 
+        test('nested if-check', () async {
+          await testBase.expectNoErrors(testBase.newSourceWithPrefix(/*language=dart*/ r'''
+            test(HasRequiredProps props, bool otherCondition) {
+              if (props.containsProp((p) => p.requiredProp)) {
+                if (otherCondition) {
+                  print(props.requiredProp);
+                }
+              }
+            }
+          '''));
+        });
+
         test('simple else-if-check', () async {
           await testBase.expectNoErrors(testBase.newSourceWithPrefix(/*language=dart*/ r'''
             test(HasRequiredProps props, bool otherCondition) {
