@@ -20,7 +20,6 @@ import 'package:test/test.dart';
 
 import '../../test_util.dart';
 
-
 void main() {
   group('isPropsFromRender', () {
     /// Parsed and resolves [source] and returns the expression that is returned from
@@ -58,29 +57,93 @@ void main() {
       return functionBody.returnExpressions.single;
     }
 
-    group('returns false for', () {
-      test('arbitrary props arguments', () async {
+    group('returns false for non-props expressions:', () {
+      test('miscellaneous cases', () async {
+        const testCases = [
+          'Object()',
+          '(Object())',
+          '{}',
+          '[]',
+        ];
+        for (final testCase in testCases) {
+          expect(isPropsFromRender(await getExpressionToTest('''
+            returnsExpressionToTest() => $testCase;
+          ''')), isFalse);
+        }
+      });
+
+      test('objects named like props classes but aren\'t', () async {
         expect(isPropsFromRender(await getExpressionToTest(r'''
-          returnsExpressionToTest(FooProps props) => props;
+          class NotProps {}
+          returnsExpressionToTest(NotProps props) => props;
         ''')), isFalse);
       });
 
-      test('arbitrary props variables', () async {
+      test('dynamic variables', () async {
         expect(isPropsFromRender(await getExpressionToTest(r'''
-          returnsExpressionToTest() {
-            final props = Foo();
-            return props;
+          returnsExpressionToTest(dynamic props) => props;
+        ''')), isFalse);
+      });
+
+      test('dynamic property accesses', () async {
+        expect(isPropsFromRender(await getExpressionToTest(r'''
+          returnsExpressionToTest(dynamic props) => props.foo;
+        ''')), isFalse);
+      });
+
+      test('unresolved identifiers', () async {
+        expect(isPropsFromRender(await getExpressionToTest(r'''
+          // ignore: undefined_identifier
+          returnsExpressionToTest() => identifierThatDoesNotExist;
+        ''')), isFalse);
+      });
+    });
+
+    group('returns false for other props expressions,', () {
+      void sharedTests(String Function(String source) getTestCaseSource) {
+        test('arbitrary props arguments', () async {
+          expect(isPropsFromRender(await getExpressionToTest(getTestCaseSource(r'''
+            returnsExpressionToTest(FooProps props) => props;
+          '''))), isFalse);
+        });
+
+        test('arbitrary props variables', () async {
+          expect(isPropsFromRender(await getExpressionToTest(getTestCaseSource(r'''
+            returnsExpressionToTest() {
+              final props = Foo();
+              return props;
+            }
+          '''))), isFalse);
+        });
+
+        test('single-invoked builders', () async {
+          expect(isPropsFromRender(await getExpressionToTest(getTestCaseSource(r'''
+            returnsExpressionToTest() => Foo();
+          '''))), isFalse);
+        });
+      }
+
+      group('when not nested in a component:', () {
+        sharedTests((source) => source);
+      });
+
+      group('even when nested inside a function component:', () {
+        sharedTests((source) => '''
+          final Bar = uiFunction<UiProps>((props) {
+            $source
+          }, UiFactoryConfig());
+        ''');
+      });
+
+      group('even when nested inside a class component:', () {
+        sharedTests((source) => '''
+          class FooComponent extends UiComponent2 {
+            @override render() {}
+            
+            $source
           }
-        ''')), isFalse);
+        ''');
       });
-
-      test('single-invoked builders', () async {
-        expect(isPropsFromRender(await getExpressionToTest(r'''
-          returnsExpressionToTest() => Foo();
-        ''')), isFalse);
-      });
-
-      // FIXME also inside a component, function component
     });
 
     group('returns true for', () {
@@ -126,6 +189,20 @@ void main() {
               @override render() {}
               returnsExpressionToTest() => this.props;
             }
+          ''')), isTrue);
+        });
+      });
+
+      group('props accessed on component instances', () {
+        test('single level of property access', () async {
+          expect(isPropsFromRender(await getExpressionToTest(r'''
+            returnsExpressionToTest(UiComponent2 component) => component.props;
+          ''')), isTrue);
+        });
+
+        test('multiple levels of property access', () async {
+          expect(isPropsFromRender(await getExpressionToTest(r'''
+            returnsExpressionToTest(Ref<UiComponent2> ref) => ref.current?.props;
           ''')), isTrue);
         });
       });
