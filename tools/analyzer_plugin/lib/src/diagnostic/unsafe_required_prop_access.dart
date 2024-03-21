@@ -9,10 +9,82 @@ import 'package:over_react_analyzer_plugin/src/util/is_props_from_render.dart';
 import 'package:over_react_analyzer_plugin/src/util/react_types.dart';
 import 'package:over_react_analyzer_plugin/src/util/util.dart';
 
-const _desc = r'';
+const _desc = r"Do not unsafely access required props when they're not guaranteed to be present.";
 // <editor-fold desc="Documentation Details">
 const _details = r'''
 
+**DO NOT** access required props when they're not guaranteed to be present, since that can cause errors and bad behavior.
+
+For example, given props:
+```dart
+mixin FooProps {
+  late int requiredProp;
+}
+
+example() {
+  final props = Foo(); // Create an empty props object.
+   
+  // Throws because the map is empty, and the value `null`
+  // is not an `int`.
+  props.requiredProp;  
+}
+```
+
+This only applies when interacting with arbitrary props objects, and not with the props a component was rendered with,
+since we validate via the `over_react_late_required_prop` diagnostic and via runtime checks that all required props are supplied.
+
+
+**DO** use utility methods `getRequiredProp`, getRequiredPropOrNull`, or `containsProp` checks to safely access the prop.
+
+**GOOD:**
+```dart
+renderFoo([Map? _additionalFooProps]) {
+  final fooProps = Foo({...?_additionalFooProps});
+  
+  // Safe access via `.getRequiredProp`
+  final requiredProp1 = fooProps.getRequiredProp((p) => p.requiredProp1),
+      orElse: () => 'custom default');
+      
+  // Safe access via `.getRequiredPropOrNull`
+  final requiredProp2Uppercase = fooProps
+      .getRequiredPropOrNull((p) => requiredProp2)
+      ?.toUpperCase();
+    
+  // Safe access via if-check with `.containsProp`
+  final otherPropsToAdd = Foo();
+  if (fooProps.containsProp((p) => p.requiredProp3)) {
+    otherPropsToAdd.aria.label = fooProps.requiredProp3;
+  }
+  
+  // ...
+}
+```
+
+**BAD:**
+```
+@override
+renderFoo([Map? _additionalFooProps]) {
+  final fooProps = Foo({...?_additionalFooProps});
+  
+  // Unsafe; `.requiredProp1` will throw if it's not present.
+  final requiredProp1 = fooProps.requiredProp1 ?? 'custom default';
+      
+  // Unsafe; `.requiredProp1` will throw if it's not present.
+  // Also, there's a static analysis error because there's a null-aware 
+  // on the non-nullable `requiredProp2`
+  final requiredProp2Uppercase = fooProps.requiredProp2?.toUpperCase();
+    
+  // Unsafe; `.requiredProp3` will throw if it's not present.
+  // Also, there's a static analysis error on the condition because 
+  // the non-nulllable requiredProp3 will always `!= null`.
+  final otherPropsToAdd = Foo();
+  if (p.requiredProp3 != null) {
+    otherPropsToAdd.aria.label = fooProps.requiredProp3;
+  }
+  
+  // ...
+}
+```
 ''';
 // </editor-fold>
 
@@ -336,7 +408,6 @@ bool _isLateRequiredProp(FieldElement propertyElement) {
   // Short-circuit earlier using the name so we can avoid unnecessarily computing allSuperTypes in `.isPropsClass`.
   // v4 boilerplate props mixins must end with either "Props" or "PropsMixin",
   // and most legacy classes also match this convention.
-  // TODO cache this for enclosing elements?
   if (!enclosingClass.name.contains('Props') || !enclosingClass.isPropsClass) {
     return false;
   }
