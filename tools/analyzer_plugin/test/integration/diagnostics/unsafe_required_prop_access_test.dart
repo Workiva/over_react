@@ -638,26 +638,66 @@ void main() {
           ]);
         });
 
-        test('or function declarations that are named like memo areEqual callbacks', () async {
-          await testBase.expectNoErrors(testBase.newSourceWithPrefix(/*language=dart*/ r'''
-            _areEqual(HasRequiredProps props) {
-              props.requiredProp;
-            }
-            _somePrefixAreEqual(HasRequiredProps props) {
-              props.requiredProp;
-            }
-          '''));
-        });
+        group('or functions named like memo areEqual callbacks', () {
+          group('and declared as top-level', () {
+            test('functions', () async {
+              await testBase.expectNoErrors(testBase.newSourceWithPrefix(/*language=dart*/ r'''
+                _areEqual(HasRequiredProps props) {
+                  props.requiredProp;
+                }
+                _somePrefixAreEqual(HasRequiredProps props) {
+                  props.requiredProp;
+                }
+              '''));
+            });
 
-        test('or function variables that are named like memo areEqual callbacks', () async {
-          await testBase.expectNoErrors(testBase.newSourceWithPrefix(/*language=dart*/ r'''
-            final _areEqual = (HasRequiredProps props) {
-              props.requiredProp;
-            };
-            final _somePrefixAreEqual = (HasRequiredProps props) {
-              props.requiredProp;
-            };
-          '''));
+            test('function variables', () async {
+              await testBase.expectNoErrors(testBase.newSourceWithPrefix(/*language=dart*/ r'''
+                final _areEqual = (HasRequiredProps props) {
+                  props.requiredProp;
+                };
+                final _somePrefixAreEqual = (HasRequiredProps props) {
+                  props.requiredProp;
+                };
+              '''));
+            });
+          });
+
+          group('except for when they are not top-level', () {
+            test('functions', () async {
+              final source = testBase.newSourceWithPrefix(/*language=dart*/ r'''
+                test() {
+                  _areEqual(HasRequiredProps props) {
+                    props.requiredProp; // 1
+                  }
+                  _somePrefixAreEqual(HasRequiredProps props) {
+                    props.requiredProp; // 2
+                  }
+                }
+              ''');
+              expect(await testBase.getAllErrors(source, includeOtherCodes: true), [
+                testBase.isAnErrorUnderTest(locatedAt: testBase.createSelection(source, 'props.#requiredProp#; // 1')),
+                testBase.isAnErrorUnderTest(locatedAt: testBase.createSelection(source, 'props.#requiredProp#; // 2')),
+              ]);
+            });
+
+            test('function variables', () async {
+              final source = testBase.newSourceWithPrefix(/*language=dart*/ r'''
+                test() {
+                  final _areEqual = (HasRequiredProps props) {
+                    props.requiredProp; // 1
+                  };
+                  final _somePrefixAreEqual = (HasRequiredProps props) {
+                    props.requiredProp; // 2
+                  };
+                }
+              ''');
+              expect(await testBase.getAllErrors(source, includeOtherCodes: true), [
+                testBase.isAnErrorUnderTest(locatedAt: testBase.createSelection(source, 'props.#requiredProp#; // 1')),
+                testBase.isAnErrorUnderTest(locatedAt: testBase.createSelection(source, 'props.#requiredProp#; // 2')),
+              ]);
+            });
+          });
         });
       });
     });

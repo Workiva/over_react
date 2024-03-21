@@ -180,14 +180,20 @@ bool _isProbablyWithinMemoAreEqualFunction(LateRequiredPropRead read) {
 
   // Consumers commonly split out the areEqual function.
   // Instead of looking up whether the functions are used in memo calls,
-  // just assume functions named /[aA]reEqual/ are safe.
-  String? functionName;
+  // just assume top-level functions and variables named /[aA]reEqual/ are safe.
+  String functionName;
+  bool isTopLevelDeclaration;
   if (functionParent is FunctionDeclaration) {
     functionName = functionParent.name.lexeme;
+    isTopLevelDeclaration = functionParent.parent is CompilationUnit;
   } else if (functionParent is VariableDeclaration && functionParent.initializer == functionExpression) {
     functionName = functionParent.name.lexeme;
+    // VariableDeclaration < VariableDeclarationList < TopLevelVariableDeclaration
+    isTopLevelDeclaration = functionParent.parent?.parent is TopLevelVariableDeclaration;
+  } else {
+    return false;
   }
-  if (functionName != null) {
+  if (isTopLevelDeclaration) {
     return _memoAreEqualNamePattern.hasMatch(functionName);
   }
 
