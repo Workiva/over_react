@@ -164,33 +164,79 @@ void main() {
         });
       });
 
-      group('inside a component', () {
-        test('', () async {
-          final source = testBase.newSourceWithPrefix(componentSource(ComponentType.uiFunction, componentBody: r'''
-            test(HasRequiredProps otherProps) {
-              print(otherProps.requiredProp);
-            }
-          '''));
+      group('inside a', () {
+        group('function component', () {
+          test('', () async {
+            final source = testBase.newSourceWithPrefix(componentSource(ComponentType.uiFunction, componentBody: r'''
+              test(HasRequiredProps otherProps) {
+                print(otherProps.requiredProp);
+              }
+            '''));
 
-          expect(await testBase.getAllErrors(source, includeOtherCodes: true), [
-            testBase.isAnErrorUnderTest(locatedAt: testBase.createSelection(source, 'otherProps.#requiredProp#')),
-          ]);
+            expect(await testBase.getAllErrors(source, includeOtherCodes: true), [
+              testBase.isAnErrorUnderTest(locatedAt: testBase.createSelection(source, 'otherProps.#requiredProp#')),
+            ]);
+          });
+
+          test('when shadowing `props`', () async {
+            final source = testBase.newSourceWithPrefix(componentSource(ComponentType.uiFunction, componentBody: r'''
+              // Statically access props so we know it's being shadowed in this test setup.
+              // If it's not, we'll get a built-in analysis error that will fail the test.
+              print(props.requiredProp);
+              
+              // Shadow `props` with another variable of the same name.
+              test(HasRequiredProps props) {
+                print(props.requiredProp + "");
+              }
+            '''));
+            expect(await testBase.getAllErrors(source, includeOtherCodes: true), [
+              testBase.isAnErrorUnderTest(locatedAt: testBase.createSelection(source, 'props.#requiredProp# + ""')),
+            ]);
+          });
         });
 
-        test('when shadowing `props`', () async {
-          final source = testBase.newSourceWithPrefix(componentSource(ComponentType.uiFunction, componentBody: r'''
-            // Statically access props so we know it's being shadowed in this test setup.
-            // If it's not, we'll get a built-in analysis error that will fail the test.
-            print(props.requiredProp);
-            
-            // Shadow `props` with another variable of the same name.
-            test(HasRequiredProps props) {
-              print(props.requiredProp + "");
-            }
-          '''));
-          expect(await testBase.getAllErrors(source, includeOtherCodes: true), [
-            testBase.isAnErrorUnderTest(locatedAt: testBase.createSelection(source, 'props.#requiredProp# + ""')),
-          ]);
+        group('class component', () {
+          test('', () async {
+            final source = testBase.newSourceWithPrefix(componentSource(ComponentType.component2, componentBody: r'''
+              @override
+              render() {
+                test(HasRequiredProps otherPropsInRender) => otherPropsInRender.requiredProp;
+              }
+              
+              renderHelper(HasRequiredProps otherPropsInRenderHelper) => otherPropsInRenderHelper.requiredProp;
+              
+              @override
+              componentDidMount() {
+                test(HasRequiredProps otherPropsInOtherLifecycleMethod) => otherPropsInOtherLifecycleMethod.requiredProp;
+              }
+            '''));
+
+            final createSelection = testBase.createSelection;
+            final isAnErrorUnderTest = testBase.isAnErrorUnderTest;
+            expect(await testBase.getAllErrors(source, includeOtherCodes: true), [
+              isAnErrorUnderTest(locatedAt: createSelection(source, 'InRender.#requiredProp#')),
+              isAnErrorUnderTest(locatedAt: createSelection(source, 'InRenderHelper.#requiredProp#')),
+              isAnErrorUnderTest(locatedAt: createSelection(source, 'InOtherLifecycleMethod.#requiredProp#')),
+            ]);
+          });
+
+          test('when shadowing `props`', () async {
+            final source = testBase.newSourceWithPrefix(componentSource(ComponentType.component2, componentBody: r'''
+              render() {
+                // Statically access props so we know it's being shadowed in this test setup.
+                // If it's not, we'll get a built-in analysis error that will fail the test.
+                print(props.requiredProp);
+                
+                // Shadow `props` with another variable of the same name.
+                test(HasRequiredProps props) {
+                  print(props.requiredProp + "");
+                }
+              }
+            '''));
+            expect(await testBase.getAllErrors(source, includeOtherCodes: true), [
+              testBase.isAnErrorUnderTest(locatedAt: testBase.createSelection(source, 'props.#requiredProp# + ""')),
+            ]);
+          });
         });
       });
 
@@ -505,32 +551,59 @@ void main() {
         });
       });
 
-      // FIXME add tests for other lifecycle methods here or above
+      group('within certain component lifecycle methods', () {
+        test('', () async {
+          await testBase.expectNoErrors(testBase.newSourceWithPrefix(/*language=dart*/ r'''
+            abstract class TestComponent2 extends UiComponent2<HasRequiredProps> {
+              get propTypes => {
+                keyForProp((p) => p.requiredProp): (props, _) {
+                  print(typedPropsFactory(props).requiredProp);
+                  return null;
+                },
+              };
+              @override componentDidUpdate(prevProps, _, [__]) { print(typedPropsFactory(prevProps).requiredProp); }  
+              @override getDerivedStateFromProps(nextProps, _) { print(typedPropsFactory(nextProps).requiredProp); return {}; }  
+              @override getSnapshotBeforeUpdate(prevProps, _)  { print(typedPropsFactory(prevProps).requiredProp); return null; }  
+              @override shouldComponentUpdate(nextProps, _)    { print(typedPropsFactory(nextProps).requiredProp); return true; }
+            }
+            
+            abstract class TestComponent1 extends UiComponent<HasRequiredProps> {
+              // Just test UiComponent-specific methods
+              @override componentWillReceiveProps(nextProps)               { print(typedPropsFactory(nextProps).requiredProp); super.componentWillReceiveProps(nextProps); }  
+              @override componentWillReceivePropsWithContext(nextProps, _) { print(typedPropsFactory(nextProps).requiredProp); }  
+              @override componentWillUpdate(prevProps, _, [__])            { print(typedPropsFactory(prevProps).requiredProp); }  
+              @override shouldComponentUpdateWithContext(nextProps, _, __) { print(typedPropsFactory(nextProps).requiredProp); return true; }
+            }
+          '''));
+        });
 
-      test('within certain component lifecycle methods', () async {
-        // FIXME clarify that even unsafe accesses aren't linted
-        await testBase.expectNoErrors(testBase.newSourceWithPrefix(/*language=dart*/ r'''
-          abstract class TestComponent2 extends UiComponent2<HasRequiredProps> {
-            get propTypes => {
-              keyForProp((p) => p.requiredProp): (props, _) {
-                print(typedPropsFactory(props).requiredProp);
-                return null;
-              },
-            };
-            @override componentDidUpdate(prevProps, _, [__]) { print(typedPropsFactory(prevProps).requiredProp); }  
-            @override getDerivedStateFromProps(nextProps, _) { print(typedPropsFactory(nextProps).requiredProp); return {}; }  
-            @override getSnapshotBeforeUpdate(prevProps, _)  { print(typedPropsFactory(prevProps).requiredProp); return null; }  
-            @override shouldComponentUpdate(nextProps, _)    { print(typedPropsFactory(nextProps).requiredProp); return true; }
-          }
+        // We don't check whether accesses are safe in these lifecycle methods; we just ignore all of them.
+        test('even for unsafe accesses', () async {
+          await testBase.expectNoErrors(testBase.newSourceWithPrefix(/*language=dart*/ r'''
+            late HasRequiredProps otherProps;
           
-          abstract class TestComponent1 extends UiComponent<HasRequiredProps> {
-            // Just test UiComponent-specific methods
-            @override componentWillReceiveProps(nextProps)               { print(typedPropsFactory(nextProps).requiredProp); super.componentWillReceiveProps(nextProps); }  
-            @override componentWillReceivePropsWithContext(nextProps, _) { print(typedPropsFactory(nextProps).requiredProp); }  
-            @override componentWillUpdate(prevProps, _, [__])            { print(typedPropsFactory(prevProps).requiredProp); }  
-            @override shouldComponentUpdateWithContext(nextProps, _, __) { print(typedPropsFactory(nextProps).requiredProp); return true; }
-          }
-        '''));
+            abstract class TestComponent2 extends UiComponent2<HasRequiredProps> {
+              get propTypes => {
+                keyForProp((p) => p.requiredProp): (props, _) {
+                  print(otherProps.requiredProp);
+                  return null;
+                },
+              };
+              @override componentDidUpdate(prevProps, _, [__]) { print(otherProps.requiredProp); }  
+              @override getDerivedStateFromProps(nextProps, _) { print(otherProps.requiredProp); return {}; }  
+              @override getSnapshotBeforeUpdate(prevProps, _)  { print(otherProps.requiredProp); return null; }  
+              @override shouldComponentUpdate(nextProps, _)    { print(otherProps.requiredProp); return true; }
+            }
+            
+            abstract class TestComponent1 extends UiComponent<HasRequiredProps> {
+              // Just test UiComponent-specific methods
+              @override componentWillReceiveProps(nextProps)               { print(otherProps.requiredProp); super.componentWillReceiveProps(nextProps); }  
+              @override componentWillReceivePropsWithContext(nextProps, _) { print(otherProps.requiredProp); }  
+              @override componentWillUpdate(prevProps, _, [__])            { print(otherProps.requiredProp); }  
+              @override shouldComponentUpdateWithContext(nextProps, _, __) { print(otherProps.requiredProp); return true; }
+            }
+          '''));
+        });
       });
 
       group('within memo areEqual callbacks', () {
