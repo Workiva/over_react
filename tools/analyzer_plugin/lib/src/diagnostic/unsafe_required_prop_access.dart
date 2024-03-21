@@ -15,6 +15,8 @@ const _details = r'''
 
 **DO NOT** access required props when they're not guaranteed to be present, since that can cause errors and bad behavior.
 
+Required props are only validated to be present on props a component was rendered with, and not on other props objects.
+
 For example, given props:
 ```dart
 mixin FooProps {
@@ -29,10 +31,6 @@ example() {
   props.requiredProp;  
 }
 ```
-
-This only applies when interacting with arbitrary props objects, and not with the props a component was rendered with,
-since we validate via the `over_react_late_required_prop` diagnostic and via runtime checks that all required props are supplied.
-
 
 **DO** use utility methods `getRequiredProp`, getRequiredPropOrNull`, or `containsProp` checks to safely access the prop.
 
