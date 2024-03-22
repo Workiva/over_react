@@ -1,9 +1,12 @@
 import 'package:analyzer/dart/analysis/results.dart';
+import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/analyzer_debug_helper.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/pretty_print.dart';
+import 'package:over_react_analyzer_plugin/src/util/prop_declarations/props_set_by_factory.dart';
+import 'package:over_react_analyzer_plugin/src/util/util.dart';
 
 import '../fluent_interface_util.dart';
 import '../util/prop_declarations/defaulted_props.dart';
@@ -120,6 +123,9 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
   /// increase in memory usage.
   static final _cachedGetAllRequiredProps = _memoizeWithExpando(getAllRequiredProps);
 
+  static final _cachedGetPropsSetByFactory =
+      _memoizeWithExpando<Element, Set<String>>((e) => getPropsSetByFactory(e) ?? {});
+
   /// Whether to include diagnostics for props marked required for annotations.
   final bool lintForAnnotationRequiredProps;
 
@@ -153,9 +159,16 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
 
     final debugHelper = AnalyzerDebugHelper(result, collector, enabled: _cachedIsDebugHelperEnabled(result));
 
+    // Compute this only when we need to.
+    Set<String> propsSetByFactory() {
+      final factoryElement = usage.factory.tryCast<Identifier>()?.staticElement;
+      if (factoryElement == null) return {};
+      return _cachedGetPropsSetByFactory(factoryElement);
+    }
+
     // Include debug info for each invocation ahout all the props and their requirednesses.
     debugHelper.log(
-      () => _requiredPropsDebugMessage(requiredPropInfo),
+      () => _requiredPropsDebugMessage(requiredPropInfo, propsSetByFactory: propsSetByFactory()),
       () => result.locationFor(usage.builder),
     );
 
@@ -177,6 +190,11 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
 
       // TODO(FED-2034) don't warn when we know required props are being forwarded
 
+      // Only access propsSetByFactory when we hit missing required props to avoid computing it unnecessarily.
+      if (propsSetByFactory().contains(name)) {
+        continue;
+      }
+
       await collector.addErrorWithFix(
         _codeForRequiredness(requiredness),
         result.locationFor(usage.builder),
@@ -192,7 +210,7 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
     }
   }
 
-  static String _requiredPropsDebugMessage(RequiredPropInfo requiredPropInfo) {
+  static String _requiredPropsDebugMessage(RequiredPropInfo requiredPropInfo, {Set<String>? propsSetByFactory}) {
     final propNamesByRequirednessName = <String, Set<String>>{};
     final withDisabledRequiredValidation = <String>{};
     requiredPropInfo.propRequirednessByName.forEach((name, requiredness) {
@@ -205,7 +223,8 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
       }
     });
     return 'Prop requiredness: ${prettyPrint(propNamesByRequirednessName)}'
-        '\nProps with `@requiredPropValidationDisabled`: $withDisabledRequiredValidation';
+        '\nProps with `@requiredPropValidationDisabled`: $withDisabledRequiredValidation'
+        '\nProps set by factory: $propsSetByFactory';
   }
 }
 
