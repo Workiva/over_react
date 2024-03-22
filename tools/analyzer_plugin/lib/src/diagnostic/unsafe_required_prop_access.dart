@@ -76,7 +76,7 @@ renderFoo([Map? _additionalFooProps]) {
   // Also, there's a static analysis error on the condition because 
   // the non-nulllable requiredProp3 will always `!= null`.
   final otherPropsToAdd = Foo();
-  if (p.requiredProp3 != null) {
+  if (fooProps.requiredProp3 != null) {
     otherPropsToAdd.aria.label = fooProps.requiredProp3;
   }
   
