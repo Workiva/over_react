@@ -36,6 +36,7 @@ import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/file_system/file_system.dart';
 import 'package:analyzer_plugin/plugin/plugin.dart';
 import 'package:analyzer_plugin/protocol/protocol_generated.dart' as plugin;
+import 'package:path/path.dart' as p;
 import 'package:over_react_analyzer_plugin/src/analysis_options/error_severity_provider.dart';
 import 'package:over_react_analyzer_plugin/src/analysis_options/plugin_analysis_options.dart';
 import 'package:over_react_analyzer_plugin/src/analysis_options/reader.dart';
@@ -70,6 +71,7 @@ import 'package:over_react_analyzer_plugin/src/diagnostic/render_return_value.da
 import 'package:over_react_analyzer_plugin/src/diagnostic/rules_of_hooks.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/string_ref.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/style_value_diagnostic.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/unsafe_required_prop_access.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/variadic_children.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/variadic_children_with_keys.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
@@ -111,6 +113,8 @@ mixin OverReactAnalyzerPluginBase
     final options = pluginOptionsReader.getOptionsForContextRoot(analysisContext.contextRoot);
     final severityProvider = AnalysisOptionsErrorSeverityProvider(options);
 
+    final isInTestDir = p.isWithin(p.absolute(analysisContext.contextRoot.root.path, 'test'), path);
+
     return [
       PropTypesReturnValueDiagnostic(),
       DuplicatePropCascadeDiagnostic(),
@@ -149,6 +153,11 @@ mixin OverReactAnalyzerPluginBase
       ),
       NonDefaultedPropDiagnostic(),
       CreateRefUsageDiagnostic(),
+      // Prop accesses on the result of getProps are pretty common in tests and get flagged by this diagnostic,
+      // causing a lot of noise. Since these usages are more complicated to identify, and are usually safe within tests
+      // (and if they're not, the worst case scenario is test failures, as opposed to runtime errors in prod code),
+      // we'll just disable this diagnostic within the test directory.
+      if (!isInTestDir) UnsafeRequiredPropAccessDiagnostic(),
     ];
   }
 

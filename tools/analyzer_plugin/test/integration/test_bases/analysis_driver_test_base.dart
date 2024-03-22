@@ -36,13 +36,16 @@ abstract class AnalysisDriverTestBase {
   /// doesn't conflict with paths created by other tests using the same [sharedContext].
   ///
   /// For convenience [substituteSource] will be applied to [contents] first.
-  Source newSource(String contents, {String? path}) {
+  Source newSource(String contents, {
+    String? path,
+    String topLevelDirectory = 'lib',
+  }) {
     if (path != null && p.isAbsolute(path)) {
       throw ArgumentError.value(path, 'path', 'must be a relative path');
     }
     path ??= uniqueSourceFileName();
     contents = substituteSource(contents, path: path);
-    final testFilePath = sharedContext.createTestFile(contents, filename: path);
+    final testFilePath = sharedContext.createTestFile(contents, filename: path, topLevelDirectory: topLevelDirectory);
     return resourceProvider.getFile(testFilePath).createSource();
   }
 
