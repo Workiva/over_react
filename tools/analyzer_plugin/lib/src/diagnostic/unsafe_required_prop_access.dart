@@ -119,7 +119,7 @@ class UnsafeRequiredPropAccessDiagnostic extends DiagnosticContributor {
 
     for (final requiredPropRead in requiredPropReads) {
       if (cachedIsComponentProps(requiredPropRead.realTarget)) continue;
-      if (isPropsSafeUtilityMethodArg(requiredPropRead.realTarget)) continue;
+      if (_isPropsSafeUtilityMethodArg(requiredPropRead.realTarget)) continue;
       if (_isSafeDueToContainsPropCheck(requiredPropRead)) continue;
       if (_isWithinLifecycleMethodWithPropsArg(requiredPropRead)) continue;
       if (_isProbablyWithinMemoAreEqualFunction(requiredPropRead)) continue;
@@ -166,7 +166,9 @@ bool _isWithinLifecycleMethodWithPropsArg(LateRequiredPropRead read) {
   }.contains(lifecycleMethod.name.lexeme);
 }
 
-//
+/// Returns whether [read] is either in the `areEqual` function arg to `memo`,
+/// or in a top-level function that's probably used as an areEqual arg
+/// (based on whether its name matches [_memoAreEqualNamePattern]).
 bool _isProbablyWithinMemoAreEqualFunction(LateRequiredPropRead read) {
   final functionExpression = read.node.thisOrAncestorOfType<FunctionExpression>();
   if (functionExpression == null) return false;
@@ -206,7 +208,7 @@ final _memoAreEqualNamePattern = RegExp(r'[aA]reEqual');
 ///
 /// For example, in `props.containsProp((p) => p.requiredProp)`,
 /// returns `true` for the `p` that's followed by `.requiredProp`.
-bool isPropsSafeUtilityMethodArg(Expression target) {
+bool _isPropsSafeUtilityMethodArg(Expression target) {
   if (target is! Identifier) return false;
 
   final staticElement = target.staticElement;
