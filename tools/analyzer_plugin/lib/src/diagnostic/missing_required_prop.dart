@@ -7,6 +7,7 @@ import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/pretty_print.dart';
 import 'package:over_react_analyzer_plugin/src/util/prop_declarations/props_set_by_factory.dart';
 import 'package:over_react_analyzer_plugin/src/util/util.dart';
+import 'package:over_react_analyzer_plugin/src/util/weak_map.dart';
 
 import '../fluent_interface_util.dart';
 import '../util/prop_declarations/defaulted_props.dart';
@@ -104,7 +105,7 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
   ///
   /// TODO Add shared debug flag computation in DiagnosticContributor/DiagnosticCollector
   final _cachedIsDebugHelperEnabled =
-      _memoizeWithExpando<ResolvedUnitResult, bool>((result) => _debugCommentPattern.hasMatch(result.content));
+      memoizeWithWeakMap<ResolvedUnitResult, bool>((result) => _debugCommentPattern.hasMatch(result.content));
 
   /// A wrapper around [getAllRequiredProps] that caches results per props type [InterfaceElement],
   /// which greatly improves performance of this diagnostic when a component is used more than once.
@@ -121,10 +122,9 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
   /// The returned RequiredPropInfo doesn't take up much memory, and shouldn't retain anything not already
   /// retained by the element (e.g., prop FieldElements), so this caching mechanism should not cause a significant
   /// increase in memory usage.
-  static final _cachedGetAllRequiredProps = _memoizeWithExpando(getAllRequiredProps);
+  static final _cachedGetAllRequiredProps = memoizeWithWeakMap(getAllRequiredProps);
 
-  static final _cachedGetPropsSetByFactory =
-      _memoizeWithExpando<Element, Set<String>>((e) => getPropsSetByFactory(e) ?? {});
+  static final _cachedGetPropsSetByFactory = memoizeWithWeakMap(getPropsSetByFactory);
 
   /// Whether to include diagnostics for props marked required for annotations.
   final bool lintForAnnotationRequiredProps;
@@ -160,9 +160,9 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
     final debugHelper = AnalyzerDebugHelper(result, collector, enabled: _cachedIsDebugHelperEnabled(result));
 
     // Compute this only when we need to.
-    Set<String> propsSetByFactory() {
+    Set<String>? propsSetByFactory() {
       final factoryElement = usage.factory.tryCast<Identifier>()?.staticElement;
-      if (factoryElement == null) return {};
+      if (factoryElement == null) return null;
       return _cachedGetPropsSetByFactory(factoryElement);
     }
 
@@ -191,7 +191,7 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
       // TODO(FED-2034) don't warn when we know required props are being forwarded
 
       // Only access propsSetByFactory when we hit missing required props to avoid computing it unnecessarily.
-      if (propsSetByFactory().contains(name)) {
+      if (propsSetByFactory()?.contains(name) ?? false) {
         continue;
       }
 
@@ -226,10 +226,4 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
         '\nProps with `@requiredPropValidationDisabled`: $withDisabledRequiredValidation'
         '\nProps set by factory: $propsSetByFactory';
   }
-}
-
-V Function(K) _memoizeWithExpando<K extends Object, V extends Object>(V Function(K) computeValue,
-    [Expando<V>? existingExpando]) {
-  final expando = existingExpando ?? Expando();
-  return (key) => expando[key] ??= computeValue(key);
 }
