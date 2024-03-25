@@ -30,142 +30,144 @@ void main() {
     setUpAll(sharedContext.warmUpAnalysis);
 
     group('getPropsSetByFactory', () {
-      /// Parses and resolves [source] and returns the expression that is returned from
-      /// a function named `returnsUsageOfFactory`.
-      ///
-      /// There must be exactly one function with that name, and it can either be an arrow function
-      /// or a block function with exactly one return statement with an explicit value.
-      ///
-      /// For example,
-      /// ```dart
-      /// await getExpressionToTest(r'''
-      ///   returnsUsageOfFactory() => Foo()();
-      /// ''');
-      /// ```
-      /// Returns the element referenced by `Foo`.
-      Future<Element> getFactoryElementToTest(String source) async {
-        final result = await resolveFileAndGeneratedPart(
-            sharedContext,
-            r'''
-              // @dart=2.12
-              import 'package:over_react/over_react.dart';
-              part '{{PART_PATH}}';
-              
-              mixin TestProps on UiProps {
-                String? prop1;
-                String? prop2;
-                String? prop3;
-              }
-              UiFactory<TestProps> Test = castUiFactory(_$Test);
-            ''' +
-                source);
+      group(', using factory elements successfully returned by getFactoryElement,', () {
+        /// Parses and resolves [source] and returns the expression that is returned from
+        /// a function named `returnsUsageOfFactory`.
+        ///
+        /// There must be exactly one function with that name, and it can either be an arrow function
+        /// or a block function with exactly one return statement with an explicit value.
+        ///
+        /// For example,
+        /// ```dart
+        /// await getExpressionToTest(r'''
+        ///   returnsUsageOfFactory() => Foo()();
+        /// ''');
+        /// ```
+        /// Returns the element referenced by `Foo`.
+        Future<Element> getFactoryElementToTest(String source) async {
+          final result = await resolveFileAndGeneratedPart(
+              sharedContext,
+              r'''
+                // @dart=2.12
+                  import 'package:over_react/over_react.dart';
+                  part '{{PART_PATH}}';
+                  
+                  mixin TestProps on UiProps {
+                    String? prop1;
+                    String? prop2;
+                    String? prop3;
+                  }
+                  UiFactory<TestProps> Test = castUiFactory(_$Test);
+                ''' +
+                  source);
 
-        final testFunction = allDescendantsOfType<FunctionDeclaration>(result.unit)
-            .singleWhere((e) => e.name.name == 'returnsUsageOfFactory');
-        final returnValue = testFunction.functionExpression.body.returnExpressions.single;
+          final testFunction = allDescendantsOfType<FunctionDeclaration>(result.unit)
+              .singleWhere((e) => e.name.name == 'returnsUsageOfFactory');
+          final returnValue = testFunction.functionExpression.body.returnExpressions.single;
 
-        final componentUsage = getComponentUsageFromExpression(returnValue);
-        if (componentUsage == null) {
-          throw ArgumentError('returnsUsageOfFactory return value $returnValue'
-              ' is not a component usage that can be identified by `getComponentUsageFromExpression`');
+          final componentUsage = getComponentUsageFromExpression(returnValue);
+          if (componentUsage == null) {
+            throw ArgumentError('returnsUsageOfFactory return value $returnValue'
+                ' is not a component usage that can be identified by `getComponentUsageFromExpression`');
+          }
+
+          final factory = componentUsage.factory;
+          if (factory == null) {
+            throw ArgumentError('Usage in returnsUsageOfFactory ${componentUsage.node} does not have a factory');
+          }
+
+          final factoryElement = getFactoryElement(factory);
+          if (factoryElement == null) {
+            throw ArgumentError('factoryElement for factory $factory was null');
+          }
+
+          return factoryElement;
         }
 
-        final factory = componentUsage.factory;
-        if (factory == null) {
-          throw ArgumentError('Usage in returnsUsageOfFactory ${componentUsage.node} does not have a factory');
-        }
+        group('returns props set in factories defined in class', () {
+          group('methods:', () {
+            test('instance', () async {
+              final factoryElement = await getFactoryElementToTest(/*language=dart*/ r'''
+                class SomeClass {
+                  TestProps factoryInstanceMethod() => Test()..prop1 = '1'..prop2 = '2';
+                }
+                returnsUsageOfFactory() => SomeClass().factoryInstanceMethod()();
+              ''');
+              expect(getPropsSetByFactory(factoryElement), unorderedEquals(<String>['prop1', 'prop2']));
+            });
 
-        final factoryElement = getFactoryElement(factory);
-        if (factoryElement == null) {
-          throw ArgumentError('factoryElement for factory $factory was null');
-        }
+            test('static', () async {
+              final factoryElement = await getFactoryElementToTest(/*language=dart*/ r'''
+                class SomeClass {
+                  static TestProps factoryStaticMethod() => Test()..prop1 = '1'..prop2 = '2';
+                }
+                returnsUsageOfFactory() => SomeClass.factoryStaticMethod()();
+              ''');
+              expect(getPropsSetByFactory(factoryElement), unorderedEquals(<String>['prop1', 'prop2']));
+            });
+          });
 
-        return factoryElement;
-      }
+          group('fields:', () {
+            test('instance', () async {
+              final factoryElement = await getFactoryElementToTest(/*language=dart*/ r'''
+                class SomeClass {
+                  BuilderOnlyUiFactory<TestProps> factoryInstanceVar = () => Test()..prop1 = '1'..prop2 = '2';
+                }
+                returnsUsageOfFactory() => SomeClass().factoryInstanceVar()();
+              ''');
+              expect(getPropsSetByFactory(factoryElement), unorderedEquals(<String>['prop1', 'prop2']));
+            });
 
-      group('returns props set in factories defined in class', () {
-        group('methods:', () {
-          test('instance', () async {
+            test('static', () async {
+              final factoryElement = await getFactoryElementToTest(/*language=dart*/ r'''
+                class SomeClass {
+                  static BuilderOnlyUiFactory<TestProps> factoryStaticVar = () => Test()..prop1 = '1'..prop2 = '2';
+                }
+                returnsUsageOfFactory() => SomeClass.factoryStaticVar()();
+              ''');
+              expect(getPropsSetByFactory(factoryElement), unorderedEquals(<String>['prop1', 'prop2']));
+            });
+          });
+        });
+
+        group('returns props set in factories that are top-level function', () {
+          test('declarations', () async {
             final factoryElement = await getFactoryElementToTest(/*language=dart*/ r'''
-              class SomeClass {
-                TestProps factoryInstanceMethod() => Test()..prop1 = '1'..prop2 = '2';
-              }
-              returnsUsageOfFactory() => SomeClass().factoryInstanceMethod()();
+              TestProps topLevelFunctionDeclaration() => Test()..prop1 = '1'..prop2 = '2';
+              returnsUsageOfFactory() => topLevelFunctionDeclaration()();
             ''');
             expect(getPropsSetByFactory(factoryElement), unorderedEquals(<String>['prop1', 'prop2']));
           });
 
-          test('static', () async {
+          test('variables', () async {
             final factoryElement = await getFactoryElementToTest(/*language=dart*/ r'''
-              class SomeClass {
-                static TestProps factoryStaticMethod() => Test()..prop1 = '1'..prop2 = '2';
-              }
-              returnsUsageOfFactory() => SomeClass.factoryStaticMethod()();
+              BuilderOnlyUiFactory<TestProps> topLevelFunctionVar = () => Test()..prop1 = '1'..prop2 = '2';
+              returnsUsageOfFactory() => topLevelFunctionVar()();
             ''');
             expect(getPropsSetByFactory(factoryElement), unorderedEquals(<String>['prop1', 'prop2']));
           });
         });
 
-        group('fields:', () {
-          test('instance', () async {
+        group('returns props set in factories that are local function', () {
+          test('declarations', () async {
             final factoryElement = await getFactoryElementToTest(/*language=dart*/ r'''
-              class SomeClass {
-                BuilderOnlyUiFactory<TestProps> factoryInstanceVar = () => Test()..prop1 = '1'..prop2 = '2';
+              test() {
+                TestProps localFunctionDeclaration() => Test()..prop1 = '1'..prop2 = '2';
+                returnsUsageOfFactory() => localFunctionDeclaration()();
               }
-              returnsUsageOfFactory() => SomeClass().factoryInstanceVar()();
             ''');
             expect(getPropsSetByFactory(factoryElement), unorderedEquals(<String>['prop1', 'prop2']));
           });
 
-          test('static', () async {
+          test('variables', () async {
             final factoryElement = await getFactoryElementToTest(/*language=dart*/ r'''
-              class SomeClass {
-                static BuilderOnlyUiFactory<TestProps> factoryStaticVar = () => Test()..prop1 = '1'..prop2 = '2';
+              test() {
+                BuilderOnlyUiFactory<TestProps> localFunctionVar = () => Test()..prop1 = '1'..prop2 = '2';
+                returnsUsageOfFactory() => localFunctionVar()();
               }
-              returnsUsageOfFactory() => SomeClass.factoryStaticVar()();
             ''');
             expect(getPropsSetByFactory(factoryElement), unorderedEquals(<String>['prop1', 'prop2']));
           });
-        });
-      });
-
-      group('returns props set in factories that are top-level function', () {
-        test('declarations', () async {
-          final factoryElement = await getFactoryElementToTest(/*language=dart*/ r'''
-            TestProps topLevelFunctionDeclaration() => Test()..prop1 = '1'..prop2 = '2';
-            returnsUsageOfFactory() => topLevelFunctionDeclaration()();
-          ''');
-          expect(getPropsSetByFactory(factoryElement), unorderedEquals(<String>['prop1', 'prop2']));
-        });
-
-        test('variables', () async {
-          final factoryElement = await getFactoryElementToTest(/*language=dart*/ r'''
-            BuilderOnlyUiFactory<TestProps> topLevelFunctionVar = () => Test()..prop1 = '1'..prop2 = '2';
-            returnsUsageOfFactory() => topLevelFunctionVar()();
-          ''');
-          expect(getPropsSetByFactory(factoryElement), unorderedEquals(<String>['prop1', 'prop2']));
-        });
-      });
-
-      group('returns props set in factories that are local function', () {
-        test('declarations', () async {
-          final factoryElement = await getFactoryElementToTest(/*language=dart*/ r'''
-            test() {
-              TestProps localFunctionDeclaration() => Test()..prop1 = '1'..prop2 = '2';
-              returnsUsageOfFactory() => localFunctionDeclaration()();
-            }
-          ''');
-          expect(getPropsSetByFactory(factoryElement), unorderedEquals(<String>['prop1', 'prop2']));
-        });
-
-        test('variables', () async {
-          final factoryElement = await getFactoryElementToTest(/*language=dart*/ r'''
-            test() {
-              BuilderOnlyUiFactory<TestProps> localFunctionVar = () => Test()..prop1 = '1'..prop2 = '2';
-              returnsUsageOfFactory() => localFunctionVar()();
-            }
-          ''');
-          expect(getPropsSetByFactory(factoryElement), unorderedEquals(<String>['prop1', 'prop2']));
         });
       });
     });
