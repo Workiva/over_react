@@ -161,6 +161,61 @@ void main() {
       expect(weakMap2.has(key), isTrue);
     });
   });
+
+  group('memoizeWithWeakMap memoizes a function by storing the result on the object', () {
+    test('when provided an existing WeakMap', () {
+      final calls = <TestObject>[];
+      TestObject function(TestObject input) {
+        calls.add(input);
+        return TestObject('output for ${input.debugName}');
+      }
+
+      final weakMap = WeakMap<TestObject, TestObject>();
+      final memoizedFunction = function.memoizeWithWeakMap(weakMap);
+
+      final inputA = TestObject('inputA');
+
+      final outputA1 = memoizedFunction(inputA);
+      expect(outputA1, isA<TestObject>().having((o) => o.debugName, 'debugName', 'output for inputA'));
+      expect(calls, [inputA]);
+
+      final outputA2 = memoizedFunction(inputA);
+      expect(calls, [inputA], reason: 'should not have called the function an additional time for the same input');
+      expect(outputA2, same(outputA1), reason: 'should have returned the cached result');
+
+      expect(weakMap.get(inputA), same(outputA1), reason: 'should have used the provided WeakMap to associate the output with the input');
+
+      final inputB = TestObject('inputB');
+      final outputB = memoizedFunction(inputB);
+      expect(calls, [inputA, inputB], reason: 'should have recomputed the function for a new input');
+      expect(outputB, isA<TestObject>().having((o) => o.debugName, 'debugName', 'output for inputB'));
+    });
+
+    test('when not provided an existing WeakMap', () {
+      final calls = <TestObject>[];
+      TestObject function(TestObject input) {
+        calls.add(input);
+        return TestObject('output for ${input.debugName}');
+      }
+
+      final memoizedFunction = function.memoizeWithWeakMap();
+
+      final inputA = TestObject('inputA');
+
+      final outputA1 = memoizedFunction(inputA);
+      expect(outputA1, isA<TestObject>().having((o) => o.debugName, 'debugName', 'output for inputA'));
+      expect(calls, [inputA]);
+
+      final outputA2 = memoizedFunction(inputA);
+      expect(calls, [inputA], reason: 'should not have called the function an additional time for the same input');
+      expect(outputA2, same(outputA1), reason: 'should have returned the cached result');
+
+      final inputB = TestObject('inputB');
+      final outputB = memoizedFunction(inputB);
+      expect(calls, [inputA, inputB], reason: 'should have recomputed the function for a new input');
+      expect(outputB, isA<TestObject>().having((o) => o.debugName, 'debugName', 'output for inputB'));
+    });
+  });
 }
 
 /// A test object with a name, for better toString values and error messages.
