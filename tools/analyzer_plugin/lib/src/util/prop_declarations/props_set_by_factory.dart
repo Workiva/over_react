@@ -6,7 +6,19 @@ import 'package:over_react_analyzer_plugin/src/util/analyzer_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/util.dart';
 
+Element? getFactoryElement(Expression factory) {
+  factory = factory.unParenthesized;
+  if (factory is Identifier) return factory.staticElement;
+  if (factory is PropertyAccess) return factory.propertyName.staticElement;
+
+  return null;
+}
+
 Set<String>? getPropsSetByFactory(Element factoryElement) {
+  if (factoryElement.isSynthetic) {
+    factoryElement = factoryElement.nonSynthetic;
+  }
+
   // We'll use the name offset/length to find the AST node that declares this element.
   final factoryNameOffset = factoryElement.nameOffset;
   if (factoryNameOffset == -1) return null;

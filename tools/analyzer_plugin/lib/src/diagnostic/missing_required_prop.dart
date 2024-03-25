@@ -168,8 +168,13 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
 
     // Use a late variable to compute this only when we need to.
     late final propsSetByFactory = () {
-      final factoryElement = usage.factory.tryCast<Identifier>()?.staticElement;
-      return factoryElement == null ? null : _cachedGetPropsSetByFactory(factoryElement);
+      final factory = usage.factory;
+      if (factory == null) return null;
+
+      final factoryElement = getFactoryElement(factory);
+      if (factoryElement == null) return null;
+
+      return _cachedGetPropsSetByFactory(factoryElement);
     }();
 
     // Include debug info for each invocation ahout all the props and their requirednesses.
