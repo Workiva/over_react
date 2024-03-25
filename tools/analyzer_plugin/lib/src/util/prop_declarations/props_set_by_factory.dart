@@ -6,15 +6,40 @@ import 'package:over_react_analyzer_plugin/src/util/analyzer_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/util.dart';
 
-Element? getFactoryElement(Expression factory) {
-  factory = factory.unParenthesized;
-  if (factory is Identifier) return factory.staticElement;
-  if (factory is PropertyAccess) return factory.propertyName.staticElement;
+/// Returns the static element for an over_react factory referenced by [factoryReference].
+///
+/// In this context, "factory" refers to the target of the first invocation in an over_react component usage.
+/// For example, `Foo` in `(Foo()..id = 'id')()`, or `someFactory` in `someFactory()()`.
+Element? getFactoryElement(Expression factoryReference) {
+  factoryReference = factoryReference.unParenthesized;
+  if (factoryReference is Identifier) return factoryReference.staticElement;
+  if (factoryReference is PropertyAccess) return factoryReference.propertyName.staticElement;
 
   return null;
 }
 
+/// Returns a list of prop names that are assigned in the cascaded return of [factoryElement],
+/// by looking up at parsing the unresolved AST for the containing file.
+///
+/// For example, given this code:
+/// ```dart
+/// FooProps myFactory() => Foo()
+///   ..requiredProp1 = '1'
+///   ..aria.label = '1';
+/// ```
+/// Calling `getPropsSetByFactory` on the `myFactory` element would return `{'requiredProp1', 'aria.label'}`.
+///
+/// Any prefixed props include the prefix, as shown in the above example.
+///
+/// This function currently only operates on simple return values.
+///
+/// Supported declarations for [factoryElement]:
+/// - function variables (top-level, class field, or local variable) or their synthetic getters/setters
+/// - function declarations (top level or local)
+/// - class methods
 Set<String>? getPropsSetByFactory(Element factoryElement) {
+  // Normalize synthetic getters to the non-synthetic field that declares them,
+  // otherwise `nameOffset` will be `-1` below.
   if (factoryElement.isSynthetic) {
     factoryElement = factoryElement.nonSynthetic;
   }
