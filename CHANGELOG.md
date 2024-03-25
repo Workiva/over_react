@@ -40,6 +40,15 @@
   - `ProviderProps.props` type has been widened from `JsMap` to `Map` (now matches `ConsumerProps` and other props classes)
   - `ConnectPropsMixin` now `implements UiProps` (the one exported from `package:over_react/over_react.dart`) instead of `UiProps`'s superclass of the name, `component_base.UiProps`.
  
+## [4.11.1](https://github.com/Workiva/over_react/compare/4.11.0...4.11.1)
+- [#881] Fix disableRequiredPropValidation annotation and add test
+
+## [4.11.0](https://github.com/Workiva/over_react/compare/4.10.4...4.11.0)
+- [#879] Backpatch @Props(disableRequiredPropValidation) annotation arg
+
+## [4.10.4](https://github.com/Workiva/over_react/compare/4.10.3...4.10.4)
+- [#853] Allow react 7 and w_flux 3
+
 ## [4.10.3](https://github.com/Workiva/over_react/compare/4.10.2...4.10.3)
 - [#846] Update internals to prepare for react-dart 7.0.0
 
