@@ -115,8 +115,8 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
   ///
   /// This cache is static so it can be shared across multiple files (each of which gets a new diagnostic instance).
   ///
-  /// By using an expando, the returned [RequiredPropInfo] will be held in as long as the input element is held, and
-  /// released when the element is released. This is perfect for our use-case, since we want to optimize subsequent calls,
+  /// By using a [WeakMap], the returned value will be held in as long as the input element is held, and
+  /// released when the element is released. This is perfect for our use-cases, since we want to optimize subsequent calls,
   /// and get new results if the inputs change (in which case, the analyzer will create new, updated elements).
   ///
   /// The returned RequiredPropInfo doesn't take up much memory, and shouldn't retain anything not already
@@ -124,6 +124,13 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
   /// increase in memory usage.
   static final _cachedGetAllRequiredProps = memoizeWithWeakMap(getAllRequiredProps);
 
+  /// A wrapper around [getPropsSetByFactory] that caches results for a given factory element.
+  ///
+  /// [getPropsSetByFactory] involves synchronously parsing unresolved AST for the containing file,
+  /// so we want to avoid doing that where possible.
+  ///
+  /// Similar to [_cachedGetAllRequiredProps], this [WeakMap]-based cache should result in minimal memory overhead,
+  /// since the returned values are either small sets of Strings or null.
   static final _cachedGetPropsSetByFactory = memoizeWithWeakMap(getPropsSetByFactory);
 
   /// Whether to include diagnostics for props marked required for annotations.
@@ -159,16 +166,15 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
 
     final debugHelper = AnalyzerDebugHelper(result, collector, enabled: _cachedIsDebugHelperEnabled(result));
 
-    // Compute this only when we need to.
-    Set<String>? propsSetByFactory() {
+    // Use a late variable to compute this only when we need to.
+    late final propsSetByFactory = () {
       final factoryElement = usage.factory.tryCast<Identifier>()?.staticElement;
-      if (factoryElement == null) return null;
-      return _cachedGetPropsSetByFactory(factoryElement);
-    }
+      return factoryElement == null ? null : _cachedGetPropsSetByFactory(factoryElement);
+    }();
 
     // Include debug info for each invocation ahout all the props and their requirednesses.
     debugHelper.log(
-      () => _requiredPropsDebugMessage(requiredPropInfo, propsSetByFactory: propsSetByFactory()),
+      () => _requiredPropsDebugMessage(requiredPropInfo, propsSetByFactory: propsSetByFactory),
       () => result.locationFor(usage.builder),
     );
 
@@ -191,7 +197,7 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
       // TODO(FED-2034) don't warn when we know required props are being forwarded
 
       // Only access propsSetByFactory when we hit missing required props to avoid computing it unnecessarily.
-      if (propsSetByFactory()?.contains(name) ?? false) {
+      if (propsSetByFactory?.contains(name) ?? false) {
         continue;
       }
 
