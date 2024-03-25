@@ -1,12 +1,13 @@
 # OverReact Changelog
 
-## 5.0.0 (unreleased, work in progress)
+## 5.0.0
 - Migrate to null safety
-- Support generating code for null-safe libraries (while retaining support for non-null-safe libraries)
-- Add ability to declare required, optionally-non-nullable props and state fields via `late`
+- Support generating code for null-safe libraries _(while retaining support for non-null-safe libraries)_
+- Add ability to declare required, optionally-non-nullable props and state fields using Dart's `late` keyword
+  - _Stay tuned for fully baked null safety documentation for this library!_
 
 #### Analyzer plugin
-- Add new lint, `over_react_required_prop`
+- Add new lint, `over_react_required_prop` ([#896](https://github.com/Workiva/over_react/pull/896))
   - Warns for missing `late` required props
   - Hints for missing `@requiredProp` required props (these are deprecated in favor of `late`)
 - Reinstate functionality disabled in over_react 4.8.3. Since newer Dart SDKs require sound null safety in analyzer plugins, this code couldn't be run since it depended on over_react code, which was not itself null safe.
@@ -18,8 +19,9 @@
 ### Breaking changes
 - API removals:
   - BuiltReduxUiComponent
-  - forwardRef (not to be confused with `uiForwardRef`)
-  - registerComponent and registerComponent2 `displayName` argument
+  - forwardRef _(not to be confused with `uiForwardRef`)_
+  - The `displayName` argument of registerComponent and registerComponent2
+  - `mustCallSuper` (from the `meta` package) is no longer re-exported by this library ([#888](https://github.com/Workiva/over_react/pull/888)).
 - The following props classes can no longer be extended or instantiated directly (like most components). To instantiate them, use the factory instead.
     - FragmentProps
     - StrictModeProps
@@ -39,6 +41,9 @@
   - `PropsMeta`/`StateMeta` constructor arguments `fields` and `keys` are now required
   - `ProviderProps.props` type has been widened from `JsMap` to `Map` (now matches `ConsumerProps` and other props classes)
   - `ConnectPropsMixin` now `implements UiProps` (the one exported from `package:over_react/over_react.dart`) instead of `UiProps`'s superclass of the name, `component_base.UiProps`.
+
+### Misc
+- Fix Redux dev tools middleware leak ([#889](https://github.com/Workiva/over_react/pull/889))
  
 ## [4.11.1](https://github.com/Workiva/over_react/compare/4.11.0...4.11.1)
 - [#881] Fix disableRequiredPropValidation annotation and add test
