@@ -169,6 +169,30 @@ void main() {
             expect(getPropsSetByFactory(factoryElement), unorderedEquals(<String>['prop1', 'prop2']));
           });
         });
+
+        test('unwraps parentheses in return values', () async {
+          final factoryElement = await getFactoryElementToTest(/*language=dart*/ r'''            
+            TestProps testFactory() => ((Test()..prop1 = '1'..prop2 = '2'));
+            returnsUsageOfFactory() => testFactory()();
+          ''');
+          expect(getPropsSetByFactory(factoryElement), unorderedEquals(<String>['prop1', 'prop2']));
+        });
+
+        test('returns prefixed props with their prefix', () async {
+          final factoryElement = await getFactoryElementToTest(/*language=dart*/ r'''            
+            TestProps testFactory() => ((Test()..prop1 = '1'..aria.label = 'label'));
+            returnsUsageOfFactory() => testFactory()();
+          ''');
+          expect(getPropsSetByFactory(factoryElement), unorderedEquals(<String>['prop1', 'aria.label']));
+        });
+
+        test('does not return non-assignment cascaded members', () async {
+          final factoryElement = await getFactoryElementToTest(/*language=dart*/ r'''            
+            TestProps testFactory() => Test()..prop1 = '1'..addProps({})..hashCode;
+            returnsUsageOfFactory() => testFactory()();
+          ''');
+          expect(getPropsSetByFactory(factoryElement), unorderedEquals(<String>['prop1']));
+        });
       });
     });
   });

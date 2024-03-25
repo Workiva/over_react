@@ -76,5 +76,11 @@ Set<String>? getPropsSetByFactory(Element factoryElement) {
       .where((assignment) => assignment.leftHandSide is PropertyAccess)
       .map(PropAssignment.new);
 
-  return cascadedProps?.map((p) => p.name.name).toSet();
+  return cascadedProps?.map((p) {
+    final prefix = p.prefix;
+    return <String>[
+      if (prefix != null) prefix.name,
+      p.name.name,
+    ].join('.');
+  }).toSet();
 }
