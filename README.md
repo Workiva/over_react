@@ -34,6 +34,9 @@ This library also exposes _OverReact Redux_, which has [its own documentation](d
 
 ## Migration Guides
 
+> ### Building Components With Null Safety
+> Version 5.0.0 introduces support for null safety. Full documentation about building components using null safe over_react is coming soon!
+
 ### UiComponent2 / Component Boilerplate Migration
 
 __There have been a lot of fantastic [improvements in this library recently](https://pub.dev/packages/over_react#-changelog-tab-)__, all of which require some action on your part if you have existing components built prior to the `3.1.0` release of OverReact.  __We've done everything we can to make the migrations as painless as possible__ - with the vast majority of changes being handled by some codemod scripts you can run in your libraries locally. As always, if you encounter issues while working through the migration, you can reach out to us in [our gitter chat](https://gitter.im/over_react/Lobby), or [open a new issue][new-issue].
