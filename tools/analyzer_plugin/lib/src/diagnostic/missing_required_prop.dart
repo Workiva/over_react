@@ -165,9 +165,13 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
     final requiredPropInfo = _cachedGetAllRequiredProps(propsClassElement);
 
     final debugHelper = AnalyzerDebugHelper(result, collector, enabled: _cachedIsDebugHelperEnabled(result));
+    // A flag to help verify during debugging/testing whether propsSetByFactory was computed.
+    var hasPropsSetByFactoryBeenComputed = false;
 
     // Use a late variable to compute this only when we need to.
     late final propsSetByFactory = () {
+      hasPropsSetByFactoryBeenComputed = true;
+
       final factory = usage.factory;
       if (factory == null) return null;
 
@@ -176,12 +180,6 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
 
       return _cachedGetPropsSetByFactory(factoryElement);
     }();
-
-    // Include debug info for each invocation ahout all the props and their requirednesses.
-    debugHelper.log(
-      () => _requiredPropsDebugMessage(requiredPropInfo, propsSetByFactory: propsSetByFactory),
-      () => result.locationFor(usage.builder),
-    );
 
     final presentPropNames =
         usage.cascadedProps.where((prop) => !prop.isPrefixed).map((prop) => prop.name.name).toSet();
@@ -219,22 +217,27 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
         }),
       );
     }
-  }
 
-  static String _requiredPropsDebugMessage(RequiredPropInfo requiredPropInfo, {Set<String>? propsSetByFactory}) {
-    final propNamesByRequirednessName = <String, Set<String>>{};
-    final withDisabledRequiredValidation = <String>{};
-    requiredPropInfo.propRequirednessByName.forEach((name, requiredness) {
-      propNamesByRequirednessName.putIfAbsent(requiredness.name, () => {}).add(name);
-      if (requiredness.isRequired) {
-        final propField = requiredPropInfo.requiredFieldsByName[name]!;
-        if (isRequiredPropValidationDisabled(propField)) {
-          withDisabledRequiredValidation.add(name);
+    // Include debug info for each invocation ahout all the props and their requirednesses.
+    debugHelper.log(() {
+      final propNamesByRequirednessName = <String, Set<String>>{};
+      final withDisabledRequiredValidation = <String>{};
+      requiredPropInfo.propRequirednessByName.forEach((name, requiredness) {
+        propNamesByRequirednessName.putIfAbsent(requiredness.name, () => {}).add(name);
+        if (requiredness.isRequired) {
+          final propField = requiredPropInfo.requiredFieldsByName[name]!;
+          if (isRequiredPropValidationDisabled(propField)) {
+            withDisabledRequiredValidation.add(name);
+          }
         }
-      }
-    });
-    return 'Prop requiredness: ${prettyPrint(propNamesByRequirednessName)}'
-        '\nProps with `@requiredPropValidationDisabled`: $withDisabledRequiredValidation'
-        '\nProps set by factory: $propsSetByFactory';
+      });
+      // Store this before we access `propsSetByFactory` in this debug message, since that will set it to true.
+      final _hasPropsSetByFactoryBeenComputed = hasPropsSetByFactoryBeenComputed;
+
+      return 'Prop requiredness: ${prettyPrint(propNamesByRequirednessName)}'
+          '\nProps with `@requiredPropValidationDisabled`: $withDisabledRequiredValidation'
+          '\nProps set by factory: $propsSetByFactory'
+          '\npropsSetByFactory needed to be computed: $_hasPropsSetByFactoryBeenComputed';
+    }, () => result.locationFor(usage.builder));
   }
 }
