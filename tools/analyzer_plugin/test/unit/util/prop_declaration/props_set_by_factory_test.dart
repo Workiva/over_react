@@ -193,6 +193,55 @@ void main() {
           ''');
           expect(getPropsSetByFactory(factoryElement), unorderedEquals(<String>['prop1']));
         });
+
+        group('returns null for factories', () {
+          test('that do not set any props', () async {
+            final factoryElement = await getFactoryElementToTest(/*language=dart*/ r'''            
+              TestProps testFactory() => Test();
+              returnsUsageOfFactory() => testFactory()();
+            ''');
+            expect(getPropsSetByFactory(factoryElement), isNull);
+          });
+
+          group('declared as part of over_react boilerplate:', () {
+            test('non-function-component', () async {
+              final factoryElement = await getFactoryElementToTest(/*language=dart*/ r'''
+                returnsUsageOfFactory() => Test()();
+              ''');
+              expect(getPropsSetByFactory(factoryElement), isNull);
+            });
+
+            test('function-component', () async {
+              final factoryElement = await getFactoryElementToTest(/*language=dart*/ r'''
+                mixin TestFunctionProps on UiProps {}
+                UiFactory<TestFunctionProps> TestFunction = uiFunction((_) {}, _$TestFunctionConfig);
+                returnsUsageOfFactory() => TestFunction()();
+              ''');
+              expect(getPropsSetByFactory(factoryElement), isNull);
+            });
+          });
+
+          test('with more than one return value', () async {
+            final factoryElement = await getFactoryElementToTest(/*language=dart*/ r'''
+              TestProps testFactory([bool condition = false]) {
+                if (condition) return Test()..prop1 = '1';
+                return Test()..prop2 = '1';
+              }
+              returnsUsageOfFactory() => testFactory()();
+            ''');
+            expect(getPropsSetByFactory(factoryElement), isNull);
+          });
+
+          test('that are abstract', () async {
+            final factoryElement = await getFactoryElementToTest(/*language=dart*/ r'''
+              abstract class SomeClass {
+                TestProps testFactory();
+              }
+              returnsUsageOfFactory(SomeClass instance) => instance.testFactory()();
+            ''');
+            expect(getPropsSetByFactory(factoryElement), isNull);
+          });
+        });
       });
     });
   });
