@@ -252,9 +252,9 @@ class TestActions {}
 class TestStore extends Store {}
 
 class TestStores {
-  TestStore store1 = TestStore();
-  TestStore store2 = TestStore();
-  TestStore store3 = TestStore();
+  final TestStore store1 = TestStore();
+  final TestStore store2 = TestStore();
+  final TestStore store3 = TestStore();
 }
 
 abstract class BaseTestComponents {

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators, invalid_use_of_visible_for_overriding_member
 part of 'tag.dart';
 
 // **************************************************************************
@@ -30,7 +30,7 @@ abstract class _$TagPropsAccessorsMixin implements _$TagProps {
   ///
   /// <!-- Generated from [_$TagProps.skin] -->
   @override
-  TagSkin get skin => (props[_$key__skin___$TagProps] ?? null) as TagSkin;
+  TagSkin? get skin => (props[_$key__skin___$TagProps] ?? null) as TagSkin?;
 
   /// The skin / "context" for the [Tag].
   ///
@@ -40,7 +40,7 @@ abstract class _$TagPropsAccessorsMixin implements _$TagProps {
   ///
   /// <!-- Generated from [_$TagProps.skin] -->
   @override
-  set skin(TagSkin value) => props[_$key__skin___$TagProps] = value;
+  set skin(TagSkin? value) => props[_$key__skin___$TagProps] = value;
 
   /// Whether to render the [Tag] with rounded corners that make it look
   /// more like a "pill" (a.k.a Bootstrap v3 "badge")
@@ -51,7 +51,7 @@ abstract class _$TagPropsAccessorsMixin implements _$TagProps {
   ///
   /// <!-- Generated from [_$TagProps.isPill] -->
   @override
-  bool get isPill => (props[_$key__isPill___$TagProps] ?? null) as bool;
+  bool? get isPill => (props[_$key__isPill___$TagProps] ?? null) as bool?;
 
   /// Whether to render the [Tag] with rounded corners that make it look
   /// more like a "pill" (a.k.a Bootstrap v3 "badge")
@@ -62,7 +62,7 @@ abstract class _$TagPropsAccessorsMixin implements _$TagProps {
   ///
   /// <!-- Generated from [_$TagProps.isPill] -->
   @override
-  set isPill(bool value) => props[_$key__isPill___$TagProps] = value;
+  set isPill(bool? value) => props[_$key__isPill___$TagProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__skin___$TagProps =
       PropDescriptor(_$key__skin___$TagProps);
@@ -90,7 +90,7 @@ class TagProps extends _$TagProps with _$TagPropsAccessorsMixin {
   static const PropsMeta meta = _$metaForTagProps;
 }
 
-_$$TagProps _$Tag([Map backingProps]) => _$$TagProps(backingProps);
+_$$TagProps _$Tag([Map? backingProps]) => _$$TagProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -100,7 +100,7 @@ class _$$TagProps extends _$TagProps
     implements TagProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TagProps(Map backingMap) : this._props = {} {
+  _$$TagProps(Map? backingMap) : this._props = {} {
     this._props = backingMap ?? {};
   }
 
@@ -121,7 +121,18 @@ class _$$TagProps extends _$TagProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'TagProps.';
+
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$TagProps(accessMap, (map) => _$$TagProps(map));
+
+  @override
+  Set<String> get requiredPropNamesToSkipValidation => const {'skin', 'isPill'};
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$TagProps = getPropKey;
 
 // Concrete component implementation mixin.
 //
@@ -129,7 +140,7 @@ class _$$TagProps extends _$TagProps
 // generated for the associated props class.
 class _$TagComponent extends TagComponent {
   @override
-  _$$TagProps typedPropsFactory(Map backingMap) => _$$TagProps(backingMap);
+  _$$TagProps typedPropsFactory(Map? backingMap) => _$$TagProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators, invalid_use_of_visible_for_overriding_member
 part of 'abstract_transition.dart';
 
 // **************************************************************************
@@ -45,9 +45,9 @@ abstract class _$AbstractTransitionStateAccessorsMixin
   ///
   /// <!-- Generated from [_$AbstractTransitionState.transitionPhase] -->
   @override
-  TransitionPhase get transitionPhase =>
+  TransitionPhase? get transitionPhase =>
       (state[_$key__transitionPhase___$AbstractTransitionState] ?? null)
-          as TransitionPhase;
+          as TransitionPhase?;
 
   /// The current phase of transition the [AbstractTransitionComponent] is in.
   ///
@@ -55,7 +55,7 @@ abstract class _$AbstractTransitionStateAccessorsMixin
   ///
   /// <!-- Generated from [_$AbstractTransitionState.transitionPhase] -->
   @override
-  set transitionPhase(TransitionPhase value) =>
+  set transitionPhase(TransitionPhase? value) =>
       state[_$key__transitionPhase___$AbstractTransitionState] = value;
   /* GENERATED CONSTANTS */
   static const StateDescriptor

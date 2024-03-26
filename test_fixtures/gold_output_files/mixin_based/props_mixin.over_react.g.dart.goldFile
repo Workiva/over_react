@@ -1,6 +1,7 @@
+//@dart=2.11
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators, invalid_use_of_visible_for_overriding_member
 part of 'props_mixin.dart';
 
 // **************************************************************************
@@ -29,6 +30,12 @@ mixin $ExamplePropsMixin on ExamplePropsMixin {
     _$prop__propMixin1__ExamplePropsMixin
   ];
   static const List<String> $propKeys = [_$key__propMixin1__ExamplePropsMixin];
+
+  @override
+  @UiProps.$mustCallSuper
+  void validateRequiredProps() {
+    super.validateRequiredProps();
+  }
 }
 
 @Deprecated('This API is for use only within generated code.'
@@ -65,6 +72,12 @@ mixin $RequiresOtherMixinPropsMixin<T extends Iterable, U>
   static const List<String> $propKeys = [
     _$key__otherPropMixin__RequiresOtherMixinPropsMixin
   ];
+
+  @override
+  @UiProps.$mustCallSuper
+  void validateRequiredProps() {
+    super.validateRequiredProps();
+  }
 }
 
 @Deprecated('This API is for use only within generated code.'

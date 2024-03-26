@@ -1,10 +1,6 @@
-// Disable null-safety in the plugin entrypoint until all dependencies are null-safe,
-// otherwise tests won't be able to run. See: https://github.com/dart-lang/test#compiler-flags
-// @dart=2.9
 import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
-import 'package:meta/meta.dart';
 import 'package:path/path.dart' as p;
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
@@ -23,12 +19,12 @@ void main() {
     // Usually we don't have to worry about this since names are auto-generated, but
     // these tests involve need to explicit specifying names to properly test part handling.
     var nameCounter = 0;
-    String testName;
-    String testDifferentName;
+    late String testName;
+    late String testDifferentName;
 
-    String sourceWithOverReactPart;
-    String sourceWithNonOverReactPart;
-    String sourceWithNoPart;
+    late String sourceWithOverReactPart;
+    late String sourceWithNonOverReactPart;
+    late String sourceWithNoPart;
 
     setUp(() {
       nameCounter++;
@@ -84,14 +80,13 @@ void main() {
     Future<void> checkPartValidity({
       bool shouldBeValid = true,
       bool isPartOverReact = true,
-      @required String path,
+      required String path,
     }) async {
       final result = await parseAndGetResolvedUnit(
         isPartOverReact ? sourceWithOverReactPart : sourceWithNonOverReactPart,
         path: path,
       );
-      final part = result.unit.directives.whereType<PartDirective>().firstOrNull;
-      expect(part, isNotNull);
+      final part = result.unit.directives.whereType<PartDirective>().single;
       expect(result.uri.path, endsWith('/$path'));
       expect(overReactGeneratedPartDirectiveIsValid(part, result.uri), shouldBeValid);
     }
@@ -100,8 +95,8 @@ void main() {
       test('returns correct over_react part directive', () {
         final unit = parseAndGetUnit(sourceWithOverReactPart);
         final result = getOverReactGeneratedPartDirective(unit);
-        expect(result, isA<PartDirective>());
-        expect(result.uri.stringValue, '$testName.over_react.g.dart');
+        expect(result, isNotNull);
+        expect(result!.uri.stringValue, '$testName.over_react.g.dart');
       });
 
       group('returns null when', () {
@@ -159,7 +154,7 @@ void main() {
           final editList = sourceChange.edits.firstOrNull?.edits;
 
           expect(editList, isNotNull);
-          expect(editList.length, 1, reason: 'there should be one edit in the file');
+          expect(editList!.length, 1, reason: 'there should be one edit in the file');
 
           final offset =
               result.lineInfo.getOffsetOfLineAfter(nextLine(result.unit.directives.last.end, result.lineInfo));
@@ -176,7 +171,7 @@ void main() {
           final editList = sourceChange.edits.firstOrNull?.edits;
 
           expect(editList, isNotNull);
-          expect(editList.length, 1, reason: 'there should be one edit in the file');
+          expect(editList!.length, 1, reason: 'there should be one edit in the file');
 
           final offset = result.lineInfo.getOffsetOfLineAfter(result.unit.directives.last.end);
           expect(editList.first.offset, offset, reason: 'new part should be on the line after existing part');
@@ -193,9 +188,9 @@ void main() {
         final editList = sourceChange.edits.firstOrNull?.edits;
 
         expect(editList, isNotNull);
-        expect(editList.length, 1, reason: 'there should be one edit in the file');
+        expect(editList!.length, 1, reason: 'there should be one edit in the file');
 
-        final part = getOverReactGeneratedPartDirective(result.unit);
+        final part = getOverReactGeneratedPartDirective(result.unit)!;
         expect(editList.first.offset, part.offset, reason: 'new part should be on the line after existing part');
         expect(editList.first.length, part.length, reason: 'mismatched part is replaced');
         expect(editList.first.replacement, 'part \'different_file_name.over_react.g.dart\';');
@@ -232,9 +227,9 @@ void main() {
           final editList = sourceChange.edits.firstOrNull?.edits;
 
           expect(editList, isNotNull);
-          expect(editList.length, 1, reason: 'there should be one edit in the file');
+          expect(editList!.length, 1, reason: 'there should be one edit in the file');
 
-          final part = getOverReactGeneratedPartDirective(result.unit);
+          final part = getOverReactGeneratedPartDirective(result.unit)!;
           expect(editList.first.offset, part.offset);
           expect(editList.first.length, part.length);
           expect(editList.first.replacement, '');
@@ -266,9 +261,9 @@ void main() {
           final editList = sourceChange.edits.firstOrNull?.edits;
 
           expect(editList, isNotNull);
-          expect(editList.length, 1, reason: 'there should be one edit in the file');
+          expect(editList!.length, 1, reason: 'there should be one edit in the file');
 
-          final part = getOverReactGeneratedPartDirective(result.unit);
+          final part = getOverReactGeneratedPartDirective(result.unit)!;
           expect(editList.first.offset, part.offset);
           expect(editList.first.length, part.length);
           expect(editList.first.replacement, '');
@@ -314,9 +309,9 @@ void main() {
         final editList = sourceChange.edits.firstOrNull?.edits;
 
         expect(editList, isNotNull);
-        expect(editList.length, 1, reason: 'there should be one edit in the file');
+        expect(editList!.length, 1, reason: 'there should be one edit in the file');
 
-        final part = getOverReactGeneratedPartDirective(result.unit);
+        final part = getOverReactGeneratedPartDirective(result.unit)!;
         expect(editList.first.offset, part.offset);
         expect(editList.first.length, part.length);
         expect(editList.first.replacement, 'part \'$testDifferentName.over_react.g.dart\';');
@@ -329,7 +324,7 @@ void main() {
 Future<List<SourceFileEdit>> getSourceFileEdits(
   String dartSource,
   void Function(DartFileEditBuilder builder, ResolvedUnitResult result) callUtilityFunction, {
-  @required String path,
+  required String path,
 }) async {
   final result = await parseAndGetResolvedUnit(dartSource, path: path);
   final sourceChange = await buildFileEdit(result, (builder) {

@@ -20,11 +20,11 @@ part 'new_class_consumed_props.over_react.g.dart';
 UiFactory<SomeParentProps> SomeClassParent = castUiFactory(_$SomeClassParent); // ignore: undefined_identifier
 
 mixin ParentOnlyPropsMixin on UiProps {
-  String aParentProp;
+  String? aParentProp;
 }
 
 mixin SharedPropsMixin on UiProps {
-  String aPropToBePassed;
+  String? aPropToBePassed;
 }
 
 class SomeParentProps = UiProps with ParentOnlyPropsMixin, SharedPropsMixin;

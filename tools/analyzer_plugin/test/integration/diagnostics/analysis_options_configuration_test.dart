@@ -1,6 +1,3 @@
-// Disable null-safety in the plugin entrypoint until all dependencies are null-safe,
-// otherwise tests won't be able to run. See: https://github.com/dart-lang/test#compiler-flags
-//@dart=2.9
 
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:test/test.dart';
@@ -9,22 +6,22 @@ import '../test_bases/server_plugin_contributor_test_base.dart';
 
 void main() {
   group('AnalysisOptionsConfiguration', () {
-    AnalysisOptionsConfigurationTest testBase;
+    AnalysisOptionsConfigurationTest? testBase;
 
-    Future<void> setUp({String yamlContents}) async {
+    Future<void> setUp({String? yamlContents}) async {
       testBase = AnalysisOptionsConfigurationTest(yamlContents: yamlContents);
-      await testBase.setUp();
+      await testBase!.setUp();
       addTearDown(() {
-        testBase.tearDown();
+        testBase!.tearDown();
         testBase = null;
       });
     }
 
     Future<List<AnalysisError>> computeErrors({String sourceCode = rulesOfHooksErrorSourceCode}) async {
-      final source = testBase.newSource(sourceCode);
+      final source = testBase!.newSource(sourceCode);
 
-      final result = await testBase.testPlugin.getResolvedUnitResult(testBase.sourcePath(source));
-      final errors = await testBase.testPlugin.getAllErrors(result);
+      final result = await testBase!.testPlugin.getResolvedUnitResult(testBase!.sourcePath(source));
+      final errors = await testBase!.testPlugin.getAllErrors(result);
       return errors;
     }
 
@@ -89,12 +86,12 @@ void main() {
 }
 
 class AnalysisOptionsConfigurationTest extends ServerPluginContributorTestBase {
-  final String _yamlContents;
+  final String? _yamlContents;
 
-  AnalysisOptionsConfigurationTest({String yamlContents}) : _yamlContents = yamlContents;
+  AnalysisOptionsConfigurationTest({String? yamlContents}) : _yamlContents = yamlContents;
 
   @override
-  String get analysisOptionsYamlContents => _yamlContents;
+  String? get analysisOptionsYamlContents => _yamlContents;
 }
 
 const rulesOfHooksErrorSourceCode = /*language=dart*/ '''

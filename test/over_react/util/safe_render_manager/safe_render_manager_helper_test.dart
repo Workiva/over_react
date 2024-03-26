@@ -37,7 +37,7 @@ main() {
 
     group('renderContent', () {
       dynamic renderedInstance;
-      SafeRenderManagerHelperComponent component;
+      SafeRenderManagerHelperComponent? component;
 
       setUp(() {
         renderedInstance = render((SafeRenderManagerHelper()
@@ -52,7 +52,7 @@ main() {
       });
 
       test('renders new content', () {
-        component.renderContent((Dom.div()..addTestId('singleChild2'))());
+        component!.renderContent((Dom.div()..addTestId('singleChild2'))());
 
         expect(getByTestId(renderedInstance, 'singleChild'), isNull);
         expect(getByTestId(renderedInstance, 'singleChild2'), isNotNull);
@@ -61,7 +61,7 @@ main() {
 
     group('tryUnmountContent()', () {
       dynamic renderedInstance;
-      SafeRenderManagerHelperComponent component;
+      SafeRenderManagerHelperComponent? component;
 
       setUp(() {
         renderedInstance = render((SafeRenderManagerHelper()
@@ -78,7 +78,7 @@ main() {
       test('causes a rerender with the child unmounted', () {
         expect(getByTestId(renderedInstance, 'singleChild'), isNotNull, reason: 'test setup sanity check');
 
-        component.tryUnmountContent();
+        component!.tryUnmountContent();
 
         expect(getByTestId(renderedInstance, 'singleChild'), isNull);
       });
@@ -89,7 +89,7 @@ main() {
         final onUnmountCompleter = Completer();
 
         storeZone();
-        component.tryUnmountContent(onMaybeUnmounted: (isUnmounted) {
+        component!.tryUnmountContent(onMaybeUnmounted: (isUnmounted) {
           zonedExpect(getByTestId(renderedInstance, 'singleChild'), isNull);
           zonedExpect(isUnmounted, isTrue);
 
@@ -100,8 +100,8 @@ main() {
       });
 
       test('does not throw when called more than once', () {
-        component.tryUnmountContent();
-        expect(() => component.tryUnmountContent(), returnsNormally);
+        component!.tryUnmountContent();
+        expect(() => component!.tryUnmountContent(), returnsNormally);
       });
 
       test('calls the specified callback if no content is rendered', () async {
@@ -110,10 +110,10 @@ main() {
         final onUnmountCompleter = Completer();
 
         storeZone();
-        component.tryUnmountContent();
+        component!.tryUnmountContent();
         zonedExpect(getByTestId(renderedInstance, 'singleChild'), isNull);
 
-        component.tryUnmountContent(onMaybeUnmounted: (isUnmounted) {
+        component!.tryUnmountContent(onMaybeUnmounted: (isUnmounted) {
           zonedExpect(getByTestId(renderedInstance, 'singleChild'), isNull);
           zonedExpect(isUnmounted, isTrue);
           onUnmountCompleter.complete();

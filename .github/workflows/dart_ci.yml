@@ -53,6 +53,10 @@ jobs:
         name: Build generated files / precompile DDC assets
         run: |
           dart run build_runner build --delete-conflicting-outputs -o ddc_precompiled
+        if: always() && steps.install.outcome == 'success'
+
+      - name: Verify that generated files are up-to-date
+        run: |
           if [ ${{ matrix.sdk }} = '2.18.7' ]; then
             git diff --exit-code
           else
@@ -60,7 +64,7 @@ jobs:
             # due to different resolved dependencies.
             git diff --exit-code -- ":(exclude)test/mockito.mocks.dart" ":(exclude)test/over_react/component_declaration/redux_component_test/test_reducer.g.dart"
           fi
-        if: always() && steps.install.outcome == 'success'
+        if: always() && steps.install.outcome == 'success' && steps.install.build == 'success'
 
       # Analyze again after generated files are created to verify that those generated classes don't cause analysis errors
       - name: Analyze project source (post-build)
@@ -127,7 +131,7 @@ jobs:
       fail-fast: false
       matrix:
         # Can't run on `stable` (Dart 3) until we're fully null-safe.
-        sdk: [ 2.18.7, 2.19.6 ]
+        sdk: [ 2.19.6 ]
     steps:
       - uses: actions/checkout@v2
       - uses: dart-lang/setup-dart@v0.2
@@ -148,6 +152,10 @@ jobs:
 
       - name: Validate dependencies
         run: dart run dependency_validator
+        if: always() && steps.install.outcome == 'success'
+
+      - name: Analyze
+        run: dart run dart_dev analyze
         if: always() && steps.install.outcome == 'success'
 
       - name: Verify formatting

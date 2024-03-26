@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators, invalid_use_of_visible_for_overriding_member
 part of 'extendedtype.dart';
 
 // **************************************************************************
@@ -40,7 +40,7 @@ class TestExtendtypeProps extends _$TestExtendtypeProps
   static const PropsMeta meta = _$metaForTestExtendtypeProps;
 }
 
-_$$TestExtendtypeProps _$TestExtendtype([Map backingProps]) =>
+_$$TestExtendtypeProps _$TestExtendtype([Map? backingProps]) =>
     _$$TestExtendtypeProps(backingProps);
 
 // Concrete props implementation.
@@ -51,7 +51,7 @@ class _$$TestExtendtypeProps extends _$TestExtendtypeProps
     implements TestExtendtypeProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestExtendtypeProps(Map backingMap) : this._props = {} {
+  _$$TestExtendtypeProps(Map? backingMap) : this._props = {} {
     this._props = backingMap ?? {};
   }
 
@@ -72,7 +72,16 @@ class _$$TestExtendtypeProps extends _$TestExtendtypeProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'TestExtendtypeProps.';
+
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$TestExtendtypeProps(
+          accessMap, (map) => _$$TestExtendtypeProps(map));
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$TestExtendtypeProps = getPropKey;
 
 // Concrete component implementation mixin.
 //
@@ -80,7 +89,7 @@ class _$$TestExtendtypeProps extends _$TestExtendtypeProps
 // generated for the associated props class.
 class _$TestExtendtypeComponent extends TestExtendtypeComponent {
   @override
-  _$$TestExtendtypeProps typedPropsFactory(Map backingMap) =>
+  _$$TestExtendtypeProps typedPropsFactory(Map? backingMap) =>
       _$$TestExtendtypeProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators, invalid_use_of_visible_for_overriding_member
 part of 'component_integration_test.dart';
 
 // **************************************************************************
@@ -25,12 +25,12 @@ abstract class _$ComponentTestPropsAccessorsMixin
 
   /// <!-- Generated from [_$ComponentTestProps.stringProp] -->
   @override
-  String get stringProp =>
-      (props[_$key__stringProp___$ComponentTestProps] ?? null) as String;
+  String? get stringProp =>
+      (props[_$key__stringProp___$ComponentTestProps] ?? null) as String?;
 
   /// <!-- Generated from [_$ComponentTestProps.stringProp] -->
   @override
-  set stringProp(String value) =>
+  set stringProp(String? value) =>
       props[_$key__stringProp___$ComponentTestProps] = value;
 
   /// <!-- Generated from [_$ComponentTestProps.dynamicProp] -->
@@ -145,7 +145,7 @@ class ComponentTestProps extends _$ComponentTestProps
   static const PropsMeta meta = _$metaForComponentTestProps;
 }
 
-_$$ComponentTestProps _$ComponentTest([Map backingProps]) =>
+_$$ComponentTestProps _$ComponentTest([Map? backingProps]) =>
     _$$ComponentTestProps(backingProps);
 
 // Concrete props implementation.
@@ -156,7 +156,7 @@ class _$$ComponentTestProps extends _$ComponentTestProps
     implements ComponentTestProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ComponentTestProps(Map backingMap) : this._props = {} {
+  _$$ComponentTestProps(Map? backingMap) : this._props = {} {
     this._props = backingMap ?? {};
   }
 
@@ -177,7 +177,19 @@ class _$$ComponentTestProps extends _$ComponentTestProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'ComponentTestProps.';
+
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$ComponentTestProps(
+          accessMap, (map) => _$$ComponentTestProps(map));
+
+  @override
+  Set<String> get requiredPropNamesToSkipValidation => const {'id'};
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$ComponentTestProps = getPropKey;
 
 // Concrete component implementation mixin.
 //
@@ -185,7 +197,7 @@ class _$$ComponentTestProps extends _$ComponentTestProps
 // generated for the associated props class.
 class _$ComponentTestComponent extends ComponentTestComponent {
   @override
-  _$$ComponentTestProps typedPropsFactory(Map backingMap) =>
+  _$$ComponentTestProps typedPropsFactory(Map? backingMap) =>
       _$$ComponentTestProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.

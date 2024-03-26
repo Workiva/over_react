@@ -29,7 +29,10 @@ void main() {
   group('properly identifies required props by', () {
     group('throwing when a prop is required and not set', () {
       test('on mount', () {
-        expect(() => render(ComponentTest()..nullable = true),
+        expect(() => render(ComponentTest()
+          ..nullable = true
+          ..lateProp = true
+        )(),
             throwsPropError_Required('ComponentTestProps.required', 'This Prop is Required for testing purposes.')
         );
       });
@@ -39,6 +42,7 @@ void main() {
         react_dom.render((ComponentTest()
           ..required = true
           ..nullable = true
+          ..lateProp = true
         )(), mountNode);
 
         expect(() => react_dom.render((ComponentTest()..nullable = true)(), mountNode),
@@ -52,6 +56,7 @@ void main() {
         expect(() => render(ComponentTest()
           ..required = null
           ..nullable = true
+          ..lateProp = true
         ), throwsPropError_Required('ComponentTestProps.required'));
       });
 
@@ -60,12 +65,14 @@ void main() {
         react_dom.render((ComponentTest()
           ..required = true
           ..nullable = true
+          ..lateProp = true
         )(), mountNode);
 
         expect(
             () => react_dom.render((ComponentTest()
               ..required = null
               ..nullable = true
+              ..lateProp = true
             )(), mountNode),
             throwsPropError_Required('ComponentTestProps.required', 'This Prop is Required for testing purposes.')
         );
@@ -74,7 +81,10 @@ void main() {
 
     group('throwing when a prop is nullable and not set', () {
       test('on mount', () {
-        expect(() => render(ComponentTest()..required = true),
+        expect(() => render(ComponentTest()
+          ..required = true
+          ..lateProp = true
+        )(),
             throwsPropError_Required('ComponentTestProps.nullable'));
       });
 
@@ -83,6 +93,7 @@ void main() {
         react_dom.render((ComponentTest()
           ..required = true
           ..nullable = true
+          ..lateProp = true
         )(), mountNode);
 
         expect(() => react_dom.render((ComponentTest()..required = true)(), mountNode),
@@ -96,6 +107,7 @@ void main() {
         expect(() => render(ComponentTest()
           ..nullable = true
           ..required = true
+          ..lateProp = true
         ), returnsNormally);
       });
 
@@ -104,11 +116,13 @@ void main() {
         react_dom.render((ComponentTest()
           ..required = true
           ..nullable = true
+          ..lateProp = true
         )(), mountNode);
 
         expect(() => react_dom.render((ComponentTest()
           ..required = true
           ..nullable = true
+          ..lateProp = true
         )(), mountNode), returnsNormally);
       });
     });
@@ -118,6 +132,7 @@ void main() {
         expect(() => render(ComponentTest()
           ..nullable = null
           ..required = true
+          ..lateProp = true
         ), returnsNormally);
       });
 
@@ -126,12 +141,33 @@ void main() {
         react_dom.render((ComponentTest()
           ..required = true
           ..nullable = true
+          ..lateProp = true
         )(), mountNode);
 
         expect(() => react_dom.render((ComponentTest()
           ..required = true
           ..nullable = null
+          ..lateProp = true
         )(), mountNode), returnsNormally);
+      });
+    });
+
+    group('for late props', () {
+      test('does not throw on invocation', () {
+        expect(() {
+          (ComponentTest()
+            ..required = true
+            ..nullable = true
+          )();
+        },
+            returnsNormally);
+      });
+
+      test('does not throw on mount', () {
+        expect(() => render(ComponentTest()
+          ..nullable = null
+          ..required = true
+        ), returnsNormally);
       });
     });
   });
@@ -148,6 +184,8 @@ class _$ComponentTestProps extends UiProps {
 
   @Accessor(isRequired: true, isNullable: true, requiredErrorMessage: 'This prop can be set to null!')
   dynamic nullable;
+
+  late bool lateProp;
 }
 
 @Component()

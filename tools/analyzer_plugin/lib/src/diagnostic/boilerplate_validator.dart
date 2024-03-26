@@ -5,8 +5,6 @@ import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/source/source_range.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/doc_utils/maturity.dart';
-// This error is unavoidable until over_react's builder is null-safe. See this library's doc comment for more info.
-// ignore: import_of_legacy_library_into_null_safe
 import 'package:over_react_analyzer_plugin/src/over_react_builder_parsing.dart' as orbp;
 import 'package:over_react_analyzer_plugin/src/util/boilerplate_utils.dart';
 import 'package:source_span/source_span.dart';
@@ -71,18 +69,7 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
   ///
   /// Does not report any errors for the unit, as those are handled when each unit is analyzed
   bool _unitHasDeclarations(CompilationUnit unit, ParsedUnitResult unitResult) {
-    return orbp
-        .getBoilerplateDeclarations(
-            orbp.detectBoilerplateMembers(unit),
-            orbp.ErrorCollector.callback(
-              SourceFile.fromString(unitResult.content, url: unitResult.path),
-              // no-op for these.
-              // It is assumed this method will run for parent files, and the part file will get analyzed in its own context.
-              // Need types on the second args to avoid nullability errors, since they come from a non-null-safe library.
-              onError: (message, [SourceSpan? span]) {}, // ignore: avoid_types_on_closure_parameters
-              onWarning: (message, [SourceSpan? span]) {}, // ignore: avoid_types_on_closure_parameters
-            ))
-        .isNotEmpty;
+    return orbp.getBoilerplateDeclarations(orbp.detectBoilerplateMembers(unit), null).isNotEmpty;
   }
 
   /// Computes errors for over_react boilerplate
@@ -93,7 +80,7 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
     final debugMatch = _debugCommentPattern.firstMatch(result.content);
     final debug = debugMatch != null;
     if (debug) {
-      collector.addError(debugCode, result.location(offset: debugMatch!.start, end: debugMatch.end),
+      collector.addError(debugCode, result.location(offset: debugMatch.start, end: debugMatch.end),
           errorMessageArgs: ['Boilerplate debugging hints enabled']);
     }
 

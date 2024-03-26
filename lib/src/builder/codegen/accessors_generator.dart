@@ -23,28 +23,30 @@ import 'util.dart';
 
 /// Base class for generating getters/setters for props/state fields, as well as meta constants.
 abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerator {
+  bool get nullSafety;
+
   TypedMapAccessorsGenerator();
 
   // Provide factory constructors since they make invocations easier to read and tell apart
   // than all of the different subclasses.
 
-  factory TypedMapAccessorsGenerator.propsMixin(PropsMixinDeclaration decl) =
-      _TypedMapMixinAccessorsGenerator.props;
+  factory TypedMapAccessorsGenerator.propsMixin(PropsMixinDeclaration decl,
+      {required bool nullSafety}) = _TypedMapMixinAccessorsGenerator.props;
 
-  factory TypedMapAccessorsGenerator.stateMixin(StateMixinDeclaration decl) =
-      _TypedMapMixinAccessorsGenerator.state;
+  factory TypedMapAccessorsGenerator.stateMixin(StateMixinDeclaration decl,
+      {required bool nullSafety}) = _TypedMapMixinAccessorsGenerator.state;
 
-  factory TypedMapAccessorsGenerator.legacyProps(LegacyClassComponentDeclaration decl) =
-      _LegacyTypedMapAccessorsGenerator.props;
+  factory TypedMapAccessorsGenerator.legacyProps(LegacyClassComponentDeclaration decl,
+      {required bool nullSafety}) = _LegacyTypedMapAccessorsGenerator.props;
 
-  factory TypedMapAccessorsGenerator.legacyState(LegacyClassComponentDeclaration decl) =
-      _LegacyTypedMapAccessorsGenerator.state;
+  factory TypedMapAccessorsGenerator.legacyState(LegacyClassComponentDeclaration decl,
+      {required bool nullSafety}) = _LegacyTypedMapAccessorsGenerator.state;
 
-  factory TypedMapAccessorsGenerator.legacyAbstractProps(LegacyAbstractPropsDeclaration decl) =
-      _LegacyTypedMapAccessorsGenerator.abstractProps;
+  factory TypedMapAccessorsGenerator.legacyAbstractProps(LegacyAbstractPropsDeclaration decl,
+      {required bool nullSafety}) = _LegacyTypedMapAccessorsGenerator.abstractProps;
 
-  factory TypedMapAccessorsGenerator.legacyAbstractState(LegacyAbstractStateDeclaration decl) =
-      _LegacyTypedMapAccessorsGenerator.abstractState;
+  factory TypedMapAccessorsGenerator.legacyAbstractState(LegacyAbstractStateDeclaration decl,
+      {required bool nullSafety}) = _LegacyTypedMapAccessorsGenerator.abstractState;
 
   TypedMapType get type;
 
@@ -56,7 +58,7 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
 
   ClassishDeclaration get node => member.node.asClassish();
 
-  TypeParameterList get typeParameters => member.nodeHelper.typeParameters;
+  TypeParameterList? get typeParameters => member.nodeHelper.typeParameters;
 
   @override
   void generate();
@@ -80,8 +82,8 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
       final implementsClause = 'implements ${names.consumerName}$typeParamsOnSuper';
       generatedClass
         ..write(generatedCodeUseOnlyDeprecation)
-        ..writeln('abstract class $accessorsMixinName$typeParamsOnClass $implementsClause {\n' +
-            '  @override' +
+        ..writeln('abstract class $accessorsMixinName$typeParamsOnClass $implementsClause {\n'
+            '  @override'
             '  Map get ${type.isProps ? 'props' : 'state'};\n');
       if (type.isMixin) {
         generatedClass.writeln(_generateStaticMetaDecl(names.publicName, type.isProps));
@@ -97,6 +99,7 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
     }
 
     generatedClass.write(_generateAccessors());
+
     generatedClass.writeln('}');
     generatedClass.writeln();
     return generatedClass.toString();
@@ -147,15 +150,19 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
 
     StringBuffer output = StringBuffer();
 
+    final requiredPropChecks = <String>[];
+
     node.members.whereType<FieldDeclaration>().where((field) => !field.isStatic).forEach((field) {
-      T getConstantAnnotation<T>(AnnotatedNode member, String name, T value) {
-        return member.metadata.any((annotation) => annotation.name?.name == name) ? value : null;
+      T? getConstantAnnotation<T>(AnnotatedNode member, String name, T value) {
+        return member.metadata.any((annotation) => annotation.name.name == name) ? value : null;
       }
 
       final accessorMeta = instantiateAnnotationTyped<annotations.Accessor>(field);
       final requiredProp = getConstantAnnotation(field, 'requiredProp', annotations.requiredProp);
       final nullableRequiredProp =
           getConstantAnnotation(field, 'nullableRequiredProp', annotations.nullableRequiredProp);
+      final disableRequiredPropValidation = getConstantAnnotation(
+          field, 'disableRequiredPropValidation', annotations.disableRequiredPropValidation);
 
       if (accessorMeta?.doNotGenerate == true) {
         return;
@@ -186,55 +193,97 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
         String constantName = '${privateSourcePrefix}prop__${accessorName}__$staticConstNamespace';
         String constantValue = '$constConstructorName($keyConstantName';
 
-        var annotationCount = 0;
+        var requiredReasonCount = 0;
+
+        var isRequired = false;
+        var isLate = false;
+        var isPotentiallyNullable = true;
+        var requiredErrorMessage = '';
+
+        if (variable.isLate) {
+          requiredReasonCount++;
+          isRequired = true;
+          isLate = true;
+          isPotentiallyNullable = true;
+
+          if (type.isProps && disableRequiredPropValidation == null) {
+            requiredPropChecks.add(
+                '  if(!props.containsKey($keyValue) && !requiredPropNamesToSkipValidation.contains(${stringLiteral(accessorName)})) {\n'
+                '  throw MissingRequiredPropsError(${stringLiteral('Required prop `$accessorName` is missing.')});\n'
+                '}\n');
+          }
+        }
 
         if (accessorMeta != null) {
-          annotationCount++;
-
           if (accessorMeta.isRequired) {
-            constantValue += ', isRequired: true';
-
-            if (accessorMeta.isNullable) constantValue += ', isNullable: true';
-
-            if (accessorMeta.requiredErrorMessage != null &&
-                accessorMeta.requiredErrorMessage.isNotEmpty) {
-              constantValue +=
-                  ', errorMessage: ${stringLiteral(accessorMeta.requiredErrorMessage)}';
-            }
+            requiredReasonCount++;
+            isRequired = true;
+            isPotentiallyNullable = accessorMeta.isNullable;
+            requiredErrorMessage = accessorMeta.requiredErrorMessage ?? '';
           }
         }
 
         if (requiredProp != null) {
-          annotationCount++;
-          constantValue += ', isRequired: true';
+          requiredReasonCount++;
+          isRequired = true;
+          isPotentiallyNullable = false;
         }
 
         if (nullableRequiredProp != null) {
-          annotationCount++;
-          constantValue += ', isRequired: true, isNullable: true';
+          requiredReasonCount++;
+          isRequired = true;
+          isPotentiallyNullable = true;
         }
 
-        if (annotationCount > 1) {
-          logger.severe(messageWithSpan(
-              '@requiredProp/@nullableProp/@Accessor cannot be used together.\n'
-              'You can use `@Accessor(isRequired: true)` or `isNullable: true` instead of the shorthand versions.',
-              span: getSpan(sourceFile, field)));
+        if (requiredReasonCount > 1) {
+          const requiredPropAnnotations = '@requiredProp/@nullableProp/@Accessor(isRequired: true)';
+
+          String message;
+          if (variable.isLate) {
+            message = 'Props declared using `late` are already considered required,'
+                ' and cannot also have required prop annotations: $requiredPropAnnotations.'
+                '\nPlease remove these annotations.';
+          } else {
+            message = '$requiredPropAnnotations cannot be used together.\n'
+                'You can use `@Accessor(isRequired: true)` or `isNullable: true` instead of the shorthand versions.';
+          }
+
+          logger.severe(messageWithSpan(message, span: getSpan(sourceFile, field)));
         }
 
+        if (isRequired) {
+          constantValue += ', isRequired: $isRequired';
+          if (isPotentiallyNullable) {
+            constantValue += ', isNullable: $isPotentiallyNullable';
+          }
+          if (isLate) {
+            constantValue += ', isLate: $isLate';
+          }
+          if (requiredErrorMessage.isNotEmpty) {
+            constantValue += ', errorMessage: ${stringLiteral(requiredErrorMessage)}';
+          }
+        }
         constantValue += ')';
 
         keyConstants[keyConstantName] = keyValue;
         constants[constantName] = constantValue;
 
-        final typeSource = field.fields.type?.toSource();
+        final fieldType = field.fields.type;
+        final typeSource = fieldType?.toSource();
         final typeString = typeSource == null ? '' : '$typeSource ';
         final metadataSrc = StringBuffer();
         for (final annotation in field.metadata) {
           metadataSrc.writeln('  ${annotation.toSource()}');
         }
 
-        String setterTypeString =
-            field.covariantKeyword == null ? typeString : '${field.covariantKeyword} $typeString';
+        const omitTypesInOverrides = false;
+
+        final getterTypeString = omitTypesInOverrides ? '' : typeString;
+        final setterTypeString =
+            // This change is attempting to help with null safe migration when generated code is available in legacy components
+            field.covariantKeyword == null
+                ? (omitTypesInOverrides ? '' : typeString)
+                : '${field.covariantKeyword} $typeString';
 
         // Carry over the existing doc comment since IDEs don't inherit
         // doc comments for some reason.
@@ -244,7 +293,7 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
             docComment = '';
           } else {
             final existingCommentSource = sourceFile.getText(
-                variable.documentationComment.offset, variable.documentationComment.end);
+                variable.documentationComment!.offset, variable.documentationComment!.end);
             docComment = '  $existingCommentSource\n'
                 '  ///\n';
           }
@@ -273,7 +322,7 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
             // Add ` ?? null` to work around DDC bug: <https://github.com/dart-lang/sdk/issues/36052
             // Apply this workaround ASAP, before the cast, to limit where undefined can leak into
             // and potentially cause issues (for instance, DDC cast internals).
-            '  ${typeString}get $accessorName => ${castGetterMapValueIfNecessary('$proxiedMapName[$keyConstantName] ?? null')};\n'
+            '  ${getterTypeString}get $accessorName => ${castGetterMapValueIfNecessary('$proxiedMapName[$keyConstantName] ?? null')};\n'
             '$docComment'
             // '  @tryInline\n'
             '  @override\n'
@@ -327,6 +376,18 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
 
     output.write(staticVariablesImpl);
 
+    if (type.isProps &&
+        version != Version.v3_legacyDart2Only &&
+        version != Version.v2_legacyBackwardsCompat) {
+      final validateRequiredPropsMethod = '\n  @override\n'
+          '  @UiProps.\$mustCallSuper\n'
+          '  void validateRequiredProps() {\n'
+          '    super.validateRequiredProps();\n'
+          '    ${requiredPropChecks.join('\n')}\n'
+          '  }\n';
+      output.write(validateRequiredPropsMethod);
+    }
+
     return output.toString();
   }
 }
@@ -346,13 +407,16 @@ class _TypedMapMixinAccessorsGenerator extends TypedMapAccessorsGenerator {
   @override
   final Version version;
 
-  _TypedMapMixinAccessorsGenerator.props(PropsMixinDeclaration decl)
+  @override
+  final bool nullSafety;
+
+  _TypedMapMixinAccessorsGenerator.props(PropsMixinDeclaration decl, {required this.nullSafety})
       : member = decl.mixin,
         names = TypedMapNames(decl.mixin.name.name),
         version = decl.version,
         type = TypedMapType.propsMixin;
 
-  _TypedMapMixinAccessorsGenerator.state(StateMixinDeclaration decl)
+  _TypedMapMixinAccessorsGenerator.state(StateMixinDeclaration decl, {required this.nullSafety})
       : member = decl.mixin,
         names = TypedMapNames(decl.mixin.name.name),
         version = decl.version,
@@ -384,25 +448,32 @@ class _LegacyTypedMapAccessorsGenerator extends TypedMapAccessorsGenerator {
   @override
   final Version version;
 
-  _LegacyTypedMapAccessorsGenerator.props(LegacyClassComponentDeclaration decl)
+  @override
+  final bool nullSafety;
+
+  _LegacyTypedMapAccessorsGenerator.props(LegacyClassComponentDeclaration decl,
+      {required this.nullSafety})
       : member = decl.props,
         names = TypedMapNames(decl.props.name.name),
         version = decl.version,
         type = TypedMapType.props;
 
-  _LegacyTypedMapAccessorsGenerator.state(LegacyClassComponentDeclaration decl)
-      : member = decl.state,
-        names = TypedMapNames(decl.state.name.name),
+  _LegacyTypedMapAccessorsGenerator.state(LegacyClassComponentDeclaration decl,
+      {required this.nullSafety})
+      : member = decl.state!,
+        names = TypedMapNames(decl.state!.name.name),
         version = decl.version,
         type = TypedMapType.state;
 
-  _LegacyTypedMapAccessorsGenerator.abstractProps(LegacyAbstractPropsDeclaration decl)
+  _LegacyTypedMapAccessorsGenerator.abstractProps(LegacyAbstractPropsDeclaration decl,
+      {required this.nullSafety})
       : member = decl.props,
         names = TypedMapNames(decl.props.name.name),
         version = decl.version,
         type = TypedMapType.abstractProps;
 
-  _LegacyTypedMapAccessorsGenerator.abstractState(LegacyAbstractStateDeclaration decl)
+  _LegacyTypedMapAccessorsGenerator.abstractState(LegacyAbstractStateDeclaration decl,
+      {required this.nullSafety})
       : member = decl.state,
         names = TypedMapNames(decl.state.name.name),
         version = decl.version,
@@ -452,6 +523,7 @@ class TypedMapType {
   final bool isProps;
   final bool isAbstract;
   final bool isMixin;
+
   // ignore: avoid_positional_boolean_parameters
   const TypedMapType(this.isProps, this.isAbstract, this.isMixin);
 

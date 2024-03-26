@@ -1,8 +1,6 @@
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:collection/collection.dart' show IterableExtension;
 import 'package:over_react_analyzer_plugin/src/assist/contributor_base.dart';
-// This error is unavoidable until over_react's builder is null-safe. See this library's doc comment for more info.
-// ignore: import_of_legacy_library_into_null_safe
 import 'package:over_react_analyzer_plugin/src/over_react_builder_parsing.dart' as orbp;
 import 'package:source_span/source_span.dart';
 
@@ -64,14 +62,17 @@ mixin ComponentDeclarationAssistApi on AssistContributorBase {
   orbp.Union<orbp.BoilerplateState, orbp.BoilerplateStateMixin>? get state => componentDeclaration!.state;
 
   bool _validateAndDetectBoilerplate() {
-    if (node is! SimpleIdentifier || node.parent is! ClassDeclaration) return false;
-    final parent = node.parent as ClassDeclaration?;
+    // In newer analyzer versions, the class's name within a class declaration is no longer a SimpleIdentifier,
+    // and the node returned from the class name token is the ClassDeclaration itself.
+    final classNode =
+        node.tryCast<SimpleIdentifier>()?.parent.tryCast<ClassDeclaration>() ?? node.tryCast<ClassDeclaration>();
+    if (classNode == null) return false;
 
     final members = orbp.detectBoilerplateMembers(node.thisOrAncestorOfType<CompilationUnit>()!);
     final declarations = orbp.getBoilerplateDeclarations(members, errorCollector).toList();
 
     componentDeclaration = declarations.whereType<orbp.ClassComponentDeclaration>().firstWhereOrNull((c) {
-      return c.component.node == parent;
+      return c.component.node == classNode;
     });
 
     _isAValidComponentDeclaration =

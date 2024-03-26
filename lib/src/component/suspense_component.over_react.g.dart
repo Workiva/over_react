@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators, invalid_use_of_visible_for_overriding_member
 part of 'suspense_component.dart';
 
 // **************************************************************************
@@ -28,6 +28,12 @@ mixin $SuspensePropsMixin on SuspensePropsMixin {
     _$prop__fallback__SuspensePropsMixin
   ];
   static const List<String> $propKeys = [_$key__fallback__SuspensePropsMixin];
+
+  @override
+  @UiProps.$mustCallSuper
+  void validateRequiredProps() {
+    super.validateRequiredProps();
+  }
 }
 
 @Deprecated('This API is for use only within generated code.'
@@ -63,9 +69,9 @@ abstract class _$$SuspenseProps extends UiProps
         SuspenseProps {
   _$$SuspenseProps._();
 
-  factory _$$SuspenseProps(Map backingMap) {
+  factory _$$SuspenseProps(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$SuspenseProps$JsMap(backingMap as JsBackedMap);
+      return _$$SuspenseProps$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$SuspenseProps$PlainMap(backingMap);
     }
@@ -84,7 +90,15 @@ abstract class _$$SuspenseProps extends UiProps
         // If this generated mixin is undefined, it's likely because SuspensePropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of SuspensePropsMixin, and check that $SuspensePropsMixin is exported/imported properly.
         SuspensePropsMixin: $SuspensePropsMixin.meta,
       });
+
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$SuspenseProps(accessMap, (map) => _$$SuspenseProps(map));
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$SuspenseProps = getPropKey;
 
 // Concrete props implementation that can be backed by any [Map].
 @Deprecated('This API is for use only within generated code.'
@@ -92,7 +106,7 @@ abstract class _$$SuspenseProps extends UiProps
 class _$$SuspenseProps$PlainMap extends _$$SuspenseProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$SuspenseProps$PlainMap(Map backingMap)
+  _$$SuspenseProps$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -111,7 +125,7 @@ class _$$SuspenseProps$PlainMap extends _$$SuspenseProps {
 class _$$SuspenseProps$JsMap extends _$$SuspenseProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$SuspenseProps$JsMap(JsBackedMap backingMap)
+  _$$SuspenseProps$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();

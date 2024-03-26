@@ -12,35 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:over_react/src/component_declaration/component_base.dart'
-    as component_base;
-import 'package:over_react/src/component_declaration/builder_helpers.dart'
-    as builder_helpers;
-import 'package:react/react_client.dart';
-import 'package:react/react_client/js_backed_map.dart';
+import 'package:over_react/js_component.dart';
+import 'package:over_react/src/component_declaration/function_component.dart';
 import 'package:react/react.dart' as react;
+import 'package:react/react_client/js_backed_map.dart';
 
-import '../../over_react.dart';
+import '../component_declaration/builder_helpers.dart';
+import '../util/prop_key_util.dart';
 
-class StrictModeProps extends component_base.UiProps
-    with builder_helpers.GeneratedClass
-    implements builder_helpers.UiProps {
-  // Initialize to a JsBackedMap so that copying can be optimized
-  // when converting props during ReactElement creation.
-  StrictModeProps([Map props]) : this.props = props ?? JsBackedMap();
+part 'strictmode_component.over_react.g.dart';
 
-  @override
-  ReactComponentFactoryProxy componentFactory = react.StrictMode;
-
-  @override
-  PropsMetaCollection get staticMeta => throw UnimplementedError('StrictModeProps instances do not implement instance meta');
-
-  @override
-  final Map props;
-
-  @override
-  String get propKeyNamespace => '';
-}
+@Props(keyNamespace: '')
+class StrictModeProps extends UiProps {}
 
 /// A tool for highlighting potential problems in an application.
 ///
@@ -77,4 +60,4 @@ class StrictModeProps extends component_base.UiProps
 /// StrictMode logs all warnings to the browser console.
 ///
 /// See: <https://reactjs.org/docs/strict-mode.html>
-StrictModeProps StrictMode([Map backingMap]) => StrictModeProps(backingMap);
+UiFactory<StrictModeProps> StrictMode = uiJsComponent(react.StrictMode, _$StrictModeConfig);

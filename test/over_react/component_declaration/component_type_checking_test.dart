@@ -15,7 +15,6 @@
 library over_react.component_declaration.component_type_checking_test;
 
 import 'package:js/js.dart';
-import 'package:meta/meta.dart';
 import 'package:over_react/over_react.dart';
 import 'package:over_react/over_react_redux.dart' show connect;
 import 'package:over_react/src/component_declaration/component_type_checking.dart';
@@ -201,7 +200,7 @@ main() {
         // This should be a new instance every test run, which is why we
         // don't set it up within the group.
         // ignore: prefer_function_declarations_over_variables
-        final UiFactory alias = ([backingMap]) => GenericUiProps(null, backingMap);
+        final UiFactory alias = ([backingMap]) => _UiPropsWithNullComponentFactory(backingMap);
         expect(getComponentTypeFromAlias(alias), isNull);
       });
 
@@ -239,12 +238,12 @@ main() {
       });
     });
 
-    void sharedAliasTests(void Function(dynamic alias) testBody) {
+    void sharedAliasTests(void Function(Object alias) testBody) {
       group('an alias, when the argument is', () {
         test('a UiFactory', () {
           // This need to be a new instance every test run, which is why we
           // don't set it up within the group.
-          final UiFactory alias = ([_]) => null; // ignore: prefer_function_declarations_over_variables
+          final UiFactory alias = ([_]) => Dom.div(); // ignore: prefer_function_declarations_over_variables
           final factory = ReactDartComponentFactoryProxy2(createTestReactClass());
           registerComponentTypeAlias(factory, alias);
           testBody(alias);
@@ -261,7 +260,7 @@ main() {
       });
     }
 
-    void sharedBadTypeTests(void Function(dynamic badType) testBody) {
+    void sharedBadTypeTests(void Function(Object? badType) testBody) {
       group('a bad type, when the argument is', () {
         test('null', () => testBody(null));
         test('a primitive', () => testBody(1));
@@ -283,6 +282,8 @@ main() {
         });
 
         sharedBadTypeTests((badType) {
+          // setComponentTypeMeta doesn't accept nullable values, so we can't pass in null
+          if (badType == null) return;
           expect(() => setComponentTypeMeta(badType, parentType: null),
               throwsAssertionErrorContaining(badType is String
                   ? 'cannot set type metadata on strings'
@@ -321,17 +322,17 @@ main() {
 
 testComponentTypeChecking({
   bool isComponent2 = false,
-  @required UiFactory TestParent,
-  @required UiFactory TestSubtype,
-  @required UiFactory TestSubsubtype,
-  @required UiFactory TestExtendtype,
-  @required Type TestAbstractComponent,
-  @required UiFactory TestA,
-  @required Type TestAComponent,
-  @required UiFactory TestB,
-  @required Type TestBComponent,
-  @required UiFactory OneLevelWrapper,
-  @required UiFactory TwoLevelWrapper,
+  required UiFactory TestParent,
+  required UiFactory TestSubtype,
+  required UiFactory TestSubsubtype,
+  required UiFactory TestExtendtype,
+  required Type TestAbstractComponent,
+  required UiFactory TestA,
+  required Type? TestAComponent,
+  required UiFactory TestB,
+  required Type? TestBComponent,
+  required UiFactory OneLevelWrapper,
+  required UiFactory TwoLevelWrapper,
 }) {
   group('type checking:', () {
     group('getParentTypes', () {
@@ -347,12 +348,12 @@ testComponentTypeChecking({
           });
 
           test('that is empty for a component without parent types', () {
-            expect(getParentTypes(getComponentTypeFromAlias(TestParent)), isEmpty);
+            expect(getParentTypes(getComponentTypeFromAlias(TestParent)!), isEmpty);
           });
 
           test('that contains a component\'s parent type', () {
             expect(
-                getParentTypes(getComponentTypeFromAlias(TestSubtype)),
+                getParentTypes(getComponentTypeFromAlias(TestSubtype)!),
                 orderedEquals([
                   getComponentTypeFromAlias(TestParent),
                 ]));
@@ -360,7 +361,7 @@ testComponentTypeChecking({
 
           test('that contains all of a component\'s parent types', () {
             expect(
-                getParentTypes(getComponentTypeFromAlias(TestSubsubtype)),
+                getParentTypes(getComponentTypeFromAlias(TestSubsubtype)!),
                 orderedEquals([
                   getComponentTypeFromAlias(TestSubtype),
                   getComponentTypeFromAlias(TestParent),
@@ -369,7 +370,7 @@ testComponentTypeChecking({
 
           test('that contains all of a component\'s parent abstract types', () {
             expect(
-                getParentTypes(getComponentTypeFromAlias(TestExtendtype)),
+                getParentTypes(getComponentTypeFromAlias(TestExtendtype)!),
                 orderedEquals([
                   getComponentTypeFromAlias(TestAbstractComponent),
                 ]));
@@ -567,22 +568,13 @@ testComponentTypeChecking({
         });
 
         group('a higher-order component created by', () {
-          if (TestA().componentFactory.type.dartComponentVersion == '1') {
-            test('forwardRef', () {
-              expect(() => forwardRef((props, ref) => null)(TestA), throwsArgumentError);
-            });
-
+          if (TestA().componentFactory!.type.dartComponentVersion == '1') {
             test('connect', () {
-              expect(() => connect(mapStateToProps: (state) => {})(TestA), throwsArgumentError);
+              expect(() => connect(mapStateToProps: (dynamic state) => {})(TestA), throwsArgumentError);
             });
           } else {
-            test('forwardRef', () {
-              final hocFactory = forwardRef((props, ref) => null)(TestA);
-              expect(isComponentOfType(hocFactory()(), TestA), isTrue);
-            });
-
             test('connect', () {
-              final hocFactory = connect(mapStateToProps: (state) => {})(TestA);
+              final UiFactory hocFactory = connect(mapStateToProps: (dynamic state) => {})(TestA);
               expect(isComponentOfType(hocFactory()(), TestA), isTrue);
             });
           }
@@ -619,3 +611,17 @@ react_interop.ReactClass createTestReactClass() {
 
 // ignore: prefer_function_declarations_over_variables
 UiFactory<UiProps> TestJs = ([backingMap]) => GenericUiProps(testJsComponentFactoryProxy, backingMap);
+
+
+class _UiPropsWithNullComponentFactory extends UiProps {
+  @override
+  final Map props;
+
+  _UiPropsWithNullComponentFactory([Map? props]) : this.props = props ?? JsBackedMap();
+
+  @override
+  String get propKeyNamespace => '';
+
+  @override
+  bool get $isClassGenerated => true;
+}

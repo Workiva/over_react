@@ -1,5 +1,58 @@
 # OverReact Changelog
 
+## 5.0.0
+- Migrate to null safety
+- Support generating code for null-safe libraries _(while retaining support for non-null-safe libraries)_
+- Add ability to declare required, optionally-non-nullable props and state fields using Dart's `late` keyword (AKA "late required props")
+  - _Stay tuned for fully baked null safety documentation for this library!_
+
+#### Analyzer plugin
+- Add new lint, `over_react_required_prop` ([#896](https://github.com/Workiva/over_react/pull/896))
+  - Warns for missing `late` required props
+  - Supports linting for missing `@requiredProp` required props (these are deprecated in favor of `late`), but this is disabled by default
+- Add new lint, `over_react_unsafe_required_prop_access`, that warns when accessing required props on potentially incomplete maps
+- Reinstate functionality that had to be disabled in over_react 4.8.3 since it wasn't fully null-safe
+  - Lints (AKA diagnostics)
+    - `over_react_boilerplate_error`, `over_react_boilerplate_warning`
+    - `over_react_incorrect_doc_comment_location`
+  - Assist for toggling class component statefulness
+- Update diagnostics, fixes, and assists to work on null-safe code, add null-safe test cases
+
+### API additions
+- Add members to UiProps to support `late` required props _(stay tuned for more documentation on these)_
+  - Extension methods: getPropKey, containsProp, getRequiredProp(OrNull)
+  - disableRequiredPropValidation
+  - Internal use only: validateRequiredProps, requiredPropNamesToSkipValidation
+- Add createContextInit for creating contexts with non-nullable values
+- Add isLate field to PropDescriptor and StateDescriptor
+
+### Breaking changes
+- Deprecated API removals:
+  - BuiltReduxUiComponent, BuiltReduxUiProps
+  - `package:over_react/experimental.dart` (only exported built_redux APIs)
+  - forwardRef _(not to be confused with `uiForwardRef`)_
+  - The `displayName` argument of registerComponent and registerComponent2
+- The following props classes can no longer be extended or instantiated directly (like most components). To instantiate them, use the factory instead.
+    - FragmentProps
+    - StrictModeProps
+    - ReduxProviderProps (for extension, mix in ReduxProviderPropsMixin instead)
+    - ProviderProps (factory: `Context.Provider`)
+    - ConsumerProps (factory: `Context.Consumer`)
+- The following props are now required:
+    - `FluxUiPropsMixin.actions`, `FluxUiPropsMixin.store`
+    - `ProviderProps.value` (`ProviderProps` is the return type of `Context.Provider`)
+    - `ReduxMultiProviderProps.storesByContext`
+    - `ReduxProviderProps.store`
+- UiPropsMapView (deprecated) 
+    - is now abstract and requires subclasses to override `selfFactory`
+    - now extends directly from UiProps, and longer implements `MapView` (it still implements `Map`)
+    - `props` now returns the backing map instead of `this`
+- `react_dom.render` arg loosened from `ReactElement` to `dynamic`
+- Other changes that we don't expect to affect consumers:
+  - `PropsMeta`/`StateMeta` constructor arguments `fields` and `keys` are now required
+  - `ProviderProps.props` type has been widened from `JsMap` to `Map` (now matches `ConsumerProps` and other props classes)
+  - `ConnectPropsMixin` now `implements UiProps` (the one exported from `package:over_react/over_react.dart`) instead of `UiProps`'s superclass of the same name, `component_base.UiProps`.
+
 ## [4.11.1](https://github.com/Workiva/over_react/compare/4.11.0...4.11.1)
 - [#881] Fix disableRequiredPropValidation annotation and add test
 

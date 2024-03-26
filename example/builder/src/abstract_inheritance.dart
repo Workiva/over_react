@@ -17,11 +17,11 @@ import 'package:over_react/over_react.dart';
 part 'abstract_inheritance.over_react.g.dart';
 
 mixin SuperPropsMixin on UiProps {
-  String superProp;
+  String? superProp;
 }
 
 mixin SuperStateMixin on UiState {
-  String superState;
+  String? superState;
 }
 
 abstract class SuperComponent<T extends SuperPropsMixin, V extends SuperStateMixin> extends UiStatefulComponent2<T, V> {
@@ -41,11 +41,11 @@ abstract class SuperComponent<T extends SuperPropsMixin, V extends SuperStateMix
 UiFactory<SubProps> Sub = castUiFactory(_$Sub); // ignore: undefined_identifier
 
 mixin SubPropsMixin on UiProps {
-  String subProp;
+  String? subProp;
 }
 
 mixin SubStateMixin on UiState {
-  String subState;
+  String? subState;
 }
 
 class SubProps = UiProps with SuperPropsMixin, SubPropsMixin;

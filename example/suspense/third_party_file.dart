@@ -20,7 +20,7 @@ part 'third_party_file.over_react.g.dart';
 // I, keal jones, am not a fan.
 @Props(keyNamespace: '')
 mixin CounterPropsMixin on UiProps {
-  num initialCount;
+  num? initialCount;
 }
 
 UiFactory<CounterPropsMixin> CounterPropsMapView = castUiFactory(_$CounterPropsMapView);

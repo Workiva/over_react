@@ -29,10 +29,11 @@ UiFactory<TProps> uiJsComponent<TProps extends UiProps>(
   }
 
   // ignore: invalid_use_of_protected_member
-  final propsFactory = (_config as UiFactoryConfig<TProps>).propsFactory;
-  ArgumentError.checkNotNull(_config, '_config');
+  final propsFactory = _config.propsFactory;
+  ArgumentError.checkNotNull(propsFactory, '_config.propsFactory');
+  propsFactory!;
 
-  TProps _uiFactory([Map backingMap]) {
+  TProps _uiFactory([Map? backingMap]) {
     TProps builder;
     if (backingMap == null) {
       builder = propsFactory.jsMap(JsBackedMap());

@@ -232,11 +232,11 @@ void main() {
       group('when attempting to listen to a disposed store', () {
         const commonMessageString = 'Cannot listen to a disposed/disposing Store.';
 
-        FluxUiComponent2 component;
+        late FluxUiComponent2 component;
 
         setUp(() {
-          var jacket = mount((testComponents.basic())());
-          component = jacket.getDartInstance() as FluxUiComponent2;
+          var jacket = mount<FluxUiComponent2>((testComponents.basic())());
+          component = jacket.getDartInstance()!;
         });
 
         test('raises an assertion in DDC', () async {
@@ -325,9 +325,9 @@ class TestStoreWithCustomName extends Store {
 }
 
 class TestStores {
-  TestStore store1 = TestStore();
-  TestStore store2 = TestStore();
-  TestStore store3 = TestStore();
+  final TestStore store1 = TestStore();
+  final TestStore store2 = TestStore();
+  final TestStore store3 = TestStore();
 }
 
 abstract class BaseTestComponents {

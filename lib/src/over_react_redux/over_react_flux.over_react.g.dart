@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators, invalid_use_of_visible_for_overriding_member
 part of 'over_react_flux.dart';
 
 // **************************************************************************
@@ -25,7 +25,8 @@ abstract class ConnectFluxPropsMixin<TActions>
       props[_$key__actions___$ConnectFluxPropsMixin] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__actions___$ConnectFluxPropsMixin =
-      PropDescriptor(_$key__actions___$ConnectFluxPropsMixin);
+      PropDescriptor(_$key__actions___$ConnectFluxPropsMixin,
+          isRequired: true, isNullable: true, isLate: true);
   static const String _$key__actions___$ConnectFluxPropsMixin = 'actions';
 
   static const List<PropDescriptor> $props = [

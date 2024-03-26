@@ -45,26 +45,29 @@ abstract class ClassishDeclaration {
   Token get name => node.name;
   NodeList<Annotation> get metadata => node.metadata;
 
-  TypeParameterList get typeParameters;
+  TypeParameterList? get typeParameters;
   List<ClassMember> get members;
   Token get classOrMixinKeyword;
 
   /// All interfaces used by this class, including mixin superclass constraints.
   List<NamedType> get interfaces;
 
-  List<NamedType> get allSuperTypes => [
-        ...interfaces,
-        ...mixins,
-        if (superclass != null) superclass,
-      ];
+  List<NamedType> get allSuperTypes {
+    final superclass = this.superclass;
+    return [
+      ...interfaces,
+      ...mixins,
+      if (superclass != null) superclass,
+    ];
+  }
 
   //
   // Applies only to some subtypes
 
-  WithClause get withClause;
-  Token get abstractKeyword;
+  WithClause? get withClause;
+  Token? get abstractKeyword;
   bool get hasAbstractKeyword => abstractKeyword != null;
-  NamedType get superclass;
+  NamedType? get superclass;
 
   List<NamedType> get mixins => withClause?.mixinTypes ?? const [];
 }
@@ -76,7 +79,7 @@ class _ClassishClass extends ClassishDeclaration {
   _ClassishClass(this.node) : super._();
 
   @override
-  Token get abstractKeyword => node.abstractKeyword;
+  Token? get abstractKeyword => node.abstractKeyword;
 
   @override
   List<NamedType> get interfaces => [
@@ -84,10 +87,10 @@ class _ClassishClass extends ClassishDeclaration {
       ];
 
   @override
-  NamedType get superclass => node.extendsClause?.superclass;
+  NamedType? get superclass => node.extendsClause?.superclass;
 
   @override
-  WithClause get withClause => node.withClause;
+  WithClause? get withClause => node.withClause;
 
   @override
   Token get classOrMixinKeyword => node.classKeyword;
@@ -96,7 +99,7 @@ class _ClassishClass extends ClassishDeclaration {
   List<ClassMember> get members => node.members;
 
   @override
-  TypeParameterList get typeParameters => node.typeParameters;
+  TypeParameterList? get typeParameters => node.typeParameters;
 }
 
 class _ClasssishMixin extends ClassishDeclaration {
@@ -106,7 +109,7 @@ class _ClasssishMixin extends ClassishDeclaration {
   _ClasssishMixin(this.node) : super._();
 
   @override
-  Token get abstractKeyword => null;
+  Token? get abstractKeyword => null;
 
   @override
   Token get classOrMixinKeyword => node.mixinKeyword;
@@ -118,16 +121,16 @@ class _ClasssishMixin extends ClassishDeclaration {
       ];
 
   @override
-  NamedType get superclass => null;
+  NamedType? get superclass => null;
 
   @override
-  WithClause get withClause => null;
+  WithClause? get withClause => null;
 
   @override
   List<ClassMember> get members => node.members;
 
   @override
-  TypeParameterList get typeParameters => node.typeParameters;
+  TypeParameterList? get typeParameters => node.typeParameters;
 }
 
 class _ClassishClassTypeAlias extends ClassishDeclaration {
@@ -137,7 +140,7 @@ class _ClassishClassTypeAlias extends ClassishDeclaration {
   _ClassishClassTypeAlias(this.node) : super._();
 
   @override
-  Token get abstractKeyword => node.abstractKeyword;
+  Token? get abstractKeyword => node.abstractKeyword;
 
   @override
   Token get classOrMixinKeyword => node.typedefKeyword;
@@ -146,13 +149,13 @@ class _ClassishClassTypeAlias extends ClassishDeclaration {
   List<ClassMember> get members => const [];
 
   @override
-  NamedType get superclass => node.superclass;
+  NamedType? get superclass => node.superclass;
 
   @override
-  TypeParameterList get typeParameters => node.typeParameters;
+  TypeParameterList? get typeParameters => node.typeParameters;
 
   @override
-  WithClause get withClause => node.withClause;
+  WithClause? get withClause => node.withClause;
 
   @override
   List<NamedType> get interfaces => [

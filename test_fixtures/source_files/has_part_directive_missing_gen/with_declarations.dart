@@ -1,3 +1,4 @@
+//@dart=2.11
 import 'package:over_react/over_react.dart';
 
 part 'with_declarations.over_react.g.dart';

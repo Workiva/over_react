@@ -22,8 +22,8 @@ import '../../mockito.mocks.dart';
 
 void mapProxyTests(Map Function(Map proxiedMap) mapProxyFactory) {
   group('proxies the Map member:', () {
-    Map proxy;
-    MockMap backingMap;
+    late Map proxy;
+    late MockMap backingMap;
 
     setUp(() {
       backingMap = MockMap();
@@ -36,7 +36,8 @@ void mapProxyTests(Map Function(Map proxiedMap) mapProxyFactory) {
     });
 
     test('map', () {
-      callback(key, value) {}
+      callback(key, value) => MapEntry('key', 'value');
+      when(backingMap.map(any)).thenReturn(<String, String>{});
 
       proxy.map(callback);
       verify(backingMap.map(callback));
@@ -56,7 +57,7 @@ void mapProxyTests(Map Function(Map proxiedMap) mapProxyFactory) {
     });
 
     test('removeWhere', () {
-      callback(key, value) {}
+      callback(key, value) => false;
       proxy.removeWhere(callback);
       verify(backingMap.removeWhere(callback));
     });

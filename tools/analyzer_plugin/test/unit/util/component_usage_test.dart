@@ -281,9 +281,9 @@ void main() {
                 isResolved: true,
               );
 
-              expect(expressionNode.argumentList.arguments.firstOrNull, isNotNull);
-              expect(expressionNode.argumentList.arguments.firstOrNull, isA<InvocationExpression>());
-              childExpression = expressionNode.argumentList.arguments.firstOrNull as InvocationExpression;
+              expect(expressionNode.argumentList.arguments, isNotEmpty);
+              expect(expressionNode.argumentList.arguments.first, isA<InvocationExpression>());
+              childExpression = expressionNode.argumentList.arguments.first as InvocationExpression;
               expect(childExpression.toSource(), childSource);
             });
 
@@ -588,10 +588,10 @@ void main() {
                     for (final item in items) renderChild(item),
                   ])
               ''', imports: '''$fooComponents
-                  bool condition;
+                  bool condition = false;
                   var someChild;
-                  Iterable someChildren;
-                  Iterable items;
+                  Iterable someChildren = [];
+                  Iterable items = [];
                   renderChild(child) {}
               ''', isResolved: isResolved))!;
               expect(usage.children, [
@@ -948,7 +948,7 @@ const buildersToTest = {
     source: 'Generic()',
     imports: '''
       import 'package:over_react/over_react.dart';
-      UiFactory Generic;
+      late UiFactory Generic;
     ''',
     componentName: 'Generic',
     unresolvedComponentName: 'Generic',

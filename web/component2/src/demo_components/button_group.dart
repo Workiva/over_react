@@ -29,17 +29,17 @@ mixin ButtonGroupProps on UiProps {
   /// See: <http://v4-alpha.getbootstrap.com/components/button-group/#sizing>.
   ///
   /// Default: [ButtonGroupSize.DEFAULT]
-  ButtonGroupSize size;
+  ButtonGroupSize? size;
 
   /// The [ButtonSkin] variation applied to every [Button] within the [ButtonGroup].
-  ButtonSkin skin;
+  ButtonSkin? skin;
 
   /// Make the [Button]s within a [ButtonGroup] stack vertically.
   ///
   /// See: <http://v4-alpha.getbootstrap.com/components/button-group/#vertical-variation>.
   ///
   /// Default: false
-  bool isVertical;
+  bool? isVertical;
 }
 
 mixin ButtonGroupState on UiState {}
@@ -71,17 +71,17 @@ class ButtonGroupComponent<T extends ButtonGroupProps, S extends ButtonGroupStat
 
   ClassNameBuilder getButtonGroupClasses() {
     return forwardingClassNameBuilder()
-      ..add('btn-group', !props.isVertical)
-      ..add('btn-group-vertical', props.isVertical)
-      ..add(props.size.className);
+      ..add('btn-group', !props.isVertical!)
+      ..add('btn-group-vertical', props.isVertical!)
+      ..add(props.size!.className);
   }
 
   /// Renders a list of [Button]s using [renderButton].
   List<dynamic> renderButtons() {
     final buttons = [];
 
-    for (int index = 0; index < props.children.length; index++) {
-      buttons.add(renderButton(props.children[index], index));
+    for (int index = 0; index < props.children!.length; index++) {
+      buttons.add(renderButton(props.children![index], index));
     }
 
     return buttons;
@@ -90,7 +90,7 @@ class ButtonGroupComponent<T extends ButtonGroupProps, S extends ButtonGroupStat
   /// Clones the provided [child] with the props specified in [buttonPropsToAdd].
   dynamic renderButton(dynamic child, int index) {
     if (isValidButtonChild(child)) {
-      return cloneElement(child as ReactElement, buttonPropsToAdd(child as ReactElement, index));
+      return cloneElement(child as ReactElement, buttonPropsToAdd(child, index));
     }
 
     print('invalid child');
@@ -153,16 +153,17 @@ class ButtonGroupSize extends ClassNameConstant {
 /// Mapping from [ButtonSize] values to their analogous [ButtonGroupSize] values.
 ///
 /// __Example:__
+/// ```
+/// @Props()
+/// class MyProps extends UiProps {
+///   ButtonSize size;
+/// }
 ///
-///     @Props()
-///     class MyProps extends UiProps {
-///       ButtonSize size;
-///     }
-///
-///     @Component()
-///     class MyComponent extends UiComponent2<MyProps> {
-///       ButtonGroupSize matchingButtonGroupSize = buttonToButtonGroupSize[props.size];
-///     }
+/// @Component()
+/// class MyComponent extends UiComponent2<MyProps> {
+///   ButtonGroupSize matchingButtonGroupSize = buttonToButtonGroupSize[props.size];
+/// }
+/// ```
 const buttonToButtonGroupSize = {
   ButtonSize.SMALL:   ButtonGroupSize.SMALL,
   ButtonSize.DEFAULT: ButtonGroupSize.DEFAULT,

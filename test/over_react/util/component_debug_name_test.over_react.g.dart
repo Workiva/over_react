@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators, invalid_use_of_visible_for_overriding_member
 part of 'component_debug_name_test.dart';
 
 // **************************************************************************
@@ -20,7 +20,7 @@ final $TestComponent2ComponentFactory = registerComponent2(
   parentType: null,
 );
 
-_$$TestComponent2Props _$TestComponent2([Map backingProps]) =>
+_$$TestComponent2Props _$TestComponent2([Map? backingProps]) =>
     backingProps == null
         ? _$$TestComponent2Props$JsMap(JsBackedMap())
         : _$$TestComponent2Props(backingProps);
@@ -37,9 +37,9 @@ abstract class _$$TestComponent2Props extends UiProps
         $TestComponent2Props {
   _$$TestComponent2Props._();
 
-  factory _$$TestComponent2Props(Map backingMap) {
+  factory _$$TestComponent2Props(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestComponent2Props$JsMap(backingMap as JsBackedMap);
+      return _$$TestComponent2Props$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$TestComponent2Props$PlainMap(backingMap);
     }
@@ -63,7 +63,16 @@ abstract class _$$TestComponent2Props extends UiProps
         // If this generated mixin is undefined, it's likely because TestComponent2Props is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestComponent2Props, and check that $TestComponent2Props is exported/imported properly.
         TestComponent2Props: $TestComponent2Props.meta,
       });
+
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$TestComponent2Props(
+          accessMap, (map) => _$$TestComponent2Props(map));
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$TestComponent2Props = getPropKey;
 
 // Concrete props implementation that can be backed by any [Map].
 @Deprecated('This API is for use only within generated code.'
@@ -71,7 +80,7 @@ abstract class _$$TestComponent2Props extends UiProps
 class _$$TestComponent2Props$PlainMap extends _$$TestComponent2Props {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestComponent2Props$PlainMap(Map backingMap)
+  _$$TestComponent2Props$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -90,7 +99,7 @@ class _$$TestComponent2Props$PlainMap extends _$$TestComponent2Props {
 class _$$TestComponent2Props$JsMap extends _$$TestComponent2Props {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestComponent2Props$JsMap(JsBackedMap backingMap)
+  _$$TestComponent2Props$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -109,7 +118,7 @@ class _$$TestComponent2Props$JsMap extends _$$TestComponent2Props {
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
 class _$TestComponent2Component extends TestComponent2Component {
-  _$$TestComponent2Props$JsMap _cachedTypedProps;
+  late _$$TestComponent2Props$JsMap _cachedTypedProps;
 
   @override
   _$$TestComponent2Props$JsMap get props => _cachedTypedProps;
@@ -129,11 +138,11 @@ class _$TestComponent2Component extends TestComponent2Component {
   }
 
   @override
-  _$$TestComponent2Props$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
+  _$$TestComponent2Props$JsMap typedPropsFactoryJs(JsBackedMap? backingMap) =>
       _$$TestComponent2Props$JsMap(backingMap);
 
   @override
-  _$$TestComponent2Props typedPropsFactory(Map backingMap) =>
+  _$$TestComponent2Props typedPropsFactory(Map? backingMap) =>
       _$$TestComponent2Props(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
@@ -182,7 +191,7 @@ const PropsMeta _$metaForTestComponentProps = PropsMeta(
   keys: _$TestComponentPropsAccessorsMixin.$propKeys,
 );
 
-_$$TestComponentProps _$TestComponent([Map backingProps]) =>
+_$$TestComponentProps _$TestComponent([Map? backingProps]) =>
     _$$TestComponentProps(backingProps);
 
 // Concrete props implementation.
@@ -193,7 +202,7 @@ class _$$TestComponentProps extends _$TestComponentProps
     implements TestComponentProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestComponentProps(Map backingMap) : this._props = {} {
+  _$$TestComponentProps(Map? backingMap) : this._props = {} {
     this._props = backingMap ?? {};
   }
 
@@ -214,7 +223,16 @@ class _$$TestComponentProps extends _$TestComponentProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'TestComponentProps.';
+
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$TestComponentProps(
+          accessMap, (map) => _$$TestComponentProps(map));
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$TestComponentProps = getPropKey;
 
 // Concrete component implementation mixin.
 //
@@ -222,7 +240,7 @@ class _$$TestComponentProps extends _$TestComponentProps
 // generated for the associated props class.
 class _$TestComponentComponent extends TestComponentComponent {
   @override
-  _$$TestComponentProps typedPropsFactory(Map backingMap) =>
+  _$$TestComponentProps typedPropsFactory(Map? backingMap) =>
       _$$TestComponentProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
@@ -250,6 +268,12 @@ mixin $TestComponent2Props on TestComponent2Props {
 
   static const List<PropDescriptor> $props = [];
   static const List<String> $propKeys = [];
+
+  @override
+  @UiProps.$mustCallSuper
+  void validateRequiredProps() {
+    super.validateRequiredProps();
+  }
 }
 
 @Deprecated('This API is for use only within generated code.'

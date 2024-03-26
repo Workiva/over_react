@@ -36,7 +36,7 @@ void main() {
       });
 
       test('on re-render', () {
-        TestJacket jacket;
+        late TestJacket jacket;
 
         expect(() {
           jacket = mount(
@@ -70,7 +70,7 @@ void main() {
       });
 
       test('on re-render', () {
-        TestJacket jacket;
+        late TestJacket jacket;
 
         expect(() {
           jacket = mount(
@@ -103,7 +103,7 @@ void main() {
       });
 
       test('on re-render', () {
-        TestJacket jacket;
+        late TestJacket jacket;
 
         expect(() {
           jacket = mount(
@@ -166,7 +166,7 @@ void main() {
       });
 
       test('on re-render', () {
-        TestJacket jacket;
+        late TestJacket jacket;
 
         expect(() {
           jacket = mount(
@@ -224,7 +224,7 @@ class _$ComponentTestProps extends UiProps {
   dynamic nullable;
 
   @requiredProp
-  List requiredAndLengthLimited;
+  List? requiredAndLengthLimited;
 }
 
 @Component2()

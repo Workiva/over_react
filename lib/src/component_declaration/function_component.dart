@@ -107,7 +107,7 @@ UiFactory<TProps> uiFunction<TProps extends UiProps>(
     'declaring your config correctly.');
   }
 
-  final config = _config as UiFactoryConfig<TProps>;
+  final config = _config;
 
   var propsFactory = config.propsFactory;
 
@@ -115,7 +115,7 @@ UiFactory<TProps> uiFunction<TProps extends UiProps>(
   final displayName = config.displayName ?? getFunctionName(functionComponent);
 
   dynamic _uiFunctionWrapper(JsBackedMap props) {
-    return functionComponent(propsFactory.jsMap(props));
+    return functionComponent(propsFactory!.jsMap(props));
   }
 
   final factory = react.registerFunctionComponent(
@@ -132,15 +132,18 @@ UiFactory<TProps> uiFunction<TProps extends UiProps>(
             ([backingMap]) => GenericUiProps(factory, backingMap))
         as PropsFactory<TProps>;
   }
+  // Work around propsFactory not getting promoted to non-nullable in _uiFactory: https://github.com/dart-lang/language/issues/1536
+  final nonNullablePropsFactory = propsFactory;
 
-  TProps _uiFactory([Map backingMap]) {
+  TProps _uiFactory([Map? backingMap]) {
     TProps builder;
     if (backingMap == null) {
-      builder = propsFactory.jsMap(JsBackedMap());
+      // propsFactory should get promoted to non-nullable here, but it does not some reason propsF
+      builder = nonNullablePropsFactory.jsMap(JsBackedMap());
     } else if (backingMap is JsBackedMap) {
-      builder = propsFactory.jsMap(backingMap);
+      builder = nonNullablePropsFactory.jsMap(backingMap);
     } else {
-      builder = propsFactory.map(backingMap);
+      builder = nonNullablePropsFactory.map(backingMap);
     }
 
     return builder..componentFactory = factory;
@@ -151,15 +154,21 @@ UiFactory<TProps> uiFunction<TProps extends UiProps>(
   return _uiFactory;
 }
 
-String getFunctionName(Function function) {
-  return getProperty(function, 'name') as String ?? getProperty(function, '\$static_name') as String;
+String? getFunctionName(Function function) {
+  return getProperty(function, 'name') as String? ?? getProperty(function, '\$static_name') as String?;
 }
 
+const _getPropKey = getPropKey;
+
+@sealed
 class GenericUiProps extends UiProps {
   @override
   final Map props;
 
-  GenericUiProps(ReactComponentFactoryProxy componentFactory, [Map props])
+  GenericUiProps(ReactComponentFactoryProxy componentFactory, [Map? props])
+      : this._nullableFactory(componentFactory, props);
+
+  GenericUiProps._nullableFactory(ReactComponentFactoryProxy? componentFactory, [Map? props])
       : this.props = props ?? JsBackedMap() {
     this.componentFactory = componentFactory;
   }
@@ -169,13 +178,17 @@ class GenericUiProps extends UiProps {
 
   @override
   bool get $isClassGenerated => true;
+
+  @override
+  String $getPropKey(accessMap) =>
+      _getPropKey(accessMap, (backingMap) => GenericUiProps._nullableFactory(null, backingMap));
 }
 
 /// Helper class used to keep track of generated information for [uiFunction].
 class UiFactoryConfig<TProps extends UiProps> {
   @protected
-  final PropsFactory<TProps> propsFactory;
-  final String displayName;
+  final PropsFactory<TProps>? propsFactory;
+  final String? displayName;
 
   UiFactoryConfig({this.propsFactory, this.displayName});
 }
@@ -189,8 +202,8 @@ class PropsFactory<TProps extends UiProps> {
   final TProps Function(JsBackedMap props) jsMap;
 
   PropsFactory({
-    @required this.map,
-    @required this.jsMap,
+    required this.map,
+    required this.jsMap,
   });
 
   /// Creates a [PropsFactory] based on [factory].

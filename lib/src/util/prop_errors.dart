@@ -26,7 +26,7 @@ class PropError extends Error {
   final String _messagePrefix;
   final dynamic invalidValue;
   final String propName;
-  final String prop2Name;
+  final String? prop2Name;
   final String message;
 
   /// Create a new [PropError], with the given [propName] and optional [message].
