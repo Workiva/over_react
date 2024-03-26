@@ -1,5 +1,8 @@
 # OverReact Changelog
 
+## 5.0.1
+- Consume over_react_test 3.0.0
+
 ## 5.0.0
 - Migrate to null safety
 - Support generating code for null-safe libraries _(while retaining support for non-null-safe libraries)_
