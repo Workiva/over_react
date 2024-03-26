@@ -48,7 +48,7 @@ dependency_overrides:
   over_react_test:
     git:
       url: https://github.com/Workiva/over_react_test
-      ref: b0fa427217f7f50b1fc32afccc5091d3bc166c4a
+      ref: 17ec7ca6d0e8d9cf6b530004e7a6d155d9ae76b0
 
 workiva:
   core_checks:
