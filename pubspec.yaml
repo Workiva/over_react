@@ -11,7 +11,7 @@ dependencies:
   build: '>=1.0.0 <3.0.0'
   dart_style: ^2.0.0
   js: ^0.6.1+1
-  logging: '>=0.11.3+2 <2.0.0'
+  logging: ^1.0.0
   meta: ^1.6.0
   package_config: ^2.1.0
   path: ^1.5.1
