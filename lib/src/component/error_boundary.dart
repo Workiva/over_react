@@ -73,7 +73,7 @@ mixin ErrorBoundaryProps on UiProps {
   /// component tree that crashed.
   ///
   /// > Related: [onComponentIsUnrecoverable], [onComponentDidCatch]
-  ReactElement? Function(/*Error||Exception*/dynamic error, ReactErrorInfo? info)? fallbackUIRenderer;
+  ReactNode Function(/*Error||Exception*/dynamic error, ReactErrorInfo? info)? fallbackUIRenderer;
 
   /// The amount of time that is "acceptable" between consecutive identical errors thrown from a component
   /// within the tree wrapped by this [ErrorBoundary].
