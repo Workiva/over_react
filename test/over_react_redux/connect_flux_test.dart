@@ -626,12 +626,10 @@ main() {
           ));
 
           var bigCounter = queryByTestId(jacket.mountNode, 'big-counter');
-          expect(bigCounter, isNotNull);
           var smallCounter = queryByTestId(jacket.mountNode, 'small-counter');
-          expect(smallCounter, isNotNull);
 
-          var smallDispatchButton = queryByTestId(smallCounter!, 'button-increment');
-          var dispatchButton = queryByTestId(bigCounter!, 'button-increment');
+          var smallDispatchButton = queryByTestId(smallCounter, 'button-increment');
+          var dispatchButton = queryByTestId(bigCounter, 'button-increment');
 
           click(dispatchButton);
           click(smallDispatchButton);
@@ -710,8 +708,7 @@ main() {
           ));
 
           final fluxCounter = queryByTestId(jacket2.mountNode, 'flux-component');
-          expect(fluxCounter, isNotNull);
-          final fluxButton = queryByTestId(fluxCounter!, 'button-increment');
+          final fluxButton = queryByTestId(fluxCounter, 'button-increment');
 
           expect(fluxStore.state.count, 0);
 
@@ -748,8 +745,7 @@ main() {
       ));
 
       final fluxCounter = queryByTestId(jacket.mountNode, 'flux-component');
-      expect(fluxCounter, isNotNull);
-      final fluxButton = queryByTestId(fluxCounter!, 'button-increment');
+      final fluxButton = queryByTestId(fluxCounter, 'button-increment');
 
       final logs = await recordConsoleLogsAsync(() async {
         click(fluxButton);
