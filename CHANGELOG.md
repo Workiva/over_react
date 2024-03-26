@@ -16,6 +16,7 @@
     - `over_react_boilerplate_error`, `over_react_boilerplate_warning`
     - `over_react_incorrect_doc_comment_location`
   - Assist for toggling class component statefulness
+- Update diagnostics, fixes, and assists to work on null-safe code, add null-safe test cases
 
 ### API additions
 - Add members to UiProps to support `late` required props _(stay tuned for more documentation on these)_
