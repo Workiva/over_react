@@ -270,7 +270,6 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
 
         final fieldType = field.fields.type;
         final typeSource = fieldType?.toSource();
-        // FIXME(null-safety) finish this implementation FED-1717
         final typeString = typeSource == null ? '' : '$typeSource ';
         final metadataSrc = StringBuffer();
         for (final annotation in field.metadata) {
