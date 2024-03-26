@@ -25,7 +25,9 @@ void expectCountValue(TestJacket jacket, int expectedValue, {String? reason}) {
 Future<Null> clickSiblingConnectedIncrementButton(TestJacket jacket) async {
   // Use a sibling connected component's increment button for tests
   // that shouldn't rely on `useDispatch` to ensure the subscription to context is wired up correctly
-  final incrementButton = queryByTestId(queryByTestId(jacket.mountNode, 'sibling-counter'), 'button-increment')!;
+  final siblingCounter = queryByTestId(jacket.mountNode, 'sibling-counter');
+  expect(siblingCounter, isNotNull);
+  final incrementButton = queryByTestId(siblingCounter!, 'button-increment')!;
   incrementButton.click();
   await pumpEventQueue();
 }
@@ -33,7 +35,9 @@ Future<Null> clickSiblingConnectedIncrementButton(TestJacket jacket) async {
 Future<Null> clickSiblingConnectedModelCountIncrementButton(TestJacket jacket) async {
   // Use a sibling connected component's increment button for tests
   // that shouldn't rely on `useDispatch` to ensure the subscription to context is wired up correctly
-  final incrementButton = queryByTestId(queryByTestId(jacket.mountNode, 'sibling-counter'), 'button-model-increment')!;
+  final siblingCounter = queryByTestId(jacket.mountNode, 'sibling-counter');
+  expect(siblingCounter, isNotNull);
+  final incrementButton = queryByTestId(siblingCounter!, 'button-model-increment')!;
   incrementButton.click();
   await pumpEventQueue();
 }
@@ -45,7 +49,9 @@ void expectBigCountValue(TestJacket jacket, int expectedValue, {String? reason})
 Future<Null> clickSiblingConnectedBigCountIncrementButton(TestJacket jacket) async {
   // Use a sibling connected component's increment button for tests
   // that shouldn't rely on `useDispatch` to ensure the subscription to context is wired up correctly
-  final incrementButton = queryByTestId(queryByTestId(jacket.mountNode, 'big-sibling-counter'), 'button-increment')!;
+  final siblingCounter = queryByTestId(jacket.mountNode, 'big-sibling-counter');
+  expect(siblingCounter, isNotNull);
+  final incrementButton = queryByTestId(siblingCounter!, 'button-increment')!;
   incrementButton.click();
   await pumpEventQueue();
 }

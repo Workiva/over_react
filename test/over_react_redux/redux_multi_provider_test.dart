@@ -91,10 +91,11 @@ main() {
       final context1Counter = queryByTestId(jacket.mountNode, 'context1');
       final context2Counter = queryByTestId(jacket.mountNode, 'context2');
       final context3Counter = queryByTestId(jacket.mountNode, 'context3');
+      expect([context1Counter, context2Counter, context3Counter], everyElement(isNotNull));
 
-      final context1Button = queryByTestId(context1Counter, 'button-increment');
-      final context2Button = queryByTestId(context2Counter, 'button-increment');
-      final context3Button = queryByTestId(context3Counter, 'button-increment');
+      final context1Button = queryByTestId(context1Counter!, 'button-increment');
+      final context2Button = queryByTestId(context2Counter!, 'button-increment');
+      final context3Button = queryByTestId(context3Counter!, 'button-increment');
 
       expect(findDomNode(context1Counter)!.innerHtml, contains('Count: 0'));
       expect(findDomNode(context2Counter)!.innerHtml, contains('Count: 0'));

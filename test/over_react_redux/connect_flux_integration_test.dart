@@ -72,11 +72,12 @@ main() {
           ));
 
           final fluxCounter = queryByTestId(jacket.mountNode, 'flux-component');
+          expect(fluxCounter, isNotNull);
           final reduxCounter =
               queryByTestId(jacket.mountNode, 'redux-component');
 
-          final fluxButton = queryByTestId(fluxCounter, 'button-increment');
-          final reduxButton = queryByTestId(reduxCounter, 'button-increment');
+          final fluxButton = queryByTestId(fluxCounter!, 'button-increment');
+          final reduxButton = queryByTestId(reduxCounter!, 'button-increment');
 
           click(fluxButton);
           await Future(() {});
@@ -122,11 +123,12 @@ main() {
           ));
 
           final fluxCounter = queryByTestId(jacket.mountNode, 'flux-component');
+          expect(fluxCounter, isNotNull);
           final reduxCounter =
               queryByTestId(jacket.mountNode, 'redux-component');
 
-          final fluxButton = queryByTestId(fluxCounter, 'button-increment');
-          final reduxButton = queryByTestId(reduxCounter, 'button-increment');
+          final fluxButton = queryByTestId(fluxCounter!, 'button-increment');
+          final reduxButton = queryByTestId(reduxCounter!, 'button-increment');
 
           click(fluxButton);
           await Future(() {});
@@ -170,10 +172,11 @@ main() {
         ));
 
         final fluxCounter = queryByTestId(jacket.mountNode, 'flux-component');
+        expect(fluxCounter, isNotNull);
         final reduxCounter = queryByTestId(jacket.mountNode, 'redux-component');
 
-        final fluxButton = queryByTestId(fluxCounter, 'button-increment');
-        final reduxButton = queryByTestId(reduxCounter, 'button-increment');
+        final fluxButton = queryByTestId(fluxCounter!, 'button-increment');
+        final reduxButton = queryByTestId(reduxCounter!, 'button-increment');
 
         click(fluxButton);
         await Future(() {});

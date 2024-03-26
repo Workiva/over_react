@@ -44,7 +44,7 @@ main() {
         attachedToDocument: true,
       );
 
-      final component = queryByTestId(jacket.getNode(), 'counter-component');
+      final component = queryByTestId(jacket.mountNode, 'counter-component');
 
       expect(component, isNotNull);
     });
@@ -91,8 +91,8 @@ main() {
       );
 
       final composeHocNodeAttributes =
-          queryByTestId(jacket.getNode(), 'compose-hoc')!.attributes;
-      final verboseHocNode = queryByTestId(jacket.getNode(), 'verbose-hoc')!;
+          queryByTestId(jacket.mountNode, 'compose-hoc')!.attributes;
+      final verboseHocNode = queryByTestId(jacket.mountNode, 'verbose-hoc')!;
 
       expect(composeHocNodeAttributes, containsPair('data-0', data0));
       expect(composeHocNodeAttributes, containsPair('data-1', data1));
