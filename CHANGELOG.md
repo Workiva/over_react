@@ -10,9 +10,9 @@
 - Add new lint, `over_react_required_prop` ([#896](https://github.com/Workiva/over_react/pull/896))
   - Warns for missing `late` required props
   - Supports linting for missing `@requiredProp` required props (these are deprecated in favor of `late`), but this is disabled by default
-- Add new lint, `over_react_unsafe_required_prop_access`, for accessing required props on potentially incomplete maps
-- Reinstate functionality disabled in over_react 4.8.3. Since newer Dart SDKs require sound null safety in analyzer plugins, this code couldn't be run since it depended on over_react code, which was not itself null safe.
-  - Diagnostics (AKA lints)
+- Add new lint, `over_react_unsafe_required_prop_access`, that warns when accessing required props on potentially incomplete maps
+- Reinstate functionality that had to be disabled in over_react 4.8.3 since it wasn't fully null-safe
+  - Lints (AKA diagnostics)
     - `over_react_boilerplate_error`, `over_react_boilerplate_warning`
     - `over_react_incorrect_doc_comment_location`
   - Assist for toggling class component statefulness
@@ -26,7 +26,7 @@
 - Add isLate field to PropDescriptor and StateDescriptor
 
 ### Breaking changes
-- API removals:
+- Deprecated API removals:
   - BuiltReduxUiComponent, BuiltReduxUiProps
   - `package:over_react/experimental.dart` (only exported built_redux APIs)
   - forwardRef _(not to be confused with `uiForwardRef`)_
@@ -50,7 +50,7 @@
 - Other changes that we don't expect to affect consumers:
   - `PropsMeta`/`StateMeta` constructor arguments `fields` and `keys` are now required
   - `ProviderProps.props` type has been widened from `JsMap` to `Map` (now matches `ConsumerProps` and other props classes)
-  - `ConnectPropsMixin` now `implements UiProps` (the one exported from `package:over_react/over_react.dart`) instead of `UiProps`'s superclass of the name, `component_base.UiProps`.
+  - `ConnectPropsMixin` now `implements UiProps` (the one exported from `package:over_react/over_react.dart`) instead of `UiProps`'s superclass of the same name, `component_base.UiProps`.
 
 ## [4.11.1](https://github.com/Workiva/over_react/compare/4.11.0...4.11.1)
 - [#881] Fix disableRequiredPropValidation annotation and add test
