@@ -1,9 +1,13 @@
 import 'package:analyzer/dart/analysis/results.dart';
+import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/analyzer_debug_helper.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/pretty_print.dart';
+import 'package:over_react_analyzer_plugin/src/util/prop_declarations/props_set_by_factory.dart';
+import 'package:over_react_analyzer_plugin/src/util/util.dart';
+import 'package:over_react_analyzer_plugin/src/util/weak_map.dart';
 
 import '../fluent_interface_util.dart';
 import '../util/prop_declarations/defaulted_props.dart';
@@ -101,7 +105,7 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
   ///
   /// TODO Add shared debug flag computation in DiagnosticContributor/DiagnosticCollector
   final _cachedIsDebugHelperEnabled =
-      _memoizeWithExpando<ResolvedUnitResult, bool>((result) => _debugCommentPattern.hasMatch(result.content));
+      memoizeWithWeakMap<ResolvedUnitResult, bool>((result) => _debugCommentPattern.hasMatch(result.content));
 
   /// A wrapper around [getAllRequiredProps] that caches results per props type [InterfaceElement],
   /// which greatly improves performance of this diagnostic when a component is used more than once.
@@ -111,14 +115,23 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
   ///
   /// This cache is static so it can be shared across multiple files (each of which gets a new diagnostic instance).
   ///
-  /// By using an expando, the returned [RequiredPropInfo] will be held in as long as the input element is held, and
-  /// released when the element is released. This is perfect for our use-case, since we want to optimize subsequent calls,
+  /// By using a [WeakMap], the returned value will be held in as long as the input element is held, and
+  /// released when the element is released. This is perfect for our use-cases, since we want to optimize subsequent calls,
   /// and get new results if the inputs change (in which case, the analyzer will create new, updated elements).
   ///
   /// The returned RequiredPropInfo doesn't take up much memory, and shouldn't retain anything not already
   /// retained by the element (e.g., prop FieldElements), so this caching mechanism should not cause a significant
   /// increase in memory usage.
-  static final _cachedGetAllRequiredProps = _memoizeWithExpando(getAllRequiredProps);
+  static final _cachedGetAllRequiredProps = memoizeWithWeakMap(getAllRequiredProps);
+
+  /// A wrapper around [getPropsSetByFactory] that caches results for a given factory element.
+  ///
+  /// [getPropsSetByFactory] involves synchronously parsing unresolved AST for the containing file,
+  /// so we want to avoid doing that where possible.
+  ///
+  /// Similar to [_cachedGetAllRequiredProps], this [WeakMap]-based cache should result in minimal memory overhead,
+  /// since the returned values are either small sets of Strings or null.
+  static final _cachedGetPropsSetByFactory = memoizeWithWeakMap(getPropsSetByFactory);
 
   /// Whether to include diagnostics for props marked required for annotations.
   final bool lintForAnnotationRequiredProps;
@@ -152,12 +165,21 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
     final requiredPropInfo = _cachedGetAllRequiredProps(propsClassElement);
 
     final debugHelper = AnalyzerDebugHelper(result, collector, enabled: _cachedIsDebugHelperEnabled(result));
+    // A flag to help verify during debugging/testing whether propsSetByFactory was computed.
+    var hasPropsSetByFactoryBeenComputed = false;
 
-    // Include debug info for each invocation ahout all the props and their requirednesses.
-    debugHelper.log(
-      () => _requiredPropsDebugMessage(requiredPropInfo),
-      () => result.locationFor(usage.builder),
-    );
+    // Use a late variable to compute this only when we need to.
+    late final propsSetByFactory = () {
+      hasPropsSetByFactoryBeenComputed = true;
+
+      final factory = usage.factory;
+      if (factory == null) return null;
+
+      final factoryElement = getFactoryElement(factory);
+      if (factoryElement == null) return null;
+
+      return _cachedGetPropsSetByFactory(factoryElement);
+    }();
 
     final presentPropNames =
         usage.cascadedProps.where((prop) => !prop.isPrefixed).map((prop) => prop.name.name).toSet();
@@ -177,6 +199,11 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
 
       // TODO(FED-2034) don't warn when we know required props are being forwarded
 
+      // Only access propsSetByFactory when we hit missing required props to avoid computing it unnecessarily.
+      if (propsSetByFactory?.contains(name) ?? false) {
+        continue;
+      }
+
       await collector.addErrorWithFix(
         _codeForRequiredness(requiredness),
         result.locationFor(usage.builder),
@@ -190,27 +217,27 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
         }),
       );
     }
-  }
 
-  static String _requiredPropsDebugMessage(RequiredPropInfo requiredPropInfo) {
-    final propNamesByRequirednessName = <String, Set<String>>{};
-    final withDisabledRequiredValidation = <String>{};
-    requiredPropInfo.propRequirednessByName.forEach((name, requiredness) {
-      propNamesByRequirednessName.putIfAbsent(requiredness.name, () => {}).add(name);
-      if (requiredness.isRequired) {
-        final propField = requiredPropInfo.requiredFieldsByName[name]!;
-        if (isRequiredPropValidationDisabled(propField)) {
-          withDisabledRequiredValidation.add(name);
+    // Include debug info for each invocation ahout all the props and their requirednesses.
+    debugHelper.log(() {
+      final propNamesByRequirednessName = <String, Set<String>>{};
+      final withDisabledRequiredValidation = <String>{};
+      requiredPropInfo.propRequirednessByName.forEach((name, requiredness) {
+        propNamesByRequirednessName.putIfAbsent(requiredness.name, () => {}).add(name);
+        if (requiredness.isRequired) {
+          final propField = requiredPropInfo.requiredFieldsByName[name]!;
+          if (isRequiredPropValidationDisabled(propField)) {
+            withDisabledRequiredValidation.add(name);
+          }
         }
-      }
-    });
-    return 'Prop requiredness: ${prettyPrint(propNamesByRequirednessName)}'
-        '\nProps with `@requiredPropValidationDisabled`: $withDisabledRequiredValidation';
-  }
-}
+      });
+      // Store this before we access `propsSetByFactory` in this debug message, since that will set it to true.
+      final _hasPropsSetByFactoryBeenComputed = hasPropsSetByFactoryBeenComputed;
 
-V Function(K) _memoizeWithExpando<K extends Object, V extends Object>(V Function(K) computeValue,
-    [Expando<V>? existingExpando]) {
-  final expando = existingExpando ?? Expando();
-  return (key) => expando[key] ??= computeValue(key);
+      return 'Prop requiredness: ${prettyPrint(propNamesByRequirednessName)}'
+          '\nProps with `@requiredPropValidationDisabled`: $withDisabledRequiredValidation'
+          '\nProps set by factory: $propsSetByFactory'
+          '\npropsSetByFactory needed to be computed: $_hasPropsSetByFactoryBeenComputed';
+    }, () => result.locationFor(usage.builder));
+  }
 }

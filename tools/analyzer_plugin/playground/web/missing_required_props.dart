@@ -86,6 +86,9 @@ main() {
 
   (WithLateRequired()..disableRequiredPropValidation())();
 
+  WithLateRequiredProps factoryThatSetsSomeLateRequired() => WithLateRequired()..required1 = '';
+  (factoryThatSetsSomeLateRequired()..required2 = '')();
+
   WithLateRequired()();
 
   InheritsLateRequired()();
