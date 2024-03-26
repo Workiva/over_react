@@ -3,7 +3,7 @@
 ## 5.0.0
 - Migrate to null safety
 - Support generating code for null-safe libraries _(while retaining support for non-null-safe libraries)_
-- Add ability to declare required, optionally-non-nullable props and state fields using Dart's `late` keyword
+- Add ability to declare required, optionally-non-nullable props and state fields using Dart's `late` keyword (AKA "late required props")
   - _Stay tuned for fully baked null safety documentation for this library!_
 
 #### Analyzer plugin
@@ -16,6 +16,14 @@
     - `over_react_boilerplate_error`, `over_react_boilerplate_warning`
     - `over_react_incorrect_doc_comment_location`
   - Assist for toggling class component statefulness
+
+### API additions
+- Add members to UiProps to support `late` required props _(stay tuned for more documentation on these)_
+  - Extension methods: getPropKey, containsProp, getRequiredProp(OrNull)
+  - disableRequiredPropValidation
+  - Internal use only: validateRequiredProps, requiredPropNamesToSkipValidation
+- Add createContextInit for creating contexts with non-nullable values
+- Add isLate field to PropDescriptor and StateDescriptor
 
 ### Breaking changes
 - API removals:
