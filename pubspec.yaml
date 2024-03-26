@@ -38,17 +38,11 @@ dev_dependencies:
   io: '>=0.3.2+1 <2.0.0'
   mockito: ^5.3.1
   react_testing_library: ^3.0.1
-  over_react_test: ^2.10.2
+  over_react_test: ^3.0.0
   pedantic: ^1.11.1
   test: ^1.20.0
   workiva_analysis_options: ^1.4.0
   yaml: ^3.1.0
-
-dependency_overrides:
-  over_react_test:
-    git:
-      url: https://github.com/Workiva/over_react_test
-      ref: b0fa427217f7f50b1fc32afccc5091d3bc166c4a
 
 workiva:
   core_checks:
