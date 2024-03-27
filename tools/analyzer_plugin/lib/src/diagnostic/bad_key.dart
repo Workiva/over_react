@@ -139,11 +139,15 @@ class BadKeyDiagnostic extends ComponentUsageDiagnosticContributor {
     final topLevelKeyType = expression.staticType;
     // Type can't be resolved; bail out.
     if (topLevelKeyType == null) return;
+    // The type is bad because of errors, such as when the user's in the middle of typing an identifier,
+    // or referencing an identifier that doesn't exist yet.
+    if (topLevelKeyType is InvalidType) return;
 
     final typedProvider = result.typeProvider;
 
     // Special-case for Iterables and Maps: check if their (keys and) values are allowed types.
     final isIterableOrMap =
+        topLevelKeyType is! DynamicType &&
         // Need to make sure it's not null since null is a subtype of all nullable-types.
         !topLevelKeyType.isDartCoreNull &&
             [
@@ -151,9 +155,8 @@ class BadKeyDiagnostic extends ComponentUsageDiagnosticContributor {
               typedProvider.mapType(typedProvider.dynamicType, typedProvider.dynamicType),
             ].any((type) => result.typeSystem.isSubtypeOf(topLevelKeyType, type));
 
-    final keyTypesToProcess = {
-      if (isIterableOrMap) ...(topLevelKeyType as InterfaceType).typeArguments else topLevelKeyType,
-    };
+    final keyTypesToProcess =
+        isIterableOrMap && topLevelKeyType is InterfaceType ? topLevelKeyType.typeArguments : [topLevelKeyType];
 
     for (final type in keyTypesToProcess) {
       // Provide context if this type was derived from a Map/Iterable type argument.
@@ -162,7 +165,7 @@ class BadKeyDiagnostic extends ComponentUsageDiagnosticContributor {
 
       if (type.isDartCoreInt || type.isDartCoreDouble || type.isDartCoreString || type.isDartCoreSymbol) {
         // Ignore core types that have good `Object.toString` implementations values.
-      } else if (type.isDartCoreObject || type.isDynamic) {
+      } else if (type.isDartCoreObject || type is DynamicType) {
         collector.addError(
           dynamicOrObjectCode,
           result.locationFor(expression),
