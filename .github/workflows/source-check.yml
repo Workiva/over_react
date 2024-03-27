@@ -1,0 +1,36 @@
+name: Source check
+
+on:
+  workflow_call:
+    outputs:
+      is_tag_build:
+        description: "Whether the build is the result of a tagged release commit"
+        value: ${{ jobs.git-diff.outputs.is_tag_build }}
+      run_dart_checks:
+        description: "Whether to run checks designed for when dart source files are changed"
+        value: ${{ jobs.git-diff.outputs.run_dart_checks }}
+
+jobs:
+  git-diff:
+    runs-on: ubuntu-latest
+    outputs:
+      run_dart_checks: ${{ steps.check_files.outputs.run_dart_checks }}
+      is_tag_build: ${{ steps.check_gh_ref.outputs.is_tag_build }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - name: Check Github Ref
+        id: check_gh_ref
+        run: |
+          echo "is_tag_build=${{ contains(github.head_ref, 'refs/tags') }}" >> "$GITHUB_OUTPUT"
+      - name: Check Modified Files
+        id: check_files
+        run: |
+          if ! [ -z "$(git diff --name-only ${{ github.event.pull_request.base.sha }} ${{ github.sha }} | grep -E ".*\.(dart|yaml|lock)")" ]; then
+            echo "Dart/Yaml/Lock File(s) Were Modified. Run Dart Checks."
+            echo "run_dart_checks=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "No Dart/Yaml/Lock File(s) Were Modified. Skip Dart Checks."
+            echo "run_dart_checks=false" >> "$GITHUB_OUTPUT"
+          fi
