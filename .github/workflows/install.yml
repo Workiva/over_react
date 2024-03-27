@@ -1,0 +1,49 @@
+name: Shared install / pub cache job
+
+on:
+  workflow_call:
+    inputs:
+      sdk:
+        required: true
+        type: string
+      gen_coverage:
+        required: true
+        type: boolean
+      store_lockfile:
+        required: true
+        type: boolean
+
+jobs:
+  pub-get:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dart-lang/setup-dart@v1
+        with:
+          sdk: ${{ inputs.sdk }}
+
+      - name: Check pub cache
+        id: cache
+        uses: actions/cache@v4
+        with:
+          path: .dart_tool
+          key: ${{ runner.os }};${{ hashFiles('**/pubspec.yaml','**/pubspec.lock') || 'none' }}@${{ inputs.sdk }}
+
+      - id: install
+        name: Install dependencies
+        run: dart pub get
+
+      - name: Upload pubspec.lock
+        if: ${{ inputs.store_lockfile }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: pubspec.lock@${{ inputs.sdk }}
+          path: pubspec.lock
+
+      - name: Upload Package Config
+        if: ${{ inputs.gen_coverage }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: package_config@${{ inputs.sdk }}
+          path: .dart_tool/package_config.json
+          retention-days: 1

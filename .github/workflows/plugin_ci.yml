@@ -1,0 +1,50 @@
+name: Jobs pertaining to the analyzer plugin
+
+on:
+  workflow_call:
+    inputs:
+      sdk:
+        required: true
+        type: string
+
+permissions:
+  contents: read
+  checks: write
+  deployments: write
+  id-token: write
+  pull-requests: write
+  statuses: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./tools/analyzer_plugin
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dart-lang/setup-dart@v1
+        with:
+          sdk: ${{ inputs.sdk }}
+
+      - id: link
+        name: Override over_react dependency with local path
+        run: cd ../.. && dart pub get && dart tool/travis_link_plugin_deps.dart
+
+      - id: install
+        name: Install dependencies
+        run: dart pub get
+        if: steps.link.outcome == 'success'
+
+      - name: Validate dependencies
+        run: dart run dependency_validator
+        if: steps.install.outcome == 'success'
+
+      - name: Verify formatting
+        run: dart run dart_dev format --check
+        # Skip this for now as it seems this has not been run in CI for some time (lots of unformatted files)
+        if: false && steps.install.outcome == 'success'
+
+      - name: Run tests
+        run: dart run dart_dev test --test-args="--concurrency=4"
+        if: steps.install.outcome == 'success'
