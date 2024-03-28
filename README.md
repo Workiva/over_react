@@ -9,7 +9,7 @@ This library also exposes _OverReact Redux_, which has [its own documentation](d
 [![OverReact Analyzer Plugin (beta)](https://img.shields.io/badge/docs-analyzer_plugin_(beta)-ff69b4.svg)](https://workiva.github.io/over_react/analyzer_plugin/)
 [![Join the gitter chat](https://badges.gitter.im/over_react/Lobby.svg)][gitter-chat]
 
-[![Dart CI](https://github.com/Workiva/over_react/workflows/Dart%20CI/badge.svg?branch=master)](https://github.com/Workiva/over_react/actions?query=workflow%3A%22Dart+CI%22+branch%3Amaster)
+[![Dart CI](https://github.com/Workiva/over_react/workflows/CI/badge.svg?branch=master)](https://github.com/Workiva/over_react/actions?query=workflow%3A%22Dart+CI%22+branch%3Amaster)
 
 ---
 
