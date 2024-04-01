@@ -20,8 +20,8 @@ import 'package:over_react/over_react.dart';
 part 'use_imperative_handle_example.over_react.g.dart';
 
 mixin FancyInputProps on UiProps {
-  String value;
-  Function updater;
+  String? value;
+  Function? updater;
 }
 
 /// The type of ref returned when rendering [UseImperativeHandleExample].
@@ -36,7 +36,7 @@ UiFactory<FancyInputProps> FancyInput = uiForwardRef(
 
     useImperativeHandle(
       ref,
-      () => FancyInputApi(() => inputRef.current.focus()),
+      () => FancyInputApi(() => inputRef.current!.focus()),
 
       /// Because the return value of [createHandle] never changes, it is not necessary for [ref.current]
       /// to be re-set on each render so this dependency list is empty.
@@ -46,7 +46,7 @@ UiFactory<FancyInputProps> FancyInput = uiForwardRef(
     return (Dom.input()
       ..ref = inputRef
       ..value = props.value
-      ..onChange = (e) => props.updater(e.target.value)
+      ..onChange = (e) => props.updater!(e.target.value)
     )();
   },
   _$FancyInputConfig, // ignore: undefined_identifier
@@ -67,7 +67,7 @@ UiFactory<UseImperativeHandleExampleProps> UseImperativeHandleExample =
         ..updater = inputValue.set
       )(),
       (Dom.button()
-        ..onClick = (_) => fancyInputRef.current.focus()
+        ..onClick = (_) => fancyInputRef.current!.focus()
       )('Focus Input'),
     );
   },

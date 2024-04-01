@@ -1,10 +1,10 @@
 import 'package:over_react/over_react.dart';
 
 badKeys() {
-  MyModel modelVar;
-  MyModelWithCustomToString modelVarWithCustomToString;
+  final modelVar = MyModel();
+  final modelVarWithCustomToString  = MyModelWithCustomToString();
 
-  Object objectVar;
+  Object objectVar = Object();
   dynamic dynamicVar;
 
   return Fragment()(
@@ -38,14 +38,14 @@ badKeys() {
 }
 
 // ignore: missing_return
-String deriveKeyFrom(Object object) {}
+String? deriveKeyFrom(Object object) {}
 
 class MyModel {
-  int id;
+  int? id;
 }
 
 class MyModelWithCustomToString {
-  int id;
+  int? id;
 
   @override
   toString() => '$id';

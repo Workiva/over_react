@@ -35,7 +35,7 @@ import '../shared/map_proxy_tests.dart';
 
 main() {
   void _commonNonInvokedBuilderTests(UiProps builder) {
-    bool warningsWereEnabled;
+    late bool warningsWereEnabled;
     setUp(() {
       warningsWereEnabled = ValidationUtil.WARNINGS_ENABLED;
       ValidationUtil.WARNINGS_ENABLED = false;
@@ -47,10 +47,18 @@ main() {
       stopRecordingValidationWarnings();
     });
 
-    test('when a single non-invoked builder child is passed in', () {
-      expect(() => builder(Dom.div()), throwsArgumentError);
-      verifyValidationWarning(contains(
-          'It looks like you are trying to use a non-invoked builder as a child.'));
+    group('when a single non-invoked builder child is passed into', () {
+      test('call()', () {
+        expect(() => builder(Dom.div()), throwsArgumentError);
+        verifyValidationWarning(contains(
+            'It looks like you are trying to use a non-invoked builder as a child.'));
+      });
+
+      test('build()', () {
+        expect(() => builder.build(Dom.div()), throwsArgumentError);
+        verifyValidationWarning(contains(
+            'It looks like you are trying to use a non-invoked builder as a child.'));
+      });
     });
 
     test('when a list with a non-invoked builder child passed in', () {
@@ -124,7 +132,7 @@ main() {
         test('$childrenCount', () {
           final expectedChildren = List.generate(childrenCount, (i) => i + 1);
           final arguments = <dynamic>[...expectedChildren];
-          final instance = Function.apply(builder, arguments);
+          final instance = Function.apply(builder.call, arguments);
           expect(getJsChildren(instance), expectedChildren);
         });
       }
@@ -151,7 +159,7 @@ main() {
         startRecordingValidationWarnings();
         var instance = render(TestComponent()());
         var component = getDartComponent(instance);
-        changeProps() => component.props['id'] = 'test';
+        changeProps() => component!.props['id'] = 'test';
         changeProps();
         verifyValidationWarning(contains('Never mutate this.props directly'));
         stopRecordingValidationWarnings();
@@ -174,20 +182,20 @@ main() {
 
       group('renders a DOM component with the correct children when', () {
         test('no children are passed in', () {
-          var renderedNode = renderAndGetDom(Dom.div()());
+          var renderedNode = renderAndGetDom(Dom.div()())!;
 
           expect(renderedNode.childNodes, isEmpty);
         });
 
         test('children is null', () {
-          var renderedNode = renderAndGetDom(Dom.div()(null));
+          var renderedNode = renderAndGetDom(Dom.div()(null))!;
 
           expect(renderedNode.childNodes, isEmpty);
         });
 
         test('a single child is passed in', () {
           var child = 'Only child';
-          var renderedNode = renderAndGetDom(Dom.div()(child));
+          var renderedNode = renderAndGetDom(Dom.div()(child))!;
           var children = List<Text>.from(renderedNode.childNodes.where((node) => node.nodeType != Node.COMMENT_NODE));
 
           expect(children.length, equals(1));
@@ -196,7 +204,7 @@ main() {
 
         test('children are set via a list', () {
           var children = ['First Child', 'Second Child'];
-          var renderedNode = renderAndGetDom(Dom.div()(children));
+          var renderedNode = renderAndGetDom(Dom.div()(children))!;
           var childNodes = renderedNode.childNodes.where((node) => node.nodeType != Node.COMMENT_NODE).toList();
 
           expect(childNodes.length, equals(2));
@@ -209,7 +217,7 @@ main() {
             yield 'First Child';
             yield 'Second Child';
           })();
-          var renderedNode = renderAndGetDom(Dom.div()(children));
+          var renderedNode = renderAndGetDom(Dom.div()(children))!;
           var childNodes = renderedNode.childNodes.where((node) => node.nodeType != Node.COMMENT_NODE).toList();
 
           expect(childNodes.length, equals(2));
@@ -220,7 +228,7 @@ main() {
         test('children are set variadically', () {
           var firstChild = 'First Child';
           var secondChild = 'Second Child';
-          var renderedNode = renderAndGetDom(Dom.div()(firstChild, secondChild));
+          var renderedNode = renderAndGetDom(Dom.div()(firstChild, secondChild))!;
           var children = renderedNode.childNodes.where((node) => node.nodeType != Node.COMMENT_NODE).toList();
 
           expect(children.length, equals(2));
@@ -618,7 +626,7 @@ main() {
     });
 
     group('UiComponent', () {
-      TestComponentComponent component;
+      late TestComponentComponent component;
 
       setUp(() {
         component = TestComponentComponent();
@@ -628,7 +636,7 @@ main() {
       group('`ref`', () {
         test('should return a reference to the string ref', () {
           var renderedInstance = render(TestComponent()());
-          TestComponentComponent component = getDartComponent(renderedInstance);
+          final component = getDartComponent<TestComponentComponent>(renderedInstance)!;
 
           // ignore: deprecated_member_use
           expect(component.ref('foo'), isNotNull);
@@ -770,7 +778,7 @@ main() {
       group('calls validateProps in', () {
         test('componentWillMount', () {
           var calls = [];
-          Map appliedProps;
+          Map? appliedProps;
           var initialProps = {
             // ignore: avoid_types_on_closure_parameters
             'onValidateProps': (Map propsMap) {
@@ -788,7 +796,7 @@ main() {
 
         test('componentWillReceiveProps', () {
           var calls = [];
-          Map appliedProps;
+          Map? appliedProps;
           var newProps = {'key': 'value'};
           component.props = {
             // ignore: avoid_types_on_closure_parameters
@@ -806,7 +814,7 @@ main() {
       });
 
       group('on unmount', () {
-        TestComponentComponent component;
+        TestComponentComponent? component;
         dynamic instance;
         Duration longDuration = const Duration(milliseconds: 200);
         Duration shortDuration = const Duration(milliseconds: 100);
@@ -828,10 +836,10 @@ main() {
           var completer = Completer<String>();
 
           // Manage pending future
-          unawaited(component.awaitBeforeDispose(completer.future));
+          unawaited(component!.awaitBeforeDispose(completer.future));
 
           // Add events to stream
-          component.manageDisposer(() async => streamController.add('disposalFuture'));
+          component!.manageDisposer(() async => streamController.add('disposalFuture'));
           unawaited(completer.future.then(streamController.add));
 
           // Perform events out of order
@@ -846,7 +854,7 @@ main() {
         });
 
         test('should complete delayed Future with ObjectDisposedException', () async {
-          expect(component.getManagedDelayedFuture(shortDuration,
+          expect(component!.getManagedDelayedFuture(shortDuration,
               expectAsync0(() {}, count: 0, reason: 'Did not expect callback to be invoked.')),
             throwsA(isA<ObjectDisposedException>()));
 
@@ -855,7 +863,7 @@ main() {
 
         test('should call managed disposer returned by getManagedDisposer', () async {
           var disposerCalled = false;
-          var disposer = component.getManagedDisposer(() async => disposerCalled = true);
+          var disposer = component!.getManagedDisposer(() async => disposerCalled = true);
           expect(disposer, isA<ManagedDisposer>());
 
           expect(disposerCalled, isFalse);
@@ -865,7 +873,7 @@ main() {
         });
 
         test('should cancel periodic timer', () async {
-          var timer = component.getManagedPeriodicTimer(shortDuration,
+          var timer = component!.getManagedPeriodicTimer(shortDuration,
             expectAsync1((_) {}, count: 0, reason: 'Did not expect callback to be invoked.'));
 
           expect(timer.isActive, isTrue);
@@ -874,8 +882,8 @@ main() {
         });
 
         test('should cancel timer', () async {
-          var timer = component.getManagedTimer(shortDuration,
-            expectAsync1((_){}, count: 0, reason: 'Did not expect callback to be invoked.'));
+          var timer = component!.getManagedTimer(shortDuration,
+            expectAsync1((dynamic _){}, count: 0, reason: 'Did not expect callback to be invoked.'));
 
           expect(timer.isActive, isTrue);
           await unmountAndDisposal();
@@ -885,7 +893,7 @@ main() {
         test('should cancel stream subscription returned by listenToStream', () async{
           var streamController = StreamController<Null>.broadcast();
           // ignore: cancel_subscriptions
-          var streamSubscription = component.listenToStream(streamController.stream, expectAsync1((_) {},
+          var streamSubscription = component!.listenToStream(streamController.stream, expectAsync1((dynamic _) {},
               count: 0,
               reason: 'Did not expect event after cancelling subscription'));
           expect(streamSubscription, isA<StreamSubscription>());
@@ -898,7 +906,7 @@ main() {
 
         test('should dispose managed Disposable returned by manageAndReturnDisposable', () async {
           var disposable = Disposable();
-          expect(component.manageAndReturnDisposable(disposable), same(disposable));
+          expect(component!.manageAndReturnDisposable(disposable), same(disposable));
           expect(disposable.isDisposed, isFalse);
           await unmountAndDisposal();
           expect(disposable.isDisposed, isTrue);
@@ -906,7 +914,7 @@ main() {
 
         test('should dispose managed Disposable returned by manageAndReturnTypedDisposable', () async {
           var disposable = Disposable();
-          expect(component.manageAndReturnTypedDisposable(disposable), same(disposable));
+          expect(component!.manageAndReturnTypedDisposable(disposable), same(disposable));
           expect(disposable.isDisposed, isFalse);
           await unmountAndDisposal();
           expect(disposable.isDisposed, isTrue);
@@ -914,8 +922,8 @@ main() {
 
         test('should complete uncompleted managed Completer with ObjectDisposedException', () async {
           var completer = Completer<Null>();
-          component.manageCompleter(completer);
-          unawaited(completer.future.catchError(expectAsync1((err) {
+          component!.manageCompleter(completer);
+          unawaited(completer.future.catchError(expectAsync1((dynamic err) {
             expect(err, isA<ObjectDisposedException>());
           })));
 
@@ -926,7 +934,7 @@ main() {
 
         test('should dispose managed Disposable', () async {
           var disposable = Disposable();
-          component.manageDisposable(disposable);
+          component!.manageDisposable(disposable);
           expect(disposable.isDisposed, isFalse);
           await unmountAndDisposal();
           expect(disposable.isDisposed, isTrue);
@@ -934,7 +942,7 @@ main() {
 
         test('should call managed disposers', () async {
           var disposerCalled = false;
-          component.manageDisposer(() async => disposerCalled = true); // ignore: deprecated_member_use
+          component!.manageDisposer(() async => disposerCalled = true); // ignore: deprecated_member_use
           expect(disposerCalled, isFalse);
           await unmountAndDisposal();
           expect(disposerCalled, isTrue);
@@ -943,7 +951,7 @@ main() {
         test('should close managed StreamController', () async {
           //ignore: close_sinks
           var streamController = StreamController<Null>.broadcast();
-          component.manageStreamController(streamController);
+          component!.manageStreamController(streamController);
           expect(streamController.isClosed, isFalse);
           await unmountAndDisposal();
           expect(streamController.isClosed, isTrue);
@@ -957,7 +965,7 @@ main() {
               count: 0,
               reason: 'Did not expect event after cancelling subscription'));
 
-          component.manageStreamSubscription(streamSubscription); // ignore: deprecated_member_use
+          component!.manageStreamSubscription(streamSubscription); // ignore: deprecated_member_use
           await unmountAndDisposal();
 
           streamController.add(null);
@@ -1147,7 +1155,7 @@ main() {
       });
 
       group('on unmount', () {
-        TestComponent2Component component2;
+        TestComponent2Component? component2;
         dynamic instance;
         Duration longDuration = const Duration(milliseconds: 200);
         Duration shortDuration = const Duration(milliseconds: 100);
@@ -1169,10 +1177,10 @@ main() {
           var completer = Completer<String>();
 
           // Manage pending future
-          unawaited(component2.awaitBeforeDispose(completer.future));
+          unawaited(component2!.awaitBeforeDispose(completer.future));
 
           // Add events to stream
-          component2.manageDisposer(() async => streamController.add('disposalFuture'));
+          component2!.manageDisposer(() async => streamController.add('disposalFuture'));
           unawaited(completer.future.then(streamController.add));
 
           // Perform events out of order
@@ -1187,7 +1195,7 @@ main() {
         });
 
         test('should complete delayed Future with ObjectDisposedException', () async {
-          expect(component2.getManagedDelayedFuture(shortDuration,
+          expect(component2!.getManagedDelayedFuture(shortDuration,
               expectAsync0(() {}, count: 0, reason: 'Did not expect callback to be invoked.')),
               throwsA(isA<ObjectDisposedException>()));
 
@@ -1196,7 +1204,7 @@ main() {
 
         test('should call managed disposer returned by getManagedDisposer', () async {
           var disposerCalled = false;
-          var disposer = component2.getManagedDisposer(() async => disposerCalled = true);
+          var disposer = component2!.getManagedDisposer(() async => disposerCalled = true);
           expect(disposer, isA<ManagedDisposer>());
 
           expect(disposerCalled, isFalse);
@@ -1206,7 +1214,7 @@ main() {
         });
 
         test('should cancel periodic timer', () async {
-          var timer = component2.getManagedPeriodicTimer(shortDuration,
+          var timer = component2!.getManagedPeriodicTimer(shortDuration,
               expectAsync1((_) {}, count: 0, reason: 'Did not expect callback to be invoked.'));
 
           expect(timer.isActive, isTrue);
@@ -1215,8 +1223,8 @@ main() {
         });
 
         test('should cancel timer', () async {
-          var timer = component2.getManagedTimer(shortDuration,
-              expectAsync1((_){}, count: 0, reason: 'Did not expect callback to be invoked.'));
+          var timer = component2!.getManagedTimer(shortDuration,
+              expectAsync1((dynamic _){}, count: 0, reason: 'Did not expect callback to be invoked.'));
 
           expect(timer.isActive, isTrue);
           await unmountAndDisposal();
@@ -1226,7 +1234,7 @@ main() {
         test('should cancel stream subscription returned by listenToStream', () async{
           var streamController = StreamController<Null>.broadcast();
           // ignore: cancel_subscriptions
-          var streamSubscription = component2.listenToStream(streamController.stream, expectAsync1((_) {},
+          var streamSubscription = component2!.listenToStream(streamController.stream, expectAsync1((dynamic _) {},
               count: 0,
               reason: 'Did not expect event after cancelling subscription'));
           expect(streamSubscription, isA<StreamSubscription>());
@@ -1239,7 +1247,7 @@ main() {
 
         test('should dispose managed Disposable returned by manageAndReturnDisposable', () async {
           var disposable = Disposable();
-          expect(component2.manageAndReturnDisposable(disposable), same(disposable));
+          expect(component2!.manageAndReturnDisposable(disposable), same(disposable));
           expect(disposable.isDisposed, isFalse);
           await unmountAndDisposal();
           expect(disposable.isDisposed, isTrue);
@@ -1247,7 +1255,7 @@ main() {
 
         test('should dispose managed Disposable returned by manageAndReturnTypedDisposable', () async {
           var disposable = Disposable();
-          expect(component2.manageAndReturnTypedDisposable(disposable), same(disposable));
+          expect(component2!.manageAndReturnTypedDisposable(disposable), same(disposable));
           expect(disposable.isDisposed, isFalse);
           await unmountAndDisposal();
           expect(disposable.isDisposed, isTrue);
@@ -1255,8 +1263,8 @@ main() {
 
         test('should complete uncompleted managed Completer with ObjectDisposedException', () async {
           var completer = Completer<Null>();
-          component2.manageCompleter(completer);
-          unawaited(completer.future.catchError(expectAsync1((err) {
+          component2!.manageCompleter(completer);
+          unawaited(completer.future.catchError(expectAsync1((dynamic err) {
             expect(err, isA<ObjectDisposedException>());
           })));
 
@@ -1267,7 +1275,7 @@ main() {
 
         test('should dispose managed Disposable', () async {
           var disposable = Disposable();
-          component2.manageDisposable(disposable);
+          component2!.manageDisposable(disposable);
           expect(disposable.isDisposed, isFalse);
           await unmountAndDisposal();
           expect(disposable.isDisposed, isTrue);
@@ -1275,7 +1283,7 @@ main() {
 
         test('should call managed disposers', () async {
           var disposerCalled = false;
-          component2.manageDisposer(() async => disposerCalled = true); // ignore: deprecated_member_use
+          component2!.manageDisposer(() async => disposerCalled = true); // ignore: deprecated_member_use
           expect(disposerCalled, isFalse);
           await unmountAndDisposal();
           expect(disposerCalled, isTrue);
@@ -1284,7 +1292,7 @@ main() {
         test('should close managed StreamController', () async {
           //ignore: close_sinks
           var streamController = StreamController<Null>.broadcast();
-          component2.manageStreamController(streamController);
+          component2!.manageStreamController(streamController);
           expect(streamController.isClosed, isFalse);
           await unmountAndDisposal();
           expect(streamController.isClosed, isTrue);
@@ -1298,7 +1306,7 @@ main() {
               count: 0,
               reason: 'Did not expect event after cancelling subscription'));
 
-          component2.manageStreamSubscription(streamSubscription); // ignore: deprecated_member_use
+          component2!.manageStreamSubscription(streamSubscription); // ignore: deprecated_member_use
           await unmountAndDisposal();
 
           streamController.add(null);
@@ -1308,7 +1316,7 @@ main() {
     });
 
     group('UiStatefulComponent', () {
-      TestStatefulComponentComponent statefulComponent;
+      late TestStatefulComponentComponent statefulComponent;
 
       setUp(() {
         statefulComponent = TestStatefulComponentComponent();
@@ -1368,7 +1376,7 @@ main() {
     });
 
     group('UiStatefulComponent2', () {
-      TestStatefulComponent2Component statefulComponent;
+      TestStatefulComponent2Component? statefulComponent;
 
       setUp(() {
         statefulComponent = null;
@@ -1377,29 +1385,29 @@ main() {
       group('`state`', () {
         setUp(() {
           statefulComponent = TestStatefulComponent2Component();
-          statefulComponent.state = JsBackedMap.from({'test': true});
+          statefulComponent!.state = JsBackedMap.from({'test': true});
         });
 
         group('getter:', () {
           test('returns a UiState view into the component\'s state map', () {
-            expect(statefulComponent.state, isA<TestStatefulComponent2State>());
+            expect(statefulComponent!.state, isA<TestStatefulComponent2State>());
 
-            expect(statefulComponent.state, isNot(same(statefulComponent.state.state)));
+            expect(statefulComponent!.state, isNot(same(statefulComponent!.state.state)));
 
-            statefulComponent.state.state['testKey'] = 'testValue';
-            expect(statefulComponent.state, containsPair('testKey', 'testValue'));
+            statefulComponent!.state.state['testKey'] = 'testValue';
+            expect(statefulComponent!.state, containsPair('testKey', 'testValue'));
           });
 
           test('caches the UiState object for the same map', () {
-            var state1 = statefulComponent.state;
-            var state2 = statefulComponent.state;
+            var state1 = statefulComponent!.state;
+            var state2 = statefulComponent!.state;
             expect(state1, same(state2));
           });
 
           test('creates a new UiState object when the state map changes', () {
-            var stateBeforeChange = statefulComponent.state;
-            statefulComponent.state = JsBackedMap.from({'test': true});
-            var stateAfterChange = statefulComponent.state;
+            var stateBeforeChange = statefulComponent!.state;
+            statefulComponent!.state = JsBackedMap.from({'test': true});
+            var stateAfterChange = statefulComponent!.state;
 
             expect(stateBeforeChange, isNot(same(stateAfterChange)));
           });
@@ -1408,16 +1416,16 @@ main() {
         group('setter:', () {
           test('sets the unwrapped Map, as react-dart requires it to', () {
             var newBackingMap = JsBackedMap.from({'test': true});
-            statefulComponent.state = newBackingMap;
-            expect(statefulComponent.state.state, same(newBackingMap));
+            statefulComponent!.state = newBackingMap;
+            expect(statefulComponent!.state.state, same(newBackingMap));
           });
         });
       });
 
       test('newState() returns a new UiState instance backed by a new Map', () {
-        statefulComponent = renderAndGetComponent(TestStatefulComponent2()()) as TestStatefulComponent2Component;
-        var newState1 = statefulComponent.newState();
-        var newState2 = statefulComponent.newState();
+        statefulComponent = renderAndGetComponent(TestStatefulComponent2()())! as TestStatefulComponent2Component;
+        var newState1 = statefulComponent!.newState();
+        var newState2 = statefulComponent!.newState();
         expect(newState1, isA<TestStatefulComponent2State>());
         expect(newState2, isA<TestStatefulComponent2State>());
         expect(newState1, isNot(same(newState2)));
@@ -1427,14 +1435,14 @@ main() {
         setUp(() {
           statefulComponent = renderAndGetComponent((TestStatefulComponent2()
             ..id = 'test prop value'
-          )()) as TestStatefulComponent2Component;
-          statefulComponent.setState({'test state key': 'test state value'});
+          )())! as TestStatefulComponent2Component;
+          statefulComponent!.setState({'test state key': 'test state value'});
         });
 
         test('setStateWithUpdater provides typed views into prevState/props args', () {
-          Map capturedPrevState;
-          Map capturedProps;
-          statefulComponent.setStateWithUpdater((prevState, props) {
+          Map? capturedPrevState;
+          Map? capturedProps;
+          statefulComponent!.setStateWithUpdater((prevState, props) {
             capturedPrevState = prevState;
             capturedProps = props;
             return {};
@@ -1449,8 +1457,8 @@ main() {
         test('updater arguments can be explicitly typed without static typing issues', () {
           updaterTypedMap(TestStatefulComponent2State prevState, TestStatefulComponent2Props props) => {};
           updaterPlainMap(Map prevState, Map props) => {};
-          statefulComponent.setStateWithUpdater(updaterTypedMap);
-          statefulComponent.setStateWithUpdater(updaterPlainMap);
+          statefulComponent!.setStateWithUpdater(updaterTypedMap);
+          statefulComponent!.setStateWithUpdater(updaterPlainMap);
         });
       });
     });
@@ -1504,12 +1512,6 @@ main() {
             expect(meta.parentType, equals(parentFactory.type));
           });
         });
-
-        test('displayName', () {
-          var reactComponentFactory = registerComponent(dummyComponentFactory, displayName: 'testDisplayName');
-          expect(reactComponentFactory.type.displayName, isNot(equals('testDisplayName')), reason: 'The displayName parameter no longer sets the component\'s displayName.');
-        });
-
         group('registers a type alias for', () {
           test('`componentClass`', () {
             Type typeAlias = TestRegisterComponentClassAlias;
@@ -1519,7 +1521,7 @@ main() {
           });
 
           test('`factory`', () {
-            UiFactory factoryAlias = ([_]) => null;
+            UiFactory factoryAlias = (([_]) => DummyUiProps());
             var reactComponentFactory = registerComponent(dummyComponentFactory, builderFactory: factoryAlias);
 
             expect(getComponentTypeFromAlias(factoryAlias), equals(reactComponentFactory.type));
@@ -1572,15 +1574,15 @@ class TestComponentProps extends UiProps {
   @override final ReactComponentFactoryProxy componentFactory = _TestComponentComponentFactory;
   @override final Map props;
 
-  TestComponentProps([Map props]) : this.props = props ?? ({});
+  TestComponentProps([Map? props]) : this.props = props ?? ({});
 }
 
 final _TestComponentComponentFactory = registerComponent(() => TestComponentComponent());
 class TestComponentComponent extends UiComponent<TestComponentProps> {
   @override
-  final List<ConsumedProps> consumedProps;
+  final List<ConsumedProps>? consumedProps;
 
-  TestComponentComponent({List<ConsumedProps> testConsumedProps}) : consumedProps = testConsumedProps;
+  TestComponentComponent({List<ConsumedProps>? testConsumedProps}) : consumedProps = testConsumedProps;
 
   @override
   render() => (Dom.div()..ref = 'foo')();
@@ -1596,11 +1598,11 @@ class TestComponentComponent extends UiComponent<TestComponentProps> {
   }
 }
 
-UiFactory<TestComponent2Props> TestComponent2 = ([props]) => TestComponent2Props(props as JsBackedMap);
+UiFactory<TestComponent2Props> TestComponent2 = ([props]) => TestComponent2Props(props as JsBackedMap?);
 
 class TestComponent2Props extends over_react.UiProps {
   @override final ReactComponentFactoryProxy componentFactory = _TestComponent2ComponentFactory;
-  TestComponent2Props(JsBackedMap backingMap)
+  TestComponent2Props(JsBackedMap? backingMap)
       : this._props = JsBackedMap() {
     this._props = backingMap ?? JsBackedMap();
   }
@@ -1613,15 +1615,15 @@ class TestComponent2Props extends over_react.UiProps {
   bool get $isClassGenerated => true;
 
   @override
-  String get propKeyNamespace => null;
+  String? get propKeyNamespace => null;
 }
 
 final _TestComponent2ComponentFactory = registerComponent2(() => TestComponent2Component());
 class TestComponent2Component extends UiComponent2<TestComponent2Props> {
   @override
-  final List<ConsumedProps> consumedProps;
+  final List<ConsumedProps>? consumedProps;
 
-  TestComponent2Props _props;
+  late TestComponent2Props _props;
 
   @override
   TestComponent2Props get props => _props;
@@ -1629,7 +1631,7 @@ class TestComponent2Component extends UiComponent2<TestComponent2Props> {
   @override
   set props(Map value) => _props = typedPropsFactory(value);
 
-  TestComponent2Component({List<ConsumedProps> testConsumedProps}) :
+  TestComponent2Component({List<ConsumedProps>? testConsumedProps}) :
         consumedProps = testConsumedProps;
 
   @override
@@ -1642,12 +1644,12 @@ class TestComponent2Component extends UiComponent2<TestComponent2Props> {
   TestComponent2Props typedPropsFactoryJs(Map propsMap) => TestComponent2Props(propsMap as JsBackedMap);
 }
 
-UiFactory<TestStatefulComponent2Props> TestStatefulComponent2 = ([props]) => TestStatefulComponent2Props(props as JsBackedMap);
+UiFactory<TestStatefulComponent2Props> TestStatefulComponent2 = ([props]) => TestStatefulComponent2Props(props as JsBackedMap?);
 
 class TestStatefulComponent2Props extends over_react.UiProps {
   @override final ReactComponentFactoryProxy componentFactory = _TestStatefulComponent2ComponentFactory;
   @override Map props;
-  TestStatefulComponent2Props(JsBackedMap backingMap)
+  TestStatefulComponent2Props(JsBackedMap? backingMap)
       : this.props = JsBackedMap() {
     this.props = getBackingMap(backingMap) ?? JsBackedMap();
   }
@@ -1655,7 +1657,7 @@ class TestStatefulComponent2Props extends over_react.UiProps {
   bool get $isClassGenerated => true;
 
   @override
-  String get propKeyNamespace => null;
+  String? get propKeyNamespace => null;
 }
 
 class TestStatefulComponent2State extends over_react.UiState {
@@ -1682,10 +1684,10 @@ class TestStatefulComponent2Component extends UiStatefulComponent2<TestStatefulC
   bool get $isClassGenerated => true;
 
   @override
-  final List<ConsumedProps> consumedProps;
+  final List<ConsumedProps>? consumedProps;
 
-  TestStatefulComponent2Props _props;
-  TestStatefulComponent2State _state;
+  late TestStatefulComponent2Props _props;
+  late TestStatefulComponent2State _state;
 
   @override
   TestStatefulComponent2Props get props => _props;
@@ -1717,14 +1719,14 @@ class TestStatefulComponent2Component extends UiStatefulComponent2<TestStatefulC
     _state = typedStateFactoryJs(value);
   }
 
-  TestStatefulComponent2Component({List<ConsumedProps> testConsumedProps}) :
+  TestStatefulComponent2Component({List<ConsumedProps>? testConsumedProps}) :
         consumedProps = testConsumedProps;
 
   @override
-  TestStatefulComponent2Props typedPropsFactory(Map propsMap) => TestStatefulComponent2Props(propsMap as JsBackedMap);
+  TestStatefulComponent2Props typedPropsFactory(Map? propsMap) => TestStatefulComponent2Props(propsMap! as JsBackedMap);
 
   @override
-  TestStatefulComponent2Props typedPropsFactoryJs(Map propsMap) => TestStatefulComponent2Props(propsMap as JsBackedMap);
+  TestStatefulComponent2Props typedPropsFactoryJs(Map? propsMap) => TestStatefulComponent2Props(propsMap! as JsBackedMap);
 
   @override
   TestStatefulComponent2State typedStateFactory(Map state) => TestStatefulComponent2State(state as JsBackedMap);
@@ -1733,7 +1735,7 @@ class TestStatefulComponent2Component extends UiStatefulComponent2<TestStatefulC
   TestStatefulComponent2State typedStateFactoryJs(Map propsMap) => TestStatefulComponent2State(propsMap as JsBackedMap);
 }
 
-Map getBackingMap(Map map) {
+Map? getBackingMap(Map? map) {
   if (map is JsBackedMap) return map;
   if (map is UiProps) return getBackingMap(map.props);
   if (map is UiState) return getBackingMap(map.state);
@@ -1746,13 +1748,13 @@ class TestStatefulComponentProps extends UiProps {
   @override final ReactComponentFactoryProxy componentFactory = _TestStatefulComponentComponentFactory;
   @override final Map props;
 
-  TestStatefulComponentProps([Map props]) : this.props = props ?? ({});
+  TestStatefulComponentProps([Map? props]) : this.props = props ?? ({});
 }
 
 class TestStatefulComponentState extends UiState {
   @override final Map state;
 
-  TestStatefulComponentState([Map state]) : this.state = state ?? ({});
+  TestStatefulComponentState([Map? state]) : this.state = state ?? ({});
 }
 
 final _TestStatefulComponentComponentFactory = registerComponent(() => TestStatefulComponentComponent());
@@ -1784,8 +1786,13 @@ class TestStateMapViewMixin extends MapBase with MapViewMixin, StateMapViewMixin
 
 class TestUiPropsWithCustomComponentFactory extends UiProps {
   @override
-  ReactComponentFactoryProxy componentFactory;
+  ReactComponentFactoryProxy? componentFactory;
 
+  @override
+  final Map props = {};
+}
+
+class DummyUiProps extends UiProps {
   @override
   final Map props = {};
 }

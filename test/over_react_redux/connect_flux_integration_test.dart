@@ -28,14 +28,14 @@ import 'fixtures/flux_counter.dart';
 
 main() {
   group('connectFlux integration -', () {
-    FluxActions fluxActions;
-    FluxStore fluxStore;
-    FluxToReduxAdapterStore store1;
+    late FluxActions fluxActions;
+    late FluxStore fluxStore;
+    late FluxToReduxAdapterStore store1;
 
-    FluxActions connectableStoreActions;
-    TestConnectableFluxStore connectableFluxStore;
-    TestConnectableFluxStore anotherConnectableFluxStore;
-    ConnectFluxAdapterStore connectableFluxAdaptedStore;
+    late FluxActions connectableStoreActions;
+    late TestConnectableFluxStore connectableFluxStore;
+    late TestConnectableFluxStore anotherConnectableFluxStore;
+    late ConnectFluxAdapterStore connectableFluxAdaptedStore;
 
     setUp(() {
       fluxActions = FluxActions();
@@ -81,20 +81,20 @@ main() {
           click(fluxButton);
           await Future(() {});
 
-          expect(findDomNode(fluxCounter).innerHtml, contains('Count: 1'));
-          expect(findDomNode(reduxCounter).innerHtml, contains('Count: 1'));
+          expect(findDomNode(fluxCounter)!.innerHtml, contains('Count: 1'));
+          expect(findDomNode(reduxCounter)!.innerHtml, contains('Count: 1'));
 
           store1.dispatch(ResetAction());
           await Future(() {});
 
-          expect(findDomNode(fluxCounter).innerHtml, contains('Count: 0'));
-          expect(findDomNode(reduxCounter).innerHtml, contains('Count: 0'));
+          expect(findDomNode(fluxCounter)!.innerHtml, contains('Count: 0'));
+          expect(findDomNode(reduxCounter)!.innerHtml, contains('Count: 0'));
 
           click(reduxButton);
           await Future(() {});
 
-          expect(findDomNode(fluxCounter).innerHtml, contains('Count: 1'));
-          expect(findDomNode(reduxCounter).innerHtml, contains('Count: 1'));
+          expect(findDomNode(fluxCounter)!.innerHtml, contains('Count: 1'));
+          expect(findDomNode(reduxCounter)!.innerHtml, contains('Count: 1'));
         });
 
         test(
@@ -131,20 +131,20 @@ main() {
           click(fluxButton);
           await Future(() {});
 
-          expect(findDomNode(fluxCounter).innerHtml, contains('Count: 1'));
-          expect(findDomNode(reduxCounter).innerHtml, contains('Count: 1'));
+          expect(findDomNode(fluxCounter)!.innerHtml, contains('Count: 1'));
+          expect(findDomNode(reduxCounter)!.innerHtml, contains('Count: 1'));
 
           store1.dispatch(ResetAction());
           await Future(() {});
 
-          expect(findDomNode(fluxCounter).innerHtml, contains('Count: 0'));
-          expect(findDomNode(reduxCounter).innerHtml, contains('Count: 0'));
+          expect(findDomNode(fluxCounter)!.innerHtml, contains('Count: 0'));
+          expect(findDomNode(reduxCounter)!.innerHtml, contains('Count: 0'));
 
           click(reduxButton);
           await Future(() {});
 
-          expect(findDomNode(fluxCounter).innerHtml, contains('Count: 1'));
-          expect(findDomNode(reduxCounter).innerHtml, contains('Count: 1'));
+          expect(findDomNode(fluxCounter)!.innerHtml, contains('Count: 1'));
+          expect(findDomNode(reduxCounter)!.innerHtml, contains('Count: 1'));
         });
       });
 
@@ -178,20 +178,20 @@ main() {
         click(fluxButton);
         await Future(() {});
 
-        expect(findDomNode(fluxCounter).innerHtml, contains('Count: 1'));
-        expect(findDomNode(reduxCounter).innerHtml, contains('Count: 0'));
+        expect(findDomNode(fluxCounter)!.innerHtml, contains('Count: 1'));
+        expect(findDomNode(reduxCounter)!.innerHtml, contains('Count: 0'));
 
         store1.dispatch(ResetAction());
         await Future(() {});
 
-        expect(findDomNode(fluxCounter).innerHtml, contains('Count: 0'));
-        expect(findDomNode(reduxCounter).innerHtml, contains('Count: 0'));
+        expect(findDomNode(fluxCounter)!.innerHtml, contains('Count: 0'));
+        expect(findDomNode(reduxCounter)!.innerHtml, contains('Count: 0'));
 
         click(reduxButton);
         await Future(() {});
 
-        expect(findDomNode(fluxCounter).innerHtml, contains('Count: 1'));
-        expect(findDomNode(reduxCounter).innerHtml, contains('Count: 0'));
+        expect(findDomNode(fluxCounter)!.innerHtml, contains('Count: 1'));
+        expect(findDomNode(reduxCounter)!.innerHtml, contains('Count: 0'));
       });
 
       test('properly maps store instances to actions', () {
@@ -217,14 +217,14 @@ main() {
       UiFactory<ConnectFluxCounterProps> ConnectedFluxComponent;
       UiFactory<CounterProps> ConnectedReduxComponent;
       TestJacket jacket;
-      Element connectFluxCounter;
-      Element reduxCounter;
-      Element fluxCounter;
-      List<Element> containerList;
+      late Element connectFluxCounter;
+      late Element reduxCounter;
+      late Element fluxCounter;
+      late List<Element> containerList;
 
       void verifyCount(List<Element> containers, int count) {
         for (final container in containers) {
-          expect(findDomNode(container).innerHtml, contains('Count: $count'));
+          expect(findDomNode(container)!.innerHtml, contains('Count: $count'));
         }
       }
 
@@ -264,9 +264,9 @@ main() {
         ));
 
         connectFluxCounter =
-            queryByTestId(jacket.mountNode, 'connect-flux-component');
-        reduxCounter = queryByTestId(jacket.mountNode, 'redux-component');
-        fluxCounter = queryByTestId(jacket.mountNode, 'flux-component');
+            queryByTestId(jacket.mountNode, 'connect-flux-component')!;
+        reduxCounter = queryByTestId(jacket.mountNode, 'redux-component')!;
+        fluxCounter = queryByTestId(jacket.mountNode, 'flux-component')!;
         containerList = [connectFluxCounter, fluxCounter, reduxCounter];
 
         verifyCount(containerList, 0);

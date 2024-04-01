@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators, invalid_use_of_visible_for_overriding_member
 part of 'basic_component1.dart';
 
 // **************************************************************************
@@ -27,54 +27,54 @@ abstract class _$BasicPropsAccessorsMixin implements _$BasicProps {
   @override
   @Deprecated('This is deprecated')
   @requiredProp
-  String get basicProp =>
-      (props[_$key__basicProp___$BasicProps] ?? null) as String;
+  String? get basicProp =>
+      (props[_$key__basicProp___$BasicProps] ?? null) as String?;
 
   /// <!-- Generated from [_$BasicProps.basicProp] -->
   @override
   @Deprecated('This is deprecated')
   @requiredProp
-  set basicProp(String value) => props[_$key__basicProp___$BasicProps] = value;
+  set basicProp(String? value) => props[_$key__basicProp___$BasicProps] = value;
 
   /// <!-- Generated from [_$BasicProps.basic1] -->
   @override
-  String get basic1 => (props[_$key__basic1___$BasicProps] ?? null) as String;
+  String? get basic1 => (props[_$key__basic1___$BasicProps] ?? null) as String?;
 
   /// <!-- Generated from [_$BasicProps.basic1] -->
   @override
-  set basic1(String value) => props[_$key__basic1___$BasicProps] = value;
+  set basic1(String? value) => props[_$key__basic1___$BasicProps] = value;
 
   /// <!-- Generated from [_$BasicProps.basic2] -->
   @override
-  String get basic2 => (props[_$key__basic2___$BasicProps] ?? null) as String;
+  String? get basic2 => (props[_$key__basic2___$BasicProps] ?? null) as String?;
 
   /// <!-- Generated from [_$BasicProps.basic2] -->
   @override
-  set basic2(String value) => props[_$key__basic2___$BasicProps] = value;
+  set basic2(String? value) => props[_$key__basic2___$BasicProps] = value;
 
   /// <!-- Generated from [_$BasicProps.basic3] -->
   @override
-  String get basic3 => (props[_$key__basic3___$BasicProps] ?? null) as String;
+  String? get basic3 => (props[_$key__basic3___$BasicProps] ?? null) as String?;
 
   /// <!-- Generated from [_$BasicProps.basic3] -->
   @override
-  set basic3(String value) => props[_$key__basic3___$BasicProps] = value;
+  set basic3(String? value) => props[_$key__basic3___$BasicProps] = value;
 
   /// <!-- Generated from [_$BasicProps.basic4] -->
   @override
-  String get basic4 => (props[_$key__basic4___$BasicProps] ?? null) as String;
+  String? get basic4 => (props[_$key__basic4___$BasicProps] ?? null) as String?;
 
   /// <!-- Generated from [_$BasicProps.basic4] -->
   @override
-  set basic4(String value) => props[_$key__basic4___$BasicProps] = value;
+  set basic4(String? value) => props[_$key__basic4___$BasicProps] = value;
 
   /// <!-- Generated from [_$BasicProps.basic5] -->
   @override
-  String get basic5 => (props[_$key__basic5___$BasicProps] ?? null) as String;
+  String? get basic5 => (props[_$key__basic5___$BasicProps] ?? null) as String?;
 
   /// <!-- Generated from [_$BasicProps.basic5] -->
   @override
-  set basic5(String value) => props[_$key__basic5___$BasicProps] = value;
+  set basic5(String? value) => props[_$key__basic5___$BasicProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__basicProp___$BasicProps =
       PropDescriptor(_$key__basicProp___$BasicProps, isRequired: true);
@@ -123,7 +123,7 @@ class BasicProps extends _$BasicProps with _$BasicPropsAccessorsMixin {
   static const PropsMeta meta = _$metaForBasicProps;
 }
 
-_$$BasicProps _$Basic([Map backingProps]) => _$$BasicProps(backingProps);
+_$$BasicProps _$Basic([Map? backingProps]) => _$$BasicProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -133,7 +133,7 @@ class _$$BasicProps extends _$BasicProps
     implements BasicProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$BasicProps(Map backingMap) : this._props = {} {
+  _$$BasicProps(Map? backingMap) : this._props = {} {
     this._props = backingMap ?? {};
   }
 
@@ -154,7 +154,19 @@ class _$$BasicProps extends _$BasicProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'BasicProps.';
+
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$BasicProps(accessMap, (map) => _$$BasicProps(map));
+
+  @override
+  Set<String> get requiredPropNamesToSkipValidation =>
+      const {'id', 'basicProp'};
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$BasicProps = getPropKey;
 
 // Concrete component implementation mixin.
 //
@@ -162,7 +174,7 @@ class _$$BasicProps extends _$BasicProps
 // generated for the associated props class.
 class _$BasicComponent extends BasicComponent {
   @override
-  _$$BasicProps typedPropsFactory(Map backingMap) => _$$BasicProps(backingMap);
+  _$$BasicProps typedPropsFactory(Map? backingMap) => _$$BasicProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override

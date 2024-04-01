@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators, invalid_use_of_visible_for_overriding_member
 part of 'dummy_composite_component.dart';
 
 // **************************************************************************
@@ -25,36 +25,36 @@ abstract class _$TestCompositeComponentPropsAccessorsMixin
 
   /// <!-- Generated from [_$TestCompositeComponentProps.onComponentDidMount] -->
   @override
-  Function get onComponentDidMount =>
+  Function? get onComponentDidMount =>
       (props[_$key__onComponentDidMount___$TestCompositeComponentProps] ?? null)
-          as Function;
+          as Function?;
 
   /// <!-- Generated from [_$TestCompositeComponentProps.onComponentDidMount] -->
   @override
-  set onComponentDidMount(Function value) =>
+  set onComponentDidMount(Function? value) =>
       props[_$key__onComponentDidMount___$TestCompositeComponentProps] = value;
 
   /// <!-- Generated from [_$TestCompositeComponentProps.onComponentWillUnmount] -->
   @override
-  Function get onComponentWillUnmount =>
+  Function? get onComponentWillUnmount =>
       (props[_$key__onComponentWillUnmount___$TestCompositeComponentProps] ??
-          null) as Function;
+          null) as Function?;
 
   /// <!-- Generated from [_$TestCompositeComponentProps.onComponentWillUnmount] -->
   @override
-  set onComponentWillUnmount(Function value) =>
+  set onComponentWillUnmount(Function? value) =>
       props[_$key__onComponentWillUnmount___$TestCompositeComponentProps] =
           value;
 
   /// <!-- Generated from [_$TestCompositeComponentProps.onComponentDidUpdate] -->
   @override
-  Function get onComponentDidUpdate =>
+  Function? get onComponentDidUpdate =>
       (props[_$key__onComponentDidUpdate___$TestCompositeComponentProps] ??
-          null) as Function;
+          null) as Function?;
 
   /// <!-- Generated from [_$TestCompositeComponentProps.onComponentDidUpdate] -->
   @override
-  set onComponentDidUpdate(Function value) =>
+  set onComponentDidUpdate(Function? value) =>
       props[_$key__onComponentDidUpdate___$TestCompositeComponentProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor
@@ -100,7 +100,7 @@ class TestCompositeComponentProps extends _$TestCompositeComponentProps
   static const PropsMeta meta = _$metaForTestCompositeComponentProps;
 }
 
-_$$TestCompositeComponentProps _$TestCompositeComponent([Map backingProps]) =>
+_$$TestCompositeComponentProps _$TestCompositeComponent([Map? backingProps]) =>
     _$$TestCompositeComponentProps(backingProps);
 
 // Concrete props implementation.
@@ -111,7 +111,7 @@ class _$$TestCompositeComponentProps extends _$TestCompositeComponentProps
     implements TestCompositeComponentProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestCompositeComponentProps(Map backingMap) : this._props = {} {
+  _$$TestCompositeComponentProps(Map? backingMap) : this._props = {} {
     this._props = backingMap ?? {};
   }
 
@@ -132,7 +132,16 @@ class _$$TestCompositeComponentProps extends _$TestCompositeComponentProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'TestCompositeComponentProps.';
+
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$TestCompositeComponentProps(
+          accessMap, (map) => _$$TestCompositeComponentProps(map));
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$TestCompositeComponentProps = getPropKey;
 
 // Concrete component implementation mixin.
 //
@@ -141,7 +150,7 @@ class _$$TestCompositeComponentProps extends _$TestCompositeComponentProps
 class _$TestCompositeComponentComponent
     extends TestCompositeComponentComponent {
   @override
-  _$$TestCompositeComponentProps typedPropsFactory(Map backingMap) =>
+  _$$TestCompositeComponentProps typedPropsFactory(Map? backingMap) =>
       _$$TestCompositeComponentProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.

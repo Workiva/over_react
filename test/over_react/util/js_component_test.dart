@@ -126,8 +126,8 @@ void jsComponentTestHelper(UiFactory<TestProps> factory) {
     const className = 'aClassName';
 
     group('using `addUnconsumedProps`', () {
-      TestProps initialProps;
-      TestProps secondProps;
+      late TestProps initialProps;
+      late TestProps secondProps;
 
       setUp(() {
         initialProps = (factory()
@@ -158,8 +158,8 @@ void jsComponentTestHelper(UiFactory<TestProps> factory) {
     });
 
     group('using `addUnconsumedDomProps`', () {
-      TestProps initialProps;
-      TestProps secondProps;
+      late TestProps initialProps;
+      late TestProps secondProps;
 
       setUp(() {
         initialProps = (factory()
@@ -220,18 +220,18 @@ final _Test = uiJsComponent<TestProps>(
 
 @Props(keyNamespace: '')
 mixin TestPropsMixin on UiProps {
-  String size;
+  String? size;
   dynamic component;
 
-  String stringProp;
+  String? stringProp;
   dynamic dynamicProp;
   var untypedProp; // ignore: prefer_typing_uninitialized_variables
 }
 
 @Props(keyNamespace: '')
 mixin ASecondPropsMixin on UiProps {
-  bool disabled;
-  String anotherProp;
+  bool? disabled;
+  String? anotherProp;
 }
 
 class TestProps = UiProps with TestPropsMixin, ASecondPropsMixin;

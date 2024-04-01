@@ -81,16 +81,16 @@ void main() {
 Matcher hasAttrs(Map<String, dynamic> attrs) =>
     allOf(attrs.entries.map((e) => hasAttr(e.key, e.value)).toList());
 
-@isTestGroup
-void sharedSelectorHookAndConnectTests<T>(
-  String name, {
-  @required T initialValue,
-  @required T updatedValue1,
-  @required T updatedValue2,
-  String Function(T) renderValue,
-}) {
-  renderValue ??= (value) => value.toString();
+String _defaultRenderValue(Object? value) => value.toString();
 
+@isTestGroup
+void sharedSelectorHookAndConnectTests<T extends Object?>(
+  String name, {
+  required T initialValue,
+  required T updatedValue1,
+  required T updatedValue2,
+  String Function(T) renderValue = _defaultRenderValue,
+}) {
   group(name, () {
     setUpAll(() {
       final allValues = [initialValue, updatedValue1, updatedValue2];
@@ -102,20 +102,20 @@ void sharedSelectorHookAndConnectTests<T>(
       }
     });
 
-    Store<TestState<T>> store;
+    late Store<TestState<T>> store;
 
     setUp(() {
       store = Store((state, action) {
         if (action is UpdateInterestingAction) {
           if (state.interestingValue == initialValue) {
-            return state.update(interestingValue: updatedValue1);
+            return state.update(interestingValue: () => updatedValue1);
           } else if (state.interestingValue == updatedValue1) {
-            return state.update(interestingValue: updatedValue2);
+            return state.update(interestingValue: () => updatedValue2);
           } else {
             throw StateError('Only expected at most two updates');
           }
         } else if (action is UpdateOtherAction) {
-          return state.update(otherValue: state.otherValue + 1);
+          return state.update(otherValue: () => state.otherValue + 1);
         } else {
           throw ArgumentError('Unexpected action');
         }
@@ -124,7 +124,7 @@ void sharedSelectorHookAndConnectTests<T>(
 
     void sharedTests(
       UiFactory<TestSelectorProps> factory, {
-      Context context,
+      Context? context,
       bool supportsEqualityFunction = true,
     }) {
       test('properly selects the value without converting it whatsoever', () {
@@ -191,6 +191,20 @@ void sharedSelectorHookAndConnectTests<T>(
                   'prev': same(initialValue),
                 })),
                 reason: 'should have been called with the next and previous values, properly unwrapped');
+            expect(calls, everyElement(anyOf([
+              equals({
+                'next': same(updatedValue1),
+                'prev': same(initialValue),
+              }),
+              equals({
+                'next': same(initialValue),
+                'prev': same(initialValue),
+              }),
+              equals({
+                'next': same(updatedValue1),
+                'prev': same(updatedValue1),
+              }),
+            ])), reason: 'should only have been called with expected next/prev value pairings');
           });
 
           test('unless a custom equalityFn returns true', () async {
@@ -358,22 +372,25 @@ void sharedSelectorHookAndConnectTests<T>(
   });
 }
 
-class TestState<T> {
+class TestState<T extends Object?> {
   final T interestingValue;
   final int otherValue;
 
   TestState({
-    @required this.interestingValue,
-    @required this.otherValue,
+    required this.interestingValue,
+    required this.otherValue,
   });
 
   TestState<T> update({
-    T interestingValue,
-    int otherValue,
+    // These are typed as functions, because typing them as nullable and defaulting to null
+    // wouldn't allow us to tell the difference between no value specified and
+    // `null` explicitly specified.
+    T Function()? interestingValue,
+    int Function()? otherValue,
   }) =>
       TestState(
-        interestingValue: interestingValue ?? this.interestingValue,
-        otherValue: otherValue ?? this.otherValue,
+        interestingValue: interestingValue != null ? interestingValue() : this.interestingValue,
+        otherValue: otherValue != null ? otherValue() : this.otherValue,
       );
 }
 
@@ -396,8 +413,8 @@ class MyDartObject {
 UiFactory<TestSelectorProps> TestSelector = uiFunction((_) {}, _$TestSelectorConfig); // ignore: undefined_identifier
 
 mixin TestSelectorProps on UiProps {
-  void Function(Object selectedValue) onRender;
-  bool Function(dynamic next, dynamic prev) equality;
+  void Function(Object? selectedValue)? onRender;
+  bool Function(dynamic next, dynamic prev)? equality;
 }
 
 // We also need this to generate _$TestConnectConfig for use in non-top-level components.
@@ -407,14 +424,13 @@ UiFactory<TestConnectProps> TestConnectMapView =
 class TestConnectProps = UiProps with TestSelectorProps, TestConnectPropsMixin;
 
 mixin TestConnectPropsMixin on UiProps {
-  Object interestingValue;
+  Object? interestingValue;
 }
 
 /// A hook that returns a count of calls to a function component's render, specific to that instance.
 ///
 /// The result of the first call is `1`.
 int useRenderCount() {
-  final count = useRef(0);
-  count.current++;
-  return count.current;
+  final count = useRefInit(0);
+  return (count.current = count.current + 1);
 }

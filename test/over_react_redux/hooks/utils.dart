@@ -18,14 +18,14 @@ import 'package:test/test.dart';
 
 final bigCounterContext = createContext();
 
-void expectCountValue(TestJacket jacket, int expectedValue, {String reason}) {
-  expect(queryByTestId(jacket.mountNode, 'count').text, 'Count: $expectedValue', reason: reason);
+void expectCountValue(TestJacket jacket, int expectedValue, {String? reason}) {
+  expect(queryByTestId(jacket.mountNode, 'count')!.text, 'Count: $expectedValue', reason: reason);
 }
 
 Future<Null> clickSiblingConnectedIncrementButton(TestJacket jacket) async {
   // Use a sibling connected component's increment button for tests
   // that shouldn't rely on `useDispatch` to ensure the subscription to context is wired up correctly
-  final incrementButton = queryByTestId(queryByTestId(jacket.mountNode, 'sibling-counter'), 'button-increment');
+  final incrementButton = queryByTestId(queryByTestId(jacket.mountNode, 'sibling-counter'), 'button-increment')!;
   incrementButton.click();
   await pumpEventQueue();
 }
@@ -33,19 +33,19 @@ Future<Null> clickSiblingConnectedIncrementButton(TestJacket jacket) async {
 Future<Null> clickSiblingConnectedModelCountIncrementButton(TestJacket jacket) async {
   // Use a sibling connected component's increment button for tests
   // that shouldn't rely on `useDispatch` to ensure the subscription to context is wired up correctly
-  final incrementButton = queryByTestId(queryByTestId(jacket.mountNode, 'sibling-counter'), 'button-model-increment');
+  final incrementButton = queryByTestId(queryByTestId(jacket.mountNode, 'sibling-counter'), 'button-model-increment')!;
   incrementButton.click();
   await pumpEventQueue();
 }
 
-void expectBigCountValue(TestJacket jacket, int expectedValue, {String reason}) {
-  expect(queryByTestId(jacket.mountNode, 'big-count').text, 'Big Count: $expectedValue', reason: reason);
+void expectBigCountValue(TestJacket jacket, int expectedValue, {String? reason}) {
+  expect(queryByTestId(jacket.mountNode, 'big-count')!.text, 'Big Count: $expectedValue', reason: reason);
 }
 
 Future<Null> clickSiblingConnectedBigCountIncrementButton(TestJacket jacket) async {
   // Use a sibling connected component's increment button for tests
   // that shouldn't rely on `useDispatch` to ensure the subscription to context is wired up correctly
-  final incrementButton = queryByTestId(queryByTestId(jacket.mountNode, 'big-sibling-counter'), 'button-increment');
+  final incrementButton = queryByTestId(queryByTestId(jacket.mountNode, 'big-sibling-counter'), 'button-increment')!;
   incrementButton.click();
   await pumpEventQueue();
 }

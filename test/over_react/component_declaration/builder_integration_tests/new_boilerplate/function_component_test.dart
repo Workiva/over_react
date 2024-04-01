@@ -17,6 +17,7 @@
 import 'dart:html';
 
 import 'package:over_react/over_react.dart';
+import 'package:over_react/src/component_declaration/function_component.dart' show GenericUiProps;
 import 'package:test/test.dart';
 
 import '../../../../test_util/test_util.dart';
@@ -131,6 +132,36 @@ main() {
               'foo',
             ),
             throwsArgumentError);
+      });
+    });
+  });
+
+  group('GenericUiProps', () {
+    late GenericUiProps props;
+
+    setUp(() {
+      final genericFactory = uiFunction<UiProps>((_) {}, UiFactoryConfig());
+      final factoryProps = genericFactory();
+      expect(factoryProps, isA<GenericUiProps>(), reason: 'test setup check');
+      props = factoryProps as GenericUiProps;
+    });
+
+    group('has functional overrides to members that are typically generated', () {
+      // TODO(FED-1994) implement staticMeta for this props class and add tests here
+
+      test('propKeyNamespace', () {
+        expect(props.propKeyNamespace, '');
+      });
+
+      test('\$getPropKey (used by getPropKey)', () {
+        expect(props.getPropKey((p) => p.id), 'id');
+
+        late final GenericUiProps getPropKeyArg;
+        props.getPropKey((p) {
+          getPropKeyArg = p;
+          p.id; // Access a prop so that this doesn't throw
+        });
+        expect(getPropKeyArg, isA<GenericUiProps>());
       });
     });
   });
@@ -255,14 +286,27 @@ void functionComponentTestHelper(UiFactory<TestProps> factory,
     });
   });
 
+  test('generates a functional getPropKey implementation', () {
+    expect(factory().getPropKey((p) => p.stringProp), 'TestPropsMixin.stringProp');
+    expect(factory().getPropKey((p) => p.customKeyAndNamespaceProp),
+        'custom namespace~~custom key!');
+
+    late final TestProps getPropKeyArg;
+    factory().getPropKey((p) {
+      getPropKeyArg = p;
+      p.id; // Access a prop so that this doesn't throw
+    });
+    expect(getPropKeyArg, isA<TestProps>());
+  });
+
   group('can pass along unconsumed props', () {
     const stringProp = 'a string';
     const anotherProp = 'this should be filtered';
     const className = 'aClassName';
 
     group('using `addUnconsumedProps`', () {
-      TestProps initialProps;
-      TestProps secondProps;
+      late TestProps initialProps;
+      late TestProps secondProps;
 
       setUp(() {
         initialProps = (factory()
@@ -295,8 +339,8 @@ void functionComponentTestHelper(UiFactory<TestProps> factory,
 
     group('using `addUnconsumedDomProps`', ()
     {
-      TestProps initialProps;
-      TestProps secondProps;
+      late TestProps initialProps;
+      late TestProps secondProps;
 
       setUp(() {
         initialProps = (factory()
@@ -328,10 +372,10 @@ void functionComponentTestHelper(UiFactory<TestProps> factory,
   });
 }
 
-testPropsToForward({UiFactory<TestProps> factory, bool modifyProps = false}) {
+testPropsToForward({required UiFactory<TestProps> factory, bool modifyProps = false}) {
   group(modifyProps ? 'using `modifyProps(props.addPropsToForward)`' : 'using `getPropsToForwardProps`', () {
-      TestProps initialProps;
-      TestPropsMixin secondProps;
+      late TestProps initialProps;
+      late TestPropsMixin secondProps;
       const stringProp = 'stringProp';
       const anotherProp = 'anotherProp';
       const idAttributeValue = 'idAttributeValue';
@@ -424,7 +468,13 @@ testPropsToForward({UiFactory<TestProps> factory, bool modifyProps = false}) {
     });
 }
 
-TestProps _propsToForward<T extends UiProps>({UiFactory<TestProps> factory, T props, bool modifyProps = false, Set<Type> exclude, bool domOnly = false }) {
+TestProps _propsToForward<T extends UiProps>({
+  required UiFactory<TestProps> factory,
+  required T props,
+  bool modifyProps = false,
+  Set<Type>? exclude,
+  bool domOnly = false,
+}) {
   if (modifyProps == true) {
     return factory()..modifyProps(props.addPropsToForward(exclude: exclude, domOnly: domOnly));
   }
@@ -575,7 +625,7 @@ final _Test = uiFunction<TestProps>(
 );
 
 mixin TestPropsMixin on UiProps {
-  String stringProp;
+  String? stringProp;
   dynamic dynamicProp;
   var untypedProp; // ignore: prefer_typing_uninitialized_variables
 
@@ -590,19 +640,19 @@ mixin TestPropsMixin on UiProps {
 }
 
 mixin ASecondPropsMixin on UiProps {
-  String anotherProp;
+  String? anotherProp;
 }
 
 mixin AThirdPropsMixin on UiProps {
-  String aPropsFromAThirdMixin;
+  String? aPropsFromAThirdMixin;
 }
 
 mixin DomAccessorPropsMixin on UiProps {
   @Accessor(key: 'data-random', keyNamespace: '')
-  String aRandomDataAttribute;
+  String? aRandomDataAttribute;
 
   @Accessor(key: 'aria-label', keyNamespace: '')
-  String anAriaLabelAlias;
+  String? anAriaLabelAlias;
 }
 
 class TestProps = UiProps with TestPropsMixin, ASecondPropsMixin, AThirdPropsMixin, DomAccessorPropsMixin;

@@ -23,7 +23,7 @@ class RandomColorState {
 
   RandomColorState.defaultState() : this.backgroundColor = 'gray';
 
-  RandomColorState.update(RandomColorState oldState, {String backgroundColor})
+  RandomColorState.update(RandomColorState oldState, {String? backgroundColor})
       : this.backgroundColor = backgroundColor ?? oldState.backgroundColor;
 }
 

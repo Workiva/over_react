@@ -31,7 +31,7 @@ main() {
       var renderedInstance = render(StatefulComponentTest()());
       expect(renderedInstance, isNotNull);
 
-      var node = findDomNode(renderedInstance);
+      var node = findDomNode(renderedInstance)!;
       expect(node.text, 'rendered content');
       expect(node.dataset, containsPair('state-string-state', '1'));
       expect(node.dataset, containsPair('state-dynamic-state', '2'));
@@ -42,7 +42,7 @@ main() {
     });
 
     group('generates state getters/setters with', () {
-      StatefulComponentTestComponent component;
+      StatefulComponentTestComponent? component;
 
       setUp(() {
         var renderedInstance = render(StatefulComponentTest()());
@@ -50,28 +50,28 @@ main() {
       });
 
       test('prop keys using the props class name as a namespace and the prop name as the key by default', () {
-        expect(component.newState()..stringState = 'test',
+        expect(component!.newState()..stringState = 'test',
             containsPair('StatefulComponentTestState.stringState', 'test'));
 
-        expect(component.newState()..dynamicState = 2,
+        expect(component!.newState()..dynamicState = 2,
             containsPair('StatefulComponentTestState.dynamicState', 2));
 
-        expect(component.newState()..untypedState = false,
+        expect(component!.newState()..untypedState = false,
             containsPair('StatefulComponentTestState.untypedState', false));
       });
 
       test('custom prop keys', () {
-        expect(component.newState()..customKeyState = 'test',
+        expect(component!.newState()..customKeyState = 'test',
             containsPair('StatefulComponentTestState.custom key!', 'test'));
       });
 
       test('custom prop key namespaces', () {
-        expect(component.newState()..customNamespaceState = 'test',
+        expect(component!.newState()..customNamespaceState = 'test',
             containsPair('custom namespace~~customNamespaceState', 'test'));
       });
 
       test('custom prop keys and namespaces', () {
-        expect(component.newState()..customKeyAndNamespaceState = 'test',
+        expect(component!.newState()..customKeyAndNamespaceState = 'test',
             containsPair('custom namespace~~custom key!', 'test'));
       });
     });
@@ -86,12 +86,12 @@ UiFactory<StatefulComponentTestProps> StatefulComponentTest = _$StatefulComponen
 @Props()
 class _$StatefulComponentTestProps extends UiProps {
   /// Used to test if a component has the capability to set state via this.setState.
-  bool setStateDirectly;
+  bool? setStateDirectly;
 }
 
 @State()
 class _$StatefulComponentTestState extends UiState {
-  String stringState;
+  String? stringState;
   dynamic dynamicState;
   var untypedState; // ignore: prefer_typing_uninitialized_variables
 
@@ -112,7 +112,7 @@ class StatefulComponentTestComponent extends UiStatefulComponent2<StatefulCompon
 
   @override
   Map get initialState {
-    if (this.props.setStateDirectly) {
+    if (this.props.setStateDirectly!) {
       return newState()..stringState = '1';
     } else {
       return newState()

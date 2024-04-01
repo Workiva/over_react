@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators, invalid_use_of_visible_for_overriding_member
 part of 'use_store_test.dart';
 
 // **************************************************************************
@@ -17,6 +17,12 @@ mixin $UseStoreCounterFnProps on UseStoreCounterFnProps {
 
   static const List<PropDescriptor> $props = [];
   static const List<String> $propKeys = [];
+
+  @override
+  @UiProps.$mustCallSuper
+  void validateRequiredProps() {
+    super.validateRequiredProps();
+  }
 }
 
 @Deprecated('This API is for use only within generated code.'
@@ -37,6 +43,12 @@ mixin $CustomContextUseStoreCounterFnProps
 
   static const List<PropDescriptor> $props = [];
   static const List<String> $propKeys = [];
+
+  @override
+  @UiProps.$mustCallSuper
+  void validateRequiredProps() {
+    super.validateRequiredProps();
+  }
 }
 
 @Deprecated('This API is for use only within generated code.'
@@ -72,9 +84,9 @@ abstract class _$$UseStoreCounterFnProps extends UiProps
         $UseStoreCounterFnProps {
   _$$UseStoreCounterFnProps._();
 
-  factory _$$UseStoreCounterFnProps(Map backingMap) {
+  factory _$$UseStoreCounterFnProps(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$UseStoreCounterFnProps$JsMap(backingMap as JsBackedMap);
+      return _$$UseStoreCounterFnProps$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$UseStoreCounterFnProps$PlainMap(backingMap);
     }
@@ -93,7 +105,16 @@ abstract class _$$UseStoreCounterFnProps extends UiProps
         // If this generated mixin is undefined, it's likely because UseStoreCounterFnProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of UseStoreCounterFnProps, and check that $UseStoreCounterFnProps is exported/imported properly.
         UseStoreCounterFnProps: $UseStoreCounterFnProps.meta,
       });
+
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$UseStoreCounterFnProps(
+          accessMap, (map) => _$$UseStoreCounterFnProps(map));
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$UseStoreCounterFnProps = getPropKey;
 
 // Concrete props implementation that can be backed by any [Map].
 @Deprecated('This API is for use only within generated code.'
@@ -101,7 +122,7 @@ abstract class _$$UseStoreCounterFnProps extends UiProps
 class _$$UseStoreCounterFnProps$PlainMap extends _$$UseStoreCounterFnProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$UseStoreCounterFnProps$PlainMap(Map backingMap)
+  _$$UseStoreCounterFnProps$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -120,7 +141,7 @@ class _$$UseStoreCounterFnProps$PlainMap extends _$$UseStoreCounterFnProps {
 class _$$UseStoreCounterFnProps$JsMap extends _$$UseStoreCounterFnProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$UseStoreCounterFnProps$JsMap(JsBackedMap backingMap)
+  _$$UseStoreCounterFnProps$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -160,10 +181,10 @@ abstract class _$$CustomContextUseStoreCounterFnProps extends UiProps
         $CustomContextUseStoreCounterFnProps {
   _$$CustomContextUseStoreCounterFnProps._();
 
-  factory _$$CustomContextUseStoreCounterFnProps(Map backingMap) {
+  factory _$$CustomContextUseStoreCounterFnProps(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
       return _$$CustomContextUseStoreCounterFnProps$JsMap(
-          backingMap as JsBackedMap);
+          backingMap as JsBackedMap?);
     } else {
       return _$$CustomContextUseStoreCounterFnProps$PlainMap(backingMap);
     }
@@ -183,7 +204,16 @@ abstract class _$$CustomContextUseStoreCounterFnProps extends UiProps
         CustomContextUseStoreCounterFnProps:
             $CustomContextUseStoreCounterFnProps.meta,
       });
+
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$CustomContextUseStoreCounterFnProps(
+          accessMap, (map) => _$$CustomContextUseStoreCounterFnProps(map));
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$CustomContextUseStoreCounterFnProps = getPropKey;
 
 // Concrete props implementation that can be backed by any [Map].
 @Deprecated('This API is for use only within generated code.'
@@ -192,7 +222,7 @@ class _$$CustomContextUseStoreCounterFnProps$PlainMap
     extends _$$CustomContextUseStoreCounterFnProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$CustomContextUseStoreCounterFnProps$PlainMap(Map backingMap)
+  _$$CustomContextUseStoreCounterFnProps$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -212,7 +242,7 @@ class _$$CustomContextUseStoreCounterFnProps$JsMap
     extends _$$CustomContextUseStoreCounterFnProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$CustomContextUseStoreCounterFnProps$JsMap(JsBackedMap backingMap)
+  _$$CustomContextUseStoreCounterFnProps$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();

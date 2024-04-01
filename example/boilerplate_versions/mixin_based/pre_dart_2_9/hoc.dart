@@ -25,7 +25,7 @@ UiFactory<HocProps> Hoc = connect<ExampleState, HocProps>(
 )(_$Hoc); // ignore: undefined_identifier, argument_type_not_assignable
 
 mixin HocProps on UiProps {
-  String foo;
+  String? foo;
 }
 
 class HocComponent extends UiComponent2<HocProps> {
@@ -43,7 +43,7 @@ UiFactory<HocWithTwoFactoriesProps> ConnectedHocWithTwoFactories =
 )(HocWithTwoFactories);
 
 mixin HocWithTwoFactoriesProps on UiProps {
-  String foo;
+  String? foo;
 }
 
 class HocWithTwoFactoriesComponent extends UiComponent2<HocWithTwoFactoriesProps> {

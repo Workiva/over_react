@@ -24,8 +24,8 @@ part 'memo_test.over_react.g.dart';
 
 int renderCount = 0;
 mixin FunctionCustomPropsProps on UiProps {
-  int testProp;
-  Function() testFuncProp;
+  int? testProp;
+  Function()? testFuncProp;
 }
 
 UiFactory<FunctionCustomPropsProps> FunctionCustomProps = uiFunction(
@@ -108,7 +108,7 @@ main() {
       UiFactory<FunctionCustomPropsProps> FunctionCustomPropsMemo =
           memo<FunctionCustomPropsProps>(FunctionCustomProps,
               areEqual: ((prevProps, nextProps) {
-        return prevProps.testProp == nextProps.testProp - 1;
+        return prevProps.testProp == nextProps.testProp! - 1;
       }));
       final testJacket = mount((FunctionCustomPropsMemo()..testProp = 1)());
       testJacket.rerender((FunctionCustomPropsMemo()..testProp = 2)());
@@ -125,7 +125,7 @@ UiFactory<BasicUiComponent2Props> BasicUiComponent2 = _$BasicUiComponent2;
 
 @Props()
 class _$BasicUiComponent2Props extends UiProps {
-  String childId;
+  String? childId;
 }
 
 @Component2()

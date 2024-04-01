@@ -1,3 +1,4 @@
+//@dart=2.11
 part of 'library.dart';
 
 UiFactory<BasicPartOfLibProps> BasicPartOfLib = _$BasicPartOfLib; // ignore: undefined_identifier

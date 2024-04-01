@@ -289,7 +289,7 @@ main() {
 
     group('SourceFileSpanHelper', () {
       group('spanFor', () {
-        SourceFile sourceFile;
+        late SourceFile sourceFile;
 
         setUpAll(() {
           // Offsets of characters, for convenience
@@ -308,7 +308,7 @@ main() {
         test('tokens', () {
           final token = parseAndGetSingleWithType<FunctionDeclaration>(sourceFile.getText(0))
               .functionExpression
-              .parameters
+              .parameters!
               .leftParenthesis;
           final span = sourceFile.spanFor(token);
           expect(span.start.offset, 4);
@@ -348,11 +348,11 @@ main() {
     });
 
     test('anyDescendantIdentifiers', () {
-      Expression parseAndGetInitializer(String source) =>
+      Expression? parseAndGetInitializer(String source) =>
           parseAndGetSingleWithType<TopLevelVariableDeclaration>(source).firstInitializer;
 
       bool _anyDescendantIdentifiersInInitializer(String source, bool Function(Identifier) test) =>
-          anyDescendantIdentifiers(parseAndGetInitializer(source), test);
+          anyDescendantIdentifiers(parseAndGetInitializer(source)!, test);
 
       expect(_anyDescendantIdentifiersInInitializer('''
         final directReference = bar;

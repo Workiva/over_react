@@ -1,6 +1,3 @@
-// Disable null-safety in the plugin entrypoint until all dependencies are null-safe,
-// otherwise tests won't be able to run. See: https://github.com/dart-lang/test#compiler-flags
-// @dart=2.9
 import 'dart:async';
 
 import 'package:over_react_analyzer_plugin/src/diagnostic/non_defaulted_prop.dart';
@@ -27,20 +24,22 @@ class NonDefaultedPropDiagnosticTest extends DiagnosticTestBase {
     final source = newSource(/*language=dart*/ r'''
 import 'package:over_react/over_react.dart';
 
-part 'test.over_react.g.dart';
+part '{{FILE_BASENAME_WITHOUT_EXTENSION}}.over_react.g.dart';
 
 mixin FooProps on UiProps {
-  String content;
-  bool hidden;
+  String? content;
+  bool? hidden;
+  late bool? requiredNullable;
 }
 
 final Foo = uiFunction<FooProps>(
   (props) {
     final content = props.content ?? 10;
+    final requiredNullable = props.requiredNullable ?? false;
     
     return (Dom.div()
       ..hidden = props.hidden
-    )(content);
+    )(content, requiredNullable);
   },
   _$FooConfig, // ignore: undefined_identifier
 );
@@ -52,21 +51,24 @@ final Foo = uiFunction<FooProps>(
     final source = newSource(/*language=dart*/ r'''
 import 'package:over_react/over_react.dart';
 
-part 'test.over_react.g.dart';
+part '{{FILE_BASENAME_WITHOUT_EXTENSION}}.over_react.g.dart';
 
 mixin FooProps on UiProps {
-  String content;
-  bool hidden;
+  String? content;
+  bool? hidden;
+  late bool? requiredNullable;
 }
 
 final Foo = uiFunction<FooProps>(
   (props) {
     // ignore: unused_local_variable
     final content = 'abc';
+    // ignore: unused_local_variable
+    final requiredNullable = true;
     
     return (Dom.div()
       ..hidden = props.hidden
-    )(props.content);
+    )(props.content, props.requiredNullable);
   },
   _$FooConfig, // ignore: undefined_identifier
 );
@@ -78,10 +80,10 @@ final Foo = uiFunction<FooProps>(
     String contents(String propUsage) => '''
 import 'package:over_react/over_react.dart';
 
-part 'test.over_react.g.dart';
+part '{{FILE_BASENAME_WITHOUT_EXTENSION}}.over_react.g.dart';
 
 mixin FooProps on UiProps {
-  String content;
+  String? content;
 }
 
 final Foo = uiFunction<FooProps>(
@@ -103,17 +105,17 @@ final Foo = uiFunction<FooProps>(
     final errorFix = await expectSingleErrorFix(selection);
     expect(errorFix.fixes.single.change.selection, isNull);
     source = applyErrorFixes(errorFix, source);
-    expect(source.contents.data, contents('content'));
+    expect(source.contents.data, substituteSource(contents('content'), path: source.uri.path));
   }
 
   Future<void> test_errorFixWithDifferentName() async {
     String contents(String propUsage) => '''
 import 'package:over_react/over_react.dart';
 
-part 'test.over_react.g.dart';
+part '{{FILE_BASENAME_WITHOUT_EXTENSION}}.over_react.g.dart';
 
 mixin FooProps on UiProps {
-  String content;
+  String? content;
 }
 
 final Foo = uiFunction<FooProps>(
@@ -135,20 +137,20 @@ final Foo = uiFunction<FooProps>(
     final errorFix = await expectSingleErrorFix(selection);
     expect(errorFix.fixes.single.change.selection, isNull);
     source = applyErrorFixes(errorFix, source);
-    expect(source.contents.data, contents('defaultContent'));
+    expect(source.contents.data, substituteSource(contents('defaultContent'), path: source.uri.path));
   }
 
   Future<void> test_multipleErrorsAndFixes() async {
     var source = newSource(/*language=dart*/ r'''
 import 'package:over_react/over_react.dart';
 
-part 'test.over_react.g.dart';
+part '{{FILE_BASENAME_WITHOUT_EXTENSION}}.over_react.g.dart';
 
 mixin FooProps on UiProps {
-  String fooId;
-  bool hidden;
-  String moreContent;
-  String name;
+  String? fooId;
+  bool? hidden;
+  String? moreContent;
+  late String? name;
 }
 
 final Foo = uiFunction<FooProps>(
@@ -192,16 +194,16 @@ final Foo = uiFunction<FooProps>(
       source = applyErrorFixes(errorFix, source);
     }
 
-    expect(source.contents.data, /*language=dart*/ r'''
+    expect(source.contents.data, substituteSource(/*language=dart*/ r'''
 import 'package:over_react/over_react.dart';
 
-part 'test.over_react.g.dart';
+part '{{FILE_BASENAME_WITHOUT_EXTENSION}}.over_react.g.dart';
 
 mixin FooProps on UiProps {
-  String fooId;
-  bool hidden;
-  String moreContent;
-  String name;
+  String? fooId;
+  bool? hidden;
+  String? moreContent;
+  late String? name;
 }
 
 final Foo = uiFunction<FooProps>(
@@ -228,6 +230,6 @@ final Foo = uiFunction<FooProps>(
   },
   _$FooConfig, // ignore: undefined_identifier
 );
-''');
+''', path: source.uri.path));
   }
 }

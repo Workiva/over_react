@@ -1,6 +1,3 @@
-// Disable null-safety in the plugin entrypoint until all dependencies are null-safe,
-// otherwise tests won't be able to run. See: https://github.com/dart-lang/test#compiler-flags
-// @dart=2.9
 import 'dart:async';
 
 import 'package:over_react_analyzer_plugin/src/diagnostic/duplicate_prop_cascade.dart';
@@ -26,11 +23,11 @@ class DuplicatePropCascadeDiagnosticTest extends DiagnosticTestBase {
   static const customComponentDefinition = /*language=dart*/ r'''
 import 'package:over_react/over_react.dart';
 
-part 'test.over_react.g.dart';
+part '{{FILE_BASENAME_WITHOUT_EXTENSION}}.over_react.g.dart';
 
 mixin CustomProps on UiProps {
-  int size;
-  bool hidden;
+  int? size;
+  bool? hidden;
 }
 
 final Custom = uiFunction<CustomProps>(
@@ -110,14 +107,14 @@ final componentUsage = (Custom()
     final errorFix = await expectSingleErrorFix(selection);
     expect(errorFix.fixes.single.change.selection, isNull);
     source = applyErrorFixes(errorFix, source);
-    expect(source.contents.data, /*language=dart*/ '''
+    expect(source.contents.data, substituteSource(/*language=dart*/ '''
 $customComponentDefinition
 
 final componentUsage = (Custom()
   ..hidden = true
   ..dom.hidden = false
 )();
-''');
+''', path: source.uri.path));
   }
 
   // ********************************************************

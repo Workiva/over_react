@@ -13,5 +13,5 @@ UiFactory<FooProps> Foo = uiFunction(
 );
 
 mixin FooProps on UiProps {
-  String content;
+  String? content;
 }

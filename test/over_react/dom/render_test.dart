@@ -26,23 +26,19 @@ import 'fixtures/dummy_composite_component.dart';
 main() {
   group('`react_dom.render`', () {
     dynamic renderedInstance;
-    Element mountNode;
+    late Element mountNode;
 
     setUp(() {
-      mountNode = DivElement();
-      document.body.append(mountNode);
-    });
-
-    tearDown(() {
-      mountNode.remove();
-      mountNode = null;
       renderedInstance = null;
+      mountNode = DivElement();
+      document.body!.append(mountNode);
+      addTearDown(mountNode.remove);
     });
 
     group('mounts and renders', () {
       group('a composite component into the DOM', () {
-        int componentDidMountCount;
-        int componentDidUpdateCount;
+        late int componentDidMountCount;
+        late int componentDidUpdateCount;
 
         setUp(() {
           componentDidMountCount = 0;
@@ -89,12 +85,6 @@ main() {
         test('within the provided `mountNode`', () {
           expect(renderedInstance, mountNode.children.single);
         });
-      });
-    });
-
-    group('throws', () {
-      test('when `mountNode` is `null`', () {
-        expect(() => react_dom.render(Dom.div()('oh hai'), null), throwsA(anything));
       });
     });
   });

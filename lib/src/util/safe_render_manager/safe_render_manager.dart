@@ -15,7 +15,6 @@
 import 'dart:async';
 import 'dart:html';
 
-import 'package:meta/meta.dart';
 import 'package:over_react/over_react.dart';
 import 'package:over_react/react_dom.dart' as react_dom;
 import 'package:w_common/disposable.dart';
@@ -39,7 +38,7 @@ import './safe_render_manager_helper.dart';
 /// via Component state changes, ensuring that the content is mounted/unmounted as it
 /// normally would be.
 class SafeRenderManager extends Disposable {
-  SafeRenderManagerHelperComponent _helper;
+  SafeRenderManagerHelperComponent? _helper;
 
   /// Whether to automatically add [mountNode] to the document body when
   /// rendered, and remove it when unmounted.
@@ -64,11 +63,11 @@ class SafeRenderManager extends Disposable {
   @Deprecated('This ref should only be read, since it gets set by the rendered content')
   set contentRef(dynamic value) => _contentRefObject.current = value;
 
-  _RenderState _state = _RenderState.unmounted;
+  var _state = _RenderState.unmounted;
 
   /// A list of [render] calls queued up while the component is in the process
   /// of rendering.
-  List<ReactElement> _renderQueue = [];
+  List<ReactElement?> _renderQueue = [];
 
   /// A ref to `this`, allowing us to create closures with references to this object that can be "revoked",
   /// so that any trees retained before React clears out old children https://github.com/facebook/react/issues/16087
@@ -82,13 +81,13 @@ class SafeRenderManager extends Disposable {
   /// being retained; any content retained by React will still be able to flag leaks.
   final _selfRef = createRef<SafeRenderManager>();
 
-  SafeRenderManager({Element mountNode, this.autoAttachMountNode = false}) : mountNode = mountNode ?? DivElement() {
+  SafeRenderManager({Element? mountNode, this.autoAttachMountNode = false}) : mountNode = mountNode ?? DivElement() {
     _selfRef.current = this;
   }
 
   /// Renders [content] into [mountNode], chaining existing callback refs to
   /// provide access to the rendered component via [contentRef].
-  void render(ReactElement content) {
+  void render(ReactElement? content) {
     _checkDisposalState();
 
     switch (_state) {
@@ -100,7 +99,7 @@ class SafeRenderManager extends Disposable {
         if (_helper == null) {
           _mountContent(content);
         } else {
-          _helper.renderContent(content);
+          _helper!.renderContent(content);
         }
         break;
       case _RenderState.unmounted:
@@ -109,17 +108,18 @@ class SafeRenderManager extends Disposable {
     }
   }
 
-  void _mountContent(ReactElement content) {
+  void _mountContent(ReactElement? content) {
     try {
       _state = _RenderState.mounting;
       // Use document.contains since `.isConnected` isn't supported in IE11.
       if (autoAttachMountNode && !document.contains(mountNode)) {
-        document.body.append(mountNode);
+        document.body!.append(mountNode);
       }
       // Create a closure variable so we're not retaining a reference to `this` inside `ref`.
       final _selfRef = this._selfRef;
       react_dom.render((SafeRenderManagerHelper()
-        ..ref = (ref) {
+        // ignore: avoid_types_on_closure_parameters
+        ..ref = (SafeRenderManagerHelperComponent? ref) {
           _selfRef.current?._helperRef(ref);
         }
         ..getInitialContent = () {
@@ -148,7 +148,7 @@ class SafeRenderManager extends Disposable {
   /// other.
   ///
   /// If nothing is currently rendered, [onMaybeUnmounted] will be called immediately.
-  void tryUnmount({void Function(bool isUnmounted) onMaybeUnmounted}) {
+  void tryUnmount({void Function(bool isUnmounted)? onMaybeUnmounted}) {
     // Check here since we call _tryUnmountContent in this class's disposal logic.
     _checkDisposalState();
     _safeUnmountContent(onMaybeUnmounted: onMaybeUnmounted, force: false);
@@ -167,7 +167,7 @@ class SafeRenderManager extends Disposable {
   }
 
   void _safeUnmountContent(
-      {void Function(bool isUnmounted) onMaybeUnmounted, @required bool force}) {
+      {void Function(bool isUnmounted)? onMaybeUnmounted, required bool force}) {
     var _hasBeenCalled = false;
     /// Helper to call onMaybeUnmounted at most one time, for cases
     /// where there have to be error handlers at multiple levels
@@ -182,7 +182,7 @@ class SafeRenderManager extends Disposable {
       callOnMaybeUnmounted(true);
     } else if (_state == _RenderState.mountedOrErrored && _helper != null) {
       try {
-        _helper.tryUnmountContent(onMaybeUnmounted: (isUnmounted) {
+        _helper!.tryUnmountContent(onMaybeUnmounted: (isUnmounted) {
           if (isUnmounted || force) {
             try {
               _unmountContent();
@@ -215,25 +215,25 @@ class SafeRenderManager extends Disposable {
     }
   }
 
-  void _helperRef(dynamic ref) {
-    _helper = ref as SafeRenderManagerHelperComponent;
+  void _helperRef(SafeRenderManagerHelperComponent? ref) {
+    _helper = ref;
     if (_helper != null) {
       if (_state == _RenderState.mounting) {
         _state = _RenderState.mountedOrErrored;
       }
-      _renderQueue.forEach(_helper.renderContent);
+      _renderQueue.forEach(_helper!.renderContent);
       _renderQueue = [];
     }
   }
 
   @override
   Future<Null> onDispose() async {
-    var completer = Completer<Null>();
+    Completer<Null>? completer = Completer<Null>();
     final completerFuture = completer.future;
 
     // Set up an onError handler in case onMaybeUnmounted isn't called due to
     // an error, and an async error is thrown instead.
-    runZoned(() {
+    runZonedGuarded(() {
       // Attempt to unmount the content safely
       _safeUnmountContent(force: true, onMaybeUnmounted: (_) {
         completer?.complete();
@@ -241,8 +241,7 @@ class SafeRenderManager extends Disposable {
         // an indefinitely long lifetime.
         completer = null;
       });
-    // ignore: avoid_types_on_closure_parameters
-    }, onError: (error, StackTrace stackTrace) {
+    }, (error, stackTrace) {
       completer?.completeError(error, stackTrace);
       // Clear out to not retain it in the onError closure, which has
       // an indefinitely long lifetime.

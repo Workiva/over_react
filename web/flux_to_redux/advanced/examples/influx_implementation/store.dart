@@ -44,7 +44,7 @@ class TopLevelReduxState {
       : this.mainBackgroundColor = 'gray',
         this.blockOneBackgroundColor = 'red';
 
-  TopLevelReduxState.from(TopLevelReduxState oldState, {String mainBackgroundColor, String blockOneBackgroundColor})
+  TopLevelReduxState.from(TopLevelReduxState oldState, {String? mainBackgroundColor, String? blockOneBackgroundColor})
       : this.mainBackgroundColor = mainBackgroundColor ?? oldState.mainBackgroundColor,
         this.blockOneBackgroundColor = blockOneBackgroundColor ?? oldState.blockOneBackgroundColor;
 }
@@ -74,7 +74,7 @@ class LowLevelReduxState {
 
   LowLevelReduxState.defaultState() : this.backgroundColor = 'Orange';
 
-  LowLevelReduxState.from(LowLevelReduxState oldState, {String backgroundColor})
+  LowLevelReduxState.from(LowLevelReduxState oldState, {String? backgroundColor})
       : this.backgroundColor = backgroundColor ?? oldState.backgroundColor;
 }
 
@@ -99,7 +99,7 @@ class AnotherReduxState {
 
   AnotherReduxState.defaultState() : this.backgroundColor = 'Blue';
 
-  AnotherReduxState.from(AnotherReduxState oldState, {String backgroundColor})
+  AnotherReduxState.from(AnotherReduxState oldState, {String? backgroundColor})
       : this.backgroundColor = backgroundColor ?? oldState.backgroundColor;
 }
 

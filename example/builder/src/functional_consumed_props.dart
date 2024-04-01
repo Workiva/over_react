@@ -18,13 +18,15 @@ import 'package:over_react/over_react.dart';
 part 'functional_consumed_props.over_react.g.dart';
 
 mixin ParentOnlyPropsMixin on UiProps {
-  String aParentProp;
+  String? aParentProp;
 }
 
 mixin SharedPropsMixin on UiProps {
-  String aPropToBePassed;
+  late String requiredProp;
+  String? aPropToBePassed;
 }
 
+@Props(disableRequiredPropValidation: {'requiredProp'})
 class SomeParentProps = UiProps with ParentOnlyPropsMixin, SharedPropsMixin;
 
 UiFactory<SomeParentProps> SomeParent = uiFunction((props) {
@@ -40,6 +42,7 @@ UiFactory<SomeParentProps> SomeParent = uiFunction((props) {
   _$SomeParentConfig, // ignore: undefined_identifier
 );
 
+@Props(disableRequiredPropValidation: {'requiredProp'})
 class SomeChildProps = UiProps with SharedPropsMixin;
 
 UiFactory<SomeChildProps> SomeChild = uiFunction((props) {

@@ -1,3 +1,4 @@
+//@dart=2.11
 import 'package:over_react/over_react.dart';
 
 part 'type_parameters.over_react.g.dart';

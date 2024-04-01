@@ -157,7 +157,7 @@ class TestUiStateBaseClass extends UiState {
 UiFactory<TestPropsMixin> Test = _$Test; // ignore: undefined_identifier, invalid_assignment
 
 mixin TestPropsMixin on UiProps {
-  String stringProp;
+  String? stringProp;
   dynamic dynamicProp;
   var untypedProp; // ignore: prefer_typing_uninitialized_variables
 
@@ -178,7 +178,7 @@ UiFactory<TestCustomNamespaceProps> TestCustomNamespace =
 
 @PropsMixin(keyNamespace: 'custom mixin namespace**')
 mixin TestCustomNamespacePropsMixin on UiProps {
-  String stringProp;
+  String? stringProp;
   dynamic dynamicProp;
   var untypedProp; // ignore: prefer_typing_uninitialized_variables
 
@@ -194,7 +194,7 @@ mixin TestCustomNamespacePropsMixin on UiProps {
 
 @Props(keyNamespace: 'custom mixin namespace from @Props**')
 mixin TestCustomNamespaceWithPropsAnnotationPropsMixin on UiProps {
-  String propsAnnotationProp;
+  String? propsAnnotationProp;
 }
 
 class TestCustomNamespaceProps = UiProps
@@ -203,7 +203,7 @@ class TestCustomNamespaceProps = UiProps
 // ---
 
 mixin TestStateMixin on UiState {
-  String stringState;
+  String? stringState;
   dynamic dynamicState;
   var untypedState; // ignore: prefer_typing_uninitialized_variables
 
@@ -217,14 +217,14 @@ mixin TestStateMixin on UiState {
   dynamic customKeyAndNamespaceState;
 }
 
-// ignore: deprecated_member_use_from_same_package, mixin_of_non_class, undefined_class
+// ignore: mixin_of_non_class, undefined_class
 class TestState = TestUiStateBaseClass with TestStateMixin, $TestStateMixin;
 
 // ---
 
 @StateMixin(keyNamespace: 'custom mixin namespace**')
 mixin TestCustomNamespaceStateMixin on UiState {
-  String stringState;
+  String? stringState;
   dynamic dynamicState;
   var untypedState; // ignore: prefer_typing_uninitialized_variables
 
@@ -240,14 +240,14 @@ mixin TestCustomNamespaceStateMixin on UiState {
 
 @State(keyNamespace: 'custom mixin namespace from @State**')
 mixin TestCustomNamespaceWithStateAnnotationStateMixin on UiState {
-  String stateAnnotationState;
+  String? stateAnnotationState;
 }
 
 class TestCustomNamespaceState = TestUiStateBaseClass
     with
         TestCustomNamespaceStateMixin,
-        // ignore: deprecated_member_use_from_same_package, mixin_of_non_class, undefined_class
+        // ignore: mixin_of_non_class, undefined_class
         $TestCustomNamespaceStateMixin,
         TestCustomNamespaceWithStateAnnotationStateMixin,
-        // ignore: deprecated_member_use_from_same_package, mixin_of_non_class, undefined_class
+        // ignore: mixin_of_non_class, undefined_class
         $TestCustomNamespaceWithStateAnnotationStateMixin;

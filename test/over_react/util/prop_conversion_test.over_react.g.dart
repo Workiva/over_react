@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators, invalid_use_of_visible_for_overriding_member
 part of 'prop_conversion_test.dart';
 
 // **************************************************************************
@@ -20,7 +20,7 @@ final $ClassComponentComponentFactory = registerComponent2(
   parentType: null,
 );
 
-_$$ClassComponentProps _$ClassComponent([Map backingProps]) =>
+_$$ClassComponentProps _$ClassComponent([Map? backingProps]) =>
     backingProps == null
         ? _$$ClassComponentProps$JsMap(JsBackedMap())
         : _$$ClassComponentProps(backingProps);
@@ -37,9 +37,9 @@ abstract class _$$ClassComponentProps extends UiProps
         $ClassComponentProps {
   _$$ClassComponentProps._();
 
-  factory _$$ClassComponentProps(Map backingMap) {
+  factory _$$ClassComponentProps(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$ClassComponentProps$JsMap(backingMap as JsBackedMap);
+      return _$$ClassComponentProps$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$ClassComponentProps$PlainMap(backingMap);
     }
@@ -63,7 +63,16 @@ abstract class _$$ClassComponentProps extends UiProps
         // If this generated mixin is undefined, it's likely because ClassComponentProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ClassComponentProps, and check that $ClassComponentProps is exported/imported properly.
         ClassComponentProps: $ClassComponentProps.meta,
       });
+
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$ClassComponentProps(
+          accessMap, (map) => _$$ClassComponentProps(map));
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$ClassComponentProps = getPropKey;
 
 // Concrete props implementation that can be backed by any [Map].
 @Deprecated('This API is for use only within generated code.'
@@ -71,7 +80,7 @@ abstract class _$$ClassComponentProps extends UiProps
 class _$$ClassComponentProps$PlainMap extends _$$ClassComponentProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ClassComponentProps$PlainMap(Map backingMap)
+  _$$ClassComponentProps$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -90,7 +99,7 @@ class _$$ClassComponentProps$PlainMap extends _$$ClassComponentProps {
 class _$$ClassComponentProps$JsMap extends _$$ClassComponentProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ClassComponentProps$JsMap(JsBackedMap backingMap)
+  _$$ClassComponentProps$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -109,7 +118,7 @@ class _$$ClassComponentProps$JsMap extends _$$ClassComponentProps {
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
 class _$ClassComponentComponent extends ClassComponentComponent {
-  _$$ClassComponentProps$JsMap _cachedTypedProps;
+  late _$$ClassComponentProps$JsMap _cachedTypedProps;
 
   @override
   _$$ClassComponentProps$JsMap get props => _cachedTypedProps;
@@ -129,11 +138,11 @@ class _$ClassComponentComponent extends ClassComponentComponent {
   }
 
   @override
-  _$$ClassComponentProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
+  _$$ClassComponentProps$JsMap typedPropsFactoryJs(JsBackedMap? backingMap) =>
       _$$ClassComponentProps$JsMap(backingMap);
 
   @override
-  _$$ClassComponentProps typedPropsFactory(Map backingMap) =>
+  _$$ClassComponentProps typedPropsFactory(Map? backingMap) =>
       _$$ClassComponentProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
@@ -162,10 +171,10 @@ class _$ClassComponentComponent extends ClassComponentComponent {
 mixin $ExpectsDartMapPropProps on ExpectsDartMapPropProps {
   static const PropsMeta meta = _$metaForExpectsDartMapPropProps;
   @override
-  Map get dartMapProp =>
-      (props[_$key__dartMapProp__ExpectsDartMapPropProps] ?? null) as Map;
+  Map? get dartMapProp =>
+      (props[_$key__dartMapProp__ExpectsDartMapPropProps] ?? null) as Map?;
   @override
-  set dartMapProp(Map value) =>
+  set dartMapProp(Map? value) =>
       props[_$key__dartMapProp__ExpectsDartMapPropProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__dartMapProp__ExpectsDartMapPropProps =
@@ -179,6 +188,12 @@ mixin $ExpectsDartMapPropProps on ExpectsDartMapPropProps {
   static const List<String> $propKeys = [
     _$key__dartMapProp__ExpectsDartMapPropProps
   ];
+
+  @override
+  @UiProps.$mustCallSuper
+  void validateRequiredProps() {
+    super.validateRequiredProps();
+  }
 }
 
 @Deprecated('This API is for use only within generated code.'
@@ -198,6 +213,12 @@ mixin $ExpectsDartStylePropProps on ExpectsDartStylePropProps {
 
   static const List<PropDescriptor> $props = [];
   static const List<String> $propKeys = [];
+
+  @override
+  @UiProps.$mustCallSuper
+  void validateRequiredProps() {
+    super.validateRequiredProps();
+  }
 }
 
 @Deprecated('This API is for use only within generated code.'
@@ -217,6 +238,12 @@ mixin $ExpectsListChildrenPropProps on ExpectsListChildrenPropProps {
 
   static const List<PropDescriptor> $props = [];
   static const List<String> $propKeys = [];
+
+  @override
+  @UiProps.$mustCallSuper
+  void validateRequiredProps() {
+    super.validateRequiredProps();
+  }
 }
 
 @Deprecated('This API is for use only within generated code.'
@@ -236,6 +263,12 @@ mixin $ClassComponentProps on ClassComponentProps {
 
   static const List<PropDescriptor> $props = [];
   static const List<String> $propKeys = [];
+
+  @override
+  @UiProps.$mustCallSuper
+  void validateRequiredProps() {
+    super.validateRequiredProps();
+  }
 }
 
 @Deprecated('This API is for use only within generated code.'
@@ -255,6 +288,12 @@ mixin $BasicForwardRefProps on BasicForwardRefProps {
 
   static const List<PropDescriptor> $props = [];
   static const List<String> $propKeys = [];
+
+  @override
+  @UiProps.$mustCallSuper
+  void validateRequiredProps() {
+    super.validateRequiredProps();
+  }
 }
 
 @Deprecated('This API is for use only within generated code.'
@@ -271,11 +310,11 @@ const PropsMeta _$metaForBasicForwardRefProps = PropsMeta(
 mixin $DartTestJsWrapperPropsMixin on DartTestJsWrapperPropsMixin {
   static const PropsMeta meta = _$metaForDartTestJsWrapperPropsMixin;
   @override
-  void Function(DartTestJsWrapperProps props) get onRender =>
+  void Function(DartTestJsWrapperProps props)? get onRender =>
       (props[_$key__onRender__DartTestJsWrapperPropsMixin] ?? null) as void
-          Function(DartTestJsWrapperProps props);
+          Function(DartTestJsWrapperProps props)?;
   @override
-  set onRender(void Function(DartTestJsWrapperProps props) value) =>
+  set onRender(void Function(DartTestJsWrapperProps props)? value) =>
       props[_$key__onRender__DartTestJsWrapperPropsMixin] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__onRender__DartTestJsWrapperPropsMixin =
@@ -289,6 +328,12 @@ mixin $DartTestJsWrapperPropsMixin on DartTestJsWrapperPropsMixin {
   static const List<String> $propKeys = [
     _$key__onRender__DartTestJsWrapperPropsMixin
   ];
+
+  @override
+  @UiProps.$mustCallSuper
+  void validateRequiredProps() {
+    super.validateRequiredProps();
+  }
 }
 
 @Deprecated('This API is for use only within generated code.'
@@ -306,19 +351,19 @@ mixin $TestJsProps on TestJsProps {
   static const PropsMeta meta = _$metaForTestJsProps;
   @override
   @Accessor(key: 'buttonProps')
-  JsMap get _$raw$buttonProps =>
-      (props[_$key___$raw$buttonProps__TestJsProps] ?? null) as JsMap;
+  JsMap? get _$raw$buttonProps =>
+      (props[_$key___$raw$buttonProps__TestJsProps] ?? null) as JsMap?;
   @override
   @Accessor(key: 'buttonProps')
-  set _$raw$buttonProps(JsMap value) =>
+  set _$raw$buttonProps(JsMap? value) =>
       props[_$key___$raw$buttonProps__TestJsProps] = value;
   @override
   @Accessor(key: 'listOfProps')
-  List<dynamic> get _$raw$listOfProps =>
-      (props[_$key___$raw$listOfProps__TestJsProps] ?? null) as List<dynamic>;
+  List<dynamic>? get _$raw$listOfProps =>
+      (props[_$key___$raw$listOfProps__TestJsProps] ?? null) as List<dynamic>?;
   @override
   @Accessor(key: 'listOfProps')
-  set _$raw$listOfProps(List<dynamic> value) =>
+  set _$raw$listOfProps(List<dynamic>? value) =>
       props[_$key___$raw$listOfProps__TestJsProps] = value;
   @override
   @Accessor(key: 'inputRef')
@@ -330,11 +375,12 @@ mixin $TestJsProps on TestJsProps {
       props[_$key___$raw$inputRef__TestJsProps] = value;
   @override
   @Accessor(key: 'messageContext')
-  ReactContext get _$raw$messageContext =>
-      (props[_$key___$raw$messageContext__TestJsProps] ?? null) as ReactContext;
+  ReactContext? get _$raw$messageContext =>
+      (props[_$key___$raw$messageContext__TestJsProps] ?? null)
+          as ReactContext?;
   @override
   @Accessor(key: 'messageContext')
-  set _$raw$messageContext(ReactContext value) =>
+  set _$raw$messageContext(ReactContext? value) =>
       props[_$key___$raw$messageContext__TestJsProps] = value;
   @override
   dynamic get component =>
@@ -395,6 +441,12 @@ mixin $TestJsProps on TestJsProps {
     _$key__inputComponent__TestJsProps,
     _$key__buttonComponent__TestJsProps
   ];
+
+  @override
+  @UiProps.$mustCallSuper
+  void validateRequiredProps() {
+    super.validateRequiredProps();
+  }
 }
 
 @Deprecated('This API is for use only within generated code.'
@@ -430,9 +482,9 @@ abstract class _$$ExpectsDartMapPropProps extends UiProps
         $ExpectsDartMapPropProps {
   _$$ExpectsDartMapPropProps._();
 
-  factory _$$ExpectsDartMapPropProps(Map backingMap) {
+  factory _$$ExpectsDartMapPropProps(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$ExpectsDartMapPropProps$JsMap(backingMap as JsBackedMap);
+      return _$$ExpectsDartMapPropProps$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$ExpectsDartMapPropProps$PlainMap(backingMap);
     }
@@ -451,7 +503,16 @@ abstract class _$$ExpectsDartMapPropProps extends UiProps
         // If this generated mixin is undefined, it's likely because ExpectsDartMapPropProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ExpectsDartMapPropProps, and check that $ExpectsDartMapPropProps is exported/imported properly.
         ExpectsDartMapPropProps: $ExpectsDartMapPropProps.meta,
       });
+
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$ExpectsDartMapPropProps(
+          accessMap, (map) => _$$ExpectsDartMapPropProps(map));
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$ExpectsDartMapPropProps = getPropKey;
 
 // Concrete props implementation that can be backed by any [Map].
 @Deprecated('This API is for use only within generated code.'
@@ -459,7 +520,7 @@ abstract class _$$ExpectsDartMapPropProps extends UiProps
 class _$$ExpectsDartMapPropProps$PlainMap extends _$$ExpectsDartMapPropProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ExpectsDartMapPropProps$PlainMap(Map backingMap)
+  _$$ExpectsDartMapPropProps$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -478,7 +539,7 @@ class _$$ExpectsDartMapPropProps$PlainMap extends _$$ExpectsDartMapPropProps {
 class _$$ExpectsDartMapPropProps$JsMap extends _$$ExpectsDartMapPropProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ExpectsDartMapPropProps$JsMap(JsBackedMap backingMap)
+  _$$ExpectsDartMapPropProps$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -516,9 +577,9 @@ abstract class _$$ExpectsDartStylePropProps extends UiProps
         $ExpectsDartStylePropProps {
   _$$ExpectsDartStylePropProps._();
 
-  factory _$$ExpectsDartStylePropProps(Map backingMap) {
+  factory _$$ExpectsDartStylePropProps(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$ExpectsDartStylePropProps$JsMap(backingMap as JsBackedMap);
+      return _$$ExpectsDartStylePropProps$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$ExpectsDartStylePropProps$PlainMap(backingMap);
     }
@@ -537,7 +598,16 @@ abstract class _$$ExpectsDartStylePropProps extends UiProps
         // If this generated mixin is undefined, it's likely because ExpectsDartStylePropProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ExpectsDartStylePropProps, and check that $ExpectsDartStylePropProps is exported/imported properly.
         ExpectsDartStylePropProps: $ExpectsDartStylePropProps.meta,
       });
+
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$ExpectsDartStylePropProps(
+          accessMap, (map) => _$$ExpectsDartStylePropProps(map));
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$ExpectsDartStylePropProps = getPropKey;
 
 // Concrete props implementation that can be backed by any [Map].
 @Deprecated('This API is for use only within generated code.'
@@ -546,7 +616,7 @@ class _$$ExpectsDartStylePropProps$PlainMap
     extends _$$ExpectsDartStylePropProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ExpectsDartStylePropProps$PlainMap(Map backingMap)
+  _$$ExpectsDartStylePropProps$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -565,7 +635,7 @@ class _$$ExpectsDartStylePropProps$PlainMap
 class _$$ExpectsDartStylePropProps$JsMap extends _$$ExpectsDartStylePropProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ExpectsDartStylePropProps$JsMap(JsBackedMap backingMap)
+  _$$ExpectsDartStylePropProps$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -604,9 +674,9 @@ abstract class _$$ExpectsListChildrenPropProps extends UiProps
         $ExpectsListChildrenPropProps {
   _$$ExpectsListChildrenPropProps._();
 
-  factory _$$ExpectsListChildrenPropProps(Map backingMap) {
+  factory _$$ExpectsListChildrenPropProps(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$ExpectsListChildrenPropProps$JsMap(backingMap as JsBackedMap);
+      return _$$ExpectsListChildrenPropProps$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$ExpectsListChildrenPropProps$PlainMap(backingMap);
     }
@@ -625,7 +695,16 @@ abstract class _$$ExpectsListChildrenPropProps extends UiProps
         // If this generated mixin is undefined, it's likely because ExpectsListChildrenPropProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ExpectsListChildrenPropProps, and check that $ExpectsListChildrenPropProps is exported/imported properly.
         ExpectsListChildrenPropProps: $ExpectsListChildrenPropProps.meta,
       });
+
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$ExpectsListChildrenPropProps(
+          accessMap, (map) => _$$ExpectsListChildrenPropProps(map));
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$ExpectsListChildrenPropProps = getPropKey;
 
 // Concrete props implementation that can be backed by any [Map].
 @Deprecated('This API is for use only within generated code.'
@@ -634,7 +713,7 @@ class _$$ExpectsListChildrenPropProps$PlainMap
     extends _$$ExpectsListChildrenPropProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ExpectsListChildrenPropProps$PlainMap(Map backingMap)
+  _$$ExpectsListChildrenPropProps$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -654,7 +733,7 @@ class _$$ExpectsListChildrenPropProps$JsMap
     extends _$$ExpectsListChildrenPropProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ExpectsListChildrenPropProps$JsMap(JsBackedMap backingMap)
+  _$$ExpectsListChildrenPropProps$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -692,9 +771,9 @@ abstract class _$$BasicForwardRefProps extends UiProps
         $BasicForwardRefProps {
   _$$BasicForwardRefProps._();
 
-  factory _$$BasicForwardRefProps(Map backingMap) {
+  factory _$$BasicForwardRefProps(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$BasicForwardRefProps$JsMap(backingMap as JsBackedMap);
+      return _$$BasicForwardRefProps$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$BasicForwardRefProps$PlainMap(backingMap);
     }
@@ -713,7 +792,16 @@ abstract class _$$BasicForwardRefProps extends UiProps
         // If this generated mixin is undefined, it's likely because BasicForwardRefProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of BasicForwardRefProps, and check that $BasicForwardRefProps is exported/imported properly.
         BasicForwardRefProps: $BasicForwardRefProps.meta,
       });
+
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$BasicForwardRefProps(
+          accessMap, (map) => _$$BasicForwardRefProps(map));
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$BasicForwardRefProps = getPropKey;
 
 // Concrete props implementation that can be backed by any [Map].
 @Deprecated('This API is for use only within generated code.'
@@ -721,7 +809,7 @@ abstract class _$$BasicForwardRefProps extends UiProps
 class _$$BasicForwardRefProps$PlainMap extends _$$BasicForwardRefProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$BasicForwardRefProps$PlainMap(Map backingMap)
+  _$$BasicForwardRefProps$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -740,7 +828,7 @@ class _$$BasicForwardRefProps$PlainMap extends _$$BasicForwardRefProps {
 class _$$BasicForwardRefProps$JsMap extends _$$BasicForwardRefProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$BasicForwardRefProps$JsMap(JsBackedMap backingMap)
+  _$$BasicForwardRefProps$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -783,9 +871,9 @@ abstract class _$$DartTestJsWrapperProps extends UiProps
         DartTestJsWrapperProps {
   _$$DartTestJsWrapperProps._();
 
-  factory _$$DartTestJsWrapperProps(Map backingMap) {
+  factory _$$DartTestJsWrapperProps(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$DartTestJsWrapperProps$JsMap(backingMap as JsBackedMap);
+      return _$$DartTestJsWrapperProps$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$DartTestJsWrapperProps$PlainMap(backingMap);
     }
@@ -806,7 +894,16 @@ abstract class _$$DartTestJsWrapperProps extends UiProps
         // If this generated mixin is undefined, it's likely because DartTestJsWrapperPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of DartTestJsWrapperPropsMixin, and check that $DartTestJsWrapperPropsMixin is exported/imported properly.
         DartTestJsWrapperPropsMixin: $DartTestJsWrapperPropsMixin.meta,
       });
+
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$DartTestJsWrapperProps(
+          accessMap, (map) => _$$DartTestJsWrapperProps(map));
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$DartTestJsWrapperProps = getPropKey;
 
 // Concrete props implementation that can be backed by any [Map].
 @Deprecated('This API is for use only within generated code.'
@@ -814,7 +911,7 @@ abstract class _$$DartTestJsWrapperProps extends UiProps
 class _$$DartTestJsWrapperProps$PlainMap extends _$$DartTestJsWrapperProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$DartTestJsWrapperProps$PlainMap(Map backingMap)
+  _$$DartTestJsWrapperProps$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -833,7 +930,7 @@ class _$$DartTestJsWrapperProps$PlainMap extends _$$DartTestJsWrapperProps {
 class _$$DartTestJsWrapperProps$JsMap extends _$$DartTestJsWrapperProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$DartTestJsWrapperProps$JsMap(JsBackedMap backingMap)
+  _$$DartTestJsWrapperProps$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -869,9 +966,9 @@ abstract class _$$TestJsProps extends UiProps
         $TestJsProps {
   _$$TestJsProps._();
 
-  factory _$$TestJsProps(Map backingMap) {
+  factory _$$TestJsProps(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestJsProps$JsMap(backingMap as JsBackedMap);
+      return _$$TestJsProps$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$TestJsProps$PlainMap(backingMap);
     }
@@ -890,7 +987,15 @@ abstract class _$$TestJsProps extends UiProps
         // If this generated mixin is undefined, it's likely because TestJsProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestJsProps, and check that $TestJsProps is exported/imported properly.
         TestJsProps: $TestJsProps.meta,
       });
+
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$TestJsProps(accessMap, (map) => _$$TestJsProps(map));
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$TestJsProps = getPropKey;
 
 // Concrete props implementation that can be backed by any [Map].
 @Deprecated('This API is for use only within generated code.'
@@ -898,7 +1003,7 @@ abstract class _$$TestJsProps extends UiProps
 class _$$TestJsProps$PlainMap extends _$$TestJsProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestJsProps$PlainMap(Map backingMap)
+  _$$TestJsProps$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -917,7 +1022,7 @@ class _$$TestJsProps$PlainMap extends _$$TestJsProps {
 class _$$TestJsProps$JsMap extends _$$TestJsProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestJsProps$JsMap(JsBackedMap backingMap)
+  _$$TestJsProps$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();

@@ -30,33 +30,33 @@ mixin TransitionPropsMixin on UiProps {
   /// Serves as the default for [transitionInCount]/[transitionOutCount] when they are not specified.
   ///
   /// Default: `1`
-  int transitionCount;
+  int? transitionCount;
 
   /// The number of `transitionend` event that occur when the transition node is shown.
   ///
   /// Default: [transitionCount]
-  int transitionInCount;
+  int? transitionInCount;
 
   /// The number of `transitionend` event that occur when the transition node is hidden.
   ///
   /// Default: [transitionCount]
-  int transitionOutCount;
+  int? transitionOutCount;
 
   /// Optional callback that fires before the [AbstractTransitionComponent] is hidden.
   ///
   /// Returning `false` will cancel default behavior, and the [AbstractTransitionComponent] will remain visible.
-  Callback onWillHide;
+  Callback? onWillHide;
 
   /// Optional callback that fires after the [AbstractTransitionComponent] is hidden.
-  Callback onDidHide;
+  Callback? onDidHide;
 
   /// Optional callback that fires before the [AbstractTransitionComponent] appears.
   ///
   /// Returning `false` will cancel default behavior, and the [AbstractTransitionComponent] will not appear.
-  Callback onWillShow;
+  Callback? onWillShow;
 
   /// Optional callback that fires after the [AbstractTransitionComponent] appears.
-  Callback onDidShow;
+  Callback? onDidShow;
 }
 
 UiFactory<TransitionPropsMixin> TransitionPropsMapView = castUiFactory(_$TransitionPropsMapView);

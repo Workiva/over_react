@@ -4,15 +4,16 @@ part 'duplicate_prop_cascade.over_react.g.dart';
 
 duplicatePropCascade() {
   (Custom()
-    ..size = 2
-    ..dom.size = 2 // Should not lint as dupe
-    ..dom.hidden = false
-    ..aria.hidden = false
-    ..hidden = false // None of these "hidden" props should be linted as dupes
-    ..id = '1'
-    ..dom.id = 'foo' // Should lint as dupe of `id`
-    ..dom.id = 'bar' // Should lint as dupe of `id`
-  )();
+        ..size = 2
+        ..dom.size = 2 // Should not lint as dupe
+        ..dom.hidden = false
+        ..aria.hidden = false
+        ..hidden =
+            false // None of these "hidden" props should be linted as dupes
+        ..id = '1'
+        ..dom.id = 'foo' // Should lint as dupe of `id`
+        ..dom.id = 'bar' // Should lint as dupe of `id`
+      )();
   (Dom.div()
     ..id = '1'
     ..dom.id = 'foo' // Should lint as dupe of `id`
@@ -50,8 +51,8 @@ duplicatePropCascadeWithMoreThanOneDupe() {
 }
 
 mixin CustomProps on UiProps {
-  int size;
-  bool hidden;
+  int? size;
+  bool? hidden;
 }
 
 final Custom = uiFunction<CustomProps>(

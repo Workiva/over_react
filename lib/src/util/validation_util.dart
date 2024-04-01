@@ -67,12 +67,10 @@ class ValidationUtil {
   ///         // console warning when asserts are enabled.
   ///         tags: 'ddc');
   ///     );
-  static bool warn(String message, [dynamic data]) {
+  static bool warn(String message, [Object? data]) {
     WARNING_COUNT += 1;
 
-    if (onWarning != null) {
-      onWarning(message);
-    }
+    onWarning?.call(message);
 
     if (WARNINGS_ENABLED) {
       if (THROW_ON_WARNING) {
@@ -104,12 +102,12 @@ class ValidationUtil {
   /// Useful for verifying warnings in unit tests.
   ///
   /// > See: `startRecordingValidationWarnings`
-  static ValidationUtilWarningCallback onWarning;
+  static ValidationUtilWarningCallback? onWarning;
 }
 
 class ValidationWarning extends Error {
   /// Message describing the problem.
-  final String message;
+  final String? message;
 
   ValidationWarning([this.message]);
 }

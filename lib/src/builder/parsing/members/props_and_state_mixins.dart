@@ -36,14 +36,14 @@ abstract class BoilerplatePropsOrStateMixin extends BoilerplateTypedMapMember
   /// The companion class for the props or state mixins.
   ///
   /// This will only be present for [Version.v2_legacyBackwardsCompat] classes.
-  final ClassishDeclaration companion;
+  final ClassishDeclaration? companion;
 
   /// The corresponding annotation.
   ///
   /// This is determined at runtime by detecting the type of class (props or state)
   /// based upon what annotation is present upon [node].
   @override
-  annotations.TypedMap meta;
+  late annotations.TypedMap meta;
 
   @override
   Token get name => nodeHelper.name;
@@ -80,7 +80,7 @@ abstract class BoilerplatePropsOrStateMixin extends BoilerplateTypedMapMember
         final node = this.node;
         if (node is MixinDeclaration) {
           final isOnBaseClass = node.onClause?.superclassConstraints
-                  ?.any((type) => type.nameWithoutPrefix == propsOrStateBaseClassString) ??
+                  .any((type) => type.nameWithoutPrefix == propsOrStateBaseClassString) ??
               false;
           if (!isOnBaseClass) {
             errorCollector.addError(
@@ -109,7 +109,7 @@ abstract class BoilerplatePropsOrStateMixin extends BoilerplateTypedMapMember
 /// See [BoilerplateMember] for more information.
 class BoilerplatePropsMixin extends BoilerplatePropsOrStateMixin {
   BoilerplatePropsMixin(
-      ClassishDeclaration node, ClassishDeclaration companion, VersionConfidences confidence)
+      ClassishDeclaration node, ClassishDeclaration? companion, VersionConfidences confidence)
       : super(node, companion, confidence);
 
   @override
@@ -121,7 +121,7 @@ class BoilerplatePropsMixin extends BoilerplatePropsOrStateMixin {
 /// See [BoilerplateMember] for more information.
 class BoilerplateStateMixin extends BoilerplatePropsOrStateMixin {
   BoilerplateStateMixin(
-      ClassishDeclaration node, ClassishDeclaration companion, VersionConfidences confidence)
+      ClassishDeclaration node, ClassishDeclaration? companion, VersionConfidences confidence)
       : super(node, companion, confidence);
 
   @override

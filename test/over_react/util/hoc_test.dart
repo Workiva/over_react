@@ -23,14 +23,14 @@ import '../../test_util/test_util.dart';
 
 main() {
   group('composeHocs', () {
-    Store<CounterState> store1;
+    late Store<CounterState> store1;
 
     setUp(() {
       store1 = Store(counterStateReducer, initialState: CounterState());
     });
 
     test('will render a nested component', () {
-      CounterProps Function() components = composeHocs([
+      var components = composeHocs([
         connect<CounterState, CounterProps>(),
         connect<CounterState, CounterProps>(),
       ])(Counter);
@@ -53,7 +53,7 @@ main() {
       const data0 = '0';
       const data1 = '1';
 
-      CounterProps Function() composeHocComponent = composeHocs([
+      var composeHocComponent = composeHocs([
         connect<CounterState, CounterProps>(
           mapStateToProps: (_) => {
             'data-0': data0,
@@ -68,7 +68,7 @@ main() {
         )
       ])(Counter);
 
-      CounterProps Function() verboseHoc = connect<CounterState, CounterProps>(
+      var verboseHoc = connect<CounterState, CounterProps>(
         mapStateToProps: (_) => {
           'data-0': data0,
           'data-both': data0,
@@ -91,8 +91,8 @@ main() {
       );
 
       final composeHocNodeAttributes =
-          queryByTestId(jacket.getNode(), 'compose-hoc').attributes;
-      final verboseHocNode = queryByTestId(jacket.getNode(), 'verbose-hoc');
+          queryByTestId(jacket.getNode(), 'compose-hoc')!.attributes;
+      final verboseHocNode = queryByTestId(jacket.getNode(), 'verbose-hoc')!;
 
       expect(composeHocNodeAttributes, containsPair('data-0', data0));
       expect(composeHocNodeAttributes, containsPair('data-1', data1));

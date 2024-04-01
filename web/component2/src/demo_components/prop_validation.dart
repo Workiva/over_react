@@ -19,25 +19,25 @@ part 'prop_validation.over_react.g.dart';
 UiFactory<PropTypesTestProps> PropTypesTest = castUiFactory(_$PropTypesTest); // ignore: undefined_identifier
 
 mixin PropTypesTestProps on UiProps {
-  int count;
-  List twoObjects;
-  int defaultCount;
-  bool content;
+  int? count;
+  List? twoObjects;
+  int? defaultCount;
+  bool? content;
 
-  bool hideHeader;
+  bool? hideHeader;
   dynamic header;
 
-  List initiallyExpandedKeys;
+  List? initiallyExpandedKeys;
   dynamic targetKey;
 
-  bool hideLabel;
-  String label;
+  bool? hideLabel;
+  String? label;
 }
 
 class PropTypesTestComponent extends UiComponent2<PropTypesTestProps> {
   @override
   render() =>
-      Fragment()(Dom.code()('props.twoObjects'), ' currently has ${props.twoObjects.length} objects passed to it.');
+      Fragment()(Dom.code()('props.twoObjects'), ' currently has ${props.twoObjects!.length} objects passed to it.');
 
   // One variation of what the API could look like.
   //

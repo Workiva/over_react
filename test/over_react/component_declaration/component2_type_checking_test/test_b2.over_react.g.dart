@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators, invalid_use_of_visible_for_overriding_member
 part of 'test_b2.dart';
 
 // **************************************************************************
@@ -37,7 +37,7 @@ class TestB2Props extends _$TestB2Props with _$TestB2PropsAccessorsMixin {
   static const PropsMeta meta = _$metaForTestB2Props;
 }
 
-_$$TestB2Props _$TestB2([Map backingProps]) => backingProps == null
+_$$TestB2Props _$TestB2([Map? backingProps]) => backingProps == null
     ? _$$TestB2Props$JsMap(JsBackedMap())
     : _$$TestB2Props(backingProps);
 
@@ -49,9 +49,9 @@ abstract class _$$TestB2Props extends _$TestB2Props
     implements TestB2Props {
   _$$TestB2Props._();
 
-  factory _$$TestB2Props(Map backingMap) {
+  factory _$$TestB2Props(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestB2Props$JsMap(backingMap as JsBackedMap);
+      return _$$TestB2Props$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$TestB2Props$PlainMap(backingMap);
     }
@@ -69,13 +69,21 @@ abstract class _$$TestB2Props extends _$TestB2Props
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'TestB2Props.';
+
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$TestB2Props(accessMap, (map) => _$$TestB2Props(map));
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$TestB2Props = getPropKey;
 
 // Concrete props implementation that can be backed by any [Map].
 class _$$TestB2Props$PlainMap extends _$$TestB2Props {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestB2Props$PlainMap(Map backingMap)
+  _$$TestB2Props$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -92,7 +100,7 @@ class _$$TestB2Props$PlainMap extends _$$TestB2Props {
 class _$$TestB2Props$JsMap extends _$$TestB2Props {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestB2Props$JsMap(JsBackedMap backingMap)
+  _$$TestB2Props$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -109,7 +117,7 @@ class _$$TestB2Props$JsMap extends _$$TestB2Props {
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$TestB2Component extends TestB2Component {
-  _$$TestB2Props$JsMap _cachedTypedProps;
+  late _$$TestB2Props$JsMap _cachedTypedProps;
 
   @override
   _$$TestB2Props$JsMap get props => _cachedTypedProps;
@@ -129,11 +137,11 @@ class _$TestB2Component extends TestB2Component {
   }
 
   @override
-  _$$TestB2Props$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
+  _$$TestB2Props$JsMap typedPropsFactoryJs(JsBackedMap? backingMap) =>
       _$$TestB2Props$JsMap(backingMap);
 
   @override
-  _$$TestB2Props typedPropsFactory(Map backingMap) =>
+  _$$TestB2Props typedPropsFactory(Map? backingMap) =>
       _$$TestB2Props(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.

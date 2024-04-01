@@ -1,3 +1,4 @@
+//@dart=2.11
 part of basic.library;
 
 class SuperPartOfLibProps extends _$SuperPartOfLibProps with _$SuperPartOfLibPropsAccessorsMixin {
