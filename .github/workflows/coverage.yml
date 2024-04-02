@@ -1,0 +1,107 @@
+name: Unit test coverage
+
+on:
+  workflow_call:
+    inputs:
+      sdk:
+        required: true
+        type: string
+      head_commit_sha:
+        required: true
+        type: string
+      previous_commit_sha:
+        required: true
+        type: string
+      use_cached_coverage:
+        required: true
+        type: boolean
+
+jobs:
+  get-cached-coverage:
+    runs-on: ubuntu-latest
+    outputs:
+      cache-hit: ${{ steps.download-cache.outputs.cache-hit }}
+    steps:
+      - name: Get Cached Coverage Data
+        id: download-cache
+        uses: actions/cache/restore@v4
+        with:
+          path: |
+            reports/coverage
+          key: coverage@${{ inputs.previous_commit_sha }}
+          restore-keys: |
+            coverage@${{ inputs.previous_commit_sha }}
+
+      - name: Upload Cached Coverage Data
+        id: store-cache
+        if: ${{ steps.download-cache.outputs.cache-hit == 'true' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage
+          path: reports/coverage
+
+  test-coverage:
+    runs-on: ubuntu-latest
+    needs: [ get-cached-coverage ]
+    steps:
+      - env:
+          USE_CACHED_COVERAGE: ${{ needs.get-cached-coverage.outputs.cache-hit == 'true' && inputs.use_cached_coverage }}
+        run: echo "$USE_CACHED_COVERAGE"
+
+      - uses: actions/checkout@v4
+        if: ${{ needs.get-cached-coverage.outputs.cache-hit != 'true' || !inputs.use_cached_coverage }}
+
+      - uses: dart-lang/setup-dart@v1
+        if: ${{ needs.get-cached-coverage.outputs.cache-hit != 'true' || !inputs.use_cached_coverage }}
+        with:
+          sdk: ${{ inputs.sdk }}
+
+      - name: Run Tests (DDC + coverage)
+        if: ${{ needs.get-cached-coverage.outputs.cache-hit != 'true' || !inputs.use_cached_coverage }}
+        run: dart run dart_dev test --test-args="--coverage=reports/coverage" -P dartdevc
+
+      - name: Upload New Coverage Data
+        if: ${{ needs.get-cached-coverage.outputs.cache-hit != 'true' || !inputs.use_cached_coverage }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage
+          path: reports/coverage
+
+  generate-coverage:
+    runs-on: ubuntu-latest
+    needs: [ test-coverage ]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dart-lang/setup-dart@v1
+        with:
+          sdk: ${{ inputs.sdk }}
+      - name: Download Package Config
+        uses: actions/download-artifact@v4
+        with:
+          name: package_config@${{ inputs.sdk }}
+          path: .dart_tool
+
+      - name: Download Coverage Data
+        uses: actions/download-artifact@v4
+        with:
+          name: coverage
+          path: reports/coverage
+
+      - name: Activate Coverage Package
+        run: dart pub global activate coverage
+
+      - name: Format Coverage
+        run: dart pub global run coverage:format_coverage --packages=.dart_tool/package_config.json --report-on=lib --lcov -o reports/coverage/lcov.info -i reports/coverage
+
+      - name: Cache Coverage Data
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            reports/coverage
+          key: coverage@${{ inputs.head_commit_sha }}
+
+      - name: Report Coverage
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: reports/coverage/lcov.info

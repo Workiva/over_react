@@ -3,6 +3,12 @@ name: Source check
 on:
   workflow_call:
     outputs:
+      head_commit_sha:
+        description: "git rev-parse HEAD"
+        value: ${{ jobs.get-prev-sha.outputs.head_commit_sha }}
+      previous_commit_sha:
+        description: "git rev-parse HEAD~ (so we can retrieve a cached copy of code coverage on tag commits)"
+        value: ${{ jobs.get-prev-sha.outputs.previous_commit_sha }}
       is_tag_build:
         description: "Whether the build is the result of a tagged release commit"
         value: ${{ jobs.git-diff.outputs.is_tag_build }}
@@ -11,6 +17,23 @@ on:
         value: ${{ jobs.git-diff.outputs.run_dart_checks }}
 
 jobs:
+  get-prev-sha:
+    runs-on: ubuntu-latest
+    outputs:
+      head_commit_sha: ${{ steps.rev-parse.outputs.head_commit_sha }}
+      previous_commit_sha: ${{ steps.rev-parse.outputs.previous_commit_sha }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+          ref: ${{ github.event.pull_request.head.sha }}
+      - name: Get Previous Commit Sha
+        id: rev-parse
+        shell: bash
+        run: |
+          echo "head_commit_sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+          echo "previous_commit_sha=$(git rev-parse HEAD~)" >> "$GITHUB_OUTPUT"
+
   git-diff:
     runs-on: ubuntu-latest
     outputs:

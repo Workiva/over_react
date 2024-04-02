@@ -9,14 +9,6 @@ on:
     branches:
       - '**'
 
-permissions:
-  contents: read
-  checks: write
-  deployments: write
-  id-token: write
-  pull-requests: write
-  statuses: read
-
 jobs:
   source-check:
     uses: ./.github/workflows/source-check.yml
@@ -34,6 +26,8 @@ jobs:
       gen_coverage: ${{ matrix.sdk == '2.19.6' }}
       run_dart_checks: ${{ needs.source-check.outputs.run_dart_checks == 'true' }}
       is_tag_build: ${{ needs.source-check.outputs.is_tag_build == 'true' }}
+      head_commit_sha: ${{ needs.source-check.outputs.head_commit_sha }}
+      previous_commit_sha: ${{ needs.source-check.outputs.previous_commit_sha }}
 
   analyzer-plugin:
     needs: [ source-check ]

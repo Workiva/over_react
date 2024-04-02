@@ -15,21 +15,19 @@ on:
       is_tag_build:
         required: true
         type: boolean
-
-permissions:
-  contents: read
-  checks: write
-  deployments: write
-  id-token: write
-  pull-requests: write
-  statuses: read
+      head_commit_sha:
+        required: true
+        type: string
+      previous_commit_sha:
+        required: true
+        type: string
 
 jobs:
   install:
     uses: ./.github/workflows/install.yml
     with:
       sdk: ${{ inputs.sdk }}
-      gen_coverage: ${{ inputs.gen_coverage }}
+      store_package_config: ${{ inputs.gen_coverage }}
       store_lockfile: true
 
   validate:
@@ -37,38 +35,7 @@ jobs:
     needs: [ install ]
     with:
       sdk: ${{ inputs.sdk }}
-
-  build-ddc:
-    needs: [ install ]
-    if: ${{ !inputs.is_tag_build && inputs.run_dart_checks }}
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: dart-lang/setup-dart@v1
-        with:
-          sdk: ${{ inputs.sdk }}
-
-      - id: build
-        timeout-minutes: 6
-        name: Build generated files / precompile DDC assets
-        run: |
-          dart run build_runner build --delete-conflicting-outputs
-
-      - name: Verify that generated files are up-to-date
-        run: |
-          if [ ${{ inputs.sdk }} = '2.18.7' ]; then
-            git diff --exit-code
-          else
-            # Don't check these generated files for other SDKs, since they may generate differently
-            # due to different resolved dependencies.
-            git diff --exit-code -- ":(exclude)test/mockito.mocks.dart" ":(exclude)test/over_react/component_declaration/redux_component_test/test_reducer.g.dart"
-          fi
-        if: steps.build.outcome == 'success'
-
-      # Analyze again after generated files are created to verify that those generated classes don't cause analysis errors
-      - name: Analyze project source (post-build)
-        run: dart analyze
-        if: steps.build.outcome == 'success'
+      run_ddc_build: ${{ !inputs.is_tag_build && inputs.run_dart_checks }}
 
   test-dart2js:
     needs: [ install ]
@@ -99,66 +66,28 @@ jobs:
         run: dart test -P vm
 
   test-ddc:
-    runs-on: ubuntu-latest
     needs: [ install ]
-    # Run on a tag build no matter what so that coverage is generated for that commit
-    if: ${{ (inputs.is_tag_build && inputs.gen_coverage) || inputs.run_dart_checks }}
+    if: ${{ !inputs.gen_coverage && !inputs.is_tag_build && inputs.run_dart_checks }}
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: dart-lang/setup-dart@v1
         with:
           sdk: ${{ inputs.sdk }}
-
-      - name: Run tests (DDC)
-        if: ${{ !inputs.gen_coverage }}
+      - name: Run
         run: dart run dart_dev test -P dartdevc
 
-      - name: Run tests (DDC + coverage)
-        if: ${{ inputs.gen_coverage }}
-        run: dart run dart_dev test --test-args="--coverage=reports/coverage" -P dartdevc
-
-      - name: Upload Coverage Data
-        if: ${{ inputs.gen_coverage }}
-        uses: actions/upload-artifact@v4
-        with:
-          name: coverage
-          path: reports/coverage
-
-  generate-coverage:
-    runs-on: ubuntu-latest
-    needs: [ install, test-ddc ]
+  test-coverage:
+    needs: [ install ]
     if: ${{ inputs.gen_coverage }}
-    steps:
-      - uses: actions/checkout@v4
-      - uses: dart-lang/setup-dart@v1
-        with:
-          sdk: ${{ inputs.sdk }}
-      - name: Download Package Config
-        uses: actions/download-artifact@v4
-        with:
-          name: package_config@${{ inputs.sdk }}
-          path: .dart_tool
-      - name: Download Coverage Data
-        uses: actions/download-artifact@v4
-        with:
-          name: coverage
-          path: reports/coverage
-      - name: Activate Coverage Package
-        run: dart pub global activate coverage
-      - name: Format Coverage
-        run: dart pub global run coverage:format_coverage --packages=.dart_tool/package_config.json --report-on=lib --lcov -o reports/coverage/lcov.info -i reports/coverage
-      - name: Upload Formatted Coverage as Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: lcov.info
-          path: reports/coverage/lcov.info
-      - name: Upload Coverage to codecov.io
-        uses: codecov/codecov-action@v3
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          files: reports/coverage/lcov.info
+    uses: ./.github/workflows/coverage.yml
+    with:
+      sdk: ${{ inputs.sdk }}
+      head_commit_sha: ${{ inputs.head_commit_sha }}
+      previous_commit_sha: ${{ inputs.previous_commit_sha }}
+      use_cached_coverage: ${{ inputs.is_tag_build && inputs.gen_coverage }}
 
-  validate_analyzer:
+  validate-analyzer-5:
     needs: [ install ]
     if: ${{ !inputs.is_tag_build && inputs.run_dart_checks }}
     runs-on: ubuntu-latest

@@ -6,8 +6,9 @@ on:
       sdk:
         required: true
         type: string
-      gen_coverage:
-        required: true
+      store_package_config:
+        required: false
+        default: false
         type: boolean
       store_lockfile:
         required: true
@@ -41,7 +42,7 @@ jobs:
           path: pubspec.lock
 
       - name: Upload Package Config
-        if: ${{ inputs.gen_coverage }}
+        if: ${{ inputs.store_package_config }}
         uses: actions/upload-artifact@v4
         with:
           name: package_config@${{ inputs.sdk }}
