@@ -1,4 +1,4 @@
-name: Dependency / formatting validation
+name: Dependency / formatting / source gen validation
 
 on:
   workflow_call:
@@ -6,6 +6,9 @@ on:
       sdk:
         required: true
         type: string
+      run_ddc_build:
+        required: true
+        type: boolean
 
 jobs:
   validate-dependencies:
@@ -50,3 +53,34 @@ jobs:
           # which could cause analysis issues for consumers who haven't run a build yet.
           dart analyze lib
           dart analyze example/boilerplate_versions
+
+  validate-generated-sources:
+    if: ${{ inputs.run_ddc_build }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dart-lang/setup-dart@v1
+        with:
+          sdk: ${{ inputs.sdk }}
+
+      - id: build
+        timeout-minutes: 6
+        name: Build generated files / precompile DDC assets
+        run: |
+          dart run build_runner build --delete-conflicting-outputs
+
+      - name: Verify that generated files are up-to-date
+        run: |
+          if [ ${{ inputs.sdk }} = '2.18.7' ]; then
+            git diff --exit-code
+          else
+            # Don't check these generated files for other SDKs, since they may generate differently
+            # due to different resolved dependencies.
+            git diff --exit-code -- ":(exclude)test/mockito.mocks.dart" ":(exclude)test/over_react/component_declaration/redux_component_test/test_reducer.g.dart"
+          fi
+        if: steps.build.outcome == 'success'
+
+      # Analyze again after generated files are created to verify that those generated classes don't cause analysis errors
+      - name: Analyze project source (post-build)
+        run: dart analyze
+        if: steps.build.outcome == 'success'
