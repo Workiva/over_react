@@ -46,7 +46,7 @@ jobs:
       - name: Check Github Ref
         id: check_gh_ref
         run: |
-          echo "is_tag_build=${{ contains(github.head_ref, 'refs/tags') }}" >> "$GITHUB_OUTPUT"
+          echo "is_tag_build=${{ contains(github.head_ref, 'test') }}" >> "$GITHUB_OUTPUT"
       - name: Check Modified Files
         id: check_files
         run: |
