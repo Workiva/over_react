@@ -4,3 +4,7 @@ coverage:
   round: up
   ignore:
     - web/.*
+    - "**/*.over_react.g.dart"
+    - "**/*dummy*"
+    - "**/devtools"
+    - "lib/src/component_declaration/annotations.dart"

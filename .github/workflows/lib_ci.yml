@@ -1,0 +1,122 @@
+name: Jobs pertaining to the over_react library
+
+on:
+  workflow_call:
+    inputs:
+      sdk:
+        required: true
+        type: string
+      gen_coverage:
+        required: true
+        type: boolean
+      run_dart_checks:
+        required: true
+        type: boolean
+      is_tag_build:
+        required: true
+        type: boolean
+      head_commit_sha:
+        required: true
+        type: string
+      previous_commit_sha:
+        required: true
+        type: string
+
+jobs:
+  install:
+    uses: ./.github/workflows/install.yml
+    with:
+      sdk: ${{ inputs.sdk }}
+      store_package_config: ${{ inputs.gen_coverage }}
+      store_lockfile: true
+
+  validate:
+    uses: ./.github/workflows/validate.yml
+    needs: [ install ]
+    with:
+      sdk: ${{ inputs.sdk }}
+      run_ddc_build: ${{ !inputs.is_tag_build && inputs.run_dart_checks }}
+
+  test-dart2js:
+    needs: [ install ]
+    if: ${{ !inputs.is_tag_build && inputs.run_dart_checks }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dart-lang/setup-dart@v1
+        with:
+          sdk: ${{ inputs.sdk }}
+
+      - name: Run tests (dart2js)
+        run: dart run dart_dev test --build-args="-r" -P dart2js
+
+  test-vm:
+    needs: [ install ]
+    if: ${{ !inputs.is_tag_build && inputs.run_dart_checks }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dart-lang/setup-dart@v1
+        with:
+          sdk: ${{ inputs.sdk }}
+
+      - name: Run tests (VM)
+        # Can't use build_runner (which dart_dev uses if you depend on it) to run VM tests, since we get the error:
+        #    Unable to spawn isolate: /…/build_runner_testRU6M77/.packages: Error: Problem in packages configuration file: Unexpected character
+        run: dart test -P vm
+
+  test-ddc:
+    needs: [ install ]
+    if: ${{ !inputs.gen_coverage && !inputs.is_tag_build && inputs.run_dart_checks }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dart-lang/setup-dart@v1
+        with:
+          sdk: ${{ inputs.sdk }}
+      - name: Run
+        run: dart run dart_dev test -P dartdevc
+
+  test-coverage:
+    needs: [ install ]
+    if: ${{ inputs.gen_coverage }}
+    uses: ./.github/workflows/coverage.yml
+    with:
+      sdk: ${{ inputs.sdk }}
+      head_commit_sha: ${{ inputs.head_commit_sha }}
+      previous_commit_sha: ${{ inputs.previous_commit_sha }}
+      use_cached_coverage: ${{ inputs.is_tag_build && inputs.gen_coverage }}
+
+  validate-analyzer-5:
+    needs: [ install ]
+    if: ${{ !inputs.is_tag_build && inputs.run_dart_checks }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        analyzer:
+          # We only have one version currently, but we'll leave this CI step in place
+          # for the next time we need to support multiple analyzer versions.
+          - ^5.1.0
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dart-lang/setup-dart@v1
+        with:
+          sdk: ${{ inputs.sdk }}
+
+      - name: Update analyzer constraint to ${{ matrix.analyzer }} and validate `dart pub get` can resolve
+        id: resolve
+        run: |
+          dart tool/set_analyzer_constraint.dart "${{ matrix.analyzer }}"
+          # Show the updated version constraint
+          git diff pubspec.yaml
+          dart pub get
+
+      - name: Analyze package source
+        run: dart analyze .
+
+      - name: Verify builder runs without errors
+        run: dart run build_runner build --build-filter='**.dart' --delete-conflicting-outputs
+
+      - name: Run builder tests
+        run: dart test -p vm -- test/vm_tests/builder
