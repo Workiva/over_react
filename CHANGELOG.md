@@ -1,5 +1,11 @@
 # OverReact Changelog
 
+## 5.1.0
+- [#909] Deprecate the optional `initialValue` argument in the `useRef` hook. 
+  - Use the `useRefInit` hook instead if you need to set an initial value. 
+- [#909] Deprecate the optional `defaultValue` argument in `createContext`. 
+  - Use `createContextInit` instead if you need to set a default value.
+
 ## 5.0.1
 - Consume over_react_test 3.0.0
 
