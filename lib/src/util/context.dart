@@ -262,10 +262,9 @@ class _DO_NOT_USE_OR_YOU_WILL_BE_FIRED {
 ///
 /// Learn more: <https://react.dev/reference/react/createContext>
 Context<TValue?> createContext<TValue>([
-  // TODO(FED-2136) uncomment this deprecation
-  // @Deprecated('Use `createContextInit` instead to create contexts with initial values.'
-  //      ' Since the argument to createContextInit is required, it can be used to create a context that holds a non-nullable type,'
-  //      ' whereas this function can only create contexts with nullable type arguments.')
+  @Deprecated('Use `createContextInit` instead to create contexts with initial values.'
+       ' Since the argument to createContextInit is required, it can be used to create a context that holds a non-nullable type,'
+       ' whereas this function can only create contexts with nullable type arguments.')
   TValue? defaultValue,
   int Function(TValue?, TValue?)? calculateChangedBits,
 ]) => createContextInit(defaultValue, calculateChangedBits);
