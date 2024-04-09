@@ -64,6 +64,18 @@ Below is a table of the possible options for prop nullability:
 
 #### Potential Gotchas
 
+The migrator tool [incorrectly treats the result of emulated function calls as nullable](https://github.com/dart-lang/sdk/issues/46263).
 
+The most common way this affects over_react is in cases like this:
+```dart
+// The over_react code:
+var content = Dom.div()();
+
+// gets incorrectly migrated to:
+ReactElement? content = Dom.div()();
+```
+
+<!-- TODO - not really sure how to explain this or if there is a solution besides manual overriding? 
+Is this fixed in the Workiva version of the tool that we should link to? -->
 
 [orcm]: https://github.com/Workiva/over_react_codemod
