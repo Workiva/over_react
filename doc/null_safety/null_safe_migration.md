@@ -42,8 +42,27 @@ Run the null safety migrator tool:
 
 Below are some common cases that might come up while running the migrator tool on a repo using over_react.
 
-#### Whether a prop should be non-nullable
+#### Prop nullability
 
+To determine if a prop should be nullable or not, first consider if the prop is required.
+
+<!-- TODO - do we need to list a reasons props could be required?? If a prop is defaulted, does that make it required too? -->
+
+> ⚠️ Making a prop required with the `late` keyword can be a breaking change if consumers are not always setting the prop.
+
+Below is a table of the possible options for prop nullability:
+
+|                | Required (`late`)    | Optional        |
+|----------------|----------------------|-----------------|
+| Nullable (`?`) | `late String? prop;` | `String? prop;` |
+| Non-nullable   | `late String prop;`  | n/a             |
+
+- (_most common_) All **optional** props should be made **nullable**.
+- **Required** props can be nullable or non-nullable:
+  - **Nullable**: If the prop is required, but can be explicitly set to `null`.
+  - **Non-nullable**: If the prop is required and should never be set to `null`.
+
+#### Potential Gotchas
 
 
 
