@@ -1,5 +1,8 @@
 # Dart Null Safety Migration Guide
 
+> [!NOTE]
+> For Workiva employees, also refer to this more detailed Workiva-specific [migration guide](https://github.com/Workiva/dart_null_tools/blob/master/workiva_migration_guide.md).
+
 Steps to migrate a repo to null safety:
 
 1. [View resources](#step-1-view-resources)
@@ -48,7 +51,8 @@ To determine if a prop should be nullable or not, first consider if the prop is 
 
 <!-- TODO - do we need to list a reasons props could be required?? If a prop is defaulted, does that make it required too? -->
 
-> ⚠️ Making a prop required with the `late` keyword can be a breaking change if consumers are not always setting the prop.
+> [!WARNING]
+> Making a prop required with the `late` keyword can be a breaking change if consumers are not always setting the prop.
 
 Below is a table of the possible options for prop nullability:
 
