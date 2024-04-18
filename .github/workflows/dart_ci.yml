@@ -85,6 +85,11 @@ jobs:
         run: dart run dart_dev test --build-args="-r" -P dart2js
         if: always() && steps.install.outcome == 'success' && steps.build.outcome == 'success'
 
+      - uses: anchore/sbom-action@v0
+        with:
+          path: ./
+          format: cyclonedx-json
+
   validate_analyzer:
     runs-on: ubuntu-latest
     strategy:
