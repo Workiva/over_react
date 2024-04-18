@@ -78,7 +78,6 @@ var content = Dom.div()();
 ReactElement? content = Dom.div()();
 ```
 
-<!-- TODO - not really sure how to explain this or if there is a solution besides manual overriding? 
-Is this fixed in the Workiva version of the tool that we should link to? -->
+<!-- TODO - Greg is going to follow-up and add instructions for how to fix this with his branch of the migrator tool -->
 
 [orcm]: https://github.com/Workiva/over_react_codemod
