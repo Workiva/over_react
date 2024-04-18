@@ -50,8 +50,6 @@ Below are some common cases that might come up while running the migrator tool o
 
 To determine if a prop should be nullable or not, first consider if the prop is required.
 
-<!-- TODO - do we need to list a reasons props could be required?? If a prop is defaulted, does that make it required too? -->
-
 > [!WARNING]
 > Making a prop required with the `late` keyword can be a breaking change if consumers are not always setting the prop.
 
