@@ -21,7 +21,8 @@ If you haven't already, familiarize yourself with the concepts of Dart null safe
 
 <!-- TODO - update this section once we release the `null_safety_prep` codemod. -->
 
-> ⚠️ This codemod does not exist yet, but is coming soon!
+> [!WARNING]
+> This codemod does not exist yet, but is coming soon!
 
 Start out by running the `null_safety_prep` [codemod][orcm] on your repo:
 
