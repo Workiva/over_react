@@ -215,6 +215,15 @@ void main() {
               });
             });
 
+            test('abstract props class', () {
+              final propsElement = getInterfaceElement(result, 'V2Props');
+              verifyRequiredProps(getAllRequiredProps(propsElement), expected: {
+                'v2_lateRequiredProp': PropRequiredness.late,
+                'v2_optionalProp': PropRequiredness.none,
+                'v2_annotationRequiredProp': PropRequiredness.annotation,
+              });
+            });
+
             test('props mixin', () {
               final propsElement = getInterfaceElement(result, 'V2PropsMixin');
               verifyRequiredProps(getAllRequiredProps(propsElement), expected: {
