@@ -131,6 +131,6 @@ bool isNotWithinTopLevelToolDir(File file) =>
 /// Returns whether [file] is within a top-level [topLevelDir] directory
 /// (e.g., `bin`, `lib`, `web`) of a package root.
 bool isWithinTopLevelDir(File file, String topLevelDir) =>
-    ancestorsOfPath(file.path).any((ancestor) =>
+    ancestorsOfPath(file.path).any()((ancestor) =>
         p.basename(ancestor) == topLevelDir &&
         File(p.join(p.dirname(ancestor), 'pubspec.yaml')).existsSync());

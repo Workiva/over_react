@@ -18,7 +18,7 @@ library impl_generation_test;
 import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:meta/meta.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:over_react/src/builder/parsing.dart';
 import 'package:over_react/src/builder/codegen.dart';
 import 'package:source_span/source_span.dart';
@@ -26,8 +26,11 @@ import 'package:test/test.dart';
 
 import '../../mockito.mocks.dart';
 import './util.dart';
+import 'dart:core' show Object;
 
 main() {
+  setUpAll(() => registerFallbackValue(_FakeObject()));
+
   group('ImplGenerator', () {
     ImplGenerator? implGenerator;
 
@@ -63,8 +66,8 @@ main() {
     }
 
     void verifyNoErrorLogs() {
-      verifyNever(logger.warning(any));
-      verifyNever(logger.severe(any));
+      verifyNever(() => logger.warning(any()));
+      verifyNever(() => logger.severe(any()));
     }
 
     void verifyImplGenerationIsValid() {
@@ -514,14 +517,14 @@ main() {
             testStaticFieldCopying(OverReactSrc.props(backwardsCompatible: false, body: fieldDeclarationsWithMetaField.join('\n')));
             expect(implGenerator!.outputContentsBuffer.toString(), isNot(contains(uselessMetaField)));
             // clear the warning coming from declaration parsing about having static meta
-            verify(logger.warning(startsWith('Static class member `meta`')));
+            verify(() => logger.warning(startsWith('Static class member `meta`')));
           });
 
           test(', except for static `meta` method', () {
             testStaticFieldCopying(OverReactSrc.props(backwardsCompatible: false, body: fieldDeclarationsWithMetaMethod.join('\n')));
             expect(implGenerator!.outputContentsBuffer.toString(), isNot(contains(uselessMetaMethod)));
             // clear the warning coming from declaration parsing about having static meta
-            verify(logger.warning(startsWith('Static class member `meta`')));
+            verify(() => logger.warning(startsWith('Static class member `meta`')));
           });
         });
 
@@ -534,14 +537,14 @@ main() {
             testStaticFieldCopying(OverReactSrc.state(backwardsCompatible: false, body: fieldDeclarationsWithMetaField.join('\n')));
             expect(implGenerator!.outputContentsBuffer.toString(), isNot(contains(uselessMetaField)));
             // clear the warning coming from declaration parsing about having static meta
-            verify(logger.warning(startsWith('Static class member `meta`')));
+            verify(() => logger.warning(startsWith('Static class member `meta`')));
           });
 
           test(', except for static `meta` method', () {
             testStaticFieldCopying(OverReactSrc.state(backwardsCompatible: false, body: fieldDeclarationsWithMetaMethod.join('\n')));
             expect(implGenerator!.outputContentsBuffer.toString(), isNot(contains(uselessMetaMethod)));
             // clear the warning coming from declaration parsing about having static meta
-            verify(logger.warning(startsWith('Static class member `meta`')));
+            verify(() => logger.warning(startsWith('Static class member `meta`')));
           });
         });
 
@@ -554,14 +557,14 @@ main() {
             testStaticFieldCopying(OverReactSrc.abstractProps(backwardsCompatible: false, body: fieldDeclarationsWithMetaField.join('\n')));
             expect(implGenerator!.outputContentsBuffer.toString(), isNot(contains(uselessMetaField)));
             // clear the warning coming from declaration parsing about having static meta
-            verify(logger.warning(startsWith('Static class member `meta`')));
+            verify(() => logger.warning(startsWith('Static class member `meta`')));
           });
 
           test(', except for static `meta` method', () {
             testStaticFieldCopying(OverReactSrc.abstractProps(backwardsCompatible: false, body: fieldDeclarationsWithMetaMethod.join('\n')));
             expect(implGenerator!.outputContentsBuffer.toString(), isNot(contains(uselessMetaMethod)));
             // clear the warning coming from declaration parsing about having static meta
-            verify(logger.warning(startsWith('Static class member `meta`')));
+            verify(() => logger.warning(startsWith('Static class member `meta`')));
           });
         });
 
@@ -574,14 +577,14 @@ main() {
             testStaticFieldCopying(OverReactSrc.abstractState(backwardsCompatible: false, body: fieldDeclarationsWithMetaField.join('\n')));
             expect(implGenerator!.outputContentsBuffer.toString(), isNot(contains(uselessMetaField)));
             // clear the warning coming from declaration parsing about having static meta
-            verify(logger.warning(startsWith('Static class member `meta`')));
+            verify(() => logger.warning(startsWith('Static class member `meta`')));
           });
 
           test(', except for static `meta` method', () {
             testStaticFieldCopying(OverReactSrc.abstractState(backwardsCompatible: false, body: fieldDeclarationsWithMetaMethod.join('\n')));
             expect(implGenerator!.outputContentsBuffer.toString(), isNot(contains(uselessMetaMethod)));
             // clear the warning coming from declaration parsing about having static meta
-            verify(logger.warning(startsWith('Static class member `meta`')));
+            verify(() => logger.warning(startsWith('Static class member `meta`')));
           });
         });
 
@@ -594,14 +597,14 @@ main() {
             testStaticFieldCopying(OverReactSrc.propsMixin(backwardsCompatible: false, body: fieldDeclarationsWithMetaField.join('\n')));
             expect(implGenerator!.outputContentsBuffer.toString(), isNot(contains(uselessMetaField)));
             // clear the warning coming from declaration parsing about having static meta
-            verify(logger.warning(startsWith('Static class member `meta`')));
+            verify(() => logger.warning(startsWith('Static class member `meta`')));
           });
 
           test(', except for static `meta` method', () {
             testStaticFieldCopying(OverReactSrc.propsMixin(backwardsCompatible: false, body: fieldDeclarationsWithMetaMethod.join('\n')));
             expect(implGenerator!.outputContentsBuffer.toString(), isNot(contains(uselessMetaMethod)));
             // clear the warning coming from declaration parsing about having static meta
-            verify(logger.warning(startsWith('Static class member `meta`')));
+            verify(() => logger.warning(startsWith('Static class member `meta`')));
           });
         });
 
@@ -614,14 +617,14 @@ main() {
             testStaticFieldCopying(OverReactSrc.stateMixin(backwardsCompatible: false, body: fieldDeclarationsWithMetaField.join('\n')));
             expect(implGenerator!.outputContentsBuffer.toString(), isNot(contains(uselessMetaField)));
             // clear the warning coming from declaration parsing about having static meta
-            verify(logger.warning(startsWith('Static class member `meta`')));
+            verify(() => logger.warning(startsWith('Static class member `meta`')));
           });
 
           test(', except for static `meta` method', () {
             testStaticFieldCopying(OverReactSrc.stateMixin(backwardsCompatible: false, body: fieldDeclarationsWithMetaMethod.join('\n')));
             expect(implGenerator!.outputContentsBuffer.toString(), isNot(contains(uselessMetaMethod)));
             // clear the warning coming from declaration parsing about having static meta
-            verify(logger.warning(startsWith('Static class member `meta`')));
+            verify(() => logger.warning(startsWith('Static class member `meta`')));
           });
         });
       });
@@ -894,7 +897,7 @@ main() {
       group('a component class', () {
         test('subtypes itself', () {
           setUpAndGenerate(OverReactSrc.props(backwardsCompatible: false, componentAnnotationArg: 'subtypeOf: FooComponent').source);
-          verify(logger.severe(contains('A component cannot be a subtype of itself.')));
+          verify(() => logger.severe(contains('A component cannot be a subtype of itself.')));
         });
       });
 
@@ -910,7 +913,7 @@ main() {
               var bar;
             }
           ''');
-          verify(logger.severe(contains(expectedPropsGetterError)));
+          verify(() => logger.severe(contains(expectedPropsGetterError)));
         });
 
         group('declared with a malformed `props` getter:', () {
@@ -923,7 +926,7 @@ main() {
                 var bar;
               }
             ''');
-            verify(logger.severe(contains(expectedPropsGetterError)));
+            verify(() => logger.severe(contains(expectedPropsGetterError)));
           });
 
           test('a getter of the wrong type', () {
@@ -935,7 +938,7 @@ main() {
                 var bar;
               }
             ''');
-            verify(logger.severe(contains(expectedPropsGetterError)));
+            verify(() => logger.severe(contains(expectedPropsGetterError)));
           });
 
           test('an untyped getter', () {
@@ -947,7 +950,7 @@ main() {
                 var bar;
               }
             ''');
-            verify(logger.severe(contains(expectedPropsGetterError)));
+            verify(() => logger.severe(contains(expectedPropsGetterError)));
           });
 
           test('a concrete getter', () {
@@ -959,7 +962,7 @@ main() {
                 var bar;
               }
             ''');
-            verify(logger.severe(contains(expectedPropsGetterError)));
+            verify(() => logger.severe(contains(expectedPropsGetterError)));
           });
         });
       });
@@ -976,7 +979,7 @@ main() {
               var bar;
             }
           ''');
-          verify(logger.severe(contains(expectedStateGetterError)));
+          verify(() => logger.severe(contains(expectedStateGetterError)));
         });
 
         group('declared with a malformed `state` getter:', () {
@@ -989,7 +992,7 @@ main() {
                 var bar;
               }
             ''');
-            verify(logger.severe(contains(expectedStateGetterError)));
+            verify(() => logger.severe(contains(expectedStateGetterError)));
           });
 
           test('a getter of the wrong type', () {
@@ -1001,7 +1004,7 @@ main() {
                 var bar;
               }
             ''');
-            verify(logger.severe(contains(expectedStateGetterError)));
+            verify(() => logger.severe(contains(expectedStateGetterError)));
           });
 
           test('an untyped getter', () {
@@ -1013,7 +1016,7 @@ main() {
                 var bar;
               }
             ''');
-            verify(logger.severe(contains(expectedStateGetterError)));
+            verify(() => logger.severe(contains(expectedStateGetterError)));
           });
 
           test('a concrete getter', () {
@@ -1025,14 +1028,14 @@ main() {
                 var bar;
               }
             ''');
-            verify(logger.severe(contains(expectedStateGetterError)));
+            verify(() => logger.severe(contains(expectedStateGetterError)));
           });
         });
       });
 
       test('accessors are declared as fields with initializers', () {
         setUpAndGenerate(OverReactSrc.abstractProps(backwardsCompatible: false, body: 'var bar = null;').source);
-        verify(logger.severe(contains('Fields are stubs for generated setters/getters and should not have initializers.')));
+        verify(() => logger.severe(contains('Fields are stubs for generated setters/getters and should not have initializers.')));
       });
 
       group('accessors have', () {
@@ -1048,7 +1051,7 @@ main() {
               @requiredProp
               var bar;''';
           setUpAndGenerate(OverReactSrc.abstractProps(backwardsCompatible: false, body: body).source);
-          verify(logger.severe(contains(expectedMultiAnnotationErrorMessage)));
+          verify(() => logger.severe(contains(expectedMultiAnnotationErrorMessage)));
         });
 
         test('@Accessor(isRequired: true) @nullableRequiredProp', () {
@@ -1056,7 +1059,7 @@ main() {
               @nullableRequiredProp
               var bar;''';
           setUpAndGenerate(OverReactSrc.abstractProps(backwardsCompatible: false, body: body).source);
-          verify(logger.severe(contains(expectedMultiAnnotationErrorMessage)));
+          verify(() => logger.severe(contains(expectedMultiAnnotationErrorMessage)));
         });
 
         test('@requiredProp and @nullableRequiredProp', () {
@@ -1064,21 +1067,21 @@ main() {
               @nullableRequiredProp
               var bar;''';
           setUpAndGenerate(OverReactSrc.abstractProps(backwardsCompatible: false, body: body).source);
-          verify(logger.severe(contains(expectedMultiAnnotationErrorMessage)));
+          verify(() => logger.severe(contains(expectedMultiAnnotationErrorMessage)));
         });
 
         test('the late keyword and the @Accessor(isRequired: true)', () {
           var body = '''@Accessor(isRequired: true)
               late var bar;''';
           setUpAndGenerate(OverReactSrc.abstractProps(backwardsCompatible: false, body: body).source);
-          verify(logger.severe(contains(expectedLateAndAnnotationErrorMessage)));
+          verify(() => logger.severe(contains(expectedLateAndAnnotationErrorMessage)));
         });
 
         test('the late keyword and the requiredProp annotation', () {
           var body = '''@requiredProp
               late var bar;''';
           setUpAndGenerate(OverReactSrc.abstractProps(backwardsCompatible: false, body: body).source);
-          verify(logger.severe(contains(expectedLateAndAnnotationErrorMessage)));
+          verify(() => logger.severe(contains(expectedLateAndAnnotationErrorMessage)));
         });
 
         test('the late keyword and the nullableRequiredProp annotation', () {
@@ -1086,7 +1089,7 @@ main() {
               @nullableRequiredProp
               late var bar;''';
           setUpAndGenerate(OverReactSrc.abstractProps(backwardsCompatible: false, body: body).source);
-          verify(logger.severe(contains(expectedLateAndAnnotationErrorMessage)));
+          verify(() => logger.severe(contains(expectedLateAndAnnotationErrorMessage)));
         });
       });
     });
@@ -1103,17 +1106,19 @@ main() {
           var body = '''/// Doc comment
               var bar, baz;''';
           setUpAndGenerate(OverReactSrc.abstractProps(backwardsCompatible: false, body: body).source);
-          verify(logger.warning(contains(expectedCommaSeparatedWarning)));
+          verify(() => logger.warning(contains(expectedCommaSeparatedWarning)));
         });
 
         test('with annotations', () {
           var body = '''@Annotation()
             var bar, baz;''';
           setUpAndGenerate(OverReactSrc.abstractProps(backwardsCompatible: false, body: body).source);
-          verify(logger.warning(contains(expectedCommaSeparatedWarning)));
+          verify(() => logger.warning(contains(expectedCommaSeparatedWarning)));
         });
       });
     });
   });
 }
 
+
+class _FakeObject extends Fake implements Object {}

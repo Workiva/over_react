@@ -8,7 +8,7 @@ import 'dart:async' as _i4;
 import 'package:logging/src/level.dart' as _i2;
 import 'package:logging/src/log_record.dart' as _i5;
 import 'package:logging/src/logger.dart' as _i3;
-import 'package:mockito/mockito.dart' as _i1;
+import 'package:mocktail/mocktail.dart' as _i1;
 
 import 'mockito.dart' as _i6;
 

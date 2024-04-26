@@ -42,7 +42,7 @@ Future<String> generateOverReactPart({
 
   String loggerOutputString() => '\nLogger output:\n${recordedLogs.join('\n')}';
 
-  if (throwOnSevereLogs && recordedLogs.any((l) => l.level == Level.SEVERE)) {
+  if (throwOnSevereLogs && recordedLogs.any()((l) => l.level == Level.SEVERE)) {
     throw Exception('Build contained severe error logs, and throwOnSevereErrors is true.${loggerOutputString()}');
   }
 

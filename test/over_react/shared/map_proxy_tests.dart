@@ -15,7 +15,7 @@
 @TestOn('browser')
 library over_react_tests.shared.map_proxy_tests;
 
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
 import '../../mockito.mocks.dart';
@@ -37,142 +37,142 @@ void mapProxyTests(Map Function(Map proxiedMap) mapProxyFactory) {
 
     test('map', () {
       callback(key, value) => MapEntry('key', 'value');
-      when(backingMap.map(any)).thenReturn(<String, String>{});
+      when(() => backingMap.map(any())).thenReturn(<String, String>{});
 
       proxy.map(callback);
-      verify(backingMap.map(callback));
+      verify(() => backingMap.map(callback));
     });
 
     test('entries', () {
       var entries = <MapEntry>[];
-      when(backingMap.entries).thenReturn(entries);
+      when(() => backingMap.entries).thenReturn(entries);
       expect(proxy.entries, entries);
-      verify(proxy.entries);
+      verify(() => proxy.entries);
     });
 
     test('addEntries', () {
       var entry = MapEntry('key', 'value');
       proxy.addEntries([entry]);
-      verify(proxy.addEntries([entry]));
+      verify(() => proxy.addEntries([entry]));
     });
 
     test('removeWhere', () {
       callback(key, value) => false;
       proxy.removeWhere(callback);
-      verify(backingMap.removeWhere(callback));
+      verify(() => backingMap.removeWhere(callback));
     });
 
     test('update', () {
       updater(value) {}
       proxy.update('key', updater);
-      verify(backingMap.update('key', updater));
+      verify(() => backingMap.update('key', updater));
     });
 
     test('updateAll', () {
       updater(key, value) {}
       proxy.updateAll(updater);
-      verify(backingMap.updateAll(updater));
+      verify(() => backingMap.updateAll(updater));
     });
 
     test('cast', () {
       var castMap = {};
-      when(backingMap.cast()).thenReturn(castMap);
+      when(() => backingMap.cast()).thenReturn(castMap);
       expect(proxy.cast(), castMap);
-      verify(backingMap.cast());
+      verify(() => backingMap.cast());
     });
 
     test('operator[]', () {
-      when(backingMap[any]).thenReturn('value');
+      when(() => backingMap[any()]).thenReturn('value');
 
       expect(proxy['key'], 'value');
-      verify(backingMap['key']);
+      verify(() => backingMap['key']);
     });
 
     test('operator[]=', () {
-      when(backingMap['key'] = 'key').thenReturn('value');
+      when(() => backingMap['key'] = 'key').thenReturn('value');
 
       expect(proxy['key'] = 'value', 'value');
-      verify(backingMap['key'] = 'value');
+      verify(() => backingMap['key'] = 'value');
     });
 
     test('addAll', () {
       var testMap = {};
 
       proxy.addAll(testMap);
-      verify(backingMap.addAll(argThat(same(testMap))));
+      verify(() => backingMap.addAll(any(that: same(testMap))));
     });
 
     test('clear', () {
       proxy.clear();
-      verify(backingMap.clear());
+      verify(() => backingMap.clear());
     });
 
     test('putIfAbsent', () {
       ifAbsent() => 'absent';
 
       expect(proxy.putIfAbsent('key', ifAbsent), isNull);
-      verify(backingMap.putIfAbsent('key', ifAbsent));
+      verify(() => backingMap.putIfAbsent('key', ifAbsent));
     });
 
     test('containsKey', () {
-      when(backingMap.containsKey(any)).thenReturn(true);
+      when(() => backingMap.containsKey(any())).thenReturn(true);
 
       expect(proxy.containsKey('key'), isTrue);
-      verify(backingMap.containsKey('key'));
+      verify(() => backingMap.containsKey('key'));
     });
 
     test('containsValue', () {
-      when(backingMap.containsValue(any)).thenReturn(true);
+      when(() => backingMap.containsValue(any())).thenReturn(true);
 
       expect(proxy.containsValue('value'), isTrue);
-      verify(backingMap.containsValue('value'));
+      verify(() => backingMap.containsValue('value'));
     });
 
     test('forEach', () {
       callback(key, value) {}
 
       proxy.forEach(callback);
-      verify(backingMap.forEach(callback));
+      verify(() => backingMap.forEach(callback));
     });
 
     test('isEmpty', () {
-      when(backingMap.isEmpty).thenReturn(true);
+      when(() => backingMap.isEmpty).thenReturn(true);
 
       expect(proxy.isEmpty, isTrue);
-      verify(backingMap.isEmpty);
+      verify(() => backingMap.isEmpty);
     });
 
     test('isNotEmpty', () {
-      when(backingMap.isNotEmpty).thenReturn(true);
+      when(() => backingMap.isNotEmpty).thenReturn(true);
 
       expect(proxy.isNotEmpty, isTrue);
-      verify(backingMap.isNotEmpty);
+      verify(() => backingMap.isNotEmpty);
     });
 
     test('length', () {
-      when(backingMap.length).thenReturn(1);
+      when(() => backingMap.length).thenReturn(1);
 
       expect(proxy.length, 1);
-      verify(backingMap.length);
+      verify(() => backingMap.length);
     });
 
     test('keys', () {
-      when(backingMap.keys).thenReturn(['key']);
+      when(() => backingMap.keys).thenReturn(['key']);
 
       expect(proxy.keys, equals(['key']));
-      verify(backingMap.keys);
+      verify(() => backingMap.keys);
     });
 
     test('remove', () {
       expect(proxy.remove('key'), isNull);
-      verify(backingMap.remove('key'));
+      verify(() => backingMap.remove('key'));
     });
 
     test('values', () {
-      when(backingMap.values).thenReturn(['value']);
+      when(() => backingMap.values).thenReturn(['value']);
 
       expect(proxy.values, equals(['value']));
-      verify(backingMap.values);
+      verify(() => backingMap.values);
     });
   });
 }

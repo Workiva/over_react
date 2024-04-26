@@ -371,7 +371,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
             });
 
             test('the correct callbacks are called with the correct arguments', () {
-              expect(calls!.any((call) => call.keys.single == 'onComponentIsUnrecoverable'), isTrue,
+              expect(calls!.any()((call) => call.keys.single == 'onComponentIsUnrecoverable'), isTrue,
                   reason: 'onComponentIsUnrecoverable should have been called');
 
               _setCallbackVarValues();
@@ -407,9 +407,9 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
             });
 
             test('the correct callbacks are called with the correct arguments', () {
-              expect(calls!.any((call) => call.keys.single == 'onComponentDidCatch'), isTrue,
+              expect(calls!.any()((call) => call.keys.single == 'onComponentDidCatch'), isTrue,
                   reason: 'onComponentDidCatch should have been called');
-              expect(calls!.any((call) => call.keys.single == 'onComponentIsUnrecoverable'), isFalse,
+              expect(calls!.any()((call) => call.keys.single == 'onComponentIsUnrecoverable'), isFalse,
                   reason: 'onComponentIsUnrecoverable should not have been called');
 
               _setCallbackVarValues();
@@ -451,7 +451,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
             });
 
             test('the correct callbacks are called with the correct arguments', () {
-              expect(calls!.any((call) => call.keys.single == 'onComponentIsUnrecoverable'), isTrue,
+              expect(calls!.any()((call) => call.keys.single == 'onComponentIsUnrecoverable'), isTrue,
                   reason: 'onComponentIsUnrecoverable should have been called');
 
               expect(errorSentToComponentDidCatchCallback, isA<FlawedComponentException>());
@@ -485,7 +485,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
               });
 
               test('the correct callbacks are called with the correct arguments', () {
-                expect(calls!.any((call) => call.keys.single == 'onComponentDidCatch'), isTrue,
+                expect(calls!.any()((call) => call.keys.single == 'onComponentDidCatch'), isTrue,
                     reason: 'onComponentDidCatch should have been called');
                 expect(calls!.where((call) => call.keys.single == 'onComponentDidCatch')
                     .first['onComponentDidCatch']![0],
@@ -495,7 +495,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
                     isA<ReactErrorInfo>(),
                     reason: 'error info should have been passed to onComponentDidCatch as a string');
 
-                expect(calls!.any((call) => call.keys.single == 'onComponentIsUnrecoverable'), isTrue,
+                expect(calls!.any()((call) => call.keys.single == 'onComponentIsUnrecoverable'), isTrue,
                     reason: 'onComponentIsUnrecoverable should have been called');
                 expect(calls!.where((call) => call.keys.single == 'onComponentIsUnrecoverable')
                     .first['onComponentIsUnrecoverable']![0],
@@ -525,7 +525,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
               });
 
               test('the correct callbacks are called with the correct arguments', () {
-                expect(calls!.any((call) => call.keys.single == 'onComponentDidCatch'), isTrue,
+                expect(calls!.any()((call) => call.keys.single == 'onComponentDidCatch'), isTrue,
                     reason: 'onComponentDidCatch should have been called');
                 expect(calls!.where((call) => call.keys.single == 'onComponentDidCatch')
                     .first['onComponentDidCatch']![0],
@@ -535,7 +535,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
                     isA<ReactErrorInfo>(),
                     reason: 'error info should have been passed to onComponentDidCatch as a string');
 
-                expect(calls!.any((call) => call.keys.single == 'onComponentIsUnrecoverable'), isTrue,
+                expect(calls!.any()((call) => call.keys.single == 'onComponentIsUnrecoverable'), isTrue,
                     reason: 'onComponentIsUnrecoverable should have been called');
                 expect(calls!.where((call) => call.keys.single == 'onComponentIsUnrecoverable')
                     .first['onComponentIsUnrecoverable']![0],
@@ -574,7 +574,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
           });
 
           test('the correct callbacks are called with the correct arguments', () {
-            expect(calls!.any((call) => call.keys.single == 'onComponentIsUnrecoverable'), isFalse,
+            expect(calls!.any()((call) => call.keys.single == 'onComponentIsUnrecoverable'), isFalse,
                 reason: 'onComponentIsUnrecoverable should not have been called');
 
             expect(errorSentToComponentDidCatchCallback, isA<FlawedComponentException>());
@@ -599,7 +599,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
             });
 
             test('the correct callbacks are called with the correct arguments', () {
-              expect(calls!.any((call) => call.keys.single == 'onComponentIsUnrecoverable'), isTrue,
+              expect(calls!.any()((call) => call.keys.single == 'onComponentIsUnrecoverable'), isTrue,
                   reason: 'onComponentIsUnrecoverable should have been called');
 
               expect(errorSentToComponentDidCatchCallback, isA<FlawedComponentException>());
@@ -644,7 +644,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
           });
 
           test('the correct callbacks are called with the correct arguments', () {
-            expect(calls!.any((call) => call.keys.single == 'onComponentIsUnrecoverable'), isTrue,
+            expect(calls!.any()((call) => call.keys.single == 'onComponentIsUnrecoverable'), isTrue,
                 reason: 'onComponentIsUnrecoverable should have been called');
 
             expect(errorSentToComponentDidCatchCallback, isA<FlawedComponentException>());
@@ -684,7 +684,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
           });
 
           test('the correct callbacks are called with the correct arguments', () {
-            expect(calls!.any((call) => call.keys.single == 'onComponentIsUnrecoverable'), isFalse,
+            expect(calls!.any()((call) => call.keys.single == 'onComponentIsUnrecoverable'), isFalse,
                 reason: 'onComponentIsUnrecoverable should not have been called');
 
             expect(errorSentToComponentDidCatchCallback, isA<FlawedComponentException>());
@@ -709,7 +709,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
             });
 
             test('the correct callbacks are called with the correct arguments', () {
-              expect(calls!.any((call) => call.keys.single == 'onComponentIsUnrecoverable'), isTrue,
+              expect(calls!.any()((call) => call.keys.single == 'onComponentIsUnrecoverable'), isTrue,
                   reason: 'onComponentIsUnrecoverable should have been called');
 
               expect(errorSentToComponentDidCatchCallback, isA<FlawedComponentException>());
@@ -754,7 +754,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
           });
 
           test('the correct callbacks are called with the correct arguments', () {
-            expect(calls!.any((call) => call.keys.single == 'onComponentIsUnrecoverable'), isFalse,
+            expect(calls!.any()((call) => call.keys.single == 'onComponentIsUnrecoverable'), isFalse,
                 reason: 'onComponentIsUnrecoverable should not have been called');
 
             expect(errorSentToComponentDidCatchCallback, isA<FlawedComponentException2>());
@@ -789,7 +789,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
           });
 
           test('the correct callbacks are called with the correct arguments', () {
-            expect(calls!.any((call) => call.keys.single == 'onComponentIsUnrecoverable'), isFalse,
+            expect(calls!.any()((call) => call.keys.single == 'onComponentIsUnrecoverable'), isFalse,
                 reason: 'onComponentIsUnrecoverable should not have been called');
 
             expect(errorSentToComponentDidCatchCallback, isA<FlawedComponentException2>());
@@ -830,7 +830,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
           });
 
           test('the correct callbacks are called with the correct arguments', () {
-            expect(calls!.any((call) => call.keys.single == 'onComponentIsUnrecoverable'), isFalse,
+            expect(calls!.any()((call) => call.keys.single == 'onComponentIsUnrecoverable'), isFalse,
                 reason: 'onComponentIsUnrecoverable should not have been called');
 
             expect(errorSentToComponentDidCatchCallback, isA<FlawedComponentException>());
@@ -865,7 +865,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
           });
 
           test('the correct callbacks are called with the correct arguments', () {
-            expect(calls!.any((call) => call.keys.single == 'onComponentIsUnrecoverable'), isFalse,
+            expect(calls!.any()((call) => call.keys.single == 'onComponentIsUnrecoverable'), isFalse,
                 reason: 'onComponentIsUnrecoverable should not have been called');
 
             expect(errorSentToComponentDidCatchCallback, isA<FlawedComponentException>());
@@ -902,7 +902,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
           });
 
           test('the correct callbacks are called with the correct arguments', () {
-            expect(calls!.any((call) => call.keys.single == 'onComponentIsUnrecoverable'), isFalse,
+            expect(calls!.any()((call) => call.keys.single == 'onComponentIsUnrecoverable'), isFalse,
                 reason: 'onComponentIsUnrecoverable should not have been called');
 
             expect(errorSentToComponentDidCatchCallback, isA<FlawedComponentException2>());
@@ -937,7 +937,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
           });
 
           test('the correct callbacks are called with the correct arguments', () {
-            expect(calls!.any((call) => call.keys.single == 'onComponentIsUnrecoverable'), isFalse,
+            expect(calls!.any()((call) => call.keys.single == 'onComponentIsUnrecoverable'), isFalse,
                 reason: 'onComponentIsUnrecoverable should not have been called');
 
             expect(errorSentToComponentDidCatchCallback, isA<FlawedComponentException2>());
