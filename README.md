@@ -190,16 +190,15 @@ fixme organize intro vs more detailed sections?
 > - Running tests with asserts enabled (e.g., using DDC) to help catch missing required props
 
 > [!WARNING]
-> Just like any `late` variable, accessing required props when they're not guaranteed to be present can lead to errors and bad behavior.
+> Just like any `late` variable, reading required props when they're not guaranteed to be present can lead to errors and bad behavior.
 > 
 > Required props are only validated to be present on props a component was rendered with, and not on other props objects.
 > 
-> To safely read required props, see more info here. We also recommend enabling the [analyzer plugin][analyzer-plugin] during development, if possible, which lints for unsafe prop accesses.
+> To safely read required props, see more info [here](#unsafe-required-prop-reads). We also recommend enabling the [analyzer plugin][analyzer-plugin] during development, if possible, which lints for unsafe prop accesses.
 
 Starting in over_react 5.0.0, you can declare non-nullable required props, using the `late` keyword. 
 
 Throughout the documentation, we refer to these as "late required props" or just "required props".
-
 
 As an example, take the following TypeScript code that declares a required `user` prop and an optional `isSelected` prop.
 
@@ -223,8 +222,9 @@ The `user` prop is non-nullable (typed as `User` and not `User?`), and OverReact
 
 The `isSelected` prop is nullable, and is considered optional because it doesn't have `late`.
 
-Similar to other [late variables](https://dart.dev/language/variables#late-variables) in Dart, `late` required props must be assigned before they're accessed, or they'll throw. fixme wording But unlike normal late variables, OverReact also validates that all required props are set before rendering a component, similar to how all ['required' parameters](https://dart.dev/language/functions#named-parameters)  must be provided when calling a function. More on that in [Required prop validation](#required-prop-validation).
+Similar to other [late variables](https://dart.dev/language/variables#late-variables) in Dart, `late` required props must be assigned before they're accessed, or they'll throw. To help guard against these issues, OverReact validates that all required props are set before rendering a component, similar to how all ['required' parameters](https://dart.dev/language/functions#named-parameters)  must be provided when calling a function. More on that in [Required prop validation](#required-prop-validation).
 
+FIXME mention unsafe required prop reads, tie into warnings.
 
 #### Required prop syntax - quick reference
 
@@ -391,12 +391,57 @@ UiFactory<FooProps> Foo = uiFunction((props) {
 }, _$FooConfig);
 ```
 
+## Unsafe required prop reads
 
-## Unsafe required prop usages
+> [!IMPORTANT] We recommend enabling the OverReact [analyzer plugin][analyzer-plugin] during development, if possible, which provides a lint to prevent unsafe prop reads.
 
+Just like any `late` variable, accessing required props when they're not guaranteed to be set can lead to errors and bad behavior.
 
+Required props are only validated to be present on props a component was rendered with (as discussed in the previous section), and not on other props objects.
 
-FIXME add docs
+For example, given props:
+```dart
+mixin FooProps {
+  late int requiredProp;
+}
+
+example() {
+  final props = Foo(); // Create an empty props object.
+   
+  // Throws because the map is empty, and the value `null`
+  // is not an `int`.
+  props.requiredProp;
+}
+```
+
+Instead, use utility methods `getRequiredProp`, `getRequiredPropOrNull`, or `containsProp` checks to safely access the prop.
+
+```dart
+mixin BarProps {
+  late String requiredProp1;
+  late String requiredProp2;
+  late String requiredProp3;
+}
+
+renderBar([Map? _additionalBarProps]) {
+  final barProps = Bar({...?_additionalBarProps});
+  
+  // Safe access via `.getRequiredProp`
+  final requiredProp1 = barProps.getRequiredProp((p) => p.requiredProp1),
+      orElse: () => 'custom default');
+      
+  // Safe access via `.getRequiredPropOrNull`
+  final requiredProp2Uppercase = barProps
+      .getRequiredPropOrNull((p) => requiredProp2)
+      ?.toUpperCase();
+    
+  // Safe access via if-check with `.containsProp`
+  final otherPropsToAdd = Bar();
+  if (barProps.containsProp((p) => p.requiredProp3)) {
+    otherPropsToAdd.aria.label = barProps.requiredProp3;
+  }
+}
+```
 
 &nbsp;
 
