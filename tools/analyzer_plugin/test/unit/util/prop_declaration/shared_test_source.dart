@@ -67,6 +67,52 @@ class V2Component extends UiComponent2<V2Props> {
   render() {}
 }
 
+// ignore: undefined_class, mixin_of_non_class
+abstract class V2AbstractProps extends _$V2AbstractProps with _$V2AbstractPropsAccessorsMixin {
+  // ignore: undefined_identifier, const_initialized_with_non_constant_value, invalid_assignment
+  static const PropsMeta meta = _$metaForV2AbstractProps;
+}
+
+@AbstractProps()
+// ignore: mixin_of_non_class,undefined_class
+abstract class _$V2AbstractProps extends UiProps {
+  late String v2_lateRequiredProp;
+  String? v2_optionalProp;
+  @requiredProp
+  String? v2_annotationRequiredProp;
+
+  //
+  // Non-props: edge-cases
+  //
+  @Accessor(doNotGenerate: true)
+  String? v2_doNotGenerate;
+
+  //
+  // Non-props: instance members
+  //
+  String get v2_getter => '';
+  // ignore: avoid_setters_without_getters
+  set v2_setter(_) => '';
+  String get v2_getterAndSetter => '';
+  set v2_getterAndSetter(String _) {}
+
+  //
+  // Non-props: static members
+  //
+  static String v2_static_field = '';
+  static String get v2_static_getter => '';
+  // ignore: avoid_setters_without_getters
+  static set v2_static_setter(_) => '';
+  static String get v2_static_getterAndSetter => '';
+  static set v2_static_getterAndSetter(String _) {}
+}
+
+@AbstractComponent()
+abstract class V2AbstractComponent<TProps extends V2AbstractProps> extends UiComponent2<TProps> {
+  @override
+  render() {}
+}
+
 @Factory()
 UiFactory<V3Props> V3 = castUiFactory(_$V3);
 

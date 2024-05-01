@@ -56,6 +56,15 @@ void main() {
             ]);
           });
 
+          test('concrete props class', () {
+            final propsElement = getInterfaceElement(result, 'V2AbstractProps');
+            verifyAllProps(getAllProps(propsElement), expectedNames: [
+              'v2_lateRequiredProp',
+              'v2_optionalProp',
+              'v2_annotationRequiredProp',
+            ]);
+          });
+
           test('props mixin', () {
             final propsElement = getInterfaceElement(result, 'V2PropsMixin');
             verifyAllProps(getAllProps(propsElement), expectedNames: [
