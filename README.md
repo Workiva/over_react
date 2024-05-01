@@ -424,9 +424,9 @@ It can also be invoked as a function, serving [as a builder](#uiprops-as-a-build
 ```dart
 mixin FooProps on UiProps {
   // ... the props for your component go here
-  String bar;
-  bool baz;
-  List<int> bizzles;
+  String? bar;
+  bool? baz;
+  List<int>? bizzles;
 }
 ```
 * * **Note:** The [builder] generates a class with getters and setters overriding the fields you declare in your mixin, but you don't need to worry about that generated class. To use props from another mixin, simply mix it in! See [_"With other mixins"_](#with-other-mixins) below for more information.
@@ -441,9 +441,9 @@ __To compose props mixin classes__, create a class alias that uses `UiProps` as 
 UiFactory<FooProps> Foo = castUiFactory(_$Foo); // ignore: undefined_identifier
 
 mixin FooPropsMixin on UiProps {
-  String bar;
-  bool baz;
-  List<int> bizzles;
+  String? bar;
+  bool? baz;
+  List<int>? bizzles;
 }
 
 class FooProps = UiProps with FooPropsMixin, BarPropsMixin;
@@ -462,11 +462,13 @@ The use-case for composing multiple props mixins into a single component props c
 
 #### UiProps as a Map
 
+FIXME add note about unsafe required prop accesses
+
 ```dart
 UiFactory<FooProps> Foo = castUiFactory(_$Foo); // ignore: undefined_identifier
 
 mixin FooProps on UiProps {
-  String color;
+  String? color;
 }
 
 class FooComponent extends UiComponent2<FooProps> {
@@ -501,7 +503,7 @@ void baz() {
 UiFactory<FooProps> Foo = castUiFactory(_$Foo); // ignore: undefined_identifier
 
 mixin FooProps on UiProps {
-  String color;
+  String? color;
 }
 
 class FooComponent extends UiComponent2<FooProps> {
@@ -580,12 +582,12 @@ They are instances of `UiProps` and `UiState`, __which means you don’t need St
 UiFactory<FooProps> Foo = castUiFactory(_$Foo); // ignore: undefined_identifier
 
 mixin FooProps on UiProps {
-  String color;
-  Function() onDidActivate;
-  Function() onDidDeactivate;
+  late String color;
+  Function()? onDidActivate;
+  Function()? onDidDeactivate;
 }
 mixin FooState on UiState {
-  bool isActive;
+  late bool isActive;
 }
 
 class FooComponent extends UiStatefulComponent2<FooProps, FooState> {
@@ -969,8 +971,8 @@ that you get for free from OverReact, you're ready to start building your own cu
 
     mixin FooProps on UiProps {
       // Props go here, declared as fields:
-      bool isDisabled;
-      Iterable<String> items;
+      late bool isDisabled;
+      late Iterable<String> items;
     }
 
     class FooComponent extends UiComponent2<FooProps> {
@@ -999,13 +1001,13 @@ that you get for free from OverReact, you're ready to start building your own cu
 
     mixin BarProps on UiProps {
       // Props go here, declared as fields:
-      bool isDisabled;
-      Iterable<String> items;
+      late bool isDisabled;
+      late Iterable<String> items;
     }
 
     mixin BarState on UiState {
       // State goes here, declared as fields:
-      bool isShown;
+      late bool isShown;
     }
 
     class BarComponent extends UiStatefulComponent2<BarProps, BarState> {
@@ -1055,8 +1057,8 @@ that you get for free from OverReact, you're ready to start building your own cu
 
   mixin FooProps on UiProps {
     // Props go here, declared as fields:
-    bool isDisabled;
-    Iterable<String> items;
+    bool? isDisabled;
+    Iterable<String>? items;
   }
   ```
 
