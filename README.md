@@ -175,9 +175,9 @@ via our [builder].
 
 1. [UiFactory](#uifactory)
 2. [UiProps](#uiprops)
-3. component, either a 
-   4. function component [uiFunction](#uifunction)
-   5. class component [UiComponent2](#uicomponent2) (and optionally a [UiState](#uistate))  
+3. component, either a:
+    1. function component [uiFunction](#uifunction)
+    2. class component [UiComponent2](#uicomponent2) (and optionally a [UiState](#uistate))  
 
 
 ## Required props
@@ -228,14 +228,14 @@ Similar to other [late variables](https://dart.dev/language/variables#late-varia
 
 #### Required prop syntax - quick reference
 
-| Requiredness | Nullability      | OverReact           | Typescript                             | 
-|--------------|------------------|---------------------|----------------------------------------|
-| Required     | Non-nullable     | `late String foo;`  | <code>foo: string;</code>              |
-| Required     | Nullable         | `late String? foo;` | <code>foo: string &#124; null;</code>  |
-| Optional     | Non-nullable[^1] | _Not supported_     | <code>foo?: string;</code>             |
-| Optional     | Nullable         | `String? foo;`      | <code>foo?: string &#124; null;</code> |
+| Requiredness | Nullability              | OverReact           | Typescript                             | 
+|--------------|--------------------------|---------------------|----------------------------------------|
+| Required     | Non-nullable             | `late String foo;`  | <code>foo: string;</code>              |
+| Required     | Nullable                 | `late String? foo;` | <code>foo: string &#124; null;</code>  |
+| Optional     | Non-nullable<sup>1</sup> | _Not supported_     | <code>foo?: string;</code>             |
+| Optional     | Nullable                 | `String? foo;`      | <code>foo?: string &#124; null;</code> |
 
-[^1]: While you can't explicitly set a nullable value, `props.foo` is still `undefined` (`null` in Dart) if not specified
+_1. While you can't explicitly set a nullable value, `props.foo` is still `undefined` (`null` in Dart) if not specified_
 
 ## Required prop validation
 
@@ -297,13 +297,13 @@ This mechanism does not apply to function components, which use a different prop
 
 OverReact supports providing defaults for optional props in the following cases:
 
-| Nullability  | Class Component |  Function component  | 
-|--------------|-----------------|----------------------|
-| Non-nullable | Yes [^1]        |  No                  | 
-| Nullable     | Yes             |  Yes [^2]            |
+| Nullability  | Class Component | Function component | 
+|--------------|-----------------|--------------------|
+| Non-nullable | Yes<sup>1</sup> | No                 | 
+| Nullable     | Yes             | Yes<sup>2</sup>    |
 
-[^1] Props are declared the same way required props are
-[^2] Easiest when `null` is treated the same as the default
+1. _Props are declared the same way required props are_
+2. _Easiest when `null` is treated the same as the default_
 
 #### Defaulting non-nullable props: class components
 
