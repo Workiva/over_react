@@ -175,8 +175,228 @@ via our [builder].
 
 1. [UiFactory](#uifactory)
 2. [UiProps](#uiprops)
-3. _[UiState](#uistate) (optional)_
-4. [UiComponent2](#uicomponent2)
+3. component, either a 
+   4. function component [uiFunction](#uifunction)
+   5. class component [UiComponent2](#uicomponent2) (and optionally a [UiState](#uistate))  
+
+
+## Required props
+
+fixme organize intro vs more detailed sections?
+
+> [!WARNING]
+> When rendering components with required props, make sure you're getting [required prop validation](#required-prop-validation), by either:
+> - Enabling the [analyzer plugin][analyzer-plugin] during development, if possible
+> - Running tests with asserts enabled (e.g., using DDC) to help catch missing required props
+
+> [!WARNING]
+> Just like any `late` variable, accessing required props when they're not guaranteed to be present can lead to errors and bad behavior.
+> 
+> Required props are only validated to be present on props a component was rendered with, and not on other props objects.
+> 
+> To safely read required props, see more info here. We also recommend enabling the [analyzer plugin][analyzer-plugin] during development, if possible, which lints for unsafe prop accesses.
+
+Starting in over_react 5.0.0, you can declare non-nullable required props, using the `late` keyword. 
+
+Throughout the documentation, we refer to these as "late required props" or just "required props".
+
+
+As an example, take the following TypeScript code that declares a required `user` prop and an optional `isSelected` prop.
+
+```ts
+interface UserChipProps {
+  user: User;
+  isSelected?: boolean;
+}
+```
+
+In OverReact, we'd declare those props like so:
+
+```dart
+mixin UserChipProps on UiProps {
+  late User user;
+  bool? isSelected;
+}
+```
+
+The `user` prop is non-nullable (typed as `User` and not `User?`), and OverReact interprets the `late` keyword as "required".
+
+The `isSelected` prop is nullable, and is considered optional because it doesn't have `late`.
+
+Similar to other [late variables](https://dart.dev/language/variables#late-variables) in Dart, `late` required props must be assigned before they're accessed, or they'll throw. fixme wording But unlike normal late variables, OverReact also validates that all required props are set before rendering a component, similar to how all ['required' parameters](https://dart.dev/language/functions#named-parameters)  must be provided when calling a function. More on that in [Required prop validation](#required-prop-validation).
+
+
+#### Required prop syntax - quick reference
+
+| Requiredness | Nullability      | OverReact           | Typescript                             | 
+|--------------|------------------|---------------------|----------------------------------------|
+| Required     | Non-nullable     | `late String foo;`  | <code>foo: string;</code>              |
+| Required     | Nullable         | `late String? foo;` | <code>foo: string &#124; null;</code>  |
+| Optional     | Non-nullable[^1] | _Not supported_     | <code>foo?: string;</code>             |
+| Optional     | Nullable         | `String? foo;`      | <code>foo?: string &#124; null;</code> |
+
+[^1]: While you can't explicitly set a nullable value, `props.foo` is still `undefined` (`null` in Dart) if not specified
+
+## Required prop validation
+
+To avoid null errors, required props must always be specified when rendering a component.
+
+over_react provides two mechanisms to help enforce that:
+1. Runtime checks using [assert](https://dart.dev/language/error-handling#assert)s (enabled by default in DDC, and available in dart2js with `--enable-asserts`)
+1. Static [analyzer plugin][analyzer-plugin] lints (note: the analyzer plugin is opt-in)
+
+
+Taking our example from above:
+```dart
+mixin UserChipProps on UiProps {
+  late User user;
+  bool? isSelected;
+}
+
+UiFactory<UserChip> UserChip = uiFunction((props) {
+  // ...
+}, _$UserChipConfig);
+```
+
+Whenever we render `UserChip`, we must always provide the required `user` prop.
+```dart
+(UserChip()..user = user)()
+```
+
+If we don't, we'll get a static warning from the analyzer plugin (if we have it enabled):
+```dart
+   UserChip()()
+// ^^^^^^^^^^
+// warning: Missing required late prop 'required1' from 'WithLateRequiredProps'.
+// (over_react_late_required_prop)
+```
+
+and that code will also throw a runtime error when `assert`s are enabled:
+```
+Uncaught Error: RequiredPropsError: Required prop `requiredProp` is missing.
+   at Object.throw_ [as throw]
+   at _$$UserChipProps$JsMap.new.validateRequiredProps
+```
+
+### Exception: defaulted class component props
+
+One case where consumers of a component don't need to set required props is when they're defaulted directly within a class component's `defaultProps`. 
+
+Those defaulted props are automatically opted out of required prop validation by the over_react builder and analyzer plugin.
+
+This allows consumers to declare defaulted props as non-nullable in a way that's safe and convenient, preventing the need for more invasive refactors to how defaulted props work when migrating to null safety.
+
+For more information on what this looks like, see: [Defaulting non-nullable props: class components](#defaulting-non-nullable-props-class-components)
+
+This mechanism does not apply to function components, which use a different prop defaulting mechanism in over_react. See [Prop defaulting](#prop-defaulting) for more info.
+
+### Opting out of validation
+
+
+## Prop defaulting
+
+OverReact supports providing defaults for optional props in the following cases:
+
+| Nullability  | Class Component |  Function component  | 
+|--------------|-----------------|----------------------|
+| Non-nullable | Yes [^1]        |  No                  | 
+| Nullable     | Yes             |  Yes [^2]            |
+
+[^1] Props are declared the same way required props are
+[^2] Easiest when `null` is treated the same as the default
+
+#### Defaulting non-nullable props: class components
+
+In class components, any props defaulted directly in `defaultProps` are automatically opted out of required prop validation by the over_react builder and analyzer plugin.
+
+For example, in the following component, even though `defaultedProp` is declared as `late` and non-nullable, it is not considered required because it has a default.
+```dart
+UiFactory<FooProps> Foo = castUiFactory(_$Foo);
+
+mixin FooProps on UiProps {
+  late bool defaultedProp;
+  late String requiredProp;
+}
+
+class FooComponent extends UiComponent2<FooProps> {
+  get defaultProps => (newProps()..defaultedProp = true);
+
+  render() {}
+}
+
+example() => Fragment()(
+  // Has static and runtime errors about missing `requiredProp`
+  Foo()(), 
+  // Has no errors.
+  (Foo()..requiredProp = true)(),
+);
+```
+
+### Defaulting nullable props using `??`
+
+In over_react function components, prop defaulting for nullable props is typically implemented using null-aware `??` operators. As a result, unspecified props and explicit `null` values are treated the same.
+
+For example,
+```dart
+mixin FooProps on UiProps {
+  String? optional;
+}
+
+UiFactory<FooProps> Foo = uiFunction((props) {
+  final optional = props.optional ?? 'default';
+  return 'optional: $optional';
+}, _$FooConfig);
+
+example() => Fragment()(
+  Foo()(),                     // Renders `optional: default`
+  (Foo()..optional = null)(),  // Renders `optional: default`
+  (Foo()..optional = 'bar')(), // Renders `optional: bar`
+);
+```
+
+If you want specific behavior for explicit null, you can use the `containsProp` utility to detect that case:
+```dart
+mixin FooProps on UiProps {
+  String? optional;
+}
+
+UiFactory<FooProps> Foo = uiFunction((props) {
+  final optional = props.containsProp((p) => p.optional) 
+          ? props.optional 
+          : 'default';
+  
+  return 'optional: $optional';
+}, _$FooConfig);
+
+example() => Fragment()(
+  Foo()(),                     // Renders `optional: default`
+  (Foo()..optional = null)(),  // Renders `optional: null`
+  (Foo()..optional = 'bar')(), // Renders `optional: bar`
+);
+```
+
+
+For example,
+```dart
+mixin FooProps {
+  late String requiredNonNullable;
+  late String? requiredNullable;
+  String? optional;
+}
+
+UiFactory<FooProps> Foo = uiFunction((props) {
+  final requiredNonNullable = props.requiredNonNullable;
+  final requiredNullable = props.requiredNullable ?? 'default';
+  final optional = props.optional ?? 'default';
+}, _$FooConfig);
+```
+
+
+## Unsafe required prop usages
+
+
+
+FIXME add docs
 
 &nbsp;
 
@@ -1032,3 +1252,5 @@ The `over_react` library adheres to [Semantic Versioning](https://semver.org/):
 
 [new-issue]: https://github.com/Workiva/over_react/issues/new
 [gitter-chat]: https://gitter.im/over_react/Lobby
+
+[analyzer-plugin]: tools/analyzer_plugin/
