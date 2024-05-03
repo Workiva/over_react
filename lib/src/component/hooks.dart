@@ -324,10 +324,9 @@ T useContext<T>(Context<T> context) => react_hooks.useContext(context.reactDartC
 ///
 /// Learn more: <https://reactjs.org/docs/hooks-reference.html#useref>.
 Ref<T?> useRef<T>([
-  // TODO(FED-2136) uncomment this deprecation
-  // @Deprecated('Use `useRefInit` instead to create refs with initial values.'
-  //     ' Since the argument to useRefInit is required, it can be used to create a Ref that holds a non-nullable type,'
-  //     ' whereas this function can only create Refs with nullable type arguments.')
+  @Deprecated('Use `useRefInit` instead to create refs with initial values.'
+      ' Since the argument to useRefInit is required, it can be used to create a Ref that holds a non-nullable type,'
+      ' whereas this function can only create Refs with nullable type arguments.')
   T? initialValue,
 ]) =>
     // ignore: deprecated_member_use
