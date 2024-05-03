@@ -290,8 +290,143 @@ For more information on what this looks like, see: [Defaulting non-nullable prop
 
 This mechanism does not apply to function components, which use a different prop defaulting mechanism in over_react. See [Prop defaulting](#prop-defaulting) for more info.
 
-### Opting out of validation
+### Disabling required prop validation for certain props
 
+Sometimes, you want to declare a prop as non-nullable and required, but not enforce that consumers explicitly set it.
+
+There are two ways to opt out of prop validation for certain props, targeted toward to main use-cases:
+- [wrapper components](#disabling-validation-use-case-wrapper-components)
+- [cloned props](#disabling-validation-use-case-cloned-props)
+
+## Disabling validation use-case: wrapper components
+
+Sometimes, a component wraps another component and mixes in its props, but sets some or all of the required props internally.
+
+For example:
+
+```dart
+mixin FooProps on UiProps {
+  late String requiredPropAlwaysSetInWrapper;
+  late String requiredPropNotSetInWrapper;
+}
+
+UiFactory<FooProps> Foo = uiFunction((props) {
+  // ...
+}, _$FooConfig);
+
+mixin WrapperPropsMixin on FooProps {}
+class WrapperProps = UiProps with FooProps, WrapperPropsMixin;
+
+UiFactory<WrapperProps> Wrapper = uiForwardRef((props, ref) {
+  return (Foo()
+    ..requiredPropAlwaysSetInWrapper = 'foo'
+    ..addProps(props.getPropsToForward(exclude: {WrapperPropsMixin}))
+    ..ref = ref
+  )();
+}, _$WrapperConfig);
+```
+
+In the above case, the `Wrapper` component renders a `Foo` component, and sets a required prop `requiredPropAlwaysSetInWrapper`.
+
+But, if we go to render `Wrapper`, the analyzer plugin and runtime validation will complain if we're missing `requiredPropAlwaysSetInWrapper`, since it's a required prop that's mixed into `WrapperProps`, even though we don't need to set it.
+
+```dart
+// Error: missing required prop `requiredPropAlwaysSetInWrapper`.
+(Wrapper()..requiredPropNotSetInWrapper = '')()
+```
+
+
+To work around this issue, we can use an annotation to indicate that certain props shouldn't be treated as required for the component associated with that specific props class.
+
+```dart
+@Props(disableRequiredPropValidation: {'requiredPropAlwaysSetInWrapper'})
+class WrapperProps = UiProps with FooProps, WrapperPropsMixin;
+```
+
+```dart
+// No more error!
+(Wrapper()..requiredPropNotSetInWrapper = '')()
+```
+
+> [!WARNING] 
+> As a result, these props are unsafe to access within that component's render.
+> 
+> See the [unsafe required prop reads](#unsafe-required-prop-reads) section for more info 
+
+
+## Disabling validation use-case: cloned props
+
+Sometimes, you want to declare a prop that's always cloned onto it by a parent component. 
+
+> [!NOTE]
+> React considers `cloneElement` an antipattern; see [their documentation](https://react.dev/reference/react/cloneElement) for alternatives.
+
+For example:
+```dart
+mixin ChildPropsMixin on UiProps {
+  late String alwaysSetByParent;
+}
+
+UiFactory<ChildPropsMixin> Child = uiFunction((props) {
+  // ...
+}, _$ChildConfig);
+
+mixin ParentProps on UiProps {} 
+
+UiFactory<ParentProps> Parent = uiFunction((props) {
+  return props.children.mapIndexed((child, index) {
+    return cloneElement(child, (Child()
+      ..key = child.key ?? index
+      ..alwaysSetByParent = 'some value'
+    ));
+  }
+}. _$ParentConfig);
+```
+
+When rendering this component as-is, we'd get missing required prop errors:
+```dart
+Parent()(
+  Child()(), // Error: missing required prop alwaysSetByParent
+  Child()(), // Error: missing required prop alwaysSetByParent
+)
+```
+
+In cases like this where it's not valid to render `Child` outside of a `Parent`, we can use an annotation to disable required prop validation for that prop: 
+
+```dart
+mixin ChildPropsMixin on UiProps {
+  @disableRequiredPropValidation
+  late String alwaysSetByParent;
+}
+```
+
+```dart
+Parent()( 
+  // No errors now!
+  Child()(),
+  Child()(),
+)
+```
+
+Unlike the `@Props` annotation described in [wrapper components](#disabling-validation-use-case-wrapper-components), 
+this disables validation for that prop regardless of where those props are mixed in, and cannot be applied on a
+component-by-component basis.
+
+As a result, any wrapper components of `Child` would also benefit from that disabled validation.
+```dart
+class ChildWrapperProps = UiProps with ChildPropsMixin;
+
+UiFactory<ChildWrapperProps> ChildWrapper = uiFunction((props) {
+  return (Child()..addProps(props))()
+}, _$ChildWrapperConfig);
+```
+```dart
+Parent()( 
+  // Still no errors:
+  ChildWrapper()(),
+  ChildWrapper()(),
+)
+```
 
 ## Prop defaulting
 
