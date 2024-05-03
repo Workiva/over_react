@@ -358,7 +358,7 @@ class WrapperProps = UiProps with FooProps, WrapperPropsMixin;
 
 Sometimes, you want to declare a prop that's always cloned onto it by a parent component. 
 
-> [!NOTE]
+> [!TIP]
 > React considers `cloneElement` an antipattern; see [their documentation](https://react.dev/reference/react/cloneElement) for alternatives.
 
 For example:
@@ -496,9 +496,9 @@ mixin FooProps on UiProps {
 }
 
 UiFactory<FooProps> Foo = uiFunction((props) {
-  final optional = props.containsProp((p) => p.optional) 
-          ? props.optional 
-          : 'default';
+  final optional = props.containsProp((p) => p.optional)
+      ? props.optional 
+      : 'default';
   
   return 'optional: $optional';
 }, _$FooConfig);
