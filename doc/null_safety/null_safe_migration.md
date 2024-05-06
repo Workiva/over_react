@@ -50,6 +50,8 @@ Below are some common cases that might come up while running the migrator tool o
 
 #### Prop nullability
 
+First, check out our documentation around [null safety and required props](../null_safety_and_required_props.md).
+
 To determine if a prop should be nullable or not, first consider if the prop is required.
 
 > [!WARNING]
