@@ -47,15 +47,9 @@ The `isSelected` prop is nullable, and is considered optional because it doesn't
 > [!WARNING]
 > Just like any `late` variable, reading required props when they're not guaranteed to be present can result in runtime errors or bad behavior.
 > 
-> To prevent this when reading props in components, OverReact validates that all required props are set before rendering a component, similar to how all `required` arguments must be provided when calling a function. More on that in [Required prop validation](#required-prop-validation).
-> 
-> To safely read required props in other contexts, see the [Unsafe Prop Reads](#unsafe-required-prop-reads) section.
-> 
-> When authoring or consuming components with required props, we recommend:
-> - Enabling the [analyzer plugin][analyzer-plugin] during development, if possible, which:
->   - lints for missing required props 
->   - lints for unsafe prop reads outside of components
-> - Running tests with asserts enabled (e.g., using DDC) to get missing required prop errors
+> To avoid these issues:
+> 1. Make sure you're getting [validation that all required props are set](#required-prop-validation) when consuming components with required props.
+> 2. Avoid [unsafe required prop reads](#unsafe-required-prop-reads) when reading from "partial" props objects
 
 #### Required prop syntax - quick reference
 
@@ -76,6 +70,10 @@ over_react provides two mechanisms to help enforce that:
 1. Runtime checks using [assert](https://dart.dev/language/error-handling#assert)s (enabled by default in DDC, and available in dart2js with `--enable-asserts`)
 1. Static [analyzer plugin][analyzer-plugin] lints (note: the analyzer plugin is opt-in)
 
+> [!WARNING] 
+> Make sure you're getting this required prop validation by either:
+> - Running tests with asserts enabled (e.g., using DDC) to get runtime errors for missing required props
+> - Enabling the [analyzer plugin][analyzer-plugin]
 
 Taking our example from above:
 ```dart
@@ -364,7 +362,7 @@ UiFactory<FooProps> Foo = uiFunction((props) {
 
 Just like any `late` variable, accessing required props when they're not guaranteed to be set can lead to errors and bad behavior.
 
-Required props are only validated to be present on props a component was rendered with (as discussed in the previous section), and not on other props objects.
+Required props are only validated to be present on props a component was rendered with (as discussed in the previous section), and not on other props objects. (In TypeScript, we'd use `Partial<…>` for these cases.)
 
 For example, given props:
 ```dart
