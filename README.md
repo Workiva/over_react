@@ -173,18 +173,21 @@ via our [builder].
 1. [UiFactory](#uifactory)
 2. [UiProps](#uiprops)
 3. component, either a:
-    1. function component [uiFunction](#uifunction)
-    2. class component [UiComponent2](#uicomponent2) (and optionally a [UiState](#uistate))  
+    1. function component [uiFunction](#uifunction-function-components)
+    2. class component [UiComponent2](#uicomponent2-class-based-components) (and optionally a [UiState](#uistate))  
 
 &nbsp;
 
 ### UiFactory
 
-__`UiFactory` is a function__ that returns a new instance of a
-[`UiComponent2`](#uicomponent2)’s [`UiProps`](#uiprops) class.
+__`UiFactory` is a function__ that returns a new instance of a component's [`UiProps`](#uiprops) class.
 
 ```dart
-UiFactory<FooProps> Foo = castUiFactory(_$Foo); // ignore: undefined_identifier
+// Class component
+UiFactory<FooProps> Foo = castUiFactory(_$Foo);
+
+// Function component
+UiFactory<FooProps> Foo = uiFunction((props) { /*...*/ }, _$FooConfig);
 ```
 
 * This factory is __the entry-point__ to consuming any OverReact component.
@@ -319,7 +322,7 @@ class FooComponent extends UiComponent2<FooProps> {
 ### UiState
 
 __`UiState` is a `Map` class__ _(just like `UiProps`)_ that adds statically-typed getters and setters
-for each React component state property.
+for each React component state property ina class component.
 
 ```dart
 mixin FooState on UiState {
@@ -333,7 +336,7 @@ mixin FooState on UiState {
 
 &nbsp;
 
-### UiComponent2
+### UiComponent2 (class-based components)
 > For guidance on updating to `UiComponent2` from `UiComponent`, check out the [UiComponent2 Migration Guide](doc/ui_component2_transition.md).
 
 __`UiComponent2` is a subclass of [`react.Component2`][react.Component2]__, containing lifecycle methods and rendering logic for components.
@@ -346,6 +349,34 @@ class FooComponent extends UiComponent2<FooProps> {
 
 * This class provides statically-typed props via [`UiProps`](#uiprops), as well as utilities for prop forwarding and CSS class merging.
 * The `UiStatefulComponent2` flavor augments `UiComponent2` behavior with statically-typed state via [`UiState`](#uistate).
+
+&nbsp;
+
+### uiFunction (function components)
+__`uiFunction` lets you declare a function component__. 
+
+In JavaScript, function components are just plain functions, but in over_react this wrapper is needed to perform JS interop and wire up the typed props class.
+
+```dart
+mixin FooProps on UiProps {
+  bool? isDisabled;
+  List? items;
+}
+
+UiFactory<FooProps> Foo = uiFunction((props) {
+  // Set default props using null-aware operators.
+  final isDisabled = props.isDisabled ?? false;
+  final items = props.items ?? [];
+
+  // Return the rendered component contents here.
+  return Fragment()(
+    Dom.div()(items),
+    (Dom.button()..disabled = isDisabled)('Click me!'),
+  );
+}, _$FooConfig); // The generated props config will match the factory name.
+
+usageExample() => (Foo()..items = ['bar'])();
+```
 
 &nbsp;
 
