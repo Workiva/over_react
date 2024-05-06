@@ -42,8 +42,8 @@ Now, you can declare non-nullable required props, using the `late` keyword. See 
 To migrate components to null safety, see our [__null safety migration guide__](doc/null_safety/null_safe_migration.md).
 
 ### More Migration Guides
-- [New component boilerplate](doc/new_boilerplate_migration.md): How to update to the mixin-based (`mixin MyProps on UiProps {}`) over_react component declaration syntax.
-- [`UiComponent2`](doc/ui_component2_transition.md): How to move off the deprecated `UiComponent` base class and onto `UiComponent2`. 
+- [__New component boilerplate__](doc/new_boilerplate_migration.md): How to update to the mixin-based (`mixin MyProps on UiProps {}`) over_react component declaration syntax.
+- [__UiComponent2__](doc/ui_component2_transition.md): How to move off the deprecated `UiComponent` base class and onto `UiComponent2`. 
 - [__BuiltRedux to Redux__](doc/built_redux_to_redux.md): How to transition to OverReact Redux from BuiltRedux.
 - [__Flux to Redux__](doc/flux_to_redux.md): A guide to how to transition from w_flux to OverReact Redux. This guide also introduces a new architecture, Influx, that can be used for incremental refactors.
 - [__Dart2 Migration__](doc/dart2_migration.md): Documentation on the Dart 2 builder updates and how to transition componentry to Dart 2.
