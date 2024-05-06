@@ -194,7 +194,7 @@ class WrapperProps = UiProps with FooProps, WrapperPropsMixin;
 
 Sometimes, you want to declare a prop that's always cloned onto it by a parent component. 
 
-> [!TIP]
+> [!INFO]
 > React considers `cloneElement` an antipattern; see [their documentation](https://react.dev/reference/react/cloneElement) for alternatives.
 
 For example:
@@ -364,7 +364,8 @@ UiFactory<FooProps> Foo = uiFunction((props) {
 
 ## Unsafe required prop reads
 
-> [!IMPORTANT] We recommend enabling the OverReact [analyzer plugin][analyzer-plugin] during development, if possible, which provides a lint to prevent unsafe prop reads.
+> [!IMPORTANT] 
+> We recommend enabling the OverReact [analyzer plugin][analyzer-plugin] during development, if possible, which provides a lint to prevent unsafe prop reads.
 
 Just like any `late` variable, accessing required props when they're not guaranteed to be set can lead to errors and bad behavior.
 
@@ -413,3 +414,5 @@ renderBar([Map? _additionalBarProps]) {
   }
 }
 ```
+
+[analyzer-plugin]: ../tools/analyzer_plugin
