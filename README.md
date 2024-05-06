@@ -243,7 +243,11 @@ The use-case for composing multiple props mixins into a single component props c
 
 #### UiProps as a Map
 
-FIXME add note about unsafe required prop accesses
+> [!WARNING]
+> Directly reading `late` required props on arbitrary maps is unsafe.
+> 
+> See the docs on [Unsafe Required Prop Reads](doc/null_safety_and_required_props.md#unsafe-required-prop-reads) 
+> for more information and for instructions on how to read these props safely.
 
 ```dart
 UiFactory<FooProps> Foo = castUiFactory(_$Foo); // ignore: undefined_identifier

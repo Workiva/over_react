@@ -18,20 +18,6 @@
 
 ### Introduction
 
-fixme organize intro vs more detailed sections?
-
-> [!WARNING]
-> When rendering components with required props, make sure you're getting [required prop validation](#required-prop-validation), by either:
-> - Enabling the [analyzer plugin][analyzer-plugin] during development, if possible
-> - Running tests with asserts enabled (e.g., using DDC) to help catch missing required props
-
-> [!WARNING]
-> Just like any `late` variable, reading required props when they're not guaranteed to be present can lead to errors and bad behavior.
-> 
-> Required props are only validated to be present on props a component was rendered with, and not on other props objects.
-> 
-> To safely read required props, see more info [here](#unsafe-required-prop-reads). We also recommend enabling the [analyzer plugin][analyzer-plugin] during development, if possible, which lints for unsafe prop accesses.
-
 Starting in over_react 5.0.0, you can declare non-nullable required props, using the `late` keyword. 
 
 Throughout the documentation, we refer to these as "late required props" or just "required props".
@@ -58,9 +44,18 @@ The `user` prop is non-nullable (typed as `User` and not `User?`), and OverReact
 
 The `isSelected` prop is nullable, and is considered optional because it doesn't have `late`.
 
-Similar to other [late variables](https://dart.dev/language/variables#late-variables) in Dart, `late` required props must be assigned before they're accessed, or they'll throw. To help guard against these issues, OverReact validates that all required props are set before rendering a component, similar to how all ['required' parameters](https://dart.dev/language/functions#named-parameters)  must be provided when calling a function. More on that in [Required prop validation](#required-prop-validation).
-
-FIXME mention unsafe required prop reads, tie into warnings.
+> [!WARNING]
+> Just like any `late` variable, reading required props when they're not guaranteed to be present can result in runtime errors or bad behavior.
+> 
+> To prevent this when reading props in components, OverReact validates that all required props are set before rendering a component, similar to how all `required` arguments must be provided when calling a function. More on that in [Required prop validation](#required-prop-validation).
+> 
+> To safely read required props in other contexts, see the [Unsafe Prop Reads](#unsafe-required-prop-reads) section.
+> 
+> When authoring or consuming components with required props, we recommend:
+> - Enabling the [analyzer plugin][analyzer-plugin] during development, if possible, which:
+>   - lints for missing required props 
+>   - lints for unsafe prop reads outside of components
+> - Running tests with asserts enabled (e.g., using DDC) to get missing required prop errors
 
 #### Required prop syntax - quick reference
 
