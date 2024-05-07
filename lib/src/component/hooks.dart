@@ -176,7 +176,7 @@ ReducerHook<TState, TAction, TInit> useReducer<TState, TAction, TInit>(
 /// }
 ///
 /// mixin UseReducerExampleProps on UiProps {
-///   int initialCount;
+///   late int initialCount;
 /// }
 ///
 /// UiFactory<UseReducerExampleProps> UseReducerExample = uiFunction(
@@ -462,9 +462,9 @@ void useLayoutEffect(dynamic Function() sideEffect, [List<Object?>? dependencies
 ///
 /// ```dart
 /// mixin FancyInputProps on UiProps {
-///   String value;
-///   Function updater;
-///   Ref forwardedRef;
+///   String? value;
+///   void Function(String)! updater;
+///   dynamic inputRef;
 /// }
 ///
 /// class FancyInputApi {
@@ -474,10 +474,11 @@ void useLayoutEffect(dynamic Function() sideEffect, [List<Object?>? dependencies
 ///
 /// UiFactory<FancyInputProps> FancyInput = uiForwardRef(
 ///   (props, ref) {
-///     final inputRef = useRef<InputElement>();
+///     final localInputRef = useRef<InputElement>();
+///     final inputRef = chainRefs(localInputRef, props.inputRef);
 ///
 ///     useImperativeHandle(ref,
-///       () => FancyInputApi(() => inputRef.current.focus()),
+///       () => FancyInputApi(() => localInputRef.current.focus()),
 ///
 ///       /// Because the return value of [createHandle] never changes, it is not necessary for [ref.current]
 ///       /// to be re-set on each render so this dependency list is empty.
@@ -487,7 +488,7 @@ void useLayoutEffect(dynamic Function() sideEffect, [List<Object?>? dependencies
 ///     return (Dom.input()
 ///       ..ref = inputRef
 ///       ..value = props.value
-///       ..onChange = (e) => props.updater(e.target.value)
+///       ..onChange = (e) => props.updater(e.target.value as String)
 ///     )();
 ///   },
 ///   _$FancyInputConfig, // ignore: undefined_identifier
