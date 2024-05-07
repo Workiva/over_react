@@ -32,7 +32,7 @@ import 'package:over_react/component_base.dart';
 ///       final Ref<InputElement> inputRef = createRef();
 ///
 ///       showInputCreateRefValue(_) {
-///         print(inputRef.current.value);
+///         print(inputRef.current!.value);
 ///       }
 ///
 ///       @override

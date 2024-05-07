@@ -314,7 +314,7 @@ T useContext<T>(Context<T> context) => react_hooks.useContext(context.reactDartC
 ///       ),
 ///       (Dom.input()..ref = inputRef)(),
 ///       (Dom.button()
-///         ..onClick = (_) => inputValue.set(inputRef.current.value)
+///         ..onClick = (_) => inputValue.set(inputRef.current!.value)
 ///       )('Update'),
 ///     );
 ///   },
@@ -424,11 +424,11 @@ T useMemo<T>(T Function() createFunction, [List<dynamic>? dependencies]) =>
 ///     final width = useState(0);
 ///     final height = useState(0);
 ///
-///     Ref textareaRef = useRef();
+///     final textareaRef = useRef<Element>();
 ///
 ///     useLayoutEffect(() {
-///       width.set(textareaRef.current.clientWidth);
-///       height.set(textareaRef.current.clientHeight);
+///       width.set(textareaRef.current!.clientWidth);
+///       height.set(textareaRef.current!.clientHeight);
 ///     });
 ///
 ///     return Fragment()(
@@ -478,7 +478,7 @@ void useLayoutEffect(dynamic Function() sideEffect, [List<Object?>? dependencies
 ///     final inputRef = chainRefs(localInputRef, props.inputRef);
 ///
 ///     useImperativeHandle(ref,
-///       () => FancyInputApi(() => localInputRef.current.focus()),
+///       () => FancyInputApi(() => localInputRef.current!.focus()),
 ///
 ///       /// Because the return value of [createHandle] never changes, it is not necessary for [ref.current]
 ///       /// to be re-set on each render so this dependency list is empty.
@@ -506,7 +506,7 @@ void useLayoutEffect(dynamic Function() sideEffect, [List<Object?>? dependencies
 ///         ..updater = inputValue.set
 ///       )(),
 ///       (Dom.button()
-///         ..onClick = (_) => fancyInputRef.current.focus()
+///         ..onClick = (_) => fancyInputRef.current!.focus()
 ///       )('Focus Input'),
 ///     );
 ///   },
