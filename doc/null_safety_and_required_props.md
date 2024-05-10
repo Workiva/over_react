@@ -8,7 +8,7 @@
     * [Disabling validation use-case: wrapper components](#disabling-validation-use-case-wrapper-components)
     * [Disabling validation use-case: cloned props](#disabling-validation-use-case-cloned-props)
 * [Prop defaulting](#prop-defaulting)
-  * [Defaulting non-nullable props: class components](#defaulting-non-nullable-props-class-components)
+  * [Defaulting props: class components](#defaulting-props-class-components)
   * [Defaulting nullable props using `??`: function or class components](#defaulting-nullable-props-using--function-or-class-components)
 * [Unsafe required prop reads](#unsafe-required-prop-reads)
 
@@ -112,7 +112,7 @@ Those defaulted props are automatically opted out of required prop validation by
 
 This allows consumers to declare defaulted props as non-nullable in a way that's safe and convenient, preventing the need for more invasive refactors to how defaulted props work when migrating to null safety.
 
-For more information on what this looks like, see: [Defaulting non-nullable props: class components](#defaulting-non-nullable-props-class-components)
+For more information on what this looks like, see: [Defaulting props: class components](#defaulting-props-class-components)
 
 This mechanism does not apply to function components, which use a different prop defaulting mechanism in over_react. See [Prop defaulting](#prop-defaulting) for more info.
 
@@ -271,9 +271,43 @@ OverReact supports providing defaults for optional props in the following cases:
 1. _Props are declared the same way required props are_
 2. _Easiest when `null` is treated the same as the default_
 
-### Defaulting non-nullable props: class components
+### Defaulting props: class components
 
-In class components, any props defaulted directly in `defaultProps` are automatically opted out of required prop validation by the over_react builder and analyzer plugin.
+In function components, [the pattern used to default props](#defaulting-nullable-props-using--function-or-class-components) involving `??` allows you to easily end up with a non-nullable value, even if the props themselves are nullable.
+```dart
+mixin FooProps on UiProps {
+  String? optional;
+}
+UiFactory<Foo> Foo = uiFunction((props) {
+   // static type of props.optional: `String?`
+   // static type of optional: `String`, not `String?`.
+   final optional = props.optional ?? 'default';
+   // ...
+}, _$FooConfig);
+```
+
+However, in class components, where defaults are typically declared in a separate `defaultProps` lifecycle method, this promotion doesn't happen because Dart's static analysis doesn't know about their relationship to the props used in the component. 
+
+So, even though we'll get non-null value at runtime in most cases (except for when a consumer explicitly passed `null`), the typing is still nullable, which can cause issues when code relies on the value to be non-nullable.
+```dart
+mixin FooProps on UiProps {
+  String? optional;
+}
+class FooComponent extends UiComponent2<FooProps> {
+  @override
+  get defaultProps => (newProps()
+    ..optional = 'default'
+  );
+ 
+  render() => props.optional.toUppercase();
+  //                        ^
+  // Analysis error: The method 'toUpperCase' can't be unconditionally
+  // invoked because the receiver can be 'null'.
+  // To work around this, you'd need `props.optional!.toUppercase()`
+}
+```
+
+To make this experience better, OverReact allows you to declare props that are defaulted directly in `defaultProps` as `late` and non-nullable, without them being considered required by runtime checks and the analyzer_plugin.
 
 For example, in the following component, even though `defaultedProp` is declared as `late` and non-nullable, it is not considered required because it has a default.
 ```dart
@@ -287,7 +321,10 @@ mixin FooProps on UiProps {
 class FooComponent extends UiComponent2<FooProps> {
   get defaultProps => (newProps()..defaultedProp = true);
 
-  render() {}
+  render() {
+    // props.defaultedProp is non-nullable here!
+    if (props.defaultedProp) { /*...*/ }
+  }
 }
 
 example() => Fragment()(
@@ -297,6 +334,22 @@ example() => Fragment()(
   (Foo()..requiredProp = true)(),
 );
 ```
+
+You can also still use optional nullable props when providing defaults, which can be useful if `null` is an acceptable value:
+```dart
+UiFactory<FooProps> Foo = castUiFactory(_$Foo);
+
+mixin FooProps on UiProps {
+  /// The color to apply, or `null` for no color.
+  String? color;
+}
+
+class FooComponent extends UiComponent2<FooProps> {
+  get defaultProps => (newProps()..color = 'blue');
+}
+```
+
+And finally, you can also default props using the same method as [in function components](#defaulting-nullable-props-using--function-or-class-components).
 
 ### Defaulting nullable props using `??`: function or class components
 
@@ -318,6 +371,16 @@ example() => Fragment()(
   (Foo()..optional = null)(),  // Renders `optional: default`
   (Foo()..optional = 'bar')(), // Renders `optional: bar`
 );
+```
+
+This pattern can also be used in class components, but isn't as convenient as other [class component defaulting methods](#defaulting-props-class-components) if the prop needs to accessed in more than one render function.
+```dart
+class FooComponent extends UiComponent2<FooProps> {
+  render() {
+    final optional = props.optional ?? 'default';
+    // ...
+  }
+}
 ```
 
 If you want specific behavior for explicit null, you can use the `containsProp` utility to detect that case:
