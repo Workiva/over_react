@@ -13,9 +13,8 @@ Steps to migrate a repo to null safety:
 
 If you haven't already, familiarize yourself with the concepts of Dart null safety with the following resources:
 
-- [Understanding null safety](https://dart.dev/null-safety/understanding-null-safety) article 
-
-<!-- TODO - add links to over_react null safety documentation once it exists -->
+- Dart's [Understanding null safety](https://dart.dev/null-safety/understanding-null-safety) article 
+- OverReact's documentation on [null safety and required props](../null_safety_and_required_props.md)
 
 ## Step 2: Run the preparation codemod (coming soon!)
 

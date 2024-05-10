@@ -424,7 +424,7 @@ T useMemo<T>(T Function() createFunction, [List<dynamic>? dependencies]) =>
 ///     final width = useState(0);
 ///     final height = useState(0);
 ///
-///     final textareaRef = useRef<Element>();
+///     final textareaRef = useRef<TextAreaElement>();
 ///
 ///     useLayoutEffect(() {
 ///       width.set(textareaRef.current!.clientWidth);
@@ -463,7 +463,7 @@ void useLayoutEffect(dynamic Function() sideEffect, [List<Object?>? dependencies
 /// ```dart
 /// mixin FancyInputProps on UiProps {
 ///   String? value;
-///   void Function(String)! updater;
+///   late void Function(String) updater;
 ///   dynamic inputRef;
 /// }
 ///

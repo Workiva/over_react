@@ -326,7 +326,7 @@ class FooComponent extends UiComponent2<FooProps> {
 ### UiState
 
 __`UiState` is a `Map` class__ _(just like `UiProps`)_ that adds statically-typed getters and setters
-for each React component state property ina class component.
+for each React component state property in a class component.
 
 ```dart
 mixin FooState on UiState {

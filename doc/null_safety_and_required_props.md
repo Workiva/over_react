@@ -1,22 +1,19 @@
 # Null safety and required props
 
-<!-- TOC -->
-* [Null safety and required props](#null-safety-and-required-props)
-    * [Introduction](#introduction)
-      * [Required prop syntax - quick reference](#required-prop-syntax---quick-reference)
-  * [Required prop validation](#required-prop-validation)
-    * [Exception: defaulted class component props](#exception-defaulted-class-component-props)
-    * [Disabling required prop validation for certain props](#disabling-required-prop-validation-for-certain-props)
-      * [Disabling validation use-case: wrapper components](#disabling-validation-use-case-wrapper-components)
-      * [Disabling validation use-case: cloned props](#disabling-validation-use-case-cloned-props)
-  * [Prop defaulting](#prop-defaulting)
-    * [Defaulting non-nullable props: class components](#defaulting-non-nullable-props-class-components)
-    * [Defaulting nullable props using `??`](#defaulting-nullable-props-using-)
-  * [Unsafe required prop reads](#unsafe-required-prop-reads)
-<!-- TOC -->
+* [Introduction](#introduction)
+    * [Required prop syntax - quick reference](#required-prop-syntax---quick-reference)
+* [Required prop validation](#required-prop-validation)
+  * [Exception: defaulted class component props](#exception-defaulted-class-component-props)
+  * [Disabling required prop validation for certain props](#disabling-required-prop-validation-for-certain-props)
+    * [Disabling validation use-case: wrapper components](#disabling-validation-use-case-wrapper-components)
+    * [Disabling validation use-case: cloned props](#disabling-validation-use-case-cloned-props)
+* [Prop defaulting](#prop-defaulting)
+  * [Defaulting non-nullable props: class components](#defaulting-non-nullable-props-class-components)
+  * [Defaulting nullable props using `??`: function or class components](#defaulting-nullable-props-using--function-or-class-components)
+* [Unsafe required prop reads](#unsafe-required-prop-reads)
 
 
-### Introduction
+## Introduction
 
 Starting in over_react 5.0.0, you can declare non-nullable required props, using the `late` keyword. 
 
@@ -96,13 +93,13 @@ If we don't, we'll get a static warning from the analyzer plugin (if we have it 
 ```dart
    UserChip()()
 // ^^^^^^^^^^
-// warning: Missing required late prop 'required1' from 'WithLateRequiredProps'.
+// warning: Missing required late prop 'user' from 'UserChipProps'.
 // (over_react_late_required_prop)
 ```
 
 and that code will also throw a runtime error when `assert`s are enabled:
 ```
-Uncaught Error: RequiredPropsError: Required prop `requiredProp` is missing.
+Uncaught Error: RequiredPropsError: Required prop `user` is missing.
    at Object.throw_ [as throw]
    at _$$UserChipProps$JsMap.new.validateRequiredProps
 ```
@@ -187,7 +184,7 @@ class WrapperProps = UiProps with FooProps, WrapperPropsMixin;
 
 Sometimes, you want to declare a prop that's always cloned onto it by a parent component. 
 
-> [!INFO]
+> [!NOTE]
 > React considers `cloneElement` an antipattern; see [their documentation](https://react.dev/reference/react/cloneElement) for alternatives.
 
 For example:
@@ -257,6 +254,11 @@ Parent()(
 )
 ```
 
+> [!WARNING] 
+> As a result, these props are unsafe to access within that component's render.
+> 
+> See the [unsafe required prop reads](#unsafe-required-prop-reads) section for more info 
+
 ## Prop defaulting
 
 OverReact supports providing defaults for optional props in the following cases:
@@ -296,7 +298,7 @@ example() => Fragment()(
 );
 ```
 
-### Defaulting nullable props using `??`
+### Defaulting nullable props using `??`: function or class components
 
 In over_react function components, prop defaulting for nullable props is typically implemented using null-aware `??` operators. As a result, unspecified props and explicit `null` values are treated the same.
 
@@ -337,22 +339,6 @@ example() => Fragment()(
   (Foo()..optional = null)(),  // Renders `optional: null`
   (Foo()..optional = 'bar')(), // Renders `optional: bar`
 );
-```
-
-
-For example,
-```dart
-mixin FooProps {
-  late String requiredNonNullable;
-  late String? requiredNullable;
-  String? optional;
-}
-
-UiFactory<FooProps> Foo = uiFunction((props) {
-  final requiredNonNullable = props.requiredNonNullable;
-  final requiredNullable = props.requiredNullable ?? 'default';
-  final optional = props.optional ?? 'default';
-}, _$FooConfig);
 ```
 
 ## Unsafe required prop reads
