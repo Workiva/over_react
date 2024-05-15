@@ -104,6 +104,12 @@ abstract class _$$StatefulComponentTestProps
           accessMap, (map) => _$$StatefulComponentTestProps(map));
 
   @override
+  // ignore: must_call_super
+  validateRequiredProps() {
+    // Disable required prop validation, until this component is null safe, by not calling super.
+  }
+
+  @override
   Set<String> get requiredPropNamesToSkipValidation =>
       const {'setStateDirectly'};
 }
