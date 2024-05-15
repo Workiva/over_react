@@ -82,6 +82,12 @@ class _$$AnnotationErrorDefaultPropsProps
           accessMap, (map) => _$$AnnotationErrorDefaultPropsProps(map));
 
   @override
+  // ignore: must_call_super
+  validateRequiredProps() {
+    // Disable required prop validation, until this component is null safe, by not calling super.
+  }
+
+  @override
   Set<String> get requiredPropNamesToSkipValidation => const {'id'};
 }
 
@@ -183,6 +189,12 @@ class _$$AnnotationErrorProps extends _$AnnotationErrorProps
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$AnnotationErrorProps(
           accessMap, (map) => _$$AnnotationErrorProps(map));
+
+  @override
+  // ignore: must_call_super
+  validateRequiredProps() {
+    // Disable required prop validation, until this component is null safe, by not calling super.
+  }
 }
 
 /// An alias for [getPropKey] so it can be referenced within the props class impl
@@ -282,6 +294,12 @@ class _$$AnnotationErrorStatefulProps extends _$AnnotationErrorStatefulProps
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$AnnotationErrorStatefulProps(
           accessMap, (map) => _$$AnnotationErrorStatefulProps(map));
+
+  @override
+  // ignore: must_call_super
+  validateRequiredProps() {
+    // Disable required prop validation, until this component is null safe, by not calling super.
+  }
 }
 
 /// An alias for [getPropKey] so it can be referenced within the props class impl
@@ -435,6 +453,12 @@ class _$$AnnotationErrorStatefulDefaultPropsProps
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$AnnotationErrorStatefulDefaultPropsProps(
           accessMap, (map) => _$$AnnotationErrorStatefulDefaultPropsProps(map));
+
+  @override
+  // ignore: must_call_super
+  validateRequiredProps() {
+    // Disable required prop validation, until this component is null safe, by not calling super.
+  }
 
   @override
   Set<String> get requiredPropNamesToSkipValidation => const {'id'};
