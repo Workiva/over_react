@@ -266,16 +266,16 @@ abstract class TypedMapImplGenerator extends BoilerplateDeclarationGenerator {
         ..writeln(
             '  String \$getPropKey(void Function(Map m) accessMap) => $topLevelGetPropKeyAliasName(accessMap, (map) => ${names.implName}(map));');
 
-      if (!nullSafety) {
-        buffer
-          ..writeln()
-          ..writeln('  @override')
-          ..writeln('  // ignore: must_call_super')
-          ..writeln('  validateRequiredProps() {')
-          ..writeln('    // Disable required prop validation, until this component is null safe, by not calling super.')
-          ..writeln('  }');
-
-      }
+      // if (!nullSafety) {
+      //   buffer
+      //     ..writeln()
+      //     ..writeln('  @override')
+      //     ..writeln('  // ignore: must_call_super')
+      //     ..writeln('  validateRequiredProps() {')
+      //     ..writeln(
+      //         '    // Disable required prop validation, until this component is null safe, by not calling super.')
+      //     ..writeln('  }');
+      // }
     }
     final requiredPropNamesToSkipValidation = this.requiredPropNamesToSkipValidation;
     if (requiredPropNamesToSkipValidation != null && requiredPropNamesToSkipValidation.isNotEmpty) {
