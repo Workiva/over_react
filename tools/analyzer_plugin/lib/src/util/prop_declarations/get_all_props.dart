@@ -52,7 +52,7 @@ List<FieldElement> getAllProps(InterfaceElement propsElement) {
     final isMixinBasedPropsMixin =
         interface is MixinElement && interface.superclassConstraints.any((s) => s.element.name == 'UiProps');
     late final isLegacyPropsOrPropsMixinConsumerClass =
-        !isFromGeneratedFile && interface.metadata.any(_isPropsOrPropsMixinAnnotation);
+        !isFromGeneratedFile && interface.metadata.any(_isOneOfThePropsAnnotations);
 
     if (!isMixinBasedPropsMixin && !isLegacyPropsOrPropsMixinConsumerClass) {
       continue;
@@ -74,10 +74,11 @@ List<FieldElement> getAllProps(InterfaceElement propsElement) {
   return allProps;
 }
 
-bool _isPropsOrPropsMixinAnnotation(ElementAnnotation e) {
+bool _isOneOfThePropsAnnotations(ElementAnnotation e) {
   // [2]
   final element = e.element;
-  return element is ConstructorElement && const {'Props', 'PropsMixin'}.contains(element.enclosingElement.name);
+  return element is ConstructorElement &&
+      const {'Props', 'PropsMixin', 'AbstractProps'}.contains(element.enclosingElement.name);
 }
 
 bool _isPropsMixinAnnotation(ElementAnnotation e) {
