@@ -13,9 +13,8 @@ Steps to migrate a repo to null safety:
 
 If you haven't already, familiarize yourself with the concepts of Dart null safety with the following resources:
 
-- [Understanding null safety](https://dart.dev/null-safety/understanding-null-safety) article 
-
-<!-- TODO - add links to over_react null safety documentation once it exists -->
+- Dart's [Understanding null safety](https://dart.dev/null-safety/understanding-null-safety) article 
+- OverReact's documentation on [null safety and required props](../null_safety_and_required_props.md)
 
 ## Step 2: Run the preparation codemod (coming soon!)
 
@@ -49,6 +48,8 @@ Run the null safety migrator tool:
 Below are some common cases that might come up while running the migrator tool on a repo using over_react.
 
 #### Prop nullability
+
+First, check out our documentation around [null safety and required props](../null_safety_and_required_props.md).
 
 To determine if a prop should be nullable or not, first consider if the prop is required.
 

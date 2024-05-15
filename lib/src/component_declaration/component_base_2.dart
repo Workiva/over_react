@@ -192,7 +192,7 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   ///
   /// ```
   /// mixin MyProps on UiProps {
-  ///   Object foo;
+  ///   Object? foo;
   /// }
   ///
   /// class MyComponent extends UiComponent2<MyProps> {
@@ -218,14 +218,11 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   ///
   /// ```
   /// mixin MyProps on UiProps {
-  ///   bool mustHaveAnotherPropValue;
-  ///   String anotherProp;
+  ///   bool? mustHaveAnotherPropValue;
+  ///   String? anotherProp;
   /// }
   ///
   /// class MyComponent extends UiComponent2<MyProps> {
-  ///   @override
-  ///   get defaultProps => newProps()..someProp = false;
-  ///
   ///   @override
   ///   get propTypes => {
   ///     keyForProp((p) => p.mustHaveAnotherPropValue): (props, info) {
@@ -258,11 +255,11 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   ///
   /// ```
   /// mixin MyProps on UiProps {
-  ///   bool somePropKey;
+  ///   bool? somePropKey;
   ///
   ///   @Accessor(keyNamespace: '')
   ///   @override
-  ///   String id;
+  ///   String? id;
   /// }
   ///
   /// class MyComponent extends UiComponent2<MyProps> {

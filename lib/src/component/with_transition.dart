@@ -37,7 +37,7 @@ part 'with_transition.over_react.g.dart';
 /// import 'package:over_react/components.dart' show WithTransition;
 ///
 /// mixin WithTransitionExampleProps on UiProps {
-///   bool initiallyShown;
+///   bool? initiallyShown;
 /// }
 ///
 /// UiFactory<WithTransitionExampleProps> WithTransitionExample = uiFunction(
