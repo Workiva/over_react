@@ -205,7 +205,7 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
         continue;
       }
 
-      if(withNullability(result) || requiredness != PropRequiredness.late) {
+      // if(withNullability(result) || requiredness != PropRequiredness.late) {
         await collector.addErrorWithFix(
           _codeForRequiredness(requiredness),
           result.locationFor(usage.builder),
@@ -219,7 +219,7 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
             });
           }),
         );
-      }
+      // }
     }
 
     // Include debug info for each invocation ahout all the props and their requirednesses.
