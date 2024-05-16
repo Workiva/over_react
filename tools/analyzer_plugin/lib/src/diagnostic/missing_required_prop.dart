@@ -4,6 +4,7 @@ import 'package:analyzer/dart/element/element.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/analyzer_debug_helper.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
+import 'package:over_react_analyzer_plugin/src/util/null_safety_utils.dart';
 import 'package:over_react_analyzer_plugin/src/util/pretty_print.dart';
 import 'package:over_react_analyzer_plugin/src/util/prop_declarations/props_set_by_factory.dart';
 import 'package:over_react_analyzer_plugin/src/util/util.dart';
@@ -204,18 +205,21 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
         continue;
       }
 
-      await collector.addErrorWithFix(
-        _codeForRequiredness(requiredness),
-        result.locationFor(usage.builder),
-        errorMessageArgs: ["'$name' from '${field.enclosingElement.name}'"],
-        fixKind: fixKind,
-        fixMessageArgs: [name],
-        computeFix: () => buildFileEdit(result, (builder) {
-          addProp(usage, builder, result.content, result.lineInfo, name: name, buildValueEdit: (builder) {
-            builder.selectHere();
-          });
-        }),
-      );
+      if(withNullability(result) || requiredness != PropRequiredness.late) {
+        await collector.addErrorWithFix(
+          _codeForRequiredness(requiredness),
+          result.locationFor(usage.builder),
+          errorMessageArgs: ["'$name' from '${field.enclosingElement.name}'"],
+          fixKind: fixKind,
+          fixMessageArgs: [name],
+          computeFix: () => buildFileEdit(result, (builder) {
+            addProp(usage, builder, result.content, result.lineInfo, name: name,
+                buildValueEdit: (builder) {
+              builder.selectHere();
+            });
+          }),
+        );
+      }
     }
 
     // Include debug info for each invocation ahout all the props and their requirednesses.
