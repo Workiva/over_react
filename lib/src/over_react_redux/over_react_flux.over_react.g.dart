@@ -16,13 +16,11 @@ abstract class ConnectFluxPropsMixin<TActions>
 
   /// <!-- Generated from [_$ConnectFluxPropsMixin.actions] -->
   @override
-  @disableRequiredPropValidation
   TActions get actions =>
       (props[_$key__actions___$ConnectFluxPropsMixin] ?? null) as TActions;
 
   /// <!-- Generated from [_$ConnectFluxPropsMixin.actions] -->
   @override
-  @disableRequiredPropValidation
   set actions(TActions value) =>
       props[_$key__actions___$ConnectFluxPropsMixin] = value;
   /* GENERATED CONSTANTS */
