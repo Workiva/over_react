@@ -459,3 +459,11 @@ const _DisableRequiredPropValidation disableRequiredPropValidation = _DisableReq
 class _DisableRequiredPropValidation {
   const _DisableRequiredPropValidation();
 }
+
+// todo doc comment
+class ConvertProp<Raw, Converted> {
+  final Converted Function(Raw) getter;
+  final Raw Function(Converted) setter;
+
+  const ConvertProp( this.setter, this.getter );
+}

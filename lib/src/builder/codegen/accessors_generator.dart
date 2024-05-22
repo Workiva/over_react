@@ -308,9 +308,25 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
           docComment = '';
         }
 
+        final convertProp = field.metadata.firstWhereOrNull((annotation) => annotation.name.name == 'ConvertProp');
+        // todo try to access actual ConvertProp object or else add errors thrown
+          final rawType = convertProp?.typeArguments?.arguments.firstOrNull?.toSource();
+            // todo throw an error if convertedType != getterTypeString??
+          final convertedType = convertProp?.typeArguments?.arguments.lastOrNull?.toSource();
+          final setter = convertProp?.arguments?.arguments.firstOrNull?.toSource();
+          final getter = convertProp?.arguments?.arguments.lastOrNull?.toSource();
+
         String castGetterMapValueIfNecessary(String expression) {
           if (typeSource == null) return expression;
-          return '($expression) as $typeSource';
+          return '($expression) as ${rawType ?? typeSource}';
+        }
+
+        String convertIfNecessary(String expression, [bool isGetter = true]) {
+          final convertFunc = isGetter ? getter : setter;
+          if(convertFunc != null) {
+            return '$convertFunc($expression)';
+          }
+          return expression;
         }
 
         String generatedAccessor = '$docComment'
@@ -322,12 +338,12 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
             // Add ` ?? null` to work around DDC bug: <https://github.com/dart-lang/sdk/issues/36052
             // Apply this workaround ASAP, before the cast, to limit where undefined can leak into
             // and potentially cause issues (for instance, DDC cast internals).
-            '  ${getterTypeString}get $accessorName => ${castGetterMapValueIfNecessary('$proxiedMapName[$keyConstantName] ?? null')};\n'
+            '  ${getterTypeString}get $accessorName => ${convertIfNecessary(castGetterMapValueIfNecessary('$proxiedMapName[$keyConstantName] ?? null'))};\n'
             '$docComment'
             // '  @tryInline\n'
             '  @override\n'
             '$metadataSrc'
-            '  set $accessorName(${setterTypeString}value) => $proxiedMapName[$keyConstantName] = value;\n';
+            '  set $accessorName(${setterTypeString}value) => $proxiedMapName[$keyConstantName] = ${convertIfNecessary('value', false)};\n';
 
         output.write(generatedAccessor);
       });
