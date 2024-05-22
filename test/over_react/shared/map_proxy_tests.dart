@@ -36,7 +36,7 @@ void mapProxyTests(Map Function(Map proxiedMap) mapProxyFactory) {
 
     test('map', () {
       callback(key, value) => MapEntry('key', 'value');
-      when(() => backingMap.map(any())).thenReturn(<String, String>{});
+      when(() => backingMap.map<String, String>(any())).thenReturn(<String, String>{});
 
       proxy.map(callback);
       verify(() => backingMap.map(callback));
@@ -176,4 +176,4 @@ void mapProxyTests(Map Function(Map proxiedMap) mapProxyFactory) {
   });
 }
 
-class MockMap extends Mock implements Map<dynamic, dynamic> {}
+class MockMap extends Mock implements Map {}
