@@ -60,8 +60,8 @@ export 'component_type_checking.dart'
 /// );
 ///
 /// mixin FooProps on UiProps {
-///   bool isDisabled;
-///   Iterable<String> items;
+///   bool? isDisabled;
+///   Iterable<String>? items;
 /// }
 /// ```
 ///
