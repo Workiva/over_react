@@ -5,6 +5,7 @@
   - Use the `useRefInit` hook instead if you need to set an initial value. 
 - [#909] Deprecate the optional `defaultValue` argument in `createContext`. 
   - Use `createContextInit` instead if you need to set a default value.
+- [#917] Only validate required props in null-safe components 
 
 ## 5.0.1
 - Consume over_react_test 3.0.0
