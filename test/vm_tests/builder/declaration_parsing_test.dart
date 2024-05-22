@@ -31,14 +31,10 @@ import 'package:over_react/src/component_declaration/annotations.dart' as annota
 import 'package:source_span/source_span.dart';
 import 'package:test/test.dart';
 
-import '../../mockito.mocks.dart';
 import './util.dart';
 import 'parsing/parsing_helpers.dart';
-import 'dart:core' show Object;
 
 main() {
-  setUpAll(() => registerFallbackValue(_FakeObject()));
-
   group('ComponentDeclarations', () {
     group('mightContainDeclarations()', () {
       group('returns true when the source contains an annotation', () {
@@ -473,15 +469,15 @@ main() {
               }
             }
 
-             test('with backwards compatible boilerplate', () {
-               testStateMixins(OverReactSrc.stateMixin(numMixins: 3).source,
-                   ['FooStateMixin1', 'FooStateMixin2', 'FooStateMixin3']);
-             });
+            test('with backwards compatible boilerplate', () {
+              testStateMixins(OverReactSrc.stateMixin(numMixins: 3).source,
+                  ['FooStateMixin1', 'FooStateMixin2', 'FooStateMixin3']);
+            });
 
-             test('with Dart 2 only boilerplate', () {
-               testStateMixins(OverReactSrc.stateMixin(backwardsCompatible: false, numMixins: 3).source,
-                   ['_\$FooStateMixin1', '_\$FooStateMixin2', '_\$FooStateMixin3']);
-             });
+            test('with Dart 2 only boilerplate', () {
+              testStateMixins(OverReactSrc.stateMixin(backwardsCompatible: false, numMixins: 3).source,
+                  ['_\$FooStateMixin1', '_\$FooStateMixin2', '_\$FooStateMixin3']);
+            });
           });
 
           group('abstract props class with builder-compatible dual-class setup', () {
@@ -1040,9 +1036,9 @@ main() {
 
               test('that are the correct version', () {
                 final versionForFirstMixin =
-                    resolveVersion(componentDeclarations.firstWhereNameEquals('FirstFoo')!.members);
+                resolveVersion(componentDeclarations.firstWhereNameEquals('FirstFoo')!.members);
                 final versionForSecondMixin =
-                    resolveVersion(componentDeclarations.firstWhereNameEquals('SecondFoo')!.members);
+                resolveVersion(componentDeclarations.firstWhereNameEquals('SecondFoo')!.members);
 
                 expect(versionForFirstMixin.version, Version.v4_mixinBased);
                 expect(versionForSecondMixin.version, Version.v4_mixinBased);
@@ -1073,9 +1069,9 @@ main() {
 
               test('with names that match expectations', () {
                 final propsComponentDeclaration =
-                    componentDeclarations.firstWhereNameEquals('PropsFoo');
+                componentDeclarations.firstWhereNameEquals('PropsFoo');
                 final stateComponentDeclaration =
-                    componentDeclarations.firstWhereNameEquals('StateFoo');
+                componentDeclarations.firstWhereNameEquals('StateFoo');
                 final secondComponent = componentDeclarations.firstWhereNameEquals('SecondFoo');
                 final thirdComponent = componentDeclarations.firstWhereNameEquals('ThirdFoo');
 
@@ -1095,9 +1091,9 @@ main() {
 
               test('that are the correct version', () {
                 final versionForFirstMixin =
-                    resolveVersion(componentDeclarations.firstWhereNameEquals('SecondFoo')!.members);
+                resolveVersion(componentDeclarations.firstWhereNameEquals('SecondFoo')!.members);
                 final versionForSecondMixin =
-                    resolveVersion(componentDeclarations.firstWhereNameEquals('ThirdFoo')!.members);
+                resolveVersion(componentDeclarations.firstWhereNameEquals('ThirdFoo')!.members);
                 final abstractProps = resolveVersion(
                     declarations!.firstWhereType<LegacyAbstractPropsDeclaration>().members);
                 final abstractState = resolveVersion(
@@ -2190,7 +2186,7 @@ main() {
                 }
               ''');
               verify(() => logger!.severe(contains('Static PropsMeta field in accessor class must be initialized to:'
-                    '`_\$metaForAbstractFooProps`')));
+                  '`_\$metaForAbstractFooProps`')));
             });
 
             test('is private and initialized incorrectly', () {
@@ -2201,7 +2197,7 @@ main() {
                 }
               ''');
               verify(() => logger!.severe(contains('Static PropsMeta field in accessor class must be initialized to:'
-                    '`_\$metaFor_AbstractFooProps`')));
+                  '`_\$metaFor_AbstractFooProps`')));
             });
           });
 
@@ -2468,9 +2464,9 @@ main() {
           group('a static `meta` field is declared in ', () {
             void verifyWarningLog(String publicClassName) {
               verify(() => logger!.warning(contains(
-                'Static class member `meta` is declared in _\$$publicClassName. '
-                '`meta` is a field declared by the over_react builder, and therefore this '
-                'class member will be unused and should be removed or renamed.'
+                  'Static class member `meta` is declared in _\$$publicClassName. '
+                      '`meta` is a field declared by the over_react builder, and therefore this '
+                      'class member will be unused and should be removed or renamed.'
               )));
             }
 
@@ -2548,7 +2544,7 @@ main() {
                       .havingLevel(Level.SEVERE)
                       .havingMessage(contains('Error reading component annotation'))
                       .havingError(isA<Object>()
-                          .havingToStringValue(contains('`subtypeOf` must be an identifier'))),
+                      .havingToStringValue(contains('`subtypeOf` must be an identifier'))),
                 ]));
           }
 
@@ -2589,4 +2585,4 @@ extension on TypeMatcher<LogRecord> {
   TypeMatcher<LogRecord> havingError(dynamic matcher) => having((r) => r.error, 'error', matcher);
 }
 
-class _FakeObject extends Fake implements Object {}
+class MockLogger extends Mock implements Logger{}

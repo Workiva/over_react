@@ -18,7 +18,6 @@ library over_react_tests.shared.map_proxy_tests;
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
-import '../../mockito.mocks.dart';
 
 void mapProxyTests(Map Function(Map proxiedMap) mapProxyFactory) {
   group('proxies the Map member:', () {
@@ -176,3 +175,5 @@ void mapProxyTests(Map Function(Map proxiedMap) mapProxyFactory) {
     });
   });
 }
+
+class MockMap extends Mock implements Map {}

@@ -15,12 +15,12 @@
 @TestOn('vm')
 import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:analyzer/dart/ast/ast.dart';
+import 'package:logging/logging.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:over_react/src/builder/parsing.dart';
 import 'package:source_span/source_span.dart';
 import 'package:test/test.dart';
 
-import '../../../mockito.mocks.dart';
 
 main() {
   group('error collection -', () {
@@ -307,3 +307,4 @@ main() {
     });
   });
 }
+class MockLogger extends Mock implements Logger {}

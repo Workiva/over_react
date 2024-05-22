@@ -17,6 +17,7 @@ library impl_generation_test;
 
 import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:analyzer/dart/ast/ast.dart';
+import 'package:logging/logging.dart';
 import 'package:meta/meta.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:over_react/src/builder/parsing.dart';
@@ -24,13 +25,9 @@ import 'package:over_react/src/builder/codegen.dart';
 import 'package:source_span/source_span.dart';
 import 'package:test/test.dart';
 
-import '../../mockito.mocks.dart';
 import './util.dart';
-import 'dart:core' show Object;
 
 main() {
-  setUpAll(() => registerFallbackValue(_FakeObject()));
-
   group('ImplGenerator', () {
     ImplGenerator? implGenerator;
 
@@ -137,35 +134,35 @@ main() {
                 test('contains props or state descriptors for all fields', () {
                   expect(implGenerator!.outputContentsBuffer.toString(), contains(
                       '  static const $descriptorType _\$prop__someField___\$$className = $descriptorType(_\$key__someField___\$$className);\n'
-                      '  static const $descriptorType _\$prop__foo___\$$className = $descriptorType(_\$key__foo___\$$className);\n'
-                      '  static const $descriptorType _\$prop__bar___\$$className = $descriptorType(_\$key__bar___\$$className);\n'
-                      '  static const $descriptorType _\$prop__baz___\$$className = $descriptorType(_\$key__baz___\$$className);\n'));
+                          '  static const $descriptorType _\$prop__foo___\$$className = $descriptorType(_\$key__foo___\$$className);\n'
+                          '  static const $descriptorType _\$prop__bar___\$$className = $descriptorType(_\$key__bar___\$$className);\n'
+                          '  static const $descriptorType _\$prop__baz___\$$className = $descriptorType(_\$key__baz___\$$className);\n'));
                 });
 
                 test('contains string keys', () {
                   expect(implGenerator!.outputContentsBuffer.toString(), contains(
                       '  static const String _\$key__someField___\$$className = \'$className.someField\';\n'
-                      '  static const String _\$key__foo___\$$className = \'$className.foo\';\n'
-                      '  static const String _\$key__bar___\$$className = \'$className.bar\';\n'
-                      '  static const String _\$key__baz___\$$className = \'$className.baz\';\n'));
+                          '  static const String _\$key__foo___\$$className = \'$className.foo\';\n'
+                          '  static const String _\$key__bar___\$$className = \'$className.bar\';\n'
+                          '  static const String _\$key__baz___\$$className = \'$className.baz\';\n'));
                 });
 
                 test('contains list of descriptors', () {
                   expect(implGenerator!.outputContentsBuffer.toString(), contains(
                       '  static const List<$descriptorType> ${ors.constantListName} = '
-                      '[_\$prop__someField___\$$className, '
-                      '_\$prop__foo___\$$className, '
-                      '_\$prop__bar___\$$className, '
-                      '_\$prop__baz___\$$className];\n'));
+                          '[_\$prop__someField___\$$className, '
+                          '_\$prop__foo___\$$className, '
+                          '_\$prop__bar___\$$className, '
+                          '_\$prop__baz___\$$className];\n'));
                 });
 
                 test('contains list of keys', () {
                   expect(implGenerator!.outputContentsBuffer.toString(), contains(
                       '  static const List<String> ${ors.keyListName} = '
-                      '[_\$key__someField___\$$className, '
-                      '_\$key__foo___\$$className, '
-                      '_\$key__bar___\$$className, '
-                      '_\$key__baz___\$$className];\n'));
+                          '[_\$key__someField___\$$className, '
+                          '_\$key__foo___\$$className, '
+                          '_\$key__bar___\$$className, '
+                          '_\$key__baz___\$$className];\n'));
                 });
 
                 group('with concrete implementations', () {
@@ -190,10 +187,10 @@ main() {
                   test('that carry over annotations', () {
                     expect(implGenerator!.outputContentsBuffer.toString(), contains(
                         '  @deprecated()\n'
-                        '  String get someField => '));
+                            '  String get someField => '));
                     expect(implGenerator!.outputContentsBuffer.toString(), contains(
                         '  @deprecated()\n'
-                        '  set someField(String value) => '));
+                            '  set someField(String value) => '));
                   });
 
                   test('but does not create implementations for non-fields', () {
@@ -248,10 +245,10 @@ main() {
                   test('that carry over annotations', () {
                     expect(implGenerator!.outputContentsBuffer.toString(), contains(
                         '  @deprecated()\n'
-                        '  String get someField => '));
+                            '  String get someField => '));
                     expect(implGenerator!.outputContentsBuffer.toString(), contains(
                         '  @deprecated()\n'
-                        '  set someField(String value) => '));
+                            '  set someField(String value) => '));
                   });
 
                   test('but does not create implementations for non-fields', () {
@@ -314,12 +311,12 @@ main() {
                 final baseName = ors.prefixedBaseName;
                 expect(implGenerator!.outputContentsBuffer.toString(), contains(
                     'final \$${baseName}ComponentFactory = registerComponent(\n'
-                    '  () => _\$${baseName}Component(),\n'
-                    '  builderFactory: _\$$baseName,\n'
-                    '  componentClass: ${baseName}Component,\n'
-                    '  isWrapper: false,\n'
-                    '  parentType: null,\n'
-                  ');\n'));
+                        '  () => _\$${baseName}Component(),\n'
+                        '  builderFactory: _\$$baseName,\n'
+                        '  componentClass: ${baseName}Component,\n'
+                        '  isWrapper: false,\n'
+                        '  parentType: null,\n'
+                        ');\n'));
               });
             }
 
@@ -356,41 +353,41 @@ main() {
                 test('with the correct class declaration', () {
                   expect(implGenerator!.outputContentsBuffer.toString(), contains(
                       'class _\$\$${ors.prefixedBaseName}Props${ors.typeParamSrc} '
-                      'extends _\$${ors.propsClassName}${ors.typeParamSrcWithoutBounds} '
-                      'with _\$${ors.propsClassName}AccessorsMixin${ors.typeParamSrcWithoutBounds} '
-                      'implements ${ors.propsClassName}${ors.typeParamSrcWithoutBounds} {'));
+                          'extends _\$${ors.propsClassName}${ors.typeParamSrcWithoutBounds} '
+                          'with _\$${ors.propsClassName}AccessorsMixin${ors.typeParamSrcWithoutBounds} '
+                          'implements ${ors.propsClassName}${ors.typeParamSrcWithoutBounds} {'));
                 });
 
                 test('with the correct constructor', () {
                   expect(implGenerator!.outputContentsBuffer.toString(), contains(
                       '  _\$\$${ors.prefixedBaseName}Props(Map backingMap) : this._props = {} {\n'
-                      '     this._props = backingMap ?? {};\n'
-                      '  }'));
+                          '     this._props = backingMap ?? {};\n'
+                          '  }'));
                 });
 
                 test('with props backing map getter', () {
                   expect(implGenerator!.outputContentsBuffer.toString(), contains(
                       '  @override\n'
-                      '  Map get props => _props;\n'
-                      '  Map _props;'));
+                          '  Map get props => _props;\n'
+                          '  Map _props;'));
                 });
 
                 test('overrides `\$isClassGenerated` to return `true`', () {
                   expect(implGenerator!.outputContentsBuffer.toString(), contains(
                       '  @override\n'
-                      '  bool get \$isClassGenerated => true;\n'));
+                          '  bool get \$isClassGenerated => true;\n'));
                 });
 
                 test('overrides `componentFactory` to return the correct component factory', () {
                   expect(implGenerator!.outputContentsBuffer.toString(), contains(
                       '  @override\n'
-                      '  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? \$${ors.prefixedBaseName}ComponentFactory;\n'));
+                          '  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? \$${ors.prefixedBaseName}ComponentFactory;\n'));
                 });
 
                 test('sets the default prop key namespace', () {
                   expect(implGenerator!.outputContentsBuffer.toString(), contains(
                       '  @override\n'
-                      '  String get propKeyNamespace => \'${ors.propsClassName}.\';\n'));
+                          '  String get propKeyNamespace => \'${ors.propsClassName}.\';\n'));
                 });
               });
             }
@@ -428,29 +425,29 @@ main() {
                 test('with the correct class declaration', () {
                   expect(implGenerator!.outputContentsBuffer.toString(), contains(
                       'class _\$\$${ors.prefixedBaseName}State${ors.typeParamSrc} '
-                      'extends _\$${ors.stateClassName}${ors.typeParamSrcWithoutBounds} '
-                      'with _\$${ors.stateClassName}AccessorsMixin${ors.typeParamSrcWithoutBounds} '
-                      'implements ${ors.stateClassName}${ors.typeParamSrcWithoutBounds} {'));
+                          'extends _\$${ors.stateClassName}${ors.typeParamSrcWithoutBounds} '
+                          'with _\$${ors.stateClassName}AccessorsMixin${ors.typeParamSrcWithoutBounds} '
+                          'implements ${ors.stateClassName}${ors.typeParamSrcWithoutBounds} {'));
                 });
 
                 test('with the correct constructor', () {
                   expect(implGenerator!.outputContentsBuffer.toString(), contains(
                       '  _\$\$${ors.prefixedBaseName}State(Map backingMap) : this._state = {} {\n'
-                      '     this._state = backingMap ?? {};\n'
-                      '  }'));
+                          '     this._state = backingMap ?? {};\n'
+                          '  }'));
                 });
 
                 test('with state backing map getter', () {
                   expect(implGenerator!.outputContentsBuffer.toString(), contains(
                       '  @override\n'
-                      '  Map get state => _state;\n'
-                      '  Map _state;'));
+                          '  Map get state => _state;\n'
+                          '  Map _state;'));
                 });
 
                 test('overrides `\$isClassGenerated` to return `true`', () {
                   expect(implGenerator!.outputContentsBuffer.toString(), contains(
                       '  @override\n'
-                      '  bool get \$isClassGenerated => true;\n'));
+                          '  bool get \$isClassGenerated => true;\n'));
                 });
               });
             }
@@ -475,9 +472,9 @@ main() {
             final className = ors.isProps(ors.annotation) ? ors.propsClassName : ors.stateClassName;
             final metaStructName = ors.isProps(ors.annotation) ? 'PropsMeta' : 'StateMeta';
             expect(implGenerator!.outputContentsBuffer.toString(), contains(
-                  'class $className extends _\$$className with _\$${className}AccessorsMixin {\n'
-                  '  static const $metaStructName meta = _\$metaFor$className;\n'
-                  '}\n'));
+                'class $className extends _\$$className with _\$${className}AccessorsMixin {\n'
+                    '  static const $metaStructName meta = _\$metaFor$className;\n'
+                    '}\n'));
           });
         }
         testConsumableCompanionGeneration('for props classes', OverReactSrc.props(backwardsCompatible: false));
@@ -488,12 +485,12 @@ main() {
 
       group('and copies over static fields with Dart 2 only boilerplate', () {
         final fieldDeclarations = [
-              'static const String some_string_const = \'some_string_prop\';',
-              'static final SomeMapView defaultProps = ',
-              'new SomeMapView({})',
-              '..item1 = 1',
-              '..item2 = \'some_prop\';'
-            ];
+          'static const String some_string_const = \'some_string_prop\';',
+          'static final SomeMapView defaultProps = ',
+          'new SomeMapView({})',
+          '..item1 = 1',
+          '..item2 = \'some_prop\';'
+        ];
 
         const uselessMetaField = 'static const String meta = \'some_string\';';
         const uselessMetaMethod = 'static String get meta => \'some_string\';';
@@ -664,16 +661,16 @@ main() {
       group('and generates props config for function components constructed with', () {
         String generatedConfig(String propsName, String factoryName) {
           return 'final UiFactoryConfig<_\$\$$propsName> '
-            '_\$${factoryName}Config = UiFactoryConfig(\n'
-            'propsFactory: PropsFactory(\n'
-            'map: (map) => _\$\$$propsName(map),\n'
-            'jsMap: (map) => _\$\$$propsName\$JsMap(map),),\n'
-            'displayName: \'$factoryName\');\n\n'
-            '@Deprecated(r\'Use the private variable, _\$${factoryName}Config, instead \'\n'
-            '\'and update the `over_react` lower bound to version 4.1.0. \'\n'
-            '\'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650\')\n'
-            'final UiFactoryConfig<_\$\$$propsName> '
-            '\$${factoryName}Config = _\$${factoryName}Config;\n\n';
+              '_\$${factoryName}Config = UiFactoryConfig(\n'
+              'propsFactory: PropsFactory(\n'
+              'map: (map) => _\$\$$propsName(map),\n'
+              'jsMap: (map) => _\$\$$propsName\$JsMap(map),),\n'
+              'displayName: \'$factoryName\');\n\n'
+              '@Deprecated(r\'Use the private variable, _\$${factoryName}Config, instead \'\n'
+              '\'and update the `over_react` lower bound to version 4.1.0. \'\n'
+              '\'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650\')\n'
+              'final UiFactoryConfig<_\$\$$propsName> '
+              '\$${factoryName}Config = _\$${factoryName}Config;\n\n';
         }
 
         String generatedPropsMapsForConfig(String propsName) {
@@ -1044,7 +1041,7 @@ main() {
 
         const expectedLateAndAnnotationErrorMessage = 'Props declared using `late` are already considered required,'
             ' and cannot also have required prop annotations: @requiredProp/@nullableProp/@Accessor(isRequired: true).'
-                '\nPlease remove these annotations.';
+            '\nPlease remove these annotations.';
 
         test('@Accessor(isRequired: true) @requiredProp', () {
           var body = '''@Accessor(isRequired: true)
@@ -1120,5 +1117,4 @@ main() {
   });
 }
 
-
-class _FakeObject extends Fake implements Object {}
+class MockLogger extends Mock implements Logger{}
