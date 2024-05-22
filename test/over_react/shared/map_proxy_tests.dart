@@ -176,4 +176,4 @@ void mapProxyTests(Map Function(Map proxiedMap) mapProxyFactory) {
   });
 }
 
-class MockMap extends Mock implements Map {}
+class MockMap extends Mock implements Map<dynamic, dynamic> {}
