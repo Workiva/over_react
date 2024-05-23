@@ -1,6 +1,7 @@
 # OverReact Changelog
 
 ## 5.1.0
+- [#910] / [#916] Add null safety migration / component authoring guides.
 - [#909] Deprecate the optional `initialValue` argument in the `useRef` hook. 
   - Use the `useRefInit` hook instead if you need to set an initial value. 
 - [#909] Deprecate the optional `defaultValue` argument in `createContext`. 
