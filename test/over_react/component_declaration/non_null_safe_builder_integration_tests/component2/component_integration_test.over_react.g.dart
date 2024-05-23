@@ -220,6 +220,12 @@ abstract class _$$ComponentTestProps extends _$ComponentTestProps
           accessMap, (map) => _$$ComponentTestProps(map));
 
   @override
+  // ignore: must_call_super
+  validateRequiredProps() {
+    // Disable required prop validation, until this component is null safe, by not calling super.
+  }
+
+  @override
   Set<String> get requiredPropNamesToSkipValidation =>
       const {'id', 'shouldSetPropsDirectly', 'shouldUseJsFactory'};
 }
@@ -379,6 +385,12 @@ abstract class _$$IsErrorBoundaryProps extends _$IsErrorBoundaryProps
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$IsErrorBoundaryProps(
           accessMap, (map) => _$$IsErrorBoundaryProps(map));
+
+  @override
+  // ignore: must_call_super
+  validateRequiredProps() {
+    // Disable required prop validation, until this component is null safe, by not calling super.
+  }
 }
 
 /// An alias for [getPropKey] so it can be referenced within the props class impl
@@ -535,6 +547,12 @@ abstract class _$$IsNotErrorBoundaryProps extends _$IsNotErrorBoundaryProps
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$IsNotErrorBoundaryProps(
           accessMap, (map) => _$$IsNotErrorBoundaryProps(map));
+
+  @override
+  // ignore: must_call_super
+  validateRequiredProps() {
+    // Disable required prop validation, until this component is null safe, by not calling super.
+  }
 }
 
 /// An alias for [getPropKey] so it can be referenced within the props class impl

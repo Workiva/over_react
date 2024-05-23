@@ -185,6 +185,12 @@ class _$$ComponentTestProps extends _$ComponentTestProps
           accessMap, (map) => _$$ComponentTestProps(map));
 
   @override
+  // ignore: must_call_super
+  validateRequiredProps() {
+    // Disable required prop validation, until this component is null safe, by not calling super.
+  }
+
+  @override
   Set<String> get requiredPropNamesToSkipValidation => const {'id'};
 }
 
