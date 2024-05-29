@@ -1,4 +1,7 @@
 # OverReact Changelog
+## 5.1.1 & 5.1.2
+- Fixes to CI [#921] [#922]
+- Add auto-publish to pub.dev
 
 ## 5.1.0
 - [#910] / [#916] Add null safety migration / component authoring guides.
