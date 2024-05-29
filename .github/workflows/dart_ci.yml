@@ -20,8 +20,8 @@ jobs:
         # Can't run on `dev` (Dart 3) until we're fully null-safe.
         sdk: [ 2.19.6 ]
     steps:
-      - uses: actions/checkout@v2
-      - uses: dart-lang/setup-dart@v0.2
+      - uses: actions/checkout@v4
+      - uses: dart-lang/setup-dart@v1
         with:
           sdk: ${{ matrix.sdk }}
 
@@ -104,8 +104,8 @@ jobs:
           # for the next time we need to support multiple analyzer versions.
           - ^5.1.0
     steps:
-      - uses: actions/checkout@v2
-      - uses: dart-lang/setup-dart@v0.2
+      - uses: actions/checkout@v4
+      - uses: dart-lang/setup-dart@v1
         with:
           sdk: ${{ matrix.sdk }}
 
@@ -140,8 +140,8 @@ jobs:
         # Can't run on `stable` (Dart 3) until we're fully null-safe.
         sdk: [ 2.19.6 ]
     steps:
-      - uses: actions/checkout@v2
-      - uses: dart-lang/setup-dart@v0.2
+      - uses: actions/checkout@v4
+      - uses: dart-lang/setup-dart@v1
         with:
           sdk: ${{ matrix.sdk }}
 
