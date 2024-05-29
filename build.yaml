@@ -17,10 +17,6 @@ builders:
 targets:
   $default:
     builders:
-      mockito:mockBuilder:
-        generate_for:
-          include:
-            - "test/mockito.dart"
       over_react|_over_react_local_builder:
         enabled: true
         generate_for:

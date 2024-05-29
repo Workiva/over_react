@@ -64,7 +64,7 @@ jobs:
           else
             # Don't check these generated files for other SDKs, since they may generate differently
             # due to different resolved dependencies.
-            git diff --exit-code -- ":(exclude)test/mockito.mocks.dart" ":(exclude)test/over_react/component_declaration/redux_component_test/test_reducer.g.dart"
+            git diff --exit-code -- ":(exclude)test/over_react/component_declaration/redux_component_test/test_reducer.g.dart"
           fi
         if: always() && steps.install.outcome == 'success' && steps.install.build == 'success'
 
