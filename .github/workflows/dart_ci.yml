@@ -18,7 +18,7 @@ jobs:
       fail-fast: false
       matrix:
         # Can't run on `dev` (Dart 3) until we're fully null-safe.
-        sdk: [ 2.18.7, 2.19.6 ]
+        sdk: [ 2.19.6 ]
     steps:
       - uses: actions/checkout@v2
       - uses: dart-lang/setup-dart@v0.2
@@ -39,7 +39,7 @@ jobs:
       - name: Verify formatting
         run: dart run dart_dev format --check
         # Only run on one sdk version in case there are conflicts
-        if: always() && matrix.sdk != '2.18.7' && steps.install.outcome == 'success'
+        if: always() && matrix.sdk != '2.19.6' && steps.install.outcome == 'success'
 
       # Analyze before generated files are created to verify that component boilerplate analysis is "clean" without the need for building
       - name: Analyze example source (pre-build)
@@ -59,7 +59,7 @@ jobs:
 
       - name: Verify that generated files are up-to-date
         run: |
-          if [ ${{ matrix.sdk }} = '2.18.7' ]; then
+          if [ ${{ matrix.sdk }} = '2.19.6' ]; then
             git diff --exit-code
           else
             # Don't check these generated files for other SDKs, since they may generate differently
@@ -98,7 +98,7 @@ jobs:
       fail-fast: false
       matrix:
         # Can't run on `dev` (Dart 3) until we're fully null-safe.
-        sdk: [ 2.18.7, 2.19.6 ]
+        sdk: [ 2.19.6 ]
         analyzer:
           # We only have one version currently, but we'll leave this CI step in place
           # for the next time we need to support multiple analyzer versions.
