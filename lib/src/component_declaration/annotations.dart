@@ -15,7 +15,7 @@
 // Dummy annotations that would be used by Pub code generator
 library over_react.component_declaration.annotations;
 
-import 'package:over_react/src/util/prop_conversion.dart' show jsifyMapProp, unjsifyMapProp, JsMap;
+// import 'package:over_react/src/util/prop_conversion.dart' show jsifyMapProp, unjsifyMapProp, JsMap;
 
 /// Annotation used with the `over_react` builder to declare a `UiFactory` for a component.
 ///
@@ -470,5 +470,15 @@ class ConvertProp<Raw, Converted> {
   const ConvertProp( this.setter, this.getter );
 }
 
+// todo should there be non-nullable versions of these?
+
 // todo doc comment
-// const ConvertProp convertJsMapProp = ConvertProp<JsMap?, Map?>(jsifyMapProp, unjsifyMapProp);
+const _CommonConversionCases convertJsMapProp = _CommonConversionCases();
+
+// todo doc comment
+const _CommonConversionCases convertJsRefProp = _CommonConversionCases();
+
+class _CommonConversionCases {
+  const _CommonConversionCases();
+}
+
