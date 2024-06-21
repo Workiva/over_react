@@ -57,10 +57,13 @@ class BadKeyDiagnosticTest_NoErrors extends BadKeyDiagnosticTest {
 
   Future<void> test_noErrors() async {
     final source = newSourceWithPrefix(/*language=dart*/ r'''
-      test() => [
+      test(num aNum, int anInt, double aDouble) => [
         (Dom.div()..key = 'a string')(),
         (Dom.div()..key = AnEnum.foo)(),
         (Dom.div()..key = 122)(),
+        (Dom.div()..key = aNum)(),
+        (Dom.div()..key = anInt)(),
+        (Dom.div()..key = aDouble)(),
         (Dom.div()..key = modelVar.id)(),
         (Dom.div()..key = modelVarWithCustomToString)(),
         (Dom.div()..key = deriveKeyFrom(modelVar))(),
