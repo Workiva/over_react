@@ -160,7 +160,11 @@ class BadKeyDiagnostic extends ComponentUsageDiagnosticContributor {
       getTypeContextString() =>
           type == topLevelKeyType ? '' : ' (from ${topLevelKeyType.getDisplayString(withNullability: false)})';
 
-      if (type.isDartCoreInt || type.isDartCoreDouble || type.isDartCoreString || type.isDartCoreSymbol) {
+      if (type.isDartCoreNum ||
+          type.isDartCoreInt ||
+          type.isDartCoreDouble ||
+          type.isDartCoreString ||
+          type.isDartCoreSymbol) {
         // Ignore core types that have good `Object.toString` implementations values.
       } else if (type.isDartCoreObject || type.isDynamic) {
         collector.addError(
