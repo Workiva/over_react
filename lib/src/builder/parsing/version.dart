@@ -174,9 +174,9 @@ class VersionConfidences {
   VersionConfidencePair get maxConfidence => _sortedVersions.first;
 
   VersionConfidences({
-    @required this.v2_legacyBackwardsCompat,
-    @required this.v3_legacyDart2Only,
-    @required this.v4_mixinBased,
+    required this.v2_legacyBackwardsCompat,
+    required this.v3_legacyDart2Only,
+    required this.v4_mixinBased,
   });
 
   /// Constructor to set all confidence values to the same thing

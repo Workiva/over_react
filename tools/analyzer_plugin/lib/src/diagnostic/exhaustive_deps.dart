@@ -279,7 +279,7 @@ class ExhaustiveDeps extends DiagnosticContributor {
     } else {
       throw ArgumentError.value(location, 'location');
     }
-    debugHelper.logWithLocation(computeString(), _location);
+    debugHelper.log(computeString, () => _location);
   }
 
   String getSource(SyntacticEntity entity) => result.content.substring(entity.offset, entity.end);
@@ -926,7 +926,7 @@ class ExhaustiveDeps extends DiagnosticContributor {
         }
 
         Expression? maybeID = declaredDependencyNode;
-        while (maybeID is PropertyAccess || maybeID is PrefixedIdentifier) {
+        while (maybeID != null && (maybeID is PropertyAccess || maybeID is PrefixedIdentifier)) {
           if (maybeID is PropertyAccess) {
             maybeID = maybeID.target;
           } else {

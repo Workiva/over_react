@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators, invalid_use_of_visible_for_overriding_member
 part of 'lazy_load_me_component.dart';
 
 // **************************************************************************
@@ -34,9 +34,9 @@ abstract class _$$LazyLoadMeProps extends UiProps
         LazyLoadMeProps {
   _$$LazyLoadMeProps._();
 
-  factory _$$LazyLoadMeProps(Map backingMap) {
+  factory _$$LazyLoadMeProps(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$LazyLoadMeProps$JsMap(backingMap as JsBackedMap);
+      return _$$LazyLoadMeProps$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$LazyLoadMeProps$PlainMap(backingMap);
     }
@@ -55,7 +55,16 @@ abstract class _$$LazyLoadMeProps extends UiProps
         // If this generated mixin is undefined, it's likely because LazyLoadMePropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of LazyLoadMePropsMixin, and check that $LazyLoadMePropsMixin is exported/imported properly.
         LazyLoadMePropsMixin: $LazyLoadMePropsMixin.meta,
       });
+
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$LazyLoadMeProps(
+          accessMap, (map) => _$$LazyLoadMeProps(map));
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$LazyLoadMeProps = getPropKey;
 
 // Concrete props implementation that can be backed by any [Map].
 @Deprecated('This API is for use only within generated code.'
@@ -63,7 +72,7 @@ abstract class _$$LazyLoadMeProps extends UiProps
 class _$$LazyLoadMeProps$PlainMap extends _$$LazyLoadMeProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$LazyLoadMeProps$PlainMap(Map backingMap)
+  _$$LazyLoadMeProps$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -82,7 +91,7 @@ class _$$LazyLoadMeProps$PlainMap extends _$$LazyLoadMeProps {
 class _$$LazyLoadMeProps$JsMap extends _$$LazyLoadMeProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$LazyLoadMeProps$JsMap(JsBackedMap backingMap)
+  _$$LazyLoadMeProps$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();

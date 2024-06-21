@@ -1,5 +1,4 @@
 import 'package:js/js.dart';
-import 'package:meta/meta.dart';
 import 'package:react/react_client/react_interop.dart';
 import 'package:test/test.dart';
 
@@ -14,7 +13,7 @@ class RefTestCase {
   /// The ref to be passed into a component.
   final dynamic ref;
 
-  /// Verifies (usually via `expect`) that the ref was updated exactly once with [actualValue].
+  /// Verifies (usually via `expect`) that the ref was updated exactly once with the `actualValue` provided argument.
   final Function(dynamic actualValue) verifyRefWasUpdated;
 
   /// Returns the current value of the ref.
@@ -23,10 +22,10 @@ class RefTestCase {
   final RefTestCaseMeta meta;
 
   RefTestCase({
-    @required this.ref,
-    @required this.verifyRefWasUpdated,
-    @required this.getCurrent,
-    @required this.meta,
+    required this.ref,
+    required this.verifyRefWasUpdated,
+    required this.getCurrent,
+    required this.meta,
   });
 }
 
@@ -46,6 +45,9 @@ class RefTestCaseCollection<T> {
     const name = untypedCallbackRefCaseName;
     final calls = [];
     return RefTestCase(
+      // Use a lambda instead of a tearoff since we want to explicitly verify
+      // a function with a certain argument type.
+      // ignore: unnecessary_lambdas
       ref: (value) => calls.add(value),
       verifyRefWasUpdated: (actualValue) =>
           expect(calls, [same(actualValue)], reason: _reasonMessage(name)),
@@ -60,7 +62,10 @@ class RefTestCaseCollection<T> {
     const name = typedCallbackRefCaseName;
     final calls = [];
     return RefTestCase(
-      ref: (T value) => calls.add(value),
+      // Use a lambda instead of a tearoff since we want to explicitly verify
+      // a function with a certain argument type.
+      // ignore: unnecessary_lambdas, avoid_types_on_closure_parameters
+      ref: (T? value) => calls.add(value),
       verifyRefWasUpdated: (actualValue) =>
           expect(calls, [same(actualValue)], reason: _reasonMessage(name)),
       getCurrent: () => calls.single,
@@ -102,6 +107,9 @@ class RefTestCaseCollection<T> {
     const name = jsCallbackRefCaseName;
     final calls = [];
     return RefTestCase(
+      // Use a lambda instead of a tearoff since we want to explicitly verify
+      // a function with a certain argument type.
+      // ignore: unnecessary_lambdas
       ref: allowInterop((value) => calls.add(value)),
       verifyRefWasUpdated: (actualValue) =>
           expect(calls, [same(actualValue)], reason: _reasonMessage(name)),

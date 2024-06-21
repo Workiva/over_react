@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators, invalid_use_of_visible_for_overriding_member
 part of 'redux_multi_provider.dart';
 
 // **************************************************************************
@@ -32,7 +32,6 @@ abstract class _$ReduxMultiProviderPropsAccessorsMixin
   ///
   /// <!-- Generated from [_$ReduxMultiProviderProps.storesByContext] -->
   @override
-  @requiredProp
   Map<Context, Store> get storesByContext =>
       (props[_$key__storesByContext___$ReduxMultiProviderProps] ?? null)
           as Map<Context, Store>;
@@ -46,14 +45,15 @@ abstract class _$ReduxMultiProviderPropsAccessorsMixin
   ///
   /// <!-- Generated from [_$ReduxMultiProviderProps.storesByContext] -->
   @override
-  @requiredProp
   set storesByContext(Map<Context, Store> value) =>
       props[_$key__storesByContext___$ReduxMultiProviderProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor
       _$prop__storesByContext___$ReduxMultiProviderProps = PropDescriptor(
           _$key__storesByContext___$ReduxMultiProviderProps,
-          isRequired: true);
+          isRequired: true,
+          isNullable: true,
+          isLate: true);
   static const String _$key__storesByContext___$ReduxMultiProviderProps =
       'ReduxMultiProviderProps.storesByContext';
 
@@ -75,7 +75,7 @@ class ReduxMultiProviderProps extends _$ReduxMultiProviderProps
   static const PropsMeta meta = _$metaForReduxMultiProviderProps;
 }
 
-_$$ReduxMultiProviderProps _$ReduxMultiProvider([Map backingProps]) =>
+_$$ReduxMultiProviderProps _$ReduxMultiProvider([Map? backingProps]) =>
     backingProps == null
         ? _$$ReduxMultiProviderProps$JsMap(JsBackedMap())
         : _$$ReduxMultiProviderProps(backingProps);
@@ -88,9 +88,9 @@ abstract class _$$ReduxMultiProviderProps extends _$ReduxMultiProviderProps
     implements ReduxMultiProviderProps {
   _$$ReduxMultiProviderProps._();
 
-  factory _$$ReduxMultiProviderProps(Map backingMap) {
+  factory _$$ReduxMultiProviderProps(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$ReduxMultiProviderProps$JsMap(backingMap as JsBackedMap);
+      return _$$ReduxMultiProviderProps$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$ReduxMultiProviderProps$PlainMap(backingMap);
     }
@@ -108,13 +108,22 @@ abstract class _$$ReduxMultiProviderProps extends _$ReduxMultiProviderProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'ReduxMultiProviderProps.';
+
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$ReduxMultiProviderProps(
+          accessMap, (map) => _$$ReduxMultiProviderProps(map));
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$ReduxMultiProviderProps = getPropKey;
 
 // Concrete props implementation that can be backed by any [Map].
 class _$$ReduxMultiProviderProps$PlainMap extends _$$ReduxMultiProviderProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ReduxMultiProviderProps$PlainMap(Map backingMap)
+  _$$ReduxMultiProviderProps$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -131,7 +140,7 @@ class _$$ReduxMultiProviderProps$PlainMap extends _$$ReduxMultiProviderProps {
 class _$$ReduxMultiProviderProps$JsMap extends _$$ReduxMultiProviderProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ReduxMultiProviderProps$JsMap(JsBackedMap backingMap)
+  _$$ReduxMultiProviderProps$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -148,7 +157,7 @@ class _$$ReduxMultiProviderProps$JsMap extends _$$ReduxMultiProviderProps {
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$ReduxMultiProviderComponent extends ReduxMultiProviderComponent {
-  _$$ReduxMultiProviderProps$JsMap _cachedTypedProps;
+  late _$$ReduxMultiProviderProps$JsMap _cachedTypedProps;
 
   @override
   _$$ReduxMultiProviderProps$JsMap get props => _cachedTypedProps;
@@ -169,11 +178,11 @@ class _$ReduxMultiProviderComponent extends ReduxMultiProviderComponent {
 
   @override
   _$$ReduxMultiProviderProps$JsMap typedPropsFactoryJs(
-          JsBackedMap backingMap) =>
+          JsBackedMap? backingMap) =>
       _$$ReduxMultiProviderProps$JsMap(backingMap);
 
   @override
-  _$$ReduxMultiProviderProps typedPropsFactory(Map backingMap) =>
+  _$$ReduxMultiProviderProps typedPropsFactory(Map? backingMap) =>
       _$$ReduxMultiProviderProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.

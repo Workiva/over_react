@@ -53,7 +53,7 @@ main() {
       });
 
       group('can be called multiple times without throwing', () {
-        ConnectFluxAdapterStore adapterStore;
+        late ConnectFluxAdapterStore adapterStore;
 
         setUp(() {
           adapterStore = SimpleStore().asConnectFluxStore(null);
@@ -74,8 +74,8 @@ main() {
     });
 
     group('calls teardown when the flux store is disposed', () {
-      flux.Store store;
-      ConnectFluxAdapterStore adapterStore;
+      late flux.Store store;
+      late ConnectFluxAdapterStore adapterStore;
 
       setUp(() {
         store = SimpleStore();
@@ -121,7 +121,8 @@ class SpyStore extends flux.Store {
   final spiedSubscriptions = <StreamSubscription>[];
 
   @override
-  listen(onData, {onError, onDone, cancelOnError}) {
+  listen(void Function(flux.Store)? onData,
+      {Function? onError, void Function()? onDone, bool? cancelOnError}) {
     final sub =
         super.listen(onData, onError: onError, onDone: onDone, cancelOnError: cancelOnError);
     spiedSubscriptions.add(sub);

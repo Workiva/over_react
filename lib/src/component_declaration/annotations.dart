@@ -35,12 +35,12 @@ class Factory {
 ///
 ///     @Props()
 ///     mixin FooProps on UiProps {
-///       String bar;
+///       String? bar;
 ///     }
 ///
 /// __NOTE:__ This is only required for legacy boilerplate and can be omitted
 /// for new implementations. However, it can still be used for custom configurations
-/// (e.g. `keyNamespace`).
+/// (e.g. `keyNamespace`, `disableRequiredPropValidation`).
 ///
 /// If utilizing legacy boilerplate, must be accompanied by a [Factory] and [Component2]
 /// declaration.
@@ -48,8 +48,75 @@ class Props implements TypedMap {
   /// A custom namespace for the keys of props defined in the annotated class,
   /// overriding the default of `'${propsClassName}.'`.
   @override
-  final String keyNamespace;
-  const Props({this.keyNamespace});
+  final String? keyNamespace;
+
+  /// Names of props to opt out of required prop validation for, both statically in the analyzer plugin
+  /// and at runtime when invoking the builder (only with asserts enabled).
+  ///
+  /// Useful when you have a wrapper component that sets required prop manually.
+  ///
+  /// For example:
+  ///
+  /// ```dart
+  /// mixin FooProps on UiProps {
+  ///   late String requiredPropAlwaysSetInWrapper;
+  ///   late String requiredPropNotSetInWrapper;
+  /// }
+  ///
+  /// UiFactory<FooProps> Foo = uiFunction((props) {
+  ///   // ...
+  /// }, _$FooConfig);
+  ///
+  /// @Props(disableRequiredPropValidation: {'requiredPropAlwaysSetInWrapper'})
+  /// class WrapperProps = UiProps with FooProps, WrapperPropsMixin;
+  ///
+  /// UiFactory<WrapperProps> Wrapper = uiForwardRef((props, ref) {
+  ///   return (Foo()
+  ///     ..requiredPropAlwaysSetInWrapper = 'foo'
+  ///     ..addProps(props.getPropsToForward(exclude: {WrapperPropsMixin}))
+  ///     ..ref = ref
+  ///   )();
+  /// }, _$WrapperConfig);
+  ///```
+  final Set<String>? disableRequiredPropValidation;
+
+  /// Whether to disable validation for props defaulted in the class component associated
+  /// with these props (defaults to `true`).
+  ///
+  /// This allows the declaration of non-nullable props with defaults that aren't considered
+  /// required by runtime validation or the analyzer plugin.
+  ///
+  /// This only includes props defaulted directly in `defaultProps` or `getDefaultProps`,
+  /// and does not include any props added in other ways, such as super-calls or `addProps`/`addAll`.
+  ///
+  /// For example, given the following component:
+  /// ```dart
+  /// UiFactory<FooProps> Foo = castUiFactory(_$Foo);
+  ///
+  /// mixin FooProps on UiProps {
+  ///   late bool defaultedProp;
+  ///   late String requiredProp;
+  /// }
+  ///
+  /// class FooComponent extends UiComponent2<FooProps> {
+  ///   get defaultProps => (newProps()..defaultedProp = true);
+  ///
+  ///   render() {}
+  /// }
+  /// ```
+  ///
+  /// The prop `defaultedProp` is not considered required because it has a default:
+  /// ```dart
+  /// Foo()(); // Has static and runtime errors about missing `requiredProp`
+  /// (Foo()..requiredProp = true)(); // Has no errors.
+  /// ```
+  final bool disableValidationForClassDefaultProps;
+
+  const Props({
+    this.keyNamespace,
+    this.disableRequiredPropValidation,
+    this.disableValidationForClassDefaultProps = true,
+  });
 }
 
 /// Annotation used with the `over_react` builder to declare a `UiState` mixin for a component.
@@ -71,7 +138,7 @@ class State implements TypedMap {
   /// A custom namespace for the keys of state properties defined in the annotated class,
   /// overriding the default of `'${stateClassName}.'`.
   @override
-  final String keyNamespace;
+  final String? keyNamespace;
   const State({this.keyNamespace});
 }
 
@@ -113,7 +180,7 @@ class Component {
   ///
   ///     isComponentOfType(Bar()(), Bar); // true (due to normal type-checking)
   ///     isComponentOfType(Bar()(), Foo); // true (due to parent type-checking)
-  final Type subtypeOf;
+  final Type? subtypeOf;
 
   const Component({
       this.isWrapper = false,
@@ -190,7 +257,7 @@ class Component2 implements Component { // ignore: deprecated_member_use_from_sa
   ///     isComponentOfType(Bar()(), Bar); // true (due to normal type-checking)
   ///     isComponentOfType(Bar()(), Foo); // true (due to parent type-checking)
   @override
-  final Type subtypeOf;
+  final Type? subtypeOf;
 
   const Component2({
       this.isWrapper = false,
@@ -205,7 +272,7 @@ class Component2 implements Component { // ignore: deprecated_member_use_from_sa
 ///
 ///     @AbstractProps()
 ///     mixin QuxProps on UiProps {
-///       int quux;
+///       int? quux;
 ///     }
 ///
 /// __NOTE:__ This is only required for legacy boilerplate and can be omitted
@@ -215,7 +282,7 @@ class AbstractProps implements TypedMap {
   /// A custom namespace for the keys of props defined in the annotated class,
   /// overriding the default of `'${propsClassName}.'`.
   @override
-  final String keyNamespace;
+  final String? keyNamespace;
   const AbstractProps({this.keyNamespace});
 }
 
@@ -234,7 +301,7 @@ class AbstractState implements TypedMap {
   /// A custom namespace for the keys of state properties defined in the annotated class,
   /// overriding the default of `'${stateClassName}.'`.
   @override
-  final String keyNamespace;
+  final String? keyNamespace;
   const AbstractState({this.keyNamespace});
 }
 
@@ -269,19 +336,19 @@ class AbstractComponent2 implements AbstractComponent { // ignore: deprecated_me
 ///     mixin GraultPropsMixin on UiProps {
 ///       Map get props;
 ///
-///       Object garply;
+///       Object? garply;
 ///     }
 ///
 /// Classes using this annotation must include the abstract `props` getter.
 ///
-/// __Deprecated.__ Use the `@Props()` annotation instead if you need to make use of an annotation argument. 
+/// __Deprecated.__ Use the `@Props()` annotation instead if you need to make use of an annotation argument.
 /// Otherwise, this can be removed completely. Will be removed in the 4.0.0 release of over_react.
 @Deprecated('Use the @Props() annotation if you need to make use of an annotation argument. Otherwise, this can be removed completely. Will be removed in the 4.0.0 release of over_react.')
 class PropsMixin implements TypedMap {
   /// A custom namespace for the keys of props defined in the annotated class,
   /// overriding the default of `'${propsClassName}.'`.
   @override
-  final String keyNamespace;
+  final String? keyNamespace;
   const PropsMixin({this.keyNamespace});
 }
 
@@ -298,18 +365,20 @@ class PropsMixin implements TypedMap {
 ///
 /// Classes using this annotation must include the abstract `state` getter.
 ///
-/// __Deprecated.__ Use the `@State()` annotation instead if you need to make use of an annotation argument. 
+/// __Deprecated.__ Use the `@State()` annotation instead if you need to make use of an annotation argument.
 /// Otherwise, this can be removed completely. Will be removed in the 4.0.0 release of over_react.
 @Deprecated('Use the @State() annotation if you need to make use of an annotation argument. Otherwise, this can be removed completely. Will be removed in the 4.0.0 release of over_react.')
 class StateMixin implements TypedMap {
   /// A custom namespace for the keys of state properties defined in the annotated class,
   /// overriding the default of `'${stateClassName}.'`.
   @override
-  final String keyNamespace;
+  final String? keyNamespace;
   const StateMixin({this.keyNamespace});
 }
 
 /// Marks a `prop` as required to be set.
+///
+/// Prefer using `late` required props instead; this will eventually be deprecated.
 ///
 /// Validation occurs in `UiComponent.validateRequiredProps` which requires super calls into `componentWillMount` and
 /// `componentWillReceiveProps`.
@@ -322,6 +391,8 @@ const Accessor requiredProp = Accessor(isRequired: true);
 
 /// Marks a `prop` as required to be set, but allowed to be set explicitly to `null`.
 ///
+/// Prefer using `late` required props instead; this will eventually be deprecated.
+///
 /// Validation occurs in `UiComponent.validateRequiredProps` which requires super calls into `componentWillMount` and
 /// `componentWillReceiveProps`.
 ///
@@ -333,7 +404,7 @@ const Accessor nullableRequiredProp = Accessor(isRequired: true, isNullable: tru
 
 /// Annotation used with the `over_react` builder to customize individual accessors (props/state fields).
 ///
-/// Validation occurs in `UiComponent.validateRequiredProps` which requires super calls into `componentWillMount` and
+/// Validation (prefer using using `late` required props) occurs in `UiComponent.validateRequiredProps` which requires super calls into `componentWillMount` and
 /// `componentWillReceiveProps`.
 ///
 ///     mixin FooProps on UiProps {
@@ -350,11 +421,11 @@ const Accessor nullableRequiredProp = Accessor(isRequired: true, isNullable: tru
 /// Related: [requiredProp], [nullableRequiredProp].
 class Accessor {
   /// A key for the annotated accessor, overriding the default of the accessor's name.
-  final String key;
+  final String? key;
 
   /// A custom namespace for the key namespace of the annotated accessor,
   /// overriding the default of `'${enclosingClassName}.'`.
-  final String keyNamespace;
+  final String? keyNamespace;
 
   /// Whether the accessor is required to be set.
   final bool isRequired;
@@ -363,7 +434,7 @@ class Accessor {
   final bool isNullable;
 
   /// The error message displayed when the accessor is not set.
-  final String requiredErrorMessage;
+  final String? requiredErrorMessage;
 
   /// Whether to skip generating an accessor for this field.
   final bool doNotGenerate;
@@ -379,5 +450,12 @@ class Accessor {
 }
 
 abstract class TypedMap {
-  String get keyNamespace;
+  String? get keyNamespace;
+}
+
+/// Prevents required prop validation from being performed on a prop.
+const _DisableRequiredPropValidation disableRequiredPropValidation = _DisableRequiredPropValidation();
+
+class _DisableRequiredPropValidation {
+  const _DisableRequiredPropValidation();
 }

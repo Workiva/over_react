@@ -23,7 +23,7 @@ import 'store.dart';
 part 'counter_fn.over_react.g.dart';
 
 mixin CounterFnProps on UiProps {
-  bool Function(int nextCount, int prevCount) countEqualityFn;
+  bool Function(int nextCount, int prevCount)? countEqualityFn;
 }
 
 UiFactory<CounterFnProps> CounterFn = uiFunction(
@@ -43,7 +43,7 @@ UiFactory<CounterFnProps> CounterFn = uiFunction(
 );
 
 mixin ModelCounterFnPropsMixin on UiProps {
-  bool Function(DartModelCounter nextCount, DartModelCounter prevCount) modelCountEqualityFn;
+  bool Function(DartModelCounter nextCount, DartModelCounter prevCount)? modelCountEqualityFn;
 }
 
 class ModelCounterFnProps = UiProps with CounterFnProps, ModelCounterFnPropsMixin;
@@ -85,7 +85,7 @@ UiFactory<ModelCounterFnProps> ModelCounterFn = uiFunction(
 final useBigCountSelector = createSelectorHook<BigCounterState>(bigCounterContext);
 
 mixin CustomContextCounterFnPropsMixin on UiProps {
-  bool Function(int nextBigCount, int prevBigCount) bigCountEqualityFn;
+  bool Function(int nextBigCount, int prevBigCount)? bigCountEqualityFn;
 }
 
 class CustomContextCounterFnProps = UiProps with CounterFnProps, CustomContextCounterFnPropsMixin;

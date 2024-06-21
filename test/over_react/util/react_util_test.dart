@@ -21,21 +21,37 @@ import 'package:test/test.dart';
 
 main() {
   group('UiPropsMapView', () {
-    UiPropsMapView mapView;
+    late Map backingMap;
+    late UiPropsMapView mapView;
 
     setUp(() {
-      mapView = UiPropsMapView({});
+      backingMap = {
+        'id': 'test-id',
+      };
+      mapView = TestUiPropsMapView(backingMap);
     });
 
-    tearDown(() {
-      mapView = null;
+    test('reads from and writes to the backing map as expected', () {
+      expect(mapView.id, 'test-id');
+      mapView.id = 'something else';
+      mapView['foo'] = 'bar';
+      expect({...mapView}, {'id': 'something else', 'foo': 'bar'});
+      expect(backingMap, {...mapView},
+          reason: 'backing map should reflect all changes in the map view');
+    });
+
+    test('getPropKey works as expected and uses selfFactory to construct a new instance', () {
+      final getPropKeyCalls = [];
+      final result = mapView.getPropKey((p) {
+        getPropKeyCalls.add(p);
+        p.id;
+      });
+      expect(result, 'id');
+      expect(getPropKeyCalls, [isA<TestUiPropsMapView>()]);
+      expect(getPropKeyCalls.single, isNot(same(mapView)));
     });
 
     group('throws an `UnimplementedError` when unimplemented fields/methods are accessed/called:', () {
-      test('`\$isClassGenerated`', () {
-        expect(() => mapView.$isClassGenerated, throwsUnimplementedError);
-      });
-
       test('`propKeyNamespace`', () {
         expect(() => mapView.propKeyNamespace, throwsUnimplementedError);
       });
@@ -81,4 +97,11 @@ main() {
       });
     });
   });
+}
+
+class TestUiPropsMapView extends UiPropsMapView {
+  TestUiPropsMapView(Map map): super(map);
+
+  @override
+  TestUiPropsMapView selfFactory(Map props) => TestUiPropsMapView(props);
 }

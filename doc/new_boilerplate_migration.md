@@ -986,6 +986,8 @@ UiFactory<FooProps> Foo = uiForwardRef(
 
 ## Upgrading Existing Code
 
+__First, you must upgrade your components to `UiComponent2`__. Check out the [`UiComponent2` Migration Guide](ui_component2_transition.md) to learn about the benefits of `UiComponent2`, the codemod script you can run, and other updates you may need to make manually.
+
 To update your repository to the new boilerplate, there are two steps:
 1. Upgrade to the `mixin` based boilerplate.
 1. Upgrade to use the new factory syntax.

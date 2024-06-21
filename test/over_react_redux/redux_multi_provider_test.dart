@@ -21,9 +21,9 @@ import 'fixtures/connect_flux_counter.dart';
 import 'fixtures/connect_flux_store.dart';
 
 main() {
-  Context context1;
-  Context context2;
-  Context context3;
+  late Context context1;
+  late Context context2;
+  late Context context3;
 
   setUp(() {
     context1 = createContext();
@@ -96,9 +96,9 @@ main() {
       final context2Button = queryByTestId(context2Counter, 'button-increment');
       final context3Button = queryByTestId(context3Counter, 'button-increment');
 
-      expect(findDomNode(context1Counter).innerHtml, contains('Count: 0'));
-      expect(findDomNode(context2Counter).innerHtml, contains('Count: 0'));
-      expect(findDomNode(context3Counter).innerHtml, contains('Count: 0'));
+      expect(findDomNode(context1Counter)!.innerHtml, contains('Count: 0'));
+      expect(findDomNode(context2Counter)!.innerHtml, contains('Count: 0'));
+      expect(findDomNode(context3Counter)!.innerHtml, contains('Count: 0'));
 
       click(context1Button);
 
@@ -110,37 +110,27 @@ main() {
       click(context3Button);
       await Future(() {});
 
-      expect(findDomNode(context1Counter).innerHtml, contains('Count: 1'));
-      expect(findDomNode(context2Counter).innerHtml, contains('Count: 200'),
+      expect(findDomNode(context1Counter)!.innerHtml, contains('Count: 1'));
+      expect(findDomNode(context2Counter)!.innerHtml, contains('Count: 200'),
           reason:
               'Two clicks each incrementing 100 (since it is the "big counter").');
-      expect(findDomNode(context3Counter).innerHtml, contains('Count: 3'));
+      expect(findDomNode(context3Counter)!.innerHtml, contains('Count: 3'));
     });
 
-    group('works as expected when storesByContext is', () {
-      test('null', () {
-        expect(
-            () => mount(ReduxMultiProvider()(
-                  (Dom.div()..addTestId('content'))('foo'),
-                )),
-            logsPropRequiredError('ReduxMultiProviderProps.storesByContext'));
-      });
+    test('works as expected when storesByContext is empty', () {
+      expect(
+              () => mount((ReduxMultiProvider()..storesByContext = {})(
+            (Dom.div()..addTestId('content'))('foo'),
+          )),
+          logsPropValueError('{}', 'ReduxMultiProviderProps.storesByContext',
+              'It must not be empty'));
 
-      test('empty', () {
-        expect(
-            () => mount((ReduxMultiProvider()..storesByContext = {})(
-                  (Dom.div()..addTestId('content'))('foo'),
-                )),
-            logsPropValueError('{}', 'ReduxMultiProviderProps.storesByContext',
-                'It must not be empty'));
+      final jacket = mount((ReduxMultiProvider()..storesByContext = {})(
+        (Dom.div()..addTestId('content'))('foo'),
+      ));
 
-        final jacket = mount((ReduxMultiProvider()..storesByContext = {})(
-          (Dom.div()..addTestId('content'))('foo'),
-        ));
-
-        expect(queryByTestId(jacket.mountNode, 'content').innerHtml,
-            contains('foo'));
-      });
+      expect(queryByTestId(jacket.mountNode, 'content')!.innerHtml,
+          contains('foo'));
     });
   });
 }

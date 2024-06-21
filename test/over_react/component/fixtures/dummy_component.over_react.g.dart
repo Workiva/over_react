@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators, invalid_use_of_visible_for_overriding_member
 part of 'dummy_component.dart';
 
 // **************************************************************************
@@ -33,7 +33,8 @@ abstract class _$DummyPropsAccessorsMixin implements _$DummyProps {
       props[_$key__onComponentDidMount___$DummyProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__onComponentDidMount___$DummyProps =
-      PropDescriptor(_$key__onComponentDidMount___$DummyProps);
+      PropDescriptor(_$key__onComponentDidMount___$DummyProps,
+          isRequired: true, isNullable: true, isLate: true);
   static const String _$key__onComponentDidMount___$DummyProps =
       'DummyProps.onComponentDidMount';
 
@@ -50,7 +51,7 @@ const PropsMeta _$metaForDummyProps = PropsMeta(
   keys: _$DummyPropsAccessorsMixin.$propKeys,
 );
 
-_$$DummyProps _$Dummy([Map backingProps]) => backingProps == null
+_$$DummyProps _$Dummy([Map? backingProps]) => backingProps == null
     ? _$$DummyProps$JsMap(JsBackedMap())
     : _$$DummyProps(backingProps);
 
@@ -62,9 +63,9 @@ abstract class _$$DummyProps extends _$DummyProps
     implements DummyProps {
   _$$DummyProps._();
 
-  factory _$$DummyProps(Map backingMap) {
+  factory _$$DummyProps(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$DummyProps$JsMap(backingMap as JsBackedMap);
+      return _$$DummyProps$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$DummyProps$PlainMap(backingMap);
     }
@@ -82,13 +83,21 @@ abstract class _$$DummyProps extends _$DummyProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'DummyProps.';
+
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$DummyProps(accessMap, (map) => _$$DummyProps(map));
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$DummyProps = getPropKey;
 
 // Concrete props implementation that can be backed by any [Map].
 class _$$DummyProps$PlainMap extends _$$DummyProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$DummyProps$PlainMap(Map backingMap)
+  _$$DummyProps$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -105,7 +114,7 @@ class _$$DummyProps$PlainMap extends _$$DummyProps {
 class _$$DummyProps$JsMap extends _$$DummyProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$DummyProps$JsMap(JsBackedMap backingMap)
+  _$$DummyProps$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -122,7 +131,7 @@ class _$$DummyProps$JsMap extends _$$DummyProps {
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$DummyComponent extends DummyComponent {
-  _$$DummyProps$JsMap _cachedTypedProps;
+  late _$$DummyProps$JsMap _cachedTypedProps;
 
   @override
   _$$DummyProps$JsMap get props => _cachedTypedProps;
@@ -142,11 +151,11 @@ class _$DummyComponent extends DummyComponent {
   }
 
   @override
-  _$$DummyProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
+  _$$DummyProps$JsMap typedPropsFactoryJs(JsBackedMap? backingMap) =>
       _$$DummyProps$JsMap(backingMap);
 
   @override
-  _$$DummyProps typedPropsFactory(Map backingMap) => _$$DummyProps(backingMap);
+  _$$DummyProps typedPropsFactory(Map? backingMap) => _$$DummyProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override

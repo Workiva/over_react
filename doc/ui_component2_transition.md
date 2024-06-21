@@ -113,10 +113,10 @@ boundary can be found in the Component2 examples.
 ## Updating
 
 To update your repository to use UiComponent2 / Component2, you can use 
-[over_react_codemod](https://github.com/Workiva/over_react_codemod)'s `component2_upgrade` executable to make it 
+[over_react_codemod 1.x](https://github.com/Workiva/over_react_codemod/tree/1.12.1)'s `component2_upgrade` executable to make it 
 easier. This codemod goes through the repository and updates components as necessary. While the codemod will handle 
 many basic updates, it will still need to be supplemented with some manual checks and refactoring. 
-To run the codemod, simply follow the directions within [the executable](https://github.com/Workiva/over_react_codemod/blob/master/lib/src/executables/component2_upgrade.dart#L30)
+To run the codemod, simply follow the directions within [the executable](https://github.com/Workiva/over_react_codemod/blob/1.12.1/lib/src/executables/component2_upgrade.dart#L30)
 while inside your repository.
 
 #### Flags

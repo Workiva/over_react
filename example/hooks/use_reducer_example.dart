@@ -22,7 +22,7 @@ Map initializeCount(int initialValue) {
 }
 
 Map reducer(Map state, Map action) {
-  switch (action['type'] as String) {
+  switch (action['type'] as String?) {
     case 'increment':
       return {...state, 'count': state['count'] + 1};
     case 'decrement':
@@ -35,13 +35,15 @@ Map reducer(Map state, Map action) {
 }
 
 mixin UseReducerExampleProps on UiProps {
-  int initialCount;
+  int? initialCount;
 }
 
 UiFactory<UseReducerExampleProps> UseReducerExample = uiFunction(
   (props) {
+    final initialCount = props.initialCount ?? 0;
+
     final state = useReducerLazy<Map, Map, int>(
-        reducer, props.initialCount, initializeCount);
+        reducer, initialCount, initializeCount);
 
     return Fragment()(
       state.state['count'],

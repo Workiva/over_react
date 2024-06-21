@@ -19,11 +19,11 @@ part 'private_component.over_react.g.dart';
 UiFactory<_PrivateProps> _Private = castUiFactory(_$_Private); // ignore: undefined_identifier, unused_element
 
 mixin _PrivateProps on UiProps {
-  bool prop1;
+  bool? prop1;
 }
 
 mixin _PrivateState on UiState {
-  bool state1;
+  bool? state1;
 }
 
 // ignore: unused_element

@@ -1,6 +1,3 @@
-// Disable null-safety in the plugin entrypoint until all dependencies are null-safe,
-// otherwise tests won't be able to run. See: https://github.com/dart-lang/test#compiler-flags
-//@dart=2.9
 
 import 'dart:convert';
 
@@ -9,7 +6,6 @@ import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:analyzer_plugin/protocol/protocol_generated.dart';
 import 'package:collection/collection.dart';
 import 'package:dart_style/dart_style.dart';
-import 'package:meta/meta.dart';
 import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
 import 'package:path/path.dart' as p;
 import 'package:over_react_analyzer_plugin/src/diagnostic/exhaustive_deps.dart';
@@ -24,7 +20,7 @@ import 'exhaustive_deps_test_cases.dart' as test_cases;
 
 void main() {
   group('ExhaustiveDeps', () {
-    const preamble = r'''
+    String getPreamble([String fileName = 'test.dart']) => '''
 // ignore_for_file: unused_import, unused_local_variable
     
 import 'dart:html';
@@ -32,7 +28,7 @@ import 'dart:html';
 import 'package:over_react/over_react.dart';
 import 'package:over_react/over_react.dart' as over_react;
 
-part 'test.over_react.g.dart';
+part '${fileName.replaceFirst('.dart', '.over_react.g.dart')}';
 
 // Implement APIs not defined in MockSdk
 dynamic window;
@@ -47,57 +43,57 @@ mixin TestProps on UiProps {
   var baz;
   var history;
   var innerRef;
-  List items;
-  num delay;
-  Function myEffect;
-  num upperViewHeight;
+  late List items;
+  late num delay;
+  late dynamic Function() myEffect;
+  late int upperViewHeight;
   var local;
   var activeTab;
   var maybeRef2;
   var prop;
-  Function fn1;
-  Function fn2;
+  late dynamic Function() fn1;
+  late Function fn2;
   var hello;
   var attribute;
-  Function function;
-  Ref<dynamic> someOtherRefs;
+  late Function function;
+  late Ref<dynamic> someOtherRefs;
   var color;
   var initY;
-  Function onPlay;
-  Function onPause;
-  bool isEditMode;
-  Function toggleEditMode;
-  Function fetchPodcasts;
-  Function fetchPodcasts2;
+  late Function onPlay;
+  late Function onPause;
+  late bool isEditMode;
+  late Function toggleEditMode;
+  late Function fetchPodcasts;
+  late Function fetchPodcasts2;
   var country;
   var prop1;
   var prop2;
   var section_components;
-  int step;
+  late int step;
   var increment;
-  UiFactory Component;
+  late UiFactory Component;
 }
 
 // Globals used by multiple test cases
-int setInterval(Function callback, [int duration]) => 0;
+int setInterval(Function callback, [int? duration]) => 0;
 void clearInterval(int id) {}
-int setTimeout(Function callback, [int duration]) => 0;
+int setTimeout(Function callback, [int? duration]) => 0;
 void clearTimeout(int id) {}
-Function fetch;
-void useCustomEffect(Function callback, [List dependencies]) {}
-Function debounce(Function callback, num delay) => null;
+Function? fetch;
+void useCustomEffect(Function callback, [List? dependencies]) {}
+dynamic Function() debounce(Function callback, num? delay) => (() => null);
 var global;
 dynamic someFunc() => null;
 
 // Classes used by multiple test cases
 abstract class Store {
-  static Function subscribe(Function listener) => null;
+  static Function? subscribe(Function listener) => null;
 }
 abstract class MutableStore {
   static dynamic get hello => null;
 }
 class SomeObject {
-  final int id;
+  final int? id;
   SomeObject({this.id});
 }
 class ObjectWithWritableField {
@@ -105,18 +101,18 @@ class ObjectWithWritableField {
 }
 ''';
 
-    bool errorFilter(AnalysisError error, {@required bool isFromPlugin}) =>
+    bool errorFilter(AnalysisError error, {required bool isFromPlugin}) =>
         defaultErrorFilter(error, isFromPlugin: isFromPlugin) &&
         // These are intentionally undefined references
         !(error.code == 'undefined_identifier' && error.message.contains("Undefined name 'unresolved'."));
 
     Future<HooksExhaustiveDepsDiagnosticTest> setUpTestBase(TestCase testCase) async {
       final additionalHooks = testCase.options
-          ?.where((option) => option.containsKey('additionalHooks'))
-          ?.map((option) => option['additionalHooks'] as String)
-          ?.firstOrNull;
+          ?.map((option) => option['additionalHooks'] as String?)
+          .whereNotNull()
+          .firstOrNull;
 
-      String analysisYaml;
+      String? analysisYaml;
       if (additionalHooks != null) {
         // Yaml is a superset of JSON, so we can use it where Yaml is expected. And outputting JSON is easier. :)
         // Also, this way, we don't have to worry about escaping strings if we're constructing the yaml ourselves.
@@ -143,7 +139,7 @@ class ObjectWithWritableField {
     }).forEach((suiteName, suite) {
       group('$suiteName:', () {
         group('test cases that should pass', () {
-          suite['valid'].forEachIndexed((i, element) {
+          suite['valid']!.forEachIndexed((i, element) {
             final testCase = TestCase.fromJson(element);
             test('valid[$i]${testCase.name == null ? '' : ' - ${testCase.name}'}', () async {
               // When there are test failures, it's useful to have the original source handy for debugging
@@ -151,14 +147,16 @@ class ObjectWithWritableField {
               printOnFailure('Test case source (before adding preamble): ```\n${testCase.code}\n```');
 
               final testBase = await setUpTestBase(testCase);
-              final source = testBase.newSource(preamble + testCase.code);
+
+              final fileName = testBase.uniqueSourceFileName();
+              final source = testBase.newSource(getPreamble(fileName) + testCase.code, path: fileName);
               await testBase.expectNoErrors(source, errorFilter: errorFilter);
             });
           });
         });
 
         group('test cases that should warn', () {
-          suite['invalid'].forEachIndexed((i, element) {
+          suite['invalid']!.forEachIndexed((i, element) {
             final testCase = TestCase.fromJson(element);
             test('invalid[$i]${testCase.name == null ? '' : ' - ${testCase.name}'}', () async {
               // When there are test failures, it's useful to have the original source handy for debugging
@@ -170,7 +168,10 @@ class ObjectWithWritableField {
               final expectedErrors = testCase.errors;
               expect(expectedErrors, isNotEmpty);
 
-              final source = testBase.newSource(preamble + testCase.code);
+
+              final fileName = testBase.uniqueSourceFileName();
+              final preamble = getPreamble(fileName);
+              final source = testBase.newSource(preamble + testCase.code, path: fileName);
               final errors = await testBase.getAllErrors(source, includeOtherCodes: true, errorFilter: errorFilter);
               expect(errors.dartErrors, isEmpty,
                   reason: 'Expected there to be no errors coming from the analyzer and not the plugin.'
@@ -195,7 +196,7 @@ class ObjectWithWritableField {
                 final numPreambleLinesAdded = '\n'.allMatches(preamble).length;
                 final actualMessages = errors.map((e) {
                   return e.message.replaceAllMapped(RegExp(r'(at line )(\d+)'), (match) {
-                    final lineNumber = int.parse(match[2]);
+                    final lineNumber = int.parse(match[2]!);
                     return '${match[1]}${lineNumber - numPreambleLinesAdded}';
                   });
                 }).toList();
@@ -229,7 +230,7 @@ class ObjectWithWritableField {
               for (var i = 0; i < errors.length; i++) {
                 final actualError = errors.elementAt(i);
                 Map<dynamic, dynamic> expectedError;
-                final expectedErrorIndex = expectedErrorIndexByActualErrorIndex[i];
+                final expectedErrorIndex = expectedErrorIndexByActualErrorIndex[i]!;
                 try {
                   expectedError = expectedErrors[expectedErrorIndex];
                 } catch (_) {
@@ -244,7 +245,7 @@ class ObjectWithWritableField {
                   rethrow;
                 }
 
-                final expectedFixes = (expectedError['suggestions'] as List ?? <dynamic>[]).cast<Map>();
+                final expectedFixes = (expectedError['suggestions'] as List? ?? <dynamic>[]).cast<Map>();
 
                 final actualFixesForError = (await testBase.getAllErrorFixesAtSelection(
                         SourceSelection(source, actualError.location.offset, actualError.location.length)))
@@ -388,19 +389,19 @@ class TestCase {
 
   TestCase.fromJson(this._testCaseJson);
 
-  String get name => _testCaseJson['name'] as String;
+  String? get name => _testCaseJson['name'] as String?;
 
   String get code => _testCaseJson['code'] as String;
 
   List<Map> get errors => (_testCaseJson['errors'] as List).cast();
 
-  List<Map> get options => (_testCaseJson['options'] as List)?.cast();
+  List<Map>? get options => (_testCaseJson['options'] as List?)?.cast();
 }
 
 @reflectiveTest
 class HooksExhaustiveDepsDiagnosticTest extends DiagnosticTestBase {
   @override
-  final String analysisOptionsYamlContents;
+  final String? analysisOptionsYamlContents;
 
   HooksExhaustiveDepsDiagnosticTest({this.analysisOptionsYamlContents});
 

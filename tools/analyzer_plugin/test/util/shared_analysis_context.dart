@@ -125,7 +125,7 @@ class SharedAnalysisContext {
   // This also allows us to keep using the same project directory among concurrent tests
   // and across test runs, which means the Dart analysis server can use cached
   // analysis results (meaning faster test runs).
-  final _testFileSubpath = 'lib/dynamic_test_files/${Uuid().v4()}';
+  final _testFileSubpath = 'dynamic_test_files/${Uuid().v4()}';
 
   SharedAnalysisContext._(
       {required this.contextRootPath, required this.isTemporaryCopy, this.customPubGetErrorMessage}) {
@@ -184,7 +184,7 @@ class SharedAnalysisContext {
     await collection.contextFor(path).currentSession.getResolvedLibrary(path);
   }
 
-  /// Creates a new file within [_testFileSubpath] with the name [filename]
+  /// Creates a new file within [topLevelDirectory]/[_testFileSubpath] with the name [filename]
   /// (or a generated filename if not specified) and the given [sourceText]
   /// and returns a codemod FileContext for that file.
   ///
@@ -196,9 +196,17 @@ class SharedAnalysisContext {
   /// call to this method, and not results containing the updated [sourceText].
   /// And, even if there were a way to update it, reusing file names would be prone
   /// to race conditions, so this restriction will likely never be removed.
-  String createTestFile(String sourceText, {String? filename}) {
+  String createTestFile(
+    String sourceText, {
+    String? filename,
+    String topLevelDirectory = 'lib',
+  }) {
+    if (topLevelDirectory != p.basename(topLevelDirectory)) {
+      throw ArgumentError.value(topLevelDirectory, 'topLevelDirectory', 'must be a directory name and not a path');
+    }
+
     filename ??= nextFilename();
-    final path = p.join(contextRootPath, _testFileSubpath, filename);
+    final path = p.join(contextRootPath, topLevelDirectory, _testFileSubpath, filename);
     final file = File(path);
     if (file.existsSync()) {
       throw StateError('File already exists: $filename.'

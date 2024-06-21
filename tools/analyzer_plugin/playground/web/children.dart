@@ -47,7 +47,6 @@ invalidChildren() {
     [1, 2, 3].map((_) => MyObject()),
     [1, 2, 3].map((number) async => (Dom.div()..key = number)(number)),
 
-
     // Unsupported types, uninvoked builders: has quick fix
     Foo(),
     (Foo()),
@@ -57,7 +56,7 @@ invalidChildren() {
 }
 
 class MyObject {
-  String id;
+  String? id;
 }
 
 dynamic functionThatReturnsDynamic() {}

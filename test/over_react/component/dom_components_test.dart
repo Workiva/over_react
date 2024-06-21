@@ -20,7 +20,7 @@ import 'package:test/test.dart';
 
 main() {
   group('Dom component:', () {
-    var expectedMethodsOnDom = <UiFactory /* dom method */, String /* method name */>{
+    const expectedMethodsOnDom = <UiFactory /* dom method */, String /* method name */>{
       Dom.a: 'a', Dom.abbr: 'abbr', Dom.address: 'address', Dom.area: 'area', Dom.article: 'article',
       Dom.aside: 'aside', Dom.audio: 'audio', Dom.b: 'b', Dom.base: 'base', Dom.bdi: 'bdi', Dom.bdo: 'bdo',
       Dom.big: 'big', Dom.blockquote: 'blockquote', Dom.body: 'body', Dom.br: 'br', Dom.button: 'button',
@@ -89,8 +89,15 @@ main() {
     });
 
     group('typing:', () {
-      final DomProps dom = Dom.div();
-      final SvgProps svg = Dom.circle();
+      late DomProps dom;
+      late SvgProps svg;
+
+      setUp(() {
+        dom = Dom.div();
+        expect(dom, isNot(isA<SvgProps>()),
+            reason: 'test setup check that we didn\'t accidentally pick an SVG member on Dom');
+        svg = Dom.circle();
+      });
 
       test('DomProps is a subtype of `UiProps` exported by over_react.dart', () {
         expect(dom, isA<UiProps>());
@@ -102,6 +109,62 @@ main() {
 
       test('SvgProps is a subtype of `DomProps`', () {
         expect(svg, isA<DomProps>());
+      });
+    });
+
+    group('SvgProps', () {
+      late SvgProps svg;
+
+      setUp(() {
+        svg = Dom.circle();
+      });
+
+      group('has functional overrides to members that are typically generated', () {
+        // TODO(FED-1994) implement staticMeta for this props class and add tests here
+
+        test('propKeyNamespace', () {
+          expect(svg.propKeyNamespace, '');
+        });
+
+        test('\$getPropKey (used by getPropKey)', () {
+          expect(svg.getPropKey((p) => p.fill), 'fill');
+
+          late final SvgProps getPropKeyArg;
+          svg.getPropKey((p) {
+            getPropKeyArg = p;
+            p.id; // Access a prop so that this doesn't throw
+          });
+          expect(getPropKeyArg, isA<SvgProps>());
+        });
+      });
+    });
+
+    group('DomProps', () {
+      late DomProps dom;
+
+      setUp(() {
+        dom = Dom.div();
+        expect(dom, isNot(isA<SvgProps>()),
+            reason: 'test setup check that we didn\'t accidentally pick an SVG member on Dom');
+      });
+
+      group('has functional overrides to members that are typically generated', () {
+        // TODO(FED-1994) implement staticMeta for this props class and add tests here
+
+        test('propKeyNamespace', () {
+          expect(dom.propKeyNamespace, '');
+        });
+
+        test('\$getPropKey (used by getPropKey)', () {
+          expect(dom.getPropKey((p) => p.id), 'id');
+
+          late final DomProps getPropKeyArg;
+          dom.getPropKey((p) {
+            getPropKeyArg = p;
+            p.id; // Access a prop so that this doesn't throw
+          });
+          expect(getPropKeyArg, isA<DomProps>());
+        });
       });
     });
   });

@@ -561,7 +561,7 @@ class OverReactSrc {
     return buffer.toString();
   }
 
-  String _propsOrStateMixinSrc(AnnotationType annotation, {String body = '', String annotationArg = '', int index}) {
+  String _propsOrStateMixinSrc(AnnotationType annotation, {String body = '', String annotationArg = '', int? index}) {
     if (!isMixin(annotation)) {
       return '';
     }

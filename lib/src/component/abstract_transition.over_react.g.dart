@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators, invalid_use_of_visible_for_overriding_member
 part of 'abstract_transition.dart';
 
 // **************************************************************************
@@ -22,8 +22,11 @@ mixin $AbstractTransitionState on AbstractTransitionState {
       state[_$key__transitionPhase__AbstractTransitionState] = value;
   /* GENERATED CONSTANTS */
   static const StateDescriptor
-      _$prop__transitionPhase__AbstractTransitionState =
-      StateDescriptor(_$key__transitionPhase__AbstractTransitionState);
+      _$prop__transitionPhase__AbstractTransitionState = StateDescriptor(
+          _$key__transitionPhase__AbstractTransitionState,
+          isRequired: true,
+          isNullable: true,
+          isLate: true);
   static const String _$key__transitionPhase__AbstractTransitionState =
       'AbstractTransitionState.transitionPhase';
 

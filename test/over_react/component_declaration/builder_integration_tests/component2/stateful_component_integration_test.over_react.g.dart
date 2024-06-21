@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators, invalid_use_of_visible_for_overriding_member
 part of 'stateful_component_integration_test.dart';
 
 // **************************************************************************
@@ -27,15 +27,15 @@ abstract class _$StatefulComponentTestPropsAccessorsMixin
   ///
   /// <!-- Generated from [_$StatefulComponentTestProps.setStateDirectly] -->
   @override
-  bool get setStateDirectly =>
+  bool? get setStateDirectly =>
       (props[_$key__setStateDirectly___$StatefulComponentTestProps] ?? null)
-          as bool;
+          as bool?;
 
   /// Used to test if a component has the capability to set state via this.setState.
   ///
   /// <!-- Generated from [_$StatefulComponentTestProps.setStateDirectly] -->
   @override
-  set setStateDirectly(bool value) =>
+  set setStateDirectly(bool? value) =>
       props[_$key__setStateDirectly___$StatefulComponentTestProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor
@@ -62,7 +62,7 @@ class StatefulComponentTestProps extends _$StatefulComponentTestProps
   static const PropsMeta meta = _$metaForStatefulComponentTestProps;
 }
 
-_$$StatefulComponentTestProps _$StatefulComponentTest([Map backingProps]) =>
+_$$StatefulComponentTestProps _$StatefulComponentTest([Map? backingProps]) =>
     backingProps == null
         ? _$$StatefulComponentTestProps$JsMap(JsBackedMap())
         : _$$StatefulComponentTestProps(backingProps);
@@ -76,9 +76,9 @@ abstract class _$$StatefulComponentTestProps
     implements StatefulComponentTestProps {
   _$$StatefulComponentTestProps._();
 
-  factory _$$StatefulComponentTestProps(Map backingMap) {
+  factory _$$StatefulComponentTestProps(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$StatefulComponentTestProps$JsMap(backingMap as JsBackedMap);
+      return _$$StatefulComponentTestProps$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$StatefulComponentTestProps$PlainMap(backingMap);
     }
@@ -96,14 +96,27 @@ abstract class _$$StatefulComponentTestProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'StatefulComponentTestProps.';
+
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$StatefulComponentTestProps(
+          accessMap, (map) => _$$StatefulComponentTestProps(map));
+
+  @override
+  Set<String> get requiredPropNamesToSkipValidation =>
+      const {'setStateDirectly'};
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$StatefulComponentTestProps = getPropKey;
 
 // Concrete props implementation that can be backed by any [Map].
 class _$$StatefulComponentTestProps$PlainMap
     extends _$$StatefulComponentTestProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$StatefulComponentTestProps$PlainMap(Map backingMap)
+  _$$StatefulComponentTestProps$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -121,7 +134,7 @@ class _$$StatefulComponentTestProps$JsMap
     extends _$$StatefulComponentTestProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$StatefulComponentTestProps$JsMap(JsBackedMap backingMap)
+  _$$StatefulComponentTestProps$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -140,13 +153,13 @@ abstract class _$StatefulComponentTestStateAccessorsMixin
 
   /// <!-- Generated from [_$StatefulComponentTestState.stringState] -->
   @override
-  String get stringState =>
+  String? get stringState =>
       (state[_$key__stringState___$StatefulComponentTestState] ?? null)
-          as String;
+          as String?;
 
   /// <!-- Generated from [_$StatefulComponentTestState.stringState] -->
   @override
-  set stringState(String value) =>
+  set stringState(String? value) =>
       state[_$key__stringState___$StatefulComponentTestState] = value;
 
   /// <!-- Generated from [_$StatefulComponentTestState.dynamicState] -->
@@ -282,9 +295,9 @@ abstract class _$$StatefulComponentTestState
     implements StatefulComponentTestState {
   _$$StatefulComponentTestState._();
 
-  factory _$$StatefulComponentTestState(Map backingMap) {
+  factory _$$StatefulComponentTestState(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$StatefulComponentTestState$JsMap(backingMap as JsBackedMap);
+      return _$$StatefulComponentTestState$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$StatefulComponentTestState$PlainMap(backingMap);
     }
@@ -300,7 +313,7 @@ class _$$StatefulComponentTestState$PlainMap
     extends _$$StatefulComponentTestState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$StatefulComponentTestState$PlainMap(Map backingMap)
+  _$$StatefulComponentTestState$PlainMap(Map? backingMap)
       : this._state = {},
         super._() {
     this._state = backingMap ?? {};
@@ -318,7 +331,7 @@ class _$$StatefulComponentTestState$JsMap
     extends _$$StatefulComponentTestState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$StatefulComponentTestState$JsMap(JsBackedMap backingMap)
+  _$$StatefulComponentTestState$JsMap(JsBackedMap? backingMap)
       : this._state = JsBackedMap(),
         super._() {
     this._state = backingMap ?? JsBackedMap();
@@ -335,7 +348,7 @@ class _$$StatefulComponentTestState$JsMap
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$StatefulComponentTestComponent extends StatefulComponentTestComponent {
-  _$$StatefulComponentTestProps$JsMap _cachedTypedProps;
+  late _$$StatefulComponentTestProps$JsMap _cachedTypedProps;
 
   @override
   _$$StatefulComponentTestProps$JsMap get props => _cachedTypedProps;
@@ -356,14 +369,14 @@ class _$StatefulComponentTestComponent extends StatefulComponentTestComponent {
 
   @override
   _$$StatefulComponentTestProps$JsMap typedPropsFactoryJs(
-          JsBackedMap backingMap) =>
+          JsBackedMap? backingMap) =>
       _$$StatefulComponentTestProps$JsMap(backingMap);
 
   @override
-  _$$StatefulComponentTestProps typedPropsFactory(Map backingMap) =>
+  _$$StatefulComponentTestProps typedPropsFactory(Map? backingMap) =>
       _$$StatefulComponentTestProps(backingMap);
 
-  _$$StatefulComponentTestState$JsMap _cachedTypedState;
+  late _$$StatefulComponentTestState$JsMap _cachedTypedState;
   @override
   _$$StatefulComponentTestState$JsMap get state => _cachedTypedState;
 
@@ -379,11 +392,11 @@ class _$StatefulComponentTestComponent extends StatefulComponentTestComponent {
 
   @override
   _$$StatefulComponentTestState$JsMap typedStateFactoryJs(
-          JsBackedMap backingMap) =>
+          JsBackedMap? backingMap) =>
       _$$StatefulComponentTestState$JsMap(backingMap);
 
   @override
-  _$$StatefulComponentTestState typedStateFactory(Map backingMap) =>
+  _$$StatefulComponentTestState typedStateFactory(Map? backingMap) =>
       _$$StatefulComponentTestState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.

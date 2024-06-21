@@ -23,20 +23,22 @@ abstract class ComponentGenerator extends BoilerplateDeclarationGenerator {
   // Provide factory constructors since they make invocations easier to read and tell apart
   // than all of the different subclasses.
 
-  factory ComponentGenerator(ClassComponentDeclaration declaration) = _ComponentGenerator;
+  factory ComponentGenerator(ClassComponentDeclaration declaration, {required bool nullSafety}) =
+      _ComponentGenerator;
 
-  factory ComponentGenerator.legacy(LegacyClassComponentDeclaration declaration) =
-      _LegacyComponentGenerator;
+  factory ComponentGenerator.legacy(LegacyClassComponentDeclaration declaration,
+      {required bool nullSafety}) = _LegacyComponentGenerator;
 
-  TypedMapNames propsNames;
-  TypedMapNames stateNames;
-  ComponentNames componentNames;
-  FactoryNames factoryNames;
+  TypedMapNames get propsNames;
+  TypedMapNames? get stateNames;
+  ComponentNames get componentNames;
+  FactoryNames get factoryNames;
 
   BoilerplateComponent get component;
   bool get hasState;
   bool get isComponent2;
   String get defaultConsumedPropsImpl;
+  bool get nullSafety;
 
   @override
   void generate() {
@@ -58,7 +60,7 @@ abstract class ComponentGenerator extends BoilerplateDeclarationGenerator {
       // implemented for Component2.
       // This implementation here is necessary so that mixin accesses aren't compiled as index$ax
       outputContentsBuffer
-        ..writeln('  ${propsNames.jsMapImplName} _cachedTypedProps;')
+        ..writeln('  ${nullSafety ? 'late ' : ''}${propsNames.jsMapImplName} _cachedTypedProps;')
         ..writeln()
         ..writeln('  @override')
         ..writeln('  ${propsNames.jsMapImplName} get props => _cachedTypedProps;')
@@ -78,7 +80,8 @@ abstract class ComponentGenerator extends BoilerplateDeclarationGenerator {
         ..writeln('  }')
         ..writeln()
         ..writeln('  @override ')
-        ..writeln('  ${propsNames.jsMapImplName} typedPropsFactoryJs(JsBackedMap backingMap)'
+        ..writeln(
+            '  ${propsNames.jsMapImplName} typedPropsFactoryJs(JsBackedMap${nullSafety ? '?' : ''} backingMap)'
             ' => ${propsNames.jsMapImplName}(backingMap);')
         ..writeln();
     }
@@ -86,34 +89,36 @@ abstract class ComponentGenerator extends BoilerplateDeclarationGenerator {
     outputContentsBuffer
       ..writeln('  @override')
       ..writeln(
-          '  ${propsNames.implName} typedPropsFactory(Map backingMap) => ${propsNames.implName}(backingMap);')
+          '  ${propsNames.implName} typedPropsFactory(Map${nullSafety ? '?' : ''} backingMap) => ${propsNames.implName}(backingMap);')
       ..writeln();
 
-    if (isComponent2 && hasState) {
-      outputContentsBuffer
-        ..writeln('  ${stateNames.jsMapImplName} _cachedTypedState;')
-        ..writeln('  @override')
-        ..writeln('  ${stateNames.jsMapImplName} get state => _cachedTypedState;')
-        ..writeln()
-        ..writeln('  @override')
-        ..writeln('  set state(Map value) {')
-        ..writeln('    assert(value is JsBackedMap, ')
-        ..writeln('      \'Component2.state should only be set via \'')
-        ..writeln('      \'initialState or setState.\');')
-        ..writeln('    super.state = value;')
-        ..writeln('    _cachedTypedState = typedStateFactoryJs(value as JsBackedMap);')
-        ..writeln('  }')
-        ..writeln()
-        ..writeln('  @override ')
-        ..writeln('  ${stateNames.jsMapImplName} typedStateFactoryJs(JsBackedMap backingMap)'
-            ' => ${stateNames.jsMapImplName}(backingMap);')
-        ..writeln();
-    }
-
     if (hasState) {
+      final stateNames = this.stateNames!;
+      if (isComponent2) {
+        outputContentsBuffer
+          ..writeln('  ${nullSafety ? 'late ' : ''}${stateNames.jsMapImplName} _cachedTypedState;')
+          ..writeln('  @override')
+          ..writeln('  ${stateNames.jsMapImplName} get state => _cachedTypedState;')
+          ..writeln()
+          ..writeln('  @override')
+          ..writeln('  set state(Map value) {')
+          ..writeln('    assert(value is JsBackedMap, ')
+          ..writeln('      \'Component2.state should only be set via \'')
+          ..writeln('      \'initialState or setState.\');')
+          ..writeln('    super.state = value;')
+          ..writeln('    _cachedTypedState = typedStateFactoryJs(value as JsBackedMap);')
+          ..writeln('  }')
+          ..writeln()
+          ..writeln('  @override ')
+          ..writeln(
+              '  ${stateNames.jsMapImplName} typedStateFactoryJs(JsBackedMap${nullSafety ? '?' : ''} backingMap)'
+              ' => ${stateNames.jsMapImplName}(backingMap);')
+          ..writeln();
+      }
       outputContentsBuffer
         ..writeln('  @override')
-        ..writeln('  ${stateNames.implName} typedStateFactory(Map backingMap)'
+        ..writeln(
+            '  ${stateNames.implName} typedStateFactory(Map${nullSafety ? '?' : ''} backingMap)'
             ' => ${stateNames.implName}(backingMap);')
         ..writeln();
     }
@@ -144,7 +149,7 @@ class _ComponentGenerator extends ComponentGenerator {
   final TypedMapNames propsNames;
 
   @override
-  final TypedMapNames stateNames;
+  final TypedMapNames? stateNames;
 
   @override
   final ComponentNames componentNames;
@@ -152,10 +157,13 @@ class _ComponentGenerator extends ComponentGenerator {
   @override
   final FactoryNames factoryNames;
 
-  _ComponentGenerator(this.declaration)
+  @override
+  final bool nullSafety;
+
+  _ComponentGenerator(this.declaration, {required this.nullSafety})
       : this.propsNames = TypedMapNames(declaration.props.either.name.name),
         this.stateNames =
-            declaration.state == null ? null : TypedMapNames(declaration.state.either.name.name),
+            declaration.state == null ? null : TypedMapNames(declaration.state!.either.name.name),
         this.componentNames = ComponentNames(declaration.component.name.name),
         this.factoryNames = FactoryNames(declaration.factory.name.name),
         super._();
@@ -193,7 +201,7 @@ class _LegacyComponentGenerator extends ComponentGenerator {
   final TypedMapNames propsNames;
 
   @override
-  final TypedMapNames stateNames;
+  final TypedMapNames? stateNames;
 
   @override
   final ComponentNames componentNames;
@@ -201,10 +209,13 @@ class _LegacyComponentGenerator extends ComponentGenerator {
   @override
   final FactoryNames factoryNames;
 
-  _LegacyComponentGenerator(this.declaration)
+  @override
+  final bool nullSafety;
+
+  _LegacyComponentGenerator(this.declaration, {required this.nullSafety})
       : this.propsNames = TypedMapNames(declaration.props.name.name),
         this.stateNames =
-            declaration.state == null ? null : TypedMapNames(declaration.state.name.name),
+            declaration.state == null ? null : TypedMapNames(declaration.state!.name.name),
         this.componentNames = ComponentNames(declaration.component.name.name),
         this.factoryNames = FactoryNames(declaration.factory.name.name),
         super._();

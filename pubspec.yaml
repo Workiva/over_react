@@ -1,23 +1,22 @@
 name: over_react
-version: 4.10.4
+version: 5.1.2
 description: A library for building statically-typed React UI components using Dart.
 homepage: https://github.com/Workiva/over_react/
 environment:
-  sdk: ">=2.11.0 <3.0.0"
+  sdk: '>=2.13.0 <3.0.0'
 
 dependencies:
-  collection: ^1.14.11
+  collection: ^1.15.0
   analyzer: ^5.1.0
   build: '>=1.0.0 <3.0.0'
-  built_redux: ^8.0.6
-  built_value: ^8.0.0
   dart_style: ^2.0.0
   js: ^0.6.1+1
   logging: ^1.0.0
   meta: ^1.6.0
+  package_config: ^2.1.0
   path: ^1.5.1
   react: ^7.0.0
-  redux: '>=3.0.0 <6.0.0'
+  redux: '>=5.0.0 <6.0.0'
   source_span: ^1.4.1
   transformer_utils: ^0.2.6
   w_common: ^3.0.0
@@ -27,30 +26,25 @@ dependencies:
   redux_dev_tools: '>=0.4.0 <0.8.0'
 
 dev_dependencies:
+  benchmark_harness: ^2.2.1
   build_resolvers: '>=1.0.5 <3.0.0'
   build_runner: ^2.0.0
   build_test: ^2.0.0
   build_web_compilers: ^3.0.0
   built_value_generator: ^8.0.0
-  dart_dev: ^4.0.0
+  dart_dev: ^4.0.1
   dependency_validator: ^3.0.0
-  glob: ^2.0.0
+  glob: ^2.0.1
   io: '>=0.3.2+1 <2.0.0'
-  mockito: ^5.3.1
-  react_testing_library: ^2.1.0
-  over_react_test: ^2.10.2
-  pedantic: ^1.8.0
-  test: ^1.15.7
-  yaml: ^3.0.0
+  react_testing_library: ^3.0.1
+  over_react_test: ^3.0.0
+  pedantic: ^1.11.1
+  test: ^1.20.0
+  workiva_analysis_options: ^1.4.0
+  yaml: ^3.1.0
+  mocktail: ^1.0.3
 
 workiva:
   core_checks:
     version: 1
     react_boilerplate: disabled
-
-dependency_validator:
-  exclude:
-    - app/**
-    - tools/**
-  ignore:
-    - mockito

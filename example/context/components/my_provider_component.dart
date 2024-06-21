@@ -23,7 +23,7 @@ UiFactory<MyProviderProps> MyProvider = castUiFactory(_$MyProvider); // ignore: 
 mixin MyProviderProps on UiProps {}
 
 mixin MyProviderState on UiState {
-  String latestValue;
+  String? latestValue;
 }
 
 class MyProviderComponent extends UiStatefulComponent2<MyProviderProps, MyProviderState> {

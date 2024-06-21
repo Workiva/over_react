@@ -1,6 +1,4 @@
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
-// This error is unavoidable until over_react's builder is null-safe. See this library's doc comment for more info.
-// ignore: import_of_legacy_library_into_null_safe
 import 'package:over_react_analyzer_plugin/src/over_react_builder_parsing.dart' as orbp;
 import 'package:source_span/source_span.dart';
 
@@ -104,8 +102,7 @@ class IncorrectDocCommentLocationDiagnostic extends DiagnosticContributor {
   @override
   computeErrors(result, collector) async {
     final sourceFile = SourceFile.fromString(result.content, url: result.path);
-    final errorCollector = orbp.ErrorCollector.callback(sourceFile);
-    final declarations = orbp.parseDeclarations(result.unit, errorCollector);
+    final declarations = orbp.parseDeclarations(result.unit, null);
 
     for (final decl in declarations) {
       if (decl is orbp.PropsMapViewOrFunctionComponentDeclaration) continue;

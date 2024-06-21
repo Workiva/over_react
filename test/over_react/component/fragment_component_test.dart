@@ -40,7 +40,7 @@ void main() {
         ),
       );
 
-      expect(wrappingDivRef.current.children, hasLength(4));
+      expect(wrappingDivRef.current!.children, hasLength(4));
     });
 
     test('passes the key properly onto the fragment', () {

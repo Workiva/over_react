@@ -73,7 +73,7 @@ main() {
           for (var todo in component.props.todos) {
             final listItemComponent = getComponentByTestId(displayListInstance, 'todo_client.TodoListItem.${todo.id}');
             expect(listItemComponent, isA<TodoListItemComponent>());
-            TodoListItemProps props = listItemComponent.props;
+            var props = listItemComponent.props;
             expect(props.model, todo);
           }
         });

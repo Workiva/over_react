@@ -26,6 +26,6 @@ class _$TwoLevelWrapper2Props extends UiProps {}
 @Component2(isWrapper: true)
 class TwoLevelWrapper2Component extends UiComponent2<TwoLevelWrapper2Props> {
   @override
-  render() => Dom.div()(props.children.single);
+  render() => Dom.div()(props.children!.single);
 }
 

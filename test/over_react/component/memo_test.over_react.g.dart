@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators, invalid_use_of_visible_for_overriding_member
 part of 'memo_test.dart';
 
 // **************************************************************************
@@ -25,12 +25,12 @@ abstract class _$BasicUiComponent2PropsAccessorsMixin
 
   /// <!-- Generated from [_$BasicUiComponent2Props.childId] -->
   @override
-  String get childId =>
-      (props[_$key__childId___$BasicUiComponent2Props] ?? null) as String;
+  String? get childId =>
+      (props[_$key__childId___$BasicUiComponent2Props] ?? null) as String?;
 
   /// <!-- Generated from [_$BasicUiComponent2Props.childId] -->
   @override
-  set childId(String value) =>
+  set childId(String? value) =>
       props[_$key__childId___$BasicUiComponent2Props] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__childId___$BasicUiComponent2Props =
@@ -56,7 +56,7 @@ class BasicUiComponent2Props extends _$BasicUiComponent2Props
   static const PropsMeta meta = _$metaForBasicUiComponent2Props;
 }
 
-_$$BasicUiComponent2Props _$BasicUiComponent2([Map backingProps]) =>
+_$$BasicUiComponent2Props _$BasicUiComponent2([Map? backingProps]) =>
     backingProps == null
         ? _$$BasicUiComponent2Props$JsMap(JsBackedMap())
         : _$$BasicUiComponent2Props(backingProps);
@@ -69,9 +69,9 @@ abstract class _$$BasicUiComponent2Props extends _$BasicUiComponent2Props
     implements BasicUiComponent2Props {
   _$$BasicUiComponent2Props._();
 
-  factory _$$BasicUiComponent2Props(Map backingMap) {
+  factory _$$BasicUiComponent2Props(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$BasicUiComponent2Props$JsMap(backingMap as JsBackedMap);
+      return _$$BasicUiComponent2Props$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$BasicUiComponent2Props$PlainMap(backingMap);
     }
@@ -89,13 +89,22 @@ abstract class _$$BasicUiComponent2Props extends _$BasicUiComponent2Props
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'BasicUiComponent2Props.';
+
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$BasicUiComponent2Props(
+          accessMap, (map) => _$$BasicUiComponent2Props(map));
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$BasicUiComponent2Props = getPropKey;
 
 // Concrete props implementation that can be backed by any [Map].
 class _$$BasicUiComponent2Props$PlainMap extends _$$BasicUiComponent2Props {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$BasicUiComponent2Props$PlainMap(Map backingMap)
+  _$$BasicUiComponent2Props$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -112,7 +121,7 @@ class _$$BasicUiComponent2Props$PlainMap extends _$$BasicUiComponent2Props {
 class _$$BasicUiComponent2Props$JsMap extends _$$BasicUiComponent2Props {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$BasicUiComponent2Props$JsMap(JsBackedMap backingMap)
+  _$$BasicUiComponent2Props$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -129,7 +138,7 @@ class _$$BasicUiComponent2Props$JsMap extends _$$BasicUiComponent2Props {
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$BasicUiComponent2Component extends BasicUiComponent2Component {
-  _$$BasicUiComponent2Props$JsMap _cachedTypedProps;
+  late _$$BasicUiComponent2Props$JsMap _cachedTypedProps;
 
   @override
   _$$BasicUiComponent2Props$JsMap get props => _cachedTypedProps;
@@ -149,11 +158,12 @@ class _$BasicUiComponent2Component extends BasicUiComponent2Component {
   }
 
   @override
-  _$$BasicUiComponent2Props$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
+  _$$BasicUiComponent2Props$JsMap typedPropsFactoryJs(
+          JsBackedMap? backingMap) =>
       _$$BasicUiComponent2Props$JsMap(backingMap);
 
   @override
-  _$$BasicUiComponent2Props typedPropsFactory(Map backingMap) =>
+  _$$BasicUiComponent2Props typedPropsFactory(Map? backingMap) =>
       _$$BasicUiComponent2Props(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
@@ -178,17 +188,17 @@ class _$BasicUiComponent2Component extends BasicUiComponent2Component {
 mixin $FunctionCustomPropsProps on FunctionCustomPropsProps {
   static const PropsMeta meta = _$metaForFunctionCustomPropsProps;
   @override
-  int get testProp =>
-      (props[_$key__testProp__FunctionCustomPropsProps] ?? null) as int;
+  int? get testProp =>
+      (props[_$key__testProp__FunctionCustomPropsProps] ?? null) as int?;
   @override
-  set testProp(int value) =>
+  set testProp(int? value) =>
       props[_$key__testProp__FunctionCustomPropsProps] = value;
   @override
-  Function() get testFuncProp =>
+  Function()? get testFuncProp =>
       (props[_$key__testFuncProp__FunctionCustomPropsProps] ?? null)
-          as Function();
+          as Function()?;
   @override
-  set testFuncProp(Function() value) =>
+  set testFuncProp(Function()? value) =>
       props[_$key__testFuncProp__FunctionCustomPropsProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__testProp__FunctionCustomPropsProps =
@@ -208,6 +218,12 @@ mixin $FunctionCustomPropsProps on FunctionCustomPropsProps {
     _$key__testProp__FunctionCustomPropsProps,
     _$key__testFuncProp__FunctionCustomPropsProps
   ];
+
+  @override
+  @UiProps.$mustCallSuper
+  void validateRequiredProps() {
+    super.validateRequiredProps();
+  }
 }
 
 @Deprecated('This API is for use only within generated code.'
@@ -243,9 +259,9 @@ abstract class _$$FunctionCustomPropsProps extends UiProps
         $FunctionCustomPropsProps {
   _$$FunctionCustomPropsProps._();
 
-  factory _$$FunctionCustomPropsProps(Map backingMap) {
+  factory _$$FunctionCustomPropsProps(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$FunctionCustomPropsProps$JsMap(backingMap as JsBackedMap);
+      return _$$FunctionCustomPropsProps$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$FunctionCustomPropsProps$PlainMap(backingMap);
     }
@@ -264,7 +280,16 @@ abstract class _$$FunctionCustomPropsProps extends UiProps
         // If this generated mixin is undefined, it's likely because FunctionCustomPropsProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of FunctionCustomPropsProps, and check that $FunctionCustomPropsProps is exported/imported properly.
         FunctionCustomPropsProps: $FunctionCustomPropsProps.meta,
       });
+
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$FunctionCustomPropsProps(
+          accessMap, (map) => _$$FunctionCustomPropsProps(map));
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$FunctionCustomPropsProps = getPropKey;
 
 // Concrete props implementation that can be backed by any [Map].
 @Deprecated('This API is for use only within generated code.'
@@ -272,7 +297,7 @@ abstract class _$$FunctionCustomPropsProps extends UiProps
 class _$$FunctionCustomPropsProps$PlainMap extends _$$FunctionCustomPropsProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$FunctionCustomPropsProps$PlainMap(Map backingMap)
+  _$$FunctionCustomPropsProps$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -291,7 +316,7 @@ class _$$FunctionCustomPropsProps$PlainMap extends _$$FunctionCustomPropsProps {
 class _$$FunctionCustomPropsProps$JsMap extends _$$FunctionCustomPropsProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$FunctionCustomPropsProps$JsMap(JsBackedMap backingMap)
+  _$$FunctionCustomPropsProps$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();

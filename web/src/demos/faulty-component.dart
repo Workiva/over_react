@@ -24,7 +24,7 @@ UiFactory<FaultyProps> Faulty = castUiFactory(_$Faulty);
 mixin FaultyProps on UiProps {}
 
 mixin FaultyState on UiState {
-  bool hasErrored;
+  bool? hasErrored;
 }
 
 class FaultyComponent extends UiStatefulComponent2<FaultyProps, FaultyState> {
@@ -34,7 +34,7 @@ class FaultyComponent extends UiStatefulComponent2<FaultyProps, FaultyState> {
   @override
   getSnapshotBeforeUpdate(Map prevProps, Map prevState) {
     final tPrevState = typedStateFactory(prevState);
-    if (state.hasErrored && !tPrevState.hasErrored) {
+    if (state.hasErrored! && !tPrevState.hasErrored!) {
       throw Error();
     }
   }
