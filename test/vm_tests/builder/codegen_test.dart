@@ -15,8 +15,6 @@
 @TestOn('vm')
 library impl_generation_test;
 
-import 'dart:html';
-
 import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:meta/meta.dart';
