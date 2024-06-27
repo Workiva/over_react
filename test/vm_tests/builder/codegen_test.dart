@@ -15,6 +15,8 @@
 @TestOn('vm')
 library impl_generation_test;
 
+import 'dart:html';
+
 import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:meta/meta.dart';
@@ -890,6 +892,41 @@ main() {
       });
 
       group('usages of converter annotations', () {
+        // A utility to both share getter/setter expectations and to verify only one set of getter/setters is generated at a time.
+        void expectGettersAndSetters({bool convertProp = false, bool jsMap = false, bool jsRef = false}) {
+          Matcher maybeContains(String match, bool shouldContain) => shouldContain ? contains(match) : isNot(contains(match));
+
+          // @ConvertProp getter / setter
+          expect(
+              implGenerator!.outputContentsBuffer.toString(),
+              maybeContains(
+                  'String get foo => getConverter((props[_\$key__foo___\$AbstractFooProps] ?? null) as int);', convertProp));
+          expect(
+              implGenerator!.outputContentsBuffer.toString(),
+              maybeContains(
+                  'set foo(String value) => props[_\$key__foo___\$AbstractFooProps] = setConverter(value);', convertProp));
+
+          // @convertJsMapProp getter / setter
+          expect(
+              implGenerator!.outputContentsBuffer.toString(),
+              maybeContains(
+                  'Map? get foo => unjsifyMapProp((props[_\$key__foo___\$AbstractFooProps] ?? null) as JsMap?);', jsMap));
+          expect(
+              implGenerator!.outputContentsBuffer.toString(),
+              maybeContains(
+                  'set foo(Map? value) => props[_\$key__foo___\$AbstractFooProps] = jsifyMapProp(value);', jsMap));
+
+          // @convertJsRefProp getter / setter
+          expect(
+              implGenerator!.outputContentsBuffer.toString(),
+              maybeContains(
+                  'dynamic get foo => unjsifyRefProp((props[_\$key__foo___\$AbstractFooProps] ?? null) as dynamic);', jsRef));
+          expect(
+              implGenerator!.outputContentsBuffer.toString(),
+              maybeContains(
+                  'set foo(dynamic value) => props[_\$key__foo___\$AbstractFooProps] = jsifyRefProp(value);', jsRef));
+        }
+
         test('@ConvertProp',() {
           const body = '''
               @ConvertProp<int, String>(setConverter, getConverter)
@@ -898,14 +935,7 @@ main() {
               OverReactSrc.abstractProps(backwardsCompatible: false, body: body)
                   .source);
 
-          expect(
-              implGenerator!.outputContentsBuffer.toString(),
-              contains(
-                  'String get foo => getConverter((props[_\$key__foo___\$AbstractFooProps] ?? null) as int);'));
-          expect(
-              implGenerator!.outputContentsBuffer.toString(),
-              contains(
-                  'set foo(String value) => props[_\$key__foo___\$AbstractFooProps] = setConverter(value);'));
+          expectGettersAndSetters(convertProp: true);
         });
 
         test('@convertJsMapProp',() {
@@ -916,14 +946,7 @@ main() {
               OverReactSrc.abstractProps(backwardsCompatible: false, body: body)
                   .source);
 
-          expect(
-              implGenerator!.outputContentsBuffer.toString(),
-              contains(
-                  'Map? get foo => unjsifyMapProp((props[_\$key__foo___\$AbstractFooProps] ?? null) as JsMap?);'));
-          expect(
-              implGenerator!.outputContentsBuffer.toString(),
-              contains(
-                  'set foo(Map? value) => props[_\$key__foo___\$AbstractFooProps] = jsifyMapProp(value);'));
+          expectGettersAndSetters(jsMap: true);
         });
 
         test('@convertJsRefProp',() {
@@ -934,14 +957,33 @@ main() {
               OverReactSrc.abstractProps(backwardsCompatible: false, body: body)
                   .source);
 
-          expect(
-              implGenerator!.outputContentsBuffer.toString(),
-              contains(
-                  'dynamic get foo => unjsifyRefProp((props[_\$key__foo___\$AbstractFooProps] ?? null) as dynamic);'));
-          expect(
-              implGenerator!.outputContentsBuffer.toString(),
-              contains(
-                  'set foo(dynamic value) => props[_\$key__foo___\$AbstractFooProps] = jsifyRefProp(value);'));
+          expectGettersAndSetters(jsRef: true);
+        });
+
+        group('multiple annotations used together - prefer @ConvertProp over',() {
+          test('@convertJsMapProp',() {
+            const body = '''
+            @ConvertProp<int, String>(setConverter, getConverter)
+            @convertJsMapProp
+            late String foo;''';
+            setUpAndGenerate(
+                OverReactSrc.abstractProps(backwardsCompatible: false, body: body)
+                    .source);
+
+            expectGettersAndSetters(convertProp: true);
+          });
+
+          test('@convertJsRefProp',() {
+            const body = '''
+            @ConvertProp<int, String>(setConverter, getConverter)
+            @convertJsRefProp
+            late String foo;''';
+            setUpAndGenerate(
+                OverReactSrc.abstractProps(backwardsCompatible: false, body: body)
+                    .source);
+
+            expectGettersAndSetters(convertProp: true);
+          });
         });
       });
     });

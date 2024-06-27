@@ -309,7 +309,8 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
         }
 
         UnsupportedError buildPropAnnotationError(String message) {
-          return UnsupportedError('Unsupported prop annotation combination for prop $accessorName: $message');
+          return UnsupportedError(
+              'Unsupported prop annotation combination for prop $accessorName: $message');
         }
 
         var shouldConvertProp = false;
@@ -337,11 +338,12 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
           shouldConvertProp = true;
         }
 
-        // todo add test for this precedence
         // Look for special-case conversion annotations only if @ConvertProp(...) annotation isn't already used.
         if (!shouldConvertProp) {
-          final convertJsMapProp = getConstantAnnotation(field, 'convertJsMapProp', annotations.convertJsMapProp);
-          final convertJsRefProp = getConstantAnnotation(field, 'convertJsRefProp', annotations.convertJsRefProp);
+          final convertJsMapProp =
+              getConstantAnnotation(field, 'convertJsMapProp', annotations.convertJsMapProp);
+          final convertJsRefProp =
+              getConstantAnnotation(field, 'convertJsRefProp', annotations.convertJsRefProp);
           if (convertJsMapProp != null) {
             rawType = 'JsMap?';
             convertedType = 'Map?';
