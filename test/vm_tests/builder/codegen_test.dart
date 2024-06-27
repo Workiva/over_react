@@ -888,6 +888,62 @@ main() {
           expect(implGenerator!.outputContentsBuffer.toString().contains(generatedConfig('FooPropsMixin', 'Baz')), isFalse, reason: '3');
         });
       });
+
+      group('usages of converter annotations', () {
+        test('@ConvertProp',() {
+          const body = '''
+              @ConvertProp<int, String>(setConverter, getConverter)
+              late String foo;''';
+          setUpAndGenerate(
+              OverReactSrc.abstractProps(backwardsCompatible: false, body: body)
+                  .source);
+
+          expect(
+              implGenerator!.outputContentsBuffer.toString(),
+              contains(
+                  'String get foo => getConverter((props[_\$key__foo___\$AbstractFooProps] ?? null) as int);'));
+          expect(
+              implGenerator!.outputContentsBuffer.toString(),
+              contains(
+                  'set foo(String value) => props[_\$key__foo___\$AbstractFooProps] = setConverter(value);'));
+        });
+
+        test('@convertJsMapProp',() {
+          const body = '''
+              @convertJsMapProp
+              Map? foo;''';
+          setUpAndGenerate(
+              OverReactSrc.abstractProps(backwardsCompatible: false, body: body)
+                  .source);
+
+          expect(
+              implGenerator!.outputContentsBuffer.toString(),
+              contains(
+                  'Map? get foo => unjsifyMapProp((props[_\$key__foo___\$AbstractFooProps] ?? null) as JsMap?);'));
+          expect(
+              implGenerator!.outputContentsBuffer.toString(),
+              contains(
+                  'set foo(Map? value) => props[_\$key__foo___\$AbstractFooProps] = jsifyMapProp(value);'));
+        });
+
+        test('@convertJsRefProp',() {
+          const body = '''
+              @convertJsRefProp
+              dynamic foo;''';
+          setUpAndGenerate(
+              OverReactSrc.abstractProps(backwardsCompatible: false, body: body)
+                  .source);
+
+          expect(
+              implGenerator!.outputContentsBuffer.toString(),
+              contains(
+                  'dynamic get foo => unjsifyRefProp((props[_\$key__foo___\$AbstractFooProps] ?? null) as dynamic);'));
+          expect(
+              implGenerator!.outputContentsBuffer.toString(),
+              contains(
+                  'set foo(dynamic value) => props[_\$key__foo___\$AbstractFooProps] = jsifyRefProp(value);'));
+        });
+      });
     });
 
     group('logs an error when', () {
@@ -1087,6 +1143,48 @@ main() {
               late var bar;''';
           setUpAndGenerate(OverReactSrc.abstractProps(backwardsCompatible: false, body: body).source);
           verify(logger.severe(contains(expectedLateAndAnnotationErrorMessage)));
+        });
+
+        group('an unsupported usage of @ConvertProp', () {
+          test('the prop type does not match the Converted type', () {
+            var body = '''
+              @ConvertProp<int, int>(addOne, addOne)
+              late String foo;''';
+
+            expect( () => setUpAndGenerate(OverReactSrc.abstractProps(backwardsCompatible: false, body: body).source), throwsUnsupportedError);
+          });
+
+          test('the setter is null', () {
+            var body = '''
+              @ConvertProp<int, int>(null, addOne)
+              late String foo;''';
+
+            expect( () => setUpAndGenerate(OverReactSrc.abstractProps(backwardsCompatible: false, body: body).source), throwsUnsupportedError);
+          });
+
+          test('the getter is null', () {
+            var body = '''
+              @ConvertProp<int, int>(addOne, null)
+              late String foo;''';
+
+            expect( () => setUpAndGenerate(OverReactSrc.abstractProps(backwardsCompatible: false, body: body).source), throwsUnsupportedError);
+          });
+
+          test('@convertJsMapProp of the wrong prop type', () {
+            const body = '''
+              @convertJsMapProp
+              late String foo;''';
+
+            expect( () => setUpAndGenerate(OverReactSrc.abstractProps(backwardsCompatible: false, body: body).source), throwsUnsupportedError);
+          });
+
+          test('@convertJsRefProp of the wrong prop type', () {
+            const body = '''
+              @convertJsRefProp
+              Map? foo;''';
+
+            expect( () => setUpAndGenerate(OverReactSrc.abstractProps(backwardsCompatible: false, body: body).source), throwsUnsupportedError);
+          });
         });
       });
     });
