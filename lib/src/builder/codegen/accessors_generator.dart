@@ -308,11 +308,7 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
           docComment = '';
         }
 
-        UnsupportedError buildPropAnnotationError(String message) {
-          return UnsupportedError(
-              'Unsupported prop annotation combination for prop $accessorName: $message');
-        }
-
+        // Parse @ConvertProp annotation.
         var shouldConvertProp = false;
         final convertProp =
             field.metadata.firstWhereOrNull((annotation) => annotation.name.name == 'ConvertProp');
@@ -320,6 +316,11 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
         var convertedType = convertProp?.typeArguments?.arguments.lastOrNull?.toSource();
         var setter = convertProp?.arguments?.arguments.firstOrNull?.toSource();
         var getter = convertProp?.arguments?.arguments.lastOrNull?.toSource();
+
+        UnsupportedError buildPropAnnotationError(String message) {
+          return UnsupportedError(
+              'Unsupported prop annotation combination for prop $accessorName: $message');
+        }
 
         if (convertProp != null) {
           if (rawType == null || convertedType == null) {
@@ -338,7 +339,8 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
           shouldConvertProp = true;
         }
 
-        // Look for special-case conversion annotations only if @ConvertProp(...) annotation isn't already used.
+        // Look for special-case conversion annotations (@convertJsMapProp and
+        // @convertJsRefProp) only if @ConvertProp(...) annotation isn't already used.
         if (!shouldConvertProp) {
           final convertJsMapProp =
               getConstantAnnotation(field, 'convertJsMapProp', annotations.convertJsMapProp);

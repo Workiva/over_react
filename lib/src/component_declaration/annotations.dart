@@ -15,8 +15,6 @@
 // Dummy annotations that would be used by Pub code generator
 library over_react.component_declaration.annotations;
 
-// import 'package:over_react/src/util/prop_conversion.dart' show jsifyMapProp, unjsifyMapProp, JsMap;
-
 /// Annotation used with the `over_react` builder to declare a `UiFactory` for a component.
 ///
 ///     @Factory()
@@ -462,7 +460,10 @@ class _DisableRequiredPropValidation {
   const _DisableRequiredPropValidation();
 }
 
-// todo doc comment
+/// Annotation that simplifies prop type conversion by generating [getter] and [setter] in
+/// the respective getters and setters for the prop in the .over_react.g.dart part file.
+///
+/// A prop annotated with [ConvertProp] should always be typed the same as the [Converted] type.
 class ConvertProp<Raw, Converted> {
   final Converted Function(Raw) getter;
   final Raw Function(Converted) setter;
@@ -470,12 +471,12 @@ class ConvertProp<Raw, Converted> {
   const ConvertProp( this.setter, this.getter );
 }
 
-// todo should there be non-nullable versions of these?
-
-// todo doc comment
+/// Utility version of [ConvertProp] for map props to generate getters and setters
+/// to convert from `JsMap` to `Map` and back.
 const _CommonConversionCases convertJsMapProp = _CommonConversionCases();
 
-// todo doc comment
+/// Utility version of [ConvertProp] for ref props to generate getters and setters
+/// to convert from `JsRef` to `Ref` and back.
 const _CommonConversionCases convertJsRefProp = _CommonConversionCases();
 
 class _CommonConversionCases {
