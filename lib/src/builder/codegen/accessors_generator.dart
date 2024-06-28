@@ -308,9 +308,78 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
           docComment = '';
         }
 
+        // Parse @ConvertProp annotation.
+        var shouldConvertProp = false;
+        final convertProp =
+            field.metadata.firstWhereOrNull((annotation) => annotation.name.name == 'ConvertProp');
+        var rawType = convertProp?.typeArguments?.arguments.firstOrNull?.toSource();
+        var convertedType = convertProp?.typeArguments?.arguments.lastOrNull?.toSource();
+        var setter = convertProp?.arguments?.arguments.firstOrNull?.toSource();
+        var getter = convertProp?.arguments?.arguments.lastOrNull?.toSource();
+
+        UnsupportedError buildPropAnnotationError(String message) {
+          return UnsupportedError(
+              'Unsupported prop annotation combination for prop $accessorName: $message');
+        }
+
+        if (convertProp != null) {
+          if (rawType == null || convertedType == null) {
+            throw buildPropAnnotationError(
+                'The @ConvertProp annotation must be used with generic parameters: `@Convert<Raw, Converted>(setter, getter)`');
+          }
+          if (setter == null || getter == null) {
+            // Analysis errors with `ConvertProp` should prevent this from happening.
+            throw buildPropAnnotationError(
+                'The @ConvertProp annotation must have two arguments: `@Convert<Raw, Converted>(setter, getter)`');
+          }
+          if (convertedType != typeSource) {
+            throw buildPropAnnotationError(
+                'A prop annotated with `@Convert<Raw, Converted>(setter, getter)` should have the same type as the `Converted` generic parameter.');
+          }
+          shouldConvertProp = true;
+        }
+
+        // Look for special-case conversion annotations (@convertJsMapProp and
+        // @convertJsRefProp) only if @ConvertProp(...) annotation isn't already used.
+        if (!shouldConvertProp) {
+          final convertJsMapProp =
+              getConstantAnnotation(field, 'convertJsMapProp', annotations.convertJsMapProp);
+          final convertJsRefProp =
+              getConstantAnnotation(field, 'convertJsRefProp', annotations.convertJsRefProp);
+          if (convertJsMapProp != null) {
+            rawType = 'JsMap?';
+            convertedType = 'Map?';
+            setter = 'jsifyMapProp';
+            getter = 'unjsifyMapProp';
+            shouldConvertProp = true;
+            if (convertedType != typeSource) {
+              throw buildPropAnnotationError(
+                  'A prop annotated with `@convertJsMapProp` should be typed as `Map?`.');
+            }
+          } else if (convertJsRefProp != null) {
+            rawType = 'dynamic';
+            convertedType = 'dynamic';
+            setter = 'jsifyRefProp';
+            getter = 'unjsifyRefProp';
+            shouldConvertProp = true;
+            if (convertedType != typeSource) {
+              throw buildPropAnnotationError(
+                  'A prop annotated with `@convertJsRefProp` should be typed as `dynamic`.');
+            }
+          }
+        }
+
         String castGetterMapValueIfNecessary(String expression) {
           if (typeSource == null) return expression;
-          return '($expression) as $typeSource';
+          return '($expression) as ${shouldConvertProp ? rawType : typeSource}';
+        }
+
+        String convertIfNecessary(String expression, [bool isGetter = true]) {
+          final convertFunc = isGetter ? getter : setter;
+          if (shouldConvertProp) {
+            return '$convertFunc($expression)';
+          }
+          return expression;
         }
 
         String generatedAccessor = '$docComment'
@@ -322,12 +391,12 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
             // Add ` ?? null` to work around DDC bug: <https://github.com/dart-lang/sdk/issues/36052
             // Apply this workaround ASAP, before the cast, to limit where undefined can leak into
             // and potentially cause issues (for instance, DDC cast internals).
-            '  ${getterTypeString}get $accessorName => ${castGetterMapValueIfNecessary('$proxiedMapName[$keyConstantName] ?? null')};\n'
+            '  ${getterTypeString}get $accessorName => ${convertIfNecessary(castGetterMapValueIfNecessary('$proxiedMapName[$keyConstantName] ?? null'))};\n'
             '$docComment'
             // '  @tryInline\n'
             '  @override\n'
             '$metadataSrc'
-            '  set $accessorName(${setterTypeString}value) => $proxiedMapName[$keyConstantName] = value;\n';
+            '  set $accessorName(${setterTypeString}value) => $proxiedMapName[$keyConstantName] = ${convertIfNecessary('value', false)};\n';
 
         output.write(generatedAccessor);
       });
