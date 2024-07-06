@@ -308,75 +308,21 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
           docComment = '';
         }
 
-        // Parse @ConvertProp annotation.
-        var shouldConvertProp = false;
-        final convertProp =
-            field.metadata.firstWhereOrNull((annotation) => annotation.name.name == 'ConvertProp');
-        var rawType = convertProp?.typeArguments?.arguments.firstOrNull?.toSource();
-        var convertedType = convertProp?.typeArguments?.arguments.lastOrNull?.toSource();
-        var setter = convertProp?.arguments?.arguments.firstOrNull?.toSource();
-        var getter = convertProp?.arguments?.arguments.lastOrNull?.toSource();
-
-        UnsupportedError buildPropAnnotationError(String message) {
-          return UnsupportedError(
-              'Unsupported prop annotation combination for prop $accessorName: $message');
-        }
-
-        if (convertProp != null) {
-          if (rawType == null || convertedType == null) {
-            throw buildPropAnnotationError(
-                'The @ConvertProp annotation must be used with generic parameters: `@Convert<Raw, Converted>(setter, getter)`');
-          }
-          if (setter == null || getter == null) {
-            // Analysis errors with `ConvertProp` should prevent this from happening.
-            throw buildPropAnnotationError(
-                'The @ConvertProp annotation must have two arguments: `@Convert<Raw, Converted>(setter, getter)`');
-          }
-          if (convertedType != typeSource) {
-            throw buildPropAnnotationError(
-                'A prop annotated with `@Convert<Raw, Converted>(setter, getter)` should have the same type as the `Converted` generic parameter.');
-          }
-          shouldConvertProp = true;
-        }
-
-        // Look for special-case conversion annotations (@convertJsMapProp and
-        // @convertJsRefProp) only if @ConvertProp(...) annotation isn't already used.
-        if (!shouldConvertProp) {
-          final convertJsMapProp =
-              getConstantAnnotation(field, 'convertJsMapProp', annotations.convertJsMapProp);
-          final convertJsRefProp =
-              getConstantAnnotation(field, 'convertJsRefProp', annotations.convertJsRefProp);
-          if (convertJsMapProp != null) {
-            rawType = 'JsMap?';
-            convertedType = 'Map?';
-            setter = 'jsifyMapProp';
-            getter = 'unjsifyMapProp';
-            shouldConvertProp = true;
-            if (convertedType != typeSource) {
-              throw buildPropAnnotationError(
-                  'A prop annotated with `@convertJsMapProp` should be typed as `Map?`.');
-            }
-          } else if (convertJsRefProp != null) {
-            rawType = 'dynamic';
-            convertedType = 'dynamic';
-            setter = 'jsifyRefProp';
-            getter = 'unjsifyRefProp';
-            shouldConvertProp = true;
-            if (convertedType != typeSource) {
-              throw buildPropAnnotationError(
-                  'A prop annotated with `@convertJsRefProp` should be typed as `dynamic`.');
-            }
-          }
-        }
+        final conversionConfig = parseConversionConfig(
+          field: field,
+          accessorName: accessorName,
+          typeSource: typeSource,
+        );
 
         String castGetterMapValueIfNecessary(String expression) {
-          if (typeSource == null) return expression;
-          return '($expression) as ${shouldConvertProp ? rawType : typeSource}';
+          final typeToCastTo = conversionConfig?.rawType ?? typeSource;
+          if (typeToCastTo == null) return expression;
+          return '($expression) as $typeToCastTo';
         }
 
         String convertIfNecessary(String expression, [bool isGetter = true]) {
-          final convertFunc = isGetter ? getter : setter;
-          if (shouldConvertProp) {
+          if (conversionConfig != null) {
+            final convertFunc = isGetter ? conversionConfig.getter : conversionConfig.setter;
             return '$convertFunc($expression)';
           }
           return expression;
@@ -459,6 +405,101 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
 
     return output.toString();
   }
+}
+
+T? getConstantAnnotation<T>(AnnotatedNode member, String name, T value) {
+  return member.metadata.any((annotation) => annotation.name.name == name) ? value : null;
+}
+
+// Parse @ConvertProp annotation.
+PropConversionConfig? parseConversionConfig({
+  required FieldDeclaration field,
+  required String accessorName,
+  required String? typeSource,
+}) {
+  PropConversionConfig? conversionConfig;
+
+  final convertProp =
+      field.metadata.firstWhereOrNull((annotation) => annotation.name.name == 'ConvertProp');
+
+  UnsupportedError buildPropAnnotationError(String message) {
+    return UnsupportedError(
+        'Unsupported prop annotation combination for prop $accessorName: $message');
+  }
+
+  if (convertProp != null) {
+    var rawType = convertProp.typeArguments?.arguments.firstOrNull?.toSource();
+    var convertedType = convertProp.typeArguments?.arguments.lastOrNull?.toSource();
+    var setter = convertProp.arguments?.arguments.firstOrNull?.toSource();
+    var getter = convertProp.arguments?.arguments.lastOrNull?.toSource();
+    if (rawType == null || convertedType == null) {
+      throw buildPropAnnotationError(
+          'The @ConvertProp annotation must be used with generic parameters: `@Convert<Raw, Converted>(setter, getter)`');
+    }
+    if (setter == null || getter == null) {
+      // Analysis errors with `ConvertProp` should prevent this from happening.
+      throw buildPropAnnotationError(
+          'The @ConvertProp annotation must have two arguments: `@Convert<Raw, Converted>(setter, getter)`');
+    }
+    if (convertedType != typeSource) {
+      throw buildPropAnnotationError(
+          'A prop annotated with `@Convert<Raw, Converted>(setter, getter)` should have the same type as the `Converted` generic parameter.');
+    }
+    conversionConfig = PropConversionConfig(
+      rawType: rawType,
+      convertedType: convertedType,
+      setter: setter,
+      getter: getter,
+    );
+  }
+
+  // Look for special-case conversion annotations (@convertJsMapProp and
+  // @convertJsRefProp) only if @ConvertProp(...) annotation isn't already used.
+
+  if (conversionConfig == null) {
+    final convertJsMapProp =
+        getConstantAnnotation(field, 'convertJsMapProp', annotations.convertJsMapProp);
+    final convertJsRefProp =
+        getConstantAnnotation(field, 'convertJsRefProp', annotations.convertJsRefProp);
+    if (convertJsMapProp != null) {
+      conversionConfig = PropConversionConfig(
+        rawType: 'JsMap?',
+        convertedType: 'Map?',
+        setter: 'jsifyMapProp',
+        getter: 'unjsifyMapProp',
+      );
+      if (conversionConfig.convertedType != typeSource) {
+        throw buildPropAnnotationError(
+            'A prop annotated with `@convertJsMapProp` should be typed as `Map?`.');
+      }
+    } else if (convertJsRefProp != null) {
+      conversionConfig = PropConversionConfig(
+        rawType: 'dynamic',
+        convertedType: 'dynamic',
+        setter: 'jsifyRefProp',
+        getter: 'unjsifyRefProp',
+      );
+      if (conversionConfig.convertedType != typeSource) {
+        throw buildPropAnnotationError(
+            'A prop annotated with `@convertJsRefProp` should be typed as `dynamic`.');
+      }
+    }
+  }
+
+  return conversionConfig;
+}
+
+class PropConversionConfig {
+  final String rawType;
+  final String convertedType;
+  final String setter;
+  final String getter;
+
+  PropConversionConfig(
+      {required this.rawType,
+      required this.convertedType,
+      required this.setter,
+      required this.getter});
 }
 
 /// Generates mixin implementations (e.g., `$FooPropsMixin`) containing accessors for
