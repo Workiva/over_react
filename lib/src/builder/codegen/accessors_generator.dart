@@ -320,7 +320,7 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
           return '($expression) as $typeToCastTo';
         }
 
-        String convertIfNecessary(String expression, [bool isGetter = true]) {
+        String convertIfNecessary(String expression, {required bool isGetter}) {
           if (conversionConfig != null) {
             final convertFunc = isGetter ? conversionConfig.getter : conversionConfig.setter;
             return '$convertFunc($expression)';
@@ -337,12 +337,12 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
             // Add ` ?? null` to work around DDC bug: <https://github.com/dart-lang/sdk/issues/36052
             // Apply this workaround ASAP, before the cast, to limit where undefined can leak into
             // and potentially cause issues (for instance, DDC cast internals).
-            '  ${getterTypeString}get $accessorName => ${convertIfNecessary(castGetterMapValueIfNecessary('$proxiedMapName[$keyConstantName] ?? null'))};\n'
+            '  ${getterTypeString}get $accessorName => ${convertIfNecessary(castGetterMapValueIfNecessary('$proxiedMapName[$keyConstantName] ?? null'), isGetter: true)};\n'
             '$docComment'
             // '  @tryInline\n'
             '  @override\n'
             '$metadataSrc'
-            '  set $accessorName(${setterTypeString}value) => $proxiedMapName[$keyConstantName] = ${convertIfNecessary('value', false)};\n';
+            '  set $accessorName(${setterTypeString}value) => $proxiedMapName[$keyConstantName] = ${convertIfNecessary('value', isGetter: false)};\n';
 
         output.write(generatedAccessor);
       });

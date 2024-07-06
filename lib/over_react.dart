@@ -48,7 +48,7 @@ export 'package:react/react.dart'
         SyntheticEventTypeHelpers,
         DataTransferHelper;
 
-export 'package:react/react_client/js_backed_map.dart' show JsBackedMap, JsMap;
+export 'package:react/react_client/js_backed_map.dart' show JsBackedMap;
 
 export 'package:react/react_client.dart'
     // ignore: deprecated_member_use

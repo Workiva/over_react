@@ -13,67 +13,78 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:over_react/js_component.dart';
 import 'package:over_react/over_react.dart';
-import 'package:react_testing_library/react_testing_library.dart' as rtl;
+import 'package:react/react_client/react_interop.dart' show JsRef;
 import 'package:test/test.dart';
 
 part 'prop_conversion_annotations_test.over_react.g.dart';
 
 void main() {
   group('(New boilerplate) prop conversion annotations:', () {
-    setUp(() {
-      setterReturnValue = null;
-      gottenProp = null;
+    test('@ConvertProp works as expected', () {
+      final fooPropKey = Test().getPropKey((p) => p.foo);
+
+      expect((Test()..foo = 100), equals({fooPropKey: r'$100'}),
+          reason: 'setter should convert value');
+
+      expect(Test({fooPropKey: r'$200'}).foo, 200,
+          reason: 'getter should convert value');
     });
 
-    test('@ConvertProp works as expected', () {
-      rtl.render((Test()..foo = 100)());
+    test('@ConvertProp on a late prop works as expected', () {
+      final latePropKey = Test().getPropKey((p) => p.lateProp);
 
-      expect(setterReturnValue, '\$100');
-      expect(gottenProp, 100);
+      expect((Test()..lateProp = 100), equals({latePropKey: r'$100'}),
+          reason: 'setter should convert value');
+
+      expect(Test({latePropKey: r'$200'}).lateProp, 200,
+          reason: 'getter should convert value');
     });
 
     test('@convertJsMapProp works as expected', () {
       final map = {'abc': true};
-      rtl.render((Test()..mapProp = map)());
+      final mapPropKey = Test().getPropKey((p) => p.mapProp);
 
-      expect(gottenProp, map);
+      final setterResult = (Test()..mapProp = map)[mapPropKey];
+      expect(setterResult, isA<JsMap>(), reason: 'setter should convert value');
+      expect(unjsifyMapProp(setterResult as JsMap), map);
+
+      expect(Test({mapPropKey: jsifyMapProp(map)}).mapProp, map,
+          reason: 'getter should convert value');
     });
 
     test('@convertJsRefProp works as expected', () {
       final ref = createRef();
-      rtl.render((Test()..refProp = ref)());
+      final refPropKey = Test().getPropKey((p) => p.refProp);
 
-      expect(gottenProp, ref);
+      final setterResult = (Test()..refProp = ref)[refPropKey];
+      expect(setterResult, isA<JsRef>(), reason: 'setter should convert value');
+      expect(unjsifyRefProp(setterResult), ref);
+
+      expect(Test({refPropKey: jsifyRefProp(ref)}).refProp, ref,
+          reason: 'getter should convert value');
     });
   });
 }
 
-String? setterReturnValue;
-dynamic gottenProp;
-
 UiFactory<TestProps> Test = uiFunction(
-  (props) {
-    if(props.foo != null) {
-      gottenProp = props.foo;
-    } else if(props.mapProp != null) {
-      gottenProp = props.mapProp;
-    } else if(props.refProp != null) {
-      gottenProp = props.refProp;
-    }
-  },
+  (_) {},
   _$TestConfig, // ignore: undefined_identifier
 );
 
-String? makeMoney(int? i) {
-  setterReturnValue = i == null ? null : '\$$i';
-  return setterReturnValue!;
-}
-int? getNumber(String? i) => i == null ? null : int.tryParse(i.replaceFirst('\$', ''));
+String? nullableMakeMoney(int? i) => i == null ? null : makeMoney(i);
+int? nullableGetNumber(String? i) => i == null ? null : getNumber(i);
+
+String makeMoney(int i) => '\$$i';
+int getNumber(String i) => int.parse(i.replaceFirst('\$', ''));
 
 mixin TestProps on UiProps {
-  @ConvertProp<String?, int?>(makeMoney, getNumber)
+  @ConvertProp<String?, int?>(nullableMakeMoney, nullableGetNumber)
   int? foo;
+
+  @ConvertProp<String, int>(makeMoney, getNumber)
+  late int lateProp;
 
   @convertJsMapProp
   Map? mapProp;
