@@ -74,6 +74,12 @@ abstract class _$$CounterProps extends UiProps
   @override
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$CounterProps(accessMap, (map) => _$$CounterProps(map));
+
+  @override
+  // ignore: must_call_super
+  validateRequiredProps() {
+    // Disable required prop validation, until this component is null safe, by not calling super.
+  }
 }
 
 /// An alias for [getPropKey] so it can be referenced within the props class impl

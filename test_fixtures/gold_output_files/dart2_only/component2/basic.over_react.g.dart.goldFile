@@ -166,6 +166,12 @@ abstract class _$$BasicProps extends _$BasicProps
       _$getPropKey$_$$BasicProps(accessMap, (map) => _$$BasicProps(map));
 
   @override
+  // ignore: must_call_super
+  validateRequiredProps() {
+    // Disable required prop validation, until this component is null safe, by not calling super.
+  }
+
+  @override
   Set<String> get requiredPropNamesToSkipValidation =>
       const {'id', 'basicProp'};
 }

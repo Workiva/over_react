@@ -181,6 +181,12 @@ abstract class _$$BasicPartOfLibProps extends _$BasicPartOfLibProps
           accessMap, (map) => _$$BasicPartOfLibProps(map));
 
   @override
+  // ignore: must_call_super
+  validateRequiredProps() {
+    // Disable required prop validation, until this component is null safe, by not calling super.
+  }
+
+  @override
   Set<String> get requiredPropNamesToSkipValidation => const {'id'};
 }
 
@@ -466,6 +472,12 @@ abstract class _$$SubPartOfLibProps extends _$SubPartOfLibProps
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$SubPartOfLibProps(
           accessMap, (map) => _$$SubPartOfLibProps(map));
+
+  @override
+  // ignore: must_call_super
+  validateRequiredProps() {
+    // Disable required prop validation, until this component is null safe, by not calling super.
+  }
 
   @override
   Set<String> get requiredPropNamesToSkipValidation => const {'id'};

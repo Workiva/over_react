@@ -23,7 +23,7 @@ import 'package:build_test/build_test.dart' show recordLogs;
 import 'package:collection/collection.dart' show IterableExtension;
 import 'package:logging/logging.dart';
 import 'package:meta/meta.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:over_react/src/builder/parsing.dart';
 import 'package:over_react/src/builder/parsing/member_association.dart';
 import 'package:over_react/src/builder/parsing/error_collection.dart';
@@ -31,7 +31,6 @@ import 'package:over_react/src/component_declaration/annotations.dart' as annota
 import 'package:source_span/source_span.dart';
 import 'package:test/test.dart';
 
-import '../../mockito.mocks.dart';
 import './util.dart';
 import 'parsing/parsing_helpers.dart';
 
@@ -103,8 +102,8 @@ main() {
       }
 
       void verifyNoMoreErrorLogs() {
-        verifyNever(logger!.warning(any));
-        verifyNever(logger!.severe(any));
+        verifyNever(() => logger!.warning(any()));
+        verifyNever(() => logger!.severe(any()));
       }
 
       tearDown(() {
@@ -470,15 +469,15 @@ main() {
               }
             }
 
-             test('with backwards compatible boilerplate', () {
-               testStateMixins(OverReactSrc.stateMixin(numMixins: 3).source,
-                   ['FooStateMixin1', 'FooStateMixin2', 'FooStateMixin3']);
-             });
+            test('with backwards compatible boilerplate', () {
+              testStateMixins(OverReactSrc.stateMixin(numMixins: 3).source,
+                  ['FooStateMixin1', 'FooStateMixin2', 'FooStateMixin3']);
+            });
 
-             test('with Dart 2 only boilerplate', () {
-               testStateMixins(OverReactSrc.stateMixin(backwardsCompatible: false, numMixins: 3).source,
-                   ['_\$FooStateMixin1', '_\$FooStateMixin2', '_\$FooStateMixin3']);
-             });
+            test('with Dart 2 only boilerplate', () {
+              testStateMixins(OverReactSrc.stateMixin(backwardsCompatible: false, numMixins: 3).source,
+                  ['_\$FooStateMixin1', '_\$FooStateMixin2', '_\$FooStateMixin3']);
+            });
           });
 
           group('abstract props class with builder-compatible dual-class setup', () {
@@ -856,7 +855,7 @@ main() {
               isA<PropsMixinDeclaration>(),
             ]), reason: 'should parse the mixin and one of the factories properly');
 
-            verify(logger!.severe(contains(errorFactoryOnly)));
+            verify(() => logger!.severe(contains(errorFactoryOnly)));
           });
 
           test('multiple factories aliasing a private factory', () {
@@ -1037,9 +1036,9 @@ main() {
 
               test('that are the correct version', () {
                 final versionForFirstMixin =
-                    resolveVersion(componentDeclarations.firstWhereNameEquals('FirstFoo')!.members);
+                resolveVersion(componentDeclarations.firstWhereNameEquals('FirstFoo')!.members);
                 final versionForSecondMixin =
-                    resolveVersion(componentDeclarations.firstWhereNameEquals('SecondFoo')!.members);
+                resolveVersion(componentDeclarations.firstWhereNameEquals('SecondFoo')!.members);
 
                 expect(versionForFirstMixin.version, Version.v4_mixinBased);
                 expect(versionForSecondMixin.version, Version.v4_mixinBased);
@@ -1070,9 +1069,9 @@ main() {
 
               test('with names that match expectations', () {
                 final propsComponentDeclaration =
-                    componentDeclarations.firstWhereNameEquals('PropsFoo');
+                componentDeclarations.firstWhereNameEquals('PropsFoo');
                 final stateComponentDeclaration =
-                    componentDeclarations.firstWhereNameEquals('StateFoo');
+                componentDeclarations.firstWhereNameEquals('StateFoo');
                 final secondComponent = componentDeclarations.firstWhereNameEquals('SecondFoo');
                 final thirdComponent = componentDeclarations.firstWhereNameEquals('ThirdFoo');
 
@@ -1092,9 +1091,9 @@ main() {
 
               test('that are the correct version', () {
                 final versionForFirstMixin =
-                    resolveVersion(componentDeclarations.firstWhereNameEquals('SecondFoo')!.members);
+                resolveVersion(componentDeclarations.firstWhereNameEquals('SecondFoo')!.members);
                 final versionForSecondMixin =
-                    resolveVersion(componentDeclarations.firstWhereNameEquals('ThirdFoo')!.members);
+                resolveVersion(componentDeclarations.firstWhereNameEquals('ThirdFoo')!.members);
                 final abstractProps = resolveVersion(
                     declarations!.firstWhereType<LegacyAbstractPropsDeclaration>().members);
                 final abstractState = resolveVersion(
@@ -1837,7 +1836,7 @@ main() {
                 $restOfComponent
               ''');
 
-              verifyNever(logger!.severe(any));
+              verifyNever(() => logger!.severe(any()));
             });
           });
 
@@ -1850,7 +1849,7 @@ main() {
                 $restOfComponent
               ''');
 
-              verifyNever(logger!.severe(any));
+              verifyNever(() => logger!.severe(any()));
             });
           });
         });
@@ -1858,7 +1857,7 @@ main() {
 
       group('and logs a hard error when', () {
         void verifyErrorLog(String publicClassName) {
-          verify(logger!.severe(contains(
+          verify(() => logger!.severe(contains(
             'Non-static class member `meta` is declared in _\$$publicClassName. '
             '`meta` is a field declared by the over_react builder, and is therefore not '
             'valid for use as a class member in any class annotated with  @Props(), @State(), '
@@ -1917,14 +1916,14 @@ main() {
         group('there is not Dart-2 compatible naming on', () {
           test('a class annotated with @AbstractProps()', () {
             setUpAndParse(abstractPropsSrcDart1 + abstractComponentSrc);
-            verify(logger!.severe(contains(
+            verify(() => logger!.severe(contains(
                 'The class `AbstractFooProps` does not start with `_\$`. All Props, State, '
                     'AbstractProps, and AbstractState classes should begin with `_\$` on Dart 2')));
           });
 
           test('a class annotated with @AbstractState()', () {
             setUpAndParse(abstractStateSrcDart1 + abstractComponentSrc + abstractPropsSrc);
-            verify(logger!.severe(contains(
+            verify(() => logger!.severe(contains(
                 'The class `AbstractFooState` does not start with `_\$`. All Props, State, '
                     'AbstractProps, and AbstractState classes should begin with `_\$` on Dart 2')));
           });
@@ -1933,37 +1932,37 @@ main() {
         group('a component is declared without', () {
           test('a factory', () {
             setUpAndParse(propsSrc + companionClassProps + componentSrc);
-            verify(logger!.severe(contains(errorNoFactory)));
+            verify(() => logger!.severe(contains(errorNoFactory)));
           });
 
           test('a props class', () {
             setUpAndParse(factorySrc + componentSrc);
-            verify(logger!.severe(contains(errorNoProps)));
+            verify(() => logger!.severe(contains(errorNoProps)));
           });
 
           test('a component class', () {
             setUpAndParse(factorySrc + propsSrc);
-            verify(logger!.severe(contains(errorNoComponent)));
+            verify(() => logger!.severe(contains(errorNoComponent)));
           });
 
           test('a factory or a props class', () {
             setUpAndParse(componentSrc);
-            verify(logger!.severe(contains(errorComponentClassOnly)));
+            verify(() => logger!.severe(contains(errorComponentClassOnly)));
           });
 
           test('a factory or a props class (v2 component)', () {
             setUpAndParse(component2Src);
-            verify(logger!.severe(contains(errorComponentClassOnly)));
+            verify(() => logger!.severe(contains(errorComponentClassOnly)));
           });
 
           test('a factory or a component class', () {
             setUpAndParse(propsSrc);
-            verify(logger!.severe(contains(errorPropsClassOnly)));
+            verify(() => logger!.severe(contains(errorPropsClassOnly)));
           });
 
           test('a component or props class', () {
             setUpAndParse(factorySrc);
-            verify(logger!.severe(contains(errorFactoryOnly)));
+            verify(() => logger!.severe(contains(errorFactoryOnly)));
           });
         });
 
@@ -1977,7 +1976,7 @@ main() {
                 _$FooConfig, // ignore: undefined_identifier
               );
             ''');
-            verify(logger!.severe(contains(errorFactoryOnly)));
+            verify(() => logger!.severe(contains(errorFactoryOnly)));
           });
 
           test('without props typing arguments or left hand typing', () {
@@ -1990,7 +1989,7 @@ main() {
                 _$FooConfig, // ignore: undefined_identifier
               );
             ''');
-            verify(logger!.severe(contains(errorFactoryOnly)));
+            verify(() => logger!.severe(contains(errorFactoryOnly)));
           });
 
           test('without a matching props mixin', () {
@@ -2003,7 +2002,7 @@ main() {
                 _$FooConfig, // ignore: undefined_identifier
               );
             ''');
-            verify(logger!.severe(contains(errorFactoryOnly)));
+            verify(() => logger!.severe(contains(errorFactoryOnly)));
           });
 
           test('with a props mixin that is used by a component class', () {
@@ -2019,35 +2018,35 @@ main() {
                 _$FooConfig, // ignore: undefined_identifier
               );
             ''');
-            verify(logger!.severe(contains(errorFactoryOnly)));
+            verify(() => logger!.severe(contains(errorFactoryOnly)));
           });
         });
 
         group('a state class is declared without', () {
           test('any component pieces', () {
             setUpAndParse(stateSrc);
-            verify(logger!.severe(contains(errorStateOnly)));
+            verify(() => logger!.severe(contains(errorStateOnly)));
           });
 
           test('some component pieces', () {
             setUpAndParse(stateSrc + componentSrc);
             /// Should only log regarding the missing pieces, and not the state.
-            verify(logger!.severe(contains(errorComponentClassOnly)));
+            verify(() => logger!.severe(contains(errorComponentClassOnly)));
           });
 
           test('some component2 pieces', () {
             setUpAndParse(stateSrc + component2Src);
             /// Should only log regarding the missing pieces, and not the state.
-            verify(logger!.severe(contains(errorComponentClassOnly)));
+            verify(() => logger!.severe(contains(errorComponentClassOnly)));
           });
         });
 
         test('a component v2 uses legacy lifecycle methods', () {
           setUpAndParse(factorySrc + propsSrc + component2LegacySrc);
           /// Should log for each legacy method, suggesting the alternative.
-          verify(logger!.severe(contains('Use getDerivedStateFromProps instead.')));
-          verify(logger!.severe(contains('Use componentDidMount instead.')));
-          verify(logger!.severe(contains('Use getSnapshotBeforeUpdate and/or componentDidUpdate instead.')));
+          verify(() => logger!.severe(contains('Use getDerivedStateFromProps instead.')));
+          verify(() => logger!.severe(contains('Use componentDidMount instead.')));
+          verify(() => logger!.severe(contains('Use getSnapshotBeforeUpdate and/or componentDidUpdate instead.')));
         });
 
         group('a factory is', () {
@@ -2059,7 +2058,7 @@ main() {
               $restOfComponent
             ''');
 
-            verify(logger!.severe(contains('Factory variables are stubs for generated code, and must'
+            verify(() => logger!.severe(contains('Factory variables are stubs for generated code, and must'
                 ' be initialized with an expression containing either'
                 ' the generated factory (_\$Foo) or'
                 ' the generated factory config (_\$FooConfig).')));
@@ -2073,7 +2072,7 @@ main() {
               $restOfComponent
             ''');
 
-            verify(logger!.severe(contains('Factory declarations must be a single variable.')));
+            verify(() => logger!.severe(contains('Factory declarations must be a single variable.')));
           });
 
           test('public and declared with an invalid initializer', () {
@@ -2084,7 +2083,7 @@ main() {
               $restOfComponent
             ''');
 
-            verify(logger!.severe(contains('Factory variables are stubs for generated code, and must'
+            verify(() => logger!.severe(contains('Factory variables are stubs for generated code, and must'
                 ' be initialized with an expression containing either'
                 ' the generated factory (_\$Foo) or'
                 ' the generated factory config (_\$FooConfig).')));
@@ -2098,7 +2097,7 @@ main() {
               $restOfComponent
             ''');
 
-            verify(logger!.severe(contains('Factory variables are stubs for generated code, and must'
+            verify(() => logger!.severe(contains('Factory variables are stubs for generated code, and must'
                 ' be initialized with an expression containing either'
                 ' the generated factory (_\$_Foo) or'
                 ' the generated factory config (_\$_FooConfig).')));
@@ -2113,7 +2112,7 @@ main() {
                   static const StateMeta meta = _\$metaForFooProps;
                 }
               ''');
-              verify(logger!.severe(contains('Static meta field in accessor class must be of type `PropsMeta`')));
+              verify(() => logger!.severe(contains('Static meta field in accessor class must be of type `PropsMeta`')));
             });
 
             test('is initialized incorrectly', () {
@@ -2122,7 +2121,7 @@ main() {
                   static const PropsMeta meta = \$metaForBarProps;
                 }
               ''');
-              verify(logger!.severe(contains('Static PropsMeta field in accessor class must be initialized to:'
+              verify(() => logger!.severe(contains('Static PropsMeta field in accessor class must be initialized to:'
                   '`_\$metaForFooProps`')));
             });
 
@@ -2132,7 +2131,7 @@ main() {
                   static const PropsMeta meta = \$metaForFooProps;
                 }
               ''');
-              verify(logger!.severe(contains('Static PropsMeta field in accessor class must be initialized to:'
+              verify(() => logger!.severe(contains('Static PropsMeta field in accessor class must be initialized to:'
                   '`_\$metaFor_FooProps`')));
             });
           });
@@ -2144,7 +2143,7 @@ main() {
                   static const PropsMeta meta = _\$metaForFooState;
                 }
               ''');
-              verify(logger!.severe(contains('Static meta field in accessor class must be of type `StateMeta`')));
+              verify(() => logger!.severe(contains('Static meta field in accessor class must be of type `StateMeta`')));
             });
 
             test('is initialized incorrectly', () {
@@ -2153,7 +2152,7 @@ main() {
                   static const StateMeta meta = \$metaForBarState;
                 }
               ''');
-              verify(logger!.severe(contains('Static StateMeta field in accessor class must be initialized to:'
+              verify(() => logger!.severe(contains('Static StateMeta field in accessor class must be initialized to:'
                   '`_\$metaForFooState`')));
             });
 
@@ -2163,7 +2162,7 @@ main() {
                   static const StateMeta meta = \$metaForBarState;
                 }
               ''');
-              verify(logger!.severe(contains('Static StateMeta field in accessor class must be initialized to:'
+              verify(() => logger!.severe(contains('Static StateMeta field in accessor class must be initialized to:'
                   '`_\$metaFor_FooState`')));
             });
           });
@@ -2176,7 +2175,7 @@ main() {
                   static const StateMeta meta = _\$metaForAbstractFooProps;
                 }
               ''');
-              verify(logger!.severe(contains('Static meta field in accessor class must be of type `PropsMeta`')));
+              verify(() => logger!.severe(contains('Static meta field in accessor class must be of type `PropsMeta`')));
             });
 
             test('is initialized incorrectly', () {
@@ -2186,8 +2185,8 @@ main() {
                   static const PropsMeta meta = \$metaForAbstractBarProps;
                 }
               ''');
-              verify(logger!.severe(contains('Static PropsMeta field in accessor class must be initialized to:'
-                    '`_\$metaForAbstractFooProps`')));
+              verify(() => logger!.severe(contains('Static PropsMeta field in accessor class must be initialized to:'
+                  '`_\$metaForAbstractFooProps`')));
             });
 
             test('is private and initialized incorrectly', () {
@@ -2197,8 +2196,8 @@ main() {
                   static const PropsMeta meta = \$metaForAbstractBarProps;
                 }
               ''');
-              verify(logger!.severe(contains('Static PropsMeta field in accessor class must be initialized to:'
-                    '`_\$metaFor_AbstractFooProps`')));
+              verify(() => logger!.severe(contains('Static PropsMeta field in accessor class must be initialized to:'
+                  '`_\$metaFor_AbstractFooProps`')));
             });
           });
 
@@ -2210,7 +2209,7 @@ main() {
                   static const PropsMeta meta = _\$metaForAbstractFooState;
                 }
               ''');
-              verify(logger!.severe(contains('Static meta field in accessor class must be of type `StateMeta`')));
+              verify(() => logger!.severe(contains('Static meta field in accessor class must be of type `StateMeta`')));
             });
 
             test('is initialized incorrectly', () {
@@ -2220,7 +2219,7 @@ main() {
                   static const StateMeta meta = \$metaForAbstractBarState;
                 }
               ''');
-              verify(logger!.severe(contains('Static StateMeta field in accessor class must be initialized to:'
+              verify(() => logger!.severe(contains('Static StateMeta field in accessor class must be initialized to:'
                   '`_\$metaForAbstractFooState`')));
             });
 
@@ -2231,7 +2230,7 @@ main() {
                   static const StateMeta meta = \$metaForAbstractBarState;
                 }
               ''');
-              verify(logger!.severe(contains('Static StateMeta field in accessor class must be initialized to:'
+              verify(() => logger!.severe(contains('Static StateMeta field in accessor class must be initialized to:'
                   '`_\$metaFor_AbstractFooState`')));
             });
           });
@@ -2244,7 +2243,7 @@ main() {
                   Map get props;
                 }
               ''');
-              verify(logger!.severe(contains('Static meta field in accessor class must be of type `PropsMeta`')));
+              verify(() => logger!.severe(contains('Static meta field in accessor class must be of type `PropsMeta`')));
             });
 
             test('is initialized incorrectly', () {
@@ -2254,7 +2253,7 @@ main() {
                   Map get props;
                 }
               ''');
-              verify(logger!.severe(contains('Static PropsMeta field in accessor class must be initialized to:'
+              verify(() => logger!.severe(contains('Static PropsMeta field in accessor class must be initialized to:'
                   '`_\$metaForFooPropsMixin`')));
             });
 
@@ -2265,7 +2264,7 @@ main() {
                   Map get props;
                 }
               ''');
-              verify(logger!.severe(contains('Static PropsMeta field in accessor class must be initialized to:'
+              verify(() => logger!.severe(contains('Static PropsMeta field in accessor class must be initialized to:'
                   '`_\$metaFor_FooPropsMixin`')));
             });
           });
@@ -2278,7 +2277,7 @@ main() {
                   Map get state;
                 }
               ''');
-              verify(logger!.severe(contains('Static meta field in accessor class must be of type `StateMeta`')));
+              verify(() => logger!.severe(contains('Static meta field in accessor class must be of type `StateMeta`')));
             });
 
             test('is initialized incorrectly', () {
@@ -2288,7 +2287,7 @@ main() {
                   Map get state;
                 }
               ''');
-              verify(logger!.severe(contains('Static StateMeta field in accessor class must be initialized to:'
+              verify(() => logger!.severe(contains('Static StateMeta field in accessor class must be initialized to:'
                   '`_\$metaForFooStateMixin`')));
             });
 
@@ -2299,7 +2298,7 @@ main() {
                   Map get state;
                 }
               ''');
-              verify(logger!.severe(contains('Static StateMeta field in accessor class must be initialized to:'
+              verify(() => logger!.severe(contains('Static StateMeta field in accessor class must be initialized to:'
                   '`_\$metaFor_FooStateMixin`')));
             });
           });
@@ -2313,7 +2312,7 @@ main() {
               UiFactory<FooProps> Foo = _$Foo;
               mixin FooProps on UiProps, BarProps {}
             ''');
-            verify(logger!.severe(allOf(
+            verify(() => logger!.severe(allOf(
               contains('FooProps can\'t be used in shorthand syntax since it has'
                   ' the following `on` constraints: `BarProps`'),
               // verify the factory is used for the span
@@ -2327,7 +2326,7 @@ main() {
               mixin FooProps on UiProps, BarProps {}
               class FooComponent extends UiComponent2<FooProps> {}
             ''');
-            verify(logger!.severe(allOf(
+            verify(() => logger!.severe(allOf(
               contains('FooProps can\'t be used in shorthand syntax since it has'
                   ' the following `on` constraints: `BarProps`'),
               // verify the factory is used for the span
@@ -2346,7 +2345,7 @@ main() {
               mixin FooState on UiState, BarState {}
               class FooComponent extends UiStatefulComponent2<FooProps, FooState> {}
             ''');
-            verify(logger!.severe(allOf(
+            verify(() => logger!.severe(allOf(
               contains('FooState can\'t be used in shorthand syntax since it has'
                   ' the following `on` constraints: `BarState`'),
               // verify the component is used for the span
@@ -2367,7 +2366,7 @@ main() {
               }
             ''');
 
-            verify(logger!.severe(contains(errorComponentClassOnly)));
+            verify(() => logger!.severe(contains(errorComponentClassOnly)));
           });
 
           group('a component is declared without matching factory/props', () {
@@ -2381,7 +2380,7 @@ main() {
                     }
                   ''');
 
-                  verify(logger!.severe(contains(errorComponentClassOnly)));
+                  verify(() => logger!.severe(contains(errorComponentClassOnly)));
                 });
               }
 
@@ -2429,7 +2428,7 @@ main() {
               backwardsCompatible: false,
               componentBody: 'typedPropsFactory(Map backingMap) => {};',
             ).source);
-            verify(logger!.warning(contains(
+            verify(() => logger!.warning(contains(
                 'Components should not add their own implementations of typedPropsFactory.')));
           });
 
@@ -2438,7 +2437,7 @@ main() {
               backwardsCompatible: false,
               componentBody: 'typedPropsFactoryJs(JsBackedMap backingMap) => {};',
             ).source);
-            verify(logger!.warning(contains(
+            verify(() => logger!.warning(contains(
                 'Components should not add their own implementations of typedPropsFactoryJs.')));
           });
 
@@ -2447,7 +2446,7 @@ main() {
               backwardsCompatible: false,
               componentBody: 'typedStateFactory(Map backingMap) => {};',
             ).source);
-            verify(logger!.warning(contains(
+            verify(() => logger!.warning(contains(
                 'Components should not add their own implementations of typedStateFactory.')));
           });
 
@@ -2456,7 +2455,7 @@ main() {
               backwardsCompatible: false,
               componentBody: 'typedStateFactoryJs(JsBackedMap backingMap) => {};',
             ).source);
-            verify(logger!.warning(contains(
+            verify(() => logger!.warning(contains(
                 'Components should not add their own implementations of typedStateFactoryJs.')));
           });
         });
@@ -2464,10 +2463,10 @@ main() {
         group('on Dart 2 only boilerplate', () {
           group('a static `meta` field is declared in ', () {
             void verifyWarningLog(String publicClassName) {
-              verify(logger!.warning(contains(
-                'Static class member `meta` is declared in _\$$publicClassName. '
-                '`meta` is a field declared by the over_react builder, and therefore this '
-                'class member will be unused and should be removed or renamed.'
+              verify(() => logger!.warning(contains(
+                  'Static class member `meta` is declared in _\$$publicClassName. '
+                      '`meta` is a field declared by the over_react builder, and therefore this '
+                      'class member will be unused and should be removed or renamed.'
               )));
             }
 
@@ -2545,7 +2544,7 @@ main() {
                       .havingLevel(Level.SEVERE)
                       .havingMessage(contains('Error reading component annotation'))
                       .havingError(isA<Object>()
-                          .havingToStringValue(contains('`subtypeOf` must be an identifier'))),
+                      .havingToStringValue(contains('`subtypeOf` must be an identifier'))),
                 ]));
           }
 
@@ -2585,3 +2584,5 @@ extension on TypeMatcher<LogRecord> {
 
   TypeMatcher<LogRecord> havingError(dynamic matcher) => having((r) => r.error, 'error', matcher);
 }
+
+class MockLogger extends Mock implements Logger{}
