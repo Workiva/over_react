@@ -103,7 +103,6 @@ export 'src/util/key_constants.dart';
 export 'src/util/map_util.dart';
 export 'src/util/memo.dart';
 export 'src/util/pretty_print.dart';
-export 'src/util/prop_conversion.dart' show unjsifyMapProp, jsifyMapProp, unjsifyRefProp, jsifyRefProp;
 export 'src/util/prop_errors.dart';
 export 'src/util/prop_key_util.dart';
 export 'src/util/react_util.dart';
