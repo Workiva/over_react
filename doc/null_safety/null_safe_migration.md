@@ -6,8 +6,9 @@
 Steps to migrate a repo to null safety:
 
 1. [View resources](#step-1-view-resources)
-1. [Run the preparation codemod](#step-2-run-the-preparation-codemod-coming-soon)
-1. [Run the migration tool](#step-3-run-the-migration-tool)
+1. [Run the preparation codemods](#step-2-run-the-preparation-codemods)
+1. [Enable the analyzer plugin](#step-3-enable-the-analyzer-plugin)
+1. [Run the migration tool](#step-4-run-the-migration-tool)
 
 ## Step 1: View resources
 
@@ -16,29 +17,76 @@ If you haven't already, familiarize yourself with the concepts of Dart null safe
 - Dart's [Understanding null safety](https://dart.dev/null-safety/understanding-null-safety) article 
 - OverReact's documentation on [null safety and required props](../null_safety_and_required_props.md)
 
-## Step 2: Run the preparation codemod (coming soon!)
+## Step 2: Run the preparation codemods
 
-<!-- TODO - update this section once we release the `null_safety_prep` codemod. -->
-
-> [!WARNING]
-> This codemod does not exist yet, but is coming soon!
-
-Start out by running the `null_safety_prep` [codemod][orcm] on your repo:
+Start out by running the [codemod][orcm]s on your repo:
 
 ```
 dart pub global activate over_react_codemod
-dart pub global run over_react_codemod:null_safety_prep
+dart pub global run over_react_codemod:null_safety_prep --yes-to-all
+dart pub global run over_react_codemod:null_safety_migrator_companion --yes-to-all
 ```
 
-This codemod will:
+These codemods will:
 - Migrate as many over_react specific use cases as possible.
 - Get the repo into a state where the migration tool can be run with less manual intervention.
+- Add nullability hints to props/state that are defaulted/initialized in class components.
+  - These hints will cause defaulted/initialized values to be migrated as "late required". 
+    See our [prop nullability](#prop-nullability) docs for more details on whether you should keep them required following the migration.
 
-## Step 3: Run the migration tool
+## Step 3: Enable the analyzer plugin
+
+Enabling the analyzer plugin will help you spot potential null-safety issues in your components at analysis time,
+especially as it pertains to [prop nullability](#prop-nullability).
+
+1. Enable the plugin in your `analysis_options.yaml` file:
+    ```yaml
+    analyzer:
+      plugins:
+        - over_react
+    ```
+1. Restart the Dart Analysis Server in your IDE. The plugin may take a minute to load after built-in analysis completes.
+
+   * If the number of new lints / errors is overwhelming, you an also use this snippet to disable all lints except for the ones that are particularly useful during a null-safety migration:
+       ```yaml
+       analyzer:
+         errors:
+           over_react_exhaustive_deps: ignore
+           over_react_invalid_render_return_type: ignore
+           over_react_pseudo_static_lifecycle: ignore
+           over_react_rules_of_hooks: ignore
+           over_react_style_missing_unit: ignore
+           over_react_avoid_link_target_vulnerability: ignore
+           over_react_boilerplate_warning: ignore
+           over_react_create_ref_usage: ignore
+           over_react_forward_only_dom_props_to_dom_builders: ignore
+           over_react_hash_code_as_key: ignore
+           over_react_invalid_dom_attribute: ignore
+           over_react_low_quality_key: ignore
+           over_react_missing_cascade_parens: ignore
+           over_react_missing_key: ignore
+           over_react_object_to_string_as_key: ignore
+           over_react_proptypes_do_not_throw: ignore
+           over_react_unknown_key_type: ignore
+           over_react_boilerplate_debug: ignore
+           over_react_bool_prop_name_readability: ignore
+           over_react_consumed_props_return_value: ignore
+           over_react_incorrect_doc_comment_location: ignore
+           over_react_prefer_null_over_false_render_return_type: ignore
+           over_react_prefer_use_or_create_ref: ignore
+           over_react_string_ref: ignore
+           over_react_unnecessary_key: ignore
+           over_react_variadic_children: ignore
+         plugins:
+           over_react
+       ```
+
+## Step 4: Run the migration tool
 
 Run the null safety migrator tool:
 
-- For Workiva employees, use the [Workiva version of the migrator tool](https://github.com/Workiva/wnnbd?tab=readme-ov-file#migrating-a-package).
+- **For Workiva employees, use the [Workiva version of the migrator tool](https://github.com/Workiva/wnnbd?tab=readme-ov-file#migrating-a-package).**
+  - Note that there may be additional preparation steps recommended in the documentation for that tool.
 - Otherwise, either:
   - use [Dart's migrator tool](https://dart.dev/null-safety/migration-guide#migration-tool)
   - use [a fork of the migrator tool](#migrator-tool-bug) that fixes a bug with how over_react usages are migrated
@@ -68,7 +116,111 @@ Below is a table of the possible options for prop nullability:
   - **Nullable**: If the prop is required, but can be explicitly set to `null`.
   - **Non-nullable**: If the prop is required and should never be set to `null`.
 
-#### Migrator tool bug
+If you aren't sure whether the prop should be nullable, or required, or both, this decision tree might help:
+
+```mermaid
+---
+title: Prop Nullability Decision Tree
+---
+flowchart TD
+    Start[Should My Prop By Required Or Optional]==>HasDefault
+      HasDefault((Does the \nprop have a \ndefault value?))== Yes ==> Defaulted
+        Defaulted((Where is \nthe default?))-- defaultProps getter\n(Class Component) --> End_Defaulted1[/"Make it <strong>required</strong>\n<code>late SomeType propName;</code>"\]
+        Defaulted-- local var\n(Function Component) --> End_Optional1[/"Make it <strong>optional</strong>\n<code>SomeType? propName;</code>"\]
+      HasDefault == No ==> NotDefaulted
+        NotDefaulted((Is it set \nfor every \ninvocation?))-- No --> End_Optional2[/"Make it <strong>optional</strong>\n<code>SomeType? propName;</code>"\]
+        NotDefaulted-- Yes --> AlwaysSpecified
+          AlwaysSpecified((Is the prop \npublic API?))-- Yes --> PublicAlwaysSpecified
+            PublicAlwaysSpecified((Is the prop mixed in \nby any other component?))-- Yes --> End_PublicAlwaysSpecifiedMixedIn[/"Make it <strong>optional</strong>\n<code>SomeType? propName;</code>"\]
+            PublicAlwaysSpecified-- No --> End_PublicAlwaysSpecifiedNotMixedIn[/"Make it <strong>required</strong>\n<code>late SomeType propName;</code>"\]
+          AlwaysSpecified-- No --> PublicAlwaysSpecifiedNotConsumed[/"Make it <strong>required</strong>\n<code>late SomeType propName;</code>"\]
+```
+
+#### Implementing abstract `Ref`s
+
+After migrating to null-safety, it may be necessary to add left side typing on `Ref`s when overriding abstract getters as shown in the example below:
+
+```dart
+// in some_abstract_component_or_mixin
+abstract class AbstractFoo extends UiComponent2 {
+  Ref<AbstractFooPrimitiveComponent?> get someRef;
+}
+
+// in impl
+class Foo extends AbstractFoo {
+  // Incorrectly inferred as Ref<Object?>
+  @override
+  final someRef = createRef<FooPrimitiveComponent>(); 
+  
+  // Correctly typed as Ref<FooPrimitiveComponent?>
+  @override
+  final Ref<FooPrimitiveComponent?> someRef = createRef();
+}
+```
+
+#### Incorrect `getDerivedStateFromProps` Return Signature
+
+The migrator often incorrectly makes the return signature of `getDerivedStateFromProps` non-nullable.
+
+The correct null-safe signature for this class component method is:
+
+```dart
+Map? getDerivedStateFromProps(Map nextProps, Map prevState) {}
+```
+
+#### Verbose function component return signature for `uiForwardRef`
+
+If you are migrating `uiForwardRef` components that lack an explicit return signature on the left side like this:
+
+```dart
+final SomeComponent = uiForwardRef<SomeComponentProps>(/*...*/);
+```
+
+the migrator tool will add some very verbose left side typing based on type inference. **Changes like this are safe to discard.**
+
+```dart
+final SomeComponentProps Function([Map<dynamic, dynamic>]) SomeComponent = uiForwardRef<SomeComponentProps>(/*...*/);
+```
+
+#### Nullable store/actions generics on `FluxUiPropsMixin`
+
+The migrator tool attempts to infer the nullability of `FluxUiPropsMixin.store` / `FluxUiPropsMixin.actions` based
+on usage - which can lead to the type generics being incorrectly migrated as nullable types. 
+
+**These generics should always be set with non-nullable types.**
+
+```dart
+// Incorrect
+class FooProps = UiProps with FluxUiPropsMixin<SomeActionsType?, SomeStoreType?>;
+
+// Correct
+class FooProps = UiProps with FluxUiPropsMixin<SomeActionsType, SomeStoreType>;
+```
+
+#### Nullable props generic on `UiComponent2` mixins
+
+When you have a component mixin that contains a generic which has a base type of a props mixin like so:
+
+```dart
+mixin FooProps on UiProps {/*...*/}
+
+mixin Foo<TProps extends FooProps> on UiComponent2<TProps> {/*...*/}
+```
+
+The migrator tool sometimes incorrectly infers `UiComponent2.props` as nullable like so:
+
+```dart
+mixin FooProps on UiProps {/*...*/}
+
+// Incorrect. FooProps? should be non-nullable FooProps
+mixin Foo<TProps extends FooProps?> on UiComponent2<TProps> {/*...*/}
+```
+
+**Generic props applied to the `UiComponent2` constraint should always be non-nullable.**
+
+### Migrator Bugs
+
+#### Migrator treats emulated function calls as nullable
 
 The migrator tool [incorrectly treats the result of emulated function calls as nullable](https://github.com/dart-lang/sdk/issues/46263).
 
