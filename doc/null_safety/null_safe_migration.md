@@ -119,11 +119,8 @@ Below is a table of the possible options for prop nullability:
 If you aren't sure whether the prop should be nullable, or required, or both, this decision tree might help:
 
 ```mermaid
----
-title: Prop Nullability Decision Tree
----
 flowchart TD
-    Start[Should My Prop By Required Or Optional]==>HasDefault
+    Start[<strong>Should My Prop Be Required</strong>]==>HasDefault
       HasDefault((Does the \nprop have a \ndefault value?))== Yes ==> Defaulted
         Defaulted((Where is \nthe default?))-- defaultProps getter\n(Class Component) --> End_Defaulted1[/"Make it <strong>required</strong>\n<code>late SomeType propName;</code>"\]
         Defaulted-- local var\n(Function Component) --> End_Optional1[/"Make it <strong>optional</strong>\n<code>SomeType? propName;</code>"\]
