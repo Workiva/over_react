@@ -116,7 +116,13 @@ Below is a table of the possible options for prop nullability:
   - **Nullable**: If the prop is required, but can be explicitly set to `null`.
   - **Non-nullable**: If the prop is required and should never be set to `null`.
 
-If you aren't sure whether the prop should be nullable, or required, or both, this decision tree might help:
+> [!TIP]
+> **Determining prop nullability manually can be extremely tedious and error-prone.**
+>
+> If you are a Workiva employee, and you don't want to have to go through the process shown
+> in the decision tree below for every prop in every component in your library, you should wait for the
+> [codemod that is being built](https://jira.atl.workiva.net/browse/FED-1885) before migrating your UI
+> components since it will automate the vast majority of this process.
 
 ```mermaid
 flowchart TD
