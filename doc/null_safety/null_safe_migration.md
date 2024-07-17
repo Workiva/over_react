@@ -19,17 +19,33 @@ If you haven't already, familiarize yourself with the concepts of Dart null safe
 
 ## Step 2: Run the preparation codemods
 
-Start out by running the [codemod][orcm]s on your repo:
+There are two different codemods that can help migrate your over_react code to null safety. 
+One of them should be run prior to a migration, the other should be run at the beginning of the migration itself.
 
-```
+### Codemod to run before a null safety migration
+
+Before you begin a null safety migration, you should run the `null_safety_prep` [codemod][orcm] on your repo.
+**These changes should be reviewed / merged prior to the null safety migration begins.**
+
+```bash
 dart pub global activate over_react_codemod
 dart pub global run over_react_codemod:null_safety_prep --yes-to-all
+```
+
+This codemod will:
+- Migrate as many over_react specific use cases as possible.
+- Get the repo into a state where the migration tool can be run with less manual intervention.
+
+### Codemod to run as part of a null safety migration
+
+Once you're ready to begin a null safety migration, run the `null_safety_migrator_companion` codemod:
+
+```bash
+dart pub global activate over_react_codemod
 dart pub global run over_react_codemod:null_safety_migrator_companion --yes-to-all
 ```
 
-These codemods will:
-- Migrate as many over_react specific use cases as possible.
-- Get the repo into a state where the migration tool can be run with less manual intervention.
+This codemod will:
 - Add nullability hints to props/state that are defaulted/initialized in class components.
   - These hints will cause defaulted/initialized values to be migrated as "late required". 
     See our [prop nullability](#prop-nullability) docs for more details on whether you should keep them required following the migration.
