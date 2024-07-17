@@ -50,6 +50,10 @@ especially as it pertains to [prop nullability](#prop-nullability).
    * If the number of new lints / errors is overwhelming, you an also use this snippet to disable all lints except for the ones that are particularly useful during a null-safety migration:
        ```yaml
        analyzer:
+         plugins:
+           over_react
+     
+       over_react:
          errors:
            over_react_exhaustive_deps: ignore
            over_react_invalid_render_return_type: ignore
@@ -77,8 +81,6 @@ especially as it pertains to [prop nullability](#prop-nullability).
            over_react_string_ref: ignore
            over_react_unnecessary_key: ignore
            over_react_variadic_children: ignore
-         plugins:
-           over_react
        ```
 
 ## Step 4: Run the migration tool
