@@ -127,18 +127,29 @@ Below is a table of the possible options for prop nullability:
 > components since it will automate the vast majority of this process.
 
 ```mermaid
+---
+title: Should My Prop Be Required?
+---
 flowchart TD
-    Start[<strong>Should My Prop Be Required</strong>]==>HasDefault
-      HasDefault((Does the \nprop have a \ndefault value?))== Yes ==> Defaulted
-        Defaulted((Where is \nthe default?))-- defaultProps getter\n(Class Component) --> End_Defaulted1[/"Make it <strong>required</strong>\n<code>late SomeType propName;</code>"\]
-        Defaulted-- local var\n(Function Component) --> End_Optional1[/"Make it <strong>optional</strong>\n<code>SomeType? propName;</code>"\]
-      HasDefault == No ==> NotDefaulted
-        NotDefaulted((Is it set \nfor every \ninvocation?))-- No --> End_Optional2[/"Make it <strong>optional</strong>\n<code>SomeType? propName;</code>"\]
-        NotDefaulted-- Yes --> AlwaysSpecified
-          AlwaysSpecified((Is the prop \npublic API?))-- Yes --> PublicAlwaysSpecified
-            PublicAlwaysSpecified((Is the prop mixed in \nby any other component?))-- Yes --> End_PublicAlwaysSpecifiedMixedIn[/"Make it <strong>optional</strong>\n<code>SomeType? propName;</code>"\]
-            PublicAlwaysSpecified-- No --> End_PublicAlwaysSpecifiedNotMixedIn[/"Make it <strong>required</strong>\n<code>late SomeType propName;</code>"\]
-          AlwaysSpecified-- No --> PublicAlwaysSpecifiedNotConsumed[/"Make it <strong>required</strong>\n<code>late SomeType propName;</code>"\]
+  HasDefault== No ==> NotDefaulted
+    NotDefaulted((Is it set for \nevery invocation?))-- No --> End_Optional_No_Public_Api_Check
+    NotDefaulted-- Yes ---> PublicAPICheck
+  HasDefault((Does the prop have \na default value?))== Yes ==> Defaulted
+    Defaulted((Where is the value \ndefaulted?))--> ClassDefault
+    Defaulted--> LocalDefault
+      ClassDefault(["defaultProps getter\n(Class Component)"])--> PublicAPICheck
+      LocalDefault(["local var\n(Function Component)"])--> End_Optional_No_Public_Api_Check
+
+  subgraph Public API Check
+    PublicAPICheck((Is the prop \npublic API?))-- Yes --> PublicAlwaysSpecified
+      PublicAlwaysSpecified((Is the prop mixed \nin by any other \ncomponent?))-- Yes --> End_Optional
+      PublicAlwaysSpecified-- No --> End_Required
+    PublicAPICheck-- No --> End_Required
+  end
+
+  End_Optional_No_Public_Api_Check[/"Make it <strong>optional</strong>\n<code>SomeType? propName;</code>"\]
+  End_Optional[/"Make it <strong>optional</strong>\n<code>SomeType? propName;</code>"\]
+  End_Required[/"Make it <strong>required</strong>\n<code>late SomeType propName;</code>"\]
 ```
 
 #### Implementing abstract `Ref`s
