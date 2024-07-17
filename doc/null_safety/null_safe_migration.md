@@ -38,7 +38,8 @@ This codemod will:
 
 ### Codemod to run as part of a null safety migration
 
-Once you're ready to begin a null safety migration, run the `null_safety_migrator_companion` codemod:
+Once you're ready to begin a null safety migration, run the `null_safety_migrator_companion` codemod, and commit the
+hints it adds as a separate commit before proceeding with the rest of the migration. 
 
 ```bash
 dart pub global activate over_react_codemod
@@ -100,6 +101,9 @@ especially as it pertains to [prop nullability](#prop-nullability).
        ```
 
 ## Step 4: Run the migration tool
+
+> [!TIP]
+> **Be sure to commit any changes from step 3 prior to running the migrator tool!**
 
 Run the null safety migrator tool:
 
