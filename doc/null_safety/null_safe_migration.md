@@ -215,9 +215,12 @@ mixin Foo<TProps extends FooProps?> on UiComponent2<TProps> {/*...*/}
 
 **Generic props applied to the `UiComponent2` constraint should always be non-nullable.**
 
-### Migrator Bugs
+### Migrator Tool Bug
 
 #### Migrator treats emulated function calls as nullable
+
+> [!TIP]
+> **If you are a Workiva employee, this bug is fixed in [the official Workiva fork of the migrator](https://github.com/Workiva/dart_null_tools), so there is no need to read any further.**
 
 The migrator tool [incorrectly treats the result of emulated function calls as nullable](https://github.com/dart-lang/sdk/issues/46263).
 
@@ -234,43 +237,44 @@ To work around this issue, you can either:
 - manually fix these after running the migrator
 - use a fork of the migrator tool that contains a bugfix - see the following section for instructions on how to run that locally
 
-#### Using the forked migrator tool
+<details>
+  <summary><strong>Using the forked migrator tool</strong> <em>(Not relevant for Workiva employees)</em></summary>
+  
+  The `dart migrate` tool comes bundled with the Dart SDK, so we'll need a local copy of the SDK to pull in [a fix](https://github.com/dart-lang/sdk/issues/46263#issuecomment-967647710) for it.
 
-The `dart migrate` tool comes bundled with the Dart SDK, so we'll need a local copy of the SDK to pull in [a fix](https://github.com/dart-lang/sdk/issues/46263#issuecomment-967647710) for it.
-
-First, clone the Dart SDK using the instructions from the Dart SDK wiki (just cloning the repo normally won't work). The only steps on this wiki you need to follow are:
-1. [Dependencies](https://github.com/dart-lang/sdk/wiki/Building#dependencies)
-2. [Getting the source](https://github.com/dart-lang/sdk/wiki/Building#source)
-
-After that's done, we'll check out the branch containing the bugfix, and get the migrator tool ready to run:
-```sh
-# Enter the dart-sdk/sdk directory we set up above
-cd sdk
-
-# Check out the forked Dart SDK branch with the fix from:
-# https://github.com/dart-lang/sdk/issues/46263#issuecomment-967647710
-git remote add sdk-fork https://github.com/greglittlefield-wf/sdk.git
-git fetch sdk-fork
-git checkout fix-emulated-function-migration-2.19
-
-# After changing branches, update files needed for generate_package_config  
-gclient sync -D --nohooks
-
-# Generate a package config in place of doing `pub get` (the Dart SDK's package setup is special),
-# allowing us to run the migrator tool.
-dart tools/generate_package_config.dart
-```
-
-Now, we're all set!
-
-In place of running `dart migrate`, we can run our local copy of the migrator tool. Start in the package you want to migrate, then run the tool located at `pkg/nnbd_migration/bin/migrate.dart` within the Dart SDK clone.
-```sh
-cd your_package
-# This can be an absolute or relative path
-dart /full/path/to/dart-sdk/sdk/pkg/nnbd_migration/bin/migrate.dart
-```
-
-This command behaves the same as `dart migrate`, and accepts the same arguments it does. 
-
+  First, clone the Dart SDK using the instructions from the Dart SDK wiki (just cloning the repo normally won't work). The only steps on this wiki you need to follow are:
+  1. [Dependencies](https://github.com/dart-lang/sdk/wiki/Building#dependencies)
+  2. [Getting the source](https://github.com/dart-lang/sdk/wiki/Building#source)
+  
+  After that's done, we'll check out the branch containing the bugfix, and get the migrator tool ready to run:
+  ```sh
+  # Enter the dart-sdk/sdk directory we set up above
+  cd sdk
+  
+  # Check out the forked Dart SDK branch with the fix from:
+  # https://github.com/dart-lang/sdk/issues/46263#issuecomment-967647710
+  git remote add sdk-fork https://github.com/greglittlefield-wf/sdk.git
+  git fetch sdk-fork
+  git checkout fix-emulated-function-migration-2.19
+  
+  # After changing branches, update files needed for generate_package_config  
+  gclient sync -D --nohooks
+  
+  # Generate a package config in place of doing `pub get` (the Dart SDK's package setup is special),
+  # allowing us to run the migrator tool.
+  dart tools/generate_package_config.dart
+  ```
+  
+  Now, we're all set!
+  
+  In place of running `dart migrate`, we can run our local copy of the migrator tool. Start in the package you want to migrate, then run the tool located at `pkg/nnbd_migration/bin/migrate.dart` within the Dart SDK clone.
+  ```sh
+  cd your_package
+  # This can be an absolute or relative path
+  dart /full/path/to/dart-sdk/sdk/pkg/nnbd_migration/bin/migrate.dart
+  ```
+  
+  This command behaves the same as `dart migrate`, and accepts the same arguments it does.
+</details>
 
 [orcm]: https://github.com/Workiva/over_react_codemod
