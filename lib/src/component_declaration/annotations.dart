@@ -459,3 +459,27 @@ const _DisableRequiredPropValidation disableRequiredPropValidation = _DisableReq
 class _DisableRequiredPropValidation {
   const _DisableRequiredPropValidation();
 }
+
+/// Annotation that simplifies prop type conversion by generating [getter] and [setter] in
+/// the respective getters and setters for the prop in the .over_react.g.dart part file.
+///
+/// A prop annotated with [ConvertProp] should always be typed the same as the [Converted] type.
+class ConvertProp<Raw, Converted> {
+  final Converted Function(Raw) getter;
+  final Raw Function(Converted) setter;
+
+  const ConvertProp( this.setter, this.getter );
+}
+
+/// Utility version of [ConvertProp] for map props to generate getters and setters
+/// to convert from `JsMap` to `Map` and back.
+const _CommonConversionCases convertJsMapProp = _CommonConversionCases();
+
+/// Utility version of [ConvertProp] for ref props to generate getters and setters
+/// to convert from `JsRef` to `Ref` and back.
+const _CommonConversionCases convertJsRefProp = _CommonConversionCases();
+
+class _CommonConversionCases {
+  const _CommonConversionCases();
+}
+

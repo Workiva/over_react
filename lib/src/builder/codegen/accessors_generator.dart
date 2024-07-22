@@ -308,9 +308,27 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
           docComment = '';
         }
 
+        final conversionConfig = parseConversionConfig(
+          field: field,
+          accessorName: accessorName,
+          typeSource: typeSource,
+          onError: (message, [spanNode]) {
+            logger.severe(messageWithSpan(message, span: getSpan(sourceFile, spanNode ?? field)));
+          },
+        );
+
         String castGetterMapValueIfNecessary(String expression) {
-          if (typeSource == null) return expression;
-          return '($expression) as $typeSource';
+          final typeToCastTo = conversionConfig?.rawType ?? typeSource;
+          if (typeToCastTo == null) return expression;
+          return '($expression) as $typeToCastTo';
+        }
+
+        String convertIfNecessary(String expression, {required bool isGetter}) {
+          if (conversionConfig != null) {
+            final convertFunc = isGetter ? conversionConfig.getter : conversionConfig.setter;
+            return '$convertFunc($expression)';
+          }
+          return expression;
         }
 
         String generatedAccessor = '$docComment'
@@ -322,12 +340,12 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
             // Add ` ?? null` to work around DDC bug: <https://github.com/dart-lang/sdk/issues/36052
             // Apply this workaround ASAP, before the cast, to limit where undefined can leak into
             // and potentially cause issues (for instance, DDC cast internals).
-            '  ${getterTypeString}get $accessorName => ${castGetterMapValueIfNecessary('$proxiedMapName[$keyConstantName] ?? null')};\n'
+            '  ${getterTypeString}get $accessorName => ${convertIfNecessary(castGetterMapValueIfNecessary('$proxiedMapName[$keyConstantName] ?? null'), isGetter: true)};\n'
             '$docComment'
             // '  @tryInline\n'
             '  @override\n'
             '$metadataSrc'
-            '  set $accessorName(${setterTypeString}value) => $proxiedMapName[$keyConstantName] = value;\n';
+            '  set $accessorName(${setterTypeString}value) => $proxiedMapName[$keyConstantName] = ${convertIfNecessary('value', isGetter: false)};\n';
 
         output.write(generatedAccessor);
       });
@@ -390,6 +408,109 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
 
     return output.toString();
   }
+}
+
+T? getConstantAnnotation<T>(AnnotatedNode member, String name, T value) {
+  return member.metadata.any((annotation) => annotation.name.name == name) ? value : null;
+}
+
+// Parse @ConvertProp annotation.
+PropConversionConfig? parseConversionConfig({
+  required FieldDeclaration field,
+  required String accessorName,
+  required String? typeSource,
+  required void Function(String errorMessage, [AstNode? spanNode]) onError,
+}) {
+  PropConversionConfig? conversionConfig;
+
+  final convertProp =
+      field.metadata.firstWhereOrNull((annotation) => annotation.name.name == 'ConvertProp');
+
+  void handleAnnotationError(String message, [AstNode? spanNode]) {
+    onError("Unsupported prop annotation combination for prop '$accessorName': $message", spanNode);
+  }
+
+  if (convertProp != null) {
+    var rawType = convertProp.typeArguments?.arguments.firstOrNull?.toSource();
+    var convertedType = convertProp.typeArguments?.arguments.lastOrNull?.toSource();
+    var setter = convertProp.arguments?.arguments.firstOrNull?.toSource();
+    var getter = convertProp.arguments?.arguments.lastOrNull?.toSource();
+    if (rawType == null || convertedType == null) {
+      handleAnnotationError(
+          'The @ConvertProp annotation must be used with generic parameters: `@Convert<Raw, Converted>(setter, getter)`',
+          convertProp);
+      return null;
+    }
+    if (setter == null || getter == null) {
+      // Analysis errors with `ConvertProp` should prevent this from happening.
+      handleAnnotationError(
+          'The @ConvertProp annotation must have two arguments: `@Convert<Raw, Converted>(setter, getter)`',
+          convertProp);
+      return null;
+    }
+    if (convertedType != typeSource) {
+      handleAnnotationError(
+          'A prop annotated with `@Convert<Raw, Converted>(setter, getter)` should have the same type as the `Converted` generic parameter.',
+          convertProp);
+      return null;
+    }
+    conversionConfig = PropConversionConfig(
+      rawType: rawType,
+      convertedType: convertedType,
+      setter: setter,
+      getter: getter,
+    );
+  }
+
+  // Look for special-case conversion annotations (@convertJsMapProp and
+  // @convertJsRefProp) only if @ConvertProp(...) annotation isn't already used.
+
+  if (conversionConfig == null) {
+    final convertJsMapProp =
+        getConstantAnnotation(field, 'convertJsMapProp', annotations.convertJsMapProp);
+    final convertJsRefProp =
+        getConstantAnnotation(field, 'convertJsRefProp', annotations.convertJsRefProp);
+    if (convertJsMapProp != null) {
+      conversionConfig = PropConversionConfig(
+        rawType: 'JsMap?',
+        convertedType: 'Map?',
+        setter: 'jsifyMapProp',
+        getter: 'unjsifyMapProp',
+      );
+      if (conversionConfig.convertedType != typeSource) {
+        handleAnnotationError(
+            'A prop annotated with `@convertJsMapProp` should be typed as `Map?`.', field);
+        return null;
+      }
+    } else if (convertJsRefProp != null) {
+      conversionConfig = PropConversionConfig(
+        rawType: 'dynamic',
+        convertedType: 'dynamic',
+        setter: 'jsifyRefProp',
+        getter: 'unjsifyRefProp',
+      );
+      if (conversionConfig.convertedType != typeSource) {
+        handleAnnotationError(
+            'A prop annotated with `@convertJsRefProp` should be typed as `dynamic`.', field);
+        return null;
+      }
+    }
+  }
+
+  return conversionConfig;
+}
+
+class PropConversionConfig {
+  final String rawType;
+  final String convertedType;
+  final String setter;
+  final String getter;
+
+  PropConversionConfig(
+      {required this.rawType,
+      required this.convertedType,
+      required this.setter,
+      required this.getter});
 }
 
 /// Generates mixin implementations (e.g., `$FooPropsMixin`) containing accessors for
