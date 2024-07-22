@@ -1186,7 +1186,7 @@ main() {
         });
 
         group('an unsupported usage of @ConvertProp', () {
-          const basicUnsupportedPropComboMessage = 'Unsupported prop annotation combination for prop foo: A prop annotated with `@Convert<Raw, Converted>(setter, getter)` should have the same type as the `Converted` generic parameter.';
+          const basicUnsupportedPropComboMessage = 'Unsupported prop annotation combination for prop \'foo\': A prop annotated with `@Convert<Raw, Converted>(setter, getter)` should have the same type as the `Converted` generic parameter.';
 
           test('the prop type does not match the Converted type', () {
             var body = '''
@@ -1203,7 +1203,7 @@ main() {
               late String foo;''';
 
             setUpAndGenerate(OverReactSrc.abstractProps(backwardsCompatible: false, body: body).source);
-            verify(() => logger.severe(contains('Unsupported prop annotation combination for prop foo: The @ConvertProp annotation must be used with generic parameters: `@Convert<Raw, Converted>(setter, getter)`')));
+            verify(() => logger.severe(contains('Unsupported prop annotation combination for prop \'foo\': The @ConvertProp annotation must be used with generic parameters: `@Convert<Raw, Converted>(setter, getter)`')));
           });
 
           test('the setter is null', () {
@@ -1230,7 +1230,7 @@ main() {
               late String foo;''';
 
             setUpAndGenerate(OverReactSrc.abstractProps(backwardsCompatible: false, body: body).source);
-            verify(() => logger.severe(contains('Unsupported prop annotation combination for prop foo: A prop annotated with `@convertJsMapProp` should be typed as `Map?`.')));
+            verify(() => logger.severe(contains('Unsupported prop annotation combination for prop \'foo\': A prop annotated with `@convertJsMapProp` should be typed as `Map?`.')));
           });
 
           test('@convertJsRefProp of the wrong prop type', () {
@@ -1239,7 +1239,7 @@ main() {
               Map? foo;''';
 
             setUpAndGenerate(OverReactSrc.abstractProps(backwardsCompatible: false, body: body).source);
-            verify(() => logger.severe(contains('Unsupported prop annotation combination for prop foo: A prop annotated with `@convertJsRefProp` should be typed as `dynamic`.')));
+            verify(() => logger.severe(contains('Unsupported prop annotation combination for prop \'foo\': A prop annotated with `@convertJsRefProp` should be typed as `dynamic`.')));
           });
         });
       });
