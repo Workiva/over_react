@@ -13,7 +13,6 @@
 // limitations under the License.
 
 import 'package:analyzer/dart/ast/ast.dart';
-import 'package:logging/logging.dart';
 import 'package:over_react/src/component_declaration/annotations.dart' as annotations;
 import 'package:transformer_utils/transformer_utils.dart';
 
