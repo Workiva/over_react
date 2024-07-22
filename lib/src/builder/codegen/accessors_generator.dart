@@ -310,7 +310,13 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
         }
 
         final conversionConfig = parseConversionConfig(
-            field: field, accessorName: accessorName, typeSource: typeSource, logger: logger);
+          field: field,
+          accessorName: accessorName,
+          typeSource: typeSource,
+          onError: (message, [spanNode]) {
+            logger.severe(messageWithSpan(message, span: getSpan(sourceFile, spanNode ?? field)));
+          },
+        );
 
         String castGetterMapValueIfNecessary(String expression) {
           final typeToCastTo = conversionConfig?.rawType ?? typeSource;
@@ -414,15 +420,15 @@ PropConversionConfig? parseConversionConfig({
   required FieldDeclaration field,
   required String accessorName,
   required String? typeSource,
-  required Logger logger,
+  required void Function(String errorMessage, [AstNode? spanNode]) onError,
 }) {
   PropConversionConfig? conversionConfig;
 
   final convertProp =
       field.metadata.firstWhereOrNull((annotation) => annotation.name.name == 'ConvertProp');
 
-  void logPropAnnotationError(String message) {
-    logger.severe('Unsupported prop annotation combination for prop $accessorName: $message');
+  void handleAnnotationError(String message, [AstNode? spanNode]) {
+    onError("Unsupported prop annotation combination for prop '$accessorName': $message", spanNode);
   }
 
   if (convertProp != null) {
@@ -431,19 +437,22 @@ PropConversionConfig? parseConversionConfig({
     var setter = convertProp.arguments?.arguments.firstOrNull?.toSource();
     var getter = convertProp.arguments?.arguments.lastOrNull?.toSource();
     if (rawType == null || convertedType == null) {
-      logPropAnnotationError(
-          'The @ConvertProp annotation must be used with generic parameters: `@Convert<Raw, Converted>(setter, getter)`');
+      handleAnnotationError(
+          'The @ConvertProp annotation must be used with generic parameters: `@Convert<Raw, Converted>(setter, getter)`',
+          convertProp);
       return null;
     }
     if (setter == null || getter == null) {
       // Analysis errors with `ConvertProp` should prevent this from happening.
-      logPropAnnotationError(
-          'The @ConvertProp annotation must have two arguments: `@Convert<Raw, Converted>(setter, getter)`');
+      handleAnnotationError(
+          'The @ConvertProp annotation must have two arguments: `@Convert<Raw, Converted>(setter, getter)`',
+          convertProp);
       return null;
     }
     if (convertedType != typeSource) {
-      logPropAnnotationError(
-          'A prop annotated with `@Convert<Raw, Converted>(setter, getter)` should have the same type as the `Converted` generic parameter.');
+      handleAnnotationError(
+          'A prop annotated with `@Convert<Raw, Converted>(setter, getter)` should have the same type as the `Converted` generic parameter.',
+          convertProp);
       return null;
     }
     conversionConfig = PropConversionConfig(
@@ -470,8 +479,8 @@ PropConversionConfig? parseConversionConfig({
         getter: 'unjsifyMapProp',
       );
       if (conversionConfig.convertedType != typeSource) {
-        logPropAnnotationError(
-            'A prop annotated with `@convertJsMapProp` should be typed as `Map?`.');
+        handleAnnotationError(
+            'A prop annotated with `@convertJsMapProp` should be typed as `Map?`.', field);
         return null;
       }
     } else if (convertJsRefProp != null) {
@@ -482,8 +491,8 @@ PropConversionConfig? parseConversionConfig({
         getter: 'unjsifyRefProp',
       );
       if (conversionConfig.convertedType != typeSource) {
-        logPropAnnotationError(
-            'A prop annotated with `@convertJsRefProp` should be typed as `dynamic`.');
+        handleAnnotationError(
+            'A prop annotated with `@convertJsRefProp` should be typed as `dynamic`.', field);
         return null;
       }
     }
