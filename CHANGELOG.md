@@ -1,7 +1,7 @@
 # OverReact Changelog
 
 ## 5.2.0
-- [#920] Support prop conversion in OverReact to simplify RMUI converted props
+- [#920] Support conversion of prop values via annotations: `@ConvertProp`, `@convertJsMapProp`, `@convertJsRefProp`
 - [#925] Remove publish action that always fails due to dry run warnings
 - [#928] Fix num keys incorrectly linting as not unique
 - [#930] Fix Analyzer Plugin error when typing keys
