@@ -1,4 +1,12 @@
 # OverReact Changelog
+
+## 5.2.0
+- [#920] Support prop conversion in OverReact to simplify RMUI converted props
+- [#925] Remove publish action that always fails due to dry run warnings
+- [#928] Fix num keys incorrectly linting as not unique
+- [#930] Fix Analyzer Plugin error when typing keys
+- [#932] Update the null safety migration documentation
+
 ## 5.1.1 & 5.1.2
 - Fixes to CI [#921] [#922]
 - Add auto-publish to pub.dev
