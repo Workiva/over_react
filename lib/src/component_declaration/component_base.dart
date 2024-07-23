@@ -587,7 +587,7 @@ abstract class UiProps extends MapBase
   }
 
   /// Returns a new component with this builder's [props] and the specified [children].
-  ReactElement build([dynamic children]) {
+  ReactElement build([ReactNode children]) {
     assert(_validateChildren(children));
     _sharedAsserts();
 
@@ -643,7 +643,7 @@ abstract class UiProps extends MapBase
 
   /// Validates that no [children] are instances of [UiProps], and prints a helpful message for a better debugging
   /// experience.
-  bool _validateChildren(dynamic children) {
+  bool _validateChildren(ReactNode children) {
     // Should not validate non-list iterables to avoid more than one iteration.
     if (children != null && (children is! Iterable || children is List)) {
       final childrenList = children is List ? children : [children];

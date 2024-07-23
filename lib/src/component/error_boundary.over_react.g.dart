@@ -280,13 +280,13 @@ mixin $ErrorBoundaryProps on ErrorBoundaryProps {
           Function(dynamic error, ReactErrorInfo info)? value) =>
       props[_$key__onComponentIsUnrecoverable__ErrorBoundaryProps] = value;
   @override
-  ReactElement? Function(dynamic error, ReactErrorInfo? info)?
+  ReactNode Function(dynamic error, ReactErrorInfo? info)?
       get fallbackUIRenderer =>
           (props[_$key__fallbackUIRenderer__ErrorBoundaryProps] ?? null)
-              as ReactElement? Function(dynamic error, ReactErrorInfo? info)?;
+              as ReactNode Function(dynamic error, ReactErrorInfo? info)?;
   @override
   set fallbackUIRenderer(
-          ReactElement? Function(dynamic error, ReactErrorInfo? info)? value) =>
+          ReactNode Function(dynamic error, ReactErrorInfo? info)? value) =>
       props[_$key__fallbackUIRenderer__ErrorBoundaryProps] = value;
   @override
   Duration? get identicalErrorFrequencyTolerance =>
