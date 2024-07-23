@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+@TestOn('vm')
+
 import 'package:over_react/src/builder/parsing.dart';
 import 'package:test/test.dart';
 
