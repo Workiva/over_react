@@ -18,7 +18,6 @@ import 'dart:html';
 import 'package:meta/meta.dart';
 import 'package:over_react/over_react.dart';
 import 'package:over_react/over_react_redux.dart';
-import 'package:over_react/src/util/equality.dart';
 import 'package:redux/redux.dart' as redux;
 import 'package:w_flux/w_flux.dart' as flux;
 
