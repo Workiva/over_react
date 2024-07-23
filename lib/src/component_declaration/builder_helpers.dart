@@ -175,7 +175,7 @@ extension PropsToForward<T extends UiProps> on T {
   /// Component with a single props mixin:
   /// ```dart
   /// mixin FooPropsMixin on UiProps {
-  ///   String foo;
+  ///   String? foo;
   /// }
   ///
   /// UiFactory<FooPropsMixin> Foo = uiFunction((props) {
@@ -191,7 +191,7 @@ extension PropsToForward<T extends UiProps> on T {
   /// Component with a more than one props mixin:
   /// ```dart
   /// mixin FooPropsMixin on UiProps {
-  ///   String foo;
+  ///   String? foo;
   /// }
   /// class FooProps = UiProps with BarProps, FooPropsMixin;
   ///
@@ -220,7 +220,7 @@ extension PropsToForward<T extends UiProps> on T {
   /// Component with a single props mixin:
   /// ```dart
   /// mixin FooPropsMixin on UiProps {
-  ///   String foo;
+  ///   String? foo;
   /// }
   ///
   /// UiFactory<FooPropsMixin> Foo = uiFunction((props) {
@@ -236,7 +236,7 @@ extension PropsToForward<T extends UiProps> on T {
   /// Component with a more than one props mixin:
   /// ```dart
   /// mixin FooPropsMixin on UiProps {
-  ///   String foo;
+  ///   String? foo;
   /// }
   /// class FooProps = UiProps with BarProps, FooPropsMixin;
   ///

@@ -32,7 +32,11 @@ Future<String> generateOverReactPart({
   final recordedLogs = <LogRecord>[];
   final logSubscription = builderLogger.onRecord.listen(recordedLogs.add);
 
-  await runBuilder(overReactBuilder(null), [inputAsset], reader, writer, null, logger: builderLogger);
+  try {
+    await runBuilder(overReactBuilder(null), [inputAsset], reader, writer, null, logger: builderLogger);
+  } catch(e, st) {
+    throw Exception('Error running over_react builder:\n$e\n$st');
+  }
 
   await logSubscription.cancel();
 

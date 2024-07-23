@@ -1,25 +1,59 @@
 # OverReact Changelog
 
-## 5.0.0 (unreleased, work in progress)
+## 5.2.0
+- [#920] Support conversion of prop values via annotations: `@ConvertProp`, `@convertJsMapProp`, `@convertJsRefProp`
+- [#925] Remove publish action that always fails due to dry run warnings
+- [#928] Fix num keys incorrectly linting as not unique
+- [#930] Fix Analyzer Plugin error when typing keys
+- [#932] Update the null safety migration documentation
+
+## 5.1.1 & 5.1.2
+- Fixes to CI [#921] [#922]
+- Add auto-publish to pub.dev
+
+## 5.1.0
+- [#910] / [#916] Add null safety migration / component authoring guides.
+- [#909] Deprecate the optional `initialValue` argument in the `useRef` hook. 
+  - Use the `useRefInit` hook instead if you need to set an initial value. 
+- [#909] Deprecate the optional `defaultValue` argument in `createContext`. 
+  - Use `createContextInit` instead if you need to set a default value.
+- [#917] Only validate required props in null-safe components 
+
+## 5.0.1
+- Consume over_react_test 3.0.0
+
+## 5.0.0
 - Migrate to null safety
-- Support generating code for null-safe libraries (while retaining support for non-null-safe libraries)
-- Add ability to declare required, optionally-non-nullable props and state fields via `late`
+- Support generating code for null-safe libraries _(while retaining support for non-null-safe libraries)_
+- Add ability to declare required, optionally-non-nullable props and state fields using Dart's `late` keyword (AKA "late required props")
+  - _Stay tuned for fully baked null safety documentation for this library!_
 
 #### Analyzer plugin
-- Add new lint, `over_react_required_prop`
+- Add new lint, `over_react_required_prop` ([#896](https://github.com/Workiva/over_react/pull/896))
   - Warns for missing `late` required props
-  - Hints for missing `@requiredProp` required props (these are deprecated in favor of `late`)
-- Reinstate functionality disabled in over_react 4.8.3. Since newer Dart SDKs require sound null safety in analyzer plugins, this code couldn't be run since it depended on over_react code, which was not itself null safe.
-  - Diagnostics (AKA lints)
+  - Supports linting for missing `@requiredProp` required props (these are deprecated in favor of `late`), but this is disabled by default
+- Add new lint, `over_react_unsafe_required_prop_access`, that warns when accessing required props on potentially incomplete maps
+- Reinstate functionality that had to be disabled in over_react 4.8.3 since it wasn't fully null-safe
+  - Lints (AKA diagnostics)
     - `over_react_boilerplate_error`, `over_react_boilerplate_warning`
     - `over_react_incorrect_doc_comment_location`
   - Assist for toggling class component statefulness
+- Update diagnostics, fixes, and assists to work on null-safe code, add null-safe test cases
+
+### API additions
+- Add members to UiProps to support `late` required props _(stay tuned for more documentation on these)_
+  - Extension methods: getPropKey, containsProp, getRequiredProp(OrNull)
+  - disableRequiredPropValidation
+  - Internal use only: validateRequiredProps, requiredPropNamesToSkipValidation
+- Add createContextInit for creating contexts with non-nullable values
+- Add isLate field to PropDescriptor and StateDescriptor
 
 ### Breaking changes
-- API removals:
-  - BuiltReduxUiComponent
-  - forwardRef (not to be confused with `uiForwardRef`)
-  - registerComponent and registerComponent2 `displayName` argument
+- Deprecated API removals:
+  - BuiltReduxUiComponent, BuiltReduxUiProps
+  - `package:over_react/experimental.dart` (only exported built_redux APIs)
+  - forwardRef _(not to be confused with `uiForwardRef`)_
+  - The `displayName` argument of registerComponent and registerComponent2
 - The following props classes can no longer be extended or instantiated directly (like most components). To instantiate them, use the factory instead.
     - FragmentProps
     - StrictModeProps
@@ -35,11 +69,21 @@
     - is now abstract and requires subclasses to override `selfFactory`
     - now extends directly from UiProps, and longer implements `MapView` (it still implements `Map`)
     - `props` now returns the backing map instead of `this`
+- `react_dom.render` arg loosened from `ReactElement` to `dynamic`
 - Other changes that we don't expect to affect consumers:
   - `PropsMeta`/`StateMeta` constructor arguments `fields` and `keys` are now required
   - `ProviderProps.props` type has been widened from `JsMap` to `Map` (now matches `ConsumerProps` and other props classes)
-  - `ConnectPropsMixin` now `implements UiProps` (the one exported from `package:over_react/over_react.dart`) instead of `UiProps`'s superclass of the name, `component_base.UiProps`.
- 
+  - `ConnectPropsMixin` now `implements UiProps` (the one exported from `package:over_react/over_react.dart`) instead of `UiProps`'s superclass of the same name, `component_base.UiProps`.
+
+## [4.11.1](https://github.com/Workiva/over_react/compare/4.11.0...4.11.1)
+- [#881] Fix disableRequiredPropValidation annotation and add test
+
+## [4.11.0](https://github.com/Workiva/over_react/compare/4.10.4...4.11.0)
+- [#879] Backpatch @Props(disableRequiredPropValidation) annotation arg
+
+## [4.10.4](https://github.com/Workiva/over_react/compare/4.10.3...4.10.4)
+- [#853] Allow react 7 and w_flux 3
+
 ## [4.10.3](https://github.com/Workiva/over_react/compare/4.10.2...4.10.3)
 - [#846] Update internals to prepare for react-dart 7.0.0
 

@@ -234,6 +234,12 @@ abstract class _$$SingleProps<T> extends UiProps
   @override
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$SingleProps(accessMap, (map) => _$$SingleProps(map));
+
+  @override
+  // ignore: must_call_super
+  validateRequiredProps() {
+    // Disable required prop validation, until this component is null safe, by not calling super.
+  }
 }
 
 /// An alias for [getPropKey] so it can be referenced within the props class impl
@@ -320,6 +326,12 @@ abstract class _$$SingleWithBoundProps<S extends Pattern> extends UiProps
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$SingleWithBoundProps(
           accessMap, (map) => _$$SingleWithBoundProps(map));
+
+  @override
+  // ignore: must_call_super
+  validateRequiredProps() {
+    // Disable required prop validation, until this component is null safe, by not calling super.
+  }
 }
 
 /// An alias for [getPropKey] so it can be referenced within the props class impl
@@ -406,6 +418,12 @@ abstract class _$$DoubleProps<A, B> extends UiProps
   @override
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$DoubleProps(accessMap, (map) => _$$DoubleProps(map));
+
+  @override
+  // ignore: must_call_super
+  validateRequiredProps() {
+    // Disable required prop validation, until this component is null safe, by not calling super.
+  }
 }
 
 /// An alias for [getPropKey] so it can be referenced within the props class impl
@@ -513,6 +531,12 @@ abstract class _$$ConcreteNoneProps extends UiProps
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$ConcreteNoneProps(
           accessMap, (map) => _$$ConcreteNoneProps(map));
+
+  @override
+  // ignore: must_call_super
+  validateRequiredProps() {
+    // Disable required prop validation, until this component is null safe, by not calling super.
+  }
 }
 
 /// An alias for [getPropKey] so it can be referenced within the props class impl
@@ -620,6 +644,12 @@ abstract class _$$ConcreteArgsProps<U, V extends Iterable> extends UiProps
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$ConcreteArgsProps(
           accessMap, (map) => _$$ConcreteArgsProps(map));
+
+  @override
+  // ignore: must_call_super
+  validateRequiredProps() {
+    // Disable required prop validation, until this component is null safe, by not calling super.
+  }
 }
 
 /// An alias for [getPropKey] so it can be referenced within the props class impl

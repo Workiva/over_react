@@ -21,7 +21,7 @@ import 'package:over_react/src/component_declaration/component_base.dart';
 ///     UiFactory<FooProps> Foo;
 ///
 ///     mixin FooProps on UiProps {
-///       String bar;
+///       late String bar;
 ///     }
 ///
 ///     class FooComponent extends UiComponent<FooProps> {

@@ -43,6 +43,8 @@ abstract class _$ConnectFluxPropsMixin<TActions> implements UiProps {
   @override
   Map get props;
 
+  // Disable validation since this prop is set by the `connectFlux` HOC, and does not need to be set by consumers.
+  @disableRequiredPropValidation
   late TActions actions;
 }
 

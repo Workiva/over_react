@@ -77,6 +77,12 @@ class _$$StatefulComponentTestProps extends _$StatefulComponentTestProps
   String $getPropKey(void Function(Map m) accessMap) =>
       _$getPropKey$_$$StatefulComponentTestProps(
           accessMap, (map) => _$$StatefulComponentTestProps(map));
+
+  @override
+  // ignore: must_call_super
+  validateRequiredProps() {
+    // Disable required prop validation, until this component is null safe, by not calling super.
+  }
 }
 
 /// An alias for [getPropKey] so it can be referenced within the props class impl

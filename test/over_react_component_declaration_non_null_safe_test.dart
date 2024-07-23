@@ -74,6 +74,7 @@ import 'over_react/component_declaration/non_null_safe_builder_integration_tests
 import 'over_react/component_declaration/non_null_safe_builder_integration_tests/new_boilerplate/required_accessor_integration_test.dart' as new_boilerplate_required_accessor_integration_test;
 import 'over_react/component_declaration/non_null_safe_builder_integration_tests/new_boilerplate/stateful_component_integration_test.dart' as new_boilerplate_stateful_component_integration_test;
 import 'over_react/component_declaration/non_null_safe_builder_integration_tests/new_boilerplate/unassigned_prop_integration_test.dart' as new_boilerplate_unassigned_prop_integration_test;
+import 'over_react/component_declaration/non_null_safe_builder_integration_tests/new_boilerplate/null_safety_validate_required_props_test.dart' as new_boilerplate_null_safety_validate_required_props_test;
 
 main() {
   enableTestMode();
@@ -130,4 +131,5 @@ main() {
   new_boilerplate_required_accessor_integration_test.main();
   new_boilerplate_stateful_component_integration_test.main();
   new_boilerplate_unassigned_prop_integration_test.main();
+  new_boilerplate_null_safety_validate_required_props_test.main();
 }

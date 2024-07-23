@@ -32,7 +32,7 @@ import 'package:over_react/component_base.dart';
 ///       final Ref<InputElement> inputRef = createRef();
 ///
 ///       showInputCreateRefValue(_) {
-///         print(inputRef.current.value);
+///         print(inputRef.current!.value);
 ///       }
 ///
 ///       @override
@@ -197,7 +197,7 @@ Ref<T?> createRef<T>() => react_interop.createRef();
 /// // This is not necessary but is just in place to illustrate that more props
 /// // can be specified and consumed.
 /// mixin AnotherPropsMixin on UiProps {
-///   String anExampleAdditionalProp;
+///   String? anExampleAdditionalProp;
 /// }
 ///
 /// class Foo2Props = UiProps with AnotherPropsMixin, FooProps;

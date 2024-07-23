@@ -265,6 +265,32 @@ class MissingRequiredPropTest_MissingLateRequired extends MissingRequiredPropTes
       )();
     '''));
   }
+
+  Future<void> test_noErrorsAllRequiredPropsSetInFactory() async {
+    await expectNoErrors(newSourceWithPrefix(/*language=dart*/ r'''
+      WithLateRequiredProps testFactory() => WithLateRequired()
+        ..required1 = ''
+        ..required2 = '';
+
+      test() => testFactory()();
+    '''));
+  }
+
+  Future<void> test_onlySomeRequiredPropsSetInFactory() async {
+    final source = newSourceWithPrefix(/*language=dart*/ r'''
+      WithLateRequiredProps testFactory() => WithLateRequired()
+        ..required2 = '';
+  
+      test() => testFactory()();
+    ''');
+    final selection = createSelection(source, '#testFactory()#()');
+    final allErrors = await getAllErrors(source);
+    expect(
+        allErrors,
+        unorderedEquals(<dynamic>[
+          isAnErrorUnderTest(locatedAt: selection).havingMessage(contains("'required1' from 'WithLateRequiredProps'")),
+        ]));
+  }
 }
 
 @reflectiveTest
