@@ -15,7 +15,6 @@
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/token.dart';
 import 'package:build/build.dart' show log;
-import 'package:collection/collection.dart' show IterableExtension;
 import 'package:meta/meta.dart';
 import 'package:over_react/src/builder/codegen/names.dart';
 import 'package:over_react/src/component_declaration/annotations.dart' as annotations;
@@ -24,12 +23,6 @@ import 'package:over_react/src/util/string_util.dart';
 
 import '../parsing.dart';
 import '../util.dart';
-import 'ast_util.dart';
-import 'declarations.dart';
-import 'members_from_ast.dart';
-import 'meta.dart';
-import 'error_collection.dart';
-import 'version.dart';
 
 part 'members/component.dart';
 part 'members/factory.dart';

@@ -14,7 +14,6 @@
 
 // ignore_for_file: deprecated_member_use_from_same_package
 import 'package:over_react/over_react.dart';
-import 'package:react/react_client/react_interop.dart';
 
 part 'custom_error_boundary.over_react.g.dart';
 
