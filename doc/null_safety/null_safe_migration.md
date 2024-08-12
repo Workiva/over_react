@@ -36,9 +36,13 @@ This codemod will:
 - Migrate as many over_react specific use cases as possible.
 - Get the repo into a state where the migration tool can be run with less manual intervention.
 
-### Codemod to run as part of a null safety migration
+### Codemods to run as part of a null safety migration
 
-Once you're ready to begin a null safety migration, run the `null_safety_migrator_companion` codemod, and commit the
+Once you're ready to begin a null safety migration, run the following codemods.
+
+#### Companion codemod
+
+Run the `null_safety_migrator_companion` codemod and commit the
 hints it adds as a separate commit before proceeding with the rest of the migration. 
 
 ```bash
@@ -49,12 +53,29 @@ dart pub global run over_react_codemod:null_safety_migrator_companion --yes-to-a
 This codemod will:
 - Add nullability hints to props/state that are defaulted/initialized in class components.
   - These hints will cause defaulted/initialized values to be migrated as "late required". 
-    See our [prop nullability](#prop-nullability) docs for more details on whether you should keep them required following the migration.
+    See our [prop requiredness and nullability](#prop-requiredness-and-nullability) docs for more details on whether you should keep them required following the migration.
+
+#### Required props codemod
+
+Run the `null_safety_required_props` codemod and commit the hints it adds 
+as a separate commit before proceeding with the rest of the migration.
+
+This is a two-step process involving two sub-commands:
+
+1. `null_safety_required_props collect` - Collects requiredness data for all OverReact props based on usages in the specified packages and all their transitive dependencies.
+1. `null_safety_required_props codemod` - Adds null safety migrator hints to OverReact props using prop requiredness data from 'collect' command.
+
+Start with the `collect` command, following its help output for instructions:
+```shell
+dart pub global activate over_react_codemod
+# The --help output will provide more detailed instructions.
+dart pub global run over_react_codemod:null_safety_required_props collect --help
+```
 
 ## Step 3: Enable the analyzer plugin
 
 Enabling the analyzer plugin will help you spot potential null-safety issues in your components at analysis time,
-especially as it pertains to [prop nullability](#prop-nullability).
+especially as it pertains to [prop requiredness and nullability](#prop-requiredness-and-nullability).
 
 1. Enable the plugin in your `analysis_options.yaml` file:
     ```yaml
@@ -117,9 +138,12 @@ Run the null safety migrator tool:
 
 Below are some common cases that might come up while running the migrator tool on a repo using over_react.
 
-#### Prop nullability
+#### Prop requiredness and nullability
 
 First, check out our documentation around [null safety and required props](../null_safety_and_required_props.md).
+
+The [required props codemod](#required-props-codemod) in the steps above will add hints for the migrator tool based on usage data,
+but some props will need to be manually checked and adjusted.
 
 To determine if a prop should be nullable or not, first consider if the prop is required.
 
@@ -137,14 +161,6 @@ Below is a table of the possible options for prop nullability:
 - **Required** props can be nullable or non-nullable:
   - **Nullable**: If the prop is required, but can be explicitly set to `null`.
   - **Non-nullable**: If the prop is required and should never be set to `null`.
-
-> [!TIP]
-> **Determining prop nullability manually can be extremely tedious and error-prone.**
->
-> If you are a Workiva employee, and you don't want to have to go through the process shown
-> in the decision tree below for every prop in every component in your library, you should wait for the
-> [codemod that is being built](https://jira.atl.workiva.net/browse/FED-1885) before migrating your UI
-> components since it will automate the vast majority of this process.
 
 ```mermaid
 ---
