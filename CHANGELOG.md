@@ -1,5 +1,9 @@
 # OverReact Changelog
 
+## 5.2.1
+- [#934] Tighten dependency ranges following null-safety release
+- [#935] Docs: update null safety migration guide with required props codemod instructions
+
 ## 5.2.0
 - [#920] Support conversion of prop values via annotations: `@ConvertProp`, `@convertJsMapProp`, `@convertJsRefProp`
 - [#925] Remove publish action that always fails due to dry run warnings
