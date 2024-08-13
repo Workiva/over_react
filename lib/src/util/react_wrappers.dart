@@ -194,7 +194,7 @@ Map getProps(dynamic/* ReactElement|ReactComponent */ instance, {bool traverseWr
 ///
 /// This method simply wraps react.findDOMNode with strong typing for the return value
 /// (and for the function itself, which is declared using `var` in react-dart).
-Element? findDomNode(ReactNode instance) => react_dom.findDOMNode(instance) as Element?;
+Element? findDomNode(dynamic instance) => react_dom.findDOMNode(instance) as Element?;
 
 /// Returns a portal that renders [children] into a [container].
 ///
@@ -222,7 +222,7 @@ bool isDomElement(dynamic instance) {
 /// Returns whether [instance] is a composite [ReactComponent].
 ///
 /// __Not for external use.__
-bool _isCompositeComponent(ReactNode instance) {
+bool _isCompositeComponent(Object? instance) {
   return instance != null && getProperty(instance, 'isReactComponent') != null;
 }
 
