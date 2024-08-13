@@ -13,7 +13,7 @@
 // limitations under the License.
 
 @TestOn('vm')
-import 'package:over_react/src/builder/parsing/member_association.dart';
+
 import 'package:over_react/src/builder/parsing.dart';
 import 'package:test/test.dart';
 

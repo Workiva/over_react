@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// ignore_for_file: unnecessary_question_mark
 @TestOn('browser')
 library over_react.test.component2.null_safe_accessor_integration_test;
 
@@ -396,7 +397,6 @@ class _$NullSafeTestProps extends UiProps {
   String? nullable;
   dynamic nullableDynamic;
 
-  // ignore: unnecessary_question_mark
   dynamic? nullableDynamicWithQuestion;
   NullableTypedef nullableTypedefWithoutQuestion;
 }
@@ -412,7 +412,6 @@ class _$NullSafeTestState extends UiState {
   String? nullable;
   dynamic nullableDynamic;
 
-  // ignore: unnecessary_question_mark
   dynamic? nullableDynamicWithQuestion;
   NullableTypedef nullableTypedefWithoutQuestion;
 }

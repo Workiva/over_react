@@ -49,7 +49,7 @@ class CounterComponent extends UiComponent2<CounterProps> {
         ..onClick = (_) {
           if (props.increment != null) {
             props.increment!();
-          } else if (props.dispatch != null) {
+          } else {
             props.dispatch(IncrementAction());
           }
         }

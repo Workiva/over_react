@@ -22,7 +22,6 @@ import 'package:meta/meta.dart';
 import 'package:over_react/over_react.dart';
 import 'package:over_react/component_base.dart' as component_base;
 
-import '../abstract_transition.dart' show TransitionPhase;
 export '../abstract_transition.dart' show TransitionPhase;
 
 part 'abstract_transition.over_react.g.dart';

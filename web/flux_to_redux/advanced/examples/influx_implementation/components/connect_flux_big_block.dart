@@ -15,7 +15,6 @@
 import 'package:over_react/over_react.dart';
 import 'package:over_react/over_react_flux.dart';
 import 'package:over_react/over_react_redux.dart';
-import 'package:over_react/src/util/hoc.dart';
 
 import '../store.dart';
 import '../../../components/little_block.dart';

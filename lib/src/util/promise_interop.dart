@@ -1,6 +1,5 @@
 @JS()
 library over_react.promise_interop;
-import 'dart:js';
 
 import 'package:js/js.dart';
 

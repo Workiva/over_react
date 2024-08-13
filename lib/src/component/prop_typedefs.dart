@@ -17,7 +17,6 @@ library over_react.prop_typedefs;
 
 import 'package:over_react/over_react.dart';
 import 'package:over_react/src/component_declaration/component_base.dart' as component_base;
-import 'package:react/react_client.dart';
 
 /// A custom rendering prop typedef that allows a custom rendering function to be provided
 /// with the current [props] and [state] of the [component].
