@@ -17,7 +17,7 @@
 /// Various prop related mixins to be used with `UiComponent` descendants.
 library over_react.prop_mixins;
 
-import 'package:over_react/over_react.dart' show AriaPropsMapView, AriaPropsMixin, DomProps, PropsMeta, ReactNode;
+import 'package:over_react/over_react.dart' show AriaPropsMapView, AriaPropsMixin, DomProps, PropsMeta;
 // Must import these consts because they are used in the transformed code.
 // ignore: deprecated_member_use, unused_shown_name
 import 'package:over_react/over_react.dart' show PropDescriptor, ConsumedProps, PropsMeta;
@@ -46,10 +46,10 @@ abstract class _$ReactPropsMixin {
 
   // This private field is namespaced to avoid colliding with other classes.
   @Accessor(key: 'children')
-  ReactNode _raw$ReactProps$children;
+  dynamic _raw$ReactProps$children;
 
   /// The children that were passed in to this component when it was built.
-  List<ReactNode>? get children {
+  List<dynamic>? get children {
     final value = _raw$ReactProps$children;
 
     // Most common case; Dart components should all have List children
@@ -68,7 +68,7 @@ abstract class _$ReactPropsMixin {
     return [value];
   }
 
-  set children(List<ReactNode>? value) => _raw$ReactProps$children = value;
+  set children(List<dynamic>? value) => _raw$ReactProps$children = value;
 
   /// A String that differentiates a component from its siblings.
   ///
