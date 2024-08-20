@@ -1,5 +1,8 @@
 # OverReact Changelog
 
+## 5.3.0
+- [#937] Use and export a new, [more expressive typedef for `Object?` called `ReactNode`](https://github.com/Workiva/react-dart/pull/384)
+
 ## 5.2.1
 - [#934] Tighten dependency ranges following null-safety release
 - [#935] Docs: update null safety migration guide with required props codemod instructions
