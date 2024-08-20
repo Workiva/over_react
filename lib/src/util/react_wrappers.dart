@@ -203,7 +203,7 @@ Element? findDomNode(dynamic instance) => react_dom.findDOMNode(instance) as Ele
 /// [children] can be any renderable React child, such as a [ReactElement], [String], or fragment.
 ///
 /// See: <https://reactjs.org/docs/portals.html>
-ReactPortal createPortal(dynamic children, Element container) => ReactDom.createPortal(children, container);
+ReactPortal createPortal(ReactNode children, Element container) => ReactDom.createPortal(children, container);
 
 /// Dart wrapper for React.isValidElement.
 ///
@@ -239,7 +239,7 @@ bool _isCompositeComponent(Object? instance) {
 /// * Children are likewise copied and potentially overwritten with [newChildren] as expected.
 /// * For JS components, a JS copy of [newProps] is returned, since React will merge the props without any special handling.
 ///   If these values might contain event handlers
-dynamic preparePropsChangeset(ReactElement element, Map? newProps, [Iterable? newChildren]) {
+dynamic preparePropsChangeset(ReactElement element, Map? newProps, [Iterable<ReactNode>? newChildren]) {
   final type = element.type;
   final dartComponentVersion = ReactDartComponentVersion.fromType(type); // ignore: invalid_use_of_protected_member
 
@@ -293,7 +293,7 @@ external ReactElement _cloneElement(element, [props, children]);
 /// > Unlike React.addons.cloneWithProps, key and ref from the original element will be preserved.
 /// > There is no special behavior for merging any props (unlike cloneWithProps).
 /// > See the [v0.13 RC2 blog post](https://facebook.github.io/react/blog/2015/03/03/react-v0.13-rc2.html) for additional details.
-ReactElement cloneElement(ReactElement element, [Map? props, Iterable? children]) {
+ReactElement cloneElement(ReactElement element, [Map? props, Iterable<ReactNode>? children]) {
   ArgumentError.checkNotNull(element, 'element');
 
   var propsChangeset = preparePropsChangeset(element, props, children);

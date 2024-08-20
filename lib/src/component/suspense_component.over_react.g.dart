@@ -14,10 +14,10 @@ part of 'suspense_component.dart';
 mixin $SuspensePropsMixin on SuspensePropsMixin {
   static const PropsMeta meta = _$metaForSuspensePropsMixin;
   @override
-  dynamic get fallback =>
-      (props[_$key__fallback__SuspensePropsMixin] ?? null) as dynamic;
+  ReactNode get fallback =>
+      (props[_$key__fallback__SuspensePropsMixin] ?? null) as ReactNode;
   @override
-  set fallback(dynamic value) =>
+  set fallback(ReactNode value) =>
       props[_$key__fallback__SuspensePropsMixin] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__fallback__SuspensePropsMixin =
