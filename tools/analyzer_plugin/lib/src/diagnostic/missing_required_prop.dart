@@ -4,6 +4,7 @@ import 'package:analyzer/dart/element/element.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/analyzer_debug_helper.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
+import 'package:over_react_analyzer_plugin/src/util/forwarded_props.dart';
 import 'package:over_react_analyzer_plugin/src/util/null_safety_utils.dart';
 import 'package:over_react_analyzer_plugin/src/util/pretty_print.dart';
 import 'package:over_react_analyzer_plugin/src/util/prop_declarations/props_set_by_factory.dart';
@@ -185,12 +186,26 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
     final presentPropNames =
         usage.cascadedProps.where((prop) => !prop.isPrefixed).map((prop) => prop.name.name).toSet();
 
+    final skippedRequiredPropsDueToAddedProps = <FieldElement, _AddedPropsSkipReason>{};
+
+    late final forwardedProps = getForwardedProps(usage, result.typeSystem);
+
+    debugHelper.log(() => 'Forwarded props: $forwardedProps', () => result.locationFor(usage.builder));
+
     for (final name in requiredPropInfo.requiredPropNames) {
       if (presentPropNames.contains(name)) continue;
 
       final field = requiredPropInfo.requiredFieldsByName[name]!;
       if (isRequiredPropValidationDisabled(field)) {
         continue;
+      }
+
+      final sourcePropsClass = field.enclosingElement;
+      if (sourcePropsClass is InterfaceElement) {
+        if (forwardedProps != null && forwardedProps.definitelyForwardsPropsFrom(sourcePropsClass, result.typeSystem)) {
+          skippedRequiredPropsDueToAddedProps[field] = _AddedPropsSkipReason(forwardedProps.debugSourceNode);
+          continue;
+        }
       }
 
       final requiredness = requiredPropInfo.propRequirednessByName[name]!;
@@ -221,6 +236,17 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
       }
     }
 
+    if (debugHelper.enabled) {
+      final fieldsByReasonNode = skippedRequiredPropsDueToAddedProps.keys
+          .groupListsBy((field) => skippedRequiredPropsDueToAddedProps[field]!.node);
+      fieldsByReasonNode.forEach((reasonNode, fields) {
+        debugHelper.log(() {
+          return 'DEBUG: Ignoring the following missing required props, since they\'re likely added here:'
+              ' ${fields.map((f) => '${f.enclosingElement.name}.${f.name}').join(', ')}';
+        }, () => result.locationFor(reasonNode));
+      });
+    }
+
     // Include debug info for each invocation ahout all the props and their requirednesses.
     debugHelper.log(() {
       final propNamesByRequirednessName = <String, Set<String>>{};
@@ -243,4 +269,10 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
           '\npropsSetByFactory needed to be computed: $_hasPropsSetByFactoryBeenComputed';
     }, () => result.locationFor(usage.builder));
   }
+}
+
+class _AddedPropsSkipReason {
+  final AstNode node;
+
+  _AddedPropsSkipReason(this.node);
 }
