@@ -16,13 +16,17 @@ ForwardedProps? getForwardedProps(FluentComponentUsage usage, TypeSystem typeSys
     final methodName = invocation.methodName.name;
     final arg = invocation.node.argumentList.arguments.firstOrNull;
 
+    // ..addProps(props)
     if (methodName == 'addProps' && arg != null && isPropsFromRender(arg)) {
       final propsType = arg.staticType?.typeOrBound.tryCast<InterfaceType>()?.element;
       if (propsType != null) {
         return ForwardedProps(propsType, PropsToForward.all(), invocation.node);
       }
-    } else if ((methodName == 'addProps' && arg is MethodInvocation && arg.methodName.name == 'getPropsToForward') ||
-        (methodName == 'modifyProps' && arg is MethodInvocation && arg.methodName.name == 'addPropsToForward')) {
+    } else if (
+        // ..addProps(props.getPropsToForward(...))
+        (methodName == 'addProps' && arg is MethodInvocation && arg.methodName.name == 'getPropsToForward') ||
+            // ..modifyProps(props.addPropsToForward(...))
+            (methodName == 'modifyProps' && arg is MethodInvocation && arg.methodName.name == 'addPropsToForward')) {
       final realTarget = arg.realTarget;
       if (realTarget != null && isPropsFromRender(realTarget)) {
         final propsType = realTarget.staticType?.typeOrBound.tryCast<InterfaceType>()?.element;
@@ -30,8 +34,11 @@ ForwardedProps? getForwardedProps(FluentComponentUsage usage, TypeSystem typeSys
           return ForwardedProps(propsType, _parseGetPropsToForward(arg.argumentList, propsType), invocation.node);
         }
       }
-    } else if ((methodName == 'addProps' && arg is MethodInvocation && arg.methodName.name == 'copyUnconsumedProps') ||
-        (methodName == 'modifyProps' && arg is Identifier && arg.name == 'addUnconsumedProps')) {
+    } else if (
+        // ..addProps(copyUnconsumedProps())
+        (methodName == 'addProps' && arg is MethodInvocation && arg.methodName.name == 'copyUnconsumedProps') ||
+            // ..modifyProps(addUnconsumedProps)
+            (methodName == 'modifyProps' && arg is Identifier && arg.name == 'addUnconsumedProps')) {
       if (enclosingComponentPropsClass != null && enclosingComponentForwardedProps != null) {
         return ForwardedProps(enclosingComponentPropsClass, enclosingComponentForwardedProps, invocation.node);
       }
