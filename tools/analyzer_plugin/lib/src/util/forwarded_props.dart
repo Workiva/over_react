@@ -4,8 +4,7 @@ import 'package:analyzer/dart/element/type.dart';
 import 'package:analyzer/dart/element/type_system.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
-import 'package:over_react_analyzer_plugin/src/util/function_components.dart';
-import 'package:over_react_analyzer_plugin/src/util/react_types.dart';
+import 'package:over_react_analyzer_plugin/src/util/is_props_from_render.dart';
 import 'package:over_react_analyzer_plugin/src/util/util.dart';
 
 ForwardedProps? getForwardedProps(FluentComponentUsage usage, TypeSystem typeSystem) {
@@ -17,7 +16,7 @@ ForwardedProps? getForwardedProps(FluentComponentUsage usage, TypeSystem typeSys
     final methodName = invocation.methodName.name;
     final arg = invocation.node.argumentList.arguments.firstOrNull;
 
-    if (methodName == 'addProps' && arg != null && isComponentProps(arg)) {
+    if (methodName == 'addProps' && arg != null && isPropsFromRender(arg)) {
       final propsType = arg.staticType?.typeOrBound.tryCast<InterfaceType>()?.element;
       if (propsType != null) {
         return ForwardedProps(propsType, PropsToForward.all(), invocation.node);
@@ -25,7 +24,7 @@ ForwardedProps? getForwardedProps(FluentComponentUsage usage, TypeSystem typeSys
     } else if ((methodName == 'addProps' && arg is MethodInvocation && arg.methodName.name == 'getPropsToForward') ||
         (methodName == 'modifyProps' && arg is MethodInvocation && arg.methodName.name == 'addPropsToForward')) {
       final realTarget = arg.realTarget;
-      if (realTarget != null && isComponentProps(realTarget)) {
+      if (realTarget != null && isPropsFromRender(realTarget)) {
         final propsType = realTarget.staticType?.typeOrBound.tryCast<InterfaceType>()?.element;
         if (propsType != null) {
           return ForwardedProps(propsType, _parseGetPropsToForward(arg.argumentList, propsType), invocation.node);
@@ -216,37 +215,6 @@ PropsToForward? _getForwardedPropsFromEnclosingInterface(AstNode node) {
   }
 
   return _getForwardedPropsFromConsumedProps(consumedProps);
-}
-
-bool isComponentProps(Expression target) {
-  if (target is Identifier) {
-    final targetElement = target.staticElement;
-    if (targetElement == null) return false;
-
-    // Class Component props
-    if (target.name == 'props' && (targetElement.enclosingElement?.isComponentClass ?? false)) {
-      return true;
-    }
-
-    // Function component props
-    final closestFunctionComponentParameters = getClosestFunctionComponent(target)?.functionExpression.parameters;
-    if (closestFunctionComponentParameters != null) {
-      final targetElementParameterNode = lookUpParameter(targetElement, closestFunctionComponentParameters);
-      final parameterList = targetElementParameterNode?.parent;
-      if (parameterList != null && closestFunctionComponentParameters == parameterList) {
-        return true;
-      }
-    }
-
-    return false;
-  }
-
-  // Class component `this.props`
-  if (target is PropertyAccess) {
-    return target.propertyName.name == 'props' && (target.realTarget.staticType?.typeOrBound.isComponentClass ?? false);
-  }
-
-  return false;
 }
 
 DartType? getTypeOfPropsInEnclosingInterface(AstNode node) {
