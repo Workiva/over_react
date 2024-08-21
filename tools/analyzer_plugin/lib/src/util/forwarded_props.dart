@@ -42,6 +42,17 @@ ForwardedProps? getForwardedProps(FluentComponentUsage usage, TypeSystem typeSys
       if (enclosingComponentPropsClass != null && enclosingComponentForwardedProps != null) {
         return ForwardedProps(enclosingComponentPropsClass, enclosingComponentForwardedProps, invocation.node);
       }
+    } else if (
+        // ..addUnconsumedProps(props, consumedProps)
+        methodName == 'addUnconsumedProps') {
+      final consumedPropsArg = invocation.node.argumentList.arguments.elementAtOrNull(1);
+      if (arg != null && consumedPropsArg != null && isPropsFromRender(arg)) {
+        final propsType = arg.staticType?.typeOrBound.tryCast<InterfaceType>()?.element;
+        if (propsType != null) {
+          final propsToForward = _getForwardedPropsFromConsumedProps(consumedPropsArg);
+          return ForwardedProps(propsType, propsToForward, invocation.node);
+        }
+      }
     }
   }
 
@@ -148,6 +159,23 @@ List<InterfaceElement>? lookUpInterfaces(List<CollectionElement> elements) {
 }
 
 PropsToForward _getForwardedPropsFromConsumedProps(Expression consumedProps) {
+  // Look up value of consumedProps stored into variables, which is very common in usage:
+  //
+  //    final consumedProps = props.staticMeta.forMixins({...});
+  if (consumedProps is Identifier) {
+    final staticElement = consumedProps.staticElement;
+    if (staticElement == null) return PropsToForward.unresolved();
+
+    final variableValue = lookUpVariable(staticElement, consumedProps.root)?.initializer;
+    // Don't recurse for Identifiers, to prevent potential infinite loops;
+    // this case should not be common so we're safe to ignore it.
+    if (variableValue != null && variableValue is! Identifier) {
+      return _getForwardedPropsFromConsumedProps(variableValue);
+    }
+
+    return PropsToForward.unresolved();
+  }
+
   if (consumedProps is MethodInvocation && consumedProps.realTarget.tryCast<Identifier>()?.name == 'propsMeta') {
     // propsMeta.forMixins({FluxUiPropsMixin});
     if (consumedProps.methodName.name == 'forMixins') {
