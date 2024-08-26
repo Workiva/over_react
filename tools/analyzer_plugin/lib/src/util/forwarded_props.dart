@@ -176,8 +176,13 @@ PropsToForward _getForwardedPropsFromConsumedProps(Expression consumedProps) {
     return PropsToForward.unresolved();
   }
 
-  if (consumedProps is MethodInvocation && consumedProps.realTarget.tryCast<Identifier>()?.name == 'propsMeta') {
-    // propsMeta.forMixins({FluxUiPropsMixin});
+  // We could validate the target of this call, but these methods are specifically-named enough that false positives
+  // are unlikely, and validating the target would require a bit of extra logic.
+  //
+  // This invocation will usually look like:
+  // - `propsMeta.forMixins` - class component `propsMeta` getter
+  // - `props.staticMeta.forMixins` - props class `staticMeta` getter:
+  if (consumedProps is MethodInvocation) {
     if (consumedProps.methodName.name == 'forMixins') {
       final arg = consumedProps.argumentList.arguments.whereType<Expression>().firstOrNull;
       if (arg is SetOrMapLiteral) {
