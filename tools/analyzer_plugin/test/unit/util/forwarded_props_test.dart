@@ -15,7 +15,6 @@
 import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/element/element.dart';
-import 'package:analyzer/dart/element/type_system.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/over_react_builder_parsing.dart';
 import 'package:over_react_analyzer_plugin/src/util/forwarded_props.dart';
@@ -82,7 +81,6 @@ final TestConsumedPropsVariable = uiFunction<TestProps>((props) {
         return getAllComponentUsages(component).single;
       }
 
-      late TypeSystem typeSystem;
       late InterfaceElement testPropsElement;
       late InterfaceElement fooPropsElement;
       late InterfaceElement barPropsElement;
@@ -90,7 +88,6 @@ final TestConsumedPropsVariable = uiFunction<TestProps>((props) {
       late InterfaceElement unrelatedPropsElement;
 
       setUp(() {
-        typeSystem = result.typeSystem;
         testPropsElement = getInterfaceElement(result, 'TestProps');
         fooPropsElement = getInterfaceElement(result, 'FooProps');
         barPropsElement = getInterfaceElement(result, 'BarProps');
@@ -100,36 +97,36 @@ final TestConsumedPropsVariable = uiFunction<TestProps>((props) {
 
       test('..addUnconsumedProps(props, consumedPropsVariable)', () {
         final usage = getSingleUsageWithinComponent('TestConsumedPropsVariable');
-        final forwardedProps = getForwardedProps(usage, result.typeSystem);
+        final forwardedProps = getForwardedProps(usage);
         expect(forwardedProps, isNotNull);
         expect(forwardedProps!.propsClassBeingForwarded, testPropsElement);
-        expect(forwardedProps.definitelyForwardsPropsFrom(fooPropsElement, typeSystem), isFalse);
-        expect(forwardedProps.definitelyForwardsPropsFrom(barPropsElement, typeSystem), isTrue);
-        expect(forwardedProps.definitelyForwardsPropsFrom(quxPropsElement, typeSystem), isTrue);
-        expect(forwardedProps.definitelyForwardsPropsFrom(unrelatedPropsElement, typeSystem), isFalse);
+        expect(forwardedProps.definitelyForwardsPropsFrom(fooPropsElement), isFalse);
+        expect(forwardedProps.definitelyForwardsPropsFrom(barPropsElement), isTrue);
+        expect(forwardedProps.definitelyForwardsPropsFrom(quxPropsElement), isTrue);
+        expect(forwardedProps.definitelyForwardsPropsFrom(unrelatedPropsElement), isFalse);
       });
 
       test('..addProps(props.getPropsToForward(exclude: {...}))', () {
         final usage = getSingleUsageWithinComponent('TestGetPropsToForward');
-        final forwardedProps = getForwardedProps(usage, result.typeSystem);
+        final forwardedProps = getForwardedProps(usage);
         expect(forwardedProps, isNotNull);
         expect(forwardedProps!.propsClassBeingForwarded, testPropsElement);
-        expect(forwardedProps.definitelyForwardsPropsFrom(fooPropsElement, typeSystem), isFalse);
-        expect(forwardedProps.definitelyForwardsPropsFrom(barPropsElement, typeSystem), isTrue);
-        expect(forwardedProps.definitelyForwardsPropsFrom(quxPropsElement, typeSystem), isTrue);
-        expect(forwardedProps.definitelyForwardsPropsFrom(unrelatedPropsElement, typeSystem), isFalse);
+        expect(forwardedProps.definitelyForwardsPropsFrom(fooPropsElement), isFalse);
+        expect(forwardedProps.definitelyForwardsPropsFrom(barPropsElement), isTrue);
+        expect(forwardedProps.definitelyForwardsPropsFrom(quxPropsElement), isTrue);
+        expect(forwardedProps.definitelyForwardsPropsFrom(unrelatedPropsElement), isFalse);
       });
 
       test('..addProps(props.getPropsToForward()) - inferred from generic', () {
         final usage = getSingleUsageWithinComponent('TestGetPropsToForwardNoArg');
-        final forwardedProps = getForwardedProps(usage, result.typeSystem);
+        final forwardedProps = getForwardedProps(usage);
         expect(forwardedProps, isNotNull);
 
         final propsElement = getInterfaceElement(result, 'TestGetPropsToForwardNoArgProps');
 
         expect(forwardedProps!.propsClassBeingForwarded, propsElement);
-        expect(forwardedProps.definitelyForwardsPropsFrom(propsElement, typeSystem), isFalse);
-        expect(forwardedProps.definitelyForwardsPropsFrom(unrelatedPropsElement, typeSystem), isFalse);
+        expect(forwardedProps.definitelyForwardsPropsFrom(propsElement), isFalse);
+        expect(forwardedProps.definitelyForwardsPropsFrom(unrelatedPropsElement), isFalse);
       });
     });
   });

@@ -188,7 +188,7 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
 
     final skippedRequiredPropsDueToAddedProps = <FieldElement, _AddedPropsSkipReason>{};
 
-    late final forwardedProps = getForwardedProps(usage, result.typeSystem);
+    late final forwardedProps = getForwardedProps(usage);
 
     debugHelper.log(() => 'Forwarded props: $forwardedProps', () => result.locationFor(usage.builder));
 
@@ -202,7 +202,7 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
 
       final sourcePropsClass = field.enclosingElement;
       if (sourcePropsClass is InterfaceElement) {
-        if (forwardedProps != null && forwardedProps.definitelyForwardsPropsFrom(sourcePropsClass, result.typeSystem)) {
+        if (forwardedProps != null && forwardedProps.definitelyForwardsPropsFrom(sourcePropsClass)) {
           skippedRequiredPropsDueToAddedProps[field] = _AddedPropsSkipReason(forwardedProps.debugSourceNode);
           continue;
         }

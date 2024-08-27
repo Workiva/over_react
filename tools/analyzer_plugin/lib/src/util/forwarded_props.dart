@@ -1,13 +1,12 @@
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/type.dart';
-import 'package:analyzer/dart/element/type_system.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/is_props_from_render.dart';
 import 'package:over_react_analyzer_plugin/src/util/util.dart';
 
-ForwardedProps? getForwardedProps(FluentComponentUsage usage, TypeSystem typeSystem) {
+ForwardedProps? getForwardedProps(FluentComponentUsage usage) {
   late final enclosingComponentPropsClass =
       getTypeOfPropsInEnclosingInterface(usage.node)?.typeOrBound.element.tryCast<InterfaceElement>();
   late final enclosingComponentForwardedProps = _getForwardedPropsFromEnclosingInterface(usage.node);
@@ -66,7 +65,7 @@ class ForwardedProps {
 
   ForwardedProps(this.propsClassBeingForwarded, this.propsToForward, this.debugSourceNode);
 
-  bool definitelyForwardsPropsFrom(InterfaceElement propsClass, TypeSystem typeSystem) =>
+  bool definitelyForwardsPropsFrom(InterfaceElement propsClass) =>
       !propsToForward.mightExcludeClass(propsClass) &&
       propsClassBeingForwarded.allSupertypes.any((s) => s.element == propsClass);
 
