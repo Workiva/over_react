@@ -15,15 +15,18 @@ ForwardedProps? getForwardedProps(FluentComponentUsage usage) {
     final methodName = invocation.methodName.name;
     final arg = invocation.node.argumentList.arguments.firstOrNull;
 
+    // FIXME what should we do about the second condition arg for addProps?
+    final isAddAllOrAddProps = methodName == 'addProps' || methodName == 'addAll';
+
     // ..addProps(props)
-    if (methodName == 'addProps' && arg != null && isPropsFromRender(arg)) {
+    if (isAddAllOrAddProps && arg != null && isPropsFromRender(arg)) {
       final propsType = arg.staticType?.typeOrBound.tryCast<InterfaceType>()?.element;
       if (propsType != null) {
         return ForwardedProps(propsType, PropsToForward.all(), invocation.node);
       }
     } else if (
         // ..addProps(props.getPropsToForward(...))
-        (methodName == 'addProps' && arg is MethodInvocation && arg.methodName.name == 'getPropsToForward') ||
+        (isAddAllOrAddProps && arg is MethodInvocation && arg.methodName.name == 'getPropsToForward') ||
             // ..modifyProps(props.addPropsToForward(...))
             (methodName == 'modifyProps' && arg is MethodInvocation && arg.methodName.name == 'addPropsToForward')) {
       final realTarget = arg.realTarget;
@@ -35,7 +38,7 @@ ForwardedProps? getForwardedProps(FluentComponentUsage usage) {
       }
     } else if (
         // ..addProps(copyUnconsumedProps())
-        (methodName == 'addProps' && arg is MethodInvocation && arg.methodName.name == 'copyUnconsumedProps') ||
+        (isAddAllOrAddProps && arg is MethodInvocation && arg.methodName.name == 'copyUnconsumedProps') ||
             // ..modifyProps(addUnconsumedProps)
             (methodName == 'modifyProps' && arg is Identifier && arg.name == 'addUnconsumedProps')) {
       if (enclosingComponentPropsClass != null && enclosingComponentForwardedProps != null) {

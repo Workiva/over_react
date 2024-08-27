@@ -33,7 +33,7 @@ void main() {
       late ResolvedUnitResult result;
 
       setUpAll(() async {
-        result = await resolveFileAndGeneratedPart(sharedContext, r'''
+        result = await resolveFileAndGeneratedPart(sharedContext, /*language=Dart*/ r'''
 // @dart=2.12
 import 'package:over_react/over_react.dart';
 
@@ -49,13 +49,24 @@ class TestProps = UiProps with FooProps, BarProps, QuxProps;
 
 UiFactory<TestProps> Test = castUiFactory(_$Test);
 
-final TestGetPropsToForward = uiFunction<TestProps>((props) {
+UiFactory<TestProps> TestRawAddProps = uiFunction((props) {
+  return (Test()
+    ..addProps(props)
+  )();
+}, null); 
+
+UiFactory<TestProps> TestRawAddAll = uiFunction((props) {
+  return (Test()
+    ..addAll(props)
+  )();
+}, null); 
+
+UiFactory<TestProps> TestGetPropsToForward = uiFunction((props) {
   final consumedProps = props.staticMeta.forMixins({FooProps});
   return (Test()
     ..addProps(props.getPropsToForward(exclude: {FooProps}))
   )();
-}, null); 
-
+}, null);
 
 mixin TestGetPropsToForwardNoArgProps on UiProps {}
 UiFactory<TestGetPropsToForwardNoArgProps> TestGetPropsToForwardNoArg = uiFunction((props) {
@@ -64,7 +75,7 @@ UiFactory<TestGetPropsToForwardNoArgProps> TestGetPropsToForwardNoArg = uiFuncti
   )();
 }, _$TestGetPropsToForwardNoArgConfig); 
 
-final TestConsumedPropsVariable = uiFunction<TestProps>((props) {
+UiFactory<TestProps> TestConsumedPropsVariable = uiFunction((props) {
   final consumedProps = props.staticMeta.forMixins({FooProps});
   return (Test()
     ..addUnconsumedProps(props, consumedProps)
@@ -93,6 +104,28 @@ final TestConsumedPropsVariable = uiFunction<TestProps>((props) {
         barPropsElement = getInterfaceElement(result, 'BarProps');
         quxPropsElement = getInterfaceElement(result, 'QuxProps');
         unrelatedPropsElement = getInterfaceElement(result, 'UnrelatedProps');
+      });
+
+      test('..addProps(props)', () {
+        final usage = getSingleUsageWithinComponent('TestRawAddProps');
+        final forwardedProps = getForwardedProps(usage);
+        expect(forwardedProps, isNotNull);
+        expect(forwardedProps!.propsClassBeingForwarded, testPropsElement);
+        expect(forwardedProps.definitelyForwardsPropsFrom(fooPropsElement), isTrue);
+        expect(forwardedProps.definitelyForwardsPropsFrom(barPropsElement), isTrue);
+        expect(forwardedProps.definitelyForwardsPropsFrom(quxPropsElement), isTrue);
+        expect(forwardedProps.definitelyForwardsPropsFrom(unrelatedPropsElement), isFalse);
+      });
+
+      test('..addAll(props)', () {
+        final usage = getSingleUsageWithinComponent('TestRawAddAll');
+        final forwardedProps = getForwardedProps(usage);
+        expect(forwardedProps, isNotNull);
+        expect(forwardedProps!.propsClassBeingForwarded, testPropsElement);
+        expect(forwardedProps.definitelyForwardsPropsFrom(fooPropsElement), isTrue);
+        expect(forwardedProps.definitelyForwardsPropsFrom(barPropsElement), isTrue);
+        expect(forwardedProps.definitelyForwardsPropsFrom(quxPropsElement), isTrue);
+        expect(forwardedProps.definitelyForwardsPropsFrom(unrelatedPropsElement), isFalse);
       });
 
       test('..addUnconsumedProps(props, consumedPropsVariable)', () {
