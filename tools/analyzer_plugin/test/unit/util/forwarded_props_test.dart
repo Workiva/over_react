@@ -87,7 +87,7 @@ void main() {
       test('..addUnconsumedProps(props, consumedPropsVariable)', () async {
         final result = await sharedResolveSource(/*language=dart*/ r'''
             UiFactory<HasABCProps> HasABC = uiFunction((props) {
-              final consumedProps = props.staticMeta.forMixins({AProps});
+              final consumedProps = props.staticMeta.forMixins({AProps, BProps});
               return (NotCare()
                 ..addUnconsumedProps(props, consumedProps)
               )();
@@ -98,7 +98,7 @@ void main() {
         final f = getForwardedProps(usage)!;
         expect(f.propsClassBeingForwarded, result.lookUpInterface('HasABCProps'));
         expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('AProps')), isFalse);
-        expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('BProps')), isTrue);
+        expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('BProps')), isFalse);
         expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('CProps')), isTrue);
         expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('UnrelatedProps')), isFalse);
       });
@@ -106,9 +106,8 @@ void main() {
       test('..addProps(props.getPropsToForward(exclude: {...}))', () async {
         final result = await sharedResolveSource(/*language=dart*/ r'''
             UiFactory<HasABCProps> HasABC = uiFunction((props) {
-              final consumedProps = props.staticMeta.forMixins({AProps});
               return (NotCare()
-                ..addProps(props.getPropsToForward(exclude: {AProps}))
+                ..addProps(props.getPropsToForward(exclude: {AProps, BProps}))
               )();
             }, _$HasABCConfig);
         ''');
@@ -118,7 +117,7 @@ void main() {
         expect(f, isNotNull);
         expect(f!.propsClassBeingForwarded, result.lookUpInterface('HasABCProps'));
         expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('AProps')), isFalse);
-        expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('BProps')), isTrue);
+        expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('BProps')), isFalse);
         expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('CProps')), isTrue);
         expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('UnrelatedProps')), isFalse);
       });
