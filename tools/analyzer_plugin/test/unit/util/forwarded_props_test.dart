@@ -34,15 +34,15 @@ void main() {
           
           part '{{PART_PATH}}';
           
-          mixin FooProps on UiProps {}
-          mixin BarProps on UiProps {}
-          mixin QuxProps on UiProps {}
+          mixin AProps on UiProps {}
+          mixin BProps on UiProps {}
+          mixin CProps on UiProps {}
+          
+          class HasABCProps = UiProps with AProps, BProps, CProps;
           
           mixin UnrelatedProps on UiProps {}
           
-          class TestProps = UiProps with FooProps, BarProps, QuxProps;
-          
-          UiFactory<TestProps> Test = castUiFactory(_$Test);
+          late UiFactory<UiProps> NotCare;
       ''';
 
       Future<ResolvedUnitResult> sharedResolveSource(String source) =>
@@ -50,91 +50,94 @@ void main() {
 
       test('..addProps(props)', () async {
         final result = await sharedResolveSource(/*language=dart*/ r'''
-            UiFactory<TestProps> CaseRawAddProps = uiFunction((props) {
-              return (Test()
+            UiFactory<HasABCProps> HasABC = uiFunction((props) {
+              return (NotCare()
                 ..addProps(props)
               )();
-            }, null);
+            }, _$HasABCConfig);
         ''');
         final usage = getAllComponentUsages(result.unit).single;
 
         final f = getForwardedProps(usage)!;
-        expect(f.propsClassBeingForwarded, result.lookUpInterface('TestProps'));
-        expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('FooProps')), isTrue);
-        expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('BarProps')), isTrue);
-        expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('QuxProps')), isTrue);
+        expect(f.propsClassBeingForwarded, result.lookUpInterface('HasABCProps'));
+        expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('AProps')), isTrue);
+        expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('BProps')), isTrue);
+        expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('CProps')), isTrue);
         expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('UnrelatedProps')), isFalse);
       });
 
       test('..addAll(props)', () async {
         final result = await sharedResolveSource(/*language=dart*/ r'''
-            UiFactory<TestProps> _ = uiFunction<TestProps>((props) {
-              return (Test()
+            UiFactory<HasABCProps> HasABC = uiFunction((props) {
+              return (NotCare()
                 ..addAll(props)
               )();
-            }, null);
+            }, _$HasABCConfig);
         ''');
         final usage = getAllComponentUsages(result.unit).single;
 
         final f = getForwardedProps(usage)!;
-        expect(f.propsClassBeingForwarded, result.lookUpInterface('TestProps'));
-        expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('FooProps')), isTrue);
-        expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('BarProps')), isTrue);
-        expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('QuxProps')), isTrue);
+        expect(f.propsClassBeingForwarded, result.lookUpInterface('HasABCProps'));
+        expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('AProps')), isTrue);
+        expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('BProps')), isTrue);
+        expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('CProps')), isTrue);
         expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('UnrelatedProps')), isFalse);
       });
 
       test('..addUnconsumedProps(props, consumedPropsVariable)', () async {
         final result = await sharedResolveSource(/*language=dart*/ r'''
-            UiFactory<TestProps> _ = uiFunction<TestProps>((props) {
-              final consumedProps = props.staticMeta.forMixins({FooProps});
-              return (Test()
+            UiFactory<HasABCProps> HasABC = uiFunction((props) {
+              final consumedProps = props.staticMeta.forMixins({AProps});
+              return (NotCare()
                 ..addUnconsumedProps(props, consumedProps)
               )();
-            }, null);
+            }, _$HasABCConfig);
         ''');
         final usage = getAllComponentUsages(result.unit).single;
 
         final f = getForwardedProps(usage)!;
-        expect(f.propsClassBeingForwarded, result.lookUpInterface('TestProps'));
-        expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('FooProps')), isFalse);
-        expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('BarProps')), isTrue);
-        expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('QuxProps')), isTrue);
+        expect(f.propsClassBeingForwarded, result.lookUpInterface('HasABCProps'));
+        expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('AProps')), isFalse);
+        expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('BProps')), isTrue);
+        expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('CProps')), isTrue);
         expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('UnrelatedProps')), isFalse);
       });
 
       test('..addProps(props.getPropsToForward(exclude: {...}))', () async {
         final result = await sharedResolveSource(/*language=dart*/ r'''
-            UiFactory<TestProps> _ = uiFunction((props) {
-              final consumedProps = props.staticMeta.forMixins({FooProps});
-              return (Test()
-                ..addProps(props.getPropsToForward(exclude: {FooProps}))
+            UiFactory<HasABCProps> HasABC = uiFunction((props) {
+              final consumedProps = props.staticMeta.forMixins({AProps});
+              return (NotCare()
+                ..addProps(props.getPropsToForward(exclude: {AProps}))
               )();
-            }, null);
+            }, _$HasABCConfig);
         ''');
         final usage = getAllComponentUsages(result.unit).single;
 
         final f = getForwardedProps(usage);
         expect(f, isNotNull);
-        expect(f!.propsClassBeingForwarded, result.lookUpInterface('TestProps'));
-        expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('FooProps')), isFalse);
-        expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('BarProps')), isTrue);
-        expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('QuxProps')), isTrue);
+        expect(f!.propsClassBeingForwarded, result.lookUpInterface('HasABCProps'));
+        expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('AProps')), isFalse);
+        expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('BProps')), isTrue);
+        expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('CProps')), isTrue);
         expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('UnrelatedProps')), isFalse);
       });
 
       test('..addProps(props.getPropsToForward()) - inferred from generic', () async {
         final result = await sharedResolveSource(/*language=dart*/ r'''
-            mixin TestGetPropsToForwardNoArgProps on UiProps {}
-            UiFactory<TestGetPropsToForwardNoArgProps> TestGetPropsToForwardNoArg = uiFunction((props) {
-              return (Test()
+            UiFactory<AProps> A = uiFunction((props) {
+              return (NotCare()
                 ..addProps(props.getPropsToForward())
               )();
-            }, _$TestGetPropsToForwardNoArgConfig); 
+            }, _$AConfig); 
+            
+            // For this test case, unlike others, we need a component that only has one props mixin; 
+            // declare this unused HasABC so we don't get builder errors.
+            UiFactory<HasABCProps> HasABC = uiFunction((props) {}, _$HasABCConfig);
         ''');
         final usage = getAllComponentUsages(result.unit).single;
 
-        final propsElement = result.lookUpInterface('TestGetPropsToForwardNoArgProps');
+        final propsElement = result.lookUpInterface('AProps');
 
         final f = getForwardedProps(usage);
         expect(f!.propsClassBeingForwarded, propsElement);
