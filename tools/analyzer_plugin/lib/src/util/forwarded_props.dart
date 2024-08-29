@@ -77,46 +77,67 @@ class ForwardedProps {
   String toString() => 'Props from ${propsClassBeingForwarded.name}: $propsToForward';
 }
 
-class PropsToForward {
-  final Set<InterfaceElement>? _onlyProps;
-  final Set<InterfaceElement>? _excludedProps;
+abstract class PropsToForward {
+  const PropsToForward();
 
-  const PropsToForward.all()
-      : _excludedProps = const {},
-        _onlyProps = null;
+  const factory PropsToForward.all() = _PropsToForward$All;
 
-  const PropsToForward.allExceptFor(Set<InterfaceElement> this._excludedProps) : _onlyProps = null;
+  const factory PropsToForward.allExceptFor(Set<InterfaceElement> onlyProps) = _PropsToForward$AllExceptFor;
 
-  const PropsToForward.only(Set<InterfaceElement> this._onlyProps) : _excludedProps = null;
+  const factory PropsToForward.only(Set<InterfaceElement> excludedProps) = _PropsToForward$Only;
 
-  const PropsToForward.unresolved()
-      : _excludedProps = null,
-        _onlyProps = null;
+  const factory PropsToForward.unresolved() = _PropsToForward$Unresolved;
 
-  bool mightExcludeClass(InterfaceElement e) {
-    final _excludedProps = this._excludedProps;
-    final _onlyProps = this._onlyProps;
+  bool mightExcludeClass(InterfaceElement e);
 
-    assert(_excludedProps == null || _onlyProps == null);
-
-    if (_excludedProps != null) return _excludedProps.contains(e);
-    if (_onlyProps != null) return !_onlyProps.contains(e);
-    return true;
-  }
+  String get debugDescription;
 
   @override
-  String toString() {
-    final _excludedProps = this._excludedProps;
-    final _onlyProps = this._onlyProps;
+  toString() => '$debugDescription';
+}
 
-    assert(_excludedProps == null || _onlyProps == null);
+class _PropsToForward$All extends PropsToForward {
+  const _PropsToForward$All();
 
-    String format(Set<InterfaceElement> set) => set.map((e) => e.name).toSet().toString();
+  @override
+  bool mightExcludeClass(InterfaceElement e) => false;
 
-    if (_excludedProps != null) return _excludedProps.isEmpty ? 'all' : 'all except ${format(_excludedProps)}';
-    if (_onlyProps != null) return 'only ${format(_onlyProps)}';
-    return 'unresolved';
-  }
+  @override
+  String get debugDescription => 'all';
+}
+
+class _PropsToForward$Only extends PropsToForward {
+  final Set<InterfaceElement> _onlyProps;
+
+  const _PropsToForward$Only(this._onlyProps);
+
+  @override
+  bool mightExcludeClass(InterfaceElement e) => !_onlyProps.contains(e);
+
+  @override
+  String get debugDescription => 'only ${_onlyProps.map((e) => e.name).toSet()}';
+}
+
+class _PropsToForward$AllExceptFor extends PropsToForward {
+  final Set<InterfaceElement> _excludedProps;
+
+  const _PropsToForward$AllExceptFor(this._excludedProps);
+
+  @override
+  bool mightExcludeClass(InterfaceElement e) => _excludedProps.contains(e);
+
+  @override
+  String get debugDescription => 'all except ${_excludedProps.map((e) => e.name).toSet()}';
+}
+
+class _PropsToForward$Unresolved extends PropsToForward {
+  const _PropsToForward$Unresolved();
+
+  @override
+  bool mightExcludeClass(InterfaceElement e) => false;
+
+  @override
+  String get debugDescription => 'unresolved';
 }
 
 PropsToForward _parseGetPropsToForward(ArgumentList argumentList, InterfaceElement propsType) {
