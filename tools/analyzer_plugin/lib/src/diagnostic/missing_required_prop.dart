@@ -4,10 +4,10 @@ import 'package:analyzer/dart/element/element.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/analyzer_debug_helper.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
-import 'package:over_react_analyzer_plugin/src/util/forwarded_props.dart';
 import 'package:over_react_analyzer_plugin/src/util/null_safety_utils.dart';
 import 'package:over_react_analyzer_plugin/src/util/pretty_print.dart';
 import 'package:over_react_analyzer_plugin/src/util/prop_declarations/props_set_by_factory.dart';
+import 'package:over_react_analyzer_plugin/src/util/prop_forwarding/forwarded_props.dart';
 import 'package:over_react_analyzer_plugin/src/util/util.dart';
 import 'package:over_react_analyzer_plugin/src/util/weak_map.dart';
 
@@ -188,7 +188,7 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
 
     final skippedRequiredPropsDueToAddedProps = <FieldElement, _AddedPropsSkipReason>{};
 
-    late final forwardedProps = getForwardedProps(usage);
+    late final forwardedProps = computeForwardedProps(usage);
 
     debugHelper.log(() => 'Forwarded props: $forwardedProps', () => result.locationFor(usage.builder));
 

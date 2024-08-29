@@ -15,19 +15,19 @@
 import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
-import 'package:over_react_analyzer_plugin/src/util/forwarded_props.dart';
+import 'package:over_react_analyzer_plugin/src/util/prop_forwarding/forwarded_props.dart';
 import 'package:test/test.dart';
 
 import '../../util/shared_analysis_context.dart';
 import 'prop_declaration/util.dart';
 
 void main() {
-  group('getForwardedProps', () {
+  group('prop_forwarding:', () {
     final sharedContext = SharedAnalysisContext.overReact;
 
     setUpAll(sharedContext.warmUpAnalysis);
 
-    group('correctly computes forwarded props for various cases:', () {
+    group('computeForwardedProps correctly computes forwarded props for various cases:', () {
       const sharedSourcePrefix = /*language=dart*/ r'''
           // @dart=2.12
           import 'package:over_react/over_react.dart';
@@ -59,7 +59,7 @@ void main() {
           ''');
           final usage = getAllComponentUsages(result.unit).single;
 
-          final f = getForwardedProps(usage)!;
+          final f = computeForwardedProps(usage)!;
           expect(f.propsClassBeingForwarded, result.lookUpInterface('HasABCProps'));
           expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('AProps')), isTrue);
           expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('BProps')), isTrue);
@@ -77,7 +77,7 @@ void main() {
           ''');
           final usage = getAllComponentUsages(result.unit).single;
 
-          final f = getForwardedProps(usage)!;
+          final f = computeForwardedProps(usage)!;
           expect(f.propsClassBeingForwarded, result.lookUpInterface('HasABCProps'));
           expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('AProps')), isTrue);
           expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('BProps')), isTrue);
@@ -97,7 +97,7 @@ void main() {
           ''');
           final usage = getAllComponentUsages(result.unit).single;
 
-          final f = getForwardedProps(usage)!;
+          final f = computeForwardedProps(usage)!;
           expect(f.propsClassBeingForwarded, result.lookUpInterface('HasABCProps'));
           expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('AProps')), isFalse);
           expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('BProps')), isFalse);
@@ -116,7 +116,7 @@ void main() {
           ''');
           final usage = getAllComponentUsages(result.unit).single;
 
-          final f = getForwardedProps(usage)!;
+          final f = computeForwardedProps(usage)!;
           expect(f.propsClassBeingForwarded, result.lookUpInterface('HasABCProps'));
           expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('AProps')), isFalse);
           expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('BProps')), isFalse);
@@ -136,7 +136,7 @@ void main() {
           ''');
           final usage = getAllComponentUsages(result.unit).single;
 
-          final f = getForwardedProps(usage);
+          final f = computeForwardedProps(usage);
           expect(f, isNotNull);
           expect(f!.propsClassBeingForwarded, result.lookUpInterface('HasABCProps'));
           expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('AProps')), isFalse);
@@ -155,7 +155,7 @@ void main() {
           ''');
           final usage = getAllComponentUsages(result.unit).single;
 
-          final f = getForwardedProps(usage);
+          final f = computeForwardedProps(usage);
           expect(f, isNotNull);
           expect(f!.propsClassBeingForwarded, result.lookUpInterface('HasABCProps'));
           expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('AProps')), isFalse);
@@ -180,7 +180,7 @@ void main() {
 
           final propsElement = result.lookUpInterface('AProps');
 
-          final f = getForwardedProps(usage);
+          final f = computeForwardedProps(usage);
           expect(f!.propsClassBeingForwarded, propsElement);
           expect(f.definitelyForwardsPropsFrom(propsElement), isFalse);
           expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('UnrelatedProps')), isFalse);
@@ -198,7 +198,7 @@ void main() {
           ''');
           final usage = getAllComponentUsages(result.unit).single;
 
-          final f = getForwardedProps(usage);
+          final f = computeForwardedProps(usage);
           expect(f, isNotNull);
           expect(f!.propsClassBeingForwarded, result.lookUpInterface('HasABCProps'));
           expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('AProps')), isFalse);
@@ -223,7 +223,7 @@ void main() {
 
           final propsElement = result.lookUpInterface('AProps');
 
-          final f = getForwardedProps(usage);
+          final f = computeForwardedProps(usage);
           expect(f!.propsClassBeingForwarded, propsElement);
           expect(f.definitelyForwardsPropsFrom(propsElement), isFalse);
           expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('UnrelatedProps')), isFalse);
