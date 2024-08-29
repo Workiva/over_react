@@ -2,6 +2,7 @@ import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/util.dart';
+import 'package:over_react_analyzer_plugin/src/util/react_types.dart';
 
 import 'forwarding_config.dart';
 import 'util.dart';
@@ -108,13 +109,9 @@ PropForwardingConfig? parseEnclosingClassComponentConsumedProps(AstNode node) {
   final consumedPropsGetter =
       enclosingClass?.members.whereType<MethodDeclaration>().firstWhereOrNull((m) => m.name.lexeme == 'consumedProps');
 
-  // FIXME double check this behavior.
   // The default is only props declared in enclosingComponentPropsClass for legacy boilerplate, and empty for non-legacy boilerplate.
   if (consumedPropsGetter == null) {
-    // FIXME implement conditionally for legacy boilerplate
-    // ignore: prefer_const_declarations
-    final isLegacy = false;
-    // ignore: dead_code
+    final isLegacy = enclosingClass?.declaredElement?.isLegacyComponentClass ?? false;
     return isLegacy ? PropForwardingConfig.allExceptFor({enclosingComponentPropsClass}) : PropForwardingConfig.only({});
   }
 

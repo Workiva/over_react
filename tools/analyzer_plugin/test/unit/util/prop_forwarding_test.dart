@@ -476,7 +476,46 @@ void main() {
         });
 
         group('when there is no consumedProps override', () {
-          test('UiComponent', () {});
+          test('UiComponent', () async {
+            final result = await sharedResolveSource(/*language=dart*/ r'''
+                @Factory()
+                UiFactory<LegacyHasABCProps> LegacyHasABC = castUiFactory(_$LegacyHasABC);
+                
+                // We can skip most all the analyzer ignore comments you'd usually need for this boilerplate,
+                // since these tests generate code first before analyzing.
+                @Props()
+                class _$LegacyHasABCProps extends UiProps with
+                    AProps, $AProps, BProps, $BProps, CProps, $CProps {}
+                    
+                class LegacyHasABCProps extends _$LegacyHasABCProps with _$LegacyHasABCPropsAccessorsMixin {
+                  static const PropsMeta meta = _$metaForLegacyHasABCProps;
+                }    
+            
+                @Component()
+                class LegacyHasABCComponent extends UiComponent<LegacyHasABCProps> {
+                  @override render() {
+                    return (NotCare()
+                      ..addProps(copyUnconsumedProps())
+                    )();
+                  }
+                }
+                
+                // For this test case, unlike others, we need a legacy boilerplate declaration; 
+                // declare this unused HasABC so we don't get builder errors.
+                UiFactory<HasABCProps> HasABC = uiFunction((props) {}, _$HasABCConfig);
+            ''');
+            final usage = getAllComponentUsages(result.unit).single;
+
+            final f = computeForwardedProps(usage)!;
+            expect(f.propsClassBeingForwarded, result.lookUpInterface('LegacyHasABCProps'));
+            // For UiComponent, only props declared in the concrete props class are considered consumed by default;
+            // props declared in other mixins are not included.
+            expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('LegacyHasABCProps')), isFalse);
+            expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('BProps')), isTrue);
+            expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('CProps')), isTrue);
+            expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('CProps')), isTrue);
+            expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('UnrelatedProps')), isFalse);
+          });
 
           test('UiComponent2', () async {
             final result = await sharedResolveSource(/*language=dart*/ r'''

@@ -4,20 +4,35 @@ import 'ast_util.dart';
 
 extension ReactTypes$DartType on DartType {
   bool get isComponentClass => typeOrBound.element?.isComponentClass ?? false;
+
+  bool get isLegacyComponentClass => typeOrBound.element?.isLegacyComponentClass ?? false;
+
   bool get isReactElement => typeOrBound.element?.isReactElement ?? false;
+
   bool get isPropsClass => typeOrBound.element?.isPropsClass ?? false;
+
   bool get isStateHook => typeOrBound.element?.isStateHook ?? false;
+
   bool get isReducerHook => typeOrBound.element?.isReducerHook ?? false;
+
   bool get isTransitionHook => typeOrBound.element?.isTransitionHook ?? false;
 }
 
 extension ReactTypes$Element on Element {
   bool get isComponentClass => isOrIsSubtypeOfElementFromPackage('Component', 'react');
+
+  bool get isLegacyComponentClass => isComponentClass && !isOrIsSubtypeOfElementFromPackage('Component2', 'react');
+
   bool get isReactElement => isOrIsSubtypeOfElementFromPackage('ReactElement', 'react');
+
   bool get isPropsClass => isOrIsSubtypeOfElementFromPackage('UiProps', 'over_react');
+
   bool get isStateHook => isOrIsSubtypeOfElementFromPackage('StateHook', 'react');
+
   bool get isReducerHook => isOrIsSubtypeOfElementFromPackage('ReducerHook', 'react');
+
   bool get isTransitionHook => false;
+
   // TODO uncomment one useTransition/TransitionHook is implemented
   // bool get isTransitionHook => isOrIsSubtypeOfElementFromPackage('TransitionHook', 'react');
 
