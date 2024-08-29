@@ -6,7 +6,7 @@ import 'package:over_react_analyzer_plugin/src/util/util.dart';
 import 'forwarding_config.dart';
 import 'util.dart';
 
-PropForwardingConfig parseGetPropsToForward(ArgumentList argumentList, InterfaceElement propsType) {
+PropForwardingConfig parsePropsToForwardMethodArgs(ArgumentList argumentList, InterfaceElement propsType) {
   final excludeArg = argumentList.arguments
       .whereType<NamedExpression>()
       .firstWhereOrNull((a) => a.name.label.name == 'exclude')

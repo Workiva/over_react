@@ -27,6 +27,7 @@ class ForwardedProps {
 }
 
 ForwardedProps? computeForwardedProps(FluentComponentUsage usage) {
+  // Lazy variables for potentially expensive values that may get used in multiple loop iterations.
   late final enclosingComponentPropsClass =
       getTypeOfPropsInEnclosingInterface(usage.node)?.typeOrBound.element.tryCast<InterfaceElement>();
   late final enclosingComponentForwardedProps = parseEnclosingClassComponentConsumedProps(usage.node);
@@ -53,7 +54,7 @@ ForwardedProps? computeForwardedProps(FluentComponentUsage usage) {
       if (realTarget != null && isPropsFromRender(realTarget)) {
         final propsType = realTarget.staticType?.typeOrBound.tryCast<InterfaceType>()?.element;
         if (propsType != null) {
-          return ForwardedProps(propsType, parseGetPropsToForward(arg.argumentList, propsType), invocation.node);
+          return ForwardedProps(propsType, parsePropsToForwardMethodArgs(arg.argumentList, propsType), invocation.node);
         }
       }
     } else if (
