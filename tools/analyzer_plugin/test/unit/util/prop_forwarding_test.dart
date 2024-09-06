@@ -49,40 +49,98 @@ void main() {
           resolveFileAndGeneratedPart(sharedContext, '$sharedSourcePrefix\n$source');
 
       group('adding all props without filtering:', () {
-        test('..addProps(props)', () async {
-          final result = await sharedResolveSource(/*language=dart*/ r'''
-              UiFactory<HasABCProps> HasABC = uiFunction((props) {
-                return (NotCare()
-                  ..addProps(props)
-                )();
-              }, _$HasABCConfig);
-          ''');
-          final usage = getAllComponentUsages(result.unit).single;
+        group('..addProps(props)', () {
+          test('', () async {
+            final result = await sharedResolveSource(/*language=dart*/ r'''
+                UiFactory<HasABCProps> HasABC = uiFunction((props) {
+                  return (NotCare()
+                    ..addProps(props)
+                  )();
+                }, _$HasABCConfig);
+            ''');
+            final usage = getAllComponentUsages(result.unit).single;
 
-          final f = computeForwardedProps(usage)!;
-          expect(f.propsClassBeingForwarded, result.lookUpInterface('HasABCProps'));
-          expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('AProps')), isTrue);
-          expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('BProps')), isTrue);
-          expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('CProps')), isTrue);
-          expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('UnrelatedProps')), isFalse);
+            final f = computeForwardedProps(usage)!;
+            expect(f.propsClassBeingForwarded, result.lookUpInterface('HasABCProps'));
+            expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('AProps')), isTrue);
+            expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('BProps')), isTrue);
+            expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('CProps')), isTrue);
+            expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('UnrelatedProps')), isFalse);
+          });
+
+          group('unless props are not from render, and gracefully handles these cases:', () {
+            test('typed as props', () async {
+              final result = await sharedResolveSource(/*language=dart*/ r'''
+                  late HasABCProps notPropsFromRender;
+                  UiFactory<HasABCProps> HasABC = uiFunction((props) {
+                    return (NotCare()
+                      ..addProps(notPropsFromRender)
+                    )();
+                  }, _$HasABCConfig);
+              ''');
+              final usage = getAllComponentUsages(result.unit).single;
+              expect(computeForwardedProps(usage), isNull);
+            });
+
+            test('not typed as props', () async {
+              final result = await sharedResolveSource(/*language=dart*/ r'''
+                  UiFactory<HasABCProps> HasABC = uiFunction((props) {
+                    return (NotCare()
+                      ..addProps({})
+                    )();
+                  }, _$HasABCConfig);
+              ''');
+              final usage = getAllComponentUsages(result.unit).single;
+              expect(computeForwardedProps(usage), isNull);
+            });
+          });
         });
 
-        test('..addAll(props)', () async {
-          final result = await sharedResolveSource(/*language=dart*/ r'''
-              UiFactory<HasABCProps> HasABC = uiFunction((props) {
-                return (NotCare()
-                  ..addAll(props)
-                )();
-              }, _$HasABCConfig);
-          ''');
-          final usage = getAllComponentUsages(result.unit).single;
+        group('..addAll(props)', () {
+          test('', () async {
+            final result = await sharedResolveSource(/*language=dart*/ r'''
+                UiFactory<HasABCProps> HasABC = uiFunction((props) {
+                  return (NotCare()
+                    ..addAll(props)
+                  )();
+                }, _$HasABCConfig);
+            ''');
+            final usage = getAllComponentUsages(result.unit).single;
 
-          final f = computeForwardedProps(usage)!;
-          expect(f.propsClassBeingForwarded, result.lookUpInterface('HasABCProps'));
-          expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('AProps')), isTrue);
-          expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('BProps')), isTrue);
-          expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('CProps')), isTrue);
-          expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('UnrelatedProps')), isFalse);
+            final f = computeForwardedProps(usage)!;
+            expect(f.propsClassBeingForwarded, result.lookUpInterface('HasABCProps'));
+            expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('AProps')), isTrue);
+            expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('BProps')), isTrue);
+            expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('CProps')), isTrue);
+            expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('UnrelatedProps')), isFalse);
+          });
+
+          group('unless props are not from render, and gracefully handles these cases:', () {
+            test('typed as props', () async {
+              final result = await sharedResolveSource(/*language=dart*/ r'''
+                  late HasABCProps notPropsFromRender;
+                  UiFactory<HasABCProps> HasABC = uiFunction((props) {
+                    return (NotCare()
+                      ..addAll(notPropsFromRender)
+                    )();
+                  }, _$HasABCConfig);
+              ''');
+              final usage = getAllComponentUsages(result.unit).single;
+              expect(computeForwardedProps(usage), isNull);
+            });
+
+            test('not typed as props', () async {
+              final result = await sharedResolveSource(/*language=dart*/ r'''
+                  UiFactory<HasABCProps> HasABC = uiFunction((props) {
+                    return (NotCare()
+                      ..addAll({})
+                    )();
+                  }, _$HasABCConfig);
+              ''');
+              final usage = getAllComponentUsages(result.unit).single;
+              expect(computeForwardedProps(usage), isNull);
+            });
+          });
         });
       });
 
@@ -143,45 +201,132 @@ void main() {
           expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('CProps')), isTrue);
           expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('UnrelatedProps')), isFalse);
         });
+
+        group('unless props are not from render, and gracefully handles these cases:', () {
+          test('typed as props', () async {
+            final result = await sharedResolveSource(/*language=dart*/ r'''
+                late HasABCProps notPropsFromRender;
+                UiFactory<HasABCProps> HasABC = uiFunction((props) {
+                  return (NotCare()
+                    ..addUnconsumedProps(notPropsFromRender, props.staticMeta.forMixins({AProps, BProps}))
+                  )();
+                }, _$HasABCConfig);
+            ''');
+            final usage = getAllComponentUsages(result.unit).single;
+            expect(computeForwardedProps(usage), isNull);
+          });
+
+          test('not typed as props', () async {
+            final result = await sharedResolveSource(/*language=dart*/ r'''
+                UiFactory<HasABCProps> HasABC = uiFunction((props) {
+                  return (NotCare()
+                    ..addUnconsumedProps({}, props.staticMeta.forMixins({AProps, BProps}))
+                  )();
+                }, _$HasABCConfig);
+            ''');
+            final usage = getAllComponentUsages(result.unit).single;
+            expect(computeForwardedProps(usage), isNull);
+          });
+        });
       });
 
       group('PropsToForward.getPropsToForward:', () {
-        test('..addAll(props.getPropsToForward(exclude: {...}))', () async {
-          final result = await sharedResolveSource(/*language=dart*/ r'''
-              UiFactory<HasABCProps> HasABC = uiFunction((props) {
-                return (NotCare()
-                  ..addAll(props.getPropsToForward(exclude: {AProps, BProps}))
-                )();
-              }, _$HasABCConfig);
-          ''');
-          final usage = getAllComponentUsages(result.unit).single;
+        group('..addAll(props.getPropsToForward(exclude: {...}))', () {
+          test('', () async {
+            final result = await sharedResolveSource(/*language=dart*/ r'''
+                UiFactory<HasABCProps> HasABC = uiFunction((props) {
+                  return (NotCare()
+                    ..addAll(props.getPropsToForward(exclude: {AProps, BProps}))
+                  )();
+                }, _$HasABCConfig);
+            ''');
+            final usage = getAllComponentUsages(result.unit).single;
 
-          final f = computeForwardedProps(usage);
-          expect(f, isNotNull);
-          expect(f!.propsClassBeingForwarded, result.lookUpInterface('HasABCProps'));
-          expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('AProps')), isFalse);
-          expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('BProps')), isFalse);
-          expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('CProps')), isTrue);
-          expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('UnrelatedProps')), isFalse);
+            final f = computeForwardedProps(usage);
+            expect(f, isNotNull);
+            expect(f!.propsClassBeingForwarded, result.lookUpInterface('HasABCProps'));
+            expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('AProps')), isFalse);
+            expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('BProps')), isFalse);
+            expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('CProps')), isTrue);
+            expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('UnrelatedProps')), isFalse);
+          });
+
+          group('unless props are not from render, and gracefully handles these cases:', () {
+            test('typed as props', () async {
+              final result = await sharedResolveSource(/*language=dart*/ r'''
+                  late HasABCProps notPropsFromRender;
+                  UiFactory<HasABCProps> HasABC = uiFunction((props) {
+                    return (NotCare()
+                      ..addAll(notPropsFromRender.getPropsToForward(exclude: {AProps, BProps}))
+                    )();
+                  }, _$HasABCConfig);
+              ''');
+              final usage = getAllComponentUsages(result.unit).single;
+              expect(computeForwardedProps(usage), isNull);
+            });
+
+            test('not typed as props', () async {
+              final result = await sharedResolveSource(/*language=dart*/ r'''
+                  late UiProps notPropsFromRender;
+                  UiFactory<HasABCProps> HasABC = uiFunction((props) {
+                    return (NotCare()
+                      ..addAll(notPropsFromRender.getPropsToForward(exclude: {AProps, BProps}))
+                    )();
+                  }, _$HasABCConfig);
+              ''');
+              final usage = getAllComponentUsages(result.unit).single;
+              expect(computeForwardedProps(usage), isNull);
+            });
+          });
         });
 
-        test('..addProps(props.getPropsToForward(exclude: {...}))', () async {
-          final result = await sharedResolveSource(/*language=dart*/ r'''
-              UiFactory<HasABCProps> HasABC = uiFunction((props) {
-                return (NotCare()
-                  ..addProps(props.getPropsToForward(exclude: {AProps, BProps}))
-                )();
-              }, _$HasABCConfig);
-          ''');
-          final usage = getAllComponentUsages(result.unit).single;
+        group('..addProps(props.getPropsToForward(exclude: {...}))', () {
+          test('', () async {
+            final result = await sharedResolveSource(/*language=dart*/ r'''
+                UiFactory<HasABCProps> HasABC = uiFunction((props) {
+                  return (NotCare()
+                    ..addProps(props.getPropsToForward(exclude: {AProps, BProps}))
+                  )();
+                }, _$HasABCConfig);
+            ''');
+            final usage = getAllComponentUsages(result.unit).single;
 
-          final f = computeForwardedProps(usage);
-          expect(f, isNotNull);
-          expect(f!.propsClassBeingForwarded, result.lookUpInterface('HasABCProps'));
-          expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('AProps')), isFalse);
-          expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('BProps')), isFalse);
-          expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('CProps')), isTrue);
-          expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('UnrelatedProps')), isFalse);
+            final f = computeForwardedProps(usage);
+            expect(f, isNotNull);
+            expect(f!.propsClassBeingForwarded, result.lookUpInterface('HasABCProps'));
+            expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('AProps')), isFalse);
+            expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('BProps')), isFalse);
+            expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('CProps')), isTrue);
+            expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('UnrelatedProps')), isFalse);
+          });
+
+          group('unless props are not from render, and gracefully handles these cases:', () {
+            test('typed as props', () async {
+              final result = await sharedResolveSource(/*language=dart*/ r'''
+                  late HasABCProps notPropsFromRender;
+                  UiFactory<HasABCProps> HasABC = uiFunction((props) {
+                    return (NotCare()
+                      ..addProps(notPropsFromRender.getPropsToForward(exclude: {AProps, BProps}))
+                    )();
+                  }, _$HasABCConfig);
+              ''');
+              final usage = getAllComponentUsages(result.unit).single;
+              expect(computeForwardedProps(usage), isNull);
+            });
+
+            test('not typed as props', () async {
+              final result = await sharedResolveSource(/*language=dart*/ r'''
+                  late UiProps notPropsFromRender;
+                  UiFactory<HasABCProps> HasABC = uiFunction((props) {
+                    return (NotCare()
+                      ..addProps(notPropsFromRender.getPropsToForward(exclude: {AProps, BProps}))
+                    )();
+                  }, _$HasABCConfig);
+              ''');
+              final usage = getAllComponentUsages(result.unit).single;
+              expect(computeForwardedProps(usage), isNull);
+            });
+          });
         });
 
         test('..addProps(props.getPropsToForward()) - inferred from generic', () async {
@@ -208,23 +353,53 @@ void main() {
       });
 
       group('PropsToForward.addPropsToForward:', () {
-        test('..modifyProps(props.addPropsToForward(exclude: {...}))', () async {
-          final result = await sharedResolveSource(/*language=dart*/ r'''
-              UiFactory<HasABCProps> HasABC = uiFunction((props) {
-                return (NotCare()
-                  ..modifyProps(props.addPropsToForward(exclude: {AProps, BProps}))
-                )();
-              }, _$HasABCConfig);
-          ''');
-          final usage = getAllComponentUsages(result.unit).single;
+        group('..modifyProps(props.addPropsToForward(exclude: {...}))', () {
+          test('', () async {
+            final result = await sharedResolveSource(/*language=dart*/ r'''
+                UiFactory<HasABCProps> HasABC = uiFunction((props) {
+                  return (NotCare()
+                    ..modifyProps(props.addPropsToForward(exclude: {AProps, BProps}))
+                  )();
+                }, _$HasABCConfig);
+            ''');
+            final usage = getAllComponentUsages(result.unit).single;
 
-          final f = computeForwardedProps(usage);
-          expect(f, isNotNull);
-          expect(f!.propsClassBeingForwarded, result.lookUpInterface('HasABCProps'));
-          expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('AProps')), isFalse);
-          expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('BProps')), isFalse);
-          expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('CProps')), isTrue);
-          expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('UnrelatedProps')), isFalse);
+            final f = computeForwardedProps(usage);
+            expect(f, isNotNull);
+            expect(f!.propsClassBeingForwarded, result.lookUpInterface('HasABCProps'));
+            expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('AProps')), isFalse);
+            expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('BProps')), isFalse);
+            expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('CProps')), isTrue);
+            expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('UnrelatedProps')), isFalse);
+          });
+
+          group('unless props are not from render, and gracefully handles these cases:', () {
+            test('typed as props', () async {
+              final result = await sharedResolveSource(/*language=dart*/ r'''
+                  late HasABCProps notPropsFromRender;
+                  UiFactory<HasABCProps> HasABC = uiFunction((props) {
+                    return (NotCare()
+                      ..modifyProps(notPropsFromRender.addPropsToForward(exclude: {AProps, BProps}))
+                    )();
+                  }, _$HasABCConfig);
+              ''');
+              final usage = getAllComponentUsages(result.unit).single;
+              expect(computeForwardedProps(usage), isNull);
+            });
+
+            test('not typed as props', () async {
+              final result = await sharedResolveSource(/*language=dart*/ r'''
+                  late UiProps notPropsFromRender;
+                  UiFactory<HasABCProps> HasABC = uiFunction((props) {
+                    return (NotCare()
+                      ..addProps(notPropsFromRender.getPropsToForward(exclude: {AProps, BProps}))
+                    )();
+                  }, _$HasABCConfig);
+              ''');
+              final usage = getAllComponentUsages(result.unit).single;
+              expect(computeForwardedProps(usage), isNull);
+            });
+          });
         });
 
         test('..modifyProps(props.addPropsToForward()) - inferred from generic', () async {
@@ -537,6 +712,43 @@ void main() {
             expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('CProps')), isFalse);
             expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('UnrelatedProps')), isFalse);
           });
+        });
+      });
+
+      group("other cases that shouldn't be picked up as forwarded props:", () {
+        test('addUnconsumedDomProps', () async {
+          final result = await sharedResolveSource(/*language=dart*/ r'''
+              UiFactory<HasABCProps> HasABC = uiFunction((props) {
+                return (NotCare()
+                  ..addUnconsumedDomProps(props, props.staticMeta.forMixins({AProps, BProps}))
+                )();
+              }, _$HasABCConfig);
+          ''');
+          final usage = getAllComponentUsages(result.unit).single;
+          expect(computeForwardedProps(usage), isNull);
+        });
+
+        test('no forwarded props, just setting other props unrelated method calls', () async {
+          final result = await sharedResolveSource(/*language=dart*/ r'''
+              UiFactory<HasABCProps> HasABC = uiFunction((props) {
+                return (NotCare()
+                  ..id = ''
+                  ..addTestId('foo')
+                )();
+              }, _$HasABCConfig);
+          ''');
+          final usage = getAllComponentUsages(result.unit).single;
+          expect(computeForwardedProps(usage), isNull);
+        });
+
+        test('no cascade', () async {
+          final result = await sharedResolveSource(/*language=dart*/ r'''
+              UiFactory<HasABCProps> HasABC = uiFunction((props) {
+                return NotCare()();
+              }, _$HasABCConfig);
+          ''');
+          final usage = getAllComponentUsages(result.unit).single;
+          expect(computeForwardedProps(usage), isNull);
         });
       });
     });
