@@ -13,6 +13,7 @@ void main() {
     defineReflectiveTests(MissingRequiredPropTest_NoErrors);
     defineReflectiveTests(MissingRequiredPropTest_MissingLateRequired);
     defineReflectiveTests(MissingRequiredPropTest_MissingAnnotationRequired);
+    defineReflectiveTests(MissingRequiredPropTest_Forwarding);
   });
 }
 
@@ -358,5 +359,68 @@ over_react:
           ..required2 = ''
         )();
     '''));
+  }
+}
+
+@reflectiveTest
+class MissingRequiredPropTest_Forwarding extends MissingRequiredPropTest {
+  @override
+  get errorUnderTest => MissingRequiredPropDiagnostic.lateRequiredCode;
+
+  @override
+  get fixKindUnderTest => MissingRequiredPropDiagnostic.fixKind;
+
+  // More variations on prop forwarding are covered in prop_forwarding_test.dart;
+  // these tests mainly verify the logic in the diagnostic and the end-to-end behavior
+
+  Future<void> test_noErrorsWhenForwarded() async {
+    await expectNoErrors(newSourceWithPrefix(/*language=dart*/ r'''
+      class MultipleRequiredMixinsProps = UiProps with WithLateRequiredProps, InheritsLateRequiredPropsMixin; 
+      UiFactory<MultipleRequiredMixinsProps> MultipleRequiredMixins = uiFunction((props) {
+        return (InheritsLateRequired()
+          ..modifyProps(props.addPropsToForward(exclude: {}))
+        )();
+      }, _$MultipleRequiredMixinsConfig);
+    '''));
+  }
+
+  Future<void> test_errorsWhenNotForwarded() async {
+    final source = newSourceWithPrefix(/*language=dart*/ r'''
+      class MultipleRequiredMixinsProps = UiProps with WithLateRequiredProps, InheritsLateRequiredPropsMixin;
+      UiFactory<MultipleRequiredMixinsProps> MultipleRequiredMixins = uiFunction((props) {
+        return (InheritsLateRequired()
+          ..modifyProps(props.addPropsToForward(exclude: {WithLateRequiredProps, InheritsLateRequiredPropsMixin}))
+        )();
+      }, _$MultipleRequiredMixinsConfig);
+    ''');
+    final selection = createSelection(source, '#InheritsLateRequired()#');
+    final allErrors = await getAllErrors(source);
+    expect(
+        allErrors,
+        unorderedEquals(<dynamic>[
+          isAnErrorUnderTest(locatedAt: selection).havingMessage(contains("'required1' from 'WithLateRequiredProps'")),
+          isAnErrorUnderTest(locatedAt: selection).havingMessage(contains("'required2' from 'WithLateRequiredProps'")),
+          isAnErrorUnderTest(locatedAt: selection)
+              .havingMessage(contains("'requiredInSubclass' from 'InheritsLateRequiredPropsMixin'")),
+        ]));
+  }
+
+  Future<void> test_errorsWhenOnlySomeForwarded() async {
+    final source = newSourceWithPrefix(/*language=dart*/ r'''
+      class MultipleRequiredMixinsProps = UiProps with WithLateRequiredProps, InheritsLateRequiredPropsMixin;
+      UiFactory<MultipleRequiredMixinsProps> MultipleRequiredMixins = uiFunction((props) {
+        return (InheritsLateRequired()
+          ..modifyProps(props.addPropsToForward(exclude: {InheritsLateRequiredPropsMixin}))
+        )();
+      }, _$MultipleRequiredMixinsConfig);
+    ''');
+    final selection = createSelection(source, '#InheritsLateRequired()#');
+    final allErrors = await getAllErrors(source);
+    expect(
+        allErrors,
+        unorderedEquals(<dynamic>[
+          isAnErrorUnderTest(locatedAt: selection)
+              .havingMessage(contains("'requiredInSubclass' from 'InheritsLateRequiredPropsMixin'")),
+        ]));
   }
 }
