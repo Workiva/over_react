@@ -169,8 +169,9 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
     final debugHelper = AnalyzerDebugHelper(result, collector, enabled: _cachedIsDebugHelperEnabled(result));
     // A flag to help verify during debugging/testing whether propsSetByFactory was computed.
     var hasPropsSetByFactoryBeenComputed = false;
+    final debugInfoByForwardedRequiredProp = <FieldElement, _ForwardedRequiredPropDebugInfo>{};
 
-    // Use a late variable to compute this only when we need to.
+    // Use late variables to compute these only when we need to.
     late final propsSetByFactory = () {
       hasPropsSetByFactoryBeenComputed = true;
 
@@ -182,15 +183,9 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
 
       return _cachedGetPropsSetByFactory(factoryElement);
     }();
-
-    final presentPropNames =
-        usage.cascadedProps.where((prop) => !prop.isPrefixed).map((prop) => prop.name.name).toSet();
-
-    final skippedRequiredPropsDueToAddedProps = <FieldElement, _AddedPropsSkipReason>{};
-
     late final forwardedProps = computeForwardedProps(usage);
-
-    debugHelper.log(() => 'Forwarded props: $forwardedProps', () => result.locationFor(usage.builder));
+    late final presentPropNames =
+        usage.cascadedProps.where((prop) => !prop.isPrefixed).map((prop) => prop.name.name).toSet();
 
     for (final name in requiredPropInfo.requiredPropNames) {
       if (presentPropNames.contains(name)) continue;
@@ -203,7 +198,9 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
       final sourcePropsClass = field.enclosingElement;
       if (sourcePropsClass is InterfaceElement) {
         if (forwardedProps != null && forwardedProps.definitelyForwardsPropsFrom(sourcePropsClass)) {
-          skippedRequiredPropsDueToAddedProps[field] = _AddedPropsSkipReason(forwardedProps.debugSourceNode);
+          if (debugHelper.enabled) {
+            debugInfoByForwardedRequiredProp[field] = _ForwardedRequiredPropDebugInfo(forwardedProps.debugSourceNode);
+          }
           continue;
         }
       }
@@ -237,15 +234,17 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
     }
 
     if (debugHelper.enabled) {
-      final fieldsByReasonNode = skippedRequiredPropsDueToAddedProps.keys
-          .groupListsBy((field) => skippedRequiredPropsDueToAddedProps[field]!.node);
+      final fieldsByReasonNode =
+          debugInfoByForwardedRequiredProp.keys.groupListsBy((field) => debugInfoByForwardedRequiredProp[field]!.node);
       fieldsByReasonNode.forEach((reasonNode, fields) {
         debugHelper.log(() {
-          return 'DEBUG: Ignoring the following missing required props, since they\'re likely added here:'
+          return 'Suppressing missing required props warnings due to forwarding here, for the following props:'
               ' ${fields.map((f) => '${f.enclosingElement.name}.${f.name}').join(', ')}';
         }, () => result.locationFor(reasonNode));
       });
     }
+
+    debugHelper.log(() => 'Forwarded props: $forwardedProps', () => result.locationFor(usage.builder));
 
     // Include debug info for each invocation ahout all the props and their requirednesses.
     debugHelper.log(() {
@@ -271,8 +270,8 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
   }
 }
 
-class _AddedPropsSkipReason {
+class _ForwardedRequiredPropDebugInfo {
   final AstNode node;
 
-  _AddedPropsSkipReason(this.node);
+  _ForwardedRequiredPropDebugInfo(this.node);
 }
