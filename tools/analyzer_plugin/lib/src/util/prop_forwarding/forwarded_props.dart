@@ -26,6 +26,8 @@ class ForwardedProps {
   String toString() => 'Props from ${propsClassBeingForwarded.name}: $forwardingConfig';
 }
 
+/// Computes and returns forwarded props for a given component [usage], or `null` if the usage does not receive any
+/// forwarded props.
 ForwardedProps? computeForwardedProps(FluentComponentUsage usage) {
   // Lazy variables for potentially expensive values that may get used in multiple loop iterations.
   late final enclosingComponentPropsClass =
