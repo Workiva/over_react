@@ -69,7 +69,7 @@ extension TypeAnnotationNameHelper on TypeAnnotation {
 /// field of [Identifier]s.
 extension TypeNameHelper on NamedType {
   /// The type name without any namespace prefixes.
-  String get nameWithoutPrefix => name.nameWithoutPrefix;
+  String get nameWithoutPrefix => importPrefix != null ? name2.name.replaceFirst(importPrefix.toString(), '') : name2.name;
 }
 
 /// Utilities related to simplifying access to node identifier fields.
