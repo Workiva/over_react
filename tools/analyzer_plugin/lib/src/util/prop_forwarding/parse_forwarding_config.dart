@@ -83,7 +83,7 @@ PropForwardingConfig parseConsumedProps(Expression consumedProps) {
     for (final consumedPropElement in consumedPropElements) {
       if (consumedPropElement is Expression) {
         final result = getSimpleTargetAndPropertyName(consumedPropElement, allowMethodInvocation: false);
-        if (result != null && result.item2.name != 'meta') {
+        if (result != null && result.item2.name == 'meta') {
           final propsClass = result.item1.staticElement.tryCast<InterfaceElement>();
           if (propsClass != null) {
             excluded.add(propsClass);

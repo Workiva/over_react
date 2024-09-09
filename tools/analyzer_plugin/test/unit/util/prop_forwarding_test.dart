@@ -34,9 +34,19 @@ void main() {
           
           part '{{PART_PATH}}';
           
-          mixin AProps on UiProps {}
-          mixin BProps on UiProps {}
-          mixin CProps on UiProps {}
+          // [1] Create static meta variables that we only support for legacy props.
+          //     We want to test referencing them, and we'll do so with these mixins
+          //     to be able to reuse this test setup.
+          
+          mixin AProps on UiProps {
+            static var meta = $AProps.meta; // [1]
+          }
+          mixin BProps on UiProps {
+            static var meta = $BProps.meta; // [1]
+          }
+          mixin CProps on UiProps {
+            static var meta = $CProps.meta; // [1]
+          }
           
           class HasABCProps = UiProps with AProps, BProps, CProps;
           
@@ -344,6 +354,52 @@ void main() {
 
       group('class component methods:', () {
         group('when consumedProps uses', () {
+          group('static meta variables (legacy boilerplate only)', () {
+            test('in a list', () async {
+              final result = await sharedResolveSource(/*language=dart*/ r'''
+                  UiFactory<HasABCProps> HasABC = castUiFactory(_$HasABC);
+                  class HasABCComponent extends UiComponent2<HasABCProps> {
+                    @override get consumedProps => [AProps.meta, BProps.meta];
+                    @override render() {
+                      return (NotCare()
+                        ..modifyProps(addUnconsumedProps)
+                      )();
+                    }
+                  }
+              ''');
+              final usage = getAllComponentUsages(result.unit).single;
+
+              final f = computeForwardedProps(usage)!;
+              expect(f.propsClassBeingForwarded, result.lookUpInterface('HasABCProps'));
+              expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('AProps')), isFalse);
+              expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('BProps')), isFalse);
+              expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('CProps')), isTrue);
+              expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('UnrelatedProps')), isFalse);
+            });
+
+            test('in a set', () async {
+              final result = await sharedResolveSource(/*language=dart*/ r'''
+                  UiFactory<HasABCProps> HasABC = castUiFactory(_$HasABC);
+                  class HasABCComponent extends UiComponent2<HasABCProps> {
+                    @override get consumedProps => {AProps.meta, BProps.meta};
+                    @override render() {
+                      return (NotCare()
+                        ..modifyProps(addUnconsumedProps)
+                      )();
+                    }
+                  }
+              ''');
+              final usage = getAllComponentUsages(result.unit).single;
+
+              final f = computeForwardedProps(usage)!;
+              expect(f.propsClassBeingForwarded, result.lookUpInterface('HasABCProps'));
+              expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('AProps')), isFalse);
+              expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('BProps')), isFalse);
+              expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('CProps')), isTrue);
+              expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('UnrelatedProps')), isFalse);
+            });
+          });
+
           test('propsMeta.forMixins', () async {
             final result = await sharedResolveSource(/*language=dart*/ r'''
                 UiFactory<HasABCProps> HasABC = castUiFactory(_$HasABC);
