@@ -7,6 +7,13 @@ import 'package:over_react_analyzer_plugin/src/util/react_types.dart';
 import 'forwarding_config.dart';
 import 'util.dart';
 
+/// Returns a forwarding config parsed/resolved from arguments to `.getPropsToForward` or `addPropsToForward`.
+///
+/// Parses:
+///
+///     ..addProps(props.getPropsToForward())
+///     ..addProps(props.getPropsToForward(exclude: {...}))
+///     ..modifyProps(props.addPropsToForward(exclude: {...}))
 PropForwardingConfig parsePropsToForwardMethodArgs(ArgumentList argumentList, InterfaceElement propsType) {
   final excludeArg = argumentList.arguments
       .whereType<NamedExpression>()
@@ -23,11 +30,16 @@ PropForwardingConfig parsePropsToForwardMethodArgs(ArgumentList argumentList, In
     return const PropForwardingConfig.unresolved();
   }
 
-  final excluded = _lookUpInterfaces(excludeArg.elements)?.toSet();
+  final excluded = _resolveInterfaceReferences(excludeArg.elements)?.toSet();
   if (excluded == null) return const PropForwardingConfig.unresolved();
   return PropForwardingConfig.allExceptFor(excluded);
 }
 
+/// Returns a forwarding config parsed/resolved from a [consumedProps] expression representing the set of
+/// props mixins to exclude when forwarding, which is used by `UiProps.addUnconsumedProps` and also UiComponent's
+/// `consumedProps` getter.
+///
+/// Handles various different syntaxes (see comments in this method for examples).
 PropForwardingConfig parseConsumedProps(Expression consumedProps) {
   // Look up value of consumedProps stored into variables, which is very common in usage:
   //
@@ -56,7 +68,7 @@ PropForwardingConfig parseConsumedProps(Expression consumedProps) {
     if (consumedProps.methodName.name == 'forMixins') {
       final arg = consumedProps.argumentList.arguments.whereType<Expression>().firstOrNull;
       if (arg is SetOrMapLiteral) {
-        final mixins = _lookUpInterfaces(arg.elements)?.toSet();
+        final mixins = _resolveInterfaceReferences(arg.elements)?.toSet();
         if (mixins != null) {
           return PropForwardingConfig.allExceptFor(mixins);
         }
@@ -65,7 +77,7 @@ PropForwardingConfig parseConsumedProps(Expression consumedProps) {
     } else if (consumedProps.methodName.name == 'allExceptForMixins') {
       final arg = consumedProps.argumentList.arguments.whereType<Expression>().firstOrNull;
       if (arg is SetOrMapLiteral) {
-        final mixins = _lookUpInterfaces(arg.elements)?.toSet();
+        final mixins = _resolveInterfaceReferences(arg.elements)?.toSet();
         if (mixins != null) {
           // FIXME this also includes props not in this props class; how to represent that clearnly
           return PropForwardingConfig.only(mixins);
@@ -100,6 +112,8 @@ PropForwardingConfig parseConsumedProps(Expression consumedProps) {
   return PropForwardingConfig.unresolved();
 }
 
+/// Returns a forwarding config parsed/resolved from the `UiComponent.consumedProps` override in the component class
+/// that encloses [node].
 PropForwardingConfig? parseEnclosingClassComponentConsumedProps(AstNode node) {
   final enclosingComponentPropsClass =
       getTypeOfPropsInEnclosingInterface(node)?.typeOrBound.element.tryCast<InterfaceElement>();
@@ -123,7 +137,17 @@ PropForwardingConfig? parseEnclosingClassComponentConsumedProps(AstNode node) {
   return parseConsumedProps(consumedProps);
 }
 
-List<InterfaceElement>? _lookUpInterfaces(List<CollectionElement> elements) {
+/// Resolves AST [elements] representing references to interface types to the elements they reference.
+///
+/// Returns null if not all of the references could be resolved, or if if-elements or for-elements are used.
+///
+/// For example, given either the AST Node:
+/// - `{SomeClass, SomeMixin}` (a [SetOrMapLiteral])
+/// - `[SomeClass, SomeMixin]` (a [ListLiteral])
+///
+/// ...passing in these collection's `.elements` would yield a list containing the [ClassElement] representing `SomeClass`
+/// and the [MixinElement] for SomeMixin.
+List<InterfaceElement>? _resolveInterfaceReferences(List<CollectionElement> elements) {
   final interfaces = <InterfaceElement>[];
   for (final setElement in elements) {
     // Some other element or expression we can't statically analyze.
