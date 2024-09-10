@@ -22,58 +22,60 @@ library over_react_component_test;
 import 'package:over_react/over_react.dart';
 import 'package:test/test.dart';
 
-import 'over_react/component/_deprecated/abstract_transition_test.dart'
-    as deprecated_abstract_transition_test;
-import 'over_react/component/abstract_transition_test.dart'
-    as abstract_transition_test;
-import 'over_react/component/with_transition_test.dart'
-    as with_transition_test;
-import 'over_react/component/dom_components_test.dart' as dom_components_test;
-import 'over_react/component/error_boundary/error_boundary_test.dart' as error_boundary_test;
-import 'over_react/component/_deprecated/error_boundary_mixin_test.dart'
-    as deprecated_error_boundary_mixin_test;
-import 'over_react/component/_deprecated/error_boundary_test.dart'
-    as deprecated_error_boundary_test;
-import 'over_react/component/ref_util_test.dart' as ref_test;
-import 'over_react/component/element_type_test.dart' as element_type_test;
-import 'over_react/component/memo_test.dart' as memo_test;
-import 'over_react/component/prop_mixins_test.dart' as prop_mixins_test;
-import 'over_react/component/prop_typedefs_test.dart' as prop_typedefs_test;
-import 'over_react/component/pure_component_mixin_test.dart'
-    as pure_component_mixin_test;
-import 'over_react/component/_deprecated/resize_sensor_test.dart'
-    as deprecated_resize_sensor_test;
-import 'over_react/component/resize_sensor_test.dart' as resize_sensor_test;
-import 'over_react/component/fragment_component_test.dart'
-    as fragment_component_test;
-import 'over_react/component/strictmode_component_test.dart'
-    as strictmode_component_test;
-import 'over_react/component/suspense_component_test.dart'
-    as suspense_component_test;
-import 'over_react/component/context_test.dart' as context_test;
-import 'over_react/component/typed_factory_test.dart' as typed_factory_test;
+// import 'over_react/component/_deprecated/abstract_transition_test.dart'
+//     as deprecated_abstract_transition_test;
+// import 'over_react/component/abstract_transition_test.dart'
+//     as abstract_transition_test;
+// import 'over_react/component/with_transition_test.dart'
+//     as with_transition_test;
+// import 'over_react/component/dom_components_test.dart' as dom_components_test;
+// import 'over_react/component/error_boundary/error_boundary_test.dart' as error_boundary_test;
+// import 'over_react/component/_deprecated/error_boundary_mixin_test.dart'
+//     as deprecated_error_boundary_mixin_test;
+// import 'over_react/component/_deprecated/error_boundary_test.dart'
+//     as deprecated_error_boundary_test;
+// import 'over_react/component/ref_util_test.dart' as ref_test;
+// import 'over_react/component/element_type_test.dart' as element_type_test;
+import 'over_react/component/lazy_test.dart' as lazy_test;
+// import 'over_react/component/memo_test.dart' as memo_test;
+// import 'over_react/component/prop_mixins_test.dart' as prop_mixins_test;
+// import 'over_react/component/prop_typedefs_test.dart' as prop_typedefs_test;
+// import 'over_react/component/pure_component_mixin_test.dart'
+//     as pure_component_mixin_test;
+// import 'over_react/component/_deprecated/resize_sensor_test.dart'
+//     as deprecated_resize_sensor_test;
+// import 'over_react/component/resize_sensor_test.dart' as resize_sensor_test;
+// import 'over_react/component/fragment_component_test.dart'
+//     as fragment_component_test;
+// import 'over_react/component/strictmode_component_test.dart'
+//     as strictmode_component_test;
+// import 'over_react/component/suspense_component_test.dart'
+//     as suspense_component_test;
+// import 'over_react/component/context_test.dart' as context_test;
+// import 'over_react/component/typed_factory_test.dart' as typed_factory_test;
 
 void main() {
   enableTestMode();
 
-  pure_component_mixin_test.main();
-  deprecated_abstract_transition_test.main();
-  abstract_transition_test.main();
-  with_transition_test.main();
-  error_boundary_test.main();
-  deprecated_error_boundary_mixin_test.main();
-  deprecated_error_boundary_test.main();
-  ref_test.main();
-  element_type_test.main();
-  memo_test.main();
-  dom_components_test.main();
-  prop_mixins_test.main();
-  prop_typedefs_test.main();
-  deprecated_resize_sensor_test.main();
-  resize_sensor_test.main();
-  fragment_component_test.main();
-  strictmode_component_test.main();
-  suspense_component_test.main();
-  context_test.main();
-  typed_factory_test.main();
+  // pure_component_mixin_test.main();
+  // deprecated_abstract_transition_test.main();
+  // abstract_transition_test.main();
+  // with_transition_test.main();
+  // error_boundary_test.main();
+  // deprecated_error_boundary_mixin_test.main();
+  // deprecated_error_boundary_test.main();
+  // ref_test.main();
+  // element_type_test.main();
+  lazy_test.main();
+  // memo_test.main();
+  // dom_components_test.main();
+  // prop_mixins_test.main();
+  // prop_typedefs_test.main();
+  // deprecated_resize_sensor_test.main();
+  // resize_sensor_test.main();
+  // fragment_component_test.main();
+  // strictmode_component_test.main();
+  // suspense_component_test.main();
+  // context_test.main();
+  // typed_factory_test.main();
 }

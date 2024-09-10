@@ -48,3 +48,11 @@ workiva:
   core_checks:
     version: 1
     react_boilerplate: disabled
+
+
+dependency_overrides:
+  react:
+    git:
+      url: https://github.com/Workiva/react-dart.git
+      ref: remotes/origin/FED-3114-lazy
+

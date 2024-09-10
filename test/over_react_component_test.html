@@ -16,15 +16,50 @@ limitations under the License.
 
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <title>OverReact Tests - over_react component</title>
     <!-- javascript -->
     <script src="packages/react/react_with_addons.js"></script>
     <script src="packages/react/react_dom.js"></script>
     <script src="packages/react_testing_library/js/react-testing-library.js"></script>
+    <script>
+      const defaultMessageContext = React.createContext('default context value');
+      window.TestJsComponent = React.forwardRef(function (props, ref) {
+        const {
+          buttonProps = {},
+          listOfProps = [],
+          inputRef,
+          buttonComponent = 'button',
+          inputComponent = 'input',
+          component = 'span',
+          children,
+          messageContext = defaultMessageContext,
+          ...rest
+        } = props;
+        let message = React.useContext(messageContext);
+        if (typeof message !== 'string') {
+          // Work around react-dart always wrapping values in an object (FED-467)
+          // whose value is under a property `Symbol('react-dart.context')`.
+          // Since it's a local symbol, we can't construct a matching symbol, so we find the matching one.
+          const symbol = Object.getOwnPropertySymbols(message).find((s) =>
+            s.description.includes('react-dart.context')
+          );
+          message = message[symbol];
+        }
+        return React.createElement(
+          'div',
+          {},
+          React.createElement(buttonComponent, buttonProps),
+          React.createElement('li', listOfProps[0]),
+          React.createElement(inputComponent, { type: 'text', ref: inputRef }),
+          React.createElement(component, { ...rest, ref }, children),
+          React.createElement('div', { role: 'alert' }, message)
+        );
+      });
+    </script>
 
-    <link rel="x-dart-test"  href="over_react_component_test.dart">
+    <link rel="x-dart-test" href="over_react_component_test.dart" />
     <script src="packages/test/dart.js"></script>
-</head>
-<body></body>
+  </head>
+  <body></body>
 </html>
