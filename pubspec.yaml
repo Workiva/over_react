@@ -52,5 +52,5 @@ workiva:
 dependency_overrides:
   react:
     git:
-      url: git@github.com:Workiva/react-dart.git
+      url: https://github.com/Workiva/react-dart.git
       ref: FED-3114-lazy
