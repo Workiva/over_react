@@ -17,9 +17,23 @@ class ForwardedProps {
 
   ForwardedProps(this.propsClassBeingForwarded, this.forwardingConfig, this.debugSourceNode);
 
-  bool definitelyForwardsPropsFrom(InterfaceElement propsClass) =>
-      !forwardingConfig.mightExcludeClass(propsClass) &&
-      propsClassBeingForwarded.allSupertypes.any((s) => s.element == propsClass);
+  bool definitelyForwardsPropsFrom(InterfaceElement propsClass) {
+    // Handle legacy classes being passed in.
+    if (propsClass.name.startsWith(r'_$')) {
+      // Look up the companion and use that instead, since that's what will be referenced in the forwarding config.
+      // E.g., for `_$FooProps`, find `FooProps`, since consumers will be using `FooProps` when setting up prop forwarding.
+      final companion = propsClassBeingForwarded.allSupertypes
+          .map((s) => s.element)
+          .whereType<ClassElement>()
+          .singleWhereOrNull((c) => c.supertype?.element == propsClass && '_\$${c.name}' == propsClass.name);
+      // If we can't find the companion, return false, since it won't show up in the forwarding config.
+      if (companion == null) return false;
+      propsClass = companion;
+    }
+
+    return !forwardingConfig.mightExcludeClass(propsClass) &&
+        propsClassBeingForwarded.allSupertypes.any((s) => s.element == propsClass);
+  }
 
   // TODO loop through props mixins and show the full list of props being forwarded for debug purposes
   @override
