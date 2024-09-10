@@ -195,6 +195,11 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
         continue;
       }
 
+      final requiredness = requiredPropInfo.propRequirednessByName[name]!;
+      if (!lintForAnnotationRequiredProps && requiredness == PropRequiredness.annotation) {
+        continue;
+      }
+
       final sourcePropsClass = field.enclosingElement;
       if (sourcePropsClass is InterfaceElement) {
         if (forwardedProps != null && forwardedProps.definitelyForwardsPropsFrom(sourcePropsClass)) {
@@ -204,13 +209,6 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
           continue;
         }
       }
-
-      final requiredness = requiredPropInfo.propRequirednessByName[name]!;
-      if (!lintForAnnotationRequiredProps && requiredness == PropRequiredness.annotation) {
-        continue;
-      }
-
-      // TODO(FED-2034) don't warn when we know required props are being forwarded
 
       // Only access propsSetByFactory when we hit missing required props to avoid computing it unnecessarily.
       if (propsSetByFactory?.contains(name) ?? false) {
