@@ -423,4 +423,70 @@ class MissingRequiredPropTest_Forwarding extends MissingRequiredPropTest {
               .havingMessage(contains("'requiredInSubclass' from 'InheritsLateRequiredPropsMixin'")),
         ]));
   }
+
+  static const legacyPrefix = /*language=dart*/ r'''
+      @Factory()
+      UiFactory<LegacyBaseProps> LegacyBase = castUiFactory(_$LegacyBase);
+      @Props()
+      class _$LegacyBaseProps extends UiProps {
+        late String required_legacyBaseProps;
+      }
+      class LegacyBaseProps extends _$LegacyBaseProps with
+          // ignore: undefined_identifier, mixin_of_non_class
+          _$LegacyBasePropsAccessorsMixin { 
+          // ignore: undefined_identifier, const_initialized_with_non_constant_value, invalid_assignment
+          static const PropsMeta meta = _$metaForLegacyBaseProps;
+        }
+      @Component()
+      class LegacyBaseComponent extends UiComponent<LegacyBaseProps> {
+        @override 
+        render() => null;
+      }
+      
+      @Factory()
+      UiFactory<LegacyProps> Legacy = castUiFactory(_$Legacy);
+      @Props()
+      class _$LegacyProps extends LegacyBaseProps {}
+      class LegacyProps extends _$LegacyProps with 
+          // ignore: undefined_identifier, mixin_of_non_class
+          _$LegacyPropsAccessorsMixin { 
+          // ignore: undefined_identifier, const_initialized_with_non_constant_value, invalid_assignment
+          static const PropsMeta meta = _$metaForLegacyProps;
+        }
+    ''';
+
+  Future<void> test_legacyErrorsWhenNotForwarded() async {
+    final source = newSourceWithPrefix(legacyPrefix + /*language=dart*/
+        r'''
+          @Component()
+          class LegacyComponent extends UiComponent<LegacyProps> {
+            get consumedProps => const [LegacyProps.meta, LegacyBaseProps.meta];
+            @override  
+            render() => (LegacyBase()..addProps(copyUnconsumedProps()))();
+          }
+        ''');
+    final selection = createSelection(source, '#LegacyBase()#');
+    final allErrors = await getAllErrors(source);
+    expect(
+        allErrors,
+        unorderedEquals(<dynamic>[
+          isAnErrorUnderTest(locatedAt: selection)
+              .havingMessage(contains(r"'required_legacyBaseProps' from '_$LegacyBaseProps'")),
+        ]));
+  }
+
+  Future<void> test_legacyNoErrorsWhenForwarded() async {
+    // This test case verifies that looking up props class works even when using legacy component syntax,
+    // specifically props declared in legacy props classes that are different than their public types
+    // (e.g., _$LegacyBaseProps vs LegacyProps).
+    await expectNoErrors(newSourceWithPrefix(legacyPrefix + /*language=dart*/
+        r'''
+          @Component()
+          class LegacyComponent extends UiComponent<LegacyProps> {
+            get consumedProps => const [LegacyProps.meta];
+            @override
+            render() => (LegacyBase()..addProps(copyUnconsumedProps()))();
+          }
+        '''));
+  }
 }
