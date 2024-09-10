@@ -37,6 +37,8 @@ void main() {
           // [1] Create static meta variables that we only support for legacy props.
           //     We want to test referencing them, and we'll do so with these mixins
           //     to be able to reuse this test setup.
+          // [2] We can skip most all the analyzer ignore comments you'd usually need for this boilerplate,
+          //     since these tests generate code first before analyzing.
           
           mixin AProps on UiProps {
             static var meta = $AProps.meta; // [1]
@@ -53,6 +55,13 @@ void main() {
           mixin UnrelatedProps on UiProps {}
           
           late UiFactory<UiProps> NotCare;
+          
+          // [2]
+          @AbstractProps()
+          abstract class _$LegacyUnrelatedProps extends UiProps {}
+          abstract class LegacyUnrelatedProps extends _$LegacyUnrelatedProps with _$LegacyUnrelatedPropsAccessorsMixin {
+            static const PropsMeta meta = _$metaForLegacyUnrelatedProps;
+          }
       ''';
 
       Future<ResolvedUnitResult> sharedResolveSource(String source) =>
@@ -629,8 +638,7 @@ void main() {
                 @Factory()
                 UiFactory<LegacyHasABCProps> LegacyHasABC = castUiFactory(_$LegacyHasABC);
                 
-                // We can skip most all the analyzer ignore comments you'd usually need for this boilerplate,
-                // since these tests generate code first before analyzing.
+                // [2]
                 @Props()
                 class _$LegacyHasABCProps extends UiProps with
                     AProps, $AProps, BProps, $BProps, CProps, $CProps {}
@@ -686,6 +694,66 @@ void main() {
             expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('UnrelatedProps')), isFalse);
           });
         });
+      });
+
+      test("when the props being forwarded are the same type as the component's props", () async {
+        final result = await sharedResolveSource(/*language=dart*/ r'''
+            UiFactory<AProps> A = uiFunction((props) {
+              return (NotCare()
+                ..addProps(props.getPropsToForward(exclude: {}))
+              )();
+            }, _$AConfig); 
+            
+            // For this test case, unlike others, we need a component that only has one props mixin; 
+            // declare this unused HasABC so we don't get builder errors.
+            UiFactory<HasABCProps> HasABC = uiFunction((props) {}, _$HasABCConfig);
+        ''');
+        final usage = getAllComponentUsages(result.unit).single;
+
+        final propsElement = result.lookUpInterface('AProps');
+        final f = computeForwardedProps(usage);
+        expect(f!.propsClassBeingForwarded, propsElement);
+        expect(f.definitelyForwardsPropsFrom(propsElement), isTrue);
+        expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('UnrelatedProps')), isFalse);
+      });
+
+      test('normalizes legacy boilerplate to their companion classes', () async {
+        final result = await sharedResolveSource(/*language=dart*/ r'''
+            @Factory()
+            UiFactory<LegacyProps> Legacy = castUiFactory(_$Legacy);
+            
+            // [2]
+            @Props()
+            class _$LegacyProps extends UiProps {}
+                
+            class LegacyProps extends _$LegacyProps with _$LegacyPropsAccessorsMixin {
+              static const PropsMeta meta = _$metaForLegacyProps;
+            }    
+        
+            @Component()
+            class LegacyComponent extends UiComponent<LegacyProps> {
+              get consumedProps => [];
+              @override render() {
+                return (NotCare()
+                  ..addProps(copyUnconsumedProps())
+                )();
+              }
+            }
+            
+            // For this test case, unlike others, we need a legacy boilerplate declaration; 
+            // declare this unused HasABC so we don't get builder errors.
+            UiFactory<HasABCProps> HasABC = uiFunction((props) {}, _$HasABCConfig);
+        ''');
+        final usage = getAllComponentUsages(result.unit).single;
+
+        final f = computeForwardedProps(usage)!;
+        expect(f.propsClassBeingForwarded, result.lookUpInterface('LegacyProps'));
+        expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('LegacyProps')), isTrue);
+        expect(f.definitelyForwardsPropsFrom(result.lookUpInterface(r'_$LegacyProps')), isTrue,
+            reason: 'should normalize to companion');
+        expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('LegacyUnrelatedProps')), isFalse);
+        expect(f.definitelyForwardsPropsFrom(result.lookUpInterface(r'_$LegacyUnrelatedProps')), isFalse,
+            reason: 'should return false when companion is not inherited by props being forwarded');
       });
 
       group("other cases that shouldn't be picked up as forwarded props:", () {
