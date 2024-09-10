@@ -22,8 +22,7 @@ class ForwardedProps {
     if (propsClass.name.startsWith(r'_$')) {
       // Look up the companion and use that instead, since that's what will be referenced in the forwarding config.
       // E.g., for `_$FooProps`, find `FooProps`, since consumers will be using `FooProps` when setting up prop forwarding.
-      final companion = propsClassBeingForwarded.allSupertypes
-          .map((s) => s.element)
+      final companion = propsClassBeingForwarded.thisAndAllSuperInterfaces
           .whereType<ClassElement>()
           .singleWhereOrNull((c) => c.supertype?.element == propsClass && '_\$${c.name}' == propsClass.name);
       // If we can't find the companion, return false, since it won't show up in the forwarding config.
@@ -32,12 +31,22 @@ class ForwardedProps {
     }
 
     return !forwardingConfig.mightExcludeClass(propsClass) &&
-        propsClassBeingForwarded.allSupertypes.any((s) => s.element == propsClass);
+        propsClassBeingForwarded.thisAndAllSuperInterfaces.contains(propsClass);
   }
 
   // TODO loop through props mixins and show the full list of props being forwarded for debug purposes
   @override
   String toString() => 'Props from ${propsClassBeingForwarded.name}: $forwardingConfig';
+}
+
+extension on InterfaceElement {
+  /// This interface and all its superinterfaces.
+  ///
+  /// Computed lazily, since [allSupertypes] is expensive.
+  Iterable<InterfaceElement> get thisAndAllSuperInterfaces sync* {
+    yield this;
+    yield* allSupertypes.map((s) => s.element);
+  }
 }
 
 /// Computes and returns forwarded props for a given component [usage], or `null` if the usage does not receive any
