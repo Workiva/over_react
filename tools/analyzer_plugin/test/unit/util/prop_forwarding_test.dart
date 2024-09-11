@@ -89,13 +89,13 @@ void main() {
                   .replaceAll('METHOD_NAME', methodName));
               final usage = getAllComponentUsages(result.unit).single;
 
-              final f = computeForwardedProps(usage)!;
-              expect(f.forwardingConfig, isNotNull, reason: 'forwarding config should be resolved');
-              expect(f.propsClassBeingForwarded, result.lookUpInterface('HasABCProps'));
-              expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('AProps')), isTrue);
-              expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('BProps')), isTrue);
-              expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('CProps')), isTrue);
-              expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('UnrelatedProps')), isFalse);
+              final forwardedProps = computeForwardedProps(usage)!;
+              expect(forwardedProps.forwardingConfig, isNotNull, reason: 'forwarding config should be resolved');
+              expect(forwardedProps.propsClassBeingForwarded, result.lookUpInterface('HasABCProps'));
+              expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('AProps')), isTrue);
+              expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('BProps')), isTrue);
+              expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('CProps')), isTrue);
+              expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('UnrelatedProps')), isFalse);
             });
 
             group('unless props are not from render, and gracefully handles these cases:', () {
@@ -142,13 +142,13 @@ void main() {
             ''');
             final usage = getAllComponentUsages(result.unit).single;
 
-            final f = computeForwardedProps(usage)!;
-            expect(f.forwardingConfig, isNotNull, reason: 'forwarding config should be resolved');
-            expect(f.propsClassBeingForwarded, result.lookUpInterface('HasABCProps'));
-            expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('AProps')), isFalse);
-            expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('BProps')), isFalse);
-            expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('CProps')), isTrue);
-            expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('UnrelatedProps')), isFalse);
+            final forwardedProps = computeForwardedProps(usage)!;
+            expect(forwardedProps.forwardingConfig, isNotNull, reason: 'forwarding config should be resolved');
+            expect(forwardedProps.propsClassBeingForwarded, result.lookUpInterface('HasABCProps'));
+            expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('AProps')), isFalse);
+            expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('BProps')), isFalse);
+            expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('CProps')), isTrue);
+            expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('UnrelatedProps')), isFalse);
           });
 
           test('using .allExceptForMixins', () async {
@@ -161,13 +161,13 @@ void main() {
             ''');
             final usage = getAllComponentUsages(result.unit).single;
 
-            final f = computeForwardedProps(usage)!;
-            expect(f.forwardingConfig, isNotNull, reason: 'forwarding config should be resolved');
-            expect(f.propsClassBeingForwarded, result.lookUpInterface('HasABCProps'));
-            expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('AProps')), isFalse);
-            expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('BProps')), isTrue);
-            expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('CProps')), isTrue);
-            expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('UnrelatedProps')), isFalse);
+            final forwardedProps = computeForwardedProps(usage)!;
+            expect(forwardedProps.forwardingConfig, isNotNull, reason: 'forwarding config should be resolved');
+            expect(forwardedProps.propsClassBeingForwarded, result.lookUpInterface('HasABCProps'));
+            expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('AProps')), isFalse);
+            expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('BProps')), isTrue);
+            expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('CProps')), isTrue);
+            expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('UnrelatedProps')), isFalse);
           });
         });
 
@@ -182,13 +182,13 @@ void main() {
           ''');
           final usage = getAllComponentUsages(result.unit).single;
 
-          final f = computeForwardedProps(usage)!;
-          expect(f.forwardingConfig, isNotNull, reason: 'forwarding config should be resolved');
-          expect(f.propsClassBeingForwarded, result.lookUpInterface('HasABCProps'));
-          expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('AProps')), isFalse);
-          expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('BProps')), isFalse);
-          expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('CProps')), isTrue);
-          expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('UnrelatedProps')), isFalse);
+          final forwardedProps = computeForwardedProps(usage)!;
+          expect(forwardedProps.forwardingConfig, isNotNull, reason: 'forwarding config should be resolved');
+          expect(forwardedProps.propsClassBeingForwarded, result.lookUpInterface('HasABCProps'));
+          expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('AProps')), isFalse);
+          expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('BProps')), isFalse);
+          expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('CProps')), isTrue);
+          expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('UnrelatedProps')), isFalse);
         });
 
         group('unless props are not from render, and gracefully handles these cases:', () {
@@ -234,13 +234,13 @@ void main() {
                     .replaceAll('METHOD_NAME', methodName));
                 final usage = getAllComponentUsages(result.unit).single;
 
-                final f = computeForwardedProps(usage);
-                expect(f, isNotNull);
-                expect(f!.propsClassBeingForwarded, result.lookUpInterface('HasABCProps'));
-                expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('AProps')), isFalse);
-                expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('BProps')), isFalse);
-                expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('CProps')), isTrue);
-                expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('UnrelatedProps')), isFalse);
+                final forwardedProps = computeForwardedProps(usage);
+                expect(forwardedProps, isNotNull);
+                expect(forwardedProps!.propsClassBeingForwarded, result.lookUpInterface('HasABCProps'));
+                expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('AProps')), isFalse);
+                expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('BProps')), isFalse);
+                expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('CProps')), isTrue);
+                expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('UnrelatedProps')), isFalse);
               });
 
               group('unless props are not from render, and gracefully handles these cases:', () {
@@ -291,10 +291,10 @@ void main() {
 
               final propsElement = result.lookUpInterface('AProps');
 
-              final f = computeForwardedProps(usage);
-              expect(f!.propsClassBeingForwarded, propsElement);
-              expect(f.definitelyForwardsPropsFrom(propsElement), isFalse);
-              expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('UnrelatedProps')), isFalse);
+              final forwardedProps = computeForwardedProps(usage);
+              expect(forwardedProps!.propsClassBeingForwarded, propsElement);
+              expect(forwardedProps.definitelyForwardsPropsFrom(propsElement), isFalse);
+              expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('UnrelatedProps')), isFalse);
             });
           });
         }
@@ -312,13 +312,13 @@ void main() {
             ''');
             final usage = getAllComponentUsages(result.unit).single;
 
-            final f = computeForwardedProps(usage);
-            expect(f, isNotNull);
-            expect(f!.propsClassBeingForwarded, result.lookUpInterface('HasABCProps'));
-            expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('AProps')), isFalse);
-            expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('BProps')), isFalse);
-            expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('CProps')), isTrue);
-            expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('UnrelatedProps')), isFalse);
+            final forwardedProps = computeForwardedProps(usage);
+            expect(forwardedProps, isNotNull);
+            expect(forwardedProps!.propsClassBeingForwarded, result.lookUpInterface('HasABCProps'));
+            expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('AProps')), isFalse);
+            expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('BProps')), isFalse);
+            expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('CProps')), isTrue);
+            expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('UnrelatedProps')), isFalse);
           });
 
           group('unless props are not from render, and gracefully handles these cases:', () {
@@ -366,10 +366,10 @@ void main() {
 
           final propsElement = result.lookUpInterface('AProps');
 
-          final f = computeForwardedProps(usage);
-          expect(f!.propsClassBeingForwarded, propsElement);
-          expect(f.definitelyForwardsPropsFrom(propsElement), isFalse);
-          expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('UnrelatedProps')), isFalse);
+          final forwardedProps = computeForwardedProps(usage);
+          expect(forwardedProps!.propsClassBeingForwarded, propsElement);
+          expect(forwardedProps.definitelyForwardsPropsFrom(propsElement), isFalse);
+          expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('UnrelatedProps')), isFalse);
         });
       });
 
@@ -390,13 +390,13 @@ void main() {
               ''');
               final usage = getAllComponentUsages(result.unit).single;
 
-              final f = computeForwardedProps(usage)!;
-              expect(f.forwardingConfig, isNotNull, reason: 'forwarding config should be resolved');
-              expect(f.propsClassBeingForwarded, result.lookUpInterface('HasABCProps'));
-              expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('AProps')), isFalse);
-              expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('BProps')), isFalse);
-              expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('CProps')), isTrue);
-              expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('UnrelatedProps')), isFalse);
+              final forwardedProps = computeForwardedProps(usage)!;
+              expect(forwardedProps.forwardingConfig, isNotNull, reason: 'forwarding config should be resolved');
+              expect(forwardedProps.propsClassBeingForwarded, result.lookUpInterface('HasABCProps'));
+              expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('AProps')), isFalse);
+              expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('BProps')), isFalse);
+              expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('CProps')), isTrue);
+              expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('UnrelatedProps')), isFalse);
             });
 
             test('in a set', () async {
@@ -413,13 +413,13 @@ void main() {
               ''');
               final usage = getAllComponentUsages(result.unit).single;
 
-              final f = computeForwardedProps(usage)!;
-              expect(f.forwardingConfig, isNotNull, reason: 'forwarding config should be resolved');
-              expect(f.propsClassBeingForwarded, result.lookUpInterface('HasABCProps'));
-              expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('AProps')), isFalse);
-              expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('BProps')), isFalse);
-              expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('CProps')), isTrue);
-              expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('UnrelatedProps')), isFalse);
+              final forwardedProps = computeForwardedProps(usage)!;
+              expect(forwardedProps.forwardingConfig, isNotNull, reason: 'forwarding config should be resolved');
+              expect(forwardedProps.propsClassBeingForwarded, result.lookUpInterface('HasABCProps'));
+              expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('AProps')), isFalse);
+              expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('BProps')), isFalse);
+              expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('CProps')), isTrue);
+              expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('UnrelatedProps')), isFalse);
             });
           });
 
@@ -437,13 +437,13 @@ void main() {
             ''');
             final usage = getAllComponentUsages(result.unit).single;
 
-            final f = computeForwardedProps(usage)!;
-            expect(f.forwardingConfig, isNotNull, reason: 'forwarding config should be resolved');
-            expect(f.propsClassBeingForwarded, result.lookUpInterface('HasABCProps'));
-            expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('AProps')), isFalse);
-            expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('BProps')), isFalse);
-            expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('CProps')), isTrue);
-            expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('UnrelatedProps')), isFalse);
+            final forwardedProps = computeForwardedProps(usage)!;
+            expect(forwardedProps.forwardingConfig, isNotNull, reason: 'forwarding config should be resolved');
+            expect(forwardedProps.propsClassBeingForwarded, result.lookUpInterface('HasABCProps'));
+            expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('AProps')), isFalse);
+            expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('BProps')), isFalse);
+            expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('CProps')), isTrue);
+            expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('UnrelatedProps')), isFalse);
           });
 
           test('propsMeta.allExceptForMixins', () async {
@@ -460,13 +460,13 @@ void main() {
             ''');
             final usage = getAllComponentUsages(result.unit).single;
 
-            final f = computeForwardedProps(usage)!;
-            expect(f.forwardingConfig, isNotNull, reason: 'forwarding config should be resolved');
-            expect(f.propsClassBeingForwarded, result.lookUpInterface('HasABCProps'));
-            expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('AProps')), isFalse);
-            expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('BProps')), isTrue);
-            expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('CProps')), isTrue);
-            expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('UnrelatedProps')), isFalse);
+            final forwardedProps = computeForwardedProps(usage)!;
+            expect(forwardedProps.forwardingConfig, isNotNull, reason: 'forwarding config should be resolved');
+            expect(forwardedProps.propsClassBeingForwarded, result.lookUpInterface('HasABCProps'));
+            expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('AProps')), isFalse);
+            expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('BProps')), isTrue);
+            expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('CProps')), isTrue);
+            expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('UnrelatedProps')), isFalse);
           });
 
           test('props.staticMeta.forMixins', () async {
@@ -483,13 +483,13 @@ void main() {
             ''');
             final usage = getAllComponentUsages(result.unit).single;
 
-            final f = computeForwardedProps(usage)!;
-            expect(f.forwardingConfig, isNotNull, reason: 'forwarding config should be resolved');
-            expect(f.propsClassBeingForwarded, result.lookUpInterface('HasABCProps'));
-            expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('AProps')), isFalse);
-            expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('BProps')), isFalse);
-            expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('CProps')), isTrue);
-            expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('UnrelatedProps')), isFalse);
+            final forwardedProps = computeForwardedProps(usage)!;
+            expect(forwardedProps.forwardingConfig, isNotNull, reason: 'forwarding config should be resolved');
+            expect(forwardedProps.propsClassBeingForwarded, result.lookUpInterface('HasABCProps'));
+            expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('AProps')), isFalse);
+            expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('BProps')), isFalse);
+            expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('CProps')), isTrue);
+            expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('UnrelatedProps')), isFalse);
           });
 
           test('props.staticMeta.allExceptForMixins', () async {
@@ -506,13 +506,13 @@ void main() {
             ''');
             final usage = getAllComponentUsages(result.unit).single;
 
-            final f = computeForwardedProps(usage)!;
-            expect(f.forwardingConfig, isNotNull, reason: 'forwarding config should be resolved');
-            expect(f.propsClassBeingForwarded, result.lookUpInterface('HasABCProps'));
-            expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('AProps')), isFalse);
-            expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('BProps')), isTrue);
-            expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('CProps')), isTrue);
-            expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('UnrelatedProps')), isFalse);
+            final forwardedProps = computeForwardedProps(usage)!;
+            expect(forwardedProps.forwardingConfig, isNotNull, reason: 'forwarding config should be resolved');
+            expect(forwardedProps.propsClassBeingForwarded, result.lookUpInterface('HasABCProps'));
+            expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('AProps')), isFalse);
+            expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('BProps')), isTrue);
+            expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('CProps')), isTrue);
+            expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('UnrelatedProps')), isFalse);
           });
 
           group('empty list', () {
@@ -530,13 +530,13 @@ void main() {
               ''');
               final usage = getAllComponentUsages(result.unit).single;
 
-              final f = computeForwardedProps(usage)!;
-              expect(f.forwardingConfig, isNotNull, reason: 'forwarding config should be resolved');
-              expect(f.propsClassBeingForwarded, result.lookUpInterface('HasABCProps'));
-              expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('AProps')), isTrue);
-              expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('BProps')), isTrue);
-              expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('CProps')), isTrue);
-              expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('UnrelatedProps')), isFalse);
+              final forwardedProps = computeForwardedProps(usage)!;
+              expect(forwardedProps.forwardingConfig, isNotNull, reason: 'forwarding config should be resolved');
+              expect(forwardedProps.propsClassBeingForwarded, result.lookUpInterface('HasABCProps'));
+              expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('AProps')), isTrue);
+              expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('BProps')), isTrue);
+              expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('CProps')), isTrue);
+              expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('UnrelatedProps')), isFalse);
             });
 
             test('empty list (const)', () async {
@@ -553,13 +553,13 @@ void main() {
               ''');
               final usage = getAllComponentUsages(result.unit).single;
 
-              final f = computeForwardedProps(usage)!;
-              expect(f.forwardingConfig, isNotNull, reason: 'forwarding config should be resolved');
-              expect(f.propsClassBeingForwarded, result.lookUpInterface('HasABCProps'));
-              expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('AProps')), isTrue);
-              expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('BProps')), isTrue);
-              expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('CProps')), isTrue);
-              expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('UnrelatedProps')), isFalse);
+              final forwardedProps = computeForwardedProps(usage)!;
+              expect(forwardedProps.forwardingConfig, isNotNull, reason: 'forwarding config should be resolved');
+              expect(forwardedProps.propsClassBeingForwarded, result.lookUpInterface('HasABCProps'));
+              expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('AProps')), isTrue);
+              expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('BProps')), isTrue);
+              expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('CProps')), isTrue);
+              expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('UnrelatedProps')), isFalse);
             });
           });
 
@@ -577,13 +577,13 @@ void main() {
             ''');
             final usage = getAllComponentUsages(result.unit).single;
 
-            final f = computeForwardedProps(usage)!;
-            expect(f.forwardingConfig, isNotNull, reason: 'forwarding config should be resolved');
-            expect(f.propsClassBeingForwarded, result.lookUpInterface('HasABCProps'));
-            expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('AProps')), isTrue);
-            expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('BProps')), isTrue);
-            expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('CProps')), isTrue);
-            expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('UnrelatedProps')), isFalse);
+            final forwardedProps = computeForwardedProps(usage)!;
+            expect(forwardedProps.forwardingConfig, isNotNull, reason: 'forwarding config should be resolved');
+            expect(forwardedProps.propsClassBeingForwarded, result.lookUpInterface('HasABCProps'));
+            expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('AProps')), isTrue);
+            expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('BProps')), isTrue);
+            expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('CProps')), isTrue);
+            expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('UnrelatedProps')), isFalse);
           });
         });
 
@@ -601,13 +601,13 @@ void main() {
           ''');
           final usage = getAllComponentUsages(result.unit).single;
 
-          final f = computeForwardedProps(usage)!;
-          expect(f.forwardingConfig, isNotNull, reason: 'forwarding config should be resolved');
-          expect(f.propsClassBeingForwarded, result.lookUpInterface('HasABCProps'));
-          expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('AProps')), isFalse);
-          expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('BProps')), isFalse);
-          expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('CProps')), isTrue);
-          expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('UnrelatedProps')), isFalse);
+          final forwardedProps = computeForwardedProps(usage)!;
+          expect(forwardedProps.forwardingConfig, isNotNull, reason: 'forwarding config should be resolved');
+          expect(forwardedProps.propsClassBeingForwarded, result.lookUpInterface('HasABCProps'));
+          expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('AProps')), isFalse);
+          expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('BProps')), isFalse);
+          expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('CProps')), isTrue);
+          expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('UnrelatedProps')), isFalse);
         });
 
         test('..addAll(copyUnconsumedProps())', () async {
@@ -624,13 +624,13 @@ void main() {
           ''');
           final usage = getAllComponentUsages(result.unit).single;
 
-          final f = computeForwardedProps(usage)!;
-          expect(f.forwardingConfig, isNotNull, reason: 'forwarding config should be resolved');
-          expect(f.propsClassBeingForwarded, result.lookUpInterface('HasABCProps'));
-          expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('AProps')), isFalse);
-          expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('BProps')), isFalse);
-          expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('CProps')), isTrue);
-          expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('UnrelatedProps')), isFalse);
+          final forwardedProps = computeForwardedProps(usage)!;
+          expect(forwardedProps.forwardingConfig, isNotNull, reason: 'forwarding config should be resolved');
+          expect(forwardedProps.propsClassBeingForwarded, result.lookUpInterface('HasABCProps'));
+          expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('AProps')), isFalse);
+          expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('BProps')), isFalse);
+          expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('CProps')), isTrue);
+          expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('UnrelatedProps')), isFalse);
         });
 
         test('..modifyProps(addUnconsumedProps)', () async {
@@ -647,13 +647,13 @@ void main() {
           ''');
           final usage = getAllComponentUsages(result.unit).single;
 
-          final f = computeForwardedProps(usage)!;
-          expect(f.forwardingConfig, isNotNull, reason: 'forwarding config should be resolved');
-          expect(f.propsClassBeingForwarded, result.lookUpInterface('HasABCProps'));
-          expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('AProps')), isFalse);
-          expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('BProps')), isFalse);
-          expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('CProps')), isTrue);
-          expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('UnrelatedProps')), isFalse);
+          final forwardedProps = computeForwardedProps(usage)!;
+          expect(forwardedProps.forwardingConfig, isNotNull, reason: 'forwarding config should be resolved');
+          expect(forwardedProps.propsClassBeingForwarded, result.lookUpInterface('HasABCProps'));
+          expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('AProps')), isFalse);
+          expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('BProps')), isFalse);
+          expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('CProps')), isTrue);
+          expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('UnrelatedProps')), isFalse);
         });
 
         group('when there is no consumedProps override', () {
@@ -686,16 +686,16 @@ void main() {
             ''');
             final usage = getAllComponentUsages(result.unit).single;
 
-            final f = computeForwardedProps(usage)!;
-            expect(f.forwardingConfig, isNotNull, reason: 'forwarding config should be resolved');
-            expect(f.propsClassBeingForwarded, result.lookUpInterface('LegacyHasABCProps'));
+            final forwardedProps = computeForwardedProps(usage)!;
+            expect(forwardedProps.forwardingConfig, isNotNull, reason: 'forwarding config should be resolved');
+            expect(forwardedProps.propsClassBeingForwarded, result.lookUpInterface('LegacyHasABCProps'));
             // For UiComponent, only props declared in the concrete props class are considered consumed by default;
             // props declared in other mixins are not included.
-            expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('LegacyHasABCProps')), isFalse);
-            expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('BProps')), isTrue);
-            expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('CProps')), isTrue);
-            expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('CProps')), isTrue);
-            expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('UnrelatedProps')), isFalse);
+            expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('LegacyHasABCProps')), isFalse);
+            expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('BProps')), isTrue);
+            expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('CProps')), isTrue);
+            expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('CProps')), isTrue);
+            expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('UnrelatedProps')), isFalse);
           });
 
           test('UiComponent2', () async {
@@ -711,13 +711,13 @@ void main() {
             ''');
             final usage = getAllComponentUsages(result.unit).single;
 
-            final f = computeForwardedProps(usage)!;
-            expect(f.forwardingConfig, isNotNull, reason: 'forwarding config should be resolved');
-            expect(f.propsClassBeingForwarded, result.lookUpInterface('HasABCProps'));
-            expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('AProps')), isFalse);
-            expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('BProps')), isFalse);
-            expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('CProps')), isFalse);
-            expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('UnrelatedProps')), isFalse);
+            final forwardedProps = computeForwardedProps(usage)!;
+            expect(forwardedProps.forwardingConfig, isNotNull, reason: 'forwarding config should be resolved');
+            expect(forwardedProps.propsClassBeingForwarded, result.lookUpInterface('HasABCProps'));
+            expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('AProps')), isFalse);
+            expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('BProps')), isFalse);
+            expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('CProps')), isFalse);
+            expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('UnrelatedProps')), isFalse);
           });
         });
       });
@@ -737,10 +737,10 @@ void main() {
         final usage = getAllComponentUsages(result.unit).single;
 
         final propsElement = result.lookUpInterface('AProps');
-        final f = computeForwardedProps(usage);
-        expect(f!.propsClassBeingForwarded, propsElement);
-        expect(f.definitelyForwardsPropsFrom(propsElement), isTrue);
-        expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('UnrelatedProps')), isFalse);
+        final forwardedProps = computeForwardedProps(usage);
+        expect(forwardedProps!.propsClassBeingForwarded, propsElement);
+        expect(forwardedProps.definitelyForwardsPropsFrom(propsElement), isTrue);
+        expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('UnrelatedProps')), isFalse);
       });
 
       test('normalizes legacy boilerplate to their companion classes', () async {
@@ -772,14 +772,14 @@ void main() {
         ''');
         final usage = getAllComponentUsages(result.unit).single;
 
-        final f = computeForwardedProps(usage)!;
-        expect(f.forwardingConfig, isNotNull, reason: 'forwarding config should be resolved');
-        expect(f.propsClassBeingForwarded, result.lookUpInterface('LegacyProps'));
-        expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('LegacyProps')), isTrue);
-        expect(f.definitelyForwardsPropsFrom(result.lookUpInterface(r'_$LegacyProps')), isTrue,
+        final forwardedProps = computeForwardedProps(usage)!;
+        expect(forwardedProps.forwardingConfig, isNotNull, reason: 'forwarding config should be resolved');
+        expect(forwardedProps.propsClassBeingForwarded, result.lookUpInterface('LegacyProps'));
+        expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('LegacyProps')), isTrue);
+        expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface(r'_$LegacyProps')), isTrue,
             reason: 'should normalize to companion');
-        expect(f.definitelyForwardsPropsFrom(result.lookUpInterface('LegacyUnrelatedProps')), isFalse);
-        expect(f.definitelyForwardsPropsFrom(result.lookUpInterface(r'_$LegacyUnrelatedProps')), isFalse,
+        expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('LegacyUnrelatedProps')), isFalse);
+        expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface(r'_$LegacyUnrelatedProps')), isFalse,
             reason: 'should return false when companion is not inherited by props being forwarded');
       });
 
