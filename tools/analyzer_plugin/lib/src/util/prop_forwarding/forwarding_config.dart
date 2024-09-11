@@ -1,5 +1,7 @@
 import 'package:analyzer/dart/element/element.dart';
 
+/// A representation of an over_react consumer's configuration of which props classes to
+/// include or exclude when forwarding props.
 abstract class PropForwardingConfig {
   const PropForwardingConfig();
 
@@ -9,7 +11,8 @@ abstract class PropForwardingConfig {
 
   const factory PropForwardingConfig.only(Set<InterfaceElement> excludedProps) = _PropForwardingConfig$Only;
 
-  bool mightExcludeClass(InterfaceElement e);
+  /// Whether this configuration might exclude props declared in the props class [e] when forwarding.
+  bool excludesProps(InterfaceElement e);
 
   String get debugDescription;
 
@@ -21,7 +24,7 @@ class _PropForwardingConfig$All extends PropForwardingConfig {
   const _PropForwardingConfig$All();
 
   @override
-  bool mightExcludeClass(InterfaceElement e) => false;
+  bool excludesProps(InterfaceElement e) => false;
 
   @override
   String get debugDescription => 'all';
@@ -33,7 +36,7 @@ class _PropForwardingConfig$Only extends PropForwardingConfig {
   const _PropForwardingConfig$Only(this._onlyProps);
 
   @override
-  bool mightExcludeClass(InterfaceElement e) => !_onlyProps.contains(e);
+  bool excludesProps(InterfaceElement e) => !_onlyProps.contains(e);
 
   @override
   String get debugDescription => 'only ${_onlyProps.map((e) => e.name).toSet()}';
@@ -45,7 +48,7 @@ class _PropForwardingConfig$AllExceptFor extends PropForwardingConfig {
   const _PropForwardingConfig$AllExceptFor(this._excludedProps);
 
   @override
-  bool mightExcludeClass(InterfaceElement e) => _excludedProps.contains(e);
+  bool excludesProps(InterfaceElement e) => _excludedProps.contains(e);
 
   @override
   String get debugDescription => 'all except ${_excludedProps.map((e) => e.name).toSet()}';

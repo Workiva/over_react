@@ -10,11 +10,14 @@ import 'package:over_react_analyzer_plugin/src/util/util.dart';
 import 'forwarding_config.dart';
 import 'util.dart';
 
+/// A representation of props forwarded to a component usage.
 class ForwardedProps {
   /// The props class that props are being forwarded from.
+  ///
+  /// For example, the type of `props` in `..addUnconsumedProps(props, ...)`.
   final InterfaceElement propsClassBeingForwarded;
 
-  /// The forwarding config, or null if it could not be resolved.
+  /// The configuration of which props to forward, or null if it could not be resolved.
   final PropForwardingConfig? forwardingConfig;
 
   /// A node that represents the addition of forwarded props, for use in debug infos only.
@@ -22,6 +25,12 @@ class ForwardedProps {
 
   ForwardedProps(this.propsClassBeingForwarded, this.forwardingConfig, this.debugSourceNode);
 
+  /// Returns whether these forwarded props definitely include props from [propsClass], or false
+  /// if forwarded props could not be resolved.
+  ///
+  /// This is true only when all of the following conditions are met:
+  /// - [propsClassBeingForwarded] inherits from [propsClass] (i.e., is or mixes in those props)
+  /// - [propsClass] is not excluded by [forwardingConfig]
   bool definitelyForwardsPropsFrom(InterfaceElement propsClass) {
     final forwardingConfig = this.forwardingConfig;
     if (forwardingConfig == null) return false;
@@ -38,7 +47,7 @@ class ForwardedProps {
       propsClass = companion;
     }
 
-    return !forwardingConfig.mightExcludeClass(propsClass) &&
+    return !forwardingConfig.excludesProps(propsClass) &&
         propsClassBeingForwarded.thisAndAllSuperInterfaces.contains(propsClass);
   }
 
