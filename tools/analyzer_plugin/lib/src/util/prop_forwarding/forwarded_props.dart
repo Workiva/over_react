@@ -71,7 +71,6 @@ ForwardedProps? computeForwardedProps(FluentComponentUsage usage) {
   // Lazy variables for potentially expensive values that may get used in multiple loop iterations.
   late final enclosingComponentPropsClass =
       getTypeOfPropsInEnclosingInterface(usage.node)?.typeOrBound.element.tryCast<InterfaceElement>();
-  late final enclosingComponentForwardedProps = parseEnclosingClassComponentConsumedProps(usage.node);
 
   for (final invocation in usage.cascadedMethodInvocations) {
     final methodName = invocation.methodName.name;
@@ -103,8 +102,9 @@ ForwardedProps? computeForwardedProps(FluentComponentUsage usage) {
         (isAddAllOrAddProps && arg is MethodInvocation && arg.methodName.name == 'copyUnconsumedProps') ||
             // ..modifyProps(addUnconsumedProps)
             (methodName == 'modifyProps' && arg is Identifier && arg.name == 'addUnconsumedProps')) {
-      if (enclosingComponentPropsClass != null && enclosingComponentForwardedProps != null) {
-        return ForwardedProps(enclosingComponentPropsClass, enclosingComponentForwardedProps, invocation.node);
+      if (enclosingComponentPropsClass != null) {
+        return ForwardedProps(
+            enclosingComponentPropsClass, parseEnclosingClassComponentConsumedProps(usage.node), invocation.node);
       }
     } else if (
         // ..addUnconsumedProps(props, consumedProps)
