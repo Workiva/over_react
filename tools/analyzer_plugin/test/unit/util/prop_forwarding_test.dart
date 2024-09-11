@@ -41,13 +41,19 @@ void main() {
           //     since these tests generate code first before analyzing.
           
           mixin AProps on UiProps {
-            static var meta = $AProps.meta; // [1]
+            static const meta = $AProps.meta; // [1]
+                        
+            String? a;
           }
           mixin BProps on UiProps {
-            static var meta = $BProps.meta; // [1]
+            static const meta = $BProps.meta; // [1]
+            
+            String? b;
           }
           mixin CProps on UiProps {
-            static var meta = $CProps.meta; // [1]
+            static const meta = $CProps.meta; // [1]
+            
+            String? c;
           }
           
           class HasABCProps = UiProps with AProps, BProps, CProps;
@@ -62,6 +68,8 @@ void main() {
           abstract class LegacyUnrelatedProps extends _$LegacyUnrelatedProps with _$LegacyUnrelatedPropsAccessorsMixin {
             static const PropsMeta meta = _$metaForLegacyUnrelatedProps;
           }
+          
+          late bool condition;
       ''';
 
       Future<ResolvedUnitResult> sharedResolveSource(String source) =>
@@ -809,6 +817,132 @@ void main() {
           ''');
           final usage = getAllComponentUsages(result.unit).single;
           expect(computeForwardedProps(usage), isNull);
+        });
+      });
+
+      group('returns a PropsToForward with a null forwarding config when forwarded props could not be resolved:', () {
+        Future<void> sharedTest(String usageCascadeSource, {String otherSource = ''}) async {
+          final result = await sharedResolveSource('''
+            UiFactory<HasABCProps> HasABC = uiFunction((props) {
+              $otherSource
+              return (NotCare()
+                $usageCascadeSource
+              )();
+            }, _\$HasABCConfig);
+          ''');
+          final usage = getAllComponentUsages(result.unit).single;
+          final forwardedProps = computeForwardedProps(usage);
+          expect(forwardedProps, isNotNull);
+          expect(forwardedProps!.forwardingConfig, isNull, reason: 'should be unresolved');
+          expect(forwardedProps.propsClassBeingForwarded, result.lookUpInterface('HasABCProps'));
+          expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('AProps')), isFalse);
+          expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('BProps')), isFalse);
+          expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('CProps')), isFalse);
+          expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('UnrelatedProps')), isFalse);
+        }
+
+        Future<void> sharedClassConsumedPropsTest(String consumedPropsBodySource) async {
+          final result = await sharedResolveSource('''
+            UiFactory<HasABCProps> HasABC = castUiFactory(_\$HasABC);
+            class HasABCComponent extends UiComponent2<HasABCProps> {
+              @override get consumedProps $consumedPropsBodySource
+              @override render() {
+                return (NotCare()..modifyProps(addUnconsumedProps))();
+              }
+            }
+          ''');
+          final usage = getAllComponentUsages(result.unit).single;
+          final forwardedProps = computeForwardedProps(usage);
+          expect(forwardedProps, isNotNull);
+          expect(forwardedProps!.forwardingConfig, isNull, reason: 'should be unresolved');
+          expect(forwardedProps.propsClassBeingForwarded, result.lookUpInterface('HasABCProps'));
+          expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('AProps')), isFalse);
+          expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('BProps')), isFalse);
+          expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('CProps')), isFalse);
+          expect(forwardedProps.definitelyForwardsPropsFrom(result.lookUpInterface('UnrelatedProps')), isFalse);
+        }
+
+        group('unresolved props mixin references in ', () {
+          const unresolvablePropsMixinsSet = '''{
+            NotARealPropsMixin, // ignore: undefined_identifier
+          }''';
+
+          test('getPropsToForward', () => sharedTest('''
+            ..addProps(props.getPropsToForward(exclude: $unresolvablePropsMixinsSet))
+          '''));
+
+          test('addPropsToForward', () => sharedTest('''
+            ..modifyProps(props.addPropsToForward(exclude: $unresolvablePropsMixinsSet))
+          '''));
+
+          test('addUnconsumedProps', () => sharedTest('''
+            ..addUnconsumedProps(props, props.staticMeta.forMixins($unresolvablePropsMixinsSet))
+          '''));
+
+          test('a consumedProps variable', () => sharedTest('''
+            ..addUnconsumedProps(props, consumedProps)
+          ''', otherSource: 'final consumedProps = props.staticMeta.forMixins($unresolvablePropsMixinsSet);'));
+        });
+
+        group('conditional props mixin references in ', () {
+          const conditionalPropsMixinsSet = '''{
+            AProps,
+            if (condition) BProps,
+          }''';
+
+          test('getPropsToForward', () => sharedTest('''
+            ..addProps(props.getPropsToForward(exclude: $conditionalPropsMixinsSet))
+          '''));
+
+          test('addPropsToForward', () => sharedTest('''
+            ..modifyProps(props.addPropsToForward(exclude: $conditionalPropsMixinsSet))
+          '''));
+
+          test('addUnconsumedProps', () => sharedTest('''
+            ..addUnconsumedProps(props, props.staticMeta.forMixins($conditionalPropsMixinsSet))
+          '''));
+
+          test('a consumedProps variable', () => sharedTest('''
+            ..addUnconsumedProps(props, consumedProps)
+          ''', otherSource: 'final consumedProps = props.staticMeta.forMixins($conditionalPropsMixinsSet);'));
+        });
+
+        group('consumedProps variable that', () {
+          test('is unresolvable', () => sharedTest('''
+            ..addUnconsumedProps(
+              props,
+              unresolvedConsumedPropsVariable, // ignore: undefined_identifier
+            )
+          '''));
+
+          test('is not initialized in its declaration', () => sharedTest('''
+            ..addUnconsumedProps(props, consumedProps)
+          ''', otherSource: '''
+            Iterable<PropsMeta> consumedProps; 
+            consumedProps = props.staticMeta.forMixins({AProps, BProps});
+          '''));
+        });
+
+        group('consumedProps getter that ', () {
+          test('references props meta that cannot be resolved', () => sharedClassConsumedPropsTest('''
+            => [
+              NotARealPropsMixin.meta, // ignore: undefined_identifier
+            ];
+          '''));
+
+          test('has more than one return statements', () => sharedClassConsumedPropsTest('''
+            {
+              if (condition) return {};
+              return {AProps.meta};
+            }
+          '''));
+
+          test('references something other than `PropsClass.meta`', () => sharedClassConsumedPropsTest('''
+            {
+              const meta = AProps.meta;
+              return [meta];
+            }
+          '''));
         });
       });
     });
