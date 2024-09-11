@@ -68,6 +68,7 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
     "Missing required late prop {0}.",
     AnalysisErrorSeverity.WARNING,
     AnalysisErrorType.STATIC_WARNING,
+    correction: _correctionMessage,
   );
 
   // Note: this code is disabled by default in getDiagnosticContributors
@@ -77,7 +78,11 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
     "Missing @requiredProp {0}.",
     AnalysisErrorSeverity.INFO,
     AnalysisErrorType.STATIC_WARNING,
+    correction: _correctionMessage,
   );
+
+  static const _correctionMessage =
+      "Either set this prop, or mix it into the enclosing component's props and forward it.";
 
   static DiagnosticCode _codeForRequiredness(PropRequiredness requiredness) {
     switch (requiredness) {
