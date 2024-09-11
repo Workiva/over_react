@@ -11,13 +11,21 @@ import 'forwarding_config.dart';
 import 'util.dart';
 
 class ForwardedProps {
+  /// The props class that props are being forwarded from.
   final InterfaceElement propsClassBeingForwarded;
-  final PropForwardingConfig forwardingConfig;
+
+  /// The forwarding config, or null if it could not be resolved.
+  final PropForwardingConfig? forwardingConfig;
+
+  /// A node that represents the addition of forwarded props, for use in debug infos only.
   final AstNode debugSourceNode;
 
   ForwardedProps(this.propsClassBeingForwarded, this.forwardingConfig, this.debugSourceNode);
 
   bool definitelyForwardsPropsFrom(InterfaceElement propsClass) {
+    final forwardingConfig = this.forwardingConfig;
+    if (forwardingConfig == null) return false;
+
     // Handle legacy classes being passed in.
     if (propsClass.name.startsWith(r'_$')) {
       // Look up the companion and use that instead, since that's what will be referenced in the forwarding config.
@@ -34,9 +42,8 @@ class ForwardedProps {
         propsClassBeingForwarded.thisAndAllSuperInterfaces.contains(propsClass);
   }
 
-  // TODO loop through props mixins and show the full list of props being forwarded for debug purposes
   @override
-  String toString() => 'Props from ${propsClassBeingForwarded.name}: $forwardingConfig';
+  String toString() => 'Props from ${propsClassBeingForwarded.name}: ${forwardingConfig ?? '(unresolved)'}';
 }
 
 extension on InterfaceElement {

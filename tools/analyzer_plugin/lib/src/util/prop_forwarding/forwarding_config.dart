@@ -9,8 +9,6 @@ abstract class PropForwardingConfig {
 
   const factory PropForwardingConfig.only(Set<InterfaceElement> excludedProps) = _PropForwardingConfig$Only;
 
-  const factory PropForwardingConfig.unresolved() = _PropForwardingConfig$Unresolved;
-
   bool mightExcludeClass(InterfaceElement e);
 
   String get debugDescription;
@@ -51,14 +49,4 @@ class _PropForwardingConfig$AllExceptFor extends PropForwardingConfig {
 
   @override
   String get debugDescription => 'all except ${_excludedProps.map((e) => e.name).toSet()}';
-}
-
-class _PropForwardingConfig$Unresolved extends PropForwardingConfig {
-  const _PropForwardingConfig$Unresolved();
-
-  @override
-  bool mightExcludeClass(InterfaceElement e) => false;
-
-  @override
-  String get debugDescription => 'unresolved';
 }

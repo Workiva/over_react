@@ -9,12 +9,14 @@ import 'util.dart';
 
 /// Returns a forwarding config parsed/resolved from arguments to `.getPropsToForward` or `addPropsToForward`.
 ///
+/// Returns null if the forwarded props could not be resolved.
+///
 /// Parses:
 ///
 ///     ..addProps(props.getPropsToForward())
 ///     ..addProps(props.getPropsToForward(exclude: {...}))
 ///     ..modifyProps(props.addPropsToForward(exclude: {...}))
-PropForwardingConfig parsePropsToForwardMethodArgs(ArgumentList argumentList, InterfaceElement propsType) {
+PropForwardingConfig? parsePropsToForwardMethodArgs(ArgumentList argumentList, InterfaceElement propsType) {
   final excludeArg = argumentList.arguments
       .whereType<NamedExpression>()
       .firstWhereOrNull((a) => a.name.label.name == 'exclude')
@@ -27,11 +29,11 @@ PropForwardingConfig parsePropsToForwardMethodArgs(ArgumentList argumentList, In
 
   // Not a literal we can statically analyze
   if (excludeArg is! SetOrMapLiteral || !excludeArg.isSet) {
-    return const PropForwardingConfig.unresolved();
+    return null;
   }
 
   final excluded = _resolveInterfaceReferences(excludeArg.elements)?.toSet();
-  if (excluded == null) return const PropForwardingConfig.unresolved();
+  if (excluded == null) return null;
   return PropForwardingConfig.allExceptFor(excluded);
 }
 
@@ -39,14 +41,16 @@ PropForwardingConfig parsePropsToForwardMethodArgs(ArgumentList argumentList, In
 /// props mixins to exclude when forwarding, which is used by `UiProps.addUnconsumedProps` and also UiComponent's
 /// `consumedProps` getter.
 ///
+/// Returns null if the forwarded props could not be resolved.
+///
 /// Handles various different syntaxes (see comments in this method for examples).
-PropForwardingConfig parseConsumedProps(Expression consumedProps) {
+PropForwardingConfig? parseConsumedProps(Expression consumedProps) {
   // Look up value of consumedProps stored into variables, which is very common in usage:
   //
   //    final consumedProps = props.staticMeta.forMixins({...});
   if (consumedProps is Identifier) {
     final staticElement = consumedProps.staticElement;
-    if (staticElement == null) return PropForwardingConfig.unresolved();
+    if (staticElement == null) return null;
 
     final variableValue = lookUpVariable(staticElement, consumedProps.root)?.initializer;
     // Don't recurse for Identifiers, to prevent potential infinite loops;
@@ -55,7 +59,7 @@ PropForwardingConfig parseConsumedProps(Expression consumedProps) {
       return parseConsumedProps(variableValue);
     }
 
-    return PropForwardingConfig.unresolved();
+    return null;
   }
 
   // We could validate the target of this call, but these methods are specifically-named enough that false positives
@@ -73,17 +77,16 @@ PropForwardingConfig parseConsumedProps(Expression consumedProps) {
           return PropForwardingConfig.allExceptFor(mixins);
         }
       }
-      return PropForwardingConfig.unresolved();
+      return null;
     } else if (consumedProps.methodName.name == 'allExceptForMixins') {
       final arg = consumedProps.argumentList.arguments.whereType<Expression>().firstOrNull;
       if (arg is SetOrMapLiteral) {
         final mixins = _resolveInterfaceReferences(arg.elements)?.toSet();
         if (mixins != null) {
-          // FIXME this also includes props not in this props class; how to represent that clearnly
           return PropForwardingConfig.only(mixins);
         }
       }
-      return PropForwardingConfig.unresolved();
+      return null;
     }
   }
 
@@ -104,16 +107,18 @@ PropForwardingConfig parseConsumedProps(Expression consumedProps) {
         }
       }
       // Short-circuit if we encounter any other cases.
-      return const PropForwardingConfig.unresolved();
+      return null;
     }
     return PropForwardingConfig.allExceptFor(excluded);
   }
 
-  return PropForwardingConfig.unresolved();
+  return null;
 }
 
 /// Returns a forwarding config parsed/resolved from the `UiComponent.consumedProps` override in the component class
 /// that encloses [node].
+///
+/// Returns null if the forwarded props could not be resolved.
 PropForwardingConfig? parseEnclosingClassComponentConsumedProps(AstNode node) {
   final enclosingComponentPropsClass =
       getTypeOfPropsInEnclosingInterface(node)?.typeOrBound.element.tryCast<InterfaceElement>();
@@ -130,9 +135,7 @@ PropForwardingConfig? parseEnclosingClassComponentConsumedProps(AstNode node) {
   }
 
   final consumedProps = consumedPropsGetter.body.returnExpressions.singleOrNull;
-  if (consumedProps == null) {
-    return PropForwardingConfig.unresolved();
-  }
+  if (consumedProps == null) return null;
 
   return parseConsumedProps(consumedProps);
 }
