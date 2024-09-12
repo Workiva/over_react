@@ -5,7 +5,7 @@ import 'package:analyzer/dart/element/element.dart';
 abstract class PropForwardingConfig {
   const PropForwardingConfig();
 
-  const factory PropForwardingConfig.all() = _PropForwardingConfig$All;
+  const factory PropForwardingConfig.all() = _PropForwardingConfig$AllExceptFor;
 
   const factory PropForwardingConfig.allExceptFor(Set<InterfaceElement> onlyProps) = _PropForwardingConfig$AllExceptFor;
 
@@ -18,16 +18,6 @@ abstract class PropForwardingConfig {
 
   @override
   toString() => '$debugDescription';
-}
-
-class _PropForwardingConfig$All extends PropForwardingConfig {
-  const _PropForwardingConfig$All();
-
-  @override
-  bool excludesProps(InterfaceElement e) => false;
-
-  @override
-  String get debugDescription => 'all';
 }
 
 class _PropForwardingConfig$Only extends PropForwardingConfig {
@@ -45,7 +35,7 @@ class _PropForwardingConfig$Only extends PropForwardingConfig {
 class _PropForwardingConfig$AllExceptFor extends PropForwardingConfig {
   final Set<InterfaceElement> _excludedProps;
 
-  const _PropForwardingConfig$AllExceptFor(this._excludedProps);
+  const _PropForwardingConfig$AllExceptFor([this._excludedProps = const {}]);
 
   @override
   bool excludesProps(InterfaceElement e) => _excludedProps.contains(e);
