@@ -76,7 +76,12 @@ ForwardedProps? computeForwardedProps(FluentComponentUsage usage) {
     final methodName = invocation.methodName.name;
     final arg = invocation.node.argumentList.arguments.firstOrNull;
 
-    // FIXME what should we do about the second condition arg for addProps?
+    if (methodName == 'addProps' || methodName == 'modifyProps') {
+      // If props are conditionally forwarded, don't count them.
+      final hasConditionArg = invocation.node.argumentList.arguments.length > 1;
+      if (hasConditionArg) continue;
+    }
+
     final isAddAllOrAddProps = methodName == 'addProps' || methodName == 'addAll';
 
     // ..addProps(props)
