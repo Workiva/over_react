@@ -106,3 +106,20 @@ main() {
   // Make sure prefixed props aren't mistaken for the missing required prop.
   (RequiredWithSameNameAsPrefixed()..dom.hidden = true)();
 }
+
+class WrapsInheritsLateRequiredProps = UiProps with WithLateRequiredProps, InheritsLateRequiredPropsMixin;
+
+UiFactory<WrapsInheritsLateRequiredProps> WrapsInheritsLateRequired = uiFunction(
+  (props) {
+    // Forwarding required props mixed into `props` counts as setting them,
+    // and this should not lint.
+    return (InheritsLateRequired()
+      ..addProps(props.getPropsToForward(exclude: {
+        // Try uncommenting these to see lints for props that don't get forwarded.
+        // WithLateRequiredProps,
+        // InheritsLateRequiredPropsMixin,
+      }))
+    )();
+  },
+  _$WrapsInheritsLateRequiredConfig, // ignore: undefined_identifier
+);
