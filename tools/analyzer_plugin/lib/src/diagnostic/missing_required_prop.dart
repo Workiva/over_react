@@ -174,7 +174,7 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
     final debugHelper = AnalyzerDebugHelper(result, collector, enabled: _cachedIsDebugHelperEnabled(result));
     // A flag to help verify during debugging/testing whether propsSetByFactory was computed.
     var hasPropsSetByFactoryBeenComputed = false;
-    final debugInfoByForwardedRequiredProp = <FieldElement, _ForwardedRequiredPropDebugInfo>{};
+    final debugSuppressedRequiredPropsDueToForwarding = <FieldElement>{};
 
     // Use late variables to compute these only when we need to.
     late final propsSetByFactory = () {
@@ -209,7 +209,7 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
       if (sourcePropsClass is InterfaceElement) {
         if (forwardedProps != null && forwardedProps.definitelyForwardsPropsFrom(sourcePropsClass)) {
           if (debugHelper.enabled) {
-            debugInfoByForwardedRequiredProp[field] = _ForwardedRequiredPropDebugInfo(forwardedProps.debugSourceNode);
+            debugSuppressedRequiredPropsDueToForwarding.add(field);
           }
           continue;
         }
@@ -236,18 +236,19 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
       }
     }
 
-    if (debugHelper.enabled) {
-      final fieldsByReasonNode =
-          debugInfoByForwardedRequiredProp.keys.groupListsBy((field) => debugInfoByForwardedRequiredProp[field]!.node);
-      fieldsByReasonNode.forEach((reasonNode, fields) {
-        debugHelper.log(() {
-          return 'Suppressing missing required props warnings due to forwarding here, for the following props:'
-              ' ${fields.map((f) => '${f.enclosingElement.name}.${f.name}').join(', ')}';
-        }, () => result.locationFor(reasonNode));
-      });
+    if (forwardedProps != null) {
+      debugHelper.log(() {
+        var message = StringBuffer()..writeln(forwardedProps);
+        if (debugSuppressedRequiredPropsDueToForwarding.isNotEmpty) {
+          final propsNamesByClassName = <String?, Set<String>>{};
+          for (final field in debugSuppressedRequiredPropsDueToForwarding) {
+            propsNamesByClassName.putIfAbsent(field.enclosingElement.name, () => {}).add(field.name);
+          }
+          message.write('Required props set only via forwarding: ${prettyPrint(propsNamesByClassName)}');
+        } else {}
+        return message.toString();
+      }, () => result.locationFor(forwardedProps.debugSourceNode));
     }
-
-    debugHelper.log(() => 'Forwarded props: $forwardedProps', () => result.locationFor(usage.builder));
 
     // Include debug info for each invocation ahout all the props and their requirednesses.
     debugHelper.log(() {
@@ -271,10 +272,4 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
           '\npropsSetByFactory needed to be computed: $_hasPropsSetByFactoryBeenComputed';
     }, () => result.locationFor(usage.builder));
   }
-}
-
-class _ForwardedRequiredPropDebugInfo {
-  final AstNode node;
-
-  _ForwardedRequiredPropDebugInfo(this.node);
 }

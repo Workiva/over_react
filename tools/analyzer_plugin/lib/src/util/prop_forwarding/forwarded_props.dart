@@ -52,7 +52,7 @@ class ForwardedProps {
   }
 
   @override
-  String toString() => 'Props from ${propsClassBeingForwarded.name}: ${forwardingConfig ?? '(unresolved)'}';
+  String toString() => 'Forwards props from ${propsClassBeingForwarded.name}: ${forwardingConfig ?? '(unresolved)'}';
 }
 
 extension on InterfaceElement {

@@ -29,7 +29,7 @@ class _PropForwardingConfig$Only extends PropForwardingConfig {
   bool excludesProps(InterfaceElement e) => !_onlyProps.contains(e);
 
   @override
-  String get debugDescription => 'only ${_onlyProps.map((e) => e.name).toSet()}';
+  String get debugDescription => 'only props from ${_onlyProps.map((e) => e.name).toSet()}';
 }
 
 class _PropForwardingConfig$AllExceptFor extends PropForwardingConfig {
@@ -41,5 +41,6 @@ class _PropForwardingConfig$AllExceptFor extends PropForwardingConfig {
   bool excludesProps(InterfaceElement e) => _excludedProps.contains(e);
 
   @override
-  String get debugDescription => 'all except ${_excludedProps.map((e) => e.name).toSet()}';
+  String get debugDescription =>
+      _excludedProps.isEmpty ? 'all props' : 'all except props from ${_excludedProps.map((e) => e.name).toSet()}';
 }

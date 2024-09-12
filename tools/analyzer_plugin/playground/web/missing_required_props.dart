@@ -120,6 +120,8 @@ UiFactory<WrapsInheritsLateRequiredProps> WrapsInheritsLateRequired = uiFunction
         // InheritsLateRequiredPropsMixin,
       }))
     )();
+    // de bug:over_react_required_props
+    //   ^ Also, try deleting this space to enable prop forwarding debug infos on lines where props are forwarded
   },
   _$WrapsInheritsLateRequiredConfig, // ignore: undefined_identifier
 );
