@@ -1,5 +1,8 @@
 # OverReact Changelog
 
+## 5.3.1
+- [#944] Analyzer plugin: Don't lint for required props that are specified due to prop forwarding
+
 ## 5.3.0
 - [#937] Use and export a new, [more expressive typedef for `Object?` called `ReactNode`](https://github.com/Workiva/react-dart/pull/384)
 
