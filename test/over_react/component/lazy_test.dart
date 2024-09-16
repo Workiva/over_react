@@ -3,7 +3,6 @@
 library rmui.test.unit.component.lazy_test;
 
 import 'dart:convert';
-import 'dart:developer';
 import 'dart:html';
 import 'dart:js_util';
 
@@ -348,14 +347,6 @@ UiFactory<TestJsProps> LazyTestDart = lazy(
 //
 
 Matcher sameOrSameAllowInterop(Function f) => anyOf(same(allowInterop(f)), same(f));
-
-extension on TypeMatcher<Ref> {
-  Matcher havingJsRef(dynamic matcher) => having((ref) => ref.jsRef, 'jsRef', matcher);
-}
-
-extension on TypeMatcher<Context> {
-  Matcher havingJsThis(dynamic matcher) => having((ref) => ref.jsThis, 'jsThis', matcher);
-}
 
 extension on TypeMatcher<Object> {
   Matcher havingToStringValue(dynamic matcher) => having((o) => o.toString(), 'toString() value', matcher);
