@@ -19,8 +19,6 @@ import 'package:react/react_dom.dart' as react_dom;
 import 'counter_component.dart' deferred as lazy_component;
 import 'third_party_file.dart';
 
-part 'main.over_react.g.dart';
-
 UiFactory<CounterPropsMixin> LazyCounter = lazy(() async {
   await Future.delayed(Duration(seconds: 5));
   await lazy_component.loadLibrary();
