@@ -13,6 +13,7 @@ void main() {
     defineReflectiveTests(MissingRequiredPropTest_NoErrors);
     defineReflectiveTests(MissingRequiredPropTest_MissingLateRequired);
     defineReflectiveTests(MissingRequiredPropTest_MissingAnnotationRequired);
+    defineReflectiveTests(MissingRequiredPropTest_Forwarding);
   });
 }
 
@@ -358,5 +359,134 @@ over_react:
           ..required2 = ''
         )();
     '''));
+  }
+}
+
+@reflectiveTest
+class MissingRequiredPropTest_Forwarding extends MissingRequiredPropTest {
+  @override
+  get errorUnderTest => MissingRequiredPropDiagnostic.lateRequiredCode;
+
+  @override
+  get fixKindUnderTest => MissingRequiredPropDiagnostic.fixKind;
+
+  // More variations on prop forwarding are covered in prop_forwarding_test.dart;
+  // these tests mainly verify the logic in the diagnostic and the end-to-end behavior
+
+  Future<void> test_noErrorsWhenForwarded() async {
+    await expectNoErrors(newSourceWithPrefix(/*language=dart*/ r'''
+      class MultipleRequiredMixinsProps = UiProps with WithLateRequiredProps, InheritsLateRequiredPropsMixin; 
+      UiFactory<MultipleRequiredMixinsProps> MultipleRequiredMixins = uiFunction((props) {
+        return (InheritsLateRequired()
+          ..modifyProps(props.addPropsToForward(exclude: {}))
+        )();
+      }, _$MultipleRequiredMixinsConfig);
+    '''));
+  }
+
+  Future<void> test_errorsWhenNotForwarded() async {
+    final source = newSourceWithPrefix(/*language=dart*/ r'''
+      class MultipleRequiredMixinsProps = UiProps with WithLateRequiredProps, InheritsLateRequiredPropsMixin;
+      UiFactory<MultipleRequiredMixinsProps> MultipleRequiredMixins = uiFunction((props) {
+        return (InheritsLateRequired()
+          ..modifyProps(props.addPropsToForward(exclude: {WithLateRequiredProps, InheritsLateRequiredPropsMixin}))
+        )();
+      }, _$MultipleRequiredMixinsConfig);
+    ''');
+    final selection = createSelection(source, '#InheritsLateRequired()#');
+    final allErrors = await getAllErrors(source);
+    expect(
+        allErrors,
+        unorderedEquals(<dynamic>[
+          isAnErrorUnderTest(locatedAt: selection).havingMessage(contains("'required1' from 'WithLateRequiredProps'")),
+          isAnErrorUnderTest(locatedAt: selection).havingMessage(contains("'required2' from 'WithLateRequiredProps'")),
+          isAnErrorUnderTest(locatedAt: selection)
+              .havingMessage(contains("'requiredInSubclass' from 'InheritsLateRequiredPropsMixin'")),
+        ]));
+  }
+
+  Future<void> test_errorsWhenOnlySomeForwarded() async {
+    final source = newSourceWithPrefix(/*language=dart*/ r'''
+      class MultipleRequiredMixinsProps = UiProps with WithLateRequiredProps, InheritsLateRequiredPropsMixin;
+      UiFactory<MultipleRequiredMixinsProps> MultipleRequiredMixins = uiFunction((props) {
+        return (InheritsLateRequired()
+          ..modifyProps(props.addPropsToForward(exclude: {InheritsLateRequiredPropsMixin}))
+        )();
+      }, _$MultipleRequiredMixinsConfig);
+    ''');
+    final selection = createSelection(source, '#InheritsLateRequired()#');
+    final allErrors = await getAllErrors(source);
+    expect(
+        allErrors,
+        unorderedEquals(<dynamic>[
+          isAnErrorUnderTest(locatedAt: selection)
+              .havingMessage(contains("'requiredInSubclass' from 'InheritsLateRequiredPropsMixin'")),
+        ]));
+  }
+
+  static const legacyPrefix = /*language=dart*/ r'''
+      @Factory()
+      UiFactory<LegacyBaseProps> LegacyBase = castUiFactory(_$LegacyBase);
+      @Props()
+      class _$LegacyBaseProps extends UiProps {
+        late String required_legacyBaseProps;
+      }
+      class LegacyBaseProps extends _$LegacyBaseProps with
+          // ignore: undefined_identifier, mixin_of_non_class
+          _$LegacyBasePropsAccessorsMixin { 
+          // ignore: undefined_identifier, const_initialized_with_non_constant_value, invalid_assignment
+          static const PropsMeta meta = _$metaForLegacyBaseProps;
+        }
+      @Component()
+      class LegacyBaseComponent extends UiComponent<LegacyBaseProps> {
+        @override 
+        render() => null;
+      }
+      
+      @Factory()
+      UiFactory<LegacyProps> Legacy = castUiFactory(_$Legacy);
+      @Props()
+      class _$LegacyProps extends LegacyBaseProps {}
+      class LegacyProps extends _$LegacyProps with 
+          // ignore: undefined_identifier, mixin_of_non_class
+          _$LegacyPropsAccessorsMixin { 
+          // ignore: undefined_identifier, const_initialized_with_non_constant_value, invalid_assignment
+          static const PropsMeta meta = _$metaForLegacyProps;
+        }
+    ''';
+
+  Future<void> test_legacyErrorsWhenNotForwarded() async {
+    final source = newSourceWithPrefix(legacyPrefix + /*language=dart*/
+        r'''
+          @Component()
+          class LegacyComponent extends UiComponent<LegacyProps> {
+            get consumedProps => const [LegacyProps.meta, LegacyBaseProps.meta];
+            @override  
+            render() => (LegacyBase()..addProps(copyUnconsumedProps()))();
+          }
+        ''');
+    final selection = createSelection(source, '#LegacyBase()#');
+    final allErrors = await getAllErrors(source);
+    expect(
+        allErrors,
+        unorderedEquals(<dynamic>[
+          isAnErrorUnderTest(locatedAt: selection)
+              .havingMessage(contains(r"'required_legacyBaseProps' from '_$LegacyBaseProps'")),
+        ]));
+  }
+
+  Future<void> test_legacyNoErrorsWhenForwarded() async {
+    // This test case verifies that looking up props class works even when using legacy component syntax,
+    // specifically props declared in legacy props classes that are different than their public types
+    // (e.g., _$LegacyBaseProps vs LegacyProps).
+    await expectNoErrors(newSourceWithPrefix(legacyPrefix + /*language=dart*/
+        r'''
+          @Component()
+          class LegacyComponent extends UiComponent<LegacyProps> {
+            get consumedProps => const [LegacyProps.meta];
+            @override
+            render() => (LegacyBase()..addProps(copyUnconsumedProps()))();
+          }
+        '''));
   }
 }
