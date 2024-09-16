@@ -456,97 +456,123 @@ const PropsMeta _$metaForTestJsProps = PropsMeta(
   keys: $TestJsProps.$propKeys,
 );
 
-final UiFactoryConfig<_$$TestJsProps> _$TestJsConfig = UiFactoryConfig(
-    propsFactory: PropsFactory(
-      map: (map) => _$$TestJsProps(map),
-      jsMap: (map) => _$$TestJsProps$JsMap(map),
-    ),
-    displayName: 'TestJs');
-
-@Deprecated(r'Use the private variable, _$TestJsConfig, instead '
-    'and update the `over_react` lower bound to version 4.1.0. '
-    'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
-final UiFactoryConfig<_$$TestJsProps> $TestJsConfig = _$TestJsConfig;
-
-// Concrete props implementation.
-//
-// Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$TestJsProps extends UiProps
-    with
-        TestJsProps,
-        // If this generated mixin is undefined, it's likely because TestJsProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestJsProps, and check that $TestJsProps is exported/imported properly.
-        $TestJsProps {
-  _$$TestJsProps._();
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
+mixin $TypeTesterProps on TypeTesterProps {
+  static const PropsMeta meta = _$metaForTypeTesterProps;
+  @override
+  Map get mapProp => (props[_$key__mapProp__TypeTesterProps] ?? null) as Map;
+  @override
+  set mapProp(Map value) => props[_$key__mapProp__TypeTesterProps] = value;
+  @override
+  Function get functionProp =>
+      (props[_$key__functionProp__TypeTesterProps] ?? null) as Function;
+  @override
+  set functionProp(Function value) =>
+      props[_$key__functionProp__TypeTesterProps] = value;
+  /* GENERATED CONSTANTS */
+  static const PropDescriptor _$prop__mapProp__TypeTesterProps = PropDescriptor(
+      _$key__mapProp__TypeTesterProps,
+      isRequired: true,
+      isNullable: true,
+      isLate: true);
+  static const PropDescriptor _$prop__functionProp__TypeTesterProps =
+      PropDescriptor(_$key__functionProp__TypeTesterProps,
+          isRequired: true, isNullable: true, isLate: true);
+  static const String _$key__mapProp__TypeTesterProps = 'mapProp';
+  static const String _$key__functionProp__TypeTesterProps = 'functionProp';
 
-  factory _$$TestJsProps(Map? backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestJsProps$JsMap(backingMap as JsBackedMap?);
-    } else {
-      return _$$TestJsProps$PlainMap(backingMap);
+  static const List<PropDescriptor> $props = [
+    _$prop__mapProp__TypeTesterProps,
+    _$prop__functionProp__TypeTesterProps
+  ];
+  static const List<String> $propKeys = [
+    _$key__mapProp__TypeTesterProps,
+    _$key__functionProp__TypeTesterProps
+  ];
+
+  @override
+  @UiProps.$mustCallSuper
+  void validateRequiredProps() {
+    super.validateRequiredProps();
+    if (!props.containsKey('mapProp') &&
+        !requiredPropNamesToSkipValidation.contains('mapProp')) {
+      throw MissingRequiredPropsError('Required prop `mapProp` is missing.');
+    }
+
+    if (!props.containsKey('functionProp') &&
+        !requiredPropNamesToSkipValidation.contains('functionProp')) {
+      throw MissingRequiredPropsError(
+          'Required prop `functionProp` is missing.');
     }
   }
-
-  /// Let `UiProps` internals know that this class has been generated.
-  @override
-  bool get $isClassGenerated => true;
-
-  /// The default namespace for the prop getters/setters generated for this class.
-  @override
-  String get propKeyNamespace => '';
-
-  @override
-  PropsMetaCollection get staticMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because TestJsProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestJsProps, and check that $TestJsProps is exported/imported properly.
-        TestJsProps: $TestJsProps.meta,
-      });
-
-  @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$TestJsProps(accessMap, (map) => _$$TestJsProps(map));
 }
 
-/// An alias for [getPropKey] so it can be referenced within the props class impl
-/// without being shadowed by the `getPropKey` instance extension member.
-const _$getPropKey$_$$TestJsProps = getPropKey;
-
-// Concrete props implementation that can be backed by any [Map].
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$TestJsProps$PlainMap extends _$$TestJsProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestJsProps$PlainMap(Map? backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
+const PropsMeta _$metaForTypeTesterProps = PropsMeta(
+  fields: $TypeTesterProps.$props,
+  keys: $TypeTesterProps.$propKeys,
+);
 
-  /// The backing props map proxied by this class.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
+mixin $JsTypeTesterProps on JsTypeTesterProps {
+  static const PropsMeta meta = _$metaForJsTypeTesterProps;
   @override
-  Map get props => _props;
-  Map _props;
+  @Accessor(key: 'mapProp')
+  JsMap? get _$raw$mapProp =>
+      (props[_$key___$raw$mapProp__JsTypeTesterProps] ?? null) as JsMap?;
+  @override
+  @Accessor(key: 'mapProp')
+  set _$raw$mapProp(JsMap? value) =>
+      props[_$key___$raw$mapProp__JsTypeTesterProps] = value;
+  @override
+  Function get functionProp =>
+      (props[_$key__functionProp__JsTypeTesterProps] ?? null) as Function;
+  @override
+  set functionProp(Function value) =>
+      props[_$key__functionProp__JsTypeTesterProps] = value;
+  /* GENERATED CONSTANTS */
+  static const PropDescriptor _$prop___$raw$mapProp__JsTypeTesterProps =
+      PropDescriptor(_$key___$raw$mapProp__JsTypeTesterProps);
+  static const PropDescriptor _$prop__functionProp__JsTypeTesterProps =
+      PropDescriptor(_$key__functionProp__JsTypeTesterProps,
+          isRequired: true, isNullable: true, isLate: true);
+  static const String _$key___$raw$mapProp__JsTypeTesterProps = 'mapProp';
+  static const String _$key__functionProp__JsTypeTesterProps = 'functionProp';
+
+  static const List<PropDescriptor> $props = [
+    _$prop___$raw$mapProp__JsTypeTesterProps,
+    _$prop__functionProp__JsTypeTesterProps
+  ];
+  static const List<String> $propKeys = [
+    _$key___$raw$mapProp__JsTypeTesterProps,
+    _$key__functionProp__JsTypeTesterProps
+  ];
+
+  @override
+  @UiProps.$mustCallSuper
+  void validateRequiredProps() {
+    super.validateRequiredProps();
+    if (!props.containsKey('functionProp') &&
+        !requiredPropNamesToSkipValidation.contains('functionProp')) {
+      throw MissingRequiredPropsError(
+          'Required prop `functionProp` is missing.');
+    }
+  }
 }
 
-// Concrete props implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$TestJsProps$JsMap extends _$$TestJsProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestJsProps$JsMap(JsBackedMap? backingMap)
-      : this._props = JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
-}
+const PropsMeta _$metaForJsTypeTesterProps = PropsMeta(
+  fields: $JsTypeTesterProps.$props,
+  keys: $JsTypeTesterProps.$propKeys,
+);
 
 final UiFactoryConfig<_$$ExpectsDartMapPropProps> _$ExpectsDartMapPropConfig =
     UiFactoryConfig(
@@ -632,6 +658,98 @@ class _$$ExpectsDartMapPropProps$JsMap extends _$$ExpectsDartMapPropProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$ExpectsDartMapPropProps$JsMap(JsBackedMap? backingMap)
+      : this._props = JsBackedMap(),
+        super._() {
+    this._props = backingMap ?? JsBackedMap();
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  JsBackedMap get props => _props;
+  JsBackedMap _props;
+}
+
+final UiFactoryConfig<_$$TestJsProps> _$TestJsConfig = UiFactoryConfig(
+    propsFactory: PropsFactory(
+      map: (map) => _$$TestJsProps(map),
+      jsMap: (map) => _$$TestJsProps$JsMap(map),
+    ),
+    displayName: 'TestJs');
+
+@Deprecated(r'Use the private variable, _$TestJsConfig, instead '
+    'and update the `over_react` lower bound to version 4.1.0. '
+    'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
+final UiFactoryConfig<_$$TestJsProps> $TestJsConfig = _$TestJsConfig;
+
+// Concrete props implementation.
+//
+// Implements constructor and backing map, and links up to generated component factory.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+abstract class _$$TestJsProps extends UiProps
+    with
+        TestJsProps,
+        // If this generated mixin is undefined, it's likely because TestJsProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestJsProps, and check that $TestJsProps is exported/imported properly.
+        $TestJsProps {
+  _$$TestJsProps._();
+
+  factory _$$TestJsProps(Map? backingMap) {
+    if (backingMap == null || backingMap is JsBackedMap) {
+      return _$$TestJsProps$JsMap(backingMap as JsBackedMap?);
+    } else {
+      return _$$TestJsProps$PlainMap(backingMap);
+    }
+  }
+
+  /// Let `UiProps` internals know that this class has been generated.
+  @override
+  bool get $isClassGenerated => true;
+
+  /// The default namespace for the prop getters/setters generated for this class.
+  @override
+  String get propKeyNamespace => '';
+
+  @override
+  PropsMetaCollection get staticMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because TestJsProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestJsProps, and check that $TestJsProps is exported/imported properly.
+        TestJsProps: $TestJsProps.meta,
+      });
+
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$TestJsProps(accessMap, (map) => _$$TestJsProps(map));
+}
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$TestJsProps = getPropKey;
+
+// Concrete props implementation that can be backed by any [Map].
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+class _$$TestJsProps$PlainMap extends _$$TestJsProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$TestJsProps$PlainMap(Map? backingMap)
+      : this._props = {},
+        super._() {
+    this._props = backingMap ?? {};
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
+}
+
+// Concrete props implementation that can only be backed by [JsMap],
+// allowing dart2js to compile more optimal code for key-value pair reads/writes.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+class _$$TestJsProps$JsMap extends _$$TestJsProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$TestJsProps$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -1117,6 +1235,197 @@ class _$$TestDartProps$JsMap extends _$$TestDartProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$TestDartProps$JsMap(JsBackedMap? backingMap)
+      : this._props = JsBackedMap(),
+        super._() {
+    this._props = backingMap ?? JsBackedMap();
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  JsBackedMap get props => _props;
+  JsBackedMap _props;
+}
+
+final UiFactoryConfig<_$$JsTypeTesterProps> _$JsTypeTesterConfig =
+    UiFactoryConfig(
+        propsFactory: PropsFactory(
+          map: (map) => _$$JsTypeTesterProps(map),
+          jsMap: (map) => _$$JsTypeTesterProps$JsMap(map),
+        ),
+        displayName: 'JsTypeTester');
+
+@Deprecated(r'Use the private variable, _$JsTypeTesterConfig, instead '
+    'and update the `over_react` lower bound to version 4.1.0. '
+    'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
+final UiFactoryConfig<_$$JsTypeTesterProps> $JsTypeTesterConfig =
+    _$JsTypeTesterConfig;
+
+// Concrete props implementation.
+//
+// Implements constructor and backing map, and links up to generated component factory.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+abstract class _$$JsTypeTesterProps extends UiProps
+    with
+        JsTypeTesterProps,
+        // If this generated mixin is undefined, it's likely because JsTypeTesterProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of JsTypeTesterProps, and check that $JsTypeTesterProps is exported/imported properly.
+        $JsTypeTesterProps {
+  _$$JsTypeTesterProps._();
+
+  factory _$$JsTypeTesterProps(Map? backingMap) {
+    if (backingMap == null || backingMap is JsBackedMap) {
+      return _$$JsTypeTesterProps$JsMap(backingMap as JsBackedMap?);
+    } else {
+      return _$$JsTypeTesterProps$PlainMap(backingMap);
+    }
+  }
+
+  /// Let `UiProps` internals know that this class has been generated.
+  @override
+  bool get $isClassGenerated => true;
+
+  /// The default namespace for the prop getters/setters generated for this class.
+  @override
+  String get propKeyNamespace => '';
+
+  @override
+  PropsMetaCollection get staticMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because JsTypeTesterProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of JsTypeTesterProps, and check that $JsTypeTesterProps is exported/imported properly.
+        JsTypeTesterProps: $JsTypeTesterProps.meta,
+      });
+
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$JsTypeTesterProps(
+          accessMap, (map) => _$$JsTypeTesterProps(map));
+}
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$JsTypeTesterProps = getPropKey;
+
+// Concrete props implementation that can be backed by any [Map].
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+class _$$JsTypeTesterProps$PlainMap extends _$$JsTypeTesterProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$JsTypeTesterProps$PlainMap(Map? backingMap)
+      : this._props = {},
+        super._() {
+    this._props = backingMap ?? {};
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
+}
+
+// Concrete props implementation that can only be backed by [JsMap],
+// allowing dart2js to compile more optimal code for key-value pair reads/writes.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+class _$$JsTypeTesterProps$JsMap extends _$$JsTypeTesterProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$JsTypeTesterProps$JsMap(JsBackedMap? backingMap)
+      : this._props = JsBackedMap(),
+        super._() {
+    this._props = backingMap ?? JsBackedMap();
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  JsBackedMap get props => _props;
+  JsBackedMap _props;
+}
+
+final UiFactoryConfig<_$$TypeTesterProps> _$UiForwardRefTypeTesterConfig =
+    UiFactoryConfig(
+        propsFactory: PropsFactory(
+          map: (map) => _$$TypeTesterProps(map),
+          jsMap: (map) => _$$TypeTesterProps$JsMap(map),
+        ),
+        displayName: 'UiForwardRefTypeTester');
+
+@Deprecated(
+    r'Use the private variable, _$UiForwardRefTypeTesterConfig, instead '
+    'and update the `over_react` lower bound to version 4.1.0. '
+    'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
+final UiFactoryConfig<_$$TypeTesterProps> $UiForwardRefTypeTesterConfig =
+    _$UiForwardRefTypeTesterConfig;
+
+// Concrete props implementation.
+//
+// Implements constructor and backing map, and links up to generated component factory.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+abstract class _$$TypeTesterProps extends UiProps
+    with
+        TypeTesterProps,
+        // If this generated mixin is undefined, it's likely because TypeTesterProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TypeTesterProps, and check that $TypeTesterProps is exported/imported properly.
+        $TypeTesterProps {
+  _$$TypeTesterProps._();
+
+  factory _$$TypeTesterProps(Map? backingMap) {
+    if (backingMap == null || backingMap is JsBackedMap) {
+      return _$$TypeTesterProps$JsMap(backingMap as JsBackedMap?);
+    } else {
+      return _$$TypeTesterProps$PlainMap(backingMap);
+    }
+  }
+
+  /// Let `UiProps` internals know that this class has been generated.
+  @override
+  bool get $isClassGenerated => true;
+
+  /// The default namespace for the prop getters/setters generated for this class.
+  @override
+  String get propKeyNamespace => '';
+
+  @override
+  PropsMetaCollection get staticMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because TypeTesterProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TypeTesterProps, and check that $TypeTesterProps is exported/imported properly.
+        TypeTesterProps: $TypeTesterProps.meta,
+      });
+
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$TypeTesterProps(
+          accessMap, (map) => _$$TypeTesterProps(map));
+}
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$TypeTesterProps = getPropKey;
+
+// Concrete props implementation that can be backed by any [Map].
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+class _$$TypeTesterProps$PlainMap extends _$$TypeTesterProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$TypeTesterProps$PlainMap(Map? backingMap)
+      : this._props = {},
+        super._() {
+    this._props = backingMap ?? {};
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
+}
+
+// Concrete props implementation that can only be backed by [JsMap],
+// allowing dart2js to compile more optimal code for key-value pair reads/writes.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+class _$$TypeTesterProps$JsMap extends _$$TypeTesterProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$TypeTesterProps$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
