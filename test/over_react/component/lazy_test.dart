@@ -64,7 +64,44 @@ main() {
       });
       sharedNestedPropConversionTests(LazyTestJs, isJsComponent: true);
     });
-    group('Dart component', () {
+
+    group('Dart Class component', () {
+      test('has correct map prop conversion', () async {
+        // The map should be a Dart Map, not a JS object
+        final ref = createRef();
+        final renderErrors = [];
+        bool mapPropFunctionCalled = false;
+        bool functionPropCalled = false;
+
+        render((components.ErrorBoundary()
+              ..onComponentDidCatch = ((error, _) => renderErrors.add(error))
+              ..shouldLogErrors = false
+              ..fallbackUIRenderer = ((_, __) => Dom.span()('An error occurred during render')))((Suspense()
+          ..fallback = (Dom.div()..id = 'suspense')(
+            'I am a fallback UI that will show while we load the lazy component! The load time is artificially inflated to last an additional 5 seconds just to prove it\'s working!',
+          ))(
+          (LazyClassComponentTypeTester()
+            ..ref = ref
+            ..mapProp = {
+              'test': 'foo',
+              'fun': () {
+                mapPropFunctionCalled = true;
+              }
+            }
+            ..functionProp = (() {
+              functionPropCalled = true;
+              return 'test';
+            }))('Class'),
+        )));
+        // Wait for the "lazy" component to display
+        await screen.findByText('Class');
+        expect(ref.current, isA<ClassComponentTypeTesterComponent>());
+        expect(mapPropFunctionCalled, isTrue);
+        expect(functionPropCalled, isTrue);
+        expect(screen.getByTestId('test'), isInTheDocument);
+      });
+    });
+    group('Dart function component', () {
       test('has correct map prop conversion', () async {
         // The map should be a Dart Map, not a JS object
         final ref = createRef<Element>();
@@ -160,12 +197,12 @@ sharedNestedPropConversionTests(UiFactory<TestJsProps> builder, {bool isJsCompon
               final testCase = testCaseCollection.createCaseByName(testCaseName);
 
               render((Suspense()..fallback = 'Loading')((builder()
-                ..addTestId('test-js-component')
+                ..addTestId('test-component')
                 ..component = (isJsComponent ? BasicForwardRef.elementType : BasicForwardRef)
                 ..ref = testCase.ref)()));
-              await screen.findByTestId('test-js-component');
-              expect(testCase.getCurrent(), isA<Element>());
-              expect(testCase.getCurrent(), hasAttribute(basicForwardRefAttribute),
+              await screen.findByTestId('test-component');
+                expect(testCase.getCurrent(), isA<Element>());
+                expect(testCase.getCurrent(), hasAttribute(basicForwardRefAttribute),
                   reason: 'test setup: ref should have been forwarded to the element we expect');
             });
           }
@@ -178,10 +215,10 @@ sharedNestedPropConversionTests(UiFactory<TestJsProps> builder, {bool isJsCompon
 
               render((Suspense()..fallback = 'Loading')((builder()
                 ..component = (isJsComponent ? Dom.div.elementType : Dom.div)
-                ..addTestId('test-js-component')
+                ..addTestId('test-component')
                 ..inputComponent = (isJsComponent ? BasicForwardRef.elementType : BasicForwardRef)
                 ..inputRef = testCase.ref)()));
-              await screen.findByTestId('test-js-component');
+              await screen.findByTestId('test-component');
               expect(testCase.getCurrent(), isA<Element>());
               expect(testCase.getCurrent(), hasAttribute(basicForwardRefAttribute),
                   reason: 'test setup: ref should have been forwarded to the element we expect');
@@ -196,10 +233,10 @@ sharedNestedPropConversionTests(UiFactory<TestJsProps> builder, {bool isJsCompon
 
               render((Suspense()..fallback = 'Loading')((builder()
                 ..component = (isJsComponent ? Dom.div.elementType : Dom.div)
-                ..addTestId('test-js-component')
+                ..addTestId('test-component')
                 ..buttonComponent = (isJsComponent ? BasicForwardRef.elementType : BasicForwardRef)
                 ..buttonProps = (domProps()..ref = testCase.ref))()));
-              await screen.findByTestId('test-js-component');
+              await screen.findByTestId('test-component');
               expect(testCase.getCurrent(), isA<Element>());
               expect(testCase.getCurrent(), hasAttribute(basicForwardRefAttribute),
                   reason: 'test setup: ref should have been forwarded to the element we expect');
@@ -249,10 +286,10 @@ sharedNestedPropConversionTests(UiFactory<TestJsProps> builder, {bool isJsCompon
               final isJsCallbackCase = testCaseName == RefTestCaseCollection.jsCallbackRefCaseName;
 
               render((Suspense()..fallback = 'Loading')((builder()
-                ..addTestId('test-js-component')
+                ..addTestId('test-component')
                 ..component = (isJsComponent ? ClassComponent.elementType : ClassComponent)
                 ..ref = testCase.ref)()));
-              await screen.findByTestId('test-js-component');
+              await screen.findByTestId('test-component');
               // JS callbacks look the same to generateJsProps as Dart callback refs do,
               // so they get the Dart component as well. // TODO investigate, decide how concerned we should be about this
               if (isDartRefObjectCase || isDartCallbackCase || isJsCallbackCase) {
@@ -281,10 +318,10 @@ sharedNestedPropConversionTests(UiFactory<TestJsProps> builder, {bool isJsCompon
 
               render((Suspense()..fallback = 'Loading')((builder()
                 ..component = (isJsComponent ? Dom.div.elementType : Dom.div)
-                ..addTestId('test-js-component')
+                ..addTestId('test-component')
                 ..inputComponent = (isJsComponent ? ClassComponent.elementType : ClassComponent)
                 ..inputRef = testCase.ref)()));
-              await screen.findByTestId('test-js-component');
+              await screen.findByTestId('test-component');
               if ((isDartRefObjectCase || (isDartCallbackCase || isJsCallbackCase) && !isJsComponent)) {
                 expect(testCase.getCurrent(), isA<ClassComponentComponent>());
               } else {
@@ -306,10 +343,10 @@ sharedNestedPropConversionTests(UiFactory<TestJsProps> builder, {bool isJsCompon
 
               render((Suspense()..fallback = 'Loading')((builder()
                 ..component = (isJsComponent ? Dom.div.elementType : Dom.div)
-                ..addTestId('test-js-component')
+                ..addTestId('test-component')
                 ..buttonComponent = (isJsComponent ? ClassComponent.elementType : ClassComponent)
                 ..buttonProps = (domProps()..ref = testCase.ref))()));
-              await screen.findByTestId('test-js-component');
+              await screen.findByTestId('test-component');
               // JS callbacks look the same to generateJsProps as Dart callback refs do,
               // so they get the Dart component as well. // TODO investigate, decide how concerned we should be about this
               if (isDartRefObjectCase || isDartCallbackCase || isJsCallbackCase) {
@@ -327,6 +364,10 @@ sharedNestedPropConversionTests(UiFactory<TestJsProps> builder, {bool isJsCompon
     });
   });
 }
+
+UiFactory<TestDartClassProps> LazyTestDartClass = lazy(() async => TestDartClass, UiFactoryConfig(propsFactory: PropsFactory.fromUiFactory(TestDartClass)));
+
+UiFactory<ClassComponentTypeTesterProps> LazyClassComponentTypeTester = lazy(() async => ClassComponentTypeTester, UiFactoryConfig(propsFactory: PropsFactory.fromUiFactory(ClassComponentTypeTester)));
 
 UiFactory<ExpectsDartMapPropProps> LazyExpectsDartMapProp =
     lazy(() async => ExpectsDartMapProp, _$ExpectsDartMapPropConfig);
@@ -523,6 +564,8 @@ mixin TestJsProps on UiProps {
   dynamic /*ElementType*/ component;
   dynamic /*ElementType*/ inputComponent;
   dynamic /*ElementType*/ buttonComponent;
+
+  dynamic forwardRef;
 }
 
 UiFactory<TestJsProps> TestJs = uiJsComponent(
@@ -625,7 +668,60 @@ UiFactory<TypeTesterProps> UiForwardRefTypeTester = uiForwardRef(
   _$UiForwardRefTypeTesterConfig, // ignore: undefined_identifier
 );
 
-final toTest = [
-  [JsTypeTester, _$JsTypeTesterConfig],
-  [UiForwardRefTypeTester, _$UiForwardRefTypeTesterConfig],
-];
+
+UiFactory<ClassComponentTypeTesterProps> ClassComponentTypeTester = castUiFactory(_$ClassComponentTypeTester); // ignore: undefined_identifier
+
+@Props(keyNamespace: '')
+mixin ClassComponentTypeTesterProps on UiProps {
+  late Map mapProp;
+  late Function functionProp;
+}
+
+class ClassComponentTypeTesterComponent extends UiComponent2<ClassComponentTypeTesterProps> {
+  @override
+  render() {
+    verifyType(props.mapProp);
+    verifyType(props.functionProp);
+    if (props.mapProp['fun'] is! Function) {
+      throw ArgumentError('mapProp[\'fun\'] should be a function');
+    } else {
+      props.mapProp['fun']();
+    }
+    return (Dom.div()
+      ..addTestId((props.functionProp() as String))
+      ..addProps(props.getPropsToForward(exclude: {ClassComponentTypeTesterProps})))(props.children);
+  }
+}
+
+UiFactory<TestDartClassProps> TestDartClass = castUiFactory(_$TestDartClass); // ignore: undefined_identifier
+
+@Props(keyNamespace: '')
+class TestDartClassProps = UiProps with TestJsProps;
+
+class TestDartClassComponent extends UiComponent2<TestDartClassProps> {
+  @override
+  get contextType => defaultMessageContext.reactDartContext;
+
+  @override
+  render() {
+    final buttonProps = props.buttonProps ?? const {};
+    final listOfProps = props.listOfProps ?? const [{}];
+    final inputRef = props.inputRef;
+    final buttonComponent = props.buttonComponent ?? Dom.button;
+    final inputComponent = props.inputComponent ?? Dom.input;
+    final component = props.component ?? Dom.span;
+    final children = props.children;
+
+    return Dom.div()(
+      (buttonComponent()..addProps(buttonProps))(),
+      (Dom.li()..addProps(listOfProps[0] ?? {}))(),
+      (inputComponent()
+        ..addProps(domProps()..type = 'text')
+        ..ref = inputRef)(),
+      (component()
+        ..addProps(props.getPropsToForward(exclude: {TestJsProps}))
+        ..ref = props.forwardRef)(children),
+      (Dom.div()..role = 'alert')(context),
+    );
+  }
+}

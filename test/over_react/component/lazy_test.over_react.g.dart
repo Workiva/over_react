@@ -12,6 +12,327 @@ part of 'lazy_test.dart';
 // Registers component implementation and links type meta to builder factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
+final $TestDartClassComponentFactory = registerComponent2(
+  () => _$TestDartClassComponent(),
+  builderFactory: _$TestDartClass,
+  componentClass: TestDartClassComponent,
+  isWrapper: false,
+  parentType: null,
+);
+
+_$$TestDartClassProps _$TestDartClass([Map? backingProps]) =>
+    backingProps == null
+        ? _$$TestDartClassProps$JsMap(JsBackedMap())
+        : _$$TestDartClassProps(backingProps);
+
+// Concrete props implementation.
+//
+// Implements constructor and backing map, and links up to generated component factory.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+abstract class _$$TestDartClassProps extends UiProps
+    with
+        TestJsProps,
+        // If this generated mixin is undefined, it's likely because TestJsProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestJsProps, and check that $TestJsProps is exported/imported properly.
+        $TestJsProps
+    implements
+        TestDartClassProps {
+  _$$TestDartClassProps._();
+
+  factory _$$TestDartClassProps(Map? backingMap) {
+    if (backingMap == null || backingMap is JsBackedMap) {
+      return _$$TestDartClassProps$JsMap(backingMap as JsBackedMap?);
+    } else {
+      return _$$TestDartClassProps$PlainMap(backingMap);
+    }
+  }
+
+  /// Let `UiProps` internals know that this class has been generated.
+  @override
+  bool get $isClassGenerated => true;
+
+  /// The `ReactComponentFactory` associated with the component built by this class.
+  @override
+  ReactComponentFactoryProxy get componentFactory =>
+      super.componentFactory ?? $TestDartClassComponentFactory;
+
+  /// The default namespace for the prop getters/setters generated for this class.
+  @override
+  String get propKeyNamespace => '';
+
+  @override
+  PropsMetaCollection get staticMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because TestJsProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestJsProps, and check that $TestJsProps is exported/imported properly.
+        TestJsProps: $TestJsProps.meta,
+      });
+
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$TestDartClassProps(
+          accessMap, (map) => _$$TestDartClassProps(map));
+}
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$TestDartClassProps = getPropKey;
+
+// Concrete props implementation that can be backed by any [Map].
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+class _$$TestDartClassProps$PlainMap extends _$$TestDartClassProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$TestDartClassProps$PlainMap(Map? backingMap)
+      : this._props = {},
+        super._() {
+    this._props = backingMap ?? {};
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
+}
+
+// Concrete props implementation that can only be backed by [JsMap],
+// allowing dart2js to compile more optimal code for key-value pair reads/writes.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+class _$$TestDartClassProps$JsMap extends _$$TestDartClassProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$TestDartClassProps$JsMap(JsBackedMap? backingMap)
+      : this._props = JsBackedMap(),
+        super._() {
+    this._props = backingMap ?? JsBackedMap();
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  JsBackedMap get props => _props;
+  JsBackedMap _props;
+}
+
+// Concrete component implementation mixin.
+//
+// Implements typed props/state factories, defaults `consumedPropKeys` to the keys
+// generated for the associated props class.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+class _$TestDartClassComponent extends TestDartClassComponent {
+  late _$$TestDartClassProps$JsMap _cachedTypedProps;
+
+  @override
+  _$$TestDartClassProps$JsMap get props => _cachedTypedProps;
+
+  @override
+  set props(Map value) {
+    assert(
+        getBackingMap(value) is JsBackedMap,
+        'Component2.props should never be set directly in '
+        'production. If this is required for testing, the '
+        'component should be rendered within the test. If '
+        'that does not have the necessary result, the last '
+        'resort is to use typedPropsFactoryJs.');
+    super.props = value;
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
+  }
+
+  @override
+  _$$TestDartClassProps$JsMap typedPropsFactoryJs(JsBackedMap? backingMap) =>
+      _$$TestDartClassProps$JsMap(backingMap);
+
+  @override
+  _$$TestDartClassProps typedPropsFactory(Map? backingMap) =>
+      _$$TestDartClassProps(backingMap);
+
+  /// Let `UiComponent` internals know that this class has been generated.
+  @override
+  bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'TestDartClass';
+
+  /// The default consumed props, comprising all props mixins used by TestDartClassProps.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
+  @override
+  get $defaultConsumedProps => propsMeta.all;
+
+  @override
+  PropsMetaCollection get propsMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because TestJsProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestJsProps, and check that $TestJsProps is exported/imported properly.
+        TestJsProps: $TestJsProps.meta,
+      });
+}
+
+// React component factory implementation.
+//
+// Registers component implementation and links type meta to builder factory.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+final $ClassComponentTypeTesterComponentFactory = registerComponent2(
+  () => _$ClassComponentTypeTesterComponent(),
+  builderFactory: _$ClassComponentTypeTester,
+  componentClass: ClassComponentTypeTesterComponent,
+  isWrapper: false,
+  parentType: null,
+);
+
+_$$ClassComponentTypeTesterProps _$ClassComponentTypeTester(
+        [Map? backingProps]) =>
+    backingProps == null
+        ? _$$ClassComponentTypeTesterProps$JsMap(JsBackedMap())
+        : _$$ClassComponentTypeTesterProps(backingProps);
+
+// Concrete props implementation.
+//
+// Implements constructor and backing map, and links up to generated component factory.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+abstract class _$$ClassComponentTypeTesterProps extends UiProps
+    with
+        ClassComponentTypeTesterProps,
+        // If this generated mixin is undefined, it's likely because ClassComponentTypeTesterProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ClassComponentTypeTesterProps, and check that $ClassComponentTypeTesterProps is exported/imported properly.
+        $ClassComponentTypeTesterProps {
+  _$$ClassComponentTypeTesterProps._();
+
+  factory _$$ClassComponentTypeTesterProps(Map? backingMap) {
+    if (backingMap == null || backingMap is JsBackedMap) {
+      return _$$ClassComponentTypeTesterProps$JsMap(backingMap as JsBackedMap?);
+    } else {
+      return _$$ClassComponentTypeTesterProps$PlainMap(backingMap);
+    }
+  }
+
+  /// Let `UiProps` internals know that this class has been generated.
+  @override
+  bool get $isClassGenerated => true;
+
+  /// The `ReactComponentFactory` associated with the component built by this class.
+  @override
+  ReactComponentFactoryProxy get componentFactory =>
+      super.componentFactory ?? $ClassComponentTypeTesterComponentFactory;
+
+  /// The default namespace for the prop getters/setters generated for this class.
+  @override
+  String get propKeyNamespace => '';
+
+  @override
+  PropsMetaCollection get staticMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because ClassComponentTypeTesterProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ClassComponentTypeTesterProps, and check that $ClassComponentTypeTesterProps is exported/imported properly.
+        ClassComponentTypeTesterProps: $ClassComponentTypeTesterProps.meta,
+      });
+
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$ClassComponentTypeTesterProps(
+          accessMap, (map) => _$$ClassComponentTypeTesterProps(map));
+}
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$ClassComponentTypeTesterProps = getPropKey;
+
+// Concrete props implementation that can be backed by any [Map].
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+class _$$ClassComponentTypeTesterProps$PlainMap
+    extends _$$ClassComponentTypeTesterProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$ClassComponentTypeTesterProps$PlainMap(Map? backingMap)
+      : this._props = {},
+        super._() {
+    this._props = backingMap ?? {};
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
+}
+
+// Concrete props implementation that can only be backed by [JsMap],
+// allowing dart2js to compile more optimal code for key-value pair reads/writes.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+class _$$ClassComponentTypeTesterProps$JsMap
+    extends _$$ClassComponentTypeTesterProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$ClassComponentTypeTesterProps$JsMap(JsBackedMap? backingMap)
+      : this._props = JsBackedMap(),
+        super._() {
+    this._props = backingMap ?? JsBackedMap();
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  JsBackedMap get props => _props;
+  JsBackedMap _props;
+}
+
+// Concrete component implementation mixin.
+//
+// Implements typed props/state factories, defaults `consumedPropKeys` to the keys
+// generated for the associated props class.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+class _$ClassComponentTypeTesterComponent
+    extends ClassComponentTypeTesterComponent {
+  late _$$ClassComponentTypeTesterProps$JsMap _cachedTypedProps;
+
+  @override
+  _$$ClassComponentTypeTesterProps$JsMap get props => _cachedTypedProps;
+
+  @override
+  set props(Map value) {
+    assert(
+        getBackingMap(value) is JsBackedMap,
+        'Component2.props should never be set directly in '
+        'production. If this is required for testing, the '
+        'component should be rendered within the test. If '
+        'that does not have the necessary result, the last '
+        'resort is to use typedPropsFactoryJs.');
+    super.props = value;
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
+  }
+
+  @override
+  _$$ClassComponentTypeTesterProps$JsMap typedPropsFactoryJs(
+          JsBackedMap? backingMap) =>
+      _$$ClassComponentTypeTesterProps$JsMap(backingMap);
+
+  @override
+  _$$ClassComponentTypeTesterProps typedPropsFactory(Map? backingMap) =>
+      _$$ClassComponentTypeTesterProps(backingMap);
+
+  /// Let `UiComponent` internals know that this class has been generated.
+  @override
+  bool get $isClassGenerated => true;
+
+  @override
+  String get displayName => 'ClassComponentTypeTester';
+
+  /// The default consumed props, comprising all props mixins used by ClassComponentTypeTesterProps.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
+  @override
+  get $defaultConsumedProps => propsMeta.all;
+
+  @override
+  PropsMetaCollection get propsMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because ClassComponentTypeTesterProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ClassComponentTypeTesterProps, and check that $ClassComponentTypeTesterProps is exported/imported properly.
+        ClassComponentTypeTesterProps: $ClassComponentTypeTesterProps.meta,
+      });
+}
+
+// React component factory implementation.
+//
+// Registers component implementation and links type meta to builder factory.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 final $ClassComponentComponentFactory = registerComponent2(
   () => _$ClassComponentComponent(),
   builderFactory: _$ClassComponent,
@@ -399,6 +720,12 @@ mixin $TestJsProps on TestJsProps {
   @override
   set buttonComponent(dynamic value) =>
       props[_$key__buttonComponent__TestJsProps] = value;
+  @override
+  dynamic get forwardRef =>
+      (props[_$key__forwardRef__TestJsProps] ?? null) as dynamic;
+  @override
+  set forwardRef(dynamic value) =>
+      props[_$key__forwardRef__TestJsProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop___$raw$buttonProps__TestJsProps =
       PropDescriptor(_$key___$raw$buttonProps__TestJsProps);
@@ -414,6 +741,8 @@ mixin $TestJsProps on TestJsProps {
       PropDescriptor(_$key__inputComponent__TestJsProps);
   static const PropDescriptor _$prop__buttonComponent__TestJsProps =
       PropDescriptor(_$key__buttonComponent__TestJsProps);
+  static const PropDescriptor _$prop__forwardRef__TestJsProps =
+      PropDescriptor(_$key__forwardRef__TestJsProps);
   static const String _$key___$raw$buttonProps__TestJsProps = 'buttonProps';
   static const String _$key___$raw$listOfProps__TestJsProps = 'listOfProps';
   static const String _$key___$raw$inputRef__TestJsProps = 'inputRef';
@@ -422,6 +751,7 @@ mixin $TestJsProps on TestJsProps {
   static const String _$key__component__TestJsProps = 'component';
   static const String _$key__inputComponent__TestJsProps = 'inputComponent';
   static const String _$key__buttonComponent__TestJsProps = 'buttonComponent';
+  static const String _$key__forwardRef__TestJsProps = 'forwardRef';
 
   static const List<PropDescriptor> $props = [
     _$prop___$raw$buttonProps__TestJsProps,
@@ -430,7 +760,8 @@ mixin $TestJsProps on TestJsProps {
     _$prop___$raw$messageContext__TestJsProps,
     _$prop__component__TestJsProps,
     _$prop__inputComponent__TestJsProps,
-    _$prop__buttonComponent__TestJsProps
+    _$prop__buttonComponent__TestJsProps,
+    _$prop__forwardRef__TestJsProps
   ];
   static const List<String> $propKeys = [
     _$key___$raw$buttonProps__TestJsProps,
@@ -439,7 +770,8 @@ mixin $TestJsProps on TestJsProps {
     _$key___$raw$messageContext__TestJsProps,
     _$key__component__TestJsProps,
     _$key__inputComponent__TestJsProps,
-    _$key__buttonComponent__TestJsProps
+    _$key__buttonComponent__TestJsProps,
+    _$key__forwardRef__TestJsProps
   ];
 
   @override
@@ -572,6 +904,72 @@ mixin $JsTypeTesterProps on JsTypeTesterProps {
 const PropsMeta _$metaForJsTypeTesterProps = PropsMeta(
   fields: $JsTypeTesterProps.$props,
   keys: $JsTypeTesterProps.$propKeys,
+);
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
+mixin $ClassComponentTypeTesterProps on ClassComponentTypeTesterProps {
+  static const PropsMeta meta = _$metaForClassComponentTypeTesterProps;
+  @override
+  Map get mapProp =>
+      (props[_$key__mapProp__ClassComponentTypeTesterProps] ?? null) as Map;
+  @override
+  set mapProp(Map value) =>
+      props[_$key__mapProp__ClassComponentTypeTesterProps] = value;
+  @override
+  Function get functionProp =>
+      (props[_$key__functionProp__ClassComponentTypeTesterProps] ?? null)
+          as Function;
+  @override
+  set functionProp(Function value) =>
+      props[_$key__functionProp__ClassComponentTypeTesterProps] = value;
+  /* GENERATED CONSTANTS */
+  static const PropDescriptor _$prop__mapProp__ClassComponentTypeTesterProps =
+      PropDescriptor(_$key__mapProp__ClassComponentTypeTesterProps,
+          isRequired: true, isNullable: true, isLate: true);
+  static const PropDescriptor
+      _$prop__functionProp__ClassComponentTypeTesterProps = PropDescriptor(
+          _$key__functionProp__ClassComponentTypeTesterProps,
+          isRequired: true,
+          isNullable: true,
+          isLate: true);
+  static const String _$key__mapProp__ClassComponentTypeTesterProps = 'mapProp';
+  static const String _$key__functionProp__ClassComponentTypeTesterProps =
+      'functionProp';
+
+  static const List<PropDescriptor> $props = [
+    _$prop__mapProp__ClassComponentTypeTesterProps,
+    _$prop__functionProp__ClassComponentTypeTesterProps
+  ];
+  static const List<String> $propKeys = [
+    _$key__mapProp__ClassComponentTypeTesterProps,
+    _$key__functionProp__ClassComponentTypeTesterProps
+  ];
+
+  @override
+  @UiProps.$mustCallSuper
+  void validateRequiredProps() {
+    super.validateRequiredProps();
+    if (!props.containsKey('mapProp') &&
+        !requiredPropNamesToSkipValidation.contains('mapProp')) {
+      throw MissingRequiredPropsError('Required prop `mapProp` is missing.');
+    }
+
+    if (!props.containsKey('functionProp') &&
+        !requiredPropNamesToSkipValidation.contains('functionProp')) {
+      throw MissingRequiredPropsError(
+          'Required prop `functionProp` is missing.');
+    }
+  }
+}
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+const PropsMeta _$metaForClassComponentTypeTesterProps = PropsMeta(
+  fields: $ClassComponentTypeTesterProps.$props,
+  keys: $ClassComponentTypeTesterProps.$propKeys,
 );
 
 final UiFactoryConfig<_$$ExpectsDartMapPropProps> _$ExpectsDartMapPropConfig =
