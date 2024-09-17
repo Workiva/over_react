@@ -30,7 +30,7 @@ void main() {
   group('Suspense', () {
     test('renders fallback UI first followed by the real component', () async {
       final lazyLoadCompleter = Completer<void>();
-      final LazyLoadMe = lazy(
+      UiFactory<LazyLoadMePropsMixin> LazyLoadMe = lazy(
         () async {
           await lazy_load_me.loadLibrary();
           await lazyLoadCompleter.future;
@@ -60,7 +60,7 @@ void main() {
       final lazyLoadCompleter = Completer<void>();
       const suspenseFallbackTimeout = Duration(milliseconds: 100);
 
-      final LazyLoadMe = lazy(
+      UiFactory<LazyLoadMePropsMixin> LazyLoadMe = lazy(
         () async {
           await lazy_load_me.loadLibrary();
           await lazyLoadCompleter.future;
