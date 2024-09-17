@@ -65,7 +65,7 @@ import 'package:react/react.dart' as react;
 /// ```
 /// See: <https://react.dev/reference/react/lazy>.
 UiFactory<TProps> lazy<TProps extends UiProps>(
-    Future<UiFactory<TProps>> Function() loadComponent, /* UiFactoryConfig<TProps> */ dynamic _config,
+    Future<UiFactory<TProps>> Function([dynamic config]) loadComponent, /* UiFactoryConfig<TProps> */ dynamic _config,
     {bool useJsFactoryProxy = false}) {
   ArgumentError.checkNotNull(_config, '_config');
 
@@ -95,7 +95,7 @@ UiFactory<TProps> lazy<TProps extends UiProps>(
       },
       UiFactoryConfig(
         propsFactory: PropsFactory.fromUiFactory(factory),
-        displayName: 'Lazy${_config.displayName}',
+        displayName: 'lazy(${_config.displayName ?? ''})',
       ),
     );
     return wrapper().componentFactory!;
