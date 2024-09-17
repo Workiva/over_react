@@ -17,6 +17,53 @@ library over_react.lazy;
 import 'package:over_react/over_react.dart';
 import 'package:react/react.dart' as react;
 
+
+/// A HOC that creates a "lazy" component that lets you defer loading a component’s code until it is rendered for the first time.
+///
+/// Returns a `UiFactory` you can use just render in your tree. While the code for the lazy component is still loading, attempting to render it will suspend. Use <Suspense> to display a loading indicator while it’s loading.
+///
+/// It takes 2 arguments, the `load` function that returns a Future<UiFactory<TProps>>, and a UiFactoryConfig.
+///
+/// React will not call the `load` function until the first time the component is rendered.
+/// After React first calls `load`, it will wait for it to resolve, and then render the resolved value.
+/// Both the returned Future and the Future's resolved value will be cached, so React will not call `load` more than once.
+/// If the Future rejects, React will throw the rejection reason for the nearest Error Boundary to handle.
+///
+/// Example:
+/// ```dart
+/// import 'package:over_react/over_react.dart';
+///
+/// part 'main.over_react.g.dart';
+///
+/// mixin ALazyComponentPropsMixin on UiProps {}
+///
+/// UiFactory<ALazyComponentPropsMixin> ALazyComponent = lazy(
+///   () async {
+///     final componentModule = await loadComponent();
+///     return uiForwardRef(
+///       (props, ref) {
+///         return (componentModule.AnotherComponent()
+///           ..ref = ref
+///           ..addProps(props)
+///         )(props.children);
+///       },
+///       _$ALazyComponentConfig,
+///     );
+///   },
+///   _$ALazyComponentConfig
+/// );
+/// ```
+///
+/// > __NOTE:__ A lazy component MUST be wrapped with a `Suspense` component to provide a fallback ui while it loads.
+///
+/// ```dart
+/// (Suspense()
+///   ..fallback = Dom.p()('Loading...')
+/// )(
+///    ALazyComponent()(),
+/// );
+/// ```
+/// See: <https://react.dev/reference/react/lazy>.
 UiFactory<TProps> lazy<TProps extends UiProps>(
     Future<UiFactory<TProps>> Function() loadComponent, /* UiFactoryConfig<TProps> */ dynamic _config,
     {bool useJsFactoryProxy = false}) {
