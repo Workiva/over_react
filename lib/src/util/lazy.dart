@@ -17,16 +17,18 @@ library over_react.lazy;
 import 'package:over_react/over_react.dart';
 import 'package:react/react.dart' as react;
 
+import '../component_declaration/function_component.dart';
 
 /// A HOC that creates a "lazy" component that lets you defer loading a component’s code until it is rendered for the first time.
 ///
-/// Returns a `UiFactory` you can use just render in your tree. While the code for the lazy component is still loading, attempting to render it will suspend. Use <Suspense> to display a loading indicator while it’s loading.
+/// Returns a `UiFactory` you can use just render in your tree. While the code for the lazy component is still loading,
+/// attempting to render it will suspend. Use <Suspense> to display a loading indicator while it’s loading.
+/// [load] is a function that should return a `Future<UiFactory<TProps>>` that resolves to the component to be rendered.
+/// [_config] should be a `UiFactoryConfig<TProps>` or `null` and is only `dynamic` to avoid an unnecessary cast in the boilerplate.
 ///
-/// It takes 2 arguments, the `load` function that returns a Future<UiFactory<TProps>>, and a UiFactoryConfig.
-///
-/// React will not call the `load` function until the first time the component is rendered.
-/// After React first calls `load`, it will wait for it to resolve, and then render the resolved value.
-/// Both the returned Future and the Future's resolved value will be cached, so React will not call `load` more than once.
+/// React will not call [load] until the first time the component is rendered.
+/// After React first calls [load], it will wait for it to resolve, and then render the resolved value.
+/// Both the returned Future and the Future's resolved value will be cached, so React will not call [load] more than once.
 /// If the Future rejects, React will throw the rejection reason for the nearest Error Boundary to handle.
 ///
 /// Example:
@@ -65,22 +67,17 @@ import 'package:react/react.dart' as react;
 /// ```
 /// See: <https://react.dev/reference/react/lazy>.
 UiFactory<TProps> lazy<TProps extends UiProps>(
-    Future<UiFactory<TProps>> Function([dynamic config]) loadComponent, /* UiFactoryConfig<TProps> */ dynamic _config,
-    {bool useJsFactoryProxy = false}) {
-  ArgumentError.checkNotNull(_config, '_config');
-
+    Future<UiFactory<TProps>> Function() load, /* UiFactoryConfig<TProps> */ dynamic _config) {
+      _config ??= UiFactoryConfig();
   if (_config is! UiFactoryConfig<TProps>) {
-    throw ArgumentError('_config should be a UiFactoryConfig<TProps>. Make sure you are '
-        r'using either the generated factory config (i.e. _$FooConfig) or manually '
-        'declaring your config correctly.');
+    throw ArgumentError('_config is required when using a custom props class and should be a UiFactoryConfig<TProps>. Make sure you are '
+        r'using either the generated factory config (i.e. _$FooConfig) or manually declaring your config correctly.');
   }
   // ignore: invalid_use_of_protected_member
-  final propsFactory = _config.propsFactory;
-  ArgumentError.checkNotNull(propsFactory, '_config.propsFactory');
-  propsFactory!;
+  var propsFactory = _config.propsFactory;
 
   final lazyFactoryProxy = react.lazy(() async {
-    final factory = await loadComponent();
+    final factory = await load();
     // By using a wrapper uiForwardRef it ensures that we have a matching factory proxy type given to react-dart's lazy,
     // a `ReactDartWrappedComponentFactoryProxy`. This is necessary to have consistent prop conversions since we don't
     // have access to the original factory proxy outside of this async block.
@@ -95,20 +92,33 @@ UiFactory<TProps> lazy<TProps extends UiProps>(
       },
       UiFactoryConfig(
         propsFactory: PropsFactory.fromUiFactory(factory),
-        displayName: 'lazy(${_config.displayName ?? ''})',
+        displayName: _config.displayName != null ? 'Lazy(${_config.displayName}' : 'LazyComponent'
       ),
     );
     return wrapper().componentFactory!;
   });
 
+  if (propsFactory == null) {
+    if (TProps != UiProps && TProps != GenericUiProps) {
+      throw ArgumentError(
+          'config.propsFactory must be provided when using custom props classes');
+    }
+    propsFactory = PropsFactory.fromUiFactory(
+            ([backingMap]) => GenericUiProps(lazyFactoryProxy, backingMap))
+        as PropsFactory<TProps>;
+  }
+    // Work around propsFactory not getting promoted to non-nullable in _uiFactory: https://github.com/dart-lang/language/issues/1536
+  final nonNullablePropsFactory = propsFactory;
+
   TProps _uiFactory([Map? props]) {
     TProps builder;
     if (props == null) {
-      builder = propsFactory.jsMap(JsBackedMap());
+      // propsFactory should get promoted to non-nullable here, but it does not some reason propsF
+      builder = nonNullablePropsFactory.jsMap(JsBackedMap());
     } else if (props is JsBackedMap) {
-      builder = propsFactory.jsMap(props);
+      builder = nonNullablePropsFactory.jsMap(props);
     } else {
-      builder = propsFactory.map(props);
+      builder = nonNullablePropsFactory.map(props);
     }
 
     return builder..componentFactory = lazyFactoryProxy;
