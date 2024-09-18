@@ -24,20 +24,22 @@ import '../../test_bases/diagnostic_test_base.dart';
 
 void main() {
   defineReflectiveSuite(() {
-    defineReflectiveTests(MissingRequiredPropTest_NoErrors);
+    defineReflectiveTests(MissingRequiredPropTest);
     defineReflectiveTests(MissingRequiredPropTest_MissingAnnotationRequired);
   });
 }
 
-abstract class MissingRequiredPropTest extends DiagnosticTestBase {
+abstract class MissingRequiredPropTestBase extends DiagnosticTestBase {
   @override
-  get fixKindUnderTest => null;
+  get fixKindUnderTest => MissingRequiredPropDiagnostic.fixKind;
 
   Source newSourceWithPrefix(String sourceFragment) => newSource(sourcePrefix + sourceFragment);
 
   static const sourcePrefix = /*language=dart*/ r'''
 // @dart=2.11
 import 'package:over_react/over_react.dart';
+// ignore: unused_import
+import 'package:over_react/over_react_redux.dart';
 
 part '{{FILE_BASENAME_WITHOUT_EXTENSION}}.over_react.g.dart';
 
@@ -68,9 +70,9 @@ mixin WithAnnotationRequiredProps on UiProps {
 }
 
 @reflectiveTest
-class MissingRequiredPropTest_NoErrors extends MissingRequiredPropTest {
+class MissingRequiredPropTest extends MissingRequiredPropTestBase {
   @override
-  get errorUnderTest => null;
+  get errorUnderTest => MissingRequiredPropDiagnostic.lateRequiredCode;
 
   Future<void> test_noErrorsWhenNoRequiredProps() async {
     await expectNoErrors(newSourceWithPrefix(/*language=dart*/ r'''
@@ -138,15 +140,25 @@ class MissingRequiredPropTest_NoErrors extends MissingRequiredPropTest {
         test() => InheritsLateRequired()();
     '''));
   }
+
+  Future<void> test_missingLateRequiredDeclaredInOtherLib() async {
+    final source = newSourceWithPrefix(/*language=dart*/ r'''
+        test() => ReduxProvider()();
+    ''');
+    final selection = createSelection(source, '#ReduxProvider()#');
+    final allErrors = await getAllErrors(source);
+    expect(
+        allErrors,
+        unorderedEquals(<dynamic>[
+          isAnErrorUnderTest(locatedAt: selection).havingMessage(contains("'store' from 'ReduxProviderPropsMixin'")),
+        ]));
+  }
 }
 
 @reflectiveTest
-class MissingRequiredPropTest_MissingAnnotationRequired extends MissingRequiredPropTest {
+class MissingRequiredPropTest_MissingAnnotationRequired extends MissingRequiredPropTestBase {
   @override
   get errorUnderTest => MissingRequiredPropDiagnostic.annotationRequiredCode;
-
-  @override
-  get fixKindUnderTest => MissingRequiredPropDiagnostic.fixKind;
 
   // This lint is disabled by default, so we have to opt into it.
   @override
