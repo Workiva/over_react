@@ -1,4 +1,99 @@
 {
+  "lazyFunctionComponent": {
+    "prefix": "orLzyFunc",
+    "body": [
+      "import 'package:over_react/over_react.dart';",
+      "",
+      "part '${TM_FILENAME_BASE}.over_react.g.dart';",
+      "",
+      "mixin ${1:MyComponent}PropsMixin on UiProps {}",
+      "",
+      "UiFactory<${1:MyComponent}PropsMixin> ${1:MyComponent} = lazy(",
+      "\t() async {",
+      "\t\t// Await required futures here.",
+      "\t\treturn uiFunction(",
+      "\t\t\t(props) {},",
+      "\t\t\t_$${1:MyComponent}Config, // ignore: undefined_identifier",
+      "\t\t);",
+      "\t},",
+      "\t_$${1:MyComponent}Config, // ignore: undefined_identifier",
+      ");"
+    ],
+    "description": "Creates an OverReact lazy wrapped uiFunction component with an abbreviated props declaration"
+  },
+  "lazyForwardRefComponent": {
+    "prefix": "orLzyFwdRef",
+    "body": [
+      "import 'package:over_react/over_react.dart';",
+      "",
+      "part '${TM_FILENAME_BASE}.over_react.g.dart';",
+      "",
+      "mixin ${1:MyComponent}PropsMixin on UiProps {}",
+      "",
+      "/// Must be wrapped in a `Suspense` component to display a fallback ui while loading.",
+      "UiFactory<${1:MyComponent}PropsMixin> ${1:MyComponent} = lazy(",
+      "\t() async {",
+      "\t\t// Await required futures here.",
+      "\t\treturn uiForwardRef(",
+      "\t\t\t(props, ref) {},",
+      "\t\t\t_$${1:MyComponent}Config, // ignore: undefined_identifier",
+      "\t\t);",
+      "\t},",
+      "\t_$${1:MyComponent}Config, // ignore: undefined_identifier",
+      ");"
+    ],
+    "description": "Creates an OverReact lazy wrapped uiForwardRef component with an abbreviated props declaration"
+  },
+  "forwardRefComponent": {
+    "prefix": "orFwdRef",
+    "body": [
+      "import 'package:over_react/over_react.dart';",
+      "",
+      "part '${TM_FILENAME_BASE}.over_react.g.dart';",
+      "",
+      "mixin ${1:MyComponent}Props on UiProps {}",
+      "",
+      "UiFactory<${1:MyComponent}Props> ${1:MyComponent} = uiForwardRef(",
+      "\t(props, ref) {},",
+      "\t_$${1:MyComponent}Config, // ignore: undefined_identifier",
+      ");"
+    ],
+    "description": "Creates an OverReact forwardRef component with an abbreviated props declaration"
+  },
+  "abbreviatedFunctionComponent": {
+    "prefix": "orFunc",
+    "body": [
+      "import 'package:over_react/over_react.dart';",
+      "",
+      "part '${TM_FILENAME_BASE}.over_react.g.dart';",
+      "",
+      "UiFactory<${1:MyComponent}Props> ${1:MyComponent} = uiFunction(",
+      "\t(props) {},",
+      "\t_$${1:MyComponent}Config, // ignore: undefined_identifier",
+      ");",
+      "",
+      "mixin ${1:MyComponent}Props on UiProps {}"
+    ],
+    "description": "Creates an OverReact function component with an abbreviated props declaration"
+  },
+  "functionComponent": {
+    "prefix": "orAdvFunc",
+    "body": [
+      "import 'package:over_react/over_react.dart';",
+      "",
+      "part '${TM_FILENAME_BASE}.over_react.g.dart';",
+      "",
+      "mixin ${1:MyComponent}PropsMixin on UiProps {}",
+      "",
+      "class ${1:MyComponent}Props = UiProps with ${1:MyComponent}PropsMixin;",
+      "",
+      "UiFactory<${1:MyComponent}Props> ${1:MyComponent} = uiFunction(",
+      "\t(props) {},",
+      "\t_$${1:MyComponent}Config, // ignore: undefined_identifier",
+      ");"
+    ],
+    "description": "Creates an OverReact function component with a props class alias"
+  },
   "statelessComponent": {
     "prefix": "orAdvStless",
     "body": [
@@ -127,40 +222,5 @@
       "}"
     ],
     "description": "Creates a stateless and connected OverReact component"
-  },
-  "abbreviatedFunctionComponent": {
-    "prefix": "orFunc",
-    "body": [
-      "import 'package:over_react/over_react.dart';",
-      "",
-      "part '${TM_FILENAME_BASE}.over_react.g.dart';",
-      "",
-      "UiFactory<${1:MyComponent}Props> ${1:MyComponent} = uiFunction(",
-      "\t(props) {},",
-      "\t_$${1:MyComponent}Config, // ignore: undefined_identifier",
-      ");",
-      "",
-      "mixin ${1:MyComponent}Props on UiProps {}"
-    ],
-    "description": "Creates an OverReact function component with an abbreviated props declaration"
-  },
-  "functionComponent": {
-    "prefix": "orAdvFunc",
-    "body": [
-      "import 'package:over_react/over_react.dart';",
-      "",
-      "part '${TM_FILENAME_BASE}.over_react.g.dart';",
-      "",
-      "UiFactory<${1:MyComponent}Props> ${1:MyComponent} = uiFunction(",
-      "\t(props) {},",
-      "\t_$${1:MyComponent}Config, // ignore: undefined_identifier",
-      ");",
-      "",
-      "mixin ${1:MyComponent}PropsMixin on UiProps {}",
-      "",
-      "class ${1:MyComponent}Props = UiProps with ${1:MyComponent}PropsMixin;",
-      ""
-    ],
-    "description": "Creates an OverReact function component with a props class alias"
   }
 }
