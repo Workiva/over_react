@@ -219,7 +219,8 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
         continue;
       }
 
-      if (result.libraryElement.isNonNullableByDefault || requiredness != PropRequiredness.late) {
+      // Late required prop validation is only enabled for props classes that have migrated to null safety.
+      if (propsClassElement.library.isNonNullableByDefault || requiredness != PropRequiredness.late) {
         await collector.addErrorWithFix(
           _codeForRequiredness(requiredness),
           result.locationFor(usage.builder),
