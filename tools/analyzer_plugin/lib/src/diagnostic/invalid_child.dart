@@ -6,7 +6,6 @@ import 'package:analyzer/dart/element/type_system.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/constants.dart';
-import 'package:over_react_analyzer_plugin/src/util/null_safety_utils.dart' as utils;
 import 'package:over_react_analyzer_plugin/src/util/react_types.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/util.dart';
@@ -71,7 +70,7 @@ class InvalidChildDiagnostic extends ComponentUsageDiagnosticContributor {
       await validateReactChildType(argument.staticType, result.typeSystem, result.typeProvider,
           onInvalidType: (invalidType) async {
         final location = result.locationFor(argument);
-        final withNullability = utils.withNullability(result);
+        final withNullability = result.libraryElement.isNonNullableByDefault;
 
         if (couldBeMissingBuilderInvocation(argument)) {
           await collector.addErrorWithFix(

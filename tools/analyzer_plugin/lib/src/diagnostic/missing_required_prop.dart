@@ -4,7 +4,6 @@ import 'package:analyzer/dart/element/element.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/analyzer_debug_helper.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
-import 'package:over_react_analyzer_plugin/src/util/null_safety_utils.dart';
 import 'package:over_react_analyzer_plugin/src/util/pretty_print.dart';
 import 'package:over_react_analyzer_plugin/src/util/prop_declarations/props_set_by_factory.dart';
 import 'package:over_react_analyzer_plugin/src/util/prop_forwarding/forwarded_props.dart';
@@ -220,7 +219,8 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
         continue;
       }
 
-      if (withNullability(result) || requiredness != PropRequiredness.late) {
+      // Late required prop validation is only enabled for props classes that have migrated to null safety.
+      if (propsClassElement.library.isNonNullableByDefault || requiredness != PropRequiredness.late) {
         await collector.addErrorWithFix(
           _codeForRequiredness(requiredness),
           result.locationFor(usage.builder),
