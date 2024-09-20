@@ -181,6 +181,24 @@ UiFactory<CounterProps> Counter = connect<CounterState, CounterProps>(
 )(_$Counter);
 ```
 
+Note that any required props assigned in connect must have their validation disabled; see docs [here](./null_safety_and_required_props.md#disabling-validation-use-case-connect)
+for more info. 
+
+For example:
+```dart
+mixin CounterPropsMixin on UiProps {
+  // Set in connect.
+  late int count;
+  late void Function() increment;
+  
+  // Must be set by consumers of the connected compoennt.
+  late String requiredByConsumer;
+}
+
+@Props(disableRequiredPropValidation: {'count', 'increment'})
+class CounterProps = UiProps with CounterPropsMixin, OtherPropsMixin;
+```
+
 ### `connect` Parameters
 
 - #### `mapStateToProps`
