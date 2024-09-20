@@ -20,45 +20,93 @@ const _desc = r'Always provide required props.';
 // <editor-fold desc="Documentation Details">
 const _details = r'''
 
-**ALWAYS** provide a value for `late` required props.
+**ALWAYS** provide a value for `late` required props, either directly or by forwarding props.
 
-If a component has a props interface like this:
+Please see the documentation for [null safety and required props](https://github.com/Workiva/over_react/blob/master/doc/null_safety_and_required_props.md)
+for more information on required prop validation, which, in addition to this lint, also includes runtime `assert`s.
+
+Those docs also note exceptions to this rule under the [Disabling required prop validation for certain props](https://github.com/Workiva/over_react/blob/master/doc/null_safety_and_required_props.md#disabling-required-prop-validation-for-certain-props) 
+section, and include instructions for handling those. One common case where this doesn't apply are "wrapper" components that render another component and set some of its props within its render.
+
+### Examples:
+
+Given the following component with the required prop `user`:
 
 ```dart
-mixin NavItemProps on UiProps {
-  bool? isActive;
-
-  late void Function() onDidActivate;
+mixin UserChipProps on UiProps {
+  late User user;
+  bool? isSelected;
 }
+
+UiFactory<UserChipProps> UserChip = uiFunction((props) {
+  // ...
+}, _$UserChipConfig);
 ```
 
-Then the late required prop must always be set by the consumer:
+Then whenever UserChip is render, that required prop must always be set by the consumer.
 
 **GOOD:**
 ```dart
-@override
-render() {
-  return (NavItem()
-    ..onDidActivate = () {
-      // Do something
-    }
-  )(
-    'Activate me',
-  );
-}
+    (UserChip()..user = user)()
 ```
 
 **BAD:**
 ```dart
-@override
-render() {
-  return NavItem()(
-    'You probably cannot activate me :(',
-  );
-}
+   UserChip()()
+// ^^^^^^^^^^
+// warning: Missing required late prop 'user' from 'UserChipProps'.
+// (over_react_late_required_prop)
+```
+and, that code will also throw a runtime error when asserts are enabled:
+
+```
+Uncaught Error: RequiredPropsError: Required prop `user` is missing.
+   at Object.throw_ [as throw]
+   at _$$UserChipProps$JsMap.new.validateRequiredProps
 ```
 
+#### Prop forwarding
+
+**GOOD:**
+```dart
+mixin CustomUserChipPropsMixin on UiProps {
+  String? color;
+}
+
+class CustomUserChipProps = UiProps with UserChipProps, CustomUserChipPropsMixin;
+
+UiFactory<CustomUserChipProps> CustomUserChip = uiFunction((props) {
+  final color = props.color;
+  
+  return (UserChip()
+    // Required props are correctly forwarded here by the wrapper component 
+    ..addProps(props.getPropsToForward(exclude: {CustomUserChipPropsMixin})
+    ..style = {
+      if (color != null) 'border': '2px solid $color', 
+      ...?props.style,
+    } 
+  )();
+}, _$CustomUserChipConfig);
+```
+
+**BAD:**
+```dart
+UiFactory<CustomUserChipProps> CustomUserChip = uiFunction((props) {
+  final color = props.color;
+  
+  // Required props are not forwarded, so we get:
+  //   warning: Missing required late prop 'user' from 'UserChipProps'.
+  //   (over_react_late_required_prop)
+  return (UserChip()
+    ..style = {
+      if (color != null) 'border': '2px solid $color', 
+      ...?props.style,
+    } 
+  )();
+}, _$CustomUserChipConfig);
+```
 ''';
+
 // </editor-fold>
 
 class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor {
@@ -82,7 +130,9 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
   );
 
   static const _correctionMessage =
-      "Either set this prop, or mix it into the enclosing component's props and forward it.";
+      "Either set this prop, or mix it into the enclosing component's props and forward it."
+      " Or, if this is a wrapper component that sets this prop within its render,"
+      " disable validation for this prop (see instructions in documentation link).";
 
   static DiagnosticCode _codeForRequiredness(PropRequiredness requiredness) {
     switch (requiredness) {
