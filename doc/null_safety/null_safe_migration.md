@@ -206,10 +206,11 @@ of the null safety and required props docs for instructions on how to handle the
 
 #### connect
 
-We'll be adding a codemod to help migrate the `connect` case: https://github.com/Workiva/over_react_codemod/issues/295
-
-Alternatively, you could refactor your component to instead utilize [OverReact Redux hooks](./over_react_redux_documentation.md#hooks), 
-which avoid this problem by accessing store data and dispatchers directly in the component as opposed to passing it in via props.
+For connect, either
+- Disable validation using the instructions linked above 
+    - Note: for now, this must be done manually, but we'll be adding a codemod to help do this automatically for `connect`: https://github.com/Workiva/over_react_codemod/issues/295
+- Refactor your component to instead utilize [OverReact Redux hooks](../over_react_redux_documentation.md#hooks), 
+    which avoid this problem by accessing store data and dispatchers directly in the component as opposed to passing it in via props.
 
 #### Implementing abstract `Ref`s
 
