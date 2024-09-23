@@ -1,5 +1,8 @@
 # OverReact Changelog
 
+## 5.3.3
+- [#951] Internal CI fixes
+
 ## 5.3.2
 - [#948] Fix late required prop linting not working in non-null-safe libraries
 - [#949] Add docs around migrating connect and wrapper components, improve helpfulness of required prop lints and runtime errors
