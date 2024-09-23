@@ -138,6 +138,14 @@ Run the null safety migrator tool:
 
 Below are some common cases that might come up while running the migrator tool on a repo using over_react.
 
+* [Prop requiredness and nullability](#prop-requiredness-and-nullability)
+* [Wrapper and `connect`ed components and required props](#wrapper-and-connected-components-and-required-props)
+* [Implementing abstract `Ref`s](#implementing-abstract-refs)
+* [Incorrect `getDerivedStateFromProps` Return Signature](#incorrect-getderivedstatefromprops-return-signature)
+* [Verbose function component return signature for `uiForwardRef`](#verbose-function-component-return-signature-for-uiforwardref)
+* [Nullable store/actions generics on `FluxUiPropsMixin`](#nullable-storeactions-generics-on-fluxuipropsmixin)
+* [Nullable props generic on `UiComponent2` mixins](#nullable-props-generic-on-uicomponent2-mixins)
+
 #### Prop requiredness and nullability
 
 First, check out our documentation around [null safety and required props](../null_safety_and_required_props.md).
@@ -187,6 +195,22 @@ flowchart TD
   End_Optional[/"Make it <strong>optional</strong>\n<code>SomeType? propName;</code>"\]
   End_Required[/"Make it <strong>required</strong>\n<code>late SomeType propName;</code>"\]
 ```
+
+### Wrapper and `connect`ed components and required props
+
+There may be some cases where you have a wrapper component or `connect`ed component that sets some required props, 
+but you get lints and runtime errors about missing props when consuming them.
+
+See [this section](../null_safety_and_required_props.md#disabling-required-prop-validation-for-certain-props)
+of the null safety and required props docs for instructions on how to handle these cases and suppress this validation.
+
+#### connect
+
+For connect, either
+- Disable validation using the instructions linked above 
+    - Note: for now, this must be done manually, but we'll be adding a codemod to help do this automatically for `connect`: https://github.com/Workiva/over_react_codemod/issues/295
+- Refactor your component to instead utilize [OverReact Redux hooks](../over_react_redux_documentation.md#hooks), 
+    which avoid this problem by accessing store data and dispatchers directly in the component as opposed to passing it in via props.
 
 #### Implementing abstract `Ref`s
 
