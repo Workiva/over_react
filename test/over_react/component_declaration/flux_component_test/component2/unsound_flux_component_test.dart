@@ -18,7 +18,7 @@
 
 library over_react.component_declaration.component2.unsound_flux_component_test;
 
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:over_react/over_react_flux.dart';
 import 'package:test/test.dart';
 
@@ -38,8 +38,8 @@ void main() {
         await pumpEventQueue();
         // Mainly verify that the test is set up properly component is interacting with the mock store.
         // While we're here, we can also verify that it hits all the APIs we've encountered null errors with.
-        verify(mockStore.listen(any));
-        verify(mockStore.isOrWillBeDisposed);
+        verify(() => mockStore.listen(any()));
+        verify(() => mockStore.isOrWillBeDisposed);
         jacket.rerender((testComponents.basic()..store = mockStore)());
         await pumpEventQueue();
         // This triggers `.cancel()` and verifies works with the null return value of `.listen`.
@@ -52,10 +52,10 @@ void main() {
         await pumpEventQueue();
         // Mainly verify that the test is set up properly component is interacting with the mock stores.
         // While we're here, we can also verify that it hits all the APIs we've encountered null errors with.
-        verify(mockStores.store1.listen(any));
-        verify(mockStores.store1.isOrWillBeDisposed);
-        verify(mockStores.store2.listen(any));
-        verify(mockStores.store2.isOrWillBeDisposed);
+        verify(() => mockStores.store1.listen(any()));
+        verify(() => mockStores.store1.isOrWillBeDisposed);
+        verify(() => mockStores.store2.listen(any()));
+        verify(() => mockStores.store2.isOrWillBeDisposed);
         jacket.rerender((testComponents.redrawOn()..store = mockStores)());
         await pumpEventQueue();
         // This triggers `.cancel()` and verifies works with the null return value of `.listen`.
@@ -68,8 +68,8 @@ void main() {
         await pumpEventQueue();
         // Mainly verify that the test is set up properly component is interacting with the mock store.
         // While we're here, we can also verify that it hits all the APIs we've encountered null errors with.
-        verify(mockStore.listen(any));
-        verify(mockStore.isOrWillBeDisposed);
+        verify(() => mockStore.listen(any()));
+        verify(() => mockStore.isOrWillBeDisposed);
         jacket.rerender((testComponents.storeHandlers()..store = mockStore)());
         await pumpEventQueue();
         // This triggers `.cancel()` and verifies works with the null return value of `.listen`.

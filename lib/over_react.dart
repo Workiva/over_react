@@ -57,7 +57,8 @@ export 'package:react/react_client.dart'
         setClientConfiguration,
         chainRefs,
         ReactElement,
-        ReactComponentFactoryProxy;
+        ReactComponentFactoryProxy,
+        ReactNode;
 export 'package:react/react_client/react_interop.dart' show ReactErrorInfo, Ref;
 export 'package:react/hooks.dart' show StateHook, ReducerHook;
 

@@ -15,12 +15,12 @@
 @TestOn('vm')
 import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:analyzer/dart/ast/ast.dart';
-import 'package:mockito/mockito.dart';
+import 'package:logging/logging.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:over_react/src/builder/parsing.dart';
 import 'package:source_span/source_span.dart';
 import 'package:test/test.dart';
 
-import '../../../mockito.mocks.dart';
 
 main() {
   group('error collection -', () {
@@ -259,12 +259,12 @@ main() {
         group('will print', () {
           test('correctly prints errors', () {
             collector!.addError(message);
-            verify(logger!.severe(message));
+            verify(() => logger!.severe(message));
           });
 
           test('correctly prints warnings', () {
             collector!.addWarning(message);
-            verify(logger!.warning(contains(message)));
+            verify(() => logger!.warning(contains(message)));
           });
         });
 
@@ -283,7 +283,7 @@ main() {
             collector!.addError(message, file!.span(0, file!.getOffset(2)));
 
             // Look for the expected output
-            verify(logger!.severe(expectedOutput));
+            verify(() => logger!.severe(expectedOutput));
           });
 
           test('warnings', () {
@@ -300,10 +300,11 @@ main() {
             collector!.addWarning(message, file!.span(0, file!.getOffset(2)));
 
             // Look for the expected output
-            verify(logger!.warning(expectedOutput));
+            verify(() => logger!.warning(expectedOutput));
           });
         });
       });
     });
   });
 }
+class MockLogger extends Mock implements Logger {}

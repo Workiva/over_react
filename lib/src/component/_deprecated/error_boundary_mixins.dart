@@ -102,7 +102,7 @@ abstract class _$ErrorBoundaryPropsMixin implements UiProps {
   /// component tree that crashed.
   ///
   /// > Related: [onComponentIsUnrecoverable], [onComponentDidCatch]
-  ReactElement Function(/*Error||Exception*/dynamic error, ReactErrorInfo? info)? fallbackUIRenderer;
+  ReactNode Function(/*Error||Exception*/dynamic error, ReactErrorInfo? info)? fallbackUIRenderer;
 
   /// The amount of time that is "acceptable" between consecutive identical errors thrown from a component
   /// within the tree wrapped by this [ErrorBoundary].
@@ -361,7 +361,7 @@ mixin ErrorBoundaryMixin<T extends ErrorBoundaryPropsMixin, S extends ErrorBound
   }
 
   // [2.2]
-  ReactElement? _renderStringDomAfterUnrecoverableErrors(_, __) {
+  ReactNode _renderStringDomAfterUnrecoverableErrors(_, __) {
     return (Dom.div()
       ..key = 'ohnoes'
       ..addTestId('ErrorBoundary.unrecoverableErrorInnerHtmlContainerNode')

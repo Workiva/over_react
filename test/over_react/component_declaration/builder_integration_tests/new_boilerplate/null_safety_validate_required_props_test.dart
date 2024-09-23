@@ -27,7 +27,7 @@ void main() {
         group('on invocation', () {
           test('via call()', () {
             expect(() {
-              (ComponentTest()
+              (RequiredPropsTest()
                 ..requiredNullable = true
               )();
             },
@@ -40,7 +40,7 @@ void main() {
 
           test('via build()', () {
             expect(() {
-              (ComponentTest()
+              (RequiredPropsTest()
                 ..requiredNullable = true
               ).build();
             },
@@ -54,7 +54,7 @@ void main() {
 
         test('on mount', () {
           expect(() {
-            rtl.render((ComponentTest()
+            rtl.render((RequiredPropsTest()
               ..requiredNullable = true
             )());
           },
@@ -69,14 +69,14 @@ void main() {
           late rtl.RenderResult view;
 
           expect(() {
-            view = rtl.render((ComponentTest()
+            view = rtl.render((RequiredPropsTest()
               ..requiredNonNullable = true
               ..requiredNullable = true
             )());
           }, returnsNormally);
 
           expect(() {
-            view.rerender((ComponentTest()
+            view.rerender((RequiredPropsTest()
               ..requiredNullable = true
             )());
           },
@@ -90,7 +90,7 @@ void main() {
 
       test('does not throw when the prop is set', () {
         expect(() {
-          rtl.render((ComponentTest()
+          rtl.render((RequiredPropsTest()
             ..requiredNonNullable = true
             ..requiredNullable = true
           )());
@@ -103,7 +103,7 @@ void main() {
         group('on invocation', () {
           test('via call()', () {
             expect(() {
-              (ComponentTest()
+              (RequiredPropsTest()
                 ..requiredNonNullable = true
               )();
             },
@@ -115,7 +115,7 @@ void main() {
 
           test('via build()', () {
             expect(() {
-              (ComponentTest()
+              (RequiredPropsTest()
                 ..requiredNonNullable = true
               ).build();
             },
@@ -128,7 +128,7 @@ void main() {
 
         test('on mount', () {
           expect(() {
-            rtl.render((ComponentTest()
+            rtl.render((RequiredPropsTest()
               ..requiredNonNullable = true
             )());
           },
@@ -142,14 +142,14 @@ void main() {
           late rtl.RenderResult view;
 
           expect(() {
-            view = rtl.render((ComponentTest()
+            view = rtl.render((RequiredPropsTest()
               ..requiredNonNullable = true
               ..requiredNullable = true
             )());
           }, returnsNormally);
 
           expect(() {
-            view.rerender((ComponentTest()
+            view.rerender((RequiredPropsTest()
               ..requiredNonNullable = true
             )());
           },
@@ -162,7 +162,7 @@ void main() {
 
       test('does not throw when the prop is set to null', () {
         expect(() {
-          rtl.render((ComponentTest()
+          rtl.render((RequiredPropsTest()
             ..requiredNonNullable = true
             ..requiredNullable = null
           )());
@@ -171,7 +171,7 @@ void main() {
 
       test('does not throw when the prop is set', () {
         expect(() {
-          rtl.render((ComponentTest()
+          rtl.render((RequiredPropsTest()
             ..requiredNonNullable = true
             ..requiredNullable = true
           )());
@@ -181,7 +181,7 @@ void main() {
 
     test('@disableRequiredPropValidation annotation turns off validation for specific props', () {
       expect(() {
-        rtl.render((ComponentTest()
+        rtl.render((RequiredPropsTest()
           ..requiredNonNullable = true
           ..requiredNullable = true
         )());
@@ -190,7 +190,7 @@ void main() {
 
     test('disableRequiredPropValidation method turns off validation for component usage', () {
       expect(() {
-        rtl.render((ComponentTest()
+        rtl.render((RequiredPropsTest()
           ..disableRequiredPropValidation()
         )());
       }, allOf(returnsNormally, logsNoPropTypeWarnings));
@@ -301,18 +301,18 @@ void main() {
 
   test('(New boilerplate) validates required props: does not throw in dart2js', () {
     expect(() {
-      rtl.render(ComponentTest()());
-      rtl.render(ComponentTest().build());
+      rtl.render(RequiredPropsTest()());
+      rtl.render(RequiredPropsTest().build());
     },
     returnsNormally);
   }, tags: 'no-ddc');
 }
 
 // ignore: undefined_identifier, invalid_assignment
-UiFactory<ComponentTestProps> ComponentTest = _$ComponentTest;
+UiFactory<RequiredPropsTestProps> RequiredPropsTest = _$RequiredPropsTest;
 
 @Props(disableRequiredPropValidation: {'testIgnoreOnMixin'})
-mixin ComponentTestProps on UiProps {
+mixin RequiredPropsTestProps on UiProps {
   late bool requiredNonNullable;
 
   late bool? requiredNullable;
@@ -332,7 +332,7 @@ mixin ComponentTestProps on UiProps {
   late bool testIgnoreOnMixin;
 }
 
-class ComponentTestComponent extends UiComponent2<ComponentTestProps> {
+class RequiredPropsTestComponent extends UiComponent2<RequiredPropsTestProps> {
   @override
   render() => Dom.div()();
 }
@@ -347,7 +347,7 @@ mixin MultipleMixinsTestPropsMixin on UiProps {
 }
 
 @Props(disableRequiredPropValidation: {'testIgnoreOnMixin'})
-class MultipleMixinsTestProps = UiProps with MultipleMixinsTestPropsMixin, ComponentTestProps;
+class MultipleMixinsTestProps = UiProps with MultipleMixinsTestPropsMixin, RequiredPropsTestProps;
 
 
 mixin WrapperTestPropsMixin on UiProps {
@@ -361,7 +361,7 @@ UiFactory<FunctionWrapperTestProps> FunctionWrapperTest = uiFunction(
 
 
 @Props(disableRequiredPropValidation: {'thirdRequiredProp', 'secondRequiredProp', 'requiredNonNullable', 'requiredNullable', 'testIgnoreOnMixin'})
-class FunctionWrapperTestProps = UiProps with WrapperTestPropsMixin, MultipleMixinsTestPropsMixin, ComponentTestProps;
+class FunctionWrapperTestProps = UiProps with WrapperTestPropsMixin, MultipleMixinsTestPropsMixin, RequiredPropsTestProps;
 
 @Factory()
 // ignore: undefined_identifier, invalid_assignment
@@ -396,7 +396,7 @@ mixin ClassWrapperTest2PropsMixin on UiProps {
 }
 
 @Props(disableRequiredPropValidation: {'thirdRequiredProp', 'secondRequiredProp', 'requiredNonNullable', 'requiredNullable', 'testIgnoreOnMixin'})
-class ClassWrapperTest2Props = UiProps with ClassWrapperTest2PropsMixin, MultipleMixinsTestPropsMixin, ComponentTestProps;
+class ClassWrapperTest2Props = UiProps with ClassWrapperTest2PropsMixin, MultipleMixinsTestPropsMixin, RequiredPropsTestProps;
 
 class ClassWrapperTest2Component extends UiComponent2<ClassWrapperTest2Props> {
   @override

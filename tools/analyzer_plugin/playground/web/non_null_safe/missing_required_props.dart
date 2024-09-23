@@ -2,6 +2,8 @@
 // This file is a non-null safe copy of playground examples to enable QAing backwards compatibility.
 import 'package:over_react/over_react.dart';
 
+import '../missing_required_props.dart';
+
 part 'missing_required_props.over_react.g.dart';
 
 main() {
@@ -12,13 +14,15 @@ main() {
 
 UiFactory<BarProps> Bar = castUiFactory(_$Bar); // ignore: undefined_identifier
 
-mixin BarProps on UiProps {
+mixin BarPropsMixin on UiProps {
   @requiredProp
   String barRequired;
 
   /// yo yo
   String bar;
 }
+
+class BarProps = UiProps with BarPropsMixin, WithLateRequiredProps;
 
 class BarComponent extends UiComponent2<BarProps> {
   @override

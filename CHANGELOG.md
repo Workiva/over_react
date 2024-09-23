@@ -1,10 +1,33 @@
 # OverReact Changelog
 
+## 5.3.1
+- [#944] Analyzer plugin: Don't lint for required props that are specified due to prop forwarding
+
+## 5.3.0
+- [#937] Use and export a new, [more expressive typedef for `Object?` called `ReactNode`](https://github.com/Workiva/react-dart/pull/384)
+
+## 5.2.1
+- [#934] Tighten dependency ranges following null-safety release
+- [#935] Docs: update null safety migration guide with required props codemod instructions
+
+## 5.2.0
+- [#920] Support conversion of prop values via annotations: `@ConvertProp`, `@convertJsMapProp`, `@convertJsRefProp`
+- [#925] Remove publish action that always fails due to dry run warnings
+- [#928] Fix num keys incorrectly linting as not unique
+- [#930] Fix Analyzer Plugin error when typing keys
+- [#932] Update the null safety migration documentation
+
+## 5.1.1 & 5.1.2
+- Fixes to CI [#921] [#922]
+- Add auto-publish to pub.dev
+
 ## 5.1.0
+- [#910] / [#916] Add null safety migration / component authoring guides.
 - [#909] Deprecate the optional `initialValue` argument in the `useRef` hook. 
   - Use the `useRefInit` hook instead if you need to set an initial value. 
 - [#909] Deprecate the optional `defaultValue` argument in `createContext`. 
   - Use `createContextInit` instead if you need to set a default value.
+- [#917] Only validate required props in null-safe components 
 
 ## 5.0.1
 - Consume over_react_test 3.0.0

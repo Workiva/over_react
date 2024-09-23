@@ -6,6 +6,7 @@ import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/pretty_print.dart';
 import 'package:over_react_analyzer_plugin/src/util/prop_declarations/props_set_by_factory.dart';
+import 'package:over_react_analyzer_plugin/src/util/prop_forwarding/forwarded_props.dart';
 import 'package:over_react_analyzer_plugin/src/util/util.dart';
 import 'package:over_react_analyzer_plugin/src/util/weak_map.dart';
 
@@ -66,6 +67,7 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
     "Missing required late prop {0}.",
     AnalysisErrorSeverity.WARNING,
     AnalysisErrorType.STATIC_WARNING,
+    correction: _correctionMessage,
   );
 
   // Note: this code is disabled by default in getDiagnosticContributors
@@ -75,7 +77,11 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
     "Missing @requiredProp {0}.",
     AnalysisErrorSeverity.INFO,
     AnalysisErrorType.STATIC_WARNING,
+    correction: _correctionMessage,
   );
+
+  static const _correctionMessage =
+      "Either set this prop, or mix it into the enclosing component's props and forward it.";
 
   static DiagnosticCode _codeForRequiredness(PropRequiredness requiredness) {
     switch (requiredness) {
@@ -167,8 +173,9 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
     final debugHelper = AnalyzerDebugHelper(result, collector, enabled: _cachedIsDebugHelperEnabled(result));
     // A flag to help verify during debugging/testing whether propsSetByFactory was computed.
     var hasPropsSetByFactoryBeenComputed = false;
+    final debugSuppressedRequiredPropsDueToForwarding = <FieldElement>{};
 
-    // Use a late variable to compute this only when we need to.
+    // Use late variables to compute these only when we need to.
     late final propsSetByFactory = () {
       hasPropsSetByFactoryBeenComputed = true;
 
@@ -180,8 +187,8 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
 
       return _cachedGetPropsSetByFactory(factoryElement);
     }();
-
-    final presentPropNames =
+    late final forwardedProps = computeForwardedProps(usage);
+    late final presentPropNames =
         usage.cascadedProps.where((prop) => !prop.isPrefixed).map((prop) => prop.name.name).toSet();
 
     for (final name in requiredPropInfo.requiredPropNames) {
@@ -197,25 +204,50 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
         continue;
       }
 
-      // TODO(FED-2034) don't warn when we know required props are being forwarded
+      final sourcePropsClass = field.enclosingElement;
+      if (sourcePropsClass is InterfaceElement) {
+        if (forwardedProps != null && forwardedProps.definitelyForwardsPropsFrom(sourcePropsClass)) {
+          if (debugHelper.enabled) {
+            debugSuppressedRequiredPropsDueToForwarding.add(field);
+          }
+          continue;
+        }
+      }
 
       // Only access propsSetByFactory when we hit missing required props to avoid computing it unnecessarily.
       if (propsSetByFactory?.contains(name) ?? false) {
         continue;
       }
 
-      await collector.addErrorWithFix(
-        _codeForRequiredness(requiredness),
-        result.locationFor(usage.builder),
-        errorMessageArgs: ["'$name' from '${field.enclosingElement.name}'"],
-        fixKind: fixKind,
-        fixMessageArgs: [name],
-        computeFix: () => buildFileEdit(result, (builder) {
-          addProp(usage, builder, result.content, result.lineInfo, name: name, buildValueEdit: (builder) {
-            builder.selectHere();
-          });
-        }),
-      );
+      // Late required prop validation is only enabled for props classes that have migrated to null safety.
+      if (propsClassElement.library.isNonNullableByDefault || requiredness != PropRequiredness.late) {
+        await collector.addErrorWithFix(
+          _codeForRequiredness(requiredness),
+          result.locationFor(usage.builder),
+          errorMessageArgs: ["'$name' from '${field.enclosingElement.name}'"],
+          fixKind: fixKind,
+          fixMessageArgs: [name],
+          computeFix: () => buildFileEdit(result, (builder) {
+            addProp(usage, builder, result.content, result.lineInfo, name: name, buildValueEdit: (builder) {
+              builder.selectHere();
+            });
+          }),
+        );
+      }
+    }
+
+    if (forwardedProps != null) {
+      debugHelper.log(() {
+        var message = StringBuffer()..writeln(forwardedProps);
+        if (debugSuppressedRequiredPropsDueToForwarding.isNotEmpty) {
+          final propsNamesByClassName = <String?, Set<String>>{};
+          for (final field in debugSuppressedRequiredPropsDueToForwarding) {
+            propsNamesByClassName.putIfAbsent(field.enclosingElement.name, () => {}).add(field.name);
+          }
+          message.write('Required props set only via forwarding: ${prettyPrint(propsNamesByClassName)}');
+        } else {}
+        return message.toString();
+      }, () => result.locationFor(forwardedProps.debugSourceNode));
     }
 
     // Include debug info for each invocation ahout all the props and their requirednesses.

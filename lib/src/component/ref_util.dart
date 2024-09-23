@@ -32,7 +32,7 @@ import 'package:over_react/component_base.dart';
 ///       final Ref<InputElement> inputRef = createRef();
 ///
 ///       showInputCreateRefValue(_) {
-///         print(inputRef.current.value);
+///         print(inputRef.current!.value);
 ///       }
 ///
 ///       @override
@@ -197,7 +197,7 @@ Ref<T?> createRef<T>() => react_interop.createRef();
 /// // This is not necessary but is just in place to illustrate that more props
 /// // can be specified and consumed.
 /// mixin AnotherPropsMixin on UiProps {
-///   String anExampleAdditionalProp;
+///   String? anExampleAdditionalProp;
 /// }
 ///
 /// class Foo2Props = UiProps with AnotherPropsMixin, FooProps;
@@ -212,7 +212,7 @@ Ref<T?> createRef<T>() => react_interop.createRef();
 ///   _$Foo2Config, // ignore: undefined_identifier
 /// );
 UiFactory<TProps> uiForwardRef<TProps extends bh.UiProps>(
-    dynamic Function(TProps props, dynamic ref) functionComponent, dynamic _config) {
+    /*ReactNode*/ dynamic Function(TProps props, dynamic ref) functionComponent, dynamic _config) {
   ArgumentError.checkNotNull(_config, '_config');
 
   if (_config is! UiFactoryConfig<TProps>) {
@@ -231,7 +231,7 @@ UiFactory<TProps> uiForwardRef<TProps extends bh.UiProps>(
   // this will be an empty string.
   final displayName = config.displayName ?? getFunctionName(functionComponent);
 
-  dynamic _uiFunctionWrapper(JsBackedMap props, dynamic ref) {
+  /*ReactNode*/ dynamic _uiFunctionWrapper(JsBackedMap props, dynamic ref) {
     return functionComponent(propsFactory!.jsMap(props), ref);
   }
 

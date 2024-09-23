@@ -1,6 +1,4 @@
 exclude:
   - app/**
   - tools/**
-ignore:
-  - mockito
 allow_pins: true

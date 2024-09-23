@@ -18,7 +18,6 @@ import 'dart:html';
 import 'package:meta/meta.dart';
 import 'package:over_react/over_react.dart';
 import 'package:over_react/over_react_redux.dart';
-import 'package:over_react/src/util/equality.dart';
 import 'package:redux/redux.dart' as redux;
 import 'package:w_flux/w_flux.dart' as flux;
 
@@ -521,8 +520,8 @@ UiFactory<TProps> Function(UiFactory<TProps>)
       final originalMapStateToProps = mapStateToProps;
       Map wrappedMapStateToProps(TStore state) {
         return {
-          ...originalMapStateToProps!(state),
-          ...mapActionsToProps!(actionsForStore[state] as TActions),
+          ...originalMapStateToProps(state),
+          ...mapActionsToProps(actionsForStore[state] as TActions),
         };
       }
 
@@ -533,7 +532,7 @@ UiFactory<TProps> Function(UiFactory<TProps>)
     if (case4) {
       mapStateToProps = (state) {
         return {
-          ...mapActionsToProps!(actionsForStore[state] as TActions),
+          ...mapActionsToProps(actionsForStore[state] as TActions),
         };
       };
     }
@@ -543,8 +542,8 @@ UiFactory<TProps> Function(UiFactory<TProps>)
       final originalMapStateWithOwnProps = mapStateToPropsWithOwnProps;
       Map wrappedMapStateWithOwnProps(TStore state, TProps ownProps) {
         return {
-          ...originalMapStateWithOwnProps!(state, ownProps),
-          ...mapActionsToPropsWithOwnProps!(
+          ...originalMapStateWithOwnProps(state, ownProps),
+          ...mapActionsToPropsWithOwnProps(
               actionsForStore[state] as TActions, ownProps),
         };
       }
@@ -556,7 +555,7 @@ UiFactory<TProps> Function(UiFactory<TProps>)
     if (case6) {
       mapStateToPropsWithOwnProps = (state, ownProps) {
         return {
-          ...mapActionsToPropsWithOwnProps!(
+          ...mapActionsToPropsWithOwnProps(
               actionsForStore[state] as TActions, ownProps),
         };
       };
@@ -570,7 +569,7 @@ UiFactory<TProps> Function(UiFactory<TProps>)
       mapStateToPropsWithOwnProps = (state, ownProps) {
         return {
           ...newMapStateToProps!(state),
-          ...mapActionsToPropsWithOwnProps!(
+          ...mapActionsToPropsWithOwnProps(
               actionsForStore[state] as TActions, ownProps),
         };
       };
@@ -586,7 +585,7 @@ UiFactory<TProps> Function(UiFactory<TProps>)
       Map wrappedMapStateToPropsWithOwnProps(TStore state, TProps ownProps) {
         return {
           ...originalMapStateWithOwnProps!(state, ownProps),
-          ...mapActionsToProps!(actionsForStore[state] as TActions),
+          ...mapActionsToProps(actionsForStore[state] as TActions),
         };
       }
 

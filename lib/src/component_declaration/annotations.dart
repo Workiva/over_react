@@ -35,12 +35,12 @@ class Factory {
 ///
 ///     @Props()
 ///     mixin FooProps on UiProps {
-///       String bar;
+///       String? bar;
 ///     }
 ///
 /// __NOTE:__ This is only required for legacy boilerplate and can be omitted
 /// for new implementations. However, it can still be used for custom configurations
-/// (e.g. `keyNamespace`).
+/// (e.g. `keyNamespace`, `disableRequiredPropValidation`).
 ///
 /// If utilizing legacy boilerplate, must be accompanied by a [Factory] and [Component2]
 /// declaration.
@@ -272,7 +272,7 @@ class Component2 implements Component { // ignore: deprecated_member_use_from_sa
 ///
 ///     @AbstractProps()
 ///     mixin QuxProps on UiProps {
-///       int quux;
+///       int? quux;
 ///     }
 ///
 /// __NOTE:__ This is only required for legacy boilerplate and can be omitted
@@ -336,7 +336,7 @@ class AbstractComponent2 implements AbstractComponent { // ignore: deprecated_me
 ///     mixin GraultPropsMixin on UiProps {
 ///       Map get props;
 ///
-///       Object garply;
+///       Object? garply;
 ///     }
 ///
 /// Classes using this annotation must include the abstract `props` getter.
@@ -378,6 +378,8 @@ class StateMixin implements TypedMap {
 
 /// Marks a `prop` as required to be set.
 ///
+/// Prefer using `late` required props instead; this will eventually be deprecated.
+///
 /// Validation occurs in `UiComponent.validateRequiredProps` which requires super calls into `componentWillMount` and
 /// `componentWillReceiveProps`.
 ///
@@ -388,6 +390,8 @@ class StateMixin implements TypedMap {
 const Accessor requiredProp = Accessor(isRequired: true);
 
 /// Marks a `prop` as required to be set, but allowed to be set explicitly to `null`.
+///
+/// Prefer using `late` required props instead; this will eventually be deprecated.
 ///
 /// Validation occurs in `UiComponent.validateRequiredProps` which requires super calls into `componentWillMount` and
 /// `componentWillReceiveProps`.
@@ -400,7 +404,7 @@ const Accessor nullableRequiredProp = Accessor(isRequired: true, isNullable: tru
 
 /// Annotation used with the `over_react` builder to customize individual accessors (props/state fields).
 ///
-/// Validation occurs in `UiComponent.validateRequiredProps` which requires super calls into `componentWillMount` and
+/// Validation (prefer using using `late` required props) occurs in `UiComponent.validateRequiredProps` which requires super calls into `componentWillMount` and
 /// `componentWillReceiveProps`.
 ///
 ///     mixin FooProps on UiProps {
@@ -455,3 +459,27 @@ const _DisableRequiredPropValidation disableRequiredPropValidation = _DisableReq
 class _DisableRequiredPropValidation {
   const _DisableRequiredPropValidation();
 }
+
+/// Annotation that simplifies prop type conversion by generating [getter] and [setter] in
+/// the respective getters and setters for the prop in the .over_react.g.dart part file.
+///
+/// A prop annotated with [ConvertProp] should always be typed the same as the [Converted] type.
+class ConvertProp<Raw, Converted> {
+  final Converted Function(Raw) getter;
+  final Raw Function(Converted) setter;
+
+  const ConvertProp( this.setter, this.getter );
+}
+
+/// Utility version of [ConvertProp] for map props to generate getters and setters
+/// to convert from `JsMap` to `Map` and back.
+const _CommonConversionCases convertJsMapProp = _CommonConversionCases();
+
+/// Utility version of [ConvertProp] for ref props to generate getters and setters
+/// to convert from `JsRef` to `Ref` and back.
+const _CommonConversionCases convertJsRefProp = _CommonConversionCases();
+
+class _CommonConversionCases {
+  const _CommonConversionCases();
+}
+

@@ -37,7 +37,7 @@ part 'with_transition.over_react.g.dart';
 /// import 'package:over_react/components.dart' show WithTransition;
 ///
 /// mixin WithTransitionExampleProps on UiProps {
-///   bool initiallyShown;
+///   bool? initiallyShown;
 /// }
 ///
 /// UiFactory<WithTransitionExampleProps> WithTransitionExample = uiFunction(
@@ -264,6 +264,8 @@ class WithTransitionComponent extends UiStatefulComponent2<WithTransitionProps, 
   render() {
     assert(_hasSingleValidChild(props));
 
+    // ok to ignore because of the above assert
+    // ignore: cast_nullable_to_non_nullable
     final childElement = props.children!.single as ReactElement;
     final childProps = domProps(getProps(childElement));
     final phaseProps = props.childPropsByPhase![state.$transitionPhase] ?? const {};

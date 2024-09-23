@@ -189,7 +189,7 @@ class RecoverableErrorBoundaryComponent<T extends RecoverableErrorBoundaryProps,
   }
 
   // [2.2]
-  ReactElement? _renderStringDomAfterUnrecoverableErrors(_, __) {
+  ReactNode _renderStringDomAfterUnrecoverableErrors(_, __) {
     return (Dom.div()
       ..key = 'ohnoes'
       ..addTestId('ErrorBoundary.unrecoverableErrorInnerHtmlContainerNode')

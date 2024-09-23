@@ -135,10 +135,10 @@ abstract class ErrorBoundaryPropsMixin implements _$ErrorBoundaryPropsMixin {
   ///
   /// <!-- Generated from [_$ErrorBoundaryPropsMixin.fallbackUIRenderer] -->
   @override
-  ReactElement Function(dynamic error, ReactErrorInfo? info)?
+  ReactNode Function(dynamic error, ReactErrorInfo? info)?
       get fallbackUIRenderer =>
           (props[_$key__fallbackUIRenderer___$ErrorBoundaryPropsMixin] ?? null)
-              as ReactElement Function(dynamic error, ReactErrorInfo? info)?;
+              as ReactNode Function(dynamic error, ReactErrorInfo? info)?;
 
   /// A renderer that will be used to render "fallback" UI instead of the child
   /// component tree that crashed.
@@ -148,7 +148,7 @@ abstract class ErrorBoundaryPropsMixin implements _$ErrorBoundaryPropsMixin {
   /// <!-- Generated from [_$ErrorBoundaryPropsMixin.fallbackUIRenderer] -->
   @override
   set fallbackUIRenderer(
-          ReactElement Function(dynamic error, ReactErrorInfo? info)? value) =>
+          ReactNode Function(dynamic error, ReactErrorInfo? info)? value) =>
       props[_$key__fallbackUIRenderer___$ErrorBoundaryPropsMixin] = value;
 
   /// The amount of time that is "acceptable" between consecutive identical errors thrown from a component

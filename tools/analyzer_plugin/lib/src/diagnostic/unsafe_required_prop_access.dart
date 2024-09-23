@@ -11,7 +11,7 @@ import 'package:over_react_analyzer_plugin/src/util/util.dart';
 
 const _desc = r"Do not unsafely access required props when they're not guaranteed to be present.";
 // <editor-fold desc="Documentation Details">
-const _details = r'''
+const _details = /*language=markdown*/ r'''
 
 **DO NOT** access required props when they're not guaranteed to be present, since that can cause errors and bad behavior.
 
@@ -32,7 +32,7 @@ example() {
 }
 ```
 
-**DO** use utility methods `getRequiredProp`, getRequiredPropOrNull`, or `containsProp` checks to safely access the prop.
+**DO** use utility methods `getRequiredProp`, `getRequiredPropOrNull`, or `containsProp` checks to safely access the prop.
 
 **GOOD:**
 ```dart
@@ -59,7 +59,7 @@ renderFoo([Map? _additionalFooProps]) {
 ```
 
 **BAD:**
-```
+```dart
 @override
 renderFoo([Map? _additionalFooProps]) {
   final fooProps = Foo({...?_additionalFooProps});

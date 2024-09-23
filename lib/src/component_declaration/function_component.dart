@@ -60,8 +60,8 @@ export 'component_type_checking.dart'
 /// );
 ///
 /// mixin FooProps on UiProps {
-///   bool isDisabled;
-///   Iterable<String> items;
+///   bool? isDisabled;
+///   Iterable<String>? items;
 /// }
 /// ```
 ///
@@ -96,7 +96,7 @@ export 'component_type_checking.dart'
 /// Learn more: <https://reactjs.org/docs/components-and-props.html#function-and-class-components>.
 // TODO: right now only top level factory declarations will generate props configs.
 UiFactory<TProps> uiFunction<TProps extends UiProps>(
-  dynamic Function(TProps props) functionComponent,
+  /*ReactNode*/ dynamic Function(TProps props) functionComponent,
   dynamic _config,
 ) {
   ArgumentError.checkNotNull(_config, '_config');

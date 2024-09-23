@@ -14,7 +14,6 @@
 
 import 'ast_util.dart';
 import 'members.dart';
-import 'package:collection/collection.dart' show IterableExtension;
 import 'util.dart';
 
 /// Removes the generated prefix from anywhere inside of [name].

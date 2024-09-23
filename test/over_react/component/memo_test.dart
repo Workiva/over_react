@@ -14,7 +14,6 @@
 
 library memo_test;
 
-import 'package:over_react/src/util/memo.dart';
 import 'package:over_react_test/over_react_test.dart';
 import 'package:test/test.dart';
 import 'package:over_react/over_react.dart';
