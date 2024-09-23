@@ -1,5 +1,9 @@
 # OverReact Changelog
 
+## 5.3.2
+- [#948] Fix late required prop linting not working in non-null-safe libraries
+- [#949] Add docs around migrating connect and wrapper components, improve helpfulness of required prop lints and runtime errors
+
 ## 5.3.1
 - [#944] Analyzer plugin: Don't lint for required props that are specified due to prop forwarding
 
