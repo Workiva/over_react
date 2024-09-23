@@ -1,7 +1,6 @@
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/token.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
-import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/function_components.dart';
@@ -78,7 +77,7 @@ class NonDefaultedPropDiagnostic extends DiagnosticContributor {
   computeErrors(result, collector) async {
     final notUsingDefaults = <Tuple2<Expression, VariableDeclaration>>[];
 
-    result.unit!.accept(FunctionComponentVisitor((component) {
+    result.unit.accept(FunctionComponentVisitor((component) {
       final visitor = NonDefaultedPropVisitor();
       component.body.accept(visitor);
       visitor.defaultedPropVariablesByPropName.forEach((propName, variable) {
@@ -92,7 +91,7 @@ class NonDefaultedPropDiagnostic extends DiagnosticContributor {
       final access = tuple.item1;
       final variable = tuple.item2;
 
-      final variableName = variable.name.name;
+      final variableName = variable.name.lexeme;
 
       await collector.addErrorWithFix(
         code,

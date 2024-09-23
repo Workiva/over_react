@@ -1,6 +1,3 @@
-// Disable null-safety in the plugin entrypoint until all dependencies are null-safe,
-// otherwise tests won't be able to run. See: https://github.com/dart-lang/test#compiler-flags
-// @dart=2.9
 import 'dart:async';
 
 import 'package:over_react_analyzer_plugin/src/diagnostic/duplicate_prop_cascade.dart';
@@ -26,11 +23,11 @@ class DuplicatePropCascadeDiagnosticTest extends DiagnosticTestBase {
   static const customComponentDefinition = /*language=dart*/ r'''
 import 'package:over_react/over_react.dart';
 
-part 'test.over_react.g.dart';
+part '{{FILE_BASENAME_WITHOUT_EXTENSION}}.over_react.g.dart';
 
 mixin CustomProps on UiProps {
-  int size;
-  bool hidden;
+  int? size;
+  bool? hidden;
 }
 
 final Custom = uiFunction<CustomProps>(
@@ -42,7 +39,7 @@ final Custom = uiFunction<CustomProps>(
 ''';
 
   Future<void> test_noFalsePositives() async {
-    final source = newSource('test.dart', /*language=dart*/ '''
+    final source = newSource(/*language=dart*/ '''
 $customComponentDefinition
 
 final customComponentUsage = (Custom()
@@ -68,7 +65,7 @@ final domComponentUsage = (Dom.div()
   }
 
   Future<void> test_dupeDomPropFix() async {
-    var source = newSource('test.dart', /*language=dart*/ r'''
+    var source = newSource(/*language=dart*/ r'''
 import 'package:over_react/over_react.dart';
 
 final domComponentUsage = (Dom.div()
@@ -94,7 +91,7 @@ final domComponentUsage = (Dom.div()
   }
 
   Future<void> test_dupeCustomPropFix() async {
-    var source = newSource('test.dart', /*language=dart*/ '''
+    var source = newSource(/*language=dart*/ '''
 $customComponentDefinition
 
 final componentUsage = (Custom()
@@ -110,14 +107,14 @@ final componentUsage = (Custom()
     final errorFix = await expectSingleErrorFix(selection);
     expect(errorFix.fixes.single.change.selection, isNull);
     source = applyErrorFixes(errorFix, source);
-    expect(source.contents.data, /*language=dart*/ '''
+    expect(source.contents.data, substituteSource(/*language=dart*/ '''
 $customComponentDefinition
 
 final componentUsage = (Custom()
   ..hidden = true
   ..dom.hidden = false
 )();
-''');
+''', path: source.uri.path));
   }
 
   // ********************************************************
@@ -125,7 +122,7 @@ final componentUsage = (Custom()
   // ********************************************************
 
   Future<void> test_dupeDomPropWithOnePrefixedKey() async {
-    var source = newSource('test.dart', /*language=dart*/ '''
+    var source = newSource(/*language=dart*/ '''
 $customComponentDefinition
 
 final customComponentUsage = (Custom()
@@ -150,7 +147,7 @@ final domComponentUsage = (Dom.div()
   }
 
   Future<void> test_dupeDomPropWithMultiplePrefixedKeys() async {
-    final source = newSource('test.dart', /*language=dart*/ '''
+    final source = newSource(/*language=dart*/ '''
 $customComponentDefinition
 
 final domComponentUsage = (Dom.div()
@@ -179,7 +176,7 @@ final customComponentUsage = (Custom()
   }
 
   Future<void> test_dupeDomPropWithAllPrefixedKeys() async {
-    final source = newSource('test.dart', /*language=dart*/ '''
+    final source = newSource(/*language=dart*/ '''
 $customComponentDefinition
 
 final domComponentUsage = (Dom.div()
@@ -208,7 +205,7 @@ final customComponentUsage = (Custom()
   }
 
   Future<void> test_dupeDomPropWithNoPrefixedKeys() async {
-    final source = newSource('test.dart', /*language=dart*/ '''
+    final source = newSource(/*language=dart*/ '''
 $customComponentDefinition
 
 final domComponentUsage = (Dom.div()
@@ -239,7 +236,7 @@ final customComponentUsage = (Custom()
   // We currently don't support flagging dupes when a key is added using `..addProps(domProps()..key)`, but
   // we run a test here to verify that no lint is shown, and that the plugin doesn't crash.
   Future<void> test_noDupeAndNoPluginCrashWhenUsingAddPropsDomPropsAndPrefixedKey() async {
-    final source = newSource('test.dart', /*language=dart*/ '''
+    final source = newSource(/*language=dart*/ '''
 $customComponentDefinition
 
 final domComponentUsage = (Dom.div()
@@ -270,7 +267,7 @@ final customComponentUsagePrefixed = (Custom()
   // ********************************************************
 
   Future<void> test_dupeAriaPropWithAllPrefixedKeys() async {
-    final source = newSource('test.dart', /*language=dart*/ '''
+    final source = newSource(/*language=dart*/ '''
 $customComponentDefinition
 
 final domComponentUsage = (Dom.div()
@@ -297,7 +294,7 @@ final customComponentUsage = (Custom()
   // We currently don't support flagging dupes when a key is added using `..addProps(ariaProps()..key)`, but
   // we run a test here to verify that no lint is shown, and that the plugin doesn't crash.
   Future<void> test_noDupeAndNoPluginCrashWhenUsingAddPropsAriaProps() async {
-    final source = newSource('test.dart', /*language=dart*/ '''
+    final source = newSource(/*language=dart*/ '''
 $customComponentDefinition
 
 final domComponentUsage = (Dom.div()
@@ -320,7 +317,7 @@ final customComponentUsage = (Custom()
   // ********************************************************
 
   Future<void> test_dupeCustomProp() async {
-    final source = newSource('test.dart', /*language=dart*/ '''
+    final source = newSource(/*language=dart*/ '''
 $customComponentDefinition
 
 final usage = (Custom()

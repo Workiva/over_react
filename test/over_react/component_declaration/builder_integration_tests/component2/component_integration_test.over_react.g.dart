@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators, invalid_use_of_visible_for_overriding_member
 part of 'component_integration_test.dart';
 
 // **************************************************************************
@@ -25,33 +25,33 @@ abstract class _$ComponentTestPropsAccessorsMixin
 
   /// <!-- Generated from [_$ComponentTestProps.stringProp] -->
   @override
-  String get stringProp =>
-      (props[_$key__stringProp___$ComponentTestProps] ?? null) as String;
+  String? get stringProp =>
+      (props[_$key__stringProp___$ComponentTestProps] ?? null) as String?;
 
   /// <!-- Generated from [_$ComponentTestProps.stringProp] -->
   @override
-  set stringProp(String value) =>
+  set stringProp(String? value) =>
       props[_$key__stringProp___$ComponentTestProps] = value;
 
   /// <!-- Generated from [_$ComponentTestProps.shouldSetPropsDirectly] -->
   @override
-  bool get shouldSetPropsDirectly =>
+  bool? get shouldSetPropsDirectly =>
       (props[_$key__shouldSetPropsDirectly___$ComponentTestProps] ?? null)
-          as bool;
+          as bool?;
 
   /// <!-- Generated from [_$ComponentTestProps.shouldSetPropsDirectly] -->
   @override
-  set shouldSetPropsDirectly(bool value) =>
+  set shouldSetPropsDirectly(bool? value) =>
       props[_$key__shouldSetPropsDirectly___$ComponentTestProps] = value;
 
   /// <!-- Generated from [_$ComponentTestProps.shouldUseJsFactory] -->
   @override
-  bool get shouldUseJsFactory =>
-      (props[_$key__shouldUseJsFactory___$ComponentTestProps] ?? null) as bool;
+  bool? get shouldUseJsFactory =>
+      (props[_$key__shouldUseJsFactory___$ComponentTestProps] ?? null) as bool?;
 
   /// <!-- Generated from [_$ComponentTestProps.shouldUseJsFactory] -->
   @override
-  set shouldUseJsFactory(bool value) =>
+  set shouldUseJsFactory(bool? value) =>
       props[_$key__shouldUseJsFactory___$ComponentTestProps] = value;
 
   /// <!-- Generated from [_$ComponentTestProps.dynamicProp] -->
@@ -179,7 +179,7 @@ class ComponentTestProps extends _$ComponentTestProps
   static const PropsMeta meta = _$metaForComponentTestProps;
 }
 
-_$$ComponentTestProps _$ComponentTest([Map backingProps]) =>
+_$$ComponentTestProps _$ComponentTest([Map? backingProps]) =>
     backingProps == null
         ? _$$ComponentTestProps$JsMap(JsBackedMap())
         : _$$ComponentTestProps(backingProps);
@@ -192,9 +192,9 @@ abstract class _$$ComponentTestProps extends _$ComponentTestProps
     implements ComponentTestProps {
   _$$ComponentTestProps._();
 
-  factory _$$ComponentTestProps(Map backingMap) {
+  factory _$$ComponentTestProps(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$ComponentTestProps$JsMap(backingMap as JsBackedMap);
+      return _$$ComponentTestProps$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$ComponentTestProps$PlainMap(backingMap);
     }
@@ -212,13 +212,26 @@ abstract class _$$ComponentTestProps extends _$ComponentTestProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'ComponentTestProps.';
+
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$ComponentTestProps(
+          accessMap, (map) => _$$ComponentTestProps(map));
+
+  @override
+  Set<String> get requiredPropNamesToSkipValidation =>
+      const {'id', 'shouldSetPropsDirectly', 'shouldUseJsFactory'};
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$ComponentTestProps = getPropKey;
 
 // Concrete props implementation that can be backed by any [Map].
 class _$$ComponentTestProps$PlainMap extends _$$ComponentTestProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ComponentTestProps$PlainMap(Map backingMap)
+  _$$ComponentTestProps$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -235,7 +248,7 @@ class _$$ComponentTestProps$PlainMap extends _$$ComponentTestProps {
 class _$$ComponentTestProps$JsMap extends _$$ComponentTestProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ComponentTestProps$JsMap(JsBackedMap backingMap)
+  _$$ComponentTestProps$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -252,7 +265,7 @@ class _$$ComponentTestProps$JsMap extends _$$ComponentTestProps {
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$ComponentTestComponent extends ComponentTestComponent {
-  _$$ComponentTestProps$JsMap _cachedTypedProps;
+  late _$$ComponentTestProps$JsMap _cachedTypedProps;
 
   @override
   _$$ComponentTestProps$JsMap get props => _cachedTypedProps;
@@ -272,11 +285,11 @@ class _$ComponentTestComponent extends ComponentTestComponent {
   }
 
   @override
-  _$$ComponentTestProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
+  _$$ComponentTestProps$JsMap typedPropsFactoryJs(JsBackedMap? backingMap) =>
       _$$ComponentTestProps$JsMap(backingMap);
 
   @override
-  _$$ComponentTestProps typedPropsFactory(Map backingMap) =>
+  _$$ComponentTestProps typedPropsFactory(Map? backingMap) =>
       _$$ComponentTestProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
@@ -327,7 +340,7 @@ class IsErrorBoundaryProps extends _$IsErrorBoundaryProps
   static const PropsMeta meta = _$metaForIsErrorBoundaryProps;
 }
 
-_$$IsErrorBoundaryProps _$IsErrorBoundary([Map backingProps]) =>
+_$$IsErrorBoundaryProps _$IsErrorBoundary([Map? backingProps]) =>
     backingProps == null
         ? _$$IsErrorBoundaryProps$JsMap(JsBackedMap())
         : _$$IsErrorBoundaryProps(backingProps);
@@ -340,9 +353,9 @@ abstract class _$$IsErrorBoundaryProps extends _$IsErrorBoundaryProps
     implements IsErrorBoundaryProps {
   _$$IsErrorBoundaryProps._();
 
-  factory _$$IsErrorBoundaryProps(Map backingMap) {
+  factory _$$IsErrorBoundaryProps(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$IsErrorBoundaryProps$JsMap(backingMap as JsBackedMap);
+      return _$$IsErrorBoundaryProps$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$IsErrorBoundaryProps$PlainMap(backingMap);
     }
@@ -360,13 +373,22 @@ abstract class _$$IsErrorBoundaryProps extends _$IsErrorBoundaryProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'IsErrorBoundaryProps.';
+
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$IsErrorBoundaryProps(
+          accessMap, (map) => _$$IsErrorBoundaryProps(map));
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$IsErrorBoundaryProps = getPropKey;
 
 // Concrete props implementation that can be backed by any [Map].
 class _$$IsErrorBoundaryProps$PlainMap extends _$$IsErrorBoundaryProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$IsErrorBoundaryProps$PlainMap(Map backingMap)
+  _$$IsErrorBoundaryProps$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -383,7 +405,7 @@ class _$$IsErrorBoundaryProps$PlainMap extends _$$IsErrorBoundaryProps {
 class _$$IsErrorBoundaryProps$JsMap extends _$$IsErrorBoundaryProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$IsErrorBoundaryProps$JsMap(JsBackedMap backingMap)
+  _$$IsErrorBoundaryProps$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -400,7 +422,7 @@ class _$$IsErrorBoundaryProps$JsMap extends _$$IsErrorBoundaryProps {
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$IsErrorBoundaryComponent extends IsErrorBoundaryComponent {
-  _$$IsErrorBoundaryProps$JsMap _cachedTypedProps;
+  late _$$IsErrorBoundaryProps$JsMap _cachedTypedProps;
 
   @override
   _$$IsErrorBoundaryProps$JsMap get props => _cachedTypedProps;
@@ -420,11 +442,11 @@ class _$IsErrorBoundaryComponent extends IsErrorBoundaryComponent {
   }
 
   @override
-  _$$IsErrorBoundaryProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
+  _$$IsErrorBoundaryProps$JsMap typedPropsFactoryJs(JsBackedMap? backingMap) =>
       _$$IsErrorBoundaryProps$JsMap(backingMap);
 
   @override
-  _$$IsErrorBoundaryProps typedPropsFactory(Map backingMap) =>
+  _$$IsErrorBoundaryProps typedPropsFactory(Map? backingMap) =>
       _$$IsErrorBoundaryProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
@@ -474,7 +496,7 @@ class IsNotErrorBoundaryProps extends _$IsNotErrorBoundaryProps
   static const PropsMeta meta = _$metaForIsNotErrorBoundaryProps;
 }
 
-_$$IsNotErrorBoundaryProps _$IsNotErrorBoundary([Map backingProps]) =>
+_$$IsNotErrorBoundaryProps _$IsNotErrorBoundary([Map? backingProps]) =>
     backingProps == null
         ? _$$IsNotErrorBoundaryProps$JsMap(JsBackedMap())
         : _$$IsNotErrorBoundaryProps(backingProps);
@@ -487,9 +509,9 @@ abstract class _$$IsNotErrorBoundaryProps extends _$IsNotErrorBoundaryProps
     implements IsNotErrorBoundaryProps {
   _$$IsNotErrorBoundaryProps._();
 
-  factory _$$IsNotErrorBoundaryProps(Map backingMap) {
+  factory _$$IsNotErrorBoundaryProps(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$IsNotErrorBoundaryProps$JsMap(backingMap as JsBackedMap);
+      return _$$IsNotErrorBoundaryProps$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$IsNotErrorBoundaryProps$PlainMap(backingMap);
     }
@@ -507,13 +529,22 @@ abstract class _$$IsNotErrorBoundaryProps extends _$IsNotErrorBoundaryProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'IsNotErrorBoundaryProps.';
+
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$IsNotErrorBoundaryProps(
+          accessMap, (map) => _$$IsNotErrorBoundaryProps(map));
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$IsNotErrorBoundaryProps = getPropKey;
 
 // Concrete props implementation that can be backed by any [Map].
 class _$$IsNotErrorBoundaryProps$PlainMap extends _$$IsNotErrorBoundaryProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$IsNotErrorBoundaryProps$PlainMap(Map backingMap)
+  _$$IsNotErrorBoundaryProps$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -530,7 +561,7 @@ class _$$IsNotErrorBoundaryProps$PlainMap extends _$$IsNotErrorBoundaryProps {
 class _$$IsNotErrorBoundaryProps$JsMap extends _$$IsNotErrorBoundaryProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$IsNotErrorBoundaryProps$JsMap(JsBackedMap backingMap)
+  _$$IsNotErrorBoundaryProps$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -547,7 +578,7 @@ class _$$IsNotErrorBoundaryProps$JsMap extends _$$IsNotErrorBoundaryProps {
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$IsNotErrorBoundaryComponent extends IsNotErrorBoundaryComponent {
-  _$$IsNotErrorBoundaryProps$JsMap _cachedTypedProps;
+  late _$$IsNotErrorBoundaryProps$JsMap _cachedTypedProps;
 
   @override
   _$$IsNotErrorBoundaryProps$JsMap get props => _cachedTypedProps;
@@ -568,11 +599,11 @@ class _$IsNotErrorBoundaryComponent extends IsNotErrorBoundaryComponent {
 
   @override
   _$$IsNotErrorBoundaryProps$JsMap typedPropsFactoryJs(
-          JsBackedMap backingMap) =>
+          JsBackedMap? backingMap) =>
       _$$IsNotErrorBoundaryProps$JsMap(backingMap);
 
   @override
-  _$$IsNotErrorBoundaryProps typedPropsFactory(Map backingMap) =>
+  _$$IsNotErrorBoundaryProps typedPropsFactory(Map? backingMap) =>
       _$$IsNotErrorBoundaryProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.

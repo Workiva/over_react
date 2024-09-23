@@ -1,6 +1,3 @@
-// Disable null-safety in the plugin entrypoint until all dependencies are null-safe,
-// otherwise tests won't be able to run. See: https://github.com/dart-lang/test#compiler-flags
-// @dart=2.9
 import 'dart:async';
 
 import 'package:over_react_analyzer_plugin/src/diagnostic/arrow_function_prop.dart';
@@ -32,12 +29,12 @@ var foo = (Dom.div()
 ''';
 
   Future<void> test_noError() async {
-    final source = newSource('test.dart', 'var foo = true;');
+    final source = newSource('var foo = true;');
     expect(await getAllErrors(source), isEmpty);
   }
 
   Future<void> test_noErrorLastInCascade() async {
-    final source = newSource('test.dart', /*language=dart*/ r'''
+    final source = newSource(/*language=dart*/ r'''
       import 'package:over_react/over_react.dart';
       
       var foo = (Dom.div()
@@ -48,10 +45,10 @@ var foo = (Dom.div()
   }
 
   Future<void> test_noErrorLastInCascadeWithDescendantCascade() async {
-    final source = newSource('test.dart', /*language=dart*/ r'''
+    final source = newSource(/*language=dart*/ r'''
       import 'package:over_react/over_react.dart';
 
-      part 'test.over_react.g.dart';
+      part '{{FILE_BASENAME_WITHOUT_EXTENSION}}.over_react.g.dart';
       
       mixin FooState on UiState {
         var foo;
@@ -70,7 +67,7 @@ var foo = (Dom.div()
   }
 
   Future<void> test_noErrorForSelection() async {
-    final source = newSource('test.dart', simpleSource);
+    final source = newSource(simpleSource);
     final selection = createSelection(source, '#var foo#');
     await expectNoErrorFix(selection);
   }
@@ -85,7 +82,7 @@ var foo = (Dom.div()
       ]);
 
   Future<void> test_errorFix() async {
-    var source = newSource('test.dart', simpleSource);
+    var source = newSource(simpleSource);
     final selection = createSelection(source, "#(_) => 'click'#");
     final errorFix = await expectSingleErrorFix(selection);
     expect(errorFix.fixes.single.change.selection, isNull);
@@ -100,7 +97,7 @@ var foo = (Dom.div()
   }
 
   Future<void> test_multipleErrors() async {
-    final source = newSource('test.dart', '''
+    final source = newSource('''
 import 'package:over_react/over_react.dart';
 var foo = (Dom.div()..onClick = (_) => null..key = 'foo')('');
 var bar = (Dom.div()..onSubmit = (_) => null..key = 'bar')('');

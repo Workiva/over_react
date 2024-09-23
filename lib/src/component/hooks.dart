@@ -112,7 +112,7 @@ StateHook<T> useStateLazy<T>(T Function() init) => react_hooks.useStateLazy<T>(i
 /// ```
 ///
 /// See: <https://reactjs.org/docs/hooks-effect.html#tip-optimizing-performance-by-skipping-effects>.
-void useEffect(dynamic Function() sideEffect, [List<Object> dependencies]) => react_hooks.useEffect(sideEffect, dependencies);
+void useEffect(dynamic Function() sideEffect, [List<Object?>? dependencies]) => react_hooks.useEffect(sideEffect, dependencies);
 
 /// Initializes state of a [uiFunction] component to [initialState] and creates [ReducerHook.dispatch] method.
 ///
@@ -176,7 +176,7 @@ ReducerHook<TState, TAction, TInit> useReducer<TState, TAction, TInit>(
 /// }
 ///
 /// mixin UseReducerExampleProps on UiProps {
-///   int initialCount;
+///   late int initialCount;
 /// }
 ///
 /// UiFactory<UseReducerExampleProps> UseReducerExample = uiFunction(
@@ -279,7 +279,9 @@ T useCallback<T extends Function>(T callback, List dependencies) => react_hooks.
 /// Learn more: <https://reactjs.org/docs/hooks-reference.html#usecontext>.
 T useContext<T>(Context<T> context) => react_hooks.useContext(context.reactDartContext);
 
-/// Returns a mutable [Ref] object with [Ref.current] property initialized to [initialValue].
+/// Returns an empty mutable [Ref] object.
+///
+/// To initialize a ref with a value, use [useRefInit] instead.
 ///
 /// Changes to the [Ref.current] property do not cause the containing [uiFunction] component to re-render.
 ///
@@ -312,7 +314,7 @@ T useContext<T>(Context<T> context) => react_hooks.useContext(context.reactDartC
 ///       ),
 ///       (Dom.input()..ref = inputRef)(),
 ///       (Dom.button()
-///         ..onClick = (_) => inputValue.set(inputRef.current.value)
+///         ..onClick = (_) => inputValue.set(inputRef.current!.value)
 ///       )('Update'),
 ///     );
 ///   },
@@ -321,7 +323,49 @@ T useContext<T>(Context<T> context) => react_hooks.useContext(context.reactDartC
 /// ```
 ///
 /// Learn more: <https://reactjs.org/docs/hooks-reference.html#useref>.
-Ref<T> useRef<T>([T initialValue]) => react_hooks.useRef(initialValue);
+Ref<T?> useRef<T>([
+  @Deprecated('Use `useRefInit` instead to create refs with initial values.'
+      ' Since the argument to useRefInit is required, it can be used to create a Ref that holds a non-nullable type,'
+      ' whereas this function can only create Refs with nullable type arguments.')
+  T? initialValue,
+]) =>
+    // ignore: deprecated_member_use
+    react_hooks.useRef(initialValue);
+
+/// Returns a mutable [Ref] object with [Ref.current] property initialized to [initialValue].
+///
+/// Changes to the [Ref.current] property do not cause the containing [uiFunction] component to re-render.
+///
+/// The returned [Ref] object will persist for the full lifetime of the [uiFunction] component.
+/// Compare to [createRef] which returns a new [Ref] object on each render.
+///
+/// > __Note:__ there are two [rules for using Hooks](https://reactjs.org/docs/hooks-rules.html):
+/// >
+/// > * Only call Hooks at the top level.
+/// > * Only call Hooks from inside the first argument of [uiFunction].
+///
+/// __Example__:
+///
+/// ```dart
+/// UiFactory<UseRefExampleProps> UseRefExample = uiFunction(
+///   (props) {
+///     final countRef = useRefInit(0);
+///
+///     handleClick([_]) {
+///       ref.current = ref.current + 1;
+///       window.alert('You clicked ${ref.current} times!');
+///     }
+///
+///     return Fragment()(
+///       (Dom.button()..onClick = handleClick)('Click me!'),
+///     );
+///   },
+///   _$UseRefExampleConfig, // ignore: undefined_identifier
+/// );
+/// ```
+///
+/// Learn more: <https://reactjs.org/docs/hooks-reference.html#useref>.
+Ref<T> useRefInit<T>(T initialValue) => react_hooks.useRefInit(initialValue);
 
 /// Returns a memoized version of the return value of [createFunction].
 ///
@@ -359,7 +403,7 @@ Ref<T> useRef<T>([T initialValue]) => react_hooks.useRef(initialValue);
 /// ```
 ///
 /// Learn more: <https://reactjs.org/docs/hooks-reference.html#usememo>.
-T useMemo<T>(T Function() createFunction, [List<dynamic> dependencies]) =>
+T useMemo<T>(T Function() createFunction, [List<dynamic>? dependencies]) =>
     react_hooks.useMemo(createFunction, dependencies);
 
 /// Runs [sideEffect] synchronously after a dart function component renders, but before the screen is updated.
@@ -380,11 +424,11 @@ T useMemo<T>(T Function() createFunction, [List<dynamic> dependencies]) =>
 ///     final width = useState(0);
 ///     final height = useState(0);
 ///
-///     Ref textareaRef = useRef();
+///     final textareaRef = useRef<TextAreaElement>();
 ///
 ///     useLayoutEffect(() {
-///       width.set(textareaRef.current.clientWidth);
-///       height.set(textareaRef.current.clientHeight);
+///       width.set(textareaRef.current!.clientWidth);
+///       height.set(textareaRef.current!.clientHeight);
 ///     });
 ///
 ///     return Fragment()(
@@ -401,7 +445,7 @@ T useMemo<T>(T Function() createFunction, [List<dynamic> dependencies]) =>
 /// ```
 ///
 /// Learn more: <https://reactjs.org/docs/hooks-reference.html#uselayouteffect>.
-void useLayoutEffect(dynamic Function() sideEffect, [List<Object> dependencies]) => react_hooks.useLayoutEffect(sideEffect, dependencies);
+void useLayoutEffect(dynamic Function() sideEffect, [List<Object?>? dependencies]) => react_hooks.useLayoutEffect(sideEffect, dependencies);
 
 /// Customizes the [ref] value that is exposed to parent components when using [uiForwardRef] by setting [Ref.current]
 /// to the return value of [createHandle].
@@ -418,9 +462,9 @@ void useLayoutEffect(dynamic Function() sideEffect, [List<Object> dependencies])
 ///
 /// ```dart
 /// mixin FancyInputProps on UiProps {
-///   String value;
-///   Function updater;
-///   Ref forwardedRef;
+///   String? value;
+///   late void Function(String) updater;
+///   dynamic inputRef;
 /// }
 ///
 /// class FancyInputApi {
@@ -430,10 +474,11 @@ void useLayoutEffect(dynamic Function() sideEffect, [List<Object> dependencies])
 ///
 /// UiFactory<FancyInputProps> FancyInput = uiForwardRef(
 ///   (props, ref) {
-///     final inputRef = useRef<InputElement>();
+///     final localInputRef = useRef<InputElement>();
+///     final inputRef = chainRefs(localInputRef, props.inputRef);
 ///
 ///     useImperativeHandle(ref,
-///       () => FancyInputApi(() => inputRef.current.focus()),
+///       () => FancyInputApi(() => localInputRef.current!.focus()),
 ///
 ///       /// Because the return value of [createHandle] never changes, it is not necessary for [ref.current]
 ///       /// to be re-set on each render so this dependency list is empty.
@@ -443,7 +488,7 @@ void useLayoutEffect(dynamic Function() sideEffect, [List<Object> dependencies])
 ///     return (Dom.input()
 ///       ..ref = inputRef
 ///       ..value = props.value
-///       ..onChange = (e) => props.updater(e.target.value)
+///       ..onChange = (e) => props.updater(e.target.value as String)
 ///     )();
 ///   },
 ///   _$FancyInputConfig, // ignore: undefined_identifier
@@ -461,7 +506,7 @@ void useLayoutEffect(dynamic Function() sideEffect, [List<Object> dependencies])
 ///         ..updater = inputValue.set
 ///       )(),
 ///       (Dom.button()
-///         ..onClick = (_) => fancyInputRef.current.focus()
+///         ..onClick = (_) => fancyInputRef.current!.focus()
 ///       )('Focus Input'),
 ///     );
 ///   },
@@ -470,7 +515,7 @@ void useLayoutEffect(dynamic Function() sideEffect, [List<Object> dependencies])
 /// ```
 ///
 /// Learn more: <https://reactjs.org/docs/hooks-reference.html#useimperativehandle>.
-void useImperativeHandle(dynamic ref, dynamic Function() createHandle, [List<dynamic> dependencies]) =>
+void useImperativeHandle(dynamic ref, dynamic Function() createHandle, [List<dynamic>? dependencies]) =>
     react_hooks.useImperativeHandle(ref, createHandle, dependencies);
 
 /// Displays [value] as a label for a custom hook in React DevTools.
@@ -544,4 +589,4 @@ void useImperativeHandle(dynamic ref, dynamic Function() createHandle, [List<dyn
 /// ```
 ///
 /// Learn more: <https://reactjs.org/docs/hooks-reference.html#usedebugvalue>.
-dynamic useDebugValue<T>(T value, [dynamic Function(T) format]) => react_hooks.useDebugValue(value, format);
+dynamic useDebugValue<T>(T value, [dynamic Function(T)? format]) => react_hooks.useDebugValue(value, format);

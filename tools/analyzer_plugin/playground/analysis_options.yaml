@@ -3,3 +3,8 @@ include: package:workiva_analysis_options/v1.yaml
 analyzer:
   plugins:
     over_react
+
+over_react:
+  errors:
+    # Opt into this diagnostic that's disabled by default.
+    over_react_annotation_required_prop: info

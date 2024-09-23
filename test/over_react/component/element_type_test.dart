@@ -16,7 +16,6 @@ library element_type_test;
 
 import 'package:test/test.dart';
 import 'package:over_react/over_react.dart';
-import 'package:over_react/src/component/dom_components.dart';
 
 part 'element_type_test.over_react.g.dart'; // ignore: uri_has_not_been_generated
 
@@ -25,18 +24,18 @@ void main() {
     group('returns the expected value when used on a', () {
       test('Dom component', () {
         const factory = Dom.div;
-        expect(factory.elementType, same(factory().componentFactory.type));
+        expect(factory.elementType, same(factory().componentFactory!.type));
         expect(factory.elementType, 'div');
       });
 
       test('custom composite component', () {
         final factory = CustomTest;
-        expect(factory.elementType, same(factory().componentFactory.type));
+        expect(factory.elementType, same(factory().componentFactory!.type));
       });
 
       test('custom function component', () {
         final factory = CustomFnTest;
-        expect(factory.elementType, same(factory().componentFactory.type));
+        expect(factory.elementType, same(factory().componentFactory!.type));
       });
     });
   });

@@ -20,11 +20,11 @@ part 'new_class_consumed_props.over_react.g.dart';
 UiFactory<SomeParentProps> SomeClassParent = castUiFactory(_$SomeClassParent); // ignore: undefined_identifier
 
 mixin ParentOnlyPropsMixin on UiProps {
-  String aParentProp;
+  String? aParentProp;
 }
 
 mixin SharedPropsMixin on UiProps {
-  String aPropToBePassed;
+  String? aPropToBePassed;
 }
 
 class SomeParentProps = UiProps with ParentOnlyPropsMixin, SharedPropsMixin;
@@ -32,14 +32,12 @@ class SomeParentProps = UiProps with ParentOnlyPropsMixin, SharedPropsMixin;
 class SomeClassParentComponent extends UiComponent2<SomeParentProps> {
   @override
   render() {
-    final meta = props.staticMeta.forMixins({ParentOnlyPropsMixin});
-
     return (
         Dom.div()(
           Dom.div()(
             'The parent prop is: ${props.aParentProp}',
           ),
-          (SomeClassChild()..addUnconsumedProps(props, meta))(),
+          (SomeClassChild()..modifyProps(props.addPropsToForward(exclude: {ParentOnlyPropsMixin})))(),
         )
     );
   }

@@ -27,7 +27,7 @@ class _$ContextProviderWrapperProps extends UiProps {}
 
 @State()
 class _$ContextProviderWrapperState extends UiState {
-  int latestValue;
+  late int latestValue;
 }
 
 @Component2()

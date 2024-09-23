@@ -69,7 +69,7 @@ class ConsumedPropsReturnValueDiagnostic extends DiagnosticContributor {
   computeErrors(result, collector) async {
     final visitor = ConsumedPropsVisitor();
 
-    result.unit!.accept(visitor);
+    result.unit.accept(visitor);
 
     final consumedPropsDeclarations = visitor.consumedPropsDeclarations;
 
@@ -129,7 +129,7 @@ class ConsumedPropsVisitor extends SimpleAstVisitor<void> {
 
   @override
   void visitMethodDeclaration(MethodDeclaration node) {
-    if (node.name.name == 'consumedProps') {
+    if (node.name.lexeme == 'consumedProps') {
       consumedPropsDeclarations.add(node);
     }
   }

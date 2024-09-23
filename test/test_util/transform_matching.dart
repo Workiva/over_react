@@ -45,15 +45,15 @@ class TransformMatcher extends CustomMatcher {
 ///         ]
 List parseCssTransform(String transformString) {
   return RegExp(r'\w+(\([^\)]+\))?').allMatches(transformString).map((match) {
-    var transform = match[0];
+    var transform = match[0]!;
 
-    var transformParts = RegExp(r'(\w+)\s*\(\s*(.+)\s*\)').firstMatch(transform);
+    var transformParts = RegExp(r'(\w+)\s*\(\s*(.+)\s*\)').firstMatch(transform)!;
 
-    String name = transformParts[1];
-    List arguments = transformParts[2].split(RegExp(r',\s*')).map((argument) {
-      var valueMatch = RegExp(r'^([\d\.\-]+)(.*)').firstMatch(argument);
+    String? name = transformParts[1];
+    List arguments = transformParts[2]!.split(RegExp(r',\s*')).map((argument) {
+      var valueMatch = RegExp(r'^([\d\.\-]+)(.*)').firstMatch(argument)!;
 
-      var number = double.parse(valueMatch[1]);
+      var number = double.parse(valueMatch[1]!);
       var unit = valueMatch[2];
 
       return [number, unit];

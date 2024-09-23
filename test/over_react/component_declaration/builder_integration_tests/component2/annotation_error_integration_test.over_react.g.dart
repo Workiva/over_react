@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators, invalid_use_of_visible_for_overriding_member
 part of 'annotation_error_integration_test.dart';
 
 // **************************************************************************
@@ -41,7 +41,7 @@ class AnnotationErrorDefaultPropsProps
 }
 
 _$$AnnotationErrorDefaultPropsProps _$AnnotationErrorDefaultProps(
-        [Map backingProps]) =>
+        [Map? backingProps]) =>
     _$$AnnotationErrorDefaultPropsProps(backingProps);
 
 // Concrete props implementation.
@@ -53,7 +53,7 @@ class _$$AnnotationErrorDefaultPropsProps
     implements AnnotationErrorDefaultPropsProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$AnnotationErrorDefaultPropsProps(Map backingMap) : this._props = {} {
+  _$$AnnotationErrorDefaultPropsProps(Map? backingMap) : this._props = {} {
     this._props = backingMap ?? {};
   }
 
@@ -74,7 +74,19 @@ class _$$AnnotationErrorDefaultPropsProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'AnnotationErrorDefaultPropsProps.';
+
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$AnnotationErrorDefaultPropsProps(
+          accessMap, (map) => _$$AnnotationErrorDefaultPropsProps(map));
+
+  @override
+  Set<String> get requiredPropNamesToSkipValidation => const {'id'};
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$AnnotationErrorDefaultPropsProps = getPropKey;
 
 // Concrete component implementation mixin.
 //
@@ -83,7 +95,7 @@ class _$$AnnotationErrorDefaultPropsProps
 class _$AnnotationErrorDefaultPropsComponent
     extends AnnotationErrorDefaultPropsComponent {
   @override
-  _$$AnnotationErrorDefaultPropsProps typedPropsFactory(Map backingMap) =>
+  _$$AnnotationErrorDefaultPropsProps typedPropsFactory(Map? backingMap) =>
       _$$AnnotationErrorDefaultPropsProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
@@ -133,7 +145,7 @@ class AnnotationErrorProps extends _$AnnotationErrorProps
   static const PropsMeta meta = _$metaForAnnotationErrorProps;
 }
 
-_$$AnnotationErrorProps _$AnnotationError([Map backingProps]) =>
+_$$AnnotationErrorProps _$AnnotationError([Map? backingProps]) =>
     _$$AnnotationErrorProps(backingProps);
 
 // Concrete props implementation.
@@ -144,7 +156,7 @@ class _$$AnnotationErrorProps extends _$AnnotationErrorProps
     implements AnnotationErrorProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$AnnotationErrorProps(Map backingMap) : this._props = {} {
+  _$$AnnotationErrorProps(Map? backingMap) : this._props = {} {
     this._props = backingMap ?? {};
   }
 
@@ -165,7 +177,16 @@ class _$$AnnotationErrorProps extends _$AnnotationErrorProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'AnnotationErrorProps.';
+
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$AnnotationErrorProps(
+          accessMap, (map) => _$$AnnotationErrorProps(map));
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$AnnotationErrorProps = getPropKey;
 
 // Concrete component implementation mixin.
 //
@@ -173,7 +194,7 @@ class _$$AnnotationErrorProps extends _$AnnotationErrorProps
 // generated for the associated props class.
 class _$AnnotationErrorComponent extends AnnotationErrorComponent {
   @override
-  _$$AnnotationErrorProps typedPropsFactory(Map backingMap) =>
+  _$$AnnotationErrorProps typedPropsFactory(Map? backingMap) =>
       _$$AnnotationErrorProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
@@ -223,7 +244,8 @@ class AnnotationErrorStatefulProps extends _$AnnotationErrorStatefulProps
   static const PropsMeta meta = _$metaForAnnotationErrorStatefulProps;
 }
 
-_$$AnnotationErrorStatefulProps _$AnnotationErrorStateful([Map backingProps]) =>
+_$$AnnotationErrorStatefulProps _$AnnotationErrorStateful(
+        [Map? backingProps]) =>
     _$$AnnotationErrorStatefulProps(backingProps);
 
 // Concrete props implementation.
@@ -234,7 +256,7 @@ class _$$AnnotationErrorStatefulProps extends _$AnnotationErrorStatefulProps
     implements AnnotationErrorStatefulProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$AnnotationErrorStatefulProps(Map backingMap) : this._props = {} {
+  _$$AnnotationErrorStatefulProps(Map? backingMap) : this._props = {} {
     this._props = backingMap ?? {};
   }
 
@@ -255,7 +277,16 @@ class _$$AnnotationErrorStatefulProps extends _$AnnotationErrorStatefulProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'AnnotationErrorStatefulProps.';
+
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$AnnotationErrorStatefulProps(
+          accessMap, (map) => _$$AnnotationErrorStatefulProps(map));
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$AnnotationErrorStatefulProps = getPropKey;
 
 abstract class _$AnnotationErrorStatefulStateAccessorsMixin
     implements _$AnnotationErrorStatefulState {
@@ -286,7 +317,7 @@ class _$$AnnotationErrorStatefulState extends _$AnnotationErrorStatefulState
     implements AnnotationErrorStatefulState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$AnnotationErrorStatefulState(Map backingMap) : this._state = {} {
+  _$$AnnotationErrorStatefulState(Map? backingMap) : this._state = {} {
     this._state = backingMap ?? {};
   }
 
@@ -307,11 +338,11 @@ class _$$AnnotationErrorStatefulState extends _$AnnotationErrorStatefulState
 class _$AnnotationErrorStatefulComponent
     extends AnnotationErrorStatefulComponent {
   @override
-  _$$AnnotationErrorStatefulProps typedPropsFactory(Map backingMap) =>
+  _$$AnnotationErrorStatefulProps typedPropsFactory(Map? backingMap) =>
       _$$AnnotationErrorStatefulProps(backingMap);
 
   @override
-  _$$AnnotationErrorStatefulState typedStateFactory(Map backingMap) =>
+  _$$AnnotationErrorStatefulState typedStateFactory(Map? backingMap) =>
       _$$AnnotationErrorStatefulState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
@@ -364,7 +395,7 @@ class AnnotationErrorStatefulDefaultPropsProps
 }
 
 _$$AnnotationErrorStatefulDefaultPropsProps
-    _$AnnotationErrorStatefulDefaultProps([Map backingProps]) =>
+    _$AnnotationErrorStatefulDefaultProps([Map? backingProps]) =>
         _$$AnnotationErrorStatefulDefaultPropsProps(backingProps);
 
 // Concrete props implementation.
@@ -376,7 +407,7 @@ class _$$AnnotationErrorStatefulDefaultPropsProps
     implements AnnotationErrorStatefulDefaultPropsProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$AnnotationErrorStatefulDefaultPropsProps(Map backingMap)
+  _$$AnnotationErrorStatefulDefaultPropsProps(Map? backingMap)
       : this._props = {} {
     this._props = backingMap ?? {};
   }
@@ -399,7 +430,19 @@ class _$$AnnotationErrorStatefulDefaultPropsProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'AnnotationErrorStatefulDefaultPropsProps.';
+
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$AnnotationErrorStatefulDefaultPropsProps(
+          accessMap, (map) => _$$AnnotationErrorStatefulDefaultPropsProps(map));
+
+  @override
+  Set<String> get requiredPropNamesToSkipValidation => const {'id'};
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$AnnotationErrorStatefulDefaultPropsProps = getPropKey;
 
 abstract class _$AnnotationErrorStatefulDefaultPropsStateAccessorsMixin
     implements _$AnnotationErrorStatefulDefaultPropsState {
@@ -433,7 +476,7 @@ class _$$AnnotationErrorStatefulDefaultPropsState
     implements AnnotationErrorStatefulDefaultPropsState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$AnnotationErrorStatefulDefaultPropsState(Map backingMap)
+  _$$AnnotationErrorStatefulDefaultPropsState(Map? backingMap)
       : this._state = {} {
     this._state = backingMap ?? {};
   }
@@ -456,12 +499,12 @@ class _$AnnotationErrorStatefulDefaultPropsComponent
     extends AnnotationErrorStatefulDefaultPropsComponent {
   @override
   _$$AnnotationErrorStatefulDefaultPropsProps typedPropsFactory(
-          Map backingMap) =>
+          Map? backingMap) =>
       _$$AnnotationErrorStatefulDefaultPropsProps(backingMap);
 
   @override
   _$$AnnotationErrorStatefulDefaultPropsState typedStateFactory(
-          Map backingMap) =>
+          Map? backingMap) =>
       _$$AnnotationErrorStatefulDefaultPropsState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.

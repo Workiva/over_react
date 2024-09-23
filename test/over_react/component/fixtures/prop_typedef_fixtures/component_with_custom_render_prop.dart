@@ -20,17 +20,17 @@ UiFactory<TestCustomRendererComponentProps> TestCustomRendererComponent = _$Test
 
 @Props()
 class _$TestCustomRendererComponentProps extends UiProps {
-  CustomRenderFunction customRenderer;
-  CustomRenderFunction<TestCustomRendererComponentProps,
+  late CustomRenderFunction customRenderer;
+  late CustomRenderFunction<TestCustomRendererComponentProps,
                        TestCustomRendererComponentState,
                        TestCustomRendererComponentComponent> parameterizedCustomRenderer;
-  String somePropKey;
-  String someInitialStateKeyValue;
+  String? somePropKey;
+  String? someInitialStateKeyValue;
 }
 
 @State()
 class _$TestCustomRendererComponentState extends UiState {
-  String someStateKey;
+  String? someStateKey;
 }
 
 @Component2()

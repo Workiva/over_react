@@ -1,5 +1,154 @@
 # OverReact Changelog
 
+## 5.3.1
+- [#944] Analyzer plugin: Don't lint for required props that are specified due to prop forwarding
+
+## 5.3.0
+- [#937] Use and export a new, [more expressive typedef for `Object?` called `ReactNode`](https://github.com/Workiva/react-dart/pull/384)
+
+## 5.2.1
+- [#934] Tighten dependency ranges following null-safety release
+- [#935] Docs: update null safety migration guide with required props codemod instructions
+
+## 5.2.0
+- [#920] Support conversion of prop values via annotations: `@ConvertProp`, `@convertJsMapProp`, `@convertJsRefProp`
+- [#925] Remove publish action that always fails due to dry run warnings
+- [#928] Fix num keys incorrectly linting as not unique
+- [#930] Fix Analyzer Plugin error when typing keys
+- [#932] Update the null safety migration documentation
+
+## 5.1.1 & 5.1.2
+- Fixes to CI [#921] [#922]
+- Add auto-publish to pub.dev
+
+## 5.1.0
+- [#910] / [#916] Add null safety migration / component authoring guides.
+- [#909] Deprecate the optional `initialValue` argument in the `useRef` hook. 
+  - Use the `useRefInit` hook instead if you need to set an initial value. 
+- [#909] Deprecate the optional `defaultValue` argument in `createContext`. 
+  - Use `createContextInit` instead if you need to set a default value.
+- [#917] Only validate required props in null-safe components 
+
+## 5.0.1
+- Consume over_react_test 3.0.0
+
+## 5.0.0
+- Migrate to null safety
+- Support generating code for null-safe libraries _(while retaining support for non-null-safe libraries)_
+- Add ability to declare required, optionally-non-nullable props and state fields using Dart's `late` keyword (AKA "late required props")
+  - _Stay tuned for fully baked null safety documentation for this library!_
+
+#### Analyzer plugin
+- Add new lint, `over_react_required_prop` ([#896](https://github.com/Workiva/over_react/pull/896))
+  - Warns for missing `late` required props
+  - Supports linting for missing `@requiredProp` required props (these are deprecated in favor of `late`), but this is disabled by default
+- Add new lint, `over_react_unsafe_required_prop_access`, that warns when accessing required props on potentially incomplete maps
+- Reinstate functionality that had to be disabled in over_react 4.8.3 since it wasn't fully null-safe
+  - Lints (AKA diagnostics)
+    - `over_react_boilerplate_error`, `over_react_boilerplate_warning`
+    - `over_react_incorrect_doc_comment_location`
+  - Assist for toggling class component statefulness
+- Update diagnostics, fixes, and assists to work on null-safe code, add null-safe test cases
+
+### API additions
+- Add members to UiProps to support `late` required props _(stay tuned for more documentation on these)_
+  - Extension methods: getPropKey, containsProp, getRequiredProp(OrNull)
+  - disableRequiredPropValidation
+  - Internal use only: validateRequiredProps, requiredPropNamesToSkipValidation
+- Add createContextInit for creating contexts with non-nullable values
+- Add isLate field to PropDescriptor and StateDescriptor
+
+### Breaking changes
+- Deprecated API removals:
+  - BuiltReduxUiComponent, BuiltReduxUiProps
+  - `package:over_react/experimental.dart` (only exported built_redux APIs)
+  - forwardRef _(not to be confused with `uiForwardRef`)_
+  - The `displayName` argument of registerComponent and registerComponent2
+- The following props classes can no longer be extended or instantiated directly (like most components). To instantiate them, use the factory instead.
+    - FragmentProps
+    - StrictModeProps
+    - ReduxProviderProps (for extension, mix in ReduxProviderPropsMixin instead)
+    - ProviderProps (factory: `Context.Provider`)
+    - ConsumerProps (factory: `Context.Consumer`)
+- The following props are now required:
+    - `FluxUiPropsMixin.actions`, `FluxUiPropsMixin.store`
+    - `ProviderProps.value` (`ProviderProps` is the return type of `Context.Provider`)
+    - `ReduxMultiProviderProps.storesByContext`
+    - `ReduxProviderProps.store`
+- UiPropsMapView (deprecated) 
+    - is now abstract and requires subclasses to override `selfFactory`
+    - now extends directly from UiProps, and longer implements `MapView` (it still implements `Map`)
+    - `props` now returns the backing map instead of `this`
+- `react_dom.render` arg loosened from `ReactElement` to `dynamic`
+- Other changes that we don't expect to affect consumers:
+  - `PropsMeta`/`StateMeta` constructor arguments `fields` and `keys` are now required
+  - `ProviderProps.props` type has been widened from `JsMap` to `Map` (now matches `ConsumerProps` and other props classes)
+  - `ConnectPropsMixin` now `implements UiProps` (the one exported from `package:over_react/over_react.dart`) instead of `UiProps`'s superclass of the same name, `component_base.UiProps`.
+
+## [4.11.1](https://github.com/Workiva/over_react/compare/4.11.0...4.11.1)
+- [#881] Fix disableRequiredPropValidation annotation and add test
+
+## [4.11.0](https://github.com/Workiva/over_react/compare/4.10.4...4.11.0)
+- [#879] Backpatch @Props(disableRequiredPropValidation) annotation arg
+
+## [4.10.4](https://github.com/Workiva/over_react/compare/4.10.3...4.10.4)
+- [#853] Allow react 7 and w_flux 3
+
+## [4.10.3](https://github.com/Workiva/over_react/compare/4.10.2...4.10.3)
+- [#846] Update internals to prepare for react-dart 7.0.0
+
+## [4.10.2](https://github.com/Workiva/over_react/compare/4.10.0...4.10.2)
+- [#835] Upgrade dependencies, notably jumping to analyzer 5.x
+     - analyzer: `^5.1.0` (was `>=1.7.2 <3.0.0`)
+     - dart_style: `^2.0.0` (was `>=1.2.5 <3.0.0`)
+     - w_common: `^3.0.0` (was `>=2.0.0 <4.0.0`)
+
+## [4.10.0](https://github.com/Workiva/over_react/compare/4.9.1...4.10.0)
+- [#829] Add improved prop forwarding methods (`UiProps.getPropsToForward`/`.addPropsToForward`)
+- [#809], [#826], [#827] Example app dependency updates
+
+
+## [4.9.1](https://github.com/Workiva/over_react/compare/4.9.0...4.9.1)
+- [#824] Update 3rd party dependencies
+
+## [4.9.0](https://github.com/Workiva/over_react/compare/4.8.5...4.9.0)
+- [#820] Add Suspense Component
+- [#819] More dependency updates
+
+## [4.8.5](https://github.com/Workiva/over_react/compare/4.8.4...4.8.5)
+- [#815] Dependency updates: `dart_dev: '>=3.0.0 <5.0.0'`
+- [#816] Dependency updates: `w_common: '>=2.0.0 <4.0.0'`
+
+## [4.8.4](https://github.com/Workiva/over_react/compare/4.8.3...4.8.4)
+- 4.8.3 was missing the analyzer plugin in the published package for some reason, and this release should hopefully include it again.
+
+## [4.8.3](https://github.com/Workiva/over_react/compare/4.8.2...4.8.3)
+- [#807] Allow analyzer 2.x, fix analyzer plugin not starting in newer SDKs
+
+## [4.8.2](https://github.com/Workiva/over_react/compare/4.8.1...4.8.2)
+- [#804] Dependencies: raise analyzer to ^1.7.2, unpin meta
+- [#805] Internal CI and dev_dependencies updates
+
+## [4.8.1](https://github.com/Workiva/over_react/compare/4.8.0...4.8.1)
+- [#802] Raise platform_detect upperbound to allow 2.x
+- [#800] (Docs) Add Redux DevTools integration documentation
+
+## [4.8.0](https://github.com/Workiva/over_react/compare/4.7.0...4.8.0)
+- [#797] Add `overReactReduxDevToolsMiddlewareFactory` for constructing middleware with a `name`, allowing store instances to be separated in the Redux Dev Tools
+
+## [4.7.0](https://github.com/Workiva/over_react/compare/4.6.0...4.7.0)
+- [#795] Add `jsifyMapListProp` and `unjsifyMapListProp` conversion utils
+
+## [4.6.0](https://github.com/Workiva/over_react/compare/4.5.0...4.6.0)
+#### Analyzer Plugin
+- [#788] Add new `over_react_hooks_exhaustive_deps` diagnostic that validates the dependency lists of React hooks such as `useEffect`, `useMemo`, and `useCallback`.
+
+  Ported/forked from the JS eslint-plugin-react-hooks `react-hooks/exhaustive-deps` rule
+([info from the React docs](https://reactjs.org/docs/hooks-effect.html#:~:text=If%20you%20use%20this%20optimization%2C%20make%20sure%20the%20array%20includes),
+ [package](https://www.npmjs.com/package/eslint-plugin-react-hooks),
+ [source](https://github.com/facebook/react/blob/main@%7B2020-10-16%7D/packages/eslint-plugin-react-hooks/src/ExhaustiveDeps.js)),
+this Dart diagnostic aims to provide parity with the dev experience of the JS lint rule, with some tweaks to work better with Dart and over_react's flavor of React APIs.
+
 ## [4.5.0](https://github.com/Workiva/over_react/compare/4.4.4...4.5.0)
 - [#785] Add utilities for jsifying/unsifying context props
 

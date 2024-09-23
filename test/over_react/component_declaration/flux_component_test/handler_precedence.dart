@@ -41,7 +41,7 @@ class TestHandlerPrecedenceComponent extends FluxUiComponent<TestHandlerPreceden
   }
 
   @override
-  void setState(_, [Function() callback]) {
+  void setState(_, [Function()? callback]) {
     numberOfRedraws++;
     if (callback != null) callback();
   }

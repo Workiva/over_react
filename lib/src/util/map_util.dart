@@ -33,8 +33,8 @@ import '../component_declaration/builder_helpers.dart';
 Map getPropsToForward(Map props, {
     bool omitReactProps = true,
     bool onlyCopyDomProps = false,
-    Iterable keysToOmit,
-    Iterable<Iterable> keySetsToOmit
+    Iterable? keysToOmit,
+    Iterable<Iterable>? keySetsToOmit
 }) {
   Map propsToForward = JsBackedMap.from(props);
 
@@ -82,9 +82,9 @@ Map getPropsToForward(Map props, {
 void forwardUnconsumedProps(Map props, {
   bool omitReactProps = true,
   bool onlyCopyDomProps = false,
-  Iterable keysToOmit,
-  Iterable<Iterable> keySetsToOmit,
-  Map propsToUpdate,
+  Iterable? keysToOmit,
+  Iterable<Iterable>? keySetsToOmit,
+  required Map propsToUpdate,
 }) {
   if (onlyCopyDomProps) {
     for (final key in props.keys) {
@@ -138,9 +138,9 @@ void forwardUnconsumedProps(Map props, {
 void forwardUnconsumedPropsV2(Map props, {
   bool omitReactProps = true,
   bool onlyCopyDomProps = false,
-  Iterable keysToOmit,
-  Iterable<Iterable> keySetsToOmit,
-  Map propsToUpdate,
+  Iterable? keysToOmit,
+  Iterable<Iterable>? keySetsToOmit,
+  required Map propsToUpdate,
 }) {
     for (final key in props.keys) {
       if (keysToOmit != null && keysToOmit.contains(key)) continue;
@@ -152,7 +152,7 @@ void forwardUnconsumedPropsV2(Map props, {
         // to continue without initiating another loop (which is less
         // performant than `.first.contains()`).
         // TODO: further optimize this by identifying the best looping / data structure
-        if (keySetsToOmit != null && keySetsToOmit.first.contains(key)) continue;
+        if (keySetsToOmit.first.contains(key)) continue;
 
         if (keySetsToOmit.length > 1) {
           bool shouldContinue = false;
@@ -182,7 +182,7 @@ void forwardUnconsumedPropsV2(Map props, {
 /// Returns a copy of the [DomPropsMixin.style] map found in [props].
 ///
 /// Returns an empty map if [props] or its style map are `null`.
-Map<String, dynamic> newStyleFromProps(Map props) {
+Map<String, dynamic> newStyleFromProps(Map? props) {
   if (props == null) return <String, dynamic>{};
 
   var existingStyle = domProps(props).style;

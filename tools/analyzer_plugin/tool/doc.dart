@@ -50,9 +50,9 @@ final configs = [
     getSortedContributorMetas: () => RulesIndexer.rules,
     typeNameOfContributorClass: 'DiagnosticContributor',
     typeNameOfAnnotatedField: 'DiagnosticCode',
-    getMeta: (el) => DocumentedDiagnosticContributorMeta.fromAnnotatedField(el),
+    getMeta: DocumentedDiagnosticContributorMeta.fromAnnotatedField,
     getPageGenerator: (meta) => RuleDocGenerator(meta as DocumentedDiagnosticContributorMeta),
-    getIndexGenerator: () => RulesIndexer(),
+    getIndexGenerator: RulesIndexer.new,
     generateAdditionalDocs: (outDir) => OptionsSample(RulesIndexer.rules).generate(outDir),
   ),
   DocsGenerationConfig(
@@ -63,9 +63,9 @@ final configs = [
     typeNameOfContributorClass: 'AssistContributorBase',
     typeNameOfAnnotatedField: 'AssistKind',
     packageNameContainingAnnotatedFieldType: 'analyzer_plugin',
-    getMeta: (el) => DocumentedAssistContributorMeta.fromAnnotatedFieldAst(el),
+    getMeta: DocumentedAssistContributorMeta.fromAnnotatedFieldAst,
     getPageGenerator: (meta) => AssistDocGenerator(meta as DocumentedAssistContributorMeta),
-    getIndexGenerator: () => AssistsIndexer(),
+    getIndexGenerator: AssistsIndexer.new,
   ),
 ];
 

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators, invalid_use_of_visible_for_overriding_member
 part of 'private_props_ddc_bug.dart';
 
 // **************************************************************************
@@ -24,12 +24,12 @@ abstract class _$FooPropsAccessorsMixin implements _$FooProps {
 
   /// <!-- Generated from [_$FooProps._privateProp] -->
   @override
-  String get _privateProp =>
-      (props[_$key___privateProp___$FooProps] ?? null) as String;
+  String? get _privateProp =>
+      (props[_$key___privateProp___$FooProps] ?? null) as String?;
 
   /// <!-- Generated from [_$FooProps._privateProp] -->
   @override
-  set _privateProp(String value) =>
+  set _privateProp(String? value) =>
       props[_$key___privateProp___$FooProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop___privateProp___$FooProps =
@@ -49,7 +49,7 @@ class FooProps extends _$FooProps with _$FooPropsAccessorsMixin {
   static const PropsMeta meta = _$metaForFooProps;
 }
 
-_$$FooProps _$Foo([Map backingProps]) => _$$FooProps(backingProps);
+_$$FooProps _$Foo([Map? backingProps]) => _$$FooProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -59,7 +59,7 @@ class _$$FooProps extends _$FooProps
     implements FooProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$FooProps(Map backingMap) : this._props = {} {
+  _$$FooProps(Map? backingMap) : this._props = {} {
     this._props = backingMap ?? {};
   }
 
@@ -80,7 +80,18 @@ class _$$FooProps extends _$FooProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'FooProps.';
+
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$FooProps(accessMap, (map) => _$$FooProps(map));
+
+  @override
+  Set<String> get requiredPropNamesToSkipValidation => const {'_privateProp'};
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$FooProps = getPropKey;
 
 // Concrete component implementation mixin.
 //
@@ -88,7 +99,7 @@ class _$$FooProps extends _$FooProps
 // generated for the associated props class.
 class _$FooComponent extends FooComponent {
   @override
-  _$$FooProps typedPropsFactory(Map backingMap) => _$$FooProps(backingMap);
+  _$$FooProps typedPropsFactory(Map? backingMap) => _$$FooProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override

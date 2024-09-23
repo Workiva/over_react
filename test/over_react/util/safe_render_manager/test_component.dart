@@ -22,12 +22,12 @@ UiFactory<TestProps> Test = _$Test; // ignore: undefined_identifier, invalid_ass
 
 @Props()
 class _$TestProps extends UiProps {
-  LifecycleCallback onComponentDidMount;
-  LifecycleCallback onComponentWillUpdate;
-  LifecycleCallback onComponentWillReceiveProps;
-  LifecycleCallback onComponentDidUpdate;
-  LifecycleCallback onComponentWillUnmount;
-  LifecycleCallback onRender;
+  LifecycleCallback? onComponentDidMount;
+  LifecycleCallback? onComponentWillUpdate;
+  LifecycleCallback? onComponentWillReceiveProps;
+  LifecycleCallback? onComponentDidUpdate;
+  LifecycleCallback? onComponentWillUnmount;
+  LifecycleCallback? onRender;
 }
 
 @Component(isWrapper: true)
@@ -53,7 +53,7 @@ class TestComponent extends UiComponent<TestProps> {
   @override
   componentWillUnmount() {
     super.componentWillUnmount();
-    typedPropsFactory(nextProps).onComponentWillUnmount?.call();
+    props.onComponentWillUnmount?.call();
   }
 
   @override

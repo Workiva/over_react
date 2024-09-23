@@ -14,14 +14,17 @@
 
 library over_react.component_declaration.builder_helpers;
 
-import '../../component_base.dart';
-import '../../over_react.dart';
+import 'package:meta/meta.dart';
+
+import '../util/map_util.dart';
 import './component_base.dart' as component_base;
+import './component_base.dart' show PropsMetaCollection, PropsModifier, PropsMeta;
 import './annotations.dart' as annotations;
+import './ui_props_self_typed_extension.dart';
 
 export './annotations.dart';
-export './component_base.dart'
-    hide UiComponent, UiStatefulComponent, UiProps, UiState;
+export './component_base.dart' hide UiComponent, UiStatefulComponent, UiProps, UiState;
+export './ui_props_self_typed_extension.dart';
 
 // ----------------------------------------------------------------------
 //   Base classes to be used by pre-generated code that stub out
@@ -56,7 +59,7 @@ mixin _GeneratedUiComponentStubs<TProps extends UiProps>
   ///
   /// For generated components, this defaults to the keys generated in the associated @[annotations.Props] class
   /// if this getter is not overridden.
-  Iterable<component_base.ConsumedProps> get consumedProps => $defaultConsumedProps;
+  Iterable<component_base.ConsumedProps>? get consumedProps => $defaultConsumedProps;
 
   /// Returns a typed props object backed by the specified [propsMap].
   /// Required to properly instantiate the generic [TProps] class.
@@ -99,7 +102,7 @@ abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiStat
 
   @override
   @toBeGenerated
-  TState typedStateFactory(Map stateMap) => throw UngeneratedError(member: #typedStateFactory,
+  TState typedStateFactory(Map? stateMap) => throw UngeneratedError(member: #typedStateFactory,
       message: GeneratedErrorMessages.typedStateFactory);
 }
 
@@ -120,18 +123,164 @@ abstract class UiProps extends component_base.UiProps with GeneratedClass {
   @Deprecated(
       'Use `UiComponent2.propsMeta` (only available for new mixin-based-boilerplate) instead.'
       ' Will be removed in 4.0.0.')
-  @toBeGenerated String get propKeyNamespace => throw UngeneratedError(member: #propKeyNamespace);
+  @toBeGenerated String? get propKeyNamespace => throw UngeneratedError(member: #propKeyNamespace);
 
   @override @toBeGenerated Map get props => throw UngeneratedError(member: #props);
 
   /// A collection of metadata for the prop fields in all prop mixins used by
   /// this props instance's generated props class.
   ///
-  /// Synonymous with [UiComponent2]'s `propsMeta`.
+  /// Synonymous with [component_base.UiComponent2.propsMeta].
   ///
   /// This can be used to derive consumed props by usage in conjunction with [addUnconsumedProps]
   /// and [addUnconsumedDomProps].
   @toBeGenerated PropsMetaCollection get staticMeta => throw UngeneratedError(member: #meta);
+
+  /// The base implementation for [UiPropsSelfTypedExtension.getPropKey],
+  /// which wraps this with better generic typing, since we can't generically express
+  /// the type of the current class in this declaration.
+  ///
+  /// [UiPropsSelfTypedExtension.getPropKey] and thus this method are necessary to be able to
+  /// implement utility methods for safely accessing props, such as
+  /// [UiPropsSelfTypedExtension.getRequiredProp].
+  @toBeGenerated
+  @visibleForOverriding
+  String $getPropKey(void Function(Map m) accessMap) => throw UngeneratedError(member: #$getPropKey);
+
+  /// An alias to [mustCallSuper] so that generated code can reference it without us having
+  /// to re-export it from `package:over_react/over_react.dart`.
+  @protected
+  static const $mustCallSuper = mustCallSuper;
+}
+
+class MissingRequiredPropsError extends Error {
+  final String _message;
+
+  MissingRequiredPropsError(this._message);
+
+  static const _messageSuffix = ' Ensure this prop is either directly set, or indirectly set via prop forwarding.'
+      'If this error seems unexpected and this component uses connect or mixes in required props from another component,'
+      ' please refer to the null safety migration guide for instructions on how to proceed:'
+      ' https://github.com/Workiva/over_react/blob/master/doc/null_safety/null_safe_migration.md#wrapper-and-connected-components-and-required-props';
+
+  @override
+  String toString() => 'RequiredPropsError: $_message$_messageSuffix';
+}
+
+/// Helper static extension methods to make forwarding props easier.
+extension PropsToForward<T extends UiProps> on T {
+
+  /// Returns a copy of this instance's props excluding the keys found in [exclude].
+  ///
+  /// [exclude] should be a `Set` of PropsMixin `Type`s.
+  /// If [exclude] is not set, it defaults to using the current instance's Type.
+  ///
+  /// __Example:__
+  ///
+  /// Component with a single props mixin:
+  /// ```dart
+  /// mixin FooPropsMixin on UiProps {
+  ///   String? foo;
+  /// }
+  ///
+  /// UiFactory<FooPropsMixin> Foo = uiFunction((props) {
+  ///   return (Bar()
+  ///     // Filter out props declared in FooPropsMixin
+  ///     // (used as the default for `exclude` since that's what `props` is statically typed as)
+  ///     // when forwarding to Bar.
+  ///     ..addAll(props.getPropsToForward())
+  ///   )();
+  /// });
+  /// ```
+  ///
+  /// Component with a more than one props mixin:
+  /// ```dart
+  /// mixin FooPropsMixin on UiProps {
+  ///   String? foo;
+  /// }
+  /// class FooProps = UiProps with BarProps, FooPropsMixin;
+  ///
+  /// UiFactory<FooProps> Foo = uiFunction((props) {
+  ///   return (Bar()
+  ///     // Filter out props declared in FooPropsMixin when forwarding to Bar.
+  ///     ..addAll(props.getPropsToForward(exclude: {FooPropsMixin}))
+  ///   )();
+  /// });
+  /// ```
+  ///
+  /// To only add DOM props, use the [domOnly] named argument.
+  ///
+  /// Related: `UiComponent2`'s `addUnconsumedProps`
+  Map getPropsToForward({Set<Type>? exclude, bool domOnly = false}) {
+    return _propsToForward(exclude: exclude, domOnly: domOnly, propsToUpdate: {});
+  }
+
+  /// A utility function to be used with `modifyProps` to add props excluding the keys found in [exclude].
+  ///
+  /// [exclude] should be a `Set` of PropsMixin `Type`s.
+  /// If [exclude] is not set, it defaults to using the current instance's Type.
+  ///
+  /// __Example:__
+  ///
+  /// Component with a single props mixin:
+  /// ```dart
+  /// mixin FooPropsMixin on UiProps {
+  ///   String? foo;
+  /// }
+  ///
+  /// UiFactory<FooPropsMixin> Foo = uiFunction((props) {
+  ///   return (Bar()
+  ///     // Filter out props declared in FooPropsMixin
+  ///     // (used as the default for `exclude` since that's what `props` is statically typed as)
+  ///     // when forwarding to Bar.
+  ///     ..modifyProps(props.addPropsToForward())
+  ///   )();
+  /// });
+  /// ```
+  ///
+  /// Component with a more than one props mixin:
+  /// ```dart
+  /// mixin FooPropsMixin on UiProps {
+  ///   String? foo;
+  /// }
+  /// class FooProps = UiProps with BarProps, FooPropsMixin;
+  ///
+  /// UiFactory<FooProp> Foo = uiFunction((props) {
+  ///   return (Bar()
+  ///     // Filter out props declared in FooPropsMixin when forwarding to Bar.
+  ///     ..modifyProps(props.addPropsToForward(exclude: {FooPropsMixin}))
+  ///   )();
+  /// });
+  /// ```
+  ///
+  /// To only add DOM props, use the [domOnly] named argument.
+  ///
+  /// Related: `UiComponent2`'s `addUnconsumedProps`
+  PropsModifier addPropsToForward({Set<Type>? exclude, bool domOnly = false}) {
+    return (Map<dynamic, dynamic> props) {
+      _propsToForward(exclude: exclude, domOnly: domOnly, propsToUpdate: props);
+    };
+  }
+
+  Map _propsToForward({Set<Type>? exclude, bool domOnly = false, required Map propsToUpdate}) {
+    Iterable<PropsMeta> consumedProps = [];
+    try {
+      consumedProps = staticMeta.forMixins(exclude ?? {T}).toList();
+    } catch(_) {
+      assert(exclude != null, ArgumentError('Could not find props meta for type $T.'
+        ' If this is not a props mixin, you need to specify its mixins as the second argument.  For example:'
+        '\n  ..addAll(props.getPropsToForward(exclude: {${T}Mixin})').message);
+      rethrow;
+    }
+    final consumedPropKeys = consumedProps.map((consumedProps) => consumedProps.keys);
+    forwardUnconsumedPropsV2(
+      props,
+      propsToUpdate: propsToUpdate,
+      keySetsToOmit: consumedPropKeys,
+      onlyCopyDomProps: domOnly,
+    );
+    return propsToUpdate;
+  }
 }
 
 /// A [dart.collection.MapView]-like class with strongly-typed getters/setters for React state.
@@ -167,7 +316,7 @@ class _ToBeGenerated {
 class UngeneratedError extends Error implements UnimplementedError {
   @override
   final String message;
-  UngeneratedError({String message, Symbol member}) :
+  UngeneratedError({String? message, Symbol? member}) :
       this.message = '${member != null ? '' : '`$member` should be implemented by code generation.\n\n'}$message';
 
   @override
@@ -179,7 +328,7 @@ class UngeneratedError extends Error implements UnimplementedError {
 /// Thrown when a class is directly instantiated when it should not be.
 class IllegalInstantiationError extends Error {
   final String message;
-  IllegalInstantiationError({String message, Type runtimeType}) :
+  IllegalInstantiationError({String? message, Type? runtimeType}) :
       this.message = message ?? '`$runtimeType` cannot be instantated directly, but only indirectly via the UiFactory';
 
 

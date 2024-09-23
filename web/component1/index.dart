@@ -21,22 +21,22 @@ import 'src/demos.dart';
 
 void main() {
   react_dom.render(
-    v2.ErrorBoundary()(buttonExamplesDemo()), querySelector('$demoMountNodeSelectorPrefix--button'));
+    v2.ErrorBoundary()(buttonExamplesDemo()), querySelector('$demoMountNodeSelectorPrefix--button')!);
 
   react_dom.render(
-    v2.ErrorBoundary()(listGroupBasicDemo()), querySelector('$demoMountNodeSelectorPrefix--list-group'));
+    v2.ErrorBoundary()(listGroupBasicDemo()), querySelector('$demoMountNodeSelectorPrefix--list-group')!);
 
   react_dom.render(
-    v2.ErrorBoundary()(progressBasicDemo()), querySelector('$demoMountNodeSelectorPrefix--progress'));
+    v2.ErrorBoundary()(progressBasicDemo()), querySelector('$demoMountNodeSelectorPrefix--progress')!);
 
   react_dom.render(
-    v2.ErrorBoundary()(tagBasicDemo()), querySelector('$demoMountNodeSelectorPrefix--tag'));
+    v2.ErrorBoundary()(tagBasicDemo()), querySelector('$demoMountNodeSelectorPrefix--tag')!);
 
   react_dom.render(
-    v2.ErrorBoundary()(checkboxToggleButtonDemo()), querySelector('$demoMountNodeSelectorPrefix--toggle-button-checkbox'));
+    v2.ErrorBoundary()(checkboxToggleButtonDemo()), querySelector('$demoMountNodeSelectorPrefix--checkbox-toggle')!);
 
   react_dom.render(
-    v2.ErrorBoundary()(radioToggleButtonDemo()), querySelector('$demoMountNodeSelectorPrefix--toggle-button-radio'));
+    v2.ErrorBoundary()(radioToggleButtonDemo()), querySelector('$demoMountNodeSelectorPrefix--radio-toggle')!);
 
   react_dom.render(
     (v2.ErrorBoundary()
@@ -44,9 +44,9 @@ void main() {
         print('Consumer props.onComponentDidCatch($error, $info)');
       }
     )(Faulty()()),
-    querySelector('$demoMountNodeSelectorPrefix--faulty-component'),
+    querySelector('$demoMountNodeSelectorPrefix--faulty-component')!,
   );
 
   react_dom.render(
-    Faulty()(), querySelector('$demoMountNodeSelectorPrefix--faulty-component-without-error-boundary'));
+    Faulty()(), querySelector('$demoMountNodeSelectorPrefix--faulty-component-without-error-boundary')!);
 }

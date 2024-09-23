@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators, invalid_use_of_visible_for_overriding_member
 part of 'error_boundary_recoverable.dart';
 
 // **************************************************************************
@@ -22,7 +22,7 @@ final $RecoverableErrorBoundaryComponentFactory = registerComponent2(
 );
 
 _$$RecoverableErrorBoundaryProps _$RecoverableErrorBoundary(
-        [Map backingProps]) =>
+        [Map? backingProps]) =>
     backingProps == null
         ? _$$RecoverableErrorBoundaryProps$JsMap(JsBackedMap())
         : _$$RecoverableErrorBoundaryProps(backingProps);
@@ -35,14 +35,15 @@ _$$RecoverableErrorBoundaryProps _$RecoverableErrorBoundary(
 abstract class _$$RecoverableErrorBoundaryProps extends UiProps
     with
         v2.ErrorBoundaryProps,
-        v2.$ErrorBoundaryProps // If this generated mixin is undefined, it's likely because v2.ErrorBoundaryProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of v2.ErrorBoundaryProps, and check that v2.$ErrorBoundaryProps is exported/imported properly.
+        // If this generated mixin is undefined, it's likely because v2.ErrorBoundaryProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of v2.ErrorBoundaryProps, and check that v2.$ErrorBoundaryProps is exported/imported properly.
+        v2.$ErrorBoundaryProps
     implements
         RecoverableErrorBoundaryProps {
   _$$RecoverableErrorBoundaryProps._();
 
-  factory _$$RecoverableErrorBoundaryProps(Map backingMap) {
+  factory _$$RecoverableErrorBoundaryProps(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$RecoverableErrorBoundaryProps$JsMap(backingMap as JsBackedMap);
+      return _$$RecoverableErrorBoundaryProps$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$RecoverableErrorBoundaryProps$PlainMap(backingMap);
     }
@@ -66,7 +67,23 @@ abstract class _$$RecoverableErrorBoundaryProps extends UiProps
         // If this generated mixin is undefined, it's likely because v2.ErrorBoundaryProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of v2.ErrorBoundaryProps, and check that v2.$ErrorBoundaryProps is exported/imported properly.
         v2.ErrorBoundaryProps: v2.$ErrorBoundaryProps.meta,
       });
+
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$RecoverableErrorBoundaryProps(
+          accessMap, (map) => _$$RecoverableErrorBoundaryProps(map));
+
+  @override
+  Set<String> get requiredPropNamesToSkipValidation => const {
+        'identicalErrorFrequencyTolerance',
+        'loggerName',
+        'shouldLogErrors'
+      };
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$RecoverableErrorBoundaryProps = getPropKey;
 
 // Concrete props implementation that can be backed by any [Map].
 @Deprecated('This API is for use only within generated code.'
@@ -75,7 +92,7 @@ class _$$RecoverableErrorBoundaryProps$PlainMap
     extends _$$RecoverableErrorBoundaryProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$RecoverableErrorBoundaryProps$PlainMap(Map backingMap)
+  _$$RecoverableErrorBoundaryProps$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -95,7 +112,7 @@ class _$$RecoverableErrorBoundaryProps$JsMap
     extends _$$RecoverableErrorBoundaryProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$RecoverableErrorBoundaryProps$JsMap(JsBackedMap backingMap)
+  _$$RecoverableErrorBoundaryProps$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -115,14 +132,15 @@ class _$$RecoverableErrorBoundaryProps$JsMap
 abstract class _$$RecoverableErrorBoundaryState extends UiState
     with
         v2.ErrorBoundaryState,
-        v2.$ErrorBoundaryState // If this generated mixin is undefined, it's likely because v2.ErrorBoundaryState is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not imported. Check the declaration of v2.ErrorBoundaryState, and check that v2.$ErrorBoundaryState is exported/imported properly.
+        // If this generated mixin is undefined, it's likely because v2.ErrorBoundaryState is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not imported. Check the declaration of v2.ErrorBoundaryState, and check that v2.$ErrorBoundaryState is exported/imported properly.
+        v2.$ErrorBoundaryState
     implements
         RecoverableErrorBoundaryState {
   _$$RecoverableErrorBoundaryState._();
 
-  factory _$$RecoverableErrorBoundaryState(Map backingMap) {
+  factory _$$RecoverableErrorBoundaryState(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$RecoverableErrorBoundaryState$JsMap(backingMap as JsBackedMap);
+      return _$$RecoverableErrorBoundaryState$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$RecoverableErrorBoundaryState$PlainMap(backingMap);
     }
@@ -140,7 +158,7 @@ class _$$RecoverableErrorBoundaryState$PlainMap
     extends _$$RecoverableErrorBoundaryState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$RecoverableErrorBoundaryState$PlainMap(Map backingMap)
+  _$$RecoverableErrorBoundaryState$PlainMap(Map? backingMap)
       : this._state = {},
         super._() {
     this._state = backingMap ?? {};
@@ -160,7 +178,7 @@ class _$$RecoverableErrorBoundaryState$JsMap
     extends _$$RecoverableErrorBoundaryState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$RecoverableErrorBoundaryState$JsMap(JsBackedMap backingMap)
+  _$$RecoverableErrorBoundaryState$JsMap(JsBackedMap? backingMap)
       : this._state = JsBackedMap(),
         super._() {
     this._state = backingMap ?? JsBackedMap();
@@ -180,7 +198,7 @@ class _$$RecoverableErrorBoundaryState$JsMap
     ' Do not reference it in your code, as it may change at any time.')
 class _$RecoverableErrorBoundaryComponent
     extends RecoverableErrorBoundaryComponent {
-  _$$RecoverableErrorBoundaryProps$JsMap _cachedTypedProps;
+  late _$$RecoverableErrorBoundaryProps$JsMap _cachedTypedProps;
 
   @override
   _$$RecoverableErrorBoundaryProps$JsMap get props => _cachedTypedProps;
@@ -201,14 +219,14 @@ class _$RecoverableErrorBoundaryComponent
 
   @override
   _$$RecoverableErrorBoundaryProps$JsMap typedPropsFactoryJs(
-          JsBackedMap backingMap) =>
+          JsBackedMap? backingMap) =>
       _$$RecoverableErrorBoundaryProps$JsMap(backingMap);
 
   @override
-  _$$RecoverableErrorBoundaryProps typedPropsFactory(Map backingMap) =>
+  _$$RecoverableErrorBoundaryProps typedPropsFactory(Map? backingMap) =>
       _$$RecoverableErrorBoundaryProps(backingMap);
 
-  _$$RecoverableErrorBoundaryState$JsMap _cachedTypedState;
+  late _$$RecoverableErrorBoundaryState$JsMap _cachedTypedState;
   @override
   _$$RecoverableErrorBoundaryState$JsMap get state => _cachedTypedState;
 
@@ -224,11 +242,11 @@ class _$RecoverableErrorBoundaryComponent
 
   @override
   _$$RecoverableErrorBoundaryState$JsMap typedStateFactoryJs(
-          JsBackedMap backingMap) =>
+          JsBackedMap? backingMap) =>
       _$$RecoverableErrorBoundaryState$JsMap(backingMap);
 
   @override
-  _$$RecoverableErrorBoundaryState typedStateFactory(Map backingMap) =>
+  _$$RecoverableErrorBoundaryState typedStateFactory(Map? backingMap) =>
       _$$RecoverableErrorBoundaryState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.

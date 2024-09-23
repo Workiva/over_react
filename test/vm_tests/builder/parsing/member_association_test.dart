@@ -13,7 +13,7 @@
 // limitations under the License.
 
 @TestOn('vm')
-import 'package:over_react/src/builder/parsing/member_association.dart';
+
 import 'package:over_react/src/builder/parsing.dart';
 import 'package:test/test.dart';
 
@@ -21,13 +21,27 @@ import 'parsing_helpers.dart';
 
 main() {
   group('Member Association', () {
-    BoilerplateMemberHelper memberHelper;
-    List<BoilerplateFactory> factories;
-    List<BoilerplateComponent> components;
-    List<BoilerplateProps> props;
-    List<BoilerplateState> states;
-    List<BoilerplateStateMixin> stateMixins;
-    List<BoilerplatePropsMixin> propsMixins;
+    late List<BoilerplateFactory> factories;
+    late List<BoilerplateComponent> components;
+    late List<BoilerplateProps> props;
+    late List<BoilerplateState> states;
+    late List<BoilerplateStateMixin> stateMixins;
+    late List<BoilerplatePropsMixin> propsMixins;
+
+    setUpAll(() {
+      final memberHelper = BoilerplateMemberHelper.withMockDeclarations();
+      components = memberHelper.components;
+      factories = memberHelper.factories;
+      props = memberHelper.props;
+      states = memberHelper.states;
+      propsMixins = memberHelper.propsMixins;
+      stateMixins = memberHelper.stateMixins;
+
+      // Ensure there's more than a single option so when using `getComponentFor`
+      // there's more than one option
+      expect(components.length, greaterThan(1));
+    });
+
 
     group('normalizeName', () {
       test('removes the legacy prefixes from a string', () {
@@ -93,37 +107,23 @@ main() {
     });
 
     group('getComponentFor retrieves the component by', () {
-      setUpAll(() {
-        memberHelper = BoilerplateMemberHelper.withMockDeclarations();
-        components = memberHelper.components;
-        factories = memberHelper.factories;
-        props = memberHelper.props;
-        states = memberHelper.states;
-        propsMixins = memberHelper.propsMixins;
-        stateMixins = memberHelper.stateMixins;
-
-        // Ensure there's more than a single option so when using `getComponentFor`
-        // there's more than one option
-        expect(components.length, greaterThan(1));
-      });
-
       group('name', () {
         group('when passed', () {
           test('a factory', () {
             final factory = factories.firstWhere((factory) => factory.name.name == 'SecondFoo');
-            expect(getComponentFor(factory, components).name.name, 'SecondFooComponent');
+            expect(getComponentFor(factory, components)!.name.name, 'SecondFooComponent');
           });
 
           test('props', () {
             final propsClass =
                 props.firstWhere((props) => normalizeName(props.name.name) == 'SecondFooProps');
-            expect(getComponentFor(propsClass, components).name.name, 'SecondFooComponent');
+            expect(getComponentFor(propsClass, components)!.name.name, 'SecondFooComponent');
           });
 
           test('state', () {
             final state =
                 states.firstWhere((state) => normalizeName(state.name.name) == 'SecondFooState');
-            expect(getComponentFor(state, components).name.name, 'SecondFooComponent');
+            expect(getComponentFor(state, components)!.name.name, 'SecondFooComponent');
           });
 
           test('a props mixin', () {
@@ -132,7 +132,7 @@ main() {
             // Sanity check
             expect(propsClass.name.name, 'ThirdFooProps');
 
-            expect(getComponentFor(propsClass, components).name.name, 'ThirdFooComponent');
+            expect(getComponentFor(propsClass, components)!.name.name, 'ThirdFooComponent');
           });
 
           test('a state mixin', () {
@@ -141,7 +141,7 @@ main() {
             // Sanity check
             expect(stateClass.name.name, 'ThirdFooState');
 
-            expect(getComponentFor(stateClass, components).name.name, 'ThirdFooComponent');
+            expect(getComponentFor(stateClass, components)!.name.name, 'ThirdFooComponent');
           });
         });
       });
@@ -151,14 +151,14 @@ main() {
           test('props', () {
             final propsClass = props.firstWhere(
                 (props) => normalizeName(props.name.name) == 'HowAboutARandomNameForLegacyProps');
-            expect(getComponentFor(propsClass, components).name.name,
+            expect(getComponentFor(propsClass, components)!.name.name,
                 'IsThisEvenAComponentNameLegacyComponent');
           });
 
           test('a props mixin', () {
             final propsMixin =
                 propsMixins.firstWhere((props) => props.name.name == 'HowAboutARandomNameForProps');
-            expect(getComponentFor(propsMixin, components).name.name,
+            expect(getComponentFor(propsMixin, components)!.name.name,
                 'IsThisEvenAComponentNameComponent');
           });
         });
@@ -189,14 +189,14 @@ main() {
       group('when passed', () {
         test('a factory', () {
           final factory = factories.firstWhere((factory) => factory.name.name == 'SecondFoo');
-          expect(normalizeName(getPropsFor(factory, props, propsMixins).a.name.name),
+          expect(normalizeName(getPropsFor(factory, props, propsMixins)!.a!.name.name),
               'SecondFooProps');
         });
 
         test('a component', () {
           final component = components.firstWhere(
               (component) => normalizeName(component.name.name) == 'SecondFooComponent');
-          expect(normalizeName(getPropsFor(component, props, propsMixins).a.name.name),
+          expect(normalizeName(getPropsFor(component, props, propsMixins)!.a!.name.name),
               'SecondFooProps');
         });
 
@@ -204,7 +204,7 @@ main() {
           final state =
               states.firstWhere((state) => normalizeName(state.name.name) == 'SecondFooState');
           expect(
-              normalizeName(getPropsFor(state, props, propsMixins).a.name.name), 'SecondFooProps');
+              normalizeName(getPropsFor(state, props, propsMixins)!.a!.name.name), 'SecondFooProps');
         });
 
         test('a state mixin', () {
@@ -213,7 +213,7 @@ main() {
           // Sanity check
           expect(state.name.name, 'ThirdFooState');
 
-          expect(getPropsFor(state, props, propsMixins).b.name.name, 'ThirdFooProps');
+          expect(getPropsFor(state, props, propsMixins)!.b!.name.name, 'ThirdFooProps');
         });
       });
     });
@@ -222,19 +222,19 @@ main() {
       group('when passed a function component factory', () {
         test('', () {
           final factory = factories.firstWhere((factory) => factory.name.name == 'FunctionFoo');
-          expect(normalizeName(getPropsForFunctionComponent(props, propsMixins, factory).b.name.name),
+          expect(normalizeName(getPropsForFunctionComponent(props, propsMixins, factory)!.b!.name.name),
               'FunctionFoo2Props');
         });
 
         test('with no left hand typing', () {
           final factory = factories.firstWhere((factory) => factory.name.name == 'FunctionFoo1');
-          expect(normalizeName(getPropsForFunctionComponent(props, propsMixins, factory).b.name.name),
+          expect(normalizeName(getPropsForFunctionComponent(props, propsMixins, factory)!.b!.name.name),
               'FunctionFoo2Props');
         });
 
         test('with prefixed props', () {
           final factory = factories.firstWhere((factory) => factory.name.name == 'FunctionFoo2');
-          expect(normalizeName(getPropsForFunctionComponent(props, propsMixins, factory).b.name.name),
+          expect(normalizeName(getPropsForFunctionComponent(props, propsMixins, factory)!.b!.name.name),
               'FunctionFooProps');
         });
       });
@@ -244,21 +244,21 @@ main() {
       group('when passed', () {
         test('a factory', () {
           final factory = factories.firstWhere((factory) => factory.name.name == 'SecondFoo');
-          expect(normalizeName(getStateFor(factory, states, stateMixins).a.name.name),
+          expect(normalizeName(getStateFor(factory, states, stateMixins)!.a!.name.name),
               'SecondFooState');
         });
 
         test('a component', () {
           final component =
               components.firstWhere((components) => components.name.name == 'SecondFooComponent');
-          expect(normalizeName(getStateFor(component, states, stateMixins).a.name.name),
+          expect(normalizeName(getStateFor(component, states, stateMixins)!.a!.name.name),
               'SecondFooState');
         });
 
         test('props', () {
           final propsClass =
               props.firstWhere((prop) => normalizeName(prop.name.name) == 'SecondFooProps');
-          expect(normalizeName(getStateFor(propsClass, states, stateMixins).a.name.name),
+          expect(normalizeName(getStateFor(propsClass, states, stateMixins)!.a!.name.name),
               'SecondFooState');
         });
 
@@ -268,7 +268,7 @@ main() {
           // Sanity check
           expect(propsClass.name.name, 'ThirdFooProps');
 
-          expect(normalizeName(getStateFor(propsClass, states, stateMixins).b.name.name),
+          expect(normalizeName(getStateFor(propsClass, states, stateMixins)!.b!.name.name),
               'ThirdFooState');
         });
       });

@@ -45,9 +45,9 @@ class ConvertClassOrFunctionComponentAssistContributor extends AssistContributor
   Future<void> _tryConvertClassComponent(ClassDeclaration closestClass) async {
     // todo use over_react builders' boilerplate parsing to get the associated factory and config instead of this logic
 
-    if (!closestClass.name.name.endsWith('Component')) return;
+    if (!closestClass.name.lexeme.endsWith('Component')) return;
 
-    final name = closestClass.name.name.substring(0, closestClass.name.name.length - 'Component'.length);
+    final name = closestClass.name.lexeme.substring(0, closestClass.name.lexeme.length - 'Component'.length);
     final generatedFactoryConfigName = '_\$${name}Config';
 
     final factory = node
@@ -55,7 +55,7 @@ class ConvertClassOrFunctionComponentAssistContributor extends AssistContributor
         ?.declarations
         .whereType<TopLevelVariableDeclaration>()
         .expand((element) => element.variables.variables)
-        .firstWhere((element) => element.name.name == name);
+        .firstWhere((element) => element.name.lexeme == name);
     if (factory == null) return;
 
     final factoryDecl = factory.thisOrAncestorOfType<TopLevelVariableDeclaration>()!;
@@ -65,13 +65,13 @@ class ConvertClassOrFunctionComponentAssistContributor extends AssistContributor
 
     // todo migrate defaults?
 
-    final render = closestClass.members.whereType<MethodDeclaration>().firstWhereOrNull((m) => m.name.name == 'render');
+    final render = closestClass.members.whereType<MethodDeclaration>().firstWhereOrNull((m) => m.name.lexeme == 'render');
     if (render == null) return;
 
     final renderBody = render.body;
     if (renderBody is EmptyFunctionBody) return;
 
-    final getSource = request.result.content!.substring;
+    final getSource = request.result.content.substring;
 
     const classMemberIndent = '  ';
     const functionComponentBodyIndent = '    ';
@@ -102,7 +102,7 @@ class ConvertClassOrFunctionComponentAssistContributor extends AssistContributor
 
     final changeBuilder = ChangeBuilder(session: request.result.session);
 
-    await changeBuilder.addGenericFileEdit(request.result.path!, (builder) {
+    await changeBuilder.addGenericFileEdit(request.result.path, (builder) {
       builder.addSimpleReplacement(range.node(closestClass), '');
       builder.addSimpleReplacement(
           range.node(factoryInitializer),
@@ -113,14 +113,14 @@ class ConvertClassOrFunctionComponentAssistContributor extends AssistContributor
 
       final comment = factoryDecl.semicolon.next?.precedingComments;
       if (comment != null && isSameLine(request.result.lineInfo, comment.offset, factoryDecl.semicolon.end)) {
-        if (request.result.content!.substring(comment.offset, comment.end).contains('undefined_identifier')) {
+        if (request.result.content.substring(comment.offset, comment.end).contains('undefined_identifier')) {
           builder.addSimpleReplacement(range.token(comment), '');
         }
       }
 
       // todo also remove undefined_identifier comment from class factory
     });
-    changeBuilder.setSelection(Position(request.result.path!, factoryInitializer.offset));
+    changeBuilder.setSelection(Position(request.result.path, factoryInitializer.offset));
 
     final sourceChange = changeBuilder.sourceChange
       ..message = convertToFunction.message
@@ -137,7 +137,7 @@ class ConvertClassOrFunctionComponentAssistContributor extends AssistContributor
 
     // todo use over_react builders' boilerplate parsing to get the associated factory and name of assiciated props class instead of this logic
 
-    final name = factory.name.name;
+    final name = factory.name.lexeme;
     final componentClassName = '${name}Component';
     final generatedFactoryName = '_\$$name';
     final propsClassName = '${name}Props';
@@ -145,12 +145,12 @@ class ConvertClassOrFunctionComponentAssistContributor extends AssistContributor
     // todo check for hooks
     // todo migrate defaults?
 
-    final renderSource = request.result.content!.substring(functionComponentBody.offset,
+    final renderSource = request.result.content.substring(functionComponentBody.offset,
         functionComponentBody.tryCast<ExpressionFunctionBody>()?.semicolon?.offset ?? functionComponentBody.end);
 
     final changeBuilder = ChangeBuilder(session: request.result.session);
 
-    await changeBuilder.addGenericFileEdit(request.result.path!, (builder) {
+    await changeBuilder.addGenericFileEdit(request.result.path, (builder) {
       // todo also add undefined_identifier to initializer class factory
       builder.addSimpleReplacement(range.node(factoryInitializer), 'castUiFactory($generatedFactoryName)');
 
@@ -159,7 +159,7 @@ class ConvertClassOrFunctionComponentAssistContributor extends AssistContributor
                   .thisOrAncestorOfType<CompilationUnit>()
                   ?.declarations
                   .whereType<NamedCompilationUnitMember>()
-                  .firstWhereOrNull((element) => element.name.name == propsClassName) ??
+                  .firstWhereOrNull((element) => element.name.lexeme == propsClassName) ??
               factoryInitializer.thisOrAncestorOfType<CompilationUnitMember>()!)
           .end;
 

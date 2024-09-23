@@ -1,9 +1,5 @@
-// Disable null-safety in the plugin entrypoint until all dependencies are null-safe,
-// otherwise tests won't be able to run. See: https://github.com/dart-lang/test#compiler-flags
-// @dart=2.9
 import 'dart:async';
 
-import 'package:meta/meta.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/forward_only_dom_props_to_dom_builders.dart';
 import 'package:test/test.dart';
 import 'package:test_reflective_loader/test_reflective_loader.dart';
@@ -24,10 +20,10 @@ class ForwardOnlyDomPropsToDomBuildersDiagnosticTest extends DiagnosticTestBase 
   @override
   get fixKindUnderTest => ForwardOnlyDomPropsToDomBuildersDiagnostic.fixKind;
 
-  String usageSourceWithinClassComponent({@required bool fixed}) => '''
+  String usageSourceWithinClassComponent({required bool fixed}) => '''
 import 'package:over_react/over_react.dart';
 
-part 'test.over_react.g.dart';
+part '{{FILE_BASENAME_WITHOUT_EXTENSION}}.over_react.g.dart';
 
 UiFactory<DomWrapperProps> DomWrapper = castUiFactory(_\$DomWrapper); // ignore: undefined_identifier
 
@@ -44,7 +40,7 @@ class DomWrapperComponent extends UiComponent2<DomWrapperProps> {
 }
 ''';
 
-  String usageSourceWithinFnComponent({@required bool fixed}) => '''
+  String usageSourceWithinFnComponent({required bool fixed}) => '''
 import 'package:over_react/over_react.dart';
 
 final DomWrapperFn = uiFunction<UiProps>(
@@ -59,18 +55,18 @@ final DomWrapperFn = uiFunction<UiProps>(
 ''';
 
   Future<void> test_classComponentUsageErrorAndFix() async {
-    var source = newSource('test.dart', usageSourceWithinClassComponent(fixed: false));
+    var source = newSource(usageSourceWithinClassComponent(fixed: false));
     final errorFix = await expectSingleErrorFix(createSelection(source, "..modifyProps(#addUnconsumedProps#)"));
     expect(errorFix.fixes.single.change.selection, isNull);
     source = applyErrorFixes(errorFix, source);
-    expect(source.contents.data, usageSourceWithinClassComponent(fixed: true));
+    expect(source.contents.data, substituteSource(usageSourceWithinClassComponent(fixed: true), path: source.uri.path));
   }
 
   Future<void> test_fnComponentUsageErrorAndFix() async {
-    var source = newSource('test.dart', usageSourceWithinFnComponent(fixed: false));
+    var source = newSource(usageSourceWithinFnComponent(fixed: false));
     final errorFix = await expectSingleErrorFix(createSelection(source, "..#addUnconsumedProps#(props, const [])"));
     expect(errorFix.fixes.single.change.selection, isNull);
     source = applyErrorFixes(errorFix, source);
-    expect(source.contents.data, usageSourceWithinFnComponent(fixed: true));
+    expect(source.contents.data, substituteSource(usageSourceWithinFnComponent(fixed: true), path: source.uri.path));
   }
 }

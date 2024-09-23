@@ -1,8 +1,11 @@
+import 'dart:html';
+
 import 'package:over_react/over_react.dart';
 
 part 'refs.over_react.g.dart';
 
-UiFactory<HasNoRefsProps> HasNoRefs = castUiFactory(_$HasNoRefs); // ignore: undefined_identifier
+UiFactory<HasNoRefsProps> HasNoRefs =
+    castUiFactory(_$HasNoRefs); // ignore: undefined_identifier
 
 mixin HasNoRefsProps on UiProps {}
 
@@ -13,28 +16,29 @@ class HasNoRefsComponent extends UiComponent2<HasNoRefsProps> {
   }
 }
 
-UiFactory<UsesStringRefProps> UsesStringRef = castUiFactory(_$UsesStringRef); // ignore: undefined_identifier
+UiFactory<UsesStringRefProps> UsesStringRef =
+    castUiFactory(_$UsesStringRef); // ignore: undefined_identifier
 
 mixin UsesStringRefProps on UiProps {}
 
 class UsesStringRefComponent extends UiComponent2<UsesStringRefProps> {
   @override
   render() {
-    return (Child()
-      ..ref = 'child'
-    )(props.children);
+    return (Child()..ref = 'child')(props.children);
   }
 
   get stringRefAccess => ref('child');
 }
 
-UiFactory<UsesCallbackRefProps> UsesCallbackRef = castUiFactory(_$UsesCallbackRef); // ignore: undefined_identifier
+UiFactory<UsesCallbackRefProps> UsesCallbackRef =
+    castUiFactory(_$UsesCallbackRef); // ignore: undefined_identifier
 
 mixin UsesCallbackRefProps on UiProps {}
 
 class UsesCallbackRefComponent extends UiComponent2<UsesCallbackRefProps> {
-  ChildComponent _someCustomRefName;
-  ChildComponent _anotherCustomRefName;
+  ChildComponent? _someCustomRefName;
+  ChildComponent? _anotherCustomRefName;
+  Element? _aDomRef;
 
   @override
   render() {
@@ -42,26 +46,34 @@ class UsesCallbackRefComponent extends UiComponent2<UsesCallbackRefProps> {
       (Child()
         ..ref = (ref) {
           _someCustomRefName = ref;
-        })(props.children),
+        }
+      )(props.children),
       (Child()
         ..id = 'bar'
         ..ref = ((ref) => _anotherCustomRefName = ref)
       )('hi'),
+      (Dom.div()..ref = (ref) {
+        _aDomRef = ref;
+      })(),
     );
   }
 
   void foo() {
-    _someCustomRefName.someMethodName();
+    _someCustomRefName?.someMethodName();
     _someCustomRefName?.anotherMethodName();
-    final bar = _someCustomRefName.someGetter;
+    final bar = _someCustomRefName?.someGetter;
 
-    _anotherCustomRefName.someMethodName();
+    _anotherCustomRefName?.someMethodName();
     _anotherCustomRefName?.anotherMethodName();
-    final baz = _anotherCustomRefName.someGetter;
+    final baz = _anotherCustomRefName?.someGetter;
+
+    _aDomRef?.detached();
+    final abc = _aDomRef?.offset;
   }
 }
 
-UiFactory<ChildProps> Child = castUiFactory(_$Child); // ignore: undefined_identifier
+UiFactory<ChildProps> Child =
+    castUiFactory(_$Child); // ignore: undefined_identifier
 
 mixin ChildProps on UiProps {}
 

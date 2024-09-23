@@ -1,4 +1,5 @@
-// Adapted from: https://github.com/dart-lang/sdk/blob/1601f6fcd2a7aa39bdd71f1f988fe7acfaecc418/pkg/analyzer/test/src/dart/ast/utilities_test.dart
+// Adapted from analyzer 5.13.0 src/dart/ast/utilities.dart
+// Permalink: https://github.com/dart-lang/sdk/blob/efe0ca193f1c1485efc5467fb8dc9dfca6085d39/pkg/analyzer/test/src/dart/ast/utilities_test.dart
 //
 // Copyright 2013, the Dart project authors. All rights reserved.
 // Redistribution and use in source and binary forms, with or without
@@ -42,51 +43,66 @@ void main() {
 }
 
 @reflectiveTest
-class NodeLocator2Test {
+class NodeLocator2Test extends _SharedNodeLocatorTests {
+  @override
+  AstNode? locate(
+    CompilationUnit unit,
+    int start, [
+    int? end,
+  ]) {
+    final locator = NodeLocator2(start, end);
+    final node = locator.searchWithin(unit)!;
+    return node;
+  }
+
   void test_onlyStartOffset() {
-    const code = ' int vv; ';
-    //             012345678
+    var code = ' f() {} ';
+    //             01234567
     final unit = parseAndGetUnit(code);
-    final declaration = unit.declarations[0] as TopLevelVariableDeclaration;
-    final variableList = declaration.variables;
-    final typeName = (variableList.type as TypeName).name;
-    final varName = variableList.variables[0].name;
+    final function = unit.declarations.single as FunctionDeclaration;
+    final expression = function.functionExpression;
+    final body = expression.body as BlockFunctionBody;
     expect(NodeLocator2(0).searchWithin(unit), same(unit));
-    expect(NodeLocator2(1).searchWithin(unit), same(typeName));
-    expect(NodeLocator2(2).searchWithin(unit), same(typeName));
-    expect(NodeLocator2(3).searchWithin(unit), same(typeName));
-    expect(NodeLocator2(4).searchWithin(unit), same(variableList));
-    expect(NodeLocator2(5).searchWithin(unit), same(varName));
-    expect(NodeLocator2(6).searchWithin(unit), same(varName));
-    expect(NodeLocator2(7).searchWithin(unit), same(declaration));
-    expect(NodeLocator2(8).searchWithin(unit), same(unit));
-    expect(NodeLocator2(9).searchWithin(unit), isNull);
+    expect(NodeLocator2(1).searchWithin(unit), same(function));
+    expect(NodeLocator2(2).searchWithin(unit), same(function));
+    expect(NodeLocator2(3).searchWithin(unit), same(expression.parameters));
+    expect(NodeLocator2(4).searchWithin(unit), same(expression));
+    expect(NodeLocator2(5).searchWithin(unit), same(body.block));
+    expect(NodeLocator2(6).searchWithin(unit), same(body.block));
+    expect(NodeLocator2(7).searchWithin(unit), same(unit));
     expect(NodeLocator2(100).searchWithin(unit), isNull);
   }
 
   void test_startEndOffset() {
-    const code = ' int vv; ';
-    //             012345678
+    var code = ' f() {} ';
+    //             01234567
     final unit = parseAndGetUnit(code);
-    final declaration = unit.declarations[0] as TopLevelVariableDeclaration;
-    final variableList = declaration.variables;
-    final typeName = (variableList.type as TypeName).name;
-    final varName = variableList.variables[0].name;
+    final function = unit.declarations.single as FunctionDeclaration;
     expect(NodeLocator2(-1, 2).searchWithin(unit), isNull);
     expect(NodeLocator2(0, 2).searchWithin(unit), same(unit));
-    expect(NodeLocator2(1, 2).searchWithin(unit), same(typeName));
-    expect(NodeLocator2(1, 3).searchWithin(unit), same(typeName));
-    expect(NodeLocator2(1, 4).searchWithin(unit), same(variableList));
-    expect(NodeLocator2(5, 6).searchWithin(unit), same(varName));
-    expect(NodeLocator2(5, 7).searchWithin(unit), same(declaration));
-    expect(NodeLocator2(5, 8).searchWithin(unit), same(unit));
+    expect(NodeLocator2(1, 2).searchWithin(unit), same(function));
+    expect(NodeLocator2(1, 3).searchWithin(unit), same(function));
+    expect(NodeLocator2(1, 4).searchWithin(unit), same(function));
+    expect(NodeLocator2(5, 7).searchWithin(unit), same(unit));
     expect(NodeLocator2(5, 100).searchWithin(unit), isNull);
     expect(NodeLocator2(100, 200).searchWithin(unit), isNull);
   }
 }
 
 @reflectiveTest
-class NodeLocatorTest {
+class NodeLocatorTest extends _SharedNodeLocatorTests {
+  @override
+  AstNode? locate(
+    CompilationUnit unit,
+    int start, [
+    int? end,
+  ]) {
+    final locator = NodeLocator(start, end);
+    final node = locator.searchWithin(unit)!;
+    expect(locator.foundNode, same(node));
+    return node;
+  }
+
   void test_range() {
     final unit = parseAndGetUnit("library myLib;");
     final node = _assertLocate(unit, 4, 10);
@@ -121,17 +137,97 @@ class B {}''');
     final node = locator.searchWithin(unit.declarations[1]);
     expect(node, isNull);
   }
+}
+
+abstract class _SharedNodeLocatorTests {
+  AstNode? locate(
+    CompilationUnit unit,
+    int start, [
+    int? end,
+  ]);
+
+  void test_searchWithin_constructor_afterName_beforeParameters() {
+    var source = r'''
+class A {
+  A() {}
+}
+''';
+    var unit = parseAndGetUnit(source);
+    // TODO(dantup): Update these tests to use markers.
+    final node = _assertLocate(unit, source.indexOf('() {}'));
+    expect(node, isA<ConstructorDeclaration>());
+  }
+
+  void test_searchWithin_function_afterName_beforeParameters() {
+    var source = r'''
+void f() {}
+''';
+    var unit = parseAndGetUnit(source);
+    final node = _assertLocate(unit, source.indexOf('() {}'));
+    expect(node, isA<FunctionDeclaration>());
+  }
+
+  void test_searchWithin_function_afterName_beforeTypeParameters() {
+    var source = r'''
+void f<T>() {}
+''';
+    var unit = parseAndGetUnit(source);
+    final node = _assertLocate(unit, source.indexOf('<T>() {}'));
+    expect(node, isA<FunctionDeclaration>());
+  }
+
+  void test_searchWithin_method_afterName_beforeParameters() {
+    var source = r'''
+class A {
+  void m() {}
+}
+''';
+    var unit = parseAndGetUnit(source);
+    final node = _assertLocate(unit, source.indexOf('() {}'));
+    expect(node, isA<MethodDeclaration>());
+  }
+
+  void test_searchWithin_method_afterName_beforeTypeParameters() {
+    var source = r'''
+class A {
+  void m<T>() {}
+}
+''';
+    var unit = parseAndGetUnit(source);
+    final node = _assertLocate(unit, source.indexOf('<T>() {}'));
+    expect(node, isA<MethodDeclaration>());
+  }
+
+  void test_searchWithin_namedConstructor_afterName_beforeParameters() {
+    var source = r'''
+class A {
+  A.c() {}
+}
+''';
+    var unit = parseAndGetUnit(source);
+    final node = _assertLocate(unit, source.indexOf('() {}'));
+    expect(node, isA<ConstructorDeclaration>());
+  }
+
+  void test_searchWithin_setter_afterName_beforeParameters() {
+    var source = r'''
+set s(int i) {}
+''';
+    var unit = parseAndGetUnit(source);
+    final node = _assertLocate(unit, source.indexOf('(int i)'));
+    expect(node, isA<FunctionDeclaration>());
+  }
 
   AstNode _assertLocate(
     CompilationUnit unit,
-    int start,
-    int end,
-  ) {
-    final locator = NodeLocator(start, end);
-    final node = locator.searchWithin(unit)!;
-    expect(locator.foundNode, same(node));
+    int start, [
+    int? end,
+  ]) {
+    end ??= start;
+    final node = locate(unit, start, end)!;
     expect(node.offset <= start, isTrue, reason: "Node starts after range");
-    expect(node.offset + node.length > end, isTrue, reason: "Node ends before range");
+    expect(node.offset + node.length > end, isTrue,
+        reason: "Node ends before range");
     return node;
   }
 }

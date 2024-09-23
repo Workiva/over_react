@@ -1,8 +1,11 @@
-import 'package:analyzer/src/generated/source.dart';
+import 'package:analyzer/dart/analysis/results.dart';
+import 'package:analyzer/file_system/overlay_file_system.dart';
+// ignore: implementation_imports
+import 'package:analyzer/src/generated/source.dart' show Source, SourceRange;
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
-import 'package:analyzer_plugin/protocol/protocol_generated.dart';
 import 'package:meta/meta.dart';
 import 'package:path/path.dart' as p;
+import 'package:source_span/source_span.dart';
 import 'package:test/test.dart';
 
 import '../stubs.dart';
@@ -26,6 +29,15 @@ class SourceSelection {
   final String? target;
 
   SourceSelection(this.source, this.offset, this.length, {this.target});
+
+  @override
+  String toString() {
+    return 'SourceSelection ${{
+      'target': target,
+      'offset': offset,
+      'length': length,
+    }}. Preview:\n' + SourceFile.fromString(source.contents.data, url: source.uri).span(offset, offset + length).highlight();
+  }
 }
 
 extension AsRange$SourceRange on SourceSelection {
@@ -74,7 +86,8 @@ abstract class ServerPluginContributorTestBase extends AnalysisDriverTestBase {
       resourceProvider.getFile(path).readAsStringSync(),
       [for (final fileEdit in applicableFileEdits) ...fileEdit.edits],
     );
-    final file = resourceProvider.updateFile(path, updated);
+    modifyFile(path, updated);
+    final file = resourceProvider.getFile(path);
     return file.createSource();
   }
 
@@ -128,7 +141,7 @@ abstract class ServerPluginContributorTestBase extends AnalysisDriverTestBase {
 
   /// Will fail the test if any unexpected plugin errors were sent on the plugin
   /// communication channel.
-  void expectNoPluginErrors() {
+  void expectNoPluginErrorNotifications() {
     if (_channel == null) {
       throw ArgumentError(
           '_channel was unexpectedly null, meaning setUp may have thrown an error that wasn\'t handled yet. '
@@ -149,18 +162,21 @@ abstract class ServerPluginContributorTestBase extends AnalysisDriverTestBase {
     await super.setUp();
 
     _channel = StubChannel();
-    _plugin = PluginForTest(analysisDriver, resourceProvider)..start(_channel!);
+    _plugin = PluginForTest()
+      ..channel = _channel!
+      ..resourceProvider = OverlayResourceProvider(sharedContext.collection.contexts.single.currentSession.resourceProvider)
+      ..handleGetResolvedUnitResult = (path) async {
+        final result = await sharedContext.collection.contextFor(path).currentSession.getResolvedUnit(path);
+        if (result is ResolvedUnitResult) return result;
 
-    // ignore: missing_required_param
-    final contextRoot = ContextRoot(testPath, []);
-    await testPlugin.handleAnalysisSetContextRoots(AnalysisSetContextRootsParams([contextRoot]));
+        throw Exception('Could not resolve path $path: $result');
+      };
   }
 
   @override
   @mustCallSuper
   Future<void> tearDown() async {
-    expectNoPluginErrors();
-    await _plugin?.handlePluginShutdown(PluginShutdownParams());
+    expectNoPluginErrorNotifications();
     _channel = null;
     _plugin = null;
     super.tearDown();

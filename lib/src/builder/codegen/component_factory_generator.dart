@@ -53,24 +53,26 @@ class ComponentFactoryProxyGenerator extends BoilerplateDeclarationGenerator {
   }
 
   void _generateClassComponentFactoryProxy() {
-    String parentTypeParam = 'null';
+    String parentTypeParam;
     String parentTypeParamComment = '';
 
-    Identifier parentType = component.configSubtypeOf;
+    Identifier? parentType = component.configSubtypeOf;
     if (parentType != null) {
       parentTypeParamComment = ' /* from `subtypeOf: ${getSpan(sourceFile, parentType).text}` */';
 
       final parentNames = ComponentNames(parentType.name);
       parentTypeParam = parentNames.componentFactoryName;
-    }
 
-    if (parentTypeParam == componentNames.componentFactoryName) {
-      /// It doesn't make sense to have a component subtype itself, and also an error occurs
-      /// if a component's factory variable tries to reference itself during its initialization.
-      /// Therefore, this is not allowed.
-      // todo move to validation
-      logger.severe(messageWithSpan('A component cannot be a subtype of itself.',
-          span: getSpan(sourceFile, parentType)));
+      if (parentTypeParam == componentNames.componentFactoryName) {
+        /// It doesn't make sense to have a component subtype itself, and also an error occurs
+        /// if a component's factory variable tries to reference itself during its initialization.
+        /// Therefore, this is not allowed.
+        // todo move to validation
+        logger.severe(messageWithSpan('A component cannot be a subtype of itself.',
+            span: getSpan(sourceFile, parentType)));
+      }
+    } else {
+      parentTypeParam = 'null';
     }
 
     final registerComponent = isComponent2 ? 'registerComponent2' : 'registerComponent';
@@ -100,6 +102,8 @@ class ComponentFactoryProxyGenerator extends BoilerplateDeclarationGenerator {
       outputContentsBuffer.writeln('    skipMethods: const [],');
     }
 
-    outputContentsBuffer..writeln(');')..writeln();
+    outputContentsBuffer
+      ..writeln(');')
+      ..writeln();
   }
 }

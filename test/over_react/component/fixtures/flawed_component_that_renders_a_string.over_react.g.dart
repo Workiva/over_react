@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators, invalid_use_of_visible_for_overriding_member
 part of 'flawed_component_that_renders_a_string.dart';
 
 // **************************************************************************
@@ -34,7 +34,7 @@ const PropsMeta _$metaForFlawedWithStringChildProps = PropsMeta(
   keys: _$FlawedWithStringChildPropsAccessorsMixin.$propKeys,
 );
 
-_$$FlawedWithStringChildProps _$FlawedWithStringChild([Map backingProps]) =>
+_$$FlawedWithStringChildProps _$FlawedWithStringChild([Map? backingProps]) =>
     backingProps == null
         ? _$$FlawedWithStringChildProps$JsMap(JsBackedMap())
         : _$$FlawedWithStringChildProps(backingProps);
@@ -48,9 +48,9 @@ abstract class _$$FlawedWithStringChildProps
     implements FlawedWithStringChildProps {
   _$$FlawedWithStringChildProps._();
 
-  factory _$$FlawedWithStringChildProps(Map backingMap) {
+  factory _$$FlawedWithStringChildProps(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$FlawedWithStringChildProps$JsMap(backingMap as JsBackedMap);
+      return _$$FlawedWithStringChildProps$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$FlawedWithStringChildProps$PlainMap(backingMap);
     }
@@ -68,14 +68,23 @@ abstract class _$$FlawedWithStringChildProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'FlawedWithStringChildProps.';
+
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$FlawedWithStringChildProps(
+          accessMap, (map) => _$$FlawedWithStringChildProps(map));
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$FlawedWithStringChildProps = getPropKey;
 
 // Concrete props implementation that can be backed by any [Map].
 class _$$FlawedWithStringChildProps$PlainMap
     extends _$$FlawedWithStringChildProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$FlawedWithStringChildProps$PlainMap(Map backingMap)
+  _$$FlawedWithStringChildProps$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -93,7 +102,7 @@ class _$$FlawedWithStringChildProps$JsMap
     extends _$$FlawedWithStringChildProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$FlawedWithStringChildProps$JsMap(JsBackedMap backingMap)
+  _$$FlawedWithStringChildProps$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -110,7 +119,7 @@ class _$$FlawedWithStringChildProps$JsMap
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$FlawedWithStringChildComponent extends FlawedWithStringChildComponent {
-  _$$FlawedWithStringChildProps$JsMap _cachedTypedProps;
+  late _$$FlawedWithStringChildProps$JsMap _cachedTypedProps;
 
   @override
   _$$FlawedWithStringChildProps$JsMap get props => _cachedTypedProps;
@@ -131,11 +140,11 @@ class _$FlawedWithStringChildComponent extends FlawedWithStringChildComponent {
 
   @override
   _$$FlawedWithStringChildProps$JsMap typedPropsFactoryJs(
-          JsBackedMap backingMap) =>
+          JsBackedMap? backingMap) =>
       _$$FlawedWithStringChildProps$JsMap(backingMap);
 
   @override
-  _$$FlawedWithStringChildProps typedPropsFactory(Map backingMap) =>
+  _$$FlawedWithStringChildProps typedPropsFactory(Map? backingMap) =>
       _$$FlawedWithStringChildProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.

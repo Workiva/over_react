@@ -1,6 +1,3 @@
-// Disable null-safety in the plugin entrypoint until all dependencies are null-safe,
-// otherwise tests won't be able to run. See: https://github.com/dart-lang/test#compiler-flags
-// @dart=2.9
 import 'dart:async';
 
 import 'package:analyzer_plugin/utilities/assist/assist.dart';
@@ -26,23 +23,23 @@ class AddStatefulnessAssist extends AssistTestBase with BoilerplateAssistTestStr
   AssistKind get assistKindUnderTest => ToggleComponentStatefulness.makeStateful;
 
   Future<void> test_noAssist() async {
-    final source = newSource('test.dart', 'var foo = true;');
+    final source = newSource('var foo = true;');
     final selection = createSelection(source, '#var foo = true;#');
     await expectNoAssist(selection);
   }
 
   Future<void> test_noAssistOnFactory() async {
-    final generatedSource = simpleUiComponentSource();
-
-    var source = newSource(fileName, generatedSource);
+    final fileName = uniqueSourceFileName();
+    final generatedSource = simpleUiComponentSource(filename: fileName);
+    var source = newSource(generatedSource, path: fileName);
     var selection = createSelection(source, r'UiFactory<FooProps> #Foo# = _$Foo;');
     await expectNoAssist(selection);
   }
 
   Future<void> test_noAssistOnProps() async {
-    final generatedSource = simpleUiComponentSource();
-
-    var source = newSource(fileName, generatedSource);
+    final fileName = uniqueSourceFileName();
+    final generatedSource = simpleUiComponentSource(filename: fileName);
+    var source = newSource(generatedSource, path: fileName);
     var selection = createSelection(source, 'mixin #FooProps# on UiProps {}');
     await expectNoAssist(selection);
   }
@@ -50,7 +47,7 @@ class AddStatefulnessAssist extends AssistTestBase with BoilerplateAssistTestStr
   Future<void> test_noAssistOnOldBoilerplate() async {
     const oldBoilerplate = '''
 import 'package:over_react/over_react.dart';
-part 'test.over_react.g.dart';
+part '{{FILE_BASENAME_WITHOUT_EXTENSION}}.over_react.g.dart';
 
 @Factory()
 UiFactory<TestProps> Test = _\$Test;
@@ -65,7 +62,8 @@ class TestComponent extends UiComponent<TestProps> {
 }
 ''';
 
-    var source = newSource(fileName, oldBoilerplate);
+    final fileName = uniqueSourceFileName();
+    var source = newSource(oldBoilerplate, path: fileName);
     var selection = createSelection(source, 'class #TestComponent# extends');
     await expectNoAssist(selection);
   }
@@ -73,7 +71,7 @@ class TestComponent extends UiComponent<TestProps> {
   Future<void> test_noAssistOnUnknownBase() async {
     const unknownBase = '''
 import 'package:over_react/over_react.dart';
-part 'test.over_react.g.dart';
+part '{{FILE_BASENAME_WITHOUT_EXTENSION}}.over_react.g.dart';
 
 UiFactory<TestProps> Test = _\$Test; // ignore: undefined_identifier
 
@@ -85,41 +83,46 @@ class TestComponent extends AbstractBazComponent<TestProps> {
 }
 ''';
 
-    var source = newSource(fileName, unknownBase);
+    final fileName = uniqueSourceFileName();
+    var source = newSource(unknownBase, path: fileName);
     var selection = createSelection(source, 'class #TestComponent# extends');
     await expectNoAssist(selection);
   }
 
   Future<void> test_addsStatefulness() async {
-    var retrievedSource = newSource(fileName, simpleUiComponentSource());
+    final fileName = uniqueSourceFileName();
+    var retrievedSource = newSource(simpleUiComponentSource(filename: fileName), path: fileName);
     var selection = createSelection(retrievedSource, componentNameSelector);
     final change = await expectAndGetSingleAssist(selection);
     retrievedSource = applySourceChange(change, retrievedSource);
-    expect(retrievedSource.contents.data, simpleUiComponentSource(isStateful: true));
+    expect(retrievedSource.contents.data, simpleUiComponentSource(filename: fileName, isStateful: true));
   }
 
   Future<void> test_addsStatefulnessWithoutDefaultProps() async {
-    var retrievedSource = newSource(fileName, simpleUiComponentSource(includeDefaultProps: false));
+    final fileName = uniqueSourceFileName();
+    var retrievedSource = newSource(simpleUiComponentSource(filename: fileName, includeDefaultProps: false), path: fileName);
     var selection = createSelection(retrievedSource, componentNameSelector);
     final change = await expectAndGetSingleAssist(selection);
     retrievedSource = applySourceChange(change, retrievedSource);
-    expect(retrievedSource.contents.data, simpleUiComponentSource(isStateful: true, includeDefaultProps: false));
+    expect(retrievedSource.contents.data, simpleUiComponentSource(filename: fileName, isStateful: true, includeDefaultProps: false));
   }
 
   Future<void> test_addsStatefulnessToFlux() async {
-    var retrievedSource = newSource(fileName, fluxUiComponentSource());
+    final fileName = uniqueSourceFileName();
+    var retrievedSource = newSource(fluxUiComponentSource(filename: fileName), path: fileName);
     var selection = createSelection(retrievedSource, componentNameSelector);
     final change = await expectAndGetSingleAssist(selection);
     retrievedSource = applySourceChange(change, retrievedSource);
-    expect(retrievedSource.contents.data, fluxUiComponentSource(isStateful: true));
+    expect(retrievedSource.contents.data, fluxUiComponentSource(filename: fileName, isStateful: true));
   }
 
   Future<void> test_addsStatefulnessToFluxWithoutDefaultProps() async {
-    var retrievedSource = newSource(fileName, fluxUiComponentSource(includeDefaultProps: false));
+    final fileName = uniqueSourceFileName();
+    var retrievedSource = newSource(fluxUiComponentSource(filename: fileName, includeDefaultProps: false), path: fileName);
     var selection = createSelection(retrievedSource, componentNameSelector);
     final change = await expectAndGetSingleAssist(selection);
     retrievedSource = applySourceChange(change, retrievedSource);
-    expect(retrievedSource.contents.data, fluxUiComponentSource(isStateful: true, includeDefaultProps: false));
+    expect(retrievedSource.contents.data, fluxUiComponentSource(filename: fileName, isStateful: true, includeDefaultProps: false));
   }
 }
 
@@ -131,23 +134,24 @@ class RemoveStatefulnessAssist extends AssistTestBase with BoilerplateAssistTest
   AssistKind get assistKindUnderTest => ToggleComponentStatefulness.makeStateless;
 
   Future<void> test_noAssist() async {
-    final source = newSource('test.dart', 'var foo = true;');
+    final source = newSource('var foo = true;');
     final selection = createSelection(source, '#var foo = true;#');
     await expectNoAssist(selection);
   }
 
   Future<void> test_noAssistOnFactory() async {
-    final generatedSource = simpleUiComponentSource(isStateful: true);
-
-    var source = newSource(fileName, generatedSource);
+    final fileName = uniqueSourceFileName();
+    final generatedSource = simpleUiComponentSource(filename: fileName, isStateful: true);
+    var source = newSource(generatedSource, path: fileName);
     var selection = createSelection(source, r'UiFactory<FooProps> #Foo# = _$Foo;');
     await expectNoAssist(selection);
   }
 
   Future<void> test_noAssistOnProps() async {
-    final generatedSource = simpleUiComponentSource(isStateful: true);
 
-    var source = newSource(fileName, generatedSource);
+    final fileName = uniqueSourceFileName();
+    final generatedSource = simpleUiComponentSource(filename: fileName, isStateful: true);
+    var source = newSource(generatedSource, path: fileName);
     var selection = createSelection(source, 'mixin #FooProps# on UiProps {}');
     await expectNoAssist(selection);
   }
@@ -155,7 +159,7 @@ class RemoveStatefulnessAssist extends AssistTestBase with BoilerplateAssistTest
   Future<void> test_noAssistOnOldBoilerplate() async {
     const oldBoilerplate = '''
 import 'package:over_react/over_react.dart';
-part 'test.over_react.g.dart';
+part '{{FILE_BASENAME_WITHOUT_EXTENSION}}.over_react.g.dart';
 
 @Factory()
 UiFactory<TestProps> Test = _\$Test;
@@ -173,23 +177,25 @@ class TestComponent extends UiStatefulComponent<TestProps, TestState> {
 }
 ''';
 
-    var source = newSource(fileName, oldBoilerplate);
+    final fileName = uniqueSourceFileName();
+    var source = newSource(oldBoilerplate, path: fileName);
     var selection = createSelection(source, 'class #TestComponent# extends');
     await expectNoAssist(selection);
   }
 
   Future<void> test_removesStatefulness() async {
-    var retrievedSource = newSource(fileName, simpleUiComponentSource(isStateful: true));
+    final fileName = uniqueSourceFileName();
+    var retrievedSource = newSource(simpleUiComponentSource(filename: fileName, isStateful: true), path: fileName);
     var selection = createSelection(retrievedSource, componentNameSelector);
     final change = await expectAndGetSingleAssist(selection);
     retrievedSource = applySourceChange(change, retrievedSource);
-    expect(retrievedSource.contents.data, simpleUiComponentSource());
+    expect(retrievedSource.contents.data, simpleUiComponentSource(filename: fileName, ));
   }
 
   Future<void> test_removesStatefulnessWithNoInitalState() async {
     const statefulComponentWithNoInitialState = r'''
 import 'package:over_react/over_react.dart';
-part 'test.over_react.g.dart';
+part '{{FILE_BASENAME_WITHOUT_EXTENSION}}.over_react.g.dart';
 
 UiFactory<FooProps> Foo = _$Foo; // ignore: undefined_identifier
 
@@ -207,18 +213,20 @@ class FooComponent extends UiStatefulComponent2<FooProps, FooState> {
 }
 ''';
 
-    var retrievedSource = newSource(fileName, statefulComponentWithNoInitialState);
+    final fileName = uniqueSourceFileName();
+    var retrievedSource = newSource(statefulComponentWithNoInitialState, path: fileName);
     var selection = createSelection(retrievedSource, componentNameSelector);
     final change = await expectAndGetSingleAssist(selection);
     retrievedSource = applySourceChange(change, retrievedSource);
-    expect(retrievedSource.contents.data, simpleUiComponentSource());
+    expect(retrievedSource.contents.data, simpleUiComponentSource(filename: fileName));
   }
 
   Future<void> test_removesStatefulnessToFlux() async {
-    var retrievedSource = newSource(fileName, fluxUiComponentSource(isStateful: true));
+    final fileName = uniqueSourceFileName();
+    var retrievedSource = newSource(fluxUiComponentSource(filename: fileName, isStateful: true), path: fileName);
     var selection = createSelection(retrievedSource, componentNameSelector);
     final change = await expectAndGetSingleAssist(selection);
     retrievedSource = applySourceChange(change, retrievedSource);
-    expect(retrievedSource.contents.data, fluxUiComponentSource());
+    expect(retrievedSource.contents.data, fluxUiComponentSource(filename: fileName));
   }
 }

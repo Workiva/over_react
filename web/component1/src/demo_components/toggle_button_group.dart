@@ -58,7 +58,7 @@ class ToggleButtonGroupComponent extends ButtonGroupComponent<ToggleButtonGroupP
   ///
   /// Attempts to use `ToggleButtonGroupProps.name` _(specified by the consumer)_, falling back to
   /// `ToggleButtonGroupState.name` _(auto-generated)_.
-  String get name => props.name ?? state.name;
+  String? get name => props.name ?? state.name;
 
   @override
   Map getDefaultProps() => (newProps()
@@ -83,7 +83,7 @@ class ToggleButtonGroupComponent extends ButtonGroupComponent<ToggleButtonGroupP
   ToggleButtonProps buttonPropsToAdd(ReactElement child, int index) {
     var childProps = childFactory(getProps(child));
 
-    ButtonProps superPropsToAdd = super.buttonPropsToAdd(child, index);
+    var superPropsToAdd = super.buttonPropsToAdd(child, index);
 
     return childFactory()
       ..addProps(superPropsToAdd)

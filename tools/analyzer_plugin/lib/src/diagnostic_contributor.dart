@@ -113,7 +113,7 @@ abstract class ComponentUsageDiagnosticContributor extends DiagnosticContributor
   @override
   Future<void> computeErrors(ResolvedUnitResult result, DiagnosticCollector collector) async {
     final usages = <FluentComponentUsage>[];
-    result.unit!.accept(ComponentUsageVisitor(usages.add));
+    result.unit.accept(ComponentUsageVisitor(usages.add));
     await computeErrorsForUsages(result, collector, usages);
   }
 

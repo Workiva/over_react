@@ -1,20 +1,13 @@
-import 'dart:convert';
-import 'dart:io';
-
-import 'package:analyzer/dart/analysis/analysis_context_collection.dart';
 import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/diagnostic/diagnostic.dart';
-import 'package:analyzer/error/error.dart';
-import 'package:analyzer/src/dart/analysis/driver_based_analysis_context.dart' show DriverBasedAnalysisContext;
-import 'package:analyzer/file_system/overlay_file_system.dart';
-import 'package:analyzer/file_system/physical_file_system.dart';
-import 'package:analyzer/source/line_info.dart';
 import 'package:over_react_analyzer_plugin/src/component_usage.dart';
 import 'package:over_react_analyzer_plugin/src/error_filtering.dart';
 import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
-import 'package:path/path.dart' as p;
+import 'package:over_react_analyzer_plugin/src/util/ignore_info.dart';
+
+import 'util/shared_analysis_context.dart';
 
 /// Parses [dartSource] and returns the unresolved AST, throwing if there are any syntax errors.
 CompilationUnit parseAndGetUnit(String dartSource) {
@@ -71,161 +64,21 @@ FluentComponentUsage parseAndGetComponentUsage(String dartSource) {
 }
 
 /// Parses [dartSource] and returns the resolved AST, throwing if there are any static analysis errors.
-Future<ResolvedUnitResult> parseAndGetResolvedUnit(String dartSource, {String path = 'dartSource.dart'}) async {
-  final results = await parseAndGetResolvedUnits({path: dartSource});
-  return results.values.single;
-}
+Future<ResolvedUnitResult> parseAndGetResolvedUnit(String dartSource, {String? path}) async {
+  final sharedContext = SharedAnalysisContext.overReact;
+  final testFilePath = SharedAnalysisContext.overReact.createTestFile(dartSource, filename: path);
+  final result = await sharedContext.collection.contextFor(testFilePath).currentSession.getResolvedUnit(testFilePath)
+      as ResolvedUnitResult;
 
-// Reuse an analysis context across multiple calls,
-// which is much faster than spinning up a new one each time
-// when resolving files.
-var _hasInitializedSharedCollection = false;
-late AnalysisContextCollection _sharedCollection;
-late OverlayResourceProvider _sharedResourceProvider;
-var _dartSourcePathsAddedInPreviousCall = <String>[];
-
-/// Parses a collection of Dart sources and returns the resolved ASTs,
-/// throwing if there are any static analysis errors.
-///
-/// Useful when you need multiple files that reference each other.
-///
-/// Example:
-/// ```dart
-///  final results = await parseAndGetResolvedUnits({
-///    'foo.dart': r'''
-///      class Foo {}
-///    ''',
-///
-///    'bar.dart': r'''
-///      import 'foo.dart';
-///      class Bar extends Foo {}
-///    ''',
-///  });
-///
-///  final barResolveResult = results['bar.dart'];
-///  final barElement = barResolveResult.unit.declaredElement.getType('Bar');
-///  print(barElement.allSupertypes); // [Foo, Object]
-/// ```
-Future<Map<String, ResolvedUnitResult>> parseAndGetResolvedUnits(Map<String, String> dartSourcesByPath) async {
-  // Must be absolute.
-  const pathPrefix = '/fake_in_memory_path';
-
-  String transformPath(String path) => p.join(pathPrefix, path);
-
-  final dartSourcesByAbsolutePath = dartSourcesByPath.map((key, value) => MapEntry(transformPath(key), value));
-
-  if (!_hasInitializedSharedCollection) {
-    _sharedResourceProvider = OverlayResourceProvider(PhysicalResourceProvider.INSTANCE);
-
-    // Create a fake in memory package that opts out of null safety
-    // TODO clean this up, perhaps use SharedAnalysisContextCollection from over_react_codemod
-    const packageName = 'package_depending_on_over_react';
-    _sharedResourceProvider.setOverlay(transformPath('pubspec.yaml'),
-        content: '''
-  name: $packageName
-  publish_to: none
-  environment:
-    # Opt out of null safety since it gets in our way for these tests
-    sdk: '>=2.11.0 <3.0.0'
-  dependencies:
-    over_react: ^4.3.1
-  ''',
-        modificationStamp: 0);
-    // Steal the packages file from this project, which depends on over_react
-    final currentPackageConfig = File('.dart_tool/package_config.json').readAsStringSync();
-    final updatedConfig = jsonDecode(currentPackageConfig) as Map;
-    var updatedPackages = (updatedConfig['packages'] as List).cast<Map>()
-      // Need to get rid of this config so its rootUri doesn't cause it to get used for this package.
-      ..removeSingleWhere((package) => package['name'] == 'over_react_analyzer_plugin');
-    updatedPackages = updatedPackages.map((e) {
-      // Transform any relative paths to absolute ones, since they're relative to
-      // over_react_analyzer_plugin and not this new fake package.
-      var rootUri = e['rootUri'] as String;
-      if (!Uri.parse(rootUri).hasScheme) {
-        // fixme verify relative to pubspec.yaml
-        rootUri = Uri.file(p.canonicalize(p.absolute('pubspec.yaml', rootUri))).toString();
-      }
-      return <dynamic, dynamic>{
-        ...e,
-        'rootUri': rootUri,
-      };
-    }).toList()
-      ..add(<String, String>{
-        "name": packageName,
-        "rootUri": "../",
-        "packageUri": "lib/",
-        // Opt out of null safety since it gets in our way for these tests
-        "languageVersion": "2.7",
-      });
-    updatedConfig['packages'] = updatedPackages;
-    _sharedResourceProvider.setOverlay(transformPath('.dart_tool/package_config.json'),
-        content: jsonEncode(updatedConfig), modificationStamp: 0);
-
-    _sharedCollection = AnalysisContextCollection(
-      includedPaths: [pathPrefix],
-      resourceProvider: _sharedResourceProvider,
-    );
-    _hasInitializedSharedCollection = true;
+  final lineInfo = result.lineInfo;
+  final filteredErrors =
+      filterIgnoresForErrors(result.errors, lineInfo, () => IgnoreInfo.forDart(result.unit, result.content))
+          // only fail for error severity errors.
+          .where((error) => error.severity == Severity.error);
+  if (filteredErrors.isNotEmpty) {
+    throw ArgumentError('Parse errors in source "$path":\n${filteredErrors.join('\n')}\nFull source:\n$dartSource');
   }
-
-  // Clean up overlays for previous calls, and let the driver know the file has changed so it doesn't cache the result
-  // if this call uses files of the same name.
-  // Do this before each call instead of after getting the resolved unit
-  // so that the session associate with the result remains valid after this function returns.
-  for (final absolutePath in _dartSourcePathsAddedInPreviousCall) {
-    _sharedResourceProvider.removeOverlay(absolutePath);
-    (_sharedCollection.contextFor(absolutePath) as DriverBasedAnalysisContext).driver.removeFile(absolutePath);
-  }
-  _dartSourcePathsAddedInPreviousCall = [];
-
-  dartSourcesByAbsolutePath.forEach((absolutePath, source) {
-    _dartSourcePathsAddedInPreviousCall.add(absolutePath);
-    _sharedResourceProvider.setOverlay(
-      absolutePath,
-      content: source,
-      modificationStamp: 0,
-    );
-  });
-
-  final results = <String, ResolvedUnitResult>{};
-  for (final path in dartSourcesByPath.keys) {
-    final absolutePath = transformPath(path);
-    final context = _sharedCollection.contextFor(absolutePath);
-    final result = await context.currentSession.getResolvedUnit2(absolutePath) as ResolvedUnitResult;
-    final lineInfo = result.lineInfo;
-    final filteredErrors =
-        filterIgnores(result.errors, lineInfo, () => IgnoreInfo.forDart(result.unit!, result.content!))
-            // only fail for error severity errors.
-            .where((error) => error.severity == Severity.error);
-    if (filteredErrors.isNotEmpty) {
-      final source = dartSourcesByPath[path];
-      throw ArgumentError('Parse errors in source "$path":\n${filteredErrors.join('\n')}\nFull source:\n$source');
-    }
-    results[path] = result;
-  }
-  return results;
-}
-
-List<AnalysisError> filterIgnores(List<AnalysisError> errors, LineInfo lineInfo, IgnoreInfo Function() lazyIgnoreInfo) {
-  if (errors.isEmpty) {
-    return errors;
-  }
-
-  return _filterIgnored(errors, lazyIgnoreInfo(), lineInfo);
-}
-
-List<AnalysisError> _filterIgnored(List<AnalysisError> errors, IgnoreInfo ignoreInfo, LineInfo lineInfo) {
-  if (errors.isEmpty || !ignoreInfo.hasIgnores) {
-    return errors;
-  }
-
-  bool isIgnored(AnalysisError error) {
-    final errorLine = lineInfo.getLocation(error.offset).lineNumber;
-    final errorCode = error.errorCode.name.toLowerCase();
-    return ignoreInfo.ignoredAt(errorCode, errorLine);
-  }
-
-  return errors.where((e) => !isIgnored(e)).toList();
+  return result;
 }
 
 /// Returns [expression] parsed as AST.
@@ -257,7 +110,7 @@ Future<Expression> parseExpression(
   ''';
   if (isResolved) {
     final result = await parseAndGetResolvedUnit(source);
-    unit = result.unit!;
+    unit = result.unit;
   } else {
     unit = parseString(content: source).unit;
   }
@@ -266,16 +119,4 @@ Future<Expression> parseExpression(
   final statement = body.block.statements.single as ExpressionStatement;
   // Unwrap the expression. Don't use `.unparenthesized` since it unwraps all sets of parentheses.
   return (statement.expression as ParenthesizedExpression).expression;
-}
-
-extension<E> on List<E> {
-  E removeSingleWhere(bool Function(E) test) {
-    final firstIndex = indexWhere(test);
-    if (firstIndex == -1) throw StateError('No matching item found');
-
-    final lastIndex = lastIndexWhere(test);
-    if (lastIndex != firstIndex) throw StateError('More than one matching item found');
-
-    return removeAt(firstIndex);
-  }
 }

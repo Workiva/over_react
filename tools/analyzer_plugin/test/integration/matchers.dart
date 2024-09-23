@@ -1,4 +1,3 @@
-import 'package:analyzer/src/generated/source.dart';
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:analyzer_plugin/protocol/protocol_generated.dart';
 import 'package:analyzer_plugin/utilities/assist/assist.dart';
@@ -60,6 +59,9 @@ extension AnalysisErrorHavingUtils on TypeMatcher<AnalysisError> {
 
   TypeMatcher<AnalysisError> havingType(/*AnalysisErrorType|Matcher*/ dynamic type) =>
       having((e) => e.type, 'type', type);
+
+  TypeMatcher<AnalysisError> havingMessage(/*AnalysisErrorType|Matcher*/ dynamic message) =>
+      having((e) => e.message, 'message', message);
 
   TypeMatcher<AnalysisError> thatHasFix() => having((e) => e.hasFix, 'hasFix', isTrue);
 

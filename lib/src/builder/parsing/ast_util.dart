@@ -28,7 +28,7 @@ export 'ast_util/classish.dart';
 /// Utils that allow for easier access into VariableDeclarationList
 extension InitializerHelper on VariableDeclarationList {
   /// The initializer for the first variable in this list.
-  Expression get firstInitializer => variables.first.initializer;
+  Expression? get firstInitializer => variables.first.initializer;
 
   /// The first variable in this list.
   VariableDeclaration get firstVariable => variables.first;
@@ -38,7 +38,7 @@ extension InitializerHelper on VariableDeclarationList {
 /// the variables within a [VariableDeclarationList].
 extension InitializerHelperTopLevel on TopLevelVariableDeclaration {
   /// The initializer for the first variable in this list.
-  Expression get firstInitializer => variables.firstInitializer;
+  Expression? get firstInitializer => variables.firstInitializer;
 
   /// The first variable in this list.
   VariableDeclaration get firstVariable => variables.firstVariable;
@@ -48,6 +48,7 @@ extension InitializerHelperTopLevel on TopLevelVariableDeclaration {
     final generatedPrivateConfigName = FactoryNames(firstVariable.name.name).privateConfigName;
     // ignore: deprecated_member_use_from_same_package
     final generatedPublicConfigName = FactoryNames(firstVariable.name.name).publicConfigName;
+    final firstInitializer = this.firstInitializer;
     return firstInitializer != null &&
         anyDescendantIdentifiers(firstInitializer, (identifier) {
           return identifier.nameWithoutPrefix == generatedPrivateConfigName ||
@@ -61,7 +62,7 @@ extension InitializerHelperTopLevel on TopLevelVariableDeclaration {
 extension TypeAnnotationNameHelper on TypeAnnotation {
   /// The unprefixed name of the node if the node is a [NamedType], or `null`
   /// if this type is not named.
-  String get typeNameWithoutPrefix => tryCast<NamedType>()?.nameWithoutPrefix;
+  String? get typeNameWithoutPrefix => tryCast<NamedType>()?.nameWithoutPrefix;
 }
 
 /// Extension built on [NameHelper] to allow for easy access to the `name`
@@ -88,13 +89,13 @@ extension SuperclassConstraint on MixinDeclaration {
   ///
   /// Any identifier prefixes in the `on` clause are removed before comparison.
   bool hasSuperclassConstraint(String superclassName) {
-    return onClause?.superclassConstraints?.any((s) => s.typeNameWithoutPrefix == superclassName) ??
+    return onClause?.superclassConstraints.any((s) => s.typeNameWithoutPrefix == superclassName) ??
         false;
   }
 }
 
-/// Utilities for determining if a [ClassOrMixinDeclaration] has an abstract getter.
-extension AbstractGetter on ClassOrMixinDeclaration {
+/// Utilities for determining if a declaration has an abstract getter.
+extension AbstractGetter on ClassishDeclaration {
   /// Returns whether this class/mixin contains an abstract getter with the provided [name]
   /// and a return type exactly matching [type]
   bool hasAbstractGetter(String type, String name) =>
@@ -106,6 +107,15 @@ extension AbstractGetter on ClassOrMixinDeclaration {
           member.returnType?.toSource() == type);
 }
 
+/// An extension that supports APIs that changed from [Identifier] to [Token],
+/// in order to cut down on diffs in the analyzer 5 upgrade (and subsequent
+/// merge conflicts with the null-safety branch.
+///
+/// TODO remove this and inline the [name] member.
+extension NameIdentifierTokenCompat on Token {
+  String get name => lexeme;
+}
+
 /// Utilities that provide for easier access to [AnnotatedNode] metadata.
 extension MetadataHelper on AnnotatedNode {
   // Annotations don't always parse as expected, so `.name` can also include the constructor
@@ -113,34 +123,38 @@ extension MetadataHelper on AnnotatedNode {
   static String _getAnnotationClassOrTopLevelVariableName(Annotation annotation) {
     var fullName = annotation.name.name;
     if (annotation.constructorName != null) {
-      fullName = '$fullName.${annotation.constructorName.name}';
+      fullName = '$fullName.${annotation.constructorName!.name}';
     }
 
     final segments = fullName.split('.');
-    return segments.lastWhere((segment) {
-      final withoutSpecialPrefixes = segment.replaceFirst(RegExp(r'^[_$]+'), '');
-      if (withoutSpecialPrefixes.isEmpty) return false;
-      return withoutSpecialPrefixes[0] == withoutSpecialPrefixes[0].toUpperCase();
-    }, orElse: () => segments.last);
+    return segments.lastWhere(_looksLikeAClassName, orElse: () => segments.last);
+  }
+
+  /// Returns whether the first character of [name] that isn't a `$` or `_` is capitalized.
+  static bool _looksLikeAClassName(String name) {
+    for (var i = 0; i < name.length; i++) {
+      final character = name[i];
+      if (character == r'$' || character == '_') continue;
+      return character == character.toUpperCase();
+    }
+    return false;
   }
 
   /// Returns the first annotation on this node whose class or variable name is [name].
-  Annotation getAnnotationWithName(String name) {
+  Annotation? getAnnotationWithName(String name) {
     assert(!name.contains('.'), 'must be a class or variable name, unprefixed');
 
-    return metadata.firstWhere(
-        (annotation) => _getAnnotationClassOrTopLevelVariableName(annotation) == name,
-        orElse: () => null);
+    return metadata.firstWhereOrNull(
+        (annotation) => _getAnnotationClassOrTopLevelVariableName(annotation) == name);
   }
 
   /// Returns the first annotation on this node whose class or variable name is included in [names].
-  Annotation getAnnotationWithNames(Set<String> names) {
+  Annotation? getAnnotationWithNames(Set<String> names) {
     assert(
         !names.any((name) => name.contains('.')), 'must be a class or variable name, unprefixed');
 
-    return metadata.firstWhere(
-        (annotation) => names.contains(_getAnnotationClassOrTopLevelVariableName(annotation)),
-        orElse: () => null);
+    return metadata.firstWhereOrNull(
+        (annotation) => names.contains(_getAnnotationClassOrTopLevelVariableName(annotation)));
   }
 
   /// Returns whether a node has an annotation whose class or variable name matches [name].
@@ -190,7 +204,7 @@ bool anyDescendantIdentifiers(Expression expression, bool Function(Identifier) t
 }
 
 /// Returns the [Identifier] within [expression] matches the predicate [test].
-SimpleIdentifier getDescendantIdentifier(Expression expression, bool Function(Identifier) test) {
+SimpleIdentifier? getDescendantIdentifier(Expression expression, bool Function(Identifier) test) {
   final visitor = _AnyDescendantIdentifiersVisitor(test);
   expression.accept(visitor);
   return visitor.match;
@@ -200,7 +214,7 @@ class _AnyDescendantIdentifiersVisitor extends UnifyingAstVisitor<void> {
   final bool Function(Identifier) _test;
 
   bool hasMatch = false;
-  SimpleIdentifier match;
+  SimpleIdentifier? match;
 
   _AnyDescendantIdentifiersVisitor(this._test);
 

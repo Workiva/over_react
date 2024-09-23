@@ -31,8 +31,11 @@ class _Dummy2Component extends UiComponent2<_Dummy2Props> {
   }
 }
 
-// UiComponent2Bridge and it's jsifyPropTypes implementation require a UiComponent2,
+// UiComponent2Bridge and its jsifyPropTypes implementation require a UiComponent2,
 // and cannot simply be a react.Component2 class.
+//
+// They also assume it's a generated component, as non-generated components can throw
+// UngeneratedError when certain members, like `propTypes`, are accessed during registration.
 //
 // This is to publicly expose the generated component type for use with `registerAbstractComponent2`.
 class DummyComponent2 extends _$_Dummy2Component {}

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators, invalid_use_of_visible_for_overriding_member
 part of 'toggle_button_group.dart';
 
 // **************************************************************************
@@ -40,7 +40,7 @@ class ToggleButtonGroupProps extends _$ToggleButtonGroupProps
   static const PropsMeta meta = _$metaForToggleButtonGroupProps;
 }
 
-_$$ToggleButtonGroupProps _$ToggleButtonGroup([Map backingProps]) =>
+_$$ToggleButtonGroupProps _$ToggleButtonGroup([Map? backingProps]) =>
     _$$ToggleButtonGroupProps(backingProps);
 
 // Concrete props implementation.
@@ -51,7 +51,7 @@ class _$$ToggleButtonGroupProps extends _$ToggleButtonGroupProps
     implements ToggleButtonGroupProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ToggleButtonGroupProps(Map backingMap) : this._props = {} {
+  _$$ToggleButtonGroupProps(Map? backingMap) : this._props = {} {
     this._props = backingMap ?? {};
   }
 
@@ -72,7 +72,19 @@ class _$$ToggleButtonGroupProps extends _$ToggleButtonGroupProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'ToggleButtonGroupProps.';
+
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$ToggleButtonGroupProps(
+          accessMap, (map) => _$$ToggleButtonGroupProps(map));
+
+  @override
+  Set<String> get requiredPropNamesToSkipValidation => const {'toggleType'};
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$ToggleButtonGroupProps = getPropKey;
 
 abstract class _$ToggleButtonGroupStateAccessorsMixin
     implements _$ToggleButtonGroupState {
@@ -103,7 +115,7 @@ class _$$ToggleButtonGroupState extends _$ToggleButtonGroupState
     implements ToggleButtonGroupState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ToggleButtonGroupState(Map backingMap) : this._state = {} {
+  _$$ToggleButtonGroupState(Map? backingMap) : this._state = {} {
     this._state = backingMap ?? {};
   }
 
@@ -123,11 +135,11 @@ class _$$ToggleButtonGroupState extends _$ToggleButtonGroupState
 // generated for the associated props class.
 class _$ToggleButtonGroupComponent extends ToggleButtonGroupComponent {
   @override
-  _$$ToggleButtonGroupProps typedPropsFactory(Map backingMap) =>
+  _$$ToggleButtonGroupProps typedPropsFactory(Map? backingMap) =>
       _$$ToggleButtonGroupProps(backingMap);
 
   @override
-  _$$ToggleButtonGroupState typedStateFactory(Map backingMap) =>
+  _$$ToggleButtonGroupState typedStateFactory(Map? backingMap) =>
       _$$ToggleButtonGroupState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.

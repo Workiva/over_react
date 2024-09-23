@@ -1,6 +1,3 @@
-// Disable null-safety in the plugin entrypoint until all dependencies are null-safe,
-// otherwise tests won't be able to run. See: https://github.com/dart-lang/test#compiler-flags
-// @dart=2.9
 import 'dart:async';
 
 import 'package:over_react_analyzer_plugin/src/diagnostic/callback_ref.dart';
@@ -42,6 +39,9 @@ abstract class CallbackRefDiagnosticTest extends DiagnosticTestBase {
       _customRefAssignedInTearoff.someMethodName();
       _customRefAssignedInTearoff?.anotherMethodName();
       final biz = _customRefAssignedInTearoff.someGetter;
+      
+      _aDomRef?.detached();
+      final abc = _aDomRef?.offset;
     }''';
 
   static const refUsageFixedBlockFnBodyRefAssignment = '''
@@ -61,6 +61,9 @@ abstract class CallbackRefDiagnosticTest extends DiagnosticTestBase {
       _customRefAssignedInTearoff.someMethodName();
       _customRefAssignedInTearoff?.anotherMethodName();
       final biz = _customRefAssignedInTearoff.someGetter;
+      
+      _aDomRef?.detached();
+      final abc = _aDomRef?.offset;
     }''';
 
   static const refUsageFixedArrowFnRefAssignment = '''
@@ -80,6 +83,31 @@ abstract class CallbackRefDiagnosticTest extends DiagnosticTestBase {
       _customRefAssignedInTearoff.someMethodName();
       _customRefAssignedInTearoff?.anotherMethodName();
       final biz = _customRefAssignedInTearoff.someGetter;
+      
+      _aDomRef?.detached();
+      final abc = _aDomRef?.offset;
+    }''';
+
+  static const refUsageDomRefAssignment = '''
+    void _tearOffRefAssignment(ChildComponent ref) {
+      _customRefAssignedInTearoff = ref;
+    }
+
+    void foo() {
+      _customRefAssignedInBlockFnBody.current.someMethodName();
+      _customRefAssignedInBlockFnBody.current?.anotherMethodName();
+      final bar = _customRefAssignedInBlockFnBody.current.someGetter;
+
+      _customRefAssignedInArrowFn.current.someMethodName();
+      _customRefAssignedInArrowFn.current?.anotherMethodName();
+      final baz = _customRefAssignedInArrowFn.current.someGetter;
+      
+      _customRefAssignedInTearoff.someMethodName();
+      _customRefAssignedInTearoff?.anotherMethodName();
+      final biz = _customRefAssignedInTearoff.someGetter;
+      
+      _aDomRef.current?.detached();
+      final abc = _aDomRef.current?.offset;
     }''';
 
   static const renderReturn = '''
@@ -97,6 +125,10 @@ abstract class CallbackRefDiagnosticTest extends DiagnosticTestBase {
         ..ref = _tearOffRefAssignment
       )('yo'),
       (Child())('there'),
+      (Dom.div()
+        ..ref = (ref) {
+          _aDomRef = ref;
+        })(),
     );
   ''';
 
@@ -113,6 +145,10 @@ abstract class CallbackRefDiagnosticTest extends DiagnosticTestBase {
         ..ref = _tearOffRefAssignment
       )('yo'),
       (Child())('there'),
+      (Dom.div()
+        ..ref = (ref) {
+          _aDomRef = ref;
+        })(),
     );
   ''';
 
@@ -129,6 +165,28 @@ abstract class CallbackRefDiagnosticTest extends DiagnosticTestBase {
         ..ref = _tearOffRefAssignment
       )('yo'),
       (Child())('there'),
+      (Dom.div()
+        ..ref = (ref) {
+          _aDomRef = ref;
+        })(),
+    );
+  ''';
+
+  static const renderReturnDomRefAssignment = '''
+    return Fragment()(
+      (Child()
+        ..ref = _customRefAssignedInBlockFnBody)(props.children),
+      (Child()
+        ..id = 'bar'
+        ..ref = _customRefAssignedInArrowFn
+      )('hi'),
+      (Child()
+        ..id = 'biz'
+        ..ref = _tearOffRefAssignment
+      )('yo'),
+      (Child())('there'),
+      (Dom.div()
+        ..ref = _aDomRef)(),
     );
   ''';
 
@@ -139,6 +197,10 @@ abstract class CallbackRefDiagnosticTest extends DiagnosticTestBase {
   static const selectionToFixArrowFnRefAssignment = '''#((ref) => _customRefAssignedInArrowFn = ref)#''';
 
   static const selectionForTearoffRefAssignmentError = '''..ref = #_tearOffRefAssignment#''';
+
+  static const selectionForDomRefAssignmentError = '''#(ref) {
+          _aDomRef = ref;
+        }#''';
 }
 
 abstract class CallbackRefDiagnosticWithFixTest extends CallbackRefDiagnosticTest {
@@ -149,13 +211,16 @@ abstract class CallbackRefDiagnosticWithFixTest extends CallbackRefDiagnosticTes
 @reflectiveTest
 class CallbackRefDiagnosticFnComponentTest extends CallbackRefDiagnosticWithFixTest {
   static const usageSourceWithinFnComponent = '''
+import 'dart:html';
+
 import 'package:over_react/over_react.dart';
 
 final UsesCallbackRef = uiFunction<UiProps>(
   (props) {
-    ChildComponent _customRefAssignedInBlockFnBody;
-    ChildComponent _customRefAssignedInArrowFn;
-    ChildComponent _customRefAssignedInTearoff;
+    ChildComponent? _customRefAssignedInBlockFnBody;
+    ChildComponent? _customRefAssignedInArrowFn;
+    ChildComponent? _customRefAssignedInTearoff;
+    Element? _aDomRef;
 
     ${CallbackRefDiagnosticTest.refUsage}
 
@@ -166,13 +231,16 @@ final UsesCallbackRef = uiFunction<UiProps>(
 ''';
 
   static const usageSourceWithinFnComponentFixedBlockFnBodyRefAssignment = '''
+import 'dart:html';
+
 import 'package:over_react/over_react.dart';
 
 final UsesCallbackRef = uiFunction<UiProps>(
   (props) {
     final _customRefAssignedInBlockFnBody = useRef<dynamic>();
-    ChildComponent _customRefAssignedInArrowFn;
-    ChildComponent _customRefAssignedInTearoff;
+    ChildComponent? _customRefAssignedInArrowFn;
+    ChildComponent? _customRefAssignedInTearoff;
+    Element? _aDomRef;
 
     ${CallbackRefDiagnosticTest.refUsageFixedBlockFnBodyRefAssignment}
 
@@ -183,13 +251,16 @@ final UsesCallbackRef = uiFunction<UiProps>(
 ''';
 
   static const usageSourceWithinFnComponentFixedArrowFnRefAssignment = '''
+import 'dart:html';
+
 import 'package:over_react/over_react.dart';
 
 final UsesCallbackRef = uiFunction<UiProps>(
   (props) {
     final _customRefAssignedInBlockFnBody = useRef<dynamic>();
     final _customRefAssignedInArrowFn = useRef<dynamic>();
-    ChildComponent _customRefAssignedInTearoff;
+    ChildComponent? _customRefAssignedInTearoff;
+    Element? _aDomRef;
 
     ${CallbackRefDiagnosticTest.refUsageFixedArrowFnRefAssignment}
 
@@ -199,14 +270,40 @@ final UsesCallbackRef = uiFunction<UiProps>(
 );
 ''';
 
+  static const usageSourceWithinFnComponentFixedDomRefAssignment = '''
+import 'dart:html';
+
+import 'package:over_react/over_react.dart';
+
+final UsesCallbackRef = uiFunction<UiProps>(
+  (props) {
+    final _customRefAssignedInBlockFnBody = useRef<dynamic>();
+    final _customRefAssignedInArrowFn = useRef<dynamic>();
+    ChildComponent? _customRefAssignedInTearoff;
+    final _aDomRef = useRef<Element?>();
+
+    ${CallbackRefDiagnosticTest.refUsageDomRefAssignment}
+
+    ${CallbackRefDiagnosticTest.renderReturnDomRefAssignment}
+  },
+  UiFactoryConfig(displayName: 'UsesCallbackRef'),
+);
+''';
+
   Future<void> test_blockFnBodyRefAssignment() async {
-    final source = newSource('test.dart', usageSourceWithinFnComponent);
+    final source = newSource(usageSourceWithinFnComponent);
     await expectSingleErrorAt(
         createSelection(source, CallbackRefDiagnosticTest.selectionToFixBlockFnBodyRefAssignment));
   }
 
+  Future<void> test_blockFnBodyDomRefAssignment() async {
+    final source = newSource(usageSourceWithinFnComponent);
+    await expectSingleErrorAt(
+        createSelection(source, CallbackRefDiagnosticTest.selectionForDomRefAssignmentError));
+  }
+
   Future<void> test_blockFnBodyRefAssignmentFix() async {
-    var source = newSource('test.dart', usageSourceWithinFnComponent);
+    var source = newSource(usageSourceWithinFnComponent);
     final errorFix = await expectSingleErrorFix(
         createSelection(source, CallbackRefDiagnosticTest.selectionToFixBlockFnBodyRefAssignment));
     expect(errorFix.fixes.single.change.selection, isNull);
@@ -215,17 +312,26 @@ final UsesCallbackRef = uiFunction<UiProps>(
   }
 
   Future<void> test_arrowFnRefAssignmentError() async {
-    final source = newSource('test.dart', usageSourceWithinFnComponentFixedBlockFnBodyRefAssignment);
+    final source = newSource(usageSourceWithinFnComponentFixedBlockFnBodyRefAssignment);
     await expectSingleErrorAt(createSelection(source, CallbackRefDiagnosticTest.selectionToFixArrowFnRefAssignment));
   }
 
   Future<void> test_arrowFnRefAssignmentErrorFix() async {
-    var source = newSource('test.dart', usageSourceWithinFnComponentFixedBlockFnBodyRefAssignment);
+    var source = newSource(usageSourceWithinFnComponentFixedBlockFnBodyRefAssignment);
     final errorFix = await expectSingleErrorFix(
         createSelection(source, CallbackRefDiagnosticTest.selectionToFixArrowFnRefAssignment));
     expect(errorFix.fixes.single.change.selection, isNull);
     source = applyErrorFixes(errorFix, source);
     expect(source.contents.data, usageSourceWithinFnComponentFixedArrowFnRefAssignment);
+  }
+
+  Future<void> test_blockFnBodyDomRefAssignmentFix() async {
+    var source = newSource(usageSourceWithinFnComponentFixedArrowFnRefAssignment);
+    final errorFix = await expectSingleErrorFix(
+        createSelection(source, CallbackRefDiagnosticTest.selectionForDomRefAssignmentError));
+    expect(errorFix.fixes.single.change.selection, isNull);
+    source = applyErrorFixes(errorFix, source);
+    expect(source.contents.data, usageSourceWithinFnComponentFixedDomRefAssignment);
   }
 }
 
@@ -235,7 +341,7 @@ class CallbackRefDiagnosticFnComponentTestNoFix extends CallbackRefDiagnosticTes
   get fixKindUnderTest => null;
 
   Future<void> test_tearoffFnRefAssignment() async {
-    final source = newSource('test.dart', CallbackRefDiagnosticFnComponentTest.usageSourceWithinFnComponent);
+    final source = newSource(CallbackRefDiagnosticFnComponentTest.usageSourceWithinFnComponent);
     final selection = createSelection(source, CallbackRefDiagnosticTest.selectionForTearoffRefAssignmentError);
     await expectSingleErrorAt(selection);
     // We intentionally do not want the diagnostic to suggest a fix since
@@ -249,7 +355,7 @@ class CallbackRefDiagnosticClassComponentTest extends CallbackRefDiagnosticWithF
   static const usageSourceWithinClassComponent = '''
 import 'package:over_react/over_react.dart';
 
-part 'test.over_react.g.dart';
+part '{{FILE_BASENAME_WITHOUT_EXTENSION}}.over_react.g.dart';
 
 UiFactory<UsesCallbackRefProps> UsesCallbackRef = castUiFactory(_\$UsesCallbackRef); // ignore: undefined_identifier
 
@@ -272,7 +378,7 @@ class UsesCallbackRefComponent extends UiComponent2<UsesCallbackRefProps> {
   static const usageSourceWithinClassComponentFixedBlockFnBodyRefAssignment = '''
 import 'package:over_react/over_react.dart';
 
-part 'test.over_react.g.dart';
+part '{{FILE_BASENAME_WITHOUT_EXTENSION}}.over_react.g.dart';
 
 UiFactory<UsesCallbackRefProps> UsesCallbackRef = castUiFactory(_\$UsesCallbackRef); // ignore: undefined_identifier
 
@@ -295,7 +401,7 @@ class UsesCallbackRefComponent extends UiComponent2<UsesCallbackRefProps> {
   static const usageSourceWithinClassComponentFixedArrowFnRefAssignment = '''
 import 'package:over_react/over_react.dart';
 
-part 'test.over_react.g.dart';
+part '{{FILE_BASENAME_WITHOUT_EXTENSION}}.over_react.g.dart';
 
 UiFactory<UsesCallbackRefProps> UsesCallbackRef = castUiFactory(_\$UsesCallbackRef); // ignore: undefined_identifier
 
@@ -316,32 +422,34 @@ class UsesCallbackRefComponent extends UiComponent2<UsesCallbackRefProps> {
 ''';
 
   Future<void> test_blockFnBodyRefAssignment() async {
-    final source = newSource('test.dart', usageSourceWithinClassComponent);
+    final source = newSource(usageSourceWithinClassComponent);
     await expectSingleErrorAt(
         createSelection(source, CallbackRefDiagnosticTest.selectionToFixBlockFnBodyRefAssignment));
   }
 
   Future<void> test_blockFnBodyRefAssignmentFix() async {
-    var source = newSource('test.dart', usageSourceWithinClassComponent);
+    var source = newSource(usageSourceWithinClassComponent);
     final errorFix = await expectSingleErrorFix(
         createSelection(source, CallbackRefDiagnosticTest.selectionToFixBlockFnBodyRefAssignment));
     expect(errorFix.fixes.single.change.selection, isNull);
     source = applyErrorFixes(errorFix, source);
-    expect(source.contents.data, usageSourceWithinClassComponentFixedBlockFnBodyRefAssignment);
+    expect(source.contents.data,
+        substituteSource(usageSourceWithinClassComponentFixedBlockFnBodyRefAssignment, path: source.uri.path));
   }
 
   Future<void> test_arrowFnRefAssignmentError() async {
-    final source = newSource('test.dart', usageSourceWithinClassComponentFixedBlockFnBodyRefAssignment);
+    final source = newSource(usageSourceWithinClassComponentFixedBlockFnBodyRefAssignment);
     await expectSingleErrorAt(createSelection(source, CallbackRefDiagnosticTest.selectionToFixArrowFnRefAssignment));
   }
 
   Future<void> test_arrowFnRefAssignmentErrorFix() async {
-    var source = newSource('test.dart', usageSourceWithinClassComponentFixedBlockFnBodyRefAssignment);
+    var source = newSource(usageSourceWithinClassComponentFixedBlockFnBodyRefAssignment);
     final errorFix = await expectSingleErrorFix(
         createSelection(source, CallbackRefDiagnosticTest.selectionToFixArrowFnRefAssignment));
     expect(errorFix.fixes.single.change.selection, isNull);
     source = applyErrorFixes(errorFix, source);
-    expect(source.contents.data, usageSourceWithinClassComponentFixedArrowFnRefAssignment);
+    expect(source.contents.data,
+        substituteSource(usageSourceWithinClassComponentFixedArrowFnRefAssignment, path: source.uri.path));
   }
 }
 
@@ -351,7 +459,7 @@ class CallbackRefDiagnosticClassComponentTestNoFix extends CallbackRefDiagnostic
   get fixKindUnderTest => null;
 
   Future<void> test_tearoffFnRefAssignment() async {
-    final source = newSource('test.dart', CallbackRefDiagnosticClassComponentTest.usageSourceWithinClassComponent);
+    final source = newSource(CallbackRefDiagnosticClassComponentTest.usageSourceWithinClassComponent);
     final selection = createSelection(source, CallbackRefDiagnosticTest.selectionForTearoffRefAssignmentError);
     await expectSingleErrorAt(selection);
     // We intentionally do not want the diagnostic to suggest a fix since

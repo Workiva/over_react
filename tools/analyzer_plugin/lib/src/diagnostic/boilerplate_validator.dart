@@ -3,11 +3,8 @@ import 'dart:async';
 import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/source/source_range.dart';
-import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/doc_utils/maturity.dart';
-// This error is unavoidable until over_react's builder is null-safe. See this library's doc comment for more info.
-// ignore: import_of_legacy_library_into_null_safe
 import 'package:over_react_analyzer_plugin/src/over_react_builder_parsing.dart' as orbp;
 import 'package:over_react_analyzer_plugin/src/util/boilerplate_utils.dart';
 import 'package:source_span/source_span.dart';
@@ -68,22 +65,11 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
   PartDirective? _overReactGeneratedPartDirective;
   late bool _overReactGeneratedPartDirectiveIsValid;
 
-  /// Returns true if the [unit] representing a part file has declarations.
+  /// Returns true if the [unit] has over_react boilerplate declarations.
   ///
-  /// Does not report any errors for the part file, as those are handled when the part file is analyzed
-  bool _partHasDeclarations(CompilationUnit unit, ResolvedUnitResult parentResult) {
-    return orbp
-        .getBoilerplateDeclarations(
-            orbp.detectBoilerplateMembers(unit),
-            orbp.ErrorCollector.callback(
-              SourceFile.fromString(parentResult.content!, url: parentResult.path),
-              // no-op for these.
-              // It is assumed this method will run for parent files, and the part file will get analyzed in its own context.
-              // Need types on the second args to avoid nullability errors, since they come from a non-null-safe library.
-              onError: (message, [SourceSpan? span]) {}, // ignore: avoid_types_on_closure_parameters
-              onWarning: (message, [SourceSpan? span]) {}, // ignore: avoid_types_on_closure_parameters
-            ))
-        .isNotEmpty;
+  /// Does not report any errors for the unit, as those are handled when each unit is analyzed
+  bool _unitHasDeclarations(CompilationUnit unit, ParsedUnitResult unitResult) {
+    return orbp.getBoilerplateDeclarations(orbp.detectBoilerplateMembers(unit), null).isNotEmpty;
   }
 
   /// Computes errors for over_react boilerplate
@@ -91,14 +77,14 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
   /// Also returns whether the component has valid over_react declarations, which is useful in determining whether to
   /// validate the generated part directive.
   Future<bool> _computeBoilerplateErrors(ResolvedUnitResult result, DiagnosticCollector collector) async {
-    final debugMatch = _debugCommentPattern.firstMatch(result.content!);
+    final debugMatch = _debugCommentPattern.firstMatch(result.content);
     final debug = debugMatch != null;
     if (debug) {
-      collector.addError(debugCode, result.location(offset: debugMatch!.start, end: debugMatch.end),
+      collector.addError(debugCode, result.location(offset: debugMatch.start, end: debugMatch.end),
           errorMessageArgs: ['Boilerplate debugging hints enabled']);
     }
 
-    final sourceFile = SourceFile.fromString(result.content!, url: result.path);
+    final sourceFile = SourceFile.fromString(result.content, url: result.path);
 
     final errorCollector = orbp.ErrorCollector.callback(
       sourceFile,
@@ -115,7 +101,7 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
       },
     );
 
-    final members = orbp.detectBoilerplateMembers(result.unit!);
+    final members = orbp.detectBoilerplateMembers(result.unit);
     for (final member in members.allMembers) {
       if (debug) {
         collector.addError(debugCode, result.locationFor(member.name), errorMessageArgs: [member.debugString]);
@@ -176,7 +162,7 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
         ],
         fixKind: unnecessaryGeneratedPartFixKind,
         computeFix: () => buildFileEdit(result, (builder) {
-          removeOverReactGeneratedPartDirective(builder, result.unit!);
+          removeOverReactGeneratedPartDirective(builder, result.unit);
         }),
       );
     } else if (hasDeclarations &&
@@ -190,7 +176,7 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
         ],
         fixKind: invalidGeneratedPartFixKind,
         computeFix: () => buildFileEdit(result, (builder) {
-          fixOverReactGeneratedPartDirective(builder, result.unit!, result.uri);
+          fixOverReactGeneratedPartDirective(builder, result.unit, result.uri);
         }),
       );
     }
@@ -198,7 +184,7 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
 
   @override
   Future<void> computeErrors(result, collector) async {
-    _overReactGeneratedPartDirective = getOverReactGeneratedPartDirective(result.unit!);
+    _overReactGeneratedPartDirective = getOverReactGeneratedPartDirective(result.unit);
     _overReactGeneratedPartDirectiveIsValid = _overReactGeneratedPartDirective != null &&
         overReactGeneratedPartDirectiveIsValid(_overReactGeneratedPartDirective!, result.uri);
 
@@ -207,22 +193,15 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
       return;
     }
 
-    final parts = getNonGeneratedParts(result.unit!);
-
-    // compute errors for parts files
-    var anyPartHasDeclarations = false;
-    for (final part in parts) {
-      final uri = part.uriSource?.uri;
-      // URI could not be resolved or source does not exist
-      if (uri == null) continue;
-      final partResult = result.session.getParsedUnit2(result.session.uriConverter.uriToPath(uri)!);
-
-      if (partResult is ParsedUnitResult && _partHasDeclarations(partResult.unit, result)) {
-        anyPartHasDeclarations = true;
-      }
-    }
-
-    await _computePartDirectiveErrors(result, collector, hasDeclarations || anyPartHasDeclarations);
+    // Compute errors related to part directives.
+    final anyUnitHasDeclarations = hasDeclarations || result.libraryElement.units.any((unit) {
+      final path = result.session.uriConverter.uriToPath(unit.source.uri);
+      if (path == null) return false;
+      final unitResult = result.session.getParsedUnit(path);
+      if (unitResult is! ParsedUnitResult) return false;
+      return _unitHasDeclarations(unitResult.unit, unitResult);
+    });
+    await _computePartDirectiveErrors(result, collector, anyUnitHasDeclarations);
   }
 
   Future<void> _addPartDirectiveErrorForMember({
@@ -245,9 +224,9 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
       fixKind: memberPartDirectiveFixKind,
       computeFix: () => buildFileEdit(result, (builder) {
         if (errorType == PartDirectiveErrorType.missing) {
-          addOverReactGeneratedPartDirective(builder, result.unit!, result.lineInfo, result.uri);
+          addOverReactGeneratedPartDirective(builder, result.unit, result.lineInfo, result.uri);
         } else {
-          fixOverReactGeneratedPartDirective(builder, result.unit!, result.uri);
+          fixOverReactGeneratedPartDirective(builder, result.unit, result.uri);
         }
       }),
     );

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators, invalid_use_of_visible_for_overriding_member
 part of 'counter_fn.dart';
 
 // **************************************************************************
@@ -14,11 +14,11 @@ part of 'counter_fn.dart';
 mixin $CounterFnProps on CounterFnProps {
   static const PropsMeta meta = _$metaForCounterFnProps;
   @override
-  bool Function(int nextCount, int prevCount) get countEqualityFn =>
+  bool Function(int nextCount, int prevCount)? get countEqualityFn =>
       (props[_$key__countEqualityFn__CounterFnProps] ?? null) as bool Function(
-          int nextCount, int prevCount);
+          int nextCount, int prevCount)?;
   @override
-  set countEqualityFn(bool Function(int nextCount, int prevCount) value) =>
+  set countEqualityFn(bool Function(int nextCount, int prevCount)? value) =>
       props[_$key__countEqualityFn__CounterFnProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__countEqualityFn__CounterFnProps =
@@ -32,6 +32,12 @@ mixin $CounterFnProps on CounterFnProps {
   static const List<String> $propKeys = [
     _$key__countEqualityFn__CounterFnProps
   ];
+
+  @override
+  @UiProps.$mustCallSuper
+  void validateRequiredProps() {
+    super.validateRequiredProps();
+  }
 }
 
 @Deprecated('This API is for use only within generated code.'
@@ -48,14 +54,14 @@ const PropsMeta _$metaForCounterFnProps = PropsMeta(
 mixin $ModelCounterFnPropsMixin on ModelCounterFnPropsMixin {
   static const PropsMeta meta = _$metaForModelCounterFnPropsMixin;
   @override
-  bool Function(DartModelCounter nextCount, DartModelCounter prevCount)
+  bool Function(DartModelCounter nextCount, DartModelCounter prevCount)?
       get modelCountEqualityFn =>
           (props[_$key__modelCountEqualityFn__ModelCounterFnPropsMixin] ?? null)
               as bool Function(
-                  DartModelCounter nextCount, DartModelCounter prevCount);
+                  DartModelCounter nextCount, DartModelCounter prevCount)?;
   @override
   set modelCountEqualityFn(
-          bool Function(DartModelCounter nextCount, DartModelCounter prevCount)
+          bool Function(DartModelCounter nextCount, DartModelCounter prevCount)?
               value) =>
       props[_$key__modelCountEqualityFn__ModelCounterFnPropsMixin] = value;
   /* GENERATED CONSTANTS */
@@ -71,6 +77,12 @@ mixin $ModelCounterFnPropsMixin on ModelCounterFnPropsMixin {
   static const List<String> $propKeys = [
     _$key__modelCountEqualityFn__ModelCounterFnPropsMixin
   ];
+
+  @override
+  @UiProps.$mustCallSuper
+  void validateRequiredProps() {
+    super.validateRequiredProps();
+  }
 }
 
 @Deprecated('This API is for use only within generated code.'
@@ -87,12 +99,12 @@ const PropsMeta _$metaForModelCounterFnPropsMixin = PropsMeta(
 mixin $CustomContextCounterFnPropsMixin on CustomContextCounterFnPropsMixin {
   static const PropsMeta meta = _$metaForCustomContextCounterFnPropsMixin;
   @override
-  bool Function(int nextBigCount, int prevBigCount) get bigCountEqualityFn =>
+  bool Function(int nextBigCount, int prevBigCount)? get bigCountEqualityFn =>
       (props[_$key__bigCountEqualityFn__CustomContextCounterFnPropsMixin] ??
-          null) as bool Function(int nextBigCount, int prevBigCount);
+          null) as bool Function(int nextBigCount, int prevBigCount)?;
   @override
   set bigCountEqualityFn(
-          bool Function(int nextBigCount, int prevBigCount) value) =>
+          bool Function(int nextBigCount, int prevBigCount)? value) =>
       props[_$key__bigCountEqualityFn__CustomContextCounterFnPropsMixin] =
           value;
   /* GENERATED CONSTANTS */
@@ -110,6 +122,12 @@ mixin $CustomContextCounterFnPropsMixin on CustomContextCounterFnPropsMixin {
   static const List<String> $propKeys = [
     _$key__bigCountEqualityFn__CustomContextCounterFnPropsMixin
   ];
+
+  @override
+  @UiProps.$mustCallSuper
+  void validateRequiredProps() {
+    super.validateRequiredProps();
+  }
 }
 
 @Deprecated('This API is for use only within generated code.'
@@ -139,13 +157,13 @@ final UiFactoryConfig<_$$CounterFnProps> $CounterFnConfig = _$CounterFnConfig;
 abstract class _$$CounterFnProps extends UiProps
     with
         CounterFnProps,
-        $CounterFnProps // If this generated mixin is undefined, it's likely because CounterFnProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of CounterFnProps, and check that $CounterFnProps is exported/imported properly.
-{
+        // If this generated mixin is undefined, it's likely because CounterFnProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of CounterFnProps, and check that $CounterFnProps is exported/imported properly.
+        $CounterFnProps {
   _$$CounterFnProps._();
 
-  factory _$$CounterFnProps(Map backingMap) {
+  factory _$$CounterFnProps(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$CounterFnProps$JsMap(backingMap as JsBackedMap);
+      return _$$CounterFnProps$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$CounterFnProps$PlainMap(backingMap);
     }
@@ -164,7 +182,16 @@ abstract class _$$CounterFnProps extends UiProps
         // If this generated mixin is undefined, it's likely because CounterFnProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of CounterFnProps, and check that $CounterFnProps is exported/imported properly.
         CounterFnProps: $CounterFnProps.meta,
       });
+
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$CounterFnProps(
+          accessMap, (map) => _$$CounterFnProps(map));
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$CounterFnProps = getPropKey;
 
 // Concrete props implementation that can be backed by any [Map].
 @Deprecated('This API is for use only within generated code.'
@@ -172,7 +199,7 @@ abstract class _$$CounterFnProps extends UiProps
 class _$$CounterFnProps$PlainMap extends _$$CounterFnProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$CounterFnProps$PlainMap(Map backingMap)
+  _$$CounterFnProps$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -191,7 +218,7 @@ class _$$CounterFnProps$PlainMap extends _$$CounterFnProps {
 class _$$CounterFnProps$JsMap extends _$$CounterFnProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$CounterFnProps$JsMap(JsBackedMap backingMap)
+  _$$CounterFnProps$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -225,16 +252,18 @@ final UiFactoryConfig<_$$ModelCounterFnProps> $ModelCounterFnConfig =
 abstract class _$$ModelCounterFnProps extends UiProps
     with
         CounterFnProps,
-        $CounterFnProps, // If this generated mixin is undefined, it's likely because CounterFnProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of CounterFnProps, and check that $CounterFnProps is exported/imported properly.
+        // If this generated mixin is undefined, it's likely because CounterFnProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of CounterFnProps, and check that $CounterFnProps is exported/imported properly.
+        $CounterFnProps,
         ModelCounterFnPropsMixin,
-        $ModelCounterFnPropsMixin // If this generated mixin is undefined, it's likely because ModelCounterFnPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ModelCounterFnPropsMixin, and check that $ModelCounterFnPropsMixin is exported/imported properly.
+        // If this generated mixin is undefined, it's likely because ModelCounterFnPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ModelCounterFnPropsMixin, and check that $ModelCounterFnPropsMixin is exported/imported properly.
+        $ModelCounterFnPropsMixin
     implements
         ModelCounterFnProps {
   _$$ModelCounterFnProps._();
 
-  factory _$$ModelCounterFnProps(Map backingMap) {
+  factory _$$ModelCounterFnProps(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$ModelCounterFnProps$JsMap(backingMap as JsBackedMap);
+      return _$$ModelCounterFnProps$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$ModelCounterFnProps$PlainMap(backingMap);
     }
@@ -255,7 +284,16 @@ abstract class _$$ModelCounterFnProps extends UiProps
         // If this generated mixin is undefined, it's likely because ModelCounterFnPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ModelCounterFnPropsMixin, and check that $ModelCounterFnPropsMixin is exported/imported properly.
         ModelCounterFnPropsMixin: $ModelCounterFnPropsMixin.meta,
       });
+
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$ModelCounterFnProps(
+          accessMap, (map) => _$$ModelCounterFnProps(map));
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$ModelCounterFnProps = getPropKey;
 
 // Concrete props implementation that can be backed by any [Map].
 @Deprecated('This API is for use only within generated code.'
@@ -263,7 +301,7 @@ abstract class _$$ModelCounterFnProps extends UiProps
 class _$$ModelCounterFnProps$PlainMap extends _$$ModelCounterFnProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ModelCounterFnProps$PlainMap(Map backingMap)
+  _$$ModelCounterFnProps$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -282,7 +320,7 @@ class _$$ModelCounterFnProps$PlainMap extends _$$ModelCounterFnProps {
 class _$$ModelCounterFnProps$JsMap extends _$$ModelCounterFnProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ModelCounterFnProps$JsMap(JsBackedMap backingMap)
+  _$$ModelCounterFnProps$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -317,16 +355,18 @@ final UiFactoryConfig<_$$CustomContextCounterFnProps>
 abstract class _$$CustomContextCounterFnProps extends UiProps
     with
         CounterFnProps,
-        $CounterFnProps, // If this generated mixin is undefined, it's likely because CounterFnProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of CounterFnProps, and check that $CounterFnProps is exported/imported properly.
+        // If this generated mixin is undefined, it's likely because CounterFnProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of CounterFnProps, and check that $CounterFnProps is exported/imported properly.
+        $CounterFnProps,
         CustomContextCounterFnPropsMixin,
-        $CustomContextCounterFnPropsMixin // If this generated mixin is undefined, it's likely because CustomContextCounterFnPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of CustomContextCounterFnPropsMixin, and check that $CustomContextCounterFnPropsMixin is exported/imported properly.
+        // If this generated mixin is undefined, it's likely because CustomContextCounterFnPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of CustomContextCounterFnPropsMixin, and check that $CustomContextCounterFnPropsMixin is exported/imported properly.
+        $CustomContextCounterFnPropsMixin
     implements
         CustomContextCounterFnProps {
   _$$CustomContextCounterFnProps._();
 
-  factory _$$CustomContextCounterFnProps(Map backingMap) {
+  factory _$$CustomContextCounterFnProps(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$CustomContextCounterFnProps$JsMap(backingMap as JsBackedMap);
+      return _$$CustomContextCounterFnProps$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$CustomContextCounterFnProps$PlainMap(backingMap);
     }
@@ -348,7 +388,16 @@ abstract class _$$CustomContextCounterFnProps extends UiProps
         CustomContextCounterFnPropsMixin:
             $CustomContextCounterFnPropsMixin.meta,
       });
+
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$CustomContextCounterFnProps(
+          accessMap, (map) => _$$CustomContextCounterFnProps(map));
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$CustomContextCounterFnProps = getPropKey;
 
 // Concrete props implementation that can be backed by any [Map].
 @Deprecated('This API is for use only within generated code.'
@@ -357,7 +406,7 @@ class _$$CustomContextCounterFnProps$PlainMap
     extends _$$CustomContextCounterFnProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$CustomContextCounterFnProps$PlainMap(Map backingMap)
+  _$$CustomContextCounterFnProps$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -377,7 +426,7 @@ class _$$CustomContextCounterFnProps$JsMap
     extends _$$CustomContextCounterFnProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$CustomContextCounterFnProps$JsMap(JsBackedMap backingMap)
+  _$$CustomContextCounterFnProps$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();

@@ -2,9 +2,9 @@
 
 In our core `UiProps` documentation, the pattern of [composing multiple props mixins into a single component props API](../README.md#with-other-mixins) is introduced.
 
-This example builds on that, showing a lightweight example a common use-case for such composition. 
+This example builds on that, showing a lightweight example a common use-case for such composition.
 
-We'll show three components 
+We'll show three components
 
 1. A `Foo` component that has its own props API - and default rendering behavior when rendered standalone.
 1. A `FooBar` component that has its own props API, in addition to the `Foo` props API. This allows consumers to set props declared in `FooPropsMixin`, which will be forwarded to the `Foo` component it renders.
@@ -16,7 +16,7 @@ import 'package:over_react/over_react.dart';
 
 part 'foo.over_react.g.dart';
 
-UiFactory<FooPropsMixin> Foo = 
+UiFactory<FooPropsMixin> Foo =
     castUiFactory(_$Foo); // ignore: undefined_identifier
 
 mixin FooPropsMixin on UiProps {
@@ -35,7 +35,7 @@ class FooComponent extends UiComponent2<FooPropsMixin> {
       ..modifyProps(addUnconsumedDomProps)
       ..className = (forwardingClassNameBuilder()..add('foo'))
     )(
-      'Qux: ', 
+      'Qux: ',
       props.qux.map((n) => n),
       props.children,
     );
@@ -58,7 +58,7 @@ import 'foo.dart';
 
 part 'foo_bar.over_react.g.dart';
 
-UiFactory<FooBarProps> FooBar = 
+UiFactory<FooBarProps> FooBar =
     castUiFactory(_$FooBar); // ignore: undefined_identifier
 
 mixin BarPropsMixin on UiProps {
@@ -69,7 +69,7 @@ mixin BarPropsMixin on UiProps {
 class FooBarProps = UiProps with BarPropsMixin, FooPropsMixin;
 
 class FooBarComponent extends UiComponent2<FooBarProps> {
-  // Only consume the props found within BarPropsMixin, so that any prop values 
+  // Only consume the props found within BarPropsMixin, so that any prop values
   // found in FooPropsMixin get forwarded to the child Foo component via `addUnconsumedProps`.
   @override
   get consumedProps => propsMeta.forMixins({BarPropsMixin});
@@ -122,7 +122,7 @@ Produces the following HTML:
 <div class="foo foo__bar foo__bar--abc">
   Qux: 234
   <div class="foo__bar__bizzles">
-    Bizzles: 
+    Bizzles:
     <ol>
       <li>a</li>
       <li>b</li>
@@ -150,12 +150,9 @@ class FooBazProps = UiProps with BarPropsMixin, FooPropsMixin;
 
 UiFactory<FooBazProps> FooBaz = uiFunction(
   (props) {
-    // Only consume the props found within BarPropsMixin, so that any prop values 
-    // found in FooPropsMixin get forwarded to the child Foo component via `addUnconsumedProps`.
-    final consumedProps = props.staticMeta.forMixins({BarPropsMixin});
-
     return (Foo()
-      ..addUnconsumedProps(props, consumedProps)
+      // Only forward the props not belonging to BarPropsMixin to the child Foo component.
+      ..addAll(props.getPropsToForward(exclude: {BarPropsMixin}))
       ..className = (forwardingClassNameBuilder()..add('foo__baz'))
     )(
       (Dom.div()..className = 'foo__baz__bizzles')(
@@ -165,7 +162,7 @@ UiFactory<FooBazProps> FooBaz = uiFunction(
         ),
       ),
     );
-    
+
     ReactElement _renderBizzleItem(String bizzle) {
       return (Dom.li()..key = bizzle)(bizzle);
     }
@@ -201,7 +198,7 @@ Produces the following HTML:
 <div class="foo foo__baz foo__baz--abc">
   Qux: 234
   <div class="foo__baz__bizzles">
-    Bizzles: 
+    Bizzles:
     <ol>
       <li>a</li>
       <li>b</li>

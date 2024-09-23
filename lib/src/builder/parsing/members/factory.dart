@@ -23,26 +23,26 @@ class BoilerplateFactory extends BoilerplateMember {
   final TopLevelVariableDeclaration node;
 
   @override
-  SimpleIdentifier get name => node.firstVariable.name;
+  Token get name => node.firstVariable.name;
 
   @override
   annotations.Factory get meta => const annotations.Factory();
 
   /// The [TypeAnnotation] for the component's factory.
-  TypeAnnotation get propsGenericArg {
+  TypeAnnotation? get propsGenericArg {
     final type = node.variables.type;
     if (type is NamedType && type.typeNameWithoutPrefix == 'UiFactory') {
       final typeArgs = type.typeArguments?.arguments;
-      if (typeArgs?.length == 1) {
+      if (typeArgs != null && typeArgs.length == 1) {
         return typeArgs[0];
       }
     }
 
     if (shouldGenerateConfig) {
       final uiFunctionInvocation = getDescendantIdentifier(
-          node.variables.firstInitializer, (identifier) => identifier.isFunctionType);
+          node.variables.firstInitializer!, (identifier) => identifier.isFunctionType)!;
       final methodInvocation = uiFunctionInvocation.thisOrAncestorOfType<MethodInvocation>();
-      final typeArgs = methodInvocation?.typeArguments?.arguments?.first;
+      final typeArgs = methodInvocation?.typeArguments?.arguments.first;
       return typeArgs;
     }
 

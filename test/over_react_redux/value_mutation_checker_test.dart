@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:mockito/mockito.dart';
 import 'package:over_react/over_react.dart';
 import 'package:over_react/src/over_react_redux/value_mutation_checker.dart';
 import 'package:react/react.dart' as react;
@@ -25,7 +24,7 @@ main() {
       sharedHashTests(() => CollectionLengthHasher());
 
       group('hash', () {
-        CollectionLengthHasher hasher;
+        late CollectionLengthHasher hasher;
 
         setUp(() {
           hasher = CollectionLengthHasher();
@@ -33,7 +32,7 @@ main() {
 
         test('returns the correct value for a map', () {
           final map = {'a': 1, 'b': '2'};
-          final domProps = DomProps(react.a as ReactComponentFactoryProxy);
+          final domProps = DomProps(react.a);
           expect(hasher.hash(map), 2);
           expect(hasher.hash(domProps.props), 0);
 
@@ -61,7 +60,7 @@ main() {
       sharedHashTests(() => CollectionShallowHasher());
 
       group('hash', () {
-        CollectionShallowHasher hasher;
+        late CollectionShallowHasher hasher;
 
         setUp(() {
           hasher = CollectionShallowHasher();
@@ -90,7 +89,7 @@ main() {
 }
 
 void sharedHashTests(InstanceHasher Function() getHasher) {
-  InstanceHasher hasher;
+  late InstanceHasher hasher;
 
   setUp(() {
     hasher = getHasher();
@@ -104,14 +103,12 @@ void sharedHashTests(InstanceHasher Function() getHasher) {
     });
 
     test('true if the object is a map or iterable', () {
-      final props = DomProps(react.a as ReactComponentFactoryProxy);
-      final list = MockList();
+      final props = DomProps(react.a);
 
       expect(hasher.canHash({'e', 'a', 'b'}), isTrue);
       expect(hasher.canHash([]), isTrue);
       expect(hasher.canHash({'a': 1}), isTrue);
       expect(hasher.canHash(props), isTrue);
-      expect(hasher.canHash(list), isTrue);
     });
   });
 
@@ -122,12 +119,18 @@ void sharedHashTests(InstanceHasher Function() getHasher) {
 
   group('hashHasChanged', () {
     group('returns false if', () {
+      test('passed null', () {
+        expect(hasher.hasHashChanged(null), isFalse);
+        expect(hasher.hasHashChanged(null), isFalse);
+      });
+
       test('canHash returns false', () {
+        expect(hasher.hasHashChanged(0), isFalse);
         expect(hasher.hasHashChanged(0), isFalse);
       });
 
       test('the object has not been checked before', () {
-        final props = DomProps(react.a as ReactComponentFactoryProxy);
+        final props = DomProps(react.a);
         expect(hasher.hasHashChanged(props), isFalse);
       });
 
@@ -144,11 +147,10 @@ void sharedHashTests(InstanceHasher Function() getHasher) {
     test('returns true if the hash has changed', () {
       final map = {'test': true};
       expect(hasher.hasHashChanged(map), isFalse);
+      expect(hasher.hasHashChanged(map), isFalse);
 
       map['newField'] = true;
       expect(hasher.hasHashChanged(map), isTrue);
     });
   });
 }
-
-class MockList extends Mock implements List {}

@@ -32,7 +32,7 @@ class CounterState {
   CounterState({
     this.count = 0,
     this.name = 'Counter',
-    DartModelCounter modelCount,
+    DartModelCounter? modelCount,
   }) : this.modelCount = modelCount ?? DartModelCounter(count: count);
 
   @override
@@ -74,10 +74,10 @@ Reducer<int> counterActionsReducer = combineReducers<int>([
 
 Reducer<DartModelCounter> modelCounterActionsReducer = combineReducers<DartModelCounter>([
   TypedReducer<DartModelCounter, IncrementModelCountAction>((currentModel, action) {
-    return DartModelCounter(count: currentModel.count + (action.value as int ?? 1));
+    return DartModelCounter(count: currentModel.count + (action.value ?? 1));
   }),
   TypedReducer<DartModelCounter, DecrementModelCountAction>((currentModel, action) {
-    return DartModelCounter(count: currentModel.count - (action.value as int ?? 1));
+    return DartModelCounter(count: currentModel.count - (action.value ?? 1));
   }),
 ]);
 
@@ -100,11 +100,11 @@ class BigCounterState {
 }
 
 int _bigCounterDecrementReducer(int currentCount, DecrementAction action) {
-  return currentCount - (action?.value != null ? action.value : 100);
+  return currentCount - (action.value != null ? action.value! : 100);
 }
 
 int _bigCounterIncrementReducer(int currentCount, IncrementAction action) {
-  return currentCount + (action?.value != null ? action.value : 100);
+  return currentCount + (action.value != null ? action.value! : 100);
 }
 
 Reducer<int> bigCounterActionsReducer = combineReducers<int>([

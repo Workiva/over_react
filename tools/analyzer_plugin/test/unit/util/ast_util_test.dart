@@ -9,14 +9,17 @@ void main() {
   group('ast_util', () {
     test('allDescendants returns all descendants in breadth-first order', () {
       final unit = parseAndGetUnit(/*language=dart*/ r'''
-        class A {}
+        class A {
+          var field;
+        }
         class B {}
       ''');
       expect(allDescendants(unit), [
         isA<ClassDeclaration>(), // class A {}
         isA<ClassDeclaration>(), // class B {}
-        isA<Identifier>(), // A
-        isA<Identifier>(), // B
+        isA<FieldDeclaration>(), // var field;
+        isA<VariableDeclarationList>(), // field
+        isA<VariableDeclaration>(), // field
       ]);
     });
 
@@ -77,11 +80,11 @@ void main() {
               var foo = 0;
               print(foo);
             }
-          ''')).unit!;
+          ''')).unit;
           final usage = getAllPrintedExpressions(unit).single as Identifier;
           expect(usage.name, 'foo', reason: 'test setup check');
           expect(usage.staticElement, isNotNull, reason: 'test setup check');
-          expect(lookUpVariable(usage.staticElement!, unit)?.name.name, 'foo');
+          expect(lookUpVariable(usage.staticElement!, unit)?.name.lexeme, 'foo');
         });
 
         group('returns null when', () {
@@ -91,7 +94,7 @@ void main() {
                 foo() {}
                 print(foo);
               }
-            ''')).unit!;
+            ''')).unit;
             final usage = getAllPrintedExpressions(unit).single as Identifier;
             expect(usage.name, 'foo', reason: 'test setup check');
             expect(usage.staticElement, isNotNull, reason: 'test setup check');
@@ -104,7 +107,7 @@ void main() {
                 var foo = 0;
                 print(foo);
               }
-            ''')).unit!;
+            ''')).unit;
             final usage = getAllPrintedExpressions(unit).single as Identifier;
             expect(usage.name, 'foo', reason: 'test setup check');
             expect(usage.staticElement, isNotNull, reason: 'test setup check');
@@ -120,7 +123,7 @@ void main() {
               foo() => 'I am the body';
               print(foo);
             }
-          ''')).unit!;
+          ''')).unit;
           final usage = getAllPrintedExpressions(unit).single as Identifier;
           expect(usage.name, 'foo', reason: 'test setup check');
           expect(usage.staticElement, isNotNull, reason: 'test setup check');
@@ -133,7 +136,7 @@ void main() {
               var foo = () => 'I am the body';
               print(foo);
             }
-          ''')).unit!;
+          ''')).unit;
           final usage = getAllPrintedExpressions(unit).single as Identifier;
           expect(usage.name, 'foo', reason: 'test setup check');
           expect(usage.staticElement, isNotNull, reason: 'test setup check');
@@ -147,7 +150,7 @@ void main() {
                 var foo = 1;
                 print(foo);
               }
-            ''')).unit!;
+            ''')).unit;
             final usage = getAllPrintedExpressions(unit).single as Identifier;
             expect(usage.name, 'foo', reason: 'test setup check');
             expect(usage.staticElement, isNotNull, reason: 'test setup check');
@@ -160,7 +163,7 @@ void main() {
                 foo() => 'I am the body';
                 print(foo);
               }
-            ''')).unit!;
+            ''')).unit;
             final usage = getAllPrintedExpressions(unit).single as Identifier;
             expect(usage.name, 'foo', reason: 'test setup check');
             expect(usage.staticElement, isNotNull, reason: 'test setup check');
@@ -176,11 +179,11 @@ void main() {
               foo() {}
               print(foo);
             }
-          ''')).unit!;
+          ''')).unit;
           final usage = getAllPrintedExpressions(unit).single as Identifier;
           expect(usage.name, 'foo', reason: 'test setup check');
           expect(usage.staticElement, isNotNull, reason: 'test setup check');
-          expect((lookUpDeclaration(usage.staticElement!, unit) as FunctionDeclaration).name.name, 'foo');
+          expect((lookUpDeclaration(usage.staticElement!, unit)! as FunctionDeclaration).name.lexeme, 'foo');
         });
 
         test('looks up a variable', () async {
@@ -189,11 +192,11 @@ void main() {
               var foo = 1;
               print(foo);
             }
-          ''')).unit!;
+          ''')).unit;
           final usage = getAllPrintedExpressions(unit).single as Identifier;
           expect(usage.name, 'foo', reason: 'test setup check');
           expect(usage.staticElement, isNotNull, reason: 'test setup check');
-          expect((lookUpDeclaration(usage.staticElement!, unit) as VariableDeclaration).name.name, 'foo');
+          expect((lookUpDeclaration(usage.staticElement!, unit)! as VariableDeclaration).name.lexeme, 'foo');
         });
 
         test('looks up a class', () async {
@@ -203,18 +206,18 @@ void main() {
             someFunction() {
               print(Foo);
             }
-          ''')).unit!;
+          ''')).unit;
           final usage = getAllPrintedExpressions(unit).single as Identifier;
           expect(usage.name, 'Foo', reason: 'test setup check');
           expect(usage.staticElement, isNotNull, reason: 'test setup check');
-          expect((lookUpDeclaration(usage.staticElement!, unit) as ClassDeclaration).name.name, 'Foo');
+          expect((lookUpDeclaration(usage.staticElement!, unit)! as ClassDeclaration).name.lexeme, 'Foo');
         });
 
         group('returns null when', () {
           test('the element does not correspond to a declaration', () async {
             final unit = (await parseAndGetResolvedUnit(/*language=dart*/ r'''
               import 'dart:html';
-            ''')).unit!;
+            ''')).unit;
             final usage = allDescendantsOfType<ImportDirective>(unit).single;
             expect(usage.element, isNotNull, reason: 'test setup check');
             expect(lookUpFunction(usage.element!, unit), isNull);
@@ -226,7 +229,7 @@ void main() {
                 foo() {};
                 print(foo);
               }
-            ''')).unit!;
+            ''')).unit;
             final usage = getAllPrintedExpressions(unit).single as Identifier;
             expect(usage.name, 'foo', reason: 'test setup check');
             expect(usage.staticElement, isNotNull, reason: 'test setup check');
@@ -241,23 +244,23 @@ void main() {
             someFunction(int foo) {
               print(foo);
             }
-          ''')).unit!;
+          ''')).unit;
           final usage = getAllPrintedExpressions(unit).single as Identifier;
           expect(usage.name, 'foo', reason: 'test setup check');
           expect(usage.staticElement, isNotNull, reason: 'test setup check');
-          expect(lookUpParameter(usage.staticElement!, unit)?.identifier?.name, 'foo');
+          expect(lookUpParameter(usage.staticElement!, unit)?.name?.lexeme, 'foo');
         });
 
         test('looks up a named parameter', () async {
           final unit = (await parseAndGetResolvedUnit(/*language=dart*/ r'''
-            someFunction({int foo}) {
+            someFunction({int? foo}) {
               print(foo);
             }
-          ''')).unit!;
+          ''')).unit;
           final usage = getAllPrintedExpressions(unit).single as Identifier;
           expect(usage.name, 'foo', reason: 'test setup check');
           expect(usage.staticElement, isNotNull, reason: 'test setup check');
-          expect(lookUpParameter(usage.staticElement!, unit)?.identifier?.name, 'foo');
+          expect(lookUpParameter(usage.staticElement!, unit)?.name?.lexeme, 'foo');
         });
 
         group('returns null when', () {
@@ -267,7 +270,7 @@ void main() {
                 foo() {}
                 print(foo);
               }
-            ''')).unit!;
+            ''')).unit;
             final usage = getAllPrintedExpressions(unit).single as Identifier;
             expect(usage.name, 'foo', reason: 'test setup check');
             expect(usage.staticElement, isNotNull, reason: 'test setup check');
@@ -279,7 +282,7 @@ void main() {
               someFunction(int foo) {
                 print(foo);
               }
-            ''')).unit!;
+            ''')).unit;
             final usage = getAllPrintedExpressions(unit).single as Identifier;
             expect(usage.name, 'foo', reason: 'test setup check');
             expect(usage.staticElement, isNotNull, reason: 'test setup check');

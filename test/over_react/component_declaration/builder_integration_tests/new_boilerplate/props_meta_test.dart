@@ -167,19 +167,19 @@ main() {
 UiFactory<TestProps> Test = _$Test; // ignore: undefined_identifier, invalid_assignment
 
 mixin TestPropsMixin on UiProps {
-  String test;
+  String? test;
 }
 
 mixin FooPropsMixin on UiProps {
-  bool foo;
+  bool? foo;
 }
 
 mixin BazPropsMixin on UiProps {
-  bool baz;
+  bool? baz;
 }
 
 mixin WoopsMixin on UiProps {
-  String isNotIncluded;
+  String? isNotIncluded;
 }
 
 class TestProps = UiProps with TestPropsMixin, FooPropsMixin, BazPropsMixin;

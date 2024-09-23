@@ -30,7 +30,7 @@ class BigBlockComponent extends FluxUiComponent2<BigBlockProps> {
         'This module uses a flux pattern to change its background color.',
         (Dom.button()
           ..onClick = (_) {
-            props.actions.changeBackgroundColor();
+            props.actions.changeBackgroundColor('green');
           }
           ..style = {'padding': '10px', 'margin': '10px'}
         )('Change Background Color'),

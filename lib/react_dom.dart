@@ -44,7 +44,7 @@ import 'package:react/react_dom.dart' as react_dom show render, unmountComponent
 /// Use [unmountComponentAtNode] to unmount the instance.
 ///
 /// > Proxies [react_dom.render].
-dynamic render(ReactElement element, Element mountNode) {
+dynamic render(ReactNode element, Element mountNode) {
   return react_dom.render(element, mountNode);
 }
 

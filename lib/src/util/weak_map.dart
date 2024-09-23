@@ -20,12 +20,12 @@ class WeakMap {
   external bool delete(Object key);
 
   /// Returns the value associated to the [key], or null if there is none.
-  external Object get(Object key);
+  external Object? get(Object key);
 
   /// Returns whether a value has been associated to the key.
   external bool has(Object key);
 
   /// Sets the value for the [key].
   // void since IE11 returns undefined, and you can cascade on the object instead of returning it in Dart.
-  external void set(Object key, Object value);
+  external void set(Object key, Object? value);
 }

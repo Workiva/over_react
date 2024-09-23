@@ -57,7 +57,8 @@ export 'package:react/react_client.dart'
         setClientConfiguration,
         chainRefs,
         ReactElement,
-        ReactComponentFactoryProxy;
+        ReactComponentFactoryProxy,
+        ReactNode;
 export 'package:react/react_client/react_interop.dart' show ReactErrorInfo, Ref;
 export 'package:react/hooks.dart' show StateHook, ReducerHook;
 
@@ -73,6 +74,7 @@ export 'src/component/ref_util.dart';
 export 'src/component/fragment_component.dart';
 export 'src/component/hooks.dart';
 export 'src/component/strictmode_component.dart';
+export 'src/component/suspense_component.dart';
 export 'src/component/dummy_component.dart';
 export 'src/component/prop_mixins.dart';
 export 'src/component/prop_typedefs.dart';
@@ -87,7 +89,6 @@ export 'src/component_declaration/component_base_2.dart'
         UiComponent2,
         UiStatefulComponent2,
         UiStatefulMixin2;
-export 'src/component_declaration/built_redux_component.dart';
 export 'src/component_declaration/flux_component.dart';
 export 'src/component_declaration/function_component.dart' hide getFunctionName, GenericUiProps;
 export 'src/util/character_constants.dart';

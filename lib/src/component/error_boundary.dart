@@ -42,7 +42,7 @@ mixin ErrorBoundaryProps on UiProps {
   /// > See: <https://reactjs.org/docs/react-component.html#componentdidcatch>
   ///
   /// > Related: [onComponentIsUnrecoverable]
-  Function(/*Error||Exception*/dynamic error, ReactErrorInfo info) onComponentDidCatch;
+  Function(/*Error||Exception*/dynamic error, ReactErrorInfo info)? onComponentDidCatch;
 
   /// An optional callback that will be called _(when [fallbackUIRenderer] is not set)_
   /// with an [Error] _(or [Exception])_ and `errorInfo` containing information about which component in
@@ -67,13 +67,13 @@ mixin ErrorBoundaryProps on UiProps {
   /// > Will never be called when [fallbackUIRenderer] is set.
   ///
   /// > Related: [identicalErrorFrequencyTolerance]
-  Function(/*Error||Exception*/dynamic error, ReactErrorInfo info) onComponentIsUnrecoverable;
+  Function(/*Error||Exception*/dynamic error, ReactErrorInfo info)? onComponentIsUnrecoverable;
 
   /// A renderer that will be used to render "fallback" UI instead of the child
   /// component tree that crashed.
   ///
   /// > Related: [onComponentIsUnrecoverable], [onComponentDidCatch]
-  ReactElement Function(/*Error||Exception*/dynamic error, ReactErrorInfo info) fallbackUIRenderer;
+  ReactNode Function(/*Error||Exception*/dynamic error, ReactErrorInfo? info)? fallbackUIRenderer;
 
   /// The amount of time that is "acceptable" between consecutive identical errors thrown from a component
   /// within the tree wrapped by this [ErrorBoundary].
@@ -92,23 +92,23 @@ mixin ErrorBoundaryProps on UiProps {
   /// __DO NOT MODIFY THIS VALUE UNLESS YOU KNOW WHAT YOU ARE DOING.__
   ///
   /// > Default: `const Duration(seconds: 5)`
-  Duration identicalErrorFrequencyTolerance;
+  Duration? identicalErrorFrequencyTolerance;
 
   /// The name to use when the component's logger logs an error via [ErrorBoundaryComponent.componentDidCatch].
   ///
   /// Not used if a custom [logger] is specified.
   ///
   /// > Default: 'over_react.ErrorBoundary'
-  String loggerName;
+  String? loggerName;
 
   /// Whether errors caught by this [ErrorBoundary] should be logged using a [Logger].
   ///
   /// > Default: `true`
-  bool shouldLogErrors;
+  bool? shouldLogErrors;
 
   /// An optional custom logger instance that will be used to log errors caught by
   /// this [ErrorBoundary] when [shouldLogErrors] is true.
-  Logger logger;
+  Logger? logger;
 }
 
 mixin ErrorBoundaryState on UiState {
@@ -123,12 +123,12 @@ mixin ErrorBoundaryState on UiState {
   ///   more frequently than [ErrorBoundaryProps.identicalErrorFrequencyTolerance], a static copy of
   ///   the render tree's HTML that was captured at the time of the error will be rendered.
   ///   See: [ErrorBoundaryProps.onComponentIsUnrecoverable] for more information about this scenario.
-  bool hasError;
+  late bool hasError;
 
   /// Whether to show "fallback" UI when [hasError] is true.
   ///
   /// This value will always be true if [ErrorBoundaryProps.fallbackUIRenderer] is non-null.
-  bool showFallbackUIOnError;
+  late bool showFallbackUIOnError;
 }
 
 @Component2(isWrapper: true, isErrorBoundary: true)
@@ -176,6 +176,7 @@ class ErrorBoundaryComponent
   @override
   get defaultProps => (newProps()
     ..identicalErrorFrequencyTolerance = Duration(seconds: 5)
+    // ignore: invalid_use_of_visible_for_testing_member
     ..loggerName = defaultErrorBoundaryLoggerName
     ..shouldLogErrors = true
   );
@@ -194,15 +195,9 @@ class ErrorBoundaryComponent
 
   @override
   void componentDidCatch(error, ReactErrorInfo info) {
-    if (props.onComponentDidCatch != null) {
-      props.onComponentDidCatch(error, info);
-    }
-
+    props.onComponentDidCatch?.call(error, info);
     _logErrorCaughtByErrorBoundary(error, info);
-
-    if (props.onComponentIsUnrecoverable != null) {
-      props.onComponentIsUnrecoverable(error, info);
-    }
+    props.onComponentIsUnrecoverable?.call(error, info);
   }
 
   @override
@@ -224,8 +219,8 @@ class ErrorBoundaryComponent
     // If the child is different, and the error boundary is currently in an error state,
     // give the children a chance to mount.
     if (state.hasError) {
-      final childThatCausedError = typedPropsFactory(prevProps).children.single;
-      if (childThatCausedError != props.children.single) {
+      final childThatCausedError = typedPropsFactory(prevProps).children!.single;
+      if (childThatCausedError != props.children!.single) {
         reset();
       }
     }
@@ -241,17 +236,17 @@ class ErrorBoundaryComponent
   }
 
   String get _loggerName {
-    if (props.logger != null) return props.logger.name;
+    if (props.logger != null) return props.logger!.name;
 
+    // ignore: invalid_use_of_visible_for_testing_member
     return props.loggerName ?? defaultErrorBoundaryLoggerName;
   }
 
   void _logErrorCaughtByErrorBoundary(
     /*Error|Exception*/ dynamic error,
-    ReactErrorInfo info, {
-    bool isRecoverable = true,
-  }) {
-    if (!props.shouldLogErrors) return;
+    ReactErrorInfo info,
+  ) {
+    if (!props.shouldLogErrors!) return;
 
     final message = 'An unrecoverable error was caught by an ErrorBoundary (attempting to remount it was unsuccessful): \nInfo: ${info.componentStack}';
 

@@ -71,7 +71,7 @@ class FluentComponentUsage {
 
   /// The class element for the builder's props class (or, for parameterized types
   /// the bound of that type), or `null` if this usage is not fully resolved.
-  ClassElement? get propsClassElement => builderType?.typeOrBound.tryCast<InterfaceType>()?.element;
+  InterfaceElement? get propsClassElement => builderType?.typeOrBound.tryCast<InterfaceType>()?.element;
 
   /// The name of the builder's props class (or, for parameterized types
   /// the bound of that type), or `null` if this usage is not fully resolved.
@@ -152,12 +152,12 @@ class FluentComponentUsage {
   Iterable<PropAssignment> get cascadedProps => cascadeSections
       .whereType<AssignmentExpression>()
       .where((assignment) => assignment.leftHandSide is PropertyAccess)
-      .map((assignment) => PropAssignment(assignment));
+      .map(PropAssignment.new);
 
   /// The prop reads cascaded on this usage's builder.
   ///
   /// See also: other `cascaded`* methods in this class.
-  Iterable<PropRead> get cascadedGetters => cascadeSections.whereType<PropertyAccess>().map((p) => PropRead(p));
+  Iterable<PropRead> get cascadedGetters => cascadeSections.whereType<PropertyAccess>().map(PropRead.new);
 
   /// The index prop assignments cascaded on this usage's builder.
   ///
@@ -165,14 +165,14 @@ class FluentComponentUsage {
   Iterable<IndexPropAssignment> get cascadedIndexAssignments => cascadeSections
       .whereType<AssignmentExpression>()
       .where((assignment) => assignment.leftHandSide is IndexExpression)
-      .map((assignment) => IndexPropAssignment(assignment));
+      .map(IndexPropAssignment.new);
 
   /// The method calls cascaded on this usage's builder.
   ///
   /// See also: other `cascaded`* methods in this class.
   Iterable<BuilderMethodInvocation> get cascadedMethodInvocations => cascadeSections
       .whereType<MethodInvocation>()
-      .map((methodInvocation) => BuilderMethodInvocation(methodInvocation));
+      .map(BuilderMethodInvocation.new);
 
   /// All the cascades on this usage's builder, each wrapped in one of the
   /// [BuilderMemberAccess] subtypes.
@@ -188,7 +188,7 @@ class FluentComponentUsage {
 
     final allUnhandledMembers = cascadeSections
         .where((section) => !allHandledMembers.any((m) => m.node == section))
-        .map((section) => OtherBuilderMemberAccess(section))
+        .map(OtherBuilderMemberAccess.new)
         .toList();
 
     return [

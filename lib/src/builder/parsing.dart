@@ -31,7 +31,7 @@ export 'parsing/util.dart';
 export 'parsing/version.dart';
 
 Iterable<BoilerplateDeclaration> parseDeclarations(
-    CompilationUnit unit, ErrorCollector errorCollector) {
+    CompilationUnit unit, ErrorCollector? errorCollector) {
   final members = detectBoilerplateMembers(unit);
   return getBoilerplateDeclarations(members, errorCollector);
 }

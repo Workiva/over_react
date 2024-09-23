@@ -16,7 +16,7 @@ FunctionBody? getClosestCustomHookFunction(AstNode node) =>
 
 bool isCustomHookFunction(FunctionBody body) {
   final declaration = body.parentDeclaration;
-  return declaration != null && isHookName(declaration.name.name);
+  return declaration != null && isHookName(declaration.name.lexeme);
 }
 
 /// A utility class that provides information about a usage of a React hook.

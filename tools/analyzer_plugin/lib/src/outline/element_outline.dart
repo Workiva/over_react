@@ -39,13 +39,13 @@ class ReactElementOutlineContributor implements OutlineContributor {
         elementEndStack.add(end);
       }
     });
-    result.unit!.accept(visitor);
+    result.unit.accept(visitor);
 
     if (elementEndStack.isEmpty) {
       // need at least one outline for some reason
       final element = plugin.Element(plugin.ElementKind.UNKNOWN, '', 0);
       // Outlines work intermittently, less so when this element does not constitute the whole file
-      collector.startElement(element, result.unit!.offset, result.unit!.length);
+      collector.startElement(element, result.unit.offset, result.unit.length);
       collector.endElement();
     } else {
       while (elementEndStack.isNotEmpty) {

@@ -20,11 +20,11 @@ part 'generic_inheritance_sub.over_react.g.dart';
 UiFactory<GenericSubProps> GenericSub = castUiFactory(_$GenericSub); // ignore: undefined_identifier
 
 mixin GenericSubPropsMixin on UiProps, GenericSuperPropsMixin {
-  String subProp;
+  String? subProp;
 }
 
 mixin GenericSubStateMixin on UiState, GenericSuperStateMixin {
-  String subState;
+  String? subState;
 }
 
 class GenericSubProps = UiProps with GenericSuperPropsMixin, GenericSubPropsMixin;

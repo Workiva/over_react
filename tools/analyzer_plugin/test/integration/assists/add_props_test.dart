@@ -1,6 +1,3 @@
-// Disable null-safety in the plugin entrypoint until all dependencies are null-safe,
-// otherwise tests won't be able to run. See: https://github.com/dart-lang/test#compiler-flags
-// @dart=2.9
 import 'dart:async';
 
 import 'package:analyzer_plugin/utilities/assist/assist.dart';
@@ -27,13 +24,13 @@ var foo = Dom.div()('hello');
 ''';
 
   Future<void> test_noAssist() async {
-    final source = newSource('test.dart', 'var foo = true;');
+    final source = newSource('var foo = true;');
     final selection = createSelection(source, '#var foo = true;#');
     await expectNoAssist(selection);
   }
 
   Future<void> test_noAssistForSelection() async {
-    final source = newSource('test.dart', simpleSource);
+    final source = newSource(simpleSource);
     final selection = createSelection(source, '#var foo#');
     await expectNoAssist(selection);
   }
@@ -48,7 +45,7 @@ var foo = Dom.div()('hello');
       ]);
 
   Future<void> test_addsParensAndPropsCascade() async {
-    var source = newSource('test.dart', simpleSource);
+    var source = newSource(simpleSource);
     var selection = createSelection(source, '#Dom.div#');
     final change = await expectAndGetSingleAssist(selection);
     source = applySourceChange(change, source);
@@ -62,7 +59,7 @@ var foo = (Dom.div()..)('hello');
   }
 
   Future<void> test_alreadyHasParens() async {
-    var source = newSource('test.dart', '''
+    var source = newSource('''
 import 'package:over_react/over_react.dart';
 var foo = (Dom.div())('hello');
 ''');

@@ -1,6 +1,7 @@
+//@dart=2.11
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators, invalid_use_of_visible_for_overriding_member
 part of 'basic_library.dart';
 
 // **************************************************************************
@@ -33,9 +34,11 @@ _$$BasicPartOfLibProps _$BasicPartOfLib([Map backingProps]) =>
 abstract class _$$BasicPartOfLibProps extends UiProps
     with
         ExamplePropsMixin,
-        $ExamplePropsMixin, // If this generated mixin is undefined, it's likely because ExamplePropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ExamplePropsMixin, and check that $ExamplePropsMixin is exported/imported properly.
+        // If this generated mixin is undefined, it's likely because ExamplePropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ExamplePropsMixin, and check that $ExamplePropsMixin is exported/imported properly.
+        $ExamplePropsMixin,
         BasicPartOfLibPropsMixin,
-        $BasicPartOfLibPropsMixin // If this generated mixin is undefined, it's likely because BasicPartOfLibPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of BasicPartOfLibPropsMixin, and check that $BasicPartOfLibPropsMixin is exported/imported properly.
+        // If this generated mixin is undefined, it's likely because BasicPartOfLibPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of BasicPartOfLibPropsMixin, and check that $BasicPartOfLibPropsMixin is exported/imported properly.
+        $BasicPartOfLibPropsMixin
     implements
         BasicPartOfLibProps {
   _$$BasicPartOfLibProps._();
@@ -68,7 +71,25 @@ abstract class _$$BasicPartOfLibProps extends UiProps
         // If this generated mixin is undefined, it's likely because BasicPartOfLibPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of BasicPartOfLibPropsMixin, and check that $BasicPartOfLibPropsMixin is exported/imported properly.
         BasicPartOfLibPropsMixin: $BasicPartOfLibPropsMixin.meta,
       });
+
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$BasicPartOfLibProps(
+          accessMap, (map) => _$$BasicPartOfLibProps(map));
+
+  @override
+  // ignore: must_call_super
+  validateRequiredProps() {
+    // Disable required prop validation, until this component is null safe, by not calling super.
+  }
+
+  @override
+  Set<String> get requiredPropNamesToSkipValidation => const {'id'};
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$BasicPartOfLibProps = getPropKey;
 
 // Concrete props implementation that can be backed by any [Map].
 @Deprecated('This API is for use only within generated code.'
@@ -115,9 +136,11 @@ class _$$BasicPartOfLibProps$JsMap extends _$$BasicPartOfLibProps {
 abstract class _$$BasicPartOfLibState extends UiState
     with
         ExampleStateMixin,
-        $ExampleStateMixin, // If this generated mixin is undefined, it's likely because ExampleStateMixin is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not imported. Check the declaration of ExampleStateMixin, and check that $ExampleStateMixin is exported/imported properly.
+        // If this generated mixin is undefined, it's likely because ExampleStateMixin is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not imported. Check the declaration of ExampleStateMixin, and check that $ExampleStateMixin is exported/imported properly.
+        $ExampleStateMixin,
         BasicPartOfLibStateMixin,
-        $BasicPartOfLibStateMixin // If this generated mixin is undefined, it's likely because BasicPartOfLibStateMixin is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not imported. Check the declaration of BasicPartOfLibStateMixin, and check that $BasicPartOfLibStateMixin is exported/imported properly.
+        // If this generated mixin is undefined, it's likely because BasicPartOfLibStateMixin is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not imported. Check the declaration of BasicPartOfLibStateMixin, and check that $BasicPartOfLibStateMixin is exported/imported properly.
+        $BasicPartOfLibStateMixin
     implements
         BasicPartOfLibState {
   _$$BasicPartOfLibState._();
@@ -333,6 +356,12 @@ mixin $BasicPartOfLibPropsMixin on BasicPartOfLibPropsMixin {
     _$key__basic4__BasicPartOfLibPropsMixin,
     _$key__basic5__BasicPartOfLibPropsMixin
   ];
+
+  @override
+  @UiProps.$mustCallSuper
+  void validateRequiredProps() {
+    super.validateRequiredProps();
+  }
 }
 
 @Deprecated('This API is for use only within generated code.'
@@ -400,9 +429,11 @@ _$$SubPartOfLibProps _$SubPartOfLib([Map backingProps]) => backingProps == null
 abstract class _$$SubPartOfLibProps extends UiProps
     with
         SuperPartOfLibPropsMixin,
-        $SuperPartOfLibPropsMixin, // If this generated mixin is undefined, it's likely because SuperPartOfLibPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of SuperPartOfLibPropsMixin, and check that $SuperPartOfLibPropsMixin is exported/imported properly.
+        // If this generated mixin is undefined, it's likely because SuperPartOfLibPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of SuperPartOfLibPropsMixin, and check that $SuperPartOfLibPropsMixin is exported/imported properly.
+        $SuperPartOfLibPropsMixin,
         SubPartOfLibPropsMixin,
-        $SubPartOfLibPropsMixin // If this generated mixin is undefined, it's likely because SubPartOfLibPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of SubPartOfLibPropsMixin, and check that $SubPartOfLibPropsMixin is exported/imported properly.
+        // If this generated mixin is undefined, it's likely because SubPartOfLibPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of SubPartOfLibPropsMixin, and check that $SubPartOfLibPropsMixin is exported/imported properly.
+        $SubPartOfLibPropsMixin
     implements
         SubPartOfLibProps {
   _$$SubPartOfLibProps._();
@@ -435,7 +466,25 @@ abstract class _$$SubPartOfLibProps extends UiProps
         // If this generated mixin is undefined, it's likely because SubPartOfLibPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of SubPartOfLibPropsMixin, and check that $SubPartOfLibPropsMixin is exported/imported properly.
         SubPartOfLibPropsMixin: $SubPartOfLibPropsMixin.meta,
       });
+
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$SubPartOfLibProps(
+          accessMap, (map) => _$$SubPartOfLibProps(map));
+
+  @override
+  // ignore: must_call_super
+  validateRequiredProps() {
+    // Disable required prop validation, until this component is null safe, by not calling super.
+  }
+
+  @override
+  Set<String> get requiredPropNamesToSkipValidation => const {'id'};
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$SubPartOfLibProps = getPropKey;
 
 // Concrete props implementation that can be backed by any [Map].
 @Deprecated('This API is for use only within generated code.'
@@ -553,6 +602,12 @@ mixin $SuperPartOfLibPropsMixin on SuperPartOfLibPropsMixin {
   static const List<String> $propKeys = [
     _$key__superProp__SuperPartOfLibPropsMixin
   ];
+
+  @override
+  @UiProps.$mustCallSuper
+  void validateRequiredProps() {
+    super.validateRequiredProps();
+  }
 }
 
 @Deprecated('This API is for use only within generated code.'
@@ -586,6 +641,12 @@ mixin $SubPartOfLibPropsMixin on SubPartOfLibPropsMixin {
   static const List<String> $propKeys = [
     _$key__subProp__SubPartOfLibPropsMixin
   ];
+
+  @override
+  @UiProps.$mustCallSuper
+  void validateRequiredProps() {
+    super.validateRequiredProps();
+  }
 }
 
 @Deprecated('This API is for use only within generated code.'

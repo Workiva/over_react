@@ -13,6 +13,8 @@
 // limitations under the License.
 
 import 'package:analyzer/dart/ast/ast.dart';
+import 'package:analyzer/dart/ast/token.dart';
+import 'package:build/build.dart' show log;
 import 'package:meta/meta.dart';
 import 'package:over_react/src/builder/codegen/names.dart';
 import 'package:over_react/src/component_declaration/annotations.dart' as annotations;
@@ -21,12 +23,6 @@ import 'package:over_react/src/util/string_util.dart';
 
 import '../parsing.dart';
 import '../util.dart';
-import 'ast_util.dart';
-import 'declarations.dart';
-import 'members_from_ast.dart';
-import 'meta.dart';
-import 'error_collection.dart';
-import 'version.dart';
 
 part 'members/component.dart';
 part 'members/factory.dart';
@@ -58,7 +54,7 @@ abstract class BoilerplateMember {
   /// given version.
   void validate(Version version, ErrorCollector errorCollector);
 
-  SimpleIdentifier get name;
+  Token get name;
 
   @override
   String toString() => '$runtimeType: ${name.name}';
@@ -114,12 +110,12 @@ class BoilerplateMembers {
 
   @protected
   BoilerplateMembers({
-    this.factories,
-    this.props,
-    this.propsMixins,
-    this.components,
-    this.states,
-    this.stateMixins,
+    required this.factories,
+    required this.props,
+    required this.propsMixins,
+    required this.components,
+    required this.states,
+    required this.stateMixins,
   });
 
   @override

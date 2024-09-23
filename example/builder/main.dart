@@ -27,6 +27,8 @@ import './src/generic_inheritance_super.dart';
 import './src/function_component.dart' as function;
 import 'src/functional_consumed_props.dart';
 import 'src/new_class_consumed_props.dart';
+import 'src/nullability.dart';
+import 'src/partial.dart' as partial;
 
 class ExampleState {
   final String testValue;
@@ -70,7 +72,7 @@ main() {
         componentConstructorsByName.keys.map((name) => Dom.div()(
           'new $name()',
           ' - ',
-          componentConstructorsByName[name]().toString(),
+          componentConstructorsByName[name]!().toString(),
         )).toList(),
         (SomeParent()
           ..aParentProp = 'parent'
@@ -80,9 +82,11 @@ main() {
           ..aParentProp = 'classParent'
           ..aPropToBePassed = 'passed'
         )(),
+        renderNullability(),
       )
       ), querySelector('#content')
   );
+  partial.partialExample();
 }
 
 final componentConstructorsByName = <String, Map Function()>{

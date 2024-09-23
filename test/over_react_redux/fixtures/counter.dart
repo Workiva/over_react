@@ -25,13 +25,13 @@ UiFactory<CounterProps> Counter = _$Counter;
 
 @Props()
 class _$CounterProps extends UiProps with ConnectPropsMixin {
-  int currentCount;
+  int? currentCount;
 
-  Map<String, dynamic> wrapperStyles;
+  Map<String, dynamic>? wrapperStyles;
 
-  void Function() increment;
+  void Function()? increment;
 
-  void Function() decrement;
+  void Function()? decrement;
 }
 
 @Component2()
@@ -48,8 +48,8 @@ class CounterComponent extends UiComponent2<CounterProps> {
         ..addTestId('button-increment')
         ..onClick = (_) {
           if (props.increment != null) {
-            props.increment();
-          } else if (props.dispatch != null) {
+            props.increment!();
+          } else {
             props.dispatch(IncrementAction());
           }
         }
@@ -58,8 +58,8 @@ class CounterComponent extends UiComponent2<CounterProps> {
         ..addTestId('button-decrement')
         ..onClick = (_) {
           if (props.decrement != null) {
-            props.decrement();
-          } else if (props.dispatch != null) {
+            props.decrement!();
+          } else {
             props.dispatch(DecrementAction());
           }
         }
@@ -67,17 +67,13 @@ class CounterComponent extends UiComponent2<CounterProps> {
       (Dom.button()
         ..addTestId('button-model-increment')
         ..onClick = (_) {
-          if (props.dispatch != null) {
-            props.dispatch(IncrementModelCountAction());
-          }
+          props.dispatch(IncrementModelCountAction());
         }
       )('+'),
       (Dom.button()
         ..addTestId('button-model-decrement')
         ..onClick = (_) {
-          if (props.dispatch != null) {
-            props.dispatch(DecrementModelCountAction());
-          }
+          props.dispatch(DecrementModelCountAction());
         }
       )('-'),
       props.children,

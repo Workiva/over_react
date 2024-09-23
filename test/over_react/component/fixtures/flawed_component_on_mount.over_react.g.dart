@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators, invalid_use_of_visible_for_overriding_member
 part of 'flawed_component_on_mount.dart';
 
 // **************************************************************************
@@ -34,7 +34,7 @@ const PropsMeta _$metaForFlawedOnMountProps = PropsMeta(
   keys: _$FlawedOnMountPropsAccessorsMixin.$propKeys,
 );
 
-_$$FlawedOnMountProps _$FlawedOnMount([Map backingProps]) =>
+_$$FlawedOnMountProps _$FlawedOnMount([Map? backingProps]) =>
     backingProps == null
         ? _$$FlawedOnMountProps$JsMap(JsBackedMap())
         : _$$FlawedOnMountProps(backingProps);
@@ -47,9 +47,9 @@ abstract class _$$FlawedOnMountProps extends _$FlawedOnMountProps
     implements FlawedOnMountProps {
   _$$FlawedOnMountProps._();
 
-  factory _$$FlawedOnMountProps(Map backingMap) {
+  factory _$$FlawedOnMountProps(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$FlawedOnMountProps$JsMap(backingMap as JsBackedMap);
+      return _$$FlawedOnMountProps$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$FlawedOnMountProps$PlainMap(backingMap);
     }
@@ -67,13 +67,22 @@ abstract class _$$FlawedOnMountProps extends _$FlawedOnMountProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'FlawedOnMountProps.';
+
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$FlawedOnMountProps(
+          accessMap, (map) => _$$FlawedOnMountProps(map));
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$FlawedOnMountProps = getPropKey;
 
 // Concrete props implementation that can be backed by any [Map].
 class _$$FlawedOnMountProps$PlainMap extends _$$FlawedOnMountProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$FlawedOnMountProps$PlainMap(Map backingMap)
+  _$$FlawedOnMountProps$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -90,7 +99,7 @@ class _$$FlawedOnMountProps$PlainMap extends _$$FlawedOnMountProps {
 class _$$FlawedOnMountProps$JsMap extends _$$FlawedOnMountProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$FlawedOnMountProps$JsMap(JsBackedMap backingMap)
+  _$$FlawedOnMountProps$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -107,7 +116,7 @@ class _$$FlawedOnMountProps$JsMap extends _$$FlawedOnMountProps {
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$FlawedOnMountComponent extends FlawedOnMountComponent {
-  _$$FlawedOnMountProps$JsMap _cachedTypedProps;
+  late _$$FlawedOnMountProps$JsMap _cachedTypedProps;
 
   @override
   _$$FlawedOnMountProps$JsMap get props => _cachedTypedProps;
@@ -127,11 +136,11 @@ class _$FlawedOnMountComponent extends FlawedOnMountComponent {
   }
 
   @override
-  _$$FlawedOnMountProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
+  _$$FlawedOnMountProps$JsMap typedPropsFactoryJs(JsBackedMap? backingMap) =>
       _$$FlawedOnMountProps$JsMap(backingMap);
 
   @override
-  _$$FlawedOnMountProps typedPropsFactory(Map backingMap) =>
+  _$$FlawedOnMountProps typedPropsFactory(Map? backingMap) =>
       _$$FlawedOnMountProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.

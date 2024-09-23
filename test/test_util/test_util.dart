@@ -18,9 +18,9 @@ import 'dart:js_util';
 
 import 'package:over_react/over_react.dart';
 
-export 'package:over_react_test/over_react_test.dart';
+export 'package:over_react_test/over_react_test.dart' hide testJsComponentFactory;
 
-dynamic getJsChildren(instance) => getProperty(instance.props, 'children');
+dynamic getJsChildren(instance) => getProperty(instance.props as Object, 'children');
 
 dynamic getRawDartChildren(var renderedInstance) {
   assert(isDartComponent(renderedInstance));
@@ -29,7 +29,7 @@ dynamic getRawDartChildren(var renderedInstance) {
 
 List<dynamic> getTypedDartChildren(var renderedInstance) {
   assert(isDartComponent(renderedInstance));
-  return domProps(getProps(renderedInstance)).children;
+  return domProps(getProps(renderedInstance)).children!;
 }
 
 bool isDDC() {

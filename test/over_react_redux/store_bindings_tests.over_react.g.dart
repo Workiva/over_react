@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators, invalid_use_of_visible_for_overriding_member
 part of 'store_bindings_tests.dart';
 
 // **************************************************************************
@@ -14,18 +14,18 @@ part of 'store_bindings_tests.dart';
 mixin $TestSelectorProps on TestSelectorProps {
   static const PropsMeta meta = _$metaForTestSelectorProps;
   @override
-  void Function(Object selectedValue) get onRender =>
+  void Function(Object? selectedValue)? get onRender =>
       (props[_$key__onRender__TestSelectorProps] ?? null) as void Function(
-          Object selectedValue);
+          Object? selectedValue)?;
   @override
-  set onRender(void Function(Object selectedValue) value) =>
+  set onRender(void Function(Object? selectedValue)? value) =>
       props[_$key__onRender__TestSelectorProps] = value;
   @override
-  bool Function(dynamic next, dynamic prev) get equality =>
+  bool Function(dynamic next, dynamic prev)? get equality =>
       (props[_$key__equality__TestSelectorProps] ?? null) as bool Function(
-          dynamic next, dynamic prev);
+          dynamic next, dynamic prev)?;
   @override
-  set equality(bool Function(dynamic next, dynamic prev) value) =>
+  set equality(bool Function(dynamic next, dynamic prev)? value) =>
       props[_$key__equality__TestSelectorProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__onRender__TestSelectorProps =
@@ -45,6 +45,12 @@ mixin $TestSelectorProps on TestSelectorProps {
     _$key__onRender__TestSelectorProps,
     _$key__equality__TestSelectorProps
   ];
+
+  @override
+  @UiProps.$mustCallSuper
+  void validateRequiredProps() {
+    super.validateRequiredProps();
+  }
 }
 
 @Deprecated('This API is for use only within generated code.'
@@ -61,10 +67,11 @@ const PropsMeta _$metaForTestSelectorProps = PropsMeta(
 mixin $TestConnectPropsMixin on TestConnectPropsMixin {
   static const PropsMeta meta = _$metaForTestConnectPropsMixin;
   @override
-  Object get interestingValue =>
-      (props[_$key__interestingValue__TestConnectPropsMixin] ?? null) as Object;
+  Object? get interestingValue =>
+      (props[_$key__interestingValue__TestConnectPropsMixin] ?? null)
+          as Object?;
   @override
-  set interestingValue(Object value) =>
+  set interestingValue(Object? value) =>
       props[_$key__interestingValue__TestConnectPropsMixin] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__interestingValue__TestConnectPropsMixin =
@@ -78,6 +85,12 @@ mixin $TestConnectPropsMixin on TestConnectPropsMixin {
   static const List<String> $propKeys = [
     _$key__interestingValue__TestConnectPropsMixin
   ];
+
+  @override
+  @UiProps.$mustCallSuper
+  void validateRequiredProps() {
+    super.validateRequiredProps();
+  }
 }
 
 @Deprecated('This API is for use only within generated code.'
@@ -109,13 +122,13 @@ final UiFactoryConfig<_$$TestSelectorProps> $TestSelectorConfig =
 abstract class _$$TestSelectorProps extends UiProps
     with
         TestSelectorProps,
-        $TestSelectorProps // If this generated mixin is undefined, it's likely because TestSelectorProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestSelectorProps, and check that $TestSelectorProps is exported/imported properly.
-{
+        // If this generated mixin is undefined, it's likely because TestSelectorProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestSelectorProps, and check that $TestSelectorProps is exported/imported properly.
+        $TestSelectorProps {
   _$$TestSelectorProps._();
 
-  factory _$$TestSelectorProps(Map backingMap) {
+  factory _$$TestSelectorProps(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestSelectorProps$JsMap(backingMap as JsBackedMap);
+      return _$$TestSelectorProps$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$TestSelectorProps$PlainMap(backingMap);
     }
@@ -134,7 +147,16 @@ abstract class _$$TestSelectorProps extends UiProps
         // If this generated mixin is undefined, it's likely because TestSelectorProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestSelectorProps, and check that $TestSelectorProps is exported/imported properly.
         TestSelectorProps: $TestSelectorProps.meta,
       });
+
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$TestSelectorProps(
+          accessMap, (map) => _$$TestSelectorProps(map));
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$TestSelectorProps = getPropKey;
 
 // Concrete props implementation that can be backed by any [Map].
 @Deprecated('This API is for use only within generated code.'
@@ -142,7 +164,7 @@ abstract class _$$TestSelectorProps extends UiProps
 class _$$TestSelectorProps$PlainMap extends _$$TestSelectorProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestSelectorProps$PlainMap(Map backingMap)
+  _$$TestSelectorProps$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -161,7 +183,7 @@ class _$$TestSelectorProps$PlainMap extends _$$TestSelectorProps {
 class _$$TestSelectorProps$JsMap extends _$$TestSelectorProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestSelectorProps$JsMap(JsBackedMap backingMap)
+  _$$TestSelectorProps$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -195,16 +217,18 @@ final UiFactoryConfig<_$$TestConnectProps> $TestConnectMapViewConfig =
 abstract class _$$TestConnectProps extends UiProps
     with
         TestSelectorProps,
-        $TestSelectorProps, // If this generated mixin is undefined, it's likely because TestSelectorProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestSelectorProps, and check that $TestSelectorProps is exported/imported properly.
+        // If this generated mixin is undefined, it's likely because TestSelectorProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestSelectorProps, and check that $TestSelectorProps is exported/imported properly.
+        $TestSelectorProps,
         TestConnectPropsMixin,
-        $TestConnectPropsMixin // If this generated mixin is undefined, it's likely because TestConnectPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestConnectPropsMixin, and check that $TestConnectPropsMixin is exported/imported properly.
+        // If this generated mixin is undefined, it's likely because TestConnectPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestConnectPropsMixin, and check that $TestConnectPropsMixin is exported/imported properly.
+        $TestConnectPropsMixin
     implements
         TestConnectProps {
   _$$TestConnectProps._();
 
-  factory _$$TestConnectProps(Map backingMap) {
+  factory _$$TestConnectProps(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestConnectProps$JsMap(backingMap as JsBackedMap);
+      return _$$TestConnectProps$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$TestConnectProps$PlainMap(backingMap);
     }
@@ -225,7 +249,16 @@ abstract class _$$TestConnectProps extends UiProps
         // If this generated mixin is undefined, it's likely because TestConnectPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestConnectPropsMixin, and check that $TestConnectPropsMixin is exported/imported properly.
         TestConnectPropsMixin: $TestConnectPropsMixin.meta,
       });
+
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$TestConnectProps(
+          accessMap, (map) => _$$TestConnectProps(map));
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$TestConnectProps = getPropKey;
 
 // Concrete props implementation that can be backed by any [Map].
 @Deprecated('This API is for use only within generated code.'
@@ -233,7 +266,7 @@ abstract class _$$TestConnectProps extends UiProps
 class _$$TestConnectProps$PlainMap extends _$$TestConnectProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestConnectProps$PlainMap(Map backingMap)
+  _$$TestConnectProps$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -252,7 +285,7 @@ class _$$TestConnectProps$PlainMap extends _$$TestConnectProps {
 class _$$TestConnectProps$JsMap extends _$$TestConnectProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestConnectProps$JsMap(JsBackedMap backingMap)
+  _$$TestConnectProps$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();

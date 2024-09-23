@@ -59,7 +59,7 @@ class PseudoStaticLifecycleDiagnostic extends DiagnosticContributor {
   computeErrors(result, collector) async {
     // This is the return type even if it's not explicitly declared.
     final visitor = LifecycleMethodVisitor();
-    result.unit!.accept(visitor);
+    result.unit.accept(visitor);
 
     for (final reference in visitor.nonStaticReferences) {
       if (reference is SimpleIdentifier && allowedInstanceMembers.contains(reference.name)) {
@@ -73,7 +73,7 @@ class PseudoStaticLifecycleDiagnostic extends DiagnosticContributor {
       if (reference is SuperExpression || reference is ThisExpression) {
         final parent = reference.parent;
         if (parent is MethodInvocation) {
-          if (parent.methodName.name == enclosingMethodName.name) {
+          if (parent.methodName.name == enclosingMethodName.lexeme) {
             // Ignore super-calls to same method
             continue;
           } else {
@@ -82,7 +82,7 @@ class PseudoStaticLifecycleDiagnostic extends DiagnosticContributor {
             end = parent.methodName.end;
           }
         } else if (parent is PropertyAccess) {
-          if (parent.propertyName.name == enclosingMethodName.name) {
+          if (parent.propertyName.name == enclosingMethodName.lexeme) {
             // Ignore super-calls to same getter
             continue;
           } else {
@@ -99,7 +99,7 @@ class PseudoStaticLifecycleDiagnostic extends DiagnosticContributor {
       collector.addError(
         code,
         result.location(offset: offset, end: end),
-        errorMessageArgs: [enclosingMethodName.name],
+        errorMessageArgs: [enclosingMethodName.lexeme],
       );
     }
   }
@@ -115,17 +115,17 @@ class LifecycleMethodVisitor extends GeneralizingAstVisitor<void> {
 
   @override
   void visitMixinDeclaration(MixinDeclaration node) {
-    visitClassOrMixinDeclaration(node);
+    visitClassOrMixinDeclaration(node, node.members);
   }
 
   @override
   void visitClassDeclaration(ClassDeclaration node) {
-    visitClassOrMixinDeclaration(node);
+    visitClassOrMixinDeclaration(node, node.members);
   }
 
-  void visitClassOrMixinDeclaration(ClassOrMixinDeclaration node) {
-    for (final member in node.members) {
-      if (member is MethodDeclaration && staticMethodNames.contains(member.name.name)) {
+  void visitClassOrMixinDeclaration(NamedCompilationUnitMember node, List<ClassMember> members) {
+    for (final member in members) {
+      if (member is MethodDeclaration && staticMethodNames.contains(member.name.lexeme)) {
         final visitor = ReferenceVisitor();
         member.body.accept(visitor);
         nonStaticReferences.addAll(visitor.nonStaticReferences);

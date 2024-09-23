@@ -19,19 +19,19 @@ class AnalyzerDebugHelper {
     AnalysisErrorType.STATIC_WARNING,
   );
 
+  /// Logs a debug message at a given location.
+  ///
+  /// [computeMessage] and [computeLocation] are only called when [enabled],
+  /// allowing potentially expensive computations to be easily skipped when they're not needed.
+  ///
   /// Usage:
   ///     final debug = AnalyzerDebugHelper(result, collector);
-  ///     debug.log('message');
-  void log(String message) {
+  ///     debug.log2(() => 'message', () => result.locationFor(node));
+  void log(String Function() computeMessage, [Location Function()? computeLocation]) {
     if (!enabled) return;
-    collector.addError(code, Location(result.path!, 0, 0, 1, 1, 1, 1), errorMessageArgs: [message]);
-  }
 
-  /// Usage:
-  ///     final debug = AnalyzerDebugHelper(result, collector);
-  ///     debug.log('message', result.locationFor(node));
-  void logWithLocation(String message, Location location) {
-    if (!enabled) return;
+    final message = computeMessage();
+    final location = computeLocation != null ? computeLocation() : Location(result.path, 0, 0, 1, 1);
     collector.addError(code, location, errorMessageArgs: [message]);
   }
 }

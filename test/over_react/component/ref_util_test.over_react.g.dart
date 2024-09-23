@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators, invalid_use_of_visible_for_overriding_member
 part of 'ref_util_test.dart';
 
 // **************************************************************************
@@ -20,7 +20,7 @@ final $BasicComponentFactory = registerComponent2(
   parentType: null,
 );
 
-_$$BasicProps _$Basic([Map backingProps]) => backingProps == null
+_$$BasicProps _$Basic([Map? backingProps]) => backingProps == null
     ? _$$BasicProps$JsMap(JsBackedMap())
     : _$$BasicProps(backingProps);
 
@@ -32,13 +32,13 @@ _$$BasicProps _$Basic([Map backingProps]) => backingProps == null
 abstract class _$$BasicProps extends UiProps
     with
         BasicProps,
-        $BasicProps // If this generated mixin is undefined, it's likely because BasicProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of BasicProps, and check that $BasicProps is exported/imported properly.
-{
+        // If this generated mixin is undefined, it's likely because BasicProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of BasicProps, and check that $BasicProps is exported/imported properly.
+        $BasicProps {
   _$$BasicProps._();
 
-  factory _$$BasicProps(Map backingMap) {
+  factory _$$BasicProps(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$BasicProps$JsMap(backingMap as JsBackedMap);
+      return _$$BasicProps$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$BasicProps$PlainMap(backingMap);
     }
@@ -62,7 +62,15 @@ abstract class _$$BasicProps extends UiProps
         // If this generated mixin is undefined, it's likely because BasicProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of BasicProps, and check that $BasicProps is exported/imported properly.
         BasicProps: $BasicProps.meta,
       });
+
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$BasicProps(accessMap, (map) => _$$BasicProps(map));
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$BasicProps = getPropKey;
 
 // Concrete props implementation that can be backed by any [Map].
 @Deprecated('This API is for use only within generated code.'
@@ -70,7 +78,7 @@ abstract class _$$BasicProps extends UiProps
 class _$$BasicProps$PlainMap extends _$$BasicProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$BasicProps$PlainMap(Map backingMap)
+  _$$BasicProps$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -89,7 +97,7 @@ class _$$BasicProps$PlainMap extends _$$BasicProps {
 class _$$BasicProps$JsMap extends _$$BasicProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$BasicProps$JsMap(JsBackedMap backingMap)
+  _$$BasicProps$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -108,7 +116,7 @@ class _$$BasicProps$JsMap extends _$$BasicProps {
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
 class _$BasicComponent extends BasicComponent {
-  _$$BasicProps$JsMap _cachedTypedProps;
+  late _$$BasicProps$JsMap _cachedTypedProps;
 
   @override
   _$$BasicProps$JsMap get props => _cachedTypedProps;
@@ -128,11 +136,11 @@ class _$BasicComponent extends BasicComponent {
   }
 
   @override
-  _$$BasicProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
+  _$$BasicProps$JsMap typedPropsFactoryJs(JsBackedMap? backingMap) =>
       _$$BasicProps$JsMap(backingMap);
 
   @override
-  _$$BasicProps typedPropsFactory(Map backingMap) => _$$BasicProps(backingMap);
+  _$$BasicProps typedPropsFactory(Map? backingMap) => _$$BasicProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -160,9 +168,9 @@ class _$BasicComponent extends BasicComponent {
 mixin $BasicProps on BasicProps {
   static const PropsMeta meta = _$metaForBasicProps;
   @override
-  String get childId => (props[_$key__childId__BasicProps] ?? null) as String;
+  String? get childId => (props[_$key__childId__BasicProps] ?? null) as String?;
   @override
-  set childId(String value) => props[_$key__childId__BasicProps] = value;
+  set childId(String? value) => props[_$key__childId__BasicProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__childId__BasicProps =
       PropDescriptor(_$key__childId__BasicProps);
@@ -170,6 +178,12 @@ mixin $BasicProps on BasicProps {
 
   static const List<PropDescriptor> $props = [_$prop__childId__BasicProps];
   static const List<String> $propKeys = [_$key__childId__BasicProps];
+
+  @override
+  @UiProps.$mustCallSuper
+  void validateRequiredProps() {
+    super.validateRequiredProps();
+  }
 }
 
 @Deprecated('This API is for use only within generated code.'
@@ -189,6 +203,12 @@ mixin $BasicUiFunctionProps on BasicUiFunctionProps {
 
   static const List<PropDescriptor> $props = [];
   static const List<String> $propKeys = [];
+
+  @override
+  @UiProps.$mustCallSuper
+  void validateRequiredProps() {
+    super.validateRequiredProps();
+  }
 }
 
 @Deprecated('This API is for use only within generated code.'
@@ -220,13 +240,13 @@ final UiFactoryConfig<_$$BasicUiFunctionProps> $BasicUiFunctionConfig =
 abstract class _$$BasicUiFunctionProps extends UiProps
     with
         BasicUiFunctionProps,
-        $BasicUiFunctionProps // If this generated mixin is undefined, it's likely because BasicUiFunctionProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of BasicUiFunctionProps, and check that $BasicUiFunctionProps is exported/imported properly.
-{
+        // If this generated mixin is undefined, it's likely because BasicUiFunctionProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of BasicUiFunctionProps, and check that $BasicUiFunctionProps is exported/imported properly.
+        $BasicUiFunctionProps {
   _$$BasicUiFunctionProps._();
 
-  factory _$$BasicUiFunctionProps(Map backingMap) {
+  factory _$$BasicUiFunctionProps(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$BasicUiFunctionProps$JsMap(backingMap as JsBackedMap);
+      return _$$BasicUiFunctionProps$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$BasicUiFunctionProps$PlainMap(backingMap);
     }
@@ -245,7 +265,16 @@ abstract class _$$BasicUiFunctionProps extends UiProps
         // If this generated mixin is undefined, it's likely because BasicUiFunctionProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of BasicUiFunctionProps, and check that $BasicUiFunctionProps is exported/imported properly.
         BasicUiFunctionProps: $BasicUiFunctionProps.meta,
       });
+
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$BasicUiFunctionProps(
+          accessMap, (map) => _$$BasicUiFunctionProps(map));
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$BasicUiFunctionProps = getPropKey;
 
 // Concrete props implementation that can be backed by any [Map].
 @Deprecated('This API is for use only within generated code.'
@@ -253,7 +282,7 @@ abstract class _$$BasicUiFunctionProps extends UiProps
 class _$$BasicUiFunctionProps$PlainMap extends _$$BasicUiFunctionProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$BasicUiFunctionProps$PlainMap(Map backingMap)
+  _$$BasicUiFunctionProps$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -272,7 +301,7 @@ class _$$BasicUiFunctionProps$PlainMap extends _$$BasicUiFunctionProps {
 class _$$BasicUiFunctionProps$JsMap extends _$$BasicUiFunctionProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$BasicUiFunctionProps$JsMap(JsBackedMap backingMap)
+  _$$BasicUiFunctionProps$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -307,14 +336,15 @@ final UiFactoryConfig<_$$SecondaryBasicUiFunctionProps>
 abstract class _$$SecondaryBasicUiFunctionProps extends UiProps
     with
         BasicUiFunctionProps,
-        $BasicUiFunctionProps // If this generated mixin is undefined, it's likely because BasicUiFunctionProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of BasicUiFunctionProps, and check that $BasicUiFunctionProps is exported/imported properly.
+        // If this generated mixin is undefined, it's likely because BasicUiFunctionProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of BasicUiFunctionProps, and check that $BasicUiFunctionProps is exported/imported properly.
+        $BasicUiFunctionProps
     implements
         SecondaryBasicUiFunctionProps {
   _$$SecondaryBasicUiFunctionProps._();
 
-  factory _$$SecondaryBasicUiFunctionProps(Map backingMap) {
+  factory _$$SecondaryBasicUiFunctionProps(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$SecondaryBasicUiFunctionProps$JsMap(backingMap as JsBackedMap);
+      return _$$SecondaryBasicUiFunctionProps$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$SecondaryBasicUiFunctionProps$PlainMap(backingMap);
     }
@@ -333,7 +363,16 @@ abstract class _$$SecondaryBasicUiFunctionProps extends UiProps
         // If this generated mixin is undefined, it's likely because BasicUiFunctionProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of BasicUiFunctionProps, and check that $BasicUiFunctionProps is exported/imported properly.
         BasicUiFunctionProps: $BasicUiFunctionProps.meta,
       });
+
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$SecondaryBasicUiFunctionProps(
+          accessMap, (map) => _$$SecondaryBasicUiFunctionProps(map));
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$SecondaryBasicUiFunctionProps = getPropKey;
 
 // Concrete props implementation that can be backed by any [Map].
 @Deprecated('This API is for use only within generated code.'
@@ -342,7 +381,7 @@ class _$$SecondaryBasicUiFunctionProps$PlainMap
     extends _$$SecondaryBasicUiFunctionProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$SecondaryBasicUiFunctionProps$PlainMap(Map backingMap)
+  _$$SecondaryBasicUiFunctionProps$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -362,7 +401,7 @@ class _$$SecondaryBasicUiFunctionProps$JsMap
     extends _$$SecondaryBasicUiFunctionProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$SecondaryBasicUiFunctionProps$JsMap(JsBackedMap backingMap)
+  _$$SecondaryBasicUiFunctionProps$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();

@@ -51,47 +51,33 @@ class CssValue implements Comparable<CssValue> {
   ///     20
   ///     '1.25em'
   ///     '-15%'
-  factory CssValue.parse(dynamic source, {CssValue Function(dynamic value, dynamic error) onError}) {
-    num number;
-    String unit;
+  static CssValue? parse(dynamic source, {CssValue? Function(dynamic value, dynamic error)? onError}) {
+    CssValue? handleError(Error error) => onError?.call(source, error);
 
-    ArgumentError error;
+    if (source == null) return handleError(ArgumentError.notNull('value'));
 
-    if (source == null) {
-      error = ArgumentError.notNull('value');
-    } else if (source is num) {
+    final num number;
+    final String unit;
+    if (source is num) {
       number = source;
       unit = 'px';
     } else {
-      var unitMatch = RegExp(r'(?:rem|em|ex|vh|vw|vmin|vmax|%|px|cm|mm|in|pt|pc|ch)?$').firstMatch(source.toString());
-        unit = unitMatch.group(0);
-      if (unit == '') {
-        unit = 'px';
-      }
+      var unitMatch = RegExp(r'(?:rem|em|ex|vh|vw|vmin|vmax|%|px|cm|mm|in|pt|pc|ch)?$').firstMatch(source.toString())!;
+      final parsedUnit = unitMatch.group(0)!;
+      unit = parsedUnit.isNotEmpty ? parsedUnit : 'px';
 
-      number = double.tryParse(unitMatch.input.substring(0, unitMatch.start));
-      if (number == null) {
-        error = ArgumentError.value(source, 'value', 'Invalid number/unit for CSS value');
+      final parsedNumber = double.tryParse(unitMatch.input.substring(0, unitMatch.start));
+      if (parsedNumber == null) {
+        return handleError(ArgumentError.value(source, 'value', 'Invalid number/unit for CSS value'));
       }
+      number = parsedNumber;
     }
-
-    if (number != null && !number.isFinite) {
+    if (!number.isFinite) {
       // Rule out -Infinity, Infinity, and NaN.
-      error = ArgumentError.value(number, 'value', 'Number portion of CSS value ($source) must be finite');
+      return handleError(ArgumentError.value(number, 'value', 'Number portion of CSS value ($source) must be finite'));
     }
 
-    CssValue result;
-    if (error != null) {
-      if (onError == null) {
-        result = null;
-      } else {
-        result = onError(source, error);
-      }
-    } else {
-      result = CssValue(number, unit);
-    }
-
-    return result;
+    return CssValue(number, unit);
   }
 
   /// Throws an error if this value's [unit] does not match that of [other].

@@ -1,0 +1,4 @@
+exclude:
+  - app/**
+  - tools/**
+allow_pins: true

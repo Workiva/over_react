@@ -34,17 +34,17 @@ This library also exposes _OverReact Redux_, which has [its own documentation](d
 
 ## Migration Guides
 
-### UiComponent2 / Component Boilerplate Migration
+### Null safety
+over_react 5.0.0 introduces support for null safety. 
 
-__There have been a lot of fantastic [improvements in this library recently](https://pub.dev/packages/over_react#-changelog-tab-)__, all of which require some action on your part if you have existing components built prior to the `3.1.0` release of OverReact.  __We've done everything we can to make the migrations as painless as possible__ - with the vast majority of changes being handled by some codemod scripts you can run in your libraries locally. As always, if you encounter issues while working through the migration, you can reach out to us in [our gitter chat](https://gitter.im/over_react/Lobby), or [open a new issue][new-issue].
+Now, you can declare non-nullable required props, using the `late` keyword. See [the docs null safety and required props](./doc/null_safety_and_required_props.md) for more information.
 
-__First, you should upgrade your components to `UiComponent2`__. Check out the [`UiComponent2` Migration Guide](doc/ui_component2_transition.md) to learn about the benefits of `UiComponent2`, the codemod script you can run, and other updates you may need to make manually.
-
-__Once you have migrated your components to `UiComponent2`__, you're ready to start using the "v3" component boilerplate - which is a _massive_ quality of life improvement for component authors! Check out the [Component Boilerplate Migration Guide](doc/new_boilerplate_migration.md) to learn about the benefits of the new boilerplate, the codemod script you can run, and other updates you may need to make manually.
+To migrate components to null safety, see our [__null safety migration guide__](doc/null_safety/null_safe_migration.md).
 
 ### More Migration Guides
-
-- [__BuiltRedux to Redux__](doc/built_redux_to_redux.md): A guide to transitioning to OverReact Redux from BuiltRedux.
+- [__New component boilerplate__](doc/new_boilerplate_migration.md): How to update to the mixin-based (`mixin MyProps on UiProps {}`) over_react component declaration syntax.
+- [__UiComponent2__](doc/ui_component2_transition.md): How to move off the deprecated `UiComponent` base class and onto `UiComponent2`. 
+- [__BuiltRedux to Redux__](doc/built_redux_to_redux.md): How to transition to OverReact Redux from BuiltRedux.
 - [__Flux to Redux__](doc/flux_to_redux.md): A guide to how to transition from w_flux to OverReact Redux. This guide also introduces a new architecture, Influx, that can be used for incremental refactors.
 - [__Dart2 Migration__](doc/dart2_migration.md): Documentation on the Dart 2 builder updates and how to transition componentry to Dart 2.
 
@@ -172,18 +172,22 @@ via our [builder].
 
 1. [UiFactory](#uifactory)
 2. [UiProps](#uiprops)
-3. _[UiState](#uistate) (optional)_
-4. [UiComponent2](#uicomponent2)
+3. component, either a:
+    1. function component [uiFunction](#uifunction-function-components)
+    2. class component [UiComponent2](#uicomponent2-class-based-components) (and optionally a [UiState](#uistate))  
 
 &nbsp;
 
 ### UiFactory
 
-__`UiFactory` is a function__ that returns a new instance of a
-[`UiComponent2`](#uicomponent2)’s [`UiProps`](#uiprops) class.
+__`UiFactory` is a function__ that returns a new instance of a component's [`UiProps`](#uiprops) class.
 
 ```dart
-UiFactory<FooProps> Foo = castUiFactory(_$Foo); // ignore: undefined_identifier
+// Class component
+UiFactory<FooProps> Foo = castUiFactory(_$Foo);
+
+// Function component
+UiFactory<FooProps> Foo = uiFunction((props) { /*...*/ }, _$FooConfig);
 ```
 
 * This factory is __the entry-point__ to consuming any OverReact component.
@@ -201,9 +205,9 @@ It can also be invoked as a function, serving [as a builder](#uiprops-as-a-build
 ```dart
 mixin FooProps on UiProps {
   // ... the props for your component go here
-  String bar;
-  bool baz;
-  List<int> bizzles;
+  String? bar;
+  bool? baz;
+  List<int>? bizzles;
 }
 ```
 * * **Note:** The [builder] generates a class with getters and setters overriding the fields you declare in your mixin, but you don't need to worry about that generated class. To use props from another mixin, simply mix it in! See [_"With other mixins"_](#with-other-mixins) below for more information.
@@ -218,9 +222,9 @@ __To compose props mixin classes__, create a class alias that uses `UiProps` as 
 UiFactory<FooProps> Foo = castUiFactory(_$Foo); // ignore: undefined_identifier
 
 mixin FooPropsMixin on UiProps {
-  String bar;
-  bool baz;
-  List<int> bizzles;
+  String? bar;
+  bool? baz;
+  List<int>? bizzles;
 }
 
 class FooProps = UiProps with FooPropsMixin, BarPropsMixin;
@@ -239,11 +243,17 @@ The use-case for composing multiple props mixins into a single component props c
 
 #### UiProps as a Map
 
+> [!WARNING]
+> Directly reading `late` required props on arbitrary maps is unsafe.
+> 
+> See the docs on [Unsafe Required Prop Reads](doc/null_safety_and_required_props.md#unsafe-required-prop-reads) 
+> for more information and for instructions on how to read these props safely.
+
 ```dart
 UiFactory<FooProps> Foo = castUiFactory(_$Foo); // ignore: undefined_identifier
 
 mixin FooProps on UiProps {
-  String color;
+  String? color;
 }
 
 class FooComponent extends UiComponent2<FooProps> {
@@ -278,7 +288,7 @@ void baz() {
 UiFactory<FooProps> Foo = castUiFactory(_$Foo); // ignore: undefined_identifier
 
 mixin FooProps on UiProps {
-  String color;
+  String? color;
 }
 
 class FooComponent extends UiComponent2<FooProps> {
@@ -316,7 +326,7 @@ class FooComponent extends UiComponent2<FooProps> {
 ### UiState
 
 __`UiState` is a `Map` class__ _(just like `UiProps`)_ that adds statically-typed getters and setters
-for each React component state property.
+for each React component state property in a class component.
 
 ```dart
 mixin FooState on UiState {
@@ -330,7 +340,7 @@ mixin FooState on UiState {
 
 &nbsp;
 
-### UiComponent2
+### UiComponent2 (class-based components)
 > For guidance on updating to `UiComponent2` from `UiComponent`, check out the [UiComponent2 Migration Guide](doc/ui_component2_transition.md).
 
 __`UiComponent2` is a subclass of [`react.Component2`][react.Component2]__, containing lifecycle methods and rendering logic for components.
@@ -346,6 +356,34 @@ class FooComponent extends UiComponent2<FooProps> {
 
 &nbsp;
 
+### uiFunction (function components)
+__`uiFunction` lets you declare a function component__. 
+
+In JavaScript, function components are just plain functions, but in over_react this wrapper is needed to perform JS interop and wire up the typed props class.
+
+```dart
+mixin FooProps on UiProps {
+  bool? isDisabled;
+  List? items;
+}
+
+UiFactory<FooProps> Foo = uiFunction((props) {
+  // Set default props using null-aware operators.
+  final isDisabled = props.isDisabled ?? false;
+  final items = props.items ?? [];
+
+  // Return the rendered component contents here.
+  return Fragment()(
+    Dom.div()(items),
+    (Dom.button()..disabled = isDisabled)('Click me!'),
+  );
+}, _$FooConfig); // The generated props config will match the factory name.
+
+usageExample() => (Foo()..items = ['bar'])();
+```
+
+&nbsp;
+
 #### Accessing and manipulating props / state within UiComponent2
 
 * Within the `UiComponent2` class, `props` and `state` are not just `Map`s.
@@ -357,12 +395,12 @@ They are instances of `UiProps` and `UiState`, __which means you don’t need St
 UiFactory<FooProps> Foo = castUiFactory(_$Foo); // ignore: undefined_identifier
 
 mixin FooProps on UiProps {
-  String color;
-  Function() onDidActivate;
-  Function() onDidDeactivate;
+  late String color;
+  Function()? onDidActivate;
+  Function()? onDidDeactivate;
 }
 mixin FooState on UiState {
-  bool isActive;
+  late bool isActive;
 }
 
 class FooComponent extends UiStatefulComponent2<FooProps, FooState> {
@@ -746,8 +784,8 @@ that you get for free from OverReact, you're ready to start building your own cu
 
     mixin FooProps on UiProps {
       // Props go here, declared as fields:
-      bool isDisabled;
-      Iterable<String> items;
+      late bool isDisabled;
+      late Iterable<String> items;
     }
 
     class FooComponent extends UiComponent2<FooProps> {
@@ -776,13 +814,13 @@ that you get for free from OverReact, you're ready to start building your own cu
 
     mixin BarProps on UiProps {
       // Props go here, declared as fields:
-      bool isDisabled;
-      Iterable<String> items;
+      late bool isDisabled;
+      late Iterable<String> items;
     }
 
     mixin BarState on UiState {
       // State goes here, declared as fields:
-      bool isShown;
+      late bool isShown;
     }
 
     class BarComponent extends UiStatefulComponent2<BarProps, BarState> {
@@ -832,8 +870,8 @@ that you get for free from OverReact, you're ready to start building your own cu
 
   mixin FooProps on UiProps {
     // Props go here, declared as fields:
-    bool isDisabled;
-    Iterable<String> items;
+    bool? isDisabled;
+    Iterable<String>? items;
   }
   ```
 
@@ -1029,3 +1067,5 @@ The `over_react` library adheres to [Semantic Versioning](https://semver.org/):
 
 [new-issue]: https://github.com/Workiva/over_react/issues/new
 [gitter-chat]: https://gitter.im/over_react/Lobby
+
+[analyzer-plugin]: tools/analyzer_plugin/

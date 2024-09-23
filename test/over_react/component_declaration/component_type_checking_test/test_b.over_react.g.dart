@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators, invalid_use_of_visible_for_overriding_member
 part of 'test_b.dart';
 
 // **************************************************************************
@@ -37,7 +37,7 @@ class TestBProps extends _$TestBProps with _$TestBPropsAccessorsMixin {
   static const PropsMeta meta = _$metaForTestBProps;
 }
 
-_$$TestBProps _$TestB([Map backingProps]) => _$$TestBProps(backingProps);
+_$$TestBProps _$TestB([Map? backingProps]) => _$$TestBProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -47,7 +47,7 @@ class _$$TestBProps extends _$TestBProps
     implements TestBProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestBProps(Map backingMap) : this._props = {} {
+  _$$TestBProps(Map? backingMap) : this._props = {} {
     this._props = backingMap ?? {};
   }
 
@@ -68,7 +68,15 @@ class _$$TestBProps extends _$TestBProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'TestBProps.';
+
+  @override
+  String $getPropKey(void Function(Map m) accessMap) =>
+      _$getPropKey$_$$TestBProps(accessMap, (map) => _$$TestBProps(map));
 }
+
+/// An alias for [getPropKey] so it can be referenced within the props class impl
+/// without being shadowed by the `getPropKey` instance extension member.
+const _$getPropKey$_$$TestBProps = getPropKey;
 
 // Concrete component implementation mixin.
 //
@@ -76,7 +84,7 @@ class _$$TestBProps extends _$TestBProps
 // generated for the associated props class.
 class _$TestBComponent extends TestBComponent {
   @override
-  _$$TestBProps typedPropsFactory(Map backingMap) => _$$TestBProps(backingMap);
+  _$$TestBProps typedPropsFactory(Map? backingMap) => _$$TestBProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override

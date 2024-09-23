@@ -28,6 +28,7 @@ A Dart wrapper for React Redux, providing targeted state updates.
   - [useStore](#usestore)
 - **[Using Multiple Stores](#using-multiple-stores)**
 - **[Using Redux DevTools](#using-redux-devtools)**
+  - [Integrating with DevTools](#integration-with-devtools)
 
 ## Purpose
 
@@ -178,6 +179,24 @@ UiFactory<CounterProps> Counter = connect<CounterState, CounterProps>(
     ..increment = (() => dispatch(IncrementAction()))
   ),
 )(_$Counter);
+```
+
+Note that any required props assigned in connect must have their validation disabled; see docs [here](./null_safety_and_required_props.md#disabling-validation-use-case-connect)
+for more info. 
+
+For example:
+```dart
+mixin CounterPropsMixin on UiProps {
+  // Set in connect.
+  late int count;
+  late void Function() increment;
+  
+  // Must be set by consumers of the connected compoennt.
+  late String requiredByConsumer;
+}
+
+@Props(disableRequiredPropValidation: {'count', 'increment'})
+class CounterProps = UiProps with CounterPropsMixin, OtherPropsMixin;
 ```
 
 ### `connect` Parameters
@@ -648,3 +667,68 @@ Redux DevTools can be set up easily by adding only a few lines of code.
    - Firefox: https://addons.mozilla.org/en-US/firefox/addon/reduxdevtools/
 
 You can run your code and open the devtools in your browser!
+
+`overReactReduxDevToolsMiddlewareFactory` is also available to pass [options](https://github.com/reduxjs/redux-devtools/blob/main/extension/docs/API/Arguments.md) into the initialization of the redux dev tools.
+
+```dart
+var store = new DevToolsStore<AppState>(
+  /*ReducerName*/,
+  initialState: /*Default App State Object*/,
+  middleware: [overReactReduxDevToolsMiddlewareFactory(name: 'Some Custom Instance Name')],
+)
+```
+
+### Integration With DevTools
+
+In order to display the properties of Dart based `Action`s and `State` in the DevTools they must implement a `toJson` method. 
+
+`toJson` can be manually added to the classes, or added with the help of something like the [json_serializable](https://pub.dev/packages/json_serializable) or [built_value](https://pub.dev/packages/built_value) and its serializers. In the event that a value is not directly encodeable to `json`, we will make an attempt to call `toJson` on the value.
+
+State Example:
+```dart
+class FooState {
+  bool foo = true;
+  
+  Map<String, dynamic> toJson() => {'foo':foo};
+}
+```
+
+When converted, the result of `toJson` will be used to present the entire state.
+```json lines
+{
+  "foo": true
+}
+```
+
+Action Example:
+```dart
+class FooAction {
+  bool foo = false;
+  
+  Map<String, dynamic> toJson() => {'foo':foo};
+}
+```
+
+When converted, the class name will be the `type` property and `toJson` will become the `payload`
+```json lines
+{
+  "type": "FooAction",
+  "payload": {
+    "foo": false
+  }
+}
+```
+
+Action (Enum) Example:
+```dart
+enum FooAction {
+  ACTION_1,
+  ACTION_2,
+}
+```
+When an enum `Action` is used the value of the action in the enum will be used
+```json lines
+{"type": "ACTION_1"}
+```
+
+For a more encoding details check out the [redux_remote_devtools](https://pub.dev/packages/redux_remote_devtools)

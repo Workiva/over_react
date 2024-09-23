@@ -59,6 +59,7 @@ class ReferenceVisitor extends RecursiveAstVisitor<void> {
 bool referencesImplicitThis(SimpleIdentifier identifier) {
   // prepare element
   final element = identifier.staticElement;
+  if (element == null) return false;
   if (!(element is MethodElement || element is PropertyAccessorElement)) {
     return false;
   }
@@ -69,7 +70,7 @@ bool referencesImplicitThis(SimpleIdentifier identifier) {
   }
   // not a class member
   final Element? enclosingElement = element.enclosingElement;
-  if (enclosingElement is! ClassElement) {
+  if (enclosingElement is! InterfaceOrAugmentationElement) {
     return false;
   }
   // comment

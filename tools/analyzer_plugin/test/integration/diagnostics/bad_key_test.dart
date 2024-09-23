@@ -1,4 +1,3 @@
-// @dart=2.9
 // ignore_for_file: camel_case_types
 import 'dart:async';
 
@@ -23,30 +22,31 @@ abstract class BadKeyDiagnosticTest extends DiagnosticTestBase {
   @override
   get fixKindUnderTest => null;
 
-  Source newSourceWithPrefix(String sourceFragment) => newSource('test.dart', sourcePrefix + sourceFragment);
+  Source newSourceWithPrefix(String sourceFragment) => newSource(sourcePrefix + sourceFragment);
 
   static const sourcePrefix = /*language=dart*/ r'''
 import 'package:over_react/over_react.dart';
 
-MyModel modelVar;
-MyModelWithCustomToString modelVarWithCustomToString;
+MyModel modelVar = MyModel();
+MyModelWithCustomToString modelVarWithCustomToString = MyModelWithCustomToString();
 
-Object objectVar;
+Object? objectVar;
 dynamic dynamicVar;
 
-// ignore: missing_return
-String deriveKeyFrom(Object object) {}
+String deriveKeyFrom(Object object) => '';
 
 class MyModel {
-  int id;
+  int? id;
 }
 
 class MyModelWithCustomToString {
-  int id;
+  int? id;
 
   @override
   toString() => '$id';
 }
+
+enum AnEnum { foo }
 ''';
 }
 
@@ -57,9 +57,13 @@ class BadKeyDiagnosticTest_NoErrors extends BadKeyDiagnosticTest {
 
   Future<void> test_noErrors() async {
     final source = newSourceWithPrefix(/*language=dart*/ r'''
-      test() => [
+      test(num aNum, int anInt, double aDouble) => [
         (Dom.div()..key = 'a string')(),
+        (Dom.div()..key = AnEnum.foo)(),
         (Dom.div()..key = 122)(),
+        (Dom.div()..key = aNum)(),
+        (Dom.div()..key = anInt)(),
+        (Dom.div()..key = aDouble)(),
         (Dom.div()..key = modelVar.id)(),
         (Dom.div()..key = modelVarWithCustomToString)(),
         (Dom.div()..key = deriveKeyFrom(modelVar))(),
@@ -78,6 +82,7 @@ class BadKeyDiagnosticTest_NoErrors extends BadKeyDiagnosticTest {
         (Dom.div()..key = 'greg')(),
         // Missing RHS
         (Dom.div()..key = )(),
+        (Dom.div()..key = undefinedVariable)(),
         // Missing interpolated expression
         (Dom.div()..key = '${}')(),
         // Weird type 
@@ -90,6 +95,7 @@ class BadKeyDiagnosticTest_NoErrors extends BadKeyDiagnosticTest {
         unorderedEquals(<dynamic>[
           isA<AnalysisError>().havingCode('missing_identifier'),
           isA<AnalysisError>().havingCode('missing_identifier'),
+          isA<AnalysisError>().havingCode('undefined_identifier'),
           isA<AnalysisError>().havingCode('use_of_void_result'),
         ]),
         reason: 'should only have the Dart analysis errors we expect');
