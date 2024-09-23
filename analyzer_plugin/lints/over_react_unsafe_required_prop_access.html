@@ -1,0 +1,102 @@
+<!doctype html>
+<html>
+   <head>
+      <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<title>over_react_unsafe_required_prop_access</title>
+<link rel="stylesheet" href="../stylesheets/styles.css">
+<link rel="stylesheet" href="../stylesheets/pygment_trac.css">
+<script src="../javascripts/scale.fix.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<!--[if lt IE 9]>
+<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+   </head>
+   <body>
+      <div class="wrapper">
+         <header>
+            <h1>over_react_unsafe_required_prop_access</h1>
+            <p>Severity: AnalysisErrorSeverity.WARNING</p>
+  
+            <p>Maturity: <span style="color:hotpink;font-weight:bold;" >experimental</span></p>
+            <p style="padding-bottom: 10px;">Since 1.0.0</p>
+            <!--getBadges(name)-->
+            <p class="view"><a href="https://github.com/Workiva/over_react/blob/master/tools/analyzer_plugin/">View the Project on GitHub <small>workiva/over_react</small></a></p>
+         </header>
+         <section>
+
+            <p><strong>DO NOT</strong> access required props when they're not guaranteed to be present, since that can cause errors and bad behavior.</p>
+<p>Required props are only validated to be present on props a component was rendered with, and not on other props objects.</p>
+<p>For example, given props:</p>
+<pre><code class="language-dart">mixin FooProps {
+  late int requiredProp;
+}
+
+example() {
+  final props = Foo(); // Create an empty props object.
+   
+  // Throws because the map is empty, and the value `null`
+  // is not an `int`.
+  props.requiredProp;  
+}
+</code></pre>
+<p><strong>DO</strong> use utility methods <code>getRequiredProp</code>, <code>getRequiredPropOrNull</code>, or <code>containsProp</code> checks to safely access the prop.</p>
+<p><strong>GOOD:</strong></p>
+<pre><code class="language-dart">renderFoo([Map? _additionalFooProps]) {
+  final fooProps = Foo({...?_additionalFooProps});
+  
+  // Safe access via `.getRequiredProp`
+  final requiredProp1 = fooProps.getRequiredProp((p) =&gt; p.requiredProp1),
+      orElse: () =&gt; 'custom default');
+      
+  // Safe access via `.getRequiredPropOrNull`
+  final requiredProp2Uppercase = fooProps
+      .getRequiredPropOrNull((p) =&gt; requiredProp2)
+      ?.toUpperCase();
+    
+  // Safe access via if-check with `.containsProp`
+  final otherPropsToAdd = Foo();
+  if (fooProps.containsProp((p) =&gt; p.requiredProp3)) {
+    otherPropsToAdd.aria.label = fooProps.requiredProp3;
+  }
+  
+  // ...
+}
+</code></pre>
+<p><strong>BAD:</strong></p>
+<pre><code class="language-dart">@override
+renderFoo([Map? _additionalFooProps]) {
+  final fooProps = Foo({...?_additionalFooProps});
+  
+  // Unsafe; `.requiredProp1` will throw if it's not present.
+  final requiredProp1 = fooProps.requiredProp1 ?? 'custom default';
+      
+  // Unsafe; `.requiredProp1` will throw if it's not present.
+  // Also, there's a static analysis error because there's a null-aware 
+  // on the non-nullable `requiredProp2`
+  final requiredProp2Uppercase = fooProps.requiredProp2?.toUpperCase();
+    
+  // Unsafe; `.requiredProp3` will throw if it's not present.
+  // Also, there's a static analysis error on the condition because 
+  // the non-nulllable requiredProp3 will always `!= null`.
+  final otherPropsToAdd = Foo();
+  if (fooProps.requiredProp3 != null) {
+    otherPropsToAdd.aria.label = fooProps.requiredProp3;
+  }
+  
+  // ...
+}
+</code></pre>
+
+
+         </section>
+      </div>
+      <footer>
+   <p>Project maintained by <a href="https://workiva.github.io/" target="_blank" rel="noopener noreferrer">Workiva</a></p>
+   <p>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist" target="_blank" rel="noopener noreferrer">orderedlist</a></p>
+</footer>
+<!--[if !IE]><script>fixScale(document);</script><![endif]-->
+
+   </body>
+</html>

@@ -1,0 +1,107 @@
+<!doctype html>
+<html>
+   <head>
+      <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<title>over_react_annotation_required_prop</title>
+<link rel="stylesheet" href="../stylesheets/styles.css">
+<link rel="stylesheet" href="../stylesheets/pygment_trac.css">
+<script src="../javascripts/scale.fix.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<!--[if lt IE 9]>
+<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+   </head>
+   <body>
+      <div class="wrapper">
+         <header>
+            <h1>over_react_annotation_required_prop</h1>
+            <p>Severity: AnalysisErrorSeverity.INFO</p>
+  
+            <p>Maturity: stable</p>
+            <p style="padding-bottom: 10px;">Since 1.0.0</p>
+            <!--getBadges(name)-->
+            <p class="view"><a href="https://github.com/Workiva/over_react/blob/master/tools/analyzer_plugin/">View the Project on GitHub <small>workiva/over_react</small></a></p>
+         </header>
+         <section>
+
+            <p><strong>ALWAYS</strong> provide a value for <code>late</code> required props, either directly or by forwarding props.</p>
+<p>Please see the documentation for <a href="https://github.com/Workiva/over_react/blob/master/doc/null_safety_and_required_props.md">null safety and required props</a>
+for more information on required prop validation, which, in addition to this lint, also includes runtime <code>assert</code>s.</p>
+<p>Those docs also note exceptions to this rule under the <a href="https://github.com/Workiva/over_react/blob/master/doc/null_safety_and_required_props.md#disabling-required-prop-validation-for-certain-props">Disabling required prop validation for certain props</a> 
+section, and include instructions for handling those. One common case where this doesn't apply are "wrapper" components that render another component and set some of its props within its render.</p>
+<h3>Examples:</h3>
+<p>Given the following component with the required prop <code>user</code>:</p>
+<pre><code class="language-dart">mixin UserChipProps on UiProps {
+  late User user;
+  bool? isSelected;
+}
+
+UiFactory&lt;UserChipProps&gt; UserChip = uiFunction((props) {
+  // ...
+}, _$UserChipConfig);
+</code></pre>
+<p>Then whenever UserChip is render, that required prop must always be set by the consumer.</p>
+<p><strong>GOOD:</strong></p>
+<pre><code class="language-dart">    (UserChip()..user = user)()
+</code></pre>
+<p><strong>BAD:</strong></p>
+<pre><code class="language-dart">   UserChip()()
+// ^^^^^^^^^^
+// warning: Missing required late prop 'user' from 'UserChipProps'.
+// (over_react_late_required_prop)
+</code></pre>
+<p>and, that code will also throw a runtime error when asserts are enabled:</p>
+<pre><code>Uncaught Error: RequiredPropsError: Required prop `user` is missing.
+   at Object.throw_ [as throw]
+   at _$$UserChipProps$JsMap.new.validateRequiredProps
+</code></pre>
+<h4>Prop forwarding</h4>
+<p><strong>GOOD:</strong></p>
+<pre><code class="language-dart">mixin CustomUserChipPropsMixin on UiProps {
+  String? color;
+}
+
+class CustomUserChipProps = UiProps with UserChipProps, CustomUserChipPropsMixin;
+
+UiFactory&lt;CustomUserChipProps&gt; CustomUserChip = uiFunction((props) {
+  final color = props.color;
+  
+  return (UserChip()
+    // Required props are correctly forwarded here by the wrapper component 
+    ..addProps(props.getPropsToForward(exclude: {CustomUserChipPropsMixin})
+    ..style = {
+      if (color != null) 'border': '2px solid $color', 
+      ...?props.style,
+    } 
+  )();
+}, _$CustomUserChipConfig);
+</code></pre>
+<p><strong>BAD:</strong></p>
+<pre><code class="language-dart">UiFactory&lt;CustomUserChipProps&gt; CustomUserChip = uiFunction((props) {
+  final color = props.color;
+  
+  // Required props are not forwarded, so we get:
+  //   warning: Missing required late prop 'user' from 'UserChipProps'.
+  //   (over_react_late_required_prop)
+  return (UserChip()
+    ..style = {
+      if (color != null) 'border': '2px solid $color', 
+      ...?props.style,
+    } 
+  )();
+}, _$CustomUserChipConfig);
+</code></pre>
+
+
+         </section>
+      </div>
+      <footer>
+   <p>Project maintained by <a href="https://workiva.github.io/" target="_blank" rel="noopener noreferrer">Workiva</a></p>
+   <p>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist" target="_blank" rel="noopener noreferrer">orderedlist</a></p>
+</footer>
+<!--[if !IE]><script>fixScale(document);</script><![endif]-->
+
+   </body>
+</html>
