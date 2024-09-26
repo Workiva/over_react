@@ -176,24 +176,24 @@ title: Should My Prop Be Required?
 ---
 flowchart TD
   HasDefault== No ==> NotDefaulted
-    NotDefaulted((Is it set for \nevery invocation?))-- No --> End_Optional_No_Public_Api_Check
+    NotDefaulted((Is it set for <br>every invocation?))-- No --> End_Optional_No_Public_Api_Check
     NotDefaulted-- Yes ---> PublicAPICheck
-  HasDefault((Does the prop have \na default value?))== Yes ==> Defaulted
-    Defaulted((Where is the value \ndefaulted?))--> ClassDefault
+  HasDefault((Does the prop have <br>a default value?))== Yes ==> Defaulted
+    Defaulted((Where is the value <br>defaulted?))--> ClassDefault
     Defaulted--> LocalDefault
-      ClassDefault(["defaultProps getter\n(Class Component)"])--> PublicAPICheck
-      LocalDefault(["local var\n(Function Component)"])--> End_Optional_No_Public_Api_Check
+      ClassDefault(["defaultProps getter<br>(Class Component)"])--> PublicAPICheck
+      LocalDefault(["local var<br>(Function Component)"])--> End_Optional_No_Public_Api_Check
 
   subgraph Public API Check
-    PublicAPICheck((Is the prop \npublic API?))-- Yes --> PublicAlwaysSpecified
-      PublicAlwaysSpecified((Is the prop mixed \nin by any other \ncomponent?))-- Yes --> End_Optional
+    PublicAPICheck((Is the prop <br>public API?))-- Yes --> PublicAlwaysSpecified
+      PublicAlwaysSpecified((Is the prop mixed <br>in by any other <br>component?))-- Yes --> End_Optional
       PublicAlwaysSpecified-- No --> End_Required
     PublicAPICheck-- No --> End_Required
   end
 
-  End_Optional_No_Public_Api_Check[/"Make it <strong>optional</strong>\n<code>SomeType? propName;</code>"\]
-  End_Optional[/"Make it <strong>optional</strong>\n<code>SomeType? propName;</code>"\]
-  End_Required[/"Make it <strong>required</strong>\n<code>late SomeType propName;</code>"\]
+  End_Optional_No_Public_Api_Check[/"Make it <strong>optional</strong><br><code>SomeType? propName;</code>"\]
+  End_Optional[/"Make it <strong>optional</strong><br><code>SomeType? propName;</code>"\]
+  End_Required[/"Make it <strong>required</strong><br><code>late SomeType propName;</code>"\]
 ```
 
 ### Wrapper and `connect`ed components and required props
