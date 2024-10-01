@@ -1373,12 +1373,12 @@ extension on TypeMatcher<Context> {
       having((ref) => ref.jsThis, 'jsThis', matcher);
 }
 
-extension on TypeMatcher<Object> {
+extension HavingToStringValue on TypeMatcher<Object> {
   Matcher havingToStringValue(dynamic matcher) =>
       having((o) => o.toString(), 'toString() value', matcher);
 }
 
-extension on TypeMatcher<ReactComponent> {
+extension HavingDartComponent on TypeMatcher<ReactComponent> {
   Matcher havingDartComponent(dynamic matcher) =>
       having((ref) => ref.dartComponent, 'dartComponent', matcher);
 }

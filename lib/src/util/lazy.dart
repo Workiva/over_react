@@ -78,7 +78,7 @@ UiFactory<TProps> lazy<TProps extends UiProps>(
 
   final lazyFactoryProxy = react.lazy(() async {
     final factory = await load();
-    // By using a wrapper uiForwardRef it ensures that we have a matching factory proxy type given to react-dart's lazy,
+    // By using a wrapper uiForwardRef ensures that we have a matching factory proxy type given to react-dart's lazy,
     // a `ReactDartWrappedComponentFactoryProxy`. This is necessary to have consistent prop conversions since we don't
     // have access to the original factory proxy outside of this async block.
     final wrapper = uiForwardRef<TProps>(
@@ -91,8 +91,8 @@ UiFactory<TProps> lazy<TProps extends UiProps>(
             : builder(props.children);
       },
       UiFactoryConfig(
-        propsFactory: PropsFactory.fromUiFactory(factory),
-        displayName: _config.displayName != null ? 'Lazy(${_config.displayName}' : 'LazyComponent'
+        propsFactory: propsFactory,
+        displayName: _config.displayName != null ? 'lazy(${_config.displayName})' : 'lazy(anonymous)'
       ),
     );
     return wrapper().componentFactory!;

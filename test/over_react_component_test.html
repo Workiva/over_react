@@ -24,6 +24,20 @@ limitations under the License.
     <script src="packages/react_testing_library/js/react-testing-library.js"></script>
     <script>
       const defaultMessageContext = React.createContext('default context value');
+      window.JsTypeTester = React.forwardRef(function (props, ref) {
+        if (typeof props.mapProp != 'object') {
+          throw new Error('mapProp must be an object');
+        }
+        if (typeof props.functionProp != 'function') {
+          throw new Error('functionProp must be a function it was ' + typeof props.functionProp);
+        }
+        if (typeof props.mapProp.fun != 'function') {
+          throw new Error('mapProp.fun must be a function');
+        } else {
+          props.mapProp.fun();
+        }
+        return React.createElement('div', { ...props, 'data-test-id': props.functionProp(), ref }, props.children);
+      });
       window.TestJsComponent = React.forwardRef(function (props, ref) {
         const {
           buttonProps = {},
