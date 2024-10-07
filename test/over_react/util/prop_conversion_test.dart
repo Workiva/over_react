@@ -1373,12 +1373,12 @@ extension on TypeMatcher<Context> {
       having((ref) => ref.jsThis, 'jsThis', matcher);
 }
 
-extension on TypeMatcher<Object> {
+extension HavingToStringValue on TypeMatcher<Object> {
   Matcher havingToStringValue(dynamic matcher) =>
       having((o) => o.toString(), 'toString() value', matcher);
 }
 
-extension on TypeMatcher<ReactComponent> {
+extension HavingDartComponent on TypeMatcher<ReactComponent> {
   Matcher havingDartComponent(dynamic matcher) =>
       having((ref) => ref.dartComponent, 'dartComponent', matcher);
 }
@@ -1527,29 +1527,17 @@ UiFactory<DartTestJsWrapperProps> DartTestJsWrapper = uiForwardRef(
 
 @Props(keyNamespace: '')
 mixin TestJsProps on UiProps {
-  @Accessor(key: 'buttonProps')
-  JsMap? _$raw$buttonProps;
+  @convertJsMapProp
+  Map? buttonProps;
 
-  Map? get buttonProps => unjsifyMapProp(_$raw$buttonProps);
-  set buttonProps(Map? value) => _$raw$buttonProps = jsifyMapProp(value);
+  @ConvertProp<List<dynamic>?, List<Map?>?>(jsifyMapListProp, unjsifyMapListProp)
+  List<Map?>? listOfProps;
 
-  @Accessor(key: 'listOfProps')
-  List<dynamic>? _$raw$listOfProps;
+  @convertJsRefProp
+  dynamic inputRef;
 
-  List<Map?>? get listOfProps => unjsifyMapListProp(_$raw$listOfProps);
-  set listOfProps(List<Map?>? value) => _$raw$listOfProps = jsifyMapListProp(value);
-
-  @Accessor(key: 'inputRef')
-  dynamic _$raw$inputRef;
-
-  dynamic get inputRef => unjsifyRefProp(_$raw$inputRef);
-  set inputRef(dynamic value) => _$raw$inputRef = jsifyRefProp(value);
-
-  @Accessor(key: 'messageContext')
-  ReactContext? _$raw$messageContext;
-
-  Context<String?>? get messageContext => unjsifyContextProp(_$raw$messageContext);
-  set messageContext(Context<String?>? value) => _$raw$messageContext = jsifyContextProp(value);
+  @ConvertProp<ReactContext?, Context<String?>?>(jsifyContextProp, unjsifyContextProp)
+  Context<String?>? messageContext;
 
   dynamic /*ElementType*/ component;
   dynamic /*ElementType*/ inputComponent;

@@ -16,23 +16,56 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-  <meta charset="utf-8">
-  <title>over_react Suspense example</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+    <meta charset="utf-8" />
+    <title>over_react Suspense example</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
-  <!-- javascript -->
+    <!-- javascript -->
+  </head>
+  <body>
+    <div id="content"></div>
 
-</head>
-<body>
-<div id="content"></div>
-
-<script src="packages/react/react_prod.js"></script>
-<script src="packages/react/react_dom_prod.js"></script>
-
-<script type="application/javascript" defer src="main.dart.js"></script>
-</body>
+    <script src="packages/react/react_prod.js"></script>
+    <script src="packages/react/react_dom_prod.js"></script>
+    <script>
+      const defaultMessageContext = React.createContext('default context value');
+      window.TestJsComponent = React.forwardRef(function (props, ref) {
+        const {
+          buttonProps = {},
+          listOfProps = [],
+          inputRef,
+          buttonComponent = 'button',
+          inputComponent = 'input',
+          component = 'span',
+          children,
+          messageContext = defaultMessageContext,
+          ...rest
+        } = props;
+        let message = React.useContext(messageContext);
+        if (typeof message !== 'string') {
+          // Work around react-dart always wrapping values in an object (FED-467)
+          // whose value is under a property `Symbol('react-dart.context')`.
+          // Since it's a local symbol, we can't construct a matching symbol, so we find the matching one.
+          const symbol = Object.getOwnPropertySymbols(message).find((s) =>
+            s.description.includes('react-dart.context')
+          );
+          message = message[symbol];
+        }
+        return React.createElement(
+          'div',
+          {},
+          React.createElement(buttonComponent, buttonProps),
+          React.createElement('li', listOfProps[0]),
+          React.createElement(inputComponent, { type: 'text', ref: inputRef }),
+          React.createElement(component, { ...rest, ref }, children),
+          React.createElement('div', { role: 'alert' }, message)
+        );
+      });
+    </script>
+    <script type="application/javascript" defer src="main.dart.js"></script>
+  </body>
 </html>

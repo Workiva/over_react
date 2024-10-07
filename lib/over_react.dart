@@ -101,6 +101,7 @@ export 'src/util/guid_util.dart';
 export 'src/util/hoc.dart';
 export 'src/util/handler_chain_util.dart';
 export 'src/util/key_constants.dart';
+export 'src/util/lazy.dart';
 export 'src/util/map_util.dart';
 export 'src/util/memo.dart';
 export 'src/util/pretty_print.dart';

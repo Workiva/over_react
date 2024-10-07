@@ -350,38 +350,41 @@ const PropsMeta _$metaForDartTestJsWrapperPropsMixin = PropsMeta(
 mixin $TestJsProps on TestJsProps {
   static const PropsMeta meta = _$metaForTestJsProps;
   @override
-  @Accessor(key: 'buttonProps')
-  JsMap? get _$raw$buttonProps =>
-      (props[_$key___$raw$buttonProps__TestJsProps] ?? null) as JsMap?;
+  @convertJsMapProp
+  Map? get buttonProps => unjsifyMapProp(
+      (props[_$key__buttonProps__TestJsProps] ?? null) as JsMap?);
   @override
-  @Accessor(key: 'buttonProps')
-  set _$raw$buttonProps(JsMap? value) =>
-      props[_$key___$raw$buttonProps__TestJsProps] = value;
+  @convertJsMapProp
+  set buttonProps(Map? value) =>
+      props[_$key__buttonProps__TestJsProps] = jsifyMapProp(value);
   @override
-  @Accessor(key: 'listOfProps')
-  List<dynamic>? get _$raw$listOfProps =>
-      (props[_$key___$raw$listOfProps__TestJsProps] ?? null) as List<dynamic>?;
+  @ConvertProp<List<dynamic>?, List<Map?>?>(
+      jsifyMapListProp, unjsifyMapListProp)
+  List<Map?>? get listOfProps => unjsifyMapListProp(
+      (props[_$key__listOfProps__TestJsProps] ?? null) as List<dynamic>?);
   @override
-  @Accessor(key: 'listOfProps')
-  set _$raw$listOfProps(List<dynamic>? value) =>
-      props[_$key___$raw$listOfProps__TestJsProps] = value;
+  @ConvertProp<List<dynamic>?, List<Map?>?>(
+      jsifyMapListProp, unjsifyMapListProp)
+  set listOfProps(List<Map?>? value) =>
+      props[_$key__listOfProps__TestJsProps] = jsifyMapListProp(value);
   @override
-  @Accessor(key: 'inputRef')
-  dynamic get _$raw$inputRef =>
-      (props[_$key___$raw$inputRef__TestJsProps] ?? null) as dynamic;
+  @convertJsRefProp
+  dynamic get inputRef =>
+      unjsifyRefProp((props[_$key__inputRef__TestJsProps] ?? null) as dynamic);
   @override
-  @Accessor(key: 'inputRef')
-  set _$raw$inputRef(dynamic value) =>
-      props[_$key___$raw$inputRef__TestJsProps] = value;
+  @convertJsRefProp
+  set inputRef(dynamic value) =>
+      props[_$key__inputRef__TestJsProps] = jsifyRefProp(value);
   @override
-  @Accessor(key: 'messageContext')
-  ReactContext? get _$raw$messageContext =>
-      (props[_$key___$raw$messageContext__TestJsProps] ?? null)
-          as ReactContext?;
+  @ConvertProp<ReactContext?, Context<String?>?>(
+      jsifyContextProp, unjsifyContextProp)
+  Context<String?>? get messageContext => unjsifyContextProp(
+      (props[_$key__messageContext__TestJsProps] ?? null) as ReactContext?);
   @override
-  @Accessor(key: 'messageContext')
-  set _$raw$messageContext(ReactContext? value) =>
-      props[_$key___$raw$messageContext__TestJsProps] = value;
+  @ConvertProp<ReactContext?, Context<String?>?>(
+      jsifyContextProp, unjsifyContextProp)
+  set messageContext(Context<String?>? value) =>
+      props[_$key__messageContext__TestJsProps] = jsifyContextProp(value);
   @override
   dynamic get component =>
       (props[_$key__component__TestJsProps] ?? null) as dynamic;
@@ -400,43 +403,42 @@ mixin $TestJsProps on TestJsProps {
   set buttonComponent(dynamic value) =>
       props[_$key__buttonComponent__TestJsProps] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop___$raw$buttonProps__TestJsProps =
-      PropDescriptor(_$key___$raw$buttonProps__TestJsProps);
-  static const PropDescriptor _$prop___$raw$listOfProps__TestJsProps =
-      PropDescriptor(_$key___$raw$listOfProps__TestJsProps);
-  static const PropDescriptor _$prop___$raw$inputRef__TestJsProps =
-      PropDescriptor(_$key___$raw$inputRef__TestJsProps);
-  static const PropDescriptor _$prop___$raw$messageContext__TestJsProps =
-      PropDescriptor(_$key___$raw$messageContext__TestJsProps);
+  static const PropDescriptor _$prop__buttonProps__TestJsProps =
+      PropDescriptor(_$key__buttonProps__TestJsProps);
+  static const PropDescriptor _$prop__listOfProps__TestJsProps =
+      PropDescriptor(_$key__listOfProps__TestJsProps);
+  static const PropDescriptor _$prop__inputRef__TestJsProps =
+      PropDescriptor(_$key__inputRef__TestJsProps);
+  static const PropDescriptor _$prop__messageContext__TestJsProps =
+      PropDescriptor(_$key__messageContext__TestJsProps);
   static const PropDescriptor _$prop__component__TestJsProps =
       PropDescriptor(_$key__component__TestJsProps);
   static const PropDescriptor _$prop__inputComponent__TestJsProps =
       PropDescriptor(_$key__inputComponent__TestJsProps);
   static const PropDescriptor _$prop__buttonComponent__TestJsProps =
       PropDescriptor(_$key__buttonComponent__TestJsProps);
-  static const String _$key___$raw$buttonProps__TestJsProps = 'buttonProps';
-  static const String _$key___$raw$listOfProps__TestJsProps = 'listOfProps';
-  static const String _$key___$raw$inputRef__TestJsProps = 'inputRef';
-  static const String _$key___$raw$messageContext__TestJsProps =
-      'messageContext';
+  static const String _$key__buttonProps__TestJsProps = 'buttonProps';
+  static const String _$key__listOfProps__TestJsProps = 'listOfProps';
+  static const String _$key__inputRef__TestJsProps = 'inputRef';
+  static const String _$key__messageContext__TestJsProps = 'messageContext';
   static const String _$key__component__TestJsProps = 'component';
   static const String _$key__inputComponent__TestJsProps = 'inputComponent';
   static const String _$key__buttonComponent__TestJsProps = 'buttonComponent';
 
   static const List<PropDescriptor> $props = [
-    _$prop___$raw$buttonProps__TestJsProps,
-    _$prop___$raw$listOfProps__TestJsProps,
-    _$prop___$raw$inputRef__TestJsProps,
-    _$prop___$raw$messageContext__TestJsProps,
+    _$prop__buttonProps__TestJsProps,
+    _$prop__listOfProps__TestJsProps,
+    _$prop__inputRef__TestJsProps,
+    _$prop__messageContext__TestJsProps,
     _$prop__component__TestJsProps,
     _$prop__inputComponent__TestJsProps,
     _$prop__buttonComponent__TestJsProps
   ];
   static const List<String> $propKeys = [
-    _$key___$raw$buttonProps__TestJsProps,
-    _$key___$raw$listOfProps__TestJsProps,
-    _$key___$raw$inputRef__TestJsProps,
-    _$key___$raw$messageContext__TestJsProps,
+    _$key__buttonProps__TestJsProps,
+    _$key__listOfProps__TestJsProps,
+    _$key__inputRef__TestJsProps,
+    _$key__messageContext__TestJsProps,
     _$key__component__TestJsProps,
     _$key__inputComponent__TestJsProps,
     _$key__buttonComponent__TestJsProps
