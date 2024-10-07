@@ -15,7 +15,7 @@ dependencies:
   meta: ^1.6.0
   package_config: ^2.1.0
   path: ^1.5.1
-  react: ^7.1.0
+  react: ^7.2.0
   redux: ^5.0.0
   source_span: ^1.4.1
   transformer_utils: ^0.2.6
@@ -48,9 +48,3 @@ workiva:
   core_checks:
     version: 1
     react_boilerplate: disabled
-
-dependency_overrides:
-  react:
-    git:
-      url: https://github.com/Workiva/react-dart.git
-      ref: FED-3114-lazy
