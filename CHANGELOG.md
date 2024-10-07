@@ -1,5 +1,9 @@
 # OverReact Changelog
 
+## 5.4.0
+- [#941] Add Dart wrapper for React [lazy](https://react.dev/reference/react/lazy)
+- [#952] Docs: fix diagram formatting in null safety migration guide
+
 ## 5.3.3
 - [#951] Internal CI fixes
 
