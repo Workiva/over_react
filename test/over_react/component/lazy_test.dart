@@ -27,7 +27,6 @@ main() {
   enableTestMode();
 
   group('lazy', () {
-    group('with UiProps', () {
       test('renders a component from end to end, successfully reading props via typed getters', () {
         render(
           (Suspense()..fallback = (Dom.div()('loading')))(
@@ -64,7 +63,6 @@ main() {
         expect(Simple()..key = 'test', containsPair('key', 'test'));
         expect(SimpleLazy()..id = '2', containsPair('id', '2'));
       });
-    });
 
     group('does not throw an error when', () {
       test('config is null, IF it only expects GenericUiProps', () {
@@ -76,6 +74,27 @@ main() {
             null);
         expect(testLazy, returnsNormally);
         expect(testLazy(), isA<UiFactory<UiProps>>());
+      });
+
+      test('wrapped in suspense (renders correctly)', () async {
+        // Further testing of lazy/suspense this can be found in test/over_react/component/suspense_component_test.dart
+        final renderErrors = [];
+        render((components.ErrorBoundary()
+          ..onComponentDidCatch = ((error, _) {
+            renderErrors.add(error);
+          })
+          ..shouldLogErrors = false
+          ..fallbackUIRenderer = ((_, __) => Dom.span()('An error occurred during render'))
+        )(
+          (Suspense()..fallback = (Dom.div()..addTestId('suspense'))('loading'))(
+            (SimpleLazy()..id = '1')(),
+          ),
+        ));
+
+        final element = await screen.findByTestId('simple-lazy');
+        expect(renderErrors, isEmpty);
+        expect(element, isA<DivElement>());
+        expect(element, hasTextContent('id: 1'));
       });
     });
 
