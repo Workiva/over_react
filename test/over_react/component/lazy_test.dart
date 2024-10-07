@@ -26,122 +26,127 @@ main() {
   enableTestMode();
 
   group('lazy', () {
-      test('renders a component from end to end, successfully reading props via typed getters', () async {
-        render(
-          (Suspense()..fallback = (Dom.div()('loading')))(
-            (SimpleLazy()..id = '1')(),
-          ),
-        );
+    group('config argument:', () {
+      group('generated:', () {
+        group('initializes the factory variable with a function', () {
+          test('that returns a new props class implementation instance', () {
+            final instance = lazy(() async => TestDart, _$TestDartConfig)();
+            expect(instance, isA<TestDartProps>());
+            expect(instance, isA<Map>());
+          });
 
-        final node = await screen.findByTestId('simple-lazy');
+          test('that returns a new props class implementation instance backed by an existing map', () {
+            Map existingMap = {'stringProp': 'test'};
+            final factory = lazy(() async => TestDart, _$TestDartConfig);
+            final props = factory(existingMap);
 
-        expect(node, isA<DivElement>());
-        expect(node, hasTextContent('id: 1'));
-      });
+            expect(props.stringProp, equals('test'));
 
-      group('initializes the factory variable with a function', () {
-        test('that returns a new props class implementation instance', () {
-          final instance = SimpleLazy();
-          expect(instance, isA<UiProps>());
-          expect(instance, isA<Map>());
-        });
-
-        test('that returns a new props class implementation instance backed by an existing map', () {
-          Map existingMap = {'key': 'test'};
-          final props = SimpleLazy(existingMap);
-
-          expect(props.key, equals('test'));
-
-          props.key = 'modified';
-          expect(props.key, equals('modified'));
-          expect(existingMap['key'], equals('modified'));
+            props.stringProp = 'modified';
+            expect(props.stringProp, equals('modified'));
+            expect(existingMap['stringProp'], equals('modified'));
+          });
         });
       });
 
-      test('generates prop getters/setters with the prop name as the key by default', () {
-        expect(SimpleLazy()..key = 'test', containsPair('key', 'test'));
-        expect(SimpleLazy()..id = '2', containsPair('id', '2'));
+      group('generic UiProps, via', () {
+        void sharedGenericTests(UiFactory Function() createLazyFactory) {
+          late UiFactory lazyFactory;
+
+          setUpAll(() {
+            expect(() {
+              lazyFactory = createLazyFactory();
+            }, returnsNormally);
+          });
+
+          test('renders a component from end to end, successfully reading props via typed getters', () async {
+            render(
+              (Suspense()..fallback = (Dom.div()('loading')))(
+                (lazyFactory()..id = '1')(),
+              ),
+            );
+
+            final node = await screen.findByTestId('simple-lazy');
+
+            expect(node, isA<DivElement>());
+            expect(node, hasTextContent('id: 1'));
+          });
+
+          group('initializes the factory variable with a function', () {
+            test('that returns a new props class implementation instance', () {
+              final instance = lazyFactory();
+              expect(instance, isA<UiProps>());
+              expect(instance, isA<Map>());
+            });
+
+            test('that returns a new props class implementation instance backed by an existing map', () {
+              Map existingMap = {'key': 'test'};
+              final props = lazyFactory(existingMap);
+
+              expect(props.key, equals('test'));
+
+              props.key = 'modified';
+              expect(props.key, equals('modified'));
+              expect(existingMap['key'], equals('modified'));
+            });
+          });
+        }
+
+        group('empty config:', () {
+          sharedGenericTests(() {
+            return lazy(() async {
+              return uiFunction((props) {
+                return (Dom.div()
+                  ..addTestId('simple-lazy')
+                  ..addProps(props)
+                )('id: ${props.id}');
+              }, UiFactoryConfig());
+            }, UiFactoryConfig());
+          });
+        });
+
+        group('null:', () {
+          sharedGenericTests(() {
+            return lazy(() async {
+              return uiFunction((props) {
+                return (Dom.div()
+                  ..addTestId('simple-lazy')
+                  ..addProps(props)
+                )('id: ${props.id}');
+              }, UiFactoryConfig());
+            }, null);
+          });
+        });
       });
 
-    group('does not throw an error when', () {
-      test('config is null, IF it only expects GenericUiProps', () {
-        testLazy() => lazy(
-            () async => uiFunction<UiProps>(
-                  (props) => (Dom.div()..addTestId('testId3'))('id: ${props.id}'),
-                  UiFactoryConfig(),
-                ),
-            null);
-        expect(testLazy, returnsNormally);
-        expect(testLazy(), isA<UiFactory<UiProps>>());
-      });
-
-      test('wrapped in suspense (renders correctly)', () async {
-        // Further testing of lazy/suspense this can be found in test/over_react/component/suspense_component_test.dart
-        final renderErrors = [];
-        render((components.ErrorBoundary()
-          ..onComponentDidCatch = ((error, _) {
-            renderErrors.add(error);
-          })
-          ..shouldLogErrors = false
-          ..fallbackUIRenderer = ((_, __) => Dom.span()('An error occurred during render'))
-        )(
-          (Suspense()..fallback = (Dom.div()..addTestId('suspense'))('loading'))(
-            (SimpleLazy()..id = '1')(),
-          ),
-        ));
-
-        final element = await screen.findByTestId('simple-lazy');
-        expect(renderErrors, isEmpty);
-        expect(element, isA<DivElement>());
-        expect(element, hasTextContent('id: 1'));
-      });
-    });
-
-    group('throws an error when', () {
-      test('props factory is not provided when using custom props class', () {
-        expect(
-            () => lazy(
-                  () async => uiFunction<TestProps>(
-                    (props) => Dom.div()(),
+      group('throws an error when', () {
+        test('props factory is not provided when using custom props class', () {
+          expect(
+              () => lazy(
+                    () async => uiFunction<TestProps>(
+                      (props) => Dom.div()(),
+                      UiFactoryConfig(displayName: 'Foo'),
+                    ),
                     UiFactoryConfig(displayName: 'Foo'),
                   ),
-                  UiFactoryConfig(displayName: 'Foo'),
-                ),
-            throwsArgumentError);
-      });
+              throwsArgumentError);
+        });
 
-      test('config not the correct type', () {
-        expect(
-            () => lazy(
-                  () async => uiFunction<UiProps>(
-                    (props) => (Dom.div()..addTestId('testId3'))('id: ${props.id}'),
-                    UiFactoryConfig(),
+        test('config not the correct type', () {
+          expect(
+              () => lazy(
+                    () async => uiFunction<UiProps>(
+                      (props) => (Dom.div()..addTestId('testId3'))('id: ${props.id}'),
+                      UiFactoryConfig(),
+                    ),
+                    'foo',
                   ),
-                  'foo',
-                ),
-            throwsArgumentError);
+              throwsArgumentError);
+        });
       });
     });
 
-    group('initializes the factory variable with a function', () {
-      test('that returns a new props class implementation instance', () {
-        final instance = lazy(() async => TestDart, _$TestDartConfig)();
-        expect(instance, isA<TestDartProps>());
-        expect(instance, isA<Map>());
-      });
-
-      test('that returns a new props class implementation instance backed by an existing map', () {
-        Map existingMap = {'stringProp': 'test'};
-        final factory = lazy(() async => TestDart, _$TestDartConfig);
-        final props = factory(existingMap);
-
-        expect(props.stringProp, equals('test'));
-
-        props.stringProp = 'modified';
-        expect(props.stringProp, equals('modified'));
-        expect(existingMap['stringProp'], equals('modified'));
-      });
-    });
+    // Further testing of lazy/suspense this can be found in test/over_react/component/suspense_component_test.dart
 
     group('wrapped', () {
       group('JS component', () {
