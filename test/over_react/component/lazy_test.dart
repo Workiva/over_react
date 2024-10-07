@@ -16,6 +16,7 @@ import 'package:react_testing_library/react_testing_library.dart';
 import 'package:test/test.dart';
 import 'package:over_react/components.dart' as components;
 
+import '../../../example/builder/src/function_component.dart';
 import '../component_declaration/builder_integration_tests/new_boilerplate/function_component_test.dart';
 import '../util/prop_conversion_test.dart';
 import '../util/ref_test_cases.dart';
@@ -26,20 +27,44 @@ main() {
   enableTestMode();
 
   group('lazy', () {
-    // The fallback and the lazy component render the same thing...
-    uiPropsTest(
-      uiFunction<UiProps>(
-        (props) => (Suspense()..fallback = (Dom.div()..addTestId('testId3'))('id: ${props.id}'))(
-          lazy(
-              () async => uiFunction<UiProps>(
-                    (props2) => (Dom.div()..addTestId('testId3'))('id: ${props.id}'),
-                    UiFactoryConfig(),
-                  ),
-              UiFactoryConfig())()(),
-        ),
-        UiFactoryConfig(),
-      ),
-    );
+    group('with UiProps', () {
+      test('renders a component from end to end, successfully reading props via typed getters', () {
+        render(
+          (Suspense()..fallback = (Dom.div()('loading')))(
+            (SimpleLazy()..id = '1')(),
+          ),
+        );
+
+        final node = screen.findByTestId('simple-lazy');
+
+        expect(node, isA<DivElement>());
+        expect(node, hasTextContent('id: 1'));
+      });
+
+      group('initializes the factory variable with a function', () {
+        test('that returns a new props class implementation instance', () {
+          final instance = SimpleLazy();
+          expect(instance, isA<UiProps>());
+          expect(instance, isA<Map>());
+        });
+
+        test('that returns a new props class implementation instance backed by an existing map', () {
+          Map existingMap = {'key': 'test'};
+          final props = SimpleLazy(existingMap);
+
+          expect(props.key, equals('test'));
+
+          props.key = 'modified';
+          expect(props.key, equals('modified'));
+          expect(existingMap['key'], equals('modified'));
+        });
+      });
+
+      test('generates prop getters/setters with the prop name as the key by default', () {
+        expect(Simple()..key = 'test', containsPair('key', 'test'));
+        expect(SimpleLazy()..id = '2', containsPair('id', '2'));
+      });
+    });
 
     group('does not throw an error when', () {
       test('config is null, IF it only expects GenericUiProps', () {
@@ -481,6 +506,15 @@ sharedNestedPropConversionTests(UiFactory<TestJsProps> builder, {bool isJsCompon
 //
 // Lazy Test Component Declarations
 //
+
+UiFactory<UiProps> SimpleLazy = lazy(
+    () async => uiFunction(
+        (props) => (Dom.div()
+          ..addTestId('simple-lazy')
+          ..addProps(props)
+        )('id: ${props.id}'),
+        UiFactoryConfig()),
+    UiFactoryConfig());
 
 UiFactory<TestDartClassProps> LazyTestDartClass =
     lazy(() async => TestDartClass, UiFactoryConfig(propsFactory: PropsFactory.fromUiFactory(TestDartClass)));
