@@ -105,18 +105,7 @@ main() {
           });
         });
 
-        group('null:', () {
-          sharedGenericTests(() {
-            return lazy(() async {
-              return uiFunction((props) {
-                return (Dom.div()
-                  ..addTestId('simple-lazy')
-                  ..addProps(props)
-                )('id: ${props.id}');
-              }, UiFactoryConfig());
-            }, null);
-          });
-        });
+
       });
 
       group('throws an error when', () {
@@ -140,6 +129,18 @@ main() {
                       UiFactoryConfig(),
                     ),
                     'foo',
+                  ),
+              throwsArgumentError);
+        });
+
+        test('it is null', () {
+          expect(
+              () => lazy(
+                    () async => uiFunction<UiProps>(
+                      (props) => (Dom.div()..addTestId('testId3'))('id: ${props.id}'),
+                      UiFactoryConfig(),
+                    ),
+                    null,
                   ),
               throwsArgumentError);
         });
