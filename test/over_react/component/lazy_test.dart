@@ -16,7 +16,6 @@ import 'package:react_testing_library/react_testing_library.dart';
 import 'package:test/test.dart';
 import 'package:over_react/components.dart' as components;
 
-import '../../../example/builder/src/function_component.dart';
 import '../component_declaration/builder_integration_tests/new_boilerplate/function_component_test.dart';
 import '../util/prop_conversion_test.dart';
 import '../util/ref_test_cases.dart';
@@ -60,7 +59,7 @@ main() {
       });
 
       test('generates prop getters/setters with the prop name as the key by default', () {
-        expect(Simple()..key = 'test', containsPair('key', 'test'));
+        expect(SimpleLazy()..key = 'test', containsPair('key', 'test'));
         expect(SimpleLazy()..id = '2', containsPair('id', '2'));
       });
 
