@@ -9,7 +9,7 @@ import 'package:js/js.dart';
 import 'package:over_react/js_component.dart';
 import 'package:over_react/over_react.dart';
 import 'package:react/react_client.dart';
-import 'package:react/react_client/react_interop.dart' hide lazy, createRef;
+import 'package:react/react_client/react_interop.dart' hide createRef;
 import 'package:react_testing_library/matchers.dart';
 import 'package:react_testing_library/react_testing_library.dart';
 
