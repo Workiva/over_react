@@ -68,7 +68,7 @@ import '../component_declaration/function_component.dart';
 /// See: <https://react.dev/reference/react/lazy>.
 UiFactory<TProps> lazy<TProps extends UiProps>(
     Future<UiFactory<TProps>> Function() load, /* UiFactoryConfig<TProps> */ dynamic _config) {
-      _config ??= UiFactoryConfig();
+  ArgumentError.checkNotNull(_config, '_config');
   if (_config is! UiFactoryConfig<TProps>) {
     throw ArgumentError('_config is required when using a custom props class and should be a UiFactoryConfig<TProps>. Make sure you are '
         r'using either the generated factory config (i.e. _$FooConfig) or manually declaring your config correctly.');
