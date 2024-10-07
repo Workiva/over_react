@@ -27,14 +27,14 @@ main() {
   enableTestMode();
 
   group('lazy', () {
-      test('renders a component from end to end, successfully reading props via typed getters', () {
+      test('renders a component from end to end, successfully reading props via typed getters', () async {
         render(
           (Suspense()..fallback = (Dom.div()('loading')))(
             (SimpleLazy()..id = '1')(),
           ),
         );
 
-        final node = screen.findByTestId('simple-lazy');
+        final node = await screen.findByTestId('simple-lazy');
 
         expect(node, isA<DivElement>());
         expect(node, hasTextContent('id: 1'));
