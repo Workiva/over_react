@@ -104,8 +104,6 @@ main() {
             }, UiFactoryConfig());
           });
         });
-
-
       });
 
       group('throws an error when', () {
