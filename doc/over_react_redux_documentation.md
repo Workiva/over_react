@@ -168,7 +168,8 @@ A wrapper around the JS react-redux `connect` function that supports OverReact c
 
 > See: <https://react-redux.js.org/api/connect>
 
-> ![TIP] connect still works and is supported. However, we recommend using the hooks API as the default.
+> ![TIP]
+> connect still works and is supported. However, we recommend using the hooks API as the default.
 
 **Example:**
 
