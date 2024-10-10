@@ -206,11 +206,17 @@ of the null safety and required props docs for instructions on how to handle the
 
 #### connect
 
-For connect, either
+For connect, either:
 - Disable validation using the instructions linked above 
     - Note: for now, this must be done manually, but we'll be adding a codemod to help do this automatically for `connect`: https://github.com/Workiva/over_react_codemod/issues/295
 - Refactor your component to instead utilize [OverReact Redux hooks](../over_react_redux_documentation.md#hooks), 
     which avoid this problem by accessing store data and dispatchers directly in the component as opposed to passing it in via props.
+
+We generally recommend using hooks over `connect`, since the API is simpler, and in over_react is more convenient and doesn't involve worrying about required prop validation.
+
+However, for existing components, converting them to function components may be non-trivial depending on other logic within components that needs to be migrated.
+
+So, for this migration, you'll want to decide whether converting to function components is worth the effort.
 
 #### Implementing abstract `Ref`s
 
