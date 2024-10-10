@@ -24,7 +24,6 @@ import 'package:over_react/over_react.dart' show Dom, DummyComponent, DummyCompo
 import 'package:over_react/over_react.dart' as over_react;
 import 'package:over_react/src/component_declaration/component_base.dart';
 import 'package:over_react/src/component_declaration/component_type_checking.dart';
-import 'package:pedantic/pedantic.dart';
 import 'package:react/react_client.dart';
 import 'package:test/test.dart';
 import 'package:w_common/disposable.dart';
