@@ -94,7 +94,7 @@ jobs:
           if [[ "$DART_VERSION" =~ ^3 ]]; then
             TEST_ARGS="--exclude-tags=dart-2-only"
           fi
-          dart test -P vm "TEST_ARGS"
+          dart test -P vm "$TEST_ARGS"
         if: always() && steps.install.outcome == 'success' && steps.build.outcome == 'success'
 
       - name: Run tests (DDC)
@@ -158,7 +158,7 @@ jobs:
           if [[ "$DART_VERSION" =~ ^3 ]]; then
             TEST_ARGS="--exclude-tags=dart-2-only"
           fi
-          dart test -p vm -- test/vm_tests/builder
+          dart test -p vm "$TEST_ARGS" -- test/vm_tests/builder
 
   analyzer_plugin:
     runs-on: ubuntu-latest
