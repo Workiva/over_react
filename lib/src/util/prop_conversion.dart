@@ -1,3 +1,5 @@
+// This is only an unnecessary import in Dart 3; in Dart 2, we need it for allowInterop.
+// ignore: unnecessary_import
 import 'package:js/js.dart';
 import 'package:js/js_util.dart';
 import 'package:meta/meta.dart';

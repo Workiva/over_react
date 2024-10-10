@@ -63,7 +63,6 @@ mixin DisposableManagerProxy on react.Component implements DisposableManagerV7 {
       _getDisposableProxy().listenToStream(stream, onData,
           onError: onError, onDone: onDone, cancelOnError: cancelOnError);
 
-  @override
   Disposable manageAndReturnDisposable(Disposable disposable) =>
       _getDisposableProxy().manageAndReturnTypedDisposable(disposable);
 
@@ -71,13 +70,11 @@ mixin DisposableManagerProxy on react.Component implements DisposableManagerV7 {
   Completer<T> manageCompleter<T>(Completer<T> completer) =>
       _getDisposableProxy().manageCompleter<T>(completer);
 
-  @override
   void manageDisposable(Disposable disposable) =>
       _getDisposableProxy().manageDisposable(disposable);
 
   /// DEPRECATED. Use [getManagedDisposer] instead.
   @Deprecated('w_common 2.0.0')
-  @override
   void manageDisposer(Disposer disposer) =>
       _getDisposableProxy().getManagedDisposer(disposer);
 
@@ -87,7 +84,6 @@ mixin DisposableManagerProxy on react.Component implements DisposableManagerV7 {
 
   /// DEPRECATED. Use [listenToStream] instead.
   @Deprecated('w_common 2.0.0')
-  @override
   void manageStreamSubscription(StreamSubscription subscription) =>
       _getDisposableProxy().getManagedDisposer(subscription.cancel);
 
