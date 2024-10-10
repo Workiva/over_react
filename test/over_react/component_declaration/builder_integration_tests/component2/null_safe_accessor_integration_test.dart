@@ -97,13 +97,6 @@ void main() {
             testValue: 'test value',
           );
         });
-        test('nullable dynamic with extraneous ? syntax', () {
-          testPropWriteAndRead<dynamic>(
-            readProp: (p) => p.nullableDynamicWithQuestion,
-            writeProp: (p, value) => p.nullableDynamicWithQuestion = value,
-            testValue: 'test value',
-          );
-        });
         test('nullable typedef, without ? syntax', () {
           testPropWriteAndRead<NullableTypedef>(
             readProp: (p) => p.nullableTypedefWithoutQuestion,
@@ -171,9 +164,6 @@ void main() {
         });
         test('nullable dynamic', () {
           expectReadPropReturnsNull((props) => props.nullableDynamic);
-        });
-        test('nullable dynamic with extraneous ? syntax', () {
-          expectReadPropReturnsNull((props) => props.nullableDynamicWithQuestion);
         });
         test('nullable typedef, without ? syntax', () {
           expectReadPropReturnsNull((props) => props.nullableTypedefWithoutQuestion);
@@ -291,13 +281,6 @@ void main() {
             testValue: 'test value',
           );
         });
-        test('nullable dynamic with extraneous ? syntax', () {
-          testStateWriteAndRead<dynamic>(
-            readState: (p) => p.nullableDynamicWithQuestion,
-            writeState: (p, value) => p.nullableDynamicWithQuestion = value,
-            testValue: 'test value',
-          );
-        });
         test('nullable typedef, without ? syntax', () {
           testStateWriteAndRead<NullableTypedef>(
             readState: (p) => p.nullableTypedefWithoutQuestion,
@@ -366,9 +349,6 @@ void main() {
         test('nullable dynamic', () {
           expectReadStateReturnsNull((state) => state.nullableDynamic);
         });
-        test('nullable dynamic with extraneous ? syntax', () {
-          expectReadStateReturnsNull((state) => state.nullableDynamicWithQuestion);
-        });
         test('nullable typedef, without ? syntax', () {
           expectReadStateReturnsNull((state) => state.nullableTypedefWithoutQuestion);
         });
@@ -397,7 +377,6 @@ class _$NullSafeTestProps extends UiProps {
   String? nullable;
   dynamic nullableDynamic;
 
-  dynamic? nullableDynamicWithQuestion;
   NullableTypedef nullableTypedefWithoutQuestion;
 }
 
@@ -412,7 +391,6 @@ class _$NullSafeTestState extends UiState {
   String? nullable;
   dynamic nullableDynamic;
 
-  dynamic? nullableDynamicWithQuestion;
   NullableTypedef nullableTypedefWithoutQuestion;
 }
 
