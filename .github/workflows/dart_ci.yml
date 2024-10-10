@@ -22,16 +22,23 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # Can't run on `dev` (Dart 3) until we're fully null-safe.
-        sdk: [ 2.19.6 ]
+        sdk: [ 2.19.6, 3.4.4, main ]
     steps:
       - uses: actions/checkout@v4
-      - uses: dart-lang/setup-dart@v1
+      - id: setup-dart
+        uses: dart-lang/setup-dart@v1
         with:
           sdk: ${{ matrix.sdk }}
 
       - name: Print Dart SDK version
         run: dart --version
+
+      - name: Delete Dart-2-only files when running on Dart 3
+        run: |
+          DART_VERSION="${{ steps.setup-dart.outputs.dart-version }}"
+          if [[ "$DART_VERSION" =~ ^3 ]]; then
+            ./tool/delete_dart_2_only_files.sh
+          fi
 
       - id: install
         name: Install dependencies
@@ -102,20 +109,27 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # Can't run on `dev` (Dart 3) until we're fully null-safe.
-        sdk: [ 2.19.6 ]
+        sdk: [ 2.19.6, 3.4.4, main ]
         analyzer:
           # We only have one version currently, but we'll leave this CI step in place
           # for the next time we need to support multiple analyzer versions.
           - ^5.1.0
     steps:
       - uses: actions/checkout@v4
-      - uses: dart-lang/setup-dart@v1
+      - id: setup-dart
+        uses: dart-lang/setup-dart@v1
         with:
           sdk: ${{ matrix.sdk }}
 
       - name: Print Dart SDK version
         run: dart --version
+
+      - name: Delete Dart-2-only files when running on Dart 3
+        run: |
+          DART_VERSION="${{ steps.setup-dart.outputs.dart-version }}"
+          if [[ "$DART_VERSION" =~ ^3 ]]; then
+            ./tool/delete_dart_2_only_files.sh
+          fi
 
       - name: Update analyzer constraint to ${{ matrix.analyzer }} and validate `dart pub get` can resolve
         id: resolve
@@ -142,16 +156,23 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # Can't run on `stable` (Dart 3) until we're fully null-safe.
-        sdk: [ 2.19.6 ]
+        sdk: [ 2.19.6, 3.4.4, main ]
     steps:
       - uses: actions/checkout@v4
-      - uses: dart-lang/setup-dart@v1
+      - id: setup-dart
+        uses: dart-lang/setup-dart@v1
         with:
           sdk: ${{ matrix.sdk }}
 
       - name: Print Dart SDK version
         run: dart --version
+
+      - name: Delete Dart-2-only files when running on Dart 3
+        run: |
+          DART_VERSION="${{ steps.setup-dart.outputs.dart-version }}"
+          if [[ "$DART_VERSION" =~ ^3 ]]; then
+            (cd ../.. && ./tool/delete_dart_2_only_files.sh)
+          fi
 
       - id: link
         name: Override over_react dependency with local path
