@@ -48,3 +48,5 @@ tags:
   # Tests that represent a case of undesirable JS interop behavior that's
   # either unavoidable or exists as a tradeoff for improved behavior in other cases.
   js-interop-tradeoff: {}
+  # Tests for behavior that's only valid in Dart 2, and does not apply to Dart 3.
+  dart-2-only: {}
