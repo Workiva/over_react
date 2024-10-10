@@ -92,9 +92,9 @@ jobs:
           DART_VERSION="${{ steps.setup-dart.outputs.dart-version }}"
           TEST_ARGS=""
           if [[ "$DART_VERSION" =~ ^3 ]]; then
-            TEST_ARGS="--exclude-tags=dart-2-only"
+            TEST_ARGS="--preset=no-dart-2"
           fi
-          dart test -P vm $TEST_ARGS
+          dart test --preset vm $TEST_ARGS
         if: always() && steps.install.outcome == 'success' && steps.build.outcome == 'success'
 
       - name: Run tests (DDC)
@@ -156,9 +156,9 @@ jobs:
           DART_VERSION="${{ steps.setup-dart.outputs.dart-version }}"
           TEST_ARGS=""
           if [[ "$DART_VERSION" =~ ^3 ]]; then
-            TEST_ARGS="--exclude-tags=dart-2-only"
+            TEST_ARGS="--preset=no-dart-2"
           fi
-          dart test -p vm $TEST_ARGS -- test/vm_tests/builder
+          dart test --preset vm $TEST_ARGS -- test/vm_tests/builder
 
   analyzer_plugin:
     runs-on: ubuntu-latest

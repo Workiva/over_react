@@ -12,6 +12,9 @@ presets:
     paths:
       - test/vm_tests/
 
+  no-dart-2:
+    exclude_tags: dart-2-only
+
   dartdevc:
     exclude_tags: no-ddc
     paths:
