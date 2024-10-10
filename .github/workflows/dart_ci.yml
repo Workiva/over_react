@@ -51,7 +51,7 @@ jobs:
       - name: Verify formatting
         run: dart run dart_dev format --check
         # Only run on one sdk version in case there are conflicts
-        if: always() && matrix.sdk != '2.19.6' && steps.install.outcome == 'success'
+        if: always() && matrix.sdk == '2.19.6' && steps.install.outcome == 'success'
 
       # Analyze before generated files are created to verify that component boilerplate analysis is "clean" without the need for building
       - name: Analyze example source (pre-build)
