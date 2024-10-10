@@ -195,34 +195,31 @@ main() {
           };
 
           // Loop over the deprecated lifecycle methods
-          legacyLifecycleMethodsMap.keys.forEach((lifecycle) => {
-                // Loop through every version of the boilerplate
-                for (final version in BoilerplateVersions.values)
-                  {
-                    test('$lifecycle with ${versionDescriptions[version]}', () {
-                      // Grab the boilerplate with the deprecated lifecycle method
-                      final componentString = getBoilerplateString(
-                          deprecatedLifecycleMethod: lifecycle, version: version);
-                      final members =
-                          BoilerplateMemberHelper.parseAndReturnMembers(componentString);
-                      final component = members.whereType<BoilerplateComponent>().first;
-                      final componentVersion = resolveVersion(members).version;
-                      final file = SourceFile.fromString(componentString);
-                      final collector = ErrorCollector.callback(file, onError: validateCallback);
+          for (final lifecycle in legacyLifecycleMethodsMap.keys) {
+            // Loop through every version of the boilerplate
+            for (final version in BoilerplateVersions.values) {
+              test('$lifecycle with ${versionDescriptions[version]}', () {
+                // Grab the boilerplate with the deprecated lifecycle method
+                final componentString = getBoilerplateString(deprecatedLifecycleMethod: lifecycle, version: version);
+                final members = BoilerplateMemberHelper.parseAndReturnMembers(componentString);
+                final component = members.whereType<BoilerplateComponent>().first;
+                final componentVersion = resolveVersion(members).version;
+                final file = SourceFile.fromString(componentString);
+                final collector = ErrorCollector.callback(file, onError: validateCallback);
 
-                      component.validate(componentVersion, collector);
+                component.validate(componentVersion, collector);
 
-                      // Warnings should only be logged if the component is a Component2
-                      if (component.isComponent2(componentVersion)) {
-                        expect(validateResults, [
-                          contains(legacyLifecycleMethodsMap[lifecycle]),
-                        ]);
-                      } else {
-                        expect(validateResults, []);
-                      }
-                    })
-                  }
+                // Warnings should only be logged if the component is a Component2
+                if (component.isComponent2(componentVersion)) {
+                  expect(validateResults, [
+                    contains(legacyLifecycleMethodsMap[lifecycle]),
+                  ]);
+                } else {
+                  expect(validateResults, []);
+                }
               });
+            }
+          }
         });
       });
     });

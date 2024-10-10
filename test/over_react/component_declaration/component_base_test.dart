@@ -534,8 +534,7 @@ main() {
               test('a Map of the wrong type throws a type error', () {
                 final style = <dynamic, dynamic>{'color': 'blue'};
                 expect(() => getTypedView({styleKey: style}).style,
-                    // ignore: deprecated_member_use
-                    throwsA(anyOf(isA<TypeError>(), isA<CastError>())));
+                    throwsA(isATypeCastError()));
               });
 
               test('null: returns null', () {

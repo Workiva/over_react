@@ -15,6 +15,8 @@ analyzer:
     unused_import: warning
     unnecessary_import: warning
     unnecessary_null_comparison: warning
+    # To work around warning "'can_be_null_after_null_aware' isn't a recognized error code" in Dart 3
+    included_file_warning: info
 
     # Workaround for https://github.com/dart-lang/sdk/issues/51087
     # TODO remove once we're no longer running CI on Dart 2.18

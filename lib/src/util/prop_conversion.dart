@@ -1,4 +1,3 @@
-import 'package:js/js.dart';
 import 'package:js/js_util.dart';
 import 'package:meta/meta.dart';
 import 'package:over_react/over_react.dart' show Context, Ref;
