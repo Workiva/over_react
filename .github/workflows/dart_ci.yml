@@ -100,10 +100,12 @@ jobs:
       - name: Run tests (DDC)
         run: dart test --precompiled ddc_precompiled -P dartdevc
         if: always() && steps.install.outcome == 'success' && steps.build.outcome == 'success'
+        timeout-minutes: 5
 
       - name: Run tests (dart2js)
         run: dart run dart_dev test --build-args="-r" -P dart2js
         if: always() && steps.install.outcome == 'success' && steps.build.outcome == 'success'
+        timeout-minutes: 5
 
       - uses: anchore/sbom-action@v0
         with:
@@ -210,3 +212,4 @@ jobs:
       - name: Run tests
         run: dart run dart_dev test
         if: always() && steps.install.outcome == 'success'
+        timeout-minutes: 8
