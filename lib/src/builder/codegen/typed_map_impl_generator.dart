@@ -556,7 +556,7 @@ class _TypedMapImplGenerator extends TypedMapImplGenerator {
         for (var i = 0; i < mixins.length; i++) {
           final mixin = mixins[i];
           final typeArguments = mixin.typeArguments?.toSource() ?? '';
-          final names = TypedMapNames(mixin.name.name);
+          final names = TypedMapNames(mixin.name2.name);
           header.write('${names.consumerName}$typeArguments');
           header.write(',');
           // Add a space at the beginning of the line so that dartfmt indents it
