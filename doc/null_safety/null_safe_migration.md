@@ -51,9 +51,11 @@ dart pub global run over_react_codemod:null_safety_migrator_companion --yes-to-a
 ```
 
 This codemod will:
-- Add nullability hints to props/state that are defaulted/initialized in class components.
+- Add nullability hints to state mixin/class fields
   - These hints will cause defaulted/initialized values to be migrated as "late required". 
     See our [prop requiredness and nullability](#prop-requiredness-and-nullability) docs for more details on whether you should keep them required following the migration.
+  - All non-initialized state fields will have optional nullable hints.
+- Add nullable hints for callback ref types.
 
 #### Required props codemod
 
