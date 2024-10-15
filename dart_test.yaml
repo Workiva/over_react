@@ -4,11 +4,12 @@ platforms:
   - chrome
   - vm
 
-# Default concurrency of 4 for unit tests, integration preset will override
-concurrency: 4
+# Work around process hanging after tests finish: https://github.com/dart-lang/build/issues/3765
+concurrency: 1
 
 presets:
   vm:
+    concurrency: 4
     paths:
       - test/vm_tests/
 
