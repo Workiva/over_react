@@ -152,6 +152,16 @@ main() {
           foo.SomeTypeName foo;
         ''')).nameWithoutPrefix, 'SomeTypeName');
       });
+
+      test('nameWithPrefix', () {
+        expect(TypeNameHelper(parseAndGetSingleWithType('''
+          SomeTypeName foo;
+        ''')).nameWithPrefix, 'SomeTypeName');
+
+        expect(TypeNameHelper(parseAndGetSingleWithType('''
+          foo.SomeTypeName foo;
+        ''')).nameWithPrefix, 'foo.SomeTypeName');
+      });
     });
 
     group('NameHelper', () {
