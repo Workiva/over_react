@@ -131,9 +131,13 @@ jobs:
       matrix:
         sdk: [ 2.19.6, stable ]
         analyzer:
-          # We only have one version currently, but we'll leave this CI step in place
-          # for the next time we need to support multiple analyzer versions.
           - ^5.1.0
+          - ^6.0.0
+        exclude:
+          # Analyzer 6 only resolves in Dart 3
+          - sdk: 2.19.6
+            analyzer: ^6.0.0
+
     steps:
       - uses: actions/checkout@v4
       - id: setup-dart
