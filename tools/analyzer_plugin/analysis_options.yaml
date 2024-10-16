@@ -1,5 +1,4 @@
-include: package:workiva_analysis_options/v1.recommended.yaml
-
+include: package:workiva_analysis_options/v2.yaml
 analyzer:
   exclude:
     - playground/**
@@ -17,7 +16,6 @@ analyzer:
     unused_import: info
     import_of_legacy_library_into_null_safe: warning
     implementation_imports: warning
-
     # ignores from v1.recommended
     prefer_interpolation_to_compose_strings: ignore
     cascade_invocations: ignore
@@ -26,9 +24,3 @@ analyzer:
     prefer_final_locals: ignore
     # This is less readable in some cases, and isn't worth it.
     join_return_with_assignment: ignore
-
-linter:
-  rules:
-    - avoid_returning_null_for_future
-    - avoid_void_async
-    - implementation_imports
