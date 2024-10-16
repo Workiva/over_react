@@ -204,7 +204,7 @@ mixin _TypedMapMixinShorthandDeclaration {
         .toList();
 
     if (badConstraints != null && badConstraints.isNotEmpty) {
-      final badConstraintsString = badConstraints.map((c) => c.name.name).join(', ');
+      final badConstraintsString = badConstraints.map((c) => c.nameWithPrefix).join(', ');
 
       final suggestedImplName = mixin.name.name.endsWith('Mixin')
           ? mixin.name.name.replaceFirst(RegExp(r'Mixin$'), '')
@@ -229,7 +229,7 @@ extension on Union<BoilerplateProps, BoilerplatePropsMixin> {
   /// This is the safest way to retrieve that information because it takes
   /// into account the nature of the [Union] typing of `props`.
   List<String> get allPropsMixins => this.switchCase(
-        (a) => a.nodeHelper.mixins.map((name) => name.name.name).toList(),
+        (a) => a.nodeHelper.mixins.map((name) => name.nameWithPrefix).toList(),
         (b) => [b.name.name],
       );
 }

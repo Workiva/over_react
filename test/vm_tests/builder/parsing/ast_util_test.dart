@@ -152,17 +152,28 @@ main() {
           foo.SomeTypeName foo;
         ''')).nameWithoutPrefix, 'SomeTypeName');
       });
+
+      test('nameWithPrefix', () {
+        expect(TypeNameHelper(parseAndGetSingleWithType('''
+          SomeTypeName foo;
+        ''')).nameWithPrefix, 'SomeTypeName');
+
+        expect(TypeNameHelper(parseAndGetSingleWithType('''
+          foo.SomeTypeName foo;
+        ''')).nameWithPrefix, 'foo.SomeTypeName');
+      });
     });
 
     group('NameHelper', () {
       test('nameWithoutPrefix', () {
-        expect(NameHelper(parseAndGetFirstWithType('''
-          SomeName foo;
-        ''')).nameWithoutPrefix, 'SomeName');
+        final identifier = parseAndGetSingleWithType<ExpressionFunctionBody>('''
+          example() => identifier;
+        ''').expression as Identifier;
+        expect(NameHelper(identifier).nameWithoutPrefix, 'identifier');
 
-        expect(NameHelper(parseAndGetFirstWithType('''
-          foo.SomeName foo;
-        ''')).nameWithoutPrefix, 'SomeName');
+        expect(NameHelper(parseAndGetFirstWithType<PrefixedIdentifier>('''
+          example() => foo.identifier;
+        ''')).nameWithoutPrefix, 'identifier');
       });
     });
 
