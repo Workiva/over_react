@@ -166,13 +166,14 @@ main() {
 
     group('NameHelper', () {
       test('nameWithoutPrefix', () {
-        expect(NameHelper(parseAndGetFirstWithType('''
-          SomeName foo;
-        ''')).nameWithoutPrefix, 'SomeName');
+        final identifier = parseAndGetSingleWithType<ExpressionFunctionBody>('''
+          example() => identifier;
+        ''').expression as Identifier;
+        expect(NameHelper(identifier).nameWithoutPrefix, 'identifier');
 
         expect(NameHelper(parseAndGetFirstWithType<PrefixedIdentifier>('''
-          example() => foo.SomeName;
-        ''')).nameWithoutPrefix, 'SomeName');
+          example() => foo.identifier;
+        ''')).nameWithoutPrefix, 'identifier');
       });
     });
 
