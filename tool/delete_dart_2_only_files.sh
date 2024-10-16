@@ -19,6 +19,7 @@ grep over_react_component_declaration_non_null_safe_test.dart \
    --fixed-strings \
    --invert-match \
    dart_test.yaml.old > dart_test.yaml
+rm dart_test.yaml.old
 
 rm -rf tools/analyzer_plugin/test/unit/util/non_null_safe
 rm -rf tools/analyzer_plugin/test/integration/assists/non_null_safe
