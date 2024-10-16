@@ -160,8 +160,8 @@ main() {
           SomeName foo;
         ''')).nameWithoutPrefix, 'SomeName');
 
-        expect(NameHelper(parseAndGetFirstWithType('''
-          foo.SomeName foo;
+        expect(NameHelper(parseAndGetFirstWithType<PrefixedIdentifier>('''
+          example() => foo.SomeName;
         ''')).nameWithoutPrefix, 'SomeName');
       });
     });
