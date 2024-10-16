@@ -1083,9 +1083,9 @@ main() {
               // DDC error message
               matches(RegExp(
                   r"Expected a value of type 'Map[^']*', but got one of type '(Native|Legacy)JavaScriptObject'")),
-              // dart2js error message
+              // Dart 2 dart2js, Dart 3 DDC error message
               matches(RegExp(
-                  r"type '(Unknown|Plain)JavaScriptObject' is not a subtype of type 'Map[^']*'")),
+                  r"type '(Unknown|Plain|Legacy)JavaScriptObject' is not a subtype of type 'Map[^']*'")),
             )),
           ]);
 

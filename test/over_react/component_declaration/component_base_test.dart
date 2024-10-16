@@ -24,7 +24,6 @@ import 'package:over_react/over_react.dart' show Dom, DummyComponent, DummyCompo
 import 'package:over_react/over_react.dart' as over_react;
 import 'package:over_react/src/component_declaration/component_base.dart';
 import 'package:over_react/src/component_declaration/component_type_checking.dart';
-import 'package:pedantic/pedantic.dart';
 import 'package:react/react_client.dart';
 import 'package:test/test.dart';
 import 'package:w_common/disposable.dart';
@@ -534,8 +533,7 @@ main() {
               test('a Map of the wrong type throws a type error', () {
                 final style = <dynamic, dynamic>{'color': 'blue'};
                 expect(() => getTypedView({styleKey: style}).style,
-                    // ignore: deprecated_member_use
-                    throwsA(anyOf(isA<TypeError>(), isA<CastError>())));
+                    throwsA(isATypeCastError()));
               });
 
               test('null: returns null', () {

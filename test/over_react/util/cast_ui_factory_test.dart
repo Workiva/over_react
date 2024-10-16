@@ -18,6 +18,8 @@ library cast_ui_factory_test;
 import 'package:over_react/over_react.dart';
 import 'package:test/test.dart';
 
+import '../../test_util/test_util.dart';
+
 part 'cast_ui_factory_test.over_react.g.dart';
 
 main() {
@@ -44,7 +46,7 @@ main() {
     });
 
     test('throws an error if provided something other than a UiFactory', () {
-      expect(() => castUiFactory('test'), throwsA(isA<CastError>()));
+      expect(() => castUiFactory('test'), throwsA(isATypeCastError()));
     });
   });
 }

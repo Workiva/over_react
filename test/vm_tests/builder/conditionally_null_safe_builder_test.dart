@@ -19,7 +19,7 @@ import 'package:test/test.dart';
 
 main() {
   group('conditionally null safe builder', () {
-    group('on package-level Dart version that is not null safe', () {
+    group('on package-level Dart language version that is not null safe', () {
       setUpAll(() {
         const nonNullSafePackagePath =
             'test_fixtures/test_packages/non_null_safe';
@@ -81,9 +81,9 @@ main() {
                   'Using nullSafety: false. {languageVersion: 2.11, source: libraryVersionComment}'));
         });
       });
-    });
+    }, tags: 'dart-2-only');
 
-    group('on package-level Dart version that is null safe', () {
+    group('on package-level Dart language version that is null safe', () {
       setUpAll(() {
         const nonNullSafePackagePath = 'test_fixtures/test_packages/null_safe';
         Process.runSync('dart', ['pub', 'get'],
