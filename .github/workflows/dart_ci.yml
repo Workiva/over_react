@@ -131,7 +131,7 @@ jobs:
       matrix:
         sdk: [ 2.19.6, stable ]
         analyzer:
-          - ^5.1.0
+          - ^5.13.0 # This should match the lower bound
           - ^6.0.0
         exclude:
           # Analyzer 6 only resolves in Dart 3
