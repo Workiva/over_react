@@ -20,7 +20,6 @@ import 'dart:async';
 import 'dart:html';
 
 import 'package:logging/logging.dart';
-import 'package:pedantic/pedantic.dart';
 import 'package:test/test.dart';
 import 'package:w_flux/w_flux.dart';
 import 'package:over_react/over_react.dart';

@@ -17,6 +17,7 @@ library test_util;
 import 'dart:js_util';
 
 import 'package:over_react/over_react.dart';
+import 'package:test/test.dart';
 
 export 'package:over_react_test/over_react_test.dart' hide testJsComponentFactory;
 
@@ -37,3 +38,14 @@ bool isDDC() {
   assert(assertsEnabled = true);
   return assertsEnabled;
 }
+
+/// A matcher that matches an error thrown when a runtime cast fails.
+///
+/// This will be either
+/// - a `CastError` in Dart 2 (removed in Dart 3)
+/// - a [TypeError] in Dart 3
+Matcher isATypeCastError() => anyOf(
+      isA<TypeError>(),
+      // Use toString since CastError isn't available in Dart 3
+      isA<Object>().having((o) => o.toString(), 'toString() value', contains('CastError')),
+    );
