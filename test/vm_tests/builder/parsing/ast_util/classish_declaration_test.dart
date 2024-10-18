@@ -65,7 +65,7 @@ main() {
 
             expect(parseAndGetSingleClassish('''
               abstract class Foo implements Bar, Baz {}
-            ''').interfaces.map((i) => i.name.name), ['Bar', 'Baz']);
+            ''').interfaces.map((i) => i.name2.name), ['Bar', 'Baz']);
           });
 
           test('withClause', () {
@@ -105,7 +105,7 @@ main() {
 
             expect(parseAndGetSingleClassish('''
               class Foo extends Bar {}
-            ''').superclass?.name.name, 'Bar');
+            ''').superclass?.name2.name, 'Bar');
           });
 
           test('mixins', () {
@@ -115,13 +115,13 @@ main() {
 
             expect(parseAndGetSingleClassish('''
               class Foo extends Object with Bar, Baz {}
-            ''').mixins.map((m) => m.name.name), ['Bar', 'Baz']);
+            ''').mixins.map((m) => m.name2.name), ['Bar', 'Baz']);
           });
 
           test('allSuperTypes', () {
             expect(parseAndGetSingleClassish('''
               class Foo extends Bar with Baz implements Qux {}
-            ''').allSuperTypes.map((m) => m.name.name), unorderedEquals(['Bar', 'Baz', 'Qux']));
+            ''').allSuperTypes.map((m) => m.name2.name), unorderedEquals(['Bar', 'Baz', 'Qux']));
           });
         });
       });
@@ -148,7 +148,7 @@ main() {
 
             expect(parseAndGetSingleClassish('''
               abstract class Foo = Object with Something implements Bar, Baz;
-            ''').interfaces.map((i) => i.name.name), ['Bar', 'Baz']);
+            ''').interfaces.map((i) => i.name2.name), ['Bar', 'Baz']);
           });
 
           test('withClause', () {
@@ -180,19 +180,19 @@ main() {
           test('superclass', () {
             expect(parseAndGetSingleClassish('''
               class Foo = Bar with Baz;
-            ''').superclass?.name.name, 'Bar');
+            ''').superclass?.name2.name, 'Bar');
           });
 
           test('mixins', () {
             expect(parseAndGetSingleClassish('''
               class Foo = Object with Bar, Baz;
-            ''').mixins.map((m) => m.name.name), ['Bar', 'Baz']);
+            ''').mixins.map((m) => m.name2.name), ['Bar', 'Baz']);
           });
 
           test('allSuperTypes', () {
             expect(parseAndGetSingleClassish('''
               class Foo = Bar with Baz implements Qux;
-            ''').allSuperTypes.map((m) => m.name.name), unorderedEquals(['Bar', 'Baz', 'Qux']));
+            ''').allSuperTypes.map((m) => m.name2.name), unorderedEquals(['Bar', 'Baz', 'Qux']));
           });
         });
       });
@@ -232,7 +232,7 @@ main() {
 
             expect(parseAndGetSingleClassish('''
               mixin Foo on Bar implements Baz {}
-            ''').interfaces.map((i) => i.name.name), unorderedEquals(['Bar', 'Baz']));
+            ''').interfaces.map((i) => i.name2.name), unorderedEquals(['Bar', 'Baz']));
           });
 
           test('withClause', () {
@@ -268,7 +268,7 @@ main() {
           test('allSuperTypes', () {
             expect(parseAndGetSingleClassish('''
               mixin Foo on Bar implements Baz {}
-            ''').allSuperTypes.map((m) => m.name.name), unorderedEquals(['Bar', 'Baz']));
+            ''').allSuperTypes.map((m) => m.name2.name), unorderedEquals(['Bar', 'Baz']));
           });
         });
       });
