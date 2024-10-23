@@ -56,6 +56,7 @@ This codemod will:
     See our [prop requiredness and nullability](#prop-requiredness-and-nullability) docs for more details on whether you should keep them required following the migration.
   - All non-initialized state fields will have optional nullable hints.
 - Add nullable hints for callback ref types.
+- Add annotations to disable required prop validation for `connect` props. See [`connect` required props migration case](#wrapper-and-connected-components-and-required-props) for more info.
 
 #### Required props codemod
 
@@ -210,7 +211,7 @@ of the null safety and required props docs for instructions on how to handle the
 
 For connect, either:
 - Disable validation using the instructions linked above 
-    - Note: for now, this must be done manually, but we'll be adding a codemod to help do this automatically for `connect`: https://github.com/Workiva/over_react_codemod/issues/295
+    - Note: The [null safety migrator companion codemod](#companion-codemod) does this automatically for all `connect` props.
 - Refactor your component to instead utilize [OverReact Redux hooks](../over_react_redux_documentation.md#hooks), 
     which avoid this problem by accessing store data and dispatchers directly in the component as opposed to passing it in via props.
 
