@@ -52,7 +52,7 @@ dart pub global run over_react_codemod:null_safety_migrator_companion --yes-to-a
 
 This codemod will:
 - Add nullability hints to state mixin/class fields
-  - These hints will cause defaulted/initialized values to be migrated as "late required". 
+  - These hints will cause defaulted/initialized values to be migrated as "late required" (the same thing is done for props in the [required props codemod](#required-props-codemod)). 
     See our [prop requiredness and nullability](#prop-requiredness-and-nullability) docs for more details on whether you should keep them required following the migration.
   - All non-initialized state fields will have optional nullable hints.
 - Add nullable hints for callback ref types.
@@ -66,7 +66,9 @@ as a separate commit before proceeding with the rest of the migration.
 This is a two-step process involving two sub-commands:
 
 1. `null_safety_required_props collect` - Collects requiredness data for all OverReact props based on usages in the specified packages and all their transitive dependencies.
-1. `null_safety_required_props codemod` - Adds null safety migrator hints to OverReact props using prop requiredness data from 'collect' command.
+1. `null_safety_required_props codemod` - Adds null safety migrator hints to OverReact props taking into account:
+    1. Prop requiredness data from the 'collect' command.
+    1. If the prop has a default in `defaultProps`, it will get "late required" hints.
 
 Start with the `collect` command, following its help output for instructions:
 ```shell
