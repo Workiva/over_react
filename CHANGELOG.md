@@ -1,5 +1,8 @@
 # OverReact Changelog
 
+## 5.4.2
+- [#964] Fix bad override of `manageAndReturnTypedDisposable` caused by w_common 3.3.0
+
 ## 5.4.1
 - [#958] Officially support Dart 3, raise SDK constraint explicitly
     - This did not involve any changes that would affect consumers; previous null-safe versions should also work in Dart 3.
