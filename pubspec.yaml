@@ -19,7 +19,7 @@ dependencies:
   redux: ^5.0.0
   source_span: ^1.4.1
   transformer_utils: ^0.2.6
-  w_common: ^3.3.0
+  w_common: ^3.0.0
   w_flux: ^3.0.0
   platform_detect: ^2.0.0
   quiver: ^3.0.0
