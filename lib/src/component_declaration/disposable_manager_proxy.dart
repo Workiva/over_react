@@ -111,6 +111,6 @@ mixin DisposableManagerProxy on react.Component implements DisposableManagerV7 {
   ///
   /// The parameter may not be `null`.
   @override
-  T manageAndReturnTypedDisposable<T extends Disposable>(T disposable) =>
-      _getDisposableProxy().manageAndReturnTypedDisposable(disposable);
+  T manageAndReturnTypedDisposable<T extends Disposable?>(T disposable) =>
+      _getDisposableProxy().manageAndReturnTypedDisposable<T>(disposable);
 }

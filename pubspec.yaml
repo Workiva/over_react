@@ -5,6 +5,13 @@ homepage: https://github.com/Workiva/over_react/
 environment:
   sdk: '>=2.19.0 <4.0.0'
 
+dependency_overrides: 
+  w_common:
+    git:
+      url: https://github.com/Workiva/w_common.git
+      ref: FEDX-1991
+      path: w_common
+
 dependencies:
   collection: ^1.15.0
   analyzer: '>=5.13.0 <7.0.0'
