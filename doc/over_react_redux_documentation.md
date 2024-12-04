@@ -10,6 +10,10 @@ A Dart wrapper for React Redux, providing targeted state updates.
   - [Running the Examples](#running-the-examples)
 - **[Using it in your project](#using-it-in-your-project)**
 - **[ReduxProvider](#reduxprovider)**
+- **[Hooks](#hooks)**
+  - [useSelector](#useselector)
+  - [useDispatch](#usedispatch)
+  - [useStore](#usestore)
 - **[Connect](#connect)**
   - [`connect` Parameters](#connect-parameters)
     - [mapStateToProps](#mapstatetoprops)
@@ -22,10 +26,6 @@ A Dart wrapper for React Redux, providing targeted state updates.
     - [context](#context)
     - [pure](#pure)
     - [forwardRef](#forwardref)
-- **[Hooks](#hooks)**
-  - [useSelector](#useselector)
-  - [useDispatch](#usedispatch)
-  - [useStore](#usestore)
 - **[Using Multiple Stores](#using-multiple-stores)**
 - **[Using Redux DevTools](#using-redux-devtools)**
   - [Integrating with DevTools](#integration-with-devtools)
@@ -168,6 +168,9 @@ A wrapper around the JS react-redux `connect` function that supports OverReact c
 
 > See: <https://react-redux.js.org/api/connect>
 
+> ![TIP]
+> connect still works and is supported. However, we recommend using the hooks API as the default.
+
 **Example:**
 
 ```dart
@@ -179,6 +182,24 @@ UiFactory<CounterProps> Counter = connect<CounterState, CounterProps>(
     ..increment = (() => dispatch(IncrementAction()))
   ),
 )(_$Counter);
+```
+
+Note that any required props assigned in connect must have their validation disabled; see docs [here](./null_safety_and_required_props.md#disabling-validation-use-case-connect)
+for more info. 
+
+For example:
+```dart
+mixin CounterPropsMixin on UiProps {
+  // Set in connect.
+  late int count;
+  late void Function() increment;
+  
+  // Must be set by consumers of the connected compoennt.
+  late String requiredByConsumer;
+}
+
+@Props(disableRequiredPropValidation: {'count', 'increment'})
+class CounterProps = UiProps with CounterPropsMixin, OtherPropsMixin;
 ```
 
 ### `connect` Parameters
@@ -281,9 +302,17 @@ UiFactory<CounterProps> Counter = connect<CounterState, CounterProps>(
 > [More information about the `connect` function](https://react-redux.js.org/api/connect#connect)
 
 ## Hooks
+
 OverReact exposes wrappers around React Redux hook APIs, which serve as an alternative to the existing [`connect()`](#connect) Higher Order Component. 
 These APIs allow you to subscribe to the Redux store and dispatch actions, without having to wrap your components 
 in [`connect()`](#connect).
+
+> [!TIP]
+> **We recommend using the React-Redux hooks API as the default approach in your React components.**
+>
+> The existing connect API still works and will continue to be supported, but the hooks API is simpler, 
+> requires less OverReact boilerplate, and doesn't involve suppressing validation for required props 
+> (see [connect](#connect) docs for more info).
 
 > See: <https://react-redux.js.org/api/hooks>
 

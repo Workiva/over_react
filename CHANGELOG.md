@@ -1,5 +1,30 @@
 # OverReact Changelog
 
+## 5.4.2
+- [#964] Fix bad override of `manageAndReturnTypedDisposable` caused by w_common 3.3.0
+
+## 5.4.1
+- [#958] Officially support Dart 3, raise SDK constraint explicitly
+    - This did not involve any changes that would affect consumers; previous null-safe versions should also work in Dart 3.
+    - Note: there's a known bug in Dart >=3.3.0 <3.5.0 that breaks behavior in DDC of certain functions passed to components, 
+      such as refs and potentially JS callback props: https://github.com/dart-lang/sdk/issues/56897. 
+    
+      During development, we recommend either avoiding those Dart versions or compiling with dart2js.
+
+- [#960] Raise `analyzer` upper bound to allow 6.x
+- [#957] Docs: add more details around connect vs hooks
+
+## 5.4.0
+- [#941] Add Dart wrapper for React [lazy](https://react.dev/reference/react/lazy)
+- [#952] Docs: fix diagram formatting in null safety migration guide
+
+## 5.3.3
+- [#951] Internal CI fixes
+
+## 5.3.2
+- [#948] Fix late required prop linting not working in non-null-safe libraries
+- [#949] Add docs around migrating connect and wrapper components, improve helpfulness of required prop lints and runtime errors
+
 ## 5.3.1
 - [#944] Analyzer plugin: Don't lint for required props that are specified due to prop forwarding
 

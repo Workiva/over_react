@@ -36,6 +36,7 @@ import 'over_react/component/_deprecated/error_boundary_test.dart'
     as deprecated_error_boundary_test;
 import 'over_react/component/ref_util_test.dart' as ref_test;
 import 'over_react/component/element_type_test.dart' as element_type_test;
+import 'over_react/component/lazy_test.dart' as lazy_test;
 import 'over_react/component/memo_test.dart' as memo_test;
 import 'over_react/component/prop_mixins_test.dart' as prop_mixins_test;
 import 'over_react/component/prop_typedefs_test.dart' as prop_typedefs_test;
@@ -65,6 +66,7 @@ void main() {
   deprecated_error_boundary_test.main();
   ref_test.main();
   element_type_test.main();
+  lazy_test.main();
   memo_test.main();
   dom_components_test.main();
   prop_mixins_test.main();

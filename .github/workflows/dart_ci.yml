@@ -11,22 +11,51 @@ on:
     branches:
       - '**'
 
+permissions:
+  contents: write
+  id-token: write
+  pull-requests: write
+
 jobs:
+  # Run as a separate job outside the Dart SDK matrix below,
+  # since we can only emit a single SBOM.
+  create-sbom-release-asset:
+    name: Create SBOM Release Asset
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dart-lang/setup-dart@v1
+        with:
+          sdk: 2.19.6 # This version doesn't matter so long as it resolves.
+      - run: dart pub get
+      - name: Publish SBOM to Release Assets
+        uses: anchore/sbom-action@v0
+        with:
+          path: ./
+          format: cyclonedx-json
+
   build:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        # Can't run on `dev` (Dart 3) until we're fully null-safe.
-        sdk: [ 2.19.6 ]
+        sdk: [ 2.19.6, stable ]
     steps:
       - uses: actions/checkout@v4
-      - uses: dart-lang/setup-dart@v1
+      - id: setup-dart
+        uses: dart-lang/setup-dart@v1
         with:
           sdk: ${{ matrix.sdk }}
 
       - name: Print Dart SDK version
         run: dart --version
+
+      - name: Delete Dart-2-only files when running on Dart 3
+        run: |
+          DART_VERSION="${{ steps.setup-dart.outputs.dart-version }}"
+          if [[ "$DART_VERSION" =~ ^3 ]]; then
+            ./tool/delete_dart_2_only_files.sh
+          fi
 
       - id: install
         name: Install dependencies
@@ -39,7 +68,7 @@ jobs:
       - name: Verify formatting
         run: dart run dart_dev format --check
         # Only run on one sdk version in case there are conflicts
-        if: always() && matrix.sdk != '2.19.6' && steps.install.outcome == 'success'
+        if: always() && matrix.sdk == '2.19.6' && steps.install.outcome == 'success'
 
       # Analyze before generated files are created to verify that component boilerplate analysis is "clean" without the need for building
       - name: Analyze example source (pre-build)
@@ -76,41 +105,55 @@ jobs:
       - name: Run tests (VM)
         # Can't use build_runner (which dart_dev uses if you depend on it) to run VM tests, since we get the error:
         #    Unable to spawn isolate: /…/build_runner_testRU6M77/.packages: Error: Problem in packages configuration file: Unexpected character
-        run: dart test -P vm
+        run: |
+          DART_VERSION="${{ steps.setup-dart.outputs.dart-version }}"
+          TEST_ARGS=""
+          if [[ "$DART_VERSION" =~ ^3 ]]; then
+            TEST_ARGS="--preset=no-dart-2"
+          fi
+          dart test --preset vm $TEST_ARGS
         if: always() && steps.install.outcome == 'success' && steps.build.outcome == 'success'
 
       - name: Run tests (DDC)
         run: dart test --precompiled ddc_precompiled -P dartdevc
         if: always() && steps.install.outcome == 'success' && steps.build.outcome == 'success'
+        timeout-minutes: 5
 
       - name: Run tests (dart2js)
         run: dart run dart_dev test --build-args="-r" -P dart2js
         if: always() && steps.install.outcome == 'success' && steps.build.outcome == 'success'
-
-      - uses: anchore/sbom-action@v0
-        with:
-          path: ./
-          format: cyclonedx-json
+        timeout-minutes: 5
 
   validate_analyzer:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        # Can't run on `dev` (Dart 3) until we're fully null-safe.
-        sdk: [ 2.19.6 ]
+        sdk: [ 2.19.6, stable ]
         analyzer:
-          # We only have one version currently, but we'll leave this CI step in place
-          # for the next time we need to support multiple analyzer versions.
-          - ^5.1.0
+          - ^5.13.0 # This should match the lower bound
+          - ^6.0.0
+        exclude:
+          # Analyzer 6 only resolves in Dart 3
+          - sdk: 2.19.6
+            analyzer: ^6.0.0
+
     steps:
       - uses: actions/checkout@v4
-      - uses: dart-lang/setup-dart@v1
+      - id: setup-dart
+        uses: dart-lang/setup-dart@v1
         with:
           sdk: ${{ matrix.sdk }}
 
       - name: Print Dart SDK version
         run: dart --version
+
+      - name: Delete Dart-2-only files when running on Dart 3
+        run: |
+          DART_VERSION="${{ steps.setup-dart.outputs.dart-version }}"
+          if [[ "$DART_VERSION" =~ ^3 ]]; then
+            ./tool/delete_dart_2_only_files.sh
+          fi
 
       - name: Update analyzer constraint to ${{ matrix.analyzer }} and validate `dart pub get` can resolve
         id: resolve
@@ -127,7 +170,13 @@ jobs:
         run: dart run build_runner build --build-filter='**.dart' --delete-conflicting-outputs
 
       - name: Run builder tests
-        run: dart test -p vm -- test/vm_tests/builder
+        run: |
+          DART_VERSION="${{ steps.setup-dart.outputs.dart-version }}"
+          TEST_ARGS=""
+          if [[ "$DART_VERSION" =~ ^3 ]]; then
+            TEST_ARGS="--preset=no-dart-2"
+          fi
+          dart test --preset vm $TEST_ARGS -- test/vm_tests/builder
 
   analyzer_plugin:
     runs-on: ubuntu-latest
@@ -137,16 +186,23 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # Can't run on `stable` (Dart 3) until we're fully null-safe.
-        sdk: [ 2.19.6 ]
+        sdk: [ 2.19.6, stable ]
     steps:
       - uses: actions/checkout@v4
-      - uses: dart-lang/setup-dart@v1
+      - id: setup-dart
+        uses: dart-lang/setup-dart@v1
         with:
           sdk: ${{ matrix.sdk }}
 
       - name: Print Dart SDK version
         run: dart --version
+
+      - name: Delete Dart-2-only files when running on Dart 3
+        run: |
+          DART_VERSION="${{ steps.setup-dart.outputs.dart-version }}"
+          if [[ "$DART_VERSION" =~ ^3 ]]; then
+            (cd ../.. && ./tool/delete_dart_2_only_files.sh)
+          fi
 
       - id: link
         name: Override over_react dependency with local path
@@ -172,3 +228,4 @@ jobs:
       - name: Run tests
         run: dart run dart_dev test
         if: always() && steps.install.outcome == 'success'
+        timeout-minutes: 8

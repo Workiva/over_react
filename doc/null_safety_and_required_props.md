@@ -120,8 +120,9 @@ This mechanism does not apply to function components, which use a different prop
 
 Sometimes, you want to declare a prop as non-nullable and required, but not enforce that consumers explicitly set it.
 
-There are two ways to opt out of prop validation for certain props, targeted toward to main use-cases:
+There are two ways to opt out of prop validation for certain props, targeted toward these main use-cases:
 - [wrapper components](#disabling-validation-use-case-wrapper-components)
+- [connect](#disabling-validation-use-case-connect)
 - [cloned props](#disabling-validation-use-case-cloned-props)
 
 #### Disabling validation use-case: wrapper components
@@ -179,6 +180,40 @@ class WrapperProps = UiProps with FooProps, WrapperPropsMixin;
 > 
 > See the [unsafe required prop reads](#unsafe-required-prop-reads) section for more info 
 
+
+#### Disabling validation use-case: `connect`
+Similar to [the wrapper component case](#disabling-validation-use-case-wrapper-components) in the previous section, 
+we'll want to disable validation similarly using `@Props(disableRequiredPropValidation: {...})` 
+for any late required props assigned within connect.
+
+For example:
+```dart
+mixin CounterPropsMixin on UiProps {
+  // Set in connect.
+  late int count;
+  late void Function() increment;
+  
+  // Must be set by consumers of the connected compoennt.
+  late String requiredByConsumer;
+}
+
+@Props(disableRequiredPropValidation: {'count', 'increment'})
+class CounterProps = UiProps with CounterPropsMixin, OtherPropsMixin;
+
+UiFactory<CounterProps> Counter = connect<CounterState, CounterProps>(
+  mapStateToProps: (state) => (Counter()
+    ..count = state.count
+  ),
+  mapDispatchToProps: (dispatch) => (Counter()
+    ..increment = (() => dispatch(IncrementAction()))
+  ),
+)(_$Counter);
+
+example() => (Counter()..requiredByConsumer = 'foo')();
+```
+
+Note that [OverReact Redux hooks](./over_react_redux_documentation.md#hooks) 
+avoid this problem by accessing store data and dispatchers directly in the component as opposed to passing it in via props.
 
 #### Disabling validation use-case: cloned props
 

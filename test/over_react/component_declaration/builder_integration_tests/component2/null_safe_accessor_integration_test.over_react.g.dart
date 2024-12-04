@@ -111,17 +111,6 @@ abstract class _$NullSafeTestPropsAccessorsMixin
   set nullableDynamic(dynamic value) =>
       props[_$key__nullableDynamic___$NullSafeTestProps] = value;
 
-  /// <!-- Generated from [_$NullSafeTestProps.nullableDynamicWithQuestion] -->
-  @override
-  dynamic? get nullableDynamicWithQuestion =>
-      (props[_$key__nullableDynamicWithQuestion___$NullSafeTestProps] ?? null)
-          as dynamic?;
-
-  /// <!-- Generated from [_$NullSafeTestProps.nullableDynamicWithQuestion] -->
-  @override
-  set nullableDynamicWithQuestion(dynamic? value) =>
-      props[_$key__nullableDynamicWithQuestion___$NullSafeTestProps] = value;
-
   /// <!-- Generated from [_$NullSafeTestProps.nullableTypedefWithoutQuestion] -->
   @override
   NullableTypedef get nullableTypedefWithoutQuestion =>
@@ -167,9 +156,6 @@ abstract class _$NullSafeTestPropsAccessorsMixin
   static const PropDescriptor _$prop__nullableDynamic___$NullSafeTestProps =
       PropDescriptor(_$key__nullableDynamic___$NullSafeTestProps);
   static const PropDescriptor
-      _$prop__nullableDynamicWithQuestion___$NullSafeTestProps =
-      PropDescriptor(_$key__nullableDynamicWithQuestion___$NullSafeTestProps);
-  static const PropDescriptor
       _$prop__nullableTypedefWithoutQuestion___$NullSafeTestProps =
       PropDescriptor(
           _$key__nullableTypedefWithoutQuestion___$NullSafeTestProps);
@@ -191,8 +177,6 @@ abstract class _$NullSafeTestPropsAccessorsMixin
       'NullSafeTestProps.nullable';
   static const String _$key__nullableDynamic___$NullSafeTestProps =
       'NullSafeTestProps.nullableDynamic';
-  static const String _$key__nullableDynamicWithQuestion___$NullSafeTestProps =
-      'NullSafeTestProps.nullableDynamicWithQuestion';
   static const String
       _$key__nullableTypedefWithoutQuestion___$NullSafeTestProps =
       'NullSafeTestProps.nullableTypedefWithoutQuestion';
@@ -206,7 +190,6 @@ abstract class _$NullSafeTestPropsAccessorsMixin
     _$prop__requiredWithAccessorAndCustomKey___$NullSafeTestProps,
     _$prop__nullable___$NullSafeTestProps,
     _$prop__nullableDynamic___$NullSafeTestProps,
-    _$prop__nullableDynamicWithQuestion___$NullSafeTestProps,
     _$prop__nullableTypedefWithoutQuestion___$NullSafeTestProps
   ];
   static const List<String> $propKeys = [
@@ -218,7 +201,6 @@ abstract class _$NullSafeTestPropsAccessorsMixin
     _$key__requiredWithAccessorAndCustomKey___$NullSafeTestProps,
     _$key__nullable___$NullSafeTestProps,
     _$key__nullableDynamic___$NullSafeTestProps,
-    _$key__nullableDynamicWithQuestion___$NullSafeTestProps,
     _$key__nullableTypedefWithoutQuestion___$NullSafeTestProps
   ];
 }
@@ -388,17 +370,6 @@ abstract class _$NullSafeTestStateAccessorsMixin
   set nullableDynamic(dynamic value) =>
       state[_$key__nullableDynamic___$NullSafeTestState] = value;
 
-  /// <!-- Generated from [_$NullSafeTestState.nullableDynamicWithQuestion] -->
-  @override
-  dynamic? get nullableDynamicWithQuestion =>
-      (state[_$key__nullableDynamicWithQuestion___$NullSafeTestState] ?? null)
-          as dynamic?;
-
-  /// <!-- Generated from [_$NullSafeTestState.nullableDynamicWithQuestion] -->
-  @override
-  set nullableDynamicWithQuestion(dynamic? value) =>
-      state[_$key__nullableDynamicWithQuestion___$NullSafeTestState] = value;
-
   /// <!-- Generated from [_$NullSafeTestState.nullableTypedefWithoutQuestion] -->
   @override
   NullableTypedef get nullableTypedefWithoutQuestion =>
@@ -440,9 +411,6 @@ abstract class _$NullSafeTestStateAccessorsMixin
   static const StateDescriptor _$prop__nullableDynamic___$NullSafeTestState =
       StateDescriptor(_$key__nullableDynamic___$NullSafeTestState);
   static const StateDescriptor
-      _$prop__nullableDynamicWithQuestion___$NullSafeTestState =
-      StateDescriptor(_$key__nullableDynamicWithQuestion___$NullSafeTestState);
-  static const StateDescriptor
       _$prop__nullableTypedefWithoutQuestion___$NullSafeTestState =
       StateDescriptor(
           _$key__nullableTypedefWithoutQuestion___$NullSafeTestState);
@@ -461,8 +429,6 @@ abstract class _$NullSafeTestStateAccessorsMixin
       'NullSafeTestState.nullable';
   static const String _$key__nullableDynamic___$NullSafeTestState =
       'NullSafeTestState.nullableDynamic';
-  static const String _$key__nullableDynamicWithQuestion___$NullSafeTestState =
-      'NullSafeTestState.nullableDynamicWithQuestion';
   static const String
       _$key__nullableTypedefWithoutQuestion___$NullSafeTestState =
       'NullSafeTestState.nullableTypedefWithoutQuestion';
@@ -475,7 +441,6 @@ abstract class _$NullSafeTestStateAccessorsMixin
     _$prop__requiredDynamic___$NullSafeTestState,
     _$prop__nullable___$NullSafeTestState,
     _$prop__nullableDynamic___$NullSafeTestState,
-    _$prop__nullableDynamicWithQuestion___$NullSafeTestState,
     _$prop__nullableTypedefWithoutQuestion___$NullSafeTestState
   ];
   static const List<String> $stateKeys = [
@@ -486,7 +451,6 @@ abstract class _$NullSafeTestStateAccessorsMixin
     _$key__requiredDynamic___$NullSafeTestState,
     _$key__nullable___$NullSafeTestState,
     _$key__nullableDynamic___$NullSafeTestState,
-    _$key__nullableDynamicWithQuestion___$NullSafeTestState,
     _$key__nullableTypedefWithoutQuestion___$NullSafeTestState
   ];
 }

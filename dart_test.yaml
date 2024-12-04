@@ -4,13 +4,17 @@ platforms:
   - chrome
   - vm
 
-# Default concurrency of 4 for unit tests, integration preset will override
-concurrency: 4
+# Work around process hanging after tests finish: https://github.com/dart-lang/build/issues/3765
+concurrency: 1
 
 presets:
   vm:
+    concurrency: 4
     paths:
       - test/vm_tests/
+
+  no-dart-2:
+    exclude_tags: dart-2-only
 
   dartdevc:
     exclude_tags: no-ddc
@@ -48,3 +52,5 @@ tags:
   # Tests that represent a case of undesirable JS interop behavior that's
   # either unavoidable or exists as a tradeoff for improved behavior in other cases.
   js-interop-tradeoff: {}
+  # Tests for behavior that's only valid in Dart 2, and does not apply to Dart 3.
+  dart-2-only: {}

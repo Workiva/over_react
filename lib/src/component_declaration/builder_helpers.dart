@@ -158,8 +158,13 @@ class MissingRequiredPropsError extends Error {
 
   MissingRequiredPropsError(this._message);
 
+  static const _messageSuffix = ' Ensure this prop is either directly set, or indirectly set via prop forwarding.'
+      'If this error seems unexpected and this component uses connect or mixes in required props from another component,'
+      ' please refer to the null safety migration guide for instructions on how to proceed:'
+      ' https://github.com/Workiva/over_react/blob/master/doc/null_safety/null_safe_migration.md#wrapper-and-connected-components-and-required-props';
+
   @override
-  String toString() => 'RequiredPropsError: $_message';
+  String toString() => 'RequiredPropsError: $_message$_messageSuffix';
 }
 
 /// Helper static extension methods to make forwarding props easier.

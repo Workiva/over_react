@@ -21,7 +21,6 @@ import 'dart:html';
 import 'package:over_react/src/util/css_value_util.dart';
 import 'package:over_react/src/util/rem_util.dart';
 import 'package:over_react/src/util/test_mode.dart';
-import 'package:pedantic/pedantic.dart';
 import 'package:test/test.dart';
 
 import '../../test_util/test_util.dart';

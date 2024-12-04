@@ -51,9 +51,12 @@ dart pub global run over_react_codemod:null_safety_migrator_companion --yes-to-a
 ```
 
 This codemod will:
-- Add nullability hints to props/state that are defaulted/initialized in class components.
-  - These hints will cause defaulted/initialized values to be migrated as "late required". 
+- Add nullability hints to state mixin/class fields
+  - These hints will cause defaulted/initialized values to be migrated as "late required" (the same thing is done for props in the [required props codemod](#required-props-codemod)). 
     See our [prop requiredness and nullability](#prop-requiredness-and-nullability) docs for more details on whether you should keep them required following the migration.
+  - All non-initialized state fields will have optional nullable hints.
+- Add nullable hints for callback ref types.
+- Add annotations to disable required prop validation for `connect` props. See [`connect` required props migration case](#wrapper-and-connected-components-and-required-props) for more info.
 
 #### Required props codemod
 
@@ -63,7 +66,9 @@ as a separate commit before proceeding with the rest of the migration.
 This is a two-step process involving two sub-commands:
 
 1. `null_safety_required_props collect` - Collects requiredness data for all OverReact props based on usages in the specified packages and all their transitive dependencies.
-1. `null_safety_required_props codemod` - Adds null safety migrator hints to OverReact props using prop requiredness data from 'collect' command.
+1. `null_safety_required_props codemod` - Adds null safety migrator hints to OverReact props taking into account:
+    1. Prop requiredness data from the 'collect' command.
+    1. If the prop has a default in `defaultProps`, it will get "late required" hints.
 
 Start with the `collect` command, following its help output for instructions:
 ```shell
@@ -138,6 +143,14 @@ Run the null safety migrator tool:
 
 Below are some common cases that might come up while running the migrator tool on a repo using over_react.
 
+* [Prop requiredness and nullability](#prop-requiredness-and-nullability)
+* [Wrapper and `connect`ed components and required props](#wrapper-and-connected-components-and-required-props)
+* [Implementing abstract `Ref`s](#implementing-abstract-refs)
+* [Incorrect `getDerivedStateFromProps` Return Signature](#incorrect-getderivedstatefromprops-return-signature)
+* [Verbose function component return signature for `uiForwardRef`](#verbose-function-component-return-signature-for-uiforwardref)
+* [Nullable store/actions generics on `FluxUiPropsMixin`](#nullable-storeactions-generics-on-fluxuipropsmixin)
+* [Nullable props generic on `UiComponent2` mixins](#nullable-props-generic-on-uicomponent2-mixins)
+
 #### Prop requiredness and nullability
 
 First, check out our documentation around [null safety and required props](../null_safety_and_required_props.md).
@@ -168,25 +181,47 @@ title: Should My Prop Be Required?
 ---
 flowchart TD
   HasDefault== No ==> NotDefaulted
-    NotDefaulted((Is it set for \nevery invocation?))-- No --> End_Optional_No_Public_Api_Check
+    NotDefaulted((Is it set for <br>every invocation?))-- No --> End_Optional_No_Public_Api_Check
     NotDefaulted-- Yes ---> PublicAPICheck
-  HasDefault((Does the prop have \na default value?))== Yes ==> Defaulted
-    Defaulted((Where is the value \ndefaulted?))--> ClassDefault
+  HasDefault((Does the prop have <br>a default value?))== Yes ==> Defaulted
+    Defaulted((Where is the value <br>defaulted?))--> ClassDefault
     Defaulted--> LocalDefault
-      ClassDefault(["defaultProps getter\n(Class Component)"])--> PublicAPICheck
-      LocalDefault(["local var\n(Function Component)"])--> End_Optional_No_Public_Api_Check
+      ClassDefault(["defaultProps getter<br>(Class Component)"])--> PublicAPICheck
+      LocalDefault(["local var<br>(Function Component)"])--> End_Optional_No_Public_Api_Check
 
   subgraph Public API Check
-    PublicAPICheck((Is the prop \npublic API?))-- Yes --> PublicAlwaysSpecified
-      PublicAlwaysSpecified((Is the prop mixed \nin by any other \ncomponent?))-- Yes --> End_Optional
+    PublicAPICheck((Is the prop <br>public API?))-- Yes --> PublicAlwaysSpecified
+      PublicAlwaysSpecified((Is the prop mixed <br>in by any other <br>component?))-- Yes --> End_Optional
       PublicAlwaysSpecified-- No --> End_Required
     PublicAPICheck-- No --> End_Required
   end
 
-  End_Optional_No_Public_Api_Check[/"Make it <strong>optional</strong>\n<code>SomeType? propName;</code>"\]
-  End_Optional[/"Make it <strong>optional</strong>\n<code>SomeType? propName;</code>"\]
-  End_Required[/"Make it <strong>required</strong>\n<code>late SomeType propName;</code>"\]
+  End_Optional_No_Public_Api_Check[/"Make it <strong>optional</strong><br><code>SomeType? propName;</code>"\]
+  End_Optional[/"Make it <strong>optional</strong><br><code>SomeType? propName;</code>"\]
+  End_Required[/"Make it <strong>required</strong><br><code>late SomeType propName;</code>"\]
 ```
+
+### Wrapper and `connect`ed components and required props
+
+There may be some cases where you have a wrapper component or `connect`ed component that sets some required props, 
+but you get lints and runtime errors about missing props when consuming them.
+
+See [this section](../null_safety_and_required_props.md#disabling-required-prop-validation-for-certain-props)
+of the null safety and required props docs for instructions on how to handle these cases and suppress this validation.
+
+#### connect
+
+For connect, either:
+- Disable validation using the instructions linked above 
+    - Note: The [null safety migrator companion codemod](#companion-codemod) does this automatically for all `connect` props.
+- Refactor your component to instead utilize [OverReact Redux hooks](../over_react_redux_documentation.md#hooks), 
+    which avoid this problem by accessing store data and dispatchers directly in the component as opposed to passing it in via props.
+
+We generally recommend using hooks over `connect`, since the API is simpler, and in over_react is more convenient and doesn't involve worrying about required prop validation.
+
+However, for existing components, converting them to function components may be non-trivial depending on other logic within components that needs to be migrated.
+
+So, for this migration, you'll want to decide whether converting to function components is worth the effort.
 
 #### Implementing abstract `Ref`s
 

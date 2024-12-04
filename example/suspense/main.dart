@@ -17,18 +17,17 @@ import 'dart:html';
 import 'package:over_react/over_react.dart';
 import 'package:react/react_dom.dart' as react_dom;
 import 'counter_component.dart' deferred as lazy_component;
-import 'lazy.dart';
 import 'third_party_file.dart';
 
-final LazyCounter = lazy(() async {
-  await lazy_component.loadLibrary();
+UiFactory<CounterPropsMixin> LazyCounter = lazy(() async {
   await Future.delayed(Duration(seconds: 5));
+  await lazy_component.loadLibrary();
   return lazy_component.Counter;
 },
-    UiFactoryConfig(
-      propsFactory: PropsFactory.fromUiFactory(CounterPropsMapView),
-      displayName: 'This does nothing...',
-    ));
+UiFactoryConfig(
+  propsFactory: PropsFactory.fromUiFactory(CounterPropsMapView)
+  )
+);
 
 void main() {
   react_dom.render(
@@ -38,7 +37,7 @@ void main() {
             'I am a fallback UI that will show while we load the lazy component! The load time is artificially inflated to last an additional 5 seconds just to prove it\'s working!',
           )
         )(
-          (LazyCounter()..initialCount = 2)(
+          (LazyCounter())(
             (Dom.div()..id = 'Heyyy!')(),
           ),
         ),
