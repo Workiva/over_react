@@ -54,3 +54,6 @@ workiva:
 # dependency_overrides:
 #   over_react:
 #     path: /Users/me/workspaces/over_react
+
+dependency_overrides:
+  uuid: 4.2.2
