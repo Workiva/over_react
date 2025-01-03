@@ -12,7 +12,7 @@ dependencies:
   json_annotation: ^4.6.0
   redux: '>=3.0.0 <6.0.0'
   redux_dev_tools: '>=0.4.0 <0.8.0'
-  uuid: ^3.0.7
+  uuid: '>=3.0.7 <5.0.0'
 
 dev_dependencies:
   build_runner: ^2.2.0
