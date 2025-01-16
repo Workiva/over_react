@@ -250,7 +250,7 @@ class OverReactBuilder extends Builder {
     // analyzer version in this builder.
     result.errors.forEach(log.warning);
 
-    return null;
+    return result.unit;
   }
 
   static const _ignoreForFileCodes = {
