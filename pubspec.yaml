@@ -42,20 +42,6 @@ dev_dependencies:
   yaml: ^3.1.0
   mocktail: ^1.0.3
 
-dependency_overrides:
-  react:
-    git:
-      url: https://github.com/workiva/react-dart.git
-      ref: react-18-2-0
-  react_testing_library:
-    git:
-      url: https://github.com/workiva/react_testing_library.git
-      ref: r18
-  over_react_test:
-    git:
-      url: https://github.com/workiva/over_react_test.git
-      ref: react-18-test
-
 workiva:
   core_checks:
     version: 1
