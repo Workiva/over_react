@@ -30,6 +30,8 @@ void sharedErrorBoundaryStackTests() {
         {required String expectedComponentName}) {
       final capturedInfos = <ReactErrorInfo>[];
       final mountNode = DivElement();
+      // Use react_dom.render instead of RTL to avoid errors on React 18 about
+      // `act` being used in prod builds.
       react_dom.render((ErrorBoundary()
         ..shouldLogErrors = false
         ..onComponentDidCatch = (error, info) {
