@@ -206,7 +206,7 @@ void main() {
         });
       });
 
-      group('experimental calculateChangeBits argument functions correctly', () {
+      group('experimental calculateChangeBits argument does not throw when used (has no effect in React 18)', () {
         late Ref<ContextProviderWrapperComponent?> providerRef;
         int? consumerEvenValue;
         int? consumerOddValue;
@@ -243,15 +243,14 @@ void main() {
         });
 
         test('on value updates', () {
+          // Test common behavior between React 17 (calculateChangedBits working)
+          // and React 18 (it having no effect).
           providerRef.current!.increment();
           expect(consumerEvenValue, 2);
-          expect(consumerOddValue, 1);
           providerRef.current!.increment();
-          expect(consumerEvenValue, 2);
           expect(consumerOddValue, 3);
           providerRef.current!.increment();
           expect(consumerEvenValue, 4);
-          expect(consumerOddValue, 3);
         });
       });
     });
