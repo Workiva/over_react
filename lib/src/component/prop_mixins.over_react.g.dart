@@ -6849,6 +6849,16 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   set title(String? value) =>
       props[_$key__title___$UbiquitousDomPropsMixin] = value;
 
+  /// <!-- Generated from [_$UbiquitousDomPropsMixin.inert] -->
+  @override
+  bool? get inert =>
+      (props[_$key__inert___$UbiquitousDomPropsMixin] ?? null) as bool?;
+
+  /// <!-- Generated from [_$UbiquitousDomPropsMixin.inert] -->
+  @override
+  set inert(bool? value) =>
+      props[_$key__inert___$UbiquitousDomPropsMixin] = value;
+
   /// <!-- Generated from [_$UbiquitousDomPropsMixin._raw$UbiquitousDomProps$style] -->
   @override
   @Accessor(key: 'style')
@@ -7607,6 +7617,8 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
       PropDescriptor(_$key__id___$UbiquitousDomPropsMixin);
   static const PropDescriptor _$prop__title___$UbiquitousDomPropsMixin =
       PropDescriptor(_$key__title___$UbiquitousDomPropsMixin);
+  static const PropDescriptor _$prop__inert___$UbiquitousDomPropsMixin =
+      PropDescriptor(_$key__inert___$UbiquitousDomPropsMixin);
   static const PropDescriptor
       _$prop___raw$UbiquitousDomProps$style___$UbiquitousDomPropsMixin =
       PropDescriptor(
@@ -7717,6 +7729,7 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   static const String _$key__tabIndex___$UbiquitousDomPropsMixin = 'tabIndex';
   static const String _$key__id___$UbiquitousDomPropsMixin = 'id';
   static const String _$key__title___$UbiquitousDomPropsMixin = 'title';
+  static const String _$key__inert___$UbiquitousDomPropsMixin = 'inert';
   static const String
       _$key___raw$UbiquitousDomProps$style___$UbiquitousDomPropsMixin = 'style';
   static const String _$key__onAnimationEnd___$UbiquitousDomPropsMixin =
@@ -7802,6 +7815,7 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
     _$prop__tabIndex___$UbiquitousDomPropsMixin,
     _$prop__id___$UbiquitousDomPropsMixin,
     _$prop__title___$UbiquitousDomPropsMixin,
+    _$prop__inert___$UbiquitousDomPropsMixin,
     _$prop___raw$UbiquitousDomProps$style___$UbiquitousDomPropsMixin,
     _$prop__onAnimationEnd___$UbiquitousDomPropsMixin,
     _$prop__onAnimationIteration___$UbiquitousDomPropsMixin,
@@ -7856,6 +7870,7 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
     _$key__tabIndex___$UbiquitousDomPropsMixin,
     _$key__id___$UbiquitousDomPropsMixin,
     _$key__title___$UbiquitousDomPropsMixin,
+    _$key__inert___$UbiquitousDomPropsMixin,
     _$key___raw$UbiquitousDomProps$style___$UbiquitousDomPropsMixin,
     _$key__onAnimationEnd___$UbiquitousDomPropsMixin,
     _$key__onAnimationIteration___$UbiquitousDomPropsMixin,

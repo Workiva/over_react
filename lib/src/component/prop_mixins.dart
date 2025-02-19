@@ -298,6 +298,8 @@ abstract class _$UbiquitousDomPropsMixin {
   /// Represents advisory information about the element.
   String? title;
 
+  bool? inert;
+
   /// An inline CSS style for the element.
   ///
   ///     ..style = {
