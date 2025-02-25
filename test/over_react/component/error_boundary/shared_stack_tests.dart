@@ -12,9 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'dart:html';
+
 import 'package:meta/meta.dart';
 import 'package:over_react/over_react.dart' hide ErrorBoundary;
-import 'package:react_testing_library/react_testing_library.dart' as rtl;
+import 'package:over_react/react_dom.dart' as react_dom;
 import 'package:over_react/components.dart';
 import 'package:test/test.dart';
 
@@ -27,17 +29,15 @@ void sharedErrorBoundaryStackTests() {
     void expectRenderErrorWithComponentName(ReactElement element,
         {required String expectedComponentName}) {
       final capturedInfos = <ReactErrorInfo>[];
-      expect(() {
-        rtl.render((ErrorBoundary()
-          ..shouldLogErrors = false
-          ..onComponentDidCatch = (error, info) {
-            capturedInfos.add(info);
-          })(element));
-        // Use prints as an easy way to swallow `print` calls and
-        // prevent RTL from forwarding console errors to the test output,
-        // since React error boundary logging is pretty noisy.
-        // TODO instead, disable logging in this rtl.render call once that option is available: FED-1641
-      }, prints(anything));
+      final mountNode = DivElement();
+      // Use react_dom.render instead of RTL to avoid errors on React 18 about
+      // `act` being used in prod builds.
+      react_dom.render((ErrorBoundary()
+        ..shouldLogErrors = false
+        ..onComponentDidCatch = (error, info) {
+          capturedInfos.add(info);
+        })(element), mountNode);
+      addTearDown(() => react_dom.unmountComponentAtNode(mountNode));
 
       expect(capturedInfos, hasLength(1),
           reason: 'test setup check; should have captured a single component error');
