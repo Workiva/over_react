@@ -32,7 +32,9 @@ class ContributorVisitor extends RecursiveElementVisitor<void> {
   void visitClassElement(ClassElement element) {
     for (final config in _configs) {
       if (!element.isOrIsSubtypeOfElementFromPackage(
-          config.typeNameOfContributorClass, config.packageNameContainingContributorClass)) continue;
+          config.typeNameOfContributorClass, config.packageNameContainingContributorClass)) {
+        continue;
+      }
 
       final annotatedFields = element.fields
           .where((f) => f.metadata.any((a) => a.element!.thisOrAncestorOfType<ClassElement>()?.name == 'DocsMeta'));
