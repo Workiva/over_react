@@ -172,9 +172,6 @@ bool isTypeAlias(dynamic type) {
 /// Returns the [ComponentTypeMeta] associated with the component type [type] in [setComponentTypeMeta],
 /// or `const ComponentTypeMeta.none()` if there is no associated meta.
 ComponentTypeMeta getComponentTypeMeta(Object type) {
-  assert(isPotentiallyValidComponentType(type),
-      '`type` should be a valid component type (and not null or a type alias).');
-
   if (type is! String) {
     return getProperty(type, _componentTypeMetaKey) as ComponentTypeMeta? ??
         const ComponentTypeMeta.none();
