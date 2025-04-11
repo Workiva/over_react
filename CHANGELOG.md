@@ -1,5 +1,12 @@
 # OverReact Changelog
 
+## 5.4.3
+- [#966] Revert #964 (an attempt to fix `manageAndReturnTypedDisposable` typing)
+- [#969] Use a `dart_dependency_validator.yaml` config file
+- [#973] React 18 Prep
+  - Bumps the minimum Dart SDK from `2.17.0` to `2.19.0`
+- [#974] Fix fragment type check assert
+
 ## 5.4.2
 - [#964] Fix bad override of `manageAndReturnTypedDisposable` caused by w_common 3.3.0
 
