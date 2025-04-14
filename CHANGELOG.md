@@ -1,5 +1,9 @@
 # OverReact Changelog
 
+## 5.4.4
+- [#972] Generate parts even when there are analysis warnings/errors in the source file's unresolved AST 
+    - For example, the new `doc_directive_unknown` warning on doc comments in Dart 3
+
 ## 5.4.3
 - [#966] Revert #964 (an attempt to fix `manageAndReturnTypedDisposable` typing)
 - [#969] Use a `dart_dependency_validator.yaml` config file
