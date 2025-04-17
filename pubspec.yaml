@@ -53,4 +53,8 @@ dependency_overrides:
     git:
       url: https://github.com/Workiva/react-dart.git
       ref: FED-3283-dual-support
+  react_testing_library:
+    git:
+      url: https://github.com/Workiva/react_testing_library.git
+      ref: r18-dual-version-spike
 
