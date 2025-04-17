@@ -46,3 +46,11 @@ workiva:
   core_checks:
     version: 1
     react_boilerplate: disabled
+
+
+dependency_overrides:
+  react:
+    git:
+      url: https://github.com/Workiva/react-dart.git
+      ref: FED-3283-dual-support
+
