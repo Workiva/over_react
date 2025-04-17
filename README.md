@@ -85,8 +85,7 @@ and add an HTML element with a unique identifier where you’ll mount your OverR
           // OverReact component render() output will show up here.
         </div>
 
-        <script src="packages/react/react.js"></script>
-        <script src="packages/react/react_dom.js"></script>
+        <script src="packages/react/js/react.dev.js"></script>
 
         <!-- NOTE: "index" should correspond to the
              name of the `.dart` file that contains your `main()` entrypoint. -->
