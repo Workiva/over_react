@@ -1,0 +1,7 @@
+# Prevent everything in this directory from being published to Pub, so that
+# we don't unnecessarily bloat the package with image files.
+#
+# Use a .pubignore per directory instead of one at the repo root,
+# so that we don't have to redeclare all of our .gitignore entries.
+# See: https://github.com/dart-lang/pub/issues/4545#issuecomment-2739756059
+*
