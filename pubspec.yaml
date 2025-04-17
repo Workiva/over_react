@@ -15,7 +15,7 @@ dependencies:
   meta: ^1.16.0
   package_config: ^2.1.0
   path: ^1.5.1
-  react: ^7.2.0
+  react: ^7.3.0
   redux: ^5.0.0
   source_span: ^1.4.1
   transformer_utils: ^0.2.6
