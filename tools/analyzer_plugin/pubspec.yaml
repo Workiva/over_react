@@ -45,3 +45,17 @@ workiva:
 # dependency_overrides:
 #   over_react:
 #     path: /Users/me/workspaces/over_react
+
+dependency_overrides:
+  react:
+    git:
+      url: https://github.com/Workiva/react-dart.git
+      ref: react-18-2-0-testing
+  react_testing_library:
+    git:
+      url: https://github.com/Workiva/react_testing_library.git
+      ref: r18
+  dart_dev_workiva:
+    git:
+      url: https://github.com/Workiva/dart_dev_workiva.git
+      ref: override-react-js-files-for-r18
