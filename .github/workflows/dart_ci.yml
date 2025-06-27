@@ -50,11 +50,12 @@ jobs:
       - name: Print Dart SDK version
         run: dart --version
 
-      - name: Delete Dart-2-only files when running on Dart 3
+      - name: Delete Dart-2-only files and update tests when running on Dart 3
         run: |
           DART_VERSION="${{ steps.setup-dart.outputs.dart-version }}"
           if [[ "$DART_VERSION" =~ ^3 ]]; then
             ./tool/delete_dart_2_only_files.sh
+            ./tool/update_tests_for_dart_3.sh
           fi
 
       - id: install
@@ -151,11 +152,12 @@ jobs:
       - name: Print Dart SDK version
         run: dart --version
 
-      - name: Delete Dart-2-only files when running on Dart 3
+      - name: Delete Dart-2-only files and update tests when running on Dart 3
         run: |
           DART_VERSION="${{ steps.setup-dart.outputs.dart-version }}"
           if [[ "$DART_VERSION" =~ ^3 ]]; then
             ./tool/delete_dart_2_only_files.sh
+            ./tool/update_tests_for_dart_3.sh
           fi
 
       - name: Update analyzer constraint to ${{ matrix.analyzer }} and validate `dart pub get` can resolve
@@ -200,11 +202,11 @@ jobs:
       - name: Print Dart SDK version
         run: dart --version
 
-      - name: Delete Dart-2-only files when running on Dart 3
+      - name: Delete Dart-2-only files and update tests when running on Dart 3
         run: |
           DART_VERSION="${{ steps.setup-dart.outputs.dart-version }}"
           if [[ "$DART_VERSION" =~ ^3 ]]; then
-            (cd ../.. && ./tool/delete_dart_2_only_files.sh)
+            (cd ../.. && ./tool/delete_dart_2_only_files.sh && ./tool/update_tests_for_dart_3.sh)
           fi
 
       - id: link
