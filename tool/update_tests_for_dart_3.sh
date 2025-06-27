@@ -14,7 +14,7 @@ build_test_version=$(yq '.packages.build_test.version' pubspec.lock)
 if [[ "$build_test_version" == "3."* ]]; then
   # This patch is derived from fixing tests  and getting the diff with:
   #    git diff test/vm_tests/builder/over_react_builder_test.dart | pbcopy
-  git apply << EndOfMessage
+  git apply << "EndOfMessage"
 diff --git a/test/vm_tests/builder/over_react_builder_test.dart b/test/vm_tests/builder/over_react_builder_test.dart
 index 48c96b62..b9b60b55 100644
 --- a/test/vm_tests/builder/over_react_builder_test.dart
