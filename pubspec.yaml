@@ -30,7 +30,7 @@ dev_dependencies:
   benchmark_harness: ^2.2.1
   build_resolvers: ^2.0.0
   build_runner: ^2.0.0
-  build_test: ^2.0.0
+  build_test: '>=2.0.0 <4.0.0'
   build_web_compilers: '>=3.2.6 <5.0.0'
   dart_dev: ^4.0.1
   dependency_validator: ^3.0.0
