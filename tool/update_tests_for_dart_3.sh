@@ -6,6 +6,7 @@
 #
 
 set -e
+set -x
 
 # Update over_react_builder_test.dart by applying a patch in build_test_version v3 (Dart 3 only);
 # see comment in test file for more details on the changes.
