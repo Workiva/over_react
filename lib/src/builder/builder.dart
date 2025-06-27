@@ -18,10 +18,12 @@ import 'dart:isolate';
 
 import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:analyzer/dart/ast/ast.dart';
+import 'package:analyzer/dart/ast/token.dart' show LanguageVersionToken;
 import 'package:build/build.dart';
 import 'package:dart_style/dart_style.dart';
 import 'package:path/path.dart' as p;
 import 'package:package_config/package_config.dart' as pc;
+import 'package:pub_semver/pub_semver.dart' as semver;
 import 'package:source_span/source_span.dart';
 
 import './util.dart';
@@ -62,6 +64,7 @@ class OverReactBuilder extends Builder {
       return;
     }
 
+    pc.LanguageVersion? packageConfigLanguageVersion;
     String nullSafetyReason;
     bool nullSafety;
     {
@@ -84,7 +87,6 @@ class OverReactBuilder extends Builder {
         // Catch any errors coming from our implementation of `$packageConfig`.
         // We can remove this once we switch to build 2.4.0's `packageConfig`
         // (see `$packageConfig` doc comment for more info).
-        pc.LanguageVersion? packageConfigLanguageVersion;
         try {
           packageConfigLanguageVersion = (await buildStep.$packageConfig)
               .packages
@@ -222,11 +224,20 @@ class OverReactBuilder extends Builder {
       final nullSafetyCommentText = 'Using nullSafety: $nullSafety.${nullSafety ? ' ' : ''} $nullSafetyReason';
 
       // Generated part files must have matching language version comments, so copy them over if they exist.
-      // TODO use CompilationUnit.languageVersionToken instead of parsing this manually once we're sure we can get on analyzer version 0.39.5 or greater
-      final languageVersionCommentMatch = RegExp(r'//\s*@dart\s*=\s*.+').firstMatch(source);
+      final languageVersionComment = libraryUnit.languageVersionToken?.value();
+
+      final formatter = DartFormatter(
+          // Try to use the actual version of the library if possible:
+          // 1. to avoid any potential parse errors
+          // 2. to preserve existing formatting in checked-in generated files in this repo when running on Dart 2
+          languageVersion: libraryUnit.languageVersionToken?.asSemver() ??
+              packageConfigLanguageVersion?.asSemver() ??
+              DartFormatter.latestLanguageVersion);
+
       await _writePart(buildStep, outputId, outputs,
+          formatter: formatter,
           nullSafetyCommentText: nullSafetyCommentText,
-          languageVersionComment: languageVersionCommentMatch?.group(0));
+          languageVersionComment: languageVersionComment);
     } else {
       if (hasOutputPartDirective()) {
         log.warning('An over_react part directive was found in ${buildStep.inputId.path}, '
@@ -237,8 +248,6 @@ class OverReactBuilder extends Builder {
   }
 
   static final _headerLine = '// '.padRight(77, '*');
-
-  static final _formatter = DartFormatter();
 
   static CompilationUnit? _tryParseCompilationUnit(String source, AssetId id) {
     final result = parseString(content: source, path: id.path, throwIfDiagnostics: false);
@@ -264,8 +273,14 @@ class OverReactBuilder extends Builder {
     'invalid_use_of_visible_for_overriding_member',
   };
 
-  static FutureOr<void> _writePart(BuildStep buildStep, AssetId outputId, Iterable<String> outputs,
-      {required String nullSafetyCommentText, String? languageVersionComment}) async {
+  static FutureOr<void> _writePart(
+    BuildStep buildStep,
+    AssetId outputId,
+    Iterable<String> outputs, {
+    required DartFormatter formatter,
+    required String nullSafetyCommentText,
+    String? languageVersionComment,
+  }) async {
     final partOf = "'${p.basename(buildStep.inputId.uri.toString())}'";
 
     final buffer = StringBuffer();
@@ -299,12 +314,20 @@ class OverReactBuilder extends Builder {
     var output = buffer.toString();
     // Output the file even if formatting fails, so that it can be used to debug the issue.
     try {
-      output = _formatter.format(buffer.toString());
+      output = formatter.format(buffer.toString());
     } catch (e, st) {
       log.severe('Error formatting generated code', e, st);
     }
     await buildStep.writeAsString(outputId, output);
   }
+}
+
+extension on pc.LanguageVersion {
+  semver.Version asSemver() => semver.Version(major, minor, 0); // There's no patch available on this version.
+}
+
+extension on LanguageVersionToken {
+  semver.Version asSemver() => semver.Version(major, minor, 0); // There's no patch available on this version.
 }
 
 extension on BuildStep {
