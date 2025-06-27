@@ -9,7 +9,7 @@ dependencies:
   collection: ^1.15.0
   analyzer: ^7.0.0
   build: ^2.0.0
-  dart_style: '>=2.3.7 <4.0.0'
+  dart_style: '>=2.0.0 <4.0.0'
   js: ^0.6.1+1
   logging: ^1.0.0
   meta: ^1.16.0

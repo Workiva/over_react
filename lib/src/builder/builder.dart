@@ -29,6 +29,7 @@ import 'package:source_span/source_span.dart';
 import './util.dart';
 import 'codegen.dart';
 import 'codegen/language_version_util.dart';
+import 'dart_style_compat.dart';
 import 'parsing.dart';
 
 Builder overReactBuilder(BuilderOptions? options) => OverReactBuilder();
@@ -226,13 +227,23 @@ class OverReactBuilder extends Builder {
       // Generated part files must have matching language version comments, so copy them over if they exist.
       final languageVersionComment = libraryUnit.languageVersionToken?.value();
 
-      final formatter = DartFormatter(
+      DartFormatter? formatter;
+      try {
+        formatter = constructFormatter(
           // Try to use the actual version of the library if possible:
           // 1. to avoid any potential parse errors
           // 2. to preserve existing formatting in checked-in generated files in this repo when running on Dart 2
           languageVersion: libraryUnit.languageVersionToken?.asSemver() ??
               packageConfigLanguageVersion?.asSemver() ??
-              DartFormatter.latestLanguageVersion);
+              // TODO use DartFormatter.latestLanguageVersion here once this package supports only Dart 3 and dart_style >=2.3.7
+              semver.Version.parse(Platform.version
+                  .split(RegExp(r'\s'))
+                  .first),
+        );
+      } catch (e, st) {
+        // Formatting is not critical, so if it we can't construct a formatter, just skip it.
+        log.warning('Error constructing Dart formatter, skipping formatting step', e, st);
+      }
 
       await _writePart(buildStep, outputId, outputs,
           formatter: formatter,
@@ -277,7 +288,7 @@ class OverReactBuilder extends Builder {
     BuildStep buildStep,
     AssetId outputId,
     Iterable<String> outputs, {
-    required DartFormatter formatter,
+    required DartFormatter? formatter,
     required String nullSafetyCommentText,
     String? languageVersionComment,
   }) async {
@@ -313,10 +324,12 @@ class OverReactBuilder extends Builder {
 
     var output = buffer.toString();
     // Output the file even if formatting fails, so that it can be used to debug the issue.
-    try {
-      output = formatter.format(buffer.toString());
-    } catch (e, st) {
-      log.severe('Error formatting generated code', e, st);
+    if (formatter != null) {
+      try {
+        output = formatter.format(buffer.toString());
+      } catch (e, st) {
+        log.severe('Error formatting generated code', e, st);
+      }
     }
     await buildStep.writeAsString(outputId, output);
   }
