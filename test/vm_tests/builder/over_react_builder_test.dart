@@ -46,7 +46,8 @@ main() {
     late List<LogRecord> logs;
 
     setUp(() async {
-      reader = await PackageAssetReader.currentIsolate( // [1]
+      // [1]
+      reader = await PackageAssetReader.currentIsolate(
         rootPackage: 'over_react',
       );
 
