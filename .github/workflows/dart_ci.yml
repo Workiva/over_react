@@ -133,10 +133,13 @@ jobs:
         analyzer:
           - ^5.13.0 # This should match the lower bound
           - ^6.0.0
+          - ^7.0.0
         exclude:
-          # Analyzer 6 only resolves in Dart 3
+          # Analyzer 6+ only resolves in Dart 3
           - sdk: 2.19.6
             analyzer: ^6.0.0
+          - sdk: 2.19.6
+            analyzer: ^7.0.0
 
     steps:
       - uses: actions/checkout@v4
