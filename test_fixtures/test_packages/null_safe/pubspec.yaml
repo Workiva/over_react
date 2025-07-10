@@ -11,9 +11,3 @@ dev_dependencies:
 
 workiva:
   disable_core_checks: true
-
-dependency_overrides:
-  transformer_utils:
-    git:
-      url: https://github.com/Workiva/dart_transformer_utils.git
-      ref: allow-analyzer-7
