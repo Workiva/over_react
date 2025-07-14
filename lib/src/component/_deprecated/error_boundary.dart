@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:contextual_message/contextual_message.dart';
 import 'package:logging/logging.dart';
 import 'package:over_react/over_react.dart';
 import 'package:over_react/src/component/_deprecated/error_boundary_mixins.dart';
@@ -161,6 +162,15 @@ class ErrorBoundaryComponent<T extends ErrorBoundaryProps, S extends ErrorBounda
 
     final message = 'An unrecoverable error was caught by an ErrorBoundary (attempting to remount it was unsuccessful): \nInfo: ${info.componentStack}';
 
-    (props.logger ?? Logger(_loggerName)).severe(message, error, info.dartStackTrace);
+    final logger = props.logger ?? Logger(_loggerName);
+    logger.severe(
+      ContextualMessage(message, context: {
+        'reactErrorInfo': {
+          'componentStack': info.componentStack,
+        },
+      }),
+      error,
+      info.dartStackTrace,
+    );
   }
 }
