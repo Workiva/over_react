@@ -254,9 +254,7 @@ class ErrorBoundaryComponent
     final logger = props.logger ?? Logger(_loggerName);
     logger.severe(
       ContextualMessage(message, context: {
-        'reactErrorInfo': {
-          'componentStack': info.componentStack,
-        },
+        'reactErrorInfo.componentStack': info.componentStack,
       }),
       error,
       info.dartStackTrace,

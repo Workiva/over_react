@@ -421,9 +421,7 @@ mixin ErrorBoundaryMixin<T extends ErrorBoundaryPropsMixin, S extends ErrorBound
     logger.severe(
       ContextualMessage(message, context: {
         'isRecoverable': isRecoverable,
-        'reactErrorInfo': {
-          'componentStack': info.componentStack,
-        },
+        'reactErrorInfo.componentStack': info.componentStack,
       }),
       error,
       info.dartStackTrace,
