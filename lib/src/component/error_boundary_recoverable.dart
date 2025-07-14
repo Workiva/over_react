@@ -14,6 +14,7 @@
 
 import 'dart:async';
 
+import 'package:contextual_message/contextual_message.dart';
 import 'package:logging/logging.dart';
 import 'package:meta/meta.dart';
 import 'package:over_react/over_react.dart';
@@ -244,6 +245,16 @@ class RecoverableErrorBoundaryComponent<T extends RecoverableErrorBoundaryProps,
         ? 'An error was caught by an ErrorBoundary: \nInfo: ${info.componentStack}'
         : 'An unrecoverable error was caught by an ErrorBoundary (attempting to remount it was unsuccessful): \nInfo: ${info.componentStack}';
 
-    (props.logger ?? Logger(_loggerName)).severe(message, error, info.dartStackTrace);
+    final logger = props.logger ?? Logger(_loggerName);
+    logger.severe(
+      ContextualMessage(message, context: {
+        'isRecoverable': isRecoverable,
+        'reactErrorInfo': {
+          'componentStack': info.componentStack,
+        },
+      }),
+      error,
+      info.dartStackTrace,
+    );
   }
 }
