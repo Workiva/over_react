@@ -7,13 +7,14 @@ environment:
 
 dependencies:
   collection: ^1.15.0
-  analyzer: '>=5.13.0 <7.0.0'
+  analyzer: '>=5.13.0 <8.0.0'
   build: ^2.0.0
-  dart_style: ^2.0.0
+  dart_style: '>=2.0.0 <4.0.0'
   js: ^0.6.1+1
   logging: ^1.0.0
   meta: ^1.16.0
   package_config: ^2.1.0
+  pub_semver: ^2.0.0
   path: ^1.5.1
   react: ^7.3.0
   redux: ^5.0.0
@@ -29,7 +30,7 @@ dev_dependencies:
   benchmark_harness: ^2.2.1
   build_resolvers: ^2.0.0
   build_runner: ^2.0.0
-  build_test: ^2.0.0
+  build_test: '>=2.0.0 <4.0.0'
   build_web_compilers: '>=3.2.6 <5.0.0'
   dart_dev: ^4.0.1
   dependency_validator: ^3.0.0
