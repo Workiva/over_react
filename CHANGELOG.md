@@ -4,6 +4,7 @@
 - Update analyzer dependency to `>=5.13.0 <8.0.0` (allow v8)
 - Update dart_style dependency to `>=2.0.0 <4.0.0` (allow v3)
 - Pub package tarball: exclude documentation image files, optimizing download size from ~5.9MB to ~1.3MB
+- Consume react-dart 7.3.0 (React 18 compatible)
 
 ## 5.4.4
 - [#972] Generate parts even when there are analysis warnings/errors in the source file's unresolved AST 
