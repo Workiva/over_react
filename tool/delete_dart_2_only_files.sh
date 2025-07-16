@@ -6,6 +6,7 @@
 #
 
 set -e
+set -x
 
 rm -rf test/over_react/component_declaration/non_null_safe_builder_integration_tests
 rm test/over_react/component_declaration/flux_component_test/component2/unsound_flux_component_test.dart

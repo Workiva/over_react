@@ -30,17 +30,28 @@ main() {
     final builder = overReactBuilder(null);
     final logger = Logger('overReactBuilderTestLogger');
 
+    // [1] Note: for this test code to analyze/run in Dart 3 with build_test 3.x,
+    //     it needs to be temporarily modified to use new APIs.
+    //
+    //     We do this in CI, and it can also be done during local development;
+    //     see tool/update_tests_for_dart_3.sh.
+    //
+    //     This is a workaround to us not being able to be compatible with build
+    //     test 2.x and 3.x at the same time, and Dart 2 not being compatible with
+    //     build_test 3.x.
+
     late AssetReader reader;
-    late InMemoryAssetWriter writer;
+    late InMemoryAssetWriter writer; // [1]
     late AssetWriterSpy writerSpy;
     late List<LogRecord> logs;
 
     setUp(() async {
+      // [1]
       reader = await PackageAssetReader.currentIsolate(
         rootPackage: 'over_react',
       );
 
-      writer = InMemoryAssetWriter();
+      writer = InMemoryAssetWriter(); // [1]
       writerSpy = AssetWriterSpy(writer);
 
       logs = [];

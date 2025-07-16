@@ -50,16 +50,17 @@ jobs:
       - name: Print Dart SDK version
         run: dart --version
 
-      - name: Delete Dart-2-only files when running on Dart 3
+      - id: install
+        name: Install dependencies
+        run: dart pub get
+
+      - name: Delete Dart-2-only files and update tests when running on Dart 3
         run: |
           DART_VERSION="${{ steps.setup-dart.outputs.dart-version }}"
           if [[ "$DART_VERSION" =~ ^3 ]]; then
             ./tool/delete_dart_2_only_files.sh
+            ./tool/update_tests_for_dart_3.sh
           fi
-
-      - id: install
-        name: Install dependencies
-        run: dart pub get
 
       - name: Validate dependencies
         run: dart run dependency_validator
@@ -133,10 +134,13 @@ jobs:
         analyzer:
           - ^5.13.0 # This should match the lower bound
           - ^6.0.0
+          - ^7.0.0
         exclude:
-          # Analyzer 6 only resolves in Dart 3
+          # Analyzer 6+ only resolves in Dart 3
           - sdk: 2.19.6
             analyzer: ^6.0.0
+          - sdk: 2.19.6
+            analyzer: ^7.0.0
 
     steps:
       - uses: actions/checkout@v4
@@ -148,13 +152,6 @@ jobs:
       - name: Print Dart SDK version
         run: dart --version
 
-      - name: Delete Dart-2-only files when running on Dart 3
-        run: |
-          DART_VERSION="${{ steps.setup-dart.outputs.dart-version }}"
-          if [[ "$DART_VERSION" =~ ^3 ]]; then
-            ./tool/delete_dart_2_only_files.sh
-          fi
-
       - name: Update analyzer constraint to ${{ matrix.analyzer }} and validate `dart pub get` can resolve
         id: resolve
         run: |
@@ -162,6 +159,14 @@ jobs:
           # Show the updated version constraint
           git diff pubspec.yaml
           dart pub get
+
+      - name: Delete Dart-2-only files and update tests when running on Dart 3
+        run: |
+          DART_VERSION="${{ steps.setup-dart.outputs.dart-version }}"
+          if [[ "$DART_VERSION" =~ ^3 ]]; then
+            ./tool/delete_dart_2_only_files.sh
+            ./tool/update_tests_for_dart_3.sh
+          fi
 
       - name: Analyze package source
         run: dart analyze .
@@ -197,13 +202,6 @@ jobs:
       - name: Print Dart SDK version
         run: dart --version
 
-      - name: Delete Dart-2-only files when running on Dart 3
-        run: |
-          DART_VERSION="${{ steps.setup-dart.outputs.dart-version }}"
-          if [[ "$DART_VERSION" =~ ^3 ]]; then
-            (cd ../.. && ./tool/delete_dart_2_only_files.sh)
-          fi
-
       - id: link
         name: Override over_react dependency with local path
         run: cd ../.. && dart pub get && dart tool/travis_link_plugin_deps.dart
@@ -212,6 +210,13 @@ jobs:
         name: Install dependencies
         run: dart pub get
         if: always() && steps.link.outcome == 'success'
+
+      - name: Delete Dart-2-only files and update tests when running on Dart 3
+        run: |
+          DART_VERSION="${{ steps.setup-dart.outputs.dart-version }}"
+          if [[ "$DART_VERSION" =~ ^3 ]]; then
+            (cd ../.. && ./tool/delete_dart_2_only_files.sh && ./tool/update_tests_for_dart_3.sh)
+          fi
 
       - name: Validate dependencies
         run: dart run dependency_validator
