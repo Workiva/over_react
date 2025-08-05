@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:over_react/over_react.dart';
+
 
 part 'safe_render_manager_helper.over_react.g.dart';
 

@@ -14,8 +14,8 @@
 
 library over_react.abstract_transition_props;
 
-import 'package:over_react/over_react.dart' hide AbstractTransitionComponent, AbstractTransitionProps;
-import 'package:over_react/components.dart' show AbstractTransitionComponent, AbstractTransitionProps;
+
+
 
 part 'abstract_transition_props.over_react.g.dart';
 

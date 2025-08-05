@@ -13,7 +13,7 @@
 // limitations under the License.
 
 import 'package:logging/logging.dart';
-import 'package:over_react/over_react.dart';
+
 import 'package:over_react/src/component/_deprecated/error_boundary_mixins.dart';
 import 'package:over_react/src/component/_deprecated/error_boundary_recoverable.dart';
 
@@ -25,8 +25,8 @@ part 'error_boundary.over_react.g.dart';
 /// __Deprecated.__ Use the `ErrorBoundary` component exported from `package:over_react/components.dart` instead:
 ///
 /// ```dart
-/// import 'package:over_react/over_react.dart';
-/// import 'package:over_react/components.dart' as c;
+/// 
+/// 
 ///
 /// // Then use `c.ErrorBoundary` instead of `ErrorBoundary`:
 /// main() {

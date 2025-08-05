@@ -13,8 +13,8 @@
 // limitations under the License.
 
 import 'package:meta/meta.dart';
-import 'package:over_react/over_react.dart';
-import 'package:over_react/components.dart' as v2;
+
+
 
 @visibleForTesting
 const String defaultErrorBoundaryLoggerName = 'over_react.ErrorBoundary';

@@ -19,7 +19,7 @@ library over_react.resize_sensor;
 import 'dart:html';
 
 import 'package:meta/meta.dart';
-import 'package:over_react/over_react.dart' hide ResizeSensor, ResizeSensorComponent, ResizeSensorProps;
+
 import 'package:over_react/src/component/resize_sensor_constants.dart';
 
 part 'resize_sensor.over_react.g.dart';

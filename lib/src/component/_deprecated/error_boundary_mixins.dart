@@ -17,7 +17,7 @@ import 'dart:async';
 
 import 'package:logging/logging.dart';
 import 'package:meta/meta.dart';
-import 'package:over_react/over_react.dart';
+
 
 part 'error_boundary_mixins.over_react.g.dart';
 

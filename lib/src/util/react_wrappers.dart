@@ -20,7 +20,7 @@ import 'dart:html';
 import 'dart:js_util';
 
 import 'package:js/js.dart';
-import 'package:over_react/over_react.dart';
+
 import 'package:over_react/src/component_declaration/component_type_checking.dart';
 import 'package:react/react.dart' as react;
 import 'package:react/react_client.dart';

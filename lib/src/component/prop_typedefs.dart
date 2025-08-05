@@ -15,7 +15,7 @@
 // ignore_for_file: prefer_generic_function_type_aliases
 library over_react.prop_typedefs;
 
-import 'package:over_react/over_react.dart';
+
 import 'package:over_react/src/component_declaration/component_base.dart' as component_base;
 
 /// A custom rendering prop typedef that allows a custom rendering function to be provided

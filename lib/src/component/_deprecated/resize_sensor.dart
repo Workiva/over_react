@@ -20,7 +20,7 @@ import 'dart:collection';
 import 'dart:html';
 
 import 'package:meta/meta.dart';
-import 'package:over_react/over_react.dart';
+
 import 'package:over_react/src/component/resize_sensor.dart' show ResizeSensorEvent, SafeAnimationFrameMixin;
 import 'package:over_react/src/component/resize_sensor_constants.dart';
 

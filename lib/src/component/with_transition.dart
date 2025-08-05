@@ -18,8 +18,8 @@ import 'dart:async';
 import 'dart:html';
 
 import 'package:meta/meta.dart';
-import 'package:over_react/over_react.dart';
-import 'package:over_react/components.dart' as v2;
+
+
 
 part 'with_transition.over_react.g.dart';
 
@@ -33,8 +33,8 @@ part 'with_transition.over_react.g.dart';
 /// `onDidShow`, `onDidHide` to know when the CSS transition has completed.
 ///
 /// ```dart
-/// import 'package:over_react/over_react.dart';
-/// import 'package:over_react/components.dart' show WithTransition;
+/// 
+/// 
 ///
 /// mixin WithTransitionExampleProps on UiProps {
 ///   bool? initiallyShown;
@@ -93,7 +93,7 @@ part 'with_transition.over_react.g.dart';
 /// the CSS transition using `uiForwardRef`:
 ///
 /// ```dart
-/// import 'package:over_react/over_react.dart';
+/// 
 ///
 /// mixin CustomChildProps on UiProps {}
 ///

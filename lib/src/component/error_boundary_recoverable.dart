@@ -16,7 +16,7 @@ import 'dart:async';
 
 import 'package:logging/logging.dart';
 import 'package:meta/meta.dart';
-import 'package:over_react/over_react.dart';
+
 import 'package:over_react/src/component/error_boundary.dart' as v2;
 import 'package:over_react/src/component/error_boundary_api.dart';
 

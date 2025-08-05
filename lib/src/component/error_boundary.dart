@@ -13,7 +13,7 @@
 // limitations under the License.
 
 import 'package:logging/logging.dart';
-import 'package:over_react/over_react.dart' hide ErrorBoundary, ErrorBoundaryProps, ErrorBoundaryState;
+
 import 'package:over_react/src/component/error_boundary_api.dart';
 import 'package:over_react/src/component/error_boundary_recoverable.dart';
 

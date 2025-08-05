@@ -19,8 +19,8 @@ import 'dart:async';
 import 'dart:html';
 
 import 'package:meta/meta.dart';
-import 'package:over_react/over_react.dart';
-import 'package:over_react/component_base.dart' as component_base;
+
+
 
 export '../abstract_transition.dart' show TransitionPhase;
 

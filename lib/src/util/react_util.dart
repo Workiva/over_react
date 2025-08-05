@@ -13,7 +13,7 @@
 // limitations under the License.
 
 import 'package:meta/meta.dart';
-import 'package:over_react/over_react.dart';
+
 import 'package:over_react/src/component_declaration/util.dart';
 
 const _getPropKey = getPropKey;

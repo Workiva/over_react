@@ -18,9 +18,9 @@ import 'dart:async';
 import 'dart:html';
 
 import 'package:meta/meta.dart';
-import 'package:over_react/over_react.dart' hide TransitionPropsMixin;
-import 'package:over_react/components.dart' show TransitionPropsMixin;
-import 'package:over_react/component_base.dart' as component_base;
+
+
+
 
 part 'abstract_transition.over_react.g.dart';
 

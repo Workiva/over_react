@@ -14,7 +14,7 @@
 
 library over_react.prop_errors;
 
-import 'package:over_react/over_react.dart';
+
 
 /// Errors thrown due to a value within [UiComponent2.props] being set incorrectly.
 class PropError extends Error {

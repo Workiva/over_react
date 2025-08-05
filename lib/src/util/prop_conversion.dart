@@ -3,7 +3,7 @@
 import 'package:js/js.dart';
 import 'package:js/js_util.dart';
 import 'package:meta/meta.dart';
-import 'package:over_react/over_react.dart' show Context, Ref;
+
 import 'package:over_react/src/util/weak_map.dart';
 import 'package:react/react_client/js_backed_map.dart';
 import 'package:react/react_client/component_factory.dart';

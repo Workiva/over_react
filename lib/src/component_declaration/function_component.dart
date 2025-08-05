@@ -17,7 +17,7 @@ library over_react.component_declaration.function_component;
 
 import 'package:js/js_util.dart';
 import 'package:meta/meta.dart';
-import 'package:over_react/over_react.dart';
+
 import 'package:react/react.dart' as react;
 
 import 'component_type_checking.dart';

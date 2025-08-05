@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:over_react/js_component.dart';
+
 import 'package:over_react/src/component_declaration/function_component.dart';
 import 'package:react/react.dart' as react;
 import 'package:react/react_client/js_backed_map.dart';

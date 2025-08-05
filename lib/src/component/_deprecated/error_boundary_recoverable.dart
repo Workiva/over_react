@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:over_react/over_react.dart';
+
 import 'package:over_react/src/component/_deprecated/error_boundary_mixins.dart';
 
 part 'error_boundary_recoverable.over_react.g.dart';
