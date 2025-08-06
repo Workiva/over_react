@@ -19,8 +19,18 @@ library over_react.resize_sensor;
 import 'dart:html';
 
 import 'package:meta/meta.dart';
-
+import 'package:over_react/src/component/callback_typedefs.dart';
+import 'package:over_react/src/component/dom_components.dart';
+import 'package:over_react/src/component/ref_util.dart';
 import 'package:over_react/src/component/resize_sensor_constants.dart';
+import 'package:over_react/src/component_declaration/builder_helpers.dart';
+import 'package:over_react/src/component_declaration/component_base_2.dart';
+import 'package:over_react/src/util/cast_ui_factory.dart';
+import 'package:over_react/src/util/map_util.dart';
+import 'package:over_react/src/util/react_wrappers.dart';
+import 'package:over_react/src/util/string_util.dart';
+import 'package:over_react/src/util/validation_util.dart';
+import 'package:react/react.dart' show SyntheticEvent;
 
 part 'resize_sensor.over_react.g.dart';
 

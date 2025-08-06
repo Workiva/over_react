@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:over_react/src/component_declaration/component_base.dart';
 import 'package:over_react/src/component_declaration/component_type_checking.dart';
 import 'package:over_react/src/component_declaration/function_component.dart';
 import 'package:over_react/src/component_declaration/builder_helpers.dart' as bh;

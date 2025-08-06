@@ -16,8 +16,10 @@ import 'dart:async';
 import 'dart:html';
 
 import 'package:meta/meta.dart';
-
-
+import 'package:over_react/src/component_declaration/builder_helpers.dart';
+import 'package:over_react/src/over_react_redux/over_react_redux.dart';
+import 'package:over_react/src/util/context.dart';
+import 'package:over_react/src/util/equality.dart';
 import 'package:redux/redux.dart' as redux;
 import 'package:w_flux/w_flux.dart' as flux;
 
@@ -391,7 +393,7 @@ mixin InfluxStoreMixin<S> on flux.Store {
 ///
 /// __Example:__
 /// ```dart
-/// 
+///
 ///
 /// Store store1 = Store<CounterState>(counterStateReducer, initialState: CounterState(count: 0));
 /// Store store2 = Store<BigCounterState>(bigCounterStateReducer, initialState: BigCounterState(bigCount: 100));

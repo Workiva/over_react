@@ -17,10 +17,11 @@
 /// Various prop related mixins to be used with `UiComponent` descendants.
 library over_react.prop_mixins;
 
-
+import 'package:over_react/src/component/aria_mixin.dart' show AriaPropsMapView, AriaPropsMixin;
+import 'package:over_react/src/component/dom_components.dart' show DomProps;
 // Must import these consts because they are used in the transformed code.
 // ignore: deprecated_member_use, unused_shown_name
-
+import 'package:over_react/src/component_declaration/component_base.dart' show PropDescriptor, ConsumedProps, PropsMeta;
 import 'package:over_react/src/component/callback_typedefs.dart';
 import 'package:over_react/src/component_declaration/annotations.dart';
 import 'package:react/react_client/js_backed_map.dart';

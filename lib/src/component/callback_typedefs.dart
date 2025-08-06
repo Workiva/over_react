@@ -17,7 +17,7 @@ library over_react.callback_typedefs;
 
 import 'dart:html';
 
-
+import 'package:over_react/src/component/_deprecated/resize_sensor.dart' show ResizeSensorEvent;
 import 'package:react/react.dart' as react;
 
 // Callbacks for React's DOM event system
