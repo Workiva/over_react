@@ -16,10 +16,13 @@
 library over_react.component.suspense_component;
 
 import 'package:js/js.dart';
+import 'package:over_react/src/component_declaration/function_component.dart';
+import 'package:over_react/src/util/prop_key_util.dart';
 import 'package:react/react.dart' as react;
 import 'package:over_react/src/component_declaration/builder_helpers.dart';
 import 'package:over_react/src/util/js_component.dart';
 import 'package:react/react_client.dart' show ReactNode;
+import 'package:react/react_client/js_backed_map.dart';
 
 part 'suspense_component.over_react.g.dart';
 

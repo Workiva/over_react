@@ -27,10 +27,12 @@ import 'package:over_react/src/component_declaration/builder_helpers.dart';
 import 'package:over_react/src/component_declaration/component_base_2.dart';
 import 'package:over_react/src/util/cast_ui_factory.dart';
 import 'package:over_react/src/util/map_util.dart';
+import 'package:over_react/src/util/prop_key_util.dart';
 import 'package:over_react/src/util/react_wrappers.dart';
 import 'package:over_react/src/util/string_util.dart';
 import 'package:over_react/src/util/validation_util.dart';
-import 'package:react/react.dart' show SyntheticEvent;
+import 'package:react/react.dart' show ReactComponentFactoryProxy, SyntheticEvent;
+import 'package:react/react_client/js_backed_map.dart';
 
 part 'resize_sensor.over_react.g.dart';
 

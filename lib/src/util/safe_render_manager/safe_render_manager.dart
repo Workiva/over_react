@@ -15,10 +15,13 @@
 import 'dart:async';
 import 'dart:html';
 
-
-
+import 'package:over_react/src/component/ref_util.dart';
+import 'package:react/react_client.dart'
+    show
+    ReactElement;
 import 'package:w_common/disposable.dart';
 
+import '../../../react_dom.dart' as react_dom;
 import './safe_render_manager_helper.dart';
 
 /// A class that manages the top-level rendering of a [ReactElement] into a given node,

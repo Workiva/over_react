@@ -25,7 +25,6 @@ import 'package:over_react/src/component_declaration/builder_helpers.dart';
 import 'package:over_react/src/component_declaration/component_base.dart' as component_base;
 import 'package:over_react/src/util/validation_util.dart';
 
-
 export '../abstract_transition.dart' show TransitionPhase;
 
 part 'abstract_transition.over_react.g.dart';
