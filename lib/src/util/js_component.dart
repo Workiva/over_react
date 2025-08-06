@@ -1,5 +1,7 @@
-
+import 'package:over_react/src/component_declaration/builder_helpers.dart';
+import 'package:over_react/src/component_declaration/function_component.dart';
 import 'package:react/react_client/component_factory.dart';
+import 'package:react/react_client/js_backed_map.dart';
 
 /// Creates a Dart component factory that wraps a ReactJS [factoryProxy].
 ///

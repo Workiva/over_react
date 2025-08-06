@@ -16,9 +16,10 @@
 library over_react.component.suspense_component;
 
 import 'package:js/js.dart';
-
 import 'package:react/react.dart' as react;
+import 'package:over_react/src/component_declaration/builder_helpers.dart';
 import 'package:over_react/src/util/js_component.dart';
+import 'package:react/react_client.dart' show ReactNode;
 
 part 'suspense_component.over_react.g.dart';
 

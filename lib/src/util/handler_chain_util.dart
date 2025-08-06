@@ -14,7 +14,7 @@
 
 library over_react.handler_chain_util;
 
-
+import 'package:over_react/src/component/_deprecated/resize_sensor.dart' show ResizeSensorEvent;
 import 'package:react/react.dart' show
     SyntheticEvent,
     SyntheticAnimationEvent,

@@ -14,8 +14,9 @@
 
 library over_react.lazy;
 
-
+import 'package:over_react/src/component_declaration/builder_helpers.dart';
 import 'package:react/react.dart' as react;
+import 'package:react/react_client/js_backed_map.dart';
 
 import '../component_declaration/function_component.dart';
 
@@ -33,7 +34,7 @@ import '../component_declaration/function_component.dart';
 ///
 /// Example:
 /// ```dart
-/// 
+///
 ///
 /// part 'main.over_react.g.dart';
 ///
