@@ -107,7 +107,7 @@ part 'with_transition.over_react.g.dart';
 /// the CSS transition using `uiForwardRef`:
 ///
 /// ```dart
-///
+/// import 'package:over_react/over_react.dart';
 ///
 /// mixin CustomChildProps on UiProps {}
 ///

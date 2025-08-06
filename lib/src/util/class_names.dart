@@ -19,11 +19,11 @@ library over_react.class_names;
 import 'dart:collection';
 
 import 'package:over_react/src/component_declaration/builder_helpers.dart' show
-// Must import these consts because they are used in the transformed code.
-// ignore: unused_shown_name
-PropDescriptor, ConsumedProps,
-// ignore: unused_shown_name
-PropsMeta, UiComponent, UiProps;
+    // Must import these consts because they are used in the transformed code.
+    // ignore: unused_shown_name
+    PropDescriptor, ConsumedProps,
+    // ignore: unused_shown_name
+    PropsMeta, UiComponent, UiProps;
 import 'package:over_react/src/component_declaration/annotations.dart';
 
 part 'class_names.over_react.g.dart';

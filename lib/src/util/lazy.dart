@@ -34,7 +34,7 @@ import '../component_declaration/function_component.dart';
 ///
 /// Example:
 /// ```dart
-///
+/// import 'package:over_react/over_react.dart';
 ///
 /// part 'main.over_react.g.dart';
 ///

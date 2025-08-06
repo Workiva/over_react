@@ -31,7 +31,7 @@ import 'package:over_react/src/component_declaration/component_base.dart';
 /// > __NOTE:__ This should only be used to wrap function components.
 ///
 /// ```dart
-///
+/// import 'package:over_react/over_react.dart';
 ///
 /// UiFactory<UiProps> MemoExample = memo(uiFunction(
 ///   (props) {
@@ -49,7 +49,7 @@ import 'package:over_react/src/component_declaration/component_base.dart';
 /// function to the [areEqual] argument as shown in the example below.
 ///
 /// ```dart
-///
+/// import 'package:over_react/over_react.dart';
 ///
 /// UiFactory<MemoWithComparisonProps> MemoWithComparison = memo(uiFunction(
 ///   (props) {

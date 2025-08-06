@@ -11,6 +11,7 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+
 import 'package:over_react/src/component_declaration/function_component.dart';
 import 'package:over_react/src/util/js_component.dart';
 import 'package:react/react.dart' as react;

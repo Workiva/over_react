@@ -20,7 +20,6 @@ import 'package:react/react_client/js_backed_map.dart';
 import 'package:react/react_client/react_interop.dart' as react_interop;
 import 'package:react/react_client.dart';
 
-
 /// Creates a [Ref] object that can be attached to a [ReactElement] via the ref prop.
 ///
 /// __Example__:

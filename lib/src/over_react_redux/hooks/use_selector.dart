@@ -53,8 +53,8 @@ import 'package:react/react_client/react_interop.dart' show ReactContext;
 ///   that is wired up to a Redux `Store` instance with a `CounterState` instance containing a field called `count`.
 ///
 /// ```dart
-/// 
-/// 
+/// import 'package:over_react/over_react.dart';
+/// import 'package:over_react/over_react_redux.dart';
 /// import 'counter_state.dart';
 ///
 /// mixin CounterProps on UiProps {}
@@ -80,8 +80,8 @@ import 'package:react/react_client/react_interop.dart' show ReactContext;
 /// of these can get a little messy:
 ///
 /// ```dart
-/// 
-/// 
+/// import 'package:over_react/over_react.dart';
+/// import 'package:over_react/over_react_redux.dart';
 /// import 'counter_state.dart';
 ///
 /// mixin CounterProps on UiProps {}
@@ -101,8 +101,8 @@ import 'package:react/react_client/react_interop.dart' show ReactContext;
 /// Instead of needing to declare those generic parameters each time on `useSelector`, shadow it like so:
 ///
 /// ```dart
-/// 
-/// 
+/// import 'package:over_react/over_react.dart';
+/// import 'package:over_react/over_react_redux.dart';
 /// import 'counter_state.dart';
 ///
 /// /// All the types for state fields within `CounterState` will be inferred!
@@ -163,8 +163,8 @@ external Object? /*[1]*/ _jsUseSelector(_JsSelectorFn selector, [_JsReduxStateEq
 /// ### Custom Context Example
 ///
 /// ```dart
-/// 
-/// 
+/// import 'package:over_react/over_react.dart';
+/// import 'package:over_react/over_react_redux.dart';
 /// import 'package:redux/redux.dart';
 ///
 /// // ------------------------------------

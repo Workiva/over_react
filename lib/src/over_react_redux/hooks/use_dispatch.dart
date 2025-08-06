@@ -42,8 +42,8 @@ import 'package:redux/redux.dart';
 /// > It also assumes that you have two actions wired up to your reducer - `IncrementAction` and `DecrementAction`.
 ///
 /// ```dart
-/// 
-/// 
+/// import 'package:over_react/over_react.dart';
+/// import 'package:over_react/over_react_redux.dart';
 /// import 'counter_state.dart';
 ///
 /// mixin CounterProps on UiProps {}

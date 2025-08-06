@@ -393,7 +393,7 @@ mixin InfluxStoreMixin<S> on flux.Store {
 ///
 /// __Example:__
 /// ```dart
-///
+/// import 'package:over_react/react_dom.dart' as react_dom;
 ///
 /// Store store1 = Store<CounterState>(counterStateReducer, initialState: CounterState(count: 0));
 /// Store store2 = Store<BigCounterState>(bigCounterStateReducer, initialState: BigCounterState(bigCount: 100));
