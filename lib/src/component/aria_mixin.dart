@@ -16,11 +16,10 @@ library over_react.aria_mixin;
 
 import 'dart:collection';
 
+import 'package:over_react/src/component_declaration/annotations.dart';
 // Must import these consts because they are used in the transformed code.
 // ignore: unused_shown_name
-import 'package:over_react/over_react.dart'
-    show PropDescriptor, PropsMeta;
-import 'package:over_react/src/component_declaration/annotations.dart';
+import 'package:over_react/src/component_declaration/component_base.dart' show PropDescriptor, PropsMeta;
 
 part 'aria_mixin.over_react.g.dart';
 

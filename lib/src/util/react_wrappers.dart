@@ -20,10 +20,11 @@ import 'dart:html';
 import 'dart:js_util';
 
 import 'package:js/js.dart';
-import 'package:over_react/over_react.dart';
 import 'package:over_react/src/component_declaration/component_type_checking.dart';
+import 'package:over_react/src/util/string_util.dart';
 import 'package:react/react.dart' as react;
 import 'package:react/react_client.dart';
+import 'package:react/react_client/js_backed_map.dart';
 import 'package:react/react_client/js_interop_helpers.dart' show jsifyAndAllowInterop;
 import 'package:react/react_client/react_interop.dart' hide createRef;
 import 'package:react/react_dom.dart' as react_dom;

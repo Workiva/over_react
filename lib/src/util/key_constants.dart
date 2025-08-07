@@ -14,7 +14,7 @@
 
 library over_react.key_constants;
 
-import 'package:over_react/over_react.dart';
+import 'package:react/react.dart' show SyntheticKeyboardEvent;
 
 /// Key values that are returned from [SyntheticKeyboardEvent.key].
 ///

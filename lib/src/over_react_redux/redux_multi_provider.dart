@@ -12,8 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:over_react/over_react.dart';
-import 'package:over_react/over_react_flux.dart';
+import 'package:over_react/src/component_declaration/builder_helpers.dart';
+import 'package:over_react/src/component_declaration/component_base_2.dart';
+import 'package:over_react/src/over_react_redux/over_react_redux.dart';
+import 'package:over_react/src/util/context.dart';
+import 'package:over_react/src/util/map_util.dart';
+import 'package:over_react/src/util/prop_errors.dart';
+import 'package:over_react/src/util/prop_key_util.dart';
+import 'package:react/react_client.dart' show ReactComponentFactoryProxy, ReactNode;
+import 'package:react/react_client/js_backed_map.dart';
 import 'package:redux/redux.dart';
 
 part 'redux_multi_provider.over_react.g.dart';

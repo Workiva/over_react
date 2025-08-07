@@ -13,8 +13,14 @@
 // limitations under the License.
 
 import 'package:meta/meta.dart';
-import 'package:over_react/over_react.dart';
+import 'package:over_react/src/component_declaration/builder_helpers.dart';
 import 'package:over_react/src/component_declaration/util.dart';
+import 'package:over_react/src/util/prop_key_util.dart';
+import 'package:react/react_client.dart'
+    show
+    ReactElement,
+    ReactComponentFactoryProxy,
+    ReactNode;
 
 const _getPropKey = getPropKey;
 

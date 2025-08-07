@@ -13,9 +13,17 @@
 // limitations under the License.
 
 import 'package:logging/logging.dart';
-import 'package:over_react/over_react.dart';
 import 'package:over_react/src/component/_deprecated/error_boundary_mixins.dart';
 import 'package:over_react/src/component/_deprecated/error_boundary_recoverable.dart';
+import 'package:over_react/src/component/dom_components.dart';
+import 'package:over_react/src/component/error_boundary_api.dart';
+import 'package:over_react/src/component_declaration/builder_helpers.dart';
+import 'package:over_react/src/component_declaration/component_base_2.dart';
+import 'package:over_react/src/util/map_util.dart';
+import 'package:over_react/src/util/prop_key_util.dart';
+import 'package:react/react_client.dart' show ReactComponentFactoryProxy;
+import 'package:react/react_client/js_backed_map.dart';
+import 'package:react/react_client/react_interop.dart';
 
 part 'error_boundary.over_react.g.dart';
 

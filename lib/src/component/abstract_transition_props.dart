@@ -14,8 +14,12 @@
 
 library over_react.abstract_transition_props;
 
-import 'package:over_react/over_react.dart' hide AbstractTransitionComponent, AbstractTransitionProps;
-import 'package:over_react/components.dart' show AbstractTransitionComponent, AbstractTransitionProps;
+import 'package:over_react/src/component/callback_typedefs.dart';
+import 'package:over_react/src/component_declaration/builder_helpers.dart';
+import 'package:over_react/src/component/abstract_transition.dart';
+import 'package:over_react/src/util/cast_ui_factory.dart';
+import 'package:over_react/src/util/prop_key_util.dart';
+import 'package:react/react_client/js_backed_map.dart';
 
 part 'abstract_transition_props.over_react.g.dart';
 
