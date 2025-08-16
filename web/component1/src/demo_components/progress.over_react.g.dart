@@ -307,16 +307,12 @@ _$$ProgressProps _$Progress([Map? backingProps]) =>
 class _$$ProgressProps extends _$ProgressProps
     with _$ProgressPropsAccessorsMixin
     implements ProgressProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ProgressProps(Map? backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
-  }
+  _$$ProgressProps([Map? backingMap])
+      : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
   @override
-  Map get props => _props;
-  Map _props;
+  final Map props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -399,16 +395,12 @@ class ProgressState extends _$ProgressState with _$ProgressStateAccessorsMixin {
 class _$$ProgressState extends _$ProgressState
     with _$ProgressStateAccessorsMixin
     implements ProgressState {
-  // This initializer of `_state` to an empty map, as well as the reassignment
-  // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ProgressState(Map? backingMap) : this._state = {} {
-    this._state = backingMap ?? {};
-  }
+  _$$ProgressState([Map? backingMap])
+      : this.state = backingMap ?? JsBackedMap();
 
   /// The backing state map proxied by this class.
   @override
-  Map get state => _state;
-  Map _state;
+  final Map state;
 
   /// Let `UiState` internals know that this class has been generated.
   @override

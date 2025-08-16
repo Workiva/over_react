@@ -40,26 +40,20 @@ class ContextProviderWrapperProps extends _$ContextProviderWrapperProps
 }
 
 _$$ContextProviderWrapperProps _$ContextProviderWrapper([Map? backingProps]) =>
-    backingProps == null
-        ? _$$ContextProviderWrapperProps$JsMap(JsBackedMap())
-        : _$$ContextProviderWrapperProps(backingProps);
+    _$$ContextProviderWrapperProps(backingProps);
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-abstract class _$$ContextProviderWrapperProps
-    extends _$ContextProviderWrapperProps
+class _$$ContextProviderWrapperProps extends _$ContextProviderWrapperProps
     with _$ContextProviderWrapperPropsAccessorsMixin
     implements ContextProviderWrapperProps {
-  _$$ContextProviderWrapperProps._();
+  _$$ContextProviderWrapperProps([Map? backingMap])
+      : this.props = backingMap ?? JsBackedMap();
 
-  factory _$$ContextProviderWrapperProps(Map? backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$ContextProviderWrapperProps$JsMap(backingMap as JsBackedMap?);
-    } else {
-      return _$$ContextProviderWrapperProps$PlainMap(backingMap);
-    }
-  }
+  /// The backing props map proxied by this class.
+  @override
+  final Map props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -83,41 +77,6 @@ abstract class _$$ContextProviderWrapperProps
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$ContextProviderWrapperProps = getPropKey;
-
-// Concrete props implementation that can be backed by any [Map].
-class _$$ContextProviderWrapperProps$PlainMap
-    extends _$$ContextProviderWrapperProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ContextProviderWrapperProps$PlainMap(Map? backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
-}
-
-// Concrete props implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-class _$$ContextProviderWrapperProps$JsMap
-    extends _$$ContextProviderWrapperProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ContextProviderWrapperProps$JsMap(JsBackedMap? backingMap)
-      : this._props = JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
-}
 
 abstract class _$ContextProviderWrapperStateAccessorsMixin
     implements _$ContextProviderWrapperState {
@@ -164,58 +123,19 @@ class ContextProviderWrapperState extends _$ContextProviderWrapperState
 // Concrete state implementation.
 //
 // Implements constructor and backing map.
-abstract class _$$ContextProviderWrapperState
-    extends _$ContextProviderWrapperState
+class _$$ContextProviderWrapperState extends _$ContextProviderWrapperState
     with _$ContextProviderWrapperStateAccessorsMixin
     implements ContextProviderWrapperState {
-  _$$ContextProviderWrapperState._();
+  _$$ContextProviderWrapperState([Map? backingMap])
+      : this.state = backingMap ?? JsBackedMap();
 
-  factory _$$ContextProviderWrapperState(Map? backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$ContextProviderWrapperState$JsMap(backingMap as JsBackedMap?);
-    } else {
-      return _$$ContextProviderWrapperState$PlainMap(backingMap);
-    }
-  }
+  /// The backing state map proxied by this class.
+  @override
+  final Map state;
 
   /// Let `UiState` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
-}
-
-// Concrete state implementation that can be backed by any [Map].
-class _$$ContextProviderWrapperState$PlainMap
-    extends _$$ContextProviderWrapperState {
-  // This initializer of `_state` to an empty map, as well as the reassignment
-  // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ContextProviderWrapperState$PlainMap(Map? backingMap)
-      : this._state = {},
-        super._() {
-    this._state = backingMap ?? {};
-  }
-
-  /// The backing state map proxied by this class.
-  @override
-  Map get state => _state;
-  Map _state;
-}
-
-// Concrete state implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-class _$$ContextProviderWrapperState$JsMap
-    extends _$$ContextProviderWrapperState {
-  // This initializer of `_state` to an empty map, as well as the reassignment
-  // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ContextProviderWrapperState$JsMap(JsBackedMap? backingMap)
-      : this._state = JsBackedMap(),
-        super._() {
-    this._state = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing state map proxied by this class.
-  @override
-  JsBackedMap get state => _state;
-  JsBackedMap _state;
 }
 
 // Concrete component implementation mixin.
@@ -224,10 +144,10 @@ class _$$ContextProviderWrapperState$JsMap
 // generated for the associated props class.
 class _$ContextProviderWrapperComponent
     extends ContextProviderWrapperComponent {
-  late _$$ContextProviderWrapperProps$JsMap _cachedTypedProps;
+  late _$$ContextProviderWrapperProps _cachedTypedProps;
 
   @override
-  _$$ContextProviderWrapperProps$JsMap get props => _cachedTypedProps;
+  _$$ContextProviderWrapperProps get props => _cachedTypedProps;
 
   @override
   set props(Map value) {
@@ -244,17 +164,16 @@ class _$ContextProviderWrapperComponent
   }
 
   @override
-  _$$ContextProviderWrapperProps$JsMap typedPropsFactoryJs(
-          JsBackedMap? backingMap) =>
-      _$$ContextProviderWrapperProps$JsMap(backingMap);
+  _$$ContextProviderWrapperProps typedPropsFactoryJs(JsBackedMap? backingMap) =>
+      _$$ContextProviderWrapperProps(backingMap);
 
   @override
   _$$ContextProviderWrapperProps typedPropsFactory(Map? backingMap) =>
       _$$ContextProviderWrapperProps(backingMap);
 
-  late _$$ContextProviderWrapperState$JsMap _cachedTypedState;
+  late _$$ContextProviderWrapperState _cachedTypedState;
   @override
-  _$$ContextProviderWrapperState$JsMap get state => _cachedTypedState;
+  _$$ContextProviderWrapperState get state => _cachedTypedState;
 
   @override
   set state(Map value) {
@@ -267,9 +186,8 @@ class _$ContextProviderWrapperComponent
   }
 
   @override
-  _$$ContextProviderWrapperState$JsMap typedStateFactoryJs(
-          JsBackedMap? backingMap) =>
-      _$$ContextProviderWrapperState$JsMap(backingMap);
+  _$$ContextProviderWrapperState typedStateFactoryJs(JsBackedMap? backingMap) =>
+      _$$ContextProviderWrapperState(backingMap);
 
   @override
   _$$ContextProviderWrapperState typedStateFactory(Map? backingMap) =>

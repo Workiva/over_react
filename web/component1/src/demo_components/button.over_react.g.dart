@@ -263,16 +263,11 @@ _$$ButtonProps _$Button([Map? backingProps]) => _$$ButtonProps(backingProps);
 class _$$ButtonProps extends _$ButtonProps
     with _$ButtonPropsAccessorsMixin
     implements ButtonProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ButtonProps(Map? backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
-  }
+  _$$ButtonProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
   @override
-  Map get props => _props;
-  Map _props;
+  final Map props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -325,16 +320,11 @@ class ButtonState extends _$ButtonState with _$ButtonStateAccessorsMixin {
 class _$$ButtonState extends _$ButtonState
     with _$ButtonStateAccessorsMixin
     implements ButtonState {
-  // This initializer of `_state` to an empty map, as well as the reassignment
-  // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ButtonState(Map? backingMap) : this._state = {} {
-    this._state = backingMap ?? {};
-  }
+  _$$ButtonState([Map? backingMap]) : this.state = backingMap ?? JsBackedMap();
 
   /// The backing state map proxied by this class.
   @override
-  Map get state => _state;
-  Map _state;
+  final Map state;
 
   /// Let `UiState` internals know that this class has been generated.
   @override

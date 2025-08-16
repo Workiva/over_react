@@ -21,16 +21,14 @@ final $TestDartClassComponentFactory = registerComponent2(
 );
 
 _$$TestDartClassProps _$TestDartClass([Map? backingProps]) =>
-    backingProps == null
-        ? _$$TestDartClassProps$JsMap(JsBackedMap())
-        : _$$TestDartClassProps(backingProps);
+    _$$TestDartClassProps(backingProps);
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$TestDartClassProps extends UiProps
+class _$$TestDartClassProps extends UiProps
     with
         TestJsProps,
         // If this generated mixin is undefined, it's likely because TestJsProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestJsProps, and check that $TestJsProps is exported/imported properly.
@@ -40,15 +38,12 @@ abstract class _$$TestDartClassProps extends UiProps
         $TestDartPropsMixin
     implements
         TestDartClassProps {
-  _$$TestDartClassProps._();
+  _$$TestDartClassProps([Map? backingMap])
+      : this.props = backingMap ?? JsBackedMap();
 
-  factory _$$TestDartClassProps(Map? backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestDartClassProps$JsMap(backingMap as JsBackedMap?);
-    } else {
-      return _$$TestDartClassProps$PlainMap(backingMap);
-    }
-  }
+  /// The backing props map proxied by this class.
+  @override
+  final Map props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -81,43 +76,6 @@ abstract class _$$TestDartClassProps extends UiProps
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$TestDartClassProps = getPropKey;
 
-// Concrete props implementation that can be backed by any [Map].
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$TestDartClassProps$PlainMap extends _$$TestDartClassProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestDartClassProps$PlainMap(Map? backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
-}
-
-// Concrete props implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$TestDartClassProps$JsMap extends _$$TestDartClassProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestDartClassProps$JsMap(JsBackedMap? backingMap)
-      : this._props = JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
-}
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
@@ -125,10 +83,10 @@ class _$$TestDartClassProps$JsMap extends _$$TestDartClassProps {
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
 class _$TestDartClassComponent extends TestDartClassComponent {
-  late _$$TestDartClassProps$JsMap _cachedTypedProps;
+  late _$$TestDartClassProps _cachedTypedProps;
 
   @override
-  _$$TestDartClassProps$JsMap get props => _cachedTypedProps;
+  _$$TestDartClassProps get props => _cachedTypedProps;
 
   @override
   set props(Map value) {
@@ -145,8 +103,8 @@ class _$TestDartClassComponent extends TestDartClassComponent {
   }
 
   @override
-  _$$TestDartClassProps$JsMap typedPropsFactoryJs(JsBackedMap? backingMap) =>
-      _$$TestDartClassProps$JsMap(backingMap);
+  _$$TestDartClassProps typedPropsFactoryJs(JsBackedMap? backingMap) =>
+      _$$TestDartClassProps(backingMap);
 
   @override
   _$$TestDartClassProps typedPropsFactory(Map? backingMap) =>
@@ -188,29 +146,24 @@ final $ClassComponentTypeTesterComponentFactory = registerComponent2(
 
 _$$ClassComponentTypeTesterProps _$ClassComponentTypeTester(
         [Map? backingProps]) =>
-    backingProps == null
-        ? _$$ClassComponentTypeTesterProps$JsMap(JsBackedMap())
-        : _$$ClassComponentTypeTesterProps(backingProps);
+    _$$ClassComponentTypeTesterProps(backingProps);
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$ClassComponentTypeTesterProps extends UiProps
+class _$$ClassComponentTypeTesterProps extends UiProps
     with
         ClassComponentTypeTesterProps,
         // If this generated mixin is undefined, it's likely because ClassComponentTypeTesterProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ClassComponentTypeTesterProps, and check that $ClassComponentTypeTesterProps is exported/imported properly.
         $ClassComponentTypeTesterProps {
-  _$$ClassComponentTypeTesterProps._();
+  _$$ClassComponentTypeTesterProps([Map? backingMap])
+      : this.props = backingMap ?? JsBackedMap();
 
-  factory _$$ClassComponentTypeTesterProps(Map? backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$ClassComponentTypeTesterProps$JsMap(backingMap as JsBackedMap?);
-    } else {
-      return _$$ClassComponentTypeTesterProps$PlainMap(backingMap);
-    }
-  }
+  /// The backing props map proxied by this class.
+  @override
+  final Map props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -241,45 +194,6 @@ abstract class _$$ClassComponentTypeTesterProps extends UiProps
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$ClassComponentTypeTesterProps = getPropKey;
 
-// Concrete props implementation that can be backed by any [Map].
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$ClassComponentTypeTesterProps$PlainMap
-    extends _$$ClassComponentTypeTesterProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ClassComponentTypeTesterProps$PlainMap(Map? backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
-}
-
-// Concrete props implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$ClassComponentTypeTesterProps$JsMap
-    extends _$$ClassComponentTypeTesterProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ClassComponentTypeTesterProps$JsMap(JsBackedMap? backingMap)
-      : this._props = JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
-}
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
@@ -288,10 +202,10 @@ class _$$ClassComponentTypeTesterProps$JsMap
     ' Do not reference it in your code, as it may change at any time.')
 class _$ClassComponentTypeTesterComponent
     extends ClassComponentTypeTesterComponent {
-  late _$$ClassComponentTypeTesterProps$JsMap _cachedTypedProps;
+  late _$$ClassComponentTypeTesterProps _cachedTypedProps;
 
   @override
-  _$$ClassComponentTypeTesterProps$JsMap get props => _cachedTypedProps;
+  _$$ClassComponentTypeTesterProps get props => _cachedTypedProps;
 
   @override
   set props(Map value) {
@@ -308,9 +222,9 @@ class _$ClassComponentTypeTesterComponent
   }
 
   @override
-  _$$ClassComponentTypeTesterProps$JsMap typedPropsFactoryJs(
+  _$$ClassComponentTypeTesterProps typedPropsFactoryJs(
           JsBackedMap? backingMap) =>
-      _$$ClassComponentTypeTesterProps$JsMap(backingMap);
+      _$$ClassComponentTypeTesterProps(backingMap);
 
   @override
   _$$ClassComponentTypeTesterProps typedPropsFactory(Map? backingMap) =>
@@ -613,7 +527,7 @@ final UiFactoryConfig<_$$DartTestJsWrapperProps> _$DartTestJsWrapperConfig =
     UiFactoryConfig(
         propsFactory: PropsFactory(
           map: (map) => _$$DartTestJsWrapperProps(map),
-          jsMap: (map) => _$$DartTestJsWrapperProps$JsMap(map),
+          jsMap: (map) => _$$DartTestJsWrapperProps(map),
         ),
         displayName: 'DartTestJsWrapper');
 
@@ -628,7 +542,7 @@ final UiFactoryConfig<_$$DartTestJsWrapperProps> $DartTestJsWrapperConfig =
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$DartTestJsWrapperProps extends UiProps
+class _$$DartTestJsWrapperProps extends UiProps
     with
         TestJsProps,
         // If this generated mixin is undefined, it's likely because TestJsProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestJsProps, and check that $TestJsProps is exported/imported properly.
@@ -638,15 +552,12 @@ abstract class _$$DartTestJsWrapperProps extends UiProps
         $DartTestJsWrapperPropsMixin
     implements
         DartTestJsWrapperProps {
-  _$$DartTestJsWrapperProps._();
+  _$$DartTestJsWrapperProps([Map? backingMap])
+      : this.props = backingMap ?? JsBackedMap();
 
-  factory _$$DartTestJsWrapperProps(Map? backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$DartTestJsWrapperProps$JsMap(backingMap as JsBackedMap?);
-    } else {
-      return _$$DartTestJsWrapperProps$PlainMap(backingMap);
-    }
-  }
+  /// The backing props map proxied by this class.
+  @override
+  final Map props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -673,49 +584,11 @@ abstract class _$$DartTestJsWrapperProps extends UiProps
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$DartTestJsWrapperProps = getPropKey;
-
-// Concrete props implementation that can be backed by any [Map].
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$DartTestJsWrapperProps$PlainMap extends _$$DartTestJsWrapperProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$DartTestJsWrapperProps$PlainMap(Map? backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
-}
-
-// Concrete props implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$DartTestJsWrapperProps$JsMap extends _$$DartTestJsWrapperProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$DartTestJsWrapperProps$JsMap(JsBackedMap? backingMap)
-      : this._props = JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
-}
-
 final UiFactoryConfig<_$$JsTypeTesterProps> _$JsTypeTesterConfig =
     UiFactoryConfig(
         propsFactory: PropsFactory(
           map: (map) => _$$JsTypeTesterProps(map),
-          jsMap: (map) => _$$JsTypeTesterProps$JsMap(map),
+          jsMap: (map) => _$$JsTypeTesterProps(map),
         ),
         displayName: 'JsTypeTester');
 
@@ -730,20 +603,17 @@ final UiFactoryConfig<_$$JsTypeTesterProps> $JsTypeTesterConfig =
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$JsTypeTesterProps extends UiProps
+class _$$JsTypeTesterProps extends UiProps
     with
         JsTypeTesterProps,
         // If this generated mixin is undefined, it's likely because JsTypeTesterProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of JsTypeTesterProps, and check that $JsTypeTesterProps is exported/imported properly.
         $JsTypeTesterProps {
-  _$$JsTypeTesterProps._();
+  _$$JsTypeTesterProps([Map? backingMap])
+      : this.props = backingMap ?? JsBackedMap();
 
-  factory _$$JsTypeTesterProps(Map? backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$JsTypeTesterProps$JsMap(backingMap as JsBackedMap?);
-    } else {
-      return _$$JsTypeTesterProps$PlainMap(backingMap);
-    }
-  }
+  /// The backing props map proxied by this class.
+  @override
+  final Map props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -768,48 +638,10 @@ abstract class _$$JsTypeTesterProps extends UiProps
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$JsTypeTesterProps = getPropKey;
-
-// Concrete props implementation that can be backed by any [Map].
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$JsTypeTesterProps$PlainMap extends _$$JsTypeTesterProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$JsTypeTesterProps$PlainMap(Map? backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
-}
-
-// Concrete props implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$JsTypeTesterProps$JsMap extends _$$JsTypeTesterProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$JsTypeTesterProps$JsMap(JsBackedMap? backingMap)
-      : this._props = JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
-}
-
 final UiFactoryConfig<_$$TestDartProps> _$TestDartConfig = UiFactoryConfig(
     propsFactory: PropsFactory(
       map: (map) => _$$TestDartProps(map),
-      jsMap: (map) => _$$TestDartProps$JsMap(map),
+      jsMap: (map) => _$$TestDartProps(map),
     ),
     displayName: 'TestDart');
 
@@ -823,7 +655,7 @@ final UiFactoryConfig<_$$TestDartProps> $TestDartConfig = _$TestDartConfig;
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$TestDartProps extends UiProps
+class _$$TestDartProps extends UiProps
     with
         TestJsProps,
         // If this generated mixin is undefined, it's likely because TestJsProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestJsProps, and check that $TestJsProps is exported/imported properly.
@@ -833,15 +665,12 @@ abstract class _$$TestDartProps extends UiProps
         $TestDartPropsMixin
     implements
         TestDartProps {
-  _$$TestDartProps._();
+  _$$TestDartProps([Map? backingMap])
+      : this.props = backingMap ?? JsBackedMap();
 
-  factory _$$TestDartProps(Map? backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestDartProps$JsMap(backingMap as JsBackedMap?);
-    } else {
-      return _$$TestDartProps$PlainMap(backingMap);
-    }
-  }
+  /// The backing props map proxied by this class.
+  @override
+  final Map props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -867,49 +696,11 @@ abstract class _$$TestDartProps extends UiProps
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$TestDartProps = getPropKey;
-
-// Concrete props implementation that can be backed by any [Map].
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$TestDartProps$PlainMap extends _$$TestDartProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestDartProps$PlainMap(Map? backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
-}
-
-// Concrete props implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$TestDartProps$JsMap extends _$$TestDartProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestDartProps$JsMap(JsBackedMap? backingMap)
-      : this._props = JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
-}
-
 final UiFactoryConfig<_$$TypeTesterProps> _$UiForwardRefTypeTesterConfig =
     UiFactoryConfig(
         propsFactory: PropsFactory(
           map: (map) => _$$TypeTesterProps(map),
-          jsMap: (map) => _$$TypeTesterProps$JsMap(map),
+          jsMap: (map) => _$$TypeTesterProps(map),
         ),
         displayName: 'UiForwardRefTypeTester');
 
@@ -925,20 +716,17 @@ final UiFactoryConfig<_$$TypeTesterProps> $UiForwardRefTypeTesterConfig =
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$TypeTesterProps extends UiProps
+class _$$TypeTesterProps extends UiProps
     with
         TypeTesterProps,
         // If this generated mixin is undefined, it's likely because TypeTesterProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TypeTesterProps, and check that $TypeTesterProps is exported/imported properly.
         $TypeTesterProps {
-  _$$TypeTesterProps._();
+  _$$TypeTesterProps([Map? backingMap])
+      : this.props = backingMap ?? JsBackedMap();
 
-  factory _$$TypeTesterProps(Map? backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TypeTesterProps$JsMap(backingMap as JsBackedMap?);
-    } else {
-      return _$$TypeTesterProps$PlainMap(backingMap);
-    }
-  }
+  /// The backing props map proxied by this class.
+  @override
+  final Map props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -963,40 +751,3 @@ abstract class _$$TypeTesterProps extends UiProps
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$TypeTesterProps = getPropKey;
-
-// Concrete props implementation that can be backed by any [Map].
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$TypeTesterProps$PlainMap extends _$$TypeTesterProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TypeTesterProps$PlainMap(Map? backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
-}
-
-// Concrete props implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$TypeTesterProps$JsMap extends _$$TypeTesterProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TypeTesterProps$JsMap(JsBackedMap? backingMap)
-      : this._props = JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
-}
