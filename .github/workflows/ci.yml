@@ -219,3 +219,16 @@ jobs:
         run: dart run dart_dev test
         if: always() && steps.install.outcome == 'success'
         timeout-minutes: 8
+
+  testing-and-checks-complete:
+    name: Testing and Checks Completed
+    needs: [ build, checks, test, validate_analyzer, analyzer_plugin ]
+    if: ${{ !cancelled() && github.event_name == 'pull_request' || github.ref_type == 'tag' }}
+    runs-on: [ xs-al2023 ]
+    steps:
+      - run: |
+          if [ "${{ needs.checks.result }}" == "failure" ]; then
+            echo "Some checks have failed. Please fix the issues and try again."
+            exit 1
+          fi
+          echo 'All Testing and checks have completed.'
