@@ -1,4 +1,4 @@
-name: Dart CI
+name: CI
 
 on:
   push:
@@ -19,22 +19,16 @@ permissions:
 jobs:
   # Run as a separate job outside the Dart SDK matrix below,
   # since we can only emit a single SBOM.
-  create-sbom-release-asset:
-    name: Create SBOM Release Asset
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: dart-lang/setup-dart@v1
-        with:
-          sdk: 2.19.6 # This version doesn't matter so long as it resolves.
-      - run: dart pub get
-      - name: Publish SBOM to Release Assets
-        uses: anchore/sbom-action@v0
-        with:
-          path: ./
-          format: cyclonedx-json
-
   build:
+    uses: Workiva/gha-dart-oss/.github/workflows/build.yaml@v0.1.11
+
+  checks:
+    uses: Workiva/gha-dart-oss/.github/workflows/checks.yaml@v0.1.11
+    with:
+      additional-checks: |
+        no_entrypoint_imports
+
+  test_and_check_generated_files:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -61,15 +55,6 @@ jobs:
             ./tool/delete_dart_2_only_files.sh
             ./tool/update_tests_for_dart_3.sh
           fi
-
-      - name: Validate dependencies
-        run: dart run dependency_validator
-        if: always() && steps.install.outcome == 'success'
-
-      - name: Verify formatting
-        run: dart run dart_dev format --check
-        # Only run on one sdk version in case there are conflicts
-        if: always() && matrix.sdk == '2.19.6' && steps.install.outcome == 'success'
 
       # Analyze before generated files are created to verify that component boilerplate analysis is "clean" without the need for building
       - name: Analyze example source (pre-build)
@@ -234,3 +219,16 @@ jobs:
         run: dart run dart_dev test
         if: always() && steps.install.outcome == 'success'
         timeout-minutes: 8
+
+  testing-and-checks-complete:
+    name: Testing and Checks Completed
+    needs: [ build, checks, test_and_check_generated_files, validate_analyzer, analyzer_plugin ]
+    if: ${{ !cancelled() && github.event_name == 'pull_request' || github.ref_type == 'tag' }}
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          if [ "${{ needs.checks.result }}" == "failure" ]; then
+            echo "Some checks have failed. Please fix the issues and try again."
+            exit 1
+          fi
+          echo 'All Testing and checks have completed.'

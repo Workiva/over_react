@@ -1,5 +1,10 @@
 # OverReact Changelog
 
+## Unreleased
+- [#986] Set up gha-dart-oss
+- [#985] Remove entrypoint imports
+- [#984] Rollout React 18 to tests and example apps
+
 ## 5.4.5
 - Update analyzer dependency to `>=5.13.0 <8.0.0` (allow v8)
 - Update dart_style dependency to `>=2.0.0 <4.0.0` (allow v3)
