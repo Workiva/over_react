@@ -1,6 +1,6 @@
 # OverReact Changelog
 
-## Unreleased
+## 5.4.6
 - [#986] Set up gha-dart-oss
 - [#985] Remove entrypoint imports
 - [#984] Rollout React 18 to tests and example apps
