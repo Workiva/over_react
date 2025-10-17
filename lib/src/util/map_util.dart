@@ -82,8 +82,7 @@ Map getPropsToForward(Map props, {
 void forwardUnconsumedProps(Map props, {
   bool omitReactProps = true,
   bool onlyCopyDomProps = false,
-  Iterable? keysToOmit,
-  Iterable<Iterable>? keySetsToOmit,
+  Set<String>? keysToOmit,
   required Map propsToUpdate,
 }) {
   if (onlyCopyDomProps) {
@@ -97,35 +96,13 @@ void forwardUnconsumedProps(Map props, {
     return;
   }
 
-  for (final key in props.keys) {
-    if (keysToOmit != null && keysToOmit.contains(key)) continue;
-
-    if (keySetsToOmit != null && keySetsToOmit.isNotEmpty) {
-      /// If the passed in value of [keySetsToOmit] comes from
-      /// [addUnconsumedProps], there should only be a single index.
-      /// Consequently, this case exists to give the opportunity for the loop
-      /// to continue without initiating another loop (which is less
-      /// performant than `.first.contains()`).
-      /// TODO: further optimize this by identifying the best looping / data structure
-      if (keySetsToOmit.first.contains(key)) continue;
-
-      if (keySetsToOmit.length > 1) {
-        bool shouldContinue = false;
-        for (final keySet in keySetsToOmit) {
-          if (keySet.contains(key)) {
-            shouldContinue = true;
-            break;
-          }
-        }
-
-        if (shouldContinue) continue;
-      }
-    }
-
-    if (omitReactProps && const ['key', 'ref', 'children'].contains(key)) continue;
-
-    propsToUpdate[key] = props[key];
-  }
+  return forwardUnconsumedPropsV2(
+    props,
+    omitReactProps: omitReactProps,
+    onlyCopyDomProps: false,
+    keysToOmit: keysToOmit,
+    propsToUpdate: propsToUpdate,
+  );
 }
 
 /// Adds unconsumed props to a passed in [Map] reference ([propsToUpdate]).
@@ -138,44 +115,25 @@ void forwardUnconsumedProps(Map props, {
 void forwardUnconsumedPropsV2(Map props, {
   bool omitReactProps = true,
   bool onlyCopyDomProps = false,
-  Iterable? keysToOmit,
-  Iterable<Iterable>? keySetsToOmit,
+  Set<String>? keysToOmit,
   required Map propsToUpdate,
 }) {
-    for (final key in props.keys) {
-      if (keysToOmit != null && keysToOmit.contains(key)) continue;
+  if (omitReactProps) {
+    keysToOmit ??= <String>{};
+    keysToOmit.addAll(const ['key', 'ref', 'children']);
+  }
 
-      if (keySetsToOmit != null && keySetsToOmit.isNotEmpty) {
-        // If the passed in value of [keySetsToOmit] comes from
-        // [addUnconsumedProps], there should only be a single index.
-        // Consequently, this case exists to give the opportunity for the loop
-        // to continue without initiating another loop (which is less
-        // performant than `.first.contains()`).
-        // TODO: further optimize this by identifying the best looping / data structure
-        if (keySetsToOmit.first.contains(key)) continue;
+  for (final entry in props.entries) {
+    final key = entry.key;
+    if (keysToOmit != null && keysToOmit.contains(key)) continue;
 
-        if (keySetsToOmit.length > 1) {
-          bool shouldContinue = false;
-          for (final keySet in keySetsToOmit) {
-            if (keySet.contains(key)) {
-              shouldContinue = true;
-              break;
-            }
-          }
+    if (onlyCopyDomProps && !((key is String && (key.startsWith('aria-') ||
+        key.startsWith('data-'))) ||
+        _validDomProps.contains(key))) {
+      continue;
+    }
 
-          if (shouldContinue) continue;
-        }
-      }
-
-      if (onlyCopyDomProps && !((key is String && (key.startsWith('aria-') ||
-          key.startsWith('data-'))) ||
-          _validDomProps.contains(key))) {
-        continue;
-      }
-
-    if (omitReactProps && const ['key', 'ref', 'children'].contains(key)) continue;
-
-    propsToUpdate[key] = props[key];
+    propsToUpdate[key] = entry.value;
   }
 }
 

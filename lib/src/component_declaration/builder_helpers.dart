@@ -272,11 +272,11 @@ extension PropsToForward<T extends UiProps> on T {
         '\n  ..addAll(props.getPropsToForward(exclude: {${T}Mixin})').message);
       rethrow;
     }
-    final consumedPropKeys = consumedProps.map((consumedProps) => consumedProps.keys);
+    final consumedPropKeys = consumedProps.fold(<String>{}, (a, b) => a..addAll(b.keys));
     forwardUnconsumedPropsV2(
       props,
       propsToUpdate: propsToUpdate,
-      keySetsToOmit: consumedPropKeys,
+      keysToOmit: consumedPropKeys,
       onlyCopyDomProps: domOnly,
     );
     return propsToUpdate;

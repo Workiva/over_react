@@ -484,8 +484,8 @@ abstract class UiProps extends MapBase
   ///
   /// Related: `UiComponent2`'s `addUnconsumedProps`
   void addUnconsumedProps(Map props, Iterable<PropsMeta> consumedProps) {
-    final consumedPropKeys = consumedProps.map((consumedProps) => consumedProps.keys);
-    forwardUnconsumedPropsV2(props, propsToUpdate: this, keySetsToOmit: consumedPropKeys);
+    final consumedPropKeys = consumedProps.fold(<String>{}, (a, b) => a..addAll(b.keys));
+    forwardUnconsumedPropsV2(props, propsToUpdate: this, keysToOmit: consumedPropKeys);
   }
 
   /// Copies DOM only key-value pairs from the provided [props] map into this map,
@@ -509,8 +509,8 @@ abstract class UiProps extends MapBase
   ///
   /// Related: `UiComponent2`'s `addUnconsumedDomProps`
   void addUnconsumedDomProps(Map props, Iterable<PropsMeta> consumedProps) {
-    final consumedPropKeys = consumedProps.map((consumedProps) => consumedProps.keys);
-    forwardUnconsumedPropsV2(props, propsToUpdate: this, keySetsToOmit: consumedPropKeys, onlyCopyDomProps: true);
+    final consumedPropKeys = consumedProps.fold(<String>{}, (a, b) => a..addAll(b.keys));
+    forwardUnconsumedPropsV2(props, propsToUpdate: this, keysToOmit: consumedPropKeys, onlyCopyDomProps: true);
   }
 
   /// Whether [UiProps] is in a testing environment.
