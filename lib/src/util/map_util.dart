@@ -118,13 +118,7 @@ void forwardUnconsumedPropsV2(Map props, {
   Set<String>? keysToOmit,
   required Map propsToUpdate,
 }) {
-  if (omitReactProps) {
-    keysToOmit ??= <String>{};
-    keysToOmit.addAll(const ['key', 'ref', 'children']);
-  }
-
-  for (final entry in props.entries) {
-    final key = entry.key;
+  for (final key in props.keys) {
     if (keysToOmit != null && keysToOmit.contains(key)) continue;
 
     if (onlyCopyDomProps && !((key is String && (key.startsWith('aria-') ||
@@ -133,7 +127,9 @@ void forwardUnconsumedPropsV2(Map props, {
       continue;
     }
 
-    propsToUpdate[key] = entry.value;
+    if (omitReactProps && const {'key', 'ref', 'children'}.contains(key)) continue;
+
+    propsToUpdate[key] = props[key];
   }
 }
 
