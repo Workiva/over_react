@@ -1,6 +1,5 @@
 import 'package:benchmark_harness/benchmark_harness.dart';
 import 'package:over_react/over_react.dart';
-import 'package:over_react/src/util/map_util.dart';
 
 // ============================================================================
 // Benchmark Configuration
