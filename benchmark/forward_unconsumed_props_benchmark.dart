@@ -32,7 +32,7 @@ class BenchmarkConfig {
 /// Configurable benchmark for forwardUnconsumedPropsV2.
 class ForwardUnconsumedPropsBenchmark extends BenchmarkBase {
   final BenchmarkConfig config;
-  
+
   ForwardUnconsumedPropsBenchmark(this.config) : super(config.name);
 
   late Map props;
@@ -67,7 +67,7 @@ class ForwardUnconsumedPropsBenchmark extends BenchmarkBase {
     if (config.keySetsCount > 0 && config.keysPerSetCount > 0) {
       keySetsToOmit = [];
       final propKeys = props.keys.toList();
-      
+
       for (var setIdx = 0; setIdx < config.keySetsCount; setIdx++) {
         final keySet = <String>[];
         for (var keyIdx = 0; keyIdx < config.keysPerSetCount && propKeys.isNotEmpty; keyIdx++) {
@@ -99,21 +99,22 @@ class ForwardUnconsumedPropsBenchmark extends BenchmarkBase {
 // ============================================================================
 
 Map _generateDomProps() {
-  return JsBackedMap()..addAll({
-    // Valid DOM props
-    'id': 'test-id',
-    'className': 'test-class',
-    'title': 'Test Title',
-    'style': {'color': 'red'},
-    'onClick': () {},
-    'aria-label': 'Test Label',
-    'data-test': 'test-value',
-    // Non-DOM props (should be filtered out)
-    'customProp1': 'custom1',
-    'customProp2': 'custom2',
-    'customProp3': 'custom3',
-    'onCustomEvent': () {},
-  });
+  return JsBackedMap()
+    ..addAll({
+      // Valid DOM props
+      'id': 'test-id',
+      'className': 'test-class',
+      'title': 'Test Title',
+      'style': {'color': 'red'},
+      'onClick': () {},
+      'aria-label': 'Test Label',
+      'data-test': 'test-value',
+      // Non-DOM props (should be filtered out)
+      'customProp1': 'custom1',
+      'customProp2': 'custom2',
+      'customProp3': 'custom3',
+      'onCustomEvent': () {},
+    });
 }
 
 Map _generateDomPropsWithMany() {
@@ -126,16 +127,17 @@ Map _generateDomPropsWithMany() {
 }
 
 Map _generateReactProps() {
-  return JsBackedMap()..addAll({
-    'key': 'test-key',
-    'ref': 'test-ref',
-    'children': ['child1', 'child2'],
-    'prop1': 'value1',
-    'prop2': 'value2',
-    'prop3': 'value3',
-    'prop4': 'value4',
-    'prop5': 'value5',
-  });
+  return JsBackedMap()
+    ..addAll({
+      'key': 'test-key',
+      'ref': 'test-ref',
+      'children': ['child1', 'child2'],
+      'prop1': 'value1',
+      'prop2': 'value2',
+      'prop3': 'value3',
+      'prop4': 'value4',
+      'prop5': 'value5',
+    });
 }
 
 // ============================================================================
@@ -246,7 +248,7 @@ final benchmarkConfigs = [
 
 void main() {
   print('Running forwardUnconsumedPropsV2 benchmarks...\n');
-  
+
   // Group benchmarks by category
   final smallConfigs = benchmarkConfigs.where((c) => c.name.startsWith('Small')).toList();
   final mediumConfigs = benchmarkConfigs.where((c) => c.name.startsWith('Medium')).toList();
@@ -254,39 +256,39 @@ void main() {
   final domConfigs = benchmarkConfigs.where((c) => c.name.startsWith('Dom')).toList();
   final reactConfigs = benchmarkConfigs.where((c) => c.name.startsWith('React')).toList();
   final keySetsConfigs = benchmarkConfigs.where((c) => c.name.startsWith('KeySets')).toList();
-  final edgeConfigs = benchmarkConfigs.where((c) => 
-    c.name == 'AllPropsOmitted' || c.name == 'EmptyProps').toList();
+  final edgeConfigs =
+      benchmarkConfigs.where((c) => c.name == 'AllPropsOmitted' || c.name == 'EmptyProps').toList();
 
   print('=== Small Props Map (10 props) ===');
   for (final config in smallConfigs) {
     ForwardUnconsumedPropsBenchmark(config).report();
   }
-  
+
   print('\n=== Medium Props Map (50 props) ===');
   for (final config in mediumConfigs) {
     ForwardUnconsumedPropsBenchmark(config).report();
   }
-  
+
   print('\n=== Large Props Map (200 props) ===');
   for (final config in largeConfigs) {
     ForwardUnconsumedPropsBenchmark(config).report();
   }
-  
+
   print('\n=== DOM Props Filtering ===');
   for (final config in domConfigs) {
     ForwardUnconsumedPropsBenchmark(config).report();
   }
-  
+
   print('\n=== React Props Omission ===');
   for (final config in reactConfigs) {
     ForwardUnconsumedPropsBenchmark(config).report();
   }
-  
+
   print('\n=== KeySets To Omit ===');
   for (final config in keySetsConfigs) {
     ForwardUnconsumedPropsBenchmark(config).report();
   }
-  
+
   print('\n=== Edge Cases ===');
   for (final config in edgeConfigs) {
     ForwardUnconsumedPropsBenchmark(config).report();

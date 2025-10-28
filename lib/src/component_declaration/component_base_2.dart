@@ -397,7 +397,7 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
     var consumedPropKeys = consumedProps?.map((consumedProps) => consumedProps.keys) ?? const [];
 
     forwardUnconsumedProps(this.props, propsToUpdate: props, keySetsToOmit:
-    consumedPropKeys, onlyCopyDomProps: true);
+        consumedPropKeys, onlyCopyDomProps: true);
   }
 
   /// Returns a copy of this component's props with React props optionally omitted, and
