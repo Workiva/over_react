@@ -128,17 +128,18 @@ void forwardUnconsumedPropsV2(Map props, {
   if (keySetsToOmit != null) {
     keySetsToOmit.forEach((keySet) => keySetToOmit.addAll(keySet));
   }
+  if (omitReactProps) {
+    keySetToOmit.addAll(const ['key', 'ref', 'children']);
+  }
 
   for (final key in props.keys) {
-    if (keysToOmit != null && keysToOmit.contains(key)) continue;
+    if (keySetToOmit.contains(key)) continue;
 
     if (onlyCopyDomProps && !((key is String && (key.startsWith('aria-') ||
         key.startsWith('data-'))) ||
         _validDomProps.contains(key))) {
       continue;
     }
-
-    if (omitReactProps && const {'key', 'ref', 'children'}.contains(key)) continue;
 
     propsToUpdate[key] = props[key];
   }
