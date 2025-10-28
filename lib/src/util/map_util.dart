@@ -82,7 +82,8 @@ Map getPropsToForward(Map props, {
 void forwardUnconsumedProps(Map props, {
   bool omitReactProps = true,
   bool onlyCopyDomProps = false,
-  Set<String>? keysToOmit,
+  Iterable? keysToOmit,
+  Iterable<Iterable>? keySetsToOmit,
   required Map propsToUpdate,
 }) {
   if (onlyCopyDomProps) {
@@ -101,6 +102,7 @@ void forwardUnconsumedProps(Map props, {
     omitReactProps: omitReactProps,
     onlyCopyDomProps: false,
     keysToOmit: keysToOmit,
+    keySetsToOmit: keySetsToOmit,
     propsToUpdate: propsToUpdate,
   );
 }
@@ -115,9 +117,18 @@ void forwardUnconsumedProps(Map props, {
 void forwardUnconsumedPropsV2(Map props, {
   bool omitReactProps = true,
   bool onlyCopyDomProps = false,
-  Set<String>? keysToOmit,
+  Iterable? keysToOmit,
+  Iterable<Iterable>? keySetsToOmit,
   required Map propsToUpdate,
 }) {
+  final keySetToOmit = <dynamic>{};
+  if (keysToOmit != null) {
+    keySetToOmit.addAll(keysToOmit);
+  }
+  if (keySetsToOmit != null) {
+    keySetsToOmit.forEach((keySet) => keySetToOmit.addAll(keySet));
+  }
+
   for (final key in props.keys) {
     if (keysToOmit != null && keysToOmit.contains(key)) continue;
 

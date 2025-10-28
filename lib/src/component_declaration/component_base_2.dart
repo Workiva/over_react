@@ -373,9 +373,10 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   /// > Related [addUnconsumedDomProps]
   void addUnconsumedProps(Map props) {
     // TODO: cache this value to avoid unnecessary looping
-    var consumedPropKeys = consumedProps?.fold(<String>{}, (a, b) => a..addAll(b.keys));
+    var consumedPropKeys = consumedProps?.map((consumedProps) => consumedProps.keys) ?? const [];
 
-    forwardUnconsumedProps(this.props, propsToUpdate: props, keysToOmit: consumedPropKeys);
+    forwardUnconsumedProps(this.props, propsToUpdate: props,
+        keySetsToOmit: consumedPropKeys);
   }
 
   /// A prop modifier that passes a reference of a component's `props` to be updated with any unconsumed `DomProps`.
@@ -393,9 +394,10 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   ///
   /// > Related [addUnconsumedProps]
   void addUnconsumedDomProps(Map props) {
-    var consumedPropKeys = consumedProps?.fold(<String>{}, (a, b) => a..addAll(b.keys));
+    var consumedPropKeys = consumedProps?.map((consumedProps) => consumedProps.keys) ?? const [];
 
-    forwardUnconsumedProps(this.props, propsToUpdate: props, keysToOmit: consumedPropKeys, onlyCopyDomProps: true);
+    forwardUnconsumedProps(this.props, propsToUpdate: props, keySetsToOmit:
+    consumedPropKeys, onlyCopyDomProps: true);
   }
 
   /// Returns a copy of this component's props with React props optionally omitted, and
