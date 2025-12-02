@@ -98,7 +98,7 @@ abstract class TypedMapImplGenerator extends BoilerplateDeclarationGenerator {
     // _$$FooProps _$Foo([Map? backingProps]) => _$$FooProps(backingProps);
     outputContentsBuffer.writeln(
         '${names.implName} ${factoryNames.first.implName}([Map${nullSafety ? '?' : ''} backingProps])'
-            ' => ${names.implName}(backingProps);');
+        ' => ${names.implName}(backingProps);');
   }
 
   String _generateImplClassHeader();
