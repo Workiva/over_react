@@ -197,7 +197,7 @@ Future<String> gitDiffNoIndex(
   String file1,
   String file2, {
   int contextLines = 1,
-  bool color = true,
+  bool color = false,
 }) async {
   final result = await Process.run('git', [
     'diff',
