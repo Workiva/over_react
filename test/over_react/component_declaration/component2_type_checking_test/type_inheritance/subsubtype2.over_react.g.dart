@@ -19,8 +19,7 @@ final $TestSubsubtype2ComponentFactory = registerComponent2(
       $TestSubtype2ComponentFactory, /* from `subtypeOf: TestSubtype2Component` */
 );
 
-abstract class _$TestSubsubtype2PropsAccessorsMixin
-    implements _$TestSubsubtype2Props {
+mixin _$TestSubsubtype2PropsAccessorsMixin implements _$TestSubsubtype2Props {
   @override
   Map get props;
 

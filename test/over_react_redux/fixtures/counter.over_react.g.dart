@@ -18,7 +18,7 @@ final $CounterComponentFactory = registerComponent2(
   parentType: null,
 );
 
-abstract class _$CounterPropsAccessorsMixin implements _$CounterProps {
+mixin _$CounterPropsAccessorsMixin implements _$CounterProps {
   @override
   Map get props;
 

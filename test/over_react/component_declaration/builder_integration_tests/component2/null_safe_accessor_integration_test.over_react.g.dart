@@ -18,8 +18,7 @@ final $NullSafeTestComponentFactory = registerComponent2(
   parentType: null,
 );
 
-abstract class _$NullSafeTestPropsAccessorsMixin
-    implements _$NullSafeTestProps {
+mixin _$NullSafeTestPropsAccessorsMixin implements _$NullSafeTestProps {
   @override
   Map get props;
 
@@ -291,8 +290,7 @@ class _$$NullSafeTestProps$JsMap extends _$$NullSafeTestProps {
   JsBackedMap _props;
 }
 
-abstract class _$NullSafeTestStateAccessorsMixin
-    implements _$NullSafeTestState {
+mixin _$NullSafeTestStateAccessorsMixin implements _$NullSafeTestState {
   @override
   Map get state;
 

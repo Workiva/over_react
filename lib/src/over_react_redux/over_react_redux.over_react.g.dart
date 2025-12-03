@@ -7,7 +7,7 @@ part of 'over_react_redux.dart';
 // OverReactBuilder (package:over_react/src/builder.dart)
 // **************************************************************************
 
-abstract class ConnectPropsMixin implements _$ConnectPropsMixin {
+mixin ConnectPropsMixin implements _$ConnectPropsMixin {
   @override
   Map get props;
 

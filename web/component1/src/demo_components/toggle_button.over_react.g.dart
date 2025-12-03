@@ -18,8 +18,7 @@ final $ToggleButtonComponentFactory = registerComponent(
   parentType: $ButtonComponentFactory, /* from `subtypeOf: ButtonComponent` */
 );
 
-abstract class _$ToggleButtonPropsAccessorsMixin
-    implements _$ToggleButtonProps {
+mixin _$ToggleButtonPropsAccessorsMixin implements _$ToggleButtonProps {
   @override
   Map get props;
 
@@ -199,9 +198,7 @@ class _$$ToggleButtonProps extends _$ToggleButtonProps
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$ToggleButtonProps = getPropKey;
-
-abstract class _$ToggleButtonStateAccessorsMixin
-    implements _$ToggleButtonState {
+mixin _$ToggleButtonStateAccessorsMixin implements _$ToggleButtonState {
   @override
   Map get state;
 

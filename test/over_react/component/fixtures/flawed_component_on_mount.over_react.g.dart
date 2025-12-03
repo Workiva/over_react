@@ -18,8 +18,7 @@ final $FlawedOnMountComponentFactory = registerComponent2(
   parentType: null,
 );
 
-abstract class _$FlawedOnMountPropsAccessorsMixin
-    implements _$FlawedOnMountProps {
+mixin _$FlawedOnMountPropsAccessorsMixin implements _$FlawedOnMountProps {
   @override
   Map get props;
 

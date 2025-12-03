@@ -19,7 +19,7 @@ final $StatefulComponentTestComponentFactory = registerComponent(
   parentType: null,
 );
 
-abstract class _$StatefulComponentTestPropsAccessorsMixin
+mixin _$StatefulComponentTestPropsAccessorsMixin
     implements _$StatefulComponentTestProps {
   @override
   Map get props;
@@ -88,8 +88,7 @@ class _$$StatefulComponentTestProps extends _$StatefulComponentTestProps
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$StatefulComponentTestProps = getPropKey;
-
-abstract class _$StatefulComponentTestStateAccessorsMixin
+mixin _$StatefulComponentTestStateAccessorsMixin
     implements _$StatefulComponentTestState {
   @override
   Map get state;

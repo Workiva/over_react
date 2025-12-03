@@ -18,7 +18,7 @@ final $DoNotGenerateAccessorTestComponentFactory = registerComponent2(
   parentType: null,
 );
 
-abstract class _$DoNotGenerateAccessorTestPropsAccessorsMixin
+mixin _$DoNotGenerateAccessorTestPropsAccessorsMixin
     implements _$DoNotGenerateAccessorTestProps {
   @override
   Map get props;
@@ -181,7 +181,7 @@ class _$$DoNotGenerateAccessorTestProps$JsMap
   JsBackedMap _props;
 }
 
-abstract class _$DoNotGenerateAccessorTestStateAccessorsMixin
+mixin _$DoNotGenerateAccessorTestStateAccessorsMixin
     implements _$DoNotGenerateAccessorTestState {
   @override
   Map get state;

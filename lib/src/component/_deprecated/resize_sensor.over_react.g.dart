@@ -20,8 +20,7 @@ final $ResizeSensorComponentFactory = registerComponent2(
 
 @Deprecated(
     'Use the `ResizeSensorProps` mixin exported from `package:over_react/components.dart` instead. Will be removed in the 4.0.0 release of over_react.')
-abstract class _$ResizeSensorPropsAccessorsMixin
-    implements _$ResizeSensorProps {
+mixin _$ResizeSensorPropsAccessorsMixin implements _$ResizeSensorProps {
   @override
   Map get props;
 
@@ -168,7 +167,7 @@ class _$ResizeSensorComponent extends ResizeSensorComponent {
 
 @Deprecated(
     'Use the `ResizeSensorProps` mixin exported from `package:over_react/components.dart` instead. Will be removed in the 4.0.0 release of over_react.')
-abstract class ResizeSensorPropsMixin implements _$ResizeSensorPropsMixin {
+mixin ResizeSensorPropsMixin implements _$ResizeSensorPropsMixin {
   @override
   Map get props;
 

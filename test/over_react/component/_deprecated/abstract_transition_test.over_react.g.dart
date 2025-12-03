@@ -18,8 +18,7 @@ final $TransitionerComponentFactory = registerComponent(
   parentType: null,
 );
 
-abstract class _$TransitionerPropsAccessorsMixin
-    implements _$TransitionerProps {
+mixin _$TransitionerPropsAccessorsMixin implements _$TransitionerProps {
   @override
   Map get props;
 
@@ -248,9 +247,7 @@ class _$$TransitionerProps extends _$TransitionerProps
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$TransitionerProps = getPropKey;
-
-abstract class _$TransitionerStateAccessorsMixin
-    implements _$TransitionerState {
+mixin _$TransitionerStateAccessorsMixin implements _$TransitionerState {
   @override
   Map get state;
 
