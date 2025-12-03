@@ -14,8 +14,9 @@ Future<void> main(List<String> args) async {
       'benchmark-dart2js-output',
       'Runs various dart2js output benchmarks and comparisons.'
           ' Useful for debugging/validating how changes to over_react affect dart2js output.')
-    ..addCommand(CompareSizeCommand())..addCommand(
-        CompareCodeCommand())..addCommand(GetCodeCommand());
+    ..addCommand(CompareSizeCommand())
+    ..addCommand(CompareCodeCommand())
+    ..addCommand(GetCodeCommand());
 
   await runner.run(args);
 }
@@ -90,8 +91,8 @@ class CompareCodeCommand extends CompareCommand {
   @override
   String get description =>
       'Compares the optimized, non-minified dart2js output for a benchmark React component between two over_react versions.'
-          '\nOutputs in a Git diff format.'
-          '\nCompiled code is normalized before comparison for better diffing.';
+      '\nOutputs in a Git diff format.'
+      '\nCompiled code is normalized before comparison for better diffing.';
 
   @override
   Future<void> run() async {
@@ -120,8 +121,8 @@ class GetCodeCommand extends BaseCommand {
   @override
   String get description =>
       'Displays the optimized, non-minified dart2js output for a benchmark React component.'
-          '\nOutputs in a Git diff format, showing output changes when adding a component.'
-          '\nCompiled code is normalized before comparison for better diffing.';
+      '\nOutputs in a Git diff format, showing output changes when adding a component.'
+      '\nCompiled code is normalized before comparison for better diffing.';
 
   GetCodeCommand() {
     argParser.addOption(
@@ -144,9 +145,11 @@ class GetCodeCommand extends BaseCommand {
   }
 }
 
-Future<String> compareCodeAcrossVersions(String code, {
+Future<String> compareCodeAcrossVersions(
+  String code, {
   required dynamic overReactDep1,
   required dynamic overReactDep2,
+  bool color = false,
 }) async {
   final results1 = compileOverReactProgram(
     webFilesByName: {'main.dart': code},
@@ -186,7 +189,7 @@ Future<String> getCompiledComponentCode({
 
   final baselineCompiledFile = result.getCompiledDart2jsFile('baseline.dart');
   final additionalCompiledFile =
-  result.getCompiledDart2jsFile('additional.dart');
+      result.getCompiledDart2jsFile('additional.dart');
 
   return gitDiffNoIndex(
     createNormalizedDart2jsFile(baselineCompiledFile).path,
@@ -247,15 +250,9 @@ Future<int> getComponentAndUsageSize({
   }, overReactDep: overReactDep);
 
   final baselineFileSize =
-      result
-          .getCompiledDart2jsFile('baseline.dart')
-          .statSync()
-          .size;
+      result.getCompiledDart2jsFile('baseline.dart').statSync().size;
   final additionalFileSize =
-      result
-          .getCompiledDart2jsFile('additional.dart')
-          .statSync()
-          .size;
+      result.getCompiledDart2jsFile('additional.dart').statSync().size;
   validateFileSize(baselineFileSize);
   validateFileSize(additionalFileSize);
 
