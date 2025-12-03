@@ -104,7 +104,11 @@ class CompareCodeCommand extends CompareCommand {
       overReactDep1: _baseDep,
       overReactDep2: _headDep,
     );
-    print(diff);
+    if (diff.trim().isEmpty) {
+      print('(No difference in dart2js output between base and head)');
+    } else {
+      print(diff);
+    }
   }
 }
 
