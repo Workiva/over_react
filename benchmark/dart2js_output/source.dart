@@ -6,7 +6,7 @@ String componentBenchmark({
       import 'package:over_react/over_react.dart';
       part '{{PART_PATH}}';''');
 
-  final mainStatements = StringBuffer()..writeln(mainAntiTreeShakingStatements);
+  final mainStatements = StringBuffer();
   for (var i = 0; i < componentCount; i++) {
     final componentName = 'Foo$i';
     final mixinName = '${componentName}Props';
@@ -22,7 +22,9 @@ String componentBenchmark({
         }
         UiFactory<$propsName> $componentName = uiFunction((props) {
           ${propReadStatements(propNames)}
+          // Prevent tree-shaking of metadata and getPropKey generated impls
           final consumedProps = props.staticMeta.forMixins({$mixinName});
+          props.getPropKey((p) => p.id);
           return (Dom.div()
             ..addUnconsumedProps(props, consumedProps)
             ..modifyProps(props.addPropsToForward())
@@ -42,12 +44,6 @@ String componentBenchmark({
 
   return fileSource.toString();
 }
-
-const mainAntiTreeShakingStatements = '''
-  (Dom.div()..id = '1')(); // Other props class, DomProps
-  ResizeSensor()(); // class component, legacy component, PropsMeta used in propTypes
-  ResizeSensor().getPropKey((p) => p.id); // getPropKey generated impls
-''';
 
 String propDeclarations(Map propTypesByName) {
   return propTypesByName
