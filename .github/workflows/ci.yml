@@ -81,7 +81,7 @@ jobs:
             # due to different resolved dependencies.
             git diff --exit-code -- ":(exclude)test/over_react/component_declaration/redux_component_test/test_reducer.g.dart"
           fi
-        if: always() && steps.install.outcome == 'success' && steps.install.build == 'success'
+        if: always() && steps.install.outcome == 'success' && steps.build.outcome == 'success'
 
       # Analyze again after generated files are created to verify that those generated classes don't cause analysis errors
       - name: Analyze project source (post-build)
