@@ -19,8 +19,7 @@ final $BasicPartOfLibComponentFactory = registerComponent(
   parentType: null,
 );
 
-abstract class _$BasicPartOfLibPropsAccessorsMixin
-    implements _$BasicPartOfLibProps {
+mixin _$BasicPartOfLibPropsAccessorsMixin implements _$BasicPartOfLibProps {
   @override
   Map get props;
 

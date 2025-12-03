@@ -9,7 +9,7 @@ part of 'state_mixin.dart';
 // **************************************************************************
 
 @deprecated
-abstract class ExampleStateMixinClass implements _$ExampleStateMixinClass {
+mixin ExampleStateMixinClass implements _$ExampleStateMixinClass {
   @override
   Map get state;
 
