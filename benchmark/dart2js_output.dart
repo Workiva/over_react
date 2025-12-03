@@ -193,12 +193,17 @@ File createNormalizedDart2jsFile(File f) {
     ..writeAsStringSync(normalizeDart2jsContents(f.readAsStringSync()));
 }
 
-Future<String> gitDiffNoIndex(String file1, String file2,
-    {int contextLines = 1}) async {
+Future<String> gitDiffNoIndex(
+  String file1,
+  String file2, {
+  int contextLines = 1,
+  bool color = true,
+}) async {
   final result = await Process.run('git', [
     'diff',
     '--no-index',
     '-U$contextLines',
+    if (color) '--color',
     file1,
     file2,
   ]);
