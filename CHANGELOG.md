@@ -1,5 +1,8 @@
 # OverReact Changelog
 
+## Unreleased
+- Optimize generated code to decrease dart2js compile size, saving ~577 bytes per component (when using `-03 --csp --minify`)
+
 ## 5.4.5
 - Update analyzer dependency to `>=5.13.0 <8.0.0` (allow v8)
 - Update dart_style dependency to `>=2.0.0 <4.0.0` (allow v3)
