@@ -1,4 +1,7 @@
+import 'dart:collection';
 import 'dart:convert';
+
+import 'package:collection/collection.dart';
 
 /// Normalizes compiled dart2js code so it can be diffed cleanly against other
 /// compiled dart2js code.
@@ -26,8 +29,7 @@ String normalizeDart2jsContents(String contents) => contents
     .replaceAllMapped(RegExp(r'types: (\["[^\n]+~[^\n]+"\]),'), (match) {
       try {
         final parsed = jsonDecode(match.group(1)!) as List;
-        parsed.sort();
-        return 'types: ${JsonEncoder.withIndent('  ').convert(parsed)},';
+        return 'types: ${JsonEncoder.withIndent('  ').convert(deepSorted(parsed))},';
       } catch (_) {}
       return match.group(0)!;
     })
@@ -37,9 +39,20 @@ String normalizeDart2jsContents(String contents) => contents
       String formatted;
       try {
         formatted = const JsonEncoder.withIndent(' ')
-            .convert(jsonDecode(stringContents));
+            .convert(deepSorted(jsonDecode(stringContents)));
       } catch (_) {
         formatted = stringContents.replaceAll(',"', ',\n"');
       }
       return "#JSON_PARSE#'$formatted#/JSON_PARSE#";
     });
+
+/// Returns a deep copy of [original], with all nested Lists and Maps sorted.
+Object? deepSorted(Object? original) {
+  if (original is List) return original.map(deepSorted).toList()..sort();
+  if (original is Map) {
+    return LinkedHashMap.fromEntries(original.entries
+        .sortedBy((entry) => entry.key.toString())
+        .map((e) => MapEntry(e.key, deepSorted(e.value))));
+  }
+  return original;
+}
