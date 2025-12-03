@@ -29,7 +29,7 @@ main() {
       expect(() {
         StatefulComponentTestState();
       }, throwsA(isA<AssertionError>()));
-    }, testOn: 'ddc');
+    }, testOn: 'dartdevc');
 
     test('renders a component from end to end, successfully reading state via typed getters', () {
       var renderedInstance = render(StatefulComponentTest()());
