@@ -103,6 +103,7 @@ class CompareCodeCommand extends CompareCommand {
       ),
       overReactDep1: _baseDep,
       overReactDep2: _headDep,
+      color: stdioType(stdout) == StdioType.terminal,
     );
     if (diff.trim().isEmpty) {
       print('(No difference in dart2js output between base and head)');
@@ -136,7 +137,10 @@ class GetCodeCommand extends BaseCommand {
   @override
   Future<void> run() async {
     super.run();
-    print(await getCompiledComponentCode(overReactDep: _dep));
+    print(await getCompiledComponentCode(
+      overReactDep: _dep,
+      color: stdioType(stdout) == StdioType.terminal,
+    ));
   }
 }
 
@@ -158,11 +162,13 @@ Future<String> compareCodeAcrossVersions(String code, {
   return gitDiffNoIndex(
     createNormalizedDart2jsFile((await results1).getCompiledDart2jsFile()).path,
     createNormalizedDart2jsFile((await results2).getCompiledDart2jsFile()).path,
+    color: color,
   );
 }
 
 Future<String> getCompiledComponentCode({
   dynamic overReactDep,
+  bool color = false,
 }) async {
   const baselineComponentCount = 2;
   const propsCount = 3;
@@ -185,6 +191,7 @@ Future<String> getCompiledComponentCode({
   return gitDiffNoIndex(
     createNormalizedDart2jsFile(baselineCompiledFile).path,
     createNormalizedDart2jsFile(additionalCompiledFile).path,
+    color: color,
   );
 }
 
