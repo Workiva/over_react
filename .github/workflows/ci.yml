@@ -54,8 +54,8 @@ jobs:
           if [[ "$DART_VERSION" =~ ^3 ]]; then
             ./tool/delete_dart_2_only_files.sh
             ./tool/update_tests_for_dart_3.sh
+            # Stage these changes so they don't show up in the generated file `git diff` check below
             git add .
-            git commit -m "Commit Dart-2-only removals so they don't interfere with the generated file git diff check below"
           fi
 
       # Analyze before generated files are created to verify that component boilerplate analysis is "clean" without the need for building
