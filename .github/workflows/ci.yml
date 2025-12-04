@@ -76,13 +76,7 @@ jobs:
 
       - name: Verify that generated files are up-to-date
         run: |
-          if [ ${{ matrix.sdk }} = '2.19.6' ]; then
-            git diff --exit-code
-          else
-            # Don't check these generated files for other SDKs, since they may generate differently
-            # due to different resolved dependencies.
-            git diff --exit-code -- ":(exclude)test/over_react/component_declaration/redux_component_test/test_reducer.g.dart"
-          fi
+          git diff --exit-code
         if: always() && steps.install.outcome == 'success' && steps.build.outcome == 'success'
 
       # Analyze again after generated files are created to verify that those generated classes don't cause analysis errors
