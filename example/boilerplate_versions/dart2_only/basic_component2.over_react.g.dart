@@ -121,25 +121,19 @@ class BasicProps extends _$BasicProps with _$BasicPropsAccessorsMixin {
   static const PropsMeta meta = _$metaForBasicProps;
 }
 
-_$$BasicProps _$Basic([Map? backingProps]) => backingProps == null
-    ? _$$BasicProps$JsMap(JsBackedMap())
-    : _$$BasicProps(backingProps);
+_$$BasicProps _$Basic([Map? backingProps]) => _$$BasicProps(backingProps);
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-abstract class _$$BasicProps extends _$BasicProps
+class _$$BasicProps extends _$BasicProps
     with _$BasicPropsAccessorsMixin
     implements BasicProps {
-  _$$BasicProps._();
+  _$$BasicProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
-  factory _$$BasicProps(Map? backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$BasicProps$JsMap(backingMap as JsBackedMap?);
-    } else {
-      return _$$BasicProps$PlainMap(backingMap);
-    }
-  }
+  /// The backing props map proxied by this class.
+  @override
+  final Map props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -167,48 +161,15 @@ abstract class _$$BasicProps extends _$BasicProps
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$BasicProps = getPropKey;
 
-// Concrete props implementation that can be backed by any [Map].
-class _$$BasicProps$PlainMap extends _$$BasicProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$BasicProps$PlainMap(Map? backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
-}
-
-// Concrete props implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-class _$$BasicProps$JsMap extends _$$BasicProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$BasicProps$JsMap(JsBackedMap? backingMap)
-      : this._props = JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
-}
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$Basic2Component extends Basic2Component {
-  late _$$BasicProps$JsMap _cachedTypedProps;
+  late _$$BasicProps _cachedTypedProps;
 
   @override
-  _$$BasicProps$JsMap get props => _cachedTypedProps;
+  _$$BasicProps get props => _cachedTypedProps;
 
   @override
   set props(Map value) {
@@ -225,8 +186,8 @@ class _$Basic2Component extends Basic2Component {
   }
 
   @override
-  _$$BasicProps$JsMap typedPropsFactoryJs(JsBackedMap? backingMap) =>
-      _$$BasicProps$JsMap(backingMap);
+  _$$BasicProps typedPropsFactoryJs(JsBackedMap? backingMap) =>
+      _$$BasicProps(backingMap);
 
   @override
   _$$BasicProps typedPropsFactory(Map? backingMap) => _$$BasicProps(backingMap);

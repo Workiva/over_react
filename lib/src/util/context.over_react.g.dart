@@ -90,31 +90,27 @@ const PropsMeta _$metaFor_ConsumerPropsMixin = PropsMeta(
   keys: $_ConsumerPropsMixin.$propKeys,
 );
 
-_$$ProviderProps _$_Provider([Map? backingProps]) => backingProps == null
-    ? _$$ProviderProps$JsMap(JsBackedMap())
-    : _$$ProviderProps(backingProps);
+_$$ProviderProps _$_Provider([Map? backingProps]) =>
+    _$$ProviderProps(backingProps);
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$ProviderProps<TValue> extends UiProps
+class _$$ProviderProps<TValue> extends UiProps
     with
         _ProviderPropsMixin<TValue>,
         // If this generated mixin is undefined, it's likely because _ProviderPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of _ProviderPropsMixin, and check that $_ProviderPropsMixin is exported/imported properly.
         $_ProviderPropsMixin<TValue>
     implements
         ProviderProps<TValue> {
-  _$$ProviderProps._();
+  _$$ProviderProps([Map? backingMap])
+      : this.props = backingMap ?? JsBackedMap();
 
-  factory _$$ProviderProps(Map? backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$ProviderProps$JsMap(backingMap as JsBackedMap?);
-    } else {
-      return _$$ProviderProps$PlainMap(backingMap);
-    }
-  }
+  /// The backing props map proxied by this class.
+  @override
+  final Map props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -138,69 +134,27 @@ abstract class _$$ProviderProps<TValue> extends UiProps
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$ProviderProps = getPropKey;
-
-// Concrete props implementation that can be backed by any [Map].
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$ProviderProps$PlainMap<TValue> extends _$$ProviderProps<TValue> {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ProviderProps$PlainMap(Map? backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
-}
-
-// Concrete props implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$ProviderProps$JsMap<TValue> extends _$$ProviderProps<TValue> {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ProviderProps$JsMap(JsBackedMap? backingMap)
-      : this._props = JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
-}
-
-_$$ConsumerProps _$_Consumer([Map? backingProps]) => backingProps == null
-    ? _$$ConsumerProps$JsMap(JsBackedMap())
-    : _$$ConsumerProps(backingProps);
+_$$ConsumerProps _$_Consumer([Map? backingProps]) =>
+    _$$ConsumerProps(backingProps);
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$ConsumerProps<TValue> extends UiProps
+class _$$ConsumerProps<TValue> extends UiProps
     with
         _ConsumerPropsMixin<TValue>,
         // If this generated mixin is undefined, it's likely because _ConsumerPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of _ConsumerPropsMixin, and check that $_ConsumerPropsMixin is exported/imported properly.
         $_ConsumerPropsMixin<TValue>
     implements
         ConsumerProps<TValue> {
-  _$$ConsumerProps._();
+  _$$ConsumerProps([Map? backingMap])
+      : this.props = backingMap ?? JsBackedMap();
 
-  factory _$$ConsumerProps(Map? backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$ConsumerProps$JsMap(backingMap as JsBackedMap?);
-    } else {
-      return _$$ConsumerProps$PlainMap(backingMap);
-    }
-  }
+  /// The backing props map proxied by this class.
+  @override
+  final Map props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -224,40 +178,3 @@ abstract class _$$ConsumerProps<TValue> extends UiProps
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$ConsumerProps = getPropKey;
-
-// Concrete props implementation that can be backed by any [Map].
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$ConsumerProps$PlainMap<TValue> extends _$$ConsumerProps<TValue> {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ConsumerProps$PlainMap(Map? backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
-}
-
-// Concrete props implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$ConsumerProps$JsMap<TValue> extends _$$ConsumerProps<TValue> {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ConsumerProps$JsMap(JsBackedMap? backingMap)
-      : this._props = JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
-}

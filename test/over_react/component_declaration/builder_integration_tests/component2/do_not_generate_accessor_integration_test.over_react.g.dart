@@ -101,27 +101,20 @@ class DoNotGenerateAccessorTestProps extends _$DoNotGenerateAccessorTestProps
 
 _$$DoNotGenerateAccessorTestProps _$DoNotGenerateAccessorTest(
         [Map? backingProps]) =>
-    backingProps == null
-        ? _$$DoNotGenerateAccessorTestProps$JsMap(JsBackedMap())
-        : _$$DoNotGenerateAccessorTestProps(backingProps);
+    _$$DoNotGenerateAccessorTestProps(backingProps);
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-abstract class _$$DoNotGenerateAccessorTestProps
-    extends _$DoNotGenerateAccessorTestProps
+class _$$DoNotGenerateAccessorTestProps extends _$DoNotGenerateAccessorTestProps
     with _$DoNotGenerateAccessorTestPropsAccessorsMixin
     implements DoNotGenerateAccessorTestProps {
-  _$$DoNotGenerateAccessorTestProps._();
+  _$$DoNotGenerateAccessorTestProps([Map? backingMap])
+      : this.props = backingMap ?? JsBackedMap();
 
-  factory _$$DoNotGenerateAccessorTestProps(Map? backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$DoNotGenerateAccessorTestProps$JsMap(
-          backingMap as JsBackedMap?);
-    } else {
-      return _$$DoNotGenerateAccessorTestProps$PlainMap(backingMap);
-    }
-  }
+  /// The backing props map proxied by this class.
+  @override
+  final Map props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -145,42 +138,6 @@ abstract class _$$DoNotGenerateAccessorTestProps
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$DoNotGenerateAccessorTestProps = getPropKey;
-
-// Concrete props implementation that can be backed by any [Map].
-class _$$DoNotGenerateAccessorTestProps$PlainMap
-    extends _$$DoNotGenerateAccessorTestProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$DoNotGenerateAccessorTestProps$PlainMap(Map? backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
-}
-
-// Concrete props implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-class _$$DoNotGenerateAccessorTestProps$JsMap
-    extends _$$DoNotGenerateAccessorTestProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$DoNotGenerateAccessorTestProps$JsMap(JsBackedMap? backingMap)
-      : this._props = JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
-}
-
 mixin _$DoNotGenerateAccessorTestStateAccessorsMixin
     implements _$DoNotGenerateAccessorTestState {
   @override
@@ -265,59 +222,19 @@ class DoNotGenerateAccessorTestState extends _$DoNotGenerateAccessorTestState
 // Concrete state implementation.
 //
 // Implements constructor and backing map.
-abstract class _$$DoNotGenerateAccessorTestState
-    extends _$DoNotGenerateAccessorTestState
+class _$$DoNotGenerateAccessorTestState extends _$DoNotGenerateAccessorTestState
     with _$DoNotGenerateAccessorTestStateAccessorsMixin
     implements DoNotGenerateAccessorTestState {
-  _$$DoNotGenerateAccessorTestState._();
+  _$$DoNotGenerateAccessorTestState([Map? backingMap])
+      : this.state = backingMap ?? JsBackedMap();
 
-  factory _$$DoNotGenerateAccessorTestState(Map? backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$DoNotGenerateAccessorTestState$JsMap(
-          backingMap as JsBackedMap?);
-    } else {
-      return _$$DoNotGenerateAccessorTestState$PlainMap(backingMap);
-    }
-  }
+  /// The backing state map proxied by this class.
+  @override
+  final Map state;
 
   /// Let `UiState` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
-}
-
-// Concrete state implementation that can be backed by any [Map].
-class _$$DoNotGenerateAccessorTestState$PlainMap
-    extends _$$DoNotGenerateAccessorTestState {
-  // This initializer of `_state` to an empty map, as well as the reassignment
-  // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$DoNotGenerateAccessorTestState$PlainMap(Map? backingMap)
-      : this._state = {},
-        super._() {
-    this._state = backingMap ?? {};
-  }
-
-  /// The backing state map proxied by this class.
-  @override
-  Map get state => _state;
-  Map _state;
-}
-
-// Concrete state implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-class _$$DoNotGenerateAccessorTestState$JsMap
-    extends _$$DoNotGenerateAccessorTestState {
-  // This initializer of `_state` to an empty map, as well as the reassignment
-  // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$DoNotGenerateAccessorTestState$JsMap(JsBackedMap? backingMap)
-      : this._state = JsBackedMap(),
-        super._() {
-    this._state = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing state map proxied by this class.
-  @override
-  JsBackedMap get state => _state;
-  JsBackedMap _state;
 }
 
 // Concrete component implementation mixin.
@@ -326,10 +243,10 @@ class _$$DoNotGenerateAccessorTestState$JsMap
 // generated for the associated props class.
 class _$DoNotGenerateAccessorTestComponent
     extends DoNotGenerateAccessorTestComponent {
-  late _$$DoNotGenerateAccessorTestProps$JsMap _cachedTypedProps;
+  late _$$DoNotGenerateAccessorTestProps _cachedTypedProps;
 
   @override
-  _$$DoNotGenerateAccessorTestProps$JsMap get props => _cachedTypedProps;
+  _$$DoNotGenerateAccessorTestProps get props => _cachedTypedProps;
 
   @override
   set props(Map value) {
@@ -346,17 +263,17 @@ class _$DoNotGenerateAccessorTestComponent
   }
 
   @override
-  _$$DoNotGenerateAccessorTestProps$JsMap typedPropsFactoryJs(
+  _$$DoNotGenerateAccessorTestProps typedPropsFactoryJs(
           JsBackedMap? backingMap) =>
-      _$$DoNotGenerateAccessorTestProps$JsMap(backingMap);
+      _$$DoNotGenerateAccessorTestProps(backingMap);
 
   @override
   _$$DoNotGenerateAccessorTestProps typedPropsFactory(Map? backingMap) =>
       _$$DoNotGenerateAccessorTestProps(backingMap);
 
-  late _$$DoNotGenerateAccessorTestState$JsMap _cachedTypedState;
+  late _$$DoNotGenerateAccessorTestState _cachedTypedState;
   @override
-  _$$DoNotGenerateAccessorTestState$JsMap get state => _cachedTypedState;
+  _$$DoNotGenerateAccessorTestState get state => _cachedTypedState;
 
   @override
   set state(Map value) {
@@ -369,9 +286,9 @@ class _$DoNotGenerateAccessorTestComponent
   }
 
   @override
-  _$$DoNotGenerateAccessorTestState$JsMap typedStateFactoryJs(
+  _$$DoNotGenerateAccessorTestState typedStateFactoryJs(
           JsBackedMap? backingMap) =>
-      _$$DoNotGenerateAccessorTestState$JsMap(backingMap);
+      _$$DoNotGenerateAccessorTestState(backingMap);
 
   @override
   _$$DoNotGenerateAccessorTestState typedStateFactory(Map? backingMap) =>

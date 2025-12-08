@@ -38,25 +38,21 @@ class TestBasicProps extends _$TestBasicProps
   static const PropsMeta meta = _$metaForTestBasicProps;
 }
 
-_$$TestBasicProps _$TestBasic([Map? backingProps]) => backingProps == null
-    ? _$$TestBasicProps$JsMap(JsBackedMap())
-    : _$$TestBasicProps(backingProps);
+_$$TestBasicProps _$TestBasic([Map? backingProps]) =>
+    _$$TestBasicProps(backingProps);
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-abstract class _$$TestBasicProps extends _$TestBasicProps
+class _$$TestBasicProps extends _$TestBasicProps
     with _$TestBasicPropsAccessorsMixin
     implements TestBasicProps {
-  _$$TestBasicProps._();
+  _$$TestBasicProps([Map? backingMap])
+      : this.props = backingMap ?? JsBackedMap();
 
-  factory _$$TestBasicProps(Map? backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestBasicProps$JsMap(backingMap as JsBackedMap?);
-    } else {
-      return _$$TestBasicProps$PlainMap(backingMap);
-    }
-  }
+  /// The backing props map proxied by this class.
+  @override
+  final Map props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -81,48 +77,15 @@ abstract class _$$TestBasicProps extends _$TestBasicProps
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$TestBasicProps = getPropKey;
 
-// Concrete props implementation that can be backed by any [Map].
-class _$$TestBasicProps$PlainMap extends _$$TestBasicProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestBasicProps$PlainMap(Map? backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
-}
-
-// Concrete props implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-class _$$TestBasicProps$JsMap extends _$$TestBasicProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestBasicProps$JsMap(JsBackedMap? backingMap)
-      : this._props = JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
-}
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$TestBasicComponent extends TestBasicComponent {
-  late _$$TestBasicProps$JsMap _cachedTypedProps;
+  late _$$TestBasicProps _cachedTypedProps;
 
   @override
-  _$$TestBasicProps$JsMap get props => _cachedTypedProps;
+  _$$TestBasicProps get props => _cachedTypedProps;
 
   @override
   set props(Map value) {
@@ -139,8 +102,8 @@ class _$TestBasicComponent extends TestBasicComponent {
   }
 
   @override
-  _$$TestBasicProps$JsMap typedPropsFactoryJs(JsBackedMap? backingMap) =>
-      _$$TestBasicProps$JsMap(backingMap);
+  _$$TestBasicProps typedPropsFactoryJs(JsBackedMap? backingMap) =>
+      _$$TestBasicProps(backingMap);
 
   @override
   _$$TestBasicProps typedPropsFactory(Map? backingMap) =>
@@ -194,25 +157,20 @@ class TestHandlerLifecycleProps extends _$TestHandlerLifecycleProps
 }
 
 _$$TestHandlerLifecycleProps _$TestHandlerLifecycle([Map? backingProps]) =>
-    backingProps == null
-        ? _$$TestHandlerLifecycleProps$JsMap(JsBackedMap())
-        : _$$TestHandlerLifecycleProps(backingProps);
+    _$$TestHandlerLifecycleProps(backingProps);
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-abstract class _$$TestHandlerLifecycleProps extends _$TestHandlerLifecycleProps
+class _$$TestHandlerLifecycleProps extends _$TestHandlerLifecycleProps
     with _$TestHandlerLifecyclePropsAccessorsMixin
     implements TestHandlerLifecycleProps {
-  _$$TestHandlerLifecycleProps._();
+  _$$TestHandlerLifecycleProps([Map? backingMap])
+      : this.props = backingMap ?? JsBackedMap();
 
-  factory _$$TestHandlerLifecycleProps(Map? backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestHandlerLifecycleProps$JsMap(backingMap as JsBackedMap?);
-    } else {
-      return _$$TestHandlerLifecycleProps$PlainMap(backingMap);
-    }
-  }
+  /// The backing props map proxied by this class.
+  @override
+  final Map props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -237,49 +195,15 @@ abstract class _$$TestHandlerLifecycleProps extends _$TestHandlerLifecycleProps
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$TestHandlerLifecycleProps = getPropKey;
 
-// Concrete props implementation that can be backed by any [Map].
-class _$$TestHandlerLifecycleProps$PlainMap
-    extends _$$TestHandlerLifecycleProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestHandlerLifecycleProps$PlainMap(Map? backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
-}
-
-// Concrete props implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-class _$$TestHandlerLifecycleProps$JsMap extends _$$TestHandlerLifecycleProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestHandlerLifecycleProps$JsMap(JsBackedMap? backingMap)
-      : this._props = JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
-}
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$TestHandlerLifecycleComponent extends TestHandlerLifecycleComponent {
-  late _$$TestHandlerLifecycleProps$JsMap _cachedTypedProps;
+  late _$$TestHandlerLifecycleProps _cachedTypedProps;
 
   @override
-  _$$TestHandlerLifecycleProps$JsMap get props => _cachedTypedProps;
+  _$$TestHandlerLifecycleProps get props => _cachedTypedProps;
 
   @override
   set props(Map value) {
@@ -296,9 +220,8 @@ class _$TestHandlerLifecycleComponent extends TestHandlerLifecycleComponent {
   }
 
   @override
-  _$$TestHandlerLifecycleProps$JsMap typedPropsFactoryJs(
-          JsBackedMap? backingMap) =>
-      _$$TestHandlerLifecycleProps$JsMap(backingMap);
+  _$$TestHandlerLifecycleProps typedPropsFactoryJs(JsBackedMap? backingMap) =>
+      _$$TestHandlerLifecycleProps(backingMap);
 
   @override
   _$$TestHandlerLifecycleProps typedPropsFactory(Map? backingMap) =>
@@ -352,26 +275,20 @@ class TestHandlerPrecedenceProps extends _$TestHandlerPrecedenceProps
 }
 
 _$$TestHandlerPrecedenceProps _$TestHandlerPrecedence([Map? backingProps]) =>
-    backingProps == null
-        ? _$$TestHandlerPrecedenceProps$JsMap(JsBackedMap())
-        : _$$TestHandlerPrecedenceProps(backingProps);
+    _$$TestHandlerPrecedenceProps(backingProps);
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-abstract class _$$TestHandlerPrecedenceProps
-    extends _$TestHandlerPrecedenceProps
+class _$$TestHandlerPrecedenceProps extends _$TestHandlerPrecedenceProps
     with _$TestHandlerPrecedencePropsAccessorsMixin
     implements TestHandlerPrecedenceProps {
-  _$$TestHandlerPrecedenceProps._();
+  _$$TestHandlerPrecedenceProps([Map? backingMap])
+      : this.props = backingMap ?? JsBackedMap();
 
-  factory _$$TestHandlerPrecedenceProps(Map? backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestHandlerPrecedenceProps$JsMap(backingMap as JsBackedMap?);
-    } else {
-      return _$$TestHandlerPrecedenceProps$PlainMap(backingMap);
-    }
-  }
+  /// The backing props map proxied by this class.
+  @override
+  final Map props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -396,50 +313,15 @@ abstract class _$$TestHandlerPrecedenceProps
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$TestHandlerPrecedenceProps = getPropKey;
 
-// Concrete props implementation that can be backed by any [Map].
-class _$$TestHandlerPrecedenceProps$PlainMap
-    extends _$$TestHandlerPrecedenceProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestHandlerPrecedenceProps$PlainMap(Map? backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
-}
-
-// Concrete props implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-class _$$TestHandlerPrecedenceProps$JsMap
-    extends _$$TestHandlerPrecedenceProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestHandlerPrecedenceProps$JsMap(JsBackedMap? backingMap)
-      : this._props = JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
-}
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$TestHandlerPrecedenceComponent extends TestHandlerPrecedenceComponent {
-  late _$$TestHandlerPrecedenceProps$JsMap _cachedTypedProps;
+  late _$$TestHandlerPrecedenceProps _cachedTypedProps;
 
   @override
-  _$$TestHandlerPrecedenceProps$JsMap get props => _cachedTypedProps;
+  _$$TestHandlerPrecedenceProps get props => _cachedTypedProps;
 
   @override
   set props(Map value) {
@@ -456,9 +338,8 @@ class _$TestHandlerPrecedenceComponent extends TestHandlerPrecedenceComponent {
   }
 
   @override
-  _$$TestHandlerPrecedenceProps$JsMap typedPropsFactoryJs(
-          JsBackedMap? backingMap) =>
-      _$$TestHandlerPrecedenceProps$JsMap(backingMap);
+  _$$TestHandlerPrecedenceProps typedPropsFactoryJs(JsBackedMap? backingMap) =>
+      _$$TestHandlerPrecedenceProps(backingMap);
 
   @override
   _$$TestHandlerPrecedenceProps typedPropsFactory(Map? backingMap) =>
@@ -532,25 +413,20 @@ class TestPropValidationProps extends _$TestPropValidationProps
 }
 
 _$$TestPropValidationProps _$TestPropValidation([Map? backingProps]) =>
-    backingProps == null
-        ? _$$TestPropValidationProps$JsMap(JsBackedMap())
-        : _$$TestPropValidationProps(backingProps);
+    _$$TestPropValidationProps(backingProps);
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-abstract class _$$TestPropValidationProps extends _$TestPropValidationProps
+class _$$TestPropValidationProps extends _$TestPropValidationProps
     with _$TestPropValidationPropsAccessorsMixin
     implements TestPropValidationProps {
-  _$$TestPropValidationProps._();
+  _$$TestPropValidationProps([Map? backingMap])
+      : this.props = backingMap ?? JsBackedMap();
 
-  factory _$$TestPropValidationProps(Map? backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestPropValidationProps$JsMap(backingMap as JsBackedMap?);
-    } else {
-      return _$$TestPropValidationProps$PlainMap(backingMap);
-    }
-  }
+  /// The backing props map proxied by this class.
+  @override
+  final Map props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -575,48 +451,15 @@ abstract class _$$TestPropValidationProps extends _$TestPropValidationProps
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$TestPropValidationProps = getPropKey;
 
-// Concrete props implementation that can be backed by any [Map].
-class _$$TestPropValidationProps$PlainMap extends _$$TestPropValidationProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestPropValidationProps$PlainMap(Map? backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
-}
-
-// Concrete props implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-class _$$TestPropValidationProps$JsMap extends _$$TestPropValidationProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestPropValidationProps$JsMap(JsBackedMap? backingMap)
-      : this._props = JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
-}
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$TestPropValidationComponent extends TestPropValidationComponent {
-  late _$$TestPropValidationProps$JsMap _cachedTypedProps;
+  late _$$TestPropValidationProps _cachedTypedProps;
 
   @override
-  _$$TestPropValidationProps$JsMap get props => _cachedTypedProps;
+  _$$TestPropValidationProps get props => _cachedTypedProps;
 
   @override
   set props(Map value) {
@@ -633,9 +476,8 @@ class _$TestPropValidationComponent extends TestPropValidationComponent {
   }
 
   @override
-  _$$TestPropValidationProps$JsMap typedPropsFactoryJs(
-          JsBackedMap? backingMap) =>
-      _$$TestPropValidationProps$JsMap(backingMap);
+  _$$TestPropValidationProps typedPropsFactoryJs(JsBackedMap? backingMap) =>
+      _$$TestPropValidationProps(backingMap);
 
   @override
   _$$TestPropValidationProps typedPropsFactory(Map? backingMap) =>
@@ -687,25 +529,21 @@ class TestRedrawOnProps extends _$TestRedrawOnProps
   static const PropsMeta meta = _$metaForTestRedrawOnProps;
 }
 
-_$$TestRedrawOnProps _$TestRedrawOn([Map? backingProps]) => backingProps == null
-    ? _$$TestRedrawOnProps$JsMap(JsBackedMap())
-    : _$$TestRedrawOnProps(backingProps);
+_$$TestRedrawOnProps _$TestRedrawOn([Map? backingProps]) =>
+    _$$TestRedrawOnProps(backingProps);
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-abstract class _$$TestRedrawOnProps extends _$TestRedrawOnProps
+class _$$TestRedrawOnProps extends _$TestRedrawOnProps
     with _$TestRedrawOnPropsAccessorsMixin
     implements TestRedrawOnProps {
-  _$$TestRedrawOnProps._();
+  _$$TestRedrawOnProps([Map? backingMap])
+      : this.props = backingMap ?? JsBackedMap();
 
-  factory _$$TestRedrawOnProps(Map? backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestRedrawOnProps$JsMap(backingMap as JsBackedMap?);
-    } else {
-      return _$$TestRedrawOnProps$PlainMap(backingMap);
-    }
-  }
+  /// The backing props map proxied by this class.
+  @override
+  final Map props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -730,48 +568,15 @@ abstract class _$$TestRedrawOnProps extends _$TestRedrawOnProps
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$TestRedrawOnProps = getPropKey;
 
-// Concrete props implementation that can be backed by any [Map].
-class _$$TestRedrawOnProps$PlainMap extends _$$TestRedrawOnProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestRedrawOnProps$PlainMap(Map? backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
-}
-
-// Concrete props implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-class _$$TestRedrawOnProps$JsMap extends _$$TestRedrawOnProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestRedrawOnProps$JsMap(JsBackedMap? backingMap)
-      : this._props = JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
-}
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$TestRedrawOnComponent extends TestRedrawOnComponent {
-  late _$$TestRedrawOnProps$JsMap _cachedTypedProps;
+  late _$$TestRedrawOnProps _cachedTypedProps;
 
   @override
-  _$$TestRedrawOnProps$JsMap get props => _cachedTypedProps;
+  _$$TestRedrawOnProps get props => _cachedTypedProps;
 
   @override
   set props(Map value) {
@@ -788,8 +593,8 @@ class _$TestRedrawOnComponent extends TestRedrawOnComponent {
   }
 
   @override
-  _$$TestRedrawOnProps$JsMap typedPropsFactoryJs(JsBackedMap? backingMap) =>
-      _$$TestRedrawOnProps$JsMap(backingMap);
+  _$$TestRedrawOnProps typedPropsFactoryJs(JsBackedMap? backingMap) =>
+      _$$TestRedrawOnProps(backingMap);
 
   @override
   _$$TestRedrawOnProps typedPropsFactory(Map? backingMap) =>
@@ -843,25 +648,20 @@ class TestStoreHandlersProps extends _$TestStoreHandlersProps
 }
 
 _$$TestStoreHandlersProps _$TestStoreHandlers([Map? backingProps]) =>
-    backingProps == null
-        ? _$$TestStoreHandlersProps$JsMap(JsBackedMap())
-        : _$$TestStoreHandlersProps(backingProps);
+    _$$TestStoreHandlersProps(backingProps);
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-abstract class _$$TestStoreHandlersProps extends _$TestStoreHandlersProps
+class _$$TestStoreHandlersProps extends _$TestStoreHandlersProps
     with _$TestStoreHandlersPropsAccessorsMixin
     implements TestStoreHandlersProps {
-  _$$TestStoreHandlersProps._();
+  _$$TestStoreHandlersProps([Map? backingMap])
+      : this.props = backingMap ?? JsBackedMap();
 
-  factory _$$TestStoreHandlersProps(Map? backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestStoreHandlersProps$JsMap(backingMap as JsBackedMap?);
-    } else {
-      return _$$TestStoreHandlersProps$PlainMap(backingMap);
-    }
-  }
+  /// The backing props map proxied by this class.
+  @override
+  final Map props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -886,48 +686,15 @@ abstract class _$$TestStoreHandlersProps extends _$TestStoreHandlersProps
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$TestStoreHandlersProps = getPropKey;
 
-// Concrete props implementation that can be backed by any [Map].
-class _$$TestStoreHandlersProps$PlainMap extends _$$TestStoreHandlersProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestStoreHandlersProps$PlainMap(Map? backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
-}
-
-// Concrete props implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-class _$$TestStoreHandlersProps$JsMap extends _$$TestStoreHandlersProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestStoreHandlersProps$JsMap(JsBackedMap? backingMap)
-      : this._props = JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
-}
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$TestStoreHandlersComponent extends TestStoreHandlersComponent {
-  late _$$TestStoreHandlersProps$JsMap _cachedTypedProps;
+  late _$$TestStoreHandlersProps _cachedTypedProps;
 
   @override
-  _$$TestStoreHandlersProps$JsMap get props => _cachedTypedProps;
+  _$$TestStoreHandlersProps get props => _cachedTypedProps;
 
   @override
   set props(Map value) {
@@ -944,9 +711,8 @@ class _$TestStoreHandlersComponent extends TestStoreHandlersComponent {
   }
 
   @override
-  _$$TestStoreHandlersProps$JsMap typedPropsFactoryJs(
-          JsBackedMap? backingMap) =>
-      _$$TestStoreHandlersProps$JsMap(backingMap);
+  _$$TestStoreHandlersProps typedPropsFactoryJs(JsBackedMap? backingMap) =>
+      _$$TestStoreHandlersProps(backingMap);
 
   @override
   _$$TestStoreHandlersProps typedPropsFactory(Map? backingMap) =>
@@ -1000,25 +766,20 @@ class TestStatefulBasicProps extends _$TestStatefulBasicProps
 }
 
 _$$TestStatefulBasicProps _$TestStatefulBasic([Map? backingProps]) =>
-    backingProps == null
-        ? _$$TestStatefulBasicProps$JsMap(JsBackedMap())
-        : _$$TestStatefulBasicProps(backingProps);
+    _$$TestStatefulBasicProps(backingProps);
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-abstract class _$$TestStatefulBasicProps extends _$TestStatefulBasicProps
+class _$$TestStatefulBasicProps extends _$TestStatefulBasicProps
     with _$TestStatefulBasicPropsAccessorsMixin
     implements TestStatefulBasicProps {
-  _$$TestStatefulBasicProps._();
+  _$$TestStatefulBasicProps([Map? backingMap])
+      : this.props = backingMap ?? JsBackedMap();
 
-  factory _$$TestStatefulBasicProps(Map? backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestStatefulBasicProps$JsMap(backingMap as JsBackedMap?);
-    } else {
-      return _$$TestStatefulBasicProps$PlainMap(backingMap);
-    }
-  }
+  /// The backing props map proxied by this class.
+  @override
+  final Map props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -1042,40 +803,6 @@ abstract class _$$TestStatefulBasicProps extends _$TestStatefulBasicProps
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$TestStatefulBasicProps = getPropKey;
-
-// Concrete props implementation that can be backed by any [Map].
-class _$$TestStatefulBasicProps$PlainMap extends _$$TestStatefulBasicProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestStatefulBasicProps$PlainMap(Map? backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
-}
-
-// Concrete props implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-class _$$TestStatefulBasicProps$JsMap extends _$$TestStatefulBasicProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestStatefulBasicProps$JsMap(JsBackedMap? backingMap)
-      : this._props = JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
-}
-
 mixin _$TestStatefulBasicStateAccessorsMixin
     implements _$TestStatefulBasicState {
   @override
@@ -1100,55 +827,19 @@ class TestStatefulBasicState extends _$TestStatefulBasicState
 // Concrete state implementation.
 //
 // Implements constructor and backing map.
-abstract class _$$TestStatefulBasicState extends _$TestStatefulBasicState
+class _$$TestStatefulBasicState extends _$TestStatefulBasicState
     with _$TestStatefulBasicStateAccessorsMixin
     implements TestStatefulBasicState {
-  _$$TestStatefulBasicState._();
+  _$$TestStatefulBasicState([Map? backingMap])
+      : this.state = backingMap ?? JsBackedMap();
 
-  factory _$$TestStatefulBasicState(Map? backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestStatefulBasicState$JsMap(backingMap as JsBackedMap?);
-    } else {
-      return _$$TestStatefulBasicState$PlainMap(backingMap);
-    }
-  }
+  /// The backing state map proxied by this class.
+  @override
+  final Map state;
 
   /// Let `UiState` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
-}
-
-// Concrete state implementation that can be backed by any [Map].
-class _$$TestStatefulBasicState$PlainMap extends _$$TestStatefulBasicState {
-  // This initializer of `_state` to an empty map, as well as the reassignment
-  // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestStatefulBasicState$PlainMap(Map? backingMap)
-      : this._state = {},
-        super._() {
-    this._state = backingMap ?? {};
-  }
-
-  /// The backing state map proxied by this class.
-  @override
-  Map get state => _state;
-  Map _state;
-}
-
-// Concrete state implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-class _$$TestStatefulBasicState$JsMap extends _$$TestStatefulBasicState {
-  // This initializer of `_state` to an empty map, as well as the reassignment
-  // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestStatefulBasicState$JsMap(JsBackedMap? backingMap)
-      : this._state = JsBackedMap(),
-        super._() {
-    this._state = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing state map proxied by this class.
-  @override
-  JsBackedMap get state => _state;
-  JsBackedMap _state;
 }
 
 // Concrete component implementation mixin.
@@ -1156,10 +847,10 @@ class _$$TestStatefulBasicState$JsMap extends _$$TestStatefulBasicState {
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$TestStatefulBasicComponent extends TestStatefulBasicComponent {
-  late _$$TestStatefulBasicProps$JsMap _cachedTypedProps;
+  late _$$TestStatefulBasicProps _cachedTypedProps;
 
   @override
-  _$$TestStatefulBasicProps$JsMap get props => _cachedTypedProps;
+  _$$TestStatefulBasicProps get props => _cachedTypedProps;
 
   @override
   set props(Map value) {
@@ -1176,17 +867,16 @@ class _$TestStatefulBasicComponent extends TestStatefulBasicComponent {
   }
 
   @override
-  _$$TestStatefulBasicProps$JsMap typedPropsFactoryJs(
-          JsBackedMap? backingMap) =>
-      _$$TestStatefulBasicProps$JsMap(backingMap);
+  _$$TestStatefulBasicProps typedPropsFactoryJs(JsBackedMap? backingMap) =>
+      _$$TestStatefulBasicProps(backingMap);
 
   @override
   _$$TestStatefulBasicProps typedPropsFactory(Map? backingMap) =>
       _$$TestStatefulBasicProps(backingMap);
 
-  late _$$TestStatefulBasicState$JsMap _cachedTypedState;
+  late _$$TestStatefulBasicState _cachedTypedState;
   @override
-  _$$TestStatefulBasicState$JsMap get state => _cachedTypedState;
+  _$$TestStatefulBasicState get state => _cachedTypedState;
 
   @override
   set state(Map value) {
@@ -1199,9 +889,8 @@ class _$TestStatefulBasicComponent extends TestStatefulBasicComponent {
   }
 
   @override
-  _$$TestStatefulBasicState$JsMap typedStateFactoryJs(
-          JsBackedMap? backingMap) =>
-      _$$TestStatefulBasicState$JsMap(backingMap);
+  _$$TestStatefulBasicState typedStateFactoryJs(JsBackedMap? backingMap) =>
+      _$$TestStatefulBasicState(backingMap);
 
   @override
   _$$TestStatefulBasicState typedStateFactory(Map? backingMap) =>
@@ -1257,27 +946,21 @@ class TestStatefulHandlerLifecycleProps
 
 _$$TestStatefulHandlerLifecycleProps _$TestStatefulHandlerLifecycle(
         [Map? backingProps]) =>
-    backingProps == null
-        ? _$$TestStatefulHandlerLifecycleProps$JsMap(JsBackedMap())
-        : _$$TestStatefulHandlerLifecycleProps(backingProps);
+    _$$TestStatefulHandlerLifecycleProps(backingProps);
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-abstract class _$$TestStatefulHandlerLifecycleProps
+class _$$TestStatefulHandlerLifecycleProps
     extends _$TestStatefulHandlerLifecycleProps
     with _$TestStatefulHandlerLifecyclePropsAccessorsMixin
     implements TestStatefulHandlerLifecycleProps {
-  _$$TestStatefulHandlerLifecycleProps._();
+  _$$TestStatefulHandlerLifecycleProps([Map? backingMap])
+      : this.props = backingMap ?? JsBackedMap();
 
-  factory _$$TestStatefulHandlerLifecycleProps(Map? backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestStatefulHandlerLifecycleProps$JsMap(
-          backingMap as JsBackedMap?);
-    } else {
-      return _$$TestStatefulHandlerLifecycleProps$PlainMap(backingMap);
-    }
-  }
+  /// The backing props map proxied by this class.
+  @override
+  final Map props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -1301,42 +984,6 @@ abstract class _$$TestStatefulHandlerLifecycleProps
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$TestStatefulHandlerLifecycleProps = getPropKey;
-
-// Concrete props implementation that can be backed by any [Map].
-class _$$TestStatefulHandlerLifecycleProps$PlainMap
-    extends _$$TestStatefulHandlerLifecycleProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestStatefulHandlerLifecycleProps$PlainMap(Map? backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
-}
-
-// Concrete props implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-class _$$TestStatefulHandlerLifecycleProps$JsMap
-    extends _$$TestStatefulHandlerLifecycleProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestStatefulHandlerLifecycleProps$JsMap(JsBackedMap? backingMap)
-      : this._props = JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
-}
-
 mixin _$TestStatefulHandlerLifecycleStateAccessorsMixin
     implements _$TestStatefulHandlerLifecycleState {
   @override
@@ -1362,59 +1009,20 @@ class TestStatefulHandlerLifecycleState
 // Concrete state implementation.
 //
 // Implements constructor and backing map.
-abstract class _$$TestStatefulHandlerLifecycleState
+class _$$TestStatefulHandlerLifecycleState
     extends _$TestStatefulHandlerLifecycleState
     with _$TestStatefulHandlerLifecycleStateAccessorsMixin
     implements TestStatefulHandlerLifecycleState {
-  _$$TestStatefulHandlerLifecycleState._();
+  _$$TestStatefulHandlerLifecycleState([Map? backingMap])
+      : this.state = backingMap ?? JsBackedMap();
 
-  factory _$$TestStatefulHandlerLifecycleState(Map? backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestStatefulHandlerLifecycleState$JsMap(
-          backingMap as JsBackedMap?);
-    } else {
-      return _$$TestStatefulHandlerLifecycleState$PlainMap(backingMap);
-    }
-  }
+  /// The backing state map proxied by this class.
+  @override
+  final Map state;
 
   /// Let `UiState` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
-}
-
-// Concrete state implementation that can be backed by any [Map].
-class _$$TestStatefulHandlerLifecycleState$PlainMap
-    extends _$$TestStatefulHandlerLifecycleState {
-  // This initializer of `_state` to an empty map, as well as the reassignment
-  // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestStatefulHandlerLifecycleState$PlainMap(Map? backingMap)
-      : this._state = {},
-        super._() {
-    this._state = backingMap ?? {};
-  }
-
-  /// The backing state map proxied by this class.
-  @override
-  Map get state => _state;
-  Map _state;
-}
-
-// Concrete state implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-class _$$TestStatefulHandlerLifecycleState$JsMap
-    extends _$$TestStatefulHandlerLifecycleState {
-  // This initializer of `_state` to an empty map, as well as the reassignment
-  // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestStatefulHandlerLifecycleState$JsMap(JsBackedMap? backingMap)
-      : this._state = JsBackedMap(),
-        super._() {
-    this._state = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing state map proxied by this class.
-  @override
-  JsBackedMap get state => _state;
-  JsBackedMap _state;
 }
 
 // Concrete component implementation mixin.
@@ -1423,10 +1031,10 @@ class _$$TestStatefulHandlerLifecycleState$JsMap
 // generated for the associated props class.
 class _$TestStatefulHandlerLifecycleComponent
     extends TestStatefulHandlerLifecycleComponent {
-  late _$$TestStatefulHandlerLifecycleProps$JsMap _cachedTypedProps;
+  late _$$TestStatefulHandlerLifecycleProps _cachedTypedProps;
 
   @override
-  _$$TestStatefulHandlerLifecycleProps$JsMap get props => _cachedTypedProps;
+  _$$TestStatefulHandlerLifecycleProps get props => _cachedTypedProps;
 
   @override
   set props(Map value) {
@@ -1443,17 +1051,17 @@ class _$TestStatefulHandlerLifecycleComponent
   }
 
   @override
-  _$$TestStatefulHandlerLifecycleProps$JsMap typedPropsFactoryJs(
+  _$$TestStatefulHandlerLifecycleProps typedPropsFactoryJs(
           JsBackedMap? backingMap) =>
-      _$$TestStatefulHandlerLifecycleProps$JsMap(backingMap);
+      _$$TestStatefulHandlerLifecycleProps(backingMap);
 
   @override
   _$$TestStatefulHandlerLifecycleProps typedPropsFactory(Map? backingMap) =>
       _$$TestStatefulHandlerLifecycleProps(backingMap);
 
-  late _$$TestStatefulHandlerLifecycleState$JsMap _cachedTypedState;
+  late _$$TestStatefulHandlerLifecycleState _cachedTypedState;
   @override
-  _$$TestStatefulHandlerLifecycleState$JsMap get state => _cachedTypedState;
+  _$$TestStatefulHandlerLifecycleState get state => _cachedTypedState;
 
   @override
   set state(Map value) {
@@ -1466,9 +1074,9 @@ class _$TestStatefulHandlerLifecycleComponent
   }
 
   @override
-  _$$TestStatefulHandlerLifecycleState$JsMap typedStateFactoryJs(
+  _$$TestStatefulHandlerLifecycleState typedStateFactoryJs(
           JsBackedMap? backingMap) =>
-      _$$TestStatefulHandlerLifecycleState$JsMap(backingMap);
+      _$$TestStatefulHandlerLifecycleState(backingMap);
 
   @override
   _$$TestStatefulHandlerLifecycleState typedStateFactory(Map? backingMap) =>
@@ -1524,27 +1132,21 @@ class TestStatefulHandlerPrecedenceProps
 
 _$$TestStatefulHandlerPrecedenceProps _$TestStatefulHandlerPrecedence(
         [Map? backingProps]) =>
-    backingProps == null
-        ? _$$TestStatefulHandlerPrecedenceProps$JsMap(JsBackedMap())
-        : _$$TestStatefulHandlerPrecedenceProps(backingProps);
+    _$$TestStatefulHandlerPrecedenceProps(backingProps);
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-abstract class _$$TestStatefulHandlerPrecedenceProps
+class _$$TestStatefulHandlerPrecedenceProps
     extends _$TestStatefulHandlerPrecedenceProps
     with _$TestStatefulHandlerPrecedencePropsAccessorsMixin
     implements TestStatefulHandlerPrecedenceProps {
-  _$$TestStatefulHandlerPrecedenceProps._();
+  _$$TestStatefulHandlerPrecedenceProps([Map? backingMap])
+      : this.props = backingMap ?? JsBackedMap();
 
-  factory _$$TestStatefulHandlerPrecedenceProps(Map? backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestStatefulHandlerPrecedenceProps$JsMap(
-          backingMap as JsBackedMap?);
-    } else {
-      return _$$TestStatefulHandlerPrecedenceProps$PlainMap(backingMap);
-    }
-  }
+  /// The backing props map proxied by this class.
+  @override
+  final Map props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -1568,42 +1170,6 @@ abstract class _$$TestStatefulHandlerPrecedenceProps
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$TestStatefulHandlerPrecedenceProps = getPropKey;
-
-// Concrete props implementation that can be backed by any [Map].
-class _$$TestStatefulHandlerPrecedenceProps$PlainMap
-    extends _$$TestStatefulHandlerPrecedenceProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestStatefulHandlerPrecedenceProps$PlainMap(Map? backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
-}
-
-// Concrete props implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-class _$$TestStatefulHandlerPrecedenceProps$JsMap
-    extends _$$TestStatefulHandlerPrecedenceProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestStatefulHandlerPrecedenceProps$JsMap(JsBackedMap? backingMap)
-      : this._props = JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
-}
-
 mixin _$TestStatefulHandlerPrecedenceStateAccessorsMixin
     implements _$TestStatefulHandlerPrecedenceState {
   @override
@@ -1629,59 +1195,20 @@ class TestStatefulHandlerPrecedenceState
 // Concrete state implementation.
 //
 // Implements constructor and backing map.
-abstract class _$$TestStatefulHandlerPrecedenceState
+class _$$TestStatefulHandlerPrecedenceState
     extends _$TestStatefulHandlerPrecedenceState
     with _$TestStatefulHandlerPrecedenceStateAccessorsMixin
     implements TestStatefulHandlerPrecedenceState {
-  _$$TestStatefulHandlerPrecedenceState._();
+  _$$TestStatefulHandlerPrecedenceState([Map? backingMap])
+      : this.state = backingMap ?? JsBackedMap();
 
-  factory _$$TestStatefulHandlerPrecedenceState(Map? backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestStatefulHandlerPrecedenceState$JsMap(
-          backingMap as JsBackedMap?);
-    } else {
-      return _$$TestStatefulHandlerPrecedenceState$PlainMap(backingMap);
-    }
-  }
+  /// The backing state map proxied by this class.
+  @override
+  final Map state;
 
   /// Let `UiState` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
-}
-
-// Concrete state implementation that can be backed by any [Map].
-class _$$TestStatefulHandlerPrecedenceState$PlainMap
-    extends _$$TestStatefulHandlerPrecedenceState {
-  // This initializer of `_state` to an empty map, as well as the reassignment
-  // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestStatefulHandlerPrecedenceState$PlainMap(Map? backingMap)
-      : this._state = {},
-        super._() {
-    this._state = backingMap ?? {};
-  }
-
-  /// The backing state map proxied by this class.
-  @override
-  Map get state => _state;
-  Map _state;
-}
-
-// Concrete state implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-class _$$TestStatefulHandlerPrecedenceState$JsMap
-    extends _$$TestStatefulHandlerPrecedenceState {
-  // This initializer of `_state` to an empty map, as well as the reassignment
-  // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestStatefulHandlerPrecedenceState$JsMap(JsBackedMap? backingMap)
-      : this._state = JsBackedMap(),
-        super._() {
-    this._state = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing state map proxied by this class.
-  @override
-  JsBackedMap get state => _state;
-  JsBackedMap _state;
 }
 
 // Concrete component implementation mixin.
@@ -1690,10 +1217,10 @@ class _$$TestStatefulHandlerPrecedenceState$JsMap
 // generated for the associated props class.
 class _$TestStatefulHandlerPrecedenceComponent
     extends TestStatefulHandlerPrecedenceComponent {
-  late _$$TestStatefulHandlerPrecedenceProps$JsMap _cachedTypedProps;
+  late _$$TestStatefulHandlerPrecedenceProps _cachedTypedProps;
 
   @override
-  _$$TestStatefulHandlerPrecedenceProps$JsMap get props => _cachedTypedProps;
+  _$$TestStatefulHandlerPrecedenceProps get props => _cachedTypedProps;
 
   @override
   set props(Map value) {
@@ -1710,17 +1237,17 @@ class _$TestStatefulHandlerPrecedenceComponent
   }
 
   @override
-  _$$TestStatefulHandlerPrecedenceProps$JsMap typedPropsFactoryJs(
+  _$$TestStatefulHandlerPrecedenceProps typedPropsFactoryJs(
           JsBackedMap? backingMap) =>
-      _$$TestStatefulHandlerPrecedenceProps$JsMap(backingMap);
+      _$$TestStatefulHandlerPrecedenceProps(backingMap);
 
   @override
   _$$TestStatefulHandlerPrecedenceProps typedPropsFactory(Map? backingMap) =>
       _$$TestStatefulHandlerPrecedenceProps(backingMap);
 
-  late _$$TestStatefulHandlerPrecedenceState$JsMap _cachedTypedState;
+  late _$$TestStatefulHandlerPrecedenceState _cachedTypedState;
   @override
-  _$$TestStatefulHandlerPrecedenceState$JsMap get state => _cachedTypedState;
+  _$$TestStatefulHandlerPrecedenceState get state => _cachedTypedState;
 
   @override
   set state(Map value) {
@@ -1733,9 +1260,9 @@ class _$TestStatefulHandlerPrecedenceComponent
   }
 
   @override
-  _$$TestStatefulHandlerPrecedenceState$JsMap typedStateFactoryJs(
+  _$$TestStatefulHandlerPrecedenceState typedStateFactoryJs(
           JsBackedMap? backingMap) =>
-      _$$TestStatefulHandlerPrecedenceState$JsMap(backingMap);
+      _$$TestStatefulHandlerPrecedenceState(backingMap);
 
   @override
   _$$TestStatefulHandlerPrecedenceState typedStateFactory(Map? backingMap) =>
@@ -1814,27 +1341,21 @@ class TestStatefulPropValidationProps extends _$TestStatefulPropValidationProps
 
 _$$TestStatefulPropValidationProps _$TestStatefulPropValidation(
         [Map? backingProps]) =>
-    backingProps == null
-        ? _$$TestStatefulPropValidationProps$JsMap(JsBackedMap())
-        : _$$TestStatefulPropValidationProps(backingProps);
+    _$$TestStatefulPropValidationProps(backingProps);
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-abstract class _$$TestStatefulPropValidationProps
+class _$$TestStatefulPropValidationProps
     extends _$TestStatefulPropValidationProps
     with _$TestStatefulPropValidationPropsAccessorsMixin
     implements TestStatefulPropValidationProps {
-  _$$TestStatefulPropValidationProps._();
+  _$$TestStatefulPropValidationProps([Map? backingMap])
+      : this.props = backingMap ?? JsBackedMap();
 
-  factory _$$TestStatefulPropValidationProps(Map? backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestStatefulPropValidationProps$JsMap(
-          backingMap as JsBackedMap?);
-    } else {
-      return _$$TestStatefulPropValidationProps$PlainMap(backingMap);
-    }
-  }
+  /// The backing props map proxied by this class.
+  @override
+  final Map props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -1858,42 +1379,6 @@ abstract class _$$TestStatefulPropValidationProps
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$TestStatefulPropValidationProps = getPropKey;
-
-// Concrete props implementation that can be backed by any [Map].
-class _$$TestStatefulPropValidationProps$PlainMap
-    extends _$$TestStatefulPropValidationProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestStatefulPropValidationProps$PlainMap(Map? backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
-}
-
-// Concrete props implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-class _$$TestStatefulPropValidationProps$JsMap
-    extends _$$TestStatefulPropValidationProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestStatefulPropValidationProps$JsMap(JsBackedMap? backingMap)
-      : this._props = JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
-}
-
 mixin _$TestStatefulPropValidationStateAccessorsMixin
     implements _$TestStatefulPropValidationState {
   @override
@@ -1918,59 +1403,20 @@ class TestStatefulPropValidationState extends _$TestStatefulPropValidationState
 // Concrete state implementation.
 //
 // Implements constructor and backing map.
-abstract class _$$TestStatefulPropValidationState
+class _$$TestStatefulPropValidationState
     extends _$TestStatefulPropValidationState
     with _$TestStatefulPropValidationStateAccessorsMixin
     implements TestStatefulPropValidationState {
-  _$$TestStatefulPropValidationState._();
+  _$$TestStatefulPropValidationState([Map? backingMap])
+      : this.state = backingMap ?? JsBackedMap();
 
-  factory _$$TestStatefulPropValidationState(Map? backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestStatefulPropValidationState$JsMap(
-          backingMap as JsBackedMap?);
-    } else {
-      return _$$TestStatefulPropValidationState$PlainMap(backingMap);
-    }
-  }
+  /// The backing state map proxied by this class.
+  @override
+  final Map state;
 
   /// Let `UiState` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
-}
-
-// Concrete state implementation that can be backed by any [Map].
-class _$$TestStatefulPropValidationState$PlainMap
-    extends _$$TestStatefulPropValidationState {
-  // This initializer of `_state` to an empty map, as well as the reassignment
-  // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestStatefulPropValidationState$PlainMap(Map? backingMap)
-      : this._state = {},
-        super._() {
-    this._state = backingMap ?? {};
-  }
-
-  /// The backing state map proxied by this class.
-  @override
-  Map get state => _state;
-  Map _state;
-}
-
-// Concrete state implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-class _$$TestStatefulPropValidationState$JsMap
-    extends _$$TestStatefulPropValidationState {
-  // This initializer of `_state` to an empty map, as well as the reassignment
-  // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestStatefulPropValidationState$JsMap(JsBackedMap? backingMap)
-      : this._state = JsBackedMap(),
-        super._() {
-    this._state = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing state map proxied by this class.
-  @override
-  JsBackedMap get state => _state;
-  JsBackedMap _state;
 }
 
 // Concrete component implementation mixin.
@@ -1979,10 +1425,10 @@ class _$$TestStatefulPropValidationState$JsMap
 // generated for the associated props class.
 class _$TestStatefulPropValidationComponent
     extends TestStatefulPropValidationComponent {
-  late _$$TestStatefulPropValidationProps$JsMap _cachedTypedProps;
+  late _$$TestStatefulPropValidationProps _cachedTypedProps;
 
   @override
-  _$$TestStatefulPropValidationProps$JsMap get props => _cachedTypedProps;
+  _$$TestStatefulPropValidationProps get props => _cachedTypedProps;
 
   @override
   set props(Map value) {
@@ -1999,17 +1445,17 @@ class _$TestStatefulPropValidationComponent
   }
 
   @override
-  _$$TestStatefulPropValidationProps$JsMap typedPropsFactoryJs(
+  _$$TestStatefulPropValidationProps typedPropsFactoryJs(
           JsBackedMap? backingMap) =>
-      _$$TestStatefulPropValidationProps$JsMap(backingMap);
+      _$$TestStatefulPropValidationProps(backingMap);
 
   @override
   _$$TestStatefulPropValidationProps typedPropsFactory(Map? backingMap) =>
       _$$TestStatefulPropValidationProps(backingMap);
 
-  late _$$TestStatefulPropValidationState$JsMap _cachedTypedState;
+  late _$$TestStatefulPropValidationState _cachedTypedState;
   @override
-  _$$TestStatefulPropValidationState$JsMap get state => _cachedTypedState;
+  _$$TestStatefulPropValidationState get state => _cachedTypedState;
 
   @override
   set state(Map value) {
@@ -2022,9 +1468,9 @@ class _$TestStatefulPropValidationComponent
   }
 
   @override
-  _$$TestStatefulPropValidationState$JsMap typedStateFactoryJs(
+  _$$TestStatefulPropValidationState typedStateFactoryJs(
           JsBackedMap? backingMap) =>
-      _$$TestStatefulPropValidationState$JsMap(backingMap);
+      _$$TestStatefulPropValidationState(backingMap);
 
   @override
   _$$TestStatefulPropValidationState typedStateFactory(Map? backingMap) =>
@@ -2078,25 +1524,20 @@ class TestStatefulRedrawOnProps extends _$TestStatefulRedrawOnProps
 }
 
 _$$TestStatefulRedrawOnProps _$TestStatefulRedrawOn([Map? backingProps]) =>
-    backingProps == null
-        ? _$$TestStatefulRedrawOnProps$JsMap(JsBackedMap())
-        : _$$TestStatefulRedrawOnProps(backingProps);
+    _$$TestStatefulRedrawOnProps(backingProps);
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-abstract class _$$TestStatefulRedrawOnProps extends _$TestStatefulRedrawOnProps
+class _$$TestStatefulRedrawOnProps extends _$TestStatefulRedrawOnProps
     with _$TestStatefulRedrawOnPropsAccessorsMixin
     implements TestStatefulRedrawOnProps {
-  _$$TestStatefulRedrawOnProps._();
+  _$$TestStatefulRedrawOnProps([Map? backingMap])
+      : this.props = backingMap ?? JsBackedMap();
 
-  factory _$$TestStatefulRedrawOnProps(Map? backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestStatefulRedrawOnProps$JsMap(backingMap as JsBackedMap?);
-    } else {
-      return _$$TestStatefulRedrawOnProps$PlainMap(backingMap);
-    }
-  }
+  /// The backing props map proxied by this class.
+  @override
+  final Map props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -2120,41 +1561,6 @@ abstract class _$$TestStatefulRedrawOnProps extends _$TestStatefulRedrawOnProps
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$TestStatefulRedrawOnProps = getPropKey;
-
-// Concrete props implementation that can be backed by any [Map].
-class _$$TestStatefulRedrawOnProps$PlainMap
-    extends _$$TestStatefulRedrawOnProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestStatefulRedrawOnProps$PlainMap(Map? backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
-}
-
-// Concrete props implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-class _$$TestStatefulRedrawOnProps$JsMap extends _$$TestStatefulRedrawOnProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestStatefulRedrawOnProps$JsMap(JsBackedMap? backingMap)
-      : this._props = JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
-}
-
 mixin _$TestStatefulRedrawOnStateAccessorsMixin
     implements _$TestStatefulRedrawOnState {
   @override
@@ -2179,56 +1585,19 @@ class TestStatefulRedrawOnState extends _$TestStatefulRedrawOnState
 // Concrete state implementation.
 //
 // Implements constructor and backing map.
-abstract class _$$TestStatefulRedrawOnState extends _$TestStatefulRedrawOnState
+class _$$TestStatefulRedrawOnState extends _$TestStatefulRedrawOnState
     with _$TestStatefulRedrawOnStateAccessorsMixin
     implements TestStatefulRedrawOnState {
-  _$$TestStatefulRedrawOnState._();
+  _$$TestStatefulRedrawOnState([Map? backingMap])
+      : this.state = backingMap ?? JsBackedMap();
 
-  factory _$$TestStatefulRedrawOnState(Map? backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestStatefulRedrawOnState$JsMap(backingMap as JsBackedMap?);
-    } else {
-      return _$$TestStatefulRedrawOnState$PlainMap(backingMap);
-    }
-  }
+  /// The backing state map proxied by this class.
+  @override
+  final Map state;
 
   /// Let `UiState` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
-}
-
-// Concrete state implementation that can be backed by any [Map].
-class _$$TestStatefulRedrawOnState$PlainMap
-    extends _$$TestStatefulRedrawOnState {
-  // This initializer of `_state` to an empty map, as well as the reassignment
-  // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestStatefulRedrawOnState$PlainMap(Map? backingMap)
-      : this._state = {},
-        super._() {
-    this._state = backingMap ?? {};
-  }
-
-  /// The backing state map proxied by this class.
-  @override
-  Map get state => _state;
-  Map _state;
-}
-
-// Concrete state implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-class _$$TestStatefulRedrawOnState$JsMap extends _$$TestStatefulRedrawOnState {
-  // This initializer of `_state` to an empty map, as well as the reassignment
-  // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestStatefulRedrawOnState$JsMap(JsBackedMap? backingMap)
-      : this._state = JsBackedMap(),
-        super._() {
-    this._state = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing state map proxied by this class.
-  @override
-  JsBackedMap get state => _state;
-  JsBackedMap _state;
 }
 
 // Concrete component implementation mixin.
@@ -2236,10 +1605,10 @@ class _$$TestStatefulRedrawOnState$JsMap extends _$$TestStatefulRedrawOnState {
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$TestStatefulRedrawOnComponent extends TestStatefulRedrawOnComponent {
-  late _$$TestStatefulRedrawOnProps$JsMap _cachedTypedProps;
+  late _$$TestStatefulRedrawOnProps _cachedTypedProps;
 
   @override
-  _$$TestStatefulRedrawOnProps$JsMap get props => _cachedTypedProps;
+  _$$TestStatefulRedrawOnProps get props => _cachedTypedProps;
 
   @override
   set props(Map value) {
@@ -2256,17 +1625,16 @@ class _$TestStatefulRedrawOnComponent extends TestStatefulRedrawOnComponent {
   }
 
   @override
-  _$$TestStatefulRedrawOnProps$JsMap typedPropsFactoryJs(
-          JsBackedMap? backingMap) =>
-      _$$TestStatefulRedrawOnProps$JsMap(backingMap);
+  _$$TestStatefulRedrawOnProps typedPropsFactoryJs(JsBackedMap? backingMap) =>
+      _$$TestStatefulRedrawOnProps(backingMap);
 
   @override
   _$$TestStatefulRedrawOnProps typedPropsFactory(Map? backingMap) =>
       _$$TestStatefulRedrawOnProps(backingMap);
 
-  late _$$TestStatefulRedrawOnState$JsMap _cachedTypedState;
+  late _$$TestStatefulRedrawOnState _cachedTypedState;
   @override
-  _$$TestStatefulRedrawOnState$JsMap get state => _cachedTypedState;
+  _$$TestStatefulRedrawOnState get state => _cachedTypedState;
 
   @override
   set state(Map value) {
@@ -2279,9 +1647,8 @@ class _$TestStatefulRedrawOnComponent extends TestStatefulRedrawOnComponent {
   }
 
   @override
-  _$$TestStatefulRedrawOnState$JsMap typedStateFactoryJs(
-          JsBackedMap? backingMap) =>
-      _$$TestStatefulRedrawOnState$JsMap(backingMap);
+  _$$TestStatefulRedrawOnState typedStateFactoryJs(JsBackedMap? backingMap) =>
+      _$$TestStatefulRedrawOnState(backingMap);
 
   @override
   _$$TestStatefulRedrawOnState typedStateFactory(Map? backingMap) =>
@@ -2336,27 +1703,20 @@ class TestStatefulStoreHandlersProps extends _$TestStatefulStoreHandlersProps
 
 _$$TestStatefulStoreHandlersProps _$TestStatefulStoreHandlers(
         [Map? backingProps]) =>
-    backingProps == null
-        ? _$$TestStatefulStoreHandlersProps$JsMap(JsBackedMap())
-        : _$$TestStatefulStoreHandlersProps(backingProps);
+    _$$TestStatefulStoreHandlersProps(backingProps);
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-abstract class _$$TestStatefulStoreHandlersProps
-    extends _$TestStatefulStoreHandlersProps
+class _$$TestStatefulStoreHandlersProps extends _$TestStatefulStoreHandlersProps
     with _$TestStatefulStoreHandlersPropsAccessorsMixin
     implements TestStatefulStoreHandlersProps {
-  _$$TestStatefulStoreHandlersProps._();
+  _$$TestStatefulStoreHandlersProps([Map? backingMap])
+      : this.props = backingMap ?? JsBackedMap();
 
-  factory _$$TestStatefulStoreHandlersProps(Map? backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestStatefulStoreHandlersProps$JsMap(
-          backingMap as JsBackedMap?);
-    } else {
-      return _$$TestStatefulStoreHandlersProps$PlainMap(backingMap);
-    }
-  }
+  /// The backing props map proxied by this class.
+  @override
+  final Map props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -2380,42 +1740,6 @@ abstract class _$$TestStatefulStoreHandlersProps
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$TestStatefulStoreHandlersProps = getPropKey;
-
-// Concrete props implementation that can be backed by any [Map].
-class _$$TestStatefulStoreHandlersProps$PlainMap
-    extends _$$TestStatefulStoreHandlersProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestStatefulStoreHandlersProps$PlainMap(Map? backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
-}
-
-// Concrete props implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-class _$$TestStatefulStoreHandlersProps$JsMap
-    extends _$$TestStatefulStoreHandlersProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestStatefulStoreHandlersProps$JsMap(JsBackedMap? backingMap)
-      : this._props = JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
-}
-
 mixin _$TestStatefulStoreHandlersStateAccessorsMixin
     implements _$TestStatefulStoreHandlersState {
   @override
@@ -2440,59 +1764,19 @@ class TestStatefulStoreHandlersState extends _$TestStatefulStoreHandlersState
 // Concrete state implementation.
 //
 // Implements constructor and backing map.
-abstract class _$$TestStatefulStoreHandlersState
-    extends _$TestStatefulStoreHandlersState
+class _$$TestStatefulStoreHandlersState extends _$TestStatefulStoreHandlersState
     with _$TestStatefulStoreHandlersStateAccessorsMixin
     implements TestStatefulStoreHandlersState {
-  _$$TestStatefulStoreHandlersState._();
+  _$$TestStatefulStoreHandlersState([Map? backingMap])
+      : this.state = backingMap ?? JsBackedMap();
 
-  factory _$$TestStatefulStoreHandlersState(Map? backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestStatefulStoreHandlersState$JsMap(
-          backingMap as JsBackedMap?);
-    } else {
-      return _$$TestStatefulStoreHandlersState$PlainMap(backingMap);
-    }
-  }
+  /// The backing state map proxied by this class.
+  @override
+  final Map state;
 
   /// Let `UiState` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
-}
-
-// Concrete state implementation that can be backed by any [Map].
-class _$$TestStatefulStoreHandlersState$PlainMap
-    extends _$$TestStatefulStoreHandlersState {
-  // This initializer of `_state` to an empty map, as well as the reassignment
-  // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestStatefulStoreHandlersState$PlainMap(Map? backingMap)
-      : this._state = {},
-        super._() {
-    this._state = backingMap ?? {};
-  }
-
-  /// The backing state map proxied by this class.
-  @override
-  Map get state => _state;
-  Map _state;
-}
-
-// Concrete state implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-class _$$TestStatefulStoreHandlersState$JsMap
-    extends _$$TestStatefulStoreHandlersState {
-  // This initializer of `_state` to an empty map, as well as the reassignment
-  // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestStatefulStoreHandlersState$JsMap(JsBackedMap? backingMap)
-      : this._state = JsBackedMap(),
-        super._() {
-    this._state = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing state map proxied by this class.
-  @override
-  JsBackedMap get state => _state;
-  JsBackedMap _state;
 }
 
 // Concrete component implementation mixin.
@@ -2501,10 +1785,10 @@ class _$$TestStatefulStoreHandlersState$JsMap
 // generated for the associated props class.
 class _$TestStatefulStoreHandlersComponent
     extends TestStatefulStoreHandlersComponent {
-  late _$$TestStatefulStoreHandlersProps$JsMap _cachedTypedProps;
+  late _$$TestStatefulStoreHandlersProps _cachedTypedProps;
 
   @override
-  _$$TestStatefulStoreHandlersProps$JsMap get props => _cachedTypedProps;
+  _$$TestStatefulStoreHandlersProps get props => _cachedTypedProps;
 
   @override
   set props(Map value) {
@@ -2521,17 +1805,17 @@ class _$TestStatefulStoreHandlersComponent
   }
 
   @override
-  _$$TestStatefulStoreHandlersProps$JsMap typedPropsFactoryJs(
+  _$$TestStatefulStoreHandlersProps typedPropsFactoryJs(
           JsBackedMap? backingMap) =>
-      _$$TestStatefulStoreHandlersProps$JsMap(backingMap);
+      _$$TestStatefulStoreHandlersProps(backingMap);
 
   @override
   _$$TestStatefulStoreHandlersProps typedPropsFactory(Map? backingMap) =>
       _$$TestStatefulStoreHandlersProps(backingMap);
 
-  late _$$TestStatefulStoreHandlersState$JsMap _cachedTypedState;
+  late _$$TestStatefulStoreHandlersState _cachedTypedState;
   @override
-  _$$TestStatefulStoreHandlersState$JsMap get state => _cachedTypedState;
+  _$$TestStatefulStoreHandlersState get state => _cachedTypedState;
 
   @override
   set state(Map value) {
@@ -2544,9 +1828,9 @@ class _$TestStatefulStoreHandlersComponent
   }
 
   @override
-  _$$TestStatefulStoreHandlersState$JsMap typedStateFactoryJs(
+  _$$TestStatefulStoreHandlersState typedStateFactoryJs(
           JsBackedMap? backingMap) =>
-      _$$TestStatefulStoreHandlersState$JsMap(backingMap);
+      _$$TestStatefulStoreHandlersState(backingMap);
 
   @override
   _$$TestStatefulStoreHandlersState typedStateFactory(Map? backingMap) =>

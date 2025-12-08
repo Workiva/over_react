@@ -180,25 +180,20 @@ class ComponentTestProps extends _$ComponentTestProps
 }
 
 _$$ComponentTestProps _$ComponentTest([Map backingProps]) =>
-    backingProps == null
-        ? _$$ComponentTestProps$JsMap(JsBackedMap())
-        : _$$ComponentTestProps(backingProps);
+    _$$ComponentTestProps(backingProps);
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-abstract class _$$ComponentTestProps extends _$ComponentTestProps
+class _$$ComponentTestProps extends _$ComponentTestProps
     with _$ComponentTestPropsAccessorsMixin
     implements ComponentTestProps {
-  _$$ComponentTestProps._();
+  _$$ComponentTestProps([Map backingMap])
+      : this.props = backingMap ?? JsBackedMap();
 
-  factory _$$ComponentTestProps(Map backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$ComponentTestProps$JsMap(backingMap as JsBackedMap);
-    } else {
-      return _$$ComponentTestProps$PlainMap(backingMap);
-    }
-  }
+  /// The backing props map proxied by this class.
+  @override
+  final Map props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -233,48 +228,15 @@ abstract class _$$ComponentTestProps extends _$ComponentTestProps
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$ComponentTestProps = getPropKey;
 
-// Concrete props implementation that can be backed by any [Map].
-class _$$ComponentTestProps$PlainMap extends _$$ComponentTestProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ComponentTestProps$PlainMap(Map backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
-}
-
-// Concrete props implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-class _$$ComponentTestProps$JsMap extends _$$ComponentTestProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ComponentTestProps$JsMap(JsBackedMap backingMap)
-      : this._props = JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
-}
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$ComponentTestComponent extends ComponentTestComponent {
-  _$$ComponentTestProps$JsMap _cachedTypedProps;
+  _$$ComponentTestProps _cachedTypedProps;
 
   @override
-  _$$ComponentTestProps$JsMap get props => _cachedTypedProps;
+  _$$ComponentTestProps get props => _cachedTypedProps;
 
   @override
   set props(Map value) {
@@ -291,8 +253,8 @@ class _$ComponentTestComponent extends ComponentTestComponent {
   }
 
   @override
-  _$$ComponentTestProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      _$$ComponentTestProps$JsMap(backingMap);
+  _$$ComponentTestProps typedPropsFactoryJs(JsBackedMap backingMap) =>
+      _$$ComponentTestProps(backingMap);
 
   @override
   _$$ComponentTestProps typedPropsFactory(Map backingMap) =>
@@ -346,25 +308,20 @@ class IsErrorBoundaryProps extends _$IsErrorBoundaryProps
 }
 
 _$$IsErrorBoundaryProps _$IsErrorBoundary([Map backingProps]) =>
-    backingProps == null
-        ? _$$IsErrorBoundaryProps$JsMap(JsBackedMap())
-        : _$$IsErrorBoundaryProps(backingProps);
+    _$$IsErrorBoundaryProps(backingProps);
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-abstract class _$$IsErrorBoundaryProps extends _$IsErrorBoundaryProps
+class _$$IsErrorBoundaryProps extends _$IsErrorBoundaryProps
     with _$IsErrorBoundaryPropsAccessorsMixin
     implements IsErrorBoundaryProps {
-  _$$IsErrorBoundaryProps._();
+  _$$IsErrorBoundaryProps([Map backingMap])
+      : this.props = backingMap ?? JsBackedMap();
 
-  factory _$$IsErrorBoundaryProps(Map backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$IsErrorBoundaryProps$JsMap(backingMap as JsBackedMap);
-    } else {
-      return _$$IsErrorBoundaryProps$PlainMap(backingMap);
-    }
-  }
+  /// The backing props map proxied by this class.
+  @override
+  final Map props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -395,48 +352,15 @@ abstract class _$$IsErrorBoundaryProps extends _$IsErrorBoundaryProps
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$IsErrorBoundaryProps = getPropKey;
 
-// Concrete props implementation that can be backed by any [Map].
-class _$$IsErrorBoundaryProps$PlainMap extends _$$IsErrorBoundaryProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$IsErrorBoundaryProps$PlainMap(Map backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
-}
-
-// Concrete props implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-class _$$IsErrorBoundaryProps$JsMap extends _$$IsErrorBoundaryProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$IsErrorBoundaryProps$JsMap(JsBackedMap backingMap)
-      : this._props = JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
-}
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$IsErrorBoundaryComponent extends IsErrorBoundaryComponent {
-  _$$IsErrorBoundaryProps$JsMap _cachedTypedProps;
+  _$$IsErrorBoundaryProps _cachedTypedProps;
 
   @override
-  _$$IsErrorBoundaryProps$JsMap get props => _cachedTypedProps;
+  _$$IsErrorBoundaryProps get props => _cachedTypedProps;
 
   @override
   set props(Map value) {
@@ -453,8 +377,8 @@ class _$IsErrorBoundaryComponent extends IsErrorBoundaryComponent {
   }
 
   @override
-  _$$IsErrorBoundaryProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      _$$IsErrorBoundaryProps$JsMap(backingMap);
+  _$$IsErrorBoundaryProps typedPropsFactoryJs(JsBackedMap backingMap) =>
+      _$$IsErrorBoundaryProps(backingMap);
 
   @override
   _$$IsErrorBoundaryProps typedPropsFactory(Map backingMap) =>
@@ -508,25 +432,20 @@ class IsNotErrorBoundaryProps extends _$IsNotErrorBoundaryProps
 }
 
 _$$IsNotErrorBoundaryProps _$IsNotErrorBoundary([Map backingProps]) =>
-    backingProps == null
-        ? _$$IsNotErrorBoundaryProps$JsMap(JsBackedMap())
-        : _$$IsNotErrorBoundaryProps(backingProps);
+    _$$IsNotErrorBoundaryProps(backingProps);
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-abstract class _$$IsNotErrorBoundaryProps extends _$IsNotErrorBoundaryProps
+class _$$IsNotErrorBoundaryProps extends _$IsNotErrorBoundaryProps
     with _$IsNotErrorBoundaryPropsAccessorsMixin
     implements IsNotErrorBoundaryProps {
-  _$$IsNotErrorBoundaryProps._();
+  _$$IsNotErrorBoundaryProps([Map backingMap])
+      : this.props = backingMap ?? JsBackedMap();
 
-  factory _$$IsNotErrorBoundaryProps(Map backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$IsNotErrorBoundaryProps$JsMap(backingMap as JsBackedMap);
-    } else {
-      return _$$IsNotErrorBoundaryProps$PlainMap(backingMap);
-    }
-  }
+  /// The backing props map proxied by this class.
+  @override
+  final Map props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -557,48 +476,15 @@ abstract class _$$IsNotErrorBoundaryProps extends _$IsNotErrorBoundaryProps
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$IsNotErrorBoundaryProps = getPropKey;
 
-// Concrete props implementation that can be backed by any [Map].
-class _$$IsNotErrorBoundaryProps$PlainMap extends _$$IsNotErrorBoundaryProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$IsNotErrorBoundaryProps$PlainMap(Map backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
-}
-
-// Concrete props implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-class _$$IsNotErrorBoundaryProps$JsMap extends _$$IsNotErrorBoundaryProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$IsNotErrorBoundaryProps$JsMap(JsBackedMap backingMap)
-      : this._props = JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
-}
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$IsNotErrorBoundaryComponent extends IsNotErrorBoundaryComponent {
-  _$$IsNotErrorBoundaryProps$JsMap _cachedTypedProps;
+  _$$IsNotErrorBoundaryProps _cachedTypedProps;
 
   @override
-  _$$IsNotErrorBoundaryProps$JsMap get props => _cachedTypedProps;
+  _$$IsNotErrorBoundaryProps get props => _cachedTypedProps;
 
   @override
   set props(Map value) {
@@ -615,9 +501,8 @@ class _$IsNotErrorBoundaryComponent extends IsNotErrorBoundaryComponent {
   }
 
   @override
-  _$$IsNotErrorBoundaryProps$JsMap typedPropsFactoryJs(
-          JsBackedMap backingMap) =>
-      _$$IsNotErrorBoundaryProps$JsMap(backingMap);
+  _$$IsNotErrorBoundaryProps typedPropsFactoryJs(JsBackedMap backingMap) =>
+      _$$IsNotErrorBoundaryProps(backingMap);
 
   @override
   _$$IsNotErrorBoundaryProps typedPropsFactory(Map backingMap) =>

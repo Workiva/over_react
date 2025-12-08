@@ -360,16 +360,13 @@ main() {
 
                 test('with the correct constructor', () {
                   expect(implGenerator!.outputContentsBuffer.toString(), contains(
-                      '  _\$\$${ors.prefixedBaseName}Props(Map backingMap) : this._props = {} {\n'
-                          '     this._props = backingMap ?? {};\n'
-                          '  }'));
+                      '  _\$\$${ors.prefixedBaseName}Props([Map backingMap]) : this.props = backingMap ?? JsBackedMap();'));
                 });
 
-                test('with props backing map getter', () {
+                test('with props backing map impl', () {
                   expect(implGenerator!.outputContentsBuffer.toString(), contains(
                       '  @override\n'
-                          '  Map get props => _props;\n'
-                          '  Map _props;'));
+                          '  final Map props;'));
                 });
 
                 test('overrides `\$isClassGenerated` to return `true`', () {
@@ -432,16 +429,13 @@ main() {
 
                 test('with the correct constructor', () {
                   expect(implGenerator!.outputContentsBuffer.toString(), contains(
-                      '  _\$\$${ors.prefixedBaseName}State(Map backingMap) : this._state = {} {\n'
-                          '     this._state = backingMap ?? {};\n'
-                          '  }'));
+                      '  _\$\$${ors.prefixedBaseName}State([Map backingMap]) : this.state = backingMap ?? JsBackedMap();'));
                 });
 
-                test('with state backing map getter', () {
+                test('with state backing map impl', () {
                   expect(implGenerator!.outputContentsBuffer.toString(), contains(
                       '  @override\n'
-                          '  Map get state => _state;\n'
-                          '  Map _state;'));
+                          '  final Map state;'));
                 });
 
                 test('overrides `\$isClassGenerated` to return `true`', () {
@@ -664,7 +658,7 @@ main() {
               '_\$${factoryName}Config = UiFactoryConfig(\n'
               'propsFactory: PropsFactory(\n'
               'map: (map) => _\$\$$propsName(map),\n'
-              'jsMap: (map) => _\$\$$propsName\$JsMap(map),),\n'
+              'jsMap: (map) => _\$\$$propsName(map),),\n'
               'displayName: \'$factoryName\');\n\n'
               '@Deprecated(r\'Use the private variable, _\$${factoryName}Config, instead \'\n'
               '\'and update the `over_react` lower bound to version 4.1.0. \'\n'
@@ -673,34 +667,10 @@ main() {
               '\$${factoryName}Config = _\$${factoryName}Config;\n\n';
         }
 
-        String generatedPropsMapsForConfig(String propsName) {
-          return '// Concrete props implementation that can be backed by any [Map].\n'
-              '@Deprecated(\'This API is for use only within generated code.\'\' Do not reference it in your code, as it may change at any time.\')\n'
-              'class _\$\$$propsName\$PlainMap extends _\$\$$propsName {\n'
-              '  // This initializer of `_props` to an empty map, as well as the reassignment\n'
-              '  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217\n'
-              '  _\$\$$propsName\$PlainMap(Map backingMap) : this._props = {}, super._() {\n'
-              '     this._props = backingMap ?? {};\n'
-              '  }\n'
-              '  /// The backing props map proxied by this class.\n'
-              '  @override\n'
-              '  Map get props => _props;\n'
-              '  Map _props;\n'
-              '}\n'
-              '// Concrete props implementation that can only be backed by [JsMap],\n'
-              '// allowing dart2js to compile more optimal code for key-value pair reads/writes.\n'
-              '@Deprecated(\'This API is for use only within generated code.\'\' Do not reference it in your code, as it may change at any time.\')\n'
-              'class _\$\$$propsName\$JsMap extends _\$\$$propsName {\n'
-              '  // This initializer of `_props` to an empty map, as well as the reassignment\n'
-              '  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217\n'
-              '  _\$\$$propsName\$JsMap(JsBackedMap backingMap) : this._props = JsBackedMap(), super._() {\n'
-              '     this._props = backingMap ?? JsBackedMap();\n'
-              '  }\n'
-              '  /// The backing props map proxied by this class.\n'
-              '  @override\n'
-              '  JsBackedMap get props => _props;\n'
-              '  JsBackedMap _props;\n'
-              '}\n';
+        String generatedPropsMapForConfig(String propsName) {
+          // No need to validate the whole implementation; that's tedious to reconstruct here, and it's tested elsewhere.
+          return '@Deprecated(\'This API is for use only within generated code.\'\' Do not reference it in your code, as it may change at any time.\')\n'
+              'class _\$\$$propsName extends UiProps with';
         }
 
         void sharedUiConfigGenerationTests(String wrapperFunction) {
@@ -735,9 +705,9 @@ main() {
             mixin UnusedPropsMixin on UiProps {}
           ''');
 
-            expect(implGenerator!.outputContentsBuffer.toString().contains(generatedPropsMapsForConfig('UnusedPropsMixin')), isFalse);
-            expect(implGenerator!.outputContentsBuffer.toString(), contains(generatedPropsMapsForConfig('BarPropsMixin')));
-            expect(implGenerator!.outputContentsBuffer.toString(), contains(generatedPropsMapsForConfig('FooProps')));
+            expect(implGenerator!.outputContentsBuffer.toString().contains(generatedPropsMapForConfig('UnusedPropsMixin')), isFalse);
+            expect(implGenerator!.outputContentsBuffer.toString(), contains(generatedPropsMapForConfig('BarPropsMixin')));
+            expect(implGenerator!.outputContentsBuffer.toString(), contains(generatedPropsMapForConfig('FooProps')));
 
             expect(implGenerator!.outputContentsBuffer.toString(), contains(generatedConfig('BarPropsMixin', 'Bar')));
             expect(implGenerator!.outputContentsBuffer.toString(), contains(generatedConfig('BarPropsMixin', 'Foo')));
@@ -756,7 +726,7 @@ main() {
                 mixin FooPropsMixin on UiProps {}
               ''');
 
-            expect(implGenerator!.outputContentsBuffer.toString(), contains(generatedPropsMapsForConfig('FooPropsMixin')));
+            expect(implGenerator!.outputContentsBuffer.toString(), contains(generatedPropsMapForConfig('FooPropsMixin')));
 
             expect(implGenerator!.outputContentsBuffer.toString(), contains(generatedConfig('FooPropsMixin', 'Foo')));
           });
@@ -773,7 +743,7 @@ main() {
                 mixin FooProps on UiProps {}
               ''');
 
-            expect(implGenerator!.outputContentsBuffer.toString(), contains(generatedPropsMapsForConfig('FooProps')));
+            expect(implGenerator!.outputContentsBuffer.toString(), contains(generatedPropsMapForConfig('FooProps')));
 
             expect(implGenerator!.outputContentsBuffer.toString(), contains(generatedConfig('FooProps', 'Foo')));
           });
@@ -824,7 +794,7 @@ main() {
               );
             ''');
 
-            expect(implGenerator!.outputContentsBuffer.toString(), contains(generatedPropsMapsForConfig('UiForwardRefFooProps')));
+            expect(implGenerator!.outputContentsBuffer.toString(), contains(generatedPropsMapForConfig('UiForwardRefFooProps')));
             expect(implGenerator!.outputContentsBuffer.toString(), contains(generatedConfig('UiForwardRefFooProps', 'UiForwardRefFoo')));
           });
         });
@@ -880,7 +850,7 @@ main() {
             );
           ''');
 
-          expect(implGenerator!.outputContentsBuffer.toString(), contains(generatedPropsMapsForConfig('FooPropsMixin')));
+          expect(implGenerator!.outputContentsBuffer.toString(), contains(generatedPropsMapForConfig('FooPropsMixin')));
 
           expect(implGenerator!.outputContentsBuffer.toString().contains(generatedConfig('UiProps', 'Bar')), isFalse, reason: '2');
           expect(implGenerator!.outputContentsBuffer.toString().contains(generatedConfig('FooPropsMixin', 'ArbitraryFoo')), isFalse, reason: '2');
