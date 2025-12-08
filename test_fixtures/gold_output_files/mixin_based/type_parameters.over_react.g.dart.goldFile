@@ -193,29 +193,23 @@ const PropsMeta _$metaForDoubleProps = PropsMeta(
   keys: $DoubleProps.$propKeys,
 );
 
-_$$SingleProps _$Single([Map backingProps]) => backingProps == null
-    ? _$$SingleProps$JsMap(JsBackedMap())
-    : _$$SingleProps(backingProps);
+_$$SingleProps _$Single([Map backingProps]) => _$$SingleProps(backingProps);
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$SingleProps<T> extends UiProps
+class _$$SingleProps<T> extends UiProps
     with
         SingleProps<T>,
         // If this generated mixin is undefined, it's likely because SingleProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of SingleProps, and check that $SingleProps is exported/imported properly.
         $SingleProps<T> {
-  _$$SingleProps._();
+  _$$SingleProps([Map backingMap]) : this.props = backingMap ?? JsBackedMap();
 
-  factory _$$SingleProps(Map backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$SingleProps$JsMap(backingMap as JsBackedMap);
-    } else {
-      return _$$SingleProps$PlainMap(backingMap);
-    }
-  }
+  /// The backing props map proxied by this class.
+  @override
+  final Map props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -245,68 +239,25 @@ abstract class _$$SingleProps<T> extends UiProps
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$SingleProps = getPropKey;
-
-// Concrete props implementation that can be backed by any [Map].
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$SingleProps$PlainMap<T> extends _$$SingleProps<T> {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$SingleProps$PlainMap(Map backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
-}
-
-// Concrete props implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$SingleProps$JsMap<T> extends _$$SingleProps<T> {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$SingleProps$JsMap(JsBackedMap backingMap)
-      : this._props = JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
-}
-
 _$$SingleWithBoundProps _$SingleWithBound([Map backingProps]) =>
-    backingProps == null
-        ? _$$SingleWithBoundProps$JsMap(JsBackedMap())
-        : _$$SingleWithBoundProps(backingProps);
+    _$$SingleWithBoundProps(backingProps);
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$SingleWithBoundProps<S extends Pattern> extends UiProps
+class _$$SingleWithBoundProps<S extends Pattern> extends UiProps
     with
         SingleWithBoundProps<S>,
         // If this generated mixin is undefined, it's likely because SingleWithBoundProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of SingleWithBoundProps, and check that $SingleWithBoundProps is exported/imported properly.
         $SingleWithBoundProps<S> {
-  _$$SingleWithBoundProps._();
+  _$$SingleWithBoundProps([Map backingMap])
+      : this.props = backingMap ?? JsBackedMap();
 
-  factory _$$SingleWithBoundProps(Map backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$SingleWithBoundProps$JsMap(backingMap as JsBackedMap);
-    } else {
-      return _$$SingleWithBoundProps$PlainMap(backingMap);
-    }
-  }
+  /// The backing props map proxied by this class.
+  @override
+  final Map props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -337,69 +288,23 @@ abstract class _$$SingleWithBoundProps<S extends Pattern> extends UiProps
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$SingleWithBoundProps = getPropKey;
-
-// Concrete props implementation that can be backed by any [Map].
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$SingleWithBoundProps$PlainMap<S extends Pattern>
-    extends _$$SingleWithBoundProps<S> {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$SingleWithBoundProps$PlainMap(Map backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
-}
-
-// Concrete props implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$SingleWithBoundProps$JsMap<S extends Pattern>
-    extends _$$SingleWithBoundProps<S> {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$SingleWithBoundProps$JsMap(JsBackedMap backingMap)
-      : this._props = JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
-}
-
-_$$DoubleProps _$Double([Map backingProps]) => backingProps == null
-    ? _$$DoubleProps$JsMap(JsBackedMap())
-    : _$$DoubleProps(backingProps);
+_$$DoubleProps _$Double([Map backingProps]) => _$$DoubleProps(backingProps);
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$DoubleProps<A, B> extends UiProps
+class _$$DoubleProps<A, B> extends UiProps
     with
         DoubleProps<A, B>,
         // If this generated mixin is undefined, it's likely because DoubleProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of DoubleProps, and check that $DoubleProps is exported/imported properly.
         $DoubleProps<A, B> {
-  _$$DoubleProps._();
+  _$$DoubleProps([Map backingMap]) : this.props = backingMap ?? JsBackedMap();
 
-  factory _$$DoubleProps(Map backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$DoubleProps$JsMap(backingMap as JsBackedMap);
-    } else {
-      return _$$DoubleProps$PlainMap(backingMap);
-    }
-  }
+  /// The backing props map proxied by this class.
+  @override
+  final Map props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -429,54 +334,15 @@ abstract class _$$DoubleProps<A, B> extends UiProps
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$DoubleProps = getPropKey;
-
-// Concrete props implementation that can be backed by any [Map].
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$DoubleProps$PlainMap<A, B> extends _$$DoubleProps<A, B> {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$DoubleProps$PlainMap(Map backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
-}
-
-// Concrete props implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$DoubleProps$JsMap<A, B> extends _$$DoubleProps<A, B> {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$DoubleProps$JsMap(JsBackedMap backingMap)
-      : this._props = JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
-}
-
-_$$ConcreteNoneProps _$ConcreteNone([Map backingProps]) => backingProps == null
-    ? _$$ConcreteNoneProps$JsMap(JsBackedMap())
-    : _$$ConcreteNoneProps(backingProps);
+_$$ConcreteNoneProps _$ConcreteNone([Map backingProps]) =>
+    _$$ConcreteNoneProps(backingProps);
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$ConcreteNoneProps extends UiProps
+class _$$ConcreteNoneProps extends UiProps
     with
         NoneProps,
         // If this generated mixin is undefined, it's likely because NoneProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of NoneProps, and check that $NoneProps is exported/imported properly.
@@ -495,15 +361,12 @@ abstract class _$$ConcreteNoneProps extends UiProps
         $DoubleProps<double, int>
     implements
         ConcreteNoneProps {
-  _$$ConcreteNoneProps._();
+  _$$ConcreteNoneProps([Map backingMap])
+      : this.props = backingMap ?? JsBackedMap();
 
-  factory _$$ConcreteNoneProps(Map backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$ConcreteNoneProps$JsMap(backingMap as JsBackedMap);
-    } else {
-      return _$$ConcreteNoneProps$PlainMap(backingMap);
-    }
-  }
+  /// The backing props map proxied by this class.
+  @override
+  final Map props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -542,54 +405,15 @@ abstract class _$$ConcreteNoneProps extends UiProps
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$ConcreteNoneProps = getPropKey;
-
-// Concrete props implementation that can be backed by any [Map].
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$ConcreteNoneProps$PlainMap extends _$$ConcreteNoneProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ConcreteNoneProps$PlainMap(Map backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
-}
-
-// Concrete props implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$ConcreteNoneProps$JsMap extends _$$ConcreteNoneProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ConcreteNoneProps$JsMap(JsBackedMap backingMap)
-      : this._props = JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
-}
-
-_$$ConcreteArgsProps _$ConcreteArgs([Map backingProps]) => backingProps == null
-    ? _$$ConcreteArgsProps$JsMap(JsBackedMap())
-    : _$$ConcreteArgsProps(backingProps);
+_$$ConcreteArgsProps _$ConcreteArgs([Map backingProps]) =>
+    _$$ConcreteArgsProps(backingProps);
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$ConcreteArgsProps<U, V extends Iterable> extends UiProps
+class _$$ConcreteArgsProps<U, V extends Iterable> extends UiProps
     with
         NoneProps,
         // If this generated mixin is undefined, it's likely because NoneProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of NoneProps, and check that $NoneProps is exported/imported properly.
@@ -608,15 +432,12 @@ abstract class _$$ConcreteArgsProps<U, V extends Iterable> extends UiProps
         $DoubleProps<U, V>
     implements
         ConcreteArgsProps<U, V> {
-  _$$ConcreteArgsProps._();
+  _$$ConcreteArgsProps([Map backingMap])
+      : this.props = backingMap ?? JsBackedMap();
 
-  factory _$$ConcreteArgsProps(Map backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$ConcreteArgsProps$JsMap(backingMap as JsBackedMap);
-    } else {
-      return _$$ConcreteArgsProps$PlainMap(backingMap);
-    }
-  }
+  /// The backing props map proxied by this class.
+  @override
+  final Map props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -655,42 +476,3 @@ abstract class _$$ConcreteArgsProps<U, V extends Iterable> extends UiProps
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$ConcreteArgsProps = getPropKey;
-
-// Concrete props implementation that can be backed by any [Map].
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$ConcreteArgsProps$PlainMap<U, V extends Iterable>
-    extends _$$ConcreteArgsProps<U, V> {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ConcreteArgsProps$PlainMap(Map backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
-}
-
-// Concrete props implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$ConcreteArgsProps$JsMap<U, V extends Iterable>
-    extends _$$ConcreteArgsProps<U, V> {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ConcreteArgsProps$JsMap(JsBackedMap backingMap)
-      : this._props = JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
-}
