@@ -133,8 +133,7 @@ final $TestComponentComponentFactory = registerComponent(
   parentType: null,
 );
 
-abstract class _$TestComponentPropsAccessorsMixin
-    implements _$TestComponentProps {
+mixin _$TestComponentPropsAccessorsMixin implements _$TestComponentProps {
   @override
   Map get props;
 

@@ -18,7 +18,7 @@ final $ProgressComponentFactory = registerComponent(
   parentType: null,
 );
 
-abstract class _$ProgressPropsAccessorsMixin implements _$ProgressProps {
+mixin _$ProgressPropsAccessorsMixin implements _$ProgressProps {
   @override
   Map get props;
 
@@ -347,8 +347,7 @@ class _$$ProgressProps extends _$ProgressProps
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$ProgressProps = getPropKey;
-
-abstract class _$ProgressStateAccessorsMixin implements _$ProgressState {
+mixin _$ProgressStateAccessorsMixin implements _$ProgressState {
   @override
   Map get state;
 

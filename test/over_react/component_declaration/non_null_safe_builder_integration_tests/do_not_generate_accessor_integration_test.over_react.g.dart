@@ -19,7 +19,7 @@ final $DoNotGenerateAccessorTestComponentFactory = registerComponent(
   parentType: null,
 );
 
-abstract class _$DoNotGenerateAccessorTestPropsAccessorsMixin
+mixin _$DoNotGenerateAccessorTestPropsAccessorsMixin
     implements _$DoNotGenerateAccessorTestProps {
   @override
   Map get props;
@@ -145,8 +145,7 @@ class _$$DoNotGenerateAccessorTestProps extends _$DoNotGenerateAccessorTestProps
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$DoNotGenerateAccessorTestProps = getPropKey;
-
-abstract class _$DoNotGenerateAccessorTestStateAccessorsMixin
+mixin _$DoNotGenerateAccessorTestStateAccessorsMixin
     implements _$DoNotGenerateAccessorTestState {
   @override
   Map get state;

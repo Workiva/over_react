@@ -18,7 +18,7 @@ final $ButtonGroupComponentFactory = registerComponent(
   parentType: null,
 );
 
-abstract class _$ButtonGroupPropsAccessorsMixin implements _$ButtonGroupProps {
+mixin _$ButtonGroupPropsAccessorsMixin implements _$ButtonGroupProps {
   @override
   Map get props;
 
@@ -154,8 +154,7 @@ class _$$ButtonGroupProps extends _$ButtonGroupProps
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$ButtonGroupProps = getPropKey;
-
-abstract class _$ButtonGroupStateAccessorsMixin implements _$ButtonGroupState {
+mixin _$ButtonGroupStateAccessorsMixin implements _$ButtonGroupState {
   @override
   Map get state;
 

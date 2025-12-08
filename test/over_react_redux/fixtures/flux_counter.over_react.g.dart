@@ -18,7 +18,7 @@ final $FluxCounterComponentFactory = registerComponent2(
   parentType: null,
 );
 
-abstract class _$FluxCounterPropsAccessorsMixin implements _$FluxCounterProps {
+mixin _$FluxCounterPropsAccessorsMixin implements _$FluxCounterProps {
   @override
   Map get props;
 

@@ -18,7 +18,7 @@ final $Basic2ComponentFactory = registerComponent2(
   parentType: null,
 );
 
-abstract class _$BasicPropsAccessorsMixin implements _$BasicProps {
+mixin _$BasicPropsAccessorsMixin implements _$BasicProps {
   @override
   Map get props;
 

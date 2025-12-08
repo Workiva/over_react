@@ -18,8 +18,7 @@ final $OneLevelWrapperComponentFactory = registerComponent(
   parentType: null,
 );
 
-abstract class _$OneLevelWrapperPropsAccessorsMixin
-    implements _$OneLevelWrapperProps {
+mixin _$OneLevelWrapperPropsAccessorsMixin implements _$OneLevelWrapperProps {
   @override
   Map get props;
 

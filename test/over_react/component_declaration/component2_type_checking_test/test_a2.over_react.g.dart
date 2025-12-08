@@ -18,7 +18,7 @@ final $TestA2ComponentFactory = registerComponent2(
   parentType: null,
 );
 
-abstract class _$TestA2PropsAccessorsMixin implements _$TestA2Props {
+mixin _$TestA2PropsAccessorsMixin implements _$TestA2Props {
   @override
   Map get props;
 

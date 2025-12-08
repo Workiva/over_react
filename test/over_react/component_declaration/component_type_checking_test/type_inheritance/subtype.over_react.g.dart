@@ -19,7 +19,7 @@ final $TestSubtypeComponentFactory = registerComponent(
       $TestParentComponentFactory, /* from `subtypeOf: TestParentComponent` */
 );
 
-abstract class _$TestSubtypePropsAccessorsMixin implements _$TestSubtypeProps {
+mixin _$TestSubtypePropsAccessorsMixin implements _$TestSubtypeProps {
   @override
   Map get props;
 

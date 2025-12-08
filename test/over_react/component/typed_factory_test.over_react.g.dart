@@ -18,7 +18,7 @@ final $TypedFactoryTesterComponentFactory = registerComponent2(
   parentType: null,
 );
 
-abstract class _$TypedFactoryTesterPropsAccessorsMixin
+mixin _$TypedFactoryTesterPropsAccessorsMixin
     implements _$TypedFactoryTesterProps {
   @override
   Map get props;
@@ -94,8 +94,7 @@ class _$$TypedFactoryTesterProps extends _$TypedFactoryTesterProps
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$TypedFactoryTesterProps = getPropKey;
-
-abstract class _$TypedFactoryTesterStateAccessorsMixin
+mixin _$TypedFactoryTesterStateAccessorsMixin
     implements _$TypedFactoryTesterState {
   @override
   Map get state;

@@ -18,7 +18,7 @@ final $NonComponentTwoCounterComponentFactory = registerComponent(
   parentType: null,
 );
 
-abstract class _$NonComponentTwoCounterPropsAccessorsMixin
+mixin _$NonComponentTwoCounterPropsAccessorsMixin
     implements _$NonComponentTwoCounterProps {
   @override
   Map get props;

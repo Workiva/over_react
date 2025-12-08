@@ -18,7 +18,7 @@ final $ContextProviderWrapperComponentFactory = registerComponent2(
   parentType: null,
 );
 
-abstract class _$ContextProviderWrapperPropsAccessorsMixin
+mixin _$ContextProviderWrapperPropsAccessorsMixin
     implements _$ContextProviderWrapperProps {
   @override
   Map get props;
@@ -77,8 +77,7 @@ class _$$ContextProviderWrapperProps extends _$ContextProviderWrapperProps
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$ContextProviderWrapperProps = getPropKey;
-
-abstract class _$ContextProviderWrapperStateAccessorsMixin
+mixin _$ContextProviderWrapperStateAccessorsMixin
     implements _$ContextProviderWrapperState {
   @override
   Map get state;

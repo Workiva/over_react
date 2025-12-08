@@ -18,7 +18,7 @@ final $ListGroupComponentFactory = registerComponent(
   parentType: null,
 );
 
-abstract class _$ListGroupPropsAccessorsMixin implements _$ListGroupProps {
+mixin _$ListGroupPropsAccessorsMixin implements _$ListGroupProps {
   @override
   Map get props;
 

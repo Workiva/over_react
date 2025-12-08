@@ -18,7 +18,7 @@ final $FlawedWithNoChildComponentFactory = registerComponent2(
   parentType: null,
 );
 
-abstract class _$FlawedWithNoChildPropsAccessorsMixin
+mixin _$FlawedWithNoChildPropsAccessorsMixin
     implements _$FlawedWithNoChildProps {
   @override
   Map get props;

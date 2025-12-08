@@ -18,7 +18,7 @@ final $TestBasicComponentFactory = registerComponent2(
   parentType: null,
 );
 
-abstract class _$TestBasicPropsAccessorsMixin implements _$TestBasicProps {
+mixin _$TestBasicPropsAccessorsMixin implements _$TestBasicProps {
   @override
   Map get props;
 
@@ -135,7 +135,7 @@ final $TestHandlerLifecycleComponentFactory = registerComponent2(
   parentType: null,
 );
 
-abstract class _$TestHandlerLifecyclePropsAccessorsMixin
+mixin _$TestHandlerLifecyclePropsAccessorsMixin
     implements _$TestHandlerLifecycleProps {
   @override
   Map get props;
@@ -253,7 +253,7 @@ final $TestHandlerPrecedenceComponentFactory = registerComponent2(
   parentType: null,
 );
 
-abstract class _$TestHandlerPrecedencePropsAccessorsMixin
+mixin _$TestHandlerPrecedencePropsAccessorsMixin
     implements _$TestHandlerPrecedenceProps {
   @override
   Map get props;
@@ -371,7 +371,7 @@ final $TestPropValidationComponentFactory = registerComponent2(
   parentType: null,
 );
 
-abstract class _$TestPropValidationPropsAccessorsMixin
+mixin _$TestPropValidationPropsAccessorsMixin
     implements _$TestPropValidationProps {
   @override
   Map get props;
@@ -509,8 +509,7 @@ final $TestRedrawOnComponentFactory = registerComponent2(
   parentType: null,
 );
 
-abstract class _$TestRedrawOnPropsAccessorsMixin
-    implements _$TestRedrawOnProps {
+mixin _$TestRedrawOnPropsAccessorsMixin implements _$TestRedrawOnProps {
   @override
   Map get props;
 
@@ -627,7 +626,7 @@ final $TestStoreHandlersComponentFactory = registerComponent2(
   parentType: null,
 );
 
-abstract class _$TestStoreHandlersPropsAccessorsMixin
+mixin _$TestStoreHandlersPropsAccessorsMixin
     implements _$TestStoreHandlersProps {
   @override
   Map get props;
@@ -745,7 +744,7 @@ final $TestStatefulBasicComponentFactory = registerComponent2(
   parentType: null,
 );
 
-abstract class _$TestStatefulBasicPropsAccessorsMixin
+mixin _$TestStatefulBasicPropsAccessorsMixin
     implements _$TestStatefulBasicProps {
   @override
   Map get props;
@@ -804,8 +803,7 @@ class _$$TestStatefulBasicProps extends _$TestStatefulBasicProps
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$TestStatefulBasicProps = getPropKey;
-
-abstract class _$TestStatefulBasicStateAccessorsMixin
+mixin _$TestStatefulBasicStateAccessorsMixin
     implements _$TestStatefulBasicState {
   @override
   Map get state;
@@ -924,7 +922,7 @@ final $TestStatefulHandlerLifecycleComponentFactory = registerComponent2(
   parentType: null,
 );
 
-abstract class _$TestStatefulHandlerLifecyclePropsAccessorsMixin
+mixin _$TestStatefulHandlerLifecyclePropsAccessorsMixin
     implements _$TestStatefulHandlerLifecycleProps {
   @override
   Map get props;
@@ -986,8 +984,7 @@ class _$$TestStatefulHandlerLifecycleProps
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$TestStatefulHandlerLifecycleProps = getPropKey;
-
-abstract class _$TestStatefulHandlerLifecycleStateAccessorsMixin
+mixin _$TestStatefulHandlerLifecycleStateAccessorsMixin
     implements _$TestStatefulHandlerLifecycleState {
   @override
   Map get state;
@@ -1111,7 +1108,7 @@ final $TestStatefulHandlerPrecedenceComponentFactory = registerComponent2(
   parentType: null,
 );
 
-abstract class _$TestStatefulHandlerPrecedencePropsAccessorsMixin
+mixin _$TestStatefulHandlerPrecedencePropsAccessorsMixin
     implements _$TestStatefulHandlerPrecedenceProps {
   @override
   Map get props;
@@ -1173,8 +1170,7 @@ class _$$TestStatefulHandlerPrecedenceProps
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$TestStatefulHandlerPrecedenceProps = getPropKey;
-
-abstract class _$TestStatefulHandlerPrecedenceStateAccessorsMixin
+mixin _$TestStatefulHandlerPrecedenceStateAccessorsMixin
     implements _$TestStatefulHandlerPrecedenceState {
   @override
   Map get state;
@@ -1298,7 +1294,7 @@ final $TestStatefulPropValidationComponentFactory = registerComponent2(
   parentType: null,
 );
 
-abstract class _$TestStatefulPropValidationPropsAccessorsMixin
+mixin _$TestStatefulPropValidationPropsAccessorsMixin
     implements _$TestStatefulPropValidationProps {
   @override
   Map get props;
@@ -1383,8 +1379,7 @@ class _$$TestStatefulPropValidationProps
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$TestStatefulPropValidationProps = getPropKey;
-
-abstract class _$TestStatefulPropValidationStateAccessorsMixin
+mixin _$TestStatefulPropValidationStateAccessorsMixin
     implements _$TestStatefulPropValidationState {
   @override
   Map get state;
@@ -1507,7 +1502,7 @@ final $TestStatefulRedrawOnComponentFactory = registerComponent2(
   parentType: null,
 );
 
-abstract class _$TestStatefulRedrawOnPropsAccessorsMixin
+mixin _$TestStatefulRedrawOnPropsAccessorsMixin
     implements _$TestStatefulRedrawOnProps {
   @override
   Map get props;
@@ -1566,8 +1561,7 @@ class _$$TestStatefulRedrawOnProps extends _$TestStatefulRedrawOnProps
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$TestStatefulRedrawOnProps = getPropKey;
-
-abstract class _$TestStatefulRedrawOnStateAccessorsMixin
+mixin _$TestStatefulRedrawOnStateAccessorsMixin
     implements _$TestStatefulRedrawOnState {
   @override
   Map get state;
@@ -1686,7 +1680,7 @@ final $TestStatefulStoreHandlersComponentFactory = registerComponent2(
   parentType: null,
 );
 
-abstract class _$TestStatefulStoreHandlersPropsAccessorsMixin
+mixin _$TestStatefulStoreHandlersPropsAccessorsMixin
     implements _$TestStatefulStoreHandlersProps {
   @override
   Map get props;
@@ -1746,8 +1740,7 @@ class _$$TestStatefulStoreHandlersProps extends _$TestStatefulStoreHandlersProps
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$TestStatefulStoreHandlersProps = getPropKey;
-
-abstract class _$TestStatefulStoreHandlersStateAccessorsMixin
+mixin _$TestStatefulStoreHandlersStateAccessorsMixin
     implements _$TestStatefulStoreHandlersState {
   @override
   Map get state;

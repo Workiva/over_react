@@ -133,7 +133,7 @@ final $ThrowingComponentComponentFactory = registerComponent(
   parentType: null,
 );
 
-abstract class _$ThrowingComponentPropsAccessorsMixin
+mixin _$ThrowingComponentPropsAccessorsMixin
     implements _$ThrowingComponentProps {
   @override
   Map get props;

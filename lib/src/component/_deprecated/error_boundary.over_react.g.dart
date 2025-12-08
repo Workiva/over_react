@@ -21,8 +21,7 @@ final $ErrorBoundaryComponentFactory = registerComponent2(
 
 @Deprecated(
     'Use the `ErrorBoundaryProps` mixin exported from `package:over_react/components.dart` instead. Will be removed in the 4.0.0 release of over_react.')
-abstract class _$ErrorBoundaryPropsAccessorsMixin
-    implements _$ErrorBoundaryProps {
+mixin _$ErrorBoundaryPropsAccessorsMixin implements _$ErrorBoundaryProps {
   @override
   Map get props;
 
@@ -89,11 +88,9 @@ class _$$ErrorBoundaryProps extends _$ErrorBoundaryProps
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$ErrorBoundaryProps = getPropKey;
-
 @Deprecated(
     'Use the `ErrorBoundaryState` mixin exported from `package:over_react/components.dart` instead. Will be removed in the 4.0.0 release of over_react.')
-abstract class _$ErrorBoundaryStateAccessorsMixin
-    implements _$ErrorBoundaryState {
+mixin _$ErrorBoundaryStateAccessorsMixin implements _$ErrorBoundaryState {
   @override
   Map get state;
 

@@ -1,7 +1,13 @@
 # OverReact Changelog
 
 ## Unreleased
-- Optimize generated code to decrease dart2js compile size, saving ~577 bytes per component (when using `-03 --csp --minify`)
+- [#989] Optimize generated code to decrease dart2js compile size, saving ~577 bytes per component (when using `-03 --csp --minify`)
+- [#992] Fix compilation errors for legacy boilerplate defined in libraries with a Dart language version of >=3.0
+
+## 5.4.6
+- [#986] Set up gha-dart-oss
+- [#985] Remove entrypoint imports
+- [#984] Rollout React 18 to tests and example apps
 
 ## 5.4.5
 - Update analyzer dependency to `>=5.13.0 <8.0.0` (allow v8)

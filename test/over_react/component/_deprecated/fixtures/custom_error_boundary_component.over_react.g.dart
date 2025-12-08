@@ -19,7 +19,7 @@ final $CustomErrorBoundaryComponentFactory = registerComponent2(
   skipMethods: const [],
 );
 
-abstract class _$CustomErrorBoundaryPropsAccessorsMixin
+mixin _$CustomErrorBoundaryPropsAccessorsMixin
     implements _$CustomErrorBoundaryProps {
   @override
   Map get props;
@@ -78,8 +78,7 @@ class _$$CustomErrorBoundaryProps extends _$CustomErrorBoundaryProps
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$CustomErrorBoundaryProps = getPropKey;
-
-abstract class _$CustomErrorBoundaryStateAccessorsMixin
+mixin _$CustomErrorBoundaryStateAccessorsMixin
     implements _$CustomErrorBoundaryState {
   @override
   Map get state;

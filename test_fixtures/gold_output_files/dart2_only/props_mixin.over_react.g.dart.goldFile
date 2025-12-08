@@ -9,7 +9,7 @@ part of 'props_mixin.dart';
 // **************************************************************************
 
 @deprecated
-abstract class ExamplePropsMixinClass implements _$ExamplePropsMixinClass {
+mixin ExamplePropsMixinClass implements _$ExamplePropsMixinClass {
   @override
   Map get props;
 
@@ -44,7 +44,7 @@ const PropsMeta _$metaForExamplePropsMixinClass = PropsMeta(
 );
 
 @deprecated
-abstract class MixesInOtherMixinMixin<T extends Iterable, U>
+mixin MixesInOtherMixinMixin<T extends Iterable, U>
     implements _$MixesInOtherMixinMixin<T, U> {
   @override
   Map get props;
@@ -81,7 +81,7 @@ const PropsMeta _$metaForMixesInOtherMixinMixin = PropsMeta(
 );
 
 @deprecated
-abstract class _PrivateMixin implements _$_PrivateMixin {
+mixin _PrivateMixin implements _$_PrivateMixin {
   @override
   Map get props;
 

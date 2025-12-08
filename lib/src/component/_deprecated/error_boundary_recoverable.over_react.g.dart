@@ -21,7 +21,7 @@ final $RecoverableErrorBoundaryComponentFactory = registerComponent2(
 
 @Deprecated(
     'For internal use with deprecated ErrorBoundary components only. Remove in the 4.0.0 release.')
-abstract class _$RecoverableErrorBoundaryPropsAccessorsMixin
+mixin _$RecoverableErrorBoundaryPropsAccessorsMixin
     implements _$RecoverableErrorBoundaryProps {
   @override
   Map get props;
@@ -83,10 +83,9 @@ class _$$RecoverableErrorBoundaryProps extends _$RecoverableErrorBoundaryProps
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$RecoverableErrorBoundaryProps = getPropKey;
-
 @Deprecated(
     'For internal use with deprecated ErrorBoundary components only. Remove in the 4.0.0 release.')
-abstract class _$RecoverableErrorBoundaryStateAccessorsMixin
+mixin _$RecoverableErrorBoundaryStateAccessorsMixin
     implements _$RecoverableErrorBoundaryState {
   @override
   Map get state;

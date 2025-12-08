@@ -18,7 +18,7 @@ final $FlawedComponentFactory = registerComponent2(
   parentType: null,
 );
 
-abstract class _$FlawedPropsAccessorsMixin implements _$FlawedProps {
+mixin _$FlawedPropsAccessorsMixin implements _$FlawedProps {
   @override
   Map get props;
 
@@ -89,8 +89,7 @@ class _$$FlawedProps extends _$FlawedProps
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$FlawedProps = getPropKey;
-
-abstract class _$FlawedStateAccessorsMixin implements _$FlawedState {
+mixin _$FlawedStateAccessorsMixin implements _$FlawedState {
   @override
   Map get state;
 

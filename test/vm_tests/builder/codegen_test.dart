@@ -121,9 +121,9 @@ main() {
                   descriptorType = '${isProps ? 'Prop' : 'State'}Descriptor';
                 });
 
-                test('with proper accessors class declaration, retaining type parameters', () {
+                test('with proper accessors mixin declaration, retaining type parameters', () {
                   expect(implGenerator!.outputContentsBuffer.toString(), contains(
-                      'abstract class _\$${className}AccessorsMixin${ors.typeParamSrc} '
+                      'mixin _\$${className}AccessorsMixin${ors.typeParamSrc} '
                           'implements _\$$className${ors.typeParamSrcWithoutBounds} {'));
                 });
 
@@ -213,9 +213,9 @@ main() {
                   className = '${backwardsCompatible ? '' : '_\$'}$nameBuilder';
                 });
 
-                test('with proper accessors class declaration, retaining type parameters', () {
+                test('with proper accessors mixin declaration, retaining type parameters', () {
                   expect(implGenerator!.outputContentsBuffer.toString(), contains(
-                      'abstract class $consumableClassName${ors.typeParamSrc} '
+                      'mixin $consumableClassName${ors.typeParamSrc} '
                           'implements $className${ors.typeParamSrcWithoutBounds} {'));
                 });
 
@@ -630,7 +630,7 @@ main() {
                 .propsOrStateOrMixinClassName}AccessorsMixin';
             final propsOrStateOrMixinClassName = ors.propsOrStateOrMixinClassName;
             final annotatedPropsOrStateOrMixinClassName = testName.contains('mixin') ? propsOrStateOrMixinClassName : '_\$$propsOrStateOrMixinClassName';
-            final expectedAccessorsMixinClass = 'abstract class $accessorsClassName implements $annotatedPropsOrStateOrMixinClassName';
+            final expectedAccessorsMixin = 'mixin $accessorsClassName implements $annotatedPropsOrStateOrMixinClassName';
             final metaStructName = ors.metaStructName(ors.annotation);
             final expectedMetaForInstance = (StringBuffer()
               ..writeln('const $metaStructName _\$metaFor$propsOrStateOrMixinClassName = $metaStructName(')
@@ -639,7 +639,7 @@ main() {
               ..writeln(');')
             ).toString();
 
-            expect(implGenerator!.outputContentsBuffer.toString(), contains(expectedAccessorsMixinClass));
+            expect(implGenerator!.outputContentsBuffer.toString(), contains(expectedAccessorsMixin));
             expect(implGenerator!.outputContentsBuffer.toString(), contains(expectedMetaForInstance));
           });
         }

@@ -18,8 +18,7 @@ final $NullSafeTestComponentFactory = registerComponent(
   parentType: null,
 );
 
-abstract class _$NullSafeTestPropsAccessorsMixin
-    implements _$NullSafeTestProps {
+mixin _$NullSafeTestPropsAccessorsMixin implements _$NullSafeTestProps {
   @override
   Map get props;
 
@@ -253,9 +252,7 @@ class _$$NullSafeTestProps extends _$NullSafeTestProps
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$NullSafeTestProps = getPropKey;
-
-abstract class _$NullSafeTestStateAccessorsMixin
-    implements _$NullSafeTestState {
+mixin _$NullSafeTestStateAccessorsMixin implements _$NullSafeTestState {
   @override
   Map get state;
 

@@ -18,8 +18,7 @@ final $ComponentTestComponentFactory = registerComponent2(
   parentType: null,
 );
 
-abstract class _$ComponentTestPropsAccessorsMixin
-    implements _$ComponentTestProps {
+mixin _$ComponentTestPropsAccessorsMixin implements _$ComponentTestProps {
   @override
   Map get props;
 
@@ -281,8 +280,7 @@ final $IsErrorBoundaryComponentFactory = registerComponent2(
   skipMethods: const [],
 );
 
-abstract class _$IsErrorBoundaryPropsAccessorsMixin
-    implements _$IsErrorBoundaryProps {
+mixin _$IsErrorBoundaryPropsAccessorsMixin implements _$IsErrorBoundaryProps {
   @override
   Map get props;
 
@@ -399,7 +397,7 @@ final $IsNotErrorBoundaryComponentFactory = registerComponent2(
   parentType: null,
 );
 
-abstract class _$IsNotErrorBoundaryPropsAccessorsMixin
+mixin _$IsNotErrorBoundaryPropsAccessorsMixin
     implements _$IsNotErrorBoundaryProps {
   @override
   Map get props;

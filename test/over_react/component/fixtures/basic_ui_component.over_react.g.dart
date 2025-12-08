@@ -18,8 +18,7 @@ final $BasicUiComponentComponentFactory = registerComponent(
   parentType: null,
 );
 
-abstract class _$BasicUiComponentPropsAccessorsMixin
-    implements _$BasicUiComponentProps {
+mixin _$BasicUiComponentPropsAccessorsMixin implements _$BasicUiComponentProps {
   @override
   Map get props;
 
