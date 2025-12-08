@@ -9,7 +9,7 @@ part of 'abstract_transition_props.dart';
 
 @Deprecated(
     'Use the `TransitionPropsMixin` mixin exported from `package:over_react/components.dart` instead. Will be removed in the 4.0.0 release.')
-abstract class TransitionPropsMixin implements _$TransitionPropsMixin {
+mixin TransitionPropsMixin implements _$TransitionPropsMixin {
   @override
   Map get props;
 

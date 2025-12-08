@@ -54,6 +54,8 @@ jobs:
           if [[ "$DART_VERSION" =~ ^3 ]]; then
             ./tool/delete_dart_2_only_files.sh
             ./tool/update_tests_for_dart_3.sh
+            # Stage these changes so they don't show up in the generated file `git diff` check below
+            git add .
           fi
 
       # Analyze before generated files are created to verify that component boilerplate analysis is "clean" without the need for building
@@ -74,14 +76,8 @@ jobs:
 
       - name: Verify that generated files are up-to-date
         run: |
-          if [ ${{ matrix.sdk }} = '2.19.6' ]; then
-            git diff --exit-code
-          else
-            # Don't check these generated files for other SDKs, since they may generate differently
-            # due to different resolved dependencies.
-            git diff --exit-code -- ":(exclude)test/over_react/component_declaration/redux_component_test/test_reducer.g.dart"
-          fi
-        if: always() && steps.install.outcome == 'success' && steps.install.build == 'success'
+          git diff --exit-code
+        if: always() && steps.install.outcome == 'success' && steps.build.outcome == 'success'
 
       # Analyze again after generated files are created to verify that those generated classes don't cause analysis errors
       - name: Analyze project source (post-build)

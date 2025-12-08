@@ -18,7 +18,7 @@ final $StatefulComponentTestComponentFactory = registerComponent2(
   parentType: null,
 );
 
-abstract class _$StatefulComponentTestPropsAccessorsMixin
+mixin _$StatefulComponentTestPropsAccessorsMixin
     implements _$StatefulComponentTestProps {
   @override
   Map get props;
@@ -146,7 +146,7 @@ class _$$StatefulComponentTestProps$JsMap
   JsBackedMap _props;
 }
 
-abstract class _$StatefulComponentTestStateAccessorsMixin
+mixin _$StatefulComponentTestStateAccessorsMixin
     implements _$StatefulComponentTestState {
   @override
   Map get state;

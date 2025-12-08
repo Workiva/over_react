@@ -7,7 +7,7 @@ part of 'prop_typedef_fixtures.dart';
 // OverReactBuilder (package:over_react/src/builder.dart)
 // **************************************************************************
 
-abstract class _$TestAbstractCustomRendererComponentPropsAccessorsMixin
+mixin _$TestAbstractCustomRendererComponentPropsAccessorsMixin
     implements _$TestAbstractCustomRendererComponentProps {
   @override
   Map get props;
@@ -113,7 +113,7 @@ abstract class TestAbstractCustomRendererComponentProps
       _$metaForTestAbstractCustomRendererComponentProps;
 }
 
-abstract class _$TestAbstractCustomRendererComponentStateAccessorsMixin
+mixin _$TestAbstractCustomRendererComponentStateAccessorsMixin
     implements _$TestAbstractCustomRendererComponentState {
   @override
   Map get state;
@@ -170,7 +170,7 @@ final $TestConsumingAbstractCustomRendererComponentComponentFactory =
   parentType: null,
 );
 
-abstract class _$TestConsumingAbstractCustomRendererComponentPropsAccessorsMixin
+mixin _$TestConsumingAbstractCustomRendererComponentPropsAccessorsMixin
     implements _$TestConsumingAbstractCustomRendererComponentProps {
   @override
   Map get props;
@@ -395,7 +395,7 @@ final $TestConsumingCustomRendererComponentComponentFactory =
   parentType: null,
 );
 
-abstract class _$TestConsumingCustomRendererComponentPropsAccessorsMixin
+mixin _$TestConsumingCustomRendererComponentPropsAccessorsMixin
     implements _$TestConsumingCustomRendererComponentProps {
   @override
   Map get props;
@@ -607,7 +607,7 @@ final $TestCustomRendererFromAbstractComponentComponentFactory =
   parentType: null,
 );
 
-abstract class _$TestCustomRendererFromAbstractComponentPropsAccessorsMixin
+mixin _$TestCustomRendererFromAbstractComponentPropsAccessorsMixin
     implements _$TestCustomRendererFromAbstractComponentProps {
   @override
   Map get props;
@@ -739,7 +739,7 @@ class _$$TestCustomRendererFromAbstractComponentProps$JsMap
   JsBackedMap _props;
 }
 
-abstract class _$TestCustomRendererFromAbstractComponentStateAccessorsMixin
+mixin _$TestCustomRendererFromAbstractComponentStateAccessorsMixin
     implements _$TestCustomRendererFromAbstractComponentState {
   @override
   Map get state;
@@ -909,7 +909,7 @@ final $TestCustomRendererComponentComponentFactory = registerComponent2(
   parentType: null,
 );
 
-abstract class _$TestCustomRendererComponentPropsAccessorsMixin
+mixin _$TestCustomRendererComponentPropsAccessorsMixin
     implements _$TestCustomRendererComponentProps {
   @override
   Map get props;
@@ -1110,7 +1110,7 @@ class _$$TestCustomRendererComponentProps$JsMap
   JsBackedMap _props;
 }
 
-abstract class _$TestCustomRendererComponentStateAccessorsMixin
+mixin _$TestCustomRendererComponentStateAccessorsMixin
     implements _$TestCustomRendererComponentState {
   @override
   Map get state;

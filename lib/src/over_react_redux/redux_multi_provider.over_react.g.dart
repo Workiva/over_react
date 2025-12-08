@@ -18,7 +18,7 @@ final $ReduxMultiProviderComponentFactory = registerComponent2(
   parentType: null,
 );
 
-abstract class _$ReduxMultiProviderPropsAccessorsMixin
+mixin _$ReduxMultiProviderPropsAccessorsMixin
     implements _$ReduxMultiProviderProps {
   @override
   Map get props;

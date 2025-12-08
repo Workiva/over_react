@@ -8,8 +8,7 @@ part of 'abstract_accessor_integration_test.dart';
 // OverReactBuilder (package:over_react/src/builder.dart)
 // **************************************************************************
 
-abstract class _$TestAbstractPropsAccessorsMixin
-    implements _$TestAbstractProps {
+mixin _$TestAbstractPropsAccessorsMixin implements _$TestAbstractProps {
   @override
   Map get props;
 
@@ -134,7 +133,7 @@ abstract class TestAbstractProps extends _$TestAbstractProps
   static const PropsMeta meta = _$metaForTestAbstractProps;
 }
 
-abstract class _$TestCustomNamespaceAbstractPropsAccessorsMixin
+mixin _$TestCustomNamespaceAbstractPropsAccessorsMixin
     implements _$TestCustomNamespaceAbstractProps {
   @override
   Map get props;
@@ -276,8 +275,7 @@ abstract class TestCustomNamespaceAbstractProps
   static const PropsMeta meta = _$metaForTestCustomNamespaceAbstractProps;
 }
 
-abstract class _$TestAbstractStateAccessorsMixin
-    implements _$TestAbstractState {
+mixin _$TestAbstractStateAccessorsMixin implements _$TestAbstractState {
   @override
   Map get state;
 
@@ -403,7 +401,7 @@ abstract class TestAbstractState extends _$TestAbstractState
   static const StateMeta meta = _$metaForTestAbstractState;
 }
 
-abstract class _$TestCustomNamespaceAbstractStateAccessorsMixin
+mixin _$TestCustomNamespaceAbstractStateAccessorsMixin
     implements _$TestCustomNamespaceAbstractState {
   @override
   Map get state;

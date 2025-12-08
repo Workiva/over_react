@@ -18,7 +18,7 @@ final $NamespacedAccessorTestComponentFactory = registerComponent2(
   parentType: null,
 );
 
-abstract class _$NamespacedAccessorTestPropsAccessorsMixin
+mixin _$NamespacedAccessorTestPropsAccessorsMixin
     implements _$NamespacedAccessorTestProps {
   @override
   Map get props;
@@ -237,7 +237,7 @@ class _$$NamespacedAccessorTestProps$JsMap
   JsBackedMap _props;
 }
 
-abstract class _$NamespacedAccessorTestStateAccessorsMixin
+mixin _$NamespacedAccessorTestStateAccessorsMixin
     implements _$NamespacedAccessorTestState {
   @override
   Map get state;

@@ -18,7 +18,7 @@ final $DummyComponentFactory = registerComponent2(
   parentType: null,
 );
 
-abstract class _$DummyPropsAccessorsMixin implements _$DummyProps {
+mixin _$DummyPropsAccessorsMixin implements _$DummyProps {
   @override
   Map get props;
 

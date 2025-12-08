@@ -18,7 +18,7 @@ final $FlawedComponentFactory = registerComponent2(
   parentType: null,
 );
 
-abstract class _$FlawedPropsAccessorsMixin implements _$FlawedProps {
+mixin _$FlawedPropsAccessorsMixin implements _$FlawedProps {
   @override
   Map get props;
 
@@ -129,7 +129,7 @@ class _$$FlawedProps$JsMap extends _$$FlawedProps {
   JsBackedMap _props;
 }
 
-abstract class _$FlawedStateAccessorsMixin implements _$FlawedState {
+mixin _$FlawedStateAccessorsMixin implements _$FlawedState {
   @override
   Map get state;
 

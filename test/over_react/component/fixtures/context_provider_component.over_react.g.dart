@@ -18,7 +18,7 @@ final $ContextProviderWrapperComponentFactory = registerComponent2(
   parentType: null,
 );
 
-abstract class _$ContextProviderWrapperPropsAccessorsMixin
+mixin _$ContextProviderWrapperPropsAccessorsMixin
     implements _$ContextProviderWrapperProps {
   @override
   Map get props;
@@ -119,7 +119,7 @@ class _$$ContextProviderWrapperProps$JsMap
   JsBackedMap _props;
 }
 
-abstract class _$ContextProviderWrapperStateAccessorsMixin
+mixin _$ContextProviderWrapperStateAccessorsMixin
     implements _$ContextProviderWrapperState {
   @override
   Map get state;

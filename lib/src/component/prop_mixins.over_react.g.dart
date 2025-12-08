@@ -7,7 +7,7 @@ part of 'prop_mixins.dart';
 // OverReactBuilder (package:over_react/src/builder.dart)
 // **************************************************************************
 
-abstract class ReactPropsMixin implements _$ReactPropsMixin {
+mixin ReactPropsMixin implements _$ReactPropsMixin {
   @override
   Map get props;
 
@@ -85,7 +85,7 @@ const PropsMeta _$metaForReactPropsMixin = PropsMeta(
   keys: ReactPropsMixin.$propKeys,
 );
 
-abstract class DomPropsMixin implements _$DomPropsMixin {
+mixin DomPropsMixin implements _$DomPropsMixin {
   @override
   Map get props;
 
@@ -3273,7 +3273,7 @@ const PropsMeta _$metaForDomPropsMixin = PropsMeta(
   keys: DomPropsMixin.$propKeys,
 );
 
-abstract class SvgPropsMixin implements _$SvgPropsMixin {
+mixin SvgPropsMixin implements _$SvgPropsMixin {
   @override
   Map get props;
 
@@ -6786,7 +6786,7 @@ const PropsMeta _$metaForSvgPropsMixin = PropsMeta(
   keys: SvgPropsMixin.$propKeys,
 );
 
-abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
+mixin UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   @override
   Map get props;
 

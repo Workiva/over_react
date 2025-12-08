@@ -19,7 +19,7 @@ final $CustomErrorBoundaryComponentFactory = registerComponent2(
   skipMethods: const [],
 );
 
-abstract class _$CustomErrorBoundaryPropsAccessorsMixin
+mixin _$CustomErrorBoundaryPropsAccessorsMixin
     implements _$CustomErrorBoundaryProps {
   @override
   Map get props;
@@ -117,7 +117,7 @@ class _$$CustomErrorBoundaryProps$JsMap extends _$$CustomErrorBoundaryProps {
   JsBackedMap _props;
 }
 
-abstract class _$CustomErrorBoundaryStateAccessorsMixin
+mixin _$CustomErrorBoundaryStateAccessorsMixin
     implements _$CustomErrorBoundaryState {
   @override
   Map get state;

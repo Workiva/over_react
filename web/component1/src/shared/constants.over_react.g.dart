@@ -7,7 +7,7 @@ part of 'constants.dart';
 // OverReactBuilder (package:over_react/src/builder.dart)
 // **************************************************************************
 
-abstract class AbstractInputPropsMixin implements _$AbstractInputPropsMixin {
+mixin AbstractInputPropsMixin implements _$AbstractInputPropsMixin {
   @override
   Map get props;
 
@@ -118,7 +118,7 @@ const PropsMeta _$metaForAbstractInputPropsMixin = PropsMeta(
   keys: AbstractInputPropsMixin.$propKeys,
 );
 
-abstract class AbstractInputStateMixin implements _$AbstractInputStateMixin {
+mixin AbstractInputStateMixin implements _$AbstractInputStateMixin {
   @override
   Map get state;
 

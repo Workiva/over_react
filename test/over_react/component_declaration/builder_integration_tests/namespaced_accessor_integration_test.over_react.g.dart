@@ -18,7 +18,7 @@ final $NamespacedAccessorTestComponentFactory = registerComponent(
   parentType: null,
 );
 
-abstract class _$NamespacedAccessorTestPropsAccessorsMixin
+mixin _$NamespacedAccessorTestPropsAccessorsMixin
     implements _$NamespacedAccessorTestProps {
   @override
   Map get props;
@@ -199,8 +199,7 @@ class _$$NamespacedAccessorTestProps extends _$NamespacedAccessorTestProps
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$NamespacedAccessorTestProps = getPropKey;
-
-abstract class _$NamespacedAccessorTestStateAccessorsMixin
+mixin _$NamespacedAccessorTestStateAccessorsMixin
     implements _$NamespacedAccessorTestState {
   @override
   Map get state;

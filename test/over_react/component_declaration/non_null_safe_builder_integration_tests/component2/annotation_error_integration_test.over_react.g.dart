@@ -19,7 +19,7 @@ final $AnnotationErrorDefaultPropsComponentFactory = registerComponent(
   parentType: null,
 );
 
-abstract class _$AnnotationErrorDefaultPropsPropsAccessorsMixin
+mixin _$AnnotationErrorDefaultPropsPropsAccessorsMixin
     implements _$AnnotationErrorDefaultPropsProps {
   @override
   Map get props;
@@ -131,8 +131,7 @@ final $AnnotationErrorComponentFactory = registerComponent(
   parentType: null,
 );
 
-abstract class _$AnnotationErrorPropsAccessorsMixin
-    implements _$AnnotationErrorProps {
+mixin _$AnnotationErrorPropsAccessorsMixin implements _$AnnotationErrorProps {
   @override
   Map get props;
 
@@ -236,7 +235,7 @@ final $AnnotationErrorStatefulComponentFactory = registerComponent(
   parentType: null,
 );
 
-abstract class _$AnnotationErrorStatefulPropsAccessorsMixin
+mixin _$AnnotationErrorStatefulPropsAccessorsMixin
     implements _$AnnotationErrorStatefulProps {
   @override
   Map get props;
@@ -305,8 +304,7 @@ class _$$AnnotationErrorStatefulProps extends _$AnnotationErrorStatefulProps
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$AnnotationErrorStatefulProps = getPropKey;
-
-abstract class _$AnnotationErrorStatefulStateAccessorsMixin
+mixin _$AnnotationErrorStatefulStateAccessorsMixin
     implements _$AnnotationErrorStatefulState {
   @override
   Map get state;
@@ -389,7 +387,7 @@ final $AnnotationErrorStatefulDefaultPropsComponentFactory = registerComponent(
   parentType: null,
 );
 
-abstract class _$AnnotationErrorStatefulDefaultPropsPropsAccessorsMixin
+mixin _$AnnotationErrorStatefulDefaultPropsPropsAccessorsMixin
     implements _$AnnotationErrorStatefulDefaultPropsProps {
   @override
   Map get props;
@@ -467,8 +465,7 @@ class _$$AnnotationErrorStatefulDefaultPropsProps
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$AnnotationErrorStatefulDefaultPropsProps = getPropKey;
-
-abstract class _$AnnotationErrorStatefulDefaultPropsStateAccessorsMixin
+mixin _$AnnotationErrorStatefulDefaultPropsStateAccessorsMixin
     implements _$AnnotationErrorStatefulDefaultPropsState {
   @override
   Map get state;

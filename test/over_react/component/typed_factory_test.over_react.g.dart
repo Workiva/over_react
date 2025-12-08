@@ -18,7 +18,7 @@ final $TypedFactoryTesterComponentFactory = registerComponent2(
   parentType: null,
 );
 
-abstract class _$TypedFactoryTesterPropsAccessorsMixin
+mixin _$TypedFactoryTesterPropsAccessorsMixin
     implements _$TypedFactoryTesterProps {
   @override
   Map get props;
@@ -133,7 +133,7 @@ class _$$TypedFactoryTesterProps$JsMap extends _$$TypedFactoryTesterProps {
   JsBackedMap _props;
 }
 
-abstract class _$TypedFactoryTesterStateAccessorsMixin
+mixin _$TypedFactoryTesterStateAccessorsMixin
     implements _$TypedFactoryTesterState {
   @override
   Map get state;

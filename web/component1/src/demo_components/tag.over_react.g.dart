@@ -18,7 +18,7 @@ final $TagComponentFactory = registerComponent(
   parentType: null,
 );
 
-abstract class _$TagPropsAccessorsMixin implements _$TagProps {
+mixin _$TagPropsAccessorsMixin implements _$TagProps {
   @override
   Map get props;
 

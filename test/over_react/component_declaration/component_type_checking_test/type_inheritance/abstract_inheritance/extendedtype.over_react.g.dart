@@ -19,8 +19,7 @@ final $TestExtendtypeComponentFactory = registerComponent(
       $TestAbstractComponentFactory, /* from `subtypeOf: TestAbstractComponent` */
 );
 
-abstract class _$TestExtendtypePropsAccessorsMixin
-    implements _$TestExtendtypeProps {
+mixin _$TestExtendtypePropsAccessorsMixin implements _$TestExtendtypeProps {
   @override
   Map get props;
 
