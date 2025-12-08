@@ -26,7 +26,7 @@ main() {
       expect(() {
         StatefulComponentTestState();
       }, throwsA(isA<AssertionError>()));
-    }, testOn: 'dartdevc');
+    }, testOn: 'ddc');
 
     test('renders a component from end to end, successfully reading state via typed getters', () {
       var renderedInstance = render(StatefulComponentTest()());
