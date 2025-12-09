@@ -47,16 +47,12 @@ _$$BasicUiComponentProps _$BasicUiComponent([Map? backingProps]) =>
 class _$$BasicUiComponentProps extends _$BasicUiComponentProps
     with _$BasicUiComponentPropsAccessorsMixin
     implements BasicUiComponentProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$BasicUiComponentProps(Map? backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
-  }
+  _$$BasicUiComponentProps([Map? backingMap])
+      : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
   @override
-  Map get props => _props;
-  Map _props;
+  final Map props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override

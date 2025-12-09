@@ -24,8 +24,8 @@ main() {
     test('state class cannot be instantiated directly', () {
       expect(() {
         StatefulComponentTestState();
-      }, throwsA(isA<IllegalInstantiationError>()));
-    });
+      }, throwsA(isA<AssertionError>()));
+    }, tags: 'ddc');
 
     test('renders a component from end to end, successfully reading state via typed getters', () {
       var renderedInstance = render(StatefulComponentTest()());

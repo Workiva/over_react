@@ -159,26 +159,20 @@ class NamespacedAccessorTestProps extends _$NamespacedAccessorTestProps
 }
 
 _$$NamespacedAccessorTestProps _$NamespacedAccessorTest([Map backingProps]) =>
-    backingProps == null
-        ? _$$NamespacedAccessorTestProps$JsMap(JsBackedMap())
-        : _$$NamespacedAccessorTestProps(backingProps);
+    _$$NamespacedAccessorTestProps(backingProps);
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-abstract class _$$NamespacedAccessorTestProps
-    extends _$NamespacedAccessorTestProps
+class _$$NamespacedAccessorTestProps extends _$NamespacedAccessorTestProps
     with _$NamespacedAccessorTestPropsAccessorsMixin
     implements NamespacedAccessorTestProps {
-  _$$NamespacedAccessorTestProps._();
+  _$$NamespacedAccessorTestProps([Map backingMap])
+      : this.props = backingMap ?? JsBackedMap();
 
-  factory _$$NamespacedAccessorTestProps(Map backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$NamespacedAccessorTestProps$JsMap(backingMap as JsBackedMap);
-    } else {
-      return _$$NamespacedAccessorTestProps$PlainMap(backingMap);
-    }
-  }
+  /// The backing props map proxied by this class.
+  @override
+  final Map props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -208,42 +202,6 @@ abstract class _$$NamespacedAccessorTestProps
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$NamespacedAccessorTestProps = getPropKey;
-
-// Concrete props implementation that can be backed by any [Map].
-class _$$NamespacedAccessorTestProps$PlainMap
-    extends _$$NamespacedAccessorTestProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$NamespacedAccessorTestProps$PlainMap(Map backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
-}
-
-// Concrete props implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-class _$$NamespacedAccessorTestProps$JsMap
-    extends _$$NamespacedAccessorTestProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$NamespacedAccessorTestProps$JsMap(JsBackedMap backingMap)
-      : this._props = JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
-}
-
 mixin _$NamespacedAccessorTestStateAccessorsMixin
     implements _$NamespacedAccessorTestState {
   @override
@@ -387,58 +345,19 @@ class NamespacedAccessorTestState extends _$NamespacedAccessorTestState
 // Concrete state implementation.
 //
 // Implements constructor and backing map.
-abstract class _$$NamespacedAccessorTestState
-    extends _$NamespacedAccessorTestState
+class _$$NamespacedAccessorTestState extends _$NamespacedAccessorTestState
     with _$NamespacedAccessorTestStateAccessorsMixin
     implements NamespacedAccessorTestState {
-  _$$NamespacedAccessorTestState._();
+  _$$NamespacedAccessorTestState([Map backingMap])
+      : this.state = backingMap ?? JsBackedMap();
 
-  factory _$$NamespacedAccessorTestState(Map backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$NamespacedAccessorTestState$JsMap(backingMap as JsBackedMap);
-    } else {
-      return _$$NamespacedAccessorTestState$PlainMap(backingMap);
-    }
-  }
+  /// The backing state map proxied by this class.
+  @override
+  final Map state;
 
   /// Let `UiState` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
-}
-
-// Concrete state implementation that can be backed by any [Map].
-class _$$NamespacedAccessorTestState$PlainMap
-    extends _$$NamespacedAccessorTestState {
-  // This initializer of `_state` to an empty map, as well as the reassignment
-  // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$NamespacedAccessorTestState$PlainMap(Map backingMap)
-      : this._state = {},
-        super._() {
-    this._state = backingMap ?? {};
-  }
-
-  /// The backing state map proxied by this class.
-  @override
-  Map get state => _state;
-  Map _state;
-}
-
-// Concrete state implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-class _$$NamespacedAccessorTestState$JsMap
-    extends _$$NamespacedAccessorTestState {
-  // This initializer of `_state` to an empty map, as well as the reassignment
-  // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$NamespacedAccessorTestState$JsMap(JsBackedMap backingMap)
-      : this._state = JsBackedMap(),
-        super._() {
-    this._state = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing state map proxied by this class.
-  @override
-  JsBackedMap get state => _state;
-  JsBackedMap _state;
 }
 
 // Concrete component implementation mixin.
@@ -447,10 +366,10 @@ class _$$NamespacedAccessorTestState$JsMap
 // generated for the associated props class.
 class _$NamespacedAccessorTestComponent
     extends NamespacedAccessorTestComponent {
-  _$$NamespacedAccessorTestProps$JsMap _cachedTypedProps;
+  _$$NamespacedAccessorTestProps _cachedTypedProps;
 
   @override
-  _$$NamespacedAccessorTestProps$JsMap get props => _cachedTypedProps;
+  _$$NamespacedAccessorTestProps get props => _cachedTypedProps;
 
   @override
   set props(Map value) {
@@ -467,17 +386,16 @@ class _$NamespacedAccessorTestComponent
   }
 
   @override
-  _$$NamespacedAccessorTestProps$JsMap typedPropsFactoryJs(
-          JsBackedMap backingMap) =>
-      _$$NamespacedAccessorTestProps$JsMap(backingMap);
+  _$$NamespacedAccessorTestProps typedPropsFactoryJs(JsBackedMap backingMap) =>
+      _$$NamespacedAccessorTestProps(backingMap);
 
   @override
   _$$NamespacedAccessorTestProps typedPropsFactory(Map backingMap) =>
       _$$NamespacedAccessorTestProps(backingMap);
 
-  _$$NamespacedAccessorTestState$JsMap _cachedTypedState;
+  _$$NamespacedAccessorTestState _cachedTypedState;
   @override
-  _$$NamespacedAccessorTestState$JsMap get state => _cachedTypedState;
+  _$$NamespacedAccessorTestState get state => _cachedTypedState;
 
   @override
   set state(Map value) {
@@ -490,9 +408,8 @@ class _$NamespacedAccessorTestComponent
   }
 
   @override
-  _$$NamespacedAccessorTestState$JsMap typedStateFactoryJs(
-          JsBackedMap backingMap) =>
-      _$$NamespacedAccessorTestState$JsMap(backingMap);
+  _$$NamespacedAccessorTestState typedStateFactoryJs(JsBackedMap backingMap) =>
+      _$$NamespacedAccessorTestState(backingMap);
 
   @override
   _$$NamespacedAccessorTestState typedStateFactory(Map backingMap) =>

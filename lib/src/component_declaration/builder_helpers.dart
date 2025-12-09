@@ -40,10 +40,14 @@ class GeneratedClass {
   /// This should ONLY be overridden by code generation; behavior is undefined otherwise.
   bool get $isClassGenerated => false;
 
-  void _throwIfNotGenerated() {
-    if (!this.$isClassGenerated) {
-      throw IllegalInstantiationError(runtimeType: this.runtimeType);
-    }
+  void _assertIsGenerated() {
+    assert(
+        this.$isClassGenerated,
+        'This type cannot be instantiated directly, but only indirectly via the UiFactoryBe sure to follow usage instructions for over_react component classes.\n\n'
+        'If you need to do something extra custom and want to implement everything without code generation, '
+        'base classes are available by importing the '
+        '`package:over_react/src/component_declaration/component_base.dart` '
+        'library directly. ');
   }
 }
 
@@ -80,7 +84,7 @@ abstract class UiComponent<TProps extends UiProps>
         _GeneratedUiComponentStubs<TProps> {
   /// This class should not be instantiated directly, and throws an error to indicate this.
   UiComponent() {
-    _throwIfNotGenerated();
+    _assertIsGenerated();
   }
 }
 
@@ -97,7 +101,7 @@ abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiStat
         _GeneratedUiComponentStubs<TProps> {
   /// This class should not be instantiated directly, and throws an error to indicate this.
   UiStatefulComponent() {
-    _throwIfNotGenerated();
+    _assertIsGenerated();
   }
 
   @override
@@ -117,7 +121,7 @@ abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiStat
 abstract class UiProps extends component_base.UiProps with GeneratedClass {
   /// This class should not be instantiated directly, and throws an error to indicate this.
   UiProps() {
-    _throwIfNotGenerated();
+    _assertIsGenerated();
   }
 
   @Deprecated(
@@ -290,7 +294,7 @@ extension PropsToForward<T extends UiProps> on T {
 abstract class UiState extends component_base.UiState with GeneratedClass {
   /// This class should not be instantiated directly, and throws an error to indicate this.
   UiState() {
-    _throwIfNotGenerated();
+    _assertIsGenerated();
   }
 
   @override @toBeGenerated Map get state => throw UngeneratedError(member: #state);
@@ -323,23 +327,6 @@ class UngeneratedError extends Error implements UnimplementedError {
   String toString() =>
       'UngeneratedError: ${message.trimRight()}.\n\n'
       'Ensure that you\'re running a build via build_runner.';
-}
-
-/// Thrown when a class is directly instantiated when it should not be.
-class IllegalInstantiationError extends Error {
-  final String message;
-  IllegalInstantiationError({String? message, Type? runtimeType}) :
-      this.message = message ?? '`$runtimeType` cannot be instantated directly, but only indirectly via the UiFactory';
-
-
-  @override
-  String toString() =>
-      'IllegalInstantiationError: $message.\n\n'
-      'Be sure to follow usage instructions for over_react component classes.\n\n'
-      'If you need to do something extra custom and want to implement everything without code generation, '
-      'base classes are available by importing the '
-      '`package:over_react/src/component_declaration/component_base.dart` '
-      'library directly. ';
 }
 
 

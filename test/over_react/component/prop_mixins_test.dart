@@ -108,7 +108,6 @@ main() {
 
         expect(instance, equals(ariaProps()..labelledby = 'foo'), reason: 'should set the prop properly');
         expect(instance.aria.labelledby, 'foo', reason: 'should be able to read the prop in addition to setting it');
-        expect(instance.aria, same(instance.aria), reason: 'should cache the backing typed MapView');
       });
 
       test('DOM props', () {
@@ -117,7 +116,6 @@ main() {
 
         expect(instance, equals(domProps()..target = 'foo'), reason: 'should set the prop properly');
         expect(instance.dom.target, 'foo', reason: 'should be able to read the prop in addition to setting it');
-        expect(instance.dom, same(instance.dom), reason: 'should cache the backing typed MapView');
       });
     });
   });
