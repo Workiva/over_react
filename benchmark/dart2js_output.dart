@@ -188,8 +188,7 @@ Future<String> getCompiledComponentCode({
   }, overReactDep: overReactDep, minify: false);
 
   final baselineCompiledFile = result.getCompiledDart2jsFile('baseline.dart');
-  final additionalCompiledFile =
-      result.getCompiledDart2jsFile('additional.dart');
+  final additionalCompiledFile = result.getCompiledDart2jsFile('additional.dart');
 
   return gitDiffNoIndex(
     createNormalizedDart2jsFile(baselineCompiledFile).path,
@@ -222,8 +221,7 @@ Future<String> gitDiffNoIndex(
     return result.stdout as String;
   }
 
-  throw Exception(
-      'Error diffing files. Exit code: ${result.exitCode} stderr: $stderr');
+  throw Exception('Error diffing files. Exit code: ${result.exitCode} stderr: $stderr');
 }
 
 /// Gets the total size of a single test component, plus usage that sets all props,
@@ -249,10 +247,8 @@ Future<int> getComponentAndUsageSize({
     ),
   }, overReactDep: overReactDep);
 
-  final baselineFileSize =
-      result.getCompiledDart2jsFile('baseline.dart').statSync().size;
-  final additionalFileSize =
-      result.getCompiledDart2jsFile('additional.dart').statSync().size;
+  final baselineFileSize = result.getCompiledDart2jsFile('baseline.dart').statSync().size;
+  final additionalFileSize = result.getCompiledDart2jsFile('additional.dart').statSync().size;
   validateFileSize(baselineFileSize);
   validateFileSize(additionalFileSize);
 

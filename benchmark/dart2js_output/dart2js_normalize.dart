@@ -19,8 +19,7 @@ String normalizeDart2jsContents(String contents) => contents
       return match.group(1)! + '####'; // compile-time constant declarations
     })
     // Remove newlines in empty function bodies
-    .replaceAllMapped(
-        RegExp(r'(function [\w$]+\(\) {)\s+}'), (match) => '${match[1]}}')
+    .replaceAllMapped(RegExp(r'(function [\w$]+\(\) {)\s+}'), (match) => '${match[1]}}')
     // Break up long type inheritance lists onto separate lines
     .replaceAllMapped(RegExp(r'(_inheritMany\()([^\n]+)(\]\);)'), (match) {
       return '${match[1]}${match[2]!.replaceAll(', ', ',\n      ')},\n    ${match[3]}';
@@ -38,8 +37,8 @@ String normalizeDart2jsContents(String contents) => contents
       final stringContents = match.group(1)!;
       String formatted;
       try {
-        formatted = const JsonEncoder.withIndent(' ')
-            .convert(deepSorted(jsonDecode(stringContents)));
+        formatted =
+            const JsonEncoder.withIndent(' ').convert(deepSorted(jsonDecode(stringContents)));
       } catch (_) {
         formatted = stringContents.replaceAll(',"', ',\n"');
       }

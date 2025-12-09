@@ -66,13 +66,11 @@ Future<BuildResult> compileOverReactProgram({
   final webPath = p.join(packagePath, 'web');
   webFilesByName.forEach((name, contentsTemplate) {
     final filePath = p.join(packagePath, 'web', name);
-    final partFilename =
-        p.basenameWithoutExtension(name) + '.over_react.g.dart';
+    final partFilename = p.basenameWithoutExtension(name) + '.over_react.g.dart';
     final contents = contentsTemplate.replaceAll('{{PART_PATH}}', partFilename);
 
     if (!p.isWithin(webPath, filePath)) {
-      throw ArgumentError.value(
-          name, 'Filename must be a relative path without any `..`.');
+      throw ArgumentError.value(name, 'Filename must be a relative path without any `..`.');
     }
     File(filePath)
       ..parent.createSync(recursive: true)
@@ -89,8 +87,7 @@ Future<BuildResult> compileOverReactProgram({
     runInShell: true,
   );
   if (pubGetResult.exitCode != 0) {
-    throw Exception(
-        'Unexpected `pub get` failure in temporary package: $packagePath\n'
+    throw Exception('Unexpected `pub get` failure in temporary package: $packagePath\n'
         '${pubGetResult.infoForErrorMessage}');
   }
 
@@ -117,8 +114,7 @@ Future<BuildResult> compileOverReactProgram({
     ..parent.createSync(recursive: true)
     ..writeAsStringSync(buildResult.stdout.toString());
   if (buildResult.exitCode != 0) {
-    throw Exception(
-        'Unexpected build failure in temporary package: $packagePath\n'
+    throw Exception('Unexpected build failure in temporary package: $packagePath\n'
         '${buildResult.infoForErrorMessage}');
   }
 
@@ -155,14 +151,10 @@ extension BuildResultUtils on BuildResult {
         throw Exception('Compiled file ${compiledFile.path} does not exist');
       }
     } else {
-      final candidates = webFolder
-          .listSync()
-          .whereType<File>()
-          .where((f) => f.path.endsWith('.dart.js'))
-          .toList();
+      final candidates =
+          webFolder.listSync().whereType<File>().where((f) => f.path.endsWith('.dart.js')).toList();
       if (candidates.length != 1) {
-        throw Exception(
-            'Expected a single dart2js output, but found ${candidates.length}:'
+        throw Exception('Expected a single dart2js output, but found ${candidates.length}:'
             '${candidates.map((c) => '\n- ${c.path}')}');
       }
       compiledFile = candidates.single;

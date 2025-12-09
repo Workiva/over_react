@@ -50,9 +50,7 @@ const mainAntiTreeShakingStatements = '''
 ''';
 
 String propDeclarations(Map propTypesByName) {
-  return propTypesByName
-      .mapEntries((name, type) => 'late $type $name;')
-      .join('\n');
+  return propTypesByName.mapEntries((name, type) => 'late $type $name;').join('\n');
 }
 
 String propReadStatements(Iterable<String> propNames) {
