@@ -275,8 +275,7 @@ abstract class _$UbiquitousDomPropsMixin {
   ///     (Button()
   ///       ..aria.controls = 'my_popover'
   ///     )('Open popover')
-  @Accessor(doNotGenerate: true)
-  late final AriaPropsMixin aria = AriaPropsMapView(props);
+  AriaPropsMixin get aria => AriaPropsMapView(props);
 
   /// A view into this map that can be used to access DOM props, for convenience.
   ///
@@ -285,8 +284,7 @@ abstract class _$UbiquitousDomPropsMixin {
   ///     (Tab()
   ///       ..dom.draggable = true
   ///     )('Untitled Document')
-  @Accessor(doNotGenerate: true)
-  late final DomPropsMixin dom = DomProps(null, props);
+  DomPropsMixin get dom => DomProps(null, props);
 
   /// Whether the element if focusable.
   /// Must be a valid integer or String of valid integer.

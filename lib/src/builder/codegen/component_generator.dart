@@ -60,10 +60,10 @@ abstract class ComponentGenerator extends BoilerplateDeclarationGenerator {
       // implemented for Component2.
       // This implementation here is necessary so that mixin accesses aren't compiled as index$ax
       outputContentsBuffer
-        ..writeln('  ${nullSafety ? 'late ' : ''}${propsNames.jsMapImplName} _cachedTypedProps;')
+        ..writeln('  ${nullSafety ? 'late ' : ''}${propsNames.implName} _cachedTypedProps;')
         ..writeln()
         ..writeln('  @override')
-        ..writeln('  ${propsNames.jsMapImplName} get props => _cachedTypedProps;')
+        ..writeln('  ${propsNames.implName} get props => _cachedTypedProps;')
         ..writeln()
         ..writeln('  @override')
         ..writeln('  set props(Map value) {')
@@ -81,8 +81,8 @@ abstract class ComponentGenerator extends BoilerplateDeclarationGenerator {
         ..writeln()
         ..writeln('  @override ')
         ..writeln(
-            '  ${propsNames.jsMapImplName} typedPropsFactoryJs(JsBackedMap${nullSafety ? '?' : ''} backingMap)'
-            ' => ${propsNames.jsMapImplName}(backingMap);')
+            '  ${propsNames.implName} typedPropsFactoryJs(JsBackedMap${nullSafety ? '?' : ''} backingMap)'
+            ' => ${propsNames.implName}(backingMap);')
         ..writeln();
     }
 
@@ -96,9 +96,9 @@ abstract class ComponentGenerator extends BoilerplateDeclarationGenerator {
       final stateNames = this.stateNames!;
       if (isComponent2) {
         outputContentsBuffer
-          ..writeln('  ${nullSafety ? 'late ' : ''}${stateNames.jsMapImplName} _cachedTypedState;')
+          ..writeln('  ${nullSafety ? 'late ' : ''}${stateNames.implName} _cachedTypedState;')
           ..writeln('  @override')
-          ..writeln('  ${stateNames.jsMapImplName} get state => _cachedTypedState;')
+          ..writeln('  ${stateNames.implName} get state => _cachedTypedState;')
           ..writeln()
           ..writeln('  @override')
           ..writeln('  set state(Map value) {')
@@ -111,8 +111,8 @@ abstract class ComponentGenerator extends BoilerplateDeclarationGenerator {
           ..writeln()
           ..writeln('  @override ')
           ..writeln(
-              '  ${stateNames.jsMapImplName} typedStateFactoryJs(JsBackedMap${nullSafety ? '?' : ''} backingMap)'
-              ' => ${stateNames.jsMapImplName}(backingMap);')
+              '  ${stateNames.implName} typedStateFactoryJs(JsBackedMap${nullSafety ? '?' : ''} backingMap)'
+              ' => ${stateNames.implName}(backingMap);')
           ..writeln();
       }
       outputContentsBuffer

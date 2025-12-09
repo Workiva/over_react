@@ -7,7 +7,7 @@ part of 'aria_mixin.dart';
 // OverReactBuilder (package:over_react/src/builder.dart)
 // **************************************************************************
 
-abstract class AriaPropsMixin implements _$AriaPropsMixin {
+mixin AriaPropsMixin implements _$AriaPropsMixin {
   @override
   Map get props;
 

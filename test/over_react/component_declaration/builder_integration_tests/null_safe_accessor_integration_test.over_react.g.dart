@@ -18,8 +18,7 @@ final $NullSafeTestComponentFactory = registerComponent(
   parentType: null,
 );
 
-abstract class _$NullSafeTestPropsAccessorsMixin
-    implements _$NullSafeTestProps {
+mixin _$NullSafeTestPropsAccessorsMixin implements _$NullSafeTestProps {
   @override
   Map get props;
 
@@ -224,16 +223,12 @@ _$$NullSafeTestProps _$NullSafeTest([Map? backingProps]) =>
 class _$$NullSafeTestProps extends _$NullSafeTestProps
     with _$NullSafeTestPropsAccessorsMixin
     implements NullSafeTestProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$NullSafeTestProps(Map? backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
-  }
+  _$$NullSafeTestProps([Map? backingMap])
+      : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
   @override
-  Map get props => _props;
-  Map _props;
+  final Map props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -257,9 +252,7 @@ class _$$NullSafeTestProps extends _$NullSafeTestProps
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$NullSafeTestProps = getPropKey;
-
-abstract class _$NullSafeTestStateAccessorsMixin
-    implements _$NullSafeTestState {
+mixin _$NullSafeTestStateAccessorsMixin implements _$NullSafeTestState {
   @override
   Map get state;
 
@@ -438,16 +431,12 @@ class NullSafeTestState extends _$NullSafeTestState
 class _$$NullSafeTestState extends _$NullSafeTestState
     with _$NullSafeTestStateAccessorsMixin
     implements NullSafeTestState {
-  // This initializer of `_state` to an empty map, as well as the reassignment
-  // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$NullSafeTestState(Map? backingMap) : this._state = {} {
-    this._state = backingMap ?? {};
-  }
+  _$$NullSafeTestState([Map? backingMap])
+      : this.state = backingMap ?? JsBackedMap();
 
   /// The backing state map proxied by this class.
   @override
-  Map get state => _state;
-  Map _state;
+  final Map state;
 
   /// Let `UiState` internals know that this class has been generated.
   @override

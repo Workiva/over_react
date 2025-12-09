@@ -19,7 +19,7 @@ final $StatefulComponentTestComponentFactory = registerComponent(
   parentType: null,
 );
 
-abstract class _$StatefulComponentTestPropsAccessorsMixin
+mixin _$StatefulComponentTestPropsAccessorsMixin
     implements _$StatefulComponentTestProps {
   @override
   Map get props;
@@ -49,16 +49,12 @@ _$$StatefulComponentTestProps _$StatefulComponentTest([Map backingProps]) =>
 class _$$StatefulComponentTestProps extends _$StatefulComponentTestProps
     with _$StatefulComponentTestPropsAccessorsMixin
     implements StatefulComponentTestProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$StatefulComponentTestProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
-  }
+  _$$StatefulComponentTestProps([Map backingMap])
+      : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
   @override
-  Map get props => _props;
-  Map _props;
+  final Map props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -88,8 +84,7 @@ class _$$StatefulComponentTestProps extends _$StatefulComponentTestProps
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$StatefulComponentTestProps = getPropKey;
-
-abstract class _$StatefulComponentTestStateAccessorsMixin
+mixin _$StatefulComponentTestStateAccessorsMixin
     implements _$StatefulComponentTestState {
   @override
   Map get state;
@@ -235,16 +230,12 @@ class StatefulComponentTestState extends _$StatefulComponentTestState
 class _$$StatefulComponentTestState extends _$StatefulComponentTestState
     with _$StatefulComponentTestStateAccessorsMixin
     implements StatefulComponentTestState {
-  // This initializer of `_state` to an empty map, as well as the reassignment
-  // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$StatefulComponentTestState(Map backingMap) : this._state = {} {
-    this._state = backingMap ?? {};
-  }
+  _$$StatefulComponentTestState([Map backingMap])
+      : this.state = backingMap ?? JsBackedMap();
 
   /// The backing state map proxied by this class.
   @override
-  Map get state => _state;
-  Map _state;
+  final Map state;
 
   /// Let `UiState` internals know that this class has been generated.
   @override

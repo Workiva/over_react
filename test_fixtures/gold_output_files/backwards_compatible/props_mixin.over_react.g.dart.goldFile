@@ -8,7 +8,7 @@ part of 'props_mixin.dart';
 // OverReactBuilder (package:over_react/src/builder.dart)
 // **************************************************************************
 
-abstract class $ExamplePropsMixinClass implements ExamplePropsMixinClass {
+mixin $ExamplePropsMixinClass implements ExamplePropsMixinClass {
   @override
   Map get props;
 
@@ -42,7 +42,7 @@ const PropsMeta _$metaForExamplePropsMixinClass = PropsMeta(
   keys: $ExamplePropsMixinClass.$propKeys,
 );
 
-abstract class $MixesInOtherMixinMixin<T extends Iterable, U>
+mixin $MixesInOtherMixinMixin<T extends Iterable, U>
     implements MixesInOtherMixinMixin<T, U> {
   @override
   Map get props;

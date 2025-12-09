@@ -19,7 +19,7 @@ final $TestSubtypeComponentFactory = registerComponent(
       $TestParentComponentFactory, /* from `subtypeOf: TestParentComponent` */
 );
 
-abstract class _$TestSubtypePropsAccessorsMixin implements _$TestSubtypeProps {
+mixin _$TestSubtypePropsAccessorsMixin implements _$TestSubtypeProps {
   @override
   Map get props;
 
@@ -48,16 +48,12 @@ _$$TestSubtypeProps _$TestSubtype([Map? backingProps]) =>
 class _$$TestSubtypeProps extends _$TestSubtypeProps
     with _$TestSubtypePropsAccessorsMixin
     implements TestSubtypeProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestSubtypeProps(Map? backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
-  }
+  _$$TestSubtypeProps([Map? backingMap])
+      : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
   @override
-  Map get props => _props;
-  Map _props;
+  final Map props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override

@@ -19,8 +19,7 @@ final $BasicPartOfLibComponentFactory = registerComponent(
   parentType: null,
 );
 
-abstract class _$BasicPartOfLibPropsAccessorsMixin
-    implements _$BasicPartOfLibProps {
+mixin _$BasicPartOfLibPropsAccessorsMixin implements _$BasicPartOfLibProps {
   @override
   Map get props;
 
@@ -145,16 +144,12 @@ _$$BasicPartOfLibProps _$BasicPartOfLib([Map backingProps]) =>
 class _$$BasicPartOfLibProps extends _$BasicPartOfLibProps
     with _$BasicPartOfLibPropsAccessorsMixin
     implements BasicPartOfLibProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$BasicPartOfLibProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
-  }
+  _$$BasicPartOfLibProps([Map backingMap])
+      : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
   @override
-  Map get props => _props;
-  Map _props;
+  final Map props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -187,9 +182,7 @@ class _$$BasicPartOfLibProps extends _$BasicPartOfLibProps
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$BasicPartOfLibProps = getPropKey;
-
-abstract class _$BasicPartOfLibStateAccessorsMixin
-    implements _$BasicPartOfLibState {
+mixin _$BasicPartOfLibStateAccessorsMixin implements _$BasicPartOfLibState {
   @override
   Map get state;
 
@@ -227,16 +220,12 @@ const StateMeta _$metaForBasicPartOfLibState = StateMeta(
 class _$$BasicPartOfLibState extends _$BasicPartOfLibState
     with _$BasicPartOfLibStateAccessorsMixin
     implements BasicPartOfLibState {
-  // This initializer of `_state` to an empty map, as well as the reassignment
-  // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$BasicPartOfLibState(Map backingMap) : this._state = {} {
-    this._state = backingMap ?? {};
-  }
+  _$$BasicPartOfLibState([Map backingMap])
+      : this.state = backingMap ?? JsBackedMap();
 
   /// The backing state map proxied by this class.
   @override
-  Map get state => _state;
-  Map _state;
+  final Map state;
 
   /// Let `UiState` internals know that this class has been generated.
   @override
@@ -282,8 +271,7 @@ final $SubPartOfLibComponentFactory = registerComponent(
   parentType: null,
 );
 
-abstract class _$SubPartOfLibPropsAccessorsMixin
-    implements _$SubPartOfLibProps {
+mixin _$SubPartOfLibPropsAccessorsMixin implements _$SubPartOfLibProps {
   @override
   Map get props;
 
@@ -322,16 +310,12 @@ _$$SubPartOfLibProps _$SubPartOfLib([Map backingProps]) =>
 class _$$SubPartOfLibProps extends _$SubPartOfLibProps
     with _$SubPartOfLibPropsAccessorsMixin
     implements SubPartOfLibProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$SubPartOfLibProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
-  }
+  _$$SubPartOfLibProps([Map backingMap])
+      : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
   @override
-  Map get props => _props;
-  Map _props;
+  final Map props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -389,8 +373,7 @@ class _$SubPartOfLibComponent extends SubPartOfLibComponent {
   ];
 }
 
-abstract class _$SuperPartOfLibPropsAccessorsMixin
-    implements _$SuperPartOfLibProps {
+mixin _$SuperPartOfLibPropsAccessorsMixin implements _$SuperPartOfLibProps {
   @override
   Map get props;
 

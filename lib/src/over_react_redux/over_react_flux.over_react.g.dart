@@ -7,7 +7,7 @@ part of 'over_react_flux.dart';
 // OverReactBuilder (package:over_react/src/builder.dart)
 // **************************************************************************
 
-abstract class ConnectFluxPropsMixin<TActions>
+mixin ConnectFluxPropsMixin<TActions>
     implements _$ConnectFluxPropsMixin<TActions> {
   @override
   Map get props;

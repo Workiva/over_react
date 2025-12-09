@@ -8,7 +8,7 @@ part of 'state_mixin.dart';
 // OverReactBuilder (package:over_react/src/builder.dart)
 // **************************************************************************
 
-abstract class $ExampleStateMixinClass implements ExampleStateMixinClass {
+mixin $ExampleStateMixinClass implements ExampleStateMixinClass {
   @override
   Map get state;
 
