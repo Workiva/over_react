@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:args/command_runner.dart';
@@ -6,6 +5,7 @@ import 'package:meta/meta.dart';
 
 import 'dart2js_output/compile.dart';
 import 'dart2js_output/dart2js_normalize.dart';
+import 'dart2js_output/dependency.dart';
 import 'dart2js_output/logging.dart';
 import 'dart2js_output/source.dart' as source;
 
@@ -20,16 +20,6 @@ Future<void> main(List<String> args) async {
 
   await runner.run(args);
 }
-
-final _originMasterDep = jsonEncode({
-  'git': {
-    'url': Directory.current.uri.toString(),
-    'ref': 'origin/HEAD',
-  }
-});
-final _localPathDep = jsonEncode({
-  'path': Directory.current.path,
-});
 
 abstract class BaseCommand extends Command {
   BaseCommand() {
@@ -48,20 +38,21 @@ abstract class CompareCommand extends BaseCommand {
     argParser.addOption(
       'head',
       help: 'Head over_react dependency to compare to the base.'
+          ' Supports dependencies entry in JSON format, or `git:<ref>` shorthand.'
           ' Defaults to the enclosing local working copy of over_react.',
-      defaultsTo: _localPathDep,
+      defaultsTo: localPathDepString,
     );
     argParser.addOption(
       'base',
       help: 'Base over_react dependency to compare against.'
-          ' Defaults to origin/master.',
-      defaultsTo: _originMasterDep,
+          ' Supports dependencies entry in JSON format, or `git:<ref>` shorthand.',
+      defaultsTo: originHeadDepString,
     );
   }
 
-  dynamic get _baseDep => jsonDecode(argResults!['base'] as String);
+  dynamic get _baseDep => parseDependency(argResults!['base'] as String);
 
-  dynamic get _headDep => jsonDecode(argResults!['head'] as String);
+  dynamic get _headDep => parseDependency(argResults!['head'] as String);
 }
 
 class CompareSizeCommand extends CompareCommand {
@@ -128,12 +119,13 @@ class GetCodeCommand extends BaseCommand {
     argParser.addOption(
       'dependency',
       help: 'over_react dependency to compile with.'
+          ' Supports dependencies entry in JSON format, or `git:<ref>` shorthand.'
           ' Defaults to the enclosing local working copy of over_react.',
-      defaultsTo: _localPathDep,
+      defaultsTo: localPathDepString,
     );
   }
 
-  dynamic get _dep => jsonDecode(argResults!['dependency'] as String);
+  dynamic get _dep => parseDependency(argResults!['dependency'] as String);
 
   @override
   Future<void> run() async {
