@@ -15,6 +15,7 @@
 // ignore_for_file: deprecated_member_use_from_same_package
 
 import 'dart:js';
+import 'dart:collection';
 
 import 'package:meta/meta.dart';
 import 'package:over_react/src/component/dummy_component2.dart';
@@ -357,6 +358,21 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   @toBeGenerated
   PropsMetaCollection get propsMeta => throw UngeneratedError(member: #propsMeta);
 
+  /// Cache the flattened consumed prop keys to avoid rebuilding on every call.
+  /// This is lazily initialized and computed only once per component instance.
+  HashSet<String>? _cachedConsumedPropKeys;
+
+  /// Returns the cached flattened set of consumed prop keys, computing it if necessary.
+  HashSet<String>? get _consumedPropKeys {
+    if (_cachedConsumedPropKeys == null && consumedProps != null) {
+      _cachedConsumedPropKeys = consumedProps!.fold(
+        HashSet<String>(),
+        (set, consumedProps) => set?..addAll(consumedProps.keys)
+      );
+    }
+    return _cachedConsumedPropKeys;
+  }
+
   /// A prop modifier that passes a reference of a component's `props` to be updated with any unconsumed props.
   ///
   /// Call within `modifyProps` like so:
@@ -372,11 +388,7 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   ///
   /// > Related [addUnconsumedDomProps]
   void addUnconsumedProps(Map props) {
-    // TODO: cache this value to avoid unnecessary looping
-    var consumedPropKeys = consumedProps?.map((consumedProps) => consumedProps.keys) ?? const [];
-
-    forwardUnconsumedProps(this.props, propsToUpdate: props,
-        keySetsToOmit: consumedPropKeys);
+    forwardUnconsumedPropsV2(this.props, propsToUpdate: props, keysToOmit: _consumedPropKeys);
   }
 
   /// A prop modifier that passes a reference of a component's `props` to be updated with any unconsumed `DomProps`.
@@ -394,10 +406,7 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   ///
   /// > Related [addUnconsumedProps]
   void addUnconsumedDomProps(Map props) {
-    var consumedPropKeys = consumedProps?.map((consumedProps) => consumedProps.keys) ?? const [];
-
-    forwardUnconsumedProps(this.props, propsToUpdate: props, keySetsToOmit:
-        consumedPropKeys, onlyCopyDomProps: true);
+    forwardUnconsumedPropsV2(this.props, propsToUpdate: props, keysToOmit: _consumedPropKeys, onlyCopyDomProps: true);
   }
 
   /// Returns a copy of this component's props with React props optionally omitted, and
