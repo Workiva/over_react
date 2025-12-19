@@ -42,7 +42,7 @@ void main() {
           reason: 'getter should convert value');
     });
 
-    test('@convertJsMapProp works as expected', () {
+    group('@convertJsMapProp works as expected', () {
       test('without generics', () {
         final map = {'abc': true};
         final propKey = Test().getPropKey((p) => p.mapPropWithGenerics);
