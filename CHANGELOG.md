@@ -3,6 +3,7 @@
 ## 5.5.0
 - [#989] Optimize generated code to decrease dart2js compile size, saving ~577 bytes per component (when using `-03 --csp --minify`)
 - [#992] Fix compilation errors for legacy boilerplate defined in libraries with a Dart language version of >=3.0
+- [#993] Allow `@convertJsMapProp` props to be typed as `Map<dynamic, dynamic>?`, not just `Map?`
 
 ## 5.4.6
 - [#986] Set up gha-dart-oss
