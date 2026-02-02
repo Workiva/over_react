@@ -6,7 +6,12 @@ final localPathDepString = jsonEncode({
   'path': Directory.current.path,
 });
 
-dynamic parseDependency(String dependency) {
+/// Parses a string representation of an `over_react` [dependency] from a command-line arg.
+///
+/// Supports either
+/// - a JSON format, equivalent to the YAML-parsed value of `dependencies`.`over_react` in a pubspec.yaml
+/// - a `git:<ref>` shorthand
+dynamic parseOverReactDependency(String dependency) {
   final gitShorthandMatch = RegExp(r'^git:(.+)$').matchAsPrefix(dependency);
   if (gitShorthandMatch != null) {
     return {

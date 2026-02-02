@@ -50,9 +50,9 @@ abstract class CompareCommand extends BaseCommand {
     );
   }
 
-  dynamic get _baseDep => parseDependency(argResults!['base'] as String);
+  dynamic get _baseDep => parseOverReactDependency(argResults!['base'] as String);
 
-  dynamic get _headDep => parseDependency(argResults!['head'] as String);
+  dynamic get _headDep => parseOverReactDependency(argResults!['head'] as String);
 }
 
 class CompareSizeCommand extends CompareCommand {
@@ -125,7 +125,7 @@ class GetCodeCommand extends BaseCommand {
     );
   }
 
-  dynamic get _dep => parseDependency(argResults!['dependency'] as String);
+  dynamic get _dep => parseOverReactDependency(argResults!['dependency'] as String);
 
   @override
   Future<void> run() async {

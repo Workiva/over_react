@@ -1,3 +1,5 @@
+/// Returns Dart source for a general (function) component declaration,
+/// for use in various benchmarks.
 String componentBenchmark({
   required int componentCount,
   required int propsCount,
