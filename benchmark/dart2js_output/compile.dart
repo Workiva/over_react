@@ -79,6 +79,10 @@ Future<BuildResult> compileOverReactProgram({
 
   const dartExecutable = 'dart';
 
+  final dartVersion =
+      (await Process.run(dartExecutable, ['--version'], runInShell: true)).stdout.toString().trim();
+  logger.fine('Dart version used for compilation (`dart --version`): $dartVersion');
+
   logger.fine('Running pub get...');
   final pubGetResult = await Process.run(
     dartExecutable,
