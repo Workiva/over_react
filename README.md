@@ -1029,6 +1029,64 @@ which ignores this warning by default.
 
 &nbsp;
 
+## Environment Configuration
+
+OverReact includes utilities for managing deployment environment configuration, including support for the `prod-ca` environment.
+
+### Supported Environments
+
+The library supports the following deployment environments:
+
+- **`prod`** - Production environment (US) - `https://www.wdesk.com`
+- **`prod-ca`** - Production environment (Canada) - `https://ca.wdesk.com`
+- **`staging`** - Staging environment - `https://staging.wdesk.com`
+- **`dev`** - Development environment - `http://localhost:8080`
+- **`qa`** - QA environment - `https://qa.wdesk.com`
+
+### Usage
+
+The environment is automatically detected from the current browser hostname. You can also explicitly set the environment:
+
+```dart
+import 'package:over_react/over_react.dart';
+
+// Get current environment configuration
+final config = getCurrentEnvironmentConfig();
+print('Current base URL: ${config.baseUrl}');
+print('Current API URL: ${config.effectiveApiBaseUrl}');
+
+// Check if running in production (including prod-ca)
+if (isProductionEnvironment) {
+  // Production-specific logic
+}
+
+// Explicitly set environment
+environmentManager.setEnvironment(
+  const EnvironmentConfig(
+    environment: DeploymentEnvironment.prodCa,
+    baseUrl: 'https://ca.wdesk.com',
+    apiBaseUrl: 'https://ca.wdesk.com/api',
+    authEndpoint: 'https://ca.wdesk.com/auth',
+  ),
+);
+
+// Convenience functions
+final baseUrl = getCurrentBaseUrl();
+final apiUrl = getCurrentApiBaseUrl();
+final authUrl = getCurrentAuthEndpoint();
+```
+
+### Environment Detection
+
+The environment is detected from the browser hostname:
+- `ca.wdesk.com` or `*.ca.wdesk.com` → `prod-ca`
+- `*.wdesk.com` (without staging/dev/qa) → `prod`
+- `staging.wdesk.com` or `*.staging.wdesk.com` → `staging`
+- `qa.wdesk.com` or `*.qa.wdesk.com` → `qa`
+- `localhost` or other → `dev`
+
+&nbsp;
+
 ## Contributing
 
 Yes please! ([__Please read our contributor guidelines first__][contributing-docs])
