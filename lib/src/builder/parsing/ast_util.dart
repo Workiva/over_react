@@ -69,8 +69,8 @@ extension TypeAnnotationNameHelper on TypeAnnotation {
 /// field of [Identifier]s.
 extension TypeNameHelper on NamedType {
   // Backwards compatibility for various analyzer versions that remove name/name2.
-  dynamic get name => name2;
-  dynamic get name2 => name;
+  dynamic get name => this.name2; // Use `this.` to point to real impl if it exists, not extension.
+  dynamic get name2 => this.name; // Use `this.` to point to real impl if it exists, not extension.
   dynamic get _name => name;
   String get nameLexeme {
     final name = this._name;
