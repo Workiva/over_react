@@ -47,7 +47,7 @@ class NodeWithMeta<TNode extends AnnotatedNode, TMeta> {
       : this.node = node,
         this.metaNode = getMatchingAnnotation(node, TMeta) {
     this._meta = instantiateAnnotation(node, TMeta,
-        onUnsupportedArgument: unsupportedArguments.add);
+        onUnsupportedArgument: unsupportedArguments.add) as TMeta?;
   }
 
   /// Whether this node's metadata has arguments that could not be initialized using [getValue]

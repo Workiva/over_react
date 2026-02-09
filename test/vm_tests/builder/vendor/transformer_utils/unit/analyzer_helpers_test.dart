@@ -249,31 +249,31 @@ main() {
     group('instantiates an annotation with a parameter value specified as', () {
       test('a string literal', () {
         var node = parseAndGetSingleMember('@TestAnnotation("hello")\nvar a;');
-        TestAnnotation instance = instantiateAnnotation(node, TestAnnotation);
+        final instance = instantiateAnnotation(node, TestAnnotation) as TestAnnotation;
         expect(instance.positional, "hello");
       });
 
       test('a concatenated string literal', () {
         var node = parseAndGetSingleMember('@TestAnnotation("he" "y")\nvar a;');
-        TestAnnotation instance = instantiateAnnotation(node, TestAnnotation);
+        final instance = instantiateAnnotation(node, TestAnnotation) as TestAnnotation;
         expect(instance.positional, "hey");
       });
 
       test('a boolean literal', () {
         var node = parseAndGetSingleMember('@TestAnnotation(true)\nvar a;');
-        TestAnnotation instance = instantiateAnnotation(node, TestAnnotation);
+        final instance = instantiateAnnotation(node, TestAnnotation) as TestAnnotation;
         expect(instance.positional, true);
       });
 
       test('an integer literal', () {
         var node = parseAndGetSingleMember('@TestAnnotation(1)\nvar a;');
-        TestAnnotation instance = instantiateAnnotation(node, TestAnnotation);
+        final instance = instantiateAnnotation(node, TestAnnotation) as TestAnnotation;
         expect(instance.positional, 1);
       });
 
       test('a null literal', () {
         var node = parseAndGetSingleMember('@TestAnnotation(null)\nvar a;');
-        TestAnnotation instance = instantiateAnnotation(node, TestAnnotation);
+        final instance = instantiateAnnotation(node, TestAnnotation) as TestAnnotation;
         expect(instance.positional, null);
       });
     });
@@ -302,12 +302,12 @@ main() {
         test('positional parameter', () {
           Expression? unsupportedArgument;
 
-          TestAnnotation instance = instantiateAnnotation(
+          final instance = instantiateAnnotation(
               parseAndGetSingleMember('@TestAnnotation(const [])\nvar a;'),
               TestAnnotation, onUnsupportedArgument: (Expression expression) {
             unsupportedArgument = expression;
             return 'value to be passed to constructor instead';
-          });
+          }) as TestAnnotation;
 
           expect(unsupportedArgument, isA<Expression>());
           expect(instance.positional,
@@ -319,13 +319,13 @@ main() {
         test('named parameter', () {
           Expression? unsupportedArgument;
 
-          TestAnnotation instance = instantiateAnnotation(
+          final instance = instantiateAnnotation(
               parseAndGetSingleMember(
                   '@TestAnnotation.namedConstructor(namedConstructorOnly: const [])\nvar a;'),
               TestAnnotation, onUnsupportedArgument: (Expression expression) {
             unsupportedArgument = expression;
             return 'value to be passed to constructor instead';
-          });
+          }) as TestAnnotation;
 
           expect(unsupportedArgument, isA<NamedExpression>());
           expect((unsupportedArgument as NamedExpression).name.label.name,
@@ -341,7 +341,7 @@ main() {
     test('annotation with both named and positional parameters', () {
       var node =
           parseAndGetSingleMember('@TestAnnotation(1, named: 2)\nvar a;');
-      TestAnnotation instance = instantiateAnnotation(node, TestAnnotation);
+      final instance = instantiateAnnotation(node, TestAnnotation) as TestAnnotation;
       expect(instance.positional, 1);
       expect(instance.named, 2);
     });
@@ -349,7 +349,7 @@ main() {
     test('instantiates an annotation using a named constructor', () {
       var node = parseAndGetSingleMember(
           '@TestAnnotation.namedConstructor(namedConstructorOnly: true)\nvar a;');
-      TestAnnotation instance = instantiateAnnotation(node, TestAnnotation);
+      final instance = instantiateAnnotation(node, TestAnnotation) as TestAnnotation;
       expect(instance.namedConstructorOnly, true);
     });
 
