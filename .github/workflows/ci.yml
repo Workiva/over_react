@@ -53,7 +53,6 @@ jobs:
           DART_VERSION="${{ steps.setup-dart.outputs.dart-version }}"
           if [[ "$DART_VERSION" =~ ^3 ]]; then
             ./tool/delete_dart_2_only_files.sh
-            ./tool/update_tests_for_dart_3.sh
             # Stage these changes so they don't show up in the generated file `git diff` check below
             git add .
           fi
@@ -146,7 +145,6 @@ jobs:
           DART_VERSION="${{ steps.setup-dart.outputs.dart-version }}"
           if [[ "$DART_VERSION" =~ ^3 ]]; then
             ./tool/delete_dart_2_only_files.sh
-            ./tool/update_tests_for_dart_3.sh
           fi
 
       - name: Analyze package source
@@ -196,7 +194,7 @@ jobs:
         run: |
           DART_VERSION="${{ steps.setup-dart.outputs.dart-version }}"
           if [[ "$DART_VERSION" =~ ^3 ]]; then
-            (cd ../.. && ./tool/delete_dart_2_only_files.sh && ./tool/update_tests_for_dart_3.sh)
+            (cd ../.. && ./tool/delete_dart_2_only_files.sh)
           fi
 
       - name: Validate dependencies
