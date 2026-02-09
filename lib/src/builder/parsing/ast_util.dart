@@ -18,7 +18,7 @@ import 'package:analyzer/dart/ast/token.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:over_react/src/builder/codegen/names.dart';
 import 'package:source_span/source_span.dart';
-import 'package:transformer_utils/transformer_utils.dart';
+import 'package:over_react/src/builder/vendor/transformer_utils/transformer_utils.dart';
 
 import 'ast_util/classish.dart';
 import 'util.dart';
