@@ -18,6 +18,7 @@ library;
 
 import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:analyzer/dart/ast/ast.dart';
+import 'package:test/test.dart';
 
 class TestAnnotation {
   final dynamic positional;
@@ -64,3 +65,5 @@ T parseAndGetSingleMember<T extends CompilationUnitMember>(String source) {
       parseString(content: source, throwIfDiagnostics: false).unit;
   return compilationUnit.declarations.single as T;
 }
+
+Matcher hasToStringValue(dynamic value) => isA<dynamic>().having((e) => e.toString(), 'toString', value);

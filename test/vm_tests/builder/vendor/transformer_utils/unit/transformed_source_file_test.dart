@@ -23,6 +23,8 @@ import 'package:over_react/src/builder/vendor/transformer_utils/src/transformed_
 import 'package:source_span/source_span.dart';
 import 'package:test/test.dart';
 
+import '../test_utils.dart';
+
 
 main() {
   group('TransformedSourceFile', () {
@@ -68,7 +70,7 @@ main() {
         transformedFile.replace(testSourceFile.span(1, 3), '{replaced 1}');
         transformedFile.replace(testSourceFile.span(0, 2), '{replaced 2}');
         expect(() => transformedFile.getTransformedText(),
-            throwsA(startsWith('Overlapping replacement')));
+            throwsA(hasToStringValue(contains('Overlapping replacement'))));
       });
     });
 

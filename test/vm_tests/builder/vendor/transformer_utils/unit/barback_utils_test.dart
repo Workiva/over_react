@@ -42,7 +42,7 @@ void main() {
     test('returns path with "package" scheme for lib file', () {
       var assetId = AssetId('transformer_utils', 'lib/transformer_utils.dart');
       expect(assetIdToPackageUri(assetId),
-          Uri.parse('package:over_react/src/builder/vendor/transformer_utils/transformer_utils.dart'));
+          Uri.parse('package:transformer_utils/transformer_utils.dart'));
     });
   });
 

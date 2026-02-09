@@ -358,14 +358,14 @@ main() {
           '@TestAnnotation(1, 2, 3, 4, "way more parameters than were declared")\nvar a;');
       expect(() {
         instantiateAnnotation(node, TestAnnotation);
-      }, throwsA(startsWith('Unable to instantiate annotation')));
+      }, throwsA(hasToStringValue(contains('Unable to instantiate annotation'))));
     });
 
     test('throws if the annotation is not used as a constructor', () {
       var node = parseAndGetSingleMember('@TestAnnotation\nvar a;');
       expect(() {
         instantiateAnnotation(node, TestAnnotation);
-      }, throwsA(startsWith('Annotation not invocation of constructor')));
+      }, throwsA(hasToStringValue(contains('Annotation not invocation of constructor'))));
     });
 
     test('returns null when the member is not annotated', () {
