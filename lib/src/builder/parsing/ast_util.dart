@@ -68,16 +68,27 @@ extension TypeAnnotationNameHelper on TypeAnnotation {
 /// Extension built on [NameHelper] to allow for easy access to the `name`
 /// field of [Identifier]s.
 extension TypeNameHelper on NamedType {
+  // Backwards compatibility for various analyzer versions that remove name/name2.
+  dynamic get name => name2;
+  dynamic get name2 => name;
+  dynamic get _name => name;
+  String get nameLexeme {
+    final name = this._name;
+    if (name is Identifier) return name.name;
+    if (name is Token) return name.lexeme;
+    if (name is String) return name;
+    throw UnimplementedError('Unexpected type for name: ${name.runtimeType}');
+  }
+
   /// The type name without any namespace prefixes.
-  String get nameWithoutPrefix => name2.lexeme;
+  String get nameWithoutPrefix => nameLexeme;
 
   /// The type name including the namespace prefix.
   String get nameWithPrefix {
     final prefix = importPrefix?.name.lexeme;
-    final name = name2.lexeme;
     return [
       if (prefix != null) prefix,
-      name,
+      nameLexeme,
     ].join('.');
   }
 }
