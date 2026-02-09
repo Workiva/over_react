@@ -43,10 +43,9 @@ class NodeWithMeta<TNode extends AnnotatedNode, TMeta> {
   /// Construct a [NodeWithMeta] instance from an [AnnotatedNode].
   /// The original node will be available via [node].
   /// The instantiated annotation of type `TMeta` will be available via [meta].
-  NodeWithMeta(this.node, {this.assetId})
-      : this.metaNode = getMatchingAnnotation(node, TMeta) {
-    this._meta = instantiateAnnotation(node, TMeta,
-        onUnsupportedArgument: unsupportedArguments.add) as TMeta?;
+  NodeWithMeta(this.node, {this.assetId}) : this.metaNode = getMatchingAnnotation(node, TMeta) {
+    this._meta = instantiateAnnotation(node, TMeta, onUnsupportedArgument: unsupportedArguments.add)
+        as TMeta?;
   }
 
   /// Whether this node's metadata has arguments that could not be initialized using [getValue]
@@ -58,8 +57,7 @@ class NodeWithMeta<TNode extends AnnotatedNode, TMeta> {
   /// Throws a [StateError] if this node's metadata is incomplete.
   TMeta? get meta {
     if (isIncomplete) {
-      throw StateError(
-          'Metadata is incomplete; unsupported arguments $unsupportedArguments. '
+      throw StateError('Metadata is incomplete; unsupported arguments $unsupportedArguments. '
           'Use `potentiallyIncompleteMeta` instead.');
     }
     return _meta;

@@ -34,8 +34,7 @@ String copyClassMember(ClassMember? member, String body) {
     if (member.isSetter) return _copySetterDeclaration(member, body);
     return _copyMethodDeclaration(member, body);
   }
-  throw UnsupportedError(
-      'Unsupported class member type: ${member.runtimeType}. '
+  throw UnsupportedError('Unsupported class member type: ${member.runtimeType}. '
       'Only FieldDeclaration and MethodDeclaration are supported.');
 }
 
@@ -45,8 +44,7 @@ String copyClassMember(ClassMember? member, String body) {
 /// If this is being leveraged within a transformer, you can associate the
 /// returned [DeclarationWithMeta] instance with the asset in which it is
 /// located by passing in an [assetId].
-Iterable<CompilationUnitMember> getDeclarationsAnnotatedBy(
-    CompilationUnit unit, Type annotation) {
+Iterable<CompilationUnitMember> getDeclarationsAnnotatedBy(CompilationUnit unit, Type annotation) {
   var annotationName = _getReflectedName(annotation);
   return unit.declarations.where((member) {
     return member.metadata.any((meta) => meta.name.name == annotationName);
@@ -91,8 +89,8 @@ dynamic getValue(Expression expression,
 /// or null if no matching annotations are found.
 Annotation? getMatchingAnnotation(AnnotatedNode member, Type annotationType) {
   // Be sure to use `originalDeclaration` so that generic parameters work.
-  final classMirror = mirrors.reflectClass(annotationType).originalDeclaration
-      as mirrors.ClassMirror;
+  final classMirror =
+      mirrors.reflectClass(annotationType).originalDeclaration as mirrors.ClassMirror;
   String className = mirrors.MirrorSystem.getName(classMirror.simpleName);
 
   // Find the annotation that matches [type]'s name.
@@ -128,19 +126,16 @@ dynamic instantiateAnnotation(AnnotatedNode member, Type annotationType,
   List positionalParameters = [];
 
   matchingAnnotationArgs.arguments.forEach((argument) {
-    var onUnsupportedExpression = onUnsupportedArgument == null
-        ? null
-        : (_) => onUnsupportedArgument(argument);
+    var onUnsupportedExpression =
+        onUnsupportedArgument == null ? null : (_) => onUnsupportedArgument(argument);
 
     if (argument is NamedExpression) {
       var name = argument.name.label.name;
-      var value = getValue(argument.expression,
-          onUnsupportedExpression: onUnsupportedExpression);
+      var value = getValue(argument.expression, onUnsupportedExpression: onUnsupportedExpression);
 
       namedParameters[Symbol(name)] = value;
     } else {
-      var value =
-          getValue(argument, onUnsupportedExpression: onUnsupportedExpression);
+      var value = getValue(argument, onUnsupportedExpression: onUnsupportedExpression);
 
       positionalParameters.add(value);
     }
@@ -150,12 +145,12 @@ dynamic instantiateAnnotation(AnnotatedNode member, Type annotationType,
   String constructorName = _getConstructorName(matchingAnnotation) ?? '';
 
   // Be sure to use `originalDeclaration` so that generic parameters work.
-  final classMirror = mirrors.reflectClass(annotationType).originalDeclaration
-      as mirrors.ClassMirror;
+  final classMirror =
+      mirrors.reflectClass(annotationType).originalDeclaration as mirrors.ClassMirror;
 
   try {
-    var instanceMirror = classMirror.newInstance(
-        Symbol(constructorName), positionalParameters, namedParameters);
+    var instanceMirror =
+        classMirror.newInstance(Symbol(constructorName), positionalParameters, namedParameters);
     return instanceMirror.reflectee;
   } catch (e, stacktrace) {
     throw Exception('Unable to instantiate annotation: $matchingAnnotation. This is '
@@ -232,8 +227,7 @@ String _copyMethodDeclaration(MethodDeclaration decl, String body) {
 ///
 /// Workaround for a Dart analyzer issue where the constructor name is included
 /// in [annotation.name].
-String _getClassName(Annotation annotation) =>
-    annotation.name.name.split('.').first;
+String _getClassName(Annotation annotation) => annotation.name.name.split('.').first;
 
 /// Returns the name of the constructor being instantiated for [annotation], or
 /// null if the annotation is not the invocation of a named constructor.
