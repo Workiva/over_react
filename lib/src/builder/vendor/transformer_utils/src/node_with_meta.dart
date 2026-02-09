@@ -43,9 +43,8 @@ class NodeWithMeta<TNode extends AnnotatedNode, TMeta> {
   /// Construct a [NodeWithMeta] instance from an [AnnotatedNode].
   /// The original node will be available via [node].
   /// The instantiated annotation of type `TMeta` will be available via [meta].
-  NodeWithMeta(TNode node, {this.assetId})
-      : this.node = node,
-        this.metaNode = getMatchingAnnotation(node, TMeta) {
+  NodeWithMeta(this.node, {this.assetId})
+      : this.metaNode = getMatchingAnnotation(node, TMeta) {
     this._meta = instantiateAnnotation(node, TMeta,
         onUnsupportedArgument: unsupportedArguments.add) as TMeta?;
   }

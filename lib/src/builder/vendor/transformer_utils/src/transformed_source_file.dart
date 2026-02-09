@@ -64,15 +64,15 @@ class TransformedSourceFile {
   }
 
   void iterateReplacements(
-      {onUnmodified(String string)?,
-      onRemoval(String string)?,
-      onAddition(String string)?}) {
+      {Function(String string)? onUnmodified,
+      Function(String string)? onRemoval,
+      Function(String string)? onAddition}) {
     _replacements.sort((r1, r2) => r1.span.compareTo(r2.span));
 
     var lastEdge = 0;
     for (_Replacement replacement in _replacements) {
       if (replacement.span.start.offset < lastEdge) {
-        throw 'Overlapping replacement $replacement in replacements $_replacements.';
+        throw Exception('Overlapping replacement $replacement in replacements $_replacements.');
       }
 
       var unmodifiedText =

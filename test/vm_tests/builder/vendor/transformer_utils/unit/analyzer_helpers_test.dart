@@ -250,13 +250,13 @@ main() {
       test('a string literal', () {
         var node = parseAndGetSingleMember('@TestAnnotation("hello")\nvar a;');
         final instance = instantiateAnnotation(node, TestAnnotation) as TestAnnotation;
-        expect(instance.positional, "hello");
+        expect(instance.positional, 'hello');
       });
 
       test('a concatenated string literal', () {
         var node = parseAndGetSingleMember('@TestAnnotation("he" "y")\nvar a;');
         final instance = instantiateAnnotation(node, TestAnnotation) as TestAnnotation;
-        expect(instance.positional, "hey");
+        expect(instance.positional, 'hey');
       });
 
       test('a boolean literal', () {
@@ -328,7 +328,7 @@ main() {
           }) as TestAnnotation;
 
           expect(unsupportedArgument, isA<NamedExpression>());
-          expect((unsupportedArgument as NamedExpression).name.label.name,
+          expect((unsupportedArgument! as NamedExpression).name.label.name,
               equals('namedConstructorOnly'));
           expect(instance.namedConstructorOnly,
               equals('value to be passed to constructor instead'),

@@ -23,7 +23,7 @@ import 'package:test/test.dart';
 main() {
   group('stringLiteral()', () {
     test('optionally quotes strings', () {
-      expect(stringLiteral('unquoted', quote: false), "unquoted");
+      expect(stringLiteral('unquoted', quote: false), 'unquoted');
       expect(stringLiteral('unquoted', useSingleQuote: true, quote: false),
           'unquoted');
       expect(stringLiteral('quoted'), "'quoted'");

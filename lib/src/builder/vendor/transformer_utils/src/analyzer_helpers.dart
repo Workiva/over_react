@@ -65,7 +65,7 @@ Iterable<CompilationUnitMember> getDeclarationsAnnotatedBy(
 ///   * [IntegerLiteral]
 ///   * [NullLiteral]
 dynamic getValue(Expression expression,
-    {dynamic onUnsupportedExpression(Expression expression)?}) {
+    {dynamic Function(Expression expression)? onUnsupportedExpression}) {
   if (expression is StringLiteral) {
     var value = expression.stringValue;
     if (value != null) {
@@ -108,7 +108,7 @@ Annotation? getMatchingAnnotation(AnnotatedNode member, Type annotationType) {
 ///
 /// Naively assumes that the name of the [annotationType] class is canonical.
 dynamic instantiateAnnotation(AnnotatedNode member, Type annotationType,
-    {dynamic onUnsupportedArgument(Expression argument)?}) {
+    {dynamic Function(Expression argument)? onUnsupportedArgument}) {
   final matchingAnnotation = getMatchingAnnotation(member, annotationType);
 
   // If no annotation is found, return null.
@@ -118,9 +118,9 @@ dynamic instantiateAnnotation(AnnotatedNode member, Type annotationType,
 
   final matchingAnnotationArgs = matchingAnnotation.arguments;
   if (matchingAnnotationArgs == null) {
-    throw 'Annotation not invocation of constructor: `$matchingAnnotation`. '
+    throw Exception('Annotation not invocation of constructor: `$matchingAnnotation`. '
         'This is likely due to invalid usage of the annotation class, but could'
-        'also be a name conflict with the specified type `$annotationType`';
+        'also be a name conflict with the specified type `$annotationType`');
   }
 
   // Get the parameters from the annotation's AST.
@@ -158,9 +158,9 @@ dynamic instantiateAnnotation(AnnotatedNode member, Type annotationType,
         Symbol(constructorName), positionalParameters, namedParameters);
     return instanceMirror.reflectee;
   } catch (e, stacktrace) {
-    throw 'Unable to instantiate annotation: $matchingAnnotation. This is '
+    throw Exception('Unable to instantiate annotation: $matchingAnnotation. This is '
         'likely due to improper usage, or a naming conflict with '
-        'annotationType $annotationType. Original error: $e. Stacktrace: $stacktrace';
+        'annotationType $annotationType. Original error: $e. Stacktrace: $stacktrace');
   }
 }
 

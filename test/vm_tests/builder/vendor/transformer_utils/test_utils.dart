@@ -20,9 +20,9 @@ import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 
 class TestAnnotation {
-  final positional;
-  final named;
-  final namedConstructorOnly;
+  final dynamic positional;
+  final dynamic named;
+  final dynamic namedConstructorOnly;
   const TestAnnotation(this.positional, {this.named})
       : namedConstructorOnly = null;
   const TestAnnotation.namedConstructor({this.namedConstructorOnly})
