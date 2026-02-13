@@ -13,7 +13,7 @@
 // limitations under the License.
 
 import 'package:analyzer/dart/ast/ast.dart';
-import 'package:transformer_utils/transformer_utils.dart';
+import 'package:over_react/src/builder/vendor/transformer_utils/transformer_utils.dart';
 
 import '../parsing.dart';
 import '../util.dart';
