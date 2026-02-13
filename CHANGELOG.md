@@ -1,7 +1,7 @@
 # OverReact Changelog
 
 ## Unreleased
-- Allow analyzer 8.x, 9.x, 10.x
+- Update analyzer dependency to `>=5.13.0 <11.0.0` (allow 8, 9, and 10)
 - Remove dependency on `transformer_utils`
 
 ## 5.5.0
