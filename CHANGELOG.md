@@ -2,6 +2,7 @@
 
 ## Unreleased
 - Allow analyzer 8.x, 9.x, 10.x
+- Remove dependency on `transformer_utils`
 
 ## 5.5.0
 - [#989] Optimize generated code to decrease dart2js compile size, saving ~577 bytes per component (when using `-03 --csp --minify`)

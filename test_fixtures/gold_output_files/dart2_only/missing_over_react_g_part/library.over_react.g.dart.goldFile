@@ -6,6 +6,8 @@ part of 'library.dart';
 
 // **************************************************************************
 // OverReactBuilder (package:over_react/src/builder.dart)
+//
+// Using nullSafety: false. {languageVersion: 2.11, source: libraryVersionComment}
 // **************************************************************************
 
 // React component factory implementation.
