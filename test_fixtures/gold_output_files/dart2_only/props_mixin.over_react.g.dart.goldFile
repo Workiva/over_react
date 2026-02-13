@@ -6,6 +6,8 @@ part of 'props_mixin.dart';
 
 // **************************************************************************
 // OverReactBuilder (package:over_react/src/builder.dart)
+//
+// Using nullSafety: false. {languageVersion: 2.11, source: libraryVersionComment}
 // **************************************************************************
 
 @deprecated
