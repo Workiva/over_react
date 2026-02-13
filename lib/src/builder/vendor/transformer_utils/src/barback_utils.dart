@@ -27,9 +27,7 @@ import 'package:source_span/source_span.dart';
 /// `lib/`.
 Uri assetIdToPackageUri(AssetId id) {
   if (!id.path.startsWith('lib/')) return Uri(path: id.path);
-  return Uri(
-      scheme: 'package',
-      path: path.url.join(id.package, id.path.replaceFirst('lib/', '')));
+  return Uri(scheme: 'package', path: path.url.join(id.package, id.path.replaceFirst('lib/', '')));
 }
 
 /// Returns a [SourceSpan] spanning from the beginning to the end of the given
@@ -38,8 +36,7 @@ Uri assetIdToPackageUri(AssetId id) {
 SourceSpan getSpanForNode(SourceFile sourceFile, AstNode node,
     {bool skipCommentAndMetadata = true}) {
   if (skipCommentAndMetadata && node is AnnotatedNode) {
-    return sourceFile.span(
-        node.firstTokenAfterCommentAndMetadata.offset, node.end);
+    return sourceFile.span(node.firstTokenAfterCommentAndMetadata.offset, node.end);
   }
 
   return sourceFile.span(node.offset, node.end);

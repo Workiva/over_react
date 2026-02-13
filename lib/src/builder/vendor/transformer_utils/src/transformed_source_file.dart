@@ -75,8 +75,7 @@ class TransformedSourceFile {
         throw Exception('Overlapping replacement $replacement in replacements $_replacements.');
       }
 
-      var unmodifiedText =
-          sourceFile.getText(lastEdge, replacement.span.start.offset);
+      var unmodifiedText = sourceFile.getText(lastEdge, replacement.span.start.offset);
       var removalText = replacement.span.text;
       var additionText = replacement.newText;
 
@@ -102,9 +101,7 @@ class TransformedSourceFile {
   String getTransformedText() {
     StringBuffer transformedSource = StringBuffer();
 
-    iterateReplacements(
-        onUnmodified: transformedSource.write,
-        onAddition: transformedSource.write);
+    iterateReplacements(onUnmodified: transformedSource.write, onAddition: transformedSource.write);
 
     return transformedSource.toString();
   }
@@ -156,11 +153,9 @@ class TransformedSourceFile {
   }
 }
 
-SourceSpan getSpan(SourceFile sourceFile, AstNode node,
-    {bool skipCommentAndMetadata = true}) {
+SourceSpan getSpan(SourceFile sourceFile, AstNode node, {bool skipCommentAndMetadata = true}) {
   if (skipCommentAndMetadata && node is AnnotatedNode) {
-    return sourceFile.span(
-        node.firstTokenAfterCommentAndMetadata.offset, node.end);
+    return sourceFile.span(node.firstTokenAfterCommentAndMetadata.offset, node.end);
   }
 
   return sourceFile.span(node.offset, node.end);
