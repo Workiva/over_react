@@ -142,7 +142,7 @@ T? instantiateAnnotationTyped<T extends Object>(
       node.metadata.firstWhereOrNull((m) => m.name.name == annotationClass.className);
   if (annotation == null) return null;
 
-  final args = getAnnotationArgs(annotation, onUnsupportedArgument: onUnsupportedArgument);
+  final args = parseAnnotationArgs(annotation, onUnsupportedArgument: onUnsupportedArgument);
 
   switch (annotationClass) {
     case _AnnotationClass.props:

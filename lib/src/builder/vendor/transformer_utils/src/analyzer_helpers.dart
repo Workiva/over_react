@@ -76,7 +76,7 @@ class AnnotationArgs {
   AnnotationArgs({required this.named, required this.positional});
 }
 
-AnnotationArgs getAnnotationArgs(Annotation annotation,
+AnnotationArgs parseAnnotationArgs(Annotation annotation,
     {dynamic Function(Expression argument)? onUnsupportedArgument}) {
   Map<String, dynamic> namedParameters = {};
   List positionalParameters = [];
