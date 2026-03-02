@@ -6,7 +6,7 @@ import 'package:over_react_analyzer_plugin/src/doc_utils/maturity.dart';
 /// * `AssistKind` static field within an assist class instance
 /// * `DiagnosticCode` static field within a `DiagnosticContributor` instance
 ///
-/// > See: [DocumentedAssistContributorMeta.fromAnnotatedFieldAst] and [DocumentedDiagnosticContributorMeta..fromAnnotatedField]
+/// > See: `getAssistDocsMetaFromNode` and `getDiagnosticDocsMetaFromNode`
 class DocsMeta implements IContributorMetaBase {
   @override
   final String description;
