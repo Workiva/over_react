@@ -34,6 +34,7 @@ import 'package:analyzer_plugin/protocol/protocol_common.dart' show Location;
 import 'package:over_react_analyzer_plugin/src/diagnostic/analyzer_debug_helper.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/indent_util.dart';
+import 'package:over_react_analyzer_plugin/src/over_react_builder_parsing.dart' show TypeNameHelper;
 import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/function_components.dart';
 import 'package:over_react_analyzer_plugin/src/util/pretty_print.dart';
@@ -2363,22 +2364,5 @@ extension<E extends Comparable<dynamic>> on Iterable<E> {
       prev = element;
     }
     return true;
-  }
-}
-
-extension TypeNameHelper on NamedType {
-  // Backwards compatibility for various analyzer versions that remove name/name2.
-  // ignore: unnecessary_this
-  dynamic get name => this.name2; // Use `this.` to point to real impl if it exists, not extension.
-  // ignore: unnecessary_this
-  dynamic get name2 => this.name; // Use `this.` to point to real impl if it exists, not extension.
-  dynamic get _name => name;
-
-  String get nameLexeme {
-    final dynamic name = _name;
-    if (name is Identifier) return name.name;
-    if (name is Token) return name.lexeme;
-    if (name is String) return name;
-    throw UnimplementedError('Unexpected type for name: ${name.runtimeType}');
   }
 }
