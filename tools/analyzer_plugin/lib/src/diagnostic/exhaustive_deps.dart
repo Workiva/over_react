@@ -680,7 +680,7 @@ class ExhaustiveDeps extends DiagnosticContributor {
         // NamedType case. This is for references to generic type parameters
         // (references to other types will get filtered out by the isDeclaredInPureScope check above).
         (reference) {
-          dependency = reference.name.name;
+          dependency = reference.nameLexeme;
           // These aren't possible for type annotations.
           isStable = false;
           isUsedAsCascadeTarget = false;
@@ -1980,7 +1980,7 @@ _Recommendations collectRecommendations({
 String? getConstructionExpressionType(Expression node) {
   if (node is InstanceCreationExpression) {
     if (node.isConst) return null;
-    return node.constructorName.type.name.name;
+    return node.constructorName.type.nameLexeme;
   } else if (node is ListLiteral) {
     return _DepType.list;
   } else if (node is SetOrMapLiteral) {
@@ -2363,5 +2363,22 @@ extension<E extends Comparable<dynamic>> on Iterable<E> {
       prev = element;
     }
     return true;
+  }
+}
+
+extension TypeNameHelper on NamedType {
+  // Backwards compatibility for various analyzer versions that remove name/name2.
+  // ignore: unnecessary_this
+  dynamic get name => this.name2; // Use `this.` to point to real impl if it exists, not extension.
+  // ignore: unnecessary_this
+  dynamic get name2 => this.name; // Use `this.` to point to real impl if it exists, not extension.
+  dynamic get _name => name;
+
+  String get nameLexeme {
+    final name = _name;
+    if (name is Identifier) return name.name;
+    if (name is Token) return name.lexeme;
+    if (name is String) return name;
+    throw UnimplementedError('Unexpected type for name: ${name.runtimeType}');
   }
 }
