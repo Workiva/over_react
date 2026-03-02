@@ -42,7 +42,7 @@ Future<ResolvedUnitResult> resolveFileAndGeneratedPart(SharedAnalysisContext sha
       .where((e) => e.severity != Severity.info && !e.errorCode.name.toLowerCase().startsWith('unused_'))
       // FIXME(FED-2015) remove once these are properly ignored in generated code
       .where((e) => e.errorCode.name.toLowerCase() != 'invalid_use_of_visible_for_overriding_member')
-      // For some reason this is triggering for '$mustCallSuper'; ignore for now. FIXME look into what's going on here
+      // For some reason this is triggering for '$mustCallSuper'; ignore for now. TODO look into what's going on here
       .where((e) => e.errorCode.name.toLowerCase() != 'invalid_annotation_target')
       .toList();
 
