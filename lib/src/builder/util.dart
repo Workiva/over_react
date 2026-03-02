@@ -12,8 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'dart:mirrors';
-
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:build/build.dart' show AssetId;
 import 'package:over_react/src/builder/parsing.dart';
@@ -25,10 +23,6 @@ const outputExtension = '.over_react.g.dart';
 const privateSourcePrefix = r'_$';
 const privatePrefix = r'_';
 const publicGeneratedPrefix = r'$';
-
-String getName(Type type) {
-  return MirrorSystem.getName(reflectType(type).simpleName);
-}
 
 /// Converts [id] to a "package:" URI.
 ///
