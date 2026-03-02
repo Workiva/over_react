@@ -2375,7 +2375,7 @@ extension TypeNameHelper on NamedType {
   dynamic get _name => name;
 
   String get nameLexeme {
-    final name = _name;
+    final dynamic name = _name;
     if (name is Identifier) return name.name;
     if (name is Token) return name.lexeme;
     if (name is String) return name;
