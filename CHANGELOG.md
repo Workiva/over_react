@@ -1,5 +1,8 @@
 # OverReact Changelog
 
+## 5.6.1
+- Allow w_common 4 #1004 https://github.com/Workiva/over_react/pull/1004
+
 ## 5.6.0
 - Update analyzer dependency to `>=5.13.0 <11.0.0` (allow 8, 9, and 10)
 - Remove dependency on `transformer_utils`
