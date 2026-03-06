@@ -35,6 +35,7 @@ import 'package:over_react_analyzer_plugin/src/doc_utils/contributor_meta_regist
 import 'package:over_react_analyzer_plugin/src/doc_utils/documented_contributor_meta.dart';
 import 'package:over_react_analyzer_plugin/src/util/constants.dart';
 
+import 'doc_generation_utils/annotations_from_ast.dart';
 import 'doc_generation_utils/config.dart';
 import 'doc_generation_utils/generate_assist_docs.dart';
 import 'doc_generation_utils/generate_rule_docs.dart';
@@ -50,7 +51,7 @@ final configs = [
     getSortedContributorMetas: () => RulesIndexer.rules,
     typeNameOfContributorClass: 'DiagnosticContributor',
     typeNameOfAnnotatedField: 'DiagnosticCode',
-    getMeta: DocumentedDiagnosticContributorMeta.fromAnnotatedField,
+    getMeta: getDiagnosticDocsMetaFromNode,
     getPageGenerator: (meta) => RuleDocGenerator(meta as DocumentedDiagnosticContributorMeta),
     getIndexGenerator: RulesIndexer.new,
     generateAdditionalDocs: (outDir) => OptionsSample(RulesIndexer.rules).generate(outDir),
@@ -63,7 +64,7 @@ final configs = [
     typeNameOfContributorClass: 'AssistContributorBase',
     typeNameOfAnnotatedField: 'AssistKind',
     packageNameContainingAnnotatedFieldType: 'analyzer_plugin',
-    getMeta: DocumentedAssistContributorMeta.fromAnnotatedFieldAst,
+    getMeta: getAssistDocsMetaFromNode,
     getPageGenerator: (meta) => AssistDocGenerator(meta as DocumentedAssistContributorMeta),
     getIndexGenerator: AssistsIndexer.new,
   ),

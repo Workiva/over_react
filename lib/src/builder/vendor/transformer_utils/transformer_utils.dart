@@ -16,9 +16,7 @@
 
 library;
 
-export './src/analyzer_helpers.dart'
-    show copyClassMember, getDeclarationsAnnotatedBy, instantiateAnnotation;
+export './src/analyzer_helpers.dart' show copyClassMember;
 export './src/barback_utils.dart' show assetIdToPackageUri, getSpanForNode;
-export './src/node_with_meta.dart' show NodeWithMeta;
 export './src/text_util.dart' show stringLiteral;
 export './src/transformed_source_file.dart' show TransformedSourceFile, getSpan;

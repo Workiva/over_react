@@ -12,38 +12,27 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'dart:mirrors' as mirrors;
-
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:build/build.dart' show log;
 import 'package:collection/collection.dart' show IterableExtension;
-import 'package:over_react/src/builder/vendor/transformer_utils/transformer_utils.dart';
+import 'package:meta/meta.dart';
 
-import 'ast_util.dart';
+import 'package:over_react/src/component_declaration/annotations.dart' as a;
 
-/// Uses reflection to instantiate and return the first annotation on [member] of type
-/// [T], or null if no matching annotations are found.
-///
-/// > See [instantiateAnnotation] for more information.
-T? instantiateAnnotationTyped<T>(AnnotatedNode member,
-    {dynamic Function(Expression argument)? onUnsupportedArgument}) {
-  return instantiateAnnotation(member, T, onUnsupportedArgument: onUnsupportedArgument) as T?;
-}
+import '../vendor/transformer_utils/src/analyzer_helpers.dart';
 
-/// Returns the first annotation AST node on [member] of type [annotationType],
+/// Returns the first annotation AST node on [node] of type [T],
 /// or null if no matching annotations are found.
-Annotation? _getMatchingAnnotation(AnnotatedNode member, Type annotationType) {
-  // Be sure to use `originalDeclaration` so that generic parameters work.
-  final classMirror = mirrors.reflectClass(annotationType).originalDeclaration;
-  final className = mirrors.MirrorSystem.getName(classMirror.simpleName);
-  return member.getAnnotationWithName(className);
+Annotation? _getMatchingAnnotation<T extends Object>(AnnotatedNode node) {
+  final annotationClass = getAnnotationClassFromGeneric<T>();
+  if (annotationClass == null) return null;
+
+  return node.metadata.firstWhereOrNull((m) => m.name.name == annotationClass.className);
 }
 
 /// Utility class that allows partial instantiation of annotations, to support reading
 /// annotation data in a context without a resolved AST. See [isIncomplete] for more info.
-///
-/// Based off of [NodeWithMeta].
-class InstantiatedMeta<TMeta> {
+class InstantiatedMeta<TMeta extends Object> {
   /// The node of the [TMeta] annotation, if it exists.
   final Annotation metaNode;
 
@@ -62,8 +51,8 @@ class InstantiatedMeta<TMeta> {
   /// The original node will be available via [node].
   ///
   /// The instantiated annotation will be available via [value].
-  static InstantiatedMeta<T>? fromNode<T>(AnnotatedNode node) {
-    final metaNode = _getMatchingAnnotation(node, T);
+  static InstantiatedMeta<T>? fromNode<T extends Object>(AnnotatedNode node) {
+    final metaNode = _getMatchingAnnotation<T>(node);
     if (metaNode == null) return null;
 
     final unsupportedArguments = <Expression>[];
@@ -99,7 +88,7 @@ class InstantiatedMeta<TMeta> {
 /// Utility that allows partial instantiation of a `Component`/`Component2` annotation.
 ///
 /// See superclass for more information.
-class InstantiatedComponentMeta<TMeta> extends InstantiatedMeta<TMeta> {
+class InstantiatedComponentMeta<TMeta extends Object> extends InstantiatedMeta<TMeta> {
   static const String _subtypeOfParamName = 'subtypeOf';
 
   final Identifier? subtypeOfValue;
@@ -108,7 +97,7 @@ class InstantiatedComponentMeta<TMeta> extends InstantiatedMeta<TMeta> {
       Annotation metaNode, TMeta meta, List<Expression> unsupportedArguments, this.subtypeOfValue)
       : super._(metaNode, meta, unsupportedArguments);
 
-  static InstantiatedComponentMeta<T>? fromNode<T>(AnnotatedNode node) {
+  static InstantiatedComponentMeta<T>? fromNode<T extends Object>(AnnotatedNode node) {
     try {
       final instantiated = InstantiatedMeta.fromNode<T>(node);
       if (instantiated == null) return null;
@@ -140,3 +129,108 @@ class InstantiatedComponentMeta<TMeta> extends InstantiatedMeta<TMeta> {
     }
   }
 }
+
+T? instantiateAnnotationTyped<T extends Object>(
+  AnnotatedNode node, {
+  dynamic Function(Expression argument)? onUnsupportedArgument,
+}) {
+  // TODO DRY up
+  final annotationClass = getAnnotationClassFromGeneric<T>();
+  if (annotationClass == null) return null;
+
+  final annotation =
+      node.metadata.firstWhereOrNull((m) => m.name.name == annotationClass.className);
+  if (annotation == null) return null;
+
+  final args = getAnnotationArgs(annotation, onUnsupportedArgument: onUnsupportedArgument);
+
+  switch (annotationClass) {
+    case _AnnotationClass.props:
+      return a.Props(
+        keyNamespace: args.named['keyNamespace'] as String?,
+        disableRequiredPropValidation: args.named['disableRequiredPropValidation'] as Set<String>?,
+        disableValidationForClassDefaultProps:
+            args.named['disableValidationForClassDefaultProps'] as bool? ?? true,
+      ) as T;
+    case _AnnotationClass.abstractProps:
+      return a.AbstractProps(
+        keyNamespace: args.named['keyNamespace'] as String?,
+      ) as T;
+    case _AnnotationClass.propsMixin:
+      // ignore: deprecated_member_use_from_same_package
+      return a.PropsMixin(
+        keyNamespace: args.named['keyNamespace'] as String?,
+      ) as T;
+    case _AnnotationClass.state:
+      return a.State(
+        keyNamespace: args.named['keyNamespace'] as String?,
+      ) as T;
+    case _AnnotationClass.abstractState:
+      return a.AbstractState(
+        keyNamespace: args.named['keyNamespace'] as String?,
+      ) as T;
+    case _AnnotationClass.stateMixin:
+      // ignore: deprecated_member_use_from_same_package
+      return a.StateMixin(
+        keyNamespace: args.named['keyNamespace'] as String?,
+      ) as T;
+    case _AnnotationClass.component2:
+      return a.Component2(
+        isWrapper: args.named['isWrapper'] as bool? ?? false,
+        subtypeOf: args.named['subtypeOf'] as Type?,
+        isErrorBoundary: args.named['isErrorBoundary'] as bool? ?? false,
+      ) as T;
+    case _AnnotationClass.component:
+      // ignore: deprecated_member_use_from_same_package
+      return a.Component(
+        isWrapper: args.named['isWrapper'] as bool? ?? false,
+        subtypeOf: args.named['subtypeOf'] as Type?,
+      ) as T;
+    case _AnnotationClass.accessor:
+      return a.Accessor(
+        key: args.named['key'] as String?,
+        keyNamespace: args.named['keyNamespace'] as String?,
+        isRequired: (args.named['isRequired'] as bool?) ?? false,
+        isNullable: (args.named['isNullable'] as bool?) ?? false,
+        requiredErrorMessage: args.named['requiredErrorMessage'] as String?,
+        doNotGenerate: (args.named['doNotGenerate'] as bool?) ?? false,
+      ) as T;
+  }
+}
+
+enum _AnnotationClass {
+  props('Props'),
+  abstractProps('AbstractProps'),
+  propsMixin('PropsMixin'),
+  state('State'),
+  abstractState('AbstractState'),
+  stateMixin('StateMixin'),
+  component2('Component2'),
+  component('Component'),
+  accessor('Accessor');
+
+  final String className;
+
+  const _AnnotationClass(this.className);
+}
+
+@visibleForTesting
+_AnnotationClass? getAnnotationClassFromGeneric<T>() {
+  if (_isSubtypeOf<T, a.Props>()) return _AnnotationClass.props;
+  if (_isSubtypeOf<T, a.AbstractProps>()) return _AnnotationClass.abstractProps;
+  // ignore: deprecated_member_use_from_same_package
+  if (_isSubtypeOf<T, a.PropsMixin>()) return _AnnotationClass.propsMixin;
+  if (_isSubtypeOf<T, a.State>()) return _AnnotationClass.state;
+  if (_isSubtypeOf<T, a.AbstractState>()) return _AnnotationClass.abstractState;
+  // ignore: deprecated_member_use_from_same_package
+  if (_isSubtypeOf<T, a.StateMixin>()) return _AnnotationClass.stateMixin;
+  if (_isSubtypeOf<T, a.Component2>()) return _AnnotationClass.component2;
+  // ignore: deprecated_member_use_from_same_package
+  if (_isSubtypeOf<T, a.Component>()) return _AnnotationClass.component;
+  if (_isSubtypeOf<T, a.Accessor>()) return _AnnotationClass.accessor;
+  return null;
+}
+
+bool _isSubtypeOf<T, S>() => _SubtypeOfHelper<T>() is _SubtypeOfHelper<S>;
+
+class _SubtypeOfHelper<T> {}

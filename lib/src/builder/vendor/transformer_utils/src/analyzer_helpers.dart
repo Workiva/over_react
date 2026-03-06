@@ -16,10 +16,7 @@
 
 library;
 
-import 'dart:mirrors' as mirrors;
-
 import 'package:analyzer/dart/ast/ast.dart';
-import 'package:collection/collection.dart' show IterableExtension;
 
 /// Returns a copy of a class [member] declaration with [body] as a new
 /// implementation.
@@ -36,19 +33,6 @@ String copyClassMember(ClassMember? member, String body) {
   }
   throw UnsupportedError('Unsupported class member type: ${member.runtimeType}. '
       'Only FieldDeclaration and MethodDeclaration are supported.');
-}
-
-/// Finds and returns all declarations within a compilation [unit] that are
-/// annotated with the given [annotation] class.
-///
-/// If this is being leveraged within a transformer, you can associate the
-/// returned [DeclarationWithMeta] instance with the asset in which it is
-/// located by passing in an [assetId].
-Iterable<CompilationUnitMember> getDeclarationsAnnotatedBy(CompilationUnit unit, Type annotation) {
-  var annotationName = _getReflectedName(annotation);
-  return unit.declarations.where((member) {
-    return member.metadata.any((meta) => meta.name.name == annotationName);
-  });
 }
 
 /// Returns the value of the specified [expression] AST node if it represents a literal.
@@ -85,47 +69,19 @@ dynamic getValue(Expression expression,
       'Must be a uninterpolated string, boolean, integer, or null literal.');
 }
 
-/// Returns the first annotation AST node on [member] of type [annotationType],
-/// or null if no matching annotations are found.
-Annotation? getMatchingAnnotation(AnnotatedNode member, Type annotationType) {
-  // Be sure to use `originalDeclaration` so that generic parameters work.
-  final classMirror =
-      mirrors.reflectClass(annotationType).originalDeclaration as mirrors.ClassMirror;
-  String className = mirrors.MirrorSystem.getName(classMirror.simpleName);
+class AnnotationArgs {
+  final Map<String, dynamic> named;
+  final List<dynamic> positional;
 
-  // Find the annotation that matches [type]'s name.
-  return member.metadata.firstWhereOrNull((annotation) {
-    return _getClassName(annotation) == className;
-  });
+  AnnotationArgs({required this.named, required this.positional});
 }
 
-/// Uses reflection to instantiate and returns the first annotation on [member] of type
-/// [annotationType], or null if no matching annotations are found.
-///
-/// Annotation constructors are currently limited to the values supported by [getValue].
-///
-/// Naively assumes that the name of the [annotationType] class is canonical.
-dynamic instantiateAnnotation(AnnotatedNode member, Type annotationType,
+AnnotationArgs getAnnotationArgs(Annotation annotation,
     {dynamic Function(Expression argument)? onUnsupportedArgument}) {
-  final matchingAnnotation = getMatchingAnnotation(member, annotationType);
-
-  // If no annotation is found, return null.
-  if (matchingAnnotation == null) {
-    return null;
-  }
-
-  final matchingAnnotationArgs = matchingAnnotation.arguments;
-  if (matchingAnnotationArgs == null) {
-    throw Exception('Annotation not invocation of constructor: `$matchingAnnotation`. '
-        'This is likely due to invalid usage of the annotation class, but could'
-        'also be a name conflict with the specified type `$annotationType`');
-  }
-
-  // Get the parameters from the annotation's AST.
-  Map<Symbol, dynamic> namedParameters = {};
+  Map<String, dynamic> namedParameters = {};
   List positionalParameters = [];
 
-  matchingAnnotationArgs.arguments.forEach((argument) {
+  annotation.arguments?.arguments.forEach((argument) {
     var onUnsupportedExpression =
         onUnsupportedArgument == null ? null : (_) => onUnsupportedArgument(argument);
 
@@ -133,7 +89,7 @@ dynamic instantiateAnnotation(AnnotatedNode member, Type annotationType,
       var name = argument.name.label.name;
       var value = getValue(argument.expression, onUnsupportedExpression: onUnsupportedExpression);
 
-      namedParameters[Symbol(name)] = value;
+      namedParameters[name] = value;
     } else {
       var value = getValue(argument, onUnsupportedExpression: onUnsupportedExpression);
 
@@ -141,22 +97,10 @@ dynamic instantiateAnnotation(AnnotatedNode member, Type annotationType,
     }
   });
 
-  // Instantiate and return an instance of the annotation using reflection.
-  String constructorName = _getConstructorName(matchingAnnotation) ?? '';
-
-  // Be sure to use `originalDeclaration` so that generic parameters work.
-  final classMirror =
-      mirrors.reflectClass(annotationType).originalDeclaration as mirrors.ClassMirror;
-
-  try {
-    var instanceMirror =
-        classMirror.newInstance(Symbol(constructorName), positionalParameters, namedParameters);
-    return instanceMirror.reflectee;
-  } catch (e, stacktrace) {
-    throw Exception('Unable to instantiate annotation: $matchingAnnotation. This is '
-        'likely due to improper usage, or a naming conflict with '
-        'annotationType $annotationType. Original error: $e. Stacktrace: $stacktrace');
-  }
+  return AnnotationArgs(
+    named: namedParameters,
+    positional: positionalParameters,
+  );
 }
 
 String _copyFieldDeclaration(FieldDeclaration decl, String initializer) {
@@ -221,31 +165,3 @@ String _copyMethodDeclaration(MethodDeclaration decl, String body) {
   result = '$result {\n$body\n  }';
   return result;
 }
-
-/// Returns the name of the class being instantiated for [annotation], or null
-/// if the annotation is not the invocation of a constructor.
-///
-/// Workaround for a Dart analyzer issue where the constructor name is included
-/// in [annotation.name].
-String _getClassName(Annotation annotation) => annotation.name.name.split('.').first;
-
-/// Returns the name of the constructor being instantiated for [annotation], or
-/// null if the annotation is not the invocation of a named constructor.
-///
-/// Workaround for a Dart analyzer issue where the constructor name is included
-/// in [annotation.name].
-String? _getConstructorName(Annotation annotation) {
-  var constructorName = annotation.constructorName?.name;
-  if (constructorName == null) {
-    var periodIndex = annotation.name.name.indexOf('.');
-    if (periodIndex != -1) {
-      constructorName = annotation.name.name.substring(periodIndex + 1);
-    }
-  }
-
-  return constructorName;
-}
-
-/// Get the name of a [type] via reflection.
-String _getReflectedName(Type type) =>
-    mirrors.MirrorSystem.getName(mirrors.reflectType(type).simpleName);
