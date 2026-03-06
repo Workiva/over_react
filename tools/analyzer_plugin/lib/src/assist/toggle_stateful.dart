@@ -47,7 +47,7 @@ class ToggleComponentStatefulness extends AssistContributorBase with ComponentDe
     await super.computeAssists(request, collector);
     if (!setupCompute() || !initializeAssistApi(request.result.content)) return;
 
-    newComponentBaseClass = _getNewBase(componentSupertypeNode.name.name);
+    newComponentBaseClass = _getNewBase(componentSupertypeNode.nameLexeme);
 
     // If there is no known corresponding base class, short circuit.
     if (newComponentBaseClass == null) return;
