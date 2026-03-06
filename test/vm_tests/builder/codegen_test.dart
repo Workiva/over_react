@@ -1200,7 +1200,7 @@ main() {
               late String foo;''';
 
             setUpAndGenerate(OverReactSrc.abstractProps(backwardsCompatible: false, body: body).source);
-            verify(() => logger.severe(contains('Unsupported prop annotation combination for prop \'foo\': A prop annotated with `@convertJsMapProp` should be typed as `Map?`.')));
+            verify(() => logger.severe(contains('Unsupported prop annotation combination for prop \'foo\': A prop annotated with `@convertJsMapProp` must be typed as one of: `Map?`, `Map<dynamic, dynamic>?`')));
           });
 
           test('@convertJsRefProp of the wrong prop type', () {
@@ -1209,7 +1209,7 @@ main() {
               Map? foo;''';
 
             setUpAndGenerate(OverReactSrc.abstractProps(backwardsCompatible: false, body: body).source);
-            verify(() => logger.severe(contains('Unsupported prop annotation combination for prop \'foo\': A prop annotated with `@convertJsRefProp` should be typed as `dynamic`.')));
+            verify(() => logger.severe(contains('Unsupported prop annotation combination for prop \'foo\': A prop annotated with `@convertJsRefProp` must be typed as `dynamic`.')));
           });
         });
       });

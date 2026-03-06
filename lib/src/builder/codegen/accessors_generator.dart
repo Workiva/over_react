@@ -469,15 +469,22 @@ PropConversionConfig? parseConversionConfig({
     final convertJsRefProp =
         getConstantAnnotation(field, 'convertJsRefProp', annotations.convertJsRefProp);
     if (convertJsMapProp != null) {
+      const allowedConvertedTypes = {
+        'Map?',
+        'Map<dynamic, dynamic>?',
+      };
       conversionConfig = PropConversionConfig(
         rawType: 'JsMap?',
         convertedType: 'Map?',
         setter: 'jsifyMapProp',
         getter: 'unjsifyMapProp',
       );
-      if (conversionConfig.convertedType != typeSource) {
+      assert(allowedConvertedTypes.contains(conversionConfig.convertedType));
+      if (!allowedConvertedTypes.contains(typeSource)) {
         handleAnnotationError(
-            'A prop annotated with `@convertJsMapProp` should be typed as `Map?`.', field);
+            'A prop annotated with `@convertJsMapProp` must be typed as one of: '
+            '${allowedConvertedTypes.map((t) => '`$t`').join(', ')}',
+            field);
         return null;
       }
     } else if (convertJsRefProp != null) {
@@ -489,7 +496,7 @@ PropConversionConfig? parseConversionConfig({
       );
       if (conversionConfig.convertedType != typeSource) {
         handleAnnotationError(
-            'A prop annotated with `@convertJsRefProp` should be typed as `dynamic`.', field);
+            'A prop annotated with `@convertJsRefProp` must be typed as `dynamic`.', field);
         return null;
       }
     }
