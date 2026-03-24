@@ -23,12 +23,13 @@ import '../vendor/transformer_utils/src/analyzer_helpers.dart';
 
 /// Returns the first annotation AST node on [node] of type [T],
 /// or null if no matching annotations are found.
-Annotation? _getMatchingAnnotation<T extends Object>(AnnotatedNode node) {
-  final annotationClass = getAnnotationClassFromGeneric<T>();
-  if (annotationClass == null) return null;
+Annotation? _getMatchingAnnotationFromGeneric<T extends Object>(AnnotatedNode node) =>
+    _getMatchingAnnotation(_AnnotationClass.fromGeneric<T>(), node);
 
-  return node.metadata.firstWhereOrNull((m) => m.name.name == annotationClass.className);
-}
+/// Returns the first annotation AST node on [node] of type [annotationClass],
+/// or null if no matching annotations are found.
+Annotation? _getMatchingAnnotation(_AnnotationClass annotationClass, AnnotatedNode node) =>
+    node.metadata.firstWhereOrNull((m) => m.name.name == annotationClass.className);
 
 /// Utility class that allows partial instantiation of annotations, to support reading
 /// annotation data in a context without a resolved AST. See [isIncomplete] for more info.
@@ -52,7 +53,7 @@ class InstantiatedMeta<TMeta extends Object> {
   ///
   /// The instantiated annotation will be available via [value].
   static InstantiatedMeta<T>? fromNode<T extends Object>(AnnotatedNode node) {
-    final metaNode = _getMatchingAnnotation<T>(node);
+    final metaNode = _getMatchingAnnotationFromGeneric<T>(node);
     if (metaNode == null) return null;
 
     final unsupportedArguments = <Expression>[];
@@ -134,12 +135,9 @@ T? instantiateAnnotationTyped<T extends Object>(
   AnnotatedNode node, {
   dynamic Function(Expression argument)? onUnsupportedArgument,
 }) {
-  // TODO DRY up
-  final annotationClass = getAnnotationClassFromGeneric<T>();
-  if (annotationClass == null) return null;
+  final annotationClass = _AnnotationClass.fromGeneric<T>();
 
-  final annotation =
-      node.metadata.firstWhereOrNull((m) => m.name.name == annotationClass.className);
+  final annotation = _getMatchingAnnotation(annotationClass, node);
   if (annotation == null) return null;
 
   final args = parseAnnotationArgs(annotation, onUnsupportedArgument: onUnsupportedArgument);
@@ -213,23 +211,23 @@ enum _AnnotationClass {
   final String className;
 
   const _AnnotationClass(this.className);
-}
 
-@visibleForTesting
-_AnnotationClass? getAnnotationClassFromGeneric<T>() {
-  if (_isSubtypeOf<T, a.Props>()) return _AnnotationClass.props;
-  if (_isSubtypeOf<T, a.AbstractProps>()) return _AnnotationClass.abstractProps;
-  // ignore: deprecated_member_use_from_same_package
-  if (_isSubtypeOf<T, a.PropsMixin>()) return _AnnotationClass.propsMixin;
-  if (_isSubtypeOf<T, a.State>()) return _AnnotationClass.state;
-  if (_isSubtypeOf<T, a.AbstractState>()) return _AnnotationClass.abstractState;
-  // ignore: deprecated_member_use_from_same_package
-  if (_isSubtypeOf<T, a.StateMixin>()) return _AnnotationClass.stateMixin;
-  if (_isSubtypeOf<T, a.Component2>()) return _AnnotationClass.component2;
-  // ignore: deprecated_member_use_from_same_package
-  if (_isSubtypeOf<T, a.Component>()) return _AnnotationClass.component;
-  if (_isSubtypeOf<T, a.Accessor>()) return _AnnotationClass.accessor;
-  return null;
+  static _AnnotationClass fromGeneric<T>() {
+    if (_isSubtypeOf<T, a.Props>()) return _AnnotationClass.props;
+    if (_isSubtypeOf<T, a.AbstractProps>()) return _AnnotationClass.abstractProps;
+    // ignore: deprecated_member_use_from_same_package
+    if (_isSubtypeOf<T, a.PropsMixin>()) return _AnnotationClass.propsMixin;
+    if (_isSubtypeOf<T, a.State>()) return _AnnotationClass.state;
+    if (_isSubtypeOf<T, a.AbstractState>()) return _AnnotationClass.abstractState;
+    // ignore: deprecated_member_use_from_same_package
+    if (_isSubtypeOf<T, a.StateMixin>()) return _AnnotationClass.stateMixin;
+    if (_isSubtypeOf<T, a.Component2>()) return _AnnotationClass.component2;
+    // ignore: deprecated_member_use_from_same_package
+    if (_isSubtypeOf<T, a.Component>()) return _AnnotationClass.component;
+    if (_isSubtypeOf<T, a.Accessor>()) return _AnnotationClass.accessor;
+
+    throw ArgumentError('Unsupported generic: $T. Must correspond to a type in this enum.');
+  }
 }
 
 bool _isSubtypeOf<T, S>() => _SubtypeOfHelper<T>() is _SubtypeOfHelper<S>;
