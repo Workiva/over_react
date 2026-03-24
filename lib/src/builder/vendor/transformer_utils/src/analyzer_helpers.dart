@@ -69,6 +69,7 @@ dynamic getValue(Expression expression,
       'Must be a uninterpolated string, boolean, integer, or null literal.');
 }
 
+/// The parsed arguments of an annotation constructor call, from [parseAnnotationArgs].
 class AnnotationArgs {
   final Map<String, dynamic> named;
   final List<dynamic> positional;
@@ -76,6 +77,9 @@ class AnnotationArgs {
   AnnotationArgs({required this.named, required this.positional});
 }
 
+/// Returns annotation class constructor arguments parsed from [annotation],
+/// converting supported literal values via [getValue], and passing unsupported
+/// argument values through [onUnsupportedArgument].
 AnnotationArgs parseAnnotationArgs(Annotation annotation,
     {dynamic Function(Expression argument)? onUnsupportedArgument}) {
   Map<String, dynamic> namedParameters = {};
