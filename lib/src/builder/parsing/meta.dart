@@ -15,7 +15,6 @@
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:build/build.dart' show log;
 import 'package:collection/collection.dart' show IterableExtension;
-import 'package:meta/meta.dart';
 
 import 'package:over_react/src/component_declaration/annotations.dart' as a;
 
