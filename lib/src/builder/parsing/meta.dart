@@ -143,57 +143,58 @@ T? instantiateAnnotationTyped<T extends Object>(
   if (annotation == null) return null;
 
   final args = parseAnnotationArgs(annotation, onUnsupportedArgument: onUnsupportedArgument);
+  S namedArg<S>(String name) => args.named[name] as S;
 
   switch (annotationClass) {
     case _AnnotationClass.props:
       return a.Props(
-        keyNamespace: args.named['keyNamespace'] as String?,
-        disableRequiredPropValidation: args.named['disableRequiredPropValidation'] as Set<String>?,
+        keyNamespace: namedArg('keyNamespace'),
+        disableRequiredPropValidation: namedArg('disableRequiredPropValidation'),
         disableValidationForClassDefaultProps:
-            args.named['disableValidationForClassDefaultProps'] as bool? ?? true,
+            namedArg('disableValidationForClassDefaultProps') ?? true,
       ) as T;
     case _AnnotationClass.abstractProps:
       return a.AbstractProps(
-        keyNamespace: args.named['keyNamespace'] as String?,
+        keyNamespace: namedArg('keyNamespace'),
       ) as T;
     case _AnnotationClass.propsMixin:
       // ignore: deprecated_member_use_from_same_package
       return a.PropsMixin(
-        keyNamespace: args.named['keyNamespace'] as String?,
+        keyNamespace: namedArg('keyNamespace'),
       ) as T;
     case _AnnotationClass.state:
       return a.State(
-        keyNamespace: args.named['keyNamespace'] as String?,
+        keyNamespace: namedArg('keyNamespace'),
       ) as T;
     case _AnnotationClass.abstractState:
       return a.AbstractState(
-        keyNamespace: args.named['keyNamespace'] as String?,
+        keyNamespace: namedArg('keyNamespace'),
       ) as T;
     case _AnnotationClass.stateMixin:
       // ignore: deprecated_member_use_from_same_package
       return a.StateMixin(
-        keyNamespace: args.named['keyNamespace'] as String?,
+        keyNamespace: namedArg('keyNamespace'),
       ) as T;
     case _AnnotationClass.component2:
       return a.Component2(
-        isWrapper: args.named['isWrapper'] as bool? ?? false,
-        subtypeOf: args.named['subtypeOf'] as Type?,
-        isErrorBoundary: args.named['isErrorBoundary'] as bool? ?? false,
+        isWrapper: namedArg('isWrapper') ?? false,
+        subtypeOf: namedArg('subtypeOf'),
+        isErrorBoundary: namedArg('isErrorBoundary') ?? false,
       ) as T;
     case _AnnotationClass.component:
       // ignore: deprecated_member_use_from_same_package
       return a.Component(
-        isWrapper: args.named['isWrapper'] as bool? ?? false,
-        subtypeOf: args.named['subtypeOf'] as Type?,
+        isWrapper: namedArg('isWrapper') ?? false,
+        subtypeOf: namedArg('subtypeOf'),
       ) as T;
     case _AnnotationClass.accessor:
       return a.Accessor(
-        key: args.named['key'] as String?,
-        keyNamespace: args.named['keyNamespace'] as String?,
-        isRequired: (args.named['isRequired'] as bool?) ?? false,
-        isNullable: (args.named['isNullable'] as bool?) ?? false,
-        requiredErrorMessage: args.named['requiredErrorMessage'] as String?,
-        doNotGenerate: (args.named['doNotGenerate'] as bool?) ?? false,
+        key: namedArg('key'),
+        keyNamespace: namedArg('keyNamespace'),
+        isRequired: namedArg('isRequired') ?? false,
+        isNullable: namedArg('isNullable') ?? false,
+        requiredErrorMessage: namedArg('requiredErrorMessage'),
+        doNotGenerate: namedArg('doNotGenerate') ?? false,
       ) as T;
   }
 }
