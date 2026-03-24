@@ -1,5 +1,8 @@
 # OverReact Changelog
 
+## Unreleased
+- Fix analyzer plugin not starting in Dart 3, with AOT compilation error
+
 ## 5.6.1
 - Allow w_common 4 #1004 https://github.com/Workiva/over_react/pull/1004
 
