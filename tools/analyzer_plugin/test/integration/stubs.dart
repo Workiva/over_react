@@ -101,6 +101,7 @@ class StubServerPlugin implements ServerPlugin {
   handleEditGetRefactoring(parameters) => throw UnimplementedError();
 
   @override
+  // ignore: override_on_non_overriding_member
   handleKytheGetKytheEntries(parameters) => throw UnimplementedError();
 
   @override
