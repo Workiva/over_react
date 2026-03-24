@@ -1,7 +1,9 @@
 # OverReact Changelog
 
 ## Unreleased
-- Fix analyzer plugin not starting in Dart 3, with AOT compilation error
+- Analyzer plugin
+  - Fix startup error (AOT compilation) in Dart 3
+  - Allow analyzer 6.x, allowing parsing language versions <=3.7  
 
 ## 5.6.1
 - Allow w_common 4 #1004 https://github.com/Workiva/over_react/pull/1004
