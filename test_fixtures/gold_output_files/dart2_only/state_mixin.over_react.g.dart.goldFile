@@ -6,10 +6,12 @@ part of 'state_mixin.dart';
 
 // **************************************************************************
 // OverReactBuilder (package:over_react/src/builder.dart)
+//
+// Using nullSafety: false. {languageVersion: 2.11, source: libraryVersionComment}
 // **************************************************************************
 
 @deprecated
-abstract class ExampleStateMixinClass implements _$ExampleStateMixinClass {
+mixin ExampleStateMixinClass implements _$ExampleStateMixinClass {
   @override
   Map get state;
 

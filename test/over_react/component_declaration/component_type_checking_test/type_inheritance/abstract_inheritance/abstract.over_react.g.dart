@@ -7,8 +7,7 @@ part of 'abstract.dart';
 // OverReactBuilder (package:over_react/src/builder.dart)
 // **************************************************************************
 
-abstract class _$TestAbstractPropsAccessorsMixin
-    implements _$TestAbstractProps {
+mixin _$TestAbstractPropsAccessorsMixin implements _$TestAbstractProps {
   @override
   Map get props;
 

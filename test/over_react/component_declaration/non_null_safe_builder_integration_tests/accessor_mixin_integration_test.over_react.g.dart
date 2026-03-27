@@ -8,7 +8,7 @@ part of 'accessor_mixin_integration_test.dart';
 // OverReactBuilder (package:over_react/src/builder.dart)
 // **************************************************************************
 
-abstract class TestPropsMixin implements _$TestPropsMixin {
+mixin TestPropsMixin implements _$TestPropsMixin {
   @override
   Map get props;
 
@@ -128,8 +128,7 @@ const PropsMeta _$metaForTestPropsMixin = PropsMeta(
   keys: TestPropsMixin.$propKeys,
 );
 
-abstract class TestCustomNamespacePropsMixin
-    implements _$TestCustomNamespacePropsMixin {
+mixin TestCustomNamespacePropsMixin implements _$TestCustomNamespacePropsMixin {
   @override
   Map get props;
 
@@ -266,7 +265,7 @@ const PropsMeta _$metaForTestCustomNamespacePropsMixin = PropsMeta(
   keys: TestCustomNamespacePropsMixin.$propKeys,
 );
 
-abstract class TestStateMixin implements _$TestStateMixin {
+mixin TestStateMixin implements _$TestStateMixin {
   @override
   Map get state;
 
@@ -387,8 +386,7 @@ const StateMeta _$metaForTestStateMixin = StateMeta(
   keys: TestStateMixin.$stateKeys,
 );
 
-abstract class TestCustomNamespaceStateMixin
-    implements _$TestCustomNamespaceStateMixin {
+mixin TestCustomNamespaceStateMixin implements _$TestCustomNamespaceStateMixin {
   @override
   Map get state;
 

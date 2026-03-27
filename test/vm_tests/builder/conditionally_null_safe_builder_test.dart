@@ -29,7 +29,10 @@ main() {
             'dart', ['pub', 'run', 'build_runner', 'build'],
             workingDirectory: nonNullSafePackagePath);
 
-        expect(build.exitCode, 0);
+        expect(build.exitCode, 0,
+            reason: 'build should have succeeded.'
+                '\nstdout: ${build.stdout}'
+                '\nstderr: ${build.stderr}');
       });
 
       test('', () {
@@ -92,7 +95,10 @@ main() {
             'dart', ['pub', 'run', 'build_runner', 'build'],
             workingDirectory: nonNullSafePackagePath);
 
-        expect(build.exitCode, 0);
+        expect(build.exitCode, 0,
+            reason: 'build should have succeeded.'
+                '\nstdout: ${build.stdout}'
+                '\nstderr: ${build.stderr}');
       });
 
       test('', () {

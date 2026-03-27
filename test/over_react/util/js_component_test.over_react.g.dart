@@ -137,7 +137,7 @@ const PropsMeta _$metaForASecondPropsMixin = PropsMeta(
 final UiFactoryConfig<_$$TestProps> _$TestConfig = UiFactoryConfig(
     propsFactory: PropsFactory(
       map: (map) => _$$TestProps(map),
-      jsMap: (map) => _$$TestProps$JsMap(map),
+      jsMap: (map) => _$$TestProps(map),
     ),
     displayName: 'Test');
 
@@ -149,7 +149,7 @@ final UiFactoryConfig<_$$TestProps> $TestConfig = _$TestConfig;
 final UiFactoryConfig<_$$TestProps> _$NoLHSTestConfig = UiFactoryConfig(
     propsFactory: PropsFactory(
       map: (map) => _$$TestProps(map),
-      jsMap: (map) => _$$TestProps$JsMap(map),
+      jsMap: (map) => _$$TestProps(map),
     ),
     displayName: 'NoLHSTest');
 
@@ -161,7 +161,7 @@ final UiFactoryConfig<_$$TestProps> $NoLHSTestConfig = _$NoLHSTestConfig;
 final UiFactoryConfig<_$$TestProps> _$_TestConfig = UiFactoryConfig(
     propsFactory: PropsFactory(
       map: (map) => _$$TestProps(map),
-      jsMap: (map) => _$$TestProps$JsMap(map),
+      jsMap: (map) => _$$TestProps(map),
     ),
     displayName: '_Test');
 
@@ -175,7 +175,7 @@ final UiFactoryConfig<_$$TestProps> $_TestConfig = _$_TestConfig;
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$TestProps extends UiProps
+class _$$TestProps extends UiProps
     with
         TestPropsMixin,
         // If this generated mixin is undefined, it's likely because TestPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestPropsMixin, and check that $TestPropsMixin is exported/imported properly.
@@ -185,15 +185,11 @@ abstract class _$$TestProps extends UiProps
         $ASecondPropsMixin
     implements
         TestProps {
-  _$$TestProps._();
+  _$$TestProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
-  factory _$$TestProps(Map? backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestProps$JsMap(backingMap as JsBackedMap?);
-    } else {
-      return _$$TestProps$PlainMap(backingMap);
-    }
-  }
+  /// The backing props map proxied by this class.
+  @override
+  final Map props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -219,40 +215,3 @@ abstract class _$$TestProps extends UiProps
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$TestProps = getPropKey;
-
-// Concrete props implementation that can be backed by any [Map].
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$TestProps$PlainMap extends _$$TestProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestProps$PlainMap(Map? backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
-}
-
-// Concrete props implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$TestProps$JsMap extends _$$TestProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestProps$JsMap(JsBackedMap? backingMap)
-      : this._props = JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
-}

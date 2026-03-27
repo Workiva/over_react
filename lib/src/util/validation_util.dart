@@ -17,7 +17,8 @@ library over_react.validation_util;
 
 import 'dart:html';
 
-import 'package:over_react/over_react.dart';
+import 'package:over_react/src/util/pretty_print.dart';
+import 'package:over_react/src/util/react_wrappers.dart';
 import 'package:react/react.dart' as react;
 
 // ignore: prefer_generic_function_type_aliases

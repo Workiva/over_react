@@ -14,7 +14,7 @@
 
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:over_react/src/component_declaration/annotations.dart' as annotations;
-import 'package:transformer_utils/transformer_utils.dart';
+import 'package:over_react/src/builder/vendor/transformer_utils/transformer_utils.dart';
 
 import '../parsing.dart';
 import '../util.dart';
@@ -82,7 +82,7 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
       final implementsClause = 'implements ${names.consumerName}$typeParamsOnSuper';
       generatedClass
         ..write(generatedCodeUseOnlyDeprecation)
-        ..writeln('abstract class $accessorsMixinName$typeParamsOnClass $implementsClause {\n'
+        ..writeln('mixin $accessorsMixinName$typeParamsOnClass $implementsClause {\n'
             '  @override'
             '  Map get ${type.isProps ? 'props' : 'state'};\n');
       if (type.isMixin) {

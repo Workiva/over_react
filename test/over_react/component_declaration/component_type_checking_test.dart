@@ -318,6 +318,53 @@ main() {
       }, tags: 'ddc');
     });
   });
+
+  // Note: due to current behavioral differences of isPotentiallyValidComponentType between dart2js and DDC,
+  // these regression tests only fail in dart2js with --enable-asserts, which we don't want to run our tests with.
+  group('type checking and related utilities work as expected, without throwing, for', () {
+    group('types of built-in and DOM components', () {
+      final componentsByDescription = <String, ReactElement Function()>{
+        // Edge-case: the `type` of Fragment is a JS Symbol
+        'Fragment': () => Fragment()(''),
+        'StrictMode': () => StrictMode()(),
+        'div': () => Dom.div()(),
+      };
+
+      componentsByDescription.forEach((description, factory) {
+        group('- $description -', () {
+          late ReactElement element;
+          late Object type;
+
+          setUp(() {
+            element = factory();
+            final maybeType = element.type as Object?;
+            expect(maybeType, isNotNull, reason: 'test setup check; element should have a type');
+            type = maybeType!;
+          });
+
+          // TODO uncomment once isPotentiallyValidComponentType is fixed for JS Symbols (see TODO in isPotentiallyValidComponentType), and update "Note:" comment above
+          // test('isPotentiallyValidComponentType', () {
+          //   expect(isPotentiallyValidComponentType(type), isTrue);
+          // });
+
+          test('getComponentTypeMeta', () {
+            expect(getComponentTypeMeta(type), isA<ComponentTypeMeta>()
+                  .having((m) => m.isWrapper, 'isWrapper', false)
+                  .having((m) => m.isHoc, 'isHoc', false)
+                  .having((m) => m.parentType, 'parentType', isNull));
+          });
+
+          test('getProps()', () {
+            expect(getProps(element), isA<Map>());
+          });
+
+          test('getProps(traverseWrappers: true)', () {
+            expect(getProps(element, traverseWrappers: true), isA<Map>());
+          });
+        });
+      });
+    });
+  });
 }
 
 testComponentTypeChecking({

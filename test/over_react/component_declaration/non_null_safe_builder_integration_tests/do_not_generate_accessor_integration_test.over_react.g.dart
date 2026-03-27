@@ -19,7 +19,7 @@ final $DoNotGenerateAccessorTestComponentFactory = registerComponent(
   parentType: null,
 );
 
-abstract class _$DoNotGenerateAccessorTestPropsAccessorsMixin
+mixin _$DoNotGenerateAccessorTestPropsAccessorsMixin
     implements _$DoNotGenerateAccessorTestProps {
   @override
   Map get props;
@@ -110,16 +110,12 @@ _$$DoNotGenerateAccessorTestProps _$DoNotGenerateAccessorTest(
 class _$$DoNotGenerateAccessorTestProps extends _$DoNotGenerateAccessorTestProps
     with _$DoNotGenerateAccessorTestPropsAccessorsMixin
     implements DoNotGenerateAccessorTestProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$DoNotGenerateAccessorTestProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
-  }
+  _$$DoNotGenerateAccessorTestProps([Map backingMap])
+      : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
   @override
-  Map get props => _props;
-  Map _props;
+  final Map props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -149,8 +145,7 @@ class _$$DoNotGenerateAccessorTestProps extends _$DoNotGenerateAccessorTestProps
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$DoNotGenerateAccessorTestProps = getPropKey;
-
-abstract class _$DoNotGenerateAccessorTestStateAccessorsMixin
+mixin _$DoNotGenerateAccessorTestStateAccessorsMixin
     implements _$DoNotGenerateAccessorTestState {
   @override
   Map get state;
@@ -237,16 +232,12 @@ class DoNotGenerateAccessorTestState extends _$DoNotGenerateAccessorTestState
 class _$$DoNotGenerateAccessorTestState extends _$DoNotGenerateAccessorTestState
     with _$DoNotGenerateAccessorTestStateAccessorsMixin
     implements DoNotGenerateAccessorTestState {
-  // This initializer of `_state` to an empty map, as well as the reassignment
-  // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$DoNotGenerateAccessorTestState(Map backingMap) : this._state = {} {
-    this._state = backingMap ?? {};
-  }
+  _$$DoNotGenerateAccessorTestState([Map backingMap])
+      : this.state = backingMap ?? JsBackedMap();
 
   /// The backing state map proxied by this class.
   @override
-  Map get state => _state;
-  Map _state;
+  final Map state;
 
   /// Let `UiState` internals know that this class has been generated.
   @override

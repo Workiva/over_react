@@ -1,3 +1,6 @@
+//@dart=2.19
+// ^ Work around build_web_compilers issue on Dart 3 not allowing mixins of classes, due to
+// pubspec's 2.19 language version not being respected: https://github.com/dart-lang/build/issues/4302
 // Copyright 2016 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");

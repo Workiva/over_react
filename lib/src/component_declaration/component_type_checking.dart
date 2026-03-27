@@ -172,9 +172,6 @@ bool isTypeAlias(dynamic type) {
 /// Returns the [ComponentTypeMeta] associated with the component type [type] in [setComponentTypeMeta],
 /// or `const ComponentTypeMeta.none()` if there is no associated meta.
 ComponentTypeMeta getComponentTypeMeta(Object type) {
-  assert(isPotentiallyValidComponentType(type),
-      '`type` should be a valid component type (and not null or a type alias).');
-
   if (type is! String) {
     return getProperty(type, _componentTypeMetaKey) as ComponentTypeMeta? ??
         const ComponentTypeMeta.none();
@@ -307,7 +304,16 @@ Object? getComponentTypeFromAlias(Object? typeAlias) {
 /// * [Function] factory (Dart components)
 /// * [ReactClass] component type (JS composite component classes, JS function component functions, Dart component JS classes)
 bool isPotentiallyValidComponentType(dynamic type) {
-  return type is Function || type is ReactClass || type is String;
+  return type is Function ||
+      // In DDC, `type is ReactClass` is true for JS symbols (such as for Fragment ReactElements),
+      // but in dart2js it is false.
+      // Since isPotentiallyValidComponentType is only used in aliasing code now, this isn't a big deal since
+      // people aren't likely aliasing Fragment, but we should make this behavior consistent.
+      // TODO handle that case in dart2js once our Dart SDK constraint is >=3.0.0, with the following code:
+      //    typeofEquals(type, 'symbol') ||
+      // TODO also add a test (see TODO in component_type_checking_test.dart)
+      type is ReactClass ||
+      type is String;
 }
 
 /// Returns an [Iterable] of all component types that are ancestors of [type].

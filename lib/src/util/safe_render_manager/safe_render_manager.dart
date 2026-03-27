@@ -15,8 +15,11 @@
 import 'dart:async';
 import 'dart:html';
 
-import 'package:over_react/over_react.dart';
-import 'package:over_react/react_dom.dart' as react_dom;
+import 'package:over_react/src/component/ref_util.dart';
+import 'package:over_react/src/react_dom.dart' as react_dom;
+import 'package:react/react_client.dart'
+    show
+    ReactElement;
 import 'package:w_common/disposable.dart';
 
 import './safe_render_manager_helper.dart';

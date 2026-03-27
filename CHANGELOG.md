@@ -1,5 +1,43 @@
 # OverReact Changelog
 
+## 5.6.2
+- Analyzer plugin
+  - Fix startup error (AOT compilation) in Dart 3
+  - Allow analyzer 6.x, allowing parsing language versions <=3.7  
+
+## 5.6.1
+- Allow w_common 4 #1004 https://github.com/Workiva/over_react/pull/1004
+
+## 5.6.0
+- Update analyzer dependency to `>=5.13.0 <11.0.0` (allow 8, 9, and 10)
+- Remove dependency on `transformer_utils`
+
+## 5.5.0
+- [#989] Optimize generated code to decrease dart2js compile size, saving ~577 bytes per component (when using `-03 --csp --minify`)
+- [#992] Fix compilation errors for legacy boilerplate defined in libraries with a Dart language version of >=3.0
+
+## 5.4.6
+- [#986] Set up gha-dart-oss
+- [#985] Remove entrypoint imports
+- [#984] Rollout React 18 to tests and example apps
+
+## 5.4.5
+- Update analyzer dependency to `>=5.13.0 <8.0.0` (allow v8)
+- Update dart_style dependency to `>=2.0.0 <4.0.0` (allow v3)
+- Pub package tarball: exclude documentation image files, optimizing download size from ~5.9MB to ~1.3MB
+- Consume react-dart 7.3.0 (React 18 compatible)
+
+## 5.4.4
+- [#972] Generate parts even when there are analysis warnings/errors in the source file's unresolved AST 
+    - For example, the new `doc_directive_unknown` warning on doc comments in Dart 3
+
+## 5.4.3
+- [#966] Revert #964 (an attempt to fix `manageAndReturnTypedDisposable` typing)
+- [#969] Use a `dart_dependency_validator.yaml` config file
+- [#973] React 18 Prep
+  - Bumps the minimum Dart SDK from `2.17.0` to `2.19.0`
+- [#974] Fix fragment type check assert
+
 ## 5.4.2
 - [#964] Fix bad override of `manageAndReturnTypedDisposable` caused by w_common 3.3.0
 

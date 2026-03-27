@@ -34,6 +34,7 @@ import 'package:analyzer_plugin/protocol/protocol_common.dart' show Location;
 import 'package:over_react_analyzer_plugin/src/diagnostic/analyzer_debug_helper.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/indent_util.dart';
+import 'package:over_react_analyzer_plugin/src/over_react_builder_parsing.dart' show TypeNameHelper;
 import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/function_components.dart';
 import 'package:over_react_analyzer_plugin/src/util/pretty_print.dart';
@@ -680,7 +681,7 @@ class ExhaustiveDeps extends DiagnosticContributor {
         // NamedType case. This is for references to generic type parameters
         // (references to other types will get filtered out by the isDeclaredInPureScope check above).
         (reference) {
-          dependency = reference.name.name;
+          dependency = reference.nameLexeme;
           // These aren't possible for type annotations.
           isStable = false;
           isUsedAsCascadeTarget = false;
@@ -1980,7 +1981,7 @@ _Recommendations collectRecommendations({
 String? getConstructionExpressionType(Expression node) {
   if (node is InstanceCreationExpression) {
     if (node.isConst) return null;
-    return node.constructorName.type.name.name;
+    return node.constructorName.type.nameLexeme;
   } else if (node is ListLiteral) {
     return _DepType.list;
   } else if (node is SetOrMapLiteral) {

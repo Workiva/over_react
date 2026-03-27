@@ -17,10 +17,11 @@
 /// Various prop related mixins to be used with `UiComponent` descendants.
 library over_react.prop_mixins;
 
-import 'package:over_react/over_react.dart' show AriaPropsMapView, AriaPropsMixin, DomProps, PropsMeta;
+import 'package:over_react/src/component/aria_mixin.dart' show AriaPropsMapView, AriaPropsMixin;
+import 'package:over_react/src/component/dom_components.dart' show DomProps;
 // Must import these consts because they are used in the transformed code.
 // ignore: deprecated_member_use, unused_shown_name
-import 'package:over_react/over_react.dart' show PropDescriptor, ConsumedProps, PropsMeta;
+import 'package:over_react/src/component_declaration/component_base.dart' show PropDescriptor, ConsumedProps, PropsMeta;
 import 'package:over_react/src/component/callback_typedefs.dart';
 import 'package:over_react/src/component_declaration/annotations.dart';
 import 'package:react/react_client/js_backed_map.dart';
@@ -274,8 +275,7 @@ abstract class _$UbiquitousDomPropsMixin {
   ///     (Button()
   ///       ..aria.controls = 'my_popover'
   ///     )('Open popover')
-  @Accessor(doNotGenerate: true)
-  late final AriaPropsMixin aria = AriaPropsMapView(props);
+  AriaPropsMixin get aria => AriaPropsMapView(props);
 
   /// A view into this map that can be used to access DOM props, for convenience.
   ///
@@ -284,8 +284,7 @@ abstract class _$UbiquitousDomPropsMixin {
   ///     (Tab()
   ///       ..dom.draggable = true
   ///     )('Untitled Document')
-  @Accessor(doNotGenerate: true)
-  late final DomPropsMixin dom = DomProps(null, props);
+  DomPropsMixin get dom => DomProps(null, props);
 
   /// Whether the element if focusable.
   /// Must be a valid integer or String of valid integer.

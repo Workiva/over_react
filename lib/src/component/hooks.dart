@@ -12,8 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:over_react/over_react.dart';
+import 'package:over_react/src/util/context.dart';
+import 'package:react/hooks.dart' show StateHook, ReducerHook;
 import 'package:react/hooks.dart' as react_hooks;
+import 'package:react/react_client/react_interop.dart' show Ref;
 
 /// Adds local state to a [uiFunction] component
 /// by returning a [StateHook] with [StateHook.value] initialized to [initialValue].

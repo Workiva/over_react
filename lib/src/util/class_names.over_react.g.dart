@@ -7,7 +7,7 @@ part of 'class_names.dart';
 // OverReactBuilder (package:over_react/src/builder.dart)
 // **************************************************************************
 
-abstract class CssClassPropsMixin implements _$CssClassPropsMixin {
+mixin CssClassPropsMixin implements _$CssClassPropsMixin {
   @override
   Map get props;
 

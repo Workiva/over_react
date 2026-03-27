@@ -20,10 +20,11 @@ import 'dart:async';
 import 'dart:html';
 
 import 'package:meta/meta.dart';
-import 'package:over_react/over_react.dart';
-import 'package:over_react/components.dart' as v2;
+import 'package:over_react/src/component/dom_components.dart';
+import 'package:over_react/src/component/resize_sensor.dart' as v2;
 import 'package:over_react/src/component_declaration/component_base.dart' as component_base;
-import 'package:over_react/react_dom.dart' as react_dom;
+import 'package:over_react/src/react_dom.dart' as react_dom;
+import 'package:over_react/src/util/css_value_util.dart';
 import 'package:platform_detect/platform_detect.dart';
 
 // The computed font size of the HTML node isn't reliable in Chrome when the page is refreshed while zoomed.

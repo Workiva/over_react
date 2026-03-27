@@ -20,7 +20,7 @@ import 'dart:async';
 
 import 'package:logging/logging.dart';
 import 'package:meta/meta.dart';
-import 'package:over_react/component_base.dart' as component_base;
+import 'package:over_react/src/component_declaration/component_base.dart' as component_base;
 import 'package:over_react/src/util/component_debug_name.dart';
 import 'package:w_flux/w_flux.dart';
 

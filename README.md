@@ -85,8 +85,7 @@ and add an HTML element with a unique identifier where you’ll mount your OverR
           // OverReact component render() output will show up here.
         </div>
 
-        <script src="packages/react/react.js"></script>
-        <script src="packages/react/react_dom.js"></script>
+        <script src="packages/react/js/react.dev.js"></script>
 
         <!-- NOTE: "index" should correspond to the
              name of the `.dart` file that contains your `main()` entrypoint. -->
@@ -95,8 +94,8 @@ and add an HTML element with a unique identifier where you’ll mount your OverR
     </html>
     ```
 
-    > __Note:__ When serving your application in production, use `packages/react/react_with_react_dom_prod.js`
-    file instead of the un-minified `react.js` / `react_dom.js` files shown in the example above.
+    > __Note:__ When serving your application in production, use `packages/react/js/react.min.js`
+    file instead of the un-minified `packages/react/js/react.dev.js` file shown in the example above.
 
 1. Import the `over_react` and `react_dom` libraries into `index.dart`. Then [build some components](#building-custom-components) and mount / render a React tree within the HTML element you created in the previous step by calling `react_dom.render()` within the `main()` entrypoint of your Dart application.
 

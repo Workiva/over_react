@@ -1,4 +1,4 @@
-name: Dart CI
+name: CI
 
 on:
   push:
@@ -19,22 +19,16 @@ permissions:
 jobs:
   # Run as a separate job outside the Dart SDK matrix below,
   # since we can only emit a single SBOM.
-  create-sbom-release-asset:
-    name: Create SBOM Release Asset
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: dart-lang/setup-dart@v1
-        with:
-          sdk: 2.19.6 # This version doesn't matter so long as it resolves.
-      - run: dart pub get
-      - name: Publish SBOM to Release Assets
-        uses: anchore/sbom-action@v0
-        with:
-          path: ./
-          format: cyclonedx-json
-
   build:
+    uses: Workiva/gha-dart-oss/.github/workflows/build.yaml@v0.1.11
+
+  checks:
+    uses: Workiva/gha-dart-oss/.github/workflows/checks.yaml@v0.1.11
+    with:
+      additional-checks: |
+        no_entrypoint_imports
+
+  test_and_check_generated_files:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -50,25 +44,18 @@ jobs:
       - name: Print Dart SDK version
         run: dart --version
 
-      - name: Delete Dart-2-only files when running on Dart 3
-        run: |
-          DART_VERSION="${{ steps.setup-dart.outputs.dart-version }}"
-          if [[ "$DART_VERSION" =~ ^3 ]]; then
-            ./tool/delete_dart_2_only_files.sh
-          fi
-
       - id: install
         name: Install dependencies
         run: dart pub get
 
-      - name: Validate dependencies
-        run: dart run dependency_validator
-        if: always() && steps.install.outcome == 'success'
-
-      - name: Verify formatting
-        run: dart run dart_dev format --check
-        # Only run on one sdk version in case there are conflicts
-        if: always() && matrix.sdk == '2.19.6' && steps.install.outcome == 'success'
+      - name: Delete Dart-2-only files and update tests when running on Dart 3
+        run: |
+          DART_VERSION="${{ steps.setup-dart.outputs.dart-version }}"
+          if [[ "$DART_VERSION" =~ ^3 ]]; then
+            ./tool/delete_dart_2_only_files.sh
+            # Stage these changes so they don't show up in the generated file `git diff` check below
+            git add .
+          fi
 
       # Analyze before generated files are created to verify that component boilerplate analysis is "clean" without the need for building
       - name: Analyze example source (pre-build)
@@ -88,14 +75,8 @@ jobs:
 
       - name: Verify that generated files are up-to-date
         run: |
-          if [ ${{ matrix.sdk }} = '2.19.6' ]; then
-            git diff --exit-code
-          else
-            # Don't check these generated files for other SDKs, since they may generate differently
-            # due to different resolved dependencies.
-            git diff --exit-code -- ":(exclude)test/over_react/component_declaration/redux_component_test/test_reducer.g.dart"
-          fi
-        if: always() && steps.install.outcome == 'success' && steps.install.build == 'success'
+          git diff --exit-code
+        if: always() && steps.install.outcome == 'success' && steps.build.outcome == 'success'
 
       # Analyze again after generated files are created to verify that those generated classes don't cause analysis errors
       - name: Analyze project source (post-build)
@@ -129,14 +110,17 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        sdk: [ 2.19.6, stable ]
+        sdk: [ stable ]
         analyzer:
-          - ^5.13.0 # This should match the lower bound
           - ^6.0.0
-        exclude:
-          # Analyzer 6 only resolves in Dart 3
+          - ^7.0.0
+          - ^8.0.0
+          - ^9.0.0
+          - ^10.0.0
+        # Analyzer 6+ does not resolve in Dart 2.
+        include:
           - sdk: 2.19.6
-            analyzer: ^6.0.0
+            analyzer: ^5.13.0 # This should match the lower bound
 
     steps:
       - uses: actions/checkout@v4
@@ -148,13 +132,6 @@ jobs:
       - name: Print Dart SDK version
         run: dart --version
 
-      - name: Delete Dart-2-only files when running on Dart 3
-        run: |
-          DART_VERSION="${{ steps.setup-dart.outputs.dart-version }}"
-          if [[ "$DART_VERSION" =~ ^3 ]]; then
-            ./tool/delete_dart_2_only_files.sh
-          fi
-
       - name: Update analyzer constraint to ${{ matrix.analyzer }} and validate `dart pub get` can resolve
         id: resolve
         run: |
@@ -162,6 +139,13 @@ jobs:
           # Show the updated version constraint
           git diff pubspec.yaml
           dart pub get
+
+      - name: Delete Dart-2-only files and update tests when running on Dart 3
+        run: |
+          DART_VERSION="${{ steps.setup-dart.outputs.dart-version }}"
+          if [[ "$DART_VERSION" =~ ^3 ]]; then
+            ./tool/delete_dart_2_only_files.sh
+          fi
 
       - name: Analyze package source
         run: dart analyze .
@@ -197,13 +181,6 @@ jobs:
       - name: Print Dart SDK version
         run: dart --version
 
-      - name: Delete Dart-2-only files when running on Dart 3
-        run: |
-          DART_VERSION="${{ steps.setup-dart.outputs.dart-version }}"
-          if [[ "$DART_VERSION" =~ ^3 ]]; then
-            (cd ../.. && ./tool/delete_dart_2_only_files.sh)
-          fi
-
       - id: link
         name: Override over_react dependency with local path
         run: cd ../.. && dart pub get && dart tool/travis_link_plugin_deps.dart
@@ -212,6 +189,13 @@ jobs:
         name: Install dependencies
         run: dart pub get
         if: always() && steps.link.outcome == 'success'
+
+      - name: Delete Dart-2-only files and update tests when running on Dart 3
+        run: |
+          DART_VERSION="${{ steps.setup-dart.outputs.dart-version }}"
+          if [[ "$DART_VERSION" =~ ^3 ]]; then
+            (cd ../.. && ./tool/delete_dart_2_only_files.sh)
+          fi
 
       - name: Validate dependencies
         run: dart run dependency_validator
@@ -229,3 +213,16 @@ jobs:
         run: dart run dart_dev test
         if: always() && steps.install.outcome == 'success'
         timeout-minutes: 8
+
+  testing-and-checks-complete:
+    name: Testing and Checks Completed
+    needs: [ build, checks, test_and_check_generated_files, validate_analyzer, analyzer_plugin ]
+    if: ${{ !cancelled() && github.event_name == 'pull_request' || github.ref_type == 'tag' }}
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          if [ "${{ needs.checks.result }}" == "failure" ]; then
+            echo "Some checks have failed. Please fix the issues and try again."
+            exit 1
+          fi
+          echo 'All Testing and checks have completed.'

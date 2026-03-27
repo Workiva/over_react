@@ -18,8 +18,8 @@ library over_react.builder_generation.helpers_test;
 import 'package:over_react/src/component_declaration/builder_helpers.dart';
 import 'package:test/test.dart';
 
-final Matcher throwsUngeneratedError          = throwsA(isA<UngeneratedError>());
-final Matcher throwsIllegalInstantiationError = throwsA(isA<IllegalInstantiationError>());
+final Matcher throwsUngeneratedError = throwsA(isA<UngeneratedError>());
+final Matcher throwsAssertionError = throwsA(isA<AssertionError>());
 
 main() {
   group('transformation generation helpers:', () {
@@ -52,8 +52,8 @@ main() {
 
     group('UiProps', () {
       test('cannot be instantiated directly if not generated', () {
-        expect(() => UngeneratedUiProps(), throwsIllegalInstantiationError);
-      });
+        expect(() => UngeneratedUiProps(), throwsAssertionError);
+      }, tags: 'ddc');
 
       group('throws errors when stubbed members are called that have not been generated:', () {
         late UiProps unimplemented;
@@ -73,8 +73,8 @@ main() {
 
     group('UiComponent', () {
       test('cannot be instantiated directly if not generated', () {
-        expect(() => UngeneratedUiComponent(), throwsIllegalInstantiationError);
-      });
+        expect(() => UngeneratedUiComponent(), throwsAssertionError);
+      }, tags: 'ddc');
 
       group('throws errors when stubbed members are called that have not been generated:', () {
         late UiComponent unimplemented;
@@ -90,8 +90,8 @@ main() {
 
     group('UiState', () {
       test('cannot be instantiated directly if not generated', () {
-        expect(() => UngeneratedUiState(), throwsIllegalInstantiationError);
-      });
+        expect(() => UngeneratedUiState(), throwsAssertionError);
+      }, tags: 'ddc');
 
       group('throws errors when stubbed members are called that have not been generated:', () {
         late UiState unimplemented;
@@ -110,8 +110,8 @@ main() {
 
     group('UiStatefulComponent', () {
       test('cannot be instantiated directly if not generated', () {
-        expect(() => UngeneratedUiStatefulComponent(), throwsIllegalInstantiationError);
-      });
+        expect(() => UngeneratedUiStatefulComponent(), throwsAssertionError);
+      }, tags: 'ddc');
 
       group('throws errors when stubbed members are called that have not been generated:', () {
         late UiStatefulComponent unimplemented;

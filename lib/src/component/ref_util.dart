@@ -12,13 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:over_react/src/component_declaration/component_base.dart';
 import 'package:over_react/src/component_declaration/component_type_checking.dart';
 import 'package:over_react/src/component_declaration/function_component.dart';
 import 'package:over_react/src/component_declaration/builder_helpers.dart' as bh;
 import 'package:react/react_client/js_backed_map.dart';
 import 'package:react/react_client/react_interop.dart' as react_interop;
 import 'package:react/react_client.dart';
-import 'package:over_react/component_base.dart';
 
 /// Creates a [Ref] object that can be attached to a [ReactElement] via the ref prop.
 ///
