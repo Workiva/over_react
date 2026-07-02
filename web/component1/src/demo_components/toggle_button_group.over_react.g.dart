@@ -15,12 +15,10 @@ final $ToggleButtonGroupComponentFactory = registerComponent(
   builderFactory: _$ToggleButtonGroup,
   componentClass: ToggleButtonGroupComponent,
   isWrapper: false,
-  parentType:
-      $ButtonGroupComponentFactory, /* from `subtypeOf: ButtonGroupComponent` */
+  parentType: $ButtonGroupComponentFactory, /* from `subtypeOf: ButtonGroupComponent` */
 );
 
-mixin _$ToggleButtonGroupPropsAccessorsMixin
-    implements _$ToggleButtonGroupProps {
+mixin _$ToggleButtonGroupPropsAccessorsMixin implements _$ToggleButtonGroupProps {
   @override
   Map get props;
 
@@ -35,22 +33,15 @@ const PropsMeta _$metaForToggleButtonGroupProps = PropsMeta(
   keys: _$ToggleButtonGroupPropsAccessorsMixin.$propKeys,
 );
 
-class ToggleButtonGroupProps extends _$ToggleButtonGroupProps
-    with _$ToggleButtonGroupPropsAccessorsMixin {
+class ToggleButtonGroupProps extends _$ToggleButtonGroupProps with _$ToggleButtonGroupPropsAccessorsMixin {
   static const PropsMeta meta = _$metaForToggleButtonGroupProps;
 }
-
-_$$ToggleButtonGroupProps _$ToggleButtonGroup([Map? backingProps]) =>
-    _$$ToggleButtonGroupProps(backingProps);
-
+_$$ToggleButtonGroupProps _$ToggleButtonGroup([Map? backingProps]) => _$$ToggleButtonGroupProps(backingProps);
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-class _$$ToggleButtonGroupProps extends _$ToggleButtonGroupProps
-    with _$ToggleButtonGroupPropsAccessorsMixin
-    implements ToggleButtonGroupProps {
-  _$$ToggleButtonGroupProps([Map? backingMap])
-      : this.props = backingMap ?? JsBackedMap();
+class _$$ToggleButtonGroupProps extends _$ToggleButtonGroupProps with _$ToggleButtonGroupPropsAccessorsMixin implements ToggleButtonGroupProps {
+  _$$ToggleButtonGroupProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
   @override
@@ -62,27 +53,22 @@ class _$$ToggleButtonGroupProps extends _$ToggleButtonGroupProps
 
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
-  ReactComponentFactoryProxy get componentFactory =>
-      super.componentFactory ?? $ToggleButtonGroupComponentFactory;
+  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $ToggleButtonGroupComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'ToggleButtonGroupProps.';
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$ToggleButtonGroupProps(
-          accessMap, (map) => _$$ToggleButtonGroupProps(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$ToggleButtonGroupProps(accessMap, (map) => _$$ToggleButtonGroupProps(map));
 
   @override
   Set<String> get requiredPropNamesToSkipValidation => const {'toggleType'};
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$ToggleButtonGroupProps = getPropKey;
-mixin _$ToggleButtonGroupStateAccessorsMixin
-    implements _$ToggleButtonGroupState {
+mixin _$ToggleButtonGroupStateAccessorsMixin implements _$ToggleButtonGroupState {
   @override
   Map get state;
 
@@ -97,19 +83,14 @@ const StateMeta _$metaForToggleButtonGroupState = StateMeta(
   keys: _$ToggleButtonGroupStateAccessorsMixin.$stateKeys,
 );
 
-class ToggleButtonGroupState extends _$ToggleButtonGroupState
-    with _$ToggleButtonGroupStateAccessorsMixin {
+class ToggleButtonGroupState extends _$ToggleButtonGroupState with _$ToggleButtonGroupStateAccessorsMixin {
   static const StateMeta meta = _$metaForToggleButtonGroupState;
 }
-
 // Concrete state implementation.
 //
 // Implements constructor and backing map.
-class _$$ToggleButtonGroupState extends _$ToggleButtonGroupState
-    with _$ToggleButtonGroupStateAccessorsMixin
-    implements ToggleButtonGroupState {
-  _$$ToggleButtonGroupState([Map? backingMap])
-      : this.state = backingMap ?? JsBackedMap();
+class _$$ToggleButtonGroupState extends _$ToggleButtonGroupState with _$ToggleButtonGroupStateAccessorsMixin implements ToggleButtonGroupState {
+  _$$ToggleButtonGroupState([Map? backingMap]) : this.state = backingMap ?? JsBackedMap();
 
   /// The backing state map proxied by this class.
   @override
@@ -119,19 +100,16 @@ class _$$ToggleButtonGroupState extends _$ToggleButtonGroupState
   @override
   bool get $isClassGenerated => true;
 }
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$ToggleButtonGroupComponent extends ToggleButtonGroupComponent {
   @override
-  _$$ToggleButtonGroupProps typedPropsFactory(Map? backingMap) =>
-      _$$ToggleButtonGroupProps(backingMap);
+  _$$ToggleButtonGroupProps typedPropsFactory(Map? backingMap) => _$$ToggleButtonGroupProps(backingMap);
 
   @override
-  _$$ToggleButtonGroupState typedStateFactory(Map? backingMap) =>
-      _$$ToggleButtonGroupState(backingMap);
+  _$$ToggleButtonGroupState typedStateFactory(Map? backingMap) => _$$ToggleButtonGroupState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -143,7 +121,5 @@ class _$ToggleButtonGroupComponent extends ToggleButtonGroupComponent {
   /// The default consumed props, taken from _$ToggleButtonGroupProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForToggleButtonGroupProps
-  ];
+  final List<ConsumedProps> $defaultConsumedProps = const [_$metaForToggleButtonGroupProps];
 }

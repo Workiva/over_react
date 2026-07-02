@@ -25,60 +25,28 @@ mixin _$ComponentTestPropsAccessorsMixin implements _$ComponentTestProps {
 
   /// <!-- Generated from [_$ComponentTestProps.required] -->
   @override
-  @Accessor(
-      isRequired: true,
-      requiredErrorMessage: 'This Prop is Required for testing purposes.')
-  dynamic get required =>
-      (props[_$key__required___$ComponentTestProps] ?? null) as dynamic;
-
+  @Accessor(isRequired: true, requiredErrorMessage: 'This Prop is Required for testing purposes.')
+  dynamic get required => (props[_$key__required___$ComponentTestProps] ?? null) as dynamic;
   /// <!-- Generated from [_$ComponentTestProps.required] -->
   @override
-  @Accessor(
-      isRequired: true,
-      requiredErrorMessage: 'This Prop is Required for testing purposes.')
-  set required(dynamic value) =>
-      props[_$key__required___$ComponentTestProps] = value;
-
+  @Accessor(isRequired: true, requiredErrorMessage: 'This Prop is Required for testing purposes.')
+  set required(dynamic value) => props[_$key__required___$ComponentTestProps] = value;
   /// <!-- Generated from [_$ComponentTestProps.nullable] -->
   @override
-  @Accessor(
-      isRequired: true,
-      isNullable: true,
-      requiredErrorMessage: 'This prop can be set to null!')
-  dynamic get nullable =>
-      (props[_$key__nullable___$ComponentTestProps] ?? null) as dynamic;
-
+  @Accessor(isRequired: true, isNullable: true, requiredErrorMessage: 'This prop can be set to null!')
+  dynamic get nullable => (props[_$key__nullable___$ComponentTestProps] ?? null) as dynamic;
   /// <!-- Generated from [_$ComponentTestProps.nullable] -->
   @override
-  @Accessor(
-      isRequired: true,
-      isNullable: true,
-      requiredErrorMessage: 'This prop can be set to null!')
-  set nullable(dynamic value) =>
-      props[_$key__nullable___$ComponentTestProps] = value;
+  @Accessor(isRequired: true, isNullable: true, requiredErrorMessage: 'This prop can be set to null!')
+  set nullable(dynamic value) => props[_$key__nullable___$ComponentTestProps] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__required___$ComponentTestProps =
-      PropDescriptor(_$key__required___$ComponentTestProps,
-          isRequired: true,
-          errorMessage: 'This Prop is Required for testing purposes.');
-  static const PropDescriptor _$prop__nullable___$ComponentTestProps =
-      PropDescriptor(_$key__nullable___$ComponentTestProps,
-          isRequired: true,
-          isNullable: true,
-          errorMessage: 'This prop can be set to null!');
-  static const String _$key__required___$ComponentTestProps =
-      'ComponentTestProps.required';
-  static const String _$key__nullable___$ComponentTestProps =
-      'ComponentTestProps.nullable';
+  static const PropDescriptor _$prop__required___$ComponentTestProps = PropDescriptor(_$key__required___$ComponentTestProps, isRequired: true, errorMessage: 'This Prop is Required for testing purposes.');
+  static const PropDescriptor _$prop__nullable___$ComponentTestProps = PropDescriptor(_$key__nullable___$ComponentTestProps, isRequired: true, isNullable: true, errorMessage: 'This prop can be set to null!');
+  static const String _$key__required___$ComponentTestProps = 'ComponentTestProps.required';
+  static const String _$key__nullable___$ComponentTestProps = 'ComponentTestProps.nullable';
 
-  static const List<PropDescriptor> $props = [
-    _$prop__required___$ComponentTestProps,
-    _$prop__nullable___$ComponentTestProps
-  ];
-  static const List<String> $propKeys = [
-    _$key__required___$ComponentTestProps,
-    _$key__nullable___$ComponentTestProps
-  ];
+  static const List<PropDescriptor> $props = [_$prop__required___$ComponentTestProps, _$prop__nullable___$ComponentTestProps];
+  static const List<String> $propKeys = [_$key__required___$ComponentTestProps, _$key__nullable___$ComponentTestProps];
 }
 
 const PropsMeta _$metaForComponentTestProps = PropsMeta(
@@ -86,22 +54,15 @@ const PropsMeta _$metaForComponentTestProps = PropsMeta(
   keys: _$ComponentTestPropsAccessorsMixin.$propKeys,
 );
 
-class ComponentTestProps extends _$ComponentTestProps
-    with _$ComponentTestPropsAccessorsMixin {
+class ComponentTestProps extends _$ComponentTestProps with _$ComponentTestPropsAccessorsMixin {
   static const PropsMeta meta = _$metaForComponentTestProps;
 }
-
-_$$ComponentTestProps _$ComponentTest([Map backingProps]) =>
-    _$$ComponentTestProps(backingProps);
-
+_$$ComponentTestProps _$ComponentTest([Map backingProps]) => _$$ComponentTestProps(backingProps);
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-class _$$ComponentTestProps extends _$ComponentTestProps
-    with _$ComponentTestPropsAccessorsMixin
-    implements ComponentTestProps {
-  _$$ComponentTestProps([Map backingMap])
-      : this.props = backingMap ?? JsBackedMap();
+class _$$ComponentTestProps extends _$ComponentTestProps with _$ComponentTestPropsAccessorsMixin implements ComponentTestProps {
+  _$$ComponentTestProps([Map backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
   @override
@@ -113,17 +74,14 @@ class _$$ComponentTestProps extends _$ComponentTestProps
 
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
-  ReactComponentFactoryProxy get componentFactory =>
-      super.componentFactory ?? $ComponentTestComponentFactory;
+  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $ComponentTestComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'ComponentTestProps.';
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$ComponentTestProps(
-          accessMap, (map) => _$$ComponentTestProps(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$ComponentTestProps(accessMap, (map) => _$$ComponentTestProps(map));
 
   @override
   // ignore: must_call_super
@@ -131,19 +89,16 @@ class _$$ComponentTestProps extends _$ComponentTestProps
     // Disable required prop validation, until this component is null safe, by not calling super.
   }
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$ComponentTestProps = getPropKey;
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$ComponentTestComponent extends ComponentTestComponent {
   @override
-  _$$ComponentTestProps typedPropsFactory(Map backingMap) =>
-      _$$ComponentTestProps(backingMap);
+  _$$ComponentTestProps typedPropsFactory(Map backingMap) => _$$ComponentTestProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -155,7 +110,5 @@ class _$ComponentTestComponent extends ComponentTestComponent {
   /// The default consumed props, taken from _$ComponentTestProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForComponentTestProps
-  ];
+  final List<ConsumedProps> $defaultConsumedProps = const [_$metaForComponentTestProps];
 }

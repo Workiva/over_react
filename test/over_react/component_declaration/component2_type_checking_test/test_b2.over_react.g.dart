@@ -36,15 +36,11 @@ const PropsMeta _$metaForTestB2Props = PropsMeta(
 class TestB2Props extends _$TestB2Props with _$TestB2PropsAccessorsMixin {
   static const PropsMeta meta = _$metaForTestB2Props;
 }
-
 _$$TestB2Props _$TestB2([Map? backingProps]) => _$$TestB2Props(backingProps);
-
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-class _$$TestB2Props extends _$TestB2Props
-    with _$TestB2PropsAccessorsMixin
-    implements TestB2Props {
+class _$$TestB2Props extends _$TestB2Props with _$TestB2PropsAccessorsMixin implements TestB2Props {
   _$$TestB2Props([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
@@ -57,22 +53,18 @@ class _$$TestB2Props extends _$TestB2Props
 
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
-  ReactComponentFactoryProxy get componentFactory =>
-      super.componentFactory ?? $TestB2ComponentFactory;
+  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $TestB2ComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'TestB2Props.';
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$TestB2Props(accessMap, (map) => _$$TestB2Props(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$TestB2Props(accessMap, (map) => _$$TestB2Props(map));
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$TestB2Props = getPropKey;
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
@@ -86,24 +78,21 @@ class _$TestB2Component extends TestB2Component {
   @override
   set props(Map value) {
     assert(
-        getBackingMap(value) is JsBackedMap,
+        getBackingMap(value) is JsBackedMap, 
         'Component2.props should never be set directly in '
         'production. If this is required for testing, the '
         'component should be rendered within the test. If '
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps =
-        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
+    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
-  _$$TestB2Props typedPropsFactoryJs(JsBackedMap? backingMap) =>
-      _$$TestB2Props(backingMap);
+  _$$TestB2Props typedPropsFactoryJs(JsBackedMap? backingMap) => _$$TestB2Props(backingMap);
 
   @override
-  _$$TestB2Props typedPropsFactory(Map? backingMap) =>
-      _$$TestB2Props(backingMap);
+  _$$TestB2Props typedPropsFactory(Map? backingMap) => _$$TestB2Props(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -115,7 +104,5 @@ class _$TestB2Component extends TestB2Component {
   /// The default consumed props, taken from _$TestB2Props.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForTestB2Props
-  ];
+  final List<ConsumedProps> $defaultConsumedProps = const [_$metaForTestB2Props];
 }

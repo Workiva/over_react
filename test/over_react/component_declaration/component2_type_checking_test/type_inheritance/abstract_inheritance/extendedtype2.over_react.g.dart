@@ -15,8 +15,7 @@ final $TestExtendtype2ComponentFactory = registerComponent2(
   builderFactory: _$TestExtendtype2,
   componentClass: TestExtendtype2Component,
   isWrapper: false,
-  parentType:
-      $TestAbstract2ComponentFactory, /* from `subtypeOf: TestAbstract2Component` */
+  parentType: $TestAbstract2ComponentFactory, /* from `subtypeOf: TestAbstract2Component` */
 );
 
 mixin _$TestExtendtype2PropsAccessorsMixin implements _$TestExtendtype2Props {
@@ -34,22 +33,15 @@ const PropsMeta _$metaForTestExtendtype2Props = PropsMeta(
   keys: _$TestExtendtype2PropsAccessorsMixin.$propKeys,
 );
 
-class TestExtendtype2Props extends _$TestExtendtype2Props
-    with _$TestExtendtype2PropsAccessorsMixin {
+class TestExtendtype2Props extends _$TestExtendtype2Props with _$TestExtendtype2PropsAccessorsMixin {
   static const PropsMeta meta = _$metaForTestExtendtype2Props;
 }
-
-_$$TestExtendtype2Props _$TestExtendtype2([Map? backingProps]) =>
-    _$$TestExtendtype2Props(backingProps);
-
+_$$TestExtendtype2Props _$TestExtendtype2([Map? backingProps]) => _$$TestExtendtype2Props(backingProps);
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-class _$$TestExtendtype2Props extends _$TestExtendtype2Props
-    with _$TestExtendtype2PropsAccessorsMixin
-    implements TestExtendtype2Props {
-  _$$TestExtendtype2Props([Map? backingMap])
-      : this.props = backingMap ?? JsBackedMap();
+class _$$TestExtendtype2Props extends _$TestExtendtype2Props with _$TestExtendtype2PropsAccessorsMixin implements TestExtendtype2Props {
+  _$$TestExtendtype2Props([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
   @override
@@ -61,23 +53,18 @@ class _$$TestExtendtype2Props extends _$TestExtendtype2Props
 
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
-  ReactComponentFactoryProxy get componentFactory =>
-      super.componentFactory ?? $TestExtendtype2ComponentFactory;
+  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $TestExtendtype2ComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'TestExtendtype2Props.';
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$TestExtendtype2Props(
-          accessMap, (map) => _$$TestExtendtype2Props(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$TestExtendtype2Props(accessMap, (map) => _$$TestExtendtype2Props(map));
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$TestExtendtype2Props = getPropKey;
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
@@ -91,24 +78,21 @@ class _$TestExtendtype2Component extends TestExtendtype2Component {
   @override
   set props(Map value) {
     assert(
-        getBackingMap(value) is JsBackedMap,
+        getBackingMap(value) is JsBackedMap, 
         'Component2.props should never be set directly in '
         'production. If this is required for testing, the '
         'component should be rendered within the test. If '
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps =
-        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
+    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
-  _$$TestExtendtype2Props typedPropsFactoryJs(JsBackedMap? backingMap) =>
-      _$$TestExtendtype2Props(backingMap);
+  _$$TestExtendtype2Props typedPropsFactoryJs(JsBackedMap? backingMap) => _$$TestExtendtype2Props(backingMap);
 
   @override
-  _$$TestExtendtype2Props typedPropsFactory(Map? backingMap) =>
-      _$$TestExtendtype2Props(backingMap);
+  _$$TestExtendtype2Props typedPropsFactory(Map? backingMap) => _$$TestExtendtype2Props(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -120,7 +104,5 @@ class _$TestExtendtype2Component extends TestExtendtype2Component {
   /// The default consumed props, taken from _$TestExtendtype2Props.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForTestExtendtype2Props
-  ];
+  final List<ConsumedProps> $defaultConsumedProps = const [_$metaForTestExtendtype2Props];
 }

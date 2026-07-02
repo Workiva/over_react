@@ -15,8 +15,7 @@ final $TestExtendtypeComponentFactory = registerComponent(
   builderFactory: _$TestExtendtype,
   componentClass: TestExtendtypeComponent,
   isWrapper: false,
-  parentType:
-      $TestAbstractComponentFactory, /* from `subtypeOf: TestAbstractComponent` */
+  parentType: $TestAbstractComponentFactory, /* from `subtypeOf: TestAbstractComponent` */
 );
 
 mixin _$TestExtendtypePropsAccessorsMixin implements _$TestExtendtypeProps {
@@ -34,22 +33,15 @@ const PropsMeta _$metaForTestExtendtypeProps = PropsMeta(
   keys: _$TestExtendtypePropsAccessorsMixin.$propKeys,
 );
 
-class TestExtendtypeProps extends _$TestExtendtypeProps
-    with _$TestExtendtypePropsAccessorsMixin {
+class TestExtendtypeProps extends _$TestExtendtypeProps with _$TestExtendtypePropsAccessorsMixin {
   static const PropsMeta meta = _$metaForTestExtendtypeProps;
 }
-
-_$$TestExtendtypeProps _$TestExtendtype([Map? backingProps]) =>
-    _$$TestExtendtypeProps(backingProps);
-
+_$$TestExtendtypeProps _$TestExtendtype([Map? backingProps]) => _$$TestExtendtypeProps(backingProps);
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-class _$$TestExtendtypeProps extends _$TestExtendtypeProps
-    with _$TestExtendtypePropsAccessorsMixin
-    implements TestExtendtypeProps {
-  _$$TestExtendtypeProps([Map? backingMap])
-      : this.props = backingMap ?? JsBackedMap();
+class _$$TestExtendtypeProps extends _$TestExtendtypeProps with _$TestExtendtypePropsAccessorsMixin implements TestExtendtypeProps {
+  _$$TestExtendtypeProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
   @override
@@ -61,31 +53,25 @@ class _$$TestExtendtypeProps extends _$TestExtendtypeProps
 
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
-  ReactComponentFactoryProxy get componentFactory =>
-      super.componentFactory ?? $TestExtendtypeComponentFactory;
+  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $TestExtendtypeComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'TestExtendtypeProps.';
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$TestExtendtypeProps(
-          accessMap, (map) => _$$TestExtendtypeProps(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$TestExtendtypeProps(accessMap, (map) => _$$TestExtendtypeProps(map));
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$TestExtendtypeProps = getPropKey;
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$TestExtendtypeComponent extends TestExtendtypeComponent {
   @override
-  _$$TestExtendtypeProps typedPropsFactory(Map? backingMap) =>
-      _$$TestExtendtypeProps(backingMap);
+  _$$TestExtendtypeProps typedPropsFactory(Map? backingMap) => _$$TestExtendtypeProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -97,7 +83,5 @@ class _$TestExtendtypeComponent extends TestExtendtypeComponent {
   /// The default consumed props, taken from _$TestExtendtypeProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForTestExtendtypeProps
-  ];
+  final List<ConsumedProps> $defaultConsumedProps = const [_$metaForTestExtendtypeProps];
 }

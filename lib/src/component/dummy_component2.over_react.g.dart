@@ -36,15 +36,11 @@ const PropsMeta _$metaFor_Dummy2Props = PropsMeta(
 class _Dummy2Props extends _$_Dummy2Props with _$_Dummy2PropsAccessorsMixin {
   static const PropsMeta meta = _$metaFor_Dummy2Props;
 }
-
 _$$_Dummy2Props _$_Dummy2([Map? backingProps]) => _$$_Dummy2Props(backingProps);
-
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-class _$$_Dummy2Props extends _$_Dummy2Props
-    with _$_Dummy2PropsAccessorsMixin
-    implements _Dummy2Props {
+class _$$_Dummy2Props extends _$_Dummy2Props with _$_Dummy2PropsAccessorsMixin implements _Dummy2Props {
   _$$_Dummy2Props([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
@@ -57,22 +53,18 @@ class _$$_Dummy2Props extends _$_Dummy2Props
 
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
-  ReactComponentFactoryProxy get componentFactory =>
-      super.componentFactory ?? $_Dummy2ComponentFactory;
+  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $_Dummy2ComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => '_Dummy2Props.';
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$_Dummy2Props(accessMap, (map) => _$$_Dummy2Props(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$_Dummy2Props(accessMap, (map) => _$$_Dummy2Props(map));
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$_Dummy2Props = getPropKey;
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
@@ -86,24 +78,21 @@ class _$_Dummy2Component extends _Dummy2Component {
   @override
   set props(Map value) {
     assert(
-        getBackingMap(value) is JsBackedMap,
+        getBackingMap(value) is JsBackedMap, 
         'Component2.props should never be set directly in '
         'production. If this is required for testing, the '
         'component should be rendered within the test. If '
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps =
-        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
+    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
-  _$$_Dummy2Props typedPropsFactoryJs(JsBackedMap? backingMap) =>
-      _$$_Dummy2Props(backingMap);
+  _$$_Dummy2Props typedPropsFactoryJs(JsBackedMap? backingMap) => _$$_Dummy2Props(backingMap);
 
   @override
-  _$$_Dummy2Props typedPropsFactory(Map? backingMap) =>
-      _$$_Dummy2Props(backingMap);
+  _$$_Dummy2Props typedPropsFactory(Map? backingMap) => _$$_Dummy2Props(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -115,7 +104,5 @@ class _$_Dummy2Component extends _Dummy2Component {
   /// The default consumed props, taken from _$_Dummy2Props.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaFor_Dummy2Props
-  ];
+  final List<ConsumedProps> $defaultConsumedProps = const [_$metaFor_Dummy2Props];
 }

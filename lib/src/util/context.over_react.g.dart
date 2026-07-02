@@ -14,29 +14,24 @@ part of 'context.dart';
 mixin $_ProviderPropsMixin<TValue> on _ProviderPropsMixin<TValue> {
   static const PropsMeta meta = _$metaFor_ProviderPropsMixin;
   @override
-  TValue get value =>
-      (props[_$key__value___ProviderPropsMixin] ?? null) as TValue;
+  TValue get value => (props[_$key__value___ProviderPropsMixin] ?? null) as TValue;
   @override
   set value(TValue value) => props[_$key__value___ProviderPropsMixin] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__value___ProviderPropsMixin =
-      PropDescriptor(_$key__value___ProviderPropsMixin,
-          isRequired: true, isNullable: true, isLate: true);
+  static const PropDescriptor _$prop__value___ProviderPropsMixin = PropDescriptor(_$key__value___ProviderPropsMixin, isRequired: true, isNullable: true, isLate: true);
   static const String _$key__value___ProviderPropsMixin = 'value';
 
-  static const List<PropDescriptor> $props = [
-    _$prop__value___ProviderPropsMixin
-  ];
+  static const List<PropDescriptor> $props = [_$prop__value___ProviderPropsMixin];
   static const List<String> $propKeys = [_$key__value___ProviderPropsMixin];
 
   @override
   @UiProps.$mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
-    if (!props.containsKey('value') &&
-        !requiredPropNamesToSkipValidation.contains('value')) {
-      throw MissingRequiredPropsError('Required prop `value` is missing.');
-    }
+      if(!props.containsKey('value') && !requiredPropNamesToSkipValidation.contains('value')) {
+  throw MissingRequiredPropsError('Required prop `value` is missing.');
+}
+
   }
 }
 
@@ -55,31 +50,22 @@ mixin $_ConsumerPropsMixin<TValue> on _ConsumerPropsMixin<TValue> {
   static const PropsMeta meta = _$metaFor_ConsumerPropsMixin;
   @override
   @experimental
-  dynamic get unstable_observedBits =>
-      (props[_$key__unstable_observedBits___ConsumerPropsMixin] ?? null)
-          as dynamic;
+  dynamic get unstable_observedBits => (props[_$key__unstable_observedBits___ConsumerPropsMixin] ?? null) as dynamic;
   @override
   @experimental
-  set unstable_observedBits(dynamic value) =>
-      props[_$key__unstable_observedBits___ConsumerPropsMixin] = value;
+  set unstable_observedBits(dynamic value) => props[_$key__unstable_observedBits___ConsumerPropsMixin] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor
-      _$prop__unstable_observedBits___ConsumerPropsMixin =
-      PropDescriptor(_$key__unstable_observedBits___ConsumerPropsMixin);
-  static const String _$key__unstable_observedBits___ConsumerPropsMixin =
-      'unstable_observedBits';
+  static const PropDescriptor _$prop__unstable_observedBits___ConsumerPropsMixin = PropDescriptor(_$key__unstable_observedBits___ConsumerPropsMixin);
+  static const String _$key__unstable_observedBits___ConsumerPropsMixin = 'unstable_observedBits';
 
-  static const List<PropDescriptor> $props = [
-    _$prop__unstable_observedBits___ConsumerPropsMixin
-  ];
-  static const List<String> $propKeys = [
-    _$key__unstable_observedBits___ConsumerPropsMixin
-  ];
+  static const List<PropDescriptor> $props = [_$prop__unstable_observedBits___ConsumerPropsMixin];
+  static const List<String> $propKeys = [_$key__unstable_observedBits___ConsumerPropsMixin];
 
   @override
   @UiProps.$mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
+    
   }
 }
 
@@ -90,23 +76,16 @@ const PropsMeta _$metaFor_ConsumerPropsMixin = PropsMeta(
   keys: $_ConsumerPropsMixin.$propKeys,
 );
 
-_$$ProviderProps _$_Provider([Map? backingProps]) =>
-    _$$ProviderProps(backingProps);
-
+_$$ProviderProps _$_Provider([Map? backingProps]) => _$$ProviderProps(backingProps);
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$ProviderProps<TValue> extends UiProps
-    with
-        _ProviderPropsMixin<TValue>,
-        // If this generated mixin is undefined, it's likely because _ProviderPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of _ProviderPropsMixin, and check that $_ProviderPropsMixin is exported/imported properly.
-        $_ProviderPropsMixin<TValue>
-    implements
-        ProviderProps<TValue> {
-  _$$ProviderProps([Map? backingMap])
-      : this.props = backingMap ?? JsBackedMap();
+class _$$ProviderProps<TValue> extends UiProps with _ProviderPropsMixin<TValue>,
+ // If this generated mixin is undefined, it's likely because _ProviderPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of _ProviderPropsMixin, and check that $_ProviderPropsMixin is exported/imported properly.
+$_ProviderPropsMixin<TValue> implements ProviderProps<TValue> {
+  _$$ProviderProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
   @override
@@ -115,42 +94,32 @@ class _$$ProviderProps<TValue> extends UiProps
   /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
-
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => '';
 
   @override
   PropsMetaCollection get staticMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because _ProviderPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of _ProviderPropsMixin, and check that $_ProviderPropsMixin is exported/imported properly.
-        _ProviderPropsMixin: $_ProviderPropsMixin.meta,
-      });
+    // If this generated mixin is undefined, it's likely because _ProviderPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of _ProviderPropsMixin, and check that $_ProviderPropsMixin is exported/imported properly.
+    _ProviderPropsMixin: $_ProviderPropsMixin.meta,
+  });
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$ProviderProps(accessMap, (map) => _$$ProviderProps(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$ProviderProps(accessMap, (map) => _$$ProviderProps(map));
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$ProviderProps = getPropKey;
-_$$ConsumerProps _$_Consumer([Map? backingProps]) =>
-    _$$ConsumerProps(backingProps);
-
+_$$ConsumerProps _$_Consumer([Map? backingProps]) => _$$ConsumerProps(backingProps);
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$ConsumerProps<TValue> extends UiProps
-    with
-        _ConsumerPropsMixin<TValue>,
-        // If this generated mixin is undefined, it's likely because _ConsumerPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of _ConsumerPropsMixin, and check that $_ConsumerPropsMixin is exported/imported properly.
-        $_ConsumerPropsMixin<TValue>
-    implements
-        ConsumerProps<TValue> {
-  _$$ConsumerProps([Map? backingMap])
-      : this.props = backingMap ?? JsBackedMap();
+class _$$ConsumerProps<TValue> extends UiProps with _ConsumerPropsMixin<TValue>,
+ // If this generated mixin is undefined, it's likely because _ConsumerPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of _ConsumerPropsMixin, and check that $_ConsumerPropsMixin is exported/imported properly.
+$_ConsumerPropsMixin<TValue> implements ConsumerProps<TValue> {
+  _$$ConsumerProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
   @override
@@ -159,22 +128,19 @@ class _$$ConsumerProps<TValue> extends UiProps
   /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
-
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => '';
 
   @override
   PropsMetaCollection get staticMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because _ConsumerPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of _ConsumerPropsMixin, and check that $_ConsumerPropsMixin is exported/imported properly.
-        _ConsumerPropsMixin: $_ConsumerPropsMixin.meta,
-      });
+    // If this generated mixin is undefined, it's likely because _ConsumerPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of _ConsumerPropsMixin, and check that $_ConsumerPropsMixin is exported/imported properly.
+    _ConsumerPropsMixin: $_ConsumerPropsMixin.meta,
+  });
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$ConsumerProps(accessMap, (map) => _$$ConsumerProps(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$ConsumerProps(accessMap, (map) => _$$ConsumerProps(map));
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$ConsumerProps = getPropKey;

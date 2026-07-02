@@ -22,6 +22,7 @@ mixin $UseStoreCounterFnProps on UseStoreCounterFnProps {
   @UiProps.$mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
+    
   }
 }
 
@@ -36,8 +37,7 @@ const PropsMeta _$metaForUseStoreCounterFnProps = PropsMeta(
     ' Do not reference it in your code, as it may change at any time.'
     ' EXCEPTION: this may be used in legacy boilerplate until'
     ' it is transitioned to the new mixin-based boilerplate.')
-mixin $CustomContextUseStoreCounterFnProps
-    on CustomContextUseStoreCounterFnProps {
+mixin $CustomContextUseStoreCounterFnProps on CustomContextUseStoreCounterFnProps {
   static const PropsMeta meta = _$metaForCustomContextUseStoreCounterFnProps;
   /* GENERATED CONSTANTS */
 
@@ -48,6 +48,7 @@ mixin $CustomContextUseStoreCounterFnProps
   @UiProps.$mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
+    
   }
 }
 
@@ -58,32 +59,29 @@ const PropsMeta _$metaForCustomContextUseStoreCounterFnProps = PropsMeta(
   keys: $CustomContextUseStoreCounterFnProps.$propKeys,
 );
 
-final UiFactoryConfig<_$$UseStoreCounterFnProps> _$UseStoreCounterFnConfig =
-    UiFactoryConfig(
-        propsFactory: PropsFactory(
-          map: (map) => _$$UseStoreCounterFnProps(map),
-          jsMap: (map) => _$$UseStoreCounterFnProps(map),
-        ),
-        displayName: 'UseStoreCounterFn');
+final UiFactoryConfig<_$$UseStoreCounterFnProps> _$UseStoreCounterFnConfig = UiFactoryConfig(
+  propsFactory: PropsFactory(
+    map: (map) => _$$UseStoreCounterFnProps(map),
+    jsMap: (map) => _$$UseStoreCounterFnProps(map),
+  ),
+  displayName: 'UseStoreCounterFn',
+);
 
 @Deprecated(r'Use the private variable, _$UseStoreCounterFnConfig, instead '
     'and update the `over_react` lower bound to version 4.1.0. '
     'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
-final UiFactoryConfig<_$$UseStoreCounterFnProps> $UseStoreCounterFnConfig =
-    _$UseStoreCounterFnConfig;
+final UiFactoryConfig<_$$UseStoreCounterFnProps> $UseStoreCounterFnConfig = _$UseStoreCounterFnConfig;
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$UseStoreCounterFnProps extends UiProps
-    with
-        UseStoreCounterFnProps,
-        // If this generated mixin is undefined, it's likely because UseStoreCounterFnProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of UseStoreCounterFnProps, and check that $UseStoreCounterFnProps is exported/imported properly.
-        $UseStoreCounterFnProps {
-  _$$UseStoreCounterFnProps([Map? backingMap])
-      : this.props = backingMap ?? JsBackedMap();
+class _$$UseStoreCounterFnProps extends UiProps with
+ UseStoreCounterFnProps,
+ // If this generated mixin is undefined, it's likely because UseStoreCounterFnProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of UseStoreCounterFnProps, and check that $UseStoreCounterFnProps is exported/imported properly.
+ $UseStoreCounterFnProps {
+  _$$UseStoreCounterFnProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
   @override
@@ -92,54 +90,45 @@ class _$$UseStoreCounterFnProps extends UiProps
   /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
-
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => '';
 
   @override
   PropsMetaCollection get staticMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because UseStoreCounterFnProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of UseStoreCounterFnProps, and check that $UseStoreCounterFnProps is exported/imported properly.
-        UseStoreCounterFnProps: $UseStoreCounterFnProps.meta,
-      });
+    // If this generated mixin is undefined, it's likely because UseStoreCounterFnProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of UseStoreCounterFnProps, and check that $UseStoreCounterFnProps is exported/imported properly.
+    UseStoreCounterFnProps: $UseStoreCounterFnProps.meta,
+  });
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$UseStoreCounterFnProps(
-          accessMap, (map) => _$$UseStoreCounterFnProps(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$UseStoreCounterFnProps(accessMap, (map) => _$$UseStoreCounterFnProps(map));
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$UseStoreCounterFnProps = getPropKey;
-final UiFactoryConfig<_$$CustomContextUseStoreCounterFnProps>
-    _$CustomContextUseStoreCounterFnConfig = UiFactoryConfig(
-        propsFactory: PropsFactory(
-          map: (map) => _$$CustomContextUseStoreCounterFnProps(map),
-          jsMap: (map) => _$$CustomContextUseStoreCounterFnProps(map),
-        ),
-        displayName: 'CustomContextUseStoreCounterFn');
+final UiFactoryConfig<_$$CustomContextUseStoreCounterFnProps> _$CustomContextUseStoreCounterFnConfig = UiFactoryConfig(
+  propsFactory: PropsFactory(
+    map: (map) => _$$CustomContextUseStoreCounterFnProps(map),
+    jsMap: (map) => _$$CustomContextUseStoreCounterFnProps(map),
+  ),
+  displayName: 'CustomContextUseStoreCounterFn',
+);
 
-@Deprecated(
-    r'Use the private variable, _$CustomContextUseStoreCounterFnConfig, instead '
+@Deprecated(r'Use the private variable, _$CustomContextUseStoreCounterFnConfig, instead '
     'and update the `over_react` lower bound to version 4.1.0. '
     'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
-final UiFactoryConfig<_$$CustomContextUseStoreCounterFnProps>
-    $CustomContextUseStoreCounterFnConfig =
-    _$CustomContextUseStoreCounterFnConfig;
+final UiFactoryConfig<_$$CustomContextUseStoreCounterFnProps> $CustomContextUseStoreCounterFnConfig = _$CustomContextUseStoreCounterFnConfig;
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$CustomContextUseStoreCounterFnProps extends UiProps
-    with
-        CustomContextUseStoreCounterFnProps,
-        // If this generated mixin is undefined, it's likely because CustomContextUseStoreCounterFnProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of CustomContextUseStoreCounterFnProps, and check that $CustomContextUseStoreCounterFnProps is exported/imported properly.
-        $CustomContextUseStoreCounterFnProps {
-  _$$CustomContextUseStoreCounterFnProps([Map? backingMap])
-      : this.props = backingMap ?? JsBackedMap();
+class _$$CustomContextUseStoreCounterFnProps extends UiProps with
+ CustomContextUseStoreCounterFnProps,
+ // If this generated mixin is undefined, it's likely because CustomContextUseStoreCounterFnProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of CustomContextUseStoreCounterFnProps, and check that $CustomContextUseStoreCounterFnProps is exported/imported properly.
+ $CustomContextUseStoreCounterFnProps {
+  _$$CustomContextUseStoreCounterFnProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
   @override
@@ -148,24 +137,19 @@ class _$$CustomContextUseStoreCounterFnProps extends UiProps
   /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
-
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => '';
 
   @override
   PropsMetaCollection get staticMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because CustomContextUseStoreCounterFnProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of CustomContextUseStoreCounterFnProps, and check that $CustomContextUseStoreCounterFnProps is exported/imported properly.
-        CustomContextUseStoreCounterFnProps:
-            $CustomContextUseStoreCounterFnProps.meta,
-      });
+    // If this generated mixin is undefined, it's likely because CustomContextUseStoreCounterFnProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of CustomContextUseStoreCounterFnProps, and check that $CustomContextUseStoreCounterFnProps is exported/imported properly.
+    CustomContextUseStoreCounterFnProps: $CustomContextUseStoreCounterFnProps.meta,
+  });
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$CustomContextUseStoreCounterFnProps(
-          accessMap, (map) => _$$CustomContextUseStoreCounterFnProps(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$CustomContextUseStoreCounterFnProps(accessMap, (map) => _$$CustomContextUseStoreCounterFnProps(map));
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$CustomContextUseStoreCounterFnProps = getPropKey;

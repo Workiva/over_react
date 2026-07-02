@@ -33,22 +33,15 @@ const PropsMeta _$metaForTestParent2Props = PropsMeta(
   keys: _$TestParent2PropsAccessorsMixin.$propKeys,
 );
 
-class TestParent2Props extends _$TestParent2Props
-    with _$TestParent2PropsAccessorsMixin {
+class TestParent2Props extends _$TestParent2Props with _$TestParent2PropsAccessorsMixin {
   static const PropsMeta meta = _$metaForTestParent2Props;
 }
-
-_$$TestParent2Props _$TestParent2([Map? backingProps]) =>
-    _$$TestParent2Props(backingProps);
-
+_$$TestParent2Props _$TestParent2([Map? backingProps]) => _$$TestParent2Props(backingProps);
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-class _$$TestParent2Props extends _$TestParent2Props
-    with _$TestParent2PropsAccessorsMixin
-    implements TestParent2Props {
-  _$$TestParent2Props([Map? backingMap])
-      : this.props = backingMap ?? JsBackedMap();
+class _$$TestParent2Props extends _$TestParent2Props with _$TestParent2PropsAccessorsMixin implements TestParent2Props {
+  _$$TestParent2Props([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
   @override
@@ -60,23 +53,18 @@ class _$$TestParent2Props extends _$TestParent2Props
 
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
-  ReactComponentFactoryProxy get componentFactory =>
-      super.componentFactory ?? $TestParent2ComponentFactory;
+  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $TestParent2ComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'TestParent2Props.';
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$TestParent2Props(
-          accessMap, (map) => _$$TestParent2Props(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$TestParent2Props(accessMap, (map) => _$$TestParent2Props(map));
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$TestParent2Props = getPropKey;
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
@@ -90,24 +78,21 @@ class _$TestParent2Component extends TestParent2Component {
   @override
   set props(Map value) {
     assert(
-        getBackingMap(value) is JsBackedMap,
+        getBackingMap(value) is JsBackedMap, 
         'Component2.props should never be set directly in '
         'production. If this is required for testing, the '
         'component should be rendered within the test. If '
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps =
-        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
+    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
-  _$$TestParent2Props typedPropsFactoryJs(JsBackedMap? backingMap) =>
-      _$$TestParent2Props(backingMap);
+  _$$TestParent2Props typedPropsFactoryJs(JsBackedMap? backingMap) => _$$TestParent2Props(backingMap);
 
   @override
-  _$$TestParent2Props typedPropsFactory(Map? backingMap) =>
-      _$$TestParent2Props(backingMap);
+  _$$TestParent2Props typedPropsFactory(Map? backingMap) => _$$TestParent2Props(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -119,7 +104,5 @@ class _$TestParent2Component extends TestParent2Component {
   /// The default consumed props, taken from _$TestParent2Props.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForTestParent2Props
-  ];
+  final List<ConsumedProps> $defaultConsumedProps = const [_$metaForTestParent2Props];
 }

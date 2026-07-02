@@ -33,22 +33,15 @@ const PropsMeta _$metaForBasicUiComponentProps = PropsMeta(
   keys: _$BasicUiComponentPropsAccessorsMixin.$propKeys,
 );
 
-class BasicUiComponentProps extends _$BasicUiComponentProps
-    with _$BasicUiComponentPropsAccessorsMixin {
+class BasicUiComponentProps extends _$BasicUiComponentProps with _$BasicUiComponentPropsAccessorsMixin {
   static const PropsMeta meta = _$metaForBasicUiComponentProps;
 }
-
-_$$BasicUiComponentProps _$BasicUiComponent([Map? backingProps]) =>
-    _$$BasicUiComponentProps(backingProps);
-
+_$$BasicUiComponentProps _$BasicUiComponent([Map? backingProps]) => _$$BasicUiComponentProps(backingProps);
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-class _$$BasicUiComponentProps extends _$BasicUiComponentProps
-    with _$BasicUiComponentPropsAccessorsMixin
-    implements BasicUiComponentProps {
-  _$$BasicUiComponentProps([Map? backingMap])
-      : this.props = backingMap ?? JsBackedMap();
+class _$$BasicUiComponentProps extends _$BasicUiComponentProps with _$BasicUiComponentPropsAccessorsMixin implements BasicUiComponentProps {
+  _$$BasicUiComponentProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
   @override
@@ -60,31 +53,25 @@ class _$$BasicUiComponentProps extends _$BasicUiComponentProps
 
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
-  ReactComponentFactoryProxy get componentFactory =>
-      super.componentFactory ?? $BasicUiComponentComponentFactory;
+  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $BasicUiComponentComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'BasicUiComponentProps.';
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$BasicUiComponentProps(
-          accessMap, (map) => _$$BasicUiComponentProps(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$BasicUiComponentProps(accessMap, (map) => _$$BasicUiComponentProps(map));
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$BasicUiComponentProps = getPropKey;
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$BasicUiComponentComponent extends BasicUiComponentComponent {
   @override
-  _$$BasicUiComponentProps typedPropsFactory(Map? backingMap) =>
-      _$$BasicUiComponentProps(backingMap);
+  _$$BasicUiComponentProps typedPropsFactory(Map? backingMap) => _$$BasicUiComponentProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -96,7 +83,5 @@ class _$BasicUiComponentComponent extends BasicUiComponentComponent {
   /// The default consumed props, taken from _$BasicUiComponentProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForBasicUiComponentProps
-  ];
+  final List<ConsumedProps> $defaultConsumedProps = const [_$metaForBasicUiComponentProps];
 }
