@@ -26,7 +26,8 @@ dependencies:
 dev_dependencies:
   args: ^2.4.2
   benchmark_harness: ^2.2.1
-  build_runner: ^2.0.0
+  # Work around https://github.com/dart-lang/build/issues/4944 introduced in 2.14.0, which should hopefully get fixed in 2.14.1
+  build_runner: '>=2.0.0 <2.14.0'
   build_test: '>=2.0.0 <4.0.0'
   build_web_compilers: '>=3.2.6 <5.0.0'
   dart_dev: ^4.2.5
