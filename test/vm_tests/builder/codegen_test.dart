@@ -128,7 +128,7 @@ main() {
                 });
 
                 test('with abstract props/state getter', () {
-                  expect(implGenerator!.outputContentsBuffer.toString(), contains('@override  Map get ${isProps ? 'props' : 'state'};'));
+                  expect(implGenerator!.outputContentsBuffer.toString(), contains('@override\n  Map get ${isProps ? 'props' : 'state'};'));
                 });
 
                 test('contains props or state descriptors for all fields', () {
@@ -220,7 +220,7 @@ main() {
                 });
 
                 test('with abstract props/state getter', () {
-                  expect(implGenerator!.outputContentsBuffer.toString(), contains('@override  Map get ${isProps ? 'props' : 'state'};'));
+                  expect(implGenerator!.outputContentsBuffer.toString(), contains('@override\n  Map get ${isProps ? 'props' : 'state'};'));
                 });
 
                 group('with concrete implementations', () {
@@ -656,21 +656,22 @@ main() {
         String generatedConfig(String propsName, String factoryName) {
           return 'final UiFactoryConfig<_\$\$$propsName> '
               '_\$${factoryName}Config = UiFactoryConfig(\n'
-              'propsFactory: PropsFactory(\n'
-              'map: (map) => _\$\$$propsName(map),\n'
-              'jsMap: (map) => _\$\$$propsName(map),),\n'
-              'displayName: \'$factoryName\');\n\n'
+              '  propsFactory: PropsFactory(\n'
+              '    map: (map) => _\$\$$propsName(map),\n'
+              '    jsMap: (map) => _\$\$$propsName(map),\n'
+              '  ),\n'
+              '  displayName: \'$factoryName\',\n'
+              ');\n\n'
               '@Deprecated(r\'Use the private variable, _\$${factoryName}Config, instead \'\n'
-              '\'and update the `over_react` lower bound to version 4.1.0. \'\n'
-              '\'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650\')\n'
+              '    \'and update the `over_react` lower bound to version 4.1.0. \'\n'
+              '    \'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650\')\n'
               'final UiFactoryConfig<_\$\$$propsName> '
               '\$${factoryName}Config = _\$${factoryName}Config;\n\n';
         }
 
         String generatedPropsMapForConfig(String propsName) {
           // No need to validate the whole implementation; that's tedious to reconstruct here, and it's tested elsewhere.
-          return '@Deprecated(\'This API is for use only within generated code.\'\' Do not reference it in your code, as it may change at any time.\')\n'
-              'class _\$\$$propsName extends UiProps with';
+          return 'class _\$\$$propsName extends UiProps with';
         }
 
         void sharedUiConfigGenerationTests(String wrapperFunction) {
