@@ -25,14 +25,20 @@ abstract class BoilerplateDeclarationGenerator with TemporaryGenerationContext {
   Version get version;
 
   @protected
-  String internalGeneratedMemberDeprecationLine({String additionalMessageStringLiteral = ''}) {
-    final string = version.isLegacy
-        ? ''
-        : '@Deprecated('
-            "'This API is for use only within generated code.'"
-            "' Do not reference it in your code, as it may change at any time.'"
-            '$additionalMessageStringLiteral'
-            ')\n';
+  String internalGeneratedMemberDeprecationLine({
+    List<String> additionalMessageStringLiterals = const [],
+  }) {
+    final String string;
+    if (version.isLegacy) {
+      string = '';
+    } else {
+      final messageStringLiterals = [
+        "'This API is for use only within generated code.'",
+        "' Do not reference it in your code, as it may change at any time.'",
+        ...additionalMessageStringLiterals,
+      ];
+      string = '@Deprecated(${messageStringLiterals.join('\n    ')})\n';
+    }
 
     assert(string.isEmpty || string.endsWith('\n'),
         'code that consumes this relies on there being a trailing newline if it is non-empty');
