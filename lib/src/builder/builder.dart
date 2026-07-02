@@ -18,11 +18,9 @@ import 'dart:isolate';
 
 import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:analyzer/dart/ast/ast.dart';
-import 'package:analyzer/dart/ast/token.dart' show LanguageVersionToken;
 import 'package:build/build.dart';
 import 'package:path/path.dart' as p;
 import 'package:package_config/package_config.dart' as pc;
-import 'package:pub_semver/pub_semver.dart' as semver;
 import 'package:source_span/source_span.dart';
 
 import './util.dart';
@@ -302,14 +300,6 @@ class OverReactBuilder extends Builder {
 
     await buildStep.writeAsString(outputId, buffer.toString());
   }
-}
-
-extension on pc.LanguageVersion {
-  semver.Version asSemver() => semver.Version(major, minor, 0); // There's no patch available on this version.
-}
-
-extension on LanguageVersionToken {
-  semver.Version asSemver() => semver.Version(major, minor, 0); // There's no patch available on this version.
 }
 
 extension on BuildStep {
