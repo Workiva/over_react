@@ -36,15 +36,11 @@ const PropsMeta _$metaForTestAProps = PropsMeta(
 class TestAProps extends _$TestAProps with _$TestAPropsAccessorsMixin {
   static const PropsMeta meta = _$metaForTestAProps;
 }
-
 _$$TestAProps _$TestA([Map? backingProps]) => _$$TestAProps(backingProps);
-
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-class _$$TestAProps extends _$TestAProps
-    with _$TestAPropsAccessorsMixin
-    implements TestAProps {
+class _$$TestAProps extends _$TestAProps with _$TestAPropsAccessorsMixin implements TestAProps {
   _$$TestAProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
@@ -57,22 +53,18 @@ class _$$TestAProps extends _$TestAProps
 
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
-  ReactComponentFactoryProxy get componentFactory =>
-      super.componentFactory ?? $TestAComponentFactory;
+  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $TestAComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'TestAProps.';
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$TestAProps(accessMap, (map) => _$$TestAProps(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$TestAProps(accessMap, (map) => _$$TestAProps(map));
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$TestAProps = getPropKey;
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys

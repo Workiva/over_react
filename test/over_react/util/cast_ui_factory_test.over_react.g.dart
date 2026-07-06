@@ -21,17 +21,15 @@ final $BasicComponentFactory = registerComponent2(
 );
 
 _$$BasicProps _$Basic([Map? backingProps]) => _$$BasicProps(backingProps);
-
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$BasicProps extends UiProps
-    with
-        BasicProps,
-        // If this generated mixin is undefined, it's likely because BasicProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of BasicProps, and check that $BasicProps is exported/imported properly.
-        $BasicProps {
+class _$$BasicProps extends UiProps with
+ BasicProps,
+ // If this generated mixin is undefined, it's likely because BasicProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of BasicProps, and check that $BasicProps is exported/imported properly.
+ $BasicProps {
   _$$BasicProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
@@ -44,8 +42,7 @@ class _$$BasicProps extends UiProps
 
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
-  ReactComponentFactoryProxy get componentFactory =>
-      super.componentFactory ?? $BasicComponentFactory;
+  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $BasicComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
@@ -53,19 +50,16 @@ class _$$BasicProps extends UiProps
 
   @override
   PropsMetaCollection get staticMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because BasicProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of BasicProps, and check that $BasicProps is exported/imported properly.
-        BasicProps: $BasicProps.meta,
-      });
+    // If this generated mixin is undefined, it's likely because BasicProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of BasicProps, and check that $BasicProps is exported/imported properly.
+    BasicProps: $BasicProps.meta,
+  });
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$BasicProps(accessMap, (map) => _$$BasicProps(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$BasicProps(accessMap, (map) => _$$BasicProps(map));
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$BasicProps = getPropKey;
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
@@ -81,20 +75,18 @@ class _$BasicComponent extends BasicComponent {
   @override
   set props(Map value) {
     assert(
-        getBackingMap(value) is JsBackedMap,
+        getBackingMap(value) is JsBackedMap, 
         'Component2.props should never be set directly in '
         'production. If this is required for testing, the '
         'component should be rendered within the test. If '
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps =
-        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
+    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
-  _$$BasicProps typedPropsFactoryJs(JsBackedMap? backingMap) =>
-      _$$BasicProps(backingMap);
+  _$$BasicProps typedPropsFactoryJs(JsBackedMap? backingMap) => _$$BasicProps(backingMap);
 
   @override
   _$$BasicProps typedPropsFactory(Map? backingMap) => _$$BasicProps(backingMap);
@@ -113,11 +105,10 @@ class _$BasicComponent extends BasicComponent {
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because BasicProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of BasicProps, and check that $BasicProps is exported/imported properly.
-        BasicProps: $BasicProps.meta,
-      });
+    // If this generated mixin is undefined, it's likely because BasicProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of BasicProps, and check that $BasicProps is exported/imported properly.
+    BasicProps: $BasicProps.meta,
+  });
 }
-
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.'
     ' EXCEPTION: this may be used in legacy boilerplate until'
@@ -133,6 +124,7 @@ mixin $BasicProps on BasicProps {
   @UiProps.$mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
+    
   }
 }
 

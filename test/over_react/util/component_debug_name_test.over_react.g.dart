@@ -20,21 +20,17 @@ final $TestComponent2ComponentFactory = registerComponent2(
   parentType: null,
 );
 
-_$$TestComponent2Props _$TestComponent2([Map? backingProps]) =>
-    _$$TestComponent2Props(backingProps);
-
+_$$TestComponent2Props _$TestComponent2([Map? backingProps]) => _$$TestComponent2Props(backingProps);
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$TestComponent2Props extends UiProps
-    with
-        TestComponent2Props,
-        // If this generated mixin is undefined, it's likely because TestComponent2Props is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestComponent2Props, and check that $TestComponent2Props is exported/imported properly.
-        $TestComponent2Props {
-  _$$TestComponent2Props([Map? backingMap])
-      : this.props = backingMap ?? JsBackedMap();
+class _$$TestComponent2Props extends UiProps with
+ TestComponent2Props,
+ // If this generated mixin is undefined, it's likely because TestComponent2Props is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestComponent2Props, and check that $TestComponent2Props is exported/imported properly.
+ $TestComponent2Props {
+  _$$TestComponent2Props([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
   @override
@@ -46,8 +42,7 @@ class _$$TestComponent2Props extends UiProps
 
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
-  ReactComponentFactoryProxy get componentFactory =>
-      super.componentFactory ?? $TestComponent2ComponentFactory;
+  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $TestComponent2ComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
@@ -55,20 +50,16 @@ class _$$TestComponent2Props extends UiProps
 
   @override
   PropsMetaCollection get staticMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because TestComponent2Props is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestComponent2Props, and check that $TestComponent2Props is exported/imported properly.
-        TestComponent2Props: $TestComponent2Props.meta,
-      });
+    // If this generated mixin is undefined, it's likely because TestComponent2Props is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestComponent2Props, and check that $TestComponent2Props is exported/imported properly.
+    TestComponent2Props: $TestComponent2Props.meta,
+  });
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$TestComponent2Props(
-          accessMap, (map) => _$$TestComponent2Props(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$TestComponent2Props(accessMap, (map) => _$$TestComponent2Props(map));
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$TestComponent2Props = getPropKey;
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
@@ -84,24 +75,21 @@ class _$TestComponent2Component extends TestComponent2Component {
   @override
   set props(Map value) {
     assert(
-        getBackingMap(value) is JsBackedMap,
+        getBackingMap(value) is JsBackedMap, 
         'Component2.props should never be set directly in '
         'production. If this is required for testing, the '
         'component should be rendered within the test. If '
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps =
-        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
+    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
-  _$$TestComponent2Props typedPropsFactoryJs(JsBackedMap? backingMap) =>
-      _$$TestComponent2Props(backingMap);
+  _$$TestComponent2Props typedPropsFactoryJs(JsBackedMap? backingMap) => _$$TestComponent2Props(backingMap);
 
   @override
-  _$$TestComponent2Props typedPropsFactory(Map? backingMap) =>
-      _$$TestComponent2Props(backingMap);
+  _$$TestComponent2Props typedPropsFactory(Map? backingMap) => _$$TestComponent2Props(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -117,11 +105,10 @@ class _$TestComponent2Component extends TestComponent2Component {
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because TestComponent2Props is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestComponent2Props, and check that $TestComponent2Props is exported/imported properly.
-        TestComponent2Props: $TestComponent2Props.meta,
-      });
+    // If this generated mixin is undefined, it's likely because TestComponent2Props is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestComponent2Props, and check that $TestComponent2Props is exported/imported properly.
+    TestComponent2Props: $TestComponent2Props.meta,
+  });
 }
-
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
@@ -148,17 +135,12 @@ const PropsMeta _$metaForTestComponentProps = PropsMeta(
   keys: _$TestComponentPropsAccessorsMixin.$propKeys,
 );
 
-_$$TestComponentProps _$TestComponent([Map? backingProps]) =>
-    _$$TestComponentProps(backingProps);
-
+_$$TestComponentProps _$TestComponent([Map? backingProps]) => _$$TestComponentProps(backingProps);
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-class _$$TestComponentProps extends _$TestComponentProps
-    with _$TestComponentPropsAccessorsMixin
-    implements TestComponentProps {
-  _$$TestComponentProps([Map? backingMap])
-      : this.props = backingMap ?? JsBackedMap();
+class _$$TestComponentProps extends _$TestComponentProps with _$TestComponentPropsAccessorsMixin implements TestComponentProps {
+  _$$TestComponentProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
   @override
@@ -170,31 +152,25 @@ class _$$TestComponentProps extends _$TestComponentProps
 
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
-  ReactComponentFactoryProxy get componentFactory =>
-      super.componentFactory ?? $TestComponentComponentFactory;
+  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $TestComponentComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'TestComponentProps.';
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$TestComponentProps(
-          accessMap, (map) => _$$TestComponentProps(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$TestComponentProps(accessMap, (map) => _$$TestComponentProps(map));
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$TestComponentProps = getPropKey;
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$TestComponentComponent extends TestComponentComponent {
   @override
-  _$$TestComponentProps typedPropsFactory(Map? backingMap) =>
-      _$$TestComponentProps(backingMap);
+  _$$TestComponentProps typedPropsFactory(Map? backingMap) => _$$TestComponentProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -206,11 +182,8 @@ class _$TestComponentComponent extends TestComponentComponent {
   /// The default consumed props, taken from _$TestComponentProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForTestComponentProps
-  ];
+  final List<ConsumedProps> $defaultConsumedProps = const [_$metaForTestComponentProps];
 }
-
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.'
     ' EXCEPTION: this may be used in legacy boilerplate until'
@@ -226,6 +199,7 @@ mixin $TestComponent2Props on TestComponent2Props {
   @UiProps.$mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
+    
   }
 }
 

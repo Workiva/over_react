@@ -18,8 +18,7 @@ final $NonComponentTwoCounterComponentFactory = registerComponent(
   parentType: null,
 );
 
-mixin _$NonComponentTwoCounterPropsAccessorsMixin
-    implements _$NonComponentTwoCounterProps {
+mixin _$NonComponentTwoCounterPropsAccessorsMixin implements _$NonComponentTwoCounterProps {
   @override
   Map get props;
 
@@ -34,22 +33,15 @@ const PropsMeta _$metaForNonComponentTwoCounterProps = PropsMeta(
   keys: _$NonComponentTwoCounterPropsAccessorsMixin.$propKeys,
 );
 
-class NonComponentTwoCounterProps extends _$NonComponentTwoCounterProps
-    with _$NonComponentTwoCounterPropsAccessorsMixin {
+class NonComponentTwoCounterProps extends _$NonComponentTwoCounterProps with _$NonComponentTwoCounterPropsAccessorsMixin {
   static const PropsMeta meta = _$metaForNonComponentTwoCounterProps;
 }
-
-_$$NonComponentTwoCounterProps _$NonComponentTwoCounter([Map? backingProps]) =>
-    _$$NonComponentTwoCounterProps(backingProps);
-
+_$$NonComponentTwoCounterProps _$NonComponentTwoCounter([Map? backingProps]) => _$$NonComponentTwoCounterProps(backingProps);
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-class _$$NonComponentTwoCounterProps extends _$NonComponentTwoCounterProps
-    with _$NonComponentTwoCounterPropsAccessorsMixin
-    implements NonComponentTwoCounterProps {
-  _$$NonComponentTwoCounterProps([Map? backingMap])
-      : this.props = backingMap ?? JsBackedMap();
+class _$$NonComponentTwoCounterProps extends _$NonComponentTwoCounterProps with _$NonComponentTwoCounterPropsAccessorsMixin implements NonComponentTwoCounterProps {
+  _$$NonComponentTwoCounterProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
   @override
@@ -61,32 +53,25 @@ class _$$NonComponentTwoCounterProps extends _$NonComponentTwoCounterProps
 
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
-  ReactComponentFactoryProxy get componentFactory =>
-      super.componentFactory ?? $NonComponentTwoCounterComponentFactory;
+  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $NonComponentTwoCounterComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'NonComponentTwoCounterProps.';
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$NonComponentTwoCounterProps(
-          accessMap, (map) => _$$NonComponentTwoCounterProps(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$NonComponentTwoCounterProps(accessMap, (map) => _$$NonComponentTwoCounterProps(map));
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$NonComponentTwoCounterProps = getPropKey;
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
-class _$NonComponentTwoCounterComponent
-    extends NonComponentTwoCounterComponent {
+class _$NonComponentTwoCounterComponent extends NonComponentTwoCounterComponent {
   @override
-  _$$NonComponentTwoCounterProps typedPropsFactory(Map? backingMap) =>
-      _$$NonComponentTwoCounterProps(backingMap);
+  _$$NonComponentTwoCounterProps typedPropsFactory(Map? backingMap) => _$$NonComponentTwoCounterProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -98,7 +83,5 @@ class _$NonComponentTwoCounterComponent
   /// The default consumed props, taken from _$NonComponentTwoCounterProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForNonComponentTwoCounterProps
-  ];
+  final List<ConsumedProps> $defaultConsumedProps = const [_$metaForNonComponentTwoCounterProps];
 }

@@ -15,28 +15,18 @@ mixin $ExampleStateMixinClass implements ExampleStateMixinClass {
   Map get state;
 
   static const StateMeta meta = _$metaForExampleStateMixinClass;
-
   /// <!-- Generated from [ExampleStateMixinClass.stateMixin1] -->
   @override
-  String get stateMixin1 =>
-      (state[_$key__stateMixin1__ExampleStateMixinClass] ?? null) as String;
-
+  String get stateMixin1 => (state[_$key__stateMixin1__ExampleStateMixinClass] ?? null) as String;
   /// <!-- Generated from [ExampleStateMixinClass.stateMixin1] -->
   @override
-  set stateMixin1(String value) =>
-      state[_$key__stateMixin1__ExampleStateMixinClass] = value;
+  set stateMixin1(String value) => state[_$key__stateMixin1__ExampleStateMixinClass] = value;
   /* GENERATED CONSTANTS */
-  static const StateDescriptor _$prop__stateMixin1__ExampleStateMixinClass =
-      StateDescriptor(_$key__stateMixin1__ExampleStateMixinClass);
-  static const String _$key__stateMixin1__ExampleStateMixinClass =
-      'ExampleStateMixinClass.stateMixin1';
+  static const StateDescriptor _$prop__stateMixin1__ExampleStateMixinClass = StateDescriptor(_$key__stateMixin1__ExampleStateMixinClass);
+  static const String _$key__stateMixin1__ExampleStateMixinClass = 'ExampleStateMixinClass.stateMixin1';
 
-  static const List<StateDescriptor> $state = [
-    _$prop__stateMixin1__ExampleStateMixinClass
-  ];
-  static const List<String> $stateKeys = [
-    _$key__stateMixin1__ExampleStateMixinClass
-  ];
+  static const List<StateDescriptor> $state = [_$prop__stateMixin1__ExampleStateMixinClass];
+  static const List<String> $stateKeys = [_$key__stateMixin1__ExampleStateMixinClass];
 }
 
 const StateMeta _$metaForExampleStateMixinClass = StateMeta(

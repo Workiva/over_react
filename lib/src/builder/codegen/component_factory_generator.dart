@@ -99,7 +99,7 @@ class ComponentFactoryProxyGenerator extends BoilerplateDeclarationGenerator {
       // Override `skipMethods` as an empty list so that
       // the `componentDidCatch` and `getDerivedStateFromError`
       // lifecycle methods are included in the component's JS bindings.
-      outputContentsBuffer.writeln('    skipMethods: const [],');
+      outputContentsBuffer.writeln('  skipMethods: const [],');
     }
 
     outputContentsBuffer

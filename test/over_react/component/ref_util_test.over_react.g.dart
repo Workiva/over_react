@@ -21,17 +21,15 @@ final $BasicComponentFactory = registerComponent2(
 );
 
 _$$BasicProps _$Basic([Map? backingProps]) => _$$BasicProps(backingProps);
-
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$BasicProps extends UiProps
-    with
-        BasicProps,
-        // If this generated mixin is undefined, it's likely because BasicProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of BasicProps, and check that $BasicProps is exported/imported properly.
-        $BasicProps {
+class _$$BasicProps extends UiProps with
+ BasicProps,
+ // If this generated mixin is undefined, it's likely because BasicProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of BasicProps, and check that $BasicProps is exported/imported properly.
+ $BasicProps {
   _$$BasicProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
@@ -44,8 +42,7 @@ class _$$BasicProps extends UiProps
 
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
-  ReactComponentFactoryProxy get componentFactory =>
-      super.componentFactory ?? $BasicComponentFactory;
+  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $BasicComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
@@ -53,19 +50,16 @@ class _$$BasicProps extends UiProps
 
   @override
   PropsMetaCollection get staticMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because BasicProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of BasicProps, and check that $BasicProps is exported/imported properly.
-        BasicProps: $BasicProps.meta,
-      });
+    // If this generated mixin is undefined, it's likely because BasicProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of BasicProps, and check that $BasicProps is exported/imported properly.
+    BasicProps: $BasicProps.meta,
+  });
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$BasicProps(accessMap, (map) => _$$BasicProps(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$BasicProps(accessMap, (map) => _$$BasicProps(map));
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$BasicProps = getPropKey;
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
@@ -81,20 +75,18 @@ class _$BasicComponent extends BasicComponent {
   @override
   set props(Map value) {
     assert(
-        getBackingMap(value) is JsBackedMap,
+        getBackingMap(value) is JsBackedMap, 
         'Component2.props should never be set directly in '
         'production. If this is required for testing, the '
         'component should be rendered within the test. If '
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps =
-        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
+    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
-  _$$BasicProps typedPropsFactoryJs(JsBackedMap? backingMap) =>
-      _$$BasicProps(backingMap);
+  _$$BasicProps typedPropsFactoryJs(JsBackedMap? backingMap) => _$$BasicProps(backingMap);
 
   @override
   _$$BasicProps typedPropsFactory(Map? backingMap) => _$$BasicProps(backingMap);
@@ -113,11 +105,10 @@ class _$BasicComponent extends BasicComponent {
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because BasicProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of BasicProps, and check that $BasicProps is exported/imported properly.
-        BasicProps: $BasicProps.meta,
-      });
+    // If this generated mixin is undefined, it's likely because BasicProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of BasicProps, and check that $BasicProps is exported/imported properly.
+    BasicProps: $BasicProps.meta,
+  });
 }
-
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.'
     ' EXCEPTION: this may be used in legacy boilerplate until'
@@ -129,8 +120,7 @@ mixin $BasicProps on BasicProps {
   @override
   set childId(String? value) => props[_$key__childId__BasicProps] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__childId__BasicProps =
-      PropDescriptor(_$key__childId__BasicProps);
+  static const PropDescriptor _$prop__childId__BasicProps = PropDescriptor(_$key__childId__BasicProps);
   static const String _$key__childId__BasicProps = 'BasicProps.childId';
 
   static const List<PropDescriptor> $props = [_$prop__childId__BasicProps];
@@ -140,6 +130,7 @@ mixin $BasicProps on BasicProps {
   @UiProps.$mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
+    
   }
 }
 
@@ -165,6 +156,7 @@ mixin $BasicUiFunctionProps on BasicUiFunctionProps {
   @UiProps.$mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
+    
   }
 }
 
@@ -175,32 +167,29 @@ const PropsMeta _$metaForBasicUiFunctionProps = PropsMeta(
   keys: $BasicUiFunctionProps.$propKeys,
 );
 
-final UiFactoryConfig<_$$BasicUiFunctionProps> _$BasicUiFunctionConfig =
-    UiFactoryConfig(
-        propsFactory: PropsFactory(
-          map: (map) => _$$BasicUiFunctionProps(map),
-          jsMap: (map) => _$$BasicUiFunctionProps(map),
-        ),
-        displayName: 'BasicUiFunction');
+final UiFactoryConfig<_$$BasicUiFunctionProps> _$BasicUiFunctionConfig = UiFactoryConfig(
+  propsFactory: PropsFactory(
+    map: (map) => _$$BasicUiFunctionProps(map),
+    jsMap: (map) => _$$BasicUiFunctionProps(map),
+  ),
+  displayName: 'BasicUiFunction',
+);
 
 @Deprecated(r'Use the private variable, _$BasicUiFunctionConfig, instead '
     'and update the `over_react` lower bound to version 4.1.0. '
     'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
-final UiFactoryConfig<_$$BasicUiFunctionProps> $BasicUiFunctionConfig =
-    _$BasicUiFunctionConfig;
+final UiFactoryConfig<_$$BasicUiFunctionProps> $BasicUiFunctionConfig = _$BasicUiFunctionConfig;
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$BasicUiFunctionProps extends UiProps
-    with
-        BasicUiFunctionProps,
-        // If this generated mixin is undefined, it's likely because BasicUiFunctionProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of BasicUiFunctionProps, and check that $BasicUiFunctionProps is exported/imported properly.
-        $BasicUiFunctionProps {
-  _$$BasicUiFunctionProps([Map? backingMap])
-      : this.props = backingMap ?? JsBackedMap();
+class _$$BasicUiFunctionProps extends UiProps with
+ BasicUiFunctionProps,
+ // If this generated mixin is undefined, it's likely because BasicUiFunctionProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of BasicUiFunctionProps, and check that $BasicUiFunctionProps is exported/imported properly.
+ $BasicUiFunctionProps {
+  _$$BasicUiFunctionProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
   @override
@@ -209,55 +198,44 @@ class _$$BasicUiFunctionProps extends UiProps
   /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
-
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => '';
 
   @override
   PropsMetaCollection get staticMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because BasicUiFunctionProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of BasicUiFunctionProps, and check that $BasicUiFunctionProps is exported/imported properly.
-        BasicUiFunctionProps: $BasicUiFunctionProps.meta,
-      });
+    // If this generated mixin is undefined, it's likely because BasicUiFunctionProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of BasicUiFunctionProps, and check that $BasicUiFunctionProps is exported/imported properly.
+    BasicUiFunctionProps: $BasicUiFunctionProps.meta,
+  });
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$BasicUiFunctionProps(
-          accessMap, (map) => _$$BasicUiFunctionProps(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$BasicUiFunctionProps(accessMap, (map) => _$$BasicUiFunctionProps(map));
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$BasicUiFunctionProps = getPropKey;
-final UiFactoryConfig<_$$SecondaryBasicUiFunctionProps>
-    _$TopLevelForwardUiRefFunctionConfig = UiFactoryConfig(
-        propsFactory: PropsFactory(
-          map: (map) => _$$SecondaryBasicUiFunctionProps(map),
-          jsMap: (map) => _$$SecondaryBasicUiFunctionProps(map),
-        ),
-        displayName: 'TopLevelForwardUiRefFunction');
+final UiFactoryConfig<_$$SecondaryBasicUiFunctionProps> _$TopLevelForwardUiRefFunctionConfig = UiFactoryConfig(
+  propsFactory: PropsFactory(
+    map: (map) => _$$SecondaryBasicUiFunctionProps(map),
+    jsMap: (map) => _$$SecondaryBasicUiFunctionProps(map),
+  ),
+  displayName: 'TopLevelForwardUiRefFunction',
+);
 
-@Deprecated(
-    r'Use the private variable, _$TopLevelForwardUiRefFunctionConfig, instead '
+@Deprecated(r'Use the private variable, _$TopLevelForwardUiRefFunctionConfig, instead '
     'and update the `over_react` lower bound to version 4.1.0. '
     'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
-final UiFactoryConfig<_$$SecondaryBasicUiFunctionProps>
-    $TopLevelForwardUiRefFunctionConfig = _$TopLevelForwardUiRefFunctionConfig;
+final UiFactoryConfig<_$$SecondaryBasicUiFunctionProps> $TopLevelForwardUiRefFunctionConfig = _$TopLevelForwardUiRefFunctionConfig;
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$SecondaryBasicUiFunctionProps extends UiProps
-    with
-        BasicUiFunctionProps,
-        // If this generated mixin is undefined, it's likely because BasicUiFunctionProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of BasicUiFunctionProps, and check that $BasicUiFunctionProps is exported/imported properly.
-        $BasicUiFunctionProps
-    implements
-        SecondaryBasicUiFunctionProps {
-  _$$SecondaryBasicUiFunctionProps([Map? backingMap])
-      : this.props = backingMap ?? JsBackedMap();
+class _$$SecondaryBasicUiFunctionProps extends UiProps with BasicUiFunctionProps,
+ // If this generated mixin is undefined, it's likely because BasicUiFunctionProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of BasicUiFunctionProps, and check that $BasicUiFunctionProps is exported/imported properly.
+$BasicUiFunctionProps implements SecondaryBasicUiFunctionProps {
+  _$$SecondaryBasicUiFunctionProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
   @override
@@ -266,23 +244,19 @@ class _$$SecondaryBasicUiFunctionProps extends UiProps
   /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
-
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => '';
 
   @override
   PropsMetaCollection get staticMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because BasicUiFunctionProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of BasicUiFunctionProps, and check that $BasicUiFunctionProps is exported/imported properly.
-        BasicUiFunctionProps: $BasicUiFunctionProps.meta,
-      });
+    // If this generated mixin is undefined, it's likely because BasicUiFunctionProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of BasicUiFunctionProps, and check that $BasicUiFunctionProps is exported/imported properly.
+    BasicUiFunctionProps: $BasicUiFunctionProps.meta,
+  });
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$SecondaryBasicUiFunctionProps(
-          accessMap, (map) => _$$SecondaryBasicUiFunctionProps(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$SecondaryBasicUiFunctionProps(accessMap, (map) => _$$SecondaryBasicUiFunctionProps(map));
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$SecondaryBasicUiFunctionProps = getPropKey;

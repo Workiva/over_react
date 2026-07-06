@@ -19,8 +19,7 @@ final $StatefulComponentTestComponentFactory = registerComponent(
   parentType: null,
 );
 
-mixin _$StatefulComponentTestPropsAccessorsMixin
-    implements _$StatefulComponentTestProps {
+mixin _$StatefulComponentTestPropsAccessorsMixin implements _$StatefulComponentTestProps {
   @override
   Map get props;
 
@@ -35,22 +34,15 @@ const PropsMeta _$metaForStatefulComponentTestProps = PropsMeta(
   keys: _$StatefulComponentTestPropsAccessorsMixin.$propKeys,
 );
 
-class StatefulComponentTestProps extends _$StatefulComponentTestProps
-    with _$StatefulComponentTestPropsAccessorsMixin {
+class StatefulComponentTestProps extends _$StatefulComponentTestProps with _$StatefulComponentTestPropsAccessorsMixin {
   static const PropsMeta meta = _$metaForStatefulComponentTestProps;
 }
-
-_$$StatefulComponentTestProps _$StatefulComponentTest([Map backingProps]) =>
-    _$$StatefulComponentTestProps(backingProps);
-
+_$$StatefulComponentTestProps _$StatefulComponentTest([Map backingProps]) => _$$StatefulComponentTestProps(backingProps);
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-class _$$StatefulComponentTestProps extends _$StatefulComponentTestProps
-    with _$StatefulComponentTestPropsAccessorsMixin
-    implements StatefulComponentTestProps {
-  _$$StatefulComponentTestProps([Map backingMap])
-      : this.props = backingMap ?? JsBackedMap();
+class _$$StatefulComponentTestProps extends _$StatefulComponentTestProps with _$StatefulComponentTestPropsAccessorsMixin implements StatefulComponentTestProps {
+  _$$StatefulComponentTestProps([Map backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
   @override
@@ -62,17 +54,14 @@ class _$$StatefulComponentTestProps extends _$StatefulComponentTestProps
 
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
-  ReactComponentFactoryProxy get componentFactory =>
-      super.componentFactory ?? $StatefulComponentTestComponentFactory;
+  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $StatefulComponentTestComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'StatefulComponentTestProps.';
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$StatefulComponentTestProps(
-          accessMap, (map) => _$$StatefulComponentTestProps(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$StatefulComponentTestProps(accessMap, (map) => _$$StatefulComponentTestProps(map));
 
   @override
   // ignore: must_call_super
@@ -80,138 +69,71 @@ class _$$StatefulComponentTestProps extends _$StatefulComponentTestProps
     // Disable required prop validation, until this component is null safe, by not calling super.
   }
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$StatefulComponentTestProps = getPropKey;
-mixin _$StatefulComponentTestStateAccessorsMixin
-    implements _$StatefulComponentTestState {
+mixin _$StatefulComponentTestStateAccessorsMixin implements _$StatefulComponentTestState {
   @override
   Map get state;
 
   /// <!-- Generated from [_$StatefulComponentTestState.stringState] -->
   @override
-  String get stringState =>
-      (state[_$key__stringState___$StatefulComponentTestState] ?? null)
-          as String;
-
+  String get stringState => (state[_$key__stringState___$StatefulComponentTestState] ?? null) as String;
   /// <!-- Generated from [_$StatefulComponentTestState.stringState] -->
   @override
-  set stringState(String value) =>
-      state[_$key__stringState___$StatefulComponentTestState] = value;
-
+  set stringState(String value) => state[_$key__stringState___$StatefulComponentTestState] = value;
   /// <!-- Generated from [_$StatefulComponentTestState.dynamicState] -->
   @override
-  dynamic get dynamicState =>
-      (state[_$key__dynamicState___$StatefulComponentTestState] ?? null)
-          as dynamic;
-
+  dynamic get dynamicState => (state[_$key__dynamicState___$StatefulComponentTestState] ?? null) as dynamic;
   /// <!-- Generated from [_$StatefulComponentTestState.dynamicState] -->
   @override
-  set dynamicState(dynamic value) =>
-      state[_$key__dynamicState___$StatefulComponentTestState] = value;
-
+  set dynamicState(dynamic value) => state[_$key__dynamicState___$StatefulComponentTestState] = value;
   /// <!-- Generated from [_$StatefulComponentTestState.untypedState] -->
   @override
-  get untypedState =>
-      state[_$key__untypedState___$StatefulComponentTestState] ?? null;
-
+  get untypedState => state[_$key__untypedState___$StatefulComponentTestState] ?? null;
   /// <!-- Generated from [_$StatefulComponentTestState.untypedState] -->
   @override
-  set untypedState(value) =>
-      state[_$key__untypedState___$StatefulComponentTestState] = value;
-
+  set untypedState(value) => state[_$key__untypedState___$StatefulComponentTestState] = value;
   /// <!-- Generated from [_$StatefulComponentTestState.customKeyState] -->
   @override
   @Accessor(key: 'custom key!')
-  dynamic get customKeyState =>
-      (state[_$key__customKeyState___$StatefulComponentTestState] ?? null)
-          as dynamic;
-
+  dynamic get customKeyState => (state[_$key__customKeyState___$StatefulComponentTestState] ?? null) as dynamic;
   /// <!-- Generated from [_$StatefulComponentTestState.customKeyState] -->
   @override
   @Accessor(key: 'custom key!')
-  set customKeyState(dynamic value) =>
-      state[_$key__customKeyState___$StatefulComponentTestState] = value;
-
+  set customKeyState(dynamic value) => state[_$key__customKeyState___$StatefulComponentTestState] = value;
   /// <!-- Generated from [_$StatefulComponentTestState.customNamespaceState] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
-  dynamic get customNamespaceState =>
-      (state[_$key__customNamespaceState___$StatefulComponentTestState] ?? null)
-          as dynamic;
-
+  dynamic get customNamespaceState => (state[_$key__customNamespaceState___$StatefulComponentTestState] ?? null) as dynamic;
   /// <!-- Generated from [_$StatefulComponentTestState.customNamespaceState] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
-  set customNamespaceState(dynamic value) =>
-      state[_$key__customNamespaceState___$StatefulComponentTestState] = value;
-
+  set customNamespaceState(dynamic value) => state[_$key__customNamespaceState___$StatefulComponentTestState] = value;
   /// <!-- Generated from [_$StatefulComponentTestState.customKeyAndNamespaceState] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
-  dynamic get customKeyAndNamespaceState =>
-      (state[_$key__customKeyAndNamespaceState___$StatefulComponentTestState] ??
-          null) as dynamic;
-
+  dynamic get customKeyAndNamespaceState => (state[_$key__customKeyAndNamespaceState___$StatefulComponentTestState] ?? null) as dynamic;
   /// <!-- Generated from [_$StatefulComponentTestState.customKeyAndNamespaceState] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
-  set customKeyAndNamespaceState(dynamic value) =>
-      state[_$key__customKeyAndNamespaceState___$StatefulComponentTestState] =
-          value;
+  set customKeyAndNamespaceState(dynamic value) => state[_$key__customKeyAndNamespaceState___$StatefulComponentTestState] = value;
   /* GENERATED CONSTANTS */
-  static const StateDescriptor
-      _$prop__stringState___$StatefulComponentTestState =
-      StateDescriptor(_$key__stringState___$StatefulComponentTestState);
-  static const StateDescriptor
-      _$prop__dynamicState___$StatefulComponentTestState =
-      StateDescriptor(_$key__dynamicState___$StatefulComponentTestState);
-  static const StateDescriptor
-      _$prop__untypedState___$StatefulComponentTestState =
-      StateDescriptor(_$key__untypedState___$StatefulComponentTestState);
-  static const StateDescriptor
-      _$prop__customKeyState___$StatefulComponentTestState =
-      StateDescriptor(_$key__customKeyState___$StatefulComponentTestState);
-  static const StateDescriptor
-      _$prop__customNamespaceState___$StatefulComponentTestState =
-      StateDescriptor(
-          _$key__customNamespaceState___$StatefulComponentTestState);
-  static const StateDescriptor
-      _$prop__customKeyAndNamespaceState___$StatefulComponentTestState =
-      StateDescriptor(
-          _$key__customKeyAndNamespaceState___$StatefulComponentTestState);
-  static const String _$key__stringState___$StatefulComponentTestState =
-      'StatefulComponentTestState.stringState';
-  static const String _$key__dynamicState___$StatefulComponentTestState =
-      'StatefulComponentTestState.dynamicState';
-  static const String _$key__untypedState___$StatefulComponentTestState =
-      'StatefulComponentTestState.untypedState';
-  static const String _$key__customKeyState___$StatefulComponentTestState =
-      'StatefulComponentTestState.custom key!';
-  static const String
-      _$key__customNamespaceState___$StatefulComponentTestState =
-      'custom namespace~~customNamespaceState';
-  static const String
-      _$key__customKeyAndNamespaceState___$StatefulComponentTestState =
-      'custom namespace~~custom key!';
+  static const StateDescriptor _$prop__stringState___$StatefulComponentTestState = StateDescriptor(_$key__stringState___$StatefulComponentTestState);
+  static const StateDescriptor _$prop__dynamicState___$StatefulComponentTestState = StateDescriptor(_$key__dynamicState___$StatefulComponentTestState);
+  static const StateDescriptor _$prop__untypedState___$StatefulComponentTestState = StateDescriptor(_$key__untypedState___$StatefulComponentTestState);
+  static const StateDescriptor _$prop__customKeyState___$StatefulComponentTestState = StateDescriptor(_$key__customKeyState___$StatefulComponentTestState);
+  static const StateDescriptor _$prop__customNamespaceState___$StatefulComponentTestState = StateDescriptor(_$key__customNamespaceState___$StatefulComponentTestState);
+  static const StateDescriptor _$prop__customKeyAndNamespaceState___$StatefulComponentTestState = StateDescriptor(_$key__customKeyAndNamespaceState___$StatefulComponentTestState);
+  static const String _$key__stringState___$StatefulComponentTestState = 'StatefulComponentTestState.stringState';
+  static const String _$key__dynamicState___$StatefulComponentTestState = 'StatefulComponentTestState.dynamicState';
+  static const String _$key__untypedState___$StatefulComponentTestState = 'StatefulComponentTestState.untypedState';
+  static const String _$key__customKeyState___$StatefulComponentTestState = 'StatefulComponentTestState.custom key!';
+  static const String _$key__customNamespaceState___$StatefulComponentTestState = 'custom namespace~~customNamespaceState';
+  static const String _$key__customKeyAndNamespaceState___$StatefulComponentTestState = 'custom namespace~~custom key!';
 
-  static const List<StateDescriptor> $state = [
-    _$prop__stringState___$StatefulComponentTestState,
-    _$prop__dynamicState___$StatefulComponentTestState,
-    _$prop__untypedState___$StatefulComponentTestState,
-    _$prop__customKeyState___$StatefulComponentTestState,
-    _$prop__customNamespaceState___$StatefulComponentTestState,
-    _$prop__customKeyAndNamespaceState___$StatefulComponentTestState
-  ];
-  static const List<String> $stateKeys = [
-    _$key__stringState___$StatefulComponentTestState,
-    _$key__dynamicState___$StatefulComponentTestState,
-    _$key__untypedState___$StatefulComponentTestState,
-    _$key__customKeyState___$StatefulComponentTestState,
-    _$key__customNamespaceState___$StatefulComponentTestState,
-    _$key__customKeyAndNamespaceState___$StatefulComponentTestState
-  ];
+  static const List<StateDescriptor> $state = [_$prop__stringState___$StatefulComponentTestState, _$prop__dynamicState___$StatefulComponentTestState, _$prop__untypedState___$StatefulComponentTestState, _$prop__customKeyState___$StatefulComponentTestState, _$prop__customNamespaceState___$StatefulComponentTestState, _$prop__customKeyAndNamespaceState___$StatefulComponentTestState];
+  static const List<String> $stateKeys = [_$key__stringState___$StatefulComponentTestState, _$key__dynamicState___$StatefulComponentTestState, _$key__untypedState___$StatefulComponentTestState, _$key__customKeyState___$StatefulComponentTestState, _$key__customNamespaceState___$StatefulComponentTestState, _$key__customKeyAndNamespaceState___$StatefulComponentTestState];
 }
 
 const StateMeta _$metaForStatefulComponentTestState = StateMeta(
@@ -219,19 +141,14 @@ const StateMeta _$metaForStatefulComponentTestState = StateMeta(
   keys: _$StatefulComponentTestStateAccessorsMixin.$stateKeys,
 );
 
-class StatefulComponentTestState extends _$StatefulComponentTestState
-    with _$StatefulComponentTestStateAccessorsMixin {
+class StatefulComponentTestState extends _$StatefulComponentTestState with _$StatefulComponentTestStateAccessorsMixin {
   static const StateMeta meta = _$metaForStatefulComponentTestState;
 }
-
 // Concrete state implementation.
 //
 // Implements constructor and backing map.
-class _$$StatefulComponentTestState extends _$StatefulComponentTestState
-    with _$StatefulComponentTestStateAccessorsMixin
-    implements StatefulComponentTestState {
-  _$$StatefulComponentTestState([Map backingMap])
-      : this.state = backingMap ?? JsBackedMap();
+class _$$StatefulComponentTestState extends _$StatefulComponentTestState with _$StatefulComponentTestStateAccessorsMixin implements StatefulComponentTestState {
+  _$$StatefulComponentTestState([Map backingMap]) : this.state = backingMap ?? JsBackedMap();
 
   /// The backing state map proxied by this class.
   @override
@@ -241,19 +158,16 @@ class _$$StatefulComponentTestState extends _$StatefulComponentTestState
   @override
   bool get $isClassGenerated => true;
 }
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$StatefulComponentTestComponent extends StatefulComponentTestComponent {
   @override
-  _$$StatefulComponentTestProps typedPropsFactory(Map backingMap) =>
-      _$$StatefulComponentTestProps(backingMap);
+  _$$StatefulComponentTestProps typedPropsFactory(Map backingMap) => _$$StatefulComponentTestProps(backingMap);
 
   @override
-  _$$StatefulComponentTestState typedStateFactory(Map backingMap) =>
-      _$$StatefulComponentTestState(backingMap);
+  _$$StatefulComponentTestState typedStateFactory(Map backingMap) => _$$StatefulComponentTestState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -265,7 +179,5 @@ class _$StatefulComponentTestComponent extends StatefulComponentTestComponent {
   /// The default consumed props, taken from _$StatefulComponentTestProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForStatefulComponentTestProps
-  ];
+  final List<ConsumedProps> $defaultConsumedProps = const [_$metaForStatefulComponentTestProps];
 }

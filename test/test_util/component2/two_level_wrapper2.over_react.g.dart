@@ -33,22 +33,15 @@ const PropsMeta _$metaForTwoLevelWrapper2Props = PropsMeta(
   keys: _$TwoLevelWrapper2PropsAccessorsMixin.$propKeys,
 );
 
-class TwoLevelWrapper2Props extends _$TwoLevelWrapper2Props
-    with _$TwoLevelWrapper2PropsAccessorsMixin {
+class TwoLevelWrapper2Props extends _$TwoLevelWrapper2Props with _$TwoLevelWrapper2PropsAccessorsMixin {
   static const PropsMeta meta = _$metaForTwoLevelWrapper2Props;
 }
-
-_$$TwoLevelWrapper2Props _$TwoLevelWrapper2([Map? backingProps]) =>
-    _$$TwoLevelWrapper2Props(backingProps);
-
+_$$TwoLevelWrapper2Props _$TwoLevelWrapper2([Map? backingProps]) => _$$TwoLevelWrapper2Props(backingProps);
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-class _$$TwoLevelWrapper2Props extends _$TwoLevelWrapper2Props
-    with _$TwoLevelWrapper2PropsAccessorsMixin
-    implements TwoLevelWrapper2Props {
-  _$$TwoLevelWrapper2Props([Map? backingMap])
-      : this.props = backingMap ?? JsBackedMap();
+class _$$TwoLevelWrapper2Props extends _$TwoLevelWrapper2Props with _$TwoLevelWrapper2PropsAccessorsMixin implements TwoLevelWrapper2Props {
+  _$$TwoLevelWrapper2Props([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
   @override
@@ -60,23 +53,18 @@ class _$$TwoLevelWrapper2Props extends _$TwoLevelWrapper2Props
 
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
-  ReactComponentFactoryProxy get componentFactory =>
-      super.componentFactory ?? $TwoLevelWrapper2ComponentFactory;
+  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $TwoLevelWrapper2ComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'TwoLevelWrapper2Props.';
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$TwoLevelWrapper2Props(
-          accessMap, (map) => _$$TwoLevelWrapper2Props(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$TwoLevelWrapper2Props(accessMap, (map) => _$$TwoLevelWrapper2Props(map));
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$TwoLevelWrapper2Props = getPropKey;
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
@@ -90,24 +78,21 @@ class _$TwoLevelWrapper2Component extends TwoLevelWrapper2Component {
   @override
   set props(Map value) {
     assert(
-        getBackingMap(value) is JsBackedMap,
+        getBackingMap(value) is JsBackedMap, 
         'Component2.props should never be set directly in '
         'production. If this is required for testing, the '
         'component should be rendered within the test. If '
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps =
-        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
+    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
-  _$$TwoLevelWrapper2Props typedPropsFactoryJs(JsBackedMap? backingMap) =>
-      _$$TwoLevelWrapper2Props(backingMap);
+  _$$TwoLevelWrapper2Props typedPropsFactoryJs(JsBackedMap? backingMap) => _$$TwoLevelWrapper2Props(backingMap);
 
   @override
-  _$$TwoLevelWrapper2Props typedPropsFactory(Map? backingMap) =>
-      _$$TwoLevelWrapper2Props(backingMap);
+  _$$TwoLevelWrapper2Props typedPropsFactory(Map? backingMap) => _$$TwoLevelWrapper2Props(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -119,7 +104,5 @@ class _$TwoLevelWrapper2Component extends TwoLevelWrapper2Component {
   /// The default consumed props, taken from _$TwoLevelWrapper2Props.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForTwoLevelWrapper2Props
-  ];
+  final List<ConsumedProps> $defaultConsumedProps = const [_$metaForTwoLevelWrapper2Props];
 }

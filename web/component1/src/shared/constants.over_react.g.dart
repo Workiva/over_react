@@ -12,9 +12,17 @@ mixin AbstractInputPropsMixin implements _$AbstractInputPropsMixin {
   Map get props;
 
   static const PropsMeta meta = _$metaForAbstractInputPropsMixin;
+@override
+String? get id;  /// The HTML `name` attribute to be applied to `<input>`.
+  ///
+  /// If unspecified, [AbstractInputStateMixin.name] will be generated.
+  ///
+  /// _Proxies [DomPropsMixin.name]._
+  ///
+  /// <!-- Generated from [_$AbstractInputPropsMixin.name] -->
   @override
-  String? get id;
-
+  @Accessor(keyNamespace: '')
+  String? get name => (props[_$key__name___$AbstractInputPropsMixin] ?? null) as String?;
   /// The HTML `name` attribute to be applied to `<input>`.
   ///
   /// If unspecified, [AbstractInputStateMixin.name] will be generated.
@@ -24,21 +32,7 @@ mixin AbstractInputPropsMixin implements _$AbstractInputPropsMixin {
   /// <!-- Generated from [_$AbstractInputPropsMixin.name] -->
   @override
   @Accessor(keyNamespace: '')
-  String? get name =>
-      (props[_$key__name___$AbstractInputPropsMixin] ?? null) as String?;
-
-  /// The HTML `name` attribute to be applied to `<input>`.
-  ///
-  /// If unspecified, [AbstractInputStateMixin.name] will be generated.
-  ///
-  /// _Proxies [DomPropsMixin.name]._
-  ///
-  /// <!-- Generated from [_$AbstractInputPropsMixin.name] -->
-  @override
-  @Accessor(keyNamespace: '')
-  set name(String? value) =>
-      props[_$key__name___$AbstractInputPropsMixin] = value;
-
+  set name(String? value) => props[_$key__name___$AbstractInputPropsMixin] = value;
   /// The value of the input. Setting this will make the input's value _controlled_; it will not update automatically in
   /// response to user input, but instead will always render the value of this prop.
   ///
@@ -49,9 +43,7 @@ mixin AbstractInputPropsMixin implements _$AbstractInputPropsMixin {
   /// <!-- Generated from [_$AbstractInputPropsMixin.value] -->
   @override
   @Accessor(keyNamespace: '')
-  dynamic get value =>
-      (props[_$key__value___$AbstractInputPropsMixin] ?? null) as dynamic;
-
+  dynamic get value => (props[_$key__value___$AbstractInputPropsMixin] ?? null) as dynamic;
   /// The value of the input. Setting this will make the input's value _controlled_; it will not update automatically in
   /// response to user input, but instead will always render the value of this prop.
   ///
@@ -62,9 +54,7 @@ mixin AbstractInputPropsMixin implements _$AbstractInputPropsMixin {
   /// <!-- Generated from [_$AbstractInputPropsMixin.value] -->
   @override
   @Accessor(keyNamespace: '')
-  set value(dynamic value) =>
-      props[_$key__value___$AbstractInputPropsMixin] = value;
-
+  set value(dynamic value) => props[_$key__value___$AbstractInputPropsMixin] = value;
   /// The type of "toggle" behavior an HTML `<input>` should exhibit:
   ///
   /// * [ToggleBehaviorType.CHECKBOX] - More than one can be active at once.
@@ -74,10 +64,7 @@ mixin AbstractInputPropsMixin implements _$AbstractInputPropsMixin {
   ///
   /// <!-- Generated from [_$AbstractInputPropsMixin.toggleType] -->
   @override
-  ToggleBehaviorType? get toggleType =>
-      (props[_$key__toggleType___$AbstractInputPropsMixin] ?? null)
-          as ToggleBehaviorType?;
-
+  ToggleBehaviorType? get toggleType => (props[_$key__toggleType___$AbstractInputPropsMixin] ?? null) as ToggleBehaviorType?;
   /// The type of "toggle" behavior an HTML `<input>` should exhibit:
   ///
   /// * [ToggleBehaviorType.CHECKBOX] - More than one can be active at once.
@@ -87,30 +74,17 @@ mixin AbstractInputPropsMixin implements _$AbstractInputPropsMixin {
   ///
   /// <!-- Generated from [_$AbstractInputPropsMixin.toggleType] -->
   @override
-  set toggleType(ToggleBehaviorType? value) =>
-      props[_$key__toggleType___$AbstractInputPropsMixin] = value;
+  set toggleType(ToggleBehaviorType? value) => props[_$key__toggleType___$AbstractInputPropsMixin] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__name___$AbstractInputPropsMixin =
-      PropDescriptor(_$key__name___$AbstractInputPropsMixin);
-  static const PropDescriptor _$prop__value___$AbstractInputPropsMixin =
-      PropDescriptor(_$key__value___$AbstractInputPropsMixin);
-  static const PropDescriptor _$prop__toggleType___$AbstractInputPropsMixin =
-      PropDescriptor(_$key__toggleType___$AbstractInputPropsMixin);
+  static const PropDescriptor _$prop__name___$AbstractInputPropsMixin = PropDescriptor(_$key__name___$AbstractInputPropsMixin);
+  static const PropDescriptor _$prop__value___$AbstractInputPropsMixin = PropDescriptor(_$key__value___$AbstractInputPropsMixin);
+  static const PropDescriptor _$prop__toggleType___$AbstractInputPropsMixin = PropDescriptor(_$key__toggleType___$AbstractInputPropsMixin);
   static const String _$key__name___$AbstractInputPropsMixin = 'name';
   static const String _$key__value___$AbstractInputPropsMixin = 'value';
-  static const String _$key__toggleType___$AbstractInputPropsMixin =
-      'AbstractInputPropsMixin.toggleType';
+  static const String _$key__toggleType___$AbstractInputPropsMixin = 'AbstractInputPropsMixin.toggleType';
 
-  static const List<PropDescriptor> $props = [
-    _$prop__name___$AbstractInputPropsMixin,
-    _$prop__value___$AbstractInputPropsMixin,
-    _$prop__toggleType___$AbstractInputPropsMixin
-  ];
-  static const List<String> $propKeys = [
-    _$key__name___$AbstractInputPropsMixin,
-    _$key__value___$AbstractInputPropsMixin,
-    _$key__toggleType___$AbstractInputPropsMixin
-  ];
+  static const List<PropDescriptor> $props = [_$prop__name___$AbstractInputPropsMixin, _$prop__value___$AbstractInputPropsMixin, _$prop__toggleType___$AbstractInputPropsMixin];
+  static const List<String> $propKeys = [_$key__name___$AbstractInputPropsMixin, _$key__value___$AbstractInputPropsMixin, _$key__toggleType___$AbstractInputPropsMixin];
 }
 
 const PropsMeta _$metaForAbstractInputPropsMixin = PropsMeta(
@@ -123,7 +97,6 @@ mixin AbstractInputStateMixin implements _$AbstractInputStateMixin {
   Map get state;
 
   static const StateMeta meta = _$metaForAbstractInputStateMixin;
-
   /// An auto-generated GUID, used as a fallback when the [AbstractInputPropsMixin.id] prop is unspecified,
   /// and saved on the state so it will persist across remounts.
   ///
@@ -132,9 +105,7 @@ mixin AbstractInputStateMixin implements _$AbstractInputStateMixin {
   ///
   /// <!-- Generated from [_$AbstractInputStateMixin.id] -->
   @override
-  String? get id =>
-      (state[_$key__id___$AbstractInputStateMixin] ?? null) as String?;
-
+  String? get id => (state[_$key__id___$AbstractInputStateMixin] ?? null) as String?;
   /// An auto-generated GUID, used as a fallback when the [AbstractInputPropsMixin.id] prop is unspecified,
   /// and saved on the state so it will persist across remounts.
   ///
@@ -144,7 +115,6 @@ mixin AbstractInputStateMixin implements _$AbstractInputStateMixin {
   /// <!-- Generated from [_$AbstractInputStateMixin.id] -->
   @override
   set id(String? value) => state[_$key__id___$AbstractInputStateMixin] = value;
-
   /// An auto-generated GUID, used as a fallback when the [AbstractInputPropsMixin.name] is unspecified,
   /// and saved on the state so it will persist across remounts.
   ///
@@ -153,9 +123,7 @@ mixin AbstractInputStateMixin implements _$AbstractInputStateMixin {
   ///
   /// <!-- Generated from [_$AbstractInputStateMixin.name] -->
   @override
-  String? get name =>
-      (state[_$key__name___$AbstractInputStateMixin] ?? null) as String?;
-
+  String? get name => (state[_$key__name___$AbstractInputStateMixin] ?? null) as String?;
   /// An auto-generated GUID, used as a fallback when the [AbstractInputPropsMixin.name] is unspecified,
   /// and saved on the state so it will persist across remounts.
   ///
@@ -164,26 +132,15 @@ mixin AbstractInputStateMixin implements _$AbstractInputStateMixin {
   ///
   /// <!-- Generated from [_$AbstractInputStateMixin.name] -->
   @override
-  set name(String? value) =>
-      state[_$key__name___$AbstractInputStateMixin] = value;
+  set name(String? value) => state[_$key__name___$AbstractInputStateMixin] = value;
   /* GENERATED CONSTANTS */
-  static const StateDescriptor _$prop__id___$AbstractInputStateMixin =
-      StateDescriptor(_$key__id___$AbstractInputStateMixin);
-  static const StateDescriptor _$prop__name___$AbstractInputStateMixin =
-      StateDescriptor(_$key__name___$AbstractInputStateMixin);
-  static const String _$key__id___$AbstractInputStateMixin =
-      'AbstractInputStateMixin.id';
-  static const String _$key__name___$AbstractInputStateMixin =
-      'AbstractInputStateMixin.name';
+  static const StateDescriptor _$prop__id___$AbstractInputStateMixin = StateDescriptor(_$key__id___$AbstractInputStateMixin);
+  static const StateDescriptor _$prop__name___$AbstractInputStateMixin = StateDescriptor(_$key__name___$AbstractInputStateMixin);
+  static const String _$key__id___$AbstractInputStateMixin = 'AbstractInputStateMixin.id';
+  static const String _$key__name___$AbstractInputStateMixin = 'AbstractInputStateMixin.name';
 
-  static const List<StateDescriptor> $state = [
-    _$prop__id___$AbstractInputStateMixin,
-    _$prop__name___$AbstractInputStateMixin
-  ];
-  static const List<String> $stateKeys = [
-    _$key__id___$AbstractInputStateMixin,
-    _$key__name___$AbstractInputStateMixin
-  ];
+  static const List<StateDescriptor> $state = [_$prop__id___$AbstractInputStateMixin, _$prop__name___$AbstractInputStateMixin];
+  static const List<String> $stateKeys = [_$key__id___$AbstractInputStateMixin, _$key__name___$AbstractInputStateMixin];
 }
 
 const StateMeta _$metaForAbstractInputStateMixin = StateMeta(

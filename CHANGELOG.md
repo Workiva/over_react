@@ -1,5 +1,10 @@
 # OverReact Changelog
 
+## Unreleased
+- Remove `dart:mirrors` usage in builder to fix AOT compilation used in newer build_runner versions
+- Remove `dart_style` and `pub_semver` dependencies, remove generated code formatter step
+    - Generated code was already pretty well-formatted before it was passed to `dart_style`, and since consumers don't interact with generated code much, this should have very little impact.
+
 ## 5.6.2
 - Analyzer plugin
   - Fix startup error (AOT compilation) in Dart 3

@@ -33,22 +33,15 @@ const PropsMeta _$metaForBasicChildProps = PropsMeta(
   keys: _$BasicChildPropsAccessorsMixin.$propKeys,
 );
 
-class BasicChildProps extends _$BasicChildProps
-    with _$BasicChildPropsAccessorsMixin {
+class BasicChildProps extends _$BasicChildProps with _$BasicChildPropsAccessorsMixin {
   static const PropsMeta meta = _$metaForBasicChildProps;
 }
-
-_$$BasicChildProps _$BasicChild([Map? backingProps]) =>
-    _$$BasicChildProps(backingProps);
-
+_$$BasicChildProps _$BasicChild([Map? backingProps]) => _$$BasicChildProps(backingProps);
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-class _$$BasicChildProps extends _$BasicChildProps
-    with _$BasicChildPropsAccessorsMixin
-    implements BasicChildProps {
-  _$$BasicChildProps([Map? backingMap])
-      : this.props = backingMap ?? JsBackedMap();
+class _$$BasicChildProps extends _$BasicChildProps with _$BasicChildPropsAccessorsMixin implements BasicChildProps {
+  _$$BasicChildProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
   @override
@@ -60,23 +53,18 @@ class _$$BasicChildProps extends _$BasicChildProps
 
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
-  ReactComponentFactoryProxy get componentFactory =>
-      super.componentFactory ?? $BasicChildComponentFactory;
+  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $BasicChildComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'BasicChildProps.';
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$BasicChildProps(
-          accessMap, (map) => _$$BasicChildProps(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$BasicChildProps(accessMap, (map) => _$$BasicChildProps(map));
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$BasicChildProps = getPropKey;
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
@@ -90,24 +78,21 @@ class _$BasicChildComponent extends BasicChildComponent {
   @override
   set props(Map value) {
     assert(
-        getBackingMap(value) is JsBackedMap,
+        getBackingMap(value) is JsBackedMap, 
         'Component2.props should never be set directly in '
         'production. If this is required for testing, the '
         'component should be rendered within the test. If '
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps =
-        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
+    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
-  _$$BasicChildProps typedPropsFactoryJs(JsBackedMap? backingMap) =>
-      _$$BasicChildProps(backingMap);
+  _$$BasicChildProps typedPropsFactoryJs(JsBackedMap? backingMap) => _$$BasicChildProps(backingMap);
 
   @override
-  _$$BasicChildProps typedPropsFactory(Map? backingMap) =>
-      _$$BasicChildProps(backingMap);
+  _$$BasicChildProps typedPropsFactory(Map? backingMap) => _$$BasicChildProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -119,7 +104,5 @@ class _$BasicChildComponent extends BasicChildComponent {
   /// The default consumed props, taken from _$BasicChildProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForBasicChildProps
-  ];
+  final List<ConsumedProps> $defaultConsumedProps = const [_$metaForBasicChildProps];
 }

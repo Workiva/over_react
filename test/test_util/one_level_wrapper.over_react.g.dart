@@ -33,22 +33,15 @@ const PropsMeta _$metaForOneLevelWrapperProps = PropsMeta(
   keys: _$OneLevelWrapperPropsAccessorsMixin.$propKeys,
 );
 
-class OneLevelWrapperProps extends _$OneLevelWrapperProps
-    with _$OneLevelWrapperPropsAccessorsMixin {
+class OneLevelWrapperProps extends _$OneLevelWrapperProps with _$OneLevelWrapperPropsAccessorsMixin {
   static const PropsMeta meta = _$metaForOneLevelWrapperProps;
 }
-
-_$$OneLevelWrapperProps _$OneLevelWrapper([Map? backingProps]) =>
-    _$$OneLevelWrapperProps(backingProps);
-
+_$$OneLevelWrapperProps _$OneLevelWrapper([Map? backingProps]) => _$$OneLevelWrapperProps(backingProps);
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-class _$$OneLevelWrapperProps extends _$OneLevelWrapperProps
-    with _$OneLevelWrapperPropsAccessorsMixin
-    implements OneLevelWrapperProps {
-  _$$OneLevelWrapperProps([Map? backingMap])
-      : this.props = backingMap ?? JsBackedMap();
+class _$$OneLevelWrapperProps extends _$OneLevelWrapperProps with _$OneLevelWrapperPropsAccessorsMixin implements OneLevelWrapperProps {
+  _$$OneLevelWrapperProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
   @override
@@ -60,31 +53,25 @@ class _$$OneLevelWrapperProps extends _$OneLevelWrapperProps
 
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
-  ReactComponentFactoryProxy get componentFactory =>
-      super.componentFactory ?? $OneLevelWrapperComponentFactory;
+  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $OneLevelWrapperComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'OneLevelWrapperProps.';
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$OneLevelWrapperProps(
-          accessMap, (map) => _$$OneLevelWrapperProps(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$OneLevelWrapperProps(accessMap, (map) => _$$OneLevelWrapperProps(map));
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$OneLevelWrapperProps = getPropKey;
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$OneLevelWrapperComponent extends OneLevelWrapperComponent {
   @override
-  _$$OneLevelWrapperProps typedPropsFactory(Map? backingMap) =>
-      _$$OneLevelWrapperProps(backingMap);
+  _$$OneLevelWrapperProps typedPropsFactory(Map? backingMap) => _$$OneLevelWrapperProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -96,7 +83,5 @@ class _$OneLevelWrapperComponent extends OneLevelWrapperComponent {
   /// The default consumed props, taken from _$OneLevelWrapperProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForOneLevelWrapperProps
-  ];
+  final List<ConsumedProps> $defaultConsumedProps = const [_$metaForOneLevelWrapperProps];
 }

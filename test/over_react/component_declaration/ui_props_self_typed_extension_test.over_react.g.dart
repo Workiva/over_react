@@ -14,65 +14,40 @@ part of 'ui_props_self_typed_extension_test.dart';
 mixin $TestProps on TestProps {
   static const PropsMeta meta = _$metaForTestProps;
   @override
-  String get requiredProp =>
-      (props[_$key__requiredProp__TestProps] ?? null) as String;
+  String get requiredProp => (props[_$key__requiredProp__TestProps] ?? null) as String;
   @override
-  set requiredProp(String value) =>
-      props[_$key__requiredProp__TestProps] = value;
+  set requiredProp(String value) => props[_$key__requiredProp__TestProps] = value;
   @override
-  String? get requiredNullableProp =>
-      (props[_$key__requiredNullableProp__TestProps] ?? null) as String?;
+  String? get requiredNullableProp => (props[_$key__requiredNullableProp__TestProps] ?? null) as String?;
   @override
-  set requiredNullableProp(String? value) =>
-      props[_$key__requiredNullableProp__TestProps] = value;
+  set requiredNullableProp(String? value) => props[_$key__requiredNullableProp__TestProps] = value;
   @override
-  String? get optionalProp =>
-      (props[_$key__optionalProp__TestProps] ?? null) as String?;
+  String? get optionalProp => (props[_$key__optionalProp__TestProps] ?? null) as String?;
   @override
-  set optionalProp(String? value) =>
-      props[_$key__optionalProp__TestProps] = value;
+  set optionalProp(String? value) => props[_$key__optionalProp__TestProps] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__requiredProp__TestProps = PropDescriptor(
-      _$key__requiredProp__TestProps,
-      isRequired: true,
-      isNullable: true,
-      isLate: true);
-  static const PropDescriptor _$prop__requiredNullableProp__TestProps =
-      PropDescriptor(_$key__requiredNullableProp__TestProps,
-          isRequired: true, isNullable: true, isLate: true);
-  static const PropDescriptor _$prop__optionalProp__TestProps =
-      PropDescriptor(_$key__optionalProp__TestProps);
+  static const PropDescriptor _$prop__requiredProp__TestProps = PropDescriptor(_$key__requiredProp__TestProps, isRequired: true, isNullable: true, isLate: true);
+  static const PropDescriptor _$prop__requiredNullableProp__TestProps = PropDescriptor(_$key__requiredNullableProp__TestProps, isRequired: true, isNullable: true, isLate: true);
+  static const PropDescriptor _$prop__optionalProp__TestProps = PropDescriptor(_$key__optionalProp__TestProps);
   static const String _$key__requiredProp__TestProps = 'TestProps.requiredProp';
-  static const String _$key__requiredNullableProp__TestProps =
-      'TestProps.requiredNullableProp';
+  static const String _$key__requiredNullableProp__TestProps = 'TestProps.requiredNullableProp';
   static const String _$key__optionalProp__TestProps = 'TestProps.optionalProp';
 
-  static const List<PropDescriptor> $props = [
-    _$prop__requiredProp__TestProps,
-    _$prop__requiredNullableProp__TestProps,
-    _$prop__optionalProp__TestProps
-  ];
-  static const List<String> $propKeys = [
-    _$key__requiredProp__TestProps,
-    _$key__requiredNullableProp__TestProps,
-    _$key__optionalProp__TestProps
-  ];
+  static const List<PropDescriptor> $props = [_$prop__requiredProp__TestProps, _$prop__requiredNullableProp__TestProps, _$prop__optionalProp__TestProps];
+  static const List<String> $propKeys = [_$key__requiredProp__TestProps, _$key__requiredNullableProp__TestProps, _$key__optionalProp__TestProps];
 
   @override
   @UiProps.$mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
-    if (!props.containsKey('TestProps.requiredProp') &&
-        !requiredPropNamesToSkipValidation.contains('requiredProp')) {
-      throw MissingRequiredPropsError(
-          'Required prop `requiredProp` is missing.');
-    }
+      if(!props.containsKey('TestProps.requiredProp') && !requiredPropNamesToSkipValidation.contains('requiredProp')) {
+  throw MissingRequiredPropsError('Required prop `requiredProp` is missing.');
+}
 
-    if (!props.containsKey('TestProps.requiredNullableProp') &&
-        !requiredPropNamesToSkipValidation.contains('requiredNullableProp')) {
-      throw MissingRequiredPropsError(
-          'Required prop `requiredNullableProp` is missing.');
-    }
+  if(!props.containsKey('TestProps.requiredNullableProp') && !requiredPropNamesToSkipValidation.contains('requiredNullableProp')) {
+  throw MissingRequiredPropsError('Required prop `requiredNullableProp` is missing.');
+}
+
   }
 }
 
@@ -84,17 +59,15 @@ const PropsMeta _$metaForTestProps = PropsMeta(
 );
 
 _$$TestProps _$Test([Map? backingProps]) => _$$TestProps(backingProps);
-
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$TestProps extends UiProps
-    with
-        TestProps,
-        // If this generated mixin is undefined, it's likely because TestProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestProps, and check that $TestProps is exported/imported properly.
-        $TestProps {
+class _$$TestProps extends UiProps with
+ TestProps,
+ // If this generated mixin is undefined, it's likely because TestProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestProps, and check that $TestProps is exported/imported properly.
+ $TestProps {
   _$$TestProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
@@ -104,22 +77,19 @@ class _$$TestProps extends UiProps
   /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
-
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => '';
 
   @override
   PropsMetaCollection get staticMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because TestProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestProps, and check that $TestProps is exported/imported properly.
-        TestProps: $TestProps.meta,
-      });
+    // If this generated mixin is undefined, it's likely because TestProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestProps, and check that $TestProps is exported/imported properly.
+    TestProps: $TestProps.meta,
+  });
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$TestProps(accessMap, (map) => _$$TestProps(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$TestProps(accessMap, (map) => _$$TestProps(map));
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$TestProps = getPropKey;

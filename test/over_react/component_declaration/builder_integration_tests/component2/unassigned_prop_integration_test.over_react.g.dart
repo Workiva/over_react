@@ -24,39 +24,24 @@ mixin _$FooPropsAccessorsMixin implements _$FooProps {
 
   /// <!-- Generated from [_$FooProps.stringProp] -->
   @override
-  String? get stringProp =>
-      (props[_$key__stringProp___$FooProps] ?? null) as String?;
-
+  String? get stringProp => (props[_$key__stringProp___$FooProps] ?? null) as String?;
   /// <!-- Generated from [_$FooProps.stringProp] -->
   @override
   set stringProp(String? value) => props[_$key__stringProp___$FooProps] = value;
-
   /// <!-- Generated from [_$FooProps.unassignedProp] -->
   @override
-  String? get unassignedProp =>
-      (props[_$key__unassignedProp___$FooProps] ?? null) as String?;
-
+  String? get unassignedProp => (props[_$key__unassignedProp___$FooProps] ?? null) as String?;
   /// <!-- Generated from [_$FooProps.unassignedProp] -->
   @override
-  set unassignedProp(String? value) =>
-      props[_$key__unassignedProp___$FooProps] = value;
+  set unassignedProp(String? value) => props[_$key__unassignedProp___$FooProps] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__stringProp___$FooProps =
-      PropDescriptor(_$key__stringProp___$FooProps);
-  static const PropDescriptor _$prop__unassignedProp___$FooProps =
-      PropDescriptor(_$key__unassignedProp___$FooProps);
+  static const PropDescriptor _$prop__stringProp___$FooProps = PropDescriptor(_$key__stringProp___$FooProps);
+  static const PropDescriptor _$prop__unassignedProp___$FooProps = PropDescriptor(_$key__unassignedProp___$FooProps);
   static const String _$key__stringProp___$FooProps = 'FooProps.stringProp';
-  static const String _$key__unassignedProp___$FooProps =
-      'FooProps.unassignedProp';
+  static const String _$key__unassignedProp___$FooProps = 'FooProps.unassignedProp';
 
-  static const List<PropDescriptor> $props = [
-    _$prop__stringProp___$FooProps,
-    _$prop__unassignedProp___$FooProps
-  ];
-  static const List<String> $propKeys = [
-    _$key__stringProp___$FooProps,
-    _$key__unassignedProp___$FooProps
-  ];
+  static const List<PropDescriptor> $props = [_$prop__stringProp___$FooProps, _$prop__unassignedProp___$FooProps];
+  static const List<String> $propKeys = [_$key__stringProp___$FooProps, _$key__unassignedProp___$FooProps];
 }
 
 const PropsMeta _$metaForFooProps = PropsMeta(
@@ -67,15 +52,11 @@ const PropsMeta _$metaForFooProps = PropsMeta(
 class FooProps extends _$FooProps with _$FooPropsAccessorsMixin {
   static const PropsMeta meta = _$metaForFooProps;
 }
-
 _$$FooProps _$Foo([Map? backingProps]) => _$$FooProps(backingProps);
-
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-class _$$FooProps extends _$FooProps
-    with _$FooPropsAccessorsMixin
-    implements FooProps {
+class _$$FooProps extends _$FooProps with _$FooPropsAccessorsMixin implements FooProps {
   _$$FooProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
@@ -88,25 +69,21 @@ class _$$FooProps extends _$FooProps
 
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
-  ReactComponentFactoryProxy get componentFactory =>
-      super.componentFactory ?? $FooComponentFactory;
+  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $FooComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'FooProps.';
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$FooProps(accessMap, (map) => _$$FooProps(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$FooProps(accessMap, (map) => _$$FooProps(map));
 
   @override
   Set<String> get requiredPropNamesToSkipValidation => const {'id'};
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$FooProps = getPropKey;
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
@@ -120,20 +97,18 @@ class _$FooComponent extends FooComponent {
   @override
   set props(Map value) {
     assert(
-        getBackingMap(value) is JsBackedMap,
+        getBackingMap(value) is JsBackedMap, 
         'Component2.props should never be set directly in '
         'production. If this is required for testing, the '
         'component should be rendered within the test. If '
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps =
-        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
+    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
-  _$$FooProps typedPropsFactoryJs(JsBackedMap? backingMap) =>
-      _$$FooProps(backingMap);
+  _$$FooProps typedPropsFactoryJs(JsBackedMap? backingMap) => _$$FooProps(backingMap);
 
   @override
   _$$FooProps typedPropsFactory(Map? backingMap) => _$$FooProps(backingMap);

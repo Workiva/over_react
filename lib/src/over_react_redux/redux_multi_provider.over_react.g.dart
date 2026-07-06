@@ -18,8 +18,7 @@ final $ReduxMultiProviderComponentFactory = registerComponent2(
   parentType: null,
 );
 
-mixin _$ReduxMultiProviderPropsAccessorsMixin
-    implements _$ReduxMultiProviderProps {
+mixin _$ReduxMultiProviderPropsAccessorsMixin implements _$ReduxMultiProviderProps {
   @override
   Map get props;
 
@@ -32,10 +31,7 @@ mixin _$ReduxMultiProviderPropsAccessorsMixin
   ///
   /// <!-- Generated from [_$ReduxMultiProviderProps.storesByContext] -->
   @override
-  Map<Context, Store> get storesByContext =>
-      (props[_$key__storesByContext___$ReduxMultiProviderProps] ?? null)
-          as Map<Context, Store>;
-
+  Map<Context, Store> get storesByContext => (props[_$key__storesByContext___$ReduxMultiProviderProps] ?? null) as Map<Context, Store>;
   /// A `Map` of contexts that connected components within the component tree
   /// can use to receive updates from specific stores.
   ///
@@ -45,24 +41,13 @@ mixin _$ReduxMultiProviderPropsAccessorsMixin
   ///
   /// <!-- Generated from [_$ReduxMultiProviderProps.storesByContext] -->
   @override
-  set storesByContext(Map<Context, Store> value) =>
-      props[_$key__storesByContext___$ReduxMultiProviderProps] = value;
+  set storesByContext(Map<Context, Store> value) => props[_$key__storesByContext___$ReduxMultiProviderProps] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor
-      _$prop__storesByContext___$ReduxMultiProviderProps = PropDescriptor(
-          _$key__storesByContext___$ReduxMultiProviderProps,
-          isRequired: true,
-          isNullable: true,
-          isLate: true);
-  static const String _$key__storesByContext___$ReduxMultiProviderProps =
-      'ReduxMultiProviderProps.storesByContext';
+  static const PropDescriptor _$prop__storesByContext___$ReduxMultiProviderProps = PropDescriptor(_$key__storesByContext___$ReduxMultiProviderProps, isRequired: true, isNullable: true, isLate: true);
+  static const String _$key__storesByContext___$ReduxMultiProviderProps = 'ReduxMultiProviderProps.storesByContext';
 
-  static const List<PropDescriptor> $props = [
-    _$prop__storesByContext___$ReduxMultiProviderProps
-  ];
-  static const List<String> $propKeys = [
-    _$key__storesByContext___$ReduxMultiProviderProps
-  ];
+  static const List<PropDescriptor> $props = [_$prop__storesByContext___$ReduxMultiProviderProps];
+  static const List<String> $propKeys = [_$key__storesByContext___$ReduxMultiProviderProps];
 }
 
 const PropsMeta _$metaForReduxMultiProviderProps = PropsMeta(
@@ -70,22 +55,15 @@ const PropsMeta _$metaForReduxMultiProviderProps = PropsMeta(
   keys: _$ReduxMultiProviderPropsAccessorsMixin.$propKeys,
 );
 
-class ReduxMultiProviderProps extends _$ReduxMultiProviderProps
-    with _$ReduxMultiProviderPropsAccessorsMixin {
+class ReduxMultiProviderProps extends _$ReduxMultiProviderProps with _$ReduxMultiProviderPropsAccessorsMixin {
   static const PropsMeta meta = _$metaForReduxMultiProviderProps;
 }
-
-_$$ReduxMultiProviderProps _$ReduxMultiProvider([Map? backingProps]) =>
-    _$$ReduxMultiProviderProps(backingProps);
-
+_$$ReduxMultiProviderProps _$ReduxMultiProvider([Map? backingProps]) => _$$ReduxMultiProviderProps(backingProps);
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-class _$$ReduxMultiProviderProps extends _$ReduxMultiProviderProps
-    with _$ReduxMultiProviderPropsAccessorsMixin
-    implements ReduxMultiProviderProps {
-  _$$ReduxMultiProviderProps([Map? backingMap])
-      : this.props = backingMap ?? JsBackedMap();
+class _$$ReduxMultiProviderProps extends _$ReduxMultiProviderProps with _$ReduxMultiProviderPropsAccessorsMixin implements ReduxMultiProviderProps {
+  _$$ReduxMultiProviderProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
   @override
@@ -97,23 +75,18 @@ class _$$ReduxMultiProviderProps extends _$ReduxMultiProviderProps
 
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
-  ReactComponentFactoryProxy get componentFactory =>
-      super.componentFactory ?? $ReduxMultiProviderComponentFactory;
+  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $ReduxMultiProviderComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'ReduxMultiProviderProps.';
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$ReduxMultiProviderProps(
-          accessMap, (map) => _$$ReduxMultiProviderProps(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$ReduxMultiProviderProps(accessMap, (map) => _$$ReduxMultiProviderProps(map));
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$ReduxMultiProviderProps = getPropKey;
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
@@ -127,24 +100,21 @@ class _$ReduxMultiProviderComponent extends ReduxMultiProviderComponent {
   @override
   set props(Map value) {
     assert(
-        getBackingMap(value) is JsBackedMap,
+        getBackingMap(value) is JsBackedMap, 
         'Component2.props should never be set directly in '
         'production. If this is required for testing, the '
         'component should be rendered within the test. If '
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps =
-        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
+    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
-  _$$ReduxMultiProviderProps typedPropsFactoryJs(JsBackedMap? backingMap) =>
-      _$$ReduxMultiProviderProps(backingMap);
+  _$$ReduxMultiProviderProps typedPropsFactoryJs(JsBackedMap? backingMap) => _$$ReduxMultiProviderProps(backingMap);
 
   @override
-  _$$ReduxMultiProviderProps typedPropsFactory(Map? backingMap) =>
-      _$$ReduxMultiProviderProps(backingMap);
+  _$$ReduxMultiProviderProps typedPropsFactory(Map? backingMap) => _$$ReduxMultiProviderProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -156,7 +126,5 @@ class _$ReduxMultiProviderComponent extends ReduxMultiProviderComponent {
   /// The default consumed props, taken from _$ReduxMultiProviderProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForReduxMultiProviderProps
-  ];
+  final List<ConsumedProps> $defaultConsumedProps = const [_$metaForReduxMultiProviderProps];
 }

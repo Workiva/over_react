@@ -18,76 +18,38 @@ final $TestCompositeComponentComponentFactory = registerComponent(
   parentType: null,
 );
 
-mixin _$TestCompositeComponentPropsAccessorsMixin
-    implements _$TestCompositeComponentProps {
+mixin _$TestCompositeComponentPropsAccessorsMixin implements _$TestCompositeComponentProps {
   @override
   Map get props;
 
   /// <!-- Generated from [_$TestCompositeComponentProps.onComponentDidMount] -->
   @override
-  Function? get onComponentDidMount =>
-      (props[_$key__onComponentDidMount___$TestCompositeComponentProps] ?? null)
-          as Function?;
-
+  Function? get onComponentDidMount => (props[_$key__onComponentDidMount___$TestCompositeComponentProps] ?? null) as Function?;
   /// <!-- Generated from [_$TestCompositeComponentProps.onComponentDidMount] -->
   @override
-  set onComponentDidMount(Function? value) =>
-      props[_$key__onComponentDidMount___$TestCompositeComponentProps] = value;
-
+  set onComponentDidMount(Function? value) => props[_$key__onComponentDidMount___$TestCompositeComponentProps] = value;
   /// <!-- Generated from [_$TestCompositeComponentProps.onComponentWillUnmount] -->
   @override
-  Function? get onComponentWillUnmount =>
-      (props[_$key__onComponentWillUnmount___$TestCompositeComponentProps] ??
-          null) as Function?;
-
+  Function? get onComponentWillUnmount => (props[_$key__onComponentWillUnmount___$TestCompositeComponentProps] ?? null) as Function?;
   /// <!-- Generated from [_$TestCompositeComponentProps.onComponentWillUnmount] -->
   @override
-  set onComponentWillUnmount(Function? value) =>
-      props[_$key__onComponentWillUnmount___$TestCompositeComponentProps] =
-          value;
-
+  set onComponentWillUnmount(Function? value) => props[_$key__onComponentWillUnmount___$TestCompositeComponentProps] = value;
   /// <!-- Generated from [_$TestCompositeComponentProps.onComponentDidUpdate] -->
   @override
-  Function? get onComponentDidUpdate =>
-      (props[_$key__onComponentDidUpdate___$TestCompositeComponentProps] ??
-          null) as Function?;
-
+  Function? get onComponentDidUpdate => (props[_$key__onComponentDidUpdate___$TestCompositeComponentProps] ?? null) as Function?;
   /// <!-- Generated from [_$TestCompositeComponentProps.onComponentDidUpdate] -->
   @override
-  set onComponentDidUpdate(Function? value) =>
-      props[_$key__onComponentDidUpdate___$TestCompositeComponentProps] = value;
+  set onComponentDidUpdate(Function? value) => props[_$key__onComponentDidUpdate___$TestCompositeComponentProps] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor
-      _$prop__onComponentDidMount___$TestCompositeComponentProps =
-      PropDescriptor(_$key__onComponentDidMount___$TestCompositeComponentProps);
-  static const PropDescriptor
-      _$prop__onComponentWillUnmount___$TestCompositeComponentProps =
-      PropDescriptor(
-          _$key__onComponentWillUnmount___$TestCompositeComponentProps);
-  static const PropDescriptor
-      _$prop__onComponentDidUpdate___$TestCompositeComponentProps =
-      PropDescriptor(
-          _$key__onComponentDidUpdate___$TestCompositeComponentProps);
-  static const String
-      _$key__onComponentDidMount___$TestCompositeComponentProps =
-      'TestCompositeComponentProps.onComponentDidMount';
-  static const String
-      _$key__onComponentWillUnmount___$TestCompositeComponentProps =
-      'TestCompositeComponentProps.onComponentWillUnmount';
-  static const String
-      _$key__onComponentDidUpdate___$TestCompositeComponentProps =
-      'TestCompositeComponentProps.onComponentDidUpdate';
+  static const PropDescriptor _$prop__onComponentDidMount___$TestCompositeComponentProps = PropDescriptor(_$key__onComponentDidMount___$TestCompositeComponentProps);
+  static const PropDescriptor _$prop__onComponentWillUnmount___$TestCompositeComponentProps = PropDescriptor(_$key__onComponentWillUnmount___$TestCompositeComponentProps);
+  static const PropDescriptor _$prop__onComponentDidUpdate___$TestCompositeComponentProps = PropDescriptor(_$key__onComponentDidUpdate___$TestCompositeComponentProps);
+  static const String _$key__onComponentDidMount___$TestCompositeComponentProps = 'TestCompositeComponentProps.onComponentDidMount';
+  static const String _$key__onComponentWillUnmount___$TestCompositeComponentProps = 'TestCompositeComponentProps.onComponentWillUnmount';
+  static const String _$key__onComponentDidUpdate___$TestCompositeComponentProps = 'TestCompositeComponentProps.onComponentDidUpdate';
 
-  static const List<PropDescriptor> $props = [
-    _$prop__onComponentDidMount___$TestCompositeComponentProps,
-    _$prop__onComponentWillUnmount___$TestCompositeComponentProps,
-    _$prop__onComponentDidUpdate___$TestCompositeComponentProps
-  ];
-  static const List<String> $propKeys = [
-    _$key__onComponentDidMount___$TestCompositeComponentProps,
-    _$key__onComponentWillUnmount___$TestCompositeComponentProps,
-    _$key__onComponentDidUpdate___$TestCompositeComponentProps
-  ];
+  static const List<PropDescriptor> $props = [_$prop__onComponentDidMount___$TestCompositeComponentProps, _$prop__onComponentWillUnmount___$TestCompositeComponentProps, _$prop__onComponentDidUpdate___$TestCompositeComponentProps];
+  static const List<String> $propKeys = [_$key__onComponentDidMount___$TestCompositeComponentProps, _$key__onComponentWillUnmount___$TestCompositeComponentProps, _$key__onComponentDidUpdate___$TestCompositeComponentProps];
 }
 
 const PropsMeta _$metaForTestCompositeComponentProps = PropsMeta(
@@ -95,22 +57,15 @@ const PropsMeta _$metaForTestCompositeComponentProps = PropsMeta(
   keys: _$TestCompositeComponentPropsAccessorsMixin.$propKeys,
 );
 
-class TestCompositeComponentProps extends _$TestCompositeComponentProps
-    with _$TestCompositeComponentPropsAccessorsMixin {
+class TestCompositeComponentProps extends _$TestCompositeComponentProps with _$TestCompositeComponentPropsAccessorsMixin {
   static const PropsMeta meta = _$metaForTestCompositeComponentProps;
 }
-
-_$$TestCompositeComponentProps _$TestCompositeComponent([Map? backingProps]) =>
-    _$$TestCompositeComponentProps(backingProps);
-
+_$$TestCompositeComponentProps _$TestCompositeComponent([Map? backingProps]) => _$$TestCompositeComponentProps(backingProps);
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-class _$$TestCompositeComponentProps extends _$TestCompositeComponentProps
-    with _$TestCompositeComponentPropsAccessorsMixin
-    implements TestCompositeComponentProps {
-  _$$TestCompositeComponentProps([Map? backingMap])
-      : this.props = backingMap ?? JsBackedMap();
+class _$$TestCompositeComponentProps extends _$TestCompositeComponentProps with _$TestCompositeComponentPropsAccessorsMixin implements TestCompositeComponentProps {
+  _$$TestCompositeComponentProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
   @override
@@ -122,32 +77,25 @@ class _$$TestCompositeComponentProps extends _$TestCompositeComponentProps
 
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
-  ReactComponentFactoryProxy get componentFactory =>
-      super.componentFactory ?? $TestCompositeComponentComponentFactory;
+  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $TestCompositeComponentComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'TestCompositeComponentProps.';
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$TestCompositeComponentProps(
-          accessMap, (map) => _$$TestCompositeComponentProps(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$TestCompositeComponentProps(accessMap, (map) => _$$TestCompositeComponentProps(map));
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$TestCompositeComponentProps = getPropKey;
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
-class _$TestCompositeComponentComponent
-    extends TestCompositeComponentComponent {
+class _$TestCompositeComponentComponent extends TestCompositeComponentComponent {
   @override
-  _$$TestCompositeComponentProps typedPropsFactory(Map? backingMap) =>
-      _$$TestCompositeComponentProps(backingMap);
+  _$$TestCompositeComponentProps typedPropsFactory(Map? backingMap) => _$$TestCompositeComponentProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -159,7 +107,5 @@ class _$TestCompositeComponentComponent
   /// The default consumed props, taken from _$TestCompositeComponentProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForTestCompositeComponentProps
-  ];
+  final List<ConsumedProps> $defaultConsumedProps = const [_$metaForTestCompositeComponentProps];
 }

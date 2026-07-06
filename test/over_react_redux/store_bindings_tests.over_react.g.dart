@@ -14,42 +14,27 @@ part of 'store_bindings_tests.dart';
 mixin $TestSelectorProps on TestSelectorProps {
   static const PropsMeta meta = _$metaForTestSelectorProps;
   @override
-  void Function(Object? selectedValue)? get onRender =>
-      (props[_$key__onRender__TestSelectorProps] ?? null) as void Function(
-          Object? selectedValue)?;
+  void Function(Object? selectedValue)? get onRender => (props[_$key__onRender__TestSelectorProps] ?? null) as void Function(Object? selectedValue)?;
   @override
-  set onRender(void Function(Object? selectedValue)? value) =>
-      props[_$key__onRender__TestSelectorProps] = value;
+  set onRender(void Function(Object? selectedValue)? value) => props[_$key__onRender__TestSelectorProps] = value;
   @override
-  bool Function(dynamic next, dynamic prev)? get equality =>
-      (props[_$key__equality__TestSelectorProps] ?? null) as bool Function(
-          dynamic next, dynamic prev)?;
+  bool Function(dynamic next, dynamic prev)? get equality => (props[_$key__equality__TestSelectorProps] ?? null) as bool Function(dynamic next, dynamic prev)?;
   @override
-  set equality(bool Function(dynamic next, dynamic prev)? value) =>
-      props[_$key__equality__TestSelectorProps] = value;
+  set equality(bool Function(dynamic next, dynamic prev)? value) => props[_$key__equality__TestSelectorProps] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__onRender__TestSelectorProps =
-      PropDescriptor(_$key__onRender__TestSelectorProps);
-  static const PropDescriptor _$prop__equality__TestSelectorProps =
-      PropDescriptor(_$key__equality__TestSelectorProps);
-  static const String _$key__onRender__TestSelectorProps =
-      'TestSelectorProps.onRender';
-  static const String _$key__equality__TestSelectorProps =
-      'TestSelectorProps.equality';
+  static const PropDescriptor _$prop__onRender__TestSelectorProps = PropDescriptor(_$key__onRender__TestSelectorProps);
+  static const PropDescriptor _$prop__equality__TestSelectorProps = PropDescriptor(_$key__equality__TestSelectorProps);
+  static const String _$key__onRender__TestSelectorProps = 'TestSelectorProps.onRender';
+  static const String _$key__equality__TestSelectorProps = 'TestSelectorProps.equality';
 
-  static const List<PropDescriptor> $props = [
-    _$prop__onRender__TestSelectorProps,
-    _$prop__equality__TestSelectorProps
-  ];
-  static const List<String> $propKeys = [
-    _$key__onRender__TestSelectorProps,
-    _$key__equality__TestSelectorProps
-  ];
+  static const List<PropDescriptor> $props = [_$prop__onRender__TestSelectorProps, _$prop__equality__TestSelectorProps];
+  static const List<String> $propKeys = [_$key__onRender__TestSelectorProps, _$key__equality__TestSelectorProps];
 
   @override
   @UiProps.$mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
+    
   }
 }
 
@@ -67,29 +52,21 @@ const PropsMeta _$metaForTestSelectorProps = PropsMeta(
 mixin $TestConnectPropsMixin on TestConnectPropsMixin {
   static const PropsMeta meta = _$metaForTestConnectPropsMixin;
   @override
-  Object? get interestingValue =>
-      (props[_$key__interestingValue__TestConnectPropsMixin] ?? null)
-          as Object?;
+  Object? get interestingValue => (props[_$key__interestingValue__TestConnectPropsMixin] ?? null) as Object?;
   @override
-  set interestingValue(Object? value) =>
-      props[_$key__interestingValue__TestConnectPropsMixin] = value;
+  set interestingValue(Object? value) => props[_$key__interestingValue__TestConnectPropsMixin] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__interestingValue__TestConnectPropsMixin =
-      PropDescriptor(_$key__interestingValue__TestConnectPropsMixin);
-  static const String _$key__interestingValue__TestConnectPropsMixin =
-      'TestConnectPropsMixin.interestingValue';
+  static const PropDescriptor _$prop__interestingValue__TestConnectPropsMixin = PropDescriptor(_$key__interestingValue__TestConnectPropsMixin);
+  static const String _$key__interestingValue__TestConnectPropsMixin = 'TestConnectPropsMixin.interestingValue';
 
-  static const List<PropDescriptor> $props = [
-    _$prop__interestingValue__TestConnectPropsMixin
-  ];
-  static const List<String> $propKeys = [
-    _$key__interestingValue__TestConnectPropsMixin
-  ];
+  static const List<PropDescriptor> $props = [_$prop__interestingValue__TestConnectPropsMixin];
+  static const List<String> $propKeys = [_$key__interestingValue__TestConnectPropsMixin];
 
   @override
   @UiProps.$mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
+    
   }
 }
 
@@ -100,32 +77,29 @@ const PropsMeta _$metaForTestConnectPropsMixin = PropsMeta(
   keys: $TestConnectPropsMixin.$propKeys,
 );
 
-final UiFactoryConfig<_$$TestSelectorProps> _$TestSelectorConfig =
-    UiFactoryConfig(
-        propsFactory: PropsFactory(
-          map: (map) => _$$TestSelectorProps(map),
-          jsMap: (map) => _$$TestSelectorProps(map),
-        ),
-        displayName: 'TestSelector');
+final UiFactoryConfig<_$$TestSelectorProps> _$TestSelectorConfig = UiFactoryConfig(
+  propsFactory: PropsFactory(
+    map: (map) => _$$TestSelectorProps(map),
+    jsMap: (map) => _$$TestSelectorProps(map),
+  ),
+  displayName: 'TestSelector',
+);
 
 @Deprecated(r'Use the private variable, _$TestSelectorConfig, instead '
     'and update the `over_react` lower bound to version 4.1.0. '
     'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
-final UiFactoryConfig<_$$TestSelectorProps> $TestSelectorConfig =
-    _$TestSelectorConfig;
+final UiFactoryConfig<_$$TestSelectorProps> $TestSelectorConfig = _$TestSelectorConfig;
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$TestSelectorProps extends UiProps
-    with
-        TestSelectorProps,
-        // If this generated mixin is undefined, it's likely because TestSelectorProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestSelectorProps, and check that $TestSelectorProps is exported/imported properly.
-        $TestSelectorProps {
-  _$$TestSelectorProps([Map? backingMap])
-      : this.props = backingMap ?? JsBackedMap();
+class _$$TestSelectorProps extends UiProps with
+ TestSelectorProps,
+ // If this generated mixin is undefined, it's likely because TestSelectorProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestSelectorProps, and check that $TestSelectorProps is exported/imported properly.
+ $TestSelectorProps {
+  _$$TestSelectorProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
   @override
@@ -134,57 +108,46 @@ class _$$TestSelectorProps extends UiProps
   /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
-
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => '';
 
   @override
   PropsMetaCollection get staticMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because TestSelectorProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestSelectorProps, and check that $TestSelectorProps is exported/imported properly.
-        TestSelectorProps: $TestSelectorProps.meta,
-      });
+    // If this generated mixin is undefined, it's likely because TestSelectorProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestSelectorProps, and check that $TestSelectorProps is exported/imported properly.
+    TestSelectorProps: $TestSelectorProps.meta,
+  });
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$TestSelectorProps(
-          accessMap, (map) => _$$TestSelectorProps(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$TestSelectorProps(accessMap, (map) => _$$TestSelectorProps(map));
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$TestSelectorProps = getPropKey;
-final UiFactoryConfig<_$$TestConnectProps> _$TestConnectMapViewConfig =
-    UiFactoryConfig(
-        propsFactory: PropsFactory(
-          map: (map) => _$$TestConnectProps(map),
-          jsMap: (map) => _$$TestConnectProps(map),
-        ),
-        displayName: 'TestConnectMapView');
+final UiFactoryConfig<_$$TestConnectProps> _$TestConnectMapViewConfig = UiFactoryConfig(
+  propsFactory: PropsFactory(
+    map: (map) => _$$TestConnectProps(map),
+    jsMap: (map) => _$$TestConnectProps(map),
+  ),
+  displayName: 'TestConnectMapView',
+);
 
 @Deprecated(r'Use the private variable, _$TestConnectMapViewConfig, instead '
     'and update the `over_react` lower bound to version 4.1.0. '
     'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
-final UiFactoryConfig<_$$TestConnectProps> $TestConnectMapViewConfig =
-    _$TestConnectMapViewConfig;
+final UiFactoryConfig<_$$TestConnectProps> $TestConnectMapViewConfig = _$TestConnectMapViewConfig;
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$TestConnectProps extends UiProps
-    with
-        TestSelectorProps,
-        // If this generated mixin is undefined, it's likely because TestSelectorProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestSelectorProps, and check that $TestSelectorProps is exported/imported properly.
-        $TestSelectorProps,
-        TestConnectPropsMixin,
-        // If this generated mixin is undefined, it's likely because TestConnectPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestConnectPropsMixin, and check that $TestConnectPropsMixin is exported/imported properly.
-        $TestConnectPropsMixin
-    implements
-        TestConnectProps {
-  _$$TestConnectProps([Map? backingMap])
-      : this.props = backingMap ?? JsBackedMap();
+class _$$TestConnectProps extends UiProps with TestSelectorProps,
+ // If this generated mixin is undefined, it's likely because TestSelectorProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestSelectorProps, and check that $TestSelectorProps is exported/imported properly.
+$TestSelectorProps,TestConnectPropsMixin,
+ // If this generated mixin is undefined, it's likely because TestConnectPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestConnectPropsMixin, and check that $TestConnectPropsMixin is exported/imported properly.
+$TestConnectPropsMixin implements TestConnectProps {
+  _$$TestConnectProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
   @override
@@ -193,25 +156,21 @@ class _$$TestConnectProps extends UiProps
   /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
-
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => '';
 
   @override
   PropsMetaCollection get staticMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because TestSelectorProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestSelectorProps, and check that $TestSelectorProps is exported/imported properly.
-        TestSelectorProps: $TestSelectorProps.meta,
-        // If this generated mixin is undefined, it's likely because TestConnectPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestConnectPropsMixin, and check that $TestConnectPropsMixin is exported/imported properly.
-        TestConnectPropsMixin: $TestConnectPropsMixin.meta,
-      });
+    // If this generated mixin is undefined, it's likely because TestSelectorProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestSelectorProps, and check that $TestSelectorProps is exported/imported properly.
+    TestSelectorProps: $TestSelectorProps.meta,
+    // If this generated mixin is undefined, it's likely because TestConnectPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestConnectPropsMixin, and check that $TestConnectPropsMixin is exported/imported properly.
+    TestConnectPropsMixin: $TestConnectPropsMixin.meta,
+  });
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$TestConnectProps(
-          accessMap, (map) => _$$TestConnectProps(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$TestConnectProps(accessMap, (map) => _$$TestConnectProps(map));
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$TestConnectProps = getPropKey;

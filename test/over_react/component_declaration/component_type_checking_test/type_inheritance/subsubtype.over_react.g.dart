@@ -15,8 +15,7 @@ final $TestSubsubtypeComponentFactory = registerComponent(
   builderFactory: _$TestSubsubtype,
   componentClass: TestSubsubtypeComponent,
   isWrapper: false,
-  parentType:
-      $TestSubtypeComponentFactory, /* from `subtypeOf: TestSubtypeComponent` */
+  parentType: $TestSubtypeComponentFactory, /* from `subtypeOf: TestSubtypeComponent` */
 );
 
 mixin _$TestSubsubtypePropsAccessorsMixin implements _$TestSubsubtypeProps {
@@ -34,22 +33,15 @@ const PropsMeta _$metaForTestSubsubtypeProps = PropsMeta(
   keys: _$TestSubsubtypePropsAccessorsMixin.$propKeys,
 );
 
-class TestSubsubtypeProps extends _$TestSubsubtypeProps
-    with _$TestSubsubtypePropsAccessorsMixin {
+class TestSubsubtypeProps extends _$TestSubsubtypeProps with _$TestSubsubtypePropsAccessorsMixin {
   static const PropsMeta meta = _$metaForTestSubsubtypeProps;
 }
-
-_$$TestSubsubtypeProps _$TestSubsubtype([Map? backingProps]) =>
-    _$$TestSubsubtypeProps(backingProps);
-
+_$$TestSubsubtypeProps _$TestSubsubtype([Map? backingProps]) => _$$TestSubsubtypeProps(backingProps);
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-class _$$TestSubsubtypeProps extends _$TestSubsubtypeProps
-    with _$TestSubsubtypePropsAccessorsMixin
-    implements TestSubsubtypeProps {
-  _$$TestSubsubtypeProps([Map? backingMap])
-      : this.props = backingMap ?? JsBackedMap();
+class _$$TestSubsubtypeProps extends _$TestSubsubtypeProps with _$TestSubsubtypePropsAccessorsMixin implements TestSubsubtypeProps {
+  _$$TestSubsubtypeProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
   @override
@@ -61,31 +53,25 @@ class _$$TestSubsubtypeProps extends _$TestSubsubtypeProps
 
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
-  ReactComponentFactoryProxy get componentFactory =>
-      super.componentFactory ?? $TestSubsubtypeComponentFactory;
+  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $TestSubsubtypeComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'TestSubsubtypeProps.';
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$TestSubsubtypeProps(
-          accessMap, (map) => _$$TestSubsubtypeProps(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$TestSubsubtypeProps(accessMap, (map) => _$$TestSubsubtypeProps(map));
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$TestSubsubtypeProps = getPropKey;
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$TestSubsubtypeComponent extends TestSubsubtypeComponent {
   @override
-  _$$TestSubsubtypeProps typedPropsFactory(Map? backingMap) =>
-      _$$TestSubsubtypeProps(backingMap);
+  _$$TestSubsubtypeProps typedPropsFactory(Map? backingMap) => _$$TestSubsubtypeProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -97,7 +83,5 @@ class _$TestSubsubtypeComponent extends TestSubsubtypeComponent {
   /// The default consumed props, taken from _$TestSubsubtypeProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForTestSubsubtypeProps
-  ];
+  final List<ConsumedProps> $defaultConsumedProps = const [_$metaForTestSubsubtypeProps];
 }

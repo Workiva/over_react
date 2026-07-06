@@ -12,28 +12,19 @@ mixin ConnectPropsMixin implements _$ConnectPropsMixin {
   Map get props;
 
   static const PropsMeta meta = _$metaForConnectPropsMixin;
-
   /// <!-- Generated from [_$ConnectPropsMixin.dispatch] -->
   @override
   @disableRequiredPropValidation
-  dynamic Function(dynamic action) get dispatch =>
-      (props[_$key__dispatch___$ConnectPropsMixin] ?? null) as dynamic Function(
-          dynamic action);
-
+  dynamic Function(dynamic action) get dispatch => (props[_$key__dispatch___$ConnectPropsMixin] ?? null) as dynamic Function(dynamic action);
   /// <!-- Generated from [_$ConnectPropsMixin.dispatch] -->
   @override
   @disableRequiredPropValidation
-  set dispatch(dynamic Function(dynamic action) value) =>
-      props[_$key__dispatch___$ConnectPropsMixin] = value;
+  set dispatch(dynamic Function(dynamic action) value) => props[_$key__dispatch___$ConnectPropsMixin] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__dispatch___$ConnectPropsMixin =
-      PropDescriptor(_$key__dispatch___$ConnectPropsMixin,
-          isRequired: true, isNullable: true, isLate: true);
+  static const PropDescriptor _$prop__dispatch___$ConnectPropsMixin = PropDescriptor(_$key__dispatch___$ConnectPropsMixin, isRequired: true, isNullable: true, isLate: true);
   static const String _$key__dispatch___$ConnectPropsMixin = 'dispatch';
 
-  static const List<PropDescriptor> $props = [
-    _$prop__dispatch___$ConnectPropsMixin
-  ];
+  static const List<PropDescriptor> $props = [_$prop__dispatch___$ConnectPropsMixin];
   static const List<String> $propKeys = [_$key__dispatch___$ConnectPropsMixin];
 }
 
@@ -49,43 +40,30 @@ const PropsMeta _$metaForConnectPropsMixin = PropsMeta(
 mixin $ReduxProviderPropsMixin on ReduxProviderPropsMixin {
   static const PropsMeta meta = _$metaForReduxProviderPropsMixin;
   @override
-  Store get store =>
-      (props[_$key__store__ReduxProviderPropsMixin] ?? null) as Store;
+  Store get store => (props[_$key__store__ReduxProviderPropsMixin] ?? null) as Store;
   @override
-  set store(Store value) =>
-      props[_$key__store__ReduxProviderPropsMixin] = value;
+  set store(Store value) => props[_$key__store__ReduxProviderPropsMixin] = value;
   @override
-  dynamic get context =>
-      (props[_$key__context__ReduxProviderPropsMixin] ?? null) as dynamic;
+  dynamic get context => (props[_$key__context__ReduxProviderPropsMixin] ?? null) as dynamic;
   @override
-  set context(dynamic value) =>
-      props[_$key__context__ReduxProviderPropsMixin] = value;
+  set context(dynamic value) => props[_$key__context__ReduxProviderPropsMixin] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__store__ReduxProviderPropsMixin =
-      PropDescriptor(_$key__store__ReduxProviderPropsMixin,
-          isRequired: true, isNullable: true, isLate: true);
-  static const PropDescriptor _$prop__context__ReduxProviderPropsMixin =
-      PropDescriptor(_$key__context__ReduxProviderPropsMixin);
+  static const PropDescriptor _$prop__store__ReduxProviderPropsMixin = PropDescriptor(_$key__store__ReduxProviderPropsMixin, isRequired: true, isNullable: true, isLate: true);
+  static const PropDescriptor _$prop__context__ReduxProviderPropsMixin = PropDescriptor(_$key__context__ReduxProviderPropsMixin);
   static const String _$key__store__ReduxProviderPropsMixin = 'store';
   static const String _$key__context__ReduxProviderPropsMixin = 'context';
 
-  static const List<PropDescriptor> $props = [
-    _$prop__store__ReduxProviderPropsMixin,
-    _$prop__context__ReduxProviderPropsMixin
-  ];
-  static const List<String> $propKeys = [
-    _$key__store__ReduxProviderPropsMixin,
-    _$key__context__ReduxProviderPropsMixin
-  ];
+  static const List<PropDescriptor> $props = [_$prop__store__ReduxProviderPropsMixin, _$prop__context__ReduxProviderPropsMixin];
+  static const List<String> $propKeys = [_$key__store__ReduxProviderPropsMixin, _$key__context__ReduxProviderPropsMixin];
 
   @override
   @UiProps.$mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
-    if (!props.containsKey('store') &&
-        !requiredPropNamesToSkipValidation.contains('store')) {
-      throw MissingRequiredPropsError('Required prop `store` is missing.');
-    }
+      if(!props.containsKey('store') && !requiredPropNamesToSkipValidation.contains('store')) {
+  throw MissingRequiredPropsError('Required prop `store` is missing.');
+}
+
   }
 }
 
@@ -96,34 +74,28 @@ const PropsMeta _$metaForReduxProviderPropsMixin = PropsMeta(
   keys: $ReduxProviderPropsMixin.$propKeys,
 );
 
-final UiFactoryConfig<_$$ReduxProviderProps> _$ReduxProviderConfig =
-    UiFactoryConfig(
-        propsFactory: PropsFactory(
-          map: (map) => _$$ReduxProviderProps(map),
-          jsMap: (map) => _$$ReduxProviderProps(map),
-        ),
-        displayName: 'ReduxProvider');
+final UiFactoryConfig<_$$ReduxProviderProps> _$ReduxProviderConfig = UiFactoryConfig(
+  propsFactory: PropsFactory(
+    map: (map) => _$$ReduxProviderProps(map),
+    jsMap: (map) => _$$ReduxProviderProps(map),
+  ),
+  displayName: 'ReduxProvider',
+);
 
 @Deprecated(r'Use the private variable, _$ReduxProviderConfig, instead '
     'and update the `over_react` lower bound to version 4.1.0. '
     'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
-final UiFactoryConfig<_$$ReduxProviderProps> $ReduxProviderConfig =
-    _$ReduxProviderConfig;
+final UiFactoryConfig<_$$ReduxProviderProps> $ReduxProviderConfig = _$ReduxProviderConfig;
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$ReduxProviderProps extends UiProps
-    with
-        ReduxProviderPropsMixin,
-        // If this generated mixin is undefined, it's likely because ReduxProviderPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ReduxProviderPropsMixin, and check that $ReduxProviderPropsMixin is exported/imported properly.
-        $ReduxProviderPropsMixin
-    implements
-        ReduxProviderProps {
-  _$$ReduxProviderProps([Map? backingMap])
-      : this.props = backingMap ?? JsBackedMap();
+class _$$ReduxProviderProps extends UiProps with ReduxProviderPropsMixin,
+ // If this generated mixin is undefined, it's likely because ReduxProviderPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ReduxProviderPropsMixin, and check that $ReduxProviderPropsMixin is exported/imported properly.
+$ReduxProviderPropsMixin implements ReduxProviderProps {
+  _$$ReduxProviderProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
   @override
@@ -132,23 +104,19 @@ class _$$ReduxProviderProps extends UiProps
   /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
-
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => '';
 
   @override
   PropsMetaCollection get staticMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because ReduxProviderPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ReduxProviderPropsMixin, and check that $ReduxProviderPropsMixin is exported/imported properly.
-        ReduxProviderPropsMixin: $ReduxProviderPropsMixin.meta,
-      });
+    // If this generated mixin is undefined, it's likely because ReduxProviderPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ReduxProviderPropsMixin, and check that $ReduxProviderPropsMixin is exported/imported properly.
+    ReduxProviderPropsMixin: $ReduxProviderPropsMixin.meta,
+  });
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$ReduxProviderProps(
-          accessMap, (map) => _$$ReduxProviderProps(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$ReduxProviderProps(accessMap, (map) => _$$ReduxProviderProps(map));
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$ReduxProviderProps = getPropKey;

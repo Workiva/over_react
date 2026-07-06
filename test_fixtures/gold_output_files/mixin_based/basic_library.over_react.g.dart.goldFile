@@ -23,26 +23,18 @@ final $BasicPartOfLibComponentFactory = registerComponent2(
   parentType: null,
 );
 
-_$$BasicPartOfLibProps _$BasicPartOfLib([Map backingProps]) =>
-    _$$BasicPartOfLibProps(backingProps);
-
+_$$BasicPartOfLibProps _$BasicPartOfLib([Map backingProps]) => _$$BasicPartOfLibProps(backingProps);
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$BasicPartOfLibProps extends UiProps
-    with
-        ExamplePropsMixin,
-        // If this generated mixin is undefined, it's likely because ExamplePropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ExamplePropsMixin, and check that $ExamplePropsMixin is exported/imported properly.
-        $ExamplePropsMixin,
-        BasicPartOfLibPropsMixin,
-        // If this generated mixin is undefined, it's likely because BasicPartOfLibPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of BasicPartOfLibPropsMixin, and check that $BasicPartOfLibPropsMixin is exported/imported properly.
-        $BasicPartOfLibPropsMixin
-    implements
-        BasicPartOfLibProps {
-  _$$BasicPartOfLibProps([Map backingMap])
-      : this.props = backingMap ?? JsBackedMap();
+class _$$BasicPartOfLibProps extends UiProps with ExamplePropsMixin,
+ // If this generated mixin is undefined, it's likely because ExamplePropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ExamplePropsMixin, and check that $ExamplePropsMixin is exported/imported properly.
+$ExamplePropsMixin,BasicPartOfLibPropsMixin,
+ // If this generated mixin is undefined, it's likely because BasicPartOfLibPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of BasicPartOfLibPropsMixin, and check that $BasicPartOfLibPropsMixin is exported/imported properly.
+$BasicPartOfLibPropsMixin implements BasicPartOfLibProps {
+  _$$BasicPartOfLibProps([Map backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
   @override
@@ -54,8 +46,7 @@ class _$$BasicPartOfLibProps extends UiProps
 
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
-  ReactComponentFactoryProxy get componentFactory =>
-      super.componentFactory ?? $BasicPartOfLibComponentFactory;
+  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $BasicPartOfLibComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
@@ -63,16 +54,14 @@ class _$$BasicPartOfLibProps extends UiProps
 
   @override
   PropsMetaCollection get staticMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because ExamplePropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ExamplePropsMixin, and check that $ExamplePropsMixin is exported/imported properly.
-        ExamplePropsMixin: $ExamplePropsMixin.meta,
-        // If this generated mixin is undefined, it's likely because BasicPartOfLibPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of BasicPartOfLibPropsMixin, and check that $BasicPartOfLibPropsMixin is exported/imported properly.
-        BasicPartOfLibPropsMixin: $BasicPartOfLibPropsMixin.meta,
-      });
+    // If this generated mixin is undefined, it's likely because ExamplePropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ExamplePropsMixin, and check that $ExamplePropsMixin is exported/imported properly.
+    ExamplePropsMixin: $ExamplePropsMixin.meta,
+    // If this generated mixin is undefined, it's likely because BasicPartOfLibPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of BasicPartOfLibPropsMixin, and check that $BasicPartOfLibPropsMixin is exported/imported properly.
+    BasicPartOfLibPropsMixin: $BasicPartOfLibPropsMixin.meta,
+  });
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$BasicPartOfLibProps(
-          accessMap, (map) => _$$BasicPartOfLibProps(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$BasicPartOfLibProps(accessMap, (map) => _$$BasicPartOfLibProps(map));
 
   @override
   // ignore: must_call_super
@@ -83,28 +72,20 @@ class _$$BasicPartOfLibProps extends UiProps
   @override
   Set<String> get requiredPropNamesToSkipValidation => const {'id'};
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$BasicPartOfLibProps = getPropKey;
-
 // Concrete state implementation.
 //
 // Implements constructor and backing map.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$BasicPartOfLibState extends UiState
-    with
-        ExampleStateMixin,
-        // If this generated mixin is undefined, it's likely because ExampleStateMixin is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not imported. Check the declaration of ExampleStateMixin, and check that $ExampleStateMixin is exported/imported properly.
-        $ExampleStateMixin,
-        BasicPartOfLibStateMixin,
-        // If this generated mixin is undefined, it's likely because BasicPartOfLibStateMixin is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not imported. Check the declaration of BasicPartOfLibStateMixin, and check that $BasicPartOfLibStateMixin is exported/imported properly.
-        $BasicPartOfLibStateMixin
-    implements
-        BasicPartOfLibState {
-  _$$BasicPartOfLibState([Map backingMap])
-      : this.state = backingMap ?? JsBackedMap();
+class _$$BasicPartOfLibState extends UiState with ExampleStateMixin,
+ // If this generated mixin is undefined, it's likely because ExampleStateMixin is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not imported. Check the declaration of ExampleStateMixin, and check that $ExampleStateMixin is exported/imported properly.
+$ExampleStateMixin,BasicPartOfLibStateMixin,
+ // If this generated mixin is undefined, it's likely because BasicPartOfLibStateMixin is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not imported. Check the declaration of BasicPartOfLibStateMixin, and check that $BasicPartOfLibStateMixin is exported/imported properly.
+$BasicPartOfLibStateMixin implements BasicPartOfLibState {
+  _$$BasicPartOfLibState([Map backingMap]) : this.state = backingMap ?? JsBackedMap();
 
   /// The backing state map proxied by this class.
   @override
@@ -114,7 +95,6 @@ class _$$BasicPartOfLibState extends UiState
   @override
   bool get $isClassGenerated => true;
 }
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
@@ -130,24 +110,21 @@ class _$BasicPartOfLibComponent extends BasicPartOfLibComponent {
   @override
   set props(Map value) {
     assert(
-        getBackingMap(value) is JsBackedMap,
+        getBackingMap(value) is JsBackedMap, 
         'Component2.props should never be set directly in '
         'production. If this is required for testing, the '
         'component should be rendered within the test. If '
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps =
-        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
+    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
-  _$$BasicPartOfLibProps typedPropsFactoryJs(JsBackedMap backingMap) =>
-      _$$BasicPartOfLibProps(backingMap);
+  _$$BasicPartOfLibProps typedPropsFactoryJs(JsBackedMap backingMap) => _$$BasicPartOfLibProps(backingMap);
 
   @override
-  _$$BasicPartOfLibProps typedPropsFactory(Map backingMap) =>
-      _$$BasicPartOfLibProps(backingMap);
+  _$$BasicPartOfLibProps typedPropsFactory(Map backingMap) => _$$BasicPartOfLibProps(backingMap);
 
   _$$BasicPartOfLibState _cachedTypedState;
   @override
@@ -155,21 +132,18 @@ class _$BasicPartOfLibComponent extends BasicPartOfLibComponent {
 
   @override
   set state(Map value) {
-    assert(
-        value is JsBackedMap,
-        'Component2.state should only be set via '
-        'initialState or setState.');
+    assert(value is JsBackedMap, 
+      'Component2.state should only be set via '
+      'initialState or setState.');
     super.state = value;
     _cachedTypedState = typedStateFactoryJs(value as JsBackedMap);
   }
 
-  @override
-  _$$BasicPartOfLibState typedStateFactoryJs(JsBackedMap backingMap) =>
-      _$$BasicPartOfLibState(backingMap);
+  @override 
+  _$$BasicPartOfLibState typedStateFactoryJs(JsBackedMap backingMap) => _$$BasicPartOfLibState(backingMap);
 
   @override
-  _$$BasicPartOfLibState typedStateFactory(Map backingMap) =>
-      _$$BasicPartOfLibState(backingMap);
+  _$$BasicPartOfLibState typedStateFactory(Map backingMap) => _$$BasicPartOfLibState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -185,13 +159,12 @@ class _$BasicPartOfLibComponent extends BasicPartOfLibComponent {
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because ExamplePropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ExamplePropsMixin, and check that $ExamplePropsMixin is exported/imported properly.
-        ExamplePropsMixin: $ExamplePropsMixin.meta,
-        // If this generated mixin is undefined, it's likely because BasicPartOfLibPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of BasicPartOfLibPropsMixin, and check that $BasicPartOfLibPropsMixin is exported/imported properly.
-        BasicPartOfLibPropsMixin: $BasicPartOfLibPropsMixin.meta,
-      });
+    // If this generated mixin is undefined, it's likely because ExamplePropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ExamplePropsMixin, and check that $ExamplePropsMixin is exported/imported properly.
+    ExamplePropsMixin: $ExamplePropsMixin.meta,
+    // If this generated mixin is undefined, it's likely because BasicPartOfLibPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of BasicPartOfLibPropsMixin, and check that $BasicPartOfLibPropsMixin is exported/imported properly.
+    BasicPartOfLibPropsMixin: $BasicPartOfLibPropsMixin.meta,
+  });
 }
-
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.'
     ' EXCEPTION: this may be used in legacy boilerplate until'
@@ -199,88 +172,51 @@ class _$BasicPartOfLibComponent extends BasicPartOfLibComponent {
 mixin $BasicPartOfLibPropsMixin on BasicPartOfLibPropsMixin {
   static const PropsMeta meta = _$metaForBasicPartOfLibPropsMixin;
   @override
-  String get basicProp =>
-      (props[_$key__basicProp__BasicPartOfLibPropsMixin] ?? null) as String;
+  String get basicProp => (props[_$key__basicProp__BasicPartOfLibPropsMixin] ?? null) as String;
   @override
-  set basicProp(String value) =>
-      props[_$key__basicProp__BasicPartOfLibPropsMixin] = value;
+  set basicProp(String value) => props[_$key__basicProp__BasicPartOfLibPropsMixin] = value;
   @override
-  String get basic1 =>
-      (props[_$key__basic1__BasicPartOfLibPropsMixin] ?? null) as String;
+  String get basic1 => (props[_$key__basic1__BasicPartOfLibPropsMixin] ?? null) as String;
   @override
-  set basic1(String value) =>
-      props[_$key__basic1__BasicPartOfLibPropsMixin] = value;
+  set basic1(String value) => props[_$key__basic1__BasicPartOfLibPropsMixin] = value;
   @override
-  String get basic2 =>
-      (props[_$key__basic2__BasicPartOfLibPropsMixin] ?? null) as String;
+  String get basic2 => (props[_$key__basic2__BasicPartOfLibPropsMixin] ?? null) as String;
   @override
-  set basic2(String value) =>
-      props[_$key__basic2__BasicPartOfLibPropsMixin] = value;
+  set basic2(String value) => props[_$key__basic2__BasicPartOfLibPropsMixin] = value;
   @override
-  String get basic3 =>
-      (props[_$key__basic3__BasicPartOfLibPropsMixin] ?? null) as String;
+  String get basic3 => (props[_$key__basic3__BasicPartOfLibPropsMixin] ?? null) as String;
   @override
-  set basic3(String value) =>
-      props[_$key__basic3__BasicPartOfLibPropsMixin] = value;
+  set basic3(String value) => props[_$key__basic3__BasicPartOfLibPropsMixin] = value;
   @override
-  String get basic4 =>
-      (props[_$key__basic4__BasicPartOfLibPropsMixin] ?? null) as String;
+  String get basic4 => (props[_$key__basic4__BasicPartOfLibPropsMixin] ?? null) as String;
   @override
-  set basic4(String value) =>
-      props[_$key__basic4__BasicPartOfLibPropsMixin] = value;
+  set basic4(String value) => props[_$key__basic4__BasicPartOfLibPropsMixin] = value;
   @override
-  String get basic5 =>
-      (props[_$key__basic5__BasicPartOfLibPropsMixin] ?? null) as String;
+  String get basic5 => (props[_$key__basic5__BasicPartOfLibPropsMixin] ?? null) as String;
   @override
-  set basic5(String value) =>
-      props[_$key__basic5__BasicPartOfLibPropsMixin] = value;
+  set basic5(String value) => props[_$key__basic5__BasicPartOfLibPropsMixin] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__basicProp__BasicPartOfLibPropsMixin =
-      PropDescriptor(_$key__basicProp__BasicPartOfLibPropsMixin);
-  static const PropDescriptor _$prop__basic1__BasicPartOfLibPropsMixin =
-      PropDescriptor(_$key__basic1__BasicPartOfLibPropsMixin);
-  static const PropDescriptor _$prop__basic2__BasicPartOfLibPropsMixin =
-      PropDescriptor(_$key__basic2__BasicPartOfLibPropsMixin);
-  static const PropDescriptor _$prop__basic3__BasicPartOfLibPropsMixin =
-      PropDescriptor(_$key__basic3__BasicPartOfLibPropsMixin);
-  static const PropDescriptor _$prop__basic4__BasicPartOfLibPropsMixin =
-      PropDescriptor(_$key__basic4__BasicPartOfLibPropsMixin);
-  static const PropDescriptor _$prop__basic5__BasicPartOfLibPropsMixin =
-      PropDescriptor(_$key__basic5__BasicPartOfLibPropsMixin);
-  static const String _$key__basicProp__BasicPartOfLibPropsMixin =
-      'BasicPartOfLibPropsMixin.basicProp';
-  static const String _$key__basic1__BasicPartOfLibPropsMixin =
-      'BasicPartOfLibPropsMixin.basic1';
-  static const String _$key__basic2__BasicPartOfLibPropsMixin =
-      'BasicPartOfLibPropsMixin.basic2';
-  static const String _$key__basic3__BasicPartOfLibPropsMixin =
-      'BasicPartOfLibPropsMixin.basic3';
-  static const String _$key__basic4__BasicPartOfLibPropsMixin =
-      'BasicPartOfLibPropsMixin.basic4';
-  static const String _$key__basic5__BasicPartOfLibPropsMixin =
-      'BasicPartOfLibPropsMixin.basic5';
+  static const PropDescriptor _$prop__basicProp__BasicPartOfLibPropsMixin = PropDescriptor(_$key__basicProp__BasicPartOfLibPropsMixin);
+  static const PropDescriptor _$prop__basic1__BasicPartOfLibPropsMixin = PropDescriptor(_$key__basic1__BasicPartOfLibPropsMixin);
+  static const PropDescriptor _$prop__basic2__BasicPartOfLibPropsMixin = PropDescriptor(_$key__basic2__BasicPartOfLibPropsMixin);
+  static const PropDescriptor _$prop__basic3__BasicPartOfLibPropsMixin = PropDescriptor(_$key__basic3__BasicPartOfLibPropsMixin);
+  static const PropDescriptor _$prop__basic4__BasicPartOfLibPropsMixin = PropDescriptor(_$key__basic4__BasicPartOfLibPropsMixin);
+  static const PropDescriptor _$prop__basic5__BasicPartOfLibPropsMixin = PropDescriptor(_$key__basic5__BasicPartOfLibPropsMixin);
+  static const String _$key__basicProp__BasicPartOfLibPropsMixin = 'BasicPartOfLibPropsMixin.basicProp';
+  static const String _$key__basic1__BasicPartOfLibPropsMixin = 'BasicPartOfLibPropsMixin.basic1';
+  static const String _$key__basic2__BasicPartOfLibPropsMixin = 'BasicPartOfLibPropsMixin.basic2';
+  static const String _$key__basic3__BasicPartOfLibPropsMixin = 'BasicPartOfLibPropsMixin.basic3';
+  static const String _$key__basic4__BasicPartOfLibPropsMixin = 'BasicPartOfLibPropsMixin.basic4';
+  static const String _$key__basic5__BasicPartOfLibPropsMixin = 'BasicPartOfLibPropsMixin.basic5';
 
-  static const List<PropDescriptor> $props = [
-    _$prop__basicProp__BasicPartOfLibPropsMixin,
-    _$prop__basic1__BasicPartOfLibPropsMixin,
-    _$prop__basic2__BasicPartOfLibPropsMixin,
-    _$prop__basic3__BasicPartOfLibPropsMixin,
-    _$prop__basic4__BasicPartOfLibPropsMixin,
-    _$prop__basic5__BasicPartOfLibPropsMixin
-  ];
-  static const List<String> $propKeys = [
-    _$key__basicProp__BasicPartOfLibPropsMixin,
-    _$key__basic1__BasicPartOfLibPropsMixin,
-    _$key__basic2__BasicPartOfLibPropsMixin,
-    _$key__basic3__BasicPartOfLibPropsMixin,
-    _$key__basic4__BasicPartOfLibPropsMixin,
-    _$key__basic5__BasicPartOfLibPropsMixin
-  ];
+  static const List<PropDescriptor> $props = [_$prop__basicProp__BasicPartOfLibPropsMixin, _$prop__basic1__BasicPartOfLibPropsMixin, _$prop__basic2__BasicPartOfLibPropsMixin, _$prop__basic3__BasicPartOfLibPropsMixin, _$prop__basic4__BasicPartOfLibPropsMixin, _$prop__basic5__BasicPartOfLibPropsMixin];
+  static const List<String> $propKeys = [_$key__basicProp__BasicPartOfLibPropsMixin, _$key__basic1__BasicPartOfLibPropsMixin, _$key__basic2__BasicPartOfLibPropsMixin, _$key__basic3__BasicPartOfLibPropsMixin, _$key__basic4__BasicPartOfLibPropsMixin, _$key__basic5__BasicPartOfLibPropsMixin];
 
   @override
   @UiProps.$mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
+    
   }
 }
 
@@ -298,23 +234,15 @@ const PropsMeta _$metaForBasicPartOfLibPropsMixin = PropsMeta(
 mixin $BasicPartOfLibStateMixin on BasicPartOfLibStateMixin {
   static const StateMeta meta = _$metaForBasicPartOfLibStateMixin;
   @override
-  String get basicState =>
-      (state[_$key__basicState__BasicPartOfLibStateMixin] ?? null) as String;
+  String get basicState => (state[_$key__basicState__BasicPartOfLibStateMixin] ?? null) as String;
   @override
-  set basicState(String value) =>
-      state[_$key__basicState__BasicPartOfLibStateMixin] = value;
+  set basicState(String value) => state[_$key__basicState__BasicPartOfLibStateMixin] = value;
   /* GENERATED CONSTANTS */
-  static const StateDescriptor _$prop__basicState__BasicPartOfLibStateMixin =
-      StateDescriptor(_$key__basicState__BasicPartOfLibStateMixin);
-  static const String _$key__basicState__BasicPartOfLibStateMixin =
-      'BasicPartOfLibStateMixin.basicState';
+  static const StateDescriptor _$prop__basicState__BasicPartOfLibStateMixin = StateDescriptor(_$key__basicState__BasicPartOfLibStateMixin);
+  static const String _$key__basicState__BasicPartOfLibStateMixin = 'BasicPartOfLibStateMixin.basicState';
 
-  static const List<StateDescriptor> $state = [
-    _$prop__basicState__BasicPartOfLibStateMixin
-  ];
-  static const List<String> $stateKeys = [
-    _$key__basicState__BasicPartOfLibStateMixin
-  ];
+  static const List<StateDescriptor> $state = [_$prop__basicState__BasicPartOfLibStateMixin];
+  static const List<String> $stateKeys = [_$key__basicState__BasicPartOfLibStateMixin];
 }
 
 @Deprecated('This API is for use only within generated code.'
@@ -337,26 +265,18 @@ final $SubPartOfLibComponentFactory = registerComponent2(
   parentType: null,
 );
 
-_$$SubPartOfLibProps _$SubPartOfLib([Map backingProps]) =>
-    _$$SubPartOfLibProps(backingProps);
-
+_$$SubPartOfLibProps _$SubPartOfLib([Map backingProps]) => _$$SubPartOfLibProps(backingProps);
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$SubPartOfLibProps extends UiProps
-    with
-        SuperPartOfLibPropsMixin,
-        // If this generated mixin is undefined, it's likely because SuperPartOfLibPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of SuperPartOfLibPropsMixin, and check that $SuperPartOfLibPropsMixin is exported/imported properly.
-        $SuperPartOfLibPropsMixin,
-        SubPartOfLibPropsMixin,
-        // If this generated mixin is undefined, it's likely because SubPartOfLibPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of SubPartOfLibPropsMixin, and check that $SubPartOfLibPropsMixin is exported/imported properly.
-        $SubPartOfLibPropsMixin
-    implements
-        SubPartOfLibProps {
-  _$$SubPartOfLibProps([Map backingMap])
-      : this.props = backingMap ?? JsBackedMap();
+class _$$SubPartOfLibProps extends UiProps with SuperPartOfLibPropsMixin,
+ // If this generated mixin is undefined, it's likely because SuperPartOfLibPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of SuperPartOfLibPropsMixin, and check that $SuperPartOfLibPropsMixin is exported/imported properly.
+$SuperPartOfLibPropsMixin,SubPartOfLibPropsMixin,
+ // If this generated mixin is undefined, it's likely because SubPartOfLibPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of SubPartOfLibPropsMixin, and check that $SubPartOfLibPropsMixin is exported/imported properly.
+$SubPartOfLibPropsMixin implements SubPartOfLibProps {
+  _$$SubPartOfLibProps([Map backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
   @override
@@ -368,8 +288,7 @@ class _$$SubPartOfLibProps extends UiProps
 
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
-  ReactComponentFactoryProxy get componentFactory =>
-      super.componentFactory ?? $SubPartOfLibComponentFactory;
+  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $SubPartOfLibComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
@@ -377,16 +296,14 @@ class _$$SubPartOfLibProps extends UiProps
 
   @override
   PropsMetaCollection get staticMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because SuperPartOfLibPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of SuperPartOfLibPropsMixin, and check that $SuperPartOfLibPropsMixin is exported/imported properly.
-        SuperPartOfLibPropsMixin: $SuperPartOfLibPropsMixin.meta,
-        // If this generated mixin is undefined, it's likely because SubPartOfLibPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of SubPartOfLibPropsMixin, and check that $SubPartOfLibPropsMixin is exported/imported properly.
-        SubPartOfLibPropsMixin: $SubPartOfLibPropsMixin.meta,
-      });
+    // If this generated mixin is undefined, it's likely because SuperPartOfLibPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of SuperPartOfLibPropsMixin, and check that $SuperPartOfLibPropsMixin is exported/imported properly.
+    SuperPartOfLibPropsMixin: $SuperPartOfLibPropsMixin.meta,
+    // If this generated mixin is undefined, it's likely because SubPartOfLibPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of SubPartOfLibPropsMixin, and check that $SubPartOfLibPropsMixin is exported/imported properly.
+    SubPartOfLibPropsMixin: $SubPartOfLibPropsMixin.meta,
+  });
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$SubPartOfLibProps(
-          accessMap, (map) => _$$SubPartOfLibProps(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$SubPartOfLibProps(accessMap, (map) => _$$SubPartOfLibProps(map));
 
   @override
   // ignore: must_call_super
@@ -397,11 +314,9 @@ class _$$SubPartOfLibProps extends UiProps
   @override
   Set<String> get requiredPropNamesToSkipValidation => const {'id'};
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$SubPartOfLibProps = getPropKey;
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
@@ -417,24 +332,21 @@ class _$SubPartOfLibComponent extends SubPartOfLibComponent {
   @override
   set props(Map value) {
     assert(
-        getBackingMap(value) is JsBackedMap,
+        getBackingMap(value) is JsBackedMap, 
         'Component2.props should never be set directly in '
         'production. If this is required for testing, the '
         'component should be rendered within the test. If '
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps =
-        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
+    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
-  _$$SubPartOfLibProps typedPropsFactoryJs(JsBackedMap backingMap) =>
-      _$$SubPartOfLibProps(backingMap);
+  _$$SubPartOfLibProps typedPropsFactoryJs(JsBackedMap backingMap) => _$$SubPartOfLibProps(backingMap);
 
   @override
-  _$$SubPartOfLibProps typedPropsFactory(Map backingMap) =>
-      _$$SubPartOfLibProps(backingMap);
+  _$$SubPartOfLibProps typedPropsFactory(Map backingMap) => _$$SubPartOfLibProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -450,13 +362,12 @@ class _$SubPartOfLibComponent extends SubPartOfLibComponent {
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because SuperPartOfLibPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of SuperPartOfLibPropsMixin, and check that $SuperPartOfLibPropsMixin is exported/imported properly.
-        SuperPartOfLibPropsMixin: $SuperPartOfLibPropsMixin.meta,
-        // If this generated mixin is undefined, it's likely because SubPartOfLibPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of SubPartOfLibPropsMixin, and check that $SubPartOfLibPropsMixin is exported/imported properly.
-        SubPartOfLibPropsMixin: $SubPartOfLibPropsMixin.meta,
-      });
+    // If this generated mixin is undefined, it's likely because SuperPartOfLibPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of SuperPartOfLibPropsMixin, and check that $SuperPartOfLibPropsMixin is exported/imported properly.
+    SuperPartOfLibPropsMixin: $SuperPartOfLibPropsMixin.meta,
+    // If this generated mixin is undefined, it's likely because SubPartOfLibPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of SubPartOfLibPropsMixin, and check that $SubPartOfLibPropsMixin is exported/imported properly.
+    SubPartOfLibPropsMixin: $SubPartOfLibPropsMixin.meta,
+  });
 }
-
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.'
     ' EXCEPTION: this may be used in legacy boilerplate until'
@@ -464,28 +375,21 @@ class _$SubPartOfLibComponent extends SubPartOfLibComponent {
 mixin $SuperPartOfLibPropsMixin on SuperPartOfLibPropsMixin {
   static const PropsMeta meta = _$metaForSuperPartOfLibPropsMixin;
   @override
-  String get superProp =>
-      (props[_$key__superProp__SuperPartOfLibPropsMixin] ?? null) as String;
+  String get superProp => (props[_$key__superProp__SuperPartOfLibPropsMixin] ?? null) as String;
   @override
-  set superProp(String value) =>
-      props[_$key__superProp__SuperPartOfLibPropsMixin] = value;
+  set superProp(String value) => props[_$key__superProp__SuperPartOfLibPropsMixin] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__superProp__SuperPartOfLibPropsMixin =
-      PropDescriptor(_$key__superProp__SuperPartOfLibPropsMixin);
-  static const String _$key__superProp__SuperPartOfLibPropsMixin =
-      'SuperPartOfLibPropsMixin.superProp';
+  static const PropDescriptor _$prop__superProp__SuperPartOfLibPropsMixin = PropDescriptor(_$key__superProp__SuperPartOfLibPropsMixin);
+  static const String _$key__superProp__SuperPartOfLibPropsMixin = 'SuperPartOfLibPropsMixin.superProp';
 
-  static const List<PropDescriptor> $props = [
-    _$prop__superProp__SuperPartOfLibPropsMixin
-  ];
-  static const List<String> $propKeys = [
-    _$key__superProp__SuperPartOfLibPropsMixin
-  ];
+  static const List<PropDescriptor> $props = [_$prop__superProp__SuperPartOfLibPropsMixin];
+  static const List<String> $propKeys = [_$key__superProp__SuperPartOfLibPropsMixin];
 
   @override
   @UiProps.$mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
+    
   }
 }
 
@@ -503,28 +407,21 @@ const PropsMeta _$metaForSuperPartOfLibPropsMixin = PropsMeta(
 mixin $SubPartOfLibPropsMixin on SubPartOfLibPropsMixin {
   static const PropsMeta meta = _$metaForSubPartOfLibPropsMixin;
   @override
-  String get subProp =>
-      (props[_$key__subProp__SubPartOfLibPropsMixin] ?? null) as String;
+  String get subProp => (props[_$key__subProp__SubPartOfLibPropsMixin] ?? null) as String;
   @override
-  set subProp(String value) =>
-      props[_$key__subProp__SubPartOfLibPropsMixin] = value;
+  set subProp(String value) => props[_$key__subProp__SubPartOfLibPropsMixin] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__subProp__SubPartOfLibPropsMixin =
-      PropDescriptor(_$key__subProp__SubPartOfLibPropsMixin);
-  static const String _$key__subProp__SubPartOfLibPropsMixin =
-      'SubPartOfLibPropsMixin.subProp';
+  static const PropDescriptor _$prop__subProp__SubPartOfLibPropsMixin = PropDescriptor(_$key__subProp__SubPartOfLibPropsMixin);
+  static const String _$key__subProp__SubPartOfLibPropsMixin = 'SubPartOfLibPropsMixin.subProp';
 
-  static const List<PropDescriptor> $props = [
-    _$prop__subProp__SubPartOfLibPropsMixin
-  ];
-  static const List<String> $propKeys = [
-    _$key__subProp__SubPartOfLibPropsMixin
-  ];
+  static const List<PropDescriptor> $props = [_$prop__subProp__SubPartOfLibPropsMixin];
+  static const List<String> $propKeys = [_$key__subProp__SubPartOfLibPropsMixin];
 
   @override
   @UiProps.$mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
+    
   }
 }
 
