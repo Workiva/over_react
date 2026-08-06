@@ -3,7 +3,7 @@
 ## Unreleased
 - Drop Dart 2 support; minimum SDK is now 3.0.0
 - Fix Dart language level 3.0 errors by switching internal classes to `mixin` declarations
-  - `GeneratedClass` - switched to `mixin`
+  - `$ConnectPropsMixin`, `GeneratedClass` - switched to `mixin`
   - `PropsMapViewMixin`, `StateMapViewMixin`, `MapViewMixin` - switched to `mixin`, also moved `implements` to `on`
   - While this is technically a breaking change, there's very little chance of it impacting consumers, so we're releasing it as a minor.
   
