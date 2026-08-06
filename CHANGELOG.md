@@ -1,5 +1,15 @@
 # OverReact Changelog
 
+## Unreleased
+- Fix Dart language level 3.0 errors by switching internal classes to `mixin` declarations
+  - `GeneratedClass` - switched to `mixin`
+  - `PropsMapViewMixin`, `StateMapViewMixin`, `MapViewMixin` - switched to `mixin`, also moved `implements` to `on`
+  - While this is technically a breaking change, there's very little chance of it impacting consumers, so we're releasing it as a minor.
+  
+    These classes have no known usages outside of over_react, and are for internal use only. 
+  
+    Additionally, the `*MapViewMixin` ones never should have been exported in the first place, and have been deprecated accordingly.
+
 ## 5.7.0
 - Remove `dart:mirrors` usage in builder to fix AOT compilation used in newer build_runner versions
 - Remove `dart_style` and `pub_semver` dependencies, remove generated code formatter step
