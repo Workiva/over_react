@@ -83,7 +83,7 @@ class AnnotationArgs {
 /// converting supported literal values via [getValue], and passing unsupported
 /// argument values through [onUnsupportedArgument].
 AnnotationArgs parseAnnotationArgs(Annotation annotation,
-    {dynamic Function(dynamic argument)? onUnsupportedArgument}) {
+    {dynamic Function(AstNode argument)? onUnsupportedArgument}) {
   Map<String, dynamic> namedParameters = {};
   List positionalParameters = [];
 

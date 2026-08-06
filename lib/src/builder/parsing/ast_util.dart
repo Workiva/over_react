@@ -100,19 +100,19 @@ class NamedArgumentParts {
 /// Returns the name label lexeme and value expression of a named argument node
 /// ([NamedArgument] in analyzer 13+, [NamedExpression] in earlier versions),
 /// or `null` if [node] is not a named argument.
-NamedArgumentParts? namedArgumentParts(dynamic node) {
+NamedArgumentParts? namedArgumentParts(AstNode node) {
   // analyzer 13+: NamedArgument (name: Token, argumentExpression: Expression)
   // analyzer 10–12: NamedExpression (name: Label (label: SimpleIdentifier), expression: Expression)
-  if (node == null) return null;
   try {
-    final nameToken = node.name;
+    final dynamicNode = node as dynamic;
+    final nameToken = dynamicNode.name;
     if (nameToken is Token) {
       // analyzer 13+: NamedArgument
-      return NamedArgumentParts(nameToken.lexeme, node.argumentExpression as Expression);
+      return NamedArgumentParts(nameToken.lexeme, dynamicNode.argumentExpression as Expression);
     } else {
       // analyzer 10–12: NamedExpression — nameToken is a Label whose .label is SimpleIdentifier
       final labelName = (nameToken as dynamic).label.name as String;
-      return NamedArgumentParts(labelName, node.expression as Expression);
+      return NamedArgumentParts(labelName, dynamicNode.expression as Expression);
     }
   } catch (_) {
     return null;
