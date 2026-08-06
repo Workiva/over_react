@@ -12,8 +12,6 @@
   
     Additionally, the `*MapViewMixin` ones never should have been exported in the first place, and have been deprecated accordingly.
 
-## 5.8.0
-
 ## 5.7.0
 - Remove `dart:mirrors` usage in builder to fix AOT compilation used in newer build_runner versions
 - Remove `dart_style` and `pub_semver` dependencies, remove generated code formatter step
