@@ -28,6 +28,8 @@ jobs:
     uses: Workiva/gha-dart-oss/.github/workflows/checks.yaml@v0.1.14
     with:
       sdk: stable
+      # TODO re-enable this with updated formatting after this PR merges
+      format-check: false
       additional-checks: |
         no_entrypoint_imports
 
