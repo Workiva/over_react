@@ -68,28 +68,54 @@ extension TypeAnnotationNameHelper on TypeAnnotation {
 /// Extension built on [NameHelper] to allow for easy access to the `name`
 /// field of [Identifier]s.
 extension TypeNameHelper on NamedType {
-  // Backwards compatibility for various analyzer versions that remove name/name2.
-  dynamic get name => this.name2; // Use `this.` to point to real impl if it exists, not extension.
-  dynamic get name2 => this.name; // Use `this.` to point to real impl if it exists, not extension.
-  dynamic get _name => name;
-  String get nameLexeme {
-    final name = this._name;
-    if (name is Identifier) return name.name;
-    if (name is Token) return name.lexeme;
-    if (name is String) return name;
-    throw UnimplementedError('Unexpected type for name: ${name.runtimeType}');
-  }
-
   /// The type name without any namespace prefixes.
-  String get nameWithoutPrefix => nameLexeme;
+  String get nameWithoutPrefix => name.lexeme;
 
   /// The type name including the namespace prefix.
   String get nameWithPrefix {
     final prefix = importPrefix?.name.lexeme;
     return [
       if (prefix != null) prefix,
-      nameLexeme,
+      name.lexeme,
     ].join('.');
+  }
+}
+
+/// Provides `.members` on [ClassBody] for analyzer versions where it is only
+/// declared on [BlockClassBody].
+///
+/// On analyzer 12+ the real instance member wins over this extension.
+/// On analyzer 10/11 the cast always succeeds because [EmptyClassBody] does not exist.
+extension ClassBodyMembersCompat on ClassBody {
+  NodeList<ClassMember> get members => (this as BlockClassBody).members;
+}
+
+/// Parts of a named argument, returned by [namedArgumentParts].
+class NamedArgumentParts {
+  const NamedArgumentParts(this.name, this.value);
+  final String name;
+  final Expression value;
+}
+
+/// Returns the name label lexeme and value expression of a named argument node
+/// ([NamedArgument] in analyzer 13+, [NamedExpression] in earlier versions),
+/// or `null` if [node] is not a named argument.
+NamedArgumentParts? namedArgumentParts(dynamic node) {
+  // analyzer 13+: NamedArgument (name: Token, argumentExpression: Expression)
+  // analyzer 10–12: NamedExpression (name: Label (label: SimpleIdentifier), expression: Expression)
+  if (node == null) return null;
+  try {
+    final nameToken = node.name;
+    if (nameToken is Token) {
+      // analyzer 13+: NamedArgument
+      return NamedArgumentParts(nameToken.lexeme, node.argumentExpression as Expression);
+    } else {
+      // analyzer 10–12: NamedExpression — nameToken is a Label whose .label is SimpleIdentifier
+      final labelName = (nameToken as dynamic).label.name as String;
+      return NamedArgumentParts(labelName, node.expression as Expression);
+    }
+  } catch (_) {
+    return null;
   }
 }
 

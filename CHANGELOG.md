@@ -1,6 +1,7 @@
 # OverReact Changelog
 
 ## Unreleased
+- Update analyzer dependency to `>=10.0.0 <15.0.0` (allow 11, 12, 13, and 14)
 - Drop Dart 2 support; minimum SDK is now 3.0.0
 - Fix Dart language level 3.0 errors by switching internal classes to `mixin` declarations
   - `$ConnectPropsMixin`, `GeneratedClass` - switched to `mixin`
@@ -10,6 +11,8 @@
     These classes have no known usages outside of over_react, and are for internal use only. 
   
     Additionally, the `*MapViewMixin` ones never should have been exported in the first place, and have been deprecated accordingly.
+
+## 5.8.0
 
 ## 5.7.0
 - Remove `dart:mirrors` usage in builder to fix AOT compilation used in newer build_runner versions

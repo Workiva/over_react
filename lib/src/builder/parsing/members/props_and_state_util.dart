@@ -72,10 +72,11 @@ annotations.TypedMap getPropsOrStateAnnotation(bool isProps, AnnotatedNode node)
     if (potentiallyIncompleteValue is annotations.Props) {
       if (meta.unsupportedArguments.length == 1) {
         final arg = meta.unsupportedArguments[0];
-        if (arg is NamedExpression && arg.name.label.name == 'disableRequiredPropValidation') {
+        final argParts = namedArgumentParts(arg);
+        if (argParts?.name == 'disableRequiredPropValidation') {
           // Attempt to parse the value, and fall through if something goes wrong,
           // and let `meta?.value` below throw.
-          final expression = arg.expression;
+          final expression = argParts!.value;
           if (expression is SetOrMapLiteral) {
             final simpleStringElements =
                 expression.elements.whereType<SimpleStringLiteral>().toList();
