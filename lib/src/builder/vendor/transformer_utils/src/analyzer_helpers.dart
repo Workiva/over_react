@@ -96,7 +96,8 @@ AnnotationArgs parseAnnotationArgs(Annotation annotation,
       var value = getValue(named.value, onUnsupportedExpression: onUnsupportedExpression);
       namedParameters[named.name] = value;
     } else {
-      // ignore: unnecessary_cast — on analyzer <13, arguments is NodeList<Expression>; on >=13, NodeList<Argument>
+      // On analyzer <13, arguments is NodeList<Expression>; on >=13, NodeList<Argument>
+      // ignore: unnecessary_cast
       var value = getValue(argument as Expression, onUnsupportedExpression: onUnsupportedExpression);
       positionalParameters.add(value);
     }
