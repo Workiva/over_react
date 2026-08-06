@@ -99,7 +99,7 @@ class _BoilerplateMemberDetector {
   void detect(CompilationUnit unit) {
     _classishDeclarationsByName = {};
     final visitor = _BoilerplateMemberDetectorVisitor(
-      onClassishDeclaration: (node) => _classishDeclarationsByName![node.asClassish().name.lexeme] = node,
+      onClassishDeclaration: (classish) => _classishDeclarationsByName![classish.name.lexeme] = classish.node,
       onTopLevelVariableDeclaration: _processTopLevelVariableDeclaration,
     );
 
@@ -488,7 +488,7 @@ class _BoilerplateMemberDetector {
 }
 
 class _BoilerplateMemberDetectorVisitor extends SimpleAstVisitor<void> {
-  final void Function(CompilationUnitMember) onClassishDeclaration;
+  final void Function(ClassishDeclaration) onClassishDeclaration;
   final void Function(TopLevelVariableDeclaration) onTopLevelVariableDeclaration;
 
   _BoilerplateMemberDetectorVisitor({
@@ -504,11 +504,11 @@ class _BoilerplateMemberDetectorVisitor extends SimpleAstVisitor<void> {
       onTopLevelVariableDeclaration(node);
 
   @override
-  void visitClassDeclaration(ClassDeclaration node) => onClassishDeclaration(node);
+  void visitClassDeclaration(ClassDeclaration node) => node.asClassish();
 
   @override
-  void visitClassTypeAlias(ClassTypeAlias node) => onClassishDeclaration(node);
+  void visitClassTypeAlias(ClassTypeAlias node) => node.asClassish();
 
   @override
-  void visitMixinDeclaration(MixinDeclaration node) => onClassishDeclaration(node);
+  void visitMixinDeclaration(MixinDeclaration node) => node.asClassish();
 }
