@@ -100,6 +100,8 @@ class NamedArgumentParts {
 /// Returns the name label lexeme and value expression of a named argument node
 /// ([NamedArgument] in analyzer 13+, [NamedExpression] in earlier versions),
 /// or `null` if [node] is not a named argument.
+/// 
+/// TODO remove once we only support analyzer 13+
 NamedArgumentParts? namedArgumentParts(AstNode node) {
   // analyzer 13+: NamedArgument (name: Token, argumentExpression: Expression)
   // analyzer 10–12: NamedExpression (name: Label (label: SimpleIdentifier), expression: Expression)
