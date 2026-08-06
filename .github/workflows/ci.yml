@@ -20,11 +20,14 @@ jobs:
   # Run as a separate job outside the Dart SDK matrix below,
   # since we can only emit a single SBOM.
   build:
-    uses: Workiva/gha-dart-oss/.github/workflows/build.yaml@v0.1.11
+    uses: Workiva/gha-dart-oss/.github/workflows/build.yaml@v0.1.14
+    with:
+      sdk: stable
 
   checks:
-    uses: Workiva/gha-dart-oss/.github/workflows/checks.yaml@v0.1.11
+    uses: Workiva/gha-dart-oss/.github/workflows/checks.yaml@v0.1.14
     with:
+      sdk: stable
       additional-checks: |
         no_entrypoint_imports
 
