@@ -150,6 +150,10 @@ jobs:
       - name: Print Dart SDK version
         run: dart --version
 
+      - id: link
+        name: Override over_react dependency with local path
+        run: cd ../.. && dart pub get && dart tool/travis_link_plugin_deps.dart
+
       - id: install
         name: Install dependencies
         run: dart pub get
