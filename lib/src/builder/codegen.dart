@@ -57,8 +57,6 @@ class ImplGenerator {
       case DeclarationType.stateMixinDeclaration:
         _generateStateMixin(declaration as StateMixinDeclaration);
         break;
-      default:
-        throw ArgumentError('Unhandled declaration type: $declaration');
     }
   }
 
