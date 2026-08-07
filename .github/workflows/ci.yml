@@ -102,12 +102,11 @@ jobs:
       matrix:
         sdk: [ stable ]
         analyzer:
-          - ^5.13.0 # This should match the lower bound
-          - ^6.0.0
-          - ^7.0.0
-          - ^8.0.0
-          - ^9.0.0
-          - ^10.0.0
+          - ^10.0.0 # This should match the lower bound
+          - ^11.0.0
+          - ^12.0.0
+          - ^13.0.0
+          - ^14.0.0
 
     steps:
       - uses: actions/checkout@v4
@@ -157,7 +156,9 @@ jobs:
 
       - id: link
         name: Override over_react dependency with local path
-        run: cd ../.. && dart pub get && dart tool/travis_link_plugin_deps.dart
+        # TODO reinstate this once we update analyzer_plugin's analyzer range to overlap with what over_react supports
+        # run: cd ../.. && dart pub get && dart tool/travis_link_plugin_deps.dart
+        run: echo "Skipping since analyzer plugin is pinned to older over_react with compatible analyzer"
 
       - id: install
         name: Install dependencies

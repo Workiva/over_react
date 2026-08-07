@@ -26,7 +26,7 @@ abstract class BoilerplatePropsOrStateMixin extends BoilerplateTypedMapMember
 
   /// The node backing the member.
   @override
-  NamedCompilationUnitMember get node => nodeHelper.node;
+  CompilationUnitMember get node => nodeHelper.node;
 
   /// A metadata class that lifts helpful fields out of [node] to a top level,
   /// in addition to providing additional getters relevant member parsing.
@@ -64,14 +64,14 @@ abstract class BoilerplatePropsOrStateMixin extends BoilerplateTypedMapMember
         errorCollector.addError(
             'Legacy boilerplate ${propsOrStateMixinString}s must be annotated with '
             '`@$propsOrStateMixinAnnotationName()`',
-            errorCollector.spanFor(node.name));
+            errorCollector.spanFor(nodeHelper.name));
       }
 
       if (!nodeHelper.hasAbstractGetter('Map', propsOrStateString)) {
         errorCollector.addError(
             '$propsOrStateMixinString classes must declare an abstract $propsOrStateString getter `Map get $propsOrStateString;` '
             'so that they can be statically analyzed properly.',
-            errorCollector.spanFor(node.name));
+            errorCollector.spanFor(nodeHelper.name));
       }
     }
 

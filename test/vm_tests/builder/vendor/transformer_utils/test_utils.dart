@@ -18,6 +18,8 @@ library;
 
 import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:analyzer/dart/ast/ast.dart';
+// ignore: unused_import — shadowed by real ClassBody.members on analyzer >=12; needed on 10/11
+import 'package:over_react/src/builder/parsing/ast_util.dart' show ClassBodyMembersCompat;
 import 'package:test/test.dart';
 
 class TestAnnotation {
@@ -33,7 +35,7 @@ class TestAnnotation {
 
 ConstructorDeclaration? getConstructor(ClassDeclaration classDecl,
     {String? name}) {
-  for (var member in classDecl.members) {
+  for (var member in classDecl.body.members) {
     if (member is ConstructorDeclaration && member.name?.lexeme == name) {
       return member;
     }
@@ -42,7 +44,7 @@ ConstructorDeclaration? getConstructor(ClassDeclaration classDecl,
 }
 
 FieldDeclaration? getFieldByName(ClassDeclaration classDecl, String name) {
-  for (var member in classDecl.members) {
+  for (var member in classDecl.body.members) {
     if (member is FieldDeclaration &&
         member.fields.variables.first.name.lexeme == name) {
       return member;
@@ -52,7 +54,7 @@ FieldDeclaration? getFieldByName(ClassDeclaration classDecl, String name) {
 }
 
 MethodDeclaration? getMethodByName(ClassDeclaration classDecl, String name) {
-  for (var member in classDecl.members) {
+  for (var member in classDecl.body.members) {
     if (member is MethodDeclaration && member.name.lexeme == name) {
       return member;
     }
