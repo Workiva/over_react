@@ -20,11 +20,16 @@ jobs:
   # Run as a separate job outside the Dart SDK matrix below,
   # since we can only emit a single SBOM.
   build:
-    uses: Workiva/gha-dart-oss/.github/workflows/build.yaml@v0.1.11
+    uses: Workiva/gha-dart-oss/.github/workflows/build.yaml@v0.1.14
+    with:
+      sdk: stable
 
   checks:
-    uses: Workiva/gha-dart-oss/.github/workflows/checks.yaml@v0.1.11
+    uses: Workiva/gha-dart-oss/.github/workflows/checks.yaml@v0.1.14
     with:
+      sdk: stable
+      # TODO re-enable this with updated formatting after this PR merges
+      format-check: false
       additional-checks: |
         no_entrypoint_imports
 
@@ -33,7 +38,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        sdk: [ 2.19.6, stable ]
+        sdk: [ 3.9.0, stable ]
     steps:
       - uses: actions/checkout@v4
       - id: setup-dart
@@ -47,15 +52,6 @@ jobs:
       - id: install
         name: Install dependencies
         run: dart pub get
-
-      - name: Delete Dart-2-only files and update tests when running on Dart 3
-        run: |
-          DART_VERSION="${{ steps.setup-dart.outputs.dart-version }}"
-          if [[ "$DART_VERSION" =~ ^3 ]]; then
-            ./tool/delete_dart_2_only_files.sh
-            # Stage these changes so they don't show up in the generated file `git diff` check below
-            git add .
-          fi
 
       # Analyze before generated files are created to verify that component boilerplate analysis is "clean" without the need for building
       - name: Analyze example source (pre-build)
@@ -86,13 +82,7 @@ jobs:
       - name: Run tests (VM)
         # Can't use build_runner (which dart_dev uses if you depend on it) to run VM tests, since we get the error:
         #    Unable to spawn isolate: /…/build_runner_testRU6M77/.packages: Error: Problem in packages configuration file: Unexpected character
-        run: |
-          DART_VERSION="${{ steps.setup-dart.outputs.dart-version }}"
-          TEST_ARGS=""
-          if [[ "$DART_VERSION" =~ ^3 ]]; then
-            TEST_ARGS="--preset=no-dart-2"
-          fi
-          dart test --preset vm $TEST_ARGS
+        run: dart test --preset vm
         if: always() && steps.install.outcome == 'success' && steps.build.outcome == 'success'
 
       - name: Run tests (DDC)
@@ -112,15 +102,12 @@ jobs:
       matrix:
         sdk: [ stable ]
         analyzer:
+          - ^5.13.0 # This should match the lower bound
           - ^6.0.0
           - ^7.0.0
           - ^8.0.0
           - ^9.0.0
           - ^10.0.0
-        # Analyzer 6+ does not resolve in Dart 2.
-        include:
-          - sdk: 2.19.6
-            analyzer: ^5.13.0 # This should match the lower bound
 
     steps:
       - uses: actions/checkout@v4
@@ -140,13 +127,6 @@ jobs:
           git diff pubspec.yaml
           dart pub get
 
-      - name: Delete Dart-2-only files and update tests when running on Dart 3
-        run: |
-          DART_VERSION="${{ steps.setup-dart.outputs.dart-version }}"
-          if [[ "$DART_VERSION" =~ ^3 ]]; then
-            ./tool/delete_dart_2_only_files.sh
-          fi
-
       - name: Analyze package source
         run: dart analyze .
 
@@ -154,13 +134,7 @@ jobs:
         run: dart run build_runner build --build-filter='**.dart' --delete-conflicting-outputs
 
       - name: Run builder tests
-        run: |
-          DART_VERSION="${{ steps.setup-dart.outputs.dart-version }}"
-          TEST_ARGS=""
-          if [[ "$DART_VERSION" =~ ^3 ]]; then
-            TEST_ARGS="--preset=no-dart-2"
-          fi
-          dart test --preset vm $TEST_ARGS -- test/vm_tests/builder
+        run: dart test --preset vm -- test/vm_tests/builder
 
   analyzer_plugin:
     runs-on: ubuntu-latest
@@ -170,7 +144,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        sdk: [ 2.19.6, stable ]
+        sdk: [ stable ]
     steps:
       - uses: actions/checkout@v4
       - id: setup-dart
@@ -188,14 +162,6 @@ jobs:
       - id: install
         name: Install dependencies
         run: dart pub get
-        if: always() && steps.link.outcome == 'success'
-
-      - name: Delete Dart-2-only files and update tests when running on Dart 3
-        run: |
-          DART_VERSION="${{ steps.setup-dart.outputs.dart-version }}"
-          if [[ "$DART_VERSION" =~ ^3 ]]; then
-            (cd ../.. && ./tool/delete_dart_2_only_files.sh)
-          fi
 
       - name: Validate dependencies
         run: dart run dependency_validator

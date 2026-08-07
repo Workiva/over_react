@@ -393,7 +393,7 @@ class ResizeSensorEvent {
 }
 
 /// A mixin that makes it easier to manage animation frames within a React component lifecycle.
-class SafeAnimationFrameMixin {
+mixin SafeAnimationFrameMixin {
   /// The ids of the pending animation frames.
   final _animationFrameIds = <int>[];
 
