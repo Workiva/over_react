@@ -6,6 +6,8 @@ final analyzerConstraintPattern = RegExp(r'^( +analyzer:\s*).+', multiLine: true
 /// would otherwise prevent `pub get` from resolving the analyzer version under test.
 /// None of them are needed by the analysis/build/test steps that run afterwards.
 const _devDepsToRemove = ['dart_dev', 'dependency_validator', 'build_web_compilers'];
+// Without the dart_dev dep, we get errors in dart_dev config file(s).
+const _pathsToDelete = ['tool/dart_dev/'];
 
 void main(List<String> args) {
   if (args.length != 1) {
@@ -37,4 +39,10 @@ void main(List<String> args) {
   }
 
   pubspec.writeAsStringSync(contents);
+
+  for (final path in _pathsToDelete) {
+    final entity = 
+        FileSystemEntity.isDirectorySync(path) ? Directory(path) : File(path);
+    entity.deleteSync(recursive: true);
+  }
 }
