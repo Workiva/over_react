@@ -504,11 +504,11 @@ class _BoilerplateMemberDetectorVisitor extends SimpleAstVisitor<void> {
       onTopLevelVariableDeclaration(node);
 
   @override
-  void visitClassDeclaration(ClassDeclaration node) => node.asClassish();
+  void visitClassDeclaration(ClassDeclaration node) => onClassishDeclaration(node.asClassish());
 
   @override
-  void visitClassTypeAlias(ClassTypeAlias node) => node.asClassish();
+  void visitClassTypeAlias(ClassTypeAlias node) => onClassishDeclaration(node.asClassish());
 
   @override
-  void visitMixinDeclaration(MixinDeclaration node) => node.asClassish();
+  void visitMixinDeclaration(MixinDeclaration node) => onClassishDeclaration(node.asClassish());
 }
