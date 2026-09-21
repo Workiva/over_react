@@ -143,8 +143,6 @@ String getBoilerplateString({required BoilerplateVersions version, String? depre
         useDart290Factory: true,
         baseName: componentBaseName,
       ).source;
-    default:
-      return '';
   }
 }
 

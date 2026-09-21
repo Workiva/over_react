@@ -86,7 +86,7 @@ UiFactory<ResizeSensorProps> ResizeSensor = _$ResizeSensor;
 ///     <https://github.com/Workiva/over_react_codemod/blob/71e5713ec6c256ddaf7c616ff9d6d26d77bb8f25/README.md#dart-1-to-dart-2-codemod>
 /// 2. to provide forwards-compatibility and allow this to be mixed into mixin-based component props
 @Deprecated('Use the `ResizeSensorProps` mixin exported from `package:over_react/components.dart` instead. Will be removed in the 4.0.0 release of over_react.')
-abstract class $ResizeSensorPropsMixin {
+mixin $ResizeSensorPropsMixin {
   static const PropsMeta meta = _$metaForResizeSensorPropsMixin;
 }
 

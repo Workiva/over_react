@@ -14,4 +14,17 @@
 
 library over_react.component_base;
 
-export 'src/component_declaration/component_base.dart';
+import 'src/component_declaration/component_base.dart' as cb;
+
+export 'src/component_declaration/component_base.dart' hide PropsMapViewMixin, StateMapViewMixin, MapViewMixin;
+
+// Typedefs instead of deprecating the export to work around message not showing: https://github.com/dart-lang/sdk/issues/52163
+
+@Deprecated('Not for public use. Will be removed in a future major release.')
+typedef PropsMapViewMixin = cb.PropsMapViewMixin;
+
+@Deprecated('Not for public use. Will be removed in a future major release.')
+typedef StateMapViewMixin = cb.StateMapViewMixin;
+
+@Deprecated('Not for public use. Will be removed in a future major release.')
+typedef MapViewMixin = cb.MapViewMixin;
