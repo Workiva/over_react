@@ -98,7 +98,7 @@ abstract class _$ReactPropsMixin {
 /// 1. to allow for consumers which have used the --backwards-compat flag with over_react_codemod to statically analyze:
 ///     <https://github.com/Workiva/over_react_codemod/blob/71e5713ec6c256ddaf7c616ff9d6d26d77bb8f25/README.md#dart-1-to-dart-2-codemod>
 /// 2. to provide forwards-compatibility and allow this to be mixed into mixin-based component props
-abstract class $DomPropsMixin {
+mixin $DomPropsMixin {
   @Deprecated('This API is for use only within generated code.'
       ' Do not reference it in your code, as it may change at any time.')
   static const PropsMeta meta = _$metaForDomPropsMixin;
@@ -209,7 +209,7 @@ abstract class _$DomPropsMixin {
 /// 1. to allow for consumers which have used the --backwards-compat flag with over_react_codemod to statically analyze:
 ///     <https://github.com/Workiva/over_react_codemod/blob/71e5713ec6c256ddaf7c616ff9d6d26d77bb8f25/README.md#dart-1-to-dart-2-codemod>
 /// 2. to provide forwards-compatibility and allow this to be mixed into mixin-based component props
-abstract class $SvgPropsMixin {
+mixin $SvgPropsMixin {
   @Deprecated('This API is for use only within generated code.'
       ' Do not reference it in your code, as it may change at any time.')
   static const PropsMeta meta = _$metaForSvgPropsMixin;
