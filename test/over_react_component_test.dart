@@ -39,6 +39,7 @@ import 'over_react/component/element_type_test.dart' as element_type_test;
 import 'over_react/component/lazy_test.dart' as lazy_test;
 import 'over_react/component/memo_test.dart' as memo_test;
 import 'over_react/component/prop_mixins_test.dart' as prop_mixins_test;
+import 'over_react/component/props_mixin_compile_test.dart' as props_mixin_compile_test;
 import 'over_react/component/prop_typedefs_test.dart' as prop_typedefs_test;
 import 'over_react/component/pure_component_mixin_test.dart'
     as pure_component_mixin_test;
@@ -70,6 +71,7 @@ void main() {
   memo_test.main();
   dom_components_test.main();
   prop_mixins_test.main();
+  props_mixin_compile_test.main();
   prop_typedefs_test.main();
   deprecated_resize_sensor_test.main();
   resize_sensor_test.main();
