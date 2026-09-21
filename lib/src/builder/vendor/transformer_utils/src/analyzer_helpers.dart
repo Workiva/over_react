@@ -96,7 +96,11 @@ AnnotationArgs parseAnnotationArgs(Annotation annotation,
       var value = getValue(named.value, onUnsupportedExpression: onUnsupportedExpression);
       namedParameters[named.name] = value;
     } else {
-      // On analyzer <13, arguments is NodeList<Expression>; on >=13, NodeList<Argument>
+      // On analyzer <13, arguments is NodeList<Expression>, so argument is typed as Expression.
+      // On analyzer on >=13, arguments is NodeList<Argument>, so argument is typed as Argument,
+      // which doesn't exist in newer analyzer versions.
+      // Argument can be either NamedArgument or Expression, so we can safely assume it's an Expression
+      // if `named == null`, but we need a cast here.
       // ignore: unnecessary_cast
       var value = getValue(argument as Expression, onUnsupportedExpression: onUnsupportedExpression);
       positionalParameters.add(value);
