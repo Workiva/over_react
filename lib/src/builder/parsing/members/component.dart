@@ -29,7 +29,7 @@ class BoilerplateComponent extends BoilerplateMember {
 
   /// The [ClassDeclaration] backing the member
   @override
-  final NamedCompilationUnitMember node;
+  final CompilationUnitMember node;
 
   @override
   Token get name => nodeHelper.name;

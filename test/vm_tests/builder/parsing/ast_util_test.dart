@@ -330,7 +330,7 @@ main() {
 
     test('onlyImplementsThings', () {
       ClassishDeclaration parseAndGetClassish(String source) =>
-          parseAndGetSingleWithType<NamedCompilationUnitMember>(source).asClassish();
+          parseAndGetSingleWithType<CompilationUnitMember>(source).asClassish();
 
       bool _onlyImplementsThings(String source) =>
           onlyImplementsThings(parseAndGetClassish(source));

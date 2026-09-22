@@ -19,6 +19,7 @@ import 'package:collection/collection.dart' show IterableExtension;
 import 'package:over_react/src/component_declaration/annotations.dart' as a;
 
 import '../vendor/transformer_utils/src/analyzer_helpers.dart';
+import 'ast_util.dart' show namedArgumentParts;
 
 /// Returns the first annotation AST node on [node] of type [T],
 /// or null if no matching annotations are found.
@@ -42,7 +43,7 @@ class InstantiatedMeta<TMeta extends Object> {
   /// The arguments passed to the metadata that are not supported by [value],
   /// (or by special handling in subclasses) and therefore not represented in the instantiation of
   /// [potentiallyIncompleteValue].
-  final List<Expression> unsupportedArguments;
+  final List<AstNode> unsupportedArguments;
 
   InstantiatedMeta._(this.metaNode, this._value, this.unsupportedArguments);
 
@@ -55,7 +56,7 @@ class InstantiatedMeta<TMeta extends Object> {
     final metaNode = _getMatchingAnnotationFromGeneric<T>(node);
     if (metaNode == null) return null;
 
-    final unsupportedArguments = <Expression>[];
+    final unsupportedArguments = <AstNode>[];
     final value =
         instantiateAnnotationTyped<T>(node, onUnsupportedArgument: unsupportedArguments.add);
 
@@ -94,7 +95,7 @@ class InstantiatedComponentMeta<TMeta extends Object> extends InstantiatedMeta<T
   final Identifier? subtypeOfValue;
 
   InstantiatedComponentMeta._(
-      Annotation metaNode, TMeta meta, List<Expression> unsupportedArguments, this.subtypeOfValue)
+      Annotation metaNode, TMeta meta, List<AstNode> unsupportedArguments, this.subtypeOfValue)
       : super._(metaNode, meta, unsupportedArguments);
 
   static InstantiatedComponentMeta<T>? fromNode<T extends Object>(AnnotatedNode node) {
@@ -104,12 +105,11 @@ class InstantiatedComponentMeta<TMeta extends Object> extends InstantiatedMeta<T
 
       Identifier? subtypeOfValue;
 
-      NamedExpression? subtypeOfParam = instantiated.unsupportedArguments
-          .whereType<NamedExpression>()
-          .firstWhereOrNull((expression) => expression.name.label.name == _subtypeOfParamName);
+      final subtypeOfParam = instantiated.unsupportedArguments
+          .firstWhereOrNull((arg) => namedArgumentParts(arg)?.name == _subtypeOfParamName);
 
       if (subtypeOfParam != null) {
-        final expression = subtypeOfParam.expression;
+        final expression = namedArgumentParts(subtypeOfParam)!.value;
         if (expression is Identifier) {
           subtypeOfValue = expression;
           instantiated.unsupportedArguments.remove(subtypeOfParam);
@@ -132,7 +132,7 @@ class InstantiatedComponentMeta<TMeta extends Object> extends InstantiatedMeta<T
 
 T? instantiateAnnotationTyped<T extends Object>(
   AnnotatedNode node, {
-  dynamic Function(Expression argument)? onUnsupportedArgument,
+  dynamic Function(AstNode argument)? onUnsupportedArgument,
 }) {
   final annotationClass = _AnnotationClass.fromGeneric<T>();
 

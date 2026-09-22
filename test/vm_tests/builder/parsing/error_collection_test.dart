@@ -99,6 +99,7 @@ main() {
             final propsNameToken = localFileParseResult.unit.childEntities
                 .whereType<ClassDeclaration>()
                 .first
+                .asClassish()
                 .name;
 
             final localFileSpan = file!.spanFor(propsNameToken);

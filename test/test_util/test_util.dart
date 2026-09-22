@@ -23,12 +23,12 @@ export 'package:over_react_test/over_react_test.dart' hide testJsComponentFactor
 
 dynamic getJsChildren(instance) => getProperty(instance.props as Object, 'children');
 
-dynamic getRawDartChildren(var renderedInstance) {
+dynamic getRawDartChildren(dynamic renderedInstance) {
   assert(isDartComponent(renderedInstance));
   return getProps(renderedInstance)['children'];
 }
 
-List<dynamic> getTypedDartChildren(var renderedInstance) {
+List<dynamic> getTypedDartChildren(dynamic renderedInstance) {
   assert(isDartComponent(renderedInstance));
   return domProps(getProps(renderedInstance)).children!;
 }
