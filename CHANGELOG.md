@@ -1,6 +1,6 @@
 # OverReact Changelog
 
-## Unreleased
+## 5.8.0
 - Update analyzer dependency to `>=10.0.0 <15.0.0` (allow 11, 12, 13, and 14)
 - Drop Dart 2 support; minimum SDK is now 3.0.0
 - Fix Dart language level 3.0 errors and downstream compile errors by switching internal classes to `mixin` declarations
